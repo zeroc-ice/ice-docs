@@ -1,10 +1,10 @@
 # Ice documentation diagram style guide
 
-This guide defines the visual language for diagrams that are authored directly as SVG. It is intentionally small: begin with a plain-language draft, apply these shared rules, and publish a self-contained SVG. Add a diagram-generation library only after repeated patterns justify it.
+This guide defines the visual language for diagrams that are authored directly as SVG. It is intentionally small: inventory the source diagram, apply these shared rules, and publish a self-contained SVG. Add a diagram-generation library only after repeated patterns justify it.
 
 ## Workflow and file locations
 
-1. Write the structure and relationships in `diagrams/drafts/<name>.md`.
+1. Inventory the source's structure and relationships, and record intentional semantic changes in the issue or pull request.
 2. Start from `diagrams/template.svg` and place every element explicitly.
 3. Render the SVG to a bitmap and inspect it at both full size and typical documentation width.
 4. Publish the reviewed SVG below `public/attachments/` alongside the page that uses it.
