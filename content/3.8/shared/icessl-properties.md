@@ -72,10 +72,6 @@ Specifies the default directory in which to look for certificates, key stores, a
 
 Specifies the password necessary to decrypt the private key.
 
-{% callout type="warning" %}
-It is a security risk to use a plain-text password in a configuration file.
-{% /callout %}
-
 #### Platform Notes
 
 ###### SChannel, SecureTransport, OpenSSL

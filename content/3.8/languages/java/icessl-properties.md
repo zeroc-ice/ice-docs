@@ -42,19 +42,15 @@ If this property is not defined, the application will not be able to supply a ce
 
 #### Description
 
-Specifies the password used to load the key store defined by `IceSSL.Keystore`. Depending on the key store type and security provider, this password can be used to verify the store’s integrity and to decrypt its contents, including certificates and certificate chains.
+Specifies the password used to load the key store defined by `IceSSL.Keystore`. Depending on the key store type and security provider, this password can be used to verify the store's integrity and to decrypt its contents, including certificates and certificate chains.
 
 This property is distinct from `IceSSL.Password`, which Ice uses to recover private keys. One property does not default to the other.
 
-For a password-protected PKCS12 key store, this property is generally required even when `IceSSL.Password` is configured. Without the correct key store password, initialization can fail or the store can be loaded without its certificates, leaving a private key without a usable certificate chain and causing TLS authentication to fail.
+For a password-protected PKCS12 key store, this property is generally required even when `IceSSL.Password` is configured, because the certificates in such a store are encrypted with the store password. Without it, the store either fails to load or loads with a private key but without its certificate chain. In both cases, communicator initialization fails with an `InitializationException`.
 
-If this property is not defined, the result depends on the key store type and security provider. The provider may skip integrity checking, load only unencrypted contents, or reject the key store.
+If this property is not defined, Ice loads the key store with an empty password when `IceSSL.KeystoreType` is exactly `PKCS12` or `BKS`, and with a null password otherwise. See `IceSSL.KeystoreType` for the consequences of each.
 
 If `IceSSL.Keystore` and `IceSSL.Truststore` have the same value, Ice uses `IceSSL.KeystorePassword` to load the shared store; `IceSSL.TruststorePassword` is not used.
-
-{% callout type="warning" %}
-It is a security risk to use a plain-text password in a configuration file.
-{% /callout %}
 
 # IceSSL.KeystoreType
 
@@ -64,23 +60,36 @@ It is a security risk to use a plain-text password in a configuration file.
 
 #### Description
 
-Specifies the Java key store type used to load the file defined by `IceSSL.Keystore`. Ice passes this value to `KeyStore.getInstance(String)`. The value must therefore identify a key store type supplied by an installed security provider and capable of loading the configured file.
+Specifies the type of the key store file defined by `IceSSL.Keystore`. Ice passes this value unchanged to `KeyStore.getInstance(String)`, so it must name a key store type supplied by an installed security provider, such as `PKCS12`, `JKS`, or `BKS` on Android. `KeyStore.getInstance` matches type names case-insensitively: `PKCS12` and `pkcs12` select the same implementation.
 
-Common values include:
+If this property is not defined, Ice uses `KeyStore.getDefaultType()`, which returns the value of the Java security property `keystore.type`:
 
-- PKCS12 on standard JDKs and Android
-- JKS on standard JDKs
-- BKS on Android
+- Standard JDK distributions have configured `keystore.type=pkcs12` since Java 9. The JDK's PKCS12 implementation also reads JKS files, thanks to the `keystore.type.compat` security property, which is enabled by default. On a JDK, you can therefore leave this property unset for both PKCS12 and JKS files.
+- Android configures `keystore.type=BKS`. Android's BKS implementation does not read PKCS12 files: to use a PKCS12 key store on Android, set `IceSSL.KeystoreType=PKCS12`, in upper case.
 
-If this property is not defined, Ice uses `KeyStore.getDefaultType()`. This default is controlled by the Java security property keystore.type. In standard JDK distributions, the configured default has been PKCS12 since Java 9; Android configures BKS.
+#### Store type and store password
 
-The JDK reference implementation enables JKS/PKCS12 compatibility mode by default, allowing its default PKCS12 implementation to load JKS files. This behavior is implementation- and configuration-dependent.
+When `IceSSL.KeystorePassword` is not defined, the exact spelling of this property determines the password Ice passes to `KeyStore.load`:
 
-On Android, omitting this property makes Ice instantiate a BKS key store. The BKS implementation does not probe the input stream for PKCS12 data. To use a PKCS12 key store on Android, set:
+| `IceSSL.KeystoreType` | Password passed to `KeyStore.load` |
+| --- | --- |
+| `PKCS12` or `BKS`, in upper case | an empty password |
+| any other value, including the default | null |
 
-```
-IceSSL.KeystoreType=PKCS12
-```
+Ice keeps this rule for compatibility with existing configurations. The two passwords behave differently:
+
+- With the JDK's PKCS12 implementation, a null password skips the integrity check and leaves the encrypted content of the store unread. In a typical PKCS12 file, this content includes the certificates, so the store loads with its private keys but without their certificate chains. An empty password is a regular password: it loads a password-less PKCS12 file completely, and fails on a password-protected file.
+- With a JKS file, loaded through `JKS` or through the JDK's PKCS12 compatibility mode, a null password skips the integrity check and loads all entries, while an empty password fails the integrity check.
+- With the Bouncy Castle BKS implementation, both passwords skip the integrity check and load all entries.
+- Android's Bouncy Castle PKCS12 implementation throws a `NullPointerException` on a null password when the store carries an integrity check, which is the norm.
+
+In practice, with `IceSSL.KeystorePassword` not defined:
+
+- A password-less PKCS12 key store loads only with `IceSSL.KeystoreType=PKCS12`, in upper case. With `pkcs12` or with the property unset, Ice loads the store with a null password, and the JDK skips its certificates.
+- A JKS key store loads with the property unset (on a JDK) or set to `JKS`. Setting it to `PKCS12` makes the JKS integrity check fail.
+- A password-protected PKCS12 key store does not load without its password: with a null password, the JDK skips its certificates, and with an empty password, the load fails. Set `IceSSL.KeystorePassword`.
+
+After loading the key store, Ice checks that the selected key entry has a certificate chain. If it doesn't, communicator initialization fails with an `InitializationException` that points at `IceSSL.KeystorePassword` and, for a password-less PKCS12 store, at `IceSSL.KeystoreType=PKCS12`. Ice 3.8.2 and earlier load such a store silently, and every TLS handshake that uses it fails with an unrelated error.
 
 If `IceSSL.Keystore` and `IceSSL.Truststore` have the same value, Ice loads the file once using `IceSSL.KeystoreType` and `IceSSL.KeystorePassword`. In this case, `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` are not used.
 {% /language-section %}
@@ -111,17 +120,13 @@ If no truststore is specified the application will not be able to authenticate t
 
 #### Description
 
-Specifies the password used to load the trust store defined by `IceSSL.Truststore`. Depending on the key store type and security provider, this password can be used to verify the store’s integrity and to decrypt its contents, including trusted CA certificates.
+Specifies the password used to load the trust store defined by `IceSSL.Truststore`. Depending on the key store type and security provider, this password can be used to verify the store's integrity and to decrypt its contents, including trusted CA certificates.
 
-For a password-protected PKCS12 trust store, this property is generally required to make its certificates available. Without the correct password, initialization can fail or the trust store can contain no usable trust anchors, causing peer certificate validation to fail.
+For a password-protected PKCS12 trust store, this property is generally required, because the certificates in such a store are encrypted with the store password. Without it, the trust store either fails to load or loads without any certificate. In both cases, communicator initialization fails with an `InitializationException`.
 
-If this property is not defined, the result depends on the key store type and security provider. The provider may skip integrity checking, load only unencrypted contents, or reject the trust store.
+If this property is not defined, Ice loads the trust store with an empty password when `IceSSL.TruststoreType` is exactly `PKCS12` or `BKS`, and with a null password otherwise. See `IceSSL.TruststoreType` for the consequences of each.
 
 If `IceSSL.Truststore` and `IceSSL.Keystore` have the same value, Ice loads the shared store using `IceSSL.KeystorePassword`; `IceSSL.TruststorePassword` is not used.
-
-{% callout type="warning" %}
-It is a security risk to use a plain-text password in a configuration file.
-{% /callout %}
 
 # IceSSL.TruststoreType
 
@@ -131,22 +136,19 @@ It is a security risk to use a plain-text password in a configuration file.
 
 #### Description
 
-Specifies the Java key store type used to load the file defined by `IceSSL.Truststore`. Ice passes this value to `KeyStore.getInstance(String)`. The value must therefore identify a key store type supplied by an installed security provider and capable of loading the configured file.
+Specifies the type of the trust store file defined by `IceSSL.Truststore`. Ice passes this value unchanged to `KeyStore.getInstance(String)`, so it must name a key store type supplied by an installed security provider, such as `PKCS12`, `JKS`, or `BKS` on Android. `KeyStore.getInstance` matches type names case-insensitively: `PKCS12` and `pkcs12` select the same implementation.
 
-Common values include:
+If this property is not defined, Ice uses `KeyStore.getDefaultType()`, which returns the value of the Java security property `keystore.type`: lower-case `pkcs12` on standard JDK distributions since Java 9, and `BKS` on Android. The JDK's PKCS12 implementation also reads JKS files, so on a JDK you can leave this property unset for both PKCS12 and JKS files. Android's BKS implementation does not read PKCS12 files: to use a PKCS12 trust store on Android, set `IceSSL.TruststoreType=PKCS12`, in upper case.
 
-- `PKCS12` and `JKS` on standard JDKs and Android
-- `BKS` on Android
+#### Store type and store password
 
-If this property is not defined, Ice uses `KeyStore.getDefaultType()`. This default is controlled by the Java security property `keystore.type`. Standard JDK distributions have normally used `PKCS12` since Java 9, while Android uses `BKS`.
+When `IceSSL.TruststorePassword` is not defined, Ice loads the trust store with an empty password if this property is exactly `PKCS12` or `BKS`, and with a null password otherwise. `IceSSL.KeystoreType` describes how the security providers treat each password. The consequences for a trust store are:
 
-On standard JDK distributions, JKS/PKCS12 compatibility mode is enabled by default, allowing the default PKCS12 implementation to load JKS files. This behavior is implementation- and configuration-dependent.
+- A password-less PKCS12 trust store loads only with `IceSSL.TruststoreType=PKCS12`, in upper case. With `pkcs12` or with the property unset, Ice loads the store with a null password, and the JDK skips its certificates.
+- A JKS trust store loads with the property unset (on a JDK) or set to `JKS`. Setting it to `PKCS12` makes the JKS integrity check fail.
+- A password-protected PKCS12 trust store does not load without its password: with a null password, the JDK skips its certificates, and with an empty password, the load fails. Set `IceSSL.TruststorePassword`.
 
-Android’s default BKS implementation does not load PKCS12 data through the stream-based API used by Ice. To use a PKCS12 trust store on Android, set:
-
-```properties
-IceSSL.TruststoreType=PKCS12
-```
+After loading the trust store, Ice checks that it contains at least one certificate. If it doesn't, communicator initialization fails with an `InitializationException` that points at `IceSSL.TruststorePassword` and, for a password-less PKCS12 store, at `IceSSL.TruststoreType=PKCS12`.
 
 If `IceSSL.Truststore` and `IceSSL.Keystore` have the same value, Ice loads the file once using `IceSSL.KeystoreType`. In this case, `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` are not used.
 {% /language-section %}
