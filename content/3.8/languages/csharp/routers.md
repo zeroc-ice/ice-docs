@@ -1,0 +1,18 @@
+---
+id: routers
+language: csharp
+---
+
+{% language-section name="lang-1" %}
+
+```csharp
+var router = RouterPrxHelper.createProxy(…);
+var greeter = GreeterPrxHelper.createProxy(...); // normal proxy
+var routedGreeter = greeter.ice_router(router);
+```
+
+{% /language-section %}
+
+{% language-section name="lang-2" %}
+
+{% /language-section %}

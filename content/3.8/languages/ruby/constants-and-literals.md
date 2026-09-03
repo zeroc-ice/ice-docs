@@ -1,0 +1,53 @@
+---
+id: constants-and-literals
+language: ruby
+---
+
+{% language-section name="lang-1" %}
+
+{% /language-section %}
+
+{% language-section name="lang-2" %}
+Here are the constant definitions once more:
+
+```slice
+const bool AppendByDefault = true;
+const byte LowerNibble = 0x0f;
+const string Advice = "Don't Panic!";
+const short TheAnswer = 42;
+const double PI = 3.1416;
+
+enum Fruit { Apple, Pear, Orange }
+const Fruit FavoriteFruit = Pear;
+```
+
+The generated definitions for these constants are shown below:
+
+```ruby
+AppendByDefault = true
+LowerNibble = 15
+Advice = "Don't Panic!"
+TheAnswer = 42
+PI = 3.1416
+FavoriteFruit = Fruit::Pear
+```
+
+As you can see, each Slice constant is mapped to a Ruby constant with the same name.
+
+Slice string literals that contain non-ASCII characters or universal character names are mapped to Ruby string literals with these characters by Unicode escape sequences. For example:
+
+```slice
+const string Egg = "œuf";
+const string Heart = "c\u0153ur";
+const string Banana = "\U0001F34C";
+```
+
+is mapped to:
+
+```ruby
+Egg = "\u{153}uf"
+Heart = "c\u{153}ur"
+Banana = "\u{1f34c}"
+```
+
+{% /language-section %}

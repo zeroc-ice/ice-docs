@@ -1,0 +1,14 @@
+---
+id: using-the-admin-object
+language: php
+---
+
+{% language-section name="lang-1" %}
+
+```php
+$admin = ...; // proxy to the admin object
+$propAdmin = Ice\PropertiesAdminPrx::uncheckedCast($admin, "Properties");
+$props = $propAdmin.getPropertiesForPrefix("");
+```
+
+{% /language-section %}

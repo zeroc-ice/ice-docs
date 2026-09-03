@@ -1,0 +1,609 @@
+/* Copyright (c) ZeroC, Inc. */
+
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@theme {
+  --color-primary: rgb(var(--primary-color));
+  --color-light-border: #dce6e9;
+  --color-dark: rgb(26, 28, 33);
+  --color-dark-accent: rgb(35, 36, 41);
+  --color-dark-border: rgb(46, 46, 46);
+
+  /* Utility names for the token scale below, so components can say
+     `text-ink-secondary` instead of restating a hex value each time. Each one is
+     an indirection to a variable that flips with the theme, so a single
+     utility is correct in both light and dark. */
+  --color-ink: var(--text-primary);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-muted: var(--text-muted);
+  --color-ink-disabled: var(--text-disabled);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-hairline: var(--border-subtle);
+  --color-hairline-strong: var(--border-strong);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-accent-soft: var(--accent-soft);
+
+  --breakpoint-5xl: 64rem;
+
+  --background-image-dark-pattern: linear-gradient(
+    to right,
+    #000 0%,
+    #000 10%,
+    #010409 50%,
+    rgb(14, 17, 22) 75%,
+    rgb(14, 17, 22) 100%
+  );
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in-up: fade-in-up 0.5s ease-out;
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@layer utilities {
+  :root {
+    /* Four steps of text, not two. The old palette used one mid-grey for
+       everything that was not body copy, which put navigation, breadcrumbs and
+       card descriptions at the contrast of disabled UI. Secondary text is
+       content a reader is expected to read; muted is metadata they are not. */
+    --text-primary: #182235;
+    --text-secondary: #566174;
+    --text-muted: #7a8495;
+    --text-disabled: #a3abb8;
+
+    --surface: #ffffff;
+    --surface-subtle: #fbfcfe;
+    --surface-sunken: #f4f6fa;
+    --border-subtle: #e1e6ed;
+    --border-strong: #cbd3de;
+
+    /* Blue means "you can click this". It is deliberately not used for body
+       copy, callout text or card titles — see the callout rules below. */
+    --link: #1259d6;
+    --link-hover: #0b47ad;
+    --accent-soft: #eef5ff;
+
+    /* Prose measure, and the wider track code, tables and diagrams may use.
+       Text stays at a comfortable line length while a 90-column Slice sample
+       still fits without wrapping. */
+    --measure: 47.5rem;
+    --measure-wide: 58rem;
+
+    --docsearch-searchbox-height: 38px !important;
+    --docsearch-primary-color: #1259d6 !important;
+  }
+
+  .dark {
+    --text-primary: #e6ebf4;
+    --text-secondary: #a7b3c6;
+    --text-muted: #8391a6;
+    --text-disabled: #667389;
+
+    --surface: rgb(26, 28, 33);
+    --surface-subtle: rgb(35, 36, 41);
+    --surface-sunken: rgb(20, 22, 26);
+    --border-subtle: rgba(148, 163, 184, 0.18);
+    --border-strong: rgba(148, 163, 184, 0.34);
+
+    --link: #7fb2ff;
+    --link-hover: #a8ccff;
+    --accent-soft: rgba(66, 133, 244, 0.16);
+  }
+}
+
+@layer base {
+  /*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+  */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary-color: 67 160 247;
+
+    /* Code blocks. A light surface with a border, the way Qt's manual does it —
+       not a black rectangle in the middle of a white page. Token colours are
+       all >= 4.5:1 against the surface; see utils/prism-theme.ts. */
+    --code-bg: #f6f8fa;
+    --code-border: #d0d7de;
+    --code-header-bg: #eceff2;
+    --code-header-fg: #47505a;
+    --code-line-number: #666f7b;
+
+    --code-plain: #1f2328;
+    --code-punctuation: #1f2328;
+    --code-comment: #5a6570;
+    --code-keyword: #a21a5c;
+    --code-string: #0a5a2f;
+    --code-number: #0550ae;
+    --code-function: #6f42c1;
+    --code-type: #8a4b00;
+    --code-property: #0550ae;
+    --code-inserted: #0a5a2f;
+    --code-deleted: #b3261e;
+  }
+
+  .dark {
+    --primary-color: 67 160 247;
+
+    /* Deep indigo rather than near-black, so the block reads as a surface on the
+       page instead of a hole in it, and every token stays >= 7:1 — the band
+       Stripe's dark code blocks keep to. */
+    --code-bg: #212a3d;
+    --code-border: rgba(148, 163, 184, 0.24);
+    --code-header-bg: #1a2233;
+    --code-header-fg: #b3c0d4;
+    --code-line-number: #9aa9c0;
+
+    --code-plain: #e9effb;
+    --code-punctuation: #e9effb;
+    --code-comment: #b3c0d4;
+    --code-keyword: #b3d0ff;
+    --code-string: #9ae6b0;
+    --code-number: #8fdff5;
+    --code-function: #dfc0ff;
+    --code-type: #ffd79b;
+    --code-property: #8fdff5;
+    --code-inserted: #9ae6b0;
+    --code-deleted: #ffabab;
+  }
+
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .DocSearch-Input:focus {
+    /* Disable the docsearch input ring */
+    outline: none !important;
+    appearance: none !important;
+    box-shadow: var(--tw-ring-inset) 0 0 0
+      calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  }
+
+  body {
+    font-family:
+      Inter,
+      system-ui,
+      -apple-system,
+      Inter,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      'Noto Sans',
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol',
+      'Noto Color Emoji';
+    color: var(--text-primary);
+  }
+
+  /* Chrome links — tabs, sidebar, breadcrumbs, footer — read as text, not as
+     links, because their surrounding context already says they are navigation.
+     Body links opt into `--link` explicitly (see AppLink). */
+  a {
+    color: inherit;
+  }
+
+  main article {
+    @apply prose dark:prose-invert prose-a:no-underline prose-code:font-light prose-code:before:hidden prose-code:after:hidden max-w-none;
+
+    /* Point the typography plugin at the token scale. Both the light and the
+       inverted set resolve to the same variables, which already flip with the
+       theme, so there is one place to change a colour rather than two. */
+    --tw-prose-body: var(--text-primary);
+    --tw-prose-headings: var(--text-primary);
+    --tw-prose-lead: var(--text-secondary);
+    --tw-prose-links: var(--link);
+    --tw-prose-bold: var(--text-primary);
+    --tw-prose-counters: var(--text-muted);
+    --tw-prose-bullets: var(--border-strong);
+    --tw-prose-hr: var(--border-subtle);
+    --tw-prose-quotes: var(--text-primary);
+    --tw-prose-quote-borders: var(--border-strong);
+    --tw-prose-captions: var(--text-muted);
+    --tw-prose-code: var(--text-primary);
+    --tw-prose-th-borders: var(--border-strong);
+    --tw-prose-td-borders: var(--border-subtle);
+
+    --tw-prose-invert-body: var(--text-primary);
+    --tw-prose-invert-headings: var(--text-primary);
+    --tw-prose-invert-lead: var(--text-secondary);
+    --tw-prose-invert-links: var(--link);
+    --tw-prose-invert-bold: var(--text-primary);
+    --tw-prose-invert-counters: var(--text-muted);
+    --tw-prose-invert-bullets: var(--border-strong);
+    --tw-prose-invert-hr: var(--border-subtle);
+    --tw-prose-invert-quotes: var(--text-primary);
+    --tw-prose-invert-quote-borders: var(--border-strong);
+    --tw-prose-invert-captions: var(--text-muted);
+    --tw-prose-invert-code: var(--text-primary);
+    --tw-prose-invert-th-borders: var(--border-strong);
+    --tw-prose-invert-td-borders: var(--border-subtle);
+
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  main article li {
+    @apply mb-2 pl-1;
+  }
+
+  /* An image inside a sentence (the IceGrid GUI's state icons) is a word: it
+     stays on the line, sits near the baseline and takes no vertical room. A
+     figure — a paragraph that is nothing but an image, marked by the paragraph
+     node — gets the room. */
+  main article img:not(.figure) {
+    /* :not() lifts the specificity above the typography plugin's `img` margins,
+       which would otherwise stretch the line box the icon sits in. */
+    @apply m-0 inline h-auto max-w-full align-[-0.2em];
+  }
+
+  main article img.figure {
+    @apply mx-auto my-6 block object-contain;
+  }
+
+  li {
+    @apply leading-[1.7];
+  }
+
+  body {
+    @apply dark:bg-dark bg-white;
+  }
+
+  code {
+    @apply border-hairline text-ink bg-surface-sunken break-all rounded-sm border px-1 py-0.5 font-mono text-[0.9em] md:break-normal;
+  }
+
+  a code {
+    @apply border-hairline text-link bg-surface-sunken rounded-sm border px-1 py-0.5 font-mono text-[0.9em] font-medium;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Article rhythm
+
+   Two tracks: prose keeps a readable measure, while code, tables and diagrams
+   are allowed the full column so a wide sample does not have to scroll.
+   --------------------------------------------------------------------------- */
+@layer components {
+  .doc-body > * {
+    max-width: var(--measure);
+  }
+
+  .doc-body > .doc-wide {
+    max-width: var(--measure-wide);
+  }
+
+  main article h1 {
+    font-size: 2.375rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 700;
+  }
+
+  main article h2 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 650;
+  }
+
+  main article h3 {
+    font-size: 1.3125rem;
+    line-height: 1.4;
+    margin-top: 2.25rem;
+    margin-bottom: 0.375rem;
+    font-weight: 650;
+  }
+
+  main article h4 {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    margin-top: 1.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 650;
+  }
+
+  /* The first heading of a page follows the title block, which already carries
+     its own bottom margin. */
+  .doc-body > :first-child {
+    margin-top: 0;
+  }
+
+  /* Property reference pages. Each heading is an exact identifier a reader will
+     copy into a config file, so it is set in the code face and upright —
+     italicised `adapter.AdapterId` reads as emphasised prose, not as a name.
+     Synopsis/Description drop to labels, which is what they are. */
+  [data-page-shape='property-list'] .doc-body h2 {
+    font-family: var(--font-mono);
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 2.75rem;
+  }
+
+  [data-page-shape='property-list'] .doc-body h2 em {
+    font-style: normal;
+  }
+
+  [data-page-shape='property-list'] .doc-body h5 {
+    margin-top: 1.25rem;
+    margin-bottom: 0.125rem;
+    color: var(--text-muted);
+    font-size: 0.6875rem;
+    font-weight: 650;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Callouts
+
+   An annotation in the reading flow, not a section of the page. Neutral body
+   text, a barely-there tint, and a single coloured edge; the label and the icon
+   carry the intent. Each variant sets four tokens and inherits the rest — the
+   base rule carries the `note` palette, which is also the fallback for a type
+   with no variant of its own.
+   --------------------------------------------------------------------------- */
+@layer components {
+  .callout {
+    --callout-accent: #2684ff;
+    --callout-label: #1660c4;
+    --callout-bg: #f5f9ff;
+    --callout-border: #dde8f7;
+
+    margin-block: 1.5rem;
+    padding: 0.875rem 1.125rem 1rem;
+    color: var(--text-primary);
+    background: var(--callout-bg);
+    border: 1px solid var(--callout-border);
+    border-left: 3px solid var(--callout-accent);
+    border-radius: 6px;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .callout-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    margin-bottom: 0.375rem;
+    color: var(--callout-label);
+    font-size: 0.8125rem;
+    font-weight: 650;
+    line-height: 1.2;
+  }
+
+  .callout-heading svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .callout-content > :first-child {
+    margin-top: 0;
+  }
+
+  .callout-content > :last-child {
+    margin-bottom: 0;
+  }
+
+  .callout-content p {
+    margin-block: 0.5rem;
+  }
+
+  .callout-content li {
+    margin-bottom: 0.25rem;
+  }
+
+  /* The body text here is neutral, so a link needs its underline back to be
+     recognisable at all. */
+  .callout-content a {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 500;
+  }
+
+  .callout code {
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    border-color: var(--callout-border);
+  }
+
+  .callout-tip {
+    --callout-accent: #12a150;
+    --callout-label: #0a7038;
+    --callout-bg: #f4faf6;
+    --callout-border: #d8ebdf;
+  }
+
+  .callout-important {
+    --callout-accent: #7c5cf0;
+    --callout-label: #5636cf;
+    --callout-bg: #f8f6ff;
+    --callout-border: #e3ddfa;
+  }
+
+  .callout-warning {
+    --callout-accent: #d98324;
+    --callout-label: #92560f;
+    --callout-bg: #fdf8f0;
+    --callout-border: #f1e3cd;
+  }
+
+  .callout-danger {
+    --callout-accent: #e04a4a;
+    --callout-label: #b3261e;
+    --callout-bg: #fdf6f5;
+    --callout-border: #f4dbd8;
+  }
+
+  .callout-deprecated {
+    --callout-accent: #a1937a;
+    --callout-label: #6b6047;
+    --callout-bg: #faf9f5;
+    --callout-border: #e9e4d8;
+  }
+
+  /* Version and platform differences. Indigo rather than the violet used by
+     `important`, because the two appear on the same page often enough that they
+     have to be told apart at a glance. */
+  .callout-compatibility {
+    --callout-accent: #4f5bd5;
+    --callout-label: #3b45b8;
+    --callout-bg: #f6f7fe;
+    --callout-border: #dfe1f8;
+  }
+
+  .dark .callout {
+    --callout-accent: #3d8bfd;
+    --callout-label: #9cc4ff;
+    --callout-bg: rgba(56, 130, 246, 0.09);
+    --callout-border: rgba(120, 168, 250, 0.22);
+  }
+
+  .dark .callout-tip {
+    --callout-accent: #2ea45f;
+    --callout-label: #8fe0ac;
+    --callout-bg: rgba(45, 164, 95, 0.09);
+    --callout-border: rgba(110, 210, 150, 0.22);
+  }
+
+  .dark .callout-important {
+    --callout-accent: #8b6df5;
+    --callout-label: #c6b4ff;
+    --callout-bg: rgba(139, 109, 245, 0.1);
+    --callout-border: rgba(166, 141, 250, 0.24);
+  }
+
+  .dark .callout-warning {
+    --callout-accent: #e0932f;
+    --callout-label: #f3c684;
+    --callout-bg: rgba(224, 147, 47, 0.1);
+    --callout-border: rgba(232, 174, 96, 0.24);
+  }
+
+  .dark .callout-danger {
+    --callout-accent: #ef5f5f;
+    --callout-label: #ffa8a8;
+    --callout-bg: rgba(239, 95, 95, 0.1);
+    --callout-border: rgba(245, 130, 130, 0.24);
+  }
+
+  .dark .callout-deprecated {
+    --callout-accent: #a89a80;
+    --callout-label: #d6cbb4;
+    --callout-bg: rgba(168, 154, 128, 0.1);
+    --callout-border: rgba(190, 176, 148, 0.22);
+  }
+
+  .dark .callout-compatibility {
+    --callout-accent: #6e78e8;
+    --callout-label: #b3b9ff;
+    --callout-bg: rgba(110, 120, 232, 0.1);
+    --callout-border: rgba(146, 154, 240, 0.24);
+  }
+}
+
+/* A code sample inside a callout is an illustration, not a specimen: it drops
+   the language header (see quietCodeBlocks) and the card that would otherwise
+   sit inside the callout's own card. In the utilities layer because the block
+   sets its surface with utility classes, which outrank the components layer. */
+@layer utilities {
+  .callout .code-block {
+    margin: 0.75rem 0 0;
+    border-radius: 5px;
+    border-color: var(--callout-border);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+  }
+
+  .callout .code-block pre {
+    margin-block: 0.5rem;
+  }
+}
+
+
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}

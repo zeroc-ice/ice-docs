@@ -1,0 +1,46 @@
+// Copyright (c) ZeroC, Inc.
+'use client';
+
+import { createPortal } from 'react-dom';
+import { LanguageSelect, type LanguageOption } from './LanguageSelect';
+import { VersionSelect, type VersionOption } from './VersionSelect';
+import { Search } from './Search';
+import { useMounted } from '@/context/state';
+
+interface HeaderControlsProps {
+  version: string;
+  currentLanguage: string;
+  languageOptions: LanguageOption[];
+  versionOptions: VersionOption[];
+  previousVersions?: { label: string; url: string };
+}
+
+// The top bar carries the reader's whole context: which version, which language,
+// and search. They are rendered here (portalled into #ice-header-controls) rather
+// than in the header itself because only the page knows the equivalent URL for
+// every version and language.
+export function HeaderControls({
+  version,
+  currentLanguage,
+  languageOptions,
+  versionOptions,
+  previousVersions
+}: HeaderControlsProps) {
+  // The portal target only exists once the header has rendered on the client.
+  const mounted = useMounted();
+  const target = mounted ? document.getElementById('ice-header-controls') : null;
+  if (!target) return null;
+
+  return createPortal(
+    <>
+      <Search version={version} language={currentLanguage} />
+      <VersionSelect
+        current={version}
+        options={versionOptions}
+        previousVersions={previousVersions}
+      />
+      <LanguageSelect current={currentLanguage} options={languageOptions} />
+    </>,
+    target
+  );
+}

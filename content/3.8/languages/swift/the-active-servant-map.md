@@ -1,0 +1,19 @@
+---
+id: the-active-servant-map
+language: swift
+---
+
+{% language-section name="lang-1" %}
+
+```swift
+@discardableResult
+func add(servant: Dispatcher, id: Identity) throws -> ObjectPrx
+
+@discardableResult
+func addWithUUID(_ servant: Dispatcher) throws -> ObjectPrx
+
+@discardableResult
+func remove(_ id: Identity) throws -> Dispatcher
+```
+
+{% /language-section %}

@@ -1,0 +1,22 @@
+---
+id: creating-an-object-adapter
+language: python
+---
+
+{% language-section name="lang-1" %}
+
+```ruby
+adapter = communicator.createObjectAdapter("GreeterAdapter")
+```
+
+{% /language-section %}
+
+{% language-section name="lang-2" %}
+
+```py
+adapter = communicator.createObjectAdapterWithEndpoints(
+    "GreeterAdapter",
+    "tcp -p 4061");
+```
+
+{% /language-section %}

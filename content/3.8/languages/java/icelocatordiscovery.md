@@ -1,0 +1,25 @@
+---
+id: icelocatordiscovery
+language: java
+---
+
+{% language-section name="lang-1" %}
+When you write a client, you should install `IceLocatorDiscovery` in your communicator using the `pluginFactories` field of `InitializationData`:
+
+```java
+InitializationData initData = new InitializationData();
+initData.pluginFactories = 
+    Collections.singletonList(new com.zeroc.IceLocatorDiscovery.PluginFactory());
+
+try (Communicator communicator = Util.initialize(args)) {
+    ....
+}
+```
+
+Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using configuration:
+
+```
+Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:com.zeroc.IceLocatorDiscovery.PluginFactory
+```
+
+{% /language-section %}

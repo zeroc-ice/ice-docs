@@ -1,0 +1,37 @@
+name: Check Links
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "**.md"
+      - ".lychee.toml"
+      - ".github/workflows/links.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "**.md"
+      - ".lychee.toml"
+      - ".github/workflows/links.yml"
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --config .lychee.toml
+            --verbose
+            --no-progress
+            'content/**/*.md'
+            '*.md'
+          fail: true
+        env:
+          # Lets GitHub links be checked without tripping the anonymous rate limit.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

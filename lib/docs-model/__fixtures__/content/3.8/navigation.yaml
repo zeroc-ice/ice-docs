@@ -1,0 +1,8 @@
+version: "3.8"
+landing: get-started
+languages: [cpp, java, python]
+sidebar:
+  - title: Get Started
+    page: get-started
+  - title: Enumerations
+    page: enumerations

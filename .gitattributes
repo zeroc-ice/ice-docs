@@ -1,0 +1,17 @@
+# Line endings are normalized to LF in the repository and checked out with the
+# platform's own convention, so the content tree is CRLF on Windows and LF
+# elsewhere. Nothing that reads a file may depend on which one it gets.
+#
+# This is not theoretical. An LF-only pattern does not fail loudly against a CRLF
+# checkout — it matches nothing, and every field it would have captured reads as
+# absent. Three copies of one frontmatter regex silently cost the search index
+# 346 of 348 page titles and disabled every `id:` cross-page link alias. Parse
+# page text through `FRONTMATTER_RE` / `splitLines` in lib/docs-model/resolve.ts,
+# which accept both.
+* text=auto
+
+# npm always writes this file with LF; letting it check out as CRLF means the
+# next `npm install` rewrites every line and the diff is pure noise.
+package-lock.json text eol=lf
+
+*.png binary

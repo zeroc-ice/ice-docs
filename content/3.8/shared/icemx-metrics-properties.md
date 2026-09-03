@@ -1,0 +1,80 @@
+---
+id: icemx-metrics-properties
+title: IceMX.Metrics.*
+---
+
+Metrics view are configured with the properties described below. The *view* below can be replaced with one of the following:
+
+- IceMX.Metrics.*view-name*
+- IceMX.Metrics.*view-name*.Map.*map-name*
+- IceMX.Metrics.*view-name*.Map.*map-name*.Map.*submap-name*
+
+If a view is defined without Map properties, the view will contain all the metrics map known by the [Metrics facet](../the-metrics-facet). If a view defines one or more map properties it will only contain these maps.
+
+For a list of supported maps see:
+
+- [The Metrics Facet](../the-metrics-facet)
+- [Glacier2 Metrics](../glacier2-metrics)
+- [IceStorm Metrics](../icestorm-metrics)
+
+# IceMX.Metrics.*view*.Accept.*attribute*
+
+#### Synopsis
+
+`IceMX.Metrics.view.Accept.attribute=regexp`
+
+#### Description
+
+This property defines a rule to accept the monitoring of an instrumented object or operation based on the value of one of its attribute. If the `attribute` matches the specified `regex` and if it satisfies other `Accept` and `Reject` filters the instrumented object or operation will be monitored.
+
+For example, to accept monitoring instrumented objects or operations which are from the object adapter named "MyAdapter", you can setup the following accept property:
+
+- `IceMX.Metrics.MyView.Accept.parent=MyAdapter`
+
+# IceMX.Metrics.*view*.Disabled
+
+#### Synopsis
+
+`IceMX.Metrics.view.Disabled=num`
+
+#### Description
+
+If `num` is set to a value larger than zero, the metrics view or the map is disabled. This property is useful to pre-configure a view or map. The view can be disabled initially to not incur overhead and enabled only when needed at runtime.
+
+# IceMX.Metrics.*view*.GroupBy
+
+#### Synopsis
+
+`IceMX.Metrics.view.GroupBy=delimited attributes`
+
+#### Description
+
+This property defines how metrics are grouped and how the ID of each metrics object is created. The grouping is based on attributes specific to the instrumented object or operation. For example, you can group the invocation metrics by operation name or proxy identity. All the invocations with the same operation name or proxy identity will record metrics using the same metrics object. You can specify several attributes to group metrics based on multiple attributes. You must delimit the attributes with delimiters when specify the value of the GroupBy property. A delimiter is any character which is not an alpha numeric or the dot character. Attributes which can be used to specify the value of this property are defined in relevant section of the Ice manual. Here are some examples of GroupBy properties.
+
+- `IceMX.Metrics.MyView.GroupBy=operation`
+- `IceMX.Metrics.MyView.GroupBy=identity [operation]`
+- `IceMX.Metrics.MyView.GroupBy=remoteHost:remotePort`
+
+# IceMX.Metrics.*view*.Reject.*attribute*
+
+#### Synopsis
+
+`IceMX.Metrics.view.Reject.attribute=regexp`
+
+#### Description
+
+This property defines a rule to accept the monitoring of an instrumented object or operation based on the value of one of its attribute. If the `attribute` matches the specified `regex` and if it satisfies other `Accept` and `Reject` filters the instrumented object or operation will be monitored.
+
+For example, to reject monitoring instrumented objects or operations which are from the object adapter named "Ice.Admin", you can setup the following reject property:
+
+- `IceMX.Metrics.MyView.Reject.parent=Ice\.Admin`
+
+# IceMX.Metrics.*view*.RetainDetached
+
+#### Synopsis
+
+`IceMX.Metrics.view.RetainedDetached=num`
+
+#### Description
+
+If `num` is set to a value larger than zero, up to `num` metrics object whose `current` value is 0 will be kept in memory by the metrics map. This is useful to prevent indefinite memory growth if the monitoring of an instrumented object or operation creates a unique metrics object, only the last `num` metrics object will be kept in memory. The default value is `10`, meaning that at most ten metrics object with a `current` value equal to 0 will be retained by the metrics map.

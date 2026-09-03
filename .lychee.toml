@@ -1,0 +1,58 @@
+# Lychee link checker configuration
+# https://lychee.cli.rs/
+
+# Only the links that leave the site. Pages link to each other by page name
+# (`../enumerations`) and to images by site path (`/attachments/...`); both are
+# resolved by the build and checked by `npm run check:content`, not by lychee.
+scheme = ["https", "http"]
+
+# Root-relative links (`/attachments/...`) resolve against the served tree, so
+# lychee can tell them apart from links that leave the site.
+root_dir = "public"
+
+# Maximum number of concurrent requests
+max_concurrency = 32
+
+# Minimum interval between requests to the same host
+host_request_interval = "50ms"
+
+# Timeout for each request in seconds
+timeout = 30
+
+# Number of retries for failed requests
+max_retries = 3
+
+# User agent string
+user_agent = "Mozilla/5.0 (compatible; lychee/0.15; +https://github.com/lycheeverse/lychee)"
+
+# Exclude patterns
+exclude = [
+    # Localhost and local files
+    "^file://",
+    "^https?://localhost",
+    "^https?://127\\.0\\.0\\.1",
+    # Example domains, including the hosts the manual's configuration samples use
+    "^https?://([a-z0-9-]+\\.)*example\\.com",
+    # Mail links
+    "^mailto:",
+    # GitHub edit/blame links (may require auth)
+    "github\\.com/.*/edit/",
+    "github\\.com/.*/blame/",
+    # npm returns 403 to bots
+    "^https?://www\\.npmjs\\.com",
+    # dotnet.microsoft.com returns 403 to bots
+    "^https?://dotnet\\.microsoft\\.com",
+    # mathworks.com returns 403 to bots
+    "^https?://www\\.mathworks\\.com",
+    # cppreference.com returns 403 to GitHub's runners (fine from elsewhere)
+    "^https?://en\\.cppreference\\.com",
+    # docs.ansible.com rate-limits GitHub's runners with 429
+    "^https?://docs\\.ansible\\.com",
+]
+
+# Accept these status codes as valid
+accept = [200, 204, 206, 301, 308]
+
+# Include fragments (anchors) in checks
+# Values: "none", "anchor-only", "text-only", "full"
+include_fragments = "anchor-only"
