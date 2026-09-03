@@ -61,5 +61,5 @@ new SVG in its documentation context, including the available content-column wid
 
 ## Client and server design comparisons
 
-The selected three-layer diagram is the published SVG. The two additional SVGs in this directory
-record the faithful-restyling and containment-based alternatives considered during the pilot.
+The selected three-layer diagram is the published SVG. The additional SVG in this directory records
+the containment-based alternative considered during the pilot.

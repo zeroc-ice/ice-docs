@@ -47,7 +47,4 @@ Original reference: `public/attachments/3.8/basics/client-server.gif`
 
 Canonical SVG: `public/attachments/3.8/basics/client-server.svg`
 
-Comparison SVGs:
-
-- `diagrams/comparisons/client-server-faithful.svg`
-- `diagrams/comparisons/client-server-reinterpretation.svg`
+Comparison SVG: `diagrams/comparisons/client-server-reinterpretation.svg`
