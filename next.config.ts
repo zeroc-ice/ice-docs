@@ -96,6 +96,17 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   async redirects() {
     return buildRedirects();
+  },
+  // A build with SITE_NOINDEX=1 is for a host that must stay out of search
+  // indexes (a dev deployment), so it must not compete with the real site.
+  async headers() {
+    if (process.env.SITE_NOINDEX !== '1') return [];
+    return [
+      {
+        source: '/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]
+      }
+    ];
   }
 };
 

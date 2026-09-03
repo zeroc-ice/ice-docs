@@ -18,6 +18,14 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Base URL baked into the sitemap, and whether the build is for a host that
+# search engines must not index; pass --build-arg for a host other than
+# docs.zeroc.com.
+ARG SITE_URL
+ARG SITE_NOINDEX
+ENV SITE_URL=$SITE_URL
+ENV SITE_NOINDEX=$SITE_NOINDEX
+
 RUN npm run build
 
 FROM base AS runner
@@ -29,11 +37,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-
-RUN chown -R nextjs:nodejs ./
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
