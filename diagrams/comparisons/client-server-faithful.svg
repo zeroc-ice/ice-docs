@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-labelledby="title description">
+  <title id="title">Ice client and server structure, faithful-restyling comparison</title>
+  <desc id="description">
+    Client and server applications sit above their supporting components. Proxy code and Ice API sit
+    on the Client Ice core. Ice API, skeleton code, and object adapter sit on the Server Ice core.
+    The two Ice cores communicate across a network connection. This composition preserves the topology
+    and relative placement of the original diagram.
+  </desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .runtime-foundation {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .api-component {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+
+    .generated-component {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+
+    .api-divider {
+      stroke: #4f78bb;
+      stroke-width: 1.25;
+    }
+
+    .generated-divider {
+      stroke: #75658f;
+      stroke-width: 1.25;
+    }
+
+    .connector {
+      fill: none;
+      marker-end: url(#arrow);
+      marker-start: url(#arrow);
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .application-label {
+      font-size: 17px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .component-label,
+    .foundation-label {
+      font-size: 15px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .foundation-label {
+      font-size: 17px;
+      font-weight: 650;
+    }
+
+    .api-badge,
+    .generated-badge {
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+
+    .api-badge {
+      fill: #365f9e;
+    }
+
+    .generated-badge {
+      fill: #68587e;
+    }
+
+    .network-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+  </style>
+
+  <rect width="980" height="420" fill="#ffffff"/>
+
+  <!-- No process boundary: the source diagram does not establish that containment. -->
+  <g id="boundaries" aria-hidden="true"/>
+
+  <g id="connectors" aria-hidden="true">
+    <!-- Preserve only the application links explicitly drawn in the source. -->
+    <path class="connector" d="M 82.5 98 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 357.5 98 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 622.5 98 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 767.5 98 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 897.5 98 V 170" vector-effect="non-scaling-stroke"/>
+
+    <!-- A cleaner version of the original core-to-core network symbol. -->
+    <path class="connector" d="M 410 338 H 445 C 455 338 455 324 465 324 H 475 C 485 324 485 352 495 352 H 505 C 515 352 515 338 525 338 H 570" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="30" y="20" width="380" height="78" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="570" y="20" width="380" height="78" rx="7" vector-effect="non-scaling-stroke"/>
+
+    <!-- Ice cores remain the foundation blocks. -->
+    <path class="runtime-foundation" d="M 30 292 H 410 V 373 Q 410 380 403 380 H 37 Q 30 380 30 373 Z" vector-effect="non-scaling-stroke"/>
+    <path class="runtime-foundation" d="M 570 292 H 675 V 258 H 845 V 292 H 950 V 373 Q 950 380 943 380 H 577 Q 570 380 570 373 Z" vector-effect="non-scaling-stroke"/>
+
+    <!-- Client components stacked on the client core. -->
+    <rect class="generated-component" x="30" y="170" width="105" height="122" rx="6" vector-effect="non-scaling-stroke"/>
+    <path class="generated-divider" d="M 30 198 H 135" vector-effect="non-scaling-stroke"/>
+    <rect class="api-component" x="305" y="170" width="105" height="122" rx="6" vector-effect="non-scaling-stroke"/>
+    <path class="api-divider" d="M 305 198 H 410" vector-effect="non-scaling-stroke"/>
+
+    <!-- Server components retain the original raised skeleton placement. -->
+    <rect class="api-component" x="570" y="170" width="105" height="122" rx="6" vector-effect="non-scaling-stroke"/>
+    <path class="api-divider" d="M 570 198 H 675" vector-effect="non-scaling-stroke"/>
+    <rect class="generated-component" x="715" y="170" width="105" height="88" rx="6" vector-effect="non-scaling-stroke"/>
+    <path class="generated-divider" d="M 715 198 H 820" vector-effect="non-scaling-stroke"/>
+    <rect class="api-component" x="845" y="170" width="105" height="122" rx="6" vector-effect="non-scaling-stroke"/>
+    <path class="api-divider" d="M 845 198 H 950" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="application-label" x="220" y="66">Client application</text>
+    <text class="application-label" x="760" y="66">Server application</text>
+
+    <text class="generated-badge" x="82.5" y="188">GENERATED</text>
+    <text class="component-label" x="82.5" y="239">
+      <tspan x="82.5">Proxy</tspan>
+      <tspan x="82.5" dy="19">code</tspan>
+    </text>
+
+    <text class="api-badge" x="357.5" y="188">API</text>
+    <text class="component-label" x="357.5" y="251">Ice API</text>
+
+    <text class="api-badge" x="622.5" y="188">API</text>
+    <text class="component-label" x="622.5" y="251">Ice API</text>
+
+    <text class="generated-badge" x="767.5" y="188">GENERATED</text>
+    <text class="component-label" x="767.5" y="225">
+      <tspan x="767.5">Skeleton</tspan>
+      <tspan x="767.5" dy="19">code</tspan>
+    </text>
+
+    <text class="api-badge" x="897.5" y="188">API</text>
+    <text class="component-label" x="897.5" y="239">
+      <tspan x="897.5">Object</tspan>
+      <tspan x="897.5" dy="19">adapter</tspan>
+    </text>
+
+    <text class="foundation-label" x="220" y="345">Client Ice core</text>
+    <text class="foundation-label" x="760" y="345">Server Ice core</text>
+    <text class="network-label" x="490" y="384">Network</text>
+  </g>
+</svg>

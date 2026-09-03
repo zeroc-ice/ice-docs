@@ -27,7 +27,9 @@ connection back to the client.
 
 This diagram shows the steps involved in making a callback using Glacier2:
 
-![Callback_via_Glacier2.gif](/attachments/3.8/callbacks-through-glacier2/Callback_via_Glacier2.gif)
+![Four-step request and callback flow through Glacier2. A client-side firewall blocks a new direct connection, while Glacier2 returns the callback over the client's existing bidirectional connection.](/attachments/3.8/callbacks-through-glacier2/callback-via-glacier2.svg#diagram-wide)
+
+*Request and callback flow through Glacier2.*
 
 1. The client has a routed proxy for the server and makes an invocation. A connection is established to the router's
    client endpoint and the request is sent to the router.

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-labelledby="title description">
+  <title id="title">Ice client and server structure, reinterpretation comparison</title>
+  <desc id="description">
+    A client application communicates with its Ice core directly and through generated proxy code.
+    Across the network, the server Ice core communicates with a server application directly,
+    through generated skeleton code, and through an object adapter.
+  </desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .process-boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
+    }
+
+    .api-boundary {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+
+    .component {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+
+    .generated {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+
+    .connector {
+      fill: none;
+      marker-end: url(#arrow);
+      marker-start: url(#arrow);
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .process-title {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      text-anchor: middle;
+    }
+
+    .boundary-title {
+      font-size: 15px;
+      font-weight: 650;
+      text-anchor: middle;
+    }
+
+    .component-label {
+      font-size: 15px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .connector-label {
+      font-size: 14px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+  </style>
+
+  <rect width="980" height="420" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <!-- Equal process boundaries keep the client and server visually balanced. -->
+    <rect class="process-boundary" x="16" y="16" width="440" height="388" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="524" y="16" width="440" height="388" rx="14" vector-effect="non-scaling-stroke"/>
+
+    <!-- Generated code is deliberately outside the Ice API boundaries. -->
+    <rect class="api-boundary" x="267" y="76" width="168" height="226" rx="8" vector-effect="non-scaling-stroke"/>
+    <rect class="api-boundary" x="545" y="76" width="190" height="226" rx="8" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <!-- Client: direct application-to-core flow and generated-proxy flow. -->
+    <path class="connector" d="M 210 145 H 290" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 104 184 V 282 Q 104 290 112 290 H 182 Q 190 290 190 298 V 328" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 280 328 V 310 Q 280 302 288 302 H 343 Q 351 302 351 294 V 184" vector-effect="non-scaling-stroke"/>
+
+    <!-- Server: separated lanes for the direct, skeleton, and object-adapter flows. -->
+    <path class="connector" d="M 690 138 H 770" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 580 184 V 282 Q 580 290 588 290 H 692 Q 700 290 700 298 V 328" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 800 328 V 318 Q 800 310 808 310 H 880 Q 888 310 888 302 V 184" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 666 184 V 224" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 712 251 H 742 Q 752 251 752 241 V 180 Q 752 170 762 170 H 770" vector-effect="non-scaling-stroke"/>
+
+    <!-- The two Ice cores exchange requests and replies across the network. -->
+    <path class="connector" d="M 412 154 H 568" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="component" x="45" y="112" width="165" height="72" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component runtime" x="290" y="112" width="122" height="72" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="145" y="328" width="180" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+
+    <rect class="component runtime" x="568" y="112" width="122" height="72" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component runtime" x="590" y="224" width="122" height="54" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component" x="770" y="112" width="165" height="72" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="655" y="328" width="180" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="process-title" x="236" y="51">Client process</text>
+    <text class="process-title" x="744" y="51">Server process</text>
+    <text class="boundary-title" x="351" y="101">Ice API</text>
+    <text class="boundary-title" x="640" y="101">Ice API</text>
+
+    <text class="component-label" x="127.5" y="153">Client application</text>
+    <text class="component-label" x="351" y="143">
+      <tspan x="351">Client</tspan>
+      <tspan x="351" dy="19">Ice core</tspan>
+    </text>
+    <text class="component-label" x="235" y="353">
+      <tspan x="235">Generated</tspan>
+      <tspan x="235" dy="19">proxy code</tspan>
+    </text>
+
+    <text class="component-label" x="629" y="143">
+      <tspan x="629">Server</tspan>
+      <tspan x="629" dy="19">Ice core</tspan>
+    </text>
+    <text class="component-label" x="651" y="246">
+      <tspan x="651">Object</tspan>
+      <tspan x="651" dy="19">adapter</tspan>
+    </text>
+    <text class="component-label" x="852.5" y="153">Server application</text>
+    <text class="component-label" x="745" y="353">
+      <tspan x="745">Generated</tspan>
+      <tspan x="745" dy="19">skeleton code</tspan>
+    </text>
+
+    <!-- The wider knockout gives the network label deliberate edge-label spacing. -->
+    <rect x="436" y="136" width="108" height="28" rx="14" fill="#ffffff"/>
+    <text class="connector-label" x="490" y="154">Network</text>
+  </g>
+</svg>

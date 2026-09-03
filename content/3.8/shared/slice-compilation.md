@@ -14,7 +14,9 @@ The figure below shows the situation when both client and server are developed i
 files from a Slice definition in a source file `Printer.ice`: a header file (`Printer.h`) and a source file
 (`Printer.cpp`)
 
-![slice-compilation.gif](/attachments/3.8/slice-compilation/slice-compilation.gif)
+![Printer.ice is compiled into shared generated C++ files that combine with client and server source and the Ice runtime library to produce communicating executables.](/attachments/3.8/slice-compilation/slice-compilation.svg#diagram-wide)
+
+*Compiling a Slice definition when the C++ client and server share a development environment.*
 
 - The `Printer.h` header file contains definitions that correspond to the types used in the Slice definition. It is
   included in the source code of both client and server to ensure that client and server agree about the types and

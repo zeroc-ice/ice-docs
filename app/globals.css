@@ -336,6 +336,10 @@
    are allowed the full column so a wide sample does not have to scroll.
    --------------------------------------------------------------------------- */
 @layer components {
+  .doc-body {
+    min-width: 0;
+  }
+
   .doc-body > * {
     max-width: var(--measure);
   }
@@ -348,6 +352,26 @@
      the wide track too, so its text, switches, and panels share one edge. */
   [data-page-shape='wide'] .doc-body > * {
     max-width: var(--measure-wide);
+  }
+
+  /* Wide diagrams opt into the wide track with `#diagram-wide` in their
+     Markdown image target. The paragraph transform consumes that marker and
+     makes this paragraph—not the page—the horizontal scroll container. */
+  .doc-body > .diagram-scroll {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    contain: inline-size;
+  }
+
+  main article img.figure.diagram-wide {
+    width: 100%;
+    min-width: 45rem;
+  }
+
+  main article img.figure[src$='.svg']:not(.diagram-wide) {
+    width: min(100%, 43.75rem);
   }
 
   main article h1 {

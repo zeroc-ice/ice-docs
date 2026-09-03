@@ -45,10 +45,11 @@ module M
 }
 ```
 
-`RadioClock` extends both `Radio` and `AlarmClock` and can therefore be passed where a `Radio`, an `AlarmClock`, or a
-`Clock` is expected. The inheritance diagram for this definition looks as follows: RadioClock
+`RadioClock` extends both `Radio` and `AlarmClock` and can therefore be passed where a `Radio`, an `AlarmClock`, or a `Clock` is expected. The inheritance diagram for this definition looks as follows:
 
-![radioclock.gif](/attachments/3.8/interface-inheritance/radioclock.gif)
+![RadioClock inherits from Radio and AlarmClock, while AlarmClock inherits from Clock.](/attachments/3.8/interface-inheritance/radioclock.svg)
+
+*Radio clock interface inheritance.*
 
 Interfaces that inherit from more than one base interface may share a common base interface. For example, the following
 definition is legal:

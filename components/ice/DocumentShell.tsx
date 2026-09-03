@@ -69,7 +69,7 @@ export const DocumentShell = ({
     <div className="flex shrink flex-row justify-center overflow-y-clip lg:justify-start">
       <article
         data-page-shape={shape}
-        className="mx-6 size-full max-w-232 md:mx-10 lg:mx-12"
+        className="mx-6 size-full max-w-232 min-w-0 md:mx-10 lg:mx-12"
       >
         {breadcrumbs.length > 0 && (
           <nav
