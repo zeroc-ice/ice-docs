@@ -174,6 +174,7 @@
     "ovrd",
     "parameterless",
     "passlib",
+    "passout",
     "pathnames",
     "Perflib",
     "pidfile",
