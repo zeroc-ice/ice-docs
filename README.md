@@ -5,8 +5,9 @@ programming languages at `/ice/<version>/<language>/<page>` — for example `/ic
 
 ## Requirements
 
-Node.js 22.18 or later, and npm. The scripts under `scripts/` import the TypeScript content model directly, which relies
-on the type stripping Node enables by default from that release.
+Node.js 22.18 or later in the 22 line, or 23.6 or later, and npm. The scripts under `scripts/` import the TypeScript
+content model directly, which relies on the type stripping Node enables by default from those releases (23.0 to 23.5
+have it behind a flag).
 
 ## Building
 
