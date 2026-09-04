@@ -44,9 +44,9 @@ namespace IceBT
     public:
         void startDiscovery(
             const std::string& address,
-            std::function<void(const std::string& addr, 
+            std::function<void(const std::string& addr,
                                const PropertyMap& props)> cb);
-                                     
+
         void stopDiscovery(const std::string& address);
         ...
     };
@@ -63,11 +63,14 @@ CommunicatorPtr communicator = ...
 auto plugin = communicator->getPluginManager()->getPlugin("IceBT");
 auto btplugin = dynamic_pointer_cast<IceBT::Plugin>(plugin);
 btplugin->startDiscovery(
-   "", 
+   "",
    [](const std::string& addr, const PropertyMap& props) { ... });
 ```
 
-For each nearby device discovered by the Bluetooth stack, the plug-in will invoke the provided callback. The arguments to the callback are the Bluetooth address of the nearby device and a string map of properties containing metadata about that device. As shown in the example above, the application can pass an empty string to `startDiscovery` and the plug-in will use the default Bluetooth adapter. Otherwise, the application can pass the device address of the desired adapter.
+For each nearby device discovered by the Bluetooth stack, the plug-in will invoke the provided callback. The arguments
+to the callback are the Bluetooth address of the nearby device and a string map of properties containing metadata about
+that device. As shown in the example above, the application can pass an empty string to `startDiscovery` and the plug-in
+will use the default Bluetooth adapter. Otherwise, the application can pass the device address of the desired adapter.
 
 Discovery will continue until `stopDiscovery` is called or a Bluetooth connection is initiated.
 

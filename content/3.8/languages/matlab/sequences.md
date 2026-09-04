@@ -7,11 +7,11 @@ language: matlab
 
 The MATLAB mapping for a Slice sequence depends on the element type of the sequence:
 
-| **Element Type (Slice)** | **Mapped Sequence Type (MATLAB)** |
-| --- | --- |
-| `bool`, numeric types, `enum`, `struct` | vector (1-by-n array) of the mapped element type |
-| `string` | vector of `string` |
-| All other types: `class`, proxies, `dictionary`, `sequence` | 1-by-n cell array of the mapped element type |
+| **Element Type (Slice)**                                    | **Mapped Sequence Type (MATLAB)**                |
+| ----------------------------------------------------------- | ------------------------------------------------ |
+| `bool`, numeric types, `enum`, `struct`                     | vector (1-by-n array) of the mapped element type |
+| `string`                                                    | vector of `string`                               |
+| All other types: `class`, proxies, `dictionary`, `sequence` | 1-by-n cell array of the mapped element type     |
 
 {% callout type="warning" %}
 

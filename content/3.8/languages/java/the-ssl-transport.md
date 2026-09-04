@@ -25,13 +25,21 @@ var adapter = communicator.createObjectAdapterWithEndpoints(
 
 {% language-section name="lang-3" %}
 
-The [Ice/secure](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/secure) demo provides a good starting point for using these APIs.
+The [Ice/secure](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/secure) demo provides a good starting point
+for using these APIs.
 
-The SSL transport for outgoing connections can be configured by setting the [clientSSLEngineFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#clientSSLEngineFactory) field of the [InitializationData](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html) used to create the communicator.
+The SSL transport for outgoing connections can be configured by setting the
+[clientSSLEngineFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#clientSSLEngineFactory)
+field of the
+[InitializationData](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html) used
+to create the communicator.
 
 This SSL configuration applies to all SSL outgoing connections created by that communicator.
 
-The SSL transport for incoming connections can be configured by setting the `sslEngineFactory` parameter of [createObjectAdapter](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#createObjectAdapter(java.lang.String,com.zeroc.Ice.SSL.SSLEngineFactory)), or [createObjectAdapterWithEndpoints](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#createObjectAdapterWithEndpoints(java.lang.String,java.lang.String,com.zeroc.Ice.SSL.SSLEngineFactory)).
+The SSL transport for incoming connections can be configured by setting the `sslEngineFactory` parameter of
+[createObjectAdapter](<https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#createObjectAdapter(java.lang.String,com.zeroc.Ice.SSL.SSLEngineFactory)>),
+or
+[createObjectAdapterWithEndpoints](<https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#createObjectAdapterWithEndpoints(java.lang.String,java.lang.String,com.zeroc.Ice.SSL.SSLEngineFactory)>).
 
 This SSL configuration applies to all SSL incoming connections accepted by that object adapter.
 

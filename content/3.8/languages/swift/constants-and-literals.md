@@ -35,7 +35,8 @@ public enum Fruit: UInt8 { ... }
 public let FavoriteFruit: Fruit = Fruit.Pear
 ```
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to Swift string literals with Unicode escape sequences. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to Swift string literals
+with Unicode escape sequences. For example:
 
 ```slice
 const string Egg = "œuf";

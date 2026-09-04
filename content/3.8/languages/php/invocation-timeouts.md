@@ -7,7 +7,7 @@ language: php
 
 ```php
 $greeter = GreeterPrxHelper::createProxy(
-    $communicator, 
+    $communicator,
     'greeter:tcp -h localhost -p 4061');
 $greeter = $greeter->ice_invocationTimeout(2500);
 ```

@@ -5,7 +5,8 @@ language: swift
 
 {% language-section name="lang-1" %}
 
-In Swift, a middleware is a type that implements `Ice.Dispatcher` protocol and delegates to another dispatcher called “next”. For example:
+In Swift, a middleware is a type that implements `Ice.Dispatcher` protocol and delegates to another dispatcher called
+“next”. For example:
 
 ```swift
 // A typical TypeScript middleware class
@@ -15,14 +16,15 @@ class AuthorizationMiddleware extends Ice.Object
         _ request: sending IncomingRequest) async throws -> OutgoingResponse {
         ...
     }
-    
+
     init(next: Dispatcher, validToken: String) {
         ...
     }
 }
 ```
 
-The constructor accepts the “next” dispatcher and other data, and `dispatch` dispatches incoming requests by delegating to “next”.
+The constructor accepts the “next” dispatcher and other data, and `dispatch` dispatches incoming requests by delegating
+to “next”.
 
 You install a middleware on an object adapter by calling `use`:
 
@@ -34,7 +36,8 @@ public protocol ObjectAdapter: AnyObject, Sendable {
 }
 ```
 
-`use` accepts a middleware factory – not a middleware. This allows the object adapter to create and connect the middleware into its dispatch pipeline when it receives its first request.
+`use` accepts a middleware factory – not a middleware. This allows the object adapter to create and connect the
+middleware into its dispatch pipeline when it receives its first request.
 
 For example, you can call `use` as follows:
 
@@ -44,6 +47,7 @@ adapter.use {
 }
 ```
 
-The middleware, once created and woven into the dispatch pipeline, intercept requests in the order of their registration through `use`.
+The middleware, once created and woven into the dispatch pipeline, intercept requests in the order of their registration
+through `use`.
 
 {% /language-section %}

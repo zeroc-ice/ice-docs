@@ -24,7 +24,8 @@ language: swift
 
 ## async/await and Structured Concurrency
 
-Ice for Swift now requires Swift 6.1 and includes support for `async/await` and structured concurrency. As a result we’ve removed the dependency on `PromiseKit`. In addition all proxy invocations and dispatch operations are now `async`.
+Ice for Swift now requires Swift 6.1 and includes support for `async/await` and structured concurrency. As a result
+we’ve removed the dependency on `PromiseKit`. In addition all proxy invocations and dispatch operations are now `async`.
 
 ```diff
 -let greeting = try greeter.greet(name)
@@ -51,7 +52,8 @@ print(greeting)
 
 ## Removed Dispatch structs
 
-Generated dispatch (Disp) structs for Slice interfaces have been removed. Implementations of server-side protocols can now be used directly as ObjectAdapter servants.
+Generated dispatch (Disp) structs for Slice interfaces have been removed. Implementations of server-side protocols can
+now be used directly as ObjectAdapter servants.
 
 ```diff
 -try adapter.add(servant: GreeterDisp(Chatbot()), id: Ice.Identity(name: "greeter"))

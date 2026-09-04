@@ -3,9 +3,11 @@ id: implementing-an-icestorm-subscriber
 title: Implementing an IceStorm Subscriber
 ---
 
-An IceStorm subscriber is an Ice server application that hosts a subscriber object, and registers a proxy to this object with a [Topic](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html) hosted by the IceStorm service.
+An IceStorm subscriber is an Ice server application that hosts a subscriber object, and registers a proxy to this object
+with a [Topic](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html) hosted by the IceStorm service.
 
-The `IceStorm/weather` demo program provides a complete subscriber application. It’s available in all programming languages with server-side support.
+The `IceStorm/weather` demo program provides a complete subscriber application. It’s available in all programming
+languages with server-side support.
 
 Our weather station implementation takes the following steps:
 

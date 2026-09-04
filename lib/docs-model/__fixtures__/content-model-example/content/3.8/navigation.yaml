@@ -1,15 +1,15 @@
 # Sidebar for the Ice 3.8 line. Grouping lives here (URLs are flat); the same
 # tree renders for every language, with per-page availability hiding entries a
 # language does not support.
-version: "3.8"
+version: '3.8'
 sidebar:
   - category: Basics
     items:
-      - page: get-started          # -> shared/get-started.md  -> /ice/3.8/<lang>/get-started
+      - page: get-started # -> shared/get-started.md  -> /ice/3.8/<lang>/get-started
       - page: terminology
   - category: The Slice Language
     items:
-      - page: enumerations         # -> shared/enumerations.md -> /ice/3.8/<lang>/enumerations
+      - page: enumerations # -> shared/enumerations.md -> /ice/3.8/<lang>/enumerations
   - category: The Ice Runtime
     items:
       - page: communicator

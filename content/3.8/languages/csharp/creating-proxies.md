@@ -5,11 +5,13 @@ language: csharp
 
 {% language-section name="lang-1" %}
 
-The generated helper class for a proxy provides a static factory method `createProxy` that creates a proxy from a communicator and a [stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the following example:
+The generated helper class for a proxy provides a static factory method `createProxy` that creates a proxy from a
+communicator and a [stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the
+following example:
 
 ```csharp
 GreeterPrx greeter = GreeterPrxHelper.createProxy(
-    communicator, 
+    communicator,
     "greeter:tcp -h localhost -p 4061");
 ```
 
@@ -17,7 +19,8 @@ GreeterPrx greeter = GreeterPrxHelper.createProxy(
 
 {% language-section name="lang-2" %}
 
-We can use the `propertyToProxy` method on `Communicator` to convert the property's value into a proxy. A null proxy is returned if no property is found with the specified name.
+We can use the `propertyToProxy` method on `Communicator` to convert the property's value into a proxy. A null proxy is
+returned if no property is found with the specified name.
 
 ```csharp
 ObjectPrx? greeter = communicator.propertyToProxy("Greeter.Proxy");
@@ -29,7 +32,7 @@ ObjectPrx? greeter = communicator.propertyToProxy("Greeter.Proxy");
 
 ```csharp
 var greeter = GreeterPrxHelper.createProxy(
-    communicator, 
+    communicator,
     "greeter:tcp -h localhost -p 4061");
 greeter = GreeterPrxHelper.uncheckedCast(
     greeter.ice_endpointSelection(EndpointSelectionType.Ordered));

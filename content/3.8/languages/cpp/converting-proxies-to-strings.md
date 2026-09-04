@@ -12,7 +12,8 @@ GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 std::string s = greeter.ice_toString();
 ```
 
-`ice_toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and object adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
+`ice_toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and
+object adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
 
 {% /language-section %}
 
@@ -20,7 +21,7 @@ std::string s = greeter.ice_toString();
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
-std::map<string, string> propertyMap = 
+std::map<string, string> propertyMap =
     communicator->proxyToProperty(greeter, "Greeter");
 ```
 

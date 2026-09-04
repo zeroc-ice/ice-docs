@@ -8,17 +8,21 @@ This page provides a step-by-step guide to writing the server-side of our Java G
 The server consists of:
 
 - A Java class that implements the `Greeter` interface we defined earlier in Slice
-- an Ice object adapter that accepts TCP connections from clients, and later routes requests received over these connections to our Greeter implementation
+- an Ice object adapter that accepts TCP connections from clients, and later routes requests received over these
+  connections to our Greeter implementation
 
-You can find the complete source code for this example in the [ice-demos repository](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/greeter).
+You can find the complete source code for this example in the
+[ice-demos repository](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/greeter).
 
 ## Greeter Implementation
 
 ### Compile Slice File with Slice Compiler
 
-The first step when writing a Java application with Ice is to compile the Slice definitions for this application with the Slice to Java compiler (`slice2java`).
+The first step when writing a Java application with Ice is to compile the Slice definitions for this application with
+the Slice to Java compiler (`slice2java`).
 
-Here, we compile the `Greeter.ice` Slice file we wrote earlier. We recommend that you include this Slice compiler step in your build project, like we demonstrate for the Java demo programs.
+Here, we compile the `Greeter.ice` Slice file we wrote earlier. We recommend that you include this Slice compiler step
+in your build project, like we demonstrate for the Java demo programs.
 
 The Slice compiler produces 3 files in a folder named `com/example/visitorcenter`:
 
@@ -28,7 +32,8 @@ The Slice compiler produces 3 files in a folder named `com/example/visitorcenter
 
 ### Implement Servant
 
-We implement the `Greeter` interface with a Java class: `Chatbot`. We call this implementation a servant class, or servant for short. `Chatbot` is defined in `Chatbot.java`:
+We implement the `Greeter` interface with a Java class: `Chatbot`. We call this implementation a servant class, or
+servant for short. `Chatbot` is defined in `Chatbot.java`:
 
 ```java
 package com.example.ice.greeter.server;
@@ -45,11 +50,14 @@ class Chatbot implements Greeter {
 }
 ```
 
-Since the `Greeter` Slice interface only has one operation (`greet`), there is only one method that `Chatbot` needs to implement. You can see our implementation takes a `name` parameter, and returns a greeting based on the provided `name`, matching what was specified in our Slice file.
+Since the `Greeter` Slice interface only has one operation (`greet`), there is only one method that `Chatbot` needs to
+implement. You can see our implementation takes a `name` parameter, and returns a greeting based on the provided `name`,
+matching what was specified in our Slice file.
 
 {% callout type="info" %}
 
-It is normal for servants like `Chatbot` to contain fields and other methods in addition to the needed ones from the generated base class. Due to our application’s simplicity, we don’t here though.
+It is normal for servants like `Chatbot` to contain fields and other methods in addition to the needed ones from the
+generated base class. Due to our application’s simplicity, we don’t here though.
 
 {% /callout %}
 
@@ -85,9 +93,12 @@ First, we create a Communicator using its constructor:
     }
 ```
 
-The communicator is our main entry point into the Ice runtime. In this simple server application, we need this communicator to create an object adapter and nothing else (see next step).
+The communicator is our main entry point into the Ice runtime. In this simple server application, we need this
+communicator to create an object adapter and nothing else (see next step).
 
-It is important to make sure that your communicator is properly closed when no longer needed. This ensures that network connections are gracefully closed, threads are joined, and other important clean-up occurs. The easiest way to do this is with a try-with-resources statement like we do here.
+It is important to make sure that your communicator is properly closed when no longer needed. This ensures that network
+connections are gracefully closed, threads are joined, and other important clean-up occurs. The easiest way to do this
+is with a try-with-resources statement like we do here.
 
 ### Create an Object Adapter
 
@@ -101,9 +112,11 @@ ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints(
 An object adapter serves two purposes in Ice:
 
 - it accepts connections from clients
-- it receives requests over these connections and routes them to servants based on the object identities carried by these requests
+- it receives requests over these connections and routes them to servants based on the object identities carried by
+  these requests
 
-In this example, we create an object adapter named `GreeterAdapter` which listens for TCP connections on port 4061, and later receives requests over these connections.
+In this example, we create an object adapter named `GreeterAdapter` which listens for TCP connections on port 4061, and
+later receives requests over these connections.
 
 We then register our Chatbot servant with this adapter under the identity `greeter`:
 
@@ -111,11 +124,13 @@ We then register our Chatbot servant with this adapter under the identity `greet
 adapter.add(new Chatbot(), new Identity("greeter", ""));
 ```
 
-Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our `Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
+Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our
+`Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
 
 ### Activate the Object Adapter
 
-At this point, our object adapter does not accept connections yet. A client attempting to connect would get a `ConnectTimeoutException`.
+At this point, our object adapter does not accept connections yet. A client attempting to connect would get a
+`ConnectTimeoutException`.
 
 We call `activate` to start accepting connections:
 
@@ -124,18 +139,21 @@ adapter.activate();
 System.out.println("Listening on port 4061...");
 ```
 
-Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to our `Chatbot` servant.
+Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to
+our `Chatbot` servant.
 
 ### Keep Running until Ctrl+C
 
-It is essential to keep the server running and not fall off main prematurely. We use the following technique to achieve this goal:
+It is essential to keep the server running and not fall off main prematurely. We use the following technique to achieve
+this goal:
 
 - wait in the main thread until an event occurs
 - register a shutdown hook that will run upon Ctrl+C and trigger this event
 
 The event we chose is “the communicator was shut down”. But you could pick any other event.
 
-We register a shutdown hook that calls `shutdown` on the communicator, and then waits for the main thread to finish, to ensure a clean shutdown:
+We register a shutdown hook that calls `shutdown` on the communicator, and then waits for the main thread to finish, to
+ensure a clean shutdown:
 
 ```java
 Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -153,11 +171,14 @@ Next, after registering this hook, we block the main thread until the communicat
 communicator.waitForShutdown();
 ```
 
-Once the communicator is shut down, we reach the end of our try-with-resources block, the communicator gets closed, and the application exits.
+Once the communicator is shut down, we reach the end of our try-with-resources block, the communicator gets closed, and
+the application exits.
 
 ## Running the Server
 
-After building the server (see the demo’s [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/java/Ice/greeter/README.md) for instructions), you can run it with gradle:
+After building the server (see the demo’s
+[README](https://github.com/zeroc-ice/ice-demos/blob/3.8/java/Ice/greeter/README.md) for instructions), you can run it
+with gradle:
 
 ```
 ./gradlew :server:run --quiet

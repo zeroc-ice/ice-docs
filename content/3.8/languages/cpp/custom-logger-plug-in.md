@@ -13,9 +13,9 @@ namespace Ice
     class LoggerPlugin : public Plugin
     {
     public:
-          LoggerPlugin(const CommunicatorPtr& communicator, 
+          LoggerPlugin(const CommunicatorPtr& communicator,
                        const LoggerPtr& logger);
-        
+
           void initialize() override;
           void destroy() override;
     };
@@ -24,7 +24,8 @@ namespace Ice
 
 The implementation of `initialize` and `destroy` in `LoggerPlugin` are no-op.
 
-Now, assuming you wrote a `CustomLogger` class that implements `Ice::Logger`, you can easily create a plug-in factory function that creates a `LoggerPlugin` and installs your logger into the communicator:
+Now, assuming you wrote a `CustomLogger` class that implements `Ice::Logger`, you can easily create a plug-in factory
+function that creates a `LoggerPlugin` and installs your logger into the communicator:
 
 ```cpp
 extern "C" Ice::Plugin* createCustomLoggerPlugin(
@@ -36,7 +37,8 @@ extern "C" Ice::Plugin* createCustomLoggerPlugin(
 }
 ```
 
-Then, package your `CustomLogger` implementation and `createCustomLoggerPlugin` in a shared library or DLL, and configure your communicator to load it at runtime. For example:
+Then, package your `CustomLogger` implementation and `createCustomLoggerPlugin` in a shared library or DLL, and
+configure your communicator to load it at runtime. For example:
 
 ```
 Ice.Plugin.CustomLogger=customlogger,0:createCustomLoggerPlugin
@@ -44,7 +46,9 @@ Ice.Plugin.CustomLogger=customlogger,0:createCustomLoggerPlugin
 
 {% callout type="info" %}
 
-Even though you didn’t implement the plug-in class (`Ice::LoggerPlugin`), you are in effect creating a new plug-in since you choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in factory function and the plug-in itself.
+Even though you didn’t implement the plug-in class (`Ice::LoggerPlugin`), you are in effect creating a new plug-in since
+you choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in
+factory function and the plug-in itself.
 
 {% /callout %}
 

@@ -5,9 +5,13 @@ language: csharp
 
 {% language-section name="lang-1" %}
 
-Ice for C# supports two different mappings for Slice structures. By default, Slice structures map to C# record structs if they (recursively) contain only value types. If a Slice structure (recursively) contains a string, proxy, class, sequence, or dictionary field, it maps to a record class. The `”cs:class”` metadata directive allows you to force the mapping to a record class for Slice structures that contain only value types.
+Ice for C# supports two different mappings for Slice structures. By default, Slice structures map to C# record structs
+if they (recursively) contain only value types. If a Slice structure (recursively) contains a string, proxy, class,
+sequence, or dictionary field, it maps to a record class. The `”cs:class”` metadata directive allows you to force the
+mapping to a record class for Slice structures that contain only value types.
 
-In addition, for either mapping, you can control whether Slice fields are mapped to fields (the default) or to properties.
+In addition, for either mapping, you can control whether Slice fields are mapped to fields (the default) or to
+properties.
 
 ## Mapping to Record Struct
 
@@ -50,17 +54,22 @@ public partial record struct Point
 }
 ```
 
-For each field in the Slice definition, the C# record struct contains a corresponding public field. This name of this public field is by default the name of the Slice field; here, we remapped the fields using the `cs:identifier` metadata directive.
+For each field in the Slice definition, the C# record struct contains a corresponding public field. This name of this
+public field is by default the name of the Slice field; here, we remapped the fields using the `cs:identifier` metadata
+directive.
 
-The generated record has a primary constructor that allows you to construct and initialize a structure in a single statement:
+The generated record has a primary constructor that allows you to construct and initialize a structure in a single
+statement:
 
 ```csharp
 var p = new Point(5.1, 7.8);
 ```
 
-The generated constructor calls the `ice_initialize` partial method after initializing the fields. You can customize this initialization by providing your own implementation of `ice_initialize`.
+The generated constructor calls the `ice_initialize` partial method after initializing the fields. You can customize
+this initialization by providing your own implementation of `ice_initialize`.
 
-If you apply the `cs:readonly` metadata directive to the Slice struct, all the fields are mapped to readonly C# fields and the record struct is itself readonly. For example:
+If you apply the `cs:readonly` metadata directive to the Slice struct, all the fields are mapped to readonly C# fields
+and the record struct is itself readonly. For example:
 
 ```slice
 ["cs:readonly"]
@@ -103,7 +112,8 @@ struct Employee
 }
 ```
 
-The structure contains two strings, which are reference types, so the Slice-to-C# compiler generates a sealed partial record class for this structure:
+The structure contains two strings, which are reference types, so the Slice-to-C# compiler generates a sealed partial
+record class for this structure:
 
 ```csharp
 public sealed partial record class Employee
@@ -142,11 +152,13 @@ public sealed partial record class Employee
 The generated record class provides the following constructors:
 
 - a primary constructor with parameters for all the fields
-- a constructor with parameters for fields with the following Slice types: Sequence, Dictionary, Struct mapped to record class in C#
-  This constructor may be parameterless. It initializes string fields to the empty string, and other fields to their default value (typically `0`, `null` or `default`; see [Fields](../fields)).
+- a constructor with parameters for fields with the following Slice types: Sequence, Dictionary, Struct mapped to record
+  class in C# This constructor may be parameterless. It initializes string fields to the empty string, and other fields
+  to their default value (typically `0`, `null` or `default`; see [Fields](../fields)).
 - an “unmarshaling” constructor that unmarshals the record class from an InputStream
 
-If you apply the `cs:readonly` metadata directive to the Slice struct, all the fields are mapped to readonly C# fields, except for fields with a Slice class type (they remain read-write).
+If you apply the `cs:readonly` metadata directive to the Slice struct, all the fields are mapped to readonly C# fields,
+except for fields with a Slice class type (they remain read-write).
 
 ## Property Mapping
 
@@ -167,7 +179,7 @@ The `cs:property` metadata directive causes the compiler to generate a property 
 
 ```csharp
 public partial record struct Point
-{ 
+{
     public double X { get; set; }
     public double Y { get; set; }
 
@@ -176,6 +188,7 @@ public partial record struct Point
 }
 ```
 
-If you add the `cs:readonly` metadata directive to your Slice struct, the generated properties are get-only, except for fields with a Slice class type (the mapped properties remain get-set).
+If you add the `cs:readonly` metadata directive to your Slice struct, the generated properties are get-only, except for
+fields with a Slice class type (the mapped properties remain get-set).
 
 {% /language-section %}

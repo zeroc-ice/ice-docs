@@ -3,9 +3,14 @@ id: icebox-descriptor-element
 title: IceBox Descriptor Element
 ---
 
-An `icebox` element defines an [IceBox](../icebox) server to be deployed on a node. It typically contains at least one [service](../service-descriptor-element) element, and may supply additional information such as [command-line options](../using-command-line-options-in-descriptors), [environment variables](../setting-environment-variables-in-descriptors), and [configuration properties](../properties-descriptor-element).
+An `icebox` element defines an [IceBox](../icebox) server to be deployed on a node. It typically contains at least one
+[service](../service-descriptor-element) element, and may supply additional information such as
+[command-line options](../using-command-line-options-in-descriptors),
+[environment variables](../setting-environment-variables-in-descriptors), and
+[configuration properties](../properties-descriptor-element).
 
-This element may only appear as a child of a [node](../node-descriptor-element) element or a [server-template](../server-template-descriptor-element) element.
+This element may only appear as a child of a [node](../node-descriptor-element) element or a
+[server-template](../server-template-descriptor-element) element.
 
 This element supports the same attributes as the [server](../server-descriptor-element) element.
 

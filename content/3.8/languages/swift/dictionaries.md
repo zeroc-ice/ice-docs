@@ -17,7 +17,8 @@ The following code is generated for this definition:
 public typealias EmployeeMap = [Int64: Employee]
 ```
 
-Again, there are no surprises here: a Slice dictionary simply maps to a standard Swift dictionary. As a result, you can use the dictionary like any other dictionary, for example:
+Again, there are no surprises here: a Slice dictionary simply maps to a standard Swift dictionary. As a result, you can
+use the dictionary like any other dictionary, for example:
 
 ```swift
 let stan = Employee(number: 42, firstName: "Stan", lastName: "Lippman")

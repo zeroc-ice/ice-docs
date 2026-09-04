@@ -31,7 +31,7 @@ Ice.Plugin.IceBT=com.zeroc.IceBT.PluginFactory
 
 ```java
 var greeter = GreeterPrx.createProxy(
-  communicator, 
+  communicator,
   "greeter:bt -u 4f140cef-d75e-4c93-b4e4 -a \"01:23:45:67:89:AB\"");
 ```
 
@@ -39,6 +39,7 @@ var greeter = GreeterPrx.createProxy(
 
 {% language-section name="lang-3" %}
 
-On Android, an app can use the APIs in `android.bluetooth` to initiate discovery and receive intent notifications about nearby devices.
+On Android, an app can use the APIs in `android.bluetooth` to initiate discovery and receive intent notifications about
+nearby devices.
 
 {% /language-section %}

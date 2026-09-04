@@ -1,5 +1,15 @@
 {
   "singleQuote": true,
   "trailingComma": "none",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": "*.md",
+      "options": {
+        "proseWrap": "always",
+        "printWidth": 120,
+        "embeddedLanguageFormatting": "off"
+      }
+    }
+  ]
 }

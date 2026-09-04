@@ -102,7 +102,7 @@ class Location
     public $point;
     public $display;
     public $source;
-        
+
     public function __construct($name='', $point=null, $display=true, $source="GPS")
     {
         $this->name = $name;
@@ -114,17 +114,18 @@ class Location
 }
 ```
 
-When you don’t define a default value in Slice, and you initialize a field without providing a value for this field, the generated code uses the following default:
+When you don’t define a default value in Slice, and you initialize a field without providing a value for this field, the
+generated code uses the following default:
 
-| **Optional Field?** | **Slice Field Type** | **Default PHP Value** |
-| --- | --- | --- |
-| No | `string` | Empty string |
-| | `enum` | First enumerator in enumeration |
-| | `struct` | New instance created with no argument |
-| | Numeric | `0` |
-| | `bool` | `false` |
-| | `sequence`, `dictionary`, `class`, proxy | `null` |
-| Yes | Any | `\Ice\None` |
+| **Optional Field?** | **Slice Field Type**                     | **Default PHP Value**                 |
+| ------------------- | ---------------------------------------- | ------------------------------------- |
+| No                  | `string`                                 | Empty string                          |
+|                     | `enum`                                   | First enumerator in enumeration       |
+|                     | `struct`                                 | New instance created with no argument |
+|                     | Numeric                                  | `0`                                   |
+|                     | `bool`                                   | `false`                               |
+|                     | `sequence`, `dictionary`, `class`, proxy | `null`                                |
+| Yes                 | Any                                      | `\Ice\None`                           |
 
 {% /language-section %}
 

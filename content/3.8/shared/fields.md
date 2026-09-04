@@ -13,17 +13,20 @@ ByteSeq image;
 Fruit fruit;
 ```
 
-Each field definition must be followed by a semicolon. You can define several fields on the same line if you wish, as in:
+Each field definition must be followed by a semicolon. You can define several fields on the same line if you wish, as
+in:
 
 ```slice
 struct Point { int x; int y; }
 ```
 
-The type of a field can be a [basic type](../basic-types), a [user-defined type](../user-defined-types), `Object*` (an untyped proxy), or `Value`(an untyped class instance).
+The type of a field can be a [basic type](../basic-types), a [user-defined type](../user-defined-types), `Object*` (an
+untyped proxy), or `Value`(an untyped class instance).
 
 # Nullable and Non-Nullable Fields
 
-Fields with proxy and class types are nullable. Optional fields (presented below) are also nullable. All other fields are non-nullable, meaning they must have a value when transmitted through Ice.
+Fields with proxy and class types are nullable. Optional fields (presented below) are also nullable. All other fields
+are non-nullable, meaning they must have a value when transmitted through Ice.
 
 ```slice
 struct Example
@@ -36,9 +39,11 @@ struct Example
 
 # Optional Fields
 
-A field of a Slice [class](../classes) or [exception](../exceptions) may be declared as optional to indicate that a program can leave its value unset. Fields not declared as optional are known as *required* fields; a program must supply legal values for all required fields.
+A field of a Slice [class](../classes) or [exception](../exceptions) may be declared as optional to indicate that a
+program can leave its value unset. Fields not declared as optional are known as _required_ fields; a program must supply
+legal values for all required fields.
 
-Each optional field must be assigned a unique, non-negative integer *tag*:
+Each optional field must be assigned a unique, non-negative integer _tag_:
 
 ```slice
 module M
@@ -71,11 +76,13 @@ The scope of a tag is limited to its enclosing type and has no effect on base or
 
 {% callout type="warning" %}
 
-You can mark any field as optional, except if the field’s type is a class type or a constructed type that holds a class type. At the field level, optional and class are incompatible.
+You can mark any field as optional, except if the field’s type is a class type or a constructed type that holds a class
+type. At the field level, optional and class are incompatible.
 
 {% /callout %}
 
-Optional fields and required fields can appear in any order in your class definition. You can also assign tags in any order. For example:
+Optional fields and required fields can appear in any order in your class definition. You can also assign tags in any
+order. For example:
 
 ```slice
 class UnusualButValidPerson
@@ -110,7 +117,9 @@ struct Location
 }
 ```
 
-The legal syntax for literal values is the same as for Slice [constants](../constants-and-literals), and you may also use a constant as a default value. The language mapping guarantees that fields are initialized to their declared default values using a language-specific mechanism.
+The legal syntax for literal values is the same as for Slice [constants](../constants-and-literals), and you may also
+use a constant as a default value. The language mapping guarantees that fields are initialized to their declared default
+values using a language-specific mechanism.
 
 You can declare a default value for optional fields just as you can for required fields:
 

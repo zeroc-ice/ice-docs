@@ -12,7 +12,8 @@ const greeter = new GreeterPrx(communicator, "greeter:tcp -h localhost -p 4061")
 const s = greeter.toString();
 ```
 
-`toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and object adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
+`toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and object
+adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
 
 {% /language-section %}
 
@@ -29,7 +30,7 @@ const propertyDict = communicator.proxyToProperty(greeter,"Greeter");
 const greeter = new GreeterPrx(
     communicator,
     "greeter:tcp -h localhost -p 4061");
-const propertyDict: Map<string,string> propertyDict = 
+const propertyDict: Map<string,string> propertyDict =
     communicator.proxyToProperty(greeter,"Greeter");
 ```
 

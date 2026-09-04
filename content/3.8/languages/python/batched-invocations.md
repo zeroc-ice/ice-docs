@@ -9,6 +9,7 @@ language: python
 
 {% language-section name="lang-2" %}
 
-A client can track batch request activity, and even implement its own auto-flush logic, by installing a [Batch Invocation Interceptor](../batched-invocation-interceptors).
+A client can track batch request activity, and even implement its own auto-flush logic, by installing a
+[Batch Invocation Interceptor](../batched-invocation-interceptors).
 
 {% /language-section %}

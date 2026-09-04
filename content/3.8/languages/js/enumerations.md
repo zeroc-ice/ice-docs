@@ -5,7 +5,8 @@ language: js
 
 {% language-section name="lang-1" %}
 
-JavaScript does not have an enumerated type, so a Slice enumeration is emulated using JavaScript objects where each enumerator is an instance of the same type. For example:
+JavaScript does not have an enumerated type, so a Slice enumeration is emulated using JavaScript objects where each
+enumerator is an instance of the same type. For example:
 
 ```slice
 enum Fruit { Apple, Pear, Orange }
@@ -28,19 +29,21 @@ class Fruit
     static readonly Apple:Fruit;
     static readonly Pear:Fruit;
     static readonly Orange:Fruit;
-        
+
     static valueOf(value:number):Fruit | undefined;
-  
+
     equals(other:any):boolean;
     hashCode():number;
     toString():string;
-        
+
     readonly name:string;
     readonly value:number;
 }
 ```
 
-Each enumerator defines `name` and `value` properties that supply the enumerator's name and ordinal value, respectively. Enumerators also define `hashCode`, `equals` and `toString` methods, and the enumerated type itself defines a `valueOf` method that converts ordinal values into their corresponding enumerators.
+Each enumerator defines `name` and `value` properties that supply the enumerator's name and ordinal value, respectively.
+Enumerators also define `hashCode`, `equals` and `toString` methods, and the enumerated type itself defines a `valueOf`
+method that converts ordinal values into their corresponding enumerators.
 
 Suppose we modify the Slice definition to include a custom enumerator value:
 
@@ -90,7 +93,8 @@ console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 
 {% callout type="info" %}
 
-TypeScript has an enumerated type, but the TypeScript definitions must match the JavaScript generated code, using enumerated types in TypeScript is identical to use them in JavaScript.
+TypeScript has an enumerated type, but the TypeScript definitions must match the JavaScript generated code, using
+enumerated types in TypeScript is identical to use them in JavaScript.
 
 {% /callout %}
 

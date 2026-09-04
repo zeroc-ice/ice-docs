@@ -21,7 +21,7 @@ class BidirWakeUpService implements WakeUpService {
     @Override
     public void wakeMeUp(long timeStamp, Current current)
        throws FeatureNotSupportedException {
-         // The connection from the client to the server. 
+         // The connection from the client to the server.
          Connection connection = current.con;
           if (connection == null) {
               // Unexpected colloc call.

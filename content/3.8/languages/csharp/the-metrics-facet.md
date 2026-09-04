@@ -7,7 +7,8 @@ language: csharp
 
 # Obtaining the Local Metrics Facet
 
-We [already showed](../using-the-admin-object) how to obtain a proxy for a remote administrative facet, but suppose you want to interact with the facet in your local address space. The code below shows the necessary steps:
+We [already showed](../using-the-admin-object) how to obtain a proxy for a remote administrative facet, but suppose you
+want to interact with the facet in your local address space. The code below shows the necessary steps:
 
 ```csharp
 if (communicator.findAdminFacet("Metrics") is Ice.MetricsAdmin metricsAdmin)

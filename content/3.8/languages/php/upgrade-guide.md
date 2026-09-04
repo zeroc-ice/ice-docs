@@ -12,7 +12,7 @@ language: php
 ```diff
 -$proxy = $communicator->stringToProxy("greeter: tcp -h localhost -p 4061");
 -$greeter = GreeterPrxHelper::uncheckedCast($proxy);
-+$greeter = 
++$greeter =
 +    GreeterPrxHelper::createProxy($communicator, 'greeter:tcp -h localhost -p 4061');
 ```
 

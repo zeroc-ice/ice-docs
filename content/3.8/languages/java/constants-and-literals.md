@@ -46,9 +46,11 @@ public interface FavoriteFruit {
 }
 ```
 
-As you can see, each Slice constant is mapped to a Java interface with the same name as the constant. The interface contains a field named `value` that holds the value of the constant.
+As you can see, each Slice constant is mapped to a Java interface with the same name as the constant. The interface
+contains a field named `value` that holds the value of the constant.
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to Java string literals with universal character names. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to Java string literals
+with universal character names. For example:
 
 ```slice
 const string Egg = "œuf";

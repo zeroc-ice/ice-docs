@@ -5,7 +5,8 @@ language: js
 
 {% language-section name="lang-1" %}
 
-A Slice exception is mapped to a JavaScript class with the same name. This mapping is similar to the mapping of [JavaScript Mapping for Classes](../javascript-mapping-for-classes).
+A Slice exception is mapped to a JavaScript class with the same name. This mapping is similar to the mapping of
+[JavaScript Mapping for Classes](../javascript-mapping-for-classes).
 
 Consider the following Slice exceptions:
 
@@ -16,7 +17,7 @@ module M
     {
         string reason;
     }
-    
+
     exception BadTimeValException extends GenericException {}
 }
 ```
@@ -47,9 +48,11 @@ class BadTimeValException extends GenericException {}
 
 There are a number of things to note about this generated code:
 
-1. The generated class `GenericException` inherits from `Ice.UserException`. `Ice.UserException` is the ultimate ancestor of all mapped exceptions. It derives indirectly from JavaScript `Error` type.
+1. The generated class `GenericException` inherits from `Ice.UserException`. `Ice.UserException` is the ultimate
+   ancestor of all mapped exceptions. It derives indirectly from JavaScript `Error` type.
 2. The generated class contains a field for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. The generated class provides a constructor with a parameter for each field, just like [mapped classes](../javascript-mapping-for-classes).
+4. The generated class provides a constructor with a parameter for each field, just like
+   [mapped classes](../javascript-mapping-for-classes).
 
 {% /language-section %}

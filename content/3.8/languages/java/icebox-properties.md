@@ -7,7 +7,8 @@ language: java
 
 In Java, `entry_point` has the form `[path:]class`.
 
-The `class` component must be the name of a class that implements the `com.zeroc.IceBox.Service` interface and provides at least one of the constructors shown in the example below:
+The `class` component must be the name of a class that implements the `com.zeroc.IceBox.Service` interface and provides
+at least one of the constructors shown in the example below:
 
 ```java
 public class MyService implements com.zeroc.IceBox.Service {
@@ -35,6 +36,7 @@ IceBox.Service.MyService="factory classes.jar":MyService
 
 IceBox uses a single class loader to load all services having the same value for `path`.
 
-If `class` is specified without a path, IceBox attempts to load the class using the default class loaders. See [InitializationData.classLoader](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#classLoader).
+If `class` is specified without a path, IceBox attempts to load the class using the default class loaders. See
+[InitializationData.classLoader](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#classLoader).
 
 {% /language-section %}

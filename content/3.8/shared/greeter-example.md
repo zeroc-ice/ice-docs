@@ -7,7 +7,9 @@ Writing a client-server application with Ice does not take much code. See for yo
 
 In this example, we describe how to write a simple client-server application, step by step.
 
-This application is a typical Greeter: a server hosts a Greeter object that produces custom greetings, and the client calls the server to get these greetings. Even though it’s simple, this application demonstrates best practices and provides a good foundation for starting any Ice project.
+This application is a typical Greeter: a server hosts a Greeter object that produces custom greetings, and the client
+calls the server to get these greetings. Even though it’s simple, this application demonstrates best practices and
+provides a good foundation for starting any Ice project.
 
 We present this example in the following sections:
 
@@ -26,7 +28,8 @@ We write the server first: a client has nothing to call until a server is runnin
 1. **Using Slice** - How to use the [Slice IDL](../the-slice-language) to define a contract between clients and servers.
 2. **Writing a client** - How to write a client that communicates with an Ice server.
 
-This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python or Swift, and call it from the client you write here.
+This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python
+or Swift, and call it from the client you write here.
 
 {% /iflang %}
 

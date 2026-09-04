@@ -22,7 +22,8 @@ Dictionary<long, Employee>
 
 ## Custom Mapping for Dictionaries
 
-You can use the `"cs:generic:SortedDictionary"` or `"cs:generic:SortedList"` metadata directives to change the default mapping to use a sorted dictionary or sorted list instead. For example:
+You can use the `"cs:generic:SortedDictionary"` or `"cs:generic:SortedList"` metadata directives to change the default
+mapping to use a sorted dictionary or sorted list instead. For example:
 
 ```slice
 ["cs:generic:SortedDictionary"]

@@ -35,7 +35,8 @@ FavoriteFruit = Fruit.Pear
 
 As you can see, each Slice constant is mapped to a Python attribute with the same name as the constant.
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to Python string literals with `\u` or `\U` escape sequences. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to Python string
+literals with `\u` or `\U` escape sequences. For example:
 
 ```slice
 const string Egg = "œuf";

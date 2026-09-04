@@ -13,9 +13,11 @@ language: swift
 
 #### Description
 
-If `num` is set to 0 (the default), the unmarshaling of class cycles is disallowed. A `MarshalException` is thrown when a cycle is detected during unmarshaling.
+If `num` is set to 0 (the default), the unmarshaling of class cycles is disallowed. A `MarshalException` is thrown when
+a cycle is detected during unmarshaling.
 
-If `num` is set to a value larger than 0, class cycles are unmarshaled. You must break any cycles programmatically in your own code to prevent memory leaks.
+If `num` is set to a value larger than 0, class cycles are unmarshaled. You must break any cycles programmatically in
+your own code to prevent memory leaks.
 
 {% /language-section %}
 
@@ -45,7 +47,8 @@ If `num` is set to a value larger than 0, class cycles are unmarshaled. You must
 
 #### Description
 
-If `num` is set to a value larger than 0, an object adapter prints "*adapter_name* ready" on standard output after activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
+If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
+activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
 
 {% /language-section %}
 
@@ -59,13 +62,20 @@ If `num` is set to a value larger than 0, an object adapter prints "*adapter_nam
 
 #### Description
 
-If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some task, like dispatching a request.
+If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
+pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
+task, like dispatching a request.
 
-This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that the server will not shut down automatically. This property is often used for servers that are automatically [activated by IceGrid](../icegrid-server-activation).
+This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
+return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
+the server will not shut down automatically. This property is often used for servers that are automatically
+[activated by IceGrid](../icegrid-server-activation).
 
 {% callout type="info" %}
 
-For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool idle threads have been reaped (the thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
+For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool
+idle threads have been reaped (the thread idle time can be configured with the
+[ThreadIdleTime](../ice-threadpool-properties) thread pool property.
 
 {% /callout %}
 
@@ -77,7 +87,8 @@ For C# applications and Windows C++ applications, the server idle time takes eff
 
 #### Description
 
-When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed Slice loader resolutions.
+When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
+Slice loader resolutions.
 
 The default value is 100.
 

@@ -21,8 +21,8 @@ The following tags can be used in any doc-comment.
 
 ## Operation Specific Tags
 
-The following tags can only be used to document operations.
-Using these tags to document anything else will result in a warning, and the tag being ignored.
+The following tags can only be used to document operations. Using these tags to document anything else will result in a
+warning, and the tag being ignored.
 
 ### `@param <name>`
 

@@ -7,8 +7,8 @@ language: js
 
 ### NPM Package
 
-The Ice NPM package has been renamed and converted into a scoped package: `@zeroc/ice`.
-This new package also includes the `slice2js` compiler for Linux, macOS, and Windows.
+The Ice NPM package has been renamed and converted into a scoped package: `@zeroc/ice`. This new package also includes
+the `slice2js` compiler for Linux, macOS, and Windows.
 
 ### Upgrade Steps
 

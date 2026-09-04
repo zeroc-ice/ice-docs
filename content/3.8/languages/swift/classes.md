@@ -9,7 +9,8 @@ language: swift
 
 # Class Mapping
 
-A Slice class is mapped to an open Swift class with the same name. The generated class contains a public stored property for each Slice field (just as for structures and exceptions). Consider the following class definition:
+A Slice class is mapped to an open Swift class with the same name. The generated class contains a public stored property
+for each Slice field (just as for structures and exceptions). Consider the following class definition:
 
 ```slice
 class TimeOfDay
@@ -46,6 +47,7 @@ There are a several things to note about the generated code:
 
 1. The generated class `TimeOfDay` inherits from class `Ice.Value`. `Value` is the ultimate ancestor of all classes.
 2. The generated class contains a public stored property for each Slice field.
-3. The generated class provides a default initializer and a memberwise initializer. The default initializer initializes all stored properties to zero, nil or empty, as appropriate. See [Fields](../fields) for details.
+3. The generated class provides a default initializer and a memberwise initializer. The default initializer initializes
+   all stored properties to zero, nil or empty, as appropriate. See [Fields](../fields) for details.
 
 {% /language-section %}

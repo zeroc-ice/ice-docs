@@ -5,7 +5,8 @@ language: cpp
 
 {% language-section name="lang-1" %}
 
-In C++ and C++-based language mappings, `entry_point` consists of the path name of the shared library or DLL containing the factory function, along with the name of the factory function.
+In C++ and C++-based language mappings, `entry_point` consists of the path name of the shared library or DLL containing
+the factory function, along with the name of the factory function.
 
 For example:
 

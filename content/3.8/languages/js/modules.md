@@ -5,7 +5,8 @@ language: js
 
 {% language-section name="lang-1" %}
 
-Slice modules map to a **JavaScript object** with the same name and to a **TypeScript namespace** with the same name as the Slice module. The mapping preserves the nesting of Slice definitions.
+Slice modules map to a **JavaScript object** with the same name and to a **TypeScript namespace** with the same name as
+the Slice module. The mapping preserves the nesting of Slice definitions.
 
 For example:
 
@@ -41,11 +42,12 @@ export namespace M1 {
 }
 
 export namespace M1 { // Reopen M1
-    // ... 
+    // ...
 }
 ```
 
-The generated code always exports the top-level modules as **named exports**. You can import them with standard ES module syntax, for example:
+The generated code always exports the top-level modules as **named exports**. You can import them with standard ES
+module syntax, for example:
 
 ```js
 import { M1 } from "./M";
@@ -53,7 +55,8 @@ import { M1 } from "./M";
 
 ### Custom Mapping
 
-The `js:identifier` metadata directive allows you to map a module to a JavaScript name or TypeScript namespace or sub-namespace of your choice. For example:
+The `js:identifier` metadata directive allows you to map a module to a JavaScript name or TypeScript namespace or
+sub-namespace of your choice. For example:
 
 ```slice
 // module Time becomes object Remote.Clock in JavaScript and namespace
@@ -64,6 +67,7 @@ module Time {
 }
 ```
 
-You can only use `js:identifier` on a module with a simple name - this metadata directive is not compatible with the nested module syntax.
+You can only use `js:identifier` on a module with a simple name - this metadata directive is not compatible with the
+nested module syntax.
 
 {% /language-section %}

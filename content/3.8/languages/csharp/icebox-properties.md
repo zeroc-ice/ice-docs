@@ -7,15 +7,17 @@ language: csharp
 
 In C#, `entry_point` has the form `assembly:class`.
 
-The `assembly` can be a partially or fully qualified assembly name, such as `myplugin,Version=0.0.0.0,Culture=neutral`, or an assembly DLL name such as `myplugin.dll`, and may optionally include a leading relative or absolute path name.
+The `assembly` can be a partially or fully qualified assembly name, such as `myplugin,Version=0.0.0.0,Culture=neutral`,
+or an assembly DLL name such as `myplugin.dll`, and may optionally include a leading relative or absolute path name.
 
 {% callout type="info" %}
 
-You *must* use a fully-qualified assembly name to load a service from an assembly in the Global Assembly Cache.
+You _must_ use a fully-qualified assembly name to load a service from an assembly in the Global Assembly Cache.
 
 {% /callout %}
 
-The specified class must implement the `IceBox.Service` interface and provide at least one of the constructors shown in the example below:
+The specified class must implement the `IceBox.Service` interface and provide at least one of the constructors shown in
+the example below:
 
 ```csharp
 public class MyService : IceBox.Service
@@ -27,9 +29,11 @@ public class MyService : IceBox.Service
 }
 ```
 
-The constructor taking an `Ice.Communicator` argument is invoked if present, otherwise the parameterless constructor is invoked.
+The constructor taking an `Ice.Communicator` argument is invoked if present, otherwise the parameterless constructor is
+invoked.
 
-If you specify a relative path name in the entry point, the assembly is located relative to the program's current working directory:
+If you specify a relative path name in the entry point, the assembly is located relative to the program's current
+working directory:
 
 ```
 IceBox.Service.MyService=..\MyService.dll:MyService

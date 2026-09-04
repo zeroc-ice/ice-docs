@@ -3,7 +3,8 @@ id: names-and-scoping
 title: Names and Scoping
 ---
 
-Slice has a number of rules regarding identifiers. You will typically not have to concern yourself with these. However, occasionally, it is good to know how Slice uses naming scopes and resolves identifiers.
+Slice has a number of rules regarding identifiers. You will typically not have to concern yourself with these. However,
+occasionally, it is good to know how Slice uses naming scopes and resolves identifiers.
 
 # Naming Scope
 
@@ -16,7 +17,8 @@ The following Slice constructs establish a naming scope:
 - exceptions
 - parameter lists
 
-Within a naming scope, identifiers must be unique, that is, you cannot use the same identifier for different purposes. For example:
+Within a naming scope, identifiers must be unique, that is, you cannot use the same identifier for different purposes.
+For example:
 
 ```slice
 interface Bad
@@ -25,11 +27,13 @@ interface Bad
 }
 ```
 
-Because a parameter list forms a naming scope, it is illegal to use the same identifier `p` for different parameters. Similarly, fields, operation names, interface and class names, etc. must be unique within their enclosing scope.
+Because a parameter list forms a naming scope, it is illegal to use the same identifier `p` for different parameters.
+Similarly, fields, operation names, interface and class names, etc. must be unique within their enclosing scope.
 
 # Case Sensitivity
 
-Identifiers that differ only in case are considered identical, so you must use identifiers that differ not only in capitalization within a naming scope. For example:
+Identifiers that differ only in case are considered identical, so you must use identifiers that differ not only in
+capitalization within a naming scope. For example:
 
 ```slice
 struct Bad
@@ -39,7 +43,8 @@ struct Bad
 }
 ```
 
-The Slice compiler also enforces consistent capitalization for identifiers. Once you have defined an identifier, you must use the same capitalization for that identifier thereafter. For example, the following is in error:
+The Slice compiler also enforces consistent capitalization for identifiers. Once you have defined an identifier, you
+must use the same capitalization for that identifier thereafter. For example, the following is in error:
 
 ```slice
 sequence<string> StringSeq;
@@ -75,9 +80,11 @@ module MyApp
 }
 ```
 
-Here, the qualified name `Types::LongSeq` refers to `LongSeq` defined in module `Types`. The global scope is denoted by a leading `::`, so we could also refer to `LongSeq` as `::Types::LongSeq`.
+Here, the qualified name `Types::LongSeq` refers to `LongSeq` defined in module `Types`. The global scope is denoted by
+a leading `::`, so we could also refer to `LongSeq` as `::Types::LongSeq`.
 
-The scope-qualification operator also allows you to create mutually dependent interfaces that are defined in different modules. The obvious attempt to do this fails:
+The scope-qualification operator also allows you to create mutually dependent interfaces that are defined in different
+modules. The obvious attempt to do this fails:
 
 ```slice
 module Parents
@@ -103,7 +110,8 @@ module Children 
 }
 ```
 
-This fails because it is syntactically illegal to forward-declare an interface in a different module. To make it work, we must use a reopened module:
+This fails because it is syntactically illegal to forward-declare an interface in a different module. To make it work,
+we must use a reopened module:
 
 ```slice
 module Children 
@@ -133,7 +141,11 @@ module Children                       // Reopen module
 }
 ```
 
-While this technique works, it is probably of dubious value: mutually dependent interfaces are, by definition, tightly coupled. On the other hand, modules are meant to be used to place related definitions into the same module, and unrelated definitions into different modules. Of course, this begs the question: if the interfaces are so closely related that they depend on each other, why are they defined in different modules? In the interest of clarity, you probably should avoid this construct, even though it is legal.
+While this technique works, it is probably of dubious value: mutually dependent interfaces are, by definition, tightly
+coupled. On the other hand, modules are meant to be used to place related definitions into the same module, and
+unrelated definitions into different modules. Of course, this begs the question: if the interfaces are so closely
+related that they depend on each other, why are they defined in different modules? In the interest of clarity, you
+probably should avoid this construct, even though it is legal.
 
 # Names in Nested Scopes
 
@@ -151,7 +163,8 @@ module Outer
 }
 ```
 
-Within module `Inner`, the name `Seq` refers to a sequence of `short` values and hides the definition of `Outer::Seq`. You can still refer to the other definition by using explicit scope qualification, for example:
+Within module `Inner`, the name `Seq` refers to a sequence of `short` values and hides the definition of `Outer::Seq`.
+You can still refer to the other definition by using explicit scope qualification, for example:
 
 ```slice
 module Outer 
@@ -171,9 +184,11 @@ module Outer 
 }
 ```
 
-Needless to say, you should try to avoid such redefinitions — they make it harder for the reader to follow the meaning of a specification.
+Needless to say, you should try to avoid such redefinitions — they make it harder for the reader to follow the meaning
+of a specification.
 
-Same-named constructs cannot be nested inside each other in certain situations. For example, an interface cannot define an operation with the same name as the enclosing interface. For example, the following examples is an error:
+Same-named constructs cannot be nested inside each other in certain situations. For example, an interface cannot define
+an operation with the same name as the enclosing interface. For example, the following examples is an error:
 
 ```slice
 module M
@@ -185,11 +200,14 @@ module M
 }
 ```
 
-The reason for this restriction is that nested types that have the same name are difficult to map into some languages. For example, C++ and Java reserve the name of a class as the name of the constructor, so an interface `I` could not contain an operation named `I` without artificial rules to avoid the name clash.
+The reason for this restriction is that nested types that have the same name are difficult to map into some languages.
+For example, C++ and Java reserve the name of a class as the name of the constructor, so an interface `I` could not
+contain an operation named `I` without artificial rules to avoid the name clash.
 
 # Introduced Identifiers
 
-Within a naming scope, an identifier is introduced at the point of first use; thereafter, within that naming scope, the identifier cannot change meaning.
+Within a naming scope, an identifier is introduced at the point of first use; thereafter, within that naming scope, the
+identifier cannot change meaning.
 
 For example:
 
@@ -206,7 +224,9 @@ module M
 }
 ```
 
-The declaration of `op1` uses `Seq` as its return type, thereby introducing `Seq` into the scope of interface `Bad`. Thereafter, `Seq` can only be used as a type name that denotes a sequence of strings, so the compiler flags the declaration of the second operation as an error.
+The declaration of `op1` uses `Seq` as its return type, thereby introducing `Seq` into the scope of interface `Bad`.
+Thereafter, `Seq` can only be used as a type name that denotes a sequence of strings, so the compiler flags the
+declaration of the second operation as an error.
 
 Note that fully-qualified identifiers are not introduced into the current scope:
 
@@ -223,7 +243,9 @@ module M
 }
 ```
 
-In general, a fully-qualified name (one that is anchored at the global scope and, therefore, begins with a `::` scope resolution operator) does not introduce any name into the current scope. On the other hand, a qualified name that is not anchored at the global scope introduces only the first component of the name:
+In general, a fully-qualified name (one that is anchored at the global scope and, therefore, begins with a `::` scope
+resolution operator) does not introduce any name into the current scope. On the other hand, a qualified name that is not
+anchored at the global scope introduces only the first component of the name:
 
 ```slice
 module M
@@ -240,7 +262,10 @@ module M
 
 # Name Lookup Rules
 
-When searching for the definition of a name that is not anchored at the global scope, the compiler first searches backward in the current scope of a definition of the name. If it can find the name in the current scope, it uses that definition. Otherwise, the compiler successively searches enclosing scopes for the name until it reaches the global scope. Here is an example to illustrate this:
+When searching for the definition of a name that is not anchored at the global scope, the compiler first searches
+backward in the current scope of a definition of the name. If it can find the name in the current scope, it uses that
+definition. Otherwise, the compiler successively searches enclosing scopes for the name until it reaches the global
+scope. Here is an example to illustrate this:
 
 ```slice
 module M1
@@ -279,7 +304,10 @@ module M1
 }
 ```
 
-Note that `M3::Derived::op2` returns a sequence of `double`, even though `M2::Base::op1` returns a sequence of `string`. That is, the meaning of a type in a base interface is irrelevant to determining its meaning in a derived interface — the compiler always searches for a definition only in the current scope and enclosing scopes, and never takes the meaning of a name from a base interface or class.
+Note that `M3::Derived::op2` returns a sequence of `double`, even though `M2::Base::op1` returns a sequence of `string`.
+That is, the meaning of a type in a base interface is irrelevant to determining its meaning in a derived interface — the
+compiler always searches for a definition only in the current scope and enclosing scopes, and never takes the meaning of
+a name from a base interface or class.
 
 # Scoping Rules for Parameters and Fields
 
@@ -294,14 +322,15 @@ interface I
 }
 ```
 
-It's legal for parameters to reuse the names of symbols in enclosing scopes, including the name of the operation, class, interface or module:
+It's legal for parameters to reuse the names of symbols in enclosing scopes, including the name of the operation, class,
+interface or module:
 
 ```slice
 module M
 {
     sequence<string> Seq;
  
-    interface I 
+    interface I
     {
         string query(string query);   // OK to reuse operation name
         void op1(int I);              // OK to reuse name of enclosing type
@@ -313,17 +342,17 @@ module M
 
 The rules for fields are similar to those of parameters:
 
-| Structures | Field names must be unique within the structure. |
-| --- | --- |
+| Structures | Field names must be unique within the structure.                                                      |
+| ---------- | ----------------------------------------------------------------------------------------------------- |
 | Exceptions | Field names must be unique within the exception, including any fields inherited from base exceptions. |
-| Classes | Field names must be unique within the class, including any fields inherited from base classes. |
+| Classes    | Field names must be unique within the class, including any fields inherited from base classes.        |
 
 As for parameters, fields can reuse the names of symbols in enclosing scopes. The examples below illustrate these rules:
 
 ```slice
-module M 
+module M
 {
-    struct S 
+    struct S
     {
         int i;
         string s;    // OK to reuse name of enclosing type
@@ -331,7 +360,7 @@ module M
         bool M;      // OK to reuse module name
     }
  
-    interface I 
+    interface I
     {
         void op();
     }

@@ -21,9 +21,12 @@ Distributions which use `systemd` contain the following services:
 - `icegridnode.service`
 - `glacier2router.service`
 
-The installation on Linux also creates a user account and group for running these services (account `ice` and group `ice`), and data directories for `icegridregistry` and `icegridnode` (`/var/lib/ice/icegrid/registry` and `/var/lib/ice/icegrid/node1`).
+The installation on Linux also creates a user account and group for running these services (account `ice` and group
+`ice`), and data directories for `icegridregistry` and `icegridnode` (`/var/lib/ice/icegrid/registry` and
+`/var/lib/ice/icegrid/node1`).
 
-By default, all these services are off at all runlevels. You need to manually switch on one or more runlevels, as shown below:
+By default, all these services are off at all runlevels. You need to manually switch on one or more runlevels, as shown
+below:
 
 ```shell
 # On systems using sysvinit, configure the icegridregistry to start at the

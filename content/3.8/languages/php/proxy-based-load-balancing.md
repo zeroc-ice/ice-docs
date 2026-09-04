@@ -7,7 +7,7 @@ language: php
 
 ```php
 $proxy = GreeterPrxHelper::createProxy(
-    $communicator, 
+    $communicator,
     'greeter:tcp -h localhost -p 4061');
 $proxy = $proxy->ice_connectionCached(false);
 $proxy = $proxy->ice_endpointSelection(Ice.EndpointSelectionType.Random);

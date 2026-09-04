@@ -5,7 +5,7 @@ language: java
 
 {% language-section name="lang-1" %}
 
-# *name*.CollocationOptimized
+# _name_.CollocationOptimized
 
 #### Synopsis
 
@@ -13,6 +13,8 @@ language: java
 
 #### Description
 
-If `num` is a value greater than zero, the proxy is configured to use [collocated invocations](../collocated-invocation-and-dispatch) when possible. Defining this property is equivalent to invoking the `ice_collocationOptimized` proxy method.
+If `num` is a value greater than zero, the proxy is configured to use
+[collocated invocations](../collocated-invocation-and-dispatch) when possible. Defining this property is equivalent to
+invoking the `ice_collocationOptimized` proxy method.
 
 {% /language-section %}

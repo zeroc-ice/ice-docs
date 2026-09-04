@@ -7,7 +7,8 @@ language: python
 
 ### **Python Static Code Generation**
 
-The Python static code generation has been improved in Ice 3.8 to follow a more typical Python package layout and to better support type hints.
+The Python static code generation has been improved in Ice 3.8 to follow a more typical Python package layout and to
+better support type hints.
 
 The following changes may require updates to your projects:
 
@@ -19,7 +20,8 @@ The following changes may require updates to your projects:
 
 #### **Replacing --all**
 
-If you were using `--all` to automatically compile included Slice files, you must now list all required files explicitly.
+If you were using `--all` to automatically compile included Slice files, you must now list all required files
+explicitly.
 
 **Before (3.7)**:
 
@@ -42,13 +44,15 @@ If you used `--prefix` to control the prefix of generated file names, remove it.
 Instead:
 
 - Use the **default mapping** for generated modules, and
-- Apply the new **python:identifier** metadata when you need to remap a generated name (e.g., to avoid a collision with a Python builtin or standard library module).
+- Apply the new **python:identifier** metadata when you need to remap a generated name (e.g., to avoid a collision with
+  a Python builtin or standard library module).
 
 #### **Replacing python:package**
 
 If you used the **python:package** metadata directive to control the package of a generated module, remove it.
 
-Instead, use **python:identifier** metadata, which works consistently with all Slice constructs (modules, classes, enums, etc.), not just modules.
+Instead, use **python:identifier** metadata, which works consistently with all Slice constructs (modules, classes,
+enums, etc.), not just modules.
 
 ```diff
 -["python:package:zeroc"]
@@ -64,7 +68,8 @@ module sys
 
 #### **New File Layout**
 
-The Python mapping now generates a **Python module for each Slice-defined type**, placing it inside a package that corresponds to the Slice module.
+The Python mapping now generates a **Python module for each Slice-defined type**, placing it inside a package that
+corresponds to the Slice module.
 
 ```slice
 module VisitorCenter
@@ -96,7 +101,7 @@ Key points:
 - Generated files no longer use the `_ice` suffix.
 - All generated files are placed inside the corresponding package directory.
 - For Slice classes and interfaces, an additional `<name>_forward.py` file is generated for forward declarations.
-  
+
   Applications **do not** need to import these _forward modules directly.
 
 {% callout type="info" %}

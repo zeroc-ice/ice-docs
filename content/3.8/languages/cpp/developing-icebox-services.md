@@ -18,10 +18,10 @@ namespace Service
     {
     public:
         void start(
-            const std::string& name, 
-            const Ice::CommunicatorPtr& communicator, 
+            const std::string& name,
+            const Ice::CommunicatorPtr& communicator,
             const Ice::StringSeq& args) final;
-        
+
         void stop() final;
     };
 }
@@ -60,23 +60,27 @@ Service::GreeterService::stop()
 }
 ```
 
-The `start` method creates an object adapter “GreeterAdapter”, activates a single servant of type `Chatbot` (not shown), and activates the object adapter. The `stop` method simply destroys the object adapter.
+The `start` method creates an object adapter “GreeterAdapter”, activates a single servant of type `Chatbot` (not shown),
+and activates the object adapter. The `stop` method simply destroys the object adapter.
 
 ## C++ Service Entry Point
 
-The last piece of the puzzle is the *entry point* function, which the IceBox server calls to create an instance of the IceBox service:
+The last piece of the puzzle is the _entry point_ function, which the IceBox server calls to create an instance of the
+IceBox service:
 
 ```cpp
 extern "C"
 {
-    ICE_DECLSPEC_EXPORT IceBox::Service* 
-    create(const Ice::CommunicatorPtr&) 
-    { 
-        return new Service::GreeterService; 
+    ICE_DECLSPEC_EXPORT IceBox::Service*
+    create(const Ice::CommunicatorPtr&)
+    {
+        return new Service::GreeterService;
     }
 }
 ```
 
-In this example, the `create` function returns a new instance of the `GreeterService` service. The name of the function is not important, but it must have the signature shown above. In particular, the function must have C linkage, accept a single `const Ice::CommunicatorPtr&` parameter and return an `IceBox::Service*`.
+In this example, the `create` function returns a new instance of the `GreeterService` service. The name of the function
+is not important, but it must have the signature shown above. In particular, the function must have C linkage, accept a
+single `const Ice::CommunicatorPtr&` parameter and return an `IceBox::Service*`.
 
 {% /language-section %}

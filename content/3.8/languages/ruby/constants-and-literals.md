@@ -35,7 +35,8 @@ FavoriteFruit = Fruit::Pear
 
 As you can see, each Slice constant is mapped to a Ruby constant with the same name.
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to Ruby string literals with these characters by Unicode escape sequences. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to Ruby string literals
+with these characters by Unicode escape sequences. For example:
 
 ```slice
 const string Egg = "œuf";

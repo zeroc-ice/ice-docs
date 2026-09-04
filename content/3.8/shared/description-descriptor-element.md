@@ -5,7 +5,10 @@ title: Description Descriptor Element
 
 A `description` element specifies a description of its parent element.
 
-This element may only appear as a child of the [application](../application-descriptor-element), [replica-group](../replica-group-descriptor-element), [node](../node-descriptor-element), [server](../server-descriptor-element), [service](../service-descriptor-element), [icebox](../icebox-descriptor-element), and [adapter](../adapter-descriptor-element) elements.
+This element may only appear as a child of the [application](../application-descriptor-element),
+[replica-group](../replica-group-descriptor-element), [node](../node-descriptor-element),
+[server](../server-descriptor-element), [service](../service-descriptor-element),
+[icebox](../icebox-descriptor-element), and [adapter](../adapter-descriptor-element) elements.
 
 Here is an example to demonstrate the use of this element:
 

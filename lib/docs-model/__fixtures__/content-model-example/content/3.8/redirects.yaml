@@ -4,11 +4,11 @@
 redirects:
   # Legacy Confluence pretty-URL -> new flat URL, per language.
   - pageId: enumerations
-    confluencePageId: "360480"                     # from data/IceDoc/pages/<id>.json
+    confluencePageId: '360480' # from data/IceDoc/pages/<id>.json
     from: /ice/3.8/cpp/Ice-Manual/Enumerations
     to: /ice/3.8/cpp/enumerations
   - pageId: enumerations
-    confluencePageId: "360480"
+    confluencePageId: '360480'
     from: /ice/3.8/python/Ice-Manual/Enumerations
     to: /ice/3.8/python/enumerations
   # A language-neutral landing redirect (no language in the source URL) resolves

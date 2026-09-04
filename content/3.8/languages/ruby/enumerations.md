@@ -5,7 +5,8 @@ language: ruby
 
 {% language-section name="lang-1" %}
 
-A Slice enumeration is emulated using a Ruby class: the name of the Slice enumeration becomes the name of the Ruby class; for each enumerator, the class contains a constant with the same name as the enumerator. For example:
+A Slice enumeration is emulated using a Ruby class: the name of the Slice enumeration becomes the name of the Ruby
+class; for each enumerator, the class contains a constant with the same name as the enumerator. For example:
 
 ```slice
 enum Fruit { Apple, Pear, Orange }
@@ -35,7 +36,9 @@ class Fruit
 end
 ```
 
-The compiler generates a class constant for each enumerator that holds a corresponding instance of `Fruit`. The `from_int` class method returns an instance given its Slice value, while `to_i` returns the Slice value of an enumerator and `to_s` returns its Slice identifier.
+The compiler generates a class constant for each enumerator that holds a corresponding instance of `Fruit`. The
+`from_int` class method returns an instance given its Slice value, while `to_i` returns the Slice value of an enumerator
+and `to_s` returns its Slice identifier.
 
 Given the above definitions, we can use enumerated values as follows:
 
@@ -57,7 +60,9 @@ else
 end
 ```
 
-Comparison operators are available as a result of including `Comparable`, which means a program can compare enumerators according to their Slice values. Note that, when using custom enumerator values, the order of enumerators by their Slice values may not match their order of declaration.
+Comparison operators are available as a result of including `Comparable`, which means a program can compare enumerators
+according to their Slice values. Note that, when using custom enumerator values, the order of enumerators by their Slice
+values may not match their order of declaration.
 
 Suppose we modify the Slice definition to include a custom enumerator value:
 

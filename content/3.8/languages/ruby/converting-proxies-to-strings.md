@@ -14,7 +14,8 @@ greeter = VisitorCenter::GreeterPrx.new(
 s = greeter.ice_toString();
 ```
 
-`ice_toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and object adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
+`ice_toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and
+object adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
 
 {% /language-section %}
 

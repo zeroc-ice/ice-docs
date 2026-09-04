@@ -35,7 +35,8 @@ In this example, `EmployeeMap` maps to a JavaScript `Map` with:
 
 ### **Example: Dictionary with Struct Key**
 
-If the key is a Slice struct, the compiler generates code that uses [Ice.HashMap](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html).
+If the key is a Slice struct, the compiler generates code that uses
+[Ice.HashMap](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html).
 
 ```slice
 dictionary<Employee, string> EmployeeDeptMap;

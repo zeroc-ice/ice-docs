@@ -16,8 +16,8 @@ class Fruit(enum.IntEnum):
     Orange = 2
 ```
 
-Because it derives from `IntEnum`, an enumerator compares equal to its integer
-value. This snippet is pulled from a compilable example:
+Because it derives from `IntEnum`, an enumerator compares equal to its integer value. This snippet is pulled from a
+compilable example:
 
 {% snippet file="examples/python/enumerations.py" name="fruit-usage" /%}
 

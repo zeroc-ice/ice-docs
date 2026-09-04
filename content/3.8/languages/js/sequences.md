@@ -42,6 +42,7 @@ platter.push(Fruit.Pear);
 
 ## Mapping for Byte Sequences
 
-As an optimization, `sequence<byte>` maps to the JavaScript `Uint8Array` type. This representation is more efficient than regular arrays when working with binary data.
+As an optimization, `sequence<byte>` maps to the JavaScript `Uint8Array` type. This representation is more efficient
+than regular arrays when working with binary data.
 
 {% /language-section %}

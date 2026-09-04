@@ -15,13 +15,14 @@ module Example
     const string Advice = "Don't Panic!";
     const short TheAnswer = 42;
     const double PI = 3.1416;
-    
+
     enum Fruit { Apple, Pear, Orange }
     const Fruit FavoriteFruit = Pear;
 }
 ```
 
-For each constant, the JavaScript mapping generates a read-only property with the same name in the JavaScript object corresponding to the enclosing module:
+For each constant, the JavaScript mapping generates a read-only property with the same name in the JavaScript object
+corresponding to the enclosing module:
 
 ```js
 Object.defineProperty(Example, 'AppendByDefault', {value: true});
@@ -43,7 +44,8 @@ const PI:number;
 const FavoriteFruit:Fruit;
 ```
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to JavaScript string literals with universal character names. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to JavaScript string
+literals with universal character names. For example:
 
 ```slice
 const string Egg = "œuf";

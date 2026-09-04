@@ -7,7 +7,8 @@ language: swift
 
 A top-level Slice module maps to a Swift module with the same name as the Slice module.
 
-Keep in mind that a Swift module is a unit of code distribution that you define when your build and organize your code. It’s not a namespace construct like in C++ or C#.
+Keep in mind that a Swift module is a unit of code distribution that you define when your build and organize your code.
+It’s not a namespace construct like in C++ or C#.
 
 Take the `Greeter.ice` Slice file:
 
@@ -61,10 +62,10 @@ This definition maps to the corresponding Swift definitions:
 
 ```swift
 public protocol M2APrx {
-    ... 
+    ...
 }
 
-public protocol BPrx { 
+public protocol BPrx {
     ...
 }
 ```
@@ -73,7 +74,8 @@ There is no mapped Swift module in this case.
 
 ### Custom Mapping
 
-The `swift:identifier` metadata directive allows you to map a top-level module to a Swift module of your choice. For a nested module, `swift:identifier` remaps the prefix. For example:
+The `swift:identifier` metadata directive allows you to map a top-level module to a Swift module of your choice. For a
+nested module, `swift:identifier` remaps the prefix. For example:
 
 ```slice
 // module Time becomes Swift module Clock in cross-module references.
@@ -84,6 +86,7 @@ module Time
 }
 ```
 
-You can only use `swift:identifier` on a module with a simple name - this metadata directive is not compatible with the nested module syntax.
+You can only use `swift:identifier` on a module with a simple name - this metadata directive is not compatible with the
+nested module syntax.
 
 {% /language-section %}

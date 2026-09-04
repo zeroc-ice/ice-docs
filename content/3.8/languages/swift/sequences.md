@@ -17,7 +17,8 @@ The Slice compiler generates the following definition for the `FruitPlatter` seq
 public typealias FruitPlatter = [Fruit]
 ```
 
-As you can see, the sequence simply maps to a standard array, so you can use the sequence like any other array. For example:
+As you can see, the sequence simply maps to a standard array, so you can use the sequence like any other array. For
+example:
 
 ```swift
 // Make a small platter with one Apple and one Orange

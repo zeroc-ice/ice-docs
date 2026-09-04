@@ -54,15 +54,18 @@ public abstract class FavoriteFruit
 }
 ```
 
-As you can see, each Slice constant is mapped to a class with the same name as the constant. The class contains a field named `value` that holds the value of the constant.
+As you can see, each Slice constant is mapped to a class with the same name as the constant. The class contains a field
+named `value` that holds the value of the constant.
 
 {% callout type="info" %}
 
-The mapping to classes instead of to plain constants is necessary because C# does not permit constant definitions at namespace scope.
+The mapping to classes instead of to plain constants is necessary because C# does not permit constant definitions at
+namespace scope.
 
 {% /callout %}
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to C# string literals with universal character names. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to C# string literals
+with universal character names. For example:
 
 ```slice
 const string Egg = "œuf";
@@ -77,12 +80,12 @@ public abstract class Egg
 {
     public const string value = "\u0153uf";
 }
-  
+
 public abstract class Heart
 {
     public const string value = "c\u0153ur";
 }
-  
+
 public abstract class Banana
 {
     public const string value = "\ud83c\udf4c";

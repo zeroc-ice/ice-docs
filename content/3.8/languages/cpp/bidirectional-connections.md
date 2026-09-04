@@ -29,7 +29,7 @@ Server::BidirWakeUpService::wakeMeUp(
         // Unexpected colloc call.
         throw std::invalid_argument{...};
     }
-    
+
     // alarmClock is a fixed proxy.
     auto alarmClock = connection->createProxy<AlarmClockPrx>(
         Ice::stringToIdentity("alarmClock"));

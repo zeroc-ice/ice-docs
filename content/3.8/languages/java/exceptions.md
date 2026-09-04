@@ -5,7 +5,8 @@ language: java
 
 {% language-section name="lang-1" %}
 
-A Slice exception is mapped to a Java class with the same name. This mapping is similar to the mapping of [classes](../java-mapping-for-classes).
+A Slice exception is mapped to a Java class with the same name. This mapping is similar to the mapping of
+[classes](../java-mapping-for-classes).
 
 Consider the following Slice exceptions:
 
@@ -16,7 +17,7 @@ module M
     {
         string reason;
     }
-    
+
     exception BadTimeValException extends GenericException {}
 }
 ```
@@ -30,7 +31,7 @@ public class GenericException extends com.zeroc.Ice.UserException {
     public GenericException() {
         this.reason = "";
     }
-  
+
     public GenericException(String reason) {
         this.reason = reason;
     }
@@ -41,7 +42,7 @@ public class GenericException extends com.zeroc.Ice.UserException {
 public class BadTimeValException extends GenericException {
     public BadTimeValException() {
     }
-  
+
     public BadTimeValException(String reason) {
         super(reason);
     }
@@ -52,14 +53,17 @@ public class BadTimeValException extends GenericException {
 
 There are a number of things to note about this generated code:
 
-1. The generated class `GenericException` inherits from `UserException`. `UserException` is the ultimate ancestor of all mapped exceptions. It’s a checked exception that derives from `java.lang.Exception`.
+1. The generated class `GenericException` inherits from `UserException`. `UserException` is the ultimate ancestor of all
+   mapped exceptions. It’s a checked exception that derives from `java.lang.Exception`.
 2. The generated class contains a public field for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. The generated class provides a canonical constructor and a parameterless constructor; they are identical to the generated constructors for classes. See [Java Mapping for Classes](../java-mapping-for-classes).
+4. The generated class provides a canonical constructor and a parameterless constructor; they are identical to the
+   generated constructors for classes. See [Java Mapping for Classes](../java-mapping-for-classes).
 
 ## Exception Specification
 
-When an Slice operation has an exception specification, the corresponding client-side and server-side methods in Java have an exception specification. This is true for all mapped methods, except the proxy `Async` methods.
+When an Slice operation has an exception specification, the corresponding client-side and server-side methods in Java
+have an exception specification. This is true for all mapped methods, except the proxy `Async` methods.
 
 For example:
 
@@ -67,7 +71,7 @@ For example:
 interface Greeter
 {
     ["amd"]
-    string greet(string name) throws BadNameException, GoneFishingException; 
+    string greet(string name) throws BadNameException, GoneFishingException;
 }
 ```
 
@@ -105,7 +109,8 @@ public interface Greeter extends com.zeroc.Ice.Object {
 
 {% callout type="info" %}
 
-If you remap your exception class name or the name of the enclosing package with `java:identifier` or `java:package`, remember to set a custom [Slice loader](../slice-loaders) in communicators that receive this exception.
+If you remap your exception class name or the name of the enclosing package with `java:identifier` or `java:package`,
+remember to set a custom [Slice loader](../slice-loaders) in communicators that receive this exception.
 
 {% /callout %}
 

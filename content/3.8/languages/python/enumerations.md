@@ -5,7 +5,8 @@ language: python
 
 {% language-section name="lang-1" %}
 
-A Slice enumeration maps to a Python enum.Enum class. The Slice enum name becomes the Python class name, and each enumerator becomes a class attribute with the same name.
+A Slice enumeration maps to a Python enum.Enum class. The Slice enum name becomes the Python class name, and each
+enumerator becomes a class attribute with the same name.
 
 For example:
 
@@ -19,7 +20,7 @@ Generates:
 from enum import Enum
 
 class Fruit(Enum):
-  
+
     Apple = 0
     Pear = 1
     Orange = 2
@@ -45,9 +46,12 @@ False
 'Pear'
 ```
 
-- To get a enumerator from its **value**, use the constructor: `Fruit(0)`. If the value is invalid, Python raises `ValueError`.
-- To get a member from its **name**, use item access: `Fruit['Apple']`. If the name is invalid, Python raises `KeyError`.
+- To get a enumerator from its **value**, use the constructor: `Fruit(0)`. If the value is invalid, Python raises
+  `ValueError`.
+- To get a member from its **name**, use item access: `Fruit['Apple']`. If the name is invalid, Python raises
+  `KeyError`.
 
-For additional details, see the official [Python enum documentation.](https://docs.python.org/3/library/enum.html#enum.Enum)
+For additional details, see the official
+[Python enum documentation.](https://docs.python.org/3/library/enum.html#enum.Enum)
 
 {% /language-section %}

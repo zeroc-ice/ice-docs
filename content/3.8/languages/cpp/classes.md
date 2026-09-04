@@ -9,7 +9,9 @@ language: cpp
 
 # Class Mapping
 
-A Slice class is mapped to a C++ class with the same name. The generated class contains a public data member for each Slice field (just as for [structures](../structures) and [exceptions](../exceptions)). Consider the following class definition:
+A Slice class is mapped to a C++ class with the same name. The generated class contains a public data member for each
+Slice field (just as for [structures](../structures) and [exceptions](../exceptions)). Consider the following class
+definition:
 
 ```slice
 class TimeOfDay
@@ -32,13 +34,13 @@ class TimeOfDay : public Ice::Value
 public:
     TimeOfDay() noexcept = default;
     TimeOfDay(
-        std::int16_t hour, 
-        std::int16_t minute, 
-        std::int16_t second, 
+        std::int16_t hour,
+        std::int16_t minute,
+        std::int16_t second,
         std::string tz) noexcept;
-    
+
     [[nodiscard]] TimeOfDayPtr ice_clone() const;
-    
+
     std::int16_t hour;
     std::int16_t minute;
     std::int16_t second;
@@ -48,7 +50,8 @@ public:
 
 There are a number of things to note about this generated code:
 
-1. The generated class `TimeOfDay` inherits from `Ice::Value`. `Ice::Value` is the ultimate ancestor of all mapped classes.
+1. The generated class `TimeOfDay` inherits from `Ice::Value`. `Ice::Value` is the ultimate ancestor of all mapped
+   classes.
 2. The generated class contains a public data member for each Slice field.
 3. The generated class has a constructor that takes one argument for each data member, as well as a default constructor.
 4. The generated class has a function, `ice_clone`, which returns a shallow polymorphic copy of this class instance.
@@ -57,13 +60,20 @@ There are a number of things to note about this generated code:
 
 Classes have two constructors:
 
-- a default constructor that default-constructs each data member
-  This default constructor is no-op and implemented as `= default`. Members having a complex type, such as strings, sequences, and dictionaries, are initialized by their own default constructor. However, the default constructor performs no initialization for members having one of the simple built-in types boolean, integer, floating point, or enumeration. For such a member, it is not safe to assume that the member has a reasonable default value. This is especially true for enumerated types as the member's default value may be outside the legal range for the enumeration, in which case an exception will occur during marshaling unless the member is explicitly set to a legal value.
-  To ensure that data members of primitive types are initialized to reasonable values, you can declare default values in your [Slice definition](../classes), and the Slice compiler will generate data member initializers for the corresponding C++ data members.
-- a constructor with one parameter for each data member (the *one-shot* constructor)
-  This constructor allows you to construct and initialize a class instance in a single statement.
+- a default constructor that default-constructs each data member This default constructor is no-op and implemented as
+  `= default`. Members having a complex type, such as strings, sequences, and dictionaries, are initialized by their own
+  default constructor. However, the default constructor performs no initialization for members having one of the simple
+  built-in types boolean, integer, floating point, or enumeration. For such a member, it is not safe to assume that the
+  member has a reasonable default value. This is especially true for enumerated types as the member's default value may
+  be outside the legal range for the enumeration, in which case an exception will occur during marshaling unless the
+  member is explicitly set to a legal value. To ensure that data members of primitive types are initialized to
+  reasonable values, you can declare default values in your [Slice definition](../classes), and the Slice compiler will
+  generate data member initializers for the corresponding C++ data members.
+- a constructor with one parameter for each data member (the _one-shot_ constructor) This constructor allows you to
+  construct and initialize a class instance in a single statement.
 
-For derived classes, the one-shot constructor has one parameter for each of the base class's data members, plus one parameter for each of the derived class's data members, in base-to-derived order. For example:
+For derived classes, the one-shot constructor has one parameter for each of the base class's data members, plus one
+parameter for each of the derived class's data members, in base-to-derived order. For example:
 
 ```slice
 class Base 
@@ -94,7 +104,7 @@ public:
     explicit Base(std::int32_t i) noexcept;
 
     [[nodiscard]] BasePtr ice_clone() const;
- 
+
     std::int32_t i;
 };
 
@@ -115,7 +125,8 @@ Note that single-parameter constructors are defined as `explicit`, to prevent im
 
 ## Printing Classes
 
-You can print any class instance by calling `ice_print` on this instance. `ice_print` is defined on `Ice::Value`. Alternatively, you can print a shared pointer to a class instance (for example, a `TimeOfDayPtr`) with `operator<<`:
+You can print any class instance by calling `ice_print` on this instance. `ice_print` is defined on `Ice::Value`.
+Alternatively, you can print a shared pointer to a class instance (for example, a `TimeOfDayPtr`) with `operator<<`:
 
 ```cpp
 TimeOfDayPtr breakTime = ...;
@@ -124,13 +135,15 @@ cout << "Taking a break at " << breakTime << endl;
 
 `operator<<` just calls `Value::ice_print` when the shared pointer is not null.
 
-You can use the metadata directive `”cpp:custom-print”` to tell the Slice compiler that you want to use your own custom print implementation. For example:
+You can use the metadata directive `”cpp:custom-print”` to tell the Slice compiler that you want to use your own custom
+print implementation. For example:
 
 ```
 ["cpp:custom-print"]
 class TimeOfDay { ... }
 ```
 
-The Slice compiler then generates an `ice_print` override declaration in the mapped C++ class, and you are responsible to implement this member function.
+The Slice compiler then generates an `ice_print` override declaration in the mapped C++ class, and you are responsible
+to implement this member function.
 
 {% /language-section %}

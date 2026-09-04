@@ -16,7 +16,7 @@ public class LoggerPlugin : Plugin
     {
        ...
     }
-    
+
     public void initialize()
     {
     }
@@ -29,7 +29,8 @@ public class LoggerPlugin : Plugin
 
 The implementation of `initialize` and `destroy` in `LoggerPlugin` are no-op.
 
-Now, assuming you wrote a `CustomLogger` class that implements `Ice.Logger`, you can easily create a plug-in factory that creates a `LoggerPlugin` and installs your logger into the communicator:
+Now, assuming you wrote a `CustomLogger` class that implements `Ice.Logger`, you can easily create a plug-in factory
+that creates a `LoggerPlugin` and installs your logger into the communicator:
 
 ```csharp
 namespace ClearSky;
@@ -39,14 +40,15 @@ public class CustomLoggerPluginFactory : Ice.PluginFactory
     public string pluginName => "CustomLogger";
 
     public Ice.Plugin create(
-        Ice.Communicator communicator, 
+        Ice.Communicator communicator,
         string name,
         string[] args) =>
         new Ice.LoggerPlugin(communicator, new CustomLogger());
 }
 ```
 
-Then, package your `CustomLogger` implementation and `CustomLoggerPluginFactory` in a .NET assembly, and configure your communicator to load it at runtime. For example:
+Then, package your `CustomLogger` implementation and `CustomLoggerPluginFactory` in a .NET assembly, and configure your
+communicator to load it at runtime. For example:
 
 ```
 Ice.Plugin.CustomLogger=CustomLogger.dll:ClearSky.CustomLoggerPluginFactory
@@ -54,7 +56,9 @@ Ice.Plugin.CustomLogger=CustomLogger.dll:ClearSky.CustomLoggerPluginFactory
 
 {% callout type="info" %}
 
-Even though you didn’t implement the plug-in class (`Ice.LoggerPlugin`), you are in effect creating a new plug-in since you choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in factory and the plug-in itself.
+Even though you didn’t implement the plug-in class (`Ice.LoggerPlugin`), you are in effect creating a new plug-in since
+you choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in
+factory and the plug-in itself.
 
 {% /callout %}
 

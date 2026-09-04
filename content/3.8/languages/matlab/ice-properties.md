@@ -37,7 +37,8 @@ language: matlab
 
 #### Description
 
-When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed Slice loader resolutions.
+When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
+Slice loader resolutions.
 
 The default value is 100.
 

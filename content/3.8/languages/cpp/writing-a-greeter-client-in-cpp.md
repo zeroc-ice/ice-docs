@@ -5,13 +5,18 @@ title: Writing a Greeter Client in C++
 
 This page provides a step-by-step guide to writing the client-side of our C++ Greeter application.
 
-This client creates a proxy to a remote object that implements the `Greeter` interface and invokes the `greet` operation on this object.
+This client creates a proxy to a remote object that implements the `Greeter` interface and invokes the `greet` operation
+on this object.
 
-You can find the complete source code for this example in the [ice-demos repository](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Ice/greeter). The code below is lightly simplified: it leaves out the demo’s error-reporting helper, and it passes fixed names to `greet` where the demo passes the name of the logged-in user.
+You can find the complete source code for this example in the
+[ice-demos repository](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Ice/greeter). The code below is lightly
+simplified: it leaves out the demo’s error-reporting helper, and it passes fixed names to `greet` where the demo passes
+the name of the logged-in user.
 
 ## Compile Slice File with Slice Compiler
 
-The first step when writing a C++ application with Ice is to compile the Slice definitions for this application with the Slice to C++ compiler (`slice2cpp`).
+The first step when writing a C++ application with Ice is to compile the Slice definitions for this application with the
+Slice to C++ compiler (`slice2cpp`).
 
 Here, we compile the `Greeter.ice` Slice file we wrote earlier:
 
@@ -19,13 +24,17 @@ Here, we compile the `Greeter.ice` Slice file we wrote earlier:
 slice2cpp Greeter.ice
 ```
 
-This produces two files: a header file, `Greeter.h`, and a C++ source file, `Greeter.cpp`. The header file provides the `GreeterPrx` class we instantiate in the code below, and `Greeter.cpp` is compiled into the client like any other source file. See [Using the Slice Compiler](../using-the-slice-compiler) for the options `slice2cpp` accepts.
+This produces two files: a header file, `Greeter.h`, and a C++ source file, `Greeter.cpp`. The header file provides the
+`GreeterPrx` class we instantiate in the code below, and `Greeter.cpp` is compiled into the client like any other source
+file. See [Using the Slice Compiler](../using-the-slice-compiler) for the options `slice2cpp` accepts.
 
-In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your build project, like we demonstrate for the C++ demo programs.
+In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your
+build project, like we demonstrate for the C++ demo programs.
 
 {% callout type="info" %}
 
-You can easily integrate Slice compilation with most build projects. The C++ demo programs use [CMake](https://cmake.org/).
+You can easily integrate Slice compilation with most build projects. The C++ demo programs use
+[CMake](https://cmake.org/).
 
 {% /callout %}
 
@@ -55,7 +64,8 @@ Before anything else, we need to include a few header files:
 - `Ice/Ice.h`: This header provides definitions that are necessary for accessing the Ice runtime.
 - `future`, `iostream`: Standard library headers we use in this client.
 
-Then we get to the interesting part: the `main` function which will run the client logic. This logic can be broken down into four pieces:
+Then we get to the interesting part: the `main` function which will run the client logic. This logic can be broken down
+into four pieces:
 
 ### 1. Create a Communicator
 
@@ -75,11 +85,16 @@ using CommunicatorPtr = std::shared_ptr<Communicator>;
 
 {% /callout %}
 
-The communicator is the main entry point into the Ice runtime. Its responsibilities include establishing connections to servers, caching these connections, and managing configuration properties. We also need a communicator to create a proxy (see next step).
+The communicator is the main entry point into the Ice runtime. Its responsibilities include establishing connections to
+servers, caching these connections, and managing configuration properties. We also need a communicator to create a proxy
+(see next step).
 
 Our client, like most Ice applications, creates a single communicator.
 
-When we no longer need a communicator, we must call `destroy` on this communicator. This destruction closes network connections and performs other important cleanups. An easy way to do this is by placing the communicator in a [CommunicatorHolder](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1CommunicatorHolder.html). When the holder goes out of scope, its destructor calls `destroy` on the communicator:
+When we no longer need a communicator, we must call `destroy` on this communicator. This destruction closes network
+connections and performs other important cleanups. An easy way to do this is by placing the communicator in a
+[CommunicatorHolder](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1CommunicatorHolder.html). When the holder goes
+out of scope, its destructor calls `destroy` on the communicator:
 
 ```cpp
 Ice::CommunicatorHolder communicatorHolder{communicator};
@@ -87,7 +102,8 @@ Ice::CommunicatorHolder communicatorHolder{communicator};
 
 ### 2. Create a Greeter Proxy
 
-Next, we need a way to call on a remote `Greeter` object. In Ice, this is done with *proxies*. Proxies are local constructs that represent remote Ice objects and provide functions to call operations on those objects.
+Next, we need a way to call on a remote `Greeter` object. In Ice, this is done with _proxies_. Proxies are local
+constructs that represent remote Ice objects and provide functions to call operations on those objects.
 
 We create a `Greeter` proxy by constructing an instance of the `GreeterPrx` class generated by the Slice compiler:
 
@@ -95,11 +111,14 @@ We create a `Greeter` proxy by constructing an instance of the `GreeterPrx` clas
 VisitorCenter::GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 ```
 
-The constructor accepts our communicator and a “stringified proxy” with the address of the remote Ice object. Here, our stringified proxy says that the target Ice object is named `greeter` and can be reached via `tcp` on `localhost` on port `4061`. If you run the server on another computer, replace `localhost` with that computer’s hostname or IP address.
+The constructor accepts our communicator and a “stringified proxy” with the address of the remote Ice object. Here, our
+stringified proxy says that the target Ice object is named `greeter` and can be reached via `tcp` on `localhost` on port
+`4061`. If you run the server on another computer, replace `localhost` with that computer’s hostname or IP address.
 
 {% callout type="info" %}
 
-The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
+The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
+hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
 
 {% /callout %}
 
@@ -112,17 +131,23 @@ string greeting = greeter.greet("alice");
 cout << greeting << endl;
 ```
 
-The `greet` function does all the heavy lifting for us: the proxy creates a request with the `name` string, the communicator establishes a connection to `localhost:4061`, and the request is sent over it. When a response is received, the proxy will unmarshal its payload and finally return a string (the greeting).
+The `greet` function does all the heavy lifting for us: the proxy creates a request with the `name` string, the
+communicator establishes a connection to `localhost:4061`, and the request is sent over it. When a response is received,
+the proxy will unmarshal its payload and finally return a string (the greeting).
 
 {% callout type="info" %}
 
-A proxy is a value, not a pointer, but `GreeterPrx` also provides `operator->`: `greeter.greet("alice")` and `greeter->greet("alice")` are equivalent. The demo source uses the `->` syntax.
+A proxy is a value, not a pointer, but `GreeterPrx` also provides `operator->`: `greeter.greet("alice")` and
+`greeter->greet("alice")` are equivalent. The demo source uses the `->` syntax.
 
 {% /callout %}
 
-Here, we called the *synchronous* version of `greet`, which means this function call will block until the response is received. And don’t let the simplicity of the syntax fool you: this is a remote call which will be much slower than a local call!
+Here, we called the _synchronous_ version of `greet`, which means this function call will block until the response is
+received. And don’t let the simplicity of the syntax fool you: this is a remote call which will be much slower than a
+local call!
 
-You can instead call `greet` *asynchronously*, with one of the two `greetAsync` overloads on the generated `GreeterPrx` class. The simpler overload returns a `future`:
+You can instead call `greet` _asynchronously_, with one of the two `greetAsync` overloads on the generated `GreeterPrx`
+class. The simpler overload returns a `future`:
 
 ```cpp
 future<string> futureGreeting = greeter.greetAsync("bob"); // Send the request.
@@ -132,9 +157,11 @@ greeting = futureGreeting.get();
 cout << greeting << endl;
 ```
 
-`greetAsync` returns as soon as the request is sent, so the client can do other work before it needs the greeting. Calling `get` on the future then blocks until the response arrives.
+`greetAsync` returns as soon as the request is sent, so the client can do other work before it needs the greeting.
+Calling `get` on the future then blocks until the response arrives.
 
-The other overload accepts callback functions instead of returning a future. The communicator calls these callbacks when it receives the response, or when it delivers an exception:
+The other overload accepts callback functions instead of returning a future. The communicator calls these callbacks when
+it receives the response, or when it delivers an exception:
 
 ```cpp
 promise<void> promise;
@@ -152,13 +179,18 @@ greeter.greetAsync(
 promise.get_future().get();
 ```
 
-The callback overload is more flexible: you decide what runs when the response arrives, whereas a `std::future` gives you nowhere to attach a continuation, so the only thing you can do with it is wait. That flexibility costs you a fair amount of extra code, as you can see above.
+The callback overload is more flexible: you decide what runs when the response arrives, whereas a `std::future` gives
+you nowhere to attach a continuation, so the only thing you can do with it is wait. That flexibility costs you a fair
+amount of extra code, as you can see above.
 
-Asynchronous invocations are more semantically correct for remote calls, and they alert readers to the potential delays inherent to these calls. In C++ though, they’re significantly more complicated to write, so the best invocation syntax depends on your situation.
+Asynchronous invocations are more semantically correct for remote calls, and they alert readers to the potential delays
+inherent to these calls. In C++ though, they’re significantly more complicated to write, so the best invocation syntax
+depends on your situation.
 
 ### 4. Cleanup
 
-The final step is the end of our main function. At this point, the `CommunicatorHolder` calls `destroy` on the communicator, and then our application exits.
+The final step is the end of our main function. At this point, the `CommunicatorHolder` calls `destroy` on the
+communicator, and then our application exits.
 
 ```cpp
 return 0;
@@ -166,7 +198,9 @@ return 0;
 
 ## Running the Client
 
-After building the client (see the demo’s [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/cpp/Ice/greeter/README.md) for instructions), running it is as simple as running any other executable:
+After building the client (see the demo’s
+[README](https://github.com/zeroc-ice/ice-demos/blob/3.8/cpp/Ice/greeter/README.md) for instructions), running it is as
+simple as running any other executable:
 
 {% callout type="info" %}
 
@@ -194,4 +228,6 @@ Hello, bob!
 Hello, carol!
 ```
 
-Our client doesn’t catch exceptions, to keep it short. If you run it without a server, the `greet` call fails with `Ice::ConnectionRefusedException` and the process terminates on an unhandled exception. A real client would catch `Ice::LocalException` around its invocations.
+Our client doesn’t catch exceptions, to keep it short. If you run it without a server, the `greet` call fails with
+`Ice::ConnectionRefusedException` and the process terminates on an unhandled exception. A real client would catch
+`Ice::LocalException` around its invocations.

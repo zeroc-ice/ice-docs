@@ -5,7 +5,8 @@ language: cpp
 
 {% language-section name="lang-1" %}
 
-When you write a client, you should install `IceLocatorDiscovery` in your communicator using the `pluginFactories` field of `InitializationData`:
+When you write a client, you should install `IceLocatorDiscovery` in your communicator using the `pluginFactories` field
+of `InitializationData`:
 
 ```cpp
 #include <IceLocatorDiscovery/IceLocatorDiscovery.h>
@@ -25,7 +26,8 @@ Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 
 The IceLocatorDiscovery library is always included in or linked with the Ice C++ support library you’re using.
 
-In order to load the IceLocatorDiscovery plug-in into your communicator, set the property `Ice.Plugin.IceLocatorDiscovery` to `1`:
+In order to load the IceLocatorDiscovery plug-in into your communicator, set the property
+`Ice.Plugin.IceLocatorDiscovery` to `1`:
 
 ```
 Ice.Plugin.IceLocatorDiscovery=1

@@ -23,9 +23,12 @@ module VisitorCenter
 
 {% callout type="info" %}
 
-In addition to our operation, you’ll notice we also added some [*metadata*](../slice-metadata-directives). Metadata allows you to customize the language mapping for your Slice in various ways. Here we use the `cs:identifier` metadata to change the mapped name of this operation to `Greet` for C#.
+In addition to our operation, you’ll notice we also added some [_metadata_](../slice-metadata-directives). Metadata
+allows you to customize the language mapping for your Slice in various ways. Here we use the `cs:identifier` metadata to
+change the mapped name of this operation to `Greet` for C#.
 
-Without this, our operation would be named `greet` (camelCase), which goes against the convention of using PascalCase for method names in C#.
+Without this, our operation would be named `greet` (camelCase), which goes against the convention of using PascalCase
+for method names in C#.
 
 {% /callout %}
 

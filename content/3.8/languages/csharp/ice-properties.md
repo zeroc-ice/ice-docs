@@ -17,13 +17,17 @@ language: csharp
 
 #### Description
 
-If `num` is a value greater than 0, the proxies cache message buffers for future reuse. This can improve performance and reduce the amount of garbage produced by Ice internals that the garbage collector would eventually spend time to reclaim. However, for applications that exchange very large messages, this cache may consume excessive amounts of memory and therefore should be disabled by setting this property to 0.
+If `num` is a value greater than 0, the proxies cache message buffers for future reuse. This can improve performance and
+reduce the amount of garbage produced by Ice internals that the garbage collector would eventually spend time to
+reclaim. However, for applications that exchange very large messages, this cache may consume excessive amounts of memory
+and therefore should be disabled by setting this property to 0.
 
 The default value is 2.
 
 {% callout type="info" %}
 
-This property only affects the caching of message buffers for invocations. The Ice runtime never caches message buffers for dispatches.
+This property only affects the caching of message buffers for invocations. The Ice runtime never caches message buffers
+for dispatches.
 
 {% /callout %}
 
@@ -39,7 +43,10 @@ This property only affects the caching of message buffers for invocations. The I
 
 #### Description
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a significant improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
+for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
+that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
+significant improvement over lower levels. If not specified, the default value is `1`.
 
 # Ice.ConfigIce.Config
 
@@ -52,13 +59,19 @@ Ice.Config=1
 
 #### Description
 
-This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or `--Ice.Config=config_file`.
+This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
+`--Ice.Config=config_file`.
 
-If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the [ICE_CONFIG](../using-configuration-files) environment variable to retrieve the path names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of the configuration files listed.
+If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the
+[ICE_CONFIG](../using-configuration-files) environment variable to retrieve the path names of one or more configuration
+files. Otherwise, `Ice.Config` must be set to the path names of one or more configuration files, separated by commas
+(path names can be relative or absolute). Property values are read from each of the configuration files listed.
 
-In Java, Ice first attempts to open a configuration file as a [class loader resource](../alternate-property-stores). If that attempt fails, Ice opens the configuration file in the local file system.
+In Java, Ice first attempts to open a configuration file as a [class loader resource](../alternate-property-stores). If
+that attempt fails, Ice opens the configuration file in the local file system.
 
-Configuration files use a simple [syntax](../configuration-file-syntax) consisting of *name*=*value* pairs with support for comments and escaping.
+Configuration files use a simple [syntax](../configuration-file-syntax) consisting of _name_=_value_ pairs with support
+for comments and escaping.
 
 # Ice.ConsoleListener
 
@@ -68,7 +81,9 @@ Configuration files use a simple [syntax](../configuration-file-syntax) consisti
 
 #### Description
 
-If `num` is non-0, the Ice runtime installs a `ConsoleTraceListener` that writes its messages to `stderr`. If `num` is 0, logging is disabled. Note that the setting of [Ice.LogFile](../ice-properties#ice.logfile) overrides this property: if `Ice.LogFile` is set, messages are written to the log file regardless of the setting of `Ice.ConsoleListener`.
+If `num` is non-0, the Ice runtime installs a `ConsoleTraceListener` that writes its messages to `stderr`. If `num` is
+0, logging is disabled. Note that the setting of [Ice.LogFile](../ice-properties#ice.logfile) overrides this property:
+if `Ice.LogFile` is set, messages are written to the log file regardless of the setting of `Ice.ConsoleListener`.
 
 {% /language-section %}
 
@@ -82,7 +97,8 @@ If `num` is non-0, the Ice runtime installs a `ConsoleTraceListener` that writes
 
 #### Description
 
-Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP proxy server for all outgoing (client) connections.
+Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP
+proxy server for all outgoing (client) connections.
 
 # Ice.HTTPProxyPort
 
@@ -106,7 +122,11 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 #### Description
 
-If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. The order in which plug-ins are loaded and initialized is determined by Ice.PluginLoadOrder. An application may need to set this property to zero in order to interact directly with a plug-in after it has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization process. If not defined, the default value is 1.
+If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. The order
+in which plug-ins are loaded and initialized is determined by Ice.PluginLoadOrder. An application may need to set this
+property to zero in order to interact directly with a plug-in after it has been loaded but before it is initialized. In
+this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization
+process. If not defined, the default value is 1.
 
 # Ice.IPv4Ice.IPv4
 
@@ -116,7 +136,8 @@ If `num` is a value greater than zero, the Ice runtime automatically initializes
 
 #### Description
 
-Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default value is 1.
+Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
+value is 1.
 
 # Ice.IPv6Ice.IPv6
 
@@ -126,9 +147,11 @@ Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is 
 
 #### Description
 
-Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
+Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
+value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
-Java's default network stack always accepts both IPv4 and IPv6 connections regardless of the settings of `Ice.IPv6`. You can configure the Java runtime to use only IPv4 by starting your application with the following JVM option:
+Java's default network stack always accepts both IPv4 and IPv6 connections regardless of the settings of `Ice.IPv6`. You
+can configure the Java runtime to use only IPv4 by starting your application with the following JVM option:
 
 ```shell
 java -Djava.net.preferIPv4Stack=true ...
@@ -146,11 +169,19 @@ java -Djava.net.preferIPv4Stack=true ...
 
 #### Description
 
-This property controls the maximum size (in kilobytes) of an uncompressed protocol message that is accepted by a connection created by this Ice communicator. The size includes the size of the Ice protocol header. The default size is `1024` (`1` megabyte).
+This property controls the maximum size (in kilobytes) of an uncompressed protocol message that is accepted by a
+connection created by this Ice communicator. The size includes the size of the Ice protocol header. The default size is
+`1024` (`1` megabyte).
 
-The only purpose of this property is to prevent a malicious or defective sender from triggering a large memory allocation in a receiver. If this is not a concern, you can set `Ice.MessageSizeMax` to 0; setting this property to 0 (or to a negative number) disables the message size limit altogether.
+The only purpose of this property is to prevent a malicious or defective sender from triggering a large memory
+allocation in a receiver. If this is not a concern, you can set `Ice.MessageSizeMax` to 0; setting this property to 0
+(or to a negative number) disables the message size limit altogether.
 
-If the Ice connection receives an incoming message whose size exceeds the receiver's setting for `Ice.MessageSizeMax`, it throws a `MemoryLimitException` and closes the connection. For example, when a client receives an oversized reply message, the result of its invocation is a `MemoryLimitException`. When a server receives an oversized request message, the client receives a `ConnectionLostException` (because the server closed the connection) and the server logs a message if [Ice.Warn.Connections](../ice-warn-properties) is set.
+If the Ice connection receives an incoming message whose size exceeds the receiver's setting for `Ice.MessageSizeMax`,
+it throws a `MemoryLimitException` and closes the connection. For example, when a client receives an oversized reply
+message, the result of its invocation is a `MemoryLimitException`. When a server receives an oversized request message,
+the client receives a `ConnectionLostException` (because the server closed the connection) and the server logs a message
+if [Ice.Warn.Connections](../ice-warn-properties) is set.
 
 See also [adapter.MessageSizeMax](../object-adapter-properties).
 
@@ -162,9 +193,12 @@ See also [adapter.MessageSizeMax](../object-adapter-properties).
 
 #### Description
 
-Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
+Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
+context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
+by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
 
-Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are not affected by this property.
+Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
+not affected by this property.
 
 # Ice.PreferIPv6AddressIce.PreferIPv6Address
 
@@ -174,7 +208,9 @@ Plug-ins installed using `InitializationData::pluginFactories` are always create
 
 #### Description
 
-If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default value is 0.
+If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
+resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
+value is 0.
 
 # Ice.PreloadAssemblies
 
@@ -184,7 +220,9 @@ If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers I
 
 #### Description
 
-If `num` is set to a value larger than 0, the Ice runtime will try to load all the assemblies referenced by the process during communicator initialization, otherwise the referenced assemblies will be initialized lazily. The default value is 0.
+If `num` is set to a value larger than 0, the Ice runtime will try to load all the assemblies referenced by the process
+during communicator initialization, otherwise the referenced assemblies will be initialized lazily. The default value
+is 0.
 
 # Ice.PrintAdapterReady
 
@@ -194,7 +232,8 @@ If `num` is set to a value larger than 0, the Ice runtime will try to load all t
 
 #### Description
 
-If `num` is set to a value larger than 0, an object adapter prints "*adapter_name* ready" on standard output after activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
+If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
+activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
 
 # Ice.PrintProcessId
 
@@ -218,13 +257,20 @@ If `num` is set to a value larger than 0, the process ID is printed on standard 
 
 #### Description
 
-If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some task, like dispatching a request.
+If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
+pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
+task, like dispatching a request.
 
-This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that the server will not shut down automatically. This property is often used for servers that are automatically [activated by IceGrid](../icegrid-server-activation).
+This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
+return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
+the server will not shut down automatically. This property is often used for servers that are automatically
+[activated by IceGrid](../icegrid-server-activation).
 
 {% callout type="info" %}
 
-For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool idle threads have been reaped (the thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
+For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool
+idle threads have been reaped (the thread idle time can be configured with the
+[ThreadIdleTime](../ice-threadpool-properties) thread pool property.
 
 {% /callout %}
 
@@ -236,7 +282,8 @@ For C# applications and Windows C++ applications, the server idle time takes eff
 
 #### Description
 
-Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS proxy server for all outgoing (client) connections.
+Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
+proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
 
@@ -262,7 +309,8 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 
 #### Description
 
-If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This property is checked only for the first communicator that is created in a process.
+If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
+property is checked only for the first communicator that is created in a process.
 
 # Ice.StdOut
 
@@ -272,7 +320,8 @@ If `filename` is not empty, the standard error stream of this process is redirec
 
 #### Description
 
-If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This property is checked only for the first communicator created in a process.
+If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
+property is checked only for the first communicator created in a process.
 
 # Ice.ThreadPriorityIce.ThreadPriority
 
@@ -282,7 +331,9 @@ If `filename` is not empty, the standard output stream of this process is redire
 
 #### Description
 
-`value` specifies a thread priority. Threads created by the Ice runtime are created with the specified priority by default. Leaving this property unset causes the runtime to create threads with the system default priority. This property is unset by default.
+`value` specifies a thread priority. Threads created by the Ice runtime are created with the specified priority by
+default. Leaving this property unset causes the runtime to create threads with the system default priority. This
+property is unset by default.
 
 #### C\#
 
@@ -292,7 +343,9 @@ If `filename` is not empty, the standard output stream of this process is redire
 
 `value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
 
-You can separately override the default priorities for the client and server thread pools using [Ice.ThreadPool.*name*.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a specific object adapter using [*adapter*.ThreadPool.ThreadPriority](../object-adapter-properties).
+You can separately override the default priorities for the client and server thread pools using
+[Ice.ThreadPool._name_.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a
+specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
 
 {% /language-section %}
 

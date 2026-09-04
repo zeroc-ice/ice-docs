@@ -3,7 +3,8 @@ id: live-deployment-tab
 title: Live Deployment Tab
 ---
 
-The Live Deployment tab shows the runtime status and configuration of an existing IceGrid deployment, and allows you to perform various administrative tasks on this deployment, such as:
+The Live Deployment tab shows the runtime status and configuration of an existing IceGrid deployment, and allows you to
+perform various administrative tasks on this deployment, such as:
 
 - start or stop a server
 - retrieve metrics associated with a server

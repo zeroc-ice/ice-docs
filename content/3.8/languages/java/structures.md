@@ -5,7 +5,8 @@ language: java
 
 {% language-section name="lang-1" %}
 
-A Slice structure maps to a Java class with the same name. For each Slice field, the Java class contains a corresponding public field. For example, here is our Employee structure once more:
+A Slice structure maps to a Java class with the same name. For each Slice field, the Java class contains a corresponding
+public field. For example, here is our Employee structure once more:
 
 ```slice
 struct Employee
@@ -40,7 +41,7 @@ public final class Employee implements java.lang.Cloneable, java.io.Serializable
     
     @Override
     public int hashCode() ...
-    
+
     @Override
     public Employee clone() ...
 }
@@ -48,7 +49,8 @@ public final class Employee implements java.lang.Cloneable, java.io.Serializable
 
 You can optionally customize the mapping for [fields](../fields) to use getters and setters instead.
 
-The `equals` method compares two structures for equality. Note that the generated class also provides the usual `hashCode` and `clone` methods. (`clone` has the default behavior of making a shallow copy.)
+The `equals` method compares two structures for equality. Note that the generated class also provides the usual
+`hashCode` and `clone` methods. (`clone` has the default behavior of making a shallow copy.)
 
 ## Generated Constructors
 

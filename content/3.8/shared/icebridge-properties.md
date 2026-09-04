@@ -13,11 +13,12 @@ title: IceBridge.*
 
 #### Description
 
-Specifies a default identity category for IceBridge objects. If defined, the identity of the IceBridge router interface becomes `name/router`.
+Specifies a default identity category for IceBridge objects. If defined, the identity of the IceBridge router interface
+becomes `name/router`.
 
 If not defined, the default value is `IceBridge`.
 
-# IceBridge.Source.*AdapterProperty*
+# IceBridge.Source._AdapterProperty_
 
 #### Synopsis
 
@@ -25,7 +26,9 @@ If not defined, the default value is `IceBridge`.
 
 #### Description
 
-IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter. The only required adapter property is `IceBridge.Source.Endpoints`.
+IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. Therefore,
+[adapter properties](../object-adapter-properties) can be used to configure this adapter. The only required adapter
+property is `IceBridge.Source.Endpoints`.
 
 This adapter must be accessible to IceBridge clients.
 
@@ -37,4 +40,6 @@ This adapter must be accessible to IceBridge clients.
 
 #### Description
 
-This property specifies the [endpoints](../endpoint-syntax) of the target server. For each new connection that a client establishes to an endpoint in `IceBridge.Source.Endpoints`, IceBridge will create a matching outgoing connection to a target endpoint.
+This property specifies the [endpoints](../endpoint-syntax) of the target server. For each new connection that a client
+establishes to an endpoint in `IceBridge.Source.Endpoints`, IceBridge will create a matching outgoing connection to a
+target endpoint.

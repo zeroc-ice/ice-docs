@@ -9,7 +9,8 @@ language: matlab
 
 # Class Mapping
 
-A Slice class is mapped to a MATLAB class with the same name. The generated class contains a public property for each Slice field (just as for structures and exceptions).
+A Slice class is mapped to a MATLAB class with the same name. The generated class contains a public property for each
+Slice field (just as for structures and exceptions).
 
 Consider the following class definition:
 
@@ -54,13 +55,17 @@ end
 
 There are several things to note about the generated code:
 
-1. The generated class `TimeOfDay` inherits from `Ice.Value`. This means that all classes implicitly inherit from `Value`, which is the ultimate ancestor of all classes.
+1. The generated class `TimeOfDay` inherits from `Ice.Value`. This means that all classes implicitly inherit from
+   `Value`, which is the ultimate ancestor of all classes.
 2. The generated class contains a public property for each Slice field.
 3. The generated class has a constructor that takes one argument for each field.
 
 ## Generator Constructor
 
-If a Slice class declares or inherits any field, the generated constructor accepts one parameter for each property so that you can construct and initialize an instance in a single statement (instead of first having to construct the instance and then assign to its properties). For a derived class, the constructor accepts one argument for each base class property, plus one argument for each derived class property, in base-to-derived order.
+If a Slice class declares or inherits any field, the generated constructor accepts one parameter for each property so
+that you can construct and initialize an instance in a single statement (instead of first having to construct the
+instance and then assign to its properties). For a derived class, the constructor accepts one argument for each base
+class property, plus one argument for each derived class property, in base-to-derived order.
 
 You must either call the constructor with no arguments or with arguments for all of the parameters.
 

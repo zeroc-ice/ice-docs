@@ -16,6 +16,7 @@ $communicator = Ice\initialize();
 ?>
 ```
 
-In PHP, unlike other languages, you do not need to destroy the communicator: the Ice PHP extension automatically destroys the communicator created during a request.
+In PHP, unlike other languages, you do not need to destroy the communicator: the Ice PHP extension automatically
+destroys the communicator created during a request.
 
 {% /language-section %}

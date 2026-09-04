@@ -58,9 +58,11 @@ classdef FavoriteFruit
 end
 ```
 
-As you can see, each Slice constant is mapped to a MATLAB class with the same name as the constant. The class contains a constant property named `value` that holds the value of the constant.
+As you can see, each Slice constant is mapped to a MATLAB class with the same name as the constant. The class contains a
+constant property named `value` that holds the value of the constant.
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to MATLAB string literals with UTF-16 character codes. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to MATLAB string
+literals with UTF-16 character codes. For example:
 
 ```slice
 const string Egg = "œuf";

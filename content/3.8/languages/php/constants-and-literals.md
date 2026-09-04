@@ -35,7 +35,8 @@ namespace M
 }
 ```
 
-Slice string literals that contain non-ASCII characters or universal character names are mapped to PHP string literals with these characters replaced by their UTF-8 encoding as octal escapes. For example:
+Slice string literals that contain non-ASCII characters or universal character names are mapped to PHP string literals
+with these characters replaced by their UTF-8 encoding as octal escapes. For example:
 
 ```slice
 module M
