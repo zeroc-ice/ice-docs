@@ -19,7 +19,7 @@ permissions:
 
 env:
   IMAGE: ghcr.io/zeroc-ice/ice-docs
-  SITE_URL: https://dev.docs.zeroc.com/ice
+  SITE_URL: https://dev.docs.zeroc.com
   SITE_NOINDEX: '1'
 
 jobs:
