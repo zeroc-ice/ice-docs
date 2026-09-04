@@ -2,7 +2,7 @@
 
 import { nodes, type NodeType, type Schema } from '@markdoc/markdoc';
 
-// Markdoc's own `em` and `strong` schemas list the inline nodes they may
+// Markdoc's own `em`, `strong` and `s` schemas list the inline nodes they may
 // contain and leave out the line break, so an emphasized phrase that Prettier
 // wraps at 120 columns fails validation with "Can't nest 'softbreak' in 'em'".
 // A line break inside emphasis renders as a space, like anywhere else in a
@@ -17,4 +17,9 @@ export const em: Schema = {
 export const strong: Schema = {
   ...nodes.strong,
   children: [...(nodes.strong.children ?? []), ...breaks]
+};
+
+export const s: Schema = {
+  ...nodes.s,
+  children: [...(nodes.s.children ?? []), ...breaks]
 };

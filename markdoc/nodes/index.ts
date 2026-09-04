@@ -2,7 +2,7 @@
 
 export { default as fence } from './fence.markdoc.ts';
 export { default as document } from './document.markdoc.ts';
-export { em, strong } from './emphasis.markdoc.ts';
+export { em, s, strong } from './emphasis.markdoc.ts';
 export { default as heading } from './heading.markdoc.ts';
 export { default as list } from './list.markdown.ts';
 export { default as link } from './link.markdoc.ts';
