@@ -252,6 +252,17 @@ proxy class provides one function. {% /iflang %}
   );
 });
 
+test('an inline closer after a link stays with the link', async () => {
+  const source = `Intro sentence that runs on. {% iflang langs="cpp" %}See the [docs](../docs) {% /iflang %}
+`;
+  assert.equal(
+    await format(source),
+    `Intro sentence that runs on. {% iflang langs="cpp" %}See the
+[docs](../docs) {% /iflang %}
+`
+  );
+});
+
 test('a tag indented less than the item content ends the list', async () => {
   const source = `1. first
  {% callout %}
