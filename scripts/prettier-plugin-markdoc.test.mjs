@@ -111,6 +111,24 @@ test('a tag inside a list item gets its own lines', async () => {
   );
 });
 
+test('a fence opened on a list marker line is tracked', async () => {
+  const source = `- \`\`\`markdown
+  {% callout %}
+  Text
+  {% /callout %}
+  \`\`\`
+`;
+  assert.equal(await format(source), source);
+});
+
+test('a fence inside a block quote is tracked', async () => {
+  const source = `> \`\`\`markdown
+> {% callout %}
+> \`\`\`
+`;
+  assert.equal(await format(source), source);
+});
+
 test('separated input is unchanged', async () => {
   const source = `Before.
 

@@ -29,13 +29,18 @@ const base = markdown.parsers.markdown;
 // looks like. (A tag indented that deep inside a list item is left alone too;
 // `check:markdoc` catches it if Prettier then reflows it.)
 const TAG_LINE = /^ {0,3}\{%(?:(?!%\}).)*%\}[ \t]*$/;
-const FENCE_OPEN = /^\s*(`{3,}|~{3,})/;
+// A fence may open on a list item's or block quote's first line, after its
+// marker (`- \`\`\`js`, `> \`\`\`js`), and close the same way.
+const CONTAINERS = String.raw`(?:[ \t]*(?:[-*+]|\d{1,9}[.)])[ \t]+|[ \t]*>[ \t]?)*`;
+const FENCE_OPEN = new RegExp(String.raw`^${CONTAINERS}[ \t]*(\x60{3,}|~{3,})`);
 
 // A fence closes on a run of the same character at least as long as the one
 // that opened it, and nothing else on the line. A shorter fence inside a longer
 // one, the usual way to show a fenced example, is content.
 const closes = (fence, line) =>
-  new RegExp(`^\\s*${fence[0]}{${fence.length},}\\s*$`).test(line);
+  new RegExp(
+    String.raw`^${CONTAINERS}[ \t]*${fence[0]}{${fence.length},}[ \t]*$`
+  ).test(line);
 
 /** Put a blank line on each side of every standalone tag line, outside fences. */
 export function separateBlockTags(text) {
