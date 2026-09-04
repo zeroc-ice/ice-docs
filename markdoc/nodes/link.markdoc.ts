@@ -12,6 +12,10 @@ const link = {
   attributes: {
     href: {
       type: String
+    },
+    // `[text](href "title")`, shown by the browser as a tooltip.
+    title: {
+      type: String
     }
   },
   transform(node: Node, config: Config) {

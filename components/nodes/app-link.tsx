@@ -14,6 +14,8 @@ type AppLinkProps = {
   showArrow?: boolean;
   /** Set by the link node when the href names a page that is not in the index. */
   unresolved?: boolean;
+  /** The Markdown link title, `[text](href "title")`. */
+  title?: string;
   children: ReactNode;
 };
 
@@ -31,6 +33,7 @@ export const AppLink = ({
   style: originalStyle,
   showArrow = true,
   unresolved = false,
+  title,
   children
 }: AppLinkProps) => {
   const style = { ...defaultStyle, ...originalStyle };
@@ -54,6 +57,7 @@ export const AppLink = ({
   return (
     <Link
       href={href}
+      title={title}
       target={target}
       rel={target === '_blank' ? 'noreferrer' : undefined}
       prefetch={external ? false : undefined}
