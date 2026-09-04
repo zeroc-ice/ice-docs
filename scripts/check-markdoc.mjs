@@ -32,7 +32,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Markdoc from '@markdoc/markdoc';
 import { load as yamlLoad } from 'js-yaml';
-import readingTime from 'reading-time';
 
 import config from '../markdoc/config.ts';
 import {
@@ -111,10 +110,11 @@ for (const version of listVersions(ROOT)) {
 }
 
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
-// `$path` validate here as they render there. The chrome is a placeholder of
-// the right shape; nothing in the manual refers to it.
+// `$path` validate here as they render there. Validation only needs a variable
+// to exist, so the reading time and the chrome are placeholders of the right
+// shape; nothing in the manual refers to either.
 const pageIndexes = new Map();
-function variablesFor({ source, version, language, slug, frontmatter }) {
+function variablesFor({ version, language, slug, frontmatter }) {
   const key = `${version}/${language}`;
   if (!pageIndexes.has(key)) {
     const { index } = buildPageIndex(listPageEntries(ROOT, version, language));
@@ -124,7 +124,7 @@ function variablesFor({ source, version, language, slug, frontmatter }) {
     ...config.variables,
     frontmatter,
     path: `/ice/${version}/${language}/${slug}`,
-    readingTime: readingTime(source, { wordsPerMinute: 149 }).text,
+    readingTime: '1 min read',
     version,
     language,
     pageIndex: pageIndexes.get(key),
@@ -143,9 +143,10 @@ for (const version of listVersions(ROOT)) {
   for (const file of markdownFiles(path.join(ROOT, version)).sort()) {
     pages++;
     const source = fs.readFileSync(file, 'utf8');
-    const overlay = /[\\/]languages[\\/]([^\\/]+)[\\/]/.exec(file);
+    const overlay = /^languages[\\/]([^\\/]+)[\\/]/.exec(
+      path.relative(path.join(ROOT, version), file)
+    );
     const variables = variablesFor({
-      source,
       version,
       // A shared page is rendered for every language; any one will do here.
       language: overlay?.[1] ?? languagesByVersion[version][0],
@@ -190,7 +191,6 @@ for (const { version, language, slug } of listPageParams(
     continue;
   }
   const variables = variablesFor({
-    source: body,
     version,
     language,
     slug,
