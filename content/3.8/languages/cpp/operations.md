@@ -557,9 +557,7 @@ private:
 };
 ```
 
-{% callout type="warning" %}
-
-### Oneway Proxy
+{% callout type="warning" title="Oneway Proxy" %}
 
 If your AMD implementation uses a oneway proxy, remember that the AMI response callback is not called: you need to call
 the AMD response from the AMI `sent` callback.

@@ -694,8 +694,6 @@ Passing `null` where an optional value is expected is equivalent to passing an i
 
 Java's optional classes do not consider `null` to be a legal value. Consider this example:
 
-##### **Slice**
-
 ```slice
 interface Widget
 {

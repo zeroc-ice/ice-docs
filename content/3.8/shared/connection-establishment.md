@@ -45,9 +45,7 @@ communicator may attempt [automatic retries](../automatic-retries) depending on 
 [Ice.RetryIntervals](../ice-properties) configuration property. The default value of this property is `0`, which causes
 the communicator to try connecting to all of the endpoints one more time.
 
-{% callout type="success" %}
-
-### Tip
+{% callout type="tip" %}
 
 Define the property `Ice.Trace.Retry=2` to monitor these attempts.
 

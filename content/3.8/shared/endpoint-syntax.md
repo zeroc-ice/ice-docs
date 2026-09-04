@@ -130,11 +130,9 @@ A `udp` endpoint supports the following options:
 | `--interface` `INTF`   | Specifies the network interface or group for multicast messages (see below).                                              | Selects the network interface for outgoing multicast messages. If not specified, multicast messages are sent using the default interface.                                                                                                                                                                                                                                                                                                                  | Selects the network interface to use when joining the multicast group. If set to * or not specified, the group is joined on all the local network interfaces. |
 | `--sourceAddress ADDR` | Binds outgoing socket connections to the network interface associated with `ADDR`.                                        | The value for `ADDR` must be a numeric IPv4 or IPv6 address. If this option is not specified, it defaults to the value of [Ice.Default.SourceAddress](../ice-default-properties).This option allows to specify the source address set in the IP packet. It doesn't necessarily imply that the operating system will use the network interface matching this IP address to send out the IP packet.This feature is not supported on Universal Windows (UWP). | Not supported                                                                                                                                                 |
 
-{% callout type="warning" %}
+{% callout type="warning" title="Deprecated options" %}
 
-### Deprecated options
-
-With the 1.0 encoding, UDP endpoints supported 2 additional options: the `-e major.minor` and `-v major.minor`**options.
+With the 1.0 encoding, UDP endpoints supported 2 additional options: the `-e major.minor` and `-v major.minor` options.
 These 2 options specified which encoding and protocol was supported by the endpoint. These two options are deprecated
 with the 1.1 encoding and are ignored (a deprecation warning will be emitted when parsed by the communicator
 `stringToProxy` method). The supported protocol and encoding is specified on the proxy with the 1.1 encoding.

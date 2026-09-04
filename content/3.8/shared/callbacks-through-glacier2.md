@@ -8,9 +8,7 @@ event such as the completion of a long-running calculation or a change to a data
 callbacks in a complicated network environment presents its own [set of problems](../common-firewall-traversal-issues).
 Ice overcomes these obstacles using a Glacier2 router and bidirectional connections.
 
-{% callout type="success" %}
-
-### Example
+{% callout type="tip" title="Example" %}
 
 The `Glacier2/callback` demo illustrates the use of callbacks with Glacier2. The `README.md` file in the directory
 provides instructions on running the example, and comments in the configuration file describe the properties in detail.
