@@ -2,8 +2,8 @@
   "singleQuote": true,
   "trailingComma": "none",
   "plugins": [
-    "prettier-plugin-tailwindcss",
-    "./scripts/prettier-plugin-markdoc.mjs"
+    "./scripts/prettier-plugin-markdoc.mjs",
+    "prettier-plugin-tailwindcss"
   ],
   "overrides": [
     {
