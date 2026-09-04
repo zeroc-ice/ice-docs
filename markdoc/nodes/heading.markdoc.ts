@@ -2,9 +2,9 @@
 
 import {
   Tag,
-  Node,
-  Config,
-  RenderableTreeNode,
+  type Node,
+  type Config,
+  type RenderableTreeNode,
   type Schema
 } from '@markdoc/markdoc';
 

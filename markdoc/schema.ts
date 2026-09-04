@@ -1,7 +1,5 @@
 // Copyright (c) ZeroC, Inc.
 
-import { Config } from '@markdoc/markdoc';
-
 // Nodes
 import { DocumentShell } from '@/components/ice/DocumentShell';
 import { CodeBlock, AppLink, Heading, List } from '@/components';
@@ -17,21 +15,7 @@ import { Step } from '@/components/tags/step';
 import { Prerequisites } from '@/components/tags/prerequisites';
 import { NextSteps } from '@/components/tags/next-steps';
 
-import * as nodes from './nodes';
-import * as tags from './tags';
-import nextSteps from './tags/next-steps.markdoc';
-
-const config: Config = {
-  tags: {
-    ...tags,
-    // Markup name is kebab-case, so it cannot be a module export identifier.
-    'next-steps': nextSteps
-  },
-  nodes: {
-    ...nodes
-  },
-  variables: {}
-};
+import config from './config.ts';
 
 export const components = {
   AppLink,

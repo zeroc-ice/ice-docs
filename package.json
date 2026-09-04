@@ -3,7 +3,7 @@
   "scripts": {
     "predev": "npm run build:search",
     "dev": "next dev",
-    "prebuild": "npm run build:search",
+    "prebuild": "npm run check:markdoc && npm run build:search",
     "build": "next build",
     "build:search": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-search-index.mjs",
     "postbuild": "next-sitemap",
@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\"",
-    "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs"
+    "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs",
+    "check:markdoc": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/markdoc-esm-hooks.mjs scripts/check-markdoc.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",

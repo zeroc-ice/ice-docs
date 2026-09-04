@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 
-import { Node, Config } from '@markdoc/markdoc';
+import type { Node, Config } from '@markdoc/markdoc';
 
 // Inline (or block) conditional: renders its children only when the current
 // programming language ($language variable) is in the `langs` list. Migrated

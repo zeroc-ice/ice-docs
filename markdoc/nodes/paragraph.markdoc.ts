@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 
-import { Config, Node, Tag, nodes } from '@markdoc/markdoc';
+import { Tag, nodes, type Config, type Node } from '@markdoc/markdoc';
 
 // CommonMark writes two different things the same way. A paragraph that holds
 // nothing but an image is a figure: centred, with room above and below. An

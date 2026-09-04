@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 
-import { nodes, Node, Config, Tag } from '@markdoc/markdoc';
-import { resolveDocLink, type PageIndex } from '@/lib/docs-model/links';
+import { nodes, Tag, type Node, type Config } from '@markdoc/markdoc';
+import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
 
 // Landing pages are built out of cards, so a card's href is resolved through the
 // same page index as an ordinary link — a card can name a page and keep working

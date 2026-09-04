@@ -17,6 +17,7 @@ npm test                           # unit tests for the content model (lib/docs-
 npm run check:content              # navigation, links, images, slots, migration leftovers
 npm run check:content -- --strict  # also fail on unresolved links and missing images
 npm run check:content -- --slots   # list the blank language sections still to classify
+npm run check:markdoc              # every page against the Markdoc schema; `build` runs it first
 npm run lint                       # eslint
 npm run format                     # prettier, wraps Markdown prose at 120 columns
 npm run format:check               # what CI runs
@@ -47,6 +48,10 @@ A page's images live under `public/attachments/<version>/<slug>/` and are refere
   `{% language-section name="…" /%}` slots; the overlay answers each one, with prose or with a declared state
   (`no-addition`, or `not-applicable` with a note), as described in `lib/docs-model/resolve.ts`. Small inline variation
   uses `{% iflang langs="…" %}`.
+- **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
+  line of their own with a blank line on each side. Prettier reflows a tag written against its prose into the paragraph,
+  which turns it into an inline tag; `check:markdoc` rejects the result, and the editor's Markdoc extension shows the
+  same diagnostic.
 - **Images** live under `public/attachments/`, one directory per page. A paragraph that is nothing but an image renders
   as a figure; an image inside a sentence stays on the line.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.

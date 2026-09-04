@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 
-import { Tag, Node, Config } from '@markdoc/markdoc';
-import { resolveDocLink, type PageIndex } from '@/lib/docs-model/links';
+import { Tag, type Node, type Config } from '@markdoc/markdoc';
+import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
 
 // Cross-page links are authored as page names (`../object-adapters`) and resolved
 // here, at build time, against the page index for the current version. Resolving

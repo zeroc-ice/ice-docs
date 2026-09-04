@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 
-import { nodes, Node, Config, Tag } from '@markdoc/markdoc';
+import { nodes, Tag, type Node, type Config } from '@markdoc/markdoc';
 
 // The document node renders the page shell. Everything the shell needs that the
 // markdown itself does not know — the breadcrumb trail, the previous/next
