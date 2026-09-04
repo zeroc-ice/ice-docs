@@ -26,7 +26,13 @@ const base = markdown.parsers.markdown;
 // One tag, alone on its line. Markdoc's own rule: a tag that shares its line
 // with other text is an inline tag.
 const TAG_LINE = /^\s*\{%(?:(?!%\}).)*%\}\s*$/;
-const FENCE = /^\s*(`{3,}|~{3,})/;
+const FENCE_OPEN = /^\s*(`{3,}|~{3,})/;
+
+// A fence closes on a run of the same character at least as long as the one
+// that opened it, and nothing else on the line. A shorter fence inside a longer
+// one, the usual way to show a fenced example, is content.
+const closes = (fence, line) =>
+  new RegExp(`^\\s*${fence[0]}{${fence.length},}\\s*$`).test(line);
 
 /** Put a blank line on each side of every standalone tag line, outside fences. */
 export function separateBlockTags(text) {
@@ -35,14 +41,18 @@ export function separateBlockTags(text) {
   let fence = null;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const opened = FENCE.exec(line);
-    if (opened) {
-      if (fence === null) fence = opened[1][0];
-      else if (line.trim().startsWith(fence)) fence = null;
+    if (fence !== null) {
+      if (closes(fence, line)) fence = null;
       out.push(line);
       continue;
     }
-    if (fence !== null || !TAG_LINE.test(line)) {
+    const opened = FENCE_OPEN.exec(line);
+    if (opened) {
+      fence = opened[1];
+      out.push(line);
+      continue;
+    }
+    if (!TAG_LINE.test(line)) {
       out.push(line);
       continue;
     }

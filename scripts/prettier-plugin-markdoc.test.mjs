@@ -66,6 +66,12 @@ test('a tag inside a code fence is left alone', async () => {
   assert.equal(await format(source), source);
 });
 
+test('a shorter fence inside a longer one does not end it', async () => {
+  const source =
+    '````markdown\n```js\nconst x = 1;\n```\n{% callout %}\nText\n{% /callout %}\n````\n';
+  assert.equal(await format(source), source);
+});
+
 test('separated input is unchanged', async () => {
   const source = `Before.
 
