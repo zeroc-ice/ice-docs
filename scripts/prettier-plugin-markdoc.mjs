@@ -24,8 +24,11 @@ import * as markdown from 'prettier/plugins/markdown';
 const base = markdown.parsers.markdown;
 
 // One tag, alone on its line. Markdoc's own rule: a tag that shares its line
-// with other text is an inline tag.
-const TAG_LINE = /^\s*\{%(?:(?!%\}).)*%\}\s*$/;
+// with other text is an inline tag. At most three spaces of indentation: four,
+// or a tab, is an indented code block, whose content is not a tag whatever it
+// looks like. (A tag indented that deep inside a list item is left alone too;
+// `check:markdoc` catches it if Prettier then reflows it.)
+const TAG_LINE = /^ {0,3}\{%(?:(?!%\}).)*%\}[ \t]*$/;
 const FENCE_OPEN = /^\s*(`{3,}|~{3,})/;
 
 // A fence closes on a run of the same character at least as long as the one

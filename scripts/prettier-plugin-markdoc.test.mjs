@@ -72,6 +72,45 @@ test('a shorter fence inside a longer one does not end it', async () => {
   assert.equal(await format(source), source);
 });
 
+test('a tag-looking line in an indented code block is left alone', async () => {
+  const source = `Example:
+
+    {% callout %}
+    Text
+    {% /callout %}
+`;
+  assert.equal(await format(source), source);
+});
+
+test('a tag-looking line indented with a tab is left alone', async () => {
+  // Prettier itself writes the code block back with four spaces; the point is
+  // that it is still a code block, with no blank lines put inside it.
+  const source = 'Example:\n\n\t{% callout %}\n\tText\n\t{% /callout %}\n';
+  assert.equal(
+    await format(source),
+    'Example:\n\n    {% callout %}\n    Text\n    {% /callout %}\n'
+  );
+});
+
+test('a tag inside a list item gets its own lines', async () => {
+  const source = `- Item text
+  {% callout %}
+  Inside
+  {% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `- Item text
+
+  {% callout %}
+
+  Inside
+
+  {% /callout %}
+`
+  );
+});
+
 test('separated input is unchanged', async () => {
   const source = `Before.
 
