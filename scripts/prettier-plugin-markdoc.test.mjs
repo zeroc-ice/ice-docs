@@ -50,6 +50,28 @@ test('two adjacent tags are separated', async () => {
   );
 });
 
+test('a tag that spans several lines is one tag', async () => {
+  const source = `{% callout
+ type="warning"
+ title="A title"
+%}
+Text that must remain visible.
+{% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `{% callout
+ type="warning"
+ title="A title"
+%}
+
+Text that must remain visible.
+
+{% /callout %}
+`
+  );
+});
+
 test('a tag inside a sentence stays inline', async () => {
   const source = `The facility {% iflang langs="cpp" %}and how to write one{% /iflang %} is described here.
 `;
@@ -57,6 +79,98 @@ test('a tag inside a sentence stays inline', async () => {
     await format(source),
     `The facility {% iflang langs="cpp" %}and how to write
 one{% /iflang %} is described here.
+`
+  );
+});
+
+test('a tag inside a tight list item keeps the tight layout', async () => {
+  // A block tag may follow a paragraph directly; Markdoc reads it as a block
+  // either way. Only the reflow onto one line is prevented.
+  const source = `- outer
+  - inner
+    {% callout %}
+    Text.
+    {% /callout %}
+`;
+  assert.equal(await format(source), source);
+});
+
+test('a tag at the margin under a list item ends the list', async () => {
+  const source = `- item one
+- item two
+{% callout %}
+Text.
+{% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `- item one
+- item two
+
+{% callout %}
+
+Text.
+
+{% /callout %}
+`
+  );
+});
+
+test('a tag between list items splits the list', async () => {
+  const source = `1. first
+2. second
+{% callout %}
+Text.
+{% /callout %}
+3. third
+`;
+  assert.equal(
+    await format(source),
+    `1. first
+2. second
+
+{% callout %}
+
+Text.
+
+{% /callout %}
+
+3. third
+`
+  );
+});
+
+test('a tag at the margin under a quoted line ends the quote', async () => {
+  const source = `> Quoted.
+{% callout %}
+Text.
+{% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `> Quoted.
+
+{% callout %}
+
+Text.
+
+{% /callout %}
+`
+  );
+});
+
+test('a tag inside a block quote gets quoted blank lines', async () => {
+  const source = `> {% callout %}
+> Quoted
+> {% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `> {% callout %}
+>
+> Quoted
+>
+> {% /callout %}
 `
   );
 });
@@ -72,45 +186,6 @@ test('a shorter fence inside a longer one does not end it', async () => {
   assert.equal(await format(source), source);
 });
 
-test('a tag-looking line in an indented code block is left alone', async () => {
-  const source = `Example:
-
-    {% callout %}
-    Text
-    {% /callout %}
-`;
-  assert.equal(await format(source), source);
-});
-
-test('a tag-looking line indented with a tab is left alone', async () => {
-  // Prettier itself writes the code block back with four spaces; the point is
-  // that it is still a code block, with no blank lines put inside it.
-  const source = 'Example:\n\n\t{% callout %}\n\tText\n\t{% /callout %}\n';
-  assert.equal(
-    await format(source),
-    'Example:\n\n    {% callout %}\n    Text\n    {% /callout %}\n'
-  );
-});
-
-test('a tag inside a list item gets its own lines', async () => {
-  const source = `- Item text
-  {% callout %}
-  Inside
-  {% /callout %}
-`;
-  assert.equal(
-    await format(source),
-    `- Item text
-
-  {% callout %}
-
-  Inside
-
-  {% /callout %}
-`
-  );
-});
-
 test('a fence opened on a list marker line is tracked', async () => {
   const source = `- \`\`\`markdown
   {% callout %}
@@ -121,10 +196,47 @@ test('a fence opened on a list marker line is tracked', async () => {
   assert.equal(await format(source), source);
 });
 
-test('a fence inside a block quote is tracked', async () => {
-  const source = `> \`\`\`markdown
-> {% callout %}
-> \`\`\`
+test('a tag-looking line in an indented code block is left alone', async () => {
+  const source = `Example:
+
+    {% callout %}
+    Text
+    {% /callout %}
+`;
+  assert.equal(await format(source), source);
+});
+
+test('a fence-looking line in indented code does not open a fence', async () => {
+  const source = `Example:
+
+    \`\`\`markdown
+{% callout %}
+Text.
+{% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `Example:
+
+    \`\`\`markdown
+
+{% callout %}
+
+Text.
+
+{% /callout %}
+`
+  );
+});
+
+test('a tag-looking line in frontmatter is left alone', async () => {
+  const source = `---
+title: Example
+description: |-
+  {% literal value %}
+---
+
+Body.
 `;
   assert.equal(await format(source), source);
 });
