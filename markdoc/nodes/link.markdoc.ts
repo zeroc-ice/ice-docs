@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 
-import { Tag, type Node, type Config } from '@markdoc/markdoc';
+import { Tag, nodes, type Node, type Config } from '@markdoc/markdoc';
 import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
 
 // Cross-page links are authored as page names (`../object-adapters`) and resolved
@@ -9,15 +9,8 @@ import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
 // between sections without breaking every link to it.
 const link = {
   render: 'AppLink',
-  attributes: {
-    href: {
-      type: String
-    },
-    // `[text](href "title")`, shown by the browser as a tooltip.
-    title: {
-      type: String
-    }
-  },
+  // Markdoc's own: `href` and `title`.
+  attributes: nodes.link.attributes,
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
     const children = node.transformChildren(config);

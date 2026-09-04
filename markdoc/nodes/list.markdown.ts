@@ -1,14 +1,15 @@
 // Copyright (c) ZeroC, Inc.
 
+import { nodes } from '@markdoc/markdoc';
+
+// Markdoc's own attributes (`ordered`, `start`, `marker`), so the schema cannot
+// fall behind the parser; `ordered` is rendered, since the component picks the
+// element from it.
 const list = {
   render: 'List',
   attributes: {
-    ordered: { type: Boolean },
-    // `3. third` starts an ordered list at 3.
-    start: { type: Number },
-    // The parser records which bullet or number style the source used. The
-    // component does not care, but validation rejects an undeclared attribute.
-    marker: { type: String, render: false }
+    ...nodes.list.attributes,
+    ordered: { type: Boolean }
   }
 };
 
