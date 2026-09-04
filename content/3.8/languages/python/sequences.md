@@ -38,7 +38,9 @@ When you **send a sequence value** (for example, when calling a proxy method, or
 - For `sequence<byte>`, in addition to a bytes object, you may also use any type that conforms to `Sequence[int]`.
 
 {% callout type="info" %}
+
 Using a bytes object for a byte sequence bypasses the validation step and avoids an extra copy, resulting in much greater throughput than a tuple or list. For larger byte sequences, the use of a bytes object is strongly recommended.
+
 {% /callout %}
 
 Examples:

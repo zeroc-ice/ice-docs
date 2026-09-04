@@ -26,5 +26,7 @@ In this example, the implementation consults the existing Ice property `Ice.Batc
 Specifying your own exception handler when calling `ice_flushBatchRequestsAsync` gives you the ability to take action if a failure occurs (Ice's default automatic flushing implementation ignores any errors). Aside from logging a message, your options are somewhat limited because it's not possible for the interceptor to force a retry.
 
 {% callout type="info" %}
+
 For batch datagram proxies, we recommend using a maximum queue size that is smaller than the network MTU to minimize the risk that datagram fragmentation could cause an entire batch to be lost.
+
 {% /callout %}

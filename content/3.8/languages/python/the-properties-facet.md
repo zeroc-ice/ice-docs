@@ -23,4 +23,5 @@ As shown here, the facet is registered with the name `Properties` and the servan
 The Ice runtime can notify an application whenever its properties change due to invocations of the `setProperties` operation on the `PropertiesAdmin` interface.
 
 You can register your callback using the `addUpdateCallback` method on [NativePropertiesAdmin](https://code.zeroc.com/manual/Ice/NativePropertiesAdmin).
+
 {% /language-section %}

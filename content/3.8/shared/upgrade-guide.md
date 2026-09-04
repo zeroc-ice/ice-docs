@@ -64,7 +64,9 @@ class Node
 Several upgrade options are available depending on the application needs and constraints.
 
 {% callout type="warning" %}
+
 The following suggestions will break on-the-wire compatibility. Please ensure all clients and servers are using the same Slice definitions.
+
 {% /callout %}
 
 1. Replace optional fields or parameters by non-optional ones.
@@ -147,7 +149,9 @@ With the exception of some filtering for loopback addresses, the previous algori
 A new property `_adapter_.PublishedHost` has been added. It is used to compute the default published endpoints.
 
 {% callout type="info" %}
+
 Users who are setting `_adapter_.PublishedEndpoints` to limit the published endpoints are encouraged to try the new default.
+
 {% /callout %}
 
 Additionally, the `refreshPublishedEndpoints` method has been removed from `ObjectAdapter`.

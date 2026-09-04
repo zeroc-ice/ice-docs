@@ -53,4 +53,5 @@ The interpreter session below uses these Slice definitions to demonstrate the ma
 ```
 
 The two invocations of `sendData` are equivalent; however, the second invocation incurs additional overhead as the Ice runtime must validate the type and range of each array element.
+
 {% /language-section %}

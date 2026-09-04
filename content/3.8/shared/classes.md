@@ -17,7 +17,9 @@ A class is a user-defined type that holds a list of fields, just like a struct. 
 These extra capabilities are not free: the marshaling/unmarshaling of a class is much more complex and time consuming than the marshaling/unmarshaling of a struct, and its binary representation is larger. As a result, you should only select a class over a struct when these extra capabilities may be useful for your application.
 
 {% callout type="info" %}
+
 A class represents data that you transmit over the wire, just like a struct. You can't define operations on a Slice class or implement an interface with a Slice class.
+
 {% /callout %}
 
 ## Language Mapping

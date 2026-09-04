@@ -20,9 +20,13 @@ language: js
 {% /language-section %}
 
 {% language-section name="lang-5" %}
+
 {% callout type="info" %}
+
 The `PerThread` type is currently not available for JavaScript.
+
 {% /callout %}
+
 {% /language-section %}
 
 {% language-section name="lang-6" %}

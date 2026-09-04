@@ -46,7 +46,9 @@ module N
 Slice does not permit empty enumerations.
 
 {% callout type="info" %}
+
 In Ice releases prior to Ice 3.7, an enum type did not create a new namespace and its enumerators were in the same namespace as the enum type itself. With these releases, you had to select longer enumerator names to avoid a naming clash.
+
 {% /callout %}
 
 # Custom Enumerator Values
@@ -71,7 +73,9 @@ enum Fruit { Apple = 5, Pear = 3, Orange = 1 }   // Legal
 Note however that when there is an inconsistency between the declaration order and the numerical order of the enumerators, the behavior of comparison operations may vary between language mappings.
 
 {% callout type="warning" %}
+
 For an application that is still using version 1.0 of the [Ice encoding](../basic-data-encoding), changing the definition of an enumerated type **may** break backward compatibility with existing applications. For more information, please refer to the [encoding rules](../basic-data-encoding) for enumerators.
+
 {% /callout %}
 
 # Language Mapping

@@ -146,7 +146,9 @@ EarlyRiser/__init__.py
 - `__init__.py` – is the package index and re-exports all definitions from the other modules.
 
 {% callout type="info" %}
+
 All code is generated relative to the output directory, which defaults to the current directory. You can change this location using the --output-dir compiler option.
+
 {% /callout %}
 
 The **init**.py file for each generated package re-exports all definitions from the modules within the package. For this reason, you must compile **all Slice files that contribute to a given package** in the same invocation of the Slice compiler.

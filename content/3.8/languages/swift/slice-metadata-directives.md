@@ -8,6 +8,7 @@ language: swift
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 The metadata directives for Swift uses the `swift` prefix.
 
 ### `swift:attribute:attribute`
@@ -61,6 +62,9 @@ module Mod
 ```
 
 {% callout type="info" %}
+
 Metadata directives never change [type IDs](../type-ids). For example, exception `E` defined in module `Test` has type ID `"::Test::E"` regardless of any `swift:module` metadata directive on module `Test`.
+
 {% /callout %}
+
 {% /language-section %}

@@ -7,6 +7,7 @@ language: python
 
 - `--depend`
   Print dependency information in Makefile format to standard output by default, or to the file specified by the `--depend-file` option.
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -31,4 +32,5 @@ The Slice-to-Python compiler (`slice2py`) supports the following additional opti
   - `--list-generated=modules` Generates only the Python module files for the Slice definitions.
   - `--list-generated=index` Generates only the Python package index files (__init__.py).
   - `--list-generated=all`. Generates both module and index files (this is the default if --build is omitted).
+
 {% /language-section %}

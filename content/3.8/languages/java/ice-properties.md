@@ -22,10 +22,13 @@ If `num` is a value greater than 0, the proxies cache message buffers for future
 The default value is 2.
 
 {% callout type="info" %}
+
 This property only affects the caching of message buffers for invocations. The Ice runtime never caches message buffers for dispatches.
+
 {% /callout %}
 
 Ice for Java allocates non-direct message buffers when this property is set to 1 and direct message buffers when set to 2. Use of direct message buffers minimizes copying and typically results in improved throughput.
+
 {% /language-section %}
 
 {% language-section name="lang-3" %}
@@ -58,6 +61,7 @@ If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice ru
 In Java, Ice first attempts to open a configuration file as a [class loader resource](../alternate-property-stores). If that attempt fails, Ice opens the configuration file in the local file system.
 
 Configuration files use a simple [syntax](../configuration-file-syntax) consisting of *name*=*value* pairs with support for comments and escaping.
+
 {% /language-section %}
 
 {% language-section name="lang-4" %}
@@ -81,6 +85,7 @@ Specifies the host name or IP address of an HTTP proxy server. If `addr` is not 
 #### Description
 
 The port number of the HTTP proxy server. If not specified, the default value is `1080`.
+
 {% /language-section %}
 
 {% language-section name="lang-5" %}
@@ -188,6 +193,7 @@ If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers I
 #### Description
 
 If `num` is set to a value larger than 0, an object adapter prints "*adapter_name* ready" on standard output after activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
+
 {% /language-section %}
 
 {% language-section name="lang-7" %}
@@ -205,7 +211,9 @@ If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on 
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that the server will not shut down automatically. This property is often used for servers that are automatically [activated by IceGrid](../icegrid-server-activation).
 
 {% callout type="info" %}
+
 For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool idle threads have been reaped (the thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
+
 {% /callout %}
 
 # Ice.SliceLoader.NotFoundCacheSize
@@ -233,7 +241,9 @@ See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
+
 Ice currently only supports the SOCKS4 protocol, which means only IPv4 connections are allowed.
+
 {% /callout %}
 
 # Ice.SOCKSProxyPort
@@ -299,6 +309,7 @@ The default value is `LOG_USER`.
 `value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
 
 You can separately override the default priorities for the client and server thread pools using [Ice.ThreadPool.*name*.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a specific object adapter using [*adapter*.ThreadPool.ThreadPriority](../object-adapter-properties).
+
 {% /language-section %}
 
 {% language-section name="lang-8" %}

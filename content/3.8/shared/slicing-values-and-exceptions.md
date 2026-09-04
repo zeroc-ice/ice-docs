@@ -93,7 +93,9 @@ Here we specify that all operations in `Ledger` use the sliced format unless ove
 The format affects the marshaling of input parameters, output parameters, and return value of an operation.
 
 {% callout type="info" %}
+
 As of Ice 3.8, exceptions are always marshaled in the sliced format.
+
 {% /callout %}
 
 Consider this example:
@@ -146,9 +148,11 @@ The server implementing the `Relay` interface must know the type `Base` (because
 To address this limitation, the unmarshaling of a class instance with unknown slices does not discard these slices, but preserves them (in encoded form). This way, when `transform` returns the class instance (after processing), the skipped slices are automatically “reattached”.
 
 {% callout type="info" %}
+
 Slice preservation requires the sliced format, and applies only to classes.
 
 Exceptions are always marshaled in the sliced format (to allow slicing) but exception slices are never preserved.
+
 {% /callout %}
 
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a [SlicedData](https://code.zeroc.com/manual/Ice/SlicedData) object that hold the preserved slices.

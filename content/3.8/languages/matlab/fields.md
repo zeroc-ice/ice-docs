@@ -4,6 +4,7 @@ language: matlab
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice field maps to a MATLAB property, with by default the same name. We often remap the field name with `matlab:identifier` to convert the name to Pascal case.
 
 The MATLAB class for the property is the mapped type, as presented earlier, except the following properties don’t specify a MATLAB class:

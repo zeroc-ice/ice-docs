@@ -33,11 +33,15 @@ For example, the descriptor shown below uses adaptive load balancing to return t
 The type must be specified, but the remaining attributes are optional.
 
 {% callout type="info" %}
+
 IceGrid ignores the object adapters of a [disabled server](../icegrid-troubleshooting) when executing a locate request, meaning the client that initiated the locate request will not receive the endpoints for any of these object adapters.
+
 {% /callout %}
 
 {% callout type="info" %}
+
 You can optionally use custom load balancing strategies by installing [replica group filters](../load-balancing).
+
 {% /callout %}
 
 # Load Balancing Types
@@ -184,7 +188,9 @@ Ice.Plugin.RegistryPlugin=RegistryPlugin:createRegistryPlugin
 The [Ice.Plugin](../ice-plugin-properties) property must be defined in the registry's configuration file.
 
 {% callout type="success" %}
+
 Make sure to configure all of the replicas to load the same registry plug-ins, otherwise a client could get different behavior depending on which replica it's currently using.
+
 {% /callout %}
 
 ### Filter Implementation Techniques
@@ -221,7 +227,9 @@ So far we've discussed how client-specific information can be passed to a filter
 A replica group filter must define a subclass of [IceGrid::ReplicaGroupFilter](https://code.zeroc.com/manual/IceGrid/ReplicaGroupFilter).
 
 {% callout type="warning" %}
+
 The `filter` implementation must not block.
+
 {% /callout %}
 
 The replica group's descriptor specifies the filter:
@@ -311,7 +319,9 @@ As this example demonstrates, request contexts are a convenient way to supply a 
 A replica group filter must define a subclass of [IceGrid::TypeFilter](https://code.zeroc.com/manual/IceGrid/TypeFilter).
 
 {% callout type="warning" %}
+
 The `filter` implementation must not block.
+
 {% /callout %}
 
 Refer to the previous section for more information on implementing a filter.

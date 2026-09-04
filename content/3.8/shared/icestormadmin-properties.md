@@ -14,7 +14,9 @@ title: IceStormAdmin.*
 When used together with `IceStormAdmin.Port`, [icestormadmin](../icestorm-administration) uses the [Finder interface](../configuring-icestorm) to discover the topic manager at the specified host and port.
 
 {% callout type="info" %}
+
 `icestormadmin` ignores this setting if you define one or more `IceStormAdmin.TopicManager` properties.
+
 {% /callout %}
 
 # IceStormAdmin.Port
@@ -28,7 +30,9 @@ When used together with `IceStormAdmin.Port`, [icestormadmin](../icestorm-admini
 When used together with `IceStormAdmin.Host`, [icestormadmin](../icestorm-administration) uses the [Finder interface](../configuring-icestorm) to discover the topic manager at the specified host and port.
 
 {% callout type="info" %}
+
 `icestormadmin` ignores this setting if you define one or more `IceStormAdmin.TopicManager` properties.
+
 {% /callout %}
 
 # IceStormAdmin.TopicManager.Default

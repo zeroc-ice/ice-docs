@@ -24,7 +24,9 @@ struct S
 This proxy type can be marshaled/unmarshaled just like any other Slice type. It encapsulates the addressing information for the target object: object identity, endpoint(s), and proxy options.
 
 {% callout type="info" %}
+
 The marshaled representation of a proxy does not include the proxy’s type.
+
 {% /callout %}
 
 You use proxies in client applications. A proxy acts as a local "ambassador" for the remote object; invoking an operation on the proxy forwards the invocation to the actual object implementation, in the server.

@@ -16,9 +16,11 @@ You transition your object adapter from the `Holding` state to the `Active` stat
 Once activated, the object adapter accepts incoming connections, and reads and dispatches incoming requests received over these connections.
 
 {% callout type="info" %}
+
 The distinction `Holding` vs Active `applies` only to requests dispatched through endpoints configured on the object adapter. It does not apply to requests received from [bidirectional connections](../bidirectional-connections), nor does it apply to [collocated dispatches](../collocated-invocation-and-dispatch).
 
 As a result, it’s optional to call `activate` on an object adapter that does not have any endpoint.
+
 {% /callout %}
 
 # Deactivation

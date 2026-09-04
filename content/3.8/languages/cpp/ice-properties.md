@@ -16,6 +16,7 @@ language: cpp
 If `num` is set to 0 (the default), the unmarshaling of class cycles is disallowed. A `MarshalException` is thrown when a cycle is detected during unmarshaling.
 
 If `num` is set to a value larger than 0, class cycles are unmarshaled. You must break any cycles programmatically in your own code to prevent memory leaks.
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -52,6 +53,7 @@ If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice ru
 In Java, Ice first attempts to open a configuration file as a [class loader resource](../alternate-property-stores). If that attempt fails, Ice opens the configuration file in the local file system.
 
 Configuration files use a simple [syntax](../configuration-file-syntax) consisting of *name*=*value* pairs with support for comments and escaping.
+
 {% /language-section %}
 
 {% language-section name="lang-4" %}
@@ -85,6 +87,7 @@ Specifies the host name or IP address of an HTTP proxy server. If `addr` is not 
 #### Description
 
 The port number of the HTTP proxy server. If not specified, the default value is `1080`.
+
 {% /language-section %}
 
 {% language-section name="lang-5" %}
@@ -234,6 +237,7 @@ If not set, the default value depends on how the Ice C++ library is compiled: 0 
 The stack trace (if collected) is included in the exception message printed by `ice_print` or `operator<<`. It’s not included in the `what` message.
 
 On Windows, you need the Ice PDB files to obtain usable stack traces. If you build Ice from sources, the Ice build system always creates PDB files next to your DLLs and executables, and Windows will locate and use these PDB files.
+
 {% /language-section %}
 
 {% language-section name="lang-7" %}
@@ -251,7 +255,9 @@ If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on 
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that the server will not shut down automatically. This property is often used for servers that are automatically [activated by IceGrid](../icegrid-server-activation).
 
 {% callout type="info" %}
+
 For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool idle threads have been reaped (the thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
+
 {% /callout %}
 
 # Ice.SOCKSProxyHost
@@ -265,7 +271,9 @@ For C# applications and Windows C++ applications, the server idle time takes eff
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
+
 Ice currently only supports the SOCKS4 protocol, which means only IPv4 connections are allowed.
+
 {% /callout %}
 
 # Ice.SOCKSProxyPort
@@ -311,6 +319,7 @@ This property sets the syslog facility to `string`. This property has no effect 
 `string` can be any of syslog facilities: `LOG_AUTH, LOG_AUTHPRIV, LOG_CRON, LOG_DAEMON, LOG_FTP, LOG_KERN, LOG_LOCAL0, LOG_LOCAL1, LOG_LOCAL2, LOG_LOCAL3, LOG_LOCAL4, LOG_LOCAL5, LOG_LOCAL6, LOG_LOCAL7, LOG_LPR, LOG_MAIL, LOG_NEWS, LOG_SYSLOG, LOG_USER, LOG_UUCP`.
 
 The default value is `LOG_USER`.
+
 {% /language-section %}
 
 {% language-section name="lang-8" %}
@@ -350,4 +359,5 @@ The connection to the `syslog` service is process-global: all syslog loggers in 
 #### Description
 
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs to the systemd journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as their syslog identifier (the `SYSLOG_IDENTIFIER` journal field), so you can filter them with `journalctl -t name`.
+
 {% /language-section %}

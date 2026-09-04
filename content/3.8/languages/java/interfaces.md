@@ -225,4 +225,5 @@ Note that `Chatbot` implements `VisitorCenter.Greeter`, one of the two skeleton 
 As far as Ice is concerned, the `Chatbot` class must implement only a single method: the abstract method `greet`. This makes the servant class a concrete class that you can instantiate. You can add other methods and fields as you see fit to support your implementation.
 
 The async skeleton interface is described in [Asynchronous Method Dispatch (AMD) in Java](../asynchronous-method-dispatch-amd-in-java).
+
 {% /language-section %}

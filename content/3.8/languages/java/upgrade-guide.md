@@ -68,10 +68,13 @@ slice {
   ```
 
 {% callout type="info" %}
+
 Prefer the conventional layout: put your Slice files in `src/main/slice`.
 
 With that layout, you can omit `srcDirs` entirely—the plugin discovers it automatically.
+
 {% /callout %}
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}

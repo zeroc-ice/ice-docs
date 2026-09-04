@@ -4,6 +4,7 @@ language: php
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice enumeration is mapped to a PHP class: the name of the Slice enumeration becomes the name of the PHP class; for each enumerator, the class contains a constant with the same name as the enumerator. For example:
 
 ```slice
@@ -39,4 +40,5 @@ class Fruit
 ```
 
 Since enumerated values are mapped to integer constants, application code is not required to use the generated constants. When an enumerated value enters the Ice runtime, Ice validates that the given integer is a valid value for the enumeration. However, to minimize the potential for defects in your code, we recommend using the generated constants instead of literal integers.
+
 {% /language-section %}

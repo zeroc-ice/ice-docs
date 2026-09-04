@@ -86,7 +86,9 @@ IceGrid.Registry.ReplicaName=Replica1
 ```
 
 {% callout type="success" %}
+
 Configuring [IceLocatorDiscovery](../icelocatordiscovery) in the replicas allows them to discover the master at run time without the need to define `Ice.Default.Locator`.
+
 {% /callout %}
 
 ## Clients
@@ -100,7 +102,9 @@ Ice.Default.Locator=IceGrid/Locator:default -p 12000:default -p 12001
 ```
 
 {% callout type="success" %}
+
 Configuring [IceLocatorDiscovery](../icelocatordiscovery) in a client allows it to discover the replicas at runtime without the need to define `Ice.Default.Locator`.
+
 {% /callout %}
 
 ## Nodes
@@ -117,7 +121,9 @@ IceGrid.Node.Data=db/node1
 ```
 
 {% callout type="success" %}
+
 Configuring [IceLocatorDiscovery](../icelocatordiscovery) in a node allows it to discover the replicas at runtime without the need to define `Ice.Default.Locator`.
+
 {% /callout %}
 
 ## Diagnostics

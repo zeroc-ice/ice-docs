@@ -113,7 +113,9 @@ Any Slice identifier enclosed in `{@link ...}` is presented as a hyperlink in co
 This generates a hyperlink for the `name` markup that points at the definition of the corresponding Slice symbol. (The symbol can denote any Slice construct, such as a type, interface, parameter, or structure member.)
 
 {% callout type="success" %}
+
 Doxygen by default will automatically create links from symbols that appear in comments, which means explicit `@link` tags are rarely necessary in practice.
+
 {% /callout %}
 
 ## Explicit Cross References

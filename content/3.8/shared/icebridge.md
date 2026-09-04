@@ -32,7 +32,9 @@ IceBridge supports the following properties:
   This optional property specifies a default identity category for the [IceBridge objects](../icebridge#icebridge-object-identities). If not specified, the default value is `IceBridge`.
 
 {% callout type="success" %}
+
 You will also need to configure IceBridge to load any transport plug-ins required by either the source or target endpoints.
+
 {% /callout %}
 
 Here's a simple example:
@@ -83,7 +85,9 @@ Ice.Default.Router=PublicBridge/router:tcp -h 5.6.7.8 -p 4063
 ```
 
 {% callout type="info" %}
+
 A client can discover the bridge's proxy for its router at run time using the [RouterFinder interface](../advanced-glacier2-client-configurations).
+
 {% /callout %}
 
 # Using IceBridge
@@ -115,7 +119,9 @@ Client.Proxy=SomeObject:tcp -h other.host -p 9999
 This configuration causes the Ice run time in the client to ignore the endpoint in `Client.Proxy` and instead send all requests via the given router.
 
 {% callout type="info" %}
+
 Setting `Ice.Default.Router` affects **all** proxies by default. Ice also provides more selective ways of configuring a router, such as with a [proxy property](../proxy-properties) or a [proxy method](../routers).
+
 {% /callout %}
 
 If you've decided not to use IceBridge as a router, you simply need to replace the existing endpoints in the client's proxies with the bridge's source endpoints:

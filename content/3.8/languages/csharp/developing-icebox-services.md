@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 The example we present here is taken from the `IceBox/Greeter` demo program.
 
 The class definition for our service is quite straightforward:
@@ -43,4 +44,5 @@ The `start` method creates an object adapter “GreeterAdapter”, activates a s
 The last piece of the puzzle is the *entry point*, which the IceBox server calls to create an instance of the service.
 
 IceBox requires a service implementation to have a public parameterless constructor or a public constructor with a single `Communicator` parameter. This is the C# entry point for IceBox: the IceBox server dynamically loads the service implementation class from an assembly and calls this public constructor to create an instance of the service.
+
 {% /language-section %}

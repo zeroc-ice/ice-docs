@@ -66,13 +66,17 @@ Our discussion of [IceGrid](../icegrid-and-the-administrative-facility) includes
 IceBox's administrative functionality is disabled by default. You can enable it using the Ice [administrative facility](../administrative-facility) by defining endpoints for the `Ice.Admin` object adapter with the property [Ice.Admin.Endpoints](../ice-admin-properties).
 
 {% callout type="success" %}
+
 The `Ice.Admin` object adapter is enabled automatically in an IceBox server that is [deployed by IceGrid](../icegrid-and-the-administrative-facility).
+
 {% /callout %}
 
 With the administrative facility enabled, IceBox registers an administrative facet with the name `IceBox.ServiceManager`. We discuss the [identity](../icebox-administration) of the `admin` object below.
 
 {% callout type="warning" %}
+
 Exposing the service manager makes an IceBox server vulnerable to denial-of-service attacks from malicious clients. Consequently, you should [choose the endpoints and transports carefully](../security-considerations-for-administrative-facets).
+
 {% /callout %}
 
 # IceBox Admin Facets
@@ -91,7 +95,9 @@ In this case, the identity of the `admin` object is `IceBox/admin`.
 IceBox also creates in each service communicator ([shared communicator](../configuring-icebox-services) and per-service communicator) all the built-in facets enabled on its main communicator, and adds all these facets, except the `Process` facet, to its admin object. These facets are named `IceBox.Service.service-name.facet-name`, where *service-name* corresponds to the service name (for example `Hello` or `IceStorm`), and *facet-name* is the name of the built-in facet (for example `Properties` or `Logger`).
 
 {% callout type="info" %}
+
 You can instruct IceBox to skip the admin facets for a specific service by setting the property [Ice.Admin.Enabled](../ice-admin-properties) to 0 in the configuration for that service.
+
 {% /callout %}
 
 # IceBox Administrative Client Configuration

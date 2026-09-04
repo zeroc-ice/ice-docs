@@ -4,6 +4,7 @@ language: ruby
 ---
 
 {% language-section name="lang-1" %}
+
 You create a communicator by calling `Ice::initialize`, for example:
 
 ```ruby
@@ -19,4 +20,5 @@ end
 This syntax ensures the communicator is destroyed when the block completes. The `destroy` method is responsible for cleaning up the communicator. In particular, `destroy` ensures that any outstanding threads started by the underlying Ice C++ communicator are joined with and reclaims a number of operating system resources, such as file descriptors and memory. Never allow your program to terminate without calling `destroy` first.
 
 The `initialize` block accepts a single argument, the communicator.
+
 {% /language-section %}

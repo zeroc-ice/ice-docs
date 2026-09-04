@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 The IceIAP plug-in is included in all builds of the Ice C++ library for iOS. You enable (“load”) the plug-in by adding it to the `pluginFactories` field of `InitializationData`:
 
 ```cpp

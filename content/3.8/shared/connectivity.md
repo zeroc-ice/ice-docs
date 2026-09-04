@@ -30,7 +30,9 @@ To disable multicast discovery, set:
 `DataStorm.Node.Multicast.Enabled=0`
 
 {% callout type="info" %}
+
 Multicast is used only for discovery. Nodes must still configure server endpoints to connect to each other after discovery, but these endpoints do not need to be fixed or well-known.
+
 {% /callout %}
 
 ## Direct Node Connections

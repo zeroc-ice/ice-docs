@@ -17,9 +17,11 @@ By default, these two thread pools are shared by all of the communicator's [obje
 If a thread pool is exhausted because all threads are currently dispatching a request, additional incoming requests are transparently delayed until a request completes and relinquishes its thread; that thread is then used to dispatch the next pending request. Ice minimizes thread context switches in a thread pool by using a leader-follower implementation \[1\].
 
 {% callout type="warning" %}
+
 While Ice tolerates a transient thread pool exhaustion, you should avoid thread exhaustion and not use thread pool exhaustion for flow-control.
 
 Use instead [Ice.Connection.name.MaxDispatches](../ice-connection-properties) and [adapter.MaxConnections](../object-adapter-properties).
+
 {% /callout %}
 
 # Configuring Thread Pools

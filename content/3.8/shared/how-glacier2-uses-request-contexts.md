@@ -16,7 +16,7 @@ The `_fwd` context determines the proxy mode that the router uses when forwardin
 | t | Twoway |
 | z | Compress |
 
-*Legal values for the _*`fwd`*context key*.
+*Legal values for the `_fwd` context key*.
 
 These characters match the corresponding [stringified proxy options](../syntax-for-stringified-proxies), except the Glacier2 router does not support batched invocations.
 

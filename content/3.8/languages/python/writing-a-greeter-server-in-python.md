@@ -45,7 +45,9 @@ Since the `Greeter` Slice interface only has one operation (`greet`), there is o
 You can see it takes a `name` parameter, and returns a greeting based on the provided `name`, matching both the generated abstract class, and indirectly, what was specified in our Slice file.
 
 {% callout type="info" %}
+
 It is normal for servants like `Chatbot` to contain fields and other methods in addition to the needed ones from the generated base class. Due to our application’s simplicity, we don’t here though.
+
 {% /callout %}
 
 ## Main Server Program
@@ -126,7 +128,9 @@ except KeyboardInterrupt:
 ```
 
 {% callout type="info" %}
+
 The main thread is just waiting in this call - it does not perform any work.
+
 {% /callout %}
 
 Once the exception handler finishes, the communicator goes out of scope and is automatically destroyed (because we used the with statement). At that point, the application exits cleanly.

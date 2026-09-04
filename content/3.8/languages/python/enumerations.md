@@ -4,6 +4,7 @@ language: python
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice enumeration maps to a Python enum.Enum class. The Slice enum name becomes the Python class name, and each enumerator becomes a class attribute with the same name.
 
 For example:
@@ -48,4 +49,5 @@ False
 - To get a member from its **name**, use item access: `Fruit['Apple']`. If the name is invalid, Python raises `KeyError`.
 
 For additional details, see the official [Python enum documentation.](https://docs.python.org/3/library/enum.html#enum.Enum)
+
 {% /language-section %}

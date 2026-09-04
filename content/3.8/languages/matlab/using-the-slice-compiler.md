@@ -23,4 +23,5 @@ The Slice-to-MATLAB compiler (`slice2matlab`) offers two additional options:
   Emit a list of generated files in XML format.
 
 `slice2matlab` does **not** support the `--depend` flag, although it does still support `--depend-xml` and `--depend-file`.
+
 {% /language-section %}

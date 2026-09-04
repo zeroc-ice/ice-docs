@@ -28,7 +28,9 @@ If `num` is set to a value larger than 0, an invocation on an indirect proxy wit
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added to a batch and that message would cause the batch to exceed `num` kilobytes. If `num` is set to 0 or a negative number, batches must be flushed explicitly by the application. If not defined, the default value is `1024`.
 
 {% callout type="warning" %}
+
 When flushed, batch requests are sent as a single Ice message. The Ice runtime in the receiver limits incoming messages to the maximum size specified by [Ice.MessageSizeMax](../ice-properties), therefore the sender must periodically flush batch requests (whether manually or automatically) to ensure they do not exceed the receiver's configured limit.
+
 {% /callout %}
 
 {% language-section name="lang-2" /%}

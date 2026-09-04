@@ -132,10 +132,10 @@ Our production inventory contains a master IceGrid registry (`registry-master`) 
 
 We are now ready to write the playbook. The following playbook distributes a server executable to each IceGrid node using the logic described above.
 
-{% callout type="info" %}
-**icegrid_servers module**
+{% callout type="info" title="icegrid_servers module" %}
 
 The `icegrid_servers` module from ZeroC's [ice-ansible](https://github.com/zeroc-ice/ice-ansible) repository is required by this playbook. It can be installed by copying `icegrid_servers.yml` into the `library` folder.
+
 {% /callout %}
 
 ##### **deploy-server.yml**

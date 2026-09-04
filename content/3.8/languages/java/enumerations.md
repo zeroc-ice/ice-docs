@@ -4,6 +4,7 @@ language: java
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice enumeration maps to the corresponding enumeration in Java. For example:
 
 ```slice
@@ -70,6 +71,9 @@ The table below shows the new relationship between ordinal value and Slice value
 | `Orange` | 2 | 4 |
 
 {% callout type="success" %}
+
 Java enumerated types inherit implicitly from `java.lang.Enum`, which defines methods such as `ordinal` and `compareTo` that operate on the *ordinal* value of an enumerator, not its Slice value.
+
 {% /callout %}
+
 {% /language-section %}

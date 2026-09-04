@@ -26,7 +26,9 @@ The `getProperty` operation retrieves the value of a single property, and the `g
 The `setProperties` operation merges the entries in `newProperties` with the communicator's existing properties. If an entry in `newProperties` matches the name of an existing property, that property's value is replaced with the new value. If the new value is an empty string, the property is removed. Any existing properties that are not modified or removed by the entries in `newProperties` are retained with their original values. If the [Ice.Trace.Admin.Properties](../ice-trace-properties) property is enabled, Ice logs a message if a call to `setProperties` results in any changes to the property set.
 
 {% callout type="info" %}
+
 Modifying a program's configuration properties at runtime may not have an effect on the program. For example, many of Ice's standard configuration properties are read once during communicator initialization, and never again.
+
 {% /callout %}
 
 {% language-section name="lang-1" /%}

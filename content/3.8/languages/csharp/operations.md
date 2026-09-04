@@ -60,7 +60,9 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your thread marshals the arguments to the method synchronously, but the remainder of this invocation is asynchronous, and the method returns immediately. You get the result (return value or exception) through a `Task`. These async methods are described in more detail in [Asynchronous Method Invocation (AMI) in C#](../asynchronous-method-invocation-ami-in-csharp).
 
 {% callout type="info" %}
+
 The “sync” methods are provided for backwards compatibility: you should only use the async methods in modern C# code.
+
 {% /callout %}
 
 # Exception Handling
@@ -186,7 +188,9 @@ The server-side Ice runtime does not validate user exceptions thrown by an opera
 AMI is transparent to the server: there is no way for the server to tell whether a client sent a request synchronously or asynchronously.
 
 {% callout type="info" %}
+
 In a modern C# application, you should always use AMI. The synchronous API is provided for backwards compatibility.
+
 {% /callout %}
 
 # Asynchronous API
@@ -243,7 +247,9 @@ There are two exceptions to this rule:
 - a call to an `Async` method can throw `TwowayOnlyException`. An `Async` method throws this exception if you call an operation that has a return value or out-parameters on a oneway proxy.
 
 {% callout type="info" %}
+
 This behavior is provided for consistency with other Ice language mappings. In modern C#, it is preferable to report synchronous exceptions (such as marshaling exceptions) synchronously.
+
 {% /callout %}
 
 # Asynchronous Oneway Invocations
@@ -360,7 +366,9 @@ You would get the same signature on the default skeleton (`Example`) if you deco
 There are two processing contexts in which the logical implementation of an AMD operation may need to report an exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that completes the task).
 
 {% callout type="info" %}
+
 These are not necessarily two different threads: it is legal to complete the task from the dispatch thread.
+
 {% /callout %}
 
 The implementation of the `Async` method in your servant class can throw an exception synchronously: it’s equivalent to returning a task completed with this exception.

@@ -50,4 +50,5 @@ The generated constructor has one parameter for each field. This allows you to c
 All these parameters have also default values (see [Fields](../fields)).
 
 For derived classes, the constructor has one parameter for each of the base class's fields, plus one parameter for each of the derived class's fields, in base-to-derived order.
+
 {% /language-section %}

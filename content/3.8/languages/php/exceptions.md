@@ -4,6 +4,7 @@ language: php
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice exception is mapped to a PHP class with the same name. This mapping is similar to the mapping of [classes](../php-mapping-for-classes).
 
 Consider the following Slice exceptions:
@@ -41,4 +42,5 @@ There are a number of things to note about this generated code:
 2. The generated class contains a public variable for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
 4. The methods of the generated class are unimportant; in particular, since Ice for PHP is client-only, you don’t need to create user exceptions in PHP.
+
 {% /language-section %}

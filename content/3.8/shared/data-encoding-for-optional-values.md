@@ -21,7 +21,9 @@ The encoding does not use an explicit end marker for optional parameters; the en
 An optional value is encoded as the tuple *<type, tag, value>*, where *type* is the *optional type* that tells the receiver how to determine the number of bytes occupied by the value. The value itself is marshaled using the standard Ice encoding rules for its Slice type.
 
 {% callout type="info" %}
+
 Optional values require Ice encoding version 1.1.
+
 {% /callout %}
 
 # Encoding for Optional Types and Tags
@@ -121,7 +123,9 @@ Now consider the contents of the reply message:
 The body of the reply message contains the out parameter `d`, the return value, and the optional parameter `p`. The tag value 300 is too large to combine with the optional type, therefore it appears immediately following the optional type encoded as a size. A proxy value uses the FSize optional type, meaning a 32-bit integer precedes the encoded value to specify its size.
 
 {% callout type="info" %}
+
 Although the return value is required in this example, an optional return value is treated as if it were an optional out parameter.
+
 {% /callout %}
 
 The server here supplies a nil value for the optional proxy parameter. The client must not interpret this to mean that the optional parameter is unset; rather, the parameter is set, it just happens to be set to a nil value. If the server had supplied no value for the parameter, it would not appear in the encoding at all.

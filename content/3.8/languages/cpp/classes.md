@@ -132,4 +132,5 @@ class TimeOfDay { ... }
 ```
 
 The Slice compiler then generates an `ice_print` override declaration in the mapped C++ class, and you are responsible to implement this member function.
+
 {% /language-section %}

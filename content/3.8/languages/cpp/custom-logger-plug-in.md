@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 Ice provides a C++ plug-in class, `Ice::LoggerPlugin`, that installs a logger into the communicator in its constructor:
 
 ```cpp
@@ -42,6 +43,9 @@ Ice.Plugin.CustomLogger=customlogger,0:createCustomLoggerPlugin
 ```
 
 {% callout type="info" %}
+
 Even though you didn’t implement the plug-in class (`Ice::LoggerPlugin`), you are in effect creating a new plug-in since you choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in factory function and the plug-in itself.
+
 {% /callout %}
+
 {% /language-section %}

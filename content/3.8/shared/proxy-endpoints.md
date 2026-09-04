@@ -6,7 +6,9 @@ title: Proxy Endpoints
 The endpoint or endpoints of a proxy correspond to the endpoint(s) of the object adapter(s) that hosts the target object.
 
 {% callout type="success" %}
+
 Endpoint is an overloaded term - many things are “endpoints”. Think of an Ice endpoint as a “server address”. Not so coincidentally, that’s the term we’ve adopted for IceRPC.
+
 {% /callout %}
 
 A proxy can have one endpoint, two or more endpoints, or zero endpoints. We explore below the meaning of each of these configurations.
@@ -24,6 +26,7 @@ greeter:tcp -h frosty.zeroc.com -p 4061
 This endpoint states that an object is reachable via TCP on host `frosty.zeroc.com` and the port `4061`.
 
 {% callout type="info" %}
+
 The corresponding object adapter endpoint is typically different. For starters, you should not use DNS names in object adapter endpoints, while it’s common to use them in proxy endpoints.
 
 A typical object adapter endpoint would be:
@@ -81,9 +84,11 @@ MyObject
 Just like with the `@` style, the communicator requests endpoint(s) for such a proxy from the locator.
 
 {% callout type="warning" %}
+
 Locator optional
 
 An indirect proxy can also refer to a collocated target object. In this case, you don’t need to configure a locator to resolve the endpoints of this proxy - Ice doesn’t need any endpoint since it doesn’t establish a network connection to this local object adapter.
+
 {% /callout %}
 
 ##### See Also

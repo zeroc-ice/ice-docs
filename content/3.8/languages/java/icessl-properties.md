@@ -14,6 +14,7 @@ language: java
 #### Description
 
 Selects a particular certificate from the key store specified by `IceSSL.Keystore`. The certificate identified by `alias` is presented to the peer request during authentication.
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -83,6 +84,7 @@ The empty string is a password like any other. It opens an empty-password PKCS12
 After loading the key store, Ice checks that the selected key entry has a certificate chain. If it doesn't, communicator initialization fails with an `InitializationException` that points at `IceSSL.KeystorePassword` and, for an empty-password PKCS12 store, at `IceSSL.KeystoreType=PKCS12`.
 
 If `IceSSL.Keystore` and `IceSSL.Truststore` have the same value, Ice loads the file once using `IceSSL.KeystoreType` and `IceSSL.KeystorePassword`. In this case, `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` are not used.
+
 {% /language-section %}
 
 {% language-section name="lang-4" %}
@@ -136,4 +138,5 @@ When `IceSSL.TruststorePassword` is not defined, the trust store type determines
 After loading the trust store, Ice checks that it contains at least one certificate. A store loaded without its certificates, such as a PKCS12 trust store loaded with a null password, fails this check, and communicator initialization fails with an `InitializationException` that points at `IceSSL.TruststorePassword` and, for an empty-password PKCS12 store, at `IceSSL.TruststoreType=PKCS12`.
 
 If `IceSSL.Truststore` and `IceSSL.Keystore` have the same value, Ice loads the file once using `IceSSL.KeystoreType`. In this case, `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` are not used.
+
 {% /language-section %}

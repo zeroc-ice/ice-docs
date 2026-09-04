@@ -144,7 +144,9 @@ Specifies whether to add an authenticated user ID to the [Glacier2.*#Glacier2.Fi
 | 2 | Add the user ID with a leading underscore. |
 
 {% callout type="info" %}
+
 This property applies only to regular sessions (with username/password authentication). It has no effect on SSL sessions.
+
 {% /callout %}
 
 # Glacier2.Filter.Identity.Accept

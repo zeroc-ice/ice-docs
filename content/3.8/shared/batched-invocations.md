@@ -25,7 +25,9 @@ The default behavior of the Ice runtime, as governed by the configuration proper
 For batched oneway requests, the value of `Ice.BatchAutoFlushSize` specifies the maximum message size in kilobytes; the default value is 1MB. In the case of batched datagram requests, the maximum message size is the smaller of the system's maximum size for datagram packets and the value of `Ice.BatchAutoFlushSize`.
 
 {% callout type="warning" %}
+
 The receiver's setting for `Ice.MessageSizeMax` determines the maximum size that the Ice runtime will accept for an incoming protocol message. The sender's setting for `Ice.BatchAutoFlushSize` must not exceed this limit, otherwise the receiver will silently discard the entire batch.
+
 {% /callout %}
 
 Automatic flushing is enabled by default as a convenience for clients to ensure a batch never exceeds the configured limit.
@@ -41,7 +43,9 @@ A *fixed proxy* is a special form of proxy that an application explicitly create
 - Calling `flushBatchRequests` on the communicator flushes all batched requests on all connections associated with the target communicator
 
 {% callout type="info" %}
+
 `flushBatchRequests` on a connection or communicator has no effect on batched requests queued by regular (non-fixed) proxies.
+
 {% /callout %}
 
 The synchronous versions of `flushBatchRequests` block the calling thread until the batched requests have been successfully written to the local transport. To avoid the risk of blocking, you must use the asynchronous versions instead.
@@ -63,5 +67,7 @@ If automatic flushing is enabled, Ice's default behavior uses the smaller of [Ic
 Batched invocations are more efficient if you also enable compression for the transport: many isolated and small messages are unlikely to compress well, whereas batched messages are likely to provide better compression because the compression algorithm has more data to work with.
 
 {% callout type="info" %}
+
 Regardless of whether you used batched messages or not, you should enable compression only on lower-speed links. For high-speed LAN connections, the CPU time spent doing the compression and decompression is typically longer than the time it takes to just transmit the uncompressed data.
+
 {% /callout %}

@@ -160,7 +160,9 @@ The byte following the request ID indicates the status of the request. The reply
 A server sends a validate connection message when it receives a new connection.
 
 {% callout type="info" %}
+
 Validate connection messages are only used for connection-oriented transports.
+
 {% /callout %}
 
 The message indicates that the server is ready to receive requests; the client must not send any messages on the connection until it has received the validate connection message from the server. No reply to the message is expected by the server.
@@ -171,7 +173,9 @@ The purpose of the validate connection message is two-fold:
 - It prevents the client from writing a request message to its local transport buffers until after the server has acknowledged that it can actually process the request. This avoids a race condition caused by the server's TCP/IP stack accepting connections in its backlog while the server is in the process of shutting down: if the client were to send a request in this situation, the request would be lost but the client could not safely re-issue the request because that might violate at-most-once semantics. The validate connection message guarantees that a server is not in the middle of shutting down when the server's TCP/IP stack accepts an incoming connection and so avoids the race condition.
 
 {% callout type="info" %}
+
 Validate connection messages may also be sent at any time by either side as a heartbeat.
+
 {% /callout %}
 
 The [message header](../protocol-messages#message-header) comprises the entire validate connection message. The [compression](../protocol-compression) status of a validate connection message is always `0`.
@@ -181,7 +185,9 @@ The [message header](../protocol-messages#message-header) comprises the entire v
 A close connection message is sent when a peer is about to gracefully shutdown a [connection](../connection-management).
 
 {% callout type="info" %}
+
 Close connection messages are only used for connection-oriented transports.
+
 {% /callout %}
 
 The [message header](../protocol-messages#message-header) comprises the entire close connection message. The [compression](../protocol-compression) status of a close connection message is always `0`.

@@ -54,7 +54,9 @@ IceStorm can optionally run in a fully transient mode in which no database is re
 IceStorm automatically removes a subscription from a topic if a subscriber failure occurs while attempting to deliver a message. For example, IceStorm may be unable to establish a connection to the subscriber using the proxy that the subscriber provided, meaning the subscriber is not currently active at the proxy's endpoints, or those endpoints are inaccessible to IceStorm. Another common failure scenario is a subscriber that allows an exception to propagate back to IceStorm. This is important if you make changes to a Slice data type or operation signature: if you do, you must ensure that both publishers and subscribers use the same Slice definitions; if you do not, the subscriber is likely to encounter marshaling errors when receiving an event from IceStorm with a mismatched Slice definition. If the subscriber allows this error to propagate back to IceStorm, its subscription will be canceled.
 
 {% callout type="info" %}
+
 Use the `retryCount` [quality of service](../icestorm-quality-of-service) parameter to configure IceStorm's behavior in error situations.
+
 {% /callout %}
 
 ##### See Also

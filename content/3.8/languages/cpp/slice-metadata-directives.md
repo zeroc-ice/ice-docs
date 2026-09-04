@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 The mapped skeleton member function for `getGrid` is:
 
 ```cpp
@@ -37,6 +38,7 @@ GridServant::getGrid(const Ice::Current& current)
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 The metadata directives for C++ uses the `cpp` prefix.
 
 ### `cpp:array`
@@ -48,7 +50,9 @@ This directive applies to sequence parameters in operations. It directs the Slic
 This directive applies to operations. It directs the Slice compiler to create a `const` pure virtual member function for the skeleton class.
 
 {% callout type="info" %}
+
 The generated skeleton code calls servant member functions using a `shared_ptr<non-const-T>`. Adding this `const` only affects your own servant implementation code.
+
 {% /callout %}
 
 ### `cpp:custom-print`
@@ -167,4 +171,5 @@ module A
 ### `cpp:view-type:c++-view-type`
 
 This directive applies to sequence parameters. It directs the Slice compiler to map this parameter to the provided C++ type when this parameter does not need to hold any memory, for example when mapping an in-parameter to a proxy function.
+
 {% /language-section %}

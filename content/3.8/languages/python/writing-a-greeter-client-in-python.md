@@ -72,7 +72,9 @@ greeter = VisitorCenter.GreeterPrx(communicator, "greeter:tcp -h localhost -p 40
 The constructor accepts our communicator and a “stringified proxy” with the address of the remote Ice object. Here, our stringified proxy says that the target Ice object is named “greeter” and can be reached via `tcp` on `localhost` on port `4061`.
 
 {% callout type="info" %}
+
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
+
 {% /callout %}
 
 ### 3. Make an Invocation
@@ -90,7 +92,9 @@ The `greetAsync` function does all the heavy lifting for us: the proxy creates a
 Note that `greetAsync` returns an `Awaitable` object that we await. This allows the event loop thread to do other work while it is waiting for the invocation to complete.
 
 {% callout type="info" %}
+
 Because the communicator was initialized with an asyncio event loop, the returned Awaitable is an `asyncio.Future`, which can be awaited within the same event loop.
+
 {% /callout %}
 
 ### 4. Cleanup
@@ -106,5 +110,7 @@ python main.py
 ```
 
 {% callout type="info" %}
+
 This client won’t work unless you’ve also launched a Greeter server — see [Writing a Greeter Server](../writing-a-greeter-server-in-python).
+
 {% /callout %}

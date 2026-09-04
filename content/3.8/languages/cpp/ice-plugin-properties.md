@@ -38,6 +38,9 @@ Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory,38:create" arg1 arg2
 If the `path` component does not include a leading path name, Ice delegates to the operating system to locate the shared library or DLL, which typically means that the plug-in can reside in any of the directories in your shared library or DLL search path.
 
 {% callout type="info" %}
+
 The `Ice.Plugin.name` property can be used to configure a plug-in installed in the communicator using `InitializationData::pluginFactories`. In this situation, the `path[,version]:function` component of the property value is ignored.
+
 {% /callout %}
+
 {% /language-section %}

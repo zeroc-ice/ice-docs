@@ -4,6 +4,7 @@ language: js
 ---
 
 {% language-section name="lang-1" %}
+
 In JavaScript, a middleware is a concrete class that implements `Ice.Object` and delegates to another dispatcher called “next”. For example:
 
 ```js
@@ -66,4 +67,5 @@ adapter.use(next: Ice.Object => new AuthorizationMiddleware(next, "iced tea"));
 ```
 
 The middleware, once created and woven into the dispatch pipeline, intercept requests in the order of their registration through `use`.
+
 {% /language-section %}

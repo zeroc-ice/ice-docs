@@ -4,6 +4,7 @@ language: java
 ---
 
 {% language-section name="lang-1" %}
+
 In Java, a middleware is a concrete class that implements `Ice.Object` and delegates to another dispatcher called “next”. For example:
 
 ```java
@@ -41,4 +42,5 @@ adapter.use(next -> new AuthorizationMiddleware(next, "iced tea"));
 ```
 
 The middleware, once created and woven into the dispatch pipeline, intercept requests in the order of their registration through `use`.
+
 {% /language-section %}

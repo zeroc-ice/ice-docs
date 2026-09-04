@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 The Slice built-in types are mapped to C# types as shown below:
 
 | **Slice** | **C#** |

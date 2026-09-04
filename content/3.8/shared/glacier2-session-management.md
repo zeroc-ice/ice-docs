@@ -47,7 +47,9 @@ The `create` operations must return the proxy of a new `Session` object, or rais
 Glacier2 invokes the `destroy` operation on a `Session` proxy when the session expires, giving a custom session manager the opportunity to reclaim resources that were acquired for the session during `create`.
 
 {% callout type="info" %}
+
 The `create` operations may be called with information that identifies an existing session. For example, this can occur when a client loses its connection to the router but its previous session has not yet expired (and therefore the router has not yet invoked `destroy` on its `Session` proxy). A session manager implementation must be prepared to handle this situation.
+
 {% /callout %}
 
 To configure the router with a custom session manager, define the properties [Glacier2.SessionManager](../glacier2-properties) or [Glacier2.SSLSessionManager](../glacier2-properties) with the proxies of the session manager objects. If necessary, you can configure a router with proxies for both types of session managers. If a session manager proxy is not supplied, the call to `createSession` or `createSessionFromSecureConnection` always returns a null proxy.

@@ -8,7 +8,9 @@ An IceGrid node is a process that [activates, monitors, and deactivates](../iceg
 The IceGrid node server is implemented by the `icegridnode` executable. If you wish to run a registry and node in one process, `icegridnode` is the executable you must use.
 
 {% callout type="info" %}
+
 We recommend that you always run `icegridnode` and `icegridregistry` in separate processes.
+
 {% /callout %}
 
 # Command Line Options for `icegridnode`
@@ -50,7 +52,9 @@ It is important that you give careful consideration to the permissions of the ac
 The node requires an empty directory that it can use to store server files - more specifically, Ice config files for these servers. The pathname of this directory is supplied by the configuration property [IceGrid.Node.Data](../icegrid-properties). To clear a node's state, first ensure the server is not currently running, then remove all of the files in its data directory and restart the server.
 
 {% callout type="warning" %}
+
 The node's [data directory](../icegrid-persistent-data) may also contain files and subdirectories used by your application's servers. Before destroying the contents of the node's data directory, make sure that all servers are stopped and any important files are backed up.
+
 {% /callout %}
 
 # Node Configuration Example

@@ -18,7 +18,9 @@ module M
 In this example, the Ice runtime marshals the value `4` instead of its string equivalent `"::M::CompactExample"`. The specified value must be a non-negative integer that is unique within your application.
 
 {% callout type="info" %}
+
 Using values less than 255 produces the most efficient [encoding](../data-encoding-for-class-type-ids).
+
 {% /callout %}
 
 ##### See Also

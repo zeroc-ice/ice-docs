@@ -4,6 +4,7 @@ language: js
 ---
 
 {% language-section name="lang-1" %}
+
 JavaScript does not have an enumerated type, so a Slice enumeration is emulated using JavaScript objects where each enumerator is an instance of the same type. For example:
 
 ```slice
@@ -88,6 +89,9 @@ console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 ```
 
 {% callout type="info" %}
+
 TypeScript has an enumerated type, but the TypeScript definitions must match the JavaScript generated code, using enumerated types in TypeScript is identical to use them in JavaScript.
+
 {% /callout %}
+
 {% /language-section %}

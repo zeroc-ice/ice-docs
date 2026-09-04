@@ -59,7 +59,9 @@ Since the `Greeter` Slice interface only has one operation (`greet`), there is o
 You can see that the implementation of `greeter` is simple: it takes a `name` parameter, and returns a greeting based on the provided `name`.
 
 {% callout type="info" %}
+
 Note that the signature of the `greet` method above does not include "async throws" like `Greeter.greet`. That's because this implementation is synchronous and does not throw any exception.
+
 {% /callout %}
 
 ## Main Server Program

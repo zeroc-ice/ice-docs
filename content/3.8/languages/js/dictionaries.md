@@ -4,6 +4,7 @@ language: js
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice dictionary maps to:
 
 - A JavaScript Map when the Key is one of the Slice built-in types.
@@ -57,4 +58,5 @@ class EmployeeDeptMap extends Ice.HashMap<Employee, string> { ... }
 
 - `new EmployeeDeptMap()` automatically sets the comparators for struct keys and values.
 - Using `new Ice.HashMap()` directly would require you to provide custom comparators yourself.
+
 {% /language-section %}

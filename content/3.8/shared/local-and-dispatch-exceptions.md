@@ -10,7 +10,9 @@ The Ice runtime reports errors to the application by throwing exceptions. Ice oc
 As far as Ice is concerned, the opposite of a local exception is a user exception. [User exceptions](../exceptions) are defined in Slice and derive from [UserException](https://code.zeroc.com/manual/Ice/UserException); local exceptions are not defined in Slice and derive from `LocalException`.
 
 {% callout type="info" %}
+
 Even though user exceptions are nominally exceptions that you throw and catch, it’s better to think of them as error results. You may receive a user exception only when you make an invocation using a two-way proxy.
+
 {% /callout %}
 
 # Dispatch Exceptions
@@ -22,7 +24,9 @@ In the Ice exception type system, all these exceptions are local exceptions, der
 A dispatch exception represents a failure that occurred in the server while dispatching an incoming request. If you get a dispatch exception, it means Ice was able to communicate with the server - and got a failure-response from the server.
 
 {% callout type="info" %}
+
 You can only get a dispatch exception when you make an invocation with a two-way proxy.
+
 {% /callout %}
 
 A dispatch information carries information transmitted in a [Reply](../ice-protocol) message, namely:

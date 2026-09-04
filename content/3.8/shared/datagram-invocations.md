@@ -40,5 +40,7 @@ You can optionally select the network interface to use for multicast endpoints b
 In one respect, using multicast in Ice is no different than using regular datagram invocations; all of the design considerations mentioned above still apply. However, the fact that there could be any number of listeners (or none at all) adds new possibilities for your application design.
 
 {% callout type="success" %}
+
 Consider using the IceDiscovery plug-in if your objective in using multicast is the discovery of available servers.
+
 {% /callout %}

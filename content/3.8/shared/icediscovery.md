@@ -71,7 +71,9 @@ Unless the Ice locator cache is disabled, only the initial lookup request occurs
 IceDiscovery and [IceGrid](../icegrid) both provide a location service but it helps to understand their differences when deciding which one to use in an application. Use IceDiscovery when your application needs a lightweight, transient location service. IceGrid's location service is backed by a persistent database and represents just one of the features that IceGrid offers, along with remote administration, on-demand server activation, and many others. If you need a location service but aren't yet ready to dive into IceGrid, start out using IceDiscovery; migrating to IceGrid later won't be difficult.
 
 {% callout type="warning" %}
+
 We provide a plug-in similar to IceDiscovery called [IceLocatorDiscovery](../icelocatordiscovery) that integrates with IceGrid.
+
 {% /callout %}
 
 # Installing IceDiscovery
@@ -133,7 +135,9 @@ IceDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
 ```
 
 {% callout type="info" %}
+
 All of the clients and servers comprising an application must use the same values for `IceDiscovery.Address` and `IceDiscovery.Port`. You should also consider defining [IceDiscovery.DomainId](../icediscovery-properties) to avoid any potential collisions from unrelated applications that happen to use the same address and port.
+
 {% /callout %}
 
 ## Configuring IceDiscovery in Clients

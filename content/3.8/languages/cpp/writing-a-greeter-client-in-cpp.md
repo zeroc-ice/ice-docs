@@ -24,7 +24,9 @@ This produces two files: a header file, `Greeter.h`, and a C++ source file, `Gre
 In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your build project, like we demonstrate for the C++ demo programs.
 
 {% callout type="info" %}
+
 You can easily integrate Slice compilation with most build projects. The C++ demo programs use [CMake](https://cmake.org/).
+
 {% /callout %}
 
 ## Client Implementation
@@ -64,6 +66,7 @@ Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
 ```
 
 {% callout type="success" %}
+
 The `Ptr` types in the Ice for C++ API are all aliases for `std::shared_ptr`. For example:
 
 ```cpp
@@ -95,7 +98,9 @@ VisitorCenter::GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 406
 The constructor accepts our communicator and a “stringified proxy” with the address of the remote Ice object. Here, our stringified proxy says that the target Ice object is named `greeter` and can be reached via `tcp` on `localhost` on port `4061`. If you run the server on another computer, replace `localhost` with that computer’s hostname or IP address.
 
 {% callout type="info" %}
+
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
+
 {% /callout %}
 
 ### 3. Make an Invocation
@@ -110,7 +115,9 @@ cout << greeting << endl;
 The `greet` function does all the heavy lifting for us: the proxy creates a request with the `name` string, the communicator establishes a connection to `localhost:4061`, and the request is sent over it. When a response is received, the proxy will unmarshal its payload and finally return a string (the greeting).
 
 {% callout type="info" %}
+
 A proxy is a value, not a pointer, but `GreeterPrx` also provides `operator->`: `greeter.greet("alice")` and `greeter->greet("alice")` are equivalent. The demo source uses the `->` syntax.
+
 {% /callout %}
 
 Here, we called the *synchronous* version of `greet`, which means this function call will block until the response is received. And don’t let the simplicity of the syntax fool you: this is a remote call which will be much slower than a local call!
@@ -162,7 +169,9 @@ return 0;
 After building the client (see the demo’s [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/cpp/Ice/greeter/README.md) for instructions), running it is as simple as running any other executable:
 
 {% callout type="info" %}
+
 Start a Greeter server before you run the client — see [Writing a Greeter Server](../writing-a-greeter-server-in-cpp).
+
 {% /callout %}
 
 **Linux and macOS:**

@@ -39,7 +39,9 @@ exception RangeException
 A user exception is much like a structure in that it contains a number of fields. However, unlike structures, exceptions can have zero fields, that is, be empty. Like classes, user exceptions support inheritance and may include [optional fields](../fields).
 
 {% callout type="info" %}
+
 Even though user exceptions are nominally exceptions that you throw and catch, it’s better to think of them as error results. You may receive a user exception only when you call a Slice operation.
+
 {% /callout %}
 
 # Exception Specification in Operations
@@ -177,7 +179,9 @@ This raises the question of what should happen if the server throws a `FatalAppl
 - If the client was built with the original definition, that client has no knowledge that `FatalApplicationException` even exists. In this case, the Ice runtime automatically slices the exception to the most-derived type that is understood by the receiver (`AppException`, in this case) and discards the information that is specific to the derived part of the exception.
 
 {% callout type="info" %}
+
 The exception slicing occurs when the exception is marshaled by the server using the sliced format. Started with Ice 3.8, exceptions are always marshaled in the sliced format. In Ice 3.7 and prior releases, you need to enable the sliced format explicitly.
+
 {% /callout %}
 
 # Language Mapping

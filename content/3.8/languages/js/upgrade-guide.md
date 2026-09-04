@@ -32,8 +32,11 @@ This new package also includes the `slice2js` compiler for Linux, macOS, and Win
    ```
 
 {% callout type="info" %}
+
 The `slice2js` compiler can be executed by running `npx slice2js`.
+
 {% /callout %}
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}

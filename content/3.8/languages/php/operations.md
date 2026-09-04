@@ -196,4 +196,5 @@ if($v != Ice_Unset)
 ```
 
 A well-behaved program must always compare an optional parameter to `\Ice\None` prior to using its value. Keep in mind that the `\Ice\None` marker value has different semantics than `null`. Since `null` is a legal value for certain Slice types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is set. An optional parameter set to `null` is considered to be set.
+
 {% /language-section %}

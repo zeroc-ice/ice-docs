@@ -9,7 +9,9 @@ Ice uses endpoints for two similar but distinct purposes:
 2. In a server context (that is, in an object adapter's configuration), endpoints define the addresses and transport protocols over which new incoming connections are accepted.
 
 {% callout type="success" %}
+
 Endpoint is an overloaded term - many things are “endpoints”. Think of an Ice endpoint as a “server address”. Not so coincidentally, that’s the term we’ve adopted for IceRPC.
+
 {% /callout %}
 
 This page presents the addressing component of endpoints, as well as the transport protocols and their options.
@@ -31,7 +33,9 @@ An endpoint has the following format:
 `transport` can be any of the Ice transport protocols described on this page (`tcp`, `ssl`, `udp` etc.), or `default`. When `default` is used, it is replaced by the value of the [Ice.Default.Protocol](../ice-default-properties) property (default protocol means default *transport* protocol). If an endpoint is malformed, or an unknown transport protocol is specified, the application receives a `ParseException`.
 
 {% callout type="info" %}
+
 See [Object Adapter Endpoints](../object-adapter-endpoints) for examples.
+
 {% /callout %}
 
 ## IP Address Syntax
@@ -118,6 +122,7 @@ A `udp` endpoint supports the following options:
 ### Deprecated options
 
 With the 1.0 encoding, UDP endpoints supported 2 additional options: the `-e major.minor` and `-v major.minor`**options. These 2 options specified which encoding and protocol was supported by the endpoint. These two options are deprecated with the 1.1 encoding and are ignored (a deprecation warning will be emitted when parsed by the communicator `stringToProxy` method). The supported protocol and encoding is specified on the proxy with the 1.1 encoding.
+
 {% /callout %}
 
 ### Multicast Interfaces

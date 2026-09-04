@@ -61,7 +61,9 @@ private:
 As you can see, the default implementation of `shutdown` simply shuts down the communicator, which initiates an orderly termination of the Ice runtime's server-side components and prevents object adapters from dispatching any new requests. You can add your own application-specific behavior to the `shutdown` method to ensure that your program terminates in a timely manner.
 
 {% callout type="info" %}
+
 A servant must not call destroy on its communicator while dispatching a request.
+
 {% /callout %}
 
 To avoid the risk of a race condition, the recommended strategy for replacing the `Process` facet is to delay creation of the administrative facets until after communicator initialization, so that your application has a chance to replace the facet:
@@ -82,4 +84,5 @@ communicator.addAdminFacet(myProcessFacet, "Process")
 ```
 
 If you host the admin object in the `Ice.Admin` object adapter, the final step is to create the admin object by calling `getAdmin` on the communicator. And if you host the admin object in your own object adapter, the final set is to create the admin object with `createAdmin`.
+
 {% /language-section %}

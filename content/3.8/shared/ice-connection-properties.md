@@ -10,7 +10,9 @@ The outgoing connections created by a communicator are configured using `Ice.Con
 In the property descriptions below, replace `name` with `Client` or `Server`.
 
 {% callout type="info" %}
+
 These properties apply only to connections over connection-oriented transports such a TCP. They have no effect on UDP “connections”.
+
 {% /callout %}
 
 # Ice.Connection.*name*.CloseTimeout
@@ -70,7 +72,9 @@ Setting `num` to `0` or less disables the idle check and the sending of heartbea
 The default idle timeout is `60` seconds.
 
 {% callout type="info" %}
+
 We recommend you use the same idle timeout for all clients and servers in your application. The default value (60 seconds) should be appropriate for most applications.
+
 {% /callout %}
 
 # Ice.Connection.*name*.InactivityTimeout
@@ -90,7 +94,9 @@ Setting `num` to `0` or less disables the timeout entirely.
 The default inactivity timeout is `300` seconds.
 
 {% callout type="warning" %}
+
 Make sure your inactivity timeout is greater than your idle timeout, as the implementation of the inactivity timeout relies on a smaller idle timeout value. If you disable the idle timeout by setting it to 0 or very large value (not something we recommend), you will effectively disable the inactivity timeout as well.
+
 {% /callout %}
 
 {% language-section name="lang-1" /%}

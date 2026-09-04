@@ -18,13 +18,16 @@ We present this example in the following sections:
 3. **Writing a client** - How to write a client that communicates with an Ice server.
 
 We write the server first: a client has nothing to call until a server is running.
+
 {% /iflang %}
+
 {% iflang langs="js,matlab,php,ruby" %}
 
 1. **Using Slice** - How to use the [Slice IDL](../the-slice-language) to define a contract between clients and servers.
 2. **Writing a client** - How to write a client that communicates with an Ice server.
 
 This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python or Swift, and call it from the client you write here.
+
 {% /iflang %}
 
 {% language-section name="lang-1" /%}

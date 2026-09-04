@@ -40,7 +40,9 @@ The IceGrid registry creates up to five sets of endpoints, configured with the f
   - `IceGrid::Admin`
 
 {% callout type="warning" %}
+
 There are security implications in allowing access to administrative sessions, as explained in the next section.
+
 {% /callout %}
 
 - [IceGrid.Registry.Server.Endpoints](../icegrid-properties)

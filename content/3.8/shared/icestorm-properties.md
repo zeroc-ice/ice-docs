@@ -16,7 +16,9 @@ IceBox.Service.IceStorm=IceStormService,...
 ```
 
 {% callout type="warning" %}
+
 As of Ice 3.8, the properties for IceStorm use the `IceStorm` prefix, as shown on this page. In previous versions of Ice, the IceStorm properties were prefixed by the service name as specified by the `IceBox.Service.name` property.
+
 {% /callout %}
 
 # IceStorm.Discard.Interval

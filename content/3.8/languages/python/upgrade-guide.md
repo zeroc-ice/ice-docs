@@ -100,6 +100,7 @@ Key points:
   Applications **do not** need to import these _forward modules directly.
 
 {% callout type="info" %}
+
 Import semantics are unchanged:
 
 ```
@@ -107,6 +108,7 @@ import VisitorCenter
 ```
 
 works the same in 3.7 and 3.8.
+
 {% /callout %}
 
 ## **Package Imports**

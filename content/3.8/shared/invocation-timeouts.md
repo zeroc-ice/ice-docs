@@ -49,7 +49,9 @@ An application that configures invocation timeouts must be prepared to catch `In
 The effects of an invocation timeout are limited to the client; no indication is sent to the server, which may still be busy dispatching the request. The Ice runtime in the client ignores a response to this request if the server eventually sends one.
 
 {% callout type="info" %}
+
 Ice does **not** perform [automatic retries](../automatic-retries) for invocation timeouts.
+
 {% /callout %}
 
 ##### See Also

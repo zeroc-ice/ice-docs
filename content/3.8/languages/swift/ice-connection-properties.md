@@ -18,4 +18,5 @@ Configures the maximum number of requests that a connection can dispatch concurr
 The limit is infinite when `num` is `0` or less.
 
 The default max dispatches is `100`.
+
 {% /language-section %}

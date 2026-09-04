@@ -79,7 +79,9 @@ To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.
 Ice can automatically reap idle threads in the `Client` or `Server` [thread pool](../the-ice-threading-model) to conserve resources. This property specifies the number of seconds a thread must be idle before it is reaped. If not specified, the default value is 60 seconds.
 
 {% callout type="success" %}
+
 The threads in Ice thread pools are assigned jobs at random, and this randomness affects how quickly a thread in an under-utilized thread pool will get reaped.
+
 {% /callout %}
 
 To disable the reaping of idle threads, set `ThreadIdleTime` to 0. In this situation, the thread pool is initialized with [Ice.ThreadPool.*name*.Size](../ice-threadpool-properties#ice.threadpool.name.size) active threads and may grow to contain [Ice.ThreadPool.*name*.SizeMax](../ice-threadpool-properties#ice.threadpool.name.sizemax) active threads, but the size of the pool never decreases.

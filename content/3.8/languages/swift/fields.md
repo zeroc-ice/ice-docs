@@ -8,6 +8,7 @@ language: swift
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 A Slice field maps to a Swift property with the same name. The type of the property is the mapped Slice type. When the Slice field is non-optional, the property type is non-optional as well, except for class and proxy fields.
 
 For example:

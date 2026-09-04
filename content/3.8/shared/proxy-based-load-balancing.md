@@ -35,7 +35,9 @@ Suppose now that we use the `Ordered` endpoint selection type instead. In this c
 When we disable the connection caching behavior of a proxy with multiple endpoints, its semantics undergo a significant change. Using the `Random` [endpoint selection type](../connection-establishment), the Ice runtime selects one of the endpoints at random and [establishes a connection](../connection-establishment) to it if one is not already established, and this process is repeated *prior to each subsequent invocation*. This is called *per-request load balancing* because each request can potentially be directed to a different server.
 
 {% callout type="info" %}
+
 Using the `Ordered` endpoint selection type is not as common in this scenario; its main purpose would be to fall back on a secondary server if the primary server is not available, but it causes the Ice runtime to attempt to contact the primary server during each request.
+
 {% /callout %}
 
 Here's some code that shows how to configure the proxy:

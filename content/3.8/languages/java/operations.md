@@ -61,7 +61,9 @@ For each operation, the Slice compiler generates 4 methods on the proxy interfac
 - two overloaded “async” methods, named `<operation-name>Async`. When you call these methods, your thread marshals the arguments to the method synchronously, but the remainder of this invocation is asynchronous, and the method returns a `CompletableFuture` immediately. These async methods are described in more detail in [Asynchronous Method Invocation (AMI) in Java](../asynchronous-method-invocation-ami-in-java).
 
 {% callout type="info" %}
+
 Async invocations allow you to use threads more efficiently. Sync invocations are more convenient to call. You decide what’s more important for your application.
+
 {% /callout %}
 
 # Exception Handling in Java
@@ -399,7 +401,9 @@ You would get the same `opAsync` method on the default skeleton (`Example`) if y
 There are two processing contexts in which the logical implementation of an AMD operation may need to report an exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that sends the response).
 
 {% callout type="info" %}
+
 These are not necessarily two different threads: it is legal to send the response from the dispatch thread.
+
 {% /callout %}
 
 The implementation of the `Async` method in your servant class can throw an exception synchronously: it’s equivalent to returning a future completed with this exception.
@@ -582,6 +586,7 @@ if (i.isPresent()) {
 Passing `null` where an optional value is expected is equivalent to passing an instance whose value is unset.
 
 {% callout type="info" %}
+
 Java's optional classes do not consider `null` to be a legal value. Consider this example:
 
 ##### **Slice**
@@ -600,5 +605,7 @@ interface Repository
 ```
 
 The Ice encoding supports `null` proxies, so you can pass `null` to `addRequired` and the server will receive it as `null`. However, there's no way to pass an "optional proxy set to null" in the Java mapping. Passing `null` to `addOptional` is equivalent to passing the value of `java.util.Optional.ofNullable((T)null)`, which is equivalent to passing the value of `java.util.Optional.empty()`. In either case, the server will receive it as an optional whose value is not present.
+
 {% /callout %}
+
 {% /language-section %}

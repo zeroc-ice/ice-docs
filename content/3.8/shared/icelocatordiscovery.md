@@ -8,7 +8,9 @@ title: IceLocatorDiscovery
 IceLocatorDiscovery is an [Ice plug-in](../plug-in-facility) that discovers IceGrid and custom [locators](../locators) on a network using UDP multicast. Once installed, the plug-in automatically and transparently issues a multicast query in an attempt to find one or more locators, collects the responses, and configures the Ice runtime accordingly. The primary advantage of using IceLocatorDiscovery is that it eliminates the need to manually configure and maintain the `Ice.Default.Locator` property. It's even more helpful in a [replicated IceGrid deployment](../registry-replication) consisting of a master replica and one or more slave replicas, where the `Ice.Default.Locator` property would normally include endpoints for some or all of the replicas. Avoiding the need to configure the locator endpoints relieves some of the administrative burden, simplifies deployment and configuration tasks, and adds more flexibility to your application designs.
 
 {% callout type="info" %}
+
 You can think of IceLocatorDiscovery as an application-specific version of [IceDiscovery](../icediscovery) geared primarily toward IceGrid users.
+
 {% /callout %}
 
 # Installing IceLocatorDiscovery
@@ -44,7 +46,9 @@ where
 - `interface` is the value of [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties)
 
 {% callout type="warning" %}
+
 For IceGrid users, the lookup endpoint must use the same multicast address and port as [IceGrid.Registry.Discovery.Endpoints](../object-adapter-endpoints) in the registry configuration.
+
 {% /callout %}
 
 IceLocatorDiscovery also creates object adapters in each communicator in which it's installed, including the object adapter [IceLocatorDiscovery.Reply](../icelocatordiscovery-properties). This object adapter corresponds to the Reply endpoint mentioned above.
@@ -63,7 +67,9 @@ IceLocatorDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
 ```
 
 {% callout type="warning" %}
+
 All of the components of an IceGrid application must use the same multicast address and port. You should also consider defining [IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties) to avoid any potential collisions from unrelated IceGrid applications that happen to use the same address and port.
+
 {% /callout %}
 
 ## Configuring IceLocatorDiscovery in User Applications
@@ -93,7 +99,9 @@ These properties influence the endpoint on which the registry listens for multic
 `IceGrid.Registry.Discovery.Endpoints=udp -h address -p port [--interface interface]`
 
 {% callout type="warning" %}
+
 You don't need to define any `IceGrid.Registry.Discovery.*` properties if you want the registry to listen for discovery queries on its default multicast address and port.
+
 {% /callout %}
 
 ## Configuring IceLocatorDiscovery in an IceGrid Node

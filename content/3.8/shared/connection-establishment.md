@@ -29,6 +29,7 @@ If a failure occurs during a connection attempt, the communicator tries to conne
 ### Tip
 
 Define the property `Ice.Trace.Retry=2` to monitor these attempts.
+
 {% /callout %}
 
 If no connection can be established on this second attempt, the communicator throws an exception that indicates the reason for the final failed attempt (typically `ConnectFailedException`). Similarly, if a connection was lost during a request and could not be reestablished (assuming the request can be retried), the communicator throws an exception that indicates the reason for the final failed attempt.

@@ -41,6 +41,9 @@ Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory.dll:MyFactory" arg1 a
 ```
 
 {% callout type="info" %}
+
 A full qualified assembly name or a partial qualified assembly name in the plug-in entry point only works when the assembly is listed in the application dependencies file.
+
 {% /callout %}
+
 {% /language-section %}

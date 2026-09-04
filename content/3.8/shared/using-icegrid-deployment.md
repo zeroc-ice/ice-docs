@@ -38,7 +38,9 @@ We can deploy our application using the [icegridadmin command line utility](../i
 For IceGrid's purposes, we have named our application `Ripper`. It consists of a single server, `EncoderServer`, assigned to the node `Node1`.
 
 {% callout type="info" %}
+
 Since a computer typically runs only one node process, you might be tempted to give the node a name that identifies its host (such as `ComputeServerNode`). However, this naming convention becomes problematic as soon as you need to migrate the node to another host.
+
 {% /callout %}
 
 The server's `exe` attribute supplies the pathname of its executable, and the `activation` attribute indicates that the server should be [activated on demand](../icegrid-server-activation) when necessary.
@@ -78,7 +80,9 @@ Ice.Default.Locator=IceGrid/Locator:tcp -p 4061
 The registry and node can share this configuration file. In fact, by enabling [IceGrid.Node.CollocateRegistry](../icegrid-properties), we have indicated that the registry and node should run in the same process.
 
 {% callout type="info" %}
+
 We recommend that you always run `icegridnode` and `icegridregistry` as separate processes.
+
 {% /callout %}
 
 One difference from our [initial configuration](../getting-started-with-icegrid) is that we no longer define [IceGrid.Registry.DynamicRegistration](../icegrid-properties). By omitting this property, we force the registry to reject the registration of object adapters that have not been deployed.
@@ -252,7 +256,9 @@ We assume that `/opt/ripper/node` refers to a local file system directory on the
 We have also modified the locator proxy to include the address of the host on which the registry is running.
 
 {% callout type="success" %}
+
 Using [IceLocatorDiscovery](../icelocatordiscovery) allows a node to discover its registry at run time without the need to define `Ice.Default.Locator`.
+
 {% /callout %}
 
 ## Redeploying the Application

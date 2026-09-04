@@ -18,7 +18,9 @@ For example, if you create a proxy from the stringified proxy `greeter:tcp -h lo
 You can also set the invocation method on a proxy programmatically using a proxy factory method: `ice_twoway`, `ice_oneway`, `ice_batchOneway`, etc.
 
 {% callout type="info" %}
+
 Keep in mind that proxies are immutable and all proxy factory methods create new proxies - they don’t change the source proxy.
+
 {% /callout %}
 
 ## Twoway, Oneway, Batch Oneway

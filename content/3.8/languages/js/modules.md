@@ -4,6 +4,7 @@ language: js
 ---
 
 {% language-section name="lang-1" %}
+
 Slice modules map to a **JavaScript object** with the same name and to a **TypeScript namespace** with the same name as the Slice module. The mapping preserves the nesting of Slice definitions.
 
 For example:
@@ -64,4 +65,5 @@ module Time {
 ```
 
 You can only use `js:identifier` on a module with a simple name - this metadata directive is not compatible with the nested module syntax.
+
 {% /language-section %}

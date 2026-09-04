@@ -218,4 +218,5 @@ struct MNode: Node {
 Note that `MNode` adopts `Node`, the skeleton protocol.
 
 As far as Ice is concerned, the `MNode` struct must implement only a single method: the `name` method from its skeleton. This makes the servant struct a concrete type that can be instantiated. You can add other methods and fields as you see fit to support your implementation. For example, in the preceding definition, we added a `name` field and an initializer.
+
 {% /language-section %}

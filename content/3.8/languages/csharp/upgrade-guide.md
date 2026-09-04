@@ -51,6 +51,7 @@ The monolithic `zeroc.ice.net` package has been replaced with modular NuGet pack
 
 4. Select the desired **3.8 version** and click **Install**.
 5. **Rebuild** the solution.
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}

@@ -20,4 +20,5 @@ On Windows, subclasses of [Ice::Service](../windows-services) use the Windows ap
 # macOS OSLog
 
 On maOS, you can activate a logger that logs using [OSLog](https://developer.apple.com/documentation/os/oslog) by setting [Ice.UseOSLog property](../ice-properties).
+
 {% /language-section %}

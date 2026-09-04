@@ -6,7 +6,9 @@ title: The Process Facet
 An activation service, such as an [IceGrid](../icegrid) node, needs a reliable way to gracefully deactivate a server. One approach is to use a platform-specific mechanism, such as POSIX signals. This works well on POSIX platforms when the server is prepared to intercept signals and react appropriately. On Windows platforms, it works less reliably for C++ servers, and not at all for Java servers. For these reasons, the `Process` facet provides an alternative that is both portable and reliable.
 
 {% callout type="info" %}
+
 Be aware of the [security considerations](../security-considerations-for-administrative-facets) associated with enabling the `Process` facet.
+
 {% /callout %}
 
 # The `Process` Interface

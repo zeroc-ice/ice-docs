@@ -148,7 +148,9 @@ An enumerator is encoded as follows:
 - If the largest value is greater than 32766, the enumerator's value is marshaled as an `int`.
 
 {% callout type="danger" %}
+
 Changing the definition of an enumeration can break compatibility with existing applications. For example, if enumerators are added, removed, or changed such that the largest value crosses one of the thresholds shown above, the encoded form of the enumerators will change and cause marshaling errors unless you rebuild all applications that use this definition.
+
 {% /callout %}
 
 #### Encoding version 1.1

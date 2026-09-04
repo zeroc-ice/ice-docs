@@ -7,6 +7,7 @@ language: cpp
 
 - `--depend`
   Print dependency information in Makefile format to standard output by default, or to the file specified by the `--depend-file` option.
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -215,4 +216,5 @@ The source file now contains the following `#include` directive:
 ```
 
 Any leading path in the included file is discarded as usual, and the value of the `--include-dir` option is prepended.
+
 {% /language-section %}

@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 Ice for C# supports several different mappings for sequences. By default, sequences are mapped to arrays. You can use metadata directives to map sequences to a number of alternative types:
 
 - `System.Collections.Generic.List`
@@ -137,4 +138,5 @@ System.Collections.Generic.LinkedList<Fruit[]>
 ```
 
 The generated code now no longer mentions the type `FruitPlatter` anywhere and deals with the outer sequence elements as an array of `Fruit` instead.
+
 {% /language-section %}

@@ -25,7 +25,9 @@ Ice.Default.Router=Glacier2/router:tcp -h routerhost -p 4063
 You can also specify a default router by calling `setDefaultRouter` on the communicator, and obtain the current setting using `getDefaultRouter`.
 
 {% callout type="info" %}
+
 Proxies created with this communicator are configured with this router by default (see below). Object adapters created with this communicator are not affected by the default router.
+
 {% /callout %}
 
 # Configuring a Router for Client Invocations
@@ -66,7 +68,9 @@ A router implementation may optionally maintain an internal routing table that t
 For example, Glacier2 uses a routing table because it can forward requests to any number of back-end servers, whereas IceBridge does not use a routing table because each IceBridge instance is statically configured to forward requests to a single server. When a client makes an initial invocation on a routed proxy, and the configured router uses a routing table, the Ice runtime in the client needs to send that routed proxy to the router so that the router has the endpoint information necessary to establish a connection to the back-end server. The Ice runtime in the client also maintains its own local version of the routing table in order to minimize overhead; Ice only sends each routed proxy to the router once. Furthermore, Ice keeps its table synchronized with the router's by tracking any proxies that the router might have evicted from its table (the proxies returned by the call to `addProxies`).
 
 {% callout type="info" %}
+
 Ice uses object identities as the keys in its routing table, which means it's important that your Ice objects use [unique identities](../object-identity).
+
 {% /callout %}
 
 If a router receives an operation to be forwarded for an object identity that is not in its routing table (e.g., it may have been recently evicted), the router throws `ObjectNotExistException` and sets the `operation` member to the reserved value `ice_add_proxy` in order to notify the Ice runtime in the client that the routed proxy is unknown. The Ice client runtime must then register the proxy with the router and retry the invocation.

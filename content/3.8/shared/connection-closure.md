@@ -22,6 +22,7 @@ This idle check requires regular “write” activity from a healthy peer, which
 In order to operate properly, the idle check requires the same `IdleTimeout` configuration on both sides of the connection. You should assign the same idle timeout to all your clients and servers, and typically keep the default.
 
 {% callout type="info" %}
+
 Interop with previous versions of Ice
 
 Ice 3.7 (and before) did not generate regular write activity on connections by default. If one side of your connection uses Ice 3.7 (or earlier) and the other side uses Ice 3.8 (or newer), the idle check on the 3.8 side can abort a healthy but inactive connection.
@@ -29,6 +30,7 @@ Ice 3.7 (and before) did not generate regular write activity on connections by d
 To prevent such idle check aborts, configure your Ice 3.7 or 3.6 application to generate regular write activity by setting `Ice.ACM.Heartbeat` to 3, and making sure `Ice.ACM.Timeout` matches your Ice 3.8 `IdleTimeout`. The default `Ice.ACM.Timeout` is 60 seconds, just like the default `IdleTimeout`.
 
 If you cannot reconfigure your older Ice application, you can disable the idle check on the 3.8 side by setting [EnableIdleCheck](../ice-connection-properties) to `0`.
+
 {% /callout %}
 
 # The Inactivity Check
@@ -38,7 +40,9 @@ A client can establish a connection to a server, send one request to this server
 This is where the “inactivity check” comes in. A connection that remains inactive for [InactivityTimeout](../ice-connection-properties) is automatically closed. This timeout only takes into account application-level activities: heartbeats don’t count. The default inactivity timeout is 300 seconds (5 minutes).
 
 {% callout type="warning" %}
+
 A connection that is inactive is a healthy, but unused, connection. The graceful closure of an inactive connection is an innocuous event.
+
 {% /callout %}
 
 # Graceful Connection Closure

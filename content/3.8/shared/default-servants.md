@@ -32,9 +32,11 @@ As you can see, the object adapter allows you to add and remove default servants
 `removeDefaultServant` removes the default servant for the specified category. Attempts to remove a non-existent default servant raise `NotRegisteredException`. The operation returns the removed default servant. Once a default servant is successfully removed for the specified category, the Ice runtime guarantees that no new incoming requests for that category are dispatched to the servant.
 
 {% callout type="info" %}
+
 Default servants have “servant” in their names, and are indeed often servants – concrete classes that dispatch requests on their own.
 
 Nevertheless, the servant aspect is unimportant: the dispatch pipeline that uses these default servants only cares about dispatchers. Servants are just one particular kind of dispatchers, and you can actually use any kind of dispatcher as default servants.
+
 {% /callout %}
 
 # Guidelines for Implementing Default Servants

@@ -4,6 +4,7 @@ language: ruby
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice structure maps to a Ruby class with the same name. For each Slice field, the Ruby class contains a corresponding instance variable as well as accessors to read and write its value. For example, here is our Employee structure once more:
 
 ```slice
@@ -52,4 +53,5 @@ The `inspect` method returns a string representation of the structure.
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a single statement (instead of first having to construct the instance and then assign to its attributes).
 
 All these parameters have also default values (see [Fields](../fields)).
+
 {% /language-section %}

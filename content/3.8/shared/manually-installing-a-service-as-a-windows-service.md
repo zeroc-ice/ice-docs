@@ -38,7 +38,9 @@ icacls C:\ProgramData\Ice\icebridge.cfg
 We will use Microsoft's Service Control (`sc`) utility in a command window to create the service.
 
 {% callout type="info" %}
+
 See [https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sc-create](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sc-create) for more information about the `SC` utility.
+
 {% /callout %}
 
 Our first `sc` command does the majority of the work (the command is formatted for readability but must be typed on a single line):

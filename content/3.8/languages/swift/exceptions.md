@@ -4,6 +4,7 @@ language: swift
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice exception is mapped to a Swift class with the same name. This mapping is similar to the mapping of [classes](../swift-mapping-for-classes).
 
 Consider the following Slice exceptions:
@@ -45,4 +46,5 @@ There are a number of things to note about this generated code:
 2. The generated class contains a public property for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
 4. The generated class a provides default initializer and a memberwise initializer; they are identical to the generated initializers for Slice classes.
+
 {% /language-section %}

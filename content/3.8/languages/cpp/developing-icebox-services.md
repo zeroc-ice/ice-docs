@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 The example we present here is taken from the `IceBox/greeter` demo program.
 
 The class definition for our service is quite straightforward:
@@ -77,4 +78,5 @@ extern "C"
 ```
 
 In this example, the `create` function returns a new instance of the `GreeterService` service. The name of the function is not important, but it must have the signature shown above. In particular, the function must have C linkage, accept a single `const Ice::CommunicatorPtr&` parameter and return an `IceBox::Service*`.
+
 {% /language-section %}

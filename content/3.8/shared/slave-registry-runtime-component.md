@@ -19,7 +19,9 @@ A slave registry provides the following actions, from its contextual menu and fr
   Shutdown the registry process.
 
 {% callout type="warning" %}
+
 You cannot restart an IceGrid registry from IceGrid Admin.
+
 {% /callout %}
 
 # Properties

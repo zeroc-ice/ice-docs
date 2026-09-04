@@ -8,6 +8,7 @@ language: ruby
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 Here are the constant definitions once more:
 
 ```slice

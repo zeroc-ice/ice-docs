@@ -74,7 +74,9 @@ If an exception contains class fields, these fields are marshaled following the 
 An exception is marshaled as a collection of [slices](../basic-data-encoding) whose order matches the inheritance hierarchy, with the most-derived type appearing first. The selected encoding format affects the content of each slice. The final slice, representing the least-derived type, has its *last slice* bit set to true.
 
 {% callout type="info" %}
+
 As of Ice 3.8, Ice always marshals exceptions in the sliced format. It can also unmarshal exceptions in any format.
+
 {% /callout %}
 
 An exception in the compact format is marshaled as follows:

@@ -8,6 +8,7 @@ language: python
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 The metadata directives for Python uses the `python` prefix.
 
 ### `python:array.array`
@@ -51,4 +52,5 @@ Instructs the Ice for Python runtime to unmarshal a sequence as a Python numpy.n
 ### `python:tuple`
 
 Instructs the Ice for Python runtime to unmarshal a sequence as a Python tuple.
+
 {% /language-section %}

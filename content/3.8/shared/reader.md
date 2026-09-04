@@ -127,7 +127,9 @@ auto reader = makeSingleKeyReader(
 ```
 
 {% callout type="info" %}
+
 Sample filters are specified on readers but must be defined on the writer’s topic. Criteria types can be any [custom type](../custom-types) for which your application provides encoding/decoding templates.
+
 {% /callout %}
 
 ## Reading Samples

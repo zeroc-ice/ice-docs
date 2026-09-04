@@ -10,7 +10,9 @@ An object adapter maintains two sets of [endpoints](../endpoint-syntax). One set
 An object adapter's physical endpoints identify the network interfaces on which it receives requests from clients. These endpoints are configured via the [*name*.Endpoints](../object-adapter-properties) property, or they can be specified explicitly when [creating an adapter](../creating-an-object-adapter) using the operation `createObjectAdapterWithEndpoints`. The [endpoint syntax](../endpoint-syntax) generally consists of a transport protocol followed by an optional host name and port.
 
 {% callout type="info" %}
+
 Despite the name of the property and the name of the method, we recommend you always configure your object adapter with a **single endpoint.**Specifying multiple endpoints, while possible, does not provide any real benefit.
+
 {% /callout %}
 
 If a host name is specified, the object adapter listens only on the network interface associated with that host name. If no host name is specified but the property [Ice.Default.Host](../ice-default-properties) is defined, the object adapter uses the property's value as the host name. Finally, if a host name is not specified, and the property `Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including the loopback interface. You may also force the object adapter to listen on all interfaces by using one of the host names `0.0.0.0` or `*`. The adapter does *not* expand the list of interfaces when it is initialized. Instead, if no host is specified, or you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
@@ -18,7 +20,9 @@ If a host name is specified, the object adapter listens only on the network inte
 If the host name refers to a DNS name which is configured with multiple addresses, the object adapter will listen on the network interfaces identified by each address. All the addresses should refer to local network interfaces or the object adapter creation will fail.
 
 {% callout type="info" %}
+
 You should not use DNS names for your object adapter endpoint(s). This DNS support is only provided for backwards compatibility with previous versions of Ice.
+
 {% /callout %}
 
 If you want an adapter to accept requests on certain network interfaces, you must specify a separate endpoint for each interface. For example, the following property configures a single endpoint for the adapter named `MyAdapter`:
@@ -55,7 +59,9 @@ However, there are certain situations where a fixed port is not required. For ex
 When an object adapter creates a proxy, it embeds its published endpoints in this proxy.
 
 {% callout type="info" %}
+
 The published endpoints of an object adapter matter only if you create proxies with this object adapter and then transmit these proxies to other applications.
+
 {% /callout %}
 
 Most of the time, the published endpoints consist of a **single** published endpoint. Multiple published endpoints are useful for replicated servers, as presented below.
@@ -74,9 +80,11 @@ The published endpoints of a regular object adapter (that is, not configured wit
    3. finally, eliminate duplicate endpoints
 
 {% callout type="info" %}
+
 Your physical endpoint(s) should be simple: a single endpoint that is loopback, multicast, or neither loopback nor multicast (typically, `INADDR_ANY`).
 
 The published endpoints computation accepts odd mixes of endpoints only to maximize compatibility for existing applications.
+
 {% /callout %}
 
 As an example, the published endpoints for an object adapter with the following configuration:

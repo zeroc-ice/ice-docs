@@ -105,7 +105,9 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h registryhost -p 4061
 The use of a locator service allows the client to take advantage of indirect binding and avoid static dependencies on server endpoints. However, the locator proxy must have a fixed port, otherwise the client has a bootstrapping problem: it cannot resolve indirect proxies without knowing the endpoints of the locator service.
 
 {% callout type="success" %}
+
 [IceLocatorDiscovery](../icelocatordiscovery) eliminates the need for a client to define the `Ice.Default.Locator` property by using UDP multicast to discover registries at runtime.
+
 {% /callout %}
 
 # Ripper Server Configuration

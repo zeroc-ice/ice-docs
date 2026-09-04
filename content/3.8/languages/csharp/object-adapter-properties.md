@@ -153,6 +153,7 @@ The default value for max connections is `0`.
 Overrides the setting of [Ice.MessageSizeMax](../ice-properties) to limit the size of messages that can be received by this object adapter. If not defined, the adapter uses the value of `Ice.MessageSizeMax`.
 
 This property is logically a connection property, and only applies to messages received over network connections created by this object adapter.
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -180,6 +181,7 @@ The published host is used by the algorithm that computes the published endpoint
 Identifies the group of [replicated object adapters](../object-adapter-replication) to which this adapter belongs. The replica group is treated as a virtual object adapter, so that an indirect proxy of the form `identity@id` refers to the object adapters in the group. During binding, a client will attempt to establish a connection to an endpoint of one of the participating object adapters, and automatically try others until a connection is successfully established or all attempts have failed. Similarly, an outstanding request will, when permitted, automatically fail over to another object adapter of the replica group upon connection failure. The set of endpoints actually used by the client during binding is determined by the locator's configuration policies.
 
 Defining a value for this property has no effect unless [*adapter*.AdapterId](../object-adapter-properties#adapter.adapterid) is also defined. Furthermore, the locator registry may require replica groups to be defined in advance (see [IceGrid.Registry.DynamicRegistration](../icegrid-properties)), otherwise `Ice.NotRegisteredException` is thrown upon adapter activation. Regardless of whether an object adapter is replicated, it can always be addressed individually in an indirect proxy if it defines a value for [*adapter*.AdapterId](../object-adapter-properties#adapter.adapterid).
+
 {% /language-section %}
 
 {% language-section name="lang-3" %}
@@ -267,4 +269,5 @@ In a dynamically-sized [thread pool](../the-ice-threading-model), Ice reaps a th
 #### Java
 
 `value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
+
 {% /language-section %}

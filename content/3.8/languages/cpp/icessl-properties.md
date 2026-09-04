@@ -109,8 +109,11 @@ This property is used for two different purposes:
 If not specified, the default value is `CurrentUser.`
 
 {% callout type="success" %}
+
 An Ice program running as a Windows service will typically need to set this property to `LocalMachine`.
+
 {% /callout %}
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -201,6 +204,7 @@ Specifies a file that contains the program's private key. The file name may be s
 Specifies the password for the keychain identified by `IceSSL.Keychain`. If not defined, IceSSL attempts to open the keychain without a password.
 
 On iOS, this property is ignored.
+
 {% /language-section %}
 
 {% language-section name="lang-4" %}
@@ -249,6 +253,7 @@ Control whenever or not the certificate revocation check is done only against th
 ###### SecureTransport
 
 The CRL distribution points are always ignored, and the AIA OCSP responder is used if present.
+
 {% /language-section %}
 
 {% language-section name="lang-5" %}

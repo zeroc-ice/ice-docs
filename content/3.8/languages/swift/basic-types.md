@@ -4,6 +4,7 @@ language: swift
 ---
 
 {% language-section name="lang-1" %}
+
 The Slice built-in types are mapped to Swift types as shown below:
 
 | **Slice** | **Swift** |

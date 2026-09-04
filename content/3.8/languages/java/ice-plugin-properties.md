@@ -33,4 +33,5 @@ Ice.Plugin.MyPlugin="factory classes.jar":MyFactory
 ```
 
 If `class` is specified without a path, Ice attempts to load the class using class loaders. See [InitializationData.classLoader](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#classLoader).
+
 {% /language-section %}

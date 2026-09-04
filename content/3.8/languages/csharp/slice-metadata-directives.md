@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 The mapped skeleton method for `getGrid` is:
 
 ```csharp
@@ -76,6 +77,7 @@ public GridIntf.GetGridMarshaledResult getGrid(com.zeroc.Ice.Current current) {
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 The metadata directives for C# uses the `cs` prefix.
 
 ### `cs:attribute`
@@ -133,4 +135,5 @@ This directive applies to Slice structures.
 When the Slice structure maps to a C# record struct, the mapped record struct is marked `readonly`.
 
 When the Slice structure maps to a C# record class, the fields of this class are mapped to readonly C# fields or get-only properties (see `cs:property`), except for fields with a Slice class type that are mapped as usual (read-write fields or get-set properties).
+
 {% /language-section %}

@@ -33,7 +33,9 @@ Ice.Override.Compress=1
 This property instructs the Ice runtime to use only “compressed” requests, producing the same semantics as calling `ice_compress(true)` on every proxy. However, the property does not alter the existing proxy, but rather directs the Ice communicator to use protocol compression for all requests.
 
 {% callout type="info" %}
+
 Previous versions of Ice had many override properties. As of Ice 3.8, `Ice.Override.Compress` is the only override property left.
+
 {% /callout %}
 
 ##### See Also

@@ -131,7 +131,9 @@ WidgetPrx? widget = await WidgetPrxHelper.checkedCastAsync(simple);
 If the target object implements the Slice interface, `checkedCastAsync` returns a non-null proxy, just like `uncheckedCast`. If the target object doesn’t implement this interface, `checkedCastAsync` returns null. `checkedCastAsync` can also throw an exception, for example if it cannot reach the remote object.
 
 {% callout type="info" %}
+
 The generated proxy helper also provides a synchronous overload: `checkedCast`. We recommend you always use async methods when making remote calls, and avoid these synchronous overloads provided for backwards compatibility.
+
 {% /callout %}
 
 While `checkedCastAsync` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in practice you know or should know the type of your proxies and calling `checkedCastAsync` is rarely necessary.
@@ -249,4 +251,5 @@ Note that `Chatbot` inherits from `VisitorCenter.GreeterDisp_`, one of the two s
 As far as Ice is concerned, the `Chatbot` class must implement only a single method: the abstract method `Name` that it inherits from the skeleton class. This makes the servant class a concrete class that you can instantiate. You can add other methods and fields as you see fit to support your implementation.
 
 The async skeleton class is described in [Asynchronous Method Dispatch (AMD) in C#](../asynchronous-method-dispatch-amd-in-csharp).
+
 {% /language-section %}

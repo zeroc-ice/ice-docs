@@ -27,7 +27,9 @@ This produces two files: a header file, `Greeter.h`, and a C++ source file, `Gre
 In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your build project, like we demonstrate for the C++ demo programs.
 
 {% callout type="info" %}
+
 You can easily integrate Slice compilation with most build projects. The C++ demo programs use [CMake](https://cmake.org/).
+
 {% /callout %}
 
 ## Implement the Servant Class
@@ -55,7 +57,9 @@ Since the `Greeter` Slice interface only has one operation (`greet`), there is o
 Notice that this function takes one more parameter than the Slice operation: a trailing `const Ice::Current&`. The Slice compiler adds this parameter to every operation it maps onto a servant. It describes the request being dispatched — the identity of the target Ice object, the operation name, the request context, and more. Our implementation doesn’t need any of this information, so we leave the parameter unnamed. See [operations](../operations) for the full mapping.
 
 {% callout type="info" %}
+
 It is normal for servants like `Chatbot` to contain fields and other functions in addition to the needed ones from the generated base class. Due to our application’s simplicity, we don’t here though.
+
 {% /callout %}
 
 Next, let’s look at `Chatbot.cpp`, which provides the concrete implementation.

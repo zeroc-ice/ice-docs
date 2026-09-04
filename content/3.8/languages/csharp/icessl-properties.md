@@ -99,8 +99,11 @@ This property is used for two different purposes:
 If not specified, the default value is `CurrentUser.`
 
 {% callout type="success" %}
+
 An Ice program running as a Windows service will typically need to set this property to `LocalMachine`.
+
 {% /callout %}
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}
@@ -121,6 +124,7 @@ If `num` is a value greater than zero, IceSSL checks the certificate revocation 
 | 2 | If a certificate is revoked or its revocation status is unknown, IceSSL aborts the connection, logs a message and raises an exception. |
 
 The `IceSSL.Trace.Security` property must be set to a non-zero value to see CRL-related log messages. If `IceSSL.CheckCRL` is not defined, the default value is zero.
+
 {% /language-section %}
 
 {% language-section name="lang-3" %}
@@ -171,6 +175,7 @@ The value for `criteria` must be one or more `field:value` pairs separated by wh
 The field names are case-insensitive. If multiple criteria are specified, only certificates that match all criteria are selected. Values must be enclosed in single or double quotes to preserve white space.
 
 On iOS, matching on the `Subject` field is not supported.
+
 {% /language-section %}
 
 {% language-section name="lang-4" %}

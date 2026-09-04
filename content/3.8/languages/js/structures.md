@@ -4,6 +4,7 @@ language: js
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice structure maps to a JavaScript class with the same name. For each Slice field, the JavaScript instance contains a corresponding field. As an example, here is our Employee structure once more:
 
 ```slice
@@ -51,4 +52,5 @@ The generated class defines an `equals` method for comparison purposes and a `cl
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a single statement (instead of first having to construct the instance and then assign to its fields).
 
 All these parameters have also default values (see [Fields](../fields)).
+
 {% /language-section %}

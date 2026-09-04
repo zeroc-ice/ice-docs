@@ -8,6 +8,7 @@ language: js
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 The metadata directives for JavaScript uses the `js` prefix.
 
 ### `js:defined-in:file-name`
@@ -54,4 +55,5 @@ module Ice
 When you include `Ice/Locator.ice` in your own Slice files, the generated code will import `Ice` from `@zeroc/ice`. Without this directive, the compiler would instead fall back on its default heuristic and generate a relative import, such as from `Ice/Locator.js`.
 
 Other files that use the same js:module directive will still import each other with relative paths, since they are assumed to be part of the same npm package.
+
 {% /language-section %}

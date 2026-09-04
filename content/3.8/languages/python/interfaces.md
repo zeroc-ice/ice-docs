@@ -191,4 +191,5 @@ class MNode(Node):
 Note that `MNode` implements `Node`, the skeleton class.
 
 As far as Ice is concerned, the `MNode` class must implement only a single method: the abstract method `name`. This makes the servant class a concrete class that you can instantiate. You can add other methods and attributes as you see fit to support your implementation. For example, in the preceding definition, we added a `_name` instance attribute and an initializer.
+
 {% /language-section %}

@@ -4,6 +4,7 @@ language: php
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice field maps to a PHP public variable with the same name.
 
 For example:

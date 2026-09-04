@@ -70,7 +70,9 @@ There are a number of things to note about the generated code:
 All generated classes have a public parameterless constructor that initializes all fields using default values (see [Fields](../fields)). This constructor is used by the unmarshaling code. The unmarshaling code guarantees that all non-nullable fields receive a non-null value before the instance is returned to the application code.
 
 {% callout type="info" %}
+
 The parameterless constructor initializes fields with certain types (sequence, dictionary, struct mapped to class) to `null!`. If you call this constructor, make sure to set these fields after construction.
+
 {% /callout %}
 
 A generated class also provides a primary constructor that accepts one argument for each field of the class. This allows you to create and initialize a class in a single statement, for example:

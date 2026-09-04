@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 Slice constant definitions map to corresponding C++ constant definitions. Slice constants are mapped to `constexpr` constants whenever possible, and to `const` constants otherwise. For example:
 
 ```

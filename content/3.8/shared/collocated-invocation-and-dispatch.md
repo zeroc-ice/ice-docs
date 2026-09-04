@@ -12,7 +12,9 @@ The Ice runtime is *location transparent*: the client does not need to know wher
 For invocations that cross address space boundaries (or more accurately, cross communicator boundaries), the Ice runtime dispatches requests via the appropriate transport. However, for a proxy invocation in which the proxy and the servant that processes the invocation share the same communicator (so-called *collocated* invocations), the Ice runtime, by default, does not send the invocation via the transport specified in the proxy. Instead, collocated invocations take a short-cut inside the Ice runtime and are dispatched more efficiently.
 
 {% callout type="info" %}
+
 Note that if the proxy and the servant do not use the same communicator, the invocation is *not* collocated, even though caller and callee are in the same address space.
+
 {% /callout %}
 
 The reason for this is if collocated invocations were sent via TCP/IP, for example, invocations would still be sent via the operating system kernel and would incur the full cost of creating TCP/IP connections, trapping in and out of the kernel, and so on. By optimizing collocated requests, much of this overhead can be avoided.
@@ -34,7 +36,9 @@ The Ice runtime uses the following semantics to determine whether a proxy is eli
 When an endpoint search is required, the Ice runtime compares each of the proxy's endpoints against the endpoints of the communicator's object adapters. Only the transport, address and port are considered; other attributes of an endpoint are not considered during this search.
 
 {% callout type="info" %}
+
 Datagram (UDP) endpoints are excluded from this search since Ice 3.8.
+
 {% /callout %}
 
 If a match is found, the invocation is dispatched using collocation optimization. Normally this search is executed only once, during the proxy's first invocation, although the proxy's [connection caching](../connection-establishment) setting influences this behavior.

@@ -46,7 +46,9 @@ The following application changes do *not* require a restart:
 All other changes will require a restart. IceGrid GUI provides two versions of the `Save to Registry` command, one that allows restarts and one that does not. To avoid accidentally causing any disruption in service, we recommend using the `No server restart` option first; this command will fail if any of your updates require a restart. At that point, you can decide whether to force the servers to restart using the other Save command.
 
 {% callout type="info" %}
+
 If you change a server's configuration properties with `Save to Registry (No Server restart)`, IceGrid updates the stored properties of this server, and also the properties of your running server instance through its [Properties Facet](../the-properties-facet). If these properties are only read by the server at start-up, this may not have the desired effect. If you want to trigger a server restart even when only properties have changed, use `Save to Registry (Servers may restart)`.
+
 {% /callout %}
 
 # Discarding Updates

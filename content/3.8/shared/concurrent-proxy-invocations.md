@@ -16,7 +16,9 @@ To understand the ordering issue, it's important to first understand some fundam
 Ice guarantees that ordering will be maintained for invocations on the same proxy object, but only if that proxy caches its connection.
 
 {% callout type="warning" %}
+
 The order in which the Ice runtime in a client sends invocations over a connection does not necessarily determine the order in which they will be executed in the server.
+
 {% /callout %}
 
 ##### See Also

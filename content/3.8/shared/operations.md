@@ -103,7 +103,9 @@ optional(3) bool example(optional(2) string name, out optional(1) int value);
 The scope of a tag is limited to its operation and has no effect on other operations.
 
 {% callout type="warning" %}
+
 You can mark any parameter as optional, except if the parameter’s type is a class type or a constructed type that holds a class type: optional and class are incompatible.
+
 {% /callout %}
 
 Optional fields and required fields can appear in any order in your class definition. You can also assign tags in any order.
@@ -139,7 +141,9 @@ interface CircadianRhythm
 Operations in the same interface must have different names, regardless of what type and number of parameters they have. This restriction exists because overloaded functions cannot sensibly be mapped to languages without built-in support for overloading.
 
 {% callout type="info" %}
+
 Name mangling is not an option in this case: while it works fine for compilers, it is unacceptable to humans.
+
 {% /callout %}
 
 # Idempotent Operations

@@ -66,7 +66,9 @@ greeter = VisitorCenter::GreeterPrx.new(
 The constructor accepts our communicator and a “stringified proxy” with the address of the remote Ice object. Here, our stringified proxy says the target Ice object is named “greeter” and can be reached via `tcp` on `hello.zeroc.com`, on port `4061`.
 
 {% callout type="info" %}
+
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
+
 {% /callout %}
 
 ### 3. Make an Invocation
@@ -95,7 +97,9 @@ ruby client.rb
 ```
 
 {% callout type="info" %}
+
 Ice for Ruby supports only client development.
 
 Here, we connect to the Greeter server running on `hello.zeroc.com`. This Ice server is implemented in a language with server-side support (C++, C#, Java, Python, or Swift).
+
 {% /callout %}

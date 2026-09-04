@@ -18,6 +18,7 @@ language: java
 #### Description
 
 `num` is the stack size (in bytes) of threads in the `Client` or `Server` [thread pool](../the-ice-threading-model). The default value is 0, meaning the operating system's default is used.
+
 {% /language-section %}
 
 {% language-section name="lang-3" %}
@@ -43,4 +44,5 @@ This property is unset by default.
 `value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
 
 You can also override the default priority for a specific object adapter using [*adapter*.ThreadPool.ThreadPriority](../object-adapter-properties).
+
 {% /language-section %}

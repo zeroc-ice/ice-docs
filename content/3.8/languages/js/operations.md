@@ -50,7 +50,9 @@ export namespace VisitorCenter {
 ```
 
 {% callout type="info" %}
+
 `Ice.AsyncResult` extends the JavaScript `Promise` type. It adds functionality specific to Ice invocations.
+
 {% /callout %}
 
 Given a proxy to a Greeter object, a client can invoke greet as follows:
@@ -266,6 +268,9 @@ execute(
 ```
 
 {% callout type="info" %}
+
 For optional parameters and optional return values, there is not distinction between `null` and `undefined`, both are treated as a not set optional and unmarshall as `undefined`.
+
 {% /callout %}
+
 {% /language-section %}

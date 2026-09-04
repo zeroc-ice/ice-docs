@@ -4,6 +4,7 @@ language: matlab
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice module maps to a MATLAB namespace with the same name. The mapping preserves the nesting of the Slice definitions. For example:
 
 ```slice
@@ -36,4 +37,5 @@ module Time
 ```
 
 You can only use `matlab:identifier` on a module with a simple name - this metadata directive is not compatible with the nested module syntax.
+
 {% /language-section %}

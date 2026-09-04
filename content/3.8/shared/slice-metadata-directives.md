@@ -87,7 +87,9 @@ interface GridIntf
 {% language-section name="lang-1" /%}
 
 {% callout type="warning" %}
+
 A marshaled-result instance is specific to a request. Do not cache a marshaled result and return it for another request.
+
 {% /callout %}
 
 ### `suppress-warning`

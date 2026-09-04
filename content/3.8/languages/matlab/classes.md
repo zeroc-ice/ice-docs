@@ -65,4 +65,5 @@ If a Slice class declares or inherits any field, the generated constructor accep
 You must either call the constructor with no arguments or with arguments for all of the parameters.
 
 Calling the constructor with no argument assigns default values to the properties (see [Fields](../fields)).
+
 {% /language-section %}

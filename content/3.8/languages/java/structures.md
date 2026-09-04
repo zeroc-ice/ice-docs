@@ -4,6 +4,7 @@ language: java
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice structure maps to a Java class with the same name. For each Slice field, the Java class contains a corresponding public field. For example, here is our Employee structure once more:
 
 ```slice
@@ -55,4 +56,5 @@ The mapped Java class provides two constructors:
 
 - canonical constructor with parameters for all the fields
 - a parameterless constructor that initializes all fields to default values (see [Fields](../fields))
+
 {% /language-section %}

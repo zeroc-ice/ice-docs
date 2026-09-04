@@ -58,7 +58,9 @@ Your client code interacts directly with the *proxy class*, `M::SimplePrx` in th
 In the client's address space, an instance of the proxy class is the local ambassador for a remote instance of an Ice object that implements `Simple` and is known as a *proxy class instance*, or simply *proxy*. All the details about the server-side object, such as its address, what transport to use, and its object identity are encapsulated in that instance.
 
 {% callout type="info" %}
+
 Notice that all proxy member functions are `const` – proxy instances are immutable.
+
 {% /callout %}
 
 The `Ice::Proxy` template is a mix-in class that adds functionality to the proxy class via inheritance. It derives from the provided base proxy classes (here, only `Ice::ObjectPrx`):
@@ -242,4 +244,5 @@ Note that `Chatbot` derives from `VisitorCenter::Greeter`, one of the two genera
 As far as Ice is concerned, the `Chatbot` class must implement only a single member function: the pure virtual `greet` function that it inherits from its skeleton. This makes the servant class a concrete class that you can instantiate. You can add other member functions and data members as you see fit to support your implementation.
 
 The async skeleton class is described in [Asynchronous Method Dispatch (AMD) in C++](../asynchronous-method-dispatch-amd-in-cpp).
+
 {% /language-section %}

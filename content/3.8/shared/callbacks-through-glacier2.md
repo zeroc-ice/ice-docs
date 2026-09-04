@@ -10,6 +10,7 @@ Callbacks from servers to clients are commonly used in distributed applications,
 ### Example
 
 The `Glacier2/callback` demo illustrates the use of callbacks with Glacier2. The `README.md` file in the directory provides instructions on running the example, and comments in the configuration file describe the properties in detail.
+
 {% /callout %}
 
 # Bidirectional Connections with Glacier2
@@ -28,7 +29,9 @@ This diagram shows the steps involved in making a callback using Glacier2:
 The arrows in the above illustration indicate the flow of requests; notice that two connections are used between the router and the server. Since the server is unaware of the router, it does not use routed proxies, and therefore does not use bidirectional connections.
 
 {% callout type="info" %}
+
 It is also possible for applications to manually configure bidirectional connections without the use of a router.
+
 {% /callout %}
 
 # Callbacks and Connection Closure
@@ -49,7 +52,9 @@ Glacier2.Server.Endpoints=tcp -h 10.0.0.1
 As this example shows, the server endpoint does not require a fixed port.
 
 {% callout type="info" %}
+
 Glacier2's implementation of [Ice::Router](../routers)'s `getServerProxy` returns the [published endpoints](../object-adapter-endpoints) of this `Glacier2.Server` object adapter.
+
 {% /callout %}
 
 # Configuring the Client's Object Adapter with a Router
@@ -57,7 +62,9 @@ Glacier2's implementation of [Ice::Router](../routers)'s `getServerProxy` return
 A client that receives callbacks is also a server, and therefore must have an object adapter. Typically, an object adapter has endpoints in the local network, but those endpoints are of no use to a server in our restricted network environment. We really want the client's callback proxy to contain the router's server endpoints, and we accomplish that by configuring the client's object adapter with a proxy for the router.
 
 {% callout type="info" %}
+
 Note that multiple object adapters created by the same communicator cannot use the same router.
+
 {% /callout %}
 
 We supply the router's proxy by creating the object adapter with `createObjectAdapterWithRouter`, or by defining the object adapter property [*adapter*.Router](../object-adapter-properties) as shown below:
@@ -71,7 +78,9 @@ For each object adapter, the Ice run time maintains a [list of endpoints](../obj
 An object adapter configured in this way allows the client to receive callback requests via the router. If the client also wants to service requests via local (non-routed) endpoints, the client must [create a separate adapter](../advanced-glacier2-client-configurations) for these requests.
 
 {% callout type="info" %}
+
 An [object adapter configured with a router](../routers) receives only requests over the (bidirectional) connection to the router, and collocated dispatches.
+
 {% /callout %}
 
 # Callback Object Identities

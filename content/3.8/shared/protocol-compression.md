@@ -12,7 +12,9 @@ Compression is an optional feature of the Ice protocol; whether it is used for a
 3. For efficiency reasons, the Ice protocol engine does not compress messages smaller than 100 bytes.
 
 {% callout type="success" %}
+
 Compression is likely to improve performance only over lower-speed links, for which bandwidth is the overall limiting factor. Over high-speed LAN links, the CPU time spent on compressing and uncompressing messages is longer than the time it takes to just send the uncompressed data.
+
 {% /callout %}
 
 # Encoding for Compressed Messages

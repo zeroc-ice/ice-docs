@@ -4,6 +4,7 @@ language: java
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice exception is mapped to a Java class with the same name. This mapping is similar to the mapping of [classes](../java-mapping-for-classes).
 
 Consider the following Slice exceptions:
@@ -103,6 +104,9 @@ public interface Greeter extends com.zeroc.Ice.Object {
 ```
 
 {% callout type="info" %}
+
 If you remap your exception class name or the name of the enclosing package with `java:identifier` or `java:package`, remember to set a custom [Slice loader](../slice-loaders) in communicators that receive this exception.
+
 {% /callout %}
+
 {% /language-section %}

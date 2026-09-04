@@ -218,7 +218,9 @@ module IceGrid 
 Be aware that the operations accepting a `type` parameter are not equivalent to invoking `ice_isA` on each object to determine whether it supports the given type, a technique that would not scale well for a large number of registered objects. Rather, the operations simply compare the given type to the object's [registered type](../well-known-objects#well-known-object-types) or, if the object was registered without a type, to the object's most-derived Slice type as determined by the registry.
 
 {% callout type="info" %}
+
 Starting with Ice 3.7, the find by type functions now only return proxies for well-known objects from servers which are enabled or proxies not registered through the deployment descriptors.
+
 {% /callout %}
 
 # Using Well-Known Objects in the Ripper Application

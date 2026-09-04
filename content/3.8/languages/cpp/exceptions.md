@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice exception is mapped to a C++ class with the same name. This mapping is similar to the mapping of classes.
 
 Consider the following Slice exceptions:
@@ -78,4 +79,5 @@ exception GreeterException { ... }
 ```
 
 The Slice compiler then generates an `ice_print` override declaration in the mapped C++ class, and you are responsible to implement this member function.
+
 {% /language-section %}

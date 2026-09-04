@@ -37,7 +37,9 @@ This key is streamed into a sequence of bytes using the [Ice encoding](../ice-en
 If you attempt to create a topic or register a subscriber with a topic and the resulting `SubscriberRecordKey`'s encoded representation is too large for the LMDB database, IceStorm will throw an `Ice::UnknownException`.
 
 {% callout type="info" %}
+
 This maximum key size is not configurable. If you exceed this limit, you need to reduce the size of your topic names or subscriber identities.
+
 {% /callout %}
 
 ## Map Size
@@ -49,6 +51,7 @@ If you don't set `IceStorm.LMDB.MapSize`, or set it to 0, IceStorm uses a map si
 On Windows, LMDB immediately allocates a file with the given map size, while on Linux and macOS LMDB uses sparse files and the allocated data file starts small and grows as needed, until it reaches the configured limit.
 
 {% callout type="info" %}
+
 The default `MapSize` provided by IceStorm is expected to be sufficient for most applications. Unless you have a very large IceStorm deployment on Windows, we recommend keeping the default setting.
 
 Use the [mdb_stat](https://manpages.org/mdb_stat) utility to monitor the pages used by your IceStorm database. The example below shows a LMDB database with the default size on Linux (100 MB):

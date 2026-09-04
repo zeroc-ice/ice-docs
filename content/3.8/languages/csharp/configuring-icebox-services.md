@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 The [entry point](../icebox-properties) of a C# service has the form `assembly:class`. The assembly component can be a partially or fully qualified assembly name, or an assembly path name.
 
 The details on how assemblies are loaded depends on how you define the assembly component used by the application:
@@ -26,4 +27,5 @@ IceBox.Service.Greeter=GreeterService.dll:Service.GreeterService --Ice.Trace.Net
 ```
 
 This configuration results in the creation of a service named `GreeterService`. The service implementation resides in class `Service.GreeterService`, since the `GreeterService.dll` assembly. The argument `--Ice.Trace.Network=1` is converted into a property definition, and the arguments `hello` and `there` become the two elements in the `args` sequence parameter that is passed to the `start` method.
+
 {% /language-section %}

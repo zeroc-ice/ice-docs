@@ -4,6 +4,7 @@ language: java
 ---
 
 {% language-section name="lang-1" %}
+
 For a Java service, the [entry point](../icebox-properties) is typically the class name (including any package) of the service implementation class, but may also include a leading path to a class directory or JAR file. The class must define a public constructor.
 
 To create the service, the IceBox server first checks to see if the service defines a constructor taking an argument of type `Ice.Communicator`. If so, the service invokes this constructor and passes the server's communicator, which should only be used for administrative purposes. For example, the constructor could use this communicator's logger to display log messages. For a service's normal operations, it must use the communicator that it receives as an argument to its `start` method.
@@ -17,4 +18,5 @@ TBD
 ```
 
 This configuration results in the creation of a service named `GreeterService`. The service is expected to reside in the class `GreeterService`. The argument `--Ice.Trace.Network=1` is converted into a property definition, and the arguments `hello` and `there` become the two elements in the `args` sequence parameter that is passed to the `start` method.
+
 {% /language-section %}

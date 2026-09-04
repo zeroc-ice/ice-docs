@@ -4,6 +4,7 @@ language: swift
 ---
 
 {% language-section name="lang-1" %}
+
 Here is the definition of our FruitPlatter sequence once more:
 
 ```slice

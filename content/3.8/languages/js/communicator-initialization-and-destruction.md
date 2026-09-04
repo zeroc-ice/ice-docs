@@ -4,6 +4,7 @@ language: js
 ---
 
 {% language-section name="lang-1" %}
+
 You create a communicator by using its constructor for example:
 
 ```typescript
@@ -17,4 +18,5 @@ This constructor accepts the argument vector. It scans the argument vector for a
 In a browser application, you should call the constructor without the argument vector.
 
 `Communicator` implements the `asyncDispose` method. This allows you to create and cleanup your communicator with `await using` as shown above.
+
 {% /language-section %}

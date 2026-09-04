@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 In C#, a middleware is a concrete class that implements `Ice.Object` and delegates to another dispatcher called “next”. For example:
 
 ```csharp
@@ -47,4 +48,5 @@ For example, you can call `use` as follows:
 ```
 
 The middleware, once created and woven into the dispatch pipeline, intercept requests in the order of their registration through `use`.
+
 {% /language-section %}

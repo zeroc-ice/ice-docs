@@ -16,7 +16,9 @@ The first step when writing a TypeScript application with Ice is to compile the 
 Here, we compile the `Greeter.ice` Slice file created earlier. We recommend including this compilation step directly in your project’s build process, as demonstrated in the TypeScript demo programs.
 
 {% callout type="info" %}
+
 These demos use a simple npm script that runs both slice2js and the TypeScript compiler together.
+
 {% /callout %}
 
 The Slice compiler generates two files from `Greeter.ice`: a TypeScript declaration file, `Greeter.d.ts`, and a JavaScript module, `Greeter.js`. The declaration file provides the APIs that our client code will call, so generating it is an essential first step in the development process.
@@ -70,7 +72,9 @@ const greeter = new VisitorCenter.GreeterPrx(
 The constructor accepts our communicator and a “stringified proxy” with the address of the remote Ice object. Here, our stringified proxy says that the target Ice object is named “greeter” and can be reached via `tcp` on `hello.zeroc.com` on port `4061`.
 
 {% callout type="info" %}
+
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
+
 {% /callout %}
 
 ### 3. Make an Invocation
@@ -100,7 +104,9 @@ node client.js
 ```
 
 {% callout type="info" %}
+
 Ice for JavaScript has limited server side support.
 
 Here, we connect to the Greeter server running on `hello.zeroc.com`. This Ice server is implemented in a language with full server-side support (C++, C#, Java, Python, or Swift).
+
 {% /callout %}

@@ -10,7 +10,9 @@ Glacier2 normally runs on a host in the private network behind a [port-forwardin
 ![Glacier2's_Client_and_Server_Endpoints.gif](/attachments/3.8/how-glacier2-works/Glacier2-s_Client_and_Server_Endpoints.gif)
 
 {% callout type="info" %}
+
 For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+
 {% /callout %}
 
 In the client, proxies must be configured to use Glacier2 as a router. This configuration can be done statically for all proxies created by a communicator, or programmatically for a particular proxy. A proxy configured to use a router is called a *routed proxy*.

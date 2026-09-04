@@ -34,7 +34,9 @@ The 2 supported styles of doc-comment are:
 ```
 
 {% callout type="info" %}
+
 Starting each line of a multi-line JavaDoc comment with ‘*' is conventional, but not required.
+
 {% /callout %}
 
 The Slice compilers make no distinction between Doxygen and JavaDoc style comments. The comment’s text will be mapped the same, regardless of which style you use.

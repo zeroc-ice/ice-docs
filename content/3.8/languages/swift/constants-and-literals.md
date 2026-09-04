@@ -8,6 +8,7 @@ language: swift
 {% /language-section %}
 
 {% language-section name="lang-2" %}
+
 Slice constant definitions map to corresponding Swift constant definitions. For example:
 
 ```slice

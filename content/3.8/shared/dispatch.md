@@ -8,7 +8,9 @@ The process of accepting/fulfilling a request and returning a response is called
 With Ice, an *object adapter* is the entry point into dispatches: in order to accept requests from clients, you need an object adapter.
 
 {% callout type="info" %}
+
 Dispatching requests and returning responses is the primary activity of server applications.
+
 {% /callout %}
 
 An object adapter sits at the boundary between the Ice runtime and the server application code and has two main responsibilities:

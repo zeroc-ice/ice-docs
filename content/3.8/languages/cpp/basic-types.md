@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 The built-in types are mapped to C++ types as shown in this table:
 
 | **Slice** | **C++** |
@@ -70,6 +71,9 @@ You can install string converters by calling `Ice::setProcessStringConverter` fo
 You can retrieve the previously installed string converters (or default string converters) with `Ice::getProcessStringConverter` and `Ice::getProcessWstringConverter`. The default narrow string converter is null, meaning Ice considers that all `std::string` are UTF-8. The default wide-string converter converts from UTF-16 or UTF-32 (depending on the size and endianness of the native wchar_t) to UTF-8.
 
 {% callout type="warning" %}
+
 Each communicator caches the narrow string converter and wide string converter installed when this communicator is initialized. You should always install your string converters before creating your communicator(s).
+
 {% /callout %}
+
 {% /language-section %}

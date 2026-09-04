@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 In C++, `entry_point` has the form `path[,version]:function`.
 
 The `path` and optional `version` components are used to construct the name of a DLL or shared library. If no version is supplied, the version is the empty string. The `function` component is the name of a function with extern C linkage. For example, the entry point `IceStormService,38:createIceStorm` implies a shared library name of `libIceStormService.so.38` on Linux and `IceStormService38.dll` on Windows. Furthermore, if IceBox is built on Windows with debugging, a `d` is automatically appended to the version (e.g., `IceStormService37d.dll`).
@@ -31,4 +32,5 @@ IceBox.Service.IceStorm="C:\Program Files\ZeroC\Ice-3.8\bin\IceStormService,38:c
 ```
 
 If the `path` component does not include a leading path name, Ice delegates to the operating system to locate the shared library or DLL, which typically means that the plug-in can reside in any of the directories in your shared library or DLL search path.
+
 {% /language-section %}

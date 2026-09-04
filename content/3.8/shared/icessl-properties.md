@@ -17,10 +17,10 @@ A property is supported by all platforms if no limitations are mentioned.
 
 Finally, note that Ice for Swift and the Ice extensions for Python, Ruby and PHP use IceSSL for C++, therefore they use the IceSSL properties for SChannel, SecureTransport or OpenSSL as appropriate for the target platform.
 
-{% callout type="info" %}
-**JavaScript**
+{% callout type="info" title="JavaScript" %}
 
 These IceSSL properties have no effect on JavaScript.
+
 {% /callout %}
 
 {% language-section name="lang-1" /%}

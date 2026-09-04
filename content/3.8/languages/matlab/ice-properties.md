@@ -42,6 +42,7 @@ When `num` is set to a value larger than 0, the communicator installs an interna
 The default value is 100.
 
 See also [Ice.Warn.SliceLoader](../ice-warn-properties).
+
 {% /language-section %}
 
 {% language-section name="lang-8" %}

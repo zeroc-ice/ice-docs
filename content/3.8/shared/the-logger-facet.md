@@ -39,7 +39,9 @@ The `LogMessage` represents log messages sent to a local logger. Its `timestamp`
 When a remote logger is attached to a local logger, its `init` operation is called with the local logger's prefix and a list of recent log messages (see the `LoggerAdmin` interface below). Then, each time a log message is sent to the local logger, the Logger facet forwards this message to the remote logger's `log` operation.
 
 {% callout type="info" %}
+
 The Logger facet does not guarantee that `init` will be called on a remote logger before `log` is called on this remote logger, even though the log messages sent to `init` are always older than the log messages sent to `log`. It is indeed common for `log` to be called several times before `init` in applications that generate many logs. An implementation of `RemoteLogger` needs to handle this situation correctly: it can for example keep all log messages received before `init` in a queue, and later append this queue to the log messages received through `init`.
+
 {% /callout %}
 
 # The `LoggerAdmin` Interface

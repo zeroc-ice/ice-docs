@@ -4,6 +4,7 @@ language: matlab
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice exception is mapped to a MATLAB class with the same name. This mapping is similar to the mapping of [classes](../matlab-mapping-for-classes).
 
 Consider the following Slice exceptions:
@@ -47,6 +48,9 @@ There are a number of things to note about this generated code:
 4. The methods of the generated class are unimportant; in particular, since Ice for MATLAB is client-only, you don’t need to create user exceptions in MATLAB.
 
 {% callout type="info" %}
+
 If you remap your exception class name or the name of the enclosing namespace with `matlab:identifier`, remember to set a custom [Slice loader](../slice-loaders) in communicators that receive this exception.
+
 {% /callout %}
+
 {% /language-section %}

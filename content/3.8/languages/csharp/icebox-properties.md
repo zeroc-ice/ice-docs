@@ -4,12 +4,15 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 In C#, `entry_point` has the form `assembly:class`.
 
 The `assembly` can be a partially or fully qualified assembly name, such as `myplugin,Version=0.0.0.0,Culture=neutral`, or an assembly DLL name such as `myplugin.dll`, and may optionally include a leading relative or absolute path name.
 
 {% callout type="info" %}
+
 You *must* use a fully-qualified assembly name to load a service from an assembly in the Global Assembly Cache.
+
 {% /callout %}
 
 The specified class must implement the `IceBox.Service` interface and provide at least one of the constructors shown in the example below:
@@ -39,4 +42,5 @@ IceBox.Service.MyService="C:\Program Files\MyService\MyService.dll:MyServiceClas
 ```
 
 Finally, if the assembly uses a leading path name, be sure to include the `.dll` extension.
+
 {% /language-section %}

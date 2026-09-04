@@ -60,7 +60,9 @@ catch (const IceGrid::PermissionDeniedException& ex)
 ```
 
 {% callout type="info" %}
+
 The [identity of the registry object](../well-known-registry-objects) may change based on its configuration settings.
+
 {% /callout %}
 
 # Controlling Access to IceGrid Sessions

@@ -23,7 +23,9 @@ A Metrics View provides the following actions, from its contextual menu and from
 The Metrics Report panel shows the maps included in the Metrics View. The columns of the maps include the metrics themselves (for example, the total number of operations dispatched by the server since the Metrics view was enabled) and computed values (for example, the average lifetime of an operation dispatch, since the Metrics view was enabled).
 
 {% callout type="info" %}
+
 Tool tips on each column describe the metrics or computed value displayed by the column.
+
 {% /callout %}
 
 IceGrid GUI retrieves the latest metrics every 5 seconds and automatically refreshes the current Metrics Report.

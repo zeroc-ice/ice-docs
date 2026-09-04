@@ -4,6 +4,7 @@ language: java
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice field maps to a Java field with the same name. The type of the Java field is the mapped Slice type. This is the default mapping.
 
 For example:
@@ -181,7 +182,9 @@ public class C extends com.zeroc.Ice.Value {
 The `has` method allows you to test whether a field’s value has been set, and the `clear` method removes any existing value for a field.
 
 {% callout type="info" %}
+
 Calling a `get` method when the field’s value has not been set throws `java.util.NoSuchElementException`.
+
 {% /callout %}
 
 The `optional` methods provide an alternate API that uses standard Java types to encapsulate the value:

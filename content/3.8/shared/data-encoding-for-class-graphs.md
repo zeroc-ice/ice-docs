@@ -283,7 +283,9 @@ However, the server does not understand the derived part of the instances and sl
 Of course, more complex situations are possible, such that the receiver ends up with multiple disconnected graphs, each containing many instances.
 
 {% callout type="info" %}
+
 The [slice preservation](../slicing-values-and-exceptions) feature in version 1.1 of the encoding allows a receiver to re-marshal the original graph intact, despite the fact that the receiver's in-memory object graph may appear to be disconnected.
+
 {% /callout %}
 
 ##### See Also

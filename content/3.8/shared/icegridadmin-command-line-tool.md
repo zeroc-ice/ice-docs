@@ -50,7 +50,9 @@ If specified, the following command-line options override their property equival
 4. Otherwise, `icegridadmin` attempts to locate a registry by issuing a UDP multicast [discovery request](../icelocatordiscovery). (`icegridadmin` does not use the IceGridDiscovery plug-in.) If the tool discovers more than one registry, it presents a list and asks you to select one.
 
 {% callout type="success" %}
+
 See [IceGridAdmin.*](../icegridadmin-properties) for more information on the configuration properties supported by `icegridadmin`.
+
 {% /callout %}
 
 Once it has connected to the registry and successfully established a session, `icegridadmin` displays its command prompt. The `help` command displays the following usage information:

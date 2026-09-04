@@ -233,4 +233,5 @@ end
 ```
 
 A well-behaved program must always compare an optional parameter to `Ice::Unset` prior to using its value. Keep in mind that the `Ice::Unset` marker value has different semantics than `nil`. Since `nil` is a legal value for certain Slice types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is set. An optional parameter set to `nil` is considered to be set.
+
 {% /language-section %}

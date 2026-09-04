@@ -62,7 +62,9 @@ This section describes how to incorporate IceBT into your Ice applications.
 A Bluetooth "service" corresponds to an Ice endpoint, and each endpoint requires its own UUID.
 
 {% callout type="warning" %}
+
 On Linux, you can use the `uuidgen` command to generate new UUIDs. Web-based UUID generators are also available.
+
 {% /callout %}
 
 For example, using the [syntax for Bluetooth endpoints](../endpoint-syntax), you can configure an [object adapter](../dispatch) named `GreeterAdapter` as follows:
@@ -76,12 +78,14 @@ We're associating the UUID `4f140cef-d75e-4c93-b4e4-20ac111d36d1` with our servi
 If you omit the `-u UUID` option from the object adapter's endpoint, the plug-in will automatically generate a random UUID for use in the SDP registry. Note however that your clients will still need some way of discovering this UUID. Generally speaking, you should generate and use your own well-known UUIDs instead.
 
 {% callout type="warning" %}
+
 On Linux, use the `sdptool` command to view the contents of the SDP registry on a device:
 
 `> sdptool browse local`
 `> sdptool browse 01:23:45:67:89:AB`
 
 The first command displays the active services of the local host, and the second command shows the active services of a remote device.
+
 {% /callout %}
 
 ## Proxy Endpoints
@@ -101,7 +105,9 @@ The UUID specified with the `-u` option must match the one you assigned to your 
 Notice that the device address given by the `-a` option is enclosed in quotes; this is necessary because colon (`:`) characters are used as separators in stringified proxies.
 
 {% callout type="warning" %}
+
 You can omit a device address if you define [Ice.Default.Host](../ice-default-properties).
+
 {% /callout %}
 
 Refer to [Proxy and Endpoint Syntax](../endpoint-syntax) for complete details on the format of a Bluetooth endpoint.

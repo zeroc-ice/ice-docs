@@ -115,4 +115,5 @@ module HR
 ```
 
 With this definition, `getAllEmployees` returns an `unordered_map`, while other unqualified parameters of type `EmployeeMap` would use the default mapping (to a `std::map`).
+
 {% /language-section %}

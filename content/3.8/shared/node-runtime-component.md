@@ -23,7 +23,9 @@ A node provides the following actions, from its contextual menu and from the `To
   Shutdown the IceGrid node process.
 
 {% callout type="warning" %}
+
 You cannot restart an IceGrid node from IceGrid GUI.
+
 {% /callout %}
 
 # Properties

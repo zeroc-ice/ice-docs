@@ -39,7 +39,9 @@ As you can see, the compiler generates a *proxy type* `SimplePrx`. In general, t
 In the client's address space, an instance of `SimplePrx` is the local ambassador for a remote instance of an Ice object that implements `Simple` and is known as a proxy instance. All the details about the server-side object, such as its address, what protocol to use, and its object identity are encapsulated in that instance.
 
 {% callout type="info" %}
+
 Ice.AsyncResult is a class derived from the standard JavaScript Promise class. The generated operations are always asynchronous.
+
 {% /callout %}
 
 # Creating a Proxy
@@ -212,4 +214,5 @@ class MNode extends Filesystem.Node {
 Note that `MNode` extends `Filesystem.Node`, the skeleton class.
 
 As far as Ice is concerned, the `MNode` class must implement only a single method: the abstract method `name`. This makes the servant class a concrete class that you can instantiate. You can add other methods and fields as you see fit to support your implementation. For example, in the preceding definition, we added a `_name` field and a constructor.
+
 {% /language-section %}

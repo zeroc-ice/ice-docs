@@ -109,7 +109,9 @@ You can annotate sequences of certain primitive types with the `java:buffer` met
 - Receiving buffers during a Slice operation also avoids copying by directly referencing the data in Ice's unmarshaling buffer
 
 {% callout type="warning" %}
+
 To use buffers safely, applications must disable caching by setting [Ice.CacheMessageBuffers](../ice-properties) to zero.
+
 {% /callout %}
 
 The following table lists each supported Slice primitive type with its corresponding mapped class:
@@ -218,4 +220,5 @@ public class JavaClass implements java.io.Serializable
 ```
 
 You can implement this class in any way you see fit — the Ice runtime does not place any other requirements on the implementation.
+
 {% /language-section %}

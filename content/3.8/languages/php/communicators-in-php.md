@@ -92,7 +92,9 @@ options="--Ice.Trace.Network=3 ..."
 The name of each profile is enclosed in square brackets. The configuration file and command-line options for each profile are defined using the `config` and `options` entries, respectively.
 
 {% callout type="warning" %}
+
 In modern PHP setups, it is recommended to run each application in its own PHP process pool and to avoid sharing resources between untrusted applications. Using **PHP-FPM** is the preferred option for this setup.
+
 {% /callout %}
 
 ## Using Property Sets in PHP
@@ -139,7 +141,9 @@ The API for registered communicators consists of three functions:
   Removes the registration for a communicator with the given name. Returns true if a match was found or false otherwise. Calling `Ice\unregister` does not cause the communicator to be destroyed; rather, the communicator is destroyed as soon as all pending requests that are currently using the communicator have completed. Destroying a registered communicator explicitly also removes its registration.
 
 {% callout type="info" %}
+
 In the common situation where you use a single-threaded PHP runtime, `unregister` destroys your communicator immediately.
+
 {% /callout %}
 
 - `Ice\find($name)`
@@ -166,5 +170,7 @@ Note that communicators consume resources such as threads, sockets, and memory, 
 There are risks associated with allowing untrusted applications to gain access to a registered communicator. For example, if a malicious script obtains a registered communicator that is configured with SSL credentials, the script could potentially make secure invocations as if it were the trusted script.
 
 {% callout type="warning" %}
+
 In modern PHP setups, it is recommended to run each application in its own PHP process pool and to avoid sharing resources between untrusted applications. Using **PHP-FPM** is the preferred option for this setup.
+
 {% /callout %}

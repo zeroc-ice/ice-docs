@@ -42,7 +42,9 @@ A LMDB database consists of one or more persistent key-value maps, and the size 
 If you attempt to save an application, adapter ID or well-known object that is too large for the LMDB database, IceGrid will throw an `IceGrid::DeploymentException` or an `Ice::UnknownException` depending on the operation invoked.
 
 {% callout type="info" %}
+
 This maximum key size is not configurable. If you exceed this limit, you need to shorten the corresponding name, ID or identity.
+
 {% /callout %}
 
 ### Map Size
@@ -54,6 +56,7 @@ If you don't set `IceGrid.Registry.LMDB.MapSize`, or set it to 0, IceGrid uses a
 On Windows, LMDB immediately allocates a file with the given map size, while on Linux and OS X LMDB uses sparse files and the allocated data file starts small and grows as needed, until it reaches the configured limit.
 
 {% callout type="info" %}
+
 The default `MapSize` provided by the IceGrid registry is expected to be sufficient for most applications. Unless you have an extremely large IceGrid deployment on Windows, we recommend keeping the default setting.
 
 Use the [mdb_stat](https://manpages.org/mdb_stat) utility to monitor the pages used by your IceGrid registry database. The example below shows a LMDB database with the default size on Linux (100 MB):

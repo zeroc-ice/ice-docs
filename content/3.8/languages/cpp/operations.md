@@ -77,7 +77,9 @@ For each operation, the Slice compiler generates 3 member functions on the proxy
 - two overloaded “async” functions, named `<operation-name>Async`. When you call these functions, your thread marshals the arguments to the function synchronously, but the remainder of this invocation is asynchronous, and the function returns immediately. You get the result (return value or exception) through an `std::future` or a callback depending on the async overload you selected. These async functions are described in more detail in [Asynchronous Method Invocation (AMI) in C++](../asynchronous-method-invocation-ami-in-cpp).
 
 {% callout type="info" %}
+
 Async invocations allow you to use threads more efficiently. Sync invocations are more convenient to call. You decide what’s more important for your application.
+
 {% /callout %}
 
 # Exception Handling
@@ -427,7 +429,9 @@ You would get the same signature on the default skeleton (`Example`) if you deco
 There are two processing contexts in which the logical implementation of an AMD operation may need to report an exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that sends the response).
 
 {% callout type="info" %}
+
 These are not necessarily two different threads: it is legal to send the response from the dispatch thread.
+
 {% /callout %}
 
 The implementation of the `Async` function in your servant class can throw an exception synchronously: it’s equivalent to calling the exception callback with this exception.
@@ -467,6 +471,7 @@ private:
 ### Oneway Proxy
 
 If your AMD implementation uses a oneway proxy, remember that the AMI response callback is not called: you need to call the AMD response from the AMI `sent` callback.
+
 {% /callout %}
 
 ##### See Also
@@ -583,6 +588,9 @@ virtual std::optional<std::int32_t> execute(std::optional<std::string> params, s
 ```
 
 {% callout type="info" %}
+
 An optional parameter with a proxy type is mapped to a `std::optional<InterfaceNamePrx>`, and not to a `std::optional<std::optional<InterfaceNamePrx>>`. This is the same rule as for optional fields with proxy types.
+
 {% /callout %}
+
 {% /language-section %}

@@ -70,7 +70,9 @@ exception DerivedException extends BaseException
 The scope of a tag is limited to its enclosing type and has no effect on base or derived types.
 
 {% callout type="warning" %}
+
 You can mark any field as optional, except if the field’s type is a class type or a constructed type that holds a class type. At the field level, optional and class are incompatible.
+
 {% /callout %}
 
 Optional fields and required fields can appear in any order in your class definition. You can also assign tags in any order. For example:

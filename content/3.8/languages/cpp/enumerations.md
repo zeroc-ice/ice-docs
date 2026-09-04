@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice enumeration maps to the corresponding `enum class` in C++.
 
 For example:
@@ -33,7 +34,9 @@ enum class Fruit : std::uint8_t { Apple = 0, Pear = 3, Orange = 4 };
 ```
 
 {% callout type="success" %}
+
 If you use custom enumerator values and 0 does not correspond to any enumerator, you must be particularly careful with structs, classes or exceptions that have such as enumeration as a field. The default constructor of such a struct, class or exception will zero-initialize this data member, and you will get a marshal error if you attempt to send this invalid enumerator through Ice.
+
 {% /callout %}
 
 ## Printing Enumerators

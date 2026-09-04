@@ -184,7 +184,9 @@ Glacier2.Filter.Address.Reject=*
 In reality, this configuration only prevents clients from accessing servers using direct proxies, that is, proxies that contain endpoints. As a result, the property causes Glacier2 to accept only [indirect proxies](../terminology).
 
 {% callout type="info" %}
+
 By default, a Glacier2 router forwards requests for any address, which is equivalent to defining the property `Glacier2.Filter.Address.Accept=*`.
+
 {% /callout %}
 
 ## Category Filters
@@ -198,7 +200,9 @@ Glacier2.Filter.Category.Accept=cat1 cat2
 This property does not affect the routing of [callback requests](../callbacks-through-glacier2) from back-end servers to router clients.
 
 {% callout type="info" %}
+
 By default a Glacier2 router forwards requests for any category.
+
 {% /callout %}
 
 If a category contains spaces, you can enclose the value in single or double quotes. If a category contains a quote character, it must be escaped with a leading backslash.

@@ -30,11 +30,13 @@ A client needs to perform the following steps in order to configure a bidirectio
 3. [Register the callback object](../object-adapter-activation-and-deactivation) or objects with the object adapter.
 
 {% callout type="success" %}
+
 The object adapter remains a regular object adapter, unaware of the outgoing connection(s) associated with it. These connections have no effect on the endpoints and other properties of proxies created by this object adapter.
 
 However, calling `activate` on this object adapter is optional if it's used only for bidirectional and collocated dispatches.
 
 We recommend using a dedicated, endpoint-less object adapter for “bidir” dispatches.
+
 {% /callout %}
 
 The code below illustrates these steps:

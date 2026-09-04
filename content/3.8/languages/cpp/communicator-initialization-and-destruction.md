@@ -4,6 +4,7 @@ language: cpp
 ---
 
 {% language-section name="lang-1" %}
+
 In C++, you create a communicator by calling the C++ function `Ice::initialize`, for example:
 
 ```cpp
@@ -18,7 +19,9 @@ main(int argc, char* argv[])
 `initialize` accepts a C++ reference to `argc` and an argument vector `argv`. The function scans the argument vector for any [command-line options](../setting-properties-on-the-command-line) that are relevant to the Ice runtime; any such options are removed from the argument vector so, when `initialize` returns, the only options and arguments remaining are those that concern your application. If anything goes wrong during initialization, `initialize` throws an exception.
 
 {% callout type="warning" %}
+
 The Ice namespace provides additional `initialize` [overloads](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce.html#r_ae7b6bf9c35f1cb30463e15c4d9b4ad4c) to pass other information to the Ice runtime.
+
 {% /callout %}
 
 You need to call `destroy` on the returned object when you're done with this communicator, typically just before returning from `main`. The `destroy` member function is responsible for cleaning-up the communicator. In particular, in a server, `destroy` waits for any operation dispatch that are still executing to complete. In addition, `destroy` ensures that any outstanding threads are joined with and reclaims a number of operating system resources, such as file descriptors and memory.

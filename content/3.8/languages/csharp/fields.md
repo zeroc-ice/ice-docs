@@ -4,6 +4,7 @@ language: csharp
 ---
 
 {% language-section name="lang-1" %}
+
 A Slice field maps to a C# field, with by default the same name. The type of the C# field is the mapped Slice type.
 
 In C#, we often remap the field name with `cs:identifier` to convert the name for Pascal case. For example:
@@ -116,8 +117,11 @@ When you don’t define a default value in Slice, and you initialize a field wit
 | Yes | Any | `null` |
 
 {% callout type="info" %}
+
 The generated constructor for a struct does not initialize any field to `null!`: you always have to provide values for these fields.
+
 {% /callout %}
+
 {% /language-section %}
 
 {% language-section name="lang-2" %}

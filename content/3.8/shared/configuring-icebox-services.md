@@ -51,7 +51,9 @@ IceBox.UseSharedCommunicator.Printer=1
 ```
 
 {% callout type="success" %}
+
 A common use case for sharing a communicator between two or more services is enabling the use of [collocation optimizations](../collocated-invocation-and-dispatch) for invocations among those services. This optimization is not possible with the default behavior that creates a new communicator for each service.
+
 {% /callout %}
 
 IceBox prepares the property set of this shared communicator as follows:
@@ -110,7 +112,9 @@ IceBox.InheritProperties=1
 All services inherit the server's properties when `IceBox.InheritProperties` is set to a non-zero value. The service inherits all the properties of the IceBox servers, with the exception of properties whose names start with `Ice.Admin`.
 
 {% callout type="info" %}
+
 The properties of the [shared communicator](../configuring-icebox-services) are also affected by this setting.
+
 {% /callout %}
 
 # Logging Considerations for IceBox Services

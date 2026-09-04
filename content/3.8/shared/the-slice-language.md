@@ -6,7 +6,9 @@ title: The Slice Language
 The Slice [IDL](https://en.wikipedia.org/wiki/Interface_description_language) is the fundamental abstraction mechanism for separating object interfaces from their implementations. Slice establishes a contract between client and server that describes the interfaces, operations and data types used by an application. This description is independent of the implementation language, so it does not matter whether the client is written in the same language as the server.
 
 {% callout type="info" %}
+
 Even though Slice is an acronym, it is pronounced as a single syllable, like a slice of bread.
+
 {% /callout %}
 
 Slice definitions are compiled for a particular implementation language by a compiler. The language-specific Slice compiler translates the language-independent Slice definitions into language-specific type definitions and APIs. These types and APIs are used by the developer to provide application functionality and to interact with Ice. The translation algorithms for various implementation languages are known as *language mappings*, and Ice provides a number of language mappings (for C++, C#, Java, JavaScript, Python, Swift and more).

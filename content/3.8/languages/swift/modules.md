@@ -4,6 +4,7 @@ language: swift
 ---
 
 {% language-section name="lang-1" %}
+
 A top-level Slice module maps to a Swift module with the same name as the Slice module.
 
 Keep in mind that a Swift module is a unit of code distribution that you define when your build and organize your code. It’s not a namespace construct like in C++ or C#.
@@ -84,4 +85,5 @@ module Time
 ```
 
 You can only use `swift:identifier` on a module with a simple name - this metadata directive is not compatible with the nested module syntax.
+
 {% /language-section %}

@@ -30,9 +30,11 @@ icestormdb --export db.ixp --dbpath db
 ```
 
 {% callout type="success" %}
+
 You can export an IceStorm database while IceStorm is actively using this database. Write operations to the IceStorm database will block while `icestormdb` is reading the database.
 
 If you want to back-up the IceStorm database while IceStorm is running, we recommend using the [mdb_copy](https://manpages.org/mdb_copy) tool.
+
 {% /callout %}
 
 # Importing an IceStorm Database

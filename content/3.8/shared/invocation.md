@@ -6,7 +6,9 @@ title: Invocation
 The process of sending a request and receiving the corresponding response is called an invocation.
 
 {% callout type="info" %}
+
 Making invocations is the primary activity of client applications.
+
 {% /callout %}
 
 With Ice, you need a *proxy* to make an invocation - proxies provide the only invocation API.
