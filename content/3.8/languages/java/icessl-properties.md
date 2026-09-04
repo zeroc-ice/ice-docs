@@ -131,7 +131,7 @@ If this property is not defined, Ice uses `KeyStore.getDefaultType()`, as descri
 
 ##### Store type and store password
 
-When `IceSSL.TruststorePassword` is not defined, the trust store type determines the password Ice passes to `KeyStore.load`: the empty string for `PKCS12` or `BKS` in upper case, and null for any other value. `IceSSL.KeystoreType` describes what each password means to the security providers and the resulting configuration for each kind of store. The same applies to a trust store, with `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` in place of `IceSSL.KeystoreType` and `IceSSL.KeystorePassword`. In particular, an empty-password PKCS12 trust store loads only with `IceSSL.TruststoreType=PKCS12`, in upper case.
+When `IceSSL.TruststorePassword` is not defined, the trust store type determines the password Ice passes to `KeyStore.load`: the empty string for `PKCS12` or `BKS` in upper case, and null for any other value. See `IceSSL.KeystoreType` for what each password means. An empty-password PKCS12 trust store therefore loads only with `IceSSL.TruststoreType=PKCS12`, in upper case.
 
 After loading the trust store, Ice checks that it contains at least one certificate. A store loaded without its certificates, such as a PKCS12 trust store loaded with a null password, fails this check, and communicator initialization fails with an `InitializationException` that points at `IceSSL.TruststorePassword` and, for an empty-password PKCS12 store, at `IceSSL.TruststoreType=PKCS12`.
 
