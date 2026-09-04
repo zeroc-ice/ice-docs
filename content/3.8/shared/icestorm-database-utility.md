@@ -31,7 +31,7 @@ directory to a file named `db.ixp`:
 icestormdb --export db.ixp --dbpath db
 ```
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 You can export an IceStorm database while IceStorm is actively using this database. Write operations to the IceStorm
 database will block while `icestormdb` is reading the database.

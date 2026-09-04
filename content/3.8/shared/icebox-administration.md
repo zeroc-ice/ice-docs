@@ -74,7 +74,7 @@ IceBox's administrative functionality is disabled by default. You can enable it 
 [administrative facility](../administrative-facility) by defining endpoints for the `Ice.Admin` object adapter with the
 property [Ice.Admin.Endpoints](../ice-admin-properties).
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 The `Ice.Admin` object adapter is enabled automatically in an IceBox server that is
 [deployed by IceGrid](../icegrid-and-the-administrative-facility).

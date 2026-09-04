@@ -39,7 +39,7 @@ A client needs to perform the following steps in order to configure a bidirectio
    associated with new outgoing connections created by the communicator.
 3. [Register the callback object](../object-adapter-activation-and-deactivation) or objects with the object adapter.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 The object adapter remains a regular object adapter, unaware of the outgoing connection(s) associated with it. These
 connections have no effect on the endpoints and other properties of proxies created by this object adapter.

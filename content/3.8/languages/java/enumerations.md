@@ -73,7 +73,7 @@ The table below shows the new relationship between ordinal value and Slice value
 | `Pear`         | 1           | 3         |
 | `Orange`       | 2           | 4         |
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 Java enumerated types inherit implicitly from `java.lang.Enum`, which defines methods such as `ordinal` and `compareTo`
 that operate on the _ordinal_ value of an enumerator, not its Slice value.

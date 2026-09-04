@@ -323,7 +323,7 @@ shared volume, because two nodes must not share the same data directory.
 
 We have also modified the locator proxy to include the address of the host on which the registry is running.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 Using [IceLocatorDiscovery](../icelocatordiscovery) allows a node to discover its registry at run time without the need
 to define `Ice.Default.Locator`.

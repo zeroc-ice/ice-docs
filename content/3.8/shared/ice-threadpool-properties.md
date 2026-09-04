@@ -101,7 +101,7 @@ Ice can automatically reap idle threads in the `Client` or `Server` [thread pool
 conserve resources. This property specifies the number of seconds a thread must be idle before it is reaped. If not
 specified, the default value is 60 seconds.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 The threads in Ice thread pools are assigned jobs at random, and this randomness affects how quickly a thread in an
 under-utilized thread pool will get reaped.

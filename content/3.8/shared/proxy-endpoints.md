@@ -6,7 +6,7 @@ title: Proxy Endpoints
 The endpoint or endpoints of a proxy correspond to the endpoint(s) of the object adapter(s) that hosts the target
 object.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 Endpoint is an overloaded term - many things are “endpoints”. Think of an Ice endpoint as a “server address”. Not so
 coincidentally, that’s the term we’ve adopted for IceRPC.

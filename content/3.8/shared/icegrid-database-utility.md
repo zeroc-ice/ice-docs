@@ -39,7 +39,7 @@ Run the following command to export the database:
 icegriddb --export registry.ixp --dbpath db/registry
 ```
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 You can export an IceGrid registry database while the IceGrid registry is actively using this database. Write operations
 to the IceGrid registry database will block while icegriddb is reading the database.

@@ -133,7 +133,7 @@ This property is used for two different purposes:
 
 If not specified, the default value is `CurrentUser.`
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 An Ice program running as a Windows service will typically need to set this property to `LocalMachine`.
 

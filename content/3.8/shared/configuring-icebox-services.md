@@ -62,7 +62,7 @@ IceBox.UseSharedCommunicator.Hello=1
 IceBox.UseSharedCommunicator.Printer=1
 ```
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 A common use case for sharing a communicator between two or more services is enabling the use of
 [collocation optimizations](../collocated-invocation-and-dispatch) for invocations among those services. This

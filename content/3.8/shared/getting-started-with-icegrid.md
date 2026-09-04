@@ -138,7 +138,7 @@ The use of a locator service allows the client to take advantage of indirect bin
 server endpoints. However, the locator proxy must have a fixed port, otherwise the client has a bootstrapping problem:
 it cannot resolve indirect proxies without knowing the endpoints of the locator service.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 [IceLocatorDiscovery](../icelocatordiscovery) eliminates the need for a client to define the `Ice.Default.Locator`
 property by using UDP multicast to discover registries at runtime.

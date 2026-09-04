@@ -25,7 +25,6 @@ export type CalloutType =
   | 'note'
   | 'info'
   | 'tip'
-  | 'success'
   | 'important'
   | 'warning'
   | 'danger'
@@ -48,8 +47,6 @@ const INTENTS: Record<
   // The migrated manual writes `type="info"`; it is the same thing as a note.
   info: { label: 'Note', icon: Info, className: 'callout-note' },
   tip: { label: 'Tip', icon: Lightbulb, className: 'callout-tip' },
-  // The migrated manual writes `type="success"` for advice; it is a tip.
-  success: { label: 'Tip', icon: Lightbulb, className: 'callout-tip' },
   important: {
     label: 'Important',
     icon: CircleAlert,

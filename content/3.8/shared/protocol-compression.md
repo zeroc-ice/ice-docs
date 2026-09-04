@@ -13,7 +13,7 @@ several factors:
    ability to accept compressed messages.
 3. For efficiency reasons, the Ice protocol engine does not compress messages smaller than 100 bytes.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 Compression is likely to improve performance only over lower-speed links, for which bandwidth is the overall limiting
 factor. Over high-speed LAN links, the CPU time spent on compressing and uncompressing messages is longer than the time

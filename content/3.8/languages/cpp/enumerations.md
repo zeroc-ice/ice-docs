@@ -34,7 +34,7 @@ The generated C++ definition now includes an explicit initializer for every enum
 enum class Fruit : std::uint8_t { Apple = 0, Pear = 3, Orange = 4 };
 ```
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 If you use custom enumerator values and 0 does not correspond to any enumerator, you must be particularly careful with
 structs, classes or exceptions that have such as enumeration as a field. The default constructor of such a struct, class

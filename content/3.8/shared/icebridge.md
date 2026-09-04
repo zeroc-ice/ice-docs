@@ -42,7 +42,7 @@ IceBridge supports the following properties:
 - `IceBridge.InstanceName` This optional property specifies a default identity category for the
   [IceBridge objects](../icebridge#icebridge-object-identities). If not specified, the default value is `IceBridge`.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 You will also need to configure IceBridge to load any transport plug-ins required by either the source or target
 endpoints.

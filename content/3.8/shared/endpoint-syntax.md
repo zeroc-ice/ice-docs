@@ -9,7 +9,7 @@ Ice uses endpoints for two similar but distinct purposes:
 2. In a server context (that is, in an object adapter's configuration), endpoints define the addresses and transport
    protocols over which new incoming connections are accepted.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 Endpoint is an overloaded term - many things are “endpoints”. Think of an Ice endpoint as a “server address”. Not so
 coincidentally, that’s the term we’ve adopted for IceRPC.

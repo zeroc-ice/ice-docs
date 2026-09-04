@@ -233,7 +233,7 @@ Ice.Plugin.RegistryPlugin=RegistryPlugin:createRegistryPlugin
 
 The [Ice.Plugin](../ice-plugin-properties) property must be defined in the registry's configuration file.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 Make sure to configure all of the replicas to load the same registry plug-ins, otherwise a client could get different
 behavior depending on which replica it's currently using.

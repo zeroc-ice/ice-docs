@@ -75,7 +75,7 @@ First, we create a [Communicator](../communicator) with `Ice::initialize`:
 Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
 ```
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 The `Ptr` types in the Ice for C++ API are all aliases for `std::shared_ptr`. For example:
 

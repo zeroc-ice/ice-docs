@@ -63,7 +63,7 @@ If specified, the following command-line options override their property equival
    [discovery request](../icelocatordiscovery). (`icegridadmin` does not use the IceGridDiscovery plug-in.) If the tool
    discovers more than one registry, it presents a list and asks you to select one.
 
-{% callout type="success" %}
+{% callout type="tip" %}
 
 See [IceGridAdmin.*](../icegridadmin-properties) for more information on the configuration properties supported by
 `icegridadmin`.
