@@ -19,11 +19,17 @@
 // code fences, indented code, frontmatter, block quotes and nested lists are
 // already what they are, and a tag that spans several lines is one token.
 //
-// One disagreement between the two parsers remains and is settled here. A tag
-// written at the margin right under a list item or a quoted line is, to
-// Prettier's parser, a lazy continuation of that item or quote; to Markdoc it
-// is a new block that ends the list or quote. Such a tag, and what follows it,
-// is moved out after the container, which is split in two if items follow.
+// The two parsers disagree on what follows a tag line, and that is settled
+// here where it can be. A tag under a list item, indented less than the item's
+// content, is a lazy continuation of the item to Prettier's parser and a new
+// block that ends the list to Markdoc; the same for a tag under a quoted line
+// without the `>`. Such a tag, and what follows it, is moved out after the
+// container, which is split in two if items follow. A numbered item written
+// right under a tag is a list to Markdoc and prose to Prettier, which would
+// fold it into one line; that is an error here, since a blank line is the only
+// fix. And an inline closing tag written after a space at the end of a
+// paragraph is glued to the word before it, so that line filling never leaves
+// it alone on a line, where Markdoc would read it as a block tag.
 //
 // Selected by `parser: "markdoc"` in .prettierrc's Markdown override.
 
@@ -34,12 +40,37 @@ const base = markdown.parsers.markdown;
 // A tag on its own line: nothing but a line break, or the paragraph's edge, on
 // either side of it. Markdoc's own rule — a tag that shares its line with text
 // is an inline tag.
-function ownsItsLine(children, i) {
+function ownsItsLine(children, i, source) {
   const prev = children[i - 1];
   const next = children[i + 1];
-  const before = !prev || (prev.type === 'text' && prev.value.endsWith('\n'));
+  const before =
+    !prev ||
+    isSpaceBreak(prev, source) ||
+    (prev.type === 'text' && prev.value.endsWith('\n'));
   const after = !next || (next.type === 'text' && next.value.startsWith('\n'));
   return before && after;
+}
+
+// A hard break written as two trailing spaces ends the line before a tag as
+// surely as a newline, and means nothing at a paragraph's end. The backslash
+// form is different: at a paragraph's end Markdoc keeps it as a literal
+// backslash, so it is left alone and the tag after it is not split off.
+const isSpaceBreak = (node, source) =>
+  node.type === 'break' && /\s/.test(source[node.position.start.offset]);
+
+// A numbered item cannot interrupt a paragraph in CommonMark unless it starts
+// at 1, so Prettier's parser reads `2. second` under a tag line as prose and
+// would fold it into one line, while Markdoc reads a list. Nothing but a
+// blank line tells the two apart, so ask for one.
+function rejectNumberedItem(node) {
+  const item = /^(\d+)[.)][ \t]/.exec(node.value);
+  if (item && item[1] !== '1') {
+    const { line } = node.position.start;
+    throw new SyntaxError(
+      `Line ${line}: a numbered list under a tag needs a blank line between ` +
+        `them; Markdoc reads a list here and Prettier reads prose.`
+    );
+  }
 }
 
 // Positions matter to the printer, so a trimmed text node keeps an exact one.
@@ -93,7 +124,7 @@ function split(node, source) {
   const { children } = node;
   if (
     !children.some(
-      (c, i) => c.type === 'liquidNode' && ownsItsLine(children, i)
+      (c, i) => c.type === 'liquidNode' && ownsItsLine(children, i, source)
     )
   )
     return null;
@@ -102,8 +133,9 @@ function split(node, source) {
   let trimLeading = false;
   const flush = () => {
     if (current.length === 0) return;
+    if (isSpaceBreak(current[current.length - 1], source)) current.pop();
     const last = current[current.length - 1];
-    if (last.type === 'text' && last.value.endsWith('\n')) {
+    if (last?.type === 'text' && last.value.endsWith('\n')) {
       const trimmed = withoutTrailingNewline(last, source);
       current[current.length - 1] = trimmed;
       if (trimmed.value === '') current.pop();
@@ -112,7 +144,7 @@ function split(node, source) {
     current = [];
   };
   children.forEach((child, i) => {
-    if (child.type === 'liquidNode' && ownsItsLine(children, i)) {
+    if (child.type === 'liquidNode' && ownsItsLine(children, i, source)) {
       flush();
       groups.push([child]);
       trimLeading = true;
@@ -124,6 +156,7 @@ function split(node, source) {
       if (node.type === 'text' && node.value.startsWith('\n')) {
         node = withoutLeadingNewline(node, source);
         if (node.value === '') return;
+        rejectNumberedItem(node);
       }
     }
     current.push(node);
@@ -132,9 +165,9 @@ function split(node, source) {
   return groups.map(paragraph);
 }
 
-// A paragraph of a list item that starts at or before the item marker's
-// column, or one in a block quote whose first line carries no `>`, came from
-// lazy continuation lines.
+// A paragraph of a list item that starts left of the item's content column —
+// the column of its first child, on the marker line — or one in a block quote
+// whose first line carries no `>`, came from lazy continuation lines.
 function isLazyIn(container, node, source) {
   if (node.type !== 'paragraph') return false;
   const { offset, column } = node.children[0].position.start;
@@ -142,7 +175,7 @@ function isLazyIn(container, node, source) {
     const lineStart = source.lastIndexOf('\n', offset - 1) + 1;
     return !source.slice(lineStart, offset).includes('>');
   }
-  return column <= container.position.start.column;
+  return column < container.children[0].position.start.column;
 }
 
 function spanning(container, children) {
@@ -178,8 +211,8 @@ function hoistLazy(container, source) {
   };
   for (const member of container.children) {
     if (container.type === 'list') {
-      const at = member.children.findIndex((c) =>
-        isLazyIn(container, c, source)
+      const at = member.children.findIndex(
+        (c, i) => i > 0 && isLazyIn(member, c, source)
       );
       if (at === -1) {
         members.push(member);
@@ -199,13 +232,55 @@ function hoistLazy(container, source) {
   return out;
 }
 
+// An inline tag that closes its paragraph, written after a space, must not be
+// wrapped onto a line of its own: Markdoc would read it as a block tag. The
+// space moves into the tag's own span, so the printer sees one word.
+function glueTrailingTag(node) {
+  const { children } = node;
+  const i = children.length - 1;
+  const tag = children[i];
+  const prev = children[i - 1];
+  if (i < 1 || tag.type !== 'liquidNode' || prev.type !== 'text') return;
+  const spaces = /[ \t]+$/.exec(prev.value);
+  if (!spaces || prev.value.trim() === '') return;
+  const n = spaces[0].length;
+  children[i - 1] = {
+    ...prev,
+    value: prev.value.slice(0, -n),
+    position: {
+      ...prev.position,
+      end: {
+        ...prev.position.end,
+        column: prev.position.end.column - n,
+        offset: prev.position.end.offset - n
+      }
+    }
+  };
+  children[i] = {
+    ...tag,
+    value: spaces[0] + tag.value,
+    position: {
+      ...tag.position,
+      start: {
+        ...tag.position.start,
+        column: tag.position.start.column - n,
+        offset: tag.position.start.offset - n
+      }
+    }
+  };
+}
+
 /** Split paragraphs throughout the tree, in place. */
 export function separateBlockTags(ast, source) {
   const visit = (node) => {
     if (!Array.isArray(node.children)) return;
     node.children = node.children.flatMap((child) => {
       visit(child);
-      if (child.type === 'paragraph') return split(child, source) ?? [child];
+      if (child.type === 'paragraph') {
+        const parts = split(child, source) ?? [child];
+        parts.forEach(glueTrailingTag);
+        return parts;
+      }
       if (child.type === 'list' || child.type === 'blockquote')
         return hoistLazy(child, source);
       return [child];

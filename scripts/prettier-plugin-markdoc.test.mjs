@@ -241,6 +241,76 @@ Body.
   assert.equal(await format(source), source);
 });
 
+test('an inline closer after a space stays with the word before it', async () => {
+  const source = `Intro sentence here. {% iflang langs="cpp" %}In C++, the proxy class provides one function. {% /iflang %}
+`;
+  assert.equal(
+    await format(source),
+    `Intro sentence here. {% iflang langs="cpp" %}In C++, the
+proxy class provides one function. {% /iflang %}
+`
+  );
+});
+
+test('a tag indented less than the item content ends the list', async () => {
+  const source = `1. first
+ {% callout %}
+ Text.
+ {% /callout %}
+2. second
+`;
+  assert.equal(
+    await format(source),
+    `1. first
+
+{% callout %}
+
+Text.
+
+{% /callout %}
+
+2. second
+`
+  );
+});
+
+test('a two-space hard break before a tag ends its line', async () => {
+  const source = `Text before  
+{% callout %}
+Inside.
+{% /callout %}
+`;
+  assert.equal(
+    await format(source),
+    `Text before
+
+{% callout %}
+
+Inside.
+
+{% /callout %}
+`
+  );
+});
+
+test('a backslash at the end of a paragraph is kept', async () => {
+  const source = `Text before\\
+{% callout %}
+Inside.
+{% /callout %}
+`;
+  const output = await format(source);
+  assert.ok(output.includes('\\'), 'backslash kept');
+});
+
+test('a numbered item right under a tag is an error', async () => {
+  const source = `{% /callout %}
+2. second
+3. third
+`;
+  await assert.rejects(format(source), /blank line/);
+});
+
 test('separated input is unchanged', async () => {
   const source = `Before.
 

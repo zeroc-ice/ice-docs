@@ -53,7 +53,8 @@ A page's images live under `public/attachments/<version>/<slug>/` and are refere
   line of their own, with a blank line on each side outside tight lists. Prettier on its own would reflow a tag written
   against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.mjs`, the
   parser `format` uses for Markdown, keeps each tag on its own line instead, and `check:markdoc` rejects anything that
-  slips through.
+  slips through. Two things the parser cannot tell apart from prose: a numbered list or a table right under a tag line.
+  Put a blank line between them. An inline closer, `word{% /iflang %}`, has no space before it.
 - **Images** live under `public/attachments/`, one directory per page. A paragraph that is nothing but an image renders
   as a figure; an image inside a sentence stays on the line.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
