@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\"",
+    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.mjs\"",
     "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs",
     "check:markdoc": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/markdoc-esm-hooks.mjs scripts/check-markdoc.mjs"
   },

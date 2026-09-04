@@ -1,11 +1,15 @@
 {
   "singleQuote": true,
   "trailingComma": "none",
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "./scripts/prettier-plugin-markdoc.mjs"
+  ],
   "overrides": [
     {
       "files": "*.md",
       "options": {
+        "parser": "markdoc",
         "proseWrap": "always",
         "printWidth": 120,
         "embeddedLanguageFormatting": "off"

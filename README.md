@@ -49,9 +49,9 @@ A page's images live under `public/attachments/<version>/<slug>/` and are refere
   (`no-addition`, or `not-applicable` with a note), as described in `lib/docs-model/resolve.ts`. Small inline variation
   uses `{% iflang langs="…" %}`.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
-  line of their own with a blank line on each side. Prettier reflows a tag written against its prose into the paragraph,
-  which turns it into an inline tag; `check:markdoc` rejects the result, and the editor's Markdoc extension shows the
-  same diagnostic.
+  line of their own with a blank line on each side. Prettier on its own would reflow a tag written against its prose
+  into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.mjs`, the parser `format` uses
+  for Markdown, adds the blank lines instead, and `check:markdoc` rejects anything that slips through.
 - **Images** live under `public/attachments/`, one directory per page. A paragraph that is nothing but an image renders
   as a figure; an image inside a sentence stays on the line.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
