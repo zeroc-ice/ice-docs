@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 350" role="img" aria-labelledby="title description">
   <title id="title">Callback request flow through Glacier2</title>
   <desc id="description">
-    Four numbered arrows show a client request crossing Glacier2 to a server and a callback returning
-    through Glacier2 to the client. Steps one and four share the client's existing bidirectional
-    connection, while steps two and three use separate server-side connections. A separate attempted
-    direct callback stops at the client-side firewall. Glacier2 has client-endpoint and server-endpoint
-    compartments with public and private IP addresses.
+    Four numbered steps show a client request crossing Glacier2 to a server and a callback returning
+    through Glacier2 to the client. Steps one and four share the client's bidirectional connection,
+    while steps two and three use separate server-side connections. Glacier2 has client-endpoint and
+    server-endpoint compartments with public and private IP addresses.
   </desc>
 
   <defs>
     <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
-    </marker>
-    <marker id="blocked" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="12" markerHeight="12" orient="auto">
-      <path d="M 2 2 L 10 10 M 10 2 L 2 10" fill="none" stroke="#b42318" stroke-linecap="round" stroke-width="2.25"/>
     </marker>
     <g id="step-badge-shape">
       <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
@@ -31,13 +27,6 @@
       fill: none;
       stroke: #a6afbc;
       stroke-dasharray: 7 5;
-      stroke-width: 1.5;
-    }
-
-    .firewall-boundary {
-      fill: none;
-      stroke: #a6afbc;
-      stroke-dasharray: 4 4;
       stroke-width: 1.5;
     }
 
@@ -81,15 +70,6 @@
       stroke-dasharray: 6 4;
     }
 
-    .blocked {
-      marker-end: url(#blocked);
-      stroke: #b42318;
-      stroke-dasharray: 6 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-width: 1.75;
-    }
-
     .network-title {
       font-size: 16px;
       font-weight: 650;
@@ -108,8 +88,7 @@
       font-weight: 650;
     }
 
-    .annotation,
-    .boundary-label {
+    .annotation {
       fill: #566174;
       font-size: 13px;
       font-weight: 500;
@@ -129,13 +108,6 @@
       text-anchor: middle;
     }
 
-    .blocked-label {
-      fill: #b42318;
-      font-size: 13px;
-      font-weight: 650;
-      text-anchor: middle;
-    }
-
     .legend-title,
     .legend-label {
       fill: #566174;
@@ -148,11 +120,10 @@
     }
   </style>
 
-  <rect width="980" height="400" fill="#ffffff"/>
+  <rect width="980" height="350" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="network-boundary" d="M 490 20 V 380" vector-effect="non-scaling-stroke"/>
-    <path class="firewall-boundary" d="M 225 90 V 340" vector-effect="non-scaling-stroke"/>
+    <path class="network-boundary" d="M 490 20 V 330" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
@@ -163,12 +134,9 @@
     <path class="connector one-way" d="M 665 164 H 770" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 770 204 H 665" vector-effect="non-scaling-stroke"/>
 
-    <!-- A new direct connection reaches the client side but not the client. -->
-    <path class="connector blocked" d="M 855 212 V 326 H 225" vector-effect="non-scaling-stroke"/>
-
     <!-- Compact flow legend. -->
-    <path class="connector one-way" d="M 615 366 H 649" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 785 366 H 819" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 615 320 H 649" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 785 320 H 819" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
@@ -212,16 +180,8 @@
     <use href="#step-badge-shape" transform="translate(242.5 145)"/>
     <text class="step-number" x="242.5" y="149.5">4</text>
 
-    <text class="annotation" x="262.5" y="227">Existing connection</text>
-
-    <rect x="449" y="307" width="332" height="28" rx="14" fill="#ffffff"/>
-    <text class="blocked-label" x="615" y="325">New direct connection blocked by client firewall</text>
-
-    <rect x="164" y="351" width="122" height="27" rx="13.5" fill="#ffffff"/>
-    <text class="boundary-label" x="225" y="369">Client firewall</text>
-
-    <text class="legend-title" x="570" y="370">Flow</text>
-    <text class="legend-label" x="659" y="370">Request</text>
-    <text class="legend-label" x="829" y="370">Callback</text>
+    <text class="legend-title" x="570" y="324">Flow</text>
+    <text class="legend-label" x="659" y="324">Request</text>
+    <text class="legend-label" x="829" y="324">Callback</text>
   </g>
 </svg>

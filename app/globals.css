@@ -365,6 +365,12 @@
     contain: inline-size;
   }
 
+  .doc-body > .diagram-scroll:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 4px;
+    border-radius: 0.25rem;
+  }
+
   main article img.figure.diagram-wide {
     width: 100%;
     min-width: 45rem;

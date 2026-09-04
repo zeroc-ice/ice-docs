@@ -40,6 +40,9 @@ const paragraph = {
         attributes.class = [attributes.class, 'doc-wide diagram-scroll']
           .filter(Boolean)
           .join(' ');
+        attributes.role = 'region';
+        attributes['aria-label'] = 'Scrollable diagram';
+        attributes.tabIndex = 0;
       }
     }
     return new Tag('p', attributes, children);

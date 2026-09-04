@@ -2,9 +2,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 680" role="img" aria-labelledby="title description">
   <title id="title">Compiling Slice in a shared C++ development environment</title>
   <desc id="description">
-    A Slice developer writes Printer.ice and compiles it into the shared generated files Printer.h
-    and Printer.cpp. The generated-files group connects to both executables. Client.cpp connects to the
-    client executable, Server.cpp connects to the server executable, and the C++ Ice runtime library
+    A Slice developer writes Greeter.ice and compiles it into the shared generated files Greeter.h
+    and Greeter.cpp. The generated-files group connects to both executables. Client.cpp connects to the
+    client executable, Server.cpp connects to the server executable, and the Ice C++ runtime library
     connects to both. The client executable invokes the server executable using RPC.
   </desc>
 
@@ -214,7 +214,7 @@
     </text>
 
     <text class="category-badge slice-badge" x="285" y="40">SLICE</text>
-    <text class="file-label" x="285" y="79">Printer.ice</text>
+    <text class="file-label" x="285" y="79">Greeter.ice</text>
 
     <text class="component-label" x="510" y="55">
       <tspan x="510">Slice-to-C++</tspan>
@@ -222,9 +222,9 @@
     </text>
 
     <text class="category-badge generated-badge" x="410" y="227">GENERATED</text>
-    <text class="file-label" x="410" y="267">Printer.h</text>
+    <text class="file-label" x="410" y="267">Greeter.h</text>
     <text class="category-badge generated-badge" x="670" y="227">GENERATED</text>
-    <text class="file-label" x="670" y="267">Printer.cpp</text>
+    <text class="file-label" x="670" y="267">Greeter.cpp</text>
 
     <text class="category-badge source-badge" x="290" y="412">SOURCE</text>
     <text class="file-label" x="290" y="452">Client.cpp</text>
@@ -232,7 +232,7 @@
     <text class="file-label" x="790" y="452">Server.cpp</text>
 
     <text class="component-label" x="540" y="434">
-      <tspan x="540">C++ Ice</tspan>
+      <tspan x="540">Ice C++</tspan>
       <tspan x="540" dy="20">runtime library</tspan>
     </text>
 

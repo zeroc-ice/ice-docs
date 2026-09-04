@@ -59,9 +59,9 @@
   <g id="boundaries" aria-hidden="true"/>
 
   <g id="connectors" aria-hidden="true">
-    <path class="inheritance" d="M 545 150 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="inheritance" d="M 300 292 L 155 224" vector-effect="non-scaling-stroke"/>
-    <path class="inheritance" d="M 400 292 L 545 224" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 545 150 V 102" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 300 292 L 166 229" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 400 292 L 534 229" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">

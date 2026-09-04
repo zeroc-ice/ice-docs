@@ -12,9 +12,6 @@
     <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
-    <marker id="arrow-small" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto">
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
-    </marker>
   </defs>
 
   <style>
@@ -52,10 +49,6 @@
       marker-end: url(#arrow);
     }
 
-    .lane-entry {
-      marker-end: url(#arrow-small);
-    }
-
     .state-label {
       font-size: 16px;
       font-weight: 600;
@@ -90,10 +83,10 @@
     <path class="connector one-way" d="M 280 340 V 398" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 280 452 V 487" vector-effect="non-scaling-stroke"/>
 
-    <!-- Small entry markers make each transition into the shared immediate-close lane explicit. -->
-    <path class="connector lane-entry" d="M 170 91 H 70" vector-effect="non-scaling-stroke"/>
-    <path class="connector lane-entry" d="M 170 197 H 70" vector-effect="non-scaling-stroke"/>
-    <path class="connector lane-entry" d="M 170 308 H 70" vector-effect="non-scaling-stroke"/>
+    <!-- Plain branches merge into the shared immediate-close transition. -->
+    <path class="connector" d="M 170 91 H 70" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 170 197 H 70" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 170 308 H 70" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 70 91 V 425 H 170" vector-effect="non-scaling-stroke"/>
   </g>
 

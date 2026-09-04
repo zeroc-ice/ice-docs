@@ -10,26 +10,16 @@ executables.
 
 # Single Development Environment for Client and Server
 
-The figure below shows the situation when both client and server are developed in C++. The Slice compiler generates two
-files from a Slice definition in a source file `Printer.ice`: a header file (`Printer.h`) and a source file
-(`Printer.cpp`)
+The figure below shows the situation when both client and server are developed in C++. The Slice compiler generates two files from a Slice definition in a source file `Greeter.ice`: a header file (`Greeter.h`) and a source file (`Greeter.cpp`).
 
-![Printer.ice is compiled into shared generated C++ files that combine with client and server source and the Ice runtime library to produce communicating executables.](/attachments/3.8/slice-compilation/slice-compilation.svg#diagram-wide)
+![Greeter.ice is compiled into shared generated C++ files that combine with client and server source and the Ice runtime library to produce communicating executables.](/attachments/3.8/slice-compilation/slice-compilation.svg#diagram-wide)
 
 *Compiling a Slice definition when the C++ client and server share a development environment.*
 
-- The `Printer.h` header file contains definitions that correspond to the types used in the Slice definition. It is
-  included in the source code of both client and server to ensure that client and server agree about the types and
-  interfaces used by the application.
-- The `Printer.cpp` source file provides an API to the client for sending messages to remote objects. The client source
-  code (`Client.cpp`, written by the client developer) contains the client-side application logic. The generated source
-  code and the client code are compiled and linked into the client executable.
+- The `Greeter.h` header file contains definitions that correspond to the types used in the Slice definition. It is included in the source code of both client and server to ensure that client and server agree about the types and interfaces used by the application.
+- The `Greeter.cpp` source file provides an API to the client for sending messages to remote objects. The client source code (`Client.cpp`, written by the client developer) contains the client-side application logic. The generated source code and the client code are compiled and linked into the client executable.
 
-The `Printer.cpp` source file also contains source code that provides an up-call interface from the Ice run time into
-the server code written by the developer and provides the connection between the networking layer of Ice and the
-application code. The server implementation file (`Server.cpp`, written by the server developer) contains the
-server-side application logic (the object implementations, properly termed _servants_). The generated source code and
-the implementation source code are compiled and linked into the server executable.
+The `Greeter.cpp` source file also contains source code that provides an up-call interface from the Ice run time into the server code written by the developer and provides the connection between the networking layer of Ice and the application code. The server implementation file (`Server.cpp`, written by the server developer) contains the server-side application logic (the object implementations, properly termed *servants*). The generated source code and the implementation source code are compiled and linked into the server executable.
 
 Both client and server also link with an Ice library that provides the necessary run-time support.
 

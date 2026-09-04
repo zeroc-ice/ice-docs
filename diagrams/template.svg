@@ -7,9 +7,6 @@
     <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
-    <marker id="arrow-small" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto">
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
-    </marker>
     <marker id="inheritance-arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
       <path d="M 1 1 L 11 6 L 1 11 Z" fill="#ffffff" stroke="#465266" stroke-linejoin="round" stroke-width="1.8"/>
     </marker>
@@ -154,10 +151,6 @@
       stroke-width: 2;
     }
 
-    .lane-entry {
-      marker-end: url(#arrow-small);
-    }
-
     .label-knockout {
       fill: #ffffff;
     }
@@ -252,7 +245,7 @@
     <!-- Process, host, network, and API boundaries. -->
   </g>
   <g id="connectors" aria-hidden="true">
-    <!-- One-way, two-way, callback, association, blocked, inheritance, and shared-lane paths. -->
+    <!-- One-way, two-way, callback, association, blocked, and inheritance paths. -->
   </g>
   <g id="components" aria-hidden="true">
     <!-- Applications, actors, interfaces, states, documents, runtimes, generated code, and services. -->
