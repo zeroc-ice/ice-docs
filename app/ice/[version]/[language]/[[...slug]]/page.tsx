@@ -244,7 +244,7 @@ export default async function Page(props: PageProps) {
         <SwitchNotice key={routePath} />
       </Suspense>
 
-      <div className="mt-8 flex grow flex-row justify-center">
+      <div className="mt-8 mb-16 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the manual's table of contents. */}
           <SideNav nodes={sideNav} title={MANUAL_TITLE} />
