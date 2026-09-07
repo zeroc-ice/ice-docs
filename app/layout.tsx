@@ -48,7 +48,10 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen flex-col">
             <IceHeader />
-            <main className={clsx(inter.className)} id="main">
+            <main
+              className={clsx('flex grow flex-col', inter.className)}
+              id="main"
+            >
               {children}
             </main>
             <IceFooter />

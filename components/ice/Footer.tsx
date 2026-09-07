@@ -11,11 +11,12 @@ const footerLinks = [
 
 // The one global footer, identical on every page. It shares the header's
 // horizontal padding so the copyright lines up under the site name and the
-// links under the theme toggle, and it sits at the bottom of the viewport on a
-// short page rather than halfway up it.
+// links under the theme toggle. The layout's main area grows to fill the
+// viewport, which is what keeps this at the bottom of a short page rather than
+// halfway up it.
 export function IceFooter() {
   return (
-    <footer className="border-hairline mt-auto border-t px-[clamp(1rem,2.5vw,2rem)] py-6 text-sm">
+    <footer className="border-hairline border-t px-[clamp(1rem,2.5vw,2rem)] py-6 text-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <span className="text-ink-secondary">
           © {new Date().getFullYear()} ZeroC

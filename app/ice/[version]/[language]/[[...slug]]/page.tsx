@@ -244,13 +244,16 @@ export default async function Page(props: PageProps) {
         <SwitchNotice key={routePath} />
       </Suspense>
 
-      <div className="mt-8 mb-16 flex grow flex-row justify-center">
+      <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the manual's table of contents. */}
           <SideNav nodes={sideNav} title={MANUAL_TITLE} />
 
-          {/* Content */}
-          <div className="grow">
+          {/* Content. The bottom padding keeps the previous/next links off the
+              footer's border; it lives here rather than on the row so a short
+              page, whose height is the viewport-tall sidebar rail, does not
+              add it below the rail as well. */}
+          <div className="grow pb-16">
             <div id="skip-nav" />
             {renderError ? (
               <div className="mt-10 rounded border border-red-300 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-200">
