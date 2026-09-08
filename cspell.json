@@ -125,6 +125,7 @@
     "isinstance",
     "istr",
     "journalctl",
+    "libbz",
     "libisloaded",
     "Lippman",
     "LMDB",

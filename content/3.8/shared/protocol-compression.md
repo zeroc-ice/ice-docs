@@ -13,6 +13,17 @@ several factors:
    ability to accept compressed messages.
 3. For efficiency reasons, the Ice protocol engine does not compress messages smaller than 100 bytes.
 
+{% iflang langs="csharp" %}
+
+Ice for C# implements compression with the native bzip2 library, which it loads at run time through the operating
+system's library search: `bzip2.dll` on Windows, `libbz2.so.1` on Linux, and `libbz2.dylib` on macOS. The ZeroC.Ice
+NuGet package does not bundle this library. Linux distributions and macOS provide it; on Windows, `bzip2.dll` is
+available from the ZeroC.Bzip2 NuGet package, the Ice for C++ NuGet package (ZeroC.Ice.Cpp), and the Windows installer.
+When Ice for C# cannot load the library, it sends all messages uncompressed and throws `FeatureNotSupportedException`
+when it receives a compressed message.
+
+{% /iflang %}
+
 {% callout type="tip" %}
 
 Compression is likely to improve performance only over lower-speed links, for which bandwidth is the overall limiting
