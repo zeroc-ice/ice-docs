@@ -15,12 +15,12 @@ several factors:
 
 {% iflang langs="csharp" %}
 
-Ice for C# implements compression with the native bzip2 library, which it loads at run time through the operating
-system's library search: `bzip2.dll` on Windows, `libbz2.so.1` on Linux, and `libbz2.dylib` on macOS. The ZeroC.Ice
-NuGet package does not bundle this library. Linux distributions and macOS provide it; on Windows, `bzip2.dll` is
-available from the ZeroC.Bzip2 NuGet package, the Ice for C++ NuGet package (ZeroC.Ice.Cpp), and the Windows installer.
-When Ice for C# cannot load the library, it sends all messages uncompressed and throws `FeatureNotSupportedException`
-when it receives a compressed message.
+Ice for C# implements compression with the native bzip2 library: `bzip2.dll` on Windows, `libbz2.so.1` on Linux, and
+`libbz2.dylib` on macOS. Ice loads this library dynamically at run time, so it must be next to your application or in a
+directory on the system library path (`PATH` on Windows). The ZeroC.Ice NuGet package does not bundle it. Linux
+distributions and macOS provide it; on Windows, `bzip2.dll` is available from the ZeroC.Bzip2 NuGet package, the Ice for
+C++ NuGet package (ZeroC.Ice.Cpp), and the Windows installer. When Ice for C# cannot load the library, it sends all
+messages uncompressed and throws `FeatureNotSupportedException` when it receives a compressed message.
 
 {% /iflang %}
 
