@@ -153,8 +153,11 @@ export function SideNav({
       ref={navRef}
       onScroll={onScroll}
       aria-label={title ? `${title} navigation` : 'Manual navigation'}
+      // `contain-size` keeps the tree's height out of the row's, so a short
+      // page stays viewport-high with the footer at the bottom; the rail then
+      // stretches to the row, capped at the viewport.
       className={clsx(
-        'sticky top-20 hidden h-[calc(100vh-6.5rem)] shrink-0 self-start overscroll-contain pb-8 text-sm',
+        'sticky top-20 hidden max-h-[calc(100vh-6.5rem)] shrink-0 overscroll-contain pb-8 text-sm contain-size',
         'transition-[width] duration-200 ease-out motion-reduce:transition-none lg:block',
         collapsed ? 'w-9 overflow-hidden' : 'w-66 overflow-y-auto pr-3'
       )}

@@ -3,7 +3,7 @@
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { IceHeader } from '@/components/ice/Header';
-import { IceFooter } from '@/components/ice/Footer';
+import { Footer } from '@/components/ice/Footer';
 import { Inter } from 'next/font/google';
 import clsx from 'clsx';
 import { Metadata } from 'next';
@@ -54,7 +54,7 @@ export default function RootLayout({
             >
               {children}
             </main>
-            <IceFooter />
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
