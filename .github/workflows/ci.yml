@@ -1,11 +1,12 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    - cron: '0 0 * * 0'
 
 # One active run per ref. On PRs, newer pushes cancel older in-progress runs;
 # on main, runs queue instead so an in-flight publish/deploy always finishes.
@@ -83,6 +84,9 @@ jobs:
         with:
           context: .
           platforms: linux/${{ matrix.arch }}
+          pull: true
+          # Attestations show up as extra unknown/unknown entries in the manifest.
+          provenance: false
           build-args: |
             SITE_URL=${{ env.SITE_URL }}
             SITE_NOINDEX=${{ env.SITE_NOINDEX }}
