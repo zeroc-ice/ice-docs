@@ -222,17 +222,18 @@ export default async function Page(props: PageProps) {
       path: routePath,
       version,
       language,
-      languages,
-      languageOptions,
-      versionOptions,
-      previousVersions: nav?.previousVersions,
-      releases,
       pageIndex,
       frontmatter,
       chrome: {
         breadcrumbs: crumbs,
         prev,
         next,
+        // For the front page's switches, code showcase, and release list.
+        languages,
+        languageOptions,
+        versionOptions,
+        previousVersions: nav?.previousVersions,
+        releases,
         // The property tables are a list of exact identifiers, not an essay, and
         // are typeset as such. Derived from the page's place in the manual — the
         // pages under the Property Reference chapter — rather than restated in

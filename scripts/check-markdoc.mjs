@@ -127,10 +127,6 @@ function variablesFor({ version, language, slug, frontmatter }) {
     readingTime: '1 min read',
     version,
     language,
-    languages: languagesByVersion[version],
-    languageOptions: [],
-    versionOptions: [],
-    releases: [],
     pageIndex: pageIndexes.get(key),
     chrome: { breadcrumbs: [], prev: null, next: null }
   };

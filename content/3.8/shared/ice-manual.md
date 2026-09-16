@@ -128,7 +128,7 @@ try (var communicator = new Communicator(args)) {
 }
 ```
 
-```typescript {% title="client.ts" %}
+```js {% title="client.js" %}
 await using communicator =
     new Ice.Communicator(process.argv);
 
