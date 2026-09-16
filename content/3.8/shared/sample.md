@@ -70,8 +70,7 @@ method. The origin corresponds to the name of the writer that published the samp
 ### Session
 
 The **session** identifies the connection between the two nodes that exchanged the sample. It can be obtained with the
-[getSession](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_a6c2b2bd2a4d293a924b390f024796336.html#a6c2b2bd2a4d293a924b390f024796336)
-method. This session identifier can be passed to
-[Node::getSessionConnection](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Node_a49645210de95c5247b4907e9fb0564ff.html#a49645210de95c5247b4907e9fb0564ff)
-to retrieve the corresponding [connection](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Connection.html) between
-the two nodes.
+[getSession](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample.html) method. This session identifier can
+be passed to [Node::getSessionConnection](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Node.html) to
+retrieve the corresponding [connection](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Connection.html) between the
+two nodes.
