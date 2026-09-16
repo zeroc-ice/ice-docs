@@ -210,9 +210,14 @@ export function counterpartSlug(
     ?.page;
 }
 
-/** Every page a reader can reach from the navigation, in reading order. */
-export function navigationSlugs(nav: Pick<NavDoc, 'sidebar'>): string[] {
-  const out: string[] = [];
+/**
+ * Every page a reader can reach from the navigation: the landing page, then
+ * the tree in reading order.
+ */
+export function navigationSlugs(
+  nav: Pick<NavDoc, 'landing' | 'sidebar'>
+): string[] {
+  const out: string[] = nav.landing ? [nav.landing] : [];
   const walk = (nodes: NavNode[]) => {
     for (const node of nodes ?? []) {
       if (node.page) out.push(node.page);

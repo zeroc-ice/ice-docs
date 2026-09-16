@@ -1,14 +1,34 @@
 // Copyright (c) ZeroC, Inc.
 
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpen,
+  Boxes,
+  Braces,
+  Cpu,
+  Rocket,
+  SlidersHorizontal,
+  type LucideIcon
+} from 'lucide-react';
 
 import { AppLink } from '@/components/nodes/app-link';
+
+// The icons a card may name in its `icon` attribute.
+const ICONS: Record<string, LucideIcon> = {
+  book: BookOpen,
+  boxes: Boxes,
+  braces: Braces,
+  cpu: Cpu,
+  rocket: Rocket,
+  sliders: SlidersHorizontal
+};
 
 type CardProps = {
   title: string;
   description: string;
   href: string;
   level?: 1 | 2 | 3 | 4 | 5;
+  icon?: string;
   /** Set when the href names a page that is not in the index. */
   unresolved?: boolean;
 };
@@ -22,15 +42,25 @@ export const Card = ({
   description,
   href,
   level = 3,
+  icon,
   unresolved
 }: CardProps) => {
+  const Icon = icon ? ICONS[icon] : undefined;
   return (
     <AppLink
       href={href}
       unresolved={unresolved}
-      className="group border-hairline bg-surface hover:border-link/40 col-span-1 block rounded-[10px] border px-5 py-4 transition duration-150 hover:-translate-y-px hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
+      className="group border-hairline bg-surface hover:border-link/40 col-span-1 block rounded-[10px] border p-5 transition duration-150 hover:-translate-y-px hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
       showArrow={false}
     >
+      {Icon && (
+        <span
+          aria-hidden="true"
+          className="bg-accent-soft text-link mb-3 flex size-9 items-center justify-center rounded-lg"
+        >
+          <Icon className="size-[18px]" />
+        </span>
+      )}
       <div
         className="text-ink group-hover:text-link m-0 flex items-center gap-1.5 font-semibold transition-colors"
         role="heading"

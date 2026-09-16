@@ -60,10 +60,13 @@ function writeState(key: string, value: unknown) {
 // rearrange itself under the click that moved them.
 export function SideNav({
   nodes,
-  title
+  title,
+  homeHref
 }: {
   nodes: SideNavNode[];
   title?: string;
+  /** The manual's front page, which the heading links to. */
+  homeHref: string;
 }) {
   // Read after mount, so the server and the first client render agree; the
   // width transition then carries the rail closed rather than snapping it.
@@ -86,8 +89,9 @@ export function SideNav({
     }
   };
 
+  const pathname = usePathname();
   // /ice/3.8/cpp/<page> -> "3.8/cpp".
-  const scope = usePathname().split('/').slice(2, 4).join('/');
+  const scope = pathname.split('/').slice(2, 4).join('/');
 
   // Groups that are open: the branch holding the current page, plus — once the
   // client has mounted and can read storage — whatever the reader had open
@@ -163,10 +167,21 @@ export function SideNav({
       )}
     >
       <div className="mb-2 flex items-center gap-1">
+        {/* The heading is the manual's front page, the one page above the
+            tree rather than in it, so it is the row that is active there. */}
         {!collapsed && title && (
-          <div className="text-ink-muted flex-1 truncate px-2 text-[11px] font-semibold tracking-[0.07em] uppercase">
+          <Link
+            href={homeHref}
+            aria-current={pathname === homeHref ? 'page' : undefined}
+            className={clsx(
+              'flex-1 truncate rounded-[5px] px-2 py-1 text-[11px] font-semibold tracking-[0.07em] uppercase transition-colors',
+              pathname === homeHref
+                ? 'bg-accent-soft text-link'
+                : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+            )}
+          >
             {title}
-          </div>
+          </Link>
         )}
         <button
           type="button"

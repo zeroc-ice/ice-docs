@@ -52,23 +52,37 @@ function landingSlug(nav: Nav): string {
   return nav.landing ?? firstPage(nav.sidebar) ?? 'get-started';
 }
 
-// Build redirects from the content manifests: a bare /ice/<version>/<language>
-// lands on the version's landing page, plus each version's redirects.yaml.
+// Build redirects from the content manifests: the site root, a bare /ice, and a
+// bare /ice/<version> or /ice/<version>/<language> all land on a landing page
+// (the newest version's, in its first language, when they name neither), plus
+// each version's redirects.yaml.
 function buildRedirects(): RedirectRule[] {
   const root = path.join(process.cwd(), 'content');
   const rules: RedirectRule[] = [];
+  const versions = contentVersions(root).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
 
-  for (const version of contentVersions(root)) {
+  for (const version of versions) {
     const nav = readYaml<Nav>(path.join(root, version, 'navigation.yaml'));
     if (!nav) continue;
 
     const landing = landingSlug(nav);
-    for (const language of nav.languages ?? []) {
+    const languages = nav.languages ?? [];
+    for (const language of languages) {
       rules.push({
         source: `/ice/${version}/${language}`,
         destination: `/ice/${version}/${language}/${landing}`,
         permanent: false
       });
+    }
+    if (languages.length > 0) {
+      const destination = `/ice/${version}/${languages[0]}/${landing}`;
+      rules.push({ source: `/ice/${version}`, destination, permanent: false });
+      if (version === versions[versions.length - 1]) {
+        rules.push({ source: '/', destination, permanent: false });
+        rules.push({ source: '/ice', destination, permanent: false });
+      }
     }
 
     const manifest = readYaml<{

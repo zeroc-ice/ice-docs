@@ -5,7 +5,7 @@
 # A node marked `language:` is shown only in that language's table of contents.
 version: '3.8'
 status: latest
-landing: get-started
+landing: ice-manual
 languages:
   - cpp
   - csharp
@@ -20,8 +20,6 @@ previousVersions:
   label: Previous Versions
   url: https://docs.zeroc.com/ice/3.7/
 sidebar:
-  - title: Get Started
-    page: get-started
   - title: Greeter Example
     page: greeter-example
     items:

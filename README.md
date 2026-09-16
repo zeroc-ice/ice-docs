@@ -32,7 +32,10 @@ language.
 
 Everything for one version of the manual lives under `content/<version>/` (for example `content/3.8/`):
 
-- `navigation.yaml` — the table of contents (one tree), the languages, and the landing page.
+- `navigation.yaml` — the table of contents (one tree), the languages, and `landing`, the manual's front page. The front
+  page sits above the tree rather than in it: the sidebar heading and the breadcrumb root link to it. The site root,
+  `/ice`, `/ice/<version>`, and `/ice/<version>/<language>` all redirect to a front page: the newest version's, in its
+  first language, when they name neither.
 - `redirects.yaml` — old URL to new URL.
 - `shared/<slug>.md` — a language-neutral page, with `{% language-section %}` slots.
 - `languages/<lang>/<slug>.md` — the overlay filling those slots, or a page that exists in one language only.
@@ -59,6 +62,8 @@ A page's images live under `public/attachments/<version>/<slug>/` and are refere
 - **Images** live under `public/attachments/`, one directory per page. A paragraph that is nothing but an image renders
   as a figure; an image inside a sentence stays on the line.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
+- **Release note pages** carry `date:` (an ISO date, quoted) in their frontmatter; the front page's release list shows
+  it.
 
 ## Deployment
 

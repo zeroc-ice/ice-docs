@@ -23,6 +23,7 @@ import {
   counterpartSlug,
   landingSlug,
   languageLabel,
+  pageHref,
   prevNext,
   trailTo,
   versionSwitchTarget,
@@ -95,7 +96,14 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     page
   );
   const fm = frontmatterOf(shared ?? overlay ?? '');
-  return { title: fm.title ?? '', description: fm.description ?? '' };
+  const nav = navFor(version);
+  // The front page is the manual itself, so its title is not suffixed with the
+  // manual's name.
+  const title =
+    nav && page === landingSlug(nav)
+      ? { absolute: fm.title ?? '' }
+      : (fm.title ?? '');
+  return { title, description: fm.description ?? '' };
 }
 
 export default async function Page(props: PageProps) {
@@ -131,42 +139,6 @@ export default async function Page(props: PageProps) {
   const { index: pageIndex } = buildPageIndex(
     listPageEntries(root, version, language)
   );
-
-  // Migrated content can contain conversion artifacts; surface a render error on
-  // the page instead of failing the whole build, so we can see what's broken.
-  let content: ReturnType<typeof renderMarkdownString>['content'] | null = null;
-  let renderError: string | null = null;
-  try {
-    const body = resolveDocument({
-      shared: shared ?? '',
-      overlay: overlay ?? undefined,
-      readFile: snippetReader(root, version)
-    });
-    content = renderMarkdownString({
-      source: demoteHeadings(stripRedundantTitle(body, frontmatter.title)),
-      path: routePath,
-      version,
-      language,
-      pageIndex,
-      frontmatter,
-      chrome: {
-        breadcrumbs: crumbs,
-        prev,
-        next,
-        // The property tables are a list of exact identifiers, not an essay, and
-        // are typeset as such. Derived from the page's place in the manual — the
-        // pages under the Property Reference chapter — rather than restated in
-        // the frontmatter of every one of them; a page can still override it.
-        shape:
-          page !== 'property-reference' &&
-          trail.some((n) => n.page === 'property-reference')
-            ? 'property-list'
-            : undefined
-      }
-    }).content;
-  } catch (error) {
-    renderError = error instanceof Error ? error.message : String(error);
-  }
 
   const landing = nav ? landingSlug(nav) : 'get-started';
 
@@ -220,6 +192,62 @@ export default async function Page(props: PageProps) {
     return { value: other, href: exists ? href : `${href}${fellBack}` };
   });
 
+  // The Release Notes chapter's pages, newest first, for the front page's
+  // release list, each with the date its frontmatter gives.
+  const releases = (
+    sidebar.find((n) => n.page === 'release-notes')?.items ?? []
+  )
+    .filter((n) => n.page && isAvailable(n.page))
+    .map((n) => {
+      const sources = readPageSources(root, version, language, n.page!);
+      return {
+        title: n.title,
+        href: pageHref(version, language, n.page!),
+        date: frontmatterOf(sources.shared ?? sources.overlay ?? '').date
+      };
+    });
+
+  // Migrated content can contain conversion artifacts; surface a render error on
+  // the page instead of failing the whole build, so we can see what's broken.
+  let content: ReturnType<typeof renderMarkdownString>['content'] | null = null;
+  let renderError: string | null = null;
+  try {
+    const body = resolveDocument({
+      shared: shared ?? '',
+      overlay: overlay ?? undefined,
+      readFile: snippetReader(root, version)
+    });
+    content = renderMarkdownString({
+      source: demoteHeadings(stripRedundantTitle(body, frontmatter.title)),
+      path: routePath,
+      version,
+      language,
+      languages,
+      languageOptions,
+      versionOptions,
+      previousVersions: nav?.previousVersions,
+      releases,
+      pageIndex,
+      frontmatter,
+      chrome: {
+        breadcrumbs: crumbs,
+        prev,
+        next,
+        // The property tables are a list of exact identifiers, not an essay, and
+        // are typeset as such. Derived from the page's place in the manual — the
+        // pages under the Property Reference chapter — rather than restated in
+        // the frontmatter of every one of them; a page can still override it.
+        shape:
+          page !== 'property-reference' &&
+          trail.some((n) => n.page === 'property-reference')
+            ? 'property-list'
+            : undefined
+      }
+    }).content;
+  } catch (error) {
+    renderError = error instanceof Error ? error.message : String(error);
+  }
+
   return (
     <div className="flex grow flex-col">
       {/* Search + version + language controls live in the global header (portal). */}
@@ -247,7 +275,11 @@ export default async function Page(props: PageProps) {
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the manual's table of contents. */}
-          <SideNav nodes={sideNav} title={MANUAL_TITLE} />
+          <SideNav
+            nodes={sideNav}
+            title={MANUAL_TITLE}
+            homeHref={pageHref(version, language, landing)}
+          />
 
           {/* Content */}
           <div className="grow pb-8">

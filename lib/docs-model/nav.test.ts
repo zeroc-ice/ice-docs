@@ -235,6 +235,13 @@ test('prevNext never crosses into another language', () => {
   assert.equal(next?.href, '/ice/3.8/python/python-plug-in-api');
 });
 
+test('navigationSlugs counts a landing page outside the tree as reachable', () => {
+  assert.deepEqual(
+    navigationSlugs({ landing: 'front-page', sidebar: SIDEBAR }).slice(0, 2),
+    ['front-page', 'get-started']
+  );
+});
+
 test('navigationSlugs lists every declared page in reading order', () => {
   assert.deepEqual(navigationSlugs(NAV), [
     'get-started',

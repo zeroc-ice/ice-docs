@@ -26,6 +26,10 @@ const card = {
       type: Number,
       default: 3,
       required: false
+    },
+    icon: {
+      type: String,
+      required: false
     }
   },
   transform(node: Node, config: Config) {

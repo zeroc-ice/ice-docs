@@ -35,6 +35,7 @@ const document = {
           frontmatter.showReadingTime !== false
             ? config.variables?.readingTime
             : undefined,
+        showAside: frontmatter.showAside,
         showReadingTime: frontmatter.showReadingTime,
         showDividers: frontmatter.showDividers,
         showNavigation: frontmatter.showNavigation

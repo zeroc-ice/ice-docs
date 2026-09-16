@@ -14,6 +14,14 @@ export interface RenderOptions {
   path: string;
   version: string;
   language: string;
+  /** The mappings this version is written for, in the manual's order. */
+  languages: string[];
+  /** The top bar's switch targets, for a page that offers the switches itself. */
+  languageOptions: { value: string; label: string; href: string }[];
+  versionOptions: { value: string; href: string }[];
+  previousVersions?: { label: string; url: string };
+  /** The Release Notes chapter's pages, newest first, dated where the page is. */
+  releases: { title: string; href: string; date?: string }[];
   /** Page index used to resolve cross-page links at build time. */
   pageIndex: PageIndex;
   /** Frontmatter to merge under the document's own (e.g. the shared page's). */
@@ -25,7 +33,18 @@ export interface RenderOptions {
 // Transform an already-assembled Markdoc/markdown string (a shared page merged
 // with its language overlay) into a renderable Markdoc node tree.
 export function renderMarkdownString(opts: RenderOptions) {
-  const { source, path, version, language, pageIndex } = opts;
+  const {
+    source,
+    path,
+    version,
+    language,
+    languages,
+    languageOptions,
+    versionOptions,
+    previousVersions,
+    releases,
+    pageIndex
+  } = opts;
 
   const ast = Markdoc.parse(source);
   const frontmatter = {
@@ -48,6 +67,11 @@ export function renderMarkdownString(opts: RenderOptions) {
       readingTime,
       version,
       language,
+      languages,
+      languageOptions,
+      versionOptions,
+      previousVersions,
+      releases,
       pageIndex,
       chrome: opts.chrome ?? {}
     }
