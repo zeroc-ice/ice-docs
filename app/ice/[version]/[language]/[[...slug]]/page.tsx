@@ -192,20 +192,22 @@ export default async function Page(props: PageProps) {
     return { value: other, href: exists ? href : `${href}${fellBack}` };
   });
 
-  // The Release Notes chapter's pages, newest first, for the front page's
-  // release list, each with the date its frontmatter gives.
-  const releases = (
-    sidebar.find((n) => n.page === 'release-notes')?.items ?? []
-  )
-    .filter((n) => n.page && isAvailable(n.page))
-    .map((n) => {
-      const sources = readPageSources(root, version, language, n.page!);
-      return {
-        title: n.title,
-        href: pageHref(version, language, n.page!),
-        date: frontmatterOf(sources.shared ?? sources.overlay ?? '').date
-      };
-    });
+  // The Release Notes chapter's pages, newest first, each with the date its
+  // frontmatter gives. Only the front page lists them, and reading every one
+  // of them for every page would multiply across the page-by-language matrix.
+  const releases =
+    page === landing
+      ? (sidebar.find((n) => n.page === 'release-notes')?.items ?? [])
+          .filter((n) => n.page && isAvailable(n.page))
+          .map((n) => {
+            const sources = readPageSources(root, version, language, n.page!);
+            return {
+              title: n.title,
+              href: pageHref(version, language, n.page!),
+              date: frontmatterOf(sources.shared ?? sources.overlay ?? '').date
+            };
+          })
+      : [];
 
   // Migrated content can contain conversion artifacts; surface a render error on
   // the page instead of failing the whole build, so we can see what's broken.

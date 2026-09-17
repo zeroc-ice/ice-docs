@@ -105,7 +105,7 @@ export const Showcase = ({
         {shown && (
           <div className="flex flex-col [&_.code-block]:flex-1 [&_.code-block]:rounded-t-none">
             <div
-              role="tablist"
+              role="group"
               aria-label="File"
               className="flex rounded-t-lg border border-b-0 border-(--code-border) bg-(--code-header-bg) px-1"
             >
@@ -113,8 +113,7 @@ export const Showcase = ({
                 <button
                   key={fence.title}
                   type="button"
-                  role="tab"
-                  aria-selected={fence === shown}
+                  aria-pressed={fence === shown}
                   onClick={() => setFile(i)}
                   className={clsx(tab, fence === shown ? activeTab : idleTab)}
                 >
