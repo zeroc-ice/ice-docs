@@ -10,14 +10,11 @@ With Ice, a client application calls local proxies to remote Ice objects hosted 
 
 Clients and servers have this logical internal structure:
 
-![Three-layer Ice client and server structure. Client proxy code corresponds to server skeleton code, while both sides expose the Ice API above their Ice runtimes.](/attachments/3.8/basics/client-server.svg#diagram-wide)
+![Three-layer Ice client and server structure. Client proxy code corresponds to server skeleton code, while both sides expose the Ice API above their Ice runtimes. The server also has an object adapter, part of the Ice API. The legend identifies Ice API and generated code.](/attachments/3.8/basics/client-server.svg#diagram-wide)
 
 *Ice client and server structure.*
 
-This overview shows the Ice API as a single layer. The server-side object adapter described below is part of that API and is not drawn separately.
-
-Both client and server consist of a mixture of application code, library code, and code generated from Slice
-definitions:
+Both client and server consist of a mixture of application code, library code, and code generated from Slice definitions:
 
 - The Ice core or [runtime](../the-ice-runtime) contains the client- and server-side runtime support for remote
   communication. Much of this code is concerned with the details of networking, threading, byte ordering, and many other
