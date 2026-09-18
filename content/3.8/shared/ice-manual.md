@@ -18,6 +18,8 @@ Ice is a complete RPC framework that helps you build networked applications with
 
 {% showcase %}
 
+{% iflang langs="cpp,js,php,python,ruby,swift" %}
+
 ```slice {% title="Greeter.ice" %}
 module VisitorCenter
 {
@@ -29,6 +31,61 @@ module VisitorCenter
     }
 }
 ```
+
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
+```slice {% title="Greeter.ice" %}
+module VisitorCenter
+{
+    /// Represents a simple greeter.
+    interface Greeter
+    {
+        /// Creates a personalized greeting.
+        ["cs:identifier:Greet"]
+        string greet(string name);
+    }
+}
+```
+
+{% /iflang %}
+
+{% iflang langs="java" %}
+
+```slice {% title="Greeter.ice" %}
+["java:identifier:com.example.visitorcenter"]
+module VisitorCenter
+{
+    /// Represents a simple greeter.
+    interface Greeter
+    {
+        /// Creates a personalized greeting.
+        string greet(string name);
+    }
+}
+```
+
+{% /iflang %}
+
+{% iflang langs="matlab" %}
+
+```slice {% title="Greeter.ice" %}
+["matlab:identifier:visitorcenter"]
+module VisitorCenter
+{
+    /// Represents a simple greeter.
+    interface Greeter
+    {
+        /// Creates a personalized greeting.
+        string greet(string name);
+    }
+}
+```
+
+{% /iflang %}
+
+{% iflang langs="cpp" %}
 
 ```cpp {% title="Client.cpp" %}
 Ice::CommunicatorPtr communicator =
@@ -66,6 +123,10 @@ adapter->activate();
 communicator->waitForShutdown();
 ```
 
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
 ```csharp {% title="Client.cs" %}
 await using var communicator =
     new Ice.Communicator(ref args);
@@ -98,6 +159,10 @@ adapter.activate();
 await communicator.shutdownCompleted;
 ```
 
+{% /iflang %}
+
+{% iflang langs="java" %}
+
 ```java {% title="Client.java" %}
 try (var communicator = new Communicator(args)) {
     var greeter = GreeterPrx.createProxy(
@@ -128,6 +193,10 @@ try (var communicator = new Communicator(args)) {
 }
 ```
 
+{% /iflang %}
+
+{% iflang langs="js" %}
+
 ```js {% title="client.js" %}
 await using communicator =
     new Ice.Communicator(process.argv);
@@ -140,6 +209,10 @@ const greeting = await greeter.greet("alice");
 console.log(greeting);
 ```
 
+{% /iflang %}
+
+{% iflang langs="matlab" %}
+
 ```matlab {% title="client.m" %}
 communicator = Ice.Communicator(args);
 cleanup = onCleanup(@() communicator.destroy());
@@ -151,6 +224,10 @@ greeting = greeter.greet('alice');
 fprintf('%s\n', greeting);
 ```
 
+{% /iflang %}
+
+{% iflang langs="php" %}
+
 ```php {% title="Client.php" %}
 $communicator = Ice\initialize($argv);
 
@@ -161,6 +238,10 @@ $greeter = VisitorCenter\GreeterPrxHelper::createProxy(
 $greeting = $greeter->greet("alice");
 echo "$greeting\n";
 ```
+
+{% /iflang %}
+
+{% iflang langs="python" %}
 
 ```python {% title="client.py" %}
 async with Ice.Communicator(
@@ -188,6 +269,10 @@ with Ice.Communicator(sys.argv) as communicator:
     communicator.waitForShutdown()
 ```
 
+{% /iflang %}
+
+{% iflang langs="ruby" %}
+
 ```ruby {% title="client.rb" %}
 Ice::initialize(ARGV) do |communicator|
   greeter = VisitorCenter::GreeterPrx.new(
@@ -198,6 +283,10 @@ Ice::initialize(ARGV) do |communicator|
   puts greeting
 end
 ```
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
 
 ```swift {% title="Client.swift" %}
 var args = CommandLine.arguments
@@ -232,6 +321,8 @@ try adapter.add(
 try adapter.activate()
 await communicator.shutdownCompleted()
 ```
+
+{% /iflang %}
 
 {% /showcase %}
 

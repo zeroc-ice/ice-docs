@@ -16,13 +16,6 @@ interface Fence {
   code: string;
 }
 
-interface Sample {
-  /** The manual's slug for the mapping the sample is written in. */
-  mapping: string;
-  client?: Fence;
-  server?: Fence;
-}
-
 interface Props {
   version: string;
   current: string;
@@ -30,7 +23,8 @@ interface Props {
   path: string;
   languages: string[];
   contract: Fence;
-  samples: Sample[];
+  client: Fence;
+  server?: Fence;
 }
 
 const tab =
@@ -38,29 +32,23 @@ const tab =
 const activeTab = 'border-sky-400 text-white';
 const idleTab = 'border-transparent text-white/55 hover:text-white';
 
-// One contract, nine languages: the Slice interface beside the client that
-// calls it and, where the mapping has one, the server that implements it.
-// The language tabs are the manual's language switch: each links to this
-// page in that mapping, so the top bar follows. Always dark, whatever the
-// theme, so the panel reads as an editor rather than a pair of ordinary code
-// blocks.
+// The Slice contract beside the client that calls it and, where the mapping
+// has one, the server that implements it. The language tabs are the manual's
+// language switch: each links to this page in that mapping, so the top bar
+// follows. Always dark, whatever the theme, so the panel reads as an editor
+// rather than a pair of ordinary code blocks.
 export const Showcase = ({
   version,
   current,
   path,
   languages,
   contract,
-  samples
+  client,
+  server
 }: Props) => {
   const router = useRouter();
-  const byMapping = new Map(samples.map((sample) => [sample.mapping, sample]));
-  const tabs = languages.filter((lang) => byMapping.has(lang));
-  const sample = byMapping.get(current);
-  const files = [sample?.client, sample?.server].filter(
-    (fence): fence is Fence => fence !== undefined
-  );
-  const [file, setFile] = useState(0);
-  const shown = files[file] ?? files[0];
+  const [showServer, setShowServer] = useState(false);
+  const shown = showServer && server ? server : client;
   const slug = path.split('/').pop() ?? '';
   const hrefOf = (lang: string) => `/ice/${version}/${lang}/${slug}`;
 
@@ -77,7 +65,7 @@ export const Showcase = ({
             onChange={(event) => router.push(hrefOf(event.target.value))}
             className="rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[12px] text-white"
           >
-            {tabs.map((lang) => (
+            {languages.map((lang) => (
               <option key={lang} value={lang}>
                 {languageLabel(lang)}
               </option>
@@ -85,7 +73,7 @@ export const Showcase = ({
           </select>
         </label>
         <nav aria-label="Language" className="hidden flex-wrap sm:flex">
-          {tabs.map((lang) => (
+          {languages.map((lang) => (
             <Link
               key={lang}
               href={hrefOf(lang)}
@@ -102,19 +90,19 @@ export const Showcase = ({
         <CodeBlock data-language={contract.language} title={contract.title}>
           {contract.code}
         </CodeBlock>
-        {shown && (
+        {server ? (
           <div className="flex flex-col [&_.code-block]:flex-1 [&_.code-block]:rounded-t-none">
             <div
               role="group"
               aria-label="File"
               className="flex rounded-t-lg border border-b-0 border-(--code-border) bg-(--code-header-bg) px-1"
             >
-              {files.map((fence, i) => (
+              {[client, server].map((fence) => (
                 <button
                   key={fence.title}
                   type="button"
                   aria-pressed={fence === shown}
-                  onClick={() => setFile(i)}
+                  onClick={() => setShowServer(fence === server)}
                   className={clsx(tab, fence === shown ? activeTab : idleTab)}
                 >
                   {fence.title}
@@ -125,6 +113,10 @@ export const Showcase = ({
               {shown.code}
             </CodeBlock>
           </div>
+        ) : (
+          <CodeBlock data-language={client.language} title={client.title}>
+            {client.code}
+          </CodeBlock>
         )}
       </div>
     </section>
