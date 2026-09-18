@@ -42,6 +42,10 @@ release, but does not guarantee interface compatibility between minor releases.
 This issue is particularly relevant if your application uses Ice services such as IceGrid or IceStorm, as a change to an
 interface in one of these services may adversely affect your application.
 
+DataStorm in Ice 3.8.3 is an exception: a 3.8.3 DataStorm node does not communicate with DataStorm nodes from Ice 3.8.0
+to 3.8.2, so you need to upgrade all the nodes of an application together. See the
+[Ice 3.8.3 release notes](../ice-3-8-3#datastorm).
+
 Interface changes in an Ice service can also impact compatibility with its administrative tools, which means it may not
 be possible to administer a service using a tool from a previous minor release (or vice-versa).
 
