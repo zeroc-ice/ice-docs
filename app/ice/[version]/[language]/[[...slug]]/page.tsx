@@ -75,19 +75,32 @@ function frontmatterOf(source: string): Record<string, string> {
 export function generateStaticParams() {
   const root = contentRoot();
   const languagesByVersion: Record<string, string[]> = {};
+  const landingByVersion: Record<string, string> = {};
   for (const version of listVersions(root)) {
-    languagesByVersion[version] = navFor(version)?.languages ?? [];
+    const nav = navFor(version);
+    languagesByVersion[version] = nav?.languages ?? [];
+    if (nav) landingByVersion[version] = nav.landing;
   }
-  return listPageParams(root, languagesByVersion).map((p) => ({
-    version: p.version,
-    language: p.language,
-    slug: p.slug.split('/')
-  }));
+  // The landing page is served at the version and language root, not under its
+  // own slug.
+  const roots = Object.entries(languagesByVersion).flatMap(
+    ([version, languages]) =>
+      languages.map((language) => ({ version, language, slug: [] }))
+  );
+  const pages = listPageParams(root, languagesByVersion)
+    .filter((p) => p.slug !== landingByVersion[p.version])
+    .map((p) => ({
+      version: p.version,
+      language: p.language,
+      slug: p.slug.split('/')
+    }));
+  return [...roots, ...pages];
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { version, language, slug } = await props.params;
-  const page = (slug ?? []).join('/');
+  const nav = navFor(version);
+  const page = slug?.join('/') || nav?.landing || '';
   const { shared, overlay } = readPageSources(
     contentRoot(),
     version,
@@ -98,24 +111,25 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   // The front page is the manual itself, so its title is not suffixed with the
   // manual's name.
   const title =
-    page === navFor(version)?.landing
-      ? { absolute: fm.title ?? '' }
-      : (fm.title ?? '');
+    page === nav?.landing ? { absolute: fm.title ?? '' } : (fm.title ?? '');
   return { title, description: fm.description ?? '' };
 }
 
 export default async function Page(props: PageProps) {
   const { version, language, slug } = await props.params;
   const root = contentRoot();
-  const page = (slug ?? []).join('/');
-  if (!page) return notFound();
+  const nav = navFor(version);
+  if (!nav) return notFound();
+  const { languages, sidebar, landing } = nav;
+  const page = slug?.join('/') || landing;
 
   const { shared, overlay } = readPageSources(root, version, language, page);
   if (!shared && !overlay) return notFound();
 
-  const nav = navFor(version);
-  if (!nav) return notFound();
-  const { languages, sidebar, landing } = nav;
+  // The landing page lives at the version and language root, every other page
+  // under its slug.
+  const hrefFor = (lang: string, s?: string) =>
+    pageHref(version, lang, s === landing ? undefined : s);
   const isAvailable = (s: string) => pageExists(root, version, language, s);
 
   // The manual is one tree, and this page's place in it gives the sidebar its
@@ -129,7 +143,7 @@ export default async function Page(props: PageProps) {
   const trail = trailTo(sidebar, page) ?? [];
 
   const frontmatter = frontmatterOf(shared ?? overlay ?? '');
-  const routePath = `/ice/${version}/${language}/${page}`;
+  const routePath = hrefFor(language, page);
   // Cross-page links are resolved against this index at build time, so moving or
   // renaming a page never breaks the links pointing at it. The index holds only
   // the pages this language actually has, so a link is never rewritten to a URL
@@ -164,8 +178,8 @@ export default async function Page(props: PageProps) {
       value: lang,
       label: languageLabel(lang),
       href: equivalent
-        ? `/ice/${version}/${lang}/${equivalent}`
-        : `/ice/${version}/${lang}/${nearest?.page ?? landing}${fellBack}`
+        ? hrefFor(lang, equivalent)
+        : `${hrefFor(lang, nearest?.page)}${fellBack}`
     };
   });
 
@@ -176,16 +190,16 @@ export default async function Page(props: PageProps) {
     const otherLanguage = otherLanguages.includes(language)
       ? language
       : (otherLanguages[0] ?? language);
-    const exists = pageExists(root, other, otherLanguage, page);
+    const kept =
+      page === landing || pageExists(root, other, otherLanguage, page);
     const href = versionSwitchTarget({
       targetVersion: other,
       targetLanguages: otherLanguages,
       currentLanguage: language,
-      slug: page,
-      landing: otherNav?.landing ?? landing,
+      slug: page === landing ? undefined : page,
       pageExists: (lang, slug) => pageExists(root, other, lang, slug)
     });
-    return { value: other, href: exists ? href : `${href}${fellBack}` };
+    return { value: other, href: kept ? href : `${href}${fellBack}` };
   });
 
   // The Release Notes chapter's pages, newest first, each with the date its
@@ -227,7 +241,6 @@ export default async function Page(props: PageProps) {
         prev,
         next,
         // For the front page's switches, code showcase, and release list.
-        languages,
         languageOptions,
         versionOptions,
         previousVersions: nav.previousVersions,
@@ -277,7 +290,7 @@ export default async function Page(props: PageProps) {
           <SideNav
             nodes={sideNav}
             title={MANUAL_TITLE}
-            homeHref={pageHref(version, language, landing)}
+            homeHref={hrefFor(language)}
           />
 
           {/* Content */}

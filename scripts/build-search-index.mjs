@@ -110,7 +110,7 @@ for (const version of listVersions(ROOT)) {
         d: page.description ?? '',
         c: crumbFor(nav, slug),
         k: page.type ?? '',
-        h: pageHref(version, language, slug),
+        h: pageHref(version, language, slug === nav.landing ? undefined : slug),
         // De-duplicated headings, capped: enough to match on, small enough to ship.
         x: [...new Set(headings(body))].slice(0, 40).join(' · ')
       });

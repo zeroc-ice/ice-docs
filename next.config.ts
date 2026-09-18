@@ -5,7 +5,6 @@ import { load as yamlLoad } from 'js-yaml';
 
 interface Nav {
   languages?: string[];
-  landing: string;
 }
 
 interface RedirectRule {
@@ -31,9 +30,9 @@ function readYaml<T>(file: string): T | null {
 }
 
 // Build redirects from the content manifests: the site root, a bare /ice, and a
-// bare /ice/<version> or /ice/<version>/<language> all land on a landing page
-// (the newest version's, in its first language, when they name neither), plus
-// each version's redirects.yaml.
+// bare /ice/<version> land on a version's landing page, which is served at
+// /ice/<version>/<language> (the newest version's, in its first language, when
+// they name no version), plus each version's redirects.yaml.
 function buildRedirects(): RedirectRule[] {
   const root = path.join(process.cwd(), 'content');
   const rules: RedirectRule[] = [];
@@ -45,17 +44,9 @@ function buildRedirects(): RedirectRule[] {
     const nav = readYaml<Nav>(path.join(root, version, 'navigation.yaml'));
     if (!nav) continue;
 
-    const landing = nav.landing;
-    const languages = nav.languages ?? [];
-    for (const language of languages) {
-      rules.push({
-        source: `/ice/${version}/${language}`,
-        destination: `/ice/${version}/${language}/${landing}`,
-        permanent: false
-      });
-    }
-    if (languages.length > 0) {
-      const destination = `/ice/${version}/${languages[0]}/${landing}`;
+    const language = nav.languages?.[0];
+    if (language) {
+      const destination = `/ice/${version}/${language}`;
       rules.push({ source: `/ice/${version}`, destination, permanent: false });
       if (version === versions[versions.length - 1]) {
         rules.push({ source: '/', destination, permanent: false });

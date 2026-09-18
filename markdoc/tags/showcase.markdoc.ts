@@ -6,8 +6,8 @@ import { Tag, type Config, type Node, type Schema } from '@markdoc/markdoc';
 // it, in the page's language mapping. The page picks each mapping's blocks with
 // `{% iflang %}`, as any other page does. Of what is left, the `slice` block is
 // the contract, a block titled `Server.*` is the server, and the other is the
-// client. The manual's language list, from the chrome the route provides,
-// becomes the language tabs.
+// client. The language tabs are the top bar's language targets, from the chrome
+// the route provides.
 const showcase: Schema = {
   render: 'Showcase',
   children: ['fence', 'tag'],
@@ -25,10 +25,8 @@ const showcase: Schema = {
       /^server/i.test(block.title ?? '');
 
     return new Tag('Showcase', {
-      version: String(variables.version ?? ''),
       current: String(variables.language ?? ''),
-      path: String(variables.path ?? ''),
-      languages: (variables.chrome?.languages ?? []) as string[],
+      languageOptions: variables.chrome?.languageOptions ?? [],
       contract: blocks.find((block) => block.language === 'slice'),
       client: blocks.find(
         (block) => block.language !== 'slice' && !isServer(block)

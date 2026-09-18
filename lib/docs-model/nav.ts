@@ -39,7 +39,7 @@ export interface NavDoc {
   languages: string[];
   /** `latest` gets no banner; anything else gets an "older version" notice. */
   status?: 'latest' | 'maintenance' | 'archived';
-  /** The manual's front page, which sits above the tree. */
+  /** The manual's front page, served at /ice/<version>/<language> and kept above the tree. */
   landing: string;
   /** Optional link to older docs kept on the previous platform. */
   previousVersions?: PreviousVersions;
@@ -113,13 +113,15 @@ export function buildSideNav(
   );
 }
 
-/** The canonical URL of a page. */
+/** The canonical URL of a page; without a slug, the landing page at the root. */
 export function pageHref(
   version: string,
   language: string,
-  slug: string
+  slug?: string
 ): string {
-  return `/ice/${version}/${language}/${slug}`;
+  return slug
+    ? `/ice/${version}/${language}/${slug}`
+    : `/ice/${version}/${language}`;
 }
 
 /** Whether a resolved node is, or contains, the active page (used to auto-expand). */
@@ -230,11 +232,10 @@ export const MANUAL_TITLE = 'Ice Manual';
  * The trail from the manual's front page down to `slug`: the manual itself,
  * then every ancestor group, then the page. Groups without a page of their own
  * are shown as plain text (no href). The last crumb is the current page and is
- * never a link; nor is any crumb that would link to the page being read.
- * Empty when the page is not in the tree.
+ * never a link. Empty when the page is not in the tree.
  */
 export function breadcrumbs(
-  nav: Pick<NavDoc, 'landing' | 'sidebar'>,
+  nav: Pick<NavDoc, 'sidebar'>,
   slug: string,
   opts: { version: string; language: string }
 ): Crumb[] {
@@ -244,7 +245,7 @@ export function breadcrumbs(
   const crumbs: Crumb[] = [
     {
       title: MANUAL_TITLE,
-      href: pageHref(opts.version, opts.language, nav.landing)
+      href: pageHref(opts.version, opts.language)
     },
     ...trail.map((node) =>
       node.page
@@ -255,11 +256,8 @@ export function breadcrumbs(
         : { title: node.title }
     )
   ];
-  const here = pageHref(opts.version, opts.language, slug);
   return crumbs.map((crumb, i) =>
-    crumb.href === here || i === crumbs.length - 1
-      ? { title: crumb.title }
-      : crumb
+    i === crumbs.length - 1 ? { title: crumb.title } : crumb
   );
 }
 
@@ -333,10 +331,8 @@ export interface VersionSwitchInput {
   targetLanguages: string[];
   /** The language currently being viewed. */
   currentLanguage: string;
-  /** The page slug currently being viewed. */
-  slug: string;
-  /** The target version's landing slug (fallback when the page does not exist there). */
-  landing: string;
+  /** The page slug currently being viewed; none on the landing page. */
+  slug?: string;
   /** Whether a page exists in the target version for a given language + slug. */
   pageExists: (language: string, slug: string) => boolean;
 }
@@ -344,12 +340,12 @@ export interface VersionSwitchInput {
 /**
  * The equivalent URL when switching to another version: keep the same language if
  * the target supports it (else its first language), and the same page if it exists
- * there (else fall back to the target's landing page).
+ * there (else fall back to the target's landing page, at its root).
  */
 export function versionSwitchTarget(i: VersionSwitchInput): string {
   const language = i.targetLanguages.includes(i.currentLanguage)
     ? i.currentLanguage
     : (i.targetLanguages[0] ?? i.currentLanguage);
-  const slug = i.pageExists(language, i.slug) ? i.slug : i.landing;
+  const slug = i.slug && i.pageExists(language, i.slug) ? i.slug : undefined;
   return pageHref(i.targetVersion, language, slug);
 }

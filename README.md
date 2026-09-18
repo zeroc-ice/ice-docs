@@ -33,9 +33,9 @@ language.
 Everything for one version of the manual lives under `content/<version>/` (for example `content/3.8/`):
 
 - `navigation.yaml` — the table of contents (one tree), the languages, and `landing`, the manual's front page. The front
-  page sits above the tree rather than in it: the sidebar heading and the breadcrumb root link to it. The site root,
-  `/ice`, `/ice/<version>`, and `/ice/<version>/<language>` all redirect to a front page: the newest version's, in its
-  first language, when they name neither.
+  page is served at `/ice/<version>/<language>` and sits above the tree rather than in it: the sidebar heading and the
+  breadcrumb root link to it. The site root, `/ice`, and `/ice/<version>` redirect to a front page: the newest
+  version's, in its first language, when they name no version.
 - `redirects.yaml` — old URL to new URL.
 - `shared/<slug>.md` — a language-neutral page, with `{% language-section %}` slots.
 - `languages/<lang>/<slug>.md` — the overlay filling those slots, or a page that exists in one language only.

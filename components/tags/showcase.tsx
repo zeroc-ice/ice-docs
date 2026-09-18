@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { clsx } from 'clsx';
 
 import { CodeBlock } from '@/components/code-block';
-import { languageLabel } from '@/lib/docs-model/nav';
+import type { LanguageOption } from '@/components/ice/LanguageSelect';
 
 interface Fence {
   /** The fence's info string, which is also the highlighter's grammar. */
@@ -17,11 +17,9 @@ interface Fence {
 }
 
 interface Props {
-  version: string;
   current: string;
-  /** The route of the page the tag is on, e.g. `/ice/3.8/cpp/ice-manual`. */
-  path: string;
-  languages: string[];
+  /** The top bar's language targets: this page in each mapping. */
+  languageOptions: LanguageOption[];
   contract: Fence;
   client: Fence;
   server?: Fence;
@@ -38,10 +36,8 @@ const idleTab = 'border-transparent text-white/55 hover:text-white';
 // follows. Always dark, whatever the theme, so the panel reads as an editor
 // rather than a pair of ordinary code blocks.
 export const Showcase = ({
-  version,
   current,
-  path,
-  languages,
+  languageOptions,
   contract,
   client,
   server
@@ -49,8 +45,6 @@ export const Showcase = ({
   const router = useRouter();
   const [showServer, setShowServer] = useState(false);
   const shown = showServer && server ? server : client;
-  const slug = path.split('/').pop() ?? '';
-  const hrefOf = (lang: string) => `/ice/${version}/${lang}/${slug}`;
 
   return (
     <section
@@ -62,25 +56,33 @@ export const Showcase = ({
           <span className="sr-only">Language</span>
           <select
             value={current}
-            onChange={(event) => router.push(hrefOf(event.target.value))}
+            onChange={(event) =>
+              router.push(
+                languageOptions.find((o) => o.value === event.target.value)
+                  ?.href ?? ''
+              )
+            }
             className="rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[12px] text-white"
           >
-            {languages.map((lang) => (
-              <option key={lang} value={lang}>
-                {languageLabel(lang)}
+            {languageOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
             ))}
           </select>
         </label>
         <nav aria-label="Language" className="hidden flex-wrap sm:flex">
-          {languages.map((lang) => (
+          {languageOptions.map((option) => (
             <Link
-              key={lang}
-              href={hrefOf(lang)}
-              aria-current={lang === current ? 'page' : undefined}
-              className={clsx(tab, lang === current ? activeTab : idleTab)}
+              key={option.value}
+              href={option.href}
+              aria-current={option.value === current ? 'page' : undefined}
+              className={clsx(
+                tab,
+                option.value === current ? activeTab : idleTab
+              )}
             >
-              {languageLabel(lang)}
+              {option.label}
             </Link>
           ))}
         </nav>
