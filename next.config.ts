@@ -3,15 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
-interface NavNode {
-  page?: string;
-  items?: NavNode[];
-}
-
 interface Nav {
   languages?: string[];
-  landing?: string;
-  sidebar?: NavNode[];
+  landing: string;
 }
 
 interface RedirectRule {
@@ -36,22 +30,6 @@ function readYaml<T>(file: string): T | null {
     : null;
 }
 
-// Mirrors landingSlug() in lib/docs-model/nav.ts: the explicit landing, else the
-// first page in the table of contents. Kept in sync by hand because
-// next.config.ts cannot import from the TypeScript app graph.
-function firstPage(nodes: NavNode[] = []): string | undefined {
-  for (const node of nodes) {
-    if (node.page) return node.page;
-    const nested = firstPage(node.items);
-    if (nested) return nested;
-  }
-  return undefined;
-}
-
-function landingSlug(nav: Nav): string {
-  return nav.landing ?? firstPage(nav.sidebar) ?? 'get-started';
-}
-
 // Build redirects from the content manifests: the site root, a bare /ice, and a
 // bare /ice/<version> or /ice/<version>/<language> all land on a landing page
 // (the newest version's, in its first language, when they name neither), plus
@@ -67,7 +45,7 @@ function buildRedirects(): RedirectRule[] {
     const nav = readYaml<Nav>(path.join(root, version, 'navigation.yaml'));
     if (!nav) continue;
 
-    const landing = landingSlug(nav);
+    const landing = nav.landing;
     const languages = nav.languages ?? [];
     for (const language of languages) {
       rules.push({

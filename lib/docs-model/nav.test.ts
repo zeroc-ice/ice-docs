@@ -12,7 +12,6 @@ import {
   activeTrailKeys,
   containsActive,
   counterpartSlug,
-  landingSlug,
   languageLabel,
   navigationSlugs,
   prevNext,
@@ -261,15 +260,6 @@ test('languageLabel maps slugs to display names, falling back to the slug', () =
   assert.equal(languageLabel('csharp'), 'C#');
   assert.equal(languageLabel('js'), 'JavaScript');
   assert.equal(languageLabel('unknown'), 'unknown');
-});
-
-test('landingSlug prefers explicit landing, else the first page, else get-started', () => {
-  assert.equal(landingSlug(NAV), 'get-started');
-  assert.equal(
-    landingSlug({ sidebar: SIDEBAR.slice(1) }),
-    'the-slice-language'
-  );
-  assert.equal(landingSlug({ sidebar: [] }), 'get-started');
 });
 
 test('versionSwitchTarget keeps language + page when available', () => {

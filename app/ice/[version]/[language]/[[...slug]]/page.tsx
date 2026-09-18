@@ -21,7 +21,6 @@ import {
   buildSideNav,
   breadcrumbs,
   counterpartSlug,
-  landingSlug,
   languageLabel,
   pageHref,
   prevNext,
@@ -96,11 +95,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     page
   );
   const fm = frontmatterOf(shared ?? overlay ?? '');
-  const nav = navFor(version);
   // The front page is the manual itself, so its title is not suffixed with the
   // manual's name.
   const title =
-    nav && page === landingSlug(nav)
+    page === navFor(version)?.landing
       ? { absolute: fm.title ?? '' }
       : (fm.title ?? '');
   return { title, description: fm.description ?? '' };
@@ -116,8 +114,8 @@ export default async function Page(props: PageProps) {
   if (!shared && !overlay) return notFound();
 
   const nav = navFor(version);
-  const languages = nav?.languages ?? [];
-  const sidebar = nav?.sidebar ?? [];
+  if (!nav) return notFound();
+  const { languages, sidebar, landing } = nav;
   const isAvailable = (s: string) => pageExists(root, version, language, s);
 
   // The manual is one tree, and this page's place in it gives the sidebar its
@@ -126,7 +124,7 @@ export default async function Page(props: PageProps) {
   // makes the omission obvious.
   const navOpts = { version, language, currentSlug: page, isAvailable };
   const sideNav = buildSideNav(sidebar, navOpts);
-  const crumbs = nav ? breadcrumbs(nav, page, { version, language }) : [];
+  const crumbs = breadcrumbs(nav, page, { version, language });
   const { prev, next } = prevNext(sidebar, page, navOpts);
   const trail = trailTo(sidebar, page) ?? [];
 
@@ -139,8 +137,6 @@ export default async function Page(props: PageProps) {
   const { index: pageIndex } = buildPageIndex(
     listPageEntries(root, version, language)
   );
-
-  const landing = nav ? landingSlug(nav) : 'get-started';
 
   // One dropdown entry per supported language. Selecting a language keeps the
   // current page when it exists there, or lands on the same page written for
@@ -186,7 +182,7 @@ export default async function Page(props: PageProps) {
       targetLanguages: otherLanguages,
       currentLanguage: language,
       slug: page,
-      landing: otherNav ? landingSlug(otherNav) : landing,
+      landing: otherNav?.landing ?? landing,
       pageExists: (lang, slug) => pageExists(root, other, lang, slug)
     });
     return { value: other, href: exists ? href : `${href}${fellBack}` };
@@ -234,7 +230,7 @@ export default async function Page(props: PageProps) {
         languages,
         languageOptions,
         versionOptions,
-        previousVersions: nav?.previousVersions,
+        previousVersions: nav.previousVersions,
         releases,
         // The property tables are a list of exact identifiers, not an essay, and
         // are typeset as such. Derived from the page's place in the manual — the
@@ -259,12 +255,12 @@ export default async function Page(props: PageProps) {
         currentLanguage={language}
         languageOptions={languageOptions}
         versionOptions={versionOptions}
-        previousVersions={nav?.previousVersions}
+        previousVersions={nav.previousVersions}
       />
       <VersionBanner
         version={version}
-        status={nav?.status}
-        latestUrl={nav?.previousVersions?.url}
+        status={nav.status}
+        latestUrl={nav.previousVersions?.url}
       />
       {/* Says so when a version or language switch could not keep the page.
           Keyed by route so the notice belongs to the page the switch landed on

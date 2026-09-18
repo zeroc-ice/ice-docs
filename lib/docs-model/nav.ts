@@ -39,8 +39,8 @@ export interface NavDoc {
   languages: string[];
   /** `latest` gets no banner; anything else gets an "older version" notice. */
   status?: 'latest' | 'maintenance' | 'archived';
-  /** The page a bare /ice/<version>/<language> URL lands on. Defaults to the first page. */
-  landing?: string;
+  /** The manual's front page, which sits above the tree. */
+  landing: string;
   /** Optional link to older docs kept on the previous platform. */
   previousVersions?: PreviousVersions;
   /** The table of contents. */
@@ -173,20 +173,6 @@ export function trailTo(nodes: NavNode[], slug: string): NavNode[] | null {
   return null;
 }
 
-function firstPage(nodes: NavNode[]): string | undefined {
-  for (const node of nodes ?? []) {
-    if (node.page) return node.page;
-    const nested = firstPage(node.items ?? []);
-    if (nested) return nested;
-  }
-  return undefined;
-}
-
-/** The landing slug for a version: explicit `landing`, else the first page, else get-started. */
-export function landingSlug(nav: Pick<NavDoc, 'landing' | 'sidebar'>): string {
-  return nav.landing ?? firstPage(nav.sidebar ?? []) ?? 'get-started';
-}
-
 /**
  * The page a language switch should land on when `slug` is written for one
  * language: its sibling written for `language`, matched by title. The
@@ -217,7 +203,7 @@ export function counterpartSlug(
 export function navigationSlugs(
   nav: Pick<NavDoc, 'landing' | 'sidebar'>
 ): string[] {
-  const out: string[] = nav.landing ? [nav.landing] : [];
+  const out = [nav.landing];
   const walk = (nodes: NavNode[]) => {
     for (const node of nodes ?? []) {
       if (node.page) out.push(node.page);
@@ -258,7 +244,7 @@ export function breadcrumbs(
   const crumbs: Crumb[] = [
     {
       title: MANUAL_TITLE,
-      href: pageHref(opts.version, opts.language, landingSlug(nav))
+      href: pageHref(opts.version, opts.language, nav.landing)
     },
     ...trail.map((node) =>
       node.page
