@@ -104,7 +104,8 @@ cout << greeting << endl;
 class Chatbot : public VisitorCenter::Greeter
 {
 public:
-    string greet(string name, const Ice::Current&) override
+    string greet(
+        string name, const Ice::Current&) override
     {
         return "Hello, " + name + "!";
     }
@@ -118,7 +119,8 @@ auto adapter =
     communicator->createObjectAdapterWithEndpoints(
         "GreeterAdapter", "tcp -p 4061");
 adapter->add(
-    make_shared<Chatbot>(), Ice::Identity{"greeter"});
+    make_shared<Chatbot>(),
+    Ice::Identity{"greeter"});
 adapter->activate();
 communicator->waitForShutdown();
 ```
@@ -135,7 +137,8 @@ GreeterPrx greeter = GreeterPrxHelper.createProxy(
     communicator,
     "greeter:tcp -h localhost -p 4061");
 
-string greeting = await greeter.GreetAsync("alice");
+string greeting =
+    await greeter.GreetAsync("alice");
 Console.WriteLine(greeting);
 ```
 
@@ -154,7 +157,8 @@ Ice.ObjectAdapter adapter =
     communicator.createObjectAdapterWithEndpoints(
         "GreeterAdapter", "tcp -p 4061");
 adapter.add(
-    new Chatbot(), new Ice.Identity { name = "greeter" });
+    new Chatbot(),
+    new Ice.Identity { name = "greeter" });
 adapter.activate();
 await communicator.shutdownCompleted;
 ```
@@ -177,7 +181,8 @@ try (var communicator = new Communicator(args)) {
 ```java {% title="Server.java" %}
 class Chatbot implements Greeter {
     @Override
-    public String greet(String name, Current current) {
+    public String greet(
+            String name, Current current) {
         return "Hello, " + name + "!";
     }
 }
@@ -187,7 +192,8 @@ try (var communicator = new Communicator(args)) {
         .createObjectAdapterWithEndpoints(
             "GreeterAdapter", "tcp -p 4061");
     adapter.add(
-        new Chatbot(), new Identity("greeter", ""));
+        new Chatbot(),
+        new Identity("greeter", ""));
     adapter.activate();
     communicator.waitForShutdown();
 }
@@ -217,7 +223,8 @@ console.log(greeting);
 communicator = Ice.Communicator(args);
 cleanup = onCleanup(@() communicator.destroy());
 
-greeter = visitorcenter.GreeterPrx(communicator, ...
+greeter = visitorcenter.GreeterPrx( ...
+    communicator, ...
     'greeter:tcp -h localhost -p 4061');
 
 greeting = greeter.greet('alice');
@@ -231,9 +238,10 @@ fprintf('%s\n', greeting);
 ```php {% title="Client.php" %}
 $communicator = Ice\initialize($argv);
 
-$greeter = VisitorCenter\GreeterPrxHelper::createProxy(
-    $communicator,
-    'greeter:tcp -h localhost -p 4061');
+$greeter =
+    VisitorCenter\GreeterPrxHelper::createProxy(
+        $communicator,
+        'greeter:tcp -h localhost -p 4061');
 
 $greeting = $greeter->greet("alice");
 echo "$greeting\n";
@@ -257,14 +265,20 @@ async with Ice.Communicator(
 
 ```python {% title="server.py" %}
 class Chatbot(VisitorCenter.Greeter):
-    def greet(self, name: str, current: Ice.Current) -> str:
+    def greet(
+        self, name: str, current: Ice.Current
+    ) -> str:
         return f"Hello, {name}!"
 
 
 with Ice.Communicator(sys.argv) as communicator:
-    adapter = communicator.createObjectAdapterWithEndpoints(
-        "GreeterAdapter", "tcp -p 4061")
-    adapter.add(Chatbot(), Ice.Identity(name="greeter"))
+    adapter = (
+        communicator
+        .createObjectAdapterWithEndpoints(
+            "GreeterAdapter", "tcp -p 4061")
+    )
+    adapter.add(
+        Chatbot(), Ice.Identity(name="greeter"))
     adapter.activate()
     communicator.waitForShutdown()
 ```
@@ -295,7 +309,8 @@ defer { communicator.destroy() }
 
 let greeter = try makeProxy(
     communicator: communicator,
-    proxyString: "greeter:tcp -h localhost -p 4061",
+    proxyString:
+        "greeter:tcp -h localhost -p 4061",
     type: GreeterPrx.self)
 
 let greeting = try await greeter.greet("alice")
@@ -304,7 +319,9 @@ print(greeting)
 
 ```swift {% title="Server.swift" %}
 struct Chatbot: Greeter {
-    func greet(name: String, current _: Ice.Current) -> String {
+    func greet(
+        name: String, current _: Ice.Current
+    ) -> String {
         "Hello, \(name)!"
     }
 }
@@ -315,9 +332,11 @@ defer { communicator.destroy() }
 
 let adapter = try communicator
     .createObjectAdapterWithEndpoints(
-        name: "GreeterAdapter", endpoints: "tcp -p 4061")
+        name: "GreeterAdapter",
+        endpoints: "tcp -p 4061")
 try adapter.add(
-    servant: Chatbot(), id: Ice.Identity(name: "greeter"))
+    servant: Chatbot(),
+    id: Ice.Identity(name: "greeter"))
 try adapter.activate()
 await communicator.shutdownCompleted()
 ```

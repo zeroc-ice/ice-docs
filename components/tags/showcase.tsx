@@ -88,7 +88,7 @@ export const Showcase = ({
         </nav>
       </div>
 
-      <div className="grid gap-3 p-3 sm:p-4 lg:grid-cols-2 [&>*]:min-w-0 [&>.code-block]:h-full">
+      <div className="grid gap-3 p-3 sm:p-4 xl:grid-cols-2 [&>*]:min-w-0 [&>.code-block]:h-full">
         <CodeBlock data-language={contract.language} title={contract.title}>
           {contract.code}
         </CodeBlock>
