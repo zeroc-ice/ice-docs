@@ -12,9 +12,10 @@ Clients and servers have this logical internal structure:
 
 ![Three-layer Ice client and server structure. Client proxy code corresponds to server skeleton code, while both sides expose the Ice API above their Ice runtimes. The server also has an object adapter, part of the Ice API. The legend identifies Ice API and generated code.](/attachments/3.8/basics/client-server.svg#diagram-wide)
 
-*Ice client and server structure.*
+_Ice client and server structure._
 
-Both client and server consist of a mixture of application code, library code, and code generated from Slice definitions:
+Both client and server consist of a mixture of application code, library code, and code generated from Slice
+definitions:
 
 - The Ice core or [runtime](../the-ice-runtime) contains the client- and server-side runtime support for remote
   communication. Much of this code is concerned with the details of networking, threading, byte ordering, and many other

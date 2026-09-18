@@ -7,7 +7,7 @@ title: Data Encoding for Exceptions
 
 An exception is marshaled as shown below:
 
-![Marshaling_format_for_exceptions.gif](/attachments/3.8/data-encoding-for-exceptions/Marshaling_format_for_exceptions.gif)
+![The encoding 1.0 exceptions layout starts with a uses-classes flag, followed by a type ID and member slice for each inheritance level. Optional class instances follow the exception slices.](/attachments/3.8/data-encoding-for-exceptions/marshaling-format.svg)
 
 _Marshaling format for exceptions._
 
@@ -103,7 +103,7 @@ As of Ice 3.8, Ice always marshals exceptions in the sliced format. It can also 
 
 An exception in the compact format is marshaled as follows:
 
-![Compact_format_for_exceptions.gif](/attachments/3.8/data-encoding-for-exceptions/Compact_format_for_exceptions.gif)
+![In the compact exceptions format, the most-derived slice contains slice flags, a type ID, required members, and optional members when needed. Subsequent slices omit the type ID.](/attachments/3.8/data-encoding-for-exceptions/compact-format.svg)
 
 _Compact format for exceptions._
 
@@ -113,7 +113,7 @@ includes a type ID in the initial (most-derived) slice but omits the type ID fro
 The sliced format includes a type ID in every slice, along with a slice size and an optional
 [indirection table](../data-encoding-for-class-graphs):
 
-![Sliced_format_for_exceptions.gif](/attachments/3.8/data-encoding-for-exceptions/Sliced_format_for_exceptions.gif)
+![The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/attachments/3.8/data-encoding-for-exceptions/sliced-format.svg)
 
 _Sliced format for exceptions._
 

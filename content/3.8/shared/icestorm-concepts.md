@@ -49,7 +49,7 @@ receives messages only from T1, and S4 receives messages from both T3 and T1.
 
 This section discusses several concepts that are important for understanding IceStorm's capabilities.
 
-![Topic_federation.gif](/attachments/3.8/icestorm-concepts/Topic_federation.gif)
+![Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 forwards to T2 and T3 and sends to subscriber S3. T2 sends to S1 and S2; T3 sends to S4.](/attachments/3.8/icestorm-concepts/topic-federation.svg#diagram-wide)
 
 IceStorm makes no attempt to prevent a subscriber from receiving duplicate messages. For example, if a subscriber is
 subscribed to both T2 and T3, then it would receive two requests for each message published on T1.

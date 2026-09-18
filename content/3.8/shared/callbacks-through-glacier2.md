@@ -29,7 +29,7 @@ This diagram shows the steps involved in making a callback using Glacier2:
 
 ![Four-step request and callback flow through Glacier2. The callback returns to the client over the client's existing bidirectional connection to Glacier2.](/attachments/3.8/callbacks-through-glacier2/callback-via-glacier2.svg#diagram-wide)
 
-*Request and callback flow through Glacier2.*
+_Request and callback flow through Glacier2._
 
 1. The client has a routed proxy for the server and makes an invocation. A connection is established to the router's
    client endpoint and the request is sent to the router.

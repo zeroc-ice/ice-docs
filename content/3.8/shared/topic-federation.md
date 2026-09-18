@@ -14,7 +14,7 @@ therefore can be configured using the [administrative tool](../icestorm-administ
 
 IceStorm messages are never propagated over more than one link. For example, consider the topic graph shown below:
 
-![federation1.gif](/attachments/3.8/topic-federation/federation1.gif)
+![Publisher PA publishes to topic A, which forwards to B. Publisher PB publishes directly to B. B forwards to C and sends to subscriber SB; C sends to subscriber SC.](/attachments/3.8/topic-federation/federation1.svg#diagram-wide)
 
 In this case, messages published on `A` are propagated to `B`, but `B` does not propagate `A`'s messages to `C`.
 Therefore, subscriber SB receives messages published on topics `A` and B, but subscriber SC only receives messages
@@ -34,7 +34,7 @@ equals or exceeds the message cost. A cost value of zero (`0`) has the following
 - links with a cost value of zero (`0`) accept all messages regardless of the message cost. For example, consider the
   following topic graph:
 
-![federation2.gif](/attachments/3.8/topic-federation/federation2.gif)
+![Publishers P1 and P2 send to topic A with event costs 1 and 2 respectively. A forwards toward B over a link with cost 0 and toward C over a link with cost 1.](/attachments/3.8/topic-federation/federation2.svg)
 
 Publisher P1 publishes a message on topic `A` with a cost of `1`. This message is propagated on the link to topic `B`
 because the link has a cost of `0` and therefore accepts all messages. The message is also propagated on the link to
