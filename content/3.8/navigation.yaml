@@ -783,6 +783,10 @@ sidebar:
   - title: Release Notes
     page: release-notes
     items:
+      - title: Ice 3.8.3
+        page: ice-3-8-3
+      - title: Supported Platforms for Ice 3.8.3
+        page: supported-platforms-for-ice-3-8-3
       - title: Ice 3.8.2
         page: ice-3-8-2
       - title: Supported Platforms for Ice 3.8.2
