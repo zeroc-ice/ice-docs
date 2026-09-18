@@ -26,7 +26,7 @@ interface Props {
 }
 
 const tab =
-  '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
+  '-mb-px cursor-pointer border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
 const activeTab = 'border-sky-400 text-white';
 const idleTab = 'border-transparent text-white/55 hover:text-white';
 
@@ -62,7 +62,7 @@ export const Showcase = ({
                   ?.href ?? ''
               )
             }
-            className="rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[12px] text-white"
+            className="cursor-pointer rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[12px] text-white"
           >
             {languageOptions.map((option) => (
               <option key={option.value} value={option.value}>
