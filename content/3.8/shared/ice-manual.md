@@ -359,7 +359,9 @@ bar or press `⌘K`.
 
 - **API reference** for [C++](https://code.zeroc.com/ice/3.8/api/cpp/index.html),
   [C#](https://code.zeroc.com/ice/3.8/api/csharp/index.html),
-  [Java](https://code.zeroc.com/ice/3.8/api/java/index.html), [PHP](https://code.zeroc.com/ice/3.8/api/php/index.html),
+  [Java](https://code.zeroc.com/ice/3.8/api/java/index.html),
+  [JavaScript](https://code.zeroc.com/ice/3.8/api/javascript/index.html),
+  [PHP](https://code.zeroc.com/ice/3.8/api/php/index.html),
   [Python](https://code.zeroc.com/ice/3.8/api/python/index.html),
   [Ruby](https://code.zeroc.com/ice/3.8/api/ruby/index.html), and
   [Swift](https://code.zeroc.com/ice/3.8/api/swift/index.html), plus the
