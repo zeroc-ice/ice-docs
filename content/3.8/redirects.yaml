@@ -3,8 +3,6 @@
 # the Confluence page IDs; these are hand-written examples wired into
 # next.config.ts. `permanent` defaults to false while URLs are still settling.
 redirects:
-  - from: /ice/3.8/:language/get-started
-    to: /ice/3.8/:language/ice-manual
   - from: /ice/3.8/cpp/Ice-Manual/Enumerations
     to: /ice/3.8/cpp/enumerations
   - from: /ice/3.8/python/Ice-Manual/Enumerations

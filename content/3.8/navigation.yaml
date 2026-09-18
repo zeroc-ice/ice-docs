@@ -20,6 +20,8 @@ previousVersions:
   label: Previous Versions
   url: https://docs.zeroc.com/ice/3.7/
 sidebar:
+  - title: Get Started
+    page: get-started
   - title: Greeter Example
     page: greeter-example
     items:
