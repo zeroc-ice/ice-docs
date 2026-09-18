@@ -12,9 +12,11 @@ import {
 } from 'lucide-react';
 
 import { AppLink } from '@/components/nodes/app-link';
+import { CARD_ICONS } from '@/markdoc/tags/card.markdoc';
 
-// The icons a card may name in its `icon` attribute.
-const ICONS: Record<string, LucideIcon> = {
+type CardIcon = (typeof CARD_ICONS)[number];
+
+const ICONS: Record<CardIcon, LucideIcon> = {
   book: BookOpen,
   boxes: Boxes,
   braces: Braces,
@@ -28,7 +30,7 @@ type CardProps = {
   description: string;
   href: string;
   level?: 1 | 2 | 3 | 4 | 5;
-  icon?: string;
+  icon?: CardIcon;
   /** Set when the href names a page that is not in the index. */
   unresolved?: boolean;
 };

@@ -3,6 +3,16 @@
 import { nodes, Tag, type Node, type Config } from '@markdoc/markdoc';
 import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
 
+/** The icons a card may name; components/tags/card.tsx draws them. */
+export const CARD_ICONS = [
+  'book',
+  'boxes',
+  'braces',
+  'cpu',
+  'rocket',
+  'sliders'
+] as const;
+
 // Landing pages are built out of cards, so a card's href is resolved through the
 // same page index as an ordinary link — a card can name a page and keep working
 // after that page moves.
@@ -29,7 +39,8 @@ const card = {
     },
     icon: {
       type: String,
-      required: false
+      required: false,
+      matches: [...CARD_ICONS]
     }
   },
   transform(node: Node, config: Config) {
