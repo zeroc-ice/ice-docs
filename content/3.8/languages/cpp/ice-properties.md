@@ -59,9 +59,6 @@ If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice ru
 files. Otherwise, `Ice.Config` must be set to the path names of one or more configuration files, separated by commas
 (path names can be relative or absolute). Property values are read from each of the configuration files listed.
 
-In Java, Ice first attempts to open a configuration file as a [class loader resource](../alternate-property-stores). If
-that attempt fails, Ice opens the configuration file in the local file system.
-
 Configuration files use a simple [syntax](../configuration-file-syntax) consisting of _name_=_value_ pairs with support
 for comments and escaping.
 
@@ -144,13 +141,6 @@ value is 1.
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
 value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
-
-Java's default network stack always accepts both IPv4 and IPv6 connections regardless of the settings of `Ice.IPv6`. You
-can configure the Java runtime to use only IPv4 by starting your application with the following JVM option:
-
-```shell
-java -Djava.net.preferIPv4Stack=true ...
-```
 
 {% /language-section %}
 

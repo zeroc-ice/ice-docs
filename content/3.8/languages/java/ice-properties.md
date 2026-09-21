@@ -356,12 +356,6 @@ The default value is `LOG_USER`.
 default. Leaving this property unset causes the runtime to create threads with the system default priority. This
 property is unset by default.
 
-#### C\#
-
-`value` can be `Lowest`, `BelowNormal`, `Normal`, `AboveNormal`, or `Highest`.
-
-#### Java
-
 `value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
 
 You can separately override the default priorities for the client and server thread pools using

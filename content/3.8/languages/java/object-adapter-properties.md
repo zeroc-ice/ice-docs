@@ -310,12 +310,6 @@ adapter creates its threads with the specified priority. Leaving this property u
 threads with the priority specified by [Ice.ThreadPool.Server.ThreadPriority](../ice-threadpool-properties) or, if that
 property is unset, the priority specified by [Ice.ThreadPriority](../ice-properties).
 
-#### C\#
-
-`value` can be `Lowest`, `BelowNormal`, `Normal`, `AboveNormal`, or `Highest`.
-
-#### Java
-
 `value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
 
 {% /language-section %}

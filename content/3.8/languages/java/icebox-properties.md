@@ -36,7 +36,7 @@ IceBox.Service.MyService="factory classes.jar":MyService
 
 IceBox uses a single class loader to load all services having the same value for `path`.
 
-If `class` is specified without a path, IceBox attempts to load the class using the default class loaders. See
-[InitializationData.classLoader](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#classLoader).
+If `class` is specified without a path, IceBox attempts to load the class with the current thread's context class
+loader, then with `Class.forName`, and finally with the system class loader.
 
 {% /language-section %}

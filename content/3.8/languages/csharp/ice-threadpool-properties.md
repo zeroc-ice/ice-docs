@@ -38,13 +38,7 @@ default priority specified by [Ice.ThreadPriority](../ice-properties).
 
 This property is unset by default.
 
-#### C\#
-
 `value` can be `Lowest`, `BelowNormal`, `Normal`, `AboveNormal`, or `Highest`.
-
-#### Java
-
-`value` can be `MIN_PRIORITY`, `NORM_PRIORITY`, `MAX_PRIORITY`, or an integer between `1` and `10`.
 
 You can also override the default priority for a specific object adapter using
 [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
