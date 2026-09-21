@@ -9,7 +9,7 @@ language: cpp
 
 #### Synopsis
 
-`IceSSL.CAs=path` (SChannel, SecureTransport, OpenSSL, .NET)
+`IceSSL.CAs=path` (SChannel, SecureTransport, OpenSSL)
 
 #### Description
 
@@ -20,7 +20,7 @@ If you wish to use the CA certificates bundled with your platform, leave this pr
 
 #### Platform Notes
 
-###### SChannel, SecureTransport, .NET
+###### SChannel, SecureTransport
 
 The file can be encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates.
 
@@ -54,7 +54,7 @@ separator.
 
 #### Synopsis
 
-`IceSSL.CertFile=file` (SecureTransport, SChannel, OpenSSL, .NET)
+`IceSSL.CertFile=file` (SecureTransport, SChannel, OpenSSL)
 
 #### Description
 
@@ -95,19 +95,11 @@ file, the application must supply the password using `IceSSL.Password`.
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
 locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
 
-###### .NET
-
-The file must use the PFX (PKCS#12) format and contain the certificate and its private key. The password for the file
-must be supplied using `IceSSL.Password`.
-
-IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
-locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
-
 # IceSSL.CertStore
 
 #### Synopsis
 
-`IceSSL.CertStore=name` (SChannel, .NET)
+`IceSSL.CertStore=name` (SChannel)
 
 #### Description
 
@@ -121,7 +113,7 @@ If not specified, the default value is `My`.
 
 #### Synopsis
 
-`IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (SChannel, .NET)
+`IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (SChannel)
 
 #### Description
 
@@ -151,7 +143,7 @@ An Ice program running as a Windows service will typically need to set this prop
 
 #### Synopsis
 
-`IceSSL.FindCert=criteria` (SChannel, SecureTransport, .NET)
+`IceSSL.FindCert=criteria` (SChannel, SecureTransport)
 
 #### Description
 
@@ -163,7 +155,7 @@ Otherwise, IceSSL selects one of the certificates identified by `IceSSL.FindCert
 
 #### Platform Notes
 
-###### SChannel, .NET
+###### SChannel
 
 IceSSL queries a certificate store for matching certificates and adds them to the application's certificate collection.
 The settings for `IceSSL.CertStore` and `IceSSL.CertStoreLocation` determine the target certificate store to be queried.
