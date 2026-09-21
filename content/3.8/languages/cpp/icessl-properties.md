@@ -50,8 +50,10 @@ Specifies the PEM files containing the certificate revocation lists (CRLs) that 
 Separate several files with commas or whitespace. A relative path is resolved under `IceSSL.DefaultDir` when that
 property is set, and relative to the working directory otherwise.
 
-IceSSL reads these files only when `IceSSL.RevocationCheck` is greater than zero, and then requires them: if a file is
-missing or cannot be parsed as a PEM CRL, communicator initialization fails with an `InitializationException`.
+IceSSL reads these files only when `IceSSL.RevocationCheck` is greater than zero, and then requires them: communicator
+initialization fails with an `InitializationException` if a file is missing or contains no PEM-encoded CRL or
+certificate. Whether the files hold the CRL of a given issuer is only checked during the handshake, which fails when
+OpenSSL cannot find the CRL it needs.
 
 # IceSSL.CertFile
 
