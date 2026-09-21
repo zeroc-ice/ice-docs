@@ -247,7 +247,8 @@ values are shown in the table below; any other value causes communicator initial
 | 1   | The server requests a certificate from the client and accepts a client that supplies none. If the client supplies one, the server verifies it and aborts the connection if verification fails. |
 | 2   | The server requires a certificate from the client and aborts the connection if the client supplies none or if verification fails.                                                              |
 
-This property has no effect on outgoing connections: a client always requires and verifies the server's certificate.
+This property has no effect on outgoing connections (except in Java, see below): a client always requires and verifies
+the server's certificate.
 
 #### Platform Notes
 
