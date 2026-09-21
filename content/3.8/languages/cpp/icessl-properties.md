@@ -59,7 +59,7 @@ separator.
 #### Description
 
 Specifies a file that contains the program's certificate and the corresponding private key, the private key can be
-specified separately using `IceSSL.Keyfile`. The file name may be specified relative to the default directory defined by
+specified separately using `IceSSL.KeyFile`. The file name may be specified relative to the default directory defined by
 `IceSSL.DefaultDir`.
 
 #### Platform Notes
@@ -67,8 +67,9 @@ specified separately using `IceSSL.Keyfile`. The file name may be specified rela
 ###### SChannel
 
 The file must use the PFX (PKCS#12) format and contain the certificate and its private key or a PEM file containing the
-certificate in which case the private key must be specify using `IceSSL.Keyfile`. If a password is required to load the
-file, the application must supply the password using `IceSSL.Password`, otherwise IceSSL will reject the certificate.
+certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
+the file, the application must supply the password using `IceSSL.Password`, otherwise IceSSL will reject the
+certificate.
 
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
 locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
@@ -76,8 +77,8 @@ locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
 ###### SecureTransport
 
 The file must use the PFX (PKCS#12) format and contain the certificate and its private key or a PEM file containing the
-certificate in which case the private key must be specify using `IceSSL.Keyfile`. If a password is required to load the
-file, macOS will use its default graphical password prompt unless the application has supplied the password using
+certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
+the file, macOS will use its default graphical password prompt unless the application has supplied the password using
 `IceSSL.Password`. Define `IceSSL.Keychain` to import this certificate into the specified keychain.
 
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
@@ -89,8 +90,8 @@ resource bundle if `IceSSL.DefaultDir` is defined or as `Resources/file` if not 
 ###### OpenSSL
 
 The file must use the PFX (PKCS#12) format and contain the certificate and its private key or a PEM file containing the
-certificate in which case the private key must be specify using `IceSSL.Keyfile`. If a password is required to load the
-file, the application must supply the password using `IceSSL.Password`.
+certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
+the file, the application must supply the password using `IceSSL.Password`.
 
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
 locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
@@ -224,7 +225,7 @@ On iOS this property is ignored, IceSSL uses the default device keychain.
 
 #### Synopsis
 
-`IceSSL.Keyfile=file` (SChannel, SecureTransport, OpenSSL)
+`IceSSL.KeyFile=file` (SChannel, SecureTransport, OpenSSL)
 
 #### Description
 
