@@ -238,17 +238,20 @@ If not defined, the default value is zero.
 
 #### Description
 
-Specifies the verification requirements to use during SSL handshaking. The legal values are shown in the table below. If
-this property is not defined, the default value is `2`.
+Specifies whether a server requests a certificate from the client and whether the client must supply one. The legal
+values are shown in the table below; any other value causes communicator initialization to fail with an
+`InitializationException`. If this property is not defined, the default value is `2`.
 
-| 0   | For an outgoing connection, the client verifies the server's certificate (if an anonymous cipher is not used). For an incoming connection, the server does not request a certificate from the client.                                                                                      |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | For an outgoing connection, the client verifies the server's certificate and aborts the connection if verification fails. For an incoming connection, the server requests a certificate from the client and verifies it if one is provided, aborting the connection if verification fails. |
-| 2   | For an outgoing connection, the semantics are the same as for the value `1`. For an incoming connection, the server requires a certificate from the client and aborts the connection if verification fails.                                                                                |
+| 0   | The server does not request a certificate from the client.                                                                                                                                     |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | The server requests a certificate from the client and accepts a client that supplies none. If the client supplies one, the server verifies it and aborts the connection if verification fails. |
+| 2   | The server requires a certificate from the client and aborts the connection if the client supplies none or if verification fails.                                                              |
+
+This property has no effect on outgoing connections: a client always requires and verifies the server's certificate.
 
 #### Platform Notes
 
-###### .NET
+###### Java
 
-This property has no effect on outgoing connections, since .NET always uses the semantics of value `2`. For an incoming
-connection, the value `0` has the same semantics as the value `1`.
+With the value `0`, a client accepts a server that does not present a certificate and does not check the server's host
+name (see `IceSSL.CheckCertName`). A certificate the server does present is still verified.
