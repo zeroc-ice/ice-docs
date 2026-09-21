@@ -139,16 +139,37 @@ An Ice program running as a Windows service will typically need to set this prop
 
 #### Description
 
-If `num` is a value greater than zero, IceSSL checks the certificate revocation list (CRL) to determine if the peer's
-certificate has been revoked. The value for _num_ determines the resulting behavior:
-
-| 0   | Disables CRL checking.                                                                                                                                                                                 |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | If a certificate is revoked, IceSSL aborts the connection, logs a message and raises an exception. If a certificate's revocation status is unknown, IceSSL logs a message but accepts the certificate. |
-| 2   | If a certificate is revoked or its revocation status is unknown, IceSSL aborts the connection, logs a message and raises an exception.                                                                 |
-
-The `IceSSL.Trace.Security` property must be set to a non-zero value to see CRL-related log messages. If
+Specifies whether IceSSL checks the revocation status of the certificates in the peer's chain, and what happens when the
+revocation status of a certificate cannot be determined. The legal values are shown in the table below. If
 `IceSSL.CheckCRL` is not defined, the default value is zero.
+
+| 0   | Disables revocation checking.                                                                                                                                                                                                                                                    |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Checks revocation online. A revoked certificate aborts the connection. A certificate whose revocation status cannot be determined, for example because its OCSP responder or CRL distribution point is unreachable or because it carries no revocation information, is accepted. |
+| 2   | Checks revocation online. A revoked certificate, or a certificate whose revocation status cannot be determined, aborts the connection.                                                                                                                                           |
+
+When IceSSL aborts a connection, it logs the certificate chain status if `IceSSL.Trace.Security` is set to a non-zero
+value. An accepted connection is not logged.
+
+The revocation sources are those of the platform, since .NET delegates certificate chain building to Windows CryptoAPI,
+to its own OpenSSL-based chain builder on Linux, and to the Security framework on macOS. Windows and Linux fetch CRLs
+from the distribution points and query the OCSP responders named in the certificates.
+
+{% callout type="info" %}
+
+In Ice 3.8.0 to 3.8.3, the value `1` also rejects a peer certificate whose revocation status cannot be determined; only
+an intermediate CA certificate with an undeterminable status is accepted. See
+[zeroc-ice/ice#6743](https://github.com/zeroc-ice/ice/issues/6743). Ice 3.8.4 fixes this.
+
+{% /callout %}
+
+#### Platform Notes
+
+###### macOS
+
+The Security framework queries OCSP responders but does not fetch CRLs from distribution points. A certificate that
+publishes only a CRL therefore has an undeterminable revocation status: it is accepted with the value `1` and rejected
+with the value `2`, whether or not it is revoked.
 
 {% /language-section %}
 
