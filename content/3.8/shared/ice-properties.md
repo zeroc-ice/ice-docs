@@ -62,16 +62,6 @@ Setting this property to 0 (or to a negative number) disables the depth limit al
 
 {% language-section name="lang-3" /%}
 
-# Ice.EnableIdleCheck
-
-#### Synopsis
-
-`Ice.EnableIdleCheck=num`
-
-#### Description
-
-If `num` is set to 1 (the default), if a established connection doesn’t read any bytes for more.
-
 {% language-section name="lang-4" /%}
 
 # Ice.ImplicitContext

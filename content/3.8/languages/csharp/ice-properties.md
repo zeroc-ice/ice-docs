@@ -48,7 +48,7 @@ for `num` are `1` to `9`, where `1` represents the fastest compression and `9` r
 that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
-# Ice.ConfigIce.Config
+# Ice.Config
 
 #### Synopsis
 
@@ -128,7 +128,7 @@ property to zero in order to interact directly with a plug-in after it has been 
 this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization
 process. If not defined, the default value is 1.
 
-# Ice.IPv4Ice.IPv4
+# Ice.IPv4
 
 #### Synopsis
 
@@ -139,7 +139,7 @@ process. If not defined, the default value is 1.
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
 value is 1.
 
-# Ice.IPv6Ice.IPv6
+# Ice.IPv6
 
 #### Synopsis
 
@@ -161,7 +161,7 @@ java -Djava.net.preferIPv4Stack=true ...
 
 {% language-section name="lang-6" %}
 
-# Ice.MessageSizeMaxIce.MessageSizeMax
+# Ice.MessageSizeMax
 
 #### Synopsis
 
@@ -185,7 +185,7 @@ if [Ice.Warn.Connections](../ice-warn-properties) is set.
 
 See also [adapter.MessageSizeMax](../object-adapter-properties).
 
-# Ice.PluginLoadOrderIce.PluginLoadOrder
+# Ice.PluginLoadOrder
 
 #### Synopsis
 
@@ -200,7 +200,7 @@ by a comma or white space. Any plug-ins not mentioned in `names` are loaded afte
 Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
 not affected by this property.
 
-# Ice.PreferIPv6AddressIce.PreferIPv6Address
+# Ice.PreferIPv6Address
 
 #### Synopsis
 
@@ -323,7 +323,7 @@ property is checked only for the first communicator that is created in a process
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
-# Ice.ThreadPriorityIce.ThreadPriority
+# Ice.ThreadPriority
 
 #### Synopsis
 

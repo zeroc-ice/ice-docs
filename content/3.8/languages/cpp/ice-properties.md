@@ -40,7 +40,7 @@ for `num` are `1` to `9`, where `1` represents the fastest compression and `9` r
 that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
-# Ice.ConfigIce.Config
+# Ice.Config
 
 #### Synopsis
 
@@ -123,7 +123,7 @@ property to zero in order to interact directly with a plug-in after it has been 
 this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization
 process. If not defined, the default value is 1.
 
-# Ice.IPv4Ice.IPv4
+# Ice.IPv4
 
 #### Synopsis
 
@@ -134,7 +134,7 @@ process. If not defined, the default value is 1.
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
 value is 1.
 
-# Ice.IPv6Ice.IPv6
+# Ice.IPv6
 
 #### Synopsis
 
@@ -182,7 +182,7 @@ converts log messages from the application's narrow string encoding to the Windo
 value for this property is 1 when Ice.StdErr is not set, and 0 otherwise. This property is read by the first
 communicator created in a process; it is ignored by other communicators.
 
-# Ice.MessageSizeMaxIce.MessageSizeMax
+# Ice.MessageSizeMax
 
 #### Synopsis
 
@@ -220,7 +220,7 @@ server/service logs off. The default value of this property is 1.
 
 IceGrid, IceBox (IceStorm), and Glacier2 are implemented using `Ice::Service`.
 
-# Ice.PluginLoadOrderIce.PluginLoadOrder
+# Ice.PluginLoadOrder
 
 #### Synopsis
 
@@ -235,7 +235,7 @@ by a comma or white space. Any plug-ins not mentioned in `names` are loaded afte
 Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
 not affected by this property.
 
-# Ice.PreferIPv6AddressIce.PreferIPv6Address
+# Ice.PreferIPv6Address
 
 #### Synopsis
 

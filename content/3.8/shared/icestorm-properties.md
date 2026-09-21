@@ -175,7 +175,7 @@ with the given node `id`. A replica's object identity has the form `instance-nam
 IceStorm uses the adapter name `IceStorm.Publish` for the object adapter that processes incoming requests from
 publishers. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter.
 
-# IceStorm.ReplicatedPublishEndpointsIceStorm.ReplicatedPublishEndpoints
+# IceStorm.ReplicatedPublishEndpoints
 
 #### Synopsis
 
@@ -189,7 +189,7 @@ set of endpoints returned for the publisher proxy returned from `IceStorm::Topic
 If this property is not defined, the publisher proxy returned by a topic instance points directly at that replica and,
 should the replica become unavailable, publishers will not transparently failover to other replicas.
 
-# IceStorm.ReplicatedTopicManagerEndpointsIceStorm.ReplicatedTopicManagerEndpoints
+# IceStorm.ReplicatedTopicManagerEndpoints
 
 #### Synopsis
 

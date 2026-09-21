@@ -155,7 +155,7 @@ The limit is infinite when `num` is `0` or less.
 
 The default value for max connections is `0`.
 
-# adapter.MessageSizeMax*adapter*.MessageSizeMax
+# _adapter_.MessageSizeMax
 
 #### Synopsis
 
