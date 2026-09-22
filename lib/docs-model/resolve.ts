@@ -522,22 +522,20 @@ export interface DocumentInput {
  * Produce the final Markdoc/markdown body for one page, every language in it:
  * fill the shared page's language-section slots from the overlays, then inline
  * all snippets. Without a shared page, the overlays are the page: each is the
- * whole page for its language, and languages written the same way share a block.
+ * whole page for its language.
  */
 export function resolveDocument(input: DocumentInput): string {
   const { shared, overlays, readFile, onMissing, onUnclassified } = input;
-  const languages = Object.keys(overlays).sort();
-  if (!shared && languages.length === 0)
-    throw new Error('resolveDocument: no shared or overlay content');
+  const languages = Object.keys(overlays);
 
   if (!shared) {
-    const byText = new Map<string, string[]>();
-    for (const language of languages) {
-      const text = splitFrontmatter(overlays[language]).body.trim();
-      byText.set(text, [...(byText.get(text) ?? []), language]);
-    }
-    const body = [...byText]
-      .map(([text, langs]) => languageBlock(langs, text))
+    const body = languages
+      .map((language) =>
+        languageBlock(
+          [language],
+          splitFrontmatter(overlays[language]).body.trim()
+        )
+      )
       .join('\n\n');
     return inlineSnippets(body, readFile);
   }

@@ -90,7 +90,7 @@ export function SideNav({
 
   const pathname = usePathname();
   // /ice/3.8/<slug> -> "3.8".
-  const scope = pathname.split('/')[2] ?? '';
+  const scope = pathname.split('/')[2];
 
   // Groups that are open: the branch holding the current page, plus — once the
   // client has mounted and can read storage — whatever the reader had open

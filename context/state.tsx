@@ -24,8 +24,7 @@ export const useMounted = () => {
 // script all agree.
 const listeners = new Set<() => void>();
 
-const getLanguage = () =>
-  document.documentElement.dataset.lang ?? DEFAULT_LANGUAGE;
+const getLanguage = () => document.documentElement.dataset.lang!;
 
 export function setLanguage(language: string) {
   document.documentElement.dataset.lang = language;

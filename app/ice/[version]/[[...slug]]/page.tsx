@@ -87,9 +87,7 @@ function pageLookup(root: string, version: string) {
 
 /** A page's frontmatter: its shared text's, or a language's when there is no shared text. */
 function pageFrontmatter(sources: ReturnType<typeof readPageSources>) {
-  return frontmatterOf(
-    sources.shared ?? Object.values(sources.overlays)[0] ?? ''
-  );
+  return frontmatterOf(sources.shared ?? Object.values(sources.overlays)[0]);
 }
 
 export function generateStaticParams() {

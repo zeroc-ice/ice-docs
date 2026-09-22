@@ -94,7 +94,6 @@ for (const version of listVersions(ROOT)) {
     const shared = readPage(page.shared);
     const overlays = Object.values(page.overlays).map(readPage);
     const fm = shared ?? overlays[0];
-    // Every mapping's headings, since the page carries them all.
     const body = [shared, ...overlays].map((p) => p?.body ?? '').join('\n');
     records.push({
       t: fm.title ?? page.name,

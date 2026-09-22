@@ -46,13 +46,12 @@ export function AnchorScroll() {
       if (id) scrollToId(id);
     };
     const onClick = (event: MouseEvent) => {
-      if (event.button !== 0) return;
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
         return;
       const link = (event.target as Element).closest('a[href^="#"]');
       const id =
         link && decodeURIComponent(link.getAttribute('href')!.slice(1));
-      if (!id || !document.getElementById(id)) return;
+      if (!id) return;
       event.preventDefault();
       window.history.pushState(null, '', `#${id}`);
       scrollToId(id);

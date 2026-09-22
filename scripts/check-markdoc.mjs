@@ -163,7 +163,7 @@ let rendered = 0;
 for (const { version, slug } of listPageParams(ROOT)) {
   rendered++;
   const { shared, overlays } = readPageSources(ROOT, version, slug);
-  const frontmatter = frontmatterOf(shared ?? Object.values(overlays)[0] ?? '');
+  const frontmatter = frontmatterOf(shared ?? Object.values(overlays)[0]);
   const where = `${version}/${slug} (assembled)`;
   let body;
   try {

@@ -35,12 +35,9 @@ function buildRedirects(): RedirectRule[] {
     a.localeCompare(b, undefined, { numeric: true })
   );
 
-  const latest = versions[versions.length - 1];
-  if (latest) {
-    const destination = `/ice/${latest}`;
-    rules.push({ source: '/', destination, permanent: false });
-    rules.push({ source: '/ice', destination, permanent: false });
-  }
+  const destination = `/ice/${versions[versions.length - 1]}`;
+  rules.push({ source: '/', destination, permanent: false });
+  rules.push({ source: '/ice', destination, permanent: false });
 
   for (const version of versions) {
     const manifest = readYaml<{

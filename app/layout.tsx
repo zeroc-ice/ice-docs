@@ -64,8 +64,7 @@ function applyLanguage(known: string[], key: string) {
     url.searchParams.delete('lang');
     history.replaceState(null, '', url);
   }
-  if (language && known.includes(language))
-    document.documentElement.dataset.lang = language;
+  if (language) document.documentElement.dataset.lang = language;
 }
 
 const languageScript = `(${applyLanguage.toString()})(${JSON.stringify(Object.keys(LANGUAGE_LABELS))},${JSON.stringify(LANGUAGE_STORAGE_KEY)})`;

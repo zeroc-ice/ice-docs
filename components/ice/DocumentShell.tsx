@@ -41,7 +41,7 @@ interface DocumentShellProps {
   /** By language mapping: the page carries every mapping, and a reader reads theirs. */
   readingTime?: Record<string, string>;
   /** The manual's languages. */
-  languages?: string[];
+  languages: string[];
   /** The languages the page is written for; absent when it is written for all. */
   writtenFor?: string[];
   headings?: Heading[];
@@ -68,7 +68,7 @@ export const DocumentShell = ({
   description,
   type,
   readingTime,
-  languages = [],
+  languages,
   writtenFor,
   headings = [],
   breadcrumbs = [],
@@ -84,7 +84,6 @@ export const DocumentShell = ({
       level: h.level!,
       langs: h.langs
     }));
-  const readingTimes = readingTimeVariants(readingTime);
   const notWrittenFor = writtenFor
     ? languages.filter((language) => !writtenFor.includes(language))
     : [];
@@ -135,11 +134,16 @@ export const DocumentShell = ({
             {description && (
               <p className="text-ink-secondary mt-3 text-lg">{description}</p>
             )}
-            {readingTimes.map(([text, langs]) => (
-              <div key={text} data-langs={langs.join(' ')}>
-                <p className="text-ink-muted mt-2 text-[13px]">{text}</p>
-              </div>
-            ))}
+            {/* "1 min read" under a one-sentence signpost is noise; the time
+                earns its place on an article long enough that the reader is
+                deciding whether to start now. */}
+            {Object.entries(readingTime ?? {})
+              .filter(([, text]) => Number.parseInt(text, 10) >= 2)
+              .map(([language, text]) => (
+                <div key={language} data-langs={language}>
+                  <p className="text-ink-muted mt-2 text-[13px]">{text}</p>
+                </div>
+              ))}
           </header>
         )}
 
@@ -160,7 +164,7 @@ export const DocumentShell = ({
           .map(({ langs, prev, next }) => (
             <nav
               key={langs.join(' ')}
-              data-langs={pagination.length > 1 ? langs.join(' ') : undefined}
+              data-langs={langs.join(' ')}
               aria-label="Pagination"
               className="border-hairline mt-14 flex gap-3 border-t pt-5 text-sm"
             >
@@ -204,22 +208,3 @@ export const DocumentShell = ({
     </div>
   );
 };
-
-/**
- * The reading times worth printing, each with the mappings it holds for.
- *
- * "1 min read" under a one-sentence signpost is noise: it takes a line of the
- * page to tell the reader something they can already see. It earns its place on
- * an article long enough that the reader is deciding whether to start now.
- */
-function readingTimeVariants(
-  readingTime: Record<string, string> | undefined
-): [string, string[]][] {
-  const byText = new Map<string, string[]>();
-  for (const [language, text] of Object.entries(readingTime ?? {})) {
-    const minutes = Number.parseInt(text, 10);
-    if (!Number.isNaN(minutes) && minutes < 2) continue;
-    byText.set(text, [...(byText.get(text) ?? []), language]);
-  }
-  return [...byText];
-}

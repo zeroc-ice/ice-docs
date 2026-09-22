@@ -44,7 +44,7 @@ function markdownFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   const out: string[] = [];
   const walk = (current: string) => {
-    for (const entry of fs.readdirSync(current)) {
+    for (const entry of fs.readdirSync(current).sort()) {
       const abs = path.join(current, entry);
       if (fs.statSync(abs).isDirectory()) walk(abs);
       else if (entry.endsWith('.md')) {
@@ -103,22 +103,23 @@ export function listPages(root: string, version: string): PageFiles[] {
   return pages;
 }
 
-/** Read a page's shared text and its language overlays, by language (all may be absent). */
+/** A page's shared text and its overlays' text, by language. */
 export function readPageSources(
   root: string,
   version: string,
   slug: string
 ): { shared: string | null; overlays: Record<string, string> } {
-  const dir = path.join(root, version, slug);
-  const overlays: Record<string, string> = {};
-  for (const entry of fs.readdirSync(dir).sort()) {
-    if (entry.endsWith('.md') && entry !== 'index.md')
-      overlays[entry.slice(0, -3)] = fs.readFileSync(
-        path.join(dir, entry),
-        'utf8'
-      );
-  }
-  return { shared: readIfExists(path.join(dir, 'index.md')), overlays };
+  const page = listPages(root, version).find((p) => p.slug === slug)!;
+  const read = (file: string) => fs.readFileSync(file, 'utf8');
+  return {
+    shared: page.shared ? read(page.shared) : null,
+    overlays: Object.fromEntries(
+      Object.entries(page.overlays).map(([language, file]) => [
+        language,
+        read(file)
+      ])
+    )
+  };
 }
 
 export interface PageParam {

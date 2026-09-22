@@ -38,10 +38,8 @@ export function PageOutline({
 }) {
   const countFor = (language: string) =>
     headings.filter((h) => !h.langs || h.langs.includes(language)).length;
-  const dense = Math.max(0, ...languages.map(countFor)) > DENSE_THRESHOLD;
+  const dense = Math.max(...languages.map(countFor)) > DENSE_THRESHOLD;
   const items = dense ? headings.filter((h) => h.level === 2) : headings;
-  // A mapping with no heading on this page gets no outline at all.
-  const withHeadings = languages.filter((language) => countFor(language) > 0);
 
   const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
   // Switching the mapping changes which copies of the headings are on show.
@@ -82,14 +80,7 @@ export function PageOutline({
   if (items.length === 0) return null;
 
   return (
-    <aside
-      data-langs={
-        withHeadings.length < languages.length
-          ? withHeadings.join(' ')
-          : undefined
-      }
-      className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block"
-    >
+    <aside className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block">
       <div className="text-ink-muted mb-2 text-[11px] font-semibold tracking-[0.07em] uppercase">
         On this page
       </div>

@@ -385,9 +385,8 @@ for (const version of listVersions(ROOT)) {
     const titles = new Set(
       Object.values(page.overlays).map(
         (file) =>
-          yamlLoad(
-            splitFrontmatter(fs.readFileSync(file, 'utf8')).frontmatter ?? ''
-          )?.title
+          yamlLoad(splitFrontmatter(fs.readFileSync(file, 'utf8')).frontmatter)
+            ?.title
       )
     );
     if (titles.size > 1)

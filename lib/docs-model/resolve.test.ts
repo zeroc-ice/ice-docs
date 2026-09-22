@@ -300,14 +300,10 @@ test('resolveDocument makes a page written per language one page', () => {
   assert.equal(
     resolveDocument({
       shared: '',
-      overlays: {
-        python: page('Same steps.'),
-        cpp: page('C++ steps.'),
-        java: page('Same steps.')
-      },
+      overlays: { cpp: page('C++ steps.'), python: page('Python steps.') },
       readFile: () => ''
     }),
-    `${block('cpp', 'C++ steps.')}\n\n${block('java,python', 'Same steps.')}`
+    `${block('cpp', 'C++ steps.')}\n\n${block('python', 'Python steps.')}`
   );
 });
 

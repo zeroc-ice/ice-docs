@@ -49,7 +49,6 @@ const document = {
 // A heading inside an {% iflang %} block belongs to those mappings only, and
 // the outline shows it only when one of them is the reader's.
 function extractHeadings(node: any, sections: any[] = [], langs?: string[]) {
-  if (!node) return sections;
   // Add headings from step tags
   if ((node as Tag).name === 'Step') {
     sections.push({
