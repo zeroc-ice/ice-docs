@@ -76,7 +76,7 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
                 '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere transition-colors',
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
-                  ? 'border-link text-link font-medium'
+                  ? 'border-link text-link'
                   : 'text-ink-secondary hover:text-ink border-transparent'
               )}
             >
