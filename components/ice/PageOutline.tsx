@@ -19,9 +19,8 @@ const DENSE_THRESHOLD = 24;
 // being read" — just under the two sticky bars.
 const ACTIVATION_LINE = 132;
 
-// "On this page", with the section the reader is in marked. Fixed width, and
-// titles wrap anywhere: a property name like `Ice.Default.EncodingVersion` must
-// never widen the rail or spill out of it.
+// "On this page", with the current section marked. Titles wrap within the fixed
+// width, so a long heading never widens the rail.
 export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
   const dense = headings.length > DENSE_THRESHOLD;
   const items = dense ? headings.filter((h) => h.level === 2) : headings;
