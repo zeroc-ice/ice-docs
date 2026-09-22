@@ -71,10 +71,10 @@
   <rect width="1080" height="350" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="boundary" d="M 540 18 V 326" vector-effect="non-scaling-stroke"/>
     <rect class="boundary" x="24" y="95" width="230" height="210" rx="14" vector-effect="non-scaling-stroke"/>
     <rect class="boundary" x="360" y="55" width="360" height="270" rx="14" vector-effect="non-scaling-stroke"/>
     <rect class="boundary" x="826" y="95" width="230" height="210" rx="14" vector-effect="non-scaling-stroke"/>
+    <path class="boundary" d="M 540 18 V 60 M 540 94 V 326" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
