@@ -43,13 +43,32 @@ export const metadata: Metadata = {
 // which a link can carry, else the stored choice. The query is stored as the
 // choice and dropped from the address, so the URL a reader copies stays clean.
 // The attribute it sets is what the stylesheet keys on; see context/state.tsx.
-const languageScript = `(function(){
-var known=${JSON.stringify(Object.keys(LANGUAGE_LABELS))},key=${JSON.stringify(LANGUAGE_STORAGE_KEY)};
-var url=new URL(location.href),q=url.searchParams.get('lang'),l=null;
-try{l=localStorage.getItem(key)}catch(e){}
-if(known.includes(q)){l=q;try{localStorage.setItem(key,q)}catch(e){}url.searchParams.delete('lang');history.replaceState(null,'',url)}
-if(known.includes(l))document.documentElement.dataset.lang=l
-})()`;
+// Serialized into the page as an inline script, so it must stand on its own:
+// no imports, no closure over anything in this module.
+function applyLanguage(known: string[], key: string) {
+  const url = new URL(location.href);
+  const query = url.searchParams.get('lang');
+  let language: string | null = null;
+  try {
+    language = localStorage.getItem(key);
+  } catch {
+    // Storage blocked: the query, if there is one, still applies.
+  }
+  if (query && known.includes(query)) {
+    language = query;
+    try {
+      localStorage.setItem(key, query);
+    } catch {
+      // Storage blocked: the choice still applies, it just is not remembered.
+    }
+    url.searchParams.delete('lang');
+    history.replaceState(null, '', url);
+  }
+  if (language && known.includes(language))
+    document.documentElement.dataset.lang = language;
+}
+
+const languageScript = `(${applyLanguage.toString()})(${JSON.stringify(Object.keys(LANGUAGE_LABELS))},${JSON.stringify(LANGUAGE_STORAGE_KEY)})`;
 
 export default function RootLayout({
   children
