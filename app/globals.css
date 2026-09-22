@@ -354,30 +354,9 @@
     max-width: var(--measure-wide);
   }
 
-  /* Wide diagrams opt into the wide track with `#diagram-wide` in their
-     Markdown image target. The paragraph transform consumes that marker and
-     makes this paragraph—not the page—the horizontal scroll container. */
-  .doc-body > .diagram-scroll {
-    width: 100%;
-    min-width: 0;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    contain: inline-size;
-  }
-
-  .doc-body > .diagram-scroll:focus-visible {
-    outline: 2px solid var(--link);
-    outline-offset: 4px;
-    border-radius: 0.25rem;
-  }
-
-  main article img.figure.diagram-wide {
-    width: 100%;
-    min-width: 45rem;
-  }
-
-  main article img.figure[src$='.svg']:not(.diagram-wide) {
-    width: min(100%, 43.75rem);
+  main article img.figure[src$='.svg'] {
+    max-width: 100%;
+    height: auto;
   }
 
   main article h1 {

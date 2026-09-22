@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190" role="img" aria-labelledby="title description">
+<svg
+  width="600"
+  height="190"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 600 190"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Separate connections for requests and callbacks</title>
   <desc id="description">
     The client opens a connection to send requests to the server. The server opens a separate connection to send

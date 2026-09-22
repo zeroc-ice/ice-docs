@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="357.78"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 900 460"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Topic federation in IceStorm</title>
   <desc id="description">
     Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 forwards to T2 and T3 and sends to subscriber S3. T2

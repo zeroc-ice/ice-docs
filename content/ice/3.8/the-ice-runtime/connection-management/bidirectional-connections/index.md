@@ -14,7 +14,7 @@ requests, as shown below:
 Unfortunately, network restrictions often prevent a server from being able to create a separate connection to the
 client, such as when the client resides behind a firewall as shown here:
 
-![The client can open a connection to the server through its firewall, but the firewall blocks a separate incoming callback connection from the server.](/attachments/3.8/bidirectional-connections/callback2.svg#diagram-wide)
+![The client can open a connection to the server through its firewall, but the firewall blocks a separate incoming callback connection from the server.](/attachments/3.8/bidirectional-connections/callback2.svg)
 
 In this scenario, the firewall blocks any attempt to establish a connection directly to the client.
 

@@ -14,7 +14,7 @@ therefore can be configured using the [administrative tool](../icestorm-administ
 
 IceStorm messages are never propagated over more than one link. For example, consider the topic graph shown below:
 
-![Publisher PA publishes to topic A, which forwards to B. Publisher PB publishes directly to B. B forwards to C and sends to subscriber SB; C sends to subscriber SC.](/attachments/3.8/topic-federation/federation1.svg#diagram-wide)
+![Publisher PA publishes to topic A, which forwards to B. Publisher PB publishes directly to B. B forwards to C and sends to subscriber SB; C sends to subscriber SC.](/attachments/3.8/topic-federation/federation1.svg)
 
 In this case, messages published on `A` are propagated to `B`, but `B` does not propagate `A`'s messages to `C`.
 Therefore, subscriber SB receives messages published on topics `A` and B, but subscriber SC only receives messages

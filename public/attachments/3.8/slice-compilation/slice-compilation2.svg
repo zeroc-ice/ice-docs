@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 770" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="499.07"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 770"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Compiling Slice for a Java client and a C++ server</title>
   <desc id="description">
     A shared Greeter.ice definition is compiled separately for a Java client and a C++ server. Generated Java files

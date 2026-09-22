@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 268" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="268"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 268"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Marshaling encoding format for exceptions</title>
   <desc id="description">
     The encoding 1.0 exceptions layout starts with a uses-classes flag, followed by a type ID and member slice for

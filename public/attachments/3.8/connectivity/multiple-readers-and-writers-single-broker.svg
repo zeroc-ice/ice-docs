@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 430" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="278.7"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 430"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Readers and writers using one broker</title>
   <desc id="description">
     Two writers and two readers connect to a broker node listening on TCP port 10000. All arrows point toward the

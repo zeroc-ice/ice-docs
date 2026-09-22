@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 356" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="356"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 356"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Sliced encoding format for exceptions</title>
   <desc id="description">
     The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when

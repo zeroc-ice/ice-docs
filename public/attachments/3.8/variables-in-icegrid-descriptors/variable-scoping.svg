@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 690" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="635.53"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 690"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Variable and parameter scoping</title>
   <desc id="description">
     Application variable x is 1. Node A overrides x with 2; Node B defines y as 4 and inherits x as 1. A server

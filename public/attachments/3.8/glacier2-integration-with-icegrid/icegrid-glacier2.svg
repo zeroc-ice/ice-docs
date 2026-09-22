@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 350" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="226.85"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 350"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Glacier2 integration with IceGrid</title>
   <desc id="description">
     A public client at 1.2.3.4 connects to Glacier2 on the Firewall PC through client endpoints at 5.6.7.8. Glacier2

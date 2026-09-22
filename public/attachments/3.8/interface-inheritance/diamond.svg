@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 390" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="390"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 390"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Diamond interface inheritance</title>
   <desc id="description">
     D inherits from I1 and I2, which both inherit from B. Hollow arrowheads point toward each base interface.

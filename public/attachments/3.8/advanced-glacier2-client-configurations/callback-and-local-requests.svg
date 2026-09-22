@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 470" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="304.63"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 470"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Local requests and Glacier2 callbacks</title>
   <desc id="description">
     A local client at 10.0.0.2 calls the callback client at 10.0.0.1. The callback client reuses a bidirectional

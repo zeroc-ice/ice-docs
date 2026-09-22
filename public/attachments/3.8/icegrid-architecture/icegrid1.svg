@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 440" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="440"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 440"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">IceGrid architecture on three hosts</title>
   <desc id="description">
     Host PC1 runs the registry. Host PC2 runs Node A and Server X. Host PC3 runs Node B and Server Y.

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 320" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="228.57"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 320"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Multiple clients and servers with Glacier2</title>
   <desc id="description">
     Clients A and B use bidirectional connections through their firewall to Glacier2. Glacier2 forwards requests to

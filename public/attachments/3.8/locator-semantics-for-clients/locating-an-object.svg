@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="350"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 900 450"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Locating an object</title>
   <desc id="description">
     The client calls initialOp on an indirect proxy. The Ice runtime queries the locator, then the client sends

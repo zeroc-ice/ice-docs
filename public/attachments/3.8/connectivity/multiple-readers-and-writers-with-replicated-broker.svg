@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 510" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="330.56"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 510"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Readers and writers using replicated brokers</title>
   <desc id="description">
     Readers and writers are configured with both broker endpoints. Solid and dashed paths show their connections and

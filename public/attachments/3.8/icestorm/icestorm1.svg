@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="266"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 380"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Weather monitoring with direct delivery</title>
   <desc id="description">
     A weather station feeds a collector, which sends updates directly to four monitors.

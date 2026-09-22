@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="423.68"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 460"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Facets of an Ice object</title>
   <desc id="description">
     One Ice object exposes five facets: the unnamed default facet, Facet 1, Facet 2, This Facet, and That Facet.

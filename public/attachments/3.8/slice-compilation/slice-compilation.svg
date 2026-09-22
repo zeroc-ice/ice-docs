@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 680" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="440.74"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 680"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Compiling Slice in a shared C++ development environment</title>
   <desc id="description">
     A Slice developer writes Greeter.ice and compiles it into the shared generated files Greeter.h

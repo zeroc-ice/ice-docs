@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 444" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="444"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 444"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Compact encoding format for classes</title>
   <desc id="description">
     The compact classes format starts with identity marker 1. The most-derived slice contains slice flags, a type

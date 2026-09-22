@@ -39,7 +39,7 @@ indirection allows servers to migrate to different computers without the need to
 IceGrid's flexibility allows an endless variety of configurations. For example, suppose we have a grid network and want
 to replicate a server on each blade, as shown below:
 
-![Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the same pattern through Blade N.](/attachments/3.8/icegrid-architecture/icegrid2.svg#diagram-wide)
+![Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the same pattern through Blade N.](/attachments/3.8/icegrid-architecture/icegrid2.svg)
 
 Replication in Ice is based on [object adapters](../dispatch), not servers. Any object adapter in any server could
 participate in replication, but it is far more likely that all of the

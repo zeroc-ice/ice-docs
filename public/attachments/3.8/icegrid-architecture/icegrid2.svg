@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 245" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="175"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 245"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">IceGrid architecture on blade hosts</title>
   <desc id="description">
     Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the

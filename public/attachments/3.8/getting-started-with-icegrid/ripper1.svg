@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="455"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 800 520"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Ripping and encoding music</title>
   <desc id="description">
     A 74-minute music CD is ripped into WAV files totaling 650 MB. Lossy MP3 encoding produces files totaling about

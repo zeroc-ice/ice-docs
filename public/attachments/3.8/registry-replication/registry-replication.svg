@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 580" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="477.65"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 850 580"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">IceGrid registry replication</title>
   <desc id="description">
     A client initially contacts the master registry and can fail over to the slave. The registries synchronize, and

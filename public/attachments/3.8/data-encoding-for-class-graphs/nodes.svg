@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 225" role="img" aria-labelledby="title description">
+<svg
+  width="480"
+  height="225"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 480 225"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Cyclic class graph</title>
   <desc id="description">
     The obj member of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7

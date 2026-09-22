@@ -14,7 +14,7 @@ The figure below shows the situation when both client and server are developed i
 files from a Slice definition in a source file `Greeter.ice`: a header file (`Greeter.h`) and a source file
 (`Greeter.cpp`).
 
-![Greeter.ice is compiled into shared generated C++ files that combine with client and server source and the Ice runtime library to produce communicating executables.](/attachments/3.8/slice-compilation/slice-compilation.svg#diagram-wide)
+![Greeter.ice is compiled into shared generated C++ files that combine with client and server source and the Ice runtime library to produce communicating executables.](/attachments/3.8/slice-compilation/slice-compilation.svg)
 
 _Compiling a Slice definition when the C++ client and server share a development environment._
 
@@ -55,7 +55,7 @@ This figure shows the situation when a client written in Java and the correspond
 case, the client and server developers are completely independent, and each uses his or her own development environment
 and language mapping. The only link between client and server developers is the Slice definition each one uses.
 
-![A shared Greeter.ice definition is compiled separately for a Java client and a C++ server. Generated Java files combine with Client.java and the Ice Java runtime library to build the client. Greeter.h and Greeter.cpp combine with Server.cpp and the Ice C++ runtime library to build the server. The executables communicate using RPC.](/attachments/3.8/slice-compilation/slice-compilation2.svg#diagram-wide)
+![A shared Greeter.ice definition is compiled separately for a Java client and a C++ server. Generated Java files combine with Client.java and the Ice Java runtime library to build the client. Greeter.h and Greeter.cpp combine with Server.cpp and the Ice C++ runtime library to build the server. The executables communicate using RPC.](/attachments/3.8/slice-compilation/slice-compilation2.svg)
 
 For Java, the Slice compiler creates a number of files whose names depend on the names of various Slice constructs.
 (These files are collectively referred to as `*.java` in the above figure.)

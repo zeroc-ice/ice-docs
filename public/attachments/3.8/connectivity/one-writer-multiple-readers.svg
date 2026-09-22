@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 370" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="301.16"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 860 370"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">One writer and multiple readers</title>
   <desc id="description">
     Two readers connect to a writer listening on TCP port 10000. The arrows show who initiates each connection.

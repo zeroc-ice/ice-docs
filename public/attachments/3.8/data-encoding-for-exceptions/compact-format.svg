@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="400"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 400"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Compact encoding format for exceptions</title>
   <desc id="description">
     In the compact exceptions format, the most-derived slice contains slice flags, a type ID, required members, and

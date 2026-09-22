@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 540" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="540"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 540"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Ice protocol state machine</title>
   <desc id="description">
     A new connection enters the inactive state, becomes active after validation, enters graceful close

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 235" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="167.86"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 235"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Firewall traversal: 1</title>
   <desc id="description">
     A client request passes through a client-side firewall and a server-side firewall before reaching the server.

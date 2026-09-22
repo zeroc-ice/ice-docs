@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 550" role="img" aria-labelledby="title description">
+<svg
+  width="700"
+  height="506.58"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 550"
+  role="img"
+  aria-labelledby="title description"
+>
   <title id="title">Expression tree with a shared root</title>
   <desc id="description">
     Both p1 and p2 reference the root multiplication node. Instance numbers identify the shared expression tree.

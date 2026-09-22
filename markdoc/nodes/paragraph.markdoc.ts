@@ -2,8 +2,6 @@
 
 import { Tag, nodes, type Config, type Node } from '@markdoc/markdoc';
 
-const WIDE_DIAGRAM_MARKER = '#diagram-wide';
-
 // CommonMark writes two different things the same way. A paragraph that holds
 // nothing but an image is a figure: centred, with room above and below. An
 // image inside a sentence — the IceGrid GUI's state icons, "a node can be
@@ -19,31 +17,7 @@ const paragraph = {
       (child): child is Tag => Tag.isTag(child) && child.name === 'img'
     );
     if (images.length > 0 && images.length === children.length) {
-      let hasWideDiagram = false;
-
-      for (const image of images) {
-        const src = image.attributes.src;
-        const isWideDiagram =
-          typeof src === 'string' && src.endsWith(WIDE_DIAGRAM_MARKER);
-
-        if (isWideDiagram) {
-          image.attributes.src = src.slice(0, -WIDE_DIAGRAM_MARKER.length);
-          hasWideDiagram = true;
-        }
-
-        image.attributes.class = isWideDiagram
-          ? 'figure diagram-wide'
-          : 'figure';
-      }
-
-      if (hasWideDiagram) {
-        attributes.class = [attributes.class, 'doc-wide diagram-scroll']
-          .filter(Boolean)
-          .join(' ');
-        attributes.role = 'region';
-        attributes['aria-label'] = 'Scrollable diagram';
-        attributes.tabIndex = 0;
-      }
+      for (const image of images) image.attributes.class = 'figure';
     }
     return new Tag('p', attributes, children);
   }
