@@ -238,14 +238,15 @@ If not defined, the default value is zero.
 
 #### Description
 
-Specifies whether a server requests a certificate from the client and whether the client must supply one. The legal
-values are shown in the table below; any other value causes communicator initialization to fail with an
-`InitializationException`. If this property is not defined, the default value is `2`.
+Specifies whether an object adapter accepting an incoming connection requests a certificate from the client, and whether
+the client must supply one. The legal values are shown in the table below; any other value causes communicator
+initialization to fail with an `InitializationException`. If this property is not defined, the default value is `2`.
 
-| 0   | The server does not request a certificate from the client.                                                                                                                                     |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | The server requests a certificate from the client and accepts a client that supplies none. If the client supplies one, the server verifies it and aborts the connection if verification fails. |
-| 2   | The server requires a certificate from the client and aborts the connection if the client supplies none or if verification fails.                                                              |
+| Value | Description                                                                                                                                                                                    |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | The server does not request a certificate from the client.                                                                                                                                     |
+| 1     | The server requests a certificate from the client and accepts a client that supplies none. If the client supplies one, the server verifies it and aborts the connection if verification fails. |
+| 2     | The server requires a certificate from the client and aborts the connection if the client supplies none or if verification fails.                                                              |
 
 This property has no effect on outgoing connections (except in Java, see below): a client always requires and verifies
 the server's certificate.
