@@ -3,7 +3,7 @@
   <title id="title">On-demand encoder deployment</title>
   <desc id="description">
     The client first locates EncoderAdapter through the registry on ComputeServer. The registry contacts the node,
-    which starts EncodeServer, then the client invokes encode.
+    which starts EncoderServer, then the client invokes encode.
   </desc>
 
   <defs>
@@ -99,7 +99,7 @@
     <text class="label" x="134.0" y="212.0">Client</text>
     <text class="label" x="768.0" y="49">Host: ComputeServer</text>
     <text class="label" x="857.0" y="121.0">Registry</text>
-    <text class="label" x="685.0" y="256.0">EncodeServer</text>
+    <text class="label" x="685.0" y="256.0">EncoderServer</text>
     <use href="#step-badge-shape" x="340" y="151"/>
     <text class="annotation" x="340" y="156">1</text>
     <rect x="362.0" y="140" width="192" height="24" rx="4" fill="#ffffff"/>

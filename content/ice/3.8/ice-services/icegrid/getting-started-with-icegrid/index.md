@@ -56,7 +56,7 @@ The initial architecture for our application is intentionally simple, consisting
 that we start manually. This illustration shows how the client's invocation on its `EncoderFactory` proxy causes an
 implicit locate request:
 
-![The client first locates EncoderAdapter through the registry on ComputeServer. The client then invokes encode on EncodeServer.](/attachments/3.8/getting-started-with-icegrid/ripper.svg)
+![The client first locates EncoderAdapter through the registry on ComputeServer. The client then invokes encode on EncoderServer.](/attachments/3.8/getting-started-with-icegrid/ripper.svg)
 
 The corresponding C++ code for the client is presented below:
 
