@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 340" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" role="img" aria-labelledby="title description">
   <title id="title">Administrative callbacks through the registry</title>
   <desc id="description">
     The server sends a callback to the registry, which forwards it to the administrative client over the existing
-    client connection.
+    client connection. The node runs on the server host but is not on the callback path.
   </desc>
 
   <defs>
@@ -74,11 +74,11 @@
     }
   </style>
 
-  <rect width="980" height="340" fill="#ffffff"/>
+  <rect width="980" height="400" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
     <rect class="boundary" x="24" y="100" width="230" height="170" rx="14" vector-effect="non-scaling-stroke"/>
-    <rect class="boundary" x="534" y="24" width="422" height="292" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="534" y="24" width="422" height="352" rx="14" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
@@ -90,9 +90,11 @@
     <rect class="application" x="54" y="168" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
     <rect class="runtime" x="754" y="75" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
     <rect class="application" x="570" y="220" width="150" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="754" y="310" width="170" height="54" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
+    <text class="label" x="839" y="342">Node</text>
     <text class="label" x="139.0" y="125">Client PC</text>
     <text class="label" x="139.0" y="204.0">Admin client</text>
     <text class="label" x="745.0" y="49">Server PC</text>
