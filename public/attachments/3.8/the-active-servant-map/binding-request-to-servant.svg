@@ -82,7 +82,7 @@
     <path class="connector one-way" d="M 725 245 L 877 245" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 725 295 L 877 295" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 725 345 L 877 345" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 258 174 L 400 202 H 565" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 258 174 L 400 202" vector-effect="non-scaling-stroke"/>
     <path class="connector" d="M 400 174 V 242" vector-effect="non-scaling-stroke"/>
   </g>
 
