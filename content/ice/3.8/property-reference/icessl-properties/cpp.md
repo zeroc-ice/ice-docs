@@ -24,19 +24,19 @@ If you wish to use the CA certificates bundled with your platform, leave this pr
 
 The file can be encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates.
 
-IceSSL attempts to locate `path` as specified; if the given path is relative but does not exist, IceSSL also attempts to
-locate `path` relative to the default directory defined by `IceSSL.DefaultDir`.
+A relative `path` is resolved under the default directory defined by `IceSSL.DefaultDir` when that property is set, and
+relative to the working directory otherwise.
 
-On iOS, IceSSL also attempts to open the specified CA certificate file as `Resources/DefaultDir/path` in the
-application's resource bundle if `IceSSL.DefaultDir` is defined or as `Resources/path` if not defined.
+On iOS, IceSSL first looks for `path` in the application's resource bundle, under the `IceSSL.DefaultDir` subdirectory
+when that property is set, before applying the rule above.
 
 ###### OpenSSL
 
 The file must be encoded using the PEM format and can contain multiple certificates. The `path` can also refer to a
 directory prepared in advance using the OpenSSL utility `c_rehash`.
 
-IceSSL attempts to locate `path` as specified; if the given path is relative but does not exist, IceSSL also attempts to
-locate `path` relative to the default directory defined by `IceSSL.DefaultDir`.
+A relative `path` is resolved under the default directory defined by `IceSSL.DefaultDir` when that property is set, and
+relative to the working directory otherwise.
 
 # IceSSL.CertificateRevocationListFiles
 
@@ -76,8 +76,8 @@ certificate in which case the private key must be specified using `IceSSL.KeyFil
 the file, the application must supply the password using `IceSSL.Password`, otherwise IceSSL will reject the
 certificate.
 
-IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
-locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
+A relative `file` is resolved under the default directory defined by `IceSSL.DefaultDir` when that property is set, and
+relative to the working directory otherwise.
 
 ###### SecureTransport
 
@@ -86,11 +86,11 @@ certificate in which case the private key must be specified using `IceSSL.KeyFil
 the file, macOS will use its default graphical password prompt unless the application has supplied the password using
 `IceSSL.Password`. Define `IceSSL.Keychain` to import this certificate into the specified keychain.
 
-IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
-locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
+A relative `file` is resolved under the default directory defined by `IceSSL.DefaultDir` when that property is set, and
+relative to the working directory otherwise.
 
-On iOS, IceSSL also attempts to open the specified certificate file as `Resources/DefaultDir/file` in the application's
-resource bundle if `IceSSL.DefaultDir` is defined or as `Resources/file` if not defined.
+On iOS, IceSSL first looks for `file` in the application's resource bundle, under the `IceSSL.DefaultDir` subdirectory
+when that property is set, before applying the rule above.
 
 ###### OpenSSL
 
@@ -98,8 +98,8 @@ The file must use the PFX (PKCS#12) format and contain the certificate and its p
 certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
 the file, the application must supply the password using `IceSSL.Password`.
 
-IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
-locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
+A relative `file` is resolved under the default directory defined by `IceSSL.DefaultDir` when that property is set, and
+relative to the working directory otherwise.
 
 # IceSSL.CertStore
 
