@@ -39,9 +39,8 @@ export function buildPageIndex(slugs: string[]): {
   const byName: Record<string, string> = {};
   for (const slug of sorted) {
     const name = slug.split('/').pop()!.toLowerCase();
-    if (name === slug.toLowerCase()) continue; // already indexed by its own slug
-    if (byName[name] && byName[name] !== slug) duplicates.push(name);
-    else byName[name] ??= slug;
+    if (name in byName) duplicates.push(name);
+    else byName[name] = slug;
   }
   for (const [name, slug] of Object.entries(byName)) index[name] ??= slug;
 

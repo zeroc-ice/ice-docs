@@ -175,7 +175,6 @@ function checkSlots(version, pages, languages) {
 
   for (const page of pages) {
     if (!page.shared) continue;
-    const { name } = page;
     const slots = declaredSlots(
       splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
     );
@@ -187,7 +186,7 @@ function checkSlots(version, pages, languages) {
         // The shared page asks for language-specific prose and none exists.
         missing += slots.length;
         fail(
-          `${version}/${language}: "${name}" declares ${slots.length} slot(s) but has no overlay`
+          `${version}/${language}: "${page.name}" declares ${slots.length} slot(s) but has no overlay`
         );
         continue;
       }
@@ -199,7 +198,7 @@ function checkSlots(version, pages, languages) {
         );
       } catch (error) {
         fail(
-          `${version}/${language}: "${name}" overlay is malformed — ${error.message}`
+          `${version}/${language}: "${page.name}" overlay is malformed — ${error.message}`
         );
         continue;
       }
@@ -209,15 +208,15 @@ function checkSlots(version, pages, languages) {
         if (!slot) {
           missing++;
           fail(
-            `${version}/${language}: "${name}" has no section for slot "${name}"`
+            `${version}/${language}: "${page.name}" has no section for slot "${name}"`
           );
           continue;
         }
         counts[slot.state]++;
         if (slot.state === 'unclassified') {
           perLanguage[language]++;
-          if (!blanks.has(name)) blanks.set(name, new Map());
-          const byLanguage = blanks.get(name);
+          if (!blanks.has(page.name)) blanks.set(page.name, new Map());
+          const byLanguage = blanks.get(page.name);
           byLanguage.set(language, [...(byLanguage.get(language) ?? []), name]);
         }
       }
@@ -226,7 +225,7 @@ function checkSlots(version, pages, languages) {
         if (!slots.includes(name)) {
           unused++;
           fail(
-            `${version}/${language}: "${name}" overlay defines unused section "${name}"`
+            `${version}/${language}: "${page.name}" overlay defines unused section "${name}"`
           );
         }
       }

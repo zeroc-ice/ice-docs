@@ -1,7 +1,7 @@
 # Ice Docs
 
 Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual for nine
-programming languages at `/ice/<version>/<language>/<path>` — for example
+programming languages at `/ice/<version>/<language>/<slug>` — for example
 `/ice/3.8/cpp/the-slice-language/user-defined-types/enumerations`.
 
 ## Requirements
@@ -48,9 +48,9 @@ is a directory, and its path under the version is its slug, the path in its URL:
 A page's images live under `public/attachments/<version>/<page>/` and are referenced as
 `/attachments/<version>/<page>/<file>`.
 
-- **Page names are globally unique** within a version. The tree follows the table of contents: `navigation.yaml` names
-  pages by name, and `check:content` fails a page whose directory is not inside the directory of the group above it. A
-  node with `language:` appears only in that language's table of contents.
+- **Page names are globally unique** within a version. The content tree follows the table of contents: `navigation.yaml`
+  names pages by name, and `check:content` fails a page whose directory is not inside the directory of the group above
+  it. A node with `language:` appears only in that language's table of contents.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time against
   the pages that exist for the reader's language. A link to a page that does not exist renders as plain text and is
   reported by `check:content`.

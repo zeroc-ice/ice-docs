@@ -150,10 +150,10 @@ export default async function Page(props: PageProps) {
   const trail = trailTo(sidebar, page) ?? [];
 
   const routePath = pageHref(version, language, slug);
-  // Cross-page links are resolved against this index at build time, so moving or
-  // renaming a page never breaks the links pointing at it. The index holds only
-  // the pages this language actually has, so a link is never rewritten to a URL
-  // that was not generated.
+  // Cross-page links are resolved against this index at build time, so moving a
+  // page never breaks the links pointing at it. The index holds only the pages
+  // this language actually has, so a link is never rewritten to a URL that was
+  // not generated.
   const { index: pageIndex } = buildPageIndex(
     listPages(root, version, language).map((p) => p.slug)
   );
@@ -183,10 +183,11 @@ export default async function Page(props: PageProps) {
     return {
       value: lang,
       label: languageLabel(lang),
-      href:
-        equivalent === undefined
-          ? `${hrefFor(lang, nearest?.page)}${fellBack}`
-          : hrefFor(lang, equivalent)
+      href: !slug
+        ? pageHref(version, lang)
+        : equivalent
+          ? hrefFor(lang, equivalent)
+          : `${hrefFor(lang, nearest?.page)}${fellBack}`
     };
   });
 

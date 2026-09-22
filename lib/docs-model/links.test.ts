@@ -104,9 +104,9 @@ test('a full slug wins over another page with the same name', () => {
   );
 });
 
-test('a top-level page is not shadowed by a nested page of the same name', () => {
+test('a top-level page and a nested page of the same name collide too', () => {
   const { index: idx, duplicates } = buildPageIndex(['learn/foo', 'foo']);
+  assert.deepEqual(duplicates, ['foo']);
   assert.equal(idx['foo'], 'foo');
   assert.equal(idx['learn/foo'], 'learn/foo');
-  assert.deepEqual(duplicates, []);
 });

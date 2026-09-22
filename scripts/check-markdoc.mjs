@@ -134,15 +134,21 @@ const reported = new Set();
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
 for (const version of listVersions(ROOT)) {
-  const files = listPages(ROOT, version).flatMap(({ slug, ...page }) => [
+  const files = listPages(ROOT, version).flatMap((page) => [
     // A shared page is rendered for every language; any one will do here.
     ...(page.shared
-      ? [{ file: page.shared, language: languagesByVersion[version][0], slug }]
+      ? [
+          {
+            file: page.shared,
+            language: languagesByVersion[version][0],
+            slug: page.slug
+          }
+        ]
       : []),
     ...Object.entries(page.overlays).map(([language, file]) => ({
       file,
       language,
-      slug
+      slug: page.slug
     }))
   ]);
   for (const { file, language, slug } of files.sort((a, b) =>

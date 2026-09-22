@@ -78,9 +78,6 @@ const pagesCache = new Map<string, PageFiles[]>();
 /**
  * Every page in a version, with the files that make it up, sorted by slug.
  *
- * A directory is a page, named by the directory: `index.md` is the page's own
- * text and any other `<lang>.md` beside it is the overlay for that language.
- *
  * Pass a `language` to get only the pages that exist for it: a link resolved
  * against the whole version would happily point a Python reader at a page that
  * only exists in C++, and that URL is never generated.
@@ -99,7 +96,7 @@ export function listPages(
   let pages = cacheable ? pagesCache.get(base) : undefined;
   if (!pages) {
     const bySlug = new Map<string, PageFiles>();
-    for (const file of markdownFiles(base).sort()) {
+    for (const file of markdownFiles(base)) {
       const segments = file.replace(/\.md$/, '').split('/');
       const stem = segments.pop()!;
       const slug = segments.join('/');
