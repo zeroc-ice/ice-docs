@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 
 import { visibleTarget } from '@/components/ice/AnchorScroll';
+import { useLanguage } from '@/context/state';
 
 export interface OutlineHeading {
   id: string;
@@ -43,6 +44,8 @@ export function PageOutline({
   const withHeadings = languages.filter((language) => countFor(language) > 0);
 
   const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
+  // Switching the mapping changes which copies of the headings are on show.
+  const language = useLanguage();
 
   // A string rather than the array, so marking a new section active does not
   // hand the effect a fresh array identity and make it re-subscribe every tick.
@@ -74,7 +77,7 @@ export function PageOutline({
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [ids]);
+  }, [ids, language]);
 
   if (items.length === 0) return null;
 

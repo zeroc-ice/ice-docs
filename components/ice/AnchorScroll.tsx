@@ -4,6 +4,8 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
+import { setLanguage } from '@/context/state';
+
 /**
  * The element with `id` that is on display. A section written per language
  * mapping repeats its headings, one per mapping, and only the reader's mapping
@@ -16,7 +18,19 @@ export function visibleTarget(id: string): HTMLElement | null {
   return candidates.find((el) => el.offsetParent !== null) ?? null;
 }
 
+/**
+ * Scroll to the heading on display, switching to a mapping that has the
+ * heading when the reader's does not: a link to a mapping's own section is a
+ * link to that mapping.
+ */
 export function scrollToId(id: string) {
+  if (!visibleTarget(id)) {
+    const langs = document
+      .getElementById(id)
+      ?.closest('[data-langs]')
+      ?.getAttribute('data-langs');
+    if (langs) setLanguage(langs.split(' ')[0]);
+  }
   visibleTarget(id)?.scrollIntoView();
 }
 
@@ -38,11 +52,10 @@ export function AnchorScroll() {
       const link = (event.target as Element).closest('a[href^="#"]');
       const id =
         link && decodeURIComponent(link.getAttribute('href')!.slice(1));
-      const target = id && visibleTarget(id);
-      if (!target) return;
+      if (!id || !document.getElementById(id)) return;
       event.preventDefault();
       window.history.pushState(null, '', `#${id}`);
-      target.scrollIntoView();
+      scrollToId(id);
     };
     jump();
     window.addEventListener('hashchange', jump);

@@ -102,8 +102,8 @@ for (const version of listVersions(ROOT)) {
       c: crumbFor(nav, page.name),
       k: fm.type ?? '',
       h: pageHref(version, page.slug),
-      // De-duplicated headings, capped: enough to match on, small enough to ship.
-      x: [...new Set(headings(body))].slice(0, 40).join(' · '),
+      // Every mapping's headings, de-duplicated.
+      x: [...new Set(headings(body))].join(' · '),
       // The languages a page written per language is for; every language otherwise.
       ...(shared ? {} : { w: Object.keys(page.overlays) })
     });

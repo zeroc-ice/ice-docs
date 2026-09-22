@@ -61,7 +61,7 @@ export const Showcase = ({ languages, panels }: Props) => {
           </select>
         </label>
         <div
-          role="tablist"
+          role="group"
           aria-label="Language"
           className="hidden flex-wrap sm:flex"
         >
@@ -69,8 +69,7 @@ export const Showcase = ({ languages, panels }: Props) => {
             <button
               key={language}
               type="button"
-              role="tab"
-              aria-selected={language === current}
+              aria-pressed={language === current}
               onClick={() => setLanguage(language)}
               className={clsx(tab, language === current ? activeTab : idleTab)}
             >
