@@ -39,21 +39,33 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
 
     const update = () => {
       queued = false;
+      // Headings near the end of a page can never scroll up to the activation
+      // line, so over the last screenful of scroll the line slides down to the
+      // bottom of the viewport, passing each remaining heading in order.
+      const remaining =
+        document.documentElement.scrollHeight -
+        window.innerHeight -
+        window.scrollY;
+      const line = Math.max(ACTIVATION_LINE, window.innerHeight - remaining);
       let current = list[0];
       for (const id of list) {
         const element = document.getElementById(id);
         if (!element) continue;
-        if (element.getBoundingClientRect().top > ACTIVATION_LINE) break;
+        if (element.getBoundingClientRect().top > line) break;
         current = id;
       }
-      // Headings near the end of a page can never scroll up to the activation
-      // line. Once the page bottoms out, the section the reader jumped to wins.
-      const target = decodeURIComponent(location.hash.slice(1));
-      const bottomedOut =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 1;
-      if (bottomedOut && list.indexOf(target) > list.indexOf(current)) {
-        current = target;
+      // Once the page bottoms out, several sections share the screen; the one
+      // the reader jumped to wins.
+      const target = document.getElementById(
+        decodeURIComponent(location.hash.slice(1))
+      );
+      if (
+        remaining < 1 &&
+        target &&
+        list.includes(target.id) &&
+        target.getBoundingClientRect().top >= 0
+      ) {
+        current = target.id;
       }
       setActive(current);
     };
