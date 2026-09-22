@@ -63,28 +63,30 @@ not there, the handshake fails.
 
 #### Description
 
-Specifies a file that contains the program's certificate and the corresponding private key, the private key can be
-specified separately using `IceSSL.KeyFile`. The file name may be specified relative to the default directory defined by
-`IceSSL.DefaultDir`.
+Specifies the file that contains the program's certificate and, unless `IceSSL.KeyFile` names a separate file, its
+private key. The file name may be specified relative to the default directory defined by `IceSSL.DefaultDir`.
 
 #### Platform Notes
 
 ###### SChannel
 
-The file must use the PFX (PKCS#12) format and contain the certificate and its private key or a PEM file containing the
-certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
-the file, the application must supply the password using `IceSSL.Password`, otherwise IceSSL will reject the
-certificate.
+The file must use the PFX (PKCS#12) format and contain the certificate and its private key, or be a PEM file containing
+the certificate, in which case the private key must be supplied in a PEM file named by `IceSSL.KeyFile`. If a password
+is required to load the file, the application must supply it using `IceSSL.Password`; otherwise the import fails and
+communicator initialization raises an `InitializationException`.
 
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
 locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
 
 ###### SecureTransport
 
-The file must use the PFX (PKCS#12) format and contain the certificate and its private key or a PEM file containing the
-certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
-the file, macOS will use its default graphical password prompt unless the application has supplied the password using
-`IceSSL.Password`. Define `IceSSL.Keychain` to import this certificate into the specified keychain.
+On macOS, the file must use the PFX (PKCS#12) format and contain the certificate and its private key, or be a PEM file
+containing the certificate, in which case the private key must be supplied in a PEM file named by `IceSSL.KeyFile`. If a
+password is required to load the file, the application must supply it using `IceSSL.Password`; IceSSL never prompts for
+it, and the import fails otherwise. IceSSL imports the certificate and its key into the keychain named by
+`IceSSL.Keychain`, or into a temporary keychain when that property is not defined.
+
+On iOS, the file must use the PFX (PKCS#12) format; `IceSSL.KeyFile` is ignored.
 
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
 locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
@@ -94,9 +96,10 @@ resource bundle if `IceSSL.DefaultDir` is defined or as `Resources/file` if not 
 
 ###### OpenSSL
 
-The file must use the PFX (PKCS#12) format and contain the certificate and its private key or a PEM file containing the
-certificate in which case the private key must be specified using `IceSSL.KeyFile`. If a password is required to load
-the file, the application must supply the password using `IceSSL.Password`.
+The file must use the PFX (PKCS#12) format and contain the certificate and its private key, or be a PEM file containing
+the certificate. In the PEM case, IceSSL reads the private key from `IceSSL.KeyFile` when that property is defined, and
+from the certificate file itself otherwise. If a password is required to load the file, the application must supply it
+using `IceSSL.Password`.
 
 IceSSL attempts to locate `file` as specified; if the given path is relative but does not exist, IceSSL also attempts to
 locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
@@ -153,18 +156,16 @@ An Ice program running as a Windows service will typically need to set this prop
 
 #### Description
 
-Builds a collection of certificates that will be used for authentication.
-
-A server requires a certificate for authentication purposes, therefore IceSSL selects the first certificate in the
-accumulated collection. This is normally the certificate loaded via `IceSSL.CertFile`, if that property was defined.
-Otherwise, IceSSL selects one of the certificates identified by `IceSSL.FindCert`.
+Selects the program's certificate from a certificate store or keychain instead of loading it from a file. IceSSL ignores
+this property when `IceSSL.CertFile` is defined.
 
 #### Platform Notes
 
 ###### SChannel
 
-IceSSL queries a certificate store for matching certificates and adds them to the application's certificate collection.
-The settings for `IceSSL.CertStore` and `IceSSL.CertStoreLocation` determine the target certificate store to be queried.
+IceSSL queries a certificate store for matching certificates and passes all of them to SChannel, which selects the one
+to present during the handshake. The settings for `IceSSL.CertStore` and `IceSSL.CertStoreLocation` determine the target
+certificate store to be queried. Communicator initialization fails when no certificate matches.
 
 The value for `criteria` may be `*`, in which case all of the certificates in the store are selected. Otherwise,
 `criteria` must be one or more `field:value` pairs separated by white space. The valid field names are described below:
@@ -183,8 +184,8 @@ selected. Values must be enclosed in single or double quotes to preserve white s
 
 ###### SecureTransport
 
-IceSSL queries the keychain for matching certificates and adds them to the application's certificate collection. IceSSL
-uses the keychain identified in `IceSSL.Keychain`, or the user's default keychain if `IceSSL.Keychain` is not defined.
+IceSSL queries the keychain for a matching certificate and uses the first match. IceSSL uses the keychain identified in
+`IceSSL.Keychain`, or the user's default keychain if `IceSSL.Keychain` is not defined.
 
 The value for `criteria` must be one or more `field:value` pairs separated by white space. The valid field names are
 described below:
@@ -197,8 +198,6 @@ described below:
 
 The field names are case-insensitive. If multiple criteria are specified, only certificates that match all criteria are
 selected. Values must be enclosed in single or double quotes to preserve white space.
-
-On iOS, matching on the `Subject` field is not supported.
 
 # IceSSL.Keychain
 
