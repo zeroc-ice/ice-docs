@@ -52,8 +52,8 @@ property is set, and relative to the working directory otherwise.
 
 IceSSL reads these files only when `IceSSL.RevocationCheck` is greater than zero, and then requires them: communicator
 initialization fails with an `InitializationException` if a file is missing or contains no PEM-encoded CRL or
-certificate. Whether the files hold the CRL of a given issuer is only checked during the handshake, which fails when
-OpenSSL cannot find the CRL it needs.
+certificate. During the handshake, OpenSSL looks up the CRL of each certificate it checks in these files. If the CRL is
+not there, the handshake fails.
 
 # IceSSL.CertFile
 
@@ -269,8 +269,8 @@ Specifies whether IceSSL checks the certificates of the peer's chain for revocat
 | 1     | Checks the revocation status of the peer's own certificate. |
 | 2     | Checks the revocation status of the whole chain.            |
 
-A certificate that is revoked, or whose revocation status cannot be determined, aborts the connection. There is no
-setting that tolerates an undeterminable status.
+IceSSL aborts the connection when it finds a revoked certificate or cannot determine the revocation status of a
+certificate.
 
 #### Platform Notes
 
@@ -288,7 +288,8 @@ distribution points and OCSP responders named in the certificates, subject to `I
 ###### SecureTransport
 
 The values `1` and `2` are equivalent: the revocation policy applies to the whole chain. See
-`IceSSL.RevocationCheckCacheOnly` for the revocation sources.
+`IceSSL.RevocationCheckCacheOnly` for the revocation sources. The value `0` only leaves out IceSSL's revocation policy:
+the macOS trust evaluation still performs its own best-effort check and rejects a certificate it finds revoked.
 
 # IceSSL.RevocationCheckCacheOnly
 
@@ -305,9 +306,7 @@ Specifies whether revocation checks may access the network:
 | 0     | Revocation checks may fetch CRLs from the distribution points and query the OCSP responders named in the certificates. |
 | 1     | Revocation checks consult only the system's revocation cache (default).                                                |
 
-With the default value, a certificate whose revocation status is not already in the system cache cannot be determined,
-and IceSSL rejects it. An application that enables `IceSSL.RevocationCheck` normally sets this property to `0`, unless
-it keeps the system cache populated by other means.
+With the default value, IceSSL rejects a certificate whose revocation status is not already in the system cache.
 
 #### Platform Notes
 
@@ -319,8 +318,8 @@ extension, so the whole chain must be available locally.
 ###### SecureTransport
 
 IceSSL requests any available revocation method. In practice, the macOS trust evaluation queries the OCSP responder
-named in a certificate's Authority Information Access extension and does not fetch CRLs from distribution points, so a
-certificate that publishes only a CRL has an undeterminable revocation status and is rejected.
+named in a certificate's Authority Information Access extension and does not fetch CRLs from distribution points, so
+IceSSL cannot determine the revocation status of a certificate that publishes only a CRL, and rejects it.
 
 {% /language-section %}
 
