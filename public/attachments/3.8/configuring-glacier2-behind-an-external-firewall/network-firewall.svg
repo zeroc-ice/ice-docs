@@ -114,6 +114,7 @@
     </text>
     <text class="label" x="986.0" y="177.0">Server</text>
     <text class="annotation" x="109" y="258">IP: 1.2.3.4</text>
+    <rect x="300" y="240" width="120" height="48" rx="4" fill="#ffffff"/>
     <text class="annotation" x="360" y="258">IP: 5.6.7.8</text>
     <text class="annotation" x="360" y="280">Port: 4064</text>
     <text class="annotation" x="635" y="258">IP: 10.0.0.1</text>
