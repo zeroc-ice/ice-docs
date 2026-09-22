@@ -143,14 +143,17 @@ Specifies whether IceSSL checks the revocation status of the certificates in the
 revocation status of a certificate cannot be determined. The legal values are shown in the table below. If
 `IceSSL.CheckCRL` is not defined, the default value is zero.
 
-| 0   | Disables revocation checking.                                                                                                                                                                                                                                                    |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Checks revocation online. A revoked certificate aborts the connection. A certificate whose revocation status cannot be determined, for example because its OCSP responder or CRL distribution point is unreachable or because it carries no revocation information, is accepted. |
-| 2   | Checks revocation online. A revoked certificate, or a certificate whose revocation status cannot be determined, aborts the connection.                                                                                                                                           |
+| Value | Description                                                                                                                                    |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | Disables revocation checking.                                                                                                                  |
+| 1     | Checks revocation online. A revoked certificate aborts the connection. A certificate whose revocation status cannot be determined is accepted. |
+| 2     | Checks revocation online. A revoked certificate, or a certificate whose revocation status cannot be determined, aborts the connection.         |
 
-When IceSSL aborts a connection, it logs the certificate chain status if `IceSSL.Trace.Security` is set to a non-zero
-value. The chain status of an accepted connection is not logged, even when a certificate with an undeterminable
-revocation status was tolerated; the connection summary traced at that level does not include it.
+The revocation status of a certificate cannot be determined when the certificate carries no revocation information, or
+when its OCSP responder or CRL distribution point cannot be reached.
+
+If `IceSSL.Trace.Security` is set to a non-zero value, IceSSL logs the certificate chain status of a rejected
+connection.
 
 The revocation sources are those of the platform, since .NET delegates certificate chain building to Windows CryptoAPI,
 to its own OpenSSL-based chain builder on Linux, and to the Security framework on macOS. Windows and Linux fetch CRLs
