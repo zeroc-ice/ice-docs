@@ -6,9 +6,11 @@ This guide defines reusable visual and accessibility conventions for diagrams au
 
 1. Inventory the source's structure and relationships, and record intentional semantic changes in the issue or pull
    request.
-2. Start from `diagrams/template.svg` and place every element explicitly.
+2. Use `diagrams/template.svg` as a starting point, keeping only the styles and shapes the figure needs. Place every
+   element explicitly.
 3. Render the SVG to a bitmap and inspect it at both full size and typical documentation width.
-4. Publish the reviewed SVG below `public/attachments/` alongside the page that uses it.
+4. Publish the reviewed SVG under `public/attachments/<version>/<page>/`. Reuse the same asset when multiple pages show
+   the same figure.
 
 ## Source fidelity
 
@@ -22,9 +24,11 @@ introduce containers or relationships absent from the source.
 
 ## Canvas and layout
 
-- Use a `viewBox`; do not set a fixed pixel width or height on the root SVG.
-- Use a landscape `980 × 420` canvas for two-party architecture diagrams. Select a different aspect ratio when the
-  content calls for it rather than adding empty space.
+- Set a `viewBox` for the drawing coordinates and proportional `width` and `height` attributes for its native display
+  size. Keep the native width at most 700 pixels; use a smaller width for a compact figure.
+- The page limits figures to the available column width and preserves their aspect ratio. Intrinsic dimensions keep
+  small figures from being enlarged to fill the column.
+- Choose the aspect ratio to fit the content rather than adding empty space.
 - Keep at least 16 units between content and the canvas edge and at least 24 units between unrelated components.
 - Prefer compact, balanced compositions. Peer process or host boundaries should have matching dimensions whenever their
   contents permit it.
@@ -35,11 +39,9 @@ introduce containers or relationships absent from the source.
 - Keep boundaries, connectors, components, and labels in four separate, ordered SVG groups. Draw labels last.
 - Trim the `viewBox` to the content plus the required outer margin. Excess canvas changes both centering and effective
   text size when the figure is embedded.
-- Keep compact figures responsive within the normal prose track. Do not give every SVG a minimum width.
-- For a genuinely wide figure, append `#diagram-wide` to its Markdown image target. The paragraph transform consumes
-  this marker, assigns the wide track, and keeps the figure at least 720 pixels wide inside a local horizontal scroll
-  container on narrower viewports.
-- Author wide figures so their smallest standalone labels remain legible at the 720-pixel rendering floor.
+- Use a plain Markdown image reference. Figures fit the article column without a special marker or scroll region.
+- Inspect figures at their native size and in the page at laptop and narrow viewport widths. If labels are too small,
+  compact or rearrange the drawing and increase type sizes rather than introducing a minimum image width.
 
 ## Typography
 
@@ -56,20 +58,14 @@ font-family:
   sans-serif;
 ```
 
-| Role                                              | Size |  Weight |
-| ------------------------------------------------- | ---: | ------: |
-| Process, service, or runtime title                |   17 |     650 |
-| Actor, state, interface, or major component label |   16 |     600 |
-| Boundary or component label                       |   15 |     600 |
-| Connector label                                   |   14 |     600 |
-| Category badge, annotation, or IP address         |   13 | 500–750 |
+Use bold component labels and lighter annotation text. Most published diagrams use 16-unit component labels and 14-unit
+annotations; the pilot figures and some dense flow diagrams use more specific roles and sizes. The template's sizes are
+starting points, not a fixed scale for every canvas. SVG units scale with the image: judge readability at the native
+display size and at the width available on the page.
 
 Use sentence case. Set code identifiers and filenames in the shared monospace stack. Break long component labels into
-two centered lines with an 18–20-unit baseline step. Give boundary titles their own clear header area so no border,
-connector, or pattern crosses the text.
-
-Thirteen units is the minimum size for standalone text. A superscript footnote glyph can be 11 units because it modifies
-an adjacent full-size label rather than carrying meaning on its own.
+centered lines with enough baseline spacing for their type size. Give boundary titles their own clear header area so no
+border, connector, or pattern crosses the text.
 
 ## Color and shape roles
 
@@ -93,8 +89,8 @@ Published diagrams currently use an opaque white canvas in both light and dark d
 raster-image treatment. Do not make only part of a diagram theme-aware; introduce a complete reviewed dark palette if
 adaptive diagrams are added later.
 
-When category headers replace a legacy legend, set them in 13-unit bold type with modest letter spacing. Use blue `API`
-headers for Ice API/runtime elements and violet `GENERATED` headers for generated code.
+When category headers replace a legacy legend, use small bold type with modest letter spacing. Use blue `API` headers
+for Ice API/runtime elements and violet `GENERATED` headers for generated code.
 
 Standard compact components are approximately `120 × 54`; application and generated-code components may be
 `165–180 × 62–72`. Keep at least 16 units of internal horizontal padding.
@@ -129,9 +125,10 @@ When a diagram contains both forward requests and callbacks, use solid arrows fo
 for the callback. Include a compact legend unless the surrounding page already establishes this convention
 unambiguously.
 
-Numbered steps use the shared 24-unit badge: a white circle with a 1.5-unit ZeroC-blue border and a centered 13-unit
-bold number. Define the circle once as `step-badge-shape` in `<defs>`, reuse it with `<use>`, and keep the number as
-native `<text>`.
+Numbered steps use a white circular badge with a ZeroC-blue border and a centered number. The template provides a
+24-unit badge; size the number and nearby label for the figure. Define the circle once as `step-badge-shape` in
+`<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Leave a visible gap between the badge and its
+label.
 
 ## Boundaries and annotations
 
@@ -140,7 +137,7 @@ native `<text>`.
 - Firewall devices use a distinct narrow component with a clear `Firewall` label. A firewall or policy boundary uses a
   labeled dashed line. Do not represent either with color alone.
 - Network zones use labeled boundaries only when the zone itself is meaningful. Otherwise label the connector `Network`.
-- Set addresses and ports in a 13-unit annotation immediately below the owning component, for example `IP: 10.0.0.1` or
+- Set addresses and ports in annotation text immediately below the owning component, for example `IP: 10.0.0.1` or
   `tcp: 4061`.
 
 ## Accessibility and SVG hygiene
@@ -150,8 +147,11 @@ native `<text>`.
   text to paths.
 - Set `vector-effect="non-scaling-stroke"` on borders, dividers, and connectors.
 - Define arrowheads once as `<marker>` elements rather than repeating arrow geometry.
-- Omit fixed `width` and `height` attributes from the root SVG so documentation layouts can size it responsively.
+- Keep the root `width` and `height` proportional to the `viewBox`; the page uses `max-width: 100%` and `height: auto`.
 - Mark purely structural connector groups `aria-hidden="true"` when the description already explains them.
-- Use class names that describe semantic roles rather than appearance.
+- Use class names that describe semantic roles rather than appearance. Names are local to each self-contained SVG:
+  published figures commonly use `.boundary`, `.api`, and `.application`, while the template offers more specific roles
+  such as `.process-boundary` and `.api-boundary`. A label background can use `.label-knockout` or an explicit white
+  fill; its purpose is to keep lines from crossing the text.
 - Keep the SVG self-contained: no scripts, external fonts, runtime dependencies, or editor metadata.
 - Format the source consistently and include comments only where they explain layout intent.
