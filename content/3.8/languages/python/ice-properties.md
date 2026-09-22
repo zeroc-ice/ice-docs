@@ -59,9 +59,8 @@ the server will not shut down automatically. This property is often used for ser
 
 {% callout type="info" %}
 
-For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool
-idle threads have been reaped (the thread idle time can be configured with the
-[ThreadIdleTime](../ice-threadpool-properties) thread pool property.
+On Windows, the server idle time takes effect only once all the server thread pool idle threads have been reaped. The
+thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
 
 {% /callout %}
 

@@ -71,14 +71,6 @@ return. After that, a server will typically do some clean-up work before exiting
 the server will not shut down automatically. This property is often used for servers that are automatically
 [activated by IceGrid](../icegrid-server-activation).
 
-{% callout type="info" %}
-
-For C# applications and Windows C++ applications, the server idle time takes effect only once all the server thread pool
-idle threads have been reaped (the thread idle time can be configured with the
-[ThreadIdleTime](../ice-threadpool-properties) thread pool property.
-
-{% /callout %}
-
 # Ice.SliceLoader.NotFoundCacheSize
 
 #### Synopsis
