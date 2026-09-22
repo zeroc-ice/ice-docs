@@ -109,9 +109,9 @@
     <rect x="376.0" y="228" width="64" height="24" rx="4" fill="#ffffff"/>
     <text class="annotation" x="408" y="244">encode</text>
     <text class="label" x="857.0" y="336.0">Node</text>
-    <use href="#step-badge-shape" x="725" y="331"/>
-    <text class="annotation" x="725" y="336">2</text>
-    <rect x="747.0" y="320" width="56" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="775" y="336">start</text>
+    <use href="#step-badge-shape" x="650" y="307"/>
+    <text class="annotation" x="650" y="312">2</text>
+    <rect x="672" y="296" width="56" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="700" y="312">start</text>
   </g>
 </svg>
