@@ -1,7 +1,8 @@
 {
   "private": true,
   "engines": {
-    "node": ">=22.18 <23 || >=23.6"
+    "node": ">=22.18 <23 || >=23.6",
+    "npm": ">=11.16"
   },
   "scripts": {
     "predev": "npm run build:search",
