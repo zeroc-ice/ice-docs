@@ -42,13 +42,18 @@ locate `path` relative to the default directory defined by `IceSSL.DefaultDir`.
 
 #### Synopsis
 
-`IceSSL.CertificateRevocationListFiles=file[:file]` (OpenSSL)
+`IceSSL.CertificateRevocationListFiles=file[,file...]` (OpenSSL)
 
 #### Description
 
-Specifies the path of a file containing the CRL info used for certificate revocation checks, the path is relative to
-`IceSSL.DefaultDir`. Multiple files can be specified in which case they must be separated using the platforms path
-separator.
+Specifies the PEM files containing the certificate revocation lists (CRLs) that IceSSL uses for revocation checks.
+Separate several files with commas or whitespace. A relative path is resolved under `IceSSL.DefaultDir` when that
+property is set, and relative to the working directory otherwise.
+
+IceSSL reads these files only when `IceSSL.RevocationCheck` is greater than zero, and then requires them: communicator
+initialization fails with an `InitializationException` if a file is missing or contains no PEM-encoded CRL or
+certificate. During the handshake, OpenSSL looks up the CRL of each certificate it checks in these files. If the CRL is
+not there, the handshake fails.
 
 # IceSSL.CertFile
 
@@ -249,23 +254,35 @@ On iOS, this property is ignored.
 
 #### Description
 
-Control whenever or not to check for revoked certificates:
+Specifies whether IceSSL checks the certificates of the peer's chain for revocation:
 
-| 0   | Certificate revocation checks are disabled (default)                            |
-| --- | ------------------------------------------------------------------------------- |
-| 1   | Enable certificate revocation checks only for the leaf certificate.             |
-| 2   | Enable certificate revocation checks for the whole chain excluding the root CA. |
+| Value | Description                                                 |
+| ----- | ----------------------------------------------------------- |
+| 0     | Revocation checks are disabled (default).                   |
+| 1     | Checks the revocation status of the peer's own certificate. |
+| 2     | Checks the revocation status of the whole chain.            |
+
+IceSSL aborts the connection when it finds a revoked certificate or cannot determine the revocation status of a
+certificate.
 
 #### Platform Notes
 
 ###### OpenSSL
 
-IceSSL will use the CRL files specified by `IceSSL.CertificateRevocationListFiles` for the revocation checks, if not CRL
-files are specified OpenSSL doesn't check certificate revocation.
+The revocation status is looked up in the CRL files listed in `IceSSL.CertificateRevocationListFiles`, which must be set
+when this property is greater than zero; otherwise communicator initialization fails. OpenSSL reports an error when it
+finds no CRL for a certificate it checks, so with the value `2` the files must cover every issuer in the chain.
+
+###### SChannel
+
+The value `2` checks the whole chain except the root CA certificate. Revocation data is fetched from the CRL
+distribution points and OCSP responders named in the certificates, subject to `IceSSL.RevocationCheckCacheOnly`.
 
 ###### SecureTransport
 
-With SecureTransport 1 and 2 are equivalent and in both cases the whole chain is check.
+The values `1` and `2` are equivalent: the revocation policy applies to the whole chain. See
+`IceSSL.RevocationCheckCacheOnly` for the revocation sources. The value `0` only leaves out IceSSL's revocation policy:
+the macOS trust evaluation still performs its own best-effort check and rejects a certificate it finds revoked.
 
 # IceSSL.RevocationCheckCacheOnly
 
@@ -275,18 +292,27 @@ With SecureTransport 1 and 2 are equivalent and in both cases the whole chain is
 
 #### Description
 
-Control whenever or not the certificate revocation check is done only against the system cache without additional
-network calls.
+Specifies whether revocation checks may access the network:
 
-| 0   | Certificate revocation checks can query the certificate distribution points, or the OCSP responder to obtain the certificate revocation info. |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Certificate revocation checks only consult the system cache (default)                                                                         |
+| Value | Description                                                                                                            |
+| ----- | ---------------------------------------------------------------------------------------------------------------------- |
+| 0     | Revocation checks may fetch CRLs from the distribution points and query the OCSP responders named in the certificates. |
+| 1     | Revocation checks consult only the system's revocation cache (default).                                                |
+
+With the default value, IceSSL rejects a certificate whose revocation status is not already in the system cache.
 
 #### Platform Notes
 
+###### SChannel
+
+The value `1` also disables the retrieval of intermediate certificates through the Authority Information Access
+extension, so the whole chain must be available locally.
+
 ###### SecureTransport
 
-The CRL distribution points are always ignored, and the AIA OCSP responder is used if present.
+IceSSL requests any available revocation method. In practice, the macOS trust evaluation queries the OCSP responder
+named in a certificate's Authority Information Access extension and does not fetch CRLs from distribution points, so
+IceSSL cannot determine the revocation status of a certificate that publishes only a CRL, and rejects it.
 
 {% /language-section %}
 
