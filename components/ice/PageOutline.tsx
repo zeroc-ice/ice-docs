@@ -46,6 +46,15 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
         if (element.getBoundingClientRect().top > ACTIVATION_LINE) break;
         current = id;
       }
+      // Headings near the end of a page can never scroll up to the activation
+      // line. Once the page bottoms out, the section the reader jumped to wins.
+      const target = decodeURIComponent(location.hash.slice(1));
+      const bottomedOut =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 1;
+      if (bottomedOut && list.indexOf(target) > list.indexOf(current)) {
+        current = target;
+      }
       setActive(current);
     };
 
@@ -57,7 +66,11 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
 
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('hashchange', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('hashchange', onScroll);
+    };
   }, [ids]);
 
   if (items.length === 0) return null;
