@@ -159,6 +159,12 @@
     box-sizing: border-box;
   }
 
+  /* Tailwind's Preflight reset leaves buttons at the browser's arrow. */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
   :root {
     --primary-color: 67 160 247;
 

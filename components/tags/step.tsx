@@ -34,7 +34,7 @@ export const Step = ({ title, level = 2, id, children }: StepProps) => {
   return (
     <div className="border-light-border dark:border-dark-border border-t">
       <div
-        className="mb-4 flex cursor-pointer flex-row items-center justify-between"
+        className="mb-4 flex flex-row items-center justify-between"
         onClick={() => setIsExpanded(!isExpanded)}
         onKeyDown={handleKeyDown}
         tabIndex={0}

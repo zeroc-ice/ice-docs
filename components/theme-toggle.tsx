@@ -26,7 +26,7 @@ export function ThemeToggle() {
         <Button
           variant="outline"
           size="icon"
-          className="dark:hover:bg-dark-accent cursor-pointer border-none hover:bg-zinc-100 focus:outline-none focus-visible:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-hidden dark:focus-visible:border-0 dark:focus-visible:ring-0 dark:focus-visible:ring-offset-0"
+          className="dark:hover:bg-dark-accent border-none hover:bg-zinc-100 focus:outline-none focus-visible:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-hidden dark:focus-visible:border-0 dark:focus-visible:ring-0 dark:focus-visible:ring-offset-0"
         >
           <Sun className="size-[1.2rem] scale-100 rotate-0 ring-0 ring-offset-0 transition-all dark:scale-0 dark:-rotate-90" />
           <Moon className="absolute size-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 dark:text-white" />
