@@ -92,7 +92,7 @@ const Switch = ({
     <DropdownMenuTrigger asChild>
       <button
         type="button"
-        className="group border-hairline bg-surface-subtle hover:border-link/40 flex w-full cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left transition duration-150 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
+        className="group border-hairline bg-surface-subtle hover:border-link/40 flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition duration-150 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
       >
         <span className="bg-accent-soft text-link flex size-8 shrink-0 items-center justify-center rounded-md">
           {icon}

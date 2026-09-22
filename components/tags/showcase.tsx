@@ -26,7 +26,7 @@ interface Props {
 }
 
 const tab =
-  '-mb-px cursor-pointer border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
+  '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
 const activeTab = 'border-sky-400 text-white';
 const idleTab = 'border-transparent text-white/55 hover:text-white';
 
