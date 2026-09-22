@@ -1,7 +1,8 @@
 # Ice Docs
 
 Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual for nine
-programming languages at `/ice/<version>/<language>/<page>` — for example `/ice/3.8/cpp/enumerations`.
+programming languages at `/ice/<version>/<language>/<slug>` — for example
+`/ice/3.8/cpp/the-slice-language/user-defined-types/enumerations`.
 
 ## Requirements
 
@@ -30,25 +31,29 @@ language.
 
 ## Content layout
 
-Everything for one version of the manual lives under `content/<version>/` (for example `content/3.8/`):
+Everything for one version of the manual lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page
+is a directory, and its path under the version is its slug, the path in its URL:
 
-- `navigation.yaml` — the table of contents (one tree), the languages, and `landing`, the manual's front page. The front
-  page is served at `/ice/<version>/<language>` and sits above the tree rather than in it: the sidebar heading and the
-  breadcrumb root link to it. The site root, `/ice`, and `/ice/<version>` redirect to a front page: the newest
-  version's, in its first language, when they name no version.
+- `index.md` — the manual's front page, served at `/ice/<version>/<language>`. It sits above the tree rather than in it:
+  the sidebar heading and the breadcrumb root link to it. The site root, `/ice`, and `/ice/<version>` redirect to a
+  front page: the newest version's, in its first language, when they name no version.
+- `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<language>/<dir>/…/<page>`: the language-neutral text,
+  with `{% language-section %}` slots. The pages under it in the manual are its subdirectories.
+- `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or a page that exists in one language only
+  (`writing-a-greeter-server-in-cpp/cpp.md` has no `index.md` beside it).
+- `navigation.yaml` — the table of contents (one tree) and the languages.
 - `redirects.yaml` — old URL to new URL.
-- `shared/<slug>.md` — a language-neutral page, with `{% language-section %}` slots.
-- `languages/<lang>/<slug>.md` — the overlay filling those slots, or a page that exists in one language only.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
-A page's images live under `public/attachments/<version>/<slug>/` and are referenced as
-`/attachments/<version>/<slug>/<file>`.
+A page's images live under `public/attachments/<version>/<page>/` and are referenced as
+`/attachments/<version>/<page>/<file>`.
 
-- **Slugs are flat** and globally unique within a version. Where a page sits in the manual is `navigation.yaml`'s
-  business, not the URL's; a node with `language:` appears only in that language's table of contents.
-- **Cross-page links name a page by its slug** (`[Enumerations](../enumerations)`) and are resolved at build time
-  against the pages that exist for the reader's language. A link to a page that does not exist renders as plain text and
-  is reported by `check:content`.
+- **Page names are globally unique** within a version. The content tree follows the table of contents: `navigation.yaml`
+  names pages by name, and `check:content` fails a page whose directory is not inside the directory of the group above
+  it. A node with `language:` appears only in that language's table of contents.
+- **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time against
+  the pages that exist for the reader's language. A link to a page that does not exist renders as plain text and is
+  reported by `check:content`.
 - **A shared page and its overlay make one document per language.** The shared page declares
   `{% language-section name="…" /%}` slots; the overlay answers each one, with prose or with a declared state
   (`no-addition`, or `not-applicable` with a note), as described in `lib/docs-model/resolve.ts`. Small inline variation

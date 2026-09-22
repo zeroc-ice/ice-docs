@@ -5,19 +5,21 @@
 // These are the invariants that make the manual hold together; each one, when
 // violated, produces a page a reader cannot reach or a link that goes nowhere:
 //
-//   1. every page file is reachable from navigation.yaml
+//   1. every page is reachable from navigation.yaml
 //   2. every navigation entry points at a page that exists
-//   3. no two pages share a slug (cross-page links are keyed by it)
-//   4. every cross-page link resolves to a real page
-//   5. every image parses as an image, has alt text, and its file exists
-//   6. no raw HTML or Confluence markup survived the migration
-//   7. every language slot is answered, and says which kind of answer it is
+//   3. every page's directory sits in the directory of the group above it in navigation.yaml
+//   4. no two pages share a name (cross-page links are keyed by it)
+//   5. every overlay is for one of the manual's languages
+//   6. every cross-page link resolves to a real page
+//   7. every image parses as an image, has alt text, and its file exists
+//   8. no raw HTML or Confluence markup survived the migration
+//   9. every language slot is answered, and says which kind of answer it is
 //
-// Exit code 1 on a violation of 1-3, 5a/5b (unparseable image markup and missing
-// alt text) and 6 — those are defects in the files themselves, and the tree is
+// Exit code 1 on a violation of 1-5, 7a/7b (unparseable image markup and missing
+// alt text) and 8 — those are defects in the files themselves, and the tree is
 // clean of them today, so anything new is a regression.
 //
-// Unresolved links (4) and missing image files (5c) are reported and fail only
+// Unresolved links (6) and missing image files (7c) are reported and fail only
 // under --strict: the migrated manual still links to pages that were never
 // brought over, and none of its Confluence attachments were migrated at all.
 
@@ -33,13 +35,13 @@ import {
 } from '../lib/docs-model/resolve.ts';
 import {
   listVersions,
-  listPageEntries,
+  listPages,
   readNavigationYaml
 } from '../lib/docs-model/content.ts';
-import { navigationSlugs } from '../lib/docs-model/nav.ts';
+import { navigationPages } from '../lib/docs-model/nav.ts';
 
 const strict = process.argv.includes('--strict');
-const ROOT = path.join(process.cwd(), 'content');
+const ROOT = path.join(process.cwd(), 'content', 'ice');
 const PUBLIC = path.join(process.cwd(), 'public');
 
 let errors = 0;
@@ -82,17 +84,6 @@ function withoutCode(source) {
   return source
     .replace(/^```[\s\S]*?^```/gm, (block) => block.replace(/[^\n]/g, ' '))
     .replace(/`[^`\n]*`/g, (span) => span.replace(/[^\n]/g, ' '));
-}
-
-/** Every .md file under a version, as absolute paths. */
-function markdownFiles(dir, out = []) {
-  if (!fs.existsSync(dir)) return out;
-  for (const entry of fs.readdirSync(dir)) {
-    const abs = path.join(dir, entry);
-    if (fs.statSync(abs).isDirectory()) markdownFiles(abs, out);
-    else if (entry.endsWith('.md')) out.push(abs);
-  }
-  return out;
 }
 
 // Where an image target should resolve on disk: site-absolute paths come out of
@@ -169,9 +160,7 @@ const UNCLASSIFIED_SLOT_BASELINE = 462;
  * nothing", or "this mapping cannot do this, because…". A blank section says
  * none of those, and the reader cannot tell the three apart.
  */
-function checkSlots(version, languages) {
-  const shared = path.join(ROOT, version, 'shared');
-  const langRoot = path.join(ROOT, version, 'languages');
+function checkSlots(version, pages, languages) {
   const counts = {
     content: 0,
     'no-addition': 0,
@@ -179,25 +168,25 @@ function checkSlots(version, languages) {
     unclassified: 0
   };
   const perLanguage = Object.fromEntries(languages.map((l) => [l, 0]));
-  // slug -> language -> slot names still blank, for the `--slots` worklist.
+  // page name -> language -> slot names still blank, for the `--slots` worklist.
   const blanks = new Map();
   let missing = 0;
   let unused = 0;
 
-  for (const file of markdownFiles(shared)) {
-    const slug = path.relative(shared, file).replace(/\.md$/, '');
+  for (const page of pages) {
+    if (!page.shared) continue;
     const slots = declaredSlots(
-      splitFrontmatter(fs.readFileSync(file, 'utf8')).body
+      splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
     );
     if (slots.length === 0) continue;
 
     for (const language of languages) {
-      const overlayPath = path.join(langRoot, language, `${slug}.md`);
-      if (!fs.existsSync(overlayPath)) {
+      const overlayPath = page.overlays[language];
+      if (!overlayPath) {
         // The shared page asks for language-specific prose and none exists.
         missing += slots.length;
         fail(
-          `${version}/${language}: "${slug}" declares ${slots.length} slot(s) but has no overlay`
+          `${version}/${language}: "${page.name}" declares ${slots.length} slot(s) but has no overlay`
         );
         continue;
       }
@@ -209,7 +198,7 @@ function checkSlots(version, languages) {
         );
       } catch (error) {
         fail(
-          `${version}/${language}: "${slug}" overlay is malformed — ${error.message}`
+          `${version}/${language}: "${page.name}" overlay is malformed — ${error.message}`
         );
         continue;
       }
@@ -219,15 +208,15 @@ function checkSlots(version, languages) {
         if (!slot) {
           missing++;
           fail(
-            `${version}/${language}: "${slug}" has no section for slot "${name}"`
+            `${version}/${language}: "${page.name}" has no section for slot "${name}"`
           );
           continue;
         }
         counts[slot.state]++;
         if (slot.state === 'unclassified') {
           perLanguage[language]++;
-          if (!blanks.has(slug)) blanks.set(slug, new Map());
-          const byLanguage = blanks.get(slug);
+          if (!blanks.has(page.name)) blanks.set(page.name, new Map());
+          const byLanguage = blanks.get(page.name);
           byLanguage.set(language, [...(byLanguage.get(language) ?? []), name]);
         }
       }
@@ -236,7 +225,7 @@ function checkSlots(version, languages) {
         if (!slots.includes(name)) {
           unused++;
           fail(
-            `${version}/${language}: "${slug}" overlay defines unused section "${name}"`
+            `${version}/${language}: "${page.name}" overlay defines unused section "${name}"`
           );
         }
       }
@@ -247,8 +236,8 @@ function checkSlots(version, languages) {
   // one page and answer it for every language at once.
   if (process.argv.includes('--slots') && blanks.size) {
     console.log('\nunclassified slots by page:');
-    for (const [slug, byLanguage] of [...blanks.entries()].sort()) {
-      console.log(`  ${slug}`);
+    for (const [name, byLanguage] of [...blanks.entries()].sort()) {
+      console.log(`  ${name}`);
       for (const [language, names] of [...byLanguage.entries()].sort()) {
         console.log(`    ${language.padEnd(7)} ${names.join(', ')}`);
       }
@@ -316,75 +305,109 @@ for (const version of listVersions(ROOT)) {
     continue;
   }
 
-  const entries = listPageEntries(ROOT, version);
-  const slugs = entries.map((e) => e.path);
-  const { duplicates } = buildPageIndex(entries);
-  const declared = new Set(navigationSlugs(nav));
+  const pages = listPages(ROOT, version);
+  const byName = new Map(pages.map((page) => [page.name, page]));
+  const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
+  const declared = new Set(navigationPages(nav.sidebar));
+  const languages = nav.languages?.length ? nav.languages : ['cpp'];
 
-  console.log(`\n${version}: ${slugs.length} pages`);
+  console.log(`\n${version}: ${pages.length} pages`);
 
-  // 1. every page is reachable from the navigation
-  const orphans = slugs.filter((slug) => !declared.has(slug));
-  for (const slug of orphans.slice(0, 20))
-    fail(`${version}: "${slug}" is not in navigation.yaml`);
+  // 1. every page is reachable from the navigation; the front page, index.md at
+  //    the root, is reached from the manual's title instead, and the site root
+  //    redirects to it.
+  if (!pages.some((page) => page.slug === '' && page.shared))
+    fail(`${version}: no front page (index.md at the version root)`);
+  const orphans = pages.filter((page) => page.slug && !declared.has(page.name));
+  for (const { name } of orphans.slice(0, 20))
+    fail(`${version}: "${name}" is not in navigation.yaml`);
   if (orphans.length > 20)
     fail(`${version}: ...and ${orphans.length - 20} more unreachable pages`);
 
   // 2. every navigation entry exists
-  const known = new Set(slugs);
-  const dangling = [...declared].filter((slug) => !known.has(slug));
-  for (const slug of dangling.slice(0, 20))
-    fail(`${version}: navigation points at missing page "${slug}"`);
+  const dangling = [...declared].filter((name) => !byName.has(name));
+  for (const name of dangling.slice(0, 20))
+    fail(`${version}: navigation points at missing page "${name}"`);
   if (dangling.length > 20)
     fail(`${version}: ...and ${dangling.length - 20} more missing pages`);
 
-  // 3. slugs are unique (cross-page links are keyed by them)
+  // 3. the content tree mirrors the navigation: a page's directory sits in the
+  //    directory of the group above it. A group with no page of its own has no
+  //    directory either, so its pages sit in the directory above it.
+  const checkPlacement = (nodes, dir) => {
+    for (const node of nodes ?? []) {
+      if (!node.page) {
+        checkPlacement(node.items, dir);
+        continue;
+      }
+      const page = byName.get(node.page);
+      if (!page) continue; // reported by rule 2
+      const parent = page.slug.split('/').slice(0, -1).join('/');
+      if (parent !== dir) {
+        fail(
+          `${version}: "${node.page}" is at ${page.slug}, but navigation.yaml puts it under ${dir || 'the root'}`
+        );
+      }
+      checkPlacement(node.items, page.slug);
+    }
+  };
+  checkPlacement(nav.sidebar, '');
+
+  // 4. page names are unique (cross-page links are keyed by them)
   for (const dup of duplicates)
     fail(`${version}: duplicate page name "${dup}"`);
 
-  // 4. cross-page links resolve — checked once per language, because a page that
-  //    exists only in C++ must not resolve while rendering the Python manual.
-  const unresolved = new Map();
-  const languages = nav.languages?.length ? nav.languages : ['cpp'];
-  const files = [
-    ...markdownFiles(path.join(ROOT, version, 'shared')),
-    ...markdownFiles(path.join(ROOT, version, 'languages'))
-  ];
+  // 5. a file beside a page's index.md is the overlay for the language it is named after
+  for (const page of pages) {
+    for (const language of Object.keys(page.overlays)) {
+      if (!languages.includes(language))
+        fail(
+          `${version}: ${path.relative(ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the manual's languages`
+        );
+    }
+  }
 
-  // 5 & 6: defects inside the files themselves, independent of language.
+  // 7 & 8: defects inside the files themselves, independent of language.
+  const files = pages.flatMap((page) => [
+    ...(page.shared ? [page.shared] : []),
+    ...Object.values(page.overlays)
+  ]);
   checkImages(version, files);
   checkStrayMarkup(files);
 
-  // 7. every language slot is answered, and says what kind of answer it is.
-  checkSlots(version, languages);
+  // 9. every language slot is answered, and says what kind of answer it is.
+  checkSlots(version, pages, languages);
 
+  // 6. cross-page links resolve — checked once per language, because a page that
+  //    exists only in C++ must not resolve while rendering the Python manual,
+  //    and an overlay is only ever rendered for its own language.
+  const unresolved = new Map();
   let total = 0;
   for (const language of languages) {
     const { index: languageIndex } = buildPageIndex(
-      listPageEntries(ROOT, version, language)
+      listPages(ROOT, version, language).map((page) => page.slug)
     );
-    for (const file of files) {
-      // An overlay is only ever rendered for its own language. `files` holds
-      // platform-native paths, so match either separator — on Windows a
-      // forward-slash-only pattern never matches, and every overlay would be
-      // checked against all nine languages.
-      const overlay = /[\\/]languages[\\/]([^\\/]+)[\\/]/.exec(file);
-      if (overlay && overlay[1] !== language) continue;
-
-      const source = fs.readFileSync(file, 'utf8');
-      const targets = [
-        ...source.matchAll(LINK_RE),
-        ...source.matchAll(CARD_HREF_RE)
-      ];
-      for (const match of targets) {
-        total++;
-        if (
-          resolveDocLink(match[1], { version, language, index: languageIndex })
-            .resolved
-        )
-          continue;
-        const key = `${match[1]} (${language})`;
-        unresolved.set(key, (unresolved.get(key) ?? 0) + 1);
+    for (const page of pages) {
+      for (const file of [page.shared, page.overlays[language]]) {
+        if (!file) continue;
+        const source = fs.readFileSync(file, 'utf8');
+        const targets = [
+          ...source.matchAll(LINK_RE),
+          ...source.matchAll(CARD_HREF_RE)
+        ];
+        for (const match of targets) {
+          total++;
+          if (
+            resolveDocLink(match[1], {
+              version,
+              language,
+              index: languageIndex
+            }).resolved
+          )
+            continue;
+          const key = `${match[1]} (${language})`;
+          unresolved.set(key, (unresolved.get(key) ?? 0) + 1);
+        }
       }
     }
   }

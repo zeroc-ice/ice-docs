@@ -2,7 +2,7 @@
 //
 // Run with: node lib/docs-model/content.test.ts
 // Uses a dedicated fixture under __fixtures__ so it is independent of the
-// (large, evolving) migrated content in content/3.8.
+// (large, evolving) migrated content in content/ice/3.8.
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,13 +11,11 @@ import { dirname, join } from 'node:path';
 
 import {
   listVersions,
-  listSlugs,
+  listPages,
   readPageSources,
-  pageLanguages,
   listPageParams,
   readNavigationYaml,
-  snippetReader,
-  listPageEntries
+  snippetReader
 } from './content.ts';
 
 const ROOT = join(
@@ -32,25 +30,35 @@ test('listVersions finds 3.8 and ignores non-version dirs', () => {
   assert.ok(!versions.includes('slice'));
 });
 
-test('listSlugs unions shared pages and language overlays', () => {
-  const slugs = listSlugs(ROOT, '3.8');
-  assert.ok(slugs.includes('get-started'));
-  assert.ok(slugs.includes('enumerations'));
+test('listPages reads a page and its overlays off its directory', () => {
+  const pages = listPages(ROOT, '3.8');
+  const bySlug = Object.fromEntries(pages.map((p) => [p.slug, p]));
+
+  // A directory's path under the version is its page's slug, and its name the page's.
+  const enums = bySlug['slice/enumerations'];
+  assert.equal(enums.name, 'enumerations');
+  assert.match(enums.shared!, /slice\/enumerations\/index\.md$/);
+  assert.deepEqual(Object.keys(enums.overlays).sort(), ['cpp', 'python']);
+
+  // A chapter is a page whose directory holds other pages.
+  assert.equal(bySlug['slice'].name, 'slice');
+  assert.equal(bySlug[''].name, ''); // the front page
+
+  // A directory with overlays but no index.md is a page in those languages only.
+  const datastorm = bySlug['services/datastorm'];
+  assert.equal(datastorm.shared, undefined);
+  assert.deepEqual(Object.keys(datastorm.overlays).sort(), ['cpp', 'java']);
 });
 
 test('readPageSources returns shared and overlay presence correctly', () => {
-  const enums = readPageSources(ROOT, '3.8', 'cpp', 'enumerations');
+  const enums = readPageSources(ROOT, '3.8', 'cpp', 'slice/enumerations');
   assert.ok(enums.shared && enums.overlay);
   const gs = readPageSources(ROOT, '3.8', 'python', 'get-started');
   assert.ok(gs.shared);
   assert.equal(gs.overlay, null); // shared-only page, no overlay
-});
-
-test('pageLanguages: a shared page is available in every configured language', () => {
-  assert.deepEqual(
-    pageLanguages(ROOT, '3.8', 'get-started', ['cpp', 'python']),
-    ['cpp', 'python']
-  );
+  // A chapter's own page, and the front page at the root.
+  assert.match(readPageSources(ROOT, '3.8', 'cpp', 'slice').shared!, /Slice/);
+  assert.match(readPageSources(ROOT, '3.8', 'cpp', '').shared!, /front page/);
 });
 
 test('listPageParams enumerates version x language x slug, respecting availability', () => {
@@ -60,12 +68,13 @@ test('listPageParams enumerates version x language x slug, respecting availabili
       (p) => p.version === '3.8' && p.language === language && p.slug === slug
     );
 
-  assert.ok(has('cpp', 'enumerations'));
+  assert.ok(has('cpp', 'slice/enumerations'));
   assert.ok(has('python', 'get-started'));
+  assert.ok(has('python', '')); // the front page, in every language
   // datastorm exists only for cpp + java; with [cpp, python] requested it appears
   // for cpp but not python (availability filtering).
-  assert.ok(has('cpp', 'datastorm'));
-  assert.ok(!has('python', 'datastorm'));
+  assert.ok(has('cpp', 'services/datastorm'));
+  assert.ok(!has('python', 'services/datastorm'));
   // never emit a param outside the requested language set
   assert.ok(
     params.every((p) => p.language === 'cpp' || p.language === 'python')
@@ -82,21 +91,13 @@ test('readNavigationYaml returns the navigation text', () => {
   assert.ok(yaml && yaml.includes('languages'));
 });
 
-test('listPageEntries carries each page id, for links that name a page by id', () => {
-  const entries = listPageEntries(ROOT, '3.8');
-  const enums = entries.find((e) => e.path === 'enumerations');
-  assert.equal(enums?.id, 'enumerations');
-});
-
-test('listPageEntries scopes language-only pages to the language being rendered', () => {
+test('listPages scopes language-only pages to the language being rendered', () => {
   // The fixture's `datastorm` page exists only as cpp and java overlays.
-  const has = (language, slug) =>
-    listPageEntries(ROOT, '3.8', language).some((e) => e.path === slug);
+  const has = (language: string, slug: string) =>
+    listPages(ROOT, '3.8', language).some((p) => p.slug === slug);
 
-  assert.ok(has('cpp', 'datastorm'));
-  assert.ok(!has('python', 'datastorm')); // would otherwise link to a URL that is never built
+  assert.ok(has('cpp', 'services/datastorm'));
+  assert.ok(!has('python', 'services/datastorm')); // would otherwise link to a URL that is never built
   // A shared page belongs to every language.
-  assert.ok(has('python', 'enumerations'));
-  // Without a language, every page in the version is listed.
-  assert.ok(listPageEntries(ROOT, '3.8').some((e) => e.path === 'datastorm'));
+  assert.ok(has('python', 'slice/enumerations'));
 });

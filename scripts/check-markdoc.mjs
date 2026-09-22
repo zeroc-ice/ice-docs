@@ -35,14 +35,15 @@ import { load as yamlLoad } from 'js-yaml';
 
 import config from '../markdoc/config.ts';
 import {
-  listPageEntries,
   listPageParams,
+  listPages,
   listVersions,
   readNavigationYaml,
   readPageSources,
   snippetReader
 } from '../lib/docs-model/content.ts';
 import { buildPageIndex } from '../lib/docs-model/links.ts';
+import { pageHref } from '../lib/docs-model/nav.ts';
 import {
   demoteHeadings,
   resolveDocument,
@@ -50,7 +51,7 @@ import {
   stripRedundantTitle
 } from '../lib/docs-model/resolve.ts';
 
-const ROOT = path.join(process.cwd(), 'content');
+const ROOT = path.join(process.cwd(), 'content', 'ice');
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
 const resolverTags = {
@@ -73,15 +74,6 @@ const resolverTags = {
 
 const LEVELS = ['debug', 'info', 'warning', 'error', 'critical'];
 const fails = (level) => LEVELS.indexOf(level) >= LEVELS.indexOf('warning');
-
-function markdownFiles(dir, out = []) {
-  for (const entry of fs.readdirSync(dir)) {
-    const abs = path.join(dir, entry);
-    if (fs.statSync(abs).isDirectory()) markdownFiles(abs, out);
-    else if (entry.endsWith('.md')) out.push(abs);
-  }
-  return out;
-}
 
 /** Parse one document with the same tokenizer settings as lib/markdown.ts. */
 function parse(source) {
@@ -117,13 +109,15 @@ const pageIndexes = new Map();
 function variablesFor({ version, language, slug, frontmatter }) {
   const key = `${version}/${language}`;
   if (!pageIndexes.has(key)) {
-    const { index } = buildPageIndex(listPageEntries(ROOT, version, language));
+    const { index } = buildPageIndex(
+      listPages(ROOT, version, language).map((page) => page.slug)
+    );
     pageIndexes.set(key, index);
   }
   return {
     ...config.variables,
     frontmatter,
-    path: `/ice/${version}/${language}/${slug}`,
+    path: pageHref(version, language, slug),
     readingTime: '1 min read',
     version,
     language,
@@ -140,17 +134,32 @@ const reported = new Set();
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
 for (const version of listVersions(ROOT)) {
-  for (const file of markdownFiles(path.join(ROOT, version)).sort()) {
+  const files = listPages(ROOT, version).flatMap((page) => [
+    // A shared page is rendered for every language; any one will do here.
+    ...(page.shared
+      ? [
+          {
+            file: page.shared,
+            language: languagesByVersion[version][0],
+            slug: page.slug
+          }
+        ]
+      : []),
+    ...Object.entries(page.overlays).map(([language, file]) => ({
+      file,
+      language,
+      slug: page.slug
+    }))
+  ]);
+  for (const { file, language, slug } of files.sort((a, b) =>
+    a.file.localeCompare(b.file)
+  )) {
     pages++;
     const source = fs.readFileSync(file, 'utf8');
-    const overlay = /^languages[\\/]([^\\/]+)[\\/]/.exec(
-      path.relative(path.join(ROOT, version), file)
-    );
     const variables = variablesFor({
       version,
-      // A shared page is rendered for every language; any one will do here.
-      language: overlay?.[1] ?? languagesByVersion[version][0],
-      slug: path.basename(file, '.md'),
+      language,
+      slug,
       frontmatter: frontmatterOf(source)
     });
     for (const d of validate(parse(source), source, sourceTags, variables)) {

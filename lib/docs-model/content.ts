@@ -4,9 +4,16 @@
 // discovers routes under a content root laid out as:
 //
 //   <root>/<version>/navigation.yaml
-//   <root>/<version>/shared/<slug>.md
-//   <root>/<version>/languages/<lang>/<slug>.md
-//   <root>/<version>/examples/...            (snippet sources)
+//   <root>/<version>/index.md                  the manual's front page
+//   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
+//   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
+//   <root>/<version>/examples/...              (snippet sources)
+//
+// A page is a directory, and its path under the version is its slug, the path in
+// its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
+// at /ice/<version>/<language>/slice/enumerations, and the pages under it are its
+// subdirectories. A directory with overlays but no index.md is a page that exists
+// in those languages only.
 //
 // Only depends on node builtins, so it is unit-testable with
 // `node lib/docs-model/content.test.ts` and usable from Next server components.
@@ -14,10 +21,6 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-
-import { FRONTMATTER_RE } from './resolve.ts';
-
-export const DEFAULT_CONTENT_ROOT = 'content';
 
 function readIfExists(file: string): string | null {
   return fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : null;
@@ -36,7 +39,8 @@ export function listVersions(root: string): string[] {
     .sort();
 }
 
-function collectMarkdownSlugs(dir: string): string[] {
+/** Every .md file under `dir`, as paths relative to it with `/` separators. */
+function markdownFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   const out: string[] = [];
   const walk = (current: string) => {
@@ -44,9 +48,7 @@ function collectMarkdownSlugs(dir: string): string[] {
       const abs = path.join(current, entry);
       if (fs.statSync(abs).isDirectory()) walk(abs);
       else if (entry.endsWith('.md')) {
-        out.push(
-          path.relative(dir, abs).replace(/\.md$/, '').split(path.sep).join('/')
-        );
+        out.push(path.relative(dir, abs).split(path.sep).join('/'));
       }
     }
   };
@@ -54,18 +56,64 @@ function collectMarkdownSlugs(dir: string): string[] {
   return out;
 }
 
-/** Every page slug in a version: the union of shared pages and all language overlays. */
-export function listSlugs(root: string, version: string): string[] {
+/** The files that make up one page. */
+export interface PageFiles {
+  /** The page's path under the version, as in its URL: `''` for the front page. */
+  slug: string;
+  /** The page's name, unique within the version: the last segment of its slug. */
+  name: string;
+  /** Its `index.md`, absolute; absent for a page that exists in some languages only. */
+  shared?: string;
+  /** language -> its `<lang>.md`, absolute. */
+  overlays: Record<string, string>;
+}
+
+/** Whether a page exists for a language: it has a shared text, or an overlay for that language. */
+export function pageExists(page: PageFiles, language: string): boolean {
+  return !!page.shared || language in page.overlays;
+}
+
+const pagesCache = new Map<string, PageFiles[]>();
+
+/**
+ * Every page in a version, with the files that make it up, sorted by slug.
+ *
+ * Pass a `language` to get only the pages that exist for it: a link resolved
+ * against the whole version would happily point a Python reader at a page that
+ * only exists in C++, and that URL is never generated.
+ *
+ * Cached per version in production: one build renders thousands of pages and
+ * each would otherwise re-walk the whole content tree. Never cached in
+ * development, where pages change while the server is running.
+ */
+export function listPages(
+  root: string,
+  version: string,
+  language?: string
+): PageFiles[] {
   const base = path.join(root, version);
-  const slugs = new Set(collectMarkdownSlugs(path.join(base, 'shared')));
-  const langDir = path.join(base, 'languages');
-  if (fs.existsSync(langDir)) {
-    for (const lang of fs.readdirSync(langDir)) {
-      for (const slug of collectMarkdownSlugs(path.join(langDir, lang)))
-        slugs.add(slug);
+  const cacheable = process.env.NODE_ENV === 'production';
+  let pages = cacheable ? pagesCache.get(base) : undefined;
+  if (!pages) {
+    const bySlug = new Map<string, PageFiles>();
+    for (const file of markdownFiles(base)) {
+      const segments = file.replace(/\.md$/, '').split('/');
+      const stem = segments.pop()!;
+      const slug = segments.join('/');
+      const page = bySlug.get(slug) ?? {
+        slug,
+        name: segments[segments.length - 1] ?? '',
+        overlays: {}
+      };
+      const abs = path.join(base, file);
+      if (stem === 'index') page.shared = abs;
+      else page.overlays[stem] = abs;
+      bySlug.set(slug, page);
     }
+    pages = [...bySlug.values()].sort((a, b) => a.slug.localeCompare(b.slug));
+    if (cacheable) pagesCache.set(base, pages);
   }
-  return [...slugs].sort();
+  return language ? pages.filter((page) => pageExists(page, language)) : pages;
 }
 
 /** Read the shared page and the language overlay for a slug (either may be absent). */
@@ -75,40 +123,11 @@ export function readPageSources(
   language: string,
   slug: string
 ): { shared: string | null; overlay: string | null } {
-  const base = path.join(root, version);
+  const dir = path.join(root, version, slug);
   return {
-    shared: readIfExists(path.join(base, 'shared', `${slug}.md`)),
-    overlay: readIfExists(path.join(base, 'languages', language, `${slug}.md`))
+    shared: readIfExists(path.join(dir, 'index.md')),
+    overlay: readIfExists(path.join(dir, `${language}.md`))
   };
-}
-
-/** Whether a page exists in a version for a language (shared page or language overlay). */
-export function pageExists(
-  root: string,
-  version: string,
-  language: string,
-  slug: string
-): boolean {
-  const { shared, overlay } = readPageSources(root, version, language, slug);
-  return shared !== null || overlay !== null;
-}
-
-/**
- * Which of `allLanguages` a page is available in: all of them if a shared page
- * exists, otherwise just the languages that have an overlay/page for the slug.
- */
-export function pageLanguages(
-  root: string,
-  version: string,
-  slug: string,
-  allLanguages: string[]
-): string[] {
-  const base = path.join(root, version);
-  if (fs.existsSync(path.join(base, 'shared', `${slug}.md`)))
-    return [...allLanguages];
-  return allLanguages.filter((lang) =>
-    fs.existsSync(path.join(base, 'languages', lang, `${slug}.md`))
-  );
 }
 
 export interface PageParam {
@@ -124,10 +143,10 @@ export function listPageParams(
 ): PageParam[] {
   const params: PageParam[] = [];
   for (const version of listVersions(root)) {
-    const langs = languagesByVersion[version] ?? [];
-    for (const slug of listSlugs(root, version)) {
-      for (const language of pageLanguages(root, version, slug, langs)) {
-        params.push({ version, language, slug });
+    for (const page of listPages(root, version)) {
+      for (const language of languagesByVersion[version] ?? []) {
+        if (pageExists(page, language))
+          params.push({ version, language, slug: page.slug });
       }
     }
   }
@@ -140,79 +159,6 @@ export function readNavigationYaml(
   version: string
 ): string | null {
   return readIfExists(path.join(root, version, 'navigation.yaml'));
-}
-
-/** The `id:` line of a page's frontmatter, without parsing the whole document. */
-function readPageId(file: string): string | undefined {
-  const source = readIfExists(file);
-  if (!source) return undefined;
-  const frontmatter = FRONTMATTER_RE.exec(source);
-  const id = frontmatter && /^id:\s*(.+)$/m.exec(frontmatter[1]);
-  return id ? id[1].trim().replace(/^["']|["']$/g, '') : undefined;
-}
-
-export interface PageEntry {
-  path: string;
-  /** The page's `id` frontmatter — stable across moves and renames. */
-  id?: string;
-}
-
-const pageEntryCache = new Map<string, PageEntry[]>();
-
-/**
- * Every page in a version, with its stable id, for the cross-page link index.
- *
- * Pass a `language` to get only the pages that exist for it: a link resolved
- * against the whole version would happily point a Python reader at a page that
- * only exists in C++, and that URL is never generated.
- *
- * Cached per (root, version, language) in production: one build renders
- * thousands of pages and each would otherwise re-walk the whole content tree.
- * Never cached in development, where pages change while the server is running.
- */
-export function listPageEntries(
-  root: string,
-  version: string,
-  language?: string
-): PageEntry[] {
-  const cacheable = process.env.NODE_ENV === 'production';
-  // U+001F, not NUL: a NUL byte anywhere in a file makes git classify it as
-  // binary, which excludes it from `* text=auto` normalization and from diffs.
-  const key = [root, version, language ?? ''].join('\u001f');
-  const cached = cacheable ? pageEntryCache.get(key) : undefined;
-  if (cached) return cached;
-
-  const base = path.join(root, version);
-  const entries: PageEntry[] = [];
-  for (const slug of listSlugs(root, version)) {
-    const shared = path.join(base, 'shared', `${slug}.md`);
-    const overlay = language
-      ? path.join(base, 'languages', language, `${slug}.md`)
-      : null;
-
-    if (fs.existsSync(shared)) {
-      entries.push({ path: slug, id: readPageId(shared) });
-      continue;
-    }
-    // No shared page: this is a language-specific page. Include it only when it
-    // exists for the language being rendered.
-    if (overlay) {
-      if (fs.existsSync(overlay))
-        entries.push({ path: slug, id: readPageId(overlay) });
-      continue;
-    }
-    const langDir = path.join(base, 'languages');
-    for (const lang of fs.existsSync(langDir) ? fs.readdirSync(langDir) : []) {
-      const file = path.join(langDir, lang, `${slug}.md`);
-      if (fs.existsSync(file)) {
-        entries.push({ path: slug, id: readPageId(file) });
-        break;
-      }
-    }
-  }
-
-  if (cacheable) pageEntryCache.set(key, entries);
-  return entries;
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

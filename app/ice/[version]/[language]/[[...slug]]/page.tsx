@@ -20,12 +20,13 @@ import {
   MANUAL_TITLE,
   buildSideNav,
   breadcrumbs,
-  counterpartSlug,
+  counterpartPage,
   languageLabel,
   pageHref,
   prevNext,
   trailTo,
   versionSwitchTarget,
+  type BuildSideNavOptions,
   type NavDoc
 } from '@/lib/docs-model/nav';
 import { type LanguageOption } from '@/components/ice/LanguageSelect';
@@ -36,7 +37,7 @@ import { SwitchNotice } from '@/components/ice/SwitchNotice';
 import { VersionBanner } from '@/components/ice/VersionBanner';
 import {
   listVersions,
-  listPageEntries,
+  listPages,
   listPageParams,
   readPageSources,
   readNavigationYaml,
@@ -57,7 +58,7 @@ type PageProps = {
 };
 
 function contentRoot(): string {
-  return path.join(process.cwd(), 'content');
+  return path.join(process.cwd(), 'content', 'ice');
 }
 
 function navFor(version: string): NavDoc | null {
@@ -72,84 +73,89 @@ function frontmatterOf(source: string): Record<string, string> {
     : {};
 }
 
+/**
+ * A version's pages' slugs by name, when they exist for a language. The tree
+ * names pages by name; a page's slug — where its files are, and so its URL —
+ * comes from the content tree.
+ */
+function slugLookup(root: string, version: string) {
+  const byName = new Map(listPages(root, version).map((p) => [p.name, p]));
+  return (language: string, name: string): string | undefined => {
+    const page = byName.get(name);
+    return page && pageExists(page, language) ? page.slug : undefined;
+  };
+}
+
 export function generateStaticParams() {
   const root = contentRoot();
   const languagesByVersion: Record<string, string[]> = {};
-  const landingByVersion: Record<string, string> = {};
   for (const version of listVersions(root)) {
-    const nav = navFor(version);
-    languagesByVersion[version] = nav?.languages ?? [];
-    if (nav) landingByVersion[version] = nav.landing;
+    languagesByVersion[version] = navFor(version)?.languages ?? [];
   }
-  // The landing page is served at the version and language root, not under its
-  // own slug.
-  const roots = Object.entries(languagesByVersion).flatMap(
-    ([version, languages]) =>
-      languages.map((language) => ({ version, language, slug: [] }))
-  );
-  const pages = listPageParams(root, languagesByVersion)
-    .filter((p) => p.slug !== landingByVersion[p.version])
-    .map((p) => ({
-      version: p.version,
-      language: p.language,
-      slug: p.slug.split('/')
-    }));
-  return [...roots, ...pages];
+  // The front page's slug is empty: it is served at the version and language root.
+  return listPageParams(root, languagesByVersion).map((p) => ({
+    version: p.version,
+    language: p.language,
+    slug: p.slug ? p.slug.split('/') : []
+  }));
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const { version, language, slug } = await props.params;
-  const nav = navFor(version);
-  const page = slug?.join('/') || nav?.landing || '';
+  const { version, language, slug: segments } = await props.params;
+  const slug = segments?.join('/') ?? '';
   const { shared, overlay } = readPageSources(
     contentRoot(),
     version,
     language,
-    page
+    slug
   );
   const fm = frontmatterOf(shared ?? overlay ?? '');
   // The front page is the manual itself, so its title is not suffixed with the
   // manual's name.
-  const title =
-    page === nav?.landing ? { absolute: fm.title ?? '' } : (fm.title ?? '');
+  const title = slug ? (fm.title ?? '') : { absolute: fm.title ?? '' };
   return { title, description: fm.description ?? '' };
 }
 
 export default async function Page(props: PageProps) {
-  const { version, language, slug } = await props.params;
+  const { version, language, slug: segments } = await props.params;
   const root = contentRoot();
   const nav = navFor(version);
   if (!nav) return notFound();
-  const { languages, sidebar, landing } = nav;
-  const page = slug?.join('/') || landing;
+  const { languages, sidebar } = nav;
+  const slug = segments?.join('/') ?? '';
 
-  const { shared, overlay } = readPageSources(root, version, language, page);
+  const { shared, overlay } = readPageSources(root, version, language, slug);
   if (!shared && !overlay) return notFound();
 
-  // The landing page lives at the version and language root, every other page
-  // under its slug.
-  const hrefFor = (lang: string, s?: string) =>
-    pageHref(version, lang, s === landing ? undefined : s);
-  const isAvailable = (s: string) => pageExists(root, version, language, s);
+  const slugFor = slugLookup(root, version);
+  const hrefFor = (lang: string, page?: string) =>
+    pageHref(version, lang, page && slugFor(lang, page));
+
+  const frontmatter = frontmatterOf(shared ?? overlay ?? '');
+  const page = segments?.at(-1) ?? '';
 
   // The manual is one tree, and this page's place in it gives the sidebar its
   // active branch, the breadcrumb trail and the reading order. A page outside
   // the tree still renders; it just gets no trail and no previous/next, which
   // makes the omission obvious.
-  const navOpts = { version, language, currentSlug: page, isAvailable };
+  const navOpts: BuildSideNavOptions = {
+    version,
+    language,
+    currentPage: page,
+    slugOf: (p) => slugFor(language, p)
+  };
   const sideNav = buildSideNav(sidebar, navOpts);
-  const crumbs = breadcrumbs(nav, page, { version, language });
+  const crumbs = breadcrumbs(nav, page, navOpts);
   const { prev, next } = prevNext(sidebar, page, navOpts);
   const trail = trailTo(sidebar, page) ?? [];
 
-  const frontmatter = frontmatterOf(shared ?? overlay ?? '');
-  const routePath = hrefFor(language, page);
-  // Cross-page links are resolved against this index at build time, so moving or
-  // renaming a page never breaks the links pointing at it. The index holds only
-  // the pages this language actually has, so a link is never rewritten to a URL
-  // that was not generated.
+  const routePath = pageHref(version, language, slug);
+  // Cross-page links are resolved against this index at build time, so moving a
+  // page never breaks the links pointing at it. The index holds only the pages
+  // this language actually has, so a link is never rewritten to a URL that was
+  // not generated.
   const { index: pageIndex } = buildPageIndex(
-    listPageEntries(root, version, language)
+    listPages(root, version, language).map((p) => p.slug)
   );
 
   // One dropdown entry per supported language. Selecting a language keeps the
@@ -164,8 +170,8 @@ export default async function Page(props: PageProps) {
     frontmatter.title ?? page
   )}`;
   const languageOptions: LanguageOption[] = languages.map((lang) => {
-    const exists = (slug: string) => pageExists(root, version, lang, slug);
-    const counterpart = counterpartSlug(sidebar, page, lang);
+    const exists = (p: string) => slugFor(lang, p) !== undefined;
+    const counterpart = counterpartPage(sidebar, page, lang);
     const equivalent = exists(page)
       ? page
       : counterpart && exists(counterpart)
@@ -177,27 +183,31 @@ export default async function Page(props: PageProps) {
     return {
       value: lang,
       label: languageLabel(lang),
-      href: equivalent
-        ? hrefFor(lang, equivalent)
-        : `${hrefFor(lang, nearest?.page)}${fellBack}`
+      href: !slug
+        ? pageHref(version, lang)
+        : equivalent
+          ? hrefFor(lang, equivalent)
+          : `${hrefFor(lang, nearest?.page)}${fellBack}`
     };
   });
 
-  // Same rule for versions: the equivalent page, else the version's landing.
+  // Same rule for versions: the equivalent page, else the version's front page.
+  // A page is looked up by name, since the same page may sit elsewhere in
+  // another version's tree.
   const versionOptions: VersionOption[] = listVersions(root).map((other) => {
     const otherNav = other === version ? nav : navFor(other);
     const otherLanguages = otherNav?.languages ?? languages;
     const otherLanguage = otherLanguages.includes(language)
       ? language
       : (otherLanguages[0] ?? language);
-    const kept =
-      page === landing || pageExists(root, other, otherLanguage, page);
+    const slugIn = other === version ? slugFor : slugLookup(root, other);
+    const kept = !slug || slugIn(otherLanguage, page) !== undefined;
     const href = versionSwitchTarget({
       targetVersion: other,
       targetLanguages: otherLanguages,
       currentLanguage: language,
-      slug: page === landing ? undefined : page,
-      pageExists: (lang, slug) => pageExists(root, other, lang, slug)
+      page: slug ? page : undefined,
+      slugOf: slugIn
     });
     return { value: other, href: kept ? href : `${href}${fellBack}` };
   });
@@ -205,19 +215,20 @@ export default async function Page(props: PageProps) {
   // The Release Notes chapter's pages, newest first, each with the date its
   // frontmatter gives. Only the front page lists them, and reading every one
   // of them for every page would multiply across the page-by-language matrix.
-  const releases =
-    page === landing
-      ? (sidebar.find((n) => n.page === 'release-notes')?.items ?? [])
-          .filter((n) => n.page && isAvailable(n.page))
-          .map((n) => {
-            const sources = readPageSources(root, version, language, n.page!);
-            return {
-              title: n.title,
-              href: pageHref(version, language, n.page!),
-              date: frontmatterOf(sources.shared ?? sources.overlay ?? '').date
-            };
-          })
-      : [];
+  const releases = slug
+    ? []
+    : (sidebar.find((n) => n.page === 'release-notes')?.items ?? []).flatMap(
+        (n) => {
+          const s = n.page && slugFor(language, n.page);
+          if (s === undefined) return [];
+          const sources = readPageSources(root, version, language, s);
+          return {
+            title: n.title,
+            href: pageHref(version, language, s),
+            date: frontmatterOf(sources.shared ?? sources.overlay ?? '').date
+          };
+        }
+      );
 
   // Migrated content can contain conversion artifacts; surface a render error on
   // the page instead of failing the whole build, so we can see what's broken.

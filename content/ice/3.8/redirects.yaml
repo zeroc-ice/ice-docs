@@ -1,0 +1,11 @@
+# Redirect manifest for Ice 3.8 — a deliverable, not cleanup. Legacy/Confluence
+# URLs -> new URLs. The converter (step 5) will generate most of these from
+# the Confluence page IDs; these are hand-written examples wired into
+# next.config.ts. `permanent` defaults to false while URLs are still settling.
+redirects:
+  - from: /ice/3.8/cpp/Ice-Manual/Enumerations
+    to: /ice/3.8/cpp/the-slice-language/user-defined-types/enumerations
+  - from: /ice/3.8/python/Ice-Manual/Enumerations
+    to: /ice/3.8/python/the-slice-language/user-defined-types/enumerations
+  - from: /ice/3.8/cpp/The-Ice-Runtime/Communicator
+    to: /ice/3.8/cpp/the-ice-runtime/communicator

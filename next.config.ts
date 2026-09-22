@@ -30,11 +30,11 @@ function readYaml<T>(file: string): T | null {
 }
 
 // Build redirects from the content manifests: the site root, a bare /ice, and a
-// bare /ice/<version> land on a version's landing page, which is served at
+// bare /ice/<version> land on a version's front page, which is served at
 // /ice/<version>/<language> (the newest version's, in its first language, when
 // they name no version), plus each version's redirects.yaml.
 function buildRedirects(): RedirectRule[] {
-  const root = path.join(process.cwd(), 'content');
+  const root = path.join(process.cwd(), 'content', 'ice');
   const rules: RedirectRule[] = [];
   const versions = contentVersions(root).sort((a, b) =>
     a.localeCompare(b, undefined, { numeric: true })

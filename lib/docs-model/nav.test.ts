@@ -11,9 +11,9 @@ import {
   buildSideNav,
   activeTrailKeys,
   containsActive,
-  counterpartSlug,
+  counterpartPage,
   languageLabel,
-  navigationSlugs,
+  navigationPages,
   prevNext,
   sideNavKey,
   trailTo,
@@ -52,15 +52,28 @@ const SIDEBAR: NavNode[] = [
 const NAV: NavDoc = {
   version: '3.8',
   languages: ['cpp', 'python'],
-  landing: 'get-started',
   sidebar: SIDEBAR
+};
+
+// Where each page sits: the tree names pages by name, and their slugs follow
+// the directories.
+const SLUGS: Record<string, string> = {
+  'get-started': 'get-started',
+  'the-slice-language': 'slice',
+  'basic-types': 'slice/basic-types',
+  'user-defined-types': 'slice/user-defined-types',
+  enumerations: 'slice/user-defined-types/enumerations',
+  sequences: 'slice/user-defined-types/sequences',
+  'cpp-plug-in-api': 'plugins/cpp-plug-in-api',
+  'python-plug-in-api': 'plugins/python-plug-in-api',
+  'installing-a-plug-in': 'plugins/installing-a-plug-in'
 };
 
 const opts = {
   version: '3.8',
   language: 'cpp',
-  currentSlug: 'enumerations',
-  isAvailable: () => true
+  currentPage: 'enumerations',
+  slugOf: (page: string) => SLUGS[page]
 };
 
 test('buildSideNav resolves the tree with hrefs and active flags', () => {
@@ -73,7 +86,10 @@ test('buildSideNav resolves the tree with hrefs and active flags', () => {
   const udt = slice.items[2];
   assert.equal(udt.title, 'User-Defined Types');
   assert.equal(udt.items[1].active, true); // current page
-  assert.equal(udt.items[1].href, '/ice/3.8/cpp/enumerations');
+  assert.equal(
+    udt.items[1].href,
+    '/ice/3.8/cpp/slice/user-defined-types/enumerations'
+  );
 });
 
 test('a group that has a page of its own becomes a toggle, with the page as Overview', () => {
@@ -82,13 +98,13 @@ test('a group that has a page of its own becomes a toggle, with the page as Over
   const [, slice] = buildSideNav(SIDEBAR, opts);
   assert.equal(slice.href, undefined, 'the group row itself does not navigate');
   assert.equal(slice.items[0].title, 'Overview');
-  assert.equal(slice.items[0].href, '/ice/3.8/cpp/the-slice-language');
+  assert.equal(slice.items[0].href, '/ice/3.8/cpp/slice');
 });
 
 test("standing on a group's own page marks Overview, not the group row", () => {
   const [, slice] = buildSideNav(SIDEBAR, {
     ...opts,
-    currentSlug: 'the-slice-language'
+    currentPage: 'the-slice-language'
   });
   assert.equal(slice.active, false);
   assert.equal(slice.items[0].active, true);
@@ -97,7 +113,7 @@ test("standing on a group's own page marks Overview, not the group row", () => {
 });
 
 test('a group with no page of its own is unchanged', () => {
-  const [, , plugins] = buildSideNav(SIDEBAR, { ...opts, currentSlug: '' });
+  const [, , plugins] = buildSideNav(SIDEBAR, { ...opts, currentPage: '' });
   assert.equal(plugins.href, undefined);
   assert.equal(plugins.items[0].title, 'Plug-in API');
 });
@@ -105,33 +121,39 @@ test('a group with no page of its own is unchanged', () => {
 test('buildSideNav keeps unavailable pages but without an href', () => {
   const tree = buildSideNav(SIDEBAR, {
     ...opts,
-    currentSlug: '',
-    isAvailable: (slug) => slug === 'enumerations'
+    currentPage: '',
+    slugOf: (page) => (page === 'enumerations' ? SLUGS[page] : undefined)
   });
   const slice = tree[1];
   assert.equal(slice.href, undefined); // group page missing -> not linkable
   const udt = slice.items[1]; // no Overview child when the group page is unavailable
-  assert.equal(udt.items[0].href, '/ice/3.8/cpp/enumerations');
+  assert.equal(
+    udt.items[0].href,
+    '/ice/3.8/cpp/slice/user-defined-types/enumerations'
+  );
   assert.equal(udt.items[1].href, undefined); // unavailable, still present
 });
 
 test('buildSideNav shows a language-specific node only for its language', () => {
-  const [, , cpp] = buildSideNav(SIDEBAR, { ...opts, currentSlug: '' });
+  const [, , cpp] = buildSideNav(SIDEBAR, { ...opts, currentPage: '' });
   assert.deepEqual(
     cpp.items.map((n) => n.href),
-    ['/ice/3.8/cpp/cpp-plug-in-api', '/ice/3.8/cpp/installing-a-plug-in']
+    [
+      '/ice/3.8/cpp/plugins/cpp-plug-in-api',
+      '/ice/3.8/cpp/plugins/installing-a-plug-in'
+    ]
   );
 
   const [, , py] = buildSideNav(SIDEBAR, {
     ...opts,
     language: 'python',
-    currentSlug: ''
+    currentPage: ''
   });
   assert.deepEqual(
     py.items.map((n) => n.href),
     [
-      '/ice/3.8/python/python-plug-in-api',
-      '/ice/3.8/python/installing-a-plug-in'
+      '/ice/3.8/python/plugins/python-plug-in-api',
+      '/ice/3.8/python/plugins/installing-a-plug-in'
     ]
   );
 });
@@ -154,66 +176,57 @@ test('trailTo returns every ancestor down to the page, or null', () => {
   assert.equal(trailTo(SIDEBAR, 'not-a-page'), null);
 });
 
-test('counterpartSlug finds the same page written for another language', () => {
+test('counterpartPage finds the same page written for another language', () => {
   // The C++ plug-in API page's counterpart for a Python reader is the Python
   // page beside it; a language switch should land there, not on the front page.
   assert.equal(
-    counterpartSlug(SIDEBAR, 'cpp-plug-in-api', 'python'),
+    counterpartPage(SIDEBAR, 'cpp-plug-in-api', 'python'),
     'python-plug-in-api'
   );
   // No Java page sits beside it, and a shared page has no counterpart to find.
-  assert.equal(counterpartSlug(SIDEBAR, 'cpp-plug-in-api', 'java'), undefined);
-  assert.equal(counterpartSlug(SIDEBAR, 'cpp-plug-in-api', 'cpp'), undefined);
-  assert.equal(counterpartSlug(SIDEBAR, 'enumerations', 'python'), undefined);
-  assert.equal(counterpartSlug(SIDEBAR, 'not-a-page', 'python'), undefined);
+  assert.equal(counterpartPage(SIDEBAR, 'cpp-plug-in-api', 'java'), undefined);
+  assert.equal(counterpartPage(SIDEBAR, 'cpp-plug-in-api', 'cpp'), undefined);
+  assert.equal(counterpartPage(SIDEBAR, 'enumerations', 'python'), undefined);
+  assert.equal(counterpartPage(SIDEBAR, 'not-a-page', 'python'), undefined);
 });
 
 test('breadcrumbs trace manual -> chapter -> group -> page, and the page is not a link', () => {
-  const crumbs = breadcrumbs(NAV, 'enumerations', {
-    version: '3.8',
-    language: 'cpp'
-  });
+  const crumbs = breadcrumbs(NAV, 'enumerations', opts);
   assert.deepEqual(
     crumbs.map((c) => c.title),
     [MANUAL_TITLE, 'The Slice Language', 'User-Defined Types', 'Enumerations']
   );
   assert.equal(crumbs[0].href, '/ice/3.8/cpp');
-  assert.equal(crumbs[1].href, '/ice/3.8/cpp/the-slice-language');
-  assert.equal(crumbs[2].href, '/ice/3.8/cpp/user-defined-types');
+  assert.equal(crumbs[1].href, '/ice/3.8/cpp/slice');
+  assert.equal(crumbs[2].href, '/ice/3.8/cpp/slice/user-defined-types');
   assert.equal(crumbs[3].href, undefined); // current page
 });
 
 test('a group without a page of its own is a plain-text crumb', () => {
-  const crumbs = breadcrumbs(NAV, 'installing-a-plug-in', {
-    version: '3.8',
-    language: 'cpp'
-  });
+  const crumbs = breadcrumbs(NAV, 'installing-a-plug-in', opts);
   assert.deepEqual(crumbs[1], { title: 'Plugins' });
 });
 
 test('a page outside the tree gets no trail', () => {
-  assert.deepEqual(
-    breadcrumbs(NAV, 'orphan', { version: '3.8', language: 'cpp' }),
-    []
-  );
+  assert.deepEqual(breadcrumbs(NAV, 'orphan', opts), []);
 });
 
 test('prevNext walks the whole manual in reading order, across chapters', () => {
   const { prev, next } = prevNext(SIDEBAR, 'enumerations', opts);
   assert.equal(prev?.title, 'User-Defined Types');
   assert.equal(next?.title, 'Sequences');
-  assert.equal(next?.href, '/ice/3.8/cpp/sequences');
+  assert.equal(next?.href, '/ice/3.8/cpp/slice/user-defined-types/sequences');
 
   // The last page of one chapter leads into the next chapter.
   const end = prevNext(SIDEBAR, 'sequences', opts);
   assert.equal(end.next?.title, 'Plug-in API');
-  assert.equal(end.next?.href, '/ice/3.8/cpp/cpp-plug-in-api');
+  assert.equal(end.next?.href, '/ice/3.8/cpp/plugins/cpp-plug-in-api');
 });
 
 test('prevNext skips pages that do not exist in the current language', () => {
   const { next } = prevNext(SIDEBAR, 'enumerations', {
     ...opts,
-    isAvailable: (slug) => slug !== 'sequences'
+    slugOf: (page) => (page === 'sequences' ? undefined : SLUGS[page])
   });
   assert.equal(next?.title, 'Plug-in API'); // sequences is unavailable
 });
@@ -223,18 +236,11 @@ test('prevNext never crosses into another language', () => {
     ...opts,
     language: 'python'
   });
-  assert.equal(next?.href, '/ice/3.8/python/python-plug-in-api');
+  assert.equal(next?.href, '/ice/3.8/python/plugins/python-plug-in-api');
 });
 
-test('navigationSlugs counts a landing page outside the tree as reachable', () => {
-  assert.deepEqual(
-    navigationSlugs({ landing: 'front-page', sidebar: SIDEBAR }).slice(0, 2),
-    ['front-page', 'get-started']
-  );
-});
-
-test('navigationSlugs lists every declared page in reading order', () => {
-  assert.deepEqual(navigationSlugs(NAV), [
+test('navigationPages lists every declared page in reading order', () => {
+  assert.deepEqual(navigationPages(SIDEBAR), [
     'get-started',
     'the-slice-language',
     'basic-types',
@@ -254,35 +260,36 @@ test('languageLabel maps slugs to display names, falling back to the slug', () =
   assert.equal(languageLabel('unknown'), 'unknown');
 });
 
-test('versionSwitchTarget keeps language + page when available', () => {
+test('versionSwitchTarget keeps language + page when available, at its slug there', () => {
   const href = versionSwitchTarget({
     targetVersion: '3.7',
     targetLanguages: ['cpp', 'python'],
     currentLanguage: 'python',
-    slug: 'enumerations',
-    pageExists: () => true
+    page: 'enumerations',
+    slugOf: () => 'slice/enumerations'
   });
-  assert.equal(href, '/ice/3.7/python/enumerations');
+  assert.equal(href, '/ice/3.7/python/slice/enumerations');
 });
 
-test('versionSwitchTarget falls back on language then on landing', () => {
+test('versionSwitchTarget falls back on language then on the front page', () => {
   // java is not in the target version -> first target language (cpp)
   const lang = versionSwitchTarget({
     targetVersion: '3.7',
     targetLanguages: ['cpp', 'python'],
     currentLanguage: 'java',
-    slug: 'enumerations',
-    pageExists: (l, s) => l === 'cpp' && s === 'enumerations'
+    page: 'enumerations',
+    slugOf: (l, p) =>
+      l === 'cpp' && p === 'enumerations' ? 'slice/enumerations' : undefined
   });
-  assert.equal(lang, '/ice/3.7/cpp/enumerations');
+  assert.equal(lang, '/ice/3.7/cpp/slice/enumerations');
 
-  // page missing in the target version -> landing
+  // page missing in the target version -> front page
   const missing = versionSwitchTarget({
     targetVersion: '3.7',
     targetLanguages: ['cpp', 'python'],
     currentLanguage: 'cpp',
-    slug: 'communicator',
-    pageExists: () => false
+    page: 'communicator',
+    slugOf: () => undefined
   });
   assert.equal(missing, '/ice/3.7/cpp');
 });
@@ -296,7 +303,7 @@ test('activeTrailKeys names every group down to the current page, and nothing el
 });
 
 test('activeTrailKeys is empty when the current page is a top-level leaf', () => {
-  const tree = buildSideNav(SIDEBAR, { ...opts, currentSlug: 'get-started' });
+  const tree = buildSideNav(SIDEBAR, { ...opts, currentPage: 'get-started' });
   assert.deepEqual(activeTrailKeys(tree), []);
 });
 

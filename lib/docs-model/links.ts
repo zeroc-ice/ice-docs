@@ -9,58 +9,40 @@
 // information architecture silently breaks thousands of links.
 //
 // Instead we resolve links at build time against a *page index* keyed by the
-// page's final slug segment, which is stable and globally unique. A page can
-// move from `learn/slice/enumerations` to `reference/slice/enumerations` and
-// every link to it keeps working, untouched.
+// page's name, the last segment of its slug, which is stable and globally
+// unique. A page can move from `learn/slice/enumerations` to
+// `reference/slice/enumerations` and every link to it keeps working, untouched.
 //
 // Pure and dependency-free, so it is unit-testable with plain objects.
 
-/** slug segment (`enumerations`) -> full page path (`learn/slice/enumerations`). */
+/** page name (`enumerations`) or slug -> slug (`learn/slice/enumerations`). */
 export type PageIndex = Record<string, string>;
 
-/** A page as the index sees it: where it lives, and its stable id. */
-export interface PageEntry {
-  path: string;
-  /** The page's `id` frontmatter — stable across moves and renames. */
-  id?: string;
-}
-
 /**
- * Index every page by its final path segment, by its full path, and by its
- * stable id, all lower-cased (authored links do not always match the slug's
- * case). Indexing by id is what keeps links working when a page is renamed as
- * part of a move — `the-ice-threading-model` becoming `learn/threading` does not
- * break the 48 pages that link to it.
+ * Index every page by its slug and by its name, lower-cased (authored links do
+ * not always match the name's case).
  *
- * A collision between two pages' final segments is reported by `duplicates` and
- * resolves to the first path in sorted order (deterministic).
+ * A collision between two pages' names is reported by `duplicates` and resolves
+ * to the first slug in sorted order (deterministic).
  */
-export function buildPageIndex(pages: (string | PageEntry)[]): {
+export function buildPageIndex(slugs: string[]): {
   index: PageIndex;
   duplicates: string[];
 } {
-  const entries = [...pages]
-    .map((p) => (typeof p === 'string' ? { path: p } : p))
-    .sort((a, b) => a.path.localeCompare(b.path));
+  const sorted = [...slugs].sort((a, b) => a.localeCompare(b));
   const index: PageIndex = {};
   const duplicates: string[] = [];
 
-  // Three passes, weakest key last, so a page's own path always wins over
-  // another page's final segment, and both win over an id alias.
-  for (const { path } of entries) index[path.toLowerCase()] = path;
+  // Two passes, so a page's own slug always wins over another page's name.
+  for (const slug of sorted) index[slug.toLowerCase()] = slug;
 
-  const bySegment: Record<string, string> = {};
-  for (const { path } of entries) {
-    const key = path.split('/').pop()!.toLowerCase();
-    if (key === path.toLowerCase()) continue; // already indexed by its own path
-    if (bySegment[key] && bySegment[key] !== path) duplicates.push(key);
-    else bySegment[key] ??= path;
+  const byName: Record<string, string> = {};
+  for (const slug of sorted) {
+    const name = slug.split('/').pop()!.toLowerCase();
+    if (name in byName) duplicates.push(name);
+    else byName[name] = slug;
   }
-  for (const [key, path] of Object.entries(bySegment)) index[key] ??= path;
-
-  for (const { path, id } of entries) {
-    if (id) index[id.toLowerCase()] ??= path;
-  }
+  for (const [name, slug] of Object.entries(byName)) index[name] ??= slug;
 
   return { index, duplicates };
 }
@@ -85,8 +67,8 @@ const MAILTO = /^mailto:/i;
  *
  * - external / mailto / in-page anchors / already-absolute: unchanged
  * - `attachments/...`: left alone (assets, not pages)
- * - anything else: the final path segment is looked up in the page index and
- *   rewritten to `/ice/<version>/<language>/<path>`, preserving `#anchor`.
+ * - anything else: the page named by the link is looked up in the page index
+ *   and rewritten to `/ice/<version>/<language>/<slug>`, preserving `#anchor`.
  */
 export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const raw = (href ?? '').trim();
@@ -108,10 +90,10 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   if (segments.length === 0) return { href: raw, resolved: true };
   if (segments[0] === 'attachments') return { href: raw, resolved: true };
 
-  // A spelled-out path is unambiguous, so try it before the bare page name.
+  // A spelled-out slug is unambiguous, so try it before the bare page name.
   const full = decodeURIComponent(segments.join('/')).toLowerCase();
-  const key = decodeURIComponent(segments[segments.length - 1]).toLowerCase();
-  const target = ctx.index[full] ?? ctx.index[key];
+  const name = decodeURIComponent(segments[segments.length - 1]).toLowerCase();
+  const target = ctx.index[full] ?? ctx.index[name];
   if (!target) return { href: raw, resolved: false };
 
   return {

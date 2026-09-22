@@ -19,18 +19,18 @@ import { load as yamlLoad } from 'js-yaml';
 
 import {
   listVersions,
-  listSlugs,
+  listPages,
   readNavigationYaml
 } from '../lib/docs-model/content.ts';
 import { pageHref, trailTo } from '../lib/docs-model/nav.ts';
 import { FRONTMATTER_RE, splitLines } from '../lib/docs-model/resolve.ts';
 
-const ROOT = path.join(process.cwd(), 'content');
+const ROOT = path.join(process.cwd(), 'content', 'ice');
 const OUT = path.join(process.cwd(), 'public', 'search');
 
 /** Frontmatter fields plus the body, without pulling in a YAML parse per page. */
 function readPage(file) {
-  if (!fs.existsSync(file)) return null;
+  if (!file) return null;
   const source = fs.readFileSync(file, 'utf8');
   const m = FRONTMATTER_RE.exec(source);
   const frontmatter = m ? m[1] : '';
@@ -74,8 +74,8 @@ function headings(body) {
 }
 
 /** Where a page sits, for the result's context line: "The Slice Language › User-Defined Types". */
-function crumbFor(nav, slug) {
-  const trail = trailTo(nav.sidebar ?? [], slug);
+function crumbFor(nav, page) {
+  const trail = trailTo(nav.sidebar ?? [], page);
   return trail
     ? trail
         .slice(0, -1)
@@ -91,26 +91,22 @@ for (const version of listVersions(ROOT)) {
   const nav = yamlLoad(readNavigationYaml(ROOT, version) ?? '');
   if (!nav) continue;
 
-  const base = path.join(ROOT, version);
-  const slugs = listSlugs(ROOT, version);
-
+  const pages = listPages(ROOT, version);
   for (const language of nav.languages ?? []) {
-    const pages = [];
-    for (const slug of slugs) {
-      const shared = readPage(path.join(base, 'shared', `${slug}.md`));
-      const overlay = readPage(
-        path.join(base, 'languages', language, `${slug}.md`)
-      );
+    const records = [];
+    for (const page of pages) {
+      const shared = readPage(page.shared);
+      const overlay = readPage(page.overlays[language]);
       if (!shared && !overlay) continue; // not part of this language's manual
 
-      const page = shared ?? overlay;
+      const fm = shared ?? overlay;
       const body = `${shared?.body ?? ''}\n${overlay?.body ?? ''}`;
-      pages.push({
-        t: page.title ?? slug,
-        d: page.description ?? '',
-        c: crumbFor(nav, slug),
-        k: page.type ?? '',
-        h: pageHref(version, language, slug === nav.landing ? undefined : slug),
+      records.push({
+        t: fm.title ?? page.name,
+        d: fm.description ?? '',
+        c: crumbFor(nav, page.name),
+        k: fm.type ?? '',
+        h: pageHref(version, language, page.slug),
         // De-duplicated headings, capped: enough to match on, small enough to ship.
         x: [...new Set(headings(body))].slice(0, 40).join(' · ')
       });
@@ -118,10 +114,13 @@ for (const version of listVersions(ROOT)) {
 
     const file = path.join(OUT, version, `${language}.json`);
     fs.mkdirSync(path.dirname(file), { recursive: true });
-    fs.writeFileSync(file, JSON.stringify({ version, language, pages }));
+    fs.writeFileSync(
+      file,
+      JSON.stringify({ version, language, pages: records })
+    );
     files++;
     const kb = Math.round(fs.statSync(file).size / 1024);
-    console.log(`  ${version}/${language}: ${pages.length} pages (${kb} kB)`);
+    console.log(`  ${version}/${language}: ${records.length} pages (${kb} kB)`);
   }
 }
 

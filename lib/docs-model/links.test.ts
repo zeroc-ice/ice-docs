@@ -79,19 +79,19 @@ test('resolution is case-insensitive and URL-decoded', () => {
   );
 });
 
-test('buildPageIndex reports colliding final segments instead of hiding them', () => {
+test('buildPageIndex reports colliding names instead of hiding them', () => {
   const { index: idx, duplicates } = buildPageIndex([
     'learn/slice/overview',
     'guides/security/overview'
   ]);
   assert.deepEqual(duplicates, ['overview']);
-  // Deterministic: the first path in sorted order wins.
+  // Deterministic: the first slug in sorted order wins.
   assert.equal(idx['overview'], 'guides/security/overview');
-  // Both remain addressable by their full path.
+  // Both remain addressable by their slug.
   assert.equal(idx['learn/slice/overview'], 'learn/slice/overview');
 });
 
-test('an explicit path wins over another page with the same final segment', () => {
+test('a full slug wins over another page with the same name', () => {
   const { index: idx } = buildPageIndex([
     'guides/security/overview',
     'learn/slice/overview'
@@ -104,21 +104,9 @@ test('an explicit path wins over another page with the same final segment', () =
   );
 });
 
-test('a page whose whole path is one segment is not shadowed by an alias', () => {
+test('a top-level page and a nested page of the same name collide too', () => {
   const { index: idx, duplicates } = buildPageIndex(['learn/foo', 'foo']);
-  // `foo` is a real page; `learn/foo` only wants the name.
+  assert.deepEqual(duplicates, ['foo']);
   assert.equal(idx['foo'], 'foo');
   assert.equal(idx['learn/foo'], 'learn/foo');
-  assert.deepEqual(duplicates, []);
-});
-
-test('a page id keeps links working after the page is renamed by a move', () => {
-  const { index: idx } = buildPageIndex([
-    { path: 'learn/threading', id: 'the-ice-threading-model' }
-  ]);
-  const ctx2 = { version: '3.8', language: 'cpp', index: idx };
-  assert.equal(
-    resolveDocLink('../the-ice-threading-model', ctx2).href,
-    '/ice/3.8/cpp/learn/threading'
-  );
 });

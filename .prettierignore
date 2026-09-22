@@ -1,6 +1,6 @@
 # The compilable snippet sources that `{% snippet %}` pulls from keep the
 # style of the language they are written in, not the site's.
-content/*/examples
+content/ice/*/examples
 
 # Generated or vendored
 node_modules
