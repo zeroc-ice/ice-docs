@@ -133,33 +133,33 @@
     <text class="annotation" x="350" y="502">2</text>
     <rect x="372.0" y="486" width="216" height="24" rx="4" fill="#ffffff"/>
     <text class="annotation" x="480" y="502">Sync executables to Node2</text>
-    <rect x="665" y="177" width="90" height="86" fill="#ffffff"/>
-    <rect x="825" y="177" width="90" height="86" fill="#ffffff"/>
-    <use href="#step-badge-shape" x="710" y="190"/>
-    <text class="annotation" x="710" y="195">1</text>
+    <rect x="665" y="165" width="90" height="98" fill="#ffffff"/>
+    <rect x="825" y="165" width="90" height="98" fill="#ffffff"/>
+    <use href="#step-badge-shape" x="710" y="180"/>
+    <text class="annotation" x="710" y="185">1</text>
     <text class="annotation" x="710" y="212">
       <tspan x="710" dy="0">Disable</tspan>
       <tspan x="710" dy="20">and stop</tspan>
       <tspan x="710" dy="20">servers</tspan>
     </text>
-    <use href="#step-badge-shape" x="870" y="190"/>
-    <text class="annotation" x="870" y="195">3</text>
+    <use href="#step-badge-shape" x="870" y="180"/>
+    <text class="annotation" x="870" y="185">3</text>
     <text class="annotation" x="870" y="212">
       <tspan x="870" dy="0">Enable</tspan>
       <tspan x="870" dy="20">and start</tspan>
       <tspan x="870" dy="20">servers</tspan>
     </text>
-    <rect x="665" y="463" width="90" height="86" fill="#ffffff"/>
-    <rect x="825" y="463" width="90" height="86" fill="#ffffff"/>
-    <use href="#step-badge-shape" x="710" y="476"/>
-    <text class="annotation" x="710" y="481">1</text>
+    <rect x="665" y="451" width="90" height="98" fill="#ffffff"/>
+    <rect x="825" y="451" width="90" height="98" fill="#ffffff"/>
+    <use href="#step-badge-shape" x="710" y="466"/>
+    <text class="annotation" x="710" y="471">1</text>
     <text class="annotation" x="710" y="498">
       <tspan x="710" dy="0">Disable</tspan>
       <tspan x="710" dy="20">and stop</tspan>
       <tspan x="710" dy="20">servers</tspan>
     </text>
-    <use href="#step-badge-shape" x="870" y="476"/>
-    <text class="annotation" x="870" y="481">3</text>
+    <use href="#step-badge-shape" x="870" y="466"/>
+    <text class="annotation" x="870" y="471">3</text>
     <text class="annotation" x="870" y="498">
       <tspan x="870" dy="0">Enable</tspan>
       <tspan x="870" dy="20">and start</tspan>
