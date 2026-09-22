@@ -45,8 +45,9 @@ is a directory, and its path under the version is its slug, the path in its URL:
 - `redirects.yaml` — old URL to new URL.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
-A page's images live under `public/attachments/<version>/<page>/` and are referenced as
-`/attachments/<version>/<page>/<file>`.
+Images live under `public/attachments/<version>/<page>/` and are referenced as `/attachments/<version>/<page>/<file>`.
+Keep a shared figure in one page's attachment directory and reference that same asset from other pages instead of
+duplicating it.
 
 - **Page names are globally unique** within a version. The content tree follows the table of contents: `navigation.yaml`
   names pages by name, and `check:content` fails a page whose directory is not inside the directory of the group above
@@ -64,8 +65,10 @@ A page's images live under `public/attachments/<version>/<page>/` and are refere
   parser `format` uses for Markdown, keeps each tag on its own line instead, and `check:markdoc` rejects anything that
   slips through. Two things the parser cannot tell apart from prose: a numbered list or a table right under a tag line.
   Put a blank line between them. An inline closer, `word{% /iflang %}`, has no space before it.
-- **Images** live under `public/attachments/`, one directory per page. A paragraph that is nothing but an image renders
-  as a figure; an image inside a sentence stays on the line.
+- **Images** live under `public/attachments/`. A paragraph that is nothing but an image renders as a figure; an image
+  inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article column. Use a
+  plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md) for SVG
+  authoring.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
 - **Release note pages** carry `date:` (an ISO date, quoted) in their frontmatter; the front page's release list shows
   it.
