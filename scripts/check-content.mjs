@@ -314,7 +314,10 @@ for (const version of listVersions(ROOT)) {
   console.log(`\n${version}: ${pages.length} pages`);
 
   // 1. every page is reachable from the navigation; the front page, index.md at
-  //    the root, is reached from the manual's title instead.
+  //    the root, is reached from the manual's title instead, and the site root
+  //    redirects to it.
+  if (!pages.some((page) => page.slug === '' && page.shared))
+    fail(`${version}: no front page (index.md at the version root)`);
   const orphans = pages.filter((page) => page.slug && !declared.has(page.name));
   for (const { name } of orphans.slice(0, 20))
     fail(`${version}: "${name}" is not in navigation.yaml`);
