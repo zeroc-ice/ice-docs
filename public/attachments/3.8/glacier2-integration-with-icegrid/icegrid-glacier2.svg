@@ -79,7 +79,7 @@
 
   <g id="connectors" aria-hidden="true">
     <path class="connector one-way" d="M 224 230 L 410 230" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 670 174 L 856 174" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 670 144 H 794 V 174 H 856" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">

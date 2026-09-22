@@ -131,7 +131,7 @@
     <path class="connector two-way" d="M 210 184 H 315" vector-effect="non-scaling-stroke"/>
 
     <!-- Steps 2 and 3 use separate server-side connections. -->
-    <path class="connector one-way" d="M 665 164 H 770" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 665 116 H 740 V 164 H 770" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 770 204 H 665" vector-effect="non-scaling-stroke"/>
 
     <!-- Compact flow legend. -->

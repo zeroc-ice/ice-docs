@@ -85,7 +85,7 @@
 
   <g id="connectors" aria-hidden="true">
     <path class="connector two-way" d="M 194 196 H 570" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 830 143 L 916 143" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 830 110 H 876 V 143 H 916" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 916 196 L 830 196" vector-effect="non-scaling-stroke"/>
   </g>
 
