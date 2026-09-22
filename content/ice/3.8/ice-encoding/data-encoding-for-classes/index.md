@@ -81,7 +81,7 @@ integer that provides an identity for the instance. The sender assigns this iden
 marshaled instance has a different identity. The receiver uses that identity to correctly reconstruct graphs of classes.
 The overall marshaling format for classes is shown below:
 
-![The encoding 1.0 classes layout starts with an identity, followed by a type ID and member slice for each inheritance level.](/attachments/3.8/data-encoding-for-classes/marshaling-format.svg)
+![The encoding 1.0 classes layout starts with an instance identity, followed by a type ID and member slice for each inheritance level.](/attachments/3.8/data-encoding-for-classes/marshaling-format.svg)
 
 _Marshaling format for classes._
 

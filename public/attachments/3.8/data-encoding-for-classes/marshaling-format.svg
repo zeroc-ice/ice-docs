@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 224" role="img" aria-labelledby="title description">
   <title id="title">Marshaling encoding format for classes</title>
   <desc id="description">
-    The encoding 1.0 classes layout starts with an identity, followed by a type ID and member slice for each
+    The encoding 1.0 classes layout starts with an instance identity, followed by a type ID and member slice for each
     inheritance level.
   </desc>
 
@@ -61,7 +61,7 @@
   </g>
 
   <g id="labels">
-    <text class="annotation code" x="199" y="52">Identity (int)</text>
+    <text class="annotation code" x="199" y="52">Instance identity (int)</text>
     <text class="annotation" x="199" y="96">Class type ID</text>
     <text class="annotation" x="199" y="140">Slice for members</text>
     <text class="annotation" x="199" y="184">⋮</text>
