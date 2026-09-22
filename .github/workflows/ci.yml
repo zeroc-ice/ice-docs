@@ -24,8 +24,8 @@ env:
   SITE_NOINDEX: '1'
 
 jobs:
-  build:
-    name: Test and build
+  test:
+    name: Test and lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -48,9 +48,6 @@ jobs:
 
       - name: Format check
         run: npm run format:check
-
-      - name: Production build
-        run: npm run build
 
   image:
     name: Build image (${{ matrix.arch }})
@@ -97,7 +94,7 @@ jobs:
 
   publish:
     name: Publish multi-arch tags
-    needs: [build, image]
+    needs: [test, image]
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
 
