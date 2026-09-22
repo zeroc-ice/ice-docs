@@ -27,7 +27,7 @@ interface PageLink {
 }
 
 interface Pagination {
-  /** The languages whose readers get these neighbours. */
+  /** The languages whose readers get these neighbors. */
   langs: string[];
   prev?: PageLink;
   next?: PageLink;

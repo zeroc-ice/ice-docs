@@ -209,7 +209,7 @@ test('prevNext skips pages not written for the language, but never the page itse
     prevNext(SIDEBAR, 'enumerations', written, 'python').next?.title,
     'C++ Plug-in API'
   );
-  // A Python reader who lands on the C++-only page still gets its neighbours.
+  // A Python reader who lands on the C++-only page still gets its neighbors.
   assert.equal(
     prevNext(SIDEBAR, 'sequences', written, 'python').prev?.title,
     'Enumerations'
