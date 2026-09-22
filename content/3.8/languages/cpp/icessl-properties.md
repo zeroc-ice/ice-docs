@@ -263,10 +263,11 @@ On iOS, this property is ignored.
 
 Specifies whether IceSSL checks the certificates of the peer's chain for revocation:
 
-| 0   | Revocation checks are disabled (default).                   |
-| --- | ----------------------------------------------------------- |
-| 1   | Checks the revocation status of the peer's own certificate. |
-| 2   | Checks the revocation status of the whole chain.            |
+| Value | Description                                                 |
+| ----- | ----------------------------------------------------------- |
+| 0     | Revocation checks are disabled (default).                   |
+| 1     | Checks the revocation status of the peer's own certificate. |
+| 2     | Checks the revocation status of the whole chain.            |
 
 A certificate that is revoked, or whose revocation status cannot be determined, aborts the connection. There is no
 setting that tolerates an undeterminable status.
@@ -299,9 +300,10 @@ The values `1` and `2` are equivalent: the revocation policy applies to the whol
 
 Specifies whether revocation checks may access the network:
 
-| 0   | Revocation checks may fetch CRLs from the distribution points and query the OCSP responders named in the certificates. |
-| --- | ---------------------------------------------------------------------------------------------------------------------- |
-| 1   | Revocation checks consult only the system's revocation cache (default).                                                |
+| Value | Description                                                                                                            |
+| ----- | ---------------------------------------------------------------------------------------------------------------------- |
+| 0     | Revocation checks may fetch CRLs from the distribution points and query the OCSP responders named in the certificates. |
+| 1     | Revocation checks consult only the system's revocation cache (default).                                                |
 
 With the default value, a certificate whose revocation status is not already in the system cache cannot be determined,
 and IceSSL rejects it. An application that enables `IceSSL.RevocationCheck` normally sets this property to `0`, unless
