@@ -285,11 +285,11 @@ test('resolves the content-model example (cpp enumerations)', () => {
   const here = dirname(fileURLToPath(import.meta.url));
   const ex = join(here, '__fixtures__', 'content-model-example');
   const shared = readFileSync(
-    join(ex, 'content/3.8/shared/enumerations.md'),
+    join(ex, 'content/3.8/slice/enumerations/index.md'),
     'utf8'
   );
   const overlay = readFileSync(
-    join(ex, 'content/3.8/languages/cpp/enumerations.md'),
+    join(ex, 'content/3.8/slice/enumerations/cpp.md'),
     'utf8'
   );
   const out = resolveDocument({

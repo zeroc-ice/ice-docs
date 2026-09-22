@@ -5,14 +5,16 @@
 // its active branch, the breadcrumb trail, and the previous/next links. No
 // imports, so it is unit-testable with plain objects.
 //
-// The tree mirrors the chapter structure of the Ice manual. Page slugs are flat
-// and globally unique within a version (`enumerations`, `ice-default-properties`);
-// where a page sits in the tree is the navigation's business, not the URL's.
+// The tree mirrors the chapter structure of the Ice manual, and the content
+// tree mirrors it in turn: a node's page is a directory inside the group's. Nodes
+// name pages by name, which is globally unique within a version (`enumerations`,
+// `ice-default-properties`); where a page sits, and so its slug and URL, comes
+// from the filesystem.
 
 /** A node in the authored navigation tree. May be a link, a group, or both. */
 export interface NavNode {
   title: string;
-  /** The page slug this node links to (a group can have its own page). */
+  /** The name of the page this node links to (a group can have its own page). */
   page?: string;
   /** If set, this node is specific to one language and is shown only for it. */
   language?: string;
@@ -39,8 +41,6 @@ export interface NavDoc {
   languages: string[];
   /** `latest` gets no banner; anything else gets an "older version" notice. */
   status?: 'latest' | 'maintenance' | 'archived';
-  /** The manual's front page, served at /ice/<version>/<language> and kept above the tree. */
-  landing: string;
   /** Optional link to older docs kept on the previous platform. */
   previousVersions?: PreviousVersions;
   /** The table of contents. */
@@ -60,10 +60,10 @@ export interface SideNavNode {
 export interface BuildSideNavOptions {
   version: string;
   language: string;
-  /** The slug of the page currently being viewed. */
-  currentSlug: string;
-  /** Whether a page slug exists for this language (from the filesystem). */
-  isAvailable: (slug: string) => boolean;
+  /** The name of the page currently being viewed. */
+  currentPage: string;
+  /** A page's slug when it exists for this language; `undefined` when it does not. */
+  slugOf: (page: string) => string | undefined;
 }
 
 /**
@@ -85,11 +85,12 @@ export function buildSideNav(
       // A language-specific node appears only in the ToC for its language.
       .filter((node) => !node.language || node.language === opts.language)
       .map((node) => {
-        const available = node.page ? opts.isAvailable(node.page) : false;
-        const href = available
-          ? pageHref(opts.version, opts.language, node.page!)
-          : undefined;
-        const active = !!node.page && node.page === opts.currentSlug;
+        const slug = node.page ? opts.slugOf(node.page) : undefined;
+        const href =
+          slug === undefined
+            ? undefined
+            : pageHref(opts.version, opts.language, slug);
+        const active = !!node.page && node.page === opts.currentPage;
         const items = buildSideNav(node.items ?? [], opts);
 
         // A group that also has a page of its own would have to answer two
@@ -113,7 +114,7 @@ export function buildSideNav(
   );
 }
 
-/** The canonical URL of a page; without a slug, the landing page at the root. */
+/** The URL of the page with `slug`; the front page, whose slug is empty, is at the root. */
 export function pageHref(
   version: string,
   language: string,
@@ -163,20 +164,20 @@ export function activeTrailKeys(
 // ---------------------------------------------------------------------------
 
 /**
- * The path down to `slug`: every ancestor group, then the node itself. `null`
+ * The path down to `page`: every ancestor group, then the node itself. `null`
  * when the page is not in the tree.
  */
-export function trailTo(nodes: NavNode[], slug: string): NavNode[] | null {
+export function trailTo(nodes: NavNode[], page: string): NavNode[] | null {
   for (const node of nodes ?? []) {
-    if (node.page === slug) return [node];
-    const found = trailTo(node.items ?? [], slug);
+    if (node.page === page) return [node];
+    const found = trailTo(node.items ?? [], page);
     if (found) return [node, ...found];
   }
   return null;
 }
 
 /**
- * The page a language switch should land on when `slug` is written for one
+ * The page a language switch should land on when `page` is written for one
  * language: its sibling written for `language`, matched by title. The
  * per-language walkthroughs and plug-in API pages sit next to each other in
  * the tree under one title ("Writing a Greeter Server"), one per language, so
@@ -184,12 +185,12 @@ export function trailTo(nodes: NavNode[], slug: string): NavNode[] | null {
  * it. `undefined` when the page is shared, or has no counterpart in that
  * language — a client-only mapping has no server walkthrough to switch to.
  */
-export function counterpartSlug(
+export function counterpartPage(
   nodes: NavNode[],
-  slug: string,
+  page: string,
   language: string
 ): string | undefined {
-  const trail = trailTo(nodes, slug);
+  const trail = trailTo(nodes, page);
   const node = trail ? trail[trail.length - 1] : undefined;
   if (!trail || !node?.language || node.language === language) return undefined;
   const siblings =
@@ -198,22 +199,17 @@ export function counterpartSlug(
     ?.page;
 }
 
-/**
- * Every page a reader can reach from the navigation: the landing page, then
- * the tree in reading order.
- */
-export function navigationSlugs(
-  nav: Pick<NavDoc, 'landing' | 'sidebar'>
-): string[] {
-  const out = [nav.landing];
-  const walk = (nodes: NavNode[]) => {
-    for (const node of nodes ?? []) {
+/** Every page the tree names, in reading order. */
+export function navigationPages(nodes: NavNode[]): string[] {
+  const out: string[] = [];
+  const walk = (items: NavNode[]) => {
+    for (const node of items ?? []) {
       if (node.page) out.push(node.page);
       walk(node.items ?? []);
     }
   };
-  walk(nav.sidebar);
-  return [...new Set(out)];
+  walk(nodes);
+  return out;
 }
 
 // ---------------------------------------------------------------------------
@@ -229,17 +225,17 @@ export interface Crumb {
 export const MANUAL_TITLE = 'Ice Manual';
 
 /**
- * The trail from the manual's front page down to `slug`: the manual itself,
+ * The trail from the manual's front page down to `page`: the manual itself,
  * then every ancestor group, then the page. Groups without a page of their own
- * are shown as plain text (no href). The last crumb is the current page and is
- * never a link. Empty when the page is not in the tree.
+ * for this language are shown as plain text (no href). The last crumb is the
+ * current page and is never a link. Empty when the page is not in the tree.
  */
 export function breadcrumbs(
   nav: Pick<NavDoc, 'sidebar'>,
-  slug: string,
-  opts: { version: string; language: string }
+  page: string,
+  opts: BuildSideNavOptions
 ): Crumb[] {
-  const trail = trailTo(nav.sidebar, slug);
+  const trail = trailTo(nav.sidebar, page);
   if (!trail) return [];
 
   const crumbs: Crumb[] = [
@@ -247,14 +243,15 @@ export function breadcrumbs(
       title: MANUAL_TITLE,
       href: pageHref(opts.version, opts.language)
     },
-    ...trail.map((node) =>
-      node.page
-        ? {
+    ...trail.map((node) => {
+      const slug = node.page ? opts.slugOf(node.page) : undefined;
+      return slug === undefined
+        ? { title: node.title }
+        : {
             title: node.title,
-            href: pageHref(opts.version, opts.language, node.page)
-          }
-        : { title: node.title }
-    )
+            href: pageHref(opts.version, opts.language, slug)
+          };
+    })
   ];
   return crumbs.map((crumb, i) =>
     i === crumbs.length - 1 ? { title: crumb.title } : crumb
@@ -274,26 +271,26 @@ export interface PageLink {
  */
 export function prevNext(
   nodes: NavNode[],
-  slug: string,
+  page: string,
   opts: BuildSideNavOptions
 ): { prev?: PageLink; next?: PageLink } {
   const flat: NavNode[] = [];
   const walk = (items: NavNode[]) => {
     for (const node of items ?? []) {
       if (node.language && node.language !== opts.language) continue;
-      if (node.page && opts.isAvailable(node.page)) flat.push(node);
+      if (node.page && opts.slugOf(node.page) !== undefined) flat.push(node);
       walk(node.items ?? []);
     }
   };
   walk(nodes);
 
-  const i = flat.findIndex((n) => n.page === slug);
+  const i = flat.findIndex((n) => n.page === page);
   if (i === -1) return {};
   const link = (node?: NavNode): PageLink | undefined =>
     node?.page
       ? {
           title: node.title,
-          href: pageHref(opts.version, opts.language, node.page)
+          href: pageHref(opts.version, opts.language, opts.slugOf(node.page))
         }
       : undefined;
   return { prev: link(flat[i - 1]), next: link(flat[i + 1]) };
@@ -331,21 +328,21 @@ export interface VersionSwitchInput {
   targetLanguages: string[];
   /** The language currently being viewed. */
   currentLanguage: string;
-  /** The page slug currently being viewed; none on the landing page. */
-  slug?: string;
-  /** Whether a page exists in the target version for a given language + slug. */
-  pageExists: (language: string, slug: string) => boolean;
+  /** The name of the page currently being viewed; none on the front page. */
+  page?: string;
+  /** A page's slug in the target version for a language; `undefined` when it does not exist there. */
+  slugOf: (language: string, page: string) => string | undefined;
 }
 
 /**
  * The equivalent URL when switching to another version: keep the same language if
  * the target supports it (else its first language), and the same page if it exists
- * there (else fall back to the target's landing page, at its root).
+ * there (else fall back to the target's front page, at its root).
  */
 export function versionSwitchTarget(i: VersionSwitchInput): string {
   const language = i.targetLanguages.includes(i.currentLanguage)
     ? i.currentLanguage
     : (i.targetLanguages[0] ?? i.currentLanguage);
-  const slug = i.slug && i.pageExists(language, i.slug) ? i.slug : undefined;
+  const slug = i.page ? i.slugOf(language, i.page) : undefined;
   return pageHref(i.targetVersion, language, slug);
 }

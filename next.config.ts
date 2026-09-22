@@ -34,7 +34,7 @@ function readYaml<T>(file: string): T | null {
 // /ice/<version>/<language> (the newest version's, in its first language, when
 // they name no version), plus each version's redirects.yaml.
 function buildRedirects(): RedirectRule[] {
-  const root = path.join(process.cwd(), 'content');
+  const root = path.join(process.cwd(), 'content', 'ice');
   const rules: RedirectRule[] = [];
   const versions = contentVersions(root).sort((a, b) =>
     a.localeCompare(b, undefined, { numeric: true })
