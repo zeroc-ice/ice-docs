@@ -2,37 +2,53 @@
 
 import { Tag, type Config, type Node, type Schema } from '@markdoc/markdoc';
 
+interface Fence {
+  language: string;
+  title?: string;
+  code: string;
+}
+
 // The front page's hero: the Slice contract, and the client and server that use
-// it, in the page's language mapping. The page picks each mapping's blocks with
-// `{% iflang %}`, as any other page does. Of what is left, the `slice` block is
-// the contract, a block titled `Server.*` is the server, and the other is the
-// client. The language tabs are the top bar's language targets, from the chrome
-// the route provides.
+// it, in every language mapping. The page groups its blocks with `{% iflang %}`,
+// as any other page does. For each mapping, of the blocks it can see, the
+// `slice` block is the contract, a block titled `Server.*` is the server, and
+// the other is the client.
 const showcase: Schema = {
   render: 'Showcase',
   children: ['fence', 'tag'],
   transform(node: Node, config: Config) {
-    const variables = config.variables ?? {};
+    const languages: string[] = config.variables?.languages ?? [];
     const blocks = (node.transformChildren(config) as unknown[])
       .flat(Infinity)
       .filter(Tag.isTag)
-      .map((tag) => ({
-        language: String(tag.attributes['data-language'] ?? ''),
-        title: tag.attributes.title as string | undefined,
-        code: tag.children.join('')
-      }));
-    const isServer = (block: { title?: string }) =>
-      /^server/i.test(block.title ?? '');
+      .filter((tag) => tag.name === 'LangBlock');
+    const fencesFor = (language: string): Fence[] =>
+      blocks
+        .filter((block) =>
+          (block.attributes.langs as string[]).includes(language)
+        )
+        .flatMap((block) => block.children)
+        .filter(Tag.isTag)
+        .map((tag) => ({
+          language: String(tag.attributes['data-language'] ?? ''),
+          title: tag.attributes.title as string | undefined,
+          code: tag.children.join('')
+        }));
+    const isServer = (block: Fence) => /^server/i.test(block.title ?? '');
 
-    return new Tag('Showcase', {
-      current: String(variables.language ?? ''),
-      languageOptions: variables.chrome?.languageOptions ?? [],
-      contract: blocks.find((block) => block.language === 'slice'),
-      client: blocks.find(
-        (block) => block.language !== 'slice' && !isServer(block)
-      ),
-      server: blocks.find(isServer)
+    const panels = languages.map((language) => {
+      const fences = fencesFor(language);
+      return {
+        lang: language,
+        contract: fences.find((block) => block.language === 'slice'),
+        client: fences.find(
+          (block) => block.language !== 'slice' && !isServer(block)
+        ),
+        server: fences.find(isServer)
+      };
     });
+
+    return new Tag('Showcase', { languages, panels });
   }
 };
 

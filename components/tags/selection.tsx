@@ -12,14 +12,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import type { LanguageOption } from '@/components/ice/LanguageSelect';
 import type { VersionOption } from '@/components/ice/VersionSelect';
+import { setLanguage, useLanguage } from '@/context/state';
 import { languageLabel } from '@/lib/docs-model/nav';
 
 type Props = {
   version: string;
-  language: string;
-  languageOptions: LanguageOption[];
+  languages: string[];
   versionOptions: VersionOption[];
   previousVersions?: { label: string; url: string };
 };
@@ -28,52 +27,54 @@ type Props = {
 // and open the same choices as the top bar.
 export const Selection = ({
   version,
-  language,
-  languageOptions,
+  languages,
   versionOptions,
   previousVersions
-}: Props) => (
-  <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
-    <Switch
-      icon={<Tag aria-hidden="true" className="size-4" />}
-      label="Version"
-      value={`Ice ${version}`}
-      note="Make sure it is the release you use."
-    >
-      {versionOptions.map((option) => (
-        <Item
-          key={option.value}
-          href={option.href}
-          selected={option.value === version}
-        >
-          Ice {option.value}
-        </Item>
-      ))}
-      {previousVersions && (
-        <>
-          <DropdownMenuSeparator className="bg-hairline" />
-          <Item href={previousVersions.url}>{previousVersions.label}…</Item>
-        </>
-      )}
-    </Switch>
-    <Switch
-      icon={<Languages aria-hidden="true" className="size-4" />}
-      label="Language"
-      value={languageLabel(language)}
-      note="Code samples, and a few whole pages, change with it."
-    >
-      {languageOptions.map((option) => (
-        <Item
-          key={option.value}
-          href={option.href}
-          selected={option.value === language}
-        >
-          {option.label}
-        </Item>
-      ))}
-    </Switch>
-  </div>
-);
+}: Props) => {
+  const language = useLanguage();
+  return (
+    <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+      <Switch
+        icon={<Tag aria-hidden="true" className="size-4" />}
+        label="Version"
+        value={`Ice ${version}`}
+        note="Make sure it is the release you use."
+      >
+        {versionOptions.map((option) => (
+          <Item
+            key={option.value}
+            href={option.href}
+            selected={option.value === version}
+          >
+            Ice {option.value}
+          </Item>
+        ))}
+        {previousVersions && (
+          <>
+            <DropdownMenuSeparator className="bg-hairline" />
+            <Item href={previousVersions.url}>{previousVersions.label}…</Item>
+          </>
+        )}
+      </Switch>
+      <Switch
+        icon={<Languages aria-hidden="true" className="size-4" />}
+        label="Language"
+        value={languageLabel(language)}
+        note="Code samples and mapping sections change with it."
+      >
+        {languages.map((option) => (
+          <Item
+            key={option}
+            onSelect={() => setLanguage(option)}
+            selected={option === language}
+          >
+            {languageLabel(option)}
+          </Item>
+        ))}
+      </Switch>
+    </div>
+  );
+};
 
 const Switch = ({
   icon,
@@ -123,23 +124,40 @@ const Switch = ({
   </DropdownMenu>
 );
 
+const itemClass =
+  'focus:bg-surface-sunken flex cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 text-sm';
+
+// A choice that navigates (a version) or one that switches in place (a language).
 const Item = ({
   href,
+  onSelect,
   selected,
   children
 }: {
-  href: string;
+  href?: string;
+  onSelect?: () => void;
   selected?: boolean;
   children: ReactNode;
-}) => (
-  <DropdownMenuItem asChild>
-    <Link
-      href={href}
-      aria-current={selected ? 'page' : undefined}
-      className="focus:bg-surface-sunken flex cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 text-sm"
+}) =>
+  href ? (
+    <DropdownMenuItem asChild>
+      <Link
+        href={href}
+        aria-current={selected ? 'page' : undefined}
+        className={itemClass}
+      >
+        {children}
+        {selected && <Check aria-hidden="true" className="text-link size-4" />}
+      </Link>
+    </DropdownMenuItem>
+  ) : (
+    <DropdownMenuItem
+      onSelect={onSelect}
+      aria-checked={selected}
+      role="menuitemradio"
+      className={itemClass}
     >
       {children}
       {selected && <Check aria-hidden="true" className="text-link size-4" />}
-    </Link>
-  </DropdownMenuItem>
-);
+    </DropdownMenuItem>
+  );

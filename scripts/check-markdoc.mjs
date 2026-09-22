@@ -15,15 +15,15 @@
 // a diagnostic names the file and line to fix; the two tags the resolver
 // consumes before Markdoc sees a page — `language-section` and `snippet` — are
 // declared for it with their attributes. The second takes each page as the
-// site renders it: a shared page with the language overlay's sections inserted
-// and its snippets expanded, once per language, which is the only place a
-// problem of insertion can show, such as an overlay heading that lands inside
-// a callout. It validates that, then runs `Markdoc.transform` on it the way
-// the route does, since a tag's transform can fail where validation passed
-// (the route swallows that and renders an error panel). That pass can only
-// point at a line of the assembled page, so it quotes the line, and it skips
-// anything the first pass already reported. Both passes see the variables the
-// route provides, so a page may refer to `$frontmatter` or `$path`.
+// site renders it: a shared page with every language overlay's sections
+// inserted and its snippets expanded, which is the only place a problem of
+// insertion can show, such as an overlay heading that lands inside a callout.
+// It validates that, then runs `Markdoc.transform` on it the way the route
+// does, since a tag's transform can fail where validation passed (the route
+// swallows that and renders an error panel). That pass can only point at a
+// line of the assembled page, so it quotes the line, and it skips anything the
+// first pass already reported. Both passes see the variables the route
+// provides, so a page may refer to `$frontmatter` or `$path`.
 //
 // Exit code 1 on any diagnostic at warning level or above. `child-invalid`,
 // which a `{% callout %}` reflowed into its paragraph produces, is a warning.
@@ -106,23 +106,22 @@ for (const version of listVersions(ROOT)) {
 // to exist, so the reading time and the chrome are placeholders of the right
 // shape; nothing in the manual refers to either.
 const pageIndexes = new Map();
-function variablesFor({ version, language, slug, frontmatter }) {
-  const key = `${version}/${language}`;
-  if (!pageIndexes.has(key)) {
+function variablesFor({ version, slug, frontmatter }) {
+  if (!pageIndexes.has(version)) {
     const { index } = buildPageIndex(
-      listPages(ROOT, version, language).map((page) => page.slug)
+      listPages(ROOT, version).map((page) => page.slug)
     );
-    pageIndexes.set(key, index);
+    pageIndexes.set(version, index);
   }
   return {
     ...config.variables,
     frontmatter,
-    path: pageHref(version, language, slug),
-    readingTime: '1 min read',
+    path: pageHref(version, slug),
+    readingTime: {},
     version,
-    language,
-    pageIndex: pageIndexes.get(key),
-    chrome: { breadcrumbs: [], prev: null, next: null }
+    languages: languagesByVersion[version],
+    pageIndex: pageIndexes.get(version),
+    chrome: { breadcrumbs: [], pagination: [] }
   };
 }
 
@@ -134,31 +133,18 @@ const reported = new Set();
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
 for (const version of listVersions(ROOT)) {
-  const files = listPages(ROOT, version).flatMap((page) => [
-    // A shared page is rendered for every language; any one will do here.
-    ...(page.shared
-      ? [
-          {
-            file: page.shared,
-            language: languagesByVersion[version][0],
-            slug: page.slug
-          }
-        ]
-      : []),
-    ...Object.entries(page.overlays).map(([language, file]) => ({
-      file,
-      language,
-      slug: page.slug
-    }))
-  ]);
-  for (const { file, language, slug } of files.sort((a, b) =>
+  const files = listPages(ROOT, version).flatMap((page) =>
+    [page.shared, ...Object.values(page.overlays)]
+      .filter(Boolean)
+      .map((file) => ({ file, slug: page.slug }))
+  );
+  for (const { file, slug } of files.sort((a, b) =>
     a.file.localeCompare(b.file)
   )) {
     pages++;
     const source = fs.readFileSync(file, 'utf8');
     const variables = variablesFor({
       version,
-      language,
       slug,
       frontmatter: frontmatterOf(source)
     });
@@ -172,16 +158,13 @@ for (const version of listVersions(ROOT)) {
   }
 }
 
-// 2. Every page as the site renders it, per language.
+// 2. Every page as the site renders it.
 let rendered = 0;
-for (const { version, language, slug } of listPageParams(
-  ROOT,
-  languagesByVersion
-)) {
+for (const { version, slug } of listPageParams(ROOT)) {
   rendered++;
-  const { shared, overlay } = readPageSources(ROOT, version, language, slug);
-  const frontmatter = frontmatterOf(shared ?? overlay ?? '');
-  const where = `${version}/${language}/${slug} (assembled)`;
+  const { shared, overlays } = readPageSources(ROOT, version, slug);
+  const frontmatter = frontmatterOf(shared ?? Object.values(overlays)[0] ?? '');
+  const where = `${version}/${slug} (assembled)`;
   let body;
   try {
     // The same steps, in the same order, as the page route.
@@ -189,7 +172,7 @@ for (const { version, language, slug } of listPageParams(
       stripRedundantTitle(
         resolveDocument({
           shared: shared ?? '',
-          overlay: overlay ?? undefined,
+          overlays,
           readFile: snippetReader(ROOT, version)
         }),
         frontmatter.title
@@ -199,12 +182,7 @@ for (const { version, language, slug } of listPageParams(
     diagnostics.push({ where, text: `cannot assemble: ${error.message}` });
     continue;
   }
-  const variables = variablesFor({
-    version,
-    language,
-    slug,
-    frontmatter
-  });
+  const variables = variablesFor({ version, slug, frontmatter });
   const ast = parse(body);
   for (const d of validate(ast, body, config.tags, variables)) {
     if (reported.has(`${d.text}\n${d.source}`)) continue;
@@ -215,15 +193,10 @@ for (const { version, language, slug } of listPageParams(
   }
   // What the route does next; a tag's transform can throw where validation
   // passed, and the route would render an error panel in the page's place.
-  // A shared page fails the same way in every language; report it once.
   try {
     Markdoc.transform(ast, { ...config, variables });
   } catch (error) {
-    const key = `${version}/${slug}\ntransform: ${error.message}`;
-    if (!reported.has(key)) {
-      reported.add(key);
-      diagnostics.push({ where, text: `transform failed: ${error.message}` });
-    }
+    diagnostics.push({ where, text: `transform failed: ${error.message}` });
   }
 }
 

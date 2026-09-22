@@ -18,7 +18,6 @@ const link = {
 
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
       version: String(config.variables?.version ?? ''),
-      language: String(config.variables?.language ?? ''),
       index
     });
 

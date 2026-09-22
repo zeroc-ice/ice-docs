@@ -24,7 +24,8 @@ export function IceHeader() {
       </Link>
       <div className="flex min-w-0 items-center gap-3 text-sm sm:gap-4">
         {/* Search + version + language portal in here from the page, which is
-            the only place that knows the equivalent URL for each of them. */}
+            the only place that knows each version's equivalent URL and the
+            manual's languages. */}
         <div
           id="ice-header-controls"
           className="flex min-w-0 items-center gap-2 sm:gap-3"

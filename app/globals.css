@@ -342,17 +342,19 @@
    are allowed the full column so a wide sample does not have to scroll.
    --------------------------------------------------------------------------- */
 @layer components {
-  .doc-body > * {
+  /* A language block has no box of its own, so the tracks reach through it to
+     what it holds. */
+  :where(.doc-body, .doc-body > [data-langs]) > * {
     max-width: var(--measure);
   }
 
-  .doc-body > .doc-wide {
+  :where(.doc-body, .doc-body > [data-langs]) > .doc-wide {
     max-width: var(--measure-wide);
   }
 
   /* A page that is not an essay, such as the front page, runs its prose on
      the wide track too, so its text, switches, and panels share one edge. */
-  [data-page-shape='wide'] .doc-body > * {
+  [data-page-shape='wide'] :where(.doc-body, .doc-body > [data-langs]) > * {
     max-width: var(--measure-wide);
   }
 
@@ -391,8 +393,10 @@
   }
 
   /* The first heading of a page follows the title block, which already carries
-     its own bottom margin. */
-  .doc-body > :first-child {
+     its own bottom margin. On a page written per language it opens the block on
+     show, which nothing but the other languages' blocks precede. */
+  .doc-body > :first-child,
+  .doc-body > [data-langs]:not(:not([data-langs]) ~ *) > :first-child {
     margin-top: 0;
   }
 
@@ -621,4 +625,27 @@
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important;
+}
+
+/* Every language mapping is in the page, and only the reader's shows: <html
+   data-lang> says which, and a block or span with data-langs belongs to the
+   mappings it lists. A shown wrapper adds no box of its own, so the prose
+   around it flows as if the mapping had been written in place; a sidebar
+   entry, the outline, or a pagination footer carrying it keeps its box. The
+   mappings listed below mirror LANGUAGE_LABELS in lib/docs-model/nav.ts. */
+div[data-langs],
+span[data-langs] {
+  display: contents;
+}
+
+html[data-lang='cpp'] [data-langs]:not([data-langs~='cpp']),
+html[data-lang='csharp'] [data-langs]:not([data-langs~='csharp']),
+html[data-lang='java'] [data-langs]:not([data-langs~='java']),
+html[data-lang='js'] [data-langs]:not([data-langs~='js']),
+html[data-lang='matlab'] [data-langs]:not([data-langs~='matlab']),
+html[data-lang='php'] [data-langs]:not([data-langs~='php']),
+html[data-lang='python'] [data-langs]:not([data-langs~='python']),
+html[data-lang='ruby'] [data-langs]:not([data-langs~='ruby']),
+html[data-lang='swift'] [data-langs]:not([data-langs~='swift']) {
+  display: none;
 }

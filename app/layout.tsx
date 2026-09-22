@@ -2,8 +2,14 @@
 
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import { AnchorScroll } from '@/components/ice/AnchorScroll';
 import { IceHeader } from '@/components/ice/Header';
 import { Footer } from '@/components/ice/Footer';
+import {
+  DEFAULT_LANGUAGE,
+  LANGUAGE_LABELS,
+  LANGUAGE_STORAGE_KEY
+} from '@/lib/docs-model/nav';
 import { Inter } from 'next/font/google';
 import clsx from 'clsx';
 import { Metadata } from 'next';
@@ -32,14 +38,29 @@ export const metadata: Metadata = {
   }
 };
 
+// Applies the reader's language mapping before the first paint, so the page
+// never shows one mapping and then switches to theirs: a `?lang=` in the URL,
+// which a link can carry, else the stored choice. The query is stored as the
+// choice and dropped from the address, so the URL a reader copies stays clean.
+// The attribute it sets is what the stylesheet keys on; see context/state.tsx.
+const languageScript = `(function(){
+var known=${JSON.stringify(Object.keys(LANGUAGE_LABELS))},key=${JSON.stringify(LANGUAGE_STORAGE_KEY)};
+var url=new URL(location.href),q=url.searchParams.get('lang'),l=null;
+try{l=localStorage.getItem(key)}catch(e){}
+if(known.includes(q)){l=q;try{localStorage.setItem(key,q)}catch(e){}url.searchParams.delete('lang');history.replaceState(null,'',url)}
+if(known.includes(l))document.documentElement.dataset.lang=l
+})()`;
+
 export default function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-lang={DEFAULT_LANGUAGE} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: languageScript }} />
+        <AnchorScroll />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,20 +1,24 @@
 // Copyright (c) ZeroC, Inc.
 
-import type { Node, Config } from '@markdoc/markdoc';
+import { Tag, type Node, type Config } from '@markdoc/markdoc';
 
-// Inline (or block) conditional: renders its children only when the current
-// programming language ($language variable) is in the `langs` list. Migrated
-// from Confluence scroll-conditional-content-inline macros.
+// A block or inline span that belongs to some of the language mappings. Every
+// mapping is in the page; the reader's language, set on <html data-lang>, is
+// what shows. So the tag does not filter, it labels: its children render inside
+// a wrapper carrying `langs`, and CSS hides the wrappers of the other mappings.
 const iflang = {
   attributes: {
     langs: { type: String, required: true }
   },
   transform(node: Node, config: Config) {
-    const current = config.variables?.language;
     const langs = String(node.attributes.langs ?? '')
       .split(',')
       .map((s) => s.trim());
-    return langs.includes(current) ? node.transformChildren(config) : null;
+    return new Tag(
+      'LangBlock',
+      { langs, inline: node.inline },
+      node.transformChildren(config)
+    );
   }
 };
 

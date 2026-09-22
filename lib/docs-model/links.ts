@@ -49,7 +49,6 @@ export function buildPageIndex(slugs: string[]): {
 
 export interface LinkContext {
   version: string;
-  language: string;
   index: PageIndex;
 }
 
@@ -68,7 +67,7 @@ const MAILTO = /^mailto:/i;
  * - external / mailto / in-page anchors / already-absolute: unchanged
  * - `attachments/...`: left alone (assets, not pages)
  * - anything else: the page named by the link is looked up in the page index
- *   and rewritten to `/ice/<version>/<language>/<slug>`, preserving `#anchor`.
+ *   and rewritten to `/ice/<version>/<slug>`, preserving `#anchor`.
  */
 export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const raw = (href ?? '').trim();
@@ -97,7 +96,7 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   if (!target) return { href: raw, resolved: false };
 
   return {
-    href: `/ice/${ctx.version}/${ctx.language}/${target}${hash}`,
+    href: `/ice/${ctx.version}/${target}${hash}`,
     resolved: true
   };
 }

@@ -4,8 +4,8 @@
 # next.config.ts. `permanent` defaults to false while URLs are still settling.
 redirects:
   - from: /ice/3.8/cpp/Ice-Manual/Enumerations
-    to: /ice/3.8/cpp/the-slice-language/user-defined-types/enumerations
+    to: /ice/3.8/the-slice-language/user-defined-types/enumerations
   - from: /ice/3.8/python/Ice-Manual/Enumerations
-    to: /ice/3.8/python/the-slice-language/user-defined-types/enumerations
+    to: /ice/3.8/the-slice-language/user-defined-types/enumerations
   - from: /ice/3.8/cpp/The-Ice-Runtime/Communicator
-    to: /ice/3.8/cpp/the-ice-runtime/communicator
+    to: /ice/3.8/the-ice-runtime/communicator

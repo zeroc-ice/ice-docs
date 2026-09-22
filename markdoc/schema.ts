@@ -10,6 +10,7 @@ import { Callout } from '@/components/tags/callout';
 import { Card } from '@/components/tags/card';
 import { Divider } from '@/components/divider';
 import { Grid } from '@/components/tags/grid';
+import { LangBlock } from '@/components/tags/lang-block';
 import { Aside } from '@/components/tags/aside';
 import { Step } from '@/components/tags/step';
 import { Prerequisites } from '@/components/tags/prerequisites';
@@ -30,6 +31,7 @@ export const components = {
   Document: DocumentShell,
   Grid,
   Heading,
+  LangBlock,
   List,
   NextSteps,
   Prerequisites,

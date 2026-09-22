@@ -168,11 +168,17 @@ test('declaredSlots lists what a shared page asks each overlay to fill', () => {
   assert.deepEqual(declaredSlots(shared), ['one', 'two']);
 });
 
+// One language's answer to a slot, and the block it renders as.
 const slot = (
   name: string,
   state: string,
   extra: Record<string, string> = {}
-) => new Map([[name, { name, state, content: '', ...extra }]]) as never;
+) =>
+  new Map([
+    ['cpp', new Map([[name, { name, state, content: '', ...extra }]])]
+  ]) as never;
+const block = (langs: string, text: string) =>
+  `{% iflang langs="${langs}" %}\n\n${text}\n\n{% /iflang %}`;
 
 test('resolveLanguageSections fills self-closing slots', () => {
   const shared = 'A\n{% language-section name="mapping" /%}\nB';
@@ -180,7 +186,25 @@ test('resolveLanguageSections fills self-closing slots', () => {
     shared,
     slot('mapping', 'content', { content: 'X' })
   );
-  assert.equal(out, 'A\nX\nB');
+  assert.equal(out, `A\n${block('cpp', 'X')}\nB`);
+});
+
+test('languages that answer a slot the same way share one block', () => {
+  const shared = '{% language-section name="m" /%}';
+  const answer = (content: string) =>
+    new Map([['m', { name: 'm', state: 'content', content }]]);
+  const out = resolveLanguageSections(
+    shared,
+    new Map([
+      ['cpp', answer('Same')],
+      ['java', answer('Same')],
+      ['python', answer('Other')]
+    ]) as never
+  );
+  assert.equal(
+    out,
+    `${block('cpp,java', 'Same')}\n\n${block('python', 'Other')}`
+  );
 });
 
 test('each slot state renders the thing that state means', () => {
@@ -218,12 +242,13 @@ test('an unclassified slot renders nothing but can be made an error', () => {
 
 test('resolveLanguageSections errors on a missing overlay section by default', () => {
   const shared = '{% language-section name="mapping" /%}';
+  const none = new Map([['cpp', new Map()]]);
   assert.throws(
-    () => resolveLanguageSections(shared, new Map()),
+    () => resolveLanguageSections(shared, none),
     /no overlay content/
   );
   assert.equal(
-    resolveLanguageSections(shared, new Map(), { onMissing: 'empty' }),
+    resolveLanguageSections(shared, none, { onMissing: 'empty' }),
     ''
   );
 });
@@ -253,7 +278,7 @@ test('inlineSnippets requires file and name', () => {
 
 // --- end-to-end ------------------------------------------------------------
 
-test('resolveDocument merges overlay + inlines snippets', () => {
+test('resolveDocument merges the overlays + inlines snippets', () => {
   const shared =
     '---\nid: p\n---\n# Title\n{% language-section name="mapping" /%}\n';
   const overlay =
@@ -261,17 +286,28 @@ test('resolveDocument merges overlay + inlines snippets', () => {
     'Py mapping\n{% snippet file="e.py" name="use" /%}\n{% /language-section %}';
   const out = resolveDocument({
     shared,
-    overlay,
+    overlays: { python: overlay },
     readFile: () => '# <use>\nf = 1\n# </use>'
   });
-  assert.equal(out, '# Title\nPy mapping\n```python\nf = 1\n```\n');
+  assert.equal(
+    out,
+    `# Title\n${block('python', 'Py mapping\n```python\nf = 1\n```')}\n`
+  );
 });
 
-test('resolveDocument serves an overlay-only (language-specific) page', () => {
-  const overlay = '---\nlanguage: cpp\n---\nOnly C++ has this page.';
+test('resolveDocument makes a page written per language one page', () => {
+  const page = (text: string) => `---\ntitle: Greeter\n---\n${text}`;
   assert.equal(
-    resolveDocument({ shared: '', overlay, readFile: () => '' }),
-    'Only C++ has this page.'
+    resolveDocument({
+      shared: '',
+      overlays: {
+        python: page('Same steps.'),
+        cpp: page('C++ steps.'),
+        java: page('Same steps.')
+      },
+      readFile: () => ''
+    }),
+    `${block('cpp', 'C++ steps.')}\n\n${block('java,python', 'Same steps.')}`
   );
 });
 
@@ -294,7 +330,7 @@ test('resolves the content-model example (cpp enumerations)', () => {
   );
   const out = resolveDocument({
     shared,
-    overlay,
+    overlays: { cpp: overlay },
     readFile: (f) => readFileSync(join(ex, f), 'utf8')
   });
   // shared prose survives

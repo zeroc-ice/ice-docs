@@ -11,13 +11,11 @@ import {
   buildSideNav,
   activeTrailKeys,
   containsActive,
-  counterpartPage,
   languageLabel,
   navigationPages,
   prevNext,
   sideNavKey,
   trailTo,
-  versionSwitchTarget,
   type NavDoc,
   type NavNode
 } from './nav.ts';
@@ -42,8 +40,8 @@ const SIDEBAR: NavNode[] = [
   {
     title: 'Plugins',
     items: [
-      { title: 'Plug-in API', page: 'cpp-plug-in-api', language: 'cpp' },
-      { title: 'Plug-in API', page: 'python-plug-in-api', language: 'python' },
+      { title: 'C++ Plug-in API', page: 'cpp-plug-in-api' },
+      { title: 'Python Plug-in API', page: 'python-plug-in-api' },
       { title: 'Installing a Plug-in', page: 'installing-a-plug-in' }
     ]
   }
@@ -71,14 +69,14 @@ const SLUGS: Record<string, string> = {
 
 const opts = {
   version: '3.8',
-  language: 'cpp',
   currentPage: 'enumerations',
-  slugOf: (page: string) => SLUGS[page]
+  slugOf: (page: string) => SLUGS[page],
+  writtenFor: () => undefined
 };
 
 test('buildSideNav resolves the tree with hrefs and active flags', () => {
   const tree = buildSideNav(SIDEBAR, opts);
-  assert.equal(tree[0].href, '/ice/3.8/cpp/get-started');
+  assert.equal(tree[0].href, '/ice/3.8/get-started');
   const slice = tree[1];
   assert.equal(slice.title, 'The Slice Language');
   // Overview, then the chapter's own children.
@@ -88,7 +86,7 @@ test('buildSideNav resolves the tree with hrefs and active flags', () => {
   assert.equal(udt.items[1].active, true); // current page
   assert.equal(
     udt.items[1].href,
-    '/ice/3.8/cpp/slice/user-defined-types/enumerations'
+    '/ice/3.8/slice/user-defined-types/enumerations'
   );
 });
 
@@ -98,7 +96,7 @@ test('a group that has a page of its own becomes a toggle, with the page as Over
   const [, slice] = buildSideNav(SIDEBAR, opts);
   assert.equal(slice.href, undefined, 'the group row itself does not navigate');
   assert.equal(slice.items[0].title, 'Overview');
-  assert.equal(slice.items[0].href, '/ice/3.8/cpp/slice');
+  assert.equal(slice.items[0].href, '/ice/3.8/slice');
 });
 
 test("standing on a group's own page marks Overview, not the group row", () => {
@@ -115,7 +113,7 @@ test("standing on a group's own page marks Overview, not the group row", () => {
 test('a group with no page of its own is unchanged', () => {
   const [, , plugins] = buildSideNav(SIDEBAR, { ...opts, currentPage: '' });
   assert.equal(plugins.href, undefined);
-  assert.equal(plugins.items[0].title, 'Plug-in API');
+  assert.equal(plugins.items[0].title, 'C++ Plug-in API');
 });
 
 test('buildSideNav keeps unavailable pages but without an href', () => {
@@ -129,33 +127,9 @@ test('buildSideNav keeps unavailable pages but without an href', () => {
   const udt = slice.items[1]; // no Overview child when the group page is unavailable
   assert.equal(
     udt.items[0].href,
-    '/ice/3.8/cpp/slice/user-defined-types/enumerations'
+    '/ice/3.8/slice/user-defined-types/enumerations'
   );
   assert.equal(udt.items[1].href, undefined); // unavailable, still present
-});
-
-test('buildSideNav shows a language-specific node only for its language', () => {
-  const [, , cpp] = buildSideNav(SIDEBAR, { ...opts, currentPage: '' });
-  assert.deepEqual(
-    cpp.items.map((n) => n.href),
-    [
-      '/ice/3.8/cpp/plugins/cpp-plug-in-api',
-      '/ice/3.8/cpp/plugins/installing-a-plug-in'
-    ]
-  );
-
-  const [, , py] = buildSideNav(SIDEBAR, {
-    ...opts,
-    language: 'python',
-    currentPage: ''
-  });
-  assert.deepEqual(
-    py.items.map((n) => n.href),
-    [
-      '/ice/3.8/python/plugins/python-plug-in-api',
-      '/ice/3.8/python/plugins/installing-a-plug-in'
-    ]
-  );
 });
 
 test('containsActive reports the branch holding the current page', () => {
@@ -176,29 +150,15 @@ test('trailTo returns every ancestor down to the page, or null', () => {
   assert.equal(trailTo(SIDEBAR, 'not-a-page'), null);
 });
 
-test('counterpartPage finds the same page written for another language', () => {
-  // The C++ plug-in API page's counterpart for a Python reader is the Python
-  // page beside it; a language switch should land there, not on the front page.
-  assert.equal(
-    counterpartPage(SIDEBAR, 'cpp-plug-in-api', 'python'),
-    'python-plug-in-api'
-  );
-  // No Java page sits beside it, and a shared page has no counterpart to find.
-  assert.equal(counterpartPage(SIDEBAR, 'cpp-plug-in-api', 'java'), undefined);
-  assert.equal(counterpartPage(SIDEBAR, 'cpp-plug-in-api', 'cpp'), undefined);
-  assert.equal(counterpartPage(SIDEBAR, 'enumerations', 'python'), undefined);
-  assert.equal(counterpartPage(SIDEBAR, 'not-a-page', 'python'), undefined);
-});
-
 test('breadcrumbs trace manual -> chapter -> group -> page, and the page is not a link', () => {
   const crumbs = breadcrumbs(NAV, 'enumerations', opts);
   assert.deepEqual(
     crumbs.map((c) => c.title),
     [MANUAL_TITLE, 'The Slice Language', 'User-Defined Types', 'Enumerations']
   );
-  assert.equal(crumbs[0].href, '/ice/3.8/cpp');
-  assert.equal(crumbs[1].href, '/ice/3.8/cpp/slice');
-  assert.equal(crumbs[2].href, '/ice/3.8/cpp/slice/user-defined-types');
+  assert.equal(crumbs[0].href, '/ice/3.8');
+  assert.equal(crumbs[1].href, '/ice/3.8/slice');
+  assert.equal(crumbs[2].href, '/ice/3.8/slice/user-defined-types');
   assert.equal(crumbs[3].href, undefined); // current page
 });
 
@@ -212,31 +172,48 @@ test('a page outside the tree gets no trail', () => {
 });
 
 test('prevNext walks the whole manual in reading order, across chapters', () => {
-  const { prev, next } = prevNext(SIDEBAR, 'enumerations', opts);
+  const { prev, next } = prevNext(SIDEBAR, 'enumerations', opts, 'cpp');
   assert.equal(prev?.title, 'User-Defined Types');
   assert.equal(next?.title, 'Sequences');
-  assert.equal(next?.href, '/ice/3.8/cpp/slice/user-defined-types/sequences');
+  assert.equal(next?.href, '/ice/3.8/slice/user-defined-types/sequences');
 
   // The last page of one chapter leads into the next chapter.
-  const end = prevNext(SIDEBAR, 'sequences', opts);
-  assert.equal(end.next?.title, 'Plug-in API');
-  assert.equal(end.next?.href, '/ice/3.8/cpp/plugins/cpp-plug-in-api');
+  const end = prevNext(SIDEBAR, 'sequences', opts, 'cpp');
+  assert.equal(end.next?.title, 'C++ Plug-in API');
+  assert.equal(end.next?.href, '/ice/3.8/plugins/cpp-plug-in-api');
 });
 
-test('prevNext skips pages that do not exist in the current language', () => {
-  const { next } = prevNext(SIDEBAR, 'enumerations', {
-    ...opts,
-    slugOf: (page) => (page === 'sequences' ? undefined : SLUGS[page])
-  });
-  assert.equal(next?.title, 'Plug-in API'); // sequences is unavailable
+test('prevNext skips pages the version does not have', () => {
+  const { next } = prevNext(
+    SIDEBAR,
+    'enumerations',
+    {
+      ...opts,
+      slugOf: (page) => (page === 'sequences' ? undefined : SLUGS[page])
+    },
+    'cpp'
+  );
+  assert.equal(next?.title, 'C++ Plug-in API'); // sequences is unavailable
 });
 
-test('prevNext never crosses into another language', () => {
-  const { next } = prevNext(SIDEBAR, 'sequences', {
+test('prevNext skips pages not written for the language, but never the page itself', () => {
+  const written = {
     ...opts,
-    language: 'python'
-  });
-  assert.equal(next?.href, '/ice/3.8/python/plugins/python-plug-in-api');
+    writtenFor: (page: string) => (page === 'sequences' ? ['cpp'] : undefined)
+  };
+  assert.equal(
+    prevNext(SIDEBAR, 'enumerations', written, 'cpp').next?.title,
+    'Sequences'
+  );
+  assert.equal(
+    prevNext(SIDEBAR, 'enumerations', written, 'python').next?.title,
+    'C++ Plug-in API'
+  );
+  // A Python reader who lands on the C++-only page still gets its neighbours.
+  assert.equal(
+    prevNext(SIDEBAR, 'sequences', written, 'python').prev?.title,
+    'Enumerations'
+  );
 });
 
 test('navigationPages lists every declared page in reading order', () => {
@@ -258,40 +235,6 @@ test('languageLabel maps slugs to display names, falling back to the slug', () =
   assert.equal(languageLabel('csharp'), 'C#');
   assert.equal(languageLabel('js'), 'JavaScript');
   assert.equal(languageLabel('unknown'), 'unknown');
-});
-
-test('versionSwitchTarget keeps language + page when available, at its slug there', () => {
-  const href = versionSwitchTarget({
-    targetVersion: '3.7',
-    targetLanguages: ['cpp', 'python'],
-    currentLanguage: 'python',
-    page: 'enumerations',
-    slugOf: () => 'slice/enumerations'
-  });
-  assert.equal(href, '/ice/3.7/python/slice/enumerations');
-});
-
-test('versionSwitchTarget falls back on language then on the front page', () => {
-  // java is not in the target version -> first target language (cpp)
-  const lang = versionSwitchTarget({
-    targetVersion: '3.7',
-    targetLanguages: ['cpp', 'python'],
-    currentLanguage: 'java',
-    page: 'enumerations',
-    slugOf: (l, p) =>
-      l === 'cpp' && p === 'enumerations' ? 'slice/enumerations' : undefined
-  });
-  assert.equal(lang, '/ice/3.7/cpp/slice/enumerations');
-
-  // page missing in the target version -> front page
-  const missing = versionSwitchTarget({
-    targetVersion: '3.7',
-    targetLanguages: ['cpp', 'python'],
-    currentLanguage: 'cpp',
-    page: 'communicator',
-    slugOf: () => undefined
-  });
-  assert.equal(missing, '/ice/3.7/cpp');
 });
 
 test('activeTrailKeys names every group down to the current page, and nothing else', () => {

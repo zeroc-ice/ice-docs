@@ -4,10 +4,14 @@
 import { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 
+import { visibleTarget } from '@/components/ice/AnchorScroll';
+
 export interface OutlineHeading {
   id: string;
   title: string;
   level: number;
+  /** The language mappings the heading belongs to; every mapping when absent. */
+  langs?: string[];
 }
 
 // Below this the outline stops showing sub-headings. Reference pages in this
@@ -21,10 +25,22 @@ const ACTIVATION_LINE = 132;
 
 // "On this page", with the section the reader is in marked. Fixed width and
 // hard truncation: a property name like `Ice.Default.EncodingVersion` must never
-// widen the rail or spill out of it.
-export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
-  const dense = headings.length > DENSE_THRESHOLD;
+// widen the rail or spill out of it. Every mapping's headings are listed and
+// the stylesheet shows the reader's, so the outline is right before any script
+// runs.
+export function PageOutline({
+  headings,
+  languages
+}: {
+  headings: OutlineHeading[];
+  languages: string[];
+}) {
+  const countFor = (language: string) =>
+    headings.filter((h) => !h.langs || h.langs.includes(language)).length;
+  const dense = Math.max(0, ...languages.map(countFor)) > DENSE_THRESHOLD;
   const items = dense ? headings.filter((h) => h.level === 2) : headings;
+  // A mapping with no heading on this page gets no outline at all.
+  const withHeadings = languages.filter((language) => countFor(language) > 0);
 
   const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
 
@@ -41,7 +57,7 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
       queued = false;
       let current = list[0];
       for (const id of list) {
-        const element = document.getElementById(id);
+        const element = visibleTarget(id);
         if (!element) continue;
         if (element.getBoundingClientRect().top > ACTIVATION_LINE) break;
         current = id;
@@ -63,13 +79,20 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
   if (items.length === 0) return null;
 
   return (
-    <aside className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block">
+    <aside
+      data-langs={
+        withHeadings.length < languages.length
+          ? withHeadings.join(' ')
+          : undefined
+      }
+      className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block"
+    >
       <div className="text-ink-muted mb-2 text-[11px] font-semibold tracking-[0.07em] uppercase">
         On this page
       </div>
       <ul className="border-hairline border-l">
-        {items.map((heading) => (
-          <li key={heading.id}>
+        {items.map((heading, i) => (
+          <li key={`${heading.id}-${i}`} data-langs={heading.langs?.join(' ')}>
             <a
               href={`#${heading.id}`}
               title={heading.title}

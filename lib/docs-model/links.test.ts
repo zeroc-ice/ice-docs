@@ -14,31 +14,31 @@ const { index } = buildPageIndex([
   'get-started/get-started'
 ]);
 
-const ctx = { version: '3.8', language: 'cpp', index };
+const ctx = { version: '3.8', index };
 
 test('a page name resolves to the page wherever it now lives', () => {
   assert.equal(
     resolveDocLink('../enumerations', ctx).href,
-    '/ice/3.8/cpp/learn/slice/enumerations'
+    '/ice/3.8/learn/slice/enumerations'
   );
   assert.equal(
     resolveDocLink('enumerations', ctx).href,
-    '/ice/3.8/cpp/learn/slice/enumerations'
+    '/ice/3.8/learn/slice/enumerations'
   );
   assert.equal(
     resolveDocLink('../../ice-default-properties', ctx).href,
-    '/ice/3.8/cpp/reference/properties/ice-default-properties'
+    '/ice/3.8/reference/properties/ice-default-properties'
   );
 });
 
 test('a full path resolves too, and anchors survive', () => {
   assert.equal(
     resolveDocLink('learn/runtime/communicator#creating', ctx).href,
-    '/ice/3.8/cpp/learn/runtime/communicator#creating'
+    '/ice/3.8/learn/runtime/communicator#creating'
   );
   assert.equal(
     resolveDocLink('../communicator#creating-a-communicator', ctx).href,
-    '/ice/3.8/cpp/learn/runtime/communicator#creating-a-communicator'
+    '/ice/3.8/learn/runtime/communicator#creating-a-communicator'
   );
 });
 
@@ -48,7 +48,7 @@ test('links the resolver must not touch are returned unchanged', () => {
     '//cdn.example.com/x.png',
     'mailto:info@zeroc.com',
     '#in-page-anchor',
-    '/ice/3.8/cpp/learn/overview',
+    '/ice/3.8/learn/overview',
     './attachments/diagram.gif'
   ]) {
     const resolved = resolveDocLink(href, ctx);
@@ -66,16 +66,16 @@ test('an unknown page name is reported, not silently rewritten', () => {
 test('resolution is case-insensitive and URL-decoded', () => {
   assert.equal(
     resolveDocLink('../Enumerations', ctx).href,
-    '/ice/3.8/cpp/learn/slice/enumerations'
+    '/ice/3.8/learn/slice/enumerations'
   );
   assert.equal(
     resolveDocLink('../ice-default-properties', ctx).href,
-    '/ice/3.8/cpp/reference/properties/ice-default-properties'
+    '/ice/3.8/reference/properties/ice-default-properties'
   );
   assert.equal(
     // cspell:disable-next-line -- a URL-encoded slug, not words
     resolveDocLink('../ice%2Ddefault%2Dproperties', ctx).href,
-    '/ice/3.8/cpp/reference/properties/ice-default-properties'
+    '/ice/3.8/reference/properties/ice-default-properties'
   );
 });
 
@@ -96,11 +96,11 @@ test('a full slug wins over another page with the same name', () => {
     'guides/security/overview',
     'learn/slice/overview'
   ]);
-  const ctx2 = { version: '3.8', language: 'cpp', index: idx };
+  const ctx2 = { version: '3.8', index: idx };
   // Spelled out in full: unambiguous, and must not be hijacked by the bare name.
   assert.equal(
     resolveDocLink('learn/slice/overview', ctx2).href,
-    '/ice/3.8/cpp/learn/slice/overview'
+    '/ice/3.8/learn/slice/overview'
   );
 });
 

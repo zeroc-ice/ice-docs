@@ -4,6 +4,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { useLanguage } from '@/context/state';
+
 interface Record {
   /** Title */
   t: string;
@@ -17,31 +19,26 @@ interface Record {
   h: string;
   /** Heading keywords */
   x: string;
+  /** The languages the page is written for; every language when absent. */
+  w?: string[];
 }
 
-interface SearchProps {
-  version: string;
-  language: string;
-}
-
-// A manual this size is unusable without search. The index is per (version,
-// language) and fetched the first time the palette opens, so a reader never
-// downloads the eight language mappings they are not reading.
-export function Search({ version, language }: SearchProps) {
+// A manual this size is unusable without search. The index is per version and
+// fetched the first time the palette opens.
+export function Search({ version }: { version: string }) {
   const router = useRouter();
+  const language = useLanguage();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const opener = useRef<HTMLElement | null>(null);
 
-  // The index is per version+language, so it is cached under that key rather
-  // than cleared when either changes.
-  const indexKey = `${version}/${language}`;
+  // Cached under its version, rather than cleared when the version changes.
   const [index, setIndex] = useState<{ key: string; pages: Record[] } | null>(
     null
   );
-  const records = index?.key === indexKey ? index.pages : null;
+  const records = index?.key === version ? index.pages : null;
 
   // ⌘K / Ctrl-K from anywhere, Escape to leave.
   useEffect(() => {
@@ -65,17 +62,19 @@ export function Search({ version, language }: SearchProps) {
     }
     inputRef.current?.focus();
     if (records) return;
-    fetch(`/search/${indexKey}.json`)
+    fetch(`/search/${version}.json`)
       .then((response) => (response.ok ? response.json() : { pages: [] }))
-      .then((data) => setIndex({ key: indexKey, pages: data.pages ?? [] }))
-      .catch(() => setIndex({ key: indexKey, pages: [] }));
-  }, [open, records, indexKey]);
+      .then((data) => setIndex({ key: version, pages: data.pages ?? [] }))
+      .catch(() => setIndex({ key: version, pages: [] }));
+  }, [open, records, version]);
 
   const results = useMemo(() => {
     const needle = query.trim().toLowerCase();
     if (!needle || !records) return [];
     const scored = [];
     for (const record of records) {
+      // The sidebar hides these pages from the reader; so does search.
+      if (record.w && !record.w.includes(language)) continue;
       const title = record.t.toLowerCase();
       // Rank by where the match is: a title beats a heading beats prose.
       let score = 0;
@@ -91,7 +90,7 @@ export function Search({ version, language }: SearchProps) {
       .sort((a, b) => b.score - a.score || a.record.t.localeCompare(b.record.t))
       .slice(0, 25)
       .map((entry) => entry.record);
-  }, [query, records]);
+  }, [query, records, language]);
 
   const go = useCallback(
     (record?: Record) => {

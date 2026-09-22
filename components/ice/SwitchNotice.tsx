@@ -12,8 +12,8 @@ interface Notice {
 }
 
 /**
- * Shown when a language or version switch could not land on the page the reader
- * was actually reading.
+ * Shown when a version switch could not land on the page the reader was
+ * actually reading.
  *
  * Silently redirecting someone to a different page is the worst option: they
  * believe they are looking at the equivalent page and read the wrong thing. So

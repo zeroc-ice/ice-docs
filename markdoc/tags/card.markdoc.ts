@@ -47,7 +47,6 @@ const card = {
     const attributes = node.transformAttributes(config);
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
       version: String(config.variables?.version ?? ''),
-      language: String(config.variables?.language ?? ''),
       index: (config.variables?.pageIndex ?? {}) as PageIndex
     });
     return new Tag(

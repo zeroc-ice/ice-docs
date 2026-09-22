@@ -11,9 +11,9 @@
 //
 // A page is a directory, and its path under the version is its slug, the path in
 // its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
-// at /ice/<version>/<language>/slice/enumerations, and the pages under it are its
-// subdirectories. A directory with overlays but no index.md is a page that exists
-// in those languages only.
+// at /ice/<version>/slice/enumerations, and the pages under it are its
+// subdirectories. A directory with overlays but no index.md is a page written
+// per language: each overlay is the whole page for its language.
 //
 // Only depends on node builtins, so it is unit-testable with
 // `node lib/docs-model/content.test.ts` and usable from Next server components.
@@ -62,15 +62,10 @@ export interface PageFiles {
   slug: string;
   /** The page's name, unique within the version: the last segment of its slug. */
   name: string;
-  /** Its `index.md`, absolute; absent for a page that exists in some languages only. */
+  /** Its `index.md`, absolute; absent for a page written per language. */
   shared?: string;
   /** language -> its `<lang>.md`, absolute. */
   overlays: Record<string, string>;
-}
-
-/** Whether a page exists for a language: it has a shared text, or an overlay for that language. */
-export function pageExists(page: PageFiles, language: string): boolean {
-  return !!page.shared || language in page.overlays;
 }
 
 const pagesCache = new Map<string, PageFiles[]>();
@@ -78,19 +73,11 @@ const pagesCache = new Map<string, PageFiles[]>();
 /**
  * Every page in a version, with the files that make it up, sorted by slug.
  *
- * Pass a `language` to get only the pages that exist for it: a link resolved
- * against the whole version would happily point a Python reader at a page that
- * only exists in C++, and that URL is never generated.
- *
- * Cached per version in production: one build renders thousands of pages and
+ * Cached per version in production: one build renders hundreds of pages and
  * each would otherwise re-walk the whole content tree. Never cached in
  * development, where pages change while the server is running.
  */
-export function listPages(
-  root: string,
-  version: string,
-  language?: string
-): PageFiles[] {
+export function listPages(root: string, version: string): PageFiles[] {
   const base = path.join(root, version);
   const cacheable = process.env.NODE_ENV === 'production';
   let pages = cacheable ? pagesCache.get(base) : undefined;
@@ -113,44 +100,37 @@ export function listPages(
     pages = [...bySlug.values()].sort((a, b) => a.slug.localeCompare(b.slug));
     if (cacheable) pagesCache.set(base, pages);
   }
-  return language ? pages.filter((page) => pageExists(page, language)) : pages;
+  return pages;
 }
 
-/** Read the shared page and the language overlay for a slug (either may be absent). */
+/** Read a page's shared text and its language overlays, by language (all may be absent). */
 export function readPageSources(
   root: string,
   version: string,
-  language: string,
   slug: string
-): { shared: string | null; overlay: string | null } {
+): { shared: string | null; overlays: Record<string, string> } {
   const dir = path.join(root, version, slug);
-  return {
-    shared: readIfExists(path.join(dir, 'index.md')),
-    overlay: readIfExists(path.join(dir, `${language}.md`))
-  };
+  const overlays: Record<string, string> = {};
+  for (const entry of fs.readdirSync(dir).sort()) {
+    if (entry.endsWith('.md') && entry !== 'index.md')
+      overlays[entry.slice(0, -3)] = fs.readFileSync(
+        path.join(dir, entry),
+        'utf8'
+      );
+  }
+  return { shared: readIfExists(path.join(dir, 'index.md')), overlays };
 }
 
 export interface PageParam {
   version: string;
-  language: string;
   slug: string;
 }
 
-/** Every (version, language, slug) that should be statically generated. */
-export function listPageParams(
-  root: string,
-  languagesByVersion: Record<string, string[]>
-): PageParam[] {
-  const params: PageParam[] = [];
-  for (const version of listVersions(root)) {
-    for (const page of listPages(root, version)) {
-      for (const language of languagesByVersion[version] ?? []) {
-        if (pageExists(page, language))
-          params.push({ version, language, slug: page.slug });
-      }
-    }
-  }
-  return params;
+/** Every (version, slug) that should be statically generated. */
+export function listPageParams(root: string): PageParam[] {
+  return listVersions(root).flatMap((version) =>
+    listPages(root, version).map((page) => ({ version, slug: page.slug }))
+  );
 }
 
 /** Raw navigation.yaml text for a version (parsed by the caller with js-yaml). */

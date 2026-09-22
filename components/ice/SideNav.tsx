@@ -20,11 +20,11 @@ import { useMounted } from '@/context/state';
 const COLLAPSED_KEY = 'ice-docs:sidebar-collapsed';
 
 // Where the reader is in the tree — which groups are open, how far the rail is
-// scrolled — lives in session storage, per tab, keyed by version and language
-// (keys are titles and hrefs, which differ between languages). The rail is
-// rebuilt on every navigation; without this, each click in it would hand back
-// a tree scrolled to the top with only the new page's branch open, and the
-// reader would lose their place in the very control they are using to move.
+// scrolled — lives in session storage, per tab, keyed by version (keys are
+// titles and hrefs, which differ between versions). The rail is rebuilt on
+// every navigation; without this, each click in it would hand back a tree
+// scrolled to the top with only the new page's branch open, and the reader
+// would lose their place in the very control they are using to move.
 const stateKey = (kind: 'open' | 'scroll', scope: string) =>
   `ice-docs:sidebar-${kind}:${scope}`;
 
@@ -45,8 +45,7 @@ function writeState(key: string, value: unknown) {
   }
 }
 
-// The manual's table of contents: one tree, the chapter structure of the manual,
-// resolved for the reader's language.
+// The manual's table of contents: one tree, the chapter structure of the manual.
 //
 // Groups start collapsed and open only when they hold the current page. Showing
 // every child of every group by default would put every chapter's pages on
@@ -90,8 +89,8 @@ export function SideNav({
   };
 
   const pathname = usePathname();
-  // /ice/3.8/cpp/<page> -> "3.8/cpp".
-  const scope = pathname.split('/').slice(2, 4).join('/');
+  // /ice/3.8/<slug> -> "3.8".
+  const scope = pathname.split('/')[2] ?? '';
 
   // Groups that are open: the branch holding the current page, plus — once the
   // client has mounted and can read storage — whatever the reader had open
@@ -124,14 +123,15 @@ export function SideNav({
   // Restore the rail's scroll position once it has rendered with the remembered
   // groups open, then make sure the current page is in view: it is when the
   // reader clicked it in the rail, and may not be when they arrived by a
-  // previous/next link or from search. Before paint, so nothing jumps.
+  // previous/next link or from search. Before paint, so nothing jumps. An
+  // entry hidden for the reader's language has no position to show.
   const navRef = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const nav = navRef.current;
     if (!mounted || !nav) return;
     nav.scrollTop = readState<number>(stateKey('scroll', scope), 0);
     const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
-    if (!active) return;
+    if (!active || active.offsetParent === null) return;
     const top = active.offsetTop;
     const bottom = top + active.offsetHeight;
     if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
@@ -275,7 +275,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
         );
 
         return (
-          <li key={k}>
+          <li key={k} data-langs={node.writtenFor?.join(' ')}>
             {/* The chevron keeps its own column at every depth, so labels line
                 up on one edge instead of stepping in and out with the arrows. */}
             <div

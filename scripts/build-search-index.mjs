@@ -4,10 +4,8 @@
 //
 //   node scripts/build-search-index.mjs
 //
-// One JSON file per (version, language) under `public/search/`, so the browser
-// only ever downloads the manual the reader is actually in — a C++ reader never
-// pays for the eight other language mappings. Runs from `prebuild`/`predev`; the
-// output is generated, and git-ignored.
+// One JSON file per version under `public/search/`. Runs from
+// `prebuild`/`predev`; the output is generated, and git-ignored.
 //
 // A record is one page. Its headings are folded into a keyword blob rather than
 // becoming records of their own: it keeps the index small while still matching
@@ -91,37 +89,32 @@ for (const version of listVersions(ROOT)) {
   const nav = yamlLoad(readNavigationYaml(ROOT, version) ?? '');
   if (!nav) continue;
 
-  const pages = listPages(ROOT, version);
-  for (const language of nav.languages ?? []) {
-    const records = [];
-    for (const page of pages) {
-      const shared = readPage(page.shared);
-      const overlay = readPage(page.overlays[language]);
-      if (!shared && !overlay) continue; // not part of this language's manual
-
-      const fm = shared ?? overlay;
-      const body = `${shared?.body ?? ''}\n${overlay?.body ?? ''}`;
-      records.push({
-        t: fm.title ?? page.name,
-        d: fm.description ?? '',
-        c: crumbFor(nav, page.name),
-        k: fm.type ?? '',
-        h: pageHref(version, language, page.slug),
-        // De-duplicated headings, capped: enough to match on, small enough to ship.
-        x: [...new Set(headings(body))].slice(0, 40).join(' · ')
-      });
-    }
-
-    const file = path.join(OUT, version, `${language}.json`);
-    fs.mkdirSync(path.dirname(file), { recursive: true });
-    fs.writeFileSync(
-      file,
-      JSON.stringify({ version, language, pages: records })
-    );
-    files++;
-    const kb = Math.round(fs.statSync(file).size / 1024);
-    console.log(`  ${version}/${language}: ${records.length} pages (${kb} kB)`);
+  const records = [];
+  for (const page of listPages(ROOT, version)) {
+    const shared = readPage(page.shared);
+    const overlays = Object.values(page.overlays).map(readPage);
+    const fm = shared ?? overlays[0];
+    // Every mapping's headings, since the page carries them all.
+    const body = [shared, ...overlays].map((p) => p?.body ?? '').join('\n');
+    records.push({
+      t: fm.title ?? page.name,
+      d: fm.description ?? '',
+      c: crumbFor(nav, page.name),
+      k: fm.type ?? '',
+      h: pageHref(version, page.slug),
+      // De-duplicated headings, capped: enough to match on, small enough to ship.
+      x: [...new Set(headings(body))].slice(0, 40).join(' · '),
+      // The languages a page written per language is for; every language otherwise.
+      ...(shared ? {} : { w: Object.keys(page.overlays) })
+    });
   }
+
+  const file = path.join(OUT, `${version}.json`);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, JSON.stringify({ version, pages: records }));
+  files++;
+  const kb = Math.round(fs.statSync(file).size / 1024);
+  console.log(`  ${version}: ${records.length} pages (${kb} kB)`);
 }
 
 console.log(`search index: ${files} file(s) under public/search`);

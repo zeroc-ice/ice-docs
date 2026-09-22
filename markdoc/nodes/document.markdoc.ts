@@ -29,12 +29,13 @@ const document = {
         headings,
         path,
         breadcrumbs: chrome.breadcrumbs,
-        prev: chrome.prev,
-        next: chrome.next,
+        pagination: chrome.pagination,
         readingTime:
           frontmatter.showReadingTime !== false
             ? config.variables?.readingTime
             : undefined,
+        languages: config.variables?.languages,
+        writtenFor: chrome.writtenFor,
         showAside: frontmatter.showAside,
         showReadingTime: frontmatter.showReadingTime,
         showDividers: frontmatter.showDividers,
@@ -45,28 +46,33 @@ const document = {
   }
 };
 
-function extractHeadings(node: any, sections: any[] = []) {
-  // Nodes can be null (e.g. an {% iflang %} that renders nothing for this language).
+// A heading inside an {% iflang %} block belongs to those mappings only, and
+// the outline shows it only when one of them is the reader's.
+function extractHeadings(node: any, sections: any[] = [], langs?: string[]) {
   if (!node) return sections;
   // Add headings from step tags
   if ((node as Tag).name === 'Step') {
     sections.push({
       ...node.attributes,
-      showDividers: false
+      showDividers: false,
+      langs
     });
   }
 
-  if (node) {
-    if (node.name === 'Heading') {
-      // The heading node already resolved its own visible text, inline markup
-      // included; the outline and the anchor must agree on what it says.
-      sections.push({ ...node.attributes, title: node.attributes.text ?? '' });
-    }
+  if (node.name === 'Heading') {
+    // The heading node already resolved its own visible text, inline markup
+    // included; the outline and the anchor must agree on what it says.
+    sections.push({
+      ...node.attributes,
+      title: node.attributes.text ?? '',
+      langs
+    });
+  }
 
-    if (node.children) {
-      for (const child of node.children) {
-        extractHeadings(child, sections);
-      }
+  const inner = node.name === 'LangBlock' ? node.attributes.langs : langs;
+  if (node.children) {
+    for (const child of node.children) {
+      extractHeadings(child, sections, inner);
     }
   }
 

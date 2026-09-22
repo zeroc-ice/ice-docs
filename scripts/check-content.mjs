@@ -14,10 +14,11 @@
 //   7. every image parses as an image, has alt text, and its file exists
 //   8. no raw HTML or Confluence markup survived the migration
 //   9. every language slot is answered, and says which kind of answer it is
+//  10. a page written per language has one title across its languages
 //
 // Exit code 1 on a violation of 1-5, 7a/7b (unparseable image markup and missing
-// alt text) and 8 — those are defects in the files themselves, and the tree is
-// clean of them today, so anything new is a regression.
+// alt text), 8, and 10 — those are defects in the files themselves, and the tree
+// is clean of them today, so anything new is a regression.
 //
 // Unresolved links (6) and missing image files (7c) are reported and fail only
 // under --strict: the migrated manual still links to pages that were never
@@ -307,7 +308,7 @@ for (const version of listVersions(ROOT)) {
 
   const pages = listPages(ROOT, version);
   const byName = new Map(pages.map((page) => [page.name, page]));
-  const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
+  const { index, duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const languages = nav.languages?.length ? nav.languages : ['cpp'];
 
@@ -367,7 +368,7 @@ for (const version of listVersions(ROOT)) {
     }
   }
 
-  // 7 & 8: defects inside the files themselves, independent of language.
+  // 7 & 8: defects inside the files themselves.
   const files = pages.flatMap((page) => [
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
@@ -378,37 +379,36 @@ for (const version of listVersions(ROOT)) {
   // 9. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);
 
-  // 6. cross-page links resolve — checked once per language, because a page that
-  //    exists only in C++ must not resolve while rendering the Python manual,
-  //    and an overlay is only ever rendered for its own language.
+  // 10. a page written per language is one page: its files agree on the title
+  for (const page of pages) {
+    if (page.shared) continue;
+    const titles = new Set(
+      Object.values(page.overlays).map(
+        (file) =>
+          yamlLoad(
+            splitFrontmatter(fs.readFileSync(file, 'utf8')).frontmatter ?? ''
+          )?.title
+      )
+    );
+    if (titles.size > 1)
+      fail(
+        `${version}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
+      );
+  }
+
+  // 6. cross-page links resolve
   const unresolved = new Map();
   let total = 0;
-  for (const language of languages) {
-    const { index: languageIndex } = buildPageIndex(
-      listPages(ROOT, version, language).map((page) => page.slug)
-    );
-    for (const page of pages) {
-      for (const file of [page.shared, page.overlays[language]]) {
-        if (!file) continue;
-        const source = fs.readFileSync(file, 'utf8');
-        const targets = [
-          ...source.matchAll(LINK_RE),
-          ...source.matchAll(CARD_HREF_RE)
-        ];
-        for (const match of targets) {
-          total++;
-          if (
-            resolveDocLink(match[1], {
-              version,
-              language,
-              index: languageIndex
-            }).resolved
-          )
-            continue;
-          const key = `${match[1]} (${language})`;
-          unresolved.set(key, (unresolved.get(key) ?? 0) + 1);
-        }
-      }
+  for (const file of files) {
+    const source = fs.readFileSync(file, 'utf8');
+    const targets = [
+      ...source.matchAll(LINK_RE),
+      ...source.matchAll(CARD_HREF_RE)
+    ];
+    for (const match of targets) {
+      total++;
+      if (resolveDocLink(match[1], { version, index }).resolved) continue;
+      unresolved.set(match[1], (unresolved.get(match[1]) ?? 0) + 1);
     }
   }
 

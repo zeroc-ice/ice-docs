@@ -2,15 +2,14 @@
 'use client';
 
 import { createPortal } from 'react-dom';
-import { LanguageSelect, type LanguageOption } from './LanguageSelect';
+import { LanguageSelect } from './LanguageSelect';
 import { VersionSelect, type VersionOption } from './VersionSelect';
 import { Search } from './Search';
 import { useMounted } from '@/context/state';
 
 interface HeaderControlsProps {
   version: string;
-  currentLanguage: string;
-  languageOptions: LanguageOption[];
+  languages: string[];
   versionOptions: VersionOption[];
   previousVersions?: { label: string; url: string };
 }
@@ -18,11 +17,10 @@ interface HeaderControlsProps {
 // The top bar carries the reader's whole context: which version, which language,
 // and search. They are rendered here (portalled into #ice-header-controls) rather
 // than in the header itself because only the page knows the equivalent URL for
-// every version and language.
+// every version, and which languages the manual has.
 export function HeaderControls({
   version,
-  currentLanguage,
-  languageOptions,
+  languages,
   versionOptions,
   previousVersions
 }: HeaderControlsProps) {
@@ -35,13 +33,13 @@ export function HeaderControls({
 
   return createPortal(
     <>
-      <Search version={version} language={currentLanguage} />
+      <Search version={version} />
       <VersionSelect
         current={version}
         options={versionOptions}
         previousVersions={previousVersions}
       />
-      <LanguageSelect current={currentLanguage} options={languageOptions} />
+      <LanguageSelect languages={languages} />
     </>,
     target
   );

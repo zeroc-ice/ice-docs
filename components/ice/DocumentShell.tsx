@@ -6,11 +6,14 @@ import Link from 'next/link';
 import { PageTypeBadge } from '@/components/ice/PageTypeBadge';
 import { PageOutline } from '@/components/ice/PageOutline';
 import type { PageType } from '@/lib/docs-model/nav';
+import { Callout } from '@/components/tags/callout';
+import { LanguageNotice } from '@/components/ice/LanguageNotice';
 
 interface Heading {
   title?: string;
   id?: string;
   level?: number;
+  langs?: string[];
 }
 
 interface Crumb {
@@ -23,16 +26,27 @@ interface PageLink {
   href: string;
 }
 
+interface Pagination {
+  /** The languages whose readers get these neighbours. */
+  langs: string[];
+  prev?: PageLink;
+  next?: PageLink;
+}
+
 interface DocumentShellProps {
   children: ReactElement[] | ReactElement;
   title?: string;
   description?: string;
   type?: PageType;
-  readingTime?: string;
+  /** By language mapping: the page carries every mapping, and a reader reads theirs. */
+  readingTime?: Record<string, string>;
+  /** The manual's languages. */
+  languages?: string[];
+  /** The languages the page is written for; absent when it is written for all. */
+  writtenFor?: string[];
   headings?: Heading[];
   breadcrumbs?: Crumb[];
-  prev?: PageLink;
-  next?: PageLink;
+  pagination?: Pagination[];
   showAside?: boolean;
   /** Body layout when the page is not ordinary prose, e.g. "property-list". */
   shape?: string;
@@ -54,16 +68,26 @@ export const DocumentShell = ({
   description,
   type,
   readingTime,
+  languages = [],
+  writtenFor,
   headings = [],
   breadcrumbs = [],
-  prev,
-  next,
+  pagination = [],
   showAside = true,
   shape
 }: DocumentShellProps) => {
   const toc = headings
     .filter((h) => h && h.id && (h.level === 2 || h.level === 3))
-    .map((h) => ({ id: h.id!, title: h.title ?? '', level: h.level! }));
+    .map((h) => ({
+      id: h.id!,
+      title: h.title ?? '',
+      level: h.level!,
+      langs: h.langs
+    }));
+  const readingTimes = readingTimeVariants(readingTime);
+  const notWrittenFor = writtenFor
+    ? languages.filter((language) => !writtenFor.includes(language))
+    : [];
 
   return (
     <div className="flex shrink flex-row justify-center overflow-y-clip lg:justify-start">
@@ -111,71 +135,91 @@ export const DocumentShell = ({
             {description && (
               <p className="text-ink-secondary mt-3 text-lg">{description}</p>
             )}
-            {showReadingTime(readingTime) && (
-              <p className="text-ink-muted mt-2 text-[13px]">{readingTime}</p>
-            )}
+            {readingTimes.map(([text, langs]) => (
+              <div key={text} data-langs={langs.join(' ')}>
+                <p className="text-ink-muted mt-2 text-[13px]">{text}</p>
+              </div>
+            ))}
           </header>
+        )}
+
+        {writtenFor && notWrittenFor.length > 0 && (
+          <div data-langs={notWrittenFor.join(' ')}>
+            <Callout type="note">
+              <LanguageNotice writtenFor={writtenFor} />
+            </Callout>
+          </div>
         )}
 
         <div className="doc-body" style={{ counterReset: 'step-counter' }}>
           {children}
         </div>
 
-        {(prev || next) && (
-          <nav
-            aria-label="Pagination"
-            className="border-hairline mt-14 flex gap-3 border-t pt-5 text-sm"
-          >
-            {/* Text links, not cards. A bordered half-width card gives "the next
+        {pagination
+          .filter(({ prev, next }) => prev || next)
+          .map(({ langs, prev, next }) => (
+            <nav
+              key={langs.join(' ')}
+              data-langs={pagination.length > 1 ? langs.join(' ') : undefined}
+              aria-label="Pagination"
+              className="border-hairline mt-14 flex gap-3 border-t pt-5 text-sm"
+            >
+              {/* Text links, not cards. A bordered half-width card gives "the next
                 page in this section" the same visual weight as the article, which
                 is conspicuous on a short page where the card is most of it. */}
-            {prev ? (
-              <Link href={prev.href} className="group min-w-0 flex-1">
-                <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
-                  Previous
-                </div>
-                <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
-                  <span aria-hidden="true">← </span>
-                  {prev.title}
-                </div>
-              </Link>
-            ) : (
-              <div className="flex-1" />
-            )}
-            {next ? (
-              <Link
-                href={next.href}
-                className="group min-w-0 flex-1 text-right"
-              >
-                <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
-                  Next
-                </div>
-                <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
-                  {next.title}
-                  <span aria-hidden="true"> →</span>
-                </div>
-              </Link>
-            ) : (
-              <div className="flex-1" />
-            )}
-          </nav>
-        )}
+              {prev ? (
+                <Link href={prev.href} className="group min-w-0 flex-1">
+                  <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
+                    Previous
+                  </div>
+                  <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
+                    <span aria-hidden="true">← </span>
+                    {prev.title}
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+              {next ? (
+                <Link
+                  href={next.href}
+                  className="group min-w-0 flex-1 text-right"
+                >
+                  <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
+                    Next
+                  </div>
+                  <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
+                    {next.title}
+                    <span aria-hidden="true"> →</span>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+            </nav>
+          ))}
       </article>
 
-      {showAside && <PageOutline headings={toc} />}
+      {showAside && <PageOutline headings={toc} languages={languages} />}
     </div>
   );
 };
 
 /**
- * Whether the reading time is worth printing.
+ * The reading times worth printing, each with the mappings it holds for.
  *
  * "1 min read" under a one-sentence signpost is noise: it takes a line of the
  * page to tell the reader something they can already see. It earns its place on
  * an article long enough that the reader is deciding whether to start now.
  */
-function showReadingTime(readingTime: string | undefined): boolean {
-  if (!readingTime) return false;
-  const minutes = Number.parseInt(readingTime, 10);
-  return Number.isNaN(minutes) || minutes >= 2;
+function readingTimeVariants(
+  readingTime: Record<string, string> | undefined
+): [string, string[]][] {
+  const byText = new Map<string, string[]>();
+  for (const [language, text] of Object.entries(readingTime ?? {})) {
+    const minutes = Number.parseInt(text, 10);
+    if (!Number.isNaN(minutes) && minutes < 2) continue;
+    byText.set(text, [...(byText.get(text) ?? []), language]);
+  }
+  return [...byText];
 }

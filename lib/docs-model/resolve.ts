@@ -7,8 +7,9 @@
 //  - extractSnippet: pull a named fragment from a source file, delimited by
 //    plain-comment markers (`//`, `#`, `%` + `<name>`/`</name>`) that are valid
 //    in every Ice language (no C#-specific `#region`).
-//  - parseLanguageSections / resolveLanguageSections: merge a language overlay's
-//    named `{% language-section %}` blocks into a shared page's slots.
+//  - parseLanguageSections / resolveLanguageSections: fill a shared page's
+//    `{% language-section %}` slots with every language overlay's answer, each
+//    wrapped in `{% iflang %}` so the page carries all the mappings at once.
 //  - inlineSnippets: replace `{% snippet file= name= /%}` tags with fenced code.
 //  - resolveDocument: compose the above into a final Markdoc/markdown string.
 
@@ -366,14 +367,44 @@ export interface ResolveOptions {
   onUnclassified?: 'error' | 'empty';
 }
 
-/** Replace each `{% language-section name="x" /%}` slot in a shared body with its overlay section. */
+/** What one language's answer to a slot renders as; empty when it renders nothing. */
+function slotText(
+  name: string,
+  slot: LanguageSlot | undefined,
+  opts: ResolveOptions
+): string {
+  if (!slot) {
+    if ((opts.onMissing ?? 'error') === 'error')
+      throw new Error(`no overlay content for language-section "${name}"`);
+    return '';
+  }
+  if (slot.state === 'content') return slot.content;
+  if (slot.state === 'not-applicable') {
+    // The reader is told, rather than shown a silent gap where the other
+    // mappings have prose.
+    return `{% callout type="note" %}\n${slot.note}\n{% /callout %}`;
+  }
+  if (slot.state === 'unclassified' && opts.onUnclassified === 'error')
+    throw new Error(`language-section "${name}" is blank and does not say why`);
+  // `no-addition` renders nothing: the shared prose already covers it.
+  return '';
+}
+
+/** One `{% iflang %}` block: `text`, shown to readers of `langs`. */
+function languageBlock(langs: string[], text: string): string {
+  return `{% iflang langs="${langs.join(',')}" %}\n\n${text}\n\n{% /iflang %}`;
+}
+
+/**
+ * Fill each `{% language-section name="x" /%}` slot in a shared body with every
+ * language's section. Languages whose sections read the same share one
+ * `{% iflang %}` block, so a page carries each distinct answer once.
+ */
 export function resolveLanguageSections(
   sharedBody: string,
-  sections: Map<string, LanguageSlot>,
+  sections: Map<string, Map<string, LanguageSlot>>,
   opts: ResolveOptions = {}
 ): string {
-  const onMissing = opts.onMissing ?? 'error';
-  const onUnclassified = opts.onUnclassified ?? 'empty';
   let result = '';
   let last = 0;
   for (const t of iterTags(sharedBody)) {
@@ -387,23 +418,14 @@ export function resolveLanguageSections(
     if (!name) throw new Error('language-section slot is missing a name');
     result += sharedBody.slice(last, t.index);
 
-    const slot = sections.get(name);
-    if (!slot) {
-      if (onMissing === 'error') {
-        throw new Error(`no overlay content for language-section "${name}"`);
-      }
-    } else if (slot.state === 'content') {
-      result += slot.content;
-    } else if (slot.state === 'not-applicable') {
-      // The reader is told, rather than shown a silent gap where the other
-      // mappings have prose.
-      result += `{% callout type="note" %}\n${slot.note}\n{% /callout %}`;
-    } else if (slot.state === 'unclassified' && onUnclassified === 'error') {
-      throw new Error(
-        `language-section "${name}" is blank and does not say why`
-      );
+    const byText = new Map<string, string[]>();
+    for (const [language, slots] of sections) {
+      const text = slotText(name, slots.get(name), opts);
+      if (text) byText.set(text, [...(byText.get(text) ?? []), language]);
     }
-    // `no-addition` renders nothing: the shared prose already covers it.
+    result += [...byText]
+      .map(([text, langs]) => languageBlock(langs, text))
+      .join('\n\n');
 
     last = t.index + t.length;
   }
@@ -484,10 +506,10 @@ export function inlineSnippets(
 // ---------------------------------------------------------------------------
 
 export interface DocumentInput {
-  /** Shared, language-neutral page markdown (may be empty for a language-only page). */
+  /** Shared, language-neutral page markdown (empty for a page written per language). */
   shared: string;
-  /** Language overlay markdown, if any. */
-  overlay?: string;
+  /** Language overlay markdown by language. */
+  overlays: Record<string, string>;
   /** Reader for snippet source files. */
   readFile: (file: string) => string;
   /** Missing-slot behavior. Default: 'error'. */
@@ -497,27 +519,39 @@ export interface DocumentInput {
 }
 
 /**
- * Produce the final Markdoc/markdown body for one page in one language:
- * fill the shared page's language-section slots from the overlay, then inline
- * all snippets. If there is no shared page, the overlay is served on its own
- * (a language-specific page).
+ * Produce the final Markdoc/markdown body for one page, every language in it:
+ * fill the shared page's language-section slots from the overlays, then inline
+ * all snippets. Without a shared page, the overlays are the page: each is the
+ * whole page for its language, and languages written the same way share a block.
  */
 export function resolveDocument(input: DocumentInput): string {
-  const { shared, overlay, readFile, onMissing, onUnclassified } = input;
-  if (!shared && !overlay)
+  const { shared, overlays, readFile, onMissing, onUnclassified } = input;
+  const languages = Object.keys(overlays).sort();
+  if (!shared && languages.length === 0)
     throw new Error('resolveDocument: no shared or overlay content');
 
-  if (!shared && overlay) {
-    return inlineSnippets(splitFrontmatter(overlay).body, readFile);
+  if (!shared) {
+    const byText = new Map<string, string[]>();
+    for (const language of languages) {
+      const text = splitFrontmatter(overlays[language]).body.trim();
+      byText.set(text, [...(byText.get(text) ?? []), language]);
+    }
+    const body = [...byText]
+      .map(([text, langs]) => languageBlock(langs, text))
+      .join('\n\n');
+    return inlineSnippets(body, readFile);
   }
 
-  const sharedBody = splitFrontmatter(shared).body;
-  const sections = overlay
-    ? parseLanguageSections(splitFrontmatter(overlay).body)
-    : new Map<string, LanguageSlot>();
-  const merged = resolveLanguageSections(sharedBody, sections, {
-    onMissing,
-    onUnclassified
-  });
+  const sections = new Map(
+    languages.map((language) => [
+      language,
+      parseLanguageSections(splitFrontmatter(overlays[language]).body)
+    ])
+  );
+  const merged = resolveLanguageSections(
+    splitFrontmatter(shared).body,
+    sections,
+    { onMissing, onUnclassified }
+  );
   return inlineSnippets(merged, readFile);
 }

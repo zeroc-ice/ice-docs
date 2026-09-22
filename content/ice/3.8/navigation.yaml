@@ -2,8 +2,7 @@
 #
 # One tree, mirroring the chapter structure of the Ice manual on docs.zeroc.com,
 # generated from the Confluence page tree at import time and hand-edited since.
-# A page's directory sits inside the directory of the group above it here. A node
-# marked `language:` is shown only in that language's table of contents.
+# A page's directory sits inside the directory of the group above it here.
 version: '3.8'
 status: latest
 languages:
@@ -27,48 +26,10 @@ sidebar:
     items:
       - title: Defining the Greeter Interface in Slice
         page: defining-the-greeter-interface-in-slice
+      - title: Writing a Greeter Client
+        page: writing-a-greeter-client
       - title: Writing a Greeter Server
-        page: writing-a-greeter-server-in-cpp
-        language: cpp
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-cpp
-        language: cpp
-      - title: Writing a Greeter Server
-        page: writing-a-greeter-server-in-c-sharp
-        language: csharp
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-c-sharp
-        language: csharp
-      - title: Writing a Greeter Server
-        page: writing-a-greeter-server-in-java
-        language: java
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-java
-        language: java
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-typescript
-        language: js
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-matlab
-        language: matlab
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-php
-        language: php
-      - title: Writing a Greeter Server
-        page: writing-a-greeter-server-in-python
-        language: python
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-python
-        language: python
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-ruby
-        language: ruby
-      - title: Writing a Greeter Server
-        page: writing-a-greeter-server-in-swift
-        language: swift
-      - title: Writing a Greeter Client
-        page: writing-a-greeter-client-in-swift
-        language: swift
+        page: writing-a-greeter-server
   - title: Upgrade Guide
     page: upgrade-guide
   - title: Basics
@@ -151,11 +112,7 @@ sidebar:
       - title: Using the Slice Compiler
         page: using-the-slice-compiler
       - title: Code Generation
-        page: code-generation-in-ruby
-        language: ruby
-      - title: Code Generation
-        page: code-generation-in-python
-        language: python
+        page: code-generation
       - title: Documenting Slice Definitions
         page: documenting-slice-definitions
         items:
@@ -177,9 +134,8 @@ sidebar:
         items:
           - title: Communicator Initialization and Destruction
             page: communicator-initialization-and-destruction
-          - title: Communicators
+          - title: Communicators in PHP
             page: communicators-in-php
-            language: php
       - title: Invocation
         page: invocation
         items:
@@ -357,14 +313,7 @@ sidebar:
         page: plug-in-facility
         items:
           - title: Plug-in API
-            page: cpp-plug-in-api
-            language: cpp
-          - title: Plug-in API
-            page: csharp-plug-in-api
-            language: csharp
-          - title: Plug-in API
-            page: java-plug-in-api
-            language: java
+            page: plug-in-api
           - title: Installing a Plug-in using Configuration
             page: installing-a-plug-in-using-configuration
       - title: Custom Logger Plug-in
