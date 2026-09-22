@@ -54,16 +54,19 @@ export function PageOutline({
     const list = ids.split('\n');
     let queued = false;
 
+    // The last heading on show above the activation line, else the first on
+    // show.
     const update = () => {
       queued = false;
-      let current = list[0];
+      let current: string | undefined;
       for (const id of list) {
         const element = visibleTarget(id);
         if (!element) continue;
-        if (element.getBoundingClientRect().top > ACTIVATION_LINE) break;
+        if (current && element.getBoundingClientRect().top > ACTIVATION_LINE)
+          break;
         current = id;
       }
-      setActive(current);
+      setActive(current ?? null);
     };
 
     const onScroll = () => {
