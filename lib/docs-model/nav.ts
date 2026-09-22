@@ -48,7 +48,7 @@ export interface NavDoc {
 /** A resolved sidebar node ready to render (serializable: passed server -> client). */
 export interface SideNavNode {
   title: string;
-  /** Present when the page exists; absent -> shown but not linkable. */
+  /** Absent for a group with no page of its own. */
   href?: string;
   /** The languages the page is written for; absent when it is written for all. */
   writtenFor?: string[];
@@ -61,8 +61,8 @@ export interface BuildSideNavOptions {
   version: string;
   /** The name of the page currently being viewed. */
   currentPage: string;
-  /** A page's slug when it exists; `undefined` when it does not. */
-  slugOf: (page: string) => string | undefined;
+  /** A page's slug. */
+  slugOf: (page: string) => string;
   /** The languages a page is written for; `undefined` when it is written for all. */
   writtenFor: (page: string) => string[] | undefined;
 }
@@ -74,16 +74,17 @@ export const GROUP_OVERVIEW_TITLE = 'Overview';
 
 /**
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
- * the manual's full shape shows), with a link only when the page exists, and
- * `active` set on the current page.
+ * the manual's full shape shows), with a link for each page, and `active` set
+ * on the current page.
  */
 export function buildSideNav(
   nodes: NavNode[],
   opts: BuildSideNavOptions
 ): SideNavNode[] {
   return (nodes ?? []).map((node) => {
-    const slug = node.page ? opts.slugOf(node.page) : undefined;
-    const href = slug === undefined ? undefined : pageHref(opts.version, slug);
+    const href = node.page
+      ? pageHref(opts.version, opts.slugOf(node.page))
+      : undefined;
     const writtenFor = node.page ? opts.writtenFor(node.page) : undefined;
     const active = !!node.page && node.page === opts.currentPage;
     const items = buildSideNav(node.items ?? [], opts);
@@ -205,12 +206,14 @@ export function breadcrumbs(
 
   const crumbs: Crumb[] = [
     { title: MANUAL_TITLE, href: pageHref(opts.version) },
-    ...trail.map((node) => {
-      const slug = node.page ? opts.slugOf(node.page) : undefined;
-      return slug === undefined
-        ? { title: node.title }
-        : { title: node.title, href: pageHref(opts.version, slug) };
-    })
+    ...trail.map((node) =>
+      node.page
+        ? {
+            title: node.title,
+            href: pageHref(opts.version, opts.slugOf(node.page))
+          }
+        : { title: node.title }
+    )
   ];
   return crumbs.map((crumb, i) =>
     i === crumbs.length - 1 ? { title: crumb.title } : crumb
@@ -226,8 +229,8 @@ export interface PageLink {
  * The previous and next pages in reading order for a reader of `language` —
  * the tree walked depth-first, so the last page of one chapter leads into the
  * first page of the next. Only the pages the sidebar shows that reader take
- * part: those that exist and are written for the language, plus the page
- * itself, so "next" never points at a page they would not find there.
+ * part: those written for the language, plus the page itself, so "next" never
+ * points at a page they would not find there.
  */
 export function prevNext(
   nodes: NavNode[],
@@ -238,7 +241,7 @@ export function prevNext(
   const flat: NavNode[] = [];
   const walk = (items: NavNode[]) => {
     for (const node of items ?? []) {
-      if (node.page && opts.slugOf(node.page) !== undefined) {
+      if (node.page) {
         const writtenFor = opts.writtenFor(node.page);
         if (node.page === page || !writtenFor || writtenFor.includes(language))
           flat.push(node);

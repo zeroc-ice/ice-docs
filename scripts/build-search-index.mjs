@@ -86,8 +86,7 @@ let files = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
 
 for (const version of listVersions(ROOT)) {
-  const nav = yamlLoad(readNavigationYaml(ROOT, version) ?? '');
-  if (!nav) continue;
+  const nav = yamlLoad(readNavigationYaml(ROOT, version));
 
   const records = [];
   for (const page of listPages(ROOT, version)) {

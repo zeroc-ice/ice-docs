@@ -315,22 +315,13 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
                     <span className="w-5 shrink-0" />
                   )}
 
-                  {node.href ? (
-                    <Link
-                      href={node.href}
-                      aria-current={node.active ? 'page' : undefined}
-                      className={label}
-                    >
-                      {node.title}
-                    </Link>
-                  ) : (
-                    <span
-                      className="text-ink-disabled block flex-1 px-2 py-1.5 leading-snug"
-                      title="Not yet migrated"
-                    >
-                      {node.title}
-                    </span>
-                  )}
+                  <Link
+                    href={node.href!}
+                    aria-current={node.active ? 'page' : undefined}
+                    className={label}
+                  >
+                    {node.title}
+                  </Link>
                 </>
               )}
             </div>

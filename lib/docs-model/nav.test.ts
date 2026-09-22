@@ -116,22 +116,6 @@ test('a group with no page of its own is unchanged', () => {
   assert.equal(plugins.items[0].title, 'C++ Plug-in API');
 });
 
-test('buildSideNav keeps unavailable pages but without an href', () => {
-  const tree = buildSideNav(SIDEBAR, {
-    ...opts,
-    currentPage: '',
-    slugOf: (page) => (page === 'enumerations' ? SLUGS[page] : undefined)
-  });
-  const slice = tree[1];
-  assert.equal(slice.href, undefined); // group page missing -> not linkable
-  const udt = slice.items[1]; // no Overview child when the group page is unavailable
-  assert.equal(
-    udt.items[0].href,
-    '/ice/3.8/slice/user-defined-types/enumerations'
-  );
-  assert.equal(udt.items[1].href, undefined); // unavailable, still present
-});
-
 test('containsActive reports the branch holding the current page', () => {
   const tree = buildSideNav(SIDEBAR, opts);
   assert.equal(containsActive(tree[1]), true); // The Slice Language contains it
@@ -181,19 +165,6 @@ test('prevNext walks the whole manual in reading order, across chapters', () => 
   const end = prevNext(SIDEBAR, 'sequences', opts, 'cpp');
   assert.equal(end.next?.title, 'C++ Plug-in API');
   assert.equal(end.next?.href, '/ice/3.8/plugins/cpp-plug-in-api');
-});
-
-test('prevNext skips pages the version does not have', () => {
-  const { next } = prevNext(
-    SIDEBAR,
-    'enumerations',
-    {
-      ...opts,
-      slugOf: (page) => (page === 'sequences' ? undefined : SLUGS[page])
-    },
-    'cpp'
-  );
-  assert.equal(next?.title, 'C++ Plug-in API'); // sequences is unavailable
 });
 
 test('prevNext skips pages not written for the language, but never the page itself', () => {

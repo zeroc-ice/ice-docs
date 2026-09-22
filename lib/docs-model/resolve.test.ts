@@ -223,33 +223,20 @@ test('each slot state renders the thing that state means', () => {
   assert.match(absent, /PHP has no server side\./);
 });
 
-test('an unclassified slot renders nothing but can be made an error', () => {
+test('an unclassified slot renders nothing', () => {
   const shared = 'A{% language-section name="m" /%}B';
-  // The site still builds while the inherited blanks are being classified...
   assert.equal(
     resolveLanguageSections(shared, slot('m', 'unclassified')),
     'AB'
   );
-  // ...and the validator refuses to accept them.
-  assert.throws(
-    () =>
-      resolveLanguageSections(shared, slot('m', 'unclassified'), {
-        onUnclassified: 'error'
-      }),
-    /is blank and does not say why/
-  );
 });
 
-test('resolveLanguageSections errors on a missing overlay section by default', () => {
+test('resolveLanguageSections errors on a missing overlay section', () => {
   const shared = '{% language-section name="mapping" /%}';
   const none = new Map([['cpp', new Map()]]);
   assert.throws(
     () => resolveLanguageSections(shared, none),
     /no overlay content/
-  );
-  assert.equal(
-    resolveLanguageSections(shared, none, { onMissing: 'empty' }),
-    ''
   );
 });
 

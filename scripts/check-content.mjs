@@ -151,8 +151,7 @@ function checkImages(version, files) {
 
 // The number of blank language sections that had no explanation when the slot
 // states were introduced. It is a ratchet: classifying slots lowers it, and the
-// check fails if it ever rises. When it reaches 0, delete this and make
-// `onUnclassified: 'error'` the resolver's default.
+// check fails if it ever rises. When it reaches 0, delete this.
 const UNCLASSIFIED_SLOT_BASELINE = 462;
 
 /**
@@ -310,7 +309,7 @@ for (const version of listVersions(ROOT)) {
   const byName = new Map(pages.map((page) => [page.name, page]));
   const { index, duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
-  const languages = nav.languages?.length ? nav.languages : ['cpp'];
+  const languages = nav.languages;
 
   console.log(`\n${version}: ${pages.length} pages`);
 

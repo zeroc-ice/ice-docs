@@ -11,10 +11,9 @@ const document = {
   render: 'Document',
   attributes: nodes.document.attributes,
   transform(node: Node, config: Config) {
-    const frontmatter = config.variables?.frontmatter ?? {};
-    const chrome = config.variables?.chrome ?? {};
-    const path = config.variables?.path;
-    const children = node.transformChildren(config) ?? [];
+    const { frontmatter, chrome, path, readingTime, languages } =
+      config.variables!;
+    const children = node.transformChildren(config);
     const headings = children.map((child) => extractHeadings(child, [])).flat();
 
     return new Tag(
@@ -31,10 +30,8 @@ const document = {
         breadcrumbs: chrome.breadcrumbs,
         pagination: chrome.pagination,
         readingTime:
-          frontmatter.showReadingTime !== false
-            ? config.variables?.readingTime
-            : undefined,
-        languages: config.variables?.languages,
+          frontmatter.showReadingTime !== false ? readingTime : undefined,
+        languages,
         writtenFor: chrome.writtenFor,
         showAside: frontmatter.showAside,
         showReadingTime: frontmatter.showReadingTime,

@@ -356,37 +356,18 @@ function slotFrom(
     : { name, state: 'unclassified', content: '' };
 }
 
-export interface ResolveOptions {
-  /** What to do when a shared slot has no matching overlay section. Default: 'error'. */
-  onMissing?: 'error' | 'empty';
-  /**
-   * What to do when an overlay leaves a slot blank without saying why. `empty`
-   * renders nothing, which is what the site does while the 462 inherited blanks
-   * are classified; the validator uses `error`.
-   */
-  onUnclassified?: 'error' | 'empty';
-}
-
 /** What one language's answer to a slot renders as; empty when it renders nothing. */
-function slotText(
-  name: string,
-  slot: LanguageSlot | undefined,
-  opts: ResolveOptions
-): string {
-  if (!slot) {
-    if ((opts.onMissing ?? 'error') === 'error')
-      throw new Error(`no overlay content for language-section "${name}"`);
-    return '';
-  }
+function slotText(name: string, slot: LanguageSlot | undefined): string {
+  if (!slot)
+    throw new Error(`no overlay content for language-section "${name}"`);
   if (slot.state === 'content') return slot.content;
   if (slot.state === 'not-applicable') {
     // The reader is told, rather than shown a silent gap where the other
     // mappings have prose.
     return `{% callout type="note" %}\n${slot.note}\n{% /callout %}`;
   }
-  if (slot.state === 'unclassified' && opts.onUnclassified === 'error')
-    throw new Error(`language-section "${name}" is blank and does not say why`);
-  // `no-addition` renders nothing: the shared prose already covers it.
+  // `no-addition`, and a blank slot not yet classified, render nothing: the
+  // shared prose already covers it.
   return '';
 }
 
@@ -402,8 +383,7 @@ function languageBlock(langs: string[], text: string): string {
  */
 export function resolveLanguageSections(
   sharedBody: string,
-  sections: Map<string, Map<string, LanguageSlot>>,
-  opts: ResolveOptions = {}
+  sections: Map<string, Map<string, LanguageSlot>>
 ): string {
   let result = '';
   let last = 0;
@@ -420,7 +400,7 @@ export function resolveLanguageSections(
 
     const byText = new Map<string, string[]>();
     for (const [language, slots] of sections) {
-      const text = slotText(name, slots.get(name), opts);
+      const text = slotText(name, slots.get(name));
       if (text) byText.set(text, [...(byText.get(text) ?? []), language]);
     }
     result += [...byText]
@@ -512,10 +492,6 @@ export interface DocumentInput {
   overlays: Record<string, string>;
   /** Reader for snippet source files. */
   readFile: (file: string) => string;
-  /** Missing-slot behavior. Default: 'error'. */
-  onMissing?: 'error' | 'empty';
-  /** Blank-slot-with-no-state behavior. Default: 'empty'. */
-  onUnclassified?: 'error' | 'empty';
 }
 
 /**
@@ -525,7 +501,7 @@ export interface DocumentInput {
  * whole page for its language.
  */
 export function resolveDocument(input: DocumentInput): string {
-  const { shared, overlays, readFile, onMissing, onUnclassified } = input;
+  const { shared, overlays, readFile } = input;
   const languages = Object.keys(overlays);
 
   if (!shared) {
@@ -548,8 +524,7 @@ export function resolveDocument(input: DocumentInput): string {
   );
   const merged = resolveLanguageSections(
     splitFrontmatter(shared).body,
-    sections,
-    { onMissing, onUnclassified }
+    sections
   );
   return inlineSnippets(merged, readFile);
 }

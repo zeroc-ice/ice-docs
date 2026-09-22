@@ -19,8 +19,8 @@
 // inserted and its snippets expanded, which is the only place a problem of
 // insertion can show, such as an overlay heading that lands inside a callout.
 // It validates that, then runs `Markdoc.transform` on it the way the route
-// does, since a tag's transform can fail where validation passed (the route
-// swallows that and renders an error panel). That pass can only point at a
+// does, since a tag's transform can fail where validation passed. That pass
+// can only point at a
 // line of the assembled page, so it quotes the line, and it skips anything the
 // first pass already reported. Both passes see the variables the route
 // provides, so a page may refer to `$frontmatter` or `$path`.
@@ -97,8 +97,9 @@ const frontmatterOf = (source) =>
 
 const languagesByVersion = {};
 for (const version of listVersions(ROOT)) {
-  const nav = yamlLoad(readNavigationYaml(ROOT, version) ?? '') ?? {};
-  languagesByVersion[version] = nav.languages?.length ? nav.languages : ['cpp'];
+  languagesByVersion[version] = yamlLoad(
+    readNavigationYaml(ROOT, version)
+  ).languages;
 }
 
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
