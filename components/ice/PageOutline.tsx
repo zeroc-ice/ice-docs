@@ -19,9 +19,9 @@ const DENSE_THRESHOLD = 24;
 // being read" — just under the two sticky bars.
 const ACTIVATION_LINE = 132;
 
-// "On this page", with the section the reader is in marked. Fixed width and
-// hard truncation: a property name like `Ice.Default.EncodingVersion` must never
-// widen the rail or spill out of it.
+// "On this page", with the section the reader is in marked. Fixed width, and
+// titles wrap anywhere: a property name like `Ice.Default.EncodingVersion` must
+// never widen the rail or spill out of it.
 export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
   const dense = headings.length > DENSE_THRESHOLD;
   const items = dense ? headings.filter((h) => h.level === 2) : headings;
@@ -72,9 +72,8 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
           <li key={heading.id}>
             <a
               href={`#${heading.id}`}
-              title={heading.title}
               className={clsx(
-                '-ml-px block truncate border-l py-1 pr-1 text-[13px] leading-snug transition-colors',
+                '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere transition-colors',
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
                   ? 'border-link text-link font-medium'
