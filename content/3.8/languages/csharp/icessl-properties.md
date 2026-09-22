@@ -159,14 +159,6 @@ The revocation sources are those of the platform, since .NET delegates certifica
 to its own OpenSSL-based chain builder on Linux, and to the Security framework on macOS. Windows and Linux fetch CRLs
 from the distribution points and query the OCSP responders named in the certificates.
 
-{% callout type="info" %}
-
-In Ice 3.8.0 to 3.8.3, the value `1` also rejects a peer certificate whose revocation status cannot be determined; only
-an intermediate CA certificate with an undeterminable status is accepted. See
-[zeroc-ice/ice#6743](https://github.com/zeroc-ice/ice/issues/6743). Ice 3.8.4 fixes this.
-
-{% /callout %}
-
 #### Platform Notes
 
 ###### macOS
