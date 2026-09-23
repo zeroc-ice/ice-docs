@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { clsx } from 'clsx';
 
 import { fragmentId, visibleTarget } from '@/components/ice/AnchorScroll';
@@ -75,18 +75,16 @@ export function PageOutline({
     )
   ].join('\n');
 
+  // A jump to any heading too near the end of the page to pass under the bars
+  // lands at the bottom, so there the heading last jumped to decides which one
+  // is active, until the reader scrolls up from the bottom. It outlives the
+  // effect, which a mapping switch re-runs, along with the fragment last seen.
+  const jump = useRef({ id: '', hash: '' });
+
   useEffect(() => {
     if (!ids) return;
     const list = ids.split('\n');
     let queued = false;
-
-    // A jump to any heading too near the end of the page to pass under the
-    // bars lands at the bottom, so there the heading last jumped to decides
-    // which one is active, until the reader scrolls up from the bottom. The
-    // fragment is checked on every update: search jumps through the router,
-    // which fires no hashchange.
-    let jumpedId = '';
-    let lastHash = '';
     let lastScrollY = window.scrollY;
 
     const update = () => {
@@ -99,12 +97,13 @@ export function PageOutline({
         (heading) => heading.getBoundingClientRect().top
       );
 
-      if (location.hash !== lastHash) {
-        lastHash = location.hash;
-        jumpedId = fragmentId(lastHash);
+      // Search jumps through the router, which fires no hashchange, so a new
+      // fragment counts as a jump too.
+      if (location.hash !== jump.current.hash) {
+        jump.current = { id: fragmentId(location.hash), hash: location.hash };
       }
       const atBottom = scrollY >= maxScroll - 1;
-      if (scrollY < lastScrollY && !atBottom) jumpedId = '';
+      if (scrollY < lastScrollY && !atBottom) jump.current.id = '';
       lastScrollY = scrollY;
 
       // The scroll position at which each heading passes under the bars: a
@@ -136,7 +135,9 @@ export function PageOutline({
       // At the bottom of the page the last heading is active, unless the
       // reader jumped to another one that can't pass under the bars.
       if (atBottom) {
-        const jumped = headings.findIndex((heading) => heading.id === jumpedId);
+        const jumped = headings.findIndex(
+          (heading) => heading.id === jump.current.id
+        );
         current =
           jumped !== -1 && targets[jumped] > maxScroll
             ? jumped
@@ -152,12 +153,19 @@ export function PageOutline({
       requestAnimationFrame(update);
     };
 
+    // A jump that doesn't scroll, because the page is already at the bottom,
+    // still has to update the active heading.
+    const onHashChange = () => {
+      jump.current = { id: fragmentId(location.hash), hash: location.hash };
+      onScroll();
+    };
+
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('hashchange', onScroll);
+    window.addEventListener('hashchange', onHashChange);
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('hashchange', onScroll);
+      window.removeEventListener('hashchange', onHashChange);
     };
   }, [ids, language]);
 
