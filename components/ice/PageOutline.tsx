@@ -59,9 +59,7 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
       }
       // Once the page bottoms out, several sections share the screen; the one
       // the reader jumped to wins.
-      const target = document.getElementById(
-        decodeURIComponent(location.hash.slice(1))
-      );
+      const target = fragmentTarget();
       if (
         remaining < 1 &&
         target &&
@@ -116,4 +114,14 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
       </ul>
     </aside>
   );
+}
+
+// The element the URL fragment names, or null when there is none. A hand-typed
+// fragment can be malformed percent-encoding, which names nothing.
+function fragmentTarget(): HTMLElement | null {
+  try {
+    return document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  } catch {
+    return null;
+  }
 }
