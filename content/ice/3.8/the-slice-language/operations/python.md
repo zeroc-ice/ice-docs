@@ -141,16 +141,10 @@ example above) or asynchronously, as discussed on
 
 # Throwing Exceptions
 
-To throw an exception from an operation implementation, you simply construct the exception and throw it. For example:
+To throw an exception from an operation implementation, you simply construct the exception and throw it.
 
-##### **Python**
-
-```py
-TBD
-```
-
-If you throw an arbitrary Python exception (such as a `XXX`), the Ice runtime catches the exception and then returns an
-`UnknownException` to the client.
+If you throw an arbitrary Python exception, the Ice runtime catches the exception and then returns an `UnknownException`
+to the client.
 
 If you throw an Ice runtime exception, such as `MarshalException`, the client receives an `UnknownLocalException`.
 
