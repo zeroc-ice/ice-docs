@@ -72,10 +72,12 @@
     <text class="annotation" x="199" y="96">Class type ID</text>
     <text class="annotation" x="199" y="140">Slice for members</text>
     <text class="annotation" x="199" y="184">⋮</text>
-    <text class="annotation" x="555" y="119.0">
-      <tspan x="555" dy="0">Repeating group: type ID</tspan>
-      <tspan x="555" dy="20">and member slice for each</tspan>
-      <tspan x="555" dy="20">inheritance level</tspan>
+    <text class="annotation" x="555" y="94">
+      <tspan x="555" dy="0">Repeating group: one</tspan>
+      <tspan x="555" dy="20">pair of type ID and slice</tspan>
+      <tspan x="555" dy="20">containing members for</tspan>
+      <tspan x="555" dy="20">each level of the</tspan>
+      <tspan x="555" dy="20">inheritance hierarchy</tspan>
     </text>
   </g>
 </svg>
