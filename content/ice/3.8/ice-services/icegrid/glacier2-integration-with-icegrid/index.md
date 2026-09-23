@@ -13,6 +13,8 @@ shown below:
 
 ![A public client at 1.2.3.4 connects to Glacier2 on the Firewall PC through client endpoints at 5.6.7.8. Glacier2 uses server endpoints at 10.0.0.1 and contacts the IceGrid registry on the private Server PC at 10.0.0.2.](/attachments/3.8/glacier2-integration-with-icegrid/icegrid-glacier2.svg)
 
+_Using IceGrid via a Glacier2 router_
+
 In this situation, it is the router that must be configured with a locator proxy.
 
 Assuming the registry's client endpoint in the illustration uses port `8000`, the router requires the following setting

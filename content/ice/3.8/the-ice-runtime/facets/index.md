@@ -14,6 +14,8 @@ object is more correctly viewed as a collection of one or more sub-objects known
 
 ![One Ice object exposes five facets: the unnamed default facet, Facet 1, Facet 2, This Facet, and That Facet.](/attachments/3.8/facets/facets.svg)
 
+_An Ice object with five facets sharing a single object identity._
+
 The diagram above shows a single Ice object with five facets. Each facet has a name, known as the _facet name_. Within a
 single Ice object, all facets must have unique names. Facet names are arbitrary strings that are assigned by the server
 that implements an Ice object. A facet with an empty facet name is legal and known as the _default facet_. Unless you

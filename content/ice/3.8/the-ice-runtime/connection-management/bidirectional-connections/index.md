@@ -11,6 +11,8 @@ requests, as shown below:
 
 ![The client opens a connection to send requests to the server. The server opens a separate connection to send callbacks to the client.](/attachments/3.8/bidirectional-connections/callback1.svg)
 
+_Callbacks in an open network._
+
 Unfortunately, network restrictions often prevent a server from being able to create a separate connection to the
 client, such as when the client resides behind a firewall as shown here:
 
