@@ -97,8 +97,7 @@ export function PageOutline({
         (heading) => heading.getBoundingClientRect().top
       );
 
-      // Search jumps through the router, which fires no hashchange, so a new
-      // fragment counts as a jump too.
+      // A new fragment, such as the one the page was opened at, is a jump too.
       if (location.hash !== jump.current.hash) {
         jump.current = { id: fragmentId(location.hash), hash: location.hash };
       }
