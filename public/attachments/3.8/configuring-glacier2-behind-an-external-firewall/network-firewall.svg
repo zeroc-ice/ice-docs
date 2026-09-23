@@ -73,6 +73,9 @@
       marker-start: url(#arrow);
       marker-end: url(#arrow);
     }
+    .through-firewall {
+      stroke-dasharray: 2 5;
+    }
     .callback {
       stroke-dasharray: 6 4;
       marker-end: url(#arrow);
@@ -102,7 +105,7 @@
     <rect class="runtime" x="570" y="66" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
     <path class="divider" d="M 570 146 H 830 M 700.0 146 V 226" vector-effect="non-scaling-stroke"/>
     <rect class="application" x="916" y="94" width="140" height="132" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="connector" d="M 280 196 H 440" vector-effect="non-scaling-stroke"/>
+    <path class="connector through-firewall" d="M 280 196 H 440" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
