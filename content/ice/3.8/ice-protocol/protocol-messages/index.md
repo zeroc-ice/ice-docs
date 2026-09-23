@@ -252,7 +252,7 @@ events is:
 
 From a client's perspective, the Ice protocol behaves according to the state machine shown below:
 
-![Protocol state machine](/attachments/3.8/protocol-messages/Protocol_state_machine.gif)
+![Ice protocol state machine from inactive through active and graceful close to the final closed state.](/attachments/3.8/protocol-messages/protocol-state-machine.svg)
 
 _Protocol state machine._
 

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="226.85"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 350"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Glacier2 integration with IceGrid</title>
+  <desc id="description">
+    A public client at 1.2.3.4 connects to Glacier2 on the Firewall PC through client endpoints at 5.6.7.8. Glacier2
+    uses server endpoints at 10.0.0.1 and contacts the IceGrid registry on the private Server PC at 10.0.0.2.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="1080" height="350" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <rect class="boundary" x="24" y="95" width="230" height="210" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="360" y="55" width="360" height="270" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="826" y="55" width="230" height="270" rx="14" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 224 230 L 410 230" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 670 154 H 856" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="54" y="163" width="170" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="410" y="100" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 410 180 H 670" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="856" y="124" width="170" height="110" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <path class="network-boundary" d="M 540 18 V 326" vector-effect="non-scaling-stroke" aria-hidden="true"/>
+    <rect x="480" y="62" width="120" height="24" fill="#fbfcfe" aria-hidden="true"/>
+    <rect x="495" y="126" width="90" height="24" fill="#eef5ff" aria-hidden="true"/>
+    <text class="label" x="142" y="36">Public network</text>
+    <text class="label" x="938" y="36">Private network</text>
+    <text class="label" x="139.0" y="120">Client PC</text>
+    <text class="label" x="139.0" y="211.0">Client app</text>
+    <text class="annotation" x="139" y="285">IP: 1.2.3.4</text>
+    <text class="label" x="540.0" y="80">Firewall PC</text>
+    <text class="label" x="540.0" y="144">Glacier2</text>
+    <text class="label" x="475.0" y="211">
+      <tspan x="475.0" dy="0">Client</tspan>
+      <tspan x="475.0" dy="20">endpoints</tspan>
+    </text>
+    <text class="label" x="605.0" y="211">
+      <tspan x="605.0" dy="0">Server</tspan>
+      <tspan x="605.0" dy="20">endpoints</tspan>
+    </text>
+    <text class="annotation" x="475" y="292">IP: 5.6.7.8</text>
+    <text class="annotation" x="605" y="292">IP: 10.0.0.1</text>
+    <text class="label" x="941.0" y="80">Server PC</text>
+    <text class="label" x="941.0" y="174.0">
+      <tspan x="941.0" dy="0">IceGrid</tspan>
+      <tspan x="941.0" dy="20">registry</tspan>
+    </text>
+    <text class="annotation" x="941" y="285">IP: 10.0.0.2</text>
+  </g>
+</svg>

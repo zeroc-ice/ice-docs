@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="400"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 560"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Ice client and server structure</title>
+  <desc id="description">
+    A three-layer view of an Ice client and server. The client interface contains generated proxy code
+    and the Ice API; the server interface contains the Ice API, generated skeleton code, and an object
+    adapter. The object adapter is part of the Ice API. The legend identifies Ice API and generated code.
+    Each application communicates bidirectionally with its interface components, each interface
+    component communicates bidirectionally with its Ice core, and the two cores communicate across the
+    network.
+  </desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .api-component {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+
+    .generated-component {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+
+    .api-divider {
+      stroke: #4f78bb;
+      stroke-width: 1.25;
+    }
+
+    .generated-divider {
+      stroke: #75658f;
+      stroke-width: 1.25;
+    }
+
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .two-way {
+      marker-end: url(#arrow);
+      marker-start: url(#arrow);
+    }
+
+    .application-label,
+    .runtime-label {
+      font-size: 17px;
+      font-weight: 650;
+      text-anchor: middle;
+    }
+
+    .component-label {
+      font-size: 15px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .api-badge,
+    .generated-badge {
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+
+    .api-badge {
+      fill: #365f9e;
+    }
+
+    .generated-badge {
+      fill: #68587e;
+    }
+
+    .network-label-background {
+      fill: #ffffff;
+    }
+
+    .network-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .legend-label {
+      font-size: 15px;
+      font-weight: 600;
+    }
+  </style>
+
+  <rect width="980" height="560" fill="#ffffff"/>
+
+  <!-- No process boundary: the three full-width layers establish each side's grouping. -->
+  <g id="boundaries" aria-hidden="true"/>
+
+  <g id="connectors" aria-hidden="true">
+    <!-- Application to interface layer. -->
+    <path class="connector two-way" d="M 135 102 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 325 102 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 610 102 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 750 102 V 170" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 890 102 V 170" vector-effect="non-scaling-stroke"/>
+
+    <!-- Interface layer to runtime. -->
+    <path class="connector two-way" d="M 135 290 V 378" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 325 290 V 378" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 610 290 V 378" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 750 290 V 378" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 890 290 V 378" vector-effect="non-scaling-stroke"/>
+
+    <!-- Only the runtimes communicate across the network. -->
+    <path class="connector two-way" d="M 430 422 H 550" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <!-- Application layer. -->
+    <rect class="application" x="30" y="26" width="400" height="76" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="550" y="26" width="400" height="76" rx="7" vector-effect="non-scaling-stroke"/>
+
+    <rect class="generated-component" x="50" y="170" width="170" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="generated-divider" d="M 50 202 H 220" vector-effect="non-scaling-stroke"/>
+    <rect class="api-component" x="240" y="170" width="170" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="api-divider" d="M 240 202 H 410" vector-effect="non-scaling-stroke"/>
+
+    <rect class="api-component" x="550" y="170" width="120" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="api-divider" d="M 550 202 H 670" vector-effect="non-scaling-stroke"/>
+    <rect class="generated-component" x="690" y="170" width="120" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="generated-divider" d="M 690 202 H 810" vector-effect="non-scaling-stroke"/>
+    <rect class="api-component" x="830" y="170" width="120" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="api-divider" d="M 830 202 H 950" vector-effect="non-scaling-stroke"/>
+
+    <!-- Runtime layer. -->
+    <rect class="runtime" x="30" y="378" width="400" height="88" rx="8" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="550" y="378" width="400" height="88" rx="8" vector-effect="non-scaling-stroke"/>
+
+    <rect class="api-component" x="320" y="516" width="24" height="24" rx="4" vector-effect="non-scaling-stroke"/>
+    <rect class="generated-component" x="478" y="516" width="24" height="24" rx="4" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="application-label" x="230" y="70">Client application</text>
+    <text class="application-label" x="750" y="70">Server application</text>
+
+    <text class="generated-badge" x="135" y="191">GENERATED</text>
+    <text class="component-label" x="135" y="242">
+      <tspan x="135">Proxy</tspan>
+      <tspan x="135" dy="19">code</tspan>
+    </text>
+
+    <text class="api-badge" x="325" y="191">API</text>
+    <text class="component-label" x="325" y="254">Ice API</text>
+
+    <text class="api-badge" x="610" y="191">API</text>
+    <text class="component-label" x="610" y="254">Ice API</text>
+
+    <text class="generated-badge" x="750" y="191">GENERATED</text>
+    <text class="component-label" x="750" y="242">
+      <tspan x="750">Skeleton</tspan>
+      <tspan x="750" dy="19">code</tspan>
+    </text>
+
+    <text class="api-badge" x="890" y="191">API</text>
+    <text class="component-label" x="890" y="242">
+      <tspan x="890">Object</tspan>
+      <tspan x="890" dy="19">adapter</tspan>
+    </text>
+
+    <text class="runtime-label" x="230" y="428">Client Ice core</text>
+    <text class="runtime-label" x="750" y="428">Server Ice core</text>
+
+    <rect class="network-label-background" x="446" y="405" width="88" height="34" rx="17"/>
+    <text class="network-label" x="490" y="427">Network</text>
+
+    <text class="legend-label" x="356" y="533">Ice API</text>
+    <text class="legend-label" x="514" y="533">Generated code</text>
+  </g>
+</svg>

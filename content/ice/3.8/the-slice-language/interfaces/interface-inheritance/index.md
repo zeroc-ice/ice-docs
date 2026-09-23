@@ -46,9 +46,11 @@ module M
 ```
 
 `RadioClock` extends both `Radio` and `AlarmClock` and can therefore be passed where a `Radio`, an `AlarmClock`, or a
-`Clock` is expected. The inheritance diagram for this definition looks as follows: RadioClock
+`Clock` is expected. The inheritance diagram for this definition looks as follows:
 
-![radioclock.gif](/attachments/3.8/interface-inheritance/radioclock.gif)
+![RadioClock inherits from Radio and AlarmClock, while AlarmClock inherits from Clock.](/attachments/3.8/interface-inheritance/radioclock.svg)
+
+_Radio clock interface inheritance._
 
 Interfaces that inherit from more than one base interface may share a common base interface. For example, the following
 definition is legal:
@@ -62,7 +64,7 @@ interface D extends I1, I2 { /* ... */ }
 
 This definition results in the familiar diamond shape:DiamondShaped
 
-![diamond.gif](/attachments/3.8/interface-inheritance/diamond.gif)
+![D inherits from I1 and I2, which both inherit from B. Hollow arrowheads point toward each base interface.](/attachments/3.8/interface-inheritance/diamond.svg)
 
 # Interface Inheritance Limitations
 
@@ -98,7 +100,7 @@ fact". To avoid accidental clashes, we suggest that you use descriptive operatio
 All Slice interfaces are ultimately derived from `Object`. For example, the
 [inheritance hierarchy](../interface-inheritance) would be shown more correctly as: bfde871b-f9b9-4d4c-b830-85c7c3d8e423
 
-![implicit-object.gif](/attachments/3.8/interface-inheritance/implicit-object.gif)
+![Radio and Clock implicitly inherit from Object. AlarmClock inherits from Clock, and RadioClock inherits from Radio and AlarmClock. Hollow arrowheads point toward the base interfaces.](/attachments/3.8/interface-inheritance/implicit-object.svg)
 
 Because all interfaces have a common base interface, we can pass any type of interface as that type. For example:
 

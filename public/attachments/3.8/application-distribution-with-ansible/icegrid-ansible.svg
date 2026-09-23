@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="521.43"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 730"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Distributing applications with Ansible</title>
+  <desc id="description">
+    The control machine uses SSH to ask the registry to disable and stop servers in step 1, synchronizes executables
+    directly to Node1 and Node2 in step 2, and asks the registry to enable and start servers in step 3. Node1 hosts
+    ServerA1 and ServerB1; Node2 hosts ServerA2.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+    <circle
+      id="step-badge-shape"
+      cx="0"
+      cy="0"
+      r="12"
+      fill="#ffffff"
+      stroke="#1259d6"
+      stroke-width="1.5"
+      vector-effect="non-scaling-stroke"
+    />
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .badge {
+      fill: #566174;
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="980" height="730" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 214 338 L 650 338" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 214 382 L 650 382" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 150 322 L 650 80" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 150 394 L 650 650" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 710 306 L 710 136" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 870 306 L 870 136" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 710 418 L 710 594" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 870 418 L 870 594" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="runtime" x="24" y="322" width="190" height="72" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="650" y="24" width="280" height="112" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 650 54 H 930" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="650" y="306" width="280" height="112" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 650 336 H 930" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="650" y="594" width="280" height="112" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 650 624 H 930" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="119.0" y="363.0">Control machine</text>
+    <text class="badge" x="790.0" y="45">Node1</text>
+    <text class="label" x="790.0" y="90.0">
+      <tspan x="790.0" dy="0">ServerA1</tspan>
+      <tspan x="790.0" dy="20">ServerB1</tspan>
+    </text>
+    <text class="badge" x="790.0" y="327">Registry</text>
+    <text class="label" x="790.0" y="382.0">Master/Replica</text>
+    <text class="badge" x="790.0" y="615">Node2</text>
+    <text class="label" x="790.0" y="670.0">ServerA2</text>
+    <use href="#step-badge-shape" x="380" y="338"/>
+    <text class="annotation" x="380" y="343">1</text>
+    <rect x="402.0" y="327" width="72" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="438" y="343">via SSH</text>
+    <use href="#step-badge-shape" x="380" y="382"/>
+    <text class="annotation" x="380" y="387">3</text>
+    <rect x="402.0" y="371" width="72" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="438" y="387">via SSH</text>
+    <use href="#step-badge-shape" x="350" y="221"/>
+    <text class="annotation" x="350" y="226">2</text>
+    <rect x="372.0" y="210" width="216" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="480" y="226">Sync executables to Node1</text>
+    <use href="#step-badge-shape" x="350" y="497"/>
+    <text class="annotation" x="350" y="502">2</text>
+    <rect x="372.0" y="486" width="216" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="480" y="502">Sync executables to Node2</text>
+    <rect x="665" y="165" width="90" height="98" fill="#ffffff"/>
+    <rect x="825" y="165" width="90" height="98" fill="#ffffff"/>
+    <use href="#step-badge-shape" x="710" y="180"/>
+    <text class="annotation" x="710" y="185">1</text>
+    <text class="annotation" x="710" y="212">
+      <tspan x="710" dy="0">Disable</tspan>
+      <tspan x="710" dy="20">and stop</tspan>
+      <tspan x="710" dy="20">servers</tspan>
+    </text>
+    <use href="#step-badge-shape" x="870" y="180"/>
+    <text class="annotation" x="870" y="185">3</text>
+    <text class="annotation" x="870" y="212">
+      <tspan x="870" dy="0">Enable</tspan>
+      <tspan x="870" dy="20">and start</tspan>
+      <tspan x="870" dy="20">servers</tspan>
+    </text>
+    <rect x="665" y="451" width="90" height="98" fill="#ffffff"/>
+    <rect x="825" y="451" width="90" height="98" fill="#ffffff"/>
+    <use href="#step-badge-shape" x="710" y="466"/>
+    <text class="annotation" x="710" y="471">1</text>
+    <text class="annotation" x="710" y="498">
+      <tspan x="710" dy="0">Disable</tspan>
+      <tspan x="710" dy="20">and stop</tspan>
+      <tspan x="710" dy="20">servers</tspan>
+    </text>
+    <use href="#step-badge-shape" x="870" y="466"/>
+    <text class="annotation" x="870" y="471">3</text>
+    <text class="annotation" x="870" y="498">
+      <tspan x="870" dy="0">Enable</tspan>
+      <tspan x="870" dy="20">and start</tspan>
+      <tspan x="870" dy="20">servers</tspan>
+    </text>
+  </g>
+</svg>

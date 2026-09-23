@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="640"
+  height="420"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 640 420"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Topic federation costs</title>
+  <desc id="description">
+    Publishers P1 and P2 send to topic A with message costs 1 and 2 respectively. A has a link to B with cost 0 and
+    a link to C with cost 1. Dotted arrows show topic links; solid arrows show message delivery.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .topic-link {
+      stroke-dasharray: 1 5;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="640" height="420" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <rect class="boundary" x="240" y="24" width="376" height="320" rx="14" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 145 382 H 185" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 365 382 H 405" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 114 153 L 296 190" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 114 253 L 296 212" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 353 188 L 522 117" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 353 212 L 522 283" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="125" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="225" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="325" cy="200" r="30" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="550" cy="105" r="30" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="550" cy="295" r="30" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="legend-label" x="255" y="387">Message delivery</text>
+    <text class="legend-label" x="460" y="387">Topic link</text>
+    <text class="label" x="428.0" y="49">IceStorm</text>
+    <text class="label" x="69.0" y="158.0">P1</text>
+    <text class="label" x="69.0" y="258.0">P2</text>
+    <text class="label" x="325" y="205">A</text>
+    <text class="label" x="550" y="110">B</text>
+    <text class="label" x="550" y="300">C</text>
+    <rect x="183.0" y="141" width="24" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="195" y="157">1</text>
+    <rect x="183.0" y="236" width="24" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="195" y="252">2</text>
+    <rect x="433.0" y="117" width="24" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="445" y="133">0</text>
+    <rect x="433.0" y="266" width="24" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="445" y="282">1</text>
+  </g>
+</svg>

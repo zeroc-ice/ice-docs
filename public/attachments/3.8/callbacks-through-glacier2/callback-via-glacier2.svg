@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="250"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 350"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Callback request flow through Glacier2</title>
+  <desc id="description">
+    Four numbered steps show a client request crossing Glacier2 to a server and a callback returning
+    through Glacier2 to the client. Steps one and four share the client's bidirectional connection,
+    while steps two and three use separate server-side connections. Glacier2 has client-endpoint and
+    server-endpoint compartments with public and private IP addresses.
+  </desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+    <g id="step-badge-shape">
+      <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
+    </g>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+
+    .component {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .service {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+
+    .divider {
+      fill: none;
+      stroke: #8d99aa;
+      stroke-width: 1.25;
+    }
+
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .one-way,
+    .callback {
+      marker-end: url(#arrow);
+    }
+
+    .two-way {
+      marker-end: url(#arrow);
+      marker-start: url(#arrow);
+    }
+
+    .callback {
+      stroke-dasharray: 6 4;
+    }
+
+    .network-title {
+      font-size: 16px;
+      font-weight: 650;
+      text-anchor: middle;
+    }
+
+    .component-label,
+    .service-title {
+      font-size: 15px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .service-title {
+      font-size: 17px;
+      font-weight: 650;
+    }
+
+    .annotation {
+      fill: #566174;
+      font-size: 13px;
+      font-weight: 500;
+      text-anchor: middle;
+    }
+
+    .step-badge {
+      fill: #ffffff;
+      stroke: #1259d6;
+      stroke-width: 1.5;
+    }
+
+    .step-number {
+      fill: #1259d6;
+      font-size: 13px;
+      font-weight: 700;
+      text-anchor: middle;
+    }
+
+    .legend-title,
+    .legend-label {
+      fill: #566174;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .legend-title {
+      font-weight: 650;
+    }
+  </style>
+
+  <rect width="980" height="350" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <path class="network-boundary" d="M 490 20 V 330" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <!-- Steps 1 and 4 share the client's existing bidirectional connection. -->
+    <path class="connector two-way" d="M 210 184 H 315" vector-effect="non-scaling-stroke"/>
+
+    <!-- Steps 2 and 3 use separate server-side connections. -->
+    <path class="connector one-way" d="M 665 116 H 740 V 164 H 770" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 770 204 H 665" vector-effect="non-scaling-stroke"/>
+
+    <!-- Compact flow legend. -->
+    <path class="connector one-way" d="M 615 320 H 649" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 785 320 H 819" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="component" x="40" y="130" width="170" height="82" rx="7" vector-effect="non-scaling-stroke"/>
+
+    <rect class="service" x="315" y="70" width="350" height="190" rx="8" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 315 150 H 665 M 490 150 V 260" vector-effect="non-scaling-stroke"/>
+
+    <rect class="component" x="770" y="130" width="170" height="82" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="network-title" x="245" y="38">Public network</text>
+    <text class="network-title" x="735" y="38">Private network</text>
+
+    <text class="component-label" x="125" y="176">Callback client</text>
+    <text class="annotation" x="125" y="242">IP: 1.2.3.4</text>
+
+    <text class="service-title" x="490" y="116">Glacier2</text>
+    <text class="component-label" x="402.5" y="183">
+      <tspan x="402.5">Client</tspan>
+      <tspan x="402.5" dy="19">endpoints</tspan>
+    </text>
+    <text class="component-label" x="577.5" y="183">
+      <tspan x="577.5">Server</tspan>
+      <tspan x="577.5" dy="19">endpoints</tspan>
+    </text>
+    <text class="annotation" x="402.5" y="286">IP: 5.6.7.8</text>
+    <text class="annotation" x="577.5" y="286">IP: 10.0.0.1</text>
+
+    <text class="component-label" x="855" y="176">Server</text>
+    <text class="annotation" x="855" y="242">IP: 10.0.0.2</text>
+
+    <!-- Numbered badges match the four steps in the surrounding documentation. -->
+    <use href="#step-badge-shape" transform="translate(282.5 145)"/>
+    <text class="step-number" x="282.5" y="149.5">1</text>
+    <use href="#step-badge-shape" transform="translate(717.5 139)"/>
+    <text class="step-number" x="717.5" y="143.5">2</text>
+    <use href="#step-badge-shape" transform="translate(717.5 229)"/>
+    <text class="step-number" x="717.5" y="233.5">3</text>
+    <use href="#step-badge-shape" transform="translate(242.5 145)"/>
+    <text class="step-number" x="242.5" y="149.5">4</text>
+
+    <text class="legend-title" x="570" y="324">Flow</text>
+    <text class="legend-label" x="659" y="324">Request</text>
+    <text class="legend-label" x="829" y="324">Callback</text>
+  </g>
+</svg>

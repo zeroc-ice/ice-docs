@@ -81,7 +81,7 @@ integer that provides an identity for the instance. The sender assigns this iden
 marshaled instance has a different identity. The receiver uses that identity to correctly reconstruct graphs of classes.
 The overall marshaling format for classes is shown below:
 
-![Marshaling_format_for_classes.gif](/attachments/3.8/data-encoding-for-classes/Marshaling_format_for_classes.gif)
+![The encoding 1.0 classes layout starts with an instance identity, followed by a type ID and member slice for each inheritance level.](/attachments/3.8/data-encoding-for-classes/marshaling-format.svg)
 
 _Marshaling format for classes._
 
@@ -110,13 +110,13 @@ required members for that slice in order of declaration, and the
 and whether this is the last slice of the instance. The compact format only includes a type ID in the initial
 (most-derived) slice and omits the slice size, as shown in the following diagram:
 
-![Compact_format_for_classes.gif](/attachments/3.8/data-encoding-for-classes/Compact_format_for_classes.gif)
+![The compact classes format starts with identity marker 1. The most-derived slice contains slice flags, a type ID, required members, and optional members when needed. Subsequent slices omit the type ID.](/attachments/3.8/data-encoding-for-classes/compact-format.svg)
 
 _Compact format for classes._
 
 When using the sliced format, a type ID is included in every slice, along with a slice size:
 
-![Sliced_format_for_classes.gif](/attachments/3.8/data-encoding-for-classes/Sliced_format_for_classes.gif)
+![The sliced classes format starts with identity marker 1 and repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/attachments/3.8/data-encoding-for-classes/sliced-format.svg)
 
 _Sliced format for classes._
 

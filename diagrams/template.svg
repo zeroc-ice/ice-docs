@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="300"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 300"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Diagram title</title>
+  <desc id="description">Describe the components and their important relationships.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+    <marker id="inheritance-arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M 1 1 L 11 6 L 1 11 Z" fill="#ffffff" stroke="#465266" stroke-linejoin="round" stroke-width="1.8"/>
+    </marker>
+    <g id="step-badge-shape">
+      <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
+    </g>
+    <symbol id="document-shape" viewBox="0 0 160 92" preserveAspectRatio="none">
+      <path d="M 1 1 H 159 V 76 C 134 65 118 91 89 79 C 60 67 37 91 1 76 Z" vector-effect="non-scaling-stroke"/>
+    </symbol>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .process-boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
+    }
+
+    .api-boundary {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+
+    .component {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .actor {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .state,
+    .interface {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .initial-state,
+    .final-state-inner {
+      fill: #182235;
+    }
+
+    .final-state-outer {
+      fill: #ffffff;
+      stroke: #182235;
+      stroke-width: 1.75;
+    }
+
+    .runtime,
+    .service {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+
+    .generated,
+    .generated-document {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+
+    .slice-document {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+
+    .source-document {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
+    }
+
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .association {
+      marker-end: none;
+      marker-start: none;
+    }
+
+    .two-way {
+      marker-end: url(#arrow);
+      marker-start: url(#arrow);
+    }
+
+    .one-way,
+    .callback {
+      marker-end: url(#arrow);
+    }
+
+    .callback {
+      stroke-dasharray: 6 4;
+    }
+
+    .blocked {
+      stroke: #b42318;
+      stroke-dasharray: 6 4;
+    }
+
+    .blocked-cross {
+      stroke: #b42318;
+    }
+
+    .topic-link {
+      marker-end: url(#arrow);
+      stroke-dasharray: 1 5;
+    }
+
+    .through-firewall {
+      stroke-dasharray: 2 5;
+    }
+
+    .inheritance {
+      fill: none;
+      marker-end: url(#inheritance-arrow);
+      stroke: #465266;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .label-knockout {
+      fill: #ffffff;
+    }
+
+    .process-title {
+      font-size: 17px;
+      font-weight: 650;
+      text-anchor: middle;
+    }
+
+    .boundary-title,
+    .component-label,
+    .connector-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .connector-label {
+      font-size: 14px;
+    }
+
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
+      text-anchor: middle;
+    }
+
+    .major-label,
+    .actor-label,
+    .state-label,
+    .interface-name {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .file-label {
+      font-size: 15px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .file-label,
+    .interface-name {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .step-badge {
+      fill: #ffffff;
+      stroke: #1259d6;
+      stroke-width: 1.5;
+    }
+
+    .step-number {
+      fill: #1259d6;
+      font-size: 13px;
+      font-weight: 700;
+      text-anchor: middle;
+    }
+
+    .category-badge {
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+
+    .api-badge {
+      fill: #365f9e;
+    }
+
+    .generated-badge {
+      fill: #68587e;
+    }
+
+    .slice-badge {
+      fill: #365f9e;
+    }
+
+    .source-badge,
+    .interface-badge {
+      fill: #566174;
+    }
+  </style>
+
+  <rect width="700" height="300" fill="#ffffff"/>
+
+  <!-- Every stroked shape and path must set vector-effect="non-scaling-stroke". -->
+  <g id="boundaries" aria-hidden="true">
+    <!-- Process, host, network, and API boundaries. -->
+  </g>
+  <g id="connectors" aria-hidden="true">
+    <!-- One-way, two-way, callback, association, blocked, topic-link, through-firewall, and inheritance paths. -->
+    <!-- Blocked example, drawn where the connection is refused:
+         <path class="connector blocked-cross" d="M X1 Y1 L X2 Y2 M X1 Y2 L X2 Y1"
+               vector-effect="non-scaling-stroke"/> -->
+  </g>
+  <g id="components" aria-hidden="true">
+    <!-- Applications, actors, interfaces, states, documents, runtimes, generated code, and services. -->
+  </g>
+  <g id="labels">
+    <!-- Titles, component labels, label knockouts, annotations, and numbered step badges. -->
+    <!-- Badge example: <use href="#step-badge-shape" transform="translate(X Y)"/> followed by native <text>. -->
+    <!-- Document example: <use href="#document-shape" class="generated" x="X" y="Y" width="160" height="92"/>. -->
+  </g>
+</svg>

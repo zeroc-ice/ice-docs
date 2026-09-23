@@ -6,7 +6,7 @@ title: Common Firewall Traversal Issues
 Let's assume that a client and server need to communicate over an untrusted network, and that the client and server
 hosts reside in private networks behind firewalls:
 
-![firewall1.gif](/attachments/3.8/common-firewall-traversal-issues/firewall1.gif)
+![A client request passes through a client-side firewall and a server-side firewall before reaching the server.](/attachments/3.8/common-firewall-traversal-issues/firewall1.svg)
 
 Although the diagram looks fairly straightforward, there are several troublesome issues:
 
@@ -22,13 +22,13 @@ To complicate the scenario even further, the illustration below adds a callback 
 imply that the client is also a server, therefore all of the issues associated with previous illustration now apply to
 the client as well.
 
-![firewall2.gif](/attachments/3.8/common-firewall-traversal-issues/firewall2.gif)
+![Client requests and server callbacks travel in opposite directions through both firewalls over separate connections.](/attachments/3.8/common-firewall-traversal-issues/firewall2.svg)
 
 As if this was not complicated enough already, the illustration below adds multiple clients and servers. Each additional
 server (including clients requiring callbacks) adds more work for the firewall administrator as more ports are dedicated
 to forwarding requests.
 
-![firewall3.gif](/attachments/3.8/common-firewall-traversal-issues/firewall3.gif)
+![Two clients and two servers exchange requests and callbacks through the same pair of firewalls. Separate arrows show requests and callbacks.](/attachments/3.8/common-firewall-traversal-issues/firewall3.svg)
 
 Clearly, these scenarios do not scale well, and are unnecessarily complex. Fortunately, Ice provides a solution in
 [Glacier2](../about-glacier2).

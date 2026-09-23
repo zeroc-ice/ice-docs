@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="390"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 390"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Diamond interface inheritance</title>
+  <desc id="description">
+    D inherits from I1 and I2, which both inherit from B. Hollow arrowheads point toward each base interface.
+  </desc>
+
+  <defs>
+    <marker
+      id="inheritance-arrow"
+      viewBox="0 0 12 12"
+      refX="11"
+      refY="6"
+      markerWidth="10"
+      markerHeight="10"
+      orient="auto"
+    >
+      <path d="M 1 1 L 11 6 L 1 11 Z" fill="#ffffff" stroke="#465266" stroke-linejoin="round" stroke-width="1.8"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .badge {
+      fill: #566174;
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .inheritance {
+      stroke: #465266;
+      stroke-width: 2;
+      marker-end: url(#inheritance-arrow);
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="700" height="390" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector inheritance" d="M 155 150 L 295 102" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 150 L 405 102" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 300 292 L 166 234" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 400 292 L 534 234" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="250" y="18" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 250 48 H 450" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="55" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 55 180 H 255" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="445" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 445 180 H 645" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="250" y="292" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 250 322 H 450" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="badge" x="350.0" y="39">INTERFACE</text>
+    <text class="label code" x="350.0" y="75.0">B</text>
+    <text class="badge" x="155.0" y="171">INTERFACE</text>
+    <text class="label code" x="155.0" y="207.0">I1</text>
+    <text class="badge" x="545.0" y="171">INTERFACE</text>
+    <text class="label code" x="545.0" y="207.0">I2</text>
+    <text class="badge" x="350.0" y="313">INTERFACE</text>
+    <text class="label code" x="350.0" y="349.0">D</text>
+  </g>
+</svg>

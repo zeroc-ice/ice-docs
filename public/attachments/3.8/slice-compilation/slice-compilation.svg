@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="440.74"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 680"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Compiling Slice in a shared C++ development environment</title>
+  <desc id="description">
+    A Slice developer writes Greeter.ice and compiles it into the shared generated files Greeter.h
+    and Greeter.cpp. The generated-files group connects to both executables. Client.cpp connects to the
+    client executable, Server.cpp connects to the server executable, and the Ice C++ runtime library
+    connects to both. The client executable invokes the server executable using RPC.
+  </desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+    <symbol id="document-shape" viewBox="0 0 160 92" preserveAspectRatio="none">
+      <path d="M 1 1 H 159 V 76 C 134 65 118 91 89 79 C 60 67 37 91 1 76 Z" vector-effect="non-scaling-stroke"/>
+    </symbol>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .generated-files-boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
+    }
+
+    .actor,
+    .executable {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .compiler,
+    .runtime-library {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+
+    .slice-document {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+
+    .generated-document {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+
+    .source-document {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+
+    .slice-divider,
+    .generated-divider,
+    .source-divider {
+      stroke-width: 1.25;
+    }
+
+    .slice-divider {
+      stroke: #4f78bb;
+    }
+
+    .generated-divider {
+      stroke: #75658f;
+    }
+
+    .source-divider {
+      stroke: #a6afbc;
+    }
+
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .one-way {
+      marker-end: url(#arrow);
+    }
+
+    .group-label-background,
+    .connector-label-background {
+      fill: #ffffff;
+    }
+
+    .group-label,
+    .category-badge {
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+
+    .group-label,
+    .generated-badge {
+      fill: #68587e;
+    }
+
+    .source-badge {
+      fill: #566174;
+    }
+
+    .slice-badge {
+      fill: #365f9e;
+    }
+
+    .actor-label,
+    .component-label,
+    .executable-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .file-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 15px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .connector-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+  </style>
+
+  <rect width="1080" height="680" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <rect class="generated-files-boundary" x="280" y="155" width="520" height="195" rx="18" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <!-- Slice definition and compilation. -->
+    <path class="connector one-way" d="M 170 60 H 205" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 365 60 H 410" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 470 110 L 410 205" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 550 110 L 670 205" vector-effect="non-scaling-stroke"/>
+
+    <!-- Developer-written sources. -->
+    <path class="connector one-way" d="M 170 436 H 210" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 910 436 H 870" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 290 482 V 590" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 790 482 V 590" vector-effect="non-scaling-stroke"/>
+
+    <!-- The generated-files group is an explicit dependency of both executables. -->
+    <path class="connector one-way" d="M 400 350 V 590" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 680 350 V 590" vector-effect="non-scaling-stroke"/>
+
+    <!-- Both executables link with the same Ice runtime library. -->
+    <path class="connector one-way" d="M 490 495 V 540 H 430 V 590" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 590 495 V 540 H 650 V 590" vector-effect="non-scaling-stroke"/>
+
+    <path class="connector one-way" d="M 450 625 H 630" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="actor" x="20" y="28" width="150" height="64" rx="32" vector-effect="non-scaling-stroke"/>
+    <rect class="actor" x="20" y="404" width="150" height="64" rx="32" vector-effect="non-scaling-stroke"/>
+    <rect class="actor" x="910" y="404" width="150" height="64" rx="32" vector-effect="non-scaling-stroke"/>
+
+    <use href="#document-shape" class="slice-document" x="205" y="18" width="160" height="92"/>
+    <path class="slice-divider" d="M 206 49 H 364" vector-effect="non-scaling-stroke"/>
+    <rect class="compiler" x="410" y="18" width="200" height="92" rx="7" vector-effect="non-scaling-stroke"/>
+
+    <use href="#document-shape" class="generated-document" x="330" y="205" width="160" height="92"/>
+    <path class="generated-divider" d="M 331 236 H 489" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="generated-document" x="590" y="205" width="160" height="92"/>
+    <path class="generated-divider" d="M 591 236 H 749" vector-effect="non-scaling-stroke"/>
+
+    <use href="#document-shape" class="source-document" x="210" y="390" width="160" height="92"/>
+    <path class="source-divider" d="M 211 421 H 369" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="source-document" x="710" y="390" width="160" height="92"/>
+    <path class="source-divider" d="M 711 421 H 869" vector-effect="non-scaling-stroke"/>
+
+    <rect class="runtime-library" x="455" y="395" width="170" height="100" rx="7" vector-effect="non-scaling-stroke"/>
+
+    <rect class="executable" x="180" y="590" width="270" height="70" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="executable" x="630" y="590" width="270" height="70" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <rect class="group-label-background" x="463" y="143" width="154" height="24" rx="12"/>
+    <text class="group-label" x="540" y="161">GENERATED FILES</text>
+
+    <text class="actor-label" x="95" y="54">
+      <tspan x="95">Slice</tspan>
+      <tspan x="95" dy="19">developer</tspan>
+    </text>
+    <text class="actor-label" x="95" y="430">
+      <tspan x="95">Client</tspan>
+      <tspan x="95" dy="19">developer</tspan>
+    </text>
+    <text class="actor-label" x="985" y="430">
+      <tspan x="985">Server</tspan>
+      <tspan x="985" dy="19">developer</tspan>
+    </text>
+
+    <text class="category-badge slice-badge" x="285" y="40">SLICE</text>
+    <text class="file-label" x="285" y="79">Greeter.ice</text>
+
+    <text class="component-label" x="510" y="55">
+      <tspan x="510">Slice-to-C++</tspan>
+      <tspan x="510" dy="20">compiler</tspan>
+    </text>
+
+    <text class="category-badge generated-badge" x="410" y="227">GENERATED</text>
+    <text class="file-label" x="410" y="267">Greeter.h</text>
+    <text class="category-badge generated-badge" x="670" y="227">GENERATED</text>
+    <text class="file-label" x="670" y="267">Greeter.cpp</text>
+
+    <text class="category-badge source-badge" x="290" y="412">SOURCE</text>
+    <text class="file-label" x="290" y="452">Client.cpp</text>
+    <text class="category-badge source-badge" x="790" y="412">SOURCE</text>
+    <text class="file-label" x="790" y="452">Server.cpp</text>
+
+    <text class="component-label" x="540" y="434">
+      <tspan x="540">Ice C++</tspan>
+      <tspan x="540" dy="20">runtime library</tspan>
+    </text>
+
+    <text class="executable-label" x="315" y="631">Client executable</text>
+    <text class="executable-label" x="765" y="631">Server executable</text>
+
+    <rect class="connector-label-background" x="513" y="610" width="54" height="28" rx="14"/>
+    <text class="connector-label" x="540" y="630">RPC</text>
+  </g>
+</svg>

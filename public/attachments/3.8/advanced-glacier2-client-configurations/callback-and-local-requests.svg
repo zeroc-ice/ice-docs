@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="304.63"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 470"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Local requests and Glacier2 callbacks</title>
+  <desc id="description">
+    A local client at 10.0.0.2 calls the callback client at 10.0.0.1. The callback client reuses a bidirectional
+    connection through its firewall at 1.2.3.4 to Glacier2. Both Glacier2 endpoint sets use 10.0.0.1. The server at
+    10.0.0.2 uses a separate callback connection.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .two-way {
+      marker-start: url(#arrow);
+      marker-end: url(#arrow);
+    }
+    .through-firewall {
+      stroke-dasharray: 2 5;
+    }
+    .callback {
+      stroke-dasharray: 6 4;
+      marker-end: url(#arrow);
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="1080" height="470" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <path class="network-boundary" d="M 710 18 V 450" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 194 61 H 224 V 250 H 194" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 194 306 H 570" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 830 232 H 916" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 916 306 L 830 306" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="18" width="170" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="228" width="170" height="108" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="280" y="228" width="160" height="108" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="570" y="176" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 570 256 H 830 M 700.0 256 V 336" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="916" y="204" width="140" height="132" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="connector through-firewall" d="M 280 306 H 440" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="109.0" y="66.0">Local client</text>
+    <text class="annotation" x="109" y="135">IP: 10.0.0.2</text>
+    <text class="label" x="109.0" y="287.0">Callback client</text>
+    <text class="label" x="360" y="263">Firewall</text>
+    <text class="label" x="700.0" y="220">Glacier2</text>
+    <text class="label" x="635.0" y="287">
+      <tspan x="635.0" dy="0">Client</tspan>
+      <tspan x="635.0" dy="20">endpoints</tspan>
+    </text>
+    <text class="label" x="765.0" y="287">
+      <tspan x="765.0" dy="0">Server</tspan>
+      <tspan x="765.0" dy="20">endpoints</tspan>
+    </text>
+    <text class="label" x="986.0" y="275.0">Server</text>
+    <text class="annotation" x="109" y="368">IP: 10.0.0.1</text>
+    <text class="annotation" x="360" y="368">IP: 1.2.3.4</text>
+    <text class="annotation" x="635" y="368">IP: 10.0.0.1</text>
+    <text class="annotation" x="765" y="368">IP: 10.0.0.1</text>
+    <text class="annotation" x="986" y="368">IP: 10.0.0.2</text>
+  </g>
+</svg>

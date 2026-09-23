@@ -11,7 +11,7 @@ An application that needs to support callback requests from a router as well as 
 multiple object adapters to ensure that proxies created by these object adapters contain the appropriate endpoints. For
 example, suppose we have the network configuration as shown in the following illustration:
 
-![Supporting_Callback_and_Local_Requests.gif](/attachments/3.8/advanced-glacier2-client-configurations/Supporting_Callback_and_Local_Requests.gif)
+![A local client at 10.0.0.2 calls the callback client at 10.0.0.1. The callback client reuses a bidirectional connection through its firewall at 1.2.3.4 to Glacier2. Both Glacier2 endpoint sets use 10.0.0.1. The server at 10.0.0.2 uses a separate callback connection.](/attachments/3.8/advanced-glacier2-client-configurations/callback-and-local-requests.svg)
 
 Notice that the two local area networks use the same private network addresses, which is not an unrealistic scenario.
 

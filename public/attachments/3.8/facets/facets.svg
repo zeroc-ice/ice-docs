@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="423.68"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 460"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Facets of an Ice object</title>
+  <desc id="description">
+    One Ice object exposes five facets: the unnamed default facet, Facet 1, Facet 2, This Facet, and That Facet.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="760" height="460" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <ellipse
+      cx="395"
+      cy="228"
+      rx="235"
+      ry="204"
+      fill="#fbfcfe"
+      stroke="#8d99aa"
+      stroke-width="1.5"
+      stroke-dasharray="7 5"
+      vector-effect="non-scaling-stroke"
+    />
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 105 255 L 214 195" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 105 255 L 268 270" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 105 255 L 370 363" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 646 140 L 612 140" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 650 247 L 441 100" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 650 247 L 537 255" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <circle class="api" cx="410" cy="82" r="32" vector-effect="non-scaling-stroke"/>
+    <circle class="api" cx="245" cy="180" r="32" vector-effect="non-scaling-stroke"/>
+    <circle class="api" cx="300" cy="270" r="32" vector-effect="non-scaling-stroke"/>
+    <circle class="api" cx="505" cy="255" r="32" vector-effect="non-scaling-stroke"/>
+    <circle class="api" cx="400" cy="375" r="32" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="annotation" x="410" y="40">“Facet 2”</text>
+    <text class="annotation" x="373" y="174">“” (default facet)</text>
+    <text class="annotation" x="240" y="344">“Facet 1”</text>
+    <text class="annotation" x="535" y="305">“This Facet”</text>
+    <text class="annotation" x="400" y="425">“That Facet”</text>
+    <text class="annotation" x="75" y="260">Facets</text>
+    <text class="annotation" x="688" y="135">Ice object</text>
+    <text class="annotation" x="688" y="252">Facets</text>
+  </g>
+</svg>

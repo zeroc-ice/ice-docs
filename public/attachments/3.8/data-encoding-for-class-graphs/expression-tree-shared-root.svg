@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="506.58"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 550"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Expression tree with a shared root</title>
+  <desc id="description">
+    Both p1 and p2 reference the root multiplication node. Instance numbers identify the shared expression tree.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="760" height="550" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector" d="M 340 54 L 150 190" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 340 54 L 570 190" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 150 190 L 44 355" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 150 190 L 250 355" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 570 190 L 470 355" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 570 190 L 690 355" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 250 355 L 150 500" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 250 355 L 350 500" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 142 54 L 315 54" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 545 54 L 365 54" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <circle class="application" cx="340" cy="54" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="150" cy="190" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="570" cy="190" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="44" cy="355" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="250" cy="355" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="470" cy="355" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="690" cy="355" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="150" cy="500" r="25" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="350" cy="500" r="25" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="340" y="59">*</text>
+    <text class="annotation code" x="376" y="32">1</text>
+    <text class="label" x="150" y="195">+</text>
+    <text class="annotation code" x="114" y="168">2</text>
+    <text class="label" x="570" y="195">−</text>
+    <text class="annotation code" x="606" y="168">3</text>
+    <text class="label" x="44" y="360">1</text>
+    <text class="annotation code" x="80" y="333">4</text>
+    <text class="label" x="250" y="360">/</text>
+    <text class="annotation code" x="286" y="333">5</text>
+    <text class="label" x="470" y="360">9</text>
+    <text class="annotation code" x="506" y="333">6</text>
+    <text class="label" x="690" y="360">3</text>
+    <text class="annotation code" x="726" y="333">7</text>
+    <text class="label" x="150" y="505">6</text>
+    <text class="annotation code" x="186" y="478">8</text>
+    <text class="label" x="350" y="505">2</text>
+    <text class="annotation code" x="386" y="478">9</text>
+    <text class="label code" x="120" y="59">p1</text>
+    <text class="label code" x="570" y="59">p2</text>
+  </g>
+</svg>

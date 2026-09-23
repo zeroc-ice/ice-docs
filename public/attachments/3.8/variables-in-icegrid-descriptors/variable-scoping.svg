@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="635.53"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 690"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Variable and parameter scoping</title>
+  <desc id="description">
+    Application variable x is 1. Node A overrides x with 2; Node B defines y as 4 and inherits x as 1. A server
+    instance in Node A passes parameter x as 3 to template T, while its own variable x remains 2. The server
+    template sees parameter x as 3.
+  </desc>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="760" height="690" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector" d="M 380 154 L 154 206" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 380 154 L 606 206" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 154 336 L 154 380" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 154 510 L 154 554" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="api" x="250" y="24" width="260" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 250 56 H 510 M 250 122 H 510" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="24" y="206" width="260" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 24 238 H 284 M 24 304 H 284" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="476" y="206" width="260" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 476 238 H 736 M 476 304 H 736" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="24" y="380" width="260" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 24 412 H 284 M 24 478 H 284" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="24" y="554" width="260" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 24 586 H 284 M 24 652 H 284" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="380" y="47">application</text>
+    <text class="annotation code" x="380" y="81">
+      <tspan x="380" dy="0">&lt;variable name=&quot;x&quot;</tspan>
+      <tspan x="380" dy="20">value=&quot;1&quot;&gt;</tspan>
+    </text>
+    <text class="annotation code" x="380" y="144">${x} == 1</text>
+    <text class="label" x="154" y="229">nodeA</text>
+    <text class="annotation code" x="154" y="263">
+      <tspan x="154" dy="0">&lt;variable name=&quot;x&quot;</tspan>
+      <tspan x="154" dy="20">value=&quot;2&quot;&gt;</tspan>
+    </text>
+    <text class="annotation code" x="154" y="326">${x} == 2</text>
+    <text class="label" x="606" y="229">nodeB</text>
+    <text class="annotation code" x="606" y="263">
+      <tspan x="606" dy="0">&lt;variable name=&quot;y&quot;</tspan>
+      <tspan x="606" dy="20">value=&quot;4&quot;&gt;</tspan>
+    </text>
+    <text class="annotation code" x="606" y="326">${x} == 1</text>
+    <text class="label" x="154" y="403">server instance</text>
+    <text class="annotation code" x="154" y="437">
+      <tspan x="154" dy="0">&lt;server-instance</tspan>
+      <tspan x="154" dy="20">template=&quot;T&quot; x=&quot;3&quot;&gt;</tspan>
+    </text>
+    <text class="annotation code" x="154" y="500">${x} == 2</text>
+    <text class="label" x="154" y="577">server template</text>
+    <text class="annotation code" x="154" y="611">
+      <tspan x="154" dy="0">&lt;server-template...&gt;</tspan>
+      <tspan x="154" dy="20">&lt;parameter name=&quot;x&quot;&gt;</tspan>
+    </text>
+    <text class="annotation code" x="154" y="674">${x} == 3</text>
+  </g>
+</svg>

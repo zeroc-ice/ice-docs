@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="350"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 880 440"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">DataStorm sample flow</title>
+  <desc id="description">
+    A temperature writer publishes through its topic and Node A. Samples travel to Node B, then through its
+    temperature topic to a reader.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .generated {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+    .boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <rect class="boundary" x="24" y="24" width="260" height="390" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="596" y="24" width="260" height="390" rx="14" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 154 344 L 154 310" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 154 254 L 154 200" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 726 200 L 726 254" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 726 310 L 726 344" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 259 125 L 621 125" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="runtime" x="49" y="50" width="210" height="150" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="49" y="254" width="210" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="49" y="344" width="210" height="46" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="621" y="50" width="210" height="150" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="621" y="254" width="210" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="621" y="344" width="210" height="46" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="310" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="370" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="430" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="490" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="generated" x="550" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="154.0" y="130.0">Node A</text>
+    <text class="label" x="154.0" y="287.0">Topic (temperature)</text>
+    <text class="label" x="154.0" y="372.0">Writer (temperature)</text>
+    <text class="label" x="726.0" y="130.0">Node B</text>
+    <text class="label" x="726.0" y="287.0">Topic (temperature)</text>
+    <text class="label" x="726.0" y="372.0">Reader (temperature)</text>
+    <text class="annotation" x="440" y="88">Samples</text>
+  </g>
+</svg>

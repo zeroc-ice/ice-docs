@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="280"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 900 360"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Forwarding events between federated topics</title>
+  <desc id="description">
+    Publisher PA publishes to topic A, which has a link to B. Publisher PB publishes directly to B. B has a link to C
+    and sends to subscriber SB; C sends to subscriber SC. Dotted arrows show topic links; solid arrows show message
+    delivery. Messages traverse at most one topic link.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .topic-link {
+      stroke-dasharray: 1 5;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="900" height="360" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <rect class="boundary" x="225" y="24" width="475" height="260" rx="14" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 275 322 H 315" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 495 322 H 535" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 114 105 L 290 105" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 114 235 L 430 211" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 344 122 L 435 187" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 485 188 L 585 122" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 640 105 L 786 105" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 490 205 L 786 235" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="77" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="207" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="320" cy="105" r="30" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="460" cy="205" r="30" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="610" cy="105" r="30" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="786" y="77" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="786" y="207" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="legend-label" x="385" y="327">Message delivery</text>
+    <text class="legend-label" x="590" y="327">Topic link</text>
+    <text class="label" x="462.5" y="49">IceStorm</text>
+    <text class="label" x="69.0" y="110.0">PA</text>
+    <text class="label" x="69.0" y="240.0">PB</text>
+    <text class="label" x="320" y="110">A</text>
+    <text class="label" x="460" y="210">B</text>
+    <text class="label" x="610" y="110">C</text>
+    <text class="label" x="831.0" y="110.0">SC</text>
+    <text class="label" x="831.0" y="240.0">SB</text>
+  </g>
+</svg>

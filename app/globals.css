@@ -342,6 +342,10 @@
    are allowed the full column so a wide sample does not have to scroll.
    --------------------------------------------------------------------------- */
 @layer components {
+  .doc-body {
+    min-width: 0;
+  }
+
   /* A language block has no box of its own, so the tracks reach through it to
      what it holds. */
   :where(.doc-body, .doc-body > [data-langs]) > * {
@@ -356,6 +360,11 @@
      the wide track too, so its text, switches, and panels share one edge. */
   [data-page-shape='wide'] :where(.doc-body, .doc-body > [data-langs]) > * {
     max-width: var(--measure-wide);
+  }
+
+  main article img.figure[src$='.svg'] {
+    max-width: 100%;
+    height: auto;
   }
 
   main article h1 {

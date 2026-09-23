@@ -44,12 +44,13 @@ publish it on any of its links. In other words, IceStorm messages propagate at m
 in a federation.
 
 The following figure presents an example of topic federation. Topic T1 has links to T2 and T3, as indicated by the
-arrows. The subscribers S1 and S2 receive all messages published on T2, as well as those published on T1. Subscriber S3
-receives messages only from T1, and S4 receives messages from both T3 and T1.
+dotted arrows. Solid arrows show publishers sending messages to topics and topics delivering messages to subscribers.
+The subscribers S1 and S2 receive all messages published on T2, as well as those published on T1. Subscriber S3 receives
+messages only from T1, and S4 receives messages from both T3 and T1.
 
 This section discusses several concepts that are important for understanding IceStorm's capabilities.
 
-![Topic_federation.gif](/attachments/3.8/icestorm-concepts/Topic_federation.gif)
+![Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 has dotted links to T2 and T3. Solid arrows show delivery from publishers to topics and from T1 to S3, T2 to S1 and S2, and T3 to S4.](/attachments/3.8/icestorm-concepts/topic-federation.svg)
 
 IceStorm makes no attempt to prevent a subscriber from receiving duplicate messages. For example, if a subscriber is
 subscribed to both T2 and T3, then it would receive two requests for each message published on T1.

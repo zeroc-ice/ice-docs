@@ -12,7 +12,7 @@ The revised architecture for our application consists of a single IceGrid node r
 runs on the computer named `ComputeServer`. The illustration below shows the client's initial invocation on its indirect
 proxy and the actions that IceGrid takes to make this invocation possible:
 
-![Deployed ripper application architecture](/attachments/3.8/using-icegrid-deployment/ripper-deployment.png)
+![The client first locates EncoderAdapter through the registry on ComputeServer. The registry contacts the node, which starts EncoderServer, then the client invokes encode.](/attachments/3.8/using-icegrid-deployment/ripper-deployment.svg)
 
 Architecture for deployed ripper application
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="600"
+  height="190"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 600 190"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Separate connections for requests and callbacks</title>
+  <desc id="description">
+    The client opens a connection to send requests to the server. The server opens a separate connection to send
+    callbacks to the client.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .callback {
+      stroke-dasharray: 6 4;
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="600" height="190" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 144 48 L 456 48" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 456 88 L 144 88" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 100 152 L 145 152" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 310 152 L 355 152" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="24" width="120" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="456" y="24" width="120" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="84.0" y="72.0">Client</text>
+    <text class="label" x="516.0" y="72.0">Server</text>
+    <text class="annotation" x="195" y="157">Request</text>
+    <text class="annotation" x="410" y="157">Callback</text>
+  </g>
+</svg>

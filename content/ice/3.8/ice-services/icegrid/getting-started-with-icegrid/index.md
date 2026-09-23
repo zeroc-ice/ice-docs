@@ -9,7 +9,7 @@ This page introduces a sample application that will help us demonstrate IceGrid'
 
 Our application "rips" music tracks from a compact disc (CD) and encodes them as MP3 files, as shown below:
 
-![ripper1.gif](/attachments/3.8/getting-started-with-icegrid/ripper1.gif)
+![A 74-minute music CD is ripped into WAV files totaling 650 MB. Lossy MP3 encoding produces files totaling about 57 MB.](/attachments/3.8/getting-started-with-icegrid/ripper1.svg)
 
 Ripping an entire CD usually takes several minutes because the MP3 encoding requires lots of CPU cycles. Our distributed
 ripper application accelerates this process by taking advantage of powerful CPUs on remote Ice servers, enabling us to
@@ -56,7 +56,7 @@ The initial architecture for our application is intentionally simple, consisting
 that we start manually. This illustration shows how the client's invocation on its `EncoderFactory` proxy causes an
 implicit locate request:
 
-![Initial ripper application architecture](/attachments/3.8/getting-started-with-icegrid/ripper.png)
+![The client first locates EncoderAdapter through the registry on ComputeServer. The client then invokes encode on EncoderServer.](/attachments/3.8/getting-started-with-icegrid/ripper.svg)
 
 The corresponding C++ code for the client is presented below:
 

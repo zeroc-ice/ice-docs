@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="400"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 700 400"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Compact encoding format for exceptions</title>
+  <desc id="description">
+    In the compact exceptions format, the most-derived slice contains slice flags, a type ID, required members, and
+    optional members when needed. Subsequent slices omit the type ID.
+  </desc>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="700" height="400" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="api" x="24" y="24" width="350" height="352" rx="0" vector-effect="non-scaling-stroke"/>
+    <path class="divider boundary" d="M 24 68 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="divider boundary" d="M 24 112 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="divider boundary" d="M 24 156 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 24 200 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="divider boundary" d="M 24 244 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="divider boundary" d="M 24 288 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 24 332 H 374" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 390 24 H 414 V 200 H 390 M 414 112.0 H 434" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 390 200 H 414 V 332 H 390 M 414 266.0 H 434" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="annotation code" x="199" y="52">Slice flags (byte)</text>
+    <text class="annotation code" x="199" y="96">Type ID (string or size)</text>
+    <text class="annotation" x="199" y="140">Required members</text>
+    <text class="annotation" x="199" y="184">Optional members (if necessary)</text>
+    <text class="annotation code" x="199" y="228">Slice flags (byte)</text>
+    <text class="annotation" x="199" y="272">Required members</text>
+    <text class="annotation" x="199" y="316">Optional members (if necessary)</text>
+    <text class="annotation" x="199" y="360">⋮</text>
+    <text class="annotation" x="555" y="107.0">
+      <tspan x="555" dy="0">Most-derived slice</tspan>
+      <tspan x="555" dy="20">includes a type ID</tspan>
+    </text>
+    <text class="annotation" x="555" y="261.0">
+      <tspan x="555" dy="0">Subsequent slices</tspan>
+      <tspan x="555" dy="20">omit the type ID</tspan>
+    </text>
+  </g>
+</svg>

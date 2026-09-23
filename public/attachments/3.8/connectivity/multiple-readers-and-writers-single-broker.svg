@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="278.7"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 430"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Readers and writers using one broker</title>
+  <desc id="description">
+    Two writers and two readers connect to a broker node listening on TCP port 10000. All arrows point toward the
+    broker because the readers and writers initiate the connections.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="1080" height="430" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 309 84 L 397 190" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 309 340 L 397 240" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 771 84 L 682 190" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 771 340 L 682 240" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="24" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="280" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="771" y="24" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="771" y="280" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="397" y="155" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="166.5" y="54">Writer</text>
+    <text class="annotation" x="166.5" y="86">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation" x="166.5" y="106">tcp -p 10000 -h &lt;host&gt;</text>
+    <text class="label" x="166.5" y="310">Writer</text>
+    <text class="annotation" x="166.5" y="342">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation" x="166.5" y="362">tcp -p 10000 -h &lt;host&gt;</text>
+    <text class="label" x="913.5" y="54">Reader</text>
+    <text class="annotation" x="913.5" y="86">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation" x="913.5" y="106">tcp -p 10000 -h &lt;host&gt;</text>
+    <text class="label" x="913.5" y="310">Reader</text>
+    <text class="annotation" x="913.5" y="342">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation" x="913.5" y="362">tcp -p 10000 -h &lt;host&gt;</text>
+    <text class="label" x="539.5" y="185">Broker node</text>
+    <text class="annotation" x="539.5" y="217">DataStorm.Node.Server.Endpoints=</text>
+    <text class="annotation" x="539.5" y="237">tcp -p 10000</text>
+  </g>
+</svg>

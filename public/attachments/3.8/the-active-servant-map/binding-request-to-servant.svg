@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="329"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 470"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Binding a request through the active servant map</title>
+  <desc id="description">
+    The client proxy contains endpoint 212.8.7.33 and identity Joe. The request reaches the server object adapter,
+    whose active servant map associates Fred, Joe, and Carl with servants. The highlighted Joe entry selects the
+    matching servant.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="1000" height="470" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <rect class="api" x="500" y="80" width="476" height="365" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="534" y="150" width="240" height="268" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 725 245 L 877 245" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 725 295 L 877 295" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 725 345 L 877 345" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 258 174 L 400 202" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 400 202 H 534" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 400 174 V 242" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="80" width="260" height="146" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="50" y="153" width="156" height="42" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="206" y="153" width="52" height="42" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="565" y="220" width="180" height="50" rx="0" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 685 220 V 270" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="895" cy="245" r="18" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="895" cy="295" r="18" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="565" y="320" width="180" height="50" rx="0" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 685 320 V 370" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="895" cy="345" r="18" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="565" y="270" width="180" height="50" rx="0" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 685 270 V 320" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="154" y="38">Client</text>
+    <text class="label" x="740" y="38">Server</text>
+    <text class="label" x="80" y="114">Proxy</text>
+    <text class="annotation code" x="128" y="180">212.8.7.33</text>
+    <text class="annotation" x="232" y="180">Joe</text>
+    <text class="label" x="650" y="115">Object adapter</text>
+    <text class="label" x="575" y="181">ASM</text>
+    <text class="annotation" x="880" y="192">Servant</text>
+    <text class="label" x="625" y="251">Fred</text>
+    <text class="label" x="625" y="301">Joe</text>
+    <text class="label" x="625" y="351">Carl</text>
+    <rect x="325.0" y="158" width="40" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="345" y="174">Joe</text>
+    <text class="annotation" x="400" y="147">Endpoint</text>
+    <text class="annotation code" x="400" y="273">212.8.7.33</text>
+  </g>
+</svg>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="680"
+  height="500"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 680 500"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Deadlock during nested invocations</title>
+  <desc id="description">
+    The client calls opA on Server A, which calls opB on Server B. Server B attempts a callback to Server A, but
+    Server A cannot dispatch it while its thread is blocked in the nested invocation.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .callback {
+      stroke-dasharray: 6 4;
+      marker-end: url(#arrow);
+    }
+    .blocked-cross {
+      stroke: #b42318;
+    }
+  </style>
+
+  <rect width="680" height="500" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector" d="M 80 54 L 80 475" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 340 54 L 340 475" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 600 54 L 600 475" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 102 130 L 318 130" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 362 210 L 578 210" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 578 330 H 410" vector-effect="non-scaling-stroke"/>
+    <path
+      class="connector blocked-cross"
+      d="M 379 313 L 411 347 M 379 347 L 411 313"
+      vector-effect="non-scaling-stroke"
+    />
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="58" y="80" width="44" height="355" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="318" y="80" width="44" height="355" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="578" y="80" width="44" height="355" rx="0" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="80" y="36">Client</text>
+    <text class="label" x="340" y="36">Server A</text>
+    <text class="label" x="600" y="36">Server B</text>
+    <rect x="190.0" y="99" width="40" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="210" y="115">opA</text>
+    <rect x="450.0" y="179" width="40" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="470" y="195">opB</text>
+    <rect x="452.0" y="296" width="80" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="492" y="312">callback</text>
+    <text class="annotation" x="470" y="387">Callback blocked</text>
+  </g>
+</svg>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="455"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 800 520"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Ripping and encoding music</title>
+  <desc id="description">
+    A 74-minute music CD is ripped into WAV files totaling 650 MB. Lossy MP3 encoding produces files totaling about
+    57 MB.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="800" height="520" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 220 130 L 530 130" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 653 255 L 653 316" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <circle class="application" cx="125" cy="130" r="95" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="125" cy="130" r="30" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="530" y="36" width="246" height="180" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="530" y="316" width="246" height="158" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="annotation" x="125" y="256">74 min</text>
+    <text class="label" x="653.0" y="111.0">
+      <tspan x="653.0" dy="0">song1.wav</tspan>
+      <tspan x="653.0" dy="20">song2.wav</tspan>
+      <tspan x="653.0" dy="20">…</tspan>
+    </text>
+    <text class="annotation" x="653" y="246">650 MB</text>
+    <text class="annotation" x="365" y="66">
+      <tspan x="365" dy="0">Rip tracks from the music CD</tspan>
+      <tspan x="365" dy="20">as .wav files</tspan>
+    </text>
+    <text class="label" x="653.0" y="380.0">
+      <tspan x="653.0" dy="0">song1.mp3</tspan>
+      <tspan x="653.0" dy="20">song2.mp3</tspan>
+      <tspan x="653.0" dy="20">…</tspan>
+    </text>
+    <text class="annotation" x="653" y="505">About 57 MB</text>
+    <text class="annotation" x="393" y="289">
+      <tspan x="393" dy="0">Encode as MP3</tspan>
+      <tspan x="393" dy="20">(lossy compression)</tspan>
+    </text>
+  </g>
+</svg>

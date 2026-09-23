@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="167.86"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 980 235"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Firewall traversal: 2</title>
+  <desc id="description">
+    Client requests and server callbacks travel in opposite directions through both firewalls over separate
+    connections.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .callback {
+      stroke-dasharray: 6 4;
+      marker-end: url(#arrow);
+    }
+  </style>
+
+  <rect width="980" height="235" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <path class="network-boundary" d="M 490 18 V 165" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 174 72 L 290 72" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 290 110 L 174 110" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 440 72 L 560 72" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 560 110 L 440 110" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 710 72 L 806 72" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 806 110 L 710 110" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 230 201 L 280 201" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 450 201 L 500 201" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="24" y="42" width="150" height="96" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="290" y="42" width="150" height="96" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="560" y="42" width="150" height="96" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="806" y="42" width="150" height="96" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="99.0" y="95.0">Client</text>
+    <text class="label" x="365.0" y="95.0">Firewall</text>
+    <text class="label" x="635.0" y="95.0">Firewall</text>
+    <text class="label" x="881.0" y="95.0">Server</text>
+    <text class="annotation" x="335" y="206">Request</text>
+    <text class="annotation" x="558" y="206">Callback</text>
+  </g>
+</svg>

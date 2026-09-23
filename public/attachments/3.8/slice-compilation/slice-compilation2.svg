@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="700"
+  height="499.07"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1080 770"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">Compiling Slice for a Java client and a C++ server</title>
+  <desc id="description">
+    A shared Greeter.ice definition is compiled separately for a Java client and a C++ server. Generated Java files
+    combine with Client.java and the Ice Java runtime library to build the client. Greeter.h and Greeter.cpp combine
+    with Server.cpp and the Ice C++ runtime library to build the server. The executables communicate using RPC.
+  </desc>
+
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 8 8"
+      refX="7.2"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+    </marker>
+    <symbol id="document-shape" viewBox="0 0 160 92" preserveAspectRatio="none">
+      <path d="M 1 1 H 159 V 76 C 134 65 118 91 89 79 C 60 67 37 91 1 76 Z" vector-effect="non-scaling-stroke"/>
+    </symbol>
+  </defs>
+
+  <style>
+    text {
+      fill: #182235;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .badge {
+      fill: #566174;
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+    .application {
+      fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .api {
+      fill: #f8fbff;
+      stroke: #4f78bb;
+      stroke-width: 1.5;
+    }
+    .runtime {
+      fill: #eef5ff;
+      stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .generated {
+      fill: #f3f0f7;
+      stroke: #75658f;
+      stroke-width: 1.75;
+    }
+    .boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 5;
+    }
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .one-way {
+      marker-end: url(#arrow);
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+  </style>
+
+  <rect width="1080" height="770" fill="#ffffff"/>
+
+  <g id="boundaries" aria-hidden="true">
+    <path class="boundary" d="M 490 235 V 740" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="18" y="425" width="430" height="155" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="530" y="425" width="532" height="155" rx="14" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 520 78 L 520 120" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 485 204 L 280 280" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 555 204 L 660 280" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 89 350 L 119 472" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 280 360 L 335 472" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 660 360 L 623 472" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 660 360 L 795 472" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 976 350 L 967 472" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 347 580 L 347 660" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 657 580 L 657 660" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 204 703 L 252 703" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 838 703 L 762 703" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 442 703 L 552 703" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="components" aria-hidden="true">
+    <rect class="application" x="435" y="18" width="170" height="60" rx="7" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="api" x="440" y="120" width="160" height="92"/>
+    <path class="divider" d="M 441 150 H 599" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="185" y="280" width="190" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="565" y="280" width="190" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="290" width="130" height="60" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="896" y="290" width="160" height="60" rx="7" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="application" x="44" y="472" width="150" height="90"/>
+    <path class="divider" d="M 45 502 H 193" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="generated" x="260" y="472" width="150" height="90"/>
+    <path class="divider" d="M 261 502 H 409" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="generated" x="548" y="472" width="150" height="90"/>
+    <path class="divider" d="M 549 502 H 697" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="generated" x="720" y="472" width="150" height="90"/>
+    <path class="divider" d="M 721 502 H 869" vector-effect="non-scaling-stroke"/>
+    <use href="#document-shape" class="application" x="892" y="472" width="150" height="90"/>
+    <path class="divider" d="M 893 502 H 1041" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="24" y="660" width="180" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="252" y="660" width="190" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="552" y="660" width="210" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="838" y="660" width="224" height="86" rx="7" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g id="labels">
+    <text class="label" x="520.0" y="43.0">
+      <tspan x="520.0" dy="0">Slice</tspan>
+      <tspan x="520.0" dy="20">developer</tspan>
+    </text>
+    <text class="badge" x="520.0" y="141">SLICE</text>
+    <text class="label code" x="520.0" y="179">Greeter.ice</text>
+    <text class="label" x="130" y="175">Java</text>
+    <text class="label" x="870" y="175">C++</text>
+    <text class="label" x="280.0" y="315.0">
+      <tspan x="280.0" dy="0">Slice-to-Java</tspan>
+      <tspan x="280.0" dy="20">compiler</tspan>
+    </text>
+    <text class="label" x="660.0" y="315.0">
+      <tspan x="660.0" dy="0">Slice-to-C++</tspan>
+      <tspan x="660.0" dy="20">compiler</tspan>
+    </text>
+    <text class="label" x="89.0" y="315.0">
+      <tspan x="89.0" dy="0">Client</tspan>
+      <tspan x="89.0" dy="20">developer</tspan>
+    </text>
+    <text class="label" x="976.0" y="315.0">
+      <tspan x="976.0" dy="0">Server</tspan>
+      <tspan x="976.0" dy="20">developer</tspan>
+    </text>
+    <text class="label" x="233.0" y="450">Java sources</text>
+    <text class="label" x="850" y="450">C++ sources</text>
+    <text class="badge" x="119.0" y="493">SOURCE</text>
+    <text class="label code" x="119.0" y="531">Client.java</text>
+    <text class="badge" x="335.0" y="493">GENERATED</text>
+    <text class="label code" x="335.0" y="531">*.java</text>
+    <text class="badge" x="623.0" y="493">GENERATED</text>
+    <text class="label code" x="623.0" y="531">Greeter.h</text>
+    <text class="badge" x="795.0" y="493">GENERATED</text>
+    <text class="label code" x="795.0" y="531">Greeter.cpp</text>
+    <text class="badge" x="967.0" y="493">SOURCE</text>
+    <text class="label code" x="967.0" y="531">Server.cpp</text>
+    <text class="label" x="114.0" y="698.0">
+      <tspan x="114.0" dy="0">Ice Java</tspan>
+      <tspan x="114.0" dy="20">runtime library</tspan>
+    </text>
+    <text class="label" x="347.0" y="708.0">Client executable</text>
+    <text class="label" x="657.0" y="708.0">Server executable</text>
+    <text class="label" x="950.0" y="698.0">
+      <tspan x="950.0" dy="0">Ice C++</tspan>
+      <tspan x="950.0" dy="20">runtime library</tspan>
+    </text>
+    <rect x="474.5" y="687" width="45" height="24" rx="4" fill="#ffffff"/>
+    <text class="annotation" x="497" y="703">RPC</text>
+  </g>
+</svg>
