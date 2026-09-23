@@ -145,7 +145,7 @@ export function writtenFor(page: PageFiles): string[] | undefined {
  * page's frontmatter holds the settings and lists the chapters under `pages:`,
  * and a page with children lists them the same way. A node takes its page's
  * title. Throws when the version has no front page, or when a page lists a
- * name that is not one of its subdirectories.
+ * page it does not contain.
  */
 export function readNavigation(root: string, version: string): NavDoc {
   type Listed = { title: string; pages?: string[] };
