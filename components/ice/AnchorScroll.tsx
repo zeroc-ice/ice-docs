@@ -32,7 +32,7 @@ export function fragmentId(hash: string): string {
  * heading when the reader's does not: a link to a mapping's own section is a
  * link to that mapping.
  */
-export function scrollToId(id: string) {
+function scrollToId(id: string) {
   if (!visibleTarget(id)) {
     const langs = document
       .getElementById(id)
@@ -62,9 +62,10 @@ export function goToHeading(id: string) {
 
 // The browser, and the router after a client-side navigation, scroll to the
 // first element with the fragment's id. When that copy is another mapping's it
-// is hidden and nothing moves, so this finds the copy on show. In-page links
-// are taken in the capture phase, ahead of the router's own handler, which
-// would scroll to the first copy too.
+// is hidden and nothing moves, so this finds the copy on show. A click on a link
+// to a heading on this page, however the link is written, is taken in the
+// capture phase, ahead of the router's own handler, which would scroll to the
+// first copy too.
 export function AnchorScroll() {
   const pathname = usePathname();
 
@@ -78,8 +79,14 @@ export function AnchorScroll() {
     const onClick = (event: MouseEvent) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
         return;
-      const link = (event.target as Element).closest('a[href^="#"]');
-      const id = link && fragmentId(link.getAttribute('href')!);
+      const link = (event.target as Element).closest('a');
+      if (
+        !link ||
+        link.origin !== location.origin ||
+        link.pathname !== location.pathname
+      )
+        return;
+      const id = fragmentId(link.hash);
       if (!id) return;
       event.preventDefault();
       goToHeading(id);
