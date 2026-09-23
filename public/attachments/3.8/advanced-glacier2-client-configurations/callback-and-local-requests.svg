@@ -93,7 +93,7 @@
   <g id="connectors" aria-hidden="true">
     <path class="connector one-way" d="M 194 61 H 224 V 250 H 194" vector-effect="non-scaling-stroke"/>
     <path class="connector two-way" d="M 194 306 H 570" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 830 220 H 876 V 253 H 916" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 830 232 H 916" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 916 306 L 830 306" vector-effect="non-scaling-stroke"/>
   </g>
 
@@ -103,7 +103,7 @@
     <rect class="application" x="280" y="228" width="160" height="108" rx="7" vector-effect="non-scaling-stroke"/>
     <rect class="runtime" x="570" y="176" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
     <path class="divider" d="M 570 256 H 830 M 700.0 256 V 336" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="916" y="228" width="140" height="108" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="916" y="204" width="140" height="132" rx="7" vector-effect="non-scaling-stroke"/>
     <path class="connector" d="M 280 306 H 440" vector-effect="non-scaling-stroke"/>
   </g>
 
@@ -121,7 +121,7 @@
       <tspan x="765.0" dy="0">Server</tspan>
       <tspan x="765.0" dy="20">endpoints</tspan>
     </text>
-    <text class="label" x="986.0" y="287.0">Server</text>
+    <text class="label" x="986.0" y="275.0">Server</text>
     <text class="annotation" x="109" y="368">IP: 10.0.0.1</text>
     <text class="annotation" x="360" y="368">IP: 1.2.3.4</text>
     <text class="annotation" x="635" y="368">IP: 10.0.0.1</text>
