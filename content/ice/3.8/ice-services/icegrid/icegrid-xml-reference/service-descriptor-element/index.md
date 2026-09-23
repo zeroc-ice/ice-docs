@@ -1,5 +1,4 @@
 ---
-id: service-descriptor-element
 title: Service Descriptor Element
 ---
 

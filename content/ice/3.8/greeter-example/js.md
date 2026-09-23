@@ -1,5 +1,4 @@
 ---
-id: greeter-example
 language: js
 ---
 

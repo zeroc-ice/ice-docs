@@ -1,5 +1,4 @@
 ---
-id: ice-manual
 title: Ice Manual
 description: Documentation for Ice, the Slice language, and the Ice services.
 shape: wide

@@ -1,5 +1,4 @@
 ---
-id: communicator-initialization-and-destruction
 language: php
 ---
 

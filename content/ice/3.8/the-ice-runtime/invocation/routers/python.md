@@ -1,5 +1,4 @@
 ---
-id: routers
 language: python
 ---
 

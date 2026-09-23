@@ -1,5 +1,4 @@
 ---
-id: locator-configuration-for-a-server
 title: Locator Configuration for a Server
 ---
 

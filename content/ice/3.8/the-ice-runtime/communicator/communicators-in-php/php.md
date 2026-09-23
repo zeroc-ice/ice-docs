@@ -1,5 +1,4 @@
 ---
-id: communicators-in-php
 title: Communicators in PHP
 ---
 

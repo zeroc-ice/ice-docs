@@ -1,5 +1,4 @@
 ---
-id: the-metrics-facet
 language: python
 ---
 

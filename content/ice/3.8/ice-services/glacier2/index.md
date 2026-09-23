@@ -1,5 +1,4 @@
 ---
-id: glacier2
 title: Glacier2
 ---
 

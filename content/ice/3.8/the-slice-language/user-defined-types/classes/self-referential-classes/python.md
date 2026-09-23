@@ -1,5 +1,4 @@
 ---
-id: self-referential-classes
 language: python
 ---
 

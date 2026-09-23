@@ -1,5 +1,4 @@
 ---
-id: administrative-facility
 title: Administrative Facility
 ---
 

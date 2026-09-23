@@ -1,5 +1,4 @@
 ---
-id: promoting-a-registry-slave
 title: Promoting a Registry Slave
 ---
 

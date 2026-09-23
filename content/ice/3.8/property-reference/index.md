@@ -1,5 +1,4 @@
 ---
-id: property-reference
 title: Property Reference
 ---
 

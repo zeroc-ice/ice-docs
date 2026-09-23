@@ -1,5 +1,4 @@
 ---
-id: proxy-properties
 language: python
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: plugins
 title: Plugins
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: installing-a-windows-service
 title: Installing a Windows Service
 ---
 

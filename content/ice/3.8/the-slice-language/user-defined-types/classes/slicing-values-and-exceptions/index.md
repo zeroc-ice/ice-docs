@@ -1,5 +1,4 @@
 ---
-id: slicing-values-and-exceptions
 title: Slicing Values and Exceptions
 ---
 

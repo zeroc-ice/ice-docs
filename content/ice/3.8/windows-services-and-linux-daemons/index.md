@@ -1,5 +1,4 @@
 ---
-id: windows-services-and-linux-daemons
 title: Windows Services and Linux Daemons
 ---
 

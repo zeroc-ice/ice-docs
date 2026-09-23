@@ -1,5 +1,4 @@
 ---
-id: object-adapter-thread-pools
 title: Object Adapter Thread Pools
 ---
 

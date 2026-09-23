@@ -1,5 +1,4 @@
 ---
-id: connection-establishment
 title: Connection Establishment
 ---
 

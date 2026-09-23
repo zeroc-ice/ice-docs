@@ -1,5 +1,4 @@
 ---
-id: using-the-slice-compiler
 language: ruby
 ---
 

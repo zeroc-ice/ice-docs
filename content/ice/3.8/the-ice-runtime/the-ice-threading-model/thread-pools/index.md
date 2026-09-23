@@ -1,5 +1,4 @@
 ---
-id: thread-pools
 title: Thread Pools
 ---
 

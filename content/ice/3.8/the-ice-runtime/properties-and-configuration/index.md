@@ -1,5 +1,4 @@
 ---
-id: properties-and-configuration
 title: Properties and Configuration
 ---
 

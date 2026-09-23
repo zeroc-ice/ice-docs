@@ -1,5 +1,4 @@
 ---
-id: middleware
 language: csharp
 ---
 

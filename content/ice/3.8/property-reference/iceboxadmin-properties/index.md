@@ -1,5 +1,4 @@
 ---
-id: iceboxadmin-properties
 title: IceBoxAdmin.*
 ---
 

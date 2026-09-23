@@ -1,5 +1,4 @@
 ---
-id: ice-plugin-properties
 title: Ice.Plugin.*
 ---
 

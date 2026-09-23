@@ -1,5 +1,4 @@
 ---
-id: creating-proxies
 language: js
 ---
 

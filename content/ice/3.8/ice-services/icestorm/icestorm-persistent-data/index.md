@@ -1,5 +1,4 @@
 ---
-id: icestorm-persistent-data
 title: IceStorm Persistent Data
 ---
 

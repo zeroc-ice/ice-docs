@@ -1,5 +1,4 @@
 ---
-id: implicit-request-contexts
 title: Implicit Request Contexts
 ---
 

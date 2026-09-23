@@ -1,5 +1,4 @@
 ---
-id: using-the-admin-object
 language: java
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: simple-example-of-class-encoding
 title: Simple Example of Class Encoding
 ---
 

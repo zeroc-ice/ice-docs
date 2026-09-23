@@ -1,5 +1,4 @@
 ---
-id: data-encoding-for-optional-values
 title: Data Encoding for Optional Values
 ---
 

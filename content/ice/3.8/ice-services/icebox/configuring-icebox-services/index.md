@@ -1,5 +1,4 @@
 ---
-id: configuring-icebox-services
 title: Configuring IceBox Services
 ---
 

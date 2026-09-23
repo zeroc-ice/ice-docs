@@ -1,5 +1,4 @@
 ---
-id: ice-warn-properties
 language: cpp
 ---
 

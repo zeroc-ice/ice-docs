@@ -1,5 +1,4 @@
 ---
-id: proxy-defaults-and-overrides
 title: Proxy Defaults and Overrides
 ---
 

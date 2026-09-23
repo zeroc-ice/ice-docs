@@ -1,5 +1,4 @@
 ---
-id: simple-classes
 title: Simple Classes
 ---
 

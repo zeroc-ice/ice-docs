@@ -1,5 +1,4 @@
 ---
-id: node-descriptor
 title: Node Descriptor
 ---
 

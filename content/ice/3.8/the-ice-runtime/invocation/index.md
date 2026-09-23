@@ -1,5 +1,4 @@
 ---
-id: invocation
 title: Invocation
 ---
 

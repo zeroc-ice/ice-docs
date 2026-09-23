@@ -1,5 +1,4 @@
 ---
-id: doc-comment-structure
 title: Doc-Comment Structure
 ---
 

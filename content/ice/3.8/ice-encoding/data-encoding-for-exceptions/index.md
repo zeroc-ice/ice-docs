@@ -1,5 +1,4 @@
 ---
-id: data-encoding-for-exceptions
 title: Data Encoding for Exceptions
 ---
 

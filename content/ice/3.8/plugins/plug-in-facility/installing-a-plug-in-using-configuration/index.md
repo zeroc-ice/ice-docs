@@ -1,5 +1,4 @@
 ---
-id: installing-a-plug-in-using-configuration
 title: Installing a Plug-in using Configuration
 ---
 

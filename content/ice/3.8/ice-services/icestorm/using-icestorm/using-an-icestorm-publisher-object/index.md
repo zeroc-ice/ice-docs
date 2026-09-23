@@ -1,5 +1,4 @@
 ---
-id: using-an-icestorm-publisher-object
 title: Using an IceStorm Publisher Object
 ---
 

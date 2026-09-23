@@ -1,5 +1,4 @@
 ---
-id: datastorm-topic-properties
 title: DataStorm.Topic.*
 ---
 

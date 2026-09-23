@@ -1,5 +1,4 @@
 ---
-id: using-the-admin-object
 title: Using the admin Object
 ---
 

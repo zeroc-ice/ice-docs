@@ -1,5 +1,4 @@
 ---
-id: callbacks-through-glacier2
 title: Callbacks through Glacier2
 ---
 

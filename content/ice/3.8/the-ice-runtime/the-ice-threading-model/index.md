@@ -1,5 +1,4 @@
 ---
-id: the-ice-threading-model
 title: The Ice Threading Model
 ---
 

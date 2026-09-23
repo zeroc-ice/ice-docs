@@ -1,5 +1,4 @@
 ---
-id: exceptions
 language: cpp
 ---
 

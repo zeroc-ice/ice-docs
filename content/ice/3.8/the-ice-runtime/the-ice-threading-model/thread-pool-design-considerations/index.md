@@ -1,5 +1,4 @@
 ---
-id: thread-pool-design-considerations
 title: Thread Pool Design Considerations
 ---
 

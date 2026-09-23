@@ -1,5 +1,4 @@
 ---
-id: server-template-descriptor-element
 title: Server-Template Descriptor Element
 ---
 

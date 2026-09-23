@@ -1,5 +1,4 @@
 ---
-id: modules
 title: Modules
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: indirect-proxy-with-object-adapter-identifier
 title: Indirect Proxy with Object Adapter Identifier
 ---
 

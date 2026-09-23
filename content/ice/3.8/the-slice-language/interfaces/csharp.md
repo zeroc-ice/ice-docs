@@ -1,5 +1,4 @@
 ---
-id: interfaces
 language: csharp
 ---
 

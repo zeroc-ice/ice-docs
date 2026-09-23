@@ -1,5 +1,4 @@
 ---
-id: the-default-logger
 title: The Default Logger
 ---
 

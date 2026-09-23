@@ -1,5 +1,4 @@
 ---
-id: filtering-administrative-facets
 title: Filtering Administrative Facets
 ---
 

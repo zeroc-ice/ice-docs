@@ -1,5 +1,4 @@
 ---
-id: icestorm-delivery-modes
 title: IceStorm Delivery Modes
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: metrics-view-runtime-component
 title: Metrics View Runtime Component
 ---
 

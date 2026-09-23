@@ -1,5 +1,4 @@
 ---
-id: ice-connection-properties
 title: Ice.Connection.*
 ---
 

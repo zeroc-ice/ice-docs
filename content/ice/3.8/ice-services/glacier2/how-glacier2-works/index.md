@@ -1,5 +1,4 @@
 ---
-id: how-glacier2-works
 title: How Glacier2 Works
 ---
 

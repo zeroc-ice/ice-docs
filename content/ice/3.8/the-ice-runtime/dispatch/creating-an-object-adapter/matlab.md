@@ -1,5 +1,4 @@
 ---
-id: creating-an-object-adapter
 language: matlab
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: well-known-registry-objects
 title: Well-Known Registry Objects
 ---
 

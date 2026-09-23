@@ -1,5 +1,4 @@
 ---
-id: icegrid-persistent-data
 title: IceGrid Persistent Data
 ---
 

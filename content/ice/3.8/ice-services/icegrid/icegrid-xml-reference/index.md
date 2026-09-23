@@ -1,5 +1,4 @@
 ---
-id: icegrid-xml-reference
 title: IceGrid XML Reference
 ---
 

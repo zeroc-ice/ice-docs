@@ -1,5 +1,4 @@
 ---
-id: getting-started-with-glacier2
 language: java
 ---
 

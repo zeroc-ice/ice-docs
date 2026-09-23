@@ -1,5 +1,4 @@
 ---
-id: icemx-metrics-properties
 title: IceMX.Metrics.*
 ---
 

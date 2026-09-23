@@ -1,5 +1,4 @@
 ---
-id: the-logger-facet
 title: The Logger Facet
 ---
 

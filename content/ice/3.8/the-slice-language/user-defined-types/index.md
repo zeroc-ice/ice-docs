@@ -1,5 +1,4 @@
 ---
-id: user-defined-types
 title: User-Defined Types
 ---
 

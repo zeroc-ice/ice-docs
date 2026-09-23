@@ -1,5 +1,4 @@
 ---
-id: self-referential-classes
 title: Self-Referential Classes
 ---
 

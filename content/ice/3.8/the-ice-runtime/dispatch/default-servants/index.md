@@ -1,5 +1,4 @@
 ---
-id: default-servants
 title: Default Servants
 ---
 

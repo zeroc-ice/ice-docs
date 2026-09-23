@@ -1,5 +1,4 @@
 ---
-id: automatic-retries
 title: Automatic Retries
 ---
 

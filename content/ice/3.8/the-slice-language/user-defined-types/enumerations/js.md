@@ -1,5 +1,4 @@
 ---
-id: enumerations
 language: js
 ---
 

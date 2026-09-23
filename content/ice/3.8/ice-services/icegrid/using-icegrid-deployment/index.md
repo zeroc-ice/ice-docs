@@ -1,5 +1,4 @@
 ---
-id: using-icegrid-deployment
 title: Using IceGrid Deployment
 ---
 

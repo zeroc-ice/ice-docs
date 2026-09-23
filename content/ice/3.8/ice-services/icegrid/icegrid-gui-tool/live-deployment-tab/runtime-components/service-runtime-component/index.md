@@ -1,5 +1,4 @@
 ---
-id: service-runtime-component
 title: Service Runtime Component
 ---
 

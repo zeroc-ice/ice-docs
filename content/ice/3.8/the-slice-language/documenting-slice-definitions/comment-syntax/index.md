@@ -1,5 +1,4 @@
 ---
-id: comment-syntax
 title: Comment Syntax
 ---
 

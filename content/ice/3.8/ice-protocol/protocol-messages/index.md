@@ -1,5 +1,4 @@
 ---
-id: protocol-messages
 title: Protocol Messages
 ---
 

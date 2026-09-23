@@ -1,5 +1,4 @@
 ---
-id: dispatch
 title: Dispatch
 ---
 

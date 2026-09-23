@@ -1,5 +1,4 @@
 ---
-id: data-encoding-for-proxies
 title: Data Encoding for Proxies
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: implementing-an-icestorm-publisher
 title: Implementing an IceStorm Publisher
 ---
 

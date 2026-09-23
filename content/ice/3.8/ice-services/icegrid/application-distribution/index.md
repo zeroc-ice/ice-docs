@@ -1,5 +1,4 @@
 ---
-id: application-distribution
 title: Application Distribution
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: ice-threadpool-properties
 language: swift
 ---
 

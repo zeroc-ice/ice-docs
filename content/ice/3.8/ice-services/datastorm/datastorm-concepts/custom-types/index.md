@@ -1,5 +1,4 @@
 ---
-id: custom-types
 title: Custom Types
 ---
 

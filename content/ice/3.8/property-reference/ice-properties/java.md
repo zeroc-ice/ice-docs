@@ -1,5 +1,4 @@
 ---
-id: ice-properties
 language: java
 ---
 

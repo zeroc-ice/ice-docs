@@ -1,5 +1,4 @@
 ---
-id: versioning-through-incremental-updates
 title: Versioning through Incremental Updates
 ---
 

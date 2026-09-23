@@ -1,5 +1,4 @@
 ---
-id: publishing-to-a-specific-subscriber
 title: Publishing to a Specific Subscriber
 ---
 

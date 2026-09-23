@@ -1,5 +1,4 @@
 ---
-id: custom-loggers
 title: Custom Loggers
 ---
 

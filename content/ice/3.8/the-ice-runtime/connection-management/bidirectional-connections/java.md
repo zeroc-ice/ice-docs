@@ -1,5 +1,4 @@
 ---
-id: bidirectional-connections
 language: java
 ---
 

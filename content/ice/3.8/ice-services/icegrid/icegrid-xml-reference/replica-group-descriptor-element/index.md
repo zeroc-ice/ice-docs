@@ -1,5 +1,4 @@
 ---
-id: replica-group-descriptor-element
 title: Replica-Group Descriptor Element
 ---
 

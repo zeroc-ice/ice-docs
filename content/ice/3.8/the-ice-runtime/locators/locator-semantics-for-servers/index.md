@@ -1,5 +1,4 @@
 ---
-id: locator-semantics-for-servers
 title: Locator Semantics for Servers
 ---
 

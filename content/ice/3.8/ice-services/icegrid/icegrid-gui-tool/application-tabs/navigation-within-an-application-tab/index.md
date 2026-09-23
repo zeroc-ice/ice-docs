@@ -1,5 +1,4 @@
 ---
-id: navigation-within-an-application-tab
 title: Navigation within an Application Tab
 ---
 

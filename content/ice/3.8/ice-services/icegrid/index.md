@@ -1,5 +1,4 @@
 ---
-id: icegrid
 title: IceGrid
 ---
 

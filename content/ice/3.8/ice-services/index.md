@@ -1,5 +1,4 @@
 ---
-id: ice-services
 title: Ice Services
 ---
 

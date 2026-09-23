@@ -1,5 +1,4 @@
 ---
-id: server-descriptor-element
 title: Server Descriptor Element
 ---
 

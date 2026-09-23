@@ -1,5 +1,4 @@
 ---
-id: custom-logger-plug-in
 language: js
 ---
 

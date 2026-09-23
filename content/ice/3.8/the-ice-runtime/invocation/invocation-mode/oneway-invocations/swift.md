@@ -1,5 +1,4 @@
 ---
-id: oneway-invocations
 language: swift
 ---
 

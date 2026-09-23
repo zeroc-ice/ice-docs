@@ -1,5 +1,4 @@
 ---
-id: icestorm-quality-of-service
 title: IceStorm Quality of Service
 ---
 

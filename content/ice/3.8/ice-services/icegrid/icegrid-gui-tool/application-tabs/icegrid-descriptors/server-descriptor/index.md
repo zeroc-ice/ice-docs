@@ -1,5 +1,4 @@
 ---
-id: server-descriptor
 title: Server Descriptor
 ---
 

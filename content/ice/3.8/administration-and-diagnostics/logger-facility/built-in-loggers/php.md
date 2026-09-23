@@ -1,5 +1,4 @@
 ---
-id: built-in-loggers
 language: php
 ---
 

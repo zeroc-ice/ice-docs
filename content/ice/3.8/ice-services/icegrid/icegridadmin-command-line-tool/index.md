@@ -1,5 +1,4 @@
 ---
-id: icegridadmin-command-line-tool
 title: icegridadmin Command Line Tool
 ---
 

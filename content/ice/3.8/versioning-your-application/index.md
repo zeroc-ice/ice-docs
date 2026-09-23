@@ -1,5 +1,4 @@
 ---
-id: versioning-your-application
 title: Versioning your Application
 ---
 

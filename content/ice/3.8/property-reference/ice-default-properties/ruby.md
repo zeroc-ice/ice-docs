@@ -1,5 +1,4 @@
 ---
-id: ice-default-properties
 language: ruby
 ---
 

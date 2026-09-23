@@ -1,5 +1,4 @@
 ---
-id: adapter-descriptor
 title: Adapter Descriptor
 ---
 

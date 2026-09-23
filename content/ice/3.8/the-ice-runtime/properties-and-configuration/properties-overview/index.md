@@ -1,5 +1,4 @@
 ---
-id: properties-overview
 title: Properties Overview
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: upgrade-guide
 language: js
 ---
 

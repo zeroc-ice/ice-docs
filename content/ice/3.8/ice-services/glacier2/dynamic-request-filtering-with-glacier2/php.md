@@ -1,5 +1,4 @@
 ---
-id: dynamic-request-filtering-with-glacier2
 language: php
 ---
 

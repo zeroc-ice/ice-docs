@@ -1,5 +1,4 @@
 ---
-id: icebox-properties
 title: IceBox.*
 ---
 

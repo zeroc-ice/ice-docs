@@ -1,5 +1,4 @@
 ---
-id: slice-loaders
 title: Slice Loaders
 ---
 

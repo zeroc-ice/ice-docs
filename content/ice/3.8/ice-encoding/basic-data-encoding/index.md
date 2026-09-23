@@ -1,5 +1,4 @@
 ---
-id: basic-data-encoding
 title: Basic Data Encoding
 ---
 

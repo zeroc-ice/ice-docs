@@ -1,5 +1,4 @@
 ---
-id: registry-replication
 title: Registry Replication
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: administration-and-diagnostics
 title: Administration and Diagnostics
 ---
 

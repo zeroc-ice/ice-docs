@@ -1,5 +1,4 @@
 ---
-id: using-ice-and-icerpc-together
 title: Using Ice and IceRPC Together
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: sequences
 language: cpp
 ---
 

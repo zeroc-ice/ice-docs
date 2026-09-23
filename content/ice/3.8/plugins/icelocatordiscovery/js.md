@@ -1,5 +1,4 @@
 ---
-id: icelocatordiscovery
 language: js
 ---
 

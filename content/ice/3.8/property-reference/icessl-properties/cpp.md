@@ -1,5 +1,4 @@
 ---
-id: icessl-properties
 language: cpp
 ---
 

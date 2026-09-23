@@ -1,5 +1,4 @@
 ---
-id: ice-protocol
 title: Ice Protocol
 ---
 

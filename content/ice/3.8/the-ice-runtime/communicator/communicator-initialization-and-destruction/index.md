@@ -1,5 +1,4 @@
 ---
-id: communicator-initialization-and-destruction
 title: Communicator Initialization and Destruction
 ---
 

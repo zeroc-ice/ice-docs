@@ -1,5 +1,4 @@
 ---
-id: data-encoding-for-class-graphs
 title: Data Encoding for Class Graphs
 ---
 

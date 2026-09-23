@@ -1,5 +1,4 @@
 ---
-id: the-ice-runtime
 title: The Ice Runtime
 ---
 

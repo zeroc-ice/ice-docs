@@ -1,5 +1,4 @@
 ---
-id: lexical-rules
 language: java
 ---
 

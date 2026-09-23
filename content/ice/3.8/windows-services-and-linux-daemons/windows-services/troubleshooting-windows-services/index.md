@@ -1,5 +1,4 @@
 ---
-id: troubleshooting-windows-services
 title: Troubleshooting Windows Services
 ---
 

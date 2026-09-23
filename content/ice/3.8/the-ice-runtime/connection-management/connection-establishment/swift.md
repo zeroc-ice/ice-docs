@@ -1,5 +1,4 @@
 ---
-id: connection-establishment
 language: swift
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: icestorm-administration
 title: IceStorm Administration
 ---
 

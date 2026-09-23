@@ -1,5 +1,4 @@
 ---
-id: oneway-invocations
 title: Oneway Invocations
 ---
 

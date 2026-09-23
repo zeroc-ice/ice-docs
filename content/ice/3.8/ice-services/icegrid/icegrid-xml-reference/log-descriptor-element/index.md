@@ -1,5 +1,4 @@
 ---
-id: log-descriptor-element
 title: Log Descriptor Element
 ---
 

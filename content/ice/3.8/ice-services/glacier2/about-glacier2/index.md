@@ -1,5 +1,4 @@
 ---
-id: about-glacier2
 title: About Glacier2
 ---
 

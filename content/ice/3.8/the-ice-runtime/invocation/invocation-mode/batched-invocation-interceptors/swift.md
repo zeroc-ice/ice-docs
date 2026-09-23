@@ -1,5 +1,4 @@
 ---
-id: batched-invocation-interceptors
 language: swift
 ---
 

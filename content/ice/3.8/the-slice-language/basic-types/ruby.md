@@ -1,5 +1,4 @@
 ---
-id: basic-types
 language: ruby
 ---
 

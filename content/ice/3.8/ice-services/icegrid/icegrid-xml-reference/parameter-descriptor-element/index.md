@@ -1,5 +1,4 @@
 ---
-id: parameter-descriptor-element
 title: Parameter Descriptor Element
 ---
 

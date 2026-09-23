@@ -1,5 +1,4 @@
 ---
-id: constants-and-literals
 title: Constants and Literals
 ---
 

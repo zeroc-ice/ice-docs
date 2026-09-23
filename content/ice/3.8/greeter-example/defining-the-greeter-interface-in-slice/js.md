@@ -1,5 +1,4 @@
 ---
-id: defining-the-greeter-interface-in-slice
 language: js
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: supported-platforms-for-ice-3-8-0
 title: Supported Platforms for Ice 3.8.0
 ---
 

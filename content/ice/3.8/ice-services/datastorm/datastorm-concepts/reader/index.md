@@ -1,5 +1,4 @@
 ---
-id: reader
 title: Reader
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: icebox-integration-with-icegrid
 title: IceBox Integration with IceGrid
 ---
 

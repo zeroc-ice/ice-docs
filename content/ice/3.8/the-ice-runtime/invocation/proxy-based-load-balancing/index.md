@@ -1,5 +1,4 @@
 ---
-id: proxy-based-load-balancing
 title: Proxy-Based Load Balancing
 ---
 

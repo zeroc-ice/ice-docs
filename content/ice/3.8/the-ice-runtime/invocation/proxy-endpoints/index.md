@@ -1,5 +1,4 @@
 ---
-id: proxy-endpoints
 title: Proxy Endpoints
 ---
 

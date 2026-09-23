@@ -1,5 +1,4 @@
 ---
-id: icegrid-administrative-sessions
 title: IceGrid Administrative Sessions
 ---
 

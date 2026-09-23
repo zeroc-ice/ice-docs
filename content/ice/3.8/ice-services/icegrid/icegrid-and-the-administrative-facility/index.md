@@ -1,5 +1,4 @@
 ---
-id: icegrid-and-the-administrative-facility
 title: IceGrid and the Administrative Facility
 ---
 

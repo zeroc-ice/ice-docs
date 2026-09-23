@@ -1,5 +1,4 @@
 ---
-id: the-properties-facet
 language: java
 ---
 

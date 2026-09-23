@@ -1,5 +1,4 @@
 ---
-id: protocol-compression
 title: Protocol Compression
 ---
 

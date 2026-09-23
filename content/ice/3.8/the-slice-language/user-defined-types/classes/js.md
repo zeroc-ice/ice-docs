@@ -1,5 +1,4 @@
 ---
-id: classes
 language: js
 ---
 

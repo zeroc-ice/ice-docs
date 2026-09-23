@@ -1,5 +1,4 @@
 ---
-id: forward-declarations
 title: Forward Declarations
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: slice-metadata-directives
 title: Slice Metadata Directives
 ---
 

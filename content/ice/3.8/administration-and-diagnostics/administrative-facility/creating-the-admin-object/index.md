@@ -1,5 +1,4 @@
 ---
-id: creating-the-admin-object
 title: Creating the admin Object
 ---
 

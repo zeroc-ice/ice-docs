@@ -1,5 +1,4 @@
 ---
-id: service-logging-considerations
 title: Service Logging Considerations
 ---
 

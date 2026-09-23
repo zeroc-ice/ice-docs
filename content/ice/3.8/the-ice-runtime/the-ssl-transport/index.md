@@ -1,5 +1,4 @@
 ---
-id: the-ssl-transport
 title: The SSL Transport
 ---
 

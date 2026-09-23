@@ -1,5 +1,4 @@
 ---
-id: connection-management
 title: Connection Management
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: the-per-process-logger
 language: ruby
 ---
 

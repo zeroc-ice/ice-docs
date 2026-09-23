@@ -1,5 +1,4 @@
 ---
-id: application-descriptor-element
 title: Application Descriptor Element
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: icediscovery
 language: ruby
 ---
 

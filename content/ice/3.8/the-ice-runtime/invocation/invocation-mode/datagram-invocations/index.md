@@ -1,5 +1,4 @@
 ---
-id: datagram-invocations
 title: Datagram Invocations
 ---
 

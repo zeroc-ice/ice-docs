@@ -1,5 +1,4 @@
 ---
-id: the-slice-language
 title: The Slice Language
 ---
 

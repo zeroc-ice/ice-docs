@@ -1,5 +1,4 @@
 ---
-id: object-adapter-properties
 language: java
 ---
 

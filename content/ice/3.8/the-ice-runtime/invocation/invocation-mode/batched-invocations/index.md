@@ -1,5 +1,4 @@
 ---
-id: batched-invocations
 title: Batched Invocations
 ---
 

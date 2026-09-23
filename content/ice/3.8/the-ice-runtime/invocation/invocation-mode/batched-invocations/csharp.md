@@ -1,5 +1,4 @@
 ---
-id: batched-invocations
 language: csharp
 ---
 

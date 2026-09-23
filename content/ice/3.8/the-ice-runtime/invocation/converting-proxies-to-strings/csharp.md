@@ -1,5 +1,4 @@
 ---
-id: converting-proxies-to-strings
 language: csharp
 ---
 

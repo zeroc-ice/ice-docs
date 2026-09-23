@@ -1,5 +1,4 @@
 ---
-id: data-encoding-for-classes
 title: Data Encoding for Classes
 ---
 

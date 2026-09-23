@@ -1,5 +1,4 @@
 ---
-id: fields
 title: Fields
 ---
 

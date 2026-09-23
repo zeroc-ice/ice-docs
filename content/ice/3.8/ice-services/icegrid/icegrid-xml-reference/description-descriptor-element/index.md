@@ -1,5 +1,4 @@
 ---
-id: description-descriptor-element
 title: Description Descriptor Element
 ---
 

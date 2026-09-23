@@ -1,5 +1,4 @@
 ---
-id: ice-encoding
 title: Ice Encoding
 ---
 

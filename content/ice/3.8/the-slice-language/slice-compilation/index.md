@@ -1,5 +1,4 @@
 ---
-id: slice-compilation
 title: Slice Compilation
 ---
 

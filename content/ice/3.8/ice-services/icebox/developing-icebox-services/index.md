@@ -1,5 +1,4 @@
 ---
-id: developing-icebox-services
 title: Developing IceBox Services
 ---
 

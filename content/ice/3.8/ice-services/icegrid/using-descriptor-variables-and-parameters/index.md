@@ -1,5 +1,4 @@
 ---
-id: using-descriptor-variables-and-parameters
 title: Using Descriptor Variables and Parameters
 ---
 

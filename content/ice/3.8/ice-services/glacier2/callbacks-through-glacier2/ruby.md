@@ -1,5 +1,4 @@
 ---
-id: callbacks-through-glacier2
 language: ruby
 ---
 

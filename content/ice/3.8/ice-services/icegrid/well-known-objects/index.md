@@ -1,5 +1,4 @@
 ---
-id: well-known-objects
 title: Well-Known Objects
 ---
 

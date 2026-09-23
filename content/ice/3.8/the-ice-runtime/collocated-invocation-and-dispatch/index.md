@@ -1,5 +1,4 @@
 ---
-id: collocated-invocation-and-dispatch
 title: Collocated Invocation and Dispatch
 ---
 

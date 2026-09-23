@@ -1,5 +1,4 @@
 ---
-id: windows-services
 title: Windows Services
 ---
 

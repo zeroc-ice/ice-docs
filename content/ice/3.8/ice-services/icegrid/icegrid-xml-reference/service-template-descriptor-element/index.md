@@ -1,5 +1,4 @@
 ---
-id: service-template-descriptor-element
 title: Service-Template Descriptor Element
 ---
 

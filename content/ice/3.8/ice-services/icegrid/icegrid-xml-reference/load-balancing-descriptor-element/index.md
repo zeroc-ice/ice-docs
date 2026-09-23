@@ -1,5 +1,4 @@
 ---
-id: load-balancing-descriptor-element
 title: Load-Balancing Descriptor Element
 ---
 

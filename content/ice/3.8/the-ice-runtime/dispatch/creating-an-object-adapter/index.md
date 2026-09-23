@@ -1,5 +1,4 @@
 ---
-id: creating-an-object-adapter
 title: Creating an Object Adapter
 ---
 

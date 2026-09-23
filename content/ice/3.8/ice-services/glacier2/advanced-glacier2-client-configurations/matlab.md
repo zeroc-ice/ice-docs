@@ -1,5 +1,4 @@
 ---
-id: advanced-glacier2-client-configurations
 language: matlab
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: slice-keywords
 title: Slice Keywords
 ---
 

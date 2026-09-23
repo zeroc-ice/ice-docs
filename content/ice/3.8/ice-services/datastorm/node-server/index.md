@@ -1,5 +1,4 @@
 ---
-id: node-server
 title: Node Server
 ---
 

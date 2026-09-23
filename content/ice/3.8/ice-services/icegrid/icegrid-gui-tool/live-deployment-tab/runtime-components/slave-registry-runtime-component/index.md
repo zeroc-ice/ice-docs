@@ -1,5 +1,4 @@
 ---
-id: slave-registry-runtime-component
 title: Slave Registry Runtime Component
 ---
 

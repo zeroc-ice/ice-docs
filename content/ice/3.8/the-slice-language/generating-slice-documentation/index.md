@@ -1,5 +1,4 @@
 ---
-id: generating-slice-documentation
 title: Generating Slice Documentation
 ---
 

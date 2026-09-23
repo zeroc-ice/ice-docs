@@ -1,5 +1,4 @@
 ---
-id: ice-threadpool-properties
 title: Ice.ThreadPool.*
 ---
 
