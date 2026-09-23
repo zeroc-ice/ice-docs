@@ -42,6 +42,18 @@ test('a full path resolves too, and anchors survive', () => {
   );
 });
 
+test('a link to a heading on the page it is on keeps only the anchor', () => {
+  const here = { ...ctx, path: '/ice/3.8/learn/slice/enumerations' };
+  assert.equal(
+    resolveDocLink('../enumerations#mapping', here).href,
+    '#mapping'
+  );
+  assert.equal(
+    resolveDocLink('../communicator#mapping', here).href,
+    '/ice/3.8/learn/runtime/communicator#mapping'
+  );
+});
+
 test('links the resolver must not touch are returned unchanged', () => {
   for (const href of [
     'https://zeroc.com',

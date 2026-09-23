@@ -18,7 +18,8 @@ const link = {
 
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
       version: String(config.variables?.version ?? ''),
-      index
+      index,
+      path: config.variables?.path
     });
 
     return new Tag(

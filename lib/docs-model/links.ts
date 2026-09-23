@@ -13,7 +13,9 @@
 // unique. A page can move from `learn/slice/enumerations` to
 // `reference/slice/enumerations` and every link to it keeps working, untouched.
 //
-// Pure and dependency-free, so it is unit-testable with plain objects.
+// Pure, so it is unit-testable with plain objects.
+
+import { pageHref } from './nav.ts';
 
 /** page name (`enumerations`) or slug -> slug (`learn/slice/enumerations`). */
 export type PageIndex = Record<string, string>;
@@ -50,6 +52,8 @@ export function buildPageIndex(slugs: string[]): {
 export interface LinkContext {
   version: string;
   index: PageIndex;
+  /** The URL of the page the link is on. */
+  path?: string;
 }
 
 export interface ResolvedLink {
@@ -67,7 +71,9 @@ const MAILTO = /^mailto:/i;
  * - external / mailto / in-page anchors / already-absolute: unchanged
  * - `attachments/...`: left alone (assets, not pages)
  * - anything else: the page named by the link is looked up in the page index
- *   and rewritten to `/ice/<version>/<slug>`, preserving `#anchor`.
+ *   and rewritten to `/ice/<version>/<slug>`, preserving `#anchor`; a link to a
+ *   heading on the page it is on keeps only the `#anchor`, so it is handled
+ *   like any in-page link.
  */
 export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const raw = (href ?? '').trim();
@@ -95,8 +101,7 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const target = ctx.index[full] ?? ctx.index[name];
   if (!target) return { href: raw, resolved: false };
 
-  return {
-    href: `/ice/${ctx.version}/${target}${hash}`,
-    resolved: true
-  };
+  const url = pageHref(ctx.version, target);
+  if (hash && url === ctx.path) return { href: hash, resolved: true };
+  return { href: url + hash, resolved: true };
 }
