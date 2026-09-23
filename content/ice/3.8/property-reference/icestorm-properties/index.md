@@ -1,5 +1,4 @@
 ---
-id: icestorm-properties
 title: IceStorm.*
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: custom-logger-plug-in
 title: Custom Logger Plug-in
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: icegrid-properties
 title: IceGrid.*
 ---
 

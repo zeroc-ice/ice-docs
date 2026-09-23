@@ -1,5 +1,4 @@
 ---
-id: property-set-descriptor
 title: Property Set Descriptor
 ---
 

@@ -1,5 +1,5 @@
 ---
-language: java
+title: DataStorm
 ---
 
 DataStorm (Java only).

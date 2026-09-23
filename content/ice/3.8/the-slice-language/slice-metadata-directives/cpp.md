@@ -1,8 +1,3 @@
----
-id: slice-metadata-directives
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 The mapped skeleton member function for `getGrid` is:

@@ -1,8 +1,3 @@
----
-id: proxy-based-load-balancing
-language: php
----
-
 {% language-section name="lang-1" %}
 
 ```php

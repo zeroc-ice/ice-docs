@@ -1,8 +1,3 @@
----
-id: bidirectional-connections
-language: js
----
-
 {% language-section name="lang-1" %}
 
 ```typescript

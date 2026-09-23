@@ -1,8 +1,3 @@
----
-id: modules
-language: js
----
-
 {% language-section name="lang-1" %}
 
 Slice modules map to a **JavaScript object** with the same name and to a **TypeScript namespace** with the same name as

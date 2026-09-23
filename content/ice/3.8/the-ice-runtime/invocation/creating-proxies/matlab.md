@@ -1,8 +1,3 @@
----
-id: creating-proxies
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 The constructor of the generated proxy class allows you to construct a proxy from a communicator and a

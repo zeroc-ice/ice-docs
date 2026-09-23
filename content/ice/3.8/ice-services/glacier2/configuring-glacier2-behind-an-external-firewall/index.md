@@ -1,5 +1,4 @@
 ---
-id: configuring-glacier2-behind-an-external-firewall
 title: Configuring Glacier2 behind an External Firewall
 ---
 

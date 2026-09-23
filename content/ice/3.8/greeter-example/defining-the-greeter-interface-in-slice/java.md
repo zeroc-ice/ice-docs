@@ -1,8 +1,3 @@
----
-id: defining-the-greeter-interface-in-slice
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ```slice

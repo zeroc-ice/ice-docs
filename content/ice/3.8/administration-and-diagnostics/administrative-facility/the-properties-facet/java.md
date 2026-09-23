@@ -1,8 +1,3 @@
----
-id: the-properties-facet
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Obtaining the Local Properties Facet

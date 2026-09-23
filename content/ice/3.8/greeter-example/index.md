@@ -1,5 +1,4 @@
 ---
-id: greeter-example
 title: Greeter Example
 ---
 

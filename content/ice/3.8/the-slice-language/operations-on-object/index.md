@@ -1,5 +1,4 @@
 ---
-id: operations-on-object
 title: Operations on Object
 ---
 

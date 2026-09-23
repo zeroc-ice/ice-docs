@@ -1,5 +1,4 @@
 ---
-id: using-multiple-object-adapters
 title: Using Multiple Object Adapters
 ---
 

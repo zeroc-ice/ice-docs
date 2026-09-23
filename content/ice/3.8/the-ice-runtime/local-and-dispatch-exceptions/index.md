@@ -1,5 +1,4 @@
 ---
-id: local-and-dispatch-exceptions
 title: Local and Dispatch Exceptions
 ---
 

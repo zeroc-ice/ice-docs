@@ -1,5 +1,4 @@
 ---
-id: ice-log-dialog
 title: Ice Log Dialog
 ---
 

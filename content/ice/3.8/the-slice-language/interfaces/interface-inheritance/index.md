@@ -1,5 +1,4 @@
 ---
-id: interface-inheritance
 title: Interface Inheritance
 ---
 

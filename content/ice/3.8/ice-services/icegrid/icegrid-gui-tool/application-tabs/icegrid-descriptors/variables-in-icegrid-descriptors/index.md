@@ -1,5 +1,4 @@
 ---
-id: variables-in-icegrid-descriptors
 title: Variables in IceGrid Descriptors
 ---
 

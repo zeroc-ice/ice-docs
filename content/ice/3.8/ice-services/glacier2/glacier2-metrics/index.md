@@ -1,5 +1,4 @@
 ---
-id: glacier2-metrics
 title: Glacier2 Metrics
 ---
 

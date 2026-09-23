@@ -1,8 +1,3 @@
----
-id: default-servants
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

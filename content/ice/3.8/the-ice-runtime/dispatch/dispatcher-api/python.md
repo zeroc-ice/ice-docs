@@ -1,8 +1,3 @@
----
-id: dispatcher-api
-language: python
----
-
 {% language-section name="lang-1" %}
 
 The [Dispatcher](../terminology) abstraction was not mapped to Python yet. The only kind of dispatchers you can create

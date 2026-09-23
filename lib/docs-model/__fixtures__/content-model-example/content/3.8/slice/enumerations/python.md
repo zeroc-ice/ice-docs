@@ -1,7 +1,3 @@
----
-language: python
----
-
 {% language-section name="mapping" %}
 
 ## Python mapping

@@ -1,5 +1,4 @@
 ---
-id: icebt-properties
 title: IceBT.*
 ---
 

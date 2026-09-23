@@ -1,8 +1,3 @@
----
-id: the-process-facet
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Obtaining the Local Process Facet

@@ -1,8 +1,3 @@
----
-id: endpoint-syntax
-language: java
----
-
 {% language-section name="lang-1" %}
 
 Java's default network stack always accepts both IPv4 and IPv6 connections regardless of the settings of `Ice.IPv6`.

@@ -1,5 +1,4 @@
 ---
-id: using-configuration-files
 title: Using Configuration Files
 ---
 

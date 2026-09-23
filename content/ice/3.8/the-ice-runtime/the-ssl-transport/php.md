@@ -1,8 +1,3 @@
----
-id: the-ssl-transport
-language: php
----
-
 {% language-section name="lang-1" %}
 
 ```php

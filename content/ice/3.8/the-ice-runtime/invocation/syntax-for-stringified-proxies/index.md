@@ -1,5 +1,4 @@
 ---
-id: syntax-for-stringified-proxies
 title: Syntax for Stringified Proxies
 ---
 

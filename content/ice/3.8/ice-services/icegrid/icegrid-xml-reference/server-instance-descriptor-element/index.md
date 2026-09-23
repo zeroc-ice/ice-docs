@@ -1,5 +1,4 @@
 ---
-id: server-instance-descriptor-element
 title: Server-Instance Descriptor Element
 ---
 

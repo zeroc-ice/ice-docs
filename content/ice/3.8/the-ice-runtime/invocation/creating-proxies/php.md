@@ -1,8 +1,3 @@
----
-id: creating-proxies
-language: php
----
-
 {% language-section name="lang-1" %}
 
 The generated helper class for a proxy provides a static factory method `createProxy` that creates a proxy from a

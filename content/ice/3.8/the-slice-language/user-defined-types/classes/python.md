@@ -1,8 +1,3 @@
----
-id: classes
-language: python
----
-
 {% language-section name="language-mapping" %}
 
 ## Mapping for Classes

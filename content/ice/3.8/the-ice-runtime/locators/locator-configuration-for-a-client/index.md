@@ -1,5 +1,4 @@
 ---
-id: locator-configuration-for-a-client
 title: Locator Configuration for a Client
 ---
 

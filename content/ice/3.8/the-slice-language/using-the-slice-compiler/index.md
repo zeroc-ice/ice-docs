@@ -1,5 +1,4 @@
 ---
-id: using-the-slice-compiler
 title: Using the Slice Compiler
 ---
 

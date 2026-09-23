@@ -1,5 +1,4 @@
 ---
-id: design-considerations-for-request-contexts
 title: Design Considerations for Request Contexts
 ---
 

@@ -1,8 +1,3 @@
----
-id: lexical-rules
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 A Slice identifier maps to an identical C# identifier. For example, the Slice identifier `Clock` becomes the C#

@@ -1,8 +1,3 @@
----
-id: enumerations
-language: python
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration maps to a Python enum.Enum class. The Slice enum name becomes the Python class name, and each

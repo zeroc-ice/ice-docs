@@ -1,5 +1,4 @@
 ---
-id: runtime-components
 title: Runtime Components
 ---
 

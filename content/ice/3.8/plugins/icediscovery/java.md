@@ -1,8 +1,3 @@
----
-id: icediscovery
-language: java
----
-
 {% language-section name="lang-1" %}
 
 You should install `IceDiscovery` in your communicator using the `pluginFactories` field of `InitializationData`:

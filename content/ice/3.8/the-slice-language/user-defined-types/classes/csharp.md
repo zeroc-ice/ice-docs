@@ -1,8 +1,3 @@
----
-id: classes
-language: csharp
----
-
 {% language-section name="language-mapping" %}
 
 ## Mapping for Classes

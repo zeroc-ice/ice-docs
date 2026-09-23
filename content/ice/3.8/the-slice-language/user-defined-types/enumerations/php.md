@@ -1,8 +1,3 @@
----
-id: enumerations
-language: php
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration is mapped to a PHP class: the name of the Slice enumeration becomes the name of the PHP class; for

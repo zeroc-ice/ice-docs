@@ -1,5 +1,4 @@
 ---
-id: ice-trace-properties
 title: Ice.Trace.*
 ---
 

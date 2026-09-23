@@ -1,5 +1,4 @@
 ---
-id: application-tabs
 title: Application Tabs
 ---
 

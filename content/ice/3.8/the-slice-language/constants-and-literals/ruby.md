@@ -1,8 +1,3 @@
----
-id: constants-and-literals
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

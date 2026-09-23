@@ -1,5 +1,4 @@
 ---
-id: icegrid-database-utility
 title: IceGrid Database Utility
 ---
 

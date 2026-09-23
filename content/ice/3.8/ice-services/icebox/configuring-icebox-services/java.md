@@ -1,8 +1,3 @@
----
-id: configuring-icebox-services
-language: java
----
-
 {% language-section name="lang-1" %}
 
 For a Java service, the [entry point](../icebox-properties) is typically the class name (including any package) of the

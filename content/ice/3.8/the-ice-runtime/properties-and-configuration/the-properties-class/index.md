@@ -1,5 +1,4 @@
 ---
-id: the-properties-class
 title: The Properties Class
 ---
 

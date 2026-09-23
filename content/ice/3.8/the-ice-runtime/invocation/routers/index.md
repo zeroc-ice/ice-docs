@@ -1,5 +1,4 @@
 ---
-id: routers
 title: Routers
 ---
 

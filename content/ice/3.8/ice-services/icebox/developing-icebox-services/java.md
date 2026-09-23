@@ -1,8 +1,3 @@
----
-id: developing-icebox-services
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ## Java Service Entry Point

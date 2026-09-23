@@ -1,5 +1,4 @@
 ---
-id: dispatcher-api
 title: Dispatcher API
 ---
 

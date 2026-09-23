@@ -1,8 +1,3 @@
----
-id: icebox-properties
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 In C++, `entry_point` has the form `path[,version]:function`.

@@ -1,8 +1,3 @@
----
-id: invocation-timeouts
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

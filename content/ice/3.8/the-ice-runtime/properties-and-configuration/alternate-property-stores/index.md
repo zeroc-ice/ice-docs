@@ -1,5 +1,4 @@
 ---
-id: alternate-property-stores
 title: Alternate Property Stores
 ---
 

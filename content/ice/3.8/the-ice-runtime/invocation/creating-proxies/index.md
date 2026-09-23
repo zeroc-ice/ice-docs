@@ -1,5 +1,4 @@
 ---
-id: creating-proxies
 title: Creating Proxies
 ---
 

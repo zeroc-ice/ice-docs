@@ -1,8 +1,3 @@
----
-id: bidirectional-connections
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

@@ -1,8 +1,3 @@
----
-id: creating-an-object-adapter
-language: php
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

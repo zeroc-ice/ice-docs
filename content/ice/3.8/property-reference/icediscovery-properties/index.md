@@ -1,5 +1,4 @@
 ---
-id: icediscovery-properties
 title: IceDiscovery.*
 ---
 

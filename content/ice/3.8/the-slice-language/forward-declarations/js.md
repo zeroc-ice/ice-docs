@@ -1,8 +1,3 @@
----
-id: forward-declarations
-language: js
----
-
 {% language-section name="lang-1" %}
 
 In JavaScript when a forward declaration correspond to a type defined on separate Slice file, you must add the

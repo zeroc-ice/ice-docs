@@ -1,5 +1,4 @@
 ---
-id: well-known-proxy
 title: Well-Known Proxy
 ---
 

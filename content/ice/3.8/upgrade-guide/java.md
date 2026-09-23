@@ -1,8 +1,3 @@
----
-id: upgrade-guide
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ### Java Gradle Projects

@@ -1,5 +1,4 @@
 ---
-id: the-per-process-logger
 title: The Per-Process Logger
 ---
 

@@ -1,8 +1,3 @@
----
-id: constants-and-literals
-language: php
----
-
 {% language-section name="lang-1" %}
 
 A Slice constant maps to a PHP constant. Consider the following definitions:

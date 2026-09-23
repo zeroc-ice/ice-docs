@@ -1,5 +1,4 @@
 ---
-id: icestorm-metrics
 title: IceStorm Metrics
 ---
 

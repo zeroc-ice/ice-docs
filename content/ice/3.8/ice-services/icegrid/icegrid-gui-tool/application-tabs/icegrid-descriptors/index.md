@@ -1,5 +1,4 @@
 ---
-id: icegrid-descriptors
 title: IceGrid Descriptors
 ---
 

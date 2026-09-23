@@ -1,7 +1,3 @@
----
-language: cpp
----
-
 {% language-section name="mapping" %}
 
 ## C++ mapping

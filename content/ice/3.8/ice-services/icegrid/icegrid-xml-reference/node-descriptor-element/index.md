@@ -1,5 +1,4 @@
 ---
-id: node-descriptor-element
 title: Node Descriptor Element
 ---
 

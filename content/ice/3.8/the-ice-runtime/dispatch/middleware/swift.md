@@ -1,8 +1,3 @@
----
-id: middleware
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 In Swift, a middleware is a type that implements `Ice.Dispatcher` protocol and delegates to another dispatcher called

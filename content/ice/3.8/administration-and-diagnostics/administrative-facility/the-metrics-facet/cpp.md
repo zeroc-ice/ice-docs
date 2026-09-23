@@ -1,8 +1,3 @@
----
-id: the-metrics-facet
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 # Obtaining the Local Metrics Facet

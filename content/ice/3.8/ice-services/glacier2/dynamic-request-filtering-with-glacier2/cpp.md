@@ -1,8 +1,3 @@
----
-id: dynamic-request-filtering-with-glacier2
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 ```cpp

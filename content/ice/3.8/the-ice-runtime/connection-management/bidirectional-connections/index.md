@@ -1,5 +1,4 @@
 ---
-id: bidirectional-connections
 title: Bidirectional Connections
 ---
 

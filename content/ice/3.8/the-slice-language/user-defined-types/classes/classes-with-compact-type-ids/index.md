@@ -1,5 +1,4 @@
 ---
-id: classes-with-compact-type-ids
 title: Classes with Compact Type IDs
 ---
 

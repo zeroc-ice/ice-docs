@@ -1,8 +1,3 @@
----
-id: operations
-language: cpp
----
-
 {% language-section name="language-mapping" %}
 
 ## Client-Side Mapping for Operations

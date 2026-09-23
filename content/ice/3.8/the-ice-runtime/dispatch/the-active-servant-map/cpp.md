@@ -1,8 +1,3 @@
----
-id: the-active-servant-map
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 ```cpp

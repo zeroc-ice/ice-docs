@@ -1,8 +1,3 @@
----
-id: dispatcher-api
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 The [Dispatcher](../terminology) abstraction corresponds to the Swift

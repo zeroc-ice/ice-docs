@@ -1,5 +1,4 @@
 ---
-id: implementing-an-icestorm-subscriber
 title: Implementing an IceStorm Subscriber
 ---
 

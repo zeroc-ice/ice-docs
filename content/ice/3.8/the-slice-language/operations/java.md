@@ -1,8 +1,3 @@
----
-id: operations
-language: java
----
-
 {% language-section name="language-mapping" %}
 
 ## Client-Side Mapping for Operations

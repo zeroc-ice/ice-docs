@@ -1,8 +1,3 @@
----
-id: upgrade-guide
-language: js
----
-
 {% language-section name="lang-1" %}
 
 ### NPM Package

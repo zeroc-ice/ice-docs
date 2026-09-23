@@ -103,12 +103,10 @@ export function listPages(root: string, version: string): PageFiles[] {
   return pages;
 }
 
-/** A markdown file's frontmatter, parsed. */
+/** A markdown file's frontmatter, parsed; an overlay of a shared page has none. */
 export function frontmatterOf(source: string): Record<string, string> {
-  return yamlLoad(splitFrontmatter(source).frontmatter) as Record<
-    string,
-    string
-  >;
+  const { frontmatter } = splitFrontmatter(source);
+  return frontmatter ? (yamlLoad(frontmatter) as Record<string, string>) : {};
 }
 
 /**

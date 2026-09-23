@@ -1,5 +1,4 @@
 ---
-id: object-adapter-endpoints
 title: Object Adapter Endpoints
 ---
 

@@ -1,8 +1,3 @@
----
-id: fields
-language: js
----
-
 {% language-section name="lang-1" %}
 
 A Slice field maps to a JavaScript class field with the same name. The type of the JavaScript field is the mapped Slice

@@ -1,5 +1,4 @@
 ---
-id: securing-icegrid
 title: Securing IceGrid
 ---
 

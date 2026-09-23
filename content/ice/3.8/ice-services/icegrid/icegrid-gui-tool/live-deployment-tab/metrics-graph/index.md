@@ -1,5 +1,4 @@
 ---
-id: metrics-graph
 title: Metrics Graph
 ---
 

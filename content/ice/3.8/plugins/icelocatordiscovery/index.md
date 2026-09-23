@@ -1,5 +1,4 @@
 ---
-id: icelocatordiscovery
 title: IceLocatorDiscovery
 ---
 

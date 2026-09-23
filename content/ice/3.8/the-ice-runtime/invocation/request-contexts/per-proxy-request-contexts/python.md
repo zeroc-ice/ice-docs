@@ -1,8 +1,3 @@
----
-id: per-proxy-request-contexts
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

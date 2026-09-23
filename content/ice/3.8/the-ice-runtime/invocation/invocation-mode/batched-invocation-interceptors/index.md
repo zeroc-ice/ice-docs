@@ -1,5 +1,4 @@
 ---
-id: batched-invocation-interceptors
 title: Batched Invocation Interceptors
 ---
 

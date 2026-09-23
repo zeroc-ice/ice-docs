@@ -1,8 +1,3 @@
----
-id: proxy-properties
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 # _name_.CollocationOptimized

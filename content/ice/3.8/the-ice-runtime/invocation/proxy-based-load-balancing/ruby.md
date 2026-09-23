@@ -1,8 +1,3 @@
----
-id: proxy-based-load-balancing
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 ```ruby

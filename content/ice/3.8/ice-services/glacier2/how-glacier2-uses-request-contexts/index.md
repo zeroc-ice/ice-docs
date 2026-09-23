@@ -1,5 +1,4 @@
 ---
-id: how-glacier2-uses-request-contexts
 title: How Glacier2 uses Request Contexts
 ---
 

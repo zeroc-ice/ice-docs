@@ -1,5 +1,4 @@
 ---
-id: manually-installing-a-service-as-a-windows-service
 title: Manually Installing a Service as a Windows Service
 ---
 

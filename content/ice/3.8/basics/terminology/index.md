@@ -1,5 +1,4 @@
 ---
-id: terminology
 title: Terminology
 ---
 

@@ -1,8 +1,3 @@
----
-id: invocation-timeouts
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 ```csharp

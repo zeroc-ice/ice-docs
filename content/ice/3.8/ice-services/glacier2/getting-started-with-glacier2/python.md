@@ -1,8 +1,3 @@
----
-id: getting-started-with-glacier2
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

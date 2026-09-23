@@ -1,5 +1,4 @@
 ---
-id: writer
 title: Writer
 ---
 

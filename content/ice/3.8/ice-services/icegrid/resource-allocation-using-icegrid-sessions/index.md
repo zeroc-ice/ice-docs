@@ -1,5 +1,4 @@
 ---
-id: resource-allocation-using-icegrid-sessions
 title: Resource Allocation using IceGrid Sessions
 ---
 

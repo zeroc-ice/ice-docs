@@ -1,8 +1,3 @@
----
-id: sequences
-language: php
----
-
 {% language-section name="lang-1" %}
 
 A Slice sequence maps to a native PHP indexed array. The first element of the Slice sequence is contained at index 0

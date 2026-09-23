@@ -1,5 +1,4 @@
 ---
-id: node-runtime-component
 title: Node Runtime Component
 ---
 

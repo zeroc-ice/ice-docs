@@ -1,8 +1,3 @@
----
-id: proxy-properties
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # _name_.CollocationOptimized

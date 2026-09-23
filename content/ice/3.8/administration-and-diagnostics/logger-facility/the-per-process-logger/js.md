@@ -1,8 +1,3 @@
----
-id: the-per-process-logger
-language: js
----
-
 {% language-section name="lang-1" %}
 
 ```typescript

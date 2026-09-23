@@ -1,8 +1,3 @@
----
-id: modules
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 A top-level Slice module maps to a Swift module with the same name as the Slice module.

@@ -1,5 +1,4 @@
 ---
-id: connection-to-an-icegrid-registry
 title: Connection to an IceGrid Registry
 ---
 

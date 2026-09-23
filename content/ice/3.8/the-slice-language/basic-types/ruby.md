@@ -1,8 +1,3 @@
----
-id: basic-types
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 The Slice built-in types are mapped to Ruby types as shown in this table:

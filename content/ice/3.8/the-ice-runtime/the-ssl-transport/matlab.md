@@ -1,8 +1,3 @@
----
-id: the-ssl-transport
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 ```matlab

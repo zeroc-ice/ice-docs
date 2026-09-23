@@ -1,8 +1,3 @@
----
-id: enumerations
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration is emulated using a Ruby class: the name of the Slice enumeration becomes the name of the Ruby

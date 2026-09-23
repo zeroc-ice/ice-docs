@@ -1,8 +1,3 @@
----
-id: creating-proxies
-language: java
----
-
 {% language-section name="lang-1" %}
 
 The generated proxy class provides a static factory method `createProxy` from a communicator and a

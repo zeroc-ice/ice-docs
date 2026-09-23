@@ -1,8 +1,3 @@
----
-id: sequences
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ## Default Mapping

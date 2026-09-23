@@ -1,8 +1,3 @@
----
-id: dispatcher-api
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 # Ice.Object Interface

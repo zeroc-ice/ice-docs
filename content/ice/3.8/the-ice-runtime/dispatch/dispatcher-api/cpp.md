@@ -1,8 +1,3 @@
----
-id: dispatcher-api
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 # Ice::Object Base Class

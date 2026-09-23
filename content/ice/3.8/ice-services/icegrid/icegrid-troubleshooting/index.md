@@ -1,5 +1,4 @@
 ---
-id: icegrid-troubleshooting
 title: IceGrid Troubleshooting
 ---
 

@@ -1,8 +1,3 @@
----
-id: self-referential-classes
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 {% callout type="info" %}

@@ -1,5 +1,4 @@
 ---
-id: deprecating-slice-definitions
 title: Deprecating Slice Definitions
 ---
 

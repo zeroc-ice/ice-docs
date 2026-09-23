@@ -1,8 +1,3 @@
----
-id: explicit-request-contexts
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/matlab/Ice/context) provides a complete example

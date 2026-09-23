@@ -1,5 +1,4 @@
 ---
-id: application-component
 title: Application Component
 ---
 

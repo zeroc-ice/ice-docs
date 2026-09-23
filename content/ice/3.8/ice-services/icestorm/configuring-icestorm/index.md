@@ -1,5 +1,4 @@
 ---
-id: configuring-icestorm
 title: Configuring IceStorm
 ---
 

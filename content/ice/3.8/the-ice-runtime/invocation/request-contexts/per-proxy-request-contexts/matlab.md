@@ -1,8 +1,3 @@
----
-id: per-proxy-request-contexts
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 ```matlab

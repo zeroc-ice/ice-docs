@@ -1,8 +1,3 @@
----
-id: per-proxy-request-contexts
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 ```csharp

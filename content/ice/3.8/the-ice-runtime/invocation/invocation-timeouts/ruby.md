@@ -1,8 +1,3 @@
----
-id: invocation-timeouts
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 ```

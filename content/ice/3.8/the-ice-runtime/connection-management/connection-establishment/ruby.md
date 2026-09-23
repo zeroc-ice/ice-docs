@@ -1,8 +1,3 @@
----
-id: connection-establishment
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 ```ruby

@@ -1,8 +1,3 @@
----
-id: ice-connection-properties
-language: python
----
-
 {% language-section name="lang-1" %}
 
 # Ice.Connection._name_.MaxDispatches

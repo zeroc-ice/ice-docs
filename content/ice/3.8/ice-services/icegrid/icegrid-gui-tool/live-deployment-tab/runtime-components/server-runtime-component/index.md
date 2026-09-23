@@ -1,5 +1,4 @@
 ---
-id: server-runtime-component
 title: Server Runtime Component
 ---
 

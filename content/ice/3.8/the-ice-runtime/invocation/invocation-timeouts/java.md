@@ -1,8 +1,3 @@
----
-id: invocation-timeouts
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ```java

@@ -1,8 +1,3 @@
----
-id: the-active-servant-map
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

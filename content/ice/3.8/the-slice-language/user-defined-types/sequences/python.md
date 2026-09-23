@@ -1,8 +1,3 @@
----
-id: sequences
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ## Default Sequence Mapping

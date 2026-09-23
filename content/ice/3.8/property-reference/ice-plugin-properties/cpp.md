@@ -1,8 +1,3 @@
----
-id: ice-plugin-properties
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 #### Synopsis

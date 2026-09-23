@@ -1,5 +1,4 @@
 ---
-id: object-descriptor-element
 title: Object Descriptor Element
 ---
 

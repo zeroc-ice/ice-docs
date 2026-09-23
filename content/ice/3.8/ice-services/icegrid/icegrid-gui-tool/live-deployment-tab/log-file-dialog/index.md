@@ -1,5 +1,4 @@
 ---
-id: log-file-dialog
 title: Log File Dialog
 ---
 

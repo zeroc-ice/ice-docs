@@ -1,8 +1,3 @@
----
-id: fields
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 A Slice field maps to a C++ data member with the same name. The type of the C++ data member is the default,

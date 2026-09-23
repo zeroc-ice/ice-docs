@@ -1,8 +1,3 @@
----
-id: exceptions
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a Swift class with the same name. This mapping is similar to the mapping of

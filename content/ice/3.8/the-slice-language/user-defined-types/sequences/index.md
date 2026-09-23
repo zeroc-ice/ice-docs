@@ -1,5 +1,4 @@
 ---
-id: sequences
 title: Sequences
 ---
 

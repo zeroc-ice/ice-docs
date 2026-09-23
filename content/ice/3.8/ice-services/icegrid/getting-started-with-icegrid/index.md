@@ -1,5 +1,4 @@
 ---
-id: getting-started-with-icegrid
 title: Getting Started with IceGrid
 ---
 

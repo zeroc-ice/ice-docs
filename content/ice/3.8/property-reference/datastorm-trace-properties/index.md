@@ -1,5 +1,4 @@
 ---
-id: datastorm-trace-properties
 title: DataStorm.Trace.*
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: node
 title: Node
 ---
 

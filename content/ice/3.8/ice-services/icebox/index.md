@@ -1,5 +1,4 @@
 ---
-id: icebox
 title: IceBox
 ---
 

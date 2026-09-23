@@ -1,5 +1,4 @@
 ---
-id: facets
 title: Facets
 ---
 

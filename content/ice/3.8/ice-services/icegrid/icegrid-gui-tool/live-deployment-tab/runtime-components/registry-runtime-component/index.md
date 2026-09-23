@@ -1,5 +1,4 @@
 ---
-id: registry-runtime-component
 title: Registry Runtime Component
 ---
 

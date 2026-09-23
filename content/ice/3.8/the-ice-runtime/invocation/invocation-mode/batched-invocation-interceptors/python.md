@@ -1,8 +1,3 @@
----
-id: batched-invocation-interceptors
-language: python
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

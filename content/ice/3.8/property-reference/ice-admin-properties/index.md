@@ -1,5 +1,4 @@
 ---
-id: ice-admin-properties
 title: Ice.Admin.*
 ---
 

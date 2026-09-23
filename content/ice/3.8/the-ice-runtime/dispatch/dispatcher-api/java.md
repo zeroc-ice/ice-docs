@@ -1,8 +1,3 @@
----
-id: dispatcher-api
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Object Interface

@@ -1,5 +1,4 @@
 ---
-id: glacier2-properties
 title: Glacier2.*
 ---
 

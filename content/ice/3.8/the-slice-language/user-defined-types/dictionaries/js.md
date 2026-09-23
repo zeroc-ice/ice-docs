@@ -1,8 +1,3 @@
----
-id: dictionaries
-language: js
----
-
 {% language-section name="lang-1" %}
 
 A Slice dictionary maps to:

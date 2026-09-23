@@ -1,8 +1,3 @@
----
-id: the-ssl-transport
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 ```ruby

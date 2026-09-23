@@ -1,5 +1,4 @@
 ---
-id: glacier2-integration-with-icegrid
 title: Glacier2 Integration with IceGrid
 ---
 

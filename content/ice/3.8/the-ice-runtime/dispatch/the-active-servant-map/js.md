@@ -1,8 +1,3 @@
----
-id: the-active-servant-map
-language: js
----
-
 {% language-section name="lang-1" %}
 
 ```typescript

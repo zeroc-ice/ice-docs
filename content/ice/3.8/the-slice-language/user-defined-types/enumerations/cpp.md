@@ -1,8 +1,3 @@
----
-id: enumerations
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration maps to the corresponding `enum class` in C++.

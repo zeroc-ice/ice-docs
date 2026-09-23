@@ -1,5 +1,4 @@
 ---
-id: lexical-rules
 title: Lexical Rules
 ---
 

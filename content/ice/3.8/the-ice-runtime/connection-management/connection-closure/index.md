@@ -1,5 +1,4 @@
 ---
-id: connection-closure
 title: Connection Closure
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: highly-available-icestorm
 title: Highly Available IceStorm
 ---
 

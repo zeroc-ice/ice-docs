@@ -1,5 +1,4 @@
 ---
-id: command-line-parsing-and-initialization
 title: Command-Line Parsing and Initialization
 ---
 

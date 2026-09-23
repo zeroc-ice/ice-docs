@@ -1,5 +1,4 @@
 ---
-id: allocatable-descriptor-element
 title: Allocatable Descriptor Element
 ---
 

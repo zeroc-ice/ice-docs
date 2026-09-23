@@ -1,5 +1,4 @@
 ---
-id: variable-descriptor-element
 title: Variable Descriptor Element
 ---
 

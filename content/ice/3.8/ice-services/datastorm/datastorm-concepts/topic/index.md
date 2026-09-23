@@ -1,5 +1,4 @@
 ---
-id: topic
 title: Topic
 ---
 

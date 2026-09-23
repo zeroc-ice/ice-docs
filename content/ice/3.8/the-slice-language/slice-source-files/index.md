@@ -1,5 +1,4 @@
 ---
-id: slice-source-files
 title: Slice Source Files
 ---
 

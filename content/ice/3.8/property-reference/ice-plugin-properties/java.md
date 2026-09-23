@@ -1,8 +1,3 @@
----
-id: ice-plugin-properties
-language: java
----
-
 {% language-section name="lang-1" %}
 
 #### Synopsis

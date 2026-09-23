@@ -1,8 +1,3 @@
----
-id: dictionaries
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 A Slice dictionary maps to a MATLAB dictionary.

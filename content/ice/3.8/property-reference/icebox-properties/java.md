@@ -1,8 +1,3 @@
----
-id: icebox-properties
-language: java
----
-
 {% language-section name="lang-1" %}
 
 In Java, `entry_point` has the form `[path:]class`.

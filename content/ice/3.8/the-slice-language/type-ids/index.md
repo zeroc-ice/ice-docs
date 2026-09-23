@@ -1,5 +1,4 @@
 ---
-id: type-ids
 title: Type IDs
 ---
 

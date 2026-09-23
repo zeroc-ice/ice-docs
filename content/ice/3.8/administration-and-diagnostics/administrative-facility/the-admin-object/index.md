@@ -1,5 +1,4 @@
 ---
-id: the-admin-object
 title: The admin Object
 ---
 

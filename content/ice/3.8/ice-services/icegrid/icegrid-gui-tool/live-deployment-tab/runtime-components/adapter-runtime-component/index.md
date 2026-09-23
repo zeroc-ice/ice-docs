@@ -1,5 +1,4 @@
 ---
-id: adapter-runtime-component
 title: Adapter Runtime Component
 ---
 

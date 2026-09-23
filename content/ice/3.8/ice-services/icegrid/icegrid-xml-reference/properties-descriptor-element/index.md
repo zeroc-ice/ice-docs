@@ -1,5 +1,4 @@
 ---
-id: properties-descriptor-element
 title: Properties Descriptor Element
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: versioning-with-facets
 title: Versioning with Facets
 ---
 

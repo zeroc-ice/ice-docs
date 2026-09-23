@@ -1,8 +1,3 @@
----
-id: interfaces
-language: csharp
----
-
 {% language-section name="language-mapping" %}
 
 ## Client-Side Mapping for Interfaces

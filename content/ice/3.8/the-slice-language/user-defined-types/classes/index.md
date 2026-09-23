@@ -1,5 +1,4 @@
 ---
-id: classes
 title: Classes
 ---
 

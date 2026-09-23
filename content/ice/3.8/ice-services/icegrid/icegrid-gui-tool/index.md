@@ -1,5 +1,4 @@
 ---
-id: icegrid-gui-tool
 title: IceGrid GUI Tool
 ---
 

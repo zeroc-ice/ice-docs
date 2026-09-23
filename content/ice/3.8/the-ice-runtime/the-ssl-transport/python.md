@@ -1,8 +1,3 @@
----
-id: the-ssl-transport
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

@@ -1,5 +1,4 @@
 ---
-id: ice-tcp-properties
 title: Ice.TCP.*
 ---
 

@@ -1,8 +1,3 @@
----
-id: using-the-admin-object
-language: js
----
-
 {% language-section name="lang-1" %}
 
 ```typescript

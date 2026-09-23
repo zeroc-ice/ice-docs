@@ -1,8 +1,3 @@
----
-id: interfaces
-language: php
----
-
 {% language-section name="language-mapping" %}
 
 ## Client-Side Mapping for Interfaces

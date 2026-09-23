@@ -1,5 +1,4 @@
 ---
-id: ice-override-properties
 title: Ice.Override.*
 ---
 

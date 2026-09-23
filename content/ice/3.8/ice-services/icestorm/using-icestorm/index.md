@@ -1,5 +1,4 @@
 ---
-id: using-icestorm
 title: Using IceStorm
 ---
 

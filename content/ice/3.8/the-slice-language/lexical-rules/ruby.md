@@ -1,8 +1,3 @@
----
-id: lexical-rules
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 A Slice identifier maps to an identical Ruby identifier, or a Ruby identifier derived from this Slice identifier. For

@@ -1,8 +1,3 @@
----
-id: bidirectional-connections
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

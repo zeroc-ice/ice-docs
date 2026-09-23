@@ -1,5 +1,4 @@
 ---
-id: names-and-scoping
 title: Names and Scoping
 ---
 

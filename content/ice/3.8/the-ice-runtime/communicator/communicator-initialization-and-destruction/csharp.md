@@ -1,8 +1,3 @@
----
-id: communicator-initialization-and-destruction
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 You create a communicator by using its constructor, for example:

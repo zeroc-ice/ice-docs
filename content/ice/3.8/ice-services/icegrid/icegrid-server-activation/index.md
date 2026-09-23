@@ -1,5 +1,4 @@
 ---
-id: icegrid-server-activation
 title: IceGrid Server Activation
 ---
 

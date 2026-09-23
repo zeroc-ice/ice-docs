@@ -1,8 +1,3 @@
----
-id: built-in-loggers
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Syslog Logger

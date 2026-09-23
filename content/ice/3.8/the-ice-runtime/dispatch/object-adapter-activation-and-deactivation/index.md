@@ -1,5 +1,4 @@
 ---
-id: object-adapter-activation-and-deactivation
 title: Object Adapter Activation and Deactivation
 ---
 

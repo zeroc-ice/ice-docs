@@ -1,5 +1,4 @@
 ---
-id: plug-in-facility
 title: Plug-in Facility
 ---
 

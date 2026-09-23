@@ -1,5 +1,4 @@
 ---
-id: invocation-mode
 title: Invocation Mode
 ---
 

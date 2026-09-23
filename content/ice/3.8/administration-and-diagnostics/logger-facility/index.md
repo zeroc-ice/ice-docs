@@ -1,5 +1,4 @@
 ---
-id: logger-facility
 title: Logger Facility
 ---
 

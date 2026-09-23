@@ -1,5 +1,4 @@
 ---
-id: the-dispatch-pipeline
 title: The Dispatch Pipeline
 ---
 

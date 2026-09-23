@@ -1,8 +1,3 @@
----
-id: modules
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 A Slice module maps to a Ruby module with the same name. The mapping preserves the nesting of the Slice definitions. For

@@ -1,8 +1,3 @@
----
-id: custom-logger-plug-in
-language: java
----
-
 {% language-section name="lang-1" %}
 
 Ice provides a plug-in class, `com.zeroc.Ice.LoggerPlugin`, that installs a logger into the communicator in its

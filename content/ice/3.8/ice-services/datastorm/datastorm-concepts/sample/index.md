@@ -1,5 +1,4 @@
 ---
-id: sample
 title: Sample
 ---
 

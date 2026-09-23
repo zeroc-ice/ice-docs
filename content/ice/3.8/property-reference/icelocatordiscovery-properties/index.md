@@ -1,5 +1,4 @@
 ---
-id: icelocatordiscovery-properties
 title: IceLocatorDiscovery.*
 ---
 

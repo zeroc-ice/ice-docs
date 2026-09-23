@@ -1,5 +1,4 @@
 ---
-id: icebridge-properties
 title: IceBridge.*
 ---
 

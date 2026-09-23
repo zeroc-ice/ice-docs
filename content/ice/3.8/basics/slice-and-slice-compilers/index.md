@@ -1,5 +1,4 @@
 ---
-id: slice-and-slice-compilers
 title: Slice and Slice Compilers
 ---
 

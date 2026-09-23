@@ -1,8 +1,3 @@
----
-id: default-servants
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 ```swift

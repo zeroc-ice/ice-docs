@@ -1,8 +1,3 @@
----
-id: self-referential-classes
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 {% callout type="info" %}

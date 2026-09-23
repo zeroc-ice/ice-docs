@@ -1,5 +1,4 @@
 ---
-id: locator-semantics-for-clients
 title: Locator Semantics for Clients
 ---
 

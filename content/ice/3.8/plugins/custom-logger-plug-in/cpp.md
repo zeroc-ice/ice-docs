@@ -1,8 +1,3 @@
----
-id: custom-logger-plug-in
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 Ice provides a C++ plug-in class, `Ice::LoggerPlugin`, that installs a logger into the communicator in its constructor:

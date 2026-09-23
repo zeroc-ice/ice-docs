@@ -1,8 +1,3 @@
----
-id: dictionaries
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 ## Default Dictionary Mapping

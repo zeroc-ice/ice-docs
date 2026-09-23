@@ -1,5 +1,4 @@
 ---
-id: ice-ws-properties
 title: Ice.WS.*
 ---
 

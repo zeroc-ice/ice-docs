@@ -1,8 +1,3 @@
----
-id: ice-warn-properties
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Ice.Warn.AMICallback

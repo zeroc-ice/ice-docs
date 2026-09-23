@@ -1,8 +1,3 @@
----
-id: sequences
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 ## Array Mapping

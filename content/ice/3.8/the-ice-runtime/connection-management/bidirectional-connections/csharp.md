@@ -1,8 +1,3 @@
----
-id: bidirectional-connections
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 ```csharp

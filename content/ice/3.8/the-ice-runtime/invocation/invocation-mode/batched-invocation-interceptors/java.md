@@ -1,8 +1,3 @@
----
-id: batched-invocation-interceptors
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ```java

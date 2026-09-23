@@ -1,8 +1,3 @@
----
-id: batched-invocation-interceptors
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

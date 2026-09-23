@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import {
+  frontmatterOf,
   listVersions,
   listPages,
   readPageSources,
@@ -67,7 +68,17 @@ test('a page written per language takes its frontmatter from its first overlay',
     listPages(ROOT, '3.8').find((p) => p.slug === 'services/datastorm')!
   );
   assert.equal(datastorm.shared, null);
-  assert.equal(datastorm.frontmatter.language, 'cpp');
+  assert.equal(datastorm.frontmatter.description, 'DataStorm for C++');
+});
+
+test('a file without frontmatter has none', () => {
+  // An overlay of a shared page carries only its sections.
+  assert.deepEqual(
+    frontmatterOf(
+      '{% language-section name="mapping" %}\n\nText.\n\n{% /language-section %}\n'
+    ),
+    {}
+  );
 });
 
 test('snippetReader resolves example files relative to the version dir', () => {

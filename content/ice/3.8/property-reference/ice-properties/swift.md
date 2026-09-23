@@ -1,8 +1,3 @@
----
-id: ice-properties
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 # Ice.AcceptClassCycles

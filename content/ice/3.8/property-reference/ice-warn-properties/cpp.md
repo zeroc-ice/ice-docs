@@ -1,8 +1,3 @@
----
-id: ice-warn-properties
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 # Ice.Warn.AMICallback

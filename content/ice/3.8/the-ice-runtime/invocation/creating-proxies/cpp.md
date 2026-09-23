@@ -1,8 +1,3 @@
----
-id: creating-proxies
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 The generated proxy class provides a constructor that constructs a proxy from a communicator and a

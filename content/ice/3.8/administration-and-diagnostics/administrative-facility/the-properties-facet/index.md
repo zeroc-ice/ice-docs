@@ -1,5 +1,4 @@
 ---
-id: the-properties-facet
 title: The Properties Facet
 ---
 

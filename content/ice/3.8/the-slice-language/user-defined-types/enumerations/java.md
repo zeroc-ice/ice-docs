@@ -1,8 +1,3 @@
----
-id: enumerations
-language: java
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration maps to the corresponding enumeration in Java. For example:

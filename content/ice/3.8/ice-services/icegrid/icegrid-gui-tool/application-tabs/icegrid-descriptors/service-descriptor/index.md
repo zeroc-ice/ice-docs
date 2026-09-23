@@ -1,5 +1,4 @@
 ---
-id: service-descriptor
 title: Service Descriptor
 ---
 

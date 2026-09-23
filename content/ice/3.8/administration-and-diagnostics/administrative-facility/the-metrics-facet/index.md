@@ -1,5 +1,4 @@
 ---
-id: the-metrics-facet
 title: The Metrics Facet
 ---
 

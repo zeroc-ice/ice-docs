@@ -1,8 +1,3 @@
----
-id: basic-types
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 The built-in types are mapped to C++ types as shown in this table:

@@ -1,5 +1,4 @@
 ---
-id: application-descriptor
 title: Application Descriptor
 ---
 

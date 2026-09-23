@@ -1,5 +1,4 @@
 ---
-id: structures
 title: Structures
 ---
 

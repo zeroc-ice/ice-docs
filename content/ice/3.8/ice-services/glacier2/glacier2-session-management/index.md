@@ -1,5 +1,4 @@
 ---
-id: glacier2-session-management
 title: Glacier2 Session Management
 ---
 

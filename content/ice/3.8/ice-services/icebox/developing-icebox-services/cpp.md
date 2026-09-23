@@ -1,8 +1,3 @@
----
-id: developing-icebox-services
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 The example we present here is taken from the `IceBox/greeter` demo program.

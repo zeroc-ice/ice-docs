@@ -1,8 +1,3 @@
----
-id: invocation-timeouts
-language: php
----
-
 {% language-section name="lang-1" %}
 
 ```php

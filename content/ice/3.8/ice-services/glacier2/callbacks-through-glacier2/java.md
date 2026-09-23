@@ -1,8 +1,3 @@
----
-id: callbacks-through-glacier2
-language: java
----
-
 {% language-section name="lang-1" %}
 
 ```java

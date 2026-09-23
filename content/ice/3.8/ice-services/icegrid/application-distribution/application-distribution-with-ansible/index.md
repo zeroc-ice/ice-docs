@@ -1,5 +1,4 @@
 ---
-id: application-distribution-with-ansible
 title: Application Distribution with Ansible
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: icegrid-xml-features
 title: IceGrid XML Features
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: the-ice-protocol-in-a-nutshell
 title: The Ice Protocol in a Nutshell
 ---
 

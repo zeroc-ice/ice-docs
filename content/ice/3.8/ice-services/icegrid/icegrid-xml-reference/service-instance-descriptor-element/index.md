@@ -1,5 +1,4 @@
 ---
-id: service-instance-descriptor-element
 title: Service-Instance Descriptor Element
 ---
 

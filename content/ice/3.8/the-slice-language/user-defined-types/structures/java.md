@@ -1,8 +1,3 @@
----
-id: structures
-language: java
----
-
 {% language-section name="lang-1" %}
 
 A Slice structure maps to a Java class with the same name. For each Slice field, the Java class contains a corresponding

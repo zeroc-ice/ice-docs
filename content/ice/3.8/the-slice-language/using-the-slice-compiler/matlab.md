@@ -1,8 +1,3 @@
----
-id: using-the-slice-compiler
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

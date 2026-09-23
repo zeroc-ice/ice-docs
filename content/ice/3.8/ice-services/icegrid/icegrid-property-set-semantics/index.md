@@ -1,5 +1,4 @@
 ---
-id: icegrid-property-set-semantics
 title: IceGrid Property Set Semantics
 ---
 

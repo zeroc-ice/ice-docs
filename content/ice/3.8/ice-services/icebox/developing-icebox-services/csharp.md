@@ -1,8 +1,3 @@
----
-id: developing-icebox-services
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 The example we present here is taken from the `IceBox/Greeter` demo program.

@@ -1,5 +1,4 @@
 ---
-id: icebox-descriptor-element
 title: IceBox Descriptor Element
 ---
 

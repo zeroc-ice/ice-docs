@@ -1,8 +1,3 @@
----
-id: connection-establishment
-language: js
----
-
 {% language-section name="lang-1" %}
 
 ```typescript

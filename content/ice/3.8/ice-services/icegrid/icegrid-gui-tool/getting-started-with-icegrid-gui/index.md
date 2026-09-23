@@ -1,5 +1,4 @@
 ---
-id: getting-started-with-icegrid-gui
 title: Getting Started with IceGrid GUI
 ---
 

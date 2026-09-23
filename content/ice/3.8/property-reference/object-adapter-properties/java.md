@@ -1,8 +1,3 @@
----
-id: object-adapter-properties
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # _adapter_.AdapterId

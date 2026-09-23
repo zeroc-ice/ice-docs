@@ -1,8 +1,3 @@
----
-id: ice-threadpool-properties
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 {% /language-section %}

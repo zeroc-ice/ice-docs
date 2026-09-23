@@ -1,5 +1,4 @@
 ---
-id: custom-administrative-facets
 title: Custom Administrative Facets
 ---
 

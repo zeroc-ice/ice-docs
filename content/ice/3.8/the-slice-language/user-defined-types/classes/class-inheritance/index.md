@@ -1,5 +1,4 @@
 ---
-id: class-inheritance
 title: Class Inheritance
 ---
 

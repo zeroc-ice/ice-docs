@@ -1,5 +1,4 @@
 ---
-id: common-firewall-traversal-issues
 title: Common Firewall Traversal Issues
 ---
 

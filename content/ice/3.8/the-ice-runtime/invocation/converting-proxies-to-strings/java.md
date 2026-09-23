@@ -1,8 +1,3 @@
----
-id: converting-proxies-to-strings
-language: java
----
-
 {% language-section name="lang-1" %}
 
 You can stringify a proxy by calling `toString` on this proxy. For example:

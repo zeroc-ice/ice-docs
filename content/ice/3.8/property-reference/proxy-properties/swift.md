@@ -1,8 +1,3 @@
----
-id: proxy-properties
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 # _name_.CollocationOptimized

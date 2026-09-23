@@ -1,8 +1,3 @@
----
-id: structures
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 Ice for C# supports two different mappings for Slice structures. By default, Slice structures map to C# record structs

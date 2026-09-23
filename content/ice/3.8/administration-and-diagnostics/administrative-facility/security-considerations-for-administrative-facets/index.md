@@ -1,5 +1,4 @@
 ---
-id: security-considerations-for-administrative-facets
 title: Security Considerations for Administrative Facets
 ---
 

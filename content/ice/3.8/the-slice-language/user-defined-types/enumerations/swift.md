@@ -1,8 +1,3 @@
----
-id: enumerations
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration maps to a Swift enumeration that stores raw values of type `UInt8` or `Int32`. For example:

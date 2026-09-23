@@ -1,8 +1,3 @@
----
-id: ice-default-properties
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Ice.Default.CollocationOptimized

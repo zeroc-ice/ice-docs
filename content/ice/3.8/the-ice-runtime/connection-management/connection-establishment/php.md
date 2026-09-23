@@ -1,8 +1,3 @@
----
-id: connection-establishment
-language: php
----
-
 {% language-section name="lang-1" %}
 
 ```php

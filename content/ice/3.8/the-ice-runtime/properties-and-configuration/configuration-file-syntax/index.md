@@ -1,5 +1,4 @@
 ---
-id: configuration-file-syntax
 title: Configuration File Syntax
 ---
 

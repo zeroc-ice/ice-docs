@@ -1,5 +1,4 @@
 ---
-id: topic-federation
 title: Topic Federation
 ---
 

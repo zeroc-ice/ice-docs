@@ -1,8 +1,3 @@
----
-id: structures
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 A Slice structure maps to a Ruby class with the same name. For each Slice field, the Ruby class contains a corresponding

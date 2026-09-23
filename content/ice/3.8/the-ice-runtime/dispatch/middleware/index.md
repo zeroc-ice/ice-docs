@@ -1,5 +1,4 @@
 ---
-id: middleware
 title: Middleware
 ---
 

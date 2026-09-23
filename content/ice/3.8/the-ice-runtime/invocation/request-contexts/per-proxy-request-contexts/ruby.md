@@ -1,8 +1,3 @@
----
-id: per-proxy-request-contexts
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 ```ruby

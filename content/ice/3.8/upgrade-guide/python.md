@@ -1,8 +1,3 @@
----
-id: upgrade-guide
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ### **Python Static Code Generation**

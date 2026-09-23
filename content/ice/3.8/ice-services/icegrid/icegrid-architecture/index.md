@@ -1,5 +1,4 @@
 ---
-id: icegrid-architecture
 title: IceGrid Architecture
 ---
 

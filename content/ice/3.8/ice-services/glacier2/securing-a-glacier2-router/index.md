@@ -1,5 +1,4 @@
 ---
-id: securing-a-glacier2-router
 title: Securing a Glacier2 Router
 ---
 

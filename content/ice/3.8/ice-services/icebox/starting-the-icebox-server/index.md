@@ -1,5 +1,4 @@
 ---
-id: starting-the-icebox-server
 title: Starting the IceBox Server
 ---
 

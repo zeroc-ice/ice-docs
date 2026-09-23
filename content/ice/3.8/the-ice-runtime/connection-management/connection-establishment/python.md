@@ -1,8 +1,3 @@
----
-id: connection-establishment
-language: python
----
-
 {% language-section name="lang-1" %}
 
 ```py

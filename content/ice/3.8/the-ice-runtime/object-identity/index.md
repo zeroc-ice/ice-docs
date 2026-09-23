@@ -1,5 +1,4 @@
 ---
-id: object-identity
 title: Object Identity
 ---
 

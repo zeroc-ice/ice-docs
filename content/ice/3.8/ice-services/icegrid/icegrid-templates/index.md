@@ -1,5 +1,4 @@
 ---
-id: icegrid-templates
 title: IceGrid Templates
 ---
 

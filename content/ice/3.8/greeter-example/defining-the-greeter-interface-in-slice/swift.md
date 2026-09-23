@@ -1,8 +1,3 @@
----
-id: defining-the-greeter-interface-in-slice
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 ```slice

@@ -1,5 +1,4 @@
 ---
-id: icebox-administration
 title: IceBox Administration
 ---
 

@@ -1,8 +1,3 @@
----
-id: bidirectional-connections
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 ```cpp

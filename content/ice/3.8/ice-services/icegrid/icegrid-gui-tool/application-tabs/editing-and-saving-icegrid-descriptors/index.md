@@ -1,5 +1,4 @@
 ---
-id: editing-and-saving-icegrid-descriptors
 title: Editing and Saving IceGrid Descriptors
 ---
 

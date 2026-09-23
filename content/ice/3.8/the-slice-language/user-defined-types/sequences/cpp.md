@@ -1,8 +1,3 @@
----
-id: sequences
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 ## Default Mapping

@@ -1,5 +1,4 @@
 ---
-id: startup-scripts-for-icegrid-and-glacier2-on-linux
 title: Startup Scripts for IceGrid and Glacier2 on Linux
 ---
 

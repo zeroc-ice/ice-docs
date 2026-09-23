@@ -1,5 +1,4 @@
 ---
-id: object-adapter-replication
 title: Object Adapter Replication
 ---
 

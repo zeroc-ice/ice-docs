@@ -1,5 +1,4 @@
 ---
-id: endpoint-syntax
 title: Endpoint Syntax
 ---
 

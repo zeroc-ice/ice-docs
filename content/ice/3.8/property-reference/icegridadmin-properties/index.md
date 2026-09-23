@@ -1,5 +1,4 @@
 ---
-id: icegridadmin-properties
 title: IceGridAdmin.*
 ---
 

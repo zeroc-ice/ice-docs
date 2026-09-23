@@ -1,5 +1,4 @@
 ---
-id: proxy-types
 title: Proxy Types
 ---
 

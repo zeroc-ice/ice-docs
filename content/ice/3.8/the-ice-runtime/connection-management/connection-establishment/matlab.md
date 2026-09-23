@@ -1,8 +1,3 @@
----
-id: connection-establishment
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 ```matlab

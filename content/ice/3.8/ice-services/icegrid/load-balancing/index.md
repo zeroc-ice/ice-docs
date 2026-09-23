@@ -1,5 +1,4 @@
 ---
-id: load-balancing
 title: Load Balancing
 ---
 

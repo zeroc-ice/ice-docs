@@ -1,8 +1,3 @@
----
-id: built-in-loggers
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 # .NET Logger
