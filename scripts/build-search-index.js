@@ -13,6 +13,8 @@
 // shared text's headings match for every reader, and each mapping's own match
 // only for that mapping's readers, who are the only ones to see them.
 
+// cspell:words predev
+
 import fs from 'node:fs';
 import path from 'node:path';
 

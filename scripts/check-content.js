@@ -24,6 +24,8 @@
 // under --strict: the migrated manual still links to pages that were never
 // brought over, and none of its Confluence attachments were migrated at all.
 
+// cspell:words noformat unparseable worklist
+
 import fs from 'node:fs';
 import path from 'node:path';
 
