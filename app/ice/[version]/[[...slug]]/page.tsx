@@ -11,7 +11,6 @@ import { renderMarkdownString } from '@/lib/markdown';
 import {
   demoteHeadings,
   resolveDocument,
-  splitFrontmatter,
   stripRedundantTitle
 } from '@/lib/docs-model/resolve';
 import { buildPageIndex } from '@/lib/docs-model/links';
@@ -32,10 +31,10 @@ import { VersionBanner } from '@/components/ice/VersionBanner';
 import {
   listVersions,
   listPages,
-  listPageParams,
   readPageSources,
   readNavigationYaml,
-  snippetReader
+  snippetReader,
+  writtenFor
 } from '@/lib/docs-model/content';
 
 export const dynamicParams = false;
@@ -55,78 +54,51 @@ function contentRoot(): string {
   return path.join(process.cwd(), 'content', 'ice');
 }
 
-function navFor(version: string): NavDoc {
-  return yamlLoad(readNavigationYaml(contentRoot(), version)!) as NavDoc;
-}
-
-function frontmatterOf(source: string): Record<string, string> {
-  const { frontmatter } = splitFrontmatter(source);
-  return frontmatter
-    ? ((yamlLoad(frontmatter) as Record<string, string>) ?? {})
-    : {};
-}
-
-/**
- * A version's pages by name. The tree names pages by name; where a page's
- * files are — and so its URL — and which languages it is written for come
- * from the content tree.
- */
-function pageLookup(root: string, version: string) {
-  const byName = new Map(listPages(root, version).map((p) => [p.name, p]));
-  return {
-    slugOf: (name: string) => byName.get(name)!.slug,
-    writtenFor: (name: string) => {
-      const page = byName.get(name)!;
-      return page.shared ? undefined : Object.keys(page.overlays);
-    }
-  };
-}
-
-/** A page's frontmatter: its shared text's, or a language's when there is no shared text. */
-function pageFrontmatter(sources: ReturnType<typeof readPageSources>) {
-  return frontmatterOf(sources.shared ?? Object.values(sources.overlays)[0]);
-}
-
 export function generateStaticParams() {
+  const root = contentRoot();
   // The front page's slug is empty: it is served at the version root.
-  return listPageParams(contentRoot()).map((p) => ({
-    version: p.version,
-    slug: p.slug ? p.slug.split('/') : []
-  }));
+  return listVersions(root).flatMap((version) =>
+    listPages(root, version).map((page) => ({
+      version,
+      slug: page.slug ? page.slug.split('/') : []
+    }))
+  );
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { version, slug: segments } = await props.params;
   const slug = segments?.join('/') ?? '';
-  const fm = pageFrontmatter(readPageSources(contentRoot(), version, slug));
+  const page = listPages(contentRoot(), version).find((p) => p.slug === slug)!;
+  const { title = '', description = '' } = readPageSources(page).frontmatter;
   // The front page is the manual itself, so its title is not suffixed with the
   // manual's name.
-  const title = slug ? (fm.title ?? '') : { absolute: fm.title ?? '' };
-  return { title, description: fm.description ?? '' };
+  return { title: slug ? title : { absolute: title }, description };
 }
 
 export default async function Page(props: PageProps) {
   const { version, slug: segments } = await props.params;
   const root = contentRoot();
-  const nav = navFor(version);
+  const nav = yamlLoad(readNavigationYaml(root, version)) as NavDoc;
   const { languages, sidebar } = nav;
   const slug = segments?.join('/') ?? '';
-
-  const sources = readPageSources(root, version, slug);
-  const { shared, overlays } = sources;
-  const { slugOf, writtenFor } = pageLookup(root, version);
-  const frontmatter = pageFrontmatter(sources);
   const page = segments?.at(-1) ?? '';
 
+  // The tree names pages by name; where a page's files are, and so its URL,
+  // and which languages it is written for come from the content tree.
+  const pages = listPages(root, version);
+  const byName = new Map(pages.map((p) => [p.name, p]));
+  const current = pages.find((p) => p.slug === slug)!;
+  const { shared, overlays, frontmatter } = readPageSources(current);
+
   // The manual is one tree, and this page's place in it gives the sidebar its
-  // active branch, the breadcrumb trail and the reading order. A page outside
+  // active branch, the breadcrumb trail, and the reading order. A page outside
   // the tree still renders; it just gets no trail and no previous/next, which
   // makes the omission obvious.
   const navOpts: BuildSideNavOptions = {
     version,
     currentPage: page,
-    slugOf,
-    writtenFor
+    slugOf: (name) => byName.get(name)!.slug,
+    writtenFor: (name) => writtenFor(byName.get(name)!)
   };
   const sideNav = buildSideNav(sidebar, navOpts);
   const crumbs = breadcrumbs(nav, page, navOpts);
@@ -144,9 +116,7 @@ export default async function Page(props: PageProps) {
   const routePath = pageHref(version, slug);
   // Cross-page links are resolved against this index at build time, so moving a
   // page never breaks the links pointing at it.
-  const { index: pageIndex } = buildPageIndex(
-    listPages(root, version).map((p) => p.slug)
-  );
+  const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
   const versionOptions: VersionOption[] = listVersions(root).map((other) => ({
@@ -161,11 +131,11 @@ export default async function Page(props: PageProps) {
     ? []
     : (sidebar.find((n) => n.page === 'release-notes')?.items ?? []).map(
         (n) => {
-          const s = slugOf(n.page!);
+          const release = byName.get(n.page!)!;
           return {
             title: n.title,
-            href: pageHref(version, s),
-            date: pageFrontmatter(readPageSources(root, version, s)).date
+            href: pageHref(version, release.slug),
+            date: readPageSources(release).frontmatter.date
           };
         }
       );
@@ -187,7 +157,7 @@ export default async function Page(props: PageProps) {
       pagination: [...pagination.values()],
       // A page written per language tells readers of the other languages
       // which ones have it.
-      writtenFor: writtenFor(page),
+      writtenFor: writtenFor(current),
       // For the front page's switches and release list.
       versionOptions,
       previousVersions: nav.previousVersions,

@@ -15,16 +15,15 @@
 // subdirectories. A directory with overlays but no index.md is a page written
 // per language: each overlay is the whole page for its language.
 //
-// Only depends on node builtins, so it is unit-testable with
-// `node lib/docs-model/content.test.ts` and usable from Next server components.
-// Pure content transforms live in ./resolve.ts; the route composes the two.
+// Unit-testable with `node lib/docs-model/content.test.ts` and usable from Next
+// server components. Pure content transforms live in ./resolve.ts; the route
+// composes the two.
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { load as yamlLoad } from 'js-yaml';
 
-function readIfExists(file: string): string | null {
-  return fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : null;
-}
+import { splitFrontmatter } from './resolve.ts';
 
 /** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
 export function listVersions(root: string): string[] {
@@ -103,43 +102,42 @@ export function listPages(root: string, version: string): PageFiles[] {
   return pages;
 }
 
-/** A page's shared text and its overlays' text, by language. */
-export function readPageSources(
-  root: string,
-  version: string,
-  slug: string
-): { shared: string | null; overlays: Record<string, string> } {
-  const page = listPages(root, version).find((p) => p.slug === slug)!;
+/** A markdown file's frontmatter, parsed. */
+export function frontmatterOf(source: string): Record<string, string> {
+  return yamlLoad(splitFrontmatter(source).frontmatter) as Record<
+    string,
+    string
+  >;
+}
+
+/**
+ * A page's shared text, its overlays' text by language, and its frontmatter:
+ * the shared text's, or on a page written per language, the first overlay's.
+ */
+export function readPageSources(page: PageFiles) {
   const read = (file: string) => fs.readFileSync(file, 'utf8');
+  const shared = page.shared ? read(page.shared) : null;
+  const overlays = Object.fromEntries(
+    Object.entries(page.overlays).map(([language, file]) => [
+      language,
+      read(file)
+    ])
+  );
   return {
-    shared: page.shared ? read(page.shared) : null,
-    overlays: Object.fromEntries(
-      Object.entries(page.overlays).map(([language, file]) => [
-        language,
-        read(file)
-      ])
-    )
+    shared,
+    overlays,
+    frontmatter: frontmatterOf(shared ?? Object.values(overlays)[0])
   };
 }
 
-export interface PageParam {
-  version: string;
-  slug: string;
-}
-
-/** Every (version, slug) that should be statically generated. */
-export function listPageParams(root: string): PageParam[] {
-  return listVersions(root).flatMap((version) =>
-    listPages(root, version).map((page) => ({ version, slug: page.slug }))
-  );
+/** The languages a page is written for; `undefined` when it is written for all. */
+export function writtenFor(page: PageFiles): string[] | undefined {
+  return page.shared ? undefined : Object.keys(page.overlays);
 }
 
 /** Raw navigation.yaml text for a version (parsed by the caller with js-yaml). */
-export function readNavigationYaml(
-  root: string,
-  version: string
-): string | null {
-  return readIfExists(path.join(root, version, 'navigation.yaml'));
+export function readNavigationYaml(root: string, version: string): string {
+  return fs.readFileSync(path.join(root, version, 'navigation.yaml'), 'utf8');
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

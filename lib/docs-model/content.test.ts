@@ -50,15 +50,25 @@ test('listPages reads a page and its overlays off its directory', () => {
 });
 
 test('readPageSources returns the shared text and every overlay', () => {
-  const enums = readPageSources(ROOT, '3.8', 'slice/enumerations');
+  const read = (slug: string) =>
+    readPageSources(listPages(ROOT, '3.8').find((p) => p.slug === slug)!);
+  const enums = read('slice/enumerations');
   assert.ok(enums.shared);
   assert.deepEqual(Object.keys(enums.overlays), ['cpp', 'python']);
-  const gs = readPageSources(ROOT, '3.8', 'get-started');
+  const gs = read('get-started');
   assert.ok(gs.shared);
   assert.deepEqual(gs.overlays, {}); // shared-only page, no overlay
   // A chapter's own page, and the front page at the root.
-  assert.match(readPageSources(ROOT, '3.8', 'slice').shared!, /Slice/);
-  assert.match(readPageSources(ROOT, '3.8', '').shared!, /front page/);
+  assert.match(read('slice').shared!, /Slice/);
+  assert.match(read('').shared!, /front page/);
+});
+
+test('a page written per language takes its frontmatter from its first overlay', () => {
+  const datastorm = readPageSources(
+    listPages(ROOT, '3.8').find((p) => p.slug === 'services/datastorm')!
+  );
+  assert.equal(datastorm.shared, null);
+  assert.equal(datastorm.frontmatter.language, 'cpp');
 });
 
 test('snippetReader resolves example files relative to the version dir', () => {
@@ -67,6 +77,5 @@ test('snippetReader resolves example files relative to the version dir', () => {
 });
 
 test('readNavigationYaml returns the navigation text', () => {
-  const yaml = readNavigationYaml(ROOT, '3.8');
-  assert.ok(yaml && yaml.includes('languages'));
+  assert.match(readNavigationYaml(ROOT, '3.8'), /languages/);
 });

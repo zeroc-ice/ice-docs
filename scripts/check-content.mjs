@@ -35,6 +35,7 @@ import {
   splitFrontmatter
 } from '../lib/docs-model/resolve.ts';
 import {
+  frontmatterOf,
   listVersions,
   listPages,
   readNavigationYaml
@@ -299,11 +300,7 @@ function checkStrayMarkup(files) {
 }
 
 for (const version of listVersions(ROOT)) {
-  const nav = yamlLoad(readNavigationYaml(ROOT, version) ?? '');
-  if (!nav) {
-    fail(`${version}: no navigation.yaml`);
-    continue;
-  }
+  const nav = yamlLoad(readNavigationYaml(ROOT, version));
 
   const pages = listPages(ROOT, version);
   const byName = new Map(pages.map((page) => [page.name, page]));
@@ -383,9 +380,7 @@ for (const version of listVersions(ROOT)) {
     if (page.shared) continue;
     const titles = new Set(
       Object.values(page.overlays).map(
-        (file) =>
-          yamlLoad(splitFrontmatter(fs.readFileSync(file, 'utf8')).frontmatter)
-            ?.title
+        (file) => frontmatterOf(fs.readFileSync(file, 'utf8')).title
       )
     );
     if (titles.size > 1)

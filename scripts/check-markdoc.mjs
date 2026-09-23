@@ -19,11 +19,10 @@
 // inserted and its snippets expanded, which is the only place a problem of
 // insertion can show, such as an overlay heading that lands inside a callout.
 // It validates that, then runs `Markdoc.transform` on it the way the route
-// does, since a tag's transform can fail where validation passed. That pass
-// can only point at a
-// line of the assembled page, so it quotes the line, and it skips anything the
-// first pass already reported. Both passes see the variables the route
-// provides, so a page may refer to `$frontmatter` or `$path`.
+// does, since a tag's transform can fail where validation passed. That pass can
+// only point at a line of the assembled page, so it quotes the line, and it
+// skips anything the first pass already reported. Both passes see the variables
+// the route provides, so a page may refer to `$frontmatter` or `$path`.
 //
 // Exit code 1 on any diagnostic at warning level or above. `child-invalid`,
 // which a `{% callout %}` reflowed into its paragraph produces, is a warning.
@@ -35,7 +34,7 @@ import { load as yamlLoad } from 'js-yaml';
 
 import config from '../markdoc/config.ts';
 import {
-  listPageParams,
+  frontmatterOf,
   listPages,
   listVersions,
   readNavigationYaml,
@@ -47,7 +46,6 @@ import { pageHref } from '../lib/docs-model/nav.ts';
 import {
   demoteHeadings,
   resolveDocument,
-  splitFrontmatter,
   stripRedundantTitle
 } from '../lib/docs-model/resolve.ts';
 
@@ -91,9 +89,6 @@ function validate(ast, source, tags, variables) {
       source: (lines[at?.[0] ?? 0] ?? '').trim()
     }));
 }
-
-const frontmatterOf = (source) =>
-  yamlLoad(splitFrontmatter(source).frontmatter ?? '') ?? {};
 
 const languagesByVersion = {};
 for (const version of listVersions(ROOT)) {
@@ -161,10 +156,13 @@ for (const version of listVersions(ROOT)) {
 
 // 2. Every page as the site renders it.
 let rendered = 0;
-for (const { version, slug } of listPageParams(ROOT)) {
+const allPages = listVersions(ROOT).flatMap((version) =>
+  listPages(ROOT, version).map((page) => ({ version, page }))
+);
+for (const { version, page } of allPages) {
   rendered++;
-  const { shared, overlays } = readPageSources(ROOT, version, slug);
-  const frontmatter = frontmatterOf(shared ?? Object.values(overlays)[0]);
+  const { slug } = page;
+  const { shared, overlays, frontmatter } = readPageSources(page);
   const where = `${version}/${slug} (assembled)`;
   let body;
   try {
@@ -192,8 +190,8 @@ for (const { version, slug } of listPageParams(ROOT)) {
       text: `${d.text}\n    ${d.source}`
     });
   }
-  // What the route does next; a tag's transform can throw where validation
-  // passed, and the route would render an error panel in the page's place.
+  // What the route does next: a tag's transform can throw where validation
+  // passed.
   try {
     Markdoc.transform(ast, { ...config, variables });
   } catch (error) {

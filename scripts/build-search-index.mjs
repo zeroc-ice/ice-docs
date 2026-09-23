@@ -20,7 +20,8 @@ import { load as yamlLoad } from 'js-yaml';
 import {
   listVersions,
   listPages,
-  readNavigationYaml
+  readNavigationYaml,
+  writtenFor
 } from '../lib/docs-model/content.ts';
 import { pageHref, trailTo } from '../lib/docs-model/nav.ts';
 import { FRONTMATTER_RE, splitLines } from '../lib/docs-model/resolve.ts';
@@ -114,8 +115,7 @@ for (const version of listVersions(ROOT)) {
             .join(' · ')
         ])
       ),
-      // The languages a page written per language is for; every language otherwise.
-      ...(shared ? {} : { w: Object.keys(page.overlays) })
+      w: writtenFor(page)
     });
   }
 
