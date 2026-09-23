@@ -42,12 +42,20 @@ export function PageOutline({
   const items = dense ? headings.filter((h) => h.level === 2) : headings;
 
   const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
-  // Switching the mapping changes which copies of the headings are on show.
-  const language = useLanguage();
 
-  // A string rather than the array, so marking a new section active does not
-  // hand the effect a fresh array identity and make it re-subscribe every tick.
-  const ids = items.map((item) => item.id).join('\n');
+  // The spy walks the reader's outline: each heading on show for their
+  // mapping, once, in page order. A string rather than an array, so marking a
+  // new section active does not hand the effect a fresh identity and make it
+  // re-subscribe every tick; a mapping switch changes the string and re-runs
+  // it.
+  const language = useLanguage();
+  const ids = [
+    ...new Set(
+      items
+        .filter((item) => !item.langs || item.langs.includes(language))
+        .map((item) => item.id)
+    )
+  ].join('\n');
 
   useEffect(() => {
     if (!ids) return;
@@ -103,7 +111,7 @@ export function PageOutline({
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('hashchange', onScroll);
     };
-  }, [ids, language]);
+  }, [ids]);
 
   if (items.length === 0) return null;
 
