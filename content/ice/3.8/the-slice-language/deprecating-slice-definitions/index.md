@@ -26,4 +26,4 @@ structures and classes.
 
 ##### See Also
 
-- [Generating Slice Documentation](../generating-slice-documentation)
+- [Doc-Comment Structure](../doc-comment-structure)

@@ -113,8 +113,15 @@ sidebar:
         page: using-the-slice-compiler
       - title: Code Generation
         page: code-generation
-      - title: Generating Slice Documentation
-        page: generating-slice-documentation
+      - title: Documenting Slice Definitions
+        page: documenting-slice-definitions
+        items:
+          - title: Comment Syntax
+            page: comment-syntax
+          - title: Doc-Comment Structure
+            page: doc-comment-structure
+          - title: Generating Documentation with Doxygen
+            page: generating-documentation-with-doxygen
       - title: Slice Keywords
         page: slice-keywords
   - title: The Ice Runtime
