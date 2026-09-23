@@ -18,6 +18,15 @@ export function visibleTarget(id: string): HTMLElement | null {
   return candidates.find((el) => el.offsetParent !== null) ?? null;
 }
 
+/** The heading id a `#fragment` names; a mangled fragment names none. */
+export function fragmentId(hash: string): string {
+  try {
+    return decodeURIComponent(hash.slice(1));
+  } catch {
+    return '';
+  }
+}
+
 /**
  * Scroll to the heading on display, switching to a mapping that has the
  * heading when the reader's does not: a link to a mapping's own section is a
@@ -34,35 +43,50 @@ export function scrollToId(id: string) {
   visibleTarget(id)?.scrollIntoView();
 }
 
-// Sends every jump to a heading — the fragment the reader arrived with, and a
-// click on an in-page link — to the copy of the heading they can see. Clicks
-// are taken in the capture phase, ahead of the router's own link handler,
-// which would scroll to the first copy.
+/**
+ * Go to a heading on this page, as following a link to it does. The history
+ * entry goes through the router's `pushState`, so Back and Forward still
+ * restore the page, and the `hashchange` that `pushState` does not fire is
+ * sent for the outline, which follows the fragment.
+ */
+export function goToHeading(id: string) {
+  if (fragmentId(location.hash) !== id) {
+    const oldURL = location.href;
+    history.pushState(null, '', `#${id}`);
+    window.dispatchEvent(
+      new HashChangeEvent('hashchange', { oldURL, newURL: location.href })
+    );
+  }
+  scrollToId(id);
+}
+
+// The browser, and the router after a client-side navigation, scroll to the
+// first element with the fragment's id. When that copy is another mapping's it
+// is hidden and nothing moves, so this finds the copy on show. In-page links
+// are taken in the capture phase, ahead of the router's own handler, which
+// would scroll to the first copy too.
 export function AnchorScroll() {
   const pathname = usePathname();
+
   useEffect(() => {
-    const jump = () => {
-      const id = decodeURIComponent(window.location.hash.slice(1));
-      if (id) scrollToId(id);
-    };
+    const id = fragmentId(location.hash);
+    if (id && document.getElementById(id)?.offsetParent === null)
+      scrollToId(id);
+  }, [pathname]);
+
+  useEffect(() => {
     const onClick = (event: MouseEvent) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
         return;
       const link = (event.target as Element).closest('a[href^="#"]');
-      const id =
-        link && decodeURIComponent(link.getAttribute('href')!.slice(1));
+      const id = link && fragmentId(link.getAttribute('href')!);
       if (!id) return;
       event.preventDefault();
-      window.history.pushState(null, '', `#${id}`);
-      scrollToId(id);
+      goToHeading(id);
     };
-    jump();
-    window.addEventListener('hashchange', jump);
     document.addEventListener('click', onClick, true);
-    return () => {
-      window.removeEventListener('hashchange', jump);
-      document.removeEventListener('click', onClick, true);
-    };
-  }, [pathname]);
+    return () => document.removeEventListener('click', onClick, true);
+  }, []);
+
   return null;
 }

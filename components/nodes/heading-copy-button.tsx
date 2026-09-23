@@ -5,7 +5,7 @@
 import { LinkIcon } from '@heroicons/react/24/solid';
 import copy from 'copy-to-clipboard';
 
-import { scrollToId } from '@/components/ice/AnchorScroll';
+import { goToHeading } from '@/components/ice/AnchorScroll';
 
 export const HeadingCopyButton = ({ id }: { id: string }) => (
   <button
@@ -13,8 +13,7 @@ export const HeadingCopyButton = ({ id }: { id: string }) => (
     aria-label="Copy link to heading"
     onClick={() => {
       copy(window.location.origin + window.location.pathname + `#${id}`);
-      window.history.pushState(null, '', `#${id}`);
-      scrollToId(id);
+      goToHeading(id);
     }}
   >
     <LinkIcon className="size-4 font-bold text-slate-700 dark:text-slate-300" />
