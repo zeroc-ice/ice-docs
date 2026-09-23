@@ -59,9 +59,7 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
       }
       // Once the page bottoms out, several sections share the screen; the one
       // the reader jumped to wins.
-      const target = document.getElementById(
-        decodeURIComponent(location.hash.slice(1))
-      );
+      const target = document.querySelector(':target');
       if (
         remaining < 1 &&
         target &&
