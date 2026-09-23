@@ -3,7 +3,7 @@
   width="700"
   height="300"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 980 420"
+  viewBox="0 0 700 300"
   role="img"
   aria-labelledby="title description"
 >
@@ -16,9 +16,6 @@
     </marker>
     <marker id="inheritance-arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
       <path d="M 1 1 L 11 6 L 1 11 Z" fill="#ffffff" stroke="#465266" stroke-linejoin="round" stroke-width="1.8"/>
-    </marker>
-    <marker id="blocked" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="12" markerHeight="12" orient="auto">
-      <path d="M 2 2 L 10 10 M 10 2 L 2 10" fill="none" stroke="#b42318" stroke-linecap="round" stroke-width="2.25"/>
     </marker>
     <g id="step-badge-shape">
       <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
@@ -112,7 +109,7 @@
 
     .divider {
       fill: none;
-      stroke: #8d99aa;
+      stroke: #a6afbc;
       stroke-width: 1.25;
     }
 
@@ -144,9 +141,21 @@
     }
 
     .blocked {
-      marker-end: url(#blocked);
       stroke: #b42318;
       stroke-dasharray: 6 4;
+    }
+
+    .blocked-cross {
+      stroke: #b42318;
+    }
+
+    .topic-link {
+      marker-end: url(#arrow);
+      stroke-dasharray: 1 5;
+    }
+
+    .through-firewall {
+      stroke-dasharray: 2 5;
     }
 
     .inheritance {
@@ -171,7 +180,7 @@
     .boundary-title,
     .component-label,
     .connector-label {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       text-anchor: middle;
     }
@@ -182,7 +191,7 @@
 
     .annotation {
       fill: #566174;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       text-anchor: middle;
     }
@@ -245,14 +254,17 @@
     }
   </style>
 
-  <rect width="980" height="420" fill="#ffffff"/>
+  <rect width="700" height="300" fill="#ffffff"/>
 
   <!-- Every stroked shape and path must set vector-effect="non-scaling-stroke". -->
   <g id="boundaries" aria-hidden="true">
     <!-- Process, host, network, and API boundaries. -->
   </g>
   <g id="connectors" aria-hidden="true">
-    <!-- One-way, two-way, callback, association, blocked, and inheritance paths. -->
+    <!-- One-way, two-way, callback, association, blocked, topic-link, through-firewall, and inheritance paths. -->
+    <!-- Blocked example, drawn where the connection is refused:
+         <path class="connector blocked-cross" d="M X1 Y1 L X2 Y2 M X1 Y2 L X2 Y1"
+               vector-effect="non-scaling-stroke"/> -->
   </g>
   <g id="components" aria-hidden="true">
     <!-- Applications, actors, interfaces, states, documents, runtimes, generated code, and services. -->

@@ -39,7 +39,10 @@ introduce containers or relationships absent from the source.
 - Keep boundaries, connectors, components, and labels in four separate, ordered SVG groups. Draw labels last.
 - Trim the `viewBox` to the content plus the required outer margin. Excess canvas changes both centering and effective
   text size when the figure is embedded.
-- Use a plain Markdown image reference. Figures fit the article column without a special marker or scroll region.
+- Use a plain Markdown image reference whose alt text describes what the figure shows, not just its title. Add an
+  optional caption as an italic paragraph directly below the image, in sentence case with a final period, for example
+  `_Nested invocation deadlock._`, when the surrounding text does not already introduce the figure.
+- Figures fit the article column without a special marker or scroll region.
 - Inspect figures at their native size and in the page at laptop and narrow viewport widths. If labels are too small,
   compact or rearrange the drawing and increase type sizes rather than introducing a minimum image width.
 
@@ -58,10 +61,10 @@ font-family:
   sans-serif;
 ```
 
-Use bold component labels and lighter annotation text. Most published diagrams use 16-unit component labels and 14-unit
-annotations; the pilot figures and some dense flow diagrams use more specific roles and sizes. The template's sizes are
-starting points, not a fixed scale for every canvas. SVG units scale with the image: judge readability at the native
-display size and at the width available on the page.
+Use bold component labels and lighter annotation text. Most published diagrams, and the template, use 16-unit component
+labels and 14-unit annotations; the pilot figures and some dense flow diagrams use more specific roles and sizes. These
+sizes are starting points, not a fixed scale for every canvas. SVG units scale with the image: judge readability at the
+native display size and at the width available on the page.
 
 Use sentence case. Set code identifiers and filenames in the shared monospace stack. Break long component labels into
 centered lines with enough baseline spacing for their type size. Give boundary titles their own clear header area so no
@@ -79,6 +82,9 @@ border, connector, or pattern crosses the text.
 | Generated code                 | `#f3f0f7` | `#75658f` | 1.75, solid, radius 7          |
 | Text                           | —         | —         | `#182235`                      |
 | Connector                      | —         | `#566174` | 1.75, rounded                  |
+| Inheritance connector          | —         | `#465266` | 2, hollow triangle marker      |
+| Divider inside a component     | —         | `#a6afbc` | 1.25, solid                    |
+| Network zone boundary          | —         | `#7a8699` | 1.5, dashed `7 5`              |
 | Blocked path                   | —         | `#b42318` | 1.75, dashed, red × terminator |
 
 Use color to reinforce a semantic distinction, never as its only indicator. ZeroC blue identifies primary Ice-owned
@@ -90,30 +96,35 @@ raster-image treatment. Do not make only part of a diagram theme-aware; introduc
 adaptive diagrams are added later.
 
 When category headers replace a legacy legend, use small bold type with modest letter spacing. Use blue `API` headers
-for Ice API/runtime elements and violet `GENERATED` headers for generated code.
+(`#365f9e`) for Ice API/runtime elements and violet `GENERATED` headers (`#68587e`) for generated code. These shades are
+darker than the matching strokes so that small type stays legible on the tinted fills.
 
 Standard compact components are approximately `120 × 54`; application and generated-code components may be
 `165–180 × 62–72`. Keep at least 16 units of internal horizontal padding.
 
 ## Connectors
 
-Use `.connector` for the shared line treatment and add a semantic modifier: `.one-way`, `.two-way`, `.callback`, or
-`.blocked`. Family-specific connectors such as `.inheritance` are appropriate when their marker carries a different
-established meaning.
+Use `.connector` for the shared line treatment and add a semantic modifier: `.one-way`, `.two-way`, `.callback`,
+`.blocked`, `.topic-link`, or `.through-firewall`. Family-specific connectors such as `.inheritance` are appropriate
+when their marker carries a different established meaning.
 
 - Two-way: solid line with `marker-start` and `marker-end` set to `url(#arrow)`. Use it only when calls or messages and
   their replies genuinely flow in both directions.
 - One-way: solid line with only `marker-end` set.
 - Callback or asynchronous return: dashed `6 4` line with the appropriate arrow marker.
-- Blocked: route the attempted connection from its source toward the blocking boundary and terminate it with the shared
-  red × marker. Always label the blocked path.
+- Blocked: dashed red line from the source toward the blocking boundary, ending at a red × (`.blocked-cross`) drawn
+  where the connection is refused. Always label the blocked path.
+- Topic link: dotted `1 5` line with `marker-end`, for a link between IceStorm topics as opposed to message delivery.
+  State the distinction in a legend or in the surrounding text.
+- Through a firewall: dotted `2 5` segment across the firewall component, continuing the connection that traverses it.
 - Network: use the standard connector color and place the label over a solid background that interrupts the line
   visually.
 - Association or “uses”: plain solid line without arrowheads. Do not use a two-way arrow as a generic association.
 
-Arrowheads, line style, and nearby labels must communicate direction and meaning without relying on color. Define each
-marker once in `<defs>` and use `orient="auto-start-reverse"` for a marker shared by both ends. Connect to deliberate
-ports on the edge of each component rather than its label area.
+Do not give an existing line style a new meaning; add and document a new role instead. Arrowheads, line style, and
+nearby labels must communicate direction and meaning without relying on color. Define each marker once in `<defs>` and
+use `orient="auto-start-reverse"` for a marker shared by both ends. Connect to deliberate ports on the edge of each
+component rather than its label area.
 
 Connection count is part of a flow diagram's technical meaning. Do not turn one reused connection into two parallel
 lanes or merge two independent connections into one.
