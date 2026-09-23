@@ -41,7 +41,6 @@ const SIDEBAR: NavNode[] = [
     title: 'Plugins',
     items: [
       { title: 'C++ Plug-in API', page: 'cpp-plug-in-api' },
-      { title: 'Python Plug-in API', page: 'python-plug-in-api' },
       { title: 'Installing a Plug-in', page: 'installing-a-plug-in' }
     ]
   }
@@ -63,7 +62,6 @@ const SLUGS: Record<string, string> = {
   enumerations: 'slice/user-defined-types/enumerations',
   sequences: 'slice/user-defined-types/sequences',
   'cpp-plug-in-api': 'plugins/cpp-plug-in-api',
-  'python-plug-in-api': 'plugins/python-plug-in-api',
   'installing-a-plug-in': 'plugins/installing-a-plug-in'
 };
 
@@ -196,7 +194,6 @@ test('navigationPages lists every declared page in reading order', () => {
     'enumerations',
     'sequences',
     'cpp-plug-in-api',
-    'python-plug-in-api',
     'installing-a-plug-in'
   ]);
 });

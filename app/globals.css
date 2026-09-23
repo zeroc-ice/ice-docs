@@ -637,11 +637,11 @@
 }
 
 /* Every language mapping is in the page, and only the reader's shows: <html
-   data-lang> says which, and a block or span with data-langs belongs to the
-   mappings it lists. A shown wrapper adds no box of its own, so the prose
-   around it flows as if the mapping had been written in place; a sidebar
-   entry, the outline, or a pagination footer carrying it keeps its box. The
-   mappings listed below mirror LANGUAGE_LABELS in lib/docs-model/nav.ts. */
+   data-lang> says which, and an element with data-langs belongs to the
+   mappings it lists. A shown div or span wrapper adds no box of its own, so
+   the prose around it flows as if the mapping had been written in place; any
+   other element carrying the attribute keeps its box. The mappings listed
+   below mirror LANGUAGE_LABELS in lib/docs-model/nav.ts. */
 div[data-langs],
 span[data-langs] {
   display: contents;

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export interface VersionOption {
   /** Version directory, e.g. "3.8". */
   value: string;
-  /** Where selecting this version navigates (the equivalent page, or its landing). */
+  /** This page's path in that version. */
   href: string;
 }
 

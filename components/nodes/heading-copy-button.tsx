@@ -6,6 +6,7 @@ import { LinkIcon } from '@heroicons/react/24/solid';
 import copy from 'copy-to-clipboard';
 
 import { goToHeading } from '@/components/ice/AnchorScroll';
+import { getLanguage } from '@/context/state';
 
 export const HeadingCopyButton = ({ id }: { id: string }) => (
   <button
@@ -15,7 +16,7 @@ export const HeadingCopyButton = ({ id }: { id: string }) => (
       // A heading in one mapping's section is linked in that mapping, so the
       // link opens where it was copied from.
       const lang = event.currentTarget.closest('[data-langs]')
-        ? `?lang=${document.documentElement.dataset.lang}`
+        ? `?lang=${getLanguage()}`
         : '';
       copy(`${location.origin}${location.pathname}${lang}#${id}`);
       goToHeading(id);

@@ -1,8 +1,8 @@
 # Ice Docs
 
 Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual at
-`/ice/<version>/<slug>` — for example `/ice/3.8/the-slice-language/user-defined-types/enumerations`. Every page carries
-all nine language mappings; the reader picks one (C++ until they do), and the choice is kept in the browser.
+`/ice/<version>/<slug>` — for example `/ice/3.8/the-slice-language/user-defined-types/enumerations`. Each page carries
+every language mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
 
 ## Requirements
 
@@ -52,15 +52,18 @@ duplicating it.
   it.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
   a page that does not exist renders as plain text and is reported by `check:content`.
-- **A page and its overlays make one document carrying every language.** The shared page declares
-  `{% language-section name="…" /%}` slots; each overlay answers each one, with prose or with a declared state
-  (`no-addition`, or `not-applicable` with a note), as described in `lib/docs-model/resolve.ts`. Every answer goes into
-  the page, wrapped in `{% iflang langs="…" %}`, which is also how a page marks small inline variation itself. The
-  stylesheet shows the blocks of the reader's language, chosen in the top bar and remembered in local storage, so
-  switching language never leaves the page. A page written per language is one page too: each `<lang>.md` is the page
-  for its language, they share one title, the sidebar, previous/next, and search leave it out for readers of the other
-  languages, and one who lands on it anyway gets a note naming the languages it is written for. An incoming link can
-  pick the language with `?lang=<language>`, which is applied, remembered, and dropped from the address.
+- **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
+  overlay answers each one, with prose or with a declared state (`no-addition`, or `not-applicable` with a note), as
+  described in `lib/docs-model/resolve.ts`. Each distinct answer goes into the page once, wrapped in
+  `{% iflang langs="…" %}` for the languages that gave it, which is also how a page marks small inline variation itself.
+  A `no-addition` answer, or a blank one, adds nothing.
+- **The reader's language decides what shows.** The stylesheet shows the blocks of the language chosen in the top bar
+  and remembered in local storage, so switching language never leaves the page. An incoming link can pick the language
+  with `?lang=<language>`, which is applied, remembered, and dropped from the address; a link copied from a heading in
+  one language's section carries it.
+- **A page written per language is one page too.** In a directory without `index.md`, each `<lang>.md` is the page for
+  its language, and they share one title. The sidebar, previous/next, and search leave it out for readers of the other
+  languages, and one who lands on it anyway gets a note naming the languages it is written for.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own, with a blank line on each side outside tight lists. Prettier on its own would reflow a tag written
   against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.mjs`, the

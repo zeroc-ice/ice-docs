@@ -140,9 +140,13 @@ export const DocumentShell = ({
             {Object.entries(readingTime ?? {})
               .filter(([, text]) => Number.parseInt(text, 10) >= 2)
               .map(([language, text]) => (
-                <div key={language} data-langs={language}>
-                  <p className="text-ink-muted mt-2 text-[13px]">{text}</p>
-                </div>
+                <p
+                  key={language}
+                  data-langs={language}
+                  className="text-ink-muted mt-2 text-[13px]"
+                >
+                  {text}
+                </p>
               ))}
           </header>
         )}

@@ -84,8 +84,6 @@ export function PageOutline({
     const list = ids.split('\n');
     let queued = false;
 
-    // The last heading on show above the activation line, else the first on
-    // show.
     const update = () => {
       queued = false;
       // Headings near the end of a page can never scroll up to the activation
@@ -99,11 +97,11 @@ export function PageOutline({
       const progress = slide > 0 ? Math.max(0, 1 - remaining / slide) : 0;
       const line =
         ACTIVATION_LINE + (window.innerHeight - ACTIVATION_LINE) * progress;
-      let current: string | undefined;
+      let current = list[0];
       for (const id of list) {
         const element = visibleTarget(id);
         if (!element) continue;
-        if (current && element.getBoundingClientRect().top > line) break;
+        if (element.getBoundingClientRect().top > line) break;
         current = id;
       }
       // Once the page bottoms out, several sections share the screen; the one
@@ -117,7 +115,7 @@ export function PageOutline({
       ) {
         current = target.id;
       }
-      setActive(current ?? null);
+      setActive(current);
     };
 
     const onScroll = () => {
