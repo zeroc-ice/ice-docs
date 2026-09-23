@@ -195,6 +195,13 @@ Ice property or a property configured for the wrong Ice service will now fail.
 
 Please refer to the [property reference](../property-reference) for a complete list of Ice properties.
 
+The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so setting one of them now fails:
+`IceSSL.CertAuthDir`, `IceSSL.CertAuthFile`, `IceSSL.CertVerifier`, `IceSSL.Ciphers`, `IceSSL.DH.<bits>`,
+`IceSSL.DHParams`, `IceSSL.EntropyDaemon`, `IceSSL.FindCert.<location>.<name>`, `IceSSL.InitOpenSSL`,
+`IceSSL.PasswordCallback`, `IceSSL.PasswordRetryMax`, `IceSSL.Protocols`, `IceSSL.ProtocolVersionMax`,
+`IceSSL.ProtocolVersionMin`, `IceSSL.Random`, `IceSSL.SchannelStrongCrypto`, `IceSSL.SecurityLevel` and
+`IceSSL.VerifyDepthMax`.
+
 ## Services
 
 ### DataStorm

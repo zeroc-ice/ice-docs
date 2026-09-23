@@ -23,7 +23,7 @@ If you wish to use the CA certificates bundled with your platform, leave this pr
 ###### SChannel, SecureTransport
 
 The file can be encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates. On
-macOS, IceSSL ignores a certificate in the file that is not a CA certificate.
+macOS, IceSSL loads only the CA certificates from the file.
 
 IceSSL resolves a relative `path` under the default directory defined by `IceSSL.DefaultDir` when that property is set,
 and relative to the working directory otherwise.

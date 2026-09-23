@@ -27,16 +27,6 @@ These IceSSL properties have no effect on JavaScript.
 
 {% /callout %}
 
-{% callout type="info" title="Properties removed in Ice 3.8" %}
-
-Ice 3.8 validates the names of `IceSSL` properties and rejects an unknown one at communicator initialization with a
-`PropertyException`. The following Ice 3.7 properties no longer exist: `IceSSL.CertAuthDir`, `IceSSL.CertAuthFile`,
-`IceSSL.CertVerifier`, `IceSSL.Ciphers`, `IceSSL.DHParams`, `IceSSL.EntropyDaemon`, `IceSSL.ImportCert`,
-`IceSSL.InitOpenSSL`, `IceSSL.KeySet`, `IceSSL.PasswordCallback`, `IceSSL.Protocols`, `IceSSL.ProtocolVersionMax`,
-`IceSSL.ProtocolVersionMin`, `IceSSL.Random`, `IceSSL.SchannelStrongCrypto` and `IceSSL.VerifyDepthMax`.
-
-{% /callout %}
-
 {% language-section name="lang-1" /%}
 
 # IceSSL.CheckCertName
@@ -70,8 +60,8 @@ platform or language:
   names, it doesn't check the `CommonName`
 
 In Java, IceSSL verifies the host name only when `IceSSL.VerifyPeer` is greater than zero, and sends the host name to
-the server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++
-implementations always send a DNS host name with SNI.
+the server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++ and
+.NET implementations always send a DNS host name with SNI.
 
 {% language-section name="lang-2" /%}
 
@@ -147,8 +137,8 @@ The SSL plug-in trace level:
 Identifies trusted and untrusted peers. This family of properties provides an additional level of authentication by
 using the peer certificate's distinguished name (DN) to decide whether to accept or reject a connection.
 
-IceSSL on iOS does not support these properties: it cannot read the distinguished name of a peer certificate, so any
-`IceSSL.TrustOnly*` entry causes every connection it applies to to fail with a `FeatureNotSupportedException`.
+IceSSL on iOS cannot read the distinguished name of a peer certificate, so any `IceSSL.TrustOnly*` entry fails every
+connection it applies to with a `FeatureNotSupportedException`.
 
 Each `ENTRY` in the property value consists of relative distinguished name (RDN) components, formatted according to the
 rules in [RFC 2253](https://www.rfc-editor.org/rfc/rfc2253.txt). Specifically, the components must be separated by

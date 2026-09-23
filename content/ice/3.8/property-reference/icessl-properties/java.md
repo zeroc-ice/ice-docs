@@ -13,8 +13,8 @@ language: java
 
 #### Description
 
-Selects a particular certificate from the key store specified by `IceSSL.Keystore`. The certificate identified by
-`alias` is presented to the peer during authentication. If the alias does not name a key entry of the key store,
+Selects a particular certificate from the key store specified by `IceSSL.Keystore`. IceSSL presents the certificate
+identified by `alias` to the peer during authentication. If the alias does not name a key entry of the key store,
 communicator initialization fails with an `InitializationException`.
 
 If this property is not defined, IceSSL uses the first key entry of the key store that has a certificate chain.
