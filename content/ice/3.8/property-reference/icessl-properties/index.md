@@ -12,7 +12,7 @@ necessary. You'll see the following platforms, languages and SSL libraries liste
 
 - SChannel (C++ on Windows)
 - SecureTransport (C++ on macOS and iOS)
-- OpenSSL (C++ on Linux and other platforms without SChannel or SecureTransport)
+- OpenSSL (C++ on Linux)
 - Java
 - .NET
 
