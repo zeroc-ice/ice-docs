@@ -15,6 +15,10 @@ on:
       - '.lychee.toml'
       - '.github/workflows/links.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-links:
     runs-on: ubuntu-latest

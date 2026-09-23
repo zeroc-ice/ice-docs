@@ -126,13 +126,15 @@ with the value `2`, whether or not it is revoked.
 
 #### Description
 
-Builds a collection of certificates that will be used for authentication. IceSSL ignores this property when
-`IceSSL.CertFile` is defined.
+Selects the program's certificate from a certificate store instead of loading it from a file. IceSSL ignores this
+property when `IceSSL.CertFile` is defined.
 
-IceSSL queries a certificate store for matching certificates and adds them to the application's certificate collection.
-The settings for `IceSSL.CertStore` and `IceSSL.CertStoreLocation` determine the target certificate store to be queried.
-A server requires a certificate for authentication purposes, therefore IceSSL selects the first certificate in the
-collection.
+IceSSL queries a certificate store for matching certificates. The settings for `IceSSL.CertStore` and
+`IceSSL.CertStoreLocation` determine the target certificate store to be queried. Communicator initialization fails when
+no certificate matches.
+
+A server presents the first matching certificate. A client with several matching certificates presents the first one
+whose issuer is among the issuers the server accepts, or the first one when none matches.
 
 The value for `criteria` may be `*`, in which case all of the certificates in the store are selected. Otherwise,
 `criteria` must be one or more `field:value` pairs separated by white space. The valid field names are described below:

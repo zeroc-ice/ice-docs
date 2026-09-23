@@ -58,13 +58,34 @@ export function PageOutline({
     // show.
     const update = () => {
       queued = false;
+      // Headings near the end of a page can never scroll up to the activation
+      // line, so over the last viewport height of scroll (or the whole scroll,
+      // on a shorter page) the line slides down to the bottom of the viewport,
+      // passing each remaining heading in order.
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const remaining = maxScroll - window.scrollY;
+      const slide = Math.min(maxScroll, window.innerHeight - ACTIVATION_LINE);
+      const progress = slide > 0 ? Math.max(0, 1 - remaining / slide) : 0;
+      const line =
+        ACTIVATION_LINE + (window.innerHeight - ACTIVATION_LINE) * progress;
       let current: string | undefined;
       for (const id of list) {
         const element = visibleTarget(id);
         if (!element) continue;
-        if (current && element.getBoundingClientRect().top > ACTIVATION_LINE)
-          break;
+        if (current && element.getBoundingClientRect().top > line) break;
         current = id;
+      }
+      // Once the page bottoms out, several sections share the screen; the one
+      // the reader jumped to wins.
+      const target = fragmentTarget();
+      if (
+        remaining < 1 &&
+        target &&
+        list.includes(target.id) &&
+        target.getBoundingClientRect().top >= 0
+      ) {
+        current = target.id;
       }
       setActive(current ?? null);
     };
@@ -77,7 +98,11 @@ export function PageOutline({
 
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('hashchange', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('hashchange', onScroll);
+    };
   }, [ids, language]);
 
   if (items.length === 0) return null;
@@ -108,4 +133,14 @@ export function PageOutline({
       </ul>
     </aside>
   );
+}
+
+// The element the URL fragment names, or null when there is none. A hand-typed
+// fragment can be malformed percent-encoding, which names nothing.
+function fragmentTarget(): HTMLElement | null {
+  try {
+    return visibleTarget(decodeURIComponent(location.hash.slice(1)));
+  } catch {
+    return null;
+  }
 }
