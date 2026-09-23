@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=22.18 <23 || >=23.6",
     "npm": ">=11.16"
@@ -9,15 +10,15 @@
     "dev": "next dev",
     "prebuild": "npm run check:markdoc && npm run build:search",
     "build": "next build",
-    "build:search": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-search-index.mjs",
+    "build:search": "node scripts/build-search-index.js",
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.mjs\"",
-    "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs",
-    "check:markdoc": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/markdoc-esm-hooks.mjs scripts/check-markdoc.mjs"
+    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.js\"",
+    "check:content": "node scripts/check-content.js",
+    "check:markdoc": "node --import ./scripts/markdoc-esm-hooks.js scripts/check-markdoc.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",

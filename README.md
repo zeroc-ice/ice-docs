@@ -66,7 +66,7 @@ duplicating it.
   languages, and one who lands on it anyway gets a note naming the languages it is written for.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own, with a blank line on each side outside tight lists. Prettier on its own would reflow a tag written
-  against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.mjs`, the
+  against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.js`, the
   parser `format` uses for Markdown, keeps each tag on its own line instead, and `check:markdoc` rejects anything that
   slips through. Two things the parser cannot tell apart from prose: a numbered list or a table right under a tag line.
   Put a blank line between them. An inline closer, `word{% /iflang %}`, has no space before it.

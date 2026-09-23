@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import * as prettier from 'prettier';
 
-import * as plugin from './prettier-plugin-markdoc.mjs';
+import * as plugin from './prettier-plugin-markdoc.js';
 
 const format = (source) =>
   prettier.format(source, {

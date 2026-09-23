@@ -2,7 +2,7 @@
 //
 // Build the search index the header's search palette loads.
 //
-//   node scripts/build-search-index.mjs
+//   node scripts/build-search-index.js
 //
 // One JSON file per version under `public/search/`. Runs from
 // `prebuild`/`predev`; the output is generated, and git-ignored.
