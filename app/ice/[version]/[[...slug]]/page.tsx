@@ -175,7 +175,7 @@ export default async function Page(props: PageProps) {
     overlays,
     readFile: snippetReader(root, version)
   });
-  const { content } = renderMarkdownString({
+  const content = renderMarkdownString({
     source: demoteHeadings(stripRedundantTitle(body, frontmatter.title)),
     path: routePath,
     version,
