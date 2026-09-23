@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="357.78"
+  height="396.67"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 900 460"
+  viewBox="0 0 900 510"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">Topic federation in IceStorm</title>
   <desc id="description">
-    Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 forwards to T2 and T3 and sends to subscriber S3. T2
-    sends to S1 and S2; T3 sends to S4.
+    Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 has links to T2 and T3 and sends to subscriber S3. T2
+    sends to S1 and S2; T3 sends to S4. Dotted arrows show topic links; solid arrows show message delivery.
   </desc>
 
   <defs>
@@ -60,23 +60,33 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
+    .topic-link {
+      stroke-dasharray: 1 5;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      text-anchor: middle;
+    }
     .one-way {
       marker-end: url(#arrow);
     }
   </style>
 
-  <rect width="900" height="460" fill="#ffffff"/>
+  <rect width="900" height="510" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
     <rect class="boundary" x="300" y="24" width="330" height="412" rx="14" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 275 472 H 315" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 495 472 H 535" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 104 100 L 550 100" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 104 220 L 350 220" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 104 340 L 550 340" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 406 205 L 554 115" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 406 235 L 554 325" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 406 205 L 554 115" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 406 235 L 554 325" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 610 100 L 796 55" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 610 100 L 796 165" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 410 220 L 796 275" vector-effect="non-scaling-stroke"/>
@@ -97,6 +107,8 @@
   </g>
 
   <g id="labels">
+    <text class="legend-label" x="385" y="477">Message delivery</text>
+    <text class="legend-label" x="590" y="477">Topic link</text>
     <text class="label" x="465.0" y="49">IceStorm</text>
     <text class="label" x="64.0" y="105.0">P1</text>
     <text class="label" x="64.0" y="225.0">P2</text>
