@@ -17,8 +17,10 @@ interface Record {
   k: string;
   /** Href */
   h: string;
-  /** Heading keywords */
+  /** Heading keywords of the shared text */
   x: string;
+  /** Heading keywords of each mapping's own text */
+  l: { [language: string]: string };
   /** The languages the page is written for; every language when absent. */
   w?: string[];
 }
@@ -81,7 +83,10 @@ export function Search({ version }: { version: string }) {
       if (title === needle) score = 100;
       else if (title.startsWith(needle)) score = 80;
       else if (title.includes(needle)) score = 60;
-      else if (record.x.toLowerCase().includes(needle)) score = 40;
+      else if (
+        `${record.x} ${record.l[language] ?? ''}`.toLowerCase().includes(needle)
+      )
+        score = 40;
       else if (record.c.toLowerCase().includes(needle)) score = 25;
       else if (record.d.toLowerCase().includes(needle)) score = 20;
       if (score) scored.push({ record, score });

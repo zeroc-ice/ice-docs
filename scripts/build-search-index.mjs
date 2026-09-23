@@ -7,9 +7,11 @@
 // One JSON file per version under `public/search/`. Runs from
 // `prebuild`/`predev`; the output is generated, and git-ignored.
 //
-// A record is one page. Its headings are folded into a keyword blob rather than
+// A record is one page. Its headings are folded into keyword blobs rather than
 // becoming records of their own: it keeps the index small while still matching
-// the thing readers actually search for (`Ice.Default.Locator`, `AMI`).
+// the thing readers actually search for (`Ice.Default.Locator`, `AMI`). The
+// shared text's headings match for every reader, and each mapping's own match
+// only for that mapping's readers, who are the only ones to see them.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -91,17 +93,27 @@ for (const version of listVersions(ROOT)) {
   const records = [];
   for (const page of listPages(ROOT, version)) {
     const shared = readPage(page.shared);
-    const overlays = Object.values(page.overlays).map(readPage);
-    const fm = shared ?? overlays[0];
-    const body = [shared, ...overlays].map((p) => p?.body ?? '').join('\n');
+    const overlays = Object.entries(page.overlays).map(([language, file]) => [
+      language,
+      readPage(file)
+    ]);
+    const fm = shared ?? overlays[0][1];
+    const common = new Set(headings(shared?.body ?? ''));
     records.push({
       t: fm.title ?? page.name,
       d: fm.description ?? '',
       c: crumbFor(nav, page.name),
       k: fm.type ?? '',
       h: pageHref(version, page.slug),
-      // Every mapping's headings, de-duplicated.
-      x: [...new Set(headings(body))].join(' · '),
+      x: [...common].join(' · '),
+      l: Object.fromEntries(
+        overlays.map(([language, overlay]) => [
+          language,
+          [...new Set(headings(overlay.body))]
+            .filter((heading) => !common.has(heading))
+            .join(' · ')
+        ])
+      ),
       // The languages a page written per language is for; every language otherwise.
       ...(shared ? {} : { w: Object.keys(page.overlays) })
     });
