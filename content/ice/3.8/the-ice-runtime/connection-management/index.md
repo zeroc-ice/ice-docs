@@ -1,5 +1,9 @@
 ---
 title: Connection Management
+pages:
+  - connection-establishment
+  - connection-closure
+  - bidirectional-connections
 ---
 
 An Ice communicator establishes connections automatically and transparently as a side effect of using proxies. There are

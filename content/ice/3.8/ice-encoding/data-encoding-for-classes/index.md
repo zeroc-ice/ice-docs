@@ -1,5 +1,9 @@
 ---
 title: Data Encoding for Classes
+pages:
+  - data-encoding-for-class-type-ids
+  - simple-example-of-class-encoding
+  - data-encoding-for-class-graphs
 ---
 
 The marshaling for [classes](../classes) is complex, due to the need to deal with the pointer semantics for graphs of

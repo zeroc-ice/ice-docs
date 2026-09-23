@@ -18,9 +18,7 @@ import {
   buildSideNav,
   breadcrumbs,
   pageHref,
-  prevNext,
-  trailTo,
-  type BuildSideNavOptions
+  prevNext
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
@@ -79,12 +77,8 @@ export default async function Page(props: PageProps) {
   const nav = readNavigation(root, version);
   const { languages, sidebar } = nav;
   const slug = segments?.join('/') ?? '';
-  const page = segments?.at(-1) ?? '';
 
-  // The tree names pages by name; where a page's files are, and so its URL,
-  // and which languages it is written for come from the content tree.
   const pages = listPages(root, version);
-  const byName = new Map(pages.map((p) => [p.name, p]));
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
@@ -92,25 +86,18 @@ export default async function Page(props: PageProps) {
   // active branch, the breadcrumb trail, and the reading order. A page outside
   // the tree still renders; it just gets no trail and no previous/next, which
   // makes the omission obvious.
-  const navOpts: BuildSideNavOptions = {
-    version,
-    currentPage: page,
-    slugOf: (name) => byName.get(name)!.slug,
-    writtenFor: (name) => writtenFor(byName.get(name)!)
-  };
-  const sideNav = buildSideNav(sidebar, navOpts);
-  const crumbs = breadcrumbs(nav, page, navOpts);
+  const sideNav = buildSideNav(sidebar, version, slug);
+  const crumbs = breadcrumbs(sidebar, version, slug);
   // Previous and next follow the sidebar, which hides the pages not written
   // for the reader's language: one pair per language, alike ones sharing.
   const pagination = new Map<string, Pagination>();
   for (const language of languages) {
-    const links = prevNext(sidebar, page, navOpts, language);
+    const links = prevNext(sidebar, version, slug, language);
     const key = JSON.stringify(links);
     const variant = pagination.get(key);
     if (variant) variant.langs.push(language);
     else pagination.set(key, { langs: [language], ...links });
   }
-  const trail = trailTo(sidebar, page) ?? [];
 
   const routePath = pageHref(version, slug);
   // Cross-page links are resolved against this index at build time, so moving a
@@ -124,19 +111,17 @@ export default async function Page(props: PageProps) {
   }));
 
   // The Release Notes chapter's pages, newest first, each with the date its
-  // frontmatter gives. Only the front page lists them, and reading every one
+  // frontmatter gives. Only the front page shows them, and reading every one
   // of them for every page would multiply across the manual.
   const releases = slug
     ? []
-    : (sidebar.find((n) => n.page === 'release-notes')?.items ?? []).map(
-        (n) => {
-          const release = byName.get(n.page!)!;
-          return {
-            title: n.title,
-            href: pageHref(version, release.slug),
-            date: readPageSources(release).frontmatter.date
-          };
-        }
+    : (sidebar.find((n) => n.slug === 'release-notes')?.items ?? []).map(
+        (n) => ({
+          title: n.title,
+          href: pageHref(version, n.slug),
+          date: readPageSources(pages.find((p) => p.slug === n.slug)!)
+            .frontmatter.date
+        })
       );
 
   const body = resolveDocument({
@@ -165,11 +150,9 @@ export default async function Page(props: PageProps) {
       // are typeset as such. Derived from the page's place in the manual — the
       // pages under the Property Reference chapter — rather than restated in
       // the frontmatter of every one of them; a page can still override it.
-      shape:
-        page !== 'property-reference' &&
-        trail.some((n) => n.page === 'property-reference')
-          ? 'property-list'
-          : undefined
+      shape: slug.startsWith('property-reference/')
+        ? 'property-list'
+        : undefined
     }
   });
 

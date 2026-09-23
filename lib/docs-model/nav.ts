@@ -1,23 +1,19 @@
 // Copyright (c) ZeroC, Inc.
 //
-// Pure navigation model: turn a parsed navigation.yaml — one recursive tree, the
-// manual's table of contents — into the pieces a page needs: the sidebar with
-// its active branch, the breadcrumb trail, and the previous/next links. No
-// imports, so it is unit-testable with plain objects.
-//
-// The tree mirrors the chapter structure of the Ice manual, and the content
-// tree mirrors it in turn: a node's page is a directory inside the group's. Nodes
-// name pages by name, which is globally unique within a version (`enumerations`,
-// `ice-default-properties`); where a page sits, and so its slug and URL, comes
-// from the filesystem.
+// Pure navigation model: turn the manual's table of contents — one recursive
+// tree of pages, read from the pages themselves — into the pieces a page needs:
+// the sidebar with its active branch, the breadcrumb trail, and the
+// previous/next links. No imports, so it is unit-testable with plain objects.
 
-/** A node in the authored navigation tree. May be a link, a group, or both. */
+/** A page in the table of contents. */
 export interface NavNode {
   title: string;
-  /** The name of the page this node links to (a group can have its own page). */
-  page?: string;
-  /** Child nodes (makes this an expandable group). */
-  items?: NavNode[];
+  /** The page's path under the version, as in its URL. */
+  slug: string;
+  /** The languages the page is written for; absent when it is written for all. */
+  writtenFor?: string[];
+  /** The pages under it; a node with any is an expandable group. */
+  items: NavNode[];
 }
 
 /** Diátaxis-derived page kinds a page may declare in its frontmatter. */
@@ -35,7 +31,6 @@ export interface PreviousVersions {
 }
 
 export interface NavDoc {
-  version: string;
   languages: string[];
   /** `latest` gets no banner; anything else gets an "older version" notice. */
   status?: 'latest' | 'maintenance' | 'archived';
@@ -48,23 +43,13 @@ export interface NavDoc {
 /** A resolved sidebar node ready to render (serializable: passed server -> client). */
 export interface SideNavNode {
   title: string;
-  /** Absent for a group with no page of its own. */
+  /** Absent on a group's row, whose page is its Overview entry. */
   href?: string;
   /** The languages the page is written for; absent when it is written for all. */
   writtenFor?: string[];
   /** True when this node is the page currently being viewed. */
   active: boolean;
   items: SideNavNode[];
-}
-
-export interface BuildSideNavOptions {
-  version: string;
-  /** The name of the page currently being viewed. */
-  currentPage: string;
-  /** A page's slug. */
-  slugOf: (page: string) => string;
-  /** The languages a page is written for; `undefined` when it is written for all. */
-  writtenFor: (page: string) => string[] | undefined;
 }
 
 /**
@@ -75,26 +60,25 @@ export const GROUP_OVERVIEW_TITLE = 'Overview';
 /**
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
  * the manual's full shape shows), with a link for each page, and `active` set
- * on the current page.
+ * on the page at `currentSlug`.
  */
 export function buildSideNav(
   nodes: NavNode[],
-  opts: BuildSideNavOptions
+  version: string,
+  currentSlug: string
 ): SideNavNode[] {
-  return (nodes ?? []).map((node) => {
-    const href = node.page
-      ? pageHref(opts.version, opts.slugOf(node.page))
-      : undefined;
-    const writtenFor = node.page ? opts.writtenFor(node.page) : undefined;
-    const active = !!node.page && node.page === opts.currentPage;
-    const items = buildSideNav(node.items ?? [], opts);
+  return nodes.map((node) => {
+    const href = pageHref(version, node.slug);
+    const { writtenFor } = node;
+    const active = node.slug === currentSlug;
+    const items = buildSideNav(node.items, version, currentSlug);
 
-    // A group that also has a page of its own would have to answer two
-    // gestures with one row: navigate, and open. Splitting them means the
-    // whole row — title included — becomes the toggle, and the page moves to
-    // an "Overview" child where it is still one click away. Clicking a group
-    // title is how readers expect to open it, and how Stripe's sidebar reads.
-    if (items.length > 0 && href) {
+    // A group's row would have to answer two gestures: navigate to its page,
+    // and open. Splitting them means the whole row — title included — becomes
+    // the toggle, and the page moves to an "Overview" child where it is still
+    // one click away. Clicking a group title is how readers expect to open it,
+    // and how Stripe's sidebar reads.
+    if (items.length > 0) {
       return {
         title: node.title,
         active: false,
@@ -153,25 +137,25 @@ export function activeTrailKeys(
 // ---------------------------------------------------------------------------
 
 /**
- * The path down to `page`: every ancestor group, then the node itself. `null`
- * when the page is not in the tree.
+ * The path down to the page at `slug`: every ancestor group, then the node
+ * itself. `null` when the page is not in the tree.
  */
-export function trailTo(nodes: NavNode[], page: string): NavNode[] | null {
-  for (const node of nodes ?? []) {
-    if (node.page === page) return [node];
-    const found = trailTo(node.items ?? [], page);
+export function trailTo(nodes: NavNode[], slug: string): NavNode[] | null {
+  for (const node of nodes) {
+    if (node.slug === slug) return [node];
+    const found = trailTo(node.items, slug);
     if (found) return [node, ...found];
   }
   return null;
 }
 
-/** Every page the tree names, in reading order. */
+/** The slug of every page in the tree, in reading order. */
 export function navigationPages(nodes: NavNode[]): string[] {
   const out: string[] = [];
   const walk = (items: NavNode[]) => {
-    for (const node of items ?? []) {
-      if (node.page) out.push(node.page);
-      walk(node.items ?? []);
+    for (const node of items) {
+      out.push(node.slug);
+      walk(node.items);
     }
   };
   walk(nodes);
@@ -191,29 +175,24 @@ export interface Crumb {
 export const MANUAL_TITLE = 'Ice Manual';
 
 /**
- * The trail from the manual's front page down to `page`: the manual itself,
- * then every ancestor group, then the page. Groups without a page of their own
- * are shown as plain text (no href). The last crumb is the current page and is
- * never a link. Empty when the page is not in the tree.
+ * The trail from the manual's front page down to the page at `slug`: the manual
+ * itself, then every ancestor, then the page. The last crumb is the current
+ * page and is never a link. Empty when the page is not in the tree.
  */
 export function breadcrumbs(
-  nav: Pick<NavDoc, 'sidebar'>,
-  page: string,
-  opts: BuildSideNavOptions
+  nodes: NavNode[],
+  version: string,
+  slug: string
 ): Crumb[] {
-  const trail = trailTo(nav.sidebar, page);
+  const trail = trailTo(nodes, slug);
   if (!trail) return [];
 
   const crumbs: Crumb[] = [
-    { title: MANUAL_TITLE, href: pageHref(opts.version) },
-    ...trail.map((node) =>
-      node.page
-        ? {
-            title: node.title,
-            href: pageHref(opts.version, opts.slugOf(node.page))
-          }
-        : { title: node.title }
-    )
+    { title: MANUAL_TITLE, href: pageHref(version) },
+    ...trail.map((node) => ({
+      title: node.title,
+      href: pageHref(version, node.slug)
+    }))
   ];
   return crumbs.map((crumb, i) =>
     i === crumbs.length - 1 ? { title: crumb.title } : crumb
@@ -234,32 +213,25 @@ export interface PageLink {
  */
 export function prevNext(
   nodes: NavNode[],
-  page: string,
-  opts: BuildSideNavOptions,
+  version: string,
+  slug: string,
   language: string
 ): { prev?: PageLink; next?: PageLink } {
   const flat: NavNode[] = [];
   const walk = (items: NavNode[]) => {
-    for (const node of items ?? []) {
-      if (node.page) {
-        const writtenFor = opts.writtenFor(node.page);
-        if (node.page === page || !writtenFor || writtenFor.includes(language))
-          flat.push(node);
-      }
-      walk(node.items ?? []);
+    for (const node of items) {
+      const { writtenFor } = node;
+      if (node.slug === slug || !writtenFor || writtenFor.includes(language))
+        flat.push(node);
+      walk(node.items);
     }
   };
   walk(nodes);
 
-  const i = flat.findIndex((n) => n.page === page);
+  const i = flat.findIndex((n) => n.slug === slug);
   if (i === -1) return {};
   const link = (node?: NavNode): PageLink | undefined =>
-    node?.page
-      ? {
-          title: node.title,
-          href: pageHref(opts.version, opts.slugOf(node.page))
-        }
-      : undefined;
+    node && { title: node.title, href: pageHref(version, node.slug) };
   return { prev: link(flat[i - 1]), next: link(flat[i + 1]) };
 }
 

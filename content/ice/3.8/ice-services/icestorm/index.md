@@ -1,5 +1,17 @@
 ---
 title: IceStorm
+pages:
+  - icestorm-concepts
+  - using-icestorm
+  - highly-available-icestorm
+  - icestorm-administration
+  - topic-federation
+  - icestorm-quality-of-service
+  - icestorm-delivery-modes
+  - configuring-icestorm
+  - icestorm-persistent-data
+  - icestorm-metrics
+  - icestorm-database-utility
 ---
 
 IceStorm is an efficient publish/subscribe service for Ice applications. Applications often need to disseminate

@@ -57,8 +57,8 @@ function headings(body) {
 }
 
 /** Where a page sits, for the result's context line: "The Slice Language › User-Defined Types". */
-function crumbFor(nav, page) {
-  const trail = trailTo(nav.sidebar ?? [], page);
+function crumbFor(nav, slug) {
+  const trail = trailTo(nav.sidebar, slug);
   return trail
     ? trail
         .slice(0, -1)
@@ -83,7 +83,7 @@ for (const version of listVersions(ROOT)) {
     records.push({
       t: frontmatter.title,
       d: frontmatter.description ?? '',
-      c: crumbFor(nav, page.name),
+      c: crumbFor(nav, page.slug),
       k: frontmatter.type ?? '',
       h: pageHref(version, page.slug),
       x: [...common].join(' · '),

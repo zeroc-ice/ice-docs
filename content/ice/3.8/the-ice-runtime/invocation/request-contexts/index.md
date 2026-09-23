@@ -1,5 +1,10 @@
 ---
 title: Request Contexts
+pages:
+  - explicit-request-contexts
+  - per-proxy-request-contexts
+  - implicit-request-contexts
+  - design-considerations-for-request-contexts
 ---
 
 All mapped operations on proxies provide a trailing parameter representing the _request context_. The Slice definition

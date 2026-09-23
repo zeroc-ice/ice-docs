@@ -1,5 +1,10 @@
 ---
 title: Invocation Mode
+pages:
+  - oneway-invocations
+  - datagram-invocations
+  - batched-invocations
+  - batched-invocation-interceptors
 ---
 
 Each proxy has an invocation mode that configures its invocation behavior. You can choose between the following

@@ -1,5 +1,8 @@
 ---
 title: Interfaces
+pages:
+  - interface-inheritance
+  - proxy-types
 ---
 
 # Syntax and Semantics of Interfaces

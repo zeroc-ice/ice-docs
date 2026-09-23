@@ -4,7 +4,7 @@ import { Tag, type Node, type Config, type Schema } from '@markdoc/markdoc';
 
 // The releases of this version, from the Release Notes chapter by way of the
 // chrome the route provides, so the front page lists a new release as soon as
-// it is in navigation.yaml.
+// the Release Notes page lists it.
 const releases: Schema = {
   render: 'Releases',
   selfClosing: true,

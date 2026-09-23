@@ -1,5 +1,15 @@
 ---
 title: Dispatch
+pages:
+  - creating-an-object-adapter
+  - object-adapter-activation-and-deactivation
+  - object-adapter-endpoints
+  - the-dispatch-pipeline
+  - dispatcher-api
+  - the-active-servant-map
+  - default-servants
+  - middleware
+  - using-multiple-object-adapters
 ---
 
 The process of accepting/fulfilling a request and returning a response is called a dispatch.

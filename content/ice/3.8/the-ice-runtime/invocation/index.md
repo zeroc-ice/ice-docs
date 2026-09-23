@@ -1,5 +1,18 @@
 ---
 title: Invocation
+pages:
+  - creating-proxies
+  - syntax-for-stringified-proxies
+  - proxy-defaults-and-overrides
+  - converting-proxies-to-strings
+  - proxy-endpoints
+  - invocation-mode
+  - proxy-based-load-balancing
+  - request-contexts
+  - invocation-timeouts
+  - automatic-retries
+  - concurrent-proxy-invocations
+  - routers
 ---
 
 The process of sending a request and receiving the corresponding response is called an invocation.

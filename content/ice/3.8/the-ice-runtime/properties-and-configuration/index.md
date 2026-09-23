@@ -1,5 +1,13 @@
 ---
 title: Properties and Configuration
+pages:
+  - properties-overview
+  - configuration-file-syntax
+  - setting-properties-on-the-command-line
+  - using-configuration-files
+  - alternate-property-stores
+  - command-line-parsing-and-initialization
+  - the-properties-class
 ---
 
 Ice uses a configuration mechanism that allows you to control many aspects of the behavior of your Ice applications at

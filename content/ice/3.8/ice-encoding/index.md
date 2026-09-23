@@ -1,5 +1,11 @@
 ---
 title: Ice Encoding
+pages:
+  - basic-data-encoding
+  - data-encoding-for-exceptions
+  - data-encoding-for-classes
+  - data-encoding-for-proxies
+  - data-encoding-for-optional-values
 ---
 
 The Ice encoding describes the binary representation of Slice data types.
