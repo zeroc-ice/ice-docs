@@ -69,7 +69,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { version, slug: segments } = await props.params;
   const slug = segments?.join('/') ?? '';
   const page = listPages(contentRoot(), version).find((p) => p.slug === slug)!;
-  const { title = '', description = '' } = readPageSources(page).frontmatter;
+  const { title, description = '' } = readPageSources(page).frontmatter;
   // The front page is the manual itself, so its title is not suffixed with the
   // manual's name.
   return { title: slug ? title : { absolute: title }, description };

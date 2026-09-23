@@ -46,7 +46,7 @@ interface DocumentShellProps {
   writtenFor?: string[];
   headings?: Heading[];
   breadcrumbs?: Crumb[];
-  pagination?: Pagination[];
+  pagination: Pagination[];
   showAside?: boolean;
   /** Body layout when the page is not ordinary prose, e.g. "property-list". */
   shape?: string;
@@ -72,7 +72,7 @@ export const DocumentShell = ({
   writtenFor,
   headings = [],
   breadcrumbs = [],
-  pagination = [],
+  pagination,
   showAside = true,
   shape
 }: DocumentShellProps) => {

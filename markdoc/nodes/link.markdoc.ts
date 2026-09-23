@@ -14,12 +14,12 @@ const link = {
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
     const children = node.transformChildren(config);
-    const index = (config.variables?.pageIndex ?? {}) as PageIndex;
+    const { version, pageIndex, path } = config.variables!;
 
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
-      version: String(config.variables?.version ?? ''),
-      index,
-      path: config.variables?.path
+      version,
+      index: pageIndex as PageIndex,
+      path
     });
 
     return new Tag(
