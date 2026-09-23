@@ -17,7 +17,7 @@ languages:
   - swift
 previousVersions:
   label: Previous Versions
-  url: https://docs.zeroc.com/ice/3.7/
+  url: https://archive.zeroc.com/ice/3.7/
 pages:
   - get-started
   - greeter-example
