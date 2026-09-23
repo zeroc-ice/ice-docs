@@ -12,18 +12,28 @@ necessary. You'll see the following platforms, languages and SSL libraries liste
 
 - SChannel (C++ on Windows)
 - SecureTransport (C++ on macOS and iOS)
-- OpenSSL (C++ on Linux or Windows)
+- OpenSSL (C++ on Linux and other platforms without SChannel or SecureTransport)
 - Java
 - .NET
 
 A property is supported by all platforms if no limitations are mentioned.
 
-Finally, note that Ice for Swift and the Ice extensions for Python, Ruby and PHP use IceSSL for C++, therefore they use
-the IceSSL properties for SChannel, SecureTransport or OpenSSL as appropriate for the target platform.
+Finally, note that Ice for Swift and the Ice extensions for MATLAB, PHP, Python and Ruby use IceSSL for C++, therefore
+they use the IceSSL properties for SChannel, SecureTransport or OpenSSL as appropriate for the target platform.
 
 {% callout type="info" title="JavaScript" %}
 
 These IceSSL properties have no effect on JavaScript.
+
+{% /callout %}
+
+{% callout type="info" title="Properties removed in Ice 3.8" %}
+
+Ice 3.8 validates the names of `IceSSL` properties and rejects an unknown one at communicator initialization with a
+`PropertyException`. The following Ice 3.7 properties no longer exist: `IceSSL.CertAuthDir`, `IceSSL.CertAuthFile`,
+`IceSSL.CertVerifier`, `IceSSL.Ciphers`, `IceSSL.DHParams`, `IceSSL.EntropyDaemon`, `IceSSL.ImportCert`,
+`IceSSL.InitOpenSSL`, `IceSSL.KeySet`, `IceSSL.PasswordCallback`, `IceSSL.Protocols`, `IceSSL.ProtocolVersionMax`,
+`IceSSL.ProtocolVersionMin`, `IceSSL.Random`, `IceSSL.SchannelStrongCrypto` and `IceSSL.VerifyDepthMax`.
 
 {% /callout %}
 
@@ -40,9 +50,11 @@ These IceSSL properties have no effect on JavaScript.
 Specifies if certificate host name verification is enabled. The legal values are shown in the table below. If this
 property is not defined, the default value is 0.
 
-| 0   | Host name verification is disabled. |
-| --- | ----------------------------------- |
-| 1   | Host name verification is enabled.  |
+| Value | Description                                                                           |
+| ----- | ------------------------------------------------------------------------------------- |
+| 0     | Host name verification is disabled.                                                   |
+| 1     | Host name verification is enabled.                                                    |
+| 2     | Host name verification is enabled. In Java, IceSSL also sends the host name with SNI. |
 
 This property has no effect on a server's validation of a client's certificate.
 
@@ -52,10 +64,14 @@ The verification ensures the host name matches the certificate's subject alterna
 if no subject alternative names are provided. Note the following difference in behavior for this check depending on the
 platform or language:
 
-- if the endpoint uses an IP address: the SecureTransport, and Java implementations only match the IP against the
-  subject alternative names, they don't check the `CommonName`
+- if the endpoint uses an IP address: the SChannel, SecureTransport, OpenSSL and Java implementations only match the IP
+  address against the subject alternative names, they don't check the `CommonName`
 - if the endpoint uses a DNS name: SecureTransport on macOS only matches the DNS name against the subject alternative
   names, it doesn't check the `CommonName`
+
+In Java, IceSSL verifies the host name only when `IceSSL.VerifyPeer` is greater than zero, and sends the host name to
+the server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++
+implementations always send a DNS host name with SNI.
 
 {% language-section name="lang-2" /%}
 
@@ -114,9 +130,11 @@ This property supplies the password that was used to secure the file defined by 
 
 The SSL plug-in trace level:
 
-| 0   | No security tracing (default).                        |
-| --- | ----------------------------------------------------- |
-| 1   | Display diagnostic information about SSL connections. |
+| Value | Description                                                                                                                                                     |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | No security tracing (default).                                                                                                                                  |
+| 1     | Displays a summary of each SSL connection, the reason a connection is rejected, and the peer's distinguished name when an `IceSSL.TrustOnly*` property applies. |
+| 2     | Additionally displays the `IceSSL.TrustOnly*` entries evaluated against the peer's distinguished name. .NET displays these at level `1`.                        |
 
 # IceSSL.TrustOnly
 
@@ -128,6 +146,9 @@ The SSL plug-in trace level:
 
 Identifies trusted and untrusted peers. This family of properties provides an additional level of authentication by
 using the peer certificate's distinguished name (DN) to decide whether to accept or reject a connection.
+
+IceSSL on iOS does not support these properties: it cannot read the distinguished name of a peer certificate, so any
+`IceSSL.TrustOnly*` entry causes every connection it applies to to fail with a `FeatureNotSupportedException`.
 
 Each `ENTRY` in the property value consists of relative distinguished name (RDN) components, formatted according to the
 rules in [RFC 2253](https://www.rfc-editor.org/rfc/rfc2253.txt). Specifically, the components must be separated by

@@ -14,7 +14,10 @@ language: java
 #### Description
 
 Selects a particular certificate from the key store specified by `IceSSL.Keystore`. The certificate identified by
-`alias` is presented to the peer request during authentication.
+`alias` is presented to the peer during authentication. If the alias does not name a key entry of the key store,
+communicator initialization fails with an `InitializationException`.
+
+If this property is not defined, IceSSL uses the first key entry of the key store that has a certificate chain.
 
 {% /language-section %}
 
@@ -117,6 +120,13 @@ and `IceSSL.KeystorePassword`. In this case, `IceSSL.TruststoreType` and `IceSSL
 {% /language-section %}
 
 {% language-section name="lang-4" %}
+
+{% callout type="info" title="Certificate revocation" %}
+
+Ice for Java has no certificate revocation properties. IceSSL does not check certificate revocation itself; the
+revocation checking configured in the JDK applies.
+
+{% /callout %}
 
 {% /language-section %}
 
