@@ -13,4 +13,14 @@ log messages. For a service's normal operations, it must use the communicator th
 If the service does not define a constructor taking an `Ice.Communicator` argument, the server invokes the service's
 default constructor.
 
+Here is a sample configuration for our [Java example](../developing-icebox-services):
+
+```
+TBD
+```
+
+This configuration results in the creation of a service named `GreeterService`. The service is expected to reside in the
+class `GreeterService`. The argument `--Ice.Trace.Network=1` is converted into a property definition, and the arguments
+`hello` and `there` become the two elements in the `args` sequence parameter that is passed to the `start` method.
+
 {% /language-section %}
