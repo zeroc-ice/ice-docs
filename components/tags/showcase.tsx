@@ -24,7 +24,7 @@ interface Panel {
 }
 
 interface Props {
-  languages: string[];
+  /** One per mapping, in the manual's order. */
   panels: Panel[];
 }
 
@@ -37,7 +37,8 @@ const idleTab = 'border-transparent text-white/55 hover:text-white';
 // has one, the server that implements it. The language tabs are the manual's
 // language switch, so the top bar follows. Always dark, whatever the theme, so
 // the panel reads as an editor rather than a pair of ordinary code blocks.
-export const Showcase = ({ languages, panels }: Props) => {
+export const Showcase = ({ panels }: Props) => {
+  const languages = panels.map((panel) => panel.lang);
   const current = useLanguage();
 
   return (

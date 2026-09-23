@@ -17,7 +17,7 @@ const showcase: Schema = {
   render: 'Showcase',
   children: ['fence', 'tag'],
   transform(node: Node, config: Config) {
-    const languages: string[] = config.variables?.languages ?? [];
+    const languages: string[] = config.variables!.languages;
     const blocks = (node.transformChildren(config) as unknown[])
       .flat(Infinity)
       .filter(Tag.isTag)
@@ -48,7 +48,7 @@ const showcase: Schema = {
       };
     });
 
-    return new Tag('Showcase', { languages, panels });
+    return new Tag('Showcase', { panels });
   }
 };
 

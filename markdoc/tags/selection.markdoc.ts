@@ -13,7 +13,7 @@ const selection: Schema = {
     const chrome = variables.chrome ?? {};
     return new Tag('Selection', {
       version: String(variables.version ?? ''),
-      languages: variables.languages ?? [],
+      languages: variables.languages,
       versionOptions: chrome.versionOptions ?? [],
       previousVersions: chrome.previousVersions
     });

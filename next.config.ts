@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
+import { pageHref } from './lib/docs-model/nav';
+
 interface RedirectRule {
   source: string;
   destination: string;
@@ -35,7 +37,7 @@ function buildRedirects(): RedirectRule[] {
     a.localeCompare(b, undefined, { numeric: true })
   );
 
-  const destination = `/ice/${versions[versions.length - 1]}`;
+  const destination = pageHref(versions[versions.length - 1]);
   rules.push({ source: '/', destination, permanent: false });
   rules.push({ source: '/ice', destination, permanent: false });
 
