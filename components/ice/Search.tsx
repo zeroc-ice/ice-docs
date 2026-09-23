@@ -49,6 +49,7 @@ export function Search({ version }: { version: string }) {
         event.preventDefault();
         opener.current = document.activeElement as HTMLElement;
         setOpen((was) => !was);
+        setSelected(0);
       } else if (event.key === 'Escape') {
         setOpen(false);
       }
@@ -114,6 +115,8 @@ export function Search({ version }: { version: string }) {
         onClick={(event) => {
           opener.current = event.currentTarget;
           setOpen(true);
+          // The results may have changed with the mapping since it closed.
+          setSelected(0);
         }}
         className="flex shrink-0 items-center gap-2 rounded-md border border-black/15 px-2 py-1 text-sm opacity-70 hover:opacity-100 lg:px-3 dark:border-white/20"
       >
