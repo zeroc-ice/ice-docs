@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 
 export interface OutlineHeading {
@@ -18,6 +18,19 @@ const DENSE_THRESHOLD = 24;
 // Distance from the top of the viewport at which a heading counts as "the one
 // being read" — just under the two sticky bars.
 const ACTIVATION_LINE = 132;
+
+// Lets a dotted property name wrap after a dot rather than mid-segment.
+function withDotBreaks(title: string) {
+  return title.split('.').map((part, i, parts) =>
+    i < parts.length - 1 ? (
+      <Fragment key={i}>
+        {part}.<wbr />
+      </Fragment>
+    ) : (
+      part
+    )
+  );
+}
 
 // "On this page", with the current section marked. Titles wrap within the fixed
 // width, so a long heading never widens the rail.
@@ -79,7 +92,7 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
                   : 'text-ink-secondary hover:text-ink border-transparent'
               )}
             >
-              {heading.title}
+              {withDotBreaks(heading.title)}
             </a>
           </li>
         ))}
