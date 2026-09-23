@@ -1,7 +1,3 @@
----
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 You create a communicator by calling `Ice::initialize`, for example:

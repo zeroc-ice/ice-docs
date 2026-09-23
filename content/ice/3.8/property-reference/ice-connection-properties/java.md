@@ -1,7 +1,3 @@
----
-language: java
----
-
 {% language-section name="lang-1" %}
 
 # Ice.Connection._name_.MaxDispatches

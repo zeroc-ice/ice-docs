@@ -1,7 +1,3 @@
----
-language: php
----
-
 {% language-section name="lang-1" %}
 
 A Slice identifier maps to an identical PHP identifier, or a PHP identifier derived from this Slice identifier. For

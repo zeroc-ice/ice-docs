@@ -1,7 +1,3 @@
----
-language: php
----
-
 {% language-section name="lang-1" %}
 
 A Slice dictionary maps to a native PHP associative array. The PHP mapping does not currently support all Slice

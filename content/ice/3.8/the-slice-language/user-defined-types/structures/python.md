@@ -1,7 +1,3 @@
----
-language: python
----
-
 {% language-section name="lang-1" %}
 
 A Slice structure maps to a Python dataclass with the same name. For each Slice field, the Python dataclass contains a

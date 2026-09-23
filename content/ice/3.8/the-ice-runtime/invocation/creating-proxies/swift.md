@@ -1,7 +1,3 @@
----
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 The Slice compiler generates a `makeProxy` function that allows you to construct a proxy from a communicator and a

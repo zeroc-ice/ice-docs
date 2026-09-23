@@ -62,12 +62,12 @@ test('readPageSources returns the shared text and every overlay', () => {
   assert.match(read('').shared!, /front page/);
 });
 
-test('a page written per language takes its frontmatter from its first overlay', () => {
+test('a page written per language takes its frontmatter from its overlays', () => {
   const datastorm = readPageSources(
     listPages(ROOT, '3.8').find((p) => p.slug === 'services/datastorm')!
   );
   assert.equal(datastorm.shared, null);
-  assert.equal(datastorm.frontmatter.language, 'cpp');
+  assert.equal(datastorm.frontmatter.title, 'DataStorm');
 });
 
 test('snippetReader resolves example files relative to the version dir', () => {

@@ -1,7 +1,3 @@
----
-language: php
----
-
 {% language-section name="lang-1" %}
 
 A Slice structure maps to a PHP class containing a public variable for each field of the structure. For example, here is

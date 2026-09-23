@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="language-mapping" %}
 
 ## Client-Side Mapping for Operations

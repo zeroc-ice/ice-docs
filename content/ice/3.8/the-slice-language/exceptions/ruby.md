@@ -1,7 +1,3 @@
----
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a Ruby class with the same name. This mapping is similar to the mapping of

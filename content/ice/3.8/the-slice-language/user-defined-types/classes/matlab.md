@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="language-mapping" %}
 
 ## Mapping for Classes

@@ -1,7 +1,3 @@
----
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 When you write a client, you should install `IceLocatorDiscovery` in your communicator using the `pluginFactories` field

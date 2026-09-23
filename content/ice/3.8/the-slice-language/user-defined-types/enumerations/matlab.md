@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 A Slice enumeration maps to the corresponding enumeration in MATLAB. For example:

@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 A Slice field maps to a MATLAB property, with by default the same name. We often remap the field name with

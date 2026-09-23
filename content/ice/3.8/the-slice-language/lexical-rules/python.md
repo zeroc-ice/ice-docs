@@ -1,7 +1,3 @@
----
-language: python
----
-
 {% language-section name="lang-1" %}
 
 A Python identifier maps to an identical Python identifier. For example, the Python identifier `Clock` becomes the

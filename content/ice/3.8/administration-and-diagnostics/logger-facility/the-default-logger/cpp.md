@@ -1,7 +1,3 @@
----
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 On Windows, when the default C++ logger outputs a log message to the console, it converts this message from your narrow

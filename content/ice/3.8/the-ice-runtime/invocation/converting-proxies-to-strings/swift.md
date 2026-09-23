@@ -1,7 +1,3 @@
----
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 You can stringify a proxy by calling `ice_toString` on this proxy, or by reading its `description` property (from

@@ -1,7 +1,3 @@
----
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 Ice for C# supports several different mappings for sequences. By default, sequences are mapped to arrays. You can use

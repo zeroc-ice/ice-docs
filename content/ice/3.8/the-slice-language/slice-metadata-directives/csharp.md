@@ -1,7 +1,3 @@
----
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 The mapped skeleton method for `getGrid` is:

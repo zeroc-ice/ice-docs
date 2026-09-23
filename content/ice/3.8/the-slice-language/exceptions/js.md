@@ -1,7 +1,3 @@
----
-language: js
----
-
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a JavaScript class with the same name. This mapping is similar to the mapping of

@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 The Slice built-in types are mapped to MATLAB types as shown in this table:

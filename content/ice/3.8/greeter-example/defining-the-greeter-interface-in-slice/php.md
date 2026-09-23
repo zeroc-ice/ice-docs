@@ -1,7 +1,3 @@
----
-language: php
----
-
 {% language-section name="lang-1" %}
 
 ```slice

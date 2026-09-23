@@ -1,7 +1,3 @@
----
-language: python
----
-
 {% language-section name="lang-1" %}
 
 A Slice field maps to a Python dataclass field with the same name. The type of the Python field is the mapped Slice

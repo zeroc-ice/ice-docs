@@ -1,7 +1,3 @@
----
-language: js
----
-
 {% language-section name="lang-1" %}
 
 A Slice structure maps to a JavaScript class with the same name. For each Slice field, the JavaScript instance contains

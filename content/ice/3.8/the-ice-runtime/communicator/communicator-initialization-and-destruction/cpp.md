@@ -1,7 +1,3 @@
----
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 In C++, you create a communicator by calling the C++ function `Ice::initialize`, for example:

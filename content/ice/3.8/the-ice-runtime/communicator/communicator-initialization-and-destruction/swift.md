@@ -1,7 +1,3 @@
----
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 You create a communicator by calling

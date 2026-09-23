@@ -1,7 +1,3 @@
----
-language: php
----
-
 {% language-section name="lang-1" %}
 
 PHP has a limited set of primitive types: `boolean`, `integer`, `double`, and `string`. The Slice built-in types are

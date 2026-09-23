@@ -1,7 +1,3 @@
----
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 Here is the definition of our EmployeeMap once more:

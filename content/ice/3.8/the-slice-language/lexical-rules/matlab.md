@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 A Slice identifier maps to an identical MATLAB identifier, or a MATLAB identifier derived from this Slice identifier.

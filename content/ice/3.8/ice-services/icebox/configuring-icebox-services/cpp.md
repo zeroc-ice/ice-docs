@@ -1,7 +1,3 @@
----
-language: cpp
----
-
 {% language-section name="lang-1" %}
 
 For a C++ service, the [entry point](../icebox-properties) must have the form _library[,version]:symbol_, where

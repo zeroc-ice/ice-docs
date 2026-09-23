@@ -1,7 +1,3 @@
----
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 - `--depend` Print dependency information in Makefile format to standard output by default, or to the file specified by

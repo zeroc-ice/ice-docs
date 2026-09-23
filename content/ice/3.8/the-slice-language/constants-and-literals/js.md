@@ -1,7 +1,3 @@
----
-language: js
----
-
 {% language-section name="lang-1" %}
 
 Here are the sample constant definitions once more:

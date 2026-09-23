@@ -1,5 +1,5 @@
 ---
-language: cpp
+title: DataStorm
 ---
 
 DataStorm (C++ only).

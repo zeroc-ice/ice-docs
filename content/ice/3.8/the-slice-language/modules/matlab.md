@@ -1,7 +1,3 @@
----
-language: matlab
----
-
 {% language-section name="lang-1" %}
 
 A Slice module maps to a MATLAB namespace with the same name. The mapping preserves the nesting of the Slice

@@ -1,7 +1,3 @@
----
-language: js
----
-
 {% language-section name="lang-1" %}
 
 JavaScript does not have an enumerated type, so a Slice enumeration is emulated using JavaScript objects where each

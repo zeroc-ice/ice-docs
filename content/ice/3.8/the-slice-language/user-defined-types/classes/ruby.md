@@ -1,7 +1,3 @@
----
-language: ruby
----
-
 {% language-section name="language-mapping" %}
 
 ## Mapping for Classes

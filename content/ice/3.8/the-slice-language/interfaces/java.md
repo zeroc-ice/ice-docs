@@ -1,7 +1,3 @@
----
-language: java
----
-
 {% language-section name="language-mapping" %}
 
 ## Client-Side Mapping for Interfaces

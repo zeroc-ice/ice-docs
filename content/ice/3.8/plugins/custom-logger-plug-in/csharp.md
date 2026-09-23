@@ -1,7 +1,3 @@
----
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 Ice provides a plug-in class, `Ice.LoggerPlugin`, that installs a logger into the communicator in its constructor:

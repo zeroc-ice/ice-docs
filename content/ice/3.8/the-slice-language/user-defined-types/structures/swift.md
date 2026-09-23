@@ -1,7 +1,3 @@
----
-language: swift
----
-
 {% language-section name="lang-1" %}
 
 A Slice structure maps to a Swift structure when this Slice structure does not have (recursively) any Slice class field.

@@ -1,7 +1,3 @@
----
-language: csharp
----
-
 {% language-section name="lang-1" %}
 
 # Obtaining the Local Properties Facet

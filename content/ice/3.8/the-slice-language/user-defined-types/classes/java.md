@@ -1,7 +1,3 @@
----
-language: java
----
-
 {% language-section name="language-mapping" %}
 
 ## Mapping for Classes

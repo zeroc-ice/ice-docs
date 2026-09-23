@@ -1,7 +1,3 @@
----
-language: ruby
----
-
 {% language-section name="lang-1" %}
 
 A Slice field maps to a Ruby instance variable with the same name, plus accessors to read and write this instance
