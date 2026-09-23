@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 
 import { visibleTarget } from '@/components/ice/AnchorScroll';
@@ -24,11 +24,23 @@ const DENSE_THRESHOLD = 24;
 // being read" — just under the two sticky bars.
 const ACTIVATION_LINE = 132;
 
-// "On this page", with the section the reader is in marked. Fixed width and
-// hard truncation: a property name like `Ice.Default.EncodingVersion` must never
-// widen the rail or spill out of it. Every mapping's headings are listed and
-// the stylesheet shows the reader's, so the outline is right before any script
-// runs.
+// Lets a dotted property name wrap after a dot rather than mid-segment.
+function withDotBreaks(title: string) {
+  return title.split('.').map((part, i, parts) =>
+    i < parts.length - 1 ? (
+      <Fragment key={i}>
+        {part}.<wbr />
+      </Fragment>
+    ) : (
+      part
+    )
+  );
+}
+
+// "On this page", with the current section marked. Titles wrap within the fixed
+// width, so a long heading never widens the rail. Every mapping's headings are
+// listed and the stylesheet shows the reader's, so the outline is right before
+// any script runs.
 export function PageOutline({
   headings,
   languages
@@ -125,16 +137,15 @@ export function PageOutline({
           <li key={`${heading.id}-${i}`} data-langs={heading.langs?.join(' ')}>
             <a
               href={`#${heading.id}`}
-              title={heading.title}
               className={clsx(
-                '-ml-px block truncate border-l py-1 pr-1 text-[13px] leading-snug transition-colors',
+                '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere transition-colors',
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
-                  ? 'border-link text-link font-medium'
+                  ? 'border-link text-link'
                   : 'text-ink-secondary hover:text-ink border-transparent'
               )}
             >
-              {heading.title}
+              {withDotBreaks(heading.title)}
             </a>
           </li>
         ))}
