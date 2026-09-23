@@ -32,9 +32,9 @@
 
     .network-boundary {
       fill: none;
-      stroke: #a6afbc;
-      stroke-dasharray: 7 5;
+      stroke: #7a8699;
       stroke-width: 1.5;
+      stroke-dasharray: 7 5;
     }
 
     .component {

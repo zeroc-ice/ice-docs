@@ -105,7 +105,7 @@
 
     .network-boundary {
       fill: none;
-      stroke: #a6afbc;
+      stroke: #7a8699;
       stroke-dasharray: 7 5;
       stroke-width: 1.5;
     }

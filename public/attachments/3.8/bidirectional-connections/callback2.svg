@@ -47,9 +47,9 @@
       stroke: #8d99aa;
       stroke-width: 1.5;
     }
-    .boundary {
-      fill: #fbfcfe;
-      stroke: #cbd3de;
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
       stroke-width: 1.5;
       stroke-dasharray: 7 5;
     }
@@ -75,7 +75,7 @@
   <rect width="760" height="245" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="boundary" d="M 520 18 V 180" vector-effect="non-scaling-stroke"/>
+    <path class="network-boundary" d="M 520 18 V 180" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">

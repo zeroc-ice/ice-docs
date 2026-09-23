@@ -136,7 +136,9 @@ label.
 - Ice API and other logical groupings use a solid boundary with a subtle tinted fill.
 - Firewall devices use a distinct narrow component with a clear `Firewall` label. A firewall or policy boundary uses a
   labeled dashed line. Do not represent either with color alone.
-- Network zones use labeled boundaries only when the zone itself is meaningful. Otherwise label the connector `Network`.
+- Network zones use labeled boundaries only when the zone itself is meaningful. Use a dashed `7 5` line with a 1.5-unit
+  `#7a8699` stroke so it remains visible at page size. Keep this stronger network boundary distinct from the lighter
+  host outlines, and interrupt it behind labels. Otherwise label the connector `Network`.
 - Set addresses and ports in annotation text immediately below the owning component, for example `IP: 10.0.0.1` or
   `tcp: 4061`.
 
