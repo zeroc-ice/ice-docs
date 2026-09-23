@@ -205,9 +205,11 @@ export const DocumentShell = ({
       </article>
 
       {showAside && (
-        <div data-langs={writtenFor?.join(' ')}>
-          <PageOutline headings={toc} languages={languages} />
-        </div>
+        <PageOutline
+          headings={toc}
+          languages={languages}
+          writtenFor={writtenFor}
+        />
       )}
     </div>
   );

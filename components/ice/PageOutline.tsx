@@ -4,7 +4,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 
-import { visibleTarget } from '@/components/ice/AnchorScroll';
+import { fragmentId, visibleTarget } from '@/components/ice/AnchorScroll';
 import { useLanguage } from '@/context/state';
 
 export interface OutlineHeading {
@@ -15,9 +15,10 @@ export interface OutlineHeading {
   langs?: string[];
 }
 
-// Below this the outline stops showing sub-headings. Reference pages in this
-// manual can carry sixty headings; listing all of them turns the rail into a
-// second, worse sidebar that hides where the reader actually is.
+// Above this many headings in a mapping, the outline shows that mapping's
+// top-level headings only. Reference pages in this manual can carry sixty
+// headings; listing all of them turns the rail into a second, worse sidebar
+// that hides where the reader actually is.
 const DENSE_THRESHOLD = 24;
 
 // Distance from the top of the viewport at which a heading counts as "the one
@@ -43,23 +44,32 @@ function withDotBreaks(title: string) {
 // any script runs.
 export function PageOutline({
   headings,
-  languages
+  languages,
+  writtenFor
 }: {
   headings: OutlineHeading[];
   languages: string[];
+  /** The languages the page is written for; every language when absent. */
+  writtenFor?: string[];
 }) {
-  const countFor = (language: string) =>
-    headings.filter((h) => !h.langs || h.langs.includes(language)).length;
-  const dense = Math.max(...languages.map(countFor)) > DENSE_THRESHOLD;
-  const items = dense ? headings.filter((h) => h.level === 2) : headings;
+  const dense = languages.filter(
+    (language) =>
+      headings.filter((h) => !h.langs || h.langs.includes(language)).length >
+      DENSE_THRESHOLD
+  );
+  const items = headings.flatMap((h) => {
+    if (h.level === 2 || dense.length === 0) return [h];
+    const langs = (h.langs ?? languages).filter((l) => !dense.includes(l));
+    return langs.length > 0 ? [{ ...h, langs }] : [];
+  });
 
   const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
 
   // The spy walks the reader's outline: each heading on show for their
   // mapping, once, in page order. A string rather than an array, so marking a
   // new section active does not hand the effect a fresh identity and make it
-  // re-subscribe every tick; a mapping switch changes the string and re-runs
-  // it.
+  // re-subscribe every tick. A mapping switch re-runs it even when the ids
+  // match, since the headings move.
   const language = useLanguage();
   const ids = [
     ...new Set(
@@ -98,7 +108,7 @@ export function PageOutline({
       }
       // Once the page bottoms out, several sections share the screen; the one
       // the reader jumped to wins.
-      const target = fragmentTarget();
+      const target = visibleTarget(fragmentId(location.hash));
       if (
         remaining < 1 &&
         target &&
@@ -123,12 +133,15 @@ export function PageOutline({
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('hashchange', onScroll);
     };
-  }, [ids]);
+  }, [ids, language]);
 
   if (items.length === 0) return null;
 
   return (
-    <aside className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block">
+    <aside
+      data-langs={writtenFor?.join(' ')}
+      className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block"
+    >
       <div className="text-ink-muted mb-2 text-[11px] font-semibold tracking-[0.07em] uppercase">
         On this page
       </div>
@@ -152,14 +165,4 @@ export function PageOutline({
       </ul>
     </aside>
   );
-}
-
-// The element the URL fragment names, or null when there is none. A hand-typed
-// fragment can be malformed percent-encoding, which names nothing.
-function fragmentTarget(): HTMLElement | null {
-  try {
-    return visibleTarget(decodeURIComponent(location.hash.slice(1)));
-  } catch {
-    return null;
-  }
 }
