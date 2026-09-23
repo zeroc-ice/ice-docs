@@ -40,13 +40,16 @@ export function PageOutline({ headings }: { headings: OutlineHeading[] }) {
     const update = () => {
       queued = false;
       // Headings near the end of a page can never scroll up to the activation
-      // line, so over the last viewport height of scroll the line slides down to
-      // the bottom of the viewport, passing each remaining heading in order.
-      const remaining =
-        document.documentElement.scrollHeight -
-        window.innerHeight -
-        window.scrollY;
-      const line = Math.max(ACTIVATION_LINE, window.innerHeight - remaining);
+      // line, so over the last viewport height of scroll (or the whole scroll,
+      // on a shorter page) the line slides down to the bottom of the viewport,
+      // passing each remaining heading in order.
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const remaining = maxScroll - window.scrollY;
+      const slide = Math.min(maxScroll, window.innerHeight - ACTIVATION_LINE);
+      const progress = slide > 0 ? Math.max(0, 1 - remaining / slide) : 0;
+      const line =
+        ACTIVATION_LINE + (window.innerHeight - ACTIVATION_LINE) * progress;
       let current = list[0];
       for (const id of list) {
         const element = document.getElementById(id);
