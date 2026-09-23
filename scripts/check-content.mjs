@@ -26,7 +26,6 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { load as yamlLoad } from 'js-yaml';
 
 import { buildPageIndex, resolveDocLink } from '../lib/docs-model/links.ts';
 import {
@@ -38,7 +37,7 @@ import {
   frontmatterOf,
   listVersions,
   listPages,
-  readNavigationYaml
+  readNavigation
 } from '../lib/docs-model/content.ts';
 import { navigationPages } from '../lib/docs-model/nav.ts';
 
@@ -300,7 +299,7 @@ function checkStrayMarkup(files) {
 }
 
 for (const version of listVersions(ROOT)) {
-  const nav = yamlLoad(readNavigationYaml(ROOT, version));
+  const nav = readNavigation(ROOT, version);
 
   const pages = listPages(ROOT, version);
   const byName = new Map(pages.map((page) => [page.name, page]));

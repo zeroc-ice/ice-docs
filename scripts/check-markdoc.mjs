@@ -30,14 +30,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import Markdoc from '@markdoc/markdoc';
-import { load as yamlLoad } from 'js-yaml';
 
 import config from '../markdoc/config.ts';
 import {
   frontmatterOf,
   listPages,
   listVersions,
-  readNavigationYaml,
+  readNavigation,
   readPageSources,
   snippetReader
 } from '../lib/docs-model/content.ts';
@@ -92,9 +91,7 @@ function validate(ast, source, tags, variables) {
 
 const languagesByVersion = {};
 for (const version of listVersions(ROOT)) {
-  languagesByVersion[version] = yamlLoad(
-    readNavigationYaml(ROOT, version)
-  ).languages;
+  languagesByVersion[version] = readNavigation(ROOT, version).languages;
 }
 
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or

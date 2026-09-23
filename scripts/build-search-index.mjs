@@ -15,37 +15,19 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { load as yamlLoad } from 'js-yaml';
 
 import {
   listVersions,
   listPages,
-  readNavigationYaml,
+  readNavigation,
+  readPageSources,
   writtenFor
 } from '../lib/docs-model/content.ts';
 import { pageHref, trailTo } from '../lib/docs-model/nav.ts';
-import { FRONTMATTER_RE, splitLines } from '../lib/docs-model/resolve.ts';
+import { splitFrontmatter, splitLines } from '../lib/docs-model/resolve.ts';
 
 const ROOT = path.join(process.cwd(), 'content', 'ice');
 const OUT = path.join(process.cwd(), 'public', 'search');
-
-/** Frontmatter fields plus the body, without pulling in a YAML parse per page. */
-function readPage(file) {
-  if (!file) return null;
-  const source = fs.readFileSync(file, 'utf8');
-  const m = FRONTMATTER_RE.exec(source);
-  const frontmatter = m ? m[1] : '';
-  const field = (name) => {
-    const found = new RegExp(`^${name}:\\s*(.+)$`, 'm').exec(frontmatter);
-    return found ? found[1].trim().replace(/^["']|["']$/g, '') : undefined;
-  };
-  return {
-    title: field('title'),
-    description: field('description'),
-    type: field('type'),
-    body: m ? source.slice(m[0].length) : source
-  };
-}
 
 /** Heading text in a markdown body, skipping fenced code. */
 function headings(body) {
@@ -87,30 +69,28 @@ function crumbFor(nav, page) {
 
 let files = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
+fs.mkdirSync(OUT, { recursive: true });
 
 for (const version of listVersions(ROOT)) {
-  const nav = yamlLoad(readNavigationYaml(ROOT, version));
+  const nav = readNavigation(ROOT, version);
 
   const records = [];
   for (const page of listPages(ROOT, version)) {
-    const shared = readPage(page.shared);
-    const overlays = Object.entries(page.overlays).map(([language, file]) => [
-      language,
-      readPage(file)
-    ]);
-    const fm = shared ?? overlays[0][1];
-    const common = new Set(headings(shared?.body ?? ''));
+    const { shared, overlays, frontmatter } = readPageSources(page);
+    const common = new Set(
+      headings(shared ? splitFrontmatter(shared).body : '')
+    );
     records.push({
-      t: fm.title ?? page.name,
-      d: fm.description ?? '',
+      t: frontmatter.title,
+      d: frontmatter.description ?? '',
       c: crumbFor(nav, page.name),
-      k: fm.type ?? '',
+      k: frontmatter.type ?? '',
       h: pageHref(version, page.slug),
       x: [...common].join(' · '),
       l: Object.fromEntries(
-        overlays.map(([language, overlay]) => [
+        Object.entries(overlays).map(([language, source]) => [
           language,
-          [...new Set(headings(overlay.body))]
+          [...new Set(headings(splitFrontmatter(source).body))]
             .filter((heading) => !common.has(heading))
             .join(' · ')
         ])
@@ -120,7 +100,6 @@ for (const version of listVersions(ROOT)) {
   }
 
   const file = path.join(OUT, `${version}.json`);
-  fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify({ version, pages: records }));
   files++;
   const kb = Math.round(fs.statSync(file).size / 1024);

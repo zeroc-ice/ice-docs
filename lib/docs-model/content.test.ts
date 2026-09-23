@@ -13,7 +13,6 @@ import {
   listVersions,
   listPages,
   readPageSources,
-  readNavigationYaml,
   snippetReader
 } from './content.ts';
 
@@ -74,8 +73,4 @@ test('a page written per language takes its frontmatter from its first overlay',
 test('snippetReader resolves example files relative to the version dir', () => {
   const read = snippetReader(ROOT, '3.8');
   assert.match(read('examples/cpp/sample.cpp'), /<use>/);
-});
-
-test('readNavigationYaml returns the navigation text', () => {
-  assert.match(readNavigationYaml(ROOT, '3.8'), /languages/);
 });

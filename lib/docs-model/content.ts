@@ -23,6 +23,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
+import type { NavDoc } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
 /** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
@@ -135,9 +136,11 @@ export function writtenFor(page: PageFiles): string[] | undefined {
   return page.shared ? undefined : Object.keys(page.overlays);
 }
 
-/** Raw navigation.yaml text for a version (parsed by the caller with js-yaml). */
-export function readNavigationYaml(root: string, version: string): string {
-  return fs.readFileSync(path.join(root, version, 'navigation.yaml'), 'utf8');
+/** A version's navigation.yaml, parsed. */
+export function readNavigation(root: string, version: string): NavDoc {
+  return yamlLoad(
+    fs.readFileSync(path.join(root, version, 'navigation.yaml'), 'utf8')
+  ) as NavDoc;
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

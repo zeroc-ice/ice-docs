@@ -4,7 +4,6 @@ import path from 'path';
 import Markdoc from '@markdoc/markdoc';
 import React from 'react';
 import { Metadata } from 'next';
-import { load as yamlLoad } from 'js-yaml';
 
 import { components } from '@/markdoc/schema';
 import { renderMarkdownString } from '@/lib/markdown';
@@ -21,8 +20,7 @@ import {
   pageHref,
   prevNext,
   trailTo,
-  type BuildSideNavOptions,
-  type NavDoc
+  type BuildSideNavOptions
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
@@ -32,7 +30,7 @@ import {
   listVersions,
   listPages,
   readPageSources,
-  readNavigationYaml,
+  readNavigation,
   snippetReader,
   writtenFor
 } from '@/lib/docs-model/content';
@@ -78,7 +76,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 export default async function Page(props: PageProps) {
   const { version, slug: segments } = await props.params;
   const root = contentRoot();
-  const nav = yamlLoad(readNavigationYaml(root, version)) as NavDoc;
+  const nav = readNavigation(root, version);
   const { languages, sidebar } = nav;
   const slug = segments?.join('/') ?? '';
   const page = segments?.at(-1) ?? '';
@@ -107,9 +105,10 @@ export default async function Page(props: PageProps) {
   const pagination = new Map<string, Pagination>();
   for (const language of languages) {
     const links = prevNext(sidebar, page, navOpts, language);
-    const variant = pagination.get(JSON.stringify(links));
+    const key = JSON.stringify(links);
+    const variant = pagination.get(key);
     if (variant) variant.langs.push(language);
-    else pagination.set(JSON.stringify(links), { langs: [language], ...links });
+    else pagination.set(key, { langs: [language], ...links });
   }
   const trail = trailTo(sidebar, page) ?? [];
 

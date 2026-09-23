@@ -147,7 +147,7 @@ function isSelfClosing(s: string, tag: Tag): boolean {
  * the search index 346 of 348 page titles and disabled every `id:` link alias.
  * Anything that parses page text belongs behind this constant.
  */
-export const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---[ \t]*\r?\n?/;
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---[ \t]*\r?\n?/;
 
 /** Split lines without caring which convention the file was checked out with. */
 export const splitLines = (text: string): string[] => text.split(/\r?\n/);
