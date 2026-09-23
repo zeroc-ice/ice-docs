@@ -13,17 +13,9 @@ import {
   stripRedundantTitle
 } from '@/lib/docs-model/resolve';
 import { buildPageIndex } from '@/lib/docs-model/links';
-import {
-  MANUAL_TITLE,
-  buildSideNav,
-  breadcrumbs,
-  pageHref,
-  prevNext
-} from '@/lib/docs-model/nav';
+import { breadcrumbs, pageHref, prevNext } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
-import { SideNav } from '@/components/ice/SideNav';
-import { VersionBanner } from '@/components/ice/VersionBanner';
 import {
   listVersions,
   listPages,
@@ -82,11 +74,9 @@ export default async function Page(props: PageProps) {
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
-  // The manual is one tree, and this page's place in it gives the sidebar its
-  // active branch, the breadcrumb trail, and the reading order. A page outside
-  // the tree still renders; it just gets no trail and no previous/next, which
-  // makes the omission obvious.
-  const sideNav = buildSideNav(sidebar, version, slug);
+  // The manual is one tree, and this page's place in it gives the breadcrumb
+  // trail and the reading order. A page outside the tree still renders; it just
+  // gets no trail and no previous/next, which makes the omission obvious.
   const crumbs = breadcrumbs(sidebar, version, slug);
   // Previous and next follow the sidebar, which hides the pages not written
   // for the reader's language: one pair per language, alike ones sharing.
@@ -157,7 +147,7 @@ export default async function Page(props: PageProps) {
   });
 
   return (
-    <div className="flex grow flex-col">
+    <>
       {/* Search + version + language controls live in the global header (portal). */}
       <HeaderControls
         version={version}
@@ -165,27 +155,7 @@ export default async function Page(props: PageProps) {
         versionOptions={versionOptions}
         previousVersions={nav.previousVersions}
       />
-      <VersionBanner
-        version={version}
-        status={nav.status}
-        latestUrl={nav.previousVersions?.url}
-      />
-      <div className="mt-8 flex grow flex-row justify-center">
-        <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
-          {/* Sidebar: the manual's table of contents. */}
-          <SideNav
-            nodes={sideNav}
-            title={MANUAL_TITLE}
-            homeHref={pageHref(version)}
-          />
-
-          {/* Content */}
-          <div className="grow pb-8">
-            <div id="skip-nav" />
-            {Markdoc.renderers.react(content, React, { components })}
-          </div>
-        </div>
-      </div>
-    </div>
+      {Markdoc.renderers.react(content, React, { components })}
+    </>
   );
 }

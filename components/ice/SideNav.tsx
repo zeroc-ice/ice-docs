@@ -21,10 +21,11 @@ const COLLAPSED_KEY = 'ice-docs:sidebar-collapsed';
 
 // Where the reader is in the tree — which groups are open, how far the rail is
 // scrolled — lives in session storage, per tab, keyed by version (keys are
-// titles and hrefs, which differ between versions). The rail is rebuilt on
-// every navigation; without this, each click in it would hand back a tree
-// scrolled to the top with only the new page's branch open, and the reader
-// would lose their place in the very control they are using to move.
+// titles and hrefs, which differ between versions). The rail stays mounted
+// while the reader moves around one version, but a reload or a trip to another
+// version builds a new one; without this, it would come back scrolled to the
+// top with only the current page's branch open, and the reader would lose
+// their place.
 const stateKey = (kind: 'open' | 'scroll', scope: string) =>
   `ice-docs:sidebar-${kind}:${scope}`;
 
@@ -57,6 +58,9 @@ function writeState(key: string, value: unknown) {
 // branch stays emphasised while folded, so "where am I" survives the fold. What
 // the reader opened stays open across navigations, so the tree does not
 // rearrange itself under the click that moved them.
+//
+// The tree is the same on every page of a version, so the current page is the
+// entry whose link is the address's path.
 export function SideNav({
   nodes,
   title,
@@ -94,15 +98,22 @@ export function SideNav({
 
   // Groups that are open: the branch holding the current page, plus — once the
   // client has mounted and can read storage — whatever the reader had open
-  // before this navigation. A click replaces the set outright.
+  // before this navigation. A click replaces the set outright, until the
+  // reader moves to another page: by then the set is in storage, and the new
+  // page's branch opens on top of it.
   const initialOpen = useMemo(() => {
-    const open = new Set(activeTrailKeys(nodes));
+    const open = new Set(activeTrailKeys(nodes, pathname));
     if (mounted)
       for (const key of readState<string[]>(stateKey('open', scope), []))
         open.add(key);
     return open;
-  }, [mounted, nodes, scope]);
+  }, [mounted, nodes, pathname, scope]);
   const [clicked, setClicked] = useState<Set<string> | null>(null);
+  const [clickedOn, setClickedOn] = useState(pathname);
+  if (clickedOn !== pathname) {
+    setClickedOn(pathname);
+    setClicked(null);
+  }
   const open = clicked ?? initialOpen;
 
   const toggle = (key: string) => {
@@ -121,15 +132,21 @@ export function SideNav({
   }, [mounted, open, scope]);
 
   // Restore the rail's scroll position once it has rendered with the remembered
-  // groups open, then make sure the current page is in view: it is when the
-  // reader clicked it in the rail, and may not be when they arrived by a
-  // previous/next link or from search. Before paint, so nothing jumps. An
-  // entry hidden for the reader's language has no position to show.
+  // groups open. Before paint, so nothing jumps.
   const navRef = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const nav = navRef.current;
+    if (mounted && nav)
+      nav.scrollTop = readState<number>(stateKey('scroll', scope), 0);
+  }, [mounted, scope]);
+
+  // Then, and on every navigation, make sure the current page is in view: it
+  // is when the reader clicked it in the rail, and may not be when they
+  // arrived by a previous/next link or from search. An entry hidden for the
+  // reader's language has no position to show.
+  useLayoutEffect(() => {
+    const nav = navRef.current;
     if (!mounted || !nav) return;
-    nav.scrollTop = readState<number>(stateKey('scroll', scope), 0);
     const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
     if (!active || active.offsetParent === null) return;
     const top = active.offsetTop;
@@ -137,7 +154,7 @@ export function SideNav({
     if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
       nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
     }
-  }, [mounted, scope]);
+  }, [mounted, pathname]);
 
   // Remember the scroll position as it changes, one write per frame.
   const frame = useRef(0);
@@ -216,11 +233,13 @@ export function SideNav({
           nodes={nodes}
           path={[]}
           depth={0}
+          pathname={pathname}
           open={open}
           toggle={toggle}
           // Groups open by a click slide open; groups restored from storage or
           // opened for the current page are simply there, so the rail lays out
-          // at its final height before the scroll position is put back.
+          // at its final height before the scroll position is put back or the
+          // current page brought into view.
           animate={clicked !== null}
         />
       </div>
@@ -232,12 +251,22 @@ interface TreeProps {
   nodes: SideNavNode[];
   path: string[];
   depth: number;
+  /** The current page's path, which its entry links to. */
+  pathname: string;
   open: ReadonlySet<string>;
   toggle: (key: string) => void;
   animate: boolean;
 }
 
-function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
+function Tree({
+  nodes,
+  path,
+  depth,
+  pathname,
+  open,
+  toggle,
+  animate
+}: TreeProps) {
   return (
     <ul className="flex flex-col">
       {nodes.map((node) => {
@@ -245,9 +274,10 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
         const k = sideNavKey(nodePath);
         const hasItems = node.items.length > 0;
         const isOpen = hasItems && open.has(k);
+        const active = node.href === pathname;
 
         // The trail down to the current page stays emphasised even when folded.
-        const onActiveTrail = containsActive(node) && !node.active;
+        const onActiveTrail = !active && containsActive(node, pathname);
 
         const chevron = (
           <ChevronRight
@@ -262,7 +292,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
 
         const label = clsx(
           'block flex-1 rounded-[5px] px-2 py-1.5 text-left leading-snug transition-colors',
-          node.active
+          active
             ? 'bg-accent-soft text-link font-semibold'
             : onActiveTrail
               ? 'text-ink hover:bg-surface-subtle font-semibold'
@@ -301,7 +331,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
                   <span className="w-5 shrink-0" />
                   <Link
                     href={node.href!}
-                    aria-current={node.active ? 'page' : undefined}
+                    aria-current={active ? 'page' : undefined}
                     className={label}
                   >
                     {node.title}
@@ -328,6 +358,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
                     nodes={node.items}
                     path={nodePath}
                     depth={depth + 1}
+                    pathname={pathname}
                     open={open}
                     toggle={toggle}
                     animate={animate}
