@@ -18,15 +18,11 @@ import { useMounted } from '@/context/state';
 // storage and outlives the tab.
 const COLLAPSED_KEY = 'ice-docs:sidebar-collapsed';
 
-// Where the reader is in the tree — which groups are open, how far the rail is
-// scrolled — lives in session storage, per tab, keyed by version (keys are
-// titles and hrefs, which differ between versions). The rail stays mounted
-// while the reader moves around one version, but a reload or a trip to another
-// version builds a new one; without this, it would come back scrolled to the
-// top with only the current page's branch open, and the reader would lose
-// their place.
-const stateKey = (kind: 'open' | 'scroll', scope: string) =>
-  `ice-docs:sidebar-${kind}:${scope}`;
+// The groups the reader has open live in session storage, per tab, keyed by
+// version (keys are titles and hrefs, which differ between versions), so they
+// outlast a navigation, a reload, or a trip to another version, each of which
+// would otherwise leave only the current page's branch open.
+const openKey = (scope: string) => `ice-docs:sidebar-open:${scope}`;
 
 function readState<T>(key: string, fallback: T): T {
   try {
@@ -108,8 +104,7 @@ export function SideNav({
   const initialOpen = useMemo(() => {
     const open = new Set(trail);
     if (mounted)
-      for (const key of readState<string[]>(stateKey('open', scope), []))
-        open.add(key);
+      for (const key of readState<string[]>(openKey(scope), [])) open.add(key);
     return open;
   }, [mounted, trail, scope]);
   const [clicked, setClicked] = useState<Set<string> | null>(null);
@@ -129,25 +124,16 @@ export function SideNav({
 
   // Persist the effective set, not just the clicks: the branch that opened on
   // its own for this page has to stay open on the next one too, or the tree
-  // would shrink above the reader's place and the scroll position would land
-  // on the wrong rows.
+  // would shrink above the reader's place.
   useEffect(() => {
-    if (mounted) writeState(stateKey('open', scope), [...open]);
+    if (mounted) writeState(openKey(scope), [...open]);
   }, [mounted, open, scope]);
 
-  // Restore the rail's scroll position once it has rendered with the remembered
-  // groups open. Before paint, so nothing jumps.
-  const navRef = useRef<HTMLElement>(null);
-  useLayoutEffect(() => {
-    const nav = navRef.current;
-    if (mounted && nav)
-      nav.scrollTop = readState<number>(stateKey('scroll', scope), 0);
-  }, [mounted, scope]);
-
-  // Then, and on every navigation, make sure the current page is in view: it
+  // On load and on every navigation, make sure the current page is in view: it
   // is when the reader clicked it in the rail, and may not be when they
-  // arrived by a previous/next link or from search. An entry hidden for the
-  // reader's language has no position to show.
+  // arrived by a previous/next link, from search, or by loading the page. An
+  // entry hidden for the reader's language has no position to show.
+  const navRef = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const nav = navRef.current;
     if (!mounted || !nav) return;
@@ -158,25 +144,13 @@ export function SideNav({
     if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
       nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
     }
-  }, [mounted, pathname]);
-
-  // Remember the scroll position as it changes, one write per frame.
-  const frame = useRef(0);
-  const onScroll = () => {
-    if (frame.current) return;
-    frame.current = window.requestAnimationFrame(() => {
-      frame.current = 0;
-      if (navRef.current)
-        writeState(stateKey('scroll', scope), navRef.current.scrollTop);
-    });
-  };
+  }, [mounted, pathname, collapsed]);
 
   if (nodes.length === 0) return null;
 
   return (
     <nav
       ref={navRef}
-      onScroll={onScroll}
       aria-label={title ? `${title} navigation` : 'Manual navigation'}
       // `contain-size` keeps the tree's height out of the row's, so a short
       // page stays viewport-high with the footer at the bottom; the rail then
@@ -243,8 +217,7 @@ export function SideNav({
           toggle={toggle}
           // Groups open by a click slide open; groups restored from storage or
           // opened for the current page are simply there, so the rail lays out
-          // at its final height before the scroll position is put back or the
-          // current page brought into view.
+          // at its final height before the current page is brought into view.
           animate={clicked !== null}
         />
       </div>
