@@ -33,6 +33,11 @@ by the entries in `newProperties` are retained with their original values. If th
 [Ice.Trace.Admin.Properties](../ice-trace-properties) property is enabled, Ice logs a message if a call to
 `setProperties` results in any changes to the property set.
 
+`setProperties` applies the same [property validation](../properties-overview#property-validation) as any other way of
+setting a property, and it applies the entries one at a time rather than as a single transaction. A `newProperties` that
+holds a name the target communicator rejects can therefore leave some of its other entries applied. A remote caller sees
+an `UnknownLocalException`, since `PropertyException` is a local exception that `setProperties` does not declare.
+
 {% callout type="info" %}
 
 Modifying a program's configuration properties at runtime may not have an effect on the program. For example, many of

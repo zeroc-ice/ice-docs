@@ -14,6 +14,10 @@ is read and converted to a property setting when you create a communicator. Prop
 override settings in a configuration file. If you set the same property more than once on the same command line, the
 last setting overrides any previous ones.
 
+An option that names a reserved prefix goes through the same
+[property validation](../properties-overview#property-validation) as a property set anywhere else, so an option that
+names no Ice property, such as `--Ice.Trace.Networks=1`, makes communicator creation throw `PropertyException`.
+
 For convenience, any property not explicitly set to a value is set to the value `1`. For example,
 
 ```shell

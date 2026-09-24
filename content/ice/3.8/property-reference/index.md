@@ -4,8 +4,14 @@ title: Property Reference
 
 This section provides a reference for all properties used by the Ice runtime and its services.
 
-Unless stated otherwise in the description of an individual property, its default value is the empty string. If a
-property takes a numeric value, the empty string is interpreted as zero.
+The description of each property states its default value; where it does not, the default is the empty string, which a
+property with a numeric value interprets as zero.
+
+The Ice runtime reads its own properties with `getIceProperty`, `getIcePropertyAsInt` and `getIcePropertyAsList`, which
+return that default when the property is not set. The plain `getProperty`, `getPropertyAsInt` and `getPropertyAsList`
+return the empty string, zero and an empty list instead, whatever default this reference states; see
+[the Properties class](../the-properties-class). Where an entry gives a default derived from another property, that
+default is the work of the subsystem reading the property, not of these methods.
 
 Note that Ice reads properties that control the runtime and its services only once on start-up, when you create a
 communicator. This means that you must set Ice-related properties to their correct values before you create a

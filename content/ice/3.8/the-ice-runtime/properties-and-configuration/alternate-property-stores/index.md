@@ -25,6 +25,10 @@ string "3" as the value, not a binary or `DWORD` value.
 String values in the registry can be regular strings (`REG_SZ`) or expandable strings (`REG_EXPAND_SZ`). Expandable
 strings allow you to include symbolic references to environment variables (such as `%ICE_HOME%`).
 
+Ice applies the same [property validation](../properties-overview#property-validation) to the names it reads from the
+registry as to the names in a configuration file: a value whose name begins with a reserved prefix but is not a property
+Ice knows makes communicator creation throw `PropertyException`.
+
 # Loading Properties from Java Resources
 
 The Ice runtime for Java supports the ability to load a configuration file as a class loader resource, which is
