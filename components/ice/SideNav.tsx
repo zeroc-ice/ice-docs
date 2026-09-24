@@ -213,13 +213,13 @@ function Tree({
         const label = clsx(
           'block flex-1 rounded-[5px] px-2 py-1.5 text-left leading-snug transition-colors',
           active
-            ? 'bg-accent-soft text-link font-semibold'
+            ? 'text-link font-semibold'
             : onActiveTrail
-              ? 'text-ink hover:bg-surface-subtle font-semibold'
+              ? 'text-ink font-semibold'
               : // Top-level entries carry the shape of the manual, so they read at
                 // full strength; their children step back a shade.
                 clsx(
-                  'hover:text-ink hover:bg-surface-subtle',
+                  'hover:text-ink',
                   depth === 0 ? 'text-ink' : 'text-ink-secondary'
                 )
         );
