@@ -25,11 +25,7 @@ export default async function VersionLayout({
 
   return (
     <div className="flex grow flex-col">
-      <VersionBanner
-        version={version}
-        status={nav.status}
-        latestUrl={nav.previousVersions?.url}
-      />
+      <VersionBanner version={version} status={nav.status} />
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the manual's table of contents. */}
