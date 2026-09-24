@@ -240,6 +240,11 @@
     margin-right: 0 !important;
   }
 
+  /* The page behind a modal dialog is inert; keep it from scrolling too. */
+  html:has(dialog:modal) {
+    overflow: hidden;
+  }
+
   .DocSearch-Input:focus {
     /* Disable the docsearch input ring */
     outline: none !important;
