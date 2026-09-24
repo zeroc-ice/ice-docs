@@ -132,13 +132,14 @@ export function PageOutline({
       if (tops[current + 1] < innerHeight / 2) current++;
 
       // At the bottom of the page the last heading is active, unless the
-      // reader jumped to another one that can't pass under the bars.
+      // reader jumped to another one whose jump lands there too, within the
+      // same pixel that counts as the bottom.
       if (atBottom) {
         const jumped = headings.findIndex(
           (heading) => heading.id === jump.current.id
         );
         current =
-          jumped !== -1 && targets[jumped] > maxScroll
+          jumped !== -1 && targets[jumped] > maxScroll - 1
             ? jumped
             : headings.length - 1;
       }
