@@ -9,6 +9,7 @@ import { ChevronRight } from 'lucide-react';
 
 import {
   type SideNavNode,
+  MANUAL_TITLE,
   activeTrailKeys,
   containsActive,
   sideNavKey
@@ -57,13 +58,7 @@ function writeState(key: string, value: unknown) {
 //
 // The tree is the same on every page of a version, so the current page is the
 // entry whose link is the address's path.
-export function SideNav({
-  nodes,
-  title
-}: {
-  nodes: SideNavNode[];
-  title?: string;
-}) {
+export function SideNav({ nodes }: { nodes: SideNavNode[] }) {
   // Storage is read after mount, so the server and the first client render
   // agree.
   const mounted = useMounted();
@@ -149,7 +144,7 @@ export function SideNav({
     <nav
       ref={navRef}
       onScroll={onScroll}
-      aria-label={title ? `${title} navigation` : 'Manual navigation'}
+      aria-label={`${MANUAL_TITLE} navigation`}
       // `contain-size` keeps the tree's height out of the row's, so a short
       // page stays viewport-high with the footer at the bottom; the rail then
       // stretches to the row, capped at the viewport.
