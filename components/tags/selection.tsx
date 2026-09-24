@@ -89,7 +89,9 @@ const Switch = ({
   note: string;
   children: ReactNode;
 }) => (
-  <DropdownMenu>
+  // Not modal: a modal menu's scroll lock pads the body for the scrollbar,
+  // whose space the page already keeps, and the page would shift.
+  <DropdownMenu modal={false}>
     <DropdownMenuTrigger asChild>
       <button
         type="button"
