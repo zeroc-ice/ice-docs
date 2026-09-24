@@ -12,7 +12,7 @@ import {
   activeTrailKeys,
   sideNavKey
 } from '@/lib/docs-model/nav';
-import { useMounted } from '@/context/state';
+import { useLanguage, useMounted } from '@/context/state';
 
 // Whether the whole rail is folded away. A preference, so it lives in local
 // storage and outlives the tab.
@@ -131,8 +131,11 @@ export function SideNav({
 
   // On load and on every navigation, make sure the current page is in view: it
   // is when the reader clicked it in the rail, and may not be when they
-  // arrived by a previous/next link, from search, or by loading the page. An
-  // entry hidden for the reader's language has no position to show.
+  // arrived by a previous/next link, from search, or by loading the page. A
+  // language switch can move it too, by showing or hiding the entries written
+  // for some languages. An entry hidden for the reader's language has no
+  // position to show.
+  const language = useLanguage();
   const navRef = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const nav = navRef.current;
@@ -144,7 +147,7 @@ export function SideNav({
     if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
       nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
     }
-  }, [mounted, pathname, collapsed]);
+  }, [mounted, pathname, collapsed, language]);
 
   if (nodes.length === 0) return null;
 
