@@ -143,9 +143,10 @@ export function writtenFor(page: PageFiles): string[] | undefined {
 /**
  * A version's table of contents and settings, read from its pages: the front
  * page's frontmatter holds the settings and lists the chapters under `pages:`,
- * and a page with children lists them the same way. A node takes its page's
- * title. Throws when the version has no front page, or when a page lists a
- * page it does not contain.
+ * and a page with children lists them the same way. The front page is the
+ * first entry, ahead of the chapters. A node takes its page's title. Throws
+ * when the version has no front page, or when a page lists a page it does not
+ * contain.
  */
 export function readNavigation(root: string, version: string): NavDoc {
   type Listed = { title: string; pages?: string[] };
@@ -172,10 +173,18 @@ export function readNavigation(root: string, version: string): NavDoc {
     throw new Error(
       `${version} has no front page (index.md at the version root)`
     );
-  const { pages, languages, status, previousVersions } = readFrontmatter<
+  const { title, pages, languages, status, previousVersions } = readFrontmatter<
     Listed & Omit<NavDoc, 'sidebar'>
   >(front);
-  return { languages, status, previousVersions, sidebar: nodes('', pages) };
+  return {
+    languages,
+    status,
+    previousVersions,
+    sidebar: [
+      { title, slug: '', writtenFor: undefined, items: [] },
+      ...nodes('', pages)
+    ]
+  };
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

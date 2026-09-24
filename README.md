@@ -33,9 +33,9 @@ npm run format:check               # what CI runs
 Everything for one version of the manual lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page
 is a directory, and its path under the version is its slug, the path in its URL:
 
-- `index.md` — the manual's front page, served at `/ice/<version>`. It sits above the tree rather than in it: the
-  sidebar heading and the breadcrumb root link to it. The site root and `/ice` redirect to the newest version's. Its
-  frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
+- `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
+  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the newest version's.
+  Its frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
   `previousVersions`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
   `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter

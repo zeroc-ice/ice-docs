@@ -2,7 +2,7 @@
 
 import path from 'path';
 
-import { MANUAL_TITLE, buildSideNav, pageHref } from '@/lib/docs-model/nav';
+import { MANUAL_TITLE, buildSideNav } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
 import { readNavigation } from '@/lib/docs-model/content';
@@ -36,7 +36,6 @@ export default async function VersionLayout({
           <SideNav
             nodes={buildSideNav(nav.sidebar, version)}
             title={MANUAL_TITLE}
-            homeHref={pageHref(version)}
           />
 
           {/* Content */}

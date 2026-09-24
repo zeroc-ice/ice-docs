@@ -63,13 +63,10 @@ function writeState(key: string, value: unknown) {
 // entry whose link is the address's path.
 export function SideNav({
   nodes,
-  title,
-  homeHref
+  title
 }: {
   nodes: SideNavNode[];
   title?: string;
-  /** The manual's front page, which the heading links to. */
-  homeHref: string;
 }) {
   // Read after mount, so the server and the first client render agree; the
   // width transition then carries the rail closed rather than snapping it.
@@ -183,23 +180,7 @@ export function SideNav({
         collapsed ? 'w-9 overflow-hidden' : 'w-66 overflow-y-auto pr-3'
       )}
     >
-      <div className="mb-2 flex items-center gap-1">
-        {/* The heading is the manual's front page, the one page above the
-            tree rather than in it, so it is the row that is active there. */}
-        {!collapsed && title && (
-          <Link
-            href={homeHref}
-            aria-current={pathname === homeHref ? 'page' : undefined}
-            className={clsx(
-              'flex-1 truncate rounded-[5px] px-2 py-1 text-[11px] font-semibold tracking-[0.07em] uppercase transition-colors',
-              pathname === homeHref
-                ? 'bg-accent-soft text-link'
-                : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
-            )}
-          >
-            {title}
-          </Link>
-        )}
+      <div className="mb-2 flex items-center justify-end">
         <button
           type="button"
           onClick={() => setCollapsed(!collapsed)}
