@@ -38,12 +38,10 @@ Starting each line of a multi-line block doc comment with `*` is conventional, b
 
 {% /callout %}
 
-The two styles are equivalent: the Slice compilers map a doc comment the same way, whichever style it uses. `///`
-comments are often called Doxygen style and `/** */` comments Javadoc style, but a Slice doc comment accepts only the
-tags described in [Doc-Comment Structure](../doc-comment-structure). The compilers warn about any other tag and ignore
-it.
+The two styles are equivalent. `///` comments are often called Doxygen style and `/** */` comments Javadoc style, but a
+Slice doc comment accepts only the tags described in [Doc-Comment Structure](../doc-comment-structure).
 
-A doc comment documents the definition that follows it, so write it directly before that definition. You can document
-modules, interfaces, classes, exceptions, structures, sequences, dictionaries, enumerations and their enumerators,
-constants, operations, and fields. An operation's parameters are documented with `@param` tags in the operation's doc
-comment; see [Operation Tags](../doc-comment-structure#operation-tags).
+Write a doc comment directly before the definition it documents. You can document modules, interfaces, classes,
+exceptions, structures, sequences, dictionaries, enumerations and their enumerators, constants, operations, and fields.
+You document an operation's parameters with `@param` tags in the operation's doc comment; see
+[Operation Tags](../doc-comment-structure#operation-tags).
