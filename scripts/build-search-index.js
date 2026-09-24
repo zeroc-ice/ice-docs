@@ -2,7 +2,7 @@
 //
 // Build the search index the header's search palette loads.
 //
-//   node scripts/build-search-index.mjs
+//   node scripts/build-search-index.js
 //
 // One JSON file per version under `public/search/`. Runs from
 // `prebuild`/`predev`; the output is generated, and git-ignored.
@@ -12,6 +12,8 @@
 // the thing readers actually search for (`Ice.Default.Locator`, `AMI`). The
 // shared text's headings match for every reader, and each mapping's own match
 // only for that mapping's readers, who are the only ones to see them.
+
+// cspell:words predev
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -57,8 +59,8 @@ function headings(body) {
 }
 
 /** Where a page sits, for the result's context line: "The Slice Language › User-Defined Types". */
-function crumbFor(nav, page) {
-  const trail = trailTo(nav.sidebar ?? [], page);
+function crumbFor(nav, slug) {
+  const trail = trailTo(nav.sidebar, slug);
   return trail
     ? trail
         .slice(0, -1)
@@ -83,7 +85,7 @@ for (const version of listVersions(ROOT)) {
     records.push({
       t: frontmatter.title,
       d: frontmatter.description ?? '',
-      c: crumbFor(nav, page.name),
+      c: crumbFor(nav, page.slug),
       k: frontmatter.type ?? '',
       h: pageHref(version, page.slug),
       x: [...common].join(' · '),

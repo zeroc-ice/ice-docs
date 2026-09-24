@@ -1,5 +1,12 @@
 ---
 title: Classes
+pages:
+  - simple-classes
+  - class-inheritance
+  - self-referential-classes
+  - classes-with-compact-type-ids
+  - slice-loaders
+  - slicing-values-and-exceptions
 ---
 
 A class is a user-defined type that holds a list of fields, just like a struct. Classes also offer capabilities not

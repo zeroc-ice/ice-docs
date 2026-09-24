@@ -1,5 +1,10 @@
 ---
 title: IceBox
+pages:
+  - developing-icebox-services
+  - configuring-icebox-services
+  - starting-the-icebox-server
+  - icebox-administration
 ---
 
 IceBox is an easy-to-use framework for Ice application services. With IceBox, services are developed as

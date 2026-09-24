@@ -1,5 +1,13 @@
 ---
 title: Runtime Components
+pages:
+  - registry-runtime-component
+  - slave-registry-runtime-component
+  - node-runtime-component
+  - server-runtime-component
+  - adapter-runtime-component
+  - service-runtime-component
+  - metrics-view-runtime-component
 ---
 
 IceGrid GUI shows the following runtime components:

@@ -1,5 +1,9 @@
 ---
 title: Application Tabs
+pages:
+  - editing-and-saving-icegrid-descriptors
+  - navigation-within-an-application-tab
+  - icegrid-descriptors
 ---
 
 IceGrid definitions are organized in "applications", with typically one or a few applications deployed on a given

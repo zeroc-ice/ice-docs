@@ -1,5 +1,8 @@
 ---
 title: Plug-in Facility
+pages:
+  - plug-in-api
+  - installing-a-plug-in-using-configuration
 ---
 
 Ice provides a plug-in facility that allows you to load new features into your application, without changing this

@@ -3,10 +3,12 @@
 const noindex = process.env.SITE_NOINDEX === '1';
 
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
+const config = {
   siteUrl: process.env.SITE_URL || 'https://docs.zeroc.com',
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [{ userAgent: '*', [noindex ? 'disallow' : 'allow']: '/' }]
   }
 };
+
+export default config;

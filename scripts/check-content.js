@@ -5,24 +5,26 @@
 // These are the invariants that make the manual hold together; each one, when
 // violated, produces a page a reader cannot reach or a link that goes nowhere:
 //
-//   1. every page is reachable from navigation.yaml
-//   2. every navigation entry points at a page that exists
-//   3. every page's directory sits in the directory of the group above it in navigation.yaml
-//   4. no two pages share a name (cross-page links are keyed by it)
-//   5. every overlay is for one of the manual's languages
-//   6. every cross-page link resolves to a real page
-//   7. every image parses as an image, has alt text, and its file exists
-//   8. no raw HTML or Confluence markup survived the migration
-//   9. every language slot is answered, and says which kind of answer it is
-//  10. a page written per language has one title across its languages
+//   1. every page is in the table of contents: listed by the page above it, up to the front page
+//   2. no two pages share a name (cross-page links are keyed by it)
+//   3. every overlay is for one of the manual's languages
+//   4. every cross-page link resolves to a real page
+//   5. every image parses as an image, has alt text, and its file exists
+//   6. no raw HTML or Confluence markup survived the migration
+//   7. every language slot is answered, and says which kind of answer it is
+//   8. a page written per language has one title across its languages
 //
-// Exit code 1 on a violation of 1-5, 7a/7b (unparseable image markup and missing
-// alt text), 8, and 10 — those are defects in the files themselves, and the tree
-// is clean of them today, so anything new is a regression.
+// Exit code 1 on a violation of 1-3, 5a/5b (unparseable image markup and missing
+// alt text), 6, 7, and 8 — those are defects in the files themselves, and the
+// tree is clean of them today, so anything new is a regression. A version
+// without a front page, or a page that lists a page it does not contain, fails
+// as the navigation is read.
 //
-// Unresolved links (6) and missing image files (7c) are reported and fail only
+// Unresolved links (4) and missing image files (5c) are reported and fail only
 // under --strict: the migrated manual still links to pages that were never
 // brought over, and none of its Confluence attachments were migrated at all.
+
+// cspell:words noformat unparseable worklist
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -272,7 +274,7 @@ function checkSlots(version, pages, languages) {
   } else if (counts.unclassified < UNCLASSIFIED_SLOT_BASELINE) {
     console.log(
       `  ${UNCLASSIFIED_SLOT_BASELINE - counts.unclassified} fewer than the baseline — ` +
-        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.mjs to ${counts.unclassified}`
+        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.js to ${counts.unclassified}`
     );
   }
   if (strict && counts.unclassified) {
@@ -302,58 +304,28 @@ for (const version of listVersions(ROOT)) {
   const nav = readNavigation(ROOT, version);
 
   const pages = listPages(ROOT, version);
-  const byName = new Map(pages.map((page) => [page.name, page]));
   const { index, duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const languages = nav.languages;
 
   console.log(`\n${version}: ${pages.length} pages`);
 
-  // 1. every page is reachable from the navigation; the front page, index.md at
-  //    the root, is reached from the manual's title instead, and the site root
-  //    redirects to it.
-  if (!pages.some((page) => page.slug === '' && page.shared))
-    fail(`${version}: no front page (index.md at the version root)`);
-  const orphans = pages.filter((page) => page.slug && !declared.has(page.name));
-  for (const { name } of orphans.slice(0, 20))
-    fail(`${version}: "${name}" is not in navigation.yaml`);
+  // 1. every page is in the table of contents: listed under `pages:` by the
+  //    page above it, up to the front page, index.md at the root, which lists
+  //    the chapters.
+  const orphans = pages.filter((page) => page.slug && !declared.has(page.slug));
+  for (const { slug } of orphans.slice(0, 20))
+    fail(`${version}: ${slug} is not in the table of contents`);
   if (orphans.length > 20)
-    fail(`${version}: ...and ${orphans.length - 20} more unreachable pages`);
+    fail(
+      `${version}: ...and ${orphans.length - 20} more pages not in the table of contents`
+    );
 
-  // 2. every navigation entry exists
-  const dangling = [...declared].filter((name) => !byName.has(name));
-  for (const name of dangling.slice(0, 20))
-    fail(`${version}: navigation points at missing page "${name}"`);
-  if (dangling.length > 20)
-    fail(`${version}: ...and ${dangling.length - 20} more missing pages`);
-
-  // 3. the content tree mirrors the navigation: a page's directory sits in the
-  //    directory of the group above it. A group with no page of its own has no
-  //    directory either, so its pages sit in the directory above it.
-  const checkPlacement = (nodes, dir) => {
-    for (const node of nodes ?? []) {
-      if (!node.page) {
-        checkPlacement(node.items, dir);
-        continue;
-      }
-      const page = byName.get(node.page);
-      if (!page) continue; // reported by rule 2
-      const parent = page.slug.split('/').slice(0, -1).join('/');
-      if (parent !== dir) {
-        fail(
-          `${version}: "${node.page}" is at ${page.slug}, but navigation.yaml puts it under ${dir || 'the root'}`
-        );
-      }
-      checkPlacement(node.items, page.slug);
-    }
-  };
-  checkPlacement(nav.sidebar, '');
-
-  // 4. page names are unique (cross-page links are keyed by them)
+  // 2. page names are unique (cross-page links are keyed by them)
   for (const dup of duplicates)
     fail(`${version}: duplicate page name "${dup}"`);
 
-  // 5. a file beside a page's index.md is the overlay for the language it is named after
+  // 3. a file beside a page's index.md is the overlay for the language it is named after
   for (const page of pages) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
@@ -363,7 +335,7 @@ for (const version of listVersions(ROOT)) {
     }
   }
 
-  // 7 & 8: defects inside the files themselves.
+  // 5 & 6: defects inside the files themselves.
   const files = pages.flatMap((page) => [
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
@@ -371,10 +343,10 @@ for (const version of listVersions(ROOT)) {
   checkImages(version, files);
   checkStrayMarkup(files);
 
-  // 9. every language slot is answered, and says what kind of answer it is.
+  // 7. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);
 
-  // 10. a page written per language is one page: its files agree on the title
+  // 8. a page written per language is one page: its files agree on the title
   for (const page of pages) {
     if (page.shared) continue;
     const titles = new Set(
@@ -388,7 +360,7 @@ for (const version of listVersions(ROOT)) {
       );
   }
 
-  // 6. cross-page links resolve
+  // 4. cross-page links resolve
   const unresolved = new Map();
   let total = 0;
   for (const file of files) {

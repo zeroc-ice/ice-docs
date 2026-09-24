@@ -1,5 +1,16 @@
 ---
 title: Administrative Facility
+pages:
+  - the-admin-object
+  - creating-the-admin-object
+  - using-the-admin-object
+  - the-process-facet
+  - the-properties-facet
+  - the-logger-facet
+  - the-metrics-facet
+  - filtering-administrative-facets
+  - custom-administrative-facets
+  - security-considerations-for-administrative-facets
 ---
 
 Ice applications often require remote administration, such as when an IceGrid node needs to

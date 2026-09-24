@@ -1,5 +1,31 @@
 ---
 title: IceGrid
+pages:
+  - icegrid-architecture
+  - getting-started-with-icegrid
+  - using-icegrid-deployment
+  - well-known-objects
+  - icegrid-templates
+  - icebox-integration-with-icegrid
+  - object-adapter-replication
+  - load-balancing
+  - resource-allocation-using-icegrid-sessions
+  - registry-replication
+  - application-distribution
+  - icegrid-administrative-sessions
+  - glacier2-integration-with-icegrid
+  - icegrid-xml-reference
+  - using-descriptor-variables-and-parameters
+  - icegrid-property-set-semantics
+  - icegrid-xml-features
+  - icegrid-server-reference
+  - icegrid-and-the-administrative-facility
+  - securing-icegrid
+  - icegridadmin-command-line-tool
+  - icegrid-gui-tool
+  - icegrid-server-activation
+  - icegrid-troubleshooting
+  - icegrid-database-utility
 ---
 
 IceGrid is a location and activation service for Ice applications. For the purposes of this discussion, we can loosely

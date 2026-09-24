@@ -1,5 +1,27 @@
 ---
 title: The Slice Language
+pages:
+  - slice-compilation
+  - slice-source-files
+  - lexical-rules
+  - basic-types
+  - modules
+  - user-defined-types
+  - fields
+  - constants-and-literals
+  - interfaces
+  - operations
+  - exceptions
+  - forward-declarations
+  - type-ids
+  - operations-on-object
+  - names-and-scoping
+  - slice-metadata-directives
+  - deprecating-slice-definitions
+  - using-the-slice-compiler
+  - code-generation
+  - documenting-slice-definitions
+  - slice-keywords
 ---
 
 The Slice [IDL](https://en.wikipedia.org/wiki/Interface_description_language) is the fundamental abstraction mechanism

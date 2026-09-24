@@ -1,5 +1,8 @@
 ---
 title: Versioning your Application
+pages:
+  - versioning-through-incremental-updates
+  - versioning-with-facets
 ---
 
 Once you have developed and deployed a distributed application, and once the application has been in use for some time,

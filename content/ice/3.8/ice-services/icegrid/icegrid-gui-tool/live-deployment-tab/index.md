@@ -1,5 +1,12 @@
 ---
 title: Live Deployment Tab
+pages:
+  - connection-to-an-icegrid-registry
+  - runtime-components
+  - application-component
+  - ice-log-dialog
+  - log-file-dialog
+  - metrics-graph
 ---
 
 The Live Deployment tab shows the runtime status and configuration of an existing IceGrid deployment, and allows you to

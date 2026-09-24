@@ -1,5 +1,7 @@
 ---
 title: Application Distribution
+pages:
+  - application-distribution-with-ansible
 ---
 
 In the section so far, "deployment" has meant the creation of descriptors in the registry. A broader definition involves

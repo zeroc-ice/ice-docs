@@ -34,12 +34,14 @@ Everything for one version of the manual lives under `content/ice/<version>/` (f
 is a directory, and its path under the version is its slug, the path in its URL:
 
 - `index.md` — the manual's front page, served at `/ice/<version>`. It sits above the tree rather than in it: the
-  sidebar heading and the breadcrumb root link to it. The site root and `/ice` redirect to the newest version's.
+  sidebar heading and the breadcrumb root link to it. The site root and `/ice` redirect to the newest version's. Its
+  frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
+  `previousVersions`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
-  `{% language-section %}` slots. The pages under it in the manual are its subdirectories.
+  `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
+  lists them under `pages:`.
 - `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or, when no `index.md` sits beside it, the whole
   page for that language (`writing-a-greeter-client/cpp.md`).
-- `navigation.yaml` — the table of contents (one tree) and the languages.
 - `redirects.yaml` — old URL to new URL.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
@@ -47,9 +49,9 @@ Images live under `public/attachments/<version>/<page>/` and are referenced as `
 Keep a shared figure in one page's attachment directory and reference that same asset from other pages instead of
 duplicating it.
 
-- **Page names are globally unique** within a version. The content tree follows the table of contents: `navigation.yaml`
-  names pages by name, and `check:content` fails a page whose directory is not inside the directory of the group above
-  it.
+- **Every page is in the table of contents**: `check:content` fails a page that no `pages:` list reaches from the front
+  page down.
+- **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
   a page that does not exist renders as plain text and is reported by `check:content`.
 - **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
@@ -66,7 +68,7 @@ duplicating it.
   languages, and one who lands on it anyway gets a note naming the languages it is written for.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own, with a blank line on each side outside tight lists. Prettier on its own would reflow a tag written
-  against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.mjs`, the
+  against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.js`, the
   parser `format` uses for Markdown, keeps each tag on its own line instead, and `check:markdoc` rejects anything that
   slips through. Two things the parser cannot tell apart from prose: a numbered list or a table right under a tag line.
   Put a blank line between them. An inline closer, `word{% /iflang %}`, has no space before it.

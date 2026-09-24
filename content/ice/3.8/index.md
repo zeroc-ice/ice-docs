@@ -4,6 +4,38 @@ description: Documentation for Ice, the Slice language, and the Ice services.
 shape: wide
 showReadingTime: false
 showAside: false
+status: latest
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
+previousVersions:
+  label: Previous Versions
+  url: https://archive.zeroc.com/
+pages:
+  - get-started
+  - greeter-example
+  - upgrade-guide
+  - basics
+  - the-slice-language
+  - the-ice-runtime
+  - administration-and-diagnostics
+  - plugins
+  - ice-services
+  - ice-encoding
+  - ice-protocol
+  - windows-services-and-linux-daemons
+  - versioning-your-application
+  - property-reference
+  - backward-compatibility-of-ice-versions
+  - using-ice-and-icerpc-together
+  - release-notes
 ---
 
 {% selection /%}

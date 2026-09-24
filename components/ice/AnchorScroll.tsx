@@ -47,16 +47,15 @@ function scrollToId(id: string) {
  * Go to a heading on this page, as following a link to it does. The history
  * entry goes through the router's `pushState`, so Back and Forward still
  * restore the page, and the `hashchange` that `pushState` does not fire is
- * sent for the outline, which follows the fragment.
+ * sent for the outline, which follows jumps. It is sent even when the URL
+ * already names the heading, since going there again is still a jump.
  */
 export function goToHeading(id: string) {
-  if (fragmentId(location.hash) !== id) {
-    const oldURL = location.href;
-    history.pushState(null, '', `#${id}`);
-    window.dispatchEvent(
-      new HashChangeEvent('hashchange', { oldURL, newURL: location.href })
-    );
-  }
+  const oldURL = location.href;
+  if (fragmentId(location.hash) !== id) history.pushState(null, '', `#${id}`);
+  window.dispatchEvent(
+    new HashChangeEvent('hashchange', { oldURL, newURL: location.href })
+  );
   scrollToId(id);
 }
 

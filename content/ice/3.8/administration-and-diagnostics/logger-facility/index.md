@@ -1,5 +1,10 @@
 ---
 title: Logger Facility
+pages:
+  - the-default-logger
+  - custom-loggers
+  - built-in-loggers
+  - the-per-process-logger
 ---
 
 Depending on the setting of [various properties](../properties-and-configuration), the Ice runtime produces trace,

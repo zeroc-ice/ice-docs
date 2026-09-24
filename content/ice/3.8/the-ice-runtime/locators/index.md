@@ -1,5 +1,10 @@
 ---
 title: Locators
+pages:
+  - locator-semantics-for-clients
+  - locator-configuration-for-a-client
+  - locator-semantics-for-servers
+  - locator-configuration-for-a-server
 ---
 
 In [Terminology](../terminology), we described briefly how the Ice runtime uses an intermediary, known as a _location

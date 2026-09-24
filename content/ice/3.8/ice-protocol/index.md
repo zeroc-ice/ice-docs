@@ -1,5 +1,8 @@
 ---
 title: Ice Protocol
+pages:
+  - protocol-messages
+  - protocol-compression
 ---
 
 The Ice protocol is an

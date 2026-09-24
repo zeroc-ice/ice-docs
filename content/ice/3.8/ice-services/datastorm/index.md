@@ -1,5 +1,10 @@
 ---
 title: DataStorm
+pages:
+  - datastorm-overview
+  - datastorm-concepts
+  - datastorm-api-reference
+  - node-server
 ---
 
 # Pub/Sub with DataStorm

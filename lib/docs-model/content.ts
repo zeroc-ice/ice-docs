@@ -3,7 +3,6 @@
 // Filesystem layer for the Ice docs content model. Reads page sources and
 // discovers routes under a content root laid out as:
 //
-//   <root>/<version>/navigation.yaml
 //   <root>/<version>/index.md                  the manual's front page
 //   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
 //   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
@@ -12,8 +11,9 @@
 // A page is a directory, and its path under the version is its slug, the path in
 // its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
 // at /ice/<version>/slice/enumerations, and the pages under it are its
-// subdirectories. A directory with overlays but no index.md is a page written
-// per language: each overlay is the whole page for its language.
+// subdirectories, in the order its frontmatter lists them under `pages:`. A
+// directory with overlays but no index.md is a page written per language: each
+// overlay is the whole page for its language.
 //
 // Unit-testable with `node lib/docs-model/content.test.ts` and usable from Next
 // server components. Pure content transforms live in ./resolve.ts; the route
@@ -23,7 +23,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
-import type { NavDoc } from './nav.ts';
+import type { NavDoc, NavNode } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
 /** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
@@ -104,9 +104,19 @@ export function listPages(root: string, version: string): PageFiles[] {
 }
 
 /** A markdown file's frontmatter, parsed; an overlay of a shared page has none. */
-export function frontmatterOf(source: string): Record<string, string> {
+export function frontmatterOf<T = Record<string, string>>(source: string): T {
   const { frontmatter } = splitFrontmatter(source);
-  return frontmatter ? (yamlLoad(frontmatter) as Record<string, string>) : {};
+  return (frontmatter ? yamlLoad(frontmatter) : {}) as T;
+}
+
+/**
+ * A page's frontmatter: its index.md's, or on a page written per language, its
+ * first overlay's.
+ */
+function readFrontmatter<T = Record<string, string>>(page: PageFiles): T {
+  return frontmatterOf<T>(
+    fs.readFileSync(page.shared ?? Object.values(page.overlays)[0], 'utf8')
+  );
 }
 
 /**
@@ -122,11 +132,7 @@ export function readPageSources(page: PageFiles) {
       read(file)
     ])
   );
-  return {
-    shared,
-    overlays,
-    frontmatter: frontmatterOf(shared ?? Object.values(overlays)[0])
-  };
+  return { shared, overlays, frontmatter: readFrontmatter(page) };
 }
 
 /** The languages a page is written for; `undefined` when it is written for all. */
@@ -134,11 +140,42 @@ export function writtenFor(page: PageFiles): string[] | undefined {
   return page.shared ? undefined : Object.keys(page.overlays);
 }
 
-/** A version's navigation.yaml, parsed. */
+/**
+ * A version's table of contents and settings, read from its pages: the front
+ * page's frontmatter holds the settings and lists the chapters under `pages:`,
+ * and a page with children lists them the same way. A node takes its page's
+ * title. Throws when the version has no front page, or when a page lists a
+ * page it does not contain.
+ */
 export function readNavigation(root: string, version: string): NavDoc {
-  return yamlLoad(
-    fs.readFileSync(path.join(root, version, 'navigation.yaml'), 'utf8')
-  ) as NavDoc;
+  type Listed = { title: string; pages?: string[] };
+  const bySlug = new Map(listPages(root, version).map((p) => [p.slug, p]));
+  const nodes = (parent: string, names: string[] = []): NavNode[] =>
+    names.map((name) => {
+      const slug = parent ? `${parent}/${name}` : name;
+      const page = bySlug.get(slug);
+      if (!page)
+        throw new Error(
+          `${version}/${parent || 'index.md'} lists "${name}", which is not a page in it`
+        );
+      const { title, pages } = readFrontmatter<Listed>(page);
+      return {
+        title,
+        slug,
+        writtenFor: writtenFor(page),
+        items: nodes(slug, pages)
+      };
+    });
+
+  const front = bySlug.get('');
+  if (!front)
+    throw new Error(
+      `${version} has no front page (index.md at the version root)`
+    );
+  const { pages, languages, status, previousVersions } = readFrontmatter<
+    Listed & Omit<NavDoc, 'sidebar'>
+  >(front);
+  return { languages, status, previousVersions, sidebar: nodes('', pages) };
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

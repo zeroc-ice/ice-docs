@@ -1,5 +1,10 @@
 ---
 title: The Ice Threading Model
+pages:
+  - thread-pools
+  - object-adapter-thread-pools
+  - thread-pool-design-considerations
+  - nested-invocations
 ---
 
 Ice is inherently a multi-threaded platform. There is no such thing as a single-threaded server in Ice. As a result, you

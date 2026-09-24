@@ -1,5 +1,8 @@
 ---
 title: Communicator
+pages:
+  - communicator-initialization-and-destruction
+  - communicators-in-php
 ---
 
 The [Communicator](https://code.zeroc.com/manual/Ice/Communicator) class is the main entry point to the Ice API. A

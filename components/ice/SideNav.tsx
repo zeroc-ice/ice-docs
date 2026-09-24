@@ -282,9 +282,9 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
               className="flex items-start"
               style={{ paddingLeft: depth * 12 }}
             >
-              {hasItems && !node.href ? (
-                // A group with no page of its own: the whole row toggles, so the
-                // target is the row rather than a 14px arrow.
+              {hasItems ? (
+                // A group's page is its Overview entry, so the whole row
+                // toggles: the target is the row rather than a 14px arrow.
                 <button
                   type="button"
                   onClick={() => toggle(k)}
@@ -298,23 +298,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
                 </button>
               ) : (
                 <>
-                  {hasItems ? (
-                    // The row links somewhere *and* has children, so the arrow
-                    // toggles and the label navigates: clicking the title of a
-                    // page you can read should open that page.
-                    <button
-                      type="button"
-                      onClick={() => toggle(k)}
-                      aria-expanded={isOpen}
-                      aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${node.title}`}
-                      className="text-ink-muted hover:text-ink mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center transition-colors"
-                    >
-                      {chevron}
-                    </button>
-                  ) : (
-                    <span className="w-5 shrink-0" />
-                  )}
-
+                  <span className="w-5 shrink-0" />
                   <Link
                     href={node.href!}
                     aria-current={node.active ? 'page' : undefined}

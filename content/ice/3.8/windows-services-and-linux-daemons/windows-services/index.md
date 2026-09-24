@@ -1,5 +1,10 @@
 ---
 title: Windows Services
+pages:
+  - installing-a-windows-service
+  - using-the-ice-service-installer
+  - manually-installing-a-service-as-a-windows-service
+  - troubleshooting-windows-services
 ---
 
 A Windows service is a program that runs in the background and typically does not require user intervention. Similar to

@@ -1,5 +1,9 @@
 ---
 title: Documenting Slice Definitions
+pages:
+  - comment-syntax
+  - doc-comment-structure
+  - generating-documentation-with-doxygen
 ---
 
 Comments on your Slice definitions help readers understand the semantics of your interfaces and data types. A _doc

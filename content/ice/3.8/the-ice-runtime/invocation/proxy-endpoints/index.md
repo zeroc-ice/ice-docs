@@ -1,5 +1,8 @@
 ---
 title: Proxy Endpoints
+pages:
+  - indirect-proxy-with-object-adapter-identifier
+  - well-known-proxy
 ---
 
 The endpoint or endpoints of a proxy correspond to the endpoint(s) of the object adapter(s) that hosts the target

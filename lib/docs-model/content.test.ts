@@ -14,6 +14,7 @@ import {
   listVersions,
   listPages,
   readPageSources,
+  readNavigation,
   snippetReader
 } from './content.ts';
 
@@ -79,6 +80,45 @@ test('a file without frontmatter has none', () => {
     ),
     {}
   );
+});
+
+test('readNavigation builds the tree from the pages each page lists', () => {
+  const nav = readNavigation(ROOT, '3.8');
+  assert.deepEqual(nav.languages, ['cpp', 'java', 'python']);
+  assert.deepEqual(nav.sidebar, [
+    {
+      title: 'Get Started',
+      slug: 'get-started',
+      writtenFor: undefined,
+      items: []
+    },
+    {
+      title: 'The Slice Language',
+      slug: 'slice',
+      writtenFor: undefined,
+      items: [
+        {
+          title: 'Enumerations',
+          slug: 'slice/enumerations',
+          writtenFor: undefined,
+          items: []
+        }
+      ]
+    },
+    {
+      title: 'Ice Services',
+      slug: 'services',
+      writtenFor: undefined,
+      items: [
+        {
+          title: 'DataStorm',
+          slug: 'services/datastorm',
+          writtenFor: ['cpp', 'java'],
+          items: []
+        }
+      ]
+    }
+  ]);
 });
 
 test('snippetReader resolves example files relative to the version dir', () => {
