@@ -93,7 +93,7 @@ export function pageHref(version: string, slug?: string): string {
  * Whether a resolved node is, or contains, the active page, the one at
  * `activeHref` (used to auto-expand).
  */
-export function containsActive(node: SideNavNode, activeHref: string): boolean {
+function containsActive(node: SideNavNode, activeHref: string): boolean {
   return (
     node.href === activeHref ||
     node.items.some((item) => containsActive(item, activeHref))
