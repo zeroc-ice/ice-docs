@@ -43,7 +43,7 @@ export function Search({ version }: { version: string }) {
   );
   const records = index?.key === version ? index.pages : null;
 
-  // ⌘K / Ctrl-K from anywhere. Escape is the dialog's own.
+  // ⌘K / Ctrl-K from anywhere. The modal dialog closes itself on Escape.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
@@ -57,9 +57,8 @@ export function Search({ version }: { version: string }) {
     return () => document.removeEventListener('keydown', onKey);
   }, []);
 
-  // A modal dialog sits in the top layer, above the page and clear of the
-  // header's backdrop filter, which would otherwise contain anything fixed
-  // inside it; the page behind is inert while it is open.
+  // Modal, so the dialog sits in the top layer, clear of the header's backdrop
+  // filter.
   useEffect(() => {
     const dialog = dialogRef.current!;
     if (!open) {
