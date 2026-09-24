@@ -10,7 +10,6 @@ import { ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import {
   type SideNavNode,
   activeTrailKeys,
-  containsActive,
   sideNavKey
 } from '@/lib/docs-model/nav';
 import { useMounted } from '@/context/state';
@@ -96,18 +95,23 @@ export function SideNav({
   // /ice/3.8/<slug> -> "3.8".
   const scope = pathname.split('/')[2];
 
+  const trail = useMemo(
+    () => new Set(activeTrailKeys(nodes, pathname)),
+    [nodes, pathname]
+  );
+
   // Groups that are open: the branch holding the current page, plus — once the
   // client has mounted and can read storage — whatever the reader had open
   // before this navigation. A click replaces the set outright, until the
   // reader moves to another page: by then the set is in storage, and the new
   // page's branch opens on top of it.
   const initialOpen = useMemo(() => {
-    const open = new Set(activeTrailKeys(nodes, pathname));
+    const open = new Set(trail);
     if (mounted)
       for (const key of readState<string[]>(stateKey('open', scope), []))
         open.add(key);
     return open;
-  }, [mounted, nodes, pathname, scope]);
+  }, [mounted, trail, scope]);
   const [clicked, setClicked] = useState<Set<string> | null>(null);
   const [clickedOn, setClickedOn] = useState(pathname);
   if (clickedOn !== pathname) {
@@ -235,6 +239,7 @@ export function SideNav({
           depth={0}
           pathname={pathname}
           open={open}
+          trail={trail}
           toggle={toggle}
           // Groups open by a click slide open; groups restored from storage or
           // opened for the current page are simply there, so the rail lays out
@@ -254,6 +259,8 @@ interface TreeProps {
   /** The current page's path, which its entry links to. */
   pathname: string;
   open: ReadonlySet<string>;
+  /** The keys of the groups that lead to the current page. */
+  trail: ReadonlySet<string>;
   toggle: (key: string) => void;
   animate: boolean;
 }
@@ -264,6 +271,7 @@ function Tree({
   depth,
   pathname,
   open,
+  trail,
   toggle,
   animate
 }: TreeProps) {
@@ -277,7 +285,7 @@ function Tree({
         const active = node.href === pathname;
 
         // The trail down to the current page stays emphasised even when folded.
-        const onActiveTrail = !active && containsActive(node, pathname);
+        const onActiveTrail = trail.has(k);
 
         const chevron = (
           <ChevronRight
@@ -360,6 +368,7 @@ function Tree({
                     depth={depth + 1}
                     pathname={pathname}
                     open={open}
+                    trail={trail}
                     toggle={toggle}
                     animate={animate}
                   />
