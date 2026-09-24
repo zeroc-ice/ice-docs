@@ -219,6 +219,9 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Keep the scrollbar's space on pages too short to scroll, so the
+       centered layout stays put when moving between short and long pages. */
+    scrollbar-gutter: stable;
   }
 
   .DocSearch-Input:focus {
