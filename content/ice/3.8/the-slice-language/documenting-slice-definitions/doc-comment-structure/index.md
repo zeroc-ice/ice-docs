@@ -69,9 +69,7 @@ Starts a remarks section, for details that don't belong in the description.
 
 ## `@deprecated`
 
-Documents that the definition is deprecated. The text after the tag says why, or what to use instead. The tag only
-affects the documentation: to deprecate the definition in the generated code as well, use the
-[`deprecated` metadata directive](../deprecating-slice-definitions).
+Documents that the definition is deprecated. The text after the tag says why, or what to use instead.
 
 # Operation Tags
 
