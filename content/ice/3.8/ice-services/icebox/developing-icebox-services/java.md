@@ -5,6 +5,8 @@ The example we present here is taken from the `IceBox/greeter` demo program.
 The class definition for our service is quite straightforward:
 
 ```java
+package com.example.icebox.greeter.service;
+
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Identity;
 import com.zeroc.Ice.ObjectAdapter;
