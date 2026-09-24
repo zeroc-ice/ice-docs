@@ -2,7 +2,7 @@
 //
 // Build the search index the header's search palette loads.
 //
-//   node scripts/build-search-index.mjs
+//   node scripts/build-search-index.js
 //
 // One JSON file per version under `public/search/`. Runs from
 // `prebuild`/`predev`; the output is generated, and git-ignored.
@@ -12,6 +12,8 @@
 // the thing readers actually search for (`Ice.Default.Locator`, `AMI`). The
 // shared text's headings match for every reader, and each mapping's own match
 // only for that mapping's readers, who are the only ones to see them.
+
+// cspell:words predev
 
 import fs from 'node:fs';
 import path from 'node:path';

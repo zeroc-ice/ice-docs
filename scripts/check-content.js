@@ -24,6 +24,8 @@
 // under --strict: the migrated manual still links to pages that were never
 // brought over, and none of its Confluence attachments were migrated at all.
 
+// cspell:words noformat unparseable worklist
+
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -272,7 +274,7 @@ function checkSlots(version, pages, languages) {
   } else if (counts.unclassified < UNCLASSIFIED_SLOT_BASELINE) {
     console.log(
       `  ${UNCLASSIFIED_SLOT_BASELINE - counts.unclassified} fewer than the baseline — ` +
-        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.mjs to ${counts.unclassified}`
+        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.js to ${counts.unclassified}`
     );
   }
   if (strict && counts.unclassified) {
