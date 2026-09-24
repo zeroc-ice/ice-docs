@@ -20,10 +20,8 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const currentTheme = theme as Theme;
 
-  // Not modal: a modal menu's scroll lock pads the body for the scrollbar,
-  // whose space the page already keeps, and the page would shift.
   return (
-    <DropdownMenu modal={false}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"

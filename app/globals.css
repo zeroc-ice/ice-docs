@@ -224,6 +224,14 @@
     scrollbar-gutter: stable;
   }
 
+  /* A Radix menu's scroll lock gives the body a right margin as wide as the
+     scrollbar, whose space the gutter already keeps, so the page would shift
+     while the menu is open. The library's rule is !important and unlayered,
+     and an !important rule in a layer wins over it. */
+  body[data-scroll-locked] {
+    margin-right: 0 !important;
+  }
+
   .DocSearch-Input:focus {
     /* Disable the docsearch input ring */
     outline: none !important;
