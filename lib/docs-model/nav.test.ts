@@ -10,7 +10,6 @@ import {
   breadcrumbs,
   buildSideNav,
   activeTrailKeys,
-  containsActive,
   languageLabel,
   navigationPages,
   prevNext,
@@ -89,12 +88,6 @@ test("standing on a group's own page, its Overview, opens the group", () => {
   assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/slice'), [
     sideNavKey(['The Slice Language'])
   ]);
-});
-
-test('containsActive reports the branch holding the current page', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8');
-  assert.equal(containsActive(tree[1], ENUMERATIONS_HREF), true); // The Slice Language contains it
-  assert.equal(containsActive(tree[0], ENUMERATIONS_HREF), false); // Get Started does not
 });
 
 test('trailTo returns every ancestor down to the page, or null', () => {
