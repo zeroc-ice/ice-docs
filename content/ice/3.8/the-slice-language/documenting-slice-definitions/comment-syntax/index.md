@@ -41,7 +41,8 @@ Starting each line of a multi-line block doc comment with `*` is conventional, b
 The two styles are equivalent, and both accept only the tags described in
 [Doc-Comment Structure](../doc-comment-structure).
 
-Write a doc comment directly before the definition it documents. You can document modules, interfaces, classes,
-exceptions, structures, sequences, dictionaries, enumerations and their enumerators, constants, operations, and fields.
-You document an operation's parameters with `@param` tags in the operation's doc comment; see
-[Operation Tags](../doc-comment-structure#operation-tags).
+Unlike regular comments, which can appear anywhere in a Slice file, doc comments must be attached to a Slice definition:
+write each one directly before the definition it describes.
+
+All Slice definitions support doc comments, except parameters. You document an operation's parameters with `@param` tags
+in the operation's doc comment; see [Operation Tags](../doc-comment-structure#operation-tags).
