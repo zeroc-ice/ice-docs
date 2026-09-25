@@ -2,6 +2,8 @@
 title: Properties Overview
 ---
 
+<!-- cspell:ignore Netwrok -->
+
 An Ice communicator and its various subsystems are configured by properties. A property is a name-value pair, for
 example:
 
@@ -31,30 +33,56 @@ Note that the sub-category is optional and not used by all Ice properties.
 This two- or three-part naming scheme is by convention only — if you use properties to configure your own applications,
 you can use property names with any number of categories.
 
-# Reserved Prefixes for Properties
+# Reserved Prefixes
 
-Ice reserves properties with the following prefixes:
+Ice reserves the following prefixes for the properties of the libraries that run in your program, such as the Ice
+runtime, the IceDiscovery plug-in, and DataStorm:
 
 - `DataStorm`
-- `Glacier2`
 - `Ice`
-- `IceBox`
-- `IceBoxAdmin`
 - `IceBT`
 - `IceDiscovery`
-- `IceGrid`
-- `IceGridAdmin`
-- `IceGridGUI`
 - `IceLocatorDiscovery`
 - `IceMX`
 - `IceSSL`
+
+Ice also reserves the following prefixes for the properties of the Ice services and tools, which run as separate
+programs. Only the corresponding service or tool accepts these properties:
+
+- `Glacier2`
+- `IceBox`
+- `IceBoxAdmin`
+- `IceBridge`
+- `IceGrid`
+- `IceGridAdmin`
+- `IceGridGUI`
 - `IceStorm`
 - `IceStormAdmin`
 
-You should use existing Ice properties with these prefixes (for example, `Ice.Trace.Network`) to configure Ice itself.
+Give the properties of your own application a prefix of your own, such as `Filesystem`.
 
-However, you must not define new properties for your own application that begin with any of these prefixes. For example,
-do **not** introduce a property such as `Ice.MyProp` for your application-specific settings.
+# Property Validation
+
+Ice validates the name of every property that begins with a reserved prefix followed by a dot, whether the property
+comes from a configuration file, the command line, the Windows registry, the [Properties](../the-properties-class)
+class, or the [Properties facet](../the-properties-facet). Ice rejects a name it does not know with a
+`PropertyException`:
+
+```
+unknown Ice property: Ice.Trace.Netwrok
+```
+
+A communicator reads its configuration while it is being created, so a typo such as `Ice.Trace.Netwrok` in a
+configuration file makes communicator initialization fail with a `PropertyException`. Ice stores a name that does not
+begin with a reserved prefix and a dot as written, with no validation: `Filesystem.MaxFileSize`, `IceCream.Flavor`, and
+even the misspelled `Iec.Trace.Network`.
+
+{% iflang langs="swift" %}
+
+The Swift `Properties` methods that are not declared `throws` terminate the program rather than report a rejected name;
+[the Properties class](../the-properties-class) says which ones.
+
+{% /iflang %}
 
 # Property Name Syntax
 
@@ -86,9 +114,11 @@ This is a = property value.
 # Unused Properties
 
 During the destruction of a communicator, the Ice runtime can optionally emit a warning for properties that were set but
-never read. To enable this warning, set [Ice.Warn.UnusedProperties](../ice-warn-properties) to a non-zero value. This
-property is useful for detecting misspelled properties, like if you wrote `Filesystem.MaxFilSize` instead of
-`FileSystem.MaxFileSize`. By default, the warning is disabled.
+never read. To enable this warning, set [Ice.Warn.UnusedProperties](../ice-warn-properties) to a non-zero value. By
+default, the warning is disabled.
+
+This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
+`Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.
 
 ##### See Also
 

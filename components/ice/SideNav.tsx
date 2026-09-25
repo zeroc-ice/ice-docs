@@ -2,10 +2,11 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Menu, X } from 'lucide-react';
 
 import {
   type SideNavNode,
@@ -104,47 +105,155 @@ export function SideNav({ nodes }: { nodes: SideNavNode[] }) {
   // is when the reader clicked it in the rail, and may not be when they
   // arrived by a previous/next link, from search, or by loading the page. A
   // language switch can move it too, by showing or hiding the entries written
-  // for some languages. An entry hidden for the reader's language has no
-  // position to show.
+  // for some languages.
   const language = useLanguage();
   const navRef = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
-    const nav = navRef.current;
-    if (!mounted || !nav) return;
-    const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
-    if (!active || active.offsetParent === null) return;
-    const top = active.offsetTop;
-    const bottom = top + active.offsetHeight;
-    if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
-      nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
-    }
+    if (mounted && navRef.current) revealCurrentPage(navRef.current);
   }, [mounted, pathname, language]);
 
   if (nodes.length === 0) return null;
 
+  const tree = (
+    <Tree
+      nodes={nodes}
+      path={[]}
+      depth={0}
+      pathname={pathname}
+      open={open}
+      trail={trail}
+      toggle={toggle}
+      // Groups open by a click slide open; groups restored from storage or
+      // opened for the current page are simply there, so the rail lays out
+      // at its final height before the current page is brought into view.
+      animate={clicked !== null}
+    />
+  );
+
   return (
-    <nav
-      ref={navRef}
-      aria-label={`${MANUAL_TITLE} navigation`}
-      // `contain-size` keeps the tree's height out of the row's, so a short
-      // page stays viewport-high with the footer at the bottom; the rail then
-      // stretches to the row, capped at the viewport.
-      className="sticky top-20 hidden max-h-[calc(100vh-6.5rem)] w-66 shrink-0 overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
-    >
-      <Tree
-        nodes={nodes}
-        path={[]}
-        depth={0}
-        pathname={pathname}
-        open={open}
-        trail={trail}
-        toggle={toggle}
-        // Groups open by a click slide open; groups restored from storage or
-        // opened for the current page are simply there, so the rail lays out
-        // at its final height before the current page is brought into view.
-        animate={clicked !== null}
-      />
-    </nav>
+    <>
+      <nav
+        ref={navRef}
+        aria-label={`${MANUAL_TITLE} navigation`}
+        // `contain-size` keeps the tree's height out of the row's, so a short
+        // page stays viewport-high with the footer at the bottom; the rail then
+        // stretches to the row, capped at the viewport.
+        className="sticky top-20 hidden max-h-[calc(100vh-6.5rem)] w-66 shrink-0 overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
+      >
+        {tree}
+      </nav>
+      <Drawer>{tree}</Drawer>
+    </>
+  );
+}
+
+// Scrolls `nav` to the current page's entry unless it is in view already.
+// `nav` must be positioned, so that it is its entries' offset parent. An entry
+// hidden for the reader's language has no position to show.
+function revealCurrentPage(nav: HTMLElement) {
+  const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
+  if (!active || active.offsetParent === null) return;
+  const top = active.offsetTop;
+  const bottom = top + active.offsetHeight;
+  if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
+    nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
+  }
+}
+
+// Below the large breakpoint the rail has no room, so a button in the header
+// opens the same tree, with the same groups open, in a drawer. Only the version
+// layout has the tree, so the button renders into the header's
+// #ice-header-menu. The drawer holds the tree only while it is open, so the
+// page carries one copy of it rather than two.
+function Drawer({ children }: { children: React.ReactNode }) {
+  const mounted = useMounted();
+  const target = mounted ? document.getElementById('ice-header-menu') : null;
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const [expanded, setExpanded] = useState(false);
+
+  // A navigation from outside the drawer, such as going back, closes it too.
+  const pathname = usePathname();
+  useEffect(() => {
+    dialogRef.current?.close();
+  }, [pathname]);
+
+  // So does growing past Tailwind's `lg` breakpoint, 64rem, as a tablet does
+  // when it turns: the rail is back there, and the button that opened the
+  // drawer is hidden.
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 64rem)');
+    const onChange = () => {
+      if (wide.matches) dialogRef.current?.close();
+    };
+    wide.addEventListener('change', onChange);
+    return () => wide.removeEventListener('change', onChange);
+  }, []);
+
+  // The tree renders as the drawer opens, so it is brought to the current page
+  // once it is there, before paint.
+  useLayoutEffect(() => {
+    if (expanded) revealCurrentPage(navRef.current!);
+  }, [expanded]);
+
+  return (
+    <>
+      {target &&
+        createPortal(
+          <button
+            type="button"
+            aria-controls="ice-nav-drawer"
+            aria-expanded={expanded}
+            onClick={() => {
+              dialogRef.current!.showModal();
+              setExpanded(true);
+            }}
+            className="-ml-2 rounded-md p-2 text-ink transition-colors hover:bg-surface-subtle lg:hidden"
+          >
+            <Menu className="size-5" aria-hidden="true" />
+            <span className="sr-only">Table of contents</span>
+          </button>,
+          target
+        )}
+      <dialog
+        ref={dialogRef}
+        id="ice-nav-drawer"
+        aria-label={`${MANUAL_TITLE} navigation`}
+        onClose={() => setExpanded(false)}
+        onClick={(event) => {
+          // The panel fills the dialog, so a click on the dialog itself is a
+          // click on the backdrop.
+          const onBackdrop = event.target === event.currentTarget;
+          // Picking a page closes the drawer at once, the current page too.
+          const onLink = (event.target as Element).closest('a') !== null;
+          if (onBackdrop || onLink) event.currentTarget.close();
+        }}
+        // A modal dialog is inset to the viewport's edges, as its backdrop is;
+        // an auto height with no cap spans them. A phone has no room beside the
+        // panel for the page to show, so there it takes the whole width.
+        className="h-auto max-h-none w-full max-w-none border-hairline bg-surface text-ink transition-transform duration-200 ease-out backdrop:bg-black/40 motion-reduce:transition-none sm:w-80 sm:border-r starting:-translate-x-full"
+      >
+        <div className="flex h-full flex-col">
+          <div className="flex h-14 shrink-0 items-center justify-end border-b border-hairline px-2">
+            <button
+              type="button"
+              onClick={() => dialogRef.current!.close()}
+              className="rounded-md p-2 text-ink transition-colors hover:bg-surface-subtle"
+            >
+              <X className="size-5" aria-hidden="true" />
+              <span className="sr-only">Close</span>
+            </button>
+          </div>
+          <nav
+            ref={navRef}
+            // Positioned, as revealCurrentPage requires.
+            className="relative grow overflow-y-auto overscroll-contain px-4 pt-4 pb-8 text-sm"
+          >
+            {expanded && children}
+          </nav>
+        </div>
+      </dialog>
+    </>
   );
 }
 
