@@ -2,6 +2,8 @@
 title: Setting Properties on the Command Line
 ---
 
+<!-- cspell:ignore Netwrok -->
+
 In addition to setting properties in a [configuration file](../using-configuration-files), you can also set properties
 on the command line, for example:
 

@@ -2,6 +2,8 @@
 title: Properties Overview
 ---
 
+<!-- cspell:ignore Netwrok -->
+
 An Ice communicator and its various subsystems are configured by properties. A property is a name-value pair, for
 example:
 
