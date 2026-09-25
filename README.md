@@ -21,7 +21,9 @@ npm run check:content              # navigation, links, images, slots, titles, m
 npm run check:content -- --strict  # also fail on unresolved links and missing images
 npm run check:content -- --slots   # list the blank language sections still to classify
 npm run check:markdoc              # every page against the Markdoc schema; `build` runs it first
-npm run lint                       # eslint, then markdownlint on the content; a warning fails it too
+npm run lint                       # lint:eslint, then lint:markdown
+npm run lint:eslint                # eslint; a warning fails it too
+npm run lint:markdown              # markdownlint on the content
 npm run format                     # prettier, wraps Markdown prose at 120 columns
 npm run format:check               # what CI runs
 ```
