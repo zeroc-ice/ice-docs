@@ -272,8 +272,8 @@ communicator created in a process; it is ignored by other communicators.
 
 #### Description
 
-Sets the maximum size of an incoming uncompressed Ice protocol message, including its protocol header, in kibibytes
-(KiB, 1024 bytes). The default value is `1024` (1 MiB).
+Sets the maximum size of an incoming uncompressed Ice protocol message, including its protocol header, in KiB (1024
+bytes). The default value is `1024` (1 MiB).
 
 Setting this property to 0 or a negative number selects the maximum supported message size of 2,147,483,647 bytes. A
 positive value must be at most `2097151`; larger values cause communicator initialization to fail with an

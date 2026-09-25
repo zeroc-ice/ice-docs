@@ -348,6 +348,10 @@ You can separately override the default priorities for the client and server thr
 [Ice.ThreadPool._name_.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a
 specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
 
+{% /language-section %}
+
+{% language-section name="lang-8" %}
+
 # Ice.UseSyslog
 
 #### Synopsis
@@ -365,9 +369,5 @@ is 0. Ice ignores this property on Windows.
 A logger supplied through `InitializationData` takes precedence over this property. Otherwise, enabling syslog while
 [Ice.LogFile](../ice-properties#ice.logfile) is non-empty causes communicator initialization to fail with an
 `InitializationException` on Unix.
-
-{% /language-section %}
-
-{% language-section name="lang-8" %}
 
 {% /language-section %}
