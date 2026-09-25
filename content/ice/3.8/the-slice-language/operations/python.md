@@ -138,14 +138,16 @@ example above) or asynchronously, as discussed on
 
 To throw an exception from an operation implementation, you simply construct the exception and throw it. For example:
 
-##### **Python**
-
 ```py
-TBD
+def write(self, text: list[str], current: Ice.Current) -> None:
+    # Try to write the file contents here...
+    # Assume we are out of space...
+    if error:
+        raise Filesystem.WriteException("file too large")
 ```
 
-If you throw an arbitrary Python exception (such as a `XXX`), the Ice runtime catches the exception and then returns an
-`UnknownException` to the client.
+If you throw an arbitrary Python exception (such as a `ValueError`), the Ice runtime catches the exception and then
+returns an `UnknownException` to the client.
 
 If you throw an Ice runtime exception, such as `MarshalException`, the client receives an `UnknownLocalException`.
 

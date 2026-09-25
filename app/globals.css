@@ -219,6 +219,25 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Keep the scrollbar's space on pages too short to scroll, so the
+       centered layout stays put when moving between short and long pages. */
+    scrollbar-gutter: stable;
+  }
+
+  /* Where scrollbar-gutter is unsupported (Safari before 18.2), show the
+     scrollbar on every page instead. */
+  @supports not (scrollbar-gutter: stable) {
+    html {
+      overflow-y: scroll;
+    }
+  }
+
+  /* A Radix menu's scroll lock gives the body a right margin as wide as the
+     scrollbar, whose space the page already keeps, so the page would shift
+     while the menu is open. The library's rule is !important and unlayered,
+     and an !important rule in a layer wins over it. */
+  body[data-scroll-locked] {
+    margin-right: 0 !important;
   }
 
   .DocSearch-Input:focus {

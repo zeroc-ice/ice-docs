@@ -33,6 +33,7 @@ export function Search({ version }: { version: string }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const opener = useRef<HTMLElement | null>(null);
 
@@ -42,7 +43,7 @@ export function Search({ version }: { version: string }) {
   );
   const records = index?.key === version ? index.pages : null;
 
-  // ⌘K / Ctrl-K from anywhere, Escape to leave.
+  // ⌘K / Ctrl-K from anywhere. The modal dialog closes itself on Escape.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
@@ -50,19 +51,22 @@ export function Search({ version }: { version: string }) {
         opener.current = document.activeElement as HTMLElement;
         setOpen((was) => !was);
         setSelected(0);
-      } else if (event.key === 'Escape') {
-        setOpen(false);
       }
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, []);
 
+  // Modal, so the dialog sits in the top layer, clear of the header's backdrop
+  // filter.
   useEffect(() => {
+    const dialog = dialogRef.current!;
     if (!open) {
+      dialog.close();
       opener.current?.focus();
       return;
     }
+    if (!dialog.open) dialog.showModal();
     inputRef.current?.focus();
     if (records) return;
     fetch(`/search/${version}.json`)
@@ -141,84 +145,81 @@ export function Search({ version }: { version: string }) {
         </kbd>
       </button>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-[12vh]"
-          onClick={() => setOpen(false)}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Search the documentation"
-            onClick={(event) => event.stopPropagation()}
-            className="flex max-h-[70vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-black/10 bg-white shadow-2xl dark:border-white/10 dark:bg-neutral-900"
-          >
-            <input
-              ref={inputRef}
-              value={query}
-              onChange={(event) => {
-                setQuery(event.target.value);
-                setSelected(0); // a new query starts at the top of its results
-              }}
-              onKeyDown={(event) => {
-                if (event.key === 'ArrowDown') {
-                  event.preventDefault();
-                  setSelected((i) => Math.min(i + 1, results.length - 1));
-                } else if (event.key === 'ArrowUp') {
-                  event.preventDefault();
-                  setSelected((i) => Math.max(i - 1, 0));
-                } else if (event.key === 'Enter') {
-                  event.preventDefault();
-                  go(results[selected]);
-                }
-              }}
-              placeholder={`Search the Ice ${version} manual…`}
-              aria-label="Search query"
-              className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-none dark:border-white/10"
-            />
+      <dialog
+        ref={dialogRef}
+        aria-label="Search the documentation"
+        onClose={() => setOpen(false)}
+        onClick={(event) => {
+          // The content fills the dialog, so a click on the dialog itself is a
+          // click on its backdrop.
+          if (event.target === event.currentTarget) setOpen(false);
+        }}
+        className="mx-auto mt-[12vh] max-h-[70vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-xl border border-black/10 bg-white text-inherit shadow-2xl backdrop:bg-black/40 open:flex dark:border-white/10 dark:bg-neutral-900"
+      >
+        <input
+          ref={inputRef}
+          value={query}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setSelected(0); // a new query starts at the top of its results
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowDown') {
+              event.preventDefault();
+              setSelected((i) => Math.min(i + 1, results.length - 1));
+            } else if (event.key === 'ArrowUp') {
+              event.preventDefault();
+              setSelected((i) => Math.max(i - 1, 0));
+            } else if (event.key === 'Enter') {
+              event.preventDefault();
+              go(results[selected]);
+            }
+          }}
+          placeholder={`Search the Ice ${version} manual…`}
+          aria-label="Search query"
+          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-none dark:border-white/10"
+        />
 
-            <div className="overflow-y-auto">
-              {query && results.length === 0 && (
-                <p className="px-4 py-6 text-sm opacity-60">
-                  {records === null
-                    ? 'Loading the index…'
-                    : `No page matches “${query}”.`}
-                </p>
-              )}
+        <div className="overflow-y-auto">
+          {query && results.length === 0 && (
+            <p className="px-4 py-6 text-sm opacity-60">
+              {records === null
+                ? 'Loading the index…'
+                : `No page matches “${query}”.`}
+            </p>
+          )}
 
-              {results.map((record, i) => (
-                <button
-                  key={record.h}
-                  type="button"
-                  onMouseEnter={() => setSelected(i)}
-                  onClick={() => go(record)}
-                  className={`flex w-full flex-col items-start gap-0.5 px-4 py-2.5 text-left ${
-                    i === selected ? 'bg-blue-600/10' : ''
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="font-medium">{record.t}</span>
-                    {record.k && (
-                      <span className="rounded-full bg-black/5 px-1.5 py-0.5 text-[10px] tracking-wide uppercase opacity-60 dark:bg-white/10">
-                        {record.k}
-                      </span>
-                    )}
+          {results.map((record, i) => (
+            <button
+              key={record.h}
+              type="button"
+              onMouseEnter={() => setSelected(i)}
+              onClick={() => go(record)}
+              className={`flex w-full flex-col items-start gap-0.5 px-4 py-2.5 text-left ${
+                i === selected ? 'bg-blue-600/10' : ''
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <span className="font-medium">{record.t}</span>
+                {record.k && (
+                  <span className="rounded-full bg-black/5 px-1.5 py-0.5 text-[10px] tracking-wide uppercase opacity-60 dark:bg-white/10">
+                    {record.k}
                   </span>
-                  {record.c && (
-                    <span className="text-xs opacity-50">{record.c}</span>
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <div className="flex gap-4 border-t border-black/10 px-4 py-2 text-[11px] opacity-50 dark:border-white/10">
-              <span>↑↓ to navigate</span>
-              <span>↵ to open</span>
-              <span>esc to close</span>
-            </div>
-          </div>
+                )}
+              </span>
+              {record.c && (
+                <span className="text-xs opacity-50">{record.c}</span>
+              )}
+            </button>
+          ))}
         </div>
-      )}
+
+        <div className="flex gap-4 border-t border-black/10 px-4 py-2 text-[11px] opacity-50 dark:border-white/10">
+          <span>↑↓ to navigate</span>
+          <span>↵ to open</span>
+          <span>esc to close</span>
+        </div>
+      </dialog>
     </>
   );
 }

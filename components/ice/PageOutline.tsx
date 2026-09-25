@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { clsx } from 'clsx';
 
 import { fragmentId, visibleTarget } from '@/components/ice/AnchorScroll';
@@ -20,10 +20,6 @@ export interface OutlineHeading {
 // headings; listing all of them turns the rail into a second, worse sidebar
 // that hides where the reader actually is.
 const DENSE_THRESHOLD = 24;
-
-// Distance from the top of the viewport at which a heading counts as "the one
-// being read" — just under the two sticky bars.
-const ACTIVATION_LINE = 132;
 
 // Lets a dotted property name wrap after a dot rather than mid-segment.
 function withDotBreaks(title: string) {
@@ -79,43 +75,76 @@ export function PageOutline({
     )
   ].join('\n');
 
+  // A jump to any heading too near the end of the page to pass under the bars
+  // lands at the bottom, so there the heading last jumped to decides which one
+  // is active, until the reader scrolls up from the bottom. It outlives the
+  // effect, which a mapping switch re-runs, along with the fragment last seen.
+  const jump = useRef({ id: '', hash: '' });
+
   useEffect(() => {
     if (!ids) return;
     const list = ids.split('\n');
     let queued = false;
+    let lastScrollY = window.scrollY;
 
     const update = () => {
       queued = false;
-      // Headings near the end of a page can never scroll up to the activation
-      // line, so over the last viewport height of scroll (or the whole scroll,
-      // on a shorter page) the line slides down to the bottom of the viewport,
-      // passing each remaining heading in order.
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const remaining = maxScroll - window.scrollY;
-      const slide = Math.min(maxScroll, window.innerHeight - ACTIVATION_LINE);
-      const progress = slide > 0 ? Math.max(0, 1 - remaining / slide) : 0;
-      const line =
-        ACTIVATION_LINE + (window.innerHeight - ACTIVATION_LINE) * progress;
-      let current = list[0];
-      for (const id of list) {
-        const element = visibleTarget(id);
-        if (!element) continue;
-        if (element.getBoundingClientRect().top > line) break;
-        current = id;
+      const headings = list.flatMap((id) => visibleTarget(id) ?? []);
+      if (headings.length === 0) return;
+      const { innerHeight, scrollY } = window;
+      const maxScroll = document.documentElement.scrollHeight - innerHeight;
+      const tops = headings.map(
+        (heading) => heading.getBoundingClientRect().top
+      );
+
+      // A new fragment, such as the one the page was opened at, is a jump too.
+      if (location.hash !== jump.current.hash) {
+        jump.current = { id: fragmentId(location.hash), hash: location.hash };
       }
-      // Once the page bottoms out, several sections share the screen; the one
-      // the reader jumped to wins.
-      const target = visibleTarget(fragmentId(location.hash));
-      if (
-        remaining < 1 &&
-        target &&
-        list.includes(target.id) &&
-        target.getBoundingClientRect().top >= 0
-      ) {
-        current = target.id;
+      const atBottom = scrollY >= maxScroll - 1;
+      if (scrollY < lastScrollY && !atBottom) jump.current.id = '';
+      lastScrollY = scrollY;
+
+      // The scroll position at which each heading passes under the bars: a
+      // pixel past where a jump to it leaves it, at its scroll-margin-top.
+      const margin = parseFloat(getComputedStyle(headings[0]).scrollMarginTop);
+      const targets = tops.map((top) => top + scrollY - margin + 1);
+
+      // Headings too near the end of the page never pass under the bars, so
+      // their targets are squeezed into the scroll left after the last one
+      // that does. They then activate in order by the bottom of the page.
+      const lastReachable =
+        targets.findLast((target) => target <= maxScroll) ?? 0;
+      const last = targets[targets.length - 1];
+      const squeeze =
+        last > maxScroll && maxScroll > lastReachable
+          ? (maxScroll - lastReachable) / (last - lastReachable)
+          : 1;
+      const squeezed = targets.map((target) =>
+        target > lastReachable
+          ? lastReachable + (target - lastReachable) * squeeze
+          : target
+      );
+
+      // The active heading is the last one passed, or the next one once it's
+      // in the top half of the viewport.
+      let current = squeezed.findLastIndex((target) => target <= scrollY);
+      if (tops[current + 1] < innerHeight / 2) current++;
+
+      // At the bottom of the page the last heading is active, unless the
+      // reader jumped to another one whose jump lands there too, within the
+      // same pixel that counts as the bottom.
+      if (atBottom) {
+        const jumped = headings.findIndex(
+          (heading) => heading.id === jump.current.id
+        );
+        current =
+          jumped !== -1 && targets[jumped] > maxScroll - 1
+            ? jumped
+            : headings.length - 1;
       }
-      setActive(current);
+
+      setActive(headings[Math.max(current, 0)].id);
     };
 
     const onScroll = () => {
@@ -124,12 +153,19 @@ export function PageOutline({
       requestAnimationFrame(update);
     };
 
+    // A jump that doesn't scroll, because the page is already at the bottom,
+    // still has to update the active heading.
+    const onHashChange = () => {
+      jump.current = { id: fragmentId(location.hash), hash: location.hash };
+      onScroll();
+    };
+
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('hashchange', onScroll);
+    window.addEventListener('hashchange', onHashChange);
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('hashchange', onScroll);
+      window.removeEventListener('hashchange', onHashChange);
     };
   }, [ids, language]);
 
