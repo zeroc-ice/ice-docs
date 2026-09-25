@@ -1,7 +1,8 @@
 // Copyright (c) ZeroC, Inc.
 
 import { nodes, Tag, type Node, type Config } from '@markdoc/markdoc';
-import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
+import { resolveDocLink } from '../../lib/docs-model/links.ts';
+import type { PageVariables } from '../../lib/markdown.ts';
 
 /** The icons a card may name; components/tags/card.tsx draws them. */
 export const CARD_ICONS = [
@@ -45,9 +46,10 @@ const card = {
   },
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
+    const { version, pageIndex } = config.variables as PageVariables;
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
-      version: String(config.variables?.version ?? ''),
-      index: (config.variables?.pageIndex ?? {}) as PageIndex
+      version,
+      index: pageIndex
     });
     return new Tag(
       'Card',
