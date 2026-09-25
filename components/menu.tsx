@@ -48,11 +48,16 @@ export function Menu({
     if (!open) return;
 
     // Start on the current choice, or on the first. Opening the list does not
-    // scroll the page; only moving through it with the keyboard does.
+    // scroll the page; only moving through it with the keyboard does. A list
+    // cut short by the viewport scrolls itself to show that choice.
     const start =
       list.current!.querySelector<HTMLElement>('[aria-checked="true"]') ??
       list.current!.querySelector<HTMLElement>(itemSelector)!;
     start.focus({ preventScroll: true });
+    list.current!.scrollTop = Math.max(
+      0,
+      start.offsetTop + start.offsetHeight - list.current!.clientHeight
+    );
 
     // A press anywhere else closes the list and does nothing more, as in a
     // native menu: the click it would make is dropped. A press that makes no
