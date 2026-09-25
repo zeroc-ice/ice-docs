@@ -23,7 +23,7 @@ default value is 1.
 
 #### Description
 
-If `num` is set to a value larger than 1, the Ice runtime logs a warning when a custom executor (registered using
+If `num` is set to a value larger than 0, the Ice runtime logs a warning when a custom executor (registered using
 [InitializationData](https://code.zeroc.com/manual/Ice/InitializationData)) throws an exception while executing a call.
 
 The default value is 1.

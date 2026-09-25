@@ -183,6 +183,12 @@ process. If not defined, the default value is 1.
 If `num` is greater than zero, Ice initializes the plug-ins it loads during communicator initialization. The default
 value is 1. Setting this property to 0 leaves the plug-ins loaded but uninitialized.
 
+{% iflang langs="swift" %}
+
+After setting this property to 0, call `Communicator.initializePlugins()` to initialize the loaded plug-ins.
+
+{% /iflang %}
+
 {% /iflang %}
 
 # Ice.IPv4
@@ -236,10 +242,12 @@ over this property.
 
 #### Description
 
-_num_ is a positive integer that represents the maximum size of log files configured through `Ice.LogFile`, in bytes.
-When a log file's size reaches _num_, the Ice file-based logger renames this log file to
-_baselogfilename_-_datetimestamp_.*ext*and creates a new log file. The default value for _num_ is 0, which means that
-the log file's size is unlimited. In this case, the Ice file-based logger opens and writes to a single log file.
+When `num` is greater than 0, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
+Before writing a message that would bring a non-empty log file to or above this threshold, the Ice file-based logger
+renames the file to _baselogfilename_-_datetimestamp_._ext_ and creates a new log file. The logger writes each message
+in full, even if the message exceeds the threshold.
+
+When `num` is 0 or negative, the logger writes to a single file with unlimited size. The default value is 0.
 
 # Ice.LogStdErr.Convert
 
@@ -310,15 +318,17 @@ by a comma or white space. Any plug-ins not mentioned in `names` are loaded afte
 
 {% iflang langs="cpp" %}
 
-Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
-not affected by this property.
+Ice creates plug-ins installed through `InitializationData::pluginFactories` before dynamically loaded plug-ins, in
+factory-list order. If `names` includes one of these plug-ins, communicator initialization fails with a
+`PluginInitializationException`.
 
 {% /iflang %}
 
 {% iflang langs="python,ruby,php,matlab,swift" %}
 
 The built-in IceDiscovery and IceLocatorDiscovery plug-ins are created before dynamically loaded plug-ins when enabled
-through [Ice.Plugin._name_](../ice-plugin-properties). Leave their names out of `Ice.PluginLoadOrder`.
+through [Ice.Plugin._name_](../ice-plugin-properties). If `names` includes one of these enabled plug-ins, communicator
+initialization fails with a `PluginInitializationException`.
 
 {% /iflang %}
 
@@ -451,6 +461,25 @@ On Windows, the server idle time takes effect only once all the server thread po
 thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
 
 {% /callout %}
+
+{% /iflang %}
+
+{% iflang langs="matlab,swift" %}
+
+# Ice.SliceLoader.NotFoundCacheSize
+
+#### Synopsis
+
+`Ice.SliceLoader.NotFoundCacheSize=num`
+
+#### Description
+
+When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
+Slice loader resolutions.
+
+The default value is 100.
+
+See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
 {% /iflang %}
 

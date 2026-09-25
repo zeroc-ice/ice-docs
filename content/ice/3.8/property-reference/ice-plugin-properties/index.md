@@ -54,7 +54,8 @@ DLL search path.
 
 The `Ice.Plugin.name` property can be used to configure a plug-in installed in the communicator using
 `InitializationData::pluginFactories`. In this situation, the `path[,version]:function` component of the property value
-is ignored.
+is ignored. If `Ice.PluginLoadOrder` includes this plug-in's name, communicator initialization fails with a
+`PluginInitializationException`.
 
 {% /callout %}
 
@@ -71,7 +72,8 @@ Ice.Plugin.IceLocatorDiscovery=1
 ```
 
 Arguments after the first token are still passed to the factory. Ice creates these built-in plug-ins before dynamically
-loaded plug-ins; leave their names out of [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder).
+loaded plug-ins. If [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) includes an enabled built-in plug-in's
+name, communicator initialization fails with a `PluginInitializationException`.
 
 {% /iflang %}
 

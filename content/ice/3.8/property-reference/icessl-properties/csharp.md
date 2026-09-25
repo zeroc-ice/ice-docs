@@ -134,8 +134,9 @@ whose issuer is among the issuers the server accepts, or the first one when none
 The value for `criteria` may be `*`, in which case all of the certificates in the store are selected. Otherwise,
 `criteria` must be one or more `field:value` pairs separated by white space. The valid field names are described below:
 
-| `Issuer`       | Matches a substring of the issuer's name.         |
+| Field          | Description                                       |
 | -------------- | ------------------------------------------------- |
+| `Issuer`       | Matches a substring of the issuer's name.         |
 | `IssuerDN`     | Matches the issuer's entire distinguished name.   |
 | `Serial`       | Matches the certificate's serial number.          |
 | `Subject`      | Matches a substring of the subject's name.        |

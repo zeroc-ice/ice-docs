@@ -155,7 +155,7 @@ This property is used for two different purposes:
 - to specify if certificate chain validation will use the machine context (HCCE_LOCAL_MACHINE) or the current user
   context (HCCE_CURRENT_USER).
 
-If not specified, the default value is `CurrentUser.`
+If not specified, the default value is `CurrentUser`.
 
 {% callout type="tip" %}
 
@@ -238,8 +238,9 @@ certificate store to be queried. Communicator initialization fails when no certi
 The value for `criteria` may be `*`, in which case all of the certificates in the store are selected. Otherwise,
 `criteria` must be one or more `field:value` pairs separated by white space. The valid field names are described below:
 
-| `Issuer`       | Matches a substring of the issuer's name.         |
+| Field          | Description                                       |
 | -------------- | ------------------------------------------------- |
+| `Issuer`       | Matches a substring of the issuer's name.         |
 | `IssuerDN`     | Matches the issuer's entire distinguished name.   |
 | `Serial`       | Matches the certificate's serial number.          |
 | `Subject`      | Matches a substring of the subject's name.        |
@@ -258,8 +259,9 @@ IceSSL queries the keychain for a matching certificate and uses the first match.
 The value for `criteria` must be one or more `field:value` pairs separated by white space. The valid field names are
 described below:
 
-| `Label`        | Matches the user-visible label.                   |
+| Field          | Description                                       |
 | -------------- | ------------------------------------------------- |
+| `Label`        | Matches the user-visible label.                   |
 | `Serial`       | Matches the certificate's serial number.          |
 | `Subject`      | Matches a substring of the subject's name.        |
 | `SubjectKeyId` | Matches the certificate's subject key identifier. |
