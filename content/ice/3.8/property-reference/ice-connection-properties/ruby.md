@@ -1,1 +1,18 @@
-{% language-section name="lang-1" state="not-applicable" note="Ice.Connection.name.MaxDispatches controls server-side dispatch. MATLAB, PHP, and Ruby are client-only mappings." /%}
+{% language-section name="lang-1" %}
+
+# Ice.Connection._name_.MaxDispatches
+
+#### Synopsis
+
+`Ice.Connection.name.MaxDispatches=num`
+
+#### Description
+
+Configures the maximum number of requests that a connection can dispatch concurrently. Once this limit is reached, the
+connection stops reading new requests off its underlying transport connection.
+
+The limit is infinite when `num` is `0` or less.
+
+The default max dispatches is `100`.
+
+{% /language-section %}

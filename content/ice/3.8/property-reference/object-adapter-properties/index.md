@@ -2,7 +2,14 @@
 title: Object Adapter Properties
 ---
 
-{% iflang langs="cpp,python,swift" %}
+{% iflang langs="matlab,php,ruby" %}
+
+These properties configure the runtime's [Ice.Admin object adapter](../ice-admin-properties) in MATLAB, PHP, and Ruby.
+Replace the `adapter` prefix with `Ice.Admin`, for example `Ice.Admin.ThreadPool.Size=2`.
+
+{% /iflang %}
+
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
 # _adapter_.AdapterId
 
@@ -172,8 +179,6 @@ by this object adapter.
 
 {% language-section name="lang-1" /%}
 
-{% iflang langs="cpp,csharp,java,js,python,swift" %}
-
 # _adapter_.ProxyOptions
 
 #### Synopsis
@@ -196,9 +201,7 @@ options as they would be specified in a stringified proxy.
 The published endpoints of an object adapter can be set using `adapter.PublishedEndpoints`. The exact algorithm is
 described in [Published Object Adapter Endpoints](../object-adapter-endpoints).
 
-{% /iflang %}
-
-{% iflang langs="cpp,python,swift" %}
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
 # _adapter_.PublishedHost
 
@@ -242,8 +245,6 @@ replicated, it can always be addressed individually in an indirect proxy if it d
 
 {% language-section name="lang-2" /%}
 
-{% iflang langs="cpp,csharp,java,js,python,swift" %}
-
 # _adapter_.Router
 
 #### Synopsis
@@ -262,9 +263,7 @@ in undefined behavior. The default value is no router.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-{% /iflang %}
-
-{% iflang langs="cpp,python,swift" %}
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
 # _adapter_.ThreadPool.Serialize
 
