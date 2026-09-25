@@ -6,9 +6,9 @@ every language mapping it covers; the reader picks one (C++ until they do), and 
 
 ## Requirements
 
-Node.js 22.18 or later in the 22 line, or 23.6 or later, and npm. The scripts under `scripts/` import the TypeScript
-content model directly, which relies on the type stripping Node enables by default from those releases (23.0 to 23.5
-have it behind a flag).
+Node.js 24.15 or later in the 24 line, or 26 or later, and npm 11.16 or later; `.npmrc` makes npm refuse to install on
+anything older. The scripts under `scripts/` import the TypeScript content model directly, through the type stripping
+those releases enable by default.
 
 ## Building
 
