@@ -38,8 +38,8 @@ Starting each line of a multi-line block doc comment with `*` is conventional, b
 
 {% /callout %}
 
-The two styles are equivalent. `///` comments are often called Doxygen style and `/** */` comments Javadoc style, but a
-Slice doc comment accepts only the tags described in [Doc-Comment Structure](../doc-comment-structure).
+The two styles are equivalent, and both accept only the tags described in
+[Doc-Comment Structure](../doc-comment-structure).
 
 Write a doc comment directly before the definition it documents. You can document modules, interfaces, classes,
 exceptions, structures, sequences, dictionaries, enumerations and their enumerators, constants, operations, and fields.
