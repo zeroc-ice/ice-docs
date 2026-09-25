@@ -52,19 +52,19 @@ export const Card = ({
     <AppLink
       href={href}
       unresolved={unresolved}
-      className="group border-hairline bg-surface hover:border-link/40 col-span-1 block rounded-[10px] border p-5 transition duration-150 hover:-translate-y-px hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
+      className="group col-span-1 block rounded-[10px] border border-hairline bg-surface p-5 transition duration-150 hover:-translate-y-px hover:border-link/40 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
       showArrow={false}
     >
       {Icon && (
         <span
           aria-hidden="true"
-          className="bg-accent-soft text-link mb-3 flex size-9 items-center justify-center rounded-lg"
+          className="mb-3 flex size-9 items-center justify-center rounded-lg bg-accent-soft text-link"
         >
           <Icon className="size-[18px]" />
         </span>
       )}
       <div
-        className="text-ink group-hover:text-link m-0 flex items-center gap-1.5 font-semibold transition-colors"
+        className="m-0 flex items-center gap-1.5 font-semibold text-ink transition-colors group-hover:text-link"
         role="heading"
         aria-level={level}
       >
@@ -74,7 +74,7 @@ export const Card = ({
           className="size-4 shrink-0 -translate-x-1 opacity-0 transition duration-150 group-hover:translate-x-0 group-hover:opacity-100"
         />
       </div>
-      <div className="text-ink-secondary my-0 mt-1.5 text-sm leading-relaxed">
+      <div className="my-0 mt-1.5 text-sm leading-relaxed text-ink-secondary">
         {description}
       </div>
     </AppLink>

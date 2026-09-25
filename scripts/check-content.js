@@ -154,7 +154,7 @@ function checkImages(version, files) {
 // The number of blank language sections that had no explanation when the slot
 // states were introduced. It is a ratchet: classifying slots lowers it, and the
 // check fails if it ever rises. When it reaches 0, delete this.
-const UNCLASSIFIED_SLOT_BASELINE = 462;
+const UNCLASSIFIED_SLOT_BASELINE = 333;
 
 /**
  * Every slot a shared page declares must be answered by each language overlay,
@@ -313,7 +313,7 @@ for (const version of listVersions(ROOT)) {
   // 1. every page is in the table of contents: listed under `pages:` by the
   //    page above it, up to the front page, index.md at the root, which lists
   //    the chapters.
-  const orphans = pages.filter((page) => page.slug && !declared.has(page.slug));
+  const orphans = pages.filter((page) => !declared.has(page.slug));
   for (const { slug } of orphans.slice(0, 20))
     fail(`${version}: ${slug} is not in the table of contents`);
   if (orphans.length > 20)

@@ -70,7 +70,7 @@ export function Search({ version }: { version: string }) {
     inputRef.current?.focus();
     if (records) return;
     fetch(`/search/${version}.json`)
-      .then((response) => response.json())
+      .then((response) => response.json() as Promise<{ pages: Record[] }>)
       .then((data) => setIndex({ key: version, pages: data.pages }))
       .catch(() => setIndex({ key: version, pages: [] }));
   }, [open, records, version]);

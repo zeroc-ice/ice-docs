@@ -18,7 +18,7 @@ export const HeadingCopyButton = ({ id }: { id: string }) => (
       const lang = event.currentTarget.closest('[data-langs]')
         ? `?lang=${getLanguage()}`
         : '';
-      copy(`${location.origin}${location.pathname}${lang}#${id}`);
+      void copy(`${location.origin}${location.pathname}${lang}#${id}`);
       goToHeading(id);
     }}
   >

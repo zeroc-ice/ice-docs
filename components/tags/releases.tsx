@@ -32,16 +32,16 @@ function releasesOf(pages: Page[]): Release[] {
 // One row per release: its notes and the platforms it supports. The newest is
 // marked, since that is the one most readers are looking for.
 export const Releases = ({ pages }: { pages: Page[] }) => (
-  <ul className="not-prose divide-hairline border-hairline my-5 divide-y border-y">
+  <ul className="not-prose my-5 divide-y divide-hairline border-y border-hairline">
     {releasesOf(pages).map((release, i) => (
       <li
         key={release.title}
         className="flex flex-wrap items-baseline gap-x-6 gap-y-1 py-2.5 text-[15px]"
       >
-        <span className="text-ink min-w-40 font-semibold whitespace-nowrap">
+        <span className="min-w-40 font-semibold whitespace-nowrap text-ink">
           {release.title}
           {i === 0 && (
-            <span className="bg-accent-soft text-link ml-2 rounded-full px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] uppercase">
+            <span className="ml-2 rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-link uppercase">
               Latest
             </span>
           )}
@@ -55,7 +55,7 @@ export const Releases = ({ pages }: { pages: Page[] }) => (
           </Link>
         )}
         {release.date && (
-          <span className="text-ink-muted ml-auto text-sm">
+          <span className="ml-auto text-sm text-ink-muted">
             {formatDate(release.date)}
           </span>
         )}

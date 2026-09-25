@@ -8,6 +8,8 @@ import {
   type Schema
 } from '@markdoc/markdoc';
 
+import type { PageVariables } from '../../lib/markdown.ts';
+
 const heading: Schema = {
   render: 'Heading',
   children: ['inline'],
@@ -21,7 +23,7 @@ const heading: Schema = {
     const children = node.transformChildren(config);
 
     const id = generateID(children, attributes);
-    const frontmatter = config.variables?.frontmatter;
+    const { frontmatter } = config.variables as PageVariables;
     const showDividers = frontmatter.showDividers;
     return new Tag(
       `${this.render}`,

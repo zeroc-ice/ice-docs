@@ -93,31 +93,31 @@ const Switch = ({
     <DropdownMenuTrigger asChild>
       <button
         type="button"
-        className="group border-hairline bg-surface-subtle hover:border-link/40 flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition duration-150 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
+        className="group flex w-full items-center gap-3 rounded-lg border border-hairline bg-surface-subtle px-4 py-3 text-left transition duration-150 hover:border-link/40 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
       >
-        <span className="bg-accent-soft text-link flex size-8 shrink-0 items-center justify-center rounded-md">
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-accent-soft text-link">
           {icon}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="text-ink-muted block text-[11px] font-semibold tracking-[0.07em] uppercase">
+          <span className="block text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
             {label}
           </span>
-          <span className="text-ink block text-lg leading-tight font-semibold">
+          <span className="block text-lg leading-tight font-semibold text-ink">
             {value}
           </span>
-          <span className="text-ink-secondary mt-1 block text-[13px] leading-snug">
+          <span className="mt-1 block text-[13px] leading-snug text-ink-secondary">
             {note}
           </span>
         </span>
         <ChevronDown
           aria-hidden="true"
-          className="text-ink-muted size-4 shrink-0 transition-transform group-data-[state=open]:rotate-180"
+          className="size-4 shrink-0 text-ink-muted transition-transform group-data-[state=open]:rotate-180"
         />
       </button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
       align="start"
-      className="border-hairline bg-surface text-ink w-(--radix-dropdown-menu-trigger-width) p-1 shadow-lg"
+      className="w-(--radix-dropdown-menu-trigger-width) border-hairline bg-surface p-1 text-ink shadow-lg"
     >
       {children}
     </DropdownMenuContent>
@@ -147,7 +147,7 @@ const Item = ({
         className={itemClass}
       >
         {children}
-        {selected && <Check aria-hidden="true" className="text-link size-4" />}
+        {selected && <Check aria-hidden="true" className="size-4 text-link" />}
       </Link>
     </DropdownMenuItem>
   ) : (
@@ -158,6 +158,6 @@ const Item = ({
       className={itemClass}
     >
       {children}
-      {selected && <Check aria-hidden="true" className="text-link size-4" />}
+      {selected && <Check aria-hidden="true" className="size-4 text-link" />}
     </DropdownMenuItem>
   );

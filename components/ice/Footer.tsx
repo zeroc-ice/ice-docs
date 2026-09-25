@@ -8,7 +8,7 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-hairline border-t px-[clamp(1rem,2.5vw,2rem)] py-6 text-sm">
+    <footer className="border-t border-hairline px-[clamp(1rem,2.5vw,2rem)] py-6 text-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <span className="text-ink-secondary">
           © {new Date().getFullYear()} ZeroC
@@ -18,7 +18,7 @@ export function Footer() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-ink-secondary hover:text-ink transition-colors"
+                className="text-ink-secondary transition-colors hover:text-ink"
               >
                 {link.text}
               </a>

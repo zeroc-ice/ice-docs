@@ -97,7 +97,7 @@ export const DocumentShell = ({
         {breadcrumbs.length > 0 && (
           <nav
             aria-label="Breadcrumb"
-            className="text-ink-secondary mb-5 text-[13px]"
+            className="mb-5 text-[13px] text-ink-secondary"
           >
             <ol className="flex flex-wrap items-center gap-1.5">
               {breadcrumbs.map((crumb, i) => (
@@ -110,7 +110,7 @@ export const DocumentShell = ({
                   {crumb.href ? (
                     <Link
                       href={crumb.href}
-                      className="text-link hover:text-ink font-medium transition-colors"
+                      className="font-medium text-link transition-colors hover:text-ink"
                     >
                       {crumb.title}
                     </Link>
@@ -133,7 +133,7 @@ export const DocumentShell = ({
               )}
               <h1>{title}</h1>
               {description && (
-                <p className="text-ink-secondary mt-3 text-lg">{description}</p>
+                <p className="mt-3 text-lg text-ink-secondary">{description}</p>
               )}
               {/* "1 min read" under a one-sentence signpost is noise; the time
                 earns its place on an article long enough that the reader is
@@ -144,7 +144,7 @@ export const DocumentShell = ({
                   <p
                     key={language}
                     data-langs={language}
-                    className="text-ink-muted mt-2 text-[13px]"
+                    className="mt-2 text-[13px] text-ink-muted"
                   >
                     {text}
                   </p>
@@ -171,17 +171,17 @@ export const DocumentShell = ({
                 key={langs.join(' ')}
                 data-langs={langs.join(' ')}
                 aria-label="Pagination"
-                className="border-hairline mt-14 flex gap-3 border-t pt-5 text-sm"
+                className="mt-14 flex gap-3 border-t border-hairline pt-5 text-sm"
               >
                 {/* Text links, not cards. A bordered half-width card gives "the next
                 page in this section" the same visual weight as the article, which
                 is conspicuous on a short page where the card is most of it. */}
                 {prev ? (
                   <Link href={prev.href} className="group min-w-0 flex-1">
-                    <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
+                    <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Previous
                     </div>
-                    <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
+                    <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
                       <span aria-hidden="true">← </span>
                       {prev.title}
                     </div>
@@ -194,10 +194,10 @@ export const DocumentShell = ({
                     href={next.href}
                     className="group min-w-0 flex-1 text-right"
                   >
-                    <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
+                    <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Next
                     </div>
-                    <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
+                    <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
                       {next.title}
                       <span aria-hidden="true"> →</span>
                     </div>
