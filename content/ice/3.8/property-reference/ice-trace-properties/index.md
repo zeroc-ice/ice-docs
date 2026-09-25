@@ -10,6 +10,12 @@ title: Ice.Trace.*
 
 #### Description
 
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Trace.Admin.Logger`. Setting it throws `PropertyException`.
+
+{% /callout %}
+
 Controls the trace level for the [Logger administrative facet](../the-logger-facet).
 
 | 0   | No trace (default).                                                   |
@@ -24,6 +30,12 @@ Controls the trace level for the [Logger administrative facet](../the-logger-fac
 `Ice.Trace.Admin.Properties=num`
 
 #### Description
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Trace.Admin.Properties`. Setting it throws `PropertyException`.
+
+{% /callout %}
 
 Controls the trace level for property updates made via the [Properties facet](../the-properties-facet):
 
@@ -129,6 +141,12 @@ for slicing activities:
 `Ice.Trace.ThreadPool=num`
 
 #### Description
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Trace.ThreadPool`. Setting it throws `PropertyException`.
+
+{% /callout %}
 
 Controls the trace level for the Ice [thread pool](../the-ice-threading-model):
 

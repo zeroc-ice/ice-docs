@@ -23,6 +23,12 @@ connections. The default value is 0.
 
 #### Description
 
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Warn.Datagrams`. Setting it throws `PropertyException`.
+
+{% /callout %}
+
 If `num` is set to a value larger than 0, a server logs a warning message if it receives a datagram that exceeds the
 server's receive buffer size. (Note that this condition is not detected by all UDP implementations — some
 implementations silently drop received datagrams that are too large.) The default value is 0.

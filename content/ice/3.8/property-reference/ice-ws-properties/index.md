@@ -6,9 +6,12 @@ title: Ice.WS.*
 
 #### Synopsis
 
-`Ice.WS.MaxBufferedAmount=num`
+`Ice.WS.MaxBufferedAmount=num` (JavaScript only, in bytes)
 
 #### Description
 
-This property controls the maximum number of bytes that can be queued by a WebSocket connection. Once the WebSocket
-`bufferedAmount` reaches this limit, sending additional data is delayed until it drops below the threshold.
+This property limits the number of bytes queued for transmission by a WebSocket connection in Ice for JavaScript. When
+`num` is greater than zero, Ice sends data in chunks of at most `num` bytes and delays a chunk until sending it would
+keep the WebSocket's `bufferedAmount` at or below `num`.
+
+Setting `num` to `0` or less disables this limit. The default value is `524288` bytes (512 KiB).

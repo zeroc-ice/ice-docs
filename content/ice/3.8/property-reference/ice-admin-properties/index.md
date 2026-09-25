@@ -2,6 +2,12 @@
 title: Ice.Admin.*
 ---
 
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
+
+{% /callout %}
+
 # Ice.Admin._AdapterProperty_
 
 #### Synopsis

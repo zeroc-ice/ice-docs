@@ -10,6 +10,12 @@ title: Ice.Override.*
 
 #### Description
 
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Override.Compress`. Setting it throws `PropertyException`.
+
+{% /callout %}
+
 If set, this property overrides [compression](../protocol-compression) settings in all proxies. If `num` is set to a
 value larger than zero, compression is enabled. If zero, compression is disabled.
 
