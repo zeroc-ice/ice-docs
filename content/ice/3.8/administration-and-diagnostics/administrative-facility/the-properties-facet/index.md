@@ -34,9 +34,8 @@ by the entries in `newProperties` are retained with their original values. If th
 `setProperties` results in any changes to the property set.
 
 `setProperties` applies the same [property validation](../properties-overview#property-validation) as any other way of
-setting a property, and it applies the entries one at a time rather than as a single transaction. A `newProperties` that
-holds a name the target communicator rejects can therefore leave some of its other entries applied. A remote caller sees
-an `UnknownLocalException`, since `PropertyException` is a local exception that `setProperties` does not declare.
+setting a property, one entry at a time: a rejected entry makes the call fail, and the entries applied before it stay in
+place.
 
 {% callout type="info" %}
 

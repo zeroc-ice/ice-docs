@@ -26,8 +26,8 @@ String values in the registry can be regular strings (`REG_SZ`) or expandable st
 strings allow you to include symbolic references to environment variables (such as `%ICE_HOME%`).
 
 Ice applies the same [property validation](../properties-overview#property-validation) to the names it reads from the
-registry as to the names in a configuration file: a value whose name begins with a reserved prefix but is not a property
-Ice knows makes communicator creation throw `PropertyException`.
+registry as to the names in a configuration file, so an unknown property name that begins with a reserved prefix
+followed by a dot makes communicator initialization fail with a `PropertyException`.
 
 # Loading Properties from Java Resources
 

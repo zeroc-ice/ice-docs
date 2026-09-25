@@ -31,46 +31,49 @@ Note that the sub-category is optional and not used by all Ice properties.
 This two- or three-part naming scheme is by convention only — if you use properties to configure your own applications,
 you can use property names with any number of categories.
 
-# Reserved Prefixes for Properties
+# Reserved Prefixes
 
-Ice reserves properties with the following prefixes:
+Ice reserves the following prefixes for the properties of the libraries that run in your program, such as the Ice
+runtime, the IceDiscovery plug-in, and DataStorm:
 
 - `DataStorm`
-- `Glacier2`
 - `Ice`
-- `IceBox`
-- `IceBoxAdmin`
-- `IceBridge`
 - `IceBT`
 - `IceDiscovery`
-- `IceGrid`
-- `IceGridAdmin`
-- `IceGridGUI`
 - `IceLocatorDiscovery`
 - `IceMX`
 - `IceSSL`
+
+Ice also reserves the following prefixes for the properties of the Ice services and tools, which run as separate
+programs. Only the corresponding service or tool accepts these properties:
+
+- `Glacier2`
+- `IceBox`
+- `IceBoxAdmin`
+- `IceBridge`
+- `IceGrid`
+- `IceGridAdmin`
+- `IceGridGUI`
 - `IceStorm`
 - `IceStormAdmin`
 
-You use existing Ice properties with these prefixes (for example, `Ice.Trace.Network`) to configure Ice itself. Give the
-properties of your own application a prefix of your own, such as `Filesystem`: Ice rejects a property name that starts
-with a reserved prefix and that it does not recognize, so a property such as `Ice.MyProp` fails.
+Give the properties of your own application a prefix of your own, such as `Filesystem`.
 
 # Property Validation
 
 Ice validates the name of every property that begins with a reserved prefix followed by a dot, whether the property
 comes from a configuration file, the command line, the Windows registry, the [Properties](../the-properties-class)
-class, or the [Properties facet](../the-properties-facet). A name that is not a property Ice knows is rejected with a
+class, or the [Properties facet](../the-properties-facet). Ice rejects a name it does not know with a
 `PropertyException`:
 
 ```
-unknown Ice property: Ice.Trace.Networks
+unknown Ice property: Ice.Trace.Netwrok
 ```
 
-A communicator reads its configuration while it is being created, so a near miss for `Ice.Trace.Network` in a
-configuration file makes communicator creation fail. The prefix has to match in full, and a name that does not begin
-with one is never validated: `Filesystem.MaxFileSize`, `IceCream.Flavor` and even a misspelled `Iec.Trace.Network` are
-all stored as written.
+A communicator reads its configuration while it is being created, so a typo such as `Ice.Trace.Netwrok` in a
+configuration file makes communicator initialization fail with a `PropertyException`. Ice stores a name that does not
+begin with a reserved prefix and a dot as written, with no validation: `Filesystem.MaxFileSize`, `IceCream.Flavor`, and
+even the misspelled `Iec.Trace.Network`.
 
 {% iflang langs="swift" %}
 
@@ -78,26 +81,6 @@ The Swift `Properties` methods that are not declared `throws` terminate the prog
 [the Properties class](../the-properties-class) says which ones.
 
 {% /iflang %}
-
-# Prefixes Reserved for the Ice Services
-
-Nine of the reserved prefixes belong to the Ice services, and an application cannot set any property under them:
-
-- `Glacier2`
-- `IceBox`
-- `IceBoxAdmin`
-- `IceBridge`
-- `IceGrid`
-- `IceGridAdmin`
-- `IceGridGUI`
-- `IceStorm`
-- `IceStormAdmin`
-
-Each service enables the prefixes it needs on the property set it creates for itself; the property set of an
-application-created communicator enables none of them. An application that reads a configuration file also used by an
-IceGrid node or a Glacier2 router therefore fails at startup on the first service property in the file. Keep the
-properties of a service in a configuration file of its own, and point each program at the file it needs with
-[Ice.Config](../ice-properties).
 
 # Property Name Syntax
 
@@ -132,10 +115,8 @@ During the destruction of a communicator, the Ice runtime can optionally emit a 
 never read. To enable this warning, set [Ice.Warn.UnusedProperties](../ice-warn-properties) to a non-zero value. By
 default, the warning is disabled.
 
-This warning detects a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
-`Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`. It never reports a
-name misspelled under a reserved prefix, because such a name is rejected when it is set and so never reaches the
-property set.
+This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
+`Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.
 
 ##### See Also
 
