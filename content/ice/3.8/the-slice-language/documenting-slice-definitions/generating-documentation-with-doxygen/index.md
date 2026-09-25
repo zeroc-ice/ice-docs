@@ -18,7 +18,7 @@ To link your reference to ZeroC's for the Ice types your Slice files use, downlo
 [tag file](https://code.zeroc.com/ice/3.8/api/slice.tag) and add it to `TAGFILES`:
 
 ```
-TAGFILES = slice.tag=https://code.zeroc.com/ice/3.8/api
+TAGFILES = slice.tag=https://code.zeroc.com/ice/3.8/api/slice
 ```
 
 ##### See Also
