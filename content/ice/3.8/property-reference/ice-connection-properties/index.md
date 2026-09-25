@@ -12,12 +12,16 @@ properties configure these connections and default to the `Ice.Connection.Server
 In the property descriptions below, replace `name` with `Client` in Ice for JavaScript, or with `Client` or `Server` in
 the other language mappings.
 
+{% iflang langs="js" %}
+
 {% callout type="info" title="JavaScript" %}
 
 Ice for JavaScript does not support `Ice.Connection.Server.*` properties. Setting any of them throws
 `PropertyException`.
 
 {% /callout %}
+
+{% /iflang %}
 
 {% callout type="info" %}
 

@@ -2,7 +2,11 @@
 title: Ice.Plugin.*
 ---
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 # Ice.Plugin._name_
+
+{% /iflang %}
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 

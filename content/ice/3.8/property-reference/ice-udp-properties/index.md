@@ -2,11 +2,15 @@
 title: Ice.UDP.*
 ---
 
+{% iflang langs="js" %}
+
 {% callout type="info" title="JavaScript" %}
 
 Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
 
 {% /callout %}
+
+{% /iflang %}
 
 # Ice.UDP.RcvSize
 

@@ -2,11 +2,15 @@
 title: Ice.ThreadPool.*
 ---
 
+{% iflang langs="js" %}
+
 {% callout type="info" title="JavaScript" %}
 
 Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
 
 {% /callout %}
+
+{% /iflang %}
 
 In language mappings that support thread pools, a communicator creates two [thread pools](../the-ice-threading-model):
 

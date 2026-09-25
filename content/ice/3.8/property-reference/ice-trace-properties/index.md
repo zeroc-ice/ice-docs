@@ -2,6 +2,8 @@
 title: Ice.Trace.*
 ---
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 # Ice.Trace.Admin.Logger
 
 #### Synopsis
@@ -9,12 +11,6 @@ title: Ice.Trace.*
 `Ice.Trace.Admin.Logger=num`
 
 #### Description
-
-{% callout type="info" title="JavaScript" %}
-
-Ice for JavaScript does not support `Ice.Trace.Admin.Logger`. Setting it throws `PropertyException`.
-
-{% /callout %}
 
 Controls the trace level for the [Logger administrative facet](../the-logger-facet).
 
@@ -31,17 +27,13 @@ Controls the trace level for the [Logger administrative facet](../the-logger-fac
 
 #### Description
 
-{% callout type="info" title="JavaScript" %}
-
-Ice for JavaScript does not support `Ice.Trace.Admin.Properties`. Setting it throws `PropertyException`.
-
-{% /callout %}
-
 Controls the trace level for property updates made via the [Properties facet](../the-properties-facet):
 
 | 0   | No property trace (default).                        |
 | --- | --------------------------------------------------- |
 | 1   | Trace property addition, modification, and removal. |
+
+{% /iflang %}
 
 # Ice.Trace.Dispatch
 
@@ -134,6 +126,8 @@ for slicing activities:
 | --- | ------------------------------------------------------------------------------------------ |
 | 1   | Trace all exception and class types that are unknown to the receiver and therefore sliced. |
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 # Ice.Trace.ThreadPool
 
 #### Synopsis
@@ -142,14 +136,10 @@ for slicing activities:
 
 #### Description
 
-{% callout type="info" title="JavaScript" %}
-
-Ice for JavaScript does not support `Ice.Trace.ThreadPool`. Setting it throws `PropertyException`.
-
-{% /callout %}
-
 Controls the trace level for the Ice [thread pool](../the-ice-threading-model):
 
 | 0   | No trace of thread pool activity (default).                 |
 | --- | ----------------------------------------------------------- |
 | 1   | Trace the creation, growing, and shrinking of thread pools. |
+
+{% /iflang %}
