@@ -99,8 +99,9 @@ seconds) should be appropriate for most applications.
 
 A connection is considered inactive when there is no application-level activity on this connection: there is no
 outstanding invocation (we're not waiting for a response to a request we've sent), there is no outstanding dispatch, and
-no request or response is being sent or received. Sending or receiving a heartbeat does not count as application-level
-activity. When a connection remains inactive for more than `num` seconds, this connection is closed gracefully.
+no request or response is queued for sending, being sent, or being received. Waiting for the remainder of an incoming
+message also keeps the connection active. Sending or receiving a heartbeat does not count as application-level activity.
+When a connection remains inactive for more than `num` seconds, this connection is closed gracefully.
 
 Inactive is a good state: the connection is healthy but unused, so the communicator or object adapter shuts it down to
 reclaim resources.

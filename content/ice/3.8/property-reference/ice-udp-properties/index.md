@@ -19,7 +19,9 @@ requested that is lower than the OS-imposed minimum, the value is silently adjus
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
-Values less than 28 are ignored.
+The default value is `0`, which leaves the operating system's buffer size unchanged. For any other value less than `42`
+(28 bytes of IP/UDP overhead plus the 14-byte Ice protocol header), Ice uses the operating system's buffer size and logs
+a warning.
 
 Note that, on many operating systems, it is possible to set a buffer size greater than 65535. Such settings do not
 change the hard limit of 65507 bytes for the payload of a UDP packet, but merely affect how much data can be buffered by
@@ -44,10 +46,16 @@ requested that is lower than the OS-imposed minimum, the value is silently adjus
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
-Values less than 28 are ignored.
+The default value is `0`, which leaves the operating system's buffer size unchanged. For any other value less than `42`
+(28 bytes of IP/UDP overhead plus the 14-byte Ice protocol header), Ice uses the operating system's buffer size and logs
+a warning.
 
 Note that, on many operating systems, it is possible to set a buffer size greater than 65535. Such settings do not
 change the hard limit of 65507 bytes for the payload of a UDP packet, but merely affect how much data can be buffered by
 the kernel.
 
 Settings less than 65535 limit the size of Ice datagrams as well as adjust the kernel buffer sizes.
+
+For datagram proxies, a positive `Ice.UDP.SndSize` also caps the automatic batch flush threshold configured by
+[Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize). When `Ice.UDP.SndSize` is not set, this cap is 65507
+bytes. Explicitly setting it to 0 or a negative value disables automatic flushing for datagram proxies.

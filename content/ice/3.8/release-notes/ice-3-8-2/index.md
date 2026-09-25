@@ -9,6 +9,12 @@ We list below the main highlights. Please refer to the
 [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) for a detailed description of all the changes
 included in this release.
 
+## WebSocket Origin Checking
+
+The new [adapter.AllowedOrigins](../object-adapter-properties#adapter.allowedorigins) property lets an object adapter
+restrict the origins accepted in WebSocket upgrade requests. This check is disabled by default. When enabled, it rejects
+requests with an `Origin` header that does not match an allowed origin; requests without this header remain accepted.
+
 ## C# Changes
 
 ### New compiler option for IceRPC
