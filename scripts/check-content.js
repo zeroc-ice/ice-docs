@@ -313,7 +313,7 @@ for (const version of listVersions(ROOT)) {
   // 1. every page is in the table of contents: listed under `pages:` by the
   //    page above it, up to the front page, index.md at the root, which lists
   //    the chapters.
-  const orphans = pages.filter((page) => page.slug && !declared.has(page.slug));
+  const orphans = pages.filter((page) => !declared.has(page.slug));
   for (const { slug } of orphans.slice(0, 20))
     fail(`${version}: ${slug} is not in the table of contents`);
   if (orphans.length > 20)
