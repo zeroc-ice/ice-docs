@@ -173,8 +173,10 @@ export function Menu({
               .closest<HTMLElement>(itemSelector)
               ?.focus({ preventScroll: true });
           }}
+          // A list in the sticky header does not move when the page scrolls, so
+          // it keeps within the viewport and scrolls itself.
           className={clsx(
-            'absolute top-full z-30 mt-1 w-max min-w-[max(100%,8rem)] rounded-md border border-hairline bg-surface p-1 text-ink shadow-lg outline-hidden',
+            'absolute top-full z-30 mt-1 max-h-[calc(100dvh-4rem)] w-max min-w-[max(100%,8rem)] overflow-y-auto rounded-md border border-hairline bg-surface p-1 text-ink shadow-lg outline-hidden',
             align === 'left' ? 'left-0' : 'right-0'
           )}
         >
