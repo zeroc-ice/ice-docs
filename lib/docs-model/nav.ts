@@ -47,8 +47,6 @@ export interface SideNavNode {
   href?: string;
   /** The languages the page is written for; absent when it is written for all. */
   writtenFor?: string[];
-  /** True when this node is the page currently being viewed. */
-  active: boolean;
   items: SideNavNode[];
 }
 
@@ -59,19 +57,13 @@ export const GROUP_OVERVIEW_TITLE = 'Overview';
 
 /**
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
- * the manual's full shape shows), with a link for each page, and `active` set
- * on the page at `currentSlug`.
+ * the manual's full shape shows), with a link for each page.
  */
-export function buildSideNav(
-  nodes: NavNode[],
-  version: string,
-  currentSlug: string
-): SideNavNode[] {
+export function buildSideNav(nodes: NavNode[], version: string): SideNavNode[] {
   return nodes.map((node) => {
     const href = pageHref(version, node.slug);
     const { writtenFor } = node;
-    const active = node.slug === currentSlug;
-    const items = buildSideNav(node.items, version, currentSlug);
+    const items = buildSideNav(node.items, version);
 
     // A group's row would have to answer two gestures: navigate to its page,
     // and open. Splitting them means the whole row — title included — becomes
@@ -81,15 +73,14 @@ export function buildSideNav(
     if (items.length > 0) {
       return {
         title: node.title,
-        active: false,
         items: [
-          { title: GROUP_OVERVIEW_TITLE, href, writtenFor, active, items: [] },
+          { title: GROUP_OVERVIEW_TITLE, href, writtenFor, items: [] },
           ...items
         ]
       };
     }
 
-    return { title: node.title, href, writtenFor, active, items };
+    return { title: node.title, href, writtenFor, items };
   });
 }
 
@@ -98,9 +89,15 @@ export function pageHref(version: string, slug?: string): string {
   return slug ? `/ice/${version}/${slug}` : `/ice/${version}`;
 }
 
-/** Whether a resolved node is, or contains, the active page (used to auto-expand). */
-export function containsActive(node: SideNavNode): boolean {
-  return node.active || node.items.some(containsActive);
+/**
+ * Whether a resolved node is, or contains, the active page, the one at
+ * `activeHref` (used to auto-expand).
+ */
+function containsActive(node: SideNavNode, activeHref: string): boolean {
+  return (
+    node.href === activeHref ||
+    node.items.some((item) => containsActive(item, activeHref))
+  );
 }
 
 /**
@@ -114,19 +111,24 @@ export function sideNavKey(path: readonly string[]): string {
 }
 
 /**
- * The keys of every group on the way down to the active page: what the sidebar
- * opens on its own, so the current page is always visible. Keys are built the
- * way the sidebar builds them (see `sideNavKey`), so the two agree.
+ * The keys of every group on the way down to the active page, the one at
+ * `activeHref`: what the sidebar opens on its own, so the current page is
+ * always visible. Keys are built the way the sidebar builds them (see
+ * `sideNavKey`), so the two agree.
  */
 export function activeTrailKeys(
   nodes: SideNavNode[],
+  activeHref: string,
   path: readonly string[] = []
 ): string[] {
   const out: string[] = [];
   for (const node of nodes) {
     const nodePath = [...path, node.href ?? node.title];
-    if (node.items.length > 0 && containsActive(node)) {
-      out.push(sideNavKey(nodePath), ...activeTrailKeys(node.items, nodePath));
+    if (node.items.length > 0 && containsActive(node, activeHref)) {
+      out.push(
+        sideNavKey(nodePath),
+        ...activeTrailKeys(node.items, activeHref, nodePath)
+      );
     }
   }
   return out;

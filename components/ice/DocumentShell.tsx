@@ -90,10 +90,10 @@ export const DocumentShell = ({
 
   return (
     <div className="flex shrink flex-row justify-center overflow-y-clip lg:justify-start">
-      <article
-        data-page-shape={shape}
-        className="mx-6 size-full max-w-232 min-w-0 md:mx-10 lg:mx-12"
-      >
+      {/* The breadcrumbs are navigation rather than part of the article, so
+          they sit above it in the page's column, clear of the article's prose
+          styles. */}
+      <div className="mx-6 size-full max-w-232 min-w-0 md:mx-10 lg:mx-12">
         {breadcrumbs.length > 0 && (
           <nav
             aria-label="Breadcrumb"
@@ -110,7 +110,7 @@ export const DocumentShell = ({
                   {crumb.href ? (
                     <Link
                       href={crumb.href}
-                      className="hover:text-ink transition-colors"
+                      className="text-link hover:text-ink font-medium transition-colors"
                     >
                       {crumb.title}
                     </Link>
@@ -123,90 +123,92 @@ export const DocumentShell = ({
           </nav>
         )}
 
-        {title && (
-          <header className="mb-10">
-            {type && (
-              <div className="mb-2">
-                <PageTypeBadge type={type} />
-              </div>
-            )}
-            <h1>{title}</h1>
-            {description && (
-              <p className="text-ink-secondary mt-3 text-lg">{description}</p>
-            )}
-            {/* "1 min read" under a one-sentence signpost is noise; the time
+        <article data-page-shape={shape}>
+          {title && (
+            <header className="mb-10">
+              {type && (
+                <div className="mb-2">
+                  <PageTypeBadge type={type} />
+                </div>
+              )}
+              <h1>{title}</h1>
+              {description && (
+                <p className="text-ink-secondary mt-3 text-lg">{description}</p>
+              )}
+              {/* "1 min read" under a one-sentence signpost is noise; the time
                 earns its place on an article long enough that the reader is
                 deciding whether to start now. */}
-            {Object.entries(readingTime ?? {})
-              .filter(([, text]) => Number.parseInt(text, 10) >= 2)
-              .map(([language, text]) => (
-                <p
-                  key={language}
-                  data-langs={language}
-                  className="text-ink-muted mt-2 text-[13px]"
-                >
-                  {text}
-                </p>
-              ))}
-          </header>
-        )}
+              {Object.entries(readingTime ?? {})
+                .filter(([, text]) => Number.parseInt(text, 10) >= 2)
+                .map(([language, text]) => (
+                  <p
+                    key={language}
+                    data-langs={language}
+                    className="text-ink-muted mt-2 text-[13px]"
+                  >
+                    {text}
+                  </p>
+                ))}
+            </header>
+          )}
 
-        {writtenFor && notWrittenFor.length > 0 && (
-          <div data-langs={notWrittenFor.join(' ')}>
-            <Callout type="note">
-              <LanguageNotice writtenFor={writtenFor} />
-            </Callout>
+          {writtenFor && notWrittenFor.length > 0 && (
+            <div data-langs={notWrittenFor.join(' ')}>
+              <Callout type="note">
+                <LanguageNotice writtenFor={writtenFor} />
+              </Callout>
+            </div>
+          )}
+
+          <div className="doc-body" style={{ counterReset: 'step-counter' }}>
+            {children}
           </div>
-        )}
 
-        <div className="doc-body" style={{ counterReset: 'step-counter' }}>
-          {children}
-        </div>
-
-        {pagination
-          .filter(({ prev, next }) => prev || next)
-          .map(({ langs, prev, next }) => (
-            <nav
-              key={langs.join(' ')}
-              data-langs={langs.join(' ')}
-              aria-label="Pagination"
-              className="border-hairline mt-14 flex gap-3 border-t pt-5 text-sm"
-            >
-              {/* Text links, not cards. A bordered half-width card gives "the next
+          {pagination
+            .filter(({ prev, next }) => prev || next)
+            .map(({ langs, prev, next }) => (
+              <nav
+                key={langs.join(' ')}
+                data-langs={langs.join(' ')}
+                aria-label="Pagination"
+                className="border-hairline mt-14 flex gap-3 border-t pt-5 text-sm"
+              >
+                {/* Text links, not cards. A bordered half-width card gives "the next
                 page in this section" the same visual weight as the article, which
                 is conspicuous on a short page where the card is most of it. */}
-              {prev ? (
-                <Link href={prev.href} className="group min-w-0 flex-1">
-                  <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
-                    Previous
-                  </div>
-                  <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
-                    <span aria-hidden="true">← </span>
-                    {prev.title}
-                  </div>
-                </Link>
-              ) : (
-                <div className="flex-1" />
-              )}
-              {next ? (
-                <Link
-                  href={next.href}
-                  className="group min-w-0 flex-1 text-right"
-                >
-                  <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
-                    Next
-                  </div>
-                  <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
-                    {next.title}
-                    <span aria-hidden="true"> →</span>
-                  </div>
-                </Link>
-              ) : (
-                <div className="flex-1" />
-              )}
-            </nav>
-          ))}
-      </article>
+                {prev ? (
+                  <Link href={prev.href} className="group min-w-0 flex-1">
+                    <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
+                      Previous
+                    </div>
+                    <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
+                      <span aria-hidden="true">← </span>
+                      {prev.title}
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="flex-1" />
+                )}
+                {next ? (
+                  <Link
+                    href={next.href}
+                    className="group min-w-0 flex-1 text-right"
+                  >
+                    <div className="text-ink-muted text-[11px] font-semibold tracking-[0.04em] uppercase">
+                      Next
+                    </div>
+                    <div className="text-ink group-hover:text-link mt-0.5 truncate font-medium transition-colors">
+                      {next.title}
+                      <span aria-hidden="true"> →</span>
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="flex-1" />
+                )}
+              </nav>
+            ))}
+        </article>
+      </div>
 
       {showAside && (
         <PageOutline

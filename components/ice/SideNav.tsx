@@ -10,23 +10,19 @@ import { ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import {
   type SideNavNode,
   activeTrailKeys,
-  containsActive,
   sideNavKey
 } from '@/lib/docs-model/nav';
-import { useMounted } from '@/context/state';
+import { useLanguage, useMounted } from '@/context/state';
 
 // Whether the whole rail is folded away. A preference, so it lives in local
 // storage and outlives the tab.
 const COLLAPSED_KEY = 'ice-docs:sidebar-collapsed';
 
-// Where the reader is in the tree — which groups are open, how far the rail is
-// scrolled — lives in session storage, per tab, keyed by version (keys are
-// titles and hrefs, which differ between versions). The rail is rebuilt on
-// every navigation; without this, each click in it would hand back a tree
-// scrolled to the top with only the new page's branch open, and the reader
-// would lose their place in the very control they are using to move.
-const stateKey = (kind: 'open' | 'scroll', scope: string) =>
-  `ice-docs:sidebar-${kind}:${scope}`;
+// The groups the reader has open live in session storage, per tab, keyed by
+// version (keys are titles and hrefs, which differ between versions), so they
+// outlast a navigation, a reload, or a trip to another version, each of which
+// would otherwise leave only the current page's branch open.
+const openKey = (scope: string) => `ice-docs:sidebar-open:${scope}`;
 
 function readState<T>(key: string, fallback: T): T {
   try {
@@ -57,6 +53,9 @@ function writeState(key: string, value: unknown) {
 // branch stays emphasised while folded, so "where am I" survives the fold. What
 // the reader opened stays open across navigations, so the tree does not
 // rearrange itself under the click that moved them.
+//
+// The tree is the same on every page of a version, so the current page is the
+// entry whose link is the address's path.
 export function SideNav({
   nodes,
   title,
@@ -92,17 +91,28 @@ export function SideNav({
   // /ice/3.8/<slug> -> "3.8".
   const scope = pathname.split('/')[2];
 
+  const trail = useMemo(
+    () => new Set(activeTrailKeys(nodes, pathname)),
+    [nodes, pathname]
+  );
+
   // Groups that are open: the branch holding the current page, plus — once the
   // client has mounted and can read storage — whatever the reader had open
-  // before this navigation. A click replaces the set outright.
+  // before this navigation. A click replaces the set outright, until the
+  // reader moves to another page: by then the set is in storage, and the new
+  // page's branch opens on top of it.
   const initialOpen = useMemo(() => {
-    const open = new Set(activeTrailKeys(nodes));
+    const open = new Set(trail);
     if (mounted)
-      for (const key of readState<string[]>(stateKey('open', scope), []))
-        open.add(key);
+      for (const key of readState<string[]>(openKey(scope), [])) open.add(key);
     return open;
-  }, [mounted, nodes, scope]);
+  }, [mounted, trail, scope]);
   const [clicked, setClicked] = useState<Set<string> | null>(null);
+  const [clickedOn, setClickedOn] = useState(pathname);
+  if (clickedOn !== pathname) {
+    setClickedOn(pathname);
+    setClicked(null);
+  }
   const open = clicked ?? initialOpen;
 
   const toggle = (key: string) => {
@@ -114,22 +124,22 @@ export function SideNav({
 
   // Persist the effective set, not just the clicks: the branch that opened on
   // its own for this page has to stay open on the next one too, or the tree
-  // would shrink above the reader's place and the scroll position would land
-  // on the wrong rows.
+  // would shrink above the reader's place.
   useEffect(() => {
-    if (mounted) writeState(stateKey('open', scope), [...open]);
+    if (mounted) writeState(openKey(scope), [...open]);
   }, [mounted, open, scope]);
 
-  // Restore the rail's scroll position once it has rendered with the remembered
-  // groups open, then make sure the current page is in view: it is when the
-  // reader clicked it in the rail, and may not be when they arrived by a
-  // previous/next link or from search. Before paint, so nothing jumps. An
-  // entry hidden for the reader's language has no position to show.
+  // On load and on every navigation, make sure the current page is in view: it
+  // is when the reader clicked it in the rail, and may not be when they
+  // arrived by a previous/next link, from search, or by loading the page. A
+  // language switch can move it too, by showing or hiding the entries written
+  // for some languages. An entry hidden for the reader's language has no
+  // position to show.
+  const language = useLanguage();
   const navRef = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const nav = navRef.current;
     if (!mounted || !nav) return;
-    nav.scrollTop = readState<number>(stateKey('scroll', scope), 0);
     const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
     if (!active || active.offsetParent === null) return;
     const top = active.offsetTop;
@@ -137,25 +147,13 @@ export function SideNav({
     if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
       nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
     }
-  }, [mounted, scope]);
-
-  // Remember the scroll position as it changes, one write per frame.
-  const frame = useRef(0);
-  const onScroll = () => {
-    if (frame.current) return;
-    frame.current = window.requestAnimationFrame(() => {
-      frame.current = 0;
-      if (navRef.current)
-        writeState(stateKey('scroll', scope), navRef.current.scrollTop);
-    });
-  };
+  }, [mounted, pathname, collapsed, language]);
 
   if (nodes.length === 0) return null;
 
   return (
     <nav
       ref={navRef}
-      onScroll={onScroll}
       aria-label={title ? `${title} navigation` : 'Manual navigation'}
       // `contain-size` keeps the tree's height out of the row's, so a short
       // page stays viewport-high with the footer at the bottom; the rail then
@@ -216,11 +214,13 @@ export function SideNav({
           nodes={nodes}
           path={[]}
           depth={0}
+          pathname={pathname}
           open={open}
+          trail={trail}
           toggle={toggle}
           // Groups open by a click slide open; groups restored from storage or
           // opened for the current page are simply there, so the rail lays out
-          // at its final height before the scroll position is put back.
+          // at its final height before the current page is brought into view.
           animate={clicked !== null}
         />
       </div>
@@ -232,12 +232,25 @@ interface TreeProps {
   nodes: SideNavNode[];
   path: string[];
   depth: number;
+  /** The current page's path, which its entry links to. */
+  pathname: string;
   open: ReadonlySet<string>;
+  /** The keys of the groups that lead to the current page. */
+  trail: ReadonlySet<string>;
   toggle: (key: string) => void;
   animate: boolean;
 }
 
-function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
+function Tree({
+  nodes,
+  path,
+  depth,
+  pathname,
+  open,
+  trail,
+  toggle,
+  animate
+}: TreeProps) {
   return (
     <ul className="flex flex-col">
       {nodes.map((node) => {
@@ -245,9 +258,10 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
         const k = sideNavKey(nodePath);
         const hasItems = node.items.length > 0;
         const isOpen = hasItems && open.has(k);
+        const active = node.href === pathname;
 
         // The trail down to the current page stays emphasised even when folded.
-        const onActiveTrail = containsActive(node) && !node.active;
+        const onActiveTrail = trail.has(k);
 
         const chevron = (
           <ChevronRight
@@ -262,7 +276,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
 
         const label = clsx(
           'block flex-1 rounded-[5px] px-2 py-1.5 text-left leading-snug transition-colors',
-          node.active
+          active
             ? 'bg-accent-soft text-link font-semibold'
             : onActiveTrail
               ? 'text-ink hover:bg-surface-subtle font-semibold'
@@ -301,7 +315,7 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
                   <span className="w-5 shrink-0" />
                   <Link
                     href={node.href!}
-                    aria-current={node.active ? 'page' : undefined}
+                    aria-current={active ? 'page' : undefined}
                     className={label}
                   >
                     {node.title}
@@ -328,7 +342,9 @@ function Tree({ nodes, path, depth, open, toggle, animate }: TreeProps) {
                     nodes={node.items}
                     path={nodePath}
                     depth={depth + 1}
+                    pathname={pathname}
                     open={open}
+                    trail={trail}
                     toggle={toggle}
                     animate={animate}
                   />

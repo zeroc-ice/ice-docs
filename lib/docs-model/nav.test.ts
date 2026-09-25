@@ -10,7 +10,6 @@ import {
   breadcrumbs,
   buildSideNav,
   activeTrailKeys,
-  containsActive,
   languageLabel,
   navigationPages,
   prevNext,
@@ -61,9 +60,10 @@ const SIDEBAR: NavNode[] = [
 
 const ENUMERATIONS = 'slice/user-defined-types/enumerations';
 const SEQUENCES = 'slice/user-defined-types/sequences';
+const ENUMERATIONS_HREF = '/ice/3.8/slice/user-defined-types/enumerations';
 
-test('buildSideNav resolves the tree with hrefs and active flags', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8', ENUMERATIONS);
+test('buildSideNav resolves the tree with hrefs', () => {
+  const tree = buildSideNav(SIDEBAR, '3.8');
   assert.equal(tree[0].href, '/ice/3.8/get-started');
   const slice = tree[1];
   assert.equal(slice.title, 'The Slice Language');
@@ -71,34 +71,23 @@ test('buildSideNav resolves the tree with hrefs and active flags', () => {
   assert.equal(slice.items.length, 3);
   const udt = slice.items[2];
   assert.equal(udt.title, 'User-Defined Types');
-  assert.equal(udt.items[1].active, true); // current page
-  assert.equal(
-    udt.items[1].href,
-    '/ice/3.8/slice/user-defined-types/enumerations'
-  );
+  assert.equal(udt.items[1].href, ENUMERATIONS_HREF);
 });
 
 test('a group becomes a toggle, with its page as Overview', () => {
   // Otherwise one row has to answer two gestures — navigate, and open — and the
   // title cannot be the thing you click to expand.
-  const [, slice] = buildSideNav(SIDEBAR, '3.8', ENUMERATIONS);
+  const [, slice] = buildSideNav(SIDEBAR, '3.8');
   assert.equal(slice.href, undefined, 'the group row itself does not navigate');
   assert.equal(slice.items[0].title, 'Overview');
   assert.equal(slice.items[0].href, '/ice/3.8/slice');
 });
 
-test("standing on a group's own page marks Overview, not the group row", () => {
-  const [, slice] = buildSideNav(SIDEBAR, '3.8', 'slice');
-  assert.equal(slice.active, false);
-  assert.equal(slice.items[0].active, true);
-  // The group still opens on its own, because it holds the active page.
-  assert.equal(containsActive(slice), true);
-});
-
-test('containsActive reports the branch holding the current page', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8', ENUMERATIONS);
-  assert.equal(containsActive(tree[1]), true); // The Slice Language contains it
-  assert.equal(containsActive(tree[0]), false); // Get Started does not
+test("standing on a group's own page, its Overview, opens the group", () => {
+  const tree = buildSideNav(SIDEBAR, '3.8');
+  assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/slice'), [
+    sideNavKey(['The Slice Language'])
+  ]);
 });
 
 test('trailTo returns every ancestor down to the page, or null', () => {
@@ -176,16 +165,16 @@ test('languageLabel maps slugs to display names, falling back to the slug', () =
 });
 
 test('activeTrailKeys names every group down to the current page, and nothing else', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8', ENUMERATIONS);
-  assert.deepEqual(activeTrailKeys(tree), [
+  const tree = buildSideNav(SIDEBAR, '3.8');
+  assert.deepEqual(activeTrailKeys(tree, ENUMERATIONS_HREF), [
     sideNavKey(['The Slice Language']),
     sideNavKey(['The Slice Language', 'User-Defined Types'])
   ]);
 });
 
 test('activeTrailKeys is empty when the current page is a top-level leaf', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8', 'get-started');
-  assert.deepEqual(activeTrailKeys(tree), []);
+  const tree = buildSideNav(SIDEBAR, '3.8');
+  assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/get-started'), []);
 });
 
 test('group keys are path-based, so equal titles under different parents differ', () => {
