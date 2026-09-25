@@ -60,6 +60,7 @@
     "dllimport",
     "docfx",
     "docregion",
+    "Doxyfile",
     "dsnode",
     "dumpbin",
     "EBNF",
