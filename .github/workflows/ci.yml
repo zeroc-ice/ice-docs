@@ -16,7 +16,6 @@ concurrency:
 
 permissions:
   contents: read
-  packages: write
 
 env:
   IMAGE: ghcr.io/zeroc-ice/ice-docs
@@ -56,6 +55,9 @@ jobs:
     name: Build image (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -104,6 +106,8 @@ jobs:
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      packages: write
 
     steps:
       - name: Set up Docker Buildx
@@ -130,6 +134,9 @@ jobs:
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      # The server logs in to the registry with this job's token to pull the image.
+      packages: read
 
     steps:
       - name: Deploy docs
@@ -152,6 +159,8 @@ jobs:
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      packages: write
 
     steps:
       - name: Delete old container images (keep the 10 most recent)
