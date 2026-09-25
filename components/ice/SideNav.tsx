@@ -5,18 +5,15 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import { ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import {
   type SideNavNode,
+  MANUAL_TITLE,
   activeTrailKeys,
   sideNavKey
 } from '@/lib/docs-model/nav';
 import { useLanguage, useMounted } from '@/context/state';
-
-// Whether the whole rail is folded away. A preference, so it lives in local
-// storage and outlives the tab.
-const COLLAPSED_KEY = 'ice-docs:sidebar-collapsed';
 
 // The groups the reader has open live in session storage, per tab, keyed by
 // version (keys are titles and hrefs, which differ between versions), so they
@@ -56,36 +53,10 @@ function writeState(key: string, value: unknown) {
 //
 // The tree is the same on every page of a version, so the current page is the
 // entry whose link is the address's path.
-export function SideNav({
-  nodes,
-  title,
-  homeHref
-}: {
-  nodes: SideNavNode[];
-  title?: string;
-  /** The manual's front page, which the heading links to. */
-  homeHref: string;
-}) {
-  // Read after mount, so the server and the first client render agree; the
-  // width transition then carries the rail closed rather than snapping it.
+export function SideNav({ nodes }: { nodes: SideNavNode[] }) {
+  // Storage is read after mount, so the server and the first client render
+  // agree.
   const mounted = useMounted();
-  const remembered = useMemo(
-    () =>
-      mounted ? window.localStorage.getItem(COLLAPSED_KEY) === '1' : false,
-    [mounted]
-  );
-  const [override, setOverride] = useState<boolean | null>(null);
-  const collapsed = override ?? remembered;
-
-  const setCollapsed = (value: boolean) => {
-    setOverride(value);
-    try {
-      window.localStorage.setItem(COLLAPSED_KEY, value ? '1' : '0');
-    } catch {
-      // Private browsing and storage-blocked contexts: the rail still folds,
-      // it just will not be remembered.
-    }
-  };
 
   const pathname = usePathname();
   // /ice/3.8/<slug> -> "3.8".
@@ -147,83 +118,32 @@ export function SideNav({
     if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
       nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
     }
-  }, [mounted, pathname, collapsed, language]);
+  }, [mounted, pathname, language]);
 
   if (nodes.length === 0) return null;
 
   return (
     <nav
       ref={navRef}
-      aria-label={title ? `${title} navigation` : 'Manual navigation'}
+      aria-label={`${MANUAL_TITLE} navigation`}
       // `contain-size` keeps the tree's height out of the row's, so a short
       // page stays viewport-high with the footer at the bottom; the rail then
       // stretches to the row, capped at the viewport.
-      className={clsx(
-        'sticky top-20 hidden max-h-[calc(100vh-6.5rem)] shrink-0 overscroll-contain pb-8 text-sm contain-size',
-        'transition-[width] duration-200 ease-out motion-reduce:transition-none lg:block',
-        collapsed ? 'w-9 overflow-hidden' : 'w-66 overflow-y-auto pr-3'
-      )}
+      className="sticky top-20 hidden max-h-[calc(100vh-6.5rem)] w-66 shrink-0 overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
     >
-      <div className="mb-2 flex items-center gap-1">
-        {/* The heading is the manual's front page, the one page above the
-            tree rather than in it, so it is the row that is active there. */}
-        {!collapsed && title && (
-          <Link
-            href={homeHref}
-            aria-current={pathname === homeHref ? 'page' : undefined}
-            className={clsx(
-              'flex-1 truncate rounded-[5px] px-2 py-1 text-[11px] font-semibold tracking-[0.07em] uppercase transition-colors',
-              pathname === homeHref
-                ? 'bg-accent-soft text-link'
-                : 'text-ink-muted hover:bg-surface-subtle hover:text-ink'
-            )}
-          >
-            {title}
-          </Link>
-        )}
-        <button
-          type="button"
-          onClick={() => setCollapsed(!collapsed)}
-          aria-expanded={!collapsed}
-          aria-controls="manual-nav-tree"
-          aria-label={
-            collapsed
-              ? 'Expand table of contents'
-              : 'Collapse table of contents'
-          }
-          title={
-            collapsed
-              ? 'Expand table of contents'
-              : 'Collapse table of contents'
-          }
-          className="flex size-7 shrink-0 items-center justify-center rounded-md text-ink-muted transition-colors hover:bg-surface-subtle hover:text-ink"
-        >
-          {collapsed ? (
-            <ChevronsRight className="size-4" aria-hidden="true" />
-          ) : (
-            <ChevronsLeft className="size-4" aria-hidden="true" />
-          )}
-        </button>
-      </div>
-
-      {/* Hidden rather than unmounted: folding the rail must not drop the tree
-          out of the page only to rebuild it, and `hidden` also takes it out of
-          the tab order and the accessibility tree. */}
-      <div id="manual-nav-tree" hidden={collapsed}>
-        <Tree
-          nodes={nodes}
-          path={[]}
-          depth={0}
-          pathname={pathname}
-          open={open}
-          trail={trail}
-          toggle={toggle}
-          // Groups open by a click slide open; groups restored from storage or
-          // opened for the current page are simply there, so the rail lays out
-          // at its final height before the current page is brought into view.
-          animate={clicked !== null}
-        />
-      </div>
+      <Tree
+        nodes={nodes}
+        path={[]}
+        depth={0}
+        pathname={pathname}
+        open={open}
+        trail={trail}
+        toggle={toggle}
+        // Groups open by a click slide open; groups restored from storage or
+        // opened for the current page are simply there, so the rail lays out
+        // at its final height before the current page is brought into view.
+        animate={clicked !== null}
+      />
     </nav>
   );
 }
@@ -277,13 +197,13 @@ function Tree({
         const label = clsx(
           'block flex-1 rounded-[5px] px-2 py-1.5 text-left leading-snug transition-colors',
           active
-            ? 'bg-accent-soft text-link font-semibold'
+            ? 'text-link font-semibold'
             : onActiveTrail
-              ? 'text-ink hover:bg-surface-subtle font-semibold'
+              ? 'text-ink hover:text-link font-semibold'
               : // Top-level entries carry the shape of the manual, so they read at
                 // full strength; their children step back a shade.
                 clsx(
-                  'hover:text-ink hover:bg-surface-subtle',
+                  'hover:text-link',
                   depth === 0 ? 'text-ink' : 'text-ink-secondary'
                 )
         );
