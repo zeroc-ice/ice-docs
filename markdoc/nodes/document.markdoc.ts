@@ -8,6 +8,8 @@ import {
   type RenderableTreeNode
 } from '@markdoc/markdoc';
 
+import type { PageVariables } from '../../lib/markdown.ts';
+
 // The document node renders the page shell. Everything the shell needs that the
 // markdown itself does not know — the breadcrumb trail, the previous/next
 // pages — is passed in through `config.variables.chrome` by the
@@ -18,7 +20,7 @@ const document = {
   attributes: nodes.document.attributes,
   transform(node: Node, config: Config) {
     const { frontmatter, chrome, path, readingTime, languages } =
-      config.variables!;
+      config.variables as PageVariables;
     const children = node.transformChildren(config);
     const headings = children.map((child) => extractHeadings(child, [])).flat();
 
@@ -79,7 +81,8 @@ function extractHeadings(
     });
   }
 
-  const inner = node.name === 'LangBlock' ? node.attributes.langs : langs;
+  const inner =
+    node.name === 'LangBlock' ? (node.attributes.langs as string[]) : langs;
   for (const child of node.children) {
     extractHeadings(child, sections, inner);
   }

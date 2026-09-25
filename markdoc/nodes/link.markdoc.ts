@@ -1,7 +1,8 @@
 // Copyright (c) ZeroC, Inc.
 
 import { Tag, nodes, type Node, type Config } from '@markdoc/markdoc';
-import { resolveDocLink, type PageIndex } from '../../lib/docs-model/links.ts';
+import { resolveDocLink } from '../../lib/docs-model/links.ts';
+import type { PageVariables } from '../../lib/markdown.ts';
 
 // Cross-page links are authored as page names (`../object-adapters`) and resolved
 // here, at build time, against the page index for the current version. Resolving
@@ -14,11 +15,11 @@ const link = {
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
     const children = node.transformChildren(config);
-    const { version, pageIndex } = config.variables!;
+    const { version, pageIndex } = config.variables as PageVariables;
 
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
       version,
-      index: pageIndex as PageIndex
+      index: pageIndex
     });
 
     return new Tag(

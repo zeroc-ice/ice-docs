@@ -26,7 +26,7 @@ const MermaidDiagram = ({ value }: Props) => {
     const renderDiagram = async () => {
       try {
         const diagramId = generateDiagramId();
-        await mermaidAPI.initialize({
+        mermaidAPI.initialize({
           startOnLoad: false,
           theme: mermaidTheme
         });
@@ -40,7 +40,7 @@ const MermaidDiagram = ({ value }: Props) => {
       }
     };
 
-    renderDiagram();
+    void renderDiagram();
   }, [value, mermaidTheme]);
 
   // TODO: Add loading indicator

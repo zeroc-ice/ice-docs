@@ -20,9 +20,12 @@ const step = {
     }
   },
   transform(node: Node, config: Config) {
-    const attributes = node.transformAttributes(config);
+    const { title, level, id } = node.transformAttributes(config) as {
+      title: string;
+      level: number;
+      id?: string;
+    };
     const children = node.transformChildren(config);
-    const { title, level, id } = attributes;
 
     return new Tag(
       `${`${this.render}`}`,

@@ -208,7 +208,7 @@ export function demoteHeadings(body: string): string {
  * opened it, so a ``` example nested inside a ```` block does not end it.
  */
 function fencedLines(lines: string[]): boolean[] {
-  const out: boolean[] = new Array(lines.length).fill(false);
+  const out = new Array<boolean>(lines.length).fill(false);
   let open: { char: string; length: number } | null = null;
   for (let i = 0; i < lines.length; i++) {
     const fence = /^\s{0,3}(`{3,}|~{3,})/.exec(lines[i]);

@@ -16,9 +16,11 @@ export const CopyButton = ({ text }: { text: string }) => {
       // header as well as the dark one.
       className="rounded-sm px-[6px] py-1 text-(--code-header-fg) opacity-80 hover:bg-black/5 hover:opacity-100 dark:hover:bg-white/10"
       onClick={() => {
-        copy(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
+        void copy(text).then((succeeded) => {
+          if (!succeeded) return;
+          setCopied(true);
+          setTimeout(() => setCopied(false), 3000);
+        });
       }}
     >
       {copied ? '🎉' : <FontAwesomeIcon icon={faCopy} className="size-4" />}
