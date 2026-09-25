@@ -15,6 +15,18 @@ topics through this node. It will also receive topic announcements from other co
 endpoints with `DataStorm.Node.Server.Enabled=0`, it might also receive data updates through the connection established
 to the connected node.
 
+# DataStorm.Node.Name
+
+#### Synopsis
+
+`DataStorm.Node.Name=name`
+
+#### Description
+
+Specifies the name of the node, which DataStorm uses as the identity name of the node's Ice object. The name must be
+unique among nodes that communicate with each other. If this property is empty or not set, DataStorm generates a UUID
+for the name.
+
 # DataStorm.Node.RetryCount
 
 #### Synopsis

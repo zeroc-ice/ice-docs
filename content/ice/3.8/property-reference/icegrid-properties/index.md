@@ -231,6 +231,23 @@ The replica trace level:
 | 2   | Like 1, but more verbose, including session establishment attempts and failures. |
 | 3   | Like 2, but more verbose, including keep alive messages sent to the replica.     |
 
+# IceGrid.Node.Trace.Server
+
+#### Synopsis
+
+`IceGrid.Node.Trace.Server=num`
+
+#### Description
+
+Sets the node's trace level for server configuration updates and state changes:
+
+| Value | Description                                                                                                                                                                                                          |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | No server trace (default).                                                                                                                                                                                           |
+| 1     | Trace completed server configuration and runtime property updates.                                                                                                                                                   |
+| 2     | Like 1, plus runtime property update attempts for individual servers and services, activation timeouts, and changes to the Active, Inactive, and Destroyed states. Changes from Loading to Inactive require level 3. |
+| 3     | Like 2, plus all other server state changes, including Loading and WaitForActivation.                                                                                                                                |
+
 # IceGrid.Node.UserAccountMapper
 
 #### Synopsis
