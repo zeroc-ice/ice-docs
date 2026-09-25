@@ -27,8 +27,11 @@ jobs:
   test:
     name: Test and lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -52,6 +55,7 @@ jobs:
   image:
     name: Build image (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -64,6 +68,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Log in to the Container registry
         if: github.event_name != 'pull_request'
@@ -97,6 +103,7 @@ jobs:
     needs: [test, image]
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Set up Docker Buildx
@@ -112,16 +119,17 @@ jobs:
       - name: Create and push multi-arch manifests
         run: |
           docker buildx imagetools create \
-            --tag ${IMAGE}:${GITHUB_SHA} \
-            --tag ${IMAGE}:latest \
-            ${IMAGE}:${GITHUB_SHA}-amd64 \
-            ${IMAGE}:${GITHUB_SHA}-arm64
+            --tag "${IMAGE}:${GITHUB_SHA}" \
+            --tag "${IMAGE}:latest" \
+            "${IMAGE}:${GITHUB_SHA}-amd64" \
+            "${IMAGE}:${GITHUB_SHA}-arm64"
 
   deploy:
     name: Deploy
     needs: publish
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Deploy docs
@@ -143,6 +151,7 @@ jobs:
     needs: publish
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Delete old container images (keep the 10 most recent)
