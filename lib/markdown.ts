@@ -3,6 +3,7 @@
 import Markdoc, { Config } from '@markdoc/markdoc';
 import config from '@/markdoc/schema';
 import readingTimeFunc from 'reading-time';
+import { projectLanguage } from './project-language.ts';
 
 import type { PageIndex } from '@/lib/docs-model/links';
 
@@ -20,21 +21,6 @@ export interface RenderOptions {
   frontmatter: Record<string, unknown>;
   /** Navigation-derived page chrome: breadcrumbs, prev/next, body shape. */
   chrome?: Record<string, unknown>;
-}
-
-// The page as one language reads it: the `{% iflang %}` blocks for that language
-// unwrapped, the others dropped.
-const IFLANG_RE =
-  /\{%\s*iflang\s+langs="([^"]*)"\s*%\}([\s\S]*?)\{%\s*\/iflang\s*%\}/g;
-function projectLanguage(source: string, language: string): string {
-  return source.replace(IFLANG_RE, (_, langs: string, body: string) =>
-    langs
-      .split(',')
-      .map((s) => s.trim())
-      .includes(language)
-      ? body
-      : ''
-  );
 }
 
 // Transform an already-assembled Markdoc/markdown string (a shared page merged
