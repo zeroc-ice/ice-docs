@@ -154,7 +154,7 @@ function checkImages(version, files) {
 // The number of blank language sections that had no explanation when the slot
 // states were introduced. It is a ratchet: classifying slots lowers it, and the
 // check fails if it ever rises. When it reaches 0, delete this.
-const UNCLASSIFIED_SLOT_BASELINE = 462;
+const UNCLASSIFIED_SLOT_BASELINE = 333;
 
 /**
  * Every slot a shared page declares must be answered by each language overlay,
