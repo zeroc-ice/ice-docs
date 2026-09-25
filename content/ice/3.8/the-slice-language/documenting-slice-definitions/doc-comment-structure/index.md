@@ -16,8 +16,8 @@ the comment:
 Item findItem(Key p, Key s) throws NotFound;
 ```
 
-The Slice compilers for C++, C#, Java, JavaScript, MATLAB, Python, and Swift check each doc comment against the rules on
-this page: they warn about a tag they don't recognize, and ignore it.
+Every Slice compiler except `slice2php` and `slice2rb` checks each doc comment against the rules on this page: it warns
+about a tag it doesn't recognize, and ignores it.
 
 # Formatting and Links
 
@@ -30,18 +30,17 @@ bool isEmpty();
 
 To write a backtick that does not start code, escape it with a backslash.
 
-`{@link identifier}` links to another Slice definition. The compilers look up the identifier from the scope of the
-definition the comment documents, as for any [Slice name](../names-and-scoping), and warn when it names nothing. Write
-`Catalog#findItem` to link to the member `findItem` of `Catalog`, or `#findItem` for a member of the type that the doc
-comment belongs to:
+`{@link identifier}` links to another Slice definition. The compilers look up the identifier like any
+[Slice name](../names-and-scoping), from the scope of the documented definition, and warn when it names nothing.
+`Catalog#findItem` links to the member `findItem` of `Catalog`, and `#findItem` to a member of the documented type:
 
 ```slice
 /// Holds the items of a store. Use {@link #findItem} to look one up.
 interface Catalog
 ```
 
-`@p name` refers to the parameter `name` of the operation the comment documents, and the compilers format it as code. It
-is only valid in an operation's doc comment:
+`@p name` refers to the operation's parameter `name`, which the compilers format as code. It is valid only in an
+operation's doc comment:
 
 ```slice
 /// Looks for the item whose primary key is @p p and whose secondary key is @p s.
@@ -54,8 +53,8 @@ You can use the following tags in any doc comment.
 
 ## `@see identifier`
 
-Adds a cross-reference to another Slice definition. The compilers look up its identifier as they do for `{@link}`. Each
-`@see` tag holds one identifier, on a line of its own and with no trailing period:
+Adds a cross-reference to another Slice definition, which the compilers look up as they do for `{@link}`. Each `@see`
+tag holds one identifier, on a line of its own and with no trailing period:
 
 ```slice
 /// Thrown when no item matches a search.
@@ -78,8 +77,7 @@ ignore them.
 
 ## `@param name`
 
-Documents the parameter `name`, which must be one of the operation's parameters. For clarity, write the `@param` tags in
-the order of the parameters.
+Documents the parameter `name`, which must be one of the operation's parameters.
 
 ## `@return`
 

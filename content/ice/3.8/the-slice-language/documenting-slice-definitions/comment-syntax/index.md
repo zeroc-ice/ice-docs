@@ -11,8 +11,7 @@ Slice supports two styles of comments: _line comments_ and _block comments_.
    going until it reaches a */
 ```
 
-The Slice compilers ignore these comments as if they were whitespace: they have no effect on the generated code, and the
-only way to see them is to read the Slice file itself. Slice also supports two styles of _doc comments_, which
+The Slice compilers ignore these comments. Slice also supports two styles of _doc comments_, which
 [document](../documenting-slice-definitions) the definition that follows them.
 
 A line doc comment is a line comment with a third slash. Consecutive lines form one doc comment:
@@ -32,11 +31,7 @@ A block doc comment is a block comment that starts with a second asterisk:
  */
 ```
 
-{% callout type="info" %}
-
-Starting each line of a multi-line block doc comment with `*` is conventional, but not required.
-
-{% /callout %}
+Starting each line of a multi-line block doc comment with `*` is conventional but optional.
 
 The two styles are equivalent, and both accept only the tags described in
 [Doc-Comment Structure](../doc-comment-structure).
