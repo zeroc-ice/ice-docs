@@ -1,5 +1,5 @@
 ---
-title: Ice Manual
+title: Overview
 description: Documentation for Ice, the Slice language, and the Ice services.
 shape: wide
 showReadingTime: false
@@ -19,7 +19,6 @@ previousVersions:
   label: Previous Versions
   url: https://archive.zeroc.com/
 pages:
-  - get-started
   - greeter-example
   - upgrade-guide
   - basics

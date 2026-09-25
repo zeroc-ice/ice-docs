@@ -1,10 +1,12 @@
 {
   "singleQuote": true,
   "trailingComma": "none",
+  "endOfLine": "auto",
   "plugins": [
     "./scripts/prettier-plugin-markdoc.js",
     "prettier-plugin-tailwindcss"
   ],
+  "tailwindStylesheet": "./app/globals.css",
   "overrides": [
     {
       "files": "*.md",

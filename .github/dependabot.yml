@@ -14,6 +14,11 @@ updates:
       # yet, and lint fails outright on it. Drop this once it does.
       - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
+      # eslint-plugin-react, jsx-a11y, and import (via eslint-config-next) accept
+      # ESLint 9 at most. Drop this once they support 10:
+      # https://github.com/jsx-eslint/eslint-plugin-react/issues/3977
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'github-actions'
     directory: '/'

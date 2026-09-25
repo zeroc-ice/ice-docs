@@ -1,6 +1,14 @@
 // Copyright (c) ZeroC, Inc.
 
-import { nodes, Tag, type Node, type Config } from '@markdoc/markdoc';
+import {
+  nodes,
+  Tag,
+  type Node,
+  type Config,
+  type RenderableTreeNode
+} from '@markdoc/markdoc';
+
+import type { PageVariables } from '../../lib/markdown.ts';
 
 // The document node renders the page shell. Everything the shell needs that the
 // markdown itself does not know — the breadcrumb trail, the previous/next
@@ -12,7 +20,7 @@ const document = {
   attributes: nodes.document.attributes,
   transform(node: Node, config: Config) {
     const { frontmatter, chrome, path, readingTime, languages } =
-      config.variables!;
+      config.variables as PageVariables;
     const children = node.transformChildren(config);
     const headings = children.map((child) => extractHeadings(child, [])).flat();
 
@@ -45,9 +53,17 @@ const document = {
 
 // A heading inside an {% iflang %} block belongs to those mappings only, and
 // the outline shows it only when one of them is the reader's.
-function extractHeadings(node: any, sections: any[] = [], langs?: string[]) {
+function extractHeadings(
+  node: RenderableTreeNode,
+  sections: Record<string, unknown>[],
+  langs?: string[]
+) {
+  if (!Tag.isTag(node)) {
+    return sections;
+  }
+
   // Add headings from step tags
-  if ((node as Tag).name === 'Step') {
+  if (node.name === 'Step') {
     sections.push({
       ...node.attributes,
       showDividers: false,
@@ -65,11 +81,10 @@ function extractHeadings(node: any, sections: any[] = [], langs?: string[]) {
     });
   }
 
-  const inner = node.name === 'LangBlock' ? node.attributes.langs : langs;
-  if (node.children) {
-    for (const child of node.children) {
-      extractHeadings(child, sections, inner);
-    }
+  const inner =
+    node.name === 'LangBlock' ? (node.attributes.langs as string[]) : langs;
+  for (const child of node.children) {
+    extractHeadings(child, sections, inner);
   }
 
   return sections;

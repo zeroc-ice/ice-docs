@@ -107,9 +107,9 @@ test('every palette role is wired to a CSS custom property in the theme', () => 
     const match = value && /^var\(--code-([a-z-]+)\)$/.exec(value);
     if (match) used.add(match[1]);
   };
-  collect(iceCodeTheme.plain.color as string);
-  collect(iceCodeTheme.plain.backgroundColor as string);
-  for (const entry of iceCodeTheme.styles) collect(entry.style.color as string);
+  collect(iceCodeTheme.plain.color);
+  collect(iceCodeTheme.plain.backgroundColor);
+  for (const entry of iceCodeTheme.styles) collect(entry.style.color);
 
   // The chrome roles are applied by the component's own classes, not by Prism.
   const chrome = new Set(['page', 'headerBg', 'headerFg', 'lineNumber']);

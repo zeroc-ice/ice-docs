@@ -11,9 +11,9 @@ export const Prerequisites = ({
 }) => (
   <section
     aria-label={title}
-    className="border-hairline bg-surface-subtle my-6 rounded-md border p-4"
+    className="my-6 rounded-md border border-hairline bg-surface-subtle p-4"
   >
-    <div className="text-ink-muted mb-2 text-[11px] font-semibold tracking-[0.07em] uppercase">
+    <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
       {title}
     </div>
     <div className="text-sm leading-6 *:my-1">{children}</div>

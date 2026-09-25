@@ -2,6 +2,8 @@
 
 import { Tag, type Config, type Node, type Schema } from '@markdoc/markdoc';
 
+import type { PageVariables } from '../../lib/markdown.ts';
+
 // The front page's hero: the Slice contract, and the client and server that use
 // it, in every language mapping. The page groups its blocks with `{% iflang %}`,
 // as any other page does. For each mapping, of the blocks it can see, the
@@ -11,7 +13,7 @@ const showcase: Schema = {
   render: 'Showcase',
   children: ['fence', 'tag'],
   transform(node: Node, config: Config) {
-    const languages: string[] = config.variables!.languages;
+    const { languages } = config.variables as PageVariables;
     const blocks = (node.transformChildren(config) as unknown[])
       .flat(Infinity)
       .filter(Tag.isTag)
@@ -26,7 +28,9 @@ const showcase: Schema = {
         .map((tag) => ({
           language: String(tag.attributes['data-language'] ?? ''),
           title: tag.attributes.title as string | undefined,
-          code: tag.children.join('')
+          code: tag.children
+            .filter((child) => typeof child === 'string')
+            .join('')
         }));
     const isServer = (block: { title?: string }) =>
       /^server/i.test(block.title ?? '');

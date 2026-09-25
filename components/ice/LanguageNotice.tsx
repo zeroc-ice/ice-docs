@@ -16,7 +16,7 @@ export function LanguageNotice({ writtenFor }: { writtenFor: string[] }) {
             key={i}
             type="button"
             onClick={() => setLanguage(part.value)}
-            className="text-link font-semibold hover:underline"
+            className="font-semibold text-link hover:underline"
           >
             {languageLabel(part.value)}
           </button>

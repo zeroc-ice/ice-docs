@@ -82,10 +82,11 @@ test('a file without frontmatter has none', () => {
   );
 });
 
-test('readNavigation builds the tree from the pages each page lists', () => {
+test('readNavigation builds the tree from the pages each page lists, front page first', () => {
   const nav = readNavigation(ROOT, '3.8');
   assert.deepEqual(nav.languages, ['cpp', 'java', 'python']);
   assert.deepEqual(nav.sidebar, [
+    { title: 'Ice Manual', slug: '', writtenFor: undefined, items: [] },
     {
       title: 'Get Started',
       slug: 'get-started',

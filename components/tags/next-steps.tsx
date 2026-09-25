@@ -9,8 +9,8 @@ export const NextSteps = ({
   children: ReactNode;
   title?: string;
 }) => (
-  <section aria-label={title} className="border-hairline my-10 border-t pt-6">
-    <h2 className="text-ink mb-3 text-lg font-semibold">{title}</h2>
+  <section aria-label={title} className="my-10 border-t border-hairline pt-6">
+    <h2 className="mb-3 text-lg font-semibold text-ink">{title}</h2>
     <div className="text-sm leading-6 *:my-1">{children}</div>
   </section>
 );

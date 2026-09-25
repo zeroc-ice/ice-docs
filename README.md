@@ -21,7 +21,7 @@ npm run check:content              # navigation, links, images, slots, titles, m
 npm run check:content -- --strict  # also fail on unresolved links and missing images
 npm run check:content -- --slots   # list the blank language sections still to classify
 npm run check:markdoc              # every page against the Markdoc schema; `build` runs it first
-npm run lint                       # eslint
+npm run lint                       # eslint; a warning fails it too
 npm run format                     # prettier, wraps Markdown prose at 120 columns
 npm run format:check               # what CI runs
 ```
@@ -33,9 +33,9 @@ npm run format:check               # what CI runs
 Everything for one version of the manual lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page
 is a directory, and its path under the version is its slug, the path in its URL:
 
-- `index.md` — the manual's front page, served at `/ice/<version>`. It sits above the tree rather than in it: the
-  sidebar heading and the breadcrumb root link to it. The site root and `/ice` redirect to the newest version's. Its
-  frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
+- `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
+  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the newest version's.
+  Its frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
   `previousVersions`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
   `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
@@ -67,11 +67,12 @@ duplicating it.
   its language, and they share one title. The sidebar, previous/next, and search leave it out for readers of the other
   languages, and one who lands on it anyway gets a note naming the languages it is written for.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
-  line of their own, with a blank line on each side outside tight lists. Prettier on its own would reflow a tag written
-  against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.js`, the
-  parser `format` uses for Markdown, keeps each tag on its own line instead, and `check:markdoc` rejects anything that
-  slips through. Two things the parser cannot tell apart from prose: a numbered list or a table right under a tag line.
-  Put a blank line between them. An inline closer, `word{% /iflang %}`, has no space before it.
+  line of their own. Prettier's Markdown parser reads such a tag as a block, as Markdoc does, so `format` keeps it on
+  its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.
+  Under a list item or a quoted line, a tag that spans several lines needs a blank line above it, or Prettier's parser
+  reads it as part of that item or quote. An inline closer, `word{% /iflang %}`, has no space before it;
+  `scripts/prettier-plugin-markdoc.js`, the parser `format` uses for Markdown, glues one written after a space to the
+  word before it, so that line filling moves the two together.
 - **Images** live under `public/attachments/`. A paragraph that is nothing but an image renders as a figure; an image
   inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article column. Use a
   plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md) for SVG
