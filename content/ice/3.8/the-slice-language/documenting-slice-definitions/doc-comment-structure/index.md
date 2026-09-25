@@ -2,9 +2,9 @@
 title: Doc-Comment Structure
 ---
 
-A doc comment starts with a summary sentence, continues with any further description, and ends with _tags_ that document
-specific parts of the definition. A tag starts a line with `@`, and its text continues until the next tag or the end of
-the comment:
+A doc comment starts with a summary sentence, continues with any further description, and ends with _block tags_ that
+document specific parts of the definition. A block tag starts a line with `@`, and its text continues until the next tag
+or the end of the comment, except for `@see`, which takes one line:
 
 ```slice
 /// Looks for an item with the specified primary and secondary keys.
@@ -15,6 +15,8 @@ the comment:
 /// @throws NotFound Thrown if no item matches the specified keys.
 Item findItem(Key p, Key s) throws NotFound;
 ```
+
+The inline tags, `{@link}` and `@p`, go within the text instead; see [Formatting and Links](#formatting-and-links).
 
 Every Slice compiler except `slice2php` and `slice2rb` checks each doc comment against the rules on this page: it warns
 about a tag it doesn't recognize, and ignores it.
