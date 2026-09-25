@@ -22,7 +22,8 @@ import {
   declaredSlots,
   stripRedundantTitle,
   demoteHeadings,
-  splitLines
+  splitLines,
+  type LanguageSlot
 } from './resolve.ts';
 
 // --- markers ---------------------------------------------------------------
@@ -233,7 +234,7 @@ test('an unclassified slot renders nothing', () => {
 
 test('resolveLanguageSections errors on a missing overlay section', () => {
   const shared = '{% language-section name="mapping" /%}';
-  const none = new Map([['cpp', new Map()]]);
+  const none = new Map([['cpp', new Map<string, LanguageSlot>()]]);
   assert.throws(
     () => resolveLanguageSections(shared, none),
     /no overlay content/

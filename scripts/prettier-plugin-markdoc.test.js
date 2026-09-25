@@ -17,7 +17,7 @@ const format = (source) =>
     embeddedLanguageFormatting: 'off'
   });
 
-test('a tag written against its prose gets a line of its own', async () => {
+test('a tag written against its prose keeps a line of its own', async () => {
   const source = `{% callout type="info" %}
 The router's public address is 5.6.7.8 and its private address is 10.0.0.1.
 {% /callout %}
@@ -25,29 +25,19 @@ The router's public address is 5.6.7.8 and its private address is 10.0.0.1.
   assert.equal(
     await format(source),
     `{% callout type="info" %}
-
 The router's public address is 5.6.7.8 and its private
 address is 10.0.0.1.
-
 {% /callout %}
 `
   );
 });
 
-test('two adjacent tags are separated', async () => {
+test('two adjacent tags keep a line each', async () => {
   const source = `Text.
 {% /iflang %}
 {% iflang langs="js" %}
 `;
-  assert.equal(
-    await format(source),
-    `Text.
-
-{% /iflang %}
-
-{% iflang langs="js" %}
-`
-  );
+  assert.equal(await format(source), source);
 });
 
 test('a tag that spans several lines is one tag', async () => {
@@ -58,18 +48,7 @@ test('a tag that spans several lines is one tag', async () => {
 Text that must remain visible.
 {% /callout %}
 `;
-  assert.equal(
-    await format(source),
-    `{% callout
- type="warning"
- title="A title"
-%}
-
-Text that must remain visible.
-
-{% /callout %}
-`
-  );
+  assert.equal(await format(source), source);
 });
 
 test('a tag inside a sentence stays inline', async () => {
@@ -102,18 +81,7 @@ test('a tag at the margin under a list item ends the list', async () => {
 Text.
 {% /callout %}
 `;
-  assert.equal(
-    await format(source),
-    `- item one
-- item two
-
-{% callout %}
-
-Text.
-
-{% /callout %}
-`
-  );
+  assert.equal(await format(source), source);
 });
 
 test('a tag between list items splits the list', async () => {
@@ -124,20 +92,7 @@ Text.
 {% /callout %}
 3. third
 `;
-  assert.equal(
-    await format(source),
-    `1. first
-2. second
-
-{% callout %}
-
-Text.
-
-{% /callout %}
-
-3. third
-`
-  );
+  assert.equal(await format(source), source);
 });
 
 test('a tag at the margin under a quoted line ends the quote', async () => {
@@ -146,33 +101,15 @@ test('a tag at the margin under a quoted line ends the quote', async () => {
 Text.
 {% /callout %}
 `;
-  assert.equal(
-    await format(source),
-    `> Quoted.
-
-{% callout %}
-
-Text.
-
-{% /callout %}
-`
-  );
+  assert.equal(await format(source), source);
 });
 
-test('a tag inside a block quote gets quoted blank lines', async () => {
+test('a tag inside a block quote stays in the quote', async () => {
   const source = `> {% callout %}
 > Quoted
 > {% /callout %}
 `;
-  assert.equal(
-    await format(source),
-    `> {% callout %}
->
-> Quoted
->
-> {% /callout %}
-`
-  );
+  assert.equal(await format(source), source);
 });
 
 test('a tag inside a code fence is left alone', async () => {
@@ -214,19 +151,7 @@ test('a fence-looking line in indented code does not open a fence', async () => 
 Text.
 {% /callout %}
 `;
-  assert.equal(
-    await format(source),
-    `Example:
-
-    \`\`\`markdown
-
-{% callout %}
-
-Text.
-
-{% /callout %}
-`
-  );
+  assert.equal(await format(source), source);
 });
 
 test('a tag-looking line in frontmatter is left alone', async () => {
@@ -242,22 +167,24 @@ Body.
 });
 
 test('an inline closer after a space stays with the word before it', async () => {
-  const source = `Intro sentence here. {% iflang langs="cpp" %}In C++, the proxy class provides one function. {% /iflang %}
+  const source = `Intro sentence here. {% iflang langs="cpp" %}In C++, the proxy class provides one function per operation. {% /iflang %}
 `;
   assert.equal(
     await format(source),
     `Intro sentence here. {% iflang langs="cpp" %}In C++, the
-proxy class provides one function. {% /iflang %}
+proxy class provides one function per
+operation. {% /iflang %}
 `
   );
 });
 
 test('an inline closer after a link stays with the link', async () => {
-  const source = `Intro sentence that runs on. {% iflang langs="cpp" %}See the [docs](../docs) {% /iflang %}
+  const source = `Intro sentence that runs on. {% iflang langs="cpp" %}See the complete reference that ships in the [docs](../docs) {% /iflang %}
 `;
   assert.equal(
     await format(source),
     `Intro sentence that runs on. {% iflang langs="cpp" %}See the
+complete reference that ships in the
 [docs](../docs) {% /iflang %}
 `
   );
@@ -273,13 +200,9 @@ test('a tag indented less than the item content ends the list', async () => {
   assert.equal(
     await format(source),
     `1. first
-
 {% callout %}
-
 Text.
-
 {% /callout %}
-
 2. second
 `
   );
@@ -294,11 +217,8 @@ Inside.
   assert.equal(
     await format(source),
     `Text before
-
 {% callout %}
-
 Inside.
-
 {% /callout %}
 `
   );
@@ -314,12 +234,12 @@ Inside.
   assert.ok(output.includes('\\'), 'backslash kept');
 });
 
-test('a numbered item right under a tag is an error', async () => {
+test('a numbered list right under a tag stays a list', async () => {
   const source = `{% /callout %}
 2. second
 3. third
 `;
-  await assert.rejects(format(source), /blank line/);
+  assert.equal(await format(source), source);
 });
 
 test('separated input is unchanged', async () => {

@@ -67,11 +67,12 @@ duplicating it.
   its language, and they share one title. The sidebar, previous/next, and search leave it out for readers of the other
   languages, and one who lands on it anyway gets a note naming the languages it is written for.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
-  line of their own, with a blank line on each side outside tight lists. Prettier on its own would reflow a tag written
-  against its prose into the paragraph, which turns it into an inline tag; `scripts/prettier-plugin-markdoc.js`, the
-  parser `format` uses for Markdown, keeps each tag on its own line instead, and `check:markdoc` rejects anything that
-  slips through. Two things the parser cannot tell apart from prose: a numbered list or a table right under a tag line.
-  Put a blank line between them. An inline closer, `word{% /iflang %}`, has no space before it.
+  line of their own. Prettier's Markdown parser reads such a tag as a block, as Markdoc does, so `format` keeps it on
+  its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.
+  Under a list item or a quoted line, a tag that spans several lines needs a blank line above it, or Prettier's parser
+  reads it as part of that item or quote. An inline closer, `word{% /iflang %}`, has no space before it;
+  `scripts/prettier-plugin-markdoc.js`, the parser `format` uses for Markdown, glues one written after a space to the
+  word before it, so that line filling moves the two together.
 - **Images** live under `public/attachments/`. A paragraph that is nothing but an image renders as a figure; an image
   inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article column. Use a
   plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md) for SVG
