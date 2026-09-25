@@ -178,6 +178,18 @@ function Drawer({ children }: { children: React.ReactNode }) {
     dialogRef.current?.close();
   }, [pathname]);
 
+  // So does growing past Tailwind's `lg` breakpoint, 64rem, as a tablet does
+  // when it turns: the rail is back there, and the button that opened the
+  // drawer is hidden.
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 64rem)');
+    const onChange = () => {
+      if (wide.matches) dialogRef.current?.close();
+    };
+    wide.addEventListener('change', onChange);
+    return () => wide.removeEventListener('change', onChange);
+  }, []);
+
   // The tree renders as the drawer opens, so it is brought to the current page
   // once it is there, before paint.
   useLayoutEffect(() => {
