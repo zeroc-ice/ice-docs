@@ -42,6 +42,11 @@ function contentRoot(): string {
   return path.join(process.cwd(), 'content', 'ice');
 }
 
+// GitHub's editor for one of a page's files. Every version lives on main.
+function editUrl(file: string): string {
+  return `https://github.com/zeroc-ice/ice-docs/edit/main/${path.relative(process.cwd(), file)}`;
+}
+
 export function generateStaticParams() {
   const root = contentRoot();
   // The front page's slug is empty: it is served at the version root.
@@ -127,6 +132,15 @@ export default async function Page(props: PageProps) {
     chrome: {
       breadcrumbs: crumbs,
       pagination: [...pagination.values()],
+      edit: {
+        shared: current.shared && editUrl(current.shared),
+        overlays: Object.fromEntries(
+          Object.entries(current.overlays).map(([language, file]) => [
+            language,
+            editUrl(file)
+          ])
+        )
+      },
       // A page written per language tells readers of the other languages
       // which ones have it.
       writtenFor: writtenFor(current),
