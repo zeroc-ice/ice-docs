@@ -276,7 +276,7 @@
   }
 
   main article {
-    @apply prose dark:prose-invert prose-a:no-underline prose-code:font-light prose-code:before:hidden prose-code:after:hidden max-w-none;
+    @apply prose max-w-none dark:prose-invert prose-a:no-underline prose-code:font-light prose-code:before:hidden prose-code:after:hidden;
 
     /* Point the typography plugin at the token scale. Both the light and the
        inverted set resolve to the same variables, which already flip with the
@@ -338,15 +338,15 @@
   }
 
   body {
-    @apply dark:bg-dark bg-white;
+    @apply bg-white dark:bg-dark;
   }
 
   code {
-    @apply border-hairline text-ink bg-surface-sunken rounded-sm border px-1 py-0.5 font-mono text-[0.9em] break-all md:break-normal;
+    @apply rounded-sm border border-hairline bg-surface-sunken px-1 py-0.5 font-mono text-[0.9em] break-all text-ink md:break-normal;
   }
 
   a code {
-    @apply border-hairline text-link bg-surface-sunken rounded-sm border px-1 py-0.5 font-mono text-[0.9em] font-medium;
+    @apply rounded-sm border border-hairline bg-surface-sunken px-1 py-0.5 font-mono text-[0.9em] font-medium text-link;
   }
 
   pre code {

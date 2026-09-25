@@ -175,7 +175,7 @@ export function SideNav({
               'flex-1 truncate rounded-[5px] px-2 py-1 text-[11px] font-semibold tracking-[0.07em] uppercase transition-colors',
               pathname === homeHref
                 ? 'bg-accent-soft text-link'
-                : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                : 'text-ink-muted hover:bg-surface-subtle hover:text-ink'
             )}
           >
             {title}
@@ -196,7 +196,7 @@ export function SideNav({
               ? 'Expand table of contents'
               : 'Collapse table of contents'
           }
-          className="text-ink-muted hover:text-ink hover:bg-surface-subtle flex size-7 shrink-0 items-center justify-center rounded-md transition-colors"
+          className="flex size-7 shrink-0 items-center justify-center rounded-md text-ink-muted transition-colors hover:bg-surface-subtle hover:text-ink"
         >
           {collapsed ? (
             <ChevronsRight className="size-4" aria-hidden="true" />
@@ -305,7 +305,7 @@ function Tree({
                   aria-expanded={isOpen}
                   className="flex flex-1 items-start text-left"
                 >
-                  <span className="text-ink-muted mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center">
+                  <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted">
                     {chevron}
                   </span>
                   <span className={label}>{node.title}</span>

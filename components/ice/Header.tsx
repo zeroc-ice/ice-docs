@@ -10,15 +10,15 @@ import { ThemeToggle } from '@/components/theme-toggle';
 // been shown the wrong one.
 export function IceHeader() {
   return (
-    <header className="border-hairline bg-surface/85 sticky top-0 z-40 flex h-14 items-center justify-between gap-3 border-b px-[clamp(1rem,2.5vw,2rem)] backdrop-blur">
+    <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-3 border-b border-hairline bg-surface/85 px-[clamp(1rem,2.5vw,2rem)] backdrop-blur">
       <Link
         href="/"
         className="flex shrink-0 items-baseline gap-1.5 text-[15px]"
       >
-        <span className="text-ink font-semibold tracking-tight">Ice</span>
+        <span className="font-semibold tracking-tight text-ink">Ice</span>
         {/* Names the site rather than decorating the brand, so it is the first
             thing to go when the bar runs out of room — never a control. */}
-        <span className="text-ink-secondary hidden sm:inline">
+        <span className="hidden text-ink-secondary sm:inline">
           Documentation
         </span>
       </Link>
@@ -34,7 +34,7 @@ export function IceHeader() {
           href="https://github.com/zeroc-ice/ice"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-ink-secondary hover:text-ink hidden shrink-0 transition-colors lg:inline"
+          className="hidden shrink-0 text-ink-secondary transition-colors hover:text-ink lg:inline"
         >
           GitHub
         </a>

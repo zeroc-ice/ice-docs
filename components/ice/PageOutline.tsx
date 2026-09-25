@@ -176,10 +176,10 @@ export function PageOutline({
       data-langs={writtenFor?.join(' ')}
       className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block"
     >
-      <div className="text-ink-muted mb-2 text-[11px] font-semibold tracking-[0.07em] uppercase">
+      <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
         On this page
       </div>
-      <ul className="border-hairline border-l">
+      <ul className="border-l border-hairline">
         {items.map((heading, i) => (
           <li key={`${heading.id}-${i}`} data-langs={heading.langs?.join(' ')}>
             <a
@@ -189,7 +189,7 @@ export function PageOutline({
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
                   ? 'border-link text-link'
-                  : 'text-ink-secondary hover:text-ink border-transparent'
+                  : 'border-transparent text-ink-secondary hover:text-ink'
               )}
             >
               {withDotBreaks(heading.title)}

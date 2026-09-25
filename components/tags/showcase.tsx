@@ -44,7 +44,7 @@ export const Showcase = ({ panels }: Props) => {
   return (
     <section
       aria-label="Ice in every language"
-      className="doc-wide dark not-prose text-ink my-8 overflow-hidden rounded-lg border border-white/10 bg-[#0b0f19] [&_.code-block]:my-0 [&_code>div]:text-[11px] sm:[&_code>div]:text-xs [&_pre]:overflow-x-auto"
+      className="doc-wide dark not-prose my-8 overflow-hidden rounded-lg border border-white/10 bg-[#0b0f19] text-ink [&_.code-block]:my-0 [&_code>div]:text-[11px] sm:[&_code>div]:text-xs [&_pre]:overflow-x-auto"
     >
       <div className="flex items-center border-b border-white/10 px-2 sm:px-3">
         <label className="my-2 sm:hidden">

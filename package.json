@@ -13,7 +13,7 @@
     "build:search": "node scripts/build-search-index.js",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.js\"",
