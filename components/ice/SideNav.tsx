@@ -199,11 +199,11 @@ function Tree({
           active
             ? 'text-link font-semibold'
             : onActiveTrail
-              ? 'text-ink font-semibold'
+              ? 'text-ink hover:text-link font-semibold'
               : // Top-level entries carry the shape of the manual, so they read at
                 // full strength; their children step back a shade.
                 clsx(
-                  'hover:text-ink',
+                  'hover:text-link',
                   depth === 0 ? 'text-ink' : 'text-ink-secondary'
                 )
         );
