@@ -6,9 +6,9 @@ every language mapping it covers; the reader picks one (C++ until they do), and 
 
 ## Requirements
 
-Node.js 24.15 or later in the 24 line, or 26 or later, and npm 11.16 or later; `.npmrc` makes npm refuse to install on
-anything older. The scripts under `scripts/` import the TypeScript content model directly, through the type stripping
-those releases enable by default.
+Node.js 22.22.2 or later in the 22 line, 24.15 or later in the 24 line, or 26 or later, and npm 11.16 or later; `.npmrc`
+makes npm refuse to install on anything older. The scripts under `scripts/` import the TypeScript content model
+directly, through the type stripping those releases enable by default.
 
 ## Building
 
