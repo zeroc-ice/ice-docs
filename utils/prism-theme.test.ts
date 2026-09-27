@@ -10,7 +10,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { CODE_PALETTE, CONTRAST_FLOOR, iceCodeTheme } from './prism-theme.ts';
+import { CODE_PALETTE, CONTRAST_FLOOR, TOKEN_TYPES } from './prism-theme.ts';
 
 function channels(hex: string): [number, number, number] {
   return [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) as [
@@ -44,13 +44,7 @@ for (const mode of ['light', 'dark'] as const) {
   test(`${mode}: every token colour clears ${CONTRAST_FLOOR[mode]}:1 against the code surface`, () => {
     const palette = CODE_PALETTE[mode];
     const floor = CONTRAST_FLOOR[mode];
-    const chrome = new Set([
-      'bg',
-      'page',
-      'headerBg',
-      'headerFg',
-      'lineNumber'
-    ]);
+    const chrome = new Set(['bg', 'page', 'headerBg', 'headerFg']);
     for (const [role, colour] of Object.entries(palette)) {
       if (chrome.has(role)) continue;
       const ratio = contrast(colour, palette.bg);
@@ -62,16 +56,12 @@ for (const mode of ['light', 'dark'] as const) {
   });
 
   test(`${mode}: the block's own chrome is readable`, () => {
-    const { headerBg, headerFg, lineNumber, bg } = CODE_PALETTE[mode];
-    // The filename/language strip and the line numbers are text too — the old
-    // theme drew both in white, which vanished on a light header.
+    const { headerBg, headerFg } = CODE_PALETTE[mode];
+    // The filename/language strip is text too — the old theme drew it in
+    // white, which vanished on a light header.
     assert.ok(
       contrast(headerFg, headerBg) >= 4.5,
       `header text is ${contrast(headerFg, headerBg).toFixed(2)}:1`
-    );
-    assert.ok(
-      contrast(lineNumber, bg) >= 4.5,
-      `line numbers are ${contrast(lineNumber, bg).toFixed(2)}:1`
     );
   });
 
@@ -101,22 +91,13 @@ test('the light surface is light and the dark surface is dark', () => {
   );
 });
 
-test('every palette role is wired to a CSS custom property in the theme', () => {
-  const used = new Set<string>();
-  const collect = (value?: string) => {
-    const match = value && /^var\(--code-([a-z-]+)\)$/.exec(value);
-    if (match) used.add(match[1]);
-  };
-  collect(iceCodeTheme.plain.color);
-  collect(iceCodeTheme.plain.backgroundColor);
-  for (const entry of iceCodeTheme.styles) collect(entry.style.color);
-
+test('every palette role draws some token type', () => {
   // The chrome roles are applied by the component's own classes, not by Prism.
-  const chrome = new Set(['page', 'headerBg', 'headerFg', 'lineNumber']);
+  const chrome = new Set(['bg', 'page', 'headerBg', 'headerFg']);
   for (const role of Object.keys(CODE_PALETTE.light)) {
     if (chrome.has(role)) continue;
     assert.ok(
-      used.has(role),
+      role in TOKEN_TYPES,
       `--code-${role} is defined but no token type uses it`
     );
   }

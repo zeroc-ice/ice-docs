@@ -1,27 +1,15 @@
 // Copyright (c) ZeroC, Inc.
 
-'use client';
-
-import { Key } from 'react';
 import { faFileLines, faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { Fira_Mono } from 'next/font/google';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Highlight } from 'prism-react-renderer';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
 
-// Prism, extended with every grammar the manual needs. Passed to <Highlight>
-// below so the import carries a value and cannot be tree-shaken away.
-import prism from '@/utils/prism-languages';
+import { highlight } from '@/utils/highlight';
 import { CopyButton } from './copy-button';
-
-import { iceCodeTheme } from '@/utils/prism-theme';
+import { MermaidDiagram } from './mermaid-diagram';
 
 const firaMono = Fira_Mono({ weight: '400', subsets: ['latin', 'latin-ext'] });
-
-const MermaidDiagram = dynamic(() => import('@/components/tags/mermaid'), {
-  ssr: false
-});
 
 // Info strings the manual uses that are not Prism language ids.
 const LANGUAGE_ALIASES: Record<string, string> = {
@@ -49,7 +37,6 @@ type Props = {
   children: string;
   'data-language'?: string;
   title?: string;
-  lineNumbers?: boolean;
   showTitle?: boolean;
 };
 
@@ -57,7 +44,6 @@ export const CodeBlock = ({
   children,
   'data-language': language,
   title,
-  lineNumbers = false,
   showTitle = true
 }: Props) => {
   const alias = LANGUAGE_ALIASES[language?.toLowerCase() ?? ''];
@@ -82,46 +68,21 @@ export const CodeBlock = ({
         title={title}
         hideTitle={!showTitle}
       />
-      <Highlight
-        prism={prism}
-        theme={iceCodeTheme}
-        language={language ?? ''}
-        code={children?.trim()}
-      >
-        {({ className, tokens, getLineProps, getTokenProps, style }) => (
-          <pre
-            className={clsx(className, firaMono.className, 'my-2 pl-2.5')}
-            style={style}
-          >
-            <code>
-              {tokens.map((line, i) => {
-                const { key, ...rest } = getLineProps({
-                  line,
-                  key: i,
-                  className: 'ml-0 max-w-0 py-[3px] pr-5 text-xs'
-                });
-                const lineKey = key as Key;
-                return (
-                  <div key={lineKey} {...rest}>
-                    {lineNumbers && (
-                      <span className="mr-4 text-(--code-line-number)">
-                        {i + 1}
-                      </span>
-                    )}
-                    {line.map((token, tokenIndex) => {
-                      const { key: tokenKey, ...rest } = getTokenProps({
-                        token,
-                        key: tokenIndex
-                      });
-                      return <span key={tokenKey as Key} {...rest} />;
-                    })}
-                  </div>
-                );
-              })}
-            </code>
-          </pre>
+      <pre
+        className={clsx(
+          firaMono.className,
+          'my-2 bg-(--code-bg) pl-2.5 text-(--code-plain)'
         )}
-      </Highlight>
+      >
+        {/* The lines take the text colour themselves: outside the article's
+            typography, the global `code` rule would give them its own. */}
+        <code
+          className="[&>div]:max-w-0 [&>div]:py-[3px] [&>div]:pr-5 [&>div]:text-xs [&>div]:text-(--code-plain)"
+          dangerouslySetInnerHTML={{
+            __html: highlight(children.trim(), language?.toLowerCase() ?? '')
+          }}
+        />
+      </pre>
       {!showTitle && (
         <div
           className={clsx(

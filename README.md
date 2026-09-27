@@ -6,9 +6,9 @@ every language mapping it covers; the reader picks one (C++ until they do), and 
 
 ## Requirements
 
-Node.js 22.18 or later in the 22 line, or 23.6 or later, and npm. The scripts under `scripts/` import the TypeScript
-content model directly, which relies on the type stripping Node enables by default from those releases (23.0 to 23.5
-have it behind a flag).
+Node.js 22.22.2 or later in the 22 line, 24.15 or later in the 24 line, or 26 or later, and npm 11.16 or later; `.npmrc`
+makes npm refuse to install on anything older. The scripts under `scripts/` import the TypeScript content model
+directly, through the type stripping those releases enable by default.
 
 ## Building
 
@@ -21,7 +21,9 @@ npm run check:content              # navigation, links, images, slots, titles, m
 npm run check:content -- --strict  # also fail on unresolved links and missing images
 npm run check:content -- --slots   # list the blank language sections still to classify
 npm run check:markdoc              # every page against the Markdoc schema; `build` runs it first
-npm run lint                       # eslint; a warning fails it too
+npm run lint                       # lint:eslint, then lint:markdown
+npm run lint:eslint                # eslint; a warning fails it too
+npm run lint:markdown              # markdownlint on the content
 npm run format                     # prettier, wraps Markdown prose at 120 columns
 npm run format:check               # what CI runs
 ```
