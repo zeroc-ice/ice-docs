@@ -78,7 +78,7 @@ installed.
 For example:
 
 ```py
-Ice.loadSlice([f"-I{Ice.getSliceDir()}", "Greeter.ice")
+Ice.loadSlice([f"-I{Ice.getSliceDir()}", "Greeter.ice"])
 ```
 
 This ensure the application remains portable and does not rely on a fixed installation path.

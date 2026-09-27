@@ -30,7 +30,7 @@ Fruit[] fp = { Fruit.Apple, Fruit.Orange };
 Or, alternatively:
 
 ```csharp
-Fruit fp[] = new Fruit[2];
+Fruit[] fp = new Fruit[2];
 fp[0] = Fruit.Apple;
 fp[1] = Fruit.Orange;
 ```

@@ -11,8 +11,8 @@ immediately compiled and available for use by the application. This is accomplis
 as shown in the following example:
 
 ```ruby
-Ice::loadSlice("Color.ice")
-puts "My favorite color is #{M::Color.blue.to_s}"
+Ice::loadSlice(["Color.ice"])
+puts "My favorite color is #{M::Color::Blue.to_s}"
 ```
 
 For this example, we assume that `Color.ice` contains the following definitions:
@@ -32,19 +32,15 @@ preprocessor options and controlling code generation. The arguments must include
 The function has the following Ruby definition:
 
 ```ruby
-def loadSlice(cmd, args=[])
+def loadSlice(args)
 ```
 
-The command-line arguments can be specified entirely in the first argument, `cmd`, which must be a string. The optional
-second argument can be used to pass additional command-line arguments as a list; this is useful when the caller already
-has the arguments in list form. The function always returns `nil`.
+The `args` array holds the command-line arguments, one string per argument. The function always returns `nil`.
 
-For example, the following calls to `Ice::loadSlice` are functionally equivalent:
+For example:
 
 ```ruby
-Ice::loadSlice("-I/opt/IceRuby/slice Color.ice")
-Ice::loadSlice("-I/opt/IceRuby/slice", ["Color.ice"])
-Ice::loadSlice("", ["-I/opt/IceRuby/slice", "Color.ice"])
+Ice::loadSlice(["-I/opt/IceRuby/slice", "Color.ice"])
 ```
 
 In addition to the [standard compiler options](../using-the-slice-compiler), `Ice::loadSlice` also supports the
@@ -58,7 +54,7 @@ If your Slice files depend on Ice types, you can avoid hard-coding the path name
 calling the `Ice::getSliceDir` function:
 
 ```ruby
-Ice::loadSlice("-I" + Ice::getSliceDir() + " Color.ice")
+Ice::loadSlice(["-I#{Ice::getSliceDir()}", "Color.ice"])
 ```
 
 This function attempts to locate the `slice` subdirectory of your Ice installation using an algorithm that succeeds for
@@ -78,14 +74,14 @@ If the `slice` subdirectory can be found, `getSliceDir` returns its absolute pat
 You can specify as many Slice files as necessary in a single invocation of `Ice::loadSlice`, as shown below:
 
 ```ruby
-Ice::loadSlice("Syscall.ice Process.ice")
+Ice::loadSlice(["Syscall.ice", "Process.ice"])
 ```
 
 Alternatively, you can call `Ice::loadSlice` several times:
 
 ```ruby
-Ice::loadSlice("Syscall.ice")
-Ice::loadSlice("Process.ice")
+Ice::loadSlice(["Syscall.ice"])
+Ice::loadSlice(["Process.ice"])
 ```
 
 If a Slice file includes another file, the default behavior of `Ice::loadSlice` generates Ruby code only for the named
@@ -97,13 +93,13 @@ file. For example, suppose `Syscall.ice` includes `Process.ice` as follows:
 ...
 ```
 
-If you call `Ice::loadSlice("-I. Syscall.ice")`, Ruby code is not generated for the Slice definitions in `Process.ice`
-or for any definitions that may be included by `Process.ice`. If you also need code to be generated for included files,
-one solution is to load them individually in subsequent calls to `Ice::loadSlice`. However, it is much simpler, not to
-mention more efficient, to use the `--all` option instead:
+If you call `Ice::loadSlice(["-I.", "Syscall.ice"])`, Ruby code is not generated for the Slice definitions in
+`Process.ice` or for any definitions that may be included by `Process.ice`. If you also need code to be generated for
+included files, one solution is to load them individually in subsequent calls to `Ice::loadSlice`. However, it is much
+simpler, not to mention more efficient, to use the `--all` option instead:
 
 ```ruby
-Ice::loadSlice("--all -I. Syscall.ice")
+Ice::loadSlice(["--all", "-I.", "Syscall.ice"])
 ```
 
 When you specify `--all`, `Ice::loadSlice` generates Ruby code for all Slice definitions included directly or indirectly
@@ -115,7 +111,7 @@ include a common subset of nested files. Suppose that we need to load both `Sysc
 include `Process.ice`. The simplest way to load both files is with a single call to `Ice::loadSlice`:
 
 ```ruby
-Ice::loadSlice("--all -I. Syscall.ice Kernel.ice")
+Ice::loadSlice(["--all", "-I.", "Syscall.ice", "Kernel.ice"])
 ```
 
 Although this invocation causes the Ice extension to generate code twice for `Process.ice`, the generated code is
@@ -123,8 +119,8 @@ structured so that the interpreter ignores duplicate definitions. We could have 
 the following sequence of steps:
 
 ```ruby
-Ice::loadSlice("--all -I. Syscall.ice")
-Ice::loadSlice("-I. Kernel.ice")
+Ice::loadSlice(["--all", "-I.", "Syscall.ice"])
+Ice::loadSlice(["-I.", "Kernel.ice"])
 ```
 
 In more complex cases, however, it can be difficult or impossible to completely avoid this situation, and the overhead
@@ -137,7 +133,7 @@ The `Ice::loadSlice` method must be called outside of any module scope. For exam
 ```ruby
 # WRONG
 module M
-    Ice::loadSlice("--all -I. Syscall.ice Kernel.ice")
+    Ice::loadSlice(["--all", "-I.", "Syscall.ice", "Kernel.ice"])
     ...
 end
 ```
@@ -224,10 +220,10 @@ the `--all` option:
 sliceDir = "-I#{ENV['ICE_HOME']}/slice"
 
 # Load Glacier2/Session.ice dynamically:
-Ice::loadSlice(sliceDir + " --all MySession.ice")
+Ice::loadSlice([sliceDir, "--all", "MySession.ice"])
 
 # Load Glacier2/Session.ice statically:
-Ice::loadSlice(sliceDir + " MySession.ice")
+Ice::loadSlice([sliceDir, "MySession.ice"])
 ```
 
 In this example, the first invocation of `loadSlice` uses the `--all` option so that code is generated dynamically for

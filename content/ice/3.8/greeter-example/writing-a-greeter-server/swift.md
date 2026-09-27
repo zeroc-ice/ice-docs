@@ -18,17 +18,17 @@ You can find the complete source code for this example in the
 ### Compile Slice File with Slice Compiler
 
 To write a Swift application with Ice, first configure SwiftPM to compile the Slice definitions. The Ice package
-contains a plugin for this purpose, `CompileSwift`, which can be added to the executableTarget in `Package.swift`.
+contains a plugin for this purpose, `CompileSlice`, which can be added to the executableTarget in `Package.swift`.
 
 ```swift
 .executableTarget(
     name: "Server",
-    dependencies: [.product(name: "Ice", package: "ice-swift-nightly")],
-    plugins: [.plugin(name: "CompileSlice", package: "ice-swift-nightly")]
+    dependencies: [.product(name: "Ice", package: "ice")],
+    plugins: [.plugin(name: "CompileSlice", package: "ice")]
 ),
 ```
 
-The `CompileSwift` plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as source file of the Server target.
+The `CompileSlice` plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as source file of the Server target.
 The generated code provides the APIs that we’ll need in our server code, so it’s an essential step of the development
 process.
 
@@ -186,5 +186,5 @@ destruction destroys the object adapter, close all incoming connections, and per
 To run the server, execute the following command (the executable will be compiled if necessary):
 
 ```shell
-swift run server
+swift run Server
 ```

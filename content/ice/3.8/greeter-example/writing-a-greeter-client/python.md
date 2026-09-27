@@ -128,7 +128,7 @@ After building the client (see the demo’s
 with:
 
 ```shell
-python main.py
+uv run main.py
 ```
 
 {% callout type="info" %}

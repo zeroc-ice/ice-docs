@@ -23,12 +23,12 @@ Now, assuming you wrote a `CustomLogger` class that implements `Ice::Logger`, yo
 function that creates a `LoggerPlugin` and installs your logger into the communicator:
 
 ```cpp
-extern "C" Ice::Plugin* createCustomLoggerPlugin(
+extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createCustomLoggerPlugin(
     const Ice::CommunicatorPtr& communicator,
     const std::string&,
     const Ice::StringSeq&)
 {
-    return new Ice::LoggerPlugin(communicator, make_shared<CustomLogger>());
+    return new Ice::LoggerPlugin(communicator, std::make_shared<CustomLogger>());
 }
 ```
 

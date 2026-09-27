@@ -81,7 +81,7 @@ struct ReadOnlyPoint
 maps to:
 
 ```csharp
-public readonly partial record struct ReadonlyPoint
+public readonly partial record struct ReadOnlyPoint
 {
     public readonly double X;
     public readonly double Y;

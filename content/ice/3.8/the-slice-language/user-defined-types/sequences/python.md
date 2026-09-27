@@ -12,7 +12,7 @@ take advantage of all the functionality provided by Python’s built-in types.
 
 For example:
 
-```py
+```slice
 sequence<Fruit> FruitPlatter;
 ```
 
@@ -115,23 +115,21 @@ struct S
     IntTuple i2;               // tuple
     ["python:tuple"] IntList i3; // tuple
     ["python:list"] IntTuple i4; // list
-    ["python:default"] IntTuple i5; // list
 
     ByteString b1;             // bytes
     ByteList b2;               // list
     ["python:list"] ByteString b3; // list
     ["python:tuple"] ByteString b4; // tuple
-    ["python:default"] ByteList b5; // bytes
 }
 
 interface I
 {
     IntList op1(ByteString s1, out ByteList s2);
 
-    ["python:seq:tuple"]
+    ["python:tuple"]
     IntList op2(
-        ["python:seq:list"] ByteString s1,
-        ["python:seq:tuple"] out ByteList s2);
+        ["python:list"] ByteString s1,
+        ["python:tuple"] out ByteList s2);
 }
 ```
 

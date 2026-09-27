@@ -16,7 +16,7 @@ null proxy (`std::nullopt`) is returned if no property is found with the specifi
 
 ```cpp
 std::optional<GreeterPrx> greeter =
-    communicator->propertyToProxy<Ice::GreeterPrx>("Greeter.Proxy");
+    communicator->propertyToProxy<GreeterPrx>("Greeter.Proxy");
 ```
 
 {% /language-section %}
@@ -25,7 +25,7 @@ std::optional<GreeterPrx> greeter =
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
-greeter = greeter.ice_endpointSelection(EndpointSelectionType::Ordered);
+greeter = greeter.ice_endpointSelection(Ice::EndpointSelectionType::Ordered);
 ```
 
 {% /language-section %}

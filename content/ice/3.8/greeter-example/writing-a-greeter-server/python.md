@@ -162,5 +162,5 @@ After building the server (see the demo’s
 with:
 
 ```shell
-python main.py
+uv run main.py
 ```

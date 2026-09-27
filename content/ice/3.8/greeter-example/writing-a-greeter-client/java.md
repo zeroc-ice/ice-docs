@@ -131,10 +131,10 @@ automatically (because we used a try-with-resources statement), and then our app
 
 After building the client (see the demo’s
 [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/java/Ice/greeter/README.md) for instructions), you can run it
-with gradle:
+with the launcher script that the build generates:
 
 ```shell
-./gradlew :client:run --quiet
+./client/build/install/client/bin/client
 ```
 
 {% callout type="info" %}

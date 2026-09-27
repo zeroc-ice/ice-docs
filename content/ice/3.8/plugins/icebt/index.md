@@ -87,7 +87,7 @@ For example, using the [syntax for Bluetooth endpoints](../endpoint-syntax), you
 [object adapter](../dispatch) named `GreeterAdapter` as follows:
 
 ```config
-GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4 --name "Greeter Service"
+GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 --name "Greeter Service"
 ```
 
 We're associating the UUID `4f140cef-d75e-4c93-b4e4-20ac111d36d1` with our service. At runtime, this service will be
@@ -104,7 +104,10 @@ Generally speaking, you should generate and use your own well-known UUIDs instea
 
 On Linux, use the `sdptool` command to view the contents of the SDP registry on a device:
 
-`> sdptool browse local` `> sdptool browse 01:23:45:67:89:AB`
+```shell
+sdptool browse local
+sdptool browse 01:23:45:67:89:AB
+```
 
 The first command displays the active services of the local host, and the second command shows the active services of a
 remote device.
@@ -118,7 +121,7 @@ A Bluetooth endpoint in a proxy must include a UUID and a device address:
 ```cpp
 GreeterPrx greeter{
   communicator,
-  "greeter:bt -u 4f140cef-d75e-4c93-b4e4 -a \"01:23:45:67:89:AB\""};
+  "greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a \"01:23:45:67:89:AB\""};
 ```
 
 {% language-section name="lang-2" /%}

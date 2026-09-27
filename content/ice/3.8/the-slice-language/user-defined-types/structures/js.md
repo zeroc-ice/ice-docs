@@ -18,7 +18,7 @@ The mapping for this structure is equivalent to the following JavaScript code:
 // Generated JavaScript code
 
 class Employee {
-    function(number = 0n, firstName = "", lastName = "") {
+    constructor(number = 0n, firstName = "", lastName = "") {
         this.number = number;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,7 +26,7 @@ class Employee {
 }
 ```
 
-```js
+```typescript
 // Generated TypeScript definition
 
 class Employee {

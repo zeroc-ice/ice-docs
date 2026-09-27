@@ -15,7 +15,7 @@ flexibility by externalizing the proxy in a configuration property. For example,
 our stringified proxy as follows:
 
 ```config
-Greeter.Proxy=greeter:tcp -h localhost -p 4051
+Greeter.Proxy=greeter:tcp -h localhost -p 4061
 ```
 
 {% language-section name="lang-2" /%}

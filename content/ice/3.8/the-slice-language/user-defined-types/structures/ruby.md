@@ -29,7 +29,7 @@ class Employee
         # ...
     end
 
-    def ==
+    def ==(other)
         # ...
     end
 

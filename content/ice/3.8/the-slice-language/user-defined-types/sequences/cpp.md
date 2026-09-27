@@ -91,8 +91,8 @@ module Food
 
     interface Market
     {
-        ["cpp:type:list<::Food::Fruit>"]
-        FruitPlatter barter(["cpp:type:deque<::Food::Fruit>"] FruitPlatter offer);
+        ["cpp:type:std::list<::Food::Fruit>"]
+        FruitPlatter barter(["cpp:type:std::deque<::Food::Fruit>"] FruitPlatter offer);
     }
 }
 ```
