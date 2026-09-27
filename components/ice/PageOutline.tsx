@@ -168,8 +168,11 @@ export function PageOutline({
 
   if (items.length === 0) return null;
 
+  // A clipped outline fades out at the bottom, so it doesn't look finished. The
+  // bottom padding lies under the fade, so the last heading shows in full once
+  // the reader scrolls to it.
   return (
-    <div className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain">
+    <div className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain mask-b-from-[calc(100%-1.5rem)] pb-6">
       <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
         On this page
       </div>

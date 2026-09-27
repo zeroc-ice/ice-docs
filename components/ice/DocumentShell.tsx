@@ -219,7 +219,7 @@ export const DocumentShell = ({
       {showAside && (
         <aside
           data-langs={writtenFor?.join(' ')}
-          className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 flex-col gap-8 xl:flex"
+          className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 flex-col gap-2 xl:flex"
         >
           <PageOutline headings={toc} languages={languages} />
           <PageActions edit={edit} />
