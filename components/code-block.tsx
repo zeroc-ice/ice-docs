@@ -5,6 +5,7 @@ import { Fira_Mono } from 'next/font/google';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 
+import { languageLabel } from '@/lib/docs-model/nav';
 import { highlight } from '@/utils/highlight';
 import { CopyButton } from './copy-button';
 import { MermaidDiagram } from './mermaid-diagram';
@@ -20,6 +21,23 @@ const LANGUAGE_ALIASES: Record<string, string> = {
   ini: 'properties',
   text: '',
   txt: ''
+};
+
+// Display names for the languages the manual uses besides the mappings, which
+// `languageLabel` names.
+const LANGUAGE_NAMES: Record<string, string> = {
+  diff: 'Diff',
+  groovy: 'Groovy',
+  kotlin: 'Kotlin',
+  powershell: 'PowerShell',
+  properties: 'Properties',
+  py: 'Python',
+  shell: 'Shell',
+  slice: 'Slice',
+  ts: 'TypeScript',
+  typescript: 'TypeScript',
+  xml: 'XML',
+  yaml: 'YAML'
 };
 
 const commandLineLanguages = [
@@ -108,8 +126,8 @@ const TopBar = ({ language, code, title, hideTitle }: TopBarProps) =>
   language && !hideTitle ? (
     <div className="flex h-11 flex-row items-center justify-between border-b border-(--code-border) bg-(--code-header-bg) text-(--code-header-fg)">
       <div className="m-0 ml-4 flex flex-row items-center gap-3 p-0 text-sm">
-        {LanguageIcon(language ?? '')}
-        {title ?? fixLanguage(language) ?? ''}
+        {LanguageIcon(language)}
+        {title ?? LANGUAGE_NAMES[language] ?? languageLabel(language)}
       </div>
       <div className="mr-4 flex flex-row items-center gap-4">
         <CopyButton text={code} />
@@ -126,13 +144,4 @@ function LanguageIcon(language: string) {
   ) : (
     <FontAwesomeIcon icon={faFileLines} className="size-4" />
   );
-}
-
-// A function to fix the spelling of the language
-function fixLanguage(language: string) {
-  if (language === 'csharp') {
-    return 'C#';
-  } else {
-    return language;
-  }
 }
