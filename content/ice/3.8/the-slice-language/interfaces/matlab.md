@@ -8,9 +8,9 @@ A Slice interface maps to a MATLAB class with methods that correspond to the ope
 following Slice interface:
 
 ```slice
-interface Simple
+interface Simple
 {
-    void op();
+    void op();
 }
 ```
 

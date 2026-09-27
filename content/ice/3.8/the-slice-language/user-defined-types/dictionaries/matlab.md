@@ -16,19 +16,19 @@ The value type of the MATLAB dictionary depends on the Slice value type:
 Consider the definition of our `EmployeeMap` once more:
 
 ```slice
-struct Employee
+struct Employee
 {
     ["matlab:identifier:Number"]
-    long number;
+    long number;
 
     ["matlab:identifier:FirstName"]
-    string firstName;
+    string firstName;
 
     ["matlab:identifier:LastName"]
-    string lastName;
+    string lastName;
 }
 
-dictionary<long, Employee> EmployeeMap;
+dictionary<long, Employee> EmployeeMap;
 ```
 
 `EmployeeMap` maps to a dictionary with key type = `int64` and value type = `Employee` (a MATLAB class mapped from a
@@ -36,12 +36,12 @@ Slice struct).
 
 ```matlab
 em = configureDictionary('int64', 'M.Employee');
- 
+
 e = M.Employee();
 e.Number = 31;
 e.FirstName = 'James';
 e.LastName = 'Gosling';
- 
+
 em(e.Number) = e;
 ```
 

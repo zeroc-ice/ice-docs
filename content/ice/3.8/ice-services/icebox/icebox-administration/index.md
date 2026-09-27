@@ -11,29 +11,29 @@ IceGrid administrative utilities, so that they can execute certain administrativ
 The Slice definitions shown below comprise the IceBox administrative interface:
 
 ```slice
-module IceBox
+module IceBox
 {
-    exception AlreadyStartedException {}
-    exception AlreadyStoppedException {}
-    exception NoSuchServiceException {}
+    exception AlreadyStartedException {}
+    exception AlreadyStoppedException {}
+    exception NoSuchServiceException {}
 
-    interface ServiceObserver
+    interface ServiceObserver
     {
-        void servicesStarted(Ice::StringSeq services);
-        void servicesStopped(Ice::StringSeq services);
+        void servicesStarted(Ice::StringSeq services);
+        void servicesStopped(Ice::StringSeq services);
     }
 
-    interface ServiceManager
+    interface ServiceManager
     {
-        void startService(string service)
-            throws AlreadyStartedException, NoSuchServiceException;
+        void startService(string service)
+            throws AlreadyStartedException, NoSuchServiceException;
 
-        void stopService(string service)
-            throws AlreadyStoppedException, NoSuchServiceException;
+        void stopService(string service)
+            throws AlreadyStoppedException, NoSuchServiceException;
 
-        void addObserver(ServiceObserver* observer)
+        void addObserver(ServiceObserver* observer)
 
-        void shutdown();
+        void shutdown();
     }
 }
 ```
@@ -150,15 +150,15 @@ administrative facet.
 IceBox includes C++ and Java implementations of an administrative utility. The utilities have the same usage:
 
 ```
-Usage: iceboxadmin [options] [command...]
+Usage: iceboxadmin [options] [command...]
 Options:
--h, --help           Show this message.
--v, --version        Display the Ice version.
+-h, --help           Show this message.
+-v, --version        Display the Ice version.
 
 Commands:
-start SERVICE        Start a service.
-stop SERVICE         Stop a service.
-shutdown             Shutdown the server.
+start SERVICE        Start a service.
+stop SERVICE         Stop a service.
+shutdown             Shutdown the server.
 ```
 
 The C++ utility is named `iceboxadmin`. The Java utility is represented by the class `com.zeroc.IceBox.Admin`.

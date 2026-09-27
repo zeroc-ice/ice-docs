@@ -2,7 +2,7 @@
 
 #### Synopsis
 
-`Ice.Plugin.name=assembly:class [args]`
+`Ice.Plugin.name=assembly:class [args]`
 
 #### Description
 
@@ -21,7 +21,7 @@ The specified `class` must implement the
 follow the class name are passed to the factory's `create` method. For example:
 
 ```
-Ice.Plugin.MyPlugin=MyFactory,Version=1.2.3.4:MyFactory arg1 arg2
+Ice.Plugin.MyPlugin=MyFactory,Version=1.2.3.4:MyFactory arg1 arg2
 ```
 
 Whitespace separates the arguments, and any arguments that contain whitespace must be enclosed in quotes.
@@ -30,13 +30,13 @@ If you specify a relative path name in the entry point, the assembly is located 
 working directory:
 
 ```
-Ice.Plugin.MyPlugin=..\MyFactory.dll:MyFactory arg1 arg2
+Ice.Plugin.MyPlugin=..\MyFactory.dll:MyFactory arg1 arg2
 ```
 
 Enclose the assembly's path name in quotes if it contains spaces:
 
 ```
-Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory.dll:MyFactory" arg1 arg2
+Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory.dll:MyFactory" arg1 arg2
 ```
 
 {% callout type="info" %}

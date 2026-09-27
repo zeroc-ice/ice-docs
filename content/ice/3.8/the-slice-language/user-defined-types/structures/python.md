@@ -4,11 +4,11 @@ A Slice structure maps to a Python dataclass with the same name. For each Slice 
 corresponding field. For example, here is our Employee structure once more:
 
 ```slice
-struct Employee
+struct Employee
 {
-    long number;
-    string firstName;
-    string lastName;
+    long number;
+    string firstName;
+    string lastName;
 }
 ```
 

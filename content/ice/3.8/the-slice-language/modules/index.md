@@ -8,17 +8,17 @@ A common problem in large systems is pollution of the global namespace: over tim
 name clashes become quite likely. Slice provides the `module` construct to alleviate this problem:
 
 ```slice
-module ZeroC 
+module ZeroC
 {
-    module Client 
+    module Client
     {
-        // Definitions here...
-    }
+        // Definitions here...
+    }
 
-    module Server 
+    module Server
     {
-        // Definitions here...
-    }
+        // Definitions here...
+    }
 }
 ```
 
@@ -32,9 +32,9 @@ Slice requires all definitions to be nested inside a module, that is, you cannot
 global scope. For example, the following is illegal:
 
 ```slice
-interface I   // Error: only modules can appear at global scope
+interface I   // Error: only modules can appear at global scope
 {
-    // ...
+    // ...
 }
 ```
 
@@ -76,16 +76,16 @@ module ClearSky
 Modules can be reopened:
 
 ```slice
-module ZeroC
+module ZeroC
 {
-    // Definitions here...
+    // Definitions here...
 }
 
-// Possibly in a different source file:
+// Possibly in a different source file:
 
-module ZeroC // OK, reopened module
-{  
-    // More definitions here...
+module ZeroC // OK, reopened module
+{
+    // More definitions here...
 }
 ```
 

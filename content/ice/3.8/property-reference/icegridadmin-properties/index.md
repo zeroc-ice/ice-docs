@@ -53,7 +53,7 @@ This property is used to compose the value of
 Specifies the endpoints that the client uses to send [multicast discovery queries](../icelocatordiscovery). If not
 defined, the endpoint is composed as follows:
 
-`udp -h addr -p port [--interface intf]`
+`udp -h addr -p port [--interface intf]`
 
 where `addr` is the value of
 [IceGridAdmin.Discovery.Address](../icegridadmin-properties#icegridadmin.discovery.address), `port` is the value of
@@ -73,7 +73,7 @@ The client creates an object adapter named `IceGridAdmin.Discovery.Reply` for re
 [multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
 `IceGridAdmin.Discovery.Reply.Endpoints`, the endpoint for this object adapter is composed as follows:
 
-`udp [-h intf]`
+`udp [-h intf]`
 
 where `intf` is the value of
 [IceGridAdmin.Discovery.Interface](../icegridadmin-properties#icegridadmin.discovery.interface). A fixed port is not

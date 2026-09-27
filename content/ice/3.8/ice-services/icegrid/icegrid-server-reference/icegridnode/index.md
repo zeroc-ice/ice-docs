@@ -20,19 +20,19 @@ We recommend that you always run `icegridnode` and `icegridregistry` in separate
 The node supports the following command-line options:
 
 ```shell
-Usage: icegridnode [options]
+Usage: icegridnode [options]
 Options:
--h, --help           Show this message.
--v, --version        Display the Ice version.
---readonly           Start the collocated master registry in
-                     read-only mode.
+-h, --help           Show this message.
+-v, --version        Display the Ice version.
+--readonly           Start the collocated master registry in
+                     read-only mode.
 --initdb-from-replica <replica>
                      Initialize the collocated registry database from the
                      given replica.
 
---deploy DESCRIPTOR [TARGET1 [TARGET2 ...]]
-                     Add or update descriptor in file DESCRIPTOR,
-                     with optional targets.
+--deploy DESCRIPTOR [TARGET1 [TARGET2 ...]]
+                     Add or update descriptor in file DESCRIPTOR,
+                     with optional targets.
 ```
 
 If you are running the node with a collocated registry, the `--readonly` option prevents any updates to the registry's

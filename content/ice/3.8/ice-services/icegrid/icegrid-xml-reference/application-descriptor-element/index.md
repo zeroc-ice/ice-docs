@@ -24,10 +24,10 @@ Here is an example to demonstrate the use of this element:
 
 ```xml
 <icegrid>
-    <application name="MyApplication" import-default-templates="true">
-        <description>A description of the application.</description>
-        ...
-    </application>
+    <application name="MyApplication" import-default-templates="true">
+        <description>A description of the application.</description>
+        ...
+    </application>
 </icegrid>
 ```
 

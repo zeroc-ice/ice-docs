@@ -58,7 +58,7 @@ single line):
 ```powershell
 sc create icebridge binPath= "C:\Program Files\ZeroC\Ice-3.8.2\bin\icebridge.exe
   --Ice.Config=C:\ProgramData\Ice\icebridge.cfg --service icebridge"
-  DisplayName= "IceBridge Server" start= auto obj= "NT Authority\LocalService"
+  DisplayName= "IceBridge Server" start= auto obj= "NT Authority\LocalService"
   password= ""
 ```
 

@@ -56,9 +56,9 @@ The C++ code example below demonstrate how a sensor can publish a reading with a
 
 ```cpp
 auto station = Ice::uncheckedCast<WeatherStationPrx>(pub);
-Ice::Context context;
-context["cost"] = "5";
-station->report(sensorId, timeStamp, reading, context);
+Ice::Context context;
+context["cost"] = "5";
+station->report(sensorId, timeStamp, reading, context);
 ```
 
 ## Receiving a Message with a Cost

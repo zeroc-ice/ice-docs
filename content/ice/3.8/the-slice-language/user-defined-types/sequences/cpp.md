@@ -36,25 +36,25 @@ For example, you can override the default mapping of a Slice sequence type:
 ```slice
 [["cpp:include:list"]]
 
-module Food
+module Food
 {
-    enum Fruit { Apple, Pear, Orange };
+    enum Fruit { Apple, Pear, Orange };
 
-    ["cpp:type:std::list<Food::Fruit>"]
-    sequence<Fruit> FruitPlatter;
+    ["cpp:type:std::list<Food::Fruit>"]
+    sequence<Fruit> FruitPlatter;
 }
 ```
 
 With this metadata directive, the Slice sequence now maps to a C++ `std::list` instead of the default `std::vector`:
 
 ```cpp
-#include <list>
+#include <list>
 
-namespace Food
+namespace Food
 {
-    using FruitPlatter = std::list<Food::Fruit>;
+    using FruitPlatter = std::list<Food::Fruit>;
 
-    // ...
+    // ...
 }
 ```
 
@@ -73,7 +73,7 @@ Also note that, to avoid compilation errors in the generated code, you must inst
 appropriate include directive with the `cpp:include` file metadata directive. This causes the compiler to add the line
 
 ```cpp
-#include <list>
+#include <list>
 ```
 
 to the generated header file.
@@ -85,17 +85,17 @@ In addition to modifying the type of a sequence itself, you can also modify the 
 [["cpp:include:list"]]
 [["cpp:include:deque"]]
 
-module Food
+module Food
 {
-    enum Fruit { Apple, Pear, Orange }
+    enum Fruit { Apple, Pear, Orange }
 
-    sequence<Fruit> FruitPlatter;
+    sequence<Fruit> FruitPlatter;
 
-    interface Market
+    interface Market
     {
-        ["cpp:type:list<::Food::Fruit>"]
-        FruitPlatter barter(["cpp:type:deque<::Food::Fruit>"] FruitPlatter offer);
-    }
+        ["cpp:type:list<::Food::Fruit>"]
+        FruitPlatter barter(["cpp:type:deque<::Food::Fruit>"] FruitPlatter offer);
+    }
 }
 ```
 
@@ -107,12 +107,12 @@ Instead of `std::list` or `std::deque`, you can specify a type of your own as th
 ```slice
 [["cpp:include:FruitBowl.h"]]
 
-module Food
+module Food
 {
-    enum Fruit { Apple, Pear, Orange }
+    enum Fruit { Apple, Pear, Orange }
 
-    ["cpp:type:FruitBowl"]
-    sequence<Fruit> FruitPlatter;
+    ["cpp:type:FruitBowl"]
+    sequence<Fruit> FruitPlatter;
 }
 ```
 
@@ -209,9 +209,9 @@ The `["cpp:array"]` metadata affects many more parameters than the span mapping 
 For example:
 
 ```slice
-interface File
+interface File
 {
-    void write(["cpp:array"] Ice::ByteSeq contents);
+    void write(["cpp:array"] Ice::ByteSeq contents);
 }
 ```
 
@@ -219,8 +219,8 @@ The `cpp:array` metadata directive instructs the compiler to map the `contents` 
 this directive, the `write` function on the proxy has the following signature:
 
 ```cpp
-void write(
-    const std::pair<const std::byte*, const std::byte*>& contents,
+void write(
+    const std::pair<const std::byte*, const std::byte*>& contents,
     const Ice::Context& = Ice::noExplicitContext);
 ```
 
@@ -230,9 +230,9 @@ sequence, and the second pointer points one element past the end of the sequence
 Similarly, for the server side, the `write` method on the skeleton has the following signature:
 
 ```cpp
-virtual void write(
-    std::pair<const std::byte*, const std::byte*> contents,
-    const Ice::Current& current) = 0;
+virtual void write(
+    std::pair<const std::byte*, const std::byte*> contents,
+    const Ice::Current& current) = 0;
 ```
 
 The passed pointers denote the beginning and end of the sequence as a range `[first,` `last)` (that is, they use the

@@ -104,7 +104,7 @@ entry.
 
 #### Synopsis
 
-`Ice.Default.Protocol=transport protocol`
+`Ice.Default.Protocol=transport protocol`
 
 #### Description
 

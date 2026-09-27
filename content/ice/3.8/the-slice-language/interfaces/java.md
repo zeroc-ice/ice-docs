@@ -8,18 +8,18 @@ On the client side, a Slice interface maps to a Java interface with methods that
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+interface Simple
 {
-    void op();
+    void op();
 }
 ```
 
 The Slice compiler generates the following definition for use by the client:
 
 ```java
-public interface SimplePrx extends com.zeroc.Ice.ObjectPrx {
-    void op();
-    void op(java.util.Map<String, String> context);
+public interface SimplePrx extends com.zeroc.Ice.ObjectPrx {
+    void op();
+    void op(java.util.Map<String, String> context);
 
     java.util.concurrent.CompletableFuture<Void> opAsync();
 

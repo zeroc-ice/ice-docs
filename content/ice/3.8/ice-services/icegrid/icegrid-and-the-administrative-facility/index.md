@@ -99,16 +99,16 @@ During an [administrative session](../icegrid-administrative-sessions), a client
 intermediary proxy for a server's [admin object](../the-admin-object):
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    interface Admin
+    interface Admin
     {
-        idempotent string getServerAdminCategory();
-        idempotent Object* getServerAdmin(string id)
-            throws ServerNotExistException,
+        idempotent string getServerAdminCategory();
+        idempotent Object* getServerAdmin(string id)
+            throws ServerNotExistException,
                    NodeUnreachableException,
                    DeploymentException;
-        // ...
+        // ...
     }
 }
 ```
@@ -119,12 +119,12 @@ proxy of the `IceGrid::Admin` object with a new identity. The identity's categor
 the proxy and access the [Properties facet](../the-properties-facet) of a server:
 
 ```cpp
-IceGrid::AdminSessionPrx session = ...;
-auto admin = session.getAdmin();
-Ice::Identity serverAdminId;
-serverAdminId.category = admin->getServerAdminCategory();
-serverAdminId.name = "MyServerId";
-auto props = admin->ice_identity(serverAdminId)
+IceGrid::AdminSessionPrx session = ...;
+auto admin = session.getAdmin();
+Ice::Identity serverAdminId;
+serverAdminId.category = admin->getServerAdminCategory();
+serverAdminId.name = "MyServerId";
+auto props = admin->ice_identity(serverAdminId)
                    ->ice_facet<Ice::PropertiesAdminPrx>("Properties");
 ```
 
@@ -142,7 +142,7 @@ module IceGrid
     {
         idempotent Object* getNodeAdmin(string name)
             throws NodeNotExistException, NodeUnreachableException;
- 
+
          idempotent Object* getRegistryAdmin(string name)
             throws RegistryNotExistException;
         // ...
@@ -166,12 +166,12 @@ callback objects contain the proper identities and endpoints. The `IceGrid::Admi
 operation to help with the client's preparations:
 
 ```slice
-module IceGrid
+module IceGrid
 {
-    interface AdminSession ... 
+    interface AdminSession ...
     {
-        idempotent Object* getAdminCallbackTemplate();
-        // ...
+        idempotent Object* getAdminCallbackTemplate();
+        // ...
     }
 }
 ```
@@ -204,31 +204,31 @@ register a [ServiceObserver](../icebox-administration) callback that monitors th
 first step is to obtain a proxy for the administrative facet named `IceBox.ServiceManager`:
 
 ```cpp
-IceGrid::AdminSessionPrx session = ...;
-auto admin = session.getAdmin();
-auto svcmgr = admin->getServerAdmin("icebox1")
+IceGrid::AdminSessionPrx session = ...;
+auto admin = session.getAdmin();
+auto svcmgr = admin->getServerAdmin("icebox1")
                    ->ice_facet<IceBox::ServiceManagerPrx>("IceBox.ServiceManager");
 ```
 
 Next, we retrieve the template proxy and compose the published endpoints for our callback object adapter:
 
 ```cpp
-auto tmpl = admin->getAdminCallbackTemplate();
-auto endpts = tmpl->ice_getEndpoints();
-string publishedEndpoints;
+auto tmpl = admin->getAdminCallbackTemplate();
+auto endpts = tmpl->ice_getEndpoints();
+string publishedEndpoints;
 for (const auto& endpoint : endpts)
 {
-    if (publishedEndpoints.empty())
+    if (publishedEndpoints.empty())
     {
-        publishedEndpoints = endpoint->toString();
+        publishedEndpoints = endpoint->toString();
     }
-    else
+    else
     {
-        publishedEndpoints += ":" + endpoint->toString();
+        publishedEndpoints += ":" + endpoint->toString();
     }
 }
 communicator->getProperties()->setProperty(
-    "CallbackAdapter.PublishedEndpoints", 
+    "CallbackAdapter.PublishedEndpoints",
      publishedEndpoints);
 ```
 
@@ -236,12 +236,12 @@ The final steps involve creating the callback object adapter, adding a servant, 
 connection and registering our callback with the service manager:
 
 ```cpp
-auto callbackAdapter = communicator->createObjectAdapter("CallbackAdapter");
-Ice::Identity cbid;
-cbid.category = tmpl->ice_getIdentity().category;
-cbid.name = "observer";
-auto obs = make_shared<ObserverI>();
-auto cb = callbackAdapter->add<IceBox::ServiceObserverPrx>(obs, cbid);
+auto callbackAdapter = communicator->createObjectAdapter("CallbackAdapter");
+Ice::Identity cbid;
+cbid.category = tmpl->ice_getIdentity().category;
+cbid.name = "observer";
+auto obs = make_shared<ObserverI>();
+auto cb = callbackAdapter->add<IceBox::ServiceObserverPrx>(obs, cbid);
 callbackAdapter->activate();
 session->ice_getConnection()->setAdapter(callbackAdapter);
 svcmgr->addObserver(cb);
@@ -273,9 +273,9 @@ state of the IceBox services. The first step is to obtain a proxy for the admini
 `IceBox.ServiceManager`:
 
 ```cpp
-IceGrid::AdminSessionPrx session = ...;
-auto admin = session.getAdmin();
-auto obj = 
+IceGrid::AdminSessionPrx session = ...;
+auto admin = session.getAdmin();
+auto obj =
 auto svcmgr = admin->getServerAdmin("icebox1")
                     ->ice_facet<IceBox::ServiceManagerPrx>("IceBox.ServiceManager");
 ```
@@ -283,16 +283,16 @@ auto svcmgr = admin->getServerAdmin("icebox1")
 Now we are ready to create the object adapter and register the observer:
 
 ```cpp
-auto router = communicator->getDefaultRouter();
-auto callbackAdapter = communicator->createObjectAdapterWithRouter(
-    "CallbackAdapter", 
+auto router = communicator->getDefaultRouter();
+auto callbackAdapter = communicator->createObjectAdapterWithRouter(
+    "CallbackAdapter",
      router);
 
-Ice::Identity cbid;
-cbid.category = router->getCategoryForClient();
-cbid.name = "observer";
-auto obs = make_shared<ObserverI>();
-auto cn = callbackAdapter->add<IceBox::ServiceObserverPrx>>(obs, cbid);
+Ice::Identity cbid;
+cbid.category = router->getCategoryForClient();
+cbid.name = "observer";
+auto obs = make_shared<ObserverI>();
+auto cn = callbackAdapter->add<IceBox::ServiceObserverPrx>>(obs, cbid);
 callbackAdapter->activate();
 svcmgr->addObserver(cb);
 ```

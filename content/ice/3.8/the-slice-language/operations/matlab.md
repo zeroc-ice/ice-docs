@@ -42,7 +42,7 @@ Given a proxy to an object of type `Greeter`, the client can invoke the `greet` 
 greeter = visitorcenter.GreeterPrx(
     communicator, 'greeter:tcp -h localhost -p 4061');
 
-greeting = greeter.greet('Alice');     % Get name via RPC
+greeting = greeter.greet('Alice');     % Get name via RPC
 ```
 
 # Sync and Async Methods
@@ -71,14 +71,14 @@ exception specification, may also throw [user exceptions](../local-and-dispatch-
 following simple interface:
 
 ```slice
-exception Tantrum
+exception Tantrum
 {
-    string reason;
+    string reason;
 }
 
-interface Child
+interface Child
 {
-    void askToCleanUp() throws Tantrum;
+    void askToCleanUp() throws Tantrum;
 }
 ```
 
@@ -86,14 +86,14 @@ Slice exceptions are thrown as MATLAB exceptions, so you can simply enclose one 
 `try`-`catch` block:
 
 ```matlab
-child = ...;   % Get child proxy...
+child = ...;   % Get child proxy...
 
 try
-    child.askToCleanUp();
+    child.askToCleanUp();
 catch ex
     if isa(ex, 'Tantrum')
-        fprintf('The child says: %s\n', ex.reason);
-    else
+        fprintf('The child says: %s\n', ex.reason);
+    else
         rethrow(ex);
     end
 end
@@ -190,28 +190,28 @@ The MATLAB mapping uses the conventional language mechanism for returning one or
 Consider the following Slice definitions:
 
 ```slice
-struct NumberAndString
+struct NumberAndString
 {
     ["matlab:identifier:X"]
-    int x;
+    int x;
 
     ["matlab:identifier:Str"]
-    string str;
+    string str;
 }
 
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-dictionary<long, StringSeq> StringTable;
+dictionary<long, StringSeq> StringTable;
 
-interface ServerToClient
+interface ServerToClient
 {
-    void op1(out int i, out float f, out bool b, out string s);
+    void op1(out int i, out float f, out bool b, out string s);
 
-    void op2(out NumberAndString ns,
-             out StringSeq ss,
-             out StringTable st);
-    
-    void op3(out ServerToClient* proxy);
+    void op2(out NumberAndString ns,
+             out StringSeq ss,
+             out StringTable st);
+
+    void op3(out ServerToClient* proxy);
 }
 ```
 
@@ -259,7 +259,7 @@ A client can invoke this operation as shown below:
 ```matlab
 [i, v] = proxy.execute('--file log.txt');
 [i, v] = proxy.execute(Ice.Unset);
- 
+
 if v ~= Ice.Unset
     fprintf('value = %f\n', v); % v is set to a value
 end

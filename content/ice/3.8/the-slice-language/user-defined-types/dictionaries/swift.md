@@ -3,7 +3,7 @@
 Here is the definition of our EmployeeMap once more:
 
 ```slice
-dictionary<long, Employee> EmployeeMap;
+dictionary<long, Employee> EmployeeMap;
 ```
 
 The following code is generated for this definition:

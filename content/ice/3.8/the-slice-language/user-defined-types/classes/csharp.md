@@ -11,16 +11,16 @@ the `"cs:property"` metadata directive, which generates classes with properties 
 Consider the following class definition:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
     ["cs:identifier:Hour"]
-    short hour;         // 0 - 23
+    short hour;         // 0 - 23
 
     ["cs:identifier:Minute"]
-    short minute;       // 0 - 59
-    
+    short minute;       // 0 - 59
+
     ["cs:identifier:Second"]
-    short second;       // 0 - 59
+    short second;       // 0 - 59
 
     ["cs:identifier:TZ"]
     string tz;          // e.g. GMT, PST, EDT...
@@ -30,29 +30,29 @@ class TimeOfDay
 The Slice compiler generates the following code for this definition:
 
 ```csharp
-public partial class TimeOfDay : Ice.Value
+public partial class TimeOfDay : Ice.Value
 {
-    public short Hour;
-    public short Minute;
-    public short Second;
+    public short Hour;
+    public short Minute;
+    public short Second;
     public string TZ;
 
     partial void ice_initialize();
 
-    public TimeOfDay()
+    public TimeOfDay()
     {
         ...
         ice_initialize();
-    }
+    }
 
-    public TimeOfDay(short Hour, short Minute, short Second, string TZ)
+    public TimeOfDay(short Hour, short Minute, short Second, string TZ)
     {
-        this.Hour = Hour;
-        this.Minute = Minute;
-        this.Second = Second;
+        this.Hour = Hour;
+        this.Minute = Minute;
+        this.Second = Second;
         this.TZ = TZ;
         ice_initialize();
-    }
+    }
 }
 ```
 
@@ -80,7 +80,7 @@ A generated class also provides a primary constructor that accepts one argument 
 you to create and initialize a class in a single statement, for example:
 
 ```csharp
-var tod = new TimeOfDay(14, 45, 00, "PST"); // 2:45pm
+var tod = new TimeOfDay(14, 45, 00, "PST"); // 2:45pm
 ```
 
 For a derived class, the primary constructor requires one argument for every field of the class, including inherited
@@ -91,13 +91,13 @@ fields.
 You can instruct the compiler to emit property definitions instead of public fields. For example:
 
 ```slice
-["cs:property"] class Point
+["cs:property"] class Point
 {
     ["cs:identifier:X"]
-    double x;
+    double x;
 
     ["cs:identifier:Y"]
-    double y;
+    double y;
 }
 ```
 

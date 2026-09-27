@@ -26,57 +26,57 @@ As an example of the Slice comment syntax, here is the definition of `Ice::Curre
 
 ```slice
 /**
- *
+ *
  * Information about the current method invocation for servers. Each
  * operation on the server has a <tt>Current</tt> as its implicit final
  * parameter. <tt>Current</tt> is mostly used for Ice services. Most
  * applications ignore this parameter.
  *
- **/
-local struct Current
+ **/
+local struct Current
 {
-    /**
-     * The object adapter.
-     **/
-    ObjectAdapter adapter;
-    
-    /**
-     * Information about the connection over which the current
-     * method invocation was received. If the invocation is direct
-     * due to collocation optimization, this value is set to null.
-     **/
-    Connection con;
+    /**
+     * The object adapter.
+     **/
+    ObjectAdapter adapter;
 
-    /**
-     * The Ice object identity.
-     **/
-    Identity id;
+    /**
+     * Information about the connection over which the current
+     * method invocation was received. If the invocation is direct
+     * due to collocation optimization, this value is set to null.
+     **/
+    Connection con;
 
-    /**
-     * The facet.
-     ***/
-    string facet;
+    /**
+     * The Ice object identity.
+     **/
+    Identity id;
 
-    /**
-     * The operation name.
-     **/
-    string operation;
+    /**
+     * The facet.
+     ***/
+    string facet;
 
-    /**
-     * The mode of the operation.
-     **/
-    OperationMode mode;
+    /**
+     * The operation name.
+     **/
+    string operation;
 
-    /**
-     * The request context, as received from the client.
-     **/
-    Context ctx;
+    /**
+     * The mode of the operation.
+     **/
+    OperationMode mode;
 
-    /**
-     * The request id unless oneway (0) or collocated (-1).
-     **/
-    int requestId;
- 
+    /**
+     * The request context, as received from the client.
+     **/
+    Context ctx;
+
+    /**
+     * The request id unless oneway (0) or collocated (-1).
+     **/
+    int requestId;
+
     /**
      * The encoding version used to encode the input and output parameters.
      **/
@@ -92,17 +92,17 @@ a `*`, or you can leave the beginning of the line blank:
 
 ```slice
 /**
- *
- * This is a documentation comment for which every line
- * starts with a '*' character.
- **/
+ *
+ * This is a documentation comment for which every line
+ * starts with a '*' character.
+ **/
 
 /**
 
- This is a documentation comment without a leading '*'
- for each line. Either style of comment is fine.
+ This is a documentation comment without a leading '*'
+ for each line. Either style of comment is fine.
 
- **/
+ **/
 ```
 
 The first sentence of the documentation comment for a Slice construct should be a summary sentence.
@@ -115,8 +115,8 @@ Any Slice identifier enclosed in `{@link ...}` is presented as a hyperlink in co
 
 ```slice
 /**
- * An empty {@link name} denotes a null object.
- **/
+ * An empty {@link name} denotes a null object.
+ **/
 ```
 
 This generates a hyperlink for the `name` markup that points at the definition of the corresponding Slice symbol. (The
@@ -137,13 +137,13 @@ The directive `@see` creates an explicit cross reference to another entity:
 
 ```slice
 /**
- * The object adapter, which is responsible for receiving requests
- * from endpoints, and for mapping between servants, identities,
- * and proxies.
- *
- * @see Communicator
- * @see ServantLocator
- **/
+ * The object adapter, which is responsible for receiving requests
+ * from endpoints, and for mapping between servants, identities,
+ * and proxies.
+ *
+ * @see Communicator
+ * @see ServantLocator
+ **/
 ```
 
 ## Markup for Operations
@@ -154,19 +154,19 @@ There are three directives specifically to document Slice operations: `@param`, 
 
 ```slice
 /**
- * Look for an item with the specified
- * primary and secondary key.
- *
- * @param p The primary search key.
- *
- * @param s The secondary search key.
- *
- * @return The item that matches the specified keys.
- *
- * @throws NotFound Raised if no item matches the specified keys.
- **/
+ * Look for an item with the specified
+ * primary and secondary key.
+ *
+ * @param p The primary search key.
+ *
+ * @param s The secondary search key.
+ *
+ * @return The item that matches the specified keys.
+ *
+ * @throws NotFound Raised if no item matches the specified keys.
+ **/
 
-Item findItem(Key p, Key s) throws NotFound;
+Item findItem(Key p, Key s) throws NotFound;
 ```
 
 For clarity, the comment order should match the order of declaration for the parameters.

@@ -61,20 +61,20 @@ descriptor, as shown in the XML example below:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <node name="Node1">
-            <server id="EncoderServer"
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter"
+                <adapter name="EncoderAdapter"
                          id="EncoderAdapter"
                          endpoints="tcp">
-                    <object identity="EncoderFactory"
+                    <object identity="EncoderFactory"
                             type="::Ripper::MP3EncoderFactory"/>
-                </adapter>
-            </server>
-        </node>
-    </application>
+                </adapter>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -89,24 +89,24 @@ In this example, the object's [type](../well-known-objects#well-known-object-typ
 The `IceGrid::Admin` interface defines several operations that manipulate the registry's database of well-known objects:
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    interface Admin
+    interface Admin
     {
-        ...
-        void addObject(Object* obj)
-            throws ObjectExistsException,
-               DeploymentException;
-        void updateObject(Object* obj)
-            throws ObjectNotRegisteredException,
-               DeploymentException;
-        void addObjectWithType(Object* obj, string type)
-            throws ObjectExistsException,
-               DeploymentException;
-        void removeObject(Ice::Identity id) 
-            throws ObjectNotRegisteredException,
-                   DeploymentException;
-    ...
+        ...
+        void addObject(Object* obj)
+            throws ObjectExistsException,
+               DeploymentException;
+        void updateObject(Object* obj)
+            throws ObjectNotRegisteredException,
+               DeploymentException;
+        void addObjectWithType(Object* obj, string type)
+            throws ObjectExistsException,
+               DeploymentException;
+        void removeObject(Ice::Identity id)
+            throws ObjectNotRegisteredException,
+                   DeploymentException;
+    ...
     }
 }
 ```
@@ -133,18 +133,18 @@ The following C++ example produces the same result as the
 [descriptor](../well-known-objects#deploying-well-known-objects) we deployed earlier:
 
 ```cpp
-auto adapter = communicator->createObjectAdapter("EncoderAdapter");
-auto ident = Ice::stringToIdentity("EncoderFactory");
-auto f = make_shared<FactoryImpl>();
-auto factory = adapter->add(f, ident);
-IceGrid::AdminPrx admin = // ...
-try 
+auto adapter = communicator->createObjectAdapter("EncoderAdapter");
+auto ident = Ice::stringToIdentity("EncoderFactory");
+auto f = make_shared<FactoryImpl>();
+auto factory = adapter->add(f, ident);
+IceGrid::AdminPrx admin = // ...
+try
 {
-    admin.addObject(factory); // doesn't work
+    admin.addObject(factory); // doesn't work
 }
-catch (const IceGrid::ObjectExistsException&) 
+catch (const IceGrid::ObjectExistsException&)
 {
-    admin.updateObject(factory);
+    admin.updateObject(factory);
 }
 ```
 
@@ -158,18 +158,18 @@ object, but we have not yet activated the object adapter. As a result, our progr
 `addObjectWithType` as shown below:
 
 ```cpp
-auto adapter = communicator->createObjectAdapter("EncoderAdapter");
-auto ident = Ice::stringToIdentity("EncoderFactory");
-auto f = std::make_shared<FactoryImpl>();
-auto factory = adapter->add(f, ident);
-IceGrid::AdminPrx admin = // ...
+auto adapter = communicator->createObjectAdapter("EncoderAdapter");
+auto ident = Ice::stringToIdentity("EncoderFactory");
+auto f = std::make_shared<FactoryImpl>();
+auto factory = adapter->add(f, ident);
+IceGrid::AdminPrx admin = // ...
 try
 {
-    admin.addObjectWithType(factory, factory->ice_id());
-} 
-catch (const IceGrid::ObjectExistsException&)
+    admin.addObjectWithType(factory, factory->ice_id());
+}
+catch (const IceGrid::ObjectExistsException&)
 {
-    admin.updateObject(factory);
+    admin.updateObject(factory);
 }
 ```
 
@@ -216,26 +216,26 @@ be queried interactively to find objects in a variety of ways. The `IceGrid::Que
 functionality:
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    enum LoadSample
+    enum LoadSample
     {
-        LoadSample1,
-        LoadSample5,
-        LoadSample15
+        LoadSample1,
+        LoadSample5,
+        LoadSample15
     }
 
-    interface Query
+    interface Query
     {
-        idempotent Object* findObjectById(Ice::Identity id);
-        idempotent Object* findObjectByType(string type);
+        idempotent Object* findObjectById(Ice::Identity id);
+        idempotent Object* findObjectByType(string type);
 
-        idempotent Object* findObjectByTypeOnLeastLoadedNode(
-            string type, 
-            LoadSample sample);
-        
-        idempotent Ice::ObjectProxySeq findAllObjectsByType(string type);
-        idempotent Ice::ObjectProxySeq findAllReplicas(Object* proxy);
+        idempotent Object* findObjectByTypeOnLeastLoadedNode(
+            string type,
+            LoadSample sample);
+
+        idempotent Ice::ObjectProxySeq findAllObjectsByType(string type);
+        idempotent Ice::ObjectProxySeq findAllReplicas(Object* proxy);
     }
 }
 ```
@@ -283,28 +283,28 @@ First we'll modify the descriptors to add two well-known objects:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <node name="Node1">
-            <server id="EncoderServer1"
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer1"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp">
-                    <object identity="EncoderFactory1"
+                <adapter name="EncoderAdapter" endpoints="tcp">
+                    <object identity="EncoderFactory1"
                             type="::Ripper::MP3EncoderFactory"/>
-                </adapter>
-            </server>
-        </node>
-        <node name="Node2">
-            <server id="EncoderServer2"
+                </adapter>
+            </server>
+        </node>
+        <node name="Node2">
+            <server id="EncoderServer2"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp">
-                    <object identity="EncoderFactory2"
+                <adapter name="EncoderAdapter" endpoints="tcp">
+                    <object identity="EncoderFactory2"
                             type="::Ripper::MP3EncoderFactory"/>
-                </adapter>
-            </server>
-        </node>
-    </application>
+                </adapter>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -318,15 +318,15 @@ object identities. Since our factories are registered with the same type, we can
 
 ```cpp
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};
-string type = Ripper::MP3EncoderFactory::ice_staticId();
-auto seq = query.findAllObjectsByType(type);
+string type = Ripper::MP3EncoderFactory::ice_staticId();
+auto seq = query.findAllObjectsByType(type);
 if (seq.empty())
 {
-    // no match
+    // no match
 }
-Ice::ObjectProxySeq::size_type index = ... // random number
+Ice::ObjectProxySeq::size_type index = ... // random number
 auto factory = Ice::uncheckedCast<Ripper::MP3EncoderFactoryPrx>(seq[index]);
-auto encoder = factory->createEncoder();
+auto encoder = factory->createEncoder();
 ```
 
 This example invokes `findAllObjectsByType` and then randomly selects an element of the sequence.
@@ -337,14 +337,14 @@ We can simplify the client further using `findObjectByType` instead, which perfo
 
 ```cpp
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};
-string type = Ripper::MP3EncoderFactory::ice_staticId();
-auto obj = query->findObjectByType(type);
-if (!obj) 
+string type = Ripper::MP3EncoderFactory::ice_staticId();
+auto obj = query->findObjectByType(type);
+if (!obj)
 {
-    // no match
+    // no match
 }
 auto factory = Ice::uncheckedCast<Ripper::MP3EncoderFactoryPrx>(obj);
-auto encoder = factory->createEncoder();
+auto encoder = factory->createEncoder();
 ```
 
 ## Querying Ripper Objects with `findObjectByTypeOnLeastLoadedNode`
@@ -355,15 +355,15 @@ distributing the encoding tasks more intelligently. The change to the client's c
 
 ```cpp
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};
-string type = Ripper::MP3EncoderFactory::ice_staticId();
-auto obj = 
+string type = Ripper::MP3EncoderFactory::ice_staticId();
+auto obj =
     query.findObjectByTypeOnLeastLoadedNode(type, IceGrid::LoadSample1);
 if (!obj)
 {
-    // no match
+    // no match
 }
 auto factory = Ice::uncheckedCast<Ripper::MP3EncoderFactoryPrx>(obj);
-auto encoder = factory->createEncoder();
+auto encoder = factory->createEncoder();
 ```
 
 ## Ripper Progress Review

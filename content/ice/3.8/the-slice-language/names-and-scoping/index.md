@@ -20,9 +20,9 @@ Within a naming scope, identifiers must be unique, that is, you cannot use the s
 For example:
 
 ```slice
-interface Bad
+interface Bad
 {
-    void op(int p, string p);   // Error!
+    void op(int p, string p);   // Error!
 }
 ```
 
@@ -35,10 +35,10 @@ Identifiers that differ only in case are considered identical, so you must use i
 capitalization within a naming scope. For example:
 
 ```slice
-struct Bad
+struct Bad
 {
-    int    m;
-    string M;   // Error!
+    int    m;
+    string M;   // Error!
 }
 ```
 
@@ -46,20 +46,20 @@ The Slice compiler also enforces consistent capitalization for identifiers. Once
 must use the same capitalization for that identifier thereafter. For example, the following is in error:
 
 ```slice
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-interface Bad
+interface Bad
 {
-    stringSeq op();     // Error!
+    stringSeq op();     // Error!
 }
 ```
 
 Note that identifiers must not differ from a Slice keyword in case only. For example, the following is in error:
 
 ```slice
-interface Module      // Error, "module" is a keyword
+interface Module      // Error, "module" is a keyword
 {
-    // ...
+    // ...
 }
 ```
 
@@ -68,14 +68,14 @@ interface Module      // Error, "module" is a keyword
 The scope-qualification operator `::` allows you to refer to a type in a non-local scope. For example:
 
 ```slice
-module Types
+module Types
 {
-    sequence<long> LongSeq;
+    sequence<long> LongSeq;
 }
 
-module MyApp
+module MyApp
 {
-    sequence<Types::LongSeq> NumberTree;
+    sequence<Types::LongSeq> NumberTree;
 }
 ```
 
@@ -86,26 +86,26 @@ The scope-qualification operator also allows you to create mutually dependent in
 modules. The obvious attempt to do this fails:
 
 ```slice
-module Parents
+module Parents
 {
-    interface Children::Child;  // Syntax error!
-    interface Mother
+    interface Children::Child;  // Syntax error!
+    interface Mother
     {
-        Children::Child* getChild();
-    }
-    interface Father
+        Children::Child* getChild();
+    }
+    interface Father
     {
-        Children::Child* getChild();
-    }
+        Children::Child* getChild();
+    }
 }
 
-module Children 
+module Children
 {
-    interface Child
+    interface Child
     {
-        Parents::Mother* getMother();
-        Parents::Father* getFather();
-    }
+        Parents::Mother* getMother();
+        Parents::Father* getFather();
+    }
 }
 ```
 
@@ -113,30 +113,30 @@ This fails because it is syntactically illegal to forward-declare an interface i
 we must use a reopened module:
 
 ```slice
-module Children 
+module Children
 {
-    interface Child;                    // Forward declaration
+    interface Child;                    // Forward declaration
 }
 
-module Parents
+module Parents
 {
-    interface Mother
+    interface Mother
     {
-        Children::Child* getChild();    // OK
-    }
-    interface Father
+        Children::Child* getChild();    // OK
+    }
+    interface Father
     {
-        Children::Child* getChild();    // OK
-    }
+        Children::Child* getChild();    // OK
+    }
 }
 
-module Children                       // Reopen module
+module Children                       // Reopen module
 {
-    interface Child                   // Define Child
-    {
-        Parents::Mother* getMother();
-        Parents::Father* getFather();
-    }
+    interface Child                   // Define Child
+    {
+        Parents::Mother* getMother();
+        Parents::Father* getFather();
+    }
 }
 ```
 
@@ -151,14 +151,14 @@ probably should avoid this construct, even though it is legal.
 Names defined in an enclosing scope can be redefined in an inner scope. For example, the following is legal:
 
 ```slice
-module Outer
+module Outer
 {
-    sequence<string> Seq;
+    sequence<string> Seq;
 
-    module Inner
+    module Inner
     {
-        sequence<short> Seq;
-    }
+        sequence<short> Seq;
+    }
 }
 ```
 
@@ -166,20 +166,20 @@ Within module `Inner`, the name `Seq` refers to a sequence of `short` values and
 You can still refer to the other definition by using explicit scope qualification, for example:
 
 ```slice
-module Outer 
+module Outer
 {
-    sequence<string> Seq;
+    sequence<string> Seq;
 
-    module Inner
+    module Inner
     {
-        sequence<short> Seq;
+        sequence<short> Seq;
 
-        struct Confusing
+        struct Confusing
         {
-            Seq          a;     // Sequence of short
-            ::Outer::Seq b;     // Sequence of string
-        }
-    }
+            Seq          a;     // Sequence of short
+            ::Outer::Seq b;     // Sequence of string
+        }
+    }
 }
 ```
 
@@ -190,12 +190,12 @@ Same-named constructs cannot be nested inside each other in certain situations. 
 an operation with the same name as the enclosing interface. For example, the following examples is an error:
 
 ```slice
-module M
+module M
 {
-    interface I 
+    interface I
     {
-        void I();               // Error!
-    }
+        void I();               // Error!
+    }
 }
 ```
 
@@ -211,15 +211,15 @@ identifier cannot change meaning.
 For example:
 
 ```slice
-module M
+module M
 {
-    sequence<string> Seq;
+    sequence<string> Seq;
 
-    interface Bad
+    interface Bad
     {
-        Seq op1();      // Seq and op1 introduced here
-        int Seq();      // Error, Seq has changed meaning
-    }
+        Seq op1();      // Seq and op1 introduced here
+        int Seq();      // Error, Seq has changed meaning
+    }
 }
 ```
 
@@ -230,15 +230,15 @@ declaration of the second operation as an error.
 Note that fully-qualified identifiers are not introduced into the current scope:
 
 ```slice
-module M
+module M
 {
-    sequence<string> Seq;
+    sequence<string> Seq;
 
-    interface Bad
+    interface Bad
     {
-        ::M::Seq op1(); // Only op1 introduced here
-        int Seq();      // OK
-    }
+        ::M::Seq op1(); // Only op1 introduced here
+        int Seq();      // OK
+    }
 }
 ```
 
@@ -247,15 +247,15 @@ resolution operator) does not introduce any name into the current scope. On the 
 anchored at the global scope introduces only the first component of the name:
 
 ```slice
-module M
+module M
 {
-    sequence<string> Seq;
+    sequence<string> Seq;
 
-    interface Bad
+    interface Bad
     {
-        M::Seq op1();   // M and op1 introduced here, but not Seq
-        int Seq();      // OK
-    }
+        M::Seq op1();   // M and op1 introduced here, but not Seq
+        int Seq();      // OK
+    }
 }
 ```
 
@@ -267,39 +267,39 @@ definition. Otherwise, the compiler successively searches enclosing scopes for t
 scope. Here is an example to illustrate this:
 
 ```slice
-module M1
+module M1
 {
-    sequence<double> Seq;
+    sequence<double> Seq;
 
-    module M2 
+    module M2
     {
-        sequence<string> Seq;   // OK, hides ::M1::Seq
+        sequence<string> Seq;   // OK, hides ::M1::Seq
 
-        interface Base 
+        interface Base
         {
-            Seq op1();          // Returns sequence of string
-        }
-    }
+            Seq op1();          // Returns sequence of string
+        }
+    }
 
-    module M3
+    module M3
     {
-        interface Derived extends M2::Base
+        interface Derived extends M2::Base
         {
-            Seq op2();          // Returns sequence of double
-        }
+            Seq op2();          // Returns sequence of double
+        }
 
-        sequence<bool> Seq;     // OK, hides ::M1::Seq
+        sequence<bool> Seq;     // OK, hides ::M1::Seq
 
-        interface I
+        interface I
         {
-            Seq op();           // Returns sequence of bool
-        }
-    }
+            Seq op();           // Returns sequence of bool
+        }
+    }
 
-    interface I 
+    interface I
     {
-        Seq op();               // Returns sequence of double
-    }
+        Seq op();               // Returns sequence of double
+    }
 }
 ```
 
@@ -328,7 +328,7 @@ interface or module:
 module M
 {
     sequence<string> Seq;
- 
+
     interface I
     {
         string query(string query);   // OK to reuse operation name
@@ -358,29 +358,29 @@ module M
         long I;      // Error, differs only in case
         bool M;      // OK to reuse module name
     }
- 
+
     interface I
     {
         void op();
     }
- 
+
     class Base
     {
         string name;
     }
- 
+
     class C extends Base
     {
         S S;         // OK to reuse type name
         byte c;      // OK to reuse name of enclosing type
         string Name; // Error, differs only in case from Base::name
     }
- 
+
     exception BaseException
     {
         string reason;
     }
- 
+
     exception AppException extends BaseException
     {
         long baseException; // OK to reuse name of enclosing type

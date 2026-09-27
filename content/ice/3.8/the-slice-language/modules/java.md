@@ -20,11 +20,11 @@ module M1    // Reopen M1
 This definition maps to the corresponding Java definition:
 
 ```java
-package M1.M2;
-// Definitions for M2 here...
+package M1.M2;
+// Definitions for M2 here...
 
-package M1;
-// Definitions for M1 here...
+package M1;
+// Definitions for M1 here...
 ```
 
 Note that these definitions appear in the appropriate source files; source files for definitions in module `M1` are

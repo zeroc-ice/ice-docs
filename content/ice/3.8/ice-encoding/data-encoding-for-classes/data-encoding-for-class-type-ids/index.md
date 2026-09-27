@@ -9,14 +9,14 @@ marshaled as a boolean followed by either a string or a [size](../basic-data-enc
 illustrate this, consider the following class hierarchy:
 
 ```slice
-class Base
+class Base
 {
-    // ...
+    // ...
 }
- 
-class Derived extends Base
+
+class Derived extends Base
 {
-    // ...
+    // ...
 }
 ```
 
@@ -101,7 +101,7 @@ class Derived(4) extends Base
 {
     // ...
 }
- 
+
 class MoreDerived extends Derived
 {
     // ...

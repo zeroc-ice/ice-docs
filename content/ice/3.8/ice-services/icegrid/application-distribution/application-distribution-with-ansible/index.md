@@ -56,13 +56,13 @@ We distribute our server applications in three steps using an Ansible playbook:
 To do this we will need a directory with the following layout and files on your local system (where you will run Ansible
 playbooks).
 
-- `deploy-server.yml                     - Ansible playbook`
-- `inventories/production                - Ansible inventory file`
-- `group_vars/production/secure.yml      - Encrypted Ansible vault`
-- `group_vars/production/production.yml  - Group variables for production`
-- `files/serverA                         - ServerA executable`
-- `files/serverB                         - ServerB executable`
-- `library/                              - Folder for extra Ansible modules`
+- `deploy-server.yml                     - Ansible playbook`
+- `inventories/production                - Ansible inventory file`
+- `group_vars/production/secure.yml      - Encrypted Ansible vault`
+- `group_vars/production/production.yml  - Group variables for production`
+- `files/serverA                         - ServerA executable`
+- `files/serverB                         - ServerB executable`
+- `library/                              - Folder for extra Ansible modules`
 
 Before configuring the playbook we first need to look at the other files necessary to make the playbook function.
 
@@ -121,14 +121,14 @@ an example of a _production_ inventory file:
 [registry-replicas]
 10.0.0.11
 10.0.0.12
- 
+
 [server-a]
 10.0.0.20
 10.0.0.21
- 
+
 [server-b]
 10.0.0.20
- 
+
 [registries:children]
 registry-master
 registry-replicas
@@ -136,7 +136,7 @@ registry-replicas
 [nodes:children]
 server1
 server2
- 
+
 [production:children]
 registries
 nodes
@@ -162,7 +162,7 @@ by this playbook. It can be installed by copying `icegrid_servers.yml` into the 
 ---
 #
 # Disable and stop servers, synchronize server executables, and then enable and start servers.
-# 
+#
 - hosts: registries
   tasks:
     - name: Stop and disable servers
@@ -173,12 +173,12 @@ by this playbook. It can be installed by copying `icegrid_servers.yml` into the 
         enabled: no
         state: stopped
       run_once: true
- 
+
 - hosts: server-a
   tasks:
     - name: Synchronize serverA application
       synchronize: src=serverA dest=/path/to/application/serverA
- 
+
 - hosts: server-b
   tasks:
     - name: Synchronize serverB application

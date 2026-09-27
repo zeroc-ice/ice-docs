@@ -10,10 +10,10 @@ Slice definitions permit both the C and the C++ style of writing comments:
 
 ```slice
 /*
- * C-style comment.
- */
+ * C-style comment.
+ */
 
-// C++-style comment extending to the end of this line.
+// C++-style comment extending to the end of this line.
 ```
 
 # Keywords
@@ -48,19 +48,19 @@ languages that treat differently capitalized identifiers as distinct.
 It is possible to use a Slice keyword as an identifier by prefixing the keyword with a backslash, for example:
 
 ```slice
-struct dictionary     // Error!
+struct dictionary     // Error!
 {
-    // ...
+    // ...
 }
 
-struct \dictionary    // OK
+struct \dictionary    // OK
 {
-    // ...
+    // ...
 }
 
-struct \foo           // Legal, same as "struct foo"
+struct \foo           // Legal, same as "struct foo"
 {
-    // ...
+    // ...
 }
 ```
 

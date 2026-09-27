@@ -96,11 +96,11 @@ sub-metrics map to record metrics associated with remote invocations. The Slice 
 The Slice interface `IceMX::MetricsAdmin` allows you to retrieve the metrics associated with the Ice communicator:
 
 ```slice
-module IceMX
+module IceMX
 {
     exception UnknownMetricsView {}
 
-    interface MetricsAdmin
+    interface MetricsAdmin
     {
         Ice::StringSeq getMetricsViewNames(out Ice::StringSeq disableViews);
 

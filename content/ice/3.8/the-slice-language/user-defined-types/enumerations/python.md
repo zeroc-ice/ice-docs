@@ -6,7 +6,7 @@ enumerator becomes a class attribute with the same name.
 For example:
 
 ```slice
-enum Fruit { Apple, Pear, Orange }
+enum Fruit { Apple, Pear, Orange }
 ```
 
 Generates:

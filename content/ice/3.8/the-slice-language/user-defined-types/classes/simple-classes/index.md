@@ -7,11 +7,11 @@ A Slice class definition is similar to a structure definition, but uses the `cla
 ```slice
 module M
 {
-    class TimeOfDay
+    class TimeOfDay
     {
-        short hour;         // 0 - 23
-        short minute;       // 0 - 59
-        short second;       // 0 - 59
+        short hour;         // 0 - 23
+        short minute;       // 0 - 59
+        short second;       // 0 - 59
     }
 }
 ```
@@ -21,8 +21,8 @@ Slice class wherever you can use a Slice structure (but, for performance reasons
 structure is sufficient). Unlike structures, classes can be empty:
 
 ```slice
-class EmptyClass {}    // OK
-struct EmptyStruct {}  // Error
+class EmptyClass {}    // OK
+struct EmptyStruct {}  // Error
 ```
 
 A class can define any number of fields, including [optional fields](../fields). You can also specify a default value
@@ -37,12 +37,12 @@ for a field if its type is one of the following:
 For example:
 
 ```slice
-class Location 
+class Location
 {
-    string name;
-    Point pt;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point pt;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 

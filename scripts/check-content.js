@@ -13,9 +13,10 @@
 //   6. no raw HTML or Confluence markup survived the migration
 //   7. every language slot is answered, and says which kind of answer it is
 //   8. a page written per language has one title across its languages
+//   9. no code holds a no-break space (U+00A0)
 //
 // Exit code 1 on a violation of 1-3, 5a/5b (unparseable image markup and missing
-// alt text), 6, 7, and 8 — those are defects in the files themselves, and the
+// alt text), 6, 7, 8, and 9 — those are defects in the files themselves, and the
 // tree is clean of them today, so anything new is a regression. A version
 // without a front page, or a page that lists a page it does not contain, fails
 // as the navigation is read.
@@ -82,10 +83,13 @@ const STRAY_MARKUP = [
 
 // Code samples are not prose: the IceGrid chapters are full of XML descriptors,
 // and a `<node>` element inside a fence is the subject matter, not a migration
-// artifact. Blank the fences (keeping line count) before scanning.
+// artifact. Blank the fences, at any indentation, and the inline code (keeping
+// each character's offset) before scanning.
 function withoutCode(source) {
   return source
-    .replace(/^```[\s\S]*?^```/gm, (block) => block.replace(/[^\n]/g, ' '))
+    .replace(/^[ \t]*```[\s\S]*?^[ \t]*```/gm, (block) =>
+      block.replace(/[^\n]/g, ' ')
+    )
     .replace(/`[^`\n]*`/g, (span) => span.replace(/[^\n]/g, ' '));
 }
 
@@ -300,6 +304,25 @@ function checkStrayMarkup(files) {
   }
 }
 
+// A reader copies code as it is written, and the Slice compilers, Java, Python,
+// and shells do not read a no-break space as a space.
+function checkNoBreakSpaces(files) {
+  for (const file of files) {
+    const source = fs.readFileSync(file, 'utf8');
+    const prose = withoutCode(source);
+    // A no-break space that withoutCode blanked was in code.
+    const hits = [...source.matchAll(/\u00a0/g)].filter(
+      ({ index }) => prose[index] === ' '
+    );
+    if (hits.length) {
+      const line = source.slice(0, hits[0].index).split('\n').length;
+      fail(
+        `${path.relative(process.cwd(), file)}: ${hits.length} × no-break space (U+00A0) in code (e.g. line ${line})`
+      );
+    }
+  }
+}
+
 for (const version of listVersions(ROOT)) {
   const nav = readNavigation(ROOT, version);
 
@@ -335,13 +358,14 @@ for (const version of listVersions(ROOT)) {
     }
   }
 
-  // 5 & 6: defects inside the files themselves.
+  // 5, 6 & 9: defects inside the files themselves.
   const files = pages.flatMap((page) => [
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
   ]);
   checkImages(version, files);
   checkStrayMarkup(files);
+  checkNoBreakSpaces(files);
 
   // 7. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);

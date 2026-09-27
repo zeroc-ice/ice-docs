@@ -6,27 +6,27 @@ If you send events to the publisher object you obtain by calling `Topic::getPubl
 subscribers for that topic:
 
 ```cpp
-IceStorm::TopicPrx topic = ...;
-auto publisher = topic->getPublisher();
-auto station = Ice::uncheckedCast<WeatherStationPrx>(pub);
+IceStorm::TopicPrx topic = ...;
+auto publisher = topic->getPublisher();
+auto station = Ice::uncheckedCast<WeatherStationPrx>(pub);
 ...
-station->report(sensorId, timeStamp, reading); // Sent to all subscribers
+station->report(sensorId, timeStamp, reading); // Sent to all subscribers
 ```
 
 You can also publish an event to a single specific subscriber, by using the return value of `subscribeAndGetPublisher`.
 For example:
 
 ```cpp
-auto servant = make_shared<ConsolePrinter>();
-auto station = adapter->addWithUUID<WeatherStationPrx>(servant)->ice_oneway();
+auto servant = make_shared<ConsolePrinter>();
+auto station = adapter->addWithUUID<WeatherStationPrx>(servant)->ice_oneway();
 
-IceStorm::topicPrx topic = ...;
+IceStorm::topicPrx topic = ...;
 
-auto pub = topic->subscribeAndGetPublisher({}, proxy);
-auto pubStation = Ice::uncheckedCast<WeatherStationPrx>(pub);
+auto pub = topic->subscribeAndGetPublisher({}, proxy);
+auto pubStation = Ice::uncheckedCast<WeatherStationPrx>(pub);
 
 ...
-// Sent only to this subscriber
+// Sent only to this subscriber
 pubStation->report(sensorId, timeStamp, reading);
 ```
 
@@ -44,10 +44,10 @@ As an example, we might have a list whose state is to be monitored by a number o
 published to an IceStorm topic, say, `ListUpdates`. The observers of the list subscribe with an interface such as:
 
 ```slice
-interface ListObserver
+interface ListObserver
 {
-    void init(/* The entire state of the list */);
-    void itemChange(/* The added or deleted item */);
+    void init(/* The entire state of the list */);
+    void itemChange(/* The added or deleted item */);
 }
 ```
 
@@ -61,13 +61,13 @@ whenever it changes.)
 The list itself might look something like this:
 
 ```slice
-interface List
+interface List
 {
-    void add(Item i);
-    void remove(Item i);
+    void add(Item i);
+    void remove(Item i);
 
-    void addObserver(ListObserver* lo);
-    void removeObserver(ListObserver* lo);
+    void addObserver(ListObserver* lo);
+    void removeObserver(ListObserver* lo);
 }
 ```
 

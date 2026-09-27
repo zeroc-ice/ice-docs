@@ -104,7 +104,7 @@ A `tcp` endpoint supports the following options:
 
 #### Synopsis
 
-`udp -h host -p port -z --ttl TTL --interface INTF --sourceAddress addr`
+`udp -h host -p port -z --ttl TTL --interface INTF --sourceAddress addr`
 
 #### Availability
 
@@ -131,7 +131,7 @@ A `udp` endpoint supports the following options:
 
 {% callout type="warning" title="Deprecated options" %}
 
-With the 1.0 encoding, UDP endpoints supported 2 additional options: the `-e major.minor` and `-v major.minor` options.
+With the 1.0 encoding, UDP endpoints supported 2 additional options: the `-e major.minor` and `-v major.minor` options.
 These 2 options specified which encoding and protocol was supported by the endpoint. These two options are deprecated
 with the 1.1 encoding and are ignored (a deprecation warning will be emitted when parsed by the communicator
 `stringToProxy` method). The supported protocol and encoding is specified on the proxy with the 1.1 encoding.
@@ -153,7 +153,7 @@ used for communication. The format of `INTF` depends on the language and IP vers
 
 #### Synopsis
 
-`ssl -h host -p port -t timeout -z --sourceAddress addr`
+`ssl -h host -p port -t timeout -z --sourceAddress addr`
 
 #### Description
 
@@ -163,7 +163,7 @@ An `ssl` endpoint supports the same options as for [tcp endpoints](../endpoint-s
 
 #### Synopsis
 
-`ws -r resource -h host -p port -t timeout -z --sourceAddress addr`
+`ws -r resource -h host -p port -t timeout -z --sourceAddress addr`
 
 #### Description
 
@@ -177,7 +177,7 @@ A `ws` (WebSocket) endpoint supports all [tcp endpoint](../endpoint-syntax) opti
 
 #### Synopsis
 
-`wss -r resource -h host -p port -t timeout -z --sourceAddress addr`
+`wss -r resource -h host -p port -t timeout -z --sourceAddress addr`
 
 #### Description
 
@@ -192,7 +192,7 @@ following:
 
 #### Synopsis
 
-`bt -a addr -u uuid -c channel -t timeout -z --name name` `bts -a addr -u uuid -c channel -t timeout -z --name name`
+`bt -a addr -u uuid -c channel -t timeout -z --name name` `bts -a addr -u uuid -c channel -t timeout -z --name name`
 
 #### Availability
 
@@ -217,8 +217,8 @@ transport protocol as well. A Bluetooth endpoint supports the following options:
 
 #### Synopsis
 
-`iap -p protocol -n name -m manufacturer -o model number -t timeout -z`
-`iaps -p protocol -n name -m manufacturer -o model number -t`
+`iap -p protocol -n name -m manufacturer -o model number -t timeout -z`
+`iaps -p protocol -n name -m manufacturer -o model number -t`
 
 #### Availability
 
@@ -244,7 +244,7 @@ accessory to connect to:
 
 #### Synopsis
 
-`opaque -t type -e encoding -v value`
+`opaque -t type -e encoding -v value`
 
 #### Description
 

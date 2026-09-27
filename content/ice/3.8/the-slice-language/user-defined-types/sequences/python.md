@@ -13,14 +13,14 @@ take advantage of all the functionality provided by Python’s built-in types.
 For example:
 
 ```py
-sequence<Fruit> FruitPlatter;
+sequence<Fruit> FruitPlatter;
 ```
 
 Usage in Python:
 
 ```py
-platter = [ Fruit.Apple, Fruit.Pear ]
-assert(len(platter) == 2)
+platter = [ Fruit.Apple, Fruit.Pear ]
+assert(len(platter) == 2)
 platter.append(Fruit.Orange)
 ```
 
@@ -63,10 +63,10 @@ sequences of all primitive types (except strings).
 For example, you can use the array module to create a buffer that is transferred more efficiently than a tuple or list:
 
 ```py
-import array
+import array
 ...
-seq1 = array.array("i", [1, 2, 3, 4, 5])
-seq2 = [1, 2, 3, 4, 5]
+seq1 = array.array("i", [1, 2, 3, 4, 5])
+seq2 = [1, 2, 3, 4, 5]
 ```
 
 Both values have the same on-the-wire representation, but buffers incur much less marshaling overhead than lists or

@@ -412,7 +412,7 @@ The IceGrid registry creates an object adapter named `IceGrid.Registry.Discovery
 [multicast discovery queries](../icelocatordiscovery) from clients. If not otherwise defined by
 `IceGrid.Registry.Discovery.Endpoints`, the endpoint for this object adapter is composed as follows:
 
-`udp -h addr -p port [--interface intf]`
+`udp -h addr -p port [--interface intf]`
 
 where `addr` is the value of `IceGrid.Registry.Discovery.Address`, `port` is the value of
 `IceGrid.Registry.Discovery.Port`, and `intf` is the value of `IceGrid.Registry.Discovery.Interface`.

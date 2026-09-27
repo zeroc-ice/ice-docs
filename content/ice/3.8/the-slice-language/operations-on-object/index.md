@@ -6,14 +6,14 @@ The `Object` interface has a number of operations. We cannot define type `Object
 keyword; regardless, here is what the definition of `Object` would look like if it were legal:
 
 ```slice
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-interface Object // "Pseudo" Slice!
+interface Object // "Pseudo" Slice!
 {
-    idempotent void ice_ping();
-    idempotent bool ice_isA(string typeId);
-    idempotent string ice_id();
-    idempotent StringSeq ice_ids();
+    idempotent void ice_ping();
+    idempotent bool ice_isA(string typeId);
+    idempotent string ice_id();
+    idempotent StringSeq ice_ids();
 }
 ```
 

@@ -26,17 +26,17 @@ exception are marshaled. This final part is optional: it is present only if the 
 To illustrate the marshaling, consider the following exception hierarchy:
 
 ```slice
-exception Base
+exception Base
 {
-    int baseInt;
-    string baseString;
+    int baseInt;
+    string baseString;
 }
 
-exception Derived extends Base 
+exception Derived extends Base
 {
-    bool derivedBool;
-    string derivedString;
-    double derivedDouble;
+    bool derivedBool;
+    string derivedString;
+    double derivedDouble;
 }
 ```
 
@@ -119,17 +119,17 @@ _Sliced format for exceptions._
 To illustrate the marshaling, consider the following exception hierarchy:
 
 ```slice
-exception Base
+exception Base
 {
-    int baseInt;
-    string baseString;
+    int baseInt;
+    string baseString;
 }
 
-exception Derived extends Base
+exception Derived extends Base
 {
-    bool derivedBool;
-    string derivedString;
-    double derivedDouble;
+    bool derivedBool;
+    string derivedString;
+    double derivedDouble;
 }
 ```
 

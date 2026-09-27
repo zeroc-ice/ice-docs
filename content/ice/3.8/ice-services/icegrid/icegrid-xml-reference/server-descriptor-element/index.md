@@ -30,16 +30,16 @@ An optional nested [description](../description-descriptor-element) element prov
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<server id="MyServer"
-        activation="on-demand"
-        activation-timeout="60"
-        deactivation-timeout="60"
-        exe="/opt/app/bin/myserver"
-        pwd="/">
-    <option>--Ice.Trace.Network=1</option>
-    <env>PATH=/opt/Ice/bin:$PATH</env>
-    <property name="ServerId" value="${server}"/>
-    <adapter name="Adapter1" .../>
+<server id="MyServer"
+        activation="on-demand"
+        activation-timeout="60"
+        deactivation-timeout="60"
+        exe="/opt/app/bin/myserver"
+        pwd="/">
+    <option>--Ice.Trace.Network=1</option>
+    <env>PATH=/opt/Ice/bin:$PATH</env>
+    <property name="ServerId" value="${server}"/>
+    <adapter name="Adapter1" .../>
 </server>
 ```
 

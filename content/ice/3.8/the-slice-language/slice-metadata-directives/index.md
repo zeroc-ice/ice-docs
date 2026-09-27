@@ -7,7 +7,7 @@ title: Slice Metadata Directives
 Slice has the concept of a _metadata_ directive. For example:
 
 ```slice
-["java:type:java.util.LinkedList<Integer>"] sequence<int> IntSeq;
+["java:type:java.util.LinkedList<Integer>"] sequence<int> IntSeq;
 ```
 
 A metadata directive can appear as a prefix to any Slice definition. Metadata directives appear in a pair of square
@@ -15,7 +15,7 @@ brackets and contain one or more string literals separated by commas. For exampl
 valid metadata directive containing two strings:
 
 ```slice
-["a", "b"] interface Example {}
+["a", "b"] interface Example {}
 ```
 
 Metadata directives are not part of the Slice language per se: the presence of a metadata directive has no effect on the

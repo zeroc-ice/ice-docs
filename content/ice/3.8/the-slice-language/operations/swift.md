@@ -47,7 +47,7 @@ let greeter = try makeProxy(
     communicator: communicator, proxyString: "greeter:tcp -h localhost -p 4061",
     type: GreeterPrx.self)
 
-let greeting = try await greeter.greet("Alice") // Get name via RPC
+let greeting = try await greeter.greet("Alice") // Get name via RPC
 ```
 
 This code asynchronously calls `greet` on the proxy, which sends the request to the server, waits until the operation is
@@ -65,14 +65,14 @@ exception specification, may also throw [user exceptions](../local-and-dispatch-
 following simple interface:
 
 ```slice
-exception Tantrum
+exception Tantrum
 {
-    string reason;
+    string reason;
 }
 
-interface Child
+interface Child
 {
-    void askToCleanUp() throws Tantrum;
+    void askToCleanUp() throws Tantrum;
 }
 ```
 
@@ -80,12 +80,12 @@ Slice exceptions are thrown as Swift exceptions, so you can simply enclose one o
 do-`catch` block:
 
 ```swift
-let child: ChildPrx = ...   // Get child proxy...
+let child: ChildPrx = ...   // Get child proxy...
 
 do {
     try await child.askToCleanUp()
 } catch let t as Tantrum {
-    print("The child says: \(t.reason)")
+    print("The child says: \(t.reason)")
 }
 ```
 

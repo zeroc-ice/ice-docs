@@ -90,17 +90,17 @@ default values are used. The C++ and Java examples shown below illustrate how to
 Here is the C++ example:
 
 ```cpp
-IceStorm::QoS qos;
-qos["reliability"] = "ordered";
-topic->subscribeAndGetPublisher(qos, proxy->ice_twoway());
+IceStorm::QoS qos;
+qos["reliability"] = "ordered";
+topic->subscribeAndGetPublisher(qos, proxy->ice_twoway());
 ```
 
 Here is the Java example:
 
 ```java
-java.util.Map<String, String> qos = new java.util.HashMap<>();
-qos.put("reliability", "ordered");
-topic.subscribeAndGetPublisher(qos, proxy.ice_twoway());
+java.util.Map<String, String> qos = new java.util.HashMap<>();
+qos.put("reliability", "ordered");
+topic.subscribeAndGetPublisher(qos, proxy.ice_twoway());
 ```
 
 ##### See Also

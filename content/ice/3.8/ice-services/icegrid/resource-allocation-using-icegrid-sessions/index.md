@@ -22,25 +22,25 @@ In the absence of Glacier2, an IceGrid client invokes `createSession` or `create
 IceGrid's `Registry` interface to create a session:
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    exception PermissionDeniedException
+    exception PermissionDeniedException
     {
-        string reason;
+        string reason;
     }
 
     interface Session extends Glacier2::Session
     {
         ...
     }
- 
-    interface Registry
-    {
-        Session* createSession(string userId, string password)
-            throws PermissionDeniedException;
 
-        Session* createSessionFromSecureConnection()
-            throws PermissionDeniedException;
+    interface Registry
+    {
+        Session* createSession(string userId, string password)
+            throws PermissionDeniedException;
+
+        Session* createSessionFromSecureConnection()
+            throws PermissionDeniedException;
         ...
     }
 }
@@ -65,16 +65,16 @@ similar in other languages.
 
 ```cpp
 IceGrid::RegistryPrx registry{communicator, "IceGrid/Registry"};
-string username = ...; 
-string password = ...; 
-std::optional<IceGrid::SessionPrx> session; 
+string username = ...;
+string password = ...;
+std::optional<IceGrid::SessionPrx> session;
 try
-{ 
-    session = registry.createSession(username, password); 
+{
+    session = registry.createSession(username, password);
 }
-catch (const IceGrid::PermissionDeniedException& ex)
-{ 
-    cout << "permission denied:\n" << ex.reason << endl; 
+catch (const IceGrid::PermissionDeniedException& ex)
+{
+    cout << "permission denied:\n" << ex.reason << endl;
 }
 ```
 
@@ -132,34 +132,34 @@ A client allocates objects using the session proxy returned from `createSession`
 The proxy supports the `Session` interface shown below:
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    exception ObjectNotRegisteredException
+    exception ObjectNotRegisteredException
     {
-        Ice::Identity id;
+        Ice::Identity id;
     }
 
-    exception AllocationException
+    exception AllocationException
     {
-        string reason;
+        string reason;
     }
 
-    exception AllocationTimeoutException extends AllocationException 
+    exception AllocationTimeoutException extends AllocationException
     {
     }
 
-    interface Session extends Glacier2::Session 
+    interface Session extends Glacier2::Session
     {
-        Object* allocateObjectById(Ice::Identity id)
-            throws ObjectNotRegisteredException, AllocationException;
+        Object* allocateObjectById(Ice::Identity id)
+            throws ObjectNotRegisteredException, AllocationException;
 
-        Object* allocateObjectByType(string type)
-            throws AllocationException;
+        Object* allocateObjectByType(string type)
+            throws AllocationException;
 
-        void releaseObject(Ice::Identity id)
-            throws ObjectNotRegisteredException, AllocationException;
+        void releaseObject(Ice::Identity id)
+            throws ObjectNotRegisteredException, AllocationException;
 
-        idempotent void setAllocationTimeout(int timeout);
+        idempotent void setAllocationTimeout(int timeout);
     }
 }
 ```
@@ -242,22 +242,22 @@ As an example, the following application defines an allocatable server and an
 [allocatable object](../allocatable-descriptor-element):
 
 ```xml
-<icegrid> 
-    <application name="Ripper"> 
-        <node name="Node1"> 
-            <server id="EncoderServer" 
-                    exe="/opt/ripper/bin/server" 
-                    activation="on-demand"
-                    allocatable="true"> 
-                <adapter name="EncoderAdapter" 
-                         id="EncoderAdapter" 
-                         endpoints="tcp"> 
-                    <allocatable identity="EncoderFactory" 
-                                 type="::Ripper::MP3EncoderFactory"/> 
-                </adapter> 
-            </server> 
-        </node> 
-    </application>
+<icegrid>
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer"
+                    exe="/opt/ripper/bin/server"
+                    activation="on-demand"
+                    allocatable="true">
+                <adapter name="EncoderAdapter"
+                         id="EncoderAdapter"
+                         endpoints="tcp">
+                    <allocatable identity="EncoderFactory"
+                                 type="::Ripper::MP3EncoderFactory"/>
+                </adapter>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -267,44 +267,44 @@ We can use the allocation facility in our MP3 encoder factory to coordinate acce
 we need to modify the descriptors to define an allocatable object:
 
 ```xml
-<icegrid> 
-    <application name="Ripper"> 
-        <server-template id="EncoderServerTemplate"> 
-            <parameter name="index"/> 
-            <server id="EncoderServer${index}" 
-                    exe="/opt/ripper/bin/server" 
-                    activation="on-demand"> 
-                <adapter name="EncoderAdapter" 
+<icegrid>
+    <application name="Ripper">
+        <server-template id="EncoderServerTemplate">
+            <parameter name="index"/>
+            <server id="EncoderServer${index}"
+                    exe="/opt/ripper/bin/server"
+                    activation="on-demand">
+                <adapter name="EncoderAdapter"
                          endpoints="tcp">
-                    <allocatable identity="EncoderFactory${index}"
-                                 type="::Ripper::MP3EncoderFactory"/> 
-                </adapter> 
-            </server> 
-        </server-template> 
-        <node name="Node1"> 
-            <server-instance template="EncoderServerTemplate" index="1"/> 
-        </node> 
-        <node name="Node2"> 
-            <server-instance template="EncoderServerTemplate" index="2"/> 
-        </node> 
-    </application> 
+                    <allocatable identity="EncoderFactory${index}"
+                                 type="::Ripper::MP3EncoderFactory"/>
+                </adapter>
+            </server>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="EncoderServerTemplate" index="1"/>
+        </node>
+        <node name="Node2">
+            <server-instance template="EncoderServerTemplate" index="2"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
 Next, the client needs to create a session and allocate a factory:
 
 ```cpp
-auto obj = session->allocateObjectByType(
+auto obj = session->allocateObjectByType(
     Ripper::MP3EncoderFactory::ice_staticId());
 try
 {
-    auto encoder = factory->createEncoder(); 
-    // Use the encoder to encode a file ...
+    auto encoder = factory->createEncoder();
+    // Use the encoder to encode a file ...
 }
-catch (const Ice::LocalException& ex) 
+catch (const Ice::LocalException& ex)
 {
-    // There was a problem with the encoding, we catch the
-    // exception to make sure we release the factory.
+    // There was a problem with the encoding, we catch the
+    // exception to make sure we release the factory.
 }
 session->releaseObject(obj->ice_getIdentity());
 ```

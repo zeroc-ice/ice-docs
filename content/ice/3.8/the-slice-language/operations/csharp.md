@@ -43,10 +43,10 @@ namespace VisitorCenter
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
 
 ```csharp
-GreeterPrx greeter = GreeterPrxHelper.createProxy(
+GreeterPrx greeter = GreeterPrxHelper.createProxy(
     communicator, "greeter:tcp -h localhost -p 4061");
 
-string greeting = await greeter.GreetAsync("Alice");  // Get greeting via RPC
+string greeting = await greeter.GreetAsync("Alice");  // Get greeting via RPC
 ```
 
 # Sync and Async Methods
@@ -75,16 +75,16 @@ exception specification, may also throw [user exceptions](../local-and-dispatch-
 following simple interface:
 
 ```slice
-exception Tantrum
+exception Tantrum
 {
     ["cs:identifier:Reason"]
-    string reason;
+    string reason;
 }
 
-interface Child
+interface Child
 {
     ["cs:identifier:AskToCleanUp"]
-    void askToCleanUp() throws Tantrum;
+    void askToCleanUp() throws Tantrum;
 }
 ```
 
@@ -92,15 +92,15 @@ Slice exceptions are thrown as C# exceptions, so you can simply enclose one or m
 `try`-`catch` block:
 
 ```csharp
-ChildPrx child = ...;   // Get child proxy...
+ChildPrx child = ...;   // Get child proxy...
 
 try
 {
-    await child.AskToCleanUpAsync();
+    await child.AskToCleanUpAsync();
 }
-catch (Tantrum t)
+catch (Tantrum t)
 {
-    Console.WriteLine($"The child says: {t.Reason}");
+    Console.WriteLine($"The child says: {t.Reason}");
 }
 ```
 
@@ -171,12 +171,12 @@ To throw an exception from an operation implementation, you simply construct the
 ```csharp
 public override void Write(string[] text, Ice.Current current)
 {
-    // Try to write the file contents here...
-    // Assume we are out of space...
-    if (error)
+    // Try to write the file contents here...
+    // Assume we are out of space...
+    if (error)
     {
-        throw new Filesystem.WriteException("file too large");
-    }
+        throw new Filesystem.WriteException("file too large");
+    }
 }
 ```
 
@@ -218,20 +218,20 @@ In a modern C# application, you should always use AMI. The synchronous API is pr
 Consider the following Slice definition:
 
 ```slice
-module Demo
-{ 
-    interface Employees
+module Demo
+{
+    interface Employees
     {
         ["cs:identifier:GetName"]
-        string getName(int number);
-    }
+        string getName(int number);
+    }
 }
 ```
 
 `slice2cs` generates the following asynchronous proxy method:
 
 ```csharp
-public partial interface EmployeesPrx : Ice.ObjectPrx
+public partial interface EmployeesPrx : Ice.ObjectPrx
 {
     Task<string> GetNameAsync(
         int number,
@@ -252,8 +252,8 @@ The `GetNameAsync` method sends (or queues) an invocation of `getName`. This met
 It returns a `Task` that you typically await. Here's an example that calls `getNameAsync`:
 
 ```csharp
-EmployeesPrx e = ...;
-string name = await e.GetNameAsync(99);
+EmployeesPrx e = ...;
+string name = await e.GetNameAsync(99);
 ```
 
 # Asynchronous Exception Semantics
@@ -384,8 +384,8 @@ Consider the following Slice definitions:
 ```
 interface Controller
 {
-    ["amd"] void startProcess();
-    int endProcess();
+    ["amd"] void startProcess();
+    int endProcess();
 }
 ```
 
@@ -400,10 +400,10 @@ operation's in-parameters.
 For example, suppose we have defined the following operation:
 
 ```
-interface Example
+interface Example
 {
     ["cs:identifier:Op"]
-    string op(short s, out long l);
+    string op(short s, out long l);
 }
 ```
 
@@ -457,19 +457,19 @@ the parameter is the mapped C# type.
 Consider the following example:
 
 ```slice
-struct NumberAndString
+struct NumberAndString
 {
-    int x;
-    string str;
+    int x;
+    string str;
 }
 
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-dictionary<long, StringSeq> StringTable;
+dictionary<long, StringSeq> StringTable;
 
-interface ServerToClient
+interface ServerToClient
 {
-    ["cs:identifier:Op1"]
+    ["cs:identifier:Op1"]
     void op1(out int i, out float f, out bool b, out string s);
 
     ["cs:identifier:Op2"]

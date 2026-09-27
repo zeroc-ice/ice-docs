@@ -25,15 +25,15 @@ An optional nested [description](../description-descriptor-element) element prov
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<application name="MyApp">
-    <replica-group id="ReplicatedAdapter"
+<application name="MyApp">
+    <replica-group id="ReplicatedAdapter"
                    filter="myCustomFilter"
                    proxy-options="-e 1.0">
-        <load-balancing type="adaptive" load-sample="15" n-replicas="3"/>
-        <description>A description of this replica group.</description>
-        <object identity="WellKnownObject" .../>
-    </replica-group>
-    ...
+        <load-balancing type="adaptive" load-sample="15" n-replicas="3"/>
+        <description>A description of this replica group.</description>
+        <object identity="WellKnownObject" .../>
+    </replica-group>
+    ...
 </application>
 ```
 

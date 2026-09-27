@@ -18,22 +18,22 @@ defined two nearly identical servers:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <node name="Node1">
-            <server id="EncoderServer1"
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer1"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp"/>
-            </server>
-        </node>
-        <node name="Node2">
-            <server id="EncoderServer2"
+                <adapter name="EncoderAdapter" endpoints="tcp"/>
+            </server>
+        </node>
+        <node name="Node2">
+            <server id="EncoderServer2"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp"/>
-            </server>
-        </node>
-    </application>
+                <adapter name="EncoderAdapter" endpoints="tcp"/>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -42,22 +42,22 @@ shown below:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <server-template id="EncoderServerTemplate">
-            <parameter name="index"/>
-            <server id="EncoderServer${index}"
+    <application name="Ripper">
+        <server-template id="EncoderServerTemplate">
+            <parameter name="index"/>
+            <server id="EncoderServer${index}"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp"/>
-            </server>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="EncoderServerTemplate" index="1"/>
-        </node>
-        <node name="Node2">
-            <server-instance template="EncoderServerTemplate" index="2"/>
-        </node>
-    </application>
+                <adapter name="EncoderAdapter" endpoints="tcp"/>
+            </server>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="EncoderServerTemplate" index="1"/>
+        </node>
+        <node name="Node2">
+            <server-instance template="EncoderServerTemplate" index="2"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -85,24 +85,24 @@ each node. We can supply a default value for this attribute and override it when
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <server-template id="EncoderServerTemplate">
-            <parameter name="index"/>
-            <parameter name="exepath" default="/opt/ripper/bin/server"/>
-            <server id="EncoderServer${index}"
+    <application name="Ripper">
+        <server-template id="EncoderServerTemplate">
+            <parameter name="index"/>
+            <parameter name="exepath" default="/opt/ripper/bin/server"/>
+            <server id="EncoderServer${index}"
                     exe="${exepath}"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp"/>
-            </server>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="EncoderServerTemplate" index="1"/>
-        </node>
-        <node name="Node2">
-            <server-instance template="EncoderServerTemplate" index="2"
+                <adapter name="EncoderAdapter" endpoints="tcp"/>
+            </server>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="EncoderServerTemplate" index="1"/>
+        </node>
+        <node name="Node2">
+            <server-instance template="EncoderServerTemplate" index="2"
                 exepath="/opt/ripper-test/bin/server"/>
-        </node>
-    </application>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -125,16 +125,16 @@ template. You can define such properties in the `server-instance` element, for e
 
 ```xml
 <icegrid>
-    <application>
-        ...
-        <node name="Node2"> 
-            <server-instance template="EncoderServerTemplate" index="2"> 
-                <properties>
-                    <property name="Ice.Trace.Network" value="2"/>
-                </properties>
-            </server-instance>
-        </node> 
-    </application> 
+    <application>
+        ...
+        <node name="Node2">
+            <server-instance template="EncoderServerTemplate" index="2">
+                <properties>
+                    <property name="Ice.Trace.Network" value="2"/>
+                </properties>
+            </server-instance>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -151,11 +151,11 @@ The template file must use the structure shown below:
 
 ```xml
 <icegrid>
-    <application name="DefaultTemplates">
-        <server-template id="EncoderServerTemplate">
-            ...
-        </server-template>
-    </application>
+    <application name="DefaultTemplates">
+        <server-template id="EncoderServerTemplate">
+            ...
+        </server-template>
+    </application>
 </icegrid>
 ```
 
@@ -172,9 +172,9 @@ determines whether the default templates are imported, as shown in the following
 
 ```xml
 <icegrid>
-    <application name="Ripper" import-default-templates="true">
-        ...
-    </application>
+    <application name="Ripper" import-default-templates="true">
+        ...
+    </application>
 </icegrid>
 ```
 
@@ -192,25 +192,25 @@ icegridadmin --Ice.Config=/opt/ripper/config
 This command generates the following output:
 
 ```
-server template `EncoderServerTemplate'
+server template `EncoderServerTemplate'
 {
-    parameters = `index exepath'
-    server `EncoderServer${index}'
-    {
-        exe = `${exepath}'
-        activation = `on-demand'
-        properties
-        {
-            EncoderAdapter.Endpoints = `tcp'
-        }
-        adapter `EncoderAdapter'
-        {
-            id = `EncoderAdapter${index}'
-            replica group id = 
-            endpoints = `tcp'
-            server lifetime = `true'
-        }
-    }
+    parameters = `index exepath'
+    server `EncoderServer${index}'
+    {
+        exe = `${exepath}'
+        activation = `on-demand'
+        properties
+        {
+            EncoderAdapter.Endpoints = `tcp'
+        }
+        adapter `EncoderAdapter'
+        {
+            id = `EncoderAdapter${index}'
+            replica group id =
+            endpoints = `tcp'
+            server lifetime = `true'
+        }
+    }
 }
 ```
 

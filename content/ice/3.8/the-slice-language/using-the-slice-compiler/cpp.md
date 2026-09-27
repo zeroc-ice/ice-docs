@@ -24,7 +24,7 @@ You can also change the header file extension with a global metadata directive:
 ```slice
 [["cpp:header-ext:hpp"]]
 
-// ...
+// ...
 ```
 
 Only one such directive can appear in each source file. If you specify a header extension on both the command line and
@@ -33,10 +33,10 @@ compiled separately get the correct header extension (provided that the included
 metadata directive). For example:
 
 ```slice
-// File example.ice
-#include <Ice/BuiltinSequences.ice>
+// File example.ice
+#include <Ice/BuiltinSequences.ice>
 
-// ...
+// ...
 ```
 
 Compiling this file with
@@ -63,7 +63,7 @@ Slice file.)
 
 Changes the file extension for the generated source files from the default `cpp` to the extension specified by `EXT`.
 
-## `--add-header HDR[,GUARD]`
+## `--add-header HDR[,GUARD]`
 
 This option adds an include directive for the specified header at the beginning of the generated source file (preceding
 any other include directives). If `GUARD` is specified, the include directive is protected by the specified guard. For
@@ -71,9 +71,9 @@ example, `--add-header precompiled.h,__PRECOMPILED_H__` results in the following
 generated source file:
 
 ```cpp
-#ifndef __PRECOMPILED_H__
-#define __PRECOMPILED_H__
-#include <precompiled.h>
+#ifndef __PRECOMPILED_H__
+#define __PRECOMPILED_H__
+#include <precompiled.h>
 #endif
 ```
 
@@ -82,7 +82,7 @@ The option can be repeated to create include directives for several files.
 As suggested by the preceding example, this option is useful mainly to integrate the generated code with a compiler's
 precompiled header mechanism.
 
-## `--include-dir DIR`
+## `--include-dir DIR`
 
 Modifies `#include` directives in source files to prepend the path name of each header file with the directory `DIR`.
 

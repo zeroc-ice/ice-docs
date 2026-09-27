@@ -66,12 +66,12 @@ Slice default values map to default property values in Swift.
 For example:
 
 ```
-struct Location
+struct Location
 {
-    string name;
-    Point point;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point point;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 

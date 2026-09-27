@@ -13,13 +13,13 @@ properties.
 Consider the following structure:
 
 ```slice
-struct Point
+struct Point
 {
     ["cs:identifier:X"]
-    double x;
+    double x;
 
     ["cs:identifier:Y"]
-    double y;
+    double y;
 }
 ```
 
@@ -57,7 +57,7 @@ The generated record has a primary constructor that allows you to construct and 
 statement:
 
 ```csharp
-var p = new Point(5.1, 7.8);
+var p = new Point(5.1, 7.8);
 ```
 
 The generated constructor calls the `ice_initialize` partial method after initializing the fields. You can customize
@@ -68,13 +68,13 @@ and the record struct is itself readonly. For example:
 
 ```slice
 ["cs:readonly"]
-struct ReadOnlyPoint
+struct ReadOnlyPoint
 {
     ["cs:identifier:X"]
-    double x;
+    double x;
 
     ["cs:identifier:Y"]
-    double y;
+    double y;
 }
 ```
 
@@ -94,16 +94,16 @@ public readonly partial record struct ReadonlyPoint
 Here is our Employee structure once more:
 
 ```slice
-struct Employee
+struct Employee
 {
     ["cs:identifier:Number"]
-    long number;
+    long number;
 
     ["cs:identifier:FirstName"]
-    string firstName;
+    string firstName;
 
     ["cs:identifier:LastName"]
-    string lastName;
+    string lastName;
 }
 ```
 
@@ -160,13 +160,13 @@ except for fields with a Slice class type (they remain read-write).
 You can instruct the compiler to emit property definitions instead of public fields. For example:
 
 ```slice
-["cs:property"] struct Point
+["cs:property"] struct Point
 {
     ["cs:identifier:X"]
-    double x;
+    double x;
 
     ["cs:identifier:Y"]
-    double y;
+    double y;
 }
 ```
 

@@ -45,10 +45,10 @@ public interface GreeterPrx extends com.zeroc.Ice.ObjectPrx {
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
 
 ```java
-GreeterPrx greeter = GreeterPrx.createProxy(
+GreeterPrx greeter = GreeterPrx.createProxy(
     communicator, "greeter:tcp -h localhost -p 4061");
 
-String greeting = greeter.greet("Alice");  // Get name via RPC
+String greeting = greeter.greet("Alice");  // Get name via RPC
 ```
 
 # Sync and Async Methods
@@ -77,14 +77,14 @@ exception specification, may also throw [user exceptions](../local-and-dispatch-
 following simple interface:
 
 ```slice
-exception Tantrum
+exception Tantrum
 {
-    string reason;
+    string reason;
 }
 
-interface Child
+interface Child
 {
-    void askToCleanUp() throws Tantrum;
+    void askToCleanUp() throws Tantrum;
 }
 ```
 
@@ -92,13 +92,13 @@ Slice exceptions are thrown as Java exceptions, so you can simply enclose one or
 `try`-`catch` block:
 
 ```java
-ChildPrx child = ...;   // Get child proxy...
+ChildPrx child = ...;   // Get child proxy...
 
 try {
-    child.askToCleanUp();
-} catch (Tantrum t) {
-    System.out.write("The child says: ");
-    System.out.writeln(t.reason);
+    child.askToCleanUp();
+} catch (Tantrum t) {
+    System.out.write("The child says: ");
+    System.out.writeln(t.reason);
 }
 ```
 
@@ -166,11 +166,11 @@ To throw an exception from an operation implementation, you simply construct the
 ```java
 @Override
 public void write(String[] text, Current current) throws WriteException {
-    // Try to write the file contents here...
-    // Assume we are out of space...
-    if (error) {
-        throw new WriteException("file too large");
-    }
+    // Try to write the file contents here...
+    // Assume we are out of space...
+    if (error) {
+        throw new WriteException("file too large");
+    }
 }
 ```
 
@@ -235,9 +235,9 @@ The `InvocationFuture` methods allow you to poll for call completion. Polling is
 example, consider the following simple interface to transfer files from client to server:
 
 ```slice
-interface FileTransfer
+interface FileTransfer
 {
-    void send(int offset, ByteSeq bytes);
+    void send(int offset, ByteSeq bytes);
 }
 ```
 
@@ -245,15 +245,15 @@ The client repeatedly calls `send` to send a chunk of the file, indicating at wh
 belongs. A naïve way to transmit a file would be along the following lines:
 
 ```java
-FileHandle file = open(...);
-FileTransferPrx ft = ...;
-int chunkSize = ...;
-int offset = 0;
+FileHandle file = open(...);
+FileTransferPrx ft = ...;
+int chunkSize = ...;
+int offset = 0;
 while (!file.eof()) {
-    byte[] bs;
-    bs = file.read(chunkSize); // Read a chunk
-    ft.send(offset, bs);       // Send the chunk
-    offset += bs.length;
+    byte[] bs;
+    bs = file.read(chunkSize); // Read a chunk
+    ft.send(offset, bs);       // Send the chunk
+    offset += bs.length;
 }
 ```
 
@@ -265,41 +265,41 @@ data, and the server does nothing while it waits for the client to send the next
 Using asynchronous calls, we can improve on this considerably:
 
 ```java
-FileHandle file = open(...);
-FileTransferPrx ft = ...;
-int chunkSize = ...;
-int offset = 0;
+FileHandle file = open(...);
+FileTransferPrx ft = ...;
+int chunkSize = ...;
+int offset = 0;
 
-var results = new LinkedList<InvocationFuture<Void>>();
-int numRequests = 5;
+var results = new LinkedList<InvocationFuture<Void>>();
+int numRequests = 5;
 
 while (!file.eof()) {
-    byte[] bs;
-    bs = file.read(chunkSize);
+    byte[] bs;
+    bs = file.read(chunkSize);
 
-    // Send up to numRequests + 1 chunks asynchronously.
-    CompletableFuture<Void> f = ft.sendAsync(offset, bs);
-    offset += bs.length;
+    // Send up to numRequests + 1 chunks asynchronously.
+    CompletableFuture<Void> f = ft.sendAsync(offset, bs);
+    offset += bs.length;
 
-    // Wait until this request has been passed to the transport.
+    // Wait until this request has been passed to the transport.
     var i = (InvocationFuture<Void>)f;
-    i.waitForSent();
-    results.add(i);
+    i.waitForSent();
+    results.add(i);
 
-    // Once there are more than numRequests, wait for the least recent one to
+    // Once there are more than numRequests, wait for the least recent one to
     // complete.
-    while (results.size() > numRequests) {
-        i = results.getFirst();
-        results.removeFirst();
-        i.join();
-    }
+    while (results.size() > numRequests) {
+        i = results.getFirst();
+        results.removeFirst();
+        i.join();
+    }
 }
 
-// Wait for any remaining requests to complete.
-while (results.size() > 0) {
-    InvocationFuture<Void> i = results.getFirst();
-    results.removeFirst();
-    i.join();
+// Wait for any remaining requests to complete.
+while (results.size() > 0) {
+    InvocationFuture<Void> i = results.getFirst();
+    results.removeFirst();
+    i.join();
 }
 ```
 
@@ -430,8 +430,8 @@ Consider the following Slice definitions:
 ```slice
 interface Controller
 {
-    ["amd"] void startProcess();
-    int endProcess();
+    ["amd"] void startProcess();
+    int endProcess();
 }
 ```
 
@@ -450,9 +450,9 @@ exception.
 For example, suppose we have defined the following operation:
 
 ```
-interface Example
+interface Example
 {
-    string op(short s, out long count);
+    string op(short s, out long count);
 }
 ```
 
@@ -677,7 +677,7 @@ java.util.OptionalInt i;
 i = proxy.execute("--file log.txt");                        // required mapping
 i = proxy.execute(java.util.Optional.of("--file log.txt")); // optional mapping
 i = proxy.execute(java.util.Optional.empty());              // params is unset
- 
+
 if (i.isPresent()) {
     System.out.println("value = " + i.get());
 }
@@ -694,7 +694,7 @@ interface Widget
 {
     ...
 }
- 
+
 interface Repository
 {
     void addOptional(optional(1) Widget* widget);

@@ -29,30 +29,30 @@ ID is marshaled that indicates which class instance that field must eventually d
 following definitions:
 
 ```slice
-class C 
+class C
 {
-    // ...
+    // ...
 }
 
-struct S
+struct S
 {
-    int i;
-    C firstC;
-    C secondC;
-    C thirdC;
-    int j;
+    int i;
+    C firstC;
+    C secondC;
+    C thirdC;
+    int j;
 }
 ```
 
 Suppose we initialize a structure of type `S` as follows:
 
 ```cpp
-S myS;
-myS.i = 99;
-myS.firstC = make_shared<C>();  // New instance
-myS.secondC = nullptr;          // null
-myS.thirdC = myS.firstC;        // Same instance as previously
-myS.j = 100;
+S myS;
+myS.i = 99;
+myS.firstC = make_shared<C>();  // New instance
+myS.secondC = nullptr;          // null
+myS.thirdC = myS.firstC;        // Same instance as previously
+myS.j = 100;
 ```
 
 When this structure is marshaled, the contents of the three class fields are not marshaled in-line. Instead, the sender
@@ -110,30 +110,30 @@ of passes by marshaling an empty sequence (the value `0` encoded as a size).
 To illustrate this with an example.
 
 ```slice
-enum UnaryOp { UnaryPlus, UnaryMinus, Not }
-enum BinaryOp { Plus, Minus, Multiply, Divide, And, Or }
+enum UnaryOp { UnaryPlus, UnaryMinus, Not }
+enum BinaryOp { Plus, Minus, Multiply, Divide, And, Or }
 
-class Node 
+class Node
 {
-    idempotent long eval();
+    idempotent long eval();
 }
 
-class UnaryOperator extends Node 
+class UnaryOperator extends Node
 {
-    UnaryOp operator;
-    Node operand;
+    UnaryOp operator;
+    Node operand;
 }
 
-class BinaryOperator extends Node
+class BinaryOperator extends Node
 {
-    BinaryOp op;
-    Node operand1;
-    Node operand2;
+    BinaryOp op;
+    Node operand1;
+    Node operand2;
 }
 
-class Operand 
+class Operand
 {
-    long val;
+    long val;
 }
 ```
 
@@ -150,9 +150,9 @@ illustration above. (Even though it does not make sense to pass the same paramet
 illustration purposes):
 
 ```slice
-interface Tree 
+interface Tree
 {
-    void sendTree(Node p1, Node p2);
+    void sendTree(Node p1, Node p2);
 }
 ```
 
@@ -207,12 +207,12 @@ marshaled, as well as their in-degree.
 To provide another example, consider the following definition:
 
 ```slice
-class C
+class C
 {
-    // ...
+    // ...
 }
 
-sequence<C> CSeq;
+sequence<C> CSeq;
 ```
 
 Suppose the client marshals a sequence of 100 `C` instances to the server, with each instance being distinct. (That is,
@@ -247,7 +247,7 @@ class Node
     int value;
     Node next;
 }
- 
+
 struct S
 {
     Node obj;
@@ -355,20 +355,20 @@ It is important to note that when a graph of class instances is sent, it always 
 the receiver rebuilds the graph, it may end up with a disconnected graph, due to slicing. Consider:
 
 ```slice
-class Base 
+class Base
 {
-    // ...
+    // ...
 }
 
-class Derived extends Base
+class Derived extends Base
 {
-    // ...
-    Base b;
+    // ...
+    Base b;
 }
 
-interface Example
+interface Example
 {
-    void op(Base p);
+    void op(Base p);
 }
 ```
 
@@ -377,9 +377,9 @@ only understands type `Base`, so the derived part of a `Derived` instance is sli
 to be sent as parameter `p` as follows:
 
 ```cpp
-auto p = make_shared<Derived>();
-p->b = make_shared<Derived>();
-ExamplePrx e = ...;
+auto p = make_shared<Derived>();
+p->b = make_shared<Derived>();
+ExamplePrx e = ...;
 e.op(p);
 ```
 

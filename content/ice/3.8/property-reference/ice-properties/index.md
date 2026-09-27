@@ -425,12 +425,12 @@ empty string. The default name can be overridden by setting this property.
 
 #### Synopsis
 
-`Ice.RetryIntervals=num [num ...]`
+`Ice.RetryIntervals=num [num ...]`
 
 #### Description
 
 This property defines the number of times an operation is [automatically retried](../automatic-retries) and the delay
-between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
+between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
 after the first failure, again after waiting 100ms after the second failure, and again after waiting 500ms after the
 third failure. The default value (`0`) means Ice retries once immediately. If set to `-1`, no retry occurs.
 

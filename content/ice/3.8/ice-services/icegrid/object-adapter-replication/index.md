@@ -14,20 +14,20 @@ locate requests. Consider this example:
 
 ```xml
 <icegrid>
-    <application name="ReplicaApp">
-        <replica-group id="ReplicatedAdapter">
-            <object identity="TheObject" type="::Demo::ObjectType"/>
-        </replica-group>
-        <node name="Node">
-            <server id="ReplicaServer" 
+    <application name="ReplicaApp">
+        <replica-group id="ReplicatedAdapter">
+            <object identity="TheObject" type="::Demo::ObjectType"/>
+        </replica-group>
+        <node name="Node">
+            <server id="ReplicaServer"
                     activation="on-demand"
                     exe="/opt/replica/bin/server">
-                <adapter name="TheAdapter" 
+                <adapter name="TheAdapter"
                          endpoints="default"
                          replica-group="ReplicatedAdapter"/>
-            </server>
-        </node>
-    </application>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -80,29 +80,29 @@ Adding a replica group descriptor to our application is very straightforward:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <replica-group id="EncoderAdapters">
-            <object identity="EncoderFactory"
+    <application name="Ripper">
+        <replica-group id="EncoderAdapters">
+            <object identity="EncoderFactory"
                     type="::Ripper::MP3EncoderFactory"/>
-        </replica-group>
-        <server-template id="EncoderServerTemplate">
-            <parameter name="index"/>
-            <parameter name="exepath" default="/opt/ripper/bin/server"/>
-            <server id="EncoderServer${index}"
+        </replica-group>
+        <server-template id="EncoderServerTemplate">
+            <parameter name="index"/>
+            <parameter name="exepath" default="/opt/ripper/bin/server"/>
+            <server id="EncoderServer${index}"
                     exe="${exepath}"
                     activation="on-demand">
-                <adapter name="EncoderAdapter"
+                <adapter name="EncoderAdapter"
                          replica-group="EncoderAdapters"
-                         endpoints="tcp"/>
-            </server>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="EncoderServerTemplate" index="1"/>
-        </node>
-        <node name="Node2">
-            <server-instance template="EncoderServerTemplate" index="2"/>
-        </node>
-    </application>
+                         endpoints="tcp"/>
+            </server>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="EncoderServerTemplate" index="1"/>
+        </node>
+        <node name="Node2">
+            <server-instance template="EncoderServerTemplate" index="2"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -117,7 +117,7 @@ version of our client has become much simpler:
 
 ```cpp
 Ripper::MP3EncoderFactoryPrx factory{communicator, "EncoderFactory"};
-auto encoder = factory.createEncoder();
+auto encoder = factory.createEncoder();
 ```
 
 The client no longer needs to use the `IceGrid::Query` interface, but simply creates a proxy for a well-known object and

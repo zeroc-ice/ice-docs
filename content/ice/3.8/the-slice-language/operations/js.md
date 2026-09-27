@@ -58,7 +58,7 @@ const greeter = new VisitorCenter.Greeter(
     communicator,
     "greeter:tcp -h localhost -p 4061");
 
-const greeting = await greeter.greet("Alice");  // Get name via RPC
+const greeting = await greeter.greet("Alice");  // Get name via RPC
 ```
 
 Ice for JavaScript supports only **asynchronous method invocation (AMI)**. The JavaScript runtime does not provide a
@@ -77,14 +77,14 @@ exception specification, may also throw [user exceptions](../exceptions). Suppos
 interface:
 
 ```slice
-exception Tantrum
+exception Tantrum
 {
-    string reason;
+    string reason;
 }
 
-interface Child
+interface Child
 {
-    void askToCleanUp() throws Tantrum;
+    void askToCleanUp() throws Tantrum;
 }
 ```
 
@@ -92,7 +92,7 @@ Slice exceptions are thrown as JavaScript exceptions, so you can simply enclose 
 try-catch block:
 
 ```typescript
-const child = ...   // Get child proxy...
+const child = ...   // Get child proxy...
 
 try {
     await child.askToCleanUp();

@@ -52,8 +52,8 @@ namespace VisitorCenter
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
 
 ```cpp
-GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
-string greeting = greeter.greet("Alice");  // Get greeting via RPC
+GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
+string greeting = greeter.greet("Alice");  // Get greeting via RPC
 ```
 
 This code calls `greet` on the proxy class instance, which sends the request to the server, waits until the operation is
@@ -63,8 +63,8 @@ Because the return value is of type `string`, it is safe to ignore the return va
 contains no memory leak:
 
 ```cpp
-GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
-greeter.greet("Alice");  // Useless, but no leak
+GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
+greeter.greet("Alice");  // Useless, but no leak
 ```
 
 This is true for all mapped Slice types: you can safely ignore the return value of an operation, no matter what its type
@@ -98,14 +98,14 @@ exception specification, may also throw [user exceptions](../exceptions). Suppos
 interface:
 
 ```slice
-exception Tantrum
+exception Tantrum
 {
-    string reason;
+    string reason;
 }
 
-interface Child
+interface Child
 {
-    void askToCleanUp() throws Tantrum;
+    void askToCleanUp() throws Tantrum;
 }
 ```
 
@@ -113,14 +113,14 @@ Slice exceptions are thrown as C++ exceptions, so you can simply enclose one or 
 `try-catch` block:
 
 ```cpp
-ChildPrx child = ...;           // Get Child proxy...
+ChildPrx child = ...;           // Get Child proxy...
 try
 {
-    child.askToCleanUp();      // Give it a try...
-} 
-catch (const Tantrum& t)
+    child.askToCleanUp();      // Give it a try...
+}
+catch (const Tantrum& t)
 {
-    cout << "The child says: " << t.reason << endl;
+    cout << "The child says: " << t.reason << endl;
 }
 ```
 
@@ -192,14 +192,14 @@ To throw an exception from an operation implementation, you simply construct thi
 
 ```cpp
 void
-MFile::write(Filesystem::Lines text, const Ice::Current&)
+MFile::write(Filesystem::Lines text, const Ice::Current&)
 {
-    // Try to write the file contents here...
-    // Assume we are out of space...
-    if (error)
+    // Try to write the file contents here...
+    // Assume we are out of space...
+    if (error)
     {
-        throw Filesystem::WriteException{"file too large"};
-    }
+        throw Filesystem::WriteException{"file too large"};
+    }
 }
 ```
 
@@ -281,9 +281,9 @@ The future-based `Async` function allow you to poll for call completion. Polling
 example, consider the following simple interface to transfer files from client to server:
 
 ```slice
-interface FileTransfer
+interface FileTransfer
 {
-    void send(int offset, ByteSeq bytes);
+    void send(int offset, ByteSeq bytes);
 }
 ```
 
@@ -291,17 +291,17 @@ The client repeatedly calls `send` to send a chunk of the file, indicating at wh
 belongs. A naïve way to transmit a file would be along the following lines:
 
 ```cpp
-FileHandle file = open(...);
-FileTransferPrx ft = ...;
-const int chunkSize = ...;
+FileHandle file = open(...);
+FileTransferPrx ft = ...;
+const int chunkSize = ...;
 
-int offset = 0;
+int offset = 0;
 while (!file.eof())
 {
-    ByteSeq bs;
-    bs = file.read(chunkSize); // Read a chunk
-    ft.send(offset, bs);      // Send the chunk
-    offset += bs.size();
+    ByteSeq bs;
+    bs = file.read(chunkSize); // Read a chunk
+    ft.send(offset, bs);      // Send the chunk
+    offset += bs.size();
 }
 ```
 
@@ -313,39 +313,39 @@ data, and the server does nothing while it waits for the client to send the next
 Using asynchronous calls, we can improve on this considerably:
 
 ```cpp
-FileHandle file = open(...);
-FileTransferPrx ft = ...;
-const int chunkSize = ...;
-int offset = 0;
+FileHandle file = open(...);
+FileTransferPrx ft = ...;
+const int chunkSize = ...;
+int offset = 0;
 
-deque<future<void>> results;
-const int numRequests = 5;
+deque<future<void>> results;
+const int numRequests = 5;
 
 while (!file.eof())
 {
-    ByteSeq bs;
-    bs = file.read(chunkSize);
+    ByteSeq bs;
+    bs = file.read(chunkSize);
 
-    // Send up to numRequests + 1 chunks asynchronously.
-    auto fut = ft.sendAsync(offset, bs);
-    offset += bs.size();
+    // Send up to numRequests + 1 chunks asynchronously.
+    auto fut = ft.sendAsync(offset, bs);
+    offset += bs.size();
 
-    results.push_back(std::move(fut));
+    results.push_back(std::move(fut));
 
-    // Once there are more than numRequests, wait for the least
-    // recent one to complete.
-    while (results.size() > numRequests)
+    // Once there are more than numRequests, wait for the least
+    // recent one to complete.
+    while (results.size() > numRequests)
     {
-        results.front().get();
-        results.pop_front();
-    }
+        results.front().get();
+        results.pop_front();
+    }
 }
 
-// Wait for any remaining requests to complete.
+// Wait for any remaining requests to complete.
 while (!results.empty())
 {
-    results.front().get();
-    results.pop_front();
+    results.front().get();
+    results.pop_front();
 }
 ```
 
@@ -471,8 +471,8 @@ Consider the following Slice definitions:
 ```slice
 interface Controller
 {
-    ["amd"] void startProcess();
-    int endProcess();
+    ["amd"] void startProcess();
+    int endProcess();
 }
 ```
 
@@ -487,19 +487,19 @@ accepts the operation's in-parameters, followed by two callback parameters provi
 For example, suppose we have defined the following operation:
 
 ```slice
-interface Example
+interface Example
 {
-    string op(short s, out long l);
+    string op(short s, out long l);
 }
 ```
 
 Operation `op` is mapped as follows on the async skeleton (`AsyncExample`):
 
 ```cpp
-virtual void opAsync(
+virtual void opAsync(
     std::int16_t s,
     std::function<void(std::string_view returnValue, std::int64_t l)> response,
-    std::function<void(std::exception_ptr)> exception, 
+    std::function<void(std::exception_ptr)> exception,
     const Ice::Current& current) = 0;
 ```
 
@@ -595,33 +595,33 @@ the mapped C++ parameter is a non-const reference.
 Consider the following example:
 
 ```slice
-struct NumberAndString 
+struct NumberAndString
 {
-    int x;
-    string str;
+    int x;
+    string str;
 }
 
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-dictionary<long, StringSeq> StringTable;
+dictionary<long, StringSeq> StringTable;
 
-interface ServerToClient 
+interface ServerToClient
 {
-    void op1(out int i, out float f, out bool b, out string s);
-    void op2(out NumberAndString ns, out StringSeq ss, out StringTable st);
-    void op3(out ServerToClient* proxy);
+    void op1(out int i, out float f, out bool b, out string s);
+    void op2(out NumberAndString ns, out StringSeq ss, out StringTable st);
+    void op3(out ServerToClient* proxy);
 }
 ```
 
 The Slice compiler generates a proxy class for this definition (we omit the async overloads):
 
 ```cpp
-class ServerToClientPrx : public Ice::Proxy<ServerToClientPrx, Ice::ObjectPrx>
+class ServerToClientPrx : public Ice::Proxy<ServerToClientPrx, Ice::ObjectPrx>
 {
 public:
-    void op1(int& i, float& f, bool& b, std::string& s, const Ice::Context& = Ice::noExplicitContext);
-    void op2(NumberAndString& ns, StringSeq& ss, StringTable& st, const Ice::Context& = Ice::noExplicitContext);
-    void op3(std::optional<ServerToClientPrx>& proxy, const Ice::Context& = Ice::noExplicitContext);
+    void op1(int& i, float& f, bool& b, std::string& s, const Ice::Context& = Ice::noExplicitContext);
+    void op2(NumberAndString& ns, StringSeq& ss, StringTable& st, const Ice::Context& = Ice::noExplicitContext);
+    void op3(std::optional<ServerToClientPrx>& proxy, const Ice::Context& = Ice::noExplicitContext);
 };
 ```
 

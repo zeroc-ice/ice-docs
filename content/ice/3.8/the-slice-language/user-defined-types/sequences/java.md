@@ -8,7 +8,7 @@ type for a Slice sequence.
 For example:
 
 ```slice
-sequence<Fruit> FruitPlatter;
+sequence<Fruit> FruitPlatter;
 ```
 
 This definition simply corresponds to the Java type `Fruit[]`. Naturally, because Slice sequences are mapped to Java
@@ -16,8 +16,8 @@ arrays, you can take advantage of all the array functionality provided by Java, 
 cloning, and the `length` member. For example:
 
 ```java
-Fruit[] platter = { Fruit.Apple, Fruit.Pear };
-assert(platter.length == 2);
+Fruit[] platter = { Fruit.Apple, Fruit.Pear };
+assert(platter.length == 2);
 ```
 
 ## Customizing the Sequence Mapping with `java:type`
@@ -37,12 +37,12 @@ compile the generated code.
 For example, you can override the default mapping of a Slice sequence type:
 
 ```slice
-module Food
+module Food
 {
-    enum Fruit { Apple, Pear, Orange };
+    enum Fruit { Apple, Pear, Orange };
 
-    ["java:type:java.util.LinkedList<Fruit>"]
-    sequence<Fruit> FruitPlatter;
+    ["java:type:java.util.LinkedList<Fruit>"]
+    sequence<Fruit> FruitPlatter;
 }
 ```
 
@@ -65,7 +65,7 @@ point of definition:
 
 ```slice
 ["java:type:java.util.LinkedList<String>"]
-sequence<string> StringList;
+sequence<string> StringList;
 ```
 
 Defined in this manner, the Slice-to-Java compiler uses `java.util.List<String>` (the default formal type) for all
@@ -77,21 +77,21 @@ is more convenient in particular cases. The example below demonstrates how to ov
 field of a structure as well as for several operations:
 
 ```slice
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-struct S
+struct S
 {
-    ["java:type:java.util.LinkedList<String>"] StringSeq seq;
+    ["java:type:java.util.LinkedList<String>"] StringSeq seq;
 }
 
-interface I
+interface I
 {
-    ["java:type:java.util.ArrayList<String>"] StringSeq
-    modifiedReturnValue();
+    ["java:type:java.util.ArrayList<String>"] StringSeq
+    modifiedReturnValue();
 
-    void modifiedInParam(["java:type:java.util.ArrayList<String>"] StringSeq seq);
+    void modifiedInParam(["java:type:java.util.ArrayList<String>"] StringSeq seq);
 
-    void modifiedOutParam(out ["java:type:java.util.ArrayList<String>"] StringSeq seq);
+    void modifiedOutParam(out ["java:type:java.util.ArrayList<String>"] StringSeq seq);
 }
 ```
 
@@ -100,17 +100,17 @@ manually convert values from the original mapping to the modified mapping. For e
 `modifiedInParam` operation. The signature of its proxy operation is shown below:
 
 ```java
-void modifiedInParam(java.util.List<String> seq)
+void modifiedInParam(java.util.List<String> seq)
 ```
 
 The metadata changes the mapping of the `seq` parameter to `java.util.List`, which is the default formal type. If a
 caller has a `StringSeq` value in the original mapping, it must convert the array as shown in the following example:
 
 ```java
-String[] seq = new String[2];
-seq[0] = "hi";
-seq[1] = "there";
-IPrx proxy = ...;
+String[] seq = new String[2];
+seq[0] = "hi";
+seq[1] = "there";
+IPrx proxy = ...;
 proxy.modifiedInParam(java.util.Arrays.asList(seq));
 ```
 
@@ -152,7 +152,7 @@ buffer type for all occurrences of that sequence type:
 
 ```slice
 ["java:buffer"] sequence<int> Values;
- 
+
 struct Observation
 {
     int x;
@@ -178,13 +178,13 @@ The `java:buffer` directive can also be applied in more limited situations to ov
 
 ```slice
 sequence<byte> ByteSeq; // Maps to byte[]
- 
+
 struct Page
 {
     int offset;
     ["java:buffer"] ByteSeq data; // Maps to java.nio.ByteBuffer
 }
- 
+
 interface Decoder
 {
     ["java:buffer"] ByteSeq decode(ByteSeq data);
@@ -207,28 +207,28 @@ data type. For example:
 
 ```
 ["java:serializable:SomePackage.JavaClass"]
-sequence<byte> JavaObj;
+sequence<byte> JavaObj;
 
-struct MyStruct
+struct MyStruct
 {
-    int i;
-    JavaObj o;
+    int i;
+    JavaObj o;
 }
 
-interface Example
+interface Example
 {
-    void op(JavaObj inObj, MyStruct s, out JavaObj outObj);
+    void op(JavaObj inObj, MyStruct s, out JavaObj outObj);
 }
 ```
 
 The generated code for `MyStruct` contains a member `i` of type `int` and a member `o` of type `SomePackage.JavaClass`:
 
 ```
-public final class MyStruct implements java.lang.Cloneable
+public final class MyStruct implements java.lang.Cloneable
 {
-    public int i;
-    public SomePackage.JavaClass o;
-    // ...
+    public int i;
+    public SomePackage.JavaClass o;
+    // ...
 }
 ```
 
@@ -236,17 +236,17 @@ Similarly, the signature for `op` has parameters of type `JavaClass` and `MyStru
 `JavaClass`:
 
 ```
-SomePackage.JavaClass op(SomePackage.JavaClass inObj, MyStruct s);
+SomePackage.JavaClass op(SomePackage.JavaClass inObj, MyStruct s);
 ```
 
 Of course, your client and server code must have an implementation of `JavaClass` that derives from
 `java.io.Serializable`:
 
 ```
-package SomePackage;
-public class JavaClass implements java.io.Serializable
+package SomePackage;
+public class JavaClass implements java.io.Serializable
 {
-    // ...
+    // ...
 }
 ```
 

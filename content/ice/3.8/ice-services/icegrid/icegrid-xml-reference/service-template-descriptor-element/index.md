@@ -23,19 +23,19 @@ Here is an example to demonstrate the use of this element:
 
 ```xml
 <icegrid>
-    <application name="IceBoxApp">
-        <service-template id="ServiceTemplate">
-            <parameter name="name"/>
-            <service name="${name}" entry="DemoService:create">
-                <adapter name="${service}" .../>
-            </service>
-        </service-template>
-        <node name="Node1">
-            <icebox id="IceBoxServer" ...>
-                <service-instance template="ServiceTemplate" name="Service1"/>
-            </icebox>
-        </node>
-    </application>
+    <application name="IceBoxApp">
+        <service-template id="ServiceTemplate">
+            <parameter name="name"/>
+            <service name="${name}" entry="DemoService:create">
+                <adapter name="${service}" .../>
+            </service>
+        </service-template>
+        <node name="Node1">
+            <icebox id="IceBoxServer" ...>
+                <service-instance template="ServiceTemplate" name="Service1"/>
+            </icebox>
+        </node>
+    </application>
 </icegrid>
 ```
 

@@ -15,12 +15,12 @@ class A
 {
     int i;
 }
- 
+
 class B extends A
 {
     float f;
 }
- 
+
 class C extends B
 {
     string s;
@@ -87,7 +87,7 @@ situations. In this case the application can use metadata to enable the sliced f
 interface Ledger
 {
     Account getAccount(string id); // Uses compact format
- 
+
     ["format:sliced"]
     Account importAccount(string source); // Uses sliced format
 }
@@ -106,7 +106,7 @@ interface Ledger
 {
     ["format:compact"]
     Account getAccount(string id); // Uses compact format
- 
+
     Account importAccount(string source); // Uses sliced format
 }
 ```
@@ -206,17 +206,17 @@ class Base
 {
     int b;
 }
- 
+
 class Intermediate extends Base
 {
     int i;
 }
- 
+
 class Derived extends Intermediate
 {
     int d;
 }
- 
+
 
 interface Relay
 {

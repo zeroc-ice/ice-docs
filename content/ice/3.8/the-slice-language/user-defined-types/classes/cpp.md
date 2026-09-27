@@ -9,11 +9,11 @@ Slice field (just as for [structures](../structures) and [exceptions](../excepti
 definition:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
+    short hour;         // 0 - 23
+    short minute;       // 0 - 59
+    short second;       // 0 - 59
     string tz;          // e.g. GMT, PST, EDT...
 }
 ```
@@ -24,7 +24,7 @@ The Slice compiler generates the following code for this definition:
 class TimeOfDay;
 using TimeOfDayPtr = std::shared_ptr<TimeOfDay>;
 
-class TimeOfDay : public Ice::Value
+class TimeOfDay : public Ice::Value
 {
 public:
     TimeOfDay() noexcept = default;
@@ -36,9 +36,9 @@ public:
 
     [[nodiscard]] TimeOfDayPtr ice_clone() const;
 
-    std::int16_t hour;
-    std::int16_t minute;
-    std::int16_t second;
+    std::int16_t hour;
+    std::int16_t minute;
+    std::int16_t second;
     std::string tz;
 };
 ```
@@ -71,14 +71,14 @@ For derived classes, the one-shot constructor has one parameter for each of the 
 parameter for each of the derived class's data members, in base-to-derived order. For example:
 
 ```slice
-class Base 
+class Base
 {
-    int i;
+    int i;
 }
 
-class Derived extends Base
+class Derived extends Base
 {
-    string s;
+    string s;
     string greeting = "hello";
 }
 ```

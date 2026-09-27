@@ -20,12 +20,12 @@ the `Process` facet.
 The Slice interface `Ice::Process` allows an activation service to request a graceful shutdown of the program:
 
 ```slice
-module Ice
+module Ice
 {
-    interface Process
+    interface Process
     {
-        void shutdown();
-        void writeMessage(string message, int fd);
+        void shutdown();
+        void writeMessage(string message, int fd);
     }
 }
 ```

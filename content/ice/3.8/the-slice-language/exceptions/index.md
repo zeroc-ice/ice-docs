@@ -16,7 +16,7 @@ struct TimeOfDay
 
 interface Clock
 {
-    idempotent void setTime(TimeOfDay time);
+    idempotent void setTime(TimeOfDay time);
 }
 ```
 
@@ -29,13 +29,13 @@ Slice-defined exceptions are called _user exceptions_.
 For example:
 
 ```slice
-exception TimeException {} // Empty exceptions are legal
+exception TimeException {} // Empty exceptions are legal
 
-exception RangeException
+exception RangeException
 {
-    TimeOfDay errorTime;
-    TimeOfDay minTime;
-    TimeOfDay maxTime;
+    TimeOfDay errorTime;
+    TimeOfDay minTime;
+    TimeOfDay maxTime;
 }
 ```
 
@@ -57,11 +57,11 @@ the implementation of an operation. Operations use an exception specification to
 returned to the client:
 
 ```slice
-interface Clock
+interface Clock
 {
-    idempotent TimeOfDay getTime();
-    idempotent void setTime(TimeOfDay time)
-        throws RangeException, TimeException;
+    idempotent TimeOfDay getTime();
+    idempotent void setTime(TimeOfDay time)
+        throws RangeException, TimeException;
 }
 ```
 
@@ -100,33 +100,33 @@ ordinary data type.
 Slice Exceptions support inheritance. For example:
 
 ```slice
-exception BaseException 
+exception BaseException
 {
-    string reason;
+    string reason;
 }
 
-enum RTError
+enum RTError
 {
-    DivideByZero, NegativeRoot, IllegalNull /* ... */
+    DivideByZero, NegativeRoot, IllegalNull /* ... */
 }
 
-exception RuntimeException extends BaseException
+exception RuntimeException extends BaseException
 {
-    RTError err;
+    RTError err;
 }
 
-enum LError { ValueOutOfRange, ValuesInconsistent, /* ... */ }
+enum LError { ValueOutOfRange, ValuesInconsistent, /* ... */ }
 
-exception LogicException extends BaseException
+exception LogicException extends BaseException
 {
-    LError err;
+    LError err;
 }
 
-exception RangeException extends LogicException
+exception RangeException extends LogicException
 {
-    TimeOfDay errorTime;
-    TimeOfDay minTime;
-    TimeOfDay maxTime;
+    TimeOfDay errorTime;
+    TimeOfDay minTime;
+    TimeOfDay maxTime;
 }
 ```
 
@@ -146,20 +146,20 @@ Note that, if the exception specification of an operation indicates a specific e
 implementation of the operation may also throw more derived exceptions. For example:
 
 ```slice
-exception BaseException
+exception BaseException
 {
-    // ...
+    // ...
 }
 
-exception DerivedException extends BaseException
+exception DerivedException extends BaseException
 {
-    // ...
+    // ...
 }
 
-interface Example
+interface Example
 {
-    // May throw BaseException or DerivedException
-    void op() throws BaseException;
+    // May throw BaseException or DerivedException
+    void op() throws BaseException;
 }
 ```
 
@@ -170,14 +170,14 @@ As a system evolves, it is quite common for new, derived exceptions to be added 
 initially construct clients and server with the following definitions:
 
 ```slice
-exception AppException
+exception AppException
 {
-    // ...
+    // ...
 }
 
-interface Application
+interface Application
 {
-    void doSomething() throws AppException;
+    void doSomething() throws AppException;
 }
 ```
 
@@ -186,19 +186,19 @@ easily upgrade all the clients. As the application evolves, a new exception is a
 redeployed with the new definition:
 
 ```slice
-exception AppException
+exception AppException
 {
-    // ...
+    // ...
 }
 
-exception FatalApplicationException extends AppException
+exception FatalApplicationException extends AppException
 {
-    // ...
+    // ...
 }
 
-interface Application
+interface Application
 {
-    void doSomething() throws AppException;
+    void doSomething() throws AppException;
 }
 ```
 

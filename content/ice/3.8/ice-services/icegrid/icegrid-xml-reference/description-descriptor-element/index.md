@@ -12,8 +12,8 @@ This element may only appear as a child of the [application](../application-desc
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<node name="localnode">
-    <description>Free form descriptive text for localnode</description>
+<node name="localnode">
+    <description>Free form descriptive text for localnode</description>
 </node>
 ```
 

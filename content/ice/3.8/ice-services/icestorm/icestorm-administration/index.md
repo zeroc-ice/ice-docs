@@ -34,29 +34,29 @@ interactive session. The `help` command displays the following usage information
 
 - `exit, quit` Exit this program.
 
-- `create TOPICS` Add `TOPICS`.
+- `create TOPICS` Add `TOPICS`.
 
-- `destroy TOPICS` Remove `TOPICS`.
+- `destroy TOPICS` Remove `TOPICS`.
 
 - `link` `FROM TO` `[COST]` Link `FROM` to `TO` with the optional `COST`.
 
 - `unlink` `FROM TO` Unlink `TO` from `FROM`.
 
-- `links [INSTANCE-NAME]` Without an argument, `links` displays the links of all topics in the current topic manager.
+- `links [INSTANCE-NAME]` Without an argument, `links` displays the links of all topics in the current topic manager.
   You can specify a different topic manager by providing its instance name.
 
-- `topics [INSTANCE-NAME]` Without an argument, `topics` displays the names of all topics in the current topic manager.
+- `topics [INSTANCE-NAME]` Without an argument, `topics` displays the names of all topics in the current topic manager.
   You can specify a different topic manager by providing its instance name.
 
-- `current [INSTANCE-NAME]` Set the current topic manager to the topic manager with instance name `INSTANCE-NAME`. The
+- `current [INSTANCE-NAME]` Set the current topic manager to the topic manager with instance name `INSTANCE-NAME`. The
   proxy of the corresponding topic manager must be specified by setting an
   [IceStormAdmin.TopicManager._name_](../icestorm-properties) property. Without an argument, the command shows the
   current topic manager.
 
-- `replica [INSTANCE-NAME]` Display [replication information](../highly-available-icestorm) for the given
+- `replica [INSTANCE-NAME]` Display [replication information](../highly-available-icestorm) for the given
   `INSTANCE-NAME`.
 
-- `subscribers TOPICS` Displays the identities of the subscribers for each of the `TOPICS`.
+- `subscribers TOPICS` Displays the identities of the subscribers for each of the `TOPICS`.
 
 Some of the commands accept one or more topic names (`TOPICS`) as arguments. Topic names containing white space or
 matching a command keyword must be enclosed in single or double quotes.
@@ -69,9 +69,9 @@ If you are using multiple topic managers, you can specify their proxies by setti
 [IceStormAdmin.TopicManager._name_](../icestormadmin-properties) for each topic manager. For example:
 
 ```
-IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
-IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9996
-IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h z -p 9995
+IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
+IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9996
+IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h z -p 9995
 ```
 
 This sets the proxies for three topic managers. Note that `name` need not match the instance name of the corresponding
@@ -80,7 +80,7 @@ topic can now specify a topic manager other than the default topic manager that 
 `IceStormAdmin.TopicManager.Default`. For example:
 
 ```
-current Foo
+current Foo
 create myTopic
 create Bar/myOtherTopic
 ```

@@ -11,10 +11,10 @@ All mapped operations on proxies provide a trailing parameter representing the _
 of this parameter is as follows:
 
 ```slice
-module Ice 
+module Ice
 {
     ["cpp:type:std::map<std::string, std::string, std::less<>>"]
-    dictionary<string, string> Context;
+    dictionary<string, string> Context;
 }
 ```
 

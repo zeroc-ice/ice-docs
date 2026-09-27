@@ -17,10 +17,10 @@ The proxy options are encoded as if they were members of the following structure
 ```slice
 struct ProxyData
 {
-    Ice::Identity id;
-    Ice::StringSeq facet;
-    byte mode;
-    bool secure;
+    Ice::Identity id;
+    Ice::StringSeq facet;
+    byte mode;
+    bool secure;
 }
 ```
 
@@ -48,7 +48,7 @@ struct ProtocolVersion
     byte major;
     byte minor;
 }
- 
+
 struct EncodingVersion
 {
     byte major;
@@ -56,10 +56,10 @@ struct EncodingVersion
 }
 struct ProxyData
 {
-    Ice::Identity id;
-    Ice::StringSeq facet;
-    byte mode;
-    bool secure;
+    Ice::Identity id;
+    Ice::StringSeq facet;
+    byte mode;
+    bool secure;
     ProtocolVersion protocol;
     EncodingVersion encoding;
 }
@@ -103,10 +103,10 @@ A TCP endpoint is encoded as an encapsulation containing the following structure
 ```slice
 struct TCPEndpointData
 {
-    string host;
-    int port;
-    int timeout;
-    bool compress;
+    string host;
+    int port;
+    int timeout;
+    bool compress;
 }
 ```
 
@@ -130,13 +130,13 @@ A UDP endpoint is encoded as an encapsulation containing the following structure
 ```slice
 struct UDPEndpointData
 {
-    string host;
-    int port;
-    byte protocolMajor;
-    byte protocolMinor;
-    byte encodingMajor;
-    byte encodingMinor;
-    bool compress;
+    string host;
+    int port;
+    byte protocolMajor;
+    byte protocolMinor;
+    byte encodingMajor;
+    byte encodingMinor;
+    bool compress;
 }
 ```
 
@@ -160,9 +160,9 @@ instead:
 ```slice
 struct UDPEndpointData
 {
-    string host;
-    int port;
-    bool compress;
+    string host;
+    int port;
+    bool compress;
 }
 ```
 
@@ -181,10 +181,10 @@ An SSL endpoint is encoded as an encapsulation containing the following structur
 ```slice
 struct SSLEndpointData
 {
-    string host;
-    int port;
-    int timeout;
-    bool compress;
+    string host;
+    int port;
+    int timeout;
+    bool compress;
 }
 ```
 
@@ -204,10 +204,10 @@ A WebSocket endpoint is encoded as an encapsulation containing the following str
 ```slice
 struct WSEndpointData
 {
-    string host;
-    int port;
-    int timeout;
-    bool compress;
+    string host;
+    int port;
+    int timeout;
+    bool compress;
     string resource;
 }
 ```
@@ -229,10 +229,10 @@ A secure WebSocket endpoint is encoded as an encapsulation containing the follow
 ```slice
 struct WSSEndpointData
 {
-    string host;
-    int port;
-    int timeout;
-    bool compress;
+    string host;
+    int port;
+    int timeout;
+    bool compress;
     string resource;
 }
 ```
@@ -254,10 +254,10 @@ A Bluetooth endpoint is encoded as an encapsulation containing the following str
 ```slice
 struct BTEndpointData
 {
-    string addr;
-    string uuid;
-    int timeout;
-    bool compress;
+    string addr;
+    string uuid;
+    int timeout;
+    bool compress;
 }
 ```
 
@@ -277,10 +277,10 @@ A secure Bluetooth endpoint is encoded as an encapsulation containing the follow
 ```slice
 struct BTSEndpointData
 {
-    string addr;
-    string uuid;
-    int timeout;
-    bool compress;
+    string addr;
+    string uuid;
+    int timeout;
+    bool compress;
 }
 ```
 
@@ -300,12 +300,12 @@ An iAP endpoint is encoded as an encapsulation containing the following structur
 ```slice
 struct IAPEndpointData
 {
-    string manufacturer;
-    string modelNumber;
+    string manufacturer;
+    string modelNumber;
     string name;
     string protocol;
-    int timeout;
-    bool compress;
+    int timeout;
+    bool compress;
 }
 ```
 
@@ -327,12 +327,12 @@ A secure iAP endpoint is encoded as an encapsulation containing the following st
 ```slice
 struct IAPSEndpointData
 {
-    string manufacturer;
-    string modelNumber;
+    string manufacturer;
+    string modelNumber;
     string name;
     string protocol;
-    int timeout;
-    bool compress;
+    int timeout;
+    bool compress;
 }
 ```
 

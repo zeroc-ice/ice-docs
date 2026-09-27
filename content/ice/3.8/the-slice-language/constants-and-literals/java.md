@@ -3,41 +3,41 @@
 Here are the sample constant definitions once more:
 
 ```slice
-const bool AppendByDefault = true;
-const byte LowerNibble = 0x0f;
-const string Advice = "Don't Panic!";
-const short  TheAnswer = 42;
-const double PI = 3.1416;
+const bool AppendByDefault = true;
+const byte LowerNibble = 0x0f;
+const string Advice = "Don't Panic!";
+const short  TheAnswer = 42;
+const double PI = 3.1416;
 
-enum Fruit { Apple, Pear, Orange }
-const Fruit FavoriteFruit = Pear;
+enum Fruit { Apple, Pear, Orange }
+const Fruit FavoriteFruit = Pear;
 ```
 
 Here are the generated definitions for these constants:
 
 ```java
-public interface AppendByDefault {
-    boolean value = true;
+public interface AppendByDefault {
+    boolean value = true;
 }
 
-public interface LowerNibble {
-    byte value = 15;
+public interface LowerNibble {
+    byte value = 15;
 }
 
-public interface Advice {
-    String value = "Don't Panic!";
+public interface Advice {
+    String value = "Don't Panic!";
 }
 
-public interface TheAnswer {
-    short value = 42;
+public interface TheAnswer {
+    short value = 42;
 }
 
-public interface PI {
-    double value = 3.1416;
+public interface PI {
+    double value = 3.1416;
 }
 
-public interface FavoriteFruit {
-    Fruit value = Fruit.Pear;
+public interface FavoriteFruit {
+    Fruit value = Fruit.Pear;
 }
 ```
 
@@ -59,11 +59,11 @@ is mapped to:
 public interface Egg {
     String value = "\u0153uf";
 }
- 
+
 public interface Heart {
     String value = "c\u0153ur";
 }
- 
+
 public interface Banana {
     String value = "\ud83c\udf4c";
 }

@@ -55,8 +55,8 @@ Substitution is not supported for values of other types. The example below demon
 ```xml
 <variable name="server-lifetime" value="true"/>
 <node name="Node">
-    <server id="Server1" ...>
-        <adapter name="Adapter1" server-lifetime=${server-lifetime} .../>
+    <server id="Server1" ...>
+        <adapter name="Adapter1" server-lifetime=${server-lifetime} .../>
 ```
 
 In this case, a variable cannot supply the value of `server-lifetime` because that attribute expects a boolean value,
@@ -113,18 +113,18 @@ example, the following example represents a valid use of the `${node}` variable:
 
 ```xml
 <icegrid>
-    <application name="App">
-        <server-template id="T" ...>
-            <parameter name="id"/>
-            <server id="${id}" ...>
-                <property name="NodeName" value="${node}"/>
-                ...
-            </server>
-        </server-template>
-        <node name="TheNode">
-            <server-instance template="T" id="TheServer"/>
-        </node>
-    </application>
+    <application name="App">
+        <server-template id="T" ...>
+            <parameter name="id"/>
+            <server id="${id}" ...>
+                <property name="NodeName" value="${node}"/>
+                ...
+            </server>
+        </server-template>
+        <node name="TheNode">
+            <server-instance template="T" id="TheServer"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -171,25 +171,25 @@ when an IceBox server template instantiates a service template, as shown in the 
 
 ```xml
 <icegrid>
-    <application name="IceBoxApp">
-        <service-template id="ServiceTemplate">
-            <parameter name="name"/>
-            <service name="${name}" entry="DemoService:create">
-                ...
-                <property name="${name}.Identity"
-                          value="${id}-${name}"/> <!-- WRONG! -->
-            </service>
-        </service-template>
-        <server-template id="ServerTemplate">
-            <parameter name="id"/>
-            <icebox id="${id}" endpoints="default" ...>
-                <service-instance template="ServiceTemplate" name="Service1"/>
-            </icebox>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="ServerTemplate" id="IceBoxServer"/>
-        </node>
-    </application>
+    <application name="IceBoxApp">
+        <service-template id="ServiceTemplate">
+            <parameter name="name"/>
+            <service name="${name}" entry="DemoService:create">
+                ...
+                <property name="${name}.Identity"
+                          value="${id}-${name}"/> <!-- WRONG! -->
+            </service>
+        </service-template>
+        <server-template id="ServerTemplate">
+            <parameter name="id"/>
+            <icebox id="${id}" endpoints="default" ...>
+                <service-instance template="ServiceTemplate" name="Service1"/>
+            </icebox>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="ServerTemplate" id="IceBoxServer"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -199,10 +199,10 @@ Template parameters can be referenced only in the body of a template; they canno
 For example, the following is illegal:
 
 ```xml
-<server-template id="ServerTemplate">
-    <parameter name="par1"/>
-    <parameter name="par2" default="${par1}"/>
-    ...
+<server-template id="ServerTemplate">
+    <parameter name="par1"/>
+    <parameter name="par2" default="${par1}"/>
+    ...
 </server-template>
 ```
 
@@ -213,11 +213,11 @@ If a variable is defined multiple times in the same scope (which is only relevan
 definition is used for all references to that variable. Consider the following example:
 
 ```xml
-<application name="MyApp">
-    <variable name="x" value="1"/>
-    <variable name="y" value="${x}"/>
-    <variable name="x" value="2"/>
-    ...
+<application name="MyApp">
+    <variable name="x" value="1"/>
+    <variable name="y" value="${x}"/>
+    <variable name="x" value="2"/>
+    ...
 </application>
 ```
 

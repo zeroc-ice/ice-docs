@@ -8,11 +8,11 @@ A Slice class maps to a Python dataclass with the same name. The generated class
 (just as for structures and exceptions). Consider the following class definition:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
+    short hour;         // 0 - 23
+    short minute;       // 0 - 59
+    short second;       // 0 - 59
 }
 ```
 
@@ -26,7 +26,7 @@ class TimeOfDay(Value):
     second: int = 0
     tz: str = ""
 
-    # ...
+    # ...
 ```
 
 The generated class `TimeOfDay` inherits from `Ice.Value`. This means that all classes implicitly inherit from

@@ -40,8 +40,8 @@ For example, the descriptor shown below uses adaptive load balancing to return t
 object adapters sampled with five-minute intervals:
 
 ```xml
-<replica-group id="ReplicatedAdapter">
-    <load-balancing type="adaptive" load-sample="5" n-replicas="2"/>
+<replica-group id="ReplicatedAdapter">
+    <load-balancing type="adaptive" load-sample="5" n-replicas="2"/>
 </replica-group>
 ```
 
@@ -89,30 +89,30 @@ The only change we need to make to the ripper application is the addition of a l
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <replica-group id="EncoderAdapters">
-            <load-balancing type="adaptive"/>
-            <object identity="EncoderFactory"
+    <application name="Ripper">
+        <replica-group id="EncoderAdapters">
+            <load-balancing type="adaptive"/>
+            <object identity="EncoderFactory"
                     type="::Ripper::MP3EncoderFactory"/>
-        </replica-group>
-        <server-template id="EncoderServerTemplate">
-            <parameter name="index"/>
-            <parameter name="exepath" default="/opt/ripper/bin/server"/>
-            <server id="EncoderServer${index}"
+        </replica-group>
+        <server-template id="EncoderServerTemplate">
+            <parameter name="index"/>
+            <parameter name="exepath" default="/opt/ripper/bin/server"/>
+            <server id="EncoderServer${index}"
                     exe="${exepath}"
                     activation="on-demand">
-                <adapter name="EncoderAdapter"
+                <adapter name="EncoderAdapter"
                          replica-group="EncoderAdapters"
-                         endpoints="tcp"/>
-            </server>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="EncoderServerTemplate" index="1"/>
-        </node>
-        <node name="Node2">
-            <server-instance template="EncoderServerTemplate" index="2"/>
-        </node>
-    </application>
+                         endpoints="tcp"/>
+            </server>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="EncoderServerTemplate" index="1"/>
+        </node>
+        <node name="Node2">
+            <server-instance template="EncoderServerTemplate" index="2"/>
+        </node>
+    </application>
 </icegrid>
 ```
 

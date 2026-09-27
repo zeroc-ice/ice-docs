@@ -8,12 +8,12 @@ On the client side, a Slice interface maps to a C++ proxy class with member func
 on that interface. Consider the following Slice interface:
 
 ```slice
-module M
+module M
 {
-    interface Simple
+    interface Simple
     {
-        void op();
-    }
+        void op();
+    }
 }
 ```
 
@@ -160,47 +160,47 @@ for each operation on the corresponding interface. For example, consider our Sli
 interface:
 
 ```slice
-module VisitorCenter
+module VisitorCenter
 {
-    interface Greeter
+    interface Greeter
     {
-        string greet(string name);
-    }
+        string greet(string name);
+    }
 }
 ```
 
 The Slice compiler generates the following classes for this interface:
 
 ```cpp
-namespace VisitorCenter
+namespace VisitorCenter
 {
-    class Greeter : public virtual Ice::Object
+    class Greeter : public virtual Ice::Object
     {
-    public:
+    public:
         void dispatch(
             IncomingRequest& request,
             std::function<void(OutgoingResponse)> sendResponse) override;
 
-        virtual std::string greet(std::string name, const Ice::Current&) = 0;
+        virtual std::string greet(std::string name, const Ice::Current&) = 0;
 
-        // ...
-    };
+        // ...
+    };
 
-    class AsyncGreeter : public virtual Ice::Object
+    class AsyncGreeter : public virtual Ice::Object
     {
-    public:
+    public:
         void dispatch(
             IncomingRequest& request,
             std::function<void(OutgoingResponse)> sendResponse) override;
 
-        virtual void greetAsync(
+        virtual void greetAsync(
             std::string name,
             std::function<void(std::string_view returnValue)> response,
             std::function<void(std::exception_ptr)> exception,
-            const Ice::Current&) = 0;
-        // ...
-    };
-    // ...
+            const Ice::Current&) = 0;
+        // ...
+    };
+    // ...
 }
 ```
 
@@ -244,12 +244,12 @@ In order to provide an implementation for an Ice object, you must create a serva
 generated skeleton classes. For example, to create a servant for the `Greeter` interface, you could write:
 
 ```cpp
-#include "Greeter.h" // Slice-generated header
+#include "Greeter.h" // Slice-generated header
 
-class Chatbot : public VisitorCenter::Greeter
+class Chatbot : public VisitorCenter::Greeter
 {
 public:
-    std::string greet(std::string name, const Ice::Current&) override;
+    std::string greet(std::string name, const Ice::Current&) override;
 };
 ```
 

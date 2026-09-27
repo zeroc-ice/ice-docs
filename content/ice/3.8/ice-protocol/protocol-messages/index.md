@@ -22,14 +22,14 @@ Each protocol message has a 14-byte header that is encoded as if it were the fol
 ```slice
 struct HeaderData
 {
-    int  magic;
-    byte protocolMajor;
-    byte protocolMinor;
-    byte encodingMajor;
-    byte encodingMinor;
-    byte messageType;
-    byte compressionStatus;
-    int  messageSize;
+    int  magic;
+    byte protocolMajor;
+    byte protocolMinor;
+    byte encodingMajor;
+    byte encodingMinor;
+    byte messageType;
+    byte compressionStatus;
+    int  messageSize;
 }
 ```
 
@@ -70,13 +70,13 @@ object, the operation name, and input parameters. A request message is encoded a
 ```slice
 struct RequestData
 {
-    int requestId;
-    Ice::Identity id;
-    Ice::StringSeq facet;
-    string operation;
-    byte mode;
-    Ice::Context context;
-    Encapsulation params;
+    int requestId;
+    Ice::Identity id;
+    Ice::StringSeq facet;
+    string operation;
+    byte mode;
+    Ice::Context context;
+    Encapsulation params;
 }
 ```
 
@@ -109,12 +109,12 @@ batch, followed by the corresponding number of requests, encoded as if each requ
 ```slice
 struct BatchRequestData
 {
-    Ice::Identity id;
-    Ice::StringSeq facet;
-    string operation;
-    byte mode;
-    Ice::Context context;
-    Encapsulation params;
+    Ice::Identity id;
+    Ice::StringSeq facet;
+    string operation;
+    byte mode;
+    Ice::Context context;
+    Encapsulation params;
 }
 ```
 
@@ -143,9 +143,9 @@ A reply message body is encoded as if it were the following structure:
 ```slice
 struct ReplyData
 {
-    int requestId;
-    byte replyStatus;
-    byte[messageSize - 19] replyPayload; // pseudo-Slice
+    int requestId;
+    byte replyStatus;
+    byte[messageSize - 19] replyPayload; // pseudo-Slice
 }
 ```
 

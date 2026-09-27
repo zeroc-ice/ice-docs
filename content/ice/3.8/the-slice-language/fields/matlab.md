@@ -74,19 +74,19 @@ Slice default values are mapped to default MATLAB property values.
 For example:
 
 ```
-struct Location
+struct Location
 {
     ["matlab:identifier:Name"]
-    string name;
+    string name;
 
     ["matlab:identifier:Point"]
-    Point point;
+    Point point;
 
     ["matlab:identifier:Display"]
-    bool display = true;
+    bool display = true;
 
     ["matlab:identifier:Source"]
-    string source = "GPS";
+    string source = "GPS";
 }
 ```
 

@@ -71,19 +71,19 @@ Slice default values map to default values in C#.
 For example:
 
 ```
-struct Location
+struct Location
 {
     ["cs:identifier:Name"]
-    string name;
+    string name;
 
     ["cs:identifier:Point"]
-    Point point;
+    Point point;
 
     ["cs:identifier:Display"]
-    bool display = true;
+    bool display = true;
 
     ["cs:identifier:Source"]
-    string source = "GPS";
+    string source = "GPS";
 }
 ```
 

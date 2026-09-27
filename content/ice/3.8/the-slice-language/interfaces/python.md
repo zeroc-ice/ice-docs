@@ -8,16 +8,16 @@ On the client side, a Slice interface maps to a Python class with methods that c
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+interface Simple
 {
-    void op();
+    void op();
 }
 ```
 
 The Python mapping generates the following definition for use by the client:
 
 ```py
-class SimplePrx(Ice.ObjectPrx):
+class SimplePrx(Ice.ObjectPrx):
 
     def op(self, context: dict[str, str] | None = None) -> None:
         ...
@@ -76,7 +76,7 @@ from `C`'s base interfaces.
 The Python mapping for a proxy also generates 3 static methods for converting a proxy into a proxy of another type:
 
 ```py
-class SimplePrx(Ice.ObjectPrx):
+class SimplePrx(Ice.ObjectPrx):
     @staticmethod
     def uncheckedCast(proxy, facet=None)
 
@@ -154,21 +154,21 @@ your servant class and define a method for each operation on the corresponding i
 Slice definition for the `Node` interface:
 
 ```slice
-module Filesystem
+module Filesystem
 {
-    interface Node
+    interface Node
     {
-        idempotent string name();
-    }
-    // ...
+        idempotent string name();
+    }
+    // ...
 }
 ```
 
 The Python mapping generates the following definition for this interface:
 
 ```py
-class Node(Ice.Object, ABC):
-    @abstractmethod
+class Node(Ice.Object, ABC):
+    @abstractmethod
     def name(self, current: Current) -> str | Awaitable[str]:
         pass
 ```

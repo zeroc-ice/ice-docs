@@ -20,8 +20,8 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<adapter name="MyAdapter" id="WellKnownAdapter" ...>
-    <object identity="WellKnownObject"
+<adapter name="MyAdapter" id="WellKnownAdapter" ...>
+    <object identity="WellKnownObject"
             type="::Module::WellKnownInterface"
             proxy-options="-o"/>
 </adapter>

@@ -83,12 +83,12 @@ configure the node to use a user account mapper object. This object must impleme
 interface:
 
 ```slice
-exception UserAccountNotFoundException {}
+exception UserAccountNotFoundException {}
 
-interface UserAccountMapper
+interface UserAccountMapper
 {
-    string getUserAccount(string user)
-            throws UserAccountNotFoundException;
+    string getUserAccount(string user)
+            throws UserAccountNotFoundException;
 }
 ```
 

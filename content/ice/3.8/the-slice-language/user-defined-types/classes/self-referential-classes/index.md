@@ -7,10 +7,10 @@ Classes can be self-referential.
 For example:
 
 ```slice
-class Link
+class Link
 {
-    SomeType value;
-    Link next;
+    SomeType value;
+    Link next;
 }
 ```
 
@@ -23,27 +23,27 @@ Self-referential classes are particularly useful to model graphs. For example, w
 along the following lines:
 
 ```slice
-enum UnaryOp { UnaryPlus, UnaryMinus, Not }
-enum BinaryOp { Plus, Minus, Multiply, Divide, And, Or }
+enum UnaryOp { UnaryPlus, UnaryMinus, Not }
+enum BinaryOp { Plus, Minus, Multiply, Divide, And, Or }
 
-class Node {}
+class Node {}
 
-class UnaryOperator extends Node
+class UnaryOperator extends Node
 {
-    UnaryOp operator;
-    Node operand;
+    UnaryOp operator;
+    Node operand;
 }
 
-class BinaryOperator extends Node
+class BinaryOperator extends Node
 {
-    BinaryOp op;
-    Node operand1;
-    Node operand2;
+    BinaryOp op;
+    Node operand1;
+    Node operand2;
 }
 
-class Operand extends Node
+class Operand extends Node
 {
-    long val;
+    long val;
 }
 ```
 
@@ -55,9 +55,9 @@ If we write an operation that, for example, accepts a `Node` parameter, passing 
 of the entire tree to the server:
 
 ```slice
-interface Evaluator
+interface Evaluator
 {
-    long eval(Node expression); // Send entire tree for evaluation
+    long eval(Node expression); // Send entire tree for evaluation
 }
 ```
 

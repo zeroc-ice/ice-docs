@@ -31,17 +31,17 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<application name="Simple">
-   <properties id="Debug">
-        <property name="Ice.Trace.Network" value="1"/>
-   </properties>
+<application name="Simple">
+   <properties id="Debug">
+        <property name="Ice.Trace.Network" value="1"/>
+   </properties>
 
-    <server id="MyServer" exe="./server">
-        <properties>
-            <properties refid="Debug"/>
-            <property name="AppProperty" value="1"/>
-        </properties>
-    </server>
+    <server id="MyServer" exe="./server">
+        <properties>
+            <properties refid="Debug"/>
+            <property name="AppProperty" value="1"/>
+        </properties>
+    </server>
 </application>
 ```
 

@@ -16,14 +16,14 @@ Here are a few examples:
 ```slice
 module M
 {
-    const bool AppendByDefault = true;
-    const byte LowerNibble = 0x0f;
-    const string Advice = "Don't Panic!";
-    const short TheAnswer = 42;
-    const double PI = 3.1416;
+    const bool AppendByDefault = true;
+    const byte LowerNibble = 0x0f;
+    const string Advice = "Don't Panic!";
+    const short TheAnswer = 42;
+    const double PI = 3.1416;
 
-    enum Fruit { Apple, Pear, Orange }
-    const Fruit FavoriteFruit = Pear;
+    enum Fruit { Apple, Pear, Orange }
+    const Fruit FavoriteFruit = Pear;
 }
 ```
 
@@ -41,9 +41,9 @@ Integer literals can be specified in decimal, octal, or hexadecimal notation.
 For example:
 
 ```slice
-const byte TheAnswer = 42;
-const byte TheAnswerInOctal = 052;
-const byte TheAnswerInHex = 0x2A;       // or 0x2a
+const byte TheAnswer = 42;
+const byte TheAnswerInOctal = 052;
+const byte TheAnswerInHex = 0x2A;       // or 0x2a
 ```
 
 Be aware that, if you interpret `byte` as a number instead of a bit pattern, you may get different results in different
@@ -53,8 +53,8 @@ signed type.
 Note that suffixes to indicate long and unsigned constants (`l`, `L`, `u`, `U`, used by C++) are illegal:
 
 ```slice
-const long Wrong = 0u;          // Syntax error
-const long WrongToo = 1000000L; // Syntax error
+const long Wrong = 0u;          // Syntax error
+const long WrongToo = 1000000L; // Syntax error
 ```
 
 The value of an integer literal must be within the range of its constant type, as shown in the
@@ -68,12 +68,12 @@ floating-point constant; however, `f` and `F` are legal (but are ignored).
 Here are a few examples:
 
 ```slice
-const float P1 = -3.14f;    // Integer & fraction, with suffix
-const float P2 = +3.1e-3;   // Integer, fraction, and exponent
-const float P3 = .1;        // Fraction part only
-const float P4 = 1.;        // Integer part only
-const float P5 = .9E5;      // Fraction part and exponent
-const float P6 = 5e2;       // Integer part and exponent
+const float P1 = -3.14f;    // Integer & fraction, with suffix
+const float P2 = +3.1e-3;   // Integer, fraction, and exponent
+const float P3 = .1;        // Fraction part only
+const float P4 = 1.;        // Integer part only
+const float P5 = .9E5;      // Fraction part and exponent
+const float P6 = 5e2;       // Integer part and exponent
 ```
 
 Floating-point literals must be within the range of the constant type (`float` or `double`); otherwise, the compiler
@@ -114,26 +114,26 @@ characters; non-printable ASCII characters (such as an unescaped tab) are not al
 Here are some examples:
 
 ```slice
-const string AnOrdinaryString = "Hello World!";
+const string AnOrdinaryString = "Hello World!";
 
-const string DoubleQuote = "\"";
-const string TwoSingleQuotes = "'\'"; // ' and \' are OK
+const string DoubleQuote = "\"";
+const string TwoSingleQuotes = "'\'"; // ' and \' are OK
 const string QuestionMark = "\?";
 const string Backslash = "\\";
 const string AudibleBell = "\a";
 const string Backspace = "\b";
 const string FormFeed = "\f";
-const string Newline = "\n";
-const string CarriageReturn = "\r";
-const string HorizontalTab = "\t";
-const string VerticalTab = "\v";
+const string Newline = "\n";
+const string CarriageReturn = "\r";
+const string HorizontalTab = "\t";
+const string VerticalTab = "\v";
 
-const string OctalEscape = "\007"; // Same as \a
-const string HexEscape1 = "\x07"; // Ditto
+const string OctalEscape = "\007"; // Same as \a
+const string HexEscape1 = "\x07"; // Ditto
 const string HexEscape2 = "\x41F"; // Same as AF
 const string Universal1 = "\u0041"; // Same as A
 const string Universal2 = "\U00000041"; // Ditto
- 
+
 const string EuroSign1 =  "€";   // Euro sign (U+20AC)
 // Euro sign as a short universal character name
 const string EuroSign2 = "\u20AC";
@@ -148,7 +148,7 @@ const string EuroSign6 = "\342\x82\254";
 ```
 
 ```slice
-const string NullString = null;    // Illegal!
+const string NullString = null;    // Illegal!
 ```
 
 Null strings simply do not exist in Slice and, therefore, do not exist as a legal value for a string anywhere in the Ice
@@ -162,11 +162,11 @@ type, but the value of the existing constant must be compatible with the type of
 Consider the examples below:
 
 ```slice
-const int SIZE = 500;
+const int SIZE = 500;
 
-const int DEFAULT_SIZE = SIZE; // OK
-const short SHORT_SIZE = SIZE; // OK
-const byte BYTE_SIZE = SIZE; // ERROR
+const int DEFAULT_SIZE = SIZE; // OK
+const short SHORT_SIZE = SIZE; // OK
+const byte BYTE_SIZE = SIZE; // ERROR
 ```
 
 The `DEFAULT_SIZE` constant is legal because it has the same type as `SIZE`, and `SHORT_SIZE` is legal because the value

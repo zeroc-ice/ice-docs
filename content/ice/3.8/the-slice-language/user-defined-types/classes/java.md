@@ -8,11 +8,11 @@ A Slice class is mapped to a Java class with the same name. The generated class 
 field (just as for structures and exceptions). Consider the following class definition:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
+    short hour;         // 0 - 23
+    short minute;       // 0 - 59
+    short second;       // 0 - 59
     string tz;          // e.g. GMT, PST, EDT...
 }
 ```
@@ -23,12 +23,12 @@ The Slice compiler generates the following code for this definition:
 public class TimeOfDay extends com.zeroc.Ice.Value {
     public TimeOfDay();
     public TimeOfDay(short hour, short minute, short second, String tz);
- 
+
     public short hour;
     public short minute;
     public short second;
     public String tz;
- 
+
     public TimeOfDay clone();
 
     ...
@@ -57,60 +57,60 @@ The canonical constructor accepts one argument for each field of the class. This
 class in a single statement, for example:
 
 ```java
-TimeOfDay tod = new TimeOfDay(14, 45, 00, "PST"); // 14:45pm PST
+TimeOfDay tod = new TimeOfDay(14, 45, 00, "PST"); // 14:45pm PST
 ```
 
 For derived classes, the constructor requires an argument for every field of the class, including inherited members. For
 example, consider the the definition from [Class Inheritance](../class-inheritance) once more:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
+    short hour;         // 0 - 23
+    short minute;       // 0 - 59
+    short second;       // 0 - 59
 }
 
-class DateTime extends TimeOfDay
+class DateTime extends TimeOfDay
 {
-    short day;          // 1 - 31
-    short month;        // 1 - 12
-    short year;         // 1753 onwards
+    short day;          // 1 - 31
+    short month;        // 1 - 12
+    short year;         // 1753 onwards
 }
 ```
 
 The constructors for the generated classes are as follows:
 
 ```java
-public class TimeOfDay extends ... {
-    public TimeOfDay() {}
+public class TimeOfDay extends ... {
+    public TimeOfDay() {}
 
-    public TimeOfDay(short hour, short minute, short second) {
-        this.hour = hour;
-        this.minute = minute;
-        this.second = second;
-    }
+    public TimeOfDay(short hour, short minute, short second) {
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+    }
 
-    // ...
+    // ...
 }
 
-public class DateTime extends TimeOfDay {
-    public DateTime() {}
+public class DateTime extends TimeOfDay {
+    public DateTime() {}
 
-    public DateTime(
-        short hour, 
-        short minute, 
-        short second,
-        short day, 
-        short month, 
-        short year) {
-        super(hour, minute, second);
-        this.day = day;
-        this.month = month;
-        this.year = year;
-    }
+    public DateTime(
+        short hour,
+        short minute,
+        short second,
+        short day,
+        short month,
+        short year) {
+        super(hour, minute, second);
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
 
-    // ...
+    // ...
 }
 ```
 

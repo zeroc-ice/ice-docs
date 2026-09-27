@@ -10,11 +10,11 @@ of an alarm clock:
 ```slice
 module M
 {
-    interface AlarmClock extends Clock
+    interface AlarmClock extends Clock
     {
-        idempotent TimeOfDay getAlarmTime();
-        idempotent void setAlarmTime(TimeOfDay alarmTime)
-            throws BadTimeValException;
+        idempotent TimeOfDay getAlarmTime();
+        idempotent void setAlarmTime(TimeOfDay alarmTime)
+            throws BadTimeValException;
     }
 }
 ```
@@ -28,18 +28,18 @@ Multiple interface inheritance is also possible. For example, we can construct a
 ```slice
 module M
 {
-    interface Radio
+    interface Radio
     {
-        void setFrequency(long hertz) throws GenericException;
-        void setVolume(long dB) throws GenericException;
+        void setFrequency(long hertz) throws GenericException;
+        void setVolume(long dB) throws GenericException;
     }
 
-    enum AlarmMode { RadioAlarm, BeepAlarm }
+    enum AlarmMode { RadioAlarm, BeepAlarm }
 
-    interface RadioClock extends Radio, AlarmClock
+    interface RadioClock extends Radio, AlarmClock
     {
-        void setMode(AlarmMode mode);
-        AlarmMode getMode();
+        void setMode(AlarmMode mode);
+        AlarmMode getMode();
     }
 }
 ```
@@ -55,10 +55,10 @@ Interfaces that inherit from more than one base interface may share a common bas
 definition is legal:
 
 ```slice
-interface B { /* ... */ }
-interface I1 extends B { /* ... */ }
-interface I2 extends B { /* ... */ }
-interface D extends I1, I2 { /* ... */ }
+interface B { /* ... */ }
+interface I1 extends B { /* ... */ }
+interface I2 extends B { /* ... */ }
+interface D extends I1, I2 { /* ... */ }
 ```
 
 This definition results in the familiar diamond shape:DiamondShaped
@@ -71,19 +71,19 @@ If an interface uses multiple inheritance, it must not inherit the same operatio
 interface. For example, the following definition is illegal:
 
 ```slice
-interface Clock
+interface Clock
 {
-    void set(TimeOfDay time);                   // set time
+    void set(TimeOfDay time);                   // set time
 }
 
-interface Radio
+interface Radio
 {
-    void set(long hertz);                       // set frequency
+    void set(long hertz);                       // set frequency
 }
 
-interface RadioClock extends Radio, Clock     // Illegal!
+interface RadioClock extends Radio, Clock     // Illegal!
 {
-    // ...
+    // ...
 }
 ```
 
@@ -104,10 +104,10 @@ All Slice interfaces are ultimately derived from `Object`. For example, the
 Because all interfaces have a common base interface, we can pass any type of interface as that type. For example:
 
 ```slice
-interface ProxyStore 
+interface ProxyStore
 {
-    idempotent void putProxy(string name, Object* o);
-    idempotent Object* getProxy(string name);
+    idempotent void putProxy(string name, Object* o);
+    idempotent Object* getProxy(string name);
 }
 ```
 
@@ -121,7 +121,7 @@ avoid hard-coding proxy details into clients and servers.
 Inheritance from type `Object` is always implicit. For example, the following Slice definition is illegal:
 
 ```slice
-interface MyInterface extends Object { /* ... */ } // Error!
+interface MyInterface extends Object { /* ... */ } // Error!
 ```
 
 It is understood that all interfaces inherit from type `Object`; you are not allowed to restate that.

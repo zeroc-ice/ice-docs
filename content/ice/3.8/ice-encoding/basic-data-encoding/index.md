@@ -25,10 +25,10 @@ following structure:
 ```slice
 struct Encapsulation
 {
-    int size;
-    byte major;
-    byte minor;
-    // [... size - 6 bytes ...]
+    int size;
+    byte major;
+    byte minor;
+    // [... size - 6 bytes ...]
 }
 ```
 

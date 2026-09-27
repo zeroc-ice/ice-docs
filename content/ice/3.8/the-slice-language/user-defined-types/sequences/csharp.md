@@ -18,21 +18,21 @@ By default, the Slice-to-C# compiler maps sequences to arrays. Interestingly, no
 simply define an array of elements to model the Slice sequence. For example:
 
 ```slice
-sequence<Fruit> FruitPlatter;
+sequence<Fruit> FruitPlatter;
 ```
 
 Given this definition, to create a sequence containing an apple and an orange, you could write:
 
 ```csharp
-Fruit[] fp = { Fruit.Apple, Fruit.Orange };
+Fruit[] fp = { Fruit.Apple, Fruit.Orange };
 ```
 
 Or, alternatively:
 
 ```csharp
-Fruit fp[] = new Fruit[2];
-fp[0] = Fruit.Apple;
-fp[1] = Fruit.Orange;
+Fruit fp[] = new Fruit[2];
+fp[0] = Fruit.Apple;
+fp[1] = Fruit.Orange;
 ```
 
 The array mapping for sequences is both simple and efficient, especially for sequences that do not need to provide
@@ -44,10 +44,10 @@ With metadata directives, you can change the default mapping for sequences to us
 example:
 
 ```slice
-["cs:generic:List"] sequence<string> StringSeq;
-["cs:generic:LinkedList"] sequence<Fruit> FruitSeq;
-["cs:generic:Queue"] sequence<int> IntQueue;
-["cs:generic:Stack"] sequence<double> DoubleStack;
+["cs:generic:List"] sequence<string> StringSeq;
+["cs:generic:LinkedList"] sequence<Fruit> FruitSeq;
+["cs:generic:Queue"] sequence<int> IntQueue;
+["cs:generic:Stack"] sequence<double> DoubleStack;
 ```
 
 The `"cs:generic:`<_type_>`"` metadata directive causes the `slice2cs` compiler to the map the corresponding sequence to
@@ -65,16 +65,16 @@ is supported because it provides the functionality required for efficient unmars
 other generic type is ignored with a warning:
 
 ```slice
-class MyClass
+class MyClass
 {
-    // ...
+    // ...
 }
 
 ["cs:generic:List"]
-sequence<MyClass> MyClassList; // OK
+sequence<MyClass> MyClassList; // OK
 
 ["cs:generic:LinkedList"]
-sequence<MyClass> MyClassLinkedList; // Ignored
+sequence<MyClass> MyClassLinkedList; // Ignored
 ```
 
 In this example, sequence type `MyClassList` maps to the generic container `System.Collections.Generic.List<MyClass>`,
@@ -87,7 +87,7 @@ need a priority queue, which does not come with .NET), you can implement your ow
 `slice2cs` to map sequences to these custom containers. For example:
 
 ```slice
-["cs:generic:MyTypes.PriorityQueue"] sequence<int> Queue;
+["cs:generic:MyTypes.PriorityQueue"] sequence<int> Queue;
 ```
 
 This metadata directive causes the Slice `Queue` sequence to be mapped to the type `MyTypes.PriorityQueue`. You must
@@ -106,17 +106,17 @@ Your custom type can have whatever interface you deem appropriate, but it must m
 As an example, here is a minimal class (omitting implementation) that meets these criteria:
 
 ```csharp
-public class PriorityQueue<T> : IEnumerable<T>
+public class PriorityQueue<T> : IEnumerable<T>
 {
-    public IEnumerator<T> GetEnumerator();
+    public IEnumerator<T> GetEnumerator();
 
-    public int Count { get; }
+    public int Count { get; }
 
-    public void Add(T element);
+    public void Add(T element);
 
-    public T this[int index] { get; set; } // Needed for class elements only.
+    public T this[int index] { get; set; } // Needed for class elements only.
 
-    // Other methods and data members here...
+    // Other methods and data members here...
 }
 ```
 
@@ -125,9 +125,9 @@ public class PriorityQueue<T> : IEnumerable<T>
 Slice permits you to define sequences of sequences, for example:
 
 ```slice
-enum Fruit { Apple, Orange, Pear }
-["cs:generic:List"] sequence<Fruit> FruitPlatter;
-["cs:generic:LinkedList"] sequence<FruitPlatter> Cornucopia;
+enum Fruit { Apple, Orange, Pear }
+["cs:generic:List"] sequence<Fruit> FruitPlatter;
+["cs:generic:LinkedList"] sequence<FruitPlatter> Cornucopia;
 ```
 
 If we use these definitions as shown, the type of FruitPlatter in the generated code is:
@@ -141,9 +141,9 @@ Here the outer sequence contains elements of type `List<Fruit>`, as you would ex
 Now let us modify the definition to change the mapping of `FruitPlatter` to an array:
 
 ```slice
-enum Fruit { Apple, Orange, Pear }
-sequence<Fruit> FruitPlatter;
-["cs:generic:LinkedList"] sequence<FruitPlatter> Cornucopia;
+enum Fruit { Apple, Orange, Pear }
+sequence<Fruit> FruitPlatter;
+["cs:generic:LinkedList"] sequence<FruitPlatter> Cornucopia;
 ```
 
 With this definition, the type of `Cornucopia` becomes:

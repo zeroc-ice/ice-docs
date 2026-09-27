@@ -31,7 +31,7 @@ below:
 # On systems using sysvinit, configure the icegridregistry to start at the
 # default run levels:
 sudo chkconfig icegridregistry on
- 
+
 # On systems using systemd, start icegridregistry with the multi-user target
 sudo systemctl enable icegridregistry.service
 ```

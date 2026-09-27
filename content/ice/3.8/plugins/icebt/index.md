@@ -96,7 +96,7 @@ omitted a device address, so the plug-in will listen on the host's default Bluet
 particular RFCOMM channel (using the `-c` option) and therefore the plug-in will automatically select an available
 channel.
 
-If you omit the `-u UUID` option from the object adapter's endpoint, the plug-in will automatically generate a random
+If you omit the `-u UUID` option from the object adapter's endpoint, the plug-in will automatically generate a random
 UUID for use in the SDP registry. Note however that your clients will still need some way of discovering this UUID.
 Generally speaking, you should generate and use your own well-known UUIDs instead.
 

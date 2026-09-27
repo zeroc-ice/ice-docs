@@ -83,14 +83,14 @@ shared library (on other platforms). As an example, compiling a Slice file `Widg
 results in the following additional code being generated into `Widget.h`:
 
 ```cpp
-#ifndef WIDGET_API
+#ifndef WIDGET_API
 #   if defined(ICE_STATIC_LIBS)
 #       define WIDGET_API /**/
-#   ifdef WIDGET_API_EXPORTS
-#       define WIDGET_API ICE_DECLSPEC_EXPORT
-#   else
-#       define WIDGET_API ICE_DECLSPEC_IMPORT
-#   endif
+#   ifdef WIDGET_API_EXPORTS
+#       define WIDGET_API ICE_DECLSPEC_EXPORT
+#   else
+#       define WIDGET_API ICE_DECLSPEC_IMPORT
+#   endif
 #endif
 ```
 

@@ -12,17 +12,17 @@ The central focus of Slice is on defining interfaces, for example:
 ```slice
 module M
 {
-    struct TimeOfDay
+    struct TimeOfDay
     {
-        short hour;         // 0 - 23
-        short minute;       // 0 - 59
-        short second;       // 0 - 59
+        short hour;         // 0 - 23
+        short minute;       // 0 - 59
+        short second;       // 0 - 59
     }
 
-    interface Clock
+    interface Clock
     {
-        TimeOfDay getTime();
-        void setTime(TimeOfDay time);
+        TimeOfDay getTime();
+        void setTime(TimeOfDay time);
     }
 }
 ```
@@ -67,7 +67,7 @@ interfaces in different address spaces.
 The following Slice definition is legal:
 
 ```slice
-interface Empty {}
+interface Empty {}
 ```
 
 The Slice compiler will compile this definition without complaint. An interesting question is: "why would I need an
