@@ -24,6 +24,15 @@ test('adjacent tokens of one colour share a span', () => {
   );
 });
 
+test("Slice code highlights Ice's keywords", () => {
+  assert.equal(
+    highlight('void op(out int x);', 'slice'),
+    '<div><span style="color:var(--code-keyword)">void</span> op(' +
+      '<span style="color:var(--code-keyword)">out</span> ' +
+      '<span style="color:var(--code-keyword)">int</span> x);</div>'
+  );
+});
+
 test("a tag inside a doc comment keeps the comment's italics", () => {
   assert.equal(
     highlight('/// Returns @return nothing.', 'slice'),

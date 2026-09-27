@@ -10,7 +10,6 @@ import Prism from 'prismjs';
 
 // Ice's own grammars.
 import './prism-ebnf.js';
-import './prism-ice.js';
 import './prism-slice.js';
 
 // The nine language mappings the manual documents. JavaScript is part of the
