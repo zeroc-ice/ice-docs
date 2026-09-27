@@ -40,10 +40,13 @@ function withDotBreaks(title: string) {
 // any script runs.
 export function PageOutline({
   headings,
-  languages
+  languages,
+  writtenFor
 }: {
   headings: OutlineHeading[];
   languages: string[];
+  /** The languages the page is written for; every language when absent. */
+  writtenFor?: string[];
 }) {
   const dense = languages.filter(
     (language) =>
@@ -172,7 +175,11 @@ export function PageOutline({
   // bottom padding lies under the fade, so the last heading shows in full once
   // the reader scrolls to it.
   return (
-    <div className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain mask-b-from-[calc(100%-1.5rem)] pb-6">
+    <nav
+      aria-label="On this page"
+      data-langs={writtenFor?.join(' ')}
+      className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain mask-b-from-[calc(100%-1.5rem)] pb-6"
+    >
       <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
         On this page
       </div>
@@ -194,6 +201,6 @@ export function PageOutline({
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }

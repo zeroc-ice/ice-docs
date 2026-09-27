@@ -217,11 +217,12 @@ export const DocumentShell = ({
       {/* A long outline scrolls on its own, so the actions under it stay in
           view. */}
       {showAside && (
-        <aside
-          data-langs={writtenFor?.join(' ')}
-          className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 flex-col gap-2 xl:flex"
-        >
-          <PageOutline headings={toc} languages={languages} />
+        <aside className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 flex-col gap-2 xl:flex">
+          <PageOutline
+            headings={toc}
+            languages={languages}
+            writtenFor={writtenFor}
+          />
           <PageActions edit={edit} />
         </aside>
       )}
