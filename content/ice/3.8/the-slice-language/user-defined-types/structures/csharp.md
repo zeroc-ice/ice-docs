@@ -2,7 +2,7 @@
 
 Ice for C# supports two different mappings for Slice structures. By default, Slice structures map to C# record structs
 if they (recursively) contain only value types. If a Slice structure (recursively) contains a string, proxy, class,
-sequence, or dictionary field, it maps to a record class. The `”cs:class”` metadata directive allows you to force the
+sequence, or dictionary field, it maps to a record class. The `"cs:class"` metadata directive allows you to force the
 mapping to a record class for Slice structures that contain only value types.
 
 In addition, for either mapping, you can control whether Slice fields are mapped to fields (the default) or to

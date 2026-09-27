@@ -166,7 +166,7 @@ public:
 ```
 
 You can change this default mapping for “outgoing” parameters to a std::span with the metadata directive
-`["cpp:view-type:std::span<const T>”]` (or `["cpp:view-type:std::span<T>”]`) where T is the mapped element type.
+`["cpp:view-type:std::span<const T>"]` (or `["cpp:view-type:std::span<T>"]`) where T is the mapped element type.
 
 With our example above:
 

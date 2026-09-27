@@ -190,8 +190,8 @@ as `null` or as an empty string: either way, the receiver sees an empty string.
 
 # Optional Parameters
 
-[Optional parameters](../operations) use the same mapping as required parameters. The only difference is that
-\`Ice\None` can be passed as the value of an optional parameter or return value. Consider the following operation:
+[Optional parameters](../operations) use the same mapping as required parameters. The only difference is that `Ice\None`
+can be passed as the value of an optional parameter or return value. Consider the following operation:
 
 ```slice
 optional(1) int execute(optional(2) string params, out optional(3) float value);

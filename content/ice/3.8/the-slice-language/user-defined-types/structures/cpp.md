@@ -73,7 +73,7 @@ std::ostream& operator<<(std::ostream& os, const Employee& value);
 ```
 
 You can suppress the generation of this operator, and tell the Slice compiler you’ll provide your own custom operator<<,
-with the `”cpp:custom-print”` metadata. For example:
+with the `"cpp:custom-print"` metadata. For example:
 
 ```
 // We'll provide our own custom operator<< for this struct.

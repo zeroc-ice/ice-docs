@@ -579,13 +579,13 @@ For incoming values, the mapped C++ type is always “by value”: Ice transfers
 ownership. For outgoing values, Ice only needs to “borrow” the arguments while it marshals them synchronously into the
 payload of the request.
 
-| **Slice Parameter Type**                                          | **Mapped C++ Parameter Type (Outgoing)**                      | **Mapped C++ Parameter Type (Incoming)**Always by value |
-| ----------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------- |
-| `byte`, `bool`, `int`, `short`, `long`, `float`, `double``enum E` | By value`std::uint8_t`, `bool`, `std::int32_t`, etc.          | `std::uint8_t`, `bool`, `std::int32_t`, etc.            |
-| `string`                                                          | “view”`std::string_view` or `std::wstring_view`               | `std::string` or `std::wstring`                         |
-| `struct S`, `sequence<T> Seq`, `dictionary<K, V> Dict`            | Const reference`const S&`                                     | `S`, `Seq`, `Dict`                                      |
-| `class C`                                                         | Const reference of shared pointer`const CPtr&`                | `CPtr` (a shared pointer by value)                      |
-| `Greeter*` (a proxy)                                              | Const reference of optional`const std::optional<GreeterPrx>&` | `std::optional<GreeterPrx>`                             |
+| **Slice Parameter Type**                                            | **Mapped C++ Parameter Type (Outgoing)**                        | **Mapped C++ Parameter Type (Incoming, Always by Value)** |
+| ------------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------- |
+| `byte`, `bool`, `int`, `short`, `long`, `float`, `double`, `enum E` | By value: `std::uint8_t`, `bool`, `std::int32_t`, etc.          | `std::uint8_t`, `bool`, `std::int32_t`, etc.              |
+| `string`                                                            | “view”: `std::string_view` or `std::wstring_view`               | `std::string` or `std::wstring`                           |
+| `struct S`, `sequence<T> Seq`, `dictionary<K, V> Dict`              | Const reference: `const S&`                                     | `S`, `Seq`, `Dict`                                        |
+| `class C`                                                           | Const reference of shared pointer: `const CPtr&`                | `CPtr` (a shared pointer by value)                        |
+| `Greeter*` (a proxy)                                                | Const reference of optional: `const std::optional<GreeterPrx>&` | `std::optional<GreeterPrx>`                               |
 
 # Out Parameters in Synchronous Functions
 

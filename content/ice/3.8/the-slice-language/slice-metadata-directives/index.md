@@ -115,8 +115,8 @@ A marshaled-result instance is specific to a request. Do not cache a marshaled r
 ### `suppress-warning`
 
 This file directive allows to suppress Slice compiler warnings. It applies to all definitions in the Slice file that
-includes this directive. If one or more categories are specified (for example "`suppress-warning:invalid-metadata"` or
-`"suppress-warning:deprecated, invalid-metadata"`) only warnings matching these categories will be suppressed, otherwise
+includes this directive. If one or more categories are specified (for example `"suppress-warning:invalid-comment"` or
+`"suppress-warning:deprecated, invalid-comment"`) only warnings matching these categories will be suppressed, otherwise
 all warnings are suppressed. The categories are described in the following table:
 
 | **Suppress Warning Category** | **Description**                                                               |

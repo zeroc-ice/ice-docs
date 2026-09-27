@@ -130,7 +130,7 @@ cout << "Taking a break at " << breakTime << endl;
 
 `operator<<` just calls `Value::ice_print` when the shared pointer is not null.
 
-You can use the metadata directive `”cpp:custom-print”` to tell the Slice compiler that you want to use your own custom
+You can use the metadata directive `"cpp:custom-print"` to tell the Slice compiler that you want to use your own custom
 print implementation. For example:
 
 ```
