@@ -65,7 +65,7 @@ previous example, to reference the `Debug` property set, we would write the foll
             <properties>
                 <properties refid="Debug"/>
                 <property name="Identity" value="hello"/>
-        </properties>
+            </properties>
         </server>
     </node>
 </application>
@@ -114,7 +114,7 @@ scope. For example, the following is correct:
     <variable name="level" value="1"/>
 
     <properties id="DebugApp">
-        <property name="DebugLevel value="${level}">
+        <property name="DebugLevel" value="${level}"/>
     </properties>
 
 </application>
@@ -126,7 +126,7 @@ However, the following example is wrong because the `${level}` variable is not d
 <application name="App">
 
     <properties id="DebugApp">
-        <property name="DebugLevel value="${level}">
+        <property name="DebugLevel" value="${level}"/>
     </properties>
 
     <node name="TheNode">
