@@ -1,7 +1,0 @@
-# A version that is newer than 3.8 but sorts before it as text.
-redirects:
-  - from: /ice/3.10/old
-    to: /ice/3.10/new
-  - from: /ice/3.10/gone
-    to: /ice/3.10
-    permanent: true

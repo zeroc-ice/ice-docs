@@ -30,11 +30,9 @@ import { splitFrontmatter } from './resolve.ts';
 /** The content root, under the repository root that npm and Next run from. */
 export const CONTENT_ROOT = path.join(process.cwd(), 'content', 'ice');
 
-/**
- * The version directories, such as `3.8`, oldest first; any other directory is
- * skipped.
- */
+/** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
 export function listVersions(root: string): string[] {
+  if (!fs.existsSync(root)) return [];
   return fs
     .readdirSync(root)
     .filter(
@@ -42,7 +40,7 @@ export function listVersions(root: string): string[] {
         /^\d+\.\d+/.test(name) &&
         fs.statSync(path.join(root, name)).isDirectory()
     )
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    .sort();
 }
 
 /** Every .md file under `dir`, as paths relative to it with `/` separators. */
