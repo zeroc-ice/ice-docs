@@ -25,7 +25,7 @@ std::optional<GreeterPrx> greeter =
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
-greeter = greeter.ice_endpointSelection(Ice::EndpointSelectionType::Ordered);
+greeter = greeter.ice_endpointSelection(EndpointSelectionType::Ordered);
 ```
 
 {% /language-section %}

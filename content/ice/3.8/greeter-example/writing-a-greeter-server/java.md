@@ -155,7 +155,6 @@ We register a shutdown hook that calls `shutdown` on the communicator, and then 
 ensure a clean shutdown:
 
 ```java
-Thread mainThread = Thread.currentThread();
 Runtime.getRuntime().addShutdownHook(new Thread(() -> {
     System.out.println("Caught Ctrl+C, shutting down...");
     communicator.shutdown();

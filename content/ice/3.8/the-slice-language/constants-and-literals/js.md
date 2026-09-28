@@ -25,7 +25,7 @@ Object.defineProperty(Example, 'LowerNibble', {value: 15});
 Object.defineProperty(Example, 'Advice', {value: "Don't Panic!"});
 Object.defineProperty(Example, 'TheAnswer', {value: 42});
 Object.defineProperty(Example, 'PI', {value: 3.1416});
-Object.defineProperty(Example, 'FavoriteFruit', {value: Example.Fruit.Pear});
+Object.defineProperty(Example, 'FavoriteFruit', {value: Fruit.Pear});
 ```
 
 The corresponding TypeScript declarations are:

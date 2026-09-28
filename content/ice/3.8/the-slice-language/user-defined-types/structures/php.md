@@ -21,17 +21,8 @@ class Employee
     public $firstName;
     public $lastName;
 
-    public function __construct($number=0, $firstName='', $lastName='')
-    {
-        $this->number = $number;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-    }
-
-    public function __toString(): string
-    {
-        // ...
-    }
+    public function __construct($number=0, $firstName='', $lastName='');
+    public function __toString();
 }
 ```
 

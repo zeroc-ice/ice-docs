@@ -28,7 +28,7 @@ extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createCustomLoggerPlugin(
     const std::string&,
     const Ice::StringSeq&)
 {
-    return new Ice::LoggerPlugin(communicator, std::make_shared<CustomLogger>());
+    return new Ice::LoggerPlugin(communicator, make_shared<CustomLogger>());
 }
 ```
 

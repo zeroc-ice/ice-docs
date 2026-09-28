@@ -28,11 +28,6 @@ factory that creates a `LoggerPlugin` and installs your logger into the communic
 ```java
 package com.example.clearsky;
 
-import com.zeroc.Ice.Communicator;
-import com.zeroc.Ice.LoggerPlugin;
-import com.zeroc.Ice.Plugin;
-import com.zeroc.Ice.PluginFactory;
-
 public class CustomLoggerPluginFactory implements PluginFactory {
     @Override
     public String getPluginName() {

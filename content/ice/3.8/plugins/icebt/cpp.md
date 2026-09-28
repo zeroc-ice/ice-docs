@@ -54,12 +54,12 @@ An application must implement a callback function pass it to `startDiscovery`:
 #include <IceBT/IceBT.h>
 ...
 
-Ice::CommunicatorPtr communicator = ...;
+CommunicatorPtr communicator = ...;
 auto plugin = communicator->getPluginManager()->getPlugin("IceBT");
-auto btplugin = std::dynamic_pointer_cast<IceBT::Plugin>(plugin);
+auto btplugin = dynamic_pointer_cast<IceBT::Plugin>(plugin);
 btplugin->startDiscovery(
    "",
-   [](const std::string& addr, const IceBT::PropertyMap& props) { ... });
+   [](const std::string& addr, const PropertyMap& props) { ... });
 ```
 
 For each nearby device discovered by the Bluetooth stack, the plug-in will invoke the provided callback. The arguments

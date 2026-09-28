@@ -27,6 +27,13 @@ Read it first. This file covers the conventions that recur in review.
 - **Fix every copy of what you fix.** Prose is copied between the language overlays of a page and between related pages.
   After correcting one, grep for the same sentence in the sibling overlays and fix or report those too.
 
+## Code samples
+
+- **A code sample is an excerpt of the reader's program.** It can rely on context the page doesn't show:
+  `using namespace` directives, imports, earlier declarations, and a Slice definition's enclosing module. Fix what a
+  sample gets wrong about Ice 3.8, such as a name, a signature, a value, or a command, and qualify names the way the
+  other samples on the page do.
+
 ## Property reference
 
 - **Describe the behavior, not the advice.** A property entry says what the property does; what an application typically
