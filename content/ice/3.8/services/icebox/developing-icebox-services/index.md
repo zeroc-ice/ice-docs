@@ -20,10 +20,12 @@ parameter supplies a communicator that IceBox creates for the service. Services 
 `start` must return once the service is initialized, because IceBox waits for it before starting the next service and
 before activating its admin object.
 
-The `stop` method must release the resources owned by the service. Destroy each object adapter that a later `start` will
-recreate. Destroying an adapter deactivates it, waits for pending requests to complete, and releases its name for reuse.
-Deactivating an adapter leaves its name registered with the communicator, so creating another adapter with that name
-raises `AlreadyRegisteredException`.
+The `stop` method must release the resources owned by the service, including the
+[object adapters](../object-adapter-activation-and-deactivation) it created. An administrative stop calls `stop` and
+nothing else, so an adapter left behind keeps dispatching to a service that IceBox records as stopped. Destroy each
+adapter rather than deactivating it: `destroy` waits for pending requests and releases the adapter's name, while a
+deactivated adapter keeps its name registered with the communicator, so a later `start` that recreates it raises
+`AlreadyRegisteredException`.
 
 IceBox destroys the service communicators when the server shuts down. An administrative stop keeps the communicator
 available for the next `start`.
