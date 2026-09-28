@@ -197,7 +197,9 @@ export function readNavigation(root: string, version: string): NavDoc {
  * sends old URLs to new ones.
  */
 export function readRedirects(root: string) {
-  const versions = listVersions(root);
+  const versions = listVersions(root).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
   const newest = pageHref(versions[versions.length - 1]);
   const redirects = [
     { source: '/', destination: newest, permanent: false },
