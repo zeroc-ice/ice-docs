@@ -11,14 +11,28 @@ on the command line, for example:
 server --Ice.UDP.SndSize=65535 --IceSSL.Trace.Security=2
 ```
 
-Any command line option that begins with `--` and is followed by one of the [reserved prefixes](../properties-overview)
-is read and converted to a property setting when you create a communicator. Property settings on the command line
-override settings in a configuration file. If you set the same property more than once on the same command line, the
-last setting overrides any previous ones.
+When you pass arguments to communicator initialization, Ice converts options beginning with `--`, a
+[reserved prefix](../properties-overview), and a dot into property settings. For example, `--Ice.Trace.Network=1`
+matches, while `--IceFoo=1` remains an application argument. Property settings on the command line override settings in
+a configuration file. If you set the same property more than once on the same command line, the last setting overrides
+any previous ones.
 
 Ice applies the same [property validation](../properties-overview#property-validation) to command-line options as to any
 other property, so a typo such as `--Ice.Trace.Netwrok=1` makes communicator initialization fail with a
-`PropertyException`.
+`PropertyException`. An option for a service-specific prefix, such as `--IceGrid.InstanceName`, also fails in an
+application that has not enabled that prefix.
+
+The initialization overloads that update the argument array remove the options they consume. Other overloads leave the
+input unchanged or return the remaining arguments separately; see
+[Communicator Initialization and Destruction](../communicator-initialization-and-destruction).
+
+{% iflang langs="js" %}
+
+Ice for JavaScript parses options from the array passed to `Ice.initialize(args)` or `new Ice.Properties(args)` and
+removes the recognized options from that array. It supports programmatic settings and argument arrays; it has no
+`load()` method and does not load configuration files through `Ice.Config` or `ICE_CONFIG`.
+
+{% /iflang %}
 
 For convenience, any property not explicitly set to a value is set to the value `1`. For example,
 
@@ -33,7 +47,8 @@ server --Ice.Trace.Protocol=1
 ```
 
 Note that this feature only applies to properties that are set on the command line, but not to properties that are set
-from a configuration file.
+from a configuration file. In mappings that load configuration files, a bare `--Ice.Config` becomes `Ice.Config=1`,
+which tells Ice to use the `ICE_CONFIG` environment variable.
 
 You can also clear a property from the command line as follows:
 
