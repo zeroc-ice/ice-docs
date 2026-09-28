@@ -15,6 +15,7 @@ import {
   listPages,
   readPageSources,
   readNavigation,
+  readRedirects,
   snippetReader
 } from './content.ts';
 
@@ -24,10 +25,8 @@ const ROOT = join(
   'content'
 );
 
-test('listVersions finds 3.8 and ignores non-version dirs', () => {
-  const versions = listVersions(ROOT);
-  assert.ok(versions.includes('3.8'));
-  assert.ok(!versions.includes('slice'));
+test('listVersions lists the version dirs, oldest first', () => {
+  assert.deepEqual(listVersions(ROOT), ['3.8', '3.10']);
 });
 
 test('listPages reads a page and its overlays off its directory', () => {
@@ -119,6 +118,15 @@ test('readNavigation builds the tree from the pages each page lists, front page 
         }
       ]
     }
+  ]);
+});
+
+test('readRedirects sends / and /ice to the newest version, then adds each manifest entry', () => {
+  assert.deepEqual(readRedirects(ROOT), [
+    { source: '/', destination: '/ice/3.10', permanent: false },
+    { source: '/ice', destination: '/ice/3.10', permanent: false },
+    { source: '/ice/3.10/old', destination: '/ice/3.10/new', permanent: false },
+    { source: '/ice/3.10/gone', destination: '/ice/3.10', permanent: true }
   ]);
 });
 
