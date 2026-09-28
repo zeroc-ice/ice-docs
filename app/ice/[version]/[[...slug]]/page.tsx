@@ -17,6 +17,7 @@ import { breadcrumbs, pageHref, prevNext } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
 import {
+  CONTENT_ROOT,
   listVersions,
   listPages,
   readPageSources,
@@ -38,20 +39,15 @@ type PageProps = {
 
 type Pagination = ReturnType<typeof prevNext> & { langs: string[] };
 
-function contentRoot(): string {
-  return path.join(process.cwd(), 'content', 'ice');
-}
-
 // GitHub's editor for one of a page's files. Every version lives on main.
 function editUrl(file: string): string {
   return `https://github.com/zeroc-ice/ice-docs/edit/main/${path.relative(process.cwd(), file)}`;
 }
 
 export function generateStaticParams() {
-  const root = contentRoot();
   // The front page's slug is empty: it is served at the version root.
-  return listVersions(root).flatMap((version) =>
-    listPages(root, version).map((page) => ({
+  return listVersions(CONTENT_ROOT).flatMap((version) =>
+    listPages(CONTENT_ROOT, version).map((page) => ({
       version,
       slug: page.slug ? page.slug.split('/') : []
     }))
@@ -61,19 +57,18 @@ export function generateStaticParams() {
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { version, slug: segments } = await props.params;
   const slug = segments?.join('/') ?? '';
-  const page = listPages(contentRoot(), version).find((p) => p.slug === slug)!;
+  const page = listPages(CONTENT_ROOT, version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
   return { title, description };
 }
 
 export default async function Page(props: PageProps) {
   const { version, slug: segments } = await props.params;
-  const root = contentRoot();
-  const nav = readNavigation(root, version);
+  const nav = readNavigation(CONTENT_ROOT, version);
   const { languages, sidebar } = nav;
   const slug = segments?.join('/') ?? '';
 
-  const pages = listPages(root, version);
+  const pages = listPages(CONTENT_ROOT, version);
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
@@ -98,10 +93,12 @@ export default async function Page(props: PageProps) {
   const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
-  const versionOptions: VersionOption[] = listVersions(root).map((other) => ({
-    value: other,
-    href: pageHref(other, slug)
-  }));
+  const versionOptions: VersionOption[] = listVersions(CONTENT_ROOT).map(
+    (other) => ({
+      value: other,
+      href: pageHref(other, slug)
+    })
+  );
 
   // The Release Notes chapter's pages, newest first, each with the date its
   // frontmatter gives. Only the front page shows them, and reading every one
@@ -120,7 +117,7 @@ export default async function Page(props: PageProps) {
   const body = resolveDocument({
     shared: shared ?? '',
     overlays,
-    readFile: snippetReader(root, version)
+    readFile: snippetReader(CONTENT_ROOT, version)
   });
   const content = renderMarkdownString({
     source: demoteHeadings(stripRedundantTitle(body, frontmatter.title)),
