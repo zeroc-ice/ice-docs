@@ -27,7 +27,8 @@ property to `1.0`:
 ### Description {% id="ice.default.endpointselection-description" %}
 
 This property controls the default [endpoint selection](../connection-establishment) policy for proxies with multiple
-endpoints. Permissible values are `Ordered` and `Random`. The default value of this property is `Random`.
+endpoints. Permissible values are `Ordered` and `Random`. The default value of this property is `Random`. An invalid
+value causes a `ParseException` during communicator initialization.
 
 ## Ice.Default.Host
 
@@ -50,7 +51,7 @@ option in a Bluetooth endpoint), the `host` value from this property is used ins
 ### Description {% id="ice.default.invocationtimeout-description" %}
 
 Specifies the default [invocation timeout](../invocation-timeouts) in milliseconds to use for all proxies. If not
-defined, the default timeout is `-1`, which means an invocation never times out.
+defined, the default timeout is `-1`. A value of 0 or less disables the timeout; Ice normalizes these values to `-1`.
 
 ## Ice.Default.Locator
 
@@ -90,11 +91,12 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 Specifies the default [locator cache](../locator-semantics-for-clients) timeout for indirect proxies, in seconds. If
 `num` is set to a value larger than 0, locator cache entries older than `num` seconds are ignored. If set to 0, the
-locator cache is not used. If set to `-1`, locator cache entries do not expire.
+locator cache is not used. A negative value means cache entries do not expire; Ice normalizes these values to `-1`. The
+default value is `-1`.
 
 Once a cache entry has expired, the Ice runtime performs a new locate request to refresh the cache before sending the
 next invocation; therefore, the invocation is delayed until the runtime has refreshed the entry. If you set
-[Ice.BackgroundLocatorCacheUpdates](../ice-properties) to a non-0value, the lookup to refresh the cache is still
+[Ice.BackgroundLocatorCacheUpdates](../ice-properties) to a non-zero value, the lookup to refresh the cache is still
 performed but happens in the background; this avoids the delay for the first invocation that follows expiry of a cache
 entry.
 
@@ -109,7 +111,19 @@ entry.
 ### Description {% id="ice.default.protocol-description" %}
 
 Sets the [transport protocol](../endpoint-syntax) that is being used if an endpoint uses `default` as the transport
-protocol specification. The default value is `tcp`.
+protocol specification.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+The default value is `tcp`.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+The default value is `ws` in a browser and `tcp` in Node.js.
+
+{% /iflang %}
 
 ## Ice.Default.Router
 
@@ -134,9 +148,20 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ### Description {% id="ice.default.slicedformat-description" %}
 
-Specifies the encoding format of Slice classes and exceptions. The default value of `num` is 0, meaning that the
-encoding uses the compact format. Set this property to a non-0 value to use the sliced format by default. This setting
-is only relevant when using version 1.1 of the Ice encoding.
+Specifies the encoding format of Slice classes and exceptions. The default value is 0, which selects the compact format.
+This setting applies to version 1.1 of the Ice encoding.
+
+{% iflang langs="cpp,csharp,java,js,python,ruby,php,matlab" %}
+
+A value greater than 0 selects the sliced format. A value of 0 or less selects the compact format.
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
+
+Swift uses the sliced format for any non-zero value.
+
+{% /iflang %}
 
 Note that you can also specify whether certain operations use the sliced format by annotating their definitions with
 [metadata](../slice-metadata-directives).
@@ -149,8 +174,22 @@ Note that you can also specify whether certain operations use the sliced format 
 
 ### Description {% id="ice.default.sourceaddress-description" %}
 
-If specified, outgoing socket connections will be bound using the given address `addr`. This allows to set a specific IP
-address as the source address of IP packets but it doesn't necessarily imply that the operating system will use the
-network interface matching this IP address to send out the IP packet. It must be set to a numeric IP address. Proxy
-endpoints can override this setting with the [--sourceAddress](../endpoint-syntax) option. If no source address is
-configured, the Ice runtime uses the operating system's default behavior for binding an outgoing socket connection.
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+Specifies the numeric IP address used to bind outgoing socket
+connections{% iflang langs="cpp,python,ruby,php,matlab,swift" %}, except stream connections on iOS{% /iflang %}.
+Selecting a source IP address does not necessarily select the network interface used to send packets. Proxy endpoints
+can override this default with the [--sourceAddress](../endpoint-syntax) option. If this property is empty, the
+operating system selects the source address. An invalid numeric IP address causes an `InitializationException` during
+communicator initialization.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+In Node.js, this property supplies the local address for outgoing TCP connections. Proxy endpoints can override it with
+the [--sourceAddress](../endpoint-syntax) option. JavaScript passes the value to the network stack when connecting
+without validating it during communicator initialization. WebSocket connections use the source address selected by the
+operating system.
+
+{% /iflang %}

@@ -38,10 +38,11 @@ for dispatches.
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
-for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
-that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
-significant improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Values range
+from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Ice uses `1` for
+values below `1` and `9` for values above `9`. Note that higher levels cause the bzip2 algorithm to devote more
+resources to the compression effort, and may not result in a significant improvement over lower levels. If not
+specified, the default value is `1`.
 
 ## Ice.Config
 
@@ -73,9 +74,12 @@ for comments and escaping.
 
 ### Description {% id="ice.consolelistener-description" %}
 
-If `num` is non-0, the Ice runtime installs a `ConsoleTraceListener` that writes its messages to `stderr`. If `num` is
-0, logging is disabled. Note that the setting of [Ice.LogFile](../ice-properties#ice.logfile) overrides this property:
-if `Ice.LogFile` is set, messages are written to the log file regardless of the setting of `Ice.ConsoleListener`.
+When the communicator uses Ice's default trace logger, a value greater than 0 adds Ice's console listener to
+`System.Diagnostics.Trace.Listeners`. This listener writes messages to `stderr`. The default value is 1. With 0 or a
+negative value, the logger continues writing through `System.Diagnostics.Trace` using the existing listeners.
+
+Ice consults this property when no logger is supplied in `InitializationData`, `Ice.LogFile` is empty and the
+[per-process logger](../per-process-logger) is Ice's default logger.
 
 The default value is `1`.
 
@@ -131,7 +135,7 @@ process. If not defined, the default value is 1.
 ### Description {% id="ice.ipv4-description" %}
 
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
-value is 1.
+value is 1. Disabling both IPv4 and IPv6 causes an `InitializationException` during communicator initialization.
 
 ## Ice.IPv6
 
@@ -142,7 +146,8 @@ value is 1.
 ### Description {% id="ice.ipv6-description" %}
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
-value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
+value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise. Disabling both IPv4 and IPv6 causes an
+`InitializationException` during communicator initialization.
 
 {% /language-section %}
 
@@ -249,7 +254,9 @@ proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
 
-Ice currently only supports the SOCKS4 protocol, which means only IPv4 connections are allowed.
+Ice supports the SOCKS4 protocol, which requires IPv4. Configuring a SOCKS proxy with `Ice.IPv4=0` causes an
+`InitializationException` during communicator initialization. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are
+set, Ice uses the SOCKS proxy.
 
 {% /callout %}
 
@@ -274,6 +281,9 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
+During communicator initialization, Ice wraps an `IOException` from opening the file in a `FileException`; other .NET
+file-opening exceptions propagate. If `Ice.StdErr` and `Ice.StdOut` name the same file, they share one stream.
+
 ## Ice.StdOut
 
 ### Synopsis {% id="ice.stdout-synopsis" %}
@@ -284,6 +294,9 @@ property is checked only for the first communicator that is created in a process
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
+
+During communicator initialization, Ice wraps an `IOException` from opening the file in a `FileException`; other .NET
+file-opening exceptions propagate. If `Ice.StdErr` and `Ice.StdOut` name the same file, they share one stream.
 
 ## Ice.ThreadPriority
 

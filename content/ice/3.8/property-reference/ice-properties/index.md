@@ -30,8 +30,18 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is
 set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added
-to a batch and that message would cause the batch to exceed `num` KiB. If `num` is set to 0 or a negative number,
-batches must be flushed explicitly by the application. If not defined, the default value is `1024`.
+to a batch and that message would cause the batch to exceed `num` KiB (1024 bytes per KiB). For stream transports, a
+value of 0 or less disables automatic flushing: the application must flush batches explicitly. If not defined, the
+default value is `1024`.
+
+Values above 2097151 cause an `InitializationException` during communicator initialization.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+For datagram proxies, Ice caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties), including when `num` is
+0 or negative.
+
+{% /iflang %}
 
 {% callout type="warning" %}
 
@@ -69,10 +79,11 @@ Setting this property to 0 (or to a negative number) disables the depth limit al
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
-for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
-that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
-significant improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Values range
+from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Ice uses `1` for
+values below `1` and `9` for values above `9`. Note that higher levels cause the bzip2 algorithm to devote more
+resources to the compression effort, and may not result in a significant improvement over lower levels. If not
+specified, the default value is `1`.
 
 ## Ice.Config
 
@@ -156,7 +167,8 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 Specifies whether a communicator has an [implicit request context](../implicit-request-contexts) and, if so, at what
 scope the context applies. Legal values for this property are `None` (equivalent to the empty string), `PerThread`, and
-`Shared`. If not specified, the default value is `None`.
+`Shared`. If not specified, the default value is `None`. An invalid value causes an `InitializationException` during
+communicator initialization.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -200,7 +212,7 @@ After setting this property to 0, call `Communicator.initializePlugins()` to ini
 ### Description {% id="ice.ipv4-description" %}
 
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
-value is 1.
+value is 1. Disabling both IPv4 and IPv6 causes an `InitializationException` during communicator initialization.
 
 ## Ice.IPv6
 
@@ -211,7 +223,8 @@ value is 1.
 ### Description {% id="ice.ipv6-description" %}
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
-value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
+value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise. Disabling both IPv4 and IPv6 causes an
+`InitializationException` during communicator initialization.
 
 {% /iflang %}
 
@@ -225,12 +238,41 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 ### Description {% id="ice.logfile-description" %}
 
-Replaces the communicator's [default logger](../default-logger) with a simple file-based logger implementation. This
-property does not affect the [per-process logger](../per-process-logger). The logger creates the specified file if
-necessary, otherwise it appends to the file. If the logger is unable to open the file, the application receives an
-`InitializationException` during [communicator initialization](../initialization-and-destruction). If a logger object is
-supplied in the `InitializationData` argument during communicator initialization, it takes precedence over this
-property.
+Selects a file-based [logger](../default-logger) for the communicator. The logger appends messages to the specified file
+and creates the file if necessary. A logger supplied in `InitializationData` takes precedence over this property. The
+[per-process logger](../per-process-logger) is unchanged.
+
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+
+If the file logger cannot open the file, communicator initialization fails with an `InitializationException`.
+
+Among the logging backends available on the platform, Ice checks `Ice.UseSyslog`, `Ice.UseOSLog`,
+`Ice.UseSystemdJournal` and `Ice.LogFile` in that order. Enabling `Ice.UseSyslog` together with `Ice.LogFile` causes an
+`InitializationException` on platforms that support syslog. An enabled OSLog or systemd logger takes precedence over the
+file logger.
+
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
+If the file logger cannot open the file, the .NET file-opening exception propagates from communicator initialization.
+
+{% /iflang %}
+
+{% iflang langs="java" %}
+
+If the file logger cannot open the file, communicator initialization fails with a `FileException`. On platforms other
+than Windows, enabling `Ice.UseSyslog` together with `Ice.LogFile` causes an `InitializationException`.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+In Node.js, the logger opens the file when writing a message; file-system errors propagate from the logging call. In a
+browser, setting this property without supplying a logger in `InitializationData` causes an `InitializationException`
+during communicator initialization.
+
+{% /iflang %}
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -244,8 +286,11 @@ property.
 
 When `num` is greater than 0, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
 Before writing a message that would bring a non-empty log file to or above this threshold, the Ice file-based logger
-renames the file to _baselogfilename_-_datetimestamp_._ext_ and creates a new log file. The logger writes each message
-in full, even if the message exceeds the threshold.
+renames the file to `basename-YYYYMMDD-HHMMSS.ext` and creates a new log file. If that archive name already exists, it
+adds `-1`, `-2`, and so on before the extension. The logger writes each message in full, even if the message exceeds the
+threshold.
+
+If renaming fails, the logger reports the error and waits five minutes before trying to rotate the file again.
 
 When `num` is 0 or negative, the logger writes to a single file with unlimited size. The default value is 0.
 
@@ -422,10 +467,23 @@ require the Ice PDB files.
 
 ### Description {% id="ice.programname-description" %}
 
-`name` is the program name, which is used for logging. This name is
-[set automatically](../command-line-parsing-and-initialization) from `argv[0]` (C++) and from
-`AppDomain.CurrentDomain.FriendlyName` (C#) during initialization. For Java, `Ice.ProgramName` is initialized to the
-empty string. The default name can be overridden by setting this property.
+Specifies the program name used for logging. If this property is empty, communicator initialization selects the
+following default:
+
+| Language            | Default                                                                            |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| C++ and MATLAB      | The executable's base name on Linux, macOS and Windows; otherwise an empty string. |
+| C#                  | `AppDomain.CurrentDomain.FriendlyName`.                                            |
+| Java and JavaScript | An empty string.                                                                   |
+| Python              | The base name of `sys.argv[0]`, when available.                                    |
+| Ruby                | The base name of `$0`.                                                             |
+| PHP                 | The base name of `$_SERVER['SCRIPT_FILENAME']`, when available.                    |
+| Swift               | The last path component of `CommandLine.arguments.first`, when available.          |
+
+For mappings based on the C++ runtime, an empty language-specific default falls back to the executable's base name on
+Linux, macOS and Windows. Setting this property to a non-empty value overrides the default.
+
+In C# and Java, Ice also uses this value as a prefix for runtime thread names.
 
 ## Ice.RetryIntervals
 
@@ -438,7 +496,21 @@ empty string. The default name can be overridden by setting this property.
 This property defines the number of times an operation is [automatically retried](../automatic-retries) and the delay
 between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
 after the first failure, again after waiting 100ms after the second failure, and again after waiting 500ms after the
-third failure. The default value (`0`) means Ice retries once immediately. If set to `-1`, no retry occurs.
+third failure. The default value (`0`) means Ice retries once immediately. A first value of `-1` disables retries and
+causes Ice to ignore the remaining entries.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+Ice treats other negative values and entries that are not valid integers as 0 and logs a warning for each invalid entry.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+JavaScript treats other negative values as 0. An entry that is not a valid integer causes a `ParseException` during
+communicator initialization.
+
+{% /iflang %}
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -502,9 +574,14 @@ proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
 
-Ice currently only supports the SOCKS4 protocol, which means only IPv4 connections are allowed.
+Ice supports the SOCKS4 protocol, which requires IPv4. Configuring a SOCKS proxy with `Ice.IPv4=0` causes an
+`InitializationException` during communicator initialization. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are
+set, Ice uses the SOCKS proxy.
 
 {% /callout %}
+
+On the iOS simulator, configuring a SOCKS proxy causes a `FeatureNotSupportedException` during communicator
+initialization.
 
 ## Ice.SOCKSProxyPort
 
@@ -527,6 +604,8 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
+If the file cannot be opened, communicator initialization fails with a `FileException`.
+
 ## Ice.StdOut
 
 ### Synopsis {% id="ice.stdout-synopsis" %}
@@ -537,6 +616,8 @@ property is checked only for the first communicator that is created in a process
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
+
+If the file cannot be opened, communicator initialization fails with a `FileException`.
 
 ## Ice.SyslogFacility
 
@@ -572,7 +653,7 @@ This property maps to an enumerator of [ToStringMode](https://code.zeroc.com/man
 `identityToString` and `proxyToString` on the communicator escape non-printable ASCII characters and non-ASCII
 characters.
 
-The default value is `Unicode`.
+The default value is `Unicode`. An invalid value causes an `InitializationException` during communicator initialization.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -580,12 +661,13 @@ The default value is `Unicode`.
 
 ### Synopsis {% id="ice.useoslog-synopsis" %}
 
-`Ice.UseOSLog=num` (macOS and iOS)
+`Ice.UseOSLog=num` (Apple platforms)
 
 ### Description {% id="ice.useoslog-description" %}
 
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs using
-[OSLog](https://developer.apple.com/documentation/os/oslog).
+[OSLog](https://developer.apple.com/documentation/os/oslog). The subsystem is `com.zeroc.ice` when `Ice.ProgramName` is
+empty, or `com.zeroc.ice.<ProgramName>` otherwise.
 
 ## Ice.UseSyslog
 
@@ -622,6 +704,9 @@ opened when the first syslog logger is created and closed when the last one is d
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs to the systemd
 journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as their syslog
 identifier (the `SYSLOG_IDENTIFIER` journal field), so you can filter them with `journalctl -t name`.
+
+This property takes effect only when Ice was built with systemd support. The C++ build enables this support when
+`pkg-config` finds the systemd development library; other builds ignore this property.
 
 {% /iflang %}
 
