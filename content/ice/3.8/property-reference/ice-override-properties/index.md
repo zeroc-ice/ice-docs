@@ -20,6 +20,8 @@ Ice for JavaScript does not support `Ice.Override.Compress`. Setting it throws `
 
 {% /iflang %}
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 If set, this property overrides [compression](../protocol-compression) settings in all proxies and in object adapter
 listening endpoints. A value greater than 0 enables compression; 0 or a negative value disables it. Published endpoints
 derived from the listening endpoints inherit the resulting compression flag.
@@ -31,3 +33,5 @@ If a client does not support compression and `Ice.Override.Compress=1`, the sett
 printed on `stderr`.
 
 Regardless of the setting of this property, requests smaller than 100 bytes are never compressed.
+
+{% /iflang %}

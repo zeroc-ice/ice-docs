@@ -39,9 +39,16 @@ automatically flushes batched requests as soon as a batched request causes the a
 specified limit. When this occurs, the Ice runtime immediately flushes the existing batch of requests and begins a new
 batch with this latest request as its first element.
 
-For batched oneway requests, the value of `Ice.BatchAutoFlushSize` specifies the maximum message size in KiB; the
-default value is 1 MiB. In the case of batched datagram requests, the maximum message size is the smaller of the
-system's maximum size for datagram packets and the value of `Ice.BatchAutoFlushSize`.
+For batched oneway requests, a positive [Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize) specifies the
+automatic flush threshold in KiB (1024-byte units). The default is 1024 KiB (1 MiB). A value of 0 or less disables
+automatic flushing for these requests.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+For batched datagram requests, Ice also caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties), which is
+specified in bytes. This cap still applies when `Ice.BatchAutoFlushSize` is 0 or negative.
+
+{% /iflang %}
 
 {% callout type="warning" %}
 
@@ -97,9 +104,13 @@ datagram invocations are most suitable for simple interfaces with a number of op
 the target object (or interfaces with similar semantics). Batched oneway invocations do not suffer from this risk
 because they are sent over connection-oriented transports, so individual packets cannot be lost.
 
-If automatic flushing is enabled, Ice's default behavior uses the smaller of
-[Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize) and [Ice.UDP.SndSize](../ice-udp-properties) to
-determine the maximum size for a batch datagram message.
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+For a positive [Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize), the automatic flush threshold is the
+smaller of that value converted to bytes and [Ice.UDP.SndSize](../ice-udp-properties). When `Ice.BatchAutoFlushSize` is
+0 or negative, `Ice.UDP.SndSize` still limits the threshold.
+
+{% /iflang %}
 
 ## Compressing Batched Invocations
 
