@@ -15,7 +15,7 @@ necessary. You'll see the following platforms, languages and SSL libraries liste
 - Java
 - .NET
 
-A property is supported by all platforms if no limitations are mentioned.
+A property is supported by all of the platforms above if no limitations are mentioned.
 
 Finally, note that Ice for Swift and the Ice extensions for MATLAB, PHP, Python and Ruby use IceSSL for C++, therefore
 they use the IceSSL properties for SChannel, SecureTransport or OpenSSL as appropriate for the target platform.

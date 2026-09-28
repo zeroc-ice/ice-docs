@@ -2,6 +2,16 @@
 title: Ice.Plugin.*
 ---
 
+{% iflang langs="js" %}
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
+
+{% /callout %}
+
+{% /iflang %}
+
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 # Ice.Plugin._name_
