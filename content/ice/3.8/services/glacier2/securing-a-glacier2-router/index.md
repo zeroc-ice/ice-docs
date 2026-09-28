@@ -158,12 +158,15 @@ makes another attempt to contact the verifier; if the object is still unavailabl
 
 ## Obtaining SSL Credentials for a Router Client
 
-Servers that wish to receive information about a client's SSL connection to the router can define the
-[Glacier2.AddConnectionContext](../glacier2-properties) property. When enabled, the router adds several entries to the
-request context of each invocation it forwards to a server, providing information such as the client's encoded
-certificate (if supplied) and addressing details. If the client's connection uses SSL, the router defines the
-`_con.peerCert` entry in the context. A server can check for the presence of this entry and also extract additional
-context entries as shown below in this example:
+Servers that need information about a client's connection to the router can set
+[Glacier2.AddConnectionContext](../glacier2-properties) to 1. The router then adds connection information to
+permissions-verifier and session-manager calls and to requests forwarded from clients to servers. Value 2 adds this
+information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on session
+managers.
+
+The context entries include addressing details and, for SSL or WSS connections with a client certificate, the
+PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional context entries as
+shown below:
 
 ```cpp
 void unlockDoor(string id, const Ice::Current& current)

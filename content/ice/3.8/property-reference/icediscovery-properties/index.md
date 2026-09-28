@@ -105,8 +105,8 @@ IceDiscovery receives a reply for a discovery request and this reply indicates t
 group, it waits for an additional time interval for other responses from replicated servers. This time interval is based
 on the latency of the first request-reply and the latency multiplier. For example, if the first reply is received after
 15 milliseconds and the multiplier is set to 4, IceDiscovery will wait for an additional 60 milliseconds for replies
-from other servers. If not defined, the default is `1`. `num` must be `1` or greater; a smaller value causes an
-`Ice::PropertyException` when the plug-in initializes.
+from other servers. If not defined, the default is `1`. `num` must be `1` or greater; a smaller value causes a
+`PropertyException` when the plug-in initializes.
 
 # IceDiscovery.Port
 
@@ -149,7 +149,7 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast requests before giving up. The
 [IceDiscovery.Timeout](../icediscovery-properties#icediscovery.timeout) property determines how long the plug-in waits
 for a reply before trying again. If not defined, the default retry count is `3`, for a total of four attempts. A value
-of 0 sends only the initial query. A negative value causes an `Ice::PropertyException` when the plug-in initializes.
+of 0 sends only the initial query. A negative value causes a `PropertyException` when the plug-in initializes.
 
 # IceDiscovery.Timeout
 
@@ -164,4 +164,4 @@ this time interval, the client will retry the request the number of times specif
 [IceDiscovery.RetryCount](../icediscovery-properties#icediscovery.retrycount). If not defined, the default timeout is
 `300`.
 
-A value of 0 or less causes an `Ice::PropertyException` when the plug-in initializes.
+A value of 0 or less causes a `PropertyException` when the plug-in initializes.

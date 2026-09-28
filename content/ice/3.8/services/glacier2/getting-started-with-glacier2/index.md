@@ -55,12 +55,12 @@ configuration is typically necessary.
 
 # Writing a Password File
 
-The router's simplest authentication mechanism uses an access control list in a text file consisting of username and
-password pairs. Passwords are encoded using the
-[modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`).
+The router's simplest authentication mechanism uses an access control list in a text file containing user names and
+password hashes. The supported hash formats depend on the platform.
 
-The general structure of a `MCF` encoded password hash is: `$identifier$content`, where `identifier` denotes the scheme
-used for hashing, and `content` denotes its contents. The supported hash formats depend on the platform:
+Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the
+structure `$identifier$content`, where `identifier` denotes the hashing scheme and `content` contains the scheme's
+parameters and hash.
 
 On Windows and macOS:
 
@@ -89,7 +89,7 @@ The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the nam
 Glacier2.CryptPasswords=passwords
 ```
 
-Each nonblank line contains exactly two whitespace-separated fields: a user name and a password hash. Glacier2 skips
+Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. Glacier2 skips
 blank lines and rejects extra fields and duplicate user names. For example, the following password file contains an
 entry for the user name `test`:
 

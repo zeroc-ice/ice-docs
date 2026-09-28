@@ -108,7 +108,7 @@ from a client. The default value is `0`.
 
 #### Description
 
-Specifies the file name of a Glacier2 [access control list](../securing-a-glacier2-router). Each nonblank line must
+Specifies the file name of a Glacier2 [access control list](../securing-a-glacier2-router). Each non-blank line must
 contain exactly two whitespace-separated fields: a user name and a password hash. Glacier2 skips blank lines and rejects
 malformed entries and duplicate user names at startup with an `Ice::InitializationException`.
 

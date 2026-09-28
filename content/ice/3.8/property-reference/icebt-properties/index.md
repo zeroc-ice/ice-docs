@@ -19,7 +19,9 @@ internal buffer on Android.
 
 ###### Android
 
-The default value is 131072 bytes (128 KiB).
+The default value is 131072 bytes (128 KiB). The transport uses the configured property value as the initial buffer
+size. When you change the size with `Connection.setBufferSize`, the transport silently raises values below 1024 bytes to
+1024 bytes.
 
 ###### Linux
 
@@ -45,7 +47,9 @@ buffer on Android.
 
 ###### Android
 
-The default value is 131072 bytes (128 KiB).
+The default value is 131072 bytes (128 KiB). The transport uses the configured property value as the initial buffer
+size. When you change the size with `Connection.setBufferSize`, the transport silently raises values below 1024 bytes to
+1024 bytes.
 
 ###### Linux
 
