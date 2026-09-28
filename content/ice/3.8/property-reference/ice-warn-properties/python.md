@@ -10,7 +10,7 @@
 
 ### Description {% id="ice.warn.executor-description" %}
 
-If `num` is greater than 0, Ice logs a warning when the executor supplied through `InitializationData.executor` raises
-an exception while accepting a call. The default value is 1.
+If `num` is greater than 1, Ice logs a warning when the executor supplied through `InitializationData.executor` raises
+an exception while accepting a call. The default value is 1, which leaves these warnings disabled.
 
 {% /language-section %}
