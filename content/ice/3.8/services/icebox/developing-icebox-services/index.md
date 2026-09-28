@@ -17,8 +17,8 @@ parameters supply information from the service's [configuration](../configuring-
 parameter supplies a communicator that IceBox creates for the service. Services that
 [share a communicator](../configuring-icebox-services) must use distinct names for their object adapters.
 
-Return from `start` after initialization completes. During server startup, IceBox waits for each service's `start` to
-return before starting the next service, and activates its admin object, when enabled, after all services have started.
+`start` must return once the service is initialized, because IceBox waits for it before starting the next service and
+before activating its admin object.
 
 The `stop` method must release the resources owned by the service. Destroy each object adapter that a later `start` will
 recreate. Destroying an adapter deactivates it, waits for pending requests to complete, and releases its name for reuse.
@@ -50,8 +50,8 @@ it occurs:
   destroying their communicators.
 
 After an administrative start or stop, use `ServiceManager.isServiceRunning` to check whether IceBox records the service
-as started. A callback that throws may have changed some resources before failing, so this recorded state alone cannot
-establish whether the service is functioning correctly.
+as started. A `start` or `stop` call that throws may have changed some resources before failing, so the recorded state
+does not show whether the service works.
 
 If `start` fails, the service must release resources it acquired during that attempt before propagating the exception.
 IceBox calls `stop` only for services it records as started.
