@@ -15,6 +15,8 @@ title: Ice.Warn.*
 If `num` is set to a value larger than 0, the Ice runtime logs warnings for certain exceptional conditions in
 connections. The default value is 0.
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 # Ice.Warn.Datagrams
 
 #### Synopsis
@@ -26,6 +28,8 @@ connections. The default value is 0.
 If `num` is set to a value larger than 0, a server logs a warning message if it receives a datagram that exceeds the
 server's receive buffer size. (Note that this condition is not detected by all UDP implementations — some
 implementations silently drop received datagrams that are too large.) The default value is 0.
+
+{% /iflang %}
 
 # Ice.Warn.Dispatch
 

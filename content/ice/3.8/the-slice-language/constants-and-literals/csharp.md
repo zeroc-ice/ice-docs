@@ -3,49 +3,49 @@
 Here are the sample constant definitions once more:
 
 ```slice
-const bool AppendByDefault = true;
-const byte LowerNibble = 0x0f;
-const string Advice = "Don't Panic!";
-const short TheAnswer = 42;
-const double PI = 3.1416;
+const bool AppendByDefault = true;
+const byte LowerNibble = 0x0f;
+const string Advice = "Don't Panic!";
+const short TheAnswer = 42;
+const double PI = 3.1416;
 
-enum Fruit { Apple, Pear, Orange }
-const Fruit FavoriteFruit = Pear;
+enum Fruit { Apple, Pear, Orange }
+const Fruit FavoriteFruit = Pear;
 ```
 
 Here are the generated definitions for these constants:
 
 ```csharp
-public abstract class AppendByDefault
+public abstract class AppendByDefault
 {
-    public const bool value = true;
+    public const bool value = true;
 }
 
-public abstract class LowerNibble
+public abstract class LowerNibble
 {
-    public const byte value = 15;
+    public const byte value = 15;
 }
 
-public abstract class Advice
+public abstract class Advice
 {
-    public const string value = "Don't Panic!";
+    public const string value = "Don't Panic!";
 }
 
-public abstract class TheAnswer
+public abstract class TheAnswer
 {
-    public const short value = 42;
+    public const short value = 42;
 }
 
-public abstract class PI
+public abstract class PI
 {
-    public const double value = 3.1416;
+    public const double value = 3.1416;
 }
 
-public enum Fruit { Apple, Pear, Orange }
+public enum Fruit { Apple, Pear, Orange }
 
-public abstract class FavoriteFruit
+public abstract class FavoriteFruit
 {
-    public const Fruit value = Fruit.Pear;
+    public const Fruit value = Fruit.Pear;
 }
 ```
 

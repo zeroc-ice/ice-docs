@@ -5,12 +5,12 @@ title: Deprecating Slice Definitions
 All Slice compilers support a metadata directive that allows you to deprecate a Slice definition. For example:
 
 ```slice
-interface Example
+interface Example
 {
-    ["deprecated:Use alternativeOperation instead."]
-    void someOperation();
+    ["deprecated:Use alternativeOperation instead."]
+    void someOperation();
 
-    void alternativeOperation();
+    void alternativeOperation();
 }
 ```
 

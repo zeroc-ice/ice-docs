@@ -8,11 +8,11 @@ A Slice class is mapped to an open Swift class with the same name. The generated
 for each Slice field (just as for structures and exceptions). Consider the following class definition:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
+    short hour;         // 0 - 23
+    short minute;       // 0 - 59
+    short second;       // 0 - 59
     string tz;          // e.g. GMT, PST, EDT...
 }
 ```

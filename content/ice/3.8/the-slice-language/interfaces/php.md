@@ -4,10 +4,10 @@
 
 # Proxy Objects
 
-Slice interfaces are implemented by instances of the
-\`Ice\ObjectPrx`class in PHP. In the client's address space, an instance of`ObjectPrx` is the local ambassador for a
-remote Ice object in a server and is known as a _proxy instance_. All the details about the server-side object, such as
-its address, what protocol to use, and its object identity are encapsulated in that instance.
+Slice interfaces are implemented by instances of the `Ice\ObjectPrx` class in PHP. In the client's address space, an
+instance of `ObjectPrx` is the local ambassador for a remote Ice object in a server and is known as a _proxy instance_.
+All the details about the server-side object, such as its address, what protocol to use, and its object identity are
+encapsulated in that instance.
 
 The PHP mapping for proxies differs from other Ice language mappings in that the `ObjectPrx` class is used to implement
 _all_ Slice interfaces. The primary motivation for this design is minimizing the amount of code that is generated for

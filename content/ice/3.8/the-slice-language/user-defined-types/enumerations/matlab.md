@@ -3,7 +3,7 @@
 A Slice enumeration maps to the corresponding enumeration in MATLAB. For example:
 
 ```slice
-enum Fruit { Apple, Pear, Orange }
+enum Fruit { Apple, Pear, Orange }
 ```
 
 The MATLAB mapping for `Fruit` is shown below:
@@ -36,24 +36,24 @@ end
 Given the above definitions, we can use enumerated values as follows:
 
 ```matlab
-f1 = Fruit.Apple;
-f2 = Fruit.Orange;
+f1 = Fruit.Apple;
+f2 = Fruit.Orange;
 
-if f1 == Fruit.Apple % Compare with constant
-    % ...
+if f1 == Fruit.Apple % Compare with constant
+    % ...
 end
 
-if f1 == f2          % Compare two enums
-    % ...
+if f1 == f2          % Compare two enums
+    % ...
 end
 
 switch f2            % Switch on enum
-    case Fruit.Apple
-        % ...
-    case Fruit.Pear
-        % ...
-    case Fruit.Orange
-        % ...
+    case Fruit.Apple
+        % ...
+    case Fruit.Pear
+        % ...
+    case Fruit.Orange
+        % ...
 end
 ```
 
@@ -77,7 +77,7 @@ The `Fruit` definition above shows the ordinal values assigned by default to the
 definition to include a custom enumerator value:
 
 ```slice
-enum Fruit { Apple, Pear = 3, Orange }
+enum Fruit { Apple, Pear = 3, Orange }
 ```
 
 The generated code changes accordingly:

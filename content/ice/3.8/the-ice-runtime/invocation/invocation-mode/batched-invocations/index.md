@@ -39,15 +39,16 @@ automatically flushes batched requests as soon as a batched request causes the a
 specified limit. When this occurs, the Ice runtime immediately flushes the existing batch of requests and begins a new
 batch with this latest request as its first element.
 
-For batched oneway requests, the value of `Ice.BatchAutoFlushSize` specifies the maximum message size in kilobytes; the
-default value is 1MB. In the case of batched datagram requests, the maximum message size is the smaller of the system's
-maximum size for datagram packets and the value of `Ice.BatchAutoFlushSize`.
+For batched oneway requests, the value of `Ice.BatchAutoFlushSize` specifies the maximum message size in KiB; the
+default value is 1 MiB. In the case of batched datagram requests, the maximum message size is the smaller of the
+system's maximum size for datagram packets and the value of `Ice.BatchAutoFlushSize`.
 
 {% callout type="warning" %}
 
 The receiver's setting for `Ice.MessageSizeMax` determines the maximum size that the Ice runtime will accept for an
-incoming protocol message. The sender's setting for `Ice.BatchAutoFlushSize` must not exceed this limit, otherwise the
-receiver will silently discard the entire batch.
+incoming protocol message. The sender's setting for `Ice.BatchAutoFlushSize` must not exceed this limit. Over UDP, the
+receiver drops an oversized batch; over the other transports, it rejects the batch with a `MarshalException` and closes
+the connection.
 
 {% /callout %}
 

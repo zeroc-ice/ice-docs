@@ -3,8 +3,8 @@
 ```cpp
 namespace Ice
 {
-    LoggerPtr getProcessLogger();
-    void setProcessLogger(const LoggerPtr&);
+    LoggerPtr getProcessLogger();
+    void setProcessLogger(const LoggerPtr&);
 }
 ```
 

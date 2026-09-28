@@ -5,31 +5,31 @@
 Here is the definition of our EmployeeMap once more:
 
 ```slice
-dictionary<long, Employee> EmployeeMap;
+dictionary<long, Employee> EmployeeMap;
 ```
 
 The following code is generated for this definition:
 
 ```cpp
-using EmployeeMap = std::map<long long, Employee>;
+using EmployeeMap = std::map<long long, Employee>;
 ```
 
 Again, there are no surprises here: a Slice dictionary simply maps to a standard `std::map`. As a result, you can use
 the dictionary like any other `map`, for example:
 
 ```cpp
-EmployeeMap em;
-Employee e;
+EmployeeMap em;
+Employee e;
 
-e.number = 42;
-e.firstName = "Stan";
-e.lastName = "Lippman";
-em[e.number] = e;
+e.number = 42;
+e.firstName = "Stan";
+e.lastName = "Lippman";
+em[e.number] = e;
 
-e.number = 77;
-e.firstName = "Herb";
-e.lastName = "Sutter";
-em[e.number] = e;
+e.number = 77;
+e.firstName = "Herb";
+e.lastName = "Sutter";
+em[e.number] = e;
 ```
 
 ## Customizing the Dictionary Mapping with `cpp:type`
@@ -46,9 +46,9 @@ dictionary<long, Employee> EmployeeMap;
 With this metadata directive, the dictionary now maps to a C++ `std::unordered_map`:
 
 ```cpp
-#include <unordered_map>
+#include <unordered_map>
 
-using EmployeeMap = std::unordered_map<std::int64_t, Employee>;
+using EmployeeMap = std::unordered_map<std::int64_t, Employee>;
 ```
 
 Like with sequences, anything following the `cpp:type:` prefix is taken to be the name of the type. For example, we
@@ -63,7 +63,7 @@ To avoid compilation errors in the generated code, you must instruct the compile
 directive with the `cpp:include` file metadata directive. This causes the compiler to add the line
 
 ```cpp
-#include <unordered_map>
+#include <unordered_map>
 ```
 
 to the generated header file.
@@ -100,7 +100,7 @@ In addition to modifying the type of a dictionary itself, you can also modify th
 ```slice
 [["cpp:include:unordered_map"]]
 
-module HR
+module HR
 {
     struct Employee
     {
@@ -108,13 +108,13 @@ module HR
        string firstName;
        string lastName;
     }
-    dictionary<long, Employee> EmployeeMap;
+    dictionary<long, Employee> EmployeeMap;
 
-    interface Office
+    interface Office
     {
         ["cpp:type:std::unordered_map<long long, Employee>"]
         EmployeeMap getAllEmployees();
-    }
+    }
 }
 ```
 

@@ -7,12 +7,12 @@ title: Object Identity
 Each Ice object has an object identity defined as follows:
 
 ```slice
-module Ice 
+module Ice
 {
-    struct Identity 
+    struct Identity
     {
-        string name;
-        string category = "";
+        string name;
+        string category = "";
     }
 }
 ```

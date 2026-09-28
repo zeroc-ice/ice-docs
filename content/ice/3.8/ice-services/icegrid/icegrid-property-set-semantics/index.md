@@ -31,18 +31,18 @@ context and the attributes of a `properties` element distinguish named property 
 an example that defines a named and an unnamed property set:
 
 ```xml
-<application name="App">
-    <properties id="Debug">
-        <property name="UseDebug" value="1"/>
-    </properties>
+<application name="App">
+    <properties id="Debug">
+        <property name="UseDebug" value="1"/>
+    </properties>
 
-    <node name="TheNode">
-        <server id="TheServer" exe="./server">
-            <properties>
-                <property name="Identity" value="hello"/>
-            </properties>
-        </server>
-    </node>
+    <node name="TheNode">
+        <server id="TheServer" exe="./server">
+            <properties>
+                <property name="Identity" value="hello"/>
+            </properties>
+        </server>
+    </node>
 </application>
 ```
 
@@ -55,19 +55,19 @@ The `properties` element is used to reference a named property set: if a `proper
 previous example, to reference the `Debug` property set, we would write the following:
 
 ```xml
-<application name="App">
-    <properties id="Debug">
-        <property name="UseDebug" value="1"/>
-    </properties>
+<application name="App">
+    <properties id="Debug">
+        <property name="UseDebug" value="1"/>
+    </properties>
 
-    <node name="TheNode">
-        <server id="TheServer" exe="./server">
-            <properties>
-                <properties refid="Debug"/>
-                <property name="Identity" value="hello"/>
-        </properties>
-        </server>
-    </node>
+    <node name="TheNode">
+        <server id="TheServer" exe="./server">
+            <properties>
+                <properties refid="Debug"/>
+                <property name="Identity" value="hello"/>
+            </properties>
+        </server>
+    </node>
 </application>
 ```
 
@@ -84,8 +84,8 @@ must precede property definitions. For example, the following is illegal:
 
 ```xml
 <properties>
-    <property name="Prop1" value="Value1"/>
-    <properties refid="Ref1"/>
+    <property name="Prop1" value="Value1"/>
+    <properties refid="Ref1"/>
 </properties>
 ```
 
@@ -94,13 +94,13 @@ example, the following two property sets are not equivalent:
 
 ```xml
 <properties>
-    <properties refid="Ref1"/>
-    <properties refid="Ref2"/>
+    <properties refid="Ref1"/>
+    <properties refid="Ref2"/>
 </properties>
 
 <properties>
-    <properties refid="Ref2"/>
-    <properties refid="Ref1"/>
+    <properties refid="Ref2"/>
+    <properties refid="Ref1"/>
 </properties>
 ```
 
@@ -109,13 +109,13 @@ named property set definition, you must make sure that the referenced property s
 scope. For example, the following is correct:
 
 ```xml
-<application name="App">
+<application name="App">
 
-    <variable name="level" value="1"/>
+    <variable name="level" value="1"/>
 
-    <properties id="DebugApp">
-        <property name="DebugLevel value="${level}">
-    </properties>
+    <properties id="DebugApp">
+        <property name="DebugLevel" value="${level}"/>
+    </properties>
 
 </application>
 ```
@@ -123,15 +123,15 @@ scope. For example, the following is correct:
 However, the following example is wrong because the `${level}` variable is not defined at the `application` scope:
 
 ```xml
-<application name="App">
+<application name="App">
 
-    <properties id="DebugApp">
-        <property name="DebugLevel value="${level}">
-    </properties>
+    <properties id="DebugApp">
+        <property name="DebugLevel" value="${level}"/>
+    </properties>
 
-    <node name="TheNode">
-        <variable name="level" value="1"/>
-    </node>
+    <node name="TheNode">
+        <variable name="level" value="1"/>
+    </node>
 
 </application>
 ```
@@ -144,26 +144,26 @@ to define an unnamed property set for server or service instances. This is a goo
 specific to a server or service instance. For example:
 
 ```xml
-<application name="TheApp">
-  <server-template id="Template">
-  
-    <parameter name="instance-name"/>
-  
-    <server id="${instance-name}" exe="./server">
-      <properties>
-        <property name="Timeout" value="30"/>
-      </properties>
-    </server>
-  </server-template>
-  
-  <node name="TheNode">
-    <server-instance template="Template" instance-name="MyInst">
-      <properties>
-        <property name="Debug" value="1"/>
-        <property name="Timeout" value="-1"/>
-      </properties>
-    </server-instance>
-  </node>
+<application name="TheApp">
+  <server-template id="Template">
+
+    <parameter name="instance-name"/>
+
+    <server id="${instance-name}" exe="./server">
+      <properties>
+        <property name="Timeout" value="30"/>
+      </properties>
+    </server>
+  </server-template>
+
+  <node name="TheNode">
+    <server-instance template="Template" instance-name="MyInst">
+      <properties>
+        <property name="Debug" value="1"/>
+        <property name="Timeout" value="-1"/>
+      </properties>
+    </server-instance>
+  </node>
 </application>
 ```
 
@@ -184,26 +184,26 @@ property set?
 For example, in the previous descriptor, we could have used a parameter with a default value for the `Timeout` property:
 
 ```xml
-<application name="TheApp">
-  <server-template id="Template">
-    
-    <parameter name="instance-name"/>
-    <parameter name="timeout" default="30"/>
-    
-    <server id="${instance-name}" exe="./server">
-      <properties>
-        <property name="Timeout" value="${timeout}"/>
-      </properties>
-    </server>
-  </server-template>
-  
-  <node name="TheNode">
-    <server-instance template="Template" instance-name="MyInst" timeout="-1">
-      <properties>
-        <property name="Debug" value="1"/>
-      </properties>
-    </server-instance>
-  </node>
+<application name="TheApp">
+  <server-template id="Template">
+
+    <parameter name="instance-name"/>
+    <parameter name="timeout" default="30"/>
+
+    <server id="${instance-name}" exe="./server">
+      <properties>
+        <property name="Timeout" value="${timeout}"/>
+      </properties>
+    </server>
+  </server-template>
+
+  <node name="TheNode">
+    <server-instance template="Template" instance-name="MyInst" timeout="-1">
+      <properties>
+        <property name="Debug" value="1"/>
+      </properties>
+    </server-instance>
+  </node>
 </application>
 ```
 

@@ -2,6 +2,16 @@
 title: IceMX.Metrics.*
 ---
 
+{% iflang langs="js" %}
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
+
+{% /callout %}
+
+{% /iflang %}
+
 Metrics view are configured with the properties described below. The _view_ below can be replaced with one of the
 following:
 

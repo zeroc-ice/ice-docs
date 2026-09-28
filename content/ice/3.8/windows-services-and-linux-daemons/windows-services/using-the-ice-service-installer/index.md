@@ -21,13 +21,13 @@ Here we describe how to use the Ice service installer and discuss its actions an
 `iceserviceinstall` supports the following options and arguments:
 
 ```
-iceserviceinstall [options] service config-file [property ...]
+iceserviceinstall [options] service config-file [property ...]
 
 Options:
--h, --help           Show this message.
--n, --nopause        Do not call pause after displaying a message.
--v, --version        Display the Ice version.
--u, --uninstall      Uninstall the Windows service.
+-h, --help           Show this message.
+-n, --nopause        Do not call pause after displaying a message.
+-v, --version        Display the Ice version.
+-u, --uninstall      Uninstall the Windows service.
 ```
 
 The `service` and `config-file` arguments are required during installation and uninstallation.

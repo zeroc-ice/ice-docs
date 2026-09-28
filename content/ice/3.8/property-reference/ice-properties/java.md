@@ -147,30 +147,6 @@ java -Djava.net.preferIPv4Stack=true ...
 
 {% language-section name="lang-6" %}
 
-# Ice.MessageSizeMax
-
-#### Synopsis
-
-`Ice.MessageSizeMax=num` (in kilobytes)
-
-#### Description
-
-This property controls the maximum size (in kilobytes) of an uncompressed protocol message that is accepted by a
-connection created by this Ice communicator. The size includes the size of the Ice protocol header. The default size is
-`1024` (`1` megabyte).
-
-The only purpose of this property is to prevent a malicious or defective sender from triggering a large memory
-allocation in a receiver. If this is not a concern, you can set `Ice.MessageSizeMax` to 0; setting this property to 0
-(or to a negative number) disables the message size limit altogether.
-
-If the Ice connection receives an incoming message whose size exceeds the receiver's setting for `Ice.MessageSizeMax`,
-it throws a `MemoryLimitException` and closes the connection. For example, when a client receives an oversized reply
-message, the result of its invocation is a `MemoryLimitException`. When a server receives an oversized request message,
-the client receives a `ConnectionLostException` (because the server closed the connection) and the server logs a message
-if [Ice.Warn.Connections](../ice-warn-properties) is set.
-
-See also [adapter.MessageSizeMax](../object-adapter-properties).
-
 # Ice.Package._module_
 
 #### Synopsis
@@ -331,6 +307,28 @@ communicator can use its own facility, even when several communicators in the sa
 
 The default value is `LOG_USER`.
 
+# Ice.SyslogHost
+
+#### Synopsis
+
+`Ice.SyslogHost=host` (Unix only)
+
+#### Description
+
+Specifies the host name or IP address of the syslog daemon that receives log messages when
+[Ice.UseSyslog](../ice-properties#ice.usesyslog) is enabled. The default value is `localhost`.
+
+# Ice.SyslogPort
+
+#### Synopsis
+
+`Ice.SyslogPort=port` (Unix only)
+
+#### Description
+
+Specifies the UDP port of the syslog daemon at [Ice.SyslogHost](../ice-properties#ice.sysloghost). The default value is
+`514`. This property takes effect when [Ice.UseSyslog](../ice-properties#ice.usesyslog) is enabled.
+
 # Ice.ThreadPriority
 
 #### Synopsis
@@ -354,5 +352,21 @@ specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-ad
 {% /language-section %}
 
 {% language-section name="lang-8" %}
+
+# Ice.UseSyslog
+
+#### Synopsis
+
+`Ice.UseSyslog=num` (Unix only)
+
+#### Description
+
+If `num` is greater than 0, Ice for Java sends log messages as UDP datagrams to the syslog daemon configured by
+[Ice.SyslogHost](../ice-properties#ice.sysloghost) and [Ice.SyslogPort](../ice-properties#ice.syslogport). The messages
+use the RFC 3164 syslog format without a header and include the program name as their prefix.
+[Ice.SyslogFacility](../ice-properties#ice.syslogfacility) selects the facility. The default value of `Ice.UseSyslog`
+is 0. Ice ignores this property on Windows.
+
+This property cannot be combined with [Ice.LogFile](../ice-properties#ice.logfile).
 
 {% /language-section %}

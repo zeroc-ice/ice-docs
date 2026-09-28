@@ -2,7 +2,6 @@
 
 @import 'tailwindcss';
 
-@plugin 'tailwindcss-animate';
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -53,8 +52,6 @@
     rgb(14, 17, 22) 100%
   );
 
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-fade-in-up: fade-in-up 0.5s ease-out;
 
   @keyframes fade-in-up {
@@ -65,22 +62,6 @@
     100% {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
     }
   }
 }
@@ -175,10 +156,8 @@
     --code-border: #d0d7de;
     --code-header-bg: #eceff2;
     --code-header-fg: #47505a;
-    --code-line-number: #666f7b;
 
     --code-plain: #1f2328;
-    --code-punctuation: #1f2328;
     --code-comment: #5a6570;
     --code-keyword: #a21a5c;
     --code-string: #0a5a2f;
@@ -200,10 +179,8 @@
     --code-border: rgba(148, 163, 184, 0.24);
     --code-header-bg: #1a2233;
     --code-header-fg: #b3c0d4;
-    --code-line-number: #9aa9c0;
 
     --code-plain: #e9effb;
-    --code-punctuation: #e9effb;
     --code-comment: #b3c0d4;
     --code-keyword: #b3d0ff;
     --code-string: #9ae6b0;
@@ -230,14 +207,6 @@
     html {
       overflow-y: scroll;
     }
-  }
-
-  /* A Radix menu's scroll lock gives the body a right margin as wide as the
-     scrollbar, whose space the page already keeps, so the page would shift
-     while the menu is open. The library's rule is !important and unlayered,
-     and an !important rule in a layer wins over it. */
-  body[data-scroll-locked] {
-    margin-right: 0 !important;
   }
 
   /* The page behind a modal dialog is inert; keep it from scrolling too. */

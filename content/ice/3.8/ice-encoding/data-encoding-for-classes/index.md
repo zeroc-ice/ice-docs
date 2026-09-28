@@ -21,7 +21,7 @@ class Node
     int value;
     Node next;
 }
- 
+
 struct S
 {
     Node obj;

@@ -49,7 +49,7 @@ application can be as simple as changing the host in the UDP endpoint to an IPv4
 ```
 # Object Adapter endpoint:
 Discover.Endpoints=udp -h 239.255.1.1 -p 10000
- 
+
 # Corresponding proxy endpoint:
 Discover.Proxy=discover:udp -h 239.255.1.1 -p 10000
 ```

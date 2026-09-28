@@ -12,12 +12,12 @@ The `Ice::PropertiesAdmin` interface provides access to the communicator's
 [configuration properties](../properties-and-configuration):
 
 ```slice
-module Ice
+module Ice
 {
-    interface PropertiesAdmin 
+    interface PropertiesAdmin
     {
-        string getProperty(string key);
-        PropertyDict getPropertiesForPrefix(string prefix);
+        string getProperty(string key);
+        PropertyDict getPropertiesForPrefix(string prefix);
         void setProperties(PropertyDict newProperties);
     }
 }

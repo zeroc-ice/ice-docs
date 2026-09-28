@@ -18,17 +18,17 @@ An optional nested [description](../description-descriptor-element) element prov
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<icebox id="MyIceBox"
-        activation="on-demand"
-        activation-timeout="60"
-        deactivation-timeout="60"
-        exe="/opt/Ice/bin/icebox"
-        pwd="/">
-    <option>--Ice.Trace.Network=1</option>
-    <env>PATH=/opt/Ice/bin:$PATH</env>
-    <property name="IceBox.UseSharedCommunicator.Service1" value="1"/>
-    <service name="Service1" .../>
-    <service-instance template="ServiceTemplate" name="Service2"/>
+<icebox id="MyIceBox"
+        activation="on-demand"
+        activation-timeout="60"
+        deactivation-timeout="60"
+        exe="/opt/Ice/bin/icebox"
+        pwd="/">
+    <option>--Ice.Trace.Network=1</option>
+    <env>PATH=/opt/Ice/bin:$PATH</env>
+    <property name="IceBox.UseSharedCommunicator.Service1" value="1"/>
+    <service name="Service1" .../>
+    <service-instance template="ServiceTemplate" name="Service2"/>
 </icebox>
 ```
 

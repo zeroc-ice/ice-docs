@@ -31,7 +31,7 @@ module Ice
        string message;
     }
     sequence<LogMessage> LogMessageSeq;
- 
+
     interface RemoteLogger
     {
         void init(string prefix, LogMessageSeq logMessages);
@@ -62,7 +62,7 @@ in a queue, and later append this queue to the log messages received through `in
 The `Logger` facet implements the `Ice::LoggerAdmin` interface:
 
 ```slice
-module Ice
+module Ice
 {
     interface LoggerAdmin
     {
@@ -125,7 +125,7 @@ Ice::LogMessageTypeSeq messageTypes{
     Ice::LogMessageType::TraceMessage};
 
 Ice::StringSeq traceCategories{"Network"};
- 
+
 loggerAdmin->attachRemoteLogger(remoteLogger, messageTypes, traceCategories, 10);
 ```
 
@@ -152,7 +152,7 @@ Ice::LogMessageTypeSeq messageTypes{
     Ice::LogMessageType::TraceMessage };
 
 Ice::StringSeq traceCategories{"Network"};
- 
+
 string prefix;
 auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix);
 ```

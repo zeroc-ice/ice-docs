@@ -61,7 +61,7 @@ The [Ice.Config](../ice-properties) property has special meaning to the Ice run 
 configuration file from which to read property settings. For example:
 
 ```shell
-./server --Ice.Config=/usr/local/filesystem/config
+./server --Ice.Config=/usr/local/filesystem/config
 ```
 
 This causes property settings to be read from the configuration file in `/usr/local/filesystem/config`.
@@ -74,7 +74,7 @@ If you use the `--Ice.Config` command-line option together with settings for oth
 command line override the settings in the configuration file. For example:
 
 ```shell
-./server --Ice.Config=/usr/local/filesystem/config --Ice.MessageSizeMax=4096
+./server --Ice.Config=/usr/local/filesystem/config --Ice.MessageSizeMax=4096
 ```
 
 This sets the value of the `Ice.MessageSizeMax` property to `4096` regardless of any setting of this property in
@@ -82,7 +82,7 @@ This sets the value of the `Ice.MessageSizeMax` property to `4096` regardless of
 precedence. For example, the following command is equivalent to the preceding one:
 
 ```shell
-./server --Ice.MessageSizeMax=4096 --Ice.Config=/usr/local/filesystem/config
+./server --Ice.MessageSizeMax=4096 --Ice.Config=/usr/local/filesystem/config
 ```
 
 Settings of the `Ice.Config` property inside a configuration file are ignored, that is, you can set `Ice.Config` only on
@@ -92,20 +92,20 @@ If you use the `--Ice.Config` option more than once, only the last setting of th
 are ignored. For example:
 
 ```shell
-./server --Ice.Config=file1 --Ice.Config=file2
+./server --Ice.Config=file1 --Ice.Config=file2
 ```
 
 This is equivalent to using:
 
 ```shell
-./server --Ice.Config=file2
+./server --Ice.Config=file2
 ```
 
 You can use multiple configuration files by specifying a list of configuration file names separated by commas. For
 example:
 
 ```shell
-./server --Ice.Config=/usr/local/filesystem/config,./config
+./server --Ice.Config=/usr/local/filesystem/config,./config
 ```
 
 This causes property settings to be retrieved from `/usr/local/filesystem/config`, followed by any settings in the file

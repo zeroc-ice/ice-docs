@@ -9,9 +9,9 @@ assembles the command by appending options to the server executable's pathname.
 In XML, you define a command-line option using the `option` element:
 
 ```xml
-<server id="Server1" ...>
-    <option>--Ice.Trace.Protocol</option>
-    ...
+<server id="Server1" ...>
+    <option>--Ice.Trace.Protocol</option>
+    ...
 </server>
 ```
 
@@ -19,11 +19,11 @@ The node preserves the order of options, which is especially important for Java 
 appear before the class name, as shown below:
 
 ```xml
-<server id="JavaServer" exe="java" ...>
-    <option>-Xnoclassgc</option>
-    <option>ServerClassName</option>
-    <option>--Ice.Trace.Protocol</option>
-    ...
+<server id="JavaServer" exe="java" ...>
+    <option>-Xnoclassgc</option>
+    <option>ServerClassName</option>
+    <option>--Ice.Trace.Protocol</option>
+    ...
 </server>
 ```
 

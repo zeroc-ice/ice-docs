@@ -19,12 +19,12 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<node name="Node1" load-factor="2.0">
-    <description>A description of this node.</description>
-    <server id="Server1" ...>
-        <property name="NodeName" value="${node}"/>
-        ...
-    </server>
+<node name="Node1" load-factor="2.0">
+    <description>A description of this node.</description>
+    <server id="Server1" ...>
+        <property name="NodeName" value="${node}"/>
+        ...
+    </server>
 </node>
 ```
 

@@ -18,9 +18,9 @@ Here is a simple configuration file:
 ```config
 # Example config file for Ice
 
-Ice.MessageSizeMax = 2048    # Largest message size is 2MB
-Ice.Trace.Network=3          # Highest level of tracing for network
-Ice.Trace.Protocol=          # Disable protocol tracing
+Ice.MessageSizeMax = 2048    # Largest message size is 2MB
+Ice.Trace.Network=3          # Highest level of tracing for network
+Ice.Trace.Protocol=          # Disable protocol tracing
 ```
 
 White space within property keys and values is preserved, whether escaped with a backslash or not escaped.
@@ -31,8 +31,8 @@ example:
 ```config
 # Key white space example
 
-Prop1     = 1            # Key is "Prop1"
- Prop2    = 2            # Key is "Prop2"
+Prop1     = 1            # Key is "Prop1"
+ Prop2    = 2            # Key is "Prop2"
 \ Prop3 \ = 3            # Key is "Prop3"
 My Prop1  = 1            # Key is "My Prop1"
 My\ Prop2 = 2            # Key is "My Prop2"
@@ -44,11 +44,11 @@ example:
 ```config
 # Value white space example
 
-My.Prop1 = a property               # Value is "a property"
-My.Prop2 =     a     property       # Value is "a     property"
-My.Prop3 = \ \ a     property\ \    # Value is "  a     property  "
-My.Prop4 = \ \ a  \ \  property\ \  # Value is "  a     property  "
-My.Prop5 = a \\ property            # Value is "a \ property"
+My.Prop1 = a property               # Value is "a property"
+My.Prop2 =     a     property       # Value is "a     property"
+My.Prop3 = \ \ a     property\ \    # Value is "  a     property  "
+My.Prop4 = \ \ a  \ \  property\ \  # Value is "  a     property  "
+My.Prop5 = a \\ property            # Value is "a \ property"
 ```
 
 This example shows that leading and trailing white space for property values is ignored unless escaped with a backslash
@@ -68,7 +68,7 @@ allows you to make this distinction, for example, in C++:
 // returns 3 if not set or set to the empty string
 int traceProtocol =
     properties->getPropertyAsIntWithDefault("Ice.Trace.Protocol", 3);
- 
+
 // returns "3" if not set but "" if set to the empty string
 string traceProtocolString =
     properties->getPropertyWithDefault("Ice.Trace.Protocol", "3");
@@ -87,26 +87,26 @@ The characters `=` and `#` have special meaning in a configuration file:
 These characters must be escaped when they appear in a property name. Consider the following examples:
 
 ```config
-foo\=bar=1        # Name is "foo=bar", value is "1"
-foo\#bar   = 2    # Name is "foo#bar", value is "2"
-foo bar  =3       # Name is "foo bar", value is "3"
+foo\=bar=1        # Name is "foo=bar", value is "1"
+foo\#bar   = 2    # Name is "foo#bar", value is "2"
+foo bar  =3       # Name is "foo bar", value is "3"
 ```
 
 In a property value, a `#` character must be escaped to prevent it from starting a comment, but an `=` character does
 not require an escape. Consider these examples:
 
 ```config
-A=1           # Name is "A", value is "1"
-B= 2 3 4      # Name is "B", value is "2 3 4"
-C=5=\#6 # 7   # Name is "C", value is "5=#6"
+A=1           # Name is "A", value is "1"
+B= 2 3 4      # Name is "B", value is "2 3 4"
+C=5=\#6 # 7   # Name is "C", value is "5=#6"
 ```
 
 Note that, two successive backslashes in a property value become a single backslash. To get two consecutive backslashes,
 you must escape each one with another backslash:
 
 ```config
-AServer=\\\\server\dir    # Value is "\\server\dir"
-BServer=\\server\\dir     # Value is "\server\dir"
+AServer=\\\\server\dir    # Value is "\\server\dir"
+BServer=\\server\\dir     # Value is "\server\dir"
 ```
 
 The preceding example also illustrates that, if a backslash is not followed by a backslash, `#`, or `=`, the backslash

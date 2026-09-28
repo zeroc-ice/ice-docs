@@ -19,22 +19,22 @@ additional property:
 
 ```xml
 <icegrid>
-    <application name="MyApp">
-        <node name="Node">
-            <server id="Server1" ...>
-                <target name="debug">
-                    <property name="Ice.Trace.Network" value="2"/>
-                </target>
-                ...
-            </server>
-            <server id="Server2" ...>
-                <target name="debug">
-                    <property name="Ice.Trace.Network" value="2"/>
-                </target>
-                ...
-            </server>
-        </node>
-    </application>
+    <application name="MyApp">
+        <node name="Node">
+            <server id="Server1" ...>
+                <target name="debug">
+                    <property name="Ice.Trace.Network" value="2"/>
+                </target>
+                ...
+            </server>
+            <server id="Server2" ...>
+                <target name="debug">
+                    <property name="Ice.Trace.Network" value="2"/>
+                </target>
+                ...
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -51,22 +51,22 @@ with the contents of the included file. The elements in the included file must b
 shown in the following example:
 
 ```xml
-<!-- File: A.xml -->
+<!-- File: A.xml -->
 <icegrid>
-    <server-template id="ServerTemplate">
-        <parameter name="id"/>
-        ...
-    </server-template>
+    <server-template id="ServerTemplate">
+        <parameter name="id"/>
+        ...
+    </server-template>
 </icegrid>
 
-<!-- File: B.xml -->
+<!-- File: B.xml -->
 <icegrid>
-    <application name="MyApp">
-        <include file="A.xml"/>
-        <node name="Node">
-            <server-instance template="ServerTemplate" .../>
-        </node>
-    </application>
+    <application name="MyApp">
+        <include file="A.xml"/>
+        <node name="Node">
+            <server-instance template="ServerTemplate" .../>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -82,28 +82,28 @@ You can include [specific targets](../icegrid-xml-features) from a file by speci
 illustrates the use of a target:
 
 ```xml
-<!-- File: A.xml -->
+<!-- File: A.xml -->
 <icegrid>
-    <server-template id="ServerTemplate">
-        <parameter name="id"/>
-        ...
-    </server-template>
-    <target name="targetA">
-        <server-template id="AnotherTemplate">
-            ...
-        </server-template>
-    </target>
+    <server-template id="ServerTemplate">
+        <parameter name="id"/>
+        ...
+    </server-template>
+    <target name="targetA">
+        <server-template id="AnotherTemplate">
+            ...
+        </server-template>
+    </target>
 </icegrid>
 
-<!-- File: B.xml -->
+<!-- File: B.xml -->
 <icegrid>
-    <application name="MyApp">
-        <include file="A.xml" targets="targetA"/>
-        <node name="Node">
-            <server-instance template="ServerTemplate" .../>
-            <server-instance template="AnotherTemplate" .../>
-        </node>
-    </application>
+    <application name="MyApp">
+        <include file="A.xml" targets="targetA"/>
+        <node name="Node">
+            <server-instance template="ServerTemplate" .../>
+            <server-instance template="AnotherTemplate" .../>
+        </node>
+    </application>
 </icegrid>
 ```
 

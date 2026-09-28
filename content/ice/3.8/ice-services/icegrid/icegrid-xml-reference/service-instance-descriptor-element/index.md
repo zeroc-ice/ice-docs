@@ -21,8 +21,8 @@ default value supplied by the template.
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<icebox id="IceBoxServer" ...>
-    <service-instance template="ServiceTemplate" name="Service1">
+<icebox id="IceBoxServer" ...>
+    <service-instance template="ServiceTemplate" name="Service1">
         <properties>
             <property name="Debug" value="1"/>
         </properties>

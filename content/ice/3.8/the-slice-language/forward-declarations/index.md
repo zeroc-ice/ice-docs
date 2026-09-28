@@ -6,22 +6,22 @@ Both [interfaces](../interfaces) and [classes](../classes) can be forward declar
 creation of mutually dependent objects, for example:
 
 ```slice
-module Family 
+module Family
 {
-    interface Child;            // Forward declaration
+    interface Child;            // Forward declaration
 
-    sequence<Child*> Children;  // OK
+    sequence<Child*> Children;  // OK
 
-    interface Parent
+    interface Parent
     {
-        Children getChildren(); // OK
-    }
+        Children getChildren(); // OK
+    }
 
-    interface Child           // Definition
-    {
-        Parent* getMother();
-        Parent* getFather();
-    }
+    interface Child           // Definition
+    {
+        Parent* getMother();
+        Parent* getFather();
+    }
 }
 ```
 
@@ -36,13 +36,13 @@ Finally, you cannot inherit from a forward-declared interface or class until aft
 compiler:
 
 ```slice
-interface Base;                         // Forward declaration
+interface Base;                         // Forward declaration
 
-interface Derived1 extends Base {}      // Error!
+interface Derived1 extends Base {}      // Error!
 
-interface Base {}                       // Definition
+interface Base {}                       // Definition
 
-interface Derived2 extends Base {}      // OK, definition was seen
+interface Derived2 extends Base {}      // OK, definition was seen
 ```
 
 Not inheriting from a forward-declared base interface or class until its definition is seen is necessary because,

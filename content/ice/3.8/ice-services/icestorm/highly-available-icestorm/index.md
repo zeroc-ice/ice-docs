@@ -105,9 +105,9 @@ client can draw no conclusion. The client should retry the request and be prepar
 this example:
 
 ```cpp
-TopicPrx topic = ...;
-Ice::ObjectPrx sub = ...;
-topic.subscribeAndGetPublisher({}, sub);
+TopicPrx topic = ...;
+Ice::ObjectPrx sub = ...;
+topic.subscribeAndGetPublisher({}, sub);
 ```
 
 The call to `subscribeAndGetPublisher` may fail in very rare cases with an `UnknownException`, indicating that the
@@ -115,24 +115,24 @@ subscription may or may not have succeeded. Here is the proper way to deal with 
 `UnknownException`:
 
 ```cpp
-TopicPrx topic = ...;
-Ice::ObjectPrx sub = ...;
+TopicPrx topic = ...;
+Ice::ObjectPrx sub = ...;
 
 while (true)
 {
-    try
+    try
     {
-        topic.subscriberAndGetPublisher({}, sub);
-    }
-    catch (const Ice::UnknownException&)
+        topic.subscriberAndGetPublisher({}, sub);
+    }
+    catch (const Ice::UnknownException&)
     {
-        continue;
-    } 
-    catch (const IceStorm::AlreadySubscribed&)
+        continue;
+    }
+    catch (const IceStorm::AlreadySubscribed&)
     {
-        // Expected.
-    }
-    break;
+        // Expected.
+    }
+    break;
 }
 ```
 

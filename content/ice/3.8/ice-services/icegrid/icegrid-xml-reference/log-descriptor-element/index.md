@@ -19,8 +19,8 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<server id="MyServer" ...>
-    <log path="${server}.log" property="LogFile"/>
+<server id="MyServer" ...>
+    <log path="${server}.log" property="LogFile"/>
 </server>
 ```
 

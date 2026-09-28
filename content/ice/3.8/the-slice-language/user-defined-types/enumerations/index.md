@@ -9,7 +9,7 @@ A Slice enumerated type definition looks identical to C++:
 ```slice
 module M
 {
-    enum Fruit { Apple, Pear, Orange }
+    enum Fruit { Apple, Pear, Orange }
 }
 ```
 
@@ -22,8 +22,8 @@ A Slice enum type introduces a new namespace scope, so the following is legal:
 ```slice
 module M
 {
-    enum Fruit { Apple, Pear, Orange }
-    enum ComputerBrands { Apple, Dell, HP, Lenovo }
+    enum Fruit { Apple, Pear, Orange }
+    enum ComputerBrands { Apple, Dell, HP, Lenovo }
 }
 ```
 
@@ -60,7 +60,7 @@ Slice also permits you to assign custom values to enumerators:
 
 ```slice
 const int PearValue = 7;
-enum Fruit { Apple = 0, Pear = PearValue, Orange }
+enum Fruit { Apple = 0, Pear = PearValue, Orange }
 ```
 
 Custom values must be unique and non-negative, and may refer to Slice constants of integer types. If no custom value is
@@ -72,7 +72,7 @@ The maximum value for an enumerator value is the same as the maximum value for `
 Slice does not require custom enumerator values to be declared in increasing order:
 
 ```slice
-enum Fruit { Apple = 5, Pear = 3, Orange = 1 }   // Legal
+enum Fruit { Apple = 5, Pear = 3, Orange = 1 }   // Legal
 ```
 
 Note however that when there is an inconsistency between the declaration order and the numerical order of the

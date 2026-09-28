@@ -55,7 +55,7 @@ preprocessor options and controlling code generation. The arguments must include
 The function is defined as:
 
 ```py
-def Ice.loadSlice(args:[str])
+def Ice.loadSlice(args:[str])
 ```
 
 The args parameter supports all standard Slice compiler options.
@@ -63,7 +63,7 @@ The args parameter supports all standard Slice compiler options.
 For example:
 
 ```py
-Ice.loadSlice(["-I.", "Greeter.ice"])
+Ice.loadSlice(["-I.", "Greeter.ice"])
 ```
 
 The supported arguments are the same as those documented for the **Slice for Python compiler** under

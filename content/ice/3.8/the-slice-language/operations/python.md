@@ -35,7 +35,7 @@ Given a proxy to an object of type `Greeter`, the client can invoke the `greet` 
 
 ```py
 greeter = VisitorCenter.GreeterPrx(communicator, "greeter:tcp -h localhost -p 4061")
-greeting = await greeter.greetAsync("Alice")  # Get name via RPC
+greeting = await greeter.greetAsync("Alice")  # Get name via RPC
 ```
 
 # Sync and Async Methods
@@ -475,36 +475,36 @@ changed by the invocation.
 Here is an interface with operations that pass parameters of various types from client to server:
 
 ```slice
-struct NumberAndString
+struct NumberAndString
 {
-    int x;
-    string str;
+    int x;
+    string str;
 }
 
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-dictionary<long, StringSeq> StringTable;
+dictionary<long, StringSeq> StringTable;
 
-interface ClientToServer
+interface ClientToServer
 {
-    void op1(int i, float f, bool b, string s);
-    void op2(NumberAndString ns, StringSeq ss, StringTable st);
-    void op3(ClientToServer* proxy);
+    void op1(int i, float f, bool b, string s);
+    void op2(NumberAndString ns, StringSeq ss, StringTable st);
+    void op3(ClientToServer* proxy);
 }
 ```
 
 The Slice compiler generates the following proxy for this definition:
 
 ```py
-class ClientToServerPrx(Ice.ObjectPrx):
-    def op1(self, i, f, b, s, context=None):
-        # ...
+class ClientToServerPrx(Ice.ObjectPrx):
+    def op1(self, i, f, b, s, context=None):
+        # ...
 
-    def op2(self, ns, ss, st, context=None):
-        # ...
+    def op2(self, ns, ss, st, context=None):
+        # ...
 
-    def op3(self, proxy, context=None):
-        # ...
+    def op3(self, proxy, context=None):
+        # ...
 ```
 
 Given a proxy to a `ClientToServer` interface, the client code can pass parameters as in the following example:
@@ -512,25 +512,25 @@ Given a proxy to a `ClientToServer` interface, the client code can pass paramete
 ##### **Python**
 
 ```py
-p = ...                                 # Get proxy...
+p = ...                                 # Get proxy...
 
-p.op1(42, 3.14f, True, "Hello world!")  # Pass simple literals
+p.op1(42, 3.14f, True, "Hello world!")  # Pass simple literals
 
-i = 42
-f = 3.14f
-b = True
-s = "Hello world!"
-p.op1(i, f, b, s)                       # Pass simple variables
+i = 42
+f = 3.14f
+b = True
+s = "Hello world!"
+p.op1(i, f, b, s)                       # Pass simple variables
 
-ns = NumberAndString()
-ns.x = 42
-ns.str = "The Answer"
-ss = [ "Hello world!" ]
-st = {}
-st[0] = ns
-p.op2(ns, ss, st)                       # Pass complex variables
+ns = NumberAndString()
+ns.x = 42
+ns.str = "The Answer"
+ss = [ "Hello world!" ]
+st = {}
+st[0] = ns
+p.op2(ns, ss, st)                       # Pass complex variables
 
-p.op3(p)                                # Pass proxy
+p.op3(p)                                # Pass proxy
 ```
 
 # Out Parameters
@@ -555,47 +555,47 @@ Here again are the same Slice definitions we saw earlier, but this time with all
 direction:
 
 ```slice
-struct NumberAndString
+struct NumberAndString
 {
-    int x;
-    string str;
+    int x;
+    string str;
 }
 
-sequence<string> StringSeq;
+sequence<string> StringSeq;
 
-dictionary<long, StringSeq> StringTable;
+dictionary<long, StringSeq> StringTable;
 
-interface ServerToClient
+interface ServerToClient
 {
-    int op1(out float f, out bool b, out string s);
-    void op2(out NumberAndString ns,
-             out StringSeq ss,
-             out StringTable st);
-    void op3(out ServerToClient* proxy);
+    int op1(out float f, out bool b, out string s);
+    void op2(out NumberAndString ns,
+             out StringSeq ss,
+             out StringTable st);
+    void op3(out ServerToClient* proxy);
 }
 ```
 
 The Python mapping generates the following code for this definition:
 
 ```py
-class ServerToClientPrx(Ice.ObjectPrx):
-    def op1(self, context=None):
-        # ...
+class ServerToClientPrx(Ice.ObjectPrx):
+    def op1(self, context=None):
+        # ...
 
-    def op2(self, context=None):
-        # ...
+    def op2(self, context=None):
+        # ...
 
-    def op3(self, context=None):
-        # ...
+    def op3(self, context=None):
+        # ...
 ```
 
 Given a proxy to a `ServerToClient` interface, the client code can receive the results as in the following example:
 
 ```py
-p = ...              # Get proxy...
-i, f, b, s = p.op1()
-ns, ss, st = p.op2()
-stcp = p.op3()
+p = ...              # Get proxy...
+i, f, b, s = p.op1()
+ns, ss, st = p.op2()
+stcp = p.op3()
 ```
 
 The operations have no `in` parameters, therefore no arguments are passed to the proxy methods. Since `op1` and `op2`

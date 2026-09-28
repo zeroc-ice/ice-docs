@@ -21,19 +21,19 @@ Here is an example to demonstrate the use of this element:
 
 ```xml
 <icegrid>
-    <application name="SampleApp">
-        <server-template id="ServerTemplate">
-            <parameter name="id"/>
-            <server id="${id}" activation="manual" .../>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="ServerTemplate" id="TheServer">
+    <application name="SampleApp">
+        <server-template id="ServerTemplate">
+            <parameter name="id"/>
+            <server id="${id}" activation="manual" .../>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="ServerTemplate" id="TheServer">
                 <properties>
                     <property name="Debug" value="1"/>
                 </properties>
             </server-instance>
-        </node>
-    </application>
+        </node>
+    </application>
 </icegrid>
 ```
 

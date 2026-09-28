@@ -13,14 +13,14 @@ This distinction is necessary because:
 ### **Example: Dictionary with Built-in Key**
 
 ```slice
-struct Employee
+struct Employee
 {
-    long number;
-    string firstName;
-    string lastName;
+    long number;
+    string firstName;
+    string lastName;
 }
 
-dictionary<long, Employee> EmployeeMap;
+dictionary<long, Employee> EmployeeMap;
 ```
 
 In this example, `EmployeeMap` maps to a JavaScript `Map` with:

@@ -14,20 +14,20 @@ either the master or a slave registry replica, but a session with a slave replic
 The `Registry` interface provides two operations for creating an administrative session:
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    exception PermissionDeniedException
+    exception PermissionDeniedException
     {
-        string reason;
+        string reason;
     }
 
-    interface Registry
+    interface Registry
     {
-        AdminSession* createAdminSession(string userId, string password)
-            throws PermissionDeniedException;
+        AdminSession* createAdminSession(string userId, string password)
+            throws PermissionDeniedException;
 
-        AdminSession* createAdminSessionFromSecureConnection()
-            throws PermissionDeniedException;
+        AdminSession* createAdminSessionFromSecureConnection()
+            throws PermissionDeniedException;
     }
 }
 ```
@@ -49,16 +49,16 @@ As an example, the following code demonstrates how to obtain a proxy for the reg
 
 ```cpp
 IceGrid::RegistryPrx registry{communicator, "IceGrid/Registry"};
-string username = ...; 
-string password = ...; 
-std::optional<IceGrid::AdminSessionPrx> session; 
+string username = ...;
+string password = ...;
+std::optional<IceGrid::AdminSessionPrx> session;
 try
-{ 
-    session = registry.createAdminSession(username, password); 
-} 
-catch (const IceGrid::PermissionDeniedException& ex)
-{ 
-    cout << "permission denied:\n" << ex.reason << endl; 
+{
+    session = registry.createAdminSession(username, password);
+}
+catch (const IceGrid::PermissionDeniedException& ex)
+{
+    cout << "permission denied:\n" << ex.reason << endl;
 }
 ```
 
@@ -74,34 +74,34 @@ IceGrid's `AdminSession` interface provides operations for remotely accessing th
 server:
 
 ```slice
-module IceGrid 
+module IceGrid
 {
-    interface AdminSession extends Glacier2::Session
+    interface AdminSession extends Glacier2::Session
     {
-        // ...
-        FileIterator* openServerLog(string id, string path, int count)
-            throws FileNotAvailableException, ServerNotExistException,
-                   NodeUnreachableException, DeploymentException;
-        FileIterator* openServerStdErr(string id, int count)
-            throws FileNotAvailableException, ServerNotExistException,
-                   NodeUnreachableException, DeploymentException;
-        FileIterator* openServerStdOut(string id, int count)
-            throws FileNotAvailableException, ServerNotExistException,
-                   NodeUnreachableException, DeploymentException;
-        FileIterator* openNodeStdErr(string name, int count)
-            throws FileNotAvailableException, NodeNotExistException,
-                   NodeUnreachableException;
-        FileIterator* openNodeStdOut(string name, int count)
-            throws FileNotAvailableException, NodeNotExistException,
-                   NodeUnreachableException;
-        FileIterator* openRegistryStdErr(string name, int count)
-            throws FileNotAvailableException,
-                   RegistryNotExistException,
-                   RegistryUnreachableException;
-        FileIterator * openRegistryStdOut(string name, int count)
-            throws FileNotAvailableException,
-                   RegistryNotExistException,
-                   RegistryUnreachableException;
+        // ...
+        FileIterator* openServerLog(string id, string path, int count)
+            throws FileNotAvailableException, ServerNotExistException,
+                   NodeUnreachableException, DeploymentException;
+        FileIterator* openServerStdErr(string id, int count)
+            throws FileNotAvailableException, ServerNotExistException,
+                   NodeUnreachableException, DeploymentException;
+        FileIterator* openServerStdOut(string id, int count)
+            throws FileNotAvailableException, ServerNotExistException,
+                   NodeUnreachableException, DeploymentException;
+        FileIterator* openNodeStdErr(string name, int count)
+            throws FileNotAvailableException, NodeNotExistException,
+                   NodeUnreachableException;
+        FileIterator* openNodeStdOut(string name, int count)
+            throws FileNotAvailableException, NodeNotExistException,
+                   NodeUnreachableException;
+        FileIterator* openRegistryStdErr(string name, int count)
+            throws FileNotAvailableException,
+                   RegistryNotExistException,
+                   RegistryUnreachableException;
+        FileIterator * openRegistryStdOut(string name, int count)
+            throws FileNotAvailableException,
+                   RegistryNotExistException,
+                   RegistryUnreachableException;
     }
 }
 ```
@@ -136,13 +136,13 @@ the file, otherwise the iterator is positioned to return the last `count` lines 
 The `FileIterator` interface is quite simple:
 
 ```slice
-module IceGrid
+module IceGrid
 {
-    interface FileIterator
+    interface FileIterator
     {
-        bool read(int size, out Ice::StringSeq lines)
-            throws FileNotAvailableException;
-        void destroy();
+        bool read(int size, out Ice::StringSeq lines)
+            throws FileNotAvailableException;
+        void destroy();
     }
 }
 ```
@@ -163,24 +163,24 @@ the first element in the sequence.
 As an example, the C++ code below displays the contents of a log file and waits for new text to become available:
 
 ```cpp
-IceGrid::FileIteratorPrx iter = ...;
+IceGrid::FileIteratorPrx iter = ...;
 while (true)
 {
-    Ice::StringSeq lines;
-    bool end = iter.read(10000, lines);
-    if (!lines.empty())
+    Ice::StringSeq lines;
+    bool end = iter.read(10000, lines);
+    if (!lines.empty())
     {
-        // The first line might be a continuation from
-        // the previous call to read.
-        cout << lines[0];
-        for (const auto& p : lines)
+        // The first line might be a continuation from
+        // the previous call to read.
+        cout << lines[0];
+        for (const auto& p : lines)
         {
-            cout << endl << p << flush;
+            cout << endl << p << flush;
         }
-    }
-    if (end)
+    }
+    if (end)
     {
-        sleep(1);
+        sleep(1);
     }
 }
 ```
@@ -221,46 +221,46 @@ change of interest occurs.
 IceGrid offers a callback interface for each major component of the IceGrid architecture:
 
 ```slice
-module IceGrid
+module IceGrid
 {
-    interface NodeObserver
+    interface NodeObserver
     {
-        void nodeInit(NodeDynamicInfoSeq nodes);
-        void nodeUp(NodeDynamicInfo node);
-        void nodeDown(string name);
-        void updateServer(string node, ServerDynamicInfo updatedInfo);
-        void updateAdapter(string node, AdapterDynamicInfo updatedInfo);
+        void nodeInit(NodeDynamicInfoSeq nodes);
+        void nodeUp(NodeDynamicInfo node);
+        void nodeDown(string name);
+        void updateServer(string node, ServerDynamicInfo updatedInfo);
+        void updateAdapter(string node, AdapterDynamicInfo updatedInfo);
     }
 
-    interface ApplicationObserver
+    interface ApplicationObserver
     {
-        void applicationInit(int serial, ApplicationInfoSeq applications);
-        void applicationAdded(int serial, ApplicationInfo desc);
-        void applicationRemoved(int serial, string name);
-        void applicationUpdated(int serial, ApplicationUpdateInfo desc);
+        void applicationInit(int serial, ApplicationInfoSeq applications);
+        void applicationAdded(int serial, ApplicationInfo desc);
+        void applicationRemoved(int serial, string name);
+        void applicationUpdated(int serial, ApplicationUpdateInfo desc);
     }
 
-    interface AdapterObserver
+    interface AdapterObserver
     {
-        void adapterInit(AdapterInfoSeq adpts);
-        void adapterAdded(AdapterInfo info);
-        void adapterUpdated(AdapterInfo info);
-        void adapterRemoved(string id);
+        void adapterInit(AdapterInfoSeq adpts);
+        void adapterAdded(AdapterInfo info);
+        void adapterUpdated(AdapterInfo info);
+        void adapterRemoved(string id);
     }
 
-    interface ObjectObserver
+    interface ObjectObserver
     {
-        void objectInit(ObjectInfoSeq objects);
-        void objectAdded(ObjectInfo info);
-        void objectUpdated(ObjectInfo info);
-        void objectRemoved(Ice::Identity id);
+        void objectInit(ObjectInfoSeq objects);
+        void objectAdded(ObjectInfo info);
+        void objectUpdated(ObjectInfo info);
+        void objectRemoved(Ice::Identity id);
     }
 
-    interface RegistryObserver
+    interface RegistryObserver
     {
-        void registryInit(RegistryInfoSeq registries);
-        void registryUp(RegistryInfo node);
-        void registryDown(string name);
+        void registryInit(RegistryInfoSeq registries);
+        void registryUp(RegistryInfo node);
+        void registryDown(string name);
     }
 }
 ```
@@ -272,24 +272,24 @@ The next section describes how to install an observer.
 The `AdminSession` interface provides two operations for registering your observers:
 
 ```slice
-module IceGrid
+module IceGrid
 {
-    interface AdminSession extends Glacier2::Session
+    interface AdminSession extends Glacier2::Session
     {
-        idempotent void setObservers(RegistryObserver* registryObs,
-                                     NodeObserver* nodeObs,
-                                     ApplicationObserver* appObs,
-                                     AdapterObserver* adptObs,
-                                     ObjectObserver* objObs)
-            throws ObserverAlreadyRegisteredException;
+        idempotent void setObservers(RegistryObserver* registryObs,
+                                     NodeObserver* nodeObs,
+                                     ApplicationObserver* appObs,
+                                     AdapterObserver* adptObs,
+                                     ObjectObserver* objObs)
+            throws ObserverAlreadyRegisteredException;
 
-        idempotent void setObserversByIdentity(Ice::Identity registryObs,
-                                               Ice::Identity nodeObs,
-                                               Ice::Identity appObs,
-                                               Ice::Identity adptObs,
-                                               Ice::Identity objObs)
-            throws ObserverAlreadyRegisteredException;
-        // ...
+        idempotent void setObserversByIdentity(Ice::Identity registryObs,
+                                               Ice::Identity nodeObs,
+                                               Ice::Identity appObs,
+                                               Ice::Identity adptObs,
+                                               Ice::Identity objObs)
+            throws ObserverAlreadyRegisteredException;
+        // ...
     }
 }
 ```

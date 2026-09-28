@@ -122,14 +122,14 @@ Consider the following sample application:
 
 ```
 <icegrid>
-    <application name="Glacier2Demo">
-        <node name="Node">
-            <server-instance template="Glacier2"
-                client-endpoints="tcp -h 5.6.7.8 -p 8000"
-                server-endpoints="tcp -h 10.0.0.1"/>
-            ...
-        </node>
-    </application>
+    <application name="Glacier2Demo">
+        <node name="Node">
+            <server-instance template="Glacier2"
+                client-endpoints="tcp -h 5.6.7.8 -p 8000"
+                server-endpoints="tcp -h 10.0.0.1"/>
+            ...
+        </node>
+    </application>
 </icegrid>
 ```
 

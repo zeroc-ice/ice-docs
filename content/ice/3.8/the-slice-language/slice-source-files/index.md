@@ -31,24 +31,24 @@ definitions. However, Slice permits `#include` directives only at the beginning 
 If you use `#include` directives, it is a good idea to protect them with guards to prevent double inclusion of a file:
 
 ```slice
-// File Clock.ice
-#ifndef CLOCK_ICE
-#define CLOCK_ICE
+// File Clock.ice
+#ifndef CLOCK_ICE
+#define CLOCK_ICE
 
-// #include directives here...
-// Definitions here...
+// #include directives here...
+// Definitions here...
 
-#endif CLOCK_ICE
+#endif CLOCK_ICE
 ```
 
 The following `#pragma` directive offers a simpler way to achieve the same result:
 
 ```slice
-// File Clock.ice
+// File Clock.ice
 #pragma once
 
-// #include directives here...
-// Definitions here...
+// #include directives here...
+// Definitions here...
 ```
 
 `#include` directives permit a Slice definition to use types defined in a different source file. The Slice compilers
@@ -59,13 +59,13 @@ generate code only for the top-level file(s) nominated on the command line. You 
 Also note that, if you include a path separator in a `#include` directive, you must use a forward slash:
 
 ```slice
-#include <SliceDefs/Clock.ice>  // OK
+#include <SliceDefs/Clock.ice>  // OK
 ```
 
 You cannot use a backslash in `#include` directives:
 
 ```slice
-#include <SliceDefs\Clock.ice>  // Illegal
+#include <SliceDefs\Clock.ice>  // Illegal
 ```
 
 ## Detecting Ice Versions

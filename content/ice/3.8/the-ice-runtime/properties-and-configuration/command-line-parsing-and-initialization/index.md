@@ -16,7 +16,7 @@ CommunicatorPtr initialize(int& argc, const char* argv[], ...other parameters...
 all arguments that set Ice properties from the provided argument vector. For example, assume we invoke a C++ server as:
 
 ```shell
-./server --myoption --Ice.Config=config -x a --Ice.Trace.Network=3 -y opt file
+./server --myoption --Ice.Config=config -x a --Ice.Trace.Network=3 -y opt file
 ```
 
 Initially, `argc` has the value `9`, and `argv` has ten elements: the first nine elements contain the program name and
@@ -31,7 +31,7 @@ a
 -y
 opt
 file
-0             # Terminating null pointer
+0             # Terminating null pointer
 ```
 
 This means that you should initialize the Ice runtime before you parse the command line for your application-specific

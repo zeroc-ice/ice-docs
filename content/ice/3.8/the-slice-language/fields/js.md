@@ -101,12 +101,12 @@ For example:
 ```
 class Point { int x; int y; }
 
-struct Location
+struct Location
 {
-    string name;
-    Point point;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point point;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 

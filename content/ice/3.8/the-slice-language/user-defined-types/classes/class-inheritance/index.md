@@ -9,18 +9,18 @@ Unlike [structures](../structures), classes support inheritance. For example:
 ```slice
 module M
 {
-    class TimeOfDay 
+    class TimeOfDay
     {
-        short hour;         // 0 - 23
-        short minute;       // 0 - 59
-        short second;       // 0 - 59
+        short hour;         // 0 - 23
+        short minute;       // 0 - 59
+        short second;       // 0 - 59
     }
 
-    class DateTime extends TimeOfDay 
+    class DateTime extends TimeOfDay
     {
-        short day;          // 1 - 31
-        short month;        // 1 - 12
-        short year;         // 1753 onwards
+        short day;          // 1 - 31
+        short month;        // 1 - 12
+        short year;         // 1753 onwards
     }
 }
 ```
@@ -38,37 +38,37 @@ calendars for various countries prior to that year can keep you occupied for mon
 Classes only support single inheritance. The following is illegal:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
+    short hour;         // 0 - 23
+    short minute;       // 0 - 59
+    short second;       // 0 - 59
 }
 
-class Date
+class Date
 {
-    short day;
-    short month;
-    short year;
+    short day;
+    short month;
+    short year;
 }
 
-class DateTime extends TimeOfDay, Date   // Error!
+class DateTime extends TimeOfDay, Date   // Error!
 {
-    // ...
+    // ...
 }
 ```
 
 A derived class cannot redefine a field of its base class:
 
 ```slice
-class Base
+class Base
 {
-    int integer;
+    int integer;
 }
 
-class Derived extends Base
+class Derived extends Base
 {
-    int integer;                // Error, integer redefined
+    int integer;                // Error, integer redefined
 }
 ```
 

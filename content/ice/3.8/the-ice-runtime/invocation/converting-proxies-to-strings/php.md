@@ -19,8 +19,8 @@ object adapter ID as specified through the [Ice.ToStringMode](../ice-properties)
 ```php
 $greeter = GreeterPrxHelper::createProxy(
     $communicator,
-    “greeter:tcp -h localhost -p 4061”);
-$propertyDict = $communicator->proxyToProperty($greeter, “Greeter”);
+    "greeter:tcp -h localhost -p 4061");
+$propertyDict = $communicator->proxyToProperty($greeter, "Greeter");
 ```
 
 {% /language-section %}

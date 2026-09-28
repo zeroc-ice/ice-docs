@@ -11,14 +11,14 @@ For example:
 ```slice
 module M
 {
-    struct Employee
+    struct Employee
     {
-        long   number;
-        string firstName;
-        string lastName;
+        long   number;
+        string firstName;
+        string lastName;
     }
 
-    dictionary<long, Employee> EmployeeMap;
+    dictionary<long, Employee> EmployeeMap;
 }
 ```
 
@@ -44,7 +44,7 @@ The key type of a dictionary need not be an integral type. For example, we could
 translate the names of the days of the week:
 
 ```slice
-dictionary<string, string> WeekdaysEnglishToGerman;
+dictionary<string, string> WeekdaysEnglishToGerman;
 ```
 
 The server implementation would take care of initializing this map with the key-value pairs `Monday-Montag`,

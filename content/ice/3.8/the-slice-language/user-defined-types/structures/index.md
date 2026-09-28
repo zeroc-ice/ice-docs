@@ -10,11 +10,11 @@ For example:
 ```slice
 module M
 {
-    struct TimeOfDay
+    struct TimeOfDay
     {
-        short hour;         // 0 - 23
-        short minute;       // 0 - 59
-        short second;       // 0 - 59
+        short hour;         // 0 - 23
+        short minute;       // 0 - 59
+        short second;       // 0 - 59
     }
 }
 ```
@@ -26,15 +26,15 @@ Field definitions using a named type are the only construct that can appear insi
 example, define a structure inside a structure:
 
 ```slice
-struct TwoPoints 
+struct TwoPoints
 {
-    struct Point      // Illegal!
-    {            
-        short x;
-        short y;
+    struct Point      // Illegal!
+    {
+        short x;
+        short y;
     }
-    Point coord1;
-    Point coord2;
+    Point coord1;
+    Point coord2;
 }
 ```
 
@@ -47,16 +47,16 @@ stylistically cleaner as well):
 ##### **Slice**
 
 ```slice
-struct Point
+struct Point
 {
-    short x;
-    short y;
+    short x;
+    short y;
 }
 
-struct TwoPoints      // Legal (and cleaner!)
-{   
-    Point coord1;
-    Point coord2;
+struct TwoPoints      // Legal (and cleaner!)
+{
+    Point coord1;
+    Point coord2;
 }
 ```
 

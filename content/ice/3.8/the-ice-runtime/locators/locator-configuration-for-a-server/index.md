@@ -45,12 +45,12 @@ servers, and not at all for Java servers. For these reasons, Ice provides an alt
 reliable:
 
 ```slice
-module Ice
+module Ice
 {
-    interface Process
+    interface Process
     {
-        void shutdown();
-        void writeMessage(string message, int fd);
+        void shutdown();
+        void writeMessage(string message, int fd);
     }
 }
 ```

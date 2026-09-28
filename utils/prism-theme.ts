@@ -3,10 +3,9 @@
 // The code-block colour scheme.
 //
 // Every colour is a CSS custom property defined in app/globals.css, with the
-// dark values under `.dark`. Prism only ever puts these strings into inline
-// `style` attributes, so `var(--code-…)` works — and it means one render serves
-// both themes: no waiting for hydration to learn which one to use, and no flash
-// of the wrong palette.
+// dark values under `.dark`, and a token's inline style names the one for its
+// type (see `tokenStyle`), so the HTML highlighted at build time serves both
+// themes.
 //
 // Two rules the palettes are built to, taken from measuring Qt's and Stripe's
 // documentation:
@@ -18,59 +17,46 @@
 //     comments stay readable. Ours are ≥ 4.5:1 in light and ≥ 7:1 in dark, and
 //     utils/prism-theme.test.ts fails the build if that ever stops being true.
 
-import type { PrismTheme } from 'prism-react-renderer';
-
-const v = (name: string) => `var(--code-${name})`;
-
-export const iceCodeTheme: PrismTheme = {
-  plain: {
-    color: v('plain'),
-    backgroundColor: v('bg')
-  },
-  styles: [
-    {
-      types: ['comment', 'prolog', 'doctype', 'cdata'],
-      style: { color: v('comment'), fontStyle: 'italic' }
-    },
-    {
-      types: ['punctuation', 'operator', 'entity'],
-      style: { color: v('punctuation') }
-    },
-    {
-      types: ['keyword', 'atrule', 'rule', 'important', 'selector'],
-      style: { color: v('keyword') }
-    },
-    {
-      types: ['string', 'char', 'attr-value', 'regex', 'url'],
-      style: { color: v('string') }
-    },
-    {
-      types: ['number', 'boolean', 'constant', 'symbol', 'variable'],
-      style: { color: v('number') }
-    },
-    {
-      types: ['function', 'method', 'function-name'],
-      style: { color: v('function') }
-    },
-    {
-      types: [
-        'class-name',
-        'builtin',
-        'tag',
-        'namespace',
-        'annotation',
-        'type-args'
-      ],
-      style: { color: v('type') }
-    },
-    {
-      types: ['attr-name', 'property', 'key'],
-      style: { color: v('property') }
-    },
-    { types: ['inserted'], style: { color: v('inserted') } },
-    { types: ['deleted'], style: { color: v('deleted') } }
-  ]
+/** The Prism token types drawn in each palette colour. */
+export const TOKEN_TYPES: Record<string, string[]> = {
+  comment: ['comment', 'prolog', 'doctype', 'cdata'],
+  // Punctuation is drawn in the block's text colour.
+  plain: ['punctuation', 'operator', 'entity'],
+  keyword: ['keyword', 'atrule', 'rule', 'important', 'selector'],
+  string: ['string', 'char', 'attr-value', 'regex', 'url'],
+  number: ['number', 'boolean', 'constant', 'symbol', 'variable'],
+  function: ['function', 'method', 'function-name'],
+  type: [
+    'class-name',
+    'builtin',
+    'tag',
+    'namespace',
+    'annotation',
+    'type-args'
+  ],
+  property: ['attr-name', 'property', 'key'],
+  inserted: ['inserted'],
+  deleted: ['deleted']
 };
+
+const COLOUR_OF_TYPE = new Map(
+  Object.entries(TOKEN_TYPES).flatMap(([colour, types]) =>
+    types.map((type) => [type, colour])
+  )
+);
+
+/**
+ * The inline style of a token nested in Prism's `types`, outermost first, or ''
+ * for one in the block's text colour. The innermost type with a colour decides
+ * the colour, and a comment is italic, with everything inside it.
+ */
+export function tokenStyle(types: readonly string[]): string {
+  const colours = types.flatMap((type) => COLOUR_OF_TYPE.get(type) ?? []);
+  const colour = colours.at(-1) ?? 'plain';
+  const italic = colours.includes('comment');
+  if (colour === 'plain' && !italic) return '';
+  return `color:var(--code-${colour})` + (italic ? ';font-style:italic' : '');
+}
 
 /**
  * The same palette as plain values, for the contrast test. Keep in step with the
@@ -82,10 +68,8 @@ export const CODE_PALETTE = {
     bg: '#f6f8fa',
     headerBg: '#eceff2',
     headerFg: '#47505a',
-    lineNumber: '#666f7b',
     plain: '#1f2328',
     comment: '#5a6570',
-    punctuation: '#1f2328',
     keyword: '#a21a5c',
     string: '#0a5a2f',
     number: '#0550ae',
@@ -100,10 +84,8 @@ export const CODE_PALETTE = {
     bg: '#212a3d',
     headerBg: '#1a2233',
     headerFg: '#b3c0d4',
-    lineNumber: '#9aa9c0',
     plain: '#e9effb',
     comment: '#b3c0d4',
-    punctuation: '#e9effb',
     keyword: '#b3d0ff',
     string: '#9ae6b0',
     number: '#8fdff5',

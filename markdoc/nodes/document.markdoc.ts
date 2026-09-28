@@ -37,6 +37,7 @@ const document = {
         path,
         breadcrumbs: chrome.breadcrumbs,
         pagination: chrome.pagination,
+        edit: chrome.edit,
         readingTime:
           frontmatter.showReadingTime !== false ? readingTime : undefined,
         languages,

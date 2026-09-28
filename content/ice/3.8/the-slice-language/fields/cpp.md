@@ -113,12 +113,12 @@ Slice default values map to default member initializers in C++.
 For example:
 
 ```
-struct Location
+struct Location
 {
-    string name;
-    Point point;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point point;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 
@@ -127,10 +127,10 @@ maps to:
 ```cpp
 struct Location
 {
-    std::string name;
-    Point point;
-    bool display{true};
-    std::string source{"GPS"};
+    std::string name;
+    Point point;
+    bool display{true};
+    std::string source{"GPS"};
     ...
 };
 ```

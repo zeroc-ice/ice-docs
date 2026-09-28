@@ -18,30 +18,30 @@ The Slice interface for the MP3 encoder is straightforward:
 
 ```slice
 #include <Ice/BuiltinSequences.ice>
-module Ripper
+module Ripper
 {
-    exception EncodingFailedException 
+    exception EncodingFailedException
     {
-        string reason;
+        string reason;
     }
 
-    sequence<short> Samples;
+    sequence<short> Samples;
 
-    interface Mp3Encoder
+    interface Mp3Encoder
     {
-        // Input: PCM samples for left and right channels
-        // Output: MP3 frame(s).
-        Ice::ByteSeq encode(Samples leftSamples, Samples rightSamples)
-            throws EncodingFailedException;
+        // Input: PCM samples for left and right channels
+        // Output: MP3 frame(s).
+        Ice::ByteSeq encode(Samples leftSamples, Samples rightSamples)
+            throws EncodingFailedException;
 
-        // You must flush to get the last frame(s). Flush also 
-        // destroys the encoder object.
-        Ice::ByteSeq flush() throws EncodingFailedException;
+        // You must flush to get the last frame(s). Flush also
+        // destroys the encoder object.
+        Ice::ByteSeq flush() throws EncodingFailedException;
     }
 
-    interface Mp3EncoderFactory
+    interface Mp3EncoderFactory
     {
-        Mp3Encoder* createEncoder();
+        Mp3Encoder* createEncoder();
     }
 }
 ```
@@ -61,7 +61,7 @@ The corresponding C++ code for the client is presented below:
 
 ```cpp
 Ripper::MP3EncoderFactoryPrx factory{communicator, "factory@EncoderAdapter"};
-auto encoder = factory.createEncoder();
+auto encoder = factory.createEncoder();
 ```
 
 Notice that the client uses an indirect proxy for the `MP3EncoderFactory` object. This stringified proxy can be read

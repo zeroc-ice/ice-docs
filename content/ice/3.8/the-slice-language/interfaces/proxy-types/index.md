@@ -44,10 +44,10 @@ The semantics of proxies are similar to those of C++ class instance pointers:
 Proxies have pointer semantics, so an interface can reference a proxy to itself. For example:
 
 ```slice
-interface Link 
+interface Link
 {
-    idempotent SomeType getValue();
-    idempotent Link* next();
+    idempotent SomeType getValue();
+    idempotent Link* next();
 }
 ```
 

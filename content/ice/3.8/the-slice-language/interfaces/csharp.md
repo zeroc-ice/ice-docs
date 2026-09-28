@@ -8,19 +8,19 @@ On the client side, a Slice interface maps to a C# interface with methods that c
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+interface Simple
 {
     ["cs:identifier:Op"]
-    void op();
+    void op();
 }
 ```
 
 The Slice compiler generates the following definition for use by the client:
 
 ```csharp
-public partial interface SimplePrx : Ice.ObjectPrx
+public partial interface SimplePrx : Ice.ObjectPrx
 {
-    Task OpAsync(
+    Task OpAsync(
         Dictionary<string, string>? context = null,
         Progress<bool>? progress = null,
         CancellationToken cancel = default);
@@ -46,7 +46,7 @@ interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
 This helper class provides the `createProxy` method. With our previous example:
 
 ```csharp
-public class SimplePrxHelper : ...
+public class SimplePrxHelper : ...
 {
     public static SimplePrx createProxy(
         Ice.Communicator communicator,
@@ -99,7 +99,7 @@ In addition to `createProxy`, the generated helper class provides two static met
 of another type:
 
 ```csharp
-public class SimplePrxHelper : ...
+public class SimplePrxHelper : ...
 {
     public static SimplePrx? uncheckedCast(Ice.ObjectPrx? proxy)
 
@@ -171,20 +171,20 @@ On the server side, interfaces map to _skeleton_ classes. A skeleton is a class 
 operation on the corresponding interface. For example, consider our Slice definition for the `Node` interface:
 
 ```slice
-module VisitorCenter
+module VisitorCenter
 {
-    interface Greeter
+    interface Greeter
     {
         ["cs:identifier:Greet"]
-        string greet(string name);
-    }
+        string greet(string name);
+    }
 }
 ```
 
 The Slice compiler generates the following definitions for this interface:
 
 ```csharp
-namespace VisitorCenter
+namespace VisitorCenter
 {
     public partial interface Greeter : Ice.Object
     {
@@ -257,7 +257,7 @@ In order to provide an implementation for an Ice object, you must create a serva
 generated skeleton classes. For example, to create a servant for the `Greeter` interface, you could write:
 
 ```csharp
-public class Chatbot : VisitorCenter.GreeterDisp_
+public class Chatbot : VisitorCenter.GreeterDisp_
 {
     public override string Greet(string name, Ice.Current current) =>
         $"Hello, {name}!";

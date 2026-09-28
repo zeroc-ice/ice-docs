@@ -8,7 +8,7 @@ It’s not a namespace construct like in C++ or C#.
 Take the `Greeter.ice` Slice file:
 
 ```slice
-module VisitorCenter
+module VisitorCenter
 {
    interface Greeter { ... }
 }
@@ -19,7 +19,7 @@ When the Slice to Swift compiler (`slice2swift`) compiles this file, it does not
 The mapped Swift module is used only when you make cross-module references, as in:
 
 ```slice
-module VisitorCenter
+module VisitorCenter
 {
    interface Greeter { ... }
 }
@@ -39,16 +39,16 @@ With this example, the mapped Swift `greeter` property is a `VisitorCenter.Greet
 A nested Slice module is used as prefix for the mapped Swift types in that module. For example:
 
 ```slice
-module M1::M2
+module M1::M2
 {
     interface A { ... }
 }
 
-// ...
+// ...
 
-module M1    // Reopen M1
+module M1    // Reopen M1
 {
-    // More definitions for M1 here...
+    // More definitions for M1 here...
     interface B { ... }
 }
 ```
@@ -75,7 +75,7 @@ nested module, `swift:identifier` remaps the prefix. For example:
 ```slice
 // module Time becomes Swift module Clock in cross-module references.
 ["swift:identifier:Clock"]
-module Time
+module Time
 {
    // ...
 }

@@ -151,8 +151,8 @@ these object adapters directly by defining the properties `IceDiscovery.Multicas
 `IceDiscovery.Reply.Endpoints`. If you don't define an endpoint for an object adapter, the plug-in computes it as
 follows:
 
-- `IceDiscovery.Multicast.Endpoints=udp -h address -p port [--interface interface]`
-- `IceDiscovery.Reply.Endpoints=udp [--interface interface]`
+- `IceDiscovery.Multicast.Endpoints=udp -h address -p port [--interface interface]`
+- `IceDiscovery.Reply.Endpoints=udp [--interface interface]`
 
 `where`
 
@@ -170,7 +170,7 @@ IPv4):
 Finally, you can also override the default endpoint that a client uses to broadcast its lookup queries by defining
 [IceDiscovery.Lookup](../icediscovery-properties), otherwise the plug-in computes this endpoint as follows:
 
-- `IceDiscovery.Lookup=udp -h address -p port [--interface interface]`
+- `IceDiscovery.Lookup=udp -h address -p port [--interface interface]`
 
 This endpoint must use the same address and port as `IceDiscovery.Multicast.Endpoints`.
 

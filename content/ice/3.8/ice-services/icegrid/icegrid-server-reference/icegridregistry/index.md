@@ -12,13 +12,13 @@ testing. The registry server is implemented by the `icegridregistry` executable.
 The registry supports the following command-line options:
 
 ```shell
-icegridregistry -h
-Usage: icegridregistry [options]
+icegridregistry -h
+Usage: icegridregistry [options]
 Options:
--h, --help           Show this message.
--v, --version        Display the Ice version.
---nowarn             Don't print any security warnings.
---readonly           Start the master registry in read-only mode.
+-h, --help           Show this message.
+-v, --version        Display the Ice version.
+--nowarn             Don't print any security warnings.
+--readonly           Start the master registry in read-only mode.
 --initdb-from-replica <replica>
                      Initialize the database from the given replica.
 ```

@@ -9,17 +9,17 @@ We have separately discussed the primary components of the class encoding: [slic
 discussions more concrete, consider the following class definitions:
 
 ```slice
-class Base
+class Base
 {
-    int baseInt;
-    string baseString;
+    int baseInt;
+    string baseString;
 }
 
-class Derived extends Base
+class Derived extends Base
 {
-    bool derivedBool;
-    string derivedString;
-    double derivedDouble;
+    bool derivedBool;
+    string derivedString;
+    double derivedDouble;
 }
 ```
 
@@ -188,17 +188,17 @@ compact format to produce the smallest encoding possible. The Slice definitions 
 compact type IDs:
 
 ```slice
-class Base(10)
+class Base(10)
 {
-    int baseInt;
-    string baseString;
+    int baseInt;
+    string baseString;
 }
 
-class Derived(11) extends Base
+class Derived(11) extends Base
 {
-    bool derivedBool;
-    string derivedString;
-    double derivedDouble;
+    bool derivedBool;
+    string derivedString;
+    double derivedDouble;
 }
 ```
 

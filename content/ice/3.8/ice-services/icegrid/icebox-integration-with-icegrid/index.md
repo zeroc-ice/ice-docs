@@ -14,17 +14,17 @@ As an example, the following application deploys an IceBox server containing one
 
 ```xml
 <icegrid>
-    <application name="IceBoxDemo">
-        <node name="Node">
-            <icebox id="IceBoxServer"
+    <application name="IceBoxDemo">
+        <node name="Node">
+            <icebox id="IceBoxServer"
                     exe="/opt/Ice/bin/icebox"
                     activation="on-demand">
-                <service name="ServiceA" entry="servicea:create">
-                    <adapter name="${service}" endpoints="tcp"/>
-                </service>
-            </icebox>
-        </node>
-    </application>
+                <service name="ServiceA" entry="servicea:create">
+                    <adapter name="${service}" endpoints="tcp"/>
+                </service>
+            </icebox>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -44,23 +44,23 @@ If you are familiar with [templates](../icegrid-templates) in general, an IceBox
 
 ```xml
 <icegrid>
-    <application name="IceBoxApp">
-        <service-template id="ServiceTemplate">
-            <parameter name="name"/>
-            <service name="${name}" 
+    <application name="IceBoxApp">
+        <service-template id="ServiceTemplate">
+            <parameter name="name"/>
+            <service name="${name}"
                      entry="DemoService:create">
-                <adapter name="${service}" endpoints="default"/>
-                <property name="${service}.Identity"
+                <adapter name="${service}" endpoints="default"/>
+                <property name="${service}.Identity"
                           value="${server}-${service}"/>
-            </service>
-        </service-template>
-        <node name="Node1">
-            <icebox id="IceBoxServer" endpoints="default"
-                exe="/opt/Ice/bin/icebox" activation="on-demand">
-                <service-instance template="ServiceTemplate" name="Service1"/>
-            </icebox>
-        </node>
-    </application>
+            </service>
+        </service-template>
+        <node name="Node1">
+            <icebox id="IceBoxServer" endpoints="default"
+                exe="/opt/Ice/bin/icebox" activation="on-demand">
+                <service-instance template="ServiceTemplate" name="Service1"/>
+            </icebox>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -79,19 +79,19 @@ These properties can be defined in the `service-instance` element, as shown belo
 
 ```xml
 <icegrid>
-    <application name="IceBoxApp">
-        ...
-        <node name="Node1">
-            <icebox id="IceBoxServer"endpoints="default"
-                exe="/opt/Ice/bin/icebox" activation="on-demand">
-                <service-instance template="ServiceTemplate" name="Service1">
-                    <properties>
-                        <property name="Ice.Trace.Network" value="1"/>
-                    </properties>
-                </service-instance>
-            </icebox>
-        </node>
-    </application>
+    <application name="IceBoxApp">
+        ...
+        <node name="Node1">
+            <icebox id="IceBoxServer"endpoints="default"
+                exe="/opt/Ice/bin/icebox" activation="on-demand">
+                <service-instance template="ServiceTemplate" name="Service1">
+                    <properties>
+                        <property name="Ice.Trace.Network" value="1"/>
+                    </properties>
+                </service-instance>
+            </icebox>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -102,25 +102,25 @@ A more sophisticated use of templates involves instantiating a service template 
 
 ```xml
 <icegrid>
-    <application name="IceBoxApp">
-        <service-template id="ServiceTemplate">
-            <parameter name="name"/>
-            <service name="${name}" entry="DemoService:create">
-                <adapter name="${service}" endpoints="default"/>
-                <property name="${name}.Identity" value="${server}-${name}"/>
-            </service>
-        </service-template>
-        <server-template id="ServerTemplate">
-            <parameter name="id"/>
-            <icebox id="${id}" endpoints="default"
-                exe="/opt/Ice/bin/icebox" activation="on-demand">
-                <service-instance template="ServiceTemplate" name="Service1"/>
-            </icebox>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="ServerTemplate" id="IceBoxServer"/>
-        </node>
-    </application>
+    <application name="IceBoxApp">
+        <service-template id="ServiceTemplate">
+            <parameter name="name"/>
+            <service name="${name}" entry="DemoService:create">
+                <adapter name="${service}" endpoints="default"/>
+                <property name="${name}.Identity" value="${server}-${name}"/>
+            </service>
+        </service-template>
+        <server-template id="ServerTemplate">
+            <parameter name="id"/>
+            <icebox id="${id}" endpoints="default"
+                exe="/opt/Ice/bin/icebox" activation="on-demand">
+                <service-instance template="ServiceTemplate" name="Service1"/>
+            </icebox>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="ServerTemplate" id="IceBoxServer"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -133,15 +133,15 @@ a [property set](../properties-descriptor-element) that applies only to the desi
 
 ```xml
 <icegrid>
-    <application name="IceBoxApp">
-        <node name="Node1">
-            <server-instance template="ServerTemplate" id="IceBoxServer">
-                <properties service="Service1">
-                    <property name="Ice.Trace.Network" value="1"/>
-                </properties>
-            </server-instance>
-        </node>
-    </application>
+    <application name="IceBoxApp">
+        <node name="Node1">
+            <server-instance template="ServerTemplate" id="IceBoxServer">
+                <properties service="Service1">
+                    <property name="Ice.Trace.Network" value="1"/>
+                </properties>
+            </server-instance>
+        </node>
+    </application>
 </icegrid>
 ```
 

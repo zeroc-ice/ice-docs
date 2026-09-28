@@ -47,7 +47,7 @@ std::ostream& operator<<(std::ostream& os, Fruit value);
 ```
 
 You can suppress the generation of this operator, and tell the Slice compiler you’ll provide your own custom operator<<,
-with the `”cpp:custom-print”` metadata. For example:
+with the `"cpp:custom-print"` metadata. For example:
 
 ```
 ["cpp:custom-print"] // we provide our own custom operator<< for this enum

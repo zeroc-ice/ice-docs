@@ -35,9 +35,9 @@ An operation can have one or more input parameters. For example:
 ```slice
 module M
 {
-    interface CircadianRhythm 
+    interface CircadianRhythm
     {
-        void setSleepPeriod(TimeOfDay startTime, TimeOfDay stopTime);
+        void setSleepPeriod(TimeOfDay startTime, TimeOfDay stopTime);
     }
 }
 ```
@@ -47,9 +47,9 @@ Note that the parameter name is mandatory. You cannot omit the parameter name, s
 ```slice
 module M
 {
-    interface CircadianRhythm
+    interface CircadianRhythm
     {
-        void setSleepPeriod(TimeOfDay, TimeOfDay);  // Error!
+        void setSleepPeriod(TimeOfDay, TimeOfDay);  // Error!
     }
 }
 ```
@@ -59,7 +59,7 @@ the server to the client, you can use an output parameter, indicated by the `out
 way to define the `getTime` operation in the `Clock` interface would be:
 
 ```slice
-void getTime(out TimeOfDay time);
+void getTime(out TimeOfDay time);
 ```
 
 This achieves the same thing but uses an output parameter instead of the return value. As with input parameters, you can
@@ -68,10 +68,10 @@ use multiple output parameters:
 ```slice
 module M
 {
-    interface CircadianRhythm
+    interface CircadianRhythm
     {
-        void setSleepPeriod(TimeOfDay startTime, TimeOfDay stopTime);
-        void getSleepPeriod(out TimeOfDay startTime, out TimeOfDay stopTime);
+        void setSleepPeriod(TimeOfDay startTime, TimeOfDay stopTime);
+        void getSleepPeriod(out TimeOfDay startTime, out TimeOfDay stopTime);
     }
 }
 ```
@@ -79,17 +79,17 @@ module M
 If you have both input and output parameters for an operation, the output parameters must follow the input parameters:
 
 ```slice
-void changeSleepPeriod(    
-    TimeOfDay startTime, 
-    TimeOfDay stopTime,
-    out TimeOfDay prevStartTime,
-    out TimeOfDay prevStopTime);
+void changeSleepPeriod(
+    TimeOfDay startTime,
+    TimeOfDay stopTime,
+    out TimeOfDay prevStartTime,
+    out TimeOfDay prevStopTime);
 
-void changeSleepPeriod(
-     out TimeOfDay prevStartTime, 
-     out TimeOfDay prevStopTime, // Error
-     TimeOfDay startTime, 
-     TimeOfDay stopTime);
+void changeSleepPeriod(
+     out TimeOfDay prevStartTime,
+     out TimeOfDay prevStopTime, // Error
+     TimeOfDay startTime,
+     TimeOfDay stopTime);
 ```
 
 Slice does not support parameters that are both input and output parameters.
@@ -137,14 +137,14 @@ Language mappings specify an API for passing optional parameters and testing whe
 Slice does not support any form of overloading of operations. For example:
 
 ```slice
-interface CircadianRhythm
+interface CircadianRhythm
 {
-    void modify(TimeOfDay startTime, TimeOfDay endTime);
+    void modify(TimeOfDay startTime, TimeOfDay endTime);
 
-    void modify(    TimeOfDay startTime,        // Error
-                    TimeOfDay endTime,
-                out timeOfDay prevStartTime,
-                out TimeOfDay prevEndTime);
+    void modify(    TimeOfDay startTime,        // Error
+                    TimeOfDay endTime,
+                out timeOfDay prevStartTime,
+                out TimeOfDay prevEndTime);
 }
 ```
 
@@ -165,10 +165,10 @@ are the conceptual equivalent of C++ `const` member functions. Similarly, `setTi
 but is idempotent. You can indicate this in Slice as follows:
 
 ```slice
-interface Clock
+interface Clock
 {
-    idempotent TimeOfDay getTime();
-    idempotent void setTime(TimeOfDay time);
+    idempotent TimeOfDay getTime();
+    idempotent void setTime(TimeOfDay time);
 }
 ```
 

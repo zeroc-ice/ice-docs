@@ -242,7 +242,7 @@ A client can invoke this operation as shown below:
 ```ruby
 i, v = proxy.execute("--file log.txt")
 i, v = proxy.execute(Ice::Unset)
- 
+
 if v != Ice::Unset
     puts "value = " + v.to_s
 end

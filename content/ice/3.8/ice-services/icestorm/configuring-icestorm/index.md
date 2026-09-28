@@ -11,7 +11,7 @@ IceStorm is a relatively lightweight service in that it requires very little con
 The first step is configuring IceBox to run the IceStorm service:
 
 ```
-IceBox.Service.IceStorm=IceStormService,38:createIceStorm --Ice.Config=config.service
+IceBox.Service.IceStorm=IceStormService,38:createIceStorm --Ice.Config=config.service
 ```
 
 The IceStorm service itself is configured by the properties in the `config.service` file, which might look as follows
@@ -20,7 +20,7 @@ for a non-replicated service:
 ```
 IceStorm.LMDB.Path=db
 IceStorm.TopicManager.Endpoints=tcp -p 9999
-IceStorm.Publish.Endpoints=tcp -p 10000
+IceStorm.Publish.Endpoints=tcp -p 10000
 ```
 
 IceStorm uses [LMDB](https://www.symas.com/mdb) to manage the service's persistent state, therefore the first property
@@ -64,11 +64,11 @@ An IceGrid [deployment](../using-icegrid-deployment) typically uses two adapter 
 proxies, and another for the topics, as shown below:
 
 ```xml
-<replica-group id="IceStorm-PublishReplicaGroup">
+<replica-group id="IceStorm-PublishReplicaGroup">
 </replica-group>
 
-<replica-group id="IceStorm-TopicManagerReplicaGroup">
-    <object identity="IceStorm/TopicManager"
+<replica-group id="IceStorm-TopicManagerReplicaGroup">
+    <object identity="IceStorm/TopicManager"
             type="::IceStorm::TopicManager"/>
 </replica-group>
 ```
@@ -76,13 +76,13 @@ proxies, and another for the topics, as shown below:
 The object adapters are then configured to use these replica groups:
 
 ```xml
-<adapter name="${service}.Publish"
-    endpoints="tcp"
-    replica-group="${instance-name}-PublishReplicaGroup"/>
+<adapter name="${service}.Publish"
+    endpoints="tcp"
+    replica-group="${instance-name}-PublishReplicaGroup"/>
 
-<adapter name="${service}.TopicManager"
-    endpoints="tcp"
-    replica-group="${instance-name}-TopicManagerReplicaGroup"/>
+<adapter name="${service}.TopicManager"
+    endpoints="tcp"
+    replica-group="${instance-name}-TopicManagerReplicaGroup"/>
 ```
 
 An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
@@ -92,7 +92,7 @@ The next step is defining the endpoints for the adapter `Node`, which is used in
 IceStorm replicas and is not part of an adapter replica group:
 
 ```xml
-<adapter name="${service}.Node" endpoints="tcp"/>
+<adapter name="${service}.Node" endpoints="tcp"/>
 ```
 
 Finally, you must define the node ID for each IceStorm replica using the [NodeId](../icestorm-properties) property:
@@ -125,9 +125,9 @@ higher priority.
 For example, assuming we have three replicas with the identifiers 0, 1, 2, we can configure the proxies as shown below:
 
 ```
-IceStorm.Nodes.0=IceStorm/node0:tcp -p 13000
-IceStorm.Nodes.1=IceStorm/node1:tcp -p 13010
-IceStorm.Nodes.2=IceStorm/node2:tcp -p 13020
+IceStorm.Nodes.0=IceStorm/node0:tcp -p 13000
+IceStorm.Nodes.1=IceStorm/node1:tcp -p 13010
+IceStorm.Nodes.2=IceStorm/node2:tcp -p 13020
 ```
 
 These properties must be defined in each replica. Additionally, each replica must define its node ID, as well as the
@@ -135,7 +135,7 @@ node's endpoints. For example, we can configure node 0 as follows:
 
 ```
 IceStorm.NodeId=0
-IceStorm.Node.Endpoints=tcp -p 13000
+IceStorm.Node.Endpoints=tcp -p 13000
 ```
 
 The endpoints for each replica and ID must match the proxies configured in the `Nodes.id` properties.
@@ -153,25 +153,25 @@ For example, suppose we configure three replicas:
 ```
 # on host replica0
 IceStorm.NodeId=0
-IceStorm.TopicManager.Endpoints=tcp -p 10000
-IceStorm.Publish.Endpoints=tcp -p 10001
+IceStorm.TopicManager.Endpoints=tcp -p 10000
+IceStorm.Publish.Endpoints=tcp -p 10001
 
 # on host replica1
 IceStorm.NodeId=1
-IceStorm.TopicManager.Endpoints=tcp -p 10010
-IceStorm.Publish.Endpoints=tcp -p 10011
+IceStorm.TopicManager.Endpoints=tcp -p 10010
+IceStorm.Publish.Endpoints=tcp -p 10011
 
 # on host replica2
 IceStorm.NodeId=2
-IceStorm.TopicManager.Endpoints=tcp -p 10020
-IceStorm.Publish.Endpoints=tcp -p 10021
+IceStorm.TopicManager.Endpoints=tcp -p 10020
+IceStorm.Publish.Endpoints=tcp -p 10021
 ```
 
 Each replica should also define these properties:
 
 ```
-IceStorm.ReplicatedPublishEndpoints=tcp -h replica0 -p 10001:tcp -h replica1 -p 10011:tcp -h replica2 -p 10021
-IceStorm.ReplicatedTopicManagerEndpoints=tcp -h replica0 -p 10000:tcp -h replica1 -p 10010:tcp -h replica2 -p 10020
+IceStorm.ReplicatedPublishEndpoints=tcp -h replica0 -p 10001:tcp -h replica1 -p 10011:tcp -h replica2 -p 10021
+IceStorm.ReplicatedTopicManagerEndpoints=tcp -h replica0 -p 10000:tcp -h replica1 -p 10010:tcp -h replica2 -p 10020
 ```
 
 An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
@@ -182,7 +182,7 @@ case you should remove the definition of the `ReplicatedPublishEndpoints` proper
 Clients of the service can define a proxy for the `TopicManager` object as follows:
 
 ```
-TopicManager.Proxy=IceStorm/TopicManager:tcp -p 9999
+TopicManager.Proxy=IceStorm/TopicManager:tcp -p 9999
 ```
 
 The name of the property is not relevant, but the endpoint must match that of the `service.TopicManager.Endpoints`

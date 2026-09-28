@@ -18,13 +18,13 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<application name="MyApp">
-    <replica-group id="ReplicatedAdapter">
-        <load-balancing type="adaptive" load-sample="15" n-replicas="3"/>
-        <description>A description of this replica group.</description>
-        <object identity="WellKnownObject" .../>
-    </replica-group>
-    ...
+<application name="MyApp">
+    <replica-group id="ReplicatedAdapter">
+        <load-balancing type="adaptive" load-sample="15" n-replicas="3"/>
+        <description>A description of this replica group.</description>
+        <object identity="WellKnownObject" .../>
+    </replica-group>
+    ...
 </application>
 ```
 

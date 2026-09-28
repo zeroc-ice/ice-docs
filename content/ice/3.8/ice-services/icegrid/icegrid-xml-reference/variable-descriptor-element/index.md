@@ -18,11 +18,11 @@ Here is an example to demonstrate the use of this element:
 
 ```xml
 <icegrid>
-    <application name="SampleApp">
-        <variable name="Var1" value="foo"/>
-        <variable name="Var2" value="${Var1}bar"/>
-        ...
-    </application>
+    <application name="SampleApp">
+        <variable name="Var1" value="foo"/>
+        <variable name="Var2" value="${Var1}bar"/>
+        ...
+    </application>
 </icegrid>
 ```
 

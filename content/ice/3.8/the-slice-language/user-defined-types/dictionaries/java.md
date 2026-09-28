@@ -5,7 +5,7 @@
 Here is the definition of our EmployeeMap once more:
 
 ```slice
-dictionary<long, Employee> EmployeeMap;
+dictionary<long, Employee> EmployeeMap;
 ```
 
 As for sequences, the Java mapping does not create a separate named type for this definition. Instead, the dictionary is
@@ -14,14 +14,14 @@ mapping of the value type. In the example above, `EmployeeMap` is mapped to the 
 `java.util.Map<Long, Employee>`. The following code demonstrates how to allocate and use an instance of `EmployeeMap`:
 
 ```java
-var em = new java.util.HashMap<Long, Employee>();
+var em = new java.util.HashMap<Long, Employee>();
 
-Employee e = new Employee();
-e.number = 31;
-e.firstName = "James";
-e.lastName = "Gosling";
+Employee e = new Employee();
+e.number = 31;
+e.firstName = "James";
+e.lastName = "Gosling";
 
-em.put(e.number, e);
+em.put(e.number, e);
 ```
 
 ## Custom Mapping for Dictionaries
@@ -30,8 +30,8 @@ If the semantics of a `HashMap` are not suitable for your application, you can s
 `java:type` metadata directive as shown in the example below:
 
 ```
-["java:type:java.util.TreeMap<String, String>"]
-dictionary<string, string> StringMap;
+["java:type:java.util.TreeMap<String, String>"]
+dictionary<string, string> StringMap;
 ```
 
 It is your responsibility to use type parameters for the Java class (`String` in the example above) that are the correct

@@ -12,7 +12,7 @@ This allows you to take full advantage of the built-in functionality of JavaScri
 For example:
 
 ```slice
-sequence<Fruit> FruitPlatter;
+sequence<Fruit> FruitPlatter;
 ```
 
 Generates the following TypeScript declaration:

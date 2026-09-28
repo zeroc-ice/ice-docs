@@ -4,10 +4,10 @@ In C++, you create a communicator by calling the C++ function `Ice::initialize`,
 
 ```cpp
 int
-main(int argc, char* argv[])
+main(int argc, char* argv[])
 {
-    Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
-    // ...
+    Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
+    // ...
 }
 ```
 
@@ -33,21 +33,21 @@ descriptors and memory.
 The general shape of the `main` function of an Ice-based application is therefore:
 
 ```cpp
-#include <Ice/Ice.h>
+#include <Ice/Ice.h>
 
 int
-main(int argc, char* argv[])
+main(int argc, char* argv[])
 {
-    int status = 0;
-    try 
+    int status = 0;
+    try
     {
         // CommunicatorPtr is an alias for std::shared_ptr<Ice::Communicator>
-        Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
-       
+        Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
+
         try
         {
-            ... application code ...
- 
+            ... application code ...
+
             communicator->destroy(); // destroy is noexcept
         }
         catch (const std::exception&)
@@ -61,9 +61,9 @@ main(int argc, char* argv[])
     catch (const std::exception& e)
     {
         cerr << e.what() << endl;
-        status = 1;   
+        status = 1;
     }
-    return status;
+    return status;
 }
 ```
 
@@ -79,30 +79,30 @@ destroying it.
 With a `CommunicatorHolder`, our typical `main` function becomes much simpler:
 
 ```cpp
-#include <Ice/Ice.h>
+#include <Ice/Ice.h>
 
 int
-main(int argc, char* argv[])
+main(int argc, char* argv[])
 {
-    int status = 0;
-    try 
+    int status = 0;
+    try
     {
-        Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
+        Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
 
         // Schedule destruction of communicator.
         Ice::CommunicatorHolder communicatorHolder{communicator};
 
         ... application code ...
- 
+
         // CommunicatorHolder's destructor calls destroy on the communicator
         // whether or not an exception is thrown.
     }
     catch (const std::exception& e)
     {
         cerr << e.what() << endl;
-        status = 1;   
+        status = 1;
     }
-    return status;
+    return status;
 }
 ```
 

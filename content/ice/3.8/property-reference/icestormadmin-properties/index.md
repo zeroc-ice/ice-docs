@@ -60,9 +60,9 @@ Defines a proxy for an IceStorm topic manager for [icestormadmin](../icestorm-ad
 pattern are used by `icestormadmin` if multiple topic managers are in use, for example:
 
 ```
-IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
-IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9995
-IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
+IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
+IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9995
+IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
 ```
 
 This sets the proxies for three topic managers. Note that `name` need not match the instance name of the corresponding
@@ -72,7 +72,7 @@ topic can now specify a topic manager other than the default topic manager that 
 For example:
 
 ```
-current Foo
+current Foo
 create myTopic
 create Bar/myOtherTopic
 ```

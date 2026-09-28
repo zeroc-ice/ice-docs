@@ -1,7 +1,9 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { ChevronDown } from 'lucide-react';
+
+import { Menu, MenuItem, MenuSeparator } from '@/components/menu';
 
 export interface VersionOption {
   /** Version directory, e.g. "3.8". */
@@ -26,7 +28,6 @@ export function VersionSelect({
   options,
   previousVersions
 }: VersionSelectProps) {
-  const router = useRouter();
   const single = options.length <= 1 && !previousVersions;
 
   if (single) {
@@ -38,31 +39,55 @@ export function VersionSelect({
   }
 
   return (
-    <label className="relative inline-flex items-center">
-      <span className="sr-only">Ice version</span>
-      <select
-        aria-label="Ice version"
-        value={current}
-        onChange={(event) => {
-          const value = event.target.value;
-          if (value === '__previous' && previousVersions) {
-            window.location.href = previousVersions.url;
-            return;
-          }
-          const next = options.find((option) => option.value === value);
-          if (next) router.push(next.href);
-        }}
-        className="w-[8.5rem] cursor-pointer truncate rounded-md border border-black/15 bg-transparent py-1 pr-8 pl-3 text-sm hover:border-black/30 focus:outline-none xl:w-[10rem] dark:border-white/20 dark:hover:border-white/40"
-      >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            Ice {option.value}
-          </option>
-        ))}
-        {previousVersions && (
-          <option value="__previous">{previousVersions.label}…</option>
-        )}
-      </select>
-    </label>
+    <Menu
+      align="left"
+      triggerClassName="flex w-[8.5rem] items-center justify-between gap-1 rounded-md border border-black/15 py-1 pr-2 pl-3 text-sm hover:border-black/30 xl:w-[10rem] dark:border-white/20 dark:hover:border-white/40"
+      trigger={
+        <>
+          <span className="sr-only">Ice version: </span>
+          <span className="truncate">Ice {current}</span>
+          <ChevronDown
+            aria-hidden="true"
+            className="size-4 shrink-0 text-ink-muted"
+          />
+        </>
+      }
+    >
+      <VersionItems
+        current={current}
+        options={options}
+        previousVersions={previousVersions}
+      />
+    </Menu>
+  );
+}
+
+// The version choices, shared with the front page's switch so that both offer
+// the same ones.
+export function VersionItems({
+  current,
+  options,
+  previousVersions
+}: VersionSelectProps) {
+  return (
+    <>
+      {options.map((option) => (
+        <MenuItem
+          key={option.value}
+          href={option.href}
+          checked={option.value === current}
+        >
+          Ice {option.value}
+        </MenuItem>
+      ))}
+      {previousVersions && (
+        <>
+          <MenuSeparator />
+          <MenuItem href={previousVersions.url}>
+            {previousVersions.label}…
+          </MenuItem>
+        </>
+      )}
+    </>
   );
 }

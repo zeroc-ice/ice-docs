@@ -7,7 +7,7 @@ title: Slice Metadata Directives
 Slice has the concept of a _metadata_ directive. For example:
 
 ```slice
-["java:type:java.util.LinkedList<Integer>"] sequence<int> IntSeq;
+["java:type:java.util.LinkedList<Integer>"] sequence<int> IntSeq;
 ```
 
 A metadata directive can appear as a prefix to any Slice definition. Metadata directives appear in a pair of square
@@ -15,7 +15,7 @@ brackets and contain one or more string literals separated by commas. For exampl
 valid metadata directive containing two strings:
 
 ```slice
-["a", "b"] interface Example {}
+["a", "b"] interface Example {}
 ```
 
 Metadata directives are not part of the Slice language per se: the presence of a metadata directive has no effect on the
@@ -115,8 +115,8 @@ A marshaled-result instance is specific to a request. Do not cache a marshaled r
 ### `suppress-warning`
 
 This file directive allows to suppress Slice compiler warnings. It applies to all definitions in the Slice file that
-includes this directive. If one or more categories are specified (for example "`suppress-warning:invalid-metadata"` or
-`"suppress-warning:deprecated, invalid-metadata"`) only warnings matching these categories will be suppressed, otherwise
+includes this directive. If one or more categories are specified (for example `"suppress-warning:invalid-comment"` or
+`"suppress-warning:deprecated, invalid-comment"`) only warnings matching these categories will be suppressed, otherwise
 all warnings are suppressed. The categories are described in the following table:
 
 | **Suppress Warning Category** | **Description**                                                               |

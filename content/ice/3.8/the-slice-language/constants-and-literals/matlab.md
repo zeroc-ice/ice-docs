@@ -3,50 +3,50 @@
 Here are the sample constant definitions once more:
 
 ```slice
-const bool AppendByDefault = true;
-const byte LowerNibble = 0x0f;
-const string Advice = "Don't Panic!";
-const short TheAnswer = 42;
-const double PI = 3.1416;
+const bool AppendByDefault = true;
+const byte LowerNibble = 0x0f;
+const string Advice = "Don't Panic!";
+const short TheAnswer = 42;
+const double PI = 3.1416;
 
-enum Fruit { Apple, Pear, Orange }
-const Fruit FavoriteFruit = Pear;
+enum Fruit { Apple, Pear, Orange }
+const Fruit FavoriteFruit = Pear;
 ```
 
 Here are the generated definitions for these constants:
 
 ```matlab
-classdef AppendByDefault
+classdef AppendByDefault
     properties(Constant)
-        value logical = true
+        value logical = true
     end
 end
 
-classdef LowerNibble
+classdef LowerNibble
     properties(Constant)
         value uint8 = 15
     end
 end
 
-classdef Advice
+classdef Advice
     properties(Constant)
         value char = sprintf('Don''t Panic!')
     end
 end
 
-classdef TheAnswer
+classdef TheAnswer
     properties(Constant)
         value int16 = 42
     end
 end
 
-classdef PI
+classdef PI
     properties(Constant)
         value double = 3.1416
     end
 end
 
-classdef FavoriteFruit
+classdef FavoriteFruit
     properties(Constant)
         value = Fruit.Pear
     end
@@ -73,13 +73,13 @@ classdef Egg
         value char = sprintf('\x0153uf')
     end
 end
- 
+
 classdef Heart
     properties(Constant)
         value char = sprintf('c\x0153ur')
     end
 end
- 
+
 classdef Banana
     properties(Constant)
         value char = sprintf('\xd83c\xdf4c')

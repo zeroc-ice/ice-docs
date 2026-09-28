@@ -4,7 +4,7 @@ title: Syntax for Stringified Proxies
 
 #### Synopsis
 
-`identity -f facet -e encoding -p protocol -t -o -O -d -D -s @ adapter_id : endpoints`
+`identity -f facet -e encoding -p protocol -t -o -O -d -D -s @ adapter_id : endpoints`
 
 #### Description
 
@@ -50,13 +50,13 @@ Single or double quotes can be used to prevent white space characters from being
 quotes prevent interpretation of a single quote as an opening or closing quote, for example:
 
 ```
-"a string with a ' quote"
+"a string with a ' quote"
 ```
 
 Single quotes prevent interpretation of a double quote as an opening or closing quote. For example:
 
 ```
-'a string with a " quote'
+'a string with a " quote'
 ```
 
 If `endpoints` are specified, they must be separated with a colon (`:`) and formatted as described in the

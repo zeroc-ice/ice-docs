@@ -21,13 +21,13 @@ An optional nested `description` element provides free-form descriptive text.
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<icebox id="MyIceBox" ...>
-    <service name="Service1" entry="service1:Create">
-        <description>A description of this service.</description>
-        <property name="ServiceName" value="${service}"/>
-        <adapter name="MyAdapter" id="${service}Adapter" .../>
-    </service>
-    <service name="Service2" entry="service2:Create"/>
+<icebox id="MyIceBox" ...>
+    <service name="Service1" entry="service1:Create">
+        <description>A description of this service.</description>
+        <property name="ServiceName" value="${service}"/>
+        <adapter name="MyAdapter" id="${service}Adapter" .../>
+    </service>
+    <service name="Service2" entry="service2:Create"/>
 </icebox>
 ```
 

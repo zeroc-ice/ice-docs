@@ -184,12 +184,12 @@ struct Color
     short green;
     short blue;
 }
- 
+
 class Shape
 {
     optional(1) string label;
 }
- 
+
 class Rectangle extends Shape
 {
     int width;

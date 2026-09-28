@@ -3,13 +3,13 @@
 A Slice enumeration maps to the corresponding enumeration in C#. For example:
 
 ```slice
-enum Fruit { Apple, Pear, Orange }
+enum Fruit { Apple, Pear, Orange }
 ```
 
 Not surprisingly, the generated C# definition is very similar:
 
 ```csharp
-public enum Fruit { Apple, Pear, Orange }
+public enum Fruit { Apple, Pear, Orange }
 ```
 
 Suppose we modify the Slice definition to include a custom enumerator value:

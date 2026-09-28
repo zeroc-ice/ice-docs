@@ -64,7 +64,7 @@ exception BaseException
 {
     optional(1) int systemCode;
 }
- 
+
 exception DerivedException extends BaseException
 {
     optional(1) string diagnostic; // OK
@@ -107,12 +107,12 @@ You can specify a default value for a field that has one of the following types:
 For example:
 
 ```slice
-struct Location
+struct Location
 {
-    string name;
-    Point pt;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point pt;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 

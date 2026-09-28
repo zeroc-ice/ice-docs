@@ -203,12 +203,12 @@ Slice default values change the implementation of the parameterless constructor 
 For example:
 
 ```
-struct Location
+struct Location
 {
-    string name;
-    Point point;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point point;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 

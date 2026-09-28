@@ -24,13 +24,13 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 
 #### Synopsis
 
-`Ice.BatchAutoFlushSize=num` (in kilobytes)
+`Ice.BatchAutoFlushSize=num` (in KiB)
 
 #### Description
 
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is
 set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added
-to a batch and that message would cause the batch to exceed `num` kilobytes. If `num` is set to 0 or a negative number,
+to a batch and that message would cause the batch to exceed `num` KiB. If `num` is set to 0 or a negative number,
 batches must be flushed explicitly by the application. If not defined, the default value is `1024`.
 
 {% callout type="warning" %}
@@ -262,29 +262,35 @@ converts log messages from the application's narrow string encoding to the Windo
 value for this property is 1 when Ice.StdErr is not set, and 0 otherwise. This property is read by the first
 communicator created in a process; it is ignored by other communicators.
 
+{% /iflang %}
+
 # Ice.MessageSizeMax
 
 #### Synopsis
 
-`Ice.MessageSizeMax=num` (in kilobytes)
+`Ice.MessageSizeMax=num` (in KiB)
 
 #### Description
 
-This property controls the maximum size (in kilobytes) of an uncompressed protocol message that is accepted by a
-connection created by this Ice communicator. The size includes the size of the Ice protocol header. The default size is
-`1024` (`1` megabyte).
+Sets the maximum size of an incoming uncompressed Ice protocol message, including its protocol header, in KiB (1024
+bytes). The default value is `1024` (1 MiB).
 
-The only purpose of this property is to prevent a malicious or defective sender from triggering a large memory
-allocation in a receiver. If this is not a concern, you can set `Ice.MessageSizeMax` to 0; setting this property to 0
-(or to a negative number) disables the message size limit altogether.
+Setting this property to 0 or a negative number selects the maximum supported message size of 2,147,483,647 bytes. A
+positive value must be at most 2,097,151 KiB; larger values cause communicator initialization to fail with an
+`InitializationException`.
 
-If the Ice connection receives an incoming message whose size exceeds the receiver's setting for `Ice.MessageSizeMax`,
-it throws a `MemoryLimitException` and closes the connection. For example, when a client receives an oversized reply
-message, the result of its invocation is a `MemoryLimitException`. When a server receives an oversized request message,
-the client receives a `ConnectionLostException` (because the server closed the connection) and the server logs a message
-if [Ice.Warn.Connections](../ice-warn-properties) is set.
+Over UDP, Ice drops an incoming message that exceeds this limit. Over the other transports, it rejects the message with
+a `MarshalException` and closes the connection. A client receiving an oversized reply gets this exception from its
+invocation. When a server receives an oversized request, the client receives a `ConnectionLostException` and the server
+logs a message if [Ice.Warn.Connections](../ice-warn-properties) is set.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 See also [adapter.MessageSizeMax](../object-adapter-properties).
+
+{% /iflang %}
+
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
 {% iflang langs="cpp" %}
 
@@ -425,12 +431,12 @@ empty string. The default name can be overridden by setting this property.
 
 #### Synopsis
 
-`Ice.RetryIntervals=num [num ...]`
+`Ice.RetryIntervals=num [num ...]`
 
 #### Description
 
 This property defines the number of times an operation is [automatically retried](../automatic-retries) and the delay
-between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
+between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
 after the first failure, again after waiting 100ms after the second failure, and again after waiting 500ms after the
 third failure. The default value (`0`) means Ice retries once immediately. If set to `-1`, no retry occurs.
 

@@ -23,9 +23,9 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<server id="MyServer" ...>
-    <property name="Ice.ThreadPool.Server.SizeMax" value="10"/>
-    ...
+<server id="MyServer" ...>
+    <property name="Ice.ThreadPool.Server.SizeMax" value="10"/>
+    ...
 </server>
 ```
 

@@ -52,7 +52,7 @@ An application can also receive a proxy as the result of an Ice invocation. Cons
 interface Account { ... }
 interface Bank
 {
-    Account* findAccount(string id);
+    Account* findAccount(string id);
 }
 ```
 

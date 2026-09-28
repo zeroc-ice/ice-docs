@@ -8,12 +8,12 @@ Consider the following Slice exceptions:
 ```slice
 module M
 {
-    exception GenericException
+    exception GenericException
     {
-        string reason;
+        string reason;
     }
 
-    exception BadTimeValException extends GenericException {}
+    exception BadTimeValException extends GenericException {}
 }
 ```
 

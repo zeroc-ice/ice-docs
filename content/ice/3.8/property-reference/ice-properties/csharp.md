@@ -146,30 +146,6 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 {% language-section name="lang-6" %}
 
-# Ice.MessageSizeMax
-
-#### Synopsis
-
-`Ice.MessageSizeMax=num` (in kilobytes)
-
-#### Description
-
-This property controls the maximum size (in kilobytes) of an uncompressed protocol message that is accepted by a
-connection created by this Ice communicator. The size includes the size of the Ice protocol header. The default size is
-`1024` (`1` megabyte).
-
-The only purpose of this property is to prevent a malicious or defective sender from triggering a large memory
-allocation in a receiver. If this is not a concern, you can set `Ice.MessageSizeMax` to 0; setting this property to 0
-(or to a negative number) disables the message size limit altogether.
-
-If the Ice connection receives an incoming message whose size exceeds the receiver's setting for `Ice.MessageSizeMax`,
-it throws a `MemoryLimitException` and closes the connection. For example, when a client receives an oversized reply
-message, the result of its invocation is a `MemoryLimitException`. When a server receives an oversized request message,
-the client receives a `ConnectionLostException` (because the server closed the connection) and the server logs a message
-if [Ice.Warn.Connections](../ice-warn-properties) is set.
-
-See also [adapter.MessageSizeMax](../object-adapter-properties).
-
 # Ice.PluginLoadOrder
 
 #### Synopsis

@@ -9,10 +9,10 @@ field.
 Consider the following Slice structure:
 
 ```slice
-struct Point
+struct Point
 {
-    double x;
-    double y;
+    double x;
+    double y;
 }
 ```
 
@@ -75,10 +75,10 @@ class Data
     ...
 }
 
-struct Entry
+struct Entry
 {
-    int key;
-    Data value;
+    int key;
+    Data value;
 }
 ```
 

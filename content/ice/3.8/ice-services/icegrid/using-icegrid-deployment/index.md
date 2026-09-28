@@ -27,17 +27,17 @@ first we must define our descriptors in XML. The descriptors are quite brief:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <node name="Node1">
-            <server id="EncoderServer"
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter"
+                <adapter name="EncoderAdapter"
                          id="EncoderAdapter"
                          endpoints="tcp"/>
-            </server>
-        </node>
-    </application>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -165,18 +165,18 @@ descriptor. For example, we can add the property `Ice.Trace.Network=1` by modify
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <node name="Node1">
-            <server id="EncoderServer"
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter"
+                <adapter name="EncoderAdapter"
                          id="EncoderAdapter"
                          endpoints="tcp"/>
-                <property name="Ice.Trace.Network" value="1"/>
-            </server>
-        </node>
-    </application>
+                <property name="Ice.Trace.Network" value="1"/>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -266,22 +266,22 @@ The addition of a node is mainly an exercise in cut and paste:
 
 ```xml
 <icegrid>
-    <application name="Ripper">
-        <node name="Node1">
-            <server id="EncoderServer1"
+    <application name="Ripper">
+        <node name="Node1">
+            <server id="EncoderServer1"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp"/>
-            </server>
-        </node>
-        <node name="Node2">
-            <server id="EncoderServer2"
+                <adapter name="EncoderAdapter" endpoints="tcp"/>
+            </server>
+        </node>
+        <node name="Node2">
+            <server id="EncoderServer2"
                     exe="/opt/ripper/bin/server"
                     activation="on-demand">
-                <adapter name="EncoderAdapter" endpoints="tcp"/>
-            </server>
-        </node>
-    </application>
+                <adapter name="EncoderAdapter" endpoints="tcp"/>
+            </server>
+        </node>
+    </application>
 </icegrid>
 ```
 
@@ -370,18 +370,18 @@ In order to distribute the tasks among both factories, the client could use a ra
 factory receives the next task:
 
 ```cpp
-string adapter;
-if((rand() % 2) == 0)
+string adapter;
+if((rand() % 2) == 0)
 {
-    adapter = "EncoderServer1.EncoderAdapter";
+    adapter = "EncoderServer1.EncoderAdapter";
 }
 else
 {
-    adapter = "EncoderServer2.EncoderAdapter";
+    adapter = "EncoderServer2.EncoderAdapter";
 }
 
-Ripper::MP3EncoderFactoryPrx{communicator, "factory@" + adapter};
-auto encoder = factory.createEncoder();
+Ripper::MP3EncoderFactoryPrx{communicator, "factory@" + adapter};
+auto encoder = factory.createEncoder();
 ```
 
 There are a few disadvantages in this design:

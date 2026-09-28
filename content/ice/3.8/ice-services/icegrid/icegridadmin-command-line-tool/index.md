@@ -10,20 +10,20 @@ this utility requires an XML file that defines the descriptors.
 The IceGrid administration tool supports the following command-line options:
 
 ```
-Usage: icegridadmin [options]
+Usage: icegridadmin [options]
 Options:
--h, --help           Show this message.
--v, --version        Display the Ice version.
--e COMMANDS          Execute COMMANDS.
--d, --debug          Print debug messages.
--s, --server         Start icegridadmin as a server (to parse XML files).
+-h, --help           Show this message.
+-v, --version        Display the Ice version.
+-e COMMANDS          Execute COMMANDS.
+-d, --debug          Print debug messages.
+-s, --server         Start icegridadmin as a server (to parse XML files).
 -i, --instanceName   Connect to the registry with the given instance name.
 -H, --host           Connect to the registry at the given host.
 -P, --port           Connect to the registry running on the given port.
--u, --username       Login with the given username.
--p, --password       Login with the given password.
--S, --ssl            Authenticate through SSL.
--r, --replica NAME   Connect to the replica NAME.
+-u, --username       Login with the given username.
+-p, --password       Login with the given password.
+-S, --ssl            Authenticate through SSL.
+-r, --replica NAME   Connect to the replica NAME.
 ```
 
 The `-e` option causes the tool to execute the given commands and then exit without entering an interactive mode. The
@@ -97,16 +97,16 @@ You can obtain more information about each category using the `help` command:
 
 # Application Commands
 
-- `application add DESC [TARGET ... ] [NAME=VALUE ... ]` Add applications described in the XML descriptor file `DESC`.
+- `application add DESC [TARGET ... ] [NAME=VALUE ... ]` Add applications described in the XML descriptor file `DESC`.
   If specified the optional [targets](../icegrid-xml-features) are deployed.
   [Variables](../using-descriptor-variables-and-parameters) are defined using the `NAME=VALUE` syntax.
 - `application remove NAME` Remove the application named `NAME`.
 - `application describe NAME` Describe the application named `NAME`.
-- `application diff [-s | --servers] DESC [TARGET ...] [NAME=VALUE ...]` Print the differences between the application
+- `application diff [-s | --servers] DESC [TARGET ...] [NAME=VALUE ...]` Print the differences between the application
   in the XML descriptor file `DESC` and the current deployment. If `-s` or `--servers` is specified, print the the list
   of servers affected by the differences. [Variables](../using-descriptor-variables-and-parameters) are defined using
   the `NAME=VALUE` syntax.
-- `application update [-n | --no-restart] DESC [TARGET ...] [NAME=VALUE ...]` Update the application in the XML
+- `application update [-n | --no-restart] DESC [TARGET ...] [NAME=VALUE ...]` Update the application in the XML
   descriptor file `DESC`. If `-n` or `--no-restart` is specified, the update will fail if it would require restarting
   one or more servers. [Variables](../using-descriptor-variables-and-parameters) are defined using the `NAME=VALUE`
   syntax. Use the `diff --servers` command to discover which servers would be affected by an update, including those
@@ -205,7 +205,7 @@ The `object` command operates on [well-known objects](../well-known-objects).
 
 # Server Template
 
-- `server template instantiate APPLICATION NODE TEMPLATE  [NAME=VALUE ...]` Instantiate the requested
+- `server template instantiate APPLICATION NODE TEMPLATE  [NAME=VALUE ...]` Instantiate the requested
   [server template](../icegrid-templates) defined in the given application on a node.
   [Variables](../using-descriptor-variables-and-parameters) are defined using the `NAME=VALUE` syntax.
 - `server template describe APPLICATION TEMPLATE` Describe a [server template](../icegrid-templates)`TEMPLATE` from the

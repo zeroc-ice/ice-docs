@@ -12,9 +12,9 @@ declares that it is safe for Ice to violate at-most-once semantics for the reque
 To understand the importance of obeying at-most-once semantics, consider the following Slice definition:
 
 ```slice
-interface Account
+interface Account
 {
-    long withdraw(long amount);
+    long withdraw(long amount);
 }
 ```
 
@@ -93,10 +93,10 @@ Annotating a Slice operation with the [idempotent](../operations) keyword notifi
 at-most-once semantics:
 
 ```slice
-interface Account
+interface Account
 {
-    long withdraw(long amount);
-    idempotent long getBalance();
+    long withdraw(long amount);
+    idempotent long getBalance();
 }
 ```
 
@@ -107,11 +107,11 @@ In general, "read-only" operations are good candidates for the `idempotent` keyw
 not. However, the risk of duplicate requests is acceptable even for some kinds of mutating operations:
 
 ```slice
-interface Account
+interface Account
 {
-    long withdraw(long amount);
-    idempotent long getBalance();
-    idempotent void changeAddress(string newAddress);
+    long withdraw(long amount);
+    idempotent long getBalance();
+    idempotent void changeAddress(string newAddress);
 }
 ```
 

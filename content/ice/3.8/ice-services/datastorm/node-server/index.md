@@ -18,7 +18,7 @@ It can be used to provide the following functionality to other nodes:
 
 The DataStorm node supports the following command-line options:
 
-| `Usage: dsnode [options]` `Options:` `-h, --help           Show this message.` `-v, --version        Display the DataStorm version.` |
+| `Usage: dsnode [options]` `Options:` `-h, --help           Show this message.` `-v, --version        Display the DataStorm version.` |
 | ------------------------------------------------------------------------------------------------------------------------------------ |
 
 # Configuring Endpoints

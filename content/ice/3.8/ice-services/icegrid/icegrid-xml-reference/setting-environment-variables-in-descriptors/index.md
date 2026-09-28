@@ -22,17 +22,17 @@ PATH=C:\Ice\lib;%PATH%
 In XML, the `env` element supplies a definition for an environment variable:
 
 ```xml
-<node name="LinuxBox">
-    <server id="UnixServer" exe="/opt/app/bin/server" ...>
-        <env>LD_LIBRARY_PATH=/opt/Ice/lib:$LD_LIBRARY_PATH</env>
-        ...
-    </server>
+<node name="LinuxBox">
+    <server id="UnixServer" exe="/opt/app/bin/server" ...>
+        <env>LD_LIBRARY_PATH=/opt/Ice/lib:$LD_LIBRARY_PATH</env>
+        ...
+    </server>
 </node>
-<node name="WindowsBox">
-    <server id="WindowsServer" exe="C:/app/bin/server.exe" ...>
-        <env>PATH=C:\Ice\lib;%PATH%</env>
-        ...
-    </server>
+<node name="WindowsBox">
+    <server id="WindowsServer" exe="C:/app/bin/server.exe" ...>
+        <env>PATH=C:\Ice\lib;%PATH%</env>
+        ...
+    </server>
 </node>
 ```
 
@@ -42,11 +42,11 @@ Environment variable definitions may also refer to
 [descriptor variables and template parameters](../using-descriptor-variables-and-parameters):
 
 ```xml
-<node name="LinuxBox">
-    <server id="LinuxServer" exe="/opt/app/bin/server" ...>
-        <env>PATH=${server.distrib}/bin:$PATH</env>
-        ...
-    </server>
+<node name="LinuxBox">
+    <server id="LinuxServer" exe="/opt/app/bin/server" ...>
+        <env>PATH=${server.distrib}/bin:$PATH</env>
+        ...
+    </server>
 </node>
 ```
 
@@ -56,11 +56,11 @@ no match is found. If you prefer to use this style to refer to environment varia
 as shown in the example below:
 
 ```xml
-<node name="LinuxBox">
-    <server id="LinuxServer" exe="/opt/app/bin/server" ...>
-        <env>PATH=${server.distrib}/bin:$${PATH}</env>
-        ...
-    </server>
+<node name="LinuxBox">
+    <server id="LinuxServer" exe="/opt/app/bin/server" ...>
+        <env>PATH=${server.distrib}/bin:$${PATH}</env>
+        ...
+    </server>
 </node>
 ```
 

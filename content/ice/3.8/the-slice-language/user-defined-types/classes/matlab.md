@@ -10,16 +10,16 @@ Slice field (just as for structures and exceptions).
 Consider the following class definition:
 
 ```slice
-class TimeOfDay
+class TimeOfDay
 {
     ["matlab:identifier:Hour"]
-    short hour;         // 0 - 23
+    short hour;         // 0 - 23
 
     ["matlab:identifier:Minute"]
-    short minute;       // 0 - 59
+    short minute;       // 0 - 59
 
     ["matlab:identifier:Second"]
-    short second;       // 0 - 59
+    short second;       // 0 - 59
 
     ["matlab:identifier:TZ"]
     string tz;          // e.g. GMT, PST, EDT...

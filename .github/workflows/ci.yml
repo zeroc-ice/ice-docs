@@ -16,7 +16,6 @@ concurrency:
 
 permissions:
   contents: read
-  packages: write
 
 env:
   IMAGE: ghcr.io/zeroc-ice/ice-docs
@@ -27,8 +26,11 @@ jobs:
   test:
     name: Test and lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -52,6 +54,10 @@ jobs:
   image:
     name: Build image (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -64,6 +70,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Log in to the Container registry
         if: github.event_name != 'pull_request'
@@ -97,6 +105,9 @@ jobs:
     needs: [test, image]
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      packages: write
 
     steps:
       - name: Set up Docker Buildx
@@ -112,28 +123,36 @@ jobs:
       - name: Create and push multi-arch manifests
         run: |
           docker buildx imagetools create \
-            --tag ${IMAGE}:${GITHUB_SHA} \
-            --tag ${IMAGE}:latest \
-            ${IMAGE}:${GITHUB_SHA}-amd64 \
-            ${IMAGE}:${GITHUB_SHA}-arm64
+            --tag "${IMAGE}:${GITHUB_SHA}" \
+            --tag "${IMAGE}:latest" \
+            "${IMAGE}:${GITHUB_SHA}-amd64" \
+            "${IMAGE}:${GITHUB_SHA}-arm64"
 
   deploy:
     name: Deploy
     needs: publish
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      # The server logs in to the registry with this job's token to pull the image.
+      packages: read
 
     steps:
       - name: Deploy docs
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.WEB_HOST }}
           username: ${{ secrets.WEB_USERNAME }}
           key: ${{ secrets.WEB_DEPLOY_KEY }}
+          envs: GHCR_USER,GHCR_TOKEN
           script: |
             set -e
             cd /opt/web
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
             trap 'docker logout ghcr.io' EXIT
             docker compose pull ice-docs
             docker compose up -d ice-docs
@@ -143,6 +162,9 @@ jobs:
     needs: publish
     if: github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      packages: write
 
     steps:
       - name: Delete old container images (keep the 10 most recent)

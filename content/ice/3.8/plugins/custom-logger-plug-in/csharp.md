@@ -34,10 +34,10 @@ public class CustomLoggerPluginFactory : Ice.PluginFactory
 {
     public string pluginName => "CustomLogger";
 
-    public Ice.Plugin create(
-        Ice.Communicator communicator,
-        string name,
-        string[] args) =>
+    public Ice.Plugin create(
+        Ice.Communicator communicator,
+        string name,
+        string[] args) =>
         new Ice.LoggerPlugin(communicator, new CustomLogger());
 }
 ```

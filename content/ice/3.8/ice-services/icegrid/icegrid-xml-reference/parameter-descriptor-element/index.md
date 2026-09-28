@@ -18,10 +18,10 @@ The following attributes are supported:
 Here is an example to demonstrate the use of this element:
 
 ```xml
-<server-template id="MyServerTemplate"> 
-    <parameter name="index"/> 
-    <parameter name="exepath" default="/opt/myapp/bin/server"/> 
-    ...
+<server-template id="MyServerTemplate">
+    <parameter name="index"/>
+    <parameter name="exepath" default="/opt/myapp/bin/server"/>
+    ...
 </server-template>
 ```
 

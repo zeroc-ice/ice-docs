@@ -2,6 +2,8 @@
 title: Ice.Trace.*
 ---
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 # Ice.Trace.Admin.Logger
 
 #### Synopsis
@@ -30,6 +32,8 @@ Controls the trace level for property updates made via the [Properties facet](..
 | 0   | No property trace (default).                        |
 | --- | --------------------------------------------------- |
 | 1   | Trace property addition, modification, and removal. |
+
+{% /iflang %}
 
 # Ice.Trace.Dispatch
 
@@ -122,6 +126,8 @@ for slicing activities:
 | --- | ------------------------------------------------------------------------------------------ |
 | 1   | Trace all exception and class types that are unknown to the receiver and therefore sliced. |
 
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
 # Ice.Trace.ThreadPool
 
 #### Synopsis
@@ -135,3 +141,5 @@ Controls the trace level for the Ice [thread pool](../the-ice-threading-model):
 | 0   | No trace of thread pool activity (default).                 |
 | --- | ----------------------------------------------------------- |
 | 1   | Trace the creation, growing, and shrinking of thread pools. |
+
+{% /iflang %}

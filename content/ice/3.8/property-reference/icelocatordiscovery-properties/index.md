@@ -103,7 +103,7 @@ IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Reply` 
 [multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
 `IceLocatorDiscovery.Reply.Endpoints`, the endpoint for this object adapter is composed as follows:
 
-`udp [-h intf]`
+`udp [-h intf]`
 
 where `intf` is the value of
 [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties#icelocatordiscovery.interface). A fixed port is not

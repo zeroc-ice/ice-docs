@@ -1,18 +1,15 @@
 (function (Prism) {
   Prism.languages.slice = {
     preprocessor: {
-      pattern: /#[^\r\n\/]*/,
+      pattern: /#\s*[a-zA-Z]+/,
       inside: {
-        'class-name': /#\s*(define|undef|if|elif|else|endif)\b/,
-        symbol: /\b\w+\b/,
-        operator: /\!|&&|\|\|/,
-        punctuation: /[#()]/
+        'class-name': /#\s*[a-zA-Z]+/
       }
     },
     comment: [
       {
         // Doc comments
-        pattern: /\/\/\/.*/,
+        pattern: /\/\/\/.*|\/\*\*[\s\S]*?(?:\*\/)/,
         greedy: true,
         inside: {
           tag: /@[a-z]+\b/,
@@ -25,34 +22,28 @@
         greedy: true
       }
     ],
-    attribute: {
-      pattern:
-        /\[+[ \t]*[a-zA-Z0-9_:]+[ \t]*(?:\([ \t]*(?:(?:[a-zA-Z0-9_]+|\"(?:\\.|[^\\\"\r\n])*\")[ \t]*(?:,[ \t]*(?:[a-zA-Z0-9_]+|\"(?:\\.|[^\\\"\r\n])*\")[ \t]*)*)?\)[ \t]*)?\]+/,
+    metadata: {
+      pattern: /\[+[ \t]*(?:\"(?:\\.|[^\\\"\r\n])*\"[ \t,]*)*\]+/,
       inside: {
-        arguments: {
-          pattern:
-            /\([ \t]*(?:(?:[a-zA-Z0-9_]+|\"(?:\\.|[^\\\"\r\n])*\")[ \t]*(?:,[ \t]*(?:[a-zA-Z0-9_]+|\"(?:\\.|[^\\\"\r\n])*\")[ \t]*)*)?\)/,
-          inside: {
-            string: /\"(?:\\.|[^\\\"\r\n])*\"/,
-            constant: /[a-zA-Z0-9_]+/,
-            punctuation: /[(),]/
-          }
-        },
-        function: /[a-zA-Z0-9_:]+/,
-        punctuation: /[\[\]]/
+        function: /\"(?:\\.|[^\\\"\r\n])*\"/,
+        punctuation: /[\[\],]/
       }
     },
     string: /\"(?:\\.|[^\\\"\r\n])*\"/,
     keyword:
-      /\b(module|struct|interface|enum|custom|typealias|compact|idempotent|stream|tag|unchecked)\b/,
+      /\b(module|class|struct|exception|enum|interface|sequence|dictionary|const|optional|idempotent|out|local|extends|implements|throws)\b/,
     builtin: [
       {
         pattern:
-          /\b(bool|int8|uint8|int16|uint16|int32|uint32|varint32|varuint32|int64|uint64|varint62|varuint62|float32|float64|string|Sequence|Dictionary|Result)\b/,
+          /\b(bool|byte|short|int|long|float|double|string|void|Value|Object|LocalObject)\b/,
         alias: 'keyword'
+      },
+      {
+        pattern: /\b(true|false)\b/,
+        alias: 'constant'
       }
     ],
-    number: /\b[0-9]\w*\b/,
-    punctuation: /(->|::|[(){}<>:,=?-])/
+    number: /\b[0-9](\w|\.)*\b/,
+    punctuation: /(::|[(){}<>:;,=+-])/
   };
 })(Prism);

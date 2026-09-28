@@ -35,7 +35,7 @@ public class CustomLoggerPluginFactory implements PluginFactory {
     }
 
     @Override
-    public Plugin create(Communicator communicator, string name, string[] args) {
+    public Plugin create(Communicator communicator, string name, string[] args) {
         return new LoggerPlugin(communicator, new CustomLogger());
     }
 }

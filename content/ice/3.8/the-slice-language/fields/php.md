@@ -79,12 +79,12 @@ Slice default values map to default values in the constructor of the mapped clas
 For example:
 
 ```
-struct Location
+struct Location
 {
-    string name;
-    Point point;
-    bool display = true;
-    string source = "GPS";
+    string name;
+    Point point;
+    bool display = true;
+    string source = "GPS";
 }
 ```
 

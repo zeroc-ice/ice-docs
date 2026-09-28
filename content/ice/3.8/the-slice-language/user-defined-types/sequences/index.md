@@ -9,7 +9,7 @@ Sequences are variable-length collections of elements:
 ```slice
 module M
 {
-    sequence<Fruit> FruitPlatter;
+    sequence<Fruit> FruitPlatter;
 }
 ```
 
@@ -21,7 +21,7 @@ Sequences can contain elements that are themselves sequences. This arrangement a
 ```slice
 module M
 {
-    sequence<FruitPlatter> FruitBanquet;
+    sequence<FruitPlatter> FruitBanquet;
 }
 ```
 

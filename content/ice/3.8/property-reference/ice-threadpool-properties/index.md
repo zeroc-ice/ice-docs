@@ -2,7 +2,17 @@
 title: Ice.ThreadPool.*
 ---
 
-A communicator creates two [thread pools](../the-ice-threading-model):
+{% iflang langs="js" %}
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
+
+{% /callout %}
+
+{% /iflang %}
+
+In language mappings that support thread pools, a communicator creates two [thread pools](../the-ice-threading-model):
 
 - the client thread pool is associated with outgoing connections: it reads [Reply](../protocol-messages) messages and
   executes AMI callbacks; it also reads and dispatches Request messages.

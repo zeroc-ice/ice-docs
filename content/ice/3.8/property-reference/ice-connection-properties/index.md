@@ -4,12 +4,24 @@ title: Ice.Connection.*
 
 The properties described on this page configure connections.
 
-The outgoing connections created by a communicator are configured using `Ice.Connection.Client.*` properties, while the
-incoming connections accepted by an object adapter are configured using
-[adapter.Connection.*](../object-adapter-properties) properties. The `adapter.Connection.*` properties default to
-`Ice.Connection.Server.*` properties.
+The `Ice.Connection.Client.*` properties configure outgoing connections created by a communicator.
 
-In the property descriptions below, replace `name` with `Client` or `Server`.
+In language mappings that accept incoming connections, the [adapter.Connection.*](../object-adapter-properties)
+properties configure these connections and default to the `Ice.Connection.Server.*` properties.
+
+In the property descriptions below, replace `name` with `Client` in Ice for JavaScript, or with `Client` or `Server` in
+the other language mappings.
+
+{% iflang langs="js" %}
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Connection.Server.*` properties. Setting any of them throws
+`PropertyException`.
+
+{% /callout %}
+
+{% /iflang %}
 
 {% callout type="info" %}
 

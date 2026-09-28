@@ -3,49 +3,49 @@
 A Slice enumeration maps to the corresponding enumeration in Java. For example:
 
 ```slice
-enum Fruit { Apple, Pear, Orange }
+enum Fruit { Apple, Pear, Orange }
 ```
 
 The Java mapping for `Fruit` is shown below:
 
 ```java
-public enum Fruit {
-    Apple,
-    Pear,
-    Orange;
+public enum Fruit {
+    Apple,
+    Pear,
+    Orange;
 
     public int value();
 
     public static Fruit valueOf(int v);
 
-    // ...
+    // ...
 }
 ```
 
 Given the above definitions, we can use enumerated values as follows:
 
 ```java
-Fruit f1 = Fruit.Apple;
-Fruit f2 = Fruit.Orange;
+Fruit f1 = Fruit.Apple;
+Fruit f2 = Fruit.Orange;
 
-if (f1 == Fruit.Apple) { // Compare with constant
-    // ...
+if (f1 == Fruit.Apple) { // Compare with constant
+    // ...
 }
 
-if (f1 == f2) { // Compare two enums
-    // ...
+if (f1 == f2) { // Compare two enums
+    // ...
 }
 
 switch (f2) {   // Switch on enum
-    case Fruit.Apple:
-        // ...
-        break;
-    case Fruit.Pear:
-        // ...
-        break;
-    case Fruit.Orange:
-        // ...
-        break;
+    case Fruit.Apple:
+        // ...
+        break;
+    case Fruit.Pear:
+        // ...
+        break;
+    case Fruit.Orange:
+        // ...
+        break;
 }
 ```
 
@@ -57,7 +57,7 @@ In the `Fruit` definition above, the Slice value of each enumerator matches its 
 we modify the definition to include a custom enumerator value:
 
 ```slice
-enum Fruit { Apple, Pear = 3, Orange }
+enum Fruit { Apple, Pear = 3, Orange }
 ```
 
 The table below shows the new relationship between ordinal value and Slice value:

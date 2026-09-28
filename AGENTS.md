@@ -37,7 +37,7 @@ Read it first. This file covers the conventions that recur in review.
 ## Markdown
 
 - `npm run format` wraps prose at 120 columns and keeps Markdoc tags on their own line; run it, plus
-  `npm run check:content` and `npm run check:markdoc`, before pushing.
+  `npm run lint:markdown`, `npm run check:content`, and `npm run check:markdoc`, before pushing.
 
 ## Diagrams and images
 

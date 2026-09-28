@@ -3,6 +3,8 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 
+import { CodeBlock } from '@/components/code-block';
+
 type Props = {
   children: ReactNode;
   isCodeblocks: boolean;
@@ -41,13 +43,9 @@ type AsideProps = {
 export function Aside({ children, weighted, alignment }: AsideProps) {
   // Check if all children are CodeBlocks to determine if we need to reduce
   // the padding on the left and right columns
-  const isCodeblocks = children.every((child) => {
-    if (React.isValidElement(child)) {
-      const type = child.type;
-      return typeof type === 'function' && type.name === 'CodeBlock';
-    }
-    return false;
-  });
+  const isCodeblocks = children.every(
+    (child) => React.isValidElement(child) && child.type === CodeBlock
+  );
 
   const spliceIndex = weighted === 'right' ? 1 : children.length - 1;
   const leftContent = children.slice(0, spliceIndex);

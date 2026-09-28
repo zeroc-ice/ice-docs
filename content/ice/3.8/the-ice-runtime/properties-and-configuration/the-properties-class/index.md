@@ -9,7 +9,7 @@ example, we could introduce a property to control the maximum file size for a fi
 ```config
 # Configuration file for file system application
 
-Filesystem.MaxFileSize=1024    # Max file size in kB
+Filesystem.MaxFileSize=1024    # Max file size in kB
 ```
 
 The Ice runtime stores this `Filesystem.MaxFileSize` property like any other property and makes it accessible

@@ -10,12 +10,12 @@ methods for each Slice operation of your Slice interface.
 Consider the following Slice interface:
 
 ```slice
-module M
+module M
 {
-    interface Simple
+    interface Simple
     {
-        void op();
-    }
+        void op();
+    }
 }
 ```
 
@@ -177,13 +177,13 @@ On the server side, interfaces map to _skeleton_ protocols. A skeleton protocol 
 operation on the corresponding Slice interface. For example, consider our Slice definition for the `Node` interface:
 
 ```slice
-module Filesystem
+module Filesystem
 {
-    interface Node
+    interface Node
     {
-        idempotent string name();
-    }
-    // ...
+        idempotent string name();
+    }
+    // ...
 }
 ```
 

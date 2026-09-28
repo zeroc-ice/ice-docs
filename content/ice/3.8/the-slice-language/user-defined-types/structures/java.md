@@ -4,11 +4,11 @@ A Slice structure maps to a Java class with the same name. For each Slice field,
 public field. For example, here is our Employee structure once more:
 
 ```slice
-struct Employee
+struct Employee
 {
-    long number;
-    string firstName;
-    string lastName;
+    long number;
+    string firstName;
+    string lastName;
 }
 ```
 
@@ -33,9 +33,9 @@ public final class Employee implements java.lang.Cloneable, java.io.Serializable
 
     @Override
     public boolean equals(java.lang.Object rhs) ...
-    
+
     @Override
-    public int hashCode() ...
+    public int hashCode() ...
 
     @Override
     public Employee clone() ...

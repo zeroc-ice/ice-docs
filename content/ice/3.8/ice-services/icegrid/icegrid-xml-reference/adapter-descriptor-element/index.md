@@ -24,13 +24,13 @@ An optional nested [description](../description-descriptor-element) element prov
 Here is an example to demonstrate the use of this element.
 
 ```xml
-<adapter name="MyAdapter"
-    endpoints="default"
-    id="MyAdapterId"
+<adapter name="MyAdapter"
+    endpoints="default"
+    id="MyAdapterId"
     proxy-options="-t -e 1.0"
-    replica-group="MyReplicaGroup">
-    <description>A description of the adapter.</description>
-    ...
+    replica-group="MyReplicaGroup">
+    <description>A description of the adapter.</description>
+    ...
 </adapter>
 ```
 

@@ -23,15 +23,15 @@ Here is an example to demonstrate the use of this element:
 
 ```xml
 <icegrid>
-    <application name="SampleApp">
-        <server-template id="ServerTemplate">
-            <parameter name="id"/>
-            <server id="${id}" activation="manual" .../>
-        </server-template>
-        <node name="Node1">
-            <server-instance template="ServerTemplate" id="TheServer"/>
-        </node>
-    </application>
+    <application name="SampleApp">
+        <server-template id="ServerTemplate">
+            <parameter name="id"/>
+            <server id="${id}" activation="manual" .../>
+        </server-template>
+        <node name="Node1">
+            <server-instance template="ServerTemplate" id="TheServer"/>
+        </node>
+    </application>
 </icegrid>
 ```
 
