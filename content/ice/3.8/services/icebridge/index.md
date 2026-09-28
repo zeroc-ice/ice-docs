@@ -2,49 +2,51 @@
 title: IceBridge
 ---
 
-IceBridge is an Ice service that acts as a bridge between one or more clients and a server. IceBridge is implemented in
-C++.
+IceBridge is an Ice service that forwards requests from one or more clients to a target server. Use it when a client
+cannot connect directly to the server, for example because the client does not support the server's transport. IceBridge
+is implemented in C++ and can forward requests from clients using any Ice language mapping.
 
 # IceBridge Overview
 
-IceBridge relays requests from clients to a _target server_ and makes every effort to be as transparent as possible. One
-example use case for IceBridge is when a client needs to communicate with a server over a particular transport, but the
-client machine doesn't support that transport. In this situation, an instance of IceBridge can be started on a host that
-does support the server's transport, and the client can use the bridge as an intermediary to reach the server.
+IceBridge listens for client requests on its _source endpoints_ and forwards them to its configured _target endpoints_.
+The bridge forwards the object identity, operation, context, and encoded parameters, so it does not need your
+application's Slice definitions. Replies, including user exceptions, travel back through the bridge to the client.
 
 IceBridge provides several features:
 
-- **Connection matching** For each incoming connection from a client, the bridge creates a corresponding connection to
-  the server. Furthermore, the lifetimes of the two connections are bound together: if one of the connections is closed,
-  the bridge closes the other. These features make IceBridge usable for session-based applications, where
-  application-specific semantics are often associated with connections.
+- **Connection matching** For a connection-oriented transport, the bridge opens a dedicated target connection when it
+  receives the first request to forward on a client connection. It uses this pair of connections for subsequent
+  requests. Closing either connection causes the bridge to close the other. This pairing supports applications that
+  associate session state with connections.
 - **Bidirectional requests** IceBridge configures every connection to the server to support
   [bidirectional requests](../bidirectional-connections). All bidirectional callback requests sent from the server are
   automatically forwarded back to the client via the client's connection with the bridge.
-- **Router support** IceBridge implements the `Ice::Router` interface so that it can be easily configured into a client
-  as an Ice router. For applications with more complex router requirements, we recommend using [Glacier2](../glacier2).
+- **Router support** IceBridge implements the `Ice::Router` interface, allowing clients to use the bridge without
+  replacing the endpoints in each application proxy. For session authentication and access control, use
+  [Glacier2](../glacier2).
 
-The next section describes how to configure IceBridge.
+IceBridge supports twoway, oneway, and datagram invocations. See [IceBridge Limitations](#icebridge-limitations) for
+restrictions on target servers, facets, and credentials.
 
 # Configuring IceBridge
 
-IceBridge supports the following properties:
+Configure the bridge with the following [IceBridge properties](../icebridge-properties):
 
-- `IceBridge.Source.Endpoints` This required property lists the endpoints on which IceBridge listens for connections
-  from clients. `IceBridge.Source` is also the name of an object adapter, which means all of the other
+- `IceBridge.Source.Endpoints` This required property lists the endpoints on which IceBridge receives requests from
+  clients. `IceBridge.Source` is also the name of an object adapter, which means all of the other
   [object adapter properties](../object-adapter-properties) can be configured as well.
 - `IceBridge.Target.Endpoints` This required property identifies the endpoints of the target server. Note that listing
   multiple endpoints in this property means IceBridge will follow the usual Ice process for
   [establishing a connection](../connection-establishment) to the server. However, once IceBridge has established a
   matching connection, it will continue to use that connection for the lifetime of the client's connection to the
   bridge.
-- `IceBridge.InstanceName` This optional property specifies a default identity category for the
-  [IceBridge objects](../icebridge#icebridge-object-identities). If not specified, the default value is `IceBridge`.
+- `IceBridge.InstanceName` This optional property specifies the identity category of the
+  [router object](#icebridge-object-identities). Its default value is `IceBridge`.
 
 {% callout type="tip" %}
 
-You will also need to configure IceBridge to load any transport plug-ins required by either the source or target
-endpoints.
+IceBridge includes the TCP, UDP, SSL, and WebSocket transports. For Bluetooth endpoints, configure the bridge to load
+the IceBT plug-in as shown below.
 
 {% /callout %}
 
@@ -57,27 +59,35 @@ IceBridge.Source.Endpoints=tcp -p 10000
 IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 ```
 
-The bridge listens on TCP port 10000 connections from clients, and forwards requests to the target server on TCP
+The bridge listens on TCP port 10000 for connections from clients and forwards requests to the target server on TCP
 port 21112.
 
-It's important to give some thought to your source and target endpoint configurations, also taking into consideration
-IceBridge's transport matching behavior that we described earlier. Consider this example:
+## Matching Transports
+
+Source and target endpoints can use different connection-oriented transports, such as TCP and SSL, or TCP and Bluetooth.
+For datagram requests, the target must provide a datagram endpoint. Likewise, requests arriving over a
+connection-oriented transport require a connection-oriented target endpoint.
+
+For example, the following configuration cannot forward requests:
 
 ```config
 IceBridge.Source.Endpoints=udp -p 10000
 IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 ```
 
-This configuration will fail: when the bridge receives a datagram request from the client on its source endpoint, it
-will attempt to forward it as a datagram to the server. However, the target configuration only defines a TCP endpoint,
-which means the bridge's forwarding attempt cannot succeed.
+The bridge receives datagram requests on its source endpoint, but the target configuration provides only a TCP endpoint.
+Forwarding fails when a request arrives.
 
-Generally speaking, your source endpoints need to accommodate the client's requirements, and the target endpoints need
-to provide compatible transports for the source endpoints.
+TLS applies independently to the two connections. An SSL source endpoint does not require IceBridge to choose an SSL
+target endpoint. To encrypt the connection to the target, configure only secure target endpoints and the appropriate
+[IceSSL properties](/ice/3.8/property-reference/icessl-properties?lang=cpp).
 
-One last example demonstrates how to bridge between TCP and Bluetooth using the [IceBT transport plug-in](../icebt):
+## Bridging to Bluetooth
+
+On Linux, load the [IceBT transport plug-in](/ice/3.8/plugins/icebt?lang=cpp) to bridge between TCP and Bluetooth:
 
 ```config
+Ice.Plugin.IceBT=IceBT:createIceBT
 IceBridge.Source.Endpoints=tcp -p 10000
 IceBridge.Target.Endpoints=bt -a "01:23:45:67:89:AB" -u "6a193943-1754-4869-8d0a-ddc5f9a2b294"
 ```
@@ -87,13 +97,16 @@ connection to the device with the given address offering the service identified 
 
 # IceBridge Object Identities
 
-An IceBridge server hosts one well-known object. The default identity of this object is `IceBridge/router`,
-corresponding to the `Ice::Router` interface.
+IceBridge hosts two well-known objects on its source endpoints:
 
-Clients can configure a router proxy using this identity together with the bridge's source endpoints. This object
-identity is reserved for use by the bridge, therefore any client requests having this identity will be dispatched to the
-internal router object and not forwarded to the target. If the application requires a different identity, you can set
-the `IceBridge.InstanceName` property to change the category of the object identity as shown in the example below:
+| Identity           | Interface           | Purpose                                                  |
+| ------------------ | ------------------- | -------------------------------------------------------- |
+| `IceBridge/router` | `Ice::Router`       | Configures clients to route requests through the bridge. |
+| `Ice/RouterFinder` | `Ice::RouterFinder` | Returns the bridge's router proxy from `getRouter`.      |
+
+Clients can configure a router proxy using its identity together with the bridge's source endpoints. Reserve both
+identities for the bridge's own objects. If the application requires a different router identity, you can set the
+`IceBridge.InstanceName` property to change the category of the object identity as shown in the example below:
 
 ```config
 IceBridge.InstanceName=PublicBridge
@@ -103,24 +116,24 @@ This property changes the category of the object identity, which becomes `Public
 configuration must also be changed to reflect the new identity:
 
 ```config
-Ice.Default.Router=PublicBridge/router:tcp -h 5.6.7.8 -p 4063
+Ice.Default.Router=PublicBridge/router:tcp -h bridge.host -p 10000
 ```
 
 {% callout type="info" %}
 
-A client can discover the bridge's proxy for its router at run time using the
-[RouterFinder interface](../advanced-glacier2-client-configurations).
+The finder identity remains `Ice/RouterFinder` regardless of `IceBridge.InstanceName`. A client that knows the bridge's
+source endpoints can call `getRouter` on a proxy such as `Ice/RouterFinder:tcp -h bridge.host -p 10000` to discover the
+router proxy at runtime.
 
 {% /callout %}
 
 # Using IceBridge
 
-Clients will require configuration changes to use IceBridge but shouldn't normally require any code changes. The first
-step is evaluating whether your client should use IceBridge as a router:
+Clients can use IceBridge as a router or address the bridge's source endpoints directly:
 
-- Does the target server create and return proxies that the client uses for subsequent invocations? If so, you must
-  configure the client to use IceBridge as a router. Doing so forces the Ice run time in the client to ignore the
-  endpoints that the server returned in these proxies and use the IceBridge endpoints instead.
+- Does the target server create and return proxies that the client uses for subsequent invocations? Configure the client
+  to use IceBridge as a router if these invocations must also pass through the bridge. Ice then ignores the endpoints
+  that the server returned in these proxies and uses the IceBridge endpoints instead.
 - Does the client statically configure a number of proxies? If so, configuring IceBridge as a router is convenient but
   not mandatory. Again, using IceBridge as a router causes Ice to ignore the endpoints in arbitrary proxies and instead
   use the bridge endpoints. This avoids having to manually modify all of the statically-configured proxies to use the
@@ -133,7 +146,7 @@ Let's assume the bridge has the following configuration:
 ##### **Bridge Configuration**
 
 ```config
-IceBridge.Target.Endpoints=...
+IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 IceBridge.Source.Endpoints=tcp -p 10000
 ```
 
@@ -146,8 +159,9 @@ Ice.Default.Router=IceBridge/router:tcp -h bridge.host -p 10000
 Client.Proxy=SomeObject:tcp -h other.host -p 9999
 ```
 
-This configuration causes the Ice run time in the client to ignore the endpoint in `Client.Proxy` and instead send all
-requests via the given router.
+When the client loads `Client.Proxy` with `propertyToProxy`, invocations on this proxy go through the router to
+`target.host` on port 21112. The bridge forwards requests for the identity `SomeObject`, which the target server must
+provide. The endpoint `other.host:9999` does not select the target server.
 
 {% callout type="info" %}
 
@@ -156,8 +170,8 @@ router, such as with a [proxy property](../proxy-properties) or a [proxy method]
 
 {% /callout %}
 
-If you've decided not to use IceBridge as a router, you simply need to replace the existing endpoints in the client's
-proxies with the bridge's source endpoints:
+If you've decided not to use IceBridge as a router, replace the existing endpoints in the client's proxies with the
+bridge's source endpoints:
 
 ##### **Client Configuration without Router**
 
@@ -165,39 +179,70 @@ proxies with the bridge's source endpoints:
 Client.Proxy=SomeObject:tcp -h bridge.host -p 10000
 ```
 
-# Starting IceBridge
+## Receiving Callbacks
 
-```shell
-icebridge -h
-Usage: icebridge [options]
-Options:
--h, --help     Show this message.
--v, --version  Display the Ice version.
+The client must create an object adapter and register its callback objects. It can associate this adapter with the
+bridge connection in either of these ways:
+
+- When using the bridge as a router, configure the callback adapter with the same router proxy, using the
+  [object adapter's `Router` property](../object-adapter-properties) or `createObjectAdapterWithRouter`. Setting
+  `Ice.Default.Router` alone does not configure callback adapters.
+- When connecting directly to the bridge's source endpoints, associate the callback adapter with the connection using
+  `setAdapter`, as described in [Bidirectional Connections](../bidirectional-connections).
+
+For example, a client that creates a callback adapter named `Callbacks` can use:
+
+```config
+Ice.Default.Router=IceBridge/router:tcp -h bridge.host -p 10000
+Callbacks.Router=IceBridge/router:tcp -h bridge.host -p 10000
 ```
 
-Additional command line options are supported, including those that allow the router to run as a
-[Windows service or Unix daemon](../command-line-options).
+The target server sends callbacks using a fixed proxy bound to the connection on which it received the client's request.
+It can create this proxy with the connection's `createProxy` method or bind a callback proxy with `ice_fixed`. IceBridge
+forwards the callback over the paired client connection. See
+[Configuring a Server for Bidirectional Connections](../bidirectional-connections#configuring-a-server-for-bidirectional-connections).
 
-Assuming our configuration properties are stored in a file named `config`, you can start the bridge with the following
-command:
+# Starting IceBridge
+
+Save the bridge configuration in a file named `config` and start the service with:
 
 ```shell
 icebridge --Ice.Config=config
 ```
 
-# IceBridge Limitations
+IceBridge requires both endpoint properties at startup. It establishes target connections on demand, so successful
+startup does not verify that the target server is reachable. To check forwarding, invoke an operation such as `ice_ping`
+on an application object through the bridge.
 
-Although IceBridge attempts to be as transparent as possible, it does have some limitations that you should be aware of.
+Use `icebridge --help` to list command-line options and `icebridge --version` to display the Ice version. IceBridge also
+supports running as a [Windows service or Unix daemon](../command-line-options).
+
+## Connection Failures
+
+If IceBridge cannot establish a target connection, it fails the requests waiting for that connection and closes the
+client connection. A twoway invocation can report an `UnknownLocalException` containing details of the forwarding
+failure.
+
+Once the bridge establishes a pair of connections, it forwards requests on those connections for their remaining
+lifetimes. If either closes, the bridge closes its counterpart. A later client connection creates a new pair; an
+application that associates session state or callback proxies with a connection must reestablish them for the new
+connection.
+
+# IceBridge Limitations
 
 ### Single target server
 
-A single IceBridge instance can support multiple clients simultaneously, however the requests are being forwarded to a
-single target server. Each connection from a client results in the bridge creating a corresponding connection to the
-target server, but all of the clients of a bridge are logically connecting to the same target. While it's true that the
-bridge can be configured with multiple target endpoints, the bridge simply treats them as multiple options for
-connecting to the same server.
+A single IceBridge instance can support multiple clients simultaneously. All clients use the same configured target
+endpoints, which provide alternative ways to reach one logical target server. A proxy returned by that server can use
+the bridge only if its object is reachable through these target endpoints.
 
 If your clients need to bridge to multiple servers, you must start a separate IceBridge instance for each target server.
+
+### Facets
+
+IceBridge forwards requests to the default facet of the target object. A request addressed to a named facet loses its
+facet name when the bridge forwards it. This also applies to callbacks. Applications that use IceBridge must expose the
+required operations on the default facet.
 
 ### Clients that create object adapters
 
@@ -210,10 +255,10 @@ instances of IceBridge, one for each direction.
 
 ### SSL credentials
 
-IceBridge can act as a secure "man in the middle", but only using a single set of credentials. In other words, the
-identity you configure for IceSSL will be used to accept secure incoming connections from clients, and to establish
-secure outgoing connections to the target server. IceBridge currently does not provide the ability to configure separate
-identities for each of these activities.
+IceBridge terminates TLS on each secure connection. The target server authenticates the bridge's certificate when it
+requires a client certificate. IceBridge uses the credentials configured with its
+[IceSSL properties](/ice/3.8/property-reference/icessl-properties?lang=cpp) for both accepting secure client connections
+and establishing secure connections to the target server.
 
 ### Bluetooth connection limit
 
@@ -224,7 +269,7 @@ to allow more clients to communicate with the Bluetooth device simultaneously.
 
 ### Session support
 
-Session-based applications that assign semantics to connections can use IceBridge because it maintains a one-to-one
-relationship between incoming connections from clients and outgoing connections to the target. However, IceBridge
-provides no support for session authentication or authorization. If your application requires these features, we
-recommend using [Glacier2](../glacier2) instead.
+For connection-oriented transports, IceBridge maintains a one-to-one relationship between incoming client connections
+and outgoing target connections. Applications can associate their own session state with these connections. IceBridge
+provides no session authentication or authorization. If your application requires these features, use
+[Glacier2](../glacier2).
