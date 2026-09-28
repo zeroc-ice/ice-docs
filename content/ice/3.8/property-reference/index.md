@@ -38,10 +38,10 @@ This section provides a reference for all properties used by the Ice runtime and
 Unless the description of a property says otherwise, its default value is the empty string. For a numeric property, that
 means 0.
 
-The `getIceProperty` methods return the built-in default for an unset Ice property. The plain `getProperty` methods
-return the empty string, 0, or an empty list for an unset property; these return values do not determine the runtime's
-defaults. See [the Properties class](../properties-class).
+The default value listed in an entry is the value the Ice runtime uses when the property is not set. It is also what the
+`getIceProperty` methods return for an unset property. The plain `getProperty` methods do not know about these defaults:
+they return the empty string, 0, or an empty list for any unset property. See
+[the Properties class](../properties-class).
 
-Set properties before initializing the runtime component or service that uses them. Changing a property generally does
-not reconfigure an initialized component. When both the Metrics and [Properties facets](../properties-facet) are
-enabled, updating `IceMX.Metrics.*` through the Properties facet reconfigures the metrics views.
+Set properties before initializing the runtime component or service that uses them. For updates that take effect at run
+time, see [the Properties facet](../properties-facet).

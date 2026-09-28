@@ -12,8 +12,9 @@ if propertiesAdmin is not None:
     ...
 ```
 
-The facet is registered with the name `Properties`. `findAdminFacet` returns a `NativePropertiesAdmin` wrapper that
-provides access to the C++ facet's update callbacks.
+The facet is registered with the name `Properties`. `findAdminFacet` returns a
+[NativePropertiesAdmin](https://code.zeroc.com/ice/3.8/api/python/Ice.NativePropertiesAdmin.html) wrapper that provides
+access to the C++ facet's update callbacks.
 
 ## Property Update Notifications
 
@@ -34,7 +35,7 @@ propertiesAdmin.removeUpdateCallback(onUpdate)
 ```
 
 The callback receives added and changed entries with their new values, and removed entries with empty values. A
-successful `setProperties` call can invoke it with an empty dictionary when nothing changed. Direct calls to
-`Properties.setProperty` do not invoke these callbacks.
+successful `setProperties` call invokes the registered callbacks even when it changed nothing; the dictionary is then
+empty. Direct calls to `Properties.setProperty` do not invoke these callbacks.
 
 {% /language-section %}

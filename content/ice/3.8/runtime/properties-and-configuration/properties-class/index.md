@@ -16,13 +16,46 @@ The Ice runtime stores this `Filesystem.MaxFileSize` property like any other pro
 programmatically through `Properties`. To read application properties from command-line arguments, use
 `parseCommandLineOptions` with your application's prefix as described below.
 
+{% iflang langs="cpp" %}
+
+See [Ice::Properties](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties.html) in the API reference.
+
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
+See [Ice.Properties](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html) in the API reference.
+
+{% /iflang %}
+
+{% iflang langs="java" %}
+
+See [com.zeroc.Ice.Properties](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html) in
+the API reference.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+See [Ice.Properties](https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html) in the API reference.
+
+{% /iflang %}
+
+{% iflang langs="python" %}
+
+See [Ice.Properties](https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html) in the API reference.
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
+
+See [Properties](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties) in the API reference.
+
+{% /iflang %}
+
 To access property values from within your program, you need to acquire the communicator's properties by calling
 `getProperties`. Most of the methods on the returned `Properties` object involve reading properties, setting properties,
 and parsing properties.
-
-# Creating and Using a Property Set
-
-{% language-section name="api" /%}
 
 # Reading and Setting a Property
 

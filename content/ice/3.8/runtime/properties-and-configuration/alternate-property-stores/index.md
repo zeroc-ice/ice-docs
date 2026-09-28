@@ -3,8 +3,7 @@ title: Alternate Property Stores
 ---
 
 Ice for C++, Java, MATLAB, PHP, Python, and Ruby can load properties from the Windows registry. Ice for Java can also
-load properties from class loader resources. C# loads files from the file system, while JavaScript supports programmatic
-settings and argument arrays.
+load properties from class loader resources. Ice for C# and Ice for JavaScript support neither.
 
 ## Loading Properties from the Windows Registry
 
@@ -16,7 +15,7 @@ client --Ice.Config=HKLM\MyCompany\MyApp
 ```
 
 For this example, Ice loads the string values under `HKEY_LOCAL_MACHINE\MyCompany\MyApp`. You can also pass an `HKLM\`
-or `HKCU\` path directly to `Properties.load`. Ice for Java reads the registry by running `reg query`.
+or `HKCU\` path directly to `Properties.load`.
 
 The name of each string value is the name of the property (such as `Ice.Trace.Network`). Note that the value must be a
 string (even if the property setting is numeric). For example, to set `Ice.Trace.Network` to 3, you must store the

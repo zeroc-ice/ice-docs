@@ -15,11 +15,8 @@ In this example, the _property name_ is `Ice.UDP.SndSize`, and the _property val
 
 You can find a complete list of the properties used to configure Ice in the [property reference](../property-reference).
 
-Set properties that configure the Ice runtime and its services before initializing the component that uses them.
-Changing a property generally does not reconfigure a component that is already initialized. The
-[Metrics facet](../the-metrics-facet) supports live reconfiguration: when both the Metrics and
-[Properties facets](../the-properties-facet) are enabled, changes to `IceMX.Metrics.*` through the Properties facet
-update the metrics views.
+Set properties that configure the Ice runtime and its services before initializing the component that uses them. For
+updates that take effect at run time, see [the Properties facet](../the-properties-facet).
 
 ## Property Categories
 

@@ -26,14 +26,6 @@ The initialization overloads that update the argument array remove the options t
 input unchanged or return the remaining arguments separately; see
 [Communicator Initialization and Destruction](../communicator-initialization-and-destruction).
 
-{% iflang langs="js" %}
-
-Ice for JavaScript parses options from the array passed to `Ice.initialize(args)` or `new Ice.Properties(args)` and
-removes the recognized options from that array. It supports programmatic settings and argument arrays; it has no
-`load()` method and does not load configuration files through `Ice.Config` or `ICE_CONFIG`.
-
-{% /iflang %}
-
 For convenience, any property not explicitly set to a value is set to the value `1`. For example,
 
 ```shell

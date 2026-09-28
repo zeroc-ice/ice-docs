@@ -29,9 +29,11 @@ Controls the trace level for the [Logger administrative facet](../logger-facet).
 
 Controls the trace level for property updates made via the [Properties facet](../properties-facet):
 
-| 0   | No property trace (default).                        |
-| --- | --------------------------------------------------- |
-| 1   | Trace property addition, modification, and removal. |
+| Value | Description                                                                                                           |
+| ----- | --------------------------------------------------------------------------------------------------------------------- |
+| 0     | No property trace (default).                                                                                          |
+| 1     | Trace property addition, modification, and removal.                                                                   |
+| 2     | Like 1, but also trace the new values of added and changed properties, and the previous values of changed properties. |
 
 {% /iflang %}
 

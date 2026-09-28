@@ -31,14 +31,10 @@ entry in `newProperties` matches the name of an existing property, that property
 If the new value is an empty string, the property is removed. Any existing properties that are not modified or removed
 by the entries in `newProperties` are retained with their original values. If the
 [Ice.Trace.Admin.Properties](../ice-trace-properties) property is enabled, Ice logs a message if a call to
-`setProperties` results in any changes to the property set. At trace level 1, the message lists the added, changed, and
-removed property names. At level 2, it also shows new values for added and changed properties and previous values for
-changed properties.
+`setProperties` results in any changes to the property set.
 
 `setProperties` applies the usual [property validation](../properties-overview#property-validation) when adding,
 changing, or removing an entry. A rejected entry makes the call fail, and the entries applied before it stay in place.
-Ice translates the local `PropertyException` into `UnknownLocalException` for a remote caller. Entries that leave the
-property set unchanged, including an empty value for an absent property, do not undergo validation.
 
 {% callout type="info" %}
 

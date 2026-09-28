@@ -149,7 +149,8 @@ this adapter.
 Specifies the node ID of an IceStorm [replica](../highly-available-icestorm), where `value` is a non-negative integer.
 Node IDs must be unique, but they need not be contiguous or start at 0. The node ID is also used as the replica's
 priority, such that a larger value assigns higher priority to the replica. The replica with the highest priority becomes
-the coordinator of its group. This property must be defined for each replica. The default value is -1.
+the coordinator of its group. This property must be defined for each replica. When this property is not set, IceStorm
+runs without replication.
 
 ## IceStorm.Nodes._id_
 
