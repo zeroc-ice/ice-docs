@@ -13,7 +13,7 @@
 //   6. no raw HTML or Confluence markup survived the migration
 //   7. every language slot is answered, and says which kind of answer it is
 //   8. a page written per language has one title across its languages
-//   9. no code holds a no-break space (U+00A0)
+//   9. no page holds a no-break space (U+00A0)
 //
 // Exit code 1 on a violation of 1-3, 5a/5b (unparseable image markup and missing
 // alt text), 6, 7, 8, and 9 — those are defects in the files themselves, and the
@@ -83,17 +83,11 @@ const STRAY_MARKUP = [
 
 // Code samples are not prose: the IceGrid chapters are full of XML descriptors,
 // and a `<node>` element inside a fence is the subject matter, not a migration
-// artifact. Blank the fences, at any indentation, and the inline code (keeping
-// each character's offset) before scanning. A code span closes on a run of as
-// many backticks as opened it, and `npm run format` keeps each on one line.
+// artifact. Blank the fences (keeping line count) before scanning.
 function withoutCode(source) {
   return source
-    .replace(/^[ \t]*```[\s\S]*?^[ \t]*```/gm, (block) =>
-      block.replace(/[^\n]/g, ' ')
-    )
-    .replace(/(?<!`)(`+)(?!`).*?(?<!`)\1(?!`)/g, (span) =>
-      span.replace(/[^\n]/g, ' ')
-    );
+    .replace(/^```[\s\S]*?^```/gm, (block) => block.replace(/[^\n]/g, ' '))
+    .replace(/`[^`\n]*`/g, (span) => span.replace(/[^\n]/g, ' '));
 }
 
 // Where an image target should resolve on disk: site-absolute paths come out of
@@ -307,20 +301,14 @@ function checkStrayMarkup(files) {
   }
 }
 
-// A reader copies code as it is written, and the Slice compilers, Java, Python,
-// and shells do not read a no-break space as a space.
 function checkNoBreakSpaces(files) {
   for (const file of files) {
     const source = fs.readFileSync(file, 'utf8');
-    const prose = withoutCode(source);
-    // A no-break space that withoutCode blanked was in code.
-    const hits = [...source.matchAll(/\u00a0/g)].filter(
-      ({ index }) => prose[index] === ' '
-    );
+    const hits = [...source.matchAll(/\u00a0/g)];
     if (hits.length) {
       const line = source.slice(0, hits[0].index).split('\n').length;
       fail(
-        `${path.relative(process.cwd(), file)}: ${hits.length} × no-break space (U+00A0) in code (e.g. line ${line})`
+        `${path.relative(process.cwd(), file)}: ${hits.length} × no-break space (U+00A0) (e.g. line ${line})`
       );
     }
   }
