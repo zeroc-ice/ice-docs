@@ -78,9 +78,9 @@ IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 The bridge receives datagram requests on its source endpoint, but the target configuration provides only a TCP endpoint.
 Forwarding fails when a request arrives.
 
-TLS applies independently to the two connections. An SSL source endpoint does not require IceBridge to choose an SSL
-target endpoint. To encrypt the connection to the target, configure only secure target endpoints and the appropriate
-[IceSSL properties](/ice/3.8/property-reference/icessl-properties?lang=cpp).
+TLS applies independently to the two connections. IceBridge chooses the target endpoint without regard to whether the
+client connection is secure. To encrypt the connection to the target, configure only secure target endpoints and the
+appropriate [IceSSL properties](/ice/3.8/property-reference/icessl-properties?lang=cpp).
 
 ## Bridging to Bluetooth
 
@@ -104,9 +104,10 @@ IceBridge hosts two well-known objects on its source endpoints:
 | `IceBridge/router` | `Ice::Router`       | Configures clients to route requests through the bridge. |
 | `Ice/RouterFinder` | `Ice::RouterFinder` | Returns the bridge's router proxy from `getRouter`.      |
 
-Clients can configure a router proxy using its identity together with the bridge's source endpoints. Reserve both
-identities for the bridge's own objects. If the application requires a different router identity, you can set the
-`IceBridge.InstanceName` property to change the category of the object identity as shown in the example below:
+Clients can configure a router proxy using its identity together with the bridge's source endpoints. IceBridge
+dispatches requests for the default facets of these identities itself and does not forward them to the target. If the
+application requires a different router identity, you can set the `IceBridge.InstanceName` property to change the
+category of the object identity as shown in the example below:
 
 ```config
 IceBridge.InstanceName=PublicBridge

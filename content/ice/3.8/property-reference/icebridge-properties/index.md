@@ -46,4 +46,4 @@ either connection causes the bridge to close the other.
 
 Multiple endpoints provide alternative ways to connect to the same logical target server. Datagram requests require a
 datagram target endpoint; requests arriving over a connection-oriented transport require a connection-oriented target
-endpoint. `IceBridge.Target` is not an object adapter.
+endpoint.
