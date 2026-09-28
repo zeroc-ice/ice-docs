@@ -16,7 +16,7 @@ object adapter ID as specified through the [Ice.ToStringMode](../ice-properties)
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
-std::map<string, string> propertyMap =
+Ice::PropertyDict propertyMap =
     communicator->proxyToProperty(greeter, "Greeter");
 ```
 

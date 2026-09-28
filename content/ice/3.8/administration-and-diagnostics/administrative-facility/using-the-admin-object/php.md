@@ -2,8 +2,8 @@
 
 ```php
 $admin = ...; // proxy to the admin object
-$propAdmin = Ice\PropertiesAdminPrx::uncheckedCast($admin, "Properties");
-$props = $propAdmin.getPropertiesForPrefix("");
+$propAdmin = Ice\PropertiesAdminPrxHelper::uncheckedCast($admin, "Properties");
+$props = $propAdmin->getPropertiesForPrefix("");
 ```
 
 {% /language-section %}

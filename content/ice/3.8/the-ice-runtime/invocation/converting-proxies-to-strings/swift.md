@@ -4,7 +4,7 @@ You can stringify a proxy by calling `ice_toString` on this proxy, or by reading
 protocol [CustomStringConvertible](https://developer.apple.com/documentation/swift/customstringconvertible)). For
 example:
 
-```matlab
+```swift
 let greeter = try makeProxy(
     communicator: communicator,
     proxyString: "greeter:tcp -h localhost -p 4061",

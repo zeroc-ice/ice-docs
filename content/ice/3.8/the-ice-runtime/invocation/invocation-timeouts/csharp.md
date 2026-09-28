@@ -3,8 +3,9 @@
 ```csharp
 var greeter = GreeterPrxHelper.createProxy(
     communicator,
-    "tcp -h localhost -p 4061");
-greeter = greeter.ice_invocationTimeout(TimeSpan.FromMilliseconds(2500));
+    "greeter:tcp -h localhost -p 4061");
+greeter = GreeterPrxHelper.uncheckedCast(
+    greeter.ice_invocationTimeout(TimeSpan.FromMilliseconds(2500)));
 ```
 
 {% /language-section %}
