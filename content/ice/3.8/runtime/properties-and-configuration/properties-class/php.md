@@ -1,7 +1,7 @@
 {% language-section name="api" %}
 
 Create an empty set with `Ice\createProperties()`, or pass an argument array to parse arguments and load configuration
-files. The function removes consumed options from that array.
+files. The function receives the argument array by value, leaving the caller's array unchanged.
 
 ```php
 $properties = Ice\createProperties($args);

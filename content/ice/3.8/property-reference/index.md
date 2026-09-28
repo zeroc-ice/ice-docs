@@ -35,9 +35,9 @@ pages:
 
 This section provides a reference for all properties used by the Ice runtime and its services.
 
-Each property's description gives its effective default. The `getIceProperty` methods return the built-in default for an
-unset Ice property. The plain `getProperty` methods return the empty string, 0, or an empty list for an unset property;
-these return values do not determine the runtime's defaults. See [the Properties class](../properties-class).
+The `getIceProperty` methods return the built-in default for an unset Ice property. The plain `getProperty` methods
+return the empty string, 0, or an empty list for an unset property; these return values do not determine the runtime's
+defaults. See [the Properties class](../properties-class).
 
 Set properties before initializing the runtime component or service that uses them. Changing a property generally does
 not reconfigure an initialized component. When both the Metrics and [Properties facets](../properties-facet) are
