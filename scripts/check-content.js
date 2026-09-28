@@ -84,13 +84,16 @@ const STRAY_MARKUP = [
 // Code samples are not prose: the IceGrid chapters are full of XML descriptors,
 // and a `<node>` element inside a fence is the subject matter, not a migration
 // artifact. Blank the fences, at any indentation, and the inline code (keeping
-// each character's offset) before scanning.
+// each character's offset) before scanning. A code span closes on a run of as
+// many backticks as opened it, and `npm run format` keeps each on one line.
 function withoutCode(source) {
   return source
     .replace(/^[ \t]*```[\s\S]*?^[ \t]*```/gm, (block) =>
       block.replace(/[^\n]/g, ' ')
     )
-    .replace(/`[^`\n]*`/g, (span) => span.replace(/[^\n]/g, ' '));
+    .replace(/(?<!`)(`+)(?!`).*?(?<!`)\1(?!`)/g, (span) =>
+      span.replace(/[^\n]/g, ' ')
+    );
 }
 
 // Where an image target should resolve on disk: site-absolute paths come out of
