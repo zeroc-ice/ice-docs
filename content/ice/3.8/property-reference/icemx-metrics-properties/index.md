@@ -98,8 +98,8 @@ This property defines how metrics are grouped and how the ID of each metrics obj
 `id`. The grouping is based on attributes specific to the instrumented object or operation. For example, you can group
 the invocation metrics by operation name or proxy identity. All the invocations with the same operation name or proxy
 identity will record metrics using the same metrics object. You can specify several attributes to group metrics based on
-multiple attributes. You must delimit the attributes with delimiters when specify the value of the GroupBy property. A
-delimiter is any character which is not an alpha numeric or the dot character. Attributes which can be used to specify
+multiple attributes. You must delimit the attributes with delimiters when specifying the value of the GroupBy property.
+A delimiter is any character which is not an alpha numeric or the dot character. Attributes which can be used to specify
 the value of this property are defined in the relevant section of the Ice documentation. Here are some examples of
 GroupBy properties.
 

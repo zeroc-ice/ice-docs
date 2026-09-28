@@ -48,14 +48,14 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 ### Description {% id="ice.warn.dispatch-description" %}
 
-When [Ice.Trace.Dispatch](../ice-trace-properties) is 0, this property controls warnings from the logger middleware. The
-default value is 1.
+When [Ice.Trace.Dispatch](../ice-trace-properties) is 0 or less, this property controls warnings from the logger
+middleware. The default value is 1.
 
 | Value | Description                                                                                                                                                                                                                        |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0     | No warnings from the logger middleware.                                                                                                                                                                                            |
 | 1     | Warn for `UnknownException`, `UnknownLocalException`, and `UnknownUserException`, other local exceptions except `DispatchException`, and non-Ice exceptions. Also warn for responses with one of the three Unknown reply statuses. |
-| 2     | Like 1, plus other `DispatchException` exceptions, such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`, and other failure reply statuses.                                                |
+| 2     | Like 1, plus other instances of `DispatchException`, such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`, and other failure reply statuses.                                              |
 
 User exceptions and responses with the `UserException` reply status produce no middleware warning.
 
