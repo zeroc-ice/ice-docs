@@ -31,7 +31,10 @@ module IceBox
         void stopService(string service)
             throws AlreadyStoppedException, NoSuchServiceException;
 
-        void addObserver(ServiceObserver* observer)
+        bool isServiceRunning(string service)
+            throws NoSuchServiceException;
+
+        void addObserver(ServiceObserver* observer);
 
         void shutdown();
     }
@@ -50,6 +53,8 @@ following operations:
 - `stopService` Stops an active service but does not unload its implementation. The operation raises
   `NoSuchServiceException` if no matching service is found, and `AlreadyStoppedException` if the service is stopped at
   the time `stopService` is invoked.
+- `isServiceRunning` Returns `true` when IceBox records the service as started, and `false` otherwise. The operation
+  raises `NoSuchServiceException` if no matching service is found.
 - `addObserver` Adds an observer that is called when IceBox services are started or stopped. The service manager ignores
   operations that supply a null proxy, or a proxy that has already been registered.
 - `shutdown` Terminates the services and shuts down the IceBox server.
@@ -58,9 +63,10 @@ An administrative client that is interested in receiving callbacks when IceBox s
 implement the `ServiceObserver` interface and register the callback object's proxy with the service manager using its
 `addObserver` operation. The `ServiceObserver` interface defines two operations:
 
-- `servicesStarted` Invoked immediately upon registration to supply the current list of active services, and thereafter
-  each time a service is started.
-- `servicesStopped` Invoked whenever a service is stopped, and when the IceBox server is shutting down.
+- `servicesStarted` IceBox invokes this operation upon registration if at least one service is currently recorded as
+  started, supplying the names of these services. It invokes the operation again after each successful service start.
+- `servicesStopped` IceBox invokes this operation with the names of services it successfully stops, including during
+  server shutdown.
 
 The IceBox server unregisters an observer if the invocation of either operation causes an exception.
 
@@ -107,18 +113,27 @@ Ice.Admin.InstanceName=IceBox
 
 In this case, the identity of the `admin` object is `IceBox/admin`.
 
-IceBox also creates in each service communicator ([shared communicator](../configuring-icebox-services) and per-service
-communicator) all the built-in facets enabled on its main communicator, and adds all these facets, except the `Process`
-facet, to its admin object. These facets are named `IceBox.Service.service-name.facet-name`, where _service-name_
-corresponds to the service name (for example `Hello` or `IceStorm`), and _facet-name_ is the name of the built-in facet
-(for example `Properties` or `Logger`).
+When administration is enabled on its main communicator, IceBox can export facets from service communicators to the main
+admin object. It uses these names:
 
-{% callout type="info" %}
+- `IceBox.Service.service-name.facet-name` for a service with its own communicator, for example
+  `IceBox.Service.Greeter.Properties`.
+- `IceBox.SharedCommunicator.facet-name` for the [shared communicator](../configuring-icebox-services), for example
+  `IceBox.SharedCommunicator.Properties`.
 
-You can instruct IceBox to skip the admin facets for a specific service by setting the property
-[Ice.Admin.Enabled](../ice-admin-properties) to 0 in the configuration for that service.
+Automatic export applies when [Ice.Admin.Enabled](../ice-admin-properties) is unset in the service communicator's
+configuration and the main communicator's `Ice.Admin.Facets` filter is empty or contains at least one name with the
+applicable prefix. IceBox enables administration in the service communicator and exports its facets created during
+initialization, except `Process`.
 
-{% /callout %}
+When the main `Ice.Admin.Facets` filter contains names with the applicable prefix, IceBox strips the prefix and uses
+those names as the service communicator's `Ice.Admin.Facets` setting. For example,
+`IceBox.SharedCommunicator.Properties` selects the shared communicator's `Properties` facet. When the main filter is
+empty, IceBox preserves the service communicator's own `Ice.Admin.Facets` setting.
+
+Setting `Ice.Admin.Enabled` explicitly in a service communicator's configuration gives that communicator control of its
+own administration: `0` disables it and `1` enables it. IceBox skips automatic facet export for either value. The shared
+communicator uses a merged configuration, so this setting applies to all services that share it.
 
 # IceBox Administrative Client Configuration
 
@@ -139,7 +154,7 @@ Ice.Admin.InstanceName=IceBox
 A client can define the proxy for the `admin` object in a configuration property as follows:
 
 ```config
-ServiceManager.Proxy=IceBox/admin -f IceBox.ServiceManager -h 127.0.0.1 -p 10001
+ServiceManager.Proxy=IceBox/admin -f IceBox.ServiceManager:tcp -h 127.0.0.1 -p 10001
 ```
 
 The [proxy option](../endpoint-syntax) `-f IceBox.ServiceManager` specifies the name of the service manager's
@@ -156,12 +171,16 @@ Options:
 -v, --version        Display the Ice version.
 
 Commands:
+status SERVICE       Get the status of a service.
 start SERVICE        Start a service.
 stop SERVICE         Stop a service.
 shutdown             Shutdown the server.
 ```
 
 The C++ utility is named `iceboxadmin`. The Java utility is represented by the class `com.zeroc.IceBox.Admin`.
+
+The `status` command invokes `isServiceRunning` and prints `running` or `stopped` according to the service manager's
+recorded state.
 
 The `start` command is equivalent to invoking `startService` on the service manager interface. Its purpose is to start a
 pre-configured service; it cannot be used to add new services at run time. Note that this command does not cause the
@@ -174,11 +193,23 @@ The `shutdown` command stops all active services and shuts down the IceBox serve
 
 The C++ and Java utilities obtain the service manager's proxy from the property
 [IceBoxAdmin.ServiceManager.Proxy](../iceboxadmin-properties), therefore this proxy must be defined in the program's
-configuration file or on the command line, and the proxy's contents of depend on the server's configuration. If the
-IceBox server is deployed with IceGrid, we recommend using the IceGrid
+configuration file or on the command line, and the proxy's contents depend on the server's configuration. If the IceBox
+server is deployed with IceGrid, we recommend using the IceGrid
 [administrative utilities](../icegridadmin-command-line-tool) instead, which provide equivalent commands for
 administering an IceBox server. Otherwise, the proxy should have the [endpoints](../icebox-administration) and identity
 configured for the server.
+
+For the server configuration above, save the following property in `admin.cfg`:
+
+```config
+IceBoxAdmin.ServiceManager.Proxy=IceBox/admin -f IceBox.ServiceManager:tcp -h 127.0.0.1 -p 10001
+```
+
+Query the configured `Greeter` service with:
+
+```shell
+iceboxadmin --Ice.Config=admin.cfg status Greeter
+```
 
 ##### See Also
 
