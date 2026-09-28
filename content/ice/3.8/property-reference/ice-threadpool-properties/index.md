@@ -49,7 +49,7 @@ specified, Ice uses the value of `num` as the pool's maximum size. The `Client` 
 with `num` active threads, but the pool may shrink to only 1 thread during idle periods as determined by
 [Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties#ice.threadpool.name.threadidletime).
 
-If not specified, the default value is 1 for both properties. Ice adjusts a value less than 1 to 1 and logs a warning.
+If not specified, the default value is 1 for both properties.
 
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
@@ -75,14 +75,6 @@ Setting `SizeMax` to `-1` uses the number of processors available to the runtime
 
 {% /iflang %}
 
-Ice adjusts a maximum less than `Size` to `Size` and logs a warning.
-
-{% iflang langs="csharp" %}
-
-In C#, this rule also applies to `-1`.
-
-{% /iflang %}
-
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
 
@@ -95,8 +87,7 @@ property.
 #### Description
 
 Whenever `num` threads are active in the `Client` or `Server` [thread pool](../the-ice-threading-model), a "low on
-threads" warning is printed. The default value is 0, which disables the warning. Ice adjusts any other value below
-`Size` to `Size`, and any value above `SizeMax` to `SizeMax`, logging a warning when it adjusts the value.
+threads" warning is printed. The default value is 0, which disables the warning.
 
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
@@ -122,9 +113,8 @@ under-utilized thread pool will get reaped.
 
 {% /callout %}
 
-To disable the reaping of idle threads, set `ThreadIdleTime` to 0 or less. Ice adjusts a negative value to 0 and logs a
-warning. In this situation, the thread pool is initialized with
-[Ice.ThreadPool._name_.Size](../ice-threadpool-properties#ice.threadpool.name.size) active threads and may grow to
+To disable the reaping of idle threads, set `ThreadIdleTime` to 0. In this situation, the thread pool is initialized
+with [Ice.ThreadPool._name_.Size](../ice-threadpool-properties#ice.threadpool.name.size) active threads and may grow to
 contain [Ice.ThreadPool._name_.SizeMax](../ice-threadpool-properties#ice.threadpool.name.sizemax) active threads, but
 the size of the pool never decreases.
 

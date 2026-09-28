@@ -320,8 +320,8 @@ The adapter uses the communicator's server thread pool when no `adapter.ThreadPo
 property with this prefix creates a dedicated pool. For example, setting only `adapter.ThreadPool.SizeMax=4` creates a
 pool with one initial thread and a maximum of four threads.
 
-`num` is the initial number of threads in the dedicated pool. Its default value is `1`. Ice adjusts a value less than
-`1` to `1` and logs a warning. See [Ice.ThreadPool._name_.Size](../ice-threadpool-properties) for more information.
+`num` is the initial number of threads in the dedicated pool. Its default value is `1`. See
+[Ice.ThreadPool._name_.Size](../ice-threadpool-properties) for more information.
 
 # _adapter_.ThreadPool.SizeMax
 
@@ -346,8 +346,7 @@ meaning the thread pool can never grow larger than its initial size.
 #### Description
 
 Whenever `num` threads are active in a [thread pool](../the-ice-threading-model), a "low on threads" warning is printed.
-The default value is 0, which disables the warning. Ice adjusts any other value below `Size` to `Size`, and any value
-above `SizeMax` to `SizeMax`, logging a warning when it adjusts the value.
+The default value is 0, which disables the warning.
 
 # _adapter_.ThreadPool.ThreadIdleTime
 
@@ -358,8 +357,7 @@ above `SizeMax` to `SizeMax`, logging a warning when it adjusts the value.
 #### Description
 
 In a dynamically-sized [thread pool](../the-ice-threading-model), Ice reaps a thread after it is idle for `num` seconds.
-Setting this property to 0 or less disables idle thread reaping. Ice adjusts a negative value to 0 and logs a warning.
-If not specified, the default value is 60 seconds. See
+Setting this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
 [Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties) for more information.
 
 {% /iflang %}

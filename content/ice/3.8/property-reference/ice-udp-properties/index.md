@@ -11,17 +11,14 @@ title: Ice.UDP.*
 #### Description
 
 This property sets the UDP receive buffer size to the specified value in bytes. Ice messages larger than `num - 28`
-bytes cause a `DatagramLimitException`. The default value depends on the configuration of the local UDP stack. (Common
-default values are 65535 and 8192 bytes.)
+bytes cause a `DatagramLimitException`.
 
 The OS may impose lower and upper limits on the receive buffer size or otherwise adjust the buffer size. If a limit is
 requested that is lower than the OS-imposed minimum, the value is silently adjusted to the OS-imposed minimum. If a
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
-The default value is `0`, which leaves the operating system's buffer size unchanged. For any other value less than `42`
-(28 bytes of IP/UDP overhead plus the 14-byte Ice protocol header), Ice uses the operating system's buffer size and logs
-a warning.
+The default value is `0`, which leaves the operating system's buffer size unchanged.
 
 Note that, on many operating systems, it is possible to set a buffer size greater than 65535. Such settings do not
 change the hard limit of 65507 bytes for the payload of a UDP packet, but merely affect how much data can be buffered by
@@ -38,17 +35,14 @@ Settings less than 65535 limit the size of Ice datagrams as well as adjust the k
 #### Description
 
 This property sets the UDP send buffer size to the specified value in bytes. Ice messages larger than `num - 28` bytes
-cause a `DatagramLimitException`. The default value depends on the configuration of the local UDP stack. (Common default
-values are 65535 and 8192 bytes.)
+cause a `DatagramLimitException`.
 
 The OS may impose lower and upper limits on the send buffer size or otherwise adjust the buffer size. If a limit is
 requested that is lower than the OS-imposed minimum, the value is silently adjusted to the OS-imposed minimum. If a
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
-The default value is `0`, which leaves the operating system's buffer size unchanged. For any other value less than `42`
-(28 bytes of IP/UDP overhead plus the 14-byte Ice protocol header), Ice uses the operating system's buffer size and logs
-a warning.
+The default value is `0`, which leaves the operating system's buffer size unchanged.
 
 Note that, on many operating systems, it is possible to set a buffer size greater than 65535. Such settings do not
 change the hard limit of 65507 bytes for the payload of a UDP packet, but merely affect how much data can be buffered by

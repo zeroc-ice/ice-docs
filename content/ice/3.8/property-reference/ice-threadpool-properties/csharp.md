@@ -13,8 +13,7 @@
 #### Description
 
 `num` is the stack size (in bytes) of threads in the `Client` or `Server` [thread pool](../the-ice-threading-model). The
-default value is 0, meaning the operating system's default is used. Ice adjusts a negative value to 0 and logs a
-warning.
+default value is 0, meaning the operating system's default is used.
 
 {% /language-section %}
 
@@ -36,8 +35,7 @@ This property is unset by default.
 
 `value` can be `Lowest`, `BelowNormal`, `Normal`, `AboveNormal`, or `Highest`.
 
-The named values can also include the `ThreadPriority.` prefix, for example `ThreadPriority.AboveNormal`. An invalid
-value causes a `PropertyException`.
+The named values can also include the `ThreadPriority.` prefix, for example `ThreadPriority.AboveNormal`.
 
 You can also override the default priority for a specific object adapter using
 [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
