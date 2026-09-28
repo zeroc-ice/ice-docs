@@ -49,20 +49,6 @@ available on the system to send and receive UDP multicast datagrams. This proper
 [IceDiscovery.Reply.Endpoints](../icediscovery-properties#icediscovery.reply.adapterproperty) and
 [IceDiscovery.Multicast.Endpoints](../icediscovery-properties#icediscovery.multicast.adapterproperty).
 
-# IceDiscovery.Locator._AdapterProperty_
-
-#### Synopsis
-
-`IceDiscovery.Locator.AdapterProperty=value`
-
-#### Description
-
-IceDiscovery creates an object adapter named `IceDiscovery.Locator` for its locator and locator registry objects. You
-can configure this adapter with [object adapter properties](../object-adapter-properties).
-
-If `IceDiscovery.Locator.Endpoints` is empty or not set, the plug-in sets `IceDiscovery.Locator.AdapterId` to a
-generated UUID. With no endpoints, the adapter accepts only collocated invocations.
-
 # IceDiscovery.Lookup
 
 #### Synopsis

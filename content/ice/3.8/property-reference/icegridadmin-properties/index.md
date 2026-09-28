@@ -120,7 +120,7 @@ built-in `metrics.cfg` first, then loads these files in order. Later files overr
 the GUI uses only its built-in configuration. If it cannot load a file, it logs a warning and continues with the
 remaining files.
 
-The files use the following properties:
+The built-in `metrics.cfg` is the reference for the full format. The properties used most often are:
 
 - `IceGridGUI.Metrics`: a list of metrics section names, separated by commas or whitespace. The GUI starts with the
   built-in section order and appends previously unseen names in the order it reads them.

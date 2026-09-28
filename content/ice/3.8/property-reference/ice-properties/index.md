@@ -24,13 +24,13 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 
 #### Synopsis
 
-`Ice.BatchAutoFlushSize=num` (in kilobytes)
+`Ice.BatchAutoFlushSize=num` (in KiB)
 
 #### Description
 
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is
 set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added
-to a batch and that message would cause the batch to exceed `num` kilobytes. If `num` is set to 0 or a negative number,
+to a batch and that message would cause the batch to exceed `num` KiB. If `num` is set to 0 or a negative number,
 batches must be flushed explicitly by the application. If not defined, the default value is `1024`.
 
 {% callout type="warning" %}
@@ -276,13 +276,13 @@ Sets the maximum size of an incoming uncompressed Ice protocol message, includin
 bytes). The default value is `1024` (1 MiB).
 
 Setting this property to 0 or a negative number selects the maximum supported message size of 2,147,483,647 bytes. A
-positive value must be at most `2097151`; larger values cause communicator initialization to fail with an
+positive value must be at most 2,097,151 KiB; larger values cause communicator initialization to fail with an
 `InitializationException`.
 
-On a stream connection, Ice rejects an incoming message that exceeds this limit with a `MarshalException` and closes the
-connection. A client receiving an oversized reply gets this exception from its invocation. When a server receives an
-oversized request, the client receives a `ConnectionLostException` and the server logs a message if
-[Ice.Warn.Connections](../ice-warn-properties) is set.
+Over UDP, Ice drops an incoming message that exceeds this limit. Over the other transports, it rejects the message with
+a `MarshalException` and closes the connection. A client receiving an oversized reply gets this exception from its
+invocation. When a server receives an oversized request, the client receives a `ConnectionLostException` and the server
+logs a message if [Ice.Warn.Connections](../ice-warn-properties) is set.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 

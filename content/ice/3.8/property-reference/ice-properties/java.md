@@ -316,8 +316,7 @@ The default value is `LOG_USER`.
 #### Description
 
 Specifies the host name or IP address of the syslog daemon that receives log messages when
-[Ice.UseSyslog](../ice-properties#ice.usesyslog) is enabled. The default value is `localhost`. If Ice cannot resolve the
-host, communicator initialization fails with an `InitializationException`.
+[Ice.UseSyslog](../ice-properties#ice.usesyslog) is enabled. The default value is `localhost`.
 
 # Ice.SyslogPort
 
@@ -366,8 +365,6 @@ use the RFC 3164 syslog format without a header and include the program name as 
 [Ice.SyslogFacility](../ice-properties#ice.syslogfacility) selects the facility. The default value of `Ice.UseSyslog`
 is 0. Ice ignores this property on Windows.
 
-A logger supplied through `InitializationData` takes precedence over this property. Otherwise, enabling syslog while
-[Ice.LogFile](../ice-properties#ice.logfile) is non-empty causes communicator initialization to fail with an
-`InitializationException` on Unix.
+This property cannot be combined with [Ice.LogFile](../ice-properties#ice.logfile).
 
 {% /language-section %}
