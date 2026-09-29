@@ -2,8 +2,6 @@
 title: Interface Inheritance
 ---
 
-# Interface Inheritance
-
 Interfaces support inheritance. For example, we could extend our [Clock interface](../interfaces) to support the concept
 of an alarm clock:
 

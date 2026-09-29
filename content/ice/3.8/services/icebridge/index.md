@@ -130,18 +130,14 @@ step is evaluating whether your client should use IceBridge as a router:
 
 Let's assume the bridge has the following configuration:
 
-##### **Bridge Configuration**
-
-```config
+```config {% title="Bridge Configuration" %}
 IceBridge.Target.Endpoints=...
 IceBridge.Source.Endpoints=tcp -p 10000
 ```
 
 The client can use IceBridge as a router by defining `Ice.Default.Router`:
 
-##### **Client Configuration with Router**
-
-```config
+```config {% title="Client Configuration with Router" %}
 Ice.Default.Router=IceBridge/router:tcp -h bridge.host -p 10000
 Client.Proxy=SomeObject:tcp -h other.host -p 9999
 ```
@@ -159,9 +155,7 @@ router, such as with a [proxy property](../proxy-properties) or a [proxy method]
 If you've decided not to use IceBridge as a router, you simply need to replace the existing endpoints in the client's
 proxies with the bridge's source endpoints:
 
-##### **Client Configuration without Router**
-
-```config
+```config {% title="Client Configuration without Router" %}
 Client.Proxy=SomeObject:tcp -h bridge.host -p 10000
 ```
 

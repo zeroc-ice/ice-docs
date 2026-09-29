@@ -1,8 +1,8 @@
 {% language-section name="language-mapping" %}
 
-## Client-Side Mapping for Operations
+# Client-Side Mapping for Operations
 
-# Mapping for Operations
+## Mapping for Operations
 
 As we saw in the [Client-Side C# Mapping for Interfaces](../client-side-csharp-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains two methods for this operation. To invoke
@@ -49,7 +49,7 @@ GreeterPrx greeter = GreeterPrxHelper.createProxy(
 string greeting = await greeter.GreetAsync("Alice");  // Get greeting via RPC
 ```
 
-# Sync and Async Methods
+## Sync and Async Methods
 
 For each operation, the Slice compiler generates 2 methods on the proxy class:
 
@@ -68,7 +68,7 @@ The “sync” methods are provided for backwards compatibility: you should only
 
 {% /callout %}
 
-# Exception Handling
+## Exception Handling
 
 Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
@@ -104,15 +104,15 @@ catch (Tantrum t)
 }
 ```
 
-##### See Also
+## See Also
 
 - [C# Mapping for Parameters and Return Values](../csharp-mapping-for-parameters-and-return-values)
 - [Asynchronous Method Invocation (AMI) in C#](../asynchronous-method-invocation-ami-in-csharp)
 - [Server-Side C# Mapping for Operations](../server-side-csharp-mapping-for-operations)
 
-## Server-Side Mapping for Operations
+# Server-Side Mapping for Operations
 
-# Default Mapping for Operations
+## Default Mapping for Operations
 
 As we saw in the [Server-Side C# Mapping for Interfaces](../server-side-csharp-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton class contains an abstract method with the same name.
@@ -158,13 +158,13 @@ internal class Chatbot : VisitorCenter.GreeterDisp_
 }
 ```
 
-# AMD Mapping for Operations
+## AMD Mapping for Operations
 
 Each operation with the `["amd"]` metadata is mapped to a method with an `Async` suffix in the skeleton class. The AMD
 mapping replaces the default “sync” mapping for the operation. See
 [Asynchronous Method Dispatch (AMD) in C#](../asynchronous-method-dispatch-amd-in-csharp) for details.
 
-# Throwing Exceptions
+## Throwing Exceptions
 
 To throw an exception from an operation implementation, you simply construct the exception and throw it. For example:
 
@@ -190,12 +190,12 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-##### See Also
+## See Also
 
 - [C# Mapping for Parameters and Return Values](../csharp-mapping-for-parameters-and-return-values)
 - [Client-Side C# Mapping for Operations](../client-side-csharp-mapping-for-operations)
 
-## Asynchronous Method Invocation (AMI)
+# Asynchronous Method Invocation (AMI)
 
 _Asynchronous Method Invocation (AMI)_ is the term used to describe the client-side support for the asynchronous
 programming model. AMI supports both oneway and twoway requests, but unlike their synchronous counterparts, AMI requests
@@ -213,7 +213,7 @@ In a modern C# application, you should always use AMI. The synchronous API is pr
 
 {% /callout %}
 
-# Asynchronous API
+## Asynchronous API
 
 Consider the following Slice definition:
 
@@ -256,7 +256,7 @@ EmployeesPrx e = ...;
 string name = await e.GetNameAsync(99);
 ```
 
-# Asynchronous Exception Semantics
+## Asynchronous Exception Semantics
 
 If an invocation throws an exception, the exception can be obtained from the task.
 
@@ -279,7 +279,7 @@ synchronous exceptions (such as marshaling exceptions) synchronously.
 
 {% /callout %}
 
-# Asynchronous Oneway Invocations
+## Asynchronous Oneway Invocations
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
 have any out-parameters, and does not throw user exceptions. If you call an asynchronous method on a oneway proxy for an
@@ -288,7 +288,7 @@ operation that returns values or throws a user exception, the proxy method throw
 The task returned for a oneway invocation completes as soon as the request is successfully written to the client-side
 transport. The task completes with an exception if an error occurs before the request is successfully written.
 
-# Flow Control
+## Flow Control
 
 Asynchronous method invocations never block the thread that calls the asynchronous proxy method. The Ice runtime checks
 to see whether it can write the request to the local transport. If it can, it does so immediately in the caller's
@@ -329,7 +329,7 @@ proxy.DoSomethingAsync(progress: (sentSynchronously) =>
 Using this feature, you can limit the number of queued requests by counting the number of requests that are queued and
 decrementing the count when the Ice runtime passes a request to the local transport.
 
-# Canceling an Asynchronous Invocation
+## Canceling an Asynchronous Invocation
 
 Every asynchronous proxy method accepts an optional `CancellationToken` argument. Its default value is `default`, which
 is equivalent to passing `CancellationToken.None`.
@@ -338,7 +338,7 @@ Cancellation prevents a queued invocation from being sent or, if the invocation 
 if the server sends one. Cancellation is a local operation and has no effect on the server. The result of a canceled
 invocation is an `Ice.InvocationCanceledException`.
 
-## Asynchronous Method Dispatch (AMD)
+# Asynchronous Method Dispatch (AMD)
 
 The number of simultaneous synchronous requests a server is capable of supporting is determined by the number of threads
 in the server's [thread pool](../threading-model). If all of the threads are busy dispatching long-running operations,
@@ -436,20 +436,20 @@ These are not necessarily two different threads: it is legal to complete the tas
 The implementation of the `Async` method in your servant class can throw an exception synchronously: it’s equivalent to
 returning a task completed with this exception.
 
-##### See Also
+## See Also
 
 - [The Ice Threading Model](../threading-model)
 - [C# Mapping for Parameters and Return Values](../csharp-mapping-for-parameters-and-return-values)
 
-## Mapping for Parameters and Return Values
+# Mapping for Parameters and Return Values
 
-# In Parameters
+## In Parameters
 
 An in parameter is mapped to a C# parameter with the same name; its type is the mapped C# type.
 
 For example, a Slice parameter `string name` is mapped to a C# parameter `string name`.
 
-# Out Parameters in Synchronous Methods
+## Out Parameters in Synchronous Methods
 
 An out parameter is mapped to an out parameter with the same name in synchronous proxy and skeleton methods; the type of
 the parameter is the mapped C# type.
@@ -504,11 +504,11 @@ public partial interface ServerToClientPrx : Ice.ObjectPrx
 }
 ```
 
-# Return Values in Synchronous Methods
+## Return Values in Synchronous Methods
 
 A Slice return value is mapped to a C# return value in synchronous proxy and skeleton methods.
 
-# Out Parameters and Return Values in Asynchronous Methods
+## Out Parameters and Return Values in Asynchronous Methods
 
 Out parameters and return values are mapped to C# `Task` return values.
 
@@ -545,7 +545,7 @@ public partial interface ExamplePrx : Ice.ObjectPrx
 }
 ```
 
-# Optional Parameters
+## Optional Parameters
 
 The mapping for [optional parameters](../operations) is the same as for required parameters, except each mapped C# type
 is nullable, where null represents “not set”.

@@ -14,9 +14,7 @@ language. Let's look at how we can use Ansible to securely distribute applicatio
 In this example we assume that you have already configured and deployed your servers using IceGrid. Consider the
 following configuration:
 
-##### **IceGrid Configuration**
-
-```xml
+```xml {% title="IceGrid Configuration" %}
 <icegrid>
     <application name="MyDemoApp">
         <node name="Node1">
@@ -66,9 +64,7 @@ playbooks).
 
 Before configuring the playbook we first need to look at the other files necessary to make the playbook function.
 
-##### **group_vars/production/production.yml**
-
-```yaml
+```yaml {% title="group_vars/production/production.yml" %}
 ---
 ansible_user: username
 servers:
@@ -94,9 +90,7 @@ ansible-vault create group_vars/production/secure.yml
 After answering all of the prompted questions you can enter data into the newly created vault (your default editor will
 be automatically opened).
 
-##### **group_vars/production/secure.yml**
-
-```yaml
+```yaml {% title="group_vars/production/secure.yml" %}
 ---
 registryPassword: supersecretpassphrase
 ```
@@ -112,9 +106,7 @@ will run tasks. Ansible inventory files are used to map these groups to actual I
 deployment will contain at least two inventory files: one for production and one for testing/staging. The following is
 an example of a _production_ inventory file:
 
-##### **inventories/production**
-
-```ini
+```ini {% title="inventories/production" %}
 [registry-master]
 10.0.0.10
 
@@ -156,9 +148,7 @@ by this playbook. It can be installed by copying `icegrid_servers.yml` into the 
 
 {% /callout %}
 
-##### **deploy-server.yml**
-
-```yaml
+```yaml {% title="deploy-server.yml" %}
 ---
 #
 # Disable and stop servers, synchronize server executables, and then enable and start servers.

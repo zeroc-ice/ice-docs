@@ -161,7 +161,7 @@ Item findItem(Key p, Key s) throws NotFound;
 
 For clarity, the comment order should match the order of declaration for the parameters.
 
-# doxygenUsing Doxygen for Slice Documentation
+# Using Doxygen for Slice Documentation
 
 This section describes how to use Doxygen to generate a Slice API reference documentation from your Slice files.
 

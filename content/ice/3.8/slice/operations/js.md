@@ -1,8 +1,8 @@
 {% language-section name="language-mapping" %}
 
-## Client-Side Mapping for Operations
+# Client-Side Mapping for Operations
 
-# Mapping for Operations
+## Mapping for Operations
 
 For each Slice operation defined on an interface, the generated proxy class provides a method with the same name. To
 invoke an operation, you call this method on the proxy.
@@ -70,7 +70,7 @@ The arguments passed to the promise resolution depend on the operation signature
 - If the operation has a **return value and/or out parameters**, the promise is fulfilled with an array: the return
   value (if any) followed by the out parameters.
 
-# Exception Handling
+## Exception Handling
 
 Any operation invocation may throw a [local exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../exceptions). Suppose we have the following simple
@@ -105,7 +105,7 @@ try {
 }
 ```
 
-## Server-Side Mapping for Operations
+# Server-Side Mapping for Operations
 
 For each Slice operation defined on an interface, the generated skeleton class includes a corresponding abstract member
 function with the same name.
@@ -165,7 +165,7 @@ async greet(name: string, current: Ice.Current): PromiseLike<string> | string {
 }
 ```
 
-## Mapping for Parameters and Return Values
+# Mapping for Parameters and Return Values
 
 ## Passing Parameters in JavaScript
 

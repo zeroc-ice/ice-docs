@@ -9,7 +9,7 @@ identifies the type of the message, and the operation parameters define the mess
 invoking the operation on an IceStorm proxy in the normal fashion. Similarly, subscribers receive the message as a
 regular operation dispatch. As a result, IceStorm uses the "push" model for message delivery; polling is not supported.
 
-# **IceStorm Topics**
+# IceStorm Topics
 
 An application indicates its interest in receiving messages by subscribing to a _topic_. An IceStorm server supports any
 number of topics, which are created dynamically and distinguished by unique names. Each topic can have multiple
@@ -25,13 +25,13 @@ to multiple recipients.
 IceStorm does not verify that publishers and subscribers are using compatible interfaces, therefore applications must
 ensure that topics are used correctly.
 
-# **Unidirectional Messages**
+# Unidirectional Messages
 
 IceStorm messages are [unidirectional](../oneway-invocations), that is, they must have `void` return type, cannot have
 out-parameters, and cannot raise user exceptions. It follows that a publisher cannot receive replies from its
 subscribers. Any of the Ice transports (TCP, SSL, UDP, etc.) can be used to publish and receive messages.
 
-# **Federation**
+# Federation
 
 IceStorm supports the formation of topic graphs, also known as [federation](../topic-federation). A topic graph is
 formed by creating links between topics, where a _link_ is a unidirectional association from one topic to another. Each
@@ -60,24 +60,24 @@ IceStorm allows each subscriber to specify its own [_quality of service_](../ice
 parameters that affect the delivery of its messages. Quality of service parameters are represented as a dictionary of
 name-value pairs.
 
-# **Replication**
+# Replication
 
 IceStorm supports [replication](../highly-available-icestorm) to provide higher availability for publishers and
 subscribers.
 
-# **Persistent Mode**
+# Persistent Mode
 
 IceStorm's default behavior maintains information about topics, links, and subscribers in a database. However, a message
 sent via IceStorm is not stored persistently, but rather is discarded as soon as it is delivered to the topic's current
 set of subscribers. If an error occurs during delivery to a subscriber, IceStorm does not queue messages for that
 subscriber.
 
-# **Transient Mode**
+# Transient Mode
 
 IceStorm can optionally run in a fully transient mode in which no database is required. Replication is not supported in
 this mode.
 
-# **Subscriber Errors**
+# Subscriber Errors
 
 IceStorm automatically removes a subscription from a topic if a subscriber failure occurs while attempting to deliver a
 message. For example, IceStorm may be unable to establish a connection to the subscriber using the proxy that the

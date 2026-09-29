@@ -194,6 +194,4 @@ for operation invocations:
   the runtime report the error back to the application. (The number of retries can be increased with an Ice
   configuration parameter.)
 
-## Language Mapping
-
 {% language-section name="language-mapping" /%}

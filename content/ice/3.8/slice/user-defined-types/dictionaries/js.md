@@ -10,7 +10,7 @@ This distinction is necessary because:
 - JavaScript Map uses the `===` operator for key equality.
 - `Ice.HashMap` allows custom comparators, so struct keys can use their equals method for equality.
 
-### **Example: Dictionary with Built-in Key**
+### Example: Dictionary with Built-in Key
 
 ```slice
 struct Employee
@@ -28,7 +28,7 @@ In this example, `EmployeeMap` maps to a JavaScript `Map` with:
 - key type = `BigInt` (from Slice `long`)
 - value type = `Employee` (the JavaScript class generated from the Slice struct).
 
-### **Example: Dictionary with Struct Key**
+### Example: Dictionary with Struct Key
 
 If the key is a Slice struct, the compiler generates code that uses
 [Ice.HashMap](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html).

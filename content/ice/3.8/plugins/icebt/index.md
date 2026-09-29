@@ -21,9 +21,7 @@ registration. IceBT considers each object adapter endpoint in an Ice server to b
 entry for it in the local SDP registry. This entry associates a UUID with a human-friendly name and an RFCOMM channel.
 For example, an entry might contain:
 
-##### **SDP Entry**
-
-```text
+```text {% title="SDP Entry" %}
 Name: My Bluetooth Service
 UUID: 1c6a142a-aae6-4d58-bef8-33196f531da7
 RFCOMM: Channel #8

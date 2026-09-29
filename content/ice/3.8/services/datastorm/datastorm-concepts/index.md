@@ -10,8 +10,6 @@ pages:
   - connectivity
 ---
 
-# DataStorm Concepts
-
 This section provides a brief overview of the main concepts in DataStorm. Each concept is explained in more detail in
 its own dedicated page.
 

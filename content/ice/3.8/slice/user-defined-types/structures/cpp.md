@@ -35,8 +35,6 @@ Constructors are intentionally omitted so that the C++ structure qualifies as a 
 
 The generated C++ structures use templated comparison operators included from Ice.
 
-##### **C++ Comparison Operators**
-
 ```cpp
 // !=, <, <=, >, >=  are implemented in the same manner
 template<

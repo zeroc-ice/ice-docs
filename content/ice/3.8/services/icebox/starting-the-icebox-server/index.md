@@ -4,8 +4,6 @@ title: Starting the IceBox Server
 
 Incorporating everything we discussed previously, we can now configure and start IceBox servers.
 
-# Starting the IceBox Server
-
 {% language-section name="lang-1" /%}
 
 # IceBox Server Failures

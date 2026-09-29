@@ -21,7 +21,7 @@ Generates the following TypeScript declaration:
 export type FruitPlatter = Fruit[];
 ```
 
-### **Usage**
+### Usage
 
 ```js
 // JavaScript

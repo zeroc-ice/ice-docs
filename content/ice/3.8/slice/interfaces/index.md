@@ -74,11 +74,9 @@ empty interface?". In most cases, empty interfaces are an indication of design e
 empty interface definition, at least step back and think about the problem at hand; there may be a more appropriate
 design that expresses your intent more cleanly.
 
+{% language-section name="language-mapping" /%}
+
 ##### See Also
 
 - [Operations](../operations)
 - [User Exceptions](../exceptions)
-
-## Language Mapping
-
-{% language-section name="language-mapping" /%}

@@ -50,7 +50,7 @@ DataStorm will use the Ice encoding for both parameters:
 Topic<string, ClearSky::AtmosphericConditionsPtr> temperatures{node, "temperatures"};
 ```
 
-### **Example: Non-Slice Types**
+### Example: Non-Slice Types
 
 If your types are **not defined in Slice**, you must provide specializations of the
 [DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) and
