@@ -201,14 +201,6 @@
     scrollbar-gutter: stable;
   }
 
-  /* Where scrollbar-gutter is unsupported (Safari before 18.2), show the
-     scrollbar on every page instead. */
-  @supports not (scrollbar-gutter: stable) {
-    html {
-      overflow-y: scroll;
-    }
-  }
-
   /* The page behind a modal dialog is inert; keep it from scrolling too. */
   html:has(dialog:modal) {
     overflow: hidden;

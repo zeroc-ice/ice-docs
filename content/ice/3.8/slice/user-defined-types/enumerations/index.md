@@ -67,7 +67,7 @@ Custom values must be unique and non-negative, and may refer to Slice constants 
 specified for an enumerator, its value is one greater than the enumerator that immediately precedes it. In the example
 above, `Orange` has the value 8.
 
-The maximum value for an enumerator value is the same as the maximum value for `int`, 2 31 - 1.
+The maximum value for an enumerator value is the same as the maximum value for `int`, 2³¹ - 1.
 
 Slice does not require custom enumerator values to be declared in increasing order:
 
