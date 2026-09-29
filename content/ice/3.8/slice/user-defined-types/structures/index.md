@@ -44,8 +44,6 @@ languages and, even if implementable, greatly complicate the scope resolution ru
 as Slice, nested type definitions are unnecessary – you can always write the above definitions as follows (which is
 stylistically cleaner as well):
 
-##### **Slice**
-
 ```slice
 struct Point
 {

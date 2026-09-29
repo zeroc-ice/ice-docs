@@ -91,9 +91,9 @@ except Tantrum as t:
 - [Python Mapping for Parameters and Return Values](../python-mapping-for-parameters-and-return-values)
 - [Asynchronous Method Invocation (AMI) in Python](../asynchronous-method-invocation-ami-in-python)
 
-## Server-Side Mapping for Operation
+## Server-Side Mapping for Operations
 
-# Mapping for Operations
+# Default Mapping for Operations
 
 As we saw in the [Server-Side Python Mapping for Interfaces](../server-side-python-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton class contains an abstract method with the same name.
@@ -423,7 +423,7 @@ when the communicator is initialized with an asyncio event loop.
 
 {% /callout %}
 
-# `asyncio` Integration
+# `asyncio` Integration for Dispatch
 
 Ice provides seamless integration with Python’s asyncio library.
 
@@ -508,8 +508,6 @@ class ClientToServerPrx(Ice.ObjectPrx):
 ```
 
 Given a proxy to a `ClientToServer` interface, the client code can pass parameters as in the following example:
-
-##### **Python**
 
 ```py
 p = ...                                 # Get proxy...

@@ -93,9 +93,9 @@ do {
 
 - [Swift Mapping for Parameters and Return Values](../swift-mapping-for-parameters-and-return-values)
 
-## Server-Side Mapping for Operation
+## Server-Side Mapping for Operations
 
-# Mapping for Operations
+# Default Mapping for Operations
 
 As we saw in the [Server-Side Swift Mapping for Interfaces](../server-side-swift-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton protocol contains an abstract method with the same

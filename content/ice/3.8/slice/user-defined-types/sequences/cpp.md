@@ -4,8 +4,6 @@
 
 Here is the definition of our FruitPlatter sequence once more:
 
-##### **Slice**
-
 ```slice
 sequence<Fruit> FruitPlatter;
 ```

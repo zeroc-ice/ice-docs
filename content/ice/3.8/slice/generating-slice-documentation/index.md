@@ -22,8 +22,6 @@ syntax. The Slice compilers do not recognize any other Doxygen-compatible commen
 
 As an example of the Slice comment syntax, here is the definition of `Ice::Current`:
 
-##### **Slice**
-
 ```slice
 /**
  *
@@ -88,8 +86,6 @@ A documentation comment starts with `/**` and ends with `**/`. Such a comment ca
 module, interface, structure, operation, and so on. Within a documentation comment, you can either start each line with
 a `*`, or you can leave the beginning of the line blank:
 
-##### **Slice**
-
 ```slice
 /**
  *
@@ -111,8 +107,6 @@ The first sentence of the documentation comment for a Slice construct should be 
 
 Any Slice identifier enclosed in `{@link ...}` is presented as a hyperlink in code font. For example:
 
-##### **Slice**
-
 ```slice
 /**
  * An empty {@link name} denotes a null object.
@@ -133,8 +127,6 @@ tags are rarely necessary in practice.
 
 The directive `@see` creates an explicit cross reference to another entity:
 
-##### **Slice**
-
 ```slice
 /**
  * The object adapter, which is responsible for receiving requests
@@ -149,8 +141,6 @@ The directive `@see` creates an explicit cross reference to another entity:
 ## Markup for Operations
 
 There are three directives specifically to document Slice operations: `@param`, `@return`, and `@throws`. For example:
-
-##### **Slice**
 
 ```slice
 /**
