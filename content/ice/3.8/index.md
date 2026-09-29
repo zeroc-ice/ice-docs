@@ -29,7 +29,7 @@ pages:
   - services
   - encoding
   - protocol
-  - services-and-daemons
+  - background-servers
   - versioning
   - property-reference
   - compatibility

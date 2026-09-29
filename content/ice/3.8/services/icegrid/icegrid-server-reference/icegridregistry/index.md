@@ -30,7 +30,7 @@ option, added in Ice 3.5.1, allows you to initialize the database from another r
 when you need to start a new master with the contents of a slave database.
 
 Additional command line options are supported, including those that allow the registry to run as a
-[Windows service or Unix daemon](../services-and-daemons), and Ice includes a [utility](../windows-services) to help you
+[Windows service or Unix daemon](../background-servers), and Ice includes a [utility](../windows-services) to help you
 install an IceGrid registry as a Windows service.
 
 # Configuring Registry Endpoints
