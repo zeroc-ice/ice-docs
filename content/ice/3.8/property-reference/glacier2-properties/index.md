@@ -18,8 +18,6 @@ Controls the connection information that Glacier2 adds to the [request context](
 | 1     | Add connection information to permissions-verifier and session-manager calls, and to requests forwarded from clients to servers.        |
 | 2     | Add connection information to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on session managers. |
 
-Glacier2 rejects other values at startup with an `Ice::InitializationException`.
-
 For values 1 and 2, Glacier2 supplies the following entries when the connection provides the corresponding information:
 
 | Key                  | Description                                                                                                |
@@ -85,8 +83,7 @@ Controls tracing for the router's [filters](../securing-a-glacier2-router):
 | Value | Description                                                                                                                                      |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 0     | No filter trace (default).                                                                                                                       |
-| 1     | Trace proxy acceptance and rejection by the address and proxy-size filters, and request rejections by category, identity and adapter-ID filters. |
-| 2     | Same as 1.                                                                                                                                       |
+| 1, 2  | Trace proxy acceptance and rejection by the address and proxy-size filters, and request rejections by category, identity and adapter-ID filters. |
 | 3     | Like 1, with details of individual address and port matches.                                                                                     |
 
 # Glacier2.Client.Trace.Request
@@ -108,17 +105,12 @@ from a client. The default value is `0`.
 
 #### Description
 
-Specifies the file name of a Glacier2 [access control list](../securing-a-glacier2-router). Each non-blank line must
-contain exactly two whitespace-separated fields: a user name and a password hash. Glacier2 skips blank lines and rejects
-malformed entries and duplicate user names at startup with an `Ice::InitializationException`.
-
-On Linux and FreeBSD, Glacier2 accepts the hash formats supported by the system's `crypt` library and logs a startup
-warning for DES-style hashes. On Windows and macOS, it accepts passlib-style PBKDF2 hashes with SHA-1, SHA-256 or
-SHA-512. See [Writing a Password File](../getting-started-with-glacier2).
+Specifies the file name of a Glacier2 [access control list](../securing-a-glacier2-router). Each non-blank line contains
+a user name and a password hash, separated by whitespace. User names must be unique. The supported hash formats depend
+on the platform; see [Writing a Password File](../getting-started-with-glacier2).
 
 This property is ignored if [Glacier2.PermissionsVerifier](../glacier2-properties#glacier2.permissionsverifier) is
-defined. The router requires a permissions verifier configured with `Glacier2.PermissionsVerifier`,
-`Glacier2.SSLPermissionsVerifier` or this property.
+defined.
 
 # Glacier2.Filter.AdapterId.Accept
 
@@ -155,8 +147,7 @@ and/or `[value1-value2]`. If the `port` section is unspecified then all ports wi
 
 Host matching is case-insensitive and ignores a trailing dot on a DNS name. When either address filter is set, Glacier2
 rejects proxies containing a non-IP or unknown transport, an empty host, a host longer than 255 bytes, a host containing
-spaces or control characters, or an IPv4 address with a non-canonical spelling or a trailing dot. An invalid filter
-expression causes an `Ice::InitializationException` at startup.
+spaces or control characters, or an IPv4 address with a non-canonical spelling or a trailing dot.
 
 # Glacier2.Filter.Address.Reject
 
@@ -179,8 +170,7 @@ selection can be individual, value ranges, or groups. Ranges and groups have the
 and/or `[value1-value2]`. If the `port` section is unspecified then all ports will be rejected.
 
 The host restrictions described for
-[Glacier2.Filter.Address.Accept](../glacier2-properties#glacier2.filter.address.accept) also apply here. An invalid
-filter expression causes an `Ice::InitializationException` at startup.
+[Glacier2.Filter.Address.Accept](../glacier2-properties#glacier2.filter.address.accept) also apply here.
 
 # Glacier2.Filter.Category.Accept
 
@@ -248,8 +238,7 @@ an identity must be escaped with a leading backslash.
 #### Description
 
 If `num` is greater than 0, the Glacier2 router [rejects requests](../securing-a-glacier2-router) whose stringified
-proxies are longer than `num` bytes. The default value is 0, which imposes no proxy-size limit. A negative value causes
-an `Ice::InitializationException` at startup.
+proxies are longer than `num` bytes. The default value is 0, which imposes no proxy-size limit.
 
 # Glacier2.InstanceName
 
@@ -288,8 +277,7 @@ in which no authentication is necessary. To enable this verifier, set the proper
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
 The router requires a permissions verifier configured with `Glacier2.PermissionsVerifier`,
-`Glacier2.SSLPermissionsVerifier` or `Glacier2.CryptPasswords`. It pings configured verifiers at startup and logs a
-warning if it cannot contact them.
+`Glacier2.SSLPermissionsVerifier` or `Glacier2.CryptPasswords`.
 
 # Glacier2.RoutingTable.MaxSize
 
@@ -304,7 +292,7 @@ proxies are added to the table than this value, proxies are evicted from the tab
 
 Clients automatically retry operation calls on evicted proxies and transparently re-add such proxies to the table.
 
-The default size of the routing table is 1000. Values below 1 cause an `Ice::InitializationException` at startup.
+The default size of the routing table is 1000.
 
 # Glacier2.Server._AdapterProperty_
 
@@ -357,8 +345,8 @@ to create a new session for a client, but only after the router validates the cl
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-Glacier2 disables connection caching for this proxy. Its locator cache timeout defaults to 600 seconds and can be
-overridden with `Glacier2.SessionManager.LocatorCacheTimeout`.
+Glacier2 always disables connection caching for this proxy. Its locator cache timeout defaults to 600 seconds instead of
+`Ice.Default.LocatorCacheTimeout`.
 
 # Glacier2.SSLPermissionsVerifier
 
@@ -381,10 +369,6 @@ which no authentication is necessary. To enable this verifier, set the property 
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-The router requires a permissions verifier configured with `Glacier2.PermissionsVerifier`,
-`Glacier2.SSLPermissionsVerifier` or `Glacier2.CryptPasswords`. It pings configured verifiers at startup and logs a
-warning if it cannot contact them.
-
 # Glacier2.SSLSessionManager
 
 #### Synopsis
@@ -399,8 +383,8 @@ that has called `createSessionFromSecureConnection`.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-Glacier2 disables connection caching for this proxy. Its locator cache timeout defaults to 600 seconds and can be
-overridden with `Glacier2.SSLSessionManager.LocatorCacheTimeout`.
+Glacier2 always disables connection caching for this proxy. Its locator cache timeout defaults to 600 seconds instead of
+`Ice.Default.LocatorCacheTimeout`.
 
 # Glacier2.Trace.RoutingTable
 

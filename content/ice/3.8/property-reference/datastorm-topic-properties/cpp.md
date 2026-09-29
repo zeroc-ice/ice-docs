@@ -48,7 +48,7 @@ presented in the table below:
 | `OnAllExceptPartialUpdate` | Clear the sample history when a new sample which is not a partial update is received. |
 | `Never`                    | Never clear the sample history.                                                       |
 
-If not defined, the default value is `OnAll`. An invalid value causes an `Ice::ParseException` when you create the node.
+If not defined, the default value is `OnAll`.
 
 # DataStorm.Topic.DiscardPolicy
 
@@ -66,7 +66,7 @@ This property specifies how samples might be discarded by a reader.
 | `SendTime`      | A sample is discarded if its timestamp is at or before the last accepted sample timestamp.                           |
 | `Priority`      | A sample is discarded if it's received from writer with a lower priority than the highest priority connected writer. |
 
-If not defined, the default value is `Never`. An invalid value causes an `Ice::ParseException` when you create the node.
+If not defined, the default value is `Never`.
 
 # DataStorm.Topic.Priority
 

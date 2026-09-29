@@ -76,12 +76,11 @@ PBKDF2 does not have a standard form in the `MCF` specification. In this case Gl
 
 {% /callout %}
 
-On Linux and FreeBSD:
+On Linux:
 
 - Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
-Glacier2 also accepts legacy DES-style hashes on these platforms and logs a warning when the password file contains
-them.
+Glacier2 also accepts legacy DES-style hashes on Linux and logs a warning when the password file contains them.
 
 The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the name of the password file:
 

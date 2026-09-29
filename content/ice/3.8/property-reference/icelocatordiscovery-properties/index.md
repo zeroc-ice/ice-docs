@@ -133,8 +133,7 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast queries before giving up. The
 [IceLocatorDiscovery.Timeout](../icelocatordiscovery-properties#icelocatordiscovery.timeout) property determines how
 long the plug-in waits for a reply before trying again. If not defined, the default retry count is `3`, for a total of
-four attempts. A value of 0 sends only the initial query. A negative value causes a `PropertyException` when the plug-in
-initializes.
+four attempts. A value of 0 sends only the initial query.
 
 # IceLocatorDiscovery.RetryDelay
 
@@ -146,8 +145,7 @@ initializes.
 
 If the plug-in fails to receive any responses to a query after retrying the number of times specified by
 [IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount), the plug-in waits at
-least `num` milliseconds before starting another round of query attempts. If not defined, the default value is `2000`. A
-negative value causes a `PropertyException` when the plug-in initializes.
+least `num` milliseconds before starting another round of query attempts. If not defined, the default value is `2000`.
 
 # IceLocatorDiscovery.Trace.Lookup
 
@@ -177,6 +175,4 @@ Controls lookup tracing in the `Lookup` trace category:
 Specifies the time interval in milliseconds to wait for replies to UDP multicast queries. If no server replies during
 this time interval, the client will retry the request the number of times specified by
 [IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount). If not defined, the
-default timeout is `300`.
-
-A value of 0 or less causes a `PropertyException` when the plug-in initializes.
+default timeout is `300`. `num` must be greater than `0`.

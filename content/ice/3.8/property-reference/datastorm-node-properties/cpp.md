@@ -64,13 +64,13 @@ continue indefinitely; `RetryCount` caps the exponent used to compute the retry 
 Specifies the multiplier used to increase the delay between connection attempts. The default is 2.
 
 For peer-session retries, the first retry is immediate. For retry number `n` starting at 2, the delay in milliseconds is
-`RetryDelay * RetryMultiplier ^ min(n - 2, RetryCount)`. With the defaults, the six retry delays are 0, 500, 1000, 2000,
-4000 and 8000 milliseconds.
+`RetryDelay * RetryMultiplier ^ min(n - 2, RetryCount)`. With the defaults, the six retry delays are 0, 500, 1,000,
+2,000, 4,000 and 8,000 milliseconds.
 
 For failed connection attempts to the node configured with
 [DataStorm.Node.ConnectTo](../datastorm-node-properties#datastorm.node.connectto), retry number `n` starts at 1 and uses
 `RetryDelay * RetryMultiplier ^ min(n - 1, RetryCount)`. With the defaults, these delays start at 500 milliseconds and
-double up to 32000 milliseconds; subsequent attempts use the capped delay.
+double up to 32,000 milliseconds; subsequent attempts use the capped delay.
 
 # DataStorm.Node.RetryDelay
 
@@ -98,7 +98,7 @@ instead receive data through client network connections established with other D
 default value is 1.
 
 If a peer loses its connection to a node with no endpoints, it waits for that node to reconnect. The peer removes the
-session if the node does not reconnect within `2 * RetryDelay * RetryMultiplier ^ RetryCount` milliseconds (64000
+session if the node does not reconnect within `2 * RetryDelay * RetryMultiplier ^ RetryCount` milliseconds (64,000
 milliseconds with the defaults).
 
 # DataStorm.Node.Server._AdapterProperty_
@@ -163,8 +163,8 @@ control the endpoints advertised in its proxies.
 
 #### Description
 
-Defines the proxy used for multicast discovery. Its identity must be `DataStorm/Lookup2`; another identity causes an
-`Ice::PropertyException` during node creation. DataStorm uses this proxy in datagram mode.
+Defines the proxy used for multicast discovery. Its identity must be `DataStorm/Lookup2`. DataStorm uses this proxy in
+datagram mode.
 
 When this property is not set, DataStorm creates a proxy for `DataStorm/Lookup2` using the multicast adapter's published
 endpoints.
