@@ -2,8 +2,6 @@
 title: Slice Compilation
 ---
 
-# Compilation
-
 A Slice compiler produces source files that must be combined with application code to produce client and server
 executables.
 
@@ -32,27 +30,14 @@ the implementation source code are compiled and linked into the server executabl
 
 Both client and server also link with an Ice library that provides the necessary run-time support.
 
-You are not limited to a single implementation of a client or server. For example, you can build multiple servers, each
-of which implements the same interfaces but uses different implementations (for example, with different performance
-characteristics). Multiple such server implementations can coexist in the same system. This arrangement provides one
-fundamental scalability mechanism in Ice: if you find that a server process starts to bog down as the number of objects
-increases, you can run an additional server for the same interfaces on a different machine. Such _federated_ servers
-provide a single logical service that is distributed over a number of processes on different machines. Each server in
-the federation implements the same interfaces but hosts different object instances. (Of course, federated servers must
-somehow ensure consistency of any databases they share across the federation.)
-
-Ice also provides support for _replicated_ servers. Replication permits multiple servers to each implement the same set
-of object instances. This improves performance and scalability (because client load can be shared over a number of
-servers) as well as redundancy (because each object is implemented in more than one server).
-
 # Different Development Environments for Client and Server
 
 Client and server cannot share any source or binary components if they are developed in different languages. For
 example, a client written in Java cannot include a C++ header file.
 
 This figure shows the situation when a client written in Java and the corresponding server is written in C++. In this
-case, the client and server developers are completely independent, and each uses his or her own development environment
-and language mapping. The only link between client and server developers is the Slice definition each one uses.
+case, the client and server developers are completely independent: each developer uses their own development environment
+and language mapping, and the Slice definition is the only link between them.
 
 ![A shared Greeter.ice definition is compiled separately for a Java client and a C++ server. Generated Java files combine with Client.java and the Ice Java runtime library to build the client. Greeter.h and Greeter.cpp combine with Server.cpp and the Ice C++ runtime library to build the server. The executables communicate using RPC.](/attachments/3.8/slice-compilation/slice-compilation2.svg)
 
