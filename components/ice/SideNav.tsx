@@ -137,8 +137,10 @@ export function SideNav({ nodes }: { nodes: SideNavNode[] }) {
         aria-label={`${MANUAL_TITLE} navigation`}
         // `contain-size` keeps the tree's height out of the row's, so a short
         // page stays viewport-high with the footer at the bottom; the rail then
-        // stretches to the row, capped at the viewport.
-        className="sticky top-20 hidden max-h-[calc(100vh-6.5rem)] w-66 shrink-0 overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
+        // stretches to the row, capped at the viewport. The scrollbar's space
+        // stays reserved while the tree fits, so the labels don't rewrap when
+        // opening a group makes the rail scroll.
+        className="sticky top-20 hidden max-h-[calc(100vh-6.5rem)] w-66 shrink-0 scrollbar-gutter-stable overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
       >
         {tree}
       </nav>
@@ -247,7 +249,7 @@ function Drawer({ children }: { children: React.ReactNode }) {
           <nav
             ref={navRef}
             // Positioned, as revealCurrentPage requires.
-            className="relative grow overflow-y-auto overscroll-contain px-4 pt-4 pb-8 text-sm"
+            className="relative grow scrollbar-gutter-stable overflow-y-auto overscroll-contain px-4 pt-4 pb-8 text-sm"
           >
             {expanded && children}
           </nav>
