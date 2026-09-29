@@ -96,8 +96,6 @@ class DateTime extends TimeOfDay {
 }
 ```
 
-##### **TypeScript**
-
 ```typescript
 class DateTime extends TimeOfDay {
     constructor(

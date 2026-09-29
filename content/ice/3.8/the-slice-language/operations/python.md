@@ -509,8 +509,6 @@ class ClientToServerPrx(Ice.ObjectPrx):
 
 Given a proxy to a `ClientToServer` interface, the client code can pass parameters as in the following example:
 
-##### **Python**
-
 ```py
 p = ...                                 # Get proxy...
 

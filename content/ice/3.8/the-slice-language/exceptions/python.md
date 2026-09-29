@@ -19,8 +19,6 @@ module M
 
 The Slice compiler generates the following code for these exceptions:
 
-##### **Python**
-
 ```py
 @dataclass
 class GenericException(UserException):
