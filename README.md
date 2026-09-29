@@ -18,7 +18,7 @@ npm run dev                        # dev server on http://localhost:3000
 npm run build                      # production build (standalone), then the sitemap
 npm test                           # unit tests for the content model (lib/docs-model, utils)
 npm run check:content              # navigation, links, images, slots, titles, migration leftovers
-npm run check:content -- --strict  # also fail on every unresolved link and unclassified slot
+npm run check:content -- --strict  # also fail on every unclassified slot
 npm run check:content -- --slots   # list the blank language sections still to classify
 npm run check:markdoc              # every page against the Markdoc schema; `build` runs it first
 npm run lint                       # lint:eslint, then lint:markdown
@@ -55,7 +55,7 @@ duplicating it.
   page down.
 - **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
-  a page that does not exist renders as plain text, and `check:content` fails a change that adds one.
+  a page that does not exist renders as plain text, and `check:content` fails on it.
 - **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
   overlay answers each one, with prose or with a declared state (`no-addition`, or `not-applicable` with a note), as
   described in `lib/docs-model/resolve.ts`. Each distinct answer goes into the page once, wrapped in

@@ -15,15 +15,10 @@
 //   8. a page written per language has one title across its languages
 //   9. no page holds a no-break space (U+00A0)
 //
-// Exit code 1 on a violation of 1-3, 5 (unparseable image markup, missing alt
-// text, and missing image files), 6, 7, 8, and 9 — those are defects in the files
+// Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
 // regression. A version without a front page, or a page that lists a page it does
 // not contain, fails as the navigation is read.
-//
-// Unresolved links (4) fail when there are more of them than the migration left:
-// the migrated manual still links to pages that were never brought over.
-// --strict fails on any.
 
 // cspell:words noformat unparseable worklist
 
@@ -55,9 +50,10 @@ const fail = (message) => {
 };
 
 // Markdown links `[text](target)` and card hrefs `{% card ... href="target" %}`.
-// Both go through the same build-time resolver, so both are checked.
+// Both go through the same build-time resolver, so both are checked. A target
+// with parentheses is written `[text](<target>)`.
 // Reference-style links and bare URLs are not used by the migrated content.
-const LINK_RE = /\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
+const LINK_RE = /\[[^\]]*\]\((?:<([^>\n]*)>|([^)\s]+))(?:\s+"[^"]*")?\)/g;
 const CARD_HREF_RE = /\{%\s*card[^%]*?href="([^"]+)"/g;
 
 // Images. The capture is deliberately loose — it matches the *intent* to write
@@ -311,12 +307,6 @@ function checkNoBreakSpaces(files) {
   }
 }
 
-// The number of links the migration left pointing at pages that were never
-// brought over. It is a ratchet: fixing those links lowers it, and the check
-// fails if it ever rises. When it reaches 0, delete this and fail on any
-// unresolved link.
-const UNRESOLVED_LINK_BASELINE = 81;
-
 for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
 
@@ -382,15 +372,15 @@ for (const version of listVersions(CONTENT_ROOT)) {
   const unresolved = new Map();
   let total = 0;
   for (const file of files) {
-    const source = fs.readFileSync(file, 'utf8');
+    const source = withoutCode(fs.readFileSync(file, 'utf8'));
     const targets = [
-      ...source.matchAll(LINK_RE),
-      ...source.matchAll(CARD_HREF_RE)
+      ...[...source.matchAll(LINK_RE)].map((match) => match[1] ?? match[2]),
+      ...[...source.matchAll(CARD_HREF_RE)].map((match) => match[1])
     ];
-    for (const match of targets) {
+    for (const target of targets) {
       total++;
-      if (resolveDocLink(match[1], { version, index }).resolved) continue;
-      unresolved.set(match[1], (unresolved.get(match[1]) ?? 0) + 1);
+      if (resolveDocLink(target, { version, index }).resolved) continue;
+      unresolved.set(target, (unresolved.get(target) ?? 0) + 1);
     }
   }
 
@@ -398,24 +388,11 @@ for (const version of listVersions(CONTENT_ROOT)) {
   console.log(
     `${version}: ${total} links, ${unresolvedCount} unresolved (${unresolved.size} distinct)`
   );
-  const aboveBaseline = unresolvedCount > UNRESOLVED_LINK_BASELINE;
   if (unresolvedCount) {
-    // Above the baseline, list every target, so the new one is among them.
-    const worst = [...unresolved.entries()].sort((a, b) => b[1] - a[1]);
-    for (const [target, count] of aboveBaseline ? worst : worst.slice(0, 15))
+    for (const [target, count] of unresolved)
       console.log(`  ${String(count).padStart(4)}  ${target}`);
-    if (strict)
-      fail(`${version}: ${unresolvedCount} unresolved cross-page links`);
-  }
-  if (aboveBaseline) {
     fail(
-      `${version}: ${unresolvedCount} unresolved cross-page links, up from the ` +
-        `baseline of ${UNRESOLVED_LINK_BASELINE}. A link names a page by the name of its directory.`
-    );
-  } else if (unresolvedCount < UNRESOLVED_LINK_BASELINE) {
-    console.log(
-      `  ${UNRESOLVED_LINK_BASELINE - unresolvedCount} fewer than the baseline — ` +
-        `lower UNRESOLVED_LINK_BASELINE in scripts/check-content.js to ${unresolvedCount}`
+      `${version}: ${unresolvedCount} unresolved cross-page links. A link names a page by the name of its directory.`
     );
   }
 }

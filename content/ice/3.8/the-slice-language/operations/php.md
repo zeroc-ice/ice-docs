@@ -4,7 +4,7 @@
 
 # Mapping for Operations
 
-As we saw in the [Client-Side PHP Mapping for Interfaces](../client-side-php-mapping-for-interfaces), for each
+As we saw in the [Client-Side PHP Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, a proxy object narrowed to that interface’s type supports a method with the
 same name. To invoke an operation, you call it via the proxy. For example, here is our definition from the
 [greeter example](../defining-the-greeter-interface-in-slice):
@@ -61,7 +61,7 @@ try {
 
 ##### See Also
 
-- [PHP Mapping for Parameters and Return Values](../php-mapping-for-parameters-and-return-values)
+- [PHP Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 
 ## Mapping for Parameters and Return Values
 

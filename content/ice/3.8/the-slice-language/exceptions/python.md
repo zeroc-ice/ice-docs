@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a Python class with the same name. This mapping is similar to the mapping of
-[classes](../python-mapping-for-classes).
+[classes](../classes).
 
 Consider the following Slice exceptions:
 

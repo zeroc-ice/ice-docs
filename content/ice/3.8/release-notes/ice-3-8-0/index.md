@@ -403,7 +403,7 @@ interface - and now you have two C++ skeleton classes to choose from: the defaul
 interface, and the async skeleton class, with the Async prefix.
 
 The async skeleton class is an “all AMD” abstract base class. See
-[Asynchronous Method Dispatch (AMD) in C++](../asynchronous-method-dispatch-amd-in-cpp) for more details.
+[Asynchronous Method Dispatch (AMD) in C++](../operations#amd-mapping-for-operations) for more details.
 
 ## Printing generated classes
 
@@ -455,7 +455,7 @@ interface - and now you have two C# skeleton classes to choose from: the default
 interface, and the async skeleton class, with the Async prefix.
 
 The async skeleton class is an “all AMD” abstract base class. See
-[Asynchronous Method Dispatch (AMD) in C#](../asynchronous-method-dispatch-amd-in-csharp) for more details.
+[Asynchronous Method Dispatch (AMD) in C#](../operations#amd-mapping-for-operations) for more details.
 
 # Java Changes
 
@@ -470,7 +470,7 @@ interface - and now you have two Java skeleton interfaces to choose from: the de
 the Slice interface, and the async skeleton interface, with the Async prefix.
 
 The async skeleton interface is an “all AMD” Java interface. See
-[Asynchronous Method Dispatch (AMD) in Java](../asynchronous-method-dispatch-amd-in-java) for more details.
+[Asynchronous Method Dispatch (AMD) in Java](../operations#amd-mapping-for-operations) for more details.
 
 # JavaScript Changes
 
