@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a JavaScript class with the same name. This mapping is similar to the mapping of
-[JavaScript Mapping for Classes](../javascript-mapping-for-classes).
+[JavaScript Mapping for Classes](../classes).
 
 Consider the following Slice exceptions:
 
@@ -47,7 +47,6 @@ There are a number of things to note about this generated code:
    ancestor of all mapped exceptions. It derives indirectly from JavaScript `Error` type.
 2. The generated class contains a field for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. The generated class provides a constructor with a parameter for each field, just like
-   [mapped classes](../javascript-mapping-for-classes).
+4. The generated class provides a constructor with a parameter for each field, just like [mapped classes](../classes).
 
 {% /language-section %}

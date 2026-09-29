@@ -52,8 +52,8 @@ See [Object Adapter Endpoints](../object-adapter-endpoints) for examples.
 
 Ice supports Internet Protocol (IP) versions 4 and 6 in all language mappings.
 
-Support for these transport protocols is configured using the properties [Ice.IPv4](../ice-ipv6) and
-[Ice.IPv6](../ice-properties) (both enabled by default).
+Support for these transport protocols is configured using the properties [Ice.IPv4](../ice-properties#ice.ipv4) and
+[Ice.IPv6](../ice-properties#ice.ipv6) (both enabled by default).
 
 In the endpoint descriptions below, the `host` parameter represents either a host name that is resolved via the Domain
 Name System (DNS), an IPv4 address in dotted quad notation, or an IPv6 address in 128-bit hexadecimal format and
