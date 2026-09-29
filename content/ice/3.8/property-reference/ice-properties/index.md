@@ -225,12 +225,12 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 #### Description
 
-Replaces the communicator's [default logger](../the-default-logger) with a simple file-based logger implementation. This
-property does not affect the [per-process logger](../the-per-process-logger). The logger creates the specified file if
+Replaces the communicator's [default logger](../default-logger) with a simple file-based logger implementation. This
+property does not affect the [per-process logger](../per-process-logger). The logger creates the specified file if
 necessary, otherwise it appends to the file. If the logger is unable to open the file, the application receives an
-`InitializationException` during [communicator initialization](../communicator-initialization-and-destruction). If a
-logger object is supplied in the `InitializationData` argument during communicator initialization, it takes precedence
-over this property.
+`InitializationException` during [communicator initialization](../initialization-and-destruction). If a logger object is
+supplied in the `InitializationData` argument during communicator initialization, it takes precedence over this
+property.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -257,10 +257,10 @@ When `num` is 0 or negative, the logger writes to a single file with unlimited s
 
 #### Description
 
-If `num` is set to a value larger than 0, on Windows, the communicator's [default logger](../the-default-logger)
-converts log messages from the application's narrow string encoding to the Windows console's code page. The default
-value for this property is 1 when Ice.StdErr is not set, and 0 otherwise. This property is read by the first
-communicator created in a process; it is ignored by other communicators.
+If `num` is set to a value larger than 0, on Windows, the communicator's [default logger](../default-logger) converts
+log messages from the application's narrow string encoding to the Windows console's code page. The default value for
+this property is 1 when Ice.StdErr is not set, and 0 otherwise. This property is read by the first communicator created
+in a process; it is ignored by other communicators.
 
 {% /iflang %}
 
