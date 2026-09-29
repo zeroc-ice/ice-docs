@@ -121,8 +121,7 @@ never read. To enable this warning, set [Ice.Warn.UnusedProperties](../ice-warn-
 default, the warning is disabled.
 
 This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
-`Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`. Ice rejects
-misspellings within a recognized reserved prefix when you set the property, before unused-property detection applies.
+`Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.
 
 Reading a property marks it as used. `getPropertiesForPrefix` marks every returned property as used; passing an empty
 prefix therefore marks all properties as used. In C++, C#, Java, and JavaScript, `getUnusedProperties()` returns the

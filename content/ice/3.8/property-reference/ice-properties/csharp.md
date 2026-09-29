@@ -77,6 +77,8 @@ If `num` is non-0, the Ice runtime installs a `ConsoleTraceListener` that writes
 0, logging is disabled. Note that the setting of [Ice.LogFile](../ice-properties#ice.logfile) overrides this property:
 if `Ice.LogFile` is set, messages are written to the log file regardless of the setting of `Ice.ConsoleListener`.
 
+The default value is `1`.
+
 {% /language-section %}
 
 {% language-section name="lang-4" %}

@@ -2,8 +2,8 @@
 title: Alternate Property Stores
 ---
 
-Ice for C++, Java, MATLAB, PHP, Python, and Ruby can load properties from the Windows registry. Ice for Java can also
-load properties from class loader resources. Ice for C# and Ice for JavaScript support neither.
+Ice for C++, Java, MATLAB, and Python can load properties from the Windows registry. Ice for Java can also load
+properties from class loader resources. Ice for C#, JavaScript, PHP, and Ruby support neither.
 
 ## Loading Properties from the Windows Registry
 
