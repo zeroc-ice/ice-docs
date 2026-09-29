@@ -23,7 +23,7 @@ Initially, `argc` has the value `9`, and `argv` has ten elements: the first nine
 the arguments, and the final element, `argv[argc]`, contains a null pointer (as required by the C++ standard). When
 `Ice::initialize` returns, `argc` has the value `7` and `argv` contains the following elements:
 
-```
+```text
 ./server
 --myoption
 -x

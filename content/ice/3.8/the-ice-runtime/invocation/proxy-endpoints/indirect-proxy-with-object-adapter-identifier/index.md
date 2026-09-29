@@ -9,7 +9,7 @@ A proxy with an object adapter identifier (`@adapterId` in stringified form) is 
 
 For example:
 
-```
+```text
 Root@fsadapter      # proxy to Root object hosted by object adapter fsadapter
                     # two-way proxy by default
 

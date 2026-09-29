@@ -77,7 +77,7 @@ Another way to upgrade our application is by using [optional parameters](../oper
 existing operations/definitions without breaking clients or servers that don’t know about them. For example, another
 approach to upgrading our `Greeter` application would have been:
 
-```
+```slice
 // Version 2
 module VisitorCenter
 {

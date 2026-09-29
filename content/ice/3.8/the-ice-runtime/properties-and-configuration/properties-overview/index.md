@@ -68,7 +68,7 @@ comes from a configuration file, the command line, the Windows registry, the [Pr
 class, or the [Properties facet](../the-properties-facet). Ice rejects a name it does not know with a
 `PropertyException`:
 
-```
+```text
 unknown Ice property: Ice.Trace.Netwrok
 ```
 

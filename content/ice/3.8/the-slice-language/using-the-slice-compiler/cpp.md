@@ -109,7 +109,7 @@ In most cases, the compiler generates the appropriate `#include` directives by d
 
 Assuming both files are in the current working directory, we run the compiler as shown below:
 
-```
+```shell
 slice2cpp -I. A.ice
 ```
 
@@ -131,7 +131,7 @@ Similarly, consider the common case where `A.ice` includes `B.ice` from a subdir
 
 Assuming both files are in the `inc` subdirectory, we run the compiler as shown below:
 
-```
+```shell
 slice2cpp -I. inc/A.ice
 ```
 

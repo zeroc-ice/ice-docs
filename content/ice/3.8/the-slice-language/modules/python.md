@@ -19,7 +19,7 @@ module M1    // Reopen M1
 
 This definition maps to the corresponding Python definitions:
 
-```
+```text
 M1/__init__.py
 M2/M2/__init__.py
 ```

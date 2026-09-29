@@ -14,7 +14,7 @@ Rather than hard-coding a stringified proxy as the previous example demonstrated
 flexibility by externalizing the proxy in a configuration property. For example, we can define a property that contains
 our stringified proxy as follows:
 
-```
+```config
 Greeter.Proxy=greeter:tcp -h localhost -p 4051
 ```
 
@@ -23,7 +23,7 @@ Greeter.Proxy=greeter:tcp -h localhost -p 4051
 As an added convenience, `propertyToProxy` allows you to define subordinate properties that configure the proxy's local
 settings. The properties below demonstrate this feature:
 
-```
+```config
 Greeter.Proxy=greeter:tcp -h localhost -p 4061
 Greeter.Proxy.EndpointSelection=Ordered
 ```

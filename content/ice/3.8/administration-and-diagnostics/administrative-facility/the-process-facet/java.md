@@ -82,7 +82,7 @@ To avoid the risk of a race condition, the recommended strategy for replacing th
 of the administrative facets until after communicator initialization, so that your application has a chance to replace
 the facet:
 
-```
+```config
 # Delay admin object creation for admin object hosted in the Ice.Admin
 # object adapter
 Ice.Admin.DelayCreation=1

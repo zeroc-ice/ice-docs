@@ -79,7 +79,7 @@ The INI directives `ice.config` and `ice.options` specify the configuration file
 default property set, respectively. These directives must appear in PHP's configuration file, which is usually named
 `php.ini`:
 
-```
+```ini
 ; Snippet from php.ini on Linux
 extension=IcePHP.so
 ice.config=/opt/MyApp/default.cfg
@@ -92,14 +92,14 @@ Profiles are useful when several unrelated applications execute in the same web 
 among multiple configurations. To configure your profiles, add an `ice.profiles` directive to PHP's configuration file.
 The value of this directive is a file containing profile definitions:
 
-```
+```ini
 ; Snippet from php.ini on Linux
 ice.profiles=/opt/MyApp/profiles
 ```
 
 The profile definition file uses INI syntax:
 
-```
+```ini
 [Production]
 config=/opt/MyApp/prod.cfg
 options="..."

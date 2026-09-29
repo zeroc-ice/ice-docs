@@ -267,14 +267,14 @@ build\server
 
 The server prints its listening message, then waits for clients:
 
-```
+```text
 Listening on port 4061...
 ```
 
 Leave it running and start the [Greeter client](../writing-a-greeter-client) in a separate terminal. Each request the
 client sends shows up in the server’s output:
 
-```
+```text
 Dispatching greet request { name = 'alice' }
 Dispatching greet request { name = 'bob' }
 Dispatching greet request { name = 'carol' }

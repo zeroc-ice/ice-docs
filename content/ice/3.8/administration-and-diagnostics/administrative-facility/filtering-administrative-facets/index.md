@@ -7,7 +7,7 @@ may install its own [custom facets](../custom-administrative-facets). You can co
 enables using the [Ice.Admin.Facets](../ice-admin-properties) property. For example, the following property definition
 enables the `Properties` facet and leaves the `Process` facet (and any application-defined facets) disabled:
 
-```
+```config
 Ice.Admin.Facets=Properties
 ```
 

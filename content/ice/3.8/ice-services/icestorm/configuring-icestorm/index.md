@@ -10,14 +10,14 @@ IceStorm is a relatively lightweight service in that it requires very little con
 
 The first step is configuring IceBox to run the IceStorm service:
 
-```
+```config
 IceBox.Service.IceStorm=IceStormService,38:createIceStorm --Ice.Config=config.service
 ```
 
 The IceStorm service itself is configured by the properties in the `config.service` file, which might look as follows
 for a non-replicated service:
 
-```
+```config
 IceStorm.LMDB.Path=db
 IceStorm.TopicManager.Endpoints=tcp -p 9999
 IceStorm.Publish.Endpoints=tcp -p 10000
@@ -124,7 +124,7 @@ higher priority.
 
 For example, assuming we have three replicas with the identifiers 0, 1, 2, we can configure the proxies as shown below:
 
-```
+```config
 IceStorm.Nodes.0=IceStorm/node0:tcp -p 13000
 IceStorm.Nodes.1=IceStorm/node1:tcp -p 13010
 IceStorm.Nodes.2=IceStorm/node2:tcp -p 13020
@@ -133,7 +133,7 @@ IceStorm.Nodes.2=IceStorm/node2:tcp -p 13020
 These properties must be defined in each replica. Additionally, each replica must define its node ID, as well as the
 node's endpoints. For example, we can configure node 0 as follows:
 
-```
+```config
 IceStorm.NodeId=0
 IceStorm.Node.Endpoints=tcp -p 13000
 ```
@@ -150,7 +150,7 @@ Two additional properties allow you to configure replicated endpoints:
 
 For example, suppose we configure three replicas:
 
-```
+```config
 # on host replica0
 IceStorm.NodeId=0
 IceStorm.TopicManager.Endpoints=tcp -p 10000
@@ -169,7 +169,7 @@ IceStorm.Publish.Endpoints=tcp -p 10021
 
 Each replica should also define these properties:
 
-```
+```config
 IceStorm.ReplicatedPublishEndpoints=tcp -h replica0 -p 10001:tcp -h replica1 -p 10011:tcp -h replica2 -p 10021
 IceStorm.ReplicatedTopicManagerEndpoints=tcp -h replica0 -p 10000:tcp -h replica1 -p 10010:tcp -h replica2 -p 10020
 ```
@@ -181,7 +181,7 @@ case you should remove the definition of the `ReplicatedPublishEndpoints` proper
 
 Clients of the service can define a proxy for the `TopicManager` object as follows:
 
-```
+```config
 TopicManager.Proxy=IceStorm/TopicManager:tcp -p 9999
 ```
 
@@ -197,14 +197,14 @@ application requires the use of multiple IceStorm services, it's a good idea to 
 well-known objects by configuring the services with different values for the
 [IceStorm.InstanceName](../icestorm-properties) property, as shown in the following example:
 
-```
+```config
 IceStorm.InstanceName=Measurement
 ```
 
 This property changes the category of the object's identity, which becomes `Measurement/TopicManager`. The client's
 configuration must also be changed to reflect the new identity:
 
-```
+```config
 TopicManager.Proxy=Measurement/TopicManager:tcp -p 9999
 ```
 

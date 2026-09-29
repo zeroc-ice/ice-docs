@@ -4,7 +4,7 @@ A Slice field maps to a PHP public variable with the same name.
 
 For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -42,7 +42,7 @@ An optional field maps to a PHP public variable with the same name. Tag values a
 
 For example:
 
-```
+```slice
 class C
 {
     optional(2) string alternateName;
@@ -78,7 +78,7 @@ Slice default values map to default values in the constructor of the mapped clas
 
 For example:
 
-```
+```slice
 struct Location
 {
     string name;

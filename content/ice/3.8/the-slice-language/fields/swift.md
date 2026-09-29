@@ -9,7 +9,7 @@ Slice field is non-optional, the property type is non-optional as well, except f
 
 For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -36,7 +36,7 @@ value is not mapped to Swift.
 
 For example:
 
-```
+```slice
 class C
 {
     optional(2) string alternateName;
@@ -65,7 +65,7 @@ Slice default values map to default property values in Swift.
 
 For example:
 
-```
+```slice
 struct Location
 {
     string name;

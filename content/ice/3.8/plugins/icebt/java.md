@@ -15,7 +15,7 @@ try (Communicator communicator = new Communicator(args)) {
 
 Alternatively, you can install the IceBT plug-in at runtime using configuration:
 
-```
+```config
 # Android only
 Ice.Plugin.IceBT=com.zeroc.IceBT.PluginFactory
 ```

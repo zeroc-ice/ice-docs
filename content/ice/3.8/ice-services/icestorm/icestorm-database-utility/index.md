@@ -8,7 +8,7 @@ The `icestormdb` utility is a command-line tool for importing and exporting IceS
 
 The IceStorm Database utility supports the following command-line options:
 
-```
+```text
 Usage: icestormdb <options>
 Options:
  -h, --help             Show this message.

@@ -100,7 +100,7 @@ object, and the name of its facet is `IceBox.ServiceManager`.
 The identity of the `admin` object uses either a UUID or a statically-configured value for its category, and the value
 `admin` for its name. For example, consider the following property definitions:
 
-```
+```config
 Ice.Admin.Endpoints=tcp -h 127.0.0.1 -p 10001
 Ice.Admin.InstanceName=IceBox
 ```
@@ -132,13 +132,13 @@ In the absence of IceGrid, the IceBox server should set the [Ice.Admin.InstanceN
 if remote administration is required. In so doing, the identity of the `admin` object becomes well-known, and a client
 can construct the proxy on its own. For example, let's assume that the IceBox server defines the following property:
 
-```
+```config
 Ice.Admin.InstanceName=IceBox
 ```
 
 A client can define the proxy for the `admin` object in a configuration property as follows:
 
-```
+```config
 ServiceManager.Proxy=IceBox/admin -f IceBox.ServiceManager -h 127.0.0.1 -p 10001
 ```
 
@@ -149,7 +149,7 @@ administrative facet.
 
 IceBox includes C++ and Java implementations of an administrative utility. The utilities have the same usage:
 
-```
+```text
 Usage: iceboxadmin [options] [command...]
 Options:
 -h, --help           Show this message.

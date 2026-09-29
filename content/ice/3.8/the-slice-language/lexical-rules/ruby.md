@@ -6,7 +6,7 @@ example, Slice interface `Greeter` is mapped to the Ruby class `GreeterPrx`.
 You can change this mapping and specify your own Ruby identifier with the `ruby:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["ruby:identifier:Receptionist"]
 interface Greeter { ... }
 ```

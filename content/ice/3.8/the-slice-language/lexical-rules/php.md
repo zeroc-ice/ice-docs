@@ -6,7 +6,7 @@ example, Slice interface `Greeter` is mapped to the PHP class `GreeterPrx`.
 You can change this mapping and specify your own PHP identifier with the `php:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["php:identifier:Receptionist"]
 interface Greeter { ... }
 ```

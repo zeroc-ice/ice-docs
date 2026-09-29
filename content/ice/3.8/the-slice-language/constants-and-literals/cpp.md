@@ -3,7 +3,7 @@
 Slice constant definitions map to corresponding C++ constant definitions. Slice constants are mapped to `constexpr`
 constants whenever possible, and to `const` constants otherwise. For example:
 
-```
+```slice
 const bool AppendByDefault = true;
 const byte LowerNibble = 0x0f;
 const string Advice = "Don't Panic!";

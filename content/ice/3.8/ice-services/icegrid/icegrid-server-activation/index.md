@@ -100,7 +100,7 @@ file contains any number of user-account-ID pairs. Each pair appears on a separa
 user account from the identifier. For example, the file shown below contains two entries that map two distinguished
 names to the user account `lisa`:
 
-```
+```text
 lisa O=ZeroC\\, Inc., OU=Ice, CN=Lisa
 lisa O=ZeroC\\, Inc., OU=Ice, CN=Lisa S.
 ```

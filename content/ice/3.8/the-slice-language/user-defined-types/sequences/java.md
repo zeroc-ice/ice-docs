@@ -205,7 +205,7 @@ In addition to serializing Slice types, applications may also need to incorporat
 definitions. Ice allows you to pass Java serializable objects directly as operation parameters or as fields of another
 data type. For example:
 
-```
+```slice
 ["java:serializable:SomePackage.JavaClass"]
 sequence<byte> JavaObj;
 
@@ -223,7 +223,7 @@ interface Example
 
 The generated code for `MyStruct` contains a member `i` of type `int` and a member `o` of type `SomePackage.JavaClass`:
 
-```
+```java
 public final class MyStruct implements java.lang.Cloneable
 {
     public int i;
@@ -235,14 +235,14 @@ public final class MyStruct implements java.lang.Cloneable
 Similarly, the signature for `op` has parameters of type `JavaClass` and `MyStruct` for the in-parameters and returns
 `JavaClass`:
 
-```
+```java
 SomePackage.JavaClass op(SomePackage.JavaClass inObj, MyStruct s);
 ```
 
 Of course, your client and server code must have an implementation of `JavaClass` that derives from
 `java.io.Serializable`:
 
-```
+```java
 package SomePackage;
 public class JavaClass implements java.io.Serializable
 {

@@ -68,7 +68,7 @@ By default, `icestormadmin` uses the topic manager specified by your setting for
 If you are using multiple topic managers, you can specify their proxies by setting
 [IceStormAdmin.TopicManager._name_](../icestormadmin-properties) for each topic manager. For example:
 
-```
+```config
 IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
 IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9996
 IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h z -p 9995
@@ -79,7 +79,7 @@ topic manager — `name` simply serves as a tag. With these property settings, t
 topic can now specify a topic manager other than the default topic manager that is configured with
 `IceStormAdmin.TopicManager.Default`. For example:
 
-```
+```text
 current Foo
 create myTopic
 create Bar/myOtherTopic

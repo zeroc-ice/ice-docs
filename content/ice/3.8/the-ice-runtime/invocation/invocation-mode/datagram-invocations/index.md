@@ -46,7 +46,7 @@ of the probability of loss, you must design your application such that it can to
 The UDP transport provided by Ice supports IP multicast. Assuming it's enabled on your host, using IP multicast in your
 application can be as simple as changing the host in the UDP endpoint to an IPv4 or IPv6 address in the multicast range:
 
-```
+```config
 # Object Adapter endpoint:
 Discover.Endpoints=udp -h 239.255.1.1 -p 10000
 

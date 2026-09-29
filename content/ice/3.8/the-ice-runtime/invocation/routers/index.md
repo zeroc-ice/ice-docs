@@ -27,7 +27,7 @@ A communicator can be configured with a default router. The most common way to c
 the property [Ice.Default.Router](../ice-default-properties). The value of this property is a proxy for the router's
 primary Ice object, as shown in the example below for Glacier2:
 
-```
+```config
 Ice.Default.Router=Glacier2/router:tcp -h routerhost -p 4063
 ```
 
@@ -53,7 +53,7 @@ obtain a routed proxy:
 
 Another way to configure a router is with a [proxy property](../proxy-properties):
 
-```
+```config
 MyProxy.Router=Glacier2/router:tcp -h routerhost -p 4063
 ```
 

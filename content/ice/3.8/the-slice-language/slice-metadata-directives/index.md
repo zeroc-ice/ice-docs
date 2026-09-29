@@ -79,7 +79,7 @@ manner, typically while holding a mutex lock.
 
 For example:
 
-```
+```slice
 sequence<int> IntSeq;
 sequence<IntSeq> IntIntSeq;
 sequence<string> StringSeq;

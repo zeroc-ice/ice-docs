@@ -9,13 +9,13 @@ for variable references depends on the platform on which the server's descriptor
 
 On a Linux, the Bourne shell syntax is required:
 
-```
+```text
 LD_LIBRARY_PATH=/opt/Ice/lib:$LD_LIBRARY_PATH
 ```
 
 On a Windows platform, the syntax uses the conventional style:
 
-```
+```text
 PATH=C:\Ice\lib;%PATH%
 ```
 

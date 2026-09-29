@@ -9,7 +9,7 @@ a location service. Each object adapter can be configured with its own locator p
 [Locator](../object-adapter-properties) property, as shown in the example below for the object adapter named
 `SampleAdapter`:
 
-```
+```config
 SampleAdapter.Locator=IceGrid/Locator:tcp -h locatorhost -p 10000
 ```
 
@@ -28,7 +28,7 @@ Two other configuration properties influence an object adapter's interactions wi
 
 We can use these properties as shown below:
 
-```
+```config
 SampleAdapter.AdapterId=SampleAdapterId
 SampleAdapter.ReplicaGroupId=SampleGroupId
 SampleAdapter.Locator=IceGrid/Locator:tcp -h locatorhost -p 10000

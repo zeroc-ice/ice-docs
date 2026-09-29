@@ -71,7 +71,7 @@ catch (const GreeterException& exception)
 You can use the metadata directive `"cpp:custom-print"` to tell the Slice compiler that you want to use your own custom
 print implementation. For example:
 
-```
+```slice
 ["cpp:custom-print"]
 exception GreeterException { ... }
 ```

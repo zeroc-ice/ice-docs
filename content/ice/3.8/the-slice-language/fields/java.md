@@ -5,7 +5,7 @@ default mapping.
 
 For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -56,7 +56,7 @@ Note that these element methods are only generated for sequence types that use t
 You can apply the `java:getset` directive to an individual field, or to enclosing construct, as illustrated by the
 following example:
 
-```
+```slice
 sequence<int> IntSeq;
 class C
 {
@@ -202,7 +202,7 @@ Slice default values change the implementation of the parameterless constructor 
 
 For example:
 
-```
+```slice
 struct Location
 {
     string name;

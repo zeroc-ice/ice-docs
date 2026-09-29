@@ -191,7 +191,7 @@ icegridadmin --Ice.Config=/opt/ripper/config
 
 This command generates the following output:
 
-```
+```text
 server template `EncoderServerTemplate'
 {
     parameters = `index exepath'

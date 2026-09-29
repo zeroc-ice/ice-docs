@@ -21,7 +21,7 @@ module VisitorCenter
 
 The proxy class generated from the `Greeter` interface, after removing extra details, is as follows:
 
-```
+```py
 class GreeterPrx(ObjectPrx):
 
     def greet(self, name: str, context: dict[str, str] | None = None) -> str:
@@ -100,7 +100,7 @@ As we saw in the [Server-Side Python Mapping for Interfaces](../server-side-pyth
 
 For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
 
-```
+```slice
 module VisitorCenter
 {
     interface Greeter

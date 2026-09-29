@@ -26,7 +26,7 @@ lists of strings. Their `WithDefault` variants let you choose a default for a pr
 
 `getPropertyAsInt` throws `PropertyException` when the property holds a value it cannot convert:
 
-```
+```text
 property 'Filesystem.MaxFileSize' has an invalid integer value: 'large'
 ```
 

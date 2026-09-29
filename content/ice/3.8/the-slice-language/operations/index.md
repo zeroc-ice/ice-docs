@@ -9,7 +9,7 @@ definitions.
 
 For example:
 
-```
+```slice
 module M
 {
     struct TimeOfDay

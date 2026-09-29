@@ -9,7 +9,7 @@ A single Slice identifier often results in several JavaScript identifiers. For e
 You can change this mapping and specify your own JavaScript identifier with the `js:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["js:identifier:Receptionist"]
 interface Greeter { ... }
 ```

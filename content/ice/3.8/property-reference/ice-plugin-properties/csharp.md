@@ -20,7 +20,7 @@ The specified `class` must implement the
 [PluginFactory](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.PluginFactory.html) interface. Any arguments that
 follow the class name are passed to the factory's `create` method. For example:
 
-```
+```config
 Ice.Plugin.MyPlugin=MyFactory,Version=1.2.3.4:MyFactory arg1 arg2
 ```
 
@@ -29,13 +29,13 @@ Whitespace separates the arguments, and any arguments that contain whitespace mu
 If you specify a relative path name in the entry point, the assembly is located relative to the program's current
 working directory:
 
-```
+```config
 Ice.Plugin.MyPlugin=..\MyFactory.dll:MyFactory arg1 arg2
 ```
 
 Enclose the assembly's path name in quotes if it contains spaces:
 
-```
+```config
 Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory.dll:MyFactory" arg1 arg2
 ```
 

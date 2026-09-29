@@ -134,7 +134,7 @@ _propertyList_. *propertyList*is a sequence of strings, that Ice reads using
 _PropertyName_=_PropertyValue_ to set a property. For example, you could turn on protocol tracing on the `Logger`
 facet's sub-communicator with:
 
-```
+```config
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1
 ```
 

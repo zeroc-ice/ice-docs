@@ -97,7 +97,7 @@ not currently running, then remove all of the files in its data directory and re
 The registry requires values for the three mandatory endpoint properties, as well as the database directory property, as
 shown in the following example:
 
-```
+```config
 IceGrid.Registry.Client.Endpoints=tcp -p 4061
 IceGrid.Registry.Server.Endpoints=tcp
 IceGrid.Registry.Internal.Endpoints=tcp

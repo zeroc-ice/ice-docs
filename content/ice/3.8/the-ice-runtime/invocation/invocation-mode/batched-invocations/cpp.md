@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-```
+```cpp
 WeatherStationPrx weatherStation(
     communicator,
     "ClearSky:tcp -p 4061 -h localhost");

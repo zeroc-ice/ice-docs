@@ -31,7 +31,7 @@ Here is an example to demonstrate the use of this element:
 
 This `property` element adds the following definition to the server's configuration file:
 
-```
+```config
 Ice.ThreadPool.Server.SizeMax=10
 ```
 

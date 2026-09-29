@@ -29,7 +29,7 @@ em.put(e.number, e);
 If the semantics of a `HashMap` are not suitable for your application, you can specify an alternate type using the
 `java:type` metadata directive as shown in the example below:
 
-```
+```slice
 ["java:type:java.util.TreeMap<String, String>"]
 dictionary<string, string> StringMap;
 ```

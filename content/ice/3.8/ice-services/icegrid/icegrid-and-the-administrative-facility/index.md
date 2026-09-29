@@ -34,7 +34,7 @@ The definition of `Ice.Admin.Endpoints` enables the [Administrative Facility](..
 If a server's descriptor does not set [Ice.Admin.Enabled](../ice-admin-properties) and does not supply a value for
 `Ice.Admin.Endpoints`, IceGrid supplies a default value for `Ice.Admin.Endpoints` as shown below:
 
-```
+```config
 Ice.Admin.Endpoints=tcp -h 127.0.0.1
 ```
 

@@ -64,7 +64,7 @@ Such a proxy can be constructed in a client from a string or configuration prope
 adapter and then sent to a client. In this case, the compression flag needs to be set on the
 [object adapter endpoints](../object-adapter-endpoints) as shown in the example below:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h 192.168.1.17 -p 2500 -z
 ```
 

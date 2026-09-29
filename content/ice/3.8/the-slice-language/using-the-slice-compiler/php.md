@@ -38,7 +38,7 @@ statements into PHP `require` statements in the following manner:
 3. Replace the `.ice` extension with `.php`. Continuing our example from the previous step, the translated `require`
    statement becomes
 
-```
+```php
 require_once "OS/Process.php";
 ```
 

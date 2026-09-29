@@ -9,7 +9,7 @@ the generated C++ code uses the identifiers `Greeter` and `GreeterPrx` (among ot
 You can change this mapping and specify your own C++ identifier with the `cpp:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["cpp:identifier:Receptionist"]
 interface Greeter { ... }
 ```

@@ -91,7 +91,7 @@ Securing this endpoint with IceSSL is necessary to prevent a malicious program f
 registering its endpoints first. The property definition shown below demonstrates how to limit access to this endpoint
 to trusted Ice servers:
 
-```
+```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.Server=CN="Server"
 ```
 
@@ -105,7 +105,7 @@ The internal endpoint must be secured with IceSSL to prevent malicious Ice appli
 functionality that is intended to be used only by nodes and registry replicas. You can restrict access to this endpoint
 with the following property:
 
-```
+```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.Internal=CN="IceGrid Node";CN="IceGrid Registry"
 ```
 
@@ -116,7 +116,7 @@ The session manager endpoint is used by Glacier2 to create IceGrid
 you must either secure it or disable it (this endpoint is disabled by default). The property shown below demonstrates
 how to configure IceSSL so that only Glacier2 routers are accepted by this endpoint:
 
-```
+```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.SessionManager=CN="Glacier2 Router Client"
 ```
 
@@ -130,7 +130,7 @@ Glacier2 routers use the registry's administrative session manager endpoint to c
 unrestricted, so you must either secure it or disable it (this endpoint is disabled by default). The property shown
 below demonstrates how to configure IceSSL so that only Glacier2 routers are accepted by this endpoint:
 
-```
+```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router Admin"
 ```
 
@@ -139,7 +139,7 @@ administrative sessions. Note that if you use a single Glacier2 router instance 
 [both client and administrative sessions](../glacier2-integration-with-icegrid), you will need to use the same common
 name to restrict access to both session manager endpoints:
 
-```
+```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.SessionManager=CN="Glacier2 Router Client"
 IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router Client"
 ```
@@ -156,7 +156,7 @@ Ice does not support a secure multicast transport therefore these discovery requ
 via trust relationships. You can prevent registries from listening for discovery requests by setting
 [IceGrid.Registry.Discovery.Enabled](../icegrid-properties):
 
-```
+```config
 IceGrid.Registry.Discovery.Enabled=0
 ```
 
@@ -165,7 +165,7 @@ IceGrid.Registry.Discovery.Enabled=0
 The registry establishes outgoing connections to other registries and nodes. You should configure the
 `IceSSL.TrustOnly.Client` property to restrict connections to these trusted peers:
 
-```
+```config
 IceSSL.TrustOnly.Client=CN="IceGrid Registry";CN="IceGrid Node"
 ```
 
@@ -178,7 +178,7 @@ sessions, as well as the common names of servers that host the permission verifi
 An IceGrid node has only one endpoint, which is used for internal communications with the registry. As a result, it
 should be configured to accept connections only from IceGrid registries:
 
-```
+```config
 IceSSL.TrustOnly.Server=CN="IceGrid Registry"
 ```
 
@@ -186,7 +186,7 @@ A node also establishes outgoing connections to the registry's internal endpoint
 [Ice.Admin](../securing-icegrid#understanding-the-administrative-endpoints-with-icegrid) endpoint of deployed servers.
 You should configure the `IceSSL.TrustOnly.Client` property as shown below to verify the identity of these peers:
 
-```
+```config
 IceSSL.TrustOnly.Client=CN="Server";CN="IceGrid Registry"
 ```
 
@@ -198,7 +198,7 @@ already need to configure IceSSL so that a server can authenticate with the IceG
 registry to register their endpoints), you might as well use a secure endpoint for the `Ice.Admin` adapter and configure
 it to accept connections only from IceGrid nodes:
 
-```
+```config
 IceSSL.TrustOnly.Server.Ice.Admin=CN="IceGrid Node"
 ```
 
@@ -207,7 +207,7 @@ This is only necessary if the `Ice.Admin` endpoint is enabled (which it is by de
 You can also set the `IceSSL.TrustOnly.Client` property so that the server is only permitted to connect to the IceGrid
 registry:
 
-```
+```config
 IceSSL.TrustOnly.Client=CN="IceGrid Registry"
 ```
 

@@ -18,14 +18,14 @@ The constructor taking a `Communicator` argument is invoked if present, otherwis
 
 If `path` is specified, it may be the path name of a JAR file or class directory, as shown below:
 
-```
+```config
 IceBox.Service.MyService=MyService.jar:MyService
 IceBox.Service.MyOtherService=/classes:MyOtherService
 ```
 
 If `path` contains spaces, it must be enclosed in quotes:
 
-```
+```config
 IceBox.Service.MyService="factory classes.jar":MyService
 ```
 

@@ -12,7 +12,7 @@ automatically create a new Slice type: the proxy type associated with this inter
 
 The name of this proxy type is _InterfaceName_*. For example:
 
-```
+```slice
 interface Widget { ... }
 
 struct S

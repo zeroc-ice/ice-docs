@@ -381,7 +381,7 @@ implementation must use synchronous or asynchronous dispatch and cannot use both
 
 Consider the following Slice definitions:
 
-```
+```slice
 interface Controller
 {
     ["amd"] void startProcess();
@@ -399,7 +399,7 @@ operation's in-parameters.
 
 For example, suppose we have defined the following operation:
 
-```
+```slice
 interface Example
 {
     ["cs:identifier:Op"]
@@ -552,7 +552,7 @@ is nullable, where null represents “not set”.
 
 Consider the following operation:
 
-```
+```slice
 ["cs:identifier:Execute"]
 optional(1) int execute(optional(2) string parameters, out optional(3) float value);
 ```

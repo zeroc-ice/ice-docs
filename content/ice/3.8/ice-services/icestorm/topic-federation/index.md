@@ -80,7 +80,7 @@ A simple way to automate the creation of a topic graph is to create a text file 
 the IceStorm administration tool. For example, the commands to create the topic graph shown
 [earlier](../topic-federation) are shown below:
 
-```
+```text
 create A B C
 link A B 0
 link A C 1

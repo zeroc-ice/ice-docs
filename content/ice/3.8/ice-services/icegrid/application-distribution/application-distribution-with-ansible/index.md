@@ -87,7 +87,7 @@ never be stored as plaintext. To store sensitive variables Ansible has a secure 
 Vaults are stored on disk encrypted and are only decrypted and loaded into memory while a playbook is running. To create
 a vault run the following command:
 
-```
+```shell
 ansible-vault create group_vars/production/secure.yml
 ```
 
@@ -103,7 +103,7 @@ registryPassword: supersecretpassphrase
 
 Be sure to save the file when you are finished. You can edit it later by running:
 
-```
+```shell
 ansible-vault edit group_vars/production/secure.yml
 ```
 
@@ -114,7 +114,7 @@ an example of a _production_ inventory file:
 
 ##### **inventories/production**
 
-```
+```ini
 [registry-master]
 10.0.0.10
 

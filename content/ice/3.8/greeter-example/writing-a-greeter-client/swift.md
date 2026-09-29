@@ -114,7 +114,7 @@ When the main function exits, the defer statement destroys the communicator.
 
 To run the client, execute the following command (the executable will be compiled if necessary):
 
-```
+```shell
 swift run Client
 ```
 

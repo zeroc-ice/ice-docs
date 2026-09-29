@@ -14,7 +14,7 @@ await using Ice.Communicator communicator = Ice.Util.initialize(initData);
 
 Alternatively, you can install the IceDiscovery plug-in at runtime using configuration:
 
-```
+```config
 Ice.Plugin.IceDiscovery=IceDiscovery:IceDiscovery.PluginFactory
 ```
 

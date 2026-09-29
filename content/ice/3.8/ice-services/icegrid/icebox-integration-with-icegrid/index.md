@@ -70,7 +70,7 @@ Of particular interest is the `property` descriptor, which uses another
 instantiated by the [service instance descriptor](../service-instance-descriptor-element), the symbol `${server}` is
 replaced with the name of the enclosing server, so the property definition expands as follows:
 
-```
+```config
 Service1.Identity=IceBoxServer-Service1
 ```
 

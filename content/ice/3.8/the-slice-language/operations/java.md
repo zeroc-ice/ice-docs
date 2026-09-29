@@ -449,7 +449,7 @@ exception.
 
 For example, suppose we have defined the following operation:
 
-```
+```slice
 interface Example
 {
     string op(short s, out long count);
@@ -563,7 +563,7 @@ parameters and a non-`void` return value:
 
 Consider this example:
 
-```
+```slice
 interface Example
 {
     double op(int inp1, string inp2, out bool outp1, out long outp2);

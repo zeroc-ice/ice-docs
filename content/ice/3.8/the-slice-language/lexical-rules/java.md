@@ -9,7 +9,7 @@ the generated Java code uses the identifiers `Greeter` and `GreeterPrx` (among o
 You can change this mapping and specify your own Java identifier with the `java:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["java:identifier:Receptionist"]
 interface Greeter { ... }
 ```

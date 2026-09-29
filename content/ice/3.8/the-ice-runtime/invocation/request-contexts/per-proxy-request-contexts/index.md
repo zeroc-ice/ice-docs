@@ -24,7 +24,7 @@ You can also configure a context with proxy properties when you use the communic
 
 We can configure a context for this proxy using the following properties:
 
-```
+```config
 GreeterProxy=person:greeter:tcp -h localhost -p 4061
 GreeterProxy.Context.language=es
 ```

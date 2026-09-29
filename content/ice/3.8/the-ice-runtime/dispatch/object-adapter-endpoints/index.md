@@ -44,7 +44,7 @@ compatibility with previous versions of Ice.
 If you want an adapter to accept requests on certain network interfaces, you must specify a separate endpoint for each
 interface. For example, the following property configures a single endpoint for the adapter named `MyAdapter`:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 ```
 
@@ -53,7 +53,7 @@ at port `9999`. Note however that this adapter configuration does not accept req
 associated with address `127.0.0.1`). If both addresses must be supported, then both must be specified explicitly, as
 shown below:
 
-```
+```config
 # An adapter with multiple endpoints (not recommended)
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999:tcp -h 127.0.0.1 -p 9999
 ```
@@ -61,13 +61,13 @@ MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999:tcp -h 127.0.0.1 -p 9999
 If these are the only two network interfaces available on the host, then a simpler configuration omits the host name
 altogether, causing the object adapter to listen on both interfaces automatically:
 
-```
+```config
 MyAdapter.Endpoints=tcp -p 9999
 ```
 
 If you want to make your configuration more explicit, you can use one of the special host names mentioned earlier:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h * -p 9999
 ```
 
@@ -126,7 +126,7 @@ applications.
 
 As an example, the published endpoints for an object adapter with the following configuration:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 MyAdapter.PublishedHost=Sun1
 ```
@@ -135,7 +135,7 @@ are `tcp -h Sun1 -p 9999`.
 
 You can also configure `PublishedEndpoints` explicitly:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h corpfw -p 25000
 ```
@@ -153,14 +153,14 @@ new proxy would always be directed at the same server, reducing the opportunity 
 We can alleviate this situation by configuring the adapters to publish the endpoints of both servers. For example, here
 is a configuration for the server on host `Sun1`:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h 10.0.0.1 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 ```
 
 Similarly, the configuration for host `Sun2` retains the same published endpoints:
 
-```
+```config
 MyAdapter.Endpoints=tcp -h 10.0.0.2 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 ```

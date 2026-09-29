@@ -5,7 +5,7 @@ type.
 
 For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -31,7 +31,7 @@ the tag value is not mapped to Python.
 
 For example:
 
-```
+```slice
 class C
 {
     optional(2) string alternateName;
@@ -59,7 +59,7 @@ Slice default values map to default values in Python.
 
 For example:
 
-```
+```slice
 struct Location
 {
     string name;
