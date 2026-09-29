@@ -18,12 +18,8 @@ Alternatively, you can install the IceDiscovery plug-in at runtime using configu
 Ice.Plugin.IceDiscovery=IceDiscovery:createIceDiscovery
 ```
 
-The IceDiscovery library is always included in or linked with the Ice C++ support library you’re using.
-
-In order to load the IceDiscovery plug-in into your communicator, set the property `Ice.Plugin.IceDiscovery` to `1`:
-
-```config
-Ice.Plugin.IceDiscovery=1
-```
+Link your application with the IceDiscovery library when using its factory directly. Dynamic loading requires its shared
+library to be available to the operating system's library loader. When linking with the minimal static Ice library, also
+add `Ice::udpPluginFactory()` to `pluginFactories`.
 
 {% /language-section %}

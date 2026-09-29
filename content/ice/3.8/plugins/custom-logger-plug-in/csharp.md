@@ -22,10 +22,11 @@ public class LoggerPlugin : Plugin
 }
 ```
 
-The implementation of `initialize` and `destroy` in `LoggerPlugin` are no-op.
+The `initialize` and `destroy` methods do nothing. The communicator takes ownership of the logger and disposes it when
+the communicator is destroyed.
 
-Now, assuming you wrote a `CustomLogger` class that implements `Ice.Logger`, you can easily create a plug-in factory
-that creates a `LoggerPlugin` and installs your logger into the communicator:
+Now, assuming you wrote a `CustomLogger` class that implements `Ice.Logger`, you can create a plug-in factory that
+creates a `LoggerPlugin` and installs your logger into the communicator:
 
 ```csharp
 namespace ClearSky;

@@ -2,8 +2,8 @@
 title: IceBT
 ---
 
-IceBT is a transport plug-in that allows clients and servers to communicate via Bluetooth RFCOMM connections on Android
-and Linux platforms.
+IceBT is a transport plug-in that allows clients and servers to communicate via Bluetooth RFCOMM connections with Java
+on Android and C++ on Linux. C++-based language mappings on Linux can also load the IceBT shared library.
 
 ## IceBT Overview
 
@@ -35,7 +35,7 @@ An Ice client requires two values to connect to a server:
 2. The UUID of the desired service
 
 To establish a connection, the client first queries the SDP service on the server device for an entry matching the
-target UUID. If a match is found, the SDP service returns the server's current RFCOMM channel, and the client open a
+target UUID. If a match is found, the SDP service returns the server's current RFCOMM channel, and the client opens a
 connection to that channel.
 
 IceBT takes care of all of this for you during server initialization and connection establishment.
@@ -91,9 +91,9 @@ GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 --name "Gree
 
 We're associating the UUID `4f140cef-d75e-4c93-b4e4-20ac111d36d1` with our service. At runtime, this service will be
 advertised in the Service Discovery Protocol (SDP) registry along with the descriptive name `Greeter Service`. We
-omitted a device address, so the plug-in will listen on the host's default Bluetooth adapter. We also did not specify a
-particular RFCOMM channel (using the `-c` option) and therefore the plug-in will automatically select an available
-channel.
+omitted a device address and assume `Ice.Default.Host` is unset, so the plug-in uses the host's default Bluetooth
+adapter. We also did not specify a particular RFCOMM channel (using the `-c` option) and therefore the plug-in will
+automatically select an available channel.
 
 If you omit the `-u UUID` option from the object adapter's endpoint, the plug-in will automatically generate a random
 UUID for use in the SDP registry. Note however that your clients will still need some way of discovering this UUID.
@@ -117,10 +117,8 @@ remote device.
 
 A Bluetooth endpoint in a proxy must include a UUID and a device address:
 
-```cpp
-GreeterPrx greeter{
-  communicator,
-  "greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a \"01:23:45:67:89:AB\""};
+```text
+greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a "01:23:45:67:89:AB"
 ```
 
 {% language-section name="using-icebt-1" /%}
@@ -144,7 +142,9 @@ described in the next section.
 
 ### Implementing Discovery
 
-Device discovery is a platform-specific activity that applications are responsible for implementing.
+Device discovery is a platform-specific activity that applications are responsible for implementing. On Linux, the
+Bluetooth service must know the target device before IceBT can connect to it. Discover or pair the device first; an
+unknown address causes `IceBT::BluetoothException`.
 
 {% language-section name="using-icebt-2" /%}
 
@@ -161,17 +161,15 @@ Be aware of the following limitation when using IceBT:
 
 ## Security Notes for IceBT
 
-The Bluetooth stack performs its own encryption of transmitted data using keys generated during the pairing process. Two
-devices must already be paired before Ice applications on those devices can communicate with one another. IceBT does not
-implement or provide an API for pairing; rather, this is something that is normally done at the user level. However,
-it's possible that an Ice connection attempt will _initiate_ a pairing process that the user must then complete.
+The operating system manages Bluetooth pairing. IceBT uses the platform's Bluetooth connection APIs; applications manage
+pairing through the operating system's facilities.
 
-Android provides two APIs for establishing a connection: a secure version and an insecure version. The difference
-between the two lies in the pairing behavior, where the secure version causes the system to prompt the user (if
-necessary) and the insecure version does not. IceBT always uses the secure API.
+On Android, IceBT uses the secure RFCOMM APIs. Android can prompt the user to complete pairing while establishing a
+connection. See
+[Android's Bluetooth connection guide](https://developer.android.com/develop/connectivity/bluetooth/connect-bluetooth-devices).
 
-For added security, you can use SSL over Bluetooth with the transport protocol named `bts`. You can use the usual the
-SSL configuration with `bts` to define your security settings.
+For TLS over Bluetooth, use `bts` endpoints and the [SSL configuration](../../runtime/ssl-transport) for your language
+mapping. IceBT installs both the `bt` and `bts` endpoint types.
 
 ## See Also
 

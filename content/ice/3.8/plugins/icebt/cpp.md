@@ -23,46 +23,31 @@ Ice.Plugin.IceBT=IceBT:createIceBT
 
 {% language-section name="using-icebt-2" %}
 
-On Linux, the IceBT plug-in provides a C++ API for device discovery:
+On Linux, `IceBT::Plugin` provides `startDiscovery`, `stopDiscovery`, and `getDevices`. Obtain this interface from the
+communicator's plug-in manager:
 
 ```cpp
-namespace IceBT
-{
-    using PropertyMap = std::map<std::string, std::string>;
-
-    class Plugin : public Ice::Plugin
+auto plugin = std::dynamic_pointer_cast<IceBT::Plugin>(
+    communicator->getPluginManager()->getPlugin("IceBT"));
+std::string adapterAddress = "01:23:45:67:89:AB";
+plugin->startDiscovery(
+    adapterAddress,
+    [](const std::string& address, const IceBT::PropertyMap& properties)
     {
-    public:
-        void startDiscovery(
-            const std::string& address,
-            std::function<void(const std::string& addr,
-                               const PropertyMap& props)> cb);
-
-        void stopDiscovery(const std::string& address);
-        ...
-    };
-}
+        // Record or display the discovered device.
+    });
 ```
 
-An application must implement a callback function pass it to `startDiscovery`:
+Replace `adapterAddress` with the address of a local Bluetooth adapter. Both `startDiscovery` and `stopDiscovery`
+require that address. An unknown adapter address causes `IceBT::BluetoothException`.
 
-```cpp
-#include <IceBT/IceBT.h>
-...
+The callback receives the remote device's Bluetooth address and an `IceBT::PropertyMap`, a string-to-string map of
+metadata. The plug-in can report the same device more than once. Discovery continues until you stop it with
+`plugin->stopDiscovery(adapterAddress)` or the Bluetooth service stops it. Stopping discovery removes the callbacks
+registered for that adapter.
 
-CommunicatorPtr communicator = ...;
-auto plugin = communicator->getPluginManager()->getPlugin("IceBT");
-auto btplugin = dynamic_pointer_cast<IceBT::Plugin>(plugin);
-btplugin->startDiscovery(
-   "",
-   [](const std::string& addr, const PropertyMap& props) { ... });
-```
-
-For each nearby device discovered by the Bluetooth stack, the plug-in will invoke the provided callback. The arguments
-to the callback are the Bluetooth address of the nearby device and a string map of properties containing metadata about
-that device. As shown in the example above, the application can pass an empty string to `startDiscovery` and the plug-in
-will use the default Bluetooth adapter. Otherwise, the application can pass the device address of the desired adapter.
-
-Discovery will continue until `stopDiscovery` is called or a Bluetooth connection is initiated.
+`plugin->getDevices()` returns a snapshot of all known remote devices as an `IceBT::DeviceMap`, keyed by Bluetooth
+address. The plug-in reads the initial devices from the Bluetooth service at startup and updates its map as devices are
+added or removed.
 
 {% /language-section %}

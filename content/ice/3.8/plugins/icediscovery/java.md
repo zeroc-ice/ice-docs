@@ -4,18 +4,21 @@ You should install `IceDiscovery` in your communicator using the `pluginFactorie
 
 ```java
 InitializationData initData = new InitializationData();
+initData.properties = new com.zeroc.Ice.Properties(args);
 initData.pluginFactories =
-    Collections.singletonList(new com.zeroc.IceDiscovery.PluginFactory());
+    java.util.List.of(new com.zeroc.IceDiscovery.PluginFactory());
 
-try (Communicator communicator = Util.initialize(args)) {
-    ....
+try (Communicator communicator = new Communicator(initData)) {
+    // Use the communicator.
 }
 ```
 
 Alternatively, you can install the IceDiscovery plug-in at runtime using configuration:
 
 ```config
-Ice.Plugin.IceDiscovery=IceDiscovery:com.zeroc.IceDiscovery.PluginFactory
+Ice.Plugin.IceDiscovery=com.zeroc.IceDiscovery.PluginFactory
 ```
+
+Include the `IceDiscovery` JAR in the application's class path.
 
 {% /language-section %}

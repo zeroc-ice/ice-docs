@@ -4,101 +4,77 @@ title: IceLocatorDiscovery
 
 ## IceLocatorDiscovery Overview
 
-IceLocatorDiscovery is an [Ice plug-in](../plug-in-facility) that discovers IceGrid and custom
-[locators](../../runtime/locators) on a network using UDP multicast. Once installed, the plug-in automatically and
-transparently issues a multicast query in an attempt to find one or more locators, collects the responses, and
-configures the Ice runtime accordingly. The primary advantage of using IceLocatorDiscovery is that it eliminates the
-need to manually configure and maintain the `Ice.Default.Locator` property. It's even more helpful in a
-[replicated IceGrid deployment](../../services/icegrid/registry-replication) consisting of a master replica and one or
-more slave replicas, where the `Ice.Default.Locator` property would normally include endpoints for some or all of the
-replicas. Avoiding the need to configure the locator endpoints relieves some of the administrative burden, simplifies
-deployment and configuration tasks, and adds more flexibility to your application designs.
+IceLocatorDiscovery discovers an IceGrid or custom [locator](../../runtime/locators) using UDP multicast. It installs a
+forwarding locator in the communicator. When an application needs to resolve an indirect proxy and has no usable
+locator, the plug-in sends discovery queries and forwards locator requests to a discovered locator. Application requests
+then use the endpoints returned by that locator.
 
-{% callout type="note" %}
-
-You can think of IceLocatorDiscovery as an application-specific version of [IceDiscovery](../icediscovery) geared
-primarily toward IceGrid users.
-
-{% /callout %}
+This lets clients locate an IceGrid deployment without configuring its registry endpoints, including a
+[replicated deployment](../../services/icegrid/registry-replication). IceLocatorDiscovery discovers locators;
+[IceDiscovery](../icediscovery) provides a location service for objects and object adapters directly.
 
 ## Installing IceLocatorDiscovery
 
-The IceLocatorDiscovery plug-in must be installed in every client that needs to locate objects; you can optionally
-install it in IceGrid nodes and registry replicas.
+Install the plug-in in each communicator that should discover its locator. IceGrid nodes and slave registries can also
+use the plug-in to discover the registry.
 
 {% language-section name="mapping" /%}
 
 ## Configuring IceLocatorDiscovery
 
-Applications configure the IceLocatorDiscovery plug-in using configuration properties; the plug-in does not provide a
-local API.
+Applications configure IceLocatorDiscovery through the properties described below.
 
 ### IceLocatorDiscovery Property Overview
 
-The IceDiscovery plug-in supports a number of
-[configuration properties](../../property-reference/icelocatordiscovery-properties), many of which affect the endpoints
-that the plug-in uses for its queries:
+The plug-in uses a multicast lookup endpoint to send queries and a reply endpoint to receive locator responses.
 
-- Lookup endpoint This is the multicast endpoint on which all lookup queries are broadcast. It must use an IPv4 or IPv6
-  address in the multicast range with a fixed port.
+[IceLocatorDiscovery.Address](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.address)
+selects the multicast address. When unset, it uses `239.255.0.1` if `Ice.IPv4` is enabled and `Ice.PreferIPv6Address` is
+disabled; otherwise it uses `ff15::1`.
+[IceLocatorDiscovery.Port](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.port) defaults to
+`4061`.
 
-- Reply endpoint This is the endpoint on which the plug-in receives replies from locators (an IceGrid registry is the
-  most common example of a locator). In general, this endpoint should not use a fixed port.
+[IceLocatorDiscovery.Interface](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.interface)
+selects a network interface. When unset, the plug-in sends queries on the available interfaces for the selected IP
+version. It builds one lookup endpoint per selected interface, each with `udp -h address -p port --interface interface`.
 
-The plug-in uses sensible default values for all of its configuration properties, such that it's often unnecessary to
-define any of the plug-in's properties. However, it's still important to understand how the plug-in derives its endpoint
-information.
+The `IceLocatorDiscovery.Reply` object adapter receives responses at `udp -h "*"`, or at `udp -h "interface"` when you
+select an interface. Ice chooses its port. The `IceLocatorDiscovery.Locator` object adapter hosts the forwarding locator
+and uses collocated calls by default.
 
-First, you can override the default endpoint that the plug-in uses to broadcast its queries by defining
-[IceLocatorDiscovery.Lookup](../../property-reference/icelocatordiscovery-properties), otherwise the plug-in computes
-one endpoint for each multicast-capable interface, as follows:
-
-`udp -h "address" -p port --interface "interface"`
-
-where
-
-- `address` is the value of [IceLocatorDiscovery.Address](../../property-reference/icelocatordiscovery-properties) -
-  defaults to `239.255.0.1` if IPv4 is enabled or `ff15::1` if IPv4 is disabled
-- `port` is the value of [IceLocatorDiscovery.Port](../../property-reference/icelocatordiscovery-properties) - defaults
-  to `4061`
-- `interface` is the value of [IceLocatorDiscovery.Interface](../../property-reference/icelocatordiscovery-properties),
-  or each available multicast-capable interface when that property is not set
-
-{% callout type="warning" %}
-
-For IceGrid users, the lookup endpoint must use the same multicast address and port as
-[IceGrid.Registry.Discovery.Endpoints](../../runtime/dispatch/object-adapter-endpoints) in the registry configuration.
-
-{% /callout %}
-
-IceLocatorDiscovery also creates object adapters in each communicator in which it's installed, including the object
-adapter [IceLocatorDiscovery.Reply](../../property-reference/icelocatordiscovery-properties). This object adapter
-corresponds to the Reply endpoint mentioned above.
-
-As you can see, the properties `IceLocatorDiscovery.Address`, `IceLocatorDiscovery.Port` and
-`IceLocatorDiscovery.Interface` are simply used as convenient shortcuts for customizing the details of the plug-in's
-endpoints. For example, suppose we want to use a different multicast address and port:
+For example, to use multicast address `239.255.0.99`, port `8000`, and local interface `192.0.2.10`:
 
 ```config
 IceLocatorDiscovery.Address=239.255.0.99
 IceLocatorDiscovery.Port=8000
+IceLocatorDiscovery.Interface=192.0.2.10
 ```
 
-With these settings, the plug-in sends its lookup queries to `239.255.0.99` port `8000` on each multicast-capable
-interface.
+Replace the interface address with one belonging to the local host. You can override the generated endpoints with
+[IceLocatorDiscovery.Lookup](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.lookup) and
+`IceLocatorDiscovery.Reply.Endpoints`. The lookup multicast address and port must match the registry's
+[IceGrid.Registry.Discovery.Endpoints](../../property-reference/icegrid-properties#icegrid.registry.discovery.adapterproperty).
 
-{% callout type="warning" %}
+Set
+[IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
+to the registry's `IceGrid.InstanceName` to select a deployment. Without this setting, ordinary locator requests use the
+instance name of the first locator discovered and subsequent lookups stay with that instance.
 
-All of the components of an IceGrid application must use the same multicast address and port. You should also consider
-defining [IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties) to avoid any
-potential collisions from unrelated IceGrid applications that happen to use the same address and port.
-
-{% /callout %}
+A lookup waits [300 milliseconds](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.timeout)
+by default and retries up to
+[three times](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.retrycount) without a
+response. After exhausting these attempts, the plug-in suppresses further discovery for
+[2000 milliseconds](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.retrydelay). A later
+locator request starts a new discovery round after this delay. Use
+[IceLocatorDiscovery.Trace.Lookup](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.trace.lookup)
+to trace lookups.
 
 ### Configuring IceLocatorDiscovery in User Applications
 
-For a client application, remove any existing definition of `Ice.Default.Locator`, then install the plug-in and
-optionally configuring its addressing information.
+For a client application, install the plug-in and configure its multicast settings and instance name as needed.
+`Ice.Default.Locator` is optional: when configured, the plug-in uses this locator first. Otherwise it discovers a
+locator when the application first needs one. It reuses the locator and can discover another when communication with it
+fails.
 
 For a server deployed with IceGrid, you normally don't need to install the IceLocatorDiscovery plug-in.
 
@@ -112,10 +88,9 @@ to change the multicast address and port.
 
 ### Configuring IceLocatorDiscovery in an IceGrid Registry
 
-An IceGrid registry does not need the plug-in if it's the master replica or the only registry in a deployment, although
-there's no harm in installing it. The plug-in is useful for slave replicas because it allows them to locate the current
-master without configuring the master's endpoints. Install and configure the plug-in for slave replicas just like you
-would for any C++ client.
+A slave registry can use the plug-in to locate the master without configuring the master's endpoints. Install it as for
+a C++ client, and set `IceLocatorDiscovery.InstanceName` to the deployment's `IceGrid.InstanceName`. A master registry
+provides the discovery responder itself and does not need the client plug-in.
 
 IceGrid registries listen for multicast discovery queries by default, but you can disable this feature by setting
 [IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties) to `0`.
@@ -142,8 +117,40 @@ queries on its default multicast address and port.
 
 ### Configuring IceLocatorDiscovery in an IceGrid Node
 
-The plug-in is useful for IceGrid nodes because it allows them to locate the registry without configuring the registry's
-endpoints. Install and configure the plug-in in a node just like you would for any C++ client.
+An IceGrid node can use the plug-in to locate its registry without configuring the registry's endpoints. Install it as
+for a C++ client, and set `IceLocatorDiscovery.InstanceName` to the registry's `IceGrid.InstanceName`. This setting also
+allows the node to determine the IceGrid instance name during startup.
+
+## Discovering Custom Locators
+
+A custom locator needs a multicast responder implementing the Slice interface `IceLocatorDiscovery::Lookup`. Register
+this responder with identity `IceLocatorDiscovery/Lookup` on the multicast endpoint used by the clients. Its
+`findLocator(instanceName, reply)` operation checks the requested instance name and invokes `foundLocator` on the reply
+proxy with the locator's proxy. An empty requested instance name matches any instance.
+
+Use the locator identity's category as its instance name. Replicas of the same locator should use the same identity.
+IceGrid registries provide this responder automatically.
+
+{% iflang langs="java" %}
+
+## Discovering Locators Programmatically
+
+Java exposes `com.zeroc.IceLocatorDiscovery.Plugin.getLocators`. For example:
+
+```java
+var plugin = (com.zeroc.IceLocatorDiscovery.Plugin)
+    communicator.getPluginManager().getPlugin("IceLocatorDiscovery");
+java.util.List<com.zeroc.Ice.LocatorPrx> locators = plugin.getLocators("", 300);
+```
+
+With an empty first argument, this call starts discovery, waits 300 milliseconds, and returns the locator proxies
+collected during that time. The result can be empty. Replies from replicas of one instance contribute endpoints to a
+single proxy. The plug-in's configured or previously adopted instance name still limits which replies it accepts.
+
+A nonempty first argument makes the call wait for that instance or for the lookup round to finish. It does not change
+the instance-name filter sent in multicast queries; use `IceLocatorDiscovery.InstanceName` to configure that filter.
+
+{% /iflang %}
 
 ## See Also
 

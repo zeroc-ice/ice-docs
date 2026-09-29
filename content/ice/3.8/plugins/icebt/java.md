@@ -5,11 +5,12 @@ You should install IceBT in your communicator using the `pluginFactories` field 
 ```java
 // Android only
 InitializationData initData = new InitializationData();
-initData.pluginFactories = Collections.singletonList(
+initData.properties = new com.zeroc.Ice.Properties(args);
+initData.pluginFactories = java.util.List.of(
     new com.zeroc.IceBT.PluginFactory());
 
 try (Communicator communicator = new Communicator(initData)) {
-    ...
+    // Use the communicator.
 }
 ```
 
@@ -35,6 +36,9 @@ var greeter = GreeterPrx.createProxy(
 {% language-section name="using-icebt-2" %}
 
 On Android, an app can use the APIs in `android.bluetooth` to initiate discovery and receive intent notifications about
-nearby devices.
+nearby devices. IceBT cancels Android device discovery before opening an outgoing connection.
+
+The app must obtain the Bluetooth permissions required by its Android version and target SDK. See
+[Android Bluetooth permissions](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions).
 
 {% /language-section %}

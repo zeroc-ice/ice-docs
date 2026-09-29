@@ -19,13 +19,8 @@ Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using 
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 ```
 
-The IceLocatorDiscovery library is always included in or linked with the Ice C++ support library you’re using.
-
-In order to load the IceLocatorDiscovery plug-in into your communicator, set the property
-`Ice.Plugin.IceLocatorDiscovery` to `1`:
-
-```config
-Ice.Plugin.IceLocatorDiscovery=1
-```
+Link your application with the IceLocatorDiscovery library when using its factory directly. Dynamic loading requires its
+shared library to be available to the operating system's library loader. When linking with the minimal static Ice
+library, also add `Ice::udpPluginFactory()` to `pluginFactories`.
 
 {% /language-section %}
