@@ -163,67 +163,6 @@ export function splitFrontmatter(md: string): {
     : { frontmatter: '', body: md };
 }
 
-/**
- * The page template renders the frontmatter title as the page's `h1`, so a body
- * that opens by repeating that same title would show it twice. Drop the leading
- * `# Title` only when it matches; a *different* opening heading is a real
- * section heading and is left alone.
- */
-export function stripRedundantTitle(body: string, title?: string): string {
-  if (!title) return body;
-  const normalized = title.trim().toLowerCase();
-  return body.replace(/^\s*#\s+(.+?)\s*(?:\n|$)/, (match, heading: string) =>
-    heading.trim().toLowerCase() === normalized ? '' : match
-  );
-}
-
-/**
- * Push every heading down one level when the body still contains an `h1`.
- *
- * The page title is the page's one `h1`. Pages converted from Confluence open
- * their sections at `#`, which would give a page two competing top-level
- * headings and leave those sections out of the "On this page" list (it lists
- * `h2`/`h3`). Heading anchors are derived from the text, not the level, so
- * demoting does not change any existing link target.
- */
-export function demoteHeadings(body: string): string {
-  const lines = body.split('\n');
-  const code = fencedLines(lines);
-  if (!lines.some((line, i) => !code[i] && /^#\s+\S/.test(line))) return body;
-
-  return lines
-    .map((line, i) =>
-      code[i]
-        ? line
-        : // `###### ` is already the deepest level markdown has.
-          line.replace(/^(#{1,5})(\s+\S)/, '#$1$2')
-    )
-    .join('\n');
-}
-
-/**
- * Mark the lines that are inside a fenced code block.
- *
- * A fence closes only on the same character, at least as long as the one that
- * opened it, so a ``` example nested inside a ```` block does not end it.
- */
-function fencedLines(lines: string[]): boolean[] {
-  const out = new Array<boolean>(lines.length).fill(false);
-  let open: { char: string; length: number } | null = null;
-  for (let i = 0; i < lines.length; i++) {
-    const fence = /^\s{0,3}(`{3,}|~{3,})/.exec(lines[i]);
-    if (fence) {
-      const [char, length] = [fence[1][0], fence[1].length];
-      if (!open) open = { char, length };
-      else if (char === open.char && length >= open.length) open = null;
-      out[i] = true; // the delimiter line itself is never a heading
-      continue;
-    }
-    out[i] = open !== null;
-  }
-  return out;
-}
-
 // ---------------------------------------------------------------------------
 // language-section resolution
 // ---------------------------------------------------------------------------

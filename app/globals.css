@@ -418,7 +418,7 @@
     font-style: normal;
   }
 
-  [data-page-shape='property-list'] .doc-body h5 {
+  [data-page-shape='property-list'] .doc-body h3 {
     margin-top: 1.25rem;
     margin-bottom: 0.125rem;
     color: var(--text-muted);

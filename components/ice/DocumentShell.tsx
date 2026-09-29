@@ -80,8 +80,15 @@ export const DocumentShell = ({
   showAside = true,
   shape
 }: DocumentShellProps) => {
+  // On a property page, each h3 is a property's Synopsis or Description label
+  // rather than a section, so the outline lists the properties alone.
   const toc = headings
-    .filter((h) => h && h.id && (h.level === 2 || h.level === 3))
+    .filter(
+      (h) =>
+        h &&
+        h.id &&
+        (h.level === 2 || (h.level === 3 && shape !== 'property-list'))
+    )
     .map((h) => ({
       id: h.id!,
       title: h.title ?? '',

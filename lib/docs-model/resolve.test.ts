@@ -20,8 +20,6 @@ import {
   inlineSnippets,
   resolveDocument,
   declaredSlots,
-  stripRedundantTitle,
-  demoteHeadings,
   splitLines,
   type LanguageSlot
 } from './resolve.ts';
@@ -325,74 +323,6 @@ test('resolves the content-model example (cpp enumerations)', () => {
   assert.match(out, /```cpp\nFruit f = Fruit::Apple;/);
   // no unresolved tags remain
   assert.doesNotMatch(out, /\{%\s*(language-section|snippet)/);
-});
-
-test('stripRedundantTitle drops a leading H1 only when it repeats the title', () => {
-  // The page template renders the title, so an identical H1 would show twice.
-  assert.equal(
-    stripRedundantTitle('# Enumerations\n\nBody.\n', 'Enumerations'),
-    'Body.\n'
-  );
-  // Case and surrounding whitespace do not matter.
-  assert.equal(
-    stripRedundantTitle('\n#  enumerations  \nBody.\n', 'Enumerations'),
-    'Body.\n'
-  );
-  // A different opening heading is a real section heading: keep it.
-  const different = '# Enumeration Syntax and Semantics\n\nBody.\n';
-  assert.equal(stripRedundantTitle(different, 'Enumerations'), different);
-  // No title, no H1, or a deeper heading: unchanged.
-  assert.equal(
-    stripRedundantTitle('# Enumerations\n', undefined),
-    '# Enumerations\n'
-  );
-  assert.equal(
-    stripRedundantTitle('## Enumerations\n', 'Enumerations'),
-    '## Enumerations\n'
-  );
-});
-
-test('demoteHeadings gives the page one h1 without touching anchors or code', () => {
-  const body = [
-    '# Section',
-    '',
-    'Text.',
-    '',
-    '```md',
-    '# not a heading',
-    '```',
-    '',
-    '## Sub',
-    '###### Deepest'
-  ].join('\n');
-  const out = demoteHeadings(body).split('\n');
-  assert.equal(out[0], '## Section');
-  assert.equal(out[5], '# not a heading'); // inside a fence: untouched
-  assert.equal(out[8], '### Sub');
-  assert.equal(out[9], '###### Deepest'); // already at the deepest level
-});
-
-test('demoteHeadings leaves a body that has no h1 alone', () => {
-  const body = '## Already nested\n\nText.\n';
-  assert.equal(demoteHeadings(body), body);
-});
-
-test('demoteHeadings does not treat a nested fence as the end of an outer one', () => {
-  const body = [
-    '# Section',
-    '',
-    '````md',
-    '```',
-    '# still code',
-    '```',
-    '````',
-    '',
-    '# After'
-  ].join('\n');
-  const out = demoteHeadings(body).split('\n');
-  assert.equal(out[0], '## Section');
-  assert.equal(out[4], '# still code'); // inside the outer four-backtick fence
-  assert.equal(out[8], '## After'); // the outer fence did close
 });
 
 // `.gitattributes` normalizes the repo to LF and checks files out with the
