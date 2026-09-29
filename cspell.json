@@ -5,7 +5,7 @@
   "patterns": [
     {
       "name": "heading-anchor",
-      "pattern": "/\\{% id=\"[^\"]*\" %\\}/g",
+      "pattern": "/\\{%\\s*id=\"[^\"]*\"\\s*%\\}/g",
       "description": "A heading's own anchor, such as {% id=\"ice.default.host-synopsis\" %}: lowercased names the heading text already spells"
     }
   ],
