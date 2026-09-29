@@ -16,7 +16,7 @@ In this example, the _property name_ is `Ice.UDP.SndSize`, and the _property val
 You can find a complete list of the properties used to configure Ice in the [property reference](../property-reference).
 
 Set properties that configure the Ice runtime and its services before initializing the component that uses them. For
-updates that take effect at run time, see [the Properties facet](../the-properties-facet).
+updates that take effect at run time, see [the Properties facet](../properties-facet).
 
 ## Property Categories
 
@@ -110,9 +110,9 @@ This is a = property value.
 ```
 
 The configuration file parser preserves single and double quotes in property values. The
-[`getPropertyAsList` methods](../the-properties-class#reading-and-setting-a-property) interpret these quotes when
-splitting a value into a list. To preserve leading or trailing spaces in a configuration file value, escape them with
-backslashes; see [Configuration File Syntax](../configuration-file-syntax).
+[`getPropertyAsList` methods](../properties-class#reading-and-setting-a-property) interpret these quotes when splitting
+a value into a list. To preserve leading or trailing spaces in a configuration file value, escape them with backslashes;
+see [Configuration File Syntax](../configuration-file-syntax).
 
 # Unused Properties
 

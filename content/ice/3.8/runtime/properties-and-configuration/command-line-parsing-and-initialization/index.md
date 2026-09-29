@@ -40,7 +40,7 @@ explicitly skip them.
 
 `initialize` parses the arguments the same way in all languages, but only the overloads that update the argument array
 remove the options they consume. Other overloads leave the input unchanged or return the remaining arguments separately;
-see [Communicator Initialization and Destruction](../communicator-initialization-and-destruction).
+see [Communicator Initialization and Destruction](../initialization-and-destruction).
 
 ## See Also
 
