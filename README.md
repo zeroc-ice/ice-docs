@@ -89,5 +89,5 @@ duplicating it.
 ## Deployment
 
 `npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (attachments,
-search index) and `.next/static`. The sitemap's base URL comes from `SITE_URL` (default `https://docs.zeroc.com/ice`);
-`docker build --build-arg SITE_URL=…` passes it through.
+search index) and `.next/static`. The sitemap's base URL and each page's canonical URL come from `SITE_URL` (default
+`https://docs.zeroc.com`); `docker build --build-arg SITE_URL=…` passes it through.

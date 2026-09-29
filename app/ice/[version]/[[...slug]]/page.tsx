@@ -59,7 +59,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const slug = segments?.join('/') ?? '';
   const page = listPages(CONTENT_ROOT, version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
-  return { title, description };
+  // One URL for every language mapping: `?lang=` only picks the one shown.
+  return {
+    title,
+    description,
+    alternates: { canonical: pageHref(version, slug) }
+  };
 }
 
 export default async function Page(props: PageProps) {

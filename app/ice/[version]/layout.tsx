@@ -1,9 +1,26 @@
 // Copyright (c) ZeroC, Inc.
 
+import type { Metadata } from 'next';
+
 import { buildSideNav } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
 import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
+
+type VersionParams = { params: Promise<{ version: string }> };
+
+// Every page of a version names it in its title: "Operations | Ice 3.8 Manual".
+export async function generateMetadata({
+  params
+}: VersionParams): Promise<Metadata> {
+  const { version } = await params;
+  return {
+    title: {
+      template: `%s | Ice ${version} Manual`,
+      default: `Ice ${version} Manual`
+    }
+  };
+}
 
 // What every page of a version shares: the older-release banner and the
 // sidebar. A layout rather than part of each page, so the client router fetches
@@ -11,10 +28,7 @@ import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
 export default async function VersionLayout({
   params,
   children
-}: {
-  params: Promise<{ version: string }>;
-  children: React.ReactNode;
-}) {
+}: VersionParams & { children: React.ReactNode }) {
   const { version } = await params;
   const nav = readNavigation(CONTENT_ROOT, version);
 

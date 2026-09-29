@@ -10,6 +10,7 @@ import {
   LANGUAGE_LABELS,
   LANGUAGE_STORAGE_KEY
 } from '@/lib/docs-model/nav';
+import { SITE_URL } from '@/lib/site';
 import { Inter } from 'next/font/google';
 import clsx from 'clsx';
 import { Metadata } from 'next';
@@ -17,6 +18,7 @@ import { Metadata } from 'next';
 const inter = Inter({ subsets: ['latin', 'latin-ext'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Ice Manual',
     template: '%s | Ice Manual'
