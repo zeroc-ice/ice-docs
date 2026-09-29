@@ -8,9 +8,9 @@ A _router_ is an Ice object that provides information to the Ice runtime to allo
 servers. In a client, configuring a proxy to use a router produces a _routed proxy_ on which all invocations are sent to
 the router for forwarding to the target server. The endpoints in a routed proxy are ignored by the Ice runtime, at least
 for the purposes of connection establishment. Instead, the Ice runtime in the client establishes a connection to the
-router and [may pass along the proxy's endpoints](../routers) so that the router can establish its own connection to the
-target server. Ice typically opens only one connection to a router and reuses that connection for invocations on all of
-the routed proxies configured to use the same router.
+router and may pass along the proxy's endpoints so that the router can establish its own connection to the target
+server, as described in [Routing Tables](#routing-tables). Ice typically opens only one connection to a router and
+reuses that connection for invocations on all of the routed proxies configured to use the same router.
 
 The Ice distribution includes two router implementations that serve different purposes:
 
@@ -82,13 +82,14 @@ configured with a router:
 - You can call `setAdapter` with the same object adapter on multiple connections, whereas you can have only one router
   associated with a given object adapter.
 - The endpoints of the proxies created by an object adapter with a configured router are the endpoints of the proxy
-  returned by `getServerProxy`, which typically point to the "server-side" of the router. Endpoints and published
-  endpoints configured for this object adapter are ignored. This way, the client can give these proxies to the server
-  (via the router), and when the server sends a request using such a proxy, the request is directed to the router and
-  then forwarded to the client's object adapter. An object adapter configured for bidirectional dispatch (without a
-  router) uses `Endpoints` and `PublishedEndpoints` as usual to compute the published endpoints of the proxies it
-  creates; usually you will leave `Endpoints` and `PublishedEndpoints` empty and the object adapter will create proxies
-  with no endpoints at all.
+  returned by `getServerProxy`, which typically point to the "server-side" of the router. Such an object adapter does
+  not accept incoming connections: creating it fails if its `Endpoints` property is set, it ignores its
+  `PublishedEndpoints` property, and `setPublishedEndpoints` throws an exception. This way, the client can give these
+  proxies to the server (via the router), and when the server sends a request using such a proxy, the request is
+  directed to the router and then forwarded to the client's object adapter. An object adapter configured for
+  bidirectional dispatch (without a router) uses `Endpoints` and `PublishedEndpoints` as usual to compute the published
+  endpoints of the proxies it creates; usually you will leave `Endpoints` and `PublishedEndpoints` empty and the object
+  adapter will create proxies with no endpoints at all.
 
 See [Callbacks through Glacier2](../callbacks-through-glacier2) for an example.
 

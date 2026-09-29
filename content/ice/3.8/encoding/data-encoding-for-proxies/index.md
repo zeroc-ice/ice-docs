@@ -29,7 +29,7 @@ The proxy options are described in the table below:
 | **Option** | **Description**                                                                             |
 | ---------- | ------------------------------------------------------------------------------------------- |
 | `id`       | The [object identity](../object-identity)                                                   |
-| `facet`    | The [facet](../versioning) name (zero- or one-element sequence)                             |
+| `facet`    | The [facet](../facets) name (zero- or one-element sequence)                                 |
 | `mode`     | The proxy mode (`0`=twoway, `1`=oneway, `2`=batch oneway, `3`=datagram, `4`=batch datagram) |
 | `secure`   | Ignored. Kept for backwards compatibility.                                                  |
 

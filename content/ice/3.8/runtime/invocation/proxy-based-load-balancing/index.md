@@ -41,7 +41,7 @@ minimum that the target object is available via multiple network interfaces, but
 replicated to improve scalability and reliability. Such a proxy provides a client with several load balancing options
 even when no location service is involved. The proxy's own configuration drives the run-time behavior, depending on how
 the client configures the proxy's [endpoint selection type](../connection-establishment) and
-[connection caching](../proxy-based-load-balancing) settings.
+[connection caching](#proxy-connection-caching) settings.
 
 For example, suppose that a proxy contains several endpoints. In its default configuration, a proxy uses the `Random`
 endpoint selection type and caches its connection. Upon the first invocation, the Ice runtime selects one of the proxy's

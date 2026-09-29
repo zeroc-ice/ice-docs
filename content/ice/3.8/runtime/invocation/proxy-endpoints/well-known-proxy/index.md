@@ -31,6 +31,12 @@ When you invoke an operation on a well-known proxy, Ice locates the target objec
 3. In case the preceding steps can't locate the target object or endpoints, the invocation fails with
    `NoEndpointException`.
 
+{% iflang langs="js" %}
+
+Ice for JavaScript does not provide collocation optimization, so the resolution starts at step 2.
+
+{% /iflang %}
+
 ## See Also
 
 - [Locators](../locators)

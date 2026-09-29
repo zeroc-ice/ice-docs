@@ -25,6 +25,16 @@ assert(greeter.ice_getEndpointSelection() == Ice::EndpointSelectionType::Ordered
 
 ## Proxy Override Properties
 
+{% iflang langs="js" %}
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support `Ice.Override.Compress`. Setting it throws `PropertyException`.
+
+{% /callout %}
+
+{% /iflang %}
+
 Defining an override property causes the Ice runtime to ignore any equivalent proxy option and use the override property
 value instead. For example, consider the following property definition:
 
@@ -34,7 +44,11 @@ Ice.Override.Compress=1
 
 This property instructs the Ice runtime to use only “compressed” requests, producing the same semantics as calling
 `ice_compress(true)` on every proxy. However, the property does not alter the existing proxy, but rather directs the Ice
-communicator to use protocol compression for all requests.
+communicator to use protocol compression for all requests. Likewise, `Ice.Override.Compress=0` disables compression for
+all requests.
+
+The override also sets the compression flag of the endpoints on which object adapters listen, so the proxies that an
+object adapter creates from these endpoints carry the overridden compression setting.
 
 {% callout type="info" %}
 

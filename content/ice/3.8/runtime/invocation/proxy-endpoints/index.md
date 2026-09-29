@@ -98,6 +98,8 @@ MyObject
 
 Just like with the `@` style, the communicator requests endpoint(s) for such a proxy from the locator.
 
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
 {% callout type="warning" %}
 
 Locator optional
@@ -107,6 +109,8 @@ resolve the endpoints of this proxy - Ice doesn’t need any endpoint since it d
 this local object adapter.
 
 {% /callout %}
+
+{% /iflang %}
 
 ## See Also
 

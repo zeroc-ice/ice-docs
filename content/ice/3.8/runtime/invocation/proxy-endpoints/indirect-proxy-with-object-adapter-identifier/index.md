@@ -13,7 +13,7 @@ For example:
 Root@fsadapter      # proxy to Root object hosted by object adapter fsadapter
                     # two-way proxy by default
 
-Root@fsadapter -o   # oneway proxy
+Root -o @ fsadapter # oneway proxy
 ```
 
 When you invoke an operation on such an indirect proxy, Ice first _resolves_ the object adapter identifier–Ice checks if
@@ -34,6 +34,12 @@ The resolution proceeds as follows:
    2. If this lookup fails, Ice resolves this object adapter identifier using the locator.
 
 3. In case the preceding steps can't locate the object adapter, the invocation fails with `NoEndpointException`.
+
+{% iflang langs="js" %}
+
+Ice for JavaScript does not provide collocation optimization, so the resolution starts at step 2.
+
+{% /iflang %}
 
 ## See Also
 
