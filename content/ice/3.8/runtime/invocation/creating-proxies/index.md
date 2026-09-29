@@ -56,8 +56,7 @@ Ice.Default.Locator.Router.EndpointSelection=Ordered
 An object adapter creates proxies for the Ice objects it hosts:
 
 - `add`, `addFacet`, `addWithUUID` and `addFacetWithUUID` register a servant with the
-  [Active Servant Map](../the-active-servant-map) and return a proxy with the identity and facet of the registered
-  servant.
+  [Active Servant Map](../active-servant-map) and return a proxy with the identity and facet of the registered servant.
 - `createProxy` returns a proxy with the given identity. If the object adapter has an
   [AdapterId](../object-adapter-properties), the proxy is an indirect proxy that refers to the object adapter's
   `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, the proxy is a direct proxy that
