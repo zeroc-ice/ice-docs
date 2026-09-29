@@ -4,13 +4,13 @@ title: IceStorm.*
 
 [IceStorm](../icestorm) is an IceBox service that you can install using any name you like. For example:
 
-```
+```config
 IceBox.Service.DataFeed=IceStormService,...
 ```
 
 Nevertheless, we recommend you use `IceStorm` as service name, as in the example below:
 
-```
+```config
 IceBox.Service.IceStorm=IceStormService,...
 ```
 
@@ -74,7 +74,7 @@ This property is used by a [replicated IceStorm deployment](../highly-available-
 seconds that a replica waits for replies to an invitation to form a larger group. Lower priority replicas wait for
 intervals inversely proportional to the maximum priority:
 
-```
+```text
 ResponseTimeout + ResponseTimeout * (max - pri)
 ```
 

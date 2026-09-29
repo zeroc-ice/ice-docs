@@ -12,7 +12,7 @@ title: Ice.Trace.*
 
 #### Description
 
-Controls the trace level for the [Logger administrative facet](../the-logger-facet).
+Controls the trace level for the [Logger administrative facet](../logger-facet).
 
 | 0   | No trace (default).                                                   |
 | --- | --------------------------------------------------------------------- |
@@ -27,7 +27,7 @@ Controls the trace level for the [Logger administrative facet](../the-logger-fac
 
 #### Description
 
-Controls the trace level for property updates made via the [Properties facet](../the-properties-facet):
+Controls the trace level for property updates made via the [Properties facet](../properties-facet):
 
 | 0   | No property trace (default).                        |
 | --- | --------------------------------------------------- |
@@ -136,7 +136,7 @@ for slicing activities:
 
 #### Description
 
-Controls the trace level for the Ice [thread pool](../the-ice-threading-model):
+Controls the trace level for the Ice [thread pool](../threading-model):
 
 | 0   | No trace of thread pool activity (default).                 |
 | --- | ----------------------------------------------------------- |

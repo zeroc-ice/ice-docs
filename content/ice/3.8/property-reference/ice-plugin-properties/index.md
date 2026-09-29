@@ -35,7 +35,7 @@ example, `MyPlugin38d.dll`).
 
 Any arguments that follow the entry point are passed to the entry point function. For example:
 
-```
+```config
 Ice.Plugin.MyPlugin=MyFactory,38:create arg1 arg2
 ```
 
@@ -45,7 +45,7 @@ The `path` component may optionally contain a relative or absolute path name, in
 separator (`/` or `\`). In this case, the last component of the path is used to construct the version-specific name of
 the shared library or DLL. Consider this example:
 
-```
+```config
 Ice.Plugin.MyPlugin=./MyFactory,38:create arg1 arg2
 ```
 
@@ -54,7 +54,7 @@ Linux, `libMyFactory.38.dylib` on macOS, or `MyFactory38.dll` on Windows.
 
 If the `path` component contains spaces, the entire entry point must be enclosed in quotes:
 
-```
+```config
 Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory,38:create" arg1 arg2
 ```
 

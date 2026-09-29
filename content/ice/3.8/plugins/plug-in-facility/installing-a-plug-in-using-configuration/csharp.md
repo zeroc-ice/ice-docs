@@ -5,7 +5,7 @@ assembly.
 
 For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=CustomLogger.dll:ClearSky.CustomLoggerPluginFactory logLevel=Debug
 ```
 

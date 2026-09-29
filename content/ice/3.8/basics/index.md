@@ -3,8 +3,8 @@ title: Basics
 pages:
   - slice-and-slice-compilers
   - terminology
-  - the-ice-protocol-in-a-nutshell
-  - ice-services-overview
+  - protocol-in-a-nutshell
+  - services-overview
 ---
 
 Ice is at its core an [RPC framework](https://en.wikipedia.org/wiki/Remote_procedure_call) that allows you to build
@@ -21,8 +21,8 @@ _Ice client and server structure._
 Both client and server consist of a mixture of application code, library code, and code generated from Slice
 definitions:
 
-- The Ice core or [runtime](../the-ice-runtime) contains the client- and server-side runtime support for remote
-  communication. Much of this code is concerned with the details of networking, threading, byte ordering, and many other
+- The Ice core or [runtime](../runtime) contains the client- and server-side runtime support for remote communication.
+  Much of this code is concerned with the details of networking, threading, byte ordering, and many other
   networking-related issues that we want to keep away from application code.
 
 - You use the Ice API to take care of administrative chores, such as initializing and finalizing the Ice runtime. The

@@ -35,7 +35,7 @@ extern "C" Ice::Plugin* createCustomLoggerPlugin(
 Then, package your `CustomLogger` implementation and `createCustomLoggerPlugin` in a shared library or DLL, and
 configure your communicator to load it at runtime. For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=customlogger,0:createCustomLoggerPlugin
 ```
 

@@ -625,7 +625,7 @@ Python module with the same name as the Slice definition.
 
 For example:
 
-```
+```slice
 module VisitorCenter
 {
     /// Represents a simple greeter.
@@ -647,7 +647,7 @@ all generated code for the Slice Greeter interface:
 
 The generated package structure is:
 
-```
+```text
 VisitorCenter/__init__.py
 VisitorCenter/Greeter.py
 VisitorCenter/Greeter_forward.py
@@ -658,7 +658,7 @@ identifiers.
 
 With the following updated Slice definition:
 
-```
+```slice
 ["python:identifier:visitor_center"]
 module VisitorCenter
 {
@@ -675,7 +675,7 @@ module VisitorCenter
 
 The generated structure becomes:
 
-```
+```text
 visitor_center/__init__.py
 visitor_center/Greeter.py
 visitor_center/Greeter_forward.py

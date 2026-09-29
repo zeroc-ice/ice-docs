@@ -22,18 +22,18 @@ pages:
   - greeter-example
   - upgrade-guide
   - basics
-  - the-slice-language
-  - the-ice-runtime
-  - administration-and-diagnostics
+  - slice
+  - runtime
+  - administration
   - plugins
-  - ice-services
-  - ice-encoding
-  - ice-protocol
-  - windows-services-and-linux-daemons
-  - versioning-your-application
+  - services
+  - encoding
+  - protocol
+  - background-servers
+  - versioning
   - property-reference
-  - backward-compatibility-of-ice-versions
-  - using-ice-and-icerpc-together
+  - compatibility
+  - icerpc
   - release-notes
 ---
 
@@ -386,11 +386,11 @@ bar or press `⌘K`.
 
 {% card icon="book" title="Basics" description="Clients and servers, Slice, the Ice protocol, and the Ice services, in brief." href="basics" /%}
 
-{% card icon="braces" title="The Slice Language" description="Define the interfaces, operations, and data types your clients and servers share." href="the-slice-language" /%}
+{% card icon="braces" title="The Slice Language" description="Define the interfaces, operations, and data types your clients and servers share." href="slice" /%}
 
-{% card icon="cpu" title="The Ice Runtime" description="Communicators, proxies, object adapters, connections, and dispatch." href="the-ice-runtime" /%}
+{% card icon="cpu" title="The Ice Runtime" description="Communicators, proxies, object adapters, connections, and dispatch." href="runtime" /%}
 
-{% card icon="boxes" title="Ice Services" description="IceGrid, IceStorm, Glacier2, IceBox, IceBridge, and DataStorm." href="ice-services" /%}
+{% card icon="boxes" title="Ice Services" description="IceGrid, IceStorm, Glacier2, IceBox, IceBridge, and DataStorm." href="services" /%}
 
 {% card icon="sliders" title="Property Reference" description="Every property the Ice runtime and its services understand." href="property-reference" /%}
 
@@ -401,8 +401,8 @@ bar or press `⌘K`.
 {% releases /%}
 
 - **[Upgrade Guide](../upgrade-guide)**: moving an application from Ice 3.7 to Ice {% $version %}.
-- **[Backward Compatibility of Ice Versions](../backward-compatibility-of-ice-versions)**: what a patch, minor, or major
-  release keeps compatible.
+- **[Backward Compatibility of Ice Versions](../compatibility)**: what a patch, minor, or major release keeps
+  compatible.
 
 ## Beyond the manual
 
@@ -418,5 +418,4 @@ bar or press `⌘K`.
 - **[Demos on GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8)**: sample programs for every language mapping.
 - **[Ice on GitHub](https://github.com/zeroc-ice/ice)**: source code, issue tracker, and the
   [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) of each release.
-- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See
-  [Using Ice and IceRPC Together](../using-ice-and-icerpc-together).
+- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See [Using Ice and IceRPC Together](../icerpc).

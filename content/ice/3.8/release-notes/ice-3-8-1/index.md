@@ -3,7 +3,7 @@ title: Ice 3.8.1
 date: "2026-03-03"
 ---
 
-This [patch release](../backward-compatibility-of-ice-versions) includes bug fixes and small improvements to Ice 3.8.
+This [patch release](../compatibility) includes bug fixes and small improvements to Ice 3.8.
 
 We list below the main highlights. Please refer to the
 [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) for a detailed description of all the changes

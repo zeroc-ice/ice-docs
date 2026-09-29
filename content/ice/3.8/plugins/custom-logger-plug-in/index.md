@@ -20,6 +20,6 @@ initialization.
 ##### See Also
 
 - [Custom Loggers](../custom-loggers)
-- [The Per-Process Logger](../the-per-process-logger)
+- [The Per-Process Logger](../per-process-logger)
 - [Plug-in Facility](../plug-in-facility)
 - [Ice.Plugin.*](../ice-plugin-properties)

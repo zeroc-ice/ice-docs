@@ -14,7 +14,7 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 
 Alternatively, you can install the IceDiscovery plug-in at runtime using configuration:
 
-```
+```config
 Ice.Plugin.IceDiscovery=IceDiscovery:createIceDiscovery
 ```
 
@@ -22,7 +22,7 @@ The IceDiscovery library is always included in or linked with the Ice C++ suppor
 
 In order to load the IceDiscovery plug-in into your communicator, set the property `Ice.Plugin.IceDiscovery` to `1`:
 
-```
+```config
 Ice.Plugin.IceDiscovery=1
 ```
 

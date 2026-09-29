@@ -76,14 +76,14 @@ As you can see, the properties `IceLocatorDiscovery.Address`, `IceLocatorDiscove
 `IceLocatorDiscovery.Interface` are simply used as convenient shortcuts for customizing the details of the plug-in's
 endpoints. For example, suppose we want to use a different multicast address and port:
 
-```
+```config
 IceLocatorDiscovery.Address=239.255.0.99
 IceLocatorDiscovery.Port=8000
 ```
 
 The plug-in derives the following property from these settings:
 
-```
+```config
 IceLocatorDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
 ```
 

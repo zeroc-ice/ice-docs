@@ -95,7 +95,7 @@ The server application now be can be broken down into four pieces:
 First, we create a [Communicator](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator) with
 `Ice.initialize`:
 
-```
+```swift
 var args = CommandLine.arguments
 let communicator = try Ice.initialize(&args)
 defer {
@@ -185,6 +185,6 @@ destruction destroys the object adapter, close all incoming connections, and per
 
 To run the server, execute the following command (the executable will be compiled if necessary):
 
-```
+```shell
 swift run server
 ```

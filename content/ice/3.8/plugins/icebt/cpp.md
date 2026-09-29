@@ -14,7 +14,7 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 
 Alternatively, you can install the IceBT plug-in at runtime using configuration:
 
-```
+```config
 # Linux only
 Ice.Plugin.IceBT=IceBT:createIceBT
 ```

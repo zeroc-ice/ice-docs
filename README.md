@@ -1,8 +1,8 @@
 # Ice Docs
 
 Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual at
-`/ice/<version>/<slug>` — for example `/ice/3.8/the-slice-language/user-defined-types/enumerations`. Each page carries
-every language mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
+`/ice/<version>/<slug>` — for example `/ice/3.8/slice/user-defined-types/enumerations`. Each page carries every language
+mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
 
 ## Requirements
 

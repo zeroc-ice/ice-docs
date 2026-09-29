@@ -45,7 +45,7 @@ public class CustomLoggerPluginFactory : Ice.PluginFactory
 Then, package your `CustomLogger` implementation and `CustomLoggerPluginFactory` in a .NET assembly, and configure your
 communicator to load it at runtime. For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=CustomLogger.dll:ClearSky.CustomLoggerPluginFactory
 ```
 

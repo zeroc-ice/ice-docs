@@ -44,7 +44,7 @@ public class CustomLoggerPluginFactory implements PluginFactory {
 Then, package your `CustomLogger` implementation and `CustomLoggerPluginFactory` in a JAR file, and configure your
 communicator to load it at runtime. For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=customlogger.jar:com.example.clearsky.CustomLoggerPluginFactory
 ```
 

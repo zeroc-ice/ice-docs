@@ -22,7 +22,7 @@ The `path` component may optionally contain a relative or absolute path name, in
 separator (`/` or `\`). In this case, the last component of the path is used to construct the name of the shared library
 or DLL. Consider this example:
 
-```
+```config
 IceBox.Service.IceStorm=./IceStormService,38:createIceStorm
 ```
 
@@ -31,7 +31,7 @@ The use of a relative path means the Ice runtime will look in the current workin
 
 If the `path` component contains spaces, the entire entry point must be enclosed in quotes:
 
-```
+```config
 IceBox.Service.IceStorm="C:\Program Files\ZeroC\Ice-3.8\bin\IceStormService,38:createIceStorm"
 ```
 

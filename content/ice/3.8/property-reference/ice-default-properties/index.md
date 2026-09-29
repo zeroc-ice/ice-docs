@@ -68,13 +68,13 @@ The default identity of the IceGrid locator object is `IceGrid/Locator`, but thi
 [IceGrid.InstanceName](../icegrid-properties) property. The locator object is available on the IceGrid client endpoints.
 For example, suppose [IceGrid.Registry.Client.Endpoints](../icegrid-properties) is set as follows:
 
-```
+```config
 IceGrid.Registry.Client.Endpoints=tcp -p 12000 -h localhost
 ```
 
 In this case, the stringified proxy for the IceGrid locator is:
 
-```
+```config
 Ice.Default.Locator=IceGrid/Locator:tcp -p 12000 -h localhost
 ```
 
