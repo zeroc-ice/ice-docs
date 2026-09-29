@@ -25,11 +25,11 @@
 // the route provides, so a page may refer to `$frontmatter` or `$path`. The
 // transform also resolves every link and card against the page index, so the
 // second pass reports one that names no page, which the site renders as plain
-// text.
+// text, and one whose `#anchor` names no element on the page it links to.
 //
 // Exit code 1 on any diagnostic at warning level or above, and on a link to a
-// page that does not exist. `child-invalid`, which a `{% callout %}` reflowed
-// into its paragraph produces, is a warning.
+// page or an anchor that does not exist. `child-invalid`, which a
+// `{% callout %}` reflowed into its paragraph produces, is a warning.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -166,6 +166,10 @@ function* tagsOf(node) {
 
 // 2. Every page as the site renders it.
 let rendered = 0;
+// Page URL -> the ids on the page, and the links whose anchors to check against
+// them once every page is rendered.
+const anchorsByPage = new Map();
+const anchoredLinks = [];
 const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
   listPages(CONTENT_ROOT, version).map((page) => ({ version, page }))
 );
@@ -209,13 +213,29 @@ for (const { version, page } of allPages) {
     diagnostics.push({ where, text: `transform failed: ${error.message}` });
     continue;
   }
+  const url = pageHref(version, slug);
+  const anchors = new Set();
   for (const tag of tagsOf(tree)) {
-    if (tag.attributes.unresolved)
+    const { id, href, unresolved } = tag.attributes;
+    if (typeof id === 'string') anchors.add(id);
+    if (unresolved)
       diagnostics.push({
         where,
-        text: `link to a page that does not exist: ${tag.attributes.href}`
+        text: `link to a page that does not exist: ${href}`
       });
+    else if (typeof href === 'string' && href.includes('#'))
+      anchoredLinks.push({ where, url, href });
   }
+  anchorsByPage.set(url, anchors);
+}
+
+// Only the anchors of the manual's own pages are checked here; lychee checks
+// those of external pages.
+for (const { where, url, href } of anchoredLinks) {
+  const hashAt = href.indexOf('#');
+  const anchors = anchorsByPage.get(href.slice(0, hashAt) || url);
+  if (anchors && !anchors.has(decodeURIComponent(href.slice(hashAt + 1))))
+    diagnostics.push({ where, text: `link to a missing anchor: ${href}` });
 }
 
 for (const d of diagnostics) console.error(`${d.where}: ${d.text}`);

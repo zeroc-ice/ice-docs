@@ -20,7 +20,7 @@ npm test                           # unit tests for the content model (lib/docs-
 npm run check:content              # navigation, images, slots, titles, migration leftovers
 npm run check:content -- --strict  # also fail on every unclassified slot
 npm run check:content -- --slots   # list the blank language sections still to classify
-npm run check:markdoc              # every page against the Markdoc schema, and every link to a page; `build` runs it first
+npm run check:markdoc              # every page against the Markdoc schema, and every link to a page and its anchor; `build` runs it first
 npm run lint                       # lint:eslint, then lint:markdown
 npm run lint:eslint                # eslint; a warning fails it too
 npm run lint:markdown              # markdownlint on the content
