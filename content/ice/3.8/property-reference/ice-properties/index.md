@@ -272,12 +272,12 @@ in a process; it is ignored by other communicators.
 
 ### Description {% id="ice.messagesizemax-description" %}
 
-Sets the maximum size of an incoming uncompressed Ice protocol message, including its protocol header, in KiB (1024
-bytes). The default value is `1024` (1 MiB).
+Sets the maximum size of an incoming Ice protocol message, in KiB (1024 bytes). The limit applies to the whole message,
+including the protocol header; for a compressed message, it applies to the decompressed size. The default value is
+`1024` (1 MiB).
 
 Setting this property to 0 or a negative number selects the maximum supported message size of 2,147,483,647 bytes. A
-positive value must be at most 2,097,151 KiB; larger values cause communicator initialization to fail with an
-`InitializationException`.
+positive value must be at most 2,097,151 KiB.
 
 Over UDP, Ice drops an incoming message that exceeds this limit. Over the other transports, it rejects the message with
 a `MarshalException` and closes the connection. A client receiving an oversized reply gets this exception from its
