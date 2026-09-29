@@ -32,7 +32,7 @@ enum Color
 }
 ```
 
-The `python:identifier` directives in this example ensures the enumerators `Red`, `Green`, and `Blue` are mapped to
+The `python:identifier` directives in this example ensure the enumerators `Red`, `Green`, and `Blue` are mapped to
 `RED`, `GREEN`, and `BLUE`, per Python’s usual conventions, instead of the default mapping (`Red`, `Green`, and `Blue`).
 
 ### `python:list`
