@@ -23,7 +23,7 @@ Now, assuming you wrote a `CustomLogger` class that implements `Ice::Logger`, yo
 function that creates a `LoggerPlugin` and installs your logger into the communicator:
 
 ```cpp
-extern "C" Ice::Plugin* createCustomLoggerPlugin(
+extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createCustomLoggerPlugin(
     const Ice::CommunicatorPtr& communicator,
     const std::string&,
     const Ice::StringSeq&)
@@ -35,7 +35,7 @@ extern "C" Ice::Plugin* createCustomLoggerPlugin(
 Then, package your `CustomLogger` implementation and `createCustomLoggerPlugin` in a shared library or DLL, and
 configure your communicator to load it at runtime. For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=customlogger,0:createCustomLoggerPlugin
 ```
 

@@ -5,7 +5,7 @@ title: Installing a Plug-in using Configuration
 A plug-in can be installed into a communicator using a [configuration property](../ice-plugin-properties) of the
 following form:
 
-```
+```config
 
 Ice.Plugin.Name=entry_point [arg ...]
 ```
@@ -20,7 +20,7 @@ After extracting the plug-in's entry point from the property value, any remainin
 to that of command-line arguments. Whitespace separates the arguments, and any arguments that contain whitespace must be
 enclosed in quotes:
 
-```
+```config
 Ice.Plugin.MyPlugin=entry_point --load "C:\Data Files\config.dat"
 ```
 

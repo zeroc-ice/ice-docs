@@ -7,6 +7,7 @@
 //   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
 //   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
 //   <root>/<version>/examples/...              (snippet sources)
+//   <root>/<version>/redirects.yaml            old URL to new URL
 //
 // A page is a directory, and its path under the version is its slug, the path in
 // its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
@@ -23,8 +24,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
-import type { NavDoc, NavNode } from './nav.ts';
+import { pageHref, type NavDoc, type NavNode } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
+
+/** The content root, under the repository root that npm and Next run from. */
+export const CONTENT_ROOT = path.join(process.cwd(), 'content', 'ice');
 
 /** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
 export function listVersions(root: string): string[] {
@@ -185,6 +189,33 @@ export function readNavigation(root: string, version: string): NavDoc {
       ...nodes('', pages)
     ]
   };
+}
+
+/**
+ * The site's redirects, for Next's `redirects` config: the site root and `/ice`
+ * go to the newest version's front page, and each version's `redirects.yaml`
+ * sends old URLs to new ones.
+ */
+export function readRedirects(root: string) {
+  const versions = listVersions(root).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
+  const newest = pageHref(versions[versions.length - 1]);
+  const redirects = [
+    { source: '/', destination: newest, permanent: false },
+    { source: '/ice', destination: newest, permanent: false }
+  ];
+  for (const version of versions) {
+    const file = path.join(root, version, 'redirects.yaml');
+    if (!fs.existsSync(file)) continue;
+    const manifest = yamlLoad(fs.readFileSync(file, 'utf8')) as {
+      redirects: { from: string; to: string; permanent?: boolean }[];
+    };
+    for (const { from, to, permanent = false } of manifest.redirects) {
+      redirects.push({ source: from, destination: to, permanent });
+    }
+  }
+  return redirects;
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

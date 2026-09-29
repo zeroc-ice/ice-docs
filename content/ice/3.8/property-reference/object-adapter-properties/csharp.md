@@ -46,7 +46,7 @@ JavaScript). Non-browser Ice clients are unaffected.
 
 #### Example
 
-```
+```config
 MyAdapter.Endpoints=wss -h api.example.com -p 443
 MyAdapter.AllowedOrigins=https://web.example.com, https://admin.example.com
 ```
@@ -227,9 +227,9 @@ necessary to enable this feature in a thread pool whose maximum size is 1 thread
 implemented with AMD, it serializes the dispatching of requests from each connection, but it does not wait for a request
 to complete before it dispatches the next request.
 
-In a [multi-threaded pool](../the-ice-threading-model), enabling serialization allows requests from different
-connections to be dispatched concurrently while preserving the order of messages on each connection. Note that
-serialization can have a significant impact on latency and throughput. If not defined, the default value is 0.
+In a [multi-threaded pool](../threading-model), enabling serialization allows requests from different connections to be
+dispatched concurrently while preserving the order of messages on each connection. Note that serialization can have a
+significant impact on latency and throughput. If not defined, the default value is 0.
 
 # _adapter_.ThreadPool.Size
 
@@ -240,8 +240,8 @@ serialization can have a significant impact on latency and throughput. If not de
 #### Description
 
 A communicator creates a default server thread pool that dispatches requests to its object adapters. An object adapter
-can also be configured with its own [thread pool](../the-ice-threading-model). This is useful in avoiding deadlocks due
-to thread starvation by ensuring that a minimum number of threads is available for dispatching requests to certain Ice
+can also be configured with its own [thread pool](../threading-model). This is useful in avoiding deadlocks due to
+thread starvation by ensuring that a minimum number of threads is available for dispatching requests to certain Ice
 objects.
 
 The adapter uses the communicator's server thread pool when no `adapter.ThreadPool.*` property is set. Setting any
@@ -259,7 +259,7 @@ pool with one initial thread and a maximum of four threads.
 
 #### Description
 
-`num` is the maximum number of threads for the [thread pool](../the-ice-threading-model). See
+`num` is the maximum number of threads for the [thread pool](../threading-model). See
 [Ice.ThreadPool._name_.SizeMax](../ice-threadpool-properties) for more information.
 
 The default value is the value of [_adapter_.ThreadPool.Size](../object-adapter-properties#adapter.threadpool.size),
@@ -273,8 +273,8 @@ meaning the thread pool can never grow larger than its initial size.
 
 #### Description
 
-Whenever `num` threads are active in a [thread pool](../the-ice-threading-model), a "low on threads" warning is printed.
-The default value is 0, which disables the warning.
+Whenever `num` threads are active in a [thread pool](../threading-model), a "low on threads" warning is printed. The
+default value is 0, which disables the warning.
 
 # _adapter_.ThreadPool.StackSize
 
@@ -284,8 +284,8 @@ The default value is 0, which disables the warning.
 
 #### Description
 
-`num` is the stack size (in bytes) of threads in the [thread pool](../the-ice-threading-model). The default value is 0,
-meaning the operating system's default is used.
+`num` is the stack size (in bytes) of threads in the [thread pool](../threading-model). The default value is 0, meaning
+the operating system's default is used.
 
 # _adapter_.ThreadPool.ThreadIdleTime
 
@@ -295,8 +295,8 @@ meaning the operating system's default is used.
 
 #### Description
 
-In a dynamically-sized [thread pool](../the-ice-threading-model), Ice reaps a thread after it is idle for `num` seconds.
-Setting this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
+In a dynamically-sized [thread pool](../threading-model), Ice reaps a thread after it is idle for `num` seconds. Setting
+this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
 [Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties) for more information.
 
 # _adapter_.ThreadPool.ThreadPriority
@@ -307,9 +307,9 @@ Setting this property to 0 disables idle thread reaping. If not specified, the d
 
 #### Description
 
-`value` specifies a thread priority for the object adapter's [thread pool](../the-ice-threading-model). The object
-adapter creates its threads with the specified priority. Leaving this property unset causes the adapter to create
-threads with the priority specified by [Ice.ThreadPriority](../ice-properties).
+`value` specifies a thread priority for the object adapter's [thread pool](../threading-model). The object adapter
+creates its threads with the specified priority. Leaving this property unset causes the adapter to create threads with
+the priority specified by [Ice.ThreadPriority](../ice-properties).
 
 `value` can be `Lowest`, `BelowNormal`, `Normal`, `AboveNormal`, or `Highest`.
 

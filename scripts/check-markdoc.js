@@ -33,6 +33,7 @@ import Markdoc from '@markdoc/markdoc';
 
 import config from '../markdoc/config.ts';
 import {
+  CONTENT_ROOT,
   frontmatterOf,
   listPages,
   listVersions,
@@ -47,8 +48,6 @@ import {
   resolveDocument,
   stripRedundantTitle
 } from '../lib/docs-model/resolve.ts';
-
-const ROOT = path.join(process.cwd(), 'content', 'ice');
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
 const resolverTags = {
@@ -90,8 +89,8 @@ function validate(ast, source, tags, variables) {
 }
 
 const languagesByVersion = {};
-for (const version of listVersions(ROOT)) {
-  languagesByVersion[version] = readNavigation(ROOT, version).languages;
+for (const version of listVersions(CONTENT_ROOT)) {
+  languagesByVersion[version] = readNavigation(CONTENT_ROOT, version).languages;
 }
 
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
@@ -102,7 +101,7 @@ const pageIndexes = new Map();
 function variablesFor({ version, slug, frontmatter }) {
   if (!pageIndexes.has(version)) {
     const { index } = buildPageIndex(
-      listPages(ROOT, version).map((page) => page.slug)
+      listPages(CONTENT_ROOT, version).map((page) => page.slug)
     );
     pageIndexes.set(version, index);
   }
@@ -125,8 +124,8 @@ const reported = new Set();
 // 1. Every page as written.
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
-for (const version of listVersions(ROOT)) {
-  const files = listPages(ROOT, version).flatMap((page) =>
+for (const version of listVersions(CONTENT_ROOT)) {
+  const files = listPages(CONTENT_ROOT, version).flatMap((page) =>
     [page.shared, ...Object.values(page.overlays)]
       .filter(Boolean)
       .map((file) => ({ file, slug: page.slug }))
@@ -153,8 +152,8 @@ for (const version of listVersions(ROOT)) {
 
 // 2. Every page as the site renders it.
 let rendered = 0;
-const allPages = listVersions(ROOT).flatMap((version) =>
-  listPages(ROOT, version).map((page) => ({ version, page }))
+const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
+  listPages(CONTENT_ROOT, version).map((page) => ({ version, page }))
 );
 for (const { version, page } of allPages) {
   rendered++;
@@ -169,7 +168,7 @@ for (const { version, page } of allPages) {
         resolveDocument({
           shared: shared ?? '',
           overlays,
-          readFile: snippetReader(ROOT, version)
+          readFile: snippetReader(CONTENT_ROOT, version)
         }),
         frontmatter.title
       )

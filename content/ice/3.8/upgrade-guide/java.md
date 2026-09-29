@@ -11,7 +11,7 @@ files.
 
 **Before (3.7) ice-builder:**
 
-```
+```groovy
 plugins {
   id "com.zeroc.gradle.ice-builder.slice" version "1.5.0"
 }

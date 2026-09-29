@@ -37,6 +37,7 @@ import {
   splitFrontmatter
 } from '../lib/docs-model/resolve.ts';
 import {
+  CONTENT_ROOT,
   frontmatterOf,
   listVersions,
   listPages,
@@ -45,7 +46,6 @@ import {
 import { navigationPages } from '../lib/docs-model/nav.ts';
 
 const strict = process.argv.includes('--strict');
-const ROOT = path.join(process.cwd(), 'content', 'ice');
 const PUBLIC = path.join(process.cwd(), 'public');
 
 let errors = 0;
@@ -314,10 +314,10 @@ function checkNoBreakSpaces(files) {
   }
 }
 
-for (const version of listVersions(ROOT)) {
-  const nav = readNavigation(ROOT, version);
+for (const version of listVersions(CONTENT_ROOT)) {
+  const nav = readNavigation(CONTENT_ROOT, version);
 
-  const pages = listPages(ROOT, version);
+  const pages = listPages(CONTENT_ROOT, version);
   const { index, duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const languages = nav.languages;
@@ -344,7 +344,7 @@ for (const version of listVersions(ROOT)) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
-          `${version}: ${path.relative(ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the manual's languages`
+          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the manual's languages`
         );
     }
   }

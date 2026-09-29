@@ -158,5 +158,6 @@ After building the server (see the demo’s
 with `dotnet`:
 
 ```shell
+cd Server
 dotnet run
 ```

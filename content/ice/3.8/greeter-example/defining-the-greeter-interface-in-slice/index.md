@@ -3,8 +3,8 @@ title: Defining the Greeter Interface in Slice
 ---
 
 The first step of writing an Ice application is to define the contract between our client and server using
-[Slice](../the-slice-language). For this example, we just want a single operation that accepts a name, and returns a
-greeting computed from this name. Let’s see how to express this in Slice.
+[Slice](../slice). For this example, we just want a single operation that accepts a name, and returns a greeting
+computed from this name. Let’s see how to express this in Slice.
 
 ## Slice Files
 

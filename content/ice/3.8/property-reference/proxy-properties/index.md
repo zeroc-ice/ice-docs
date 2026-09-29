@@ -81,7 +81,7 @@ proxy method.
 This is a proxy property, so you can configure additional local aspects of the proxy with subordinate properties. For
 example:
 
-```
+```config
 MyProxy.Locator=...
 MyProxy.Locator.EndpointSelection=Ordered
 ```
@@ -112,7 +112,7 @@ proxy method.
 This is a proxy property, so you can configure additional local aspects of the proxy with subordinate properties. For
 example:
 
-```
+```config
 MyProxy.Router=...
 MyProxy.Router.EndpointSelection=Ordered
 ```

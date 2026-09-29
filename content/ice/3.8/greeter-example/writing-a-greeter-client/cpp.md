@@ -221,7 +221,7 @@ build\client
 
 With a server running, the client prints one greeting per invocation and exits:
 
-```
+```text
 Hello, alice!
 Hello, bob!
 Hello, carol!

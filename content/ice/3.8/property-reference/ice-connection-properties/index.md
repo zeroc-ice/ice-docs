@@ -9,8 +9,8 @@ The `Ice.Connection.Client.*` properties configure outgoing connections created 
 In language mappings that accept incoming connections, the [adapter.Connection.*](../object-adapter-properties)
 properties configure these connections and default to the `Ice.Connection.Server.*` properties.
 
-In the property descriptions below, replace `name` with `Client` in Ice for JavaScript, or with `Client` or `Server` in
-the other language mappings.
+In the property descriptions below, replace `name` with `Client` or, in language mappings that accept incoming
+connections, with `Server`.
 
 {% iflang langs="js" %}
 

@@ -39,7 +39,7 @@ The monolithic `zeroc.ice.net` package has been replaced with modular NuGet pack
 
      - Add the ZeroC Nightly Builds feed:
 
-       ```
+       ```text
        https://download.zeroc.com/nexus/repository/nuget-nightly/
        ```
 

@@ -59,7 +59,7 @@ configuration as well.
 Defines a proxy for an IceStorm topic manager for [icestormadmin](../icestorm-administration). Properties with this
 pattern are used by `icestormadmin` if multiple topic managers are in use, for example:
 
-```
+```config
 IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
 IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9995
 IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
@@ -71,7 +71,7 @@ topic can now specify a topic manager other than the default topic manager that 
 [IceStormAdmin.*#IceStormAdmin.TopicManager.Default](../icestormadmin-properties#icestormadmin.topicmanager.default).
 For example:
 
-```
+```text
 current Foo
 create myTopic
 create Bar/myOtherTopic

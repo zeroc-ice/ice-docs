@@ -20,13 +20,13 @@ explicitly.
 
 **Before (3.7)**:
 
-```
+```shell
 slice2py --all Root.ice
 ```
 
 **Now (3.8)**:
 
-```
+```shell
 slice2py Foo.ice Bar.ice Root.ice
 ```
 
@@ -78,14 +78,14 @@ module VisitorCenter
 
 **Generated output (3.7):**
 
-```
+```text
 ./VisitorCenter/__init__.py
 ./Greeter_ice.py
 ```
 
 **Generated output (3.8):**
 
-```
+```text
 ./VisitorCenter/__init__.py
 ./VisitorCenter/Greeter_forward.py
 ./VisitorCenter/Greeter.py
@@ -103,7 +103,7 @@ Key points:
 
 Import semantics are unchanged:
 
-```
+```py
 import VisitorCenter
 ```
 

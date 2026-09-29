@@ -306,7 +306,7 @@ function Tree({
         const label = clsx(
           'block flex-1 rounded-[5px] px-2 py-1.5 text-left leading-snug transition-colors',
           active
-            ? 'text-link font-semibold'
+            ? 'text-link'
             : onActiveTrail
               ? 'text-ink hover:text-link font-semibold'
               : // Top-level entries carry the shape of the manual, so they read at
