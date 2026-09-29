@@ -20,13 +20,19 @@ public class LoggerPlugin implements Plugin
 }
 ```
 
-The implementation of `initialize` and `destroy` in `LoggerPlugin` are no-op.
+The `initialize` and `destroy` methods do nothing. The communicator takes ownership of the logger and closes it when the
+communicator is destroyed.
 
-Now, assuming you wrote a `CustomLogger` class that implements `com.zeroc.Ice.Logger`, you can easily create a plug-in
-factory that creates a `LoggerPlugin` and installs your logger into the communicator:
+Now, assuming you wrote a `CustomLogger` class that implements `com.zeroc.Ice.Logger`, you can create a plug-in factory
+that creates a `LoggerPlugin` and installs your logger into the communicator:
 
 ```java
 package com.example.clearsky;
+
+import com.zeroc.Ice.Communicator;
+import com.zeroc.Ice.LoggerPlugin;
+import com.zeroc.Ice.Plugin;
+import com.zeroc.Ice.PluginFactory;
 
 public class CustomLoggerPluginFactory implements PluginFactory {
     @Override

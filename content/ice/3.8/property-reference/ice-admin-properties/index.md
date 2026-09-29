@@ -127,11 +127,10 @@ remote loggers. Without this sub-communicator, sending log messages to remote lo
 which in turn would generate more logs sent to remote loggers: a single genuine log could trigger an infinite number of
 log messages.
 
-The properties of this sub-communicator are a few properties of the application's communicator (`Ice.Default.Locator`,
-`Ice.Plugin.IceSSL` and all [IceSSL](../icessl-properties) properties), plus the properties (if any) specified by
-_propertyList_. *propertyList*is a sequence of strings, that Ice reads using
-[getPropertyAsList](https://code.zeroc.com/manual/Ice/Properties). Each of these strings uses the syntax
-_PropertyName_=_PropertyValue_ to set a property. For example, you could turn on protocol tracing on the `Logger`
+The sub-communicator copies `Ice.Default.Locator` and all [IceSSL](../icessl-properties) properties from the
+application's communicator, then applies the properties specified by _propertyList_. This value is a sequence of strings
+that Ice reads using [getPropertyAsList](https://code.zeroc.com/manual/Ice/Properties). Each of these strings uses the
+syntax _PropertyName_=_PropertyValue_ to set a property. For example, you could turn on protocol tracing on the `Logger`
 facet's sub-communicator with:
 
 ```config

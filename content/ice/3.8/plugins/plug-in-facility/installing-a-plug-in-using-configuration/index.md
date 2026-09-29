@@ -6,7 +6,6 @@ A plug-in can be installed into a communicator using a [configuration property](
 following form:
 
 ```config
-
 Ice.Plugin.Name=entry_point [arg ...]
 ```
 
@@ -24,7 +23,19 @@ enclosed in quotes:
 Ice.Plugin.MyPlugin=entry_point --load "C:\Data Files\config.dat"
 ```
 
-Ice passes these arguments to the plug-in during construction.
+Ice converts arguments of the form `--Name.Property=value` into communicator properties and removes them from the
+argument list. It passes the remaining arguments to the plug-in factory during construction. For example:
+
+```config
+Ice.Plugin.MyPlugin=entry_point --MyPlugin.Mode=fast input.dat
+```
+
+The factory receives `input.dat` in its arguments and can read `MyPlugin.Mode` from the communicator's properties.
+
+Use [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) to list dynamically loaded plug-ins whose construction
+order matters. Ice loads these first, in the specified order, and then loads the remaining configured plug-ins. It
+initializes plug-ins in construction order. A name in `Ice.PluginLoadOrder` must identify a configured plug-in that Ice
+has not already created through `InitializationData.pluginFactories`.
 
 ## See Also
 
