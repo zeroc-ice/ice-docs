@@ -4,7 +4,7 @@
 
 # Mapping for Operations
 
-As we saw in the [Client-Side Python Mapping for Interfaces](../client-side-python-mapping-for-interfaces), for each
+As we saw in the [Client-Side Python Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains 2 methods for this operation. To invoke
 an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../defining-the-greeter-interface-in-slice):
@@ -48,7 +48,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your program marshals the arguments to
   the method synchronously, but the remainder of this invocation is asynchronous, and the method returns a future
   immediately. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in Python](../asynchronous-method-invocation-ami-in-python).
+  [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>).
 
 {% callout type="info" %}
 
@@ -88,14 +88,14 @@ except Tantrum as t:
 
 ##### See Also
 
-- [Python Mapping for Parameters and Return Values](../python-mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in Python](../asynchronous-method-invocation-ami-in-python)
+- [Python Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
+- [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>)
 
 ## Server-Side Mapping for Operations
 
 # Default Mapping for Operations
 
-As we saw in the [Server-Side Python Mapping for Interfaces](../server-side-python-mapping-for-interfaces), for each
+As we saw in the [Server-Side Python Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton class contains an abstract method with the same name.
 
 For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
@@ -132,7 +132,7 @@ class Chatbot(VisitorCenter.Greeter):
 
 The `["amd"]` metadata has no effect in Python: you can implement the mapped method either synchronously (as in the
 example above) or asynchronously, as discussed on
-[Asynchronous Method Dispatch (AMD) in Python](../asynchronous-method-dispatch-amd-in-python).
+[Asynchronous Method Dispatch (AMD) in Python](#amd-mapping-for-operations).
 
 # Throwing Exceptions
 
@@ -158,8 +158,8 @@ type.
 
 ##### See Also
 
-- [Python Mapping for Parameters and Return Values](../python-mapping-for-parameters-and-return-values)
-- [Client-Side Python Mapping for Operations](../client-side-python-mapping-for-operations)
+- [Python Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
+- [Client-Side Python Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Asynchronous Method Invocation (AMI)
 
@@ -462,7 +462,7 @@ nested async invocation.
 ##### See Also
 
 - [Exceptions](../exceptions)
-- [Asynchronous Method Invocation (AMI) in Python](../asynchronous-method-invocation-ami-in-python)
+- [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>)
 - [The Ice Threading Model](../threading-model)
 
 ## Mapping for Parameters and Return Values
@@ -534,10 +534,7 @@ p.op3(p)                                # Pass proxy
 # Out Parameters
 
 As in Java, Python functions do not support reference arguments. That is, it is not possible to pass an uninitialized
-variable to a Python function in order to have its value initialized by the function. The
-[Java mapping](../client-side-java-mapping-for-operations) overcomes this limitation with the use of _holder classes_
-that represent each `out` parameter. The Python mapping takes a different approach, one that is more natural for Python
-users.
+variable to a Python function in order to have its value initialized by the function.
 
 The semantics of `out` parameters in the Python mapping depend on whether the operation returns one value or multiple
 values. An operation returns multiple values when it has declared multiple `out` parameters, or when it has declared a

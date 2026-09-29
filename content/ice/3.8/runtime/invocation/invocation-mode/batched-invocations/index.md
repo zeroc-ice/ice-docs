@@ -98,8 +98,8 @@ the target object (or interfaces with similar semantics). Batched oneway invocat
 because they are sent over connection-oriented transports, so individual packets cannot be lost.
 
 If automatic flushing is enabled, Ice's default behavior uses the smaller of
-[Ice.BatchAutoFlushSize](../miscellaneous-ice-properties) and [Ice.UDP.SndSize](../ice-udp-properties) to determine the
-maximum size for a batch datagram message.
+[Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize) and [Ice.UDP.SndSize](../ice-udp-properties) to
+determine the maximum size for a batch datagram message.
 
 # Compressing Batched Invocations
 

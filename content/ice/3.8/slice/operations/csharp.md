@@ -4,7 +4,7 @@
 
 # Mapping for Operations
 
-As we saw in the [Client-Side C# Mapping for Interfaces](../client-side-csharp-mapping-for-interfaces), for each
+As we saw in the [Client-Side C# Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains two methods for this operation. To invoke
 an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../defining-the-greeter-interface-in-slice):
@@ -60,7 +60,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your thread marshals the arguments to the
   method synchronously, but the remainder of this invocation is asynchronous, and the method returns immediately. You
   get the result (return value or exception) through a `Task`. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in C#](../asynchronous-method-invocation-ami-in-csharp).
+  [Asynchronous Method Invocation (AMI) in C#](<../operations#asynchronous-method-invocation-(ami)>).
 
 {% callout type="info" %}
 
@@ -106,15 +106,15 @@ catch (Tantrum t)
 
 ##### See Also
 
-- [C# Mapping for Parameters and Return Values](../csharp-mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in C#](../asynchronous-method-invocation-ami-in-csharp)
-- [Server-Side C# Mapping for Operations](../server-side-csharp-mapping-for-operations)
+- [C# Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
+- [Asynchronous Method Invocation (AMI) in C#](<../operations#asynchronous-method-invocation-(ami)>)
+- [Server-Side C# Mapping for Operations](#server-side-mapping-for-operations)
 
 ## Server-Side Mapping for Operations
 
 # Default Mapping for Operations
 
-As we saw in the [Server-Side C# Mapping for Interfaces](../server-side-csharp-mapping-for-interfaces), for each
+As we saw in the [Server-Side C# Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton class contains an abstract method with the same name.
 
 For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
@@ -162,7 +162,7 @@ internal class Chatbot : VisitorCenter.GreeterDisp_
 
 Each operation with the `["amd"]` metadata is mapped to a method with an `Async` suffix in the skeleton class. The AMD
 mapping replaces the default “sync” mapping for the operation. See
-[Asynchronous Method Dispatch (AMD) in C#](../asynchronous-method-dispatch-amd-in-csharp) for details.
+[Asynchronous Method Dispatch (AMD) in C#](#amd-mapping-for-operations) for details.
 
 # Throwing Exceptions
 
@@ -192,8 +192,8 @@ type.
 
 ##### See Also
 
-- [C# Mapping for Parameters and Return Values](../csharp-mapping-for-parameters-and-return-values)
-- [Client-Side C# Mapping for Operations](../client-side-csharp-mapping-for-operations)
+- [C# Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
+- [Client-Side C# Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Asynchronous Method Invocation (AMI)
 
@@ -346,7 +346,7 @@ then no threads are available to process new requests and therefore clients may 
 responsiveness.
 
 _Asynchronous Method Dispatch (AMD)_, the server-side equivalent of
-[AMI](../asynchronous-method-invocation-ami-in-csharp), addresses this scalability issue. Using AMD, a server can
+[AMI](<../operations#asynchronous-method-invocation-(ami)>), addresses this scalability issue. Using AMD, a server can
 receive a request but then suspend its processing in order to release the dispatch thread as soon as possible. When
 processing resumes and the results are available, the server can provide its results to the Ice runtime for delivery to
 the client.
@@ -439,7 +439,7 @@ returning a task completed with this exception.
 ##### See Also
 
 - [The Ice Threading Model](../threading-model)
-- [C# Mapping for Parameters and Return Values](../csharp-mapping-for-parameters-and-return-values)
+- [C# Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 
 ## Mapping for Parameters and Return Values
 

@@ -4,7 +4,7 @@
 
 # Mapping for Operations
 
-As we saw in the [Client-Side Swift Mapping for Interfaces](../client-side-swift-mapping-for-interfaces), for each
+As we saw in the [Client-Side Swift Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy protocol extension contains a method with the same name.
 To invoke an operation, you call this method on the proxy. For example, let’s take the generated code from the
 [greeter example](../defining-the-greeter-interface-in-slice):
@@ -91,13 +91,13 @@ do {
 
 ##### See Also
 
-- [Swift Mapping for Parameters and Return Values](../swift-mapping-for-parameters-and-return-values)
+- [Swift Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 
 ## Server-Side Mapping for Operations
 
 # Default Mapping for Operations
 
-As we saw in the [Server-Side Swift Mapping for Interfaces](../server-side-swift-mapping-for-interfaces), for each
+As we saw in the [Server-Side Swift Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton protocol contains an abstract method with the same
 name.
 
@@ -165,8 +165,8 @@ type.
 
 ##### See Also
 
-- [Swift Mapping for Parameters and Return Values](../swift-mapping-for-parameters-and-return-values)
-- [Client-Side Swift Mapping for Operations](../client-side-swift-mapping-for-operations)
+- [Swift Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
+- [Client-Side Swift Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Mapping for Parameters and Return Values
 

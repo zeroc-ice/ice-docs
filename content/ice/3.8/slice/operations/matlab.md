@@ -4,7 +4,7 @@
 
 # Mapping for Operations
 
-As we saw in the [Client-Side MATLAB Mapping for Interfaces](../client-side-matlab-mapping-for-interfaces), for each
+As we saw in the [Client-Side MATLAB Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains 2 methods for this operation. To invoke
 an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../defining-the-greeter-interface-in-slice):
@@ -55,7 +55,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your program marshals the arguments to
   the method synchronously, but the remainder of this invocation is asynchronous, and the method returns a future
   immediately. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in MATLAB](../asynchronous-method-invocation-ami-in-matlab).
+  [Asynchronous Method Invocation (AMI) in MATLAB](<../operations#asynchronous-method-invocation-(ami)>).
 
 {% callout type="info" %}
 
@@ -101,8 +101,8 @@ end
 
 ##### See Also
 
-- [MATLAB Mapping for Parameters and Return Values](../matlab-mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in MATLAB](../asynchronous-method-invocation-ami-in-matlab)
+- [MATLAB Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
+- [Asynchronous Method Invocation (AMI) in MATLAB](<../operations#asynchronous-method-invocation-(ami)>)
 
 ## Asynchronous Method Invocation (AMI)
 

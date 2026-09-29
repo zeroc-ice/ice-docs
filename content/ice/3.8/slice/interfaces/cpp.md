@@ -260,6 +260,6 @@ function that it inherits from its skeleton. This makes the servant class a conc
 can add other member functions and data members as you see fit to support your implementation.
 
 The async skeleton class is described in
-[Asynchronous Method Dispatch (AMD) in C++](../asynchronous-method-dispatch-amd-in-cpp).
+[Asynchronous Method Dispatch (AMD) in C++](../operations#amd-mapping-for-operations).
 
 {% /language-section %}
