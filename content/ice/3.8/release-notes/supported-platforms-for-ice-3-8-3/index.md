@@ -7,13 +7,13 @@ platforms and compilers might work as well but have not been tested.
 
 # Operating Systems
 
-| **Operating System**                                                                                                         | **Architecture**              | **Supported Languages**                               |
-| ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------- |
-| Windows 11, Windows Server 2022, Windows Server 2025                                                                         | x64                           | C++¹, C#, Java, JavaScript, MATLAB², Python           |
-| Amazon Linux 2023, Red Hat Enterprise Linux 9, Red Hat Enterprise Linux 10, Debian 12, Debian 13, Ubuntu 24.04, Ubuntu 26.04 | x86_64, aarch64, amd64, arm64 | C++, C#, Java, JavaScript, MATLAB², PHP, Python, Ruby |
-| macOS 26, macOS 27                                                                                                           | Apple Silicon                 | C++, C#, Java, JavaScript, PHP, Python, Ruby, Swift   |
-| iOS 26, iOS 27                                                                                                               | Apple Silicon                 | C++, Swift                                            |
-| Android 14, Android 15, Android 16, Android 17                                                                               | All                           | Java                                                  |
+| **Operating System**                                                                                                         | **Architecture**                | **Supported Languages**                               |
+| ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------- |
+| Windows 11, Windows Server 2022, Windows Server 2025                                                                         | x64                             | C++¹, C#, Java, JavaScript, MATLAB², Python           |
+| Amazon Linux 2023, Red Hat Enterprise Linux 9, Red Hat Enterprise Linux 10, Debian 12, Debian 13, Ubuntu 24.04, Ubuntu 26.04 | x86_64 (amd64), aarch64 (arm64) | C++, C#, Java, JavaScript, MATLAB², PHP, Python, Ruby |
+| macOS 26, macOS 27                                                                                                           | Apple Silicon                   | C++, C#, Java, JavaScript, PHP, Python, Ruby, Swift   |
+| iOS 26, iOS 27                                                                                                               | Apple Silicon                   | C++, Swift                                            |
+| Android 14, Android 15, Android 16, Android 17                                                                               | All                             | Java                                                  |
 
 ¹ Ice for C++ also provides x86 libraries on Windows.
 
