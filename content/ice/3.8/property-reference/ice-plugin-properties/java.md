@@ -18,6 +18,8 @@ Ice passes the remaining arguments to the factory's `create` method. For example
 Ice.Plugin.MyPlugin=MyFactory arg1 arg2
 ```
 
+The factory class and its no-argument constructor must be public.
+
 Whitespace separates the arguments, and any arguments that contain whitespace must be enclosed in quotes.
 
 If `path` is specified, it may be the path name of a JAR file or class directory, as shown below:
@@ -35,5 +37,9 @@ Ice.Plugin.MyPlugin="factory classes.jar":MyFactory
 
 If `class` is specified without a path, Ice attempts to load the class using class loaders. See
 [InitializationData.classLoader](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#classLoader).
+
+A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
+`InitializationData.pluginFactories`. Use `1` as the entry-point token in this case; Ice passes the remaining arguments
+to the factory. Including this plug-in's name in `Ice.PluginLoadOrder` causes `PluginInitializationException`.
 
 {% /language-section %}

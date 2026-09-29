@@ -52,6 +52,18 @@ available on the system to send and receive UDP multicast datagrams. This proper
 [IceDiscovery.Reply.Endpoints](../icediscovery-properties#icediscovery.reply.adapterproperty) and
 [IceDiscovery.Multicast.Endpoints](../icediscovery-properties#icediscovery.multicast.adapterproperty).
 
+## IceDiscovery.Locator._AdapterProperty_
+
+### Synopsis {% id="icediscovery.locator.adapterproperty-synopsis" %}
+
+`IceDiscovery.Locator.AdapterProperty=value`
+
+### Description {% id="icediscovery.locator.adapterproperty-description" %}
+
+IceDiscovery creates an object adapter named `IceDiscovery.Locator` to host its locator and locator registry. The
+[object adapter properties](../object-adapter-properties) configure this adapter. When its `Endpoints` property is
+unset, the plug-in assigns a generated adapter ID and uses collocated calls to these objects.
+
 ## IceDiscovery.Lookup
 
 ### Synopsis {% id="icediscovery.lookup-synopsis" %}
@@ -130,12 +142,11 @@ IceDiscovery creates an object adapter named `IceDiscovery.Reply` for receiving 
 [multicast requests](../icediscovery). If not otherwise defined by `IceDiscovery.Reply.Endpoints`, the endpoint for this
 object adapter is composed as follows:
 
-`udp [-h intf]`
+`udp -h "intf"`
 
-where `intf` is the value of [IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface). A fixed port
-is not necessary for this endpoint.
-
-You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
+Here, `intf` is [IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface). When that property is
+unset, the plug-in uses `udp -h "*"` to bind to all local interfaces. Ice chooses an available port. The
+[object adapter properties](../object-adapter-properties) configure the other settings of this adapter.
 
 ## IceDiscovery.RetryCount
 

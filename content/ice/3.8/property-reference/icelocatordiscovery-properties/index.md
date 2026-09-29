@@ -114,13 +114,11 @@ IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Reply` 
 [multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
 `IceLocatorDiscovery.Reply.Endpoints`, the endpoint for this object adapter is composed as follows:
 
-`udp [-h intf]`
+`udp -h "intf"`
 
-where `intf` is the value of
-[IceLocatorDiscovery.Interface](../icelocatordiscovery-properties#icelocatordiscovery.interface). A fixed port is not
-necessary for this endpoint.
-
-You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
+Here, `intf` is [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties#icelocatordiscovery.interface). When
+that property is unset, the plug-in uses `udp -h "*"` to bind to all local interfaces. Ice chooses an available port.
+The [object adapter properties](../object-adapter-properties) configure the other settings of this adapter.
 
 ## IceLocatorDiscovery.RetryCount
 
@@ -145,7 +143,8 @@ four attempts. A value of 0 sends only the initial query.
 
 If the plug-in fails to receive any responses to a query after retrying the number of times specified by
 [IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount), the plug-in waits at
-least `num` milliseconds before starting another round of query attempts. If not defined, the default value is `2000`.
+least `num` milliseconds before a later locator request can start another round of query attempts. Requests during this
+interval do not start discovery. If not defined, the default value is `2000`. The value must be zero or greater.
 
 ## IceLocatorDiscovery.Trace.Lookup
 

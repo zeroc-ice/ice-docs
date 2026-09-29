@@ -17,24 +17,20 @@ public interface Plugin {
 
 A plug-in object's lifecycle consists of four phases:
 
-- Construction The Ice runtime creates the plug-in using a factory (described below). During construction, a plug-in can
-  acquire resources but must not spawn new threads or perform activities that depend on other plug-ins.
+- **Construction.** Ice calls the plug-in factory during communicator initialization. Acquire resources here, but defer
+  starting threads and using other plug-ins until `initialize`.
+- **Initialization.** After constructing all plug-ins, Ice calls `initialize` in construction order. Factories in
+  `InitializationData.pluginFactories` run in list order, followed by plug-ins loaded through configuration. Use
+  [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) to order the latter. A plug-in can use another plug-in
+  after that plug-in has initialized.
+- **Active use.** The plug-in provides its services until the communicator is destroyed. Its implementation must handle
+  concurrent calls when multiple threads use these services.
+- **Destruction.** When the communicator is destroyed, Ice calls `destroy` in reverse initialization order.
 
-- Initialization After all plug-ins have been constructed, the Ice runtime invokes `initialize` on each plug-in. The
-  order in which plug-ins are initialized is undefined by default but can be customized using the
-  [Ice.PluginLoaderOrder](../ice-properties) property. If a plug-in has a dependency on another plug-in, you must
-  configure the Ice runtime so that initialization occurs in the proper order. In this phase it is safe for a plug-in to
-  spawn new threads; it is also safe for a plug-in to interact with other plug-ins and use their services, as long as
-  those plug-ins have already been initialized. If `initialize` throws an exception, the Ice runtime invokes `destroy`
-  on all plug-ins that were successfully initialized (in the reverse order of initialization) and throws the original
-  exception to the application.
-
-- Active The active phase spans the time between initialization and destruction. Plug-ins must be designed to operate
-  safely in the context of multiple threads.
-
-- Destruction The Ice runtime invokes `destroy` on each plug-in in the reverse order of initialization.
-
-This lifecycle is repeated for each new communicator that an application creates and destroys.
+If `initialize` fails, Ice calls `destroy` on the plug-ins that initialized successfully, in reverse order, and reports
+`PluginInitializationException`. Ice preserves this exception when the plug-in throws it directly and wraps other
+runtime exceptions. The failing plug-in must clean up resources acquired by its failed initialization; Ice does not call
+its `destroy` method. A plug-in that only reached construction must also arrange to release its resources.
 
 ## Plug-in Factory
 
@@ -53,8 +49,8 @@ The arguments to the create method consist of the communicator that is in the pr
 assigned to the plug-in, and any arguments that were specified in the
 [plug-in's configuration](../ice-plugin-properties).
 
-The `pluginName` is the default and preferred name of this plug-in. It’s the name used by Ice when it creates a plug-in
-configured using `InitializationData.pluginFactories` (see below).
+The value returned by `getPluginName()` is the default and preferred name of this plug-in. It’s the name used by Ice
+when it creates a plug-in configured using `InitializationData.pluginFactories` (see below).
 
 ## Loading a Plug-in Using InitializationData
 
@@ -64,20 +60,48 @@ this plug-in to the `pluginFactories` field of your communicator’s `Initializa
 For example:
 
 ```java
-// My application relies on the IceDiscovery plug-in, so I always load it.
 InitializationData initData = new InitializationData();
+initData.properties = new com.zeroc.Ice.Properties(args);
 initData.pluginFactories =
-    Collections.singletonList(new com.zeroc.IceDiscovery.PluginFactory());
+    java.util.List.of(new com.zeroc.IceDiscovery.PluginFactory());
 
-try (Communicator communicator = Util.initialize(initData)) {
-    ....
+try (Communicator communicator = new Communicator(initData)) {
+    // Use the communicator.
 }
 ```
 
 `pluginFactories` is a list of `com.zeroc.Ice.PluginFactory`.
 
-Plug-ins that are installed in the communicator via `pluginFactories` are created before the plug-ins registered via
-configuration.
+Ice uses each factory's preferred name and creates the plug-ins in list order, before the plug-ins loaded through
+configuration. A matching `Ice.Plugin.Name` property can supply arguments: use `1` as the entry-point token when
+providing the factory yourself. Ice passes the remaining arguments to the factory. For example:
+
+```config
+Ice.Plugin.MyPlugin=1 arg1 arg2
+```
+
+Keep these names out of `Ice.PluginLoadOrder`: including a plug-in already installed through `pluginFactories` causes
+communicator initialization to fail with `PluginInitializationException`.
+
+## Managing Plug-ins
+
+Call `getPluginManager` on the communicator to obtain its `PluginManager`. The manager provides these operations:
+
+| Operation                 | Behavior                                                                                                                                       |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getPlugins()`            | Return the names of installed plug-ins.                                                                                                        |
+| `getPlugin(name)`         | Return the named plug-in, or throw `NotRegisteredException` if the name is unknown.                                                            |
+| `addPlugin(name, plugin)` | Register an existing plug-in instance, or throw `AlreadyRegisteredException` if the name is in use. This operation does not call `initialize`. |
+| `initializePlugins()`     | Initialize the installed plug-ins in registration order. Calling it after successful initialization throws `InitializationException`.          |
+
+To configure a plug-in through its own API before initialization, set
+[Ice.InitPlugins](../ice-properties#ice.initplugins) to `0`. Create the communicator, obtain the plug-in with
+`getPlugin`, configure it, and then call `initializePlugins`. You can also call `addPlugin` before `initializePlugins`
+to include an application-created instance in initialization and destruction. If you add a plug-in after automatic
+initialization, initialize that instance yourself.
+
+Destroy the communicator to destroy its plug-ins. If you defer initialization and never call `initializePlugins`, Ice
+does not call their `destroy` methods.
 
 ## See Also
 

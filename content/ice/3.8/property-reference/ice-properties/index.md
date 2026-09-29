@@ -177,11 +177,11 @@ scope the context applies. Legal values for this property are `None` (equivalent
 
 {% iflang langs="cpp" %}
 
-If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. The order
-in which plug-ins are loaded and initialized is determined by Ice.PluginLoadOrder. An application may need to set this
-property to zero in order to interact directly with a plug-in after it has been loaded but before it is initialized. In
-this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization
-process. If not defined, the default value is 1.
+If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
+initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
+this order. An application may need to set this property to zero in order to interact directly with a plug-in after it
+has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
+plug-in manager to complete the initialization process. If not defined, the default value is 1.
 
 {% /iflang %}
 
@@ -344,7 +344,8 @@ IceGrid, IceBox (IceStorm), and Glacier2 are implemented using `Ice::Service`.
 
 Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
 context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
-by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
+by a comma or white space. Ice loads the remaining plug-ins configured with `Ice.Plugin.name` afterward, in an undefined
+order.
 
 {% iflang langs="cpp" %}
 

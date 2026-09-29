@@ -119,11 +119,11 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 ### Description {% id="ice.initplugins-description" %}
 
-If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. The order
-in which plug-ins are loaded and initialized is determined by Ice.PluginLoadOrder. An application may need to set this
-property to zero in order to interact directly with a plug-in after it has been loaded but before it is initialized. In
-this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization
-process. If not defined, the default value is 1.
+If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
+initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
+this order. An application may need to set this property to zero in order to interact directly with a plug-in after it
+has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
+plug-in manager to complete the initialization process. If not defined, the default value is 1.
 
 ## Ice.IPv4
 
@@ -161,10 +161,12 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
 context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
-by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
+by a comma or white space. Ice loads the remaining plug-ins configured with `Ice.Plugin.name` afterward, in an undefined
+order.
 
-Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
-not affected by this property.
+Ice creates plug-ins installed through `InitializationData.pluginFactories` before dynamically loaded plug-ins, in
+factory-list order. If `names` includes one of these plug-ins, communicator initialization fails with a
+`PluginInitializationException`.
 
 ## Ice.PreferIPv6Address
 
