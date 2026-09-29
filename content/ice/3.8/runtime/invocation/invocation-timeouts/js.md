@@ -3,7 +3,7 @@
 ```js
 var greeter = new VisitorCenter.GreeterPrx(
     communicator,
-    "tcp -h localhost -p 4061");
+    "greeter:tcp -h localhost -p 4061");
 greeter = greeter.ice_invocationTimeout(2500);
 ```
 

@@ -16,7 +16,7 @@ You can also perform a deeper proxy stringification by calling `proxyToProperty`
 {% language-section name="lang-2" /%}
 
 The resulting map or dictionary holds all the [proxy properties](../creating-proxies) for the supplied proxy. The second
-parameter of `propertyToProxy` is the base name for the [properties](../properties-overview) in the returned map.
+parameter of `proxyToProperty` is the base name for the [properties](../properties-overview) in the returned map.
 
 ##### See Also
 

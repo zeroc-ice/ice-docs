@@ -25,7 +25,7 @@ const propertyDict = communicator.proxyToProperty(greeter,"Greeter");
 const greeter = new GreeterPrx(
     communicator,
     "greeter:tcp -h localhost -p 4061");
-const propertyDict: Map<string,string> propertyDict =
+const propertyDict: Map<string,string> =
     communicator.proxyToProperty(greeter,"Greeter");
 ```
 

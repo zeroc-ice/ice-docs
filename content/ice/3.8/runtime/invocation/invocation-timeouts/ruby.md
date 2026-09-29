@@ -11,7 +11,7 @@ greeter = greeter.ice_invocationTimeout(2500)
 
 ```ruby
 begin
-    greeting = greet.greet("alice")
+    greeting = greeter.greet("alice")
     ...
 rescue Ice::InvocationTimeoutException => exception
     puts "invocation timed out"

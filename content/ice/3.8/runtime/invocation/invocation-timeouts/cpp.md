@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
 ```cpp
-VisitorCenter::GreeterPrx greeter{communicator, "tcp -h localhost -p 4061"};
+VisitorCenter::GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 greeter = greeter.ice_invocationTimeout(2500ms);
 ```
 

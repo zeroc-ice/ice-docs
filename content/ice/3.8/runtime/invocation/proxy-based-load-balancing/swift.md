@@ -3,7 +3,7 @@
 ```swift
 var proxy = try makeProxy(
     communicator: communicator,
-    proxyString: "greeter:tcp -h localhost -p 4061",
+    proxyString: "greeter:tcp -h 10.0.0.1 -p 4061:tcp -h 10.0.0.2 -p 4061",
     type: GreeterPrx.self)
 proxy = proxy.ice_connectionCached(false)
 proxy = proxy.ice_endpointSelection(.Random)

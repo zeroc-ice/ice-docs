@@ -6,7 +6,7 @@ You can stringify a proxy by calling `ice_toString` on this proxy. For example:
 $greeter = GreeterPrxHelper::createProxy(
     $communicator,
     "greeter:tcp -h localhost -p 4061");
-$s = $greeter.ice_toString();
+$s = $greeter->ice_toString();
 ```
 
 `ice_toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and

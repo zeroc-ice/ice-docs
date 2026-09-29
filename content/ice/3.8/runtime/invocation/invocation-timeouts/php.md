@@ -13,7 +13,7 @@ $greeter = $greeter->ice_invocationTimeout(2500);
 
 ```php
 try {
-    $greeting = $greeter>greet("alice");
+    $greeting = $greeter->greet("alice");
     ...
 } catch (Ice\InvocationTimeoutException $exception) {
     echo "invocation timed out\n";
