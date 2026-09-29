@@ -4,8 +4,9 @@
   "MD001": false,
   // Prettier wraps prose at 120 columns; nearly all longer lines left are one-line Markdoc tags, which it can't wrap.
   "MD013": false,
-  // Subheadings repeat across sections, such as each property's "Synopsis" and "Description".
-  "MD024": false,
+  // Subheadings repeat across sections, such as each property's "Synopsis" and "Description", so only headings that
+  // share a parent must differ.
+  "MD024": { "siblings_only": true },
   // `#` headings are a page's sections: the title comes from the frontmatter, and the site renders every heading one
   // level down.
   "MD025": false,
