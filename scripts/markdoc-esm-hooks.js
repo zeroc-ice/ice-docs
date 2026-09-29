@@ -6,7 +6,7 @@
 // `exports`, so Node picks the CommonJS build and cannot see its named exports:
 // `import { nodes } from '@markdoc/markdoc'` fails outside a bundler. This hook
 // sends that specifier to the ES module build instead, which is the one Next
-// bundles. `npm run check:markdoc` registers it with `--import`.
+// bundles. `npm test` and `npm run check:markdoc` register it with `--import`.
 
 import { register } from 'node:module';
 import { isMainThread } from 'node:worker_threads';

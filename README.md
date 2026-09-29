@@ -16,7 +16,7 @@ directly, through the type stripping those releases enable by default.
 npm install                        # install dependencies
 npm run dev                        # dev server on http://localhost:3000
 npm run build                      # production build (standalone), then the sitemap
-npm test                           # unit tests for the content model (lib/docs-model, utils)
+npm test                           # unit tests (lib, markdoc, scripts, utils)
 npm run check:content              # navigation, links, images, slots, titles, migration leftovers
 npm run check:content -- --strict  # also fail on unresolved links and missing images
 npm run check:content -- --slots   # list the blank language sections still to classify

@@ -22,7 +22,19 @@ const document = {
     const { frontmatter, chrome, path, readingTime, languages } =
       config.variables as PageVariables;
     const children = node.transformChildren(config);
-    const headings = children.map((child) => extractHeadings(child, [])).flat();
+    const placed = children.flatMap((child) => placedHeadings(child));
+    qualifyRepeatedIds(
+      placed.filter(({ tag }) => tag.name === 'Heading'),
+      languages
+    );
+    const headings = placed.map(({ tag, langs }): Record<string, unknown> =>
+      tag.name === 'Step'
+        ? { ...tag.attributes, showDividers: false, langs }
+        : // The heading node already resolved its own visible text, inline
+          // markup included; the outline and the anchor must agree on what it
+          // says.
+          { ...tag.attributes, title: tag.attributes.text ?? '', langs }
+    );
 
     return new Tag(
       `${this.render}`,
@@ -52,43 +64,62 @@ const document = {
   }
 };
 
+/** A heading or a step, with the mappings of the {% iflang %} block around it. */
+interface Placed {
+  tag: Tag;
+  /** Every mapping when absent. */
+  langs?: string[];
+}
+
 // A heading inside an {% iflang %} block belongs to those mappings only, and
 // the outline shows it only when one of them is the reader's.
-function extractHeadings(
+function placedHeadings(
   node: RenderableTreeNode,
-  sections: Record<string, unknown>[],
-  langs?: string[]
-) {
-  if (!Tag.isTag(node)) {
-    return sections;
-  }
-
-  // Add headings from step tags
-  if (node.name === 'Step') {
-    sections.push({
-      ...node.attributes,
-      showDividers: false,
-      langs
-    });
-  }
-
-  if (node.name === 'Heading') {
-    // The heading node already resolved its own visible text, inline markup
-    // included; the outline and the anchor must agree on what it says.
-    sections.push({
-      ...node.attributes,
-      title: node.attributes.text ?? '',
-      langs
-    });
-  }
-
+  langs?: string[],
+  out: Placed[] = []
+): Placed[] {
+  if (!Tag.isTag(node)) return out;
+  // The outline lists step tags alongside headings.
+  if (node.name === 'Heading' || node.name === 'Step')
+    out.push({ tag: node, langs });
   const inner =
     node.name === 'LangBlock' ? (node.attributes.langs as string[]) : langs;
-  for (const child of node.children) {
-    extractHeadings(child, sections, inner);
+  for (const child of node.children) placedHeadings(child, inner, out);
+  return out;
+}
+
+/**
+ * Give headings that share an anchor on the page a reader of some language
+ * sees their parent's anchor as a prefix, as in `ice.default.host-synopsis`,
+ * rewriting each tag's `id` in place. The parent is the nearest heading above,
+ * at a higher level, that all of the heading's readers see; a heading without
+ * one keeps its anchor.
+ */
+export function qualifyRepeatedIds(headings: Placed[], languages: string[]) {
+  const repeated = new Set<string>();
+  for (const language of languages) {
+    const ids = headings
+      .filter(({ langs }) => !langs || langs.includes(language))
+      .map(({ tag }) => tag.attributes.id as string);
+    ids.forEach((id, i) => {
+      if (ids.indexOf(id) !== i) repeated.add(id);
+    });
   }
 
-  return sections;
+  headings.forEach((heading, i) => {
+    const id = heading.tag.attributes.id as string;
+    const level = heading.tag.attributes.level as number;
+    if (!repeated.has(id)) return;
+    const readers = heading.langs ?? languages;
+    const parent = headings
+      .slice(0, i)
+      .findLast(
+        ({ tag, langs }) =>
+          (tag.attributes.level as number) < level &&
+          (!langs || readers.every((language) => langs.includes(language)))
+      );
+    if (parent) heading.tag.attributes.id = `${parent.tag.attributes.id}-${id}`;
+  });
 }
 
 export default document;

@@ -19,7 +19,7 @@
     "lint:markdown": "markdownlint \"content/**/*.md\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.js\"",
+    "test": "node --import ./scripts/markdoc-esm-hooks.js --test \"lib/**/*.test.ts\" \"markdoc/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.js\"",
     "check:content": "node scripts/check-content.js",
     "check:markdoc": "node --import ./scripts/markdoc-esm-hooks.js scripts/check-markdoc.js"
   },
