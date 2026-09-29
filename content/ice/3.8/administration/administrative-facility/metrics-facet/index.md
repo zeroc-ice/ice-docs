@@ -6,7 +6,7 @@ The `Metrics` facet provides convenient access to metrics for the Ice runtime an
 provided by this facet include the number of threads currently running and their state, the number of connections,
 information on invocations and dispatch, as well as connection establishment and endpoint name resolution.
 
-# Metrics Terminology
+## Metrics Terminology
 
 - metric: an "analytical measurement intended to quantify the state of a system", recorded by the Ice runtime, such as
   bytes sent over a connection.
@@ -19,7 +19,7 @@ information on invocations and dispatch, as well as connection establishment and
   metrics view to collect data at a higher level, such as the amount of bytes received and sent by all the connections
   from the communicator. This metrics view can be enabled all the time.
 
-# Metrics Types
+## Metrics Types
 
 Metrics are specified as Slice classes defined in the `Ice/Metrics.ice` Slice file. All the metrics types are defined in
 the `IceMX` module.
@@ -91,7 +91,7 @@ A metrics map can also contain sub-metrics maps. An example is the `Invocation` 
 sub-metrics map to record metrics associated with remote invocations. The Slice class for remote invocation metrics is
 `IceMX::Metrics`.
 
-# The `MetricsAdmin` Interface
+## The `MetricsAdmin` Interface
 
 The Slice interface `IceMX::MetricsAdmin` allows you to retrieve the metrics associated with the Ice communicator:
 
@@ -130,7 +130,7 @@ operations retrieve the metrics failures for a given map or metrics id.
 
 {% language-section name="lang-1" /%}
 
-# Metrics Attributes
+## Metrics Attributes
 
 Metrics views are configured with [IceMX Metrics properties](../icemx-metrics-properties).
 

@@ -2,13 +2,13 @@
 title: Glacier2.*
 ---
 
-# Glacier2.AddConnectionContext
+## Glacier2.AddConnectionContext
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.AddConnectionContext=num`
 
-#### Description
+### Description
 
 If `num` is set to 1 or 2, Glacier2 adds a number of key-value pairs to the
 [request context](../how-glacier2-uses-request-contexts) that it sends with each request. If `num` is set to 1, these
@@ -28,13 +28,13 @@ If num is non-0, Glacier2 adds the following context entries:
 
 The default value is 0, meaning that no contexts are added.
 
-# Glacier2.Client._AdapterProperty_
+## Glacier2.Client._AdapterProperty_
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Client.AdapterProperty=value`
 
-#### Description
+### Description
 
 Glacier2 uses the adapter name `Glacier2.Client` for the object adapter that it provides to clients. Therefore,
 [adapter properties](../object-adapter-properties) can be used to configure this adapter.
@@ -46,60 +46,60 @@ Note that `Glacier2.Registry.Client.Endpoints` controls the client endpoint for 
 TCP) and 4064 (for SSL) are reserved for Glacier2 by the
 [Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
 
-# Glacier2.Client.ForwardContext
+## Glacier2.Client.ForwardContext
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Client.ForwardContext=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Glacier2 router includes the
 [request context](../how-glacier2-uses-request-contexts) when forwarding requests from clients to servers. The default
 value is `0`.
 
-# Glacier2.Client.Trace.Reject
+## Glacier2.Client.Trace.Reject
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Client.Trace.Reject=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Glacier2 router logs a trace message whenever the router's configured
 [filters](../securing-a-glacier2-router) reject a client's request. The default value is `0`.
 
-# Glacier2.Client.Trace.Request
+## Glacier2.Client.Trace.Request
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Client.Trace.Request=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Glacier2 router logs a trace message for each request that is forwarded
 from a client. The default value is `0`.
 
-# Glacier2.CryptPasswords
+## Glacier2.CryptPasswords
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.CryptPasswords=file`
 
-#### Description
+### Description
 
 Specifies the file name of a Glacier2 [access control list](../securing-a-glacier2-router). Each line of the file must
 contain a user name and an encrypted password, separated by white space, as described in
 [Writing a Password File](../getting-started-with-glacier2). This property is ignored if
 [Glacier2.*#Glacier2.PermissionsVerifier](../glacier2-properties#glacier2.permissionsverifier) is defined.
 
-# Glacier2.Filter.AdapterId.Accept
+## Glacier2.Filter.AdapterId.Accept
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.AdapterId.Accept=list`
 
-#### Description
+### Description
 
 Specifies a space-separated list of adapter identifiers. If defined, the Glacier2 router
 [filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects with an adapter
@@ -108,13 +108,13 @@ identifier that matches one of the entries in this list.
 Identifiers that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identifier must be escaped with a leading backslash.
 
-# Glacier2.Filter.Address.Accept
+## Glacier2.Filter.Address.Accept
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.Address.Accept=list`
 
-#### Description
+### Description
 
 Specifies a space-separated list of address-port pairs. When defined, the Glacier2 router
 [filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects through proxies that
@@ -127,13 +127,13 @@ Each pair is of the form `address` or `address:port`. The `address` portion can 
 selection can be individual, value ranges, or groups. Ranges and groups have the form `[value1,value2,value3,...]`
 and/or `[value1-value2]`. If the `port` section is unspecified then all ports will be permitted.
 
-# Glacier2.Filter.Address.Reject
+## Glacier2.Filter.Address.Reject
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.Address.Reject=list`
 
-#### Description
+### Description
 
 Specifies a space-separated list of address-port pairs. When defined, the Glacier2 router rejects requests to Ice
 objects through proxies that contain network endpoint information that matches an address-port pair listed in this
@@ -147,13 +147,13 @@ Each pair is of the form `address` or `address:port`. The `address` portion can 
 selection can be individual, value ranges, or groups. Ranges and groups have the form `[value1,value2,value3,...]`
 and/or `[value1-value2]`. If the `port` section is unspecified then all ports will be rejected.
 
-# Glacier2.Filter.Category.Accept
+## Glacier2.Filter.Category.Accept
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.Category.Accept=list`
 
-#### Description
+### Description
 
 Specifies a space-separated list of identity categories. If defined, the Glacier2 router
 [filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects with an identity that
@@ -164,13 +164,13 @@ with a non-0 value, the router automatically adds the user name of each session 
 Categories that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within a
 category must be escaped with a leading backslash.
 
-# Glacier2.Filter.Category.AcceptUser
+## Glacier2.Filter.Category.AcceptUser
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.Category.AcceptUser=num`
 
-#### Description
+### Description
 
 Specifies whether to add an authenticated user ID to the
 [Glacier2.*#Glacier2.Filter.Category.Accept](../glacier2-properties#glacier2.filter.category.accept) property when
@@ -188,13 +188,13 @@ sessions.
 
 {% /callout %}
 
-# Glacier2.Filter.Identity.Accept
+## Glacier2.Filter.Identity.Accept
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.Identity.Accept=list`
 
-#### Description
+### Description
 
 Specifies a space-separated list of identities. If defined, the Glacier2 router
 [filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects with an identity that
@@ -203,25 +203,25 @@ matches one of the entries in this list.
 Identities that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identity must be escaped with a leading backslash.
 
-# Glacier2.Filter.ProxySizeMax
+## Glacier2.Filter.ProxySizeMax
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Filter.ProxySizeMax=num`
 
-#### Description
+### Description
 
 If set, the Glacier2 router [rejects requests](../securing-a-glacier2-router) whose stringified proxies are longer than
 `num`. This helps secure the system against attack. If not set, Glacier2 will accept requests using proxies of any
 length.
 
-# Glacier2.InstanceName
+## Glacier2.InstanceName
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.InstanceName=name`
 
-#### Description
+### Description
 
 Specifies a default identity category for the [Glacier2 objects](../getting-started-with-glacier2). If defined, the
 identity of the Glacier2 administrative interface becomes `name/admin` and the identity of the Glacier2 router interface
@@ -229,13 +229,13 @@ becomes `name/router`.
 
 If not defined, the default value is `Glacier2`.
 
-# Glacier2.PermissionsVerifier
+## Glacier2.PermissionsVerifier
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.PermissionsVerifier=proxy`
 
-#### Description
+### Description
 
 Specifies the proxy of an object that implements the `Glacier2::PermissionsVerifier` interface for
 [controlling access to Glacier2 sessions](../securing-a-glacier2-router). The router invokes this proxy to validate the
@@ -251,13 +251,13 @@ in which no authentication is necessary. To enable this verifier, set the proper
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-# Glacier2.RoutingTable.MaxSize
+## Glacier2.RoutingTable.MaxSize
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.RoutingTable.MaxSize=num`
 
-#### Description
+### Description
 
 This property sets the size of the router's [routing table](../securing-a-glacier2-router) to `num` entries. If more
 proxies are added to the table than this value, proxies are evicted from the table on a least-recently used basis.
@@ -269,13 +269,13 @@ these clients from failing.
 
 The default size of the routing table is 1000.
 
-# Glacier2.Server._AdapterProperty_
+## Glacier2.Server._AdapterProperty_
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Server.AdapterProperty=value`
 
-#### Description
+### Description
 
 Glacier2 uses the adapter name `Glacier2.Server` for the object adapter that it provides to servers. Therefore,
 [adapter properties](../object-adapter-properties) can be used to configure this adapter.
@@ -283,49 +283,49 @@ Glacier2 uses the adapter name `Glacier2.Server` for the object adapter that it 
 This adapter provides access to the `SessionControl` interface and must be accessible to servers that call back to
 router clients.
 
-# Glacier2.Server.ForwardContext
+## Glacier2.Server.ForwardContext
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Server.ForwardContext=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Glacier2 router includes the
 [request context](../how-glacier2-uses-request-contexts) when forwarding requests from servers to clients. The default
 value is `0`.
 
-# Glacier2.Server.Trace.Request
+## Glacier2.Server.Trace.Request
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Server.Trace.Request=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Glacier2 router logs a trace message for each request that is forwarded
 from a server. The default value is `0`.
 
-# Glacier2.SessionManager
+## Glacier2.SessionManager
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.SessionManager=proxy`
 
-#### Description
+### Description
 
 Specifies the proxy of an object that implements the `Glacier2::SessionManager` interface. The router invokes this proxy
 to create a new session for a client, but only after the router validates the client's user name and password.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-# Glacier2.SSLPermissionsVerifier
+## Glacier2.SSLPermissionsVerifier
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.SSLPermissionsVerifier=proxy`
 
-#### Description
+### Description
 
 Specifies the proxy of an object that implements the `Glacier2::SSLPermissionsVerifier` interface for
 [controlling access to Glacier2 sessions](../securing-a-glacier2-router). The router invokes this proxy to verify the
@@ -340,13 +340,13 @@ which no authentication is necessary. To enable this verifier, set the property 
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-# Glacier2.SSLSessionManager
+## Glacier2.SSLSessionManager
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.SSLSessionManager=proxy`
 
-#### Description
+### Description
 
 Specifies the proxy of an object that implements the `Glacier2::SSLSessionManager` interface for
 [managing sessions](../glacier2-session-management). The router invokes this proxy to create a new session for a client
@@ -354,13 +354,13 @@ that has called `createSessionFromSecureConnection`.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-# Glacier2.Trace.RoutingTable
+## Glacier2.Trace.RoutingTable
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Trace.RoutingTable=num`
 
-#### Description
+### Description
 
 The routing table trace level:
 
@@ -370,13 +370,13 @@ The routing table trace level:
 | 2   | Logs a message for each proxy that is evicted from the routing table (see [#Glacier2.RoutingTable.MaxSize](../glacier2-properties#glacier2.routingtable.maxsize)). |
 | 3   | Combines the output for trace levels 1 and 2.                                                                                                                      |
 
-# Glacier2.Trace.Session
+## Glacier2.Trace.Session
 
-#### Synopsis
+### Synopsis
 
 `Glacier2.Trace.Session=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Glacier2 router logs trace messages about session-related activities. The
 default value is `0`.

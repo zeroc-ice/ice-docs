@@ -5,7 +5,7 @@ pages:
   - proxy-types
 ---
 
-# Syntax and Semantics of Interfaces
+## Syntax and Semantics of Interfaces
 
 The central focus of Slice is on defining interfaces, for example:
 
@@ -61,7 +61,7 @@ Distribution boundaries must follow interface boundaries; you can spread the imp
 address spaces (and you can implement multiple interfaces in the same address space), but you cannot implement parts of
 interfaces in different address spaces.
 
-# Empty Interfaces
+## Empty Interfaces
 
 The following Slice definition is legal:
 
@@ -76,7 +76,7 @@ design that expresses your intent more cleanly.
 
 {% language-section name="language-mapping" /%}
 
-##### See Also
+## See Also
 
 - [Operations](../operations)
 - [User Exceptions](../exceptions)

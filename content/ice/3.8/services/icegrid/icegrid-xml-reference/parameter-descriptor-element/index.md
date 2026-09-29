@@ -25,7 +25,7 @@ Here is an example to demonstrate the use of this element:
 </server-template>
 ```
 
-##### See Also
+## See Also
 
 - [IceGrid Templates](../icegrid-templates)
 - [Server-Template Descriptor Element](../server-template-descriptor-element)

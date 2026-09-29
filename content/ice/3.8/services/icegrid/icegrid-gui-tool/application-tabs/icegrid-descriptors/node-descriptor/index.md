@@ -5,7 +5,7 @@ title: Node Descriptor
 A node represents an IceGrid node that starts and monitors your servers. Several applications can be deployed on the
 same node; however a node descriptor describes only the servers defined by the enclosing application.
 
-# Properties
+## Properties
 
 The Node Properties panel offers the following fields:
 
@@ -17,7 +17,7 @@ The Node Properties panel offers the following fields:
   (for Windows). Leaving this value blank is equivalent to the default: 1.0 on Linux and Unix, and 1.0 divided by the
   number of CPUs on Windows.
 
-# Children
+## Children
 
 A node can have two types of children:
 

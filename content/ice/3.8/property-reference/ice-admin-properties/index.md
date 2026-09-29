@@ -12,13 +12,13 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% /iflang %}
 
-# Ice.Admin._AdapterProperty_
+## Ice.Admin._AdapterProperty_
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.AdapterProperty=value`
 
-#### Description
+### Description
 
 The Ice run time creates and activates an [administrative object adapter](../creating-the-admin-object) named
 `Ice.Admin` if the [Administrative Facility](../administrative-facility) is enabled,
@@ -36,26 +36,26 @@ Note that enabling the `Ice.Admin` object adapter is a security risk because a h
 administrative object to shut down the process. As a result, the [endpoints](../object-adapter-endpoints) for this
 object adapter should be carefully defined so that only trusted clients are allowed to use it.
 
-# Ice.Admin.DelayCreation
+## Ice.Admin.DelayCreation
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.DelayCreation=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than zero, the Ice run time delays the creation of the `Ice.Admin`
 [administrative object adapter](../creating-the-admin-object) until `getAdmin` is invoked on the communicator. If not
 specified, the default value is zero, meaning the `Ice.Admin` object adapter is created immediately after all plug-ins
 are initialized, provided [Ice.Admin.Endpoints](../ice-admin-properties#ice.admin.adapterproperty) is defined.
 
-# Ice.Admin.Enabled
+## Ice.Admin.Enabled
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.Enabled=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than zero, the [Administrative Facility](../administrative-facility) is enabled. If `num` is
 a zero or a negative value, the [Administrative Facility](../administrative-facility) is disabled. If this property is
@@ -63,13 +63,13 @@ not set at all, the [Administrative Facility](../administrative-facility) is ena
 [Ice.Admin.Endpoints](../ice-admin-properties#ice.admin.adapterproperty) is defined and not empty, and is disabled
 otherwise.
 
-# Ice.Admin.Facets
+## Ice.Admin.Facets
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.Facets=name [name ...]`
 
-#### Description
+### Description
 
 Specifies the facets enabled by the [administrative object](../admin-object), allowing you to
 [filter](../filtering-administrative-facets) the facets that the administrative object enables by default. Facet names
@@ -78,49 +78,49 @@ quotes. If not specified, all facets are enabled. While the Ice run time creates
 Process and Properties) that are enabled, you can create administrative facets without checking the value of this
 property. Ice ensures that only enabled administrative facets are available to clients.
 
-# Ice.Admin.InstanceName
+## Ice.Admin.InstanceName
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.InstanceName=name`
 
-#### Description
+### Description
 
 Specifies an identity category for the [administrative object](../administrative-facility), when this object is created
 during communicator initialization or by a call to `getAdmin` on the communicator. If defined, the identity of the
 object becomes `name/admin`. If not specified, the default identity category is a UUID.
 
-# Ice.Admin.Logger.KeepLogs
+## Ice.Admin.Logger.KeepLogs
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.Logger.KeepLogs=num`
 
-#### Description
+### Description
 
 The [Logger admin facet](../logger-facet), when enabled, caches up the _num_ most recent log messages with a type other
 than `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache any of these log messages. The
 default value for _num_ is 100.
 
-# Ice.Admin.Logger.KeepTraces
+## Ice.Admin.Logger.KeepTraces
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.Logger.KeepTraces=num`
 
-#### Description
+### Description
 
 The [Logger admin facet](../logger-facet), when enabled, caches up the _num_ most recent log messages with type
 `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache any of these trace messages. The
 default value for _num_ is 100.
 
-# Ice.Admin.Logger.Properties
+## Ice.Admin.Logger.Properties
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.Logger.Properties=propertyList`
 
-#### Description
+### Description
 
 The [Logger admin facet](../logger-facet), when enabled, creates its own communicator to send log messages to attached
 remote loggers. Without this sub-communicator, sending log messages to remote loggers could trigger more local logging,
@@ -138,13 +138,13 @@ facet's sub-communicator with:
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1
 ```
 
-# Ice.Admin.ServerId
+## Ice.Admin.ServerId
 
-#### Synopsis
+### Synopsis
 
 `Ice.Admin.ServerId=id`
 
-#### Description
+### Description
 
 Specifies an identifier that uniquely identifies the process when the Ice runtime
 [registers the Process facet of its admin object with the locator registry](../icegrid-and-the-administrative-facility).

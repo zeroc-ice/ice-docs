@@ -53,7 +53,7 @@ You could disable a facet using filtering, but doing so may disrupt IceGrid's no
   [Ice.Admin.InstanceName](../ice-admin-properties) property is a reasonable alternative. In general, however, we
   recommend using the default behavior.
 
-##### See Also
+## See Also
 
 - [The admin Object](../admin-object)
 - [The Properties Facet](../properties-facet)

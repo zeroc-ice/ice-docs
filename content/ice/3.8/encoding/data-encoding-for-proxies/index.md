@@ -2,11 +2,11 @@
 title: Data Encoding for Proxies
 ---
 
-# Encoding for Proxy Options
+## Encoding for Proxy Options
 
 The encoding format of proxies changed in version 1.1.
 
-#### Proxy Encoding version 1.0
+### Proxy Encoding version 1.0
 
 The first component of an encoded proxy is a value of type `Ice::Identity`. If the proxy is a nil value, the `category`
 and `name` members are empty strings, and no additional data is encoded. The encoding for a non-null proxy consists of
@@ -37,7 +37,7 @@ The `facet` field has either zero elements or one element. An empty sequence den
 one-element sequence provides the facet name in its first member. If a receiver receives a proxy with a `facet` field
 with more than one element, it must throw a `ProxyUnmarshalException`.
 
-#### Proxy Encoding version 1.1
+### Proxy Encoding version 1.1
 
 Version 1.1 of the encoding adds two options to the existing proxy options in version 1.0: protocol and encoding
 versions. The proxy options are encoded as if they were members of the following structure:
@@ -74,7 +74,7 @@ The additional options are described in the table below:
 
 The encoding for [UDP endpoints](../data-encoding-for-proxies) also changed in version 1.1.
 
-# Encoding for Endpoints
+## Encoding for Endpoints
 
 A proxy optionally contains an [endpoint list or an adapter identifier](../proxy-endpoints), but not both:
 
@@ -96,7 +96,7 @@ receiver must be able to re-encode the proxy with all of its original endpoints,
 if the receiver does not understand the type-specific options for an endpoint. Encapsulation of the endpoint into an
 opaque endpoint allows the receiver to do this.
 
-# Encoding for TCP Endpoints
+## Encoding for TCP Endpoints
 
 A TCP endpoint is encoded as an encapsulation containing the following structure:
 
@@ -119,11 +119,11 @@ The endpoint options are described in the following table.
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 
-# Encoding for UDP Endpoints
+## Encoding for UDP Endpoints
 
 The encoding format of UDP endpoints changed in version 1.1.
 
-#### UDP Endpoint Encoding version 1.0
+### UDP Endpoint Encoding version 1.0
 
 A UDP endpoint is encoded as an encapsulation containing the following structure:
 
@@ -152,7 +152,7 @@ The endpoint options are described in the following table.
 | `encodingMinor` | The highest minor encoding version supported by the endpoint                                     |
 | `compress`      | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false` |
 
-#### UDP Endpoint Encoding version 1.1
+### UDP Endpoint Encoding version 1.1
 
 Version 1.1 of the encoding omits the protocol and encoding versions because these options are handled as proxy options
 instead:
@@ -174,7 +174,7 @@ The endpoint options are described in the following table.
 | `port`     | The server port (`1`-`65535`)                                                                    |
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false` |
 
-# Encoding for SSL Endpoints
+## Encoding for SSL Endpoints
 
 An SSL endpoint is encoded as an encapsulation containing the following structure:
 
@@ -197,7 +197,7 @@ The endpoint options are described in the following table.
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 
-# Encoding for WS Endpoints
+## Encoding for WS Endpoints
 
 A WebSocket endpoint is encoded as an encapsulation containing the following structure:
 
@@ -222,7 +222,7 @@ The endpoint options are described in the following table.
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 | `resource` | A URI representing the web server resource associated with this endpoint                                                 |
 
-# Encoding for WSS Endpoints
+## Encoding for WSS Endpoints
 
 A secure WebSocket endpoint is encoded as an encapsulation containing the following structure:
 
@@ -247,7 +247,7 @@ The endpoint options are described in the following table.
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 | `resource` | A URI representing the web server resource associated with this endpoint                                                 |
 
-# Encoding for BT Endpoints
+## Encoding for BT Endpoints
 
 A Bluetooth endpoint is encoded as an encapsulation containing the following structure:
 
@@ -270,7 +270,7 @@ The endpoint options are described in the following table.
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 
-# Encoding for BTS Endpoints
+## Encoding for BTS Endpoints
 
 A secure Bluetooth endpoint is encoded as an encapsulation containing the following structure:
 
@@ -293,7 +293,7 @@ The endpoint options are described in the following table.
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
 | `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 
-# Encoding for iAP Endpoints
+## Encoding for iAP Endpoints
 
 An iAP endpoint is encoded as an encapsulation containing the following structure:
 
@@ -320,7 +320,7 @@ The endpoint options are described in the following table.
 | `timeout`      | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
 | `compress`     | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
 
-# Encoding for iAPS Endpoints
+## Encoding for iAPS Endpoints
 
 A secure iAP endpoint is encoded as an encapsulation containing the following structure:
 

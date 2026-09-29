@@ -30,6 +30,6 @@ This section provides a reference for the XML elements that define IceGrid descr
 
 IceGrid XML files must use UTF-8 encoding.
 
-##### See Also
+## See Also
 
 - [Using IceGrid Deployment](../using-icegrid-deployment)

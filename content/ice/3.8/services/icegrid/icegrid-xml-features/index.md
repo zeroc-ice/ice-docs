@@ -4,7 +4,7 @@ title: IceGrid XML Features
 
 IceGrid provides some convenient features to simplify the task of defining descriptors in XML.
 
-# Adding Flexibility with Targets
+## Adding Flexibility with Targets
 
 An IceGrid XML file may contain optional definitions that are [deployed](../using-icegrid-deployment) only when
 specifically requested. These definitions are called targets and must be defined within a `target` element. The elements
@@ -44,7 +44,7 @@ deploy targets more selectively, you can specify a fully-qualified name instead.
 of its unqualified name prefaced by the names or identifiers of each enclosing element. For instance, a fully-qualified
 target name from the example above is `MyApp.Node.Server1.debug`.
 
-# Including Descriptor Files
+## Including Descriptor Files
 
 You can include the contents of another XML file into the current file using the `include` element, which is replaced
 with the contents of the included file. The elements in the included file must be enclosed in an `icegrid` element, as
@@ -107,7 +107,7 @@ illustrates the use of a target:
 </icegrid>
 ```
 
-##### See Also
+## See Also
 
 - [Using IceGrid Deployment](../using-icegrid-deployment)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

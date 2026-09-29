@@ -26,7 +26,7 @@ Ice.Plugin.MyPlugin=entry_point --load "C:\Data Files\config.dat"
 
 Ice passes these arguments to the plug-in during construction.
 
-##### See Also
+## See Also
 
 - [Ice.Plugin.*](../ice-plugin-properties)
 - [Ice.PluginLoadOrder](../ice-properties)

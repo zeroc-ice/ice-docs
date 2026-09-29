@@ -1,12 +1,12 @@
 {% language-section name="lang-1" %}
 
-# IceSSL.CAs
+## IceSSL.CAs
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CAs=path` (.NET)
 
-#### Description
+### Description
 
 Specifies the path name of a file containing the certificates of trusted certificate authorities (CAs). The file can be
 encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates.
@@ -17,13 +17,13 @@ locate `path` relative to the default directory defined by `IceSSL.DefaultDir`.
 If you wish to use the CA certificates bundled with your platform, leave this property unset and enable
 `IceSSL.UsePlatformCAs`.
 
-# IceSSL.CertFile
+## IceSSL.CertFile
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertFile=file` (.NET)
 
-#### Description
+### Description
 
 Specifies a file that contains the program's certificate and the corresponding private key. The file must use the PFX
 (PKCS#12) format. If a password is required to load the file, the application must supply the password using
@@ -35,13 +35,13 @@ locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
 IceSSL imports the private key into the machine key set when `IceSSL.CertStoreLocation` is `LocalMachine`, and into the
 user key set otherwise.
 
-# IceSSL.CertStore
+## IceSSL.CertStore
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertStore=name` (.NET)
 
-#### Description
+### Description
 
 Specifies the name of a certificate store to use when locating certificates via `IceSSL.FindCert`. Legal values for
 `name` include `AddressBook`, `AuthRoot`, `CertificateAuthority`, `Disallowed`, `My`, `Root`, `TrustedPeople`, and
@@ -49,13 +49,13 @@ Specifies the name of a certificate store to use when locating certificates via 
 
 If not specified, the default value is `My`.
 
-# IceSSL.CertStoreLocation
+## IceSSL.CertStoreLocation
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (.NET)
 
-#### Description
+### Description
 
 Specifies the location of the certificate store to use when locating certificates via `IceSSL.FindCert`. The location
 also selects the key set into which IceSSL imports the private key of the certificate loaded from `IceSSL.CertFile`: the
@@ -73,13 +73,13 @@ An Ice program running as a Windows service will typically need to set this prop
 
 {% language-section name="lang-2" %}
 
-# IceSSL.CheckCRL
+## IceSSL.CheckCRL
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CheckCRL=num` (.NET)
 
-#### Description
+### Description
 
 Specifies whether IceSSL checks the revocation status of the certificates in the peer's chain, and what happens when the
 revocation status of a certificate cannot be determined. The legal values are shown in the table below. If
@@ -101,9 +101,9 @@ The revocation sources are those of the platform, since .NET delegates certifica
 to its own OpenSSL-based chain builder on Linux, and to the Security framework on macOS. Windows and Linux fetch CRLs
 from the distribution points and query the OCSP responders named in the certificates.
 
-#### Platform Notes
+### Platform Notes
 
-###### macOS
+#### macOS
 
 The Security framework queries OCSP responders but does not fetch CRLs from distribution points. A certificate that
 publishes only a CRL therefore has an undeterminable revocation status: it is accepted with the value `1` and rejected
@@ -113,13 +113,13 @@ with the value `2`, whether or not it is revoked.
 
 {% language-section name="lang-3" %}
 
-# IceSSL.FindCert
+## IceSSL.FindCert
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.FindCert=criteria` (.NET)
 
-#### Description
+### Description
 
 Selects the program's certificate from a certificate store instead of loading it from a file. IceSSL ignores this
 property when `IceSSL.CertFile` is defined.

@@ -4,26 +4,26 @@ title: Ice.Warn.*
 
 {% language-section name="lang-1" /%}
 
-# Ice.Warn.Connections
+## Ice.Warn.Connections
 
-#### Synopsis
+### Synopsis
 
 `Ice.Warn.Connections=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Ice runtime logs warnings for certain exceptional conditions in
 connections. The default value is 0.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-# Ice.Warn.Datagrams
+## Ice.Warn.Datagrams
 
-#### Synopsis
+### Synopsis
 
 `Ice.Warn.Datagrams=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, a server logs a warning message if it receives a datagram that exceeds the
 server's receive buffer size. (Note that this condition is not detected by all UDP implementations — some
@@ -31,13 +31,13 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 {% /iflang %}
 
-# Ice.Warn.Dispatch
+## Ice.Warn.Dispatch
 
-#### Synopsis
+### Synopsis
 
 `Ice.Warn.Dispatch=num`
 
-#### Description
+### Description
 
 This property is ignored when [Ice.Trace.Dispatch](../ice-trace-properties) has a value larger than 0.
 
@@ -53,26 +53,26 @@ Warning levels:
 | 1   | Logs warnings for: all exceptions except dispatch exceptions, and the 3 Unknown exceptions (`UnknownException`, `UnknownLocalException`, `UnknownUserException`) |
 | 2   | Like 1, but also logs warnings for dispatch exceptions such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`.            |
 
-# Ice.Warn.Endpoints
+## Ice.Warn.Endpoints
 
-#### Synopsis
+### Synopsis
 
 `Ice.Warn.Endpoints=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning when a stringified proxy contains an endpoint
 that cannot be parsed. The default value is 1.
 
 {% language-section name="lang-2" /%}
 
-# Ice.Warn.UnusedProperties
+## Ice.Warn.UnusedProperties
 
-#### Synopsis
+### Synopsis
 
 `Ice.Warn.UnusedProperties=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning during communicator destruction if some
 properties were set but not read. This warning is useful for detecting mis-spelled properties, like if you wrote

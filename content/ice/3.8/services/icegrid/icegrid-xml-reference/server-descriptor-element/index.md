@@ -43,7 +43,7 @@ Here is an example to demonstrate the use of this element:
 </server>
 ```
 
-##### See Also
+## See Also
 
 - [Adapter Descriptor Element](../adapter-descriptor-element)
 - [Properties Descriptor Element](../properties-descriptor-element)

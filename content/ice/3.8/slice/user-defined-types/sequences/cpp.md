@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Mapping
+### Default Mapping
 
 Here is the definition of our FruitPlatter sequence once more:
 
@@ -24,7 +24,7 @@ p.push_back(Fruit::Apple);
 p.push_back(Fruit::Orange);
 ```
 
-## Customizing the Sequence Mapping with `cpp:type`
+### Customizing the Sequence Mapping with `cpp:type`
 
 The `cpp:type:c++-type` metadata directive allows you to map a given Slice type, field or parameter to the C++ type of
 your choice.
@@ -138,7 +138,7 @@ then you do not need to provide code to marshal and unmarshal your custom sequen
 Less formally, this means that if the provided class looks like a `vector`, `list`, or `deque` with respect to these
 points, you can use it as a custom sequence implementation without any additional coding.
 
-## Span Mapping for Sequence Parameters
+### Span Mapping for Sequence Parameters
 
 When you give a sequence parameter to Ice for marshaling, this parameter is passed by const reference. Take for example:
 
@@ -186,7 +186,7 @@ This span mapping can help reduce copies in the caller.
 
 {% /callout %}
 
-## Array Mapping for Sequence Parameters
+### Array Mapping for Sequence Parameters
 
 In addition to the default and custom mappings of sequence types as a whole, you can use metadata `["cpp:array"]` to map
 a single operation parameter of type sequence to a pair of pointers.

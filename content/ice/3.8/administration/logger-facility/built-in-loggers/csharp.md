@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-# .NET Logger
+## .NET Logger
 
 The default logger in Ice for C# writes its messages using the `System.Diagnostics.Trace` facility. By default, the
 communicator registers a `ConsoleTraceListener` that writes to `stderr`. You can disable the logging of messages via
@@ -17,7 +17,7 @@ EventLogTraceListener myTraceListener =
 Trace.Listeners.Add(myTraceListener);
 ```
 
-# Syslog Logger
+## Syslog Logger
 
 You can activate a logger that logs via the Unix `syslog` implementation by setting the
 [Ice.UseSyslog](../ice-properties) property.

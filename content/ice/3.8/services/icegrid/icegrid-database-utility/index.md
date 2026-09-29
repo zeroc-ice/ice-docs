@@ -4,7 +4,7 @@ title: IceGrid Database Utility
 
 The `icegriddb` utility is a command-line tool for importing and exporting an IceGrid registry database.
 
-# Usage
+## Usage
 
 The IceGrid Database utility supports the following command-line options:
 
@@ -21,7 +21,7 @@ Options:
  -d, --debug            Print debug messages.
 ```
 
-# Exporting an IceGrid Database
+## Exporting an IceGrid Database
 
 To export an IceGrid registry database, use the `--export` option to specify the output file and the `--dbpath` option
 to specify the path name of the registry's database directory. To discover the location of your database, review the
@@ -48,7 +48,7 @@ If you want to back-up the IceGrid registry database while the IceGrid registry 
 
 {% /callout %}
 
-# Importing an IceGrid Database
+## Importing an IceGrid Database
 
 To import an IceGrid registry database, use the `--import` option to specify the input file and the -`-dbpath` option to
 specify the path name of the registry's database directory. For example, use the following command to import a database
@@ -60,12 +60,12 @@ icegriddb --import registry.ixp --dbpath dbNew/registry
 
 The target directory must be empty.
 
-## mapsize Option
+### mapsize Option
 
 The `--mapsize` option allows you to set the map size of the new LMDB database. See
 [IceGrid.Registry.LMDB.MapSize](../icegrid-properties) for additional information.
 
-## server-version Option
+### server-version Option
 
 IceGrid allows you to assign an Ice version to each server it manages. IceGrid uses this information to generate
 configuration files for this server that are compatible with the specified Ice version. When a server has no associated
@@ -80,7 +80,7 @@ attribute remains unset, and a set attribute keeps the same value. You can make 
 icegriddb --server-version 3.7.1 --import registry.ixp --dbpath dbNew/registry
 ```
 
-# Compatibility
+## Compatibility
 
 Besides importing files that it creates itself, `icegriddb` can also import the files exported by older versions of this
 utility.

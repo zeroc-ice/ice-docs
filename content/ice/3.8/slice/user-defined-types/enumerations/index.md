@@ -2,7 +2,7 @@
 title: Enumerations
 ---
 
-# Enumeration Syntax and Semantics
+## Enumeration Syntax and Semantics
 
 A Slice enumerated type definition looks identical to C++:
 
@@ -54,7 +54,7 @@ clash.
 
 {% /callout %}
 
-# Custom Enumerator Values
+## Custom Enumerator Values
 
 Slice also permits you to assign custom values to enumerators:
 
@@ -86,10 +86,10 @@ please refer to the [encoding rules](../basic-data-encoding) for enumerators.
 
 {% /callout %}
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Constants and Literals](../constants-and-literals)

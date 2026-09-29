@@ -2,7 +2,7 @@
 title: Editing and Saving IceGrid Descriptors
 ---
 
-# Editing
+## Editing
 
 As soon as you make any update in a form, IceGrid GUI enables two buttons at the bottom of this form: Apply and Discard.
 
@@ -14,7 +14,7 @@ Editing a live application
 ![live application](/attachments/3.8/editing-and-saving-icegrid-descriptors/live-application.jpeg) also disconnects this
 application from the IceGrid registry: updates made by other users are no longer propagated to the Application tab.
 
-# Copy & Paste
+## Copy & Paste
 
 Most descriptor sub-trees can be copied and later pasted. Copies are always deep-copies: for example if you copy a node,
 all the servers on this code are copied, including all the the sub-elements of these servers (object adapters, services,
@@ -25,7 +25,7 @@ etc.).
 After pasting a sub-tree, you typically need to check and edit the new elements to avoid any duplicate server IDs,
 adapter IDs etc.
 
-# Error Checking
+## Error Checking
 
 IceGrid GUI performs very little error checking while you are working on an application definition. For example, you may
 temporarily keep several servers with the same ID, leave some parameters of a template instance unset, or use an
@@ -38,7 +38,7 @@ There are nonetheless two types of constraints enforced by IceGrid GUI at all ti
 
 If you violate such a constraint, IceGrid GUI prevents you from applying your change.
 
-# Saving
+## Saving
 
 You save an application definition to an IceGrid registry or an XML file with the menu item `File > Save`,
 `File > Save to File,` `File > Save to Registry (Servers may restart)`, `File > Save to Registry (No Server restart)` or
@@ -72,12 +72,12 @@ the desired effect. If you want to trigger a server restart even when only prope
 
 {% /callout %}
 
-# Discarding Updates
+## Discarding Updates
 
 You may discard all your updates by selecting `File > Discard Updates` or pressing the corresponding toolbar button.
 `Discard Updates` simply reloads the application from the IceGrid registry or its associated XML file.
 
-# Concurrent Updates to the same IceGrid Registry
+## Concurrent Updates to the same IceGrid Registry
 
 If several administrators update the same application definition concurrently, the last save will silently overwrite
 previous (concurrent) updates.

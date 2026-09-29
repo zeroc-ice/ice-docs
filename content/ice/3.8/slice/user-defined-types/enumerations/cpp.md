@@ -38,7 +38,7 @@ enumerator through Ice.
 
 {% /callout %}
 
-## Printing Enumerators
+### Printing Enumerators
 
 The Slice compiler also generates `operator<<` to “print” the enumerators of the C++ enum. For example:
 

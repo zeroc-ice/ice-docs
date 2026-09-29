@@ -14,7 +14,7 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for JavaScript
+## The Slice Compiler for JavaScript
 
 The Slice-to-JavaScript compiler (`slice2js`) offers the following command-line options in addition to the standard
 options:

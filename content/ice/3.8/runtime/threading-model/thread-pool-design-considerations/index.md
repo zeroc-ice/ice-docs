@@ -5,7 +5,7 @@ title: Thread Pool Design Considerations
 Improper configuration of a [thread pool](../thread-pools) can have a serious impact on the performance of your
 application. This page discusses some issues that you should consider when designing and configuring your applications.
 
-# Single-Threaded Pool
+## Single-Threaded Pool
 
 There are several implications of using a thread pool with a maximum size of one thread:
 
@@ -19,7 +19,7 @@ There are several implications of using a thread pool with a maximum size of one
 It is important to remember that a communicator's client and server thread pools have a default maximum size of **1
 thread**, therefore these limitations also apply to any object adapter that shares the communicator's thread pools.
 
-# Multi-Threaded Pool
+## Multi-Threaded Pool
 
 Configuring a thread pool to support multiple threads implies that the application is prepared for the Ice runtime to
 dispatch operation invocations or AMI callbacks concurrently. Although greater effort is required to design a
@@ -33,7 +33,7 @@ for the operating system to complete a task, such as a network or file operation
 configured with too many threads can have the opposite effect and negatively impact performance. Testing your
 application in a realistic environment is the recommended way of determining the optimum size for a thread pool.
 
-##### See Also
+## See Also
 
 - [Thread Pools](../thread-pools)
 - [Concurrent Proxy Invocations](../concurrent-proxy-invocations)

@@ -4,7 +4,7 @@ title: IceStorm Database Utility
 
 The `icestormdb` utility is a command-line tool for importing and exporting IceStorm databases.
 
-# Usage
+## Usage
 
 The IceStorm Database utility supports the following command-line options:
 
@@ -20,7 +20,7 @@ Options:
  -d, --debug            Print debug messages.
 ```
 
-# Exporting an IceStorm Database
+## Exporting an IceStorm Database
 
 To export an IceStorm database, use the `--export` option to specify the output file and the `--dbpath` option to
 specify the path name of the database. For example, use the following command to export a database found in the `db`
@@ -40,7 +40,7 @@ If you want to back-up the IceStorm database while IceStorm is running, we recom
 
 {% /callout %}
 
-# Importing an IceStorm Database
+## Importing an IceStorm Database
 
 To import an IceStorm database, use the `--import` option to specify the input file and the -`-dbpath` option to specify
 the path name of the database. For example, use the following command to import a database into the `dbNew` directory
@@ -52,12 +52,12 @@ icestormdb --import db.ixp --dbpath dbNew
 
 The target directory must be empty.
 
-## mapsize Option
+### mapsize Option
 
 The `--mapsize` option allows you to set the map size of the new LMDB database. See
 [IceStorm.LMDB.MapSize](../icestorm-properties) for additional information.
 
-# Compatibility
+## Compatibility
 
 Besides importing files that it creates itself, `icestormdb` can also import the files exported by older versions of
 this utility.

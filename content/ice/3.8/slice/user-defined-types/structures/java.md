@@ -47,7 +47,7 @@ You can optionally customize the mapping for [fields](../fields) to use getters 
 The `equals` method compares two structures for equality. Note that the generated class also provides the usual
 `hashCode` and `clone` methods. (`clone` has the default behavior of making a shallow copy.)
 
-## Generated Constructors
+### Generated Constructors
 
 The mapped Java class provides two constructors:
 

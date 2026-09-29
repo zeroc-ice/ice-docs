@@ -5,7 +5,7 @@ title: icegridadmin Command Line Tool
 The `icegridadmin` utility is a command-line tool for administering an IceGrid domain. Deploying an application with
 this utility requires an XML file that defines the descriptors.
 
-# Usage
+## Usage
 
 The IceGrid administration tool supports the following command-line options:
 
@@ -95,7 +95,7 @@ You can obtain more information about each category using the `help` command:
 >>> application help
 ```
 
-# Application Commands
+## Application Commands
 
 - `application add DESC [TARGET ... ] [NAME=VALUE ... ]` Add applications described in the XML descriptor file `DESC`.
   If specified the optional [targets](../icegrid-xml-features) are deployed.
@@ -113,7 +113,7 @@ You can obtain more information about each category using the `help` command:
   that would require a restart.
 - `application list` List all deployed applications.
 
-# Node Commands
+## Node Commands
 
 - `node list` List all registered nodes.
 - `node describe NAME` Show information about node `NAME`.
@@ -133,7 +133,7 @@ You can obtain more information about each category using the `help` command:
 
 - `node shutdown NAME` Shutdown node `NAME`.
 
-# Registry Commands
+## Registry Commands
 
 - `registry list` List all registered registries.
 - `registry describe NAME` Show information about registry `NAME`.
@@ -149,7 +149,7 @@ You can obtain more information about each category using the `help` command:
 
 - `registry shutdown NAME` Shutdown registry `NAME`.
 
-# Server Commands
+## Server Commands
 
 - `server list` List all registered servers.
 - `server remove ID` Remove server `ID`.
@@ -176,7 +176,7 @@ You can obtain more information about each category using the `help` command:
 - `server enable ID` Enable server `ID`.
 - `server disable ID` Disable server `ID`. A [disabled server](../icegrid-troubleshooting) cannot be started on demand.
 
-# Service Commands
+## Service Commands
 
 - `service start ID NAME` Starts service `NAME` in IceBox server `ID`.
 - `service stop ID NAME` Stops service `NAME` in IceBox server `ID`.
@@ -185,13 +185,13 @@ You can obtain more information about each category using the `help` command:
 - `service property ID NAME PROPERTY` Get the run-time property `PROPERTY` of service `NAME` from IceBox server `ID`.
 - `service list ID` List the services in IceBox server `ID`.
 
-# Adapter Commands
+## Adapter Commands
 
 - `adapter list` List all registered adapters.
 - `adapter endpoints ID` Show the endpoints of adapter or replica group `ID`.
 - `adapter remove ID` Remove adapter or replica group `ID`.
 
-# Object Commands
+## Object Commands
 
 The `object` command operates on [well-known objects](../well-known-objects).
 
@@ -203,7 +203,7 @@ The `object` command operates on [well-known objects](../well-known-objects).
 - `object list EXPR` List all well-known objects whose stringified identities match the expression `EXPR`. A trailing
   wildcard is supported in `EXPR`, for example "`object list Ice*`".
 
-# Server Template
+## Server Template
 
 - `server template instantiate APPLICATION NODE TEMPLATE  [NAME=VALUE ...]` Instantiate the requested
   [server template](../icegrid-templates) defined in the given application on a node.
@@ -211,12 +211,12 @@ The `object` command operates on [well-known objects](../well-known-objects).
 - `server template describe APPLICATION TEMPLATE` Describe a [server template](../icegrid-templates)`TEMPLATE` from the
   given application.
 
-# Service Template
+## Service Template
 
 - `service template describe APPLICATION TEMPLATE` Describe a [service template](../icegrid-templates)`TEMPLATE` from
   the given application.
 
-##### See Also
+## See Also
 
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)

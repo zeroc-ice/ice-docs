@@ -2,7 +2,7 @@
 title: Dictionaries
 ---
 
-# Dictionary Syntax and Semantics
+## Dictionary Syntax and Semantics
 
 A dictionary is a mapping from a key type to a value type.
 
@@ -38,7 +38,7 @@ appropriate:
   value. On the other hand, dictionaries are implemented as a data structure (typically a hash table or red-black tree)
   that supports efficient searching in _O_(log _n_) average time or better.
 
-# Allowable Types for Dictionary Keys and Values
+## Allowable Types for Dictionary Keys and Values
 
 The key type of a dictionary need not be an integral type. For example, we could use the following definition to
 translate the names of the days of the week:
@@ -65,6 +65,6 @@ type. Complex types are disallowed because they complicate the language mappings
 types are disallowed because representational changes of values as they cross machine boundaries can lead to ill-defined
 semantics for equality.
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}

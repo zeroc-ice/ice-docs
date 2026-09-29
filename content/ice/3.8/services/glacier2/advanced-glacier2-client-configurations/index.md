@@ -4,7 +4,7 @@ title: Advanced Glacier2 Client Configurations
 
 This section details strategies that Glacier2 clients can use to address more advanced requirements.
 
-# Callback Strategies with Multiple Object Adapters
+## Callback Strategies with Multiple Object Adapters
 
 An application that needs to support callback requests from a router as well as requests from local clients should use
 multiple object adapters to ensure that proxies created by these object adapters contain the appropriate endpoints. For
@@ -31,7 +31,7 @@ The solution is to dedicate an object adapter solely to handling callback reques
 clients. The object adapter dedicated to callback requests must be
 [configured with the router proxy](../callbacks-through-glacier2).
 
-# Using Multiple Routers
+## Using Multiple Routers
 
 A client is not limited to using only one router at a time: the
 [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx) `ice_router` allows a client to configure its routed proxies
@@ -39,7 +39,7 @@ as necessary. With respect to callbacks, a client must create a new callback obj
 forward callback requests to the client. A client must also be aware of the
 [object identities](../getting-started-with-glacier2) in use by the routers.
 
-# Using the `RouterFinder` Interface
+## Using the `RouterFinder` Interface
 
 A router's identity can be changed by setting the `Glacier2.InstanceName` property, which affects the category portion
 of the identity. The default identity of a Glacier2 router is `Glacier2/Router`, but we can change it to
@@ -73,7 +73,7 @@ of a router's client endpoints, a client can discover the router's proxy with a 
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Getting Started with Glacier2](../getting-started-with-glacier2)
 - [Callbacks through Glacier2](../callbacks-through-glacier2)

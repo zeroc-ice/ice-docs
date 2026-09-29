@@ -28,13 +28,13 @@ For a list of supported maps see:
 - [Glacier2 Metrics](../glacier2-metrics)
 - [IceStorm Metrics](../icestorm-metrics)
 
-# IceMX.Metrics._view_.Accept._attribute_
+## IceMX.Metrics._view_.Accept._attribute_
 
-#### Synopsis
+### Synopsis
 
 `IceMX.Metrics.view.Accept.attribute=regexp`
 
-#### Description
+### Description
 
 This property defines a rule to accept the monitoring of an instrumented object or operation based on the value of one
 of its attribute. If the `attribute` matches the specified `regex` and if it satisfies other `Accept` and `Reject`
@@ -45,25 +45,25 @@ For example, to accept monitoring instrumented objects or operations which are f
 
 - `IceMX.Metrics.MyView.Accept.parent=MyAdapter`
 
-# IceMX.Metrics._view_.Disabled
+## IceMX.Metrics._view_.Disabled
 
-#### Synopsis
+### Synopsis
 
 `IceMX.Metrics.view.Disabled=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than zero, the metrics view or the map is disabled. This property is useful to
 pre-configure a view or map. The view can be disabled initially to not incur overhead and enabled only when needed at
 runtime.
 
-# IceMX.Metrics._view_.GroupBy
+## IceMX.Metrics._view_.GroupBy
 
-#### Synopsis
+### Synopsis
 
 `IceMX.Metrics.view.GroupBy=delimited attributes`
 
-#### Description
+### Description
 
 This property defines how metrics are grouped and how the ID of each metrics object is created. The grouping is based on
 attributes specific to the instrumented object or operation. For example, you can group the invocation metrics by
@@ -77,13 +77,13 @@ are defined in relevant section of the Ice manual. Here are some examples of Gro
 - `IceMX.Metrics.MyView.GroupBy=identity [operation]`
 - `IceMX.Metrics.MyView.GroupBy=remoteHost:remotePort`
 
-# IceMX.Metrics._view_.Reject._attribute_
+## IceMX.Metrics._view_.Reject._attribute_
 
-#### Synopsis
+### Synopsis
 
 `IceMX.Metrics.view.Reject.attribute=regexp`
 
-#### Description
+### Description
 
 This property defines a rule to accept the monitoring of an instrumented object or operation based on the value of one
 of its attribute. If the `attribute` matches the specified `regex` and if it satisfies other `Accept` and `Reject`
@@ -94,13 +94,13 @@ For example, to reject monitoring instrumented objects or operations which are f
 
 - `IceMX.Metrics.MyView.Reject.parent=Ice\.Admin`
 
-# IceMX.Metrics._view_.RetainDetached
+## IceMX.Metrics._view_.RetainDetached
 
-#### Synopsis
+### Synopsis
 
 `IceMX.Metrics.view.RetainedDetached=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than zero, up to `num` metrics object whose `current` value is 0 will be kept in
 memory by the metrics map. This is useful to prevent indefinite memory growth if the monitoring of an instrumented

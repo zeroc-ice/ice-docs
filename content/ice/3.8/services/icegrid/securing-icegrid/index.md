@@ -9,7 +9,7 @@ IceGrid's internal interfaces to deploy and run its own server executable.
 
 This page describes the steps you can take to secure your IceGrid application.
 
-# IceGrid Security Overview
+## IceGrid Security Overview
 
 Using a firewall is one way to prevent unauthorized use of IceGrid's facilities. Another solution is to use
 [IceSSL](../ssl-transport): you can generate SSL certificates for each component and configure them to trust and accept
@@ -47,13 +47,13 @@ the common names shown below:
 - `IceGrid Node`
 - `Server`
 
-# Understanding the Registry Endpoints
+## Understanding the Registry Endpoints
 
 The IceGrid registry has three mandatory endpoints representing the client, server, and internal endpoints. The registry
 also has two optional endpoints (the session manager and administrative session manager endpoints) that are only useful
 when [accessing IceGrid via Glacier2](../glacier2-integration-with-icegrid).
 
-## Client Endpoint
+### Client Endpoint
 
 The registry client endpoint is used by Ice applications that create client sessions in order to use the
 [resource allocation](../resource-allocation-using-icegrid-sessions) facility. It is also used by
@@ -82,7 +82,7 @@ null permission verifiers. Note however that if both client and administrative s
 able to restrict access to one set of clients since you cannot distinguish clients that create client sessions from
 clients that create administrative sessions.
 
-## Server Endpoint
+### Server Endpoint
 
 Ice servers use the registry's server endpoint to register their object adapter endpoints and send information to
 [administrative clients](../icegrid-and-the-administrative-facility) connected via the registry.
@@ -95,7 +95,7 @@ to trusted Ice servers:
 IceSSL.TrustOnly.Server.IceGrid.Registry.Server=CN="Server"
 ```
 
-## Internal Endpoint
+### Internal Endpoint
 
 IceGrid nodes and registry replicas use the internal endpoint to communicate with the registry. For example, nodes
 connect to the internal endpoint of each active registry, and [registry slaves](../registry-replication) establish a
@@ -109,7 +109,7 @@ with the following property:
 IceSSL.TrustOnly.Server.IceGrid.Registry.Internal=CN="IceGrid Node";CN="IceGrid Registry"
 ```
 
-## Session Manager Endpoint
+### Session Manager Endpoint
 
 The session manager endpoint is used by Glacier2 to create IceGrid
 [client sessions](../glacier2-integration-with-icegrid). The functionality exposed by this endpoint is unrestricted so
@@ -123,7 +123,7 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.SessionManager=CN="Glacier2 Router Clie
 In this example, `Glacier2 Router Client` is the common name of the Glacier2 router used by clients to create IceGrid
 client sessions.
 
-## Administrative Session Manager Endpoint
+### Administrative Session Manager Endpoint
 
 Glacier2 routers use the registry's administrative session manager endpoint to create IceGrid
 [administrative sessions](../glacier2-integration-with-icegrid). The functionality exposed by this endpoint is
@@ -144,7 +144,7 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.SessionManager=CN="Glacier2 Router Clie
 IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router Client"
 ```
 
-## IceLocatorDiscovery Endpoint
+### IceLocatorDiscovery Endpoint
 
 The registry (including all replicas) listens by default for UDP multicast requests from
 [IceLocatorDiscovery](../icelocatordiscovery) clients. Each client request includes a proxy to which the registry sends
@@ -160,7 +160,7 @@ via trust relationships. You can prevent registries from listening for discovery
 IceGrid.Registry.Discovery.Enabled=0
 ```
 
-## Outgoing Connections
+### Outgoing Connections
 
 The registry establishes outgoing connections to other registries and nodes. You should configure the
 `IceSSL.TrustOnly.Client` property to restrict connections to these trusted peers:
@@ -173,7 +173,7 @@ The registry can also connect to Glacier2 routers and permission verifier object
 services, you must include in this property the common names of Glacier2 routers that create client or administrative
 sessions, as well as the common names of servers that host the permission verifier objects.
 
-# Understanding the Node Endpoints
+## Understanding the Node Endpoints
 
 An IceGrid node has only one endpoint, which is used for internal communications with the registry. As a result, it
 should be configured to accept connections only from IceGrid registries:
@@ -190,7 +190,7 @@ You should configure the `IceSSL.TrustOnly.Client` property as shown below to ve
 IceSSL.TrustOnly.Client=CN="Server";CN="IceGrid Registry"
 ```
 
-# Understanding the Administrative Endpoints with IceGrid
+## Understanding the Administrative Endpoints with IceGrid
 
 By default, IceGrid sets the endpoints of a deployed server's `Ice.Admin` adapter to `tcp -h 127.0.0.1`. This setting is
 already quite secure because it only accepts connections from processes running on the same host. However, since you
@@ -213,7 +213,7 @@ IceSSL.TrustOnly.Client=CN="IceGrid Registry"
 
 If your server invokes on other servers, you will need to modify this setting to allow secure connections to them.
 
-##### See Also
+## See Also
 
 - [IceSSL](../ssl-transport)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)

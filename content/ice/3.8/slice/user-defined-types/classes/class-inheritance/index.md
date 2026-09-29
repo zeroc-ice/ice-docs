@@ -2,7 +2,7 @@
 title: Class Inheritance
 ---
 
-# Simple Inheritance
+## Simple Inheritance
 
 Unlike [structures](../structures), classes support inheritance. For example:
 
@@ -72,10 +72,10 @@ class Derived extends Base
 }
 ```
 
-# Implicit Inheritance from Value
+## Implicit Inheritance from Value
 
 All classes implicitly inherit from `Value`. This way, a `Value` parameter in an operation accepts any class instance.
 
-##### See Also
+## See Also
 
 - [Structures](../structures)

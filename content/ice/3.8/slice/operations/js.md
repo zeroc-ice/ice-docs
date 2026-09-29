@@ -1,8 +1,8 @@
 {% language-section name="language-mapping" %}
 
-# Client-Side Mapping for Operations
+## Client-Side Mapping for Operations
 
-## Mapping for Operations
+### Mapping for Operations
 
 For each Slice operation defined on an interface, the generated proxy class provides a method with the same name. To
 invoke an operation, you call this method on the proxy.
@@ -70,7 +70,7 @@ The arguments passed to the promise resolution depend on the operation signature
 - If the operation has a **return value and/or out parameters**, the promise is fulfilled with an array: the return
   value (if any) followed by the out parameters.
 
-## Exception Handling
+### Exception Handling
 
 Any operation invocation may throw a [local exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../exceptions). Suppose we have the following simple
@@ -105,7 +105,7 @@ try {
 }
 ```
 
-# Server-Side Mapping for Operations
+## Server-Side Mapping for Operations
 
 For each Slice operation defined on an interface, the generated skeleton class includes a corresponding abstract member
 function with the same name.
@@ -165,9 +165,9 @@ async greet(name: string, current: Ice.Current): PromiseLike<string> | string {
 }
 ```
 
-# Mapping for Parameters and Return Values
+## Mapping for Parameters and Return Values
 
-## Passing Parameters in JavaScript
+### Passing Parameters in JavaScript
 
 The parameter passing rules for the JavaScript mapping are very simple: parameters are passed either by value (for
 simple types) or by reference (for complex types). Semantically, the two ways of passing parameters are identical: it is
@@ -250,7 +250,7 @@ await p.op2(ns, ss, st);                      // Pass complex variables
 await p.op3(p);                               // Pass proxy
 ```
 
-## Null Parameters in JavaScript
+### Null Parameters in JavaScript
 
 Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
 can be `null`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
@@ -265,7 +265,7 @@ sequences, dictionaries, or strings. As far as the object model is concerned, th
 sequences, dictionaries, and strings do). For example, whether you send a string as `null` or as an empty string makes
 no difference to the receiver: either way, the receiver sees an empty string.
 
-## Optional Parameters in JavaScript
+### Optional Parameters in JavaScript
 
 [Optional parameters](../operations) use the same mapping as required parameters. The only difference is that
 `undefined` can be passed as the value of an optional parameter or return value to indicate an "unset" condition.

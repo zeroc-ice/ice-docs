@@ -35,7 +35,7 @@ This `property` element adds the following definition to the server's configurat
 Ice.ThreadPool.Server.SizeMax=10
 ```
 
-##### See Also
+## See Also
 
 - [Properties and Configuration](../properties-and-configuration)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

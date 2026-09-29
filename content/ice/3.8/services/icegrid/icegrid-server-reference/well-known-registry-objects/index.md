@@ -2,7 +2,7 @@
 title: Well-Known Registry Objects
 ---
 
-# Default Identities of Registry Objects
+## Default Identities of Registry Objects
 
 The IceGrid registry hosts several [well-known objects](../well-known-objects). The following table shows the default
 identities of these objects and their corresponding Slice interfaces:
@@ -48,7 +48,7 @@ Ice.Default.Locator=MP3Grid/Locator:tcp -h registryhost -p 4061
 
 Furthermore, any uses of these identities in application code must be updated as well.
 
-# Using the `LocatorFinder` Interface
+## Using the `LocatorFinder` Interface
 
 Ice requires all locator implementations to support the `Ice::LocatorFinder` interface:
 
@@ -74,6 +74,6 @@ auto locator = finder.getLocator();
 communicator->setDefaultLocator(locator);
 ```
 
-##### See Also
+## See Also
 
 - [Well-Known Objects](../well-known-objects)

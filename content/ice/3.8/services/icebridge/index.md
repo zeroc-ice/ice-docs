@@ -5,7 +5,7 @@ title: IceBridge
 IceBridge is an Ice service that acts as a bridge between one or more clients and a server. IceBridge is implemented in
 C++.
 
-# IceBridge Overview
+## IceBridge Overview
 
 IceBridge relays requests from clients to a _target server_ and makes every effort to be as transparent as possible. One
 example use case for IceBridge is when a client needs to communicate with a server over a particular transport, but the
@@ -26,7 +26,7 @@ IceBridge provides several features:
 
 The next section describes how to configure IceBridge.
 
-# Configuring IceBridge
+## Configuring IceBridge
 
 IceBridge supports the following properties:
 
@@ -85,7 +85,7 @@ IceBridge.Target.Endpoints=bt -a "01:23:45:67:89:AB" -u "6a193943-1754-4869-8d0a
 With this configuration, a client can connect to the bridge using TCP, and the bridge will establish a Bluetooth
 connection to the device with the given address offering the service identified by the given UUID.
 
-# IceBridge Object Identities
+## IceBridge Object Identities
 
 An IceBridge server hosts one well-known object. The default identity of this object is `IceBridge/router`,
 corresponding to the `Ice::Router` interface.
@@ -113,7 +113,7 @@ A client can discover the bridge's proxy for its router at run time using the
 
 {% /callout %}
 
-# Using IceBridge
+## Using IceBridge
 
 Clients will require configuration changes to use IceBridge but shouldn't normally require any code changes. The first
 step is evaluating whether your client should use IceBridge as a router:
@@ -159,7 +159,7 @@ proxies with the bridge's source endpoints:
 Client.Proxy=SomeObject:tcp -h bridge.host -p 10000
 ```
 
-# Starting IceBridge
+## Starting IceBridge
 
 ```shell
 icebridge -h
@@ -179,7 +179,7 @@ command:
 icebridge --Ice.Config=config
 ```
 
-# IceBridge Limitations
+## IceBridge Limitations
 
 Although IceBridge attempts to be as transparent as possible, it does have some limitations that you should be aware of.
 

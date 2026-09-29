@@ -5,7 +5,7 @@ title: Using IceGrid Deployment
 Here we extend the capabilities of our [sample application](../getting-started-with-icegrid) using IceGrid's deployment
 facility.
 
-# Ripper Architecture using Deployment
+## Ripper Architecture using Deployment
 
 The revised architecture for our application consists of a single IceGrid node responsible for our encoding server that
 runs on the computer named `ComputeServer`. The illustration below shows the client's initial invocation on its indirect
@@ -20,7 +20,7 @@ server. In this revised application, the client's locate request prompts the reg
 server's state and start it if necessary. Once the server starts successfully, the locate request completes and
 subsequent client communication occurs directly with the server.
 
-# Ripper Deployment Descriptors
+## Ripper Deployment Descriptors
 
 We can deploy our application using the [icegridadmin command line utility](../icegridadmin-command-line-tool), but
 first we must define our descriptors in XML. The descriptors are quite brief:
@@ -71,7 +71,7 @@ The `endpoints` attribute defines one or more [endpoints](../object-adapter-endp
 
 Refer to the [XML reference](../icegrid-xml-reference) for detailed information on using XML to define descriptors.
 
-# Ripper Registry and Node Configuration
+## Ripper Registry and Node Configuration
 
 In our [initial registry configuration](../getting-started-with-icegrid), we created the directory
 `/opt/ripper/registry` for use by the registry. The node also needs a subdirectory for its own purposes, so we will use
@@ -125,7 +125,7 @@ The node properties are explained below:
   not collocated. Refer to our discussion of the [ripper client configuration](../getting-started-with-icegrid) for more
   information on this setting.
 
-# Ripper Server Configuration using Deployment
+## Ripper Server Configuration using Deployment
 
 Server configuration is accomplished using descriptors. During deployment, the node creates a subdirectory tree for each
 server. Inside this tree the node creates a configuration file containing properties derived from the server's
@@ -184,7 +184,7 @@ When a node activates a server, it passes the location of the server's configura
 [--Ice.Config](../ice-properties) command-line argument. If you start a server manually from a command prompt, you must
 supply this argument yourself.
 
-# Starting the Node for the Ripper Application
+## Starting the Node for the Ripper Application
 
 Now that the configuration file is written and the directory structure is prepared, we are ready to start the IceGrid
 registry and node. Using a collocated registry and node, we only need to use one command:
@@ -196,7 +196,7 @@ icegridnode --Ice.Config=/opt/ripper/config
 Additional [command line options](../icegridnode) are supported, including those that allow the node to run as a Windows
 service or Unix daemon.
 
-# Deploying the Ripper Application
+## Deploying the Ripper Application
 
 With the registry up and running, it is now time to deploy our application. Like our client, the `icegridadmin` utility
 also requires a definition for the [Ice.Default.Locator](../ice-default-properties) property. We can start the utility
@@ -235,7 +235,7 @@ Finally, you can retrieve the current endpoints of the object adapter:
 If you want to experiment further using `icegridadmin`, issue the `help` command and review the
 [available commands](../icegridadmin-command-line-tool).
 
-# Ripper Progress Review
+## Ripper Progress Review
 
 We have deployed our first IceGrid application, but you might be questioning whether it was worth the effort. Even at
 this early stage, we have already gained several benefits:
@@ -254,13 +254,13 @@ really need. For example, if the client created a number of encoders and used th
 the encoding performance might actually be _worse_ than simply encoding the data directly in the client, as the remote
 computer would likely slow to a crawl while attempting to task-switch among a number of processor-intensive tasks.
 
-# Adding Nodes to the Ripper Application
+## Adding Nodes to the Ripper Application
 
 Adding more nodes to our environment would allow us to distribute the encoding load to more compute servers. Using the
 techniques we have learned so far, let us investigate the impact that adding a node would have on our descriptors,
 configuration, and client application.
 
-## Descriptor Changes
+### Descriptor Changes
 
 The addition of a node is mainly an exercise in cut and paste:
 
@@ -300,7 +300,7 @@ discover the name it should use when creating the adapter.
 We have also removed the `id` attribute from our adapter descriptors; the
 [default values](../adapter-descriptor-element) supplied by IceGrid are sufficient for our purposes.
 
-## Configuration Changes
+### Configuration Changes
 
 We can continue to use the configuration file we created
 [earlier](../using-icegrid-deployment#ripper-registry-and-node-configuration) for our combined registry-node process. We
@@ -329,7 +329,7 @@ to define `Ice.Default.Locator`.
 
 {% /callout %}
 
-## Redeploying the Application
+### Redeploying the Application
 
 After saving the new descriptors, you need to redeploy the application. Using `icegridadmin`, issue the following
 command:
@@ -357,7 +357,7 @@ icegridadmin --Ice.Config=/opt/ripper/config
 
 With this option, the update would fail if any servers required a restart.
 
-## Client Changes
+### Client Changes
 
 We have added a new node, but we still need to modify our client to take advantage of it. As it stands now, our client
 can delegate an encoding task to one of the two `MP3EncoderFactory` objects. The client selects a factory by using the
@@ -393,7 +393,7 @@ There are a few disadvantages in this design:
 
 We describe better solutions in the sections that follow.
 
-##### See Also
+## See Also
 
 - [IceGrid Server Activation](../icegrid-server-activation)
 - [Creating an Object Adapter](../creating-an-object-adapter)

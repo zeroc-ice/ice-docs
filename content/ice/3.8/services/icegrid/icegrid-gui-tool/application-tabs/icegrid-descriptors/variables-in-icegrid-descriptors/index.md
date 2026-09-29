@@ -5,13 +5,13 @@ title: Variables in IceGrid Descriptors
 Variables allow you to define commonly-used information once and refer to them symbolically throughout your application
 descriptors.
 
-# Syntax
+## Syntax
 
 Substitution for a variable or parameter VP is attempted whenever the symbol ${VP} is encountered, subject to the
 limitations and rules described below. Substitution is case-sensitive, and a fatal error occurs if VP is not defined
 when the application is saved to an IceGrid registry.
 
-# Where are Variables Allowed?
+## Where are Variables Allowed?
 
 Substitution is performed in all string fields except the following:
 
@@ -21,7 +21,7 @@ Substitution is performed in all string fields except the following:
 - node names
 - application names
 
-# Escaping a Variable
+## Escaping a Variable
 
 You can prevent substitution by escaping a variable reference with an additional leading
 $ character. For example, in order to assign the literal string ${abc} to a variable, you would use $${abc} as this
@@ -31,7 +31,7 @@ The extra
 $ symbol is only meaningful when immediately preceding a variable reference, therefore text such as US$$55 is not modified. Each occurrence of the characters $$ preceding a variable reference is replaced with a single $
 character, and that character does not initiate a variable reference.
 
-# Pre-Defined Variables
+## Pre-Defined Variables
 
 IceGrid defines a set of read-only variables to hold information that may be of use to descriptors. The names of these
 variables are reserved and cannot be used as variable or parameter names. The table below describes the purpose of each
@@ -55,7 +55,7 @@ The availability of a variable is easily determined in some cases, but may not b
 example, you can use the ${node} variable in a property value within a server template definition, because variables in
 the body of a server template are evaluated when the server template is instantiated on a specific node.
 
-# Variable Substitution in IceGrid GUI
+## Variable Substitution in IceGrid GUI
 
 In a number of panes, you can substitute variables and template parameters by their respective value. Use
 `View > Show Variables` and `View > Substitute Variables` or the corresponding toolbar toggle buttons:
@@ -64,7 +64,7 @@ In a number of panes, you can substitute variables and template parameters by th
 
 When variable-substitution is enabled, the descriptors are displayed read-only.
 
-# Scoping Rules
+## Scoping Rules
 
 Descriptors may only define variables at the application and node levels. Each node introduces a new scope, such that
 defining a variable at the node level overrides (but does not modify) the value of an application variable with the same
@@ -79,7 +79,7 @@ the value 2, whereas x remains unchanged in node B. Within the context of node A
 server instance definition. However, when x is used as the name of a template parameter, the node's definition of x is
 overridden and x has the value 3 in the template's scope.
 
-# Resolving a Reference
+## Resolving a Reference
 
 To resolve a variable reference ${var}, IceGrid searches for a definition of var using the following order of
 precedence:
@@ -100,10 +100,10 @@ precedence:
 Template parameters are not visible in nested template instances. This situation can only occur when an IceBox server
 template instantiates a service template.
 
-# Modifying a Variable
+## Modifying a Variable
 
 A variable definition can be overridden in an inner scope, but the inner definition does not modify the outer variable.
 
-##### See Also
+## See Also
 
 - [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)

@@ -29,7 +29,7 @@ message to an object provided by the client, the callback can be made over the c
 the client. This feature is especially important when the client is behind a firewall that permits outgoing connections,
 but not incoming connections.
 
-##### See Also
+## See Also
 
 - [Ice Protocol and Encoding](../protocol)
 - [IceSSL](../ssl-transport)

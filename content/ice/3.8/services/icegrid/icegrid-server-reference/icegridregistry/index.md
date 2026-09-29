@@ -7,7 +7,7 @@ The IceGrid registry is a centralized repository of information, including
 optionally be collocated with an IceGrid node, which conserves resources and can be convenient during development and
 testing. The registry server is implemented by the `icegridregistry` executable.
 
-# Command Line Options for `icegridregistry`
+## Command Line Options for `icegridregistry`
 
 The registry supports the following command-line options:
 
@@ -33,7 +33,7 @@ Additional command line options are supported, including those that allow the re
 [Windows service or Unix daemon](../background-servers), and Ice includes a [utility](../windows-services) to help you
 install an IceGrid registry as a Windows service.
 
-# Configuring Registry Endpoints
+## Configuring Registry Endpoints
 
 The IceGrid registry creates up to five sets of endpoints, configured with the following properties:
 
@@ -65,7 +65,7 @@ There are security implications in allowing access to administrative sessions, a
 - [IceGrid.Registry.Internal.Endpoints](../icegrid-properties) Internal endpoints used by IceGrid nodes and registry
   replicas. This property must be defined even if no nodes or replicas are being used.
 
-# Registry Security Considerations
+## Registry Security Considerations
 
 A client that successfully establishes an [administrative session](../icegrid-administrative-sessions) with the registry
 has the ability to compromise the security of the registry host. As a result, it is imperative that you configure the
@@ -82,7 +82,7 @@ To authenticate administrative clients using their SSL connections, define
 [IceGrid.Registry.AdminSSLPermissionsVerifier](../icegrid-properties) with the proxy of a verifier object that
 implements the `Glacier2::SSLPermissionsVerifier` interface.
 
-# Configuring the Registry's Database Directory
+## Configuring the Registry's Database Directory
 
 You must provide an empty directory in which the registry can initialize its [database](../icegrid-persistent-data). The
 path name of this directory is supplied by the configuration property
@@ -92,7 +92,7 @@ The files in this directory must not be edited manually, but rather indirectly u
 [administrative tools](../icegridadmin-command-line-tool). To clear a registry's database, first ensure the server is
 not currently running, then remove all of the files in its data directory and restart the server.
 
-# Registry Configuration Example
+## Registry Configuration Example
 
 The registry requires values for the three mandatory endpoint properties, as well as the database directory property, as
 shown in the following example:
@@ -109,7 +109,7 @@ In addition, we also recommend defining `IceGrid.InstanceName`, whose value affe
 
 The remaining configuration properties are discussed in [IceGrid.*](../icegrid-properties).
 
-##### See Also
+## See Also
 
 - [Using IceGrid Deployment](../using-icegrid-deployment)
 - [Well-Known Objects](../well-known-objects)

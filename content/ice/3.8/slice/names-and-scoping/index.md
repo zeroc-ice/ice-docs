@@ -5,7 +5,7 @@ title: Names and Scoping
 Slice has a number of rules regarding identifiers. You will typically not have to concern yourself with these. However,
 occasionally, it is good to know how Slice uses naming scopes and resolves identifiers.
 
-# Naming Scope
+## Naming Scope
 
 The following Slice constructs establish a naming scope:
 
@@ -29,7 +29,7 @@ interface Bad
 Because a parameter list forms a naming scope, it is illegal to use the same identifier `p` for different parameters.
 Similarly, fields, operation names, interface and class names, etc. must be unique within their enclosing scope.
 
-# Case Sensitivity
+## Case Sensitivity
 
 Identifiers that differ only in case are considered identical, so you must use identifiers that differ not only in
 capitalization within a naming scope. For example:
@@ -63,7 +63,7 @@ interface Module      // Error, "module" is a keyword
 }
 ```
 
-# Qualified Names
+## Qualified Names
 
 The scope-qualification operator `::` allows you to refer to a type in a non-local scope. For example:
 
@@ -146,7 +146,7 @@ unrelated definitions into different modules. Of course, this begs the question:
 related that they depend on each other, why are they defined in different modules? In the interest of clarity, you
 probably should avoid this construct, even though it is legal.
 
-# Names in Nested Scopes
+## Names in Nested Scopes
 
 Names defined in an enclosing scope can be redefined in an inner scope. For example, the following is legal:
 
@@ -203,7 +203,7 @@ The reason for this restriction is that nested types that have the same name are
 For example, C++ and Java reserve the name of a class as the name of the constructor, so an interface `I` could not
 contain an operation named `I` without artificial rules to avoid the name clash.
 
-# Introduced Identifiers
+## Introduced Identifiers
 
 Within a naming scope, an identifier is introduced at the point of first use; thereafter, within that naming scope, the
 identifier cannot change meaning.
@@ -259,7 +259,7 @@ module M
 }
 ```
 
-# Name Lookup Rules
+## Name Lookup Rules
 
 When searching for the definition of a name that is not anchored at the global scope, the compiler first searches
 backward in the current scope of a definition of the name. If it can find the name in the current scope, it uses that
@@ -308,7 +308,7 @@ That is, the meaning of a type in a base interface is irrelevant to determining 
 compiler always searches for a definition only in the current scope and enclosing scopes, and never takes the meaning of
 a name from a base interface or class.
 
-# Scoping Rules for Parameters and Fields
+## Scoping Rules for Parameters and Fields
 
 A Slice operation creates a new naming scope in which all parameter names must be unique:
 
@@ -389,6 +389,6 @@ module M
 }
 ```
 
-##### See Also
+## See Also
 
 - [Lexical Rules](../lexical-rules)

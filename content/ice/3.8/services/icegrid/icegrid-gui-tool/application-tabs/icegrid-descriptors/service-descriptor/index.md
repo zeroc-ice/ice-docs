@@ -7,14 +7,14 @@ A service represents an IceBox service deployed on an IceBox server. IceGrid sup
 - **Plain Service** A service defined directly with a service descriptor
 - **Service Instance** A service defined using a service template
 
-# Load Order
+## Load Order
 
 The load-order of services within an IceBox server is determined by their display order in IceGrid GUI. You can reorder
 services using `Edit > Move Up` or `Edit > Move Down` (also available from each service's contextual menu).
 
-# Plain Service
+## Plain Service
 
-## Properties
+### Properties
 
 The Service Properties panel offers the following fields:
 
@@ -33,13 +33,13 @@ The Service Properties panel offers the following fields:
   point when it generates the [IceBox.Service._name_](../icebox-properties) property in the enclosing IceBox server
   config file.
 
-## Children
+### Children
 
 A plain service can have [Adapter](../adapter-descriptor) children.
 
-# Service Instance
+## Service Instance
 
-## Properties
+### Properties
 
 The Service Instance Properties panel offers the following fields:
 

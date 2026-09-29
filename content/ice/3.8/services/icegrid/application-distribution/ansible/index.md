@@ -2,14 +2,14 @@
 title: Application Distribution with Ansible
 ---
 
-# Using Ansible to Distribute Applications
+## Using Ansible to Distribute Applications
 
 [Ansible](https://www.ansible.com/) is a simple and easy to use automation tool which uses SSH for authentication and
 communication between the control machine and hosts, allowing you to distribute applications to many hosts with very
 little setup. Tasks to be performed are designed as playbooks – Ansible’s configuration, deployment, and orchestration
 language. Let's look at how we can use Ansible to securely distribute applications to IceGrid.
 
-# IceGrid Configuration
+## IceGrid Configuration
 
 In this example we assume that you have already configured and deployed your servers using IceGrid. Consider the
 following configuration:
@@ -40,7 +40,7 @@ This deployment contains three servers:
 
 We will also assume you're running one IceGrid registry master instance, and two slave instances.
 
-# Ansible Configuration
+## Ansible Configuration
 
 ![The control machine uses SSH to ask the registry to disable and stop servers in step 1, synchronizes executables directly to Node1 and Node2 in step 2, and asks the registry to enable and start servers in step 3. Node1 hosts ServerA1 and ServerB1; Node2 hosts ServerA2.](/attachments/3.8/ansible/icegrid-ansible.svg)
 
@@ -191,7 +191,7 @@ The first and last tasks are performed on the first host in the `registries`
 group of the inventory, while the second and third tasks are performed on the `server-1` and `server-2` groups,
 respectfully.
 
-# Running the Playbook
+## Running the Playbook
 
 To run the `distribute-server.yml` playbook on the `production` inventory, execute the following command:
 

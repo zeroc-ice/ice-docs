@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-# Object Interface
+## Object Interface
 
 For historical reasons, the [Dispatcher](../terminology) abstraction does not correspond to a `Dispatcher` interface in
 Java. We use instead the interface `com.zeroc.Ice.Object` as the base interface for dispatchers.

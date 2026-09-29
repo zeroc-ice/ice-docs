@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Mapping
+### Default Mapping
 
 A Slice sequence maps to a Java array. This means that the Slice-to-Java compiler does not generate a separate named
 type for a Slice sequence.
@@ -20,7 +20,7 @@ Fruit[] platter = { Fruit.Apple, Fruit.Pear };
 assert(platter.length == 2);
 ```
 
-## Customizing the Sequence Mapping with `java:type`
+### Customizing the Sequence Mapping with `java:type`
 
 The `java:type:instance-type[:formal-type]` metadata directive allows you to map a given Slice type, field or parameter
 to the Java type of your choice.
@@ -58,7 +58,7 @@ Note that extra care must be taken when defining custom types that contain neste
 sequence whose element type is also a custom sequence. The Java compiler strictly enforces type safety, therefore any
 compatibility issues in the custom type metadata will be apparent when the generated code is compiled.
 
-## Using the `java:type` Metadata Directive
+### Using the `java:type` Metadata Directive
 
 You can define custom type metadata in a variety of situations. The simplest scenario is specifying the metadata at the
 point of definition:
@@ -119,7 +119,7 @@ result of `asList` because its return type (`java.util.List<String>`) is compati
 declared by the proxy method. In the case of an operation parameter, the instance type is only relevant to a servant
 implementation, which may need to make assumptions about the actual type of the parameter.
 
-## Buffer Types
+### Buffer Types
 
 You can annotate sequences of certain primitive types with the `java:buffer` metadata directive to change the mapping to
 use subclasses of `java.nio.Buffer`. This mapping provides several benefits:
@@ -195,7 +195,7 @@ In this example, `ByteSeq` maps by default to a `byte` array, but we've overridd
 type is used as a field in `Page` and as the return value of the `decode` operation; the input parameter to `decode`
 uses the default array mapping.
 
-## Filling a Sequence of Bytes with a Serializable Object
+### Filling a Sequence of Bytes with a Serializable Object
 
 In Java terminology, a _serializable object_ typically refers to an object that implements the `java.io.Serializable`
 interface and therefore supports serialization to and from a byte stream. All Java classes generated from Slice

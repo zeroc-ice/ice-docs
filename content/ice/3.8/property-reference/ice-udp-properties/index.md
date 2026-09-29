@@ -12,13 +12,13 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% /iflang %}
 
-# Ice.UDP.RcvSize
+## Ice.UDP.RcvSize
 
-#### Synopsis
+### Synopsis
 
 `Ice.UDP.RcvSize=num`
 
-#### Description
+### Description
 
 This property sets the UDP receive buffer size to the specified value in bytes. Ice messages larger than `num - 28`
 bytes cause a `DatagramLimitException`. The default value depends on the configuration of the local UDP stack. (Common
@@ -37,13 +37,13 @@ the kernel.
 
 Settings less than 65535 limit the size of Ice datagrams as well as adjust the kernel buffer sizes.
 
-# Ice.UDP.SndSize
+## Ice.UDP.SndSize
 
-#### Synopsis
+### Synopsis
 
 `Ice.UDP.SndSize=num`
 
-#### Description
+### Description
 
 This property sets the UDP send buffer size to the specified value in bytes. Ice messages larger than `num - 28` bytes
 cause a `DatagramLimitException`. The default value depends on the configuration of the local UDP stack. (Common default

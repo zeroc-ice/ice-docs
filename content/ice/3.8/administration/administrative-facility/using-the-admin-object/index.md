@@ -33,7 +33,7 @@ information is statically configured in the client, since the client must also k
 that it uses. If an invocation on a facet throws `FacetNotExistException`, the client may have used an incorrect facet
 name, or the server may have disabled the facet in question.
 
-##### See Also
+## See Also
 
 - [The admin Object](../admin-object)
 - [Creating the admin Object](../creating-the-admin-object)

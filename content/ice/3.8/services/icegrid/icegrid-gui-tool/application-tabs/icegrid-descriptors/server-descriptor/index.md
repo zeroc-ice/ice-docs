@@ -10,9 +10,9 @@ A server represents an Ice server deployed on a node as part of an application. 
   configuration file for the IceBox server itself, and also a separate Ice configuration for each IceBox service.
 - **Server Instance** A server (either plain server or IceBox server) defined using a server template.
 
-# Plain Server
+## Plain Server
 
-## Properties
+### Properties
 
 The Server Properties panel offers the following fields:
 
@@ -60,13 +60,13 @@ The Activation Mode can also be a variable or a combination of variables that re
   allocatable objects is allocated. This checkbox is ignored if the server activation mode is session; a server with
   this activation mode is always allocatable. Default: false.
 
-## Children
+### Children
 
 A plain server can have [Adapter](../adapter-descriptor) children.
 
-# IceBox Server
+## IceBox Server
 
-## Properties
+### Properties
 
 The Properties panel for an IceBox server is identical to the Properties panel for a Plain Server (see above).
 
@@ -82,15 +82,15 @@ IceBox server.
 
 The Path to Executable is typically `icebox` (C++), `java` (for a Java IceBox) or `dotnet` (for a .NET IceBox).
 
-## Children
+### Children
 
 An IceBox server can have [Service](../service-descriptor) children,
 
-# Server Instance
+## Server Instance
 
 A server instance is a server created from a server template; it may be a plain server or an IceBox server.
 
-## Properties
+### Properties
 
 The Server Instance Properties panel offers the following fields:
 
@@ -102,7 +102,7 @@ The Server Instance Properties panel offers the following fields:
   of properties defined in the server template (including its own property sets references) augmented and possibly
   overridden by properties defined in the server instance.
 
-## Children
+### Children
 
 An instance of an IceBox server template can have [Property Set](../property-set-descriptor) children.
 

@@ -6,7 +6,7 @@ The ability to configure an application's properties externally provides a great
 combination of command-line options and configuration files to achieve the desired settings, all without having to
 modify your application. This page describes two ways of loading property settings from a file.
 
-# Prerequisites for Using Configuration Files
+## Prerequisites for Using Configuration Files
 
 The Ice runtime automatically loads a configuration file during the creation of a _property set_, which is an instance
 of the [Properties](https://code.zeroc.com/manual/Ice/Properties) abstraction. Every communicator has its own property
@@ -21,7 +21,7 @@ the application passes an argument vector to `Ice::initialize`.
 Both of the mechanisms described below can also retrieve property settings from
 [additional sources](../alternate-property-stores).
 
-# The `ICE_CONFIG` Environment Variable
+## The `ICE_CONFIG` Environment Variable
 
 Ice automatically loads the contents of the configuration file named in the `ICE_CONFIG` environment variable (assuming
 the [prerequisites](../using-configuration-files#prerequisites-for-using-configuration-files) are met). For example:
@@ -55,7 +55,7 @@ export ICE_CONFIG=/usr/local/filesystem/config,./config
 This causes property settings to be retrieved from `/usr/local/filesystem/config`, followed by any settings in the file
 `config` in the current directory; settings in `./config` override settings `/usr/local/filesystem/config`.
 
-# The `Ice.Config` Property
+## The `Ice.Config` Property
 
 The [Ice.Config](../ice-properties) property has special meaning to the Ice run time: it determines the path name of a
 configuration file from which to read property settings. For example:
@@ -111,7 +111,7 @@ example:
 This causes property settings to be retrieved from `/usr/local/filesystem/config`, followed by any settings in the file
 `config` in the current directory; settings in `./config` override settings `/usr/local/filesystem/config`.
 
-##### See Also
+## See Also
 
 - [Alternate Property Stores](../alternate-property-stores)
 - [The Properties Interface](../properties-class)

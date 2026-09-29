@@ -4,7 +4,7 @@ title: Lexical Rules
 
 Slice's lexical rules are very similar to those of C++, C#, and Java.
 
-# Comments
+## Comments
 
 Slice definitions permit both the C and the C++ style of writing comments:
 
@@ -16,13 +16,13 @@ Slice definitions permit both the C and the C++ style of writing comments:
 // C++-style comment extending to the end of this line.
 ```
 
-# Keywords
+## Keywords
 
 Slice uses a number of [keywords](../slice-keywords), which must be spelled in lowercase. For example, `class` and
 `dictionary` are keywords and must be spelled as shown. There are two exceptions to this lowercase rule: `Object` and
 `Value` are keywords and must be capitalized as shown.
 
-# Identifiers
+## Identifiers
 
 Identifiers begin with an alphabetic character followed by any number of alphabetic characters or digits. Underscores
 are also permitted in identifiers with the following limitations:
@@ -35,7 +35,7 @@ Given these rules, the identifier `get_account_name` is legal but not `_account`
 Slice identifiers are restricted to the ASCII range of alphabetic characters and cannot contain non-English letters,
 such as Å.
 
-## Case Sensitivity
+### Case Sensitivity
 
 Identifiers are case-insensitive but must be capitalized consistently. For example, `TimeOfDay` and `TIMEOFDAY` are
 considered the same identifier within a naming scope. However, Slice enforces consistent capitalization. After you have
@@ -43,7 +43,7 @@ introduced an identifier, you must capitalize it consistently throughout; otherw
 illegal. This rule exists to permit mappings of Slice to languages that ignore case in identifiers as well as to
 languages that treat differently capitalized identifiers as distinct.
 
-## Escaped Identifiers
+### Escaped Identifiers
 
 It is possible to use a Slice keyword as an identifier by prefixing the keyword with a backslash, for example:
 
@@ -73,10 +73,10 @@ style, you should avoid using Slice keywords as identifiers (even though the bac
 It is legal (though redundant) to precede an identifier that is not a keyword with a backslash — the backslash is
 ignored in that case.
 
-## Language Mapping
+### Language Mapping
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Slice Keywords](../slice-keywords)

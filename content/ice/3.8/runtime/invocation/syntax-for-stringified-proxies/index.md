@@ -2,11 +2,11 @@
 title: Syntax for Stringified Proxies
 ---
 
-#### Synopsis
+## Synopsis
 
 `identity -f facet -e encoding -p protocol -t -o -O -d -D -s @ adapter_id : endpoints`
 
-#### Description
+## Description
 
 A stringified proxy consists of an identity, proxy options, and an optional object adapter identifier or endpoint list.
 White space (the space, tab (`\t`), line feed (`\n`), and carriage return (`\r`) characters) act as token delimiters; if
@@ -68,7 +68,7 @@ the endpoint list is randomized as a form of load balancing. You can change this
 If an unknown option is specified, or the stringified proxy is malformed, the application receives a `ParseException`.
 Likewise, if an endpoint is malformed, the application receives a `ParseException`.
 
-##### See Also
+## See Also
 
 - [Endpoint Syntax](../endpoint-syntax)
 - [Ice.Default.*](../ice-default-properties)

@@ -4,7 +4,7 @@ title: Alternate Property Stores
 
 In addition to regular files, Ice also supports storing property settings in the Windows registry and Java resources.
 
-# Loading Properties from the Windows Registry
+## Loading Properties from the Windows Registry
 
 You can use the Windows registry to store property settings. Property settings must be stored with a key underneath
 `HKEY_LOCAL_MACHINE`. To inform the Ice run time of this key, you must set the `Ice.Config` property to the key. For
@@ -29,7 +29,7 @@ Ice applies the same [property validation](../properties-overview#property-valid
 registry as to the names in a configuration file, so an unknown property name that begins with a reserved prefix
 followed by a dot makes communicator initialization fail with a `PropertyException`.
 
-# Loading Properties from Java Resources
+## Loading Properties from Java Resources
 
 The Ice runtime for Java supports the ability to load a configuration file as a class loader resource, which is
 especially useful for deploying an Ice application in a self-contained JAR file. For example, suppose we define
@@ -52,6 +52,6 @@ regular file.
 The path name for a class path resource uses a relative Unix-like format such as `subdir/myfile`. Java searches for the
 resource relative to each JAR file or subdirectory in an application's class path.
 
-##### See Also
+## See Also
 
 - [Using Configuration Files](../using-configuration-files)

@@ -2,7 +2,7 @@
 title: Datagram Invocations
 ---
 
-# Design Considerations for Datagram Invocations
+## Design Considerations for Datagram Invocations
 
 Datagram invocations are the equivalent of oneway invocations for datagram transports. As for oneway invocations,
 datagram invocations can be sent only for operations that have a `void` return type and do not have out-parameters or an
@@ -41,7 +41,7 @@ stateless. In addition, due to the high probability of loss of datagram requests
 restrict use of datagram requests to local area networks, where they are less likely to be lost. (Of course, regardless
 of the probability of loss, you must design your application such that it can tolerate lost or duplicated messages.)
 
-# Using UDP Multicast
+## Using UDP Multicast
 
 The UDP transport provided by Ice supports IP multicast. Assuming it's enabled on your host, using IP multicast in your
 application can be as simple as changing the host in the UDP endpoint to an IPv4 or IPv6 address in the multicast range:

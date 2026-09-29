@@ -5,7 +5,7 @@ title: IceGrid and Glacier2 Integration
 [IceGrid](../icegrid) is a server activation and location service. This section describes the ways in which you can
 integrate Glacier2 and IceGrid.
 
-# Configuring Router Clients for IceGrid
+## Configuring Router Clients for IceGrid
 
 It is not uncommon for a Glacier2 client to require access to a locator service such as IceGrid. In the absence of
 Glacier2, a locator client would typically define the property [Ice.Default.Locator](../ice-default-properties) with a
@@ -24,7 +24,7 @@ In this case the Glacier2 router's configuration must include the property shown
 Ice.Default.Locator=IceGrid/Locator:tcp -h 10.0.0.2 -p 4061
 ```
 
-# Using Replicated Session Managers
+## Using Replicated Session Managers
 
 An IceGrid application might want to use [replication](../object-adapter-replication) to increase the availability of
 Glacier2 session managers. When you configure an indirect proxy for a session manager (and
@@ -48,7 +48,7 @@ also disable caching completely by using a value of 0, in which case the router 
 invocation on a session manager. See the discussion of [session management](../glacier2-session-management) for more
 details.
 
-##### See Also
+## See Also
 
 - [IceGrid](../icegrid)
 - [Glacier2 Session Management](../glacier2-session-management)

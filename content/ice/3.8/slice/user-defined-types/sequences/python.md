@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Sequence Mapping
+### Default Sequence Mapping
 
 A Slice sequence maps to a native Python type:
 
@@ -27,7 +27,7 @@ platter.append(Fruit.Orange)
 The Ice runtime validates the elements of a list (or tuple) to ensure they match the declared type. A `ValueError` is
 raised if an incompatible type is encountered.
 
-## Allowable Sequence Values
+### Allowable Sequence Values
 
 When you **send a sequence value** (for example, when calling a proxy method, or when returning a value or setting an
 output parameter in a servant method), you have flexibility:
@@ -72,7 +72,7 @@ seq2 = [1, 2, 3, 4, 5]
 Both values have the same on-the-wire representation, but buffers incur much less marshaling overhead than lists or
 tuples.
 
-## Customizing the Sequence Mapping
+### Customizing the Sequence Mapping
 
 When you **receive** a sequence (e.g., as a field value, a dispatch method parameter, or an invocation return/out
 parameter), the container is created by the Ice runtime.

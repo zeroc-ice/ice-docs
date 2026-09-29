@@ -8,7 +8,7 @@ mapping to a record class for Slice structures that contain only value types.
 In addition, for either mapping, you can control whether Slice fields are mapped to fields (the default) or to
 properties.
 
-## Mapping to Record Struct
+### Mapping to Record Struct
 
 Consider the following structure:
 
@@ -89,7 +89,7 @@ public readonly partial record struct ReadOnlyPoint
 }
 ```
 
-## Mapping to Record Class
+### Mapping to Record Class
 
 Here is our Employee structure once more:
 
@@ -155,7 +155,7 @@ The generated record class provides the following constructors:
 If you apply the `cs:readonly` metadata directive to the Slice struct, all the fields are mapped to readonly C# fields,
 except for fields with a Slice class type (they remain read-write).
 
-## Property Mapping
+### Property Mapping
 
 You can instruct the compiler to emit property definitions instead of public fields. For example:
 

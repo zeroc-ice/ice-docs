@@ -19,7 +19,7 @@ The IceGrid administrative tools in turn use IceGrid's extended administrative f
 
 We discuss each of these items in separate sections below.
 
-# Enabling the Administrative Facility for a Deployed Server, Node or Registry Replica
+## Enabling the Administrative Facility for a Deployed Server, Node or Registry Replica
 
 As we saw in our [deployment example](../using-icegrid-deployment), the configuration properties for a deployed server
 include definitions for the following properties:
@@ -29,7 +29,7 @@ include definitions for the following properties:
 
 The definition of `Ice.Admin.Endpoints` enables the [Administrative Facility](../administrative-facility).
 
-## Ice.Admin.Endpoints for Servers
+### Ice.Admin.Endpoints for Servers
 
 If a server's descriptor does not set [Ice.Admin.Enabled](../ice-admin-properties) and does not supply a value for
 `Ice.Admin.Endpoints`, IceGrid supplies a default value for `Ice.Admin.Endpoints` as shown below:
@@ -45,7 +45,7 @@ the client establishes an [IceGrid administrative session](../icegrid-administra
 
 Specifying a fixed port is unnecessary because the server registers its endpoints with IceGrid upon each new activation.
 
-## admin Objects in Nodes and Registry Replicas
+### admin Objects in Nodes and Registry Replicas
 
 Each IceGrid node and IceGrid registry replica provides by default an [admin object](../admin-object) hosted in the
 `IceGrid.Node` object adapter (for nodes) or in the `IceGrid.Registry.Internal` object adapter (for registry replicas).
@@ -56,7 +56,7 @@ Each of these admin objects carries all the built-in facets, currently `Logger`,
 Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations
 [described below](../icegrid-and-the-administrative-facility#obtaining-a-proxy).
 
-# Deactivating a Deployed Server
+## Deactivating a Deployed Server
 
 An IceGrid node uses the [Ice::Process interface](../process-facet) to gracefully deactivate a server. This interface is
 implemented by the administrative facet named `Process`.
@@ -81,7 +81,7 @@ deactivation timeout period, terminates the process immediately.
 Servers that disable the `Process` facet can install a signal handler in order to intercept the node's notification
 about pending deactivation. However, we recommend that servers be allowed to use the `Process` facet when possible.
 
-# Routing Administrative Requests
+## Routing Administrative Requests
 
 IceGrid defaults to using the local host interface when defining the endpoints of a deployed server's
 [administrative object adapter](../icegrid-and-the-administrative-facility). This configuration allows local clients
@@ -93,7 +93,7 @@ path of a `getProperty` invocation:
 
 ![An administrative client sends getProperty to the registry, which forwards the request through the node to the server.](/attachments/3.8/icegrid-and-the-administrative-facility/routing.svg)
 
-## Obtaining a Proxy
+### Obtaining a Proxy
 
 During an [administrative session](../icegrid-administrative-sessions), a client has two ways of obtaining the
 intermediary proxy for a server's [admin object](../admin-object):
@@ -153,7 +153,7 @@ module IceGrid
 The name parameter corresponds to the node name or registry replica name. There is no operation comparable to
 `getServerAdminCategory` for IceGrid nodes and IceGrid registry replicas.
 
-## Callbacks without Glacier2
+### Callbacks without Glacier2
 
 IceGrid also supports the relaying of callback requests from a back-end server to an administrative client over the
 client's existing connection to the registry, which is especially important for a client using a network port that is
@@ -250,7 +250,7 @@ svcmgr->addObserver(cb);
 At this point the client is ready to receive callbacks from the IceBox server whenever one of its services changes
 state.
 
-## Callbacks with Glacier2
+### Callbacks with Glacier2
 
 A client that creates an [administrative session](../icegrid-administrative-sessions) via a
 [Glacier2 router](../glacier2-integration-with-icegrid) already has a bidirectional connection over which callbacks from
@@ -300,12 +300,12 @@ svcmgr->addObserver(cb);
 At this point the client is ready to receive callbacks from the IceBox server whenever one of its services changes
 state.
 
-# Using the Administrative Facility in IceGrid Utilities
+## Using the Administrative Facility in IceGrid Utilities
 
 This section discusses the ways in which the [IceGrid utilities](../icegridadmin-command-line-tool) make use of the
 administrative facility.
 
-## Properties
+### Properties
 
 The command line and graphical utilities allow you to explore the configuration properties of a server or service.
 
@@ -328,7 +328,7 @@ service property MyServerId MyService BuildId
 The utilities use the [Properties facet](../properties-facet) to access these properties, via a proxy obtained as
 described [above](../icegrid-and-the-administrative-facility).
 
-## Administering IceBox Services
+### Administering IceBox Services
 
 [IceBox](../icebox) provides an administrative facet that implements the `IceBox::ServiceManager` interface, which
 supports operations for stopping an active service, and for starting a service that is currently inactive. These
@@ -339,7 +339,7 @@ stopped or started. The graphical utility implements this interface so that it c
 of an IceBox server. We presented [examples](../icegrid-and-the-administrative-facility) that demonstrate how to
 register an observer with the IceBox administrative facet.
 
-##### See Also
+## See Also
 
 - [Administrative Facility](../administrative-facility)
 - [The Process Facet](../process-facet)

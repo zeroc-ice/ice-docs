@@ -1,8 +1,8 @@
 {% language-section name="language-mapping" %}
 
-# Client-Side Mapping for Operations
+## Client-Side Mapping for Operations
 
-## Mapping for Operations
+### Mapping for Operations
 
 As we saw in the [Client-Side Python Mapping for Interfaces](../client-side-python-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains 2 methods for this operation. To invoke
@@ -38,7 +38,7 @@ greeter = VisitorCenter.GreeterPrx(communicator, "greeter:tcp -h localhost -p 40
 greeting = await greeter.greetAsync("Alice")  # Get name via RPC
 ```
 
-## Sync and Async Methods
+### Sync and Async Methods
 
 For each operation, the Slice compiler generates 2 methods on the proxy class:
 
@@ -56,7 +56,7 @@ We recommend using asyncio and async invocations in new applications.
 
 {% /callout %}
 
-## Exception Handling
+### Exception Handling
 
 Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
@@ -86,14 +86,14 @@ except Tantrum as t:
     print(f"The child says: {t.reason}")
 ```
 
-## See Also
+### See Also
 
 - [Python Mapping for Parameters and Return Values](../python-mapping-for-parameters-and-return-values)
 - [Asynchronous Method Invocation (AMI) in Python](../asynchronous-method-invocation-ami-in-python)
 
-# Server-Side Mapping for Operations
+## Server-Side Mapping for Operations
 
-## Default Mapping for Operations
+### Default Mapping for Operations
 
 As we saw in the [Server-Side Python Mapping for Interfaces](../server-side-python-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton class contains an abstract method with the same name.
@@ -128,13 +128,13 @@ class Chatbot(VisitorCenter.Greeter):
         return f"Hello, {name}!"
 ```
 
-## AMD Mapping for Operations
+### AMD Mapping for Operations
 
 The `["amd"]` metadata has no effect in Python: you can implement the mapped method either synchronously (as in the
 example above) or asynchronously, as discussed on
 [Asynchronous Method Dispatch (AMD) in Python](../asynchronous-method-dispatch-amd-in-python).
 
-## Throwing Exceptions
+### Throwing Exceptions
 
 To throw an exception from an operation implementation, you simply construct the exception and throw it. For example:
 
@@ -156,12 +156,12 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-## See Also
+### See Also
 
 - [Python Mapping for Parameters and Return Values](../python-mapping-for-parameters-and-return-values)
 - [Client-Side Python Mapping for Operations](../client-side-python-mapping-for-operations)
 
-# Asynchronous Method Invocation (AMI)
+## Asynchronous Method Invocation (AMI)
 
 _Asynchronous Method Invocation (AMI)_ is the term used to describe the client-side support for the asynchronous
 programming model. AMI supports both oneway and twoway requests, but unlike their synchronous counterparts, AMI requests
@@ -179,7 +179,7 @@ We recommend using asyncio together with AMI in new Python applications.
 
 {% /callout %}
 
-## Asynchronous API
+### Asynchronous API
 
 Consider the following Slice definition:
 
@@ -219,7 +219,7 @@ async with Ice.initialize(
     greeting = await greeter.greetAsync(getpass.getuser())
 ```
 
-## Asynchronous Exception Semantics
+### Asynchronous Exception Semantics
 
 If an asynchronous invocation throws an exception, the exception can be obtained from the awaitable.
 
@@ -237,7 +237,7 @@ There are two exceptions to this rule:
 > This distinction is only relevant if you are using the Future APIs directly, when using await you handle exceptions
 > throw synchronously and asynchronously with the same except block.
 
-## Awaitable Objects
+### Awaitable Objects
 
 `asyncio.Future`, `Ice.Future`, and future types created by a custom event loop adapter are all awaitable
 objects—meaning they can be used as the target of the await keyword.
@@ -252,7 +252,7 @@ configured event loop adapter:
 - **With a custom event loop adapter** Ice returns custom awaitable objects provided by the application’s
   EventLoopAdapter implementation.
 
-## `asyncio` Integration
+### `asyncio` Integration
 
 Ice 3.8 provides seamless integration with Python’s asyncio library.
 
@@ -276,7 +276,7 @@ The same mechanism can be used to integrate Ice with other asynchronous event lo
 asyncio loop directly, you must implement the `Ice.EventLoopAdapter` abstract base class for your event loop of choice
 and provide it during communicator initialization via the `InitializationData.eventLoopAdapter` member.
 
-### Event loop restrictions
+#### Event loop restrictions
 
 You can only await a future from the event loop that created it:
 
@@ -335,7 +335,7 @@ You can only await a future from the event loop that created it:
     return await self.target.greetAsync(name)
   ```
 
-## Asynchronous Oneway Invocations
+### Asynchronous Oneway Invocations
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
 have any out-parameters, and does not raise user exceptions. If you call an asynchronous proxy method on a oneway proxy
@@ -344,7 +344,7 @@ for an operation that returns values or raises a user exception, the method thro
 Oneway invocation completes as soon as the request is successfully written to the client-side transport. Exceptions are
 only reported if an error occurs before the request is successfully written.
 
-# Asynchronous Method Dispatch (AMD)
+## Asynchronous Method Dispatch (AMD)
 
 Asynchronous Method Dispatch (AMD) is the server-side equivalent of AMI. With AMD, you can process dispatches
 asynchronously, allowing the server to optimize resource usage and serve more clients compared to processing all
@@ -374,7 +374,7 @@ async def greet(self, name: str, current: Ice.Current) -> str:
 In this version, the thread does not remain blocked while `getGreetAsync` runs. Instead, it can execute other tasks, and
 the coroutine resumes on the appropriate thread once the database result becomes available.
 
-## AMD Mapping
+### AMD Mapping
 
 Annotating operations with `["amd"]` metadata directives has no effect in the Python mapping. The mappings for
 synchronous and asynchronous dispatch are nearly identical—the only difference is the return type:
@@ -423,7 +423,7 @@ when the communicator is initialized with an asyncio event loop.
 
 {% /callout %}
 
-## `asyncio` Integration for Dispatch
+### `asyncio` Integration for Dispatch
 
 Ice provides seamless integration with Python’s asyncio library.
 
@@ -435,7 +435,7 @@ The same mechanism can be used to integrate Ice with other asynchronous event lo
 asyncio loop directly, you must implement the `Ice.EventLoopAdapter` abstract base class for your event loop of choice
 and provide it during communicator initialization via the `InitializationData.eventLoopAdapter` member.
 
-## Chaining Asynchronous Invocations
+### Chaining Asynchronous Invocations
 
 Because **proxy invocations** return awaitables and **asynchronous dispatch methods** may also return awaitables, it’s
 straightforward to chain calls—provided the operations have the **same result type** and **compatible user-exception
@@ -459,15 +459,15 @@ async def greet(self, name: str, current: Ice.Current) -> str:
 The `greet` dispatch is implemented by delegating to another Greeter server, and we directly return the result from the
 nested async invocation.
 
-## See Also
+### See Also
 
 - [Exceptions](../exceptions)
 - [Asynchronous Method Invocation (AMI) in Python](../asynchronous-method-invocation-ami-in-python)
 - [The Ice Threading Model](../threading-model)
 
-# Mapping for Parameters and Return Values
+## Mapping for Parameters and Return Values
 
-## In Parameters
+### In Parameters
 
 All parameters are passed by reference in the Python mapping; it is guaranteed that the value of a parameter will not be
 changed by the invocation.
@@ -531,7 +531,7 @@ p.op2(ns, ss, st)                       # Pass complex variables
 p.op3(p)                                # Pass proxy
 ```
 
-## Out Parameters
+### Out Parameters
 
 As in Java, Python functions do not support reference arguments. That is, it is not possible to pass an uninitialized
 variable to a Python function in order to have its value initialized by the function. The
@@ -600,12 +600,12 @@ The operations have no `in` parameters, therefore no arguments are passed to the
 return multiple values, their result tuples are unpacked into separate values, whereas the return value of `op3`
 requires no unpacking.
 
-## Parameter Type Mismatches
+### Parameter Type Mismatches
 
 Although the Python compiler cannot check the types of arguments passed to a function, the Ice run time does perform
 validation on the arguments to a proxy invocation and reports any type mismatches as a `ValueError` exception.
 
-## Null Parameters
+### Null Parameters
 
 Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
 can be `None`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
@@ -620,7 +620,7 @@ sequences, dictionaries, or strings. As far as the object model is concerned, th
 sequences, dictionaries, and strings do). For example, it makes no difference to the receiver whether you send a string
 as `None` or as an empty string: either way, the receiver sees an empty string.
 
-## Optional Parameters in Python
+### Optional Parameters in Python
 
 [Optional parameters](../operations) use the same mapping as required parameters. The only difference is that `None` can
 be passed as the value of an optional parameter or return value. Consider the following operation:

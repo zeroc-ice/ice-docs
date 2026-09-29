@@ -20,6 +20,6 @@ The implementation of the weather sensor (or collector) can be summarized as fol
    (`WeatherStation`).
 4. Collect and report readings by invoking on the proxy created in the previous step.
 
-##### See Also
+## See Also
 
 - [Configuring IceStorm](../configuring-icestorm)
