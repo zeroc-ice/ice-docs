@@ -131,7 +131,7 @@ you can obtain a proxy configured with a ten second invocation timeout as shown 
 greeter = VisitorCenter.GreeterPrx(communicator, "greeter:tcp -h localhost -p 4061")
 
 # Create a new GreeterPrx and assign it to greeter.
-greeter = greeter.ice_timeout(4000)
+greeter = greeter.ice_invocationTimeout(10000)
 ```
 
 The factory methods usually return a proxy of the same type as the current proxy, as in the example above.

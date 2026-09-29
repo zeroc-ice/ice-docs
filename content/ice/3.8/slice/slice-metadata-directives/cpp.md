@@ -22,7 +22,7 @@ public:
 A typical implementation of the `getGrid` operation in your servant would be:
 
 ```cpp
-GetGridMarshaledResult
+GridServant::GetGridMarshaledResult
 GridServant::getGrid(const Ice::Current& current)
 {
    lock_guard lock(_mutex);

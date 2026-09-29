@@ -21,7 +21,7 @@ Here, we compile the `Greeter.ice` Slice file we wrote earlier:
 slice2php Greeter.ice
 ```
 
-This produces a single PHP source file named `Greeter.rb`. This file provides the proxy class that we’ll use in our
+This produces a single PHP source file named `Greeter.php`. This file provides the proxy class that we’ll use in our
 client code, so it’s essential to generate this file at the beginning of the development process.
 
 ## Client Script

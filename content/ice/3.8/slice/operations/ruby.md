@@ -145,7 +145,7 @@ ns.x = 42
 ns.str = "The Answer"
 ss = [ "Hello world!" ]
 st = {}
-st[0] = ns
+st[0] = ss
 p.op2(ns, ss, st)                       # Pass complex variables
 
 p.op3(p)                                # Pass proxy

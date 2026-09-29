@@ -22,7 +22,7 @@ public partial interface SimplePrx : Ice.ObjectPrx
 {
     Task OpAsync(
         Dictionary<string, string>? context = null,
-        Progress<bool>? progress = null,
+        IProgress<bool>? progress = null,
         CancellationToken cancel = default);
 
     // Synchronous "overload" provided for backwards compatibility.
@@ -57,7 +57,7 @@ public class SimplePrxHelper : ...
 Use `createProxy` to create a proxy from a communicator and a “stringified” proxy:
 
 ```csharp
-SimplerPrx simple = SimplePrxHelper.createProxy(
+SimplePrx simple = SimplePrxHelper.createProxy(
     communicator, "simple:tcp -h localhost -p 4061");
 ```
 
@@ -105,8 +105,8 @@ public class SimplePrxHelper : ...
 
     public static async Task<SimplePrx?> checkedCastAsync(
         Ice.ObjectPrx proxy,
-        Dictionary<string, string>? context = null
-        Progress<bool>? progress = null,
+        Dictionary<string, string>? context = null,
+        IProgress<bool>? progress = null,
         CancellationToken cancel = default)
 }
 ```

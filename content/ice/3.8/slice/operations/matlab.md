@@ -39,7 +39,7 @@ end
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
 
 ```matlab
-greeter = visitorcenter.GreeterPrx(
+greeter = visitorcenter.GreeterPrx( ...
     communicator, 'greeter:tcp -h localhost -p 4061');
 
 greeting = greeter.greet('Alice');     % Get name via RPC

@@ -24,45 +24,31 @@ initiate a graceful shutdown of its process.
 
 You can replace the default `Process` facet if your application requires a different scheme for gracefully shutting
 itself down. To define your own facet, create a servant that implements the `Ice::Process` interface. As an example, the
-C++ servant definition shown below duplicates the functionality of the default `Process` facet:
+Swift servant definition shown below duplicates the functionality of the default `Process` facet:
 
-```cpp
-class MyProcess final : public Ice::Process
-{
-public:
-    MyProcess(Ice::CommunicatorPtr communicator) :
-        _communicator{std::move(communicator)}
-    {
+```swift
+final class MyProcess: Ice.Process {
+    private let communicator: Ice.Communicator
+
+    init(communicator: Ice.Communicator) {
+        self.communicator = communicator
     }
 
-    void shutdown(const Ice::Current&) final
-    {
-        _communicator->shutdown();
+    func shutdown(current _: Ice.Current) {
+        communicator.shutdown()
     }
 
-    void writeMessage(
-        std::string message,
-        std::int32_t fd,
-        const Ice::Current&) final
-    {
-        switch (fd)
-        {
-            case 1:
-            {
-                cout << message << endl;
-                break;
-            }
-            case 2:
-            {
-                cerr << message << endl;
-                break;
-            }
+    func writeMessage(message: String, fd: Int32, current _: Ice.Current) {
+        switch fd {
+        case 1:
+            print(message)
+        case 2:
+            FileHandle.standardError.write(Data((message + "\n").utf8))
+        default:
+            break
         }
     }
-
-private:
-    const Ice::CommunicatorPtr _communicator;
-};
+}
 ```
 
 As you can see, the default implementation of `shutdown` simply shuts down the communicator, which initiates an orderly
