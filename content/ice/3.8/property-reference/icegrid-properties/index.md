@@ -11,7 +11,7 @@ title: IceGrid.*
 ### Description {% id="icegrid.instancename-description" %}
 
 Specifies an alternate identity category for the [well-known IceGrid objects](../well-known-registry-objects). If
-defined, the identities of the IceGrid objects become:
+defined, the IceGrid objects use `name` as their identity category, for example:
 
 `name/AdminSessionManager` `name/AdminSessionManager-replica` `name/AdminSSLSessionManager`
 `name/AdminSSLSessionManager-replica` `name/NullPermissionsVerifier` `name/NullSSLPermissionsVerifier` `name/Locator`
@@ -20,7 +20,7 @@ defined, the identities of the IceGrid objects become:
 
 If this property is not set, the category (`name`) is computed as follows:
 
-- if `IceLocalDiscovery.InstanceName` is defined, use its value; otherwise
+- if `IceLocatorDiscovery.InstanceName` is defined, use its value; otherwise
 - if a default locator is set on the communicator (typically via `Ice.Default.Locator`), use the category of the locator
   proxy; otherwise
 - use `IceGrid`
@@ -81,9 +81,9 @@ The collocated registry is configured with the same properties as the standalone
 
 ### Description {% id="icegrid.node.data-description" %}
 
-Defines the path of the IceGrid node [data directory](../icegridnode). The node creates `servers`, and `tmp`
-subdirectories in this directory if they do not already exist. The `servers` directory contains configuration data for
-each [deployed server](../using-icegrid-deployment). The `tmp` directory holds temporary files.
+Defines the path of the IceGrid node [data directory](../icegridnode). This property must be defined for each node, and
+the directory must already exist. The node creates a `servers` subdirectory in this directory if it does not already
+exist; `servers` contains configuration data for each [deployed server](../using-icegrid-deployment).
 
 ## IceGrid.Node.DisableOnFailure
 
@@ -108,8 +108,9 @@ meaning the node does not disable servers in this situation.
 
 ### Description {% id="icegrid.node.name-description" %}
 
-Defines the `name` of the IceGrid node. All nodes using the same registry must have unique names; a node refuses to
-start if there is a node with the same name running already. This property must be defined for each node.
+Defines the `name` of the IceGrid node. All nodes using the same registry must have unique names. When a node with the
+same name is already active, the registry rejects the node's session: the node logs an error and keeps running without a
+session, retrying periodically. This property must be defined for each node.
 
 ## IceGrid.Node.Output
 
@@ -119,9 +120,13 @@ start if there is a node with the same name running already. This property must 
 
 ### Description {% id="icegrid.node.output-description" %}
 
-Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` and `stderr` output of
-the started servers to files named `server.out` and `server.err` in this directory. Otherwise, the started servers share
-the `stdout` and `stderr` of the node's process.
+Defines the path of the IceGrid node output directory. If set, the node sets [Ice.StdOut](../ice-properties) to
+`path/server-id.out` and [Ice.StdErr](../ice-properties) to `path/server-id.err` in the configuration of each server it
+starts, where `server-id` is the server's ID. The node leaves `Ice.StdOut` or `Ice.StdErr` unchanged when the server's
+configuration already sets it.
+
+For a stream that neither the node nor the server's configuration redirects to a file, the server writes to the `stdout`
+or `stderr` of the node's process.
 
 ## IceGrid.Node.PrintServersReady
 
@@ -168,7 +173,10 @@ deployment descriptors. The property definitions must be separated by white spac
 
 ### Description {% id="icegrid.node.redirecterrtoout-description" %}
 
-If `num` is set to a value larger than zero, the `stderr` of each started server is redirected to the server's `stdout`.
+If `num` is set to a value larger than zero, the node sets [Ice.StdErr](../ice-properties) to `path/server-id.out`
+instead of `path/server-id.err`, where `path` is the value of
+[IceGrid.Node.Output](../icegrid-properties#icegrid.node.output). This property has no effect unless
+`IceGrid.Node.Output` is set, or for a server whose configuration sets `Ice.StdErr`.
 
 ## IceGrid.Node.Trace.Activator
 
@@ -195,11 +203,12 @@ The activator trace level:
 
 The object adapter trace level:
 
-| 0   | No object adapter trace (default).                                                                                    |
-| --- | --------------------------------------------------------------------------------------------------------------------- |
-| 1   | Trace object adapter addition, removal.                                                                               |
-| 2   | Like 1, but more verbose, including object adapter activation and deactivation and more diagnostic messages.          |
-| 3   | Like 2, but more verbose, including object adapter transitional state change (for example, "waiting for activation"). |
+| Value | Description                                                             |
+| ----- | ----------------------------------------------------------------------- |
+| 0     | No object adapter trace (default).                                      |
+| 1     | Same as 0.                                                              |
+| 2     | Trace object adapter activation, deactivation, and activation failures. |
+| 3     | Like 2, plus requests waiting for the activation of an object adapter.  |
 
 ## IceGrid.Node.Trace.Admin
 
@@ -271,12 +280,12 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ### Description {% id="icegrid.node.useraccounts-description" %}
 
-Specifies the file name of an IceGrid node user account map file. Each line of the file must contain an identifier and a
-user account, separated by white space. The identifier will be matched against the client session identifier (the user
-ID for sessions created with a user ID and password, or the distinguished name for sessions created from a secure
-connection). This user account map file is used by the node to
-[map session identifiers to user accounts](../icegrid-server-activation). This property is ignored if
-IceGrid.Node.UserAccountMapper is defined.
+Specifies the file name of an IceGrid node user account map file. Each line of the file contains a user account, white
+space, and an identifier; the identifier is the rest of the line and may contain spaces. A `#` starts a comment that
+runs to the end of the line. The identifier is matched against the client session identifier (the user ID for sessions
+created with a user ID and password, or the distinguished name for sessions created from a secure connection). This user
+account map file is used by the node to [map session identifiers to user accounts](../icegrid-server-activation). This
+property is ignored if IceGrid.Node.UserAccountMapper is defined.
 
 ## IceGrid.Node.WaitTime
 
@@ -295,6 +304,9 @@ node assumes there is a problem with the server and returns an empty set of endp
 If a server is being gracefully deactivated and IceGrid does not detect the server deactivation during this time
 interval, IceGrid kills the server.
 
+A server descriptor's `activation-timeout` and `deactivation-timeout` attributes, when set to a non-zero value, override
+this property for that server.
+
 The default value is 60 seconds.
 
 ## IceGrid.Registry.AdminCryptPasswords
@@ -306,11 +318,11 @@ The default value is 60 seconds.
 ### Description {% id="icegrid.registry.admincryptpasswords-description" %}
 
 Specifies the file name of an IceGrid registry
-[access control list for administrative clients](../resource-allocation-using-icegrid-sessions). Each line of the file
-must contain a user name and a password, separated by white space. The password must a `MCF` encoded string as described
-in the [passlib Modular Crypt Format documentation](https://pythonhosted.org/passlib/modular_crypt_format.html). If this
-property is not defined, the default value is `admin-passwords`. This property is ignored if
-IceGrid.Registry.AdminPermissionsVerifier is defined.
+[access control list for administrative clients](../resource-allocation-using-icegrid-sessions). The file uses the
+format described in [IceGrid.Registry.CryptPasswords](../icegrid-properties#icegrid.registry.cryptpasswords). If this
+property is not defined, the registry does not use a password file for administrative clients. This property is ignored
+if [IceGrid.Registry.AdminPermissionsVerifier](../icegrid-properties#icegrid.registry.adminpermissionsverifier) is
+defined.
 
 ## IceGrid.Registry.AdminPermissionsVerifier
 
@@ -337,11 +349,14 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 This property controls whether IceGrid establishes filters for sessions created with the
 [IceGrid session manager](../glacier2-integration-with-icegrid). If `num` is set to a value larger than zero, IceGrid
-establishes these filters, so [Glacier2](../glacier2) limits access to the `IceGrid::AdminSession` object and the
-`IceGrid::Admin` object that is returned by the `getAdmin` operation. If `num` is set to zero, IceGrid does not
-establish filters, so access to these objects is controlled solely by Glacier2's configuration.
+establishes these filters, so [Glacier2](../glacier2) limits access to the `IceGrid::AdminSession` object, the
+`IceGrid::Admin` object that is returned by the `getAdmin` operation, the `IceGrid::Query` object, and the admin objects
+of the servers. If `num` is set to zero, IceGrid does not establish filters, so access to objects is controlled solely
+by Glacier2's configuration.
 
-The default value is 1.
+The default value is 0. When
+[IceGrid.Registry.AdminSessionManager.Endpoints](../icegrid-properties#icegrid.registry.adminsessionmanager.adapterproperty)
+is set, the registry logs a warning at startup that also notes when the filters are disabled.
 
 ## IceGrid.Registry.AdminSessionManager._AdapterProperty_
 
@@ -399,11 +414,20 @@ registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for th
 ### Description {% id="icegrid.registry.cryptpasswords-description" %}
 
 Specifies the file name of an IceGrid registry [access control list](../resource-allocation-using-icegrid-sessions).
-Each line of the file must contain a user name and a password, separated by white space. The password must a `MCF`
-encoded string as described in the
-[passlib Modular Crypt Format documentation](https://pythonhosted.org/passlib/modular_crypt_format.html). If this
-property is not defined, the default value is `passwords`. This property is ignored if
-IceGrid.Registry.PermissionsVerifier is defined.
+Each line of the file contains a user name and a password hash, separated by white space. The registry skips blank lines
+and fails to start if a line has more than two tokens or if a user name appears twice. The registry logs a warning if
+the file contains DES password hashes.
+
+The accepted password hash formats depend on the platform:
+
+- On Linux and FreeBSD, the registry accepts any format supported by the system's `crypt` function; with libxcrypt, this
+  includes DES, MD5 (`$1$`), SHA-256 (`$5$`), SHA-512 (`$6$`), bcrypt (`$2b$`), and yescrypt (`$y$`).
+- On macOS and Windows, the registry accepts PBKDF2 hashes in the
+  [passlib format](https://pythonhosted.org/passlib/modular_crypt_format.html) only (`$pbkdf2$`, `$pbkdf2-sha256$`, and
+  `$pbkdf2-sha512$`).
+
+If this property is not defined, the registry does not use a password file. This property is ignored if
+[IceGrid.Registry.PermissionsVerifier](../icegrid-properties#icegrid.registry.permissionsverifier) is defined.
 
 ## IceGrid.Registry.DefaultTemplates
 
@@ -416,6 +440,9 @@ IceGrid.Registry.PermissionsVerifier is defined.
 Defines the path name of an XML file containing default [template descriptors](../icegrid-templates). A sample file
 named `config/templates.xml` that contains convenient server templates for Ice services is provided in the Ice
 distribution.
+
+This property has no default value. When it is not set, the `getDefaultApplicationDescriptor` operation of the
+`IceGrid::Admin` interface throws `DeploymentException`.
 
 ## IceGrid.Registry.Discovery._AdapterProperty_
 
@@ -444,16 +471,16 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 
 ### Description {% id="icegrid.registry.discovery.address-description" %}
 
-Specifies the multicast IP address to use for receiving multicast discovery queries. If not defined, the default value
-depends on the setting of [Ice.IPv4](../ice-properties): if enabled (the default), IceDiscovery uses the address
-`239.255.0.1`, otherwise IceDiscovery assumes the application wants to use IPv6 and defaults to the address `ff15::1`
-instead. This property is used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
+Specifies the multicast IP address to use for receiving multicast discovery queries. If not defined, the registry uses
+the address `239.255.0.1` when [Ice.IPv4](../ice-properties) is enabled (the default) and
+[Ice.PreferIPv6Address](../ice-properties) is not; otherwise, the registry uses the address `ff15::1`. This property is
+used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
 
 ## IceGrid.Registry.Discovery.Enabled
 
 ### Synopsis {% id="icegrid.registry.discovery.enabled-synopsis" %}
 
-`IceDiscovery.Enabled=num`
+`IceGrid.Registry.Discovery.Enabled=num`
 
 ### Description {% id="icegrid.registry.discovery.enabled-description" %}
 
@@ -524,8 +551,8 @@ always provides a direct adapter.)
 ### Description {% id="icegrid.registry.lmdb.mapsize-description" %}
 
 Specifies the map size for the IceGrid [LMDB](http://www.lmdb.tech/doc/) database environment. The value is specified in
-megabytes. If not specified or set to 0, IceGrid uses a system-dependent default: 10 MB on Windows, and 100 MB on other
-platforms.
+megabytes. If not specified or set to 0 or a negative value, IceGrid uses a system-dependent default: 10 MB on Windows,
+and 100 MB on other platforms.
 
 ## IceGrid.Registry.LMDB.Path
 
@@ -535,8 +562,9 @@ platforms.
 
 ### Description {% id="icegrid.registry.lmdb.path-description" %}
 
-Specifies the path of IceGrid registry LMDB [database environment](../icegrid-persistent-data). The directory specified
-in `path` must exist - the IceGrid registry does not create this directory.
+Specifies the path of IceGrid registry LMDB [database environment](../icegrid-persistent-data). This property must be
+defined, and the directory specified in `path` must exist: the IceGrid registry does not create this directory. The
+registry also keeps its `icedb.lock` lock file in this directory.
 
 ## IceGrid.Registry.NodeSessionTimeout
 
@@ -549,6 +577,9 @@ in `path` must exist - the IceGrid registry does not create this directory.
 Each IceGrid node establishes a session with the registry that must be refreshed periodically. If a node does not
 refresh its session within `num` seconds, the node's session is destroyed and the servers deployed on that node become
 unavailable to new clients. If not specified, the default value is 30 seconds.
+
+A value of 0 disables the expiration of node sessions. The registry rejects any other value lower than 10 with a
+`PropertyException`.
 
 ## IceGrid.Registry.PermissionsVerifier
 
@@ -588,6 +619,9 @@ refreshed periodically. If a replica does not refresh its session within `num` s
 destroyed and the replica no longer receives replication information from the master registry. If not specified, the
 default value is 30 seconds.
 
+A value of 0 disables the expiration of replica sessions. The registry rejects any other value lower than 10 with a
+`PropertyException`.
+
 ## IceGrid.Registry.Server._AdapterProperty_
 
 ### Synopsis {% id="icegrid.registry.server.adapterproperty-synopsis" %}
@@ -615,7 +649,9 @@ establishes these filters, so Glacier2 limits access to the `IceGrid::Query` and
 objects and adapters allocated by the session. If `num` is set to zero, IceGrid does not establish filters, so access to
 objects is controlled solely by Glacier2's configuration.
 
-The default value is 0.
+The default value is 0. When
+[IceGrid.Registry.SessionManager.Endpoints](../icegrid-properties#icegrid.registry.sessionmanager.adapterproperty) is
+set, the registry logs a warning at startup that also notes when the filters are disabled.
 
 ## IceGrid.Registry.SessionManager._AdapterProperty_
 
@@ -730,10 +766,12 @@ The locator and locator registry trace level:
 
 The node trace level:
 
-| 0   | No node trace (default).                             |
-| --- | ---------------------------------------------------- |
-| 1   | Trace node registration, removal.                    |
-| 2   | Like 1, but more verbose, including load statistics. |
+| Value | Description                                                               |
+| ----- | ------------------------------------------------------------------------- |
+| 0     | No node trace (default).                                                  |
+| 1     | Trace nodes going up and down, and node session creation and destruction. |
+| 2     | Same as 1.                                                                |
+| 3     | Like 1, plus the keep-alive messages of each node with its load averages. |
 
 ## IceGrid.Registry.Trace.Object
 
@@ -745,9 +783,11 @@ The node trace level:
 
 The object trace level:
 
-| 0   | No object trace (default).          |
-| --- | ----------------------------------- |
-| 1   | Trace object registration, removal. |
+| Value | Description                                                     |
+| ----- | --------------------------------------------------------------- |
+| 0     | No object trace (default).                                      |
+| 1     | Trace object registration, removal.                             |
+| 2     | Like 1, plus the allocation and release of allocatable objects. |
 
 ## IceGrid.Registry.Trace.Replica
 
@@ -757,11 +797,14 @@ The object trace level:
 
 ### Description {% id="icegrid.registry.trace.replica-description" %}
 
-The server trace level:
+The replica trace level:
 
-| 0   | No server trace (default).                                 |
-| --- | ---------------------------------------------------------- |
-| 1   | Trace session lifecycle between master replica and slaves. |
+| Value | Description                                                                                                    |
+| ----- | -------------------------------------------------------------------------------------------------------------- |
+| 0     | No replica trace (default).                                                                                    |
+| 1     | Trace replicas going up and down, and the session lifecycle between the master replica and the other replicas. |
+| 2     | Like 1, plus session establishment attempts and failures.                                                      |
+| 3     | Like 2, plus keep-alive messages.                                                                              |
 
 ## IceGrid.Registry.Trace.Server
 
@@ -777,6 +820,7 @@ The server trace level:
 | --- | -------------------------------------------------------------------------------------- |
 | 1   | Trace the addition and removal of servers in the Registry database.                    |
 | 2   | Like 1, but more verbose: includes load/unload failures, properties updates, and more. |
+| 3   | Like 2, plus the start of each server load and unload on a node.                       |
 
 ## IceGrid.Registry.Trace.Session
 
@@ -788,10 +832,10 @@ The server trace level:
 
 The session trace level:
 
-| 0   | No client or admin session trace (default).             |
-| --- | ------------------------------------------------------- |
-| 1   | Trace client or admin session registration, removal.    |
-| 2   | Like 1, but more verbose, includes keep alive messages. |
+| Value | Description                                                                                             |
+| ----- | ------------------------------------------------------------------------------------------------------- |
+| 0     | No client or admin session trace (default).                                                             |
+| 1     | Trace client or admin session creation and destruction, and exceptions raised by permissions verifiers. |
 
 ## IceGrid.Registry.UserAccounts
 
@@ -801,8 +845,9 @@ The session trace level:
 
 ### Description {% id="icegrid.registry.useraccounts-description" %}
 
-Specifies the file name of an IceGrid registry user account map file. Each line of the file must contain an identifier
-and a user account, separated by white space. The identifier will be matched against the client session identifier (the
-user ID for sessions created with a user ID and password, or the distinguished name for sessions created from a secure
-connection). This user account map file is used by IceGrid nodes to map session identifiers to user accounts if the
-nodes' IceGrid.Node.UserAccountMapper property is set to the proxy `IceGrid/RegistryUserAccountMapper`.
+Specifies the file name of an IceGrid registry user account map file. The file uses the format described in
+[IceGrid.Node.UserAccounts](../icegrid-properties#icegrid.node.useraccounts). The identifier is matched against the
+client session identifier (the user ID for sessions created with a user ID and password, or the distinguished name for
+sessions created from a secure connection). This user account map file is used by IceGrid nodes to map session
+identifiers to user accounts if the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy
+`IceGrid/RegistryUserAccountMapper`.
