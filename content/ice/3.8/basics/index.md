@@ -4,7 +4,7 @@ pages:
   - slice-and-slice-compilers
   - terminology
   - protocol-in-a-nutshell
-  - ice-services-overview
+  - services-overview
 ---
 
 Ice is at its core an [RPC framework](https://en.wikipedia.org/wiki/Remote_procedure_call) that allows you to build
