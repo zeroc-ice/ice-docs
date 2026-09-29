@@ -15,15 +15,15 @@
 //   8. a page written per language has one title across its languages
 //   9. no page holds a no-break space (U+00A0)
 //
-// Exit code 1 on a violation of 1-3, 5a/5b (unparseable image markup and missing
-// alt text), 6, 7, 8, and 9 — those are defects in the files themselves, and the
-// tree is clean of them today, so anything new is a regression. A version
-// without a front page, or a page that lists a page it does not contain, fails
-// as the navigation is read.
+// Exit code 1 on a violation of 1-3, 5 (unparseable image markup, missing alt
+// text, and missing image files), 6, 7, 8, and 9 — those are defects in the files
+// themselves, and the tree is clean of them today, so anything new is a
+// regression. A version without a front page, or a page that lists a page it does
+// not contain, fails as the navigation is read.
 //
-// Unresolved links (4) and missing image files (5c) are reported and fail only
-// under --strict: the migrated manual still links to pages that were never
-// brought over, and none of its Confluence attachments were migrated at all.
+// Unresolved links (4) fail when there are more of them than the migration left:
+// the migrated manual still links to pages that were never brought over.
+// --strict fails on any.
 
 // cspell:words noformat unparseable worklist
 
@@ -145,10 +145,7 @@ function checkImages(version, files) {
       console.log(`  ${String(count).padStart(4)}  ${target}`);
     }
     if (missing.size > 10) console.log(`  ...and ${missing.size - 10} more`);
-    if (strict)
-      fail(
-        `${version}: ${missingCount} images point at files that do not exist`
-      );
+    fail(`${version}: ${missingCount} images point at files that do not exist`);
   }
 }
 
@@ -314,6 +311,12 @@ function checkNoBreakSpaces(files) {
   }
 }
 
+// The number of links the migration left pointing at pages that were never
+// brought over. It is a ratchet: fixing those links lowers it, and the check
+// fails if it ever rises. When it reaches 0, delete this and fail on any
+// unresolved link.
+const UNRESOLVED_LINK_BASELINE = 81;
+
 for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
 
@@ -395,14 +398,25 @@ for (const version of listVersions(CONTENT_ROOT)) {
   console.log(
     `${version}: ${total} links, ${unresolvedCount} unresolved (${unresolved.size} distinct)`
   );
+  const aboveBaseline = unresolvedCount > UNRESOLVED_LINK_BASELINE;
   if (unresolvedCount) {
-    const worst = [...unresolved.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 15);
-    for (const [target, count] of worst)
+    // Above the baseline, list every target, so the new one is among them.
+    const worst = [...unresolved.entries()].sort((a, b) => b[1] - a[1]);
+    for (const [target, count] of aboveBaseline ? worst : worst.slice(0, 15))
       console.log(`  ${String(count).padStart(4)}  ${target}`);
     if (strict)
       fail(`${version}: ${unresolvedCount} unresolved cross-page links`);
+  }
+  if (aboveBaseline) {
+    fail(
+      `${version}: ${unresolvedCount} unresolved cross-page links, up from the ` +
+        `baseline of ${UNRESOLVED_LINK_BASELINE}. A link names a page by the name of its directory.`
+    );
+  } else if (unresolvedCount < UNRESOLVED_LINK_BASELINE) {
+    console.log(
+      `  ${UNRESOLVED_LINK_BASELINE - unresolvedCount} fewer than the baseline — ` +
+        `lower UNRESOLVED_LINK_BASELINE in scripts/check-content.js to ${unresolvedCount}`
+    );
   }
 }
 
