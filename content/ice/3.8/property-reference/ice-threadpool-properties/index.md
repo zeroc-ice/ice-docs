@@ -27,11 +27,11 @@ This page describes configuration properties for the client and server thread po
 
 ## Ice.ThreadPool._name_.Serialize
 
-### Synopsis
+### Synopsis {% id="ice.threadpool.name.serialize-synopsis" %}
 
 `Ice.ThreadPool.name.Serialize=num`
 
-### Description
+### Description {% id="ice.threadpool.name.serialize-description" %}
 
 If `num` is a value greater than 0, the `Client` or `Server` [thread pool](../threading-model) serializes all messages
 from each connection. It is not necessary to enable this feature in a thread pool whose maximum size is 1 thread. When a
@@ -46,11 +46,11 @@ See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 
 ## Ice.ThreadPool._name_.Size
 
-### Synopsis
+### Synopsis {% id="ice.threadpool.name.size-synopsis" %}
 
 `Ice.ThreadPool.name.Size=num`
 
-### Description
+### Description {% id="ice.threadpool.name.size-description" %}
 
 [Thread pools](../threading-model) in Ice can grow and shrink dynamically, based on an average load factor. A thread
 pool always has at least 1 thread and may grow as load increases up to the maximum size specified by
@@ -66,11 +66,11 @@ property.
 
 ## Ice.ThreadPool._name_.SizeMax
 
-### Synopsis
+### Synopsis {% id="ice.threadpool.name.sizemax-synopsis" %}
 
 `Ice.ThreadPool.name.SizeMax=num`
 
-### Description
+### Description {% id="ice.threadpool.name.sizemax-description" %}
 
 `num` is the maximum number of threads for the `Client` or `Server` [thread pool](../threading-model). Refer to the
 [Ice.ThreadPool._name_.Size](../ice-threadpool-properties#ice.threadpool.name.size) property for more information on
@@ -91,11 +91,11 @@ property.
 
 ## Ice.ThreadPool._name_.SizeWarn
 
-### Synopsis
+### Synopsis {% id="ice.threadpool.name.sizewarn-synopsis" %}
 
 `Ice.ThreadPool.name.SizeWarn=num`
 
-### Description
+### Description {% id="ice.threadpool.name.sizewarn-description" %}
 
 Whenever `num` threads are active in the `Client` or `Server` [thread pool](../threading-model), a "low on threads"
 warning is printed. The default value is 0, which disables the warning.
@@ -107,11 +107,11 @@ property.
 
 ## Ice.ThreadPool._name_.ThreadIdleTime
 
-### Synopsis
+### Synopsis {% id="ice.threadpool.name.threadidletime-synopsis" %}
 
 `Ice.ThreadPool.name.ThreadIdleTime=num`
 
-### Description
+### Description {% id="ice.threadpool.name.threadidletime-description" %}
 
 Ice can automatically reap idle threads in the `Client` or `Server` [thread pool](../threading-model) to conserve
 resources. This property specifies the number of seconds a thread must be idle before it is reaped. If not specified,

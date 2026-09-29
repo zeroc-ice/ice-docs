@@ -51,7 +51,7 @@ classdef (Sealed) Person
 end
 ```
 
-### Optional Fields
+### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a MATLAB property just like a regular field, except you can also set this property to the
 marker value `Ice.Unset`. The tag value is not mapped to MATLAB.
@@ -67,7 +67,7 @@ else
 end
 ```
 
-### Default Values
+### Default Values {% id="language-mapping-default-values" %}
 
 Slice default values are mapped to default MATLAB property values.
 

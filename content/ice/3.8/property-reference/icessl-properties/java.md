@@ -2,11 +2,11 @@
 
 ## IceSSL.Alias
 
-### Synopsis
+### Synopsis {% id="icessl.alias-synopsis" %}
 
 `IceSSL.Alias=alias` (Java)
 
-### Description
+### Description {% id="icessl.alias-description" %}
 
 Selects a particular certificate from the key store specified by `IceSSL.Keystore`. IceSSL presents the certificate
 identified by `alias` to the peer during authentication. If the alias does not name a key entry of the key store,
@@ -24,11 +24,11 @@ If this property is not defined, IceSSL uses the first key entry of the key stor
 
 ## IceSSL.Keystore
 
-### Synopsis
+### Synopsis {% id="icessl.keystore-synopsis" %}
 
 `IceSSL.Keystore=file` (Java)
 
-### Description
+### Description {% id="icessl.keystore-description" %}
 
 Specifies a key store file containing certificates and their private keys. If the key store contains multiple
 certificates, you should specify a particular one to use for authentication using `IceSSL.Alias`. IceSSL first attempts
@@ -41,11 +41,11 @@ result, the application may not be able to negotiate a secure connection.
 
 ## IceSSL.KeystorePassword
 
-### Synopsis
+### Synopsis {% id="icessl.keystorepassword-synopsis" %}
 
 `IceSSL.KeystorePassword=password` (Java)
 
-### Description
+### Description {% id="icessl.keystorepassword-description" %}
 
 Specifies the password used to load the key store defined by `IceSSL.Keystore`. Depending on the key store type and
 security provider, this password can be used to verify the store's integrity and to decrypt its contents, including
@@ -63,11 +63,11 @@ store; `IceSSL.TruststorePassword` is not used.
 
 ## IceSSL.KeystoreType
 
-### Synopsis
+### Synopsis {% id="icessl.keystoretype-synopsis" %}
 
 `IceSSL.KeystoreType=type` (Java)
 
-### Description
+### Description {% id="icessl.keystoretype-description" %}
 
 Specifies the type of the key store file defined by `IceSSL.Keystore`. Ice passes this value unchanged to
 `KeyStore.getInstance(String)`, so it must name a key store type supplied by an installed security provider, such as
@@ -82,7 +82,7 @@ property `keystore.type`:
   can leave this property unset for a JKS file and for a PKCS12 file loaded with `IceSSL.KeystorePassword`.
 - Android configures `keystore.type=BKS`.
 
-#### Store type and store password
+#### Store type and store password {% id="icessl.keystoretype-store-type-and-store-password" %}
 
 When `IceSSL.KeystorePassword` is not defined, the key store type determines the password Ice passes to `KeyStore.load`:
 
@@ -129,11 +129,11 @@ revocation checking configured in the JDK applies.
 
 ## IceSSL.Truststore
 
-### Synopsis
+### Synopsis {% id="icessl.truststore-synopsis" %}
 
 `IceSSL.Truststore=file` (Java)
 
-### Description
+### Description {% id="icessl.truststore-description" %}
 
 Specifies a key store file containing the certificates of trusted certificate authorities. IceSSL first attempts to open
 `file` as a class loader resource and then as a regular file. If the given path is relative but does not exist, IceSSL
@@ -145,11 +145,11 @@ handshaking. As a result, the application may not be able to negotiate a secure 
 
 ## IceSSL.TruststorePassword
 
-### Synopsis
+### Synopsis {% id="icessl.truststorepassword-synopsis" %}
 
 `IceSSL.TruststorePassword=password` (Java)
 
-### Description
+### Description {% id="icessl.truststorepassword-description" %}
 
 Specifies the password used to load the trust store defined by `IceSSL.Truststore`. Depending on the key store type and
 security provider, this password can be used to verify the store's integrity and to decrypt its contents, including
@@ -164,11 +164,11 @@ If `IceSSL.Truststore` and `IceSSL.Keystore` have the same value, Ice loads the 
 
 ## IceSSL.TruststoreType
 
-### Synopsis
+### Synopsis {% id="icessl.truststoretype-synopsis" %}
 
 `IceSSL.TruststoreType=type` (Java)
 
-### Description
+### Description {% id="icessl.truststoretype-description" %}
 
 Specifies the type of the trust store file defined by `IceSSL.Truststore`. Ice passes this value unchanged to
 `KeyStore.getInstance(String)`, so it must name a key store type supplied by an installed security provider, such as
@@ -177,7 +177,7 @@ Specifies the type of the trust store file defined by `IceSSL.Truststore`. Ice p
 
 If this property is not defined, Ice uses `KeyStore.getDefaultType()`, as described under `IceSSL.KeystoreType`.
 
-#### Store type and store password
+#### Store type and store password {% id="icessl.truststoretype-store-type-and-store-password" %}
 
 When `IceSSL.TruststorePassword` is not defined, the trust store type determines the password Ice passes to
 `KeyStore.load`: the empty string for `PKCS12` or `BKS` in upper case, and null for any other value. See

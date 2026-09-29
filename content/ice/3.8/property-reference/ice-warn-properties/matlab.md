@@ -4,11 +4,11 @@
 
 ## Ice.Warn.SliceLoader
 
-### Synopsis
+### Synopsis {% id="ice.warn.sliceloader-synopsis" %}
 
 `Ice.Warn.SliceLoader=num`
 
-### Description
+### Description {% id="ice.warn.sliceloader-description" %}
 
 When [Ice.SliceLoader.NotFoundCacheSize](../ice-properties) is set to a value larger than 0, the communicator installs a
 “not found” cache to cache failed Slice loader resolutions. And when this cache is full, additional failed Slice loader

@@ -32,11 +32,11 @@ These properties apply only to connections over connection-oriented transports s
 
 ## Ice.Connection._name_.CloseTimeout
 
-### Synopsis
+### Synopsis {% id="ice.connection.name.closetimeout-synopsis" %}
 
 `Ice.Connection.name.CloseTimeout=num` (in seconds)
 
-### Description
+### Description {% id="ice.connection.name.closetimeout-description" %}
 
 A graceful connection closure transitions to connection abort if it takes more than `num` seconds to complete.
 
@@ -46,11 +46,11 @@ The default close timeout is `10` seconds.
 
 ## Ice.Connection._name_.ConnectTimeout
 
-### Synopsis
+### Synopsis {% id="ice.connection.name.connecttimeout-synopsis" %}
 
 `Ice.Connection.name.ConnectTimeout=num` (in seconds)
 
-### Description
+### Description {% id="ice.connection.name.connecttimeout-description" %}
 
 A connection establishment fails if it takes more than `num` seconds to complete.
 
@@ -60,11 +60,11 @@ The default connect timeout is `10` seconds.
 
 ## Ice.Connection._name_.EnableIdleCheck
 
-### Synopsis
+### Synopsis {% id="ice.connection.name.enableidlecheck-synopsis" %}
 
 `Ice.Connection.name.EnableIdleCheck=num`
 
-### Description
+### Description {% id="ice.connection.name.enableidlecheck-description" %}
 
 When `num` is greater than `0`, the communicator or object adapter performs the connection idle check described in
 [Ice.Connection.name.IdleTimeout](../ice-connection-properties#ice.connection.name.idletimeout). Otherwise, no idle
@@ -74,11 +74,11 @@ The default value for `num` is `1`.
 
 ## Ice.Connection._name_.IdleTimeout
 
-### Synopsis
+### Synopsis {% id="ice.connection.name.idletimeout-synopsis" %}
 
 `Ice.Connection.name.IdleTimeout=num` (in seconds)
 
-### Description
+### Description {% id="ice.connection.name.idletimeout-description" %}
 
 Once a connection is established, this connection is considered healthy as long as it does not wait for more than `num`
 seconds to read a byte. If a connection waits for more than `num` seconds to read a byte, it's deemed idle and aborted
@@ -103,11 +103,11 @@ seconds) should be appropriate for most applications.
 
 ## Ice.Connection._name_.InactivityTimeout
 
-### Synopsis
+### Synopsis {% id="ice.connection.name.inactivitytimeout-synopsis" %}
 
 `Ice.Connection.name.InactivityTimeout=num` (in seconds)
 
-### Description
+### Description {% id="ice.connection.name.inactivitytimeout-description" %}
 
 A connection is considered inactive when there is no application-level activity on this connection: there is no
 outstanding invocation (we're not waiting for a response to a request we've sent), there is no outstanding dispatch, and

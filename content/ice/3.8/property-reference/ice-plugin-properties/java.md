@@ -1,10 +1,10 @@
 {% language-section name="lang-1" %}
 
-### Synopsis
+### Synopsis {% id="ice.plugin.name-synopsis" %}
 
 `Ice.Plugin.name=[path:]class [args]`
 
-### Description
+### Description {% id="ice.plugin.name-description" %}
 
 Defines a Java plug-in to be installed during communicator initialization. The specified class must implement the
 [PluginFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginFactory.html) interface. Any

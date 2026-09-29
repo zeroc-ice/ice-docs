@@ -100,7 +100,7 @@ auto writer = makeAnyKeyWriter(temperatures, "temperature-writer");
 
 Writers are responsible for publishing data samples to a topic.
 
-### Single-Key Writer
+### Single-Key Writer {% id="publishing-single-key-writer" %}
 
 A [SingleKeyWriter](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1SingleKeyWriter.html) provides the
 following methods for publishing samples:

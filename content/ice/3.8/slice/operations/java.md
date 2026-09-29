@@ -102,7 +102,7 @@ try {
 }
 ```
 
-### See Also
+### See Also {% id="client-side-see-also" %}
 
 - [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Asynchronous Method Invocation (AMI) in Java](<../operations#asynchronous-method-invocation-(ami)>)
@@ -187,7 +187,7 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-### See Also
+### See Also {% id="server-side-see-also" %}
 
 - [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Client-Side Java Mapping for Operations](#client-side-mapping-for-operations)
@@ -514,7 +514,7 @@ class ExampleServant implements AsyncExample {
 }
 ```
 
-### See Also
+### See Also {% id="amd-see-also" %}
 
 - [The Ice Threading Model](../threading-model)
 - [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)

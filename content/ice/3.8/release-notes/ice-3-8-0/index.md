@@ -448,7 +448,7 @@ And the preferred way to wait for communicator shutdown in an async context is:
 await communicator.shutdownCompleted;
 ```
 
-### Async skeleton class
+### Async skeleton class {% id="csharp-async-skeleton-class" %}
 
 You implement a Slice interface in C# by writing a class that implements the skeleton class generated for that
 interface - and now you have two C# skeleton classes to choose from: the default skeleton class, named after the Slice
@@ -489,7 +489,7 @@ developing applications targeting a web browser.
 Slice modules are now always mapped to JavaScript ES6 modules. The `js:es6-module` metadata has been removed, as a
 single module mapping is now used by default.
 
-### Improved async support
+### Improved async support {% id="javascript-improved-async-support" %}
 
 We added support for `Symbol.asyncDispose` on `Ice.Communicator`. TypeScript applications can now use the communicator
 in `await using` expressions:
@@ -562,7 +562,7 @@ We simplified Ice for PHP by removing:
 
 Ice for Python requires Python 3.12 or greater.
 
-### Improved async support
+### Improved async support {% id="python-improved-async-support" %}
 
 We greatly improved the async support in Ice for Python, especially in conjunction with `asyncio`.
 

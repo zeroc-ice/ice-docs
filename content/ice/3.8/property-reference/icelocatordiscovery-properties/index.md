@@ -6,11 +6,11 @@ This page describes the properties supported by the IceLocatorDiscovery plug-in.
 
 ## IceLocatorDiscovery.Address
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.address-synopsis" %}
 
 `IceLocatorDiscovery.Address=addr`
 
-### Description
+### Description {% id="icelocatordiscovery.address-description" %}
 
 Specifies the multicast IP address to use for sending [multicast discovery queries](../icelocatordiscovery). If not
 defined, the default value depends on other property settings:
@@ -24,11 +24,11 @@ This property is used to compose the value of
 
 ## IceLocatorDiscovery.InstanceName
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.instancename-synopsis" %}
 
 `IceLocatorDiscovery.InstanceName=name`
 
-### Description
+### Description {% id="icelocatordiscovery.instancename-description" %}
 
 Specifies the name of a locator instance. If you have multiple unrelated locators deployed that use the same multicast
 address and port, you can define this property to limit your discovery results only to those locators deployed for the
@@ -37,11 +37,11 @@ subsequent query discovers a locator with a different instance name, the plug-in
 
 ## IceLocatorDiscovery.Interface
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.interface-synopsis" %}
 
 `IceLocatorDiscovery.Interface=intf`
 
-### Description
+### Description {% id="icelocatordiscovery.interface-description" %}
 
 Specifies the IP address of the interface to use for sending [multicast discovery queries](../icelocatordiscovery). If
 not defined, the discovery will use all the network interfaces available on the system to send UDP multicast datagrams.
@@ -51,11 +51,11 @@ This property is used to compose the value of
 
 ## IceLocatorDiscovery.Locator._AdapterProperty_
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.locator.adapterproperty-synopsis" %}
 
 `IceLocatorDiscovery.Locator.AdapterProperty=value`
 
-### Description
+### Description {% id="icelocatordiscovery.locator.adapterproperty-description" %}
 
 IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Locator`, therefore all of the
 [object adapter properties](../object-adapter-properties) can be set.
@@ -64,11 +64,11 @@ You don't normally need to set properties for this object adapter.
 
 ## IceLocatorDiscovery.Lookup
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.lookup-synopsis" %}
 
 `IceLocatorDiscovery.Lookup=endpoints`
 
-### Description
+### Description {% id="icelocatordiscovery.lookup-description" %}
 
 Specifies the multicast endpoints that a client uses to send [multicast discovery queries](../icelocatordiscovery). If
 not defined, the endpoint is composed as follows:
@@ -83,21 +83,21 @@ are defined, the queries will be sent on each endpoint.
 
 ## IceLocatorDiscovery.Port
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.port-synopsis" %}
 
 `IceLocatorDiscovery.Port=port`
 
-### Description
+### Description {% id="icelocatordiscovery.port-description" %}
 
 Specifies the multicast port to use for sending multicast queries. If not set, the default value is `4061`.
 
 ## IceLocatorDiscovery.Reply._AdapterProperty_
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.reply.adapterproperty-synopsis" %}
 
 `IceLocatorDiscovery.Reply.AdapterProperty=value`
 
-### Description
+### Description {% id="icelocatordiscovery.reply.adapterproperty-description" %}
 
 IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Reply` for receiving replies to
 [multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
@@ -113,11 +113,11 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 
 ## IceLocatorDiscovery.RetryCount
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.retrycount-synopsis" %}
 
 `IceLocatorDiscovery.RetryCount=num`
 
-### Description
+### Description {% id="icelocatordiscovery.retrycount-description" %}
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast queries before giving up. The
 [IceLocatorDiscovery.Timeout](../icelocatordiscovery-properties#icelocatordiscovery.timeout) property determines how
@@ -125,11 +125,11 @@ long the plug-in waits for a reply before trying again. If not defined, the defa
 
 ## IceLocatorDiscovery.RetryDelay
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.retrydelay-synopsis" %}
 
 `IceLocatorDiscovery.RetryDelay=num`
 
-### Description
+### Description {% id="icelocatordiscovery.retrydelay-description" %}
 
 If the plug-in fails to receive any responses to a query after retrying the number of times specified by
 [IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount), the plug-in waits at
@@ -137,11 +137,11 @@ least `num` milliseconds before starting another round of query attempts. If not
 
 ## IceLocatorDiscovery.Trace.Lookup
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.trace.lookup-synopsis" %}
 
 `IceLocatorDiscovery.Trace.Lookup=num`
 
-### Description
+### Description {% id="icelocatordiscovery.trace.lookup-description" %}
 
 The lookup trace level:
 
@@ -152,11 +152,11 @@ The lookup trace level:
 
 ## IceLocatorDiscovery.Timeout
 
-### Synopsis
+### Synopsis {% id="icelocatordiscovery.timeout-synopsis" %}
 
 `IceLocatorDiscovery.Timeout=num`
 
-### Description
+### Description {% id="icelocatordiscovery.timeout-description" %}
 
 Specifies the time interval in milliseconds to wait for replies to UDP multicast queries. If no server replies during
 this time interval, the client will retry the request the number of times specified by

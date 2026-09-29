@@ -20,11 +20,11 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
-### Synopsis
+### Synopsis {% id="ice.plugin.name-synopsis" %}
 
 `Ice.Plugin.name=path[,version]:function [args]`
 
-### Description
+### Description {% id="ice.plugin.name-description" %}
 
 Defines a C++ plug-in to be installed during communicator initialization. The `path` and optional `version` components
 are used to construct the path name of a DLL or shared library. If no version is supplied, the Ice version is used. The

@@ -46,10 +46,12 @@ function headings(body) {
     if (fence) continue;
     const heading = /^#{1,6}\s+(.+?)\s*(?<!\\)#*$/.exec(line);
     // Strip inline markdown so `**Ice.Default.Locator**` is searchable as text,
-    // and resolve backslash escapes so `C\#` is searchable as C#.
+    // resolve backslash escapes so `C\#` is searchable as C#, and drop the
+    // `{% id="…" %}` that gives a heading its own anchor.
     if (heading)
       out.push(
         heading[1]
+          .replace(/\{%.*?%\}/g, '')
           .replace(/[*_`[\]]/g, '')
           .replace(/\\(.)/g, '$1')
           .trim()

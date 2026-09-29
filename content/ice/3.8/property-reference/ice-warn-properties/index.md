@@ -6,11 +6,11 @@ title: Ice.Warn.*
 
 ## Ice.Warn.Connections
 
-### Synopsis
+### Synopsis {% id="ice.warn.connections-synopsis" %}
 
 `Ice.Warn.Connections=num`
 
-### Description
+### Description {% id="ice.warn.connections-description" %}
 
 If `num` is set to a value larger than 0, the Ice runtime logs warnings for certain exceptional conditions in
 connections. The default value is 0.
@@ -19,11 +19,11 @@ connections. The default value is 0.
 
 ## Ice.Warn.Datagrams
 
-### Synopsis
+### Synopsis {% id="ice.warn.datagrams-synopsis" %}
 
 `Ice.Warn.Datagrams=num`
 
-### Description
+### Description {% id="ice.warn.datagrams-description" %}
 
 If `num` is set to a value larger than 0, a server logs a warning message if it receives a datagram that exceeds the
 server's receive buffer size. (Note that this condition is not detected by all UDP implementations — some
@@ -33,11 +33,11 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 ## Ice.Warn.Dispatch
 
-### Synopsis
+### Synopsis {% id="ice.warn.dispatch-synopsis" %}
 
 `Ice.Warn.Dispatch=num`
 
-### Description
+### Description {% id="ice.warn.dispatch-description" %}
 
 This property is ignored when [Ice.Trace.Dispatch](../ice-trace-properties) has a value larger than 0.
 
@@ -55,11 +55,11 @@ Warning levels:
 
 ## Ice.Warn.Endpoints
 
-### Synopsis
+### Synopsis {% id="ice.warn.endpoints-synopsis" %}
 
 `Ice.Warn.Endpoints=num`
 
-### Description
+### Description {% id="ice.warn.endpoints-description" %}
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning when a stringified proxy contains an endpoint
 that cannot be parsed. The default value is 1.
@@ -68,11 +68,11 @@ that cannot be parsed. The default value is 1.
 
 ## Ice.Warn.UnusedProperties
 
-### Synopsis
+### Synopsis {% id="ice.warn.unusedproperties-synopsis" %}
 
 `Ice.Warn.UnusedProperties=num`
 
-### Description
+### Description {% id="ice.warn.unusedproperties-description" %}
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning during communicator destruction if some
 properties were set but not read. This warning is useful for detecting mis-spelled properties, like if you wrote

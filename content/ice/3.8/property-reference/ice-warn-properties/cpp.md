@@ -2,11 +2,11 @@
 
 ## Ice.Warn.AMICallback
 
-### Synopsis
+### Synopsis {% id="ice.warn.amicallback-synopsis" %}
 
 `Ice.Warn.AMICallback=num`
 
-### Description
+### Description {% id="ice.warn.amicallback-description" %}
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning when an AMI callback throws an exception. The
 default value is 1.
@@ -17,11 +17,11 @@ default value is 1.
 
 ## Ice.Warn.Executor
 
-### Synopsis
+### Synopsis {% id="ice.warn.executor-synopsis" %}
 
 `Ice.Warn.Executor=num`
 
-### Description
+### Description {% id="ice.warn.executor-description" %}
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning when a custom executor (registered using
 [InitializationData](https://code.zeroc.com/manual/Ice/InitializationData)) throws an exception while executing a call.

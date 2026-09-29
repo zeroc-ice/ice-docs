@@ -2,6 +2,14 @@
   "version": "0.2",
   "comment": "The spellcheck workflow scans every .md/.ts/.tsx/.js/.jsx in the repo; the vocabulary below covers the Ice identifiers and terms the manual uses.",
   "ignorePaths": ["node_modules/**"],
+  "patterns": [
+    {
+      "name": "heading-anchor",
+      "pattern": "/\\{% id=\"[^\"]*\" %\\}/g",
+      "description": "A heading's own anchor, such as {% id=\"ice.default.host-synopsis\" %}: lowercased names the heading text already spells"
+    }
+  ],
+  "ignoreRegExpList": ["heading-anchor"],
   "words": [
     "abstractmethod",
     "adapterid",

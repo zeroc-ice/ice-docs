@@ -165,7 +165,7 @@ key and value as fields, in that order.
 
 The encoding format of enumerators changed in version 1.1.
 
-### Encoding version 1.0
+### Encoding version 1.0 {% id="enumerator-encoding-version-1.0" %}
 
 The number of bytes required to encode an enumerator in version 1.0 is determined by the largest value in the
 enumeration. In enumerations with no [custom enumerator values](../enumerations), the largest value is the number of
@@ -202,7 +202,7 @@ this definition.
 
 {% /callout %}
 
-### Encoding version 1.1
+### Encoding version 1.1 {% id="enumerator-encoding-version-1.1" %}
 
 An enumerator is encoded as a [size](../basic-data-encoding#encoding-for-sizes), meaning the encoding of an enumerator
 requires one byte if its value is less than 255, or five bytes if its value is 255 or greater. The encoding uses the

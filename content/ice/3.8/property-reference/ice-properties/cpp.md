@@ -2,11 +2,11 @@
 
 ## Ice.AcceptClassCycles
 
-### Synopsis
+### Synopsis {% id="ice.acceptclasscycles-synopsis" %}
 
 `Ice.AcceptClassCycles=num`
 
-### Description
+### Description {% id="ice.acceptclasscycles-description" %}
 
 If `num` is set to 0 (the default), the unmarshaling of class cycles is disallowed. A `MarshalException` is thrown when
 a cycle is detected during unmarshaling.

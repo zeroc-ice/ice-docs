@@ -124,7 +124,7 @@ catch (const Tantrum& t)
 }
 ```
 
-### See Also
+### See Also {% id="client-side-see-also" %}
 
 - [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Asynchronous Method Invocation (AMI) in C++](<../operations#asynchronous-method-invocation-(ami)>)
@@ -213,7 +213,7 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-### See Also
+### See Also {% id="server-side-see-also" %}
 
 - [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Client-Side C++ Mapping for Operations](#client-side-mapping-for-operations)
@@ -560,7 +560,7 @@ the AMD response from the AMI `sent` callback.
 
 {% /callout %}
 
-### See Also
+### See Also {% id="amd-see-also" %}
 
 - [The Ice Threading Model](../threading-model)
 - [User Exceptions](../exceptions)

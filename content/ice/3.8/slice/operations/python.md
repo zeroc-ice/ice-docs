@@ -86,7 +86,7 @@ except Tantrum as t:
     print(f"The child says: {t.reason}")
 ```
 
-### See Also
+### See Also {% id="client-side-see-also" %}
 
 - [Python Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>)
@@ -156,7 +156,7 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-### See Also
+### See Also {% id="server-side-see-also" %}
 
 - [Python Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Client-Side Python Mapping for Operations](#client-side-mapping-for-operations)
@@ -459,7 +459,7 @@ async def greet(self, name: str, current: Ice.Current) -> str:
 The `greet` dispatch is implemented by delegating to another Greeter server, and we directly return the result from the
 nested async invocation.
 
-### See Also
+### See Also {% id="amd-see-also" %}
 
 - [Exceptions](../exceptions)
 - [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>)

@@ -24,7 +24,7 @@ class Person:
     address: Address | None = None
 ```
 
-### Optional Fields
+### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a Python field with the same name. The mapped field’s type is the mapped type or `None`, and
 the tag value is not mapped to Python.
@@ -53,7 +53,7 @@ class C(Value):
 Optional and non-optional proxies are mapped the same way, as illustrated above. As a result, you cannot distinguish
 between an optional proxy field that is not set and an optional proxy field set to null (None).
 
-### Default Values
+### Default Values {% id="language-mapping-default-values" %}
 
 Slice default values map to default values in Python.
 

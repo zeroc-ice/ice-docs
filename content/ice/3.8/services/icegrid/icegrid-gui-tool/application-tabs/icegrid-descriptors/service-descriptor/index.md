@@ -14,7 +14,7 @@ services using `Edit > Move Up` or `Edit > Move Down` (also available from each 
 
 ## Plain Service
 
-### Properties
+### Properties {% id="plain-service-properties" %}
 
 The Service Properties panel offers the following fields:
 
@@ -39,7 +39,7 @@ A plain service can have [Adapter](../adapter-descriptor) children.
 
 ## Service Instance
 
-### Properties
+### Properties {% id="service-instance-properties" %}
 
 The Service Instance Properties panel offers the following fields:
 

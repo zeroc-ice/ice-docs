@@ -6,11 +6,11 @@ title: Ice.*
 
 ## Ice.BackgroundLocatorCacheUpdates
 
-### Synopsis
+### Synopsis {% id="ice.backgroundlocatorcacheupdates-synopsis" %}
 
 `Ice.BackgroundLocatorCacheUpdates=num`
 
-### Description
+### Description {% id="ice.backgroundlocatorcacheupdates-description" %}
 
 If `num` is set to 0 (the default), an invocation on an indirect proxy whose endpoints are older than the configured
 [locator cache](../locator-semantics-for-clients) timeout triggers a locator cache update; the run time delays the
@@ -22,11 +22,11 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 
 ## Ice.BatchAutoFlushSize
 
-### Synopsis
+### Synopsis {% id="ice.batchautoflushsize-synopsis" %}
 
 `Ice.BatchAutoFlushSize=num` (in KiB)
 
-### Description
+### Description {% id="ice.batchautoflushsize-description" %}
 
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is
 set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added
@@ -45,11 +45,11 @@ batch requests (whether manually or automatically) to ensure they do not exceed 
 
 ## Ice.ClassGraphDepthMax
 
-### Synopsis
+### Synopsis {% id="ice.classgraphdepthmax-synopsis" %}
 
 `Ice.ClassGraphDepthMax=num`
 
-### Description
+### Description {% id="ice.classgraphdepthmax-description" %}
 
 Specifies the maximum depth for a graph of Slice class instances to unmarshal. If this maximum is reached, the Ice
 runtime throws a `MarshalException`. Reading and destroying a Slice class graph are recursive operations. This property
@@ -63,11 +63,11 @@ Setting this property to 0 (or to a negative number) disables the depth limit al
 
 ## Ice.Compression.Level
 
-### Synopsis
+### Synopsis {% id="ice.compression.level-synopsis" %}
 
 `Ice.Compression.Level=num`
 
-### Description
+### Description {% id="ice.compression.level-description" %}
 
 Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
 for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
@@ -76,14 +76,14 @@ significant improvement over lower levels. If not specified, the default value i
 
 ## Ice.Config
 
-### Synopsis
+### Synopsis {% id="ice.config-synopsis" %}
 
 ```config
 Ice.Config=config_file[,config_file,...]
 Ice.Config=1
 ```
 
-### Description
+### Description {% id="ice.config-description" %}
 
 This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
 `--Ice.Config=config_file`.
@@ -106,11 +106,11 @@ for comments and escaping.
 
 ## Ice.EventLog.Source
 
-### Synopsis
+### Synopsis {% id="ice.eventlog.source-synopsis" %}
 
 `Ice.EventLog.Source=name` (Windows only)
 
-### Description
+### Description {% id="ice.eventlog.source-description" %}
 
 Specifies the name of an event log source to be used by a Windows service that subclasses
 [Ice::Service](https://code.zeroc.com/manual/Ice/Service). The value of `name` represents a subkey of the `Eventlog`
@@ -123,22 +123,22 @@ option.
 
 ## Ice.HTTPProxyHost
 
-### Synopsis
+### Synopsis {% id="ice.httpproxyhost-synopsis" %}
 
 `Ice.HTTPProxyHost=addr`
 
-### Description
+### Description {% id="ice.httpproxyhost-description" %}
 
 Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP
 proxy server for all outgoing (client) connections.
 
 ## Ice.HTTPProxyPort
 
-### Synopsis
+### Synopsis {% id="ice.httpproxyport-synopsis" %}
 
 `Ice.HTTPProxyPort=num`
 
-### Description
+### Description {% id="ice.httpproxyport-description" %}
 
 The port number of the HTTP proxy server. If not specified, the default value is `1080`.
 
@@ -148,11 +148,11 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 ## Ice.ImplicitContext
 
-### Synopsis
+### Synopsis {% id="ice.implicitcontext-synopsis" %}
 
 `Ice.ImplicitContext=type`
 
-### Description
+### Description {% id="ice.implicitcontext-description" %}
 
 Specifies whether a communicator has an [implicit request context](../implicit-request-contexts) and, if so, at what
 scope the context applies. Legal values for this property are `None` (equivalent to the empty string), `PerThread`, and
@@ -162,11 +162,11 @@ scope the context applies. Legal values for this property are `None` (equivalent
 
 ## Ice.InitPlugins
 
-### Synopsis
+### Synopsis {% id="ice.initplugins-synopsis" %}
 
 `Ice.InitPlugins=num`
 
-### Description
+### Description {% id="ice.initplugins-description" %}
 
 {% iflang langs="cpp" %}
 
@@ -193,22 +193,22 @@ After setting this property to 0, call `Communicator.initializePlugins()` to ini
 
 ## Ice.IPv4
 
-### Synopsis
+### Synopsis {% id="ice.ipv4-synopsis" %}
 
 `Ice.IPv4=num`
 
-### Description
+### Description {% id="ice.ipv4-description" %}
 
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
 value is 1.
 
 ## Ice.IPv6
 
-### Synopsis
+### Synopsis {% id="ice.ipv6-synopsis" %}
 
 `Ice.IPv6=num`
 
-### Description
+### Description {% id="ice.ipv6-description" %}
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
 value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
@@ -219,11 +219,11 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 ## Ice.LogFile
 
-### Synopsis
+### Synopsis {% id="ice.logfile-synopsis" %}
 
 `Ice.LogFile=file`
 
-### Description
+### Description {% id="ice.logfile-description" %}
 
 Replaces the communicator's [default logger](../default-logger) with a simple file-based logger implementation. This
 property does not affect the [per-process logger](../per-process-logger). The logger creates the specified file if
@@ -236,11 +236,11 @@ property.
 
 ## Ice.LogFile.SizeMax
 
-### Synopsis
+### Synopsis {% id="ice.logfile.sizemax-synopsis" %}
 
 `Ice.LogFile.SizeMax=num`
 
-### Description
+### Description {% id="ice.logfile.sizemax-description" %}
 
 When `num` is greater than 0, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
 Before writing a message that would bring a non-empty log file to or above this threshold, the Ice file-based logger
@@ -251,11 +251,11 @@ When `num` is 0 or negative, the logger writes to a single file with unlimited s
 
 ## Ice.LogStdErr.Convert
 
-### Synopsis
+### Synopsis {% id="ice.logstderr.convert-synopsis" %}
 
 `Ice.LogStdErr.Convert=num`(Windows)
 
-### Description
+### Description {% id="ice.logstderr.convert-description" %}
 
 If `num` is set to a value larger than 0, on Windows, the communicator's [default logger](../default-logger) converts
 log messages from the application's narrow string encoding to the Windows console's code page. The default value for
@@ -266,11 +266,11 @@ in a process; it is ignored by other communicators.
 
 ## Ice.MessageSizeMax
 
-### Synopsis
+### Synopsis {% id="ice.messagesizemax-synopsis" %}
 
 `Ice.MessageSizeMax=num` (in KiB)
 
-### Description
+### Description {% id="ice.messagesizemax-description" %}
 
 Sets the maximum size of an incoming uncompressed Ice protocol message, including its protocol header, in KiB (1024
 bytes). The default value is `1024` (1 MiB).
@@ -296,11 +296,11 @@ See also [adapter.MessageSizeMax](../object-adapter-properties).
 
 ## Ice.Nohup
 
-### Synopsis
+### Synopsis {% id="ice.nohup-synopsis" %}
 
 `Ice.Nohup=num`
 
-### Description
+### Description {% id="ice.nohup-description" %}
 
 If `num` is set to a value larger than 0, the `Ice::Service` C++ class ignores `SIGHUP` on Unix and `CTRL_LOGOFF_EVENT`
 on Windows. As a result, a server/service that sets `Ice.Nohup` continues to run if the user that started the
@@ -312,11 +312,11 @@ IceGrid, IceBox (IceStorm), and Glacier2 are implemented using `Ice::Service`.
 
 ## Ice.PluginLoadOrder
 
-### Synopsis
+### Synopsis {% id="ice.pluginloadorder-synopsis" %}
 
 `Ice.PluginLoadOrder=names`
 
-### Description
+### Description {% id="ice.pluginloadorder-description" %}
 
 Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
 context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
@@ -340,11 +340,11 @@ initialization fails with a `PluginInitializationException`.
 
 ## Ice.PreferIPv6Address
 
-### Synopsis
+### Synopsis {% id="ice.preferipv6address-synopsis" %}
 
 `Ice.PreferIPv6Address=num`
 
-### Description
+### Description {% id="ice.preferipv6address-description" %}
 
 If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
 resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
@@ -354,11 +354,11 @@ value is 0.
 
 ## Ice.PrintAdapterReady
 
-### Synopsis
+### Synopsis {% id="ice.printadapterready-synopsis" %}
 
 `Ice.PrintAdapterReady=num`
 
-### Description
+### Description {% id="ice.printadapterready-description" %}
 
 If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
 activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
@@ -367,21 +367,21 @@ activation is complete. This is useful for scripts that need to wait until an ob
 
 ## Ice.PrintProcessId
 
-### Synopsis
+### Synopsis {% id="ice.printprocessid-synopsis" %}
 
 `Ice.PrintProcessId=num`
 
-### Description
+### Description {% id="ice.printprocessid-description" %}
 
 If `num` is set to a value larger than 0, the process ID is printed on standard output upon startup.
 
 ## Ice.PrintStackTraces
 
-### Synopsis
+### Synopsis {% id="ice.printstacktraces-synopsis" %}
 
 `Ice.PrintStackTraces=num`
 
-### Description
+### Description {% id="ice.printstacktraces-description" %}
 
 {% iflang langs="cpp" %}
 
@@ -416,11 +416,11 @@ require the Ice PDB files.
 
 ## Ice.ProgramName
 
-### Synopsis
+### Synopsis {% id="ice.programname-synopsis" %}
 
 `Ice.ProgramName=name`
 
-### Description
+### Description {% id="ice.programname-description" %}
 
 `name` is the program name, which is used for logging. This name is
 [set automatically](../command-line-parsing-and-initialization) from `argv[0]` (C++) and from
@@ -429,11 +429,11 @@ empty string. The default name can be overridden by setting this property.
 
 ## Ice.RetryIntervals
 
-### Synopsis
+### Synopsis {% id="ice.retryintervals-synopsis" %}
 
 `Ice.RetryIntervals=num [num ...]`
 
-### Description
+### Description {% id="ice.retryintervals-description" %}
 
 This property defines the number of times an operation is [automatically retried](../automatic-retries) and the delay
 between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
@@ -446,11 +446,11 @@ third failure. The default value (`0`) means Ice retries once immediately. If se
 
 ## Ice.ServerIdleTime
 
-### Synopsis
+### Synopsis {% id="ice.serveridletime-synopsis" %}
 
 `Ice.ServerIdleTime=num`
 
-### Description
+### Description {% id="ice.serveridletime-description" %}
 
 If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
 pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
@@ -474,11 +474,11 @@ thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-p
 
 ## Ice.SliceLoader.NotFoundCacheSize
 
-### Synopsis
+### Synopsis {% id="ice.sliceloader.notfoundcachesize-synopsis" %}
 
 `Ice.SliceLoader.NotFoundCacheSize=num`
 
-### Description
+### Description {% id="ice.sliceloader.notfoundcachesize-description" %}
 
 When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
 Slice loader resolutions.
@@ -491,11 +491,11 @@ See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
 ## Ice.SOCKSProxyHost
 
-### Synopsis
+### Synopsis {% id="ice.socksproxyhost-synopsis" %}
 
 `Ice.SOCKSProxyHost=addr`
 
-### Description
+### Description {% id="ice.socksproxyhost-description" %}
 
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
 proxy server for all outgoing (client) connections.
@@ -508,43 +508,43 @@ Ice currently only supports the SOCKS4 protocol, which means only IPv4 connectio
 
 ## Ice.SOCKSProxyPort
 
-### Synopsis
+### Synopsis {% id="ice.socksproxyport-synopsis" %}
 
 `Ice.SOCKSProxyPort=num`
 
-### Description
+### Description {% id="ice.socksproxyport-description" %}
 
 The port number of the SOCKS proxy server. If not specified, the default value is `1080`.
 
 ## Ice.StdErr
 
-### Synopsis
+### Synopsis {% id="ice.stderr-synopsis" %}
 
 `Ice.StdErr=filename`
 
-### Description
+### Description {% id="ice.stderr-description" %}
 
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
 ## Ice.StdOut
 
-### Synopsis
+### Synopsis {% id="ice.stdout-synopsis" %}
 
 `Ice.StdOut=filename`
 
-### Description
+### Description {% id="ice.stdout-description" %}
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
 ## Ice.SyslogFacility
 
-### Synopsis
+### Synopsis {% id="ice.syslogfacility-synopsis" %}
 
 `Ice.SyslogFacility=string` (Unix only, except iOS)
 
-### Description
+### Description {% id="ice.syslogfacility-description" %}
 
 This property sets the syslog facility to `string`. This property has no effect if `Ice.UseSyslog` is not set. Each
 communicator can use its own facility, even when several communicators in the same process log to `syslog`.
@@ -560,11 +560,11 @@ The default value is `LOG_USER`.
 
 ## Ice.ToStringMode
 
-### Synopsis
+### Synopsis {% id="ice.tostringmode-synopsis" %}
 
 `Ice.ToStringMode=string`
 
-### Description
+### Description {% id="ice.tostringmode-description" %}
 
 `string` must be one of the following: `Unicode`, `ASCII`, `Compat`.
 
@@ -578,22 +578,22 @@ The default value is `Unicode`.
 
 ## Ice.UseOSLog
 
-### Synopsis
+### Synopsis {% id="ice.useoslog-synopsis" %}
 
 `Ice.UseOSLog=num` (macOS and iOS)
 
-### Description
+### Description {% id="ice.useoslog-description" %}
 
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs using
 [OSLog](https://developer.apple.com/documentation/os/oslog).
 
 ## Ice.UseSyslog
 
-### Synopsis
+### Synopsis {% id="ice.usesyslog-synopsis" %}
 
 `Ice.UseSyslog=num` (Unix only, except iOS)
 
-### Description
+### Description {% id="ice.usesyslog-description" %}
 
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs to the `syslog`
 service instead of standard error. Use [Ice.SyslogFacility](../ice-properties#ice.syslogfacility) to select a `syslog`
@@ -613,11 +613,11 @@ opened when the first syslog logger is created and closed when the last one is d
 
 ## Ice.UseSystemdJournal
 
-### Synopsis
+### Synopsis {% id="ice.usesystemdjournal-synopsis" %}
 
 `Ice.UseSystemdJournal=num` (Linux only)
 
-### Description
+### Description {% id="ice.usesystemdjournal-description" %}
 
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs to the systemd
 journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as their syslog

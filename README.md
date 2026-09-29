@@ -72,6 +72,9 @@ duplicating it.
   the heading before it. `check:content` checks this on the page a reader of each language sees, overlay sections
   included. `## See Also` comes last. A code block's caption is the fence's title:
   ` ```yaml {% title="deploy-server.yml" %} `.
+- **A heading's anchor comes from its text.** Where two headings on one page would share an anchor, give them their own
+  in the source, as each label on a property page carries its property's:
+  `### Synopsis {% id="ice.default.host-synopsis" %}`. MD024 flags a heading repeated within a file.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own. Prettier's Markdown parser reads such a tag as a block, as Markdoc does, so `format` keeps it on
   its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.

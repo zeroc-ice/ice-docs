@@ -89,7 +89,7 @@ do {
 }
 ```
 
-### See Also
+### See Also {% id="client-side-see-also" %}
 
 - [Swift Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 
@@ -163,7 +163,7 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-### See Also
+### See Also {% id="server-side-see-also" %}
 
 - [Swift Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
 - [Client-Side Swift Mapping for Operations](#client-side-mapping-for-operations)

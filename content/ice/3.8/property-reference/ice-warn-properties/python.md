@@ -4,11 +4,11 @@
 
 ## Ice.Warn.Executor
 
-### Synopsis
+### Synopsis {% id="ice.warn.executor-synopsis" %}
 
 `Ice.Warn.Executor=num`
 
-### Description
+### Description {% id="ice.warn.executor-description" %}
 
 If `num` is greater than 0, Ice logs a warning when the executor supplied through `InitializationData.executor` raises
 an exception while accepting a call. The default value is 1.
