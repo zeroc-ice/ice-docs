@@ -15,7 +15,7 @@ try (Communicator communicator = Util.initialize(args)) {
 
 Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using configuration:
 
-```
+```config
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:com.zeroc.IceLocatorDiscovery.PluginFactory
 ```
 

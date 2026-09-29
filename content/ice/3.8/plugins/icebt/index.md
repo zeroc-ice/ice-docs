@@ -23,7 +23,7 @@ For example, an entry might contain:
 
 ##### **SDP Entry**
 
-```
+```text
 Name: My Bluetooth Service
 UUID: 1c6a142a-aae6-4d58-bef8-33196f531da7
 RFCOMM: Channel #8
@@ -86,8 +86,8 @@ On Linux, you can use the `uuidgen` command to generate new UUIDs. Web-based UUI
 For example, using the [syntax for Bluetooth endpoints](../endpoint-syntax), you can configure an
 [object adapter](../dispatch) named `GreeterAdapter` as follows:
 
-```
-GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4 --name "Greeter Service"
+```config
+GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 --name "Greeter Service"
 ```
 
 We're associating the UUID `4f140cef-d75e-4c93-b4e4-20ac111d36d1` with our service. At runtime, this service will be
@@ -96,7 +96,7 @@ omitted a device address, so the plug-in will listen on the host's default Bluet
 particular RFCOMM channel (using the `-c` option) and therefore the plug-in will automatically select an available
 channel.
 
-If you omit the `-u UUID` option from the object adapter's endpoint, the plug-in will automatically generate a random
+If you omit the `-u UUID` option from the object adapter's endpoint, the plug-in will automatically generate a random
 UUID for use in the SDP registry. Note however that your clients will still need some way of discovering this UUID.
 Generally speaking, you should generate and use your own well-known UUIDs instead.
 
@@ -104,7 +104,10 @@ Generally speaking, you should generate and use your own well-known UUIDs instea
 
 On Linux, use the `sdptool` command to view the contents of the SDP registry on a device:
 
-`> sdptool browse local` `> sdptool browse 01:23:45:67:89:AB`
+```shell
+sdptool browse local
+sdptool browse 01:23:45:67:89:AB
+```
 
 The first command displays the active services of the local host, and the second command shows the active services of a
 remote device.
@@ -118,7 +121,7 @@ A Bluetooth endpoint in a proxy must include a UUID and a device address:
 ```cpp
 GreeterPrx greeter{
   communicator,
-  "greeter:bt -u 4f140cef-d75e-4c93-b4e4 -a \"01:23:45:67:89:AB\""};
+  "greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a \"01:23:45:67:89:AB\""};
 ```
 
 {% language-section name="lang-2" /%}

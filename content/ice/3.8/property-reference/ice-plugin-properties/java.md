@@ -10,7 +10,7 @@ Defines a Java plug-in to be installed during communicator initialization. The s
 [PluginFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginFactory.html) interface. Any
 arguments that follow the class name are passed to the `create` method. For example:
 
-```
+```config
 Ice.Plugin.MyPlugin=MyFactory arg1 arg2
 ```
 
@@ -18,14 +18,14 @@ Whitespace separates the arguments, and any arguments that contain whitespace mu
 
 If `path` is specified, it may be the path name of a JAR file or class directory, as shown below:
 
-```
+```config
 Ice.Plugin.MyPlugin=MyFactory.jar:MyFactory
 Ice.Plugin.MyOtherPlugin=/classes:MyOtherFactory
 ```
 
 If `path` contains spaces, it must be enclosed in quotes:
 
-```
+```config
 Ice.Plugin.MyPlugin="factory classes.jar":MyFactory
 ```
 

@@ -15,6 +15,19 @@ topics through this node. It will also receive topic announcements from other co
 endpoints with `DataStorm.Node.Server.Enabled=0`, it might also receive data updates through the connection established
 to the connected node.
 
+# DataStorm.Node.Name
+
+#### Synopsis
+
+`DataStorm.Node.Name=name`
+
+#### Description
+
+Specifies the name of the node. DataStorm uses this name to identify the node to its peers and in the session traces
+enabled by [DataStorm.Trace.Session](../datastorm-trace-properties#datastorm.trace.session). Nodes that communicate with
+each other must have distinct names: a node ignores announcements from a node with its own name. If this property is not
+set, DataStorm generates a UUID for the name. Set it when you want recognizable node names in traces.
+
 # DataStorm.Node.RetryCount
 
 #### Synopsis

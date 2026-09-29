@@ -2,6 +2,16 @@
 title: Ice.UDP.*
 ---
 
+{% iflang langs="js" %}
+
+{% callout type="info" title="JavaScript" %}
+
+Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
+
+{% /callout %}
+
+{% /iflang %}
+
 # Ice.UDP.RcvSize
 
 #### Synopsis
@@ -10,7 +20,7 @@ title: Ice.UDP.*
 
 #### Description
 
-This property sets the UDP receive buffer size to the specified value in bytes. Ice messages larger than `num - 28`
+This property sets the UDP receive buffer size to the specified value in bytes. Ice messages larger than `num - 28`
 bytes cause a `DatagramLimitException`. The default value depends on the configuration of the local UDP stack. (Common
 default values are 65535 and 8192 bytes.)
 
@@ -35,7 +45,7 @@ Settings less than 65535 limit the size of Ice datagrams as well as adjust the k
 
 #### Description
 
-This property sets the UDP send buffer size to the specified value in bytes. Ice messages larger than `num - 28` bytes
+This property sets the UDP send buffer size to the specified value in bytes. Ice messages larger than `num - 28` bytes
 cause a `DatagramLimitException`. The default value depends on the configuration of the local UDP stack. (Common default
 values are 65535 and 8192 bytes.)
 

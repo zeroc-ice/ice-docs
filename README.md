@@ -1,14 +1,14 @@
 # Ice Docs
 
 Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual at
-`/ice/<version>/<slug>` — for example `/ice/3.8/the-slice-language/user-defined-types/enumerations`. Each page carries
-every language mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
+`/ice/<version>/<slug>` — for example `/ice/3.8/slice/user-defined-types/enumerations`. Each page carries every language
+mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
 
 ## Requirements
 
-Node.js 22.18 or later in the 22 line, or 23.6 or later, and npm. The scripts under `scripts/` import the TypeScript
-content model directly, which relies on the type stripping Node enables by default from those releases (23.0 to 23.5
-have it behind a flag).
+Node.js 22.22.2 or later in the 22 line, 24.15 or later in the 24 line, or 26 or later, and npm 11.16 or later; `.npmrc`
+makes npm refuse to install on anything older. The scripts under `scripts/` import the TypeScript content model
+directly, through the type stripping those releases enable by default.
 
 ## Building
 
@@ -17,11 +17,13 @@ npm install                        # install dependencies
 npm run dev                        # dev server on http://localhost:3000
 npm run build                      # production build (standalone), then the sitemap
 npm test                           # unit tests for the content model (lib/docs-model, utils)
-npm run check:content              # navigation, links, images, slots, titles, migration leftovers
-npm run check:content -- --strict  # also fail on unresolved links and missing images
+npm run check:content              # navigation, images, slots, titles, migration leftovers
+npm run check:content -- --strict  # also fail on every unclassified slot
 npm run check:content -- --slots   # list the blank language sections still to classify
-npm run check:markdoc              # every page against the Markdoc schema; `build` runs it first
-npm run lint                       # eslint; a warning fails it too
+npm run check:markdoc              # every page against the Markdoc schema, and every link to a page and its anchor; `build` runs it first
+npm run lint                       # lint:eslint, then lint:markdown
+npm run lint:eslint                # eslint; a warning fails it too
+npm run lint:markdown              # markdownlint on the content
 npm run format                     # prettier, wraps Markdown prose at 120 columns
 npm run format:check               # what CI runs
 ```
@@ -34,9 +36,9 @@ Everything for one version of the manual lives under `content/ice/<version>/` (f
 is a directory, and its path under the version is its slug, the path in its URL:
 
 - `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
-  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the newest version's.
-  Its frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
-  `previousVersions`.
+  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the front page of the
+  version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version. Its frontmatter lists the
+  chapters under `pages:` and holds the version's settings: `status`, `languages`, and `previousVersions`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
   `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
   lists them under `pages:`.
@@ -53,7 +55,7 @@ duplicating it.
   page down.
 - **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
-  a page that does not exist renders as plain text and is reported by `check:content`.
+  a page that does not exist renders as plain text, and `check:markdoc` fails on it.
 - **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
   overlay answers each one, with prose or with a declared state (`no-addition`, or `not-applicable` with a note), as
   described in `lib/docs-model/resolve.ts`. Each distinct answer goes into the page once, wrapped in
@@ -81,8 +83,8 @@ duplicating it.
 - **Release note pages** carry `date:` (an ISO date, quoted) in their frontmatter; the front page's release list shows
   it.
 - **Page layout** switches live in the frontmatter too: `shape: wide` runs the whole body on the wide track,
-  `showAside: false` drops the outline, and `showReadingTime: false` drops the reading time. The front page sets all
-  three.
+  `showAside: false` drops the right rail (the outline and the edit and discussion links), and `showReadingTime: false`
+  drops the reading time. The front page sets all three.
 
 ## Deployment
 

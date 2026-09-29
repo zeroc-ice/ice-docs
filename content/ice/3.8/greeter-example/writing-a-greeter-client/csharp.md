@@ -105,6 +105,7 @@ After building the client (see the demo’s
 with `dotnet`:
 
 ```shell
+cd Client
 dotnet run
 ```
 

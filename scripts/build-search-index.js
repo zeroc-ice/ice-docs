@@ -19,6 +19,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import {
+  CONTENT_ROOT,
   listVersions,
   listPages,
   readNavigation,
@@ -28,7 +29,6 @@ import {
 import { pageHref, trailTo } from '../lib/docs-model/nav.ts';
 import { splitFrontmatter, splitLines } from '../lib/docs-model/resolve.ts';
 
-const ROOT = path.join(process.cwd(), 'content', 'ice');
 const OUT = path.join(process.cwd(), 'public', 'search');
 
 /** Heading text in a markdown body, skipping fenced code. */
@@ -73,11 +73,11 @@ let files = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
-for (const version of listVersions(ROOT)) {
-  const nav = readNavigation(ROOT, version);
+for (const version of listVersions(CONTENT_ROOT)) {
+  const nav = readNavigation(CONTENT_ROOT, version);
 
   const records = [];
-  for (const page of listPages(ROOT, version)) {
+  for (const page of listPages(CONTENT_ROOT, version)) {
     const { shared, overlays, frontmatter } = readPageSources(page);
     const common = new Set(
       headings(shared ? splitFrontmatter(shared).body : '')

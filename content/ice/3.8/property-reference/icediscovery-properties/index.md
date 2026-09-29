@@ -79,7 +79,7 @@ IceDiscovery creates an object adapter named `IceDiscovery.Multicast` for receiv
 not otherwise defined by `IceDiscovery.Multicast.Endpoints`, the endpoint for this object adapter is composed as
 follows:
 
-`udp -h addr -p port [--interface intf]`
+`udp -h addr -p port [--interface intf]`
 
 where `addr` is the value of [IceDiscovery.Address](../icediscovery-properties#icediscovery.address), `port` is the
 value of [IceDiscovery.Port](../icediscovery-properties#icediscovery.port), and `intf` is the value of
@@ -125,7 +125,7 @@ IceDiscovery creates an object adapter named `IceDiscovery.Reply` for receiving 
 [multicast requests](../icediscovery). If not otherwise defined by `IceDiscovery.Reply.Endpoints`, the endpoint for this
 object adapter is composed as follows:
 
-`udp [-h intf]`
+`udp [-h intf]`
 
 where `intf` is the value of [IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface). A fixed port
 is not necessary for this endpoint.

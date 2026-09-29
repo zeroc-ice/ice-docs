@@ -30,12 +30,12 @@ package com.example.clearsky;
 
 public class CustomLoggerPluginFactory implements PluginFactory {
     @Override
-    public String getPluginName {
+    public String getPluginName() {
         return "CustomLogger";
     }
 
     @Override
-    public Plugin create(Communicator communicator, string name, string[] args) {
+    public Plugin create(Communicator communicator, String name, String[] args) {
         return new LoggerPlugin(communicator, new CustomLogger());
     }
 }
@@ -44,7 +44,7 @@ public class CustomLoggerPluginFactory implements PluginFactory {
 Then, package your `CustomLogger` implementation and `CustomLoggerPluginFactory` in a JAR file, and configure your
 communicator to load it at runtime. For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=customlogger.jar:com.example.clearsky.CustomLoggerPluginFactory
 ```
 

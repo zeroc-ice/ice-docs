@@ -42,7 +42,7 @@ ready to be used.
 
 #### Synopsis
 
-`IceBox.Service.name=entry_point [args]`
+`IceBox.Service.name=entry_point [args]`
 
 #### Description
 

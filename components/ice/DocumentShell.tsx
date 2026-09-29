@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { PageTypeBadge } from '@/components/ice/PageTypeBadge';
 import { PageOutline } from '@/components/ice/PageOutline';
+import { PageActions, type EditLinks } from '@/components/ice/PageActions';
 import type { PageType } from '@/lib/docs-model/nav';
 import { Callout } from '@/components/tags/callout';
 import { LanguageNotice } from '@/components/ice/LanguageNotice';
@@ -47,6 +48,7 @@ interface DocumentShellProps {
   headings?: Heading[];
   breadcrumbs?: Crumb[];
   pagination: Pagination[];
+  edit: EditLinks;
   showAside?: boolean;
   /** Body layout when the page is not ordinary prose, e.g. "property-list". */
   shape?: string;
@@ -56,8 +58,9 @@ interface DocumentShellProps {
 // of page from its shape alone (Microsoft Learn's most useful property):
 //
 //   breadcrumb -> title -> reading time -> article
-//   with "On this page" pinned to the right. A page whose frontmatter declares
-//   a Diátaxis `type` gets a kind badge above its title.
+//   with "On this page" and the page's actions pinned to the right. A page
+//   whose frontmatter declares a Diátaxis `type` gets a kind badge above its
+//   title.
 //
 // The badge sits above the title rather than beside it: titles here range from
 // "Facets" to "Well-Known Objects and Object Adapter Endpoints", and a badge on
@@ -73,6 +76,7 @@ export const DocumentShell = ({
   headings = [],
   breadcrumbs = [],
   pagination,
+  edit,
   showAside = true,
   shape
 }: DocumentShellProps) => {
@@ -210,12 +214,17 @@ export const DocumentShell = ({
         </article>
       </div>
 
+      {/* A long outline scrolls on its own, so the actions under it stay in
+          view. */}
       {showAside && (
-        <PageOutline
-          headings={toc}
-          languages={languages}
-          writtenFor={writtenFor}
-        />
+        <aside className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 flex-col gap-2 xl:flex">
+          <PageOutline
+            headings={toc}
+            languages={languages}
+            writtenFor={writtenFor}
+          />
+          <PageActions edit={edit} />
+        </aside>
       )}
     </div>
   );

@@ -8,14 +8,14 @@ InitializationData initData = new InitializationData();
 initData.pluginFactories = Collections.singletonList(
     new com.zeroc.IceBT.PluginFactory());
 
-try (Communicator communicator = new Communicator(args)) {
-    ....
+try (Communicator communicator = new Communicator(initData)) {
+    ...
 }
 ```
 
 Alternatively, you can install the IceBT plug-in at runtime using configuration:
 
-```
+```config
 # Android only
 Ice.Plugin.IceBT=com.zeroc.IceBT.PluginFactory
 ```
@@ -27,7 +27,7 @@ Ice.Plugin.IceBT=com.zeroc.IceBT.PluginFactory
 ```java
 var greeter = GreeterPrx.createProxy(
   communicator,
-  "greeter:bt -u 4f140cef-d75e-4c93-b4e4 -a \"01:23:45:67:89:AB\"");
+  "greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a \"01:23:45:67:89:AB\"");
 ```
 
 {% /language-section %}

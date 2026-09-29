@@ -52,7 +52,7 @@ First, you can override the default endpoint that the plug-in uses to broadcast 
 [IceLocatorDiscovery.Lookup](../icelocatordiscovery-properties), otherwise the plug-in computes this endpoint as
 follows:
 
-`IceLocatorDiscovery.Lookup=udp -h address -p port [--interface interface]`
+`IceLocatorDiscovery.Lookup=udp -h address -p port [--interface interface]`
 
 where
 
@@ -76,14 +76,14 @@ As you can see, the properties `IceLocatorDiscovery.Address`, `IceLocatorDiscove
 `IceLocatorDiscovery.Interface` are simply used as convenient shortcuts for customizing the details of the plug-in's
 endpoints. For example, suppose we want to use a different multicast address and port:
 
-```
+```config
 IceLocatorDiscovery.Address=239.255.0.99
 IceLocatorDiscovery.Port=8000
 ```
 
 The plug-in derives the following property from these settings:
 
-```
+```config
 IceLocatorDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
 ```
 
@@ -130,7 +130,7 @@ These properties influence the endpoint on which the registry listens for multic
 override the endpoint by setting [IceGrid.Registry.Discovery.Endpoints](../icegrid-properties), the registry uses these
 properties to compute its endpoint as follows:
 
-`IceGrid.Registry.Discovery.Endpoints=udp -h address -p port [--interface interface]`
+`IceGrid.Registry.Discovery.Endpoints=udp -h address -p port [--interface interface]`
 
 {% callout type="warning" %}
 

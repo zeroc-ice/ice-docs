@@ -5,7 +5,7 @@ factory class that creates the plug-in.
 
 For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=com.example.clearsky.CustomLoggerPluginFactory logLevel=Debug
 ```
 

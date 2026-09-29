@@ -24,7 +24,7 @@ It also includes the Slice tools for C++, so the `zeroc.icebuilder.msbuild` pack
 
      - Add the ZeroC Nightly Builds feed:
 
-       ```
+       ```text
        https://download.zeroc.com/nexus/repository/nuget-nightly/
        ```
 

@@ -55,10 +55,10 @@ need to provide this name in configuration files and you should use a function w
 For example:
 
 ```cpp
-extern "C" Ice::Plugin* createPlugin(
+extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createPlugin(
     const Ice::CommunicatorPtr& communicator,
-    const std::string& name,
-    const Ice::StringSeq& args);
+    const std::string& name,
+    const Ice::StringSeq& args);
 ```
 
 The arguments to the function consist of the communicator that is in the process of being initialized, the name assigned

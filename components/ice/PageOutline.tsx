@@ -171,10 +171,14 @@ export function PageOutline({
 
   if (items.length === 0) return null;
 
+  // A clipped outline fades out at the bottom, so it doesn't look finished. The
+  // bottom padding lies under the fade, so the last heading shows in full once
+  // the reader scrolls to it.
   return (
-    <aside
+    <nav
+      aria-label="On this page"
       data-langs={writtenFor?.join(' ')}
-      className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 overflow-x-hidden overflow-y-auto overscroll-contain xl:block"
+      className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain mask-b-from-[calc(100%-1.5rem)] pb-6"
     >
       <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
         On this page
@@ -197,6 +201,6 @@ export function PageOutline({
           </li>
         ))}
       </ul>
-    </aside>
+    </nav>
   );
 }

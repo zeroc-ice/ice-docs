@@ -1,11 +1,9 @@
 // Copyright (c) ZeroC, Inc.
 
-import path from 'path';
-
 import { buildSideNav } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
-import { readNavigation } from '@/lib/docs-model/content';
+import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
 
 // What every page of a version shares: the older-release banner and the
 // sidebar. A layout rather than part of each page, so the client router fetches
@@ -18,10 +16,7 @@ export default async function VersionLayout({
   children: React.ReactNode;
 }) {
   const { version } = await params;
-  const nav = readNavigation(
-    path.join(process.cwd(), 'content', 'ice'),
-    version
-  );
+  const nav = readNavigation(CONTENT_ROOT, version);
 
   return (
     <div className="flex grow flex-col">

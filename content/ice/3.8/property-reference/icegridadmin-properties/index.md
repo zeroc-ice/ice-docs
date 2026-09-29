@@ -53,7 +53,7 @@ This property is used to compose the value of
 Specifies the endpoints that the client uses to send [multicast discovery queries](../icelocatordiscovery). If not
 defined, the endpoint is composed as follows:
 
-`udp -h addr -p port [--interface intf]`
+`udp -h addr -p port [--interface intf]`
 
 where `addr` is the value of
 [IceGridAdmin.Discovery.Address](../icegridadmin-properties#icegridadmin.discovery.address), `port` is the value of
@@ -73,7 +73,7 @@ The client creates an object adapter named `IceGridAdmin.Discovery.Reply` for re
 [multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
 `IceGridAdmin.Discovery.Reply.Endpoints`, the endpoint for this object adapter is composed as follows:
 
-`udp [-h intf]`
+`udp [-h intf]`
 
 where `intf` is the value of
 [IceGridAdmin.Discovery.Interface](../icegridadmin-properties#icegridadmin.discovery.interface). A fixed port is not
@@ -106,6 +106,40 @@ Specifies the name of an IceGrid instance to which [icegridadmin](../icegridadmi
 When using [multicast discovery](../icelocatordiscovery), you can define this property to limit your discovery results
 only to those locators deployed for the given instance, in case you have multiple unrelated IceGrid instances deployed
 that use the same multicast address and port.
+
+# IceGridAdmin.MetricsConfigs
+
+#### Synopsis
+
+`IceGridAdmin.MetricsConfigs=file[,file,...]` (IceGrid GUI only)
+
+#### Description
+
+Specifies a comma-separated list of property files that customize the IceGrid GUI's metrics tables. The GUI loads its
+built-in `metrics.cfg` first, then loads these files in order. Later files override earlier property values. By default,
+the GUI uses only its built-in configuration. If it cannot load a file, it logs a warning and continues with the
+remaining files.
+
+The built-in `metrics.cfg` is the reference for the full format. The properties used most often are:
+
+- `IceGridGUI.Metrics`: a list of metrics section names, separated by commas or whitespace. The GUI starts with the
+  built-in section order and appends previously unseen names in the order it reads them.
+- `IceGridGUI.Metrics.name`: the display name of the section named `name`.
+- `IceGridGUI.Metrics.name.fields`: the ordered list of fields to display as columns in this section.
+- `IceGridGUI.Metrics.name.field.columnName`: the heading for the column named `field`.
+- `IceGridGUI.Metrics.name.field.columnToolTip`: the tooltip for that column's heading.
+
+For a field containing nested metrics, such as an invocation's `remotes`, `IceGridGUI.Metrics.name.field.fields` lists
+the columns in the nested table. Configure their headings and tooltips with
+`IceGridGUI.Metrics.name.field.nestedField.columnName` and `.columnToolTip`.
+
+For example, a custom file can reduce the Connections table to three columns and rename its Current column:
+
+```ini
+IceGridGUI.Metrics.Connection.fields=id current total
+IceGridGUI.Metrics.Connection.current.columnName=Open
+IceGridGUI.Metrics.Connection.current.columnToolTip=Currently open connections
+```
 
 # IceGridAdmin.Password
 

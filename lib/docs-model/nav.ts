@@ -32,7 +32,10 @@ export interface PreviousVersions {
 
 export interface NavDoc {
   languages: string[];
-  /** `latest` gets no banner; anything else gets an "older version" notice. */
+  /**
+   * `latest` gets no banner and is where `/`, `/ice`, and `/ice/latest/…`
+   * redirect; anything else gets an "older version" notice.
+   */
   status?: 'latest' | 'maintenance' | 'archived';
   /** Optional link to older docs kept on the previous platform. */
   previousVersions?: PreviousVersions;
