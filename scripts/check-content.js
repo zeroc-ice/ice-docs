@@ -21,9 +21,10 @@
 // without a front page, or a page that lists a page it does not contain, fails
 // as the navigation is read.
 //
-// Unresolved links (4) and missing image files (5c) are reported and fail only
-// under --strict: the migrated manual still links to pages that were never
-// brought over, and none of its Confluence attachments were migrated at all.
+// Unresolved links (4) fail when their number rises above a baseline, and
+// missing image files (5c) are reported; both fail outright only under
+// --strict: the migrated manual still links to pages that were never brought
+// over, and none of its Confluence attachments were migrated at all.
 
 // cspell:words noformat unparseable worklist
 
@@ -156,6 +157,13 @@ function checkImages(version, files) {
 // states were introduced. It is a ratchet: classifying slots lowers it, and the
 // check fails if it ever rises. When it reaches 0, delete this.
 const UNCLASSIFIED_SLOT_BASELINE = 333;
+
+// The number of cross-page links that did not resolve when this ratchet was
+// introduced, all to pages the migration never brought over. A link to a page
+// that does not exist, including one that still names a renamed page, raises it.
+// Fixing or removing those links lowers it. When it reaches 0, delete this and
+// make unresolved links fail without --strict.
+const UNRESOLVED_LINK_BASELINE = 81;
 
 /**
  * Every slot a shared page declares must be answered by each language overlay,
@@ -376,6 +384,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
   }
 
   // 4. cross-page links resolve
+  // The files that link to each target that does not resolve, once per link.
   const unresolved = new Map();
   let total = 0;
   for (const file of files) {
@@ -387,22 +396,41 @@ for (const version of listVersions(CONTENT_ROOT)) {
     for (const match of targets) {
       total++;
       if (resolveDocLink(match[1], { version, index }).resolved) continue;
-      unresolved.set(match[1], (unresolved.get(match[1]) ?? 0) + 1);
+      unresolved.set(match[1], [...(unresolved.get(match[1]) ?? []), file]);
     }
   }
 
-  const unresolvedCount = [...unresolved.values()].reduce((a, b) => a + b, 0);
+  const unresolvedCount = [...unresolved.values()].reduce(
+    (sum, linkers) => sum + linkers.length,
+    0
+  );
   console.log(
     `${version}: ${total} links, ${unresolvedCount} unresolved (${unresolved.size} distinct)`
   );
-  if (unresolvedCount) {
+  if (unresolvedCount > UNRESOLVED_LINK_BASELINE) {
+    // The new link is usually a single one, which a most-linked summary would
+    // cut off, so list them all.
+    for (const [target, linkers] of unresolved)
+      for (const file of linkers)
+        console.log(`  ${path.relative(process.cwd(), file)}: ${target}`);
+    fail(
+      `${version}: ${unresolvedCount} unresolved cross-page links, up from the ` +
+        `baseline of ${UNRESOLVED_LINK_BASELINE}. A link must name a page that exists.`
+    );
+  } else if (unresolvedCount) {
     const worst = [...unresolved.entries()]
-      .sort((a, b) => b[1] - a[1])
+      .sort((a, b) => b[1].length - a[1].length)
       .slice(0, 15);
-    for (const [target, count] of worst)
-      console.log(`  ${String(count).padStart(4)}  ${target}`);
-    if (strict)
-      fail(`${version}: ${unresolvedCount} unresolved cross-page links`);
+    for (const [target, linkers] of worst)
+      console.log(`  ${String(linkers.length).padStart(4)}  ${target}`);
+  }
+  if (strict && unresolvedCount)
+    fail(`${version}: ${unresolvedCount} unresolved cross-page links`);
+  if (unresolvedCount < UNRESOLVED_LINK_BASELINE) {
+    console.log(
+      `  ${UNRESOLVED_LINK_BASELINE - unresolvedCount} fewer than the baseline — ` +
+        `lower UNRESOLVED_LINK_BASELINE in scripts/check-content.js to ${unresolvedCount}`
+    );
   }
 }
 
