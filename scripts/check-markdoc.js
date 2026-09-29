@@ -22,10 +22,14 @@
 // does, since a tag's transform can fail where validation passed. That pass can
 // only point at a line of the assembled page, so it quotes the line, and it
 // skips anything the first pass already reported. Both passes see the variables
-// the route provides, so a page may refer to `$frontmatter` or `$path`.
+// the route provides, so a page may refer to `$frontmatter` or `$path`. The
+// transform also resolves every link and card against the page index, so the
+// second pass reports one that names no page, which the site renders as plain
+// text.
 //
-// Exit code 1 on any diagnostic at warning level or above. `child-invalid`,
-// which a `{% callout %}` reflowed into its paragraph produces, is a warning.
+// Exit code 1 on any diagnostic at warning level or above, and on a link to a
+// page that does not exist. `child-invalid`, which a `{% callout %}` reflowed
+// into its paragraph produces, is a warning.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -150,6 +154,16 @@ for (const version of listVersions(CONTENT_ROOT)) {
   }
 }
 
+/** Every tag in a rendered tree, depth first. */
+function* tagsOf(node) {
+  if (Array.isArray(node)) {
+    for (const child of node) yield* tagsOf(child);
+  } else if (Markdoc.Tag.isTag(node)) {
+    yield node;
+    yield* tagsOf(node.children);
+  }
+}
+
 // 2. Every page as the site renders it.
 let rendered = 0;
 const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
@@ -188,10 +202,19 @@ for (const { version, page } of allPages) {
   }
   // What the route does next: a tag's transform can throw where validation
   // passed.
+  let tree;
   try {
-    Markdoc.transform(ast, { ...config, variables });
+    tree = Markdoc.transform(ast, { ...config, variables });
   } catch (error) {
     diagnostics.push({ where, text: `transform failed: ${error.message}` });
+    continue;
+  }
+  for (const tag of tagsOf(tree)) {
+    if (tag.attributes.unresolved)
+      diagnostics.push({
+        where,
+        text: `link to a page that does not exist: ${tag.attributes.href}`
+      });
   }
 }
 

@@ -534,9 +534,7 @@ p.op3(p)                                # Pass proxy
 # Out Parameters
 
 As in Java, Python functions do not support reference arguments. That is, it is not possible to pass an uninitialized
-variable to a Python function in order to have its value initialized by the function. The Java mapping overcomes this
-limitation with the use of _holder classes_ that represent each `out` parameter. The Python mapping takes a different
-approach, one that is more natural for Python users.
+variable to a Python function in order to have its value initialized by the function.
 
 The semantics of `out` parameters in the Python mapping depend on whether the operation returns one value or multiple
 values. An operation returns multiple values when it has declared multiple `out` parameters, or when it has declared a

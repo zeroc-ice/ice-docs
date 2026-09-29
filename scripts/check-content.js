@@ -8,7 +8,8 @@
 //   1. every page is in the table of contents: listed by the page above it, up to the front page
 //   2. no two pages share a name (cross-page links are keyed by it)
 //   3. every overlay is for one of the manual's languages
-//   4. every cross-page link resolves to a real page
+//   4. every cross-page link resolves to a real page — checked by check:markdoc,
+//      on each page as the site renders it
 //   5. every image parses as an image, has alt text, and its file exists
 //   6. no raw HTML or Confluence markup survived the migration
 //   7. every language slot is answered, and says which kind of answer it is
@@ -17,7 +18,9 @@
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
-// regression. A version without a front page, or a page that lists a page it does
+// regression. The exception is a slot that doesn't say which kind of answer it
+// is (7): many still don't, so those fail only when their count rises, or under
+// --strict. A version without a front page, or a page that lists a page it does
 // not contain, fails as the navigation is read.
 
 // cspell:words noformat unparseable worklist
@@ -25,7 +28,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { buildPageIndex, resolveDocLink } from '../lib/docs-model/links.ts';
+import { buildPageIndex } from '../lib/docs-model/links.ts';
 import {
   declaredSlots,
   parseLanguageSections,
@@ -48,13 +51,6 @@ const fail = (message) => {
   console.error(`error: ${message}`);
   errors++;
 };
-
-// Markdown links `[text](target)` and card hrefs `{% card ... href="target" %}`.
-// Both go through the same build-time resolver, so both are checked. A target
-// with parentheses is written `[text](<target>)`.
-// Reference-style links and bare URLs are not used by the migrated content.
-const LINK_RE = /\[[^\]]*\]\((?:<([^>\n]*)>|([^)\s]+))(?:\s+"[^"]*")?\)/g;
-const CARD_HREF_RE = /\{%\s*card[^%]*?href="([^"]+)"/g;
 
 // Images. The capture is deliberately loose — it matches the *intent* to write
 // an image, including forms CommonMark will not parse, because those are exactly
@@ -311,7 +307,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
 
   const pages = listPages(CONTENT_ROOT, version);
-  const { index, duplicates } = buildPageIndex(pages.map((page) => page.slug));
+  const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const languages = nav.languages;
 
@@ -366,34 +362,6 @@ for (const version of listVersions(CONTENT_ROOT)) {
       fail(
         `${version}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
       );
-  }
-
-  // 4. cross-page links resolve
-  const unresolved = new Map();
-  let total = 0;
-  for (const file of files) {
-    const source = withoutCode(fs.readFileSync(file, 'utf8'));
-    const targets = [
-      ...[...source.matchAll(LINK_RE)].map((match) => match[1] ?? match[2]),
-      ...[...source.matchAll(CARD_HREF_RE)].map((match) => match[1])
-    ];
-    for (const target of targets) {
-      total++;
-      if (resolveDocLink(target, { version, index }).resolved) continue;
-      unresolved.set(target, (unresolved.get(target) ?? 0) + 1);
-    }
-  }
-
-  const unresolvedCount = [...unresolved.values()].reduce((a, b) => a + b, 0);
-  console.log(
-    `${version}: ${total} links, ${unresolvedCount} unresolved (${unresolved.size} distinct)`
-  );
-  if (unresolvedCount) {
-    for (const [target, count] of unresolved)
-      console.log(`  ${String(count).padStart(4)}  ${target}`);
-    fail(
-      `${version}: ${unresolvedCount} unresolved cross-page links. A link names a page by the name of its directory.`
-    );
   }
 }
 
