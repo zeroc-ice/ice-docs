@@ -10,7 +10,7 @@ import {
   LANGUAGE_LABELS,
   LANGUAGE_STORAGE_KEY
 } from '@/lib/docs-model/nav';
-import { SITE_URL } from '@/lib/site';
+import { NOINDEX, SITE_URL } from '@/lib/site';
 import { Inter } from 'next/font/google';
 import clsx from 'clsx';
 import { Metadata } from 'next';
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     'guide'
   ],
   robots: {
-    index: true,
-    follow: true
+    index: !NOINDEX,
+    follow: !NOINDEX
   }
 };
 
