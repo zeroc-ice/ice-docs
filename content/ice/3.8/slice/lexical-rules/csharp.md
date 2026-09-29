@@ -9,7 +9,7 @@ the generated C# code uses the identifiers `Greeter` and `GreeterPrx` (among oth
 You can change this mapping and specify your own C# identifier with the `cs:identifier` metadata directive. For example,
 we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["cs:identifier:Receptionist"]
 interface Greeter { ... }
 ```

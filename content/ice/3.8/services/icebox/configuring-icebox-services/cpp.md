@@ -8,7 +8,7 @@ specified, the version is embedded in the library name.
 
 As an example, here is how we could configure [IceStorm](../icestorm), which is implemented as an IceBox service in C++:
 
-```
+```config
 IceBox.Service.IceStorm=IceStormService,38:createIceStorm
 ```
 
@@ -40,7 +40,7 @@ method.
 
 Here is a sample configuration for our C++ service:
 
-```
+```config
 IceBox.Service.Greeter=GreeterService:create --Ice.Trace.Network=1 hello there
 ```
 

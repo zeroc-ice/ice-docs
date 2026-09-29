@@ -458,14 +458,14 @@ rules in [RFC 2253](https://www.rfc-editor.org/rfc/rfc2253.txt). Specifically, t
 commas, and any component that contains a comma must be escaped or enclosed in quotes. For example, the following two
 property definitions are equivalent:
 
-```
+```config
 IceSSL.TrustOnly=O="Acme, Inc.",OU=Sales
 IceSSL.TrustOnly=O=Acme\, Inc.,OU="Sales"
 ```
 
 Use a semicolon to separate multiple entries in a property:
 
-```
+```config
 IceSSL.TrustOnly=O=Acme\, Inc.,OU=Sales;O=Acme\, Inc.,OU=Marketing
 ```
 
@@ -488,14 +488,14 @@ The connection semantics are described below:
 
 Our original example limits access to people in the sales and marketing departments:
 
-```
+```config
 IceSSL.TrustOnly=O=Acme\, Inc.,OU=Sales;O=Acme\, Inc.,OU=Marketing
 ```
 
 If it later becomes necessary to deny access to certain individuals in these departments, you can add a rejection entry
 and restart the program:
 
-```
+```config
 IceSSL.TrustOnly=O=Acme\, Inc.,OU=Sales; O=Acme\, Inc.,OU=Marketing; !O=Acme\, Inc.,CN=John Smith
 ```
 

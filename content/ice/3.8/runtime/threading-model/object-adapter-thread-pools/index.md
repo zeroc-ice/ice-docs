@@ -29,7 +29,7 @@ meaning that an adapter uses the communicator's thread pools by default.
 
 As an example, the properties shown below configure a thread pool for the object adapter named `PrinterAdapter`:
 
-```
+```config
 PrinterAdapter.ThreadPool.Size=3
 PrinterAdapter.ThreadPool.SizeMax=15
 PrinterAdapter.ThreadPool.SizeWarn=14

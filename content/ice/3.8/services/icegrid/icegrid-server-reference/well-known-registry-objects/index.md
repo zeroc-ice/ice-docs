@@ -26,7 +26,7 @@ identities of these objects and their corresponding Slice interfaces:
 You can assign unique identities to these objects by configuring the [IceGrid.InstanceName](../icegrid-properties)
 property, as shown in the following example:
 
-```
+```config
 IceGrid.InstanceName=MP3Grid
 ```
 
@@ -42,7 +42,7 @@ more information.
 
 The client's configuration must also be changed to reflect the new identity:
 
-```
+```config
 Ice.Default.Locator=MP3Grid/Locator:tcp -h registryhost -p 4061
 ```
 

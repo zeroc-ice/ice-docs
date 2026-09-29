@@ -12,7 +12,7 @@ do in several ways:
 
 The communicator's efforts to resolve an indirect proxy can be traced by setting the following configuration properties:
 
-```
+```config
 Ice.Trace.Network=2
 Ice.Trace.Protocol=1
 Ice.Trace.Locator=2

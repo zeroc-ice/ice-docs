@@ -9,7 +9,7 @@ this utility requires an XML file that defines the descriptors.
 
 The IceGrid administration tool supports the following command-line options:
 
-```
+```text
 Usage: icegridadmin [options]
 Options:
 -h, --help           Show this message.
@@ -91,7 +91,7 @@ The tool's commands are organized by category. The supported command categories 
 
 You can obtain more information about each category using the `help` command:
 
-```
+```text
 >>> application help
 ```
 

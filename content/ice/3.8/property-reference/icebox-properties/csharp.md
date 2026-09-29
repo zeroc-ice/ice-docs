@@ -24,13 +24,13 @@ invoked.
 If you specify a relative path name in the entry point, the assembly is located relative to the program's current
 working directory:
 
-```
+```config
 IceBox.Service.MyService=..\MyService.dll:MyService
 ```
 
 Enclose the assembly's path name in quotes if it contains spaces:
 
-```
+```config
 IceBox.Service.MyService="C:\Program Files\MyService\MyService.dll:MyServiceClass"
 ```
 

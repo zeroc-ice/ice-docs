@@ -106,7 +106,7 @@ and then our script completes.
 
 We can run this client script with PHP as follows:
 
-```
+```shell
 php Client.php
 ```
 

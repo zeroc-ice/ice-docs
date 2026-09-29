@@ -90,7 +90,7 @@ The format of the password file is very simple. Each user name-password pair mus
 whitespace separating the user name from the password. For example, the following password file contains an entry for
 the user name `test`:
 
-```
+```text
 test $5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19
 ```
 

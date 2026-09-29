@@ -62,7 +62,7 @@ have an exception specification. This is true for all mapped methods, except the
 
 For example:
 
-```
+```slice
 interface Greeter
 {
     ["amd"]

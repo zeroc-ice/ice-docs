@@ -24,7 +24,7 @@ parameterless constructor.
 
 Here is a sample configuration for our C# service:
 
-```
+```config
 IceBox.Service.Greeter=GreeterService.dll:Service.GreeterService --Ice.Trace.Network=1 hello there
 ```
 

@@ -41,7 +41,7 @@ This SSL configuration applies to all SSL incoming connections accepted by that 
 
 {% language-section name="lang-4" %}
 
-```
+```config
 # The server's certificate file.
 IceSSL.CertFile=server.p12
 IceSSL.Password=password
@@ -54,7 +54,7 @@ IceSSL.Trace.Security=1
 
 {% language-section name="lang-5" %}
 
-```
+```config
 # The trusted certificated authorities used to validate peer certificates.
 IceSSL.CAs=ca_cert.pem
 ```

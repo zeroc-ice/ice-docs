@@ -81,7 +81,7 @@ stopped and any important files are backed up.
 
 A minimal node configuration is shown in the following example:
 
-```
+```config
 IceGrid.Node.Endpoints=tcp
 IceGrid.Node.Name=Node1
 IceGrid.Node.Data=/opt/ripper/node

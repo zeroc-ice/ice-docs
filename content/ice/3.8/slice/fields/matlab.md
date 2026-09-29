@@ -21,7 +21,7 @@ The size and validation function(s) of each property depends on the field type:
 
 For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -73,7 +73,7 @@ Slice default values are mapped to default MATLAB property values.
 
 For example:
 
-```
+```slice
 struct Location
 {
     ["matlab:identifier:Name"]

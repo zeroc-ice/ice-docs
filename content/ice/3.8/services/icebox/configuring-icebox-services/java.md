@@ -15,7 +15,7 @@ service's default constructor.
 
 Here is a sample configuration for our [Java example](../developing-icebox-services):
 
-```
+```config
 IceBox.Service.Greeter=com.example.icebox.greeter.service.GreeterService --Ice.Trace.Network=1 hello there
 ```
 

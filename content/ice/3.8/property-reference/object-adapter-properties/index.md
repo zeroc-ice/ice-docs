@@ -56,7 +56,7 @@ JavaScript). Non-browser Ice clients are unaffected.
 
 #### Example
 
-```
+```config
 MyAdapter.Endpoints=wss -h api.example.com -p 443
 MyAdapter.AllowedOrigins=https://web.example.com, https://admin.example.com
 ```

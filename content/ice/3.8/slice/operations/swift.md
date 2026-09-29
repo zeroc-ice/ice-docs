@@ -103,7 +103,7 @@ name.
 
 For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
 
-```
+```slice
 module VisitorCenter
 {
     interface Greeter
@@ -185,7 +185,7 @@ parameter. (But the mapped skeleton method does, as usual.).
 
 Consider the following Slice interface:
 
-```
+```slice
 interface Greeter
 {
     string greet(string name);
@@ -226,7 +226,7 @@ value:
 
 Consider this example:
 
-```
+```slice
 interface Example
 {
     double op(int inp1, string inp2, out bool outp1, out long outp2);

@@ -5,7 +5,7 @@ variable.
 
 For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -40,7 +40,7 @@ mapped to Ruby.
 
 For example:
 
-```
+```slice
 class C
 {
     optional(2) string alternateName;
@@ -71,7 +71,7 @@ Slice default values map to default values in the mapped `initialize` method.
 
 For example:
 
-```
+```slice
 struct Location
 {
     string name;

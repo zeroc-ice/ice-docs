@@ -66,7 +66,7 @@ Notice that all proxy member functions are `const` – proxy instances are immut
 The `Ice::Proxy` template is a mix-in class that adds functionality to the proxy class via inheritance. It derives from
 the provided base proxy classes (here, only `Ice::ObjectPrx`):
 
-```
+```cpp
 template<typename Prx, typename... Bases>
 class Proxy : public virtual Bases...
 {

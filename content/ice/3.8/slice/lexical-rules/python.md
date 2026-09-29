@@ -9,7 +9,7 @@ A single Slice identifier often results in several Python identifiers. For examp
 You can change this mapping and specify your own Python identifier with the `python:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["python:identifier:Receptionist"]
 interface Greeter { ... }
 ```

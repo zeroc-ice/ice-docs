@@ -130,7 +130,7 @@ and our function completes.
 
 We can run `client` directly in the MATLAB console:
 
-```
+```matlab
 client
 ```
 

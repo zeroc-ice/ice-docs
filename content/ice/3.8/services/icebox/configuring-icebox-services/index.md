@@ -10,7 +10,7 @@ point, and it defines properties and arguments for the service.
 
 The format of the property is shown below:
 
-```
+```config
 IceBox.Service.name=entry_point [args]
 ```
 
@@ -29,7 +29,7 @@ removed, and any remaining arguments are passed to the `start` operation in the 
 
 You can use a configuration file to configure your IceBox service by specifying `--Ice.Config`. For example:
 
-```
+```config
 IceBox.Service.Greeter=<entry point> --Ice.Config=/etc/greeter.cfg
 ```
 
@@ -39,7 +39,7 @@ By default, the server loads the configured services in an undefined order, mean
 should not depend on one another. If services must be loaded in a particular order, the
 [IceBox.LoadOrder](../icebox-properties) property can be used:
 
-```
+```config
 IceBox.LoadOrder=Service1,Service2
 ```
 
@@ -54,7 +54,7 @@ IceBox creates a separate communicator instance for each service by default in o
 accidental conflicts among services. You can optionally specify that certain services use a shared communicator instead
 by setting [IceBox.UseSharedCommunicator._name_](../icebox-properties) properties in the server's configuration:
 
-```
+```config
 IceBox.Service.Hello=...
 IceBox.Service.Printer=...
 IceBox.UseSharedCommunicator.Hello=1
@@ -84,7 +84,7 @@ Service properties are merged in the same order as the [services are loaded](../
 result, the final value of a property that is defined by multiple services depends on the order in which those services
 are loaded. Let's expand our example to demonstrate this behavior:
 
-```
+```config
 # File: server.cfg
 IceBox.Service.Hello=... --Ice.Config=hello.cfg --Hello.Debug=1
 IceBox.Service.Printer=... --Ice.Config=printer.cfg
@@ -115,7 +115,7 @@ the shared communicator will be `2` instead because the setting in `hello.cfg` o
 By default, a service does not inherit the IceBox server's configuration properties. For example, consider the following
 server configuration:
 
-```
+```config
 IceBox.Service.Weather=... --Ice.Config=svc.cfg
 Ice.Trace.Network=1
 ```
@@ -126,7 +126,7 @@ property. In the example above, the service's communicator is initialized with t
 If services need to inherit the IceBox server's configuration properties, define the
 [IceBox.InheritProperties](../icebox-properties) property in the IceBox server's configuration:
 
-```
+```config
 IceBox.Service.Weather=... --Ice.Config=svc.cfg
 Ice.Trace.Network=1
 IceBox.InheritProperties=1

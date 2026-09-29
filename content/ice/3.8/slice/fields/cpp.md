@@ -5,7 +5,7 @@ memory-owning, mapping of the Slice type.
 
 For example:
 
-```
+```slice
 struct Person
 {
     string name;
@@ -26,7 +26,7 @@ struct Person
 
 A Slice field with a class type maps to a C++ data member with a shared pointer type. For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -54,7 +54,7 @@ struct Person
 
 A Slice field with a proxy type maps to a C++ data member with a `std::optional<T>` type. For example:
 
-```
+```slice
 interface Widget { ... }
 
 struct Person
@@ -82,7 +82,7 @@ An optional field maps to a C++ data member with the same name. The data member'
 
 For example:
 
-```
+```slice
 class C
 {
     optional(2) string alternateName;
@@ -112,7 +112,7 @@ Slice default values map to default member initializers in C++.
 
 For example:
 
-```
+```slice
 struct Location
 {
     string name;

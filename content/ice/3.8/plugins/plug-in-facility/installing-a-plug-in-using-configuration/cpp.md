@@ -5,7 +5,7 @@ the factory function, along with the name of the factory function.
 
 For example:
 
-```
+```config
 Ice.Plugin.CustomLogger=customlogger:createCustomLogger logLevel=Debug
 ```
 

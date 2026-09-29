@@ -6,7 +6,7 @@ title: Exceptions
 
 Consider the following Slice definition.
 
-```
+```slice
 struct TimeOfDay
 {
     short hour;         // 0 - 23

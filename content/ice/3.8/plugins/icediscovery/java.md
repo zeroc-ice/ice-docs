@@ -14,7 +14,7 @@ try (Communicator communicator = Util.initialize(args)) {
 
 Alternatively, you can install the IceDiscovery plug-in at runtime using configuration:
 
-```
+```config
 Ice.Plugin.IceDiscovery=IceDiscovery:com.zeroc.IceDiscovery.PluginFactory
 ```
 

@@ -5,7 +5,7 @@ title: Locator Semantics for Servers
 A location service must know the endpoints of any [object adapter](../dispatch) whose identifier can be used in an
 indirect proxy. For example, suppose a client uses the following proxy:
 
-```
+```text
 Object1@PublicAdapter
 ```
 

@@ -9,7 +9,7 @@ A single Slice identifier often results in several Swift identifiers. For exampl
 You can change this mapping and specify your own Swift identifier with the `swift:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["swift:identifier:Receptionist"]
 interface Greeter { ... }
 ```

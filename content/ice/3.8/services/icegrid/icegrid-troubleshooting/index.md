@@ -62,7 +62,7 @@ are a few suggestions:
    when you have finished debugging and terminated the server. You can do this by starting the server using
    [icegridadmin](../icegridadmin-command-line-tool):
 
-   ```
+   ```text
    >>> server start TheServer
    ```
 

@@ -86,7 +86,7 @@ unmarshals its payload, calls into application code, and eventually returns a re
 
 The information in a proxy can be expressed as a string. For example, the string:
 
-```
+```text
 SimplePrinter:tcp -p 10000
 ```
 
@@ -115,7 +115,7 @@ An _indirect proxy_ has two forms. It may provide only an object's identity, or 
 an object adapter identifier. An object that is accessible using only its identity is called a well-known object, and
 the corresponding proxy is a [well-known proxy](../well-known-proxy). For example, the string:
 
-```
+```text
 SimplePrinter
 ```
 
@@ -123,7 +123,7 @@ is a [valid proxy for a well-known object](../well-known-proxy) with the identit
 
 An indirect proxy that includes an object adapter identifier has the stringified form
 
-```
+```text
 SimplePrinter@PrinterAdapter
 ```
 
@@ -183,7 +183,7 @@ Ice supports a limited form of replication when a proxy specifies multiple addre
 selects one of the addresses at random for its [initial connection attempt](../connection-establishment) and tries all
 of them in the case of a failure. For example, consider this proxy:
 
-```
+```text
 SimplePrinter:tcp -h server1 -p 10001:tcp -h server2 -p 10002
 ```
 
@@ -202,7 +202,7 @@ of at most one replica group; such an adapter is considered to be a _replicated 
 After a replica group has been established, its identifier can be used in an indirect proxy in place of an adapter
 identifier. For example, a replica group identified as `PrinterAdapters` can be used in a proxy as shown below:
 
-```
+```text
 SimplePrinter@PrinterAdapters
 ```
 

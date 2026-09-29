@@ -68,14 +68,14 @@ your Slice definition. These default values are mapped to C++ data member initia
 
 The Slice compiler generates an `operator<<` that prints the C++ structure, including the value of all its data members:
 
-```
+```cpp
 std::ostream& operator<<(std::ostream& os, const Employee& value);
 ```
 
 You can suppress the generation of this operator, and tell the Slice compiler you’ll provide your own custom operator<<,
 with the `"cpp:custom-print"` metadata. For example:
 
-```
+```slice
 // We'll provide our own custom operator<< for this struct.
 ["cpp:custom-print"]
 struct Employee

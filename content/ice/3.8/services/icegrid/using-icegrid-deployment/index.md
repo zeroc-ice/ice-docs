@@ -62,7 +62,7 @@ to [createObjectAdapter](../creating-an-object-adapter)) that is used for config
 required to have the same value. Had we omitted the `id` attribute, IceGrid would have composed a unique value by
 combining the server name and adapter name to produce the following identifier:
 
-```
+```text
 EncoderServer.EncoderAdapter
 ```
 
@@ -155,7 +155,7 @@ that, among other features, allows an IceGrid node to gracefully deactivate the 
 Using the directory structure we established for our ripper application, the configuration file for `EncoderServer` has
 the file name shown below:
 
-```
+```text
 /opt/ripper/node/servers/EncoderServer/config/config
 ```
 

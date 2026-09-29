@@ -60,7 +60,7 @@ In situations where authentication is not necessary, such as during development 
 environment, you can use Glacier2's built-in "null" permissions verifier. This object accepts any combination of user
 name and password, and you can enable it with the following property definition:
 
-```
+```config
 Glacier2.PermissionsVerifier=Glacier2/NullPermissionsVerifier
 ```
 
@@ -141,7 +141,7 @@ In situations where authentication is not necessary, such as during development 
 environment, you can use Glacier2's built-in "null" permissions verifier. This object accepts the credentials of any
 client, and you can enable it with the following property definition:
 
-```
+```config
 Glacier2.SSLPermissionsVerifier=Glacier2/NullSSLPermissionsVerifier
 ```
 

@@ -20,7 +20,7 @@ Here we describe how to use the Ice service installer and discuss its actions an
 
 `iceserviceinstall` supports the following options and arguments:
 
-```
+```text
 iceserviceinstall [options] service config-file [property ...]
 
 Options:
@@ -99,7 +99,7 @@ The Ice service installer uses a set of optional properties that customize the i
 can be defined in the service's configuration file as discussed above, or they can be defined on the command line using
 the familiar --`name`=`value` syntax:
 
-```
+```powershell
 iceserviceinstall --DependOnRegistry=1 ...
 ```
 

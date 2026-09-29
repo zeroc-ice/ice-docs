@@ -19,7 +19,7 @@ In this situation, it is the router that must be configured with a locator proxy
 Assuming the registry's client endpoint in the illustration uses port `8000`, the router requires the following setting
 for the [Ice.Default.Locator](../ice-default-properties) property:
 
-```
+```config
 Ice.Default.Locator=IceGrid/Locator:tcp -h 10.0.0.2 -p 8000
 ```
 
@@ -31,7 +31,7 @@ Note that all of the router's clients use the same locator.
 If you intend to administer IceGrid remotely via a Glacier2 router, you must define one of the following properties (or
 both), depending on whether you use user name and password authentication or a secure connection:
 
-```
+```config
 Glacier2.SessionManager=IceGrid/AdminSessionManager
 Glacier2.SSLSessionManager=IceGrid/AdminSSLSessionManager
 ```
@@ -48,7 +48,7 @@ returned by the session's `getAdmin` operation, you must set the property
 To allocate servers and objects, a program can establish a client session via Glacier2. Depending on the authentication
 method, one or both of the following properties must be set in the Glacier2 configuration:
 
-```
+```config
 Glacier2.SessionManager=IceGrid/SessionManager
 Glacier2.SSLSessionManager=IceGrid/SSLSessionManager
 ```
@@ -74,7 +74,7 @@ The simplest solution is to dedicate a router instance to each type of session. 
 types of sessions from a single router, you can accomplish it only if you use a different authentication mechanism for
 each type of session. For example, you can configure the router as follows:
 
-```
+```config
 Glacier2.SessionManager=IceGrid/SessionManager
 Glacier2.SSLSessionManager=IceGrid/AdminSSLSessionManager
 ```
@@ -120,7 +120,7 @@ application in which the template is used. This parameter also affects the
 
 Consider the following sample application:
 
-```
+```xml
 <icegrid>
     <application name="Glacier2Demo">
         <node name="Node">

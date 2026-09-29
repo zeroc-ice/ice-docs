@@ -67,7 +67,7 @@ Ice validates the name of every property that begins with a reserved prefix foll
 comes from a configuration file, the command line, the Windows registry, the [Properties](../properties-class) class, or
 the [Properties facet](../properties-facet). Ice rejects a name it does not know with a `PropertyException`:
 
-```
+```text
 unknown Ice property: Ice.Trace.Netwrok
 ```
 

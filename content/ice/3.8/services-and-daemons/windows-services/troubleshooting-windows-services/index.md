@@ -43,7 +43,7 @@ Failures encountered by the Ice run time prior to initialization of the communic
 log if no other logger implementation is defined, so that should be the first place you look. Typically you will find an
 entry in the `System` event log resembling the following message:
 
-```
+```text
 The IceBridge service terminated with service-specific error 1.
 ```
 
@@ -82,13 +82,13 @@ Refer to the Windows Firewall documentation for details.
 The IceGrid node uses Windows' `Perflib` facility to obtain statistics about the CPU utilization of its host for
 [load balancing](../load-balancing) purposes. Occasionally, the IceGrid node may log the following warning message:
 
-```
+```text
 warning: Unable to lookup the performance counter name
 ```
 
 This message is an indication that the node does not have sufficient privileges to access a key in the Windows registry:
 
-```
+```text
 HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib
 ```
 

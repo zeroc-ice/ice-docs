@@ -20,7 +20,7 @@ simplifies the task of modifying the service's configuration.
 
 Our sample IceBridge configuration is quite simple:
 
-```
+```config
 IceBridge.Source.Endpoints=tcp -p 10000
 IceBridge.Target.Endpoints=tcp -h localhost -p 21112
 Ice.Trace.Network=2
@@ -28,7 +28,7 @@ Ice.Trace.Network=2
 
 We will save our configuration properties into the following file:
 
-```
+```text
 C:\ProgramData\Ice\icebridge.cfg
 ```
 
@@ -164,7 +164,7 @@ reg add
 The commands to add the `EventMessageFile` and `TypesSupported` values must be modified in a similar fashion. Finally,
 add the following configuration property to `icebridge.cfg`:
 
-```
+```config
 Ice.EventLog.Source=Ice Bridging Service
 ```
 
@@ -197,7 +197,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog\MyApp\Ice Bridging Serv
 
 Finally, we define `Ice.EventLog.Source` in the IceBridge service's configuration file:
 
-```
+```config
 Ice.EventLog.Source=Ice Bridging Service
 ```
 

@@ -179,7 +179,7 @@ it also allows you to obtain metrics at the object adapter level. For instance, 
 monitor any metrics for the `Ice.Admin` object adapter and it groups all the metrics based on the object adapter or
 communicator:
 
-```
+```config
 IceMX.Metrics.MyView.GroupBy=parent
 IceMX.Metrics.MyView.Reject.parent=Ice\.Admin   # Escape the dot in Ice.Admin
 ```

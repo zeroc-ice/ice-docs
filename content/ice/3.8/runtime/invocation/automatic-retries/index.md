@@ -135,14 +135,14 @@ many retry attempts Ice makes, and the value of each entry represents a delay in
 defined, the default behavior is to retry once immediately after the first failure, which is equivalent to the following
 property definition:
 
-```
+```config
 Ice.RetryIntervals=0
 ```
 
 You may want a more elaborate configuration for your application, such as a gradual increase in the delay between
 retries:
 
-```
+```config
 Ice.RetryIntervals=0 100 500 1000
 ```
 
@@ -157,7 +157,7 @@ logic and therefore require immediate notification when a failure occurs.
 To monitor Ice's retry activities, configure your program with the property [Ice.Trace.Retry](../ice-trace-properties)
 set to a non-zero value:
 
-```
+```config
 Ice.Trace.Retry=1
 ```
 
@@ -166,7 +166,7 @@ of the exception that prompted the retry. Ice also logs a message when it reache
 
 You can configure Ice to log even more information about retries by setting the property to `2`:
 
-```
+```config
 Ice.Trace.Retry=2
 ```
 

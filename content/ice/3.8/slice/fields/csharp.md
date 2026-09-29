@@ -4,7 +4,7 @@ A Slice field maps to a C# field, with by default the same name. The type of the
 
 In C#, we often remap the field name with `cs:identifier` to convert the name for Pascal case. For example:
 
-```
+```slice
 class Address { ... }
 
 struct Person
@@ -35,7 +35,7 @@ mapped to C#.
 
 For example:
 
-```
+```slice
 class C
 {
     ["cs:identifier:AlternateName"]
@@ -70,7 +70,7 @@ Slice default values map to default values in C#.
 
 For example:
 
-```
+```slice
 struct Location
 {
     ["cs:identifier:Name"]

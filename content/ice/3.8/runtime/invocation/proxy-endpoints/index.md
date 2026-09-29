@@ -25,7 +25,7 @@ target object.
 
 Here is a single endpoint proxy:
 
-```
+```text
 greeter:tcp -h frosty.zeroc.com -p 4061
 ```
 
@@ -38,7 +38,7 @@ adapter endpoints, while it’s common to use them in proxy endpoints.
 
 A typical object adapter endpoint would be:
 
-```
+```config
 GreeterAdapter.Endpoints=tcp -p 4061 # listens on all interfaces
 ```
 
@@ -48,7 +48,7 @@ GreeterAdapter.Endpoints=tcp -p 4061 # listens on all interfaces
 
 A proxy can specify two or more endpoints separated by colons (`:`). For example:
 
-```
+```text
 greeter:tcp -h venus -p 4061:tcp -h mars -p 4061:tcp -h saturn -p 4061
 ```
 
@@ -83,7 +83,7 @@ Indirect because when a proxy has no endpoint, the communicator uses a [locator]
 endpoint(s) dynamically. One style of indirect proxy contains an
 [adapter identifier](../indirect-proxy-with-object-adapter-identifier):
 
-```
+```text
 MyObject @ MyAdapter
 ```
 
@@ -92,7 +92,7 @@ When this proxy requires the endpoints associated with `MyAdapter`, it requests 
 The other style of indirect proxy is a proxy with just an object identity, called a
 [well-known proxy](../well-known-proxy):
 
-```
+```text
 MyObject
 ```
 

@@ -169,7 +169,7 @@ statements into Ruby `require` statements in the following manner:
 3. Replace the `.ice` extension with `.rb`. Continuing our example from the previous step, the translated `require`
    statement becomes
 
-```
+```ruby
 require "OS/Process.rb"
 ```
 
@@ -234,7 +234,7 @@ In this example, the first invocation of `loadSlice` uses the `--all` option so 
 all included files. The second invocation omits `--all`, therefore the Ruby interpreter executes the equivalent of the
 following statement:
 
-```
+```ruby
 require "Glacier2/Session.rb"
 ```
 
@@ -245,7 +245,7 @@ statically-generated file `Glacier2/Session.rb`. We can do this in a number of w
 - specifying the `-I` option when starting the interpreter
 - modifying the search path at runtime, as shown below:
 
-  ```
+  ```ruby
   $:.unshift("/opt/IceRuby/ruby")
   ```
 

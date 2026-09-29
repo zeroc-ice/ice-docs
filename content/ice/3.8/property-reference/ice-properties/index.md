@@ -78,7 +78,7 @@ significant improvement over lower levels. If not specified, the default value i
 
 #### Synopsis
 
-```
+```config
 Ice.Config=config_file[,config_file,...]
 Ice.Config=1
 ```

@@ -179,6 +179,6 @@ After building the server (see the demo’s
 [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/java/Ice/greeter/README.md) for instructions), you can run it
 with gradle:
 
-```
+```shell
 ./gradlew :server:run --quiet
 ```

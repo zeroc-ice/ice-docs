@@ -49,13 +49,13 @@ or double quotes.
 Single or double quotes can be used to prevent white space characters from being interpreted as delimiters. Double
 quotes prevent interpretation of a single quote as an opening or closing quote, for example:
 
-```
+```text
 "a string with a ' quote"
 ```
 
 Single quotes prevent interpretation of a double quote as an opening or closing quote. For example:
 
-```
+```text
 'a string with a " quote'
 ```
 

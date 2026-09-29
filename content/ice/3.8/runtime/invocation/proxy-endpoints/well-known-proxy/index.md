@@ -9,7 +9,7 @@ described on [Syntax for Stringified Proxies](../syntax-for-stringified-proxies)
 
 For example:
 
-```
+```text
 Root       # well-known proxy to Root object (two-way by default)
 Root -o    # oneway proxy
 ```

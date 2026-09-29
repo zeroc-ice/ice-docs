@@ -142,7 +142,7 @@ points, you can use it as a custom sequence implementation without any additiona
 
 When you give a sequence parameter to Ice for marshaling, this parameter is passed by const reference. Take for example:
 
-```
+```slice
 sequence<int> IntSeq;
 
 interface Collector
@@ -168,7 +168,7 @@ You can change this default mapping for “outgoing” parameters to a std::span
 
 With our example above:
 
-```
+```slice
 void reportValues(["cpp:view-type:std::span<const std::int32_t>"] IntSeq values);
 ```
 

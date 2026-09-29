@@ -33,7 +33,7 @@ Attempting to import it before calling `Ice.loadSlice` would fail.
 
 For this example, assume that `Greeter.ice` contains the following Slice definitions:
 
-```
+```slice
 module VisitorCenter
 {
     /// Represents a simple greeter.
@@ -120,7 +120,7 @@ allows you to import definitions directly from the package without referencing i
 
 Using the Slice definitions from the `Ice/callback` demo as an example:
 
-```
+```slice
 module EarlyRiser
 {
     enum ButtonPressed { Snooze, Stop }
@@ -141,7 +141,7 @@ module EarlyRiser
 
 The Slice compiler generates the following files:
 
-```
+```text
 EarlyRiser/AlarmClock.py
 EarlyRiser/AlarmClock_forward.py
 EarlyRiser/ButtonPressed.py

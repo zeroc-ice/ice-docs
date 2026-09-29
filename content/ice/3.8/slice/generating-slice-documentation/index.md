@@ -173,7 +173,7 @@ Doxygen recognizes Slice since version 1.8.15.
 
 You can generate a default configuration file as follows:
 
-```
+```shell
 doxygen -g config
 ```
 
@@ -207,7 +207,7 @@ At a minimum, we recommend that you review the following settings, shown in the 
 
 When you're ready to generate documentation, run Doxygen like this:
 
-```
+```shell
 doxygen config
 ```
 
@@ -221,7 +221,7 @@ source files. For example, if your Slice file refers to a type from the Ice API 
 documentation to link to ZeroC's documentation for that type, you simply need to download the appropriate _tag file_ for
 your Ice version and configure the `TAGFILES` setting in your Doxygen configuration file:
 
-```
+```text
 TAGFILES = slice.tag=https://code.zeroc.com/ice/3.8/api
 ```
 

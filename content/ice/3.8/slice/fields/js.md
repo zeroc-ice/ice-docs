@@ -50,7 +50,7 @@ value is not mapped to JavaScript.
 
 For example:
 
-```
+```slice
 class C
 {
     optional(2) string alternateName;
@@ -98,7 +98,7 @@ Slice default values map to default values in C#.
 
 For example:
 
-```
+```slice
 class Point { int x; int y; }
 
 struct Location

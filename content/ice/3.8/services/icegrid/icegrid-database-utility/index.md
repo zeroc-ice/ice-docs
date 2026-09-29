@@ -8,7 +8,7 @@ The `icegriddb` utility is a command-line tool for importing and exporting an Ic
 
 The IceGrid Database utility supports the following command-line options:
 
-```
+```text
 Usage: icegriddb <options>
 Options:
  -h, --help             Show this message.
@@ -28,7 +28,7 @@ to specify the path name of the registry's database directory. To discover the l
 registry's configuration and look for the setting of `IceGrid.Registry.LMDB.Path`. For example, the IceGrid sample
 programs typically use this setting:
 
-```
+```config
 IceGrid.Registry.LMDB.Path=db/registry
 ```
 
@@ -76,7 +76,7 @@ By default, `icegriddb` does not change this `ice-version` attribute when import
 attribute remains unset, and a set attribute keeps the same value. You can make `icegriddb` change all unset
 `ice-version` attributes to a specific version with the `--server-version` option, as shown in the example below:
 
-```
+```shell
 icegriddb --server-version 3.7.1 --import registry.ixp --dbpath dbNew/registry
 ```
 

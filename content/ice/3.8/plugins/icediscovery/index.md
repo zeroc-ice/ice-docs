@@ -178,14 +178,14 @@ As you can see, the properties `IceDiscovery.Address`, `IceDiscovery.Port` and `
 as convenient shortcuts for customizing the details of the plug-in's endpoints. For example, suppose we want to use a
 different multicast address and port:
 
-```
+```config
 IceDiscovery.Address=239.255.0.99
 IceDiscovery.Port=8000
 ```
 
 The plug-in derives the following properties from these settings:
 
-```
+```config
 IceDiscovery.Multicast.Endpoints=udp -h 239.255.0.99 -p 8000
 IceDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
 ```
@@ -212,7 +212,7 @@ server's object adapters that hosts well-known (discoverable) objects. For examp
 adapter named `Hello` and we want its objects to be discoverable. We can configure the object adapter's
 [AdapterId](../object-adapter-properties) property as follows:
 
-```
+```config
 GreeterAdapter.AdapterId=greeterAdapterId
 ```
 
@@ -221,7 +221,7 @@ The identifier you select must be globally unique among the servers sharing the 
 To use object adapter replication, you'll need to include the [ReplicaGroupId](../object-adapter-properties) property
 for each replicated object adapter:
 
-```
+```config
 GreeterAdapter.AdapterId=greeter-1234
 GreeterAdapter.ReplicaGroupId=greeterPool
 ```

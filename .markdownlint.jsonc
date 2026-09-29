@@ -10,8 +10,6 @@
   // `#` headings are a page's sections: the title comes from the frontmatter, and the site renders every heading one
   // level down.
   "MD025": false,
-  // Hundreds of code blocks, mostly Slice definitions and property settings, name no language.
-  "MD040": false,
   // A language overlay is a fragment of its page, so it starts with a `{% language-section %}` tag, not a heading.
   "MD041": false
 }

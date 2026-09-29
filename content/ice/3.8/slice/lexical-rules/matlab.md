@@ -6,7 +6,7 @@ For example, Slice interface `Greeter` is mapped to the MATLAB class `GreeterPrx
 You can change this mapping and specify your own MATLAB identifier with the `matlab:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
 
-```
+```slice
 ["matlab:identifier:Receptionist"]
 interface Greeter { ... }
 ```

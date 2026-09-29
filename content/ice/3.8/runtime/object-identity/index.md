@@ -27,14 +27,14 @@ An identity with an empty `name` is not a valid identity.
 Object identities can be represented as strings; the category part appears first and is followed by the name; the two
 components are separated by a `/` character, for example:
 
-```
+```text
 Factory/File
 ```
 
 In this example, `Factory` is the category, and `File` is the name. If the `name` or `category` field themselves contain
 a `/` character, the stringified representation escapes the `/` character with a `\`, for example:
 
-```
+```text
 Factories\/Factory/Node\/File
 ```
 

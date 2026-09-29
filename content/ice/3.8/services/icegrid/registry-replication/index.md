@@ -104,7 +104,7 @@ the master, therefore supplying the endpoints of all slaves minimizes the chance
 
 Shown below is an example of the configuration properties for a master replica:
 
-```
+```config
 IceGrid.Registry.Client.Endpoints=default -p 12000
 IceGrid.Registry.Server.Endpoints=default
 IceGrid.Registry.Internal.Endpoints=default
@@ -114,7 +114,7 @@ IceGrid.Registry.LMDB.Path=db/master
 
 You can configure a slave replica to use this master with the following settings:
 
-```
+```config
 Ice.Default.Locator=IceGrid/Locator:default -p 12000
 IceGrid.Registry.Client.Endpoints=default -p 12001
 IceGrid.Registry.Server.Endpoints=default
@@ -141,7 +141,7 @@ load of responding to locate requests among all of the replicas.
 Continuing the example from the previous section, you can configure a client with the `Ice.Default.Locator` property as
 shown below:
 
-```
+```config
 Ice.Default.Locator=IceGrid/Locator:default -p 12000:default -p 12001
 ```
 
@@ -164,7 +164,7 @@ starts, the node will try to obtain the list of the registry replicas from the r
 
 The following properties demonstrate how to configure a node with a replicated registry:
 
-```
+```config
 Ice.Default.Locator=IceGrid/Locator:default -p 12000:default -p 12001
 IceGrid.Node.Name=node1
 IceGrid.Node.Endpoints=default

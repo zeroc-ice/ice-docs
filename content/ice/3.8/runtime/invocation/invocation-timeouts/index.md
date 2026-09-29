@@ -18,7 +18,7 @@ for proxies. This property has a default value of `-1`, which means invocations 
 
 Consider this setting:
 
-```
+```config
 Ice.Default.InvocationTimeout=5000 # in milliseconds
 ```
 
@@ -37,7 +37,7 @@ You have a couple of options for configuring the invocation timeout of a proxy:
 Assuming you've defined a configuration property containing a proxy that your application reads using
 [propertyToProxy](../creating-proxies), you can configure an invocation timeout as follows:
 
-```
+```config
 # Assumes the application calls propertyToProxy("GreeterProxy")
 GreeterProxy=greeter:tcp -h localhost -p 4061
 GreeterProxy.InvocationTimeout=2500  # milliseconds

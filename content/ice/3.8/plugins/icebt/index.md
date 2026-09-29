@@ -23,7 +23,7 @@ For example, an entry might contain:
 
 ##### **SDP Entry**
 
-```
+```text
 Name: My Bluetooth Service
 UUID: 1c6a142a-aae6-4d58-bef8-33196f531da7
 RFCOMM: Channel #8
@@ -86,7 +86,7 @@ On Linux, you can use the `uuidgen` command to generate new UUIDs. Web-based UUI
 For example, using the [syntax for Bluetooth endpoints](../endpoint-syntax), you can configure an
 [object adapter](../dispatch) named `GreeterAdapter` as follows:
 
-```
+```config
 GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4 --name "Greeter Service"
 ```
 

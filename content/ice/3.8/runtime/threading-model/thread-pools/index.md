@@ -41,7 +41,7 @@ For configuration purposes, the names of the client and server thread pools are 
 `Ice.ThreadPool.Server`, respectively. As an example, the following properties establish the initial and maximum sizes
 for these thread pools:
 
-```
+```config
 Ice.ThreadPool.Client.Size=1
 Ice.ThreadPool.Client.SizeMax=10
 Ice.ThreadPool.Server.Size=1
@@ -64,7 +64,7 @@ are both set to 1, meaning the pool can never grow to contain more than a single
 pool, you must set at least one of `name.Size` or `name.SizeMax` to a value greater than 1. We can use several
 configuration scenarios to explore the semantics of dynamic thread pools in greater detail:
 
-```
+```config
 name.SizeMax=5
 ```
 
@@ -72,7 +72,7 @@ This thread pool initially contains a single thread because `name.Size` has a de
 pool up to the maximum of 5 threads. During periods of inactivity, idle threads terminate after 60 seconds (the default
 value for `name.ThreadIdleTime`) until the pool contains just 1 thread again.
 
-```
+```config
 name.Size=3
 name.SizeMax=5
 ```
@@ -80,7 +80,7 @@ name.SizeMax=5
 This thread pool starts with 3 active threads but otherwise behaves the same as in the previous configuration. The pool
 can still shrink to a size of 1 as threads become idle.
 
-```
+```config
 name.Size=3
 name.ThreadIdleTime=10
 ```
@@ -89,7 +89,7 @@ This thread pool starts with 3 active threads and shrinks quickly to 1 thread du
 increases again, the thread pool can return to its maximum size of 3 threads (`name.SizeMax` defaults to the value of
 `name.Size`).
 
-```
+```config
 name.SizeMax=5
 name.ThreadIdleTime=0
 ```
@@ -97,7 +97,7 @@ name.ThreadIdleTime=0
 This thread pool can grow from its initial size of 1 thread to contain up to 5 threads, but it will never shrink because
 `name.ThreadIdleTime` is set to 0.
 
-```
+```config
 name.Size=5
 name.ThreadIdleTime=0
 ```
