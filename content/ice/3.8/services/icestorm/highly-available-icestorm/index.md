@@ -7,9 +7,9 @@ master fails.
 
 # IceStorm Replication Algorithm
 
-HA IceStorm uses the Garcia-Molina "Invitation Election Algorithm" \[1\] in which each replica has a priority — its node
-ID — and belongs to a replica group. The replica with the highest priority in the group becomes the coordinator, and the
-remaining replicas are slaves of the coordinator.
+HA IceStorm uses the Garcia-Molina "Invitation Election Algorithm" [\[1\]](#references) in which each replica has a
+priority — its node ID — and belongs to a replica group. The replica with the highest priority in the group becomes the
+coordinator, and the remaining replicas are slaves of the coordinator.
 
 All replicas are statically configured with information about all other replicas, including their priority. The group
 combining works as follows:
@@ -192,6 +192,6 @@ from the replicated topic using `getPublisher` or `getNonReplicatedPublisher`.
 
 ##### References
 
-1. 1 Garcia-Molina, H. 1982.
+1. Garcia-Molina, H. 1982.
    [Elections in a Distributed Computing System](https://www.computer.org/csdl/journal/tc/1982/01/01675885/13rRUyhaInv).
    _IEEE Transactions on Computers_ 31 (1): 48-59.

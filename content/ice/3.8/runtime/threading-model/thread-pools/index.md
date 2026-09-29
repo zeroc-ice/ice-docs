@@ -20,7 +20,7 @@ you can configure individual object adapters to use a [private thread pool](../o
 If a thread pool is exhausted because all threads are currently dispatching a request, additional incoming requests are
 transparently delayed until a request completes and relinquishes its thread; that thread is then used to dispatch the
 next pending request. Ice minimizes thread context switches in a thread pool by using a leader-follower implementation
-\[1\].
+[\[1\]](#references).
 
 {% callout type="warning" %}
 
@@ -118,7 +118,7 @@ than `name.Size` allows a thread pool to grow beyond its initial capacity.
 
 ##### References
 
-1. 1 Schmidt, D. C. et al. 2000.
+1. Schmidt, D. C. et al. 2000.
    ["Leader/Followers: A Design Pattern for Efficient Multi-Threaded Event Demultiplexing and Dispatching"](https://www.cs.wm.edu/~dcschmidt/PDF/lf.pdf).
    In _Proceedings of the 7th Pattern Languages of Programs Conference_, WUCS-00-29, Seattle, WA: University of
    Washington.

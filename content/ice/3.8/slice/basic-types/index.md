@@ -8,16 +8,16 @@ Slice provides a number of built-in basic types, as shown in this table:
 
 | **Type** | **Range of Mapped Type** | **Size of Mapped Type** |
 | -------- | ------------------------ | ----------------------- |
-| `bool`   | `false` or `true`        | ≥ 1bit                  |
-| `byte`   | -128-127 or 0-255 a      | ≥ 8 bits                |
-| `short`  | -2 15 to 2 15 -1         | ≥ 16 bits               |
-| `int`    | -2 31 to 2 31 -1         | ≥ 32 bits               |
-| `long`   | -2 63 to 2 63 -1         | ≥ 64 bits               |
+| `bool`   | `false` or `true`        | ≥ 1 bit                 |
+| `byte`   | -128 to 127 or 0 to 255  | ≥ 8 bits                |
+| `short`  | -2¹⁵ to 2¹⁵ - 1          | ≥ 16 bits               |
+| `int`    | -2³¹ to 2³¹ - 1          | ≥ 32 bits               |
+| `long`   | -2⁶³ to 2⁶³ - 1          | ≥ 64 bits               |
 | `float`  | IEEE single-precision    | ≥ 32 bits               |
 | `double` | IEEE double-precision    | ≥ 64 bits               |
 | `string` | All Unicode characters   | Variable-length         |
 
-a The range depends on whether `byte` maps to a signed or an unsigned type.
+The range of `byte` depends on whether the language mapping uses a signed or an unsigned type for it.
 
 All the basic types (except `byte`) are subject to changes in representation as they are transmitted between clients and
 servers. For example, a `long` value is byte-swapped when sent from a little-endian to a big-endian machine. However,
@@ -32,10 +32,10 @@ unsigned types, such as Java).
 
 # Floating-Point Types
 
-These types follow the IEEE specification for single- and double-precision floating-point representation \[1\]. If an
-implementation cannot support IEEE format floating-point values, the Ice runtime converts values into the native
-floating-point representation (possibly at a loss of precision or even magnitude, depending on the capabilities of the
-native floating-point format).
+These types follow the IEEE specification for single- and double-precision floating-point representation
+[\[1\]](#references). If an implementation cannot support IEEE format floating-point values, the Ice runtime converts
+values into the native floating-point representation (possibly at a loss of precision or even magnitude, depending on
+the capabilities of the native floating-point format).
 
 # Strings
 
@@ -58,5 +58,5 @@ in transit. All other Slice types are subject to changes in representation durin
 
 ##### References
 
-1. 2 Institute of Electrical and Electronics Engineers. 1985. _IEEE 754-1985 Standard for Binary Floating-Point
+1. Institute of Electrical and Electronics Engineers. 1985. _IEEE 754-1985 Standard for Binary Floating-Point
    Arithmetic_. Piscataway, NJ: Institute of Electrical and Electronic Engineers.

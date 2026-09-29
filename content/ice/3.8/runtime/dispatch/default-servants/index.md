@@ -17,9 +17,9 @@ the [object identity](../object-identity) that is accessed by a request, on a pe
 possible to allow clients access to an unlimited number of Ice objects with only a single servant in memory.
 
 Default servant implementations are attractive not only because of the memory savings they offer, but also because of
-the simplicity of implementation: in essence, a default servant is a facade \[1\] to the persistent state of an object
-in the database. This means that the programming required to implement a default servant is typically minimal: it simply
-consists of the code required to read and write the corresponding database records.
+the simplicity of implementation: in essence, a default servant is a facade [\[1\]](#references) to the persistent state
+of an object in the database. This means that the programming required to implement a default servant is typically
+minimal: it simply consists of the code required to read and write the corresponding database records.
 
 A default servant is a regular servant that you implement and register with an [object adapter](../dispatch). For each
 incoming request, the object adapter first attempts to locate a servant in its ASM. If no servant is found, the object
@@ -140,6 +140,6 @@ If a request arrives for an object that no longer exists, it is the default serv
 
 ##### References
 
-1. 1 Gamma, E., et al. 1994.
+1. Gamma, E., et al. 1994.
    [Design Patterns](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612). Reading,
    MA: Addison-Wesley.
