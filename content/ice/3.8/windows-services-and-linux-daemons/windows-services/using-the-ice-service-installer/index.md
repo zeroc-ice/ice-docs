@@ -99,7 +99,7 @@ The Ice service installer uses a set of optional properties that customize the i
 can be defined in the service's configuration file as discussed above, or they can be defined on the command line using
 the familiar --`name`=`value` syntax:
 
-```shell
+```powershell
 iceserviceinstall --DependOnRegistry=1 ...
 ```
 
