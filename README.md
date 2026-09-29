@@ -15,7 +15,7 @@ directly, through the type stripping those releases enable by default.
 ```bash
 npm install                        # install dependencies
 npm run dev                        # dev server on http://localhost:3000
-npm run build                      # production build (standalone), then the sitemap
+npm run build                      # production build (standalone)
 npm test                           # unit tests for the content model (lib/docs-model, utils)
 npm run check:content              # navigation, images, slots, titles, migration leftovers
 npm run check:content -- --strict  # also fail on every unclassified slot
