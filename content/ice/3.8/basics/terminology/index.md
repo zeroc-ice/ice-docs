@@ -321,5 +321,5 @@ parameters.
 
 ##### See Also
 
-- [The Slice Language](../the-slice-language)
-- [The Ice Runtime](../the-ice-runtime)
+- [The Slice Language](../slice)
+- [The Ice Runtime](../runtime)

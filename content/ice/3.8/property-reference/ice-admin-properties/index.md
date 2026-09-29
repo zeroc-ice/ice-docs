@@ -29,7 +29,7 @@ The Ice run time creates and activates an [administrative object adapter](../cre
   `getAdmin` on the communicator after communicator initialization
 - the application calls [createAdmin](../creating-the-admin-object) with a null `adminAdapter` parameter
 
-This object adapter is created to host the [admin object](../the-admin-object).
+This object adapter is created to host the [admin object](../admin-object).
 [Adapter properties](../object-adapter-properties) can be used to configure the `Ice.Admin` object adapter.
 
 Note that enabling the `Ice.Admin` object adapter is a security risk because a hostile client could use the
@@ -71,7 +71,7 @@ otherwise.
 
 #### Description
 
-Specifies the facets enabled by the [administrative object](../the-admin-object), allowing you to
+Specifies the facets enabled by the [administrative object](../admin-object), allowing you to
 [filter](../filtering-administrative-facets) the facets that the administrative object enables by default. Facet names
 are delimited by commas or white space. A facet name that contains white space must be enclosed in single or double
 quotes. If not specified, all facets are enabled. While the Ice run time creates only the built-in facets (such as
@@ -98,9 +98,9 @@ object becomes `name/admin`. If not specified, the default identity category is 
 
 #### Description
 
-The [Logger admin facet](../the-logger-facet), when enabled, caches up the _num_ most recent log messages with a type
-other than `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache any of these log
-messages. The default value for _num_ is 100.
+The [Logger admin facet](../logger-facet), when enabled, caches up the _num_ most recent log messages with a type other
+than `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache any of these log messages. The
+default value for _num_ is 100.
 
 # Ice.Admin.Logger.KeepTraces
 
@@ -110,7 +110,7 @@ messages. The default value for _num_ is 100.
 
 #### Description
 
-The [Logger admin facet](../the-logger-facet), when enabled, caches up the _num_ most recent log messages with type
+The [Logger admin facet](../logger-facet), when enabled, caches up the _num_ most recent log messages with type
 `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache any of these trace messages. The
 default value for _num_ is 100.
 
@@ -122,10 +122,10 @@ default value for _num_ is 100.
 
 #### Description
 
-The [Logger admin facet](../the-logger-facet), when enabled, creates its own communicator to send log messages to
-attached remote loggers. Without this sub-communicator, sending log messages to remote loggers could trigger more local
-logging, which in turn would generate more logs sent to remote loggers: a single genuine log could trigger an infinite
-number of log messages.
+The [Logger admin facet](../logger-facet), when enabled, creates its own communicator to send log messages to attached
+remote loggers. Without this sub-communicator, sending log messages to remote loggers could trigger more local logging,
+which in turn would generate more logs sent to remote loggers: a single genuine log could trigger an infinite number of
+log messages.
 
 The properties of this sub-communicator are a few properties of the application's communicator (`Ice.Default.Locator`,
 `Ice.Plugin.IceSSL` and all [IceSSL](../icessl-properties) properties), plus the properties (if any) specified by

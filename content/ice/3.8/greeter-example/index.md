@@ -18,7 +18,7 @@ We present this example in the following sections:
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-1. **Using Slice** - How to use the [Slice IDL](../the-slice-language) to define a contract between clients and servers.
+1. **Using Slice** - How to use the [Slice IDL](../slice) to define a contract between clients and servers.
 2. **Writing a server** - How to implement Ice objects and host them in a server.
 3. **Writing a client** - How to write a client that communicates with an Ice server.
 
@@ -28,7 +28,7 @@ We write the server first: a client has nothing to call until a server is runnin
 
 {% iflang langs="js,matlab,php,ruby" %}
 
-1. **Using Slice** - How to use the [Slice IDL](../the-slice-language) to define a contract between clients and servers.
+1. **Using Slice** - How to use the [Slice IDL](../slice) to define a contract between clients and servers.
 2. **Writing a client** - How to write a client that communicates with an Ice server.
 
 This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python
