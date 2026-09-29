@@ -59,7 +59,3 @@ change the hard limit of 65507 bytes for the payload of a UDP packet, but merely
 the kernel.
 
 Nonzero settings less than 65535 limit the size of Ice datagrams as well as adjust the kernel buffer sizes.
-
-For datagram proxies, a positive `Ice.UDP.SndSize` also caps the automatic batch flush threshold configured by
-[Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize). When `Ice.UDP.SndSize` is not set, this cap is 65507
-bytes. Explicitly setting it to 0 or a negative value disables automatic flushing for datagram proxies.

@@ -2,13 +2,6 @@
 title: Object Adapter Properties
 ---
 
-A named object adapter requires configuration properties or a router supplied when it is created. Creating one without
-either causes an `InitializationException`.
-
-For application-defined adapter names, Ice validates the `adapter.*` property names when creating the adapter and throws
-a `PropertyException` for an unknown sub-property. Names under a reserved prefix follow the
-[property validation rules](../properties-overview#property-validation).
-
 {% iflang langs="matlab,php,ruby" %}
 
 These properties configure the runtime's [Ice.Admin object adapter](../ice-admin-properties) in MATLAB, PHP, and Ruby.
@@ -49,15 +42,14 @@ scheme is `http` or `https` and host is a DNS name or IP address. The scheme and
 the default port for the scheme (80 for http, 443 for https) is omitted during comparison, so `https://web.example.com`
 and `https://web.example.com:443` match the same origin.
 
-The default value (empty) disables the check. For an adapter with WebSocket endpoints, Ice parses the entries in order
-during adapter creation. A malformed entry causes adapter creation to fail with a `PropertyException`. A `*` entry stops
-parsing and disables the check, including when it follows other valid entries.
+The default value (empty) disables the check. A `*` entry also disables it, whatever the other entries are. Ice reads
+this property when creating an adapter with WebSocket endpoints.
 
 When the check is enabled, Ice checks each incoming WebSocket upgrade request as follows:
 
 If the request has no Origin header, the upgrade is accepted. Browsers always send Origin; non-browser Ice clients do
 not, so the check only filters browser-originated traffic. If the request has an Origin header that canonicalizes to an
-entry in the list, the upgrade is accepted. A malformed or unlisted origin causes Ice to reject the upgrade and close
+entry in the list, the upgrade is accepted. An unlisted or malformed origin causes Ice to reject the upgrade and close
 the connection.
 
 This property is intended to mitigate cross-site WebSocket hijacking against browser-based Ice clients (Ice for
@@ -164,8 +156,8 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 #### Description
 
 When `num` is greater than `0`, Ice limits the number of incoming connections separately for each listening endpoint of
-this object adapter. Once an endpoint reaches the limit, Ice accepts and immediately closes additional transport
-connections to that endpoint until an existing connection closes. UDP endpoints are exempt from this limit.
+this object adapter. Once an endpoint reaches the limit, Ice accepts and immediately closes additional connections to
+that endpoint until an existing connection closes. UDP endpoints are exempt from this limit.
 
 The default value is `0`. A value of `0` or less disables the limit.
 
@@ -177,12 +169,12 @@ The default value is `0`. A value of `0` or less disables the limit.
 
 #### Description
 
-Limits the size of incoming uncompressed Ice protocol messages, including the protocol header, in KiB (1024 bytes). If
-not defined, the adapter uses the communicator's [Ice.MessageSizeMax](../ice-properties) limit, rounded down to a whole
-number of KiB.
+Limits the size of the Ice protocol messages this adapter receives, in KiB (1024 bytes). The limit applies to the whole
+message, including the protocol header; for a compressed message, it applies to the decompressed size. If not defined,
+the adapter uses the communicator's [Ice.MessageSizeMax](../ice-properties) limit.
 
 A value of `0` or less selects the maximum supported size of 2,147,483,647 bytes. A positive value must be at most
-`2097151`; a larger value causes adapter creation to fail with an `InitializationException`.
+2,097,151 KiB.
 
 This property is logically a connection property, and only applies to messages received over network connections created
 by this object adapter.
@@ -201,8 +193,7 @@ by this object adapter.
 
 Specifies the proxy options for proxies created by the object adapter. The value is a string representing the proxy
 options as they would be specified in a [stringified proxy](../syntax-for-stringified-proxies). The default value is
-`-t`, which creates twoway proxies. Invalid proxy options cause adapter creation to fail with an
-`InitializationException`.
+`-t`, which creates twoway proxies.
 
 # _adapter_.PublishedEndpoints
 
@@ -272,13 +263,11 @@ Defining a router allows the object adapter to receive callbacks from the router
 [bidirectional connection](../bidirectional-connections), thereby avoiding the need for the router to establish a
 connection back to the object adapter.
 
-A router can only be assigned to one object adapter. Specifying a router that is already assigned to another adapter
-causes adapter creation to fail with an `AlreadyRegisteredException`. The default value is no router.
+A router can only be assigned to one object adapter. The default value is no router.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-If the adapter has a router and a non-empty `adapter.Endpoints` property, adapter creation fails with an
-`InitializationException`.
+An adapter with a router cannot also set `adapter.Endpoints`.
 
 {% /iflang %}
 

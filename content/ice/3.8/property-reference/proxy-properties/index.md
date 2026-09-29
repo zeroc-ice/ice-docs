@@ -10,10 +10,6 @@ of the proxy. Subordinate properties can be defined to customize the proxy's loc
 The communicator operation [proxyToProperty](../converting-proxies-to-strings) performs the inverse operation, that is,
 returns the property group for a proxy.
 
-For application-defined property groups, `propertyToProxy` throws a `PropertyException` if it encounters an unknown
-subordinate property. Names under a reserved prefix follow the
-[property validation rules](../properties-overview#property-validation).
-
 # _name_
 
 #### Synopsis
@@ -57,8 +53,7 @@ Adds the key/value pair to the proxy's [request context](../per-proxy-request-co
 #### Description
 
 Specifies the proxy's [endpoint selection](../connection-establishment) type. Legal values are `Random` and `Ordered`.
-Defining this property is equivalent to invoking the `ice_endpointSelection` proxy method. An invalid non-empty value
-causes a `ParseException`.
+Defining this property is equivalent to invoking the `ice_endpointSelection` proxy method.
 
 # _name_.InvocationTimeout
 
@@ -69,8 +64,8 @@ causes a `ParseException`.
 #### Description
 
 Specifies the [invocation timeout](../invocation-timeouts) of this proxy, in milliseconds. The default is
-[Ice.Default.InvocationTimeout](../ice-default-properties#ice.default.invocationtimeout). A value of 0 or less disables
-the timeout; Ice normalizes it to `-1`.
+[Ice.Default.InvocationTimeout](../ice-default-properties#ice.default.invocationtimeout). Defining this property is
+equivalent to invoking the `ice_invocationTimeout` proxy method.
 
 # _name_.Locator
 
@@ -101,7 +96,7 @@ MyProxy.Locator.EndpointSelection=Ordered
 
 Specifies the [locator cache](../locator-semantics-for-clients) timeout of this proxy, in seconds. The default is
 [Ice.Default.LocatorCacheTimeout](../ice-default-properties#ice.default.locatorcachetimeout). A value of 0 disables
-caching. A negative value means cache entries never expire; Ice normalizes it to `-1`.
+caching. A negative value means cache entries never expire.
 
 # _name_.Router
 
@@ -121,5 +116,3 @@ example:
 MyProxy.Router=...
 MyProxy.Router.EndpointSelection=Ordered
 ```
-
-Ice ignores `name.Router.Router` and logs a warning because a router proxy cannot itself have a router.

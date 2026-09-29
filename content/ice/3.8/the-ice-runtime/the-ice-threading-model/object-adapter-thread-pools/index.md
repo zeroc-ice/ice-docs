@@ -19,13 +19,9 @@ An object adapter's thread pool supports all of the properties described in [Con
 For configuration purposes, the name of an adapter's thread pool is `adapter.ThreadPool`, where `adapter` is the name of
 the adapter.
 
-An adapter creates its own thread pool when at least one of the following properties has a value greater than zero:
-
-- [_adapter_.ThreadPool.Size](../object-adapter-properties)
-- [_adapter_.ThreadPool.SizeMax](../object-adapter-properties)
-
-These properties have the same semantics as those described earlier except they both have a default value of zero,
-meaning that an adapter uses the communicator's thread pools by default.
+An adapter creates its own thread pool when any [_adapter_.ThreadPool.\*](../object-adapter-properties) property is set;
+otherwise, it uses the communicator's server thread pool. These properties have the same semantics and default values as
+those described earlier.
 
 As an example, the properties shown below configure a thread pool for the object adapter named `PrinterAdapter`:
 
