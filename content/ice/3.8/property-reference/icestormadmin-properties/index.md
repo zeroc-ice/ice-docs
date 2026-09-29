@@ -10,8 +10,9 @@ title: IceStormAdmin.*
 
 ### Description {% id="icestormadmin.host-description" %}
 
-When used together with `IceStormAdmin.Port`, [icestormadmin](../icestorm-administration) uses the
-[Finder interface](../configuring-icestorm) to discover the topic manager at the specified host and port.
+Specifies the host of the IceStorm [finder object](../configuring-icestorm) that
+[icestormadmin](../icestorm-administration) uses to discover the topic manager. This property requires
+[IceStormAdmin.Port](../icestormadmin-properties#icestormadmin.port).
 
 {% callout type="info" %}
 
@@ -27,8 +28,10 @@ When used together with `IceStormAdmin.Port`, [icestormadmin](../icestorm-admini
 
 ### Description {% id="icestormadmin.port-description" %}
 
-When used together with `IceStormAdmin.Host`, [icestormadmin](../icestorm-administration) uses the
-[Finder interface](../configuring-icestorm) to discover the topic manager at the specified host and port.
+Specifies the port of the IceStorm [finder object](../configuring-icestorm) that
+[icestormadmin](../icestorm-administration) uses to discover the topic manager. `icestormadmin` creates a proxy for the
+object `IceStorm/Finder` with a TCP endpoint and an SSL endpoint at this port, on the host specified by
+[IceStormAdmin.Host](../icestormadmin-properties#icestormadmin.host) if that property is set.
 
 {% callout type="info" %}
 
@@ -45,8 +48,9 @@ When used together with `IceStormAdmin.Host`, [icestormadmin](../icestorm-admini
 ### Description {% id="icestormadmin.topicmanager.default-description" %}
 
 Defines the proxy for the default IceStorm topic manager. This property is used by
-[icestormadmin](../icestorm-administration). IceStorm applications may choose to use this property for their
-configuration as well.
+[icestormadmin](../icestorm-administration). If this property is not set and one or more
+`IceStormAdmin.TopicManager.name` properties are set, `icestormadmin` uses as its default the topic manager whose
+identity sorts first among them. IceStorm applications may choose to use this property for their configuration as well.
 
 ## IceStormAdmin.TopicManager._name_
 
