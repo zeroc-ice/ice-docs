@@ -233,11 +233,16 @@ for (const { version, page } of allPages) {
     for (const id of ids.filter((id, i) => ids.indexOf(id) !== i))
       repeats.set(id, new Set([...(repeats.get(id) ?? []), language]));
   }
-  for (const [id, languages] of repeats)
+  for (const [id, languages] of repeats) {
+    const only =
+      languages.size < variables.languages.length
+        ? ` (${[...languages].join(', ')})`
+        : '';
     diagnostics.push({
       where,
-      text: `two headings share the anchor #${id} (${[...languages].join(', ')})`
+      text: `two headings share the anchor #${id}${only}`
     });
+  }
 }
 
 // Only the anchors of the manual's own pages are checked here; lychee checks
