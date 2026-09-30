@@ -12,17 +12,31 @@
 //
 // Selected by `parser: "markdoc"` in .prettierrc's Markdown override.
 
+import type { Parser } from 'prettier';
 import * as markdown from 'prettier/plugins/markdown';
 
-const base = markdown.parsers.markdown;
+interface Point {
+  line: number;
+  column: number;
+  offset: number;
+}
+
+/** A node of the Markdown syntax tree Prettier's parser builds. */
+interface MarkdownNode {
+  type: string;
+  value: string;
+  position: { start: Point; end: Point };
+  children?: MarkdownNode[];
+}
+
+const base = markdown.parsers.markdown as Parser<MarkdownNode>;
 
 // An inline tag that closes its paragraph, written after a space, must not be
 // wrapped onto a line of its own: Markdoc would read it as a block tag. The
 // space moves into the tag's own span, so the printer sees one word. After a
 // link, emphasis or code span the space is a text node of its own, and is
 // absorbed whole, so the tag follows that node directly.
-function glueTrailingTag(node) {
-  const { children } = node;
+function glueTrailingTag(children: MarkdownNode[]) {
   const i = children.length - 1;
   const tag = children[i];
   const prev = children[i - 1];
@@ -61,13 +75,14 @@ function glueTrailingTag(node) {
   children[i] = glued;
 }
 
-export const parsers = {
+export const parsers: Record<string, Parser<MarkdownNode>> = {
   markdoc: {
     ...base,
     async parse(text, options) {
       const ast = await base.parse(text, options);
-      const visit = (node) => {
-        if (node.type === 'paragraph') glueTrailingTag(node);
+      const visit = (node: MarkdownNode) => {
+        if (node.type === 'paragraph' && node.children)
+          glueTrailingTag(node.children);
         node.children?.forEach(visit);
       };
       visit(ast);
