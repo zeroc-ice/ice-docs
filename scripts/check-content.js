@@ -17,6 +17,7 @@
 //   9. no page holds a no-break space (U+00A0)
 //  10. under the title, the page's h1, each heading is at most one level below
 //      the one before it, in every language, and none is bold text alone
+//  11. no code holds a curly double quote, and no prose a backtick
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
@@ -309,6 +310,39 @@ function checkNoBreakSpaces(files) {
   }
 }
 
+/**
+ * Code must not hold a curly double quote, which no compiler takes in place of
+ * `"`, and prose must not hold a backtick, which shows up literally where it
+ * was meant to open a code span. Curly single quotes are left alone: a code
+ * comment can use one as an apostrophe.
+ */
+function checkCodeCharacters(files) {
+  const visit = (node, relative) => {
+    if (node.type === 'fence' || node.type === 'code') {
+      if (/[\u201c\u201d]/.test(node.attributes.content))
+        fail(`${relative}:${node.lines[0] + 1}: curly double quote in code`);
+      return;
+    }
+    // Text interpolating a variable holds the variable, not a string.
+    const { content } = node.attributes;
+    if (
+      node.type === 'text' &&
+      typeof content === 'string' &&
+      content.includes('`')
+    )
+      fail(`${relative}:${node.lines[0] + 1}: backtick outside a code span`);
+    for (const child of node.children) visit(child, relative);
+  };
+  for (const file of files) {
+    const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
+    const source = fs.readFileSync(file, 'utf8');
+    visit(
+      Markdoc.parse(tokenizer.tokenize(source)),
+      path.relative(process.cwd(), file)
+    );
+  }
+}
+
 // Every heading in a parsed page, with the languages of the {% iflang %} block
 // around it; `langs` is undefined for a heading every language shows.
 function headingsIn(node, langs, out = []) {
@@ -417,7 +451,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     }
   }
 
-  // 5, 6 & 9: defects inside the files themselves.
+  // 5, 6, 9 & 11: defects inside the files themselves.
   const files = pages.flatMap((page) => [
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
@@ -425,6 +459,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
   checkImages(version, files);
   checkStrayMarkup(files);
   checkNoBreakSpaces(files);
+  checkCodeCharacters(files);
 
   // 7. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);
