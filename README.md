@@ -44,7 +44,10 @@ is a directory, and its path under the version is its slug, the path in its URL:
   lists them under `pages:`.
 - `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or, when no `index.md` sits beside it, the whole
   page for that language (`writing-a-greeter-client/cpp.md`).
-- `redirects.yaml` — old URL to new URL.
+- `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,
+  `/ice/<version>/<language>/<name>`, and the pages it named differently. Each URL redirects to the page here with the
+  same name, or the one `redirects.yaml` names, keeping the language as `?lang=`; `lib/docs-model/scroll-urls.test.ts`
+  checks every one.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
 Images live under `public/attachments/<version>/<page>/` and are referenced as `/attachments/<version>/<page>/<file>`.
