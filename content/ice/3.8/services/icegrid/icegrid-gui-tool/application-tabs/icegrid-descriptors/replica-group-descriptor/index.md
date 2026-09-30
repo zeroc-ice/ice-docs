@@ -5,7 +5,7 @@ title: Replica Group Descriptor
 A replica group represents an abstract grouping of identical, or very similar, object adapters. An object adapter joins
 this group by setting this replica group ID in its Replica Group field.
 
-# Properties
+## Properties
 
 The Replica Properties panel offers the following fields:
 

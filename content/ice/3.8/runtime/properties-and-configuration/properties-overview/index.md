@@ -20,7 +20,7 @@ the reserved prefixes, such as `Ice`, `Glacier2`, etc.) only once on start-up, w
 means that you must set Ice-related properties to their correct values _before_ you create a communicator. If you change
 the value of an Ice-related property after that point, it is likely that the new setting will simply be ignored.
 
-# Property Categories
+## Property Categories
 
 By convention, Ice properties use the following naming scheme:
 
@@ -33,7 +33,7 @@ Note that the sub-category is optional and not used by all Ice properties.
 This two- or three-part naming scheme is by convention only — if you use properties to configure your own applications,
 you can use property names with any number of categories.
 
-# Reserved Prefixes
+## Reserved Prefixes
 
 Ice reserves the following prefixes for the properties of the libraries that run in your program, such as the Ice
 runtime, the IceDiscovery plug-in, and DataStorm:
@@ -61,7 +61,7 @@ programs. Only the corresponding service or tool accepts these properties:
 
 Give the properties of your own application a prefix of your own, such as `Filesystem`.
 
-# Property Validation
+## Property Validation
 
 Ice validates the name of every property that begins with a reserved prefix followed by a dot, whether the property
 comes from a configuration file, the command line, the Windows registry, the [Properties](../properties-class) class, or
@@ -83,7 +83,7 @@ The Swift `Properties` methods that are not declared `throws` terminate the prog
 
 {% /iflang %}
 
-# Property Name Syntax
+## Property Name Syntax
 
 A property name consists of any number of characters. For example, the following are valid property names:
 
@@ -99,7 +99,7 @@ readable and are not treated specially by the property parser.)
 Property names cannot contain leading or trailing white space. (If you create a property name with leading or trailing
 white space, that white space is silently stripped.)
 
-# Property Value Syntax
+## Property Value Syntax
 
 A property value consists of any number of characters. The following are examples of property values:
 
@@ -110,7 +110,7 @@ This is a = property value.
 ../../config
 ```
 
-# Unused Properties
+## Unused Properties
 
 During the destruction of a communicator, the Ice runtime can optionally emit a warning for properties that were set but
 never read. To enable this warning, set [Ice.Warn.UnusedProperties](../ice-warn-properties) to a non-zero value. By
@@ -119,6 +119,6 @@ default, the warning is disabled.
 This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
 `Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.
 
-##### See Also
+## See Also
 
 - [Property Reference](../property-reference)

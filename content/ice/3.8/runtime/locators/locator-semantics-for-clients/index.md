@@ -2,7 +2,7 @@
 title: Locator Semantics for Clients
 ---
 
-# Invocations with an Indirect Proxy
+## Invocations with an Indirect Proxy
 
 On the first use of an indirect proxy in an application, the communicator may issue a remote invocation on the locator
 object. This activity is transparent to the application, as shown below:
@@ -32,7 +32,7 @@ For example, when using IceGrid as your location service, the target server may 
 currently running, and the locate request does not complete until that server is started and ready to receive requests.
 As a result, the initial request on an indirect proxy may incur additional overhead as all of this activity occurs.
 
-# Replication with a Locator
+## Replication with a Locator
 
 An indirect proxy may substitute a [replica group](../terminology) identifier in place of the object adapter identifier.
 In fact, the Ice runtime does not distinguish between these two cases and considers a replica group identifier as
@@ -54,7 +54,7 @@ After the connection is closed, subsequent use of the proxy causes the communica
 Whether that connection uses a different endpoint than previous connections depends on a number of factors, but it is
 possible for the client to connect to a different server than for previous requests.
 
-# Locator Cache
+## Locator Cache
 
 After successfully resolving an indirect proxy, the location service must return at least one endpoint. How the service
 derives the list of endpoints that corresponds to the proxy is entirely implementation dependent. For example, IceGrid's
@@ -88,7 +88,7 @@ service, but some applications can benefit from more frequent `locate` requests.
 implementing a load-balancing strategy, as we discuss in more detail below. In order to increase the frequency of locate
 requests, an application must configure a timeout for the locator cache and manipulate the connections of its proxies.
 
-# Locator Cache Timeout
+## Locator Cache Timeout
 
 An application can define a timeout to control the lifetime of entries in the locator cache. This timeout can be
 specified globally using the [Ice.Default.LocatorCacheTimeout](../ice-default-properties) property and for individual
@@ -112,7 +112,7 @@ so only when the proxy is not associated with a connection. You can accomplish t
 
 Of these choices, the last one is the most common.
 
-# Load Balancing with a Locator
+## Load Balancing with a Locator
 
 Ice supports [proxy-based load balancing](../proxy-based-load-balancing) whose behavior is driven solely by a proxy's
 configuration settings. A disadvantage of relying solely on this form of load balancing is that the client cannot make
@@ -141,7 +141,7 @@ location service and has configured its proxy to disable connection caching and 
 invocation, the communicator selects one of the endpoints provided by the location service. When the timeout expires,
 the communicator issues a new `locate` request and obtains a fresh set of endpoints from which to choose.
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Connection Establishment](../connection-establishment)

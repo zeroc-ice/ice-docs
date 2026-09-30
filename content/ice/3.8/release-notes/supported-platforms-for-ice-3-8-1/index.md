@@ -5,7 +5,7 @@ title: Supported Platforms for Ice 3.8.1
 Ice 3.8.1 is fully tested and supported on the platform, compiler, and environment combinations shown below. Other
 platforms and compilers might work as well but have not been tested.
 
-# Operating Systems
+## Operating Systems
 
 | **Operating System**                                                                                           | **Architecture**                | **Supported Languages**                               |
 | -------------------------------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------- |
@@ -19,7 +19,7 @@ platforms and compilers might work as well but have not been tested.
 
 ² Ice for MATLAB is only tested on Windows x64 and Ubuntu amd64.
 
-# Language Versions
+## Language Versions
 
 | **Ice Framework**  | **Min Language Version** | **Compiler, Framework, Runtime Environment**                                       |
 | ------------------ | ------------------------ | ---------------------------------------------------------------------------------- |

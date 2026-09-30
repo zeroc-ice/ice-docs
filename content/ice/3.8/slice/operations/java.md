@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Operations
 
-# Mapping for Operations
+### Mapping for Operations
 
 As we saw in the [Client-Side Java Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy interface contains 4 methods for this operation. To
@@ -51,7 +51,7 @@ GreeterPrx greeter = GreeterPrx.createProxy(
 String greeting = greeter.greet("Alice");  // Get name via RPC
 ```
 
-# Sync and Async Methods
+### Sync and Async Methods
 
 For each operation, the Slice compiler generates 4 methods on the proxy interface:
 
@@ -70,7 +70,7 @@ what’s more important for your application.
 
 {% /callout %}
 
-# Exception Handling in Java
+### Exception Handling in Java
 
 Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
@@ -102,15 +102,9 @@ try {
 }
 ```
 
-##### See Also
-
-- [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in Java](<../operations#asynchronous-method-invocation-(ami)>)
-- [Server-Side Java Mapping for Operations](#server-side-mapping-for-operations)
-
 ## Server-Side Mapping for Operations
 
-# Default Mapping for Operations
+### Default Mapping for Operations
 
 As we saw in the [Server-Side Java Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton interface contains an abstract method with the same
@@ -153,13 +147,13 @@ class Chatbot implements Greeter {
 }
 ```
 
-# AMD Mapping for Operations
+### AMD Mapping for Operations
 
 Each operation with the `["amd"]` metadata is mapped to a method with an `Async` suffix in the skeleton interface. The
 AMD mapping replaces the default “sync” mapping for the operation. See
 [Asynchronous Method Dispatch (AMD) in Java](#amd-mapping-for-operations) for details.
 
-# Throwing Exceptions
+### Throwing Exceptions
 
 To throw an exception from an operation implementation, you simply construct the exception and throw it. For example:
 
@@ -187,11 +181,6 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-##### See Also
-
-- [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side Java Mapping for Operations](#client-side-mapping-for-operations)
-
 ## Asynchronous Method Invocation (AMI)
 
 _Asynchronous Method Invocation_(AMI) is the term used to describe the client-side support for the asynchronous
@@ -204,7 +193,7 @@ completes.
 AMI is transparent to the server: there is no way for the server to tell whether a client sent a request synchronously
 or asynchronously.
 
-# Asynchronous Exception Semantics
+### Asynchronous Exception Semantics
 
 If an invocation throws an exception, the exception can be obtained from the future in several ways:
 
@@ -224,12 +213,12 @@ There are two exceptions to this rule:
 - a call to an `Async` method can throw `TwowayOnlyException`. An `Async` method throws this exception if you call an
   operation that has a return value or out-parameters on a oneway proxy.
 
-# `InvocationFuture` Class
+### `InvocationFuture` Class
 
 The `CompletableFuture<T>` object that is returned by asynchronous proxy methods can be down-casted to
 `InvocationFuture<T>` when an application requires more control over an invocation.
 
-# Polling for Completion
+### Polling for Completion
 
 The `InvocationFuture` methods allow you to poll for call completion. Polling is useful in a variety of cases. As an
 example, consider the following simple interface to transfer files from client to server:
@@ -314,7 +303,7 @@ the point where making the requests larger or queuing more requests no longer im
 you can realize the full bandwidth of the link to within a percent or two of the theoretical bandwidth limit of a native
 socket connection.
 
-# Asynchronous Oneway Invocations
+### Asynchronous Oneway Invocations
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
 have any out-parameters, and does not throw user exceptions. If you call an asynchronous proxy method on a oneway proxy
@@ -323,7 +312,7 @@ for an operation that returns values or throws a user exception, the `Async` met
 The future returned for a oneway invocation completes as soon as the request is successfully written to the client-side
 transport. The future completes exceptionally if an error occurs before the request is successfully written.
 
-# Flow Control
+### Flow Control
 
 Asynchronous method invocations never block the thread that calls the asynchronous proxy method. The Ice runtime checks
 to see whether it can write the request to the local transport. If it can, it does so immediately in the caller's
@@ -363,7 +352,7 @@ If you need more control over the execution environment of your action, you can 
 instead. The `sentSynchronously` argument still behaves as described above, but your executor's implementation will
 determine the threading behavior.
 
-# Canceling an Asynchronous Invocation
+### Canceling an Asynchronous Invocation
 
 `CompletableFuture` provides a `cancel` method that you can call to cancel an invocation. If the future hasn't already
 completed either successfully or exceptionally, canceling the future causes it to complete with an instance of
@@ -372,7 +361,7 @@ completed either successfully or exceptionally, canceling the future causes it t
 Cancellation prevents a queued invocation from being sent or, if the invocation has already been sent, ignores a reply
 if the server sends one. Cancellation is a local operation and has no effect on the server.
 
-# Concurrency Semantics for AMI
+### Concurrency Semantics for AMI
 
 When an invocation completes, the Ice runtime calls `complete` or `completeExceptionally` on the future from an Ice
 thread pool thread. The thread in which your own action executes depends on the completion status of the future and the
@@ -406,7 +395,7 @@ In practical terms, an AMD operation typically queues the request data for later
 thread pool). In this way, the server minimizes the use of dispatch threads and becomes capable of efficiently
 supporting thousands of simultaneous clients.
 
-## Async Skeleton
+### Async Skeleton
 
 The easiest way to use AMD in Java is to make your servant class implement the async skeleton interface generated by the
 Slice compiler. For example:
@@ -418,7 +407,7 @@ class Chatbot implements AsyncGreeter {
 }
 ```
 
-## Enabling AMD Piecemeal
+### Enabling AMD Piecemeal
 
 If you prefer to implement some operations asynchronously (with AMD) and other operations synchronously, you can add the
 `["amd"]` metadata directive to the operations you want to implement with AMD and use the default skeleton interface.
@@ -439,7 +428,7 @@ interface Controller
 In this example, the `startProcess` of the default skeleton interface uses asynchronous dispatch while `endProcess` uses
 synchronous dispatch.
 
-## AMD Mapping
+### AMD Mapping
 
 With AMD, the skeleton’s abstract method is named `<operation-name>Async`. This method returns an
 `java.util.concurrent.CompletionStage<T>` and accepts the operation’s in-parameters.
@@ -478,7 +467,7 @@ public interface AsyncExample extends com.zeroc.Ice.Object {
 
 You would get the same `opAsync` method on the default skeleton (`Example`) if you decorate `op` with `["amd"]`.
 
-## AMD Exceptions
+### AMD Exceptions
 
 There are two processing contexts in which the logical implementation of an AMD operation may need to report an
 exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that sends
@@ -493,7 +482,7 @@ These are not necessarily two different threads: it is legal to send the respons
 The implementation of the `Async` method in your servant class can throw an exception synchronously: it’s equivalent to
 returning a future completed with this exception.
 
-## Chaining AMI and AMD Invocations
+### Chaining AMI and AMD Invocations
 
 Since the asynchronous proxy API and the asynchronous dispatch API both use `CompletionStage`, it is possible to
 implement an asynchronous dispatch by sending an asynchronous request to a proxy.
@@ -514,20 +503,15 @@ class ExampleServant implements AsyncExample {
 }
 ```
 
-##### See Also
-
-- [The Ice Threading Model](../threading-model)
-- [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
-# In Parameters
+### In Parameters
 
 An in parameter is mapped to a Java parameter with the same name; its type is the mapped Java type.
 
 For example, a Slice parameter `string name` is mapped to a Java parameter `String name`.
 
-# Out Parameters and Return Values
+### Out Parameters and Return Values
 
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
@@ -610,7 +594,7 @@ public interface ExamplePrx extends com.zeroc.Ice.ObjectPrx {
 }
 ```
 
-# Null Parameters
+### Null Parameters
 
 Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
 can be `null`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
@@ -625,7 +609,7 @@ sequences, dictionaries, or strings. As far as the object model is concerned, th
 sequences, dictionaries, and strings do). For example, whether you send a string as `null` or as an empty string makes
 no difference to the receiver: either way, the receiver sees an empty string.
 
-# Optional Parameters
+### Optional Parameters
 
 The mapping uses standard Java types to encapsulate [optional parameters](../operations):
 
@@ -710,5 +694,9 @@ passing the value of `java.util.Optional.empty()`. In either case, the server wi
 is not present.
 
 {% /callout %}
+
+## See Also
+
+- [The Ice Threading Model](../threading-model)
 
 {% /language-section %}

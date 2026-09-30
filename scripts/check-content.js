@@ -15,6 +15,8 @@
 //   7. every language slot is answered, and says which kind of answer it is
 //   8. a page written per language has one title across its languages
 //   9. no page holds a no-break space (U+00A0)
+//  10. under the title, the page's h1, each heading is at most one level below
+//      the one before it, in every language, and none is bold text alone
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
@@ -27,11 +29,13 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import Markdoc from '@markdoc/markdoc';
 
 import { buildPageIndex } from '../lib/docs-model/links.ts';
 import {
   declaredSlots,
   parseLanguageSections,
+  resolveDocument,
   splitFrontmatter
 } from '../lib/docs-model/resolve.ts';
 import {
@@ -39,7 +43,9 @@ import {
   frontmatterOf,
   listVersions,
   listPages,
-  readNavigation
+  readNavigation,
+  readPageSources,
+  snippetReader
 } from '../lib/docs-model/content.ts';
 import { navigationPages } from '../lib/docs-model/nav.ts';
 
@@ -303,6 +309,79 @@ function checkNoBreakSpaces(files) {
   }
 }
 
+// Every heading in a parsed page, with the languages of the {% iflang %} block
+// around it; `langs` is undefined for a heading every language shows.
+function headingsIn(node, langs, out = []) {
+  if (node.type === 'heading') out.push({ node, langs });
+  const inner =
+    node.type === 'tag' && node.tag === 'iflang'
+      ? node.attributes.langs.split(',').map((s) => s.trim())
+      : langs;
+  for (const child of node.children) headingsIn(child, inner, out);
+  return out;
+}
+
+const textOf = (node) =>
+  [...node.walk()]
+    .filter((child) => child.type === 'text' || child.type === 'code')
+    .map((child) => child.attributes.content)
+    .join('');
+
+/**
+ * Headings are checked on the page as the site renders it, with every
+ * overlay's sections inserted, since an overlay's headings nest under the
+ * shared page's. A reader of each language meets a different sequence.
+ */
+function checkHeadings(version, pages, languages) {
+  const readFile = snippetReader(CONTENT_ROOT, version);
+  for (const page of pages) {
+    const where = `${version}/${page.slug}`;
+    const { shared, overlays } = readPageSources(page);
+    let body;
+    try {
+      body = resolveDocument({ shared: shared ?? '', overlays, readFile });
+    } catch (error) {
+      fail(`${where}: cannot assemble: ${error.message}`);
+      continue;
+    }
+    const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
+    const headings = headingsIn(Markdoc.parse(tokenizer.tokenize(body)));
+
+    for (const { node } of headings) {
+      if (node.attributes.level === 1)
+        fail(
+          `${where}: heading "${textOf(node)}" is an h1; the page title is the only h1`
+        );
+      // Bold text alone is a caption, not a section.
+      const [inline] = node.children;
+      const parts = inline.children.filter(
+        (child) => child.type !== 'text' || child.attributes.content.trim()
+      );
+      if (parts.length === 1 && parts[0].type === 'strong')
+        fail(`${where}: heading "${textOf(node)}" is bold text alone`);
+    }
+
+    const skips = new Map();
+    for (const language of languages) {
+      let previous = 1;
+      for (const { node, langs } of headings) {
+        if (langs && !langs.includes(language)) continue;
+        const { level } = node.attributes;
+        if (level > previous + 1) {
+          const skip = `heading "${textOf(node)}" is an h${level} under an h${previous}`;
+          skips.set(skip, [...(skips.get(skip) ?? []), language]);
+        }
+        previous = level;
+      }
+    }
+    for (const [skip, affected] of skips) {
+      const only =
+        affected.length < languages.length ? ` (${affected.join(', ')})` : '';
+      fail(`${where}: ${skip}${only}`);
+    }
+  }
+}
+
 for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
 
@@ -349,6 +428,9 @@ for (const version of listVersions(CONTENT_ROOT)) {
 
   // 7. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);
+
+  // 10. headings step down one level at a time from the title.
+  checkHeadings(version, pages, languages);
 
   // 8. a page written per language is one page: its files agree on the title
   for (const page of pages) {

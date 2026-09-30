@@ -2,7 +2,7 @@
 title: Generating Slice Documentation
 ---
 
-# Documenting Slice Definitions
+## Documenting Slice Definitions
 
 Adding comments to your Slice definitions is useful because it helps readers understand the semantics of your
 application's interfaces and data types. To make your comments more accessible, you can process your Slice files with
@@ -14,7 +14,7 @@ results. You'll need to consider whether to generate documentation from Slice fi
 The [Slice API reference](https://code.zeroc.com/ice/3.8/api/slice/index.html) offers an example of the HTML output that
 Doxygen generates for Ice's own Slice files.
 
-# Comment Syntax
+## Comment Syntax
 
 Slice uses a [Javadoc-style syntax](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)
 (described below) for comments. Doxygen and Slice compilers such as `slice2cpp` and `slice2java` fully support this
@@ -103,7 +103,7 @@ a `*`, or you can leave the beginning of the line blank:
 
 The first sentence of the documentation comment for a Slice construct should be a summary sentence.
 
-## Hyperlinks
+### Hyperlinks
 
 Any Slice identifier enclosed in `{@link ...}` is presented as a hyperlink in code font. For example:
 
@@ -123,7 +123,7 @@ tags are rarely necessary in practice.
 
 {% /callout %}
 
-## Explicit Cross References
+### Explicit Cross References
 
 The directive `@see` creates an explicit cross reference to another entity:
 
@@ -138,7 +138,7 @@ The directive `@see` creates an explicit cross reference to another entity:
  **/
 ```
 
-## Markup for Operations
+### Markup for Operations
 
 There are three directives specifically to document Slice operations: `@param`, `@return`, and `@throws`. For example:
 
@@ -161,15 +161,15 @@ Item findItem(Key p, Key s) throws NotFound;
 
 For clarity, the comment order should match the order of declaration for the parameters.
 
-# doxygenUsing Doxygen for Slice Documentation
+## Using Doxygen for Slice Documentation
 
 This section describes how to use Doxygen to generate a Slice API reference documentation from your Slice files.
 
-## Selecting a Doxygen Version
+### Selecting a Doxygen Version
 
 Doxygen recognizes Slice since version 1.8.15.
 
-## Configuring Doxygen
+### Configuring Doxygen
 
 You can generate a default configuration file as follows:
 
@@ -213,7 +213,7 @@ doxygen config
 
 By default, the HTML output will be generated into an `html` subdirectory.
 
-## Linking to ZeroC Documentation
+### Linking to ZeroC Documentation
 
 Doxygen has the ability to
 [embed links to the documentation of external types](https://www.doxygen.nl/manual/external.html) that are used by your
@@ -229,7 +229,7 @@ The tag file is available here:
 
 - [https://code.zeroc.com/ice/3.8/api/slice.tag](https://code.zeroc.com/ice/3.8/api/slice.tag)
 
-##### See Also
+## See Also
 
 - [Doxygen](https://www.doxygen.nl)
 - [Slice API reference](https://code.zeroc.com/ice/3.8/api/slice/index.html)

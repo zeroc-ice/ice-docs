@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Interfaces
 
-# Proxy Interfaces
+### Proxy Interfaces
 
 On the client side, a Slice interface maps to a C# interface with methods that correspond to the operations on that
 interface. Consider the following Slice interface:
@@ -38,7 +38,7 @@ In the client's address space, an instance of `SimplePrx` is the local ambassado
 that implements `Simple` and is known as a _proxy instance_. All the details about the server-side object, such as its
 address, what protocol to use, and its object identity are encapsulated in that instance.
 
-# Creating a Proxy
+### Creating a Proxy
 
 For each Slice interface, apart from the proxy interface, the Slice-to-C# compiler creates a helper class: for an
 interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
@@ -61,12 +61,12 @@ SimplerPrx simple = SimplePrxHelper.createProxy(
     communicator, "simple:tcp -h localhost -p 4061");
 ```
 
-# Inheritance from `Ice.ObjectPrx`
+### Inheritance from `Ice.ObjectPrx`
 
 All generated proxy interfaces inherit directly or indirectly from the `Ice.ObjectPrx` interface, reflecting the fact
 that all Slice interfaces implicitly inherit from `Object`.
 
-# Interface Inheritance
+### Interface Inheritance
 
 Inheritance relationships among Slice interfaces are maintained in the generated C# classes. For example:
 
@@ -93,7 +93,7 @@ public interface CPrx : APrx, BPrx
 Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
 from `C`'s base interfaces.
 
-# Casting a Proxy
+### Casting a Proxy
 
 In addition to `createProxy`, the generated helper class provides two static methods for converting a proxy into a proxy
 of another type:
@@ -111,7 +111,7 @@ public class SimplePrxHelper : ...
 }
 ```
 
-## uncheckedCast
+#### uncheckedCast
 
 The helper’s `uncheckedCast` static method allows you to convert any proxy into the helper’s proxy type. For example:
 
@@ -122,7 +122,7 @@ WidgetPrx widget = WidgetPrxHelper.uncheckedCast(simple);
 
 `uncheckedCast` is a local operation that always succeeds.
 
-## checkedCastAsync
+#### checkedCastAsync
 
 `checkedCastAsync` is a conditional cast of the proxy: this method makes a remote call to the target object to check if
 this object implements the proxy’s Slice interface. For example:
@@ -147,7 +147,7 @@ methods when making remote calls, and avoid these synchronous overloads provided
 While `checkedCastAsync` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in
 practice you know or should know the type of your proxies and calling `checkedCastAsync` is rarely necessary.
 
-# Proxy Factory Methods
+### Proxy Factory Methods
 
 The base proxy interface `ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are immutable,
 each of these factory methods returns a copy of the original proxy that contains the desired modification. For example,
@@ -165,7 +165,7 @@ the correct proxy type as shown above.
 
 ## Server-Side Mapping for Interfaces
 
-# Skeleton Classes
+### Skeleton Classes
 
 On the server side, interfaces map to _skeleton_ classes. A skeleton is a class that has an abstract method for each
 operation on the corresponding interface. For example, consider our Slice definition for the `Node` interface:
@@ -230,7 +230,7 @@ The important points to note here are:
 - Each skeleton class implements the `dispatchAsync` method provided by `Ice.Object`: it dispatches incoming requests to
   the methods on the skeleton class based on the operation name received in the request.
 
-# `Ice.Object` Servant Base Interface
+### `Ice.Object` Servant Base Interface
 
 The Slice pseudo-interface `Object` is mapped to the `Ice.Object` interface in C#:
 
@@ -251,7 +251,7 @@ namespace Ice
 `Ice.Object` provides a default `dispatchAsync` implementation for the 4 operations on the Slice pseudo-interface
 `Object`: `ice_ping`, `ice_isA`, `ice_id` and `ice_ids`.
 
-# Servant Classes
+### Servant Classes
 
 In order to provide an implementation for an Ice object, you must create a servant class that inherits from one of the
 generated skeleton classes. For example, to create a servant for the `Greeter` interface, you could write:

@@ -88,7 +88,7 @@ create Bar/myOtherTopic
 This sets the current topic manager to the one with instance name `Foo`; the first `create` command then creates the
 topic within that topic manager, whereas the second `create` command uses the topic manager with instance name `Bar`.
 
-##### See Also
+## See Also
 
 - [Configuring IceStorm](../configuring-icestorm)
 - [Highly Available IceStorm](../highly-available-icestorm)

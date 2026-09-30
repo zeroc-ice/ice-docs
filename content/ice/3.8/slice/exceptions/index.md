@@ -2,7 +2,7 @@
 title: Exceptions
 ---
 
-# Exception Syntax and Semantics
+## Exception Syntax and Semantics
 
 Consider the following Slice definition.
 
@@ -50,7 +50,7 @@ results. You may receive a user exception only when you call a Slice operation.
 
 {% /callout %}
 
-# Exception Specification in Operations
+## Exception Specification in Operations
 
 Exceptions allow you to return an arbitrary amount of error information to the client if an error condition arises in
 the implementation of an operation. Operations use an exception specification to indicate the exceptions that may be
@@ -81,7 +81,7 @@ exceptions listed in its Slice definition, although your implementation language
 Ice runtime in the client does validate user exceptions and throws `UnknownUserException` if it receives an unexpected
 user exception.
 
-## Restrictions for User Exceptions
+### Restrictions for User Exceptions
 
 Exceptions are not first-class data types and first-class data types are not exceptions:
 
@@ -95,7 +95,7 @@ The reason for these restrictions is that some implementation languages use a sp
 (in the same way as Slice does). For such languages, it would be difficult to map exceptions if they could be used as an
 ordinary data type.
 
-# Exception Inheritance
+## Exception Inheritance
 
 Slice Exceptions support inheritance. For example:
 
@@ -219,10 +219,10 @@ format explicitly.
 
 {% /callout %}
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Local and Dispatch Exceptions](../local-and-dispatch-exceptions)

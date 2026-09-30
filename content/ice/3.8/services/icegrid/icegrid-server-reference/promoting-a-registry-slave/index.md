@@ -28,7 +28,7 @@ versions of the deployment information, some slaves and nodes might get updated 
 (causing some of your servers to be deactivated). You can correct the problem by shutting down the faulty master, but it
 is important to keep this issue in mind when you restart a master since it might disrupt your applications.
 
-##### See Also
+## See Also
 
 - [Registry Replication](../registry-replication)
 - [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)

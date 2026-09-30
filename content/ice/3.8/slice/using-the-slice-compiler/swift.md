@@ -11,7 +11,7 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for Swift
+## The Slice Compiler for Swift
 
 The Slice-to-Swift compiler (`slice2swift`) supports only the common Slice compiler options.
 

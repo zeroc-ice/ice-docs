@@ -2,7 +2,7 @@
 title: IceLocatorDiscovery
 ---
 
-# IceLocatorDiscovery Overview
+## IceLocatorDiscovery Overview
 
 IceLocatorDiscovery is an [Ice plug-in](../plug-in-facility) that discovers IceGrid and custom [locators](../locators)
 on a network using UDP multicast. Once installed, the plug-in automatically and transparently issues a multicast query
@@ -21,19 +21,19 @@ primarily toward IceGrid users.
 
 {% /callout %}
 
-# Installing IceLocatorDiscovery
+## Installing IceLocatorDiscovery
 
 The IceLocatorDiscovery plug-in must be installed in every client that needs to locate objects; you can optionally
 install it in IceGrid nodes and registry replicas.
 
 {% language-section name="lang-1" /%}
 
-# Configuring IceLocatorDiscovery
+## Configuring IceLocatorDiscovery
 
 Applications configure the IceLocatorDiscovery plug-in using configuration properties; the plug-in does not provide a
 local API.
 
-## IceLocatorDiscovery Property Overview
+### IceLocatorDiscovery Property Overview
 
 The IceDiscovery plug-in supports a number of [configuration properties](../icelocatordiscovery-properties), many of
 which affect the endpoints that the plug-in uses for its queries:
@@ -93,21 +93,21 @@ unrelated IceGrid applications that happen to use the same address and port.
 
 {% /callout %}
 
-## Configuring IceLocatorDiscovery in User Applications
+### Configuring IceLocatorDiscovery in User Applications
 
 For a client application, remove any existing definition of `Ice.Default.Locator`, then install the plug-in and
 optionally configuring its addressing information.
 
 For a server deployed with IceGrid, you normally don't need to install the IceLocatorDiscovery plug-in.
 
-## Configuring IceLocatorDiscovery in IceGrid Administrative Clients
+### Configuring IceLocatorDiscovery in IceGrid Administrative Clients
 
 Support for multicast discovery is built into the [command-line](../icegridadmin-command-line-tool) and
 [graphical](../icegrid-gui-tool) IceGrid administrative utilities, therefore you don't need to install the plug-in. Both
 utilities support [configuration properties](../icegridadmin-properties) similar to the ones we described above for
 defining the multicast address and port.
 
-## Configuring IceLocatorDiscovery in an IceGrid Registry
+### Configuring IceLocatorDiscovery in an IceGrid Registry
 
 An IceGrid registry does not need the plug-in if it's the master replica or the only registry in a deployment, although
 there's no harm in installing it. The plug-in is useful for slave replicas because it allows them to locate the current
@@ -137,12 +137,12 @@ queries on its default multicast address and port.
 
 {% /callout %}
 
-## Configuring IceLocatorDiscovery in an IceGrid Node
+### Configuring IceLocatorDiscovery in an IceGrid Node
 
 The plug-in is useful for IceGrid nodes because it allows them to locate the registry without configuring the registry's
 endpoints. Install and configure the plug-in in a node just like you would for any C++ client.
 
-##### See Also
+## See Also
 
 - [IceLocatorDiscovery Properties](../icelocatordiscovery-properties)
 - [Registry Replication](../registry-replication)

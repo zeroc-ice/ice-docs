@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-# Ice.Object Interface
+## Ice.Object Interface
 
 For historical reasons, the [Dispatcher](../terminology) abstraction does not correspond to a `Dispatcher` interface in
 C#. We use instead the interface `Ice.Object` as the base interface for dispatchers.

@@ -11,19 +11,19 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for PHP
+## The Slice Compiler for PHP
 
 The Slice-to-PHP compiler (`slice2php`) offers one additional option:
 
 - `--all` Generate code for all Slice definitions, including those from included files.
 
-## Compiler Output
+### Compiler Output
 
 For each Slice file `X.ice`, `slice2php` generates PHP code into a file named `X.php` in the output directory. The
 default output directory is the current working directory, but a different directory can be specified using the
 `--output-dir` option.
 
-## Include Files
+### Include Files
 
 It is important to understand how `slice2php` handles include files. In the absence of the `--all` option, the compiler
 does not generate PHP code for Slice definitions in included files. Rather, the compiler translates Slice `#include`

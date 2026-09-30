@@ -410,7 +410,7 @@
     font-style: normal;
   }
 
-  [data-page-shape='property-list'] .doc-body h5 {
+  [data-page-shape='property-list'] .doc-body h3 {
     margin-top: 1.25rem;
     margin-bottom: 0.125rem;
     color: var(--text-muted);
@@ -418,6 +418,15 @@
     font-weight: 650;
     letter-spacing: 0.07em;
     text-transform: uppercase;
+  }
+
+  /* A platform named under Platform Notes is a subheading of the notes, so it
+     stays at the size of the text around it. */
+  [data-page-shape='property-list'] .doc-body h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.125rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
   }
 }
 

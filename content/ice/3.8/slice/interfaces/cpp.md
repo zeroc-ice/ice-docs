@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Interfaces
 
-# Proxy Classes
+### Proxy Classes
 
 On the client side, a Slice interface maps to a C++ proxy class with member functions that correspond to the operations
 on that interface. Consider the following Slice interface:
@@ -76,7 +76,7 @@ class Proxy : public virtual Bases...
 
 It’s an instance of the Curiously Recurring Template Pattern (CRTP).
 
-# Creating a Proxy
+### Creating a Proxy
 
 Use the constructor of the generated class to create a proxy from a communicator and a “stringified” proxy. For example:
 
@@ -94,12 +94,12 @@ is a proxy held in a `std::optional`. For example:
 std::optional<M::SimplePrx> simple;
 ```
 
-# Inheritance from `Ice::ObjectPrx`
+### Inheritance from `Ice::ObjectPrx`
 
 All generated proxy classes inherit indirectly from the `Ice::ObjectPrx` class, reflecting the fact that all Slice
 interfaces implicitly inherit from `Object`.
 
-# Interface Inheritance
+### Interface Inheritance
 
 Inheritance relationships among Slice interfaces are maintained in the generated C++ classes. For example:
 
@@ -127,7 +127,7 @@ namespace M
 Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
 from `C`'s base interfaces.
 
-# Proxy Factory Methods
+### Proxy Factory Methods
 
 The base proxy class `Ice::ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are
 immutable, each of these "factory methods" returns a copy of the original proxy that contains the desired modification.
@@ -153,7 +153,7 @@ GreeterAdminPrx greeterAdmin = greeter.ice_facet<GreeterAdminPrx>("admin");
 
 ## Server-Side Mapping for Interfaces
 
-# Skeleton Classes
+### Skeleton Classes
 
 On the server side, interfaces map to _skeleton_ classes. A skeleton is a class that has a pure virtual member function
 for each operation on the corresponding interface. For example, consider our Slice definition for the `Greeter`
@@ -215,7 +215,7 @@ The important points to note are:
 - Each skeleton class inherits from `Ice::Object` (which forms the root of the Ice servant hierarchy).
 - Each skeleton class reimplements (overrides) the `dispatch` function defined on `Ice::Object`.
 
-# `Ice::Object` Servant Base Class
+### `Ice::Object` Servant Base Class
 
 The Slice pseudo-interface `Object` is mapped to the `Ice::Object` class in C++:
 
@@ -238,7 +238,7 @@ namespace Ice
 `Object` implements `dispatch` for the 4 operations on the Slice pseudo-interface `Object`: `ice_ping`, `ice_isA`,
 `ice_id` and `ice_ids`.
 
-# Servant Classes
+### Servant Classes
 
 In order to provide an implementation for an Ice object, you must create a servant class that inherits from one of the
 generated skeleton classes. For example, to create a servant for the `Greeter` interface, you could write:

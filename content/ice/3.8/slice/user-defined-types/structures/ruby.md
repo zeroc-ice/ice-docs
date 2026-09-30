@@ -46,7 +46,7 @@ The `==` method returns true if all instance variables of two structures are (re
 
 The `inspect` method returns a string representation of the structure.
 
-## Generated Constructor
+### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
 single statement (instead of first having to construct the instance and then assign to its attributes).

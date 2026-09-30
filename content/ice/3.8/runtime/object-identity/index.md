@@ -2,7 +2,7 @@
 title: Object Identity
 ---
 
-# The Identity Struct
+## The Identity Struct
 
 Each Ice object has an object identity defined as follows:
 
@@ -40,7 +40,7 @@ Factories\/Factory/Node\/File
 
 In this example, the category is `Factories/Factory` and the name is `Node/File`.
 
-# Syntax for Stringified Identities
+## Syntax for Stringified Identities
 
 You rarely need to write identities as strings because, typically, your code will be using the identity helper functions
 `identityToString` and `stringToIdentity`, or simply deal with proxies instead of identities. However, on occasion, you
@@ -58,14 +58,14 @@ Here are rules that the Ice runtime applies when parsing a stringified identity:
    [Slice String Literals](../constants-and-literals), except that an escaped slash character (`\/)` is converted into a
    simple slash (`/`).
 
-# Identity Helper Functions
+## Identity Helper Functions
 
 To make conversion of identities to and from strings easier, Ice provides functions to convert an Identity to and from a
 native string, using the string format described in the preceding paragraph. These helper functions are called
 `identityToString` (to stringify an identity into a string) and `stringToIdentity` (to parse a stringified identity and
 create the corresponding identity).
 
-## `ToStringMode` Enumeration
+### `ToStringMode` Enumeration
 
 When _stringifying_ an identity with `identityToString`, you can choose the algorithm, or mode, used in this "to string"
 implementation. These modes correspond to the enumerators of the
@@ -90,7 +90,7 @@ The default mode is `Unicode`.
 The `Compat` mode is provided for backwards-compatibility with Ice 3.6 and earlier. These older versions do not
 recognize universal character names and reject non-printable ASCII characters in stringified identities.
 
-##### See Also
+## See Also
 
 - [Default Servants](../default-servants)
 - [Glacier2](../glacier2)

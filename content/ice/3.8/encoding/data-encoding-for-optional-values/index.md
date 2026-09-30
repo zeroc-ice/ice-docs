@@ -9,7 +9,7 @@ information for a receiver to determine how many bytes an optional value occupie
 in the stream. Despite this requirement, the encoding rules minimize the overhead associated with optional values, as
 you will see below.
 
-# Overview of the Optional Value Encoding
+## Overview of the Optional Value Encoding
 
 The encoding for optional parameters and fields follows these general rules:
 
@@ -38,7 +38,7 @@ Optional values require Ice encoding version 1.1.
 
 {% /callout %}
 
-# Encoding for Optional Types and Tags
+## Encoding for Optional Types and Tags
 
 The first byte of an encoded optional value includes the optional type, and may also include the tag. The optional type
 occupies the first three bits of this byte, as described in the table below:
@@ -90,7 +90,7 @@ The following table describes the encoding of Slice types:
 | `sequence<`_fixed-size type_`>` with fixed-size >= 2 `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value                                          | Size can be computed before encoding the container.                          |
 | `sequence<`_variable size type_`>`, `dictionary<`_variable-size key_,_variable-size value_`>`            | FSize             | int + value                                           | 32-bit integer holds the size of the container.                              |
 
-# Examples of Optional Value Encoding
+## Examples of Optional Value Encoding
 
 The examples presented below demonstrate the encoding for optional values with typical use cases.
 
@@ -239,7 +239,7 @@ Using the sliced format, the instance data looks as follows:
 
 Notice the use of an end marker (byte value `255`) denoting the end of the optional fields in each slice.
 
-##### See Also
+## See Also
 
 - [Basic Data Encoding](../basic-data-encoding)
 - [Data Encoding for Classes](../data-encoding-for-classes)

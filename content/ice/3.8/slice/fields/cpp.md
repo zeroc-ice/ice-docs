@@ -22,7 +22,7 @@ struct Person
 };
 ```
 
-## Field with a Class Type
+### Field with a Class Type
 
 A Slice field with a class type maps to a C++ data member with a shared pointer type. For example:
 
@@ -50,7 +50,7 @@ struct Person
 };
 ```
 
-## Field with a Proxy Type
+### Field with a Proxy Type
 
 A Slice field with a proxy type maps to a C++ data member with a `std::optional<T>` type. For example:
 
@@ -75,7 +75,7 @@ struct Person
 };
 ```
 
-## Optional Fields
+### Optional Fields
 
 An optional field maps to a C++ data member with the same name. The data member's type is the mapped type, wrapped in a
 `std::optional`. The tag value is not mapped to C++.
@@ -106,7 +106,7 @@ class C
 Proxies are not wrapped twice in `std::optional`, as illustrated above. As a result, you cannot distinguish between an
 optional proxy field that is not set and an optional proxy field set to null.
 
-## Default Values
+### Default Values
 
 Slice default values map to default member initializers in C++.
 

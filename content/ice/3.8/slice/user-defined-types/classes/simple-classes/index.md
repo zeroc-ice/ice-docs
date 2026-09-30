@@ -50,7 +50,7 @@ The legal syntax for literal values is the same as for [Slice constants](../cons
 use a constant as a default value. The language mapping guarantees that fields are initialized to their declared default
 values using a language-specific mechanism.
 
-##### See Also
+## See Also
 
 - [Structures](../structures)
 - [Constants and Literals](../constants-and-literals)

@@ -43,7 +43,7 @@ server --Ice.Trace.Protocol=
 
 As for properties set from a configuration file, assigning nothing to a property clears that property.
 
-##### See Also
+## See Also
 
 - [Properties Overview](../properties-overview)
 - [Using Configuration Files](../using-configuration-files)

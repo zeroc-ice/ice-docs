@@ -30,7 +30,7 @@ Here is an example to demonstrate the use of this element:
 </icebox>
 ```
 
-##### See Also
+## See Also
 
 - [Service-Template Descriptor Element](../service-template-descriptor-element)
 - [IceBox Descriptor Element](../icebox-descriptor-element)

@@ -5,7 +5,7 @@ title: Slave Registry Runtime Component
 An IceGrid deployment may use several IceGrid registry replicas, with one Master registry and a number of read-only
 Slave registries.
 
-# Actions
+## Actions
 
 A slave registry provides the following actions, from its contextual menu and from the `Tools > Registry` menu
 
@@ -26,7 +26,7 @@ You cannot restart an IceGrid registry from IceGrid Admin.
 
 {% /callout %}
 
-# Properties
+## Properties
 
 The Registry Properties panel shows:
 
@@ -35,7 +35,7 @@ The Registry Properties panel shows:
   [BuildId](../icegrid-and-the-administrative-facility).
 - **Properties** A table showing all the Ice properties currently set in this IceGrid registry.
 
-# Children
+## Children
 
 A slave registry can have the following types of children:
 

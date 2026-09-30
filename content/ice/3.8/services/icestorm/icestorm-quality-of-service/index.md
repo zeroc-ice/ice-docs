@@ -5,7 +5,7 @@ title: IceStorm Quality of Service
 An IceStorm subscriber specifies Quality of Service (QoS) parameters at the time of subscription. The supported QoS
 parameters are described in the sections below
 
-# Reliability QoS for IceStorm
+## Reliability QoS for IceStorm
 
 The QoS parameter `reliability` affects message delivery. The only legal values at this point are `ordered` and the
 empty string. If not specified, the default value is the empty string (meaning not ordered).
@@ -16,7 +16,7 @@ reply from the forwarding of an event before forwarding the next event. This gua
 the events in the same order as they were received even if its [thread pool](../thread-pool-design-considerations)
 doesn't serialize incoming requests.
 
-# Retry Count QoS for IceStorm
+## Retry Count QoS for IceStorm
 
 The QoS parameter `retryCount` determines how many _consecutive_ delivery failures IceStorm tolerates before it removes
 a subscriber. A value of `-1` means IceStorm retries forever and never automatically removes a subscriber unless a hard
@@ -41,7 +41,7 @@ it receives a hard error, and that is only possible when the subscriber is reach
 To use a retry count of `-1` successfully, the subscriber can either register with a fixed endpoint, or use
 [IceGrid](../icegrid) to take advantage of indirect proxies and automatic activation.
 
-## Delivery Failures and Retries
+### Delivery Failures and Retries
 
 When delivery to a subscriber fails with a transient error (such as a connection failure or a timeout) and the
 subscriber's `retryCount` allows another attempt, IceStorm discards all events currently queued for this subscriber,
@@ -55,7 +55,7 @@ the discard interval: a non-zero `retryCount` extends the lifetime of the subscr
 delivery. You can observe these subscriber state transitions by setting
 [IceStorm.Trace.Subscriber](../icestorm-properties) to `2`.
 
-## Hard Failures
+### Hard Failures
 
 Some failures indicate that the subscriber is permanently unusable. IceStorm removes the subscriber immediately when
 they occur, regardless of the subscriber's `retryCount` setting:
@@ -67,19 +67,19 @@ they occur, regardless of the subscriber's `retryCount` setting:
   [IceStorm.Send.QueueSizeMax](../icestorm-properties) and [IceStorm.Send.QueueSizeMaxPolicy](../icestorm-properties) is
   set to `RemoveSubscriber` (the default).
 
-# Connection caching QoS for IceStorm
+## Connection caching QoS for IceStorm
 
 The QoS parameter `connectionCached` affects the [connection caching](../connection-establishment) setting of the
 subscriber proxy used for message delivery. Defining this QoS parameter is equivalent to invoking the
 `ice_connectionCached` proxy method.
 
-# Locator cache timeout QoS for IceStorm
+## Locator cache timeout QoS for IceStorm
 
 The QoS parameter `locatorCacheTimeout` affects the [locator cache timeout](../locator-semantics-for-clients) setting of
 the subscriber proxy used for message delivery. Defining this QoS parameter is equivalent to invoking the
 `ice_locatorCacheTimeout` proxy method.
 
-# IceStorm QoS Example
+## IceStorm QoS Example
 
 The Slice type `IceStorm::QoS` is defined as a `dictionary` whose key and value types are both `string`, therefore the
 QoS parameter name and value are both represented as strings. The code we presented in our earlier
@@ -103,7 +103,7 @@ qos.put("reliability", "ordered");
 topic.subscribeAndGetPublisher(qos, proxy.ice_twoway());
 ```
 
-##### See Also
+## See Also
 
 - [IceGrid](../icegrid)
 - [Implementing an IceStorm Subscriber](../implementing-an-icestorm-subscriber)

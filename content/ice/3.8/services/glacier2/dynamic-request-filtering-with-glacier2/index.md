@@ -86,7 +86,7 @@ categories, this strategy guarantees that a session's category can never match t
 For your convenience, Glacier2 already includes support for
 [automatic category filtering](../securing-a-glacier2-router).
 
-##### See Also
+## See Also
 
 - [Callbacks through Glacier2](../callbacks-through-glacier2)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)

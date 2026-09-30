@@ -2,7 +2,7 @@
 title: IceGrid Server Activation
 ---
 
-# Server Activation Modes
+## Server Activation Modes
 
 You can choose among four activation modes for servers deployed and managed by an IceGrid node:
 
@@ -17,7 +17,7 @@ You can choose among four activation modes for servers deployed and managed by a
 
 - Session This mode also provides on-demand activation but requires the server to be allocated by a session.
 
-# Server Activation in Detail
+## Server Activation in Detail
 
 On-demand server activation is a valuable feature of distributed computing architectures for a number of reasons:
 
@@ -34,7 +34,7 @@ activates the server and waits for the target object adapter to register its end
 endpoints are registered, the registry returns the endpoint information back to the client. This sequence ensures that
 the client receives the endpoint information _after_ the server is ready to receive requests.
 
-# Requirements for Server Activation
+## Requirements for Server Activation
 
 In order to use on-demand activation for an object adapter, the adapter must have an identifier and be entered in the
 IceGrid registry.
@@ -47,7 +47,7 @@ The session activation mode recognizes an additional [reserved variable](../usin
 in the server descriptor, `${session.id`}. The value of this variable is the user ID or, for SSL sessions, the
 distinguished name associated with the session.
 
-# Efficiency Considerations for Server Activation
+## Efficiency Considerations for Server Activation
 
 Once a server is activated, it remains running indefinitely (unless it uses the session activation mode). A node
 [deactivates a server](../locator-configuration-for-a-server) only when explicitly requested to do so. As a result,
@@ -64,7 +64,7 @@ setting the server's configuration property [Ice.ServerIdleTime](../ice-properti
 For a server activated in session activation mode, IceGrid deactivates the server when the session releases the server
 or when the session is destroyed.
 
-# Activating Servers with Specific User IDs
+## Activating Servers with Specific User IDs
 
 On Unix platforms you can activate server processes with specific effective user IDs, provided that the IceGrid node is
 running as root. If the IceGrid node does not run as root, servers are always activated with the effective user ID of
@@ -116,7 +116,7 @@ To configure an IceGrid node to use the IceGrid registry file-based user account
 `IceGrid/RegistryUserAccountMapper`. Alternatively, you can set this property to the proxy of your own user account
 mapper object. Note that if this property is set, the node ignores the setting of `IceGrid.Node.UserAccounts`.
 
-# Automating Endpoint Registration
+## Automating Endpoint Registration
 
 Servers must be [properly configured](../locator-configuration-for-a-server) to enable automatic endpoint registration.
 It should be noted however that IceGrid simplifies the configuration process in two ways:
@@ -127,7 +127,7 @@ It should be noted however that IceGrid simplifies the configuration process in 
 - A server that is activated automatically by an IceGrid node does not need to explicitly configure a proxy for the
   locator because the IceGrid node defines it in the server's configuration file.
 
-##### See Also
+## See Also
 
 - [Getting Started with IceGrid](../getting-started-with-icegrid)
 - [IceGrid Architecture](../icegrid-architecture)

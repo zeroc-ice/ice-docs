@@ -2,13 +2,13 @@
 title: DataStorm.Trace.*
 ---
 
-# DataStorm.Trace.Topic
+## DataStorm.Trace.Topic
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Trace.Topic=num`
 
-#### Description
+### Description
 
 Controls the trace level for topics:
 
@@ -17,13 +17,13 @@ Controls the trace level for topics:
 | 0     | No topic trace (default).             |
 | 1     | Trace topic creation and destruction. |
 
-# DataStorm.Trace.Data
+## DataStorm.Trace.Data
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Trace.Data=num`
 
-#### Description
+### Description
 
 Controls the trace level for writers and readers:
 
@@ -34,13 +34,13 @@ Controls the trace level for writers and readers:
 | 2     | Like 1, and trace reader and writer connections, disconnections and sample initialization.                          |
 | 3     | Like 2, and trace samples being queued, discarded or published.                                                     |
 
-# DataStorm.Trace.Session
+## DataStorm.Trace.Session
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Trace.Session=num`
 
-#### Description
+### Description
 
 Controls the trace level for sessions:
 

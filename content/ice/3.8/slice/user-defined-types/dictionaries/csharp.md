@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Mapping
+### Default Mapping
 
 Here is the definition of our EmployeeMap once more:
 
@@ -15,7 +15,7 @@ By default, the Slice-to-C# compiler maps the dictionary to the following type:
 Dictionary<long, Employee>
 ```
 
-## Custom Mapping for Dictionaries
+### Custom Mapping for Dictionaries
 
 You can use the `"cs:generic:SortedDictionary"` or `"cs:generic:SortedList"` metadata directives to change the default
 mapping to use a sorted dictionary or sorted list instead. For example:

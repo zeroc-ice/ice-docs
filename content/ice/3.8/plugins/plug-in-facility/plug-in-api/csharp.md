@@ -2,7 +2,7 @@
 title: Plug-in API
 ---
 
-# The `Plugin` Interface
+## The `Plugin` Interface
 
 A C# plug-in is an instance of a class that implements the `Ice.Plugin` interface:
 
@@ -37,7 +37,7 @@ A plug-in object's lifecycle consists of four phases:
 
 This lifecycle is repeated for each new communicator that an application creates and destroys.
 
-# Plug-in Factory
+## Plug-in Factory
 
 In C#, a plug-in factory is a class that implements the `PluginFactory` interface:
 
@@ -59,7 +59,7 @@ assigned to the plug-in, and any arguments that were specified in the
 The `pluginName` is the default and preferred name of this plug-in. It’s the name used by Ice when it creates a plug-in
 configured using `InitializationData.pluginFactories` (see below).
 
-# Loading a Plug-in using InitializationData
+## Loading a Plug-in using InitializationData
 
 When your application depends on a plug-in, you should load this plug-in into your communicator by adding a factory for
 this plug-in to the `pluginFactories` field of your communicator’s `InitializationData`.
@@ -82,7 +82,7 @@ await using Ice.Communicator communicator = Ice.Util.initialize(initData);
 Plug-ins that are installed in the communicator via `pluginFactories` are created before the plug-ins registered via
 configuration.
 
-##### See Also
+## See Also
 
 - [Plug-in Configuration](../installing-a-plug-in-using-configuration)
 - [Ice.Plugin.*](../ice-plugin-properties)

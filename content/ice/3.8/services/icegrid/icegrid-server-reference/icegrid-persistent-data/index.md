@@ -5,9 +5,9 @@ title: IceGrid Persistent Data
 The IceGrid registry and node both store information in files. This section describes what type of information the
 registry and node are storing, and discusses backup and recovery techniques.
 
-# Registry Database
+## Registry Database
 
-## Data Stored
+### Data Stored
 
 The registry stores the following data in the [LMDB](https://www.symas.com/mdb) database specified through the
 [IceGrid.Registry.LMDB.Path](../icegrid-properties) property:
@@ -50,9 +50,9 @@ deleted. This can be an issue if the deployed servers have databases stored in t
 [Node Persistent Data](../icegrid-persistent-data#node-persistent-data) section below provides more information on this
 subject.
 
-## Limits Imposed by the Registry Database
+### Limits Imposed by the Registry Database
 
-### Key Size
+#### Key Size
 
 A LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
 511 bytes. For example, IceGrid stores applications in a persistent map where the keys are the application names,
@@ -76,7 +76,7 @@ identity.
 
 {% /callout %}
 
-### Map Size
+#### Map Size
 
 A LMDB database has a maximum size, known as its map size. The IceGrid registry database can store up to
 [IceGrid.Registry.LMDB.MapSize](../icegrid-properties) megabytes of data in its database; any attempt to store more data
@@ -118,7 +118,7 @@ Status of Main DB
 
 {% /callout %}
 
-## Backing up the Registry Database
+### Backing up the Registry Database
 
 You should consider making regular backups of your IceGrid registry database. We recommend using one of the following
 tools to perform backups while the IceGrid registry is running:
@@ -126,7 +126,7 @@ tools to perform backups while the IceGrid registry is running:
 - [icegriddb](../icegrid-database-utility) with the `--export` option
 - [mdb_copy](https://manpages.org/mdb_copy) or [mdb_dump](https://manpages.org/mdb_dump)
 
-# Node Persistent Data
+## Node Persistent Data
 
 Each IceGrid node stores information in a directory specified through its [IceGrid.Node.Data](../icegrid-properties)
 property - the node's data directory. In IceGrid descriptors, the `node.data` variable is substituted with the path of
@@ -142,7 +142,7 @@ If a server directory is deleted, the node recreates it at startup. The node wil
 files. However, the node cannot restore the prior contents of a server's user data directory. It is your responsibility
 to back up the user data and restore them when necessary.
 
-##### See Also
+## See Also
 
 - [Using IceGrid Deployment](../using-icegrid-deployment)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

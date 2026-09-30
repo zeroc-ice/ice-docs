@@ -2,7 +2,7 @@
 title: Operations
 ---
 
-# Operation Syntax
+## Operation Syntax
 
 An operation definition must contain a name (the operation’s name), a return type and zero or more parameter
 definitions.
@@ -94,7 +94,7 @@ void changeSleepPeriod(
 
 Slice does not support parameters that are both input and output parameters.
 
-# Optional Parameters and Return Values
+## Optional Parameters and Return Values
 
 An operation's return value and parameters may be declared as optional to indicate that a program can leave their values
 unset. Parameters not declared as optional are known as _required_ parameters; a program must supply legal values for
@@ -132,7 +132,7 @@ bool example(
 
 Language mappings specify an API for passing optional parameters and testing whether a parameter is present.
 
-# Overloading Operations
+## Overloading Operations
 
 Slice does not support any form of overloading of operations. For example:
 
@@ -158,7 +158,7 @@ Name mangling is not an option in this case: while it works fine for compilers, 
 
 {% /callout %}
 
-# Idempotent Operations
+## Idempotent Operations
 
 Some operations, such as `getTime` in the `Clock` interface, do not modify the state of the object they operate on. They
 are the conceptual equivalent of C++ `const` member functions. Similarly, `setTime` does modify the state of the object,
@@ -193,7 +193,5 @@ for operation invocations:
   everything is fine and the application never notices the (temporary) failure. Only if the second attempt fails need
   the runtime report the error back to the application. (The number of retries can be increased with an Ice
   configuration parameter.)
-
-## Language Mapping
 
 {% language-section name="language-mapping" /%}

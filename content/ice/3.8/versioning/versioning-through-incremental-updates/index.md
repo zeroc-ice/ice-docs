@@ -8,7 +8,7 @@ and safely communicate with each other.
 
 You can safely update your Slice definitions using the techniques described on this page:
 
-# Adding Operations and Types
+## Adding Operations and Types
 
 Suppose that we’ve already deployed our [Greeter](../greeter-example) application (version 1) and want to add extra
 functionality to a new version (version 2). Specifically, let’s say we want to add a new greeting that depends on the
@@ -71,7 +71,7 @@ Note that you could write version 2 clients to catch and react to an `OperationN
 `greetAtTime` operation: if the operation succeeds, the client is dealing with a version 2 object, and if the operation
 raises `OperationNotExistsException`, the client is dealing with a version 1 object.
 
-# Optional Parameters and Fields
+## Optional Parameters and Fields
 
 Another way to upgrade our application is by using [optional parameters](../operations) or fields. These can be added to
 existing operations/definitions without breaking clients or servers that don’t know about them. For example, another
@@ -102,6 +102,6 @@ parameter and would continue to behave as before.
 Likewise, you can add optional fields to an existing class or exception without breaking existing applications that use
 it. See the [optional fields](../fields) page for more information.
 
-##### See Also
+## See Also
 
 - [Optional Parameters and Return Values](../operations)

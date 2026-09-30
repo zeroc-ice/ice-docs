@@ -16,7 +16,7 @@ subsequent call to `removeAdminFacet` is possible.
 
 We provide an example of using these communicator methods in our discussion of the [Process](../process-facet) facet.
 
-##### See Also
+## See Also
 
 - [Filtering Administrative Facets](../filtering-administrative-facets)
 - [The Process Facet](../process-facet)

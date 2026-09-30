@@ -1,10 +1,10 @@
 {% language-section name="lang-1" %}
 
-#### Synopsis
+### Synopsis
 
 `Ice.Plugin.name=assembly:class [args]`
 
-#### Description
+### Description
 
 Defines a C# plug-in to be installed during communicator initialization. The `assembly` component can be a partially or
 fully qualified assembly name, or an assembly path name.

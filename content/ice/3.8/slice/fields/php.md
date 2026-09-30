@@ -36,7 +36,7 @@ class Person
 }
 ```
 
-## Optional Fields
+### Optional Fields
 
 An optional field maps to a PHP public variable with the same name. Tag values are not mapped to PHP.
 
@@ -72,7 +72,7 @@ class C extends \Ice\Value
 
 The default value for optional fields is `\Ice\None`; it represents the “not set” value.
 
-## Default Values
+### Default Values
 
 Slice default values map to default values in the constructor of the mapped class.
 

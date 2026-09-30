@@ -19,7 +19,7 @@ To access property values from within your program, you need to acquire the comm
 `getProperties`. Most of the methods on the returned `Properties` object involve reading properties, setting properties,
 and parsing properties.
 
-# Reading and Setting a Property
+## Reading and Setting a Property
 
 Use `getProperty`, `getPropertyAsInt`, and `getPropertyAsList` to read application properties as strings, integers, or
 lists of strings. Their `WithDefault` variants let you choose a default for a property that is not set.
@@ -34,7 +34,7 @@ property 'Filesystem.MaxFileSize' has an invalid integer value: 'large'
 [property validation](../properties-overview#property-validation) rules, so it throws `PropertyException` for a name Ice
 rejects.
 
-# Reading an Ice Property
+## Reading an Ice Property
 
 `getIceProperty`, `getIcePropertyAsInt`, and `getIcePropertyAsList` read Ice properties. Unlike the plain `getProperty`
 methods, they return the property's built-in default when it is not set; see the

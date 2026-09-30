@@ -9,7 +9,7 @@ servers; deployment of new components such as well-known objects; and dynamic mo
 Note that, for [replicated registries](../registry-replication), an administrative session can be established with
 either the master or a slave registry replica, but a session with a slave replica is restricted to read-only operations.
 
-# Creating an Administrative Session
+## Creating an Administrative Session
 
 The `Registry` interface provides two operations for creating an administrative session:
 
@@ -68,7 +68,7 @@ The `AdminSession` interface provides operations for
 for the `IceGrid::Admin` interface, which provides complete access to the registry's settings. For this reason, you must
 use extreme caution when enabling administrative sessions.
 
-# Accessing Log Files Remotely
+## Accessing Log Files Remotely
 
 IceGrid's `AdminSession` interface provides operations for remotely accessing the log files of a registry, node, or
 server:
@@ -209,14 +209,14 @@ administrative client calls `read` from time to time on the `FileIterator` objec
 admin facet, the administrative client uses a push model: it registers a remote logger object with the target server,
 node and registry, and this remote logger receives new log messages as soon as they are generated.
 
-# Dynamic Monitoring in IceGrid
+## Dynamic Monitoring in IceGrid
 
 IceGrid allows an application to monitor relevant state changes by registering callback objects. (The
 [IceGrid GUI tool](../icegrid-gui-tool) uses these callback interfaces for its implementation.) The callback interfaces
 are useful to, for example, automatically generate an email notification when a node goes down or some other state
 change of interest occurs.
 
-## Observer Interfaces
+### Observer Interfaces
 
 IceGrid offers a callback interface for each major component of the IceGrid architecture:
 
@@ -267,7 +267,7 @@ module IceGrid
 
 The next section describes how to install an observer.
 
-## Registering Observers
+### Registering Observers
 
 The `AdminSession` interface provides two operations for registering your observers:
 
@@ -308,7 +308,7 @@ Once the observers are registered, operations corresponding to state changes wil
 Slice API Reference for details on the data passed to the observers. You can also look at the source code for the
 IceGrid GUI implementation in the Ice for Java distribution to see how observers are used by the GUI.)
 
-##### See Also
+## See Also
 
 - [Registry Replication](../registry-replication)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)

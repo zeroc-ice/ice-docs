@@ -7,7 +7,7 @@ file and the dialog will periodically check for new lines to display.
 
 ![image2017-4-3 14:24:50.png](/attachments/3.8/log-file-dialog/image2017-4-3-14-24-50.png)
 
-# States
+## States
 
 A log file dialog is always in one of the following states:
 
@@ -16,7 +16,7 @@ A log file dialog is always in one of the following states:
 
 - **Stopped** The dialog is not retrieving new lines from the remote log file.
 
-# Preferences
+## Preferences
 
 Use the `Edit > Preferences...` menu to open the Preferences dialog. These preferences apply to the current dialog and
 to any Log File dialog opened later on.

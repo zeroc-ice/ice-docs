@@ -37,7 +37,7 @@ requests to the router's client endpoints instead.
 Glacier2's server endpoints, which reside in the private network, are only used when a server makes a
 [callback to a client](../callbacks-through-glacier2).
 
-##### See Also
+## See Also
 
 - [Callbacks through Glacier2](../callbacks-through-glacier2)
 - [Configuring Glacier2 behind an External Firewall](../configuring-glacier2-behind-an-external-firewall)

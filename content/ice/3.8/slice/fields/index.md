@@ -2,7 +2,7 @@
 title: Fields
 ---
 
-# Syntax
+## Syntax
 
 A field is defined as `Type name`, where `Type` is the field's type and `name` is the field's name. For example:
 
@@ -22,7 +22,7 @@ struct Point { int x; int y; }
 The type of a field can be a [basic type](../basic-types), a [user-defined type](../user-defined-types), `Object*` (an
 untyped proxy), or `Value`(an untyped class instance).
 
-# Nullable and Non-Nullable Fields
+## Nullable and Non-Nullable Fields
 
 Fields with proxy and class types are nullable. Optional fields (presented below) are also nullable. All other fields
 are non-nullable, meaning they must have a value when transmitted through Ice.
@@ -36,7 +36,7 @@ struct Example
 }
 ```
 
-# Optional Fields
+## Optional Fields
 
 A field of a Slice [class](../classes) or [exception](../exceptions) may be declared as optional to indicate that a
 program can leave its value unset. Fields not declared as optional are known as _required_ fields; a program must supply
@@ -94,7 +94,7 @@ class UnusualButValidPerson
 }
 ```
 
-# Default Values
+## Default Values
 
 You can specify a default value for a field that has one of the following types:
 
@@ -134,7 +134,7 @@ class C
 
 An optional field with a default value is considered to be set by default.
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}
 

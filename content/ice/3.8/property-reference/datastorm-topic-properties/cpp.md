@@ -6,36 +6,36 @@ These properties define node-wide defaults for topic readers and writers. DataSt
 node. To set defaults for an individual topic, use `DataStorm::Topic::setReaderDefaultConfig` and
 `DataStorm::Topic::setWriterDefaultConfig`.
 
-# DataStorm.Topic.SampleLifetime
+## DataStorm.Topic.SampleLifetime
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Topic.SampleLifetime=num`
 
-#### Description
+### Description
 
 Defines the lifetime in milliseconds of samples queued in a writer or reader sample queue. DataStorm removes samples
 older than this lifetime from the queue. The default is 0. A value of 0 or less means an unlimited lifetime.
 
-# DataStorm.Topic.SampleCount
+## DataStorm.Topic.SampleCount
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Topic.SampleCount=num`
 
-#### Description
+### Description
 
 This property defines the maximum number of samples queued in the writer or reader sample queue. If the maximum is
 reached, oldest samples are removed to make room for new samples in the queue. A negative value is equivalent to an
 infinite sample count. If set to 0, samples are not queued. If not defined, the default value is `-1`.
 
-# DataStorm.Topic.ClearHistory
+## DataStorm.Topic.ClearHistory
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Topic.ClearHistory=value`
 
-#### Description
+### Description
 
 This property determines when the reader or writer sample history is cleared. Legal values and their description are
 presented in the table below:
@@ -50,13 +50,13 @@ presented in the table below:
 
 If not defined, the default value is `OnAll`.
 
-# DataStorm.Topic.DiscardPolicy
+## DataStorm.Topic.DiscardPolicy
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Topic.DiscardPolicy=value`
 
-#### Description
+### Description
 
 This property specifies how samples might be discarded by a reader.
 
@@ -68,12 +68,12 @@ This property specifies how samples might be discarded by a reader.
 
 If not defined, the default value is `Never`.
 
-# DataStorm.Topic.Priority
+## DataStorm.Topic.Priority
 
-#### Synopsis
+### Synopsis
 
 `DataStorm.Topic.Priority=num`
 
-#### Description
+### Description
 
 This property specifies the priority assigned to the topic's writers. If not defined, the default value is 0.

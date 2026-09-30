@@ -2,7 +2,7 @@
 title: Configuring IceBox Services
 ---
 
-# Installing an IceBox Service
+## Installing an IceBox Service
 
 A service is configured into an IceBox server using a single [IceBox.Service](../icebox-properties) property. This
 property serves several purposes: it defines the name of the service, it provides the server with the service entry
@@ -23,7 +23,7 @@ The first argument in the property value is the entry point specification. IceBo
 `start` operation when `name` starts with a [reserved prefix](../properties-overview), such as `Ice.`, or with the
 service's name followed by a period. It passes the remaining arguments to the `start` operation in the `args` parameter.
 
-# IceBox Service Configuration
+## IceBox Service Configuration
 
 {% language-section name="lang-1" /%}
 
@@ -33,7 +33,7 @@ You can use a configuration file to configure your IceBox service by specifying 
 IceBox.Service.Greeter=<entry point> --Ice.Config=/etc/greeter.cfg
 ```
 
-# Load Order for IceBox Services
+## Load Order for IceBox Services
 
 By default, the server loads the configured services in an undefined order, meaning services in the same IceBox server
 should not depend on one another. If services must be loaded in a particular order, the
@@ -48,7 +48,7 @@ in an undefined order. Each service mentioned in `IceBox.LoadOrder` must have a 
 
 During shutdown, services are stopped in the reverse of the order in which they were loaded.
 
-# Using a Shared Communicator
+## Using a Shared Communicator
 
 IceBox creates a separate communicator instance for each service by default in order to minimize the chances of
 accidental conflicts among services. You can optionally specify that certain services use a shared communicator instead
@@ -110,7 +110,7 @@ properties for the `Printer` service are merged.
 If we change the value of `IceBox.LoadOrder` so that IceBox loads `Printer` first, the value for `Ice.Trace.Network` in
 the shared communicator will be `2` instead because the setting in `hello.cfg` overrides all previous values.
 
-# Inheriting Properties from the IceBox Server
+## Inheriting Properties from the IceBox Server
 
 By default, a service does not inherit the IceBox server's configuration properties. For example, consider the following
 server configuration:
@@ -141,12 +141,12 @@ The properties of the [shared communicator](../configuring-icebox-services) are 
 
 {% /callout %}
 
-# Logging Considerations for IceBox Services
+## Logging Considerations for IceBox Services
 
 The IceBox server only configures a logger for a service if that service has not already specified its own logger via
 the [Ice.LogFile](../ice-properties) or [Ice.UseSyslog](../ice-properties) properties.
 
-##### See Also
+## See Also
 
 - [IceBox.*](../icebox-properties)
 - [Developing IceBox Services](../developing-icebox-services)

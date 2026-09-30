@@ -2,7 +2,7 @@
 title: Locator Configuration for a Server
 ---
 
-# Configuring an Object Adapter with a Locator
+## Configuring an Object Adapter with a Locator
 
 An [object adapter](../dispatch) must be able to obtain a [locator](../locators) proxy in order to register itself with
 a location service. Each object adapter can be configured with its own locator proxy by defining its
@@ -36,7 +36,7 @@ SampleAdapter.Locator=IceGrid/Locator:tcp -h locatorhost -p 10000
 
 Note that a location service may enforce [pre-registration requirements](../locator-semantics-for-servers).
 
-# Registering a Process with a Locator
+## Registering a Process with a Locator
 
 An activation service, such as an [IceGrid](../icegrid) node, needs a reliable way to gracefully shut down a server. One
 approach is to use a platform-specific mechanism, such as POSIX signals. This works well on POSIX platforms when the
@@ -64,7 +64,7 @@ One of the benefits of the Ice [administrative facility](../administrative-facil
 implementation of `Process` and makes it available via an administrative object adapter, or your own object adapter.
 Furthermore, IceGrid automatically enables this facility on the servers that it activates.
 
-##### See Also
+## See Also
 
 - [Object Adapters](../dispatch)
 - [Locators](../locators)

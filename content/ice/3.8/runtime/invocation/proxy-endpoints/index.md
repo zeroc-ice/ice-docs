@@ -18,7 +18,7 @@ coincidentally, that’s the term we’ve adopted for IceRPC.
 A proxy can have one endpoint, two or more endpoints, or zero endpoints. We explore below the meaning of each of these
 configurations.
 
-# Proxy with a Single Endpoint
+## Proxy with a Single Endpoint
 
 It is very common for a proxy to have a single endpoint. It’s the address of the server (object adapter) that hosts the
 target object.
@@ -44,7 +44,7 @@ GreeterAdapter.Endpoints=tcp -p 4061 # listens on all interfaces
 
 {% /callout %}
 
-# Proxy with Two or More Endpoints
+## Proxy with Two or More Endpoints
 
 A proxy can specify two or more endpoints separated by colons (`:`). For example:
 
@@ -54,13 +54,13 @@ greeter:tcp -h venus -p 4061:tcp -h mars -p 4061:tcp -h saturn -p 4061
 
 This list of endpoints means the object is reachable via TCP on the specified hosts.
 
-## Same Transport for All Endpoints
+### Same Transport for All Endpoints
 
 The most common situation is when all the endpoints of the proxy use the same transport. It means the target object is
 replicated and the client selects which replica to connect to. The replicas are largely equivalent, in particular, they
 listen with the same transport.
 
-## Endpoints with Different Transports
+### Endpoints with Different Transports
 
 Ice accepts proxies that combine endpoints with different transports - it’s syntactically ok. But it’s rarely
 meaningful. If you’re using such proxies, have a second look, and make sure you understand why you’re combining these
@@ -74,7 +74,7 @@ Let’s take a few examples:
 | `tcp -h venus -p 4061:ssl -h venus -p 4062`   | **Not recommended** Never combine secure and non-secure endpoints in the same proxy. The server should decide whether it accepts only secure or only non-secure connections.                                                                                                                                                                                                |
 | `ssl -h venus -p 10000:wss -h venus -p 10001` | **Unusual. Could be ok.**Possible use-case: you distribute the same proxies to various clients and you want web browser clients to use the `wss` endpoint (since they can’t connect with `ssl`); and you want other `ssl`-capable clients to use `ssl`. You would use this proxy endpoint list in conjunction with the `Ordered` [endpoint selection](../proxy-properties). |
 
-# Proxy with No Endpoint
+## Proxy with No Endpoint
 
 A proxy with one or more endpoints is called a _direct proxy_, while a proxy with no endpoint is called an _indirect
 proxy_.
@@ -108,7 +108,7 @@ this local object adapter.
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Object Adapter Endpoints](../object-adapter-endpoints)

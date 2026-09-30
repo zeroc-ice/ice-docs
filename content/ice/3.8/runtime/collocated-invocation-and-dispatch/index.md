@@ -2,7 +2,7 @@
 title: Collocated Invocation and Dispatch
 ---
 
-# Overview
+## Overview
 
 The Ice runtime is _location transparent_: the client does not need to know where the implementation of an Ice object
 resides; an invocation on an object is automatically directed to the correct target, whether the object is implemented
@@ -12,7 +12,7 @@ without breaking client programs and, by using a location service such as [IceDi
 [IceGrid](../icegrid), addressing information such as host names and port numbers can be externalized so they do not
 appear in stringified proxies.
 
-# Collocated Invocations
+## Collocated Invocations
 
 For invocations that cross address space boundaries (or more accurately, cross communicator boundaries), the Ice runtime
 dispatches requests via the appropriate transport. However, for a proxy invocation in which the proxy and the servant
@@ -74,7 +74,7 @@ proxy using the factory method `ice_collocationOptimized(false)`. Finally, for p
 [created from a property](../creating-proxies) using `propertyToProxy`, the property
 [_name_.CollocationOptimized](../proxy-properties) configures the default setting for the proxy.
 
-# Creating an Object Adapter for Collocated Invocations
+## Creating an Object Adapter for Collocated Invocations
 
 An object adapter requires no endpoints if its only purpose is to dispatch collocated requests. You can create a
 "collocated-only" object adapter by calling `createObjectAdapter` with an empty name.
@@ -89,7 +89,7 @@ servant with an identity matching that of the proxy. For Ice to successfully fin
 present in the object adapter's [active servant map](../active-servant-map). Default servants and servant locators are
 not queried in this situation.
 
-##### See Also
+## See Also
 
 - [IceDiscovery](../icediscovery)
 - [IceGrid](../icegrid)

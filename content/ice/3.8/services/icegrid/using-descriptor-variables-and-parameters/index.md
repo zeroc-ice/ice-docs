@@ -5,12 +5,12 @@ title: Using Descriptor Variables and Parameters
 [Variable descriptors](../variable-descriptor-element) allow you to define commonly-used information once and refer to
 them symbolically throughout your application descriptors.
 
-# Descriptor Substitution Syntax
+## Descriptor Substitution Syntax
 
 Substitution for a variable or parameter `VP` is attempted whenever the symbol `${VP}` is encountered, subject to the
 limitations and rules described below. Substitution is case-sensitive, and a fatal error occurs if `VP` is not defined.
 
-## Limitations
+### Limitations
 
 Substitution is only performed in string values, and excludes the following cases:
 
@@ -64,7 +64,7 @@ not a string.
 
 Most values are strings, however, so this limitation is rarely a problem.
 
-## Escaping a Variable
+### Escaping a Variable
 
 You can prevent substitution by escaping a variable reference with an additional leading `$` character. For example, in
 order to assign the literal string `${abc}` to a variable, you must escape it as shown below:
@@ -86,7 +86,7 @@ character, and that character does not initiate a variable reference. Consider t
 
 After substitution, `b` has the value `${a}`, `c` has the value `$hi`, and `d` has the value `$${a}`.
 
-# Special Descriptor Variables
+## Special Descriptor Variables
 
 IceGrid defines a set of read-only variables to hold information that may be of use to descriptors. The names of these
 variables are reserved and cannot be used as variable or parameter names. The table describes the purpose of each
@@ -132,7 +132,7 @@ Although the server template descriptor is defined as a child of an application 
 evaluated until it is instantiated. Since a template _instance_ is always enclosed within a node, it is able to use the
 `${node}` variable.
 
-# Descriptor Variable Scoping Rules
+## Descriptor Variable Scoping Rules
 
 Descriptors may only define variables at the application and node levels. Each node introduces a new scope, such that
 defining a variable at the node level overrides (but does not modify) the value of an application variable with the same
@@ -147,7 +147,7 @@ with the value `2`, whereas `x` remains unchanged in `nodeB`. Within the context
 value `2` in a server instance definition. However, when `x` is used as the name of a template parameter, the node's
 definition of `x` is overridden and `x` has the value `3` in the template's scope.
 
-## Resolving a Reference
+### Resolving a Reference
 
 To resolve a variable reference `${var}`, IceGrid searches for a definition of `var` using the following order of
 precedence:
@@ -164,7 +164,7 @@ precedence:
 2. Node variables, if applicable
 3. Application variables
 
-## Template Parameters
+### Template Parameters
 
 [Template](../icegrid-templates) parameters are not visible in nested template instances. This situation can only occur
 when an IceBox server template instantiates a service template, as shown in the following example:
@@ -206,7 +206,7 @@ For example, the following is illegal:
 </server-template>
 ```
 
-## Modifying a Variable
+### Modifying a Variable
 
 A variable definition can be overridden in an inner scope, but the inner definition does not modify the outer variable.
 If a variable is defined multiple times in the same scope (which is only relevant in XML definitions), the most recent
@@ -225,7 +225,7 @@ When descriptors such as these are created, IceGrid validates their variable ref
 substitution until the descriptor is acted upon (such as when a node is generating a configuration file for a server).
 As a result, the value of `y` in the above example is `2` because that is the most recent definition of `x`.
 
-##### See Also
+## See Also
 
 - [Variable Descriptor Element](../variable-descriptor-element)
 - [IceGrid Templates](../icegrid-templates)

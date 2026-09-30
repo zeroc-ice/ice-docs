@@ -5,7 +5,7 @@ title: Registry Runtime Component
 The registry is the root node of the Runtime Components tree, and represents the IceGrid registry process administered
 by IceGrid GUI.
 
-# Actions
+## Actions
 
 A registry provides the following actions, from its contextual menu and from the `Tools > Registry` menu:
 
@@ -27,7 +27,7 @@ You cannot restart an IceGrid registry from IceGrid GUI.
 
 {% /callout %}
 
-# Properties
+## Properties
 
 The Registry Properties panel shows:
 
@@ -63,7 +63,7 @@ set to a value greater than 0. A contextual menu allows you to remove entries fr
 Note that application filtering does not affect this panel: all applications, well-known objects and dynamic object
 adapters are always displayed.
 
-# Children
+## Children
 
 A registry node can have the following types of children:
 

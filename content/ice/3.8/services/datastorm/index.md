@@ -7,7 +7,7 @@ pages:
   - node-server
 ---
 
-# Pub/Sub with DataStorm
+## Pub/Sub with DataStorm
 
 DataStorm is a data-centric publish/subscribe framework for C++.
 

@@ -12,7 +12,7 @@ An allocatable server offers at least one allocatable object. The server is cons
 allocatable object is claimed, and is not released until all of its allocated objects are released. While the server is
 allocated by a client, no other clients can allocate its objects.
 
-# Creating an IceGrid Session
+## Creating an IceGrid Session
 
 A client must create an IceGrid session before it can allocate objects. If you have configured a Glacier2 router to use
 [IceGrid's session managers](../glacier2-integration-with-icegrid), the client's
@@ -84,7 +84,7 @@ The [identity of the registry object](../well-known-registry-objects) may change
 
 {% /callout %}
 
-# Controlling Access to IceGrid Sessions
+## Controlling Access to IceGrid Sessions
 
 As described above, you must configure the IceGrid registry with the proxy of at least one permissions verifier object
 to enable session creation:
@@ -126,7 +126,7 @@ IceGrid supplies built-in permissions verifier objects:
 
 You can also [implement your own permissions verifier object](../securing-a-glacier2-router).
 
-# Allocating Objects with an IceGrid Session
+## Allocating Objects with an IceGrid Session
 
 A client allocates objects using the session proxy returned from `createSession` or `createSessionFromSecureConnection`.
 The proxy supports the `Session` interface shown below:
@@ -194,7 +194,7 @@ are available when the client invokes `allocateObjectById` or `allocateObjectByT
 timeout period for an allocatable object to become available. If the timeout expires, the client receives
 `AllocationTimeoutException`.
 
-# Allocating Servers with an IceGrid Session
+## Allocating Servers with an IceGrid Session
 
 A client does not need to explicitly allocate a server. If a server is allocatable, IceGrid implicitly allocates it to
 the first client that claims one of the server's allocatable objects. Likewise, IceGrid releases the server when all of
@@ -207,7 +207,7 @@ Server allocation is useful in two situations:
 - An allocatable server can be secured with IceSSL or Glacier2 so that its objects can only be invoked by the client
   that allocated it.
 
-# Security Considerations for Allocated Resources
+## Security Considerations for Allocated Resources
 
 IceGrid's resource allocation facility allows clients to coordinate access to objects and servers but does not place any
 restrictions on client invocations to allocated objects; any client that has a proxy for an allocated object could
@@ -230,7 +230,7 @@ To prevent unauthorized clients from invoking operations on an allocated object 
   router are [automatically](../glacier2-integration-with-icegrid) given access to allocated objects, allocatable
   objects, certain well-known objects, and the object adapters of allocated servers.
 
-# Deploying Allocatable Resources
+## Deploying Allocatable Resources
 
 Allocatable objects are registered using a descriptor that is similar to
 [well-known object descriptors](../object-descriptor-element). Allocatable objects cannot be replicated and therefore
@@ -261,7 +261,7 @@ As an example, the following application defines an allocatable server and an
 </icegrid>
 ```
 
-# Using Resource Allocation in the Ripper Application
+## Using Resource Allocation in the Ripper Application
 
 We can use the allocation facility in our MP3 encoder factory to coordinate access to the MP3 encoder factories. First
 we need to modify the descriptors to define an allocatable object:
@@ -312,7 +312,7 @@ session->releaseObject(obj->ice_getIdentity());
 It is important to release an allocated object when it is no longer needed so that other clients may use it. If you
 forget to release an object, it remains allocated until the session is destroyed.
 
-##### See Also
+## See Also
 
 - [Getting Started with Glacier2](../getting-started-with-glacier2)
 - [IceSSL](../ssl-transport)

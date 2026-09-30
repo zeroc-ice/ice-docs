@@ -38,7 +38,7 @@ use the given endpoints in proxies created by the client object adapter.
 Note also that the server endpoint in this example includes a fixed port `(9999)`, but a fixed port is not required in
 the server endpoint for the router to operate properly.
 
-##### See Also
+## See Also
 
 - [Callbacks through Glacier2](../callbacks-through-glacier2)
 - [Object Adapter Endpoints](../object-adapter-endpoints)

@@ -14,7 +14,7 @@ As with the [authentication facility](../securing-a-glacier2-router), Glacier2 p
 that an application can implement. The `SessionManager` interface receives notifications about sessions that use
 password authentication, while the `SSLSessionManager` interface is for sessions authenticated using SSL certificates.
 
-# Glacier2 Session Manager Interfaces
+## Glacier2 Session Manager Interfaces
 
 The relevant Slice definitions are shown below:
 
@@ -81,7 +81,7 @@ needs to invoke an operation on the object. For example, when a client asks the 
 router makes another attempt to contact the session manager; if the session manager is still unavailable, the router
 logs a message and returns `CannotCreateSessionException` to the client.
 
-# Connection Caching for Session Managers
+## Connection Caching for Session Managers
 
 You can distribute the load among multiple session manager objects by configuring the router with a session manager
 proxy that contains multiple endpoints. Glacier2 disables [connection caching](../connection-establishment) on this
@@ -96,7 +96,7 @@ If your session managers are in an IceGrid replica group, refer to
 [IceGrid and Glacier2 Integration](../icegrid-and-glacier2-integration) for more information on the router's caching
 behavior.
 
-##### See Also
+## See Also
 
 - [Getting Started with Glacier2](../getting-started-with-glacier2)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)

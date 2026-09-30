@@ -34,7 +34,7 @@ Here is an example to demonstrate the use of this element.
 </adapter>
 ```
 
-##### See Also
+## See Also
 
 - [Object Adapters](../dispatch)
 - [Server Descriptor Element](../server-descriptor-element)

@@ -4,7 +4,7 @@ title: Configuration File Syntax
 
 This page describes the syntax of an Ice configuration file.
 
-# Configuration File Format
+## Configuration File Format
 
 A configuration file contains any number of name-value pairs, with each pair on a separate line. Empty lines and lines
 consisting entirely of white space characters are ignored. The `#` character introduces a comment that extends to the
@@ -77,7 +77,7 @@ string traceProtocolString =
 Property values can include characters from non-English alphabets. The Ice runtime expects the configuration file to use
 UTF-8 encoding for such characters.
 
-# Special Characters in Configuration Files
+## Special Characters in Configuration Files
 
 The characters `=` and `#` have special meaning in a configuration file:
 
@@ -112,7 +112,7 @@ BServer=\\server\\dir     # Value is "\server\dir"
 The preceding example also illustrates that, if a backslash is not followed by a backslash, `#`, or `=`, the backslash
 and the character following it are both preserved.
 
-##### See Also
+## See Also
 
 - [Using Configuration Files](../using-configuration-files)
 - [Setting Properties on the Command Line](../setting-properties-on-the-command-line)

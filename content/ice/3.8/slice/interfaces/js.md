@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Interfaces
 
-# Proxy Classes
+### Proxy Classes
 
 On the client side, a Slice interface maps to a JavaScript class with methods that correspond to the operations on that
 interface. Consider the following Slice interface:
@@ -44,7 +44,7 @@ asynchronous.
 
 {% /callout %}
 
-# Creating a Proxy
+### Creating a Proxy
 
 Use the constructor of the generated class to create a proxy from a communicator and a “stringified” proxy. For example:
 
@@ -54,12 +54,12 @@ const simple = new M.SimplePrx(
     "simple:tcp -h localhost -p 4061");
 ```
 
-# Inheritance from `Ice.ObjectPrx`
+### Inheritance from `Ice.ObjectPrx`
 
 All generated proxy classes inherit directly from the `Ice.ObjectPrx` class, reflecting the fact that all Slice
 interfaces implicitly inherit from `Object`.
 
-# Interface Inheritance
+### Interface Inheritance
 
 Slice interface inheritance is **preserved in the generated TypeScript declarations**, but **not** in the emitted
 JavaScript at runtime.
@@ -96,7 +96,7 @@ export class CPrx extends Ice.ObjectPrx implements M.APrx, M.BPrx {
 }
 ```
 
-# Casting a Proxy
+### Casting a Proxy
 
 The generated proxy class provides two static methods for converting a proxy into a proxy of another type:
 
@@ -111,7 +111,7 @@ export class SimplePrx extends Ice.ObjectPrx {
 }
 ```
 
-## uncheckedCast
+#### uncheckedCast
 
 The `uncheckedCast` static method allows you to convert any proxy into a proxy of this type. For example:
 
@@ -123,7 +123,7 @@ const widget = M.WidgetPrx.uncheckedCast(simple);
 
 `uncheckedCast` is a local operation that always succeeds.
 
-## checkedCast
+#### checkedCast
 
 `checkedCast` is a conditional cast of the proxy: this method makes a remote call to the target object to check if this
 object implements the proxy’s Slice interface. For example:
@@ -141,7 +141,7 @@ exception, for example if it cannot reach the remote object.
 While `checkedCast` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in practice
 you know or should know the type of your proxies and calling `checkedCast` is rarely necessary.
 
-# Proxy Factory Methods
+### Proxy Factory Methods
 
 The base proxy class `ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are immutable,
 each of these factory methods returns a copy of the original proxy that contains the desired modification. For example,
@@ -172,7 +172,7 @@ const greeterAdmin = VisitorCenter.GreeterAdminPrx.uncheckedCast(
 
 ## Server-Side Mapping for Interfaces
 
-# Skeleton Classes
+### Skeleton Classes
 
 On the server side, interfaces map to _skeleton_ classes. A skeleton is a type that conceptually has an abstract method
 for each operation on the corresponding interface. For example, consider our Slice definition for the `Node` interface:
@@ -211,7 +211,7 @@ The important points to note here are:
   this example). This type extends `Ice.Object` and serves as the actual skeleton; it is the base type from which you
   derive your servant implementation.
 
-# Servant Classes
+### Servant Classes
 
 In order to provide an implementation for an Ice object, you must create a servant class that inherits from the
 corresponding skeleton. For example, to create a servant for the `Node` interface, you could write:

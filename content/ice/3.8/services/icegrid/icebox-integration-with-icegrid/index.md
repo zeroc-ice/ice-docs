@@ -4,7 +4,7 @@ title: IceBox Integration with IceGrid
 
 IceGrid makes it easy to configure an [IceBox](../icebox) server with one or more services.
 
-# Deploying an IceBox Server
+## Deploying an IceBox Server
 
 An IceBox server shares many of the same characteristics as other servers, but its special requirements necessitate a
 new [descriptor](../icebox-descriptor-element). Unlike other servers, an IceBox server generally hosts multiple
@@ -37,7 +37,7 @@ The value of the adapter's `name` attribute needs additional explanation. The sy
 [reserved by IceGrid](../using-descriptor-variables-and-parameters). In the context of a service descriptor,
 `${service}` is replaced with the service's name, and so the object adapter is also named `ServiceA`.
 
-# Service Templates
+## Service Templates
 
 If you are familiar with [templates](../icegrid-templates) in general, an IceBox
 [service template](../service-template-descriptor-element) is readily understandable:
@@ -95,7 +95,7 @@ These properties can be defined in the `service-instance` element, as shown belo
 </icegrid>
 ```
 
-# Advanced Service Templates
+## Advanced Service Templates
 
 A more sophisticated use of templates involves instantiating a service template in a
 [server template](../server-template-descriptor-element):
@@ -147,7 +147,7 @@ a [property set](../properties-descriptor-element) that applies only to the desi
 
 As this example demonstrates, the `service` attribute of the property set denotes the name of the target service.
 
-##### See Also
+## See Also
 
 - [IceBox](../icebox)
 - [IceBox Descriptor Element](../icebox-descriptor-element)

@@ -2,7 +2,7 @@
 title: Invocation Timeouts
 ---
 
-# Overview of Invocation Timeouts
+## Overview of Invocation Timeouts
 
 Invocation timeouts let an application specify the maximum amount of time it's willing to wait for invocations to
 complete. If the timeout expires, the application receives `InvocationTimeoutException` as the result of an invocation.
@@ -11,7 +11,7 @@ starts any network activity (connection establishment and sending of the request
 two-way invocation, it stops the timer as soon as the response is received from the server and before the response
 payload is unmarshaled. For a one-way invocation, it stops the timer as soon as the request is sent.
 
-# Configuring the Default Invocation Timeout
+## Configuring the Default Invocation Timeout
 
 The property [Ice.Default.InvocationTimeout](../ice-default-properties) establishes the default invocation timeout value
 for proxies. This property has a default value of `-1`, which means invocations do not time out by default.
@@ -27,7 +27,7 @@ however, it's unlikely that a single timeout value will be appropriate for all o
 invokes. It's more common for applications to configure invocation timeouts on a per-proxy basis, as we describe in the
 next section.
 
-# Configuring Invocation Timeouts for Proxies
+## Configuring Invocation Timeouts for Proxies
 
 You have a couple of options for configuring the invocation timeout of a proxy:
 
@@ -51,7 +51,7 @@ proxy with the desired timeout:
 
 {% language-section name="lang-1" /%}
 
-# Invocation Timeout Failures
+## Invocation Timeout Failures
 
 An application that configures invocation timeouts must be prepared to catch `InvocationTimeoutException`:
 
@@ -67,7 +67,7 @@ Ice does **not** perform [automatic retries](../automatic-retries) for invocatio
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Proxy Properties](../proxy-properties)
 - [Ice.Default.*](../ice-default-properties)

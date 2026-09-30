@@ -4,7 +4,7 @@ title: Server Template Descriptor
 
 A server template is used to capture the common definitions of several similar or identical servers.
 
-# Properties
+## Properties
 
 The Server Template Properties panel offers the following fields:
 
@@ -12,7 +12,7 @@ The Server Template Properties panel offers the following fields:
 - **Parameters** The list of parameters for this template. Each parameter can have an optional default value.
 - **Plain Server Properties** The remaining fields are the [Plain Server](../server-descriptor) fields.
 
-# Children
+## Children
 
 A plain server template can have [Adapter](../adapter-descriptor) children.
 

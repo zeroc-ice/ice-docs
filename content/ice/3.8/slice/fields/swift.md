@@ -29,7 +29,7 @@ public final class Person {
 }
 ```
 
-## Optional Fields
+### Optional Fields
 
 An optional field maps to a Swift stored property with the same name. The mapped property’s type is optional. The tag
 value is not mapped to Swift.
@@ -59,7 +59,7 @@ open class C: Ice.Value {
 Optional and non-optional proxies are mapped the same way, as illustrated above. As a result, you cannot distinguish
 between an optional proxy property that is not set and an optional proxy property set to nil.
 
-## Default Values
+### Default Values
 
 Slice default values map to default property values in Swift.
 

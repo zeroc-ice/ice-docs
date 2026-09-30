@@ -1,12 +1,12 @@
 {% language-section name="lang-1" %}
 
-# _name_.CollocationOptimized
+## _name_.CollocationOptimized
 
-#### Synopsis
+### Synopsis
 
 `name.CollocationOptimized=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than zero, the proxy is configured to use
 [collocated invocations](../collocated-invocation-and-dispatch) when possible, including calls to the communicator's

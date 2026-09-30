@@ -2,7 +2,7 @@
 title: Basic Data Encoding
 ---
 
-# Encoding for Sizes
+## Encoding for Sizes
 
 Many of the types involved in the Ice encoding, as well as several [protocol message](../protocol-messages) components,
 have an associated size or count. A size is a non-negative number. Sizes and counts are encoded in one of two ways:
@@ -16,7 +16,7 @@ when marshaling sequences of short strings: counts of up to 254 require only a s
 at the expense of counts greater than 254, which require five bytes instead of four. However, for sequences or strings
 of length greater than 254, the extra byte is insignificant.
 
-# Encoding for Encapsulations
+## Encoding for Encapsulations
 
 An encapsulation is used to contain variable-length data that an intermediate receiver may not be able to decode, but
 that the receiver can forward to another recipient for eventual decoding. An encapsulation is encoded as if it were the
@@ -43,11 +43,11 @@ Encapsulations can be nested, that is, contain other encapsulations.
 
 An encapsulation can be empty, in which case the value of `size` is 6.
 
-# Encoding for Slices
+## Encoding for Slices
 
 The encoding format of slices changed in version 1.1.
 
-#### Encoding version 1.0
+### Encoding version 1.0
 
 [Exceptions](../data-encoding-for-exceptions) and [classes](../data-encoding-for-classes) may be subject to _slicing_ if
 the receiver of a value only partially understands the received value (that is, only has knowledge of a base type, but
@@ -58,13 +58,13 @@ count encoded as a fixed-length four-byte integer, followed by the data for the 
 bytes occupied by the count itself, so an empty slice has a byte count of four and no data.) The receiver of a value can
 skip over a slice by reading the byte count _b_, and then discarding the next _b-4_ bytes in the input stream.
 
-#### Encoding version 1.1
+### Encoding version 1.1
 
 Version 1.1 of the encoding still marshals [exceptions](../data-encoding-for-exceptions) and
 [classes](../data-encoding-for-classes) as [slices](../slicing-values-and-exceptions) in conceptually the same manner as
 for version 1.0, but bit flags in the leading byte of each slice determine its format and content.
 
-###### Type ID
+#### Type ID
 
 The initial slice of a class or exception, representing the instance's most-derived type, always includes a type ID. For
 an exception, the type ID in the initial slice is encoded as a string. For a class, the type ID in the initial slice can
@@ -76,12 +76,12 @@ with which the value was encoded: to facilitate slicing an instance to a less-de
 type ID in every slice, whereas the compact format excludes type IDs in subsequent slices to conserve space while
 sacrificing the slicing feature.
 
-###### Optional Fields
+#### Optional Fields
 
 This flag is true if the slice includes any [optional fields](../fields), which are encoded after all required fields.
 If a slice encodes its size, the size includes the optional fields.
 
-###### Object Indirection Table
+#### Object Indirection Table
 
 This flag can only be true when using the [sliced format](../slicing-values-and-exceptions). In this case, fields that
 refer to class instances are encoded as indices into an [indirection table](../data-encoding-for-classes) that
@@ -89,7 +89,7 @@ immediately follows the slice. The slice's size does _not_ include the indirecti
 to true when there is at least one non-nil object reference in the slice, that is, when the indirection table is not
 empty.
 
-###### Slice Size
+#### Slice Size
 
 If this flag is true, a byte count encoded as a fixed-length four-byte integer immediately follows the type ID. (The
 byte count includes the four bytes occupied by the count itself, so an empty slice has a byte count of four and no
@@ -103,11 +103,11 @@ If this flag is false, it implies that the sender used the [compact format](../s
 therefore skipping slices is not possible. The receiver must know the most-derived type in this situation otherwise
 decoding will fail.
 
-###### Last Slice
+#### Last Slice
 
 This flag indicates whether the current slice is the last slice of the instance.
 
-###### Slice Flags
+#### Slice Flags
 
 The table below shows how to interpret the bit flags in the leading byte of a slice:
 
@@ -126,7 +126,7 @@ The table below shows how to interpret the bit flags in the leading byte of a sl
 
 _Bit flags for a slice._
 
-# Encoding for Basic Types
+## Encoding for Basic Types
 
 The basic types are encoded as shown in the table. Integer types (`short`, `int`, `long`) are represented as two's
 complement numbers, and floating point types (`float`, `double`) use the IEEE standard formats. All numeric types use a
@@ -144,28 +144,28 @@ little-endian byte order.
 
 _Encoding for basic types._
 
-# Encoding for Strings
+## Encoding for Strings
 
 Strings are encoded as a [size](../basic-data-encoding#encoding-for-sizes), followed by the string contents in
 [UTF-8](https://en.wikipedia.org/wiki/UTF-8) format. Strings are not null-terminated. An empty string is encoded with a
 size of zero.
 
-# Encoding for Sequences
+## Encoding for Sequences
 
 Sequences are encoded as a [size](../basic-data-encoding#encoding-for-sizes) representing the number of elements in the
 sequence, followed by the elements encoded as specified for their type.
 
-# Encoding for Dictionaries
+## Encoding for Dictionaries
 
 Dictionaries are encoded as a [size](../basic-data-encoding#encoding-for-sizes) representing the number of key-value
 pairs in the dictionary, followed by the pairs. Each key-value pair is encoded as if it were a `struct` containing the
 key and value as fields, in that order.
 
-# Encoding for Enumerators
+## Encoding for Enumerators
 
 The encoding format of enumerators changed in version 1.1.
 
-#### Encoding version 1.0
+### Encoding version 1.0
 
 The number of bytes required to encode an enumerator in version 1.0 is determined by the largest value in the
 enumeration. In enumerations with no [custom enumerator values](../enumerations), the largest value is the number of
@@ -202,7 +202,7 @@ this definition.
 
 {% /callout %}
 
-#### Encoding version 1.1
+### Encoding version 1.1
 
 An enumerator is encoded as a [size](../basic-data-encoding#encoding-for-sizes), meaning the encoding of an enumerator
 requires one byte if its value is less than 255, or five bytes if its value is 255 or greater. The encoding uses the
@@ -216,12 +216,12 @@ enum Fruit { Apple = 1, Pear = 3, Orange }
 Although enumerator `Pear` may have ordinal value 1 in some language mappings (notably, Java), the encoding uses its
 Slice value of 3.
 
-# Encoding for Structures
+## Encoding for Structures
 
 The fields of a structure are encoded in the order they appear in the `struct` declaration, as specified for their
 types.
 
-##### See Also
+## See Also
 
 - [Protocol Messages](../protocol-messages)
 - [Data Encoding for Exceptions](../data-encoding-for-exceptions)

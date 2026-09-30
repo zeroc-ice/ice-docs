@@ -5,7 +5,7 @@ title: Server Runtime Component
 A server represents an Ice server process. It can be either regular server (with typically a single Ice communicator) or
 an IceBox server hosting a number of IceBox services.
 
-# States
+## States
 
 A server is always in one of the following states (the first icon is for regular servers, the second for IceBox
 servers):
@@ -33,7 +33,7 @@ servers):
 A server can also be either enabled or disabled; when disabled, the icons above are grayed-out. A disabled server cannot
 be started until it is re-enabled.
 
-# Actions
+## Actions
 
 A server provides the following actions, from its contextual menu, from the `Tools > Server` menu, and from buttons on
 the Server Properties panel:
@@ -58,7 +58,7 @@ the Server Properties panel:
 - **Retrieve log file** Retrieve a log file of this server into a [Log File Dialog](../log-file-dialog).
 - **Send Signal** Send a signal to a server, for example SIGQUIT. Available only for non-Windows servers.
 
-# Properties
+## Properties
 
 The Server Properties panel shows first the Runtime Status of the server, i.e. "live" values retrieved from the server:
 
@@ -97,7 +97,7 @@ The remaining Server Properties under Configuration come from the IceGrid descri
 - **Deactivation Timeout** The server's deactivation timeout.
 - **Allocatable** This checkbox Shows whether this server is allocatable or not.
 
-# Children
+## Children
 
 A regular server node can have the following types of children:
 

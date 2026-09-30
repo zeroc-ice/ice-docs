@@ -7,11 +7,7 @@ import { Metadata } from 'next';
 
 import { components } from '@/markdoc/schema';
 import { renderMarkdownString } from '@/lib/markdown';
-import {
-  demoteHeadings,
-  resolveDocument,
-  stripRedundantTitle
-} from '@/lib/docs-model/resolve';
+import { resolveDocument } from '@/lib/docs-model/resolve';
 import { buildPageIndex } from '@/lib/docs-model/links';
 import { breadcrumbs, pageHref, prevNext } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
@@ -125,7 +121,7 @@ export default async function Page(props: PageProps) {
     readFile: snippetReader(CONTENT_ROOT, version)
   });
   const content = renderMarkdownString({
-    source: demoteHeadings(stripRedundantTitle(body, frontmatter.title)),
+    source: body,
     path: routePath,
     version,
     languages,

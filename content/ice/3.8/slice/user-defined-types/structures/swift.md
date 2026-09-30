@@ -4,7 +4,7 @@ A Slice structure maps to a Swift structure when this Slice structure does not h
 Conversely, a Slice structure maps to a Swift class when this Slice structure has (recursively) one or more Slice class
 field.
 
-## Mapping to Swift Struct
+### Mapping to Swift Struct
 
 Consider the following Slice structure:
 
@@ -65,7 +65,7 @@ public struct TimeOfDay: Hashable {
 }
 ```
 
-## Mapping to Swift Class
+### Mapping to Swift Class
 
 A Slice structure with a field of a class type is mapped to a Swift class. Take the Entry structure below:
 
@@ -131,7 +131,7 @@ struct Record
 
 {% /callout %}
 
-## Generated Initializers
+### Generated Initializers
 
 The mapped Swift struct or class has always two public initializers:
 

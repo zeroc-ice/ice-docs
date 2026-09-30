@@ -2,7 +2,7 @@
 title: Constants and Literals
 ---
 
-# Allowable Types for Constants
+## Allowable Types for Constants
 
 Slice allows you to define constants for the following types:
 
@@ -29,12 +29,12 @@ module M
 
 The syntax for literals is the same as for C++ and Java (with a few minor exceptions).
 
-# Boolean constants
+## Boolean constants
 
 Boolean constants can only be initialized with the keywords `false` and `true`. (You cannot use `0` and `1` to represent
 `false` and `true`.)
 
-# Integer literals
+## Integer literals
 
 Integer literals can be specified in decimal, octal, or hexadecimal notation.
 
@@ -60,7 +60,7 @@ const long WrongToo = 1000000L; // Syntax error
 The value of an integer literal must be within the range of its constant type, as shown in the
 [Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
 
-# Floating-point literals
+## Floating-point literals
 
 Floating-point literals use C++ syntax, except that you cannot use an `l` or `L` suffix to indicate an extended
 floating-point constant; however, `f` and `F` are legal (but are ignored).
@@ -79,7 +79,7 @@ const float P6 = 5e2;       // Integer part and exponent
 Floating-point literals must be within the range of the constant type (`float` or `double`); otherwise, the compiler
 will issue a diagnostic.
 
-# String literals
+## String literals
 
 Slice string literals support the same
 [escape sequences as C++](https://en.cppreference.com/w/cpp/language/escape.html), with the exception of hexadecimal
@@ -154,7 +154,7 @@ const string NullString = null;    // Illegal!
 Null strings simply do not exist in Slice and, therefore, do not exist as a legal value for a string anywhere in the Ice
 platform.
 
-# Constant Expressions
+## Constant Expressions
 
 A constant definition may also refer to another constant. It is not necessary for both constants to have the same Slice
 type, but the value of the existing constant must be compatible with the type of the constant being defined.
@@ -173,13 +173,13 @@ The `DEFAULT_SIZE` constant is legal because it has the same type as `SIZE`, and
 of `SIZE` (`500`) is within the range of the Slice `short` type. However, `BYTE_SIZE` is illegal because the value of
 `SIZE` is outside the range of the `byte` type.
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}
 
 {% language-section name="lang-2" /%}
 
-##### See Also
+## See Also
 
 - [Enumerations](../enumerations)
 - [Structures](../structures)

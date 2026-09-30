@@ -1,9 +1,5 @@
 {% language-section name="language-mapping" %}
 
-## Mapping for Classes
-
-# Class Mapping
-
 A Slice class is mapped to a MATLAB class with the same name. The generated class contains a public property for each
 Slice field (just as for structures and exceptions).
 
@@ -55,7 +51,7 @@ There are several things to note about the generated code:
 2. The generated class contains a public property for each Slice field.
 3. The generated class has a constructor that takes one argument for each field.
 
-## Generator Constructor
+### Generated Constructor
 
 If a Slice class declares or inherits any field, the generated constructor accepts one parameter for each property so
 that you can construct and initialize an instance in a single statement (instead of first having to construct the

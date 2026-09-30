@@ -5,11 +5,11 @@ title: Converting Proxies to Strings
 This page describes how an application can _stringify_ a proxy and create a property dictionary that captures all the
 proxy's properties.
 
-# Stringifying a Proxy
+## Stringifying a Proxy
 
 {% language-section name="lang-1" /%}
 
-# Proxy To Property
+## Proxy To Property
 
 You can also perform a deeper proxy stringification by calling `proxyToProperty` on your communicator. For example:
 
@@ -18,7 +18,7 @@ You can also perform a deeper proxy stringification by calling `proxyToProperty`
 The resulting map or dictionary holds all the [proxy properties](../creating-proxies) for the supplied proxy. The second
 parameter of `proxyToProperty` is the base name for the [properties](../properties-overview) in the returned map.
 
-##### See Also
+## See Also
 
 - [Obtaining Proxies](../creating-proxies)
 - [Proxy and Endpoint Syntax](../endpoint-syntax)

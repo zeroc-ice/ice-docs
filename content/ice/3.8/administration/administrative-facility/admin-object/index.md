@@ -2,7 +2,7 @@
 title: The admin Object
 ---
 
-# Overview of the admin Object
+## Overview of the admin Object
 
 When the Administrative Facility is enabled, you can configure Ice to host an administrative object in the
 [Ice.Admin object adapter](../creating-the-admin-object), or you can programmatically host this object in your own
@@ -13,7 +13,7 @@ In this manual, we refer to the administrative object as the `admin`_object_.
 You can retrieve a proxy to the admin object associated with your communicator, if any, by calling `getAdmin` on this
 communicator.
 
-# Facets of the admin Object
+## Facets of the admin Object
 
 An Ice object is a collection of sub-objects known as [facets](../versioning) whose types are not related. Although
 facets are typically used for extending and versioning types, they also allow a group of interfaces with a common
@@ -33,7 +33,7 @@ An application can [control which facets are installed](../filtering-administrat
 property. An application can also [install its own facets](../custom-administrative-facets) if necessary. Administrative
 facets don’t inherit from a common Slice interface.
 
-##### See Also
+## See Also
 
 - [Creating the admin Object](../creating-the-admin-object)
 - [Object Identity](../object-identity)

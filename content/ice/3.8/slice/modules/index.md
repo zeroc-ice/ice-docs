@@ -2,7 +2,7 @@
 title: Modules
 ---
 
-# Modules Reduce Clutter
+## Modules Reduce Clutter
 
 A common problem in large systems is pollution of the global namespace: over time, as isolated systems are integrated,
 name clashes become quite likely. Slice provides the `module` construct to alleviate this problem:
@@ -26,7 +26,7 @@ A module can contain any legal Slice construct, including other module definitio
 definitions together avoids polluting the global namespace and makes accidental name clashes quite unlikely. (You can
 use a well-known name, such as a company or product name, as the name of the outermost module.)
 
-# Modules are Mandatory
+## Modules are Mandatory
 
 Slice requires all definitions to be nested inside a module, that is, you cannot define anything other than a module at
 global scope. For example, the following is illegal:
@@ -48,7 +48,7 @@ keep the examples short and free of clutter. Whenever you see such a definition,
 
 {% /callout %}
 
-# Nested Module Syntax
+## Nested Module Syntax
 
 You can define a nested module directly. For example:
 
@@ -71,7 +71,7 @@ module ClearSky
 }
 ```
 
-# Reopening Modules
+## Reopening Modules
 
 Modules can be reopened:
 
@@ -94,10 +94,10 @@ Reopened modules are useful for larger projects: they allow you to split the con
 of the module, only files dependent on the changed part need be recompiled (instead of having to recompile all files
 that use the module).
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Slice Source Files](../slice-source-files)

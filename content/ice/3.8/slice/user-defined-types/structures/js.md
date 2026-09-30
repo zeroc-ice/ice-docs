@@ -45,7 +45,7 @@ The generated class defines an `equals` method for comparison purposes and a `cl
 For structures that are also [legal dictionary key types](../dictionaries), the mapped class also defines a `hashCode`
 function as required by the `Ice.HashMap` type.
 
-## Generated Constructor
+### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
 single statement (instead of first having to construct the instance and then assign to its fields).

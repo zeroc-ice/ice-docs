@@ -5,7 +5,7 @@ title: Slicing Values and Exceptions
 This page describes the concept of _slicing_, which is how the Ice runtime reacts when it receives an instance of an
 unknown [class](../classes) or [exception](../exceptions).
 
-# Composition using Slices
+## Composition using Slices
 
 Classes and exceptions are composed of slices, where each slice corresponds to a level in the type hierarchy and
 contains the data members defined at that level. Consider this example showing a class hierarchy:
@@ -66,7 +66,7 @@ types until it finds a type that it recognizes, exhausts all slices, or can no l
 of the operation. This slicing feature allows the receiver, whose Slice definitions may be limited or outdated, to
 continue to function properly even when it does not recognize the most-derived type.
 
-# Slice Formats
+## Slice Formats
 
 Ice provides two on-the-wire formats for class and exception slices: the compact format and the sliced format. Ice uses
 the compact format by default, which is more space-efficient on the wire but offers less flexibility on the receiving
@@ -145,7 +145,7 @@ By offering two alternative formats, Ice gives you a great deal of flexibility i
 compact format is ideal for applications that place a greater emphasis on efficiency, while the sliced format is helpful
 when clients and servers evolve independently.
 
-# Preserving Slices
+## Preserving Slices
 
 The concept of slicing involves discarding the slices of unknown types when receiving an instance of a Slice class or
 exception. Here is a simple example:
@@ -197,7 +197,7 @@ Exceptions are always marshaled in the sliced format (to allow slicing) but exce
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a
 [SlicedData](https://code.zeroc.com/manual/Ice/SlicedData) object that hold the preserved slices.
 
-# Unknown Sliced Values
+## Unknown Sliced Values
 
 Suppose we modify our `Relay` example as shown below:
 

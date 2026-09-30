@@ -2,7 +2,7 @@
 title: Simple Example of Class Encoding
 ---
 
-# Sample Class Definitions
+## Sample Class Definitions
 
 We have separately discussed the primary components of the class encoding: [slices](../basic-data-encoding),
 [references](../data-encoding-for-classes), and [type IDs](../class-type-ids). To make the preceding discussions more
@@ -48,7 +48,7 @@ these field values:
 
 We describe how to marshal these instances using versions 1.0 and 1.1 of the encoding in separate sections below.
 
-# Class Encoding version 1.0
+## Class Encoding version 1.0
 
 The sender arbitrarily assigns a non-zero [identity](../data-encoding-for-classes) to each instance. Typically, the
 sender will simply consecutively number the instances starting at `1`. For this example, assume that the two instances
@@ -101,7 +101,7 @@ entries at byte offsets 58 and 118 in the above table.) All class instances have
 Note that if a class has no fields, a type ID and slice for that class is still marshaled. The byte count of the slice
 will be 4 in this case, indicating that the slice contains no data.
 
-# Class Encoding version 1.1
+## Class Encoding version 1.1
 
 A leading [size](../basic-data-encoding) value of `1` marks the beginning of an instance, followed by one or more
 [slices](../basic-data-encoding).
@@ -233,7 +233,7 @@ in the compact format is shown below:
 Substituting a compact type ID for its string equivalent reduces the encoded size for the two instances by another nine
 bytes to 58, less than half the size of version 1.0.
 
-##### See Also
+## See Also
 
 - [Data Encoding for Classes](../data-encoding-for-classes)
 - [Data Encoding for Exceptions](../data-encoding-for-exceptions)

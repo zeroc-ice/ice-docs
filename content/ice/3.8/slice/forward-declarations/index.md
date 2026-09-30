@@ -49,7 +49,7 @@ Not inheriting from a forward-declared base interface or class until its definit
 otherwise, the compiler could not enforce that derived interfaces must not redefine operations that appear in base
 interfaces.
 
-# Language Mapping
+## Language Mapping
 
 A forward declaration maps to a forward declaration in programming languages with forward declarations (such as C++). It
 maps to nothing in other languages.

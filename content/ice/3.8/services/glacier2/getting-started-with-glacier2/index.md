@@ -2,7 +2,7 @@
 title: Getting Started with Glacier2
 ---
 
-# Using Glacier2
+## Using Glacier2
 
 Using Glacier2 in a minimal configuration involves the following tasks:
 
@@ -22,7 +22,7 @@ For the sake of example, the router's public address is 5.6.7.8 and its private 
 
 {% /callout %}
 
-# Configuring the Router
+## Configuring the Router
 
 The following router configuration property establish the necessary endpoint:
 
@@ -53,7 +53,7 @@ You must also decide which authentication scheme (or schemes) to use. A
 If clients access a [location service](../icegrid-and-glacier2-integration) via the router, additional router
 configuration is typically necessary.
 
-# Writing a Password File
+## Writing a Password File
 
 The router's simplest authentication mechanism uses an access control list in a text file containing user names and
 password hashes. The supported hash formats depend on the platform.
@@ -93,7 +93,7 @@ following password file contains an entry for the user name `test`:
 test $5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19
 ```
 
-## `icehashpassword` Helper Script
+### `icehashpassword` Helper Script
 
 You can use the `icehashpassword` helper script to generate these username-password pairs. This script requires `Python`
 and `pip` to be installed. To install this script run:
@@ -133,7 +133,7 @@ their own custom [permissions verifier](../securing-a-glacier2-router).
 
 {% /callout %}
 
-# Starting the Router
+## Starting the Router
 
 Assuming our configuration properties are stored in a file named `config`, you can start the router with the following
 command:
@@ -142,7 +142,7 @@ command:
 glacier2router --Ice.Config=config
 ```
 
-# Configuring a Glacier2 Client
+## Configuring a Glacier2 Client
 
 The following property configures a client to use a Glacier2 router:
 
@@ -153,7 +153,7 @@ Ice.Default.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 The [Ice.Default.Router](../ice-default-properties) property defines the router proxy. Its endpoints must match those in
 `Glacier2.Client.Endpoints`.
 
-# Glacier2 Object Identities
+## Glacier2 Object Identities
 
 A Glacier2 router hosts one well-known object. The default identity of this object is `Glacier2/router`, corresponding
 to the `Glacier2::Router` interface. If an application requires the use of multiple different (that is, not replicated)
@@ -186,9 +186,9 @@ A client can discover a router's proxy at run time using the
 
 {% /callout %}
 
-# Glacier2 Sessions
+## Glacier2 Sessions
 
-## Glacier2 Session Creation
+### Glacier2 Session Creation
 
 Session management is provided by the `Glacier2::Router` interface:
 
@@ -244,7 +244,7 @@ session object is only accessible via the router. If the router is configured as
 and nothing else is required. Otherwise, the client must explicitly configure the session proxy with a router using the
 `ice_router` proxy method.
 
-## Glacier2 Session Destruction
+### Glacier2 Session Destruction
 
 A router session is destroyed when a client calls `destroySession` on the router. The router also destroys a session if
 certain connection errors occur while attempting to route a request. These errors are represented by the runtime
@@ -252,7 +252,7 @@ exceptions `SocketException`, `TimeoutException`, and `ProtocolException`. In ot
 occur while Glacier2 attempts to establish a connection to the target back-end server, or forward a request to the
 target back-end server, the router automatically destroys the session.
 
-##### See Also
+## See Also
 
 - [Callbacks through Glacier2](../callbacks-through-glacier2)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)

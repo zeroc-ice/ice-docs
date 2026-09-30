@@ -2,7 +2,7 @@
 title: Slice and Slice Compilers
 ---
 
-# IDL
+## IDL
 
 Slice is Ice’s [Interface Definition Language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL). It
 allows you to describe your network API in a clear and concise manner.
@@ -26,7 +26,7 @@ Interfaces, operations, and the types of data that are exchanged between client 
 [_Slice language_](../slice). Slice allows you to define the client-server contract in a way that is independent of a
 specific programming language, such as C++, Java, or C#.
 
-# Slice Compilers
+## Slice Compilers
 
 The Slice definitions are compiled by a compiler into an API for a specific programming language, that is, the part of
 the API that is specific to the interfaces and types you have defined consists of generated code.
@@ -45,6 +45,6 @@ specific detail.
 Currently, Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift and, for the client side, MATLAB,
 PHP and Ruby.
 
-##### See Also
+## See Also
 
 - [The Slice Language](../slice)

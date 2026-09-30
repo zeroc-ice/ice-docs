@@ -2,7 +2,7 @@
 title: Object Adapter Activation and Deactivation
 ---
 
-# Activation
+## Activation
 
 An object adapter that was just created is in the `Holding` state. In this state, transport connections are accepted
 (the object adapter “listens” on the network), however, connections are not validated at the Ice level and incoming
@@ -28,7 +28,7 @@ As a result, it’s optional to call `activate` on an object adapter that does n
 
 {% /callout %}
 
-# Deactivation
+## Deactivation
 
 While you need to activate an object adapter that listens on one or more endpoints, you usually don’t need to deactivate
 or destroy this object adapter explicitly: the shutdown and destruction of the communicator you used to create this
@@ -51,7 +51,7 @@ methods:
   requests have completed. Furthermore, any servants associated with the adapter are destroyed, all transport endpoints
   are closed, and the adapter's name becomes available for reuse.
 
-##### See Also
+## See Also
 
 - [Collocated Invocation and Dispatch](../collocated-invocation-and-dispatch)
 - [Bidirectional Connections](../bidirectional-connections)
