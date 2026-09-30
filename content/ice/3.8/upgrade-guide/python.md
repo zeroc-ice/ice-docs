@@ -145,7 +145,9 @@ slice2py --output-dir generated --build=index Clock.ice Alarm.ice
 
 #### Replacing --no-package and --build-package
 
-The `--build` option replaces the `--no-package` and `--build-package` options:
+The `--build` option replaces the `--no-package` and `--build-package` options. It accepts `modules`, `index` or `all`;
+`all`, the default, generates the modules and the package index files. See
+[Using the Slice Compiler](../slice/using-the-slice-compiler).
 
 | Ice 3.7 option    | Ice 3.8 option    | Description                                                     |
 | ----------------- | ----------------- | --------------------------------------------------------------- |
