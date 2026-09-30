@@ -5,7 +5,7 @@ title: Slicing Values and Exceptions
 This page describes the concept of _slicing_, which is how the Ice runtime reacts when it receives an instance of an
 unknown [class](../classes) or [exception](../exceptions).
 
-## Composition using Slices
+## Composition Using Slices
 
 Classes and exceptions are composed of slices, where each slice corresponds to a level in the type hierarchy and
 contains the data members defined at that level. Consider this example showing a class hierarchy:

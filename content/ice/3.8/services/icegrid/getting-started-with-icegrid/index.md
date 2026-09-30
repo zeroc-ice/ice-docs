@@ -206,7 +206,7 @@ IceGrid node.
 ## See Also
 
 - [Locator Configuration for a Client](../locator-configuration-for-a-client)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [Well-Known Registry Objects](../well-known-registry-objects)
 - [Using IceGrid Deployment](../using-icegrid-deployment)
 - [Object Adapter Endpoints](../object-adapter-endpoints)

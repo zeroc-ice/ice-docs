@@ -218,7 +218,7 @@ that associates session state or callback proxies with a connection must reestab
 
 ## IceBridge Limitations
 
-### Single target server
+### Single Target Server
 
 A single IceBridge instance can support multiple clients simultaneously, but it forwards all of them to the same logical
 target server. Listing several target endpoints lets the bridge choose among endpoints of that server, such as its
@@ -229,7 +229,7 @@ these target endpoints.
 
 If your clients need to bridge to multiple servers, you must start a separate IceBridge instance for each target server.
 
-### One direction per bridge
+### One Direction per Bridge
 
 IceBridge forwards connections in one direction: from the clients that connect to its source endpoints to the target
 server. Callbacks over a bidirectional connection travel back over the same pair of connections and need nothing more.
@@ -242,7 +242,7 @@ IceBridge forwards requests to the default facet of the target object. A request
 facet name when the bridge forwards it. This also applies to callbacks. Applications that use IceBridge must expose the
 required operations on the default facet.
 
-### Bluetooth connection limit
+### Bluetooth Connection Limit
 
 As mentioned in the [IceBT](../icebt) discussion, a Bluetooth client process cannot establish multiple connections to
 the same target endpoint. When using IceBridge with a Bluetooth target, only one client at a time can use the bridge.

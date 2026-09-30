@@ -2,7 +2,7 @@
 title: Data Encoding for Exceptions
 ---
 
-## Exception Encoding version 1.0
+## Exception Encoding Version 1.0
 
 An exception is marshaled as shown below:
 
@@ -88,7 +88,7 @@ which it can report with a `MarshalException`.
 If an exception contains class fields, these fields are marshaled following the exception slices as described in the
 [class encoding](../data-encoding-for-classes).
 
-## Exception Encoding version 1.1
+## Exception Encoding Version 1.1
 
 An exception is marshaled as a collection of [slices](../basic-data-encoding) whose order matches the inheritance
 hierarchy, with the most-derived type appearing first. The selected encoding format affects the content of each slice.

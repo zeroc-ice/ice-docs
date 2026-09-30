@@ -208,7 +208,7 @@ cout << "Listening on port 4061..." << endl;
 Our server is now active, waiting for connections and requests from clients, and dispatching requests for `greeter` to
 our `Chatbot` servant.
 
-### 4. Keep Running until Ctrl+C
+### 4. Keep Running Until Ctrl+C
 
 It is essential to keep the server running, and not let `main` return prematurely. We use the following technique to
 achieve this goal:

@@ -11,14 +11,14 @@ included in this release.
 
 ## JavaScript Changes
 
-### New `@zeroc/slice2js` npm package
+### New `@zeroc/slice2js` npm Package
 
 We created a new `@zeroc/slice2js` npm package, which includes the `slice2js` compiler and an
 [unplugin](https://unplugin.unjs.io/) plugin compatible with modern JavaScript build tools including
 [Vite](https://vite.dev/), [Rollup](https://rollupjs.org/), [Webpack](https://webpack.js.org/), and
 [esbuild](https://esbuild.github.io/).
 
-### Module aggregation support
+### Module Aggregation Support
 
 We added module aggregation support to `slice2js`. The Slice compiler now automatically aggregates nested submodules
 from direct and transitive includes, making module imports more natural in JavaScript and TypeScript projects.

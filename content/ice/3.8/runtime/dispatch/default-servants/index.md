@@ -80,7 +80,7 @@ default servants.
 
 This section provides some guidelines to assist you in implementing default servants effectively.
 
-### Object Identity is the Key
+### Object Identity Is the Key
 
 When an incoming request is dispatched to the default servant, the target object identity is provided in the `Current`
 argument. The `name` field of the identity typically supplies everything the default servant requires in order to
@@ -126,7 +126,7 @@ If you suspect that you might eventually need to implement more than one interfa
 using a non-empty category even if you start out having only one default servant. Adding another default servant later
 becomes much easier if the application is already designed to operate correctly with categories.
 
-### Throw exceptions
+### Throw Exceptions
 
 If a request arrives for an object that no longer exists, it is the default servant's responsibility to throw
 `ObjectNotExistException`.

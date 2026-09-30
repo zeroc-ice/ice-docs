@@ -266,7 +266,7 @@ The same mechanism can be used to integrate Ice with other asynchronous event lo
 asyncio loop directly, you must implement the `Ice.EventLoopAdapter` abstract base class for your event loop of choice
 and provide it during communicator initialization via the `InitializationData.eventLoopAdapter` member.
 
-#### Event loop restrictions
+#### Event Loop Restrictions
 
 You can only await a future from the event loop that created it:
 

@@ -1,5 +1,5 @@
 ---
-title: Configuring Glacier2 behind an External Firewall
+title: Configuring Glacier2 Behind an External Firewall
 ---
 
 The Glacier2 router requires only one external port to receive connections from clients and therefore can easily coexist
@@ -40,6 +40,6 @@ the server endpoint for the router to operate properly.
 
 ## See Also
 
-- [Callbacks through Glacier2](../callbacks-through-glacier2)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [Object Adapter Endpoints](../object-adapter-endpoints)
 - [Glacier2.*](../glacier2-properties)

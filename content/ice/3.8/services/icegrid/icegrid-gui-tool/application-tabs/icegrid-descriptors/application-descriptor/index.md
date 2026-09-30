@@ -2,7 +2,7 @@
 title: Application Descriptor
 ---
 
-## Creating a new Application
+## Creating a New Application
 
 You can create a new application using `File > New Application`: this opens a new Application tab, with an empty
 application definition.

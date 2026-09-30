@@ -1,5 +1,5 @@
 ---
-title: How Glacier2 uses Request Contexts
+title: How Glacier2 Uses Request Contexts
 ---
 
 The Glacier2 router examines the [context](../request-contexts) of an incoming request for special keys that affect how

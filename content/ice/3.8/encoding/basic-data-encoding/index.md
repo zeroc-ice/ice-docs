@@ -47,7 +47,7 @@ An encapsulation can be empty, in which case the value of `size` is 6.
 
 The encoding format of slices changed in version 1.1.
 
-### Encoding version 1.0
+### Encoding Version 1.0
 
 [Exceptions](../data-encoding-for-exceptions) and [classes](../data-encoding-for-classes) may be subject to _slicing_ if
 the receiver of a value only partially understands the received value (that is, only has knowledge of a base type, but
@@ -58,7 +58,7 @@ count encoded as a fixed-length four-byte integer, followed by the data for the 
 bytes occupied by the count itself, so an empty slice has a byte count of four and no data.) The receiver of a value can
 skip over a slice by reading the byte count _b_, and then discarding the next _b-4_ bytes in the input stream.
 
-### Encoding version 1.1
+### Encoding Version 1.1
 
 Version 1.1 of the encoding still marshals [exceptions](../data-encoding-for-exceptions) and
 [classes](../data-encoding-for-classes) as [slices](../slicing-values-and-exceptions) in conceptually the same manner as
@@ -165,7 +165,7 @@ key and value as fields, in that order.
 
 The encoding format of enumerators changed in version 1.1.
 
-### Encoding version 1.0 {% id="enumerator-encoding-version-1.0" %}
+### Encoding Version 1.0 {% id="enumerator-encoding-version-1.0" %}
 
 The number of bytes required to encode an enumerator in version 1.0 is determined by the largest value in the
 enumeration. In enumerations with no [custom enumerator values](../enumerations), the largest value is the number of
@@ -202,7 +202,7 @@ this definition.
 
 {% /callout %}
 
-### Encoding version 1.1 {% id="enumerator-encoding-version-1.1" %}
+### Encoding Version 1.1 {% id="enumerator-encoding-version-1.1" %}
 
 An enumerator is encoded as a [size](../basic-data-encoding#encoding-for-sizes), meaning the encoding of an enumerator
 requires one byte if its value is less than 255, or five bytes if its value is 255 or greater. The encoding uses the

@@ -131,7 +131,7 @@ It should be noted however that IceGrid simplifies the configuration process in 
 
 - [Getting Started with IceGrid](../getting-started-with-icegrid)
 - [IceGrid Architecture](../icegrid-architecture)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [Server Descriptor Element](../server-descriptor-element)
 - [Locator Configuration for a Server](../locator-configuration-for-a-server)
 - [Using IceGrid Deployment](../using-icegrid-deployment)

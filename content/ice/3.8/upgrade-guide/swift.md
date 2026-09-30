@@ -45,7 +45,7 @@ print(greeting)
 }
 ```
 
-## Removed Dispatch structs
+## Removed Dispatch Structs
 
 Generated dispatch (Disp) structs for Slice interfaces have been removed. Implementations of server-side protocols can
 now be used directly as ObjectAdapter servants.

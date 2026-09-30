@@ -84,7 +84,7 @@ connection and access the adapter through the plain TCP endpoint.
 For most applications that handle sensitive data or operate on untrusted networks (including the internet or intranets),
 the recommended practice is to use **only secure endpoints**.
 
-## Using SSL With Other Transports
+## Using SSL with Other Transports
 
 You can see the SSL transport as using the SSL/TLS protocol on top of Ice TCP transport, but it is possible to use
 SSL/TLS on top of other transports.

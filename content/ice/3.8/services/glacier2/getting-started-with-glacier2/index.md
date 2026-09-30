@@ -254,7 +254,7 @@ target back-end server, the router automatically destroys the session.
 
 ## See Also
 
-- [Callbacks through Glacier2](../callbacks-through-glacier2)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)
 - [Glacier2 Session Management](../glacier2-session-management)
 - [Glacier2.*](../glacier2-properties)

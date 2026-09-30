@@ -46,5 +46,5 @@ Glacier2 has the following advantages and limitations.
 
 - [How Glacier2 Works](../how-glacier2-works)
 - [Common Firewall Traversal Issues](../common-firewall-traversal-issues)
-- [Callbacks through Glacier2](../callbacks-through-glacier2)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [IceGrid](../icegrid)

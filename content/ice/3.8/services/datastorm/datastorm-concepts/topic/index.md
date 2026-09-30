@@ -118,7 +118,7 @@ that returns a filter function for the given criteria.
 Readers can configure a sample filter, which attached writers use to send only the samples that satisfy the reader’s
 filter.
 
-### Predefined filters
+### Predefined Filters
 
 DataStorm includes two predefined filters, with names `_regex` and `_event`.
 
@@ -149,7 +149,7 @@ In such systems, not all fields change at the same rate:
 Using **partial updates**, vehicles can publish only the information that has changed since the last update, reducing
 bandwidth usage.
 
-#### Slice definitions
+#### Slice Definitions
 
 ```slice
 module RideShare
@@ -188,7 +188,7 @@ serialization method best fits their needs.
 
 {% /callout %}
 
-#### Registering updaters
+#### Registering Updaters
 
 Updaters must be registered with both the topic used to create **readers** and the topic used to create **writers**,
 since both sides need to compute the new value from the partial update. For the telemetry example, these updaters apply

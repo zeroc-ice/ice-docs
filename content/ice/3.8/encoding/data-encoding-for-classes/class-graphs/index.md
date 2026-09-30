@@ -7,7 +7,7 @@ can arbitrarily point at each other, and therefore the encoding must provide a s
 a class graph. Note that the marshaling format for [class references and instances](../data-encoding-for-classes)
 differs significantly between versions 1.0 and 1.1 of the encoding.
 
-## Encoding a Class Graph version 1.0
+## Encoding a Class Graph Version 1.0
 
 In version 1.0 of the encoding, an [instance ID](../data-encoding-for-classes) is used to distinguish instances and
 pointers as follows:
@@ -225,7 +225,7 @@ On the other hand, if the client sends a sequence of 100 elements that all point
 client marshals the sequence as a size of 100, followed by 100 negative IDs, all with the value `-1`. The client then
 marshals a sequence containing a single element, namely instance `1`, and completes by marshaling an empty sequence.
 
-## Encoding a Class Graph version 1.1
+## Encoding a Class Graph Version 1.1
 
 The most significant difference in the class encoding between version 1.0 and 1.1 is the location of class instances in
 the output stream. In version 1.0, instances are always marshaled at the end of the encapsulation, whereas in version

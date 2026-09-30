@@ -82,7 +82,7 @@ property `keystore.type`:
   can leave this property unset for a JKS file and for a PKCS12 file loaded with `IceSSL.KeystorePassword`.
 - Android configures `keystore.type=BKS`.
 
-#### Store type and store password {% id="icessl.keystoretype-store-type-and-store-password" %}
+#### Store Type and Store Password {% id="icessl.keystoretype-store-type-and-store-password" %}
 
 When `IceSSL.KeystorePassword` is not defined, the key store type determines the password Ice passes to `KeyStore.load`:
 
@@ -177,7 +177,7 @@ Specifies the type of the trust store file defined by `IceSSL.Truststore`. Ice p
 
 If this property is not defined, Ice uses `KeyStore.getDefaultType()`, as described under `IceSSL.KeystoreType`.
 
-#### Store type and store password {% id="icessl.truststoretype-store-type-and-store-password" %}
+#### Store Type and Store Password {% id="icessl.truststoretype-store-type-and-store-password" %}
 
 When `IceSSL.TruststorePassword` is not defined, the trust store type determines the password Ice passes to
 `KeyStore.load`: the empty string for `PKCS12` or `BKS` in upper case, and null for any other value. See

@@ -184,7 +184,7 @@ The Slice compiler `--build` option allows you to control what kind of files are
 - `--build=index` Generates only the Python package index files (**init**.py).
 - `--build=all`. Generates both module and index files (this is the default if --build is omitted).
 
-### Customizing Compiler Output using Metadata in Python
+### Customizing Compiler Output Using Metadata in Python
 
 By default, the Slice for Python compiler generates Python modules and packages using the layout described in the
 previous section.

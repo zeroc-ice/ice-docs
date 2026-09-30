@@ -67,7 +67,7 @@ to the plug-in, and any arguments that were specified in the [plug-in's configur
 The Ice runtime is responsible for deleting the plug-in returned by this factory function. This usually occurs when the
 communicator is destroyed, immediately after all the plug-ins have been destroyed.
 
-## Loading a Plug-in using InitializationData
+## Loading a Plug-in Using InitializationData
 
 When your application depends on a plug-in, you should load this plug-in into your communicator by adding a factory for
 this plug-in to the `pluginFactories` field of your communicator’s `InitializationData`.

@@ -29,7 +29,7 @@ Writers can be created using the corresponding writer class constructors or the
 When using the helper functions, the compiler automatically **deduces the template parameters** (`Key`, `Value`, and
 `UpdateTag`) from the topic.
 
-### Attachment behavior
+### Attachment Behavior
 
 - **Single-key** — attaches to readers that contain the same key, or to filtered readers whose filter matches that key.
 - **Multi-key** — attaches to readers whose configuration matches at least one of the writer’s keys, or to filtered

@@ -4,7 +4,7 @@ title: Doc-Comment Structure
 
 <TODO: introductory sentence goes here>
 
-## Linking to other Definitions
+## Linking to Other Definitions
 
 `@link <identifier>`…
 

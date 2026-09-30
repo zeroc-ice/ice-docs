@@ -5,7 +5,7 @@ title: Using IceGrid Deployment
 Here we extend the capabilities of our [sample application](../getting-started-with-icegrid) using IceGrid's deployment
 facility.
 
-## Ripper Architecture using Deployment
+## Ripper Architecture Using Deployment
 
 The revised architecture for our application consists of a single IceGrid node responsible for our encoding server that
 runs on the computer named `ComputeServer`. The illustration below shows the client's initial invocation on its indirect
@@ -125,7 +125,7 @@ The node properties are explained below:
   not collocated. Refer to our discussion of the [ripper client configuration](../getting-started-with-icegrid) for more
   information on this setting.
 
-## Ripper Server Configuration using Deployment
+## Ripper Server Configuration Using Deployment
 
 Server configuration is accomplished using descriptors. During deployment, the node creates a subdirectory tree for each
 server. Inside this tree the node creates a configuration file containing properties derived from the server's

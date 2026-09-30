@@ -11,7 +11,7 @@ Substitution for a variable or parameter VP is attempted whenever the symbol ${V
 limitations and rules described below. Substitution is case-sensitive, and a fatal error occurs if VP is not defined
 when the application is saved to an IceGrid registry.
 
-## Where are Variables Allowed?
+## Where Are Variables Allowed?
 
 Substitution is performed in all string fields except the following:
 

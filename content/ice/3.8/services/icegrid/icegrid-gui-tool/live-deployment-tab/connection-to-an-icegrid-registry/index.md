@@ -7,7 +7,7 @@ If your IceGrid registry is replicated, you can connect to any replica for monit
 definitions, for example to describe a new server, you need to connect to the master IceGrid registry. This page
 describes how to connect to an IceGrid registry.
 
-## Connecting using a Saved Connection
+## Connecting Using a Saved Connection
 
 Use `File > Login...` or press the
 ![saved connections](/attachments/3.8/connection-to-an-icegrid-registry/saved-connections.jpeg) button to open the
@@ -24,13 +24,13 @@ some cases), such as:
 
 ![image2017-4-3 12:23:43.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-23-43.png)
 
-## Creating a new Connection
+## Creating a New Connection
 
 In the `Saved Connections` dialog, click on `New Connection` to open the New Connection wizard.
 
 We describe three typical connection scenarios in the sections below.
 
-### TCP Connection to a local IceGrid registry
+### TCP Connection to a Local IceGrid Registry
 
 Let's create a TCP connection to the IceGrid registry running on localhost.
 
@@ -61,7 +61,7 @@ Step 6: Enter a username and password for this connection:
 
 Step 7: Click `Finish` to save the connection; IceGrid GUI then attempts to connect to the IceGrid registry.
 
-### SSL Connection to local IceGrid using X.509 Credentials
+### SSL Connection to Local IceGrid Using X.509 Credentials
 
 Now let's create a direct SSL connection to an IceGrid registry and authenticate using our X.509 key (also used for SSL
 authentication). The target IceGrid registry must be configured to accept SSL connections and authentication using SSL
@@ -94,7 +94,7 @@ saved) the X.509 key password with the connection, we are prompted for this pass
 
 ![image2017-4-3 13:47:23.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-47-23.png)
 
-### SSL Connection through Glacier2 router
+### SSL Connection Through Glacier2 Router
 
 Here we'll connect to an IceGrid registry "behind" a Glacier2 router. In this case, we need to connect to the Glacier2
 router and authenticate ourselves with the router. We do not provide any information about the IceGrid registry itself:

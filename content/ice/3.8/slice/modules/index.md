@@ -26,7 +26,7 @@ A module can contain any legal Slice construct, including other module definitio
 definitions together avoids polluting the global namespace and makes accidental name clashes quite unlikely. (You can
 use a well-known name, such as a company or product name, as the name of the outermost module.)
 
-## Modules are Mandatory
+## Modules Are Mandatory
 
 Slice requires all definitions to be nested inside a module, that is, you cannot define anything other than a module at
 global scope. For example, the following is illegal:

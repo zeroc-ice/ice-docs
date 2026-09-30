@@ -67,7 +67,7 @@ IceRPC’s implementation of the Ice Protocol (`ice`) is fairly complete, except
 An Ice client can’t send batched requests to an IceRPC server (they won’t be received and processed). Likewise, an Ice
 client can’t send compressed requests to an IceRPC server.
 
-## Using Ice files with IceRPC
+## Using Ice Files with IceRPC
 
 Ice’s Slice compiler for C# (`slice2cs`) generates code for IceRPC when you specify the `--icerpc` option.
 

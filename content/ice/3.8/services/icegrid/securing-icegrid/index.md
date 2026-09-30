@@ -217,7 +217,7 @@ If your server invokes on other servers, you will need to modify this setting to
 
 - [IceSSL](../ssl-transport)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [Well-Known Objects](../well-known-objects)
 - [IceGrid and the Administrative Facility](../icegrid-and-the-administrative-facility)

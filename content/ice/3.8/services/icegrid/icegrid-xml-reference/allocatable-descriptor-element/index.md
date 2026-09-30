@@ -18,6 +18,6 @@ The following attributes are supported:
 
 ## See Also
 
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [Adapter Descriptor Element](../adapter-descriptor-element)
 - [Type IDs](../type-ids)

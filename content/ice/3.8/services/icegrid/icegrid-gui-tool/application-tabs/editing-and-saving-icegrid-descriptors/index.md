@@ -77,7 +77,7 @@ the desired effect. If you want to trigger a server restart even when only prope
 You may discard all your updates by selecting `File > Discard Updates` or pressing the corresponding toolbar button.
 `Discard Updates` simply reloads the application from the IceGrid registry or its associated XML file.
 
-## Concurrent Updates to the same IceGrid Registry
+## Concurrent Updates to the Same IceGrid Registry
 
 If several administrators update the same application definition concurrently, the last save will silently overwrite
 previous (concurrent) updates.

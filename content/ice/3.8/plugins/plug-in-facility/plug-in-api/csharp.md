@@ -59,7 +59,7 @@ assigned to the plug-in, and any arguments that were specified in the
 The `pluginName` is the default and preferred name of this plug-in. It’s the name used by Ice when it creates a plug-in
 configured using `InitializationData.pluginFactories` (see below).
 
-## Loading a Plug-in using InitializationData
+## Loading a Plug-in Using InitializationData
 
 When your application depends on a plug-in, you should load this plug-in into your communicator by adding a factory for
 this plug-in to the `pluginFactories` field of your communicator’s `InitializationData`.

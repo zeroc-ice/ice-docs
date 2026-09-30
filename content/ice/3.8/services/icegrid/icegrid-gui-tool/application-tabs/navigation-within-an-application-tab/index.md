@@ -1,5 +1,5 @@
 ---
-title: Navigation within an Application Tab
+title: Navigation Within an Application Tab
 ---
 
 Each Application tab maintains a history of the nodes you have visited in this tab. You can navigate these nodes using
