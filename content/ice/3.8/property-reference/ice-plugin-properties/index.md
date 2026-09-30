@@ -90,8 +90,7 @@ Ice.Plugin.IceLocatorDiscovery=1
 ```
 
 Ice passes the remaining arguments after the first token to the factory. Ice creates these built-in plug-ins before
-dynamically loaded plug-ins. If [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) includes an enabled
-built-in plug-in's name, communicator initialization fails with a `PluginInitializationException`.
+dynamically loaded plug-ins.
 
 {% /iflang %}
 

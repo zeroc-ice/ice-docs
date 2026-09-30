@@ -45,8 +45,8 @@ automatic flushing for these requests.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-For batched datagram requests, Ice also caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties), which is
-specified in bytes. This cap still applies when `Ice.BatchAutoFlushSize` is 0 or negative.
+For batched datagram requests, Ice also caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties) bytes, or
+65507 bytes when that property is not set. This cap still applies when `Ice.BatchAutoFlushSize` is 0 or negative.
 
 {% /iflang %}
 
@@ -103,14 +103,6 @@ fragmentation. In turn, loss of even a single packet causes the entire batch to 
 datagram invocations are most suitable for simple interfaces with a number of operations that each set an attribute of
 the target object (or interfaces with similar semantics). Batched oneway invocations do not suffer from this risk
 because they are sent over connection-oriented transports, so individual packets cannot be lost.
-
-{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
-
-For a positive [Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize), the automatic flush threshold is the
-smaller of that value converted to bytes and [Ice.UDP.SndSize](../ice-udp-properties). When `Ice.BatchAutoFlushSize` is
-0 or negative, `Ice.UDP.SndSize` still limits the threshold.
-
-{% /iflang %}
 
 ## Compressing Batched Invocations
 
