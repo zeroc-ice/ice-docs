@@ -17,7 +17,7 @@ Then run `doxygen` in the directory that holds the `Doxyfile`.
 To link your reference to ZeroC's for the Ice types your Slice files use, download the
 [tag file](https://code.zeroc.com/ice/3.8/api/slice.tag) and add it to `TAGFILES`:
 
-```
+```text
 TAGFILES = slice.tag=https://code.zeroc.com/ice/3.8/api/slice
 ```
 
