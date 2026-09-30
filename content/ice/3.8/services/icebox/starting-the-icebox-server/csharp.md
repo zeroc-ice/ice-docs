@@ -7,19 +7,11 @@ Debug build:
 IceBox.Service.Greeter=Service/bin/Debug/net8.0/GreeterService.dll:Service.GreeterService --Ice.Trace.Dispatch
 ```
 
-Save this property in a file named `config`. Use the .NET SDK to install `iceboxnet` as a local tool. The tool targets
-.NET 8, so install the .NET 8 runtime on the machine that runs it.
-
-In the directory containing `config`, create a tool manifest if the project does not already have one:
+Save this property in a file named `config` in the directory that contains the `Service` project directory. In that
+directory, install the Ice 3.8 version of `iceboxnet` as a local tool, then start the IceBox server:
 
 ```shell
-dotnet new tool-manifest
-```
-
-Install the Ice 3.8 version of the tool, then start the IceBox server from this directory:
-
-```shell
-dotnet tool install iceboxnet --version "3.8.*"
+dotnet tool install iceboxnet --version "3.8.*" --create-manifest-if-needed
 dotnet iceboxnet --Ice.Config=config
 ```
 
