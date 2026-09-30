@@ -17,20 +17,37 @@ test('every URL of the 3.8 manual on the Scroll Viewport site redirects to a pag
     .readFileSync(path.join(CONTENT_ROOT, '3.8', 'scroll-urls.txt'), 'utf8')
     .split('\n')
     .filter((line) => line.startsWith('/'));
+  const redirects = readRedirects(CONTENT_ROOT);
+  // Each rule written for a list of languages, spelled out for each language.
   const destinations = new Map(
-    readRedirects(CONTENT_ROOT).map((redirect) => [
-      redirect.source.replace(/:lang\([^)]*\)/, ':lang'),
-      redirect.destination
-    ])
+    redirects.flatMap(({ source, destination }) => {
+      const [, languages, rest] =
+        source.match(/^\/ice\/3\.8\/:lang\(([^)]*)\)(.*)$/) ?? [];
+      return languages
+        ? languages
+            .split('|')
+            .map((lang): [string, string] => [
+              `/ice/3.8/${lang}${rest}`,
+              destination
+            ])
+        : [];
+    })
   );
   const pages = new Set(
     listPages(CONTENT_ROOT, '3.8').map((page) => pageHref('3.8', page.slug))
   );
 
+  // The Scroll Viewport site spelled `js` as `javascript`.
+  assert.ok(
+    redirects.some(
+      ({ source, destination }) =>
+        source === '/ice/3.8/javascript/:rest*' &&
+        destination === '/ice/3.8/js/:rest*'
+    )
+  );
   const missing = scroll.filter((url) => {
-    const name = url.split('/')[4];
     const destination = destinations.get(
-      name ? `/ice/3.8/:lang/${name}` : '/ice/3.8/:lang'
+      url.replace(/^\/ice\/3\.8\/javascript(?=\/|$)/, '/ice/3.8/js')
     );
     return !destination || !pages.has(destination.split(/[?#]/)[0]);
   });
