@@ -50,7 +50,7 @@ export function renderMarkdownString(opts: RenderOptions) {
     ])
   );
 
-  const transformable = parse(source);
+  const ast = parse(source);
   const variables: PageVariables = {
     frontmatter,
     path,
@@ -61,5 +61,5 @@ export function renderMarkdownString(opts: RenderOptions) {
     chrome: opts.chrome ?? {}
   };
   const updatedConfig: Config = { ...config, variables };
-  return Markdoc.transform(transformable, updatedConfig);
+  return Markdoc.transform(ast, updatedConfig);
 }
