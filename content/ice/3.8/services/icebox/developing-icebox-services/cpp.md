@@ -18,6 +18,9 @@ namespace Service
             const Ice::StringSeq& args) final;
 
         void stop() final;
+
+    private:
+        Ice::ObjectAdapterPtr _adapter;
     };
 }
 ```
