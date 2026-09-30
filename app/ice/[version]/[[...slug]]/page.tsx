@@ -180,7 +180,8 @@ export default async function Page(props: PageProps) {
       />
       <script
         type="application/ld+json"
-        // `<` escaped, so no title can close the script element.
+        // `<` escaped, so no title can close the script element, as
+        // https://nextjs.org/docs/app/guides/json-ld recommends.
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbList).replace(/</g, '\\u003c')
         }}
