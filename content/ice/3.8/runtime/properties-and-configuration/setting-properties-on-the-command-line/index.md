@@ -19,8 +19,7 @@ any previous ones.
 
 Ice applies the same [property validation](../properties-overview#property-validation) to command-line options as to any
 other property, so a typo such as `--Ice.Trace.Netwrok=1` makes communicator initialization fail with a
-`PropertyException`. An option for a service-specific prefix, such as `--IceGrid.InstanceName`, also fails in an
-application.
+`PropertyException`.
 
 The initialization overloads that update the argument array remove the options they consume. Other overloads leave the
 input unchanged or return the remaining arguments separately; see
