@@ -69,7 +69,7 @@ only contact version 2 objects. However, for some applications, doing this is im
 
 Note that you could write version 2 clients to catch and react to an `OperationNotExistException` when they invoke the
 `greetAtTime` operation: if the operation succeeds, the client is dealing with a version 2 object, and if the operation
-raises `OperationNotExistsException`, the client is dealing with a version 1 object.
+raises `OperationNotExistException`, the client is dealing with a version 1 object.
 
 ## Optional Parameters and Fields
 
@@ -95,13 +95,43 @@ module VisitorCenter
 }
 ```
 
-A client using the updated Slice definition can provide this extra `time` parameter, and if its request is received by a
-new server, the server will receive this value and behave accordingly. An old server wouldn’t receive this optional
-parameter and would continue to behave as before.
+A version 2 client can supply the `time` argument. A version 2 servant receives this value, while a version 1 server
+skips it and dispatches the request to its servant with `name` alone. A version 1 client sends only `name`: the version
+2 servant then receives `time` unset, and has to handle this case, for example by returning the version 1 greeting.
+
+Ice transmits optional values with the 1.1 encoding, which is the default. When a proxy uses the 1.0 encoding, Ice
+leaves every optional value out of the request and of its reply, and the receiver reads each of them as unset.
 
 Likewise, you can add optional fields to an existing class or exception without breaking existing applications that use
-it. See the [optional fields](../fields) page for more information.
+it. See the [optional fields](../fields#optional-fields) page for more information.
+
+### Changing Optional Parameters and Fields
+
+Ice [encodes](../data-encoding-for-optional-values) an optional value that is set as its tag and an _optional type_
+derived from its Slice type, followed by the value. The receiver looks up each optional value it knows by tag, skips the
+values whose tags it does not know, and reads as unset a value whose tag is missing. The name of the parameter or field
+is not transmitted. The consequences for applications built with different versions of a Slice definition are as
+follows:
+
+- Adding an optional parameter or field with a tag that no earlier version used is a compatible change, as shown above.
+- Removing an optional parameter or field is a compatible change: a receiver built without it skips the value, and a
+  receiver built with it reads it as unset. Keep the tag of a removed parameter or field unused as long as applications
+  built with the earlier definition remain deployed, since a receiver decodes any value carrying this tag as the
+  parameter or field it knows under this tag.
+- Changing the tag of an optional parameter or field to a tag that the earlier version does not use loses its value
+  between the two versions: each side skips the tag the other side sends and reads its own as unset.
+- Changing the type of an optional parameter or field while keeping its tag is an incompatible change. When the two
+  types have different optional types, such as `int` and `long`, the receiver raises `MarshalException`. When they share
+  an optional type, such as `int` and `float`, the receiver decodes the bytes of one type as the other, and either
+  produces a wrong value or raises `MarshalException`.
+- Making a required parameter or field optional, or an optional one required, is an incompatible change. Ice encodes
+  required values without a tag, in their order of declaration and ahead of the optional values, so a receiver built
+  with the other definition looks for the value in the wrong place.
+
+These rules apply within the scope of a tag: the parameters and return value of one operation, or the fields that one
+class or exception defines itself. A base or derived type has its own tags.
 
 ## See Also
 
-- [Optional Parameters and Return Values](../operations)
+- [Optional Parameters and Return Values](../operations#optional-parameters-and-return-values)
+- [Data Encoding for Optional Values](../data-encoding-for-optional-values)
