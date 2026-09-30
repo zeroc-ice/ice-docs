@@ -114,7 +114,7 @@ The configuration file parser preserves single and double quotes in property val
 a value into a list. To preserve leading or trailing spaces in a configuration file value, escape them with backslashes;
 see [Configuration File Syntax](../configuration-file-syntax).
 
-# Unused Properties
+## Unused Properties
 
 During the destruction of a communicator, the Ice runtime can optionally emit a warning for properties that were set but
 never read. To enable this warning, set [Ice.Warn.UnusedProperties](../ice-warn-properties) to a non-zero value. By

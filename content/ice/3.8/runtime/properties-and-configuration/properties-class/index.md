@@ -57,7 +57,7 @@ To access property values from within your program, you need to acquire the comm
 `getProperties`. Most of the methods on the returned `Properties` object involve reading properties, setting properties,
 and parsing properties.
 
-# Reading and Setting a Property
+## Reading and Setting a Property
 
 Use `getProperty`, `getPropertyAsInt`, and `getPropertyAsList` to read application properties as strings, integers, or
 lists of strings. For an unset property, they return the empty string, 0, and an empty list, respectively. Their
@@ -100,7 +100,7 @@ initialization reaches your code as an error.
 
 {% /iflang %}
 
-# Reading and Parsing Groups of Properties
+## Reading and Parsing Groups of Properties
 
 `getPropertiesForPrefix` returns a dictionary of the stored properties whose names begin with the prefix. An empty
 prefix returns every stored property. The method marks all returned properties as used.
