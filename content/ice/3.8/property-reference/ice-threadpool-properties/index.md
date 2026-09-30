@@ -81,7 +81,8 @@ size.
 
 {% iflang langs="cpp,java,python,ruby,php,matlab,swift" %}
 
-Setting `SizeMax` to `-1` uses the number of processors available to the runtime.
+Setting `SizeMax` to `-1` sets the maximum to the larger of `Size` and the number of processors available to the
+runtime.
 
 {% /iflang %}
 

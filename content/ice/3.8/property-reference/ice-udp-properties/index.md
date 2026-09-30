@@ -20,8 +20,8 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 #### Description
 
-This property sets the UDP receive buffer size to the specified value in bytes. Ice messages larger than `num - 28`
-bytes cause a `DatagramLimitException`.
+This property sets the UDP receive buffer size to the specified value in bytes. Ice discards an incoming datagram larger
+than the receive buffer size minus 28 bytes, and logs a warning if [Ice.Warn.Datagrams](../ice-warn-properties) is set.
 
 The OS may impose lower and upper limits on the receive buffer size or otherwise adjust the buffer size. If a limit is
 requested that is lower than the OS-imposed minimum, the value is silently adjusted to the OS-imposed minimum. If a
@@ -34,7 +34,8 @@ Note that, on many operating systems, it is possible to set a buffer size greate
 change the hard limit of 65507 bytes for the payload of a UDP packet, but merely affect how much data can be buffered by
 the kernel.
 
-Nonzero settings less than 65535 limit the size of Ice datagrams as well as adjust the kernel buffer sizes.
+A buffer smaller than 65535 bytes limits the size of Ice datagrams, whether it comes from this property or from the
+operating system's default.
 
 # Ice.UDP.SndSize
 
@@ -44,8 +45,8 @@ Nonzero settings less than 65535 limit the size of Ice datagrams as well as adju
 
 #### Description
 
-This property sets the UDP send buffer size to the specified value in bytes. Ice messages larger than `num - 28` bytes
-cause a `DatagramLimitException`.
+This property sets the UDP send buffer size to the specified value in bytes. Sending a request or batch request larger
+than the send buffer size minus 28 bytes fails with a `DatagramLimitException`.
 
 The OS may impose lower and upper limits on the send buffer size or otherwise adjust the buffer size. If a limit is
 requested that is lower than the OS-imposed minimum, the value is silently adjusted to the OS-imposed minimum. If a
@@ -58,4 +59,5 @@ Note that, on many operating systems, it is possible to set a buffer size greate
 change the hard limit of 65507 bytes for the payload of a UDP packet, but merely affect how much data can be buffered by
 the kernel.
 
-Nonzero settings less than 65535 limit the size of Ice datagrams as well as adjust the kernel buffer sizes.
+A buffer smaller than 65535 bytes limits the size of Ice datagrams, whether it comes from this property or from the
+operating system's default.
