@@ -128,7 +128,7 @@ log messages.
 Ice copies properties with the prefixes `Ice.Default.Locator` and `IceSSL.` from the application's communicator to this
 sub-communicator, then applies the properties in _propertyList_. These additional settings override copied values.
 
-Ice reads _propertyList_ as a [list of strings](../the-properties-class), each using the syntax
+Ice reads _propertyList_ as a [list of strings](../properties-class), each using the syntax
 `PropertyName=PropertyValue`. Ice adds a leading `--` to an entry if needed and parses the entries with
 `parseCommandLineOptions`. For example, this setting enables protocol tracing on the Logger facet's sub-communicator:
 
