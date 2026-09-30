@@ -2,9 +2,10 @@
 title: Generating Documentation with Doxygen
 ---
 
-[Doxygen](https://www.doxygen.nl), version 1.8.15 or later, generates a reference for your Slice definitions from their
-doc comments. The [Slice API reference](https://code.zeroc.com/ice/3.8/api/slice/index.html) is its output for Ice's own
-Slice files.
+Using [Doxygen](https://www.doxygen.nl), version 1.8.15 or later, you can generate an API reference for your Slice
+definitions, including their doc comments. The
+[Slice API reference](https://code.zeroc.com/ice/3.8/api/slice/index.html) is Doxygen's output for Ice's own Slice
+files.
 
 Create a `Doxyfile` with `doxygen -g`, and set these three settings in it:
 
