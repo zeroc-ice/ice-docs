@@ -49,17 +49,18 @@ define any of the plug-in's properties. However, it's still important to underst
 information.
 
 First, you can override the default endpoint that the plug-in uses to broadcast its queries by defining
-[IceLocatorDiscovery.Lookup](../icelocatordiscovery-properties), otherwise the plug-in computes this endpoint as
-follows:
+[IceLocatorDiscovery.Lookup](../icelocatordiscovery-properties), otherwise the plug-in computes one endpoint for each
+multicast-capable interface, as follows:
 
-`IceLocatorDiscovery.Lookup=udp -h address -p port [--interface interface]`
+`udp -h "address" -p port --interface "interface"`
 
 where
 
 - `address` is the value of [IceLocatorDiscovery.Address](../icelocatordiscovery-properties) - defaults to `239.255.0.1`
   if IPv4 is enabled or `ff15::1` if IPv4 is disabled
 - `port` is the value of [IceLocatorDiscovery.Port](../icelocatordiscovery-properties) - defaults to `4061`
-- `interface` is the value of [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties)
+- `interface` is the value of [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties), or each available
+  multicast-capable interface when that property is not set
 
 {% callout type="warning" %}
 
@@ -81,11 +82,8 @@ IceLocatorDiscovery.Address=239.255.0.99
 IceLocatorDiscovery.Port=8000
 ```
 
-The plug-in derives the following property from these settings:
-
-```config
-IceLocatorDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
-```
+With these settings, the plug-in sends its lookup queries to `239.255.0.99` port `8000` on each multicast-capable
+interface.
 
 {% callout type="warning" %}
 
