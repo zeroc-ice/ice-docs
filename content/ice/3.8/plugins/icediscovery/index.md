@@ -168,11 +168,13 @@ IPv4):
 - `IceDiscovery.Reply.Endpoints=udp`
 
 Finally, you can also override the default endpoint that a client uses to broadcast its lookup queries by defining
-[IceDiscovery.Lookup](../icediscovery-properties), otherwise the plug-in computes this endpoint as follows:
+[IceDiscovery.Lookup](../icediscovery-properties), otherwise the plug-in computes one endpoint for the interface named
+by `IceDiscovery.Interface`, or for each available multicast-capable interface when that property is not set, as
+follows:
 
-- `IceDiscovery.Lookup=udp -h address -p port [--interface interface]`
+- `udp -h "address" -p port --interface "interface"`
 
-This endpoint must use the same address and port as `IceDiscovery.Multicast.Endpoints`.
+These endpoints must use the same address and port as `IceDiscovery.Multicast.Endpoints`.
 
 As you can see, the properties `IceDiscovery.Address`, `IceDiscovery.Port` and `IceDiscovery.Interface` are simply used
 as convenient shortcuts for customizing the details of the plug-in's endpoints. For example, suppose we want to use a
@@ -183,11 +185,11 @@ IceDiscovery.Address=239.255.0.99
 IceDiscovery.Port=8000
 ```
 
-The plug-in derives the following properties from these settings:
+The plug-in derives the following property from these settings, and sends its lookup queries to the same address and
+port on each multicast-capable interface:
 
 ```config
 IceDiscovery.Multicast.Endpoints=udp -h 239.255.0.99 -p 8000
-IceDiscovery.Lookup=udp -h 239.255.0.99 -p 8000
 ```
 
 {% callout type="info" %}

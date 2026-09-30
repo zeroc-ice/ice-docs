@@ -80,17 +80,14 @@ On Linux:
 
 - Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
-Glacier2 also accepts legacy DES-style hashes on Linux and logs a warning when the password file contains them.
-
 The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the name of the password file:
 
 ```config
 Glacier2.CryptPasswords=passwords
 ```
 
-Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. Glacier2 skips
-blank lines and rejects extra fields and duplicate user names. For example, the following password file contains an
-entry for the user name `test`:
+Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. For example, the
+following password file contains an entry for the user name `test`:
 
 ```text
 test $5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19

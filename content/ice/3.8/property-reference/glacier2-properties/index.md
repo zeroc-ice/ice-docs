@@ -80,11 +80,11 @@ When `Glacier2.AddConnectionContext` is 1, Glacier2 includes its connection-info
 
 Controls tracing for the router's [filters](../securing-a-glacier2-router):
 
-| Value | Description                                                                                                                                      |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 0     | No filter trace (default).                                                                                                                       |
-| 1, 2  | Trace proxy acceptance and rejection by the address and proxy-size filters, and request rejections by category, identity and adapter-ID filters. |
-| 3     | Like 1, with details of individual address and port matches.                                                                                     |
+| Value | Description                                                                                                                                                                                               |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | No filter trace (default).                                                                                                                                                                                |
+| 1, 2  | Trace proxy acceptance and rejection by the address and proxy-size filters, request rejections by category, identity and adapter-ID filters, and requests rejected because the connection has no session. |
+| 3     | Like 1, with details of individual address and port matches.                                                                                                                                              |
 
 # Glacier2.Client.Trace.Request
 
@@ -136,8 +136,8 @@ an identifier must be escaped with a leading backslash.
 #### Description
 
 Specifies a space-separated list of address-port pairs. When defined, the Glacier2 router
-[filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects through proxies that
-have every endpoint match the same address-port pair in this list. If not defined, this property imposes no address
+[filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects through direct proxies
+whose endpoints all match the same address-port pair in this list. If not defined, this property imposes no address
 restriction. Requests accepted by this property may be rejected by the
 [Glacier2.*#Glacier2.Filter.Address.Reject](../glacier2-properties#glacier2.filter.address.reject) property.
 
