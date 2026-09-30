@@ -8,10 +8,10 @@ renamed:
   ami-in-python-with-futures: 'operations#asynchronous-method-invocation-(ami)'
   application-distribution-with-ansible: ansible
   application-notes-for-php: communicators-in-php
-  asynchronous-method-dispatch--amd--in-csharp: 'operations#amd-mapping-for-operations'
-  asynchronous-method-dispatch-amd-in-c: 'operations#amd-mapping-for-operations'
-  asynchronous-method-dispatch-amd-in-java: 'operations#amd-mapping-for-operations'
-  asynchronous-method-dispatch-amd-in-python: 'operations#amd-mapping-for-operations'
+  asynchronous-method-dispatch--amd--in-csharp: 'operations#asynchronous-method-dispatch-(amd)'
+  asynchronous-method-dispatch-amd-in-c: 'operations#asynchronous-method-dispatch-(amd)'
+  asynchronous-method-dispatch-amd-in-java: 'operations#asynchronous-method-dispatch-(amd)'
+  asynchronous-method-dispatch-amd-in-python: 'operations#asynchronous-method-dispatch-(amd)'
   asynchronous-method-invocation--ami--in-csharp: 'operations#asynchronous-method-invocation-(ami)'
   asynchronous-method-invocation-ami-in-c: 'operations#asynchronous-method-invocation-(ami)'
   asynchronous-method-invocation-ami-in-java: 'operations#asynchronous-method-invocation-(ami)'
