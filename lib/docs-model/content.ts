@@ -192,18 +192,33 @@ export function readNavigation(root: string, version: string): NavDoc {
 }
 
 /**
- * The site's redirects, for Next's `redirects` config: the site root and `/ice`
- * go to the newest version's front page, and each version's `redirects.yaml`
- * sends old URLs to new ones.
+ * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
+ * and `/ice/latest/…` go to the version whose front page says `status: latest`,
+ * and each version's `redirects.yaml` sends old URLs to new ones. Throws unless
+ * exactly one version says it.
  */
 export function readRedirects(root: string) {
-  const versions = listVersions(root).sort((a, b) =>
-    a.localeCompare(b, undefined, { numeric: true })
+  const versions = listVersions(root);
+  const latest = versions.filter(
+    (version) =>
+      frontmatterOf<{ status?: string }>(
+        fs.readFileSync(path.join(root, version, 'index.md'), 'utf8')
+      ).status === 'latest'
   );
-  const newest = pageHref(versions[versions.length - 1]);
+  if (latest.length !== 1)
+    throw new Error(
+      `expected one version with status: latest, found ${latest.length}`
+    );
+  const front = pageHref(latest[0]);
+  // Temporary, since the latest version changes.
   const redirects = [
-    { source: '/', destination: newest, permanent: false },
-    { source: '/ice', destination: newest, permanent: false }
+    { source: '/', destination: front, permanent: false },
+    { source: '/ice', destination: front, permanent: false },
+    {
+      source: '/ice/latest/:path*',
+      destination: `${front}/:path*`,
+      permanent: false
+    }
   ];
   for (const version of versions) {
     const file = path.join(root, version, 'redirects.yaml');

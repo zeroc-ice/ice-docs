@@ -211,7 +211,7 @@ Whether to discard samples on receipt of new samples
 ([DiscardPolicy](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473)):
 
 - **None**— never discard
-- **SendTime**— discard if the new sample’s timestamp is older than the last received
+- **SendTime**— discard if the new sample’s timestamp is at or before the last accepted sample’s timestamp
 - **Priority**— keep only samples from the highest-priority connected writers
 
 ### Coordination & Listeners
