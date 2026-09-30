@@ -4,7 +4,7 @@ title: Thread Pools
 
 A thread pool is a collection of threads that the Ice runtime draws upon to perform specific tasks.
 
-# Introduction to Thread Pools
+## Introduction to Thread Pools
 
 Each communicator creates two thread pools:
 
@@ -32,7 +32,7 @@ Use instead [Ice.Connection.name.MaxDispatches](../ice-connection-properties) an
 
 {% /callout %}
 
-# Configuring Thread Pools
+## Configuring Thread Pools
 
 Each thread pool has a unique name that serves as the prefix for its configuration properties:
 [*name.*Size](../ice-threadpool-properties), `name.SizeMax`, `name.SizeWarn`, etc.
@@ -52,7 +52,7 @@ To monitor the thread pool activities of a communicator, you can enable the
 [Ice.Trace.ThreadPool](../ice-trace-properties) property. Setting this property to a non-0 value causes the communicator
 to log a message when it creates a thread pool, as well as each time the size of a thread pool increases or decreases.
 
-# Dynamic Thread Pools
+## Dynamic Thread Pools
 
 A _dynamic_ thread pool can grow and shrink when necessary in response to changes in an application's work load. All
 thread pools have at least one thread, but a dynamic thread pool can grow as the demand for threads increases, up to the
@@ -108,7 +108,7 @@ To summarize, the value of `name.ThreadIdleTime` determines whether (and how qui
 of 1. A thread pool that shrinks can also grow to its maximum size. Finally, setting `name.SizeMax` to a value larger
 than `name.Size` allows a thread pool to grow beyond its initial capacity.
 
-##### See Also
+## See Also
 
 - [Thread Pool Design Considerations](../thread-pool-design-considerations)
 - [Bidirectional Connections](../bidirectional-connections)
@@ -116,7 +116,7 @@ than `name.Size` allows a thread pool to grow beyond its initial capacity.
 - [Object Adapter Thread Pools](../object-adapter-thread-pools)
 - [Ice.ThreadPool.*](../ice-threadpool-properties)
 
-##### References
+## References
 
 1. Schmidt, D. C. et al. 2000.
    ["Leader/Followers: A Design Pattern for Efficient Multi-Threaded Event Demultiplexing and Dispatching"](https://www.cs.wm.edu/~dcschmidt/PDF/lf.pdf).

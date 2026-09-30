@@ -5,7 +5,7 @@ title: Slice Compilation
 A Slice compiler produces source files that must be combined with application code to produce client and server
 executables.
 
-# Single Development Environment for Client and Server
+## Single Development Environment for Client and Server
 
 The figure below shows the situation when both client and server are developed in C++. The Slice compiler generates two
 files from a Slice definition in a source file `Greeter.ice`: a header file (`Greeter.h`) and a source file
@@ -30,7 +30,7 @@ the implementation source code are compiled and linked into the server executabl
 
 Both client and server also link with an Ice library that provides the necessary run-time support.
 
-# Different Development Environments for Client and Server
+## Different Development Environments for Client and Server
 
 Client and server cannot share any source or binary components if they are developed in different languages. For
 example, a client written in Java cannot include a C++ header file.
@@ -44,6 +44,6 @@ and language mapping, and the Slice definition is the only link between them.
 For Java, the Slice compiler creates a number of files whose names depend on the names of various Slice constructs.
 (These files are collectively referred to as `*.java` in the above figure.)
 
-##### See Also
+## See Also
 
 - [Using the Slice Compilers](../using-the-slice-compiler)

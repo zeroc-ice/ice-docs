@@ -11,7 +11,7 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for C\#
+## The Slice Compiler for C\#
 
 The Slice-to-C# compiler (`slice2cs`) supports only the common Slice compiler options.
 

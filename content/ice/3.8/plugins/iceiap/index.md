@@ -14,7 +14,7 @@ client-side only transport for iOS. It doesn't for instance provide the server-s
 accessory side. For information on how to implement the server side, you need to be a MFI licensee and get in touch with
 ZeroC.
 
-# Accessory Discovery
+## Accessory Discovery
 
 An accessory can be discovered based on a number of attributes:
 
@@ -25,11 +25,11 @@ An accessory can be discovered based on a number of attributes:
 
 An accessory endpoint can be configured with any of these attributes to find an accessory.
 
-# Installing IceIAP
+## Installing IceIAP
 
 {% language-section name="lang-1" /%}
 
-# Using IceIAP
+## Using IceIAP
 
 An iAP endpoint in a proxy specifies attributes that are used to find and connect to a matching accessory. An iAP
 endpoint has the following syntax:
@@ -43,7 +43,7 @@ For example, to invoke on a proxy for the `greeter` object running on an accesso
 
 To use the secured iAP endpoint, replace `iap` with `iaps`.
 
-##### See Also
+## See Also
 
 - [Plug-in Facility](../plug-in-facility)
 - [Proxy and Endpoint Syntax](../endpoint-syntax)

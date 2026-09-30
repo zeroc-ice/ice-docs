@@ -13,11 +13,11 @@ However, in some situations, you have no access to `InitializationData`, for exa
 The plug-in facility allows you to inject your custom logger into the communicator at runtime, during communicator
 initialization.
 
-# Installing a Custom Logger
+## Installing a Custom Logger
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Custom Loggers](../custom-loggers)
 - [The Per-Process Logger](../per-process-logger)

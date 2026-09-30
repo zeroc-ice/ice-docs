@@ -24,6 +24,6 @@ insert a default message into the generated code.
 You can apply the `["deprecated"]` metadata directive to most Slice constructs, including operations, interfaces,
 structures and classes.
 
-##### See Also
+## See Also
 
 - [`@deprecated` Doc-Comment Tag](../doc-comment-structure#@deprecated)

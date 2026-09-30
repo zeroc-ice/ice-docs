@@ -5,12 +5,12 @@ title: Adapter Runtime Component
 An adapter represents an Ice object adapter described in the IceGrid registry that resides in a server or an IceBox
 service. Note that direct object adapters are not displayed since IceGrid knows nothing about them.
 
-# States
+## States
 
 An adapter can be either active ![adapter active](/attachments/3.8/adapter-runtime-component/adapter-active.jpeg) or
 inactive ![adapter inactive](/attachments/3.8/adapter-runtime-component/adapter-inactive.jpeg).
 
-# Properties
+## Properties
 
 The Adapter Properties panel shows first the Runtime Status of the object adapter, i.e. "live" values retrieved from the
 enclosing server or service:

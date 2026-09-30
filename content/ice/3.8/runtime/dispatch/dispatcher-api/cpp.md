@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-# Ice::Object Base Class
+## Ice::Object Base Class
 
 For historical reasons, the [Dispatcher](../terminology) abstraction does not correspond to a `Dispatcher` abstract base
 class in C++. We use instead the base class `Ice::Object` as the dispatcher base class.

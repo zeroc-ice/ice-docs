@@ -10,7 +10,7 @@ servers. The registry does not consume much processor time, so it commonly runs 
 the registry and a node can run in the same process if desired. If fault tolerance is desired, the registry supports
 replication using a master-slave design.
 
-# Architecture of a Simple IceGrid Application
+## Architecture of a Simple IceGrid Application
 
 As an example, this illustration shows a very simple IceGrid application running on a network of three computers. The
 IceGrid registry is the only process of interest on host `PC1`, while IceGrid nodes are running on the hosts `PC2` and
@@ -33,7 +33,7 @@ the address and port of a server. The extra level of indirection adds some laten
 however, all subsequent interactions occur directly between client and server, so the cost is negligible. Furthermore,
 indirection allows servers to migrate to different computers without the need to update proxies held by clients.
 
-# Server Replication with IceGrid
+## Server Replication with IceGrid
 
 IceGrid's flexibility allows an endless variety of configurations. For example, suppose we have a grid network and want
 to replicate a server on each blade, as shown below:
@@ -53,7 +53,7 @@ periodically reported by the nodes) and return the endpoints of the object adapt
 It is also possible for the registry to combine the endpoints of several object adapters, in which case the Ice run time
 in the client would select the endpoint for the initial connection attempt.
 
-# Deploying an IceGrid Application
+## Deploying an IceGrid Application
 
 In IceGrid, _deployment_ is the process of describing an application to the registry. This description includes the
 following information:
@@ -86,7 +86,7 @@ The registry server must be running in order to deploy an application, but it is
 Nodes that are started after deployment automatically retrieve the information they need from the registry. Once
 deployed, you can update the application at any time.
 
-##### See Also
+## See Also
 
 - [Locators](../locators)
 - [Connection Establishment](../connection-establishment)

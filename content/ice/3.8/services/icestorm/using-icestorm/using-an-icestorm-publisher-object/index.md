@@ -6,7 +6,7 @@ Each topic creates a publisher object for the express purpose of publishing mess
 implements an Ice interface that allows the object to receive and forward requests (i.e., IceStorm messages) without
 requiring knowledge of the operation types.
 
-# Type Safety Considerations for the Publisher Object
+## Type Safety Considerations for the Publisher Object
 
 From the publisher's perspective, the publisher object appears to be an application-specific type. In reality, the
 publisher object can forward requests for any type, and that introduces a degree of risk: a misbehaving publisher can
@@ -19,7 +19,7 @@ be sent to the publisher object to indicate this failure, and therefore neither 
 aware of the type-mismatch problem. In short, IceStorm places the burden on the developer to ensure that publishers and
 subscribers are using it correctly.
 
-# Publish using Oneway or Twoway Invocations?
+## Publish using Oneway or Twoway Invocations?
 
 IceStorm messages are unidirectional, but publishers may use either oneway or twoway invocations when sending messages
 to the publisher object. Each invocation style has advantages and disadvantages that you should consider when deciding
@@ -39,7 +39,7 @@ which one to use. The differences between the invocation styles affect a publish
 - Delays A publisher may experience network-related delays when sending messages to IceStorm if subscribers are slow in
   processing messages. Twoway invocations are more susceptible to these delays than oneway invocations.
 
-# Selecting a Transport for the Publisher Object
+## Selecting a Transport for the Publisher Object
 
 Each publisher can select its own transport for message delivery, therefore the transport used by a publisher to
 communicate with IceStorm has no effect on how IceStorm delivers messages to its subscribers.
@@ -49,7 +49,7 @@ provides a UDP endpoint to publishers). However, the TCP or SSL transports are g
 publisher endpoint in order to ensure that published messages are delivered reliably to IceStorm, even if they may not
 be delivered reliably to some subscribers.
 
-# Using Request Contexts with the Publisher Object
+## Using Request Contexts with the Publisher Object
 
 A [request context](../request-contexts) is an optional argument of all remote invocations. If a publisher supplies a
 request context when publishing a message, IceStorm will forward it intact to subscribers.
@@ -57,7 +57,7 @@ request context when publishing a message, IceStorm will forward it intact to su
 Services such as [Glacier2](../how-glacier2-uses-request-contexts) employ request contexts to provide applications with
 more control over the service's behavior.
 
-##### See Also
+## See Also
 
 - [IceStorm Quality of Service](../icestorm-quality-of-service)
 - [Oneway Invocations](../oneway-invocations)

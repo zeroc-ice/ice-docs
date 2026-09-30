@@ -12,7 +12,7 @@ For **types defined in Slice**, DataStorm automatically uses the **Ice encoding*
 - For **built-in Slice types** (e.g., `string`, `int`, `float`), no additional steps are required.
 - For **custom Slice types**, you must include the Slice-to-C++ generated code in your application.
 
-### Example: Built-in Slice Types
+## Example: Built-in Slice Types
 
 ```cpp
 Topic<string, float> temperatures{node, "temperatures"};
@@ -21,7 +21,7 @@ Topic<string, float> temperatures{node, "temperatures"};
 In this example, DataStorm uses the Ice encoding for both string and float. No additional code or configuration is
 needed because both string and float are [Slice built-in types](../basic-types).
 
-### Example: Custom Slice Type
+## Example: Custom Slice Type
 
 If you define a custom type in Slice, such as:
 
@@ -50,7 +50,7 @@ DataStorm will use the Ice encoding for both parameters:
 Topic<string, ClearSky::AtmosphericConditionsPtr> temperatures{node, "temperatures"};
 ```
 
-### **Example: Non-Slice Types**
+## Example: Non-Slice Types
 
 If your types are **not defined in Slice**, you must provide specializations of the
 [DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) and

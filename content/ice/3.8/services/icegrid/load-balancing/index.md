@@ -16,7 +16,7 @@ with the registry. As a result, the registry's response to a locate request can 
 replicas at a particular moment. If system loads are important to the client, it must take steps to periodically contact
 the registry and [update its endpoints](../locator-semantics-for-clients).
 
-# Replica Group Load Balancing
+## Replica Group Load Balancing
 
 A [replica group descriptor](../replica-group-descriptor-element) optionally contains a
 [load balancing descriptor](../load-balancing-descriptor-element) that determines how system loads are used in locate
@@ -60,7 +60,7 @@ You can optionally use custom load balancing strategies by installing [replica g
 
 {% /callout %}
 
-# Load Balancing Types
+## Load Balancing Types
 
 A replica group can select one of the following load balancing types:
 
@@ -83,7 +83,7 @@ desired load balancing and fail-over behavior may also require the cooperation o
 important that you understand how and when the Ice run time uses a
 [locator to resolve indirect proxies](../locator-semantics-for-clients).
 
-# Using Load Balancing in the Ripper Application
+## Using Load Balancing in the Ripper Application
 
 The only change we need to make to the ripper application is the addition of a load balancing descriptor:
 
@@ -120,14 +120,14 @@ Using adaptive load balancing, we have regained the functionality we forfeited w
 [introduced replica groups](../object-adapter-replication). Namely, we now select the object adapter on the least-loaded
 node, and no changes are necessary in the client.
 
-# Interacting with Object Replicas
+## Interacting with Object Replicas
 
 In some applications you may have a need for interacting directly with the replicas of an object. You might be tempted
 to call `ice_getEndpoints` on the proxy of a replicated object in an effort to obtain the endpoints of all replicas, but
 that is not the correct solution because the proxy is indirect and therefore contains no endpoints. The proper approach
 is to [query well-known objects](../well-known-objects) using the `findAllReplicas` operation.
 
-# Custom Load Balancing Strategies
+## Custom Load Balancing Strategies
 
 The IceGrid registry allows you to plug in custom load balancing implementations that the registry invokes to filter its
 query results. Two kinds of filters are supported:
@@ -147,13 +147,13 @@ query results. Two kinds of filters are supported:
 
 In the sections below we describe how to implement these filters.
 
-## Overview of Custom Load Balancing
+### Overview of Custom Load Balancing
 
 Filters are installed into the IceGrid registry using the standard Ice [plug-in facility](../plug-in-facility).
 
 Since IceGrid is implemented in C++, you need to write and register a C++ plug-in.
 
-### The Registry Plug-in Facade Object
+#### The Registry Plug-in Facade Object
 
 During initialization, your plug-in will obtain a reference to a facade object with which it can register one or more
 filters. A filter typically retains a reference to this facade object because it offers a number of useful methods that
@@ -166,7 +166,7 @@ for use in making its decisions. The data structures returned by these methods c
 [XML descriptors](../icegrid-xml-reference); you can also review the Slice definitions of the IceGrid data types for
 more information.
 
-### Implementing a Registry Plug-in
+#### Implementing a Registry Plug-in
 
 The [API](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Plugin.html) for creating an Ice plug-in using C++ requires
 a factory function with external linkage, along with a class that implements the `Ice::Plugin` abstract base class. We
@@ -222,7 +222,7 @@ The `initialize` method calls `getRegistryPluginFacade` to obtain a smart pointe
 
 We describe filter implementations in more detail below.
 
-### Installing a Registry Plug-in
+#### Installing a Registry Plug-in
 
 Continuing with our example, we use the following property to install our plug-in in the IceGrid registry:
 
@@ -239,7 +239,7 @@ behavior depending on which replica it's currently using.
 
 {% /callout %}
 
-### Filter Implementation Techniques
+#### Filter Implementation Techniques
 
 A filter may require client-specific information in order to assemble its list of results. We recommend using
 [request contexts](../request-contexts) for this purpose. Briefly, a request context is a dictionary of key/value string
@@ -290,7 +290,7 @@ server-specific properties as a form of metadata. The registry supplies the filt
 identifiers; each object adapter is hosted by a server, and the filter can look up property values for that server using
 the facade.
 
-## Implementing a Custom Replica Group Filter
+### Implementing a Custom Replica Group Filter
 
 A replica group filter must define a subclass of
 [IceGrid::ReplicaGroupFilter](https://code.zeroc.com/manual/IceGrid/ReplicaGroupFilter).
@@ -396,7 +396,7 @@ As this example demonstrates, request contexts are a convenient way to supply a 
 and server properties can serve as a simple database when a filter needs to tailor its results based on server
 attributes.
 
-## Implementing a Custom Type Filter
+### Implementing a Custom Type Filter
 
 A replica group filter must define a subclass of
 [IceGrid::TypeFilter](https://code.zeroc.com/manual/IceGrid/TypeFilter).
@@ -409,7 +409,7 @@ The `filter` implementation must not block.
 
 Refer to the previous section for more information on implementing a filter.
 
-##### See Also
+## See Also
 
 - [Object Adapter Replication](../object-adapter-replication)
 - [Connection Establishment](../connection-establishment)

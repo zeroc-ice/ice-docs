@@ -2,8 +2,6 @@
 title: Node
 ---
 
-# DataStorm Node
-
 The **node** is the central component of any DataStorm publish–subscribe application. Every DataStorm application must
 start by creating a node and keep it alive for the duration of the application.
 

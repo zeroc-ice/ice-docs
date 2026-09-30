@@ -43,7 +43,7 @@ export class Person {
 }
 ```
 
-## Optional Fields
+### Optional Fields
 
 An optional field maps to a JavaScript class field with the same name. The mapped field’s type is optional, and the tag
 value is not mapped to JavaScript.
@@ -92,7 +92,7 @@ export class C extends Ice.Value {
 }
 ```
 
-## Default Values
+### Default Values
 
 Slice default values map to default values in C#.
 

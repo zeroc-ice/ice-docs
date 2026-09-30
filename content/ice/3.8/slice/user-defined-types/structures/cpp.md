@@ -31,11 +31,9 @@ std::ostream& operator<<(std::ostream& os, const Employee& value);
 For each field in the Slice definition, the C++ structure contains a corresponding public data member of the same name.
 Constructors are intentionally omitted so that the C++ structure qualifies as a _plain old datatype_ (POD).
 
-## Comparison Operators
+### Comparison Operators
 
 The generated C++ structures use templated comparison operators included from Ice.
-
-##### **C++ Comparison Operators**
 
 ```cpp
 // !=, <, <=, >, >=  are implemented in the same manner
@@ -52,7 +50,7 @@ inline bool operator==(const T& lhs, const T& rhs)
 
 These operators compare the `std::tuple` returned by the generated `ice_tuple()` function.
 
-## Default Constructor
+### Default Constructor
 
 Structures have a default constructor that default-constructs each data member. Members having a complex type, such as
 strings, sequences, and dictionaries, are initialized by their own default constructor. However, the default constructor
@@ -64,7 +62,7 @@ in which case an exception will occur during marshaling unless the member is exp
 To ensure that data members of primitive types are initialized to reasonable values, you can declare default values in
 your Slice definition. These default values are mapped to C++ data member initializers.
 
-## Printing Structs
+### Printing Structs
 
 The Slice compiler generates an `operator<<` that prints the C++ structure, including the value of all its data members:
 

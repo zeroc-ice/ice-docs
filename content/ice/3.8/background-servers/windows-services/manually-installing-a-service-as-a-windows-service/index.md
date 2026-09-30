@@ -7,12 +7,12 @@ This page describes how to manually install and configure an Ice service as a Wi
 in the directory `C:\Program Files\ZeroC\Ice-3.8.2`. We also assume that you have administrative access to your system,
 which is required by many of the installation steps discussed below.
 
-# Selecting a User Account for the IceBridge Service
+## Selecting a User Account for the IceBridge Service
 
 The IceBridge service can run in a regular user account, therefore we will follow
 [our own recommendation](../installing-a-windows-service) and use the Local Service account.
 
-# Configuration File for the IceBridge Service
+## Configuration File for the IceBridge Service
 
 IceBridge requires a minimal set of configuration properties. We could specify them on the service's command line, but
 if we later want to modify those properties we would have to reinstall the service. Defining the properties in a file
@@ -40,7 +40,7 @@ rights, which we can verify using the `icacls` utility:
 icacls C:\ProgramData\Ice\icebridge.cfg
 ```
 
-# Creating the IceBridge Service
+## Creating the IceBridge Service
 
 We will use Microsoft's Service Control (`sc`) utility in a command window to create the service.
 
@@ -100,7 +100,7 @@ sc description icebridge "Simple IceBridge Server"
 
 After refreshing the list of services, you should see the new description.
 
-# Creating the Event Log for the IceBridge Service
+## Creating the Event Log for the IceBridge Service
 
 By default, programs such as the IceBridge service that utilize the C++ `Ice::Service` class log messages to the
 `Application` event log. Below we describe how to prepare the Windows registry for the service's default behavior, and
@@ -108,7 +108,7 @@ we also show how to use a custom event log instead. We make use of Microsoft's R
 registry, although you could also use the interactive `regedit` tool. As always, caution is recommended whenever you
 modify the registry.
 
-## Using the Application Log for the IceBridge Service
+### Using the Application Log for the IceBridge Service
 
 We must configure an event log source for events to display properly. The first step is to create a registry key with
 the name of the source. Since the `Service` class uses the service name as the source name by default, we add the key
@@ -147,7 +147,7 @@ reg query HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Application\icebridge
 
 Our configuration of the event log is now complete.
 
-##### Changing the Source Name for the IceBridge Service
+#### Changing the Source Name for the IceBridge Service
 
 Using the configuration described in the previous section, events logged by the IceBridge service are recorded in the
 event log using the source name `icebridge`. If you prefer to use a source name that differs from the service name, you
@@ -168,7 +168,7 @@ add the following configuration property to `icebridge.cfg`:
 Ice.EventLog.Source=Ice Bridging Service
 ```
 
-## Using a Custom Log for the IceBridge Service
+### Using a Custom Log for the IceBridge Service
 
 You may decide that you want your services to record messages into an application-specific log instead of the
 `Application` log that is shared by other unrelated services. As an example, let us create a log named `MyApp`:
@@ -204,7 +204,7 @@ Ice.EventLog.Source=Ice Bridging Service
 Note that you must restart the Event Viewer control panel after adding the `MyApp` registry key in order to see the new
 log.
 
-## Registry Caching for the IceBridge Service
+### Registry Caching for the IceBridge Service
 
 The first time a service logs an event, Windows' Event Log service caches the registry entries associated with the
 service's source. If you wish to modify a service's event log configuration, such as changing the service to use a
@@ -221,7 +221,7 @@ event properties indicate that the description of an event cannot be found, the 
 event source. Verify that the value of `EventMessageFile` refers to the correct location of the Ice run time DLL, and
 that the service is defining [Ice.EventLog.Source](../ice-properties) in its configuration file (if necessary).
 
-# Starting the IceBridge Service
+## Starting the IceBridge Service
 
 We are at last ready to start the service. In a command window, you can use the `sc` utility:
 
@@ -240,6 +240,6 @@ The service should now be in the running state. If it is not in this state, open
 inspect the relevant log for more information that should help you to locate the problem. Even if the service started
 successfully, you may still want to use the Event Viewer to confirm that the service is using the log you expected.
 
-##### See Also
+## See Also
 
 - [Installing a Windows Service](../installing-a-windows-service)

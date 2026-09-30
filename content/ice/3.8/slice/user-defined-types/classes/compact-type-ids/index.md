@@ -25,7 +25,7 @@ Using values less than 255 produces the most efficient [encoding](../class-type-
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Type IDs](../type-ids)
 - [Data Encoding for Class Type IDs](../class-type-ids)

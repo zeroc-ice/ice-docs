@@ -26,7 +26,7 @@ Here is an example to demonstrate the use of this element:
 </icegrid>
 ```
 
-##### See Also
+## See Also
 
 - [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
 - [Application Descriptor Element](../application-descriptor-element)

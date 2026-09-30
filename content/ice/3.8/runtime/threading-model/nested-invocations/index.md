@@ -5,7 +5,7 @@ title: Nested Invocations
 A _nested invocation_ is one that is made within the context of another Ice operation. For instance, the implementation
 of an operation in a servant might want to invoke an operation another object (using a proxy).
 
-# Deadlocks with Nested Invocations
+## Deadlocks with Nested Invocations
 
 Making a nested invocation is legitimate, even common, however you need be careful to avoid deadlocks.
 
@@ -41,7 +41,7 @@ a shared resource (such as a mutex, or itself when the thread in question is a d
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Thread Pools](../thread-pools)
 - [Object Adapter Thread Pools](../object-adapter-thread-pools)

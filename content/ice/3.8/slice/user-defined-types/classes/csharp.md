@@ -1,9 +1,5 @@
 {% language-section name="language-mapping" %}
 
-## Mapping for Classes
-
-# Class Mapping
-
 A Slice class is mapped to a C# class with the same name. By default, the generated class contains a public field for
 each Slice field (just as for structures and exceptions). Alternatively, you can use the property mapping by specifying
 the `"cs:property"` metadata directive, which generates classes with properties instead of fields.
@@ -63,7 +59,7 @@ There are a number of things to note about the generated code:
 2. The generated class contains a public field for each Slice field.
 3. The generated class has a primary constructor and a parameterless constructor.
 
-## Generated Constructors
+### Generated Constructors
 
 All generated classes have a public parameterless constructor that initializes all fields using default values (see
 [Fields](../fields)). This constructor is used by the unmarshaling code. The unmarshaling code guarantees that all
@@ -86,7 +82,7 @@ var tod = new TimeOfDay(14, 45, 00, "PST"); // 2:45pm
 For a derived class, the primary constructor requires one argument for every field of the class, including inherited
 fields.
 
-## Property Mapping
+### Property Mapping
 
 You can instruct the compiler to emit property definitions instead of public fields. For example:
 

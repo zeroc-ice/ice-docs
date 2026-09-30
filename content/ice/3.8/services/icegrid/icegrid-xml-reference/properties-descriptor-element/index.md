@@ -45,7 +45,7 @@ Here is an example to demonstrate the use of this element:
 </application>
 ```
 
-##### See Also
+## See Also
 
 - [Properties and Configuration](../properties-and-configuration)
 - [Application Descriptor Element](../application-descriptor-element)

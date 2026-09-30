@@ -6,7 +6,7 @@ An IceBox server internally creates an object called the service manager that is
 initializing the configured services. You can optionally expose this object to remote clients, such as the IceBox and
 IceGrid administrative utilities, so that they can execute certain administrative tasks.
 
-# IceBox Administrative Slice Interfaces
+## IceBox Administrative Slice Interfaces
 
 The Slice definitions shown below comprise the IceBox administrative interface:
 
@@ -41,7 +41,7 @@ module IceBox
 }
 ```
 
-## The IceBox `ServiceManager` Interface
+### The IceBox `ServiceManager` Interface
 
 The `ServiceManager` interface provides access to the service manager object of an IceBox server. It defines the
 following operations:
@@ -73,7 +73,7 @@ The IceBox server unregisters an observer if the invocation of either operation 
 Our discussion of [IceGrid](../icegrid-and-the-administrative-facility) includes an example that demonstrates how to
 register a `ServiceObserver` callback with an IceBox server deployed with IceGrid.
 
-# Enabling the Service Manager
+## Enabling the Service Manager
 
 IceBox's administrative functionality is disabled by default. You can enable it using the Ice
 [administrative facility](../administrative-facility) by defining endpoints for the `Ice.Admin` object adapter with the
@@ -97,7 +97,7 @@ Consequently, you should
 
 {% /callout %}
 
-# IceBox Admin Facets
+## IceBox Admin Facets
 
 When you [enable the service manager](../icebox-administration), IceBox adds it as a facet of the server's
 [admin](../admin-object) object. As a result, the identity of the service manager is the same as that of the `admin`
@@ -133,7 +133,7 @@ To keep a service's facets out of the `admin` object, set [Ice.Admin.Enabled](..
 service's configuration. The shared communicator uses a merged configuration, so this setting applies to all services
 that share it.
 
-# IceBox Administrative Client Configuration
+## IceBox Administrative Client Configuration
 
 A client requiring administrative access to the service manager must first obtain (or be able to construct) a proxy for
 the [admin](../admin-object) object. The default identity of the `admin` object uses a UUID for its category, which
@@ -158,7 +158,7 @@ ServiceManager.Proxy=IceBox/admin -f IceBox.ServiceManager:tcp -h 127.0.0.1 -p 1
 The [proxy option](../endpoint-syntax) `-f IceBox.ServiceManager` specifies the name of the service manager's
 administrative facet.
 
-# IceBox Administrative Utility
+## IceBox Administrative Utility
 
 IceBox includes C++ and Java implementations of an administrative utility. The utilities have the same usage:
 
@@ -209,7 +209,7 @@ Query the status of the `Greeter` service:
 iceboxadmin --Ice.Config=admin.cfg status Greeter
 ```
 
-##### See Also
+## See Also
 
 - [Administrative Facility](../administrative-facility)
 - [The admin Object](../admin-object)

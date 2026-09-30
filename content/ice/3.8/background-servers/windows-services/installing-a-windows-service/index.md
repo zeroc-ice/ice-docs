@@ -18,12 +18,12 @@ There are many ways to perform these tasks. For example, an administrator can
 program tailored to the needs of your application. Finally, you can build an installer using a developer tool such as
 InstallShield.
 
-# Selecting a User Account for the Service
+## Selecting a User Account for the Service
 
 Before installing a service, you should give careful consideration to the user account that will run the service. Unless
 your service has special requirements, we recommend that you use the built-in account that Windows provides specifically
 for this purpose, `Local Service`.
 
-##### See Also
+## See Also
 
 - [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)

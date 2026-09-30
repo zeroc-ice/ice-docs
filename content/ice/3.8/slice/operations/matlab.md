@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Operations
 
-# Mapping for Operations
+### Mapping for Operations
 
 As we saw in the [Client-Side MATLAB Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains 2 methods for this operation. To invoke
@@ -45,7 +45,7 @@ greeter = visitorcenter.GreeterPrx(
 greeting = greeter.greet('Alice');     % Get name via RPC
 ```
 
-# Sync and Async Methods
+### Sync and Async Methods
 
 For each operation, the Slice compiler generates 2 methods on the proxy class:
 
@@ -64,7 +64,7 @@ convenient to call. You decide what’s more important for your application.
 
 {% /callout %}
 
-# Exception Handling
+### Exception Handling
 
 Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
@@ -99,11 +99,6 @@ catch ex
 end
 ```
 
-##### See Also
-
-- [MATLAB Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in MATLAB](<../operations#asynchronous-method-invocation-(ami)>)
-
 ## Asynchronous Method Invocation (AMI)
 
 _Asynchronous Method Invocation_(AMI) is the term used to describe the client-side support for the asynchronous
@@ -116,13 +111,13 @@ completes.
 AMI is transparent to the server: there is no way for the server to tell whether a client sent a request synchronously
 or asynchronously.
 
-# Future Class
+### Future Class
 
 Asynchronous invocations return an instance of the `Ice.Future` class – the future object. Its API is similar to
 MATLAB's [parallel.future](https://www.mathworks.com/help/matlab/ref/parallel.future.html) class, in particular, you can
 call `wait` and `fetchOutputs` on this future object.
 
-# Asynchronous Exception Semantics
+### Asynchronous Exception Semantics
 
 If an invocation throws an exception, the exception will be thrown when the application calls `fetchOutputs` on the
 future. The exception is provided by the future, even if the actual error condition for the exception was encountered
@@ -137,7 +132,7 @@ There are two exceptions to this rule:
 - a call to an `Async` method can throw `Ice.TwowayOnlyException`. An `Async` method throws this exception if you call
   an operation that has a return value or out-parameters on a oneway proxy.
 
-# Asynchronous Oneway Invocations
+### Asynchronous Oneway Invocations
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
 have any out-parameters, and does not throw user exceptions. If you call an asynchronous proxy method on a oneway proxy
@@ -146,7 +141,7 @@ for an operation that returns values or throws a user exception, the `Async` met
 The future returned for a oneway invocation completes as soon as the request is successfully written to the client-side
 transport. The future completes exceptionally if an error occurs before the request is successfully written.
 
-# Flow Control
+### Flow Control
 
 Asynchronous method invocations never block the thread that calls the `Async` function : the Ice runtime checks to see
 whether it can write the request to the local transport. If it can, it does so immediately in the caller's thread.
@@ -158,7 +153,7 @@ keep up with them, the requests pile up in the client-side runtime until, eventu
 
 You can use `future.State` to check if a request was sent and implement flow-control for your application.
 
-# Canceling an Asynchronous Invocation
+### Canceling an Asynchronous Invocation
 
 You can call `cancel` on the future returned by an async invocation to cancel this invocation. For example:
 
@@ -176,14 +171,14 @@ completed, meaning the future completed with an `Ice.InvocationCanceledException
 
 ## Mapping for Parameters and Return Values
 
-# In Parameters
+### In Parameters
 
 An in parameter is mapped to a MATLAB parameter with the same name; its type is the mapped MATLAB type.
 
 For example, a Slice parameter `string name` is mapped to a MATLAB parameter `name` with type `char` and size `(1 :)`.
 The rules are the same as for [Fields](../fields).
 
-# Out Parameters and Return Values
+### Out Parameters and Return Values
 
 The MATLAB mapping uses the conventional language mechanism for returning one or more result values.
 
@@ -243,7 +238,7 @@ classdef ServerToClientPrx < Ice.ObjectPrx
 end
 ```
 
-# Optional Parameters
+### Optional Parameters
 
 [Optional parameters](../operations) use the same mapping as required parameters, with one difference: the parameter
 accepts `Ice.Unset` as a valid value.

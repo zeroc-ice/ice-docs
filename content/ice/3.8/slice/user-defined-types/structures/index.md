@@ -2,7 +2,7 @@
 title: Structures
 ---
 
-# Struct Syntax
+## Struct Syntax
 
 Slice supports structures containing one or more named fields of arbitrary type, including user-defined complex types.
 For example:
@@ -58,11 +58,11 @@ struct TwoPoints      // Legal (and cleaner!)
 }
 ```
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Fields](../fields)
 - [Classes](../classes)

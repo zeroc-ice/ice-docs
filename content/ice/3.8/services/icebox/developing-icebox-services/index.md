@@ -2,7 +2,7 @@
 title: Developing IceBox Services
 ---
 
-# The IceBox `Service` Interface
+## The IceBox `Service` Interface
 
 Writing an IceBox service requires implementing the [IceBox Service](https://code.zeroc.com/manual/IceBox/Service)
 interface or abstract base class.
@@ -25,14 +25,14 @@ The `stop` method must release the resources owned by the service and destroy th
 
 IceBox owns the communicator it passes to `start` and destroys it when the server shuts down.
 
-# IceBox Service Example
+## IceBox Service Example
 
 {% language-section name="lang-1" /%}
 
 [Configuring IceBox Services](../configuring-icebox-services) provides more information on entry points and describes
 how to configure your service into an IceBox server.
 
-# IceBox Service Failures
+## IceBox Service Failures
 
 A service implementation can indicate a failure by throwing an exception. IceBox handles the exception according to when
 it occurs:
@@ -52,7 +52,7 @@ whether the service started or stopped.
 If `start` fails, the service must release resources it acquired during that attempt before propagating the exception.
 IceBox calls `stop` only for services it records as started.
 
-##### See Also
+## See Also
 
 - [Configuring IceBox Services](../configuring-icebox-services)
 - [Starting the IceBox Server](../starting-the-icebox-server)

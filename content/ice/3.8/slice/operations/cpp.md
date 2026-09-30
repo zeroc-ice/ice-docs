@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Operations
 
-# Mapping for Operations
+### Mapping for Operations
 
 As we saw in the [Client-Side C++ Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains 3 member functions for this operation. To
@@ -71,7 +71,7 @@ This is true for all mapped Slice types: you can safely ignore the return value 
 — return values are always returned by value. If you ignore the return value, no memory leak occurs because the
 destructor of the returned value takes care of deallocating memory as needed.
 
-# Sync and Async Functions
+### Sync and Async Functions
 
 For each operation, the Slice compiler generates 3 member functions on the proxy class:
 
@@ -91,7 +91,7 @@ what’s more important for your application.
 
 {% /callout %}
 
-# Exception Handling
+### Exception Handling
 
 Any operation invocation may throw [a runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../exceptions). Suppose we have the following simple
@@ -124,15 +124,9 @@ catch (const Tantrum& t)
 }
 ```
 
-##### See Also
-
-- [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in C++](<../operations#asynchronous-method-invocation-(ami)>)
-- [Server-Side C++ Mapping for Operations](#server-side-mapping-for-operations)
-
 ## Server-Side Mapping for Operations
 
-# Default Mapping for Operations
+### Default Mapping for Operations
 
 As we saw in the [Server-Side C++ Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated skeleton class contains a pure virtual function with the same
@@ -180,13 +174,13 @@ public:
 };
 ```
 
-# AMD Mapping for Operations
+### AMD Mapping for Operations
 
 Each operation with the `["amd"]` metadata is mapped to a pure virtual function with an `Async` suffix in the skeleton
 class. The AMD mapping replaces the default “sync” mapping for the operation. See
 [Asynchronous Method Dispatch (AMD) in C++](#amd-mapping-for-operations) for details.
 
-# Throwing Exceptions
+### Throwing Exceptions
 
 To throw an exception from an operation implementation, you simply construct this exception and throw it. For example:
 
@@ -213,11 +207,6 @@ compatible with the operation's Slice definition. Rather, Ice returns the user e
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
 
-##### See Also
-
-- [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side C++ Mapping for Operations](#client-side-mapping-for-operations)
-
 ## Asynchronous Method Invocation (AMI)
 
 _Asynchronous Method Invocation (AMI)_ is the term used to describe the client-side support for the asynchronous
@@ -230,7 +219,7 @@ completes.
 AMI is transparent to the server: there is no way for the server to tell whether a client sent a request synchronously
 or asynchronously.
 
-# Asynchronous Exception Semantics
+### Asynchronous Exception Semantics
 
 If an invocation throws an exception, the exception is reported by the exception callback or by the future, even if the
 actual error condition for the exception was encountered during the call to the `Async` function ("on the way out"). The
@@ -245,7 +234,7 @@ There are two exceptions to this rule:
 - a call to an `Async` function can throw `TwowayOnlyException`. An `Async` function throws this exception if you call
   an operation that has a return value or out-parameters on a oneway proxy.
 
-# Asynchronous Oneway Invocations
+### Asynchronous Oneway Invocations
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
 have any out-parameters, and does not throw user exceptions. If you call an `Async` function on a oneway proxy for an
@@ -255,7 +244,7 @@ With the callback API, the Ice runtime does not call the response callback on a 
 invocation completes with the sent callback (see the Sent Callbacks section below). With the future-based API, the
 returned future is a `future<void>`, and this future is made ready when the invocation is sent.
 
-# Canceling an Asynchronous Invocation
+### Canceling an Asynchronous Invocation
 
 The `Async` function with callback parameters returns a cancel function-object (a `std::function<void()>`). You can use
 this function-object to cancel the invocation, for example:
@@ -275,7 +264,7 @@ sent, ignores a reply if the server sends one. This cancellation is purely local
 Canceling an invocation that has already completed has no effect. Otherwise, a canceled invocation is considered to be
 completed, meaning the exception callback (if provided) receives an `Ice::InvocationCanceledException`.
 
-# Polling for Completion
+### Polling for Completion
 
 The future-based `Async` function allow you to poll for call completion. Polling is useful in a variety of cases. As an
 example, consider the following simple interface to transfer files from client to server:
@@ -360,7 +349,7 @@ the point where making the requests larger or queuing more requests no longer im
 you can realize the full bandwidth of the link to within a percent or two of the theoretical bandwidth limit of a native
 socket connection.
 
-# Sent Callbacks
+### Sent Callbacks
 
 When you call an `Async` function, the Ice runtime attempts to write the request to the client-side transport. If the
 transport can accept the request, it is sent synchronously, in the calling thread. Otherwise, the Ice runtime queues the
@@ -397,7 +386,7 @@ e.getNameAsync(
 Since the `sent` callback can execute in the calling thread before the `Async` function returns, it must not attempt to
 acquire a lock that this thread already holds, as this would result in a deadlock with a non-recursive mutex.
 
-# Flow Control
+### Flow Control
 
 Asynchronous method invocations never block the thread that calls the `Async` function: if the local transport cannot
 accept the request immediately, the Ice runtime queues the request internally for later transmission in the background.
@@ -445,7 +434,7 @@ An alternate use case for AMD is an operation that requires further processing a
 order to minimize the client's delay, the operation returns the results while still in the dispatch thread, and then
 continues using the dispatch thread for additional work.
 
-## Async Skeleton
+### Async Skeleton
 
 The easiest way to use AMD in C++ is to make your servant class derive from the async skeleton class generated by the
 Slice compiler. For example:
@@ -459,7 +448,7 @@ public:
 };
 ```
 
-## Enabling AMD Piecemeal
+### Enabling AMD Piecemeal
 
 If you prefer to implement some operations asynchronously (with AMD) and other operations synchronously, you can add the
 `["amd"]` metadata directive to the operations you want to implement with AMD and use the default skeleton class.
@@ -480,7 +469,7 @@ interface Controller
 In this example, the `startProcess` of the default skeleton class uses asynchronous dispatch while `endProcess` uses
 synchronous dispatch.
 
-## AMD Mapping
+### AMD Mapping
 
 With AMD, the skeleton’s pure virtual function is named `<operation-name>Async`. This function returns `void` and
 accepts the operation's in-parameters, followed by two callback parameters provided by the Ice runtime.
@@ -506,7 +495,7 @@ virtual void opAsync(
 
 You would get the same signature on the default skeleton (`Example`) if you decorate `op` with `["amd"]`.
 
-## AMD Exceptions
+### AMD Exceptions
 
 There are two processing contexts in which the logical implementation of an AMD operation may need to report an
 exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that sends
@@ -521,7 +510,7 @@ These are not necessarily two different threads: it is legal to send the respons
 The implementation of the `Async` function in your servant class can throw an exception synchronously: it’s equivalent
 to calling the exception callback with this exception.
 
-## Chaining AMI and AMD Invocations
+### Chaining AMI and AMD Invocations
 
 Since the asynchronous proxy callback API and the asynchronous dispatch API are similar, it is possible to implement an
 asynchronous dispatch by sending an asynchronous request to a proxy.
@@ -560,15 +549,9 @@ the AMD response from the AMI `sent` callback.
 
 {% /callout %}
 
-##### See Also
-
-- [The Ice Threading Model](../threading-model)
-- [User Exceptions](../exceptions)
-- [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
-# In Parameters
+### In Parameters
 
 An in parameter is mapped to a C++ parameter with the same name.
 
@@ -588,7 +571,7 @@ payload of the request.
 | `class C`                                                           | Const reference of shared pointer: `const CPtr&`                | `CPtr` (a shared pointer by value)                        |
 | `Greeter*` (a proxy)                                                | Const reference of optional: `const std::optional<GreeterPrx>&` | `std::optional<GreeterPrx>`                               |
 
-# Out Parameters in Synchronous Functions
+### Out Parameters in Synchronous Functions
 
 A Slice parameter is mapped to a parameter with the same name in synchronous proxy and skeleton functions. The type of
 the mapped C++ parameter is a non-const reference.
@@ -626,14 +609,14 @@ public:
 };
 ```
 
-# Return Values in Synchronous Functions
+### Return Values in Synchronous Functions
 
 A Slice return value is mapped to a C++ return value in synchronous proxy and skeleton functions. The C++ type is
 naturally returned “by value”.
 
-# Out Parameters and Return Values in Asynchronous Functions
+### Out Parameters and Return Values in Asynchronous Functions
 
-## Future-Returning Proxy Functions
+#### Future-Returning Proxy Functions
 
 One of the two overloaded proxy member functions `<operation-name>Async` returns a `std::future<T>`.
 
@@ -645,7 +628,7 @@ a single return value or out parameter, the future holds the mapped C++ type. Ot
 These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](../operations#in-parameters),
 since you’re receiving these values from Ice.
 
-## Callback Proxy Functions
+#### Callback Proxy Functions
 
 The other overloaded proxy member functions `<operation-name>Async` accepts a response callback function that consumes
 the return value and out parameters (if any). This callback function is provided by you (the application), and is called
@@ -657,7 +640,7 @@ since you’re receiving these values from Ice.
 When the operation has a return value and one ore more out parameters, the return value is mapped to a parameter named
 `returnValue` int the C++ response callback.
 
-## AMD Skeleton Functions
+#### AMD Skeleton Functions
 
 On the server-side, when you use AMD, the pure virtual function `<operation-name>Async` on the generated skeleton class
 provides a response callback that accepts the return value and out parameters (if any). This callback function is
@@ -666,7 +649,7 @@ provided by Ice, and you (the application) call this function in your implementa
 The return value and out parameters are all mapped like in the Outgoing column of
 [In Parameters](../operations#in-parameters), since you’re loaning these values to Ice for marshaling.
 
-# Optional Parameters
+### Optional Parameters
 
 The mapping for [optional parameters](../operations) is the same as for required parameters, except each mapped C++ type
 is enclosed in a `std::optional`.
@@ -697,5 +680,10 @@ An optional parameter with a proxy type is mapped to a `std::optional<InterfaceN
 `std::optional<std::optional<InterfaceNamePrx>>`. This is the same rule as for optional fields with proxy types.
 
 {% /callout %}
+
+## See Also
+
+- [The Ice Threading Model](../threading-model)
+- [User Exceptions](../exceptions)
 
 {% /language-section %}

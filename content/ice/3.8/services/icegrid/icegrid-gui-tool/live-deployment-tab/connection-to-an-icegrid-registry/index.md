@@ -7,7 +7,7 @@ If your IceGrid registry is replicated, you can connect to any replica for monit
 definitions, for example to describe a new server, you need to connect to the master IceGrid registry. This page
 describes how to connect to an IceGrid registry.
 
-# Connecting using a Saved Connection
+## Connecting using a Saved Connection
 
 Use `File > Login...` or press the
 ![saved connections](/attachments/3.8/connection-to-an-icegrid-registry/saved-connections.jpeg) button to open the
@@ -24,7 +24,7 @@ some cases), such as:
 
 ![image2017-4-3 12:23:43.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-23-43.png)
 
-# Creating a new Connection
+## Creating a new Connection
 
 In the `Saved Connections` dialog, click on `New Connection` to open the New Connection wizard.
 
@@ -125,7 +125,7 @@ Step 5: Provide a username and password for the connection to the Glacier2 route
 Step 6: Click `Finish` to save the connection; IceGrid GUI then attempts to connect to the IceGrid registry through the
 Glacier2 router.
 
-# SSL Connections and Certificates
+## SSL Connections and Certificates
 
 IceGrid GUI maintains a persistent store of X.509 certificates for SSL connections with IceGrid registries. You can
 import, view and remove these certificates with the Certificate Manager. Use `File > Certificate Manager...` or click on
@@ -167,13 +167,13 @@ such as:
 
 ![image2017-4-6 10:39:23.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-6-10-39-23.png)
 
-# Editing a Saved Connection
+## Editing a Saved Connection
 
 In the `Saved Connections` dialog, click on `Edit Connection` to edit a connection. This opens the Connection wizard for
 your saved connection. With this wizard, IceGrid GUI does not attempt to connect to the target IceGrid registry when you
 click on the `Finish` button.
 
-# Closing a Connection
+## Closing a Connection
 
 Use `File > Logout` or press the ![logout](/attachments/3.8/connection-to-an-icegrid-registry/logout.jpeg) button to
 disconnect from an IceGrid registry. This clears all information in the Live Deployment pane.

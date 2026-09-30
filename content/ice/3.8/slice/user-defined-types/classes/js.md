@@ -1,9 +1,5 @@
 {% language-section name="language-mapping" %}
 
-## Mapping for Classes
-
-# Class Mapping
-
 A Slice class is mapped to a JavaScript class with the same name. For each Slice field, the JavaScript instance contains
 a corresponding field (just as for structures and exceptions). Consider the following class definition:
 
@@ -50,7 +46,7 @@ There are a number of things to note about the generated code:
 2. The generated class provides a constructor that accepts a value for each field.
 3. The generated class defines a JavaScript field for each Slice field.
 
-## Generated Constructor
+### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
 single statement (instead of first having to construct the instance and then assign to its fields).

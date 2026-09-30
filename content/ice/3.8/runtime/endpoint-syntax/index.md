@@ -17,13 +17,13 @@ coincidentally, that’s the term we’ve adopted for IceRPC.
 
 This page presents the addressing component of endpoints, as well as the transport protocols and their options.
 
-# Endpoint List Syntax
+## Endpoint List Syntax
 
-#### Synopsis
+### Synopsis
 
 `endpoint : endpoint`
 
-#### Description
+### Description
 
 An endpoint list comprises one or more endpoints separated by a colon (`:`).
 
@@ -42,7 +42,7 @@ See [Object Adapter Endpoints](../object-adapter-endpoints) for examples.
 
 {% /callout %}
 
-## IP Address Syntax
+### IP Address Syntax
 
 #### Synopsis
 
@@ -78,7 +78,7 @@ IPv4 and IPv6 connections.
 
 {% language-section name="lang-1" /%}
 
-## TCP Endpoint Syntax
+### TCP Endpoint Syntax
 
 #### Synopsis
 
@@ -100,7 +100,7 @@ A `tcp` endpoint supports the following options:
 | `-z`                   | Specifies bzip2 compression.                                                                                              | Determines whether requests are compressed during sending.                                                                                                                                                                                                                                                                                                                                        | Determines whether compression is advertised in proxies created by the adapter.                                                                                                                                         |
 | `--sourceAddress ADDR` | Specifies the source address used by the connection.                                                                      | The value for `ADDR` must be a numeric IPv4 or IPv6 address. If this option is not specified, it defaults to the value of [Ice.Default.SourceAddress](../ice-default-properties).This option allows to specify the source address set in the IP packet. It doesn't necessarily imply that the operating system will use the network interface matching this IP address to send out the IP packet. | Not supported                                                                                                                                                                                                           |
 
-## UDP Endpoint Syntax
+### UDP Endpoint Syntax
 
 #### Synopsis
 
@@ -138,7 +138,7 @@ with the 1.1 encoding and are ignored (a deprecation warning will be emitted whe
 
 {% /callout %}
 
-### Multicast Interfaces
+#### Multicast Interfaces
 
 When `host` denotes a multicast address, the `--interface` `INTF` option selects a particular network interface to be
 used for communication. The format of `INTF` depends on the language and IP version:
@@ -149,7 +149,7 @@ used for communication. The format of `INTF` depends on the language and IP vers
 - Java `INTF` can be an interface name, such as `eth0`, or an IP address. On Windows, Java maps interface names to
   Unix-style nicknames.
 
-## SSL Endpoint Syntax
+### SSL Endpoint Syntax
 
 #### Synopsis
 
@@ -159,7 +159,7 @@ used for communication. The format of `INTF` depends on the language and IP vers
 
 An `ssl` endpoint supports the same options as for [tcp endpoints](../endpoint-syntax).
 
-## WS Endpoint Syntax
+### WS Endpoint Syntax
 
 #### Synopsis
 
@@ -173,7 +173,7 @@ A `ws` (WebSocket) endpoint supports all [tcp endpoint](../endpoint-syntax) opti
 | --------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `-r` `resource` | A URI specifying the resource associated with this endpoint. If not specified, the default value is `/`. | The value for `resource` is passed as the target for `GET` in the WebSocket upgrade request. | The web server configuration must direct the given `resource` to this endpoint. |
 
-## WSS Endpoint Syntax
+### WSS Endpoint Syntax
 
 #### Synopsis
 
@@ -188,7 +188,7 @@ following:
 | --------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `-r` `resource` | A URI specifying the resource associated with this endpoint. If not specified, the default value is `/`. | The value for `resource` is passed as the target for `GET` in the WebSocket upgrade request. | The web server configuration must direct the given `resource` to this endpoint. |
 
-## Bluetooth Endpoint Syntax
+### Bluetooth Endpoint Syntax
 
 #### Synopsis
 
@@ -213,7 +213,7 @@ transport protocol as well. A Bluetooth endpoint supports the following options:
 | `-z`           | Specifies bzip2 compression.                                                                                                                                                                                                                                    | Determines whether requests are compressed during sending.                                                                                                                                                              | Determines whether compression is advertised in proxies created by the adapter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `--name name`  | Specifies the service name.                                                                                                                                                                                                                                     | Ignored in proxy endpoints.                                                                                                                                                                                             | Associates a human-friendly name with the service's entry in the SDP registry. If not specified, the default name is `Ice Service`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
-## iAP Endpoint Syntax
+### iAP Endpoint Syntax
 
 #### Synopsis
 
@@ -240,7 +240,7 @@ accessory to connect to:
 | `-t` `timeout`      | Specifies the endpoint timeout in milliseconds.      | The value for `timeout` must either be `infinite` to specify no timeout, or an integer greater than zero representing the timeout in milliseconds. Endpoint timeouts are deprecated. They have no effect as of Ice 3.8. |
 | -z                  | Specifies bzip2 compression.                         | Determines whether requests are compressed during sending.                                                                                                                                                              |
 
-## Opaque Endpoint Syntax
+### Opaque Endpoint Syntax
 
 #### Synopsis
 
@@ -265,7 +265,7 @@ An `opaque` endpoint supports the following options:
 Exactly one each of the `-t` and `-v` options must be present in an opaque endpoint. If `-e` is not specified, the
 default encoding used by the Ice runtime is assumed.
 
-##### See Also
+## See Also
 
 - [Syntax for Stringified Proxies](../syntax-for-stringified-proxies)
 - [Object Adapter Endpoints](../object-adapter-endpoints)

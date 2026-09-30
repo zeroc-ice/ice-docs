@@ -1,12 +1,12 @@
 {% language-section name="lang-1" %}
 
-# Ice.AcceptClassCycles
+## Ice.AcceptClassCycles
 
-#### Synopsis
+### Synopsis
 
 `Ice.AcceptClassCycles=num`
 
-#### Description
+### Description
 
 If `num` is set to 0 (the default), the unmarshaling of class cycles is disallowed. A `MarshalException` is thrown when
 a cycle is detected during unmarshaling.

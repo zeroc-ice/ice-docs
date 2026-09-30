@@ -4,7 +4,7 @@ title: Getting Started with IceGrid GUI
 
 This page describes how to launch the IceGrid GUI tool.
 
-# System Requirements
+## System Requirements
 
 IceGrid GUI is a Java application supported on a wide range of platforms, including Windows, Linux and macOS.
 
@@ -21,7 +21,7 @@ You can download Oracle Java SE for most platforms from Oracle.
 If you want to read IceGrid XML files from IceGrid GUI, you also need to have the
 [icegridadmin](../icegridadmin-command-line-tool) command-line utility in your `PATH`.
 
-# Starting IceGrid GUI
+## Starting IceGrid GUI
 
 On Windows IceGrid GUI can be started by clicking the IceGrid GUI icon in the Start menu. On macOS IceGrid GUI can be
 started by clicking the IceGrid GUI icon in Finder Applications folder:
@@ -38,7 +38,7 @@ On all platforms, you can also start IceGrid GUI from a terminal by typing:
 java -jar path-to-icegridgui.jar
 ```
 
-# Command Line Arguments
+## Command Line Arguments
 
 IceGrid GUI can be configured using Ice properties, and like with most Ice applications, these properties can be set
 using command-line arguments or a configuration file (or both).
@@ -61,11 +61,11 @@ command-line argument to specify the location of this file. For example:
 java -jar "C:\Program Files\ZeroC\Ice-3.8.0\bin\icegridgui.jar" --Ice.Config=icegridgui.cfg
 ```
 
-# Main IceGrid GUI Window
+## Main IceGrid GUI Window
 
 The main IceGrid GUI window allows to navigate between your live deployment and the definitions of several applications.
 
-## Tabs
+### Tabs
 
 The main IceGrid GUI window shows one or more tabs:
 
@@ -88,14 +88,14 @@ The main IceGrid GUI window shows one or more tabs:
 
 IceGrid GUI may show any number of application tabs, including none at all.
 
-## Status Bar
+### Status Bar
 
 The status bar at the bottom of the main window shows information about operations performed by IceGrid GUI, or messages
 received from the IceGrid registry.
 
 ![image2017-4-3 13:42:19.png](/attachments/3.8/getting-started-with-icegrid-gui/image2017-4-3-13-42-19.png)
 
-##### See Also
+## See Also
 
 - [IceGridAdmin.*](../icegridadmin-properties)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

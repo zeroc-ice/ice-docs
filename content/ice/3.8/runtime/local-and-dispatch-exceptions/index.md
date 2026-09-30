@@ -2,7 +2,7 @@
 title: Local and Dispatch Exceptions
 ---
 
-# Local Exceptions
+## Local Exceptions
 
 The Ice runtime reports errors to the application by throwing exceptions. Ice occasionally throws standard exceptions
 such as `std::invalid_argument`(C++) or `IllegalArgumentException`(Java), but generally it throws exceptions derived
@@ -20,7 +20,7 @@ results. You may receive a user exception only when you make an invocation using
 
 {% /callout %}
 
-# Dispatch Exceptions
+## Dispatch Exceptions
 
 When a API call throws an exception, this exception is necessarily thrown in the same program and address space as the
 caller. This exception can represent an error that was detected locally by the Ice runtime (for example, failed to

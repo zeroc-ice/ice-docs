@@ -1,9 +1,5 @@
 {% language-section name="language-mapping" %}
 
-## Mapping for Classes
-
-# Class Mapping
-
 A Slice class is mapped to a Java class with the same name. The generated class contains a public field for each Slice
 field (just as for structures and exceptions). Consider the following class definition:
 
@@ -43,7 +39,7 @@ There are a several things to note about the generated code:
 3. The generated class has a canonical constructor that takes one argument for each field, as well as a parameterless
    constructor.
 
-## Generated Constructors
+### Generated Constructors
 
 All generated classes have at least two constructors:
 

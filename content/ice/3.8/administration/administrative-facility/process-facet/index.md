@@ -15,7 +15,7 @@ the `Process` facet.
 
 {% /callout %}
 
-# The `Process` Interface
+## The `Process` Interface
 
 The Slice interface `Ice::Process` allows an activation service to request a graceful shutdown of the program:
 
@@ -39,7 +39,7 @@ standard error (`fd` == 2) channels.
 
 {% language-section name="lang-1" /%}
 
-# Integrating the Process Facet with an Activation Service
+## Integrating the Process Facet with an Activation Service
 
 If the [Ice.Admin.ServerId](../ice-admin-properties) and [Ice.Default.Locator](../ice-default-properties) properties are
 defined, the communicator performs the following steps after creating the admin object:
@@ -55,7 +55,7 @@ In the case of [IceGrid](../icegrid), IceGrid defines the `Ice.Admin.ServerId` a
 each deployed server. IceGrid also supplies a value for [Ice.Admin.Endpoints](../ice-admin-properties) if neither this
 property nor Ice.Admin.Enabled are defined by the server.
 
-##### See Also
+## See Also
 
 - [Communicator](../communicator)
 - [Versioning](../versioning)

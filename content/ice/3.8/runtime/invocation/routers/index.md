@@ -2,7 +2,7 @@
 title: Routers
 ---
 
-# Router Overview
+## Router Overview
 
 A _router_ is an Ice object that provides information to the Ice runtime to allow routing messages between clients and
 servers. In a client, configuring a proxy to use a router produces a _routed proxy_ on which all invocations are sent to
@@ -21,7 +21,7 @@ The Ice distribution includes two router implementations that serve different pu
 
 Both services implement the `Ice::Router` interface, which the Ice runtime requires of any router implementation.
 
-# Default Router
+## Default Router
 
 A communicator can be configured with a default router. The most common way to configure the default router is to set
 the property [Ice.Default.Router](../ice-default-properties). The value of this property is a proxy for the router's
@@ -41,7 +41,7 @@ with this communicator are not affected by the default router.
 
 {% /callout %}
 
-# Configuring a Router for Client Invocations
+## Configuring a Router for Client Invocations
 
 Setting a default router as described above means every proxy created by the communicator will be configured to use the
 router by default. If your client needs to use a router more selectively, you can use the `ice_router` proxy method to
@@ -60,7 +60,7 @@ MyProxy.Router=Glacier2/router:tcp -h routerhost -p 4063
 In this example, calling `propertyToProxy("MyProxy")` on a communicator returns a proxy that is already configured to
 use Glacier2 router.
 
-# Configuring a Client for Callbacks
+## Configuring a Client for Callbacks
 
 A client that needs to receive callbacks from the server through the router creates an object adapter that hosts
 callback objects and associates the router with this object adapter. You create this object adapter-router association
@@ -92,7 +92,7 @@ configured with a router:
 
 See [Callbacks through Glacier2](../callbacks-through-glacier2) for an example.
 
-# Routing Tables
+## Routing Tables
 
 A router implementation may optionally maintain an internal routing table that the Ice client runtime populates
 automatically by calling `addProxies`.
@@ -118,7 +118,7 @@ have been recently evicted), the router throws `ObjectNotExistException` and set
 value `ice_add_proxy` in order to notify the Ice runtime in the client that the routed proxy is unknown. The Ice client
 runtime must then register the proxy with the router and retry the invocation.
 
-##### See Also
+## See Also
 
 - [Glacier2](../glacier2)
 - [IceBridge](../icebridge)

@@ -21,7 +21,7 @@ implementation-specific interface derived from `Ice::Locator` that provides addi
 IceGrid's locator object provides access to an `IceGrid::Query` object so that applications can perform
 [more sophisticated queries](../well-known-objects).
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [IceDiscovery](../icediscovery)

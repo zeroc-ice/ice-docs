@@ -8,7 +8,7 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for Java
+## The Slice Compiler for Java
 
 The Slice-to-Java compiler (`slice2java`) offers one additional option:
 

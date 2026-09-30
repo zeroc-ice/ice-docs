@@ -2,8 +2,6 @@
 title: Interface Inheritance
 ---
 
-# Interface Inheritance
-
 Interfaces support inheritance. For example, we could extend our [Clock interface](../interfaces) to support the concept
 of an alarm clock:
 
@@ -65,7 +63,7 @@ This definition results in the familiar diamond shape:DiamondShaped
 
 ![D inherits from I1 and I2, which both inherit from B. Hollow arrowheads point toward each base interface.](/attachments/3.8/interface-inheritance/diamond.svg)
 
-# Interface Inheritance Limitations
+## Interface Inheritance Limitations
 
 If an interface uses multiple inheritance, it must not inherit the same operation name from more than one base
 interface. For example, the following definition is illegal:
@@ -94,7 +92,7 @@ names. (In practice, this is rarely a problem because inheritance is rarely adde
 fact". To avoid accidental clashes, we suggest that you use descriptive operation names, such as `setTime` and
 `setFrequency`. This makes accidental name clashes less likely.)
 
-# Implicit Inheritance from Object
+## Implicit Inheritance from Object
 
 All Slice interfaces are ultimately derived from `Object`. For example, the
 [inheritance hierarchy](../interface-inheritance) would be shown more correctly as: bfde871b-f9b9-4d4c-b830-85c7c3d8e423
@@ -129,6 +127,6 @@ It is understood that all interfaces inherit from type `Object`; you are not all
 Type `Object` is mapped to an abstract type by the various language mappings, so you cannot instantiate an Ice object of
 that type.
 
-##### See Also
+## See Also
 
 - [Operations](../operations)

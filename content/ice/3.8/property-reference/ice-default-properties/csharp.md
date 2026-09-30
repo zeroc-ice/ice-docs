@@ -1,12 +1,12 @@
 {% language-section name="lang-1" %}
 
-# Ice.Default.CollocationOptimized
+## Ice.Default.CollocationOptimized
 
-#### Synopsis
+### Synopsis
 
 `Ice.Default.CollocationOptimized=num`
 
-#### Description
+### Description
 
 Specifies whether proxy invocations use [collocation optimization](../collocated-invocation-and-dispatch) by default.
 When enabled, proxy invocations on a collocated servant (i.e., a servant whose object adapter was created by the same

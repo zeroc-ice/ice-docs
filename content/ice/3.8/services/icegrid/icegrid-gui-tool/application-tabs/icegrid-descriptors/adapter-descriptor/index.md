@@ -5,7 +5,7 @@ title: Adapter Descriptor
 Each indirect object adapter registered with IceGrid requires its own Adapter descriptor. If you need to specify a
 direct adapter, simply create a number of Ice properties in your server.
 
-# Properties
+## Properties
 
 The Adapter Properties panel offers the following fields:
 

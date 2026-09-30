@@ -2,7 +2,7 @@
 title: IceDiscovery
 ---
 
-# IceDiscovery Overview
+## IceDiscovery Overview
 
 IceDiscovery provides a location service using UDP multicast that allows Ice applications to discover objects and object
 adapters.
@@ -12,11 +12,11 @@ installed, IceDiscovery allows a client to dynamically locate objects using [ind
 which avoids the need for the client to statically configure the endpoints of the objects it uses. In a server,
 IceDiscovery makes objects and object adapters available for discovery with minimal effort.
 
-# IceDiscovery Concepts
+## IceDiscovery Concepts
 
 This section reviews some concepts that will help you as you learn more about IceDiscovery.
 
-## Indirect Proxies
+### Indirect Proxies
 
 [Indirect proxies](../terminology) have two formats:
 
@@ -33,7 +33,7 @@ The Ice core delegates the resolution of indirect proxies to a standardized [loc
 architecture offers a significant advantage: Ice applications can change locator settings via external configuration
 without requiring any changes to the application code.
 
-## Replication
+### Replication
 
 The locator facility includes support for replicated object adapters. For example, if `Adapter1` and `Adapter2` both
 participate in a replicate group identified as `TheGroup`, then the indirect proxy `someObject@TheGroup` could resolve
@@ -41,7 +41,7 @@ to either `someObject@Adapter1` or `someObject@Adapter2`. Although there are two
 implementation level, both object adapters incarnate the same logical object. The application is responsible for
 ensuring that any persistent state is properly synchronized between the servers that host replicated object adapters.
 
-## IceDiscovery Domains
+### IceDiscovery Domains
 
 Nothing prevents two unrelated IceDiscovery applications from using the same multicast address and port, which means a
 plug-in from Application A can receive lookup requests from a client in Application B for objects and object adapters
@@ -49,7 +49,7 @@ that might coincidentally match those of Application A. To avoid this situation,
 unique _domain identifiers_. The client plug-in includes its domain identifier in each lookup request it sends so that a
 server plug-in can ignore any requests that don't match its own domain identifier.
 
-# Discovery Process
+## Discovery Process
 
 When a client uses an indirect proxy with an adapter ID for the first time:
 
@@ -101,7 +101,7 @@ the information from the [Ice runtime locator cache](../locator-semantics-for-cl
 plug-in to the client plug-in occurs using UDP unicast (by default). All subsequent communication between the client and
 the target object proceed directly without intervention by the IceDiscovery plug-in.
 
-# IceDiscovery vs. IceGrid
+## IceDiscovery vs. IceGrid
 
 IceDiscovery and [IceGrid](../icegrid) both provide a location service but it helps to understand their differences when
 deciding which one to use in an application. Use IceDiscovery when your application needs a lightweight, transient
@@ -117,19 +117,19 @@ IceGrid.
 
 {% /callout %}
 
-# Installing IceDiscovery
+## Installing IceDiscovery
 
 The IceDiscovery plug-in must be installed in every client that need to locate objects and in every server that hosts
 those objects.
 
 {% language-section name="lang-1" /%}
 
-# Configuring IceDiscovery
+## Configuring IceDiscovery
 
 Applications configure the IceDiscovery plug-in using configuration properties; the plug-in does not provide a local
 API.
 
-## IceDiscovery Property Overview
+### IceDiscovery Property Overview
 
 The IceDiscovery plug-in supports a number of [configuration properties](../icediscovery-properties), most of which
 affect the endpoints that the plug-in uses to communicate with its peers:
@@ -200,13 +200,13 @@ potential collisions from unrelated applications that happen to use the same add
 
 {% /callout %}
 
-## Configuring IceDiscovery in Clients
+### Configuring IceDiscovery in Clients
 
 Aside from [installing the plug-in](../icediscovery) and optionally
 [configuring its addressing information](../icediscovery), no other configuration steps are required for an IceDiscovery
 client.
 
-## Configuring IceDiscovery in Servers
+### Configuring IceDiscovery in Servers
 
 In addition to [installing the plug-in](../icediscovery) and optionally
 [configuring its addressing information](../icediscovery), you also need to configure an identifier for each of a
@@ -232,19 +232,19 @@ The indirect proxy `someObject@greeter-1234` refers to an object in this particu
 proxy `someObject@greeterPool` could refer to any object having the identity `someObject` in any of the object adapters
 participating in the replica group `greeterPool`.
 
-## Configuring a Locator Proxy
+### Configuring a Locator Proxy
 
 The IceDiscovery plug-in calls `setDefaultLocator` on its communicator at startup, therefore it's not necessary for you
 to configure a locator proxy.
 
-# Using IceDiscovery
+## Using IceDiscovery
 
 As its name implies, the IceDiscovery plug-in allows clients to locate objects at runtime, as long as the servers
 hosting those objects are actively running and using the same configuration settings for address, port, domain, and so
 on. Since IceDiscovery relies on UDP multicast to broadcast the lookup requests, you'll need to ensure that your network
 supports this transport.
 
-## IceDiscovery Design Decisions
+### IceDiscovery Design Decisions
 
 From a design perspective, incorporating IceDiscovery into your application requires answering the following questions:
 
@@ -272,7 +272,7 @@ IceDiscovery provides enough flexibility to support a wide variety of applicatio
 functionality, consider using IceGrid instead. Note also that IceGrid supports its own version of IceDiscovery, so that
 migrating an existing IceDiscovery application should be straightforward.
 
-##### See Also
+## See Also
 
 - [IceDiscovery.*](../icediscovery-properties)
 - [Plug-in Facility](../plug-in-facility)

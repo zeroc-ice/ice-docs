@@ -37,7 +37,7 @@ The administrative facility introduces additional
 [security considerations](../security-considerations-for-administrative-facets), therefore the endpoints for the object
 adapter where the admin object's facets are hosted must be chosen with caution.
 
-##### See Also
+## See Also
 
 - [Ice.Admin.*](../ice-admin-properties)
 - [IceGrid and the Administrative Facility](../icegrid-and-the-administrative-facility)

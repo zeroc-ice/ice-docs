@@ -47,11 +47,7 @@ import {
 } from '../lib/docs-model/content.ts';
 import { buildPageIndex } from '../lib/docs-model/links.ts';
 import { pageHref } from '../lib/docs-model/nav.ts';
-import {
-  demoteHeadings,
-  resolveDocument,
-  stripRedundantTitle
-} from '../lib/docs-model/resolve.ts';
+import { resolveDocument } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
 const resolverTags = {
@@ -180,17 +176,12 @@ for (const { version, page } of allPages) {
   const where = `${version}/${slug} (assembled)`;
   let body;
   try {
-    // The same steps, in the same order, as the page route.
-    body = demoteHeadings(
-      stripRedundantTitle(
-        resolveDocument({
-          shared: shared ?? '',
-          overlays,
-          readFile: snippetReader(CONTENT_ROOT, version)
-        }),
-        frontmatter.title
-      )
-    );
+    // The same step as the page route.
+    body = resolveDocument({
+      shared: shared ?? '',
+      overlays,
+      readFile: snippetReader(CONTENT_ROOT, version)
+    });
   } catch (error) {
     diagnostics.push({ where, text: `cannot assemble: ${error.message}` });
     continue;

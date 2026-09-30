@@ -12,7 +12,7 @@ metadata directives to map sequences to a number of alternative types:
 The different mappings allow you to map a sequence to a container type that provides the correct performance trade-off
 for your application.
 
-## Array Mapping for Sequences
+### Array Mapping for Sequences
 
 By default, the Slice-to-C# compiler maps sequences to arrays. Interestingly, no code is generated in this case; you
 simply define an array of elements to model the Slice sequence. For example:
@@ -38,7 +38,7 @@ fp[1] = Fruit.Orange;
 The array mapping for sequences is both simple and efficient, especially for sequences that do not need to provide
 insertion or deletion other than at the end of the sequence.
 
-## Mapping to Predefined Generic Containers
+### Mapping to Predefined Generic Containers
 
 With metadata directives, you can change the default mapping for sequences to use generic containers provided by C#. For
 example:
@@ -80,7 +80,7 @@ sequence<MyClass> MyClassLinkedList; // Ignored
 In this example, sequence type `MyClassList` maps to the generic container `System.Collections.Generic.List<MyClass>`,
 but sequence type `MyClassLinkedList` uses the default array mapping.
 
-## Mapping to Custom Types
+### Mapping to Custom Types
 
 If the array mapping and the predefined containers are unsuitable for your application (for example, because you may
 need a priority queue, which does not come with .NET), you can implement your own custom containers and direct
@@ -120,7 +120,7 @@ public class PriorityQueue<T> : IEnumerable<T>
 }
 ```
 
-## Multi-Dimensional Sequences
+### Multi-Dimensional Sequences
 
 Slice permits you to define sequences of sequences, for example:
 

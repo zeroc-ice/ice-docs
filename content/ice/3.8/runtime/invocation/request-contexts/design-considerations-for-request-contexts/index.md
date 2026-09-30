@@ -2,7 +2,7 @@
 title: Design Considerations for Request Contexts
 ---
 
-# Request Context Interactions
+## Request Context Interactions
 
 If you use [explicit](../explicit-request-contexts), [per-proxy](../per-proxy-request-contexts), and
 [implicit](../implicit-request-contexts) contexts, it is important to be aware of their interactions:
@@ -14,7 +14,7 @@ If you use [explicit](../explicit-request-contexts), [per-proxy](../per-proxy-re
   of both contexts is transmitted to the server. If the per-proxy context and the implicit context contain the same key,
   but with different values, the _per-proxy_ value takes precedence.
 
-# Request Context Use Cases
+## Request Context Use Cases
 
 The purpose of request contexts is to permit services to be added to Ice that require some contextual information with
 every request. Contextual information can be used by services such as a transaction service (to provide the context of a
@@ -46,7 +46,7 @@ Keep in mind though that this works only within a single process. If you stringi
 over the wire, the per-proxy context is _not_ preserved. (Ice does not write the per-proxy context into stringified
 proxies and does not marshal the per-proxy context when a proxy is marshaled.)
 
-# Recommendations for Request Contexts
+## Recommendations for Request Contexts
 
 Contexts are a powerful mechanism for transparent propagation of context information, _if used correctly_. In
 particular, you may be tempted to use contexts as a means of versioning an application as it evolves over time. For

@@ -2,7 +2,7 @@
 title: Well-Known Objects
 ---
 
-# Overview of Well-Known Objects
+## Overview of Well-Known Objects
 
 There are two types of [indirect proxies](../terminology): one specifies an identity and an object adapter identifier,
 while the other contains only an identity. The latter type of indirect proxy is known as a
@@ -46,7 +46,7 @@ Finally, `Object3` represents a hopeless situation: how can the registry resolve
 refers to itself? In this case, the registry returns the proxy `Object3` to the client, which causes the client to raise
 `NoEndpointException`. Clearly, you should avoid this situation.
 
-# Well-Known Object Types
+## Well-Known Object Types
 
 The registry's database not only associates an identity with a proxy, but also a type. Technically, the "type" is an
 arbitrary string but, by convention, that string represents the most-derived Slice type of the object. For example, the
@@ -54,7 +54,7 @@ Slice [type ID](../type-ids) of the encoder factory in our ripper application is
 
 Object types are useful when performing [queries](../well-known-objects#querying-well-known-objects).
 
-# Deploying Well-Known Objects
+## Deploying Well-Known Objects
 
 The `object` descriptor adds a well-known object to the registry. It must appear within the context of an adapter
 descriptor, as shown in the XML example below:
@@ -84,7 +84,7 @@ a unique identifier by combining the server ID and the adapter name.
 
 In this example, the object's [type](../well-known-objects#well-known-object-types) is specified explicitly.
 
-# Adding Well-Known Objects Programmatically
+## Adding Well-Known Objects Programmatically
 
 The `IceGrid::Admin` interface defines several operations that manipulate the registry's database of well-known objects:
 
@@ -173,7 +173,7 @@ catch (const IceGrid::ObjectExistsException&)
 }
 ```
 
-# Adding Well-Known Objects with `icegridadmin`
+## Adding Well-Known Objects with `icegridadmin`
 
 The [icegridadmin utility](../icegridadmin-command-line-tool) provides commands that are the functional equivalents of
 the Slice operations for
@@ -209,7 +209,7 @@ Finally, the object is removed from the registry like this:
 >>> object remove "EncoderFactory"
 ```
 
-# Querying Well-Known Objects
+## Querying Well-Known Objects
 
 The registry's database of well-known objects is not used solely for resolving indirect proxies. The database can also
 be queried interactively to find objects in a variety of ways. The `IceGrid::Query` interface supplies this
@@ -273,11 +273,11 @@ enabled or proxies not registered through the deployment descriptors.
 
 {% /callout %}
 
-# Using Well-Known Objects in the Ripper Application
+## Using Well-Known Objects in the Ripper Application
 
 Well-known objects are another IceGrid feature we can incorporate into our ripper application.
 
-## Adding Well-Known Objects to the Ripper Deployment
+### Adding Well-Known Objects to the Ripper Deployment
 
 First we'll modify the descriptors to add two well-known objects:
 
@@ -311,7 +311,7 @@ First we'll modify the descriptors to add two well-known objects:
 At first glance, the addition of the well-known objects does not appear to simplify our client very much. Rather than
 selecting which of the two adapters receives the next task, we now need to select one of the well-known objects.
 
-## Querying Ripper Objects with `findAllObjectsByType`
+### Querying Ripper Objects with `findAllObjectsByType`
 
 The `IceGrid::Query` interface provides a way to eliminate the client's dependency on object adapter identifiers and
 object identities. Since our factories are registered with the same type, we can search for all objects of that type:
@@ -331,7 +331,7 @@ auto encoder = factory->createEncoder();
 
 This example invokes `findAllObjectsByType` and then randomly selects an element of the sequence.
 
-## Querying Ripper Objects with `findObjectByType`
+### Querying Ripper Objects with `findObjectByType`
 
 We can simplify the client further using `findObjectByType` instead, which performs the randomization for us:
 
@@ -347,7 +347,7 @@ auto factory = Ice::uncheckedCast<Ripper::MP3EncoderFactoryPrx>(obj);
 auto encoder = factory->createEncoder();
 ```
 
-## Querying Ripper Objects with `findObjectByTypeOnLeastLoadedNode`
+### Querying Ripper Objects with `findObjectByTypeOnLeastLoadedNode`
 
 So far the use of `IceGrid::Query` has allowed us to simplify our client, but we have not gained any functionality. If
 we replace the call to `findObjectByType` with `findObjectByTypeOnLeastLoadedNode`, we can improve the client by
@@ -366,7 +366,7 @@ auto factory = Ice::uncheckedCast<Ripper::MP3EncoderFactoryPrx>(obj);
 auto encoder = factory->createEncoder();
 ```
 
-## Ripper Progress Review
+### Ripper Progress Review
 
 Incorporating intelligent load distribution is a worthwhile enhancement and is a capability that would be time consuming
 to implement ourselves. However, our current design uses only well-known objects in order to make queries possible. We
@@ -375,7 +375,7 @@ object, a fact that seems clear when we examine the identities we assigned to th
 `EncoderFactory2`, and so on. IceGrid's [replication features](../object-adapter-replication) give us the tools we need
 to improve our design.
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Type IDs](../type-ids)

@@ -8,7 +8,7 @@ eventually closes incoming connections.
 A connection closure can be either graceful or abortive. A graceful close requires coordination with the peer, and
 therefore can take some time, while an abort is immediate.
 
-# The Idle Check
+## The Idle Check
 
 Once a connection is established, Ice aborts a connection when a read or write on this connections fails.
 
@@ -46,7 +46,7 @@ If you cannot reconfigure your older Ice application, you can disable the idle c
 
 {% /callout %}
 
-# The Inactivity Check
+## The Inactivity Check
 
 A client can establish a connection to a server, send one request to this server, and never use this connection again.
 While a connection doesn’t consume much resources, we’d rather clean it up and not to keep this connection open until
@@ -63,7 +63,7 @@ innocuous event.
 
 {% /callout %}
 
-# Graceful Connection Closure
+## Graceful Connection Closure
 
 When a client or server closes a connection gracefully, it sends a `CloseConnection` message to the peer, to notify the
 peer of the pending connection closure.
@@ -86,7 +86,7 @@ The peer sends this acknowledgment only after it has completed the dispatch of a
 This process can take some time. If the graceful closure exceeds the configured
 [CloseTimeout](../ice-connection-properties), the connection is aborted.
 
-##### See Also
+## See Also
 
 - [Protocol Messages](../protocol-messages)
 - [Connection Establishment](../connection-establishment)

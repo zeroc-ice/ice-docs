@@ -33,7 +33,7 @@ class Person
 end
 ```
 
-## Optional Fields
+### Optional Fields
 
 An optional field maps to a Ruby instance variable and accessors, just like a non-optional field. Tag values are not
 mapped to Ruby.
@@ -65,7 +65,7 @@ end
 
 The default value for optional fields is `Ice::Unset`; it represents the “not set” value.
 
-## Default Values
+### Default Values
 
 Slice default values map to default values in the mapped `initialize` method.
 

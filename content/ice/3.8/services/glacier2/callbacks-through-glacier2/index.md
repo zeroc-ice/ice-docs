@@ -14,7 +14,7 @@ provides instructions on running the example, and comments in the configuration 
 
 {% /callout %}
 
-# Bidirectional Connections with Glacier2
+## Bidirectional Connections with Glacier2
 
 While a regular unrouted connection allows requests to flow in only one direction (from client to server), a
 [bidirectional connection](../bidirectional-connections) enables requests to flow in both directions. This capability is
@@ -50,7 +50,7 @@ It is also possible for applications to manually configure bidirectional connect
 
 {% /callout %}
 
-# Callbacks and Connection Closure
+## Callbacks and Connection Closure
 
 When a client terminates, it closes its connection to the router. If a server later attempts to make a callback to the
 client, the attempt fails because the router has no connection to the client over which to forward the request. This
@@ -58,7 +58,7 @@ situation is no worse than if the server attempted to contact the client directl
 client's firewall. However, this illustrates the inherent limitation of bidirectional connections: the lifetime of a
 client's callback proxy is bounded by the lifetime of the client's router session.
 
-# Configuring the Router for Callbacks
+## Configuring the Router for Callbacks
 
 In order for the router to support callbacks from servers, it needs to have endpoints in the private network.
 
@@ -78,7 +78,7 @@ Glacier2's implementation of [Ice::Router](../routers)'s `getServerProxy` return
 
 {% /callout %}
 
-# Configuring the Client's Object Adapter with a Router
+## Configuring the Client's Object Adapter with a Router
 
 A client that receives callbacks is also a server, and therefore must have an object adapter. Typically, an object
 adapter has endpoints in the local network, but those endpoints are of no use to a server in our restricted network
@@ -113,7 +113,7 @@ the router, and collocated dispatches.
 
 {% /callout %}
 
-# Callback Object Identities
+## Callback Object Identities
 
 Glacier2 assigns a unique category to each client for use in the [identities](../object-identity) of the client's
 callback objects. The client creates proxies that contain this identity category and pass these proxies to back-end
@@ -129,19 +129,19 @@ A client can obtain its assigned category by calling `getCategoryForClient` on t
 
 {% language-section name="lang-1" /%}
 
-# Nested Invocations with a Router
+## Nested Invocations with a Router
 
 If a router client intends to receive callbacks and make nested twoway invocations, it is important that the client be
 configured correctly. Specifically, you must [increase the size of the client thread pool](../bidirectional-connections)
 to at least two threads.
 
-# Handling Connection Loss
+## Handling Connection Loss
 
 If the client loses its connection to the Glacier2 router, the next invocation throws `ConnectionLostException`. The
 client can recover from this situation by re-creating the session, re-creating the callback adapter, and adding all the
 callback servants to the [Active Servant Map](../active-servant-map) (ASM) of the re-created adapter.
 
-##### See Also
+## See Also
 
 - [Bidirectional Connections](../bidirectional-connections)
 - [Object Adapter Endpoints](../object-adapter-endpoints)

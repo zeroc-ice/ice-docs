@@ -2,7 +2,7 @@
 title: Plug-in API
 ---
 
-# The `Plugin` Base Class
+## The `Plugin` Base Class
 
 A C++ plug-in is an instance of a class that implements the `Ice::Plugin` abstract base class:
 
@@ -40,7 +40,7 @@ A plug-in object's lifecycle consists of four phases:
 
 This lifecycle is repeated for each new communicator that an application creates and destroys.
 
-# Plug-in Factory Function
+## Plug-in Factory Function
 
 In C++, a plug-in factory is a function with the following signature:
 
@@ -67,7 +67,7 @@ to the plug-in, and any arguments that were specified in the [plug-in's configur
 The Ice runtime is responsible for deleting the plug-in returned by this factory function. This usually occurs when the
 communicator is destroyed, immediately after all the plug-ins have been destroyed.
 
-# Loading a Plug-in using InitializationData
+## Loading a Plug-in using InitializationData
 
 When your application depends on a plug-in, you should load this plug-in into your communicator by adding a factory for
 this plug-in to the `pluginFactories` field of your communicator’s `InitializationData`.
@@ -99,7 +99,7 @@ struct PluginFactory
 Plug-ins that are installed in the communicator via `pluginFactories` are created before the plug-ins registered via
 configuration.
 
-##### See Also
+## See Also
 
 - [Plug-in Configuration](../installing-a-plug-in-using-configuration)
 - [Ice.Plugin.*](../ice-plugin-properties)

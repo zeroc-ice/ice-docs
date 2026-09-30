@@ -35,7 +35,7 @@ PrinterAdapter.ThreadPool.SizeMax=15
 PrinterAdapter.ThreadPool.SizeWarn=14
 ```
 
-##### See Also
+## See Also
 
 - [Thread Pools](../thread-pools)
 - [Object Adapters](../dispatch)

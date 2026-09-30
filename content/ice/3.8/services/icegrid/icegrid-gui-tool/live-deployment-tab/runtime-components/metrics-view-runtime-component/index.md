@@ -4,21 +4,21 @@ title: Metrics View Runtime Component
 
 A Metrics View displays the Metrics maps associated with a Server or Service.
 
-# **States**
+## States
 
 A metrics view can be either enabled
 ![metrics enabled](/attachments/3.8/metrics-view-runtime-component/metrics-enabled.jpeg) or disabled
 ![metrics disabled](/attachments/3.8/metrics-view-runtime-component/metrics-disabled.jpeg). Once enabled, a Metrics View
 may degrade the performance of the instrumented server or service.
 
-# Actions
+## Actions
 
 A Metrics View provides the following actions, from its contextual menu and from the `Tools > Metrics View` menu:
 
 - **Enable** Enable this Metrics View.
 - **Disable** Disable this Metrics View.
 
-# Metrics Report
+## Metrics Report
 
 The Metrics Report panel shows the maps included in the Metrics View. The columns of the maps include the metrics
 themselves (for example, the total number of operations dispatched by the server since the Metrics view was enabled) and

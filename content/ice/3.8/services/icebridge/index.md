@@ -7,7 +7,7 @@ reverse proxy. Use it when a client cannot connect directly to the server, for e
 are on networks with no route between them, or because the client does not support the server's transport. IceBridge is
 implemented in C++ and can forward requests from clients using any Ice language mapping.
 
-# IceBridge Overview
+## IceBridge Overview
 
 IceBridge listens for client requests on its _source endpoints_ and forwards them to its configured _target endpoints_.
 The bridge forwards the object identity, operation, context, and encoded parameters, so it does not need your
@@ -32,7 +32,7 @@ For connection-oriented transports, IceBridge also provides:
 See [IceBridge Limitations](#icebridge-limitations) for restrictions on target servers, forwarding direction, facets,
 and Bluetooth.
 
-# Configuring IceBridge
+## Configuring IceBridge
 
 Configure the bridge with the following [IceBridge properties](../icebridge-properties):
 
@@ -57,7 +57,7 @@ IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 The bridge listens on TCP port 10000 for connections from clients and forwards requests to the target server on TCP
 port 21112.
 
-## Matching Transports
+### Matching Transports
 
 Source and target endpoints can use different connection-oriented transports, such as TCP and SSL, or TCP and Bluetooth.
 For requests received on a UDP source endpoint, the target must provide a UDP endpoint. Likewise, requests arriving over
@@ -73,7 +73,7 @@ IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 The bridge receives datagram requests on its source endpoint, but the target configuration provides only a TCP endpoint.
 Forwarding fails when a request arrives.
 
-## TLS
+### TLS
 
 IceBridge terminates TLS: a secure client connection and a secure target connection are two independent TLS connections.
 IceBridge chooses the target endpoint without regard to whether the client connection is secure. To encrypt the
@@ -83,7 +83,7 @@ IceBridge presents the credentials configured with its [IceSSL properties](../ic
 when accepting secure client connections and when establishing secure connections to the target server. A target server
 that requires a client certificate authenticates the bridge's certificate.
 
-## Bridging to Bluetooth
+### Bridging to Bluetooth
 
 On Linux, load the [IceBT transport plug-in](../icebt) to bridge between TCP and Bluetooth:
 
@@ -96,7 +96,7 @@ IceBridge.Target.Endpoints=bt -a "01:23:45:67:89:AB" -u "6a193943-1754-4869-8d0a
 With this configuration, a client can connect to the bridge using TCP, and the bridge will establish a Bluetooth
 connection to the device with the given address offering the service identified by the given UUID.
 
-# IceBridge Object Identities
+## IceBridge Object Identities
 
 The bridge's source adapter hosts two objects with reserved identities:
 
@@ -119,7 +119,7 @@ the router's identity is `PublicBridge/router`, and the client's configuration m
 Ice.Default.Router=PublicBridge/router:tcp -h bridge.host -p 10000
 ```
 
-# Using IceBridge
+## Using IceBridge
 
 Clients can address the bridge's source endpoints directly or use IceBridge as their router. In both cases, the bridge
 forwards requests the same way; the choice only affects how the client's proxies obtain the bridge's endpoints.
@@ -136,18 +136,14 @@ Both configurations are shown below.
 
 Let's assume the bridge has the following configuration:
 
-##### **Bridge Configuration**
-
-```config
+```config {% title="Bridge Configuration" %}
 IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 IceBridge.Source.Endpoints=tcp -p 10000
 ```
 
 The client can use IceBridge as a router by defining `Ice.Default.Router`:
 
-##### **Client Configuration with Router**
-
-```config
+```config {% title="Client Configuration with Router" %}
 Ice.Default.Router=IceBridge/router:tcp -h bridge.host -p 10000
 Client.Proxy=SomeObject:tcp -h other.host -p 9999
 ```
@@ -165,13 +161,11 @@ router, such as with a [proxy property](../proxy-properties) or a [proxy method]
 
 To address the bridge directly, the client's proxies use the bridge's source endpoints:
 
-##### **Client Configuration without Router**
-
-```config
+```config {% title="Client Configuration without Router" %}
 Client.Proxy=SomeObject:tcp -h bridge.host -p 10000
 ```
 
-## Receiving Callbacks
+### Receiving Callbacks
 
 The client must create an object adapter and register its callback objects. It can associate this adapter with the
 bridge connection in either of these ways:
@@ -193,7 +187,7 @@ It can create this proxy with the connection's `createProxy` method or bind a ca
 forwards the callback over the paired client connection. See
 [Configuring a Server for Bidirectional Connections](../bidirectional-connections#configuring-a-server-for-bidirectional-connections).
 
-# Starting IceBridge
+## Starting IceBridge
 
 A minimal configuration file, `config`, contains the two required properties:
 
@@ -214,7 +208,7 @@ reachable. To check forwarding, invoke an operation such as `ice_ping` on an app
 IceBridge supports the usual [command-line options](../command-line-options), including those for running it as a
 Windows service or Unix daemon.
 
-## Connection Failures
+### Connection Failures
 
 If IceBridge cannot establish a target connection, it fails the requests waiting for that connection and closes the
 client connection.
@@ -222,7 +216,7 @@ client connection.
 When a client reconnects, the bridge pairs the new client connection with a new target connection, so an application
 that associates session state or callback proxies with a connection must reestablish them for the new connection.
 
-# IceBridge Limitations
+## IceBridge Limitations
 
 ### Single target server
 

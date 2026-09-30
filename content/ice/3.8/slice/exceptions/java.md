@@ -55,7 +55,7 @@ There are a number of things to note about this generated code:
 4. The generated class provides a canonical constructor and a parameterless constructor; they are identical to the
    generated constructors for classes. See [Java Mapping for Classes](../classes).
 
-## Exception Specification
+### Exception Specification
 
 When an Slice operation has an exception specification, the corresponding client-side and server-side methods in Java
 have an exception specification. This is true for all mapped methods, except the proxy `Async` methods.

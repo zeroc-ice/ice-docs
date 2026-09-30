@@ -37,7 +37,7 @@ Here is an example to demonstrate the use of this element:
 </icegrid>
 ```
 
-##### See Also
+## See Also
 
 - [Server-Template Descriptor Element](../server-template-descriptor-element)
 - [Node Descriptor Element](../node-descriptor-element)

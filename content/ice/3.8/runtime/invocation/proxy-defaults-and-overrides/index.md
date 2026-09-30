@@ -5,7 +5,7 @@ title: Proxy Defaults and Overrides
 Proxies are influenced by Ice configuration properties and settings. The relevant properties can be classified into two
 categories: defaults and overrides.
 
-# Proxy Default Properties
+## Proxy Default Properties
 
 [Default properties](../ice-default-properties) affect proxies that you create from strings, or that Ice creates when
 unmarshaling the payload of a request or response.
@@ -23,7 +23,7 @@ GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 assert(greeter.ice_getEndpointSelection() == Ice::EndpointSelectionType::Ordered);
 ```
 
-# Proxy Override Properties
+## Proxy Override Properties
 
 Defining an override property causes the Ice runtime to ignore any equivalent proxy option and use the override property
 value instead. For example, consider the following property definition:
@@ -43,7 +43,7 @@ property left.
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Ice.Default.*](../ice-default-properties)
 - [Ice.Override.*](../ice-override-properties)

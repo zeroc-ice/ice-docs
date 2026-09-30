@@ -4,7 +4,7 @@ title: The Active Servant Map
 
 Each object adapter maintains a data structure known as the active servant map.
 
-# Role of the Active Servant Map
+## Role of the Active Servant Map
 
 The _active servant map_ (or _ASM_, for short) is a lookup table that maps object identities to servants: the key is an
 identity and facet, and the value is the associated servant.
@@ -15,7 +15,7 @@ In most servers, the ASM is the main component of the [dispatch pipeline](../dis
 
 _Dispatching a request to the correct servant._
 
-# Design Considerations for the Active Servant Map
+## Design Considerations for the Active Servant Map
 
 Using an adapter's ASM to map Ice objects to servants has a number of design implications:
 
@@ -45,7 +45,7 @@ the servants can be initialized quickly, this is a perfectly acceptable design. 
 the memory requirements of the server grow linearly with the number of Ice objects so, if the number of objects gets too
 large (or if each servant stores too much state), the server runs out of memory.
 
-# Servant Activation and Deactivation
+## Servant Activation and Deactivation
 
 The term _servant activation_ refers to making the presence of a servant for a particular Ice object known to the object
 adapter. Activating a servant adds an entry to the Active Servant Map (ASM). Another way of looking at servant
@@ -96,6 +96,6 @@ Servants are just one particular kind of dispatchers, and you can actually add a
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Default Servants](../default-servants)

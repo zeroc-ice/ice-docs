@@ -2,7 +2,7 @@
 title: IceSSL.*
 ---
 
-# IceSSL Property Overview
+## IceSSL Property Overview
 
 The IceSSL implementations for our supported platforms use many of the same configuration properties. However, there are
 some properties that are specific to certain platforms or languages. For properties with such limitations, we list the
@@ -32,22 +32,22 @@ Ice for JavaScript does not support these IceSSL properties. Setting any of them
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
-# IceSSL.CAs
+## IceSSL.CAs
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CAs=path` (SChannel, SecureTransport, OpenSSL)
 
-#### Description
+### Description
 
 Specifies the path name of a file containing the certificates of trusted certificate authorities (CAs).
 
 If you wish to use the CA certificates bundled with your platform, leave this property unset and enable
 `IceSSL.UsePlatformCAs`.
 
-#### Platform Notes
+### Platform Notes
 
-###### SChannel, SecureTransport
+#### SChannel, SecureTransport
 
 The file can be encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates. On
 macOS, IceSSL loads only the CA certificates from the file.
@@ -59,7 +59,7 @@ On iOS, IceSSL first looks for `path` in the application's resource bundle, unde
 when that property is set, before applying the rule above. It reads the file as PEM when its name contains `.pem`, and
 as DER otherwise.
 
-###### OpenSSL
+#### OpenSSL
 
 The file must be encoded using the PEM format and can contain multiple certificates. The `path` can also refer to a
 directory prepared in advance using the OpenSSL utility `c_rehash`.
@@ -67,13 +67,13 @@ directory prepared in advance using the OpenSSL utility `c_rehash`.
 IceSSL resolves a relative `path` under the default directory defined by `IceSSL.DefaultDir` when that property is set,
 and relative to the working directory otherwise.
 
-# IceSSL.CertificateRevocationListFiles
+## IceSSL.CertificateRevocationListFiles
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertificateRevocationListFiles=file[,file...]` (OpenSSL)
 
-#### Description
+### Description
 
 Specifies the PEM files containing the certificate revocation lists (CRLs) that IceSSL uses for revocation checks.
 Separate several files with commas or whitespace. A relative path is resolved under `IceSSL.DefaultDir` when that
@@ -84,20 +84,20 @@ initialization fails with an `InitializationException` if a file is missing or c
 certificate. During the handshake, OpenSSL looks up the CRL of each certificate it checks in these files. If the CRL is
 not there, the handshake fails.
 
-# IceSSL.CertFile
+## IceSSL.CertFile
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertFile=file` (SecureTransport, SChannel, OpenSSL)
 
-#### Description
+### Description
 
 Specifies the file that contains the program's certificate and, unless `IceSSL.KeyFile` names a separate file, its
 private key. The file name may be specified relative to the default directory defined by `IceSSL.DefaultDir`.
 
-#### Platform Notes
+### Platform Notes
 
-###### SChannel
+#### SChannel
 
 The file must use the PFX (PKCS#12) format and contain the certificate and its private key, or be a PEM file containing
 the certificate, with the private key in a separate PEM file named by `IceSSL.KeyFile`. If the file requires a password,
@@ -107,7 +107,7 @@ the application must supply it with `IceSSL.Password`; otherwise communicator in
 IceSSL resolves a relative `file` under the default directory defined by `IceSSL.DefaultDir` when that property is set,
 and relative to the working directory otherwise.
 
-###### SecureTransport
+#### SecureTransport
 
 The file must use the PFX (PKCS#12) format and contain the certificate and its private key. On macOS, it can instead be
 a PEM file containing the certificate, with the private key in a separate PEM file named by `IceSSL.KeyFile`. If the
@@ -121,7 +121,7 @@ and relative to the working directory otherwise.
 On iOS, IceSSL first looks for `file` in the application's resource bundle, under the `IceSSL.DefaultDir` subdirectory
 when that property is set, before applying the rule above.
 
-###### OpenSSL
+#### OpenSSL
 
 The file must use the PFX (PKCS#12) format and contain the certificate and its private key, or be a PEM file containing
 the certificate. In the PEM case, IceSSL reads the private key from `IceSSL.KeyFile` when that property is defined, and
@@ -131,13 +131,13 @@ from the certificate file itself otherwise. If the file requires a password, the
 IceSSL resolves a relative `file` under the default directory defined by `IceSSL.DefaultDir` when that property is set,
 and relative to the working directory otherwise.
 
-# IceSSL.CertStore
+## IceSSL.CertStore
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertStore=name` (SChannel)
 
-#### Description
+### Description
 
 Specifies the name of a certificate store to use when locating certificates via `IceSSL.FindCert`. Legal values for
 `name` include `AddressBook`, `AuthRoot`, `CertificateAuthority`, `Disallowed`, `My`, `Root`, `TrustedPeople`, and
@@ -145,13 +145,13 @@ Specifies the name of a certificate store to use when locating certificates via 
 
 If not specified, the default value is `My`.
 
-# IceSSL.CertStoreLocation
+## IceSSL.CertStoreLocation
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (SChannel)
 
-#### Description
+### Description
 
 This property is used for two different purposes:
 
@@ -171,13 +171,13 @@ An Ice program running as a Windows service will typically need to set this prop
 
 {% language-section name="lang-1" /%}
 
-# IceSSL.CheckCertName
+## IceSSL.CheckCertName
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.CheckCertName=num`
 
-#### Description
+### Description
 
 Specifies if certificate host name verification is enabled. The legal values are shown in the table below. If this
 property is not defined, the default value is 0.
@@ -207,33 +207,33 @@ the server through the TLS server name indication (SNI) extension only when this
 
 {% language-section name="lang-2" /%}
 
-# IceSSL.DefaultDir
+## IceSSL.DefaultDir
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.DefaultDir=path`
 
-#### Description
+### Description
 
 Specifies the default directory in which to look for certificates, key stores, and other files. See the descriptions of
 the relevant properties for more information.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
-# IceSSL.FindCert
+## IceSSL.FindCert
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.FindCert=criteria` (SChannel, SecureTransport)
 
-#### Description
+### Description
 
 Selects the program's certificate from a certificate store or keychain instead of loading it from a file. IceSSL ignores
 this property when `IceSSL.CertFile` is defined.
 
-#### Platform Notes
+### Platform Notes
 
-###### SChannel
+#### SChannel
 
 IceSSL queries a certificate store for matching certificates and passes all of them to SChannel, which selects the one
 to present during the handshake. The settings for `IceSSL.CertStore` and `IceSSL.CertStoreLocation` determine the target
@@ -255,7 +255,7 @@ The value for `criteria` may be `*`, in which case all of the certificates in th
 The field names are case-insensitive. If multiple criteria are specified, only certificates that match all criteria are
 selected. Values must be enclosed in single or double quotes to preserve white space.
 
-###### SecureTransport
+#### SecureTransport
 
 IceSSL queries the keychain for a matching certificate and uses the first match. IceSSL uses the keychain identified in
 `IceSSL.Keychain`, or the user's default keychain if `IceSSL.Keychain` is not defined.
@@ -273,13 +273,13 @@ described below:
 The field names are case-insensitive. If multiple criteria are specified, only certificates that match all criteria are
 selected. Values must be enclosed in single or double quotes to preserve white space.
 
-# IceSSL.Keychain
+## IceSSL.Keychain
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.Keychain=name` (SecureTransport)
 
-#### Description
+### Description
 
 Specifies the name of a keychain in which to import the certificate identified by `IceSSL.CertFile`. Set
 `IceSSL.KeychainPassword` if the specified keychain has a password.
@@ -291,24 +291,24 @@ communicator is destroyed.
 
 On iOS this property is ignored, IceSSL uses the default device keychain.
 
-# IceSSL.KeyFile
+## IceSSL.KeyFile
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.KeyFile=file` (SChannel, SecureTransport, OpenSSL)
 
-#### Description
+### Description
 
 Specifies a file that contains the program's private key. The file name may be specified relative to the default
 directory defined by `IceSSL.DefaultDir`. The corresponding certificate must be specified using `IceSSL.CertFile`.
 
-# IceSSL.KeychainPassword
+## IceSSL.KeychainPassword
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.KeychainPassword=password` (SecureTransport)
 
-#### Description
+### Description
 
 Specifies the password for the keychain identified by `IceSSL.Keychain`. If not defined, IceSSL attempts to open the
 keychain without a password.
@@ -319,45 +319,45 @@ On iOS, this property is ignored.
 
 {% language-section name="lang-3" /%}
 
-# IceSSL.Password
+## IceSSL.Password
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.Password=password`
 
-#### Description
+### Description
 
 Specifies the password necessary to decrypt the private key.
 
-#### Platform Notes
+### Platform Notes
 
-###### SChannel, SecureTransport, OpenSSL
+#### SChannel, SecureTransport, OpenSSL
 
 This property supplies the password that was used to secure the private key contained in the file defined by
 `IceSSL.CertFile`.
 
-###### Java
+#### Java
 
 This property supplies the password that was used to secure the private key contained in the key store defined by
 `IceSSL.Keystore`. All of the keys in the key store must use the same password.
 
-###### .NET
+#### .NET
 
 This property supplies the password that was used to secure the file defined by `IceSSL.CertFile`.
 
-###### iOS
+#### iOS
 
 This property supplies the password that was used to secure the file defined by `IceSSL.CertFile`.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
-# IceSSL.RevocationCheck
+## IceSSL.RevocationCheck
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.RevocationCheck=num` (OpenSSL, SChannel, SecureTransport)
 
-#### Description
+### Description
 
 Specifies whether IceSSL checks the certificates of the peer's chain for revocation:
 
@@ -370,32 +370,32 @@ Specifies whether IceSSL checks the certificates of the peer's chain for revocat
 IceSSL aborts the connection when it finds a revoked certificate or cannot determine the revocation status of a
 certificate.
 
-#### Platform Notes
+### Platform Notes
 
-###### OpenSSL
+#### OpenSSL
 
 The revocation status is looked up in the CRL files listed in `IceSSL.CertificateRevocationListFiles`, which must be set
 when this property is greater than zero; otherwise communicator initialization fails. OpenSSL reports an error when it
 finds no CRL for a certificate it checks, so with the value `2` the files must cover every issuer in the chain.
 
-###### SChannel
+#### SChannel
 
 The value `2` checks the whole chain except the root CA certificate. Revocation data is fetched from the CRL
 distribution points and OCSP responders named in the certificates, subject to `IceSSL.RevocationCheckCacheOnly`.
 
-###### SecureTransport
+#### SecureTransport
 
 The values `1` and `2` are equivalent: the revocation policy applies to the whole chain. See
 `IceSSL.RevocationCheckCacheOnly` for the revocation sources. The value `0` only leaves out IceSSL's revocation policy:
 the macOS trust evaluation still performs its own best-effort check and rejects a certificate it finds revoked.
 
-# IceSSL.RevocationCheckCacheOnly
+## IceSSL.RevocationCheckCacheOnly
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.RevocationCheckCacheOnly=num` (SChannel, SecureTransport)
 
-#### Description
+### Description
 
 Specifies whether revocation checks may access the network:
 
@@ -406,14 +406,14 @@ Specifies whether revocation checks may access the network:
 
 With the default value, IceSSL rejects a certificate whose revocation status is not already in the system cache.
 
-#### Platform Notes
+### Platform Notes
 
-###### SChannel
+#### SChannel
 
 The value `1` also disables the retrieval of intermediate certificates through the Authority Information Access
 extension, so the whole chain must be available locally.
 
-###### SecureTransport
+#### SecureTransport
 
 IceSSL requests any available revocation method. In practice, the macOS trust evaluation queries the OCSP responder
 named in a certificate's Authority Information Access extension and does not fetch CRLs from distribution points, so
@@ -423,13 +423,13 @@ IceSSL cannot determine the revocation status of a certificate that publishes on
 
 {% language-section name="lang-4" /%}
 
-# IceSSL.Trace.Security
+## IceSSL.Trace.Security
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.Trace.Security=num`
 
-#### Description
+### Description
 
 The SSL plug-in trace level:
 
@@ -439,13 +439,13 @@ The SSL plug-in trace level:
 | 1     | Displays a summary of each SSL connection, the reason a connection is rejected, and the peer's distinguished name when an `IceSSL.TrustOnly*` property applies. |
 | 2     | Additionally displays the `IceSSL.TrustOnly*` entries evaluated against the peer's distinguished name. .NET displays these at level `1`.                        |
 
-# IceSSL.TrustOnly
+## IceSSL.TrustOnly
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.TrustOnly=ENTRY[;ENTRY;...]`
 
-#### Description
+### Description
 
 Identifies trusted and untrusted peers. This family of properties provides an additional level of authentication by
 using the peer certificate's distinguished name (DN) to decide whether to accept or reject a connection.
@@ -505,62 +505,62 @@ non-zero value, which causes IceSSL to display the DN of each peer during connec
 This property affects incoming and outgoing connections. IceSSL also supports similar properties that affect only
 incoming connections or only outgoing connections.
 
-# IceSSL.TrustOnly.Client
+## IceSSL.TrustOnly.Client
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.TrustOnly.Client=ENTRY[;ENTRY;...]`
 
-#### Description
+### Description
 
 Identifies trusted and untrusted peers for outgoing (client) connections. The entries defined in this property are
 combined with those of `IceSSL.TrustOnly`.
 
-# IceSSL.TrustOnly.Server
+## IceSSL.TrustOnly.Server
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.TrustOnly.Server=ENTRY[;ENTRY;...]`
 
-#### Description
+### Description
 
 Identifies trusted and untrusted peers for incoming ("server") connections. The entries defined in this property are
 combined with those of `IceSSL.TrustOnly`. To configure trusted and untrusted peers for a particular object adapter, use
 `IceSSL.TrustOnly.Server.AdapterName`.
 
-# IceSSL.TrustOnly.Server._AdapterName_
+## IceSSL.TrustOnly.Server._AdapterName_
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.TrustOnly.Server.AdapterName=ENTRY[;ENTRY;...]`
 
-#### Description
+### Description
 
 Identifies trusted and untrusted peers for incoming (server) connections to the object adapter `AdapterName`. The
 entries defined in this property are combined with those of `IceSSL.TrustOnly` and `IceSSL.TrustOnly.Server`.
 
 {% language-section name="lang-5" /%}
 
-# IceSSL.UsePlatformCAs
+## IceSSL.UsePlatformCAs
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.UsePlatformCAs=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than zero, IceSSL uses the platform's bundled Root Certificate Authorities. This setting is
 ignored if `IceSSL.CAs` is defined.
 
 If not defined, the default value is zero.
 
-# IceSSL.VerifyPeer
+## IceSSL.VerifyPeer
 
-#### Synopsis
+### Synopsis
 
 `IceSSL.VerifyPeer=num`
 
-#### Description
+### Description
 
 Specifies whether an object adapter accepting an incoming connection requests a certificate from the client, and whether
 the client must supply one. The legal values are shown in the table below; any other value causes communicator
@@ -575,9 +575,9 @@ initialization to fail with an `InitializationException`. If this property is no
 This property has no effect on outgoing connections (except in Java, see below): a client always requires and verifies
 the server's certificate.
 
-#### Platform Notes
+### Platform Notes
 
-###### Java
+#### Java
 
 With the value `0`, a client accepts a server that does not present a certificate and does not check the server's host
 name (see `IceSSL.CheckCertName`). A certificate the server does present is still verified.

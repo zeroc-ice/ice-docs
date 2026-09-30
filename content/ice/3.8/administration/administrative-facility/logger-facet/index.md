@@ -2,7 +2,7 @@
 title: The Logger Facet
 ---
 
-# The `RemoteLogger` Interface
+## The `RemoteLogger` Interface
 
 An administrator may find it useful to view the log of a running Ice application, without going through an intermediary
 file. This is especially useful for [Ice services](../services) that use a system log, such as the Windows Event Log.
@@ -56,7 +56,7 @@ in a queue, and later append this queue to the log messages received through `in
 
 {% /callout %}
 
-# The `LoggerAdmin` Interface
+## The `LoggerAdmin` Interface
 
 The `Logger` facet implements the `Ice::LoggerAdmin` interface:
 
@@ -156,7 +156,7 @@ string prefix;
 auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix);
 ```
 
-# Configuring the `Logger` Facet
+## Configuring the `Logger` Facet
 
 The `Logger` facet caches the most recent log messages sent to application's [Logger](../logger-facility), to be able to
 provide these log messages to remote loggers (in the `init` operation) and to administrative clients that call `getLog`
@@ -165,6 +165,6 @@ messages are cached by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../
 [Ice.Admin.Logger.KeepTraces](../ice-admin-properties) properties. The default is to keep the most recent 100 log
 messages other than trace messages plus the most recent 100 trace messages.
 
-##### See Also
+## See Also
 
 - [Logger Facility](../logger-facility)

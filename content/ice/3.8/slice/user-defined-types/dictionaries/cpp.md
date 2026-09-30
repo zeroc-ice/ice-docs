@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Dictionary Mapping
+### Default Dictionary Mapping
 
 Here is the definition of our EmployeeMap once more:
 
@@ -32,7 +32,7 @@ e.lastName = "Sutter";
 em[e.number] = e;
 ```
 
-## Customizing the Dictionary Mapping with `cpp:type`
+### Customizing the Dictionary Mapping with `cpp:type`
 
 You can override the default mapping of Slice dictionaries to C++ with a `cpp:type` metadata directive, for example:
 

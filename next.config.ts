@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 import { CONTENT_ROOT, readRedirects } from './lib/docs-model/content';
+import { NOINDEX } from './lib/site';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
@@ -11,10 +12,11 @@ const nextConfig: NextConfig = {
   redirects() {
     return readRedirects(CONTENT_ROOT);
   },
-  // A build with SITE_NOINDEX=1 is for a host that must stay out of search
-  // indexes (a dev deployment), so it must not compete with the real site.
+  // A build for a host that must stay out of search indexes (a dev deployment)
+  // must not compete with the real site. The header also covers the files a
+  // robots meta tag can't, such as images and the search index.
   headers() {
-    if (process.env.SITE_NOINDEX !== '1') return [];
+    if (!NOINDEX) return [];
     return [
       {
         source: '/:path*',

@@ -60,7 +60,7 @@ object.
 The `ice_ids` operation returns a sequence of [type IDs](../type-ids) that contains the type IDs of all Slice interfaces
 implemented by the target object, in alphabetical order.
 
-##### See Also
+## See Also
 
 - [Type IDs](../type-ids)
 - [Interface Inheritance](../interface-inheritance)

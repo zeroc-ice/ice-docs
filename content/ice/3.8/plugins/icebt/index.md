@@ -5,12 +5,12 @@ title: IceBT
 IceBT is a transport plug-in that allows clients and servers to communicate via Bluetooth RFCOMM connections on Android
 and Linux platforms.
 
-# IceBT Overview
+## IceBT Overview
 
 IceBT is an [Ice plug-in](../plug-in-facility) that must be installed in the clients and servers that need to
 communicate over Bluetooth. This section reviews some concepts that will help you as you learn more about IceBT.
 
-## Service Discovery
+### Service Discovery
 
 The Bluetooth specification defines a standard mechanism for discovering services called the Service Discovery Protocol
 (SDP). It's a flexible but complex specification that accommodates a wide range of Bluetooth device functionality and
@@ -21,9 +21,7 @@ registration. IceBT considers each object adapter endpoint in an Ice server to b
 entry for it in the local SDP registry. This entry associates a UUID with a human-friendly name and an RFCOMM channel.
 For example, an entry might contain:
 
-##### **SDP Entry**
-
-```text
+```text {% title="SDP Entry" %}
 Name: My Bluetooth Service
 UUID: 1c6a142a-aae6-4d58-bef8-33196f531da7
 RFCOMM: Channel #8
@@ -42,7 +40,7 @@ connection to that channel.
 
 IceBT takes care of all of this for you during server initialization and connection establishment.
 
-## Device Discovery
+### Device Discovery
 
 When developing a client application, you'll normally hard-code the UUIDs of the remote services that your client
 requires because those UUIDs must match the ones advertised by your servers. However, in addition to a UUID, a client
@@ -50,13 +48,13 @@ also needs to know the device address on which a service is running. Typically t
 Bluetooth API to initiate device discovery and present the results to the user. We discuss this further in the "Using
 IceBT" section below.
 
-# Installing IceBT
+## Installing IceBT
 
 The IceBT plug-in must be installed in every client and server that needs to communicate via Bluetooth.
 
 {% language-section name="lang-1" /%}
 
-# Configuring IceBT
+## Configuring IceBT
 
 The IceBT plug-in provides a number of [configuration properties](../icebt-properties), including settings to modify the
 size of the send and receive buffers for a connection. The default settings should be sufficient for most applications.
@@ -69,11 +67,11 @@ Developers should also be aware of some core Ice properties that can affect Blue
   settings give plenty of time for a connection to succeed, but an application could experience problems if it
   configures custom timeouts that are too small for Bluetooth connections.
 
-# Using IceBT
+## Using IceBT
 
 This section describes how to incorporate IceBT into your Ice applications.
 
-## Object Adapter Endpoints
+### Object Adapter Endpoints
 
 A Bluetooth "service" corresponds to an Ice endpoint, and each endpoint requires its own UUID.
 
@@ -114,7 +112,7 @@ remote device.
 
 {% /callout %}
 
-## Proxy Endpoints
+### Proxy Endpoints
 
 A Bluetooth endpoint in a proxy must include a UUID and a device address:
 
@@ -142,13 +140,13 @@ Refer to [Proxy and Endpoint Syntax](../endpoint-syntax) for complete details on
 Applications are responsible for determining the Bluetooth address of the device hosting the target service, as
 described in the next section.
 
-## Implementing Discovery
+### Implementing Discovery
 
 Device discovery is a platform-specific activity that applications are responsible for implementing.
 
 {% language-section name="lang-3" /%}
 
-## Connection Limitations
+### Connection Limitations
 
 Be aware of the following limitation when using IceBT:
 
@@ -159,7 +157,7 @@ Be aware of the following limitation when using IceBT:
   connection, and use Ice APIs to override the default behavior and force the establishment of new connections to the
   same endpoint. This strategy will not work when using Bluetooth.
 
-# Security Notes for IceBT
+## Security Notes for IceBT
 
 The Bluetooth stack performs its own encryption of transmitted data using keys generated during the pairing process. Two
 devices must already be paired before Ice applications on those devices can communicate with one another. IceBT does not
@@ -173,7 +171,7 @@ necessary) and the insecure version does not. IceBT always uses the secure API.
 For added security, you can use SSL over Bluetooth with the transport protocol named `bts`. You can use the usual the
 SSL configuration with `bts` to define your security settings.
 
-##### See Also
+## See Also
 
 - [IceBT.*](../icebt-properties)
 - [Plug-in Facility](../plug-in-facility)

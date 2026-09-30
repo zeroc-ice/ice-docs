@@ -18,7 +18,7 @@ existing framework.
 When you destroy a communicator, its logger is _not_ destroyed. This means that you can safely use a logger even beyond
 the lifetime of its communicator.
 
-##### See Also
+## See Also
 
 - [Built-in Loggers](../built-in-loggers)
 - [Custom Logger Plug-in](../custom-logger-plug-in)

@@ -32,7 +32,7 @@ Here is an example to demonstrate the use of this element:
 </icebox>
 ```
 
-##### See Also
+## See Also
 
 - [IceBox](../icebox)
 - [Service Descriptor Element](../service-descriptor-element)

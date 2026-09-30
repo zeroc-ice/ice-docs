@@ -17,7 +17,7 @@ Here is an example to demonstrate the use of this element:
 </node>
 ```
 
-##### See Also
+## See Also
 
 - [Application Descriptor Element](../application-descriptor-element)
 - [Replica-Group Descriptor Element](../replica-group-descriptor-element)

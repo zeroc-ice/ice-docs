@@ -2,7 +2,7 @@
 title: The Properties Facet
 ---
 
-# The `PropertiesAdmin` Interface
+## The `PropertiesAdmin` Interface
 
 An administrator may find it useful to be able to view or modify the configuration properties of a remote Ice
 application. For example, the [IceGrid](../icegrid) administrative tools allow you to query and update the properties of
@@ -46,7 +46,7 @@ Ice's standard configuration properties are read once during communicator initia
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Properties and Configuration](../properties-and-configuration)
 - [Versioning](../versioning)

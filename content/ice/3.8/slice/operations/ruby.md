@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Operations
 
-# Mapping for Operations
+### Mapping for Operations
 
 As we saw in the [Client-Side Ruby Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, the generated proxy class contains a method with the same name. To invoke an
@@ -46,7 +46,7 @@ greeter = VisitorCenter::GreeterPrx.new(
 greeting = greeter.greet("Alice")  # Get name via RPC
 ```
 
-# Exception Handling
+### Exception Handling
 
 Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
@@ -79,7 +79,7 @@ end
 
 ## Mapping for Parameters and Return Values
 
-# In Parameters
+### In Parameters
 
 All parameters are passed by reference in the Ruby mapping; it is guaranteed that the value of a parameter will not be
 changed by the invocation.
@@ -151,7 +151,7 @@ p.op2(ns, ss, st)                       # Pass complex variables
 p.op3(p)                                # Pass proxy
 ```
 
-# Out Parameters and Return Values
+### Out Parameters and Return Values
 
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
@@ -209,11 +209,11 @@ The operations have no `in` parameters, therefore no arguments are passed to the
 return multiple values, their result arrays are unpacked into separate values, whereas the return value of `op3`
 requires no unpacking.
 
-# Parameter Type Mismatches
+### Parameter Type Mismatches
 
 Ice validates the arguments to a proxy invocation at runtime and reports any type mismatches as a `TypeError` exception.
 
-# Nil Parameters
+### Nil Parameters
 
 Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
 can be `nil`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
@@ -228,7 +228,7 @@ sequences, dictionaries, or strings. As far as the object model is concerned, th
 sequences, dictionaries, and strings do). For example, it makes no difference to the receiver whether you send a string
 as `nil` or as an empty string: either way, the receiver sees an empty string.
 
-# Optional Parameters
+### Optional Parameters
 
 [Optional parameters](../operations) use the same mapping as required parameters. The only difference is that
 `Ice::Unset` can be passed as the value of an optional parameter or return value. Consider the following operation:

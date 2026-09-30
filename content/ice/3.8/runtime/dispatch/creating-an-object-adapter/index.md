@@ -34,6 +34,6 @@ is on your communicator. For example:
 
 {% language-section name="lang-2" /%}
 
-##### See Also
+## See Also
 
 - [Communicator](../communicator)

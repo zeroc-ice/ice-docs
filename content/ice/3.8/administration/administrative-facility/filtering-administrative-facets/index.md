@@ -21,7 +21,7 @@ created at all.
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [The Process Facet](../process-facet)
 - [The Properties Facet](../properties-facet)

@@ -7,7 +7,7 @@ a good lock. The obvious first step is to use [SSL](../ssl-transport) for the ro
 to secure the message traffic and restrict access to clients having the proper credentials. However, the router takes
 security even further by providing access control and filtering capabilities.
 
-# Glacier2 Access Control
+## Glacier2 Access Control
 
 The authentication capabilities of SSL may not be sufficient for all applications: the certificate validation phase of
 the SSL handshake verifies that the user is who he says he is, but how do we know that he should be allowed to use the
@@ -15,7 +15,7 @@ router? Glacier2 addresses this issue through the use of an access control facil
 authentication: passwords and certificates. You can configure the router to use whichever authentication method is most
 appropriate for your application, or you can configure both methods in the same router.
 
-## Password Authentication
+### Password Authentication
 
 The router verifies the user name and password arguments to its [createSession](../getting-started-with-glacier2)
 operation before it forwards any requests on behalf of the client. Given that the password is sent "in the clear," it is
@@ -67,7 +67,7 @@ Glacier2.PermissionsVerifier=Glacier2/NullPermissionsVerifier
 Note that the category of the object's identity (`Glacier2` in this example) must match the value of the property
 [Glacier2.InstanceName](../glacier2-properties).
 
-## Certificate Authentication
+### Certificate Authentication
 
 The [createSessionFromSecureConnection](../getting-started-with-glacier2) operation does not require a user name or
 password because the client's SSL connection to the router already supplies the credentials necessary to sufficiently
@@ -148,7 +148,7 @@ Glacier2.SSLPermissionsVerifier=Glacier2/NullSSLPermissionsVerifier
 Note that the category of the object's identity (`Glacier2` in this example) must match the value of the property
 [Glacier2.InstanceName](../glacier2-properties).
 
-## Interaction with a Permissions Verifier
+### Interaction with a Permissions Verifier
 
 The router attempts to contact the configured permissions verifiers at startup. If an object is unreachable, the router
 logs a warning message but continues its normal operation. The router does not contact a verifier again until it needs
@@ -156,7 +156,7 @@ to invoke an operation on the object. For example, when a client asks the router
 makes another attempt to contact the verifier; if the object is still unavailable, the router logs a message and returns
 `PermissionDeniedException` to the client.
 
-## Obtaining SSL Credentials for a Router Client
+### Obtaining SSL Credentials for a Router Client
 
 Servers that need information about a client's connection to the router can set
 [Glacier2.AddConnectionContext](../glacier2-properties) to 1. The router then adds connection information to
@@ -188,12 +188,12 @@ void unlockDoor(string id, const Ice::Current& current)
 If the client supplied a certificate, the server can decode and examine it using the techniques discussed for
 [IceSSL](../ssl-transport).
 
-# Request Filtering
+## Request Filtering
 
 The Glacier2 router is capable of filtering requests based on a variety of criteria, which helps to ensure that clients
 do not gain access to unintended objects.
 
-## Address Filters
+### Address Filters
 
 To prevent a client from accessing arbitrary back-end hosts or ports, you can configure a Glacier2 router to validate
 the address information in each proxy that the client attempts to use. Two properties determine the router's filtering
@@ -261,7 +261,7 @@ By default, a Glacier2 router forwards requests for any address.
 
 {% /callout %}
 
-## Category Filters
+### Category Filters
 
 The [Ice::Identity](../object-identity) type contains two string members: category and name. You can configure a router
 with a list of valid identity categories, in which case it only routes requests for objects in those categories. The
@@ -292,7 +292,7 @@ to prepend an underscore to the user name or distinguished name before adding it
 A session manager can also configure category filters [dynamically](../dynamic-request-filtering-with-glacier2) using
 Glacier2's `SessionControl` interface.
 
-## Identity Filters
+### Identity Filters
 
 The ability to filter on identity categories, as described in the previous section, is a convenient way to limit clients
 to particular groups of objects. For even stricter control over the identities that clients are allowed to access, you
@@ -309,7 +309,7 @@ sufficient. However, a session manager can also use Glacier2's
 [dynamic filtering](../dynamic-request-filtering-with-glacier2) interface, `SessionControl`, to manage the set of valid
 identities at run time.
 
-## Adapter Filters
+### Adapter Filters
 
 Applications often use [IceGrid](../icegrid) in their back-end network to simplify server administration and take
 advantage of the benefits offered by indirect proxies. Once you have configured Glacier2 with an appropriate
@@ -333,7 +333,7 @@ contains a quote character, it must be escaped with a leading backslash.
 A session manager can also configure this filter [dynamically](../dynamic-request-filtering-with-glacier2) using
 Glacier2's `SessionControl` interface.
 
-## Proxy Filters
+### Proxy Filters
 
 The Glacier2 router maintains an internal routing table that contains an entry for each proxy used by a router client;
 the size of the routing table grows in proportion to the number of clients and their proxy usage. Furthermore, the
@@ -353,7 +353,7 @@ Ice run time places no limits on the size of proxy components such as identities
 could manufacture very large proxies in a denial-of-service attack on a Glacier2 router. By setting this property to a
 reasonably small value, you can prevent proxies from consuming excessive memory in the router process.
 
-## Client Impact
+### Client Impact
 
 The Glacier2 router immediately terminates a client's session if it attempts to use a proxy that is rejected by an
 address filter or exceeds the size limit defined by the property [Glacier2.Filter.ProxySizeMax](../glacier2-properties).
@@ -369,7 +369,7 @@ property and examine the router's log output:
 Glacier2.Client.Trace.Reject=1
 ```
 
-# Glacier2 Routing Table
+## Glacier2 Routing Table
 
 The Glacier2 router maintains an internal routing table for each session. The routing table holds every proxy used by
 its session. Consequently, the size of the routing table grows in proportion to the number of proxies used by a session.
@@ -387,7 +387,7 @@ The router does not remove entries from a session's routing table except when ev
 new one. In particular, an exception that occurs while routing a request for a proxy does _not_ cause that proxy to be
 removed from the routing table. Note however that the routing table is destroyed upon session destruction.
 
-##### See Also
+## See Also
 
 - [Glacier2.*](../glacier2-properties)
 - [IceSSL](../ssl-transport)

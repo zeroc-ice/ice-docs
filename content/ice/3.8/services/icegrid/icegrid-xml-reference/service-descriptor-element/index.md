@@ -31,7 +31,7 @@ Here is an example to demonstrate the use of this element:
 </icebox>
 ```
 
-##### See Also
+## See Also
 
 - [IceBox](../icebox)
 - [Adapter Descriptor Element](../adapter-descriptor-element)

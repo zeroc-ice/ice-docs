@@ -11,7 +11,7 @@ A Property Set defines a set of Ice properties. IceGrid GUI supports two kinds o
   [IceBox server instance](../server-descriptor). Such a property set provides properties to a service instance within a
   concrete IceBox server.
 
-# Properties
+## Properties
 
 The Property Set Properties panel offers the following fields:
 

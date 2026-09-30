@@ -13,17 +13,17 @@ The built-in types are mapped to C++ types as shown in this table:
 | double    | `double`                            |
 | string    | `std::string` or `std::string_view` |
 
-## Byte Mapping
+### Byte Mapping
 
 A single byte is mapped to a `std::uint8_t` while a `sequence<byte>` is mapped to a `std::vector<std::byte>`.
 
-## String Mapping
+### String Mapping
 
 A string is usually mapped to a C++ `std::string`. In particular, string fields, sequence elements, and dictionary keys
 and values, are always mapped to `std::string`. The mapping changes to `std::string_view` for individual string
 parameters that the application gives to Ice for marshaling, such as input parameters in proxy functions.
 
-## Wide String Mapping
+### Wide String Mapping
 
 You can use a metadata directive, `"cpp:type:wstring"`, to map strings to C++ `std::wstring` or `std::wstring_view`. For
 containers (such as interfaces or structures), the metadata directive applies to all strings within the type. A
@@ -49,7 +49,7 @@ struct S2
 
 With these metadata directives, the strings are mapped as indicated by the comments.
 
-## String Converters
+### String Converters
 
 On the wire, Ice [transmits](../basic-data-encoding) all strings as Unicode strings in UTF-8 encoding. For languages
 other than C++, Ice uses strings in their language-native Unicode representation and converts automatically to and from

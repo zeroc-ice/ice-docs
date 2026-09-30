@@ -2,7 +2,7 @@
 title: Protocol Compression
 ---
 
-# Overview of Protocol Compression
+## Overview of Protocol Compression
 
 Compression is an optional feature of the Ice protocol; whether it is used for a particular message is determined by
 several factors:
@@ -20,7 +20,7 @@ it takes to just send the uncompressed data.
 
 {% /callout %}
 
-# Encoding for Compressed Messages
+## Encoding for Compressed Messages
 
 If compression is used, the entire protocol message excluding the [header](../protocol-messages) is compressed using the
 [bzip2](https://en.wikipedia.org/wiki/Bzip2) algorithm. The `messageSize` field of the message header therefore reflects
@@ -42,7 +42,7 @@ size of the uncompressed message, plus the number of bytes occupied by the compr
 uncompressed message size prior to the body enables the receiver to allocate a buffer that is large enough to
 accommodate the uncompressed message body.
 
-# Compression Semantics for Clients
+## Compression Semantics for Clients
 
 A client sends a compressed message if all the following conditions are true:
 
@@ -55,7 +55,7 @@ Otherwise, the client sends an uncompressed message.
 
 The client uses the message header's `compressionStatus` field as described in the table above.
 
-# Compression Semantics for Servers
+## Compression Semantics for Servers
 
 A server only receives a compressed message when the client's proxy endpoint has the compression flag (`-z` for
 [stringified endpoints](../endpoint-syntax)) and additional conditions are met (see above).
@@ -80,7 +80,7 @@ reply if all the following conditions are true:
 
 Otherwise, the server sends an uncompressed reply.
 
-# Compression Support by Language Mapping
+## Compression Support by Language Mapping
 
 Each language mapping obtains its bzip2 implementation differently:
 
@@ -98,7 +98,7 @@ A runtime without compression support sends all messages uncompressed. If it rec
 the connection: the sender gets a `ConnectionLostException`, and the receiver logs a warning when `Ice.Warn.Connections`
 is enabled.
 
-##### See Also
+## See Also
 
 - [Data Encoding for Proxies](../data-encoding-for-proxies)
 - [Protocol Messages](../protocol-messages)

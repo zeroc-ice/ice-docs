@@ -4,26 +4,26 @@ title: IceBridge.*
 
 [IceBridge](../icebridge) is an Ice service that forwards requests from one or more clients to a target server.
 
-# IceBridge.InstanceName
+## IceBridge.InstanceName
 
-#### Synopsis
+### Synopsis
 
 `IceBridge.InstanceName=name`
 
-#### Description
+### Description
 
 Specifies the identity category of the IceBridge router object. The router's identity is `name/router`. The
 `Ice::RouterFinder` object retains the identity `Ice/RouterFinder`.
 
 If not defined, the default value is `IceBridge`.
 
-# IceBridge.Source._AdapterProperty_
+## IceBridge.Source._AdapterProperty_
 
-#### Synopsis
+### Synopsis
 
 `IceBridge.Source.AdapterProperty=value`
 
-#### Description
+### Description
 
 IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. Therefore,
 [adapter properties](../object-adapter-properties) can be used to configure this adapter. The only required adapter
@@ -31,13 +31,13 @@ property is `IceBridge.Source.Endpoints`.
 
 This adapter must be accessible to IceBridge clients.
 
-# IceBridge.Target.Endpoints
+## IceBridge.Target.Endpoints
 
-#### Synopsis
+### Synopsis
 
 `IceBridge.Target.Endpoints=endpoints`
 
-#### Description
+### Description
 
 This required property specifies the client [endpoints](../endpoint-syntax) of the target server, with the syntax used
 in a [stringified proxy](../syntax-for-stringified-proxies). Unlike `IceBridge.Source`, `IceBridge.Target` is not an

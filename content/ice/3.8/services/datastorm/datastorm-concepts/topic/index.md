@@ -2,8 +2,6 @@
 title: Topic
 ---
 
-# DataStorm Topic
-
 A **topic** can be seen as a typed stream or channel through which DataStorm nodes exchange data in the form of
 [**samples**](../sample).
 

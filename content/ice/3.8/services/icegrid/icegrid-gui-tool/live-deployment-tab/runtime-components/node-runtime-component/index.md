@@ -4,13 +4,13 @@ title: Node Runtime Component
 
 A node represents an IceGrid node process registered with the IceGrid registry.
 
-# States
+## States
 
 A node can be either up ![node up](/attachments/3.8/node-runtime-component/node-up.jpeg) or down
 ![node down](/attachments/3.8/node-runtime-component/node-down.jpeg). A "down" node is shown only when it is described
 by an application deployed on this IceGrid registry.
 
-# Actions
+## Actions
 
 A node provides the following actions, from its contextual menu and from the `Tools > Node` menu:
 
@@ -31,7 +31,7 @@ You cannot restart an IceGrid node from IceGrid GUI.
 
 {% /callout %}
 
-# Properties
+## Properties
 
 ![image2017-4-3 14:17:0.png](/attachments/3.8/node-runtime-component/image2017-4-3-14-17-0.png)
 
@@ -49,7 +49,7 @@ The Node Properties panel shows:
 - **Properties** A table showing all the Ice properties currently set in this IceGrid node.
 - **Load Factor** Shows the load factor defined by each application using this node.
 
-# Children
+## Children
 
 An IceGrid node can only have the following types of children:
 

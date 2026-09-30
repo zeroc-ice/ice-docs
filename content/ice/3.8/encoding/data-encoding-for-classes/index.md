@@ -11,7 +11,7 @@ classes, as well as the need for the receiver to slice or preserve classes of un
 marshaling for classes uses a [type ID](../type-ids) compression scheme to avoid repeatedly marshaling the same type IDs
 for large graphs of class instances.
 
-# Encoding for Class References
+## Encoding for Class References
 
 Consider the following Slice definitions:
 
@@ -32,7 +32,7 @@ We call the `obj` member a _reference_ to a class instance. References can appea
 `obj` above, or nested inside of other types, such as a sequence element or dictionary value. There are significant
 differences in the encoding for references between versions 1.0 and 1.1.
 
-#### Class Reference Encoding version 1.0
+### Class Reference Encoding version 1.0
 
 Ice encodes a nil reference as a 32-bit integer with value zero. For non-nil references, the encoder maintains a table
 per [encapsulation](../basic-data-encoding) that associates a unique non-zero positive integer with each class instance.
@@ -43,7 +43,7 @@ instance's previously-assigned ID as a negative 32-bit integer.
 
 All [class instances](../data-encoding-for-classes) are encoded at the end of the encapsulation.
 
-#### Class Reference Encoding version 1.1
+### Class Reference Encoding version 1.1
 
 As in version 1.0 of the encoding, each instance is assigned a unique ID per encapsulation. However, to conserve space,
 version 1.1 encodes a reference as a [size](../basic-data-encoding) value, with a nil reference encoded as a size value
@@ -69,13 +69,13 @@ on the context in which the reference occurs:
   remarshaling instances, such a reference is encoded as a size whose value is an index into an
   [indirection table](../data-encoding-for-classes).
 
-# Encoding for Class Instances
+## Encoding for Class Instances
 
 It is important to understand the distinction between marshaling a reference and marshaling an instance. In C++ terms,
 this is equivalent to the difference between a pointer and the heap data containing an object's state at which the
 pointer is pointing. Marshaling an instance means we are encoding the data members of a class instance.
 
-#### Class Instance Encoding version 1.0
+### Class Instance Encoding version 1.0
 
 Classes are marshaled as a number of pairs containing a type ID and a [slice](../basic-data-encoding) (one pair for each
 level of the inheritance hierarchy) and marshaled in derived-to-base order. Only data members are marshaled — no
@@ -97,7 +97,7 @@ encoded, the sender must marshal a size value of zero.
 This object table must be written if any operation parameter or data member has a class type, even if all references are
 nil.
 
-#### Class Instance Encoding version 1.1
+### Class Instance Encoding version 1.1
 
 The leading byte of a class instance is a [size](../basic-data-encoding) value of 1. Following this byte is a collection
 of [slices](../basic-data-encoding) arranged in derived-to-base order. Only data members are marshaled — no information
@@ -135,7 +135,7 @@ To support [slice preservation](../slicing-values-and-exceptions) for an instanc
 the slices of any unknown derived types, and also be able to reconstruct the indirection table in its original order for
 each of these slices in case the instance is later remarshaled.
 
-##### See Also
+## See Also
 
 - [Classes](../classes)
 - [Type IDs](../type-ids)

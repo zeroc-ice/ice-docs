@@ -6,7 +6,7 @@ IceStorm is a relatively lightweight service in that it requires very little con
 [IceBox](../icebox) service. The configuration properties supported by IceStorm are described in
 [IceStorm Properties](../icestorm-properties); some of them control diagnostic output and are not discussed here.
 
-# IceStorm Server Configuration
+## IceStorm Server Configuration
 
 The first step is configuring IceBox to run the IceStorm service:
 
@@ -39,7 +39,7 @@ CPU machine. On a host with multiple CPUs, you may be able to improve IceStorm's
 its client-side thread pool using the [Ice.ThreadPool.Client.*](../ice-threadpool-properties) properties, but the
 optimal number of threads can only be determined with careful benchmarking.
 
-# Deploying IceStorm Replicas
+## Deploying IceStorm Replicas
 
 There are two ways of deploying IceStorm in its [highly available](../highly-available-icestorm) (replicated) mode. In
 both cases, adding another replica requires that all active replicas be stopped while their configurations are updated;
@@ -52,7 +52,7 @@ database state than all replicas. The safest approach is to verify that all repl
 You can do this using the [icestormadmin](../icestorm-administration) utility by checking that all replicas are in the
 `Normal` state.
 
-## IceGrid Deployment
+### IceGrid Deployment
 
 [IceGrid](../icegrid) is a convenient way of deploying IceStorm replicas. The term _replica_ is also used in the context
 of IceGrid, specifically when referring to groups of object adapters that participate in
@@ -109,7 +109,7 @@ In addition, each server's ID must consist of the instance name followed by the 
 `${instance-name}-${index}`: IceStorm identifies the replicas it discovers through the IceGrid registry by their server
 IDs.
 
-## Manual Deployment
+### Manual Deployment
 
 You can also deploy IceStorm replicas without IceGrid, although it requires more manual configuration; an IceGrid
 deployment is simpler to maintain.
@@ -177,7 +177,7 @@ IceStorm.ReplicatedTopicManagerEndpoints=tcp -h replica0 -p 10000:tcp -h replica
 An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
 case you should remove the definition of the `ReplicatedPublishEndpoints` property from the above deployment.
 
-# IceStorm Client Configuration
+## IceStorm Client Configuration
 
 Clients of the service can define a proxy for the `TopicManager` object as follows:
 
@@ -189,7 +189,7 @@ The name of the property is not relevant, but the endpoint must match that of th
 property, and the object identity must use the IceStorm [instance name](../icestorm-properties) as the category and
 `TopicManager` as the name.
 
-# IceStorm Object Identities
+## IceStorm Object Identities
 
 IceStorm hosts a [well-known object](../well-known-objects) that implements the `IceStorm::TopicManager` interface. The
 default identity of this object is `IceStorm/TopicManager`, as seen in the stringified proxy example above. If an
@@ -211,7 +211,7 @@ TopicManager.Proxy=Measurement/TopicManager:tcp -p 9999
 IceStorm also hosts an object with the identity `IceStorm/Finder`, as described in the next section. This identity is
 not affected by changes to `IceStorm.InstanceName`.
 
-# Using the IceStorm `Finder` Interface
+## Using the IceStorm `Finder` Interface
 
 IceStorm supports the `IceStorm::Finder` interface:
 
@@ -236,7 +236,7 @@ IceStorm::FinderPrx
 auto topicManager = finder->getTopicManager();
 ```
 
-##### See Also
+## See Also
 
 - [IceStorm Properties](../icestorm-properties)
 - [IceBox](../icebox)

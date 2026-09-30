@@ -1,12 +1,12 @@
 {% language-section name="lang-1" %}
 
-# Ice.Default.CollocationOptimized
+## Ice.Default.CollocationOptimized
 
-#### Synopsis
+### Synopsis
 
 `Ice.Default.CollocationOptimized=num`
 
-#### Description
+### Description
 
 Specifies whether proxy invocations use [collocation optimization](../collocated-invocation-and-dispatch) by default.
 When enabled, proxy invocations on a collocated servant (i.e., a servant whose object adapter was created by the same
@@ -18,13 +18,13 @@ If not specified, the default value is 1. Set the property to 0 to disable collo
 
 {% language-section name="lang-2" %}
 
-# Ice.Default.Package
+## Ice.Default.Package
 
-#### Synopsis
+### Synopsis
 
 `Ice.Default.Package=package`
 
-#### Description
+### Description
 
 Ice for Java allows you to customize the Slice module to Java package mapping with the `java:package` and
 `java:identifier` [metadata directive](../slice-metadata-directives).

@@ -1,9 +1,5 @@
 {% language-section name="language-mapping" %}
 
-## Mapping for Classes
-
-# Class Mapping
-
 A Slice class maps to a PHP class with the same name. For each Slice field, the generated class contains a public
 variable, just as for structures and exceptions. Consider the following class definition:
 
@@ -40,7 +36,7 @@ There are a number of things to note about the generated code:
    classes implicitly inherit from `\Ice\Value`, which is the ultimate ancestor of all classes.
 2. The constructor initializes an instance variable for each Slice field.
 
-## Generated Constructor
+### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
 single statement (instead of first having to construct the instance and then assign to its variables).

@@ -5,7 +5,7 @@ title: Facets
 Facets provide a general-purpose mechanism for non-intrusively extending the type system of an application, by loosely
 coupling new type instances to existing ones.
 
-# Ice Objects as Collections of Facets
+## Ice Objects as Collections of Facets
 
 Up to this point, we have presented an Ice object as a single conceptual entity, that is, as an object with a single
 most-derived interface and a single identity, with the object being implemented by a single servant. However, an Ice

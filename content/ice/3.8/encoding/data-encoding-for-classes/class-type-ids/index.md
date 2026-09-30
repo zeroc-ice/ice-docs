@@ -2,7 +2,7 @@
 title: Data Encoding for Class Type IDs
 ---
 
-# Type ID Encoding version 1.0
+## Type ID Encoding version 1.0
 
 Unlike for exception [type IDs](../type-ids), class type IDs are not simple strings. Instead, a class type ID is
 marshaled as a boolean followed by either a string or a [size](../basic-data-encoding), to conserve bandwidth. To
@@ -56,7 +56,7 @@ Encoding class type IDs in this way provides significant savings in bandwidth: w
 subsequent time, it is marshaled as a two-byte value (assuming no more than 254 distinct type IDs per request) instead
 of as a string. Because type IDs can be long, especially if you are using nested modules, the savings are considerable.
 
-# Type ID Encoding version 1.1
+## Type ID Encoding version 1.1
 
 Each [slice](../basic-data-encoding) of a class instance has a leading byte containing flags that describe various
 aspects of the slice, including whether the slice includes a type ID and how that type ID is encoded. There are four
@@ -73,7 +73,7 @@ sender, subsequent slices may or may not include a type ID: the compact format o
 whereas the sliced format includes a type ID in every slice. A receiver need only examine the slice flags to discover
 how to decode the type ID.
 
-#### String Type IDs
+### String Type IDs
 
 The encoding for string type IDs uses a "compression" scheme similar to that of version 1.0: within an
 [encapsulation](../basic-data-encoding), a given type ID is never encoded as a string more than once. The first time a
@@ -86,7 +86,7 @@ how the type ID is encoded.
 The slice flags in version 1.1 of the encoding serve the same purpose as the boolean value that precedes each type ID in
 version 1.0, without consuming an entire byte.
 
-#### Compact Type IDs
+### Compact Type IDs
 
 As a way of further reducing the overhead associated with class instances, version 1.1 adds the ability to substitute
 numeric values for strings when encoding type IDs. Consider the following Slice definitions:
@@ -125,7 +125,7 @@ the most efficient encoding.
 
 {% /callout %}
 
-##### See Also
+## See Also
 
 - [Type IDs](../type-ids)
 - [Basic Data Encoding](../basic-data-encoding)

@@ -8,7 +8,7 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for MATLAB
+## The Slice Compiler for MATLAB
 
 The Slice-to-MATLAB compiler (`slice2matlab`) offers two additional options:
 

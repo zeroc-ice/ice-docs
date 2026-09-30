@@ -34,7 +34,7 @@ A proxy is a local object that represents a remote Ice object, and encapsulates 
 A proxy is also tied to a [communicator](../communicator) that provides the connection establishment and management
 logic.
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Object Identity](../object-identity)

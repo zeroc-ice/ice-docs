@@ -1,9 +1,5 @@
 {% language-section name="language-mapping" %}
 
-## Mapping for Classes
-
-# Class Mapping
-
 A Slice class is mapped to a C++ class with the same name. The generated class contains a public data member for each
 Slice field (just as for [structures](../structures) and [exceptions](../exceptions)). Consider the following class
 definition:
@@ -51,7 +47,7 @@ There are a number of things to note about this generated code:
 3. The generated class has a constructor that takes one argument for each data member, as well as a default constructor.
 4. The generated class has a function, `ice_clone`, which returns a shallow polymorphic copy of this class instance.
 
-## Generated Constructors
+### Generated Constructors
 
 Classes have two constructors:
 
@@ -118,7 +114,7 @@ public:
 
 Note that single-parameter constructors are defined as `explicit`, to prevent implicit argument conversions.
 
-## Printing Classes
+### Printing Classes
 
 You can print any class instance by calling `ice_print` on this instance. `ice_print` is defined on `Ice::Value`.
 Alternatively, you can print a shared pointer to a class instance (for example, a `TimeOfDayPtr`) with `operator<<`:

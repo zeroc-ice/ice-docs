@@ -2,7 +2,7 @@
 title: Default Servants
 ---
 
-# Overview of Default Servants
+## Overview of Default Servants
 
 The [Active Servant Map](../active-servant-map) (ASM) is a simple lookup table that maintains a one-to-one mapping
 between object identities and servants. Although the ASM is easy to understand and offers efficient indexing, it does
@@ -35,7 +35,7 @@ to the ASM. However, this does not mean that default servants carry an unaccepta
 provide sophisticated caching, so even though the operation implementations read and write the database, as long as they
 access cached state, performance may be entirely acceptable.
 
-# Default Servant API
+## Default Servant API
 
 The default servant API consists of the following methods on the object adapter class:
 
@@ -76,11 +76,11 @@ default servants.
 
 {% /callout %}
 
-# Guidelines for Implementing Default Servants
+## Guidelines for Implementing Default Servants
 
 This section provides some guidelines to assist you in implementing default servants effectively.
 
-## Object Identity is the Key
+### Object Identity is the Key
 
 When an incoming request is dispatched to the default servant, the target object identity is provided in the `Current`
 argument. The `name` field of the identity typically supplies everything the default servant requires in order to
@@ -91,14 +91,14 @@ state it requires. However, this approach can easily introduce implementation ar
 in most cases the client should not need to know that the server is implemented with a default servant. If at all
 possible, use only the object identity.
 
-## Minimize Contention
+### Minimize Contention
 
 For better scalability, the default servant's implementation should strive to eliminate contention among the dispatch
 threads. As an example, when a database holds the default servant's state, each of the servant's operations usually
 begins with a query. Assuming that the database API is thread-safe, the servant needs to perform no explicit locking of
 its own. With a copy of the state in hand, the implementation can work with function-local data to satisfy the request.
 
-## Combine Strategies
+### Combine Strategies
 
 The ASM still plays a useful role even in applications that are ideally suited for default servants. For example, there
 is no need to implement a singleton object as a default servant: if there can only be one instance of the object,
@@ -108,7 +108,7 @@ Applications often install a handful of servants in the ASM while servicing the 
 servant. For example, a database application might install a singleton query object in the ASM while using a default
 servant to process all invocations on the database records.
 
-## Categories Denote Interfaces
+### Categories Denote Interfaces
 
 In general, all of the objects serviced by a default servant must have the same interface. If you only need a default
 servant for one interface, you can register the default servant with an empty category string. However, to implement
@@ -120,25 +120,25 @@ For example, a process control system might have interfaces named `Sensor` and `
 proper default servant, the application uses the strings `Sensor` or `Switch` as the category of each object's identity,
 and registers corresponding default servants having those same categories with the object adapter.
 
-## Plan for the Future
+### Plan for the Future
 
 If you suspect that you might eventually need to implement more than one interface with default servants, we recommend
 using a non-empty category even if you start out having only one default servant. Adding another default servant later
 becomes much easier if the application is already designed to operate correctly with categories.
 
-## Throw exceptions
+### Throw exceptions
 
 If a request arrives for an object that no longer exists, it is the default servant's responsibility to throw
 `ObjectNotExistException`.
 
-##### See Also
+## See Also
 
 - [The Active Servant Map](../active-servant-map)
 - [Object Identity](../object-identity)
 - [Object Adapters](../dispatch)
 - [The Ice Threading Model](../threading-model)
 
-##### References
+## References
 
 1. Gamma, E., et al. 1994.
    [Design Patterns](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612). Reading,

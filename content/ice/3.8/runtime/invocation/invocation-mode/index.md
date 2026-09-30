@@ -49,7 +49,7 @@ proxy unusable. If you later make an invocation with such a proxy, you’ll rece
 In theory, the datagram and batch datagram invocation modes are applicable to any datagram transport. In practice, Ice
 provides a single datagram transport, UDP, and we don’t anticipate ever adding another datagram transport.
 
-##### See Also
+## See Also
 
 - [Proxy Endpoints](../proxy-endpoints)
 - [Connection Establishment](../connection-establishment)

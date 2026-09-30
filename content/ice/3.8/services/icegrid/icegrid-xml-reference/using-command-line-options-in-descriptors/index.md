@@ -33,7 +33,7 @@ The node translates these options into the following command:
 java -Xnoclassgc ServerClassName --Ice.Trace.Protocol
 ```
 
-##### See Also
+## See Also
 
 - [Server Descriptor Element](../server-descriptor-element)
 - [IceBox Descriptor Element](../icebox-descriptor-element)

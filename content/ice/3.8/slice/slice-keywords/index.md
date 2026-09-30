@@ -15,6 +15,6 @@ The following identifiers are Slice keywords:
 
 Keywords must be capitalized as shown.
 
-##### See Also
+## See Also
 
 - [Lexical Rules](../lexical-rules)

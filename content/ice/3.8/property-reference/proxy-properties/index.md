@@ -10,69 +10,69 @@ of the proxy. Subordinate properties can be defined to customize the proxy's loc
 The communicator operation [proxyToProperty](../converting-proxies-to-strings) performs the inverse operation, that is,
 returns the property group for a proxy.
 
-# _name_
+## _name_
 
-#### Synopsis
+### Synopsis
 
 `name=proxy`
 
-#### Description
+### Description
 
 The base property of the group with an application-specific `name` supplying the stringified representation of a proxy.
 Use the communicator operation `propertyToProxy` to retrieve the property and convert it into a proxy.
 
 {% language-section name="lang-1" /%}
 
-# _name_.ConnectionCached
+## _name_.ConnectionCached
 
-#### Synopsis
+### Synopsis
 
 `name.ConnectionCached=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than zero, the proxy [caches](../connection-establishment) its chosen connection for use in
 subsequent requests. Defining this property is equivalent to invoking the `ice_connectionCached` proxy method.
 
-# _name_.Context._key_
+## _name_.Context._key_
 
-#### Synopsis
+### Synopsis
 
 `name.Context.key=value`
 
-#### Description
+### Description
 
 Adds the key/value pair to the proxy's [request context](../per-proxy-request-contexts).
 
-# _name_.EndpointSelection
+## _name_.EndpointSelection
 
-#### Synopsis
+### Synopsis
 
 `name.EndpointSelection=type`
 
-#### Description
+### Description
 
 Specifies the proxy's [endpoint selection](../connection-establishment) type. Legal values are `Random` and `Ordered`.
 Defining this property is equivalent to invoking the `ice_endpointSelection` proxy method.
 
-# _name_.InvocationTimeout
+## _name_.InvocationTimeout
 
-#### Synopsis
+### Synopsis
 
 `name.InvocationTimeout=num`
 
-#### Description
+### Description
 
 Specifies the [invocation timeout](../invocation-timeouts) of this proxy, in milliseconds. Defining this property is
 equivalent to invoking the `ice_invocationTimeout` proxy method.
 
-# _name_.Locator
+## _name_.Locator
 
-#### Synopsis
+### Synopsis
 
 `name.Locator=proxy`
 
-#### Description
+### Description
 
 Specifies the [locator](../locators) of this proxy. Defining this property is equivalent to invoking the `ice_locator`
 proxy method.
@@ -85,24 +85,24 @@ MyProxy.Locator=...
 MyProxy.Locator.EndpointSelection=Ordered
 ```
 
-# _name_.LocatorCacheTimeout
+## _name_.LocatorCacheTimeout
 
-#### Synopsis
+### Synopsis
 
 `name.LocatorCacheTimeout=num`
 
-#### Description
+### Description
 
 Specifies the [locator cache](../locator-semantics-for-clients) timeout of this proxy, in seconds. Defining this
 property is equivalent to invoking the `ice_locatorCacheTimeout` proxy method.
 
-# _name_.Router
+## _name_.Router
 
-#### Synopsis
+### Synopsis
 
 `name.Router=proxy`
 
-#### Description
+### Description
 
 Specifies the [router](../glacier2) of this proxy. Defining this property is equivalent to invoking the `ice_router`
 proxy method.
