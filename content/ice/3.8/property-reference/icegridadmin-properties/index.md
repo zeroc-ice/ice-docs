@@ -29,9 +29,7 @@ Specifies the host of the IceGrid registry that [icegridadmin](../icegridadmin-c
 `icegridadmin` asks the `Ice/LocatorFinder` object at this host and at the port set by
 [IceGridAdmin.Port](../icegridadmin-properties#icegridadmin.port) for the registry's locator. When
 [IceGridAdmin.AuthenticateUsingSSL](../icegridadmin-properties#icegridadmin.authenticateusingssl) is enabled,
-`icegridadmin` contacts the registry over `ssl` only. If
-[IceGridAdmin.InstanceName](../icegridadmin-properties#icegridadmin.instancename) is set and the registry uses a
-different instance name, `icegridadmin` exits with an error.
+`icegridadmin` contacts the registry over `ssl` only.
 
 If this property is not set, `icegridadmin` finds the registry with [multicast discovery](../icelocatordiscovery),
 configured with the [IceLocatorDiscovery.*](../icelocatordiscovery-properties) properties. `icegridadmin` ignores this
@@ -46,12 +44,12 @@ property, and does not use discovery, when [Ice.Default.Locator](../ice-default-
 
 ### Description {% id="icegridadmin.instancename-description" %}
 
-Specifies the name of the IceGrid instance to which [icegridadmin](../icegridadmin-command-line-tool) connects.
+Specifies the instance name that [icegridadmin](../icegridadmin-command-line-tool) expects from the registry at
+[IceGridAdmin.Host](../icegridadmin-properties#icegridadmin.host): `icegridadmin` connects only if the registry uses
+this instance name.
 
-With [IceGridAdmin.Host](../icegridadmin-properties#icegridadmin.host), `icegridadmin` exits with an error if the
-registry at that host uses a different instance name. This property does not filter the registries found with
-[multicast discovery](../icelocatordiscovery); to ignore the registries of other instances, set
-[IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties).
+This property does not filter the registries found with [multicast discovery](../icelocatordiscovery); to ignore the
+registries of other instances, set [IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties).
 
 ## IceGridAdmin.MetricsConfigs
 
