@@ -22,7 +22,7 @@ To link your reference to ZeroC's for the Ice types your Slice files use, downlo
 TAGFILES = slice.tag=https://code.zeroc.com/ice/3.8/api/slice
 ```
 
-##### See Also
+## See Also
 
 - [Doxygen](https://www.doxygen.nl)
 - [Slice API reference](https://code.zeroc.com/ice/3.8/api/slice/index.html)

@@ -21,7 +21,7 @@ The inline tags, `{@link}` and `@p`, go within the text instead; see [Formatting
 Every Slice compiler except `slice2php` and `slice2rb` checks each doc comment against the rules on this page: it warns
 about a tag it doesn't recognize, and ignores it.
 
-# Formatting and Links
+## Formatting and Links
 
 Text between backticks is code, and the compilers format it as code in each language:
 
@@ -49,11 +49,11 @@ operation's doc comment:
 Item findItem(Key p, Key s) throws NotFound;
 ```
 
-# General Tags
+## General Tags
 
 You can use the following tags in any doc comment.
 
-## `@see identifier`
+### `@see identifier`
 
 Adds a cross-reference to another Slice definition, which the compilers look up as they do for `{@link}`. Each `@see`
 tag holds one identifier, on a line of its own and with no trailing period:
@@ -64,28 +64,28 @@ tag holds one identifier, on a line of its own and with no trailing period:
 exception NotFound {}
 ```
 
-## `@remark` / `@remarks`
+### `@remark` / `@remarks`
 
 Starts a remarks section, for details that don't belong in the description.
 
-## `@deprecated`
+### `@deprecated`
 
 Documents that the definition is deprecated. The text after the tag says why, or what to use instead.
 
-# Operation Tags
+## Operation Tags
 
 You can use the following tags only in an operation's doc comment. The compilers warn about them anywhere else, and
 ignore them.
 
-## `@param name`
+### `@param name`
 
 Documents the parameter `name`, which must be one of the operation's parameters.
 
-## `@return`
+### `@return`
 
 Documents the return value. The compilers warn about `@return` on an operation that does not return a value.
 
-## `@throws name` / `@exception name`
+### `@throws name` / `@exception name`
 
 Documents when the operation throws the exception `name`, which must appear in the operation's exception specification.
 The two tags are equivalent.
