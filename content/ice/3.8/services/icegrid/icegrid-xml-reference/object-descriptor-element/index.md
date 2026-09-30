@@ -30,7 +30,7 @@ Here is an example to demonstrate the use of this element:
 In the configuration above, the object can be located via the equivalent proxies `WellKnownObject` and
 `WellKnownObject@WellKnownAdapter`.
 
-##### See Also
+## See Also
 
 - [Well-Known Objects](../well-known-objects)
 - [Adapter Descriptor Element](../adapter-descriptor-element)

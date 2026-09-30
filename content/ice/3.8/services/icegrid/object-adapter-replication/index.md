@@ -6,7 +6,7 @@ As an implementation of an Ice location service, IceGrid supports [object adapte
 application defines its replica groups and their participating object adapters using descriptors, and IceGrid generates
 the server configurations automatically.
 
-# Deploying a Replica Group
+## Deploying a Replica Group
 
 The [descriptor that defines a replica group](../replica-group-descriptor-element) can optionally declare
 [well-known objects](../object-descriptor-element) as well as configure the group to determine its behavior during
@@ -38,7 +38,7 @@ The replica group `ReplicatedAdapter` declares a well-known object so that an in
 equivalent to the indirect proxy `TheObject@ReplicatedAdapter`. Since this trivial example defines only one adapter in
 the replica group, the proxy `TheObject` is also equivalent to `TheObject@TheAdapter`.
 
-# Replica Group Membership
+## Replica Group Membership
 
 An object adapter participates in a replica group by specifying the group's ID in the adapter's `ReplicaGroupId`
 configuration property. Identifying the replica group in the IceGrid descriptor for an object adapter causes the node to
@@ -69,12 +69,12 @@ The use of dynamic registration often leads to the accumulation of obsolete repl
 The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you to inspect and clean up the registry's
 state.
 
-# Using Replica Groups in the Ripper Application
+## Using Replica Groups in the Ripper Application
 
 Replication is a perfect fit for the ripper application. The collection of encoder factory objects should be treated as
 a single logical object, and replication makes that possible.
 
-## Adding a Replica Group to the Ripper Deployment
+### Adding a Replica Group to the Ripper Deployment
 
 Adding a replica group descriptor to our application is very straightforward:
 
@@ -110,7 +110,7 @@ The new descriptor adds the replica group called `EncoderAdapters` and registers
 `EncoderFactory`. The adapter descriptor in the server template has been changed to declare its membership in the
 replica group.
 
-## Using a Replica Group in the Ripper Client
+### Using a Replica Group in the Ripper Client
 
 In comparison to the examples that demonstrated [querying for well-known objects](../well-known-objects), the new
 version of our client has become much simpler:
@@ -127,7 +127,7 @@ client selects one of the endpoints at random, meaning we have now lost some fun
 in which system load was considered when selecting an endpoint. We will learn how to rectify this situation in our
 discussion of [load balancing](../load-balancing).
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Replica-Group Descriptor Element](../replica-group-descriptor-element)

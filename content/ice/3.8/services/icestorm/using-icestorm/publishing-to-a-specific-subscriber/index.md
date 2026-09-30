@@ -83,6 +83,6 @@ observer to the topic, and IceStorm forwards the call to `init` to the observer.
 `init` on the observer directly: if the observer is misbehaved (for example, if its `init` implementation blocks for
 some time), the list is unaffected because IceStorm shields the list from such behavior.
 
-##### See Also
+## See Also
 
 - [Using IceStorm](../using-icestorm)

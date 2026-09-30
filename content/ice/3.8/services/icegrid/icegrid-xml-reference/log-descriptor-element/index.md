@@ -24,7 +24,7 @@ Here is an example to demonstrate the use of this element:
 </server>
 ```
 
-##### See Also
+## See Also
 
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [Server Descriptor Element](../server-descriptor-element)

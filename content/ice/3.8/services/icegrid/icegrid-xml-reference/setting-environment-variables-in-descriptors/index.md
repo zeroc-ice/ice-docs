@@ -67,7 +67,7 @@ as shown in the example below:
 IceGrid does not attempt to perform [substitution](../using-descriptor-variables-and-parameters) on `$${PATH}`, but
 rather removes the leading `$` character and then performs environment variable substitution on `$${PATH}`.
 
-##### See Also
+## See Also
 
 - [Server Descriptor Element](../server-descriptor-element)
 - [IceBox Descriptor Element](../icebox-descriptor-element)

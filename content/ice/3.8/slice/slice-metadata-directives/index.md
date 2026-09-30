@@ -2,7 +2,7 @@
 title: Slice Metadata Directives
 ---
 
-# Overview
+## Overview
 
 Slice has the concept of a _metadata_ directive. For example:
 
@@ -42,7 +42,7 @@ appear following any `#include` directives).
 
 We describe below the metadata directives you can use.
 
-# General Metadata Directives
+## General Metadata Directives
 
 ### `amd`
 
@@ -137,6 +137,6 @@ specification). `OnewayOnlyException` is thrown if an operation with this metada
 
 It has no effect on the server-side generated code.
 
-# Language-Specific Metadata Directives
+## Language-Specific Metadata Directives
 
 {% language-section name="lang-2" /%}

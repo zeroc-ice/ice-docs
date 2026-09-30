@@ -35,7 +35,7 @@ classdef Employee
 end
 ```
 
-## Generated Constructor
+### Generated Constructor
 
 The generated constructor has one parameter for each property. You must either call this constructor with no arguments
 or with arguments for all the properties.

@@ -214,7 +214,7 @@ Here are some guidelines to help you decide whether to use a parameter or a prop
 - Do not use a parameter for optional properties if you want to rely on a default value for the server.
 - Do not use parameters for properties that are rarely used.
 
-##### See Also
+## See Also
 
 - [Properties and Configuration](../properties-and-configuration)
 - [Using IceGrid Deployment](../using-icegrid-deployment)

@@ -2,7 +2,7 @@
 title: Proxy Types
 ---
 
-# Syntax and Semantics for Proxies
+## Syntax and Semantics for Proxies
 
 A Slice interface is not a Slice type – you cannot use a Slice interface as the type for a field or for a parameter in
 an operation.
@@ -39,7 +39,7 @@ The semantics of proxies are similar to those of C++ class instance pointers:
 - A proxy can be null.
 - A proxy can dangle (point a a remote object that is no longer there).
 
-# Self-Referential Interfaces
+## Self-Referential Interfaces
 
 Proxies have pointer semantics, so an interface can reference a proxy to itself. For example:
 

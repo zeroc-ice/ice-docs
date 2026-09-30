@@ -2,14 +2,14 @@
 title: Communicators in PHP
 ---
 
-# PHP Request Semantics
+## PHP Request Semantics
 
 In PHP terminology, a _request_ is the execution of a PHP script on behalf of a Web client. Each request essentially
 runs in its own instance of the PHP interpreter, isolated from any other requests. Upon the completion of a request, the
 interpreter reclaims memory and other resources that were acquired during the request, including objects created by the
 Ice for PHP extension.
 
-# Using Communicators in PHP
+## Using Communicators in PHP
 
 A PHP script that needs to invoke an operation on a remote Ice object must initialize a communicator, obtain a proxy,
 and make the invocation. For example, here is a minimal (but complete) Ice script:
@@ -58,7 +58,7 @@ infrequently, but for an application with high request rates it is necessary to 
 - [Registering a communicator](../communicators-in-php#registered-communicators-in-php) avoids the need to create and
   destroy a communicator in every request.
 
-# Managing Property Sets in PHP
+## Managing Property Sets in PHP
 
 A PHP application can manually construct a [property set](../properties-and-configuration) for configuring its
 communicator. The Ice for PHP extension also provides a PHP-specific property set API that helps to minimize the
@@ -73,7 +73,7 @@ which means any subsequent changes you might make to the configuration have no e
 Also keep in mind that specifying a relative path name for a configuration file usually means the path name is evaluated
 relative to the web server's working directory.
 
-## Default Property Set in PHP
+### Default Property Set in PHP
 
 The INI directives `ice.config` and `ice.options` specify the configuration file and the command-line options for the
 default property set, respectively. These directives must appear in PHP's configuration file, which is usually named
@@ -86,7 +86,7 @@ ice.config=/opt/MyApp/default.cfg
 ice.options="--Ice.Override.Timeout=2000"
 ```
 
-## Profiles in PHP
+### Profiles in PHP
 
 Profiles are useful when several unrelated applications execute in the same web server, or when a script needs to choose
 among multiple configurations. To configure your profiles, add an `ice.profiles` directive to PHP's configuration file.
@@ -119,7 +119,7 @@ resources between untrusted applications. Using **PHP-FPM** is the preferred opt
 
 {% /callout %}
 
-## Using Property Sets in PHP
+### Using Property Sets in PHP
 
 The `Ice\getProperties` function allows a script to obtain a copy of a property set. When called without an argument, or
 with an empty string, the function returns the default property set. Otherwise, the function expects the name of a
@@ -149,7 +149,7 @@ $greeting = $greeter->greet(get_current_user());
 echo "$greeting\n";
 ```
 
-# Registered Communicators in PHP
+## Registered Communicators in PHP
 
 You can register a communicator to prevent it from being destroyed at the completion of a script. For example, a
 session-based PHP application can create a communicator for each new session and register it for reuse in subsequent
@@ -157,7 +157,7 @@ requests of the same session. Reusing a communicator in this way avoids the over
 destroying a communicator in each request. Furthermore, it allows network connections established by the Ice
 communicator to remain open and available for use in another request.
 
-## Limitations of Registered Communicators in PHP
+### Limitations of Registered Communicators in PHP
 
 A communicator object is local to the process that created it, which in the case of PHP is usually a web server process.
 The usefulness of a registered communicator is therefore limited to situations in which an application can ensure that
@@ -167,7 +167,7 @@ CGI process terminates at the end of each request. A simple (but often impractic
 server to use a single persistent process. The topic of configuring a web server to take advantage of registered
 communicators is outside the scope of this manual.
 
-## Using Registered Communicators in PHP
+### Using Registered Communicators in PHP
 
 The API for registered communicators consists of three functions:
 
@@ -211,7 +211,7 @@ Note that communicators consume resources such as threads, sockets, and memory, 
 designed to minimize the number of communicators it registers. Using a suitable expiration timeout prevents registered
 communicators from accumulating indefinitely.
 
-## Security Considerations for Registered Communicators in PHP
+### Security Considerations for Registered Communicators in PHP
 
 There are risks associated with allowing untrusted applications to gain access to a registered communicator. For
 example, if a malicious script obtains a registered communicator that is configured with SSL credentials, the script

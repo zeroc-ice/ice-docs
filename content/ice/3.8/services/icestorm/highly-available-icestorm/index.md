@@ -5,7 +5,7 @@ title: Highly Available IceStorm
 IceStorm offers a highly available (HA) mode that employs master-slave replication with automatic failover in case the
 master fails.
 
-# IceStorm Replication Algorithm
+## IceStorm Replication Algorithm
 
 HA IceStorm uses the Garcia-Molina "Invitation Election Algorithm" [\[1\]](#references) in which each replica has a
 priority — its node ID — and belongs to a replica group. The replica with the highest priority in the group becomes the
@@ -34,7 +34,7 @@ Once a majority group has been formed, all database states are compared. The mos
 by comparing a time stamp recorded upon each database change) is transferred to all replicas and replication commences.
 IceStorm is now available for use.
 
-# IceStorm Replica States
+## IceStorm Replica States
 
 IceStorm replicas can have one of four states:
 
@@ -86,7 +86,7 @@ Each line begins with the identifier of the replica. The command displays the fo
 - `max` The maximum number of replicas seen by this replica. This value is used during startup to determine whether full
   participation is necessary. If the value is less than the total number of replicas, full participation is required.
 
-# Client Considerations for IceStorm Replication
+## Client Considerations for IceStorm Replication
 
 As previously noted, an individual IceStorm replica can be in one of several states. However, IceStorm clients have a
 different perspective in which the replication group as a whole is in one of the states shown below:
@@ -136,7 +136,7 @@ while (true)
 }
 ```
 
-# Subscriber Considerations for IceStorm Replication
+## Subscriber Considerations for IceStorm Replication
 
 Subscribers can receive events from any replica. The subscriber will stop receiving events under two circumstances:
 
@@ -145,7 +145,7 @@ Subscribers can receive events from any replica. The subscriber will stop receiv
   [quality of service](../icestorm-quality-of-service) parameter that causes IceStorm to make additional delivery
   attempts.
 
-# Publisher Considerations for IceStorm Replication
+## Publisher Considerations for IceStorm Replication
 
 A publisher for HA IceStorm typically receives a proxy containing multiple endpoints. With this proxy, the publisher
 normally binds to a single replica and continues using that replica until there is a failure, or until the
@@ -182,7 +182,7 @@ and cannot be changed.
 Regardless of the strategy you choose, a publisher can recover from the failure of a replica by requesting another proxy
 from the replicated topic using `getPublisher` or `getNonReplicatedPublisher`.
 
-##### See Also
+## See Also
 
 - [IceStorm Administration](../icestorm-administration)
 - [IceStorm Quality of Service](../icestorm-quality-of-service)
@@ -190,7 +190,7 @@ from the replicated topic using `getPublisher` or `getNonReplicatedPublisher`.
 - [Automatic Retries](../automatic-retries)
 - [Configuring IceStorm](../configuring-icestorm)
 
-##### References
+## References
 
 1. Garcia-Molina, H. 1982.
    [Elections in a Distributed Computing System](https://www.computer.org/csdl/journal/tc/1982/01/01675885/13rRUyhaInv).

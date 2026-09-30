@@ -2,13 +2,13 @@
 title: Ice.Override.*
 ---
 
-# Ice.Override.Compress
+## Ice.Override.Compress
 
-#### Synopsis
+### Synopsis
 
 `Ice.Override.Compress=num`
 
-#### Description
+### Description
 
 {% iflang langs="js" %}
 

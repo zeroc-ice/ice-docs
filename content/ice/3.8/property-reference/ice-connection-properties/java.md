@@ -1,12 +1,12 @@
 {% language-section name="lang-1" %}
 
-# Ice.Connection._name_.MaxDispatches
+## Ice.Connection._name_.MaxDispatches
 
-#### Synopsis
+### Synopsis
 
 `Ice.Connection.name.MaxDispatches=num`
 
-#### Description
+### Description
 
 Configures the maximum number of requests that a connection can dispatch concurrently. Once this limit is reached, the
 connection stops reading new requests off its underlying transport connection.

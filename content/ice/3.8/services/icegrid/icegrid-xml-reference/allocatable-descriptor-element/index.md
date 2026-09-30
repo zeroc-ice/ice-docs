@@ -16,7 +16,7 @@ The following attributes are supported:
 | `type`          | An arbitrary string used to group allocatable objects. By convention, the string represents the most-derived Slice [type ID](../type-ids) of the object, but an application is free to use another convention. | No           |
 | `proxy-options` | The proxy options to use for the proxy of the allocatable object returned by IceGrid.                                                                                                                          | No           |
 
-##### See Also
+## See Also
 
 - [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [Adapter Descriptor Element](../adapter-descriptor-element)

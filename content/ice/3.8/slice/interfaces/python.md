@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Interfaces
 
-# Proxy Classes
+### Proxy Classes
 
 On the client side, a Slice interface maps to a Python class with methods that correspond to the operations on that
 interface. Consider the following Slice interface:
@@ -33,12 +33,12 @@ In the client's address space, an instance of `SimplePrx` is the local ambassado
 that implements `Simple` and is known as a _proxy instance_. All the details about the server-side object, such as its
 address, what protocol to use, and its object identity are encapsulated in that instance.
 
-# Inheritance from `Ice.ObjectPrx`
+### Inheritance from `Ice.ObjectPrx`
 
 All generated proxy classes inherit directly or indirectly from the `Ice.ObjectPrx` class, reflecting the fact that all
 Slice interfaces implicitly inherit from `Object`.
 
-# Creating a Proxy
+### Creating a Proxy
 
 Use the constructor of the generated proxy class to create a proxy from a communicator and a “stringified” proxy. For
 example:
@@ -51,7 +51,7 @@ simple = M.SimplePrx(communicator, "simple:tcp -h localhost -p 4061")
 
 `__init__` is inherited from `Ice.ObjectPrx`.
 
-# Interface Inheritance
+### Interface Inheritance
 
 Inheritance relationships among Slice interfaces are maintained in the generated Python classes. For example:
 
@@ -71,7 +71,7 @@ class CPrx(APrx, BPrx):
 Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
 from `C`'s base interfaces.
 
-# Casting Proxies in Python
+### Casting Proxies in Python
 
 The Python mapping for a proxy also generates 3 static methods for converting a proxy into a proxy of another type:
 
@@ -87,7 +87,7 @@ class SimplePrx(Ice.ObjectPrx):
     def checkedCast(proxy, facet=None, context=None)
 ```
 
-## uncheckedCast
+#### uncheckedCast
 
 `uncheckedCast` allows you to convert any proxy into a `SimplePrx` proxy. For example:
 
@@ -98,7 +98,7 @@ widget = WidgetPrx.uncheckedCast(simple)
 
 `uncheckedCast` is a local operation that always succeeds.
 
-## checkedCastAsync
+#### checkedCastAsync
 
 `checkedCastAsync` is a conditional cast of the proxy: this method makes a remote call to the target object to check if
 this object implements the proxy’s Slice interface. For example:
@@ -116,12 +116,12 @@ If the target object implements the Slice interface, `checkedCastAsync` returns 
 While `checkedCastAsync` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in
 practice you know or should know the type of your proxies and calling `checkedCastAsync` is rarely necessary.
 
-## checkedCast
+#### checkedCast
 
 `checkedCast` is the synchronous equivalent of `checkedCastAsync`: it blocks the caller until the response it receives.
 You should prefer async methods over their their synchronous equivalent when making remote calls with Ice.
 
-# Proxy Factory Methods
+### Proxy Factory Methods
 
 The base proxy class `ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are immutable,
 each of these factory methods returns a copy of the original proxy that contains the desired modification. For example,
@@ -147,7 +147,7 @@ greeterAdmin = VisitorCenter.GreeterAdminPrx.uncheckedCast(
 
 ## Server-Side Mapping for Interfaces
 
-# Skeleton Classes
+### Skeleton Classes
 
 On the server side, interfaces map to _skeleton classes_. A skeleton is an abstract base class from which you derive
 your servant class and define a method for each operation on the corresponding interface. For example, consider our
@@ -182,11 +182,11 @@ The important points to note here are:
   interface.
 - The skeleton class inherits from `Ice.Object` (which forms the root of the Ice object hierarchy).
 
-# `Ice.Object` Servant Base Class
+### `Ice.Object` Servant Base Class
 
 The Slice pseudo-interface `Object` is mapped to the `Ice.Object` class in Python.
 
-# Servant Classes
+### Servant Classes
 
 In order to provide an implementation for an Ice object, you must create a servant class that inherits from the
 corresponding skeleton class. For example, to create a servant for the `Node` interface, you could write:

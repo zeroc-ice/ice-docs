@@ -24,7 +24,7 @@ The discussion that follows assumes that you are familiar with [proxies](../invo
 
 {% /callout %}
 
-### Topics
+## Topics
 
 - [Connection Establishment](../connection-establishment)
 - [Connection Closure](../connection-closure)

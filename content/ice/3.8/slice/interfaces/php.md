@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Interfaces
 
-# Proxy Objects
+### Proxy Objects
 
 Slice interfaces are implemented by instances of the `Ice\ObjectPrx` class in PHP. In the client's address space, an
 instance of `ObjectPrx` is the local ambassador for a remote Ice object in a server and is known as a _proxy instance_.
@@ -16,7 +16,7 @@ each interface.
 Nevertheless, you need to downcast a proxy to a specific Slice interface before you can invoke operations using this
 proxy, as described on this page.
 
-# Creating a Proxy
+### Creating a Proxy
 
 For each Slice interface, apart from the proxy interface, the Slice-to-PHP compiler creates a helper class: for an
 interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
@@ -41,7 +41,7 @@ $simple = M\SimplePrxHelper::createProxy(
     'simple:tcp -h localhost -p 4061');
 ```
 
-# Interface Inheritance
+### Interface Inheritance
 
 ```slice
 interface A { ... }
@@ -52,7 +52,7 @@ interface C extends A, B { ... }
 Given a proxy that has been down-casted to `C`, a client can invoke any operation defined for interface `C`, as well as
 any operation inherited from `C`'s base interfaces.
 
-# Casting a Proxy
+### Casting a Proxy
 
 In addition to `createProxy`, the generated helper class provides two static methods for converting a proxy into a proxy
 of another type:
@@ -69,7 +69,7 @@ namespace M
 }
 ```
 
-## uncheckedCast
+#### uncheckedCast
 
 The helper’s `uncheckedCast` static method allows you to convert any proxy into a proxy of this type. For example:
 
@@ -80,7 +80,7 @@ $widget = M\WidgetPrxHelper::uncheckedCast($simple);
 
 `uncheckedCast` is a local operation that always succeeds.
 
-## checkedCast
+#### checkedCast
 
 `checkedCast` is a conditional cast of the proxy: this method makes a remote call to the target object to check if this
 object implements the proxy’s Slice interface. For example:
@@ -98,7 +98,7 @@ exception, for example if it cannot reach the remote object.
 While `checkedCast` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in practice
 you know or should know the type of your proxies and calling `checkedCast` is rarely necessary.
 
-# Proxy Factory Methods
+### Proxy Factory Methods
 
 The base proxy interface `ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are immutable,
 each of these factory methods returns a copy of the original proxy that contains the desired modification. For example,

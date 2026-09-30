@@ -11,6 +11,6 @@ You can obtain the logger that is attached to a communicator using the `getLogge
 
 {% language-section name="lang-1" /%}
 
-##### See Also
+## See Also
 
 - [Logger Facility](../logger-facility)

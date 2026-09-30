@@ -4,7 +4,7 @@ title: Getting Started with IceGrid
 
 This page introduces a sample application that will help us demonstrate IceGrid's capabilities.
 
-# The Ripper Application
+## The Ripper Application
 
 Our application "rips" music tracks from a compact disc (CD) and encodes them as MP3 files, as shown below:
 
@@ -49,7 +49,7 @@ module Ripper
 The implementation of the encoding algorithm is not relevant for the purposes of this discussion. Instead, we will focus
 on incrementally improving the application as we discuss IceGrid features.
 
-# Initial Ripper Architecture
+## Initial Ripper Architecture
 
 The initial architecture for our application is intentionally simple, consisting of an IceGrid registry and a server
 that we start manually. This illustration shows how the client's invocation on its `EncoderFactory` proxy causes an
@@ -74,7 +74,7 @@ The client's call to `createEncoder` is the first remote invocation on the facto
 request is performed during the completion of this invocation. A subsequent call to an object hosted by the same object
 adapter (`@EncoderAdapter`) sent directly to the server without further involvement by IceGrid.
 
-# Ripper Registry Configuration
+## Ripper Registry Configuration
 
 The registry needs a subdirectory in which to create its databases, and we will use `/opt/ripper/registry` for this
 purpose (the directory must exist before starting the registry). We also need to create an Ice configuration file to
@@ -120,7 +120,7 @@ adapter that you wish to register, you must set [_adapter-name_.AdapterId](../ob
 identifier that is unique within the registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter
 to no longer create direct proxies but rather to create indirect proxies that clients must resolve via the registry.
 
-# Ripper Client Configuration
+## Ripper Client Configuration
 
 The client requires only minimal configuration, namely a value for the property
 [Ice.Default.Locator](../locator-configuration-for-a-client). This property supplies the Ice runtime with the proxy for
@@ -144,7 +144,7 @@ property by using UDP multicast to discover registries at runtime.
 
 {% /callout %}
 
-# Ripper Server Configuration
+## Ripper Server Configuration
 
 We use `/opt/ripper/server.cfg` as the server's configuration file. It contains the following properties:
 
@@ -170,7 +170,7 @@ The properties are described below:
 - [Ice.Default.Locator](../ice-default-properties) The server requires a value for this property in order to register
   its object adapter.
 
-# Starting the Registry for the Ripper Application
+## Starting the Registry for the Ripper Application
 
 Now that the configuration file is written and the directory structure is prepared, we are ready to start the IceGrid
 registry:
@@ -182,7 +182,7 @@ icegridregistry --Ice.Config=/opt/ripper/registry.cfg
 Additional [command line options](../icegridregistry) are supported, including those that allow the registry to run as a
 Windows service or Unix daemon.
 
-# Starting the Ripper Server
+## Starting the Ripper Server
 
 With the registry up and running, we can now start the server. At a command prompt, we run the program and pass an
 [--Ice.Config](../ice-properties) option indicating the location of the configuration file:
@@ -191,7 +191,7 @@ With the registry up and running, we can now start the server. At a command prom
 /opt/ripper/bin/server --Ice.Config=/opt/ripper/server.cfg
 ```
 
-# Ripper Progress Review
+## Ripper Progress Review
 
 This example demonstrated how to use IceGrid's location service, which is a core component of IceGrid's feature set. By
 incorporating IceGrid into our application, the client is now able to locate the `MP3EncoderFactory` object using only
@@ -203,7 +203,7 @@ have only just begun to explore IceGrid's capabilities, and there is much we can
 The next section shows how we can avoid the need to start our server manually by deploying our application onto an
 IceGrid node.
 
-##### See Also
+## See Also
 
 - [Locator Configuration for a Client](../locator-configuration-for-a-client)
 - [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)

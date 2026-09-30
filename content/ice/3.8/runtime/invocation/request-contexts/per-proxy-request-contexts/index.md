@@ -6,7 +6,7 @@ Instead of passing a context [explicitly](../explicit-request-contexts) with an 
 _per-proxy context_. Per-proxy contexts allow you to set a context on a particular proxy once and, thereafter, whenever
 you use that proxy to invoke an operation, the previously-set context is sent with each invocation.
 
-# Configuring a Per-Proxy Request Context Programmatically
+## Configuring a Per-Proxy Request Context Programmatically
 
 The proxy methods `ice_context` and `ice_getContext` set and retrieve the context, respectively. `ice_context` creates a
 new proxy that stores the given context. Calling `ice_getContext` returns the stored context, or an empty dictionary if
@@ -18,7 +18,7 @@ This example shows how to configure a request context on a proxy. Once set, the 
 included with every request sent through that proxy. An explicit request context provided at the time of an invocation
 always takes precedence over the proxy’s configured context.
 
-# Configuring a Per-Proxy Request Context using Properties
+## Configuring a Per-Proxy Request Context using Properties
 
 You can also configure a context with proxy properties when you use the communicator method `propertyToProxy`.
 
@@ -37,7 +37,7 @@ properties. To make any modifications to the context at run time, you'll need to
 using `ice_getContext`, modify the dictionary as necessary, and finally obtain a new proxy by calling `ice_context`, as
 we described above.
 
-##### See Also
+## See Also
 
 - [Explicit Request Contexts](../explicit-request-contexts)
 - [Proxy Properties](../proxy-properties)

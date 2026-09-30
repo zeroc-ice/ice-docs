@@ -31,7 +31,7 @@ When you invoke an operation on a well-known proxy, Ice locates the target objec
 3. In case the preceding steps can't locate the target object or endpoints, the invocation fails with
    `NoEndpointException`.
 
-##### See Also
+## See Also
 
 - [Locators](../locators)
 - [Well-Known Objects](../well-known-objects)

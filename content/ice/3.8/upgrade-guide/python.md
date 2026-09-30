@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-### **Python Static Code Generation**
+### Python Static Code Generation
 
 The Python static code generation has been improved in Ice 3.8 to follow a more typical Python package layout and to
 better support type hints.
@@ -13,7 +13,7 @@ The following changes may require updates to your projects:
 
 ### Upgrade Steps
 
-#### **Replacing --all**
+#### Replacing --all
 
 If you were using `--all` to automatically compile included Slice files, you must now list all required files
 explicitly.
@@ -42,7 +42,7 @@ Instead:
 - Apply the new **python:identifier** metadata when you need to remap a generated name (e.g., to avoid a collision with
   a Python builtin or standard library module).
 
-#### **Replacing python:package**
+#### Replacing python:package
 
 If you used the **python:package** metadata directive to control the package of a generated module, remove it.
 
@@ -61,7 +61,7 @@ module sys
 }
 ```
 
-#### **New File Layout**
+#### New File Layout
 
 The Python mapping now generates a **Python module for each Slice-defined type**, placing it inside a package that
 corresponds to the Slice module.
@@ -111,7 +111,7 @@ works the same in 3.7 and 3.8.
 
 {% /callout %}
 
-## **Package Imports**
+## Package Imports
 
 In Ice 3.7, Python generated packages would automatically export nested sub-packages.
 

@@ -59,7 +59,7 @@ You can use the following attributes when configuring the Glacier2 Session metri
 
 The connection and endpoint attributes are for the connection tied to the Glacier2 session.
 
-# See Also
+## See Also
 
 - [Administrative Facility](../administrative-facility)
 - [The Metrics Facet](../metrics-facet)

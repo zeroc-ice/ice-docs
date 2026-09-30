@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Mapping
+### Default Mapping
 
 Here is the definition of our EmployeeMap once more:
 
@@ -24,7 +24,7 @@ e.lastName = "Gosling";
 em.put(e.number, e);
 ```
 
-## Custom Mapping for Dictionaries
+### Custom Mapping for Dictionaries
 
 If the semantics of a `HashMap` are not suitable for your application, you can specify an alternate type using the
 `java:type` metadata directive as shown in the example below:

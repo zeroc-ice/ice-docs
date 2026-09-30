@@ -17,7 +17,7 @@ Our weather station implementation takes the following steps:
 5. Process `report` messages until shutdown.
 6. Unsubscribe from the `weather` topic.
 
-##### See Also
+## See Also
 
 - [Using IceStorm](../using-icestorm)
 - [Oneway Invocations](../oneway-invocations)

@@ -10,6 +10,6 @@ pages:
 Now we'll expand on the earlier [weather monitoring example](../icestorm), and discuss how to create a publisher and a
 subscriber.
 
-##### See Also
+## See Also
 
 - [IceStorm](../icestorm)

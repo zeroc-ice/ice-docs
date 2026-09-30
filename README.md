@@ -17,7 +17,7 @@ npm install                        # install dependencies
 npm run dev                        # dev server on http://localhost:3000
 npm run build                      # production build (standalone), then the sitemap
 npm test                           # unit tests for the content model (lib/docs-model, utils)
-npm run check:content              # navigation, images, slots, titles, migration leftovers
+npm run check:content              # navigation, images, slots, titles, headings, migration leftovers
 npm run check:content -- --strict  # also fail on every unclassified slot
 npm run check:content -- --slots   # list the blank language sections still to classify
 npm run check:markdoc              # every page against the Markdoc schema, and every link to a page and its anchor; `build` runs it first
@@ -36,9 +36,9 @@ Everything for one version of the manual lives under `content/ice/<version>/` (f
 is a directory, and its path under the version is its slug, the path in its URL:
 
 - `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
-  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the newest version's.
-  Its frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
-  `previousVersions`.
+  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the front page of the
+  version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version. Its frontmatter lists the
+  chapters under `pages:` and holds the version's settings: `status`, `languages`, and `previousVersions`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
   `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
   lists them under `pages:`.
@@ -68,6 +68,10 @@ duplicating it.
 - **A page written per language is one page too.** In a directory without `index.md`, each `<lang>.md` is the page for
   its language, and they share one title. The sidebar, previous/next, and search leave it out for readers of the other
   languages, and one who lands on it anyway gets a note naming the languages it is written for.
+- **Headings start at `##`**, under the frontmatter title, which is the page's `h1`, and each is at most one level below
+  the heading before it. `check:content` checks this on the page a reader of each language sees, overlay sections
+  included. `## See Also` comes last. A code block's caption is the fence's title:
+  ` ```yaml {% title="deploy-server.yml" %} `.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own. Prettier's Markdown parser reads such a tag as a block, as Markdoc does, so `format` keeps it on
   its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.
@@ -89,5 +93,5 @@ duplicating it.
 ## Deployment
 
 `npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (attachments,
-search index) and `.next/static`. The sitemap's base URL comes from `SITE_URL` (default `https://docs.zeroc.com/ice`);
-`docker build --build-arg SITE_URL=…` passes it through.
+search index) and `.next/static`. The sitemap's base URL and each page's canonical URL come from `SITE_URL` (default
+`https://docs.zeroc.com`); `docker build --build-arg SITE_URL=…` passes it through.

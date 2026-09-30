@@ -2,7 +2,7 @@
 
 ## Client-Side Mapping for Operations
 
-# Mapping for Operations
+### Mapping for Operations
 
 As we saw in the [Client-Side PHP Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 [operation](../operations) on an interface, a proxy object narrowed to that interface’s type supports a method with the
@@ -28,7 +28,7 @@ $greeter = VisitorCenter\GreeterPrxHelper::createProxy(
 $greeting = $greeter->greet('Alice');  // Get name via RPC
 ```
 
-# Exception Handling
+### Exception Handling
 
 Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
 exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
@@ -59,13 +59,9 @@ try {
 }
 ```
 
-##### See Also
-
-- [PHP Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
-# In Parameters
+### In Parameters
 
 The PHP mapping for `in` parameters guarantees that the value of a parameter will not be changed by the invocation.
 
@@ -122,7 +118,7 @@ $p->op2($ns, $ss, $st);                  // Pass complex variables
 $p->op3($p);                             // Pass proxy
 ```
 
-# Out Parameters
+### Out Parameters
 
 Out parameters are passed by reference. Here is the same Slice definition we saw earlier, but this time with all
 parameters being passed in the out direction:
@@ -168,12 +164,12 @@ $p->op3($stcp);
 Note that it is not necessary to use the reference operator (`&`) before each argument because the Ice runtime forces
 each `out` parameter to have reference semantics.
 
-# Parameter Type Mismatches
+### Parameter Type Mismatches
 
 Ice validates the arguments to a proxy invocation at runtime and reports any type mismatches as a
 `InvalidArgumentException` exception.
 
-# Null Parameters
+### Null Parameters
 
 Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
 can be `null`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
@@ -188,7 +184,7 @@ sequences, dictionaries, or strings. As far as the object model is concerned, th
 sequences, dictionaries, and strings do). For example, it makes no difference to the receiver whether you send a string
 as `null` or as an empty string: either way, the receiver sees an empty string.
 
-# Optional Parameters
+### Optional Parameters
 
 [Optional parameters](../operations) use the same mapping as required parameters. The only difference is that `Ice\None`
 can be passed as the value of an optional parameter or return value. Consider the following operation:

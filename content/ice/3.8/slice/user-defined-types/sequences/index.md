@@ -2,7 +2,7 @@
 title: Sequences
 ---
 
-# Sequence Syntax
+## Sequence Syntax
 
 Sequences are variable-length collections of elements:
 
@@ -28,6 +28,6 @@ module M
 Sequences are used to model a variety of collections, such as vectors, lists, queues, sets, bags, or trees. (It is up to
 the application to decide whether or not order is important; by discarding order, a sequence serves as a set or bag.)
 
-# Language Mapping
+## Language Mapping
 
 {% language-section name="lang-1" /%}

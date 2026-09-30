@@ -35,7 +35,7 @@ The resolution proceeds as follows:
 
 3. In case the preceding steps can't locate the object adapter, the invocation fails with `NoEndpointException`.
 
-##### See Also
+## See Also
 
 - [Locators](../locators)
 - [Well-Known Proxies](../well-known-proxy)

@@ -50,7 +50,7 @@ There are a number of things to note about this generated code:
 5. The generated class has a virtual function, `ice_throws`. It is implemented by throwing `*this`.
 6. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
 
-## Exception Printing
+### Exception Printing
 
 You can print any user exception instance by calling `ice_print` on this instance. `ice_print` is defined on
 `Ice::Exception`. Alternatively, you can print an exception instance with operator<<:

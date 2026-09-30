@@ -6,7 +6,7 @@ The Glacier2 router examines the [context](../request-contexts) of an incoming r
 the router forwards the request. These contexts have the same semantics regardless of whether the request is sent from
 client to server or from server to client.
 
-# The `_fwd` Context
+## The `_fwd` Context
 
 The `_fwd` context determines the proxy mode that the router uses when forwarding the request. The value associated with
 the `_fwd` key must be a string containing one or more of the characters shown in the following table:
@@ -30,7 +30,7 @@ the request ID:
 - If the sender sent the request as a oneway or batch oneway (request ID == 0), the router forwards the request as a
   oneway request.
 
-# Context Forwarding
+## Context Forwarding
 
 The configuration properties [Glacier2.Client.ForwardContext](../glacier2-properties) and
 [Glacier2.Server.ForwardContext](../glacier2-properties) determine whether the router includes the context when
@@ -38,10 +38,10 @@ forwarding a request. The former property affects requests from clients to serve
 from servers to clients. If a property is not defined or has the value zero, the router does not include the context
 when forwarding requests.
 
-The configuration property [Glacier2.AddConnectionContext](../glacier2-properties) determines whether the router
-includes the connection information in the context when forwarding a request.
+When [Glacier2.AddConnectionContext](../glacier2-properties) is 1, the router includes connection information when
+forwarding requests from clients to servers, even if `Glacier2.Client.ForwardContext` is 0.
 
-##### See Also
+## See Also
 
 - [Request Contexts](../request-contexts)
 - [Invocation Mode](../invocation-mode)

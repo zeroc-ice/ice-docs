@@ -2,13 +2,13 @@
 title: IceBoxAdmin.*
 ---
 
-# IceBoxAdmin.ServiceManager.Proxy
+## IceBoxAdmin.ServiceManager.Proxy
 
-#### Synopsis
+### Synopsis
 
 `IceBoxAdmin.ServiceManager.Proxy=proxy`
 
-#### Description
+### Description
 
 This property configures the proxy that is used by the [iceboxadmin](../icebox-administration) utility to locate the
 service manager.

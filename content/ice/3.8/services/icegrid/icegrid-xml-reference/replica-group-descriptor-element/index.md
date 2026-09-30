@@ -39,7 +39,7 @@ Here is an example to demonstrate the use of this element:
 
 In this example, the proxy `WellKnownObject` is equivalent to the proxy `WellKnownObject@ReplicatedAdapter`.
 
-##### See Also
+## See Also
 
 - [Object Adapter Replication](../object-adapter-replication)
 - [Load Balancing](../load-balancing)

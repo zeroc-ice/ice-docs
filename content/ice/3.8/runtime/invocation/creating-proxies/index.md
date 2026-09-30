@@ -4,11 +4,11 @@ title: Creating Proxies
 
 This page describes all the ways an application can create a proxy.
 
-# Creating a Proxy from a String
+## Creating a Proxy from a String
 
 {% language-section name="lang-1" /%}
 
-# Creating a Proxy from a Property
+## Creating a Proxy from a Property
 
 Rather than hard-coding a stringified proxy as the previous example demonstrated, an application can gain more
 flexibility by externalizing the proxy in a configuration property. For example, we can define a property that contains
@@ -44,7 +44,7 @@ property on the default locator's router:
 Ice.Default.Locator.Router.EndpointSelection=Ordered
 ```
 
-# Receiving a Proxy from an Operation
+## Receiving a Proxy from an Operation
 
 An application can also receive a proxy as the result of an Ice invocation. Consider the following Slice definitions:
 
@@ -62,7 +62,7 @@ For example:
 
 {% language-section name="lang-4" /%}
 
-##### See Also
+## See Also
 
 - [Communicator](../communicator)
 - [Syntax for Stringified Proxies](../syntax-for-stringified-proxies)

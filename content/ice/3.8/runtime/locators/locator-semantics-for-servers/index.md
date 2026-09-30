@@ -28,7 +28,7 @@ identifier in the locator request that is sent during activation. If the locatio
 to be configured in advance, `activate` throws `NotRegisteredException` if the object adapter's identifier is not one of
 the group's [registered participants](../object-adapter-replication).
 
-##### See Also
+## See Also
 
 - [Object Adapters](../dispatch)
 - [Locator Semantics for Clients](../locator-semantics-for-clients)

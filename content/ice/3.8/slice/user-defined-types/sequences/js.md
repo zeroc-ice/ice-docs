@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Default Mapping
+### Default Mapping
 
 A Slice sequence maps to a **JavaScript array**.
 
@@ -21,7 +21,7 @@ Generates the following TypeScript declaration:
 export type FruitPlatter = Fruit[];
 ```
 
-### **Usage**
+#### Usage
 
 ```js
 // JavaScript
@@ -35,7 +35,7 @@ const platter:FruitPlatter  = [Fruit.Apple];
 platter.push(Fruit.Pear);
 ```
 
-## Mapping for Byte Sequences
+### Mapping for Byte Sequences
 
 As an optimization, `sequence<byte>` maps to the JavaScript `Uint8Array` type. This representation is more efficient
 than regular arrays when working with binary data.

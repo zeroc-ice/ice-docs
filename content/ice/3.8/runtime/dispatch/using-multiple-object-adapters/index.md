@@ -15,6 +15,6 @@ adapters, we suggest that you check whether any of the considerations in the lis
 
 If none of the preceding items apply, chances are that you do not need more than one object adapter.
 
-##### See Also
+## See Also
 
 - [Object Adapter Thread Pools](../object-adapter-thread-pools)

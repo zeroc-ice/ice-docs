@@ -2,21 +2,26 @@
 title: IceBT.*
 ---
 
-IceBT is the Bluetooth transport plug-in for Android and Linux.
+IceBT provides a Java Bluetooth transport plug-in for Android and a C++ Bluetooth transport plug-in for Linux.
 
-# IceBT.RcvSize
+## IceBT.RcvSize
 
-#### Synopsis
+### Synopsis
 
 `IceBT.RcvSize=num`
 
-#### Description
+### Description
 
-This property sets the receive buffer size to the specified value in bytes.
+This property sets the receive buffer size in bytes: the Bluetooth socket buffer on Linux, or the Java transport's
+internal buffer on Android.
 
-#### Platform Notes
+### Platform Notes
 
-###### Linux
+#### Android
+
+The default value is 131,072 bytes (128 KiB).
+
+#### Linux
 
 The default value depends on the configuration of the local Bluetooth stack.
 
@@ -25,19 +30,24 @@ requested that is lower than the OS-imposed minimum, the value is silently adjus
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
-# IceBT.SndSize
+## IceBT.SndSize
 
-#### Synopsis
+### Synopsis
 
 `IceBT.SndSize=num`
 
-#### Description
+### Description
 
-This property sets the send buffer size to the specified value in bytes.
+This property sets the send buffer size in bytes: the Bluetooth socket buffer on Linux, or the Java transport's internal
+buffer on Android.
 
-#### Platform Notes
+### Platform Notes
 
-###### Linux
+#### Android
+
+The default value is 131,072 bytes (128 KiB).
+
+#### Linux
 
 The default value depends on the configuration of the local Bluetooth stack.
 

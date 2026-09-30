@@ -4,7 +4,7 @@ title: Slice Source Files
 
 Slice defines a number of rules for the naming and contents of Slice source files.
 
-# File Naming
+## File Naming
 
 Files containing Slice definitions must end in a `.ice` file extension, for example, `Clock.ice` is a valid file name.
 Other file extensions are rejected by the compilers.
@@ -12,7 +12,7 @@ Other file extensions are rejected by the compilers.
 For case-insensitive file systems, the file extension may be written as uppercase or lowercase, so `Clock.ICE` is legal.
 For case-sensitive file systems (such as Unix), `Clock.ICE` is illegal. (The extension must be in lowercase.)
 
-# File Format
+## File Format
 
 Slice is a free-form language so you can use spaces, horizontal and vertical tab stops, form feeds, and newline
 characters to lay out your code in any way you wish. (White space characters are token separators). Slice does not
@@ -23,7 +23,7 @@ Slice files can be ASCII text files or use the UTF-8 character encoding with an 
 beginning of each file. However, Slice identifiers are limited to ASCII letters and digits; non-ASCII letters can appear
 only in comments and string literals.
 
-# Preprocessing
+## Preprocessing
 
 Slice supports the same preprocessor directives as C++, so you can use directives such as `#include` and macro
 definitions. However, Slice permits `#include` directives only at the beginning of a file, before any Slice definitions.
@@ -68,7 +68,7 @@ You cannot use a backslash in `#include` directives:
 #include <SliceDefs\Clock.ice>  // Illegal
 ```
 
-## Detecting Ice Versions
+### Detecting Ice Versions
 
 The Slice compilers define the preprocessor macro `__ICE_VERSION__` with a numeric representation of the Ice version.
 You can use this macro to make your Slice definitions backward-compatible with older Ice releases, while still taking
@@ -87,17 +87,17 @@ Although this example is intended to show how to use the `__ICE_VERSION__` macro
 that you must be aware of when trying to maintain backward compatibility: the two definitions of `Fruit` are not
 wire-compatible.
 
-## Detecting Slice Compilers
+### Detecting Slice Compilers
 
 Each Slice compiler defines its own macro so that you can customize your Slice code for certain language mappings. The
 macro name is `__<compiler name in upper case>__`, such as `__SLICE2CPP__` and `__SLICE2MATLAB__` for `slice2cpp` resp.
 `slice2matlab`.
 
-# Definition Order
+## Definition Order
 
 Slice constructs, such as modules, interfaces, or type definitions, can appear in any order you prefer. However,
 identifiers must be declared before they can be used.
 
-##### See Also
+## See Also
 
 - [Using the Slice Compilers](../using-the-slice-compiler)

@@ -7,7 +7,7 @@ which the adapter listens for new connections, and the other set is embedded in 
 by clients to communicate with it. We will refer to these sets of endpoints as the _physical endpoints_ and the
 _published endpoints_, respectively.
 
-# Physical Object Adapter Endpoints
+## Physical Object Adapter Endpoints
 
 An object adapter's physical endpoints identify the network interfaces on which it receives requests from clients. These
 endpoints are configured via the [_name_.Endpoints](../object-adapter-properties) property, or they can be specified
@@ -83,7 +83,7 @@ transient does not need a fixed port, because the proxies for those objects are 
 lifetime of the server process. Similarly, a server using indirect binding via [IceGrid](../icegrid) does not need a
 fixed port because its port is never published.
 
-# Published-Object-Adapter-Endpoints Published Object Adapter Endpoints
+## Published-Object-Adapter-Endpoints Published Object Adapter Endpoints
 
 When an object adapter creates a proxy, it embeds its published endpoints in this proxy.
 
@@ -165,13 +165,13 @@ MyAdapter.Endpoints=tcp -h 10.0.0.2 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 ```
 
-# A Router's Effect on Object Adapter Endpoints
+## A Router's Effect on Object Adapter Endpoints
 
 If an object adapter is configured with a router, the adapter's published endpoints are those provided by the router's
 server proxy. Calling `setPublishedEndpoints` on such an object adapter will throw an illegal argument exception. See
 [Routers](../routers) for additional information.
 
-##### See Also
+## See Also
 
 - [Object Adapter Properties](../object-adapter-properties)
 - [Ice.Default.*](../ice-default-properties)

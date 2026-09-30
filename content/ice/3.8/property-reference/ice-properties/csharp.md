@@ -4,13 +4,13 @@
 
 {% language-section name="lang-2" %}
 
-# Ice.CacheMessageBuffers
+## Ice.CacheMessageBuffers
 
-#### Synopsis
+### Synopsis
 
 `Ice.CacheMessageBuffers=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than 0, the proxies cache message buffers for future reuse. This can improve performance and
 reduce the amount of garbage produced by Ice internals that the garbage collector would eventually spend time to
@@ -30,29 +30,29 @@ for dispatches.
 
 {% language-section name="lang-3" %}
 
-# Ice.Compression.Level
+## Ice.Compression.Level
 
-#### Synopsis
+### Synopsis
 
 `Ice.Compression.Level=num`
 
-#### Description
+### Description
 
 Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
 for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
 that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
-# Ice.Config
+## Ice.Config
 
-#### Synopsis
+### Synopsis
 
 ```config
 Ice.Config=config_file[,config_file,...]
 Ice.Config=1
 ```
 
-#### Description
+### Description
 
 This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
 `--Ice.Config=config_file`.
@@ -65,13 +65,13 @@ files. Otherwise, `Ice.Config` must be set to the path names of one or more conf
 Configuration files use a simple [syntax](../configuration-file-syntax) consisting of _name_=_value_ pairs with support
 for comments and escaping.
 
-# Ice.ConsoleListener
+## Ice.ConsoleListener
 
-#### Synopsis
+### Synopsis
 
 `Ice.ConsoleListener=num`
 
-#### Description
+### Description
 
 If `num` is non-0, the Ice runtime installs a `ConsoleTraceListener` that writes its messages to `stderr`. If `num` is
 0, logging is disabled. Note that the setting of [Ice.LogFile](../ice-properties#ice.logfile) overrides this property:
@@ -81,24 +81,24 @@ if `Ice.LogFile` is set, messages are written to the log file regardless of the 
 
 {% language-section name="lang-4" %}
 
-# Ice.HTTPProxyHost
+## Ice.HTTPProxyHost
 
-#### Synopsis
+### Synopsis
 
 `Ice.HTTPProxyHost=addr`
 
-#### Description
+### Description
 
 Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP
 proxy server for all outgoing (client) connections.
 
-# Ice.HTTPProxyPort
+## Ice.HTTPProxyPort
 
-#### Synopsis
+### Synopsis
 
 `Ice.HTTPProxyPort=num`
 
-#### Description
+### Description
 
 The port number of the HTTP proxy server. If not specified, the default value is `1080`.
 
@@ -106,13 +106,13 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 {% language-section name="lang-5" %}
 
-# Ice.InitPlugins
+## Ice.InitPlugins
 
-#### Synopsis
+### Synopsis
 
 `Ice.InitPlugins=num`
 
-#### Description
+### Description
 
 If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. The order
 in which plug-ins are loaded and initialized is determined by Ice.PluginLoadOrder. An application may need to set this
@@ -120,24 +120,24 @@ property to zero in order to interact directly with a plug-in after it has been 
 this case, the application must invoke `initializePlugins` on the plug-in manager to complete the initialization
 process. If not defined, the default value is 1.
 
-# Ice.IPv4
+## Ice.IPv4
 
-#### Synopsis
+### Synopsis
 
 `Ice.IPv4=num`
 
-#### Description
+### Description
 
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
 value is 1.
 
-# Ice.IPv6
+## Ice.IPv6
 
-#### Synopsis
+### Synopsis
 
 `Ice.IPv6=num`
 
-#### Description
+### Description
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
 value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
@@ -146,13 +146,13 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 {% language-section name="lang-6" %}
 
-# Ice.PluginLoadOrder
+## Ice.PluginLoadOrder
 
-#### Synopsis
+### Synopsis
 
 `Ice.PluginLoadOrder=names`
 
-#### Description
+### Description
 
 Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
 context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
@@ -161,48 +161,48 @@ by a comma or white space. Any plug-ins not mentioned in `names` are loaded afte
 Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
 not affected by this property.
 
-# Ice.PreferIPv6Address
+## Ice.PreferIPv6Address
 
-#### Synopsis
+### Synopsis
 
 `Ice.PreferIPv6Address=num`
 
-#### Description
+### Description
 
 If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
 resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
 value is 0.
 
-# Ice.PreloadAssemblies
+## Ice.PreloadAssemblies
 
-#### Synopsis
+### Synopsis
 
 `Ice.PreloadAssemblies=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the Ice runtime will try to load all the assemblies referenced by the process
 during communicator initialization, otherwise the referenced assemblies will be initialized lazily. The default value
 is 0.
 
-# Ice.PrintAdapterReady
+## Ice.PrintAdapterReady
 
-#### Synopsis
+### Synopsis
 
 `Ice.PrintAdapterReady=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
 activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
 
-# Ice.PrintProcessId
+## Ice.PrintProcessId
 
-#### Synopsis
+### Synopsis
 
 `Ice.PrintProcessId=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, the process ID is printed on standard output upon startup.
 
@@ -210,13 +210,13 @@ If `num` is set to a value larger than 0, the process ID is printed on standard 
 
 {% language-section name="lang-7" %}
 
-# Ice.ServerIdleTime
+## Ice.ServerIdleTime
 
-#### Synopsis
+### Synopsis
 
 `Ice.ServerIdleTime=num`
 
-#### Description
+### Description
 
 If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
 pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
@@ -234,13 +234,13 @@ time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) t
 
 {% /callout %}
 
-# Ice.SOCKSProxyHost
+## Ice.SOCKSProxyHost
 
-#### Synopsis
+### Synopsis
 
 `Ice.SOCKSProxyHost=addr`
 
-#### Description
+### Description
 
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
 proxy server for all outgoing (client) connections.
@@ -251,45 +251,45 @@ Ice currently only supports the SOCKS4 protocol, which means only IPv4 connectio
 
 {% /callout %}
 
-# Ice.SOCKSProxyPort
+## Ice.SOCKSProxyPort
 
-#### Synopsis
+### Synopsis
 
 `Ice.SOCKSProxyPort=num`
 
-#### Description
+### Description
 
 The port number of the SOCKS proxy server. If not specified, the default value is `1080`.
 
-# Ice.StdErr
+## Ice.StdErr
 
-#### Synopsis
+### Synopsis
 
 `Ice.StdErr=filename`
 
-#### Description
+### Description
 
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
-# Ice.StdOut
+## Ice.StdOut
 
-#### Synopsis
+### Synopsis
 
 `Ice.StdOut=filename`
 
-#### Description
+### Description
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
-# Ice.ThreadPriority
+## Ice.ThreadPriority
 
-#### Synopsis
+### Synopsis
 
 `Ice.ThreadPriority=value`
 
-#### Description
+### Description
 
 `value` specifies a thread priority. Threads created by the Ice runtime are created with the specified priority by
 default. Leaving this property unset causes the runtime to create threads with the system default priority. This

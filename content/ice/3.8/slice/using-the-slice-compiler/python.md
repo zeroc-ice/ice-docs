@@ -11,7 +11,7 @@
 
 {% language-section name="lang-3" %}
 
-# The Slice Compiler for Python
+## The Slice Compiler for Python
 
 The Slice-to-Python compiler (`slice2py`) supports the following additional options:
 

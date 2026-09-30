@@ -15,7 +15,7 @@ low-impact, efficient and secure router for Ice applications.
 
 Glacier2 has the following advantages and limitations.
 
-###### Advantages
+## Advantages
 
 - Clients often require only minimal changes to use Glacier2.
 - Only one front-end port is necessary to support any number of servers, allowing a Glacier2 router to easily receive
@@ -36,13 +36,13 @@ Glacier2 has the following advantages and limitations.
 - In addition to its primary responsibility of forwarding Ice requests, Glacier2 offers support for
   [user-defined session management and authentication](../glacier2-session-management).
 
-###### Limitations
+## Limitations
 
 - Datagram transports, namely UDP, are not supported.
 - [Callback objects](../callbacks-through-glacier2) in a client must use a Glacier2-supplied category in their
   identities.
 
-##### See Also
+## See Also
 
 - [How Glacier2 Works](../how-glacier2-works)
 - [Common Firewall Traversal Issues](../common-firewall-traversal-issues)

@@ -4,7 +4,7 @@ title: Troubleshooting Windows Services
 
 This page describes how to troubleshoot Windows Services.
 
-# Missing Libraries for a Windows Service
+## Missing Libraries for a Windows Service
 
 One failure that commonly occurs when starting a Windows service is caused by missing DLLs, which usually results in an
 error window stating a particular DLL cannot be found. Fixing this problem can often be a trial-and-error process
@@ -58,7 +58,7 @@ to access resources owned by other users. It may be necessary for you to configu
 [different account](../installing-a-windows-service), which you can do using the Services control panel. You should also
 review the access rights of files and directories required by the service.
 
-# Windows Firewall Interference
+## Windows Firewall Interference
 
 Your choice of user account determines whether you receive any notification when the Windows Firewall blocks the ports
 that are used by your service. For example, if you use `Local Service` as we
@@ -77,7 +77,7 @@ configurations of your services carefully to ensure that no unnecessary ports ar
 For services listening on one or a few fixed ports, you could also create port exceptions in your Windows Firewall.
 Refer to the Windows Firewall documentation for details.
 
-# IceGrid Node Performance Monitoring Issues
+## IceGrid Node Performance Monitoring Issues
 
 The IceGrid node uses Windows' `Perflib` facility to obtain statistics about the CPU utilization of its host for
 [load balancing](../load-balancing) purposes. Occasionally, the IceGrid node may log the following warning message:
@@ -107,7 +107,7 @@ wish to modify the permissions of this registry key manually, follow these steps
 Another way to grant the node's user account with the necessary access rights is to add it to the
 `Performance Monitor Users` group.
 
-##### See Also
+## See Also
 
 - [Load Balancing](../load-balancing)
 - [Installing a Windows Service](../installing-a-windows-service)

@@ -8,7 +8,7 @@ dialog.
 
 ![image2017-4-3 14:21:22.png](/attachments/3.8/ice-log-dialog/image2017-4-3-14-21-22.png)
 
-# States
+## States
 
 An Ice log dialog is always in one of the following states:
 
@@ -24,7 +24,7 @@ automatically transitions to the Stopped state. However, when an Ice log dialog 
 Ice log dialog's state does not change when only the service is stopped, because stopping a service does not shutdown or
 destroy the associated communicator.
 
-# Preferences
+## Preferences
 
 Use the `Edit > Preferences...` menu to open the Preferences dialog. These preferences apply to the current dialog and
 to any Ice Log dialog opened later on.
@@ -37,7 +37,7 @@ This dialog allows you to view and update the following settings:
 - **Number of log messages retrieved initially** When a new dialog is opened, or when restarting a stopped dialog, the
   dialog retrieves and displays up to this number of lines.
 
-# Filter
+## Filter
 
 Use the `Edit > Filter...` menu to open the Filter dialog. This filter applies only to the current Ice Log dialog.
 

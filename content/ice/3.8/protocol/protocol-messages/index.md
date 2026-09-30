@@ -15,7 +15,7 @@ Of these messages, validate and close connection only apply to connection-orient
 As with the [Ice Encoding](../encoding), protocol messages have no alignment restrictions. Each message consists of a
 message header and (except for validate and close connection) a message body that immediately follows the header.
 
-# Message Header
+## Message Header
 
 Each protocol message has a 14-byte header that is encoded as if it were the following structure:
 
@@ -62,7 +62,7 @@ The valid message types are shown in the following table.
 
 The encoding for the message bodies of each of these message types is described in the sections that follow.
 
-# Request Message Body
+## Request Message Body
 
 A request message contains the data necessary to perform an invocation on an object, including the identity of the
 object, the operation name, and input parameters. A request message is encoded as if it were the following structure:
@@ -100,7 +100,7 @@ The `facet` field has either zero elements or one element. An empty sequence den
 one-element sequence provides the facet name in its first field. If a receiver receives a request with a `facet` field
 with more than one element, it must throw a `MarshalException`.
 
-# Batch Request Message Body
+## Batch Request Message Body
 
 A [batch](../batched-invocations) request message contains one or more oneway requests, bundled together for the sake of
 efficiency. A batch request message is encoded as integer (not a size) that specifies the number of requests in the
@@ -135,7 +135,7 @@ The `facet` field has either zero elements or one element. An empty sequence den
 one-element sequence provides the facet name in its first field. If a receiver receives a batch request with a `facet`
 field with more than one element, it must throw a `MarshalException`.
 
-# Reply Message Body
+## Reply Message Body
 
 A reply message body contains the result of a twoway dispatch, including any return value, out-parameters, or exception.
 A reply message body is encoded as if it were the following structure:
@@ -170,7 +170,7 @@ correspond to [common exceptions](../local-and-dispatch-exceptions)).
 | Unauthorized                | `9`               | The caller is not authorized to access the requested resource. The reply payload is an Ice 1.0-encoded string that describes the exception.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | Other                       | `10` to `255`     | The dispatch failed for some other reason.The reply payload is an Ice 1.0-encoded string that describes the exception.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
-# Validate Connection Message
+## Validate Connection Message
 
 A server sends a validate connection message when it receives a new connection.
 
@@ -204,7 +204,7 @@ Validate connection messages may also be sent at any time by either side as a he
 The [message header](../protocol-messages#message-header) comprises the entire validate connection message. The
 [compression](../protocol-compression) status of a validate connection message is always `0`.
 
-# Close Connection Message
+## Close Connection Message
 
 A close connection message is sent when a peer is about to gracefully shutdown a [connection](../connection-management).
 
@@ -247,7 +247,7 @@ events is:
    requests on a new connection. Doing so is guaranteed not to violate at-most-once semantics because the server
    guarantees not to close a connection while requests are still in progress on the server side.
 
-# Protocol State Machine
+## Protocol State Machine
 
 From a client's perspective, the Ice protocol behaves according to the state machine shown below:
 
@@ -261,7 +261,7 @@ down, which can occur when there are no more proxies using the connection, or af
 while. At this point, the connection is [gracefully closed](../connection-closure), meaning that a
 [close connection](../protocol-messages) message is sent, and the connection is closed.
 
-# Disorderly Connection Closure
+## Disorderly Connection Closure
 
 Any violation of the protocol or encoding rules results in a disorderly connection closure: the side of the connection
 that detects a violation unceremoniously closes it (without sending a close connection message or similar). There are
@@ -270,7 +270,7 @@ that a message has a bad magic number or incompatible version, receive a reply w
 outstanding request, receive a validate connection message when it should not, or find illegal data in a request (such
 as a negative size, or a size that disagrees with the actual data that was unmarshaled).
 
-##### See Also
+## See Also
 
 - [Protocol Compression](../protocol-compression)
 - [Object Identity](../object-identity)

@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-# Obtaining the Local Process Facet
+## Obtaining the Local Process Facet
 
 We [already showed](../using-the-admin-object) how to obtain a proxy for a remote administrative facet, but suppose you
 want to interact with the facet in your local address space. The code below shows the necessary steps:
@@ -8,7 +8,7 @@ want to interact with the facet in your local address space. The code below show
 The built-in process facet servant is not exposed in the Python mapping; Python applications can access it only via its
 proxy.
 
-# Application Requirements for the Process Facet
+## Application Requirements for the Process Facet
 
 The default implementation of the `Process` facet requires cooperation from an application in order to successfully
 terminate a process. Specifically, the facet invokes `shutdown` on its [communicator](../communicator) and assumes that
@@ -17,7 +17,7 @@ uses a thread (often the main thread) to call the communicator operation `waitFo
 thread until the communicator is shut down or destroyed. After `waitForShutdown` returns, the calling thread can
 initiate a graceful shutdown of its process.
 
-# Replacing the Process Facet
+## Replacing the Process Facet
 
 You can replace the default `Process` facet if your application requires a different scheme for gracefully shutting
 itself down. To define your own facet, create a servant that implements the `Ice::Process` interface. As an example, the

@@ -71,7 +71,7 @@ This code is a little bit clunky, as we need to make sure the communicator gets 
 an exception is thrown. As a result, most of the time, you should use a helper class to call `destroy` on your
 communicator.
 
-# `Ice::CommunicatorHolder` Helper Class
+## `Ice::CommunicatorHolder` Helper Class
 
 A `CommunicatorHolder` is a small helper class that you construct with a communicator. It’s then responsible for
 destroying it.

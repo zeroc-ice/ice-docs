@@ -8,7 +8,7 @@ If you have used another RPC framework in the past, you will be familiar with mu
 you at least skim the material because a few terms used by Ice _do_ differ from the corresponding terms used by other
 RPC frameworks.)
 
-# Clients and Servers
+## Clients and Servers
 
 The terms _client_ and _server_ are not firm designations for particular parts of an application; rather, they denote
 roles that are taken by parts of an application for the duration of a request:
@@ -29,7 +29,7 @@ operation, and as a server when it is notified that the operation is complete.
 Such role reversal is common in many systems, so, frequently, client-server systems could be more accurately described
 as _peer-to-peer_ systems.
 
-# Ice Objects
+## Ice Objects
 
 An _Ice object_ is a conceptual entity, or abstraction. An Ice object can be characterized by the following points:
 
@@ -52,7 +52,7 @@ An _Ice object_ is a conceptual entity, or abstraction. An Ice object can be cha
   Locators with the same identity are identical, or replica of one another, even when they are hosted on different
   servers.
 
-# Proxies
+## Proxies
 
 For a client to be able to contact an Ice object, the client must hold a _proxy_ for the Ice object. A proxy is an
 artifact that is local to the client's address space; it represents the (possibly remote) Ice object for the client. A
@@ -73,7 +73,7 @@ contains:
 - An object identity that identifies which particular object in the server is the target of a request
 - An optional facet identifier that determines which particular facet of an object the proxy refers to
 
-# Invocation and Dispatch
+## Invocation and Dispatch
 
 The process of calling an operation on an Ice object using a proxy is called an _invocation_. The invocation encompasses
 all the client-side activity related to this call: creating the request to send to the server, establishing the
@@ -82,7 +82,7 @@ connection to the server (if needed), unmarshaling the return value from the res
 On the other end, the processing of an incoming request is called a _dispatch_. A dispatch accepts an incoming request,
 unmarshals its payload, calls into application code, and eventually returns a response.
 
-# Stringified Proxies
+## Stringified Proxies
 
 The information in a proxy can be expressed as a string. For example, the string:
 
@@ -98,7 +98,7 @@ thin air" by supplying that information. In other words, no part of the informat
 a client needs to know only an object's identity, addressing information, and (to be able to invoke an operation) the
 object's type in order to contact the object.
 
-# Direct Proxies
+## Direct Proxies
 
 A _direct proxy_ is a proxy that embeds an object's identity, together with the address at which its server runs. The
 address is completely specified by:
@@ -109,7 +109,7 @@ address is completely specified by:
 To contact the object denoted by a direct proxy, the Ice runtime uses the addressing information in the proxy to contact
 the server; the identity of the object is sent to the server with each request made by the client.
 
-# Indirect Proxies
+## Indirect Proxies
 
 An _indirect proxy_ has two forms. It may provide only an object's identity, or it may specify an identity together with
 an object adapter identifier. An object that is accessible using only its identity is called a well-known object, and
@@ -143,7 +143,7 @@ the mapping is from an object identity or object adapter identifier to a transpo
 similar. The client-side runtime knows how to contact the location service via configuration (just as web browsers know
 which DNS server to use via configuration).
 
-# Direct Versus Indirect Binding
+## Direct Versus Indirect Binding
 
 The process of resolving the information in a proxy to transport-address pair is known as _binding_. Not surprisingly,
 _direct binding_ is used for direct proxies, and _indirect binding_ is used for indirect proxies.
@@ -153,7 +153,7 @@ without invalidating existing proxies that are held by clients. In other words, 
 locate the server but no longer work if a server is moved to a different machine. On the other hand, indirect proxies
 continue to work even if we move (or _migrate_) a server.
 
-# Fixed Proxies
+## Fixed Proxies
 
 A _fixed proxy_ is a proxy that is bound to a particular connection: instead of containing addressing information or an
 adapter ID, the proxy contains a connection handle. The connection handle stays valid only for as long as the connection
@@ -162,13 +162,13 @@ cannot be marshaled, that is, they cannot be passed as parameters on operation i
 allow [bidirectional communication](../bidirectional-connections), so a server can make callbacks to a client without
 having to open a new connection.
 
-# Routed Proxies
+## Routed Proxies
 
 A _routed proxy_ is a proxy that forwards all invocations to a specific target object, instead of sending invocations
 directly to the actual target. Routed proxies are useful for implementing services such as [Glacier2](../glacier2),
 which enables clients to communicate with servers that are behind a firewall.
 
-# Replication
+## Replication
 
 In Ice, _replication_ involves making object adapters (and their objects) available at multiple addresses. The goal of
 replication is usually to provide redundancy by running the same server on several computers. If one of the computers
@@ -191,7 +191,7 @@ The proxy states that the object with identity `SimplePrinter` is available usin
 `server1` and another on the host `server2`. The burden falls to users or system administrators to ensure that the
 servers are actually running on these computers at the specified ports.
 
-# Replica Groups
+## Replica Groups
 
 In addition to the proxy-based replication described above, Ice supports a more useful form of replication known as
 _replica groups_ that requires the use of a [location service](../locators).
@@ -215,12 +215,12 @@ is for the location service to return only one address, which it decided upon us
 Regardless of the way in which a location service resolves a replica group, the key benefit is indirection: the location
 service as a middleman can add more intelligence to the binding process.
 
-# Dispatcher
+## Dispatcher
 
 A dispatcher is a programming language abstraction for [dispatch](../terminology#invocation-and-dispatch): a dispatcher
 simply accepts a request and returns the corresponding response.
 
-# Servants
+## Servants
 
 As we mentioned, an [Ice Object](../terminology#ice-objects) is a conceptual entity that has a type, identity, and
 addressing information. However, client requests ultimately must end up with a concrete server-side processing entity
@@ -248,7 +248,7 @@ build redundant systems: the client-side runtime attempts to send the request to
 sends the request to the second server. An error is reported back to the client-side application code only if that
 second attempt also fails.
 
-# At-Most-Once Semantics
+## At-Most-Once Semantics
 
 Ice requests have _at-most-once_ semantics: the Ice runtime does its best to deliver a request to the correct
 destination and, depending on the exact circumstances, may retry a failed request. Ice guarantees that it will either
@@ -275,7 +275,7 @@ though they make the system less robust in the presence of network failures. Ice
 operations as idempotent. For such operations, the Ice runtime uses a more aggressive error recovery mechanism than for
 non-idempotent operations.
 
-# Asynchronous Method Invocation
+## Asynchronous Method Invocation
 
 Ice supports _asynchronous method invocation_ (AMI) in most languages. A client can invoke operations _asynchronously_,
 which means the client's calling thread does not block while waiting for the invocation to complete. The client passes
@@ -283,7 +283,7 @@ the normal parameters and, depending on the language mapping, might also pass a 
 invokes upon completion, or the invocation might return a future that the client can eventually use to obtain the
 results. The `await` style is also a form of AMI.
 
-# Synchronous Method Invocation
+## Synchronous Method Invocation
 
 Ice also supports _synchronous method invocation_ (SMI) in some languages. In languages with async/await support, you
 should use only AMI, even when Ice supports SMI for backwards compatibility.
@@ -295,7 +295,7 @@ completes (and all its results are available).
 The server cannot distinguish an asynchronous invocation from a synchronous one — either way, the server simply sees
 that a client has invoked an operation on an object.
 
-# Asynchronous Method Dispatch
+## Asynchronous Method Dispatch
 
 _Asynchronous method dispatch (AMD)_ is the server-side equivalent of AMI. For synchronous dispatch (the default), the
 server-side runtime calls into the application code to process a request received from a client. While the operation is
@@ -312,14 +312,14 @@ complete; at that point, the results of the operation are returned to the client
 Synchronous and asynchronous method dispatch are transparent to the client, that is, the client cannot tell whether a
 server chose to process a request synchronously or asynchronously.
 
-# Properties
+## Properties
 
 Much of the Ice runtime is configurable via [_properties_](../properties-and-configuration). Properties are name-value
 pairs, such as `Ice.Default.Protocol=tcp`. Properties are typically stored in text files and parsed by the Ice runtime
 to configure various options, such as the thread pool size, the level of tracing, and various other configuration
 parameters.
 
-##### See Also
+## See Also
 
 - [The Slice Language](../slice)
 - [The Ice Runtime](../runtime)

@@ -16,7 +16,7 @@ service. However, if you wish to run an IceBox as a Windows service without the 
 
 Here we describe how to use the Ice service installer and discuss its actions and prerequisites.
 
-# `iceserviceinstall` Command Line Options
+## `iceserviceinstall` Command Line Options
 
 `iceserviceinstall` supports the following options and arguments:
 
@@ -47,14 +47,14 @@ When installing a service, properties can be defined on the command line using t
 be defined in the configuration file. The supported properties are described
 [below](../using-the-ice-service-installer).
 
-# Security Considerations for Ice Services
+## Security Considerations for Ice Services
 
 None of the Ice services require privileges beyond a normal user account. In the case of the IceGrid node service in
 particular, we do not recommend running it in a [user account](../installing-a-windows-service) with elevated privileges
 because the service is responsible for launching server executables, and those servers would inherit the node's access
 rights.
 
-# `iceserviceinstall` Configuration File
+## `iceserviceinstall` Configuration File
 
 The Ice service installer requires that you specify the path name of the Ice configuration file for the service being
 installed or uninstalled. The tool needs this path name for several reasons:
@@ -84,7 +84,7 @@ the service properties that affect the installer:
 The steps performed by the tool during an installation are described in detail
 [below](../using-the-ice-service-installer).
 
-## Sample Configuration Files
+### Sample Configuration Files
 
 Ice includes sample configuration files for the IceGrid and Glacier2 services in the `config` subdirectory of your Ice
 installation. We recommend that you review the comments and settings in these files to familiarize yourself with a
@@ -93,7 +93,7 @@ typical configuration of each service.
 You can modify a configuration file to suit your needs or copy one to use as a starting point for your own
 configuration.
 
-# `iceserviceinstall` Properties
+## `iceserviceinstall` Properties
 
 The Ice service installer uses a set of optional properties that customize the installation process. These properties
 can be defined in the service's configuration file as discussed above, or they can be defined on the command line using
@@ -130,7 +130,7 @@ The installer's properties are listed below:
   `NT Authority\LocalService`.
 - `Password=value` The password required by the account specified in `ObjectName`.
 
-# Service Installation Process
+## Service Installation Process
 
 The Ice service installer performs a number of steps to install a service. As discussed
 [earlier](../using-the-ice-service-installer), you must specify the path name of the service's configuration file
@@ -167,13 +167,13 @@ installer are described below:
 The Ice service installer currently does not**verify that the user account specified by `ObjectName` has the right to
 "Log on as a service".
 
-# Uninstalling a Windows Service
+## Uninstalling a Windows Service
 
 When uninstalling an existing service, the Ice service installer first ensures that the service is stopped, then
 proceeds to remove the service. The service's event log source is removed and, if the service is not using the
 `Application` log, the event log registry key is also removed.
 
-##### See Also
+## See Also
 
 - [icegridregistry](../icegridregistry)
 - [icegridnode](../icegridnode)

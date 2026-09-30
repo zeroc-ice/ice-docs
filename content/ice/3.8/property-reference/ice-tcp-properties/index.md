@@ -12,24 +12,24 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% /iflang %}
 
-# Ice.TCP.Backlog
+## Ice.TCP.Backlog
 
-#### Synopsis
+### Synopsis
 
 `Ice.TCP.Backlog=num`
 
-#### Description
+### Description
 
 Specifies the size of the listen queue for each TCP or SSL server endpoint. If not defined, the default value for C++
 programs uses the value of `SOMAXCONN` if present, or `511` otherwise. In Java and .NET, the default value is 511.
 
-# Ice.TCP.RcvSize
+## Ice.TCP.RcvSize
 
-#### Synopsis
+### Synopsis
 
 `Ice.TCP.RcvSize=num`
 
-#### Description
+### Description
 
 This property sets the TCP receive buffer size to the specified value in bytes. The default value depends on the
 configuration of the local TCP stack. (A common default values is 65535 bytes.)
@@ -39,13 +39,13 @@ requested that is lower than the OS-imposed minimum, the value is silently adjus
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
-# Ice.TCP.SndSize
+## Ice.TCP.SndSize
 
-#### Synopsis
+### Synopsis
 
 `Ice.TCP.SndSize=num`
 
-#### Description
+### Description
 
 This property sets the TCP send buffer size to the specified value in bytes. The default value depends on the
 configuration of the local TCP stack. (A common default values is 65535 bytes.)

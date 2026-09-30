@@ -2,7 +2,7 @@
 title: Using the Slice Compiler
 ---
 
-# Common Options
+## Common Options
 
 Ice provides a Slice compiler for each language mapping. The compilers share a similar command-line syntax:
 
@@ -44,6 +44,6 @@ slice2cpp -I. file1.ice file2.ice file3.ice
 
 {% language-section name="lang-3" /%}
 
-##### See Also
+## See Also
 
 - [Slice Compilation](../slice-compilation)

@@ -2,7 +2,7 @@
 title: Bidirectional Connections
 ---
 
-# Use Cases for Bidirectional Connections
+## Use Cases for Bidirectional Connections
 
 An Ice connection normally allows requests to flow in only one direction. If an application's design requires the server
 to make callbacks to a client, the server usually establishes a new connection to that client in order to send callback
@@ -30,7 +30,7 @@ manually.
 
 The remainder of this section discusses manual configuration of bidirectional connections.
 
-# Configuring a Client for Bidirectional Connections
+## Configuring a Client for Bidirectional Connections
 
 A client needs to perform the following steps in order to configure a bidirectional connection:
 
@@ -58,7 +58,7 @@ The code below illustrates these steps:
 
 The callback object (`mockAlarmClock` in the code above) will handle incoming requests for identity `alarmClock`.
 
-# Configuring a Server for Bidirectional Connections
+## Configuring a Server for Bidirectional Connections
 
 A server needs to create or obtain a proxy to the callback object. This proxy is bound to the incoming connection and is
 known as a “fixed” proxy.
@@ -72,7 +72,7 @@ These steps are illustrated in the code below:
 
 {% language-section name="lang-2" /%}
 
-# Limitations of Bidirectional Connections
+## Limitations of Bidirectional Connections
 
 Bidirectional connections have certain limitations:
 
@@ -85,7 +85,7 @@ Bidirectional connections have certain limitations:
   connection from a client to the router is bidirectional. However, the client must not attempt to manually configure a
   bidirectional connection to a router, as this is handled internally by the Ice runtime.
 
-# Threading Considerations for Bidirectional Connections
+## Threading Considerations for Bidirectional Connections
 
 An Ice communicator normally creates two [thread pools](../threading-model) for processing network traffic on
 connections: the client thread pool manages outgoing connections and the server thread pool manages incoming
@@ -104,7 +104,7 @@ parallel, or if you need to make [nested two-way invocations](../nested-invocati
 receives a callback request over a bidirectional connection and makes nested invocations must increase the size of the
 _client_ thread pool.
 
-##### See Also
+## See Also
 
 - [Glacier2](../glacier2)
 - [Creating an Object Adapter](../creating-an-object-adapter)

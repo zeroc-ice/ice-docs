@@ -25,6 +25,6 @@ custom Slice loader. Ice for Java and Ice for MATLAB provide implementations of 
 example, you can use the [ClassSliceLoader](https://code.zeroc.com/manual/Ice/ClassSliceLoader) implementation to create
 a Slice loader for one or more generated classes (typically classes with remapped names or compact IDs).
 
-##### See Also
+## See Also
 
 - [Type IDs](../type-ids)

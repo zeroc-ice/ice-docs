@@ -18,6 +18,9 @@ namespace Service
             const Ice::StringSeq& args) final;
 
         void stop() final;
+
+    private:
+        Ice::ObjectAdapterPtr _adapter;
     };
 }
 ```
@@ -58,7 +61,7 @@ Service::GreeterService::stop()
 The `start` method creates an object adapter “GreeterAdapter”, activates a single servant of type `Chatbot` (not shown),
 and activates the object adapter. The `stop` method simply destroys the object adapter.
 
-## C++ Service Entry Point
+### C++ Service Entry Point
 
 The last piece of the puzzle is the _entry point_ function, which the IceBox server calls to create an instance of the
 IceBox service:

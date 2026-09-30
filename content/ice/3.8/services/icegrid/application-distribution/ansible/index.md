@@ -2,21 +2,19 @@
 title: Application Distribution with Ansible
 ---
 
-# Using Ansible to Distribute Applications
+## Using Ansible to Distribute Applications
 
 [Ansible](https://www.ansible.com/) is a simple and easy to use automation tool which uses SSH for authentication and
 communication between the control machine and hosts, allowing you to distribute applications to many hosts with very
 little setup. Tasks to be performed are designed as playbooks – Ansible’s configuration, deployment, and orchestration
 language. Let's look at how we can use Ansible to securely distribute applications to IceGrid.
 
-# IceGrid Configuration
+## IceGrid Configuration
 
 In this example we assume that you have already configured and deployed your servers using IceGrid. Consider the
 following configuration:
 
-##### **IceGrid Configuration**
-
-```xml
+```xml {% title="IceGrid Configuration" %}
 <icegrid>
     <application name="MyDemoApp">
         <node name="Node1">
@@ -42,7 +40,7 @@ This deployment contains three servers:
 
 We will also assume you're running one IceGrid registry master instance, and two slave instances.
 
-# Ansible Configuration
+## Ansible Configuration
 
 ![The control machine uses SSH to ask the registry to disable and stop servers in step 1, synchronizes executables directly to Node1 and Node2 in step 2, and asks the registry to enable and start servers in step 3. Node1 hosts ServerA1 and ServerB1; Node2 hosts ServerA2.](/attachments/3.8/ansible/icegrid-ansible.svg)
 
@@ -66,9 +64,7 @@ playbooks).
 
 Before configuring the playbook we first need to look at the other files necessary to make the playbook function.
 
-##### **group_vars/production/production.yml**
-
-```yaml
+```yaml {% title="group_vars/production/production.yml" %}
 ---
 ansible_user: username
 servers:
@@ -94,9 +90,7 @@ ansible-vault create group_vars/production/secure.yml
 After answering all of the prompted questions you can enter data into the newly created vault (your default editor will
 be automatically opened).
 
-##### **group_vars/production/secure.yml**
-
-```yaml
+```yaml {% title="group_vars/production/secure.yml" %}
 ---
 registryPassword: supersecretpassphrase
 ```
@@ -112,9 +106,7 @@ will run tasks. Ansible inventory files are used to map these groups to actual I
 deployment will contain at least two inventory files: one for production and one for testing/staging. The following is
 an example of a _production_ inventory file:
 
-##### **inventories/production**
-
-```ini
+```ini {% title="inventories/production" %}
 [registry-master]
 10.0.0.10
 
@@ -156,9 +148,7 @@ by this playbook. It can be installed by copying `icegrid_servers.yml` into the 
 
 {% /callout %}
 
-##### **deploy-server.yml**
-
-```yaml
+```yaml {% title="deploy-server.yml" %}
 ---
 #
 # Disable and stop servers, synchronize server executables, and then enable and start servers.
@@ -201,7 +191,7 @@ The first and last tasks are performed on the first host in the `registries`
 group of the inventory, while the second and third tasks are performed on the `server-1` and `server-2` groups,
 respectfully.
 
-# Running the Playbook
+## Running the Playbook
 
 To run the `distribute-server.yml` playbook on the `production` inventory, execute the following command:
 

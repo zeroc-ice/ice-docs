@@ -8,7 +8,7 @@ suitable connection exists does the communicator establish a new connection to o
 
 This page describes how and when Ice establishes a new connection.
 
-# Endpoint Selection for New Connections
+## Endpoint Selection for New Connections
 
 A proxy performs a number of operations on its endpoints before it asks its communicator to supply a connection. These
 operations produce a list of zero or more endpoints that satisfy the proxy's configuration. If the resulting list is
@@ -36,7 +36,7 @@ default property ([Ice.Default.EndpointSelection](../ice-default-properties)), u
 ([_name_.EndpointSelection](../proxy-properties)), and using the `ice_endpointSelection`
 [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx).
 
-# Error Semantics for Failed Connections
+## Error Semantics for Failed Connections
 
 If a failure occurs during a connection attempt, the communicator tries to connect to all of the proxy's remaining
 endpoints until either a connection is successfully established or all attempts have failed. At that point, the
@@ -55,7 +55,7 @@ reason for the final failed attempt (typically `ConnectFailedException`). Simila
 request and could not be reestablished (assuming the request can be retried), the communicator throws an exception that
 indicates the reason for the final failed attempt.
 
-# Reusing an Existing Connection
+## Reusing an Existing Connection
 
 When establishing a connection for a proxy, the communicator reuses an existing connection when all the following
 conditions are met:
@@ -70,7 +70,7 @@ When a proxy has connection caching disabled, the communicator does not prefer a
 connection over other endpoints. It can select an endpoint without an established connection and create a new
 connection; or it can select an endpoint with an established connection and reuse that connection.
 
-## Proxy Settings and Connection Reuse
+### Proxy Settings and Connection Reuse
 
 The communicator does not consider [compression](../protocol-compression) settings when searching for existing
 connections to reuse; proxies whose compression settings differ can share the same connection (assuming all other
@@ -79,7 +79,7 @@ selection criteria are satisfied).
 Likewise, the communicator does not consider the deprecated endpoint timeout (`-t`) setting when searching for existing
 connections to reuse.
 
-## Influencing Connection Reuse
+### Influencing Connection Reuse
 
 The default behavior of the communicator, which is to reuse connections whenever possible, is appropriate for many
 applications because it conserves resources and typically has little or no impact on performance. However, when a server
@@ -111,7 +111,7 @@ A total of three connections are established by this example:
 The proxy `i1` inherits its connection ID from `g1`, and therefore shares the connection for `group1`; `i2` explicitly
 configured its connection ID and shares the `group2` connection with proxy `g2`.
 
-# Connection Caching
+## Connection Caching
 
 When we refer to a proxy's connection, we actually mean the connection that the proxy is _currently_ using. This
 connection can change over time, such that a proxy might use several connections during its lifetime. For example, an
@@ -145,13 +145,13 @@ Enabling or disabling connection caching on a proxy has two separate effects:
   disabled, Ice does not prefer endpoints with established connections over other endpoints when providing a connection
   to this proxy.
 
-# Connection Establishment Timeout
+## Connection Establishment Timeout
 
 The default connection establishment timeout is 10 seconds, as determined by the
 [ConnectTimeout](../ice-connection-properties) property. If a connection cannot be established within the allotted time,
 Ice throws `ConnectTimeoutException`.
 
-# Source Address for New Connections
+## Source Address for New Connections
 
 You can force Ice to use a specific source address for TCP/IP connections. This can be useful in specific uses cases,
 such as to overcome the limited number of ephemeral ports. There are two ways to do this:
@@ -163,7 +163,7 @@ such as to overcome the limited number of ephemeral ports. There are two ways to
 
 The value in each case must be an IP address.
 
-##### See Also
+## See Also
 
 - [Proxy Endpoints](../proxy-endpoints)
 - [The Ice Threading Model](../threading-model)

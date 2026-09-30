@@ -28,9 +28,8 @@ Here is a sample configuration for our C# service:
 IceBox.Service.Greeter=GreeterService.dll:Service.GreeterService --Ice.Trace.Network=1 hello there
 ```
 
-This configuration results in the creation of a service named `GreeterService`. The service implementation resides in
-class `Service.GreeterService`, since the `GreeterService.dll` assembly. The argument `--Ice.Trace.Network=1` is
-converted into a property definition, and the arguments `hello` and `there` become the two elements in the `args`
-sequence parameter that is passed to the `start` method.
+This configuration creates a service named `Greeter`, implemented by `Service.GreeterService` in `GreeterService.dll`.
+The IceBox server converts `--Ice.Trace.Network=1` into a property of the service's communicator and passes `hello` and
+`there` to `start` in `args`.
 
 {% /language-section %}

@@ -1,15 +1,9 @@
 {
-  // Headings skip levels: each property's `#### Synopsis` sits under its `#` heading, and many pages end with
-  // `##### See Also`.
-  "MD001": false,
   // Prettier wraps prose at 120 columns; nearly all longer lines left are one-line Markdoc tags, which it can't wrap.
   "MD013": false,
   // Subheadings repeat across sections, such as each property's "Synopsis" and "Description", so only headings that
   // share a parent must differ.
   "MD024": { "siblings_only": true },
-  // `#` headings are a page's sections: the title comes from the frontmatter, and the site renders every heading one
-  // level down.
-  "MD025": false,
   // A language overlay is a fragment of its page, so it starts with a `{% language-section %}` tag, not a heading.
   "MD041": false
 }

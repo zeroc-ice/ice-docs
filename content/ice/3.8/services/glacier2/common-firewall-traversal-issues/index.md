@@ -32,7 +32,7 @@ to forwarding requests.
 Clearly, these scenarios do not scale well, and are unnecessarily complex. Fortunately, Ice provides a solution in
 [Glacier2](../about-glacier2).
 
-##### See Also
+## See Also
 
 - [About Glacier2](../about-glacier2)
 - [How Glacier2 Works](../how-glacier2-works)

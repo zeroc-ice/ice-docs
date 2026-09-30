@@ -2,7 +2,7 @@
 title: IceGrid Troubleshooting
 ---
 
-# Troubleshooting Activation Failures
+## Troubleshooting Activation Failures
 
 Server activation failure is usually indicated by the receipt of a `NoEndpointException`. This can happen for a number
 of reasons, but the most likely cause is an incorrect configuration. For example, an IceGrid node may fail to
@@ -21,7 +21,7 @@ successfully spawns the server process using the steps above, you should then
 [check for signs of a server fault](../icegrid-troubleshooting#troubleshooting-server-failures) (e.g., on Unix, look for
 a `core` file in the node's current working directory).
 
-# Troubleshooting Proxy Failures
+## Troubleshooting Proxy Failures
 
 A client may receive `Ice::NotRegisteredException` if [binding fails](../locator-semantics-for-clients) for an indirect
 proxy. This exception indicates that the proxy's object identity or object adapter is not known by the IceGrid registry.
@@ -43,7 +43,7 @@ The following steps may help you discover the cause of the exception:
 3. Finally, enable locator tracing in the client by setting the configuration property `Ice.Trace.Locator=2`, then run
    the client again to see if any log messages are emitted that may indicate the problem.
 
-# Troubleshooting Server Failures
+## Troubleshooting Server Failures
 
 Diagnosing a server failure can be difficult, especially when servers are activated automatically on remote hosts. Here
 are a few suggestions:
@@ -84,7 +84,7 @@ timeouts before each adapter's status changes to "active", the most likely cause
 the server either mentions more object adapters than are actually created by the server, or that the server uses an
 identifier for one or more adapters that does not match the corresponding identifier in the deployment descriptor.
 
-# Disabling Faulty Servers
+## Disabling Faulty Servers
 
 You may find it necessary to disable a server that terminates in an error condition. For example, on a Unix platform
 each server failure might result in the creation of a new (and potentially quite large) core file. This problem is
@@ -130,7 +130,7 @@ the target object. The timing of this new locate request depends on several fact
   By disabling connection caching and setting a locator cache timeout, we can ensure that migration occurs within twenty
   seconds for invocations on this proxy.
 
-##### See Also
+## See Also
 
 - [IceGrid Server Activation](../icegrid-server-activation)
 - [Locator Semantics for Clients](../locator-semantics-for-clients)

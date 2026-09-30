@@ -4,7 +4,7 @@ title: Code Generation
 
 The Python mapping supports two forms of code generation: **dynamic** and **static**.
 
-# Dynamic Code Generation in Python
+## Dynamic Code Generation in Python
 
 With dynamic code generation, Slice files are compiled at run time and the generated Python code is immediately
 evaluated by the Python interpreter.
@@ -47,7 +47,7 @@ module VisitorCenter
 }
 ```
 
-## `Ice.loadSlice` Options in Python
+### `Ice.loadSlice` Options in Python
 
 The `Ice.loadSlice` function behaves like the Slice compiler: it accepts command-line arguments for specifying
 preprocessor options and controlling code generation. The arguments must include at least one Slice file.
@@ -69,7 +69,7 @@ Ice.loadSlice(["-I.", "Greeter.ice"])
 The supported arguments are the same as those documented for the **Slice for Python compiler** under
 [standard compiler options](../using-the-slice-compiler).
 
-## Locating Slice Files in Python
+### Locating Slice Files in Python
 
 If your Slice files depend on Ice’s built-in types, you don’t need to hard-code the path to your Ice installation.
 Instead, you can call the `Ice.getSliceDir` function to obtain the directory where the standard Ice Slice files are
@@ -83,7 +83,7 @@ Ice.loadSlice([f"-I{Ice.getSliceDir()}", "Greeter.ice"])
 
 This ensure the application remains portable and does not rely on a fixed installation path.
 
-## Loading Multiple Slice Files in Python
+### Loading Multiple Slice Files in Python
 
 You can specify multiple Slice files in a single invocation of `Ice.loadSlice`:
 
@@ -101,13 +101,13 @@ Ice.loadSlice(["Process.ice"])
 Note that the Slice for Python compiler does **not** generate code for included files. It only generates code for the
 Slice files explicitly passed in the args parameter.
 
-# Static Code Generation in Python
+## Static Code Generation in Python
 
 With static code generation, Slice files are compiled into Python source files using the **Slice for Python compiler**
 (slice2py). The generated Python code is stored in .py files, which are then imported and compiled by the Python
 interpreter along with the rest of your application code.
 
-## Compiler Output in Python
+### Compiler Output in Python
 
 The Slice for Python compiler generates a Python module for each Slice definition. Each module is placed within a Python
 package that corresponds to the Slice module containing the definition.
@@ -184,7 +184,7 @@ The Slice compiler `--build` option allows you to control what kind of files are
 - `--build=index` Generates only the Python package index files (**init**.py).
 - `--build=all`. Generates both module and index files (this is the default if --build is omitted).
 
-## Customizing Compiler Output using Metadata in Python
+### Customizing Compiler Output using Metadata in Python
 
 By default, the Slice for Python compiler generates Python modules and packages using the layout described in the
 previous section.
@@ -198,7 +198,7 @@ default mapping. This is typically necessary when the default mapping would:
 In such cases, you can use the `python:identifier` metadata to remap the Slice identifier. The generated Python code
 will then consistently use the remapped identifier instead of the original Slice identifier.
 
-##### See Also
+## See Also
 
 - [Using the Slice Compilers](../using-the-slice-compiler)
 - [Slice Metadata Directives](../slice-metadata-directives)

@@ -15,7 +15,7 @@ We recommend that you always run `icegridnode` and `icegridregistry` in separate
 
 {% /callout %}
 
-# Command Line Options for `icegridnode`
+## Command Line Options for `icegridnode`
 
 The node supports the following command-line options:
 
@@ -49,20 +49,20 @@ Additional command line options are supported, including those that allow the no
 [Windows service or Unix daemon](../command-line-options), and Ice includes a [utility](../windows-services) to help you
 install an IceGrid node as a Windows service.
 
-# Configuring Node Endpoints
+## Configuring Node Endpoints
 
 The IceGrid node's endpoints are defined by the [IceGrid.Node.Endpoints](../icegrid-properties) property and must be
 accessible to the registry. It is not necessary to use a fixed port because each node contacts the registry at startup
 to provide its current endpoint information.
 
-# Node Security Considerations
+## Node Security Considerations
 
 It is important that you give careful consideration to the permissions of the account under which the node runs. If the
 servers that the node will activate have no special [access requirements](../icegrid-server-activation), and all of the
 servers can use the same account, it is recommended that you do not run the node under an account with system
 privileges, such as the root account on Unix or the Administrator account on Windows.
 
-# Configuring a Data Directory for the Node
+## Configuring a Data Directory for the Node
 
 The node requires an empty directory that it can use to store server files - more specifically, Ice config files for
 these servers. The pathname of this directory is supplied by the configuration property
@@ -77,7 +77,7 @@ stopped and any important files are backed up.
 
 {% /callout %}
 
-# Node Configuration Example
+## Node Configuration Example
 
 A minimal node configuration is shown in the following example:
 
@@ -102,7 +102,7 @@ If you wish to run a collocated registry and node server, enable the property
 
 The remaining configuration properties are discussed in [IceGrid.*](../icegrid-properties).
 
-##### See Also
+## See Also
 
 - [IceGrid Server Activation](../icegrid-server-activation)
 - [Promoting a Registry Slave](../promoting-a-registry-slave)

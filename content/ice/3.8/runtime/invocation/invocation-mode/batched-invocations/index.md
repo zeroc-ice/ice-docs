@@ -16,7 +16,7 @@ the client or automatically by the Ice runtime.
 
 {% language-section name="lang-1" /%}
 
-# Proxy Methods for Batched Invocations
+## Proxy Methods for Batched Invocations
 
 The `ice_batchOneway` and `ice_batchDatagram` methods create a new proxy configured for batch invocations. Once you
 obtain a batch proxy, requests sent via that proxy are buffered by the proxy instead of being sent immediately. Once the
@@ -32,7 +32,7 @@ proxies). It's important to be aware of this behavior for several reasons:
 - Batched requests queued on a proxy will be lost if that proxy is deallocated prior to being flushed
 - Proxy instances maintain separate queues even if they refer to the same target object
 
-# Automatically Flushing Batched Requests
+## Automatically Flushing Batched Requests
 
 The default behavior of the Ice runtime, as governed by the configuration property `Ice.BatchAutoFlushSize`,
 automatically flushes batched requests as soon as a batched request causes the accumulated message to exceed the
@@ -57,7 +57,7 @@ limit.
 
 {% language-section name="lang-2" /%}
 
-# Batched Invocations for Fixed Proxies
+## Batched Invocations for Fixed Proxies
 
 A _fixed proxy_ is a special form of proxy that an application explicitly creates for use with a specific connection.
 Batched requests on a fixed proxy are not queued by the proxy, as is the case for regular proxies, but rather by the
@@ -88,7 +88,7 @@ Note the following limitations in case a connection error occurs:
 - The proxy method `ice_flushBatchRequests` and `flushBatchRequests` on connection throw exceptions; on the other hand,
   `flushBatchRequests` on communicator ignores all errors
 
-# Considerations for Batched Datagrams
+## Considerations for Batched Datagrams
 
 For batched datagram invocations, you need to keep in mind that, if the data for the request in a batch substantially
 exceeds the PDU size of the network, it becomes increasingly likely for an individual UDP packet to get lost due to
@@ -101,7 +101,7 @@ If automatic flushing is enabled, Ice's default behavior uses the smaller of
 [Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize) and [Ice.UDP.SndSize](../ice-udp-properties) to
 determine the maximum size for a batch datagram message.
 
-# Compressing Batched Invocations
+## Compressing Batched Invocations
 
 Batched invocations are more efficient if you also enable compression for the transport: many isolated and small
 messages are unlikely to compress well, whereas batched messages are likely to provide better compression because the

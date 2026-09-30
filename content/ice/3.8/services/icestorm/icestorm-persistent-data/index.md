@@ -5,7 +5,7 @@ title: IceStorm Persistent Data
 IceStorm stores various information in a [LMDB](https://www.symas.com/mdb) database, unless it's in transient mode. This
 section describes the data stored by IceStorm and database-related constraints.
 
-# Data Stored
+## Data Stored
 
 IceStorm stores the following data in its LMDB database:
 
@@ -13,9 +13,9 @@ IceStorm stores the following data in its LMDB database:
 - subscriptions (subscriber proxy, quality of service for this subscription)
 - topic links (proxy to the target topic, link cost)
 
-# Limits Imposed by the IceStorm Database
+## Limits Imposed by the IceStorm Database
 
-## Key Size
+### Key Size
 
 A LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
 511 bytes.
@@ -45,7 +45,7 @@ subscriber identities.
 
 {% /callout %}
 
-## Map Size
+### Map Size
 
 A LMDB database has a maximum size, known as its map size. The IceStorm database can store up to
 [IceStorm.LMDB.MapSize](../icestorm-properties) megabytes of data in its database; any attempt to store more data will
@@ -98,7 +98,7 @@ Status of subscribers
 
 {% /callout %}
 
-# Backing up the IceStorm Database
+## Backing up the IceStorm Database
 
 You should consider making regular backups of your IceStorm database. We recommend using one of the following tools to
 perform backups while IceStorm is running:

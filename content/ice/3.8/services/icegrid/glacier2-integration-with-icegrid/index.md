@@ -4,7 +4,7 @@ title: Glacier2 Integration with IceGrid
 
 This section provides information on integrating a [Glacier2 router](../glacier2) into your IceGrid environment.
 
-# Configuration Changes for using Glacier2 with IceGrid
+## Configuration Changes for using Glacier2 with IceGrid
 
 A typical IceGrid client must be configured with a [locator proxy](../getting-started-with-icegrid), but the
 configuration requirements change when the client accesses the location service indirectly via a Glacier2 router as
@@ -26,7 +26,7 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h 10.0.0.2 -p 8000
 Fortunately, the node supplies this property when it starts the router, so there is no need to configure it explicitly.
 Note that all of the router's clients use the same locator.
 
-# Remote IceGrid Administration via Glacier2
+## Remote IceGrid Administration via Glacier2
 
 If you intend to administer IceGrid remotely via a Glacier2 router, you must define one of the following properties (or
 both), depending on whether you use user name and password authentication or a secure connection:
@@ -43,7 +43,7 @@ object by default. To restrict access to the `IceGrid::AdminSession` object and 
 returned by the session's `getAdmin` operation, you must set the property
 [IceGrid.Registry.AdminSessionFilters](../icegrid-properties) to one.
 
-# Resource Allocation using Glacier2 and IceGrid
+## Resource Allocation using Glacier2 and IceGrid
 
 To allocate servers and objects, a program can establish a client session via Glacier2. Depending on the authentication
 method, one or both of the following properties must be set in the Glacier2 configuration:
@@ -63,7 +63,7 @@ when a client allocates an object and removes that filter again when the object 
 server, IceGrid adds an adapter identity filter for the server's indirect adapters and removes that filter again when
 the server is released.
 
-# Session Considerations for Glacier2 and IceGrid
+## Session Considerations for Glacier2 and IceGrid
 
 Providing access to [administrative sessions](../icegrid-administrative-sessions) and
 [client sessions](../resource-allocation-using-icegrid-sessions) both require that you define at least one of the
@@ -82,7 +82,7 @@ Glacier2.SSLSessionManager=IceGrid/AdminSSLSessionManager
 This configuration uses user name and password authentication for client sessions, and SSL authentication for
 administrative sessions. If this restriction is too limiting, you must use two router instances.
 
-# Deploying Glacier2 with IceGrid
+## Deploying Glacier2 with IceGrid
 
 The Ice distribution includes [default server templates](../icegrid-templates) for Ice services such as IceStorm and
 Glacier2 that simplify the task of deploying these servers in an IceGrid domain.
@@ -152,7 +152,7 @@ Note that IceGrid cannot start a Glacier2 router if the router's security config
 entered. In this situation, you have no choice but to start the router yourself so that you can provide the passphrase
 when prompted.
 
-##### See Also
+## See Also
 
 - [Glacier2](../glacier2)
 - [IceGrid Templates](../icegrid-templates)

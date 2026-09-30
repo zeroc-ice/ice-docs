@@ -4,12 +4,12 @@ title: Service Runtime Component
 
 A service represents an IceBox service loaded (or potentially loaded) within an IceBox server.
 
-# States
+## States
 
 A service can be either started ![service started](/attachments/3.8/service-runtime-component/service-started.jpeg) or
 stopped ![service stopped](/attachments/3.8/service-runtime-component/service-stopped.jpeg) within an IceBox server.
 
-# Actions
+## Actions
 
 An IceBox service provides the following actions, from its contextual menu, from the `Tools > Service` menu, and from
 buttons on the Service Properties panel:
@@ -21,7 +21,7 @@ buttons on the Service Properties panel:
   logger.
 - **Retrieve log file** Retrieve the log file of this service into a [Log File Dialog](../log-file-dialog).
 
-# Properties
+## Properties
 
 The Service Properties panel shows first the Runtime Status of the service, i.e. "live" values retrieved directly from
 the service:
@@ -41,7 +41,7 @@ The remaining Server Properties come from the IceGrid descriptors associated wit
 - **Entry Point** The entry point for this service. This corresponds to the value of the
   [IceBox.Service._name_](../icebox-properties) property.
 
-# Children
+## Children
 
 An IceBox service can have the following types of children:
 

@@ -28,7 +28,7 @@ Here is an example to demonstrate the use of this element:
 </application>
 ```
 
-##### See Also
+## See Also
 
 - [Load Balancing](../load-balancing)
 - [Object Adapter Replication](../object-adapter-replication)

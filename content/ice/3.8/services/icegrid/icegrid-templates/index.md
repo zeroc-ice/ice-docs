@@ -11,7 +11,7 @@ restricted to XML files; templates can also be created and instantiated interact
 You can define templates for server and service descriptors. The focus of this section is server templates; we discuss
 service descriptors and templates in the context of [IceBox integration](../icebox-integration-with-icegrid).
 
-# Server Templates
+## Server Templates
 
 You may recall from a [previous example](../using-icegrid-deployment) that the XML description of our sample application
 defined two nearly identical servers:
@@ -74,7 +74,7 @@ supplies a value for the `index` parameter.
 Although we have not significantly reduced the length of our XML file, we have made it more readable. And more
 importantly, deploying this server on additional nodes has become much easier.
 
-# Template Parameters
+## Template Parameters
 
 Parameters enable you to customize each instance of a template as necessary. The example [above](../icegrid-templates)
 defined the `index` parameter with a different value for each instance to ensure that identifiers are unique. A
@@ -112,7 +112,7 @@ As you can see, the instance on `Node1` uses the default value for the new param
 Understanding the semantics of [descriptor variables and parameters](../using-descriptor-variables-and-parameters) will
 help you add flexibility to your own IceGrid applications.
 
-# Adding Properties to a Server Instance
+## Adding Properties to a Server Instance
 
 As we saw in the preceding section, template parameters allow you to customize each instance of a server template, and
 template parameters with default values allow you to define commonly used configuration options. However, you might want
@@ -140,7 +140,7 @@ template. You can define such properties in the `server-instance` element, for e
 
 This sets the `Ice.Trace.Network` property for a specific server.
 
-# Default Templates
+## Default Templates
 
 The IceGrid registry can be configured to supply any number of default template descriptors for use in your
 applications. The configuration property [IceGrid.Registry.DefaultTemplates](../icegrid-properties) specifies the path
@@ -178,7 +178,7 @@ determines whether the default templates are imported, as shown in the following
 </icegrid>
 ```
 
-# Using Templates with `icegridadmin`
+## Using Templates with `icegridadmin`
 
 The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you to inspect templates and instantiate new
 servers dynamically. First, let us ask `icegridadmin` to describe the server template we created
@@ -228,7 +228,7 @@ template. The new server instance is permanently added to the registry's databas
 configuration it is a good idea to update the XML description of our application to reflect these changes and avoid
 potential synchronization issues.
 
-##### See Also
+## See Also
 
 - [Server Descriptor Element](../server-descriptor-element)
 - [Server-Template Descriptor Element](../server-template-descriptor-element)

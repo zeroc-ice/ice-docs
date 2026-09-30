@@ -52,7 +52,7 @@ parallel, so a later request can be executed before an earlier one. If strict ex
 one of the serialization techniques described in
 [Thread Pool Design Considerations](../thread-pool-design-considerations).
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Batched Invocations](../batched-invocations)

@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-## Array Mapping
+### Array Mapping
 
 A Slice sequence maps to a Ruby array; the only exception is a sequence of bytes, which maps to a string. The use of a
 Ruby array means that the mapping does not generate a separate named type for a Slice sequence. It also means that you
@@ -20,7 +20,7 @@ platter.push(Fruit::Orange)
 The Ice runtime validates the elements of a sequence to ensure that they are compatible with the declared type; a
 `TypeError` exception is thrown if an incompatible type is encountered.
 
-## Mapping for Byte Sequences
+### Mapping for Byte Sequences
 
 A Ruby string can contain arbitrary 8-bit binary data, therefore it is a more efficient representation of a byte
 sequence than a Ruby array in both memory utilization and throughput performance.

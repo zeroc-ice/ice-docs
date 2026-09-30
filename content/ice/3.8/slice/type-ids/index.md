@@ -23,6 +23,6 @@ the exception.
 
 Type IDs are also used by the [ice_isA operation](../operations-on-object).
 
-##### See Also
+## See Also
 
 - [ice_isA](../operations-on-object)

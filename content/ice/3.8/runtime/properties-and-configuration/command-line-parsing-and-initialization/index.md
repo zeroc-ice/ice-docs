@@ -40,7 +40,7 @@ explicitly skip them.
 
 `initialize` provides the same argument-property parsing and stripping in all languages.
 
-##### See Also
+## See Also
 
 - [Using Configuration Files](../using-configuration-files)
 - [Communicator Initialization and Destruction](../initialization-and-destruction)

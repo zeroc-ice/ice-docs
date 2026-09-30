@@ -24,7 +24,7 @@ executed the request.
 
 This page examines automatic retries in more detail.
 
-# Automatic Retries for Request Failures
+## Automatic Retries for Request Failures
 
 Ice considers a request to have failed if any of the following conditions are true:
 
@@ -87,7 +87,7 @@ application. On the other hand, if Ice does retry the invocation and the subsequ
 _last_ exception to the application. For example, if the first attempt fails with `ConnectionRefusedException` and the
 retry fails with `ConnectTimeoutException`, the invocation throws `ConnectTimeoutException` to the application.
 
-# Automatic Retries for Idempotent Operations
+## Automatic Retries for Idempotent Operations
 
 Annotating a Slice operation with the [idempotent](../operations) keyword notifies Ice that it can safely violate
 at-most-once semantics:
@@ -124,9 +124,9 @@ need to initiate the retry, and in fact the retry activities are completely tran
 the application receives its results as if nothing went wrong. The invocation only throws an exception once Ice has
 reached its configured retry limits.
 
-# Configuring Automatic Retries
+## Configuring Automatic Retries
 
-## Retry Intervals
+### Retry Intervals
 
 The [Ice.RetryIntervals](../ice-properties) property configures the retry behavior for a communicator and affects
 invocations on every proxy created by that communicator. (Retry behavior cannot be configured on a per-proxy basis.) The
@@ -152,7 +152,7 @@ milliseconds before trying again, then 500 milliseconds, and finally tries one m
 In some situations you may need to disable retries completely. For example, an application might implement its own retry
 logic and therefore require immediate notification when a failure occurs.
 
-## Retry Logging
+### Retry Logging
 
 To monitor Ice's retry activities, configure your program with the property [Ice.Trace.Retry](../ice-trace-properties)
 set to a non-zero value:
@@ -172,13 +172,13 @@ Ice.Trace.Retry=2
 
 This setting prompts Ice to include additional details about connections and endpoints.
 
-# Connections and Automatic Retries
+## Connections and Automatic Retries
 
 The behavior of automatic retries is intimately tied to the presence (and absence) of connections. This section
 describes the errors that cause Ice to abort connections, and provides more details about how connections influence
 retries.
 
-## Connection Errors
+### Connection Errors
 
 Ice automatically aborts a connection in response to certain fatal error conditions, such as:
 
@@ -188,7 +188,7 @@ Ice automatically aborts a connection in response to certain fatal error conditi
 When Ice aborts a connection, all other outstanding requests on the same connection also fail and may be retried if
 eligible.
 
-## Connection Status
+### Connection Status
 
 One factor that influences retry behavior is the status of the connection on which the failed request was attempted. If
 the failure caused Ice to abort the connection (as discussed in the previous section), or if the request failed because
@@ -207,7 +207,7 @@ criteria:
 Generally speaking, you must configure your application carefully if you need fine-grained control over Ice's retry
 behavior.
 
-# Automatic Retries: Direct Proxy versus Indirect Proxies
+## Automatic Retries: Direct Proxy versus Indirect Proxies
 
 With a direct proxy, Ice tries to establish a connection using each suitable endpoint of the proxy, and, if this fails,
 Ice retries these connection attempts (Ice retries once immediately with the default retry configuration).
@@ -221,7 +221,7 @@ With an indirect proxy, the retry algorithm is a little bit different:
 - if all these attempts still fail, Ice refreshes its locator cache again and tries to establish a connection to the
   re-refreshed endpoints, which represents retry attempt number 1
 
-##### See Also
+## See Also
 
 - [Terminology](../terminology)
 - [Operations](../operations)

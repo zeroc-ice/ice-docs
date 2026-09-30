@@ -20,7 +20,7 @@ Ice.Trace.Locator=2
 
 See [Ice.Trace.*](../ice-trace-properties) for more information on these properties.
 
-##### See Also
+## See Also
 
 - [Locator Semantics for Clients](../locator-semantics-for-clients)
 - [Ice.Default.*](../ice-default-properties)
