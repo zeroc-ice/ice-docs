@@ -14,7 +14,7 @@ services using `Edit > Move Up` or `Edit > Move Down` (also available from each 
 
 ## Plain Service
 
-### Properties {% id="plain-service-properties" %}
+### Properties
 
 The Service Properties panel offers the following fields:
 
