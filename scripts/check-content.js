@@ -30,8 +30,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import Markdoc from '@markdoc/markdoc';
 
+import { parse } from '../markdoc/parse.ts';
 import { buildPageIndex } from '../lib/docs-model/links.ts';
 import {
   declaredSlots,
@@ -319,7 +319,6 @@ function checkNoBreakSpaces(files) {
 function checkCodeCharacters(files) {
   const curly = /[\u201c\u201d]/;
   for (const file of files) {
-    const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
     const source = fs.readFileSync(file, 'utf8');
     const lines = source.split('\n');
     const relative = path.relative(process.cwd(), file);
@@ -362,7 +361,7 @@ function checkCodeCharacters(files) {
         );
       for (const child of node.children) visit(child);
     };
-    visit(Markdoc.parse(tokenizer.tokenize(source)));
+    visit(parse(source));
   }
 }
 
@@ -401,8 +400,7 @@ function checkHeadings(version, pages, languages) {
       fail(`${where}: cannot assemble: ${error.message}`);
       continue;
     }
-    const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
-    const headings = headingsIn(Markdoc.parse(tokenizer.tokenize(body)));
+    const headings = headingsIn(parse(body));
 
     for (const { node } of headings) {
       if (node.attributes.level === 1)

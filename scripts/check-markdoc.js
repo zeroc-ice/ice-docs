@@ -39,6 +39,7 @@ import path from 'node:path';
 import Markdoc from '@markdoc/markdoc';
 
 import config from '../markdoc/config.ts';
+import { parse } from '../markdoc/parse.ts';
 import {
   CONTENT_ROOT,
   frontmatterOf,
@@ -73,12 +74,6 @@ const resolverTags = {
 
 const LEVELS = ['debug', 'info', 'warning', 'error', 'critical'];
 const fails = (level) => LEVELS.indexOf(level) >= LEVELS.indexOf('warning');
-
-/** Parse one document with the same tokenizer settings as lib/markdown.ts. */
-function parse(source) {
-  const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
-  return Markdoc.parse(tokenizer.tokenize(source));
-}
 
 function validate(ast, source, tags, variables) {
   const lines = source.split('\n');
