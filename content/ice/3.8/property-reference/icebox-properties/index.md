@@ -17,8 +17,8 @@ properties whose names start with `IceBox.` or `Ice.Admin.`. Properties set by t
 default value is zero.
 
 Whatever the value of this property, the service manager sets `Ice.ProgramName` in each service communicator to the
-server's `Ice.ProgramName` followed by a hyphen and the service name, or by `SharedCommunicator` for the shared
-communicator.
+service name, or to `SharedCommunicator` for the shared communicator. When the server's `Ice.ProgramName` is not empty,
+the service manager prefixes this name with the server's `Ice.ProgramName` and a hyphen.
 
 ## IceBox.LoadOrder
 

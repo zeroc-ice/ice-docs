@@ -191,8 +191,8 @@ publishers. Therefore, [adapter properties](../object-adapter-properties) can be
 ### Description {% id="icestorm.replicatedpublishendpoints-description" %}
 
 This property is used for a manual deployment of [highly available IceStorm](../configuring-icestorm). It specifies the
-set of endpoints returned for the publisher proxy returned from `IceStorm::Topic::getPublisher`. IceStorm reads this
-property only when `IceStorm.TopicManager.AdapterId` is not set.
+set of endpoints returned for the publisher proxy returned from `IceStorm::Topic::getPublisher`. This property takes
+effect only when `IceStorm.TopicManager.AdapterId` is not set.
 
 If this property is not defined, the publisher proxy returned by a topic instance points directly at that replica and,
 should the replica become unavailable, publishers will not transparently failover to other replicas.
@@ -207,7 +207,7 @@ should the replica become unavailable, publishers will not transparently failove
 
 This property is used for a manual deployment of [highly available IceStorm](../configuring-icestorm). It specifies the
 set of endpoints used in proxies that refer to a replicated topic. This set of endpoints should contain the endpoints of
-each IceStorm replica. IceStorm reads this property only when `IceStorm.TopicManager.AdapterId` is not set.
+each IceStorm replica. This property takes effect only when `IceStorm.TopicManager.AdapterId` is not set.
 
 For example, the operation `IceStorm::TopicManager::create` returns a proxy that contains this set of endpoints.
 
@@ -335,11 +335,11 @@ The topic trace level:
 
 The topic manager trace level:
 
-| Value | Description                                              |
-| ----- | -------------------------------------------------------- |
-| 0     | No topic manager trace (default).                        |
-| 1     | Trace topic creation.                                    |
-| 2     | Like 1, but also trace the endpoints of each subscriber. |
+| Value | Description                                                      |
+| ----- | ---------------------------------------------------------------- |
+| 0     | No topic manager trace (default).                                |
+| 1     | Trace topic creation, topic loading, and replica initialization. |
+| 2     | Like 1, but also trace the endpoints of each subscriber.         |
 
 ## IceStorm.Transient
 
