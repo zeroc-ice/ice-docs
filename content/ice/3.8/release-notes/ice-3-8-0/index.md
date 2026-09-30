@@ -270,7 +270,7 @@ included in its associated language package.
 
 For example, the Slice to C# compiler binaries (`slice2cs`) for all platforms are included in the NuGet package
 `ZeroC.Ice.Slice.Tools`. Likewise, the Slice to Java compiler (`slice2java`) for all platforms are included in the
-`com.zeroc.ice.slice-tools` JAR file.
+`com.zeroc.slice-tools` JAR file.
 
 On Linux, the Slice to C++ compiler is included in the Ice-C++ dev or devel package depending on the distribution. And
 the Slice to PHP compiler (`slice2php`) is included directly in the Ice-PHP package.
