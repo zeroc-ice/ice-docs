@@ -74,7 +74,8 @@ duplicating it.
   ` ```yaml {% title="deploy-server.yml" %} `.
 - **A heading's anchor comes from its text.** Where two headings on one page would share an anchor, give them their own
   in the source, as each label on a property page carries its property's:
-  `### Synopsis {% id="ice.default.host-synopsis" %}`. MD024 flags a heading repeated within a file.
+  `### Synopsis {% id="ice.default.host-synopsis" %}`. MD024 flags a heading repeated within a file, and `check:markdoc`
+  one repeated across a page and its overlays.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own. Prettier's Markdown parser reads such a tag as a block, as Markdoc does, so `format` keeps it on
   its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.
