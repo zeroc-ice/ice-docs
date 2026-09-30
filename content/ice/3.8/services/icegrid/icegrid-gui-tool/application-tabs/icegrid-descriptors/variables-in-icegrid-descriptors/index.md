@@ -23,12 +23,11 @@ Substitution is performed in all string fields except the following:
 
 ## Escaping a Variable
 
-You can prevent substitution by escaping a variable reference with an additional leading
-$ character. For example, in order to assign the literal string ${abc} to a variable, you would use $${abc} as this
-variable's value.
+You can prevent substitution by escaping a variable reference with an additional leading $ character. For example, in
+order to assign the literal string ${abc} to a variable, you would use $${abc} as this variable's value.
 
-The extra
-$ symbol is only meaningful when immediately preceding a variable reference, therefore text such as US$$55 is not modified. Each occurrence of the characters $$ preceding a variable reference is replaced with a single $
+The extra $ symbol is only meaningful when immediately preceding a variable reference, therefore text such as
+US$$55 is not modified. Each occurrence of the characters $$ preceding a variable reference is replaced with a single $
 character, and that character does not initiate a variable reference.
 
 ## Pre-Defined Variables
