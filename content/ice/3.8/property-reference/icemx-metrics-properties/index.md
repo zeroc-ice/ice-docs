@@ -51,12 +51,9 @@ Regular expressions use Java's `Pattern` syntax and must match the entire attrib
 
 {% iflang langs="csharp" %}
 
-Regular expressions use .NET's `Regex` syntax and match any substring of the attribute value. Enclose a pattern in
-`\A(?:pattern)\z` to require a match of the entire value.
+Regular expressions use .NET's `Regex` syntax and match any substring of the attribute value.
 
 {% /iflang %}
-
-Ice logs a warning if a regular expression is invalid when it creates the metrics map, and omits that map from the view.
 
 ## IceMX.Metrics._view_.Accept._attribute_
 

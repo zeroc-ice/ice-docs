@@ -48,8 +48,8 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 ### Description {% id="ice.warn.dispatch-description" %}
 
-When [Ice.Trace.Dispatch](../ice-trace-properties) is 0 or less, this property controls warnings from the logger
-middleware. The default value is 1.
+When [Ice.Trace.Dispatch](../ice-trace-properties) is 0, this property controls warnings from the logger middleware. The
+default value is 1.
 
 | Value | Description                                                                                                                                                                                                                        |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -58,10 +58,6 @@ middleware. The default value is 1.
 | 2     | Like 1, plus other instances of `DispatchException`, such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`, and other failure reply statuses.                                              |
 
 User exceptions and responses with the `UserException` reply status produce no middleware warning.
-
-A positive `Ice.Trace.Dispatch` value makes the middleware trace successful dispatches and user exceptions, and warn for
-all dispatch failures regardless of this property's value. Ice installs the middleware when either tracing or dispatch
-warnings are enabled.
 
 {% iflang langs="python" %}
 

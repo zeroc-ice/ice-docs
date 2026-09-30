@@ -24,6 +24,6 @@ default value is 1.
 ### Description {% id="ice.warn.executor-description" %}
 
 If `num` is greater than 0, Ice logs a warning when a custom executor supplied through `InitializationData.executor`
-throws an exception while accepting or executing a call. The default value is 1.
+throws an exception. The default value is 1.
 
 {% /language-section %}
