@@ -86,11 +86,6 @@ except Tantrum as t:
     print(f"The child says: {t.reason}")
 ```
 
-### See Also
-
-- [Python Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>)
-
 ## Server-Side Mapping for Operations
 
 ### Default Mapping for Operations
@@ -155,11 +150,6 @@ The server-side Ice runtime does not validate user exceptions thrown by an opera
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
-
-### See Also
-
-- [Python Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side Python Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Asynchronous Method Invocation (AMI)
 
@@ -459,12 +449,6 @@ async def greet(self, name: str, current: Ice.Current) -> str:
 The `greet` dispatch is implemented by delegating to another Greeter server, and we directly return the result from the
 nested async invocation.
 
-### See Also
-
-- [Exceptions](../exceptions)
-- [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>)
-- [The Ice Threading Model](../threading-model)
-
 ## Mapping for Parameters and Return Values
 
 ### In Parameters
@@ -654,5 +638,10 @@ def execute(
         int | None, float | None] | Awaitable[tuple[int | None, float | None]]:
     ...
 ```
+
+## See Also
+
+- [Exceptions](../exceptions)
+- [The Ice Threading Model](../threading-model)
 
 {% /language-section %}

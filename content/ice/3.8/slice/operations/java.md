@@ -102,12 +102,6 @@ try {
 }
 ```
 
-### See Also
-
-- [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in Java](<../operations#asynchronous-method-invocation-(ami)>)
-- [Server-Side Java Mapping for Operations](#server-side-mapping-for-operations)
-
 ## Server-Side Mapping for Operations
 
 ### Default Mapping for Operations
@@ -186,11 +180,6 @@ The server-side Ice runtime does not validate user exceptions thrown by an opera
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
-
-### See Also
-
-- [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side Java Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Asynchronous Method Invocation (AMI)
 
@@ -514,11 +503,6 @@ class ExampleServant implements AsyncExample {
 }
 ```
 
-### See Also
-
-- [The Ice Threading Model](../threading-model)
-- [Java Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
 ### In Parameters
@@ -710,5 +694,9 @@ passing the value of `java.util.Optional.empty()`. In either case, the server wi
 is not present.
 
 {% /callout %}
+
+## See Also
+
+- [The Ice Threading Model](../threading-model)
 
 {% /language-section %}
