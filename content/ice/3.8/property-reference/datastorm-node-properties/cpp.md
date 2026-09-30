@@ -10,10 +10,21 @@ title: DataStorm.Node.*
 
 #### Description
 
-Set the endpoints of the node to connect to `endpoints`. The node will connect to one of the endpoint and advertise its
+Set the endpoints of the node to connect to `endpoints`. The node will connect to one of the endpoints and advertise its
 topics through this node. It will also receive topic announcements from other connected nodes. If the node disables its
 endpoints with `DataStorm.Node.Server.Enabled=0`, it might also receive data updates through the connection established
 to the connected node.
+
+The value is an endpoint list, for example:
+
+```config
+DataStorm.Node.ConnectTo=tcp -h node.example.com -p 10000
+```
+
+DataStorm uses these endpoints with the object identity `DataStorm/Lookup2`. Failed connection attempts retry
+indefinitely, using the delays described by
+[DataStorm.Node.RetryMultiplier](../datastorm-node-properties#datastorm.node.retrymultiplier). When an established
+connection closes, DataStorm attempts to reconnect immediately.
 
 # DataStorm.Node.Name
 
@@ -36,8 +47,11 @@ set, DataStorm generates a UUID for the name. Set it when you want recognizable 
 
 #### Description
 
-If `num` is a value greater than 0, the DataStorm node will retry establishing the connection with a node up to `num`
-times. If not defined the default value is 6.
+Specifies the maximum number of retries to establish a peer session after a connection failure. The default is 6. A
+value of 0 or less disables these session retries.
+
+For the node configured with [DataStorm.Node.ConnectTo](../datastorm-node-properties#datastorm.node.connectto), retries
+continue indefinitely; `RetryCount` caps the exponent used to compute the retry delay.
 
 # DataStorm.Node.RetryMultiplier
 
@@ -47,10 +61,16 @@ times. If not defined the default value is 6.
 
 #### Description
 
-Before retrying to establish the connection to a node, the DataStorm node will wait for a delay equal to
-`(retryDelay * retryMultiplier ^ retryAttempt)` where `retryDelay` is the value specified by
-`DataStorm.Node.RetryDelay`, `retryMultiplier` is the value specified by this property and `retryAttempt` is the retry
-attempt number. If not defined, the default value is 2.
+Specifies the multiplier used to increase the delay between connection attempts. The default is 2.
+
+For peer-session retries, the first retry is immediate. For retry number `n` starting at 2, the delay in milliseconds is
+`RetryDelay * RetryMultiplier ^ min(n - 2, RetryCount)`. With the defaults, the six retry delays are 0, 500, 1,000,
+2,000, 4,000 and 8,000 milliseconds.
+
+For failed connection attempts to the node configured with
+[DataStorm.Node.ConnectTo](../datastorm-node-properties#datastorm.node.connectto), retry number `n` starts at 1 and uses
+`RetryDelay * RetryMultiplier ^ min(n - 1, RetryCount)`. With the defaults, these delays start at 500 milliseconds and
+double up to 32,000 milliseconds; subsequent attempts use the capped delay.
 
 # DataStorm.Node.RetryDelay
 
@@ -60,7 +80,9 @@ attempt number. If not defined, the default value is 2.
 
 #### Description
 
-The initial delay to wait before retrying. If not defined the default value is 500ms.
+Specifies the base retry delay in milliseconds. The default is 500. DataStorm combines this value with
+[DataStorm.Node.RetryMultiplier](../datastorm-node-properties#datastorm.node.retrymultiplier) to compute the delay for
+each retry.
 
 # DataStorm.Node.Server.Enabled
 
@@ -74,6 +96,10 @@ If `num` is a value greater than 0, the DataStorm node will accept connections t
 [DataStorm.Node.Server.Endpoints](../object-adapter-properties). If 0, the node won't accept connections and will
 instead receive data through client network connections established with other DataStorm nodes. If not defined the
 default value is 1.
+
+If a peer loses its connection to a node with no endpoints, it waits for that node to reconnect. The peer removes the
+session if the node does not reconnect within `2 * RetryDelay * RetryMultiplier ^ RetryCount` milliseconds (64,000
+milliseconds with the defaults).
 
 # DataStorm.Node.Server._AdapterProperty_
 
@@ -121,11 +147,13 @@ value is 1.
 
 #### Description
 
-DataStorm uses the adapter name `DataStorm.Node.Multicast` for the object adapter that processes incoming multi-cast
+DataStorm uses the adapter name `DataStorm.Node.Multicast` for the object adapter that processes incoming multicast
 requests from other DataStorm nodes.
 
 The `DataStorm.Node.Multicast.Endpoints` property controls the multicast endpoint for a DataStorm node. If not defined,
-the default endpoint is `udp -h 239.255.0.1 -p 10000`.
+the default endpoint is `udp -h 239.255.0.1 -p 10000`, and DataStorm sets `DataStorm.Node.Multicast.PublishedHost` to
+`239.255.0.1`. When you specify endpoints, the adapter's [published-endpoint properties](../object-adapter-properties)
+control the endpoints advertised in its proxies.
 
 # DataStorm.Node.Multicast.Proxy
 
@@ -135,15 +163,10 @@ the default endpoint is `udp -h 239.255.0.1 -p 10000`.
 
 #### Description
 
-Defines the proxy used for multicast discovery. If this property is not defined, the node uses a proxy with the lookup
-object identity shown below and the endpoints configured with `DataStorm.Node.Multicast.Endpoints`.
+Defines the proxy used for multicast discovery. Its identity must be `DataStorm/Lookup2`. DataStorm uses this proxy in
+datagram mode.
 
-The identity in this proxy must match the lookup object identity of the DataStorm version you are using:
+When this property is not set, DataStorm creates a proxy for `DataStorm/Lookup2` using the multicast adapter's published
+endpoints.
 
-| DataStorm version | Lookup object identity |
-| ----------------- | ---------------------- |
-| 3.8.0 to 3.8.2    | `DataStorm/Lookup`     |
-| 3.8.3 or later    | `DataStorm/Lookup2`    |
-
-This property is typically used to set datagram options that can't be derived from `DataStorm.Node.Multicast.Endpoints`,
-such as the outgoing interface.
+This property can supply datagram options such as the outgoing interface.

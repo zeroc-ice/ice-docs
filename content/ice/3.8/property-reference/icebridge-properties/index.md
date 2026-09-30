@@ -2,7 +2,7 @@
 title: IceBridge.*
 ---
 
-[IceBridge](../icebridge) is an Ice service that acts as a bridge between one or more clients and a server.
+[IceBridge](../icebridge) is an Ice service that forwards requests from one or more clients to a target server.
 
 # IceBridge.InstanceName
 
@@ -12,8 +12,8 @@ title: IceBridge.*
 
 #### Description
 
-Specifies a default identity category for IceBridge objects. If defined, the identity of the IceBridge router interface
-becomes `name/router`.
+Specifies the identity category of the IceBridge router object. The router's identity is `name/router`. The
+`Ice::RouterFinder` object retains the identity `Ice/RouterFinder`.
 
 If not defined, the default value is `IceBridge`.
 
@@ -39,6 +39,12 @@ This adapter must be accessible to IceBridge clients.
 
 #### Description
 
-This property specifies the [endpoints](../endpoint-syntax) of the target server. For each new connection that a client
-establishes to an endpoint in `IceBridge.Source.Endpoints`, IceBridge will create a matching outgoing connection to a
+This required property specifies the client [endpoints](../endpoint-syntax) of the target server, with the syntax used
+in a [stringified proxy](../syntax-for-stringified-proxies). Unlike `IceBridge.Source`, `IceBridge.Target` is not an
+object adapter. For connection-oriented transports, IceBridge creates a dedicated outgoing connection when it receives
+the first request to forward on a client connection. The bridge uses the same outgoing connection for subsequent
+requests on that client connection. Closing either connection causes the bridge to close the other.
+
+Multiple endpoints must all reach the same logical target server, for example its replicas or its other transports. A
+UDP source endpoint requires a UDP target endpoint; a connection-oriented source endpoint requires a connection-oriented
 target endpoint.

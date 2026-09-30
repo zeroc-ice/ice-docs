@@ -25,8 +25,8 @@ support for mutual authentication as well as secure session management.
 
 # IceBridge
 
-[IceBridge](../icebridge) acts as a bridge between one or more clients and a server and makes every effort to be as
-transparent as possible.
+[IceBridge](../icebridge) forwards requests from one or more clients to a target server that the clients cannot reach
+directly.
 
 # IceGrid
 

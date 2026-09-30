@@ -4,6 +4,9 @@ title: IceDiscovery.*
 
 This page describes the properties supported by the [IceDiscovery](../icediscovery) plug-in.
 
+These properties configure the C++, C# and Java plug-ins, and the C++ plug-in loaded through `Ice.Plugin.*` in the
+C++-based language mappings. JavaScript does not support this plug-in.
+
 # IceDiscovery.Address
 
 #### Synopsis
@@ -57,15 +60,17 @@ available on the system to send and receive UDP multicast datagrams. This proper
 
 #### Description
 
-Specifies the multicast endpoints that a client uses to send [multicast discovery queries](../icediscovery). If not
-defined, the endpoint is composed as follows:
+Specifies the multicast endpoints used to send [discovery queries](../icediscovery). The plug-in sends each query on
+every endpoint in this list.
 
-`udp -h addr -p port [--interface intf]`
+When this property is not set, the plug-in creates one endpoint per multicast-capable interface selected by
+[IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface), or per available multicast-capable
+interface if that property is not set. It joins these endpoints with colons. Each endpoint has the form:
 
-where `addr` is the value of [IceDiscovery.Address](../icediscovery-properties#icediscovery.address), `port` is the
-value of [IceDiscovery.Port](../icediscovery-properties#icediscovery.port), and `intf` is the value of
-[IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface). If multiple endpoints are defined, the
-queries will be sent on each endpoint.
+`udp -h "addr" -p port --interface "intf"`
+
+Here, `addr` is the value of [IceDiscovery.Address](../icediscovery-properties#icediscovery.address), `port` is the
+value of [IceDiscovery.Port](../icediscovery-properties#icediscovery.port), and `intf` identifies the interface.
 
 # IceDiscovery.Multicast._AdapterProperty_
 
@@ -79,7 +84,7 @@ IceDiscovery creates an object adapter named `IceDiscovery.Multicast` for receiv
 not otherwise defined by `IceDiscovery.Multicast.Endpoints`, the endpoint for this object adapter is composed as
 follows:
 
-`udp -h addr -p port [--interface intf]`
+`udp -h "addr" -p port [--interface "intf"]`
 
 where `addr` is the value of [IceDiscovery.Address](../icediscovery-properties#icediscovery.address), `port` is the
 value of [IceDiscovery.Port](../icediscovery-properties#icediscovery.port), and `intf` is the value of
@@ -142,7 +147,8 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast requests before giving up. The
 [IceDiscovery.Timeout](../icediscovery-properties#icediscovery.timeout) property determines how long the plug-in waits
-for a reply before trying again. If not defined, the default retry count is `3`.
+for a reply before trying again. If not defined, the default retry count is `3`, for a total of four attempts. A value
+of 0 sends only the initial query.
 
 # IceDiscovery.Timeout
 
@@ -155,4 +161,4 @@ for a reply before trying again. If not defined, the default retry count is `3`.
 Specifies the time interval in milliseconds to wait for replies to UDP multicast requests. If no server replies during
 this time interval, the client will retry the request the number of times specified by
 [IceDiscovery.RetryCount](../icediscovery-properties#icediscovery.retrycount). If not defined, the default timeout is
-`300`.
+`300`. `num` must be greater than `0`.

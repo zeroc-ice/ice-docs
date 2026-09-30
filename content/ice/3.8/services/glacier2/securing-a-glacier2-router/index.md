@@ -158,12 +158,15 @@ makes another attempt to contact the verifier; if the object is still unavailabl
 
 ## Obtaining SSL Credentials for a Router Client
 
-Servers that wish to receive information about a client's SSL connection to the router can define the
-[Glacier2.AddConnectionContext](../glacier2-properties) property. When enabled, the router adds several entries to the
-request context of each invocation it forwards to a server, providing information such as the client's encoded
-certificate (if supplied) and addressing details. If the client's connection uses SSL, the router defines the
-`_con.peerCert` entry in the context. A server can check for the presence of this entry and also extract additional
-context entries as shown below in this example:
+Servers that need information about a client's connection to the router can set
+[Glacier2.AddConnectionContext](../glacier2-properties) to 1. The router then adds connection information to
+permissions-verifier and session-manager calls and to requests forwarded from clients to servers. Value 2 adds this
+information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on session
+managers.
+
+The context entries include addressing details and, for SSL or WSS connections with a client certificate, the
+PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional context entries as
+shown below:
 
 ```cpp
 void unlockDoor(string id, const Ice::Current& current)
@@ -254,8 +257,7 @@ contain endpoints. As a result, the property causes Glacier2 to accept only [ind
 
 {% callout type="info" %}
 
-By default, a Glacier2 router forwards requests for any address, which is equivalent to defining the property
-`Glacier2.Filter.Address.Accept=*`.
+By default, a Glacier2 router forwards requests for any address.
 
 {% /callout %}
 
@@ -384,27 +386,6 @@ routing table.
 The router does not remove entries from a session's routing table except when evicting an old entry to make room for a
 new one. In particular, an exception that occurs while routing a request for a proxy does _not_ cause that proxy to be
 removed from the routing table. Note however that the routing table is destroyed upon session destruction.
-
-# Glacier2 Administrative Interface
-
-Glacier2 supports an administrative interface that allows you to shut down a router programmatically:
-
-```slice
-module Glacier2
-{
-    interface Admin
-    {
-        idempotent void shutdown();
-    }
-}
-```
-
-To prevent unwanted clients from using the `Admin` interface, the object is only accessible on the endpoints defined by
-the [Glacier2.Admin.Endpoints](../glacier2-properties) property. This property has no default value, meaning you must
-define the property in order to make the `Admin` object accessible.
-
-If you decide to define `Glacier2.Admin.Endpoints`, choose your endpoints carefully. We generally recommend the use of
-endpoints that are accessible only from behind a firewall.
 
 ##### See Also
 

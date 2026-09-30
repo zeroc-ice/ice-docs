@@ -18,10 +18,10 @@ The `name` component of the property key is the service name. This name is passe
 and must be unique among all services configured in the same IceBox server. It is possible, though rarely necessary, to
 load two or more instances of the same service under different names.
 
-The first argument in the property value is the entry point specification. Any arguments following the entry point
-specification are examined. If an argument has the form `--name=value`, then it is interpreted as a property definition
-that appears in the property set of the communicator passed to the service `start` operation. These arguments are
-removed, and any remaining arguments are passed to the `start` operation in the `args` parameter.
+The first argument in the property value is the entry point specification. IceBox converts an argument of the form
+`--name=value` that follows the entry point specification into a property of the communicator passed to the service's
+`start` operation when `name` starts with a [reserved prefix](../properties-overview), such as `Ice.`, or with the
+service's name followed by a period. It passes the remaining arguments to the `start` operation in the `args` parameter.
 
 # IceBox Service Configuration
 

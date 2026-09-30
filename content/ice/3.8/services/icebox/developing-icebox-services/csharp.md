@@ -2,6 +2,9 @@
 
 The example we present here is taken from the `IceBox/Greeter` demo program.
 
+Add a reference to the `ZeroC.IceBox` NuGet package, version 3.8.x, to your service project. This package provides the
+`IceBox.Service` interface.
+
 The class definition for our service is quite straightforward:
 
 ```csharp

@@ -55,30 +55,30 @@ configuration is typically necessary.
 
 # Writing a Password File
 
-The router's simplest authentication mechanism uses an access control list in a text file consisting of username and
-password pairs. Passwords are encoded using the
-[modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`).
+The router's simplest authentication mechanism uses an access control list in a text file containing user names and
+password hashes. The supported hash formats depend on the platform.
 
-The general structure of a `MCF` encoded password hash is: `$identifier$content`, where `identifier` denotes the scheme
-used for hashing, and `content` denotes its contents. Glacier2 supports two types of `MCF` encoded password hashes:
+Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the
+structure `$identifier$content`, where `identifier` denotes the hashing scheme and `content` contains the scheme's
+parameters and hash.
 
 On Windows and macOS:
 
-- `PBKDF2` using `SHA-1,` `SHA-256`, or `SHA-512` as the digest algorithm.
+- `PBKDF2` using `SHA-1`, `SHA-256`, or `SHA-512` as the digest algorithm.
 
 {% callout type="info" %}
 
 PBKDF2 does not have a standard form in the `MCF` specification. In this case Glacier2 uses the same format as
 [passlib](https://pythonhosted.org/passlib/modular_crypt_format.html).
 
-- `$pbkdf2-digest$rounds$salt$` for `SHA-256` and `SHA-512`.
-- `$pbkdf2$rounds$salt$` for `SHA-1`.
+- `$pbkdf2-digest$rounds$salt$checksum` for `SHA-256` and `SHA-512`.
+- `$pbkdf2$rounds$salt$checksum` for `SHA-1`.
 
 {% /callout %}
 
 On Linux:
 
-- `Crypt` using `SHA-256`, or `SHA-512` as the digest algorithm.
+- Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
 The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the name of the password file:
 
@@ -86,9 +86,8 @@ The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the nam
 Glacier2.CryptPasswords=passwords
 ```
 
-The format of the password file is very simple. Each user name-password pair must reside on a separate line, with
-whitespace separating the user name from the password. For example, the following password file contains an entry for
-the user name `test`:
+Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. For example, the
+following password file contains an entry for the user name `test`:
 
 ```text
 test $5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19
