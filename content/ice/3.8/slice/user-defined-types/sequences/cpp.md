@@ -197,7 +197,7 @@ The array mapping for sequence parameters applies only to:
 - Out and return parameters provided by the Ice runtime to [AMI](<../operations#asynchronous-method-invocation-(ami)>)
   callbacks
 - Out and return parameters provided to [marshaled results](../slice-metadata-directives) or
-  [AMD](../operations#amd-mapping-for-operations) callbacks
+  [AMD](<../operations#asynchronous-method-dispatch-(amd)>) callbacks
 
 {% callout type="info" %}
 

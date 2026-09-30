@@ -178,7 +178,7 @@ public:
 
 Each operation with the `["amd"]` metadata is mapped to a pure virtual function with an `Async` suffix in the skeleton
 class. The AMD mapping replaces the default “sync” mapping for the operation. See
-[Asynchronous Method Dispatch (AMD) in C++](#amd-mapping-for-operations) for details.
+[Asynchronous Method Dispatch (AMD) in C++](<../operations#asynchronous-method-dispatch-(amd)>) for details.
 
 ### Throwing Exceptions
 

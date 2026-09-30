@@ -151,7 +151,7 @@ class Chatbot implements Greeter {
 
 Each operation with the `["amd"]` metadata is mapped to a method with an `Async` suffix in the skeleton interface. The
 AMD mapping replaces the default “sync” mapping for the operation. See
-[Asynchronous Method Dispatch (AMD) in Java](#amd-mapping-for-operations) for details.
+[Asynchronous Method Dispatch (AMD) in Java](<../operations#asynchronous-method-dispatch-(amd)>) for details.
 
 ### Throwing Exceptions
 

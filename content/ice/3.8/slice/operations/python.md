@@ -126,8 +126,8 @@ class Chatbot(VisitorCenter.Greeter):
 ### AMD Mapping for Operations
 
 The `["amd"]` metadata has no effect in Python: you can implement the mapped method either synchronously (as in the
-example above) or asynchronously, as discussed on
-[Asynchronous Method Dispatch (AMD) in Python](#amd-mapping-for-operations).
+example above) or asynchronously, as discussed in
+[Asynchronous Method Dispatch (AMD) in Python](<../operations#asynchronous-method-dispatch-(amd)>).
 
 ### Throwing Exceptions
 
