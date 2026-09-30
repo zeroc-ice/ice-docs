@@ -101,7 +101,12 @@ jobs:
             SITE_URL=${{ env.SITE_URL }}
             SITE_NOINDEX=${{ env.SITE_NOINDEX }}
           # Pushed by digest only; the publish job tags the multi-arch index.
-          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=${{ github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs' }}
+          outputs: >-
+            type=image,
+            name=${{ env.IMAGE }},
+            push-by-digest=true,
+            name-canonical=true,
+            push=${{ github.event_name != 'pull_request' && github.repository == 'zeroc-ice/ice-docs' }}
           cache-from: type=gha,scope=${{ matrix.arch }}
           cache-to: type=gha,mode=max,scope=${{ matrix.arch }}
 
