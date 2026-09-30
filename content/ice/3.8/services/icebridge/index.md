@@ -17,10 +17,7 @@ IceBridge pairs each client connection with a dedicated connection to the target
 when it receives the first request to forward on the client connection, and closes either connection when the other
 closes. This pairing lets applications that associate session state with a connection work through the bridge.
 
-UDP is the exception: IceBridge forwards the datagrams it receives on a UDP source endpoint to a UDP target endpoint,
-without per-client pairing.
-
-For connection-oriented transports, IceBridge also provides:
+IceBridge also provides:
 
 - **Bidirectional requests** IceBridge configures every connection to the server to support
   [bidirectional requests](../../runtime/connection-management/bidirectional-connections). All bidirectional callback
@@ -58,21 +55,16 @@ IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 The bridge listens on TCP port 10000 for connections from clients and forwards requests to the target server on TCP
 port 21112.
 
-### Matching Transports
+### Bridging Transports
 
-Source and target endpoints can use different connection-oriented transports, such as TCP and SSL, or TCP and Bluetooth.
-For requests received on a UDP source endpoint, the target must provide a UDP endpoint. Likewise, requests arriving over
-a connection-oriented transport require a connection-oriented target endpoint.
-
-For example, the following configuration cannot forward requests:
+Source and target endpoints use connection-oriented transports, and can use different ones, such as WS and TCP, or TCP
+and Bluetooth. For example, the following configuration lets clients that use WebSocket reach a server that provides
+only a TCP endpoint:
 
 ```config
-IceBridge.Source.Endpoints=udp -p 10000
+IceBridge.Source.Endpoints=ws -p 10000
 IceBridge.Target.Endpoints=tcp -h target.host -p 21112
 ```
-
-The bridge receives datagram requests on its source endpoint, but the target configuration provides only a TCP endpoint.
-Forwarding fails when a request arrives.
 
 ### TLS
 
@@ -227,10 +219,9 @@ that associates session state or callback proxies with a connection must reestab
 
 A single IceBridge instance can support multiple clients simultaneously, but it forwards all of them to the same logical
 target server. Listing several target endpoints lets the bridge choose among endpoints of that server, such as its
-replicas or its other transports; it does not bridge to different servers. For connection-oriented transports, the
-bridge makes this choice when it opens the target connection, so a client stays with the same endpoint for the lifetime
-of its bridged connection. A proxy returned by the server can use the bridge only if its object is reachable through
-these target endpoints.
+replicas or its other transports; it does not bridge to different servers. The bridge makes this choice when it opens
+the target connection, so a client stays with the same endpoint for the lifetime of its bridged connection. A proxy
+returned by the server can use the bridge only if its object is reachable through these target endpoints.
 
 If your clients need to bridge to multiple servers, you must start a separate IceBridge instance for each target server.
 
