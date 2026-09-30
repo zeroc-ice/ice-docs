@@ -1,39 +1,36 @@
 ---
-title: Startup Scripts for IceGrid and Glacier2 on Linux
+title: systemd Services for IceGrid and Glacier2 on Linux
 ---
 
-All Ice distributions for Linux include the following service configuration files:
+The ZeroC DEB and RPM packages for IceGrid and Glacier2 install a `systemd` unit and a sample configuration file for
+each service:
 
-- `/etc/icegridregistry.conf`
-- `/etc/icegridnode.conf`
-- `/etc/glacier2router.conf`
+| Service          | DEB package      | RPM package | Unit                      | Configuration file          |
+| ---------------- | ---------------- | ----------- | ------------------------- | --------------------------- |
+| IceGrid registry | `zeroc-icegrid`  | `icegrid`   | `icegridregistry.service` | `/etc/icegridregistry.conf` |
+| IceGrid node     | `zeroc-icegrid`  | `icegrid`   | `icegridnode.service`     | `/etc/icegridnode.conf`     |
+| Glacier2 router  | `zeroc-glacier2` | `glacier2`  | `glacier2router.service`  | `/etc/glacier2router.conf`  |
 
-Distributions which use `sysvinit` or `upstart` contain the following sample scripts:
+Each unit runs its service as the user `ice` and passes the service's configuration file in `--Ice.Config`. The sample
+configuration files set [Ice.UseSystemdJournal](../ice-properties#ice.usesystemdjournal), so the services log to the
+`systemd` journal.
 
-- `/etc/init.d/icegridregistry`
-- `/etc/init.d/icegridnode`
-- `/etc/init.d/glacier2router`
+Installing either package creates the user account `ice` and the group `ice`. The IceGrid package also creates the data
+directories that the sample configuration files name: `/var/lib/ice/icegrid/registry` for `icegridregistry` and
+`/var/lib/ice/icegrid/node1` for `icegridnode`. The DEB package assigns these directories to the user `ice` and the
+group `adm`; the RPM package assigns them to the user `ice` and the group `ice`.
 
-Distributions which use `systemd` contain the following services:
+Installing a package does not start its services. The DEB packages install the units disabled. The RPM packages enable
+or disable each unit according to the `systemd` preset policy of the distribution.
 
-- `icegridregistry.service`
-- `icegridnode.service`
-- `glacier2router.service`
-
-The installation on Linux also creates a user account and group for running these services (account `ice` and group
-`ice`), and data directories for `icegridregistry` and `icegridnode` (`/var/lib/ice/icegrid/registry` and
-`/var/lib/ice/icegrid/node1`).
-
-By default, all these services are off at all runlevels. You need to manually switch on one or more runlevels, as shown
-below:
+The IceGrid sample configuration files describe a deployment with the IceGrid registry and one IceGrid node, `node1`, on
+the same host. Review the configuration file of a service before you start it. Then start the service and enable it at
+each boot, as shown below for the IceGrid registry:
 
 ```shell
-# On systems using sysvinit, configure the icegridregistry to start at the
-# default run levels:
-sudo chkconfig icegridregistry on
+# Start icegridregistry now and with the multi-user target at each boot
+sudo systemctl enable --now icegridregistry.service
 
-# On systems using systemd, start icegridregistry with the multi-user target
-sudo systemctl enable icegridregistry.service
+# Check that the service is running
+systemctl status icegridregistry.service
 ```
-
-Before doing so, please review the script itself and its associated configuration file.
