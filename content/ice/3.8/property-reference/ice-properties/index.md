@@ -273,7 +273,7 @@ in a process; it is ignored by other communicators.
 ### Description {% id="ice.messagesizemax-description" %}
 
 Sets the maximum size of an incoming Ice protocol message, in KiB (1024 bytes). The limit applies to the whole message,
-including the protocol header; for a compressed message, it applies to the decompressed size. The default value is
+including the protocol header; for a compressed message, it also applies to the decompressed size. The default value is
 `1024` (1 MiB).
 
 Setting this property to 0 or a negative number selects the maximum supported message size of 2,147,483,647 bytes. A
