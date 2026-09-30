@@ -317,29 +317,52 @@ function checkNoBreakSpaces(files) {
  * comment can use one as an apostrophe.
  */
 function checkCodeCharacters(files) {
-  const visit = (node, relative) => {
-    if (node.type === 'fence' || node.type === 'code') {
-      if (/[\u201c\u201d]/.test(node.attributes.content))
-        fail(`${relative}:${node.lines[0] + 1}: curly double quote in code`);
-      return;
-    }
-    // Text interpolating a variable holds the variable, not a string.
-    const { content } = node.attributes;
-    if (
-      node.type === 'text' &&
-      typeof content === 'string' &&
-      content.includes('`')
-    )
-      fail(`${relative}:${node.lines[0] + 1}: backtick outside a code span`);
-    for (const child of node.children) visit(child, relative);
-  };
+  const curly = /[\u201c\u201d]/;
   for (const file of files) {
     const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
     const source = fs.readFileSync(file, 'utf8');
-    visit(
-      Markdoc.parse(tokenizer.tokenize(source)),
-      path.relative(process.cwd(), file)
-    );
+    const lines = source.split('\n');
+    const relative = path.relative(process.cwd(), file);
+    // An inline node carries its whole block's lines, so find the one that
+    // holds its text, with backslash escapes resolved as the parser resolves
+    // them.
+    const lineOf = (node, text) => {
+      const [first, end] = node.lines;
+      for (let i = first; i < end; i++)
+        if (lines[i].replace(/\\([!-/:-@[-`{-~])/g, '$1').includes(text))
+          return i + 1;
+      return first + 1;
+    };
+    const visit = (node) => {
+      const { content } = node.attributes;
+      if (node.type === 'fence') {
+        // A fence's content starts on the line after its opening delimiter.
+        const at = content.split('\n').findIndex((line) => curly.test(line));
+        if (at !== -1)
+          fail(
+            `${relative}:${node.lines[0] + 2 + at}: curly double quote in code`
+          );
+        return;
+      }
+      if (node.type === 'code') {
+        if (curly.test(content))
+          fail(
+            `${relative}:${lineOf(node, content)}: curly double quote in code`
+          );
+        return;
+      }
+      // Text interpolating a variable holds the variable, not a string.
+      if (
+        node.type === 'text' &&
+        typeof content === 'string' &&
+        content.includes('`')
+      )
+        fail(
+          `${relative}:${lineOf(node, content)}: backtick outside a code span`
+        );
+      for (const child of node.children) visit(child);
+    };
+    visit(Markdoc.parse(tokenizer.tokenize(source)));
   }
 }
 
