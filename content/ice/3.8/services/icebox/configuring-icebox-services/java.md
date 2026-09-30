@@ -20,8 +20,7 @@ IceBox.Service.Greeter=com.example.icebox.greeter.service.GreeterService --Ice.T
 ```
 
 This configuration results in the creation of a service named `Greeter`. The service is expected to reside in the class
-`com.example.icebox.greeter.service.GreeterService`. The argument `--Ice.Trace.Network=1` is converted into a property
-definition, and the arguments `hello` and `there` become the two elements in the `args` sequence parameter that is
-passed to the `start` method.
+`com.example.icebox.greeter.service.GreeterService`. The IceBox server converts `--Ice.Trace.Network=1` into a property
+of the service's communicator and passes `hello` and `there` to `start` in `args`.
 
 {% /language-section %}
