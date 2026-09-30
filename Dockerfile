@@ -18,9 +18,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Base URL baked into the sitemap and the pages' canonical URLs, and whether the
-# build is for a host that search engines must not index; pass --build-arg for a
-# host other than docs.zeroc.com.
+# Base URL baked into the sitemap and the pages' canonical URLs and breadcrumb
+# data, and whether the build is for a host that search engines must not index;
+# pass --build-arg for a host other than docs.zeroc.com.
 ARG SITE_URL
 ARG SITE_NOINDEX
 ENV SITE_URL=$SITE_URL
