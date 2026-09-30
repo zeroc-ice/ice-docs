@@ -59,10 +59,6 @@ try {
 }
 ```
 
-### See Also
-
-- [PHP Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
 ### In Parameters

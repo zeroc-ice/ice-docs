@@ -99,11 +99,6 @@ catch ex
 end
 ```
 
-### See Also
-
-- [MATLAB Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in MATLAB](<../operations#asynchronous-method-invocation-(ami)>)
-
 ## Asynchronous Method Invocation (AMI)
 
 _Asynchronous Method Invocation_(AMI) is the term used to describe the client-side support for the asynchronous

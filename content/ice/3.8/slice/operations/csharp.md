@@ -104,12 +104,6 @@ catch (Tantrum t)
 }
 ```
 
-### See Also {% id="client-side-see-also" %}
-
-- [C# Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in C#](<../operations#asynchronous-method-invocation-(ami)>)
-- [Server-Side C# Mapping for Operations](#server-side-mapping-for-operations)
-
 ## Server-Side Mapping for Operations
 
 ### Default Mapping for Operations
@@ -189,11 +183,6 @@ The server-side Ice runtime does not validate user exceptions thrown by an opera
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
-
-### See Also {% id="server-side-see-also" %}
-
-- [C# Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side C# Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Asynchronous Method Invocation (AMI)
 
@@ -436,11 +425,6 @@ These are not necessarily two different threads: it is legal to complete the tas
 The implementation of the `Async` method in your servant class can throw an exception synchronously: it’s equivalent to
 returning a task completed with this exception.
 
-### See Also {% id="amd-see-also" %}
-
-- [The Ice Threading Model](../threading-model)
-- [C# Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
 ### In Parameters
@@ -572,5 +556,9 @@ and the corresponding C# skeleton method is:
 // Synchronous variant
 int? Execute(string? parameters, out float? value, Ice.Current current);
 ```
+
+## See Also
+
+- [The Ice Threading Model](../threading-model)
 
 {% /language-section %}

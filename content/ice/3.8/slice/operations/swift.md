@@ -89,10 +89,6 @@ do {
 }
 ```
 
-### See Also {% id="client-side-see-also" %}
-
-- [Swift Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Server-Side Mapping for Operations
 
 ### Default Mapping for Operations
@@ -162,11 +158,6 @@ The server-side Ice runtime does not validate user exceptions thrown by an opera
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
-
-### See Also {% id="server-side-see-also" %}
-
-- [Swift Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side Swift Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Mapping for Parameters and Return Values
 

@@ -124,12 +124,6 @@ catch (const Tantrum& t)
 }
 ```
 
-### See Also {% id="client-side-see-also" %}
-
-- [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Asynchronous Method Invocation (AMI) in C++](<../operations#asynchronous-method-invocation-(ami)>)
-- [Server-Side C++ Mapping for Operations](#server-side-mapping-for-operations)
-
 ## Server-Side Mapping for Operations
 
 ### Default Mapping for Operations
@@ -212,11 +206,6 @@ The server-side Ice runtime does not validate user exceptions thrown by an opera
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
 client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
 type.
-
-### See Also {% id="server-side-see-also" %}
-
-- [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-- [Client-Side C++ Mapping for Operations](#client-side-mapping-for-operations)
 
 ## Asynchronous Method Invocation (AMI)
 
@@ -560,12 +549,6 @@ the AMD response from the AMI `sent` callback.
 
 {% /callout %}
 
-### See Also {% id="amd-see-also" %}
-
-- [The Ice Threading Model](../threading-model)
-- [User Exceptions](../exceptions)
-- [C++ Mapping for Parameters and Return Values](#mapping-for-parameters-and-return-values)
-
 ## Mapping for Parameters and Return Values
 
 ### In Parameters
@@ -697,5 +680,10 @@ An optional parameter with a proxy type is mapped to a `std::optional<InterfaceN
 `std::optional<std::optional<InterfaceNamePrx>>`. This is the same rule as for optional fields with proxy types.
 
 {% /callout %}
+
+## See Also
+
+- [The Ice Threading Model](../threading-model)
+- [User Exceptions](../exceptions)
 
 {% /language-section %}
