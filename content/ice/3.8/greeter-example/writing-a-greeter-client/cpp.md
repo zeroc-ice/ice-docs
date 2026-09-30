@@ -156,7 +156,7 @@ greeting = futureGreeting.get();
 cout << greeting << endl;
 ```
 
-`greetAsync` returns as soon as the request is sent, so the client can do other work before it needs the greeting.
+`greetAsync` starts the invocation and returns a future, so the client can do other work before it needs the greeting.
 Calling `get` on the future then blocks until the response arrives.
 
 The other overload accepts callback functions instead of returning a future. The communicator calls these callbacks when

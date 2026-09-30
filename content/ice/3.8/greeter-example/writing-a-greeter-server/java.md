@@ -23,9 +23,11 @@ the Slice to Java compiler (`slice2java`).
 Here, we compile the `Greeter.ice` Slice file we wrote earlier. We recommend that you include this Slice compiler step
 in your build project, like we demonstrate for the Java demo programs.
 
-The Slice compiler produces 3 files in a folder named `com/example/visitorcenter`:
+The Slice compiler produces 4 files in a folder named `com/example/visitorcenter`:
 
 - `Greeter.java` provides the `Greeter` interface we implement in the code below.
+- `AsyncGreeter.java` provides the `AsyncGreeter` interface, which a servant implements instead of `Greeter` to dispatch
+  requests asynchronously.
 - `GreeterPrx.java` provides a `Greeter` proxy used by the client-side of this application.
 - `_GreeterPrxI.java` contains internal code for `GreeterPrx`.
 
@@ -152,9 +154,10 @@ this goal:
 The event we chose is “the communicator was shut down”. But you could pick any other event.
 
 We register a shutdown hook that calls `shutdown` on the communicator, and then waits for the main thread to finish, to
-ensure a clean shutdown:
+ensure a clean shutdown. The hook runs in its own thread, so we capture the main thread before we register the hook:
 
 ```java
+Thread mainThread = Thread.currentThread();
 Runtime.getRuntime().addShutdownHook(new Thread(() -> {
     System.out.println("Caught Ctrl+C, shutting down...");
     communicator.shutdown();
