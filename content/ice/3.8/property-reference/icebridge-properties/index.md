@@ -2,7 +2,7 @@
 title: IceBridge.*
 ---
 
-[IceBridge](../icebridge) is an Ice service that acts as a bridge between one or more clients and a server.
+[IceBridge](../icebridge) is an Ice service that forwards requests from one or more clients to a target server.
 
 # IceBridge.InstanceName
 
@@ -45,5 +45,6 @@ object adapter. For connection-oriented transports, IceBridge creates a dedicate
 the first request to forward on a client connection. The bridge uses the same outgoing connection for subsequent
 requests on that client connection. Closing either connection causes the bridge to close the other.
 
-Multiple endpoints let the bridge choose among replicas of the same logical target server. A UDP source endpoint
-requires a UDP target endpoint; a connection-oriented source endpoint requires a connection-oriented target endpoint.
+Multiple endpoints must all reach the same logical target server, for example its replicas or its other transports. A
+UDP source endpoint requires a UDP target endpoint; a connection-oriented source endpoint requires a connection-oriented
+target endpoint.

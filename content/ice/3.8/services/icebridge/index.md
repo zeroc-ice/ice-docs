@@ -127,9 +127,9 @@ forwards requests the same way; the choice only affects how the client's proxies
 Addressing the bridge directly is the simplest: replace the endpoints in the client's proxies for the target server with
 the bridge's source endpoints.
 
-Use IceBridge as the client's router when the target server returns proxies that the client then invokes on. Those
-proxies carry the server's own endpoints, which the client cannot reach; with a router, Ice ignores the endpoints of
-every routed proxy and sends its requests to the bridge instead. Unlike Glacier2, the bridge's router needs no session:
+Use IceBridge as the client's default router when the target server returns proxies that the client then invokes on.
+Those proxies carry the server's own endpoints, which the client cannot reach; Ice configures each of them with the
+default router, so their requests go to the bridge instead. Unlike Glacier2, the bridge's router needs no session:
 setting the router is all the client has to do.
 
 Both configurations are shown below.
@@ -154,7 +154,7 @@ Client.Proxy=SomeObject:tcp -h other.host -p 9999
 
 When the client loads `Client.Proxy` with `propertyToProxy`, invocations on this proxy go through the router to
 `target.host` on port 21112. The bridge forwards requests for the identity `SomeObject`, which the target server must
-provide. The endpoint `other.host:9999` does not select the target server.
+provide.
 
 {% callout type="info" %}
 
@@ -219,20 +219,19 @@ Windows service or Unix daemon.
 If IceBridge cannot establish a target connection, it fails the requests waiting for that connection and closes the
 client connection.
 
-Once the bridge establishes a pair of connections, it forwards requests on those connections for their remaining
-lifetimes. If either closes, the bridge closes its counterpart. A later client connection creates a new pair; an
-application that associates session state or callback proxies with a connection must reestablish them for the new
-connection.
+When a client reconnects, the bridge pairs the new client connection with a new target connection, so an application
+that associates session state or callback proxies with a connection must reestablish them for the new connection.
 
 # IceBridge Limitations
 
 ### Single target server
 
 A single IceBridge instance can support multiple clients simultaneously, but it forwards all of them to the same logical
-target server. Listing several target endpoints lets the bridge choose among replicas of that server; it does not bridge
-to different servers. For connection-oriented transports, the bridge makes this choice when it opens the target
-connection, so a client stays with the same replica for the lifetime of its bridged connection. A proxy returned by the
-server can use the bridge only if its object is reachable through these target endpoints.
+target server. Listing several target endpoints lets the bridge choose among endpoints of that server, such as its
+replicas or its other transports; it does not bridge to different servers. For connection-oriented transports, the
+bridge makes this choice when it opens the target connection, so a client stays with the same endpoint for the lifetime
+of its bridged connection. A proxy returned by the server can use the bridge only if its object is reachable through
+these target endpoints.
 
 If your clients need to bridge to multiple servers, you must start a separate IceBridge instance for each target server.
 
