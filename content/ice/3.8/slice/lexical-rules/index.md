@@ -2,18 +2,17 @@
 title: Lexical Rules
 ---
 
-Slice's lexical rules are very similar to those of C++, C#, and Java.
-
 ## Comments
 
-Slice definitions permit both the C and the C++ style of writing comments:
+Slice supports block comments, delimited by `/*` and `*/`, and line comments, which start with `//` and extend to the
+end of the line:
 
 ```slice
 /*
- * C-style comment.
+ * Block comment.
  */
 
-// C++-style comment extending to the end of this line.
+// Line comment.
 ```
 
 ## Keywords
