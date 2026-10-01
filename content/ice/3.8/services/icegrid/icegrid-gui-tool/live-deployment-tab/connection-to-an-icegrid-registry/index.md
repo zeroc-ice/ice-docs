@@ -10,10 +10,10 @@ describes how to connect to an IceGrid registry.
 ## Connecting Using a Saved Connection
 
 Use `File > Login...` or press the
-![saved connections](/attachments/3.8/connection-to-an-icegrid-registry/saved-connections.jpeg) button to open the
+![saved connections](/images/ice/3.8/connection-to-an-icegrid-registry/saved-connections.jpeg) button to open the
 `Saved Connections` dialog:
 
-![image2017-4-3 12:13:57.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-13-57.png)
+![image2017-4-3 12:13:57.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-13-57.png)
 
 Double-click on the IceGrid registry you want to connect to, or select the IceGrid registry and click on the `Connect`
 button.
@@ -22,7 +22,7 @@ If the connection contains saved credentials, IceGrid GUI will immediately attem
 registry with these credentials. Otherwise, it will open a new dialog to request the missing password (two passwords in
 some cases), such as:
 
-![image2017-4-3 12:23:43.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-23-43.png)
+![image2017-4-3 12:23:43.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-23-43.png)
 
 ## Creating a New Connection
 
@@ -36,7 +36,7 @@ Let's create a TCP connection to the IceGrid registry running on localhost.
 
 Step 1: Select Direct Connection:
 
-![image2017-4-3 12:24:32.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-24-32.png)
+![image2017-4-3 12:24:32.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-24-32.png)
 
 Step 2: Check the box to connect to the master registry.
 
@@ -44,7 +44,7 @@ If you have several replicas this ensures you will always connect to the master 
 
 Step 3: Select Manual Endpoint to manually enter address information:
 
-![image2017-4-3 12:25:15.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-25-15.png)
+![image2017-4-3 12:25:15.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-25-15.png)
 
 IceGrid GUI can also [discover registries](../icelocatordiscovery) using UDP multicast. Any registries it finds will be
 shown in the list, or click the Refresh button to search again.
@@ -53,11 +53,11 @@ Step 4: Select the first option to enter the addressing information as a hostnam
 
 Step 5: Enter `localhost` for the hostname, leave the port number blank and keep TCP as the protocol:
 
-![image2017-4-3 12:29:31.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-29-31.png)
+![image2017-4-3 12:29:31.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-29-31.png)
 
 Step 6: Enter a username and password for this connection:
 
-![image2017-4-3 12:26:32.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-26-32.png)
+![image2017-4-3 12:26:32.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-26-32.png)
 
 Step 7: Click `Finish` to save the connection; IceGrid GUI then attempts to connect to the IceGrid registry.
 
@@ -72,27 +72,27 @@ Steps 1 to 4 are identical to the simple TCP connection described above.
 Step 5: Enter the hostname of the IceGrid registry, leave the port number empty to use the default IceGrid port number
 (4061 for TCP and 4062 for SSL), and select SSL for the protocol:
 
-![image2017-4-3 13:44:5.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-44-5.png)
+![image2017-4-3 13:44:5.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-44-5.png)
 
 Step 6: Select Yes to provide an X.509 certificate for SSL authentication:
 
-![image2017-4-3 13:44:29.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-44-29.png)
+![image2017-4-3 13:44:29.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-44-29.png)
 
 Step 7: Select the X.509 key used for SSL authentication from the Alias drop-down list; this list corresponds to the My
 Certificates set in the Certificate Manager described in the next section. Click on the `Import...` button to open the
 Certificate Manager dialog.
 
-![image2017-4-3 13:46:29.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-46-29.png)
+![image2017-4-3 13:46:29.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-46-29.png)
 
 Step 8: Choose to use this X.509 certificate (carried through the SSL connection) to authenticate ourselves with the
 IceGrid registry:
 
-![image2017-4-3 13:47:2.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-47-2.png)
+![image2017-4-3 13:47:2.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-47-2.png)
 
 Step 9: Click `Finish` to save the connection and connect to the IceGrid registry. Unless we entered (and therefore
 saved) the X.509 key password with the connection, we are prompted for this password:
 
-![image2017-4-3 13:47:23.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-47-23.png)
+![image2017-4-3 13:47:23.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-47-23.png)
 
 ### SSL Connection Through Glacier2 Router
 
@@ -103,24 +103,24 @@ we will connect to the IceGrid registry identified by the target Glacier2 router
 
 Step 1: Select Routed Connection:
 
-![image2017-4-3 14:8:30.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-14-8-30.png)
+![image2017-4-3 14:8:30.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-14-8-30.png)
 
 Step 2: Enter the addressing information for the target Glacier2 router as a hostname and port number:
 
-![image2017-4-3 14:8:44.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-14-8-44.png)
+![image2017-4-3 14:8:44.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-14-8-44.png)
 
 Step 3: Enter the hostname of the Glacier2 router, leave the port number empty to use the default Glacier2 port number
 (4063 for TCP and 4064 for SSL), and select SSL for the protocol:
 
-![image2017-4-3 13:51:39.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-51-39.png)
+![image2017-4-3 13:51:39.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-51-39.png)
 
 Step 4: Choose not to authenticate ourselves for SSL, so we do not provide a X.509 certificate:
 
-![image2017-4-3 13:51:56.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-51-56.png)
+![image2017-4-3 13:51:56.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-51-56.png)
 
 Step 5: Provide a username and password for the connection to the Glacier2 router:
 
-![image2017-4-3 13:52:17.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-52-17.png)
+![image2017-4-3 13:52:17.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-52-17.png)
 
 Step 6: Click `Finish` to save the connection; IceGrid GUI then attempts to connect to the IceGrid registry through the
 Glacier2 router.
@@ -131,7 +131,7 @@ IceGrid GUI maintains a persistent store of X.509 certificates for SSL connectio
 import, view and remove these certificates with the Certificate Manager. Use `File > Certificate Manager...` or click on
 the `Import...` button in the Connection wizard to open the Certificate Manager:
 
-![image2017-4-3 13:53:1.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-53-1.png)
+![image2017-4-3 13:53:1.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-53-1.png)
 
 The Certificate Manager maintains three sets of certificates:
 
@@ -147,7 +147,7 @@ The Certificate Manager maintains three sets of certificates:
 You do not need to import server certificates or CA certificates prior to establishing an SSL connection with an IceGrid
 registry or Glacier2 router. IceGrid GUI performs the following checks when establishing an SSL connection:
 
-![image2017-4-3 13:59:5.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-59-5.png)
+![image2017-4-3 13:59:5.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-59-5.png)
 
 - If the X.509 certificate presented by the IceGrid registry or Glacier2 router matches a Server Certificate, proceed
 - Otherwise, if this certificate is signed by a trusted CA, is valid (_now_ is within the certificate's validity period)
@@ -155,7 +155,7 @@ registry or Glacier2 router. IceGrid GUI performs the following checks when esta
 - Otherwise, display a Connection Security Warning dialog similar to the dialog below to let you decide whether or not
   to proceed with this certificate:
 
-  ![image2017-4-3 13:59:5.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-59-5.png)
+  ![image2017-4-3 13:59:5.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-59-5.png)
 
   If you select `Yes, Always Trust`, the certificate is added in the persistent Server Certificates set.
 
@@ -165,7 +165,7 @@ servers: when `IceSSL.VerifyPeer` is 2, IceGrid GUI must provide a valid certifi
 certificate, or provide an invalid certificate, the connection establishment will fail and you will get an error dialog
 such as:
 
-![image2017-4-6 10:39:23.png](/attachments/3.8/connection-to-an-icegrid-registry/image2017-4-6-10-39-23.png)
+![image2017-4-6 10:39:23.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-6-10-39-23.png)
 
 ## Editing a Saved Connection
 
@@ -175,5 +175,5 @@ click on the `Finish` button.
 
 ## Closing a Connection
 
-Use `File > Logout` or press the ![logout](/attachments/3.8/connection-to-an-icegrid-registry/logout.jpeg) button to
+Use `File > Logout` or press the ![logout](/images/ice/3.8/connection-to-an-icegrid-registry/logout.jpeg) button to
 disconnect from an IceGrid registry. This clears all information in the Live Deployment pane.

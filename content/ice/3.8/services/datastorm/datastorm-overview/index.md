@@ -15,7 +15,7 @@ A typical DataStorm application consists of multiple **nodes**. Within these nod
 represents a type of data you want to distribute. For each topic, you create **writers** and **readers** to produce and
 consume the samples that flow between nodes.
 
-![A temperature writer publishes through its topic and Node A. Samples travel to Node B, then through its temperature topic to a reader.](/attachments/3.8/datastorm-overview/datastorm-overview.svg)
+![A temperature writer publishes through its topic and Node A. Samples travel to Node B, then through its temperature topic to a reader.](/images/ice/3.8/datastorm-overview/datastorm-overview.svg)
 
 DataStorm applications do not rely on a central service to communicate. Nodes can connect directly to each other and
 exchange samples whenever they share common topics for which one node has a writer and another has a matching reader.

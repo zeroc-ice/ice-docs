@@ -91,7 +91,7 @@ remote clients. A server's `admin` object may still be accessed remotely, but on
 intermediary object that relays requests to the server via its node. For example, the following figure illustrates the
 path of a `getProperty` invocation:
 
-![An administrative client sends getProperty to the registry, which forwards the request through the node to the server.](/attachments/3.8/icegrid-and-the-administrative-facility/routing.svg)
+![An administrative client sends getProperty to the registry, which forwards the request through the node to the server.](/images/ice/3.8/icegrid-and-the-administrative-facility/routing.svg)
 
 ### Obtaining a Proxy
 
@@ -187,7 +187,7 @@ transfer these endpoints to the proxies for its callback objects so that callbac
 to IceGrid and then relayed over a [bidirectional connection](../bidirectional-connections) to the client, as shown
 below:
 
-![The server sends a callback to the registry, which forwards it to the administrative client over the existing client connection.](/attachments/3.8/icegrid-and-the-administrative-facility/routing2.svg)
+![The server sends a callback to the registry, which forwards it to the administrative client over the existing client connection.](/images/ice/3.8/icegrid-and-the-administrative-facility/routing2.svg)
 
 Here is the complete list of steps:
 
@@ -257,7 +257,7 @@ A client that creates an [administrative session](../icegrid-administrative-sess
 administrative facets are relayed. The flow of requests is shown in the illustration below, which presents a simplified
 view with the router and IceGrid services all running on the same host.
 
-![The server sends a callback to Glacier2, which forwards it to the administrative client.](/attachments/3.8/icegrid-and-the-administrative-facility/routing3.svg)
+![The server sends a callback to Glacier2, which forwards it to the administrative client.](/images/ice/3.8/icegrid-and-the-administrative-facility/routing3.svg)
 
 To prepare for [receiving callbacks](../callbacks-through-glacier2), the client must perform the same steps as for any
 router client:

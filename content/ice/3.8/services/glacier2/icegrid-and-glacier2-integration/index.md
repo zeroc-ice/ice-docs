@@ -16,7 +16,7 @@ instead.
 
 For example, consider the following network architecture:
 
-![The client at 10.0.0.1 uses a bidirectional connection to Glacier2 client endpoints at 1.2.3.4. Glacier2 server endpoints use 10.0.0.1. Glacier2 and the IceGrid registry at 10.0.0.2 port 4061 use separate request and callback connections.](/attachments/3.8/icegrid-and-glacier2-integration/router-configuration.svg)
+![The client at 10.0.0.1 uses a bidirectional connection to Glacier2 client endpoints at 1.2.3.4. Glacier2 server endpoints use 10.0.0.1. Glacier2 and the IceGrid registry at 10.0.0.2 port 4061 use separate request and callback connections.](/images/ice/3.8/icegrid-and-glacier2-integration/router-configuration.svg)
 
 In this case the Glacier2 router's configuration must include the property shown below:
 

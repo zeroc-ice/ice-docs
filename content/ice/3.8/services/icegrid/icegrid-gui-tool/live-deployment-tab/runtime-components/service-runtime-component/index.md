@@ -6,8 +6,8 @@ A service represents an IceBox service loaded (or potentially loaded) within an 
 
 ## States
 
-A service can be either started ![service started](/attachments/3.8/service-runtime-component/service-started.jpeg) or
-stopped ![service stopped](/attachments/3.8/service-runtime-component/service-stopped.jpeg) within an IceBox server.
+A service can be either started ![service started](/images/ice/3.8/service-runtime-component/service-started.jpeg) or
+stopped ![service stopped](/images/ice/3.8/service-runtime-component/service-stopped.jpeg) within an IceBox server.
 
 ## Actions
 

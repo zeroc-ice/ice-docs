@@ -7,7 +7,7 @@ with a network firewall device.
 
 For example, consider the network shown in the following illustration:
 
-![The public client at 1.2.3.4 connects through the firewall at 5.6.7.8 port 4064 to Glacier2 client endpoints at 10.0.0.1 port 9998. Callbacks reuse that connection. The private server at 10.0.0.2 sends callbacks to Glacier2 server endpoints at 10.0.0.1 port 9999.](/attachments/3.8/configuring-glacier2-behind-an-external-firewall/network-firewall.svg)
+![The public client at 1.2.3.4 connects through the firewall at 5.6.7.8 port 4064 to Glacier2 client endpoints at 10.0.0.1 port 9998. Callbacks reuse that connection. The private server at 10.0.0.2 sends callbacks to Glacier2 server endpoints at 10.0.0.1 port 9999.](/images/ice/3.8/configuring-glacier2-behind-an-external-firewall/network-firewall.svg)
 
 The Glacier2 router in the example above has both of its endpoints in the private network and its host requires only one
 IP address, unlike the example we showed in the discussion of [bidirectional connections](../callbacks-through-glacier2)

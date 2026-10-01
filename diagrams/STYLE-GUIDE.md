@@ -9,7 +9,7 @@ This guide defines reusable visual and accessibility conventions for diagrams au
 2. Use `diagrams/template.svg` as a starting point, keeping only the styles and shapes the figure needs. Place every
    element explicitly.
 3. Render the SVG to a bitmap and inspect it at both full size and typical documentation width.
-4. Publish the reviewed SVG under `public/attachments/<version>/<page>/`. Reuse the same asset when multiple pages show
+4. Publish the reviewed SVG under `public/images/ice/<version>/<page>/`. Reuse the same asset when multiple pages show
    the same figure.
 
 ## Source fidelity

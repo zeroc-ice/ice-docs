@@ -59,7 +59,7 @@ the body of a server template are evaluated when the server template is instanti
 In a number of panes, you can substitute variables and template parameters by their respective value. Use
 `View > Show Variables` and `View > Substitute Variables` or the corresponding toolbar toggle buttons:
 
-![variable-substitution.png](/attachments/3.8/variables-in-icegrid-descriptors/variable-substitution.png)
+![variable-substitution.png](/images/ice/3.8/variables-in-icegrid-descriptors/variable-substitution.png)
 
 When variable-substitution is enabled, the descriptors are displayed read-only.
 
@@ -71,7 +71,7 @@ name. Similarly, a template parameter overrides the value of a variable with the
 descriptor may refer to a variable defined in any enclosing scope, but its value is determined by the nearest scope. The
 diagram below illustrates these concepts:
 
-![Application variable x is 1. Node A overrides x with 2; Node B defines y as 4 and inherits x as 1. A server instance in Node A passes parameter x as 3 to template T, while its own variable x remains 2. The server template sees parameter x as 3.](/attachments/3.8/variables-in-icegrid-descriptors/variable-scoping.svg)
+![Application variable x is 1. Node A overrides x with 2; Node B defines y as 4 and inherits x as 1. A server instance in Node A passes parameter x as 3 to template T, while its own variable x remains 2. The server template sees parameter x as 3.](/images/ice/3.8/variables-in-icegrid-descriptors/variable-scoping.svg)
 
 In this diagram, the variable x is defined at the application level with the value 1. In node A, x is overridden with
 the value 2, whereas x remains unchanged in node B. Within the context of node A, x continues to have the value 2 in a

@@ -11,11 +11,11 @@ live deployment button and the `Tools > Application` menu:
 - **Filter live deployment** Shows only the selected application in the live deployment view; servers and other
   components associated with other applications are "filtered out".
 
-  ![image2017-4-3 14:18:40.png](/attachments/3.8/application-component/image2017-4-3-14-18-40.png)
+  ![image2017-4-3 14:18:40.png](/images/ice/3.8/application-component/image2017-4-3-14-18-40.png)
 
   When filtering is enabled, the name of the selected application appears to the right of the registry name. In the
   picture below, the live deployment view shows only the application named 'Simple'.
 
-  ![image2017-4-3 14:19:38.png](/attachments/3.8/application-component/image2017-4-3-14-19-38.png)
+  ![image2017-4-3 14:19:38.png](/images/ice/3.8/application-component/image2017-4-3-14-19-38.png)
 
 - **Remove from registry** Remove the selected application from the registry.
