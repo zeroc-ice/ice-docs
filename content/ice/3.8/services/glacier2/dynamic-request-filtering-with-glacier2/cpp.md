@@ -11,7 +11,7 @@ public:
         const Ice::Current& current) override
     {
         string category = "_" + username;
-        ctrl->categories()->add(category);
+        ctrl->categories()->add({category});
         // ...
     }
 };

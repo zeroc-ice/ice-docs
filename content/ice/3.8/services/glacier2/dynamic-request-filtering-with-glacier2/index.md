@@ -58,7 +58,8 @@ module Glacier2
 ```
 
 In both interfaces, the `add` operation silently ignores duplicates, and the `remove` operation silently ignores
-non-existent entries.
+non-existent entries. The router ignores an empty filter: when the category, adapter identifier, and identity filters of
+a session are all empty, these filters accept the session's requests for any object.
 
 Dynamic filtering is often necessary when each session must be restricted to a particular group of objects. Upon session
 creation, a session manager typically allocates a number of objects in back-end servers for that session to use. To
