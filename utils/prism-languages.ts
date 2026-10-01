@@ -9,8 +9,8 @@
 import Prism from 'prismjs';
 
 // Ice's own grammars.
-import './prism-ebnf.js';
-import './prism-slice.js';
+import './prism-ebnf.ts';
+import './prism-slice.ts';
 
 // The nine language mappings the manual documents. JavaScript is part of the
 // core. A grammar that extends another has to be registered after it.
