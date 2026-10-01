@@ -22,10 +22,10 @@ results. You may receive a user exception only when you make an invocation using
 
 ## Dispatch Exceptions
 
-When a API call throws an exception, this exception is necessarily thrown in the same program and address space as the
-caller. This exception can represent an error that was detected locally by the Ice runtime (for example, failed to
-establish a connection), or it can represent an error that was reported “over the wire” by a remote Ice server (for
-example, could not find a servant to dispatch this request to).
+When an API call throws an exception, this exception is necessarily thrown in the caller's process. This exception can
+represent an error that was detected locally by the Ice runtime (for example, failed to establish a connection), or it
+can represent an error that was reported “over the wire” by a remote Ice server (for example, could not find a servant
+to dispatch this request to).
 
 In the Ice exception type system, all these exceptions are local exceptions, derived from `LocalException`. The
 exceptions that represent errors reported “over the wire” are a special kind of local exceptions, called dispatch
