@@ -244,7 +244,9 @@ for (const { version, page } of allPages) {
 // those of external pages.
 for (const { where, url, href } of anchoredLinks) {
   const hashAt = href.indexOf('#');
-  const anchors = anchorsByPage.get(href.slice(0, hashAt) || url);
+  // The page, without the `?lang=` a link can carry.
+  const page = href.slice(0, hashAt).split('?')[0];
+  const anchors = anchorsByPage.get(page || url);
   if (anchors && !anchors.has(decodeURIComponent(href.slice(hashAt + 1))))
     diagnostics.push({ where, text: `link to a missing anchor: ${href}` });
 }
