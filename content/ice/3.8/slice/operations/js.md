@@ -54,7 +54,7 @@ export namespace VisitorCenter {
 Given a proxy to a Greeter object, a client can invoke greet as follows:
 
 ```typescript
-const greeter = new VisitorCenter.Greeter(
+const greeter = new VisitorCenter.GreeterPrx(
     communicator,
     "greeter:tcp -h localhost -p 4061");
 
@@ -159,7 +159,7 @@ greet(name: string, current: Ice.Current): PromiseLike<string> | string {
 **Asynchronous version:**
 
 ```typescript
-async greet(name: string, current: Ice.Current): PromiseLike<string> | string {
+async greet(name: string, current: Ice.Current): Promise<string> {
     // Nested async invocation
     return await this._target.greet(name);
 }

@@ -54,7 +54,7 @@ If you don't want to an admin object in a node or registry replica, set [Ice.Adm
 
 Each of these admin objects carries all the built-in facets, currently `Logger`, Metrics, Process and Properties.
 Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations
-[described below](../icegrid-and-the-administrative-facility#obtaining-a-proxy).
+[described below](#obtaining-a-proxy).
 
 ## Deactivating a Deployed Server
 

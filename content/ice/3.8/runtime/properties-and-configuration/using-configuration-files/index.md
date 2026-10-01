@@ -26,7 +26,7 @@ Both of the mechanisms described below can also retrieve property settings from
 ## The `ICE_CONFIG` Environment Variable
 
 Ice automatically loads the contents of the configuration file named in the `ICE_CONFIG` environment variable (assuming
-the [prerequisites](../using-configuration-files#prerequisites-for-using-configuration-files) are met). For example:
+the [prerequisites](#prerequisites-for-using-configuration-files) are met). For example:
 
 ```shell
 export ICE_CONFIG=/usr/local/filesystem/config

@@ -79,8 +79,7 @@ executed. Sending this notification allows a client to transparently fail over t
 
 An application can grant permission for Ice to violate at-most-once semantics for certain Slice operations by marking
 them as _idempotent_, causing Ice to retry a request that otherwise would be ineligible because the server has already
-received it. We discuss idempotent operations in more detail
-[below](../automatic-retries#automatic-retries-for-idempotent-operations).
+received it. We discuss idempotent operations in more detail [below](#automatic-retries-for-idempotent-operations).
 
 If Ice determines that an invocation cannot be retried, it throws the exception that caused the request failure to the
 application. On the other hand, if Ice does retry the invocation and the subsequent retries also fail, Ice throws the

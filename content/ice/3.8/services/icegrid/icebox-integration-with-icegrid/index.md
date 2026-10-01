@@ -124,9 +124,8 @@ A more sophisticated use of templates involves instantiating a service template 
 </icegrid>
 ```
 
-This application is equivalent to our first example of
-[service templates](../icebox-integration-with-icegrid#service-templates). Now, however, the process of deploying an
-identical server on several nodes has become much simpler.
+This application is equivalent to our first example of [service templates](#service-templates). Now, however, the
+process of deploying an identical server on several nodes has become much simpler.
 
 If you need the ability to customize the configuration of a particular service instance, your server instance can define
 a [property set](../properties-descriptor-element) that applies only to the desired service:

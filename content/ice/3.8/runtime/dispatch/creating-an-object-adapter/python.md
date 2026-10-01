@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-```ruby
+```py
 adapter = communicator.createObjectAdapter("GreeterAdapter")
 ```
 

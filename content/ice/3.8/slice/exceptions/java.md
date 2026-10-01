@@ -19,7 +19,7 @@ module M
 
 The Slice compiler generates the following code for these exceptions:
 
-```csharp
+```java
 public class GenericException extends com.zeroc.Ice.UserException {
     public String reason;
 

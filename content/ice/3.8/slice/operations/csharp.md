@@ -290,29 +290,34 @@ keep up with them, the requests pile up in the client-side runtime until, eventu
 The API provides a way for you to implement flow control by counting the number of requests that are queued so, if that
 number exceeds some threshold, the client stops invoking more operations until some of the queued operations have
 drained out of the local transport. One of the optional arguments to every asynchronous proxy invocation is a
-`System.IProgress<bool>`. If you provide a delegate, the Ice runtime will eventually invoke it when the request has been
-sent and provide a boolean argument indicating whether the request was sent synchronously. This argument is true if the
-entire request could be transferred to the local transport in the caller's thread without blocking, otherwise the
-argument is false. Furthermore, a value of true indicates that Ice is invoking your delegate recursively from the
-calling thread, whereas a value of false indicates that Ice is invoking the delegate from an Ice thread pool thread.
+`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when the request has been sent,
+with a boolean argument indicating whether the request was sent synchronously. This argument is true if the entire
+request could be transferred to the local transport in the caller's thread without blocking, otherwise the argument is
+false. Furthermore, a value of true indicates that Ice is calling `Report` recursively from the calling thread, whereas
+a value of false indicates that Ice is calling `Report` from an Ice thread pool thread.
 
 Here's a simple example to demonstrate the flow control feature:
 
 ```csharp
 ExamplePrx proxy = ...;
-proxy.DoSomethingAsync(progress: (sentSynchronously) =>
+proxy.DoSomethingAsync(progress: new SentCallback());
+
+class SentCallback : IProgress<bool>
 {
-    if (sentSynchronously)
+    public void Report(bool sentSynchronously)
     {
-        // Entire request was accepted by the transport,
-        // called recursively from this thread
+        if (sentSynchronously)
+        {
+            // Entire request was accepted by the transport,
+            // called recursively from this thread
+        }
+        else
+        {
+            // Request was queued but has now been sent,
+            // called from a separate thread
+        }
     }
-    else
-    {
-        // Request was queued but has now been sent,
-        // called from a separate thread
-    }
-});
+}
 ```
 
 Using this feature, you can limit the number of queued requests by counting the number of requests that are queued and
@@ -353,7 +358,7 @@ Slice compiler. For example:
 
 ```csharp
 // This servant uses AMD
-public class Chatbot : VisitorCenter.AsyncGreeter
+public class Chatbot : VisitorCenter.AsyncGreeterDisp_
 {
    // your implementation here
 };

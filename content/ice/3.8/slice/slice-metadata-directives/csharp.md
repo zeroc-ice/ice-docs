@@ -9,7 +9,7 @@ GridIntf_GetGridMarshaledResult GetGrid(Ice.Current current);
 where `GridIntf_GetGridMarshaledResult` is a generated record struct with a constructor that accepts a parameter for the
 return value, followed by `Current`:
 
-```cpp
+```csharp
 // Generated server-side code
 public readonly record struct GridIntf_GetGridMarshaledResult : Ice.MarshaledResult
 {
@@ -31,42 +31,6 @@ public override GridIntf_GetGridMarshaledResult GetGrid(Ice.Current current)
     {
        // marshal _grid field within synchronization
        return new GridIntf_GetGridMarshaledResult(_grid, current);
-    }
-}
-```
-
-The mapped skeleton method for `getGrid` is:
-
-```java
-GridIntf.GetGridMarshaledResult getGrid(com.zeroc.Ice.Current current);
-```
-
-where `GetGridMarshaledResult` is a nested static class with a constructor that accepts a parameter for the return
-value, followed by `Current`:
-
-```java
-// Generated server-side code
-public interface GridIntf extends com.zeroc.Ice.Object {
-    public static class GetGridMarshaledResult implements
-          com.zeroc.Ice.MarshaledResult {
-        public GetGridMarshaledResult(
-            Grid returnValue,
-            com.zeroc.Ice.Current current) {
-            ...
-        }
-    }
-    ...
-}
-```
-
-A typical implementation of the `getGrid` operation in your servant would be:
-
-```java
-@Override
-public GridIntf.GetGridMarshaledResult getGrid(com.zeroc.Ice.Current current) {
-    synchronized (_mutex) {
-       // marshal _grid field within synchronization
-       return new GridIntf.GetGridMarshaledResult(_grid, current);
     }
 }
 ```

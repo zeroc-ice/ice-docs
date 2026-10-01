@@ -12,10 +12,9 @@ object. This activity is transparent to the application, as shown below:
 _Locating an object._
 
 1. The client invokes the operation `initialOp` on an indirect proxy.
-2. The communicator checks an internal cache (called the
-   [_locator cache_](../locator-semantics-for-clients#locator-cache)) to determine whether a query has already been
-   issued for the symbolic information in the proxy. If so, the cached endpoint is used and an invocation on the locator
-   object is avoided. Otherwise, the communicator sends a locate request to the locator.
+2. The communicator checks an internal cache (called the [_locator cache_](#locator-cache)) to determine whether a query
+   has already been issued for the symbolic information in the proxy. If so, the cached endpoint is used and an
+   invocation on the locator object is avoided. Otherwise, the communicator sends a locate request to the locator.
 3. If the object is successfully located, the locator returns its current endpoints. The communicator in the client
    caches this information, [establishes a connection](../connection-establishment) to one of the endpoints, and
    proceeds to send the invocation as usual.

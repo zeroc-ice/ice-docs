@@ -52,7 +52,7 @@ The registry's database not only associates an identity with a proxy, but also a
 arbitrary string but, by convention, that string represents the most-derived Slice type of the object. For example, the
 Slice [type ID](../type-ids) of the encoder factory in our ripper application is `::Ripper::MP3EncoderFactory`.
 
-Object types are useful when performing [queries](../well-known-objects#querying-well-known-objects).
+Object types are useful when performing [queries](#querying-well-known-objects).
 
 ## Deploying Well-Known Objects
 
@@ -82,7 +82,7 @@ During deployment, the registry associates the identity `EncoderFactory` with th
 `EncoderFactory@EncoderAdapter`. If the adapter descriptor had omitted the adapter ID, the registry would have generated
 a unique identifier by combining the server ID and the adapter name.
 
-In this example, the object's [type](../well-known-objects#well-known-object-types) is specified explicitly.
+In this example, the object's [type](#well-known-object-types) is specified explicitly.
 
 ## Adding Well-Known Objects Programmatically
 
@@ -129,8 +129,8 @@ module IceGrid
 - `removeObject` The `removeObject` operation removes the well-known object with the given identity from the database.
   If no object with the given identity is registered, the operation raises `ObjectNotRegisteredException`.
 
-The following C++ example produces the same result as the
-[descriptor](../well-known-objects#deploying-well-known-objects) we deployed earlier:
+The following C++ example produces the same result as the [descriptor](#deploying-well-known-objects) we deployed
+earlier:
 
 ```cpp
 auto adapter = communicator->createObjectAdapter("EncoderAdapter");
@@ -176,10 +176,8 @@ catch (const IceGrid::ObjectExistsException&)
 ## Adding Well-Known Objects with `icegridadmin`
 
 The [icegridadmin utility](../icegridadmin-command-line-tool) provides commands that are the functional equivalents of
-the Slice operations for
-[managing well-known objects](../well-known-objects#adding-well-known-objects-programmatically). We can use the utility
-to manually register the `EncoderFactory` object from our
-[descriptors](../well-known-objects#deploying-well-known-objects):
+the Slice operations for [managing well-known objects](#adding-well-known-objects-programmatically). We can use the
+utility to manually register the `EncoderFactory` object from our [descriptors](#deploying-well-known-objects):
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -263,8 +261,8 @@ module IceGrid
 Be aware that the operations accepting a `type` parameter are not equivalent to invoking `ice_isA` on each object to
 determine whether it supports the given type, a technique that would not scale well for a large number of registered
 objects. Rather, the operations simply compare the given type to the object's
-[registered type](../well-known-objects#well-known-object-types) or, if the object was registered without a type, to the
-object's most-derived Slice type as determined by the registry.
+[registered type](#well-known-object-types) or, if the object was registered without a type, to the object's
+most-derived Slice type as determined by the registry.
 
 {% callout type="info" %}
 

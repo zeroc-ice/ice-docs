@@ -18,8 +18,8 @@ could not be found. There are several steps you can take in this case:
 
 Another cause of activation failure is a server fault during startup. After you have confirmed that the node
 successfully spawns the server process using the steps above, you should then
-[check for signs of a server fault](../icegrid-troubleshooting#troubleshooting-server-failures) (e.g., on Unix, look for
-a `core` file in the node's current working directory).
+[check for signs of a server fault](#troubleshooting-server-failures) (e.g., on Unix, look for a `core` file in the
+node's current working directory).
 
 ## Troubleshooting Proxy Failures
 

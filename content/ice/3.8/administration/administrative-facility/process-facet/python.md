@@ -21,45 +21,21 @@ initiate a graceful shutdown of its process.
 
 You can replace the default `Process` facet if your application requires a different scheme for gracefully shutting
 itself down. To define your own facet, create a servant that implements the `Ice::Process` interface. As an example, the
-C++ servant definition shown below duplicates the functionality of the default `Process` facet:
+Python servant definition shown below duplicates the functionality of the default `Process` facet:
 
-```cpp
-class MyProcess final : public Ice::Process
-{
-public:
-    MyProcess(Ice::CommunicatorPtr communicator) :
-        _communicator{std::move(communicator)}
-    {
-    }
+```py
+class MyProcess(Ice.Process):
+    def __init__(self, communicator: Ice.Communicator):
+        self._communicator = communicator
 
-    void shutdown(const Ice::Current&) final
-    {
-        _communicator->shutdown();
-    }
+    def shutdown(self, current: Ice.Current) -> None:
+        self._communicator.shutdown()
 
-    void writeMessage(
-        std::string message,
-        std::int32_t fd,
-        const Ice::Current&) final
-    {
-        switch (fd)
-        {
-            case 1:
-            {
-                cout << message << endl;
-                break;
-            }
-            case 2:
-            {
-                cerr << message << endl;
-                break;
-            }
-        }
-    }
-
-private:
-    const Ice::CommunicatorPtr _communicator;
-};
+    def writeMessage(self, message: str, fd: int, current: Ice.Current) -> None:
+        if fd == 1:
+            print(message)
+        elif fd == 2:
+            print(message, file=sys.stderr)
 ```
 
 As you can see, the default implementation of `shutdown` simply shuts down the communicator, which initiates an orderly

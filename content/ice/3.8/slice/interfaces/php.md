@@ -37,7 +37,7 @@ Use `createProxy` to create a proxy from a communicator and a “stringified” 
 
 ```php
 $simple = M\SimplePrxHelper::createProxy(
-    communicator,
+    $communicator,
     'simple:tcp -h localhost -p 4061');
 ```
 
@@ -118,7 +118,7 @@ a proxy for an object of an unrelated type, and you need to cast the returned pr
 
 ```php
 $greeter = VisitorCenter\GreeterPrxHelper::createProxy(...);
-$greeterAdmin = VisitorCenter\GreeterAdmin::uncheckedCast(
+$greeterAdmin = VisitorCenter\GreeterAdminPrxHelper::uncheckedCast(
     $greeter->ice_facet("admin"));
 ```
 

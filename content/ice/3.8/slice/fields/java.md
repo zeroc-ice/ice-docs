@@ -18,7 +18,7 @@ struct Person
 maps to:
 
 ```java
-public final class Employee implements java.lang.Cloneable, java.io.Serializable {
+public final class Person implements java.lang.Cloneable, java.io.Serializable {
     public String name; // Slice string maps to Java String
     public Address address; // Slice Address maps the Java Address
     ...

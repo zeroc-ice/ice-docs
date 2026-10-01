@@ -43,7 +43,7 @@ The remainder of this script can be broken down into four pieces:
 
 First, we create a [Communicator](https://code.zeroc.com/manual/Ice/Communicator) using `Ice::initialize`:
 
-```matlab
+```ruby
 Ice::initialize(ARGV) do |communicator|
     ...
 end
