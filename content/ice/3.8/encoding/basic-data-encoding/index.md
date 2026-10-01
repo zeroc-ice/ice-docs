@@ -5,17 +5,19 @@ title: Basic Data Encoding
 ## Encoding for Sizes
 
 Many of the types involved in the Ice encoding, as well as several [protocol message](../../protocol/protocol-messages)
-components, have an associated size or count. A size is a non-negative number. Sizes and counts are encoded in one of
-two ways:
+components, have an associated size or count. A size is a number in the range 0 to 2³¹−1, encoded in one of two forms:
 
-1. If the number of elements is less than 255, the size is encoded as a single `byte` indicating the number of elements.
-2. If the number of elements is greater than or equal to 255, the size is encoded as a `byte` with value `255`, followed
-   by an `int` indicating the number of elements.
+1. Ice can encode a size from 0 to 254 as a single `byte` holding the size.
+2. Ice can encode any size as a `byte` with value `255`, followed by an `int` holding the size.
+
+Ice encodes a size below 255 in the single-byte form, except that C++ can use the five-byte form for a string that it
+converts with a string converter. A receiver accepts either form for a size from 0 to 254, and the five-byte form for
+any size.
 
 Using this encoding to indicate sizes is significantly cheaper than always using an `int` to store the size, especially
-when marshaling sequences of short strings: counts of up to 254 require only a single byte instead of four. This comes
-at the expense of counts greater than 254, which require five bytes instead of four. However, for sequences or strings
-of length greater than 254, the extra byte is insignificant.
+when marshaling sequences of short strings: counts of up to 254 fit in a single byte instead of four. This comes at the
+expense of counts greater than 254, which require five bytes instead of four. However, for sequences or strings of
+length greater than 254, the extra byte is insignificant.
 
 ## Encoding for Encapsulations
 
@@ -149,9 +151,9 @@ _Encoding for basic types._
 
 ## Encoding for Strings
 
-Strings are encoded as a [size](#encoding-for-sizes), followed by the string contents in
-[UTF-8](https://en.wikipedia.org/wiki/UTF-8) format. Strings are not null-terminated. An empty string is encoded with a
-size of zero.
+Ice encodes a string as a [size](#encoding-for-sizes) holding the number of bytes in the string's
+[UTF-8](https://en.wikipedia.org/wiki/UTF-8) encoding, followed by those bytes. Ice encodes an empty string as a size of
+zero.
 
 ## Encoding for Sequences
 
