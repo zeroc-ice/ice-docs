@@ -27,7 +27,7 @@ module Ripper
 
     sequence<short> Samples;
 
-    interface Mp3Encoder
+    interface MP3Encoder
     {
         // Input: PCM samples for left and right channels
         // Output: MP3 frame(s).
@@ -39,9 +39,9 @@ module Ripper
         Ice::ByteSeq flush() throws EncodingFailedException;
     }
 
-    interface Mp3EncoderFactory
+    interface MP3EncoderFactory
     {
-        Mp3Encoder* createEncoder();
+        MP3Encoder* createEncoder();
     }
 }
 ```
