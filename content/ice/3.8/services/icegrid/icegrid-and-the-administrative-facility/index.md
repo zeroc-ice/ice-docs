@@ -213,7 +213,7 @@ auto svcmgr = admin->getServerAdmin("icebox1")
 Next, we retrieve the template proxy and compose the published endpoints for our callback object adapter:
 
 ```cpp
-auto tmpl = admin->getAdminCallbackTemplate();
+auto tmpl = session.getAdminCallbackTemplate();
 auto endpts = tmpl->ice_getEndpoints();
 string publishedEndpoints;
 for (const auto& endpoint : endpts)
@@ -275,7 +275,6 @@ state of the IceBox services. The first step is to obtain a proxy for the admini
 ```cpp
 IceGrid::AdminSessionPrx session = ...;
 auto admin = session.getAdmin();
-auto obj =
 auto svcmgr = admin->getServerAdmin("icebox1")
                     ->ice_facet<IceBox::ServiceManagerPrx>("IceBox.ServiceManager");
 ```
@@ -283,16 +282,14 @@ auto svcmgr = admin->getServerAdmin("icebox1")
 Now we are ready to create the object adapter and register the observer:
 
 ```cpp
-auto router = communicator->getDefaultRouter();
-auto callbackAdapter = communicator->createObjectAdapterWithRouter(
-    "CallbackAdapter",
-     router);
+auto router = Ice::uncheckedCast<Glacier2::RouterPrx>(communicator->getDefaultRouter());
+auto callbackAdapter = communicator->createObjectAdapterWithRouter("CallbackAdapter", *router);
 
 Ice::Identity cbid;
 cbid.category = router->getCategoryForClient();
 cbid.name = "observer";
 auto obs = make_shared<ObserverI>();
-auto cn = callbackAdapter->add<IceBox::ServiceObserverPrx>>(obs, cbid);
+auto cb = callbackAdapter->add<IceBox::ServiceObserverPrx>(obs, cbid);
 callbackAdapter->activate();
 svcmgr->addObserver(cb);
 ```

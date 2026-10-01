@@ -6,8 +6,9 @@ To access IceGrid's administrative facilities from a program, you must first est
 done, a wide range of services are at your disposal, including the manipulation of IceGrid registries, nodes, and
 servers; deployment of new components such as well-known objects; and dynamic monitoring of IceGrid events.
 
-Note that, for [replicated registries](../registry-replication), an administrative session can be established with
-either the master or a slave registry replica, but a session with a slave replica is restricted to read-only operations.
+Note that, for [replicated registries](../registry-replication), an administrative client can establish a session with
+either the master or a slave registry replica. A slave replica rejects operations that change the registry database,
+such as deploying an application, but it can start, stop and signal servers and shut down nodes.
 
 ## Creating an Administrative Session
 
@@ -43,7 +44,8 @@ credentials supplied by an [SSL](../ssl-transport) connection to authenticate th
 you must configure the proxy of a permissions verifier object before clients can use
 `createAdminSessionFromSecureConnection` to create a session. In this case, the
 [IceGrid.Registry.AdminSSLPermissionsVerifier](../icegrid-properties) property specifies the proxy of a verifier object
-that implements the interface [Glacier2::SSLPermissionsVerifier](../securing-a-glacier2-router).
+that implements the interface [Glacier2::SSLPermissionsVerifier](../securing-a-glacier2-router). The registry raises
+`PermissionDeniedException` unless the client presents a certificate with a non-empty subject name over this connection.
 
 As an example, the following code demonstrates how to obtain a proxy for the registry and invoke `createAdminSession`:
 
@@ -61,6 +63,14 @@ catch (const IceGrid::PermissionDeniedException& ex)
     cout << "permission denied:\n" << ex.reason << endl;
 }
 ```
+
+IceGrid destroys a session when the connection that created it closes. A client that reconnects to the registry must
+create a new session. The client's [inactivity check](../connection-closure#the-inactivity-check) closes this connection
+when it carries no invocations for
+[Ice.Connection.Client.InactivityTimeout](../ice-connection-properties#ice.connection.name.inactivitytimeout) seconds,
+300 by default; a client that keeps a session for longer without invoking operations on the registry sets this property
+to 0. Glacier2 destroys a session created through a Glacier2 router when the client's
+[router session](../glacier2-session-management) ends.
 
 The `AdminSession` interface provides operations for [accessing log files](#accessing-log-files-remotely) and
 establishing [observers](#dynamic-monitoring-in-icegrid). Its `getAdmin` operation returns a proxy for the
@@ -172,10 +182,11 @@ while (true)
         // The first line might be a continuation from
         // the previous call to read.
         cout << lines[0];
-        for (const auto& p : lines)
+        for (size_t i = 1; i < lines.size(); ++i)
         {
-            cout << endl << p << flush;
+            cout << endl << lines[i];
         }
+        cout << flush;
     }
     if (end)
     {
@@ -190,8 +201,8 @@ when no data is currently available.
 The client should call `destroy` when the iterator object is no longer required. At the time the client's session
 terminates, IceGrid reclaims any iterators that were not explicitly destroyed.
 
-If the client waits for new data, it must take steps to prevent the
-[administrative session](../icegrid-administrative-sessions) from expiring.
+If the client waits for new data, it must keep open the connection that created its
+[administrative session](#creating-an-administrative-session).
 
 With these operations, an administrative client can retrieve any text file on a system where an IceGrid node is running.
 While it's common for this text file to contain the output of an Ice [logger](../logger-facility), it could contain
@@ -263,6 +274,11 @@ module IceGrid
     }
 }
 ```
+
+`AdapterObserver` reports the object adapters that register their endpoints dynamically, and `ObjectObserver` reports
+the well-known objects added through the `Admin` interface and the registry's own well-known objects, such as
+`IceGrid/Query` and `IceGrid/Locator`. `ApplicationObserver` reports the adapters and objects that an application's
+descriptors define.
 
 The next section describes how to install an observer.
 
