@@ -62,11 +62,10 @@ catch (const IceGrid::PermissionDeniedException& ex)
 }
 ```
 
-The `AdminSession` interface provides operations for
-[accessing log files](../icegrid-administrative-sessions#accessing-log-files-remotely) and establishing
-[observers](../icegrid-administrative-sessions#dynamic-monitoring-in-icegrid). Its `getAdmin` operation returns a proxy
-for the `IceGrid::Admin` interface, which provides complete access to the registry's settings. For this reason, you must
-use extreme caution when enabling administrative sessions.
+The `AdminSession` interface provides operations for [accessing log files](#accessing-log-files-remotely) and
+establishing [observers](#dynamic-monitoring-in-icegrid). Its `getAdmin` operation returns a proxy for the
+`IceGrid::Admin` interface, which provides complete access to the registry's settings. For this reason, you must use
+extreme caution when enabling administrative sessions.
 
 ## Accessing Log Files Remotely
 

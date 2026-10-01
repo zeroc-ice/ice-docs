@@ -28,7 +28,7 @@ The proxy performs the following steps to derive its endpoint list:
    proxy method. The default value is `Random`, meaning the endpoints are randomly shuffled. Alternatively, the value
    `Ordered` maintains the existing order of the endpoints.
 
-If [connection caching](../connection-establishment#connection-caching) is enabled and the communicator
+If [connection caching](#connection-caching) is enabled and the communicator
 [already has a compatible connection](../connection-establishment), it reuses the cached connection. Otherwise, the
 communicator attempts to connect to each endpoint in the list until it succeeds or exhausts the list; the order in which
 endpoints are selected for connection attempts depends on the endpoint selection policy. This policy can be set using a
@@ -60,7 +60,7 @@ indicates the reason for the final failed attempt.
 When establishing a connection for a proxy, the communicator reuses an existing connection when all the following
 conditions are met:
 
-- The proxy has [connection caching](../connection-establishment#connection-caching) enabled.
+- The proxy has [connection caching](#connection-caching) enabled.
 - The remote endpoint matches one of the proxy's endpoints.
 - The connection matches the proxy's configuration. If a proxy configured with a
   [connection ID](../connection-establishment), the communicator only reuses a connection if it was established by a

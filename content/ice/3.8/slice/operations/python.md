@@ -280,9 +280,9 @@ You can only await a future from the event loop that created it:
     greeter = VisitorCenter.GreeterPrx(
       communicator,
       "greeter:tcp -h localhost -p 4061")
-      # Will fail because the returned Ice.InvocationFuture
-      # cannot be awaited from a regular Python thread
-      greeting = await greeter.greetAsync(getpass.getuser())
+    # Will fail because the returned Ice.InvocationFuture
+    # cannot be awaited from a regular Python thread
+    greeting = await greeter.greetAsync(getpass.getuser())
   ```
 
   However, you _can_ await an `Ice.InvocationFuture` from inside an **asynchronous dispatch (AMD)**, since these
@@ -496,10 +496,10 @@ Given a proxy to a `ClientToServer` interface, the client code can pass paramete
 ```py
 p = ...                                 # Get proxy...
 
-p.op1(42, 3.14f, True, "Hello world!")  # Pass simple literals
+p.op1(42, 3.14, True, "Hello world!")   # Pass simple literals
 
 i = 42
-f = 3.14f
+f = 3.14
 b = True
 s = "Hello world!"
 p.op1(i, f, b, s)                       # Pass simple variables
@@ -509,7 +509,7 @@ ns.x = 42
 ns.str = "The Answer"
 ss = [ "Hello world!" ]
 st = {}
-st[0] = ns
+st[0] = ss
 p.op2(ns, ss, st)                       # Pass complex variables
 
 p.op3(p)                                # Pass proxy

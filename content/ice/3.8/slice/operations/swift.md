@@ -144,7 +144,7 @@ To throw an exception from an operation implementation, you simply construct the
 func write(text: [String], current _: Ice.Current) throws {
     ...
     if (error) {
-        throw WriteException(message: "file too large")
+        throw WriteException(reason: "file too large")
     }
 }
 ```

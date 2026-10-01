@@ -17,7 +17,7 @@ Please refer to the supported platforms page in the release notes for details on
 ## Packaging
 
 Many Slice compilers such as `slice2cs`, `slice2swift`, etc. are no longer available as part of the general installation
-of the Linux, macOs, and Windows packages. To use these compilers, install the appropriate language-specific package.
+of the Linux, macOS, and Windows packages. To use these compilers, install the appropriate language-specific package.
 
 {% language-section name="lang-1" /%}
 

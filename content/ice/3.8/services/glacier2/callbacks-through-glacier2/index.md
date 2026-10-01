@@ -36,8 +36,8 @@ _Request and callback flow through Glacier2._
    request. In this example, one of the arguments in the request is a proxy for a callback object in the client.
 3. The server makes a callback to the client. For this to succeed, the proxy for the callback object must contain
    endpoints that are accessible to the server. The only path back to the client is through the router, therefore the
-   proxy contains the [router's server endpoints](../callbacks-through-glacier2#configuring-the-router-for-callbacks).
-   The server connects to the router and sends the request.
+   proxy contains the [router's server endpoints](#configuring-the-router-for-callbacks). The server connects to the
+   router and sends the request.
 4. The router forwards the callback request to the client using the bidirectional connection established in step 1.
 
 The arrows in the above illustration indicate the flow of requests; notice that two connections are used between the

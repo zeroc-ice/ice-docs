@@ -116,7 +116,7 @@ public func checkedCast(prx: Ice.ObjectPrx,
 
 The `uncheckedCast` function allows you to convert a proxy into another proxy. For example:
 
-```csharp
+```swift
 // Convert a SimplePrx into a WidgetPrx, even though the two types are unrelated.
 let widget = uncheckedCast(prx: simple, type: WidgetPrx.self)
 ```
@@ -128,10 +128,10 @@ let widget = uncheckedCast(prx: simple, type: WidgetPrx.self)
 `checkedCast` is a conditional cast of the proxy: this function makes a remote call to the target object to check if
 this object implements the proxy’s Slice interface. For example:
 
-```csharp
+```swift
 // Call operation ice_isA on the Ice object to check if it implements Slice interface
 // Widget.
-let widget = await checkedCast(prx: simple, type: WidgetPrx.self)
+let widget = try await checkedCast(prx: simple, type: WidgetPrx.self)
 ```
 
 If the target object implements the Slice interface, `checkedCast` returns a non-nil proxy, just like `uncheckedCast`.
@@ -148,7 +148,7 @@ each of these factory methods returns a copy of the original proxy that contains
 you can obtain a proxy configured with a ten second invocation timeout as shown below:
 
 ```swift
-var greeter = try makeProxy(communicator: ..., type: GreeterPrx.self)
+var greeter = try makeProxy(communicator: ..., proxyString: ..., type: GreeterPrx.self)
 
 // Create a new GreeterPrx and assign it to greeter.
 greeter = greeter.ice_invocationTimeout(10000)
@@ -160,9 +160,9 @@ The only exceptions are the factory methods `ice_facet` and `ice_identity`. Call
 a proxy for an object of an unrelated type, and you need to cast the returned proxy. For example:
 
 ```swift
-let greeter = try makeProxy(communicator: ..., type: GreeterPrx.self)
+let greeter = try makeProxy(communicator: ..., proxyString: ..., type: GreeterPrx.self)
 let greeterAdmin = uncheckedCast(
-    prx: greeter.ice_facet("admin"), type: GreeterPrx.self)
+    prx: greeter.ice_facet("admin"), type: GreeterAdminPrx.self)
 ```
 
 ## Server-Side Mapping for Interfaces

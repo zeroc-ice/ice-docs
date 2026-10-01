@@ -183,8 +183,8 @@ IceSSL.TrustOnly.Server=CN="IceGrid Registry"
 ```
 
 A node also establishes outgoing connections to the registry's internal endpoint, as well as the
-[Ice.Admin](../securing-icegrid#understanding-the-administrative-endpoints-with-icegrid) endpoint of deployed servers.
-You should configure the `IceSSL.TrustOnly.Client` property as shown below to verify the identity of these peers:
+[Ice.Admin](#understanding-the-administrative-endpoints-with-icegrid) endpoint of deployed servers. You should configure
+the `IceSSL.TrustOnly.Client` property as shown below to verify the identity of these peers:
 
 ```config
 IceSSL.TrustOnly.Client=CN="Server";CN="IceGrid Registry"

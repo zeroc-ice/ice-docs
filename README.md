@@ -60,7 +60,13 @@ duplicating it.
   page down.
 - **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
-  a page that does not exist renders as plain text, and `check:markdoc` fails on it.
+  a page that does not exist renders as plain text, and `check:markdoc` fails on it. A link can name the language
+  mapping to show with `?lang=`, as in `[AMD in Java](../operations?lang=java#asynchronous-method-dispatch-amd)`;
+  following it switches the reader to that mapping. `check:markdoc` fails one whose mapping the manual lacks or doesn't
+  show the anchor.
+- **A link to a heading in the same file is a bare anchor** (`[size](#encoding-for-sizes)`), which MD051 checks. Where
+  MD051 can't, because the heading sits in another file of the page or its anchor keeps a dot or comes from `{% id %}`,
+  name the page as a cross-page link does: `[Ice.LogFile](../ice-properties#ice.logfile)`.
 - **Links to the API reference name a type** (`[Communicator](api:Ice/Communicator)`). The build gives each reader the
   type's page in their language's API reference, from `api-links.yaml`; a reader of a language with no page for it sees
   the link's text alone. `check:markdoc` fails on a type `api-links.yaml` does not list. Where the text means one

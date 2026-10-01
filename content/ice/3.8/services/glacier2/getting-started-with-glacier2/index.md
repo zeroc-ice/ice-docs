@@ -6,15 +6,14 @@ title: Getting Started with Glacier2
 
 Using Glacier2 in a minimal configuration involves the following tasks:
 
-1. Write a [configuration file](../getting-started-with-glacier2#configuring-the-router) for the router.
-2. Write a [password file](../getting-started-with-glacier2#writing-a-password-file) for the router. (Glacier2 also
-   supports [other ways](../securing-a-glacier2-router) to authenticate users.)
+1. Write a [configuration file](#configuring-the-router) for the router.
+2. Write a [password file](#writing-a-password-file) for the router. (Glacier2 also supports
+   [other ways](../securing-a-glacier2-router) to authenticate users.)
 3. Decide whether to use the router's internal session manager, or supply your own
    [session manager](../glacier2-session-management).
-4. [Start the router](../getting-started-with-glacier2#starting-the-router) on a host with access to the public and
-   private networks.
-5. Modify the [client configuration](../getting-started-with-glacier2#configuring-a-glacier2-client) to use the router.
-6. Modify the client to create a [router session](../getting-started-with-glacier2#glacier2-sessions).
+4. [Start the router](#starting-the-router) on a host with access to the public and private networks.
+5. Modify the [client configuration](#configuring-a-glacier2-client) to use the router.
+6. Modify the client to create a [router session](#glacier2-sessions).
 
 {% callout type="info" %}
 
@@ -46,9 +45,8 @@ This sample configuration uses TCP as the endpoint protocol, although in most ca
 Note that this configuration enables the router to forward requests from clients to servers. Additional configuration is
 necessary to support [callbacks](../callbacks-through-glacier2) from servers to clients.
 
-You must also decide which authentication scheme (or schemes) to use. A
-[file-based](../getting-started-with-glacier2#writing-a-password-file) mechanism is available, as are
-[more sophisticated strategies](../securing-a-glacier2-router).
+You must also decide which authentication scheme (or schemes) to use. A [file-based](#writing-a-password-file) mechanism
+is available, as are [more sophisticated strategies](../securing-a-glacier2-router).
 
 If clients access a [location service](../icegrid-and-glacier2-integration) via the router, additional router
 configuration is typically necessary.

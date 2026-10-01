@@ -97,8 +97,8 @@ ChildPrx child = ...;   // Get child proxy...
 try {
     child.askToCleanUp();
 } catch (Tantrum t) {
-    System.out.write("The child says: ");
-    System.out.writeln(t.reason);
+    System.out.print("The child says: ");
+    System.out.println(t.reason);
 }
 ```
 
@@ -663,7 +663,7 @@ i = proxy.execute(java.util.Optional.of("--file log.txt")); // optional mapping
 i = proxy.execute(java.util.Optional.empty());              // params is unset
 
 if (i.isPresent()) {
-    System.out.println("value = " + i.get());
+    System.out.println("value = " + i.getAsInt());
 }
 ```
 

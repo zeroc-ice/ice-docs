@@ -46,7 +46,7 @@ export class ObjectAdapter {
 ```
 
 ```typescript
-interface ObjectAdapter
+interface ObjectAdapter {
     use(middleware: (next: Ice.Object) => Ice.Object): ObjectAdapter;
 }
 ```
@@ -61,7 +61,7 @@ adapter.use(next => new AuthorizationMiddleware(next, "iced tea"));
 ```
 
 ```typescript
-adapter.use(next: Ice.Object => new AuthorizationMiddleware(next, "iced tea"));
+adapter.use((next: Ice.Object) => new AuthorizationMiddleware(next, "iced tea"));
 ```
 
 The middleware, once created and woven into the dispatch pipeline, intercept requests in the order of their registration

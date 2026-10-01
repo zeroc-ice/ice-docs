@@ -160,8 +160,8 @@ auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix
 
 The `Logger` facet caches the most recent log messages sent to application's [Logger](../logger-facility), to be able to
 provide these log messages to remote loggers (in the `init` operation) and to administrative clients that call `getLog`
-(see the [LoggerAdmin Interface](../logger-facet#the-loggeradmin-interface) above). You can configure how many log
-messages are cached by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../ice-admin-properties) and
+(see the [LoggerAdmin Interface](#the-loggeradmin-interface) above). You can configure how many log messages are cached
+by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../ice-admin-properties) and
 [Ice.Admin.Logger.KeepTraces](../ice-admin-properties) properties. The default is to keep the most recent 100 log
 messages other than trace messages plus the most recent 100 trace messages.
 

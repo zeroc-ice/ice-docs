@@ -24,7 +24,7 @@ to “next”.
 You install a middleware on an object adapter by calling `use`:
 
 ```java
-public final class ObjectAdapter
+public final class ObjectAdapter {
     public ObjectAdapter use(Function<Object, Object> middleware) {
     }
 }
