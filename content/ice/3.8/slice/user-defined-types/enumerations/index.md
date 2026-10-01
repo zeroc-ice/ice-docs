@@ -4,7 +4,7 @@ title: Enumerations
 
 ## Enumeration Syntax and Semantics
 
-A Slice enumerated type definition looks identical to C++:
+A Slice enumeration defines a type with a fixed set of named values, its enumerators:
 
 ```slice
 module M

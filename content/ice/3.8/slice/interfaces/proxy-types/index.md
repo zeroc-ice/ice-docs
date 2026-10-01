@@ -34,10 +34,10 @@ The marshaled representation of a proxy does not include the proxy’s type.
 You use proxies in client applications. A proxy acts as a local "ambassador" for the remote object; invoking an
 operation on the proxy forwards the invocation to the actual object implementation, in the server.
 
-The semantics of proxies are similar to those of C++ class instance pointers:
+Like a pointer, a proxy has the following properties:
 
 - A proxy can be null.
-- A proxy can dangle (point a a remote object that is no longer there).
+- A proxy can dangle (point to a remote object that is no longer there).
 
 ## Self-Referential Interfaces
 
