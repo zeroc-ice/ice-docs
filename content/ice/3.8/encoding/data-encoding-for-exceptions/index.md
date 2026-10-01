@@ -81,9 +81,9 @@ receiver recognizes that type ID, it can unmarshal the contents of the first sli
 otherwise, the receiver reads the byte count that follows the unknown type (20) and then skips 20-4 bytes in the input
 stream, which is the start of the type ID for the second slice (`::Base`). If the receiver does not recognize that type
 ID either, it again reads the byte count following the type ID (14), skips 14-4 bytes, and attempts to read another type
-ID. (This can happen only if client and server have been compiled with mismatched Slice definitions that disagree in the
-exception specification of an operation.) In this case, the receiver will eventually encounter an unmarshaling error,
-which it can report with a `MarshalException`.
+ID. (This happens when the receiver knows none of the exception's types, for example because client and server use Slice
+definitions that disagree in the exception specification of an operation.) In this case, the receiver will eventually
+encounter an unmarshaling error, which it can report with a `MarshalException`.
 
 If an exception contains class fields, these fields are marshaled following the exception slices as described in the
 [class encoding](../data-encoding-for-classes).
@@ -102,15 +102,14 @@ As of Ice 3.8, Ice always marshals exceptions in the sliced format. It can also 
 
 An exception in the compact format is marshaled as follows:
 
-![In the compact exceptions format, the most-derived slice contains slice flags, a type ID, required members, and optional members when needed. Subsequent slices omit the type ID.](/images/ice/3.8/data-encoding-for-exceptions/compact-format.svg)
+![In the compact exceptions format, each slice, from the most-derived to the least-derived, contains slice flags, a type ID, required members, and optional members when needed.](/images/ice/3.8/data-encoding-for-exceptions/compact-format.svg)
 
 _Compact format for exceptions._
 
-The leading byte of each slice is a set of bit flags that specifies the features of the slice. The compact format
-includes a type ID in the initial (most-derived) slice but omits the type ID from all subsequent slices.
+The leading byte of each slice is a set of bit flags that specifies the features of the slice. Each slice includes its
+type ID, encoded as a string.
 
-The sliced format includes a type ID in every slice, along with a slice size and an optional
-[indirection table](../class-graphs):
+The sliced format adds a slice size to every slice, along with an optional [indirection table](../class-graphs):
 
 ![The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
 
@@ -150,19 +149,19 @@ fields of `Derived` is 16 bytes. None of the exception fields are classes. An in
 sliced format has the on-the-wire representation shown in the next table. (The size, type, and byte offset of the
 marshaled representation is indicated for each component.)
 
-| **Marshaled value**                                                    | **Size in bytes** | **Type** | **Byte offset** |
-| ---------------------------------------------------------------------- | ----------------- | -------- | --------------- |
-| `18` _(flags: type ID is a string, slice size is present)_             | 1                 | `byte`   | 0               |
-| `"::Derived"` _(type_ _ID)_                                            | 10                | `string` | 1               |
-| `20` _(byte count for_ _slice)_                                        | 4                 | `int`    | 11              |
-| `1` _(_`derivedBool`)                                                  | 1                 | `bool`   | 15              |
-| `"World!"` _(_`derivedString`)                                         | 7                 | `string` | 16              |
-| `3.14` _(_`derivedDouble`)                                             | 8                 | `double` | 23              |
-| `50` _(flags: type ID is a string, slice size is present, last slice)_ | 1                 | `byte`   | 31              |
-| `"::Base"` _(type ID)_                                                 | 7                 | `string` | 32              |
-| `14` _(byte count for_ _slice)_                                        | 4                 | `int`    | 39              |
-| `99` _(_`baseInt`)                                                     | 4                 | `int`    | 43              |
-| `"Hello"` _(_`baseString`)                                             | 6                 | `string` | 47              |
+| **Marshaled value**                               | **Size in bytes** | **Type** | **Byte offset** |
+| ------------------------------------------------- | ----------------- | -------- | --------------- |
+| `16` _(flags: slice size is present)_             | 1                 | `byte`   | 0               |
+| `"::Derived"` _(type_ _ID)_                       | 10                | `string` | 1               |
+| `20` _(byte count for_ _slice)_                   | 4                 | `int`    | 11              |
+| `1` _(_`derivedBool`)                             | 1                 | `bool`   | 15              |
+| `"World!"` _(_`derivedString`)                    | 7                 | `string` | 16              |
+| `3.14` _(_`derivedDouble`)                        | 8                 | `double` | 23              |
+| `48` _(flags: slice size is present, last slice)_ | 1                 | `byte`   | 31              |
+| `"::Base"` _(type ID)_                            | 7                 | `string` | 32              |
+| `14` _(byte count for_ _slice)_                   | 4                 | `int`    | 39              |
+| `99` _(_`baseInt`)                                | 4                 | `int`    | 43              |
+| `"Hello"` _(_`baseString`)                        | 6                 | `string` | 47              |
 
 _Marshaled representation of the exception using the sliced format._
 
@@ -171,22 +170,22 @@ by a count of its number of bytes, as directed by the [encoding for strings](../
 
 Repeating this exercise using the compact format produces the following encoding:
 
-| **Marshaled value**                | **Size in bytes** | **Type** | **Byte offset** |
-| ---------------------------------- | ----------------- | -------- | --------------- |
-| `2` _(flags: type ID is a string)_ | 1                 | `byte`   | 0               |
-| `"::Derived"` _(type_ _ID)_        | 10                | `string` | 1               |
-| `1` _(_`derivedBool`)              | 1                 | `bool`   | 11              |
-| `"World!"` _(_`derivedString`)     | 7                 | `string` | 12              |
-| `3.14` _(_`derivedDouble`)         | 8                 | `double` | 19              |
-| `32` _(flags: last slice)_         | 1                 | `byte`   | 27              |
-| `99` _(_`baseInt`)                 | 4                 | `int`    | 28              |
-| `"Hello"` _(_`baseString`)         | 6                 | `string` | 32              |
+| **Marshaled value**            | **Size in bytes** | **Type** | **Byte offset** |
+| ------------------------------ | ----------------- | -------- | --------------- |
+| `0` _(flags: none)_            | 1                 | `byte`   | 0               |
+| `"::Derived"` _(type_ _ID)_    | 10                | `string` | 1               |
+| `1` _(_`derivedBool`)          | 1                 | `bool`   | 11              |
+| `"World!"` _(_`derivedString`) | 7                 | `string` | 12              |
+| `3.14` _(_`derivedDouble`)     | 8                 | `double` | 19              |
+| `32` _(flags: last slice)_     | 1                 | `byte`   | 27              |
+| `"::Base"` _(type ID)_         | 7                 | `string` | 28              |
+| `99` _(_`baseInt`)             | 4                 | `int`    | 35              |
+| `"Hello"` _(_`baseString`)     | 6                 | `string` | 39              |
 
 _Marshaled representation of the exception using the compact format._
 
-When using the compact format, the receiver _must_ know the most-derived type: the only type ID included in the encoding
-is that of the most-derived type. Furthermore, the lack of slice sizes means the receiver cannot skip a slice without
-knowing how to decode its contents.
+With the compact format, the receiver _must_ know the most-derived type: without slice sizes, it cannot skip a slice it
+does not know how to decode.
 
 ## See Also
 

@@ -66,15 +66,13 @@ for version 1.0, but bit flags in the leading byte of each slice determine its f
 
 #### Type ID
 
-The initial slice of a class or exception, representing the instance's most-derived type, always includes a type ID. For
-an exception, the type ID in the initial slice is encoded as a string. For a class, the type ID in the initial slice can
-either be encoded as a string, an index (if the same type ID has already been encoded in the current encapsulation), or
-a compact ID.
+Every slice of an exception includes its type ID, encoded as a string.
 
-Whether any subsequent slices include some form of type ID depends on the [format](../slicing-values-and-exceptions)
-with which the value was encoded: to facilitate slicing an instance to a less-derived type, the sliced format includes a
-type ID in every slice, whereas the compact format excludes type IDs in subsequent slices to conserve space while
-sacrificing the slicing feature.
+The initial slice of a class, representing the instance's most-derived type, always includes a type ID, encoded as a
+string, an index (if the same type ID has already been encoded in the current encapsulation), or a compact ID. The
+sender's [format](../slicing-values-and-exceptions) determines whether subsequent slices of a class include a type ID:
+to facilitate slicing an instance to a less-derived type, the sliced format includes a type ID in every slice, whereas
+the compact format excludes type IDs in subsequent slices to conserve space while sacrificing the slicing feature.
 
 #### Optional Fields
 
@@ -111,20 +109,22 @@ This flag indicates whether the current slice is the last slice of the instance.
 
 The table below shows how to interpret the bit flags in the leading byte of a slice:
 
-| **Bit number** | **Description**                                             |
-| -------------- | ----------------------------------------------------------- |
-| 0-1            | 0 = no type ID is encoded for the slice                     |
-|                | 1 = type ID is encoded as a string                          |
-|                | 2 = type ID is an index encoded as a size                   |
-|                | 3 = type ID is a compact ID encoded as a size               |
-| 2              | Whether or not the slice contains optional fields           |
-| 3              | Whether or not the slice contains an indirection table      |
-| 4              | Whether or not the slice size follows the type ID           |
-| 5              | If 0, more slices will follow, if 1, this is the last slice |
-| 6              | Reserved for future use                                     |
-| 7              | Reserved for future use                                     |
+| **Bit number** | **Description**                                                   |
+| -------------- | ----------------------------------------------------------------- |
+| 0-1            | Type ID of a class slice: 0 = no type ID is encoded for the slice |
+|                | 1 = type ID is encoded as a string                                |
+|                | 2 = type ID is an index encoded as a size                         |
+|                | 3 = type ID is a compact ID encoded as a size                     |
+| 2              | Whether or not the slice contains optional fields                 |
+| 3              | Whether or not the slice contains an indirection table            |
+| 4              | Whether or not the slice size follows the type ID                 |
+| 5              | If 0, more slices will follow, if 1, this is the last slice       |
+| 6              | Reserved for future use                                           |
+| 7              | Reserved for future use                                           |
 
 _Bit flags for a slice._
+
+An exception slice leaves bits 0-1 at 0.
 
 ## Encoding for Basic Types
 
