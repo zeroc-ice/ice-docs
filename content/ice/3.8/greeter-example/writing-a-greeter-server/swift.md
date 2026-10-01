@@ -90,7 +90,7 @@ your head for now.
 
 The server application now be can be broken down into four pieces:
 
-### Create a Communicator
+### 1. Create a Communicator
 
 First, we create a [Communicator](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator) with
 `Ice.initialize`:
@@ -109,7 +109,7 @@ connections, among many other responsibilities..
 It is important to properly clean up the communicator when done, which we do with the defer block that calls
 `destroy()`.
 
-### Create an Object Adapter
+### 2. Create an Object Adapter
 
 Next, we create an object adapter using our communicator:
 
@@ -136,7 +136,7 @@ try adapter.add(servant: Chatbot(), id: Ice.Identity(name: "greeter"))
 Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our
 `Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
 
-### Activate the Object Adapter
+### 3. Activate the Object Adapter
 
 Next, we call `activate` on our object adapter to start accepting incoming connections and dispatch requests to our
 `Chatbot` servant:
@@ -149,7 +149,7 @@ print("Listening on port 4061...")
 Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to
 our `Chatbot` servant.
 
-### Keep Running Until Ctrl+C
+### 4. Keep Running Until Ctrl+C
 
 It is essential to keep the server running and not fall off main prematurely. We use the following technique to achieve
 this goal:
