@@ -61,7 +61,7 @@ For each operation, the Slice compiler generates 4 methods on the proxy interfac
 - two overloaded “async” methods, named `<operation-name>Async`. When you call these methods, your thread marshals the
   arguments to the method synchronously, but the remainder of this invocation is asynchronous, and the method returns a
   `CompletableFuture` immediately. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in Java](<../operations#asynchronous-method-invocation-(ami)>).
+  [Asynchronous Method Invocation (AMI) in Java](#asynchronous-method-invocation-ami).
 
 {% callout type="info" %}
 
@@ -151,7 +151,7 @@ class Chatbot implements Greeter {
 
 Each operation with the `["amd"]` metadata is mapped to a method with an `Async` suffix in the skeleton interface. The
 AMD mapping replaces the default “sync” mapping for the operation. See
-[Asynchronous Method Dispatch (AMD) in Java](<../operations#asynchronous-method-dispatch-(amd)>) for details.
+[Asynchronous Method Dispatch (AMD) in Java](#asynchronous-method-dispatch-amd) for details.
 
 ### Throwing Exceptions
 
@@ -382,11 +382,10 @@ in the server's [thread pool](../threading-model). If all of the threads are bus
 then no threads are available to process new requests and therefore clients may experience an unacceptable lack of
 responsiveness.
 
-_Asynchronous Method Dispatch (AMD)_, the server-side equivalent of
-[AMI](<../operations#asynchronous-method-invocation-(ami)>), addresses this scalability issue. Using AMD, a server can
-receive a request but then suspend its processing in order to release the dispatch thread as soon as possible. When
-processing resumes and the results are available, the server can provide its results to the Ice runtime for delivery to
-the client.
+_Asynchronous Method Dispatch (AMD)_, the server-side equivalent of [AMI](#asynchronous-method-invocation-ami),
+addresses this scalability issue. Using AMD, a server can receive a request but then suspend its processing in order to
+release the dispatch thread as soon as possible. When processing resumes and the results are available, the server can
+provide its results to the Ice runtime for delivery to the client.
 
 AMD is transparent to the client, that is, there is no way for a client to distinguish a request that, in the server, is
 processed synchronously from a request that is processed asynchronously.

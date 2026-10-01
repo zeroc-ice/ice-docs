@@ -61,7 +61,7 @@ function generateID(
   }
 
   return headingText(children)
-    .replace(/[?]/g, '')
+    .replace(/[?()]/g, '')
     .trim()
     .replace(/\s+/g, '-')
     .replace(/^-+|-+$/g, '')

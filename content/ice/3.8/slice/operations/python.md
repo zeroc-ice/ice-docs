@@ -48,7 +48,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your program marshals the arguments to
   the method synchronously, but the remainder of this invocation is asynchronous, and the method returns a future
   immediately. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in Python](<../operations#asynchronous-method-invocation-(ami)>).
+  [Asynchronous Method Invocation (AMI) in Python](#asynchronous-method-invocation-ami).
 
 {% callout type="info" %}
 
@@ -127,7 +127,7 @@ class Chatbot(VisitorCenter.Greeter):
 
 The `["amd"]` metadata has no effect in Python: you can implement the mapped method either synchronously (as in the
 example above) or asynchronously, as discussed in
-[Asynchronous Method Dispatch (AMD) in Python](<../operations#asynchronous-method-dispatch-(amd)>).
+[Asynchronous Method Dispatch (AMD) in Python](#asynchronous-method-dispatch-amd).
 
 ### Throwing Exceptions
 

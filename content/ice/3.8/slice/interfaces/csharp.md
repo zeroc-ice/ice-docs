@@ -271,6 +271,6 @@ inherits from the skeleton class. This makes the servant class a concrete class 
 other methods and fields as you see fit to support your implementation.
 
 The async skeleton class is described in
-[Asynchronous Method Dispatch (AMD) in C#](<../operations#asynchronous-method-dispatch-(amd)>).
+[Asynchronous Method Dispatch (AMD) in C#](../operations#asynchronous-method-dispatch-amd).
 
 {% /language-section %}
