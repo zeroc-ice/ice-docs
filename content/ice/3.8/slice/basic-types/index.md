@@ -49,8 +49,8 @@ if one is available.
 ## Bytes
 
 The Slice type `byte` is an (at least) 8-bit type that is guaranteed not to undergo any changes in representation as it
-is transmitted between address spaces. This guarantee permits exchange of binary data such that it is not tampered with
-in transit. All other Slice types are subject to changes in representation during transmission.
+is transmitted between programs. This guarantee permits exchange of binary data such that it is not tampered with in
+transit. All other Slice types are subject to changes in representation during transmission.
 
 ## Language Mapping
 

@@ -6,24 +6,24 @@ title: Collocated Invocation and Dispatch
 
 The Ice runtime is _location transparent_: the client does not need to know where the implementation of an Ice object
 resides; an invocation on an object is automatically directed to the correct target, whether the object is implemented
-in the local address space, in another address space on the same machine, or in another address space on a remote
-machine. Location transparency is important because it allows us to change the location of an object implementation
-without breaking client programs and, by using a location service such as [IceDiscovery](../../plugins/icediscovery) or
+in the same process, in another process on the same machine, or in a process on a remote machine. Location transparency
+is important because it allows us to change the location of an object implementation without breaking client programs
+and, by using a location service such as [IceDiscovery](../../plugins/icediscovery) or
 [IceGrid](../../services/icegrid), addressing information such as host names and port numbers can be externalized so
 they do not appear in stringified proxies.
 
 ## Collocated Invocations
 
-For invocations that cross address space boundaries (or more accurately, cross communicator boundaries), the Ice runtime
-dispatches requests via the appropriate transport. However, for a proxy invocation in which the proxy and the servant
-that processes the invocation share the same communicator (so-called _collocated_ invocations), the Ice runtime, by
-default, does not send the invocation via the transport specified in the proxy. Instead, collocated invocations take a
-short-cut inside the Ice runtime and are dispatched more efficiently.
+For invocations that cross communicator boundaries, the Ice runtime dispatches requests via the appropriate transport.
+However, for a proxy invocation in which the proxy and the servant that processes the invocation share the same
+communicator (so-called _collocated_ invocations), the Ice runtime, by default, does not send the invocation via the
+transport specified in the proxy. Instead, collocated invocations take a short-cut inside the Ice runtime and are
+dispatched more efficiently.
 
 {% callout type="note" %}
 
 Note that if the proxy and the servant do not use the same communicator, the invocation is _not_ collocated, even though
-caller and callee are in the same address space.
+caller and callee are in the same process.
 
 {% /callout %}
 
@@ -32,7 +32,7 @@ the operating system kernel and would incur the full cost of creating TCP/IP con
 kernel, and so on. By optimizing collocated requests, much of this overhead can be avoided.
 
 For efficiency reasons, collocated invocations are not completely location transparent, that is, a collocated call has
-semantics that differ in some ways from calls that cross address-space boundaries. Specifically, collocated invocations
+semantics that differ in some ways from calls that cross communicator boundaries. Specifically, collocated invocations
 differ from ordinary invocations in the following respects:
 
 - Most collocated invocations are dispatched in the server-side thread pool just like regular invocations; the only
