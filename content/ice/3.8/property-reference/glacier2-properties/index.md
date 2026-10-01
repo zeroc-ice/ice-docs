@@ -121,8 +121,9 @@ defined.
 ### Description {% id="glacier2.filter.adapterid.accept-description" %}
 
 Specifies a space-separated list of adapter identifiers. If defined, the Glacier2 router
-[filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects with an adapter
-identifier that matches one of the entries in this list.
+[filters requests](../securing-a-glacier2-router) so that it accepts requests to Ice objects whose proxy has an adapter
+identifier that matches one of the entries in this list. The router applies this filter only to proxies with an adapter
+identifier, and forwards a request that this filter or another category or identity filter accepts.
 
 Identifiers that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identifier must be escaped with a leading backslash.
@@ -181,10 +182,12 @@ The host restrictions described for
 ### Description {% id="glacier2.filter.category.accept-description" %}
 
 Specifies a space-separated list of identity categories. If defined, the Glacier2 router
-[filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects with an identity that
-matches one of the categories in this list. If
+[filters requests](../securing-a-glacier2-router) so that it accepts requests to Ice objects with an identity whose
+category matches one of the categories in this list, and forwards a request that this filter or another identity or
+adapter identifier filter accepts. If
 [Glacier2.*#Glacier2.Filter.Category.AcceptUser](../glacier2-properties#glacier2.filter.category.acceptuser) is defined
-with a non-0 value, the router automatically adds the user name of each session to this list.
+with a non-0 value, the router automatically adds the non-empty user name of each session created with `createSession`
+to this list.
 
 Categories that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within a
 category must be escaped with a leading backslash.
@@ -223,8 +226,9 @@ sessions.
 ### Description {% id="glacier2.filter.identity.accept-description" %}
 
 Specifies a space-separated list of identities. If defined, the Glacier2 router
-[filters requests](../securing-a-glacier2-router) so that it only allows requests to Ice objects with an identity that
-matches one of the entries in this list.
+[filters requests](../securing-a-glacier2-router) so that it accepts requests to Ice objects with an identity that
+matches one of the entries in this list, and forwards a request that this filter or another category or adapter
+identifier filter accepts.
 
 Identities that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identity must be escaped with a leading backslash.
