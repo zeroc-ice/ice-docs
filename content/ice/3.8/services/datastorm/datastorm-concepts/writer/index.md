@@ -12,8 +12,9 @@ the corresponding types of the topic from which it is created.
 When a writer is created, DataStorm **notifies connected peers**. Readers whose configuration matches the writer (topic,
 or keys) will **attach** so they can receive samples from that writer.
 
-You can optionally assign a **name** to a writer at creation time. This name is visible to readers and is used in
-**listener notifications** (for connected writers or keys).
+You can optionally assign a **name** to a writer at creation time. Readers see this name in their connected-writers
+notifications (`getConnectedWriters` and `onConnectedWriters`) and as the origin of each sample it publishes
+(`Sample::getOrigin`).
 
 Writers maintain a **history queue** of samples they have published. Depending on the reader configuration, this
 history—or part of it—may be transmitted to readers when they connect.
@@ -116,6 +117,8 @@ following methods for publishing samples:
 
 ```cpp
 Topic<string, float> temperatures{node, "temperatures"};
+temperatures.setUpdater<float>("increment", [](float& value, float delta) { value += delta; });
+
 SingleKeyWriter<string, float> writer{
     temperatures,
     "floor1/kitchen",
@@ -127,14 +130,23 @@ writer.add(21.0f);
 // Publish an Update sample
 writer.update(20.0f);
 
+// Publish a PartialUpdate sample with the "increment" updater
+auto increment = writer.partialUpdate<float>("increment");
+increment(0.5f);
+
 // Publish a Remove sample. Remove samples don’t include a value
 writer.remove();
 ```
 
+The template parameter of `partialUpdate` must match the type used to register the updater with `Topic::setUpdater`.
+Calling the returned function for a key this writer has not given a full value with `add` or `update`, or has removed
+since, throws `std::logic_error`.
+
 ### Multi-Key and Any-Key Writers
 
 The [MultiKeyWriter](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1MultiKeyWriter.html)—used for both
-multi-key and any-key writers—provides the same four methods, but they take an additional key parameter.
+multi-key and any-key writers—provides the same four methods. `add`, `update`, and `remove` take an additional key
+parameter, and the function returned by `partialUpdate` takes the key and the update value.
 
 - [add](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1MultiKeyWriter_a2b3d80c7e87ca94114e2554c8bc281e6.html#a2b3d80c7e87ca94114e2554c8bc281e6)
   — publishes an Add sample for the given key.
@@ -158,6 +170,10 @@ writer.add("floor1/kitchen", 21.0f);
 // Publish an Update sample
 writer.update("floor1/kitchen", 20.0f);
 
+// Publish a PartialUpdate sample with the "increment" updater
+auto increment = writer.partialUpdate<float>("increment");
+increment("floor1/kitchen", 0.5f);
+
 // Publish a Remove sample
 writer.remove("floor1/kitchen");
 ```
@@ -177,23 +193,27 @@ You can set:
 - **Per-writer configuration** — via the writer constructor or
   [makeXxxWriter](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#header-func-members) helper functions
 
-**Precedence:** lower levels override higher ones (_per-writer config > topic defaults > global properties_).
+**Precedence:** lower levels override higher ones (_per-writer config > topic defaults > global properties_). DataStorm
+takes each option you leave unset from the next level.
 
 ### Options
 
 #### Sample Count (`sampleCount`)
 
 Specifies how many samples are kept in the writer’s history queue. When the queue is full, the oldest samples are
-discarded. Default: keep all samples.
+discarded. 0 keeps no samples; a negative value (the default, -1) sets no count limit. With the default `OnAll`
+clear-history policy, the queue still holds at most the latest sample.
 
 #### Sample Lifetime (`sampleLifetime`)
 
-Specifies how long samples are retained in the writer’s queue. Samples older than this duration are automatically
-removed.
+Specifies how long samples are retained in the writer’s queue, in milliseconds. When the writer publishes a sample or
+sends its history to a newly connected reader, DataStorm removes the queued samples older than this duration. 0 (the
+default) or a negative value sets no age limit.
 
 #### Clear History (`clearHistory`)
 
-Controls when the writer’s sample queue is cleared, based on sample events (`ClearHistoryPolicy`):
+Controls when the writer’s sample queue is cleared, based on sample events (`ClearHistoryPolicy`). When history is
+enabled, DataStorm applies the clearing policy before queuing the triggering sample. Default: `OnAll`.
 
 - **OnAdd** — clears the queue when publishing an `Add` sample.
 - **OnRemove** — clears the queue when publishing a `Remove` sample.
@@ -203,9 +223,10 @@ Controls when the writer’s sample queue is cleared, based on sample events (`C
 
 #### Priority (`priority`)
 
-Specifies the **priority** of the writer. Readers can be configured with a discard policy (see
+Specifies the **priority** of the writer. Default: 0. Readers can be configured with a discard policy (see
 [DiscardPolicy::Priority](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473))
-to only accept samples from the writer with the highest priority among those connected to the same topic.
+to accept only samples from the highest-priority writers connected for the sample's key; the reader accepts samples from
+every writer that shares the highest priority.
 
 ### Coordination & Listeners
 
@@ -216,7 +237,7 @@ Writers provide methods and listener callbacks to coordinate with connected read
 - [hasReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a91b9693902db142aaaefe92f4f024560.html#a91b9693902db142aaaefe92f4f024560)
   — checks whether any readers are currently connected.
 - [waitForReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a4fcb25334734007f070b1e3c7b6c51f4.html#a4fcb25334734007f070b1e3c7b6c51f4)
-  — wait for readers to connect.
+  — waits for the given number of readers to connect (default 1).
 - [waitForNoReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_af19ce42df5c3108b2362d4b38419035d.html#af19ce42df5c3108b2362d4b38419035d)
   — blocks until all readers disconnect.
 - [getConnectedKeys](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a970d44f9f1e538bfd492c8dc626c99d0.html#a970d44f9f1e538bfd492c8dc626c99d0)
@@ -224,20 +245,23 @@ Writers provide methods and listener callbacks to coordinate with connected read
 - [getConnectedReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a139caf6992bf90fd211abbf3250b8683.html#a139caf6992bf90fd211abbf3250b8683)
   — returns the names of connected readers.
 
+If the node is shut down, `waitForReaders` and `waitForNoReaders` throw
+[NodeShutdownException](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1NodeShutdownException.html).
+
 #### Connected Keys Listener
 
 Use
 [onConnectedKeys(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a8e95ce3faae3df238b50727e2e4ff729.html#a8e95ce3faae3df238b50727e2e4ff729)
-to register callbacks that monitor connected keys:
+to register callbacks that monitor connected keys, replacing any callbacks registered before:
 
-- The `initCallback` is called immediately after registration with the initial set of connected keys.
-- The `updateCallback` is called whenever a key is connected or disconnected.
+- The node queues `initCallback` on its callback executor with the initial set of connected keys.
+- The node calls `updateCallback` whenever a key is connected or disconnected.
 
 #### Connected Readers Listener
 
 Use
 [onConnectedReaders(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a2abe48f42f26a47a1f143c66ceb5a34c.html#a2abe48f42f26a47a1f143c66ceb5a34c)
-to register callbacks that monitor connected readers.
+to register callbacks that monitor connected readers, replacing any callbacks registered before:
 
-- The `initCallback` is called immediately after registration with the initial set of connected readers.
-- The `updateCallback` is called whenever a reader connects or disconnects.
+- The node queues `initCallback` on its callback executor with the initial set of connected readers.
+- The node calls `updateCallback` whenever a reader connects or disconnects.

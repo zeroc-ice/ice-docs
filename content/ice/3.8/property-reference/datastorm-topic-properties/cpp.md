@@ -74,11 +74,11 @@ If not defined, the default value is `OnAll`.
 
 This property specifies how samples might be discarded by a reader.
 
-| Value           | Description                                                                                                          |
-| --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `Never`, `None` | Samples are never discarded.                                                                                         |
-| `SendTime`      | A sample is discarded if its timestamp is at or before the last accepted sample timestamp.                           |
-| `Priority`      | A sample is discarded if it's received from writer with a lower priority than the highest priority connected writer. |
+| Value           | Description                                                                                                                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Never`, `None` | Samples are never discarded.                                                                                                                                                                                                 |
+| `SendTime`      | The reader discards a sample whose timestamp is at or before the timestamp of the last sample it accepted. It compares each sample of the initial history a writer sends with the timestamp it accepted before that history. |
+| `Priority`      | The reader discards a sample from a writer whose priority is lower than the highest priority among the writers connected for the sample's key. It accepts samples from every writer that shares the highest priority.        |
 
 If not defined, the default value is `Never`.
 
