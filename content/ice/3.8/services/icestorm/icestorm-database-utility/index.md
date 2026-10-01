@@ -11,14 +11,17 @@ The IceStorm Database utility supports the following command-line options:
 ```text
 Usage: icestormdb <options>
 Options:
- -h, --help             Show this message.
- -v, --version          Display version.
- --import FILE          Import database from FILE.
- --export FILE          Export database to FILE.
- --dbpath DIR           Source or target database environment.
- --mapsize VALUE        Set LMDB map size in MB (optional, import only).
- -d, --debug            Print debug messages.
+-h, --help             Show this message.
+-v, --version          Display version.
+--import FILE          Import database from FILE.
+--export FILE          Export database to FILE.
+--dbhome DIR           Source or target database environment.
+--dbpath DIR           Source or target database environment.
+--mapsize VALUE        Set LMDB map size in MB (optional, import only).
+-d, --debug            Print debug messages.
 ```
+
+`--dbhome` and `--dbpath` are synonyms; specify exactly one of them.
 
 ## Exporting an IceStorm Database
 
@@ -32,8 +35,8 @@ icestormdb --export db.ixp --dbpath db
 
 {% callout type="tip" %}
 
-You can export an IceStorm database while IceStorm is actively using this database. Write operations to the IceStorm
-database will block while `icestormdb` is reading the database.
+You can back up a running IceStorm service with `--export`: `icestormdb` reads the database in a single read-only
+transaction, which gives it a consistent snapshot while IceStorm continues to update the database.
 
 If you want to back-up the IceStorm database while IceStorm is running, we recommend using the
 [mdb_copy](https://manpages.org/mdb_copy) tool.
@@ -42,15 +45,16 @@ If you want to back-up the IceStorm database while IceStorm is running, we recom
 
 ## Importing an IceStorm Database
 
-To import an IceStorm database, use the `--import` option to specify the input file and the -`-dbpath` option to specify
+To import an IceStorm database, use the `--import` option to specify the input file and the `--dbpath` option to specify
 the path name of the database. For example, use the following command to import a database into the `dbNew` directory
 from a file named `db.ixp`:
 
 ```shell
+mkdir dbNew
 icestormdb --import db.ixp --dbpath dbNew
 ```
 
-The target directory must be empty.
+The target directory must already exist and be empty.
 
 ### mapsize Option
 

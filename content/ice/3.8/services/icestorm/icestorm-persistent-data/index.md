@@ -25,7 +25,7 @@ IceStorm uses a single persistent map with application-provided data. This map h
 ```slice
 struct SubscriberRecordKey
 {
-   // The identity of the topic, for example IceStorm/<topic-name>
+   // The identity of the topic, for example <instance-name>/topic.<topic-name>
    Ice::Identity topic;
 
    // The identity of the subscriber. An empty id corresponds to a topic-only entry.
