@@ -160,9 +160,9 @@ Name mangling is not an option in this case: while it works fine for compilers, 
 
 ## Idempotent Operations
 
-Some operations, such as `getTime` in the `Clock` interface, do not modify the state of the object they operate on. They
-are the conceptual equivalent of C++ `const` member functions. Similarly, `setTime` does modify the state of the object,
-but is idempotent. You can indicate this in Slice as follows:
+Some operations, such as `getTime` in the `Clock` interface, do not modify the state of the object they operate on.
+Other operations, such as `setTime`, modify the state of the object but are idempotent. You can indicate this in Slice
+as follows:
 
 ```slice
 interface Clock
