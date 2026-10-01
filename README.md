@@ -6,10 +6,8 @@ mapping it covers; the reader picks one (C++ until they do), and the choice is k
 
 ## Requirements
 
-- Node.js 24.15 or later
+- Node.js 24 or later
 - npm 11.16 or later
-
-`.npmrc` makes npm refuse to install outside the `engines` range in `package.json`.
 
 ## Building
 
