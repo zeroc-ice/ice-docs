@@ -49,8 +49,8 @@ option in a Bluetooth endpoint), the `host` value from this property is used ins
 
 ### Description {% id="ice.default.invocationtimeout-description" %}
 
-Specifies the default [invocation timeout](../invocation-timeouts) in milliseconds to use for all proxies. If not
-defined, the default timeout is `-1`. A value of 0 or less disables the timeout.
+Specifies the default [invocation timeout](../invocation-timeouts) in milliseconds to use for all proxies. The default
+value is `-1`, which disables the timeout.
 
 ## Ice.Default.Locator
 
@@ -89,8 +89,8 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 ### Description {% id="ice.default.locatorcachetimeout-description" %}
 
 Specifies the default [locator cache](../locator-semantics-for-clients) timeout for indirect proxies, in seconds. If
-`num` is set to a value larger than 0, locator cache entries older than `num` seconds are ignored. If set to 0, the
-locator cache is not used. A negative value means cache entries do not expire. The default value is `-1`.
+`num` is greater than `0`, locator cache entries older than `num` seconds are ignored. If set to `0`, the locator cache
+is not used. The default value, `-1`, means cache entries do not expire.
 
 Once a cache entry has expired, the Ice runtime performs a new locate request to refresh the cache before sending the
 next invocation; therefore, the invocation is delayed until the runtime has refreshed the entry. If you set
@@ -146,8 +146,8 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ### Description {% id="ice.default.slicedformat-description" %}
 
-Specifies the encoding format of Slice classes and exceptions. The default value is 0, which selects the compact format;
-1 selects the sliced format. This setting applies to version 1.1 of the Ice encoding.
+Specifies the encoding format of Slice classes. The default value is `0`, which selects the compact format; `1` selects
+the sliced format. This property applies to version 1.1 of the Ice encoding.
 
 Note that you can also specify whether certain operations use the sliced format by annotating their definitions with
 [metadata](../slice-metadata-directives).

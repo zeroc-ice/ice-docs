@@ -10,10 +10,7 @@ The `assembly` component accepts these forms:
 | Assembly name | `GreeterService,Version=...,Culture=neutral,publicKeyToken=...` or `GreeterService`     |
 | Assembly path | `GreeterService.dll`, `services\GreeterService.dll` or `C:\services\GreeterService.dll` |
 
-IceBox first tries [Assembly.Load](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.load) with
-the supplied value. If that fails, it tries
-[Assembly.LoadFrom](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.loadfrom). IceBox resolves
-relative assembly paths against the `iceboxnet` process's current working directory.
+IceBox resolves relative assembly paths against the `iceboxnet` process's current working directory.
 
 The `class` component is the complete class name of the service implementation class, which must define a public
 constructor.

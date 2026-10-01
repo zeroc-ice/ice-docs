@@ -29,15 +29,14 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 ### Description {% id="ice.batchautoflushsize-description" %}
 
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is
-set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added
-to a batch and that message would cause the batch to exceed `num` KiB (1024 bytes per KiB). For stream transports, a
-value of 0 or less disables automatic flushing: the application must flush batches explicitly. If not defined, the
-default value is `1024`.
+greater than `0`, the runtime automatically forces a flush of the current batch when a new message is added to a batch
+and that message would cause the batch to reach or exceed `num` KiB (1024 bytes per KiB). For stream transports, `0`
+disables automatic flushing: the application must flush batches explicitly. If not defined, the default value is `1024`.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 For datagram proxies, Ice caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties) bytes, or 65507 bytes
-when that property is not set, including when `num` is 0 or negative.
+when that property is not set, including when `num` is `0`.
 
 {% /iflang %}
 
@@ -253,7 +252,7 @@ On platforms other than Windows, `Ice.UseSyslog` and `Ice.LogFile` cannot be com
 
 {% iflang langs="js" %}
 
-In Node.js, the logger opens the file when writing a message. Browsers do not support this property.
+Browsers do not support this property.
 
 {% /iflang %}
 
@@ -269,9 +268,8 @@ In Node.js, the logger opens the file when writing a message. Browsers do not su
 
 When `num` is greater than 0, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
 Before writing a message that would bring a non-empty log file to or above this threshold, the Ice file-based logger
-renames the file to `basename-YYYYMMDD-HHMMSS.ext` and creates a new log file. If that archive name already exists, it
-adds `-1`, `-2`, and so on before the extension. The logger writes each message in full, even if the message exceeds the
-threshold.
+renames the file to `basename-YYYYMMDD-HHMMSS.ext` and creates a new log file. The logger writes each message in full,
+even if the message exceeds the threshold.
 
 When `num` is 0 or negative, the logger writes to a single file with unlimited size. The default value is 0.
 

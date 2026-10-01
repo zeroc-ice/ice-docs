@@ -73,9 +73,9 @@ for comments and escaping.
 
 ### Description {% id="ice.consolelistener-description" %}
 
-When the communicator uses Ice's default trace logger, a value greater than 0 adds Ice's console listener to
-`System.Diagnostics.Trace.Listeners`. This listener writes messages to `stderr`. The default value is 1. With 0 or a
-negative value, the logger continues writing through `System.Diagnostics.Trace` using the existing listeners.
+When the communicator uses Ice's default trace logger, a value greater than `0` adds Ice's console listener to
+`System.Diagnostics.Trace.Listeners`. This listener writes messages to `stderr`. The default value is `1`. With `0`, the
+logger continues writing through `System.Diagnostics.Trace` using the existing listeners.
 
 Ice consults this property when no logger is supplied in `InitializationData`, `Ice.LogFile` is empty and the
 [per-process logger](../per-process-logger) is Ice's default logger.
@@ -278,7 +278,7 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
-If `Ice.StdErr` and `Ice.StdOut` name the same file, they share one stream.
+`Ice.StdErr` and `Ice.StdOut` can name the same file.
 
 ## Ice.StdOut
 
@@ -291,7 +291,7 @@ If `Ice.StdErr` and `Ice.StdOut` name the same file, they share one stream.
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
-If `Ice.StdErr` and `Ice.StdOut` name the same file, they share one stream.
+`Ice.StdErr` and `Ice.StdOut` can name the same file.
 
 ## Ice.ThreadPriority
 

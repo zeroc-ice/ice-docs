@@ -16,10 +16,6 @@ The `assembly` component accepts these forms:
 | Assembly name | `myplugin,Version=...,Culture=neutral,publicKeyToken=...` or `myplugin` |
 | Assembly path | `MyPlugin.dll`, `plugins\MyPlugin.dll` or `C:\plugins\MyPlugin.dll`     |
 
-Ice first tries [Assembly.Load](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.load) with the
-supplied value. If that fails, it tries
-[Assembly.LoadFrom](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.loadfrom).
-
 The specified `class` must implement the
 [PluginFactory](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.PluginFactory.html) interface.
 
