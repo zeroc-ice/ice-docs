@@ -2,7 +2,7 @@
 
 ```java
 RouterPrx router = RouterPrx.createProxy(
-    communicator, "Glacier2/router:tcp -h localhost -p 4063");
+    communicator, "Glacier2/router:tcp -h 5.6.7.8 -p 4063");
 
 SessionPrx session;
 try {
