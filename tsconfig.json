@@ -16,6 +16,10 @@
     // and by the Node scripts. The latter two are real Node ESM and need the
     // explicit extension, so source files spell it out too. Safe with noEmit.
     "allowImportingTsExtensions": true,
+    // Node runs the scripts, the tests, and the modules they import by
+    // stripping their types, which it can't do for syntax that compiles to
+    // code, like an enum.
+    "erasableSyntaxOnly": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",

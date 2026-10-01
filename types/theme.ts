@@ -1,7 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 
-export enum Theme {
-  Light = 'light',
-  Dark = 'dark',
-  System = 'system'
-}
+export const Theme = {
+  Light: 'light',
+  Dark: 'dark',
+  System: 'system'
+} as const;
