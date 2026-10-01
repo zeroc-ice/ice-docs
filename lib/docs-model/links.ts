@@ -69,8 +69,8 @@ const MAILTO = /^mailto:/i;
  * - external / mailto / in-page anchors / already-absolute: unchanged
  * - `attachments/...`: left alone (assets, not pages)
  * - anything else: the page named by the link is looked up in the page index
- *   and rewritten to `/ice/<version>/<slug>`, preserving a `?lang=` that names
- *   the language mapping to show, and `#anchor`.
+ *   and rewritten to `/ice/<version>/<slug>`, preserving the query, such as a
+ *   `?lang=` that names the language mapping to show, and `#anchor`.
  */
 export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const raw = (href ?? '').trim();

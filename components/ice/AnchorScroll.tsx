@@ -72,8 +72,9 @@ export function goToHeading(id: string) {
 // to a heading on this page, however the link is written, is taken in the
 // capture phase, ahead of the router's own handler, which would scroll to the
 // first copy too. A link can also name the mapping to show with `?lang=`, which
-// the root layout's script applies on a full load; after a client-side
-// navigation it applies here, before the page paints, and the address drops it.
+// the root layout's script applies on a full load. Here it applies when a link
+// on this page is clicked, or after a client-side navigation, before the page
+// paints and with the address dropping it.
 export function AnchorScroll() {
   const pathname = usePathname();
 
@@ -104,11 +105,11 @@ export function AnchorScroll() {
       )
         return;
       const id = fragmentId(link.hash);
-      if (!id) return;
-      event.preventDefault();
       const language = queryLanguage(new URL(link.href));
+      if (!id && !language) return;
+      event.preventDefault();
       if (language) setLanguage(language);
-      goToHeading(id);
+      if (id) goToHeading(id);
     };
     document.addEventListener('click', onClick, true);
     return () => document.removeEventListener('click', onClick, true);
