@@ -1,5 +1,5 @@
 ---
-title: Callbacks through Glacier2
+title: Callbacks Through Glacier2
 ---
 
 Callbacks from servers to clients are commonly used in distributed applications, often to notify the client about an

@@ -153,7 +153,7 @@ module IceGrid
 The name parameter corresponds to the node name or registry replica name. There is no operation comparable to
 `getServerAdminCategory` for IceGrid nodes and IceGrid registry replicas.
 
-### Callbacks without Glacier2
+### Callbacks Without Glacier2
 
 IceGrid also supports the relaying of callback requests from a back-end server to an administrative client over the
 client's existing connection to the registry, which is especially important for a client using a network port that is
@@ -353,7 +353,7 @@ register an observer with the IceBox administrative facet.
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
-- [Callbacks through Glacier2](../callbacks-through-glacier2)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [IceBox](../icebox)
 - [IceBox Administration](../icebox-administration)
 - [IceGrid.*](../icegrid-properties)

@@ -132,7 +132,7 @@ print("Listening on port 4061...")
 Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to
 our `Chatbot` servant.
 
-### Keep Running until Ctrl+C
+### Keep Running Until Ctrl+C
 
 It’s essential to keep the server running and not fall off main prematurely.
 

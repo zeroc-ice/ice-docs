@@ -48,7 +48,7 @@ these field values:
 
 We describe how to marshal these instances using versions 1.0 and 1.1 of the encoding in separate sections below.
 
-## Class Encoding version 1.0
+## Class Encoding Version 1.0
 
 The sender arbitrarily assigns a non-zero [identity](../data-encoding-for-classes) to each instance. Typically, the
 sender will simply consecutively number the instances starting at `1`. For this example, assume that the two instances
@@ -101,7 +101,7 @@ entries at byte offsets 58 and 118 in the above table.) All class instances have
 Note that if a class has no fields, a type ID and slice for that class is still marshaled. The byte count of the slice
 will be 4 in this case, indicating that the slice contains no data.
 
-## Class Encoding version 1.1
+## Class Encoding Version 1.1
 
 A leading [size](../basic-data-encoding) value of `1` marks the beginning of an instance, followed by one or more
 [slices](../basic-data-encoding).

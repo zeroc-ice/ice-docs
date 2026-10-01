@@ -28,7 +28,7 @@ public sealed partial record class Person
 }
 ```
 
-### Optional Fields
+### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a C# field with the same name. The mapped field’s type is nullable, and the tag value is not
 mapped to C#.
@@ -64,7 +64,7 @@ public partial class C : Ice.Value
 Optional and non-optional proxies are mapped the same way, as illustrated above. As a result, you cannot distinguish
 between an optional proxy field that is not set and an optional proxy field set to null.
 
-### Default Values
+### Default Values {% id="language-mapping-default-values" %}
 
 Slice default values map to default values in C#.
 

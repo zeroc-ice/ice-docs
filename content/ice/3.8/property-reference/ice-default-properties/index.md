@@ -6,11 +6,11 @@ title: Ice.Default.*
 
 ## Ice.Default.EncodingVersion
 
-### Synopsis
+### Synopsis {% id="ice.default.encodingversion-synopsis" %}
 
 `Ice.Default.EncodingVersion=ver`
 
-### Description
+### Description {% id="ice.default.encodingversion-description" %}
 
 If this property is not defined, Ice uses encoding version 1.1 when parsing a string that represents a proxy if this
 string does not specify an encoding with the `-e` option. To use encoding version 1.0 as the default instead, set this
@@ -20,22 +20,22 @@ property to `1.0`:
 
 ## Ice.Default.EndpointSelection
 
-### Synopsis
+### Synopsis {% id="ice.default.endpointselection-synopsis" %}
 
 `Ice.Default.EndpointSelection=policy`
 
-### Description
+### Description {% id="ice.default.endpointselection-description" %}
 
 This property controls the default [endpoint selection](../connection-establishment) policy for proxies with multiple
 endpoints. Permissible values are `Ordered` and `Random`. The default value of this property is `Random`.
 
 ## Ice.Default.Host
 
-### Synopsis
+### Synopsis {% id="ice.default.host-synopsis" %}
 
 `Ice.Default.Host=host`
 
-### Description
+### Description {% id="ice.default.host-description" %}
 
 If an endpoint does not specify a host name (i.e., omits the `-h host` option in IP-based endpoints or the `-a address`
 option in a Bluetooth endpoint), the `host` value from this property is used instead. This property applies to both
@@ -43,22 +43,22 @@ option in a Bluetooth endpoint), the `host` value from this property is used ins
 
 ## Ice.Default.InvocationTimeout
 
-### Synopsis
+### Synopsis {% id="ice.default.invocationtimeout-synopsis" %}
 
 `Ice.Default.InvocationTimeout=num`
 
-### Description
+### Description {% id="ice.default.invocationtimeout-description" %}
 
 Specifies the default [invocation timeout](../invocation-timeouts) in milliseconds to use for all proxies. If not
 defined, the default timeout is `-1`, which means an invocation never times out.
 
 ## Ice.Default.Locator
 
-### Synopsis
+### Synopsis {% id="ice.default.locator-synopsis" %}
 
 `Ice.Default.Locator=locator`
 
-### Description
+### Description {% id="ice.default.locator-description" %}
 
 Specifies a default [locator](../locators) for all proxies and object adapters. The value is a stringified proxy for the
 [IceGrid](../icegrid) locator object. The default locator can be overridden on a proxy using the `ice_locator`
@@ -82,11 +82,11 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ## Ice.Default.LocatorCacheTimeout
 
-### Synopsis
+### Synopsis {% id="ice.default.locatorcachetimeout-synopsis" %}
 
 `Ice.Default.LocatorCacheTimeout=num`
 
-### Description
+### Description {% id="ice.default.locatorcachetimeout-description" %}
 
 Specifies the default [locator cache](../locator-semantics-for-clients) timeout for indirect proxies, in seconds. If
 `num` is set to a value larger than 0, locator cache entries older than `num` seconds are ignored. If set to 0, the
@@ -102,22 +102,22 @@ entry.
 
 ## Ice.Default.Protocol
 
-### Synopsis
+### Synopsis {% id="ice.default.protocol-synopsis" %}
 
 `Ice.Default.Protocol=transport protocol`
 
-### Description
+### Description {% id="ice.default.protocol-description" %}
 
 Sets the [transport protocol](../endpoint-syntax) that is being used if an endpoint uses `default` as the transport
 protocol specification. The default value is `tcp`.
 
 ## Ice.Default.Router
 
-### Synopsis
+### Synopsis {% id="ice.default.router-synopsis" %}
 
 `Ice.Default.Router=router`
 
-### Description
+### Description {% id="ice.default.router-description" %}
 
 Specifies the default [router](../routers) for all proxies. The value is a stringified proxy for the Glacier2 router
 control interface. The default router can be overridden on a proxy using the `ice_router`
@@ -128,11 +128,11 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ## Ice.Default.SlicedFormat
 
-### Synopsis
+### Synopsis {% id="ice.default.slicedformat-synopsis" %}
 
 `Ice.Default.SlicedFormat=num`
 
-### Description
+### Description {% id="ice.default.slicedformat-description" %}
 
 Specifies the encoding format of Slice classes and exceptions. The default value of `num` is 0, meaning that the
 encoding uses the compact format. Set this property to a non-0 value to use the sliced format by default. This setting
@@ -143,11 +143,11 @@ Note that you can also specify whether certain operations use the sliced format 
 
 ## Ice.Default.SourceAddress
 
-### Synopsis
+### Synopsis {% id="ice.default.sourceaddress-synopsis" %}
 
 `Ice.Default.SourceAddress=addr`
 
-### Description
+### Description {% id="ice.default.sourceaddress-description" %}
 
 If specified, outgoing socket connections will be bound using the given address `addr`. This allows to set a specific IP
 address as the source address of IP packets but it doesn't necessarily imply that the operating system will use the

@@ -25,17 +25,21 @@
 // the route provides, so a page may refer to `$frontmatter` or `$path`. The
 // transform also resolves every link and card against the page index, so the
 // second pass reports one that names no page, which the site renders as plain
-// text, and one whose `#anchor` names no element on the page it links to.
+// text, and one whose `#anchor` names no element on the page it links to. It
+// also reports two headings that a reader of one language sees under one
+// anchor.
 //
-// Exit code 1 on any diagnostic at warning level or above, and on a link to a
-// page or an anchor that does not exist. `child-invalid`, which a
-// `{% callout %}` reflowed into its paragraph produces, is a warning.
+// Exit code 1 on any diagnostic at warning level or above, on a link to a page
+// or an anchor that does not exist, and on two headings with one anchor.
+// `child-invalid`, which a `{% callout %}` reflowed into its paragraph
+// produces, is a warning.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import Markdoc from '@markdoc/markdoc';
 
 import config from '../markdoc/config.ts';
+import { parse } from '../markdoc/parse.ts';
 import {
   CONTENT_ROOT,
   frontmatterOf,
@@ -70,12 +74,6 @@ const resolverTags = {
 
 const LEVELS = ['debug', 'info', 'warning', 'error', 'critical'];
 const fails = (level) => LEVELS.indexOf(level) >= LEVELS.indexOf('warning');
-
-/** Parse one document with the same tokenizer settings as lib/markdown.ts. */
-function parse(source) {
-  const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
-  return Markdoc.parse(tokenizer.tokenize(source));
-}
 
 function validate(ast, source, tags, variables) {
   const lines = source.split('\n');
@@ -218,6 +216,28 @@ for (const { version, page } of allPages) {
       anchoredLinks.push({ where, url, href });
   }
   anchorsByPage.set(url, anchors);
+
+  // A link or the outline reaches only the first of two headings with one
+  // anchor. MD024 sees a file at a time; this sees a shared page's headings
+  // with each language's overlay headings among them, as the outline lists them.
+  const repeats = new Map();
+  for (const language of variables.languages) {
+    const ids = tree.attributes.headings
+      .filter(({ langs }) => !langs || langs.includes(language))
+      .map(({ id }) => id);
+    for (const id of ids.filter((id, i) => ids.indexOf(id) !== i))
+      repeats.set(id, new Set([...(repeats.get(id) ?? []), language]));
+  }
+  for (const [id, languages] of repeats) {
+    const only =
+      languages.size < variables.languages.length
+        ? ` (${[...languages].join(', ')})`
+        : '';
+    diagnostics.push({
+      where,
+      text: `two headings share the anchor #${id}${only}`
+    });
+  }
 }
 
 // Only the anchors of the manual's own pages are checked here; lychee checks

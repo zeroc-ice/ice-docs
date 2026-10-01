@@ -118,7 +118,7 @@ Status of Main DB
 
 {% /callout %}
 
-### Backing up the Registry Database
+### Backing Up the Registry Database
 
 You should consider making regular backups of your IceGrid registry database. We recommend using one of the following
 tools to perform backups while the IceGrid registry is running:
@@ -148,6 +148,6 @@ to back up the user data and restore them when necessary.
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
 - [Well-Known Objects](../well-known-objects)
 - [Object Adapter Endpoints](../object-adapter-endpoints)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [IceGrid.*](../icegrid-properties)

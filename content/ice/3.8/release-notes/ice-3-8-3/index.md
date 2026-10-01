@@ -9,7 +9,7 @@ We list below the main highlights. Please refer to the
 [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) for a detailed description of all the changes
 included in this release.
 
-## Codebase audits
+## Codebase Audits
 
 For this release, we performed in-depth security and code-correctness audits of the entire Ice codebase with the help of
 AI tools, and fixed the bugs identified through these audits. Most of the changes in Ice 3.8.3 are the result of this

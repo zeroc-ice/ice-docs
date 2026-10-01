@@ -30,11 +30,11 @@ For a list of supported maps see:
 
 ## IceMX.Metrics._view_.Accept._attribute_
 
-### Synopsis
+### Synopsis {% id="icemx.metrics.view.accept.attribute-synopsis" %}
 
 `IceMX.Metrics.view.Accept.attribute=regexp`
 
-### Description
+### Description {% id="icemx.metrics.view.accept.attribute-description" %}
 
 This property defines a rule to accept the monitoring of an instrumented object or operation based on the value of one
 of its attribute. If the `attribute` matches the specified `regex` and if it satisfies other `Accept` and `Reject`
@@ -47,11 +47,11 @@ For example, to accept monitoring instrumented objects or operations which are f
 
 ## IceMX.Metrics._view_.Disabled
 
-### Synopsis
+### Synopsis {% id="icemx.metrics.view.disabled-synopsis" %}
 
 `IceMX.Metrics.view.Disabled=num`
 
-### Description
+### Description {% id="icemx.metrics.view.disabled-description" %}
 
 If `num` is set to a value larger than zero, the metrics view or the map is disabled. This property is useful to
 pre-configure a view or map. The view can be disabled initially to not incur overhead and enabled only when needed at
@@ -59,11 +59,11 @@ runtime.
 
 ## IceMX.Metrics._view_.GroupBy
 
-### Synopsis
+### Synopsis {% id="icemx.metrics.view.groupby-synopsis" %}
 
 `IceMX.Metrics.view.GroupBy=delimited attributes`
 
-### Description
+### Description {% id="icemx.metrics.view.groupby-description" %}
 
 This property defines how metrics are grouped and how the ID of each metrics object is created. The grouping is based on
 attributes specific to the instrumented object or operation. For example, you can group the invocation metrics by
@@ -79,11 +79,11 @@ are defined in relevant section of the Ice manual. Here are some examples of Gro
 
 ## IceMX.Metrics._view_.Reject._attribute_
 
-### Synopsis
+### Synopsis {% id="icemx.metrics.view.reject.attribute-synopsis" %}
 
 `IceMX.Metrics.view.Reject.attribute=regexp`
 
-### Description
+### Description {% id="icemx.metrics.view.reject.attribute-description" %}
 
 This property defines a rule to accept the monitoring of an instrumented object or operation based on the value of one
 of its attribute. If the `attribute` matches the specified `regex` and if it satisfies other `Accept` and `Reject`
@@ -96,11 +96,11 @@ For example, to reject monitoring instrumented objects or operations which are f
 
 ## IceMX.Metrics._view_.RetainDetached
 
-### Synopsis
+### Synopsis {% id="icemx.metrics.view.retaindetached-synopsis" %}
 
 `IceMX.Metrics.view.RetainedDetached=num`
 
-### Description
+### Description {% id="icemx.metrics.view.retaindetached-description" %}
 
 If `num` is set to a value larger than zero, up to `num` metrics object whose `current` value is 0 will be kept in
 memory by the metrics map. This is useful to prevent indefinite memory growth if the monitoring of an instrumented

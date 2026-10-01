@@ -2,28 +2,29 @@
 title: Alternate Property Stores
 ---
 
-In addition to regular files, Ice also supports storing property settings in the Windows registry and Java resources.
+Ice for C++, Java, MATLAB, and Python can load properties from the Windows registry. Ice for Java can also load
+properties from class loader resources. Ice for C#, JavaScript, PHP, and Ruby support neither.
 
 ## Loading Properties from the Windows Registry
 
-You can use the Windows registry to store property settings. Property settings must be stored with a key underneath
-`HKEY_LOCAL_MACHINE`. To inform the Ice run time of this key, you must set the `Ice.Config` property to the key. For
-example:
+On Windows, store property settings under a key in `HKEY_LOCAL_MACHINE` or `HKEY_CURRENT_USER`. Set `Ice.Config` to the
+key's path with an `HKLM\` or `HKCU\` prefix, respectively. For example:
 
 ```powershell
 client --Ice.Config=HKLM\MyCompany\MyApp
 ```
 
-The Ice runtime examines the value of `Ice.Config`; if that value begins with `HKLM`, the remainder of the property is
-taken to be a key to a number of string values. For the preceding example, the Ice runtime looks for the key
-`HKEY_LOCAL_MACHINE\MyCompany\MyApp`. The string values stored under this key are used to initialize the properties.
+For this example, Ice loads the string values under `HKEY_LOCAL_MACHINE\MyCompany\MyApp`. You can also pass an `HKLM\`
+or `HKCU\` path directly to `Properties.load`.
 
 The name of each string value is the name of the property (such as `Ice.Trace.Network`). Note that the value must be a
 string (even if the property setting is numeric). For example, to set `Ice.Trace.Network` to 3, you must store the
 string "3" as the value, not a binary or `DWORD` value.
 
 String values in the registry can be regular strings (`REG_SZ`) or expandable strings (`REG_EXPAND_SZ`). Expandable
-strings allow you to include symbolic references to environment variables (such as `%ICE_HOME%`).
+strings allow you to include symbolic references to environment variables (such as `%ICE_HOME%`). Ice skips values of
+other types. C++ and the mappings based on its runtime also log an "unsupported type for Windows registry property"
+warning for these values.
 
 Ice applies the same [property validation](../properties-overview#property-validation) to the names it reads from the
 registry as to the names in a configuration file, so an unknown property name that begins with a reserved prefix

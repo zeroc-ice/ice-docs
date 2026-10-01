@@ -31,6 +31,6 @@ is important to keep this issue in mind when you restart a master since it might
 ## See Also
 
 - [Registry Replication](../registry-replication)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [Using IceGrid Deployment](../using-icegrid-deployment)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

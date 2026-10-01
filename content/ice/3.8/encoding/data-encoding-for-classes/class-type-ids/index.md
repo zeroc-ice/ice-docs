@@ -2,7 +2,7 @@
 title: Data Encoding for Class Type IDs
 ---
 
-## Type ID Encoding version 1.0
+## Type ID Encoding Version 1.0
 
 Unlike for exception [type IDs](../type-ids), class type IDs are not simple strings. Instead, a class type ID is
 marshaled as a boolean followed by either a string or a [size](../basic-data-encoding), to conserve bandwidth. To
@@ -56,7 +56,7 @@ Encoding class type IDs in this way provides significant savings in bandwidth: w
 subsequent time, it is marshaled as a two-byte value (assuming no more than 254 distinct type IDs per request) instead
 of as a string. Because type IDs can be long, especially if you are using nested modules, the savings are considerable.
 
-## Type ID Encoding version 1.1
+## Type ID Encoding Version 1.1
 
 Each [slice](../basic-data-encoding) of a class instance has a leading byte containing flags that describe various
 aspects of the slice, including whether the slice includes a type ID and how that type ID is encoded. There are four

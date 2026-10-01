@@ -43,7 +43,7 @@ version of Ice.
 
 ## General Changes
 
-### Replaced ACM and connection timeouts
+### Replaced ACM and Connection Timeouts
 
 The powerful but complex Active Connection Management (ACM) mechanism provided in Ice 3.6 and Ice 3.7 was replaced by
 the much simpler [Idle Timeout mechanism](../connection-closure) first introduced in IceRPC. In most cases, you don’t
@@ -62,7 +62,7 @@ These connection timeouts are still accepted in endpoints for backwards compatib
 We also added 3 new connection-related timeouts, for [inactivity](../connection-closure),
 [connection establishment](../connection-establishment), and [graceful closure](../connection-closure).
 
-### New properties for flow control
+### New Properties for Flow Control
 
 As of Ice 3.8, we do not recommend using thread pool limits (starvation) for flow control. It’s acceptable for a thread
 pool to be out of threads for a short period of time, but generally, you always want to have at least one thread
@@ -73,7 +73,7 @@ side” of a connection to apply back pressure on the peer. For complete flow-co
 with the new [adapter.MaxConnections](../object-adapter-properties) property that allows an object adapter to limit the
 number of concurrent connections it accepts.
 
-### Reworked the published endpoints of object adapters
+### Reworked the Published Endpoints of Object Adapters
 
 The published endpoints of an object adapter are the endpoint(s) included in the proxies returned by the `add` and
 `createProxy` operations on an object adapter. For indirect object adapters, the published endpoints are the endpoints
@@ -94,7 +94,7 @@ endpoints is to keep it very simple:
 - don’t use a DNS name for this endpoint
 - listen on all interfaces (with no `-h` in your endpoint), or listen on loopback (with `-h 127.0.0.1`)
 
-### Simplify proxy creation
+### Simplify Proxy Creation
 
 You can now create a typed proxy directly from a communicator and a string in all languages. For example:
 
@@ -167,7 +167,7 @@ Calling `uncheckedCast` should be rare in C++, but more common in C#, Java, and 
 despite its name, is not a cast: it’s a factory method that creates a new proxy from an existing proxy. We kept the name
 unchanged for backwards compatibility.
 
-### IceSSL refactoring
+### IceSSL Refactoring
 
 The SSL transport is no longer provided by a plug-in: it is now built into the main Ice library and always available.
 
@@ -206,17 +206,17 @@ example, you can use the `ClassSliceLoader` implementation to create a Slice loa
 In Java, we recommend registering a Slice loader programmatically (in `InitializationData`) over setting the now
 deprecated `Ice.Default.Package` and `Ice.Package.module` properties.
 
-### Add support for Dispatcher and Middleware
+### Add Support for Dispatcher and Middleware
 
 The new Dispatcher API in C++, C#, Java, JavaScript, and Swift abstracts the dispatch process and allows you to write
 middleware. See the `Ice/middleware` [demo](https://github.com/zeroc-ice/ice-demos) for an example.
 
-### New Logger middleware
+### New Logger Middleware
 
 We added a new always-enabled logger middleware in all languages with dispatch support. This middleware logs dispatches
 using the configured logger based on the value of `Ice.Trace.Dispatch` and `Ice.Warn.Dispatch`.
 
-### Simplify bidir setup
+### Simplify Bidir Setup
 
 We added a new `setDefaultObjectAdapter` operation on [Communicator](https://code.zeroc.com/manual/Ice/Communicator) to
 simplify the creation of bidir connections. See the `Ice/bidir` [demo](https://github.com/zeroc-ice/ice-demos) for an
@@ -239,7 +239,7 @@ Today, you should not create an Ice proxy with both `tcp` and `ssl` endpoints, a
 options, properties, and APIs to fine-tune the handling of such proxies. So we removed the `secure` proxy option, the
 `PreferSecure` proxy property, and all associated properties and proxy methods.
 
-### More marshalable local exceptions
+### More Marshalable Local Exceptions
 
 In Ice 3.7 and prior releases, the local exceptions that could be marshaled were limited to 6 exceptions: 3 not exist
 exceptions (`ObjectNotExistException`, `FacetNotExistException`, `OperationNotExistException`) and 3 unknown exceptions
@@ -263,7 +263,7 @@ We added a new `ice2slice` compiler that converts Slice files in the `.ice` form
 
 ## Packaging Changes
 
-### Slice compilers
+### Slice Compilers
 
 The Slice compilers are no longer packaged all together in their own package. Each Slice compiler is now usually
 included in its associated language package.
@@ -277,7 +277,7 @@ the Slice to PHP compiler (`slice2php`) is included directly in the Ice-PHP pack
 
 ## Slice Language Changes
 
-### Removed local Slice
+### Removed Local Slice
 
 In Ice 3.7 and prior releases, a large portion of the Ice API was defined using local Slice. This includes all the main
 Ice classes: `Communicator`, `ObjectAdapter`, `Connection`, etc.
@@ -287,7 +287,7 @@ regularly added new Slice metadata directives just to get the desired APIs in `C
 
 All the interfaces and other APIs that used to be defined in local Slice are now defined directly in C++, C#, Java, etc.
 
-### Optional and class are now incompatible
+### Optional and Class Are Now Incompatible
 
 In Ice 3.7 and prior releases, you could define an optional parameter or an optional field and give this field/parameter
 a class type, or a type that contained a class. While this was a valid syntax, the marshaling/unmarshaling support was
@@ -296,11 +296,11 @@ not correct - it did not work reliably. We tried and tried to design a fix but u
 We “fixed” this bug by disallowing the syntax: as of Ice 3.8, the type of an optional field or parameter can no longer
 be a class or contain a class.
 
-### Removed operations on classes
+### Removed Operations on Classes
 
 A class can no longer define an operation, or implement an interface.
 
-### New `<lang>:identifier:<identifier>` metadata directive
+### New `<lang>:identifier:<identifier>` Metadata Directive
 
 We added a new metadata directive for customizing the mapped names of Slice definitions in each language. This metadata
 is of the form: `["<lang>:identifier:<identifier>"]`, where `<lang>` can be any of the standard language prefixes, and
@@ -321,12 +321,12 @@ example, `slice2cs` will generate `namespace MyNamespace {}` and `slice2java` wi
 We also deprecated the `cs:namespace`, `java:package`, and `swift:module` metadata directives: you should use
 `<lang>:identifier<identifier>` whenever you want to remap an identifier.
 
-### Identifiers with underscores and Ice prefix
+### Identifiers with Underscores and Ice Prefix
 
 You can now use identifiers with underscores or with the Ice prefix without any special metadata directive or compiler
 option.
 
-### New shorthand syntax for nested modules
+### New Shorthand Syntax for Nested Modules
 
 The following two definitions are equivalent:
 
@@ -336,7 +336,7 @@ module Foo { module Bar { module Baz { /*...*/ } } }
 module Foo::Bar::Baz { /*...*/ }
 ```
 
-### Doc-comment improvements
+### Doc-Comment Improvements
 
 We added support for triple-slash doc comments, in addition to the already supported JavaDoc comment syntax. For
 example, the following two definitions are equivalent:
@@ -359,7 +359,7 @@ We also added support for 2 new doc-comment tags: `@remark` and `@p`.
 
 ## C++ Changes
 
-### Single C++17 mapping
+### Single C++17 Mapping
 
 Ice 3.8 provides a single C++ mapping, derived from the C++11 mapping provided in Ice 3.7. This mapping requires a C++17
 compiler, and provides some limited support for C++20 features.
@@ -396,16 +396,16 @@ proxy type explicitly when calling these functions. For example:
 auto widget = communicator->propertyToProxy<WidgetPrx>("MyWidget");
 ```
 
-### Async skeleton class
+### Async Skeleton Class
 
 You implement a Slice interface in C++ by writing a class that implements the skeleton class generated for that
 interface - and now you have two C++ skeleton classes to choose from: the default skeleton class, named after the Slice
 interface, and the async skeleton class, with the Async prefix.
 
 The async skeleton class is an “all AMD” abstract base class. See
-[Asynchronous Method Dispatch (AMD) in C++](../operations#amd-mapping-for-operations) for more details.
+[Asynchronous Method Dispatch (AMD) in C++](<../operations#asynchronous-method-dispatch-(amd)>) for more details.
 
-### Printing generated classes
+### Printing Generated Classes
 
 The C++ structs, classes, exception classes, and enumerations generated by the Slice compiler can now be printed using
 `operator<<(ostream&, const T&)`. For structs, classes, and exceptions, this operator prints the type name and all the
@@ -424,12 +424,12 @@ record structs or record classes:
 - a Slice struct with only numeric, bool, enum, or record struct fields is mapped to a record struct.
 - a Slice struct with any other field type is mapped to a sealed record class.
 
-### Full support for nullable types
+### Full Support for Nullable Types
 
 Both the Ice C# API and the code generated by the Slice compiler are now `#nullable enable`. And Ice for C# now uses the
 standard `?` notation for all nullable types.
 
-### Improved async support
+### Improved Async Support
 
 The thread pools created by Ice no longer set a synchronization context. As a result, the continuation from an async
 invocation made from an Ice thread pool thread executes in a .NET thread pool thread; previously, this continuation was
@@ -448,14 +448,14 @@ And the preferred way to wait for communicator shutdown in an async context is:
 await communicator.shutdownCompleted;
 ```
 
-### Async skeleton class
+### Async Skeleton Class {% id="csharp-async-skeleton-class" %}
 
 You implement a Slice interface in C# by writing a class that implements the skeleton class generated for that
 interface - and now you have two C# skeleton classes to choose from: the default skeleton class, named after the Slice
 interface, and the async skeleton class, with the Async prefix.
 
 The async skeleton class is an “all AMD” abstract base class. See
-[Asynchronous Method Dispatch (AMD) in C#](../operations#amd-mapping-for-operations) for more details.
+[Asynchronous Method Dispatch (AMD) in C#](<../operations#asynchronous-method-dispatch-(amd)>) for more details.
 
 ## Java Changes
 
@@ -463,18 +463,18 @@ The async skeleton class is an “all AMD” abstract base class. See
 
 There is now a single Slice-to-Java mapping, based on Java 17.
 
-### Async skeleton interface
+### Async Skeleton Interface
 
 You implement a Slice interface in Java by writing a class that implements the skeleton interface generated for that
 interface - and now you have two Java skeleton interfaces to choose from: the default skeleton interface, named after
 the Slice interface, and the async skeleton interface, with the Async prefix.
 
 The async skeleton interface is an “all AMD” Java interface. See
-[Asynchronous Method Dispatch (AMD) in Java](../operations#amd-mapping-for-operations) for more details.
+[Asynchronous Method Dispatch (AMD) in Java](<../operations#asynchronous-method-dispatch-(amd)>) for more details.
 
 ## JavaScript Changes
 
-### Scoped package
+### Scoped Package
 
 The Ice for JavaScript NPM package has been converted to a scoped package named `@zeroc/ice`.
 
@@ -484,12 +484,12 @@ The package includes a `slice2js` bin script that executes the native `slice2js`
 The NPM package is now compatible with Node.js and Browsers, and there is no need to use a separate bundle when
 developing applications targeting a web browser.
 
-### ES6 modules
+### ES6 Modules
 
 Slice modules are now always mapped to JavaScript ES6 modules. The `js:es6-module` metadata has been removed, as a
 single module mapping is now used by default.
 
-### Improved async support
+### Improved Async Support {% id="javascript-improved-async-support" %}
 
 We added support for `Symbol.asyncDispose` on `Ice.Communicator`. TypeScript applications can now use the communicator
 in `await using` expressions:
@@ -514,7 +514,7 @@ transport with Node.js. This support requires Node.js 24 or higher.
 
 We upgraded the base version of MATLAB to take advantage of new MATLAB features such as dictionaries.
 
-### Argument validation
+### Argument Validation
 
 We added argument validation in generated proxy methods:
 
@@ -527,12 +527,12 @@ We added argument validation in generated proxy methods:
 A Slice `sequence<string>` is now mapped to a MATLAB string array. This new mapping remains highly compatible with the
 previous mapping (cell array of char).
 
-### Mapping for dictionaries
+### Mapping for Dictionaries
 
 A Slice dictionary now always maps to a MATLAB dictionary; the old `containers.Map` are no longer used. See
 [Dictionaries](../dictionaries) for details.
 
-### Mapping for fields
+### Mapping for Fields
 
 All fields are now mapped to _typed_ MATLAB properties except optional fields and fields whose type is a class or uses a
 class.
@@ -562,7 +562,7 @@ We simplified Ice for PHP by removing:
 
 Ice for Python requires Python 3.12 or greater.
 
-### Improved async support
+### Improved Async Support {% id="python-improved-async-support" %}
 
 We greatly improved the async support in Ice for Python, especially in conjunction with `asyncio`.
 
@@ -600,20 +600,20 @@ by the Slice compiler much more convenient to use with the associated event loop
 Ice includes a built-in adapter for Python’s asyncio, and the same mechanism can be extended to support other event loop
 systems.
 
-### Type hints
+### Type Hints
 
 We added full type hint support to the Ice for Python API and to the code generated by the Slice-to-Python compiler.
 
-### Not set value
+### Not Set Value
 
 Ice is now using `None` to represent a optional field or parameter that is not set. In previous releases, Ice was using
 a global variable, `Ice.Unset`. This global variable was removed.
 
-### Enum base class
+### Enum Base Class
 
 The base class for enum classes generated by the Slice compiler is now Python’s `enum.Enum`.
 
-### PIP packages
+### pip Packages
 
 We added support for building pip packages directly from an Ice source distribution. In previous releases, the pip
 package was built from a separate tarball that included pre-generated source code.
@@ -716,12 +716,12 @@ asynchronously. The `[amd]` metadata directive no longer has any effect in Swift
 
 With this change, we removed all previous promise-based APIs and the dependency on PromiseKit.
 
-### Removed Disp structs
+### Removed Disp Structs
 
 We simplified the server-side mapping by removing the generated Disp structs. You can now implement the generated
 server-side protocols and use these implementation directly as servants like in other languages.
 
-### CompileSlice plugin
+### CompileSlice Plugin
 
 We added a SwiftPM plugin, `CompileSlice`, that lets you compile Slice files as part of SwiftPM and Xcode builds.
 

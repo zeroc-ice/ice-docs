@@ -126,8 +126,8 @@ class Chatbot(VisitorCenter.Greeter):
 ### AMD Mapping for Operations
 
 The `["amd"]` metadata has no effect in Python: you can implement the mapped method either synchronously (as in the
-example above) or asynchronously, as discussed on
-[Asynchronous Method Dispatch (AMD) in Python](#amd-mapping-for-operations).
+example above) or asynchronously, as discussed in
+[Asynchronous Method Dispatch (AMD) in Python](<../operations#asynchronous-method-dispatch-(amd)>).
 
 ### Throwing Exceptions
 
@@ -266,7 +266,7 @@ The same mechanism can be used to integrate Ice with other asynchronous event lo
 asyncio loop directly, you must implement the `Ice.EventLoopAdapter` abstract base class for your event loop of choice
 and provide it during communicator initialization via the `InitializationData.eventLoopAdapter` member.
 
-#### Event loop restrictions
+#### Event Loop Restrictions
 
 You can only await a future from the event loop that created it:
 

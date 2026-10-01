@@ -67,13 +67,13 @@ they occur, regardless of the subscriber's `retryCount` setting:
   [IceStorm.Send.QueueSizeMax](../icestorm-properties) and [IceStorm.Send.QueueSizeMaxPolicy](../icestorm-properties) is
   set to `RemoveSubscriber` (the default).
 
-## Connection caching QoS for IceStorm
+## Connection Caching QoS for IceStorm
 
 The QoS parameter `connectionCached` affects the [connection caching](../connection-establishment) setting of the
 subscriber proxy used for message delivery. Defining this QoS parameter is equivalent to invoking the
 `ice_connectionCached` proxy method.
 
-## Locator cache timeout QoS for IceStorm
+## Locator Cache Timeout QoS for IceStorm
 
 The QoS parameter `locatorCacheTimeout` affects the [locator cache timeout](../locator-semantics-for-clients) setting of
 the subscriber proxy used for message delivery. Defining this QoS parameter is equivalent to invoking the

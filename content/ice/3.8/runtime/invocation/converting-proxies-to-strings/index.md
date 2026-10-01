@@ -9,7 +9,7 @@ proxy's properties.
 
 {% language-section name="lang-1" /%}
 
-## Proxy To Property
+## Proxy to Property
 
 You can also perform a deeper proxy stringification by calling `proxyToProperty` on your communicator. For example:
 

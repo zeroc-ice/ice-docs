@@ -15,10 +15,8 @@ In this example, the _property name_ is `Ice.UDP.SndSize`, and the _property val
 
 You can find a complete list of the properties used to configure Ice in the [property reference](../property-reference).
 
-Note that Ice reads properties that control the Ice runtime and its services (that is, properties that start with one of
-the reserved prefixes, such as `Ice`, `Glacier2`, etc.) only once on start-up, when you create a communicator. This
-means that you must set Ice-related properties to their correct values _before_ you create a communicator. If you change
-the value of an Ice-related property after that point, it is likely that the new setting will simply be ignored.
+Set properties that configure the Ice runtime and its services before initializing the component that uses them. For
+updates that take effect at run time, see [the Properties facet](../properties-facet).
 
 ## Property Categories
 
@@ -85,7 +83,7 @@ The Swift `Properties` methods that are not declared `throws` terminate the prog
 
 ## Property Name Syntax
 
-A property name consists of any number of characters. For example, the following are valid property names:
+A property name consists of one or more characters. For example, the following are valid property names:
 
 ```config
 foo
@@ -93,11 +91,12 @@ Foo
 foo.bar
 ```
 
-Note that there is no special significance to a period in a property name. (Periods are used to make property names more
-readable and are not treated specially by the property parser.)
+Periods conventionally separate categories. Ice also uses the first period to identify a reserved prefix for
+[property validation](#property-validation).
 
 Property names cannot contain leading or trailing white space. (If you create a property name with leading or trailing
-white space, that white space is silently stripped.)
+white space, that white space is silently stripped.) See [Configuration File Syntax](../configuration-file-syntax) for
+escaping special characters such as `=`, `#`, and backslash when writing a property name in a file.
 
 ## Property Value Syntax
 
@@ -110,6 +109,11 @@ This is a = property value.
 ../../config
 ```
 
+The configuration file parser preserves single and double quotes in property values. The
+[`getPropertyAsList` methods](../properties-class#reading-and-setting-a-property) interpret these quotes when splitting
+a value into a list. To preserve leading or trailing spaces in a configuration file value, escape them with backslashes;
+see [Configuration File Syntax](../configuration-file-syntax).
+
 ## Unused Properties
 
 During the destruction of a communicator, the Ice runtime can optionally emit a warning for properties that were set but
@@ -118,6 +122,10 @@ default, the warning is disabled.
 
 This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
 `Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.
+
+Reading a property marks it as used. `getPropertiesForPrefix` marks every returned property as used; passing an empty
+prefix therefore marks all properties as used. In C++, C#, Java, and JavaScript, `getUnusedProperties()` returns the
+names of the properties that have not been read.
 
 ## See Also
 

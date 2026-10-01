@@ -1,5 +1,5 @@
 ---
-title: Versioning through Incremental Updates
+title: Versioning Through Incremental Updates
 ---
 
 Ice allows you to update your applications and Slice definitions in a backwards-compatible manner - letting existing

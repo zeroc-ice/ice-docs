@@ -115,7 +115,7 @@ The remaining configuration properties are discussed in [IceGrid.*](../icegrid-p
 - [Well-Known Objects](../well-known-objects)
 - [Promoting a Registry Slave](../promoting-a-registry-slave)
 - [Windows Services](../windows-services)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

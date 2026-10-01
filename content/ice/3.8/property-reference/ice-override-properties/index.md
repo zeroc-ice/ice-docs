@@ -4,11 +4,11 @@ title: Ice.Override.*
 
 ## Ice.Override.Compress
 
-### Synopsis
+### Synopsis {% id="ice.override.compress-synopsis" %}
 
 `Ice.Override.Compress=num`
 
-### Description
+### Description {% id="ice.override.compress-description" %}
 
 {% iflang langs="js" %}
 

@@ -12,6 +12,7 @@ import { buildPageIndex } from '@/lib/docs-model/links';
 import { breadcrumbs, pageHref, prevNext } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
+import { SITE_URL } from '@/lib/site';
 import {
   CONTENT_ROOT,
   listVersions,
@@ -77,6 +78,18 @@ export default async function Page(props: PageProps) {
   // trail and the reading order. A page outside the tree still renders; it just
   // gets no trail and no previous/next, which makes the omission obvious.
   const crumbs = breadcrumbs(sidebar, version, slug);
+  // The same trail as structured data, which search results can show in place
+  // of the page's URL.
+  const breadcrumbList = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((crumb, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: crumb.title,
+      item: crumb.href && new URL(crumb.href, SITE_URL).href
+    }))
+  };
   // Previous and next follow the sidebar, which hides the pages not written
   // for the reader's language: one pair per language, alike ones sharing.
   const pagination = new Map<string, Pagination>();
@@ -164,6 +177,14 @@ export default async function Page(props: PageProps) {
         languages={languages}
         versionOptions={versionOptions}
         previousVersions={nav.previousVersions}
+      />
+      <script
+        type="application/ld+json"
+        // `<` escaped, so no title can close the script element, as
+        // https://nextjs.org/docs/app/guides/json-ld recommends.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbList).replace(/</g, '\\u003c')
+        }}
       />
       {Markdoc.renderers.react(content, React, { components })}
     </>

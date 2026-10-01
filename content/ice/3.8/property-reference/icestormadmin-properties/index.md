@@ -4,11 +4,11 @@ title: IceStormAdmin.*
 
 ## IceStormAdmin.Host
 
-### Synopsis
+### Synopsis {% id="icestormadmin.host-synopsis" %}
 
 `IceStormAdmin.Host=host`
 
-### Description
+### Description {% id="icestormadmin.host-description" %}
 
 When used together with `IceStormAdmin.Port`, [icestormadmin](../icestorm-administration) uses the
 [Finder interface](../configuring-icestorm) to discover the topic manager at the specified host and port.
@@ -21,11 +21,11 @@ When used together with `IceStormAdmin.Port`, [icestormadmin](../icestorm-admini
 
 ## IceStormAdmin.Port
 
-### Synopsis
+### Synopsis {% id="icestormadmin.port-synopsis" %}
 
 `IceStormAdmin.Port=port`
 
-### Description
+### Description {% id="icestormadmin.port-description" %}
 
 When used together with `IceStormAdmin.Host`, [icestormadmin](../icestorm-administration) uses the
 [Finder interface](../configuring-icestorm) to discover the topic manager at the specified host and port.
@@ -38,11 +38,11 @@ When used together with `IceStormAdmin.Host`, [icestormadmin](../icestorm-admini
 
 ## IceStormAdmin.TopicManager.Default
 
-### Synopsis
+### Synopsis {% id="icestormadmin.topicmanager.default-synopsis" %}
 
 `IceStormAdmin.TopicManager.Default=proxy`
 
-### Description
+### Description {% id="icestormadmin.topicmanager.default-description" %}
 
 Defines the proxy for the default IceStorm topic manager. This property is used by
 [icestormadmin](../icestorm-administration). IceStorm applications may choose to use this property for their
@@ -50,11 +50,11 @@ configuration as well.
 
 ## IceStormAdmin.TopicManager._name_
 
-### Synopsis
+### Synopsis {% id="icestormadmin.topicmanager.name-synopsis" %}
 
 `IceStormAdmin.TopicManager.name=proxy`
 
-### Description
+### Description {% id="icestormadmin.topicmanager.name-description" %}
 
 Defines a proxy for an IceStorm topic manager for [icestormadmin](../icestorm-administration). Properties with this
 pattern are used by `icestormadmin` if multiple topic managers are in use, for example:

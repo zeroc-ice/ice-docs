@@ -15,7 +15,7 @@ directly, through the type stripping those releases enable by default.
 ```bash
 npm install                        # install dependencies
 npm run dev                        # dev server on http://localhost:3000
-npm run build                      # production build (standalone), then the sitemap
+npm run build                      # production build (standalone)
 npm test                           # unit tests for the content model (lib/docs-model, utils)
 npm run check:content              # navigation, images, slots, titles, headings, migration leftovers
 npm run check:content -- --strict  # also fail on every unclassified slot
@@ -44,7 +44,10 @@ is a directory, and its path under the version is its slug, the path in its URL:
   lists them under `pages:`.
 - `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or, when no `index.md` sits beside it, the whole
   page for that language (`writing-a-greeter-client/cpp.md`).
-- `redirects.yaml` — old URL to new URL.
+- `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,
+  `/ice/<version>/<language>/<name>`, and the pages it named differently. Each URL redirects to the page here with the
+  same name, or the one `redirects.yaml` names, keeping the language as `?lang=`; `lib/docs-model/scroll-urls.test.ts`
+  checks every one.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
 Images live under `public/attachments/<version>/<page>/` and are referenced as `/attachments/<version>/<page>/<file>`.
@@ -72,6 +75,13 @@ duplicating it.
   the heading before it. `check:content` checks this on the page a reader of each language sees, overlay sections
   included. `## See Also` comes last. A code block's caption is the fence's title:
   ` ```yaml {% title="deploy-server.yml" %} `.
+- **Titles and headings are in Title Case.** Capitalize every word except articles, coordinating conjunctions, and
+  prepositions of four letters or fewer, unless the word comes first or last. A name keeps its own case, as
+  `icegridnode` and npm do.
+- **A heading's anchor comes from its text.** Where two headings on one page would share an anchor, give them their own
+  in the source, as each label on a property page carries its property's:
+  `### Synopsis {% id="ice.default.host-synopsis" %}`. MD024 flags a heading repeated within a file, and `check:markdoc`
+  one repeated across a page and its overlays.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a
   line of their own. Prettier's Markdown parser reads such a tag as a block, as Markdoc does, so `format` keeps it on
   its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.
@@ -93,5 +103,6 @@ duplicating it.
 ## Deployment
 
 `npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (attachments,
-search index) and `.next/static`. The sitemap's base URL and each page's canonical URL come from `SITE_URL` (default
-`https://docs.zeroc.com`); `docker build --build-arg SITE_URL=…` passes it through.
+search index) and `.next/static`. The sitemap's base URL, each page's canonical URL, and the links in its breadcrumb
+structured data come from `SITE_URL` (default `https://docs.zeroc.com`); `docker build --build-arg SITE_URL=…` passes it
+through.

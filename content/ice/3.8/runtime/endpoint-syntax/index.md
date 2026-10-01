@@ -19,11 +19,11 @@ This page presents the addressing component of endpoints, as well as the transpo
 
 ## Endpoint List Syntax
 
-### Synopsis
+### Synopsis {% id="endpoint-list-synopsis" %}
 
 `endpoint : endpoint`
 
-### Description
+### Description {% id="endpoint-list-description" %}
 
 An endpoint list comprises one or more endpoints separated by a colon (`:`).
 
@@ -44,11 +44,11 @@ See [Object Adapter Endpoints](../object-adapter-endpoints) for examples.
 
 ### IP Address Syntax
 
-#### Synopsis
+#### Synopsis {% id="ip-address-synopsis" %}
 
 `host : hostname | x.x.x.x | ":x:x:x:x:x:x:x"`
 
-#### Description
+#### Description {% id="ip-address-description" %}
 
 Ice supports Internet Protocol (IP) versions 4 and 6 in all language mappings.
 
@@ -80,15 +80,15 @@ IPv4 and IPv6 connections.
 
 ### TCP Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="tcp-synopsis" %}
 
 `tcp -h host -p port -t timeout -z --sourceAddress addr`
 
-#### Availability
+#### Availability {% id="tcp-availability" %}
 
 The TCP transport protocol is a built-in transport protocol: it's always available.
 
-#### Description
+#### Description {% id="tcp-description" %}
 
 A `tcp` endpoint supports the following options:
 
@@ -102,17 +102,17 @@ A `tcp` endpoint supports the following options:
 
 ### UDP Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="udp-synopsis" %}
 
 `udp -h host -p port -z --ttl TTL --interface INTF --sourceAddress addr`
 
-#### Availability
+#### Availability {% id="udp-availability" %}
 
 The UDP transport protocol is a built-in transport protocol that is always available.
 
 {% language-section name="lang-2" /%}
 
-#### Description
+#### Description {% id="udp-description" %}
 
 A `udp` endpoint supports either unicast or multicast delivery; the address resolved by `host` argument determines the
 delivery mode. To use multicast in IPv4, select an IP address in the range `233.0.0.0 to 239.255.255.255`. In IPv6, use
@@ -151,21 +151,21 @@ used for communication. The format of `INTF` depends on the language and IP vers
 
 ### SSL Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="ssl-synopsis" %}
 
 `ssl -h host -p port -t timeout -z --sourceAddress addr`
 
-#### Description
+#### Description {% id="ssl-description" %}
 
 An `ssl` endpoint supports the same options as for [tcp endpoints](../endpoint-syntax).
 
 ### WS Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="ws-synopsis" %}
 
 `ws -r resource -h host -p port -t timeout -z --sourceAddress addr`
 
-#### Description
+#### Description {% id="ws-description" %}
 
 A `ws` (WebSocket) endpoint supports all [tcp endpoint](../endpoint-syntax) options in addition to the following:
 
@@ -175,11 +175,11 @@ A `ws` (WebSocket) endpoint supports all [tcp endpoint](../endpoint-syntax) opti
 
 ### WSS Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="wss-synopsis" %}
 
 `wss -r resource -h host -p port -t timeout -z --sourceAddress addr`
 
-#### Description
+#### Description {% id="wss-description" %}
 
 A `wss` (Secure WebSocket) endpoint supports all [ssl endpoint](../endpoint-syntax) options in addition to the
 following:
@@ -190,15 +190,15 @@ following:
 
 ### Bluetooth Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="bluetooth-synopsis" %}
 
 `bt -a addr -u uuid -c channel -t timeout -z --name name` `bts -a addr -u uuid -c channel -t timeout -z --name name`
 
-#### Availability
+#### Availability {% id="bluetooth-availability" %}
 
 The Bluetooth transport protocol is provided by a separate [IceBT plug-in](../icebt).
 
-#### Description
+#### Description {% id="bluetooth-description" %}
 
 Support for Bluetooth endpoints is provided by the [IceBT](../icebt) transport plug-in. The plug-in enables the `bt`
 transport protocol by default; if the [IceSSL](../ssl-transport) plug-in is also installed, IceBT enables the `bts`
@@ -215,16 +215,16 @@ transport protocol as well. A Bluetooth endpoint supports the following options:
 
 ### iAP Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="iap-synopsis" %}
 
 `iap -p protocol -n name -m manufacturer -o model number -t timeout -z`
 `iaps -p protocol -n name -m manufacturer -o model number -t`
 
-#### Availability
+#### Availability {% id="iap-availability" %}
 
 The iAP transport protocol is provided by a separate [IceIAP plug-in](../iceiap).
 
-#### Description
+#### Description {% id="iap-description" %}
 
 The iAP transport protocol allows applications running on iOS to communicate with accessories connected to the iOS
 device either through Bluetooth or the lightning connector. The iAP transport protocol is a client-side transport
@@ -242,11 +242,11 @@ accessory to connect to:
 
 ### Opaque Endpoint Syntax
 
-#### Synopsis
+#### Synopsis {% id="opaque-synopsis" %}
 
 `opaque -t type -e encoding -v value`
 
-#### Description
+#### Description {% id="opaque-description" %}
 
 Proxies can contain endpoints that are not universally understood by Ice processes. For example, a proxy can contain an
 endpoint for a transport that the receiver does not know.

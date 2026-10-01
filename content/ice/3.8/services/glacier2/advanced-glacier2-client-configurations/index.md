@@ -76,4 +76,4 @@ of a router's client endpoints, a client can discover the router's proxy with a 
 ## See Also
 
 - [Getting Started with Glacier2](../getting-started-with-glacier2)
-- [Callbacks through Glacier2](../callbacks-through-glacier2)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)

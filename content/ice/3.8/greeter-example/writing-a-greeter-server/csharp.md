@@ -120,7 +120,7 @@ Console.WriteLine("Listening on port 4061...");
 Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to
 our `Chatbot` servant.
 
-### Keep running until Ctrl+C
+### Keep Running Until Ctrl+C
 
 It is essential to keep the server running and not fall off main prematurely. We use the following technique to achieve
 this goal:

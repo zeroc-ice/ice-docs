@@ -1,5 +1,5 @@
 ---
-title: Installing a Plug-in using Configuration
+title: Installing a Plug-in Using Configuration
 ---
 
 A plug-in can be installed into a communicator using a [configuration property](../ice-plugin-properties) of the

@@ -207,7 +207,7 @@ criteria:
 Generally speaking, you must configure your application carefully if you need fine-grained control over Ice's retry
 behavior.
 
-## Automatic Retries: Direct Proxy versus Indirect Proxies
+## Automatic Retries: Direct Proxy Versus Indirect Proxies
 
 With a direct proxy, Ice tries to establish a connection using each suitable endpoint of the proxy, and, if this fails,
 Ice retries these connection attempts (Ice retries once immediately with the default retry configuration).

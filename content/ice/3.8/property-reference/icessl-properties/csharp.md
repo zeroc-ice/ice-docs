@@ -2,11 +2,11 @@
 
 ## IceSSL.CAs
 
-### Synopsis
+### Synopsis {% id="icessl.cas-synopsis" %}
 
 `IceSSL.CAs=path` (.NET)
 
-### Description
+### Description {% id="icessl.cas-description" %}
 
 Specifies the path name of a file containing the certificates of trusted certificate authorities (CAs). The file can be
 encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates.
@@ -19,11 +19,11 @@ If you wish to use the CA certificates bundled with your platform, leave this pr
 
 ## IceSSL.CertFile
 
-### Synopsis
+### Synopsis {% id="icessl.certfile-synopsis" %}
 
 `IceSSL.CertFile=file` (.NET)
 
-### Description
+### Description {% id="icessl.certfile-description" %}
 
 Specifies a file that contains the program's certificate and the corresponding private key. The file must use the PFX
 (PKCS#12) format. If a password is required to load the file, the application must supply the password using
@@ -37,11 +37,11 @@ user key set otherwise.
 
 ## IceSSL.CertStore
 
-### Synopsis
+### Synopsis {% id="icessl.certstore-synopsis" %}
 
 `IceSSL.CertStore=name` (.NET)
 
-### Description
+### Description {% id="icessl.certstore-description" %}
 
 Specifies the name of a certificate store to use when locating certificates via `IceSSL.FindCert`. Legal values for
 `name` include `AddressBook`, `AuthRoot`, `CertificateAuthority`, `Disallowed`, `My`, `Root`, `TrustedPeople`, and
@@ -51,11 +51,11 @@ If not specified, the default value is `My`.
 
 ## IceSSL.CertStoreLocation
 
-### Synopsis
+### Synopsis {% id="icessl.certstorelocation-synopsis" %}
 
 `IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (.NET)
 
-### Description
+### Description {% id="icessl.certstorelocation-description" %}
 
 Specifies the location of the certificate store to use when locating certificates via `IceSSL.FindCert`. The location
 also selects the key set into which IceSSL imports the private key of the certificate loaded from `IceSSL.CertFile`: the
@@ -75,11 +75,11 @@ An Ice program running as a Windows service will typically need to set this prop
 
 ## IceSSL.CheckCRL
 
-### Synopsis
+### Synopsis {% id="icessl.checkcrl-synopsis" %}
 
 `IceSSL.CheckCRL=num` (.NET)
 
-### Description
+### Description {% id="icessl.checkcrl-description" %}
 
 Specifies whether IceSSL checks the revocation status of the certificates in the peer's chain, and what happens when the
 revocation status of a certificate cannot be determined. The legal values are shown in the table below. If
@@ -101,9 +101,9 @@ The revocation sources are those of the platform, since .NET delegates certifica
 to its own OpenSSL-based chain builder on Linux, and to the Security framework on macOS. Windows and Linux fetch CRLs
 from the distribution points and query the OCSP responders named in the certificates.
 
-### Platform Notes
+### Platform Notes {% id="icessl.checkcrl-platform-notes" %}
 
-#### macOS
+#### macOS {% id="icessl.checkcrl-macos" %}
 
 The Security framework queries OCSP responders but does not fetch CRLs from distribution points. A certificate that
 publishes only a CRL therefore has an undeterminable revocation status: it is accepted with the value `1` and rejected
@@ -115,11 +115,11 @@ with the value `2`, whether or not it is revoked.
 
 ## IceSSL.FindCert
 
-### Synopsis
+### Synopsis {% id="icessl.findcert-synopsis" %}
 
 `IceSSL.FindCert=criteria` (.NET)
 
-### Description
+### Description {% id="icessl.findcert-description" %}
 
 Selects the program's certificate from a certificate store instead of loading it from a file. IceSSL ignores this
 property when `IceSSL.CertFile` is defined.

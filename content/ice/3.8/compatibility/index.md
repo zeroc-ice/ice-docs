@@ -11,7 +11,7 @@ An Ice release version has 3 components: _major_._minor_._patch_. For example, I
 A major release introduces a new major version, a minor release introduces a new minor version, and a patch release only
 introduces a new patch version.
 
-## Source-code compatibility
+## Source-Code Compatibility
 
 Ice maintains source-code compatibility between a patch release (e.g., 3.8.5) and the most recent minor release (e.g.,
 3.8.0), but does not guarantee source-code compatibility between minor releases (e.g., between 3.7 and 3.8).
@@ -19,7 +19,7 @@ Ice maintains source-code compatibility between a patch release (e.g., 3.8.5) an
 The [Upgrade Guide](../upgrade-guide) describes the significant API changes in this release that may impact source-code
 compatibility.
 
-## Binary compatibility
+## Binary Compatibility
 
 As for source-code compatibility, Ice maintains backward binary compatibility between a patch release and the most
 recent minor release, but does not guarantee binary compatibility between minor releases.
@@ -27,12 +27,12 @@ recent minor release, but does not guarantee binary compatibility between minor 
 When upgrading to a new minor (or major) release, you always need to recompile your Slice files. You also need to
 upgrade your source code to use the latest Ice APIs.
 
-## On-the-wire compatibility
+## On-the-Wire Compatibility
 
 Ice always maintains "on the wire" compatibility with prior releases. A client using Ice version _x_ can communicate
 with a server using Ice version _y_ and vice versa.
 
-## Interface compatibility
+## Interface Compatibility
 
 Although Ice always maintains compatibility at the protocol level, changing Slice definitions can also lead to
 incompatibilities. As a result, Ice maintains interface compatibility between a patch release and the most recent minor
@@ -46,7 +46,7 @@ be possible to administer a service using a tool from a previous minor release (
 
 The [Upgrade Guide](../upgrade-guide) describes interface changes made by Ice services.
 
-## Database compatibility
+## Database Compatibility
 
 The IceGrid and IceStorm services store data persistently in LMDB databases.
 

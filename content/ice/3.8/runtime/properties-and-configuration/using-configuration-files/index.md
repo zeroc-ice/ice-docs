@@ -4,7 +4,9 @@ title: Using Configuration Files
 
 The ability to configure an application's properties externally provides a great deal of flexibility: you can use any
 combination of command-line options and configuration files to achieve the desired settings, all without having to
-modify your application. This page describes two ways of loading property settings from a file.
+modify your application. This page describes two ways of loading property settings from a file in the mappings that
+support configuration files. Ice for JavaScript uses programmatic settings and argument arrays; it does not load files
+through `Ice.Config` or `ICE_CONFIG`.
 
 ## Prerequisites for Using Configuration Files
 
@@ -66,9 +68,8 @@ configuration file from which to read property settings. For example:
 
 This causes property settings to be read from the configuration file in `/usr/local/filesystem/config`.
 
-The `--Ice.Config` command-line option overrides any setting of the [ICE_CONFIG](../using-configuration-files)
-environment variable, that is, if the `ICE_CONFIG` environment variable is set and you also use the `--Ice.Config`
-command-line option, the configuration file specified by the `ICE_CONFIG` environment variable is ignored.
+A file name supplied through `--Ice.Config` takes precedence over the `ICE_CONFIG` environment variable. A bare
+`--Ice.Config`, `--Ice.Config=1`, or `--Ice.Config=` tells Ice to use `ICE_CONFIG` instead.
 
 If you use the `--Ice.Config` command-line option together with settings for other properties, the settings on the
 command line override the settings in the configuration file. For example:

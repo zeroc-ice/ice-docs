@@ -6,11 +6,11 @@ title: IceBridge.*
 
 ## IceBridge.InstanceName
 
-### Synopsis
+### Synopsis {% id="icebridge.instancename-synopsis" %}
 
 `IceBridge.InstanceName=name`
 
-### Description
+### Description {% id="icebridge.instancename-description" %}
 
 Specifies the identity category of the IceBridge router object. The router's identity is `name/router`. The
 `Ice::RouterFinder` object retains the identity `Ice/RouterFinder`.
@@ -19,11 +19,11 @@ If not defined, the default value is `IceBridge`.
 
 ## IceBridge.Source._AdapterProperty_
 
-### Synopsis
+### Synopsis {% id="icebridge.source.adapterproperty-synopsis" %}
 
 `IceBridge.Source.AdapterProperty=value`
 
-### Description
+### Description {% id="icebridge.source.adapterproperty-description" %}
 
 IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. Therefore,
 [adapter properties](../object-adapter-properties) can be used to configure this adapter. The only required adapter
@@ -33,11 +33,11 @@ This adapter must be accessible to IceBridge clients.
 
 ## IceBridge.Target.Endpoints
 
-### Synopsis
+### Synopsis {% id="icebridge.target.endpoints-synopsis" %}
 
 `IceBridge.Target.Endpoints=endpoints`
 
-### Description
+### Description {% id="icebridge.target.endpoints-description" %}
 
 This required property specifies the client [endpoints](../endpoint-syntax) of the target server, with the syntax used
 in a [stringified proxy](../syntax-for-stringified-proxies). Unlike `IceBridge.Source`, `IceBridge.Target` is not an

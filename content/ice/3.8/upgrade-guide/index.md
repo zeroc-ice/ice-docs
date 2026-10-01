@@ -104,7 +104,7 @@ Slice definitions.
    }
    ```
 
-### Interface By Value
+### Interface by Value
 
 Support for passing an interface by value was removed. This feature was previously deprecated.
 

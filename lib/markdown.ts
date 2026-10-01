@@ -1,6 +1,7 @@
 // Copyright (c) ZeroC, Inc.
 
 import Markdoc, { Config } from '@markdoc/markdoc';
+import { parse } from '@/markdoc/parse';
 import config from '@/markdoc/schema';
 import readingTimeFunc from 'reading-time';
 import { projectLanguage } from './project-language.ts';
@@ -49,9 +50,7 @@ export function renderMarkdownString(opts: RenderOptions) {
     ])
   );
 
-  const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
-  const tokens = tokenizer.tokenize(source);
-  const transformable = Markdoc.parse(tokens);
+  const ast = parse(source);
   const variables: PageVariables = {
     frontmatter,
     path,
@@ -62,5 +61,5 @@ export function renderMarkdownString(opts: RenderOptions) {
     chrome: opts.chrome ?? {}
   };
   const updatedConfig: Config = { ...config, variables };
-  return Markdoc.transform(transformable, updatedConfig);
+  return Markdoc.transform(ast, updatedConfig);
 }

@@ -143,7 +143,7 @@ public class E extends com.zeroc.Ice.UserException {
 }
 ```
 
-### Optional Fields
+### Optional Fields {% id="language-mapping-optional-fields" %}
 
 The mapping for optional fields in Slice classes and exceptions uses a JavaBean-style API that provides methods to get,
 set, and clear a field’s value, and test whether a value is set. Consider the following Slice definition:
@@ -196,7 +196,7 @@ The `optional` methods provide an alternate API that uses standard Java types to
 - `java.util.OptionalLong` Encapsulates a value of type `long`
 - `java.util.Optional<T>` Encapsulates all other Slice types
 
-### Default Values
+### Default Values {% id="language-mapping-default-values" %}
 
 Slice default values change the implementation of the parameterless constructor of the enclosing type.
 

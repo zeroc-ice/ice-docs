@@ -6,11 +6,11 @@ title: Ice.Trace.*
 
 ## Ice.Trace.Admin.Logger
 
-### Synopsis
+### Synopsis {% id="ice.trace.admin.logger-synopsis" %}
 
 `Ice.Trace.Admin.Logger=num`
 
-### Description
+### Description {% id="ice.trace.admin.logger-description" %}
 
 Controls the trace level for the [Logger administrative facet](../logger-facet).
 
@@ -21,27 +21,29 @@ Controls the trace level for the [Logger administrative facet](../logger-facet).
 
 ## Ice.Trace.Admin.Properties
 
-### Synopsis
+### Synopsis {% id="ice.trace.admin.properties-synopsis" %}
 
 `Ice.Trace.Admin.Properties=num`
 
-### Description
+### Description {% id="ice.trace.admin.properties-description" %}
 
 Controls the trace level for property updates made via the [Properties facet](../properties-facet):
 
-| 0   | No property trace (default).                        |
-| --- | --------------------------------------------------- |
-| 1   | Trace property addition, modification, and removal. |
+| Value | Description                                                                                                           |
+| ----- | --------------------------------------------------------------------------------------------------------------------- |
+| 0     | No property trace (default).                                                                                          |
+| 1     | Trace property addition, modification, and removal.                                                                   |
+| 2     | Like 1, but also trace the new values of added and changed properties, and the previous values of changed properties. |
 
 {% /iflang %}
 
 ## Ice.Trace.Dispatch
 
-### Synopsis
+### Synopsis {% id="ice.trace.dispatch-synopsis" %}
 
 `Ice.Trace.Dispatch=num`
 
-### Description
+### Description {% id="ice.trace.dispatch-description" %}
 
 If `num` is set to a value larger than zero, the logger middleware logs all dispatches and the value of
 [Ice.Warn.Dispatch](../ice-warn-properties) is ignored. Otherwise, `Ice.Warn.Dispatch` controls the logger middleware
@@ -49,11 +51,11 @@ logging.
 
 ## Ice.Trace.Locator
 
-### Synopsis
+### Synopsis {% id="ice.trace.locator-synopsis" %}
 
 `Ice.Trace.Locator=num`
 
-### Description
+### Description {% id="ice.trace.locator-description" %}
 
 The Ice runtime makes [locator](../locators) requests to resolve the endpoints of object adapters and well-known
 objects. Requests on the locator registry are used to update object adapter endpoints and set the server process proxy.
@@ -66,11 +68,11 @@ This property controls the trace level for the Ice runtime's interactions with t
 
 ## Ice.Trace.Network
 
-### Synopsis
+### Synopsis {% id="ice.trace.network-synopsis" %}
 
 `Ice.Trace.Network=num`
 
-### Description
+### Description {% id="ice.trace.network-description" %}
 
 Controls the trace level for low-level network activities such as connection establishment and read/write operations:
 
@@ -82,11 +84,11 @@ Controls the trace level for low-level network activities such as connection est
 
 ## Ice.Trace.Protocol
 
-### Synopsis
+### Synopsis {% id="ice.trace.protocol-synopsis" %}
 
 `Ice.Trace.Protocol=num`
 
-### Description
+### Description {% id="ice.trace.protocol-description" %}
 
 Controls the trace level for Ice [protocol messages](../protocol-messages):
 
@@ -96,11 +98,11 @@ Controls the trace level for Ice [protocol messages](../protocol-messages):
 
 ## Ice.Trace.Retry
 
-### Synopsis
+### Synopsis {% id="ice.trace.retry-synopsis" %}
 
 `Ice.Trace.Retry=num`
 
-### Description
+### Description {% id="ice.trace.retry-description" %}
 
 Ice supports [automatic retries](../automatic-retries) in case of a request failure. This property controls the trace
 level for retry attempts:
@@ -112,11 +114,11 @@ level for retry attempts:
 
 ## Ice.Trace.Slicing
 
-### Synopsis
+### Synopsis {% id="ice.trace.slicing-synopsis" %}
 
 `Ice.Trace.Slicing=num`
 
-### Description
+### Description {% id="ice.trace.slicing-description" %}
 
 The Ice data encoding for [exceptions](../data-encoding-for-exceptions) and [classes](../data-encoding-for-classes)
 enables a receiver to slice an unknown exception or class type to a known type. This property controls the trace level
@@ -130,11 +132,11 @@ for slicing activities:
 
 ## Ice.Trace.ThreadPool
 
-### Synopsis
+### Synopsis {% id="ice.trace.threadpool-synopsis" %}
 
 `Ice.Trace.ThreadPool=num`
 
-### Description
+### Description {% id="ice.trace.threadpool-description" %}
 
 Controls the trace level for the Ice [thread pool](../threading-model):
 

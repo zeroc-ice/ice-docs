@@ -4,7 +4,7 @@ title: Glacier2 Integration with IceGrid
 
 This section provides information on integrating a [Glacier2 router](../glacier2) into your IceGrid environment.
 
-## Configuration Changes for using Glacier2 with IceGrid
+## Configuration Changes for Using Glacier2 with IceGrid
 
 A typical IceGrid client must be configured with a [locator proxy](../getting-started-with-icegrid), but the
 configuration requirements change when the client accesses the location service indirectly via a Glacier2 router as
@@ -43,7 +43,7 @@ object by default. To restrict access to the `IceGrid::AdminSession` object and 
 returned by the session's `getAdmin` operation, you must set the property
 [IceGrid.Registry.AdminSessionFilters](../icegrid-properties) to one.
 
-## Resource Allocation using Glacier2 and IceGrid
+## Resource Allocation Using Glacier2 and IceGrid
 
 To allocate servers and objects, a program can establish a client session via Glacier2. Depending on the authentication
 method, one or both of the following properties must be set in the Glacier2 configuration:

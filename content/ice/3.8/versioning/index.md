@@ -1,5 +1,5 @@
 ---
-title: Versioning your Application
+title: Versioning Your Application
 pages:
   - versioning-through-incremental-updates
   - versioning-with-facets

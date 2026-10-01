@@ -19,7 +19,7 @@ be sent to the publisher object to indicate this failure, and therefore neither 
 aware of the type-mismatch problem. In short, IceStorm places the burden on the developer to ensure that publishers and
 subscribers are using it correctly.
 
-## Publish using Oneway or Twoway Invocations?
+## Publish Using Oneway or Twoway Invocations?
 
 IceStorm messages are unidirectional, but publishers may use either oneway or twoway invocations when sending messages
 to the publisher object. Each invocation style has advantages and disadvantages that you should consider when deciding
@@ -62,5 +62,5 @@ more control over the service's behavior.
 - [IceStorm Quality of Service](../icestorm-quality-of-service)
 - [Oneway Invocations](../oneway-invocations)
 - [Request Contexts](../request-contexts)
-- [How Glacier2 uses Request Contexts](../how-glacier2-uses-request-contexts)
+- [How Glacier2 Uses Request Contexts](../how-glacier2-uses-request-contexts)
 - [Batched Invocations](../batched-invocations)

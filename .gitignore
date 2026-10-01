@@ -12,7 +12,6 @@ node_modules
 
 # production
 /build
-public/sitemap-*.xml
 
 # misc
 .DS_Store
@@ -34,9 +33,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# next-sitemap output
-/public/robots.txt
-/public/sitemap*.xml
 
 # generated search index
 /public/search/

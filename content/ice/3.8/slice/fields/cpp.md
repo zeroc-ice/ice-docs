@@ -75,7 +75,7 @@ struct Person
 };
 ```
 
-### Optional Fields
+### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a C++ data member with the same name. The data member's type is the mapped type, wrapped in a
 `std::optional`. The tag value is not mapped to C++.
@@ -106,7 +106,7 @@ class C
 Proxies are not wrapped twice in `std::optional`, as illustrated above. As a result, you cannot distinguish between an
 optional proxy field that is not set and an optional proxy field set to null.
 
-### Default Values
+### Default Values {% id="language-mapping-default-values" %}
 
 Slice default values map to default member initializers in C++.
 

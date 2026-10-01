@@ -242,6 +242,6 @@ makes the servant class a concrete class that you can instantiate. You can add o
 to support your implementation.
 
 The async skeleton interface is described in
-[Asynchronous Method Dispatch (AMD) in Java](../operations#amd-mapping-for-operations).
+[Asynchronous Method Dispatch (AMD) in Java](<../operations#asynchronous-method-dispatch-(amd)>).
 
 {% /language-section %}

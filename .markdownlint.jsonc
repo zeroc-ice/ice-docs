@@ -1,9 +1,6 @@
 {
   // Prettier wraps prose at 120 columns; nearly all longer lines left are one-line Markdoc tags, which it can't wrap.
   "MD013": false,
-  // Subheadings repeat across sections, such as each property's "Synopsis" and "Description", so only headings that
-  // share a parent must differ.
-  "MD024": { "siblings_only": true },
   // A language overlay is a fragment of its page, so it starts with a `{% language-section %}` tag, not a heading.
   "MD041": false
 }

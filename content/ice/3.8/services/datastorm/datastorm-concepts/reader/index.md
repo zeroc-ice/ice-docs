@@ -30,7 +30,7 @@ You create readers using the corresponding reader class constructors or via
 Using the `makeXxxReader` helpers lets the compiler **deduce template parameters** (`Key`, `Value`, `UpdateTag`) from
 the topic.
 
-### Attachment behavior
+### Attachment Behavior
 
 - Single-key: writers with the same key attach.
 - Multi-key: writers attach if at least one of the reader’s keys matches.
@@ -216,7 +216,7 @@ Whether to discard samples on receipt of new samples
 
 ### Coordination & Listeners
 
-#### Coordination methods
+#### Coordination Methods
 
 - [hasWriters](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ae69539f596e0bc112d1bc941e029487b.html#ae69539f596e0bc112d1bc941e029487b)
   — checks whether any writers are currently connected.

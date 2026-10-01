@@ -17,6 +17,7 @@
 //   9. no page holds a no-break space (U+00A0)
 //  10. under the title, the page's h1, each heading is at most one level below
 //      the one before it, in every language, and none is bold text alone
+//  11. no code holds a curly double quote, and no prose a backtick
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
@@ -29,8 +30,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import Markdoc from '@markdoc/markdoc';
 
+import { parse } from '../markdoc/parse.ts';
 import { buildPageIndex } from '../lib/docs-model/links.ts';
 import {
   declaredSlots,
@@ -309,6 +310,61 @@ function checkNoBreakSpaces(files) {
   }
 }
 
+/**
+ * Code must not hold a curly double quote, which no compiler takes in place of
+ * `"`, and prose must not hold a backtick, which shows up literally where it
+ * was meant to open a code span. Curly single quotes are left alone: a code
+ * comment can use one as an apostrophe.
+ */
+function checkCodeCharacters(files) {
+  const curly = /[\u201c\u201d]/;
+  for (const file of files) {
+    const source = fs.readFileSync(file, 'utf8');
+    const lines = source.split('\n');
+    const relative = path.relative(process.cwd(), file);
+    // An inline node carries its whole block's lines, so find the one that
+    // holds its text, with backslash escapes resolved as the parser resolves
+    // them.
+    const lineOf = (node, text) => {
+      const [first, end] = node.lines;
+      for (let i = first; i < end; i++)
+        if (lines[i].replace(/\\([!-/:-@[-`{-~])/g, '$1').includes(text))
+          return i + 1;
+      return first + 1;
+    };
+    const visit = (node) => {
+      const { content } = node.attributes;
+      if (node.type === 'fence') {
+        // A fence's content starts on the line after its opening delimiter.
+        const at = content.split('\n').findIndex((line) => curly.test(line));
+        if (at !== -1)
+          fail(
+            `${relative}:${node.lines[0] + 2 + at}: curly double quote in code`
+          );
+        return;
+      }
+      if (node.type === 'code') {
+        if (curly.test(content))
+          fail(
+            `${relative}:${lineOf(node, content)}: curly double quote in code`
+          );
+        return;
+      }
+      // Text interpolating a variable holds the variable, not a string.
+      if (
+        node.type === 'text' &&
+        typeof content === 'string' &&
+        content.includes('`')
+      )
+        fail(
+          `${relative}:${lineOf(node, content)}: backtick outside a code span`
+        );
+      for (const child of node.children) visit(child);
+    };
+    visit(parse(source));
+  }
+}
+
 // Every heading in a parsed page, with the languages of the {% iflang %} block
 // around it; `langs` is undefined for a heading every language shows.
 function headingsIn(node, langs, out = []) {
@@ -344,8 +400,7 @@ function checkHeadings(version, pages, languages) {
       fail(`${where}: cannot assemble: ${error.message}`);
       continue;
     }
-    const tokenizer = new Markdoc.Tokenizer({ allowComments: true });
-    const headings = headingsIn(Markdoc.parse(tokenizer.tokenize(body)));
+    const headings = headingsIn(parse(body));
 
     for (const { node } of headings) {
       if (node.attributes.level === 1)
@@ -417,7 +472,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     }
   }
 
-  // 5, 6 & 9: defects inside the files themselves.
+  // 5, 6, 9 & 11: defects inside the files themselves.
   const files = pages.flatMap((page) => [
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
@@ -425,6 +480,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
   checkImages(version, files);
   checkStrayMarkup(files);
   checkNoBreakSpaces(files);
+  checkCodeCharacters(files);
 
   // 7. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);

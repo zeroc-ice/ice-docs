@@ -18,7 +18,7 @@ This example shows how to configure a request context on a proxy. Once set, the 
 included with every request sent through that proxy. An explicit request context provided at the time of an invocation
 always takes precedence over the proxy’s configured context.
 
-## Configuring a Per-Proxy Request Context using Properties
+## Configuring a Per-Proxy Request Context Using Properties
 
 You can also configure a context with proxy properties when you use the communicator method `propertyToProxy`.
 

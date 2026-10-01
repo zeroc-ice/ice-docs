@@ -39,7 +39,7 @@ A plain service can have [Adapter](../adapter-descriptor) children.
 
 ## Service Instance
 
-### Properties
+### Properties {% id="service-instance-properties" %}
 
 The Service Instance Properties panel offers the following fields:
 

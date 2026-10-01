@@ -33,14 +33,14 @@ by the entries in `newProperties` are retained with their original values. If th
 [Ice.Trace.Admin.Properties](../ice-trace-properties) property is enabled, Ice logs a message if a call to
 `setProperties` results in any changes to the property set.
 
-`setProperties` applies the same [property validation](../properties-overview#property-validation) as any other way of
-setting a property, one entry at a time: a rejected entry makes the call fail, and the entries applied before it stay in
-place.
+`setProperties` applies the usual [property validation](../properties-overview#property-validation) when adding,
+changing, or removing an entry. A rejected entry makes the call fail, and the entries applied before it stay in place.
 
 {% callout type="info" %}
 
-Modifying a program's configuration properties at runtime may not have an effect on the program. For example, many of
-Ice's standard configuration properties are read once during communicator initialization, and never again.
+Changing a property generally does not reconfigure an initialized Ice component. When the Metrics facet is also enabled,
+updates to `IceMX.Metrics.*` through this facet reconfigure the metrics views. Application properties take effect when
+the application reads them again or handles a property update callback.
 
 {% /callout %}
 

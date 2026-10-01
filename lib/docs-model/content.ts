@@ -194,43 +194,91 @@ export function readNavigation(root: string, version: string): NavDoc {
 /**
  * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
  * and `/ice/latest/…` go to the version whose front page says `status: latest`,
- * and each version's `redirects.yaml` sends old URLs to new ones. Throws unless
- * exactly one version says it.
+ * and each URL a version's manual had on the Scroll Viewport site goes to its
+ * page here. Throws unless exactly one version says `status: latest`, and when a
+ * `redirects.yaml` names a page its version doesn't have.
  */
 export function readRedirects(root: string) {
   const versions = listVersions(root);
-  const latest = versions.filter(
-    (version) =>
-      frontmatterOf<{ status?: string }>(
+  const settings = new Map(
+    versions.map((version) => [
+      version,
+      frontmatterOf<{ status?: string; languages: string[] }>(
         fs.readFileSync(path.join(root, version, 'index.md'), 'utf8')
-      ).status === 'latest'
+      )
+    ])
+  );
+  const latest = versions.filter(
+    (version) => settings.get(version)!.status === 'latest'
   );
   if (latest.length !== 1)
     throw new Error(
       `expected one version with status: latest, found ${latest.length}`
     );
   const front = pageHref(latest[0]);
-  // Temporary, since the latest version changes.
-  const redirects = [
+  return [
+    // Temporary, since the latest version changes.
     { source: '/', destination: front, permanent: false },
     { source: '/ice', destination: front, permanent: false },
     {
       source: '/ice/latest/:path*',
       destination: `${front}/:path*`,
       permanent: false
-    }
+    },
+    ...versions.flatMap((version) =>
+      scrollRedirects(root, version, settings.get(version)!.languages)
+    )
   ];
-  for (const version of versions) {
-    const file = path.join(root, version, 'redirects.yaml');
-    if (!fs.existsSync(file)) continue;
-    const manifest = yamlLoad(fs.readFileSync(file, 'utf8')) as {
-      redirects: { from: string; to: string; permanent?: boolean }[];
-    };
-    for (const { from, to, permanent = false } of manifest.redirects) {
-      redirects.push({ source: from, destination: to, permanent });
-    }
-  }
-  return redirects;
+}
+
+/**
+ * The redirects for the URLs a version's manual had on the Scroll Viewport site,
+ * `/ice/<version>/<language>/<name>`, when the version has a `redirects.yaml`:
+ * each goes to the page here with the same name, or the one `redirects.yaml`
+ * names, keeping the language as `?lang=`.
+ */
+function scrollRedirects(root: string, version: string, languages: string[]) {
+  const file = path.join(root, version, 'redirects.yaml');
+  if (!fs.existsSync(file)) return [];
+  const { renamed } = yamlLoad(fs.readFileSync(file, 'utf8')) as {
+    renamed: Record<string, string>;
+  };
+  const slugs = new Map(
+    listPages(root, version).map((page) => [page.name, page.slug])
+  );
+  // A page name here, with an optional heading anchor, keeping the language.
+  const to = (target: string) => {
+    const [name, anchor] = target.split('#');
+    const slug = slugs.get(name);
+    if (slug === undefined)
+      throw new Error(
+        `${version}/redirects.yaml names "${name}", which is not a page`
+      );
+    // Next reads `(` and `)` in a destination as route syntax, even in the anchor.
+    const fragment = anchor
+      ? `#${anchor.replace(/[()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)}`
+      : '';
+    return `${pageHref(version, slug)}?lang=:lang${fragment}`;
+  };
+  const scroll = `/ice/${version}/:lang(${languages.join('|')})`;
+  return [
+    // The Scroll Viewport site spelled `js` as `javascript`.
+    {
+      source: `/ice/${version}/javascript/:rest*`,
+      destination: `/ice/${version}/js/:rest*`,
+      permanent: true
+    },
+    ...[...slugs.keys()].map((name) => ({
+      source: name ? `${scroll}/${name}` : scroll,
+      destination: to(name),
+      permanent: true
+    })),
+    ...Object.entries(renamed).map(([name, target]) => ({
+      source: `${scroll}/${name}`,
+      destination: to(target),
+      permanent: true
+    }))
+  ];
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

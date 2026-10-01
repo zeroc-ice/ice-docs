@@ -6,7 +6,7 @@ title: Data Encoding for Proxies
 
 The encoding format of proxies changed in version 1.1.
 
-### Proxy Encoding version 1.0
+### Proxy Encoding Version 1.0
 
 The first component of an encoded proxy is a value of type `Ice::Identity`. If the proxy is a nil value, the `category`
 and `name` members are empty strings, and no additional data is encoded. The encoding for a non-null proxy consists of
@@ -37,7 +37,7 @@ The `facet` field has either zero elements or one element. An empty sequence den
 one-element sequence provides the facet name in its first member. If a receiver receives a proxy with a `facet` field
 with more than one element, it must throw a `ProxyUnmarshalException`.
 
-### Proxy Encoding version 1.1
+### Proxy Encoding Version 1.1
 
 Version 1.1 of the encoding adds two options to the existing proxy options in version 1.0: protocol and encoding
 versions. The proxy options are encoded as if they were members of the following structure:
@@ -123,7 +123,7 @@ The endpoint options are described in the following table.
 
 The encoding format of UDP endpoints changed in version 1.1.
 
-### UDP Endpoint Encoding version 1.0
+### UDP Endpoint Encoding Version 1.0
 
 A UDP endpoint is encoded as an encapsulation containing the following structure:
 
@@ -152,7 +152,7 @@ The endpoint options are described in the following table.
 | `encodingMinor` | The highest minor encoding version supported by the endpoint                                     |
 | `compress`      | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false` |
 
-### UDP Endpoint Encoding version 1.1
+### UDP Endpoint Encoding Version 1.1
 
 Version 1.1 of the encoding omits the protocol and encoding versions because these options are handled as proxy options
 instead:

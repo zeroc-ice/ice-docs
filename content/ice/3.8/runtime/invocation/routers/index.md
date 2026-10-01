@@ -90,7 +90,7 @@ configured with a router:
   creates; usually you will leave `Endpoints` and `PublishedEndpoints` empty and the object adapter will create proxies
   with no endpoints at all.
 
-See [Callbacks through Glacier2](../callbacks-through-glacier2) for an example.
+See [Callbacks Through Glacier2](../callbacks-through-glacier2) for an example.
 
 ## Routing Tables
 

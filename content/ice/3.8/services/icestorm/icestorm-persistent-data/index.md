@@ -98,7 +98,7 @@ Status of subscribers
 
 {% /callout %}
 
-## Backing up the IceStorm Database
+## Backing Up the IceStorm Database
 
 You should consider making regular backups of your IceStorm database. We recommend using one of the following tools to
 perform backups while IceStorm is running:

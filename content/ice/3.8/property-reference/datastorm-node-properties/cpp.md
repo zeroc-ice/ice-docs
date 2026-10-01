@@ -4,11 +4,11 @@ title: DataStorm.Node.*
 
 ## DataStorm.Node.ConnectTo
 
-### Synopsis
+### Synopsis {% id="datastorm.node.connectto-synopsis" %}
 
 `DataStorm.Node.ConnectTo=endpoints`
 
-### Description
+### Description {% id="datastorm.node.connectto-description" %}
 
 Set the endpoints of the node to connect to `endpoints`. The node will connect to one of the endpoints and advertise its
 topics through this node. It will also receive topic announcements from other connected nodes. If the node disables its
@@ -28,11 +28,11 @@ connection closes, DataStorm attempts to reconnect immediately.
 
 ## DataStorm.Node.Name
 
-### Synopsis
+### Synopsis {% id="datastorm.node.name-synopsis" %}
 
 `DataStorm.Node.Name=name`
 
-### Description
+### Description {% id="datastorm.node.name-description" %}
 
 Specifies the name of the node. DataStorm uses this name to identify the node to its peers and in the session traces
 enabled by [DataStorm.Trace.Session](../datastorm-trace-properties#datastorm.trace.session). Nodes that communicate with
@@ -41,11 +41,11 @@ set, DataStorm generates a UUID for the name. Set it when you want recognizable 
 
 ## DataStorm.Node.RetryCount
 
-### Synopsis
+### Synopsis {% id="datastorm.node.retrycount-synopsis" %}
 
 `DataStorm.Node.RetryCount=num`
 
-### Description
+### Description {% id="datastorm.node.retrycount-description" %}
 
 Specifies the maximum number of retries to establish a peer session after a connection failure. The default is 6. A
 value of 0 or less disables these session retries.
@@ -55,11 +55,11 @@ continue indefinitely; `RetryCount` caps the exponent used to compute the retry 
 
 ## DataStorm.Node.RetryMultiplier
 
-### Synopsis
+### Synopsis {% id="datastorm.node.retrymultiplier-synopsis" %}
 
 `DataStorm.Node.RetryMultiplier=num`
 
-### Description
+### Description {% id="datastorm.node.retrymultiplier-description" %}
 
 Specifies the multiplier used to increase the delay between connection attempts. The default is 2.
 
@@ -74,11 +74,11 @@ double up to 32,000 milliseconds; subsequent attempts use the capped delay.
 
 ## DataStorm.Node.RetryDelay
 
-### Synopsis
+### Synopsis {% id="datastorm.node.retrydelay-synopsis" %}
 
 `DataStorm.Node.RetryDelay=ms`
 
-### Description
+### Description {% id="datastorm.node.retrydelay-description" %}
 
 Specifies the base retry delay in milliseconds. The default is 500. DataStorm combines this value with
 [DataStorm.Node.RetryMultiplier](../datastorm-node-properties#datastorm.node.retrymultiplier) to compute the delay for
@@ -86,11 +86,11 @@ each retry.
 
 ## DataStorm.Node.Server.Enabled
 
-### Synopsis
+### Synopsis {% id="datastorm.node.server.enabled-synopsis" %}
 
 `DataStorm.Node.Server.Enabled=num`
 
-### Description
+### Description {% id="datastorm.node.server.enabled-description" %}
 
 If `num` is a value greater than 0, the DataStorm node will accept connections through the endpoints defined with
 [DataStorm.Node.Server.Endpoints](../object-adapter-properties). If 0, the node won't accept connections and will
@@ -103,11 +103,11 @@ milliseconds with the defaults).
 
 ## DataStorm.Node.Server._AdapterProperty_
 
-### Synopsis
+### Synopsis {% id="datastorm.node.server.adapterproperty-synopsis" %}
 
 `DataStorm.Node.Server.AdapterProperty=value`
 
-### Description
+### Description {% id="datastorm.node.server.adapterproperty-description" %}
 
 DataStorm uses the adapter name `DataStorm.Node.Server` for the object adapter that processes incoming requests from
 other DataStorm nodes. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this
@@ -119,33 +119,33 @@ allocated port number.
 
 ## DataStorm.Node.Server.ForwardDiscoveryToMulticast
 
-### Synopsis
+### Synopsis {% id="datastorm.node.server.forwarddiscoverytomulticast-synopsis" %}
 
 `DataStorm.Node.Server.ForwardDiscoveryToMulticast=num`
 
-### Description
+### Description {% id="datastorm.node.server.forwarddiscoverytomulticast-description" %}
 
 If `num` is a value greater than 0, the DataStorm node will forward received discovery announcements over multicast if
 multicast is enabled. If not defined the default value is 0.
 
 ## DataStorm.Node.Multicast.Enabled
 
-### Synopsis
+### Synopsis {% id="datastorm.node.multicast.enabled-synopsis" %}
 
 `DataStorm.Node.Multicast.Enabled=num`
 
-### Description
+### Description {% id="datastorm.node.multicast.enabled-description" %}
 
 If `num` is a value greater than 0, multicast discovery is enabled for the DataStorm node. If not defined the default
 value is 1.
 
 ## DataStorm.Node.Multicast._AdapterProperty_
 
-### Synopsis
+### Synopsis {% id="datastorm.node.multicast.adapterproperty-synopsis" %}
 
 `DataStorm.Node.Multicast.AdapterProperty=value`
 
-### Description
+### Description {% id="datastorm.node.multicast.adapterproperty-description" %}
 
 DataStorm uses the adapter name `DataStorm.Node.Multicast` for the object adapter that processes incoming multicast
 requests from other DataStorm nodes.
@@ -157,11 +157,11 @@ control the endpoints advertised in its proxies.
 
 ## DataStorm.Node.Multicast.Proxy
 
-### Synopsis
+### Synopsis {% id="datastorm.node.multicast.proxy-synopsis" %}
 
 `DataStorm.Node.Multicast.Proxy=proxy`
 
-### Description
+### Description {% id="datastorm.node.multicast.proxy-description" %}
 
 Defines the proxy used for multicast discovery. Its identity must be `DataStorm/Lookup2`. DataStorm uses this proxy in
 datagram mode.

@@ -79,7 +79,7 @@ programmatically.
 
 ## Example Configurations
 
-### One writer with multiple readers
+### One Writer with Multiple Readers
 
 The writer listens on a well known server endpoint and multiple readers can connect to it.
 
@@ -87,7 +87,7 @@ The writer listens on a well known server endpoint and multiple readers can conn
 
 In this configuration the writer is acting as a server, the readers don’t need to configure any server endpoints.
 
-### One reader with multiple writers
+### One Reader with Multiple Writers
 
 The reader listens on a well known server endpoint and multiple writers can connect to it.
 
@@ -95,7 +95,7 @@ The reader listens on a well known server endpoint and multiple writers can conn
 
 In this configuration the reader is acting as a server, the writers don’t need to configure any server endpoints.
 
-### Multiple readers and writers with a broker node
+### Multiple Readers and Writers with a Broker Node
 
 In this configuration, multiple readers and writers connect to a **broker node**, which serves as a hub for discovery
 and sample forwarding.

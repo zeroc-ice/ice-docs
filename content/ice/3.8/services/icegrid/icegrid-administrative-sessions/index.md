@@ -312,7 +312,7 @@ IceGrid GUI implementation in the Ice for Java distribution to see how observers
 
 - [Registry Replication](../registry-replication)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)
-- [Resource Allocation using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [Log Descriptor Element](../log-descriptor-element)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
 - [Bidirectional Connections](../bidirectional-connections)

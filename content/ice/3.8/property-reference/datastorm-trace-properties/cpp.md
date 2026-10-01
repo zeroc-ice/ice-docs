@@ -4,11 +4,11 @@ title: DataStorm.Trace.*
 
 ## DataStorm.Trace.Topic
 
-### Synopsis
+### Synopsis {% id="datastorm.trace.topic-synopsis" %}
 
 `DataStorm.Trace.Topic=num`
 
-### Description
+### Description {% id="datastorm.trace.topic-description" %}
 
 Controls the trace level for topics:
 
@@ -19,11 +19,11 @@ Controls the trace level for topics:
 
 ## DataStorm.Trace.Data
 
-### Synopsis
+### Synopsis {% id="datastorm.trace.data-synopsis" %}
 
 `DataStorm.Trace.Data=num`
 
-### Description
+### Description {% id="datastorm.trace.data-description" %}
 
 Controls the trace level for writers and readers:
 
@@ -36,11 +36,11 @@ Controls the trace level for writers and readers:
 
 ## DataStorm.Trace.Session
 
-### Synopsis
+### Synopsis {% id="datastorm.trace.session-synopsis" %}
 
 `DataStorm.Trace.Session=num`
 
-### Description
+### Description {% id="datastorm.trace.session-description" %}
 
 Controls the trace level for sessions:
 

@@ -29,7 +29,7 @@ Writers can be created using the corresponding writer class constructors or the
 When using the helper functions, the compiler automatically **deduces the template parameters** (`Key`, `Value`, and
 `UpdateTag`) from the topic.
 
-### Attachment behavior
+### Attachment Behavior
 
 - **Single-key** — attaches to readers that contain the same key, or to filtered readers whose filter matches that key.
 - **Multi-key** — attaches to readers whose configuration matches at least one of the writer’s keys, or to filtered
@@ -100,7 +100,7 @@ auto writer = makeAnyKeyWriter(temperatures, "temperature-writer");
 
 Writers are responsible for publishing data samples to a topic.
 
-### Single-Key Writer
+### Single-Key Writer {% id="publishing-single-key-writer" %}
 
 A [SingleKeyWriter](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1SingleKeyWriter.html) provides the
 following methods for publishing samples:

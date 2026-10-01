@@ -12,11 +12,11 @@ returns the property group for a proxy.
 
 ## _name_
 
-### Synopsis
+### Synopsis {% id="name-synopsis" %}
 
 `name=proxy`
 
-### Description
+### Description {% id="name-description" %}
 
 The base property of the group with an application-specific `name` supplying the stringified representation of a proxy.
 Use the communicator operation `propertyToProxy` to retrieve the property and convert it into a proxy.
@@ -25,54 +25,55 @@ Use the communicator operation `propertyToProxy` to retrieve the property and co
 
 ## _name_.ConnectionCached
 
-### Synopsis
+### Synopsis {% id="name.connectioncached-synopsis" %}
 
 `name.ConnectionCached=num`
 
-### Description
+### Description {% id="name.connectioncached-description" %}
 
 If `num` is a value greater than zero, the proxy [caches](../connection-establishment) its chosen connection for use in
 subsequent requests. Defining this property is equivalent to invoking the `ice_connectionCached` proxy method.
 
 ## _name_.Context._key_
 
-### Synopsis
+### Synopsis {% id="name.context.key-synopsis" %}
 
 `name.Context.key=value`
 
-### Description
+### Description {% id="name.context.key-description" %}
 
 Adds the key/value pair to the proxy's [request context](../per-proxy-request-contexts).
 
 ## _name_.EndpointSelection
 
-### Synopsis
+### Synopsis {% id="name.endpointselection-synopsis" %}
 
 `name.EndpointSelection=type`
 
-### Description
+### Description {% id="name.endpointselection-description" %}
 
 Specifies the proxy's [endpoint selection](../connection-establishment) type. Legal values are `Random` and `Ordered`.
 Defining this property is equivalent to invoking the `ice_endpointSelection` proxy method.
 
 ## _name_.InvocationTimeout
 
-### Synopsis
+### Synopsis {% id="name.invocationtimeout-synopsis" %}
 
 `name.InvocationTimeout=num`
 
-### Description
+### Description {% id="name.invocationtimeout-description" %}
 
-Specifies the [invocation timeout](../invocation-timeouts) of this proxy, in milliseconds. Defining this property is
+Specifies the [invocation timeout](../invocation-timeouts) of this proxy, in milliseconds. The default is
+[Ice.Default.InvocationTimeout](../ice-default-properties#ice.default.invocationtimeout). Defining this property is
 equivalent to invoking the `ice_invocationTimeout` proxy method.
 
 ## _name_.Locator
 
-### Synopsis
+### Synopsis {% id="name.locator-synopsis" %}
 
 `name.Locator=proxy`
 
-### Description
+### Description {% id="name.locator-description" %}
 
 Specifies the [locator](../locators) of this proxy. Defining this property is equivalent to invoking the `ice_locator`
 proxy method.
@@ -87,22 +88,23 @@ MyProxy.Locator.EndpointSelection=Ordered
 
 ## _name_.LocatorCacheTimeout
 
-### Synopsis
+### Synopsis {% id="name.locatorcachetimeout-synopsis" %}
 
 `name.LocatorCacheTimeout=num`
 
-### Description
+### Description {% id="name.locatorcachetimeout-description" %}
 
-Specifies the [locator cache](../locator-semantics-for-clients) timeout of this proxy, in seconds. Defining this
-property is equivalent to invoking the `ice_locatorCacheTimeout` proxy method.
+Specifies the [locator cache](../locator-semantics-for-clients) timeout of this proxy, in seconds. The default is
+[Ice.Default.LocatorCacheTimeout](../ice-default-properties#ice.default.locatorcachetimeout). A value of 0 disables
+caching. A negative value means cache entries never expire.
 
 ## _name_.Router
 
-### Synopsis
+### Synopsis {% id="name.router-synopsis" %}
 
 `name.Router=proxy`
 
-### Description
+### Description {% id="name.router-description" %}
 
 Specifies the [router](../glacier2) of this proxy. Defining this property is equivalent to invoking the `ice_router`
 proxy method.

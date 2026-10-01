@@ -29,12 +29,12 @@ module M
 
 The syntax for literals is the same as for C++ and Java (with a few minor exceptions).
 
-## Boolean constants
+## Boolean Constants
 
 Boolean constants can only be initialized with the keywords `false` and `true`. (You cannot use `0` and `1` to represent
 `false` and `true`.)
 
-## Integer literals
+## Integer Literals
 
 Integer literals can be specified in decimal, octal, or hexadecimal notation.
 
@@ -60,7 +60,7 @@ const long WrongToo = 1000000L; // Syntax error
 The value of an integer literal must be within the range of its constant type, as shown in the
 [Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
 
-## Floating-point literals
+## Floating-Point Literals
 
 Floating-point literals use C++ syntax, except that you cannot use an `l` or `L` suffix to indicate an extended
 floating-point constant; however, `f` and `F` are legal (but are ignored).
@@ -79,7 +79,7 @@ const float P6 = 5e2;       // Integer part and exponent
 Floating-point literals must be within the range of the constant type (`float` or `double`); otherwise, the compiler
 will issue a diagnostic.
 
-## String literals
+## String Literals
 
 Slice string literals support the same
 [escape sequences as C++](https://en.cppreference.com/w/cpp/language/escape.html), with the exception of hexadecimal
