@@ -36,8 +36,8 @@ receive messages.
 
 IceStorm supports the formation of topic graphs, also known as [federation](../topic-federation). A topic graph is
 formed by creating links between topics, where a _link_ is a unidirectional association from one topic to another. Each
-link has a _cost_ that may restrict message delivery on that link. A message published on a topic is also published on
-all of the topic's links for which the message cost does not exceed the link cost.
+link has a _cost_ that may restrict message delivery on that link. A topic forwards each message published on it to
+every link whose cost is zero or at least the message's cost.
 
 Once a message has been published on a link, the receiving topic publishes the message to its subscribers, but does not
 publish it on any of its links. In other words, IceStorm messages propagate at most one hop from the originating topic
@@ -80,19 +80,20 @@ this mode.
 
 ## Subscriber Errors
 
-IceStorm automatically removes a subscription from a topic if a subscriber failure occurs while attempting to deliver a
+By default, IceStorm removes a subscription from a topic if a subscriber failure occurs while attempting to deliver a
 message. For example, IceStorm may be unable to establish a connection to the subscriber using the proxy that the
 subscriber provided, meaning the subscriber is not currently active at the proxy's endpoints, or those endpoints are
-inaccessible to IceStorm. Another common failure scenario is a subscriber that allows an exception to propagate back to
-IceStorm. This is important if you make changes to a Slice data type or operation signature: if you do, you must ensure
-that both publishers and subscribers use the same Slice definitions; if you do not, the subscriber is likely to
-encounter marshaling errors when receiving an event from IceStorm with a mismatched Slice definition. If the subscriber
-allows this error to propagate back to IceStorm, its subscription will be canceled.
+inaccessible to IceStorm. Another common failure scenario is a subscriber with a twoway proxy that allows an exception
+to propagate back to IceStorm. This is important if you make changes to a Slice data type or operation signature: if you
+do, you must ensure that both publishers and subscribers use the same Slice definitions; if you do not, the subscriber
+is likely to encounter marshaling errors when receiving an event from IceStorm with a mismatched Slice definition. If
+the subscriber allows this error to propagate back to IceStorm, IceStorm cancels its subscription.
 
 {% callout type="note" %}
 
-Use the `retryCount` [quality of service](../icestorm-quality-of-service) parameter to configure IceStorm's behavior in
-error situations.
+With a `retryCount` [quality of service](../icestorm-quality-of-service) parameter of `-1` or a positive value, IceStorm
+puts the subscriber offline after a transient failure, and removes it only once the retries are exhausted or a hard
+failure occurs.
 
 {% /callout %}
 
