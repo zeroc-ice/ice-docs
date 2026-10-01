@@ -112,10 +112,7 @@ To illustrate this with an example.
 enum UnaryOp { UnaryPlus, UnaryMinus, Not }
 enum BinaryOp { Plus, Minus, Multiply, Divide, And, Or }
 
-class Node
-{
-    idempotent long eval();
-}
+class Node {}
 
 class UnaryOperator extends Node
 {
@@ -130,7 +127,7 @@ class BinaryOperator extends Node
     Node operand2;
 }
 
-class Operand
+class Operand extends Node
 {
     long val;
 }
@@ -189,8 +186,12 @@ IDs:
 - The fifth pass marshals a sequence containing nodes 8 and 9.
 - The final pass marshals an empty sequence.
 
-In this way, any graph of nodes can be transmitted (including graphs that contain cycles). The receiver reconstructs the
-graph by filling in a patch table during unmarshaling:
+In this way, the encoding can represent any graph of nodes, including graphs that contain cycles. A receiver rejects a
+graph deeper than the limit set by
+[`Ice.ClassGraphDepthMax`](../../../property-reference/ice-properties#ice.classgraphdepthmax), and a C++ or Swift
+receiver can also reject a graph that contains a cycle unless the application sets
+[`Ice.AcceptClassCycles`](../../../property-reference/ice-properties#ice.acceptclasscycles) to a positive value. The
+receiver reconstructs the graph by filling in a patch table during unmarshaling:
 
 - Whenever the receiver unmarshals a negative ID, it adds that ID to a patch table; the lookup value is the memory
   address of the parameter or field that eventually will point at the corresponding instance.
@@ -261,6 +262,9 @@ graph:
 
 _Class graph with circular reference._
 
+In either format, a C++ or Swift receiver rejects this graph with a `MarshalException` unless the application sets
+`Ice.AcceptClassCycles` to a positive value.
+
 We discuss the encoding for these values in separate sections below.
 
 ### Class Graph in the Compact Format
@@ -325,13 +329,12 @@ which has already been encoded.
 ### Importance of the Indirection Table
 
 The indirection table is necessary for implementing the
-[slice preservation](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) feature. Normally, when a
-receiver does not recognize the type ID in a slice, it has the option of ignoring that slice by skipping ahead in the
-stream by the number of bytes in the slice. However, when slice preservation is enabled, the receiver must keep a copy
-of the slice data in case the instance is later remarshaled. The need for the indirection table becomes apparent when
-you consider that an opaque blob of slice data may contain class references, and those class references can change
-during remarshaling. For example, without an indirection table, the sender might encode the instance ID `3` as the value
-of field `next`, but what happens if the receiver assigns that instance a different ID, such as `12`, when it remarshals
+[slice preservation](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) feature. When a receiver
+does not recognize the type ID of a class slice encoded in the sliced format, it skips the slice and keeps a copy of the
+slice data in case it later remarshals the instance. The need for the indirection table becomes apparent when you
+consider that an opaque blob of slice data may contain class references, and those class references can change during
+remarshaling. For example, without an indirection table, the sender might encode the instance ID `3` as the value of
+field `next`, but what happens if the receiver assigns that instance a different ID, such as `12`, when it remarshals
 the preserved slice? The receiver preserved the slice because it did not understand the type ID, which means it does not
 know the contents of the slice data and therefore it cannot "patch" any class references the slice might contain. The
 indirection table serves as an external "patch table" to solve this problem, essentially making the opaque slice data
@@ -339,10 +342,10 @@ _relocatable_ with respect to class references.
 
 The byte count for a slice does not include the indirection table because the receiver must process the table regardless
 of whether it recognizes that slice's type ID. Consequently, to "skip" a slice, the receiver can skip (or preserve) the
-number of bytes specified by the slice's byte count, but still must decode the indirection table if the slice flags
-indicate that a table is present. If the receiver preserves the slice, it must also associate an indirection table with
-that slice; during remarshaling, the sender copies the opaque slice data into the stream, and then reconstructs the
-indirection table using (potentially) new instance IDs for the instances referenced in the table.
+remaining _b-4_ bytes of a slice whose byte count is _b_, but still must decode the indirection table if the slice flags
+indicate that a table is present. The receiver also associates an indirection table with each preserved slice; during
+remarshaling, the sender copies the opaque slice data into the stream, and then reconstructs the indirection table using
+(potentially) new instance IDs for the instances referenced in the table.
 
 It is possible that the _only_ reference to an instance is in an indirection table. To properly implement slice
 preservation, a receiver must therefore retain _every_ instance that is referenced by a preserved indirection table.
@@ -352,8 +355,8 @@ comprising its slices in case the instance is later remarshaled.
 
 ## Impact of Slicing on Class Graph Decoding
 
-It is important to note that when a graph of class instances is sent, it always forms a connected graph. However, when
-the receiver rebuilds the graph, it may end up with a disconnected graph, due to slicing. Consider:
+It is important to note that the instances reachable from a single class instance form a connected graph when sent.
+However, when the receiver rebuilds the graph, it may end up with a disconnected graph, due to slicing. Consider:
 
 ```slice
 class Base
@@ -404,7 +407,8 @@ containing many instances.
 
 The [slice preservation](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) feature in version 1.1
 of the encoding allows a receiver to re-marshal the original graph intact, despite the fact that the receiver's
-in-memory object graph may appear to be disconnected.
+in-memory object graph may appear to be disconnected, provided it re-marshals the instances in the sliced format; the
+compact format discards the preserved slices.
 
 {% /callout %}
 
