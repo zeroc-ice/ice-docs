@@ -51,8 +51,8 @@ is a directory, and its path under the version is its slug, the path in its URL:
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
 Images live under `public/images/ice/<version>/<page>/` and are referenced as `/images/ice/<version>/<page>/<file>`.
-Keep a shared figure in one page's image directory and reference that same asset from other pages instead of
-duplicating it.
+Keep a shared figure in one page's image directory and reference that same asset from other pages instead of duplicating
+it. Images the site itself uses, such as the link arrow, live under `public/images/site/`.
 
 - **Every page is in the table of contents**: `check:content` fails a page that no `pages:` list reaches from the front
   page down.
