@@ -129,10 +129,9 @@ log messages.
 
 The properties of this sub-communicator are a few properties of the application's communicator (`Ice.Default.Locator`,
 `Ice.Plugin.IceSSL` and all [IceSSL](../icessl-properties) properties), plus the properties (if any) specified by
-_propertyList_. *propertyList*is a sequence of strings, that Ice reads using
-[getPropertyAsList](https://code.zeroc.com/manual/Ice/Properties). Each of these strings uses the syntax
-_PropertyName_=_PropertyValue_ to set a property. For example, you could turn on protocol tracing on the `Logger`
-facet's sub-communicator with:
+_propertyList_. *propertyList*is a sequence of strings, that Ice reads using [getPropertyAsList](api:Ice/Properties).
+Each of these strings uses the syntax _PropertyName_=_PropertyValue_ to set a property. For example, you could turn on
+protocol tracing on the `Logger` facet's sub-communicator with:
 
 ```config
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1

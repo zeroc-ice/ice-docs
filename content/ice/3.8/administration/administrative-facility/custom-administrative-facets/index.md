@@ -3,7 +3,7 @@ title: Custom Administrative Facets
 ---
 
 An application can add and remove administrative facets by calling `addAdminFacet` resp. `removeAdminFacet` on the
-[Communicator](https://code.zeroc.com/manual/Ice/Communicator).
+[Communicator](api:Ice/Communicator).
 
 The `addAdminFacet` method installs a new facet with the given name, or throw `AlreadyRegisteredException` if a facet
 already exists with the same name. The `removeAdminFacet` method removes (and returns) the facet with the given name, or

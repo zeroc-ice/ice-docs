@@ -20,7 +20,7 @@ npm test                           # unit tests for the content model (lib/docs-
 npm run check:content              # navigation, images, slots, titles, headings, migration leftovers
 npm run check:content -- --strict  # also fail on every unclassified slot
 npm run check:content -- --slots   # list the blank language sections still to classify
-npm run check:markdoc              # every page against the Markdoc schema, and every link to a page and its anchor; `build` runs it first
+npm run check:markdoc              # every page against the Markdoc schema, and every link to a page, an anchor, or an API type; `build` runs it first
 npm run lint                       # lint:eslint, then lint:markdown
 npm run lint:eslint                # eslint; a warning fails it too
 npm run lint:markdown              # markdownlint on the content
@@ -48,6 +48,8 @@ is a directory, and its path under the version is its slug, the path in its URL:
   `/ice/<version>/<language>/<name>`, and the pages it named differently. Each URL redirects to the page here with the
   same name, or the one `redirects.yaml` names, keeping the language as `?lang=`; `lib/docs-model/scroll-urls.test.ts`
   checks every one.
+- `api-links.yaml` — the URL of each type's page in the API reference of each language that has one, for the links that
+  name a type.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
 Images live under `public/attachments/<version>/<page>/` and are referenced as `/attachments/<version>/<page>/<file>`.
@@ -59,6 +61,10 @@ duplicating it.
 - **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
   a page that does not exist renders as plain text, and `check:markdoc` fails on it.
+- **Links to the API reference name a type** (`[Communicator](api:Ice/Communicator)`). The build gives each reader the
+  type's page in their language's API reference, from `api-links.yaml`; a reader of a language with no page for it sees
+  the link's text alone. `check:markdoc` fails on a type `api-links.yaml` does not list. Where the text means one
+  language's API, such as the C++ classes the DataStorm pages describe, link to that page directly.
 - **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
   overlay answers each one, with prose or with a declared state (`no-addition`, or `not-applicable` with a note), as
   described in `lib/docs-model/resolve.ts`. Each distinct answer goes into the page once, wrapped in

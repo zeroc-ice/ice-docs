@@ -6,12 +6,14 @@ on:
     branches: ['main']
     paths:
       - '**.md'
+      - '**/api-links.yaml'
       - '.lychee.toml'
       - '.github/workflows/links.yml'
   pull_request:
     branches: ['main']
     paths:
       - '**.md'
+      - '**/api-links.yaml'
       - '.lychee.toml'
       - '.github/workflows/links.yml'
 
@@ -40,6 +42,7 @@ jobs:
             --verbose
             --no-progress
             'content/**/*.md'
+            'content/**/api-links.yaml'
             '*.md'
           fail: true
         env:

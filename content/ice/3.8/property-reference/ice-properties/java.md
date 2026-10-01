@@ -160,8 +160,8 @@ Ice for Java allows you to customize the Slice module to Java package mapping wi
 
 When you use this feature, you need to help Ice locate your remapped classes during unmarshaling, by installing a
 [Slice loader](../slice-loaders) in your communicator. The `Ice.Package.module` properties tell the Ice communicator to
-install automatically a [ModuleToPackageSliceLoader](https://code.zeroc.com/manual/Ice/ModuleToPackageSliceLoader)
-during initialization, configured using the module to package map created by these properties.
+install automatically a [ModuleToPackageSliceLoader](api:Ice/ModuleToPackageSliceLoader) during initialization,
+configured using the module to package map created by these properties.
 
 This property is provided primarily for backwards compatibility; we recommend configuring Slice loaders programmatically
 in new applications.

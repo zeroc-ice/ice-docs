@@ -50,8 +50,7 @@ Then we get to the interesting part: the client logic. We can break this logic d
 
 ### 1. Create a Communicator
 
-First, we create a [Communicator](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator.html) using its
-communicator:
+First, we create a [Communicator](api:Ice/Communicator) using its constructor:
 
 ```cpp
 await using communicator = new Ice.Communicator(process.argv);

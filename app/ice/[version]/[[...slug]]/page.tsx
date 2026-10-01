@@ -17,6 +17,7 @@ import {
   CONTENT_ROOT,
   listVersions,
   listPages,
+  readApiLinks,
   readPageSources,
   readNavigation,
   snippetReader,
@@ -139,6 +140,7 @@ export default async function Page(props: PageProps) {
     version,
     languages,
     pageIndex,
+    apiLinks: readApiLinks(CONTENT_ROOT, version),
     frontmatter,
     chrome: {
       breadcrumbs: crumbs,

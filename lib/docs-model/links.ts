@@ -13,6 +13,10 @@
 // unique. A page can move from `learn/slice/enumerations` to
 // `reference/slice/enumerations` and every link to it keeps working, untouched.
 //
+// A link to the API reference names a type (`api:Ice/Communicator`) rather
+// than a URL, since each language's API reference has its own page for it. It
+// resolves against the version's `api-links.yaml`, once per language.
+//
 // Pure, so it is unit-testable with plain objects.
 
 import { pageHref } from './nav.ts';
@@ -98,4 +102,42 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   if (!target) return { href: raw, resolved: false };
 
   return { href: pageHref(ctx.version, target) + hash, resolved: true };
+}
+
+/** What starts a link to a type in the API reference: `api:Ice/Communicator`. */
+export const API_SCHEME = 'api:';
+
+/**
+ * A version's `api-links.yaml`: for each type, by `<Module>/<Type>`, the URL of
+ * its page in the API reference of each language that has one.
+ */
+export type ApiLinks = Record<string, Record<string, string>>;
+
+/** What a link to a type renders as for the readers of some languages. */
+export interface ApiLinkVariant {
+  /** The type's page in their API reference; empty when it has none. */
+  href: string;
+  langs: string[];
+}
+
+/**
+ * Resolve a link to `type` (`Ice/Communicator`) for the readers of
+ * `languages`: one variant per page, plus one with an empty href for the
+ * languages whose API reference has no page for it. Undefined when the table
+ * does not list the type.
+ */
+export function resolveApiLink(
+  type: string,
+  languages: string[],
+  apiLinks: ApiLinks
+): ApiLinkVariant[] | undefined {
+  const pages = apiLinks[type];
+  if (!pages) return undefined;
+
+  const byHref = new Map<string, string[]>();
+  for (const language of languages) {
+    const href = pages[language] ?? '';
+    byHref.set(href, [...(byHref.get(href) ?? []), language]);
+  }
+  return [...byHref].map(([href, langs]) => ({ href, langs }));
 }

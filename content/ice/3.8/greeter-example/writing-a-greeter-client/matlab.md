@@ -45,7 +45,7 @@ The remainder of this function can be broken down into four pieces:
 
 ### 1. Create a Communicator
 
-First, we create a [Communicator](https://code.zeroc.com/manual/Ice/Communicator) using its constructor:
+First, we create a [Communicator](api:Ice/Communicator) using its constructor:
 
 ```matlab
 communicator = Ice.Communicator(args);

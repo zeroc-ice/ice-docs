@@ -29,8 +29,8 @@ Greeter.Proxy.EndpointSelection=Ordered
 ```
 
 These additional properties simplify the task of customizing a proxy (as you can with
-[proxy methods](https://code.zeroc.com/manual/Ice/ObjectPrx)) without the need to change the application's code. The
-properties shown above are equivalent to the following statements:
+[proxy methods](api:Ice/ObjectPrx)) without the need to change the application's code. The properties shown above are
+equivalent to the following statements:
 
 {% language-section name="lang-3" /%}
 
