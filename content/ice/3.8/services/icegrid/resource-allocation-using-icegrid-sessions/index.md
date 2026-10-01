@@ -49,14 +49,13 @@ module IceGrid
 The `createSession` operation expects a username and password and returns a session proxy if the client is allowed to
 create a session. By default, IceGrid does not allow the creation of sessions. You must define the registry property
 `IceGrid.Registry.PermissionsVerifier` with the proxy of a permissions verifier object to
-[enable session creation](../resource-allocation-using-icegrid-sessions#controlling-access-to-icegrid-sessions) with
-`createSession`.
+[enable session creation](#controlling-access-to-icegrid-sessions) with `createSession`.
 
 The `createSessionFromSecureConnection` operation does not require a username and password because it uses the
 credentials supplied by an [SSL](../ssl-transport) connection to authenticate the client. As with `createSession`, you
-must [enable session creation](../resource-allocation-using-icegrid-sessions#controlling-access-to-icegrid-sessions) by
-configuring the proxy of a permissions verifier object so that clients can use `createSessionFromSecureConnection` to
-create a session. In this case, the property is `IceGrid.Registry.SSLPermissionsVerifier`.
+must [enable session creation](#controlling-access-to-icegrid-sessions) by configuring the proxy of a permissions
+verifier object so that clients can use `createSessionFromSecureConnection` to create a session. In this case, the
+property is `IceGrid.Registry.SSLPermissionsVerifier`.
 
 To create a session, the client obtains the registry proxy by converting the well-known proxy string
 `"IceGrid/Registry"` to a proxy object with the communicator, downcasts the proxy to the `IceGrid::Registry` interface,

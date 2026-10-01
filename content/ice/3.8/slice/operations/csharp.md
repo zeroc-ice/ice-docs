@@ -60,7 +60,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your thread marshals the arguments to the
   method synchronously, but the remainder of this invocation is asynchronous, and the method returns immediately. You
   get the result (return value or exception) through a `Task`. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in C#](<../operations#asynchronous-method-invocation-(ami)>).
+  [Asynchronous Method Invocation (AMI) in C#](#asynchronous-method-invocation-ami).
 
 {% callout type="info" %}
 
@@ -156,7 +156,7 @@ internal class Chatbot : VisitorCenter.GreeterDisp_
 
 Each operation with the `["amd"]` metadata is mapped to a method with an `Async` suffix in the skeleton class. The AMD
 mapping replaces the default “sync” mapping for the operation. See
-[Asynchronous Method Dispatch (AMD) in C#](<../operations#asynchronous-method-dispatch-(amd)>) for details.
+[Asynchronous Method Dispatch (AMD) in C#](#asynchronous-method-dispatch-amd) for details.
 
 ### Throwing Exceptions
 
@@ -290,29 +290,34 @@ keep up with them, the requests pile up in the client-side runtime until, eventu
 The API provides a way for you to implement flow control by counting the number of requests that are queued so, if that
 number exceeds some threshold, the client stops invoking more operations until some of the queued operations have
 drained out of the local transport. One of the optional arguments to every asynchronous proxy invocation is a
-`System.IProgress<bool>`. If you provide a delegate, the Ice runtime will eventually invoke it when the request has been
-sent and provide a boolean argument indicating whether the request was sent synchronously. This argument is true if the
-entire request could be transferred to the local transport in the caller's thread without blocking, otherwise the
-argument is false. Furthermore, a value of true indicates that Ice is invoking your delegate recursively from the
-calling thread, whereas a value of false indicates that Ice is invoking the delegate from an Ice thread pool thread.
+`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when the request has been sent,
+with a boolean argument indicating whether the request was sent synchronously. This argument is true if the entire
+request could be transferred to the local transport in the caller's thread without blocking, otherwise the argument is
+false. Furthermore, a value of true indicates that Ice is calling `Report` recursively from the calling thread, whereas
+a value of false indicates that Ice is calling `Report` from an Ice thread pool thread.
 
 Here's a simple example to demonstrate the flow control feature:
 
 ```csharp
 ExamplePrx proxy = ...;
-proxy.DoSomethingAsync(progress: (sentSynchronously) =>
+proxy.DoSomethingAsync(progress: new SentCallback());
+
+class SentCallback : IProgress<bool>
 {
-    if (sentSynchronously)
+    public void Report(bool sentSynchronously)
     {
-        // Entire request was accepted by the transport,
-        // called recursively from this thread
+        if (sentSynchronously)
+        {
+            // Entire request was accepted by the transport,
+            // called recursively from this thread
+        }
+        else
+        {
+            // Request was queued but has now been sent,
+            // called from a separate thread
+        }
     }
-    else
-    {
-        // Request was queued but has now been sent,
-        // called from a separate thread
-    }
-});
+}
 ```
 
 Using this feature, you can limit the number of queued requests by counting the number of requests that are queued and
@@ -334,11 +339,10 @@ in the server's [thread pool](../threading-model). If all of the threads are bus
 then no threads are available to process new requests and therefore clients may experience an unacceptable lack of
 responsiveness.
 
-_Asynchronous Method Dispatch (AMD)_, the server-side equivalent of
-[AMI](<../operations#asynchronous-method-invocation-(ami)>), addresses this scalability issue. Using AMD, a server can
-receive a request but then suspend its processing in order to release the dispatch thread as soon as possible. When
-processing resumes and the results are available, the server can provide its results to the Ice runtime for delivery to
-the client.
+_Asynchronous Method Dispatch (AMD)_, the server-side equivalent of [AMI](#asynchronous-method-invocation-ami),
+addresses this scalability issue. Using AMD, a server can receive a request but then suspend its processing in order to
+release the dispatch thread as soon as possible. When processing resumes and the results are available, the server can
+provide its results to the Ice runtime for delivery to the client.
 
 AMD is transparent to the client, that is, there is no way for a client to distinguish a request that, in the server, is
 processed synchronously from a request that is processed asynchronously.
@@ -354,7 +358,7 @@ Slice compiler. For example:
 
 ```csharp
 // This servant uses AMD
-public class Chatbot : VisitorCenter.AsyncGreeter
+public class Chatbot : VisitorCenter.AsyncGreeterDisp_
 {
    // your implementation here
 };

@@ -4,9 +4,8 @@ In Swift, a middleware is a type that implements `Ice.Dispatcher` protocol and d
 “next”. For example:
 
 ```swift
-// A typical TypeScript middleware class
-class AuthorizationMiddleware extends Ice.Object
-{
+// A typical Swift middleware class
+final class AuthorizationMiddleware: Dispatcher {
     func dispatch(
         _ request: sending IncomingRequest) async throws -> OutgoingResponse {
         ...
@@ -36,7 +35,7 @@ middleware into its dispatch pipeline when it receives its first request.
 
 For example, you can call `use` as follows:
 
-```js
+```swift
 adapter.use {
     next in AuthorizationMiddleware(next: next, validToken: "iced tea")
 }

@@ -22,7 +22,7 @@ A [replica group descriptor](../replica-group-descriptor-element) optionally con
 [load balancing descriptor](../load-balancing-descriptor-element) that determines how system loads are used in locate
 requests. The load balancing descriptor specifies the following information:
 
-- Type Several [load balancing types](../load-balancing#load-balancing-types) are supported.
+- Type Several [load balancing types](#load-balancing-types) are supported.
 
 - Sampling interval One of the load balancing types considers system load statistics, which are reported by each node at
   regular intervals. The replica group can specify a sampling interval of one, five, or fifteen minutes. Choosing a
@@ -136,8 +136,8 @@ query results. Two kinds of filters are supported:
   replica group or object adapter, as well as for calls to [findAllReplicas](../well-known-objects). The registry passes
   information about the query that the filter can use in its implementation, including the list of object adapters
   participating in the replica group whose nodes are active at the time of the request. The object adapter list is
-  initially ordered using the [load balancing type](../load-balancing#load-balancing-types) configured for the replica
-  group; the filter can modify this list however it chooses.
+  initially ordered using the [load balancing type](#load-balancing-types) configured for the replica group; the filter
+  can modify this list however it chooses.
 
 - Type filter The registry invokes a type filter for each query that a client issues to
   [find a well-known object by type](../well-known-objects) using the operations `findObjectByType`,

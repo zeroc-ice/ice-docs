@@ -69,7 +69,8 @@ const MAILTO = /^mailto:/i;
  * - external / mailto / in-page anchors / already-absolute: unchanged
  * - `attachments/...`: left alone (assets, not pages)
  * - anything else: the page named by the link is looked up in the page index
- *   and rewritten to `/ice/<version>/<slug>`, preserving `#anchor`.
+ *   and rewritten to `/ice/<version>/<slug>`, preserving the query, such as a
+ *   `?lang=` that names the language mapping to show, and `#anchor`.
  */
 export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const raw = (href ?? '').trim();
@@ -80,8 +81,11 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   if (raw.startsWith('/')) return { href: raw, resolved: true };
 
   const hashAt = raw.indexOf('#');
-  const path = hashAt === -1 ? raw : raw.slice(0, hashAt);
+  const beforeHash = hashAt === -1 ? raw : raw.slice(0, hashAt);
   const hash = hashAt === -1 ? '' : raw.slice(hashAt);
+  const queryAt = beforeHash.indexOf('?');
+  const path = queryAt === -1 ? beforeHash : beforeHash.slice(0, queryAt);
+  const query = queryAt === -1 ? '' : beforeHash.slice(queryAt);
 
   // Drop the `./` and `../` prefixes the export produced: they encoded "a sibling
   // page", not a real filesystem relationship.
@@ -97,5 +101,5 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const target = ctx.index[full] ?? ctx.index[name];
   if (!target) return { href: raw, resolved: false };
 
-  return { href: pageHref(ctx.version, target) + hash, resolved: true };
+  return { href: pageHref(ctx.version, target) + query + hash, resolved: true };
 }

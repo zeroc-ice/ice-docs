@@ -50,7 +50,7 @@ public interface SimplePrx extends com.zeroc.Ice.ObjectPrx {
 Use `createProxy` to create a proxy from a communicator and a “stringified” proxy:
 
 ```java
-SimplerPrx simple = SimplePrx.createProxy(
+SimplePrx simple = SimplePrx.createProxy(
     communicator, "simple:tcp -h localhost -p 4061");
 ```
 
@@ -230,7 +230,7 @@ generated skeleton interfaces. For example, to create a servant for the `Greeter
 class Chatbot implements Greeter {
     @Override
     public String greet(String name, com.zeroc.Ice.Current current) {
-        return "Hello, " + _name + "!";
+        return "Hello, " + name + "!";
     }
 }
 ```
@@ -242,6 +242,6 @@ makes the servant class a concrete class that you can instantiate. You can add o
 to support your implementation.
 
 The async skeleton interface is described in
-[Asynchronous Method Dispatch (AMD) in Java](<../operations#asynchronous-method-dispatch-(amd)>).
+[Asynchronous Method Dispatch (AMD) in Java](../operations#asynchronous-method-dispatch-amd).
 
 {% /language-section %}

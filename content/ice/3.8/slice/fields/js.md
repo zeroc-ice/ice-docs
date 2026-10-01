@@ -94,7 +94,7 @@ export class C extends Ice.Value {
 
 ### Default Values {% id="language-mapping-default-values" %}
 
-Slice default values map to default values in C#.
+Slice default values map to default values in JavaScript.
 
 For example:
 
@@ -112,7 +112,7 @@ struct Location
 
 Generates the following JavaScript code:
 
-```csharp
+```js
 M.Location = class {
     constructor(name = "", point = null, display = true, source = "GPS") {
         this.name = name;

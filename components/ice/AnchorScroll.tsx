@@ -1,10 +1,17 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 import { setLanguage } from '@/context/state';
+import { LANGUAGE_LABELS } from '@/lib/docs-model/nav';
+
+/** The mapping a URL's `?lang=` names, if it is one of the manual's. */
+function queryLanguage(url: URL): string | undefined {
+  const language = url.searchParams.get('lang') ?? '';
+  return Object.hasOwn(LANGUAGE_LABELS, language) ? language : undefined;
+}
 
 /**
  * The element with `id` that is on display. A section written per language
@@ -64,9 +71,21 @@ export function goToHeading(id: string) {
 // is hidden and nothing moves, so this finds the copy on show. A click on a link
 // to a heading on this page, however the link is written, is taken in the
 // capture phase, ahead of the router's own handler, which would scroll to the
-// first copy too.
+// first copy too. A link can also name the mapping to show with `?lang=`, which
+// the root layout's script applies on a full load. Here it applies when a link
+// on this page is clicked, or after a client-side navigation, before the page
+// paints and with the address dropping it.
 export function AnchorScroll() {
   const pathname = usePathname();
+
+  useLayoutEffect(() => {
+    const url = new URL(location.href);
+    const language = queryLanguage(url);
+    if (!language) return;
+    setLanguage(language);
+    url.searchParams.delete('lang');
+    history.replaceState(null, '', url);
+  }, [pathname]);
 
   useEffect(() => {
     const id = fragmentId(location.hash);
@@ -86,9 +105,11 @@ export function AnchorScroll() {
       )
         return;
       const id = fragmentId(link.hash);
-      if (!id) return;
+      const language = queryLanguage(new URL(link.href));
+      if (!id && !language) return;
       event.preventDefault();
-      goToHeading(id);
+      if (language) setLanguage(language);
+      if (id) goToHeading(id);
     };
     document.addEventListener('click', onClick, true);
     return () => document.removeEventListener('click', onClick, true);

@@ -57,7 +57,13 @@ duplicating it.
   page down.
 - **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
-  a page that does not exist renders as plain text, and `check:markdoc` fails on it.
+  a page that does not exist renders as plain text, and `check:markdoc` fails on it. A link can name the language
+  mapping to show with `?lang=`, as in `[AMD in Java](../operations?lang=java#asynchronous-method-dispatch-amd)`;
+  following it switches the reader to that mapping. `check:markdoc` fails one whose mapping the manual lacks or doesn't
+  show the anchor.
+- **A link to a heading in the same file is a bare anchor** (`[size](#encoding-for-sizes)`), which MD051 checks. Where
+  MD051 can't, because the heading sits in another file of the page or its anchor keeps a dot or comes from `{% id %}`,
+  name the page as a cross-page link does: `[Ice.LogFile](../ice-properties#ice.logfile)`.
 - **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
   overlay answers each one, with prose or with a declared state (`no-addition`, or `not-applicable` with a note), as
   described in `lib/docs-model/resolve.ts`. Each distinct answer goes into the page once, wrapped in
@@ -77,8 +83,9 @@ duplicating it.
 - **Titles and headings are in Title Case.** Capitalize every word except articles, coordinating conjunctions, and
   prepositions of four letters or fewer, unless the word comes first or last. A name keeps its own case, as
   `icegridnode` and npm do.
-- **A heading's anchor comes from its text.** Where two headings on one page would share an anchor, give them their own
-  in the source, as each label on a property page carries its property's:
+- **A heading's anchor comes from its text**, lowercased, with hyphens for spaces and without `?`, `(`, or `)`:
+  `## Asynchronous Method Dispatch (AMD)` is `#asynchronous-method-dispatch-amd`. Where two headings on one page would
+  share an anchor, give them their own in the source, as each label on a property page carries its property's:
   `### Synopsis {% id="ice.default.host-synopsis" %}`. MD024 flags a heading repeated within a file, and `check:markdoc`
   one repeated across a page and its overlays.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a

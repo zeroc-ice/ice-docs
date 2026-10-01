@@ -146,20 +146,20 @@ _Encoding for basic types._
 
 ## Encoding for Strings
 
-Strings are encoded as a [size](../basic-data-encoding#encoding-for-sizes), followed by the string contents in
+Strings are encoded as a [size](#encoding-for-sizes), followed by the string contents in
 [UTF-8](https://en.wikipedia.org/wiki/UTF-8) format. Strings are not null-terminated. An empty string is encoded with a
 size of zero.
 
 ## Encoding for Sequences
 
-Sequences are encoded as a [size](../basic-data-encoding#encoding-for-sizes) representing the number of elements in the
-sequence, followed by the elements encoded as specified for their type.
+Sequences are encoded as a [size](#encoding-for-sizes) representing the number of elements in the sequence, followed by
+the elements encoded as specified for their type.
 
 ## Encoding for Dictionaries
 
-Dictionaries are encoded as a [size](../basic-data-encoding#encoding-for-sizes) representing the number of key-value
-pairs in the dictionary, followed by the pairs. Each key-value pair is encoded as if it were a `struct` containing the
-key and value as fields, in that order.
+Dictionaries are encoded as a [size](#encoding-for-sizes) representing the number of key-value pairs in the dictionary,
+followed by the pairs. Each key-value pair is encoded as if it were a `struct` containing the key and value as fields,
+in that order.
 
 ## Encoding for Enumerators
 
@@ -204,9 +204,9 @@ this definition.
 
 ### Encoding Version 1.1 {% id="enumerator-encoding-version-1.1" %}
 
-An enumerator is encoded as a [size](../basic-data-encoding#encoding-for-sizes), meaning the encoding of an enumerator
-requires one byte if its value is less than 255, or five bytes if its value is 255 or greater. The encoding uses the
-Slice value of the enumerator, which is not necessarily the same as its ordinal value. Repeating the previous example:
+An enumerator is encoded as a [size](#encoding-for-sizes), meaning the encoding of an enumerator requires one byte if
+its value is less than 255, or five bytes if its value is 255 or greater. The encoding uses the Slice value of the
+enumerator, which is not necessarily the same as its ordinal value. Repeating the previous example:
 
 ```slice
 // Encoded values: Apple = 1, Pear = 3, Orange = 4

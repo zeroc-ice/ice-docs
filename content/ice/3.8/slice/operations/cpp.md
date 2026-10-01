@@ -82,7 +82,7 @@ For each operation, the Slice compiler generates 3 member functions on the proxy
   the arguments to the function synchronously, but the remainder of this invocation is asynchronous, and the function
   returns immediately. You get the result (return value or exception) through an `std::future` or a callback depending
   on the async overload you selected. These async functions are described in more detail in
-  [Asynchronous Method Invocation (AMI) in C++](<../operations#asynchronous-method-invocation-(ami)>).
+  [Asynchronous Method Invocation (AMI) in C++](#asynchronous-method-invocation-ami).
 
 {% callout type="info" %}
 
@@ -178,7 +178,7 @@ public:
 
 Each operation with the `["amd"]` metadata is mapped to a pure virtual function with an `Async` suffix in the skeleton
 class. The AMD mapping replaces the default “sync” mapping for the operation. See
-[Asynchronous Method Dispatch (AMD) in C++](<../operations#asynchronous-method-dispatch-(amd)>) for details.
+[Asynchronous Method Dispatch (AMD) in C++](#asynchronous-method-dispatch-amd) for details.
 
 ### Throwing Exceptions
 
@@ -417,11 +417,10 @@ in the server's [thread pool](../threading-model). If all of the threads are bus
 then no threads are available to process new requests and therefore clients may experience an unacceptable lack of
 responsiveness.
 
-_Asynchronous Method Dispatch (AMD)_, the server-side equivalent of
-[AMI](<../operations#asynchronous-method-invocation-(ami)>), addresses this scalability issue. Using AMD, a server can
-receive a request but then suspend its processing in order to release the dispatch thread as soon as possible. When
-processing resumes and the results are available, the server sends a response explicitly using a callback object
-provided by the Ice runtime.
+_Asynchronous Method Dispatch (AMD)_, the server-side equivalent of [AMI](#asynchronous-method-invocation-ami),
+addresses this scalability issue. Using AMD, a server can receive a request but then suspend its processing in order to
+release the dispatch thread as soon as possible. When processing resumes and the results are available, the server sends
+a response explicitly using a callback object provided by the Ice runtime.
 
 AMD is transparent to the client, that is, there is no way for a client to distinguish a request that, in the server, is
 processed synchronously from a request that is processed asynchronously.
@@ -625,8 +624,8 @@ holds the return value and/or out parameters, in order of declaration (the retur
 a single return value or out parameter, the future holds the mapped C++ type. Otherwise, the future holds a
 `std::tuple`.
 
-These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](../operations#in-parameters),
-since you’re receiving these values from Ice.
+These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](#in-parameters), since you’re
+receiving these values from Ice.
 
 #### Callback Proxy Functions
 
@@ -634,8 +633,8 @@ The other overloaded proxy member functions `<operation-name>Async` accepts a re
 the return value and out parameters (if any). This callback function is provided by you (the application), and is called
 by Ice.
 
-These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](../operations#in-parameters),
-since you’re receiving these values from Ice.
+These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](#in-parameters), since you’re
+receiving these values from Ice.
 
 When the operation has a return value and one ore more out parameters, the return value is mapped to a parameter named
 `returnValue` int the C++ response callback.
@@ -646,8 +645,8 @@ On the server-side, when you use AMD, the pure virtual function `<operation-name
 provides a response callback that accepts the return value and out parameters (if any). This callback function is
 provided by Ice, and you (the application) call this function in your implementation of `<operation-name>Async`.
 
-The return value and out parameters are all mapped like in the Outgoing column of
-[In Parameters](../operations#in-parameters), since you’re loaning these values to Ice for marshaling.
+The return value and out parameters are all mapped like in the Outgoing column of [In Parameters](#in-parameters), since
+you’re loaning these values to Ice for marshaling.
 
 ### Optional Parameters
 

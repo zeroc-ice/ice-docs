@@ -39,7 +39,7 @@ end
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
 
 ```matlab
-greeter = visitorcenter.GreeterPrx(
+greeter = visitorcenter.GreeterPrx( ...
     communicator, 'greeter:tcp -h localhost -p 4061');
 
 greeting = greeter.greet('Alice');     % Get name via RPC
@@ -55,7 +55,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
 - an “async” method, named `<operation-name>Async`. When you call this method, your program marshals the arguments to
   the method synchronously, but the remainder of this invocation is asynchronous, and the method returns a future
   immediately. These async methods are described in more detail in
-  [Asynchronous Method Invocation (AMI) in MATLAB](<../operations#asynchronous-method-invocation-(ami)>).
+  [Asynchronous Method Invocation (AMI) in MATLAB](#asynchronous-method-invocation-ami).
 
 {% callout type="info" %}
 

@@ -129,8 +129,8 @@ The node properties are explained below:
 
 Server configuration is accomplished using descriptors. During deployment, the node creates a subdirectory tree for each
 server. Inside this tree the node creates a configuration file containing properties derived from the server's
-descriptors. For instance, the adapter's [descriptor](../using-icegrid-deployment#ripper-deployment-descriptors)
-generates the following properties in the server's configuration file:
+descriptors. For instance, the adapter's [descriptor](#ripper-deployment-descriptors) generates the following properties
+in the server's configuration file:
 
 ```config
 # Server configuration
@@ -302,10 +302,9 @@ We have also removed the `id` attribute from our adapter descriptors; the
 
 ### Configuration Changes
 
-We can continue to use the configuration file we created
-[earlier](../using-icegrid-deployment#ripper-registry-and-node-configuration) for our combined registry-node process. We
-need a separate configuration file for `Node2`, primarily to define a different value for the property
-[IceGrid.Node.Name](../icegrid-properties). However, we also cannot have two nodes configured with
+We can continue to use the configuration file we created [earlier](#ripper-registry-and-node-configuration) for our
+combined registry-node process. We need a separate configuration file for `Node2`, primarily to define a different value
+for the property [IceGrid.Node.Name](../icegrid-properties). However, we also cannot have two nodes configured with
 [IceGrid.Node.CollocateRegistry](../icegrid-properties) because only one master registry is allowed, so we must remove
 this property:
 

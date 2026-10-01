@@ -29,7 +29,7 @@ enum ButtonPressed
 }
 ```
 
-The `swift:identifier` directives in this example ensures the enumerators `Snooze` and `Stop` are mapped to `snooze` and
+The `swift:identifier` directives in this example ensure the enumerators `Snooze` and `Stop` are mapped to `snooze` and
 `stop`, per Swift’s usual conventions, instead of the default mapping (`Snooze` and `Stop`).
 
 ### `swift:module:module:prefix`
