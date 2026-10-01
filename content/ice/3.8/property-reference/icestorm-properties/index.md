@@ -112,8 +112,7 @@ the finder object, whose identity is always `IceStorm/Finder`. If not specified,
 ### Description {% id="icestorm.lmdb.mapsize-description" %}
 
 Specifies the map size for the IceStorm [LMDB](http://www.lmdb.tech/doc/) database environment. The value is specified
-in megabytes. If not specified or set to a value less than 1, IceStorm uses a system-dependent default: 10 MB on
-Windows, and 100 MB on other platforms.
+in megabytes. If not set, IceStorm uses a system-dependent default: 10 MB on Windows, and 100 MB on other platforms.
 
 ## IceStorm.LMDB.Path
 
@@ -139,10 +138,6 @@ In a [replicated deployment](../highly-available-icestorm), IceStorm uses the ad
 replica node's object adapter. Therefore, [adapter properties](../object-adapter-properties) can be used to configure
 this adapter.
 
-If `IceStorm.Node.ThreadPool.Size` is not set, IceStorm sets it to the number of replicas plus one and sets
-`IceStorm.Node.ThreadPool.SizeWarn` to 0. If `IceStorm.Node.MessageSizeMax` is not set, IceStorm sets it to 0, which
-removes the message size limit.
-
 ## IceStorm.NodeId
 
 ### Synopsis {% id="icestorm.nodeid-synopsis" %}
@@ -154,8 +149,8 @@ removes the message size limit.
 Specifies the node ID of an IceStorm [replica](../highly-available-icestorm), where `value` is a non-negative integer.
 Node IDs must be unique, but they need not be contiguous or start at 0. The node ID is also used as the replica's
 priority, such that a larger value assigns higher priority to the replica. The replica with the highest priority becomes
-the coordinator of its group. This property must be defined for each replica, and its value must match the ID of one of
-the configured replicas. The default value is -1, which disables replication.
+the coordinator of its group. This property must be defined for each replica. The default value is `-1`, which disables
+replication.
 
 A replicated deployment requires at least three replicas.
 
@@ -219,11 +214,12 @@ For example, the operation `IceStorm::TopicManager::create` returns a proxy that
 
 ### Description {% id="icestorm.send.timeout-description" %}
 
-Specifies the invocation timeout in milliseconds that IceStorm applies when it forwards events to subscribers. When
-forwarding an event does not complete within `num` milliseconds, IceStorm handles the timeout according to the
-subscriber's `retryCount` QoS setting, as described under
-[IceStorm.Discard.Interval](../icestorm-properties#icestorm.discard.interval). The default value is 60,000 milliseconds.
-A value less than 1 disables the timeout.
+Specifies the invocation timeout in milliseconds that IceStorm applies when it forwards events to subscribers. For
+oneway and batch subscribers, the timeout covers connecting to the subscriber and sending the event; for twoway
+subscribers, it also covers waiting for the reply. When forwarding an event does not complete within `num` milliseconds,
+IceStorm handles the timeout according to the subscriber's `retryCount` QoS setting, as described under
+[IceStorm.Discard.Interval](../icestorm-properties#icestorm.discard.interval). The default value is `60000`. `-1`
+disables the timeout.
 
 ## IceStorm.Send.QueueSizeMax
 
@@ -234,8 +230,9 @@ A value less than 1 disables the timeout.
 ### Description {% id="icestorm.send.queuesizemax-description" %}
 
 The value of this property determines how many events can be queued for a subscriber by IceStorm. When the maximum size
-is reached, the old events will either be dropped or the subscriber will be removed. `num` must be a positive value, or
-a negative value for an unbounded queue. The default value is -1.
+is reached, IceStorm drops the oldest events or removes the subscriber, as selected by
+[IceStorm.Send.QueueSizeMaxPolicy](../icestorm-properties#icestorm.send.queuesizemaxpolicy). `num` must be a positive
+value, or `-1` for an unbounded queue. The default value is `-1`.
 
 ## IceStorm.Send.QueueSizeMaxPolicy
 
@@ -259,9 +256,6 @@ older events will be removed to make room for new events. The default value is `
 
 IceStorm uses the adapter name `IceStorm.TopicManager` for the topic manager's object adapter. Therefore,
 [adapter properties](../object-adapter-properties) can be used to configure this adapter.
-
-If [IceStorm.NodeId](../icestorm-properties#icestorm.nodeid) is set to a value other than -1 and
-`IceStorm.TopicManager.ThreadPool.SizeMax` is not set, IceStorm sets it to 100.
 
 ## IceStorm.Trace.Election
 
@@ -349,6 +343,5 @@ The topic manager trace level:
 
 ### Description {% id="icestorm.transient-description" %}
 
-If `num` is a value greater than zero, IceStorm runs in a fully transient mode in which no database is required. In this
-mode, IceStorm runs without replication, regardless of `IceStorm.NodeId` and `IceStorm.Nodes.id`. If not defined, the
-default value is zero.
+If `num` is a value greater than zero, IceStorm runs in a fully transient mode in which no database is required.
+Replication is not supported in this mode. If not defined, the default value is zero.

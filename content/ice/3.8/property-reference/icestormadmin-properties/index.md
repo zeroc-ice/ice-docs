@@ -29,9 +29,8 @@ Specifies the host of the IceStorm [finder object](../configuring-icestorm) that
 ### Description {% id="icestormadmin.port-description" %}
 
 Specifies the port of the IceStorm [finder object](../configuring-icestorm) that
-[icestormadmin](../icestorm-administration) uses to discover the topic manager. `icestormadmin` creates a proxy for the
-object `IceStorm/Finder` with a TCP endpoint and an SSL endpoint at this port, on the host specified by
-[IceStormAdmin.Host](../icestormadmin-properties#icestormadmin.host) if that property is set.
+[icestormadmin](../icestorm-administration) uses to discover the topic manager, on the host specified by
+[IceStormAdmin.Host](../icestormadmin-properties#icestormadmin.host).
 
 {% callout type="info" %}
 
@@ -48,9 +47,8 @@ object `IceStorm/Finder` with a TCP endpoint and an SSL endpoint at this port, o
 ### Description {% id="icestormadmin.topicmanager.default-description" %}
 
 Defines the proxy for the default IceStorm topic manager. This property is used by
-[icestormadmin](../icestorm-administration). If this property is not set and one or more
-`IceStormAdmin.TopicManager.name` properties are set, `icestormadmin` uses as its default the topic manager whose
-identity sorts first among them. IceStorm applications may choose to use this property for their configuration as well.
+[icestormadmin](../icestorm-administration). If this property is not set, `icestormadmin` uses one of the
+`IceStormAdmin.TopicManager.name` proxies as its default.
 
 ## IceStormAdmin.TopicManager._name_
 

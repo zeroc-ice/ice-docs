@@ -72,7 +72,8 @@ optimization is not possible with the default behavior that creates a new commun
 IceBox prepares the property set of this shared communicator as follows:
 
 - If services [inherit the server's properties](../configuring-icebox-services), the property set initially contains the
-  IceBox server's properties (excluding `Ice.Admin.Endpoints`), otherwise the property set starts out empty.
+  IceBox server's properties, except those whose names start with `IceBox.` or `Ice.Admin.`; otherwise the property set
+  starts out empty.
 - For each service that uses the shared communicator:
 
   - Merge its properties into the shared property set, overwriting any existing properties with the same names
@@ -133,13 +134,17 @@ IceBox.InheritProperties=1
 ```
 
 All services inherit the server's properties when `IceBox.InheritProperties` is set to a non-zero value. The service
-inherits all the properties of the IceBox servers, with the exception of properties whose names start with `Ice.Admin`.
+inherits all the properties of the IceBox server, except those whose names start with `IceBox.` or `Ice.Admin.`.
 
 {% callout type="info" %}
 
 The properties of the [shared communicator](../configuring-icebox-services) are also affected by this setting.
 
 {% /callout %}
+
+Whatever the value of `IceBox.InheritProperties`, IceBox sets `Ice.ProgramName` in each service communicator to the
+service name, or to `SharedCommunicator` for the shared communicator. When the IceBox server's `Ice.ProgramName` is not
+empty, IceBox prefixes this name with the server's `Ice.ProgramName` and a hyphen.
 
 ## Logging Considerations for IceBox Services
 

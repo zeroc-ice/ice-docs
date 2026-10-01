@@ -16,10 +16,6 @@ properties whose names start with `IceBox.` or `Ice.Admin.`. Properties set by t
 [IceBox.Service.name](../icebox-properties#icebox.service.name) override inherited properties. If not defined, the
 default value is zero.
 
-Whatever the value of this property, the service manager sets `Ice.ProgramName` in each service communicator to the
-service name, or to `SharedCommunicator` for the shared communicator. When the server's `Ice.ProgramName` is not empty,
-the service manager prefixes this name with the server's `Ice.ProgramName` and a hyphen.
-
 ## IceBox.LoadOrder
 
 ### Synopsis {% id="icebox.loadorder-synopsis" %}
@@ -58,9 +54,6 @@ of the [reserved prefixes](../properties-overview) such as `Ice`, or the service
 communicator that the service manager passes to the service `start` method; `--Ice.Config=file` loads a configuration
 file into that communicator. The service manager passes all remaining arguments to the `start` method in the `args`
 parameter. Whitespace separates the arguments, and any arguments that contain whitespace must be enclosed in quotes.
-
-The service manager also appends to the arguments of service `name` each argument of the IceBox server's command line
-that starts with `--name.`.
 
 {% language-section name="lang-1" /%}
 
