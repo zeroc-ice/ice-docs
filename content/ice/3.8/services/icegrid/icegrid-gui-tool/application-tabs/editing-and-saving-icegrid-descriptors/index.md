@@ -54,13 +54,19 @@ cause a disruption in service to any clients that are actively using the affecte
 
 The following application changes do _not_ require a restart:
 
-- Adding, modifying, or removing a server's configuration properties
+- Adding, modifying, or removing a server's configuration properties, except a change to `Ice.Admin.Enabled` or
+  `Ice.Admin.Endpoints` that enables or disables the server's Admin object
 - Adding new servers
 
-All other changes will require a restart. IceGrid GUI provides two versions of the `Save to Registry` command, one that
-allows restarts and one that does not. To avoid accidentally causing any disruption in service, we recommend using the
-`No server restart` option first; this command will fail if any of your updates require a restart. At that point, you
-can decide whether to force the servers to restart using the other Save command.
+A running server must restart when an update changes its executable, command arguments, environment variables, working
+directory, user, activation mode, activation or deactivation timeout, or log files, or when it adds or removes one of
+the server's object adapters or changes an adapter's ID or Server Lifetime setting. IceGrid ignores the Server Lifetime
+setting of an IceBox service's adapters when the IceBox server's Admin object is enabled. A change to the description of
+a server or object adapter leaves the server running with `Save to Registry (Servers may restart)`, and
+`Save to Registry (No Server restart)` rejects it. IceGrid GUI provides two versions of the `Save to Registry` command,
+one that allows restarts and one that does not. To avoid accidentally causing any disruption in service, we recommend
+using the `No server restart` option first; this command will fail if any of your updates require a restart. At that
+point, you can decide whether to force the servers to restart using the other Save command.
 
 {% callout type="note" %}
 
