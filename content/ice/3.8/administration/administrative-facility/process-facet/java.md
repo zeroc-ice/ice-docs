@@ -30,6 +30,8 @@ Java servant definition shown below duplicates the functionality of the default 
 
 ```java
 class MyProcess implements com.zeroc.Ice.Process {
+    private final com.zeroc.Ice.Communicator _communicator;
+
     public MyProcess(com.zeroc.Ice.Communicator communicator) {
         _communicator = communicator;
     }
@@ -46,8 +48,6 @@ class MyProcess implements com.zeroc.Ice.Process {
             case 2 -> System.err.println(message);
         }
     }
-
-    private final com.zeroc.Ice.Communicator _communicator;
 }
 ```
 

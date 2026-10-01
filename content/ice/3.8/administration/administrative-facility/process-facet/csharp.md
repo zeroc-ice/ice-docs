@@ -31,6 +31,8 @@ C# servant definition shown below duplicates the functionality of the default `P
 ```csharp
 internal sealed class MyProcess : Ice.ProcessDisp_
 {
+    private readonly Ice.Communicator _communicator;
+
     public MyProcess(Ice.Communicator communicator) => _communicator = communicator;
 
     public override void shutdown(Ice.Current current) => _communicator.shutdown();
@@ -51,8 +53,6 @@ internal sealed class MyProcess : Ice.ProcessDisp_
             }
         }
     }
-
-    private readonly Ice.Communicator _communicator;
 }
 ```
 
