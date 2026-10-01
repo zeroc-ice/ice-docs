@@ -100,9 +100,9 @@ CallbackAdapter.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
 For each object adapter, the Ice run time maintains a
-[list of endpoints](../../../runtime/dispatch/object-adapter-endpoints) that are embedded in proxies created by that
-adapter. Normally, this list simply contains the local endpoints defined for the object adapter but, when the adapter is
-configured with a router, the list only contains the router's server endpoints.
+[list of endpoints](../../../runtime/dispatch/object-adapter-endpoints) that are embedded in direct proxies created by
+that adapter. Normally, this list simply contains the local endpoints defined for the object adapter but, when the
+adapter is configured with a router, the list only contains the router's server endpoints.
 
 An object adapter configured in this way allows the client to receive callback requests via the router. If the client
 also wants to service requests via local (non-routed) endpoints, the client must
@@ -140,10 +140,13 @@ least two threads.
 
 ## Handling Connection Loss
 
-If the client loses its connection to the Glacier2 router, the next invocation throws `ConnectionLostException`. The
-client can recover from this situation by re-creating the session, re-creating the callback adapter, and adding all the
-callback servants to the [Active Servant Map](../../../runtime/dispatch/active-servant-map) (ASM) of the re-created
-adapter.
+If the client loses its connection to the Glacier2 router, the next invocation fails with a connection exception such as
+`ConnectionLostException`. The client can recover from this situation by re-creating the session, calling
+`getCategoryForClient` to obtain the category of the new session, destroying the previous callback adapter, creating a
+new callback adapter with the router, adding the callback servants to the
+[Active Servant Map](../../../runtime/dispatch/active-servant-map) (ASM) of the new adapter with identities that use the
+new category, and passing the new callback proxies to the back-end servers. When a session ends, the router stops
+forwarding callback requests sent with the category of that session.
 
 ## See Also
 
