@@ -194,10 +194,10 @@ a single operation parameter of type sequence to a pair of pointers.
 The array mapping for sequence parameters applies only to:
 
 - In parameters, on the client-side and on the server-side
-- Out and return parameters provided by the Ice runtime to [AMI](<../operations#asynchronous-method-invocation-(ami)>)
+- Out and return parameters provided by the Ice runtime to [AMI](../operations#asynchronous-method-invocation-ami)
   callbacks
 - Out and return parameters provided to [marshaled results](../slice-metadata-directives) or
-  [AMD](<../operations#asynchronous-method-dispatch-(amd)>) callbacks
+  [AMD](../operations#asynchronous-method-dispatch-amd) callbacks
 
 {% callout type="info" %}
 

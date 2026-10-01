@@ -78,8 +78,9 @@ duplicating it.
 - **Titles and headings are in Title Case.** Capitalize every word except articles, coordinating conjunctions, and
   prepositions of four letters or fewer, unless the word comes first or last. A name keeps its own case, as
   `icegridnode` and npm do.
-- **A heading's anchor comes from its text.** Where two headings on one page would share an anchor, give them their own
-  in the source, as each label on a property page carries its property's:
+- **A heading's anchor comes from its text**, lowercased, with hyphens for spaces and without `?`, `(`, or `)`:
+  `## Asynchronous Method Dispatch (AMD)` is `#asynchronous-method-dispatch-amd`. Where two headings on one page would
+  share an anchor, give them their own in the source, as each label on a property page carries its property's:
   `### Synopsis {% id="ice.default.host-synopsis" %}`. MD024 flags a heading repeated within a file, and `check:markdoc`
   one repeated across a page and its overlays.
 - **Tags stand on their own line.** `{% callout %}`, `{% language-section %}` and a block-level `{% iflang %}` go on a

@@ -254,11 +254,7 @@ function scrollRedirects(root: string, version: string, languages: string[]) {
       throw new Error(
         `${version}/redirects.yaml names "${name}", which is not a page`
       );
-    // Next reads `(` and `)` in a destination as route syntax, even in the anchor.
-    const fragment = anchor
-      ? `#${anchor.replace(/[()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)}`
-      : '';
-    return `${pageHref(version, slug)}?lang=:lang${fragment}`;
+    return `${pageHref(version, slug)}?lang=:lang${anchor ? `#${anchor}` : ''}`;
   };
   const scroll = `/ice/${version}/:lang(${languages.join('|')})`;
   return [

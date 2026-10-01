@@ -5,17 +5,17 @@
 renamed:
   adapter-run-time-component: adapter-runtime-component
   administration-and-diagnostics: administration
-  ami-in-python-with-futures: 'operations#asynchronous-method-invocation-(ami)'
+  ami-in-python-with-futures: 'operations#asynchronous-method-invocation-ami'
   application-distribution-with-ansible: ansible
   application-notes-for-php: communicators-in-php
-  asynchronous-method-dispatch--amd--in-csharp: 'operations#asynchronous-method-dispatch-(amd)'
-  asynchronous-method-dispatch-amd-in-c: 'operations#asynchronous-method-dispatch-(amd)'
-  asynchronous-method-dispatch-amd-in-java: 'operations#asynchronous-method-dispatch-(amd)'
-  asynchronous-method-dispatch-amd-in-python: 'operations#asynchronous-method-dispatch-(amd)'
-  asynchronous-method-invocation--ami--in-csharp: 'operations#asynchronous-method-invocation-(ami)'
-  asynchronous-method-invocation-ami-in-c: 'operations#asynchronous-method-invocation-(ami)'
-  asynchronous-method-invocation-ami-in-java: 'operations#asynchronous-method-invocation-(ami)'
-  asynchronous-method-invocation-ami-in-matlab: 'operations#asynchronous-method-invocation-(ami)'
+  asynchronous-method-dispatch--amd--in-csharp: 'operations#asynchronous-method-dispatch-amd'
+  asynchronous-method-dispatch-amd-in-c: 'operations#asynchronous-method-dispatch-amd'
+  asynchronous-method-dispatch-amd-in-java: 'operations#asynchronous-method-dispatch-amd'
+  asynchronous-method-dispatch-amd-in-python: 'operations#asynchronous-method-dispatch-amd'
+  asynchronous-method-invocation--ami--in-csharp: 'operations#asynchronous-method-invocation-ami'
+  asynchronous-method-invocation-ami-in-c: 'operations#asynchronous-method-invocation-ami'
+  asynchronous-method-invocation-ami-in-java: 'operations#asynchronous-method-invocation-ami'
+  asynchronous-method-invocation-ami-in-matlab: 'operations#asynchronous-method-invocation-ami'
   backward-compatibility-of-ice-versions: compatibility
   c-mapping-for-classes: classes
   c-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
