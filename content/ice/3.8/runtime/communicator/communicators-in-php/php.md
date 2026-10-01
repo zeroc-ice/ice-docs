@@ -53,10 +53,10 @@ Of primary concern are the activities that involve system calls, such as opening
 network connections, and so on. The overhead incurred by these calls may not matter if the script is only executed
 infrequently, but for an application with high request rates it is necessary to minimize this overhead:
 
-- A [pre-configured property set](../communicators-in-php#managing-property-sets-in-php) eliminates the need to parse a
-  property file in each request.
-- [Registering a communicator](../communicators-in-php#registered-communicators-in-php) avoids the need to create and
-  destroy a communicator in every request.
+- A [pre-configured property set](#managing-property-sets-in-php) eliminates the need to parse a property file in each
+  request.
+- [Registering a communicator](#registered-communicators-in-php) avoids the need to create and destroy a communicator in
+  every request.
 
 ## Managing Property Sets in PHP
 
