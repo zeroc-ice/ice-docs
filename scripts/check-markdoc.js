@@ -277,10 +277,9 @@ for (const { where, url, href, languages } of checkedLinks) {
     });
 }
 
-// 3. The URLs a version had on the Scroll Viewport site redirect to its pages
-// (see readRedirects); one that lands on a section must land on a heading the
-// URL's language shows.
-// Scroll Viewport URL -> the page and section it redirects to, in its language.
+// The URLs a version had on the Scroll Viewport site redirect to its pages (see
+// readRedirects); one that lands on a section must land on a heading the URL's
+// language shows. Scroll Viewport URL -> that page, section, and language:
 const scrollSections = new Map();
 for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
   const [, version, languages, rest] =
