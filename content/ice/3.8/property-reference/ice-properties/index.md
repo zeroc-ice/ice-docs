@@ -276,13 +276,13 @@ Sets the maximum size of an incoming Ice protocol message, in KiB (1024 bytes). 
 including the protocol header; for a compressed message, it also applies to the decompressed size. The default value is
 `1024` (1 MiB).
 
-Setting this property to 0 or a negative number selects the maximum supported message size of 2,147,483,647 bytes. A
-positive value must be at most 2,097,151 KiB.
+A positive value must be at most 2,097,151 KiB (about 2 GiB). `0` selects the largest supported size, 2,147,483,647
+bytes.
 
-Over UDP, Ice drops an incoming message that exceeds this limit. Over the other transports, it rejects the message with
-a `MarshalException` and closes the connection. A client receiving an oversized reply gets this exception from its
-invocation. When a server receives an oversized request, the client receives a `ConnectionLostException` and the server
-logs a message if [Ice.Warn.Connections](../ice-warn-properties) is set.
+Ice rejects an incoming message that exceeds this limit and logs a warning when
+[Ice.Warn.Connections](../ice-warn-properties) is set. Over connection-oriented transports, Ice also closes the
+connection: a client receiving an oversized reply gets a `MarshalException` from its invocation, and a client whose
+request is oversized gets a `ConnectionLostException`.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 

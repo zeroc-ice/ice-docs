@@ -159,8 +159,8 @@ The default value is `0`. A value of `0` or less disables the limit.
 ### Description {% id="adapter.messagesizemax-description" %}
 
 Limits the size of the Ice protocol messages this adapter receives, in KiB (1024 bytes). The limit applies to the whole
-message, including the protocol header; for a compressed message, it applies to the decompressed size. If not defined,
-the adapter uses the communicator's [Ice.MessageSizeMax](../ice-properties) limit.
+message, including the protocol header; for a compressed message, it also applies to the decompressed size. If not
+defined, the adapter uses the communicator's [Ice.MessageSizeMax](../ice-properties) limit.
 
 A value of `0` or less selects the maximum supported size of 2,147,483,647 bytes. A positive value must be at most
 2,097,151 KiB.
