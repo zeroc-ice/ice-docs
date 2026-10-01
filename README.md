@@ -59,6 +59,9 @@ duplicating it.
 - **Page names are globally unique** within a version, so a cross-page link can name a page by name.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
   a page that does not exist renders as plain text, and `check:markdoc` fails on it.
+- **A link to a heading in the same file is a bare anchor** (`[size](#encoding-for-sizes)`), which MD051 checks. Where
+  MD051 can't, because the heading sits in another file of the page or its anchor keeps a dot or comes from `{% id %}`,
+  name the page as a cross-page link does: `[Ice.LogFile](../ice-properties#ice.logfile)`.
 - **A page and its overlays make one document.** The shared page declares `{% language-section name="…" /%}` slots; each
   overlay answers each one, with prose or with a declared state (`no-addition`, or `not-applicable` with a note), as
   described in `lib/docs-model/resolve.ts`. Each distinct answer goes into the page once, wrapped in
