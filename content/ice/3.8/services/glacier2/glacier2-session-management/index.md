@@ -3,12 +3,13 @@ title: Glacier2 Session Management
 ---
 
 A Glacier2 router requires a client to [create a session](../getting-started-with-glacier2) and forwards requests on
-behalf of the client until its session expires. A session expires when it is explicitly destroyed, or when it times out
-due to inactivity.
+behalf of the client until its session ends. A session ends when the client calls `destroySession` on the router, when
+the application calls `destroy` on the session's `SessionControl` object, or when the connection between the client and
+the router closes.
 
 You can configure a router to use a custom session manager if your application needs to track the router's session
 activities. For example, your application may need to acquire resources and initialize the state of back-end services
-for each new session, and later reclaim those resources when the session expires.
+for each new session, and later reclaim those resources when the session ends.
 
 As with the [authentication facility](../securing-a-glacier2-router), Glacier2 provides two session manager interfaces
 that an application can implement. The `SessionManager` interface receives notifications about sessions that use
@@ -56,15 +57,15 @@ The `create` operations must return the proxy of a new `Session` object, or rais
 provide an appropriate reason. The `Session` proxy returned by `create` is ultimately returned to the client as the
 result of `createSession` or `createSessionFromSecureConnection`.
 
-Glacier2 invokes the `destroy` operation on a `Session` proxy when the session expires, giving a custom session manager
-the opportunity to reclaim resources that were acquired for the session during `create`.
+Glacier2 invokes the `destroy` operation on a `Session` proxy when the session ends, giving a custom session manager the
+opportunity to reclaim resources that were acquired for the session during `create`.
 
 {% callout type="note" %}
 
-The `create` operations may be called with information that identifies an existing session. For example, this can occur
-when a client loses its connection to the router but its previous session has not yet expired (and therefore the router
-has not yet invoked `destroy` on its `Session` proxy). A session manager implementation must be prepared to handle this
-situation.
+The router may call `create` with information that identifies an existing session. For example, a client that loses its
+connection to the router can create a new session before the router detects the closed connection, or before the session
+manager has processed the `destroy` call on the previous `Session` proxy. A session manager implementation must be
+prepared to handle this situation.
 
 {% /callout %}
 
@@ -75,11 +76,10 @@ objects. If necessary, you can configure a router with proxies for both types of
 proxy is not supplied, the call to `createSession` or `createSessionFromSecureConnection` always returns a null proxy.
 
 The router attempts to contact the configured session manager at startup. If the object is unreachable, the router logs
-a warning message but continues its normal operation (you can suppress the warning using the
-[--nowarn](../getting-started-with-glacier2) option). The router does not contact the session manager again until it
+a warning message but continues its normal operation. The router does not contact the session manager again until it
 needs to invoke an operation on the object. For example, when a client asks the router to create a new session, the
 router makes another attempt to contact the session manager; if the session manager is still unavailable, the router
-logs a message and returns `CannotCreateSessionException` to the client.
+returns `CannotCreateSessionException` to the client.
 
 ## Connection Caching for Session Managers
 
