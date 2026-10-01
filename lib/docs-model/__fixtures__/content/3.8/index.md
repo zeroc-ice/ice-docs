@@ -1,5 +1,5 @@
 ---
-title: Ice Manual
+title: Ice Documentation
 languages:
   - cpp
   - java

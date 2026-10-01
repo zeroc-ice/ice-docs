@@ -165,7 +165,7 @@ subsequent page requests are handled by the same web server process as the one t
 communicator. For example, registered communicators would not be appropriate in a typical CGI configuration because the
 CGI process terminates at the end of each request. A simple (but often impractical) solution is to configure your web
 server to use a single persistent process. The topic of configuring a web server to take advantage of registered
-communicators is outside the scope of this manual.
+communicators is outside the scope of this documentation.
 
 ### Using Registered Communicators in PHP
 

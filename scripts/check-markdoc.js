@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 //
-// Validate every page of the manual against the site's Markdoc schema. Run with
+// Validate every page of the docs against the site's Markdoc schema. Run with
 // `npm run check:markdoc`; `npm run build` runs it first.
 //
 // The build never validates. `Markdoc.transform` renders whatever the parser
@@ -94,7 +94,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
 // `$path` validate here as they render there. Validation only needs a variable
 // to exist, so the reading time and the chrome are placeholders of the right
-// shape; nothing in the manual refers to either.
+// shape; nothing in the docs refers to either.
 const pageIndexes = new Map();
 function variablesFor({ version, slug, frontmatter }) {
   if (!pageIndexes.has(version)) {
@@ -240,7 +240,7 @@ for (const { version, page } of allPages) {
   }
 }
 
-// Only the anchors of the manual's own pages are checked here; lychee checks
+// Only the anchors of the site's own pages are checked here; lychee checks
 // those of external pages.
 for (const { where, url, href } of anchoredLinks) {
   const hashAt = href.indexOf('#');

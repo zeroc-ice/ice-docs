@@ -16,7 +16,7 @@ export interface OutlineHeading {
 }
 
 // Above this many headings in a mapping, the outline shows that mapping's
-// top-level headings only. Reference pages in this manual can carry sixty
+// top-level headings only. Reference pages here can carry sixty
 // headings; listing all of them turns the rail into a second, worse sidebar
 // that hides where the reader actually is.
 const DENSE_THRESHOLD = 24;

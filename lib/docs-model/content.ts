@@ -3,7 +3,7 @@
 // Filesystem layer for the Ice docs content model. Reads page sources and
 // discovers routes under a content root laid out as:
 //
-//   <root>/<version>/index.md                  the manual's front page
+//   <root>/<version>/index.md                  the front page
 //   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
 //   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
 //   <root>/<version>/examples/...              (snippet sources)
@@ -24,7 +24,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
-import { pageHref, type NavDoc, type NavNode } from './nav.ts';
+import {
+  FRONT_PAGE_NAV_TITLE,
+  pageHref,
+  type NavDoc,
+  type NavNode
+} from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
 /** The content root, under the repository root that npm and Next run from. */
@@ -148,9 +153,9 @@ export function writtenFor(page: PageFiles): string[] | undefined {
  * A version's table of contents and settings, read from its pages: the front
  * page's frontmatter holds the settings and lists the chapters under `pages:`,
  * and a page with children lists them the same way. The front page is the
- * first entry, ahead of the chapters. A node takes its page's title. Throws
- * when the version has no front page, or when a page lists a page it does not
- * contain.
+ * first entry, ahead of the chapters, under its own label; every other node
+ * takes its page's title. Throws when the version has no front page, or when a
+ * page lists a page it does not contain.
  */
 export function readNavigation(root: string, version: string): NavDoc {
   type Listed = { title: string; pages?: string[] };
@@ -177,7 +182,7 @@ export function readNavigation(root: string, version: string): NavDoc {
     throw new Error(
       `${version} has no front page (index.md at the version root)`
     );
-  const { title, pages, languages, status, previousVersions } = readFrontmatter<
+  const { pages, languages, status, previousVersions } = readFrontmatter<
     Listed & Omit<NavDoc, 'sidebar'>
   >(front);
   return {
@@ -185,7 +190,12 @@ export function readNavigation(root: string, version: string): NavDoc {
     status,
     previousVersions,
     sidebar: [
-      { title, slug: '', writtenFor: undefined, items: [] },
+      {
+        title: FRONT_PAGE_NAV_TITLE,
+        slug: '',
+        writtenFor: undefined,
+        items: []
+      },
       ...nodes('', pages)
     ]
   };
@@ -194,7 +204,7 @@ export function readNavigation(root: string, version: string): NavDoc {
 /**
  * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
  * and `/ice/latest/…` go to the version whose front page says `status: latest`,
- * and each URL a version's manual had on the Scroll Viewport site goes to its
+ * and each URL a version's pages had on the Scroll Viewport site goes to its
  * page here. Throws unless exactly one version says `status: latest`, and when a
  * `redirects.yaml` names a page its version doesn't have.
  */
@@ -232,7 +242,7 @@ export function readRedirects(root: string) {
 }
 
 /**
- * The redirects for the URLs a version's manual had on the Scroll Viewport site,
+ * The redirects for the URLs a version's pages had on the Scroll Viewport site,
  * `/ice/<version>/<language>/<name>`, when the version has a `redirects.yaml`:
  * each goes to the page here with the same name, or the one `redirects.yaml`
  * names, keeping the language as `?lang=`.

@@ -12,7 +12,7 @@ import path from 'node:path';
 import { CONTENT_ROOT, listPages, readRedirects } from './content.ts';
 import { pageHref } from './nav.ts';
 
-test('every URL of the 3.8 manual on the Scroll Viewport site redirects to a page', () => {
+test('every 3.8 URL on the Scroll Viewport site redirects to a page', () => {
   const scroll = fs
     .readFileSync(path.join(CONTENT_ROOT, '3.8', 'scroll-urls.txt'), 'utf8')
     .split('\n')

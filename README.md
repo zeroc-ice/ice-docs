@@ -1,8 +1,8 @@
 # Ice Docs
 
-Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual at
-`/ice/<version>/<slug>` — for example `/ice/3.8/slice/user-defined-types/enumerations`. Each page carries every language
-mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
+Source for the Ice documentation site: a Next.js + Markdoc application that serves each page at `/ice/<version>/<slug>`
+— for example `/ice/3.8/slice/user-defined-types/enumerations`. Each page carries every language mapping it covers; the
+reader picks one (C++ until they do), and the choice is kept in the browser.
 
 ## Requirements
 
@@ -32,16 +32,17 @@ npm run format:check               # what CI runs
 
 ## Content layout
 
-Everything for one version of the manual lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page
-is a directory, and its path under the version is its slug, the path in its URL:
+Everything for one version of the docs lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page is
+a directory, and its path under the version is its slug, the path in its URL:
 
-- `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
-  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the front page of the
-  version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version. Its frontmatter lists the
-  chapters under `pages:` and holds the version's settings: `status`, `languages`, and `previousVersions`.
+- `index.md` — the front page, served at `/ice/<version>`. It is the first entry in the table of contents, labeled
+  Documentation, ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the
+  front page of the version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version. Its
+  frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
+  `previousVersions`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
-  `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
-  lists them under `pages:`.
+  `{% language-section %}` slots. The pages under it are its subdirectories, in the order its frontmatter lists them
+  under `pages:`.
 - `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or, when no `index.md` sits beside it, the whole
   page for that language (`writing-a-greeter-client/cpp.md`).
 - `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,

@@ -10,7 +10,7 @@ import { ChevronRight, Menu, X } from 'lucide-react';
 
 import {
   type SideNavNode,
-  MANUAL_TITLE,
+  SITE_TITLE,
   activeTrailKeys,
   sideNavKey
 } from '@/lib/docs-model/nav';
@@ -39,12 +39,12 @@ function writeState(key: string, value: unknown) {
   }
 }
 
-// The manual's table of contents: one tree, the chapter structure of the manual.
+// The table of contents: one tree, the chapter structure of the documentation.
 //
 // Groups start collapsed and open only when they hold the current page. Showing
 // every child of every group by default would put every chapter's pages on
 // screen at once, none of which the reader had asked about. The shape of the
-// manual is the top-level list; the detail arrives when you go there.
+// documentation is the top-level list; the detail arrives when you go there.
 //
 // A click always wins over that default, including on the branch holding the
 // current page, so a reader can fold away the branch they are standing in. That
@@ -134,7 +134,7 @@ export function SideNav({ nodes }: { nodes: SideNavNode[] }) {
     <>
       <nav
         ref={navRef}
-        aria-label={`${MANUAL_TITLE} navigation`}
+        aria-label={`${SITE_TITLE} navigation`}
         // `contain-size` keeps the tree's height out of the row's, so a short
         // page stays viewport-high with the footer at the bottom; the rail then
         // stretches to the row, capped at the viewport. The scrollbar's space
@@ -220,7 +220,7 @@ function Drawer({ children }: { children: React.ReactNode }) {
       <dialog
         ref={dialogRef}
         id="ice-nav-drawer"
-        aria-label={`${MANUAL_TITLE} navigation`}
+        aria-label={`${SITE_TITLE} navigation`}
         onClose={() => setExpanded(false)}
         onClick={(event) => {
           // The panel fills the dialog, so a click on the dialog itself is a
@@ -311,7 +311,7 @@ function Tree({
             ? 'text-link'
             : onActiveTrail
               ? 'text-ink hover:text-link font-semibold'
-              : // Top-level entries carry the shape of the manual, so they read at
+              : // Top-level entries carry the shape of the docs, so they read at
                 // full strength; their children step back a shade.
                 clsx(
                   'hover:text-link',
