@@ -2,22 +2,5 @@
   // Prettier wraps prose at 120 columns; nearly all longer lines left are one-line Markdoc tags, which it can't wrap.
   "MD013": false,
   // A language overlay is a fragment of its page, so it starts with a `{% language-section %}` tag, not a heading.
-  "MD041": false,
-  // markdownlint reads a Markdoc tag as text, and tags spell names such as IceGrid and Python in lowercase
-  // (`{% id="icegrid.…" %}`, `langs="python"`), so only names that no tag contains are listed.
-  "MD044": {
-    "names": [
-      "CMake",
-      "GitHub",
-      "Gradle",
-      "Kotlin",
-      "Node.js",
-      "NuGet",
-      "TypeScript",
-      "WebSocket",
-      "Windows",
-      "Xcode"
-    ],
-    "code_blocks": false
-  }
+  "MD041": false
 }
