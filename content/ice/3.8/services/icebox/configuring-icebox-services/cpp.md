@@ -19,7 +19,7 @@ with debug information, it appends a `d` to the library name, so the name become
 {% callout type="info" %}
 
 The exact name of the library that is loaded depends on the naming conventions of the platform IceBox executes on. For
-example, on a macos machine, the library name is `libIceStormService38.dylib`.
+example, on a macOS machine, the library name is `libIceStormService38.dylib`.
 
 {% /callout %}
 

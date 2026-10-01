@@ -107,7 +107,7 @@ export class SimplePrx extends Ice.ObjectPrx {
     static checkedCast(
         prx: Ice.ObjectPrx,
         facet?: string,
-        context?: Map<string, string>): Ice.AsyncResult<SimplePrx | null>;
+        context?: Map<string, string>): Promise<SimplePrx | null>;
 }
 ```
 
@@ -149,7 +149,7 @@ you can obtain a proxy configured with a ten second invocation timeout as shown 
 
 ```typescript
 import { VisitorCenter } from "./Greeter.js"
-const greeter = new VisitorCenter.GreeterPrx(
+let greeter = new VisitorCenter.GreeterPrx(
     communicator,
     "greeter:tcp -h localhost -p 4061");
 greeter = greeter.ice_invocationTimeout(10000);
@@ -216,11 +216,12 @@ The important points to note here are:
 In order to provide an implementation for an Ice object, you must create a servant class that inherits from the
 corresponding skeleton. For example, to create a servant for the `Node` interface, you could write:
 
-```js
+```typescript
 class MNode extends Filesystem.Node {
     _name:string;
 
     constructor(name:string) {
+        super();
         this._name = name;
     }
 

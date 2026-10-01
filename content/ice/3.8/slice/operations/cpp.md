@@ -624,8 +624,8 @@ holds the return value and/or out parameters, in order of declaration (the retur
 a single return value or out parameter, the future holds the mapped C++ type. Otherwise, the future holds a
 `std::tuple`.
 
-These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](../operations#in-parameters),
-since you’re receiving these values from Ice.
+These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](#in-parameters), since you’re
+receiving these values from Ice.
 
 #### Callback Proxy Functions
 
@@ -633,8 +633,8 @@ The other overloaded proxy member functions `<operation-name>Async` accepts a re
 the return value and out parameters (if any). This callback function is provided by you (the application), and is called
 by Ice.
 
-These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](../operations#in-parameters),
-since you’re receiving these values from Ice.
+These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](#in-parameters), since you’re
+receiving these values from Ice.
 
 When the operation has a return value and one ore more out parameters, the return value is mapped to a parameter named
 `returnValue` int the C++ response callback.
@@ -645,8 +645,8 @@ On the server-side, when you use AMD, the pure virtual function `<operation-name
 provides a response callback that accepts the return value and out parameters (if any). This callback function is
 provided by Ice, and you (the application) call this function in your implementation of `<operation-name>Async`.
 
-The return value and out parameters are all mapped like in the Outgoing column of
-[In Parameters](../operations#in-parameters), since you’re loaning these values to Ice for marshaling.
+The return value and out parameters are all mapped like in the Outgoing column of [In Parameters](#in-parameters), since
+you’re loaning these values to Ice for marshaling.
 
 ### Optional Parameters
 

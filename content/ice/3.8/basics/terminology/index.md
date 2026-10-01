@@ -217,19 +217,19 @@ service as a middleman can add more intelligence to the binding process.
 
 ## Dispatcher
 
-A dispatcher is a programming language abstraction for [dispatch](../terminology#invocation-and-dispatch): a dispatcher
-simply accepts a request and returns the corresponding response.
+A dispatcher is a programming language abstraction for [dispatch](#invocation-and-dispatch): a dispatcher simply accepts
+a request and returns the corresponding response.
 
 ## Servants
 
-As we mentioned, an [Ice Object](../terminology#ice-objects) is a conceptual entity that has a type, identity, and
-addressing information. However, client requests ultimately must end up with a concrete server-side processing entity
-that can provide the behavior for an operation invocation. To put this differently, a client request must ultimately end
-up executing code inside the server, with that code written in a specific programming language and executing on a
-specific processor.
+As we mentioned, an [Ice Object](#ice-objects) is a conceptual entity that has a type, identity, and addressing
+information. However, client requests ultimately must end up with a concrete server-side processing entity that can
+provide the behavior for an operation invocation. To put this differently, a client request must ultimately end up
+executing code inside the server, with that code written in a specific programming language and executing on a specific
+processor.
 
 The server-side artifact that provides this behavior is known as a _servant_. A servant provides substance for (or
-_incarnates_) one or more Ice objects. It’s also a [Dispatcher](../terminology#dispatcher).
+_incarnates_) one or more Ice objects. It’s also a [Dispatcher](#dispatcher).
 
 In practice, a servant is simply an instance of a class that is written by the server developer and that is registered
 with the server-side runtime as the servant for one or more Ice objects. Methods on the class correspond to the

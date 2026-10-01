@@ -47,8 +47,7 @@ applications by redeploying their XML files, and therefore backing up the databa
 
 Be aware that restarting the registry with an empty database may cause the server information stored by the nodes to be
 deleted. This can be an issue if the deployed servers have databases stored in the node data directory. The
-[Node Persistent Data](../icegrid-persistent-data#node-persistent-data) section below provides more information on this
-subject.
+[Node Persistent Data](#node-persistent-data) section below provides more information on this subject.
 
 ### Limits Imposed by the Registry Database
 

@@ -26,45 +26,29 @@ initiate a graceful shutdown of its process.
 
 You can replace the default `Process` facet if your application requires a different scheme for gracefully shutting
 itself down. To define your own facet, create a servant that implements the `Ice::Process` interface. As an example, the
-C++ servant definition shown below duplicates the functionality of the default `Process` facet:
+Java servant definition shown below duplicates the functionality of the default `Process` facet:
 
-```cpp
-class MyProcess final : public Ice::Process
-{
-public:
-    MyProcess(Ice::CommunicatorPtr communicator) :
-        _communicator{std::move(communicator)}
-    {
+```java
+class MyProcess implements com.zeroc.Ice.Process {
+    private final com.zeroc.Ice.Communicator _communicator;
+
+    public MyProcess(com.zeroc.Ice.Communicator communicator) {
+        _communicator = communicator;
     }
 
-    void shutdown(const Ice::Current&) final
-    {
-        _communicator->shutdown();
+    @Override
+    public void shutdown(com.zeroc.Ice.Current current) {
+        _communicator.shutdown();
     }
 
-    void writeMessage(
-        std::string message,
-        std::int32_t fd,
-        const Ice::Current&) final
-    {
-        switch (fd)
-        {
-            case 1:
-            {
-                cout << message << endl;
-                break;
-            }
-            case 2:
-            {
-                cerr << message << endl;
-                break;
-            }
+    @Override
+    public void writeMessage(String message, int fd, com.zeroc.Ice.Current current) {
+        switch (fd) {
+            case 1 -> System.out.println(message);
+            case 2 -> System.err.println(message);
         }
     }
-
-private:
-    const Ice::CommunicatorPtr _communicator;
-};
+}
 ```
 
 As you can see, the default implementation of `shutdown` simply shuts down the communicator, which initiates an orderly

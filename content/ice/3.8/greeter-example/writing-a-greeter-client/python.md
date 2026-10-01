@@ -97,7 +97,7 @@ hosted in the server could just as easily have identities like `santa`, `bugsBun
 The third step is to call `greet` on the remote Ice object using our proxy and then print the returned greeting:
 
 ```py
-username = ....
+username = ...
 greeting = await greeter.greetAsync(username);
 print(greeting);
 ```

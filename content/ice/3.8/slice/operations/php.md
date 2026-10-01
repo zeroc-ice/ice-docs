@@ -112,7 +112,7 @@ $ns->x = 42;
 $ns->str = "The Answer";
 $ss = array("Hello world!");
 $st = array();
-$st[0] = $ns;
+$st[0] = $ss;
 $p->op2($ns, $ss, $st);                  // Pass complex variables
 
 $p->op3($p);                             // Pass proxy
@@ -136,7 +136,7 @@ dictionary<long, StringSeq> StringTable;
 
 interface ServerToClient
 {
-    int op1(out float f, out bool b, out string s);
+    void op1(out int i, out float f, out bool b, out string s);
     void op2(out NumberAndString ns,
              out StringSeq ss,
              out StringTable st);
@@ -199,7 +199,7 @@ A client can invoke this operation as shown below:
 $i = $proxy->execute("--file log.txt", $v);
 $i = $proxy->execute(\Ice\None, $v);
 
-if($v != Ice_Unset)
+if($v != \Ice\None)
 {
     echo "value = " . $v . "\n";
 }

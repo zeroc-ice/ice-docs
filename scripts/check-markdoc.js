@@ -25,12 +25,14 @@
 // the route provides, so a page may refer to `$frontmatter` or `$path`. The
 // transform also resolves every link and card against the page index, so the
 // second pass reports one that names no page, which the site renders as plain
-// text, and one whose `#anchor` names no element on the page it links to. It
-// also reports two headings that a reader of one language sees under one
-// anchor.
+// text, one whose `#anchor` names no element on the page it links to, and one
+// whose `?lang=` names a mapping the version lacks or one that doesn't show the
+// anchor. It also reports two headings that a reader of one language sees under
+// one anchor.
 //
-// Exit code 1 on any diagnostic at warning level or above, on a link to a page
-// or an anchor that does not exist, and on two headings with one anchor.
+// Exit code 1 on any diagnostic at warning level or above, on a link to a page,
+// an anchor, or a mapping that does not exist, and on two headings with one
+// anchor.
 // `child-invalid`, which a `{% callout %}` reflowed into its paragraph
 // produces, is a warning.
 
@@ -160,10 +162,11 @@ function* tagsOf(node) {
 
 // 2. Every page as the site renders it.
 let rendered = 0;
-// Page URL -> the ids on the page, and the links whose anchors to check against
-// them once every page is rendered.
+// Page URL -> the ids on the page, and its headings with the mappings that show
+// them; and the links to check against them once every page is rendered.
 const anchorsByPage = new Map();
-const anchoredLinks = [];
+const headingsByPage = new Map();
+const checkedLinks = [];
 const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
   listPages(CONTENT_ROOT, version).map((page) => ({ version, page }))
 );
@@ -212,10 +215,11 @@ for (const { version, page } of allPages) {
         where,
         text: `link to a page that does not exist: ${href}`
       });
-    else if (typeof href === 'string' && href.includes('#'))
-      anchoredLinks.push({ where, url, href });
+    else if (typeof href === 'string' && /[#?]/.test(href))
+      checkedLinks.push({ where, url, href, languages: variables.languages });
   }
   anchorsByPage.set(url, anchors);
+  headingsByPage.set(url, tree.attributes.headings);
 
   // A link or the outline reaches only the first of two headings with one
   // anchor. MD024 sees a file at a time; this sees a shared page's headings
@@ -240,13 +244,35 @@ for (const { version, page } of allPages) {
   }
 }
 
-// Only the anchors of the site's own pages are checked here; lychee checks
-// those of external pages.
-for (const { where, url, href } of anchoredLinks) {
+// Only links to the site's own pages are checked here; lychee checks the
+// anchors of external pages. A `?lang=` must name one of the version's mappings,
+// and that mapping must show the anchor.
+for (const { where, url, href, languages } of checkedLinks) {
   const hashAt = href.indexOf('#');
-  const anchors = anchorsByPage.get(href.slice(0, hashAt) || url);
-  if (anchors && !anchors.has(decodeURIComponent(href.slice(hashAt + 1))))
+  const beforeHash = hashAt === -1 ? href : href.slice(0, hashAt);
+  const [page, query] = beforeHash.split('?');
+  const target = page || url;
+  const anchors = anchorsByPage.get(target);
+  if (!anchors) continue;
+  const language = new URLSearchParams(query).get('lang');
+  if (language !== null && !languages.includes(language)) {
+    diagnostics.push({
+      where,
+      text: `link to a mapping the version lacks: ${href}`
+    });
+    continue;
+  }
+  if (hashAt === -1) continue;
+  const anchor = decodeURIComponent(href.slice(hashAt + 1));
+  const shown = ({ id, langs }) =>
+    id === anchor && (!langs || langs.includes(language));
+  if (!anchors.has(anchor))
     diagnostics.push({ where, text: `link to a missing anchor: ${href}` });
+  else if (language !== null && !headingsByPage.get(target).some(shown))
+    diagnostics.push({
+      where,
+      text: `link to an anchor the ${language} mapping doesn't show: ${href}`
+    });
 }
 
 for (const d of diagnostics) console.error(`${d.where}: ${d.text}`);

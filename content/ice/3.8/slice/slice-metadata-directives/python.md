@@ -25,14 +25,14 @@ enum Color
     Red,
 
     ["python:identifier:GREEN"]
-    Green
+    Green,
 
     ["python:identifier:BLUE"]
     Blue
 }
 ```
 
-The `python:identifier` directives in this example ensures the enumerators `Read`, `Green`, and `Blue` are mapped to
+The `python:identifier` directives in this example ensure the enumerators `Red`, `Green`, and `Blue` are mapped to
 `RED`, `GREEN`, and `BLUE`, per Python’s usual conventions, instead of the default mapping (`Red`, `Green`, and `Blue`).
 
 ### `python:list`

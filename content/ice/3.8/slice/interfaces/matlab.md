@@ -22,7 +22,7 @@ classdef SimplePrx < Ice.ObjectPrx
         function op(obj, context)
             % ...
         end
-        function opAsync(obj, context)
+        function future = opAsync(obj, context)
            % ...
         end
     end
@@ -44,7 +44,7 @@ Use the inherited constructor of the generated class to create a proxy from a co
 For example:
 
 ```matlab
-simple = M.Simple(communicator, 'simple:tcp -h localhost -p 4061');
+simple = M.SimplePrx(communicator, 'simple:tcp -h localhost -p 4061');
 ```
 
 ### Inheritance from `Ice.ObjectPrx`

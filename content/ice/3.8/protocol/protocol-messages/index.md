@@ -201,7 +201,7 @@ Validate connection messages may also be sent at any time by either side as a he
 
 {% /callout %}
 
-The [message header](../protocol-messages#message-header) comprises the entire validate connection message. The
+The [message header](#message-header) comprises the entire validate connection message. The
 [compression](../protocol-compression) status of a validate connection message is always `0`.
 
 ## Close Connection Message
@@ -214,7 +214,7 @@ Close connection messages are only used for connection-oriented transports.
 
 {% /callout %}
 
-The [message header](../protocol-messages#message-header) comprises the entire close connection message. The
+The [message header](#message-header) comprises the entire close connection message. The
 [compression](../protocol-compression) status of a close connection message is always `0`.
 
 Either client or server can initiate connection closure.

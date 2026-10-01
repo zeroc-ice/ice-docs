@@ -42,6 +42,13 @@ test('a full path resolves too, and anchors survive', () => {
   );
 });
 
+test('a ?lang= naming the mapping survives, ahead of the anchor', () => {
+  assert.equal(
+    resolveDocLink('../communicator?lang=java#creating', ctx).href,
+    '/ice/3.8/learn/runtime/communicator?lang=java#creating'
+  );
+});
+
 test('links the resolver must not touch are returned unchanged', () => {
   for (const href of [
     'https://zeroc.com',
