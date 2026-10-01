@@ -12,15 +12,14 @@ title: Ice.Warn.*
 
 ### Description {% id="ice.warn.connections-description" %}
 
-A positive value enables warnings for unexpected exceptions on connections that have completed protocol validation,
-including connection loss before closing. Ice suppresses warnings for normal connection closure and communicator or
-object adapter shutdown. The default value is 0.
+A positive value enables warnings when an error closes an established connection, such as a lost connection. The default
+value is 0.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-This setting also enables warnings for errors while accepting connections, exceptions while processing datagrams, and
-close-connection messages received over a datagram connection. Warnings about oversized datagrams are controlled
-separately by [Ice.Warn.Datagrams](../ice-warn-properties#ice.warn.datagrams).
+This property also enables warnings for errors while accepting connections and exceptions while processing datagrams.
+Warnings about oversized datagrams are controlled separately by
+[Ice.Warn.Datagrams](../ice-warn-properties#ice.warn.datagrams).
 
 {% /iflang %}
 
@@ -51,20 +50,11 @@ implementations silently drop received datagrams that are too large.) The defaul
 When [Ice.Trace.Dispatch](../ice-trace-properties) is 0, this property controls warnings from the logger middleware. The
 default value is 1.
 
-| Value | Description                                                                                                                                                                                                                        |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No warnings from the logger middleware.                                                                                                                                                                                            |
-| 1     | Warn for `UnknownException`, `UnknownLocalException`, and `UnknownUserException`, other local exceptions except `DispatchException`, and non-Ice exceptions. Also warn for responses with one of the three Unknown reply statuses. |
-| 2     | Like 1, plus other instances of `DispatchException`, such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`, and other failure reply statuses.                                              |
-
-User exceptions and responses with the `UserException` reply status produce no middleware warning.
-
-{% iflang langs="python" %}
-
-A positive `Ice.Warn.Dispatch` value also enables warnings for invalid return values from `ServantLocator.locate`. This
-check is separate from the logger middleware and still uses `Ice.Warn.Dispatch` when dispatch tracing is enabled.
-
-{% /iflang %}
+| Value | Description                                                                                                                                                                               |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | No warnings from the logger middleware.                                                                                                                                                   |
+| 1     | Warn when a dispatch fails with `UnknownException`, `UnknownLocalException`, or `UnknownUserException`, or with any exception that is neither a user exception nor a `DispatchException`. |
+| 2     | Like 1, plus all other instances of `DispatchException`, such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`.                                   |
 
 ## Ice.Warn.Endpoints
 
@@ -74,12 +64,9 @@ check is separate from the logger middleware and still uses `Ice.Warn.Dispatch` 
 
 ### Description {% id="ice.warn.endpoints-description" %}
 
-If `num` is greater than 0, Ice logs a warning when a stringified proxy contains both endpoints with known transports
-and endpoints with unknown transports. Ice ignores the unknown endpoints and uses the recognized ones. The default value
-is 1.
-
-If all endpoints in a proxy string use unknown transports, Ice throws `ParseException` regardless of this setting.
-Invalid syntax for a recognized transport also causes parsing to fail.
+If `num` is greater than 0, Ice logs a warning when it parses a stringified proxy that contains both endpoints with
+known transports and endpoints with unknown transports. Ice ignores the unknown endpoints and uses the recognized ones.
+The default value is 1.
 
 {% language-section name="lang-2" /%}
 

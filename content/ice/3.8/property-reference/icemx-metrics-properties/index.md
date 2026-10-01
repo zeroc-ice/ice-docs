@@ -12,7 +12,7 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% /iflang %}
 
-Metrics settings use the following prefixes for views, maps, and sub-maps:
+Metrics properties use the following prefixes for views, maps, and sub-maps:
 
 - IceMX.Metrics._view-name_
 - IceMX.Metrics._view-name_.Map._map-name_
@@ -23,7 +23,7 @@ view's configuration. When a view defines `Map.` properties, it includes only th
 
 The same rule applies to sub-maps. If a parent map has no `Map.` properties, its sub-maps inherit its configuration. If
 the parent defines any `Map.` properties, Ice creates only the explicitly configured sub-maps. An explicitly configured
-map or sub-map uses its own settings and their defaults.
+map or sub-map uses its own properties and their defaults.
 
 For a list of supported maps see:
 

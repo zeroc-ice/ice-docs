@@ -77,8 +77,7 @@ This property controls the trace level for the Ice runtime's interactions with t
 
 ### Description {% id="ice.trace.network-description" %}
 
-Controls the trace level for low-level network activities such as connection establishment and read/write operations.
-The available activities and details depend on the transport and language mapping:
+Controls the trace level for low-level network activities such as connection establishment and read/write operations:
 
 | Value | Description                                                                                                                                                          |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -86,9 +85,6 @@ The available activities and details depend on the transport and language mappin
 | 1     | Trace established and closed connections, listener activity, and an object adapter's [published endpoints](../object-adapter-endpoints).                             |
 | 2     | Like 1, plus connection attempts and failures, endpoint-resolution failures, bind and accept attempts, rejected connections, and adapters created without endpoints. |
 | 3     | Like 2, plus the number of bytes sent and received in each transport read or write.                                                                                  |
-
-Level 1 includes the transport's detailed connection and listener descriptions. For UDP multicast, these descriptions
-include the local interfaces.
 
 ## Ice.Trace.Protocol
 

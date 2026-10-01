@@ -57,9 +57,9 @@ are initialized, provided [Ice.Admin.Endpoints](../ice-admin-properties#ice.admi
 
 ### Description {% id="ice.admin.enabled-description" %}
 
-A positive value enables the [Administrative Facility](../administrative-facility); zero or a negative value disables
-it. When this property is unset, the facility is enabled if and only if
-[Ice.Admin.Endpoints](../ice-admin-properties#ice.admin.adapterproperty) is non-empty.
+`1` enables the [Administrative Facility](../administrative-facility) and `0` disables it. When this property is unset,
+the facility is enabled if and only if [Ice.Admin.Endpoints](../ice-admin-properties#ice.admin.adapterproperty) is
+non-empty.
 
 ## Ice.Admin.Facets
 
@@ -126,10 +126,11 @@ which in turn would generate more logs sent to remote loggers: a single genuine 
 log messages.
 
 Ice copies properties with the prefixes `Ice.Default.Locator` and `IceSSL.` from the application's communicator to this
-sub-communicator, then applies the properties in _propertyList_. These additional settings override copied values.
+sub-communicator, then applies the properties in _propertyList_. These additional properties override copied values.
 
 Ice reads _propertyList_ as a [list of strings](../properties-class), each using the syntax
-`PropertyName=PropertyValue`. For example, this setting enables protocol tracing on the Logger facet's sub-communicator:
+`PropertyName=PropertyValue`. For example, this property enables protocol tracing on the Logger facet's
+sub-communicator:
 
 ```config
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1
