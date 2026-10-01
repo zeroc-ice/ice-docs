@@ -49,4 +49,4 @@ raised by operations. This requires quite a bit of supporting machinery; in part
 the definition of data types. This is because data can be exchanged between client and server only if their types are
 defined in Slice. You cannot exchange arbitrary application data, such as an instance of a C++ or Python class, between
 a client and a server because it would destroy the language independence of Ice. However, you can always create a Slice
-type definition that corresponds to the data you want to send, and then you can transmit the Slice type.
+type definition that corresponds to the data you want to send, and then send values of that type.
