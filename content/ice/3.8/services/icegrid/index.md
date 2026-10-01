@@ -62,13 +62,17 @@ below:
   single virtual object adapter. During indirect binding, a client can be bound to an endpoint of any of these adapters.
   Furthermore, IceGrid monitors the load on each computer and can use that information to decide which of the endpoints
   to return to a client.
-- Sessions and resource allocation An IceGrid client establishes a session in order to allocate a resource such as an
-  object or a server. IceGrid prevents other clients from using the resource until the client releases it or the session
-  expires. Sessions enhance security through the use of an authentication mechanism that can be integrated with a
-  [Glacier2 router](../glacier2).
-- Automatic failover Ice supports automatic retry and failover in any proxy that contains multiple endpoints. When
-  combined with IceGrid's support for replication and load balancing, automatic failover means that a failed request
-  results in a client transparently retrying the request on the next endpoint with the lowest load.
+- Sessions and resource allocation An IceGrid client establishes a
+  [session](./resource-allocation-using-icegrid-sessions) in order to allocate a resource such as an object or a server.
+  IceGrid prevents other clients from allocating the resource until the client releases it or its session ends. IceGrid
+  destroys a session when the connection that created it closes. Sessions enhance security through the use of an
+  authentication mechanism that can be integrated with a [Glacier2 router](../glacier2).
+- Automatic failover Ice can [retry](../../runtime/invocation/automatic-retries) a failed invocation using another
+  endpoint of a proxy that contains several endpoints. Combined with IceGrid's replication and load balancing, this lets
+  a client fail over to another replica. The client's
+  [endpoint selection](../../runtime/connection-management/connection-establishment#endpoint-selection-for-new-connections),
+  random by default, determines which endpoint it tries next, and its retry rules determine whether it retries the
+  request.
 - Dynamic queries In addition to transparent binding, applications can interact directly with IceGrid to locate objects
   in a variety of ways.
 - Status monitoring IceGrid supports Slice interfaces that allow applications to monitor its activities and receive

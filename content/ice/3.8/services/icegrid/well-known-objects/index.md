@@ -23,8 +23,8 @@ populated in a number of ways:
 - dynamically using an IceGrid administration tool.
 
 The registry's database maps an object identity to a proxy. A locate request containing only an identity prompts the
-registry to consult this database. If a match is found, the registry examines the associated proxy to determine if
-additional work is necessary. For example, consider the well-known objects in the following table.
+registry to consult this database. If a match is found, the registry returns the associated proxy, and the Ice run time
+in the client resolves any adapter ID it contains. For example, consider the well-known objects in the following table.
 
 | **Identity** | **Proxy**              |
 | ------------ | ---------------------- |
@@ -35,13 +35,10 @@ additional work is necessary. For example, consider the well-known objects in th
 The proxy associated with `Object1` already contains endpoints, so the registry can simply return this proxy to the
 client.
 
-For `Object2`, the registry notices the adapter ID and checks to see whether it knows about an adapter identified as
-`TheAdapter`. If it does, it attempts to obtain the endpoints of that adapter, which may cause its server to be started.
-If the registry is successfully able to determine the adapter's endpoints, it returns a direct proxy containing those
-endpoints to the client. If the registry does not recognize `TheAdapter` or cannot obtain its endpoints, it returns the
-indirect proxy `Object2@TheAdapter` to the client. Upon receipt of another indirect proxy, the Ice run time in the
-client will try once more to resolve the proxy, but generally this will not succeed and the Ice run time in the client
-will raise a `NoEndpointException` as a result.
+For `Object2`, the registry returns the proxy `Object2@TheAdapter`, and the Ice run time in the client then asks the
+locator for the endpoints of the adapter `TheAdapter`, which may cause its server to be started. If the registry does
+not know `TheAdapter`, the client raises `NotRegisteredException`; if the adapter has no usable endpoints, the client
+raises `NoEndpointException`.
 
 Finally, `Object3` represents a hopeless situation: how can the registry resolve `Object3` when its associated proxy
 refers to itself? In this case, the registry returns the proxy `Object3` to the client, which causes the client to raise
@@ -58,8 +55,8 @@ Object types are useful when performing [queries](#querying-well-known-objects).
 
 ## Deploying Well-Known Objects
 
-The `object` descriptor adds a well-known object to the registry. It must appear within the context of an adapter
-descriptor, as shown in the XML example below:
+The `object` descriptor adds a well-known object to the registry. It must appear within an adapter descriptor or a
+[replica group descriptor](../object-adapter-replication), as shown in the XML example below:
 
 ```xml
 <icegrid>
@@ -266,12 +263,7 @@ objects. Rather, the operations simply compare the given type to the object's
 [registered type](#well-known-object-types) or, if the object was registered without a type, to the object's
 most-derived Slice type as determined by the registry.
 
-{% callout type="note" %}
-
-Starting with Ice 3.7, the find by type functions now only return proxies for well-known objects from servers which are
-enabled or proxies not registered through the deployment descriptors.
-
-{% /callout %}
+The find-by-type operations skip a well-known object deployed by a descriptor when its server is disabled.
 
 ## Using Well-Known Objects in the Ripper Application
 
@@ -357,7 +349,7 @@ distributing the encoding tasks more intelligently. The change to the client's c
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};
 string type = Ripper::MP3EncoderFactory::ice_staticId();
 auto obj =
-    query.findObjectByTypeOnLeastLoadedNode(type, IceGrid::LoadSample1);
+    query.findObjectByTypeOnLeastLoadedNode(type, IceGrid::LoadSample::LoadSample1);
 if (!obj)
 {
     // no match

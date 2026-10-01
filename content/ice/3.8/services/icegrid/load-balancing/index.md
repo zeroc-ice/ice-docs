@@ -75,9 +75,9 @@ A replica group can select one of the following load balancing types:
   system load for a replica group with this type. Note that the round-robin information is not shared between registry
   replicas; each replica maintains its own notion of the "least recently used" object adapters.
 
-- Ordered Ordered load balancing selects the requested number of object adapters by priority. A priority can be set for
-  each object adapter member of the replica group. If you define several object adapters with the same priority, IceGrid
-  will order these object adapters according to their order of appearance in the descriptor.
+- Ordered Ordered load balancing selects the requested number of object adapters by priority. You can set a priority for
+  each object adapter in the replica group. IceGrid returns the object adapters with the smallest priority values first;
+  the order of object adapters with the same priority is unspecified.
 
 Choosing the proper type of load balancing is highly dependent on the needs of client applications. Achieving the
 desired load balancing and fail-over behavior may also require the cooperation of your clients. To that end, it is very
