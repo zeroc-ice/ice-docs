@@ -127,9 +127,8 @@ references in that slice. The table is an array of instances encoded using the i
 indicates the number of elements in the table; each element is either an instance ID (if the instance has already been
 encoded within the current encapsulation), or the instance itself denoted by a leading size of 1. The indirection table
 appears in the encoding immediately following the required and optional data members, _but is not included in the byte
-count denoted by the slice size_. To skip a slice for an unknown type, the receiver can advance the input stream by the
-number of bytes specified in the slice size, but then must process all references or instances in the indirection table,
-if one is present.
+count denoted by the slice size_. To skip a slice for an unknown type, the receiver reads the slice size _b_, skips the
+remaining _b-4_ bytes, and then must process all references or instances in the indirection table, if one is present.
 
 To support [slice preservation](../slicing-values-and-exceptions) for an instance, the receiver must temporarily retain
 the slices of any unknown derived types, and also be able to reconstruct the indirection table in its original order for
