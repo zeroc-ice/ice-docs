@@ -2,8 +2,9 @@
 
 A Slice dictionary maps to:
 
-- A JavaScript Map when the Key is one of the Slice built-in types.
-- To Ice.HashMap when the Key is a Slice struct.
+- A JavaScript [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) when the
+  key is a Slice built-in type or an enumeration.
+- An [`Ice.HashMap`](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html) when the key is a Slice structure.
 
 This distinction is necessary because:
 
