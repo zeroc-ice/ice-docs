@@ -27,12 +27,11 @@ export type PageType =
 
 /** A version's settings, from its `version.yaml`. */
 export interface VersionSettings {
+  /** The version's name as readers see it: `Ice 3.8`. */
+  title: string;
   /** The language mappings the version is written for. */
   languages: string[];
-  /**
-   * `latest` gets no banner and is where `/`, `/ice`, and `/ice/latest/…`
-   * redirect; anything else gets an "older version" notice.
-   */
+  /** `latest` gets no banner; anything else gets an "older version" notice. */
   status?: 'latest' | 'maintenance' | 'archived';
 }
 
@@ -88,9 +87,12 @@ export function buildSideNav(nodes: NavNode[], version: string): SideNavNode[] {
   });
 }
 
-/** The URL of the page with `slug`; the front page, whose slug is empty, is at the root. */
+/**
+ * The URL of the page with `slug` in `version`, the version's path under the
+ * content root; the front page, whose slug is empty, is at the version's root.
+ */
 export function pageHref(version: string, slug?: string): string {
-  return slug ? `/ice/${version}/${slug}` : `/ice/${version}`;
+  return slug ? `/${version}/${slug}` : `/${version}`;
 }
 
 /**
@@ -180,9 +182,9 @@ export interface Crumb {
 /** The site's name, and the root of every breadcrumb trail. */
 export const SITE_TITLE = 'Ice Documentation';
 
-/** The site's name for one version, which every page of that version's tab title ends with. */
-export function versionTitle(version: string): string {
-  return `Ice ${version} Documentation`;
+/** The site's name for one version, from the version's `title`; every page of that version's tab title ends with it. */
+export function versionTitle(title: string): string {
+  return `${title} Documentation`;
 }
 
 /**

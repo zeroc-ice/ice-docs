@@ -1,0 +1,4 @@
+# /ice and /ice/latest go to the latest version.
+temporary:
+  '.': '3.8'
+  'latest/:path*': '3.8/:path*'

@@ -327,9 +327,13 @@ for (const { where, url, href, languages } of checkedLinks) {
 
 // A redirect to a section (see listRedirects) must land on a heading the URL's
 // language shows.
+const versions = listVersions(CONTENT_ROOT);
 for (const { file, source, destination } of listRedirects(CONTENT_ROOT)) {
-  const [, version, languages, rest] =
-    source.match(/^\/ice\/([^/]+)\/:lang\(([^)]*)\)(.*)$/) ?? [];
+  const version = versions.find((v) => source.startsWith(`/${v}/`));
+  const [, languages, rest] =
+    (version &&
+      source.slice(version.length + 2).match(/^:lang\(([^)]*)\)(.*)$/)) ??
+    [];
   const [beforeHash, hash] = destination.split('#');
   if (!languages || hash === undefined) continue;
   const page = beforeHash.split('?')[0];

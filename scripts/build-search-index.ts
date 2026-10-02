@@ -104,6 +104,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
   }
 
   const file = path.join(OUT, `${version}.json`);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify({ version, pages: records }));
   files++;
   const kb = Math.round(fs.statSync(file).size / 1024);

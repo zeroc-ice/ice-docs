@@ -24,14 +24,14 @@ const ROOT = join(
   'content'
 );
 
-test('listVersions finds 3.8 and ignores non-version dirs', () => {
+test('listVersions finds ice/3.8 and ignores non-version dirs', () => {
   const versions = listVersions(ROOT);
-  assert.ok(versions.includes('3.8'));
+  assert.ok(versions.includes('ice/3.8'));
   assert.ok(!versions.includes('slice'));
 });
 
 test('listPages reads a page and its overlays off its directory', () => {
-  const pages = listPages(ROOT, '3.8');
+  const pages = listPages(ROOT, 'ice/3.8');
   const bySlug = Object.fromEntries(pages.map((p) => [p.slug, p]));
 
   // A directory's path under the version is its page's slug, and its name the page's.
@@ -52,7 +52,7 @@ test('listPages reads a page and its overlays off its directory', () => {
 
 test('readPageSources returns the shared text and every overlay', () => {
   const read = (slug: string) =>
-    readPageSources(listPages(ROOT, '3.8').find((p) => p.slug === slug)!);
+    readPageSources(listPages(ROOT, 'ice/3.8').find((p) => p.slug === slug)!);
   const enums = read('slice/enumerations');
   assert.ok(enums.shared);
   assert.deepEqual(Object.keys(enums.overlays), ['cpp', 'python']);
@@ -66,7 +66,7 @@ test('readPageSources returns the shared text and every overlay', () => {
 
 test('a page written per language takes its frontmatter from its first overlay', () => {
   const datastorm = readPageSources(
-    listPages(ROOT, '3.8').find((p) => p.slug === 'services/datastorm')!
+    listPages(ROOT, 'ice/3.8').find((p) => p.slug === 'services/datastorm')!
   );
   assert.equal(datastorm.shared, null);
   assert.equal(datastorm.frontmatter.description, 'DataStorm for C++');
@@ -83,7 +83,7 @@ test('a file without frontmatter has none', () => {
 });
 
 test('readNavigation builds the tree from the pages each page lists, front page first', () => {
-  const nav = readNavigation(ROOT, '3.8');
+  const nav = readNavigation(ROOT, 'ice/3.8');
   assert.deepEqual(nav.languages, ['cpp', 'java', 'python']);
   assert.deepEqual(nav.sidebar, [
     { title: 'Documentation', slug: '', writtenFor: undefined, items: [] },
@@ -123,6 +123,6 @@ test('readNavigation builds the tree from the pages each page lists, front page 
 });
 
 test('snippetReader resolves example files relative to the version dir', () => {
-  const read = snippetReader(ROOT, '3.8');
+  const read = snippetReader(ROOT, 'ice/3.8');
   assert.match(read('examples/cpp/sample.cpp'), /<use>/);
 });

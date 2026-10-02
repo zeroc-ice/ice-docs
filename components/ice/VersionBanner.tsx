@@ -4,10 +4,11 @@
 // before they read a line of it — silently serving stale documentation is the
 // most expensive failure versioned documentation can have.
 export function VersionBanner({
-  version,
+  title,
   status
 }: {
-  version: string;
+  /** The version's name, `Ice 3.8`. */
+  title: string;
   status?: string;
 }) {
   if (!status || status === 'latest') return null;
@@ -15,7 +16,7 @@ export function VersionBanner({
   return (
     <div className="border-b border-amber-300/60 bg-amber-50 px-6 py-2.5 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-100">
       <div className="mx-auto max-w-400">
-        You are reading the documentation for Ice {version}
+        You are reading the documentation for {title}
         {status === 'archived' ? ', which is no longer supported' : ''}.
       </div>
     </div>

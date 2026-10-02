@@ -9,6 +9,8 @@ import { useMounted } from '@/context/state';
 
 interface HeaderControlsProps {
   version: string;
+  /** The version's name, `Ice 3.8`. */
+  title: string;
   languages: string[];
   versionOptions: VersionOption[];
 }
@@ -19,6 +21,7 @@ interface HeaderControlsProps {
 // every version, and which languages the version has.
 export function HeaderControls({
   version,
+  title,
   languages,
   versionOptions
 }: HeaderControlsProps) {
@@ -31,7 +34,7 @@ export function HeaderControls({
 
   return createPortal(
     <>
-      <Search version={version} />
+      <Search version={version} title={title} />
       <VersionSelect current={version} options={versionOptions} />
       <LanguageSelect languages={languages} />
     </>,

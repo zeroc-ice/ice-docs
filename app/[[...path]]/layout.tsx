@@ -5,19 +5,21 @@ import type { Metadata } from 'next';
 import { buildSideNav, versionTitle } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
-import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
+import { CONTENT_ROOT, locate, readNavigation } from '@/lib/docs-model/content';
 
-type VersionParams = { params: Promise<{ version: string }> };
+type PathParams = { params: Promise<{ path?: string[] }> };
 
 // Every page of a version names it in its title: "Operations | Ice 3.8 Documentation".
 export async function generateMetadata({
   params
-}: VersionParams): Promise<Metadata> {
-  const { version } = await params;
+}: PathParams): Promise<Metadata> {
+  const { path } = await params;
+  const { version } = locate(CONTENT_ROOT, path ?? []);
+  const { title } = readNavigation(CONTENT_ROOT, version);
   return {
     title: {
-      template: `%s | ${versionTitle(version)}`,
-      default: versionTitle(version)
+      template: `%s | ${versionTitle(title)}`,
+      default: versionTitle(title)
     }
   };
 }
@@ -28,17 +30,21 @@ export async function generateMetadata({
 export default async function VersionLayout({
   params,
   children
-}: VersionParams & { children: React.ReactNode }) {
-  const { version } = await params;
+}: PathParams & { children: React.ReactNode }) {
+  const { path } = await params;
+  const { version } = locate(CONTENT_ROOT, path ?? []);
   const nav = readNavigation(CONTENT_ROOT, version);
 
   return (
     <div className="flex grow flex-col">
-      <VersionBanner version={version} status={nav.status} />
+      <VersionBanner title={nav.title} status={nav.status} />
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the version's table of contents. */}
-          <SideNav nodes={buildSideNav(nav.sidebar, version)} />
+          <SideNav
+            nodes={buildSideNav(nav.sidebar, version)}
+            version={version}
+          />
 
           {/* Content */}
           <div className="grow pb-8">

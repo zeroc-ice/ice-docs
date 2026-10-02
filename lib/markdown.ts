@@ -16,6 +16,7 @@ export interface PageVariables {
   path: string;
   /** By language mapping. */
   readingTime: Record<string, string>;
+  /** The version's path under the content root: `ice/3.8`. */
   version: string;
   /** The version's languages, for what is computed once per language. */
   languages: string[];

@@ -1,4 +1,5 @@
-# The settings of the Ice 3.8 documentation: the language mappings it is written for, and its status.
+# The settings of the Ice 3.8 documentation: its name, its status, and the language mappings it is written for.
+title: Ice 3.8
 status: latest
 languages:
   - cpp

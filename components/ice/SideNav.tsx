@@ -54,14 +54,20 @@ function writeState(key: string, value: unknown) {
 //
 // The tree is the same on every page of a version, so the current page is the
 // entry whose link is the address's path.
-export function SideNav({ nodes }: { nodes: SideNavNode[] }) {
+export function SideNav({
+  nodes,
+  version
+}: {
+  nodes: SideNavNode[];
+  /** The version's path under the content root, which keys what the reader had open. */
+  version: string;
+}) {
   // Storage is read after mount, so the server and the first client render
   // agree.
   const mounted = useMounted();
 
   const pathname = usePathname();
-  // /ice/3.8/<slug> -> "3.8".
-  const scope = pathname.split('/')[2];
+  const scope = version;
 
   const trail = useMemo(
     () => new Set(activeTrailKeys(nodes, pathname)),

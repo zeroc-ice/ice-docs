@@ -27,7 +27,7 @@ interface Record {
 
 // Documentation this size is unusable without search. The index is per version and
 // fetched the first time the palette opens.
-export function Search({ version }: { version: string }) {
+export function Search({ version, title }: { version: string; title: string }) {
   const router = useRouter();
   const language = useLanguage();
   const [open, setOpen] = useState(false);
@@ -175,7 +175,7 @@ export function Search({ version }: { version: string }) {
               go(results[selected]);
             }
           }}
-          placeholder={`Search the Ice ${version} documentation…`}
+          placeholder={`Search the ${title} documentation…`}
           aria-label="Search query"
           className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-none dark:border-white/10"
         />

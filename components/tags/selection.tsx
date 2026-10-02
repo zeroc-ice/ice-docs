@@ -15,20 +15,27 @@ import { languageLabel } from '@/lib/docs-model/nav';
 
 type Props = {
   version: string;
+  /** The version's name, `Ice 3.8`. */
+  title: string;
   languages: string[];
   versionOptions: VersionOption[];
 };
 
 // The version and language switches, as two boxes that say what is selected
 // and open the same choices as the top bar.
-export const Selection = ({ version, languages, versionOptions }: Props) => {
+export const Selection = ({
+  version,
+  title,
+  languages,
+  versionOptions
+}: Props) => {
   const language = useLanguage();
   return (
     <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
       <Switch
         icon={<Tag aria-hidden="true" className="size-4" />}
         label="Version"
-        value={`Ice ${version}`}
+        value={title}
         note="Make sure it is the release you use."
       >
         <VersionItems current={version} options={versionOptions} />

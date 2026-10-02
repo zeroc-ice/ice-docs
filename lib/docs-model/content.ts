@@ -3,16 +3,18 @@
 // Filesystem layer for the Ice docs content model. Reads page sources and
 // discovers routes under a content root laid out as:
 //
-//   <root>/<version>/version.yaml              the version's settings
-//   <root>/<version>/index.md                  the front page
-//   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
-//   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
-//   <root>/<version>/examples/...              (snippet sources)
-//   <root>/<version>/…/redirects.yaml          redirects, relative to that directory's URL
+//   <root>/…/<version>/version.yaml           a version: its settings, with its pages under it
+//   <root>/…/<version>/index.md               the front page
+//   <root>/…/<version>/<dir>/…/<name>/index.md a page, at its URL path
+//   <root>/…/<version>/<dir>/…/<name>/<lang>.md one of its language overlays
+//   <root>/…/<version>/examples/...           (snippet sources)
+//   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
-// A page is a directory, and its path under the version is its slug, the path in
-// its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
-// at /ice/<version>/slice/enumerations, and the pages under it are its
+// A version is a directory holding a `version.yaml`, keyed by its path under
+// the root, `ice/3.8`, which is also its URL. A page is a directory, and its
+// path under the version is its slug, the path in its URL:
+// `ice/3.8/slice/enumerations/index.md` is the page named `enumerations`,
+// served at /ice/3.8/slice/enumerations, and the pages under it are its
 // subdirectories, in the order its frontmatter lists them under `pages:`. A
 // directory with overlays but no index.md is a page written per language: each
 // overlay is the whole page for its language.
@@ -35,19 +37,44 @@ import {
 import { splitFrontmatter } from './resolve.ts';
 
 /** The content root, under the repository root that npm and Next run from. */
-export const CONTENT_ROOT = path.join(process.cwd(), 'content', 'ice');
+export const CONTENT_ROOT = path.join(process.cwd(), 'content');
 
-/** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
+/** Every version under the root: each directory holding a `version.yaml`, as its path under the root. */
 export function listVersions(root: string): string[] {
-  if (!fs.existsSync(root)) return [];
-  return fs
-    .readdirSync(root)
-    .filter(
-      (name) =>
-        /^\d+\.\d+/.test(name) &&
-        fs.statSync(path.join(root, name)).isDirectory()
+  return filesNamed(root, 'version.yaml')
+    .map((file) =>
+      path.relative(root, path.dirname(file)).split(path.sep).join('/')
     )
     .sort();
+}
+
+/** Every file called `name` under `dir`. */
+function filesNamed(dir: string, name: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return filesNamed(full, name);
+    return entry.name === name ? [full] : [];
+  });
+}
+
+/**
+ * The version and slug a URL path names: the version is the longest one the
+ * path starts with, the slug the rest. Throws when no version holds the path.
+ */
+export function locate(
+  root: string,
+  segments: string[]
+): { version: string; slug: string } {
+  const version = listVersions(root)
+    .filter((candidate) => {
+      const parts = candidate.split('/');
+      return parts.every((part, i) => segments[i] === part);
+    })
+    .sort((a, b) => b.length - a.length)[0];
+  if (version === undefined)
+    throw new Error(`no version holds /${segments.join('/')}`);
+  return { version, slug: segments.slice(version.split('/').length).join('/') };
 }
 
 /** Every .md file under `dir`, as paths relative to it with `/` separators. */
@@ -152,7 +179,10 @@ export function writtenFor(page: PageFiles): string[] | undefined {
 }
 
 /** A version's settings, read from its `version.yaml`. */
-function readVersionSettings(root: string, version: string): VersionSettings {
+export function readVersionSettings(
+  root: string,
+  version: string
+): VersionSettings {
   return yamlLoad(
     fs.readFileSync(path.join(root, version, 'version.yaml'), 'utf8')
   ) as VersionSettings;
@@ -206,95 +236,69 @@ export function readNavigation(root: string, version: string): NavDoc {
   };
 }
 
-/**
- * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
- * and `/ice/latest/…` go to the version whose `version.yaml` says `status: latest`,
- * followed by every `redirects.yaml` under the versions (see listRedirects).
- * Throws unless exactly one version says `status: latest`.
- */
+/** The site's redirects, for Next's `redirects` config: every `redirects.yaml` under the root (see listRedirects). */
 export function readRedirects(root: string) {
-  const versions = listVersions(root);
-  const settings = new Map(
-    versions.map((version) => [version, readVersionSettings(root, version)])
-  );
-  const latest = versions.filter(
-    (version) => settings.get(version)!.status === 'latest'
-  );
-  if (latest.length !== 1)
-    throw new Error(
-      `expected one version with status: latest, found ${latest.length}`
-    );
-  const front = pageHref(latest[0]);
-  return [
-    // Temporary, since the latest version changes.
-    { source: '/', destination: front, permanent: false },
-    { source: '/ice', destination: front, permanent: false },
-    {
-      source: '/ice/latest/:path*',
-      destination: `${front}/:path*`,
-      permanent: false
-    },
-    ...listRedirects(root).map(({ source, destination }) => ({
-      source,
-      destination,
-      permanent: true
-    }))
-  ];
+  return listRedirects(root).map(({ source, destination, permanent }) => ({
+    source,
+    destination,
+    permanent
+  }));
 }
 
 /**
- * The redirects every `redirects.yaml` under a version lists, with the file
- * each came from, relative to the root. An entry's source and destination are
- * relative to the URL of the file's directory: in `3.8/services/redirects.yaml`
- * both are under `/ice/3.8/services`. Throws when a destination names a page
- * that does not exist.
+ * The redirects every `redirects.yaml` under the root lists, with the file each
+ * came from, relative to the root. A file holds a `permanent` map, a
+ * `temporary` map, or both, from source pattern to destination as Next's
+ * `redirects` config takes them, relative to the URL of the file's directory:
+ * in `ice/3.8/services/redirects.yaml` both are under `/ice/3.8/services`, and
+ * `.` is that URL itself. Throws when a destination names a page that does not
+ * exist.
  */
 export function listRedirects(root: string) {
-  const versions = listVersions(root);
   const pages = new Set(
-    versions.flatMap((version) =>
+    listVersions(root).flatMap((version) =>
       listPages(root, version).map((page) => pageHref(version, page.slug))
     )
   );
-  return versions.flatMap((version) =>
-    redirectFiles(path.join(root, version)).flatMap((file) => {
-      const directory = path.relative(
-        path.join(root, version),
-        path.dirname(file)
-      );
-      const prefix = pageHref(version, directory.split(path.sep).join('/'));
-      const under = (relative: string) =>
-        relative.startsWith('?') || relative.startsWith('#')
-          ? prefix + relative
-          : `${prefix}/${relative}`;
-      const entries = yamlLoad(fs.readFileSync(file, 'utf8')) as Record<
-        string,
-        string
-      >;
-      const where = path.relative(root, file);
-      return Object.entries(entries).map(([source, destination]) => {
-        const page = under(destination).split(/[?#]/)[0];
-        // A destination with a route parameter, `:rest*`, is not one page.
-        if (!page.includes(':') && !pages.has(page))
-          throw new Error(
-            `${where} sends ${source} to ${page}, which is not a page`
-          );
-        return {
-          file: where,
-          source: under(source),
-          destination: under(destination)
-        };
-      });
-    })
-  );
-}
-
-/** Every `redirects.yaml` under `dir`. */
-function redirectFiles(dir: string): string[] {
-  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) return redirectFiles(full);
-    return entry.name === 'redirects.yaml' ? [full] : [];
+  return filesNamed(root, 'redirects.yaml').flatMap((file) => {
+    const prefix = path
+      .relative(root, path.dirname(file))
+      .split(path.sep)
+      .filter(Boolean)
+      .map((segment) => `/${segment}`)
+      .join('');
+    const under = (relative: string) => {
+      if (relative === '.') return prefix || '/';
+      if (relative.startsWith('?') || relative.startsWith('#'))
+        return (prefix || '/') + relative;
+      return `${prefix}/${relative}`;
+    };
+    const maps = yamlLoad(fs.readFileSync(file, 'utf8')) as {
+      permanent?: Record<string, string>;
+      temporary?: Record<string, string>;
+    };
+    const where = path.relative(root, file);
+    return [
+      ...Object.entries(maps.permanent ?? {}).map(
+        (entry) => [...entry, true] as const
+      ),
+      ...Object.entries(maps.temporary ?? {}).map(
+        (entry) => [...entry, false] as const
+      )
+    ].map(([source, destination, permanent]) => {
+      const page = under(destination).split(/[?#]/)[0];
+      // A destination with a route parameter, `:rest*`, is not one page.
+      if (!page.includes(':') && !pages.has(page))
+        throw new Error(
+          `${where} sends ${source} to ${page}, which is not a page`
+        );
+      return {
+        file: where,
+        source: under(source),
+        destination: under(destination),
+        permanent
+      };
+    });
   });
 }
 

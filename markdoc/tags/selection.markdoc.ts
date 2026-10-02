@@ -14,6 +14,7 @@ const selection: Schema = {
     const { version, languages, chrome } = config.variables as PageVariables;
     return new Tag('Selection', {
       version,
+      title: chrome.versionTitle,
       languages,
       versionOptions: chrome.versionOptions ?? []
     });
