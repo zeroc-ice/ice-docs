@@ -95,23 +95,24 @@ module VisitorCenter
 }
 ```
 
-A version 2 client can supply the `time` argument. A version 2 servant receives this value, while a version 1 server
-skips it and dispatches the request to its servant with `name` alone. A version 1 client sends only `name`: the version
-2 servant then receives `time` unset, and has to handle this case, for example by returning the version 1 greeting.
+Ice transmits optional values only with the 1.1 encoding, which is the default. With this encoding, a version 2 client
+can supply the `time` argument. A version 2 servant receives this value, while a version 1 server skips it and
+dispatches the request to its servant with `name` alone. A version 1 client sends only `name`: the version 2 servant
+then receives `time` unset, and has to handle this case, for example by returning the version 1 greeting.
 
-Ice transmits optional values with the 1.1 encoding, which is the default. When a proxy uses the 1.0 encoding, Ice
-leaves every optional value out of the request and of its reply, and the receiver reads each of them as unset.
+When a proxy uses the 1.0 encoding, Ice leaves every optional value out of the request and of its reply, and the
+receiver reads each of them as unset.
 
 Likewise, you can add optional fields to an existing class or exception without breaking existing applications that use
 it. See the [optional fields](../../slice/fields#optional-fields) page for more information.
 
 ### Changing Optional Parameters and Fields
 
-Ice [encodes](../../encoding/data-encoding-for-optional-values) an optional value that is set as its tag and an _optional type_
-derived from its Slice type, followed by the value. The receiver looks up each optional value it knows by tag, skips the
-values whose tags it does not know, and reads as unset a value whose tag is missing. The name of the parameter or field
-is not transmitted. The consequences for applications built with different versions of a Slice definition are as
-follows:
+With the 1.1 encoding, Ice [encodes](../../encoding/data-encoding-for-optional-values) an optional value that is set as its tag and
+an _optional type_ derived from its Slice type, followed by the value. The receiver looks up each optional value it
+knows by tag, skips the values whose tags it does not know, and reads as unset a value whose tag is missing. The name of
+the parameter or field is not transmitted. The consequences for applications built with different versions of a Slice
+definition are as follows:
 
 - Adding an optional parameter or field with a tag that no earlier version used is a compatible change, as shown above.
 - Removing an optional parameter or field is a compatible change: a receiver built without it skips the value, and a
