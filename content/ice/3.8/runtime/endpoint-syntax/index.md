@@ -33,8 +33,10 @@ An endpoint has the following format:
 
 `transport` can be any of the Ice transport protocols described on this page (`tcp`, `ssl`, `udp` etc.), or `default`.
 When `default` is used, it is replaced by the value of the [Ice.Default.Protocol](../ice-default-properties) property
-(default protocol means default _transport_ protocol). If an endpoint is malformed, or an unknown transport protocol is
-specified, the application receives a `ParseException`.
+(default protocol means default _transport_ protocol). If an endpoint is malformed, the application receives a
+`ParseException`. If the transport of an endpoint is not registered with the communicator, an object adapter throws
+`ParseException` when it parses its endpoints, whereas Ice drops the endpoint from a
+[stringified proxy](../syntax-for-stringified-proxies).
 
 {% callout type="info" %}
 

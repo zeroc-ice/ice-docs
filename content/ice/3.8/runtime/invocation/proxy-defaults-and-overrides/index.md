@@ -38,8 +38,8 @@ assert(greeter.ice_getEndpointSelection() == Ice::EndpointSelectionType::Ordered
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 [Ice.Override.Compress](../ice-override-properties) overrides the compression setting of all proxies. With
-`Ice.Override.Compress=1`, Ice uses compression for every request; with `Ice.Override.Compress=0`, it uses compression
-for none. In both cases, Ice ignores the compression setting of each proxy (see `ice_compress`).
+`Ice.Override.Compress=1`, Ice enables compression for all requests; with `Ice.Override.Compress=0`, it disables
+compression for all requests. In both cases, Ice ignores the compression setting of each proxy (see `ice_compress`).
 
 The override also sets the compression flag of the endpoints on which object adapters listen, so the proxies that an
 object adapter creates from these endpoints carry the overridden compression setting.
@@ -48,7 +48,7 @@ object adapter creates from these endpoints carry the overridden compression set
 
 {% iflang langs="js" %}
 
-Ice for JavaScript does not support `Ice.Override.Compress`. Setting it throws `PropertyException`.
+Ice for JavaScript does not support `Ice.Override.Compress`.
 
 {% /iflang %}
 

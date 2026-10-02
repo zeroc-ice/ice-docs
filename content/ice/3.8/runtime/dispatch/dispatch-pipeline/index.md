@@ -30,7 +30,7 @@ An object adapter gives all incoming requests to its dispatch pipeline, which pe
   not use servant locators in new applications.
 - If none of the previous steps found a servant:
   - throw `FacetNotExistException` when the ASM contains a servant with a matching identity, but a non-matching
-    [facet](../versioning)
+    [facet](../facets)
   - otherwise, throw `ObjectNotExistException`
 
 As far as the dispatch pipeline is concerned, servants are just dispatchers – they accept requests and return responses.
