@@ -203,7 +203,7 @@ A client can invoke this operation as shown below:
 $i = $proxy->execute("--file log.txt", $v);
 $i = $proxy->execute(\Ice\None, $v);
 
-if($v != Ice_Unset)
+if($v != \Ice\None)
 {
     echo "value = " . $v . "\n";
 }
