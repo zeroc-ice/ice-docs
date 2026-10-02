@@ -65,7 +65,7 @@ proxy, the Ice runtime:
 4. Returns any out-parameters and the return value to the client (or throws an exception in case of an error)
 
 A location service such as IceGrid can start a server that is not running when the client-side runtime locates it,
-provided the server is deployed for [on-demand activation](../icegrid-server-activation). In the server, the object
+provided you deploy the server for [on-demand activation](../icegrid-server-activation). In the server, the object
 adapter selects the [servant](../terminology#servants) that processes the request.
 
 A proxy encapsulates all the necessary information for this sequence of steps to take place. In particular, a proxy
@@ -262,8 +262,8 @@ the retry cannot make the server execute the operation twice, for example becaus
 or because the server closed the connection gracefully.
 
 A twoway invocation either returns the result of the operation or throws an exception. When the connection is lost after
-the Ice runtime sent such a request and before it received the reply, the invocation throws an exception and the client
-cannot tell whether the server executed the operation.
+the Ice runtime sent such a request for an operation that is not idempotent and before it received the reply, the
+invocation throws an exception and the client cannot tell whether the server executed the operation.
 
 A oneway or datagram invocation completes when the transport accepts the request, and a batch invocation completes when
 the Ice runtime queues the request. The client receives no confirmation that the server executed the operation. See
@@ -286,7 +286,7 @@ Without at-most-once semantics, we can build distributed systems that are more r
 failures. However, realistic systems require non-idempotent operations, so at-most-once semantics are a necessity, even
 though they make the system less robust in the presence of network failures. Ice permits you to mark individual
 operations as idempotent. For such operations, the Ice runtime uses a more aggressive error recovery mechanism than for
-non-idempotent operations: it also retries a request that it already sent, so the server can execute an idempotent
+non-idempotent operations: it can also retry a request that it already sent, so the server can execute an idempotent
 operation more than once.
 
 ## Asynchronous Method Invocation
@@ -321,8 +321,8 @@ instead of being forced to process the request immediately, the server-side appl
 of the request and, in doing so, releases the execution thread for the request. Blocking work that the application code
 performs before it releases the thread still ties up that thread. Eventually, once the results of the operation are
 available, the server-side application code completes the dispatch through the mechanism of its language mapping: a
-callback, a task, future or promise, or the return of an `async` method. At that point, the results of the operation are
-returned to the client.
+callback, a task, future or promise, or the return of an `async` method. At that point, the server-side runtime sends
+the results of the operation to the client.
 
 The language mapping determines which dispatch model a servant uses. In C++, C#, and Java, the Slice compiler generates
 two servant base types for each interface: one whose methods dispatch synchronously unless the Slice definition carries
