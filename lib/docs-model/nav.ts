@@ -25,11 +25,6 @@ export type PageType =
   | 'troubleshooting'
   | 'release-note';
 
-export interface PreviousVersions {
-  label: string;
-  url: string;
-}
-
 /** A version's settings, from its `version.yaml`. */
 export interface VersionSettings {
   /** The language mappings the version is written for. */
@@ -39,8 +34,6 @@ export interface VersionSettings {
    * redirect; anything else gets an "older version" notice.
    */
   status?: 'latest' | 'maintenance' | 'archived';
-  /** Optional link to older docs kept on the previous platform. */
-  previousVersions?: PreviousVersions;
 }
 
 export interface NavDoc extends VersionSettings {
