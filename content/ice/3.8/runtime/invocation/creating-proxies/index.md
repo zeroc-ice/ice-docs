@@ -50,7 +50,11 @@ Ice.Default.Locator.Router.EndpointSelection=Ordered
 
 ## Creating a Proxy with an Object Adapter
 
-An object adapter can create a proxy for any identity, whether or not it hosts an Ice object with this identity:
+An object adapter can create a proxy for any identity, whether or not it hosts an Ice object with this identity.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
 - `createProxy` returns a proxy with the given identity. If the object adapter has an
   [AdapterId](../object-adapter-properties), the proxy is an indirect proxy that refers to the object adapter's
@@ -60,18 +64,22 @@ An object adapter can create a proxy for any identity, whether or not it hosts a
 - `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
   [well-known proxy](../well-known-proxy) when the object adapter has no adapter ID.
 
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+`createProxy` and `createDirectProxy` both return a direct proxy that holds the object adapter's published endpoints.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
+
 `add`, `addFacet`, `addWithUUID` and `addFacetWithUUID` register a servant with the
 [Active Servant Map](../active-servant-map) and return the proxy that `createProxy` creates for the identity of this
 servant, with its facet.
 
 All these proxies use the options set by the object adapter's [ProxyOptions](../object-adapter-properties) property,
 such as `-o` for oneway proxies.
-
-{% /iflang %}
-
-{% iflang langs="js" %}
-
-Ice for JavaScript does not provide `createIndirectProxy`.
 
 {% /iflang %}
 
@@ -103,7 +111,7 @@ For example:
 
 {% language-section name="lang-4" /%}
 
-## Deriving a Proxy
+## Proxy Factory Methods
 
 A proxy is immutable. Its factory methods, such as `ice_oneway`, `ice_facet` and `ice_invocationTimeout`, return a proxy
 with the requested setting, and leave the original proxy unchanged. See
@@ -116,8 +124,13 @@ The [language mapping for interfaces](../interfaces) describes the type of the p
 
 A cast converts a proxy into a proxy of another type, for the same Ice object. `uncheckedCast` performs this conversion
 without contacting the target object. `checkedCast` first calls `ice_isA` on the target object to verify that it
-implements the requested interface, and returns a null proxy if it does not. The
-[language mapping for interfaces](../interfaces) shows the cast functions of each language.
+implements the requested interface, and returns a null proxy if it does not.
+
+{% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
+
+The [language mapping for interfaces](../interfaces) shows the cast functions.
+
+{% /iflang %}
 
 {% iflang langs="cpp" %}
 
