@@ -263,9 +263,9 @@ and nothing else is required. Otherwise, the client must explicitly configure th
 ### Glacier2 Session Destruction
 
 A router session ends when the client calls `destroySession` on the router, when the application calls `destroy` on the
-session's `SessionControl` object, or when the connection between the client and the router closes. The router reports a
-failure to connect to or invoke a back-end server to the client through the affected requests, and the session stays
-open.
+session's `SessionControl` object, or when the connection between the client and the router closes. A failure to connect
+to or invoke a back-end server leaves the session open; the router reports the failure to the client as the result of
+each affected twoway request.
 
 ## See Also
 
