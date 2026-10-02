@@ -167,9 +167,12 @@ void unlockDoor(string id, const Ice::Current& current)
     if(i != current.ctx.end())
     {
         string certPEM = i->second;
-        cout << "Client address = "
-             << current.ctx.at("_con.remoteAddress")
-             << ":" << current.ctx.at("_con.remotePort") << endl;
+        auto address = current.ctx.find("_con.remoteAddress");
+        auto port = current.ctx.find("_con.remotePort");
+        if(address != current.ctx.end() && port != current.ctx.end())
+        {
+            cout << "Client address = " << address->second << ":" << port->second << endl;
+        }
         ...
     }
     ...
