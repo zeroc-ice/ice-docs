@@ -61,7 +61,7 @@ import {
 } from '../lib/docs-model/content.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
 import { pageHref } from '../lib/docs-model/nav.ts';
-import { resolveDocument } from '../lib/docs-model/resolve.ts';
+import { resolveDocument, splitLines } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
 const resolverTags: Record<string, Schema> = {
@@ -349,7 +349,7 @@ for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
 for (const version of listVersions(CONTENT_ROOT)) {
   const file = path.join(CONTENT_ROOT, version, 'scroll-urls.txt');
   if (!fs.existsSync(file)) continue;
-  for (const scrollUrl of fs.readFileSync(file, 'utf8').split('\n')) {
+  for (const scrollUrl of splitLines(fs.readFileSync(file, 'utf8'))) {
     // The Scroll Viewport site spelled `js` as `javascript`.
     const section = scrollSections.get(
       scrollUrl.replace(`/ice/${version}/javascript/`, `/ice/${version}/js/`)
