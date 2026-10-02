@@ -50,18 +50,27 @@ It also includes the Slice tools for C++, so the `zeroc.icebuilder.msbuild` pack
 
 ## C++ Mapping
 
-Ice 3.8 provides a single C++ mapping, derived from the C++11 mapping of Ice 3.7, and requires a compiler that supports
-C++17 or later. Port an application that uses the C++98 mapping of Ice 3.7 to this mapping.
+Ice 3.7 provided two C++ mappings: the C++98 mapping and the C++11 mapping. Ice 3.8 provides a single C++ mapping,
+derived from the C++11 mapping of Ice 3.7. It requires a C++17 compiler.
+
+This section has two parts: one for an application that uses the C++11 mapping of Ice 3.7, and one for an application
+that uses the C++98 mapping.
+
+If your application uses the C++98 mapping, port it directly to the Ice 3.8 mapping: there is nothing to gain from
+porting it to the C++11 mapping first. A proxy, for example, is a `GreeterPrx` value in both the C++98 mapping and the
+Ice 3.8 mapping, while the C++11 mapping holds it in a `std::shared_ptr<GreeterPrx>`.
+
+### Upgrading from the C++11 Mapping
 
 An application that uses the C++11 mapping of Ice 3.7 no longer defines `ICE_CPP11_MAPPING`, and links with libraries
 whose names have no `++11` suffix: `Ice` replaces `Ice++11`.
 
-### Proxies
+#### Proxies {% id="cpp11-proxies" %}
 
 In Ice 3.7, the C++11 mapping holds every proxy in a `std::shared_ptr<GreeterPrx>`. In Ice 3.8, a generated proxy class
 such as `GreeterPrx` is a concrete class with value semantics, and a proxy that can be null is a
 `std::optional<GreeterPrx>`. The Slice compiler maps a proxy parameter, return value or field to
-`std::optional<GreeterPrx>`. The `GreeterPrxPtr` and `Ice::ObjectPrxPtr` aliases no longer exist.
+`std::optional<GreeterPrx>`.
 
 Update the variables, data members, containers and servant operation signatures that hold a proxy, and replace `nullptr`
 with `std::nullopt`:
@@ -79,21 +88,18 @@ with `std::nullopt`:
 Both `GreeterPrx` and `std::optional<GreeterPrx>` provide `operator->`, so an invocation written as
 `greeter->greet("alice")` compiles unchanged.
 
-The functions that return a proxy changed as follows:
+The functions that create a proxy, such as `Communicator::propertyToProxy`, `ObjectAdapter::add` and
+`Connection::createProxy`, are now function templates: you choose the type of the proxy they return. The default is
+`Ice::ObjectPrx`; we recommend that you always specify the proxy type. For example:
 
-| Function                                                                 | Return type in Ice 3.8                                                          |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| `Ice::checkedCast<Prx>`                                                  | `std::optional<Prx>`                                                            |
-| `Ice::uncheckedCast<Prx>`                                                | `Prx` for a proxy argument, `std::optional<Prx>` for a `std::optional` argument |
-| `Communicator::stringToProxy<Prx>`, `Communicator::propertyToProxy<Prx>` | `std::optional<Prx>`                                                            |
-| `ObjectAdapter::add<Prx>`, `addWithUUID<Prx>`, `createProxy<Prx>`        | `Prx`                                                                           |
+```cpp
+// widget is a std::optional<WidgetPrx>
+auto widget = communicator->propertyToProxy<WidgetPrx>("MyWidget");
+```
 
-`Prx` is a template parameter of each of these functions, and defaults to `Ice::ObjectPrx` for the `Communicator` and
-`ObjectAdapter` functions.
+#### Optional Values {% id="cpp11-optional-values" %}
 
-### Optional Values
-
-`std::optional` replaces `Ice::optional` and `IceUtil::Optional`, `std::nullopt` replaces `Ice::nullopt` and
+`std::optional` replaces `Ice::optional` and `IceUtil::Optional`; `std::nullopt` replaces `Ice::nullopt` and
 `IceUtil::None`.
 
 ```diff
@@ -103,12 +109,7 @@ The functions that return a proxy changed as follows:
 +                                    const Ice::Current& current) override;
 ```
 
-An optional proxy parameter or field, such as `optional(1) Greeter* greeter`, maps to `std::optional<GreeterPrx>`. In
-Ice 3.7, it mapped to `Ice::optional<std::shared_ptr<GreeterPrx>>`, which distinguishes a parameter that is not set from
-a parameter set to a null proxy. In Ice 3.8, `std::nullopt` represents both. An application that relied on the three
-states needs to carry the distinction in another parameter or field.
-
-### Integer Types
+#### Integer Types {% id="cpp11-integer-types" %}
 
 The Slice compiler now maps the Slice integer types to the fixed-width integer types of the C++ standard library, and
 the `Ice::Byte`, `Ice::Short`, `Ice::Int`, `Ice::Long`, `Ice::Float` and `Ice::Double` aliases no longer exist.
@@ -120,59 +121,27 @@ the `Ice::Byte`, `Ice::Short`, `Ice::Int`, `Ice::Long`, `Ice::Float` and `Ice::D
 | `int`      | `int`                         | `std::int32_t` |
 | `long`     | `long long int`               | `std::int64_t` |
 
-Update the servant operation signatures and the variables that use these types. `std::int64_t` and `long long` are
-distinct types on some platforms, such as 64-bit Linux where `std::int64_t` is `long`; there, a servant function
-declared with a `long long` parameter no longer overrides the generated function, and a `std::vector<long long>` is not
-a Slice `sequence<long>`.
+Update the servant operation signatures and the variables that use these types. A Slice `sequence<byte>` now maps to
+`std::vector<std::byte>`; in Ice 3.7, it mapped to `std::vector<Ice::Byte>`. `std::int64_t` and `long long` are distinct
+types on some platforms, such as 64-bit Linux where `std::int64_t` is `long`; there, a servant function declared with a
+`long long` parameter no longer overrides the generated function, and a `std::vector<long long>` is not a Slice
+`sequence<long>`.
 
 ```diff
 -long long int opLong(long long int p1, long long int& p2, const Ice::Current& current) override;
 +std::int64_t opLong(std::int64_t p1, std::int64_t& p2, const Ice::Current& current) override;
 ```
 
-### IceUtil
+#### IceUtil {% id="cpp11-iceutil" %}
 
-The `IceUtil` namespace and the `IceUtil` headers no longer exist. Use the following utilities from the `Ice` namespace;
-`Ice/Ice.h` includes their headers:
+The `IceUtil` namespace and the `IceUtil` headers no longer exist:
 
-| Ice 3.7                                                                     | Ice 3.8                                                             |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `IceUtil::CtrlCHandler`, `IceUtil::CtrlCHandlerCallback`                    | `Ice::CtrlCHandler`, `Ice::CtrlCHandlerCallback`                    |
-| `IceUtil::stringToWstring`, `IceUtil::wstringToString`                      | `Ice::stringToWstring`, `Ice::wstringToString`                      |
-| `IceUtil::nativeToUTF8`, `IceUtil::UTF8ToNative`                            | `Ice::nativeToUTF8`, `Ice::UTF8ToNative`                            |
-| `IceUtil::StringConverter`, `IceUtil::WstringConverter`                     | `Ice::StringConverter`, `Ice::WstringConverter`                     |
-| `IceUtil::setProcessStringConverter`, `IceUtil::setProcessWstringConverter` | `Ice::setProcessStringConverter`, `Ice::setProcessWstringConverter` |
-| `IceUtil::generateUUID`                                                     | `Ice::generateUUID`                                                 |
+- `Ice::CtrlCHandler` replaces `IceUtil::CtrlCHandler`.
+- The string converter API, such as `StringConverter` and `setProcessStringConverter`, is now in the `Ice` namespace.
+- The other `IceUtil` classes, such as `IceUtil::Mutex`, `IceUtil::Thread` and `IceUtil::Time`, have been removed: use
+  the C++ standard library.
 
-Replace the other `IceUtil` classes with the C++ standard library:
-
-| Ice 3.7                                           | C++ standard library                          |
-| ------------------------------------------------- | --------------------------------------------- |
-| `IceUtil::Mutex`, `IceUtil::RecMutex`             | `std::mutex`, `std::recursive_mutex`          |
-| `IceUtil::Mutex::Lock`, `IceUtil::RecMutex::Lock` | `std::lock_guard`, `std::unique_lock`         |
-| `IceUtil::Monitor`, `IceUtil::Cond`               | `std::condition_variable` with a `std::mutex` |
-| `IceUtil::Thread`                                 | `std::thread`                                 |
-| `IceUtil::Time`                                   | `std::chrono`                                 |
-| `IceUtil::Shared`, `IceUtil::Handle`              | `std::shared_ptr`                             |
-
-### Proxy Timeouts
-
-`ice_getInvocationTimeout` and `ice_getLocatorCacheTimeout` now return a `std::chrono::milliseconds`. In Ice 3.7, they
-return an `Ice::Int`: a number of milliseconds for the invocation timeout, and a number of seconds for the locator cache
-timeout.
-
-```diff
--int invocationTimeoutMs = greeter->ice_getInvocationTimeout();
--int locatorCacheTimeoutSec = greeter->ice_getLocatorCacheTimeout();
-+std::chrono::milliseconds invocationTimeout = greeter->ice_getInvocationTimeout();
-+auto locatorCacheTimeout =
-+    std::chrono::duration_cast<std::chrono::seconds>(greeter->ice_getLocatorCacheTimeout());
-```
-
-`ice_invocationTimeout` and `ice_locatorCacheTimeout` accept a `std::chrono::duration`. They also still accept an `int`,
-in milliseconds for `ice_invocationTimeout` and in seconds for `ice_locatorCacheTimeout`.
-
-### Plug-in Registration
+#### Plug-in Registration {% id="cpp11-plug-in-registration" %}
 
 `InitializationData::pluginFactories` replaces `Ice::registerPluginFactory` and the registration functions of
 `Ice/RegisterPlugins.h`. In Ice 3.7, a function such as `Ice::registerIceDiscovery` registers a plug-in for every
@@ -188,26 +157,127 @@ communicator the process creates afterwards. In Ice 3.8, you list the plug-in fa
 +auto communicator = Ice::initialize(initData);
 ```
 
-| Ice 3.7                                           | Ice 3.8                                                           |
-| ------------------------------------------------- | ----------------------------------------------------------------- |
-| `Ice::registerIceUDP`                             | `Ice::udpPluginFactory()`                                         |
-| `Ice::registerIceWS`                              | `Ice::wsPluginFactory()`                                          |
-| `Ice::registerIceDiscovery`                       | `IceDiscovery::discoveryPluginFactory()`                          |
-| `Ice::registerIceLocatorDiscovery`                | `IceLocatorDiscovery::locatorDiscoveryPluginFactory()`            |
-| `Ice::registerIceBT`                              | `IceBT::btPluginFactory()`                                        |
-| `Ice::registerIceIAP`                             | `Ice::iapPluginFactory()`                                         |
-| `Ice::registerIceSSL`                             | Remove the call: the SSL transport is built into the Ice library. |
-| `Ice::registerPluginFactory(name, factory, true)` | `Ice::PluginFactory{name, factory}`                               |
-
 See [Plug-in API](../plug-in-api) for more information.
 
-The string converter plug-in (`Ice::registerIceStringConverter`, or a plug-in with the entry point
-`Ice:createStringConverter`) no longer exists. Before you create a communicator, create the narrow string converter with
-`Ice::createWindowsStringConverter` on Windows or `Ice::createIconvStringConverter<char>` on the other platforms, and
-install it with `Ice::setProcessStringConverter`. Install a wide string converter, such as the one
-`Ice::createIconvStringConverter<wchar_t>` returns, with `Ice::setProcessWstringConverter`.
+### Upgrading from the C++98 Mapping
 
-`Ice::ThreadHookPlugin` no longer exists either. Set the `threadStart` and `threadStop` functions of
-`InitializationData`. These two functions also replace the `InitializationData::threadHook` of the C++98 mapping.
+#### Proxies {% id="cpp98-proxies" %}
+
+A proxy remains a `GreeterPrx` value. In the C++98 mapping, a null proxy is written `0`; in Ice 3.8, a proxy that can be
+null is a `std::optional<GreeterPrx>`, and `std::nullopt` replaces `0`. The Slice compiler maps a proxy parameter,
+return value or field to `std::optional<GreeterPrx>`.
+
+```diff
+-GreeterPrx greeter = 0;
++std::optional<GreeterPrx> greeter = std::nullopt;
+```
+
+`Ice::checkedCast` and `Ice::uncheckedCast` replace the static `checkedCast` and `uncheckedCast` functions of the proxy
+classes, and `Ice::checkedCast` returns a `std::optional`:
+
+```diff
+-GreeterPrx greeter = GreeterPrx::checkedCast(base);
++std::optional<GreeterPrx> greeter = Ice::checkedCast<GreeterPrx>(base);
+```
+
+The functions that create a proxy, such as `Communicator::propertyToProxy`, `ObjectAdapter::add` and
+`Connection::createProxy`, are now function templates: you choose the type of the proxy they return. The default is
+`Ice::ObjectPrx`; we recommend that you always specify the proxy type. For example:
+
+```cpp
+// widget is a std::optional<WidgetPrx>
+auto widget = communicator->propertyToProxy<WidgetPrx>("MyWidget");
+```
+
+#### Servants and Class Instances
+
+`GreeterPtr`, `Ice::ObjectPtr` and the other `Ptr` types are now aliases for `std::shared_ptr`, such as
+`std::shared_ptr<Greeter>`. Create servants and class instances with `std::make_shared`, and replace the `dynamicCast`
+function of these types with `std::dynamic_pointer_cast`:
+
+```diff
+-Ice::ObjectPtr servant = new GreeterI;
++Ice::ObjectPtr servant = std::make_shared<GreeterI>();
+```
+
+```diff
+-MyClassPtr instance = MyClassPtr::dynamicCast(value);
++MyClassPtr instance = std::dynamic_pointer_cast<MyClass>(value);
+```
+
+A servant function receives its in-parameters by value, where the C++98 mapping passes them by `const` reference:
+
+```diff
+-virtual std::string greet(const std::string& name, const Ice::Current& current);
++std::string greet(std::string name, const Ice::Current& current) override;
+```
+
+#### Asynchronous Invocations
+
+The `begin_` and `end_` functions and their callback objects no longer exist. Call the `Async` function of the operation
+instead: it returns a `std::future`, or accepts `response`, `exception` and `sent` callback functions.
+
+```diff
+-Ice::AsyncResultPtr result = greeter->begin_greet("alice");
+-std::string greeting = greeter->end_greet(result);
++std::future<std::string> future = greeter->greetAsync("alice");
++std::string greeting = future.get();
+```
+
+#### Asynchronous Dispatch
+
+For an operation with the `amd` metadata, the servant implements an `Async` function in place of the `_async` function,
+and the `AMD_` callback object becomes two functions: `response`, which replaces `ice_response`, and `exception`, which
+replaces `ice_exception`.
+
+```diff
+-virtual void greet_async(const AMD_Greeter_greetPtr& cb, const std::string& name, const Ice::Current& current);
++void greetAsync(std::string name, std::function<void(std::string_view)> response,
++                std::function<void(std::exception_ptr)> exception, const Ice::Current& current) override;
+```
+
+The Slice compiler also generates an asynchronous skeleton class, such as `AsyncGreeter`, in which every operation is
+dispatched this way, without the `amd` metadata.
+
+#### Optional Values {% id="cpp98-optional-values" %}
+
+`std::optional` replaces `IceUtil::Optional`, and `std::nullopt` replaces `IceUtil::None`.
+
+#### Integer Types {% id="cpp98-integer-types" %}
+
+The Slice compiler now maps the Slice integer types to the fixed-width integer types of the C++ standard library, and
+the `Ice::Byte`, `Ice::Short`, `Ice::Int`, `Ice::Long`, `Ice::Float` and `Ice::Double` aliases no longer exist:
+`std::uint8_t`, `std::int16_t`, `std::int32_t` and `std::int64_t` replace `Ice::Byte`, `Ice::Short`, `Ice::Int` and
+`Ice::Long`. A Slice `sequence<byte>` now maps to `std::vector<std::byte>`; in Ice 3.7, it mapped to
+`std::vector<Ice::Byte>`.
+
+#### IceUtil {% id="cpp98-iceutil" %}
+
+The `IceUtil` namespace and the `IceUtil` headers no longer exist:
+
+- `Ice::CtrlCHandler` replaces `IceUtil::CtrlCHandler`.
+- The string converter API, such as `StringConverter` and `setProcessStringConverter`, is now in the `Ice` namespace.
+- `std::shared_ptr` replaces `IceUtil::Handle`: a class held in a `std::shared_ptr` doesn't derive from
+  `IceUtil::Shared`.
+- The other `IceUtil` classes, such as `IceUtil::Mutex`, `IceUtil::Thread` and `IceUtil::Time`, have been removed: use
+  the C++ standard library.
+
+#### Plug-in Registration {% id="cpp98-plug-in-registration" %}
+
+`InitializationData::pluginFactories` replaces `Ice::registerPluginFactory` and the registration functions of
+`Ice/RegisterPlugins.h`. In Ice 3.7, a function such as `Ice::registerIceDiscovery` registers a plug-in for every
+communicator the process creates afterwards. In Ice 3.8, you list the plug-in factories of each communicator in the
+`InitializationData` you pass to `Ice::initialize`:
+
+```diff
+-Ice::registerIceDiscovery();
+-Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
++Ice::InitializationData initData;
++initData.properties = Ice::createProperties(argc, argv);
++initData.pluginFactories = {IceDiscovery::discoveryPluginFactory()};
++Ice::CommunicatorPtr communicator = Ice::initialize(initData);
+```
+
+See [Plug-in API](../plug-in-api) for more information.
 
 {% /language-section %}
