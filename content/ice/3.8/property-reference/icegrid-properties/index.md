@@ -123,8 +123,9 @@ be defined for each node.
 Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` and `stderr` of each
 server it starts to `path/server-id.out` and `path/server-id.err`, where `server-id` is the server's ID, except for a
 stream that the server's own configuration redirects with [Ice.StdOut](../ice-properties) or
-[Ice.StdErr](../ice-properties). If this property is not set, the servers share the `stdout` and `stderr` of the node's
-process.
+[Ice.StdErr](../ice-properties). With
+[IceGrid.Node.RedirectErrToOut](../icegrid-properties#icegrid.node.redirecterrtoout) set, `stderr` goes to the `.out`
+file too. If this property is not set, the servers share the `stdout` and `stderr` of the node's process.
 
 ## IceGrid.Node.PrintServersReady
 
@@ -203,7 +204,7 @@ The object adapter trace level:
 
 | Value | Description                                                             |
 | ----- | ----------------------------------------------------------------------- |
-| 0, 1  | No object adapter trace. The default value is 0.                        |
+| 0, 1  | No object adapter trace. The default value is `0`.                      |
 | 2     | Trace object adapter activation, deactivation, and activation failures. |
 | 3     | Like 2, plus requests waiting for the activation of an object adapter.  |
 
@@ -354,7 +355,7 @@ the `IceGrid::Admin` object that is returned by the `getAdmin` operation, the `I
 admin objects returned by `IceGrid::Admin::getServerAdmin`. If `num` is set to zero, IceGrid configures no filters, and
 access to objects is controlled solely by Glacier2's configuration.
 
-The default value is 0.
+The default value is `0`.
 
 ## IceGrid.Registry.AdminSessionManager._AdapterProperty_
 
@@ -539,8 +540,7 @@ always provides a direct adapter.)
 ### Description {% id="icegrid.registry.lmdb.mapsize-description" %}
 
 Specifies the map size for the IceGrid [LMDB](http://www.lmdb.tech/doc/) database environment. The value is specified in
-megabytes. If not specified or set to 0 or a negative value, IceGrid uses a system-dependent default: 10 MB on Windows,
-and 100 MB on other platforms.
+megabytes. If not set, IceGrid uses a system-dependent default: 10 MB on Windows, and 100 MB on other platforms.
 
 ## IceGrid.Registry.LMDB.Path
 
@@ -567,7 +567,7 @@ Each IceGrid node establishes a session with the registry that must be refreshed
 refresh its session within `num` seconds, the node's session is destroyed and the servers deployed on that node become
 unavailable to new clients. If not specified, the default value is 30 seconds.
 
-A value of 0 disables the expiration of node sessions; any other value must be at least 10.
+A value of `0` disables the expiration of node sessions; any other value must be at least `10`.
 
 ## IceGrid.Registry.PermissionsVerifier
 
@@ -607,7 +607,7 @@ refreshed periodically. If a replica does not refresh its session within `num` s
 destroyed and the replica no longer receives replication information from the master registry. If not specified, the
 default value is 30 seconds.
 
-A value of 0 disables the expiration of replica sessions; any other value must be at least 10.
+A value of `0` disables the expiration of replica sessions; any other value must be at least `10`.
 
 ## IceGrid.Registry.Server._AdapterProperty_
 
@@ -636,7 +636,7 @@ establishes these filters, so Glacier2 limits access to the `IceGrid::Query` and
 objects and adapters allocated by the session. If `num` is set to zero, IceGrid does not establish filters, so access to
 objects is controlled solely by Glacier2's configuration.
 
-The default value is 0.
+The default value is `0`.
 
 ## IceGrid.Registry.SessionManager._AdapterProperty_
 
@@ -820,10 +820,10 @@ The server trace level:
 
 The session trace level:
 
-| Value | Description                                                                                             |
-| ----- | ------------------------------------------------------------------------------------------------------- |
-| 0     | No client or admin session trace (default).                                                             |
-| 1     | Trace client or admin session creation and destruction, and exceptions raised by permissions verifiers. |
+| Value | Description                                                                                          |
+| ----- | ---------------------------------------------------------------------------------------------------- |
+| 0     | No client or admin session trace (default).                                                          |
+| 1     | Trace client or admin session creation and destruction, and failures to call a permissions verifier. |
 
 ## IceGrid.Registry.UserAccounts
 

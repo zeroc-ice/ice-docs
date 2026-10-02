@@ -49,8 +49,8 @@ Specifies the instance name that [icegridadmin](../icegridadmin-command-line-too
 [IceGridAdmin.Host](../icegridadmin-properties#icegridadmin.host): `icegridadmin` connects only if the registry uses
 this instance name.
 
-This property does not filter the registries found with [multicast discovery](../icelocatordiscovery); to ignore the
-registries of other instances, set [IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties).
+To limit [multicast discovery](../icelocatordiscovery) to one instance, set
+[IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties).
 
 ## IceGridAdmin.MetricsConfigs
 
