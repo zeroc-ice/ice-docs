@@ -22,7 +22,6 @@ import {
   CONTENT_ROOT,
   listVersions,
   listPages,
-  locate,
   readPageSources,
   readNavigation,
   readVersionSettings,
@@ -33,9 +32,17 @@ import {
 export const dynamicParams = false;
 
 type Params = {
-  /** The URL's segments: the version's path, then the page's slug. */
-  path?: string[];
+  /** The version's directory under `content/ice/`. */
+  version: string;
+  slug?: string[];
 };
+
+// This route serves the versions under `content/ice/`, at `/ice/<version>/…`.
+const PRODUCT = 'ice';
+const versions = () =>
+  listVersions(CONTENT_ROOT).filter(
+    (version) => path.posix.dirname(version) === PRODUCT
+  );
 
 type PageProps = {
   params: Promise<Params>;
@@ -50,16 +57,18 @@ function editUrl(file: string): string {
 
 export function generateStaticParams() {
   // The front page's slug is empty: it is served at the version root.
-  return listVersions(CONTENT_ROOT).flatMap((version) =>
+  return versions().flatMap((version) =>
     listPages(CONTENT_ROOT, version).map((page) => ({
-      path: [...version.split('/'), ...page.slug.split('/').filter(Boolean)]
+      version: path.posix.basename(version),
+      slug: page.slug ? page.slug.split('/') : []
     }))
   );
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const { path: segments } = await props.params;
-  const { version, slug } = locate(CONTENT_ROOT, segments ?? []);
+  const params = await props.params;
+  const version = `${PRODUCT}/${params.version}`;
+  const slug = params.slug?.join('/') ?? '';
   const page = listPages(CONTENT_ROOT, version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
@@ -79,8 +88,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function Page(props: PageProps) {
-  const { path: segments } = await props.params;
-  const { version, slug } = locate(CONTENT_ROOT, segments ?? []);
+  const params = await props.params;
+  const version = `${PRODUCT}/${params.version}`;
+  const slug = params.slug?.join('/') ?? '';
   const nav = readNavigation(CONTENT_ROOT, version);
   const { title: versionName, languages, sidebar } = nav;
 
@@ -120,16 +130,12 @@ export default async function Page(props: PageProps) {
   // page never breaks the links pointing at it.
   const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
 
-  // One dropdown entry per version of the same product, the versions in the
-  // same directory as this one, at this page's path.
-  const product = path.posix.dirname(version);
-  const versionOptions: VersionOption[] = listVersions(CONTENT_ROOT)
-    .filter((other) => path.posix.dirname(other) === product)
-    .map((other) => ({
-      value: other,
-      label: readVersionSettings(CONTENT_ROOT, other).title,
-      href: pageHref(other, slug)
-    }));
+  // One dropdown entry per version, at this page's path.
+  const versionOptions: VersionOption[] = versions().map((other) => ({
+    value: other,
+    label: readVersionSettings(CONTENT_ROOT, other).title,
+    href: pageHref(other, slug)
+  }));
 
   // The Release Notes chapter's pages, newest first, each with the date its
   // frontmatter gives. Only the front page shows them, and reading every one

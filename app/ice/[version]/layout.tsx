@@ -5,17 +5,16 @@ import type { Metadata } from 'next';
 import { buildSideNav, versionTitle } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
-import { CONTENT_ROOT, locate, readNavigation } from '@/lib/docs-model/content';
+import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
 
-type PathParams = { params: Promise<{ path?: string[] }> };
+type VersionParams = { params: Promise<{ version: string }> };
 
 // Every page of a version names it in its title: "Operations | Ice 3.8 Documentation".
 export async function generateMetadata({
   params
-}: PathParams): Promise<Metadata> {
-  const { path } = await params;
-  const { version } = locate(CONTENT_ROOT, path ?? []);
-  const { title } = readNavigation(CONTENT_ROOT, version);
+}: VersionParams): Promise<Metadata> {
+  const { version } = await params;
+  const { title } = readNavigation(CONTENT_ROOT, `ice/${version}`);
   return {
     title: {
       template: `%s | ${versionTitle(title)}`,
@@ -30,9 +29,8 @@ export async function generateMetadata({
 export default async function VersionLayout({
   params,
   children
-}: PathParams & { children: React.ReactNode }) {
-  const { path } = await params;
-  const { version } = locate(CONTENT_ROOT, path ?? []);
+}: VersionParams & { children: React.ReactNode }) {
+  const version = `ice/${(await params).version}`;
   const nav = readNavigation(CONTENT_ROOT, version);
 
   return (

@@ -66,25 +66,6 @@ function filesNamed(dir: string, name: string): string[] {
   });
 }
 
-/**
- * The version and slug a URL path names: the version is the longest one the
- * path starts with, the slug the rest. Throws when no version holds the path.
- */
-export function locate(
-  root: string,
-  segments: string[]
-): { version: string; slug: string } {
-  const version = listVersions(root)
-    .filter((candidate) => {
-      const parts = candidate.split('/');
-      return parts.every((part, i) => segments[i] === part);
-    })
-    .sort((a, b) => b.length - a.length)[0];
-  if (version === undefined)
-    throw new Error(`no version holds /${segments.join('/')}`);
-  return { version, slug: segments.slice(version.split('/').length).join('/') };
-}
-
 /** Every .md file under `dir`, as paths relative to it with `/` separators. */
 function markdownFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
