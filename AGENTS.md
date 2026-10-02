@@ -1,7 +1,7 @@
 # Agent instructions
 
-`README.md` describes the content layout, the shared-page and overlay model, the Markdoc tag rules and the commands.
-Read it first. This file covers the conventions that recur in review.
+Read `README.md` before working on the site, and `content/README.md` before writing or editing a page. This file covers
+the conventions that recur in review.
 
 ## Writing
 
