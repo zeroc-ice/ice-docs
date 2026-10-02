@@ -11,7 +11,7 @@ identity and facet, and the value is the associated servant.
 
 In most servers, the ASM is the main component of the [dispatch pipeline](../dispatch-pipeline):
 
-![The client proxy contains endpoint 212.8.7.33 and identity Joe. The request reaches the server object adapter, whose active servant map associates Fred, Joe, and Carl with servants. The highlighted Joe entry selects the matching servant.](/attachments/3.8/active-servant-map/binding-request-to-servant.svg)
+![The client proxy contains endpoint 212.8.7.33 and identity Joe. The request reaches the server object adapter, whose active servant map associates Fred, Joe, and Carl with servants. The highlighted Joe entry selects the matching servant.](/images/ice/3.8/active-servant-map/binding-request-to-servant.svg)
 
 _Dispatching a request to the correct servant._
 

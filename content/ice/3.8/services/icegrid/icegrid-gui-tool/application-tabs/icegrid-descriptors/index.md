@@ -19,4 +19,4 @@ in an IceGrid XML representation.
 
 IceGrid GUI maps these descriptors to nodes on a tree representation:
 
-![descriptors-tree.png](/attachments/3.8/icegrid-descriptors/descriptors-tree.png)
+![descriptors-tree.png](/images/ice/3.8/icegrid-descriptors/descriptors-tree.png)

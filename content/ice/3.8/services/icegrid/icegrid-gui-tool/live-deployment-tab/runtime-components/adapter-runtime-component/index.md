@@ -7,8 +7,8 @@ service. Note that direct object adapters are not displayed since IceGrid knows 
 
 ## States
 
-An adapter can be either active ![adapter active](/attachments/3.8/adapter-runtime-component/adapter-active.jpeg) or
-inactive ![adapter inactive](/attachments/3.8/adapter-runtime-component/adapter-inactive.jpeg).
+An adapter can be either active ![adapter active](/images/ice/3.8/adapter-runtime-component/adapter-active.jpeg) or
+inactive ![adapter inactive](/images/ice/3.8/adapter-runtime-component/adapter-inactive.jpeg).
 
 ## Properties
 

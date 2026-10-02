@@ -37,7 +37,7 @@ The Registry Properties panel shows:
 - **Properties** A table showing all the Ice properties currently set in this registry.
 - **Deployed Applications**
 
-![image2017-4-3 14:13:35.png](/attachments/3.8/registry-runtime-component/image2017-4-3-14-13-35.png)
+![image2017-4-3 14:13:35.png](/images/ice/3.8/registry-runtime-component/image2017-4-3-14-13-35.png)
 
 This table shows all the applications deployed on this IceGrid registry, along with the date and time of the last update
 of each application. A contextual menu allows you to:
@@ -48,7 +48,7 @@ of each application. A contextual menu allows you to:
 
 - **Dynamic Well-Known Objects**
 
-![dynamic-well-known.png](/attachments/3.8/registry-runtime-component/dynamic-well-known.png)
+![dynamic-well-known.png](/images/ice/3.8/registry-runtime-component/dynamic-well-known.png)
 
 This table shows the well-known objects registry dynamically with the IceGrid registry: well-known objects defined using
 adapter and replica-group definitions are not included. A contextual menu allows you to add or remove entries from this

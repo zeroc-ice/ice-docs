@@ -2,12 +2,12 @@
 # https://lychee.cli.rs/
 
 # Only the links that leave the site. Pages link to each other by page name
-# (`../enumerations`) and to images by site path (`/attachments/...`); both are
+# (`../enumerations`) and to images by site path (`/images/...`); both are
 # resolved by the build, and checked by `npm run check:markdoc` (pages and their
 # anchors) and `npm run check:content` (images), not by lychee.
 scheme = ["https", "http"]
 
-# Root-relative links (`/attachments/...`) resolve against the served tree, so
+# Root-relative links (`/images/...`) resolve against the served tree, so
 # lychee can tell them apart from links that leave the site.
 root_dir = "public"
 

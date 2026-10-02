@@ -38,7 +38,8 @@ Each page of the docs is a directory under `content/`, and its path there is its
 | `content/ice/<version>/<page>/<lang>.md` | Fills the slots for one language, or is the whole page when there is no `index.md`.                                                                                            |
 | `content/ice/<version>/version.yaml`     | The version's settings: `status` and `languages`.                                                                                                                              |
 | `content/ice/<version>/redirects.yaml`   | Redirects from old page URLs.                                                                                                                                                  |
-| `public/attachments/<version>/<page>/`   | Images.                                                                                                                                                                        |
+| `public/images/ice/<version>/<page>/`    | Page images.                                                                                                                                                                   |
+| `public/images/site/`                    | Images the site itself uses.                                                                                                                                                   |
 
 A page and its overlays render as one document: each distinct answer to a slot appears once, wrapped in `{% iflang %}`
 for its languages, and the stylesheet shows the reader's. `lib/docs-model/resolve.ts` has the slot states.

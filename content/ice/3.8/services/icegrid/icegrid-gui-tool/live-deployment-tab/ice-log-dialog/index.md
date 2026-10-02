@@ -6,7 +6,7 @@ The Ice Log dialog shows the Ice log messages of a server, service, node or regi
 monitored Ice application sends these log messages to a [remote logger](../logger-facet) implemented by the Ice Log
 dialog.
 
-![image2017-4-3 14:21:22.png](/attachments/3.8/ice-log-dialog/image2017-4-3-14-21-22.png)
+![image2017-4-3 14:21:22.png](/images/ice/3.8/ice-log-dialog/image2017-4-3-14-21-22.png)
 
 ## States
 
@@ -29,7 +29,7 @@ destroy the associated communicator.
 Use the `Edit > Preferences...` menu to open the Preferences dialog. These preferences apply to the current dialog and
 to any Ice Log dialog opened later on.
 
-![image2017-4-3 14:21:53.png](/attachments/3.8/ice-log-dialog/image2017-4-3-14-21-53.png)
+![image2017-4-3 14:21:53.png](/images/ice/3.8/ice-log-dialog/image2017-4-3-14-21-53.png)
 
 This dialog allows you to view and update the following settings:
 
@@ -41,7 +41,7 @@ This dialog allows you to view and update the following settings:
 
 Use the `Edit > Filter...` menu to open the Filter dialog. This filter applies only to the current Ice Log dialog.
 
-![image2017-4-3 14:22:25.png](/attachments/3.8/ice-log-dialog/image2017-4-3-14-22-25.png)
+![image2017-4-3 14:22:25.png](/images/ice/3.8/ice-log-dialog/image2017-4-3-14-22-25.png)
 
 This dialog allows you to filter the log messages sent by the monitored Ice applications. All the filtering is done in
 this remote Ice application.
