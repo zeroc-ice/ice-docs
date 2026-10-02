@@ -10,7 +10,7 @@
 //   <root>/…/<version>/examples/...           (snippet sources)
 //   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
-// A version is one of the site's (app/versions.ts), named by its path under
+// A version is one the site defines (app/ice/versions.ts), named by its path under
 // the root, `ice/3.8`, which is also its URL. A page is a directory, and its
 // path under the version is its slug, the path in its URL:
 // `ice/3.8/slice/enumerations/index.md` is the page named `enumerations`,
