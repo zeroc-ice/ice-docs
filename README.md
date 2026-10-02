@@ -1,4 +1,4 @@
-# Ice Docs
+# Ice Documentation
 
 Source for [docs.zeroc.com](https://docs.zeroc.com), the documentation for [Ice](https://github.com/zeroc-ice/ice).
 
