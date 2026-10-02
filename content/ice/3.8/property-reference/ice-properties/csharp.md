@@ -73,9 +73,9 @@ for comments and escaping.
 
 ### Description {% id="ice.consolelistener-description" %}
 
-When the communicator uses Ice's default trace logger, a value greater than `0` adds Ice's console listener to
-`System.Diagnostics.Trace.Listeners`. This listener writes messages to `stderr`. The default value is `1`. With `0`, the
-logger continues writing through `System.Diagnostics.Trace` using the existing listeners.
+When the communicator uses Ice's default trace logger, `1` adds Ice's console listener to
+`System.Diagnostics.Trace.Listeners`. This listener writes messages to `stderr`. With `0`, the logger continues writing
+through `System.Diagnostics.Trace` using the existing listeners.
 
 Ice consults this property when no logger is supplied in `InitializationData`, `Ice.LogFile` is empty and the
 [per-process logger](../per-process-logger) is Ice's default logger.

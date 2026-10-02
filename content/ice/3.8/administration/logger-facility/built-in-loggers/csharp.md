@@ -17,9 +17,4 @@ EventLogTraceListener myTraceListener =
 Trace.Listeners.Add(myTraceListener);
 ```
 
-## Syslog Logger
-
-You can activate a logger that logs via the Unix `syslog` implementation by setting the
-[Ice.UseSyslog](../ice-properties) property.
-
 {% /language-section %}

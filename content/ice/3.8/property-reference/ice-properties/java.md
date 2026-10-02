@@ -26,7 +26,8 @@ for dispatches.
 
 {% /callout %}
 
-Values greater than 1 select direct message buffers; other values select non-direct buffers.
+Ice for Java allocates non-direct message buffers when this property is set to `1` and direct message buffers when set
+to `2`. Use of direct message buffers minimizes copying and typically results in improved throughput.
 
 {% /language-section %}
 
