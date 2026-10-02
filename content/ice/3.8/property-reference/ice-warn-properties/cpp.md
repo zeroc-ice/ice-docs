@@ -13,17 +13,4 @@ default value is 1.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
-
-## Ice.Warn.Executor
-
-### Synopsis {% id="ice.warn.executor-synopsis" %}
-
-`Ice.Warn.Executor=num`
-
-### Description {% id="ice.warn.executor-description" %}
-
-If `num` is greater than 1, Ice logs a warning when a custom executor supplied through `InitializationData.executor`
-throws an exception. The default value is 1.
-
-{% /language-section %}
+{% language-section name="lang-2" state="no-addition" /%}
