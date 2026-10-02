@@ -342,9 +342,9 @@ icegridadmin --Ice.Config=/opt/ripper/config
 If an update changes the configuration of a server that is currently running, such as its properties, executable or
 object adapters, IceGrid automatically stops the server prior to performing the update; an update that changes only
 descriptions leaves the server running. After the update, the node starts an enabled server with the `always` activation
-mode again. The node starts any other stopped server when it next activates it, for example on the next client request
-for an enabled `on-demand` server or on an administrative `server start`. We can determine whether an update would
-require any restarts using the `application diff` command:
+mode again. The node starts any other enabled server when it next activates it, for example on the next client request
+for an `on-demand` server or on an administrative `server start`. We can determine whether an update would require any
+restarts using the `application diff` command:
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
