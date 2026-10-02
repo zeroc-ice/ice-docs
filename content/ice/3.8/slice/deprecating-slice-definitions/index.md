@@ -26,4 +26,4 @@ structures and classes.
 
 ## See Also
 
-- [Generating Slice Documentation](../generating-slice-documentation)
+- [`@deprecated` Doc-Comment Tag](../doc-comment-structure#@deprecated)

@@ -11,8 +11,10 @@ title: IceBox.*
 ### Description {% id="icebox.inheritproperties-description" %}
 
 If `num` is set to a value larger than zero, each service
-[inherits the configuration properties](../configuring-icebox-services) of the IceBox server's communicator. If not
-defined, the default value is zero.
+[inherits the configuration properties](../configuring-icebox-services) of the IceBox server's communicator, except the
+properties whose names start with `IceBox.` or `Ice.Admin.`. Properties set by the service arguments in
+[IceBox.Service.name](../icebox-properties#icebox.service.name) override inherited properties. If not defined, the
+default value is zero.
 
 ## IceBox.LoadOrder
 
@@ -23,8 +25,9 @@ defined, the default value is zero.
 ### Description {% id="icebox.loadorder-description" %}
 
 Determines the [order](../configuring-icebox-services) in which services are loaded. The service manager loads the
-services in the order they appear in `names`, where each service name is separated by a comma or white space. Any
-services not mentioned in `names` are loaded afterward, in an undefined order.
+services in the order they appear in `names`, where each service name is separated by a comma or white space. Each name
+must have a matching `IceBox.Service.name` property. Any services not mentioned in `names` are loaded afterward, in an
+undefined order.
 
 ## IceBox.PrintServicesReady
 
@@ -34,9 +37,8 @@ services not mentioned in `names` are loaded afterward, in an undefined order.
 
 ### Description {% id="icebox.printservicesready-description" %}
 
-If this property is set to a value greater than zero, the service manager prints "`token` ready" on standard output once
-initialization of all the services is complete. This is useful for scripts that need to wait until all services are
-ready to be used.
+If this property is set, the service manager prints "`token` ready" on standard output once initialization of all the
+services is complete. This is useful for scripts that need to wait until all services are ready to be used.
 
 ## IceBox.Service._name_
 
@@ -46,11 +48,12 @@ ready to be used.
 
 ### Description {% id="icebox.service.name-description" %}
 
-Defines a [service](../configuring-icebox-services) to be loaded during IceBox initialization. Any arguments that follow
-the entry point are examined; those matching the `--name=value` pattern are interpreted as property definitions and
-appear in the property set of the communicator that is passed to the service `start` method, and all remaining arguments
-are passed to the `start` method in the `args` parameter. Whitespace separates the arguments, and any arguments that
-contain whitespace must be enclosed in quotes.
+Defines a [service](../configuring-icebox-services) to be loaded during IceBox initialization. The service manager
+examines the arguments that follow the entry point. An argument of the form `--prefix.key=value`, where `prefix` is one
+of the [reserved prefixes](../properties-overview) such as `Ice`, or the service `name`, sets a property in the
+communicator that the service manager passes to the service `start` method; `--Ice.Config=file` loads a configuration
+file into that communicator. The service manager passes all remaining arguments to the `start` method in the `args`
+parameter. Whitespace separates the arguments, and any arguments that contain whitespace must be enclosed in quotes.
 
 {% language-section name="lang-1" /%}
 

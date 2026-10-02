@@ -5,8 +5,8 @@ In C++, `entry_point` has the form `path[,version]:function`.
 The `path` and optional `version` components are used to construct the name of a DLL or shared library. If no version is
 supplied, the version is the empty string. The `function` component is the name of a function with extern C linkage. For
 example, the entry point `IceStormService,38:createIceStorm` implies a shared library name of `libIceStormService.so.38`
-on Linux and `IceStormService38.dll` on Windows. Furthermore, if IceBox is built on Windows with debugging, a `d` is
-automatically appended to the version (e.g., `IceStormService37d.dll`).
+on Linux, `libIceStormService.38.dylib` on macOS, and `IceStormService38.dll` on Windows. Furthermore, a Windows debug
+build of the Ice library appends a `d` to the version (e.g., `IceStormService38d.dll`).
 
 The function must be declared with extern C linkage and have the following signature:
 

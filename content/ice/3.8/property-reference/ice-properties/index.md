@@ -29,9 +29,16 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 ### Description {% id="ice.batchautoflushsize-description" %}
 
 This property controls how the Ice runtime deals with flushing of [batch messages](../batched-invocations). If `num` is
-set to a value greater than 0, the runtime automatically forces a flush of the current batch when a new message is added
-to a batch and that message would cause the batch to exceed `num` KiB. If `num` is set to 0 or a negative number,
-batches must be flushed explicitly by the application. If not defined, the default value is `1024`.
+greater than `0`, the runtime automatically forces a flush of the current batch when a new message is added to a batch
+and that message would cause the batch to reach or exceed `num` KiB (1024 bytes per KiB). For stream transports, `0`
+disables automatic flushing: the application must flush batches explicitly. If not defined, the default value is `1024`.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+For datagram proxies, Ice caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties) bytes, or 65507 bytes
+when that property is not set, including when `num` is `0`.
+
+{% /iflang %}
 
 {% callout type="warning" %}
 
@@ -69,10 +76,10 @@ Setting this property to 0 (or to a negative number) disables the depth limit al
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
-for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
-that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
-significant improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Values range
+from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that higher
+levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a significant
+improvement over lower levels. If not specified, the default value is `1`.
 
 ## Ice.Config
 
@@ -225,12 +232,29 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 ### Description {% id="ice.logfile-description" %}
 
-Replaces the communicator's [default logger](../default-logger) with a simple file-based logger implementation. This
-property does not affect the [per-process logger](../per-process-logger). The logger creates the specified file if
-necessary, otherwise it appends to the file. If the logger is unable to open the file, the application receives an
-`InitializationException` during [communicator initialization](../initialization-and-destruction). If a logger object is
-supplied in the `InitializationData` argument during communicator initialization, it takes precedence over this
-property.
+Selects a file-based [logger](../default-logger) for the communicator. The logger appends messages to the specified file
+and creates the file if necessary. A logger supplied in `InitializationData` takes precedence over this property. The
+[per-process logger](../per-process-logger) is unchanged.
+
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+
+Among the logging backends available on the platform, Ice checks `Ice.UseSyslog`, `Ice.UseOSLog`,
+`Ice.UseSystemdJournal` and `Ice.LogFile` in that order. `Ice.UseSyslog` and `Ice.LogFile` cannot be combined. An
+enabled OSLog or systemd logger takes precedence over the file logger.
+
+{% /iflang %}
+
+{% iflang langs="java" %}
+
+On platforms other than Windows, `Ice.UseSyslog` and `Ice.LogFile` cannot be combined.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+Browsers do not support this property.
+
+{% /iflang %}
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -244,8 +268,8 @@ property.
 
 When `num` is greater than 0, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
 Before writing a message that would bring a non-empty log file to or above this threshold, the Ice file-based logger
-renames the file to _baselogfilename_-_datetimestamp_._ext_ and creates a new log file. The logger writes each message
-in full, even if the message exceeds the threshold.
+renames the file to `basename-YYYYMMDD-HHMMSS.ext` and creates a new log file. The logger writes each message in full,
+even if the message exceeds the threshold.
 
 When `num` is 0 or negative, the logger writes to a single file with unlimited size. The default value is 0.
 
@@ -422,10 +446,24 @@ require the Ice PDB files.
 
 ### Description {% id="ice.programname-description" %}
 
-`name` is the program name, which is used for logging. This name is
-[set automatically](../command-line-parsing-and-initialization) from `argv[0]` (C++) and from
-`AppDomain.CurrentDomain.FriendlyName` (C#) during initialization. For Java, `Ice.ProgramName` is initialized to the
-empty string. The default name can be overridden by setting this property.
+Specifies the program name used for logging. If this property is empty, communicator initialization selects the
+following default:
+
+| Language            | Default                                                                                                                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C++                 | `argv[0]` when you create the communicator with `Ice::initialize(argc, argv)`; otherwise the executable's base name on Linux, macOS, and Windows, and an empty string on other platforms. |
+| MATLAB              | The executable's base name.                                                                                                                                                               |
+| C#                  | `AppDomain.CurrentDomain.FriendlyName`.                                                                                                                                                   |
+| Java and JavaScript | An empty string.                                                                                                                                                                          |
+| Python              | The base name of `sys.argv[0]`, when available.                                                                                                                                           |
+| Ruby                | The base name of `$0`.                                                                                                                                                                    |
+| PHP                 | The base name of `$_SERVER['SCRIPT_FILENAME']`, when available.                                                                                                                           |
+| Swift               | The last path component of `CommandLine.arguments.first`, when available.                                                                                                                 |
+
+For mappings based on the C++ runtime, an empty language-specific default falls back to the executable's base name on
+Linux, macOS and Windows. Setting this property to a non-empty value overrides the default.
+
+In C# and Java, Ice also uses this value as a prefix for runtime thread names.
 
 ## Ice.RetryIntervals
 
@@ -438,7 +476,7 @@ empty string. The default name can be overridden by setting this property.
 This property defines the number of times an operation is [automatically retried](../automatic-retries) and the delay
 between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times: immediately
 after the first failure, again after waiting 100ms after the second failure, and again after waiting 500ms after the
-third failure. The default value (`0`) means Ice retries once immediately. If set to `-1`, no retry occurs.
+third failure. The default value (`0`) means Ice retries once immediately. A first value of `-1` disables retries.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -502,9 +540,12 @@ proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
 
-Ice currently only supports the SOCKS4 protocol, which means only IPv4 connections are allowed.
+Ice supports the SOCKS4 protocol, which requires IPv4. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are set, Ice
+uses the SOCKS proxy.
 
 {% /callout %}
+
+SOCKS proxies are not supported on the iOS simulator.
 
 ## Ice.SOCKSProxyPort
 
@@ -580,12 +621,13 @@ The default value is `Unicode`.
 
 ### Synopsis {% id="ice.useoslog-synopsis" %}
 
-`Ice.UseOSLog=num` (macOS and iOS)
+`Ice.UseOSLog=num` (Apple platforms)
 
 ### Description {% id="ice.useoslog-description" %}
 
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs using
-[OSLog](https://developer.apple.com/documentation/os/oslog).
+[OSLog](https://developer.apple.com/documentation/os/oslog). The subsystem is `com.zeroc.ice` when `Ice.ProgramName` is
+empty, or `com.zeroc.ice.<ProgramName>` otherwise.
 
 ## Ice.UseSyslog
 
@@ -622,6 +664,8 @@ opened when the first syslog logger is created and closed when the last one is d
 If `num` is set to a value larger than 0, a special [logger](../logger-facility) is installed that logs to the systemd
 journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as their syslog
 identifier (the `SYSLOG_IDENTIFIER` journal field), so you can filter them with `journalctl -t name`.
+
+This property takes effect only when Ice was built with systemd support.
 
 {% /iflang %}
 

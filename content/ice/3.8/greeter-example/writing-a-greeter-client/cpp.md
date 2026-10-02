@@ -149,14 +149,14 @@ You can instead call `greet` _asynchronously_, with one of the two `greetAsync` 
 class. The simpler overload returns a `future`:
 
 ```cpp
-future<string> futureGreeting = greeter.greetAsync("bob"); // Send the request.
+future<string> futureGreeting = greeter.greetAsync("bob"); // Start the invocation.
 
 // Wait for the response.
 greeting = futureGreeting.get();
 cout << greeting << endl;
 ```
 
-`greetAsync` returns as soon as the request is sent, so the client can do other work before it needs the greeting.
+`greetAsync` starts the invocation and returns a future, so the client can do other work before it needs the greeting.
 Calling `get` on the future then blocks until the response arrives.
 
 The other overload accepts callback functions instead of returning a future. The communicator calls these callbacks when

@@ -2,7 +2,7 @@
 
 import type { TokenStream } from 'prismjs';
 
-import Prism from './prism-languages.js';
+import Prism from './prism-languages.ts';
 import { tokenStyle } from './prism-theme.ts';
 
 interface Run {
