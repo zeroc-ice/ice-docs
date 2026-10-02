@@ -14,11 +14,11 @@ use `uncheckedCast` to narrow the publisher object to any type and invoke any op
 unknowingly forwards those requests to the subscribers.
 
 If a publisher sends a request using an incorrect type, the Ice run time in a subscriber typically responds by raising
-`OperationNotExistException`. The publisher's invocation completes once the publisher object has queued the message for
-the subscribers, whatever the outcome of each delivery. IceStorm receives the exception only from a subscriber that
-subscribed with a twoway proxy, and handles it as a delivery failure, which cancels the subscription unless the
-subscriber's `retryCount` allows a retry. In short, IceStorm places the burden on the developer to ensure that
-publishers and subscribers are using it correctly.
+`OperationNotExistException`. A twoway invocation by the publisher completes once the publisher object has queued the
+message for the subscribers, whatever the outcome of each delivery. IceStorm receives the exception only from a
+subscriber that subscribed with a twoway proxy, and handles it as a delivery failure, which cancels the subscription
+unless the subscriber's `retryCount` allows a retry. In short, IceStorm places the burden on the developer to ensure
+that publishers and subscribers are using it correctly.
 
 ## Publish using Oneway or Twoway Invocations?
 
