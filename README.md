@@ -25,7 +25,7 @@ npm run lint           # eslint and markdownlint
 npm run format         # prettier
 ```
 
-CI runs all of these, so run them before pushing.
+CI runs the same checks, so run them before pushing.
 
 ## Repository layout
 
