@@ -8,7 +8,7 @@ better support type hints.
 The following changes may require updates to your projects:
 
 - The slice2py options **--all** and **--prefix** have been removed.
-- The slice2py options **--no-package** and **--build-package** have been replaced by **--build**.
+- The slice2py option **--build** replaces the **--no-package** and **--build-package** options.
 - slice2py replaces the package index files (`__init__.py`) each time it generates them.
 - The **python:package** and **python:pkgdir** metadata directives have been removed.
 - The **name** and **location** of Python generated files has changed.
@@ -235,9 +235,9 @@ See [Code Generation](../code-generation).
 
 ## Arguments of Ice.initialize
 
-Pass an `Ice.InitializationData` object to `Ice.initialize` with the `initData` keyword argument, in place of the
-argument list. Ice 3.7 accepted an argument list followed by an `InitializationData` object or by the name of a
-configuration file, and accepted each of them alone as the first argument.
+`Ice.initialize` takes either an argument list, such as `Ice.initialize(sys.argv)`, or an `Ice.InitializationData`
+object as the `initData` keyword argument. Ice 3.7 also accepted an argument list followed by an `InitializationData`
+object or by the name of a configuration file, and accepted each of them alone as the first argument.
 
 To combine command-line arguments with an `InitializationData` object, create the properties of this object from the
 arguments:
@@ -264,7 +264,7 @@ object as the defaults to `Ice.createProperties`:
 
 ## Optional Values
 
-`Ice.Unset` is removed. Ice 3.8 uses `None` for an optional parameter, return value, or field without a value, and the
+Ice 3.8 removes `Ice.Unset` and uses `None` for an optional parameter, return value, or field without a value, and the
 generated classes and exceptions use `None` as the initial value of an optional field with no default value in Slice.
 
 ```diff
@@ -273,9 +273,10 @@ generated classes and exceptions use `None` as the initial value of an optional 
      print(greeting)
 ```
 
-Review the code that passes `None` for an optional parameter or field. Ice 3.7 sent `None` as a value: a null proxy, an
-empty sequence, an empty dictionary, or a default-constructed struct. Ice 3.8 sends no value for `None`. To keep sending
-a value, pass an empty list, an empty dictionary, or a new instance of the struct:
+Review the code that passes `None` for an optional parameter or field. Ice 3.7 sent `None` as a value: `False` for a
+`bool`, an empty string for a `string`, a null proxy, an empty sequence, an empty dictionary, or a default-constructed
+struct. Ice 3.8 sends no value for `None`. To keep sending a value, pass `False`, an empty string, an empty list, an
+empty dictionary, or a new instance of the struct:
 
 ```diff
 -greeter.greetAll(None)
@@ -287,8 +288,8 @@ application that relies on this distinction needs to represent it with a separat
 
 ## Enumerations
 
-A generated enumeration now derives from the `enum.Enum` class of Python, and `Ice.EnumBase` is removed. An enumerator
-keeps its `name` and `value` attributes. Update the code that uses the following:
+A generated enumeration now derives from the `enum.Enum` class of Python, and Ice 3.8 removes `Ice.EnumBase`. An
+enumerator keeps its `name` and `value` attributes. Update the code that uses the following:
 
 - `valueOf`: call the enumeration with the value. `Color.valueOf(n)` returned `None` when no enumerator has the value
   `n`; `Color(n)` raises `ValueError`.
@@ -320,10 +321,10 @@ code that compares such a field with `None`.
 
 ## Asynchronous Invocations
 
-The `begin_` and `end_` methods are removed, together with `Ice.AsyncResult`. Call the `Async` method of the same
-operation, such as `greetAsync` or `flushBatchRequestsAsync`, which Ice 3.7 also provides. When you create the
-communicator without an event loop and without an event loop adapter, a proxy's `Async` method returns an
-`Ice.InvocationFuture` as in Ice 3.7, and your application does not need to use `asyncio`:
+Ice 3.8 removes the `begin_` and `end_` methods and `Ice.AsyncResult`. Call the `Async` method of the same operation,
+such as `greetAsync` or `flushBatchRequestsAsync`, which Ice 3.7 also provides. When you create the communicator without
+an event loop and without an event loop adapter, a proxy's `Async` method returns an `Ice.InvocationFuture` as in Ice
+3.7, and your application does not need to use `asyncio`:
 
 ```diff
 -result = greeter.begin_greet("alice")
@@ -359,9 +360,9 @@ Replace the `python:seq:list` and `python:seq:tuple` metadata with `python:list`
 
 The factory function of a `python:memoryview` directive now takes two parameters, the memory view and the element type.
 Ice 3.7 passed a third parameter, `copy`. The memory view always refers to the buffer that Ice unmarshals from, as it
-did in Ice 3.7 when `copy` was true, and Ice passes `None` for an empty sequence. `Ice.createArray` and
-`Ice.createNumPyArray` are removed: use the `python:array.array` and `python:numpy.ndarray` metadata, or create the
-sequence in your factory function.
+did in Ice 3.7 when `copy` was true, and Ice passes `None` for an empty sequence. Ice 3.8 removes `Ice.createArray` and
+`Ice.createNumPyArray`: use the `python:array.array` and `python:numpy.ndarray` metadata, or create the sequence in your
+factory function.
 
 ```diff
 -def myIntSeq(buffer, type, copy):
@@ -389,6 +390,6 @@ mapping.
 
 ## UUIDs
 
-`Ice.generateUUID` is removed. Call `str(uuid.uuid4())` with the `uuid` module of Python.
+Ice 3.8 removes `Ice.generateUUID`. Call `str(uuid.uuid4())` with the `uuid` module of Python.
 
 {% /language-section %}
