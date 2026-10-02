@@ -71,9 +71,9 @@ the `slice2js` compiler of Ice 3.8.
 
 ## Mapping for Slice long
 
-Slice `long` now maps to the JavaScript `bigint` type, and the `Ice.Long` class has been removed. Every `long` that your
-application receives, such as a return value, an out parameter or a field, is a `bigint`. A `long` parameter that your
-application sends accepts a `number` or a `bigint`.
+Ice 3.8 maps Slice `long` to the JavaScript `bigint` type and no longer provides the `Ice.Long` class. Every `long` that
+your application receives, such as a return value, an out parameter or a field, is a `bigint`. Your application can pass
+a `number` or a `bigint` for a `long` parameter.
 
 ```diff
 -const size = new Ice.Long(0, 1024);
@@ -103,8 +103,8 @@ an entry that `map.get(1)` does not. A dictionary with a struct key still maps t
 
 Ice 3.7 marshaled a default-initialized struct in place of a `null` struct, and the first enumerator of the enumeration
 in place of a `null` enumerator. Ice 3.8 reports an error when it marshals `null` for a non-optional struct or
-enumeration. Set each non-optional struct and enumeration parameter and field to a value before your application sends
-it.
+enumeration. Set each non-optional struct and enumeration parameter, field, sequence element, and dictionary key and
+value to a value before your application sends it.
 
 ## Bundling
 
@@ -143,7 +143,7 @@ export default {
 
 ## Node.js and Browsers
 
-The `@zeroc/ice` package requires Node.js 22.16.0 or later. The WebSocket transport is supported with Node.js 24 or
+The `@zeroc/ice` package requires Node.js 22.16.0 or later. Ice supports the WebSocket transport with Node.js 24 or
 later. Ice 3.8 does not support Internet Explorer.
 
 {% /language-section %}
