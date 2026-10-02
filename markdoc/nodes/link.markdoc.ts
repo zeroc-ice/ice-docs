@@ -15,10 +15,10 @@ const link = {
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
     const children = node.transformChildren(config);
-    const { version, pageIndex } = config.variables as PageVariables;
+    const { docs, pageIndex } = config.variables as PageVariables;
 
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
-      version,
+      docs,
       index: pageIndex
     });
 

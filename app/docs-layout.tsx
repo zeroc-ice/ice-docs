@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next';
 
-import { buildSideNav, versionTitle, type Version } from '@/lib/docs-model/nav';
+import { buildSideNav, docsTitle, type Docs } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
 import { readNavigation } from '@/lib/docs-model/content';
@@ -11,11 +11,11 @@ import { readNavigation } from '@/lib/docs-model/content';
 // wrapper that names its version and hands the rest to these.
 
 /** Every page of a version names it in its title: "Operations | Ice 3.8 Documentation". */
-export function docsLayoutMetadata(version: Version): Metadata {
+export function docsLayoutMetadata(docs: Docs): Metadata {
   return {
     title: {
-      template: `%s | ${versionTitle(version)}`,
-      default: versionTitle(version)
+      template: `%s | ${docsTitle(docs)}`,
+      default: docsTitle(docs)
     }
   };
 }
@@ -24,24 +24,21 @@ export function docsLayoutMetadata(version: Version): Metadata {
 // sidebar. A layout rather than part of each page, so the client router fetches
 // the sidebar once per version rather than with every page it prefetches.
 export function DocsLayout({
-  version,
+  docs,
   children
 }: {
-  version: Version;
+  docs: Docs;
   children: React.ReactNode;
 }) {
-  const nav = readNavigation(version);
+  const nav = readNavigation(docs);
 
   return (
     <div className="flex grow flex-col">
-      <VersionBanner version={version} />
+      <VersionBanner docs={docs} />
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the version's table of contents. */}
-          <SideNav
-            nodes={buildSideNav(nav.sidebar, version)}
-            version={version}
-          />
+          <SideNav nodes={buildSideNav(nav.sidebar, docs)} docs={docs} />
 
           {/* Content */}
           <div className="grow pb-8">

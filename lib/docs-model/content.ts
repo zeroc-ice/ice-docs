@@ -3,14 +3,13 @@
 // Filesystem layer for the Ice docs content model. Reads page sources and
 // discovers routes under a content root laid out as:
 //
-//   <root>/…/<version>/version.yaml           a version: its settings, with its pages under it
 //   <root>/…/<version>/index.md               the front page
 //   <root>/…/<version>/<dir>/…/<name>/index.md a page, at its URL path
 //   <root>/…/<version>/<dir>/…/<name>/<lang>.md one of its language overlays
 //   <root>/…/<version>/examples/...           (snippet sources)
 //   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
-// A version is one the site defines (app/ice/versions.ts), named by its path under
+// A version is one the site defines (app/ice/docs.ts), named by its path under
 // the root, `ice/3.8`, which is also its URL. A page is a directory, and its
 // path under the version is its slug, the path in its URL:
 // `ice/3.8/slice/enumerations/index.md` is the page named `enumerations`,
@@ -32,7 +31,7 @@ import {
   pageHref,
   type NavDoc,
   type NavNode,
-  type Version
+  type Docs
 } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
@@ -87,8 +86,8 @@ const pagesCache = new Map<string, PageFiles[]>();
  * each would otherwise re-walk the whole content tree. Never cached in
  * development, where pages change while the server is running.
  */
-export function listPages(version: Version): PageFiles[] {
-  const base = path.join(CONTENT_ROOT, version.path);
+export function listPages(docs: Docs): PageFiles[] {
+  const base = path.join(CONTENT_ROOT, docs.path);
   const cacheable = process.env.NODE_ENV === 'production';
   let pages = cacheable ? pagesCache.get(base) : undefined;
   if (!pages) {
@@ -158,16 +157,16 @@ export function writtenFor(page: PageFiles): string[] | undefined {
  * node takes its page's title. Throws when the version has no front page, or
  * when a page lists a page it does not contain.
  */
-export function readNavigation(version: Version): NavDoc {
+export function readNavigation(docs: Docs): NavDoc {
   type Listed = { title: string; pages?: string[] };
-  const bySlug = new Map(listPages(version).map((p) => [p.slug, p]));
+  const bySlug = new Map(listPages(docs).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
     names.map((name) => {
       const slug = parent ? `${parent}/${name}` : name;
       const page = bySlug.get(slug);
       if (!page)
         throw new Error(
-          `${version.path}/${parent || 'index.md'} lists "${name}", which is not a page in it`
+          `${docs.path}/${parent || 'index.md'} lists "${name}", which is not a page in it`
         );
       const { title, pages } = readFrontmatter<Listed>(page);
       return {
@@ -181,7 +180,7 @@ export function readNavigation(version: Version): NavDoc {
   const front = bySlug.get('');
   if (!front)
     throw new Error(
-      `${version.path} has no front page (index.md at the version root)`
+      `${docs.path} has no front page (index.md at the version root)`
     );
   const { pages } = readFrontmatter<Listed>(front);
   return {
@@ -198,7 +197,7 @@ export function readNavigation(version: Version): NavDoc {
 }
 
 /** The site's redirects, for Next's `redirects` config: every `redirects.yaml` under the root (see listRedirects). */
-export function readRedirects(versions: Version[]) {
+export function readRedirects(versions: Docs[]) {
   return listRedirects(versions).map(({ source, destination, permanent }) => ({
     source,
     destination,
@@ -215,10 +214,10 @@ export function readRedirects(versions: Version[]) {
  * `.` is that URL itself. Its `include` list names files beside it of the same
  * shape. Throws when a destination names a page that does not exist.
  */
-export function listRedirects(versions: Version[]) {
+export function listRedirects(versions: Docs[]) {
   const pages = new Set(
-    versions.flatMap((version) =>
-      listPages(version).map((page) => pageHref(version, page.slug))
+    versions.flatMap((docs) =>
+      listPages(docs).map((page) => pageHref(docs, page.slug))
     )
   );
   const read = (
@@ -279,7 +278,7 @@ export function listRedirects(versions: Version[]) {
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
-export function snippetReader(version: Version): (file: string) => string {
-  const base = path.join(CONTENT_ROOT, version.path);
+export function snippetReader(docs: Docs): (file: string) => string {
+  const base = path.join(CONTENT_ROOT, docs.path);
   return (file: string) => fs.readFileSync(path.join(base, file), 'utf8');
 }

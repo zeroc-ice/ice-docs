@@ -9,7 +9,7 @@ import { clsx } from 'clsx';
 import { ChevronRight, Menu, X } from 'lucide-react';
 
 import {
-  type Version,
+  type Docs,
   type SideNavNode,
   SITE_TITLE,
   activeTrailKeys,
@@ -57,11 +57,11 @@ function writeState(key: string, value: unknown) {
 // entry whose link is the address's path.
 export function SideNav({
   nodes,
-  version
+  docs
 }: {
   nodes: SideNavNode[];
   /** What the reader had open is kept per version. */
-  version: Version;
+  docs: Docs;
 }) {
   // Storage is read after mount, so the server and the first client render
   // agree.
@@ -82,10 +82,10 @@ export function SideNav({
   const initialOpen = useMemo(() => {
     const open = new Set(trail);
     if (mounted)
-      for (const key of readState<string[]>(openKey(version.path), []))
+      for (const key of readState<string[]>(openKey(docs.path), []))
         open.add(key);
     return open;
-  }, [mounted, trail, version]);
+  }, [mounted, trail, docs]);
   const [clicked, setClicked] = useState<Set<string> | null>(null);
   const [clickedOn, setClickedOn] = useState(pathname);
   if (clickedOn !== pathname) {
@@ -105,8 +105,8 @@ export function SideNav({
   // its own for this page has to stay open on the next one too, or the tree
   // would shrink above the reader's place.
   useEffect(() => {
-    if (mounted) writeState(openKey(version.path), [...open]);
-  }, [mounted, open, version]);
+    if (mounted) writeState(openKey(docs.path), [...open]);
+  }, [mounted, open, docs]);
 
   // On load and on every navigation, make sure the current page is in view: it
   // is when the reader clicked it in the rail, and may not be when they

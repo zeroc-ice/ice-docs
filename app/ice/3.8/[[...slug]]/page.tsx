@@ -8,19 +8,19 @@ import {
   docsPageParams,
   type PageProps
 } from '@/app/docs-page';
-import { ICE_VERSIONS } from '../../versions';
-import { VERSION } from '../version';
+import { ICE_DOCS } from '../../docs';
+import { ICE_3_8 } from '../docs';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return docsPageParams(VERSION);
+  return docsPageParams(ICE_3_8);
 }
 
 export function generateMetadata(props: PageProps): Promise<Metadata> {
-  return docsPageMetadata(VERSION, props);
+  return docsPageMetadata(ICE_3_8, props);
 }
 
 export default function Page(props: PageProps) {
-  return <DocsPage version={VERSION} versions={ICE_VERSIONS} {...props} />;
+  return <DocsPage docs={ICE_3_8} versions={ICE_DOCS} {...props} />;
 }

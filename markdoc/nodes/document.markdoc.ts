@@ -19,7 +19,7 @@ const document = {
   render: 'Document',
   attributes: nodes.document.attributes,
   transform(node: Node, config: Config) {
-    const { frontmatter, chrome, path, readingTime, version } =
+    const { frontmatter, chrome, path, readingTime, docs } =
       config.variables as PageVariables;
     const children = node.transformChildren(config);
     const headings = children.map((child) => extractHeadings(child, [])).flat();
@@ -40,7 +40,7 @@ const document = {
         edit: chrome.edit,
         readingTime:
           frontmatter.showReadingTime !== false ? readingTime : undefined,
-        languages: version.languages,
+        languages: docs.languages,
         writtenFor: chrome.writtenFor,
         showAside: frontmatter.showAside,
         showReadingTime: frontmatter.showReadingTime,
