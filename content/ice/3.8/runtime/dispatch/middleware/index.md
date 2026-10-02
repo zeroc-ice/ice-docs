@@ -22,6 +22,6 @@ the dispatch processing by returning a cached response or by returning an error.
 
 Ice installs automatically the following middleware at the beginning of the dispatch pipeline:
 
-- the logger middleware, unless both `Ice.Warning.Dispatch` and `Ice.Trace.Dispatch` are set to `0`.
+- the logger middleware, unless both `Ice.Warn.Dispatch` and `Ice.Trace.Dispatch` are set to `0`.
 - the observer middleware, when the [Metrics admin facet](administration/administrative-facility/metrics-facet) is
   enabled.
