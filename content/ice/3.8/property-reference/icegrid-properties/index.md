@@ -120,10 +120,9 @@ be defined for each node.
 
 ### Description {% id="icegrid.node.output-description" %}
 
-Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` and `stderr` of each
-server it starts to `path/server-id.out` and `path/server-id.err`, where `server-id` is the server's ID, except for a
-stream that the server's own configuration redirects with [Ice.StdOut](../ice-properties) or
-[Ice.StdErr](../ice-properties). With
+Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` of each server it starts
+to `path/server-id.out` and its `stderr` to `path/server-id.err`, where `server-id` is the server's ID. A server whose
+own configuration sets [Ice.StdOut](../ice-properties) or [Ice.StdErr](../ice-properties) keeps that setting. With
 [IceGrid.Node.RedirectErrToOut](../icegrid-properties#icegrid.node.redirecterrtoout) set, `stderr` goes to the `.out`
 file too. If this property is not set, the servers share the `stdout` and `stderr` of the node's process.
 
