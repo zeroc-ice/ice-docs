@@ -313,6 +313,9 @@ The replica group's descriptor specifies the filter:
 Notice that the filter identifier `filterByCurrency` matches that used when the plug-in
 [registered the filter](../load-balancing).
 
+A filter that the plug-in registers with an empty ID applies to every replica group whose descriptor has no `filter`
+attribute, including the replica groups that object adapters register dynamically.
+
 In this example, the client uses a [request context](../load-balancing) to indicate the desired currency. The context is
 configured on the locator proxy in the client's configuration file:
 
@@ -399,6 +402,15 @@ attributes.
 ### Implementing a Custom Type Filter
 
 A type filter must define a subclass of [IceGrid::TypeFilter](https://code.zeroc.com/manual/IceGrid/TypeFilter).
+
+The plug-in registers a type filter with `addTypeFilter`, passing the type ID of the well-known objects to filter. The
+registry calls the filter when a client looks up well-known objects of this type through the `IceGrid::Query` interface:
+
+```cpp
+facade->addTypeFilter(
+    "::Demo::PricingEngine",
+    make_shared<CustomTypeFilter>(facade));
+```
 
 {% callout type="warning" %}
 
