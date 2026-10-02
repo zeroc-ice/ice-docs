@@ -15,8 +15,7 @@ const { index } = buildPageIndex([
 ]);
 
 const VERSION = {
-  key: 'ice/3.8',
-  href: '/ice/3.8',
+  path: 'ice/3.8',
   title: 'Ice 3.8',
   languages: []
 };

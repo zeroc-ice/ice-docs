@@ -5,11 +5,8 @@ import type { Metadata } from 'next';
 import { buildSideNav, versionTitle } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
-import {
-  CONTENT_ROOT,
-  readNavigation,
-  readVersion
-} from '@/lib/docs-model/content';
+import { readNavigation } from '@/lib/docs-model/content';
+import { iceVersion } from '@/app/ice/versions';
 
 type VersionParams = { params: Promise<{ version: string }> };
 
@@ -17,7 +14,7 @@ type VersionParams = { params: Promise<{ version: string }> };
 export async function generateMetadata({
   params
 }: VersionParams): Promise<Metadata> {
-  const version = readVersion(CONTENT_ROOT, `ice/${(await params).version}`);
+  const version = iceVersion((await params).version);
   return {
     title: {
       template: `%s | ${versionTitle(version)}`,
@@ -33,8 +30,8 @@ export default async function VersionLayout({
   params,
   children
 }: VersionParams & { children: React.ReactNode }) {
-  const version = readVersion(CONTENT_ROOT, `ice/${(await params).version}`);
-  const nav = readNavigation(CONTENT_ROOT, version);
+  const version = iceVersion((await params).version);
+  const nav = readNavigation(version);
 
   return (
     <div className="flex grow flex-col">

@@ -44,13 +44,13 @@ import {
 import {
   CONTENT_ROOT,
   frontmatterOf,
-  listVersions,
   listPages,
   readNavigation,
   readPageSources,
   snippetReader,
   type PageFiles
 } from '../lib/docs-model/content.ts';
+import { VERSIONS } from '../app/versions.ts';
 import { navigationPages, type Version } from '../lib/docs-model/nav.ts';
 
 const strict = process.argv.includes('--strict');
@@ -403,9 +403,9 @@ function checkHeadings(
   pages: PageFiles[],
   languages: string[]
 ) {
-  const readFile = snippetReader(CONTENT_ROOT, version);
+  const readFile = snippetReader(version);
   for (const page of pages) {
-    const where = `${version.key}/${page.slug}`;
+    const where = `${version.path}/${page.slug}`;
     const { shared, overlays } = readPageSources(page);
     let body: string;
     try {
@@ -452,14 +452,14 @@ function checkHeadings(
   }
 }
 
-for (const version of listVersions(CONTENT_ROOT)) {
-  const nav = readNavigation(CONTENT_ROOT, version);
+for (const version of VERSIONS) {
+  const nav = readNavigation(version);
 
-  const pages = listPages(CONTENT_ROOT, version);
+  const pages = listPages(version);
   const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const { languages } = version;
-  const where = version.key;
+  const where = version.path;
 
   console.log(`\n${where}: ${pages.length} pages`);
 

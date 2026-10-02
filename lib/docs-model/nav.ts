@@ -25,7 +25,7 @@ export type PageType =
   | 'troubleshooting'
   | 'release-note';
 
-/** A version's settings, from its `version.yaml`. */
+/** A version's settings. */
 export interface VersionSettings {
   /** The version's name as readers see it: `Ice 3.8`. */
   title: string;
@@ -35,12 +35,10 @@ export interface VersionSettings {
   status?: 'latest' | 'maintenance' | 'archived';
 }
 
-/** A version of the documentation: its settings, where it lives, and where it is served. */
+/** A version of the documentation: its settings and where it lives, which is also where it is served. */
 export interface Version extends VersionSettings {
-  /** Its path under the content root, `ice/3.8`. */
-  key: string;
-  /** Its URL, `/ice/3.8`. */
-  href: string;
+  /** Its path under the content root, `ice/3.8`, and so its URL, `/ice/3.8`. */
+  path: string;
 }
 
 export interface NavDoc {
@@ -100,7 +98,7 @@ export function buildSideNav(
 
 /** The URL of the page with `slug` in `version`; the front page, whose slug is empty, is at the version's root. */
 export function pageHref(version: Version, slug?: string): string {
-  return slug ? `${version.href}/${slug}` : version.href;
+  return slug ? `/${version.path}/${slug}` : `/${version.path}`;
 }
 
 /**

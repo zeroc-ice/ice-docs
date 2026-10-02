@@ -10,7 +10,7 @@
 //   <root>/…/<version>/examples/...           (snippet sources)
 //   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
-// A version is a directory holding a `version.yaml`, known by its path under
+// A version is one of the site's (app/versions.ts), named by its path under
 // the root, `ice/3.8`, which is also its URL. A page is a directory, and its
 // path under the version is its slug, the path in its URL:
 // `ice/3.8/slice/enumerations/index.md` is the page named `enumerations`,
@@ -32,39 +32,12 @@ import {
   pageHref,
   type NavDoc,
   type NavNode,
-  type Version,
-  type VersionSettings
+  type Version
 } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
 /** The content root, under the repository root that npm and Next run from. */
 export const CONTENT_ROOT = path.join(process.cwd(), 'content');
-
-/** Every version under the root: each directory holding a `version.yaml`, by its path under the root. */
-export function listVersions(root: string): Version[] {
-  return versionDirectories(root)
-    .map((dir) => path.relative(root, dir).split(path.sep).join('/'))
-    .sort()
-    .map((key) => readVersion(root, key));
-}
-
-/** The version at `key`, its path under the root: its settings from its `version.yaml`, and its URL. */
-export function readVersion(root: string, key: string): Version {
-  const settings = yamlLoad(
-    fs.readFileSync(path.join(root, key, 'version.yaml'), 'utf8')
-  ) as VersionSettings;
-  return { ...settings, key, href: `/${key}` };
-}
-
-/** The directories under `dir` that hold a `version.yaml`; a version's pages are not searched. */
-function versionDirectories(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  if (fs.existsSync(path.join(dir, 'version.yaml'))) return [dir];
-  return fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .flatMap((entry) => versionDirectories(path.join(dir, entry.name)));
-}
 
 /** Every file called `name` under `dir`. */
 function filesNamed(dir: string, name: string): string[] {
@@ -114,8 +87,8 @@ const pagesCache = new Map<string, PageFiles[]>();
  * each would otherwise re-walk the whole content tree. Never cached in
  * development, where pages change while the server is running.
  */
-export function listPages(root: string, version: Version): PageFiles[] {
-  const base = path.join(root, version.key);
+export function listPages(version: Version): PageFiles[] {
+  const base = path.join(CONTENT_ROOT, version.path);
   const cacheable = process.env.NODE_ENV === 'production';
   let pages = cacheable ? pagesCache.get(base) : undefined;
   if (!pages) {
@@ -185,16 +158,16 @@ export function writtenFor(page: PageFiles): string[] | undefined {
  * node takes its page's title. Throws when the version has no front page, or
  * when a page lists a page it does not contain.
  */
-export function readNavigation(root: string, version: Version): NavDoc {
+export function readNavigation(version: Version): NavDoc {
   type Listed = { title: string; pages?: string[] };
-  const bySlug = new Map(listPages(root, version).map((p) => [p.slug, p]));
+  const bySlug = new Map(listPages(version).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
     names.map((name) => {
       const slug = parent ? `${parent}/${name}` : name;
       const page = bySlug.get(slug);
       if (!page)
         throw new Error(
-          `${version.key}/${parent || 'index.md'} lists "${name}", which is not a page in it`
+          `${version.path}/${parent || 'index.md'} lists "${name}", which is not a page in it`
         );
       const { title, pages } = readFrontmatter<Listed>(page);
       return {
@@ -208,7 +181,7 @@ export function readNavigation(root: string, version: Version): NavDoc {
   const front = bySlug.get('');
   if (!front)
     throw new Error(
-      `${version.key} has no front page (index.md at the version root)`
+      `${version.path} has no front page (index.md at the version root)`
     );
   const { pages } = readFrontmatter<Listed>(front);
   return {
@@ -225,8 +198,8 @@ export function readNavigation(root: string, version: Version): NavDoc {
 }
 
 /** The site's redirects, for Next's `redirects` config: every `redirects.yaml` under the root (see listRedirects). */
-export function readRedirects(root: string) {
-  return listRedirects(root).map(({ source, destination, permanent }) => ({
+export function readRedirects(versions: Version[]) {
+  return listRedirects(versions).map(({ source, destination, permanent }) => ({
     source,
     destination,
     permanent
@@ -242,10 +215,10 @@ export function readRedirects(root: string) {
  * `.` is that URL itself. Its `include` list names files beside it of the same
  * shape. Throws when a destination names a page that does not exist.
  */
-export function listRedirects(root: string) {
+export function listRedirects(versions: Version[]) {
   const pages = new Set(
-    listVersions(root).flatMap((version) =>
-      listPages(root, version).map((page) => pageHref(version, page.slug))
+    versions.flatMap((version) =>
+      listPages(version).map((page) => pageHref(version, page.slug))
     )
   );
   const read = (
@@ -257,7 +230,7 @@ export function listRedirects(root: string) {
     permanent: boolean;
   }[] => {
     const prefix = path
-      .relative(root, path.dirname(file))
+      .relative(CONTENT_ROOT, path.dirname(file))
       .split(path.sep)
       .filter(Boolean)
       .map((segment) => `/${segment}`)
@@ -273,7 +246,7 @@ export function listRedirects(root: string) {
       permanent?: Record<string, string>;
       temporary?: Record<string, string>;
     };
-    const where = path.relative(root, file);
+    const where = path.relative(CONTENT_ROOT, file);
     const own = [
       ...Object.entries(doc.permanent ?? {}).map(
         (entry) => [...entry, true] as const
@@ -302,14 +275,11 @@ export function listRedirects(root: string) {
       )
     ];
   };
-  return filesNamed(root, 'redirects.yaml').flatMap(read);
+  return filesNamed(CONTENT_ROOT, 'redirects.yaml').flatMap(read);
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
-export function snippetReader(
-  root: string,
-  version: Version
-): (file: string) => string {
-  const base = path.join(root, version.key);
+export function snippetReader(version: Version): (file: string) => string {
+  const base = path.join(CONTENT_ROOT, version.path);
   return (file: string) => fs.readFileSync(path.join(base, file), 'utf8');
 }

@@ -49,14 +49,13 @@ import Markdoc, {
 import config from '../markdoc/config.ts';
 import { parse } from '../markdoc/parse.ts';
 import {
-  CONTENT_ROOT,
   frontmatterOf,
   listPages,
-  listVersions,
   readPageSources,
   listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
+import { VERSIONS } from '../app/versions.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
 import { pageHref, type Version } from '../lib/docs-model/nav.ts';
 import { resolveDocument } from '../lib/docs-model/resolve.ts';
@@ -114,11 +113,11 @@ function variablesFor({
   slug: string;
   frontmatter: Record<string, unknown>;
 }) {
-  if (!pageIndexes.has(version.key)) {
+  if (!pageIndexes.has(version.path)) {
     const { index } = buildPageIndex(
-      listPages(CONTENT_ROOT, version).map((page) => page.slug)
+      listPages(version).map((page) => page.slug)
     );
-    pageIndexes.set(version.key, index);
+    pageIndexes.set(version.path, index);
   }
   return {
     ...config.variables,
@@ -126,7 +125,7 @@ function variablesFor({
     path: pageHref(version, slug),
     readingTime: {},
     version,
-    pageIndex: pageIndexes.get(version.key),
+    pageIndex: pageIndexes.get(version.path),
     chrome: { breadcrumbs: [], pagination: [] }
   };
 }
@@ -138,8 +137,8 @@ const reported = new Set<string>();
 // 1. Every page as written.
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
-for (const version of listVersions(CONTENT_ROOT)) {
-  const files = listPages(CONTENT_ROOT, version).flatMap((page) =>
+for (const version of VERSIONS) {
+  const files = listPages(version).flatMap((page) =>
     [page.shared, ...Object.values(page.overlays)]
       .filter((file) => file !== undefined)
       .map((file) => ({ file, slug: page.slug }))
@@ -194,21 +193,21 @@ const checkedLinks: {
   href: string;
   languages: string[];
 }[] = [];
-const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
-  listPages(CONTENT_ROOT, version).map((page) => ({ version, page }))
+const allPages = VERSIONS.flatMap((version) =>
+  listPages(version).map((page) => ({ version, page }))
 );
 for (const { version, page } of allPages) {
   rendered++;
   const { slug } = page;
   const { shared, overlays, frontmatter } = readPageSources(page);
-  const where = `${version.key}/${slug} (assembled)`;
+  const where = `${version.path}/${slug} (assembled)`;
   let body: string;
   try {
     // The same step as the page route.
     body = resolveDocument({
       shared: shared ?? '',
       overlays,
-      readFile: snippetReader(CONTENT_ROOT, version)
+      readFile: snippetReader(version)
     });
   } catch (error) {
     diagnostics.push({
@@ -325,12 +324,13 @@ for (const { where, url, href, languages } of checkedLinks) {
 
 // A redirect to a section (see listRedirects) must land on a heading the URL's
 // language shows.
-const versions = listVersions(CONTENT_ROOT);
-for (const { file, source, destination } of listRedirects(CONTENT_ROOT)) {
-  const version = versions.find((v) => source.startsWith(`${v.href}/`));
+for (const { file, source, destination } of listRedirects(VERSIONS)) {
+  const version = VERSIONS.find((v) => source.startsWith(`${pageHref(v)}/`));
   if (!version) continue;
   const [, languages, rest] =
-    source.slice(version.href.length + 1).match(/^:lang\(([^)]*)\)(.*)$/) ?? [];
+    source
+      .slice(pageHref(version).length + 1)
+      .match(/^:lang\(([^)]*)\)(.*)$/) ?? [];
   const [beforeHash, hash] = destination.split('#');
   if (!languages || hash === undefined) continue;
   const page = beforeHash.split('?')[0];
@@ -344,7 +344,7 @@ for (const { file, source, destination } of listRedirects(CONTENT_ROOT)) {
     if (!headings.some(shown))
       diagnostics.push({
         where: file,
-        text: `${version.href}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
+        text: `${pageHref(version)}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
       });
   }
 }

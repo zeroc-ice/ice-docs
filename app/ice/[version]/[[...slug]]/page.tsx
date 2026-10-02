@@ -17,14 +17,12 @@ import {
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
+import { ICE_VERSIONS, iceVersion } from '@/app/ice/versions';
 import { SITE_URL } from '@/lib/site';
 import {
-  CONTENT_ROOT,
-  listVersions,
   listPages,
   readPageSources,
   readNavigation,
-  readVersion,
   snippetReader,
   writtenFor
 } from '@/lib/docs-model/content';
@@ -36,13 +34,6 @@ type Params = {
   version: string;
   slug?: string[];
 };
-
-// This route serves the versions under `content/ice/`, at `/ice/<version>/…`.
-const PRODUCT = 'ice';
-const versions = () =>
-  listVersions(CONTENT_ROOT).filter(
-    (version) => path.posix.dirname(version.key) === PRODUCT
-  );
 
 type PageProps = {
   params: Promise<Params>;
@@ -57,9 +48,9 @@ function editUrl(file: string): string {
 
 export function generateStaticParams() {
   // The front page's slug is empty: it is served at the version root.
-  return versions().flatMap((version) =>
-    listPages(CONTENT_ROOT, version).map((page) => ({
-      version: path.posix.basename(version.key),
+  return ICE_VERSIONS.flatMap((version) =>
+    listPages(version).map((page) => ({
+      version: path.posix.basename(version.path),
       slug: page.slug ? page.slug.split('/') : []
     }))
   );
@@ -67,9 +58,9 @@ export function generateStaticParams() {
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
-  const version = readVersion(CONTENT_ROOT, `${PRODUCT}/${params.version}`);
+  const version = iceVersion(params.version);
   const slug = params.slug?.join('/') ?? '';
-  const page = listPages(CONTENT_ROOT, version).find((p) => p.slug === slug)!;
+  const page = listPages(version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
   return {
@@ -83,12 +74,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
 export default async function Page(props: PageProps) {
   const params = await props.params;
-  const version = readVersion(CONTENT_ROOT, `${PRODUCT}/${params.version}`);
+  const version = iceVersion(params.version);
   const slug = params.slug?.join('/') ?? '';
-  const { sidebar } = readNavigation(CONTENT_ROOT, version);
+  const { sidebar } = readNavigation(version);
   const { languages } = version;
 
-  const pages = listPages(CONTENT_ROOT, version);
+  const pages = listPages(version);
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
@@ -125,7 +116,7 @@ export default async function Page(props: PageProps) {
   const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
-  const versionOptions: VersionOption[] = versions().map((other) => ({
+  const versionOptions: VersionOption[] = ICE_VERSIONS.map((other) => ({
     version: other,
     href: pageHref(other, slug)
   }));
@@ -147,7 +138,7 @@ export default async function Page(props: PageProps) {
   const body = resolveDocument({
     shared: shared ?? '',
     overlays,
-    readFile: snippetReader(CONTENT_ROOT, version)
+    readFile: snippetReader(version)
   });
   const content = renderMarkdownString({
     source: body,

@@ -82,7 +82,7 @@ export function SideNav({
   const initialOpen = useMemo(() => {
     const open = new Set(trail);
     if (mounted)
-      for (const key of readState<string[]>(openKey(version.key), []))
+      for (const key of readState<string[]>(openKey(version.path), []))
         open.add(key);
     return open;
   }, [mounted, trail, version]);
@@ -105,7 +105,7 @@ export function SideNav({
   // its own for this page has to stay open on the next one too, or the tree
   // would shrink above the reader's place.
   useEffect(() => {
-    if (mounted) writeState(openKey(version.key), [...open]);
+    if (mounted) writeState(openKey(version.path), [...open]);
   }, [mounted, open, version]);
 
   // On load and on every navigation, make sure the current page is in view: it

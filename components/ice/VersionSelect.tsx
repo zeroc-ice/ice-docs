@@ -49,9 +49,9 @@ export function VersionItems({ current, options }: VersionSelectProps) {
     <>
       {options.map((option) => (
         <MenuItem
-          key={option.version.key}
+          key={option.version.path}
           href={option.href}
-          checked={option.version.key === current.key}
+          checked={option.version.path === current.path}
         >
           {option.version.title}
         </MenuItem>

@@ -42,7 +42,7 @@ export function Search({ version }: { version: Version }) {
   const [index, setIndex] = useState<{ key: string; pages: Record[] } | null>(
     null
   );
-  const records = index?.key === version.key ? index.pages : null;
+  const records = index?.key === version.path ? index.pages : null;
 
   // ⌘K / Ctrl-K from anywhere. The modal dialog closes itself on Escape.
   useEffect(() => {
@@ -70,10 +70,10 @@ export function Search({ version }: { version: Version }) {
     if (!dialog.open) dialog.showModal();
     inputRef.current?.focus();
     if (records) return;
-    fetch(`/search/${version.key}.json`)
+    fetch(`/search/${version.path}.json`)
       .then((response) => response.json() as Promise<{ pages: Record[] }>)
-      .then((data) => setIndex({ key: version.key, pages: data.pages }))
-      .catch(() => setIndex({ key: version.key, pages: [] }));
+      .then((data) => setIndex({ key: version.path, pages: data.pages }))
+      .catch(() => setIndex({ key: version.path, pages: [] }));
   }, [open, records, version]);
 
   const results = useMemo(() => {
