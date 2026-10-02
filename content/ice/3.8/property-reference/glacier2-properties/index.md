@@ -186,7 +186,7 @@ Specifies a space-separated list of identity categories. If defined, the Glacier
 [filters requests](../../services/glacier2/securing-a-glacier2-router) so that it accepts requests to Ice objects with
 an identity whose category matches one of the categories in this list, and forwards a request that this filter or
 another identity or adapter identifier filter accepts. If
-[Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-0 value,
+[Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-zero value,
 the router automatically adds the non-empty user name of each session created with `createSession` to this list.
 
 Categories that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within a
