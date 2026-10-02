@@ -13,7 +13,7 @@ For example:
 Root@fsadapter      # proxy to Root object hosted by object adapter fsadapter
                     # two-way proxy by default
 
-Root@fsadapter -o   # oneway proxy
+Root -o @ fsadapter # oneway proxy
 ```
 
 When you invoke an operation on such an indirect proxy, Ice first _resolves_ the object adapter identifier–Ice checks if
@@ -21,9 +21,15 @@ it corresponds to a local object adapter, or retrieves the endpoints published b
 
 The resolution proceeds as follows:
 
+{% iflang langs="js" %}
+
+Ice for JavaScript does not provide collocation optimization, so the resolution starts at step 2.
+
+{% /iflang %}
+
 1. If [collocation optimization](runtime/collocated-invocation-and-dispatch) is enabled (the default), Ice checks if an
-   [object adapter](runtime/dispatch) associated with the same communicator as the proxy has the desired object adapter
-   identifier (set through [ReplicaGroupId](property-reference/object-adapter-properties) or
+   [object adapter](runtime/dispatch) created by the proxy's communicator has the desired object adapter identifier (set
+   through [ReplicaGroupId](property-reference/object-adapter-properties) or
    [AdapterId](property-reference/object-adapter-properties)). If there is such an object adapter, Ice then sends
    requests to this object adapter using collocation optimization. The
    [holding state](runtime/dispatch/object-adapter-activation-and-deactivation) of the object adapters is ignored for

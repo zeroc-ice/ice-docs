@@ -86,7 +86,7 @@ The request fields are described in the following table.
 | ----------- | ------------------------------------------------------------------------------------------ |
 | `requestId` | The request identifier                                                                     |
 | `id`        | The [object identity](runtime/object-identity)                                             |
-| `facet`     | The [facet](versioning) name (zero- or one-element sequence)                               |
+| `facet`     | The [facet](runtime/facets) name (zero- or one-element sequence)                           |
 | `operation` | The operation name                                                                         |
 | `mode`      | A byte representation of `Ice::OperationMode` (`0`=normal, `2`=idempotent)                 |
 | `context`   | The invocation [context](runtime/invocation/request-contexts)                              |
@@ -121,14 +121,14 @@ struct BatchRequestData
 
 The batch request fields are described in the following table.
 
-| **Field**   | **Description**                                              |
-| ----------- | ------------------------------------------------------------ |
-| `id`        | The [object identity](runtime/object-identity)               |
-| `facet`     | The [facet](versioning) name (zero- or one-element sequence) |
-| `operation` | The operation name                                           |
-| `mode`      | A byte representation of `Ice::OperationMode`                |
-| `context`   | The request [context](runtime/invocation/request-contexts)   |
-| `params`    | The encapsulated input parameters, in order of declaration   |
+| **Field**   | **Description**                                                  |
+| ----------- | ---------------------------------------------------------------- |
+| `id`        | The [object identity](runtime/object-identity)                   |
+| `facet`     | The [facet](runtime/facets) name (zero- or one-element sequence) |
+| `operation` | The operation name                                               |
+| `mode`      | A byte representation of `Ice::OperationMode`                    |
+| `context`   | The request [context](runtime/invocation/request-contexts)       |
+| `params`    | The encapsulated input parameters, in order of declaration       |
 
 Note that no request ID is necessary for batch requests because only oneway invocations can be batched.
 

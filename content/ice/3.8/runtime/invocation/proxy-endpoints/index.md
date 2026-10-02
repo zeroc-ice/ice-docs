@@ -98,15 +98,17 @@ MyObject
 
 Just like with the `@` style, the communicator requests endpoint(s) for such a proxy from the locator.
 
-{% callout type="warning" %}
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
-Locator optional
+{% callout type="info" title="Locator optional" %}
 
 An indirect proxy can also refer to a collocated target object. In this case, you don’t need to configure a locator to
 resolve the endpoints of this proxy - Ice doesn’t need any endpoint since it doesn’t establish a network connection to
 this local object adapter.
 
 {% /callout %}
+
+{% /iflang %}
 
 ## See Also
 
