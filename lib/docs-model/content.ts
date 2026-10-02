@@ -259,8 +259,8 @@ export function readRedirects(root: string) {
  * `temporary` map, or both, from source pattern to destination as Next's
  * `redirects` config takes them, relative to the URL of the file's directory:
  * in `ice/3.8/services/redirects.yaml` both are under `/ice/3.8/services`, and
- * `.` is that URL itself. Throws when a destination names a page that does not
- * exist.
+ * `.` is that URL itself. Its `include` list names files beside it of the same
+ * shape. Throws when a destination names a page that does not exist.
  */
 export function listRedirects(root: string) {
   const pages = new Set(
@@ -268,7 +268,14 @@ export function listRedirects(root: string) {
       listPages(root, version).map((page) => pageHref(version, page.slug))
     )
   );
-  return filesNamed(root, 'redirects.yaml').flatMap((file) => {
+  const read = (
+    file: string
+  ): {
+    file: string;
+    source: string;
+    destination: string;
+    permanent: boolean;
+  }[] => {
     const prefix = path
       .relative(root, path.dirname(file))
       .split(path.sep)
@@ -281,16 +288,17 @@ export function listRedirects(root: string) {
         return (prefix || '/') + relative;
       return `${prefix}/${relative}`;
     };
-    const maps = yamlLoad(fs.readFileSync(file, 'utf8')) as {
+    const doc = yamlLoad(fs.readFileSync(file, 'utf8')) as {
+      include?: string[];
       permanent?: Record<string, string>;
       temporary?: Record<string, string>;
     };
     const where = path.relative(root, file);
-    return [
-      ...Object.entries(maps.permanent ?? {}).map(
+    const own = [
+      ...Object.entries(doc.permanent ?? {}).map(
         (entry) => [...entry, true] as const
       ),
-      ...Object.entries(maps.temporary ?? {}).map(
+      ...Object.entries(doc.temporary ?? {}).map(
         (entry) => [...entry, false] as const
       )
     ].map(([source, destination, permanent]) => {
@@ -307,7 +315,14 @@ export function listRedirects(root: string) {
         permanent
       };
     });
-  });
+    return [
+      ...own,
+      ...(doc.include ?? []).flatMap((name) =>
+        read(path.join(path.dirname(file), name))
+      )
+    ];
+  };
+  return filesNamed(root, 'redirects.yaml').flatMap(read);
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
