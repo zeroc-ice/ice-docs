@@ -22,8 +22,8 @@ plugins {
 
 slice {
     java {
-        include = ["${projectDir}"]
-        srcDir = '.'
+        srcDir = '../slice'
+        include = ["${projectDir}/../common/slice"]
     }
 }
 ```
