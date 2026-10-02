@@ -329,7 +329,10 @@ for (const { where, url, href, languages } of checkedLinks) {
 // The URLs a version had on the Scroll Viewport site redirect to its pages (see
 // readRedirects); one that lands on a section must land on a heading the URL's
 // language shows. Scroll Viewport URL -> that page, section, and language:
-const scrollSections = new Map();
+const scrollSections = new Map<
+  string,
+  { page: string; anchor: string; language: string }
+>();
 for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
   const [, version, languages, rest] =
     source.match(/^\/ice\/([^/]+)\/:lang\(([^)]*)\)(.*)$/) ?? [];
@@ -356,7 +359,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     // A page that failed to render is reported above.
     const headings = headingsByPage.get(page);
     if (!headings) continue;
-    const shown = ({ id, langs }) =>
+    const shown = ({ id, langs }: OutlineHeading) =>
       id === anchor && (!langs || langs.includes(language));
     if (!headings.some(shown))
       diagnostics.push({
