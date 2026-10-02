@@ -6,7 +6,7 @@ Slice defines a number of rules for the naming and contents of Slice source file
 
 ## File Naming
 
-Files containing Slice definitions must end in a `.ice` file extension, for example `Clock.ice`.
+Files containing Slice definitions must end in a `.ice` file extension, for example: `Clock.ice`.
 
 ## File Format
 
