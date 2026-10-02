@@ -17,7 +17,7 @@ export interface PageVariables {
   /** By language mapping. */
   readingTime: Record<string, string>;
   version: string;
-  /** The manual's languages, for what is computed once per language. */
+  /** The version's languages, for what is computed once per language. */
   languages: string[];
   /** Page index used to resolve cross-page links at build time. */
   pageIndex: PageIndex;

@@ -1,4 +1,4 @@
-# The Scroll Viewport site served each page of the Ice 3.8 manual at /ice/3.8/<language>/<name>, with the language as
+# The Scroll Viewport site served each page of the Ice 3.8 documentation at /ice/3.8/<language>/<name>, with the language as
 # it spelled it (`javascript` for `js`). Each of those URLs redirects to the page here with the same name, keeping the
 # language as `?lang=`. The pages below were called something else there: the Scroll name, then the name of the page
 # here, with the heading anchor when the Scroll page became a section of it. `''` is the front page.

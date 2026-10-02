@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 //
-// Validate every page of the manual against the site's Markdoc schema. Run with
+// Validate every page of the docs against the site's Markdoc schema. Run with
 // `npm run check:markdoc`; `npm run build` runs it first.
 //
 // The build never validates. `Markdoc.transform` renders whatever the parser
@@ -26,7 +26,7 @@
 // transform also resolves every link and card against the page index, so the
 // second pass reports one that names no page, which the site renders as plain
 // text, one whose `#anchor` names no element on the page it links to, and one
-// whose `?lang=` names a mapping the manual lacks or one that doesn't show the
+// whose `?lang=` names a mapping the version lacks or one that doesn't show the
 // anchor. It also reports two headings that a reader of one language sees under
 // one anchor, and a URL of the Scroll Viewport site that redirects to a section
 // its language doesn't show.
@@ -110,7 +110,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
 // `$path` validate here as they render there. Validation only needs a variable
 // to exist, so the reading time and the chrome are placeholders of the right
-// shape; nothing in the manual refers to either.
+// shape; nothing in the docs refers to either.
 const pageIndexes = new Map<string, PageIndex>();
 function variablesFor({
   version,
@@ -292,8 +292,8 @@ for (const { version, page } of allPages) {
   }
 }
 
-// Only links to the manual's own pages are checked here; lychee checks the
-// anchors of external pages. A `?lang=` must name one of the manual's mappings,
+// Only links to the site's own pages are checked here; lychee checks the
+// anchors of external pages. A `?lang=` must name one of the version's mappings,
 // and that mapping must show the anchor.
 for (const { where, url, href, languages } of checkedLinks) {
   const hashAt = href.indexOf('#');
@@ -306,7 +306,7 @@ for (const { where, url, href, languages } of checkedLinks) {
   if (language !== null && !languages.includes(language)) {
     diagnostics.push({
       where,
-      text: `link to a mapping the manual lacks: ${href}`
+      text: `link to a mapping the version lacks: ${href}`
     });
     continue;
   }

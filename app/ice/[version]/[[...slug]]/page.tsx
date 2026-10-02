@@ -9,7 +9,12 @@ import { components } from '@/markdoc/schema';
 import { renderMarkdownString } from '@/lib/markdown';
 import { resolveDocument } from '@/lib/docs-model/resolve';
 import { buildPageIndex } from '@/lib/docs-model/links';
-import { breadcrumbs, pageHref, prevNext } from '@/lib/docs-model/nav';
+import {
+  breadcrumbs,
+  pageHref,
+  prevNext,
+  versionTitle
+} from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
 import { SITE_URL } from '@/lib/site';
@@ -58,7 +63,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
   return {
-    title,
+    // The front page's title is the site's name, which the template would
+    // repeat.
+    title: slug ? title : { absolute: versionTitle(version) },
     description,
     alternates: { canonical: pageHref(version, slug) }
   };
@@ -74,7 +81,7 @@ export default async function Page(props: PageProps) {
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
-  // The manual is one tree, and this page's place in it gives the breadcrumb
+  // The documentation is one tree, and this page's place in it gives the breadcrumb
   // trail and the reading order. A page outside the tree still renders; it just
   // gets no trail and no previous/next, which makes the omission obvious.
   const crumbs = breadcrumbs(sidebar, version, slug);
@@ -116,7 +123,7 @@ export default async function Page(props: PageProps) {
 
   // The Release Notes chapter's pages, newest first, each with the date its
   // frontmatter gives. Only the front page shows them, and reading every one
-  // of them for every page would multiply across the manual.
+  // of them for every page would multiply across the site.
   const releases = slug
     ? []
     : (sidebar.find((n) => n.slug === 'release-notes')?.items ?? []).map(
@@ -159,7 +166,7 @@ export default async function Page(props: PageProps) {
       versionOptions,
       releases,
       // The property tables are a list of exact identifiers, not an essay, and
-      // are typeset as such. Derived from the page's place in the manual — the
+      // are typeset as such. Derived from the page's place in the tree — the
       // pages under the Property Reference chapter — rather than restated in
       // the frontmatter of every one of them; a page can still override it.
       shape: slug.startsWith('property-reference/')
@@ -176,14 +183,16 @@ export default async function Page(props: PageProps) {
         languages={languages}
         versionOptions={versionOptions}
       />
-      <script
-        type="application/ld+json"
-        // `<` escaped, so no title can close the script element, as
-        // https://nextjs.org/docs/app/guides/json-ld recommends.
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbList).replace(/</g, '\\u003c')
-        }}
-      />
+      {crumbs.length > 0 && (
+        <script
+          type="application/ld+json"
+          // `<` escaped, so no title can close the script element, as
+          // https://nextjs.org/docs/app/guides/json-ld recommends.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbList).replace(/</g, '\\u003c')
+          }}
+        />
+      )}
       {Markdoc.renderers.react(content, React, { components })}
     </>
   );

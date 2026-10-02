@@ -17,8 +17,8 @@ We focused on three main areas of improvements for this release.
   proxies, simplified the setup of bidir connections, and more.
 - Making Ice more accessible Providing lots of features is of limited value if you can’t find them or it’s very hard to
   figure out how to use them. So we rewrote all the [demos](https://github.com/zeroc-ice/ice-demos), to make sure they
-  are short, focused, easy to copy, and follow best practices. We also updated the Ice Manual and API references to make
-  them clearer and easier to navigate.
+  are short, focused, easy to copy, and follow best practices. We also updated the Ice documentation and API references
+  to make them clearer and easier to navigate.
 
 While more modern APIs and simpler patterns sound all right, the flip side of these changes is upgrade work. We were
 very conscious of this trade-off and carefully weighted every changes - and when in doubt, kept the most compatible API.

@@ -71,7 +71,7 @@ operation name or proxy identity. All the invocations with the same operation na
 using the same metrics object. You can specify several attributes to group metrics based on multiple attributes. You
 must delimit the attributes with delimiters when specify the value of the GroupBy property. A delimiter is any character
 which is not an alpha numeric or the dot character. Attributes which can be used to specify the value of this property
-are defined in relevant section of the Ice manual. Here are some examples of GroupBy properties.
+are defined in the relevant section of the Ice documentation. Here are some examples of GroupBy properties.
 
 - `IceMX.Metrics.MyView.GroupBy=operation`
 - `IceMX.Metrics.MyView.GroupBy=identity [operation]`

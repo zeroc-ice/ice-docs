@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { setLanguage } from '@/context/state';
 import { LANGUAGE_LABELS } from '@/lib/docs-model/nav';
 
-/** The mapping a URL's `?lang=` names, if it is one of the manual's. */
+/** The mapping a URL's `?lang=` names, if it is one of the version's. */
 function queryLanguage(url: URL): string | undefined {
   const language = url.searchParams.get('lang') ?? '';
   return Object.hasOwn(LANGUAGE_LABELS, language) ? language : undefined;

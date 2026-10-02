@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 //
-// Every syntax the manual writes code in, in one place.
+// Every syntax the docs write code in, in one place.
 //
 // Prism's core installs itself as the global `Prism`, and every grammar file
 // registers itself on that global when it runs, so the core has to be imported
@@ -12,7 +12,7 @@ import Prism from 'prismjs';
 import './prism-ebnf.ts';
 import './prism-slice.ts';
 
-// The nine language mappings the manual documents. JavaScript is part of the
+// The nine language mappings the docs cover. JavaScript is part of the
 // core. A grammar that extends another has to be registered after it.
 import 'prismjs/components/prism-c.js';
 import 'prismjs/components/prism-cpp.js';
@@ -29,7 +29,7 @@ import 'prismjs/components/prism-typescript.js';
 import 'prismjs/components/prism-markup-templating.js';
 import 'prismjs/components/prism-php.js';
 
-// Everything else the manual shows: build files, config, shells, diffs.
+// Everything else the docs show: build files, config, shells, diffs.
 import 'prismjs/components/prism-kotlin.js';
 import 'prismjs/components/prism-rust.js';
 import 'prismjs/components/prism-groovy.js';

@@ -19,12 +19,12 @@ interface Panel {
 }
 
 interface Props {
-  /** One per mapping, in the manual's order. */
+  /** One per mapping, in the version's language order. */
   panels: Panel[];
 }
 
 // The Slice contract beside the client that calls it and, where the mapping
-// has one, the server that implements it. The language tabs are the manual's
+// has one, the server that implements it. The language tabs are the site's
 // language switch, so the top bar follows. Always dark, whatever the theme, so
 // the panel reads as an editor rather than a pair of ordinary code blocks.
 export const Showcase = ({ panels }: Props) => {
