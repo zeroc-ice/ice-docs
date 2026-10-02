@@ -65,8 +65,9 @@ catch (const IceGrid::PermissionDeniedException& ex)
 }
 ```
 
-IceGrid destroys a session when the connection that created it closes. A client that reconnects to the registry must
-create a new session. The client's
+A client ends its session by calling `destroy`, which `AdminSession` inherits from `Glacier2::Session`. IceGrid also
+destroys a session when the connection that created it closes; a client that reconnects to the registry must create a
+new session. The client's
 [inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) closes this
 connection when it carries no invocations for
 [Ice.Connection.Client.InactivityTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.inactivitytimeout)
