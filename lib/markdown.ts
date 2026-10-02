@@ -7,6 +7,7 @@ import readingTimeFunc from 'reading-time';
 import { projectLanguage } from './project-language.ts';
 
 import type { PageIndex } from '@/lib/docs-model/links';
+import type { Version } from '@/lib/docs-model/nav';
 
 /** What a page's Markdoc schema finds in `config.variables`. */
 export interface PageVariables {
@@ -16,8 +17,7 @@ export interface PageVariables {
   path: string;
   /** By language mapping. */
   readingTime: Record<string, string>;
-  /** The version's path under the content root: `ice/3.8`. */
-  version: string;
+  version: Version;
   /** The version's languages, for what is computed once per language. */
   languages: string[];
   /** Page index used to resolve cross-page links at build time. */
@@ -28,7 +28,7 @@ export interface PageVariables {
 
 export interface RenderOptions extends Omit<
   PageVariables,
-  'readingTime' | 'chrome'
+  'readingTime' | 'languages' | 'chrome'
 > {
   /** The assembled page source (shared prose + every language overlay + snippets). */
   source: string;
@@ -38,7 +38,8 @@ export interface RenderOptions extends Omit<
 // Transform an already-assembled Markdoc/markdown string (a shared page merged
 // with its language overlays) into a renderable Markdoc node tree.
 export function renderMarkdownString(opts: RenderOptions) {
-  const { source, path, version, languages, pageIndex, frontmatter } = opts;
+  const { source, path, version, pageIndex, frontmatter } = opts;
+  const { languages } = version;
 
   // One reading time per language: the page carries every mapping, and a
   // reader only reads theirs.

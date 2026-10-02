@@ -24,7 +24,7 @@ import {
   listPages,
   readPageSources,
   readNavigation,
-  readVersionSettings,
+  readVersion,
   snippetReader,
   writtenFor
 } from '@/lib/docs-model/content';
@@ -41,7 +41,7 @@ type Params = {
 const PRODUCT = 'ice';
 const versions = () =>
   listVersions(CONTENT_ROOT).filter(
-    (version) => path.posix.dirname(version) === PRODUCT
+    (version) => path.posix.dirname(version.key) === PRODUCT
   );
 
 type PageProps = {
@@ -59,7 +59,7 @@ export function generateStaticParams() {
   // The front page's slug is empty: it is served at the version root.
   return versions().flatMap((version) =>
     listPages(CONTENT_ROOT, version).map((page) => ({
-      version: path.posix.basename(version),
+      version: path.posix.basename(version.key),
       slug: page.slug ? page.slug.split('/') : []
     }))
   );
@@ -67,7 +67,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
-  const version = `${PRODUCT}/${params.version}`;
+  const version = readVersion(CONTENT_ROOT, `${PRODUCT}/${params.version}`);
   const slug = params.slug?.join('/') ?? '';
   const page = listPages(CONTENT_ROOT, version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
@@ -75,13 +75,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   return {
     // The front page's title is the site's name, which the template would
     // repeat.
-    title: slug
-      ? title
-      : {
-          absolute: versionTitle(
-            readVersionSettings(CONTENT_ROOT, version).title
-          )
-        },
+    title: slug ? title : { absolute: versionTitle(version) },
     description,
     alternates: { canonical: pageHref(version, slug) }
   };
@@ -89,10 +83,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
 export default async function Page(props: PageProps) {
   const params = await props.params;
-  const version = `${PRODUCT}/${params.version}`;
+  const version = readVersion(CONTENT_ROOT, `${PRODUCT}/${params.version}`);
   const slug = params.slug?.join('/') ?? '';
-  const nav = readNavigation(CONTENT_ROOT, version);
-  const { title: versionName, languages, sidebar } = nav;
+  const { sidebar } = readNavigation(CONTENT_ROOT, version);
+  const { languages } = version;
 
   const pages = listPages(CONTENT_ROOT, version);
   const current = pages.find((p) => p.slug === slug)!;
@@ -132,8 +126,7 @@ export default async function Page(props: PageProps) {
 
   // One dropdown entry per version, at this page's path.
   const versionOptions: VersionOption[] = versions().map((other) => ({
-    value: other,
-    label: readVersionSettings(CONTENT_ROOT, other).title,
+    version: other,
     href: pageHref(other, slug)
   }));
 
@@ -160,7 +153,6 @@ export default async function Page(props: PageProps) {
     source: body,
     path: routePath,
     version,
-    languages,
     pageIndex,
     frontmatter,
     chrome: {
@@ -179,7 +171,6 @@ export default async function Page(props: PageProps) {
       // which ones have it.
       writtenFor: writtenFor(current),
       // For the front page's switches and release list.
-      versionTitle: versionName,
       versionOptions,
       releases,
       // The property tables are a list of exact identifiers, not an essay, and
@@ -195,12 +186,7 @@ export default async function Page(props: PageProps) {
   return (
     <>
       {/* Search + version + language controls live in the global header (portal). */}
-      <HeaderControls
-        version={version}
-        title={versionName}
-        languages={languages}
-        versionOptions={versionOptions}
-      />
+      <HeaderControls version={version} versionOptions={versionOptions} />
       {crumbs.length > 0 && (
         <script
           type="application/ld+json"

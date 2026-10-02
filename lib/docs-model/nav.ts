@@ -35,7 +35,15 @@ export interface VersionSettings {
   status?: 'latest' | 'maintenance' | 'archived';
 }
 
-export interface NavDoc extends VersionSettings {
+/** A version of the documentation: its settings, where it lives, and where it is served. */
+export interface Version extends VersionSettings {
+  /** Its path under the content root, `ice/3.8`. */
+  key: string;
+  /** Its URL, `/ice/3.8`. */
+  href: string;
+}
+
+export interface NavDoc {
   /** The table of contents. */
   sidebar: NavNode[];
 }
@@ -62,7 +70,10 @@ export const FRONT_PAGE_NAV_TITLE = 'Documentation';
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
  * the full shape shows), with a link for each page.
  */
-export function buildSideNav(nodes: NavNode[], version: string): SideNavNode[] {
+export function buildSideNav(
+  nodes: NavNode[],
+  version: Version
+): SideNavNode[] {
   return nodes.map((node) => {
     const href = pageHref(version, node.slug);
     const { writtenFor } = node;
@@ -87,12 +98,9 @@ export function buildSideNav(nodes: NavNode[], version: string): SideNavNode[] {
   });
 }
 
-/**
- * The URL of the page with `slug` in `version`, the version's path under the
- * content root; the front page, whose slug is empty, is at the version's root.
- */
-export function pageHref(version: string, slug?: string): string {
-  return slug ? `/${version}/${slug}` : `/${version}`;
+/** The URL of the page with `slug` in `version`; the front page, whose slug is empty, is at the version's root. */
+export function pageHref(version: Version, slug?: string): string {
+  return slug ? `${version.href}/${slug}` : version.href;
 }
 
 /**
@@ -182,9 +190,9 @@ export interface Crumb {
 /** The site's name, and the root of every breadcrumb trail. */
 export const SITE_TITLE = 'Ice Documentation';
 
-/** The site's name for one version, from the version's `title`; every page of that version's tab title ends with it. */
-export function versionTitle(title: string): string {
-  return `${title} Documentation`;
+/** The site's name for one version; every page of that version's tab title ends with it. */
+export function versionTitle(version: Version): string {
+  return `${version.title} Documentation`;
 }
 
 /**
@@ -195,7 +203,7 @@ export function versionTitle(title: string): string {
  */
 export function breadcrumbs(
   nodes: NavNode[],
-  version: string,
+  version: Version,
   slug: string
 ): Crumb[] {
   const trail = slug ? trailTo(nodes, slug) : null;
@@ -227,7 +235,7 @@ export interface PageLink {
  */
 export function prevNext(
   nodes: NavNode[],
-  version: string,
+  version: Version,
   slug: string,
   language: string
 ): { prev?: PageLink; next?: PageLink } {

@@ -51,7 +51,7 @@ import {
   snippetReader,
   type PageFiles
 } from '../lib/docs-model/content.ts';
-import { navigationPages } from '../lib/docs-model/nav.ts';
+import { navigationPages, type Version } from '../lib/docs-model/nav.ts';
 
 const strict = process.argv.includes('--strict');
 const PUBLIC = path.join(process.cwd(), 'public');
@@ -399,13 +399,13 @@ const textOf = (node: Node) =>
  * shared page's. A reader of each language meets a different sequence.
  */
 function checkHeadings(
-  version: string,
+  version: Version,
   pages: PageFiles[],
   languages: string[]
 ) {
   const readFile = snippetReader(CONTENT_ROOT, version);
   for (const page of pages) {
-    const where = `${version}/${page.slug}`;
+    const where = `${version.key}/${page.slug}`;
     const { shared, overlays } = readPageSources(page);
     let body: string;
     try {
@@ -458,31 +458,31 @@ for (const version of listVersions(CONTENT_ROOT)) {
   const pages = listPages(CONTENT_ROOT, version);
   const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
-  const languages = nav.languages;
+  const { languages } = version;
+  const where = version.key;
 
-  console.log(`\n${version}: ${pages.length} pages`);
+  console.log(`\n${where}: ${pages.length} pages`);
 
   // 1. every page is in the table of contents: listed under `pages:` by the
   //    page above it, up to the front page, index.md at the root, which lists
   //    the chapters.
   const orphans = pages.filter((page) => !declared.has(page.slug));
   for (const { slug } of orphans.slice(0, 20))
-    fail(`${version}: ${slug} is not in the table of contents`);
+    fail(`${where}: ${slug} is not in the table of contents`);
   if (orphans.length > 20)
     fail(
-      `${version}: ...and ${orphans.length - 20} more pages not in the table of contents`
+      `${where}: ...and ${orphans.length - 20} more pages not in the table of contents`
     );
 
   // 2. page names are unique (cross-page links are keyed by them)
-  for (const dup of duplicates)
-    fail(`${version}: duplicate page name "${dup}"`);
+  for (const dup of duplicates) fail(`${where}: duplicate page name "${dup}"`);
 
   // 3. a file beside a page's index.md is the overlay for the language it is named after
   for (const page of pages) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
-          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
+          `${where}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
         );
     }
   }
@@ -492,13 +492,13 @@ for (const version of listVersions(CONTENT_ROOT)) {
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
   ]);
-  checkImages(version, files);
+  checkImages(where, files);
   checkStrayMarkup(files);
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
   // 7. every language slot is answered, and says what kind of answer it is.
-  checkSlots(version, pages, languages);
+  checkSlots(where, pages, languages);
 
   // 10. headings step down one level at a time from the title.
   checkHeadings(version, pages, languages);
@@ -513,7 +513,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     );
     if (titles.size > 1)
       fail(
-        `${version}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
+        `${where}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
       );
   }
 }

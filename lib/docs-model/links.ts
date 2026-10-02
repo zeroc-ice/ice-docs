@@ -15,7 +15,7 @@
 //
 // Pure, so it is unit-testable with plain objects.
 
-import { pageHref } from './nav.ts';
+import { pageHref, type Version } from './nav.ts';
 
 /** page name (`enumerations`) or slug -> slug (`learn/slice/enumerations`). */
 export type PageIndex = Record<string, string>;
@@ -50,7 +50,7 @@ export function buildPageIndex(slugs: string[]): {
 }
 
 export interface LinkContext {
-  version: string;
+  version: Version;
   index: PageIndex;
 }
 

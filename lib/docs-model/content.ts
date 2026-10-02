@@ -10,7 +10,7 @@
 //   <root>/…/<version>/examples/...           (snippet sources)
 //   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
-// A version is a directory holding a `version.yaml`, keyed by its path under
+// A version is a directory holding a `version.yaml`, known by its path under
 // the root, `ice/3.8`, which is also its URL. A page is a directory, and its
 // path under the version is its slug, the path in its URL:
 // `ice/3.8/slice/enumerations/index.md` is the page named `enumerations`,
@@ -32,6 +32,7 @@ import {
   pageHref,
   type NavDoc,
   type NavNode,
+  type Version,
   type VersionSettings
 } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
@@ -39,11 +40,20 @@ import { splitFrontmatter } from './resolve.ts';
 /** The content root, under the repository root that npm and Next run from. */
 export const CONTENT_ROOT = path.join(process.cwd(), 'content');
 
-/** Every version under the root: each directory holding a `version.yaml`, as its path under the root. */
-export function listVersions(root: string): string[] {
+/** Every version under the root: each directory holding a `version.yaml`, by its path under the root. */
+export function listVersions(root: string): Version[] {
   return versionDirectories(root)
     .map((dir) => path.relative(root, dir).split(path.sep).join('/'))
-    .sort();
+    .sort()
+    .map((key) => readVersion(root, key));
+}
+
+/** The version at `key`, its path under the root: its settings from its `version.yaml`, and its URL. */
+export function readVersion(root: string, key: string): Version {
+  const settings = yamlLoad(
+    fs.readFileSync(path.join(root, key, 'version.yaml'), 'utf8')
+  ) as VersionSettings;
+  return { ...settings, key, href: `/${key}` };
 }
 
 /** The directories under `dir` that hold a `version.yaml`; a version's pages are not searched. */
@@ -104,8 +114,8 @@ const pagesCache = new Map<string, PageFiles[]>();
  * each would otherwise re-walk the whole content tree. Never cached in
  * development, where pages change while the server is running.
  */
-export function listPages(root: string, version: string): PageFiles[] {
-  const base = path.join(root, version);
+export function listPages(root: string, version: Version): PageFiles[] {
+  const base = path.join(root, version.key);
   const cacheable = process.env.NODE_ENV === 'production';
   let pages = cacheable ? pagesCache.get(base) : undefined;
   if (!pages) {
@@ -167,25 +177,15 @@ export function writtenFor(page: PageFiles): string[] | undefined {
   return page.shared ? undefined : Object.keys(page.overlays);
 }
 
-/** A version's settings, read from its `version.yaml`. */
-export function readVersionSettings(
-  root: string,
-  version: string
-): VersionSettings {
-  return yamlLoad(
-    fs.readFileSync(path.join(root, version, 'version.yaml'), 'utf8')
-  ) as VersionSettings;
-}
-
 /**
- * A version's settings, from its `version.yaml`, and its table of contents,
- * read from its pages: the front page's frontmatter lists the chapters under
+ * A version's table of contents, read from its pages: the front page's
+ * frontmatter lists the chapters under
  * `pages:`, and a page with children lists them the same way. The front page
  * is the first entry, ahead of the chapters, under its own label; every other
  * node takes its page's title. Throws when the version has no front page, or
  * when a page lists a page it does not contain.
  */
-export function readNavigation(root: string, version: string): NavDoc {
+export function readNavigation(root: string, version: Version): NavDoc {
   type Listed = { title: string; pages?: string[] };
   const bySlug = new Map(listPages(root, version).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
@@ -194,7 +194,7 @@ export function readNavigation(root: string, version: string): NavDoc {
       const page = bySlug.get(slug);
       if (!page)
         throw new Error(
-          `${version}/${parent || 'index.md'} lists "${name}", which is not a page in it`
+          `${version.key}/${parent || 'index.md'} lists "${name}", which is not a page in it`
         );
       const { title, pages } = readFrontmatter<Listed>(page);
       return {
@@ -208,11 +208,10 @@ export function readNavigation(root: string, version: string): NavDoc {
   const front = bySlug.get('');
   if (!front)
     throw new Error(
-      `${version} has no front page (index.md at the version root)`
+      `${version.key} has no front page (index.md at the version root)`
     );
   const { pages } = readFrontmatter<Listed>(front);
   return {
-    ...readVersionSettings(root, version),
     sidebar: [
       {
         title: FRONT_PAGE_NAV_TITLE,
@@ -309,8 +308,8 @@ export function listRedirects(root: string) {
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
 export function snippetReader(
   root: string,
-  version: string
+  version: Version
 ): (file: string) => string {
-  const base = path.join(root, version);
+  const base = path.join(root, version.key);
   return (file: string) => fs.readFileSync(path.join(base, file), 'utf8');
 }

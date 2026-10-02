@@ -1,16 +1,12 @@
 // Copyright (c) ZeroC, Inc.
 
+import type { Version } from '@/lib/docs-model/nav';
+
 // A reader who lands on an older release from a search engine must be told so
 // before they read a line of it — silently serving stale documentation is the
 // most expensive failure versioned documentation can have.
-export function VersionBanner({
-  title,
-  status
-}: {
-  /** The version's name, `Ice 3.8`. */
-  title: string;
-  status?: string;
-}) {
+export function VersionBanner({ version }: { version: Version }) {
+  const { title, status } = version;
   if (!status || status === 'latest') return null;
 
   return (

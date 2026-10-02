@@ -5,7 +5,11 @@ import type { Metadata } from 'next';
 import { buildSideNav, versionTitle } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
-import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
+import {
+  CONTENT_ROOT,
+  readNavigation,
+  readVersion
+} from '@/lib/docs-model/content';
 
 type VersionParams = { params: Promise<{ version: string }> };
 
@@ -13,12 +17,11 @@ type VersionParams = { params: Promise<{ version: string }> };
 export async function generateMetadata({
   params
 }: VersionParams): Promise<Metadata> {
-  const { version } = await params;
-  const { title } = readNavigation(CONTENT_ROOT, `ice/${version}`);
+  const version = readVersion(CONTENT_ROOT, `ice/${(await params).version}`);
   return {
     title: {
-      template: `%s | ${versionTitle(title)}`,
-      default: versionTitle(title)
+      template: `%s | ${versionTitle(version)}`,
+      default: versionTitle(version)
     }
   };
 }
@@ -30,12 +33,12 @@ export default async function VersionLayout({
   params,
   children
 }: VersionParams & { children: React.ReactNode }) {
-  const version = `ice/${(await params).version}`;
+  const version = readVersion(CONTENT_ROOT, `ice/${(await params).version}`);
   const nav = readNavigation(CONTENT_ROOT, version);
 
   return (
     <div className="flex grow flex-col">
-      <VersionBanner title={nav.title} status={nav.status} />
+      <VersionBanner version={version} />
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the version's table of contents. */}

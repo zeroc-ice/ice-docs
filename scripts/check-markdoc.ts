@@ -53,13 +53,12 @@ import {
   frontmatterOf,
   listPages,
   listVersions,
-  readNavigation,
   readPageSources,
   listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
-import { pageHref } from '../lib/docs-model/nav.ts';
+import { pageHref, type Version } from '../lib/docs-model/nav.ts';
 import { resolveDocument } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
@@ -101,11 +100,6 @@ function validate(
     }));
 }
 
-const languagesByVersion: Record<string, string[]> = {};
-for (const version of listVersions(CONTENT_ROOT)) {
-  languagesByVersion[version] = readNavigation(CONTENT_ROOT, version).languages;
-}
-
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
 // `$path` validate here as they render there. Validation only needs a variable
 // to exist, so the reading time and the chrome are placeholders of the right
@@ -116,15 +110,15 @@ function variablesFor({
   slug,
   frontmatter
 }: {
-  version: string;
+  version: Version;
   slug: string;
   frontmatter: Record<string, unknown>;
 }) {
-  if (!pageIndexes.has(version)) {
+  if (!pageIndexes.has(version.key)) {
     const { index } = buildPageIndex(
       listPages(CONTENT_ROOT, version).map((page) => page.slug)
     );
-    pageIndexes.set(version, index);
+    pageIndexes.set(version.key, index);
   }
   return {
     ...config.variables,
@@ -132,8 +126,8 @@ function variablesFor({
     path: pageHref(version, slug),
     readingTime: {},
     version,
-    languages: languagesByVersion[version],
-    pageIndex: pageIndexes.get(version),
+    languages: version.languages,
+    pageIndex: pageIndexes.get(version.key),
     chrome: { breadcrumbs: [], pagination: [] }
   };
 }
@@ -208,7 +202,7 @@ for (const { version, page } of allPages) {
   rendered++;
   const { slug } = page;
   const { shared, overlays, frontmatter } = readPageSources(page);
-  const where = `${version}/${slug} (assembled)`;
+  const where = `${version.key}/${slug} (assembled)`;
   let body: string;
   try {
     // The same step as the page route.
@@ -329,11 +323,10 @@ for (const { where, url, href, languages } of checkedLinks) {
 // language shows.
 const versions = listVersions(CONTENT_ROOT);
 for (const { file, source, destination } of listRedirects(CONTENT_ROOT)) {
-  const version = versions.find((v) => source.startsWith(`/${v}/`));
+  const version = versions.find((v) => source.startsWith(`${v.href}/`));
+  if (!version) continue;
   const [, languages, rest] =
-    (version &&
-      source.slice(version.length + 2).match(/^:lang\(([^)]*)\)(.*)$/)) ??
-    [];
+    source.slice(version.href.length + 1).match(/^:lang\(([^)]*)\)(.*)$/) ?? [];
   const [beforeHash, hash] = destination.split('#');
   if (!languages || hash === undefined) continue;
   const page = beforeHash.split('?')[0];
@@ -347,7 +340,7 @@ for (const { file, source, destination } of listRedirects(CONTENT_ROOT)) {
     if (!headings.some(shown))
       diagnostics.push({
         where: file,
-        text: `/ice/${version}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
+        text: `${version.href}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
       });
   }
 }

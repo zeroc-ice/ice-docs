@@ -77,6 +77,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
 for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
+  const { key } = version;
 
   const records: object[] = [];
   for (const page of listPages(CONTENT_ROOT, version)) {
@@ -103,12 +104,12 @@ for (const version of listVersions(CONTENT_ROOT)) {
     });
   }
 
-  const file = path.join(OUT, `${version}.json`);
+  const file = path.join(OUT, `${key}.json`);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify({ version, pages: records }));
+  fs.writeFileSync(file, JSON.stringify({ version: key, pages: records }));
   files++;
   const kb = Math.round(fs.statSync(file).size / 1024);
-  console.log(`  ${version}: ${records.length} pages (${kb} kB)`);
+  console.log(`  ${key}: ${records.length} pages (${kb} kB)`);
 }
 
 console.log(`search index: ${files} file(s) under public/search`);
