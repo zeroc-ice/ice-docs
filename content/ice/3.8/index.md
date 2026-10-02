@@ -1,6 +1,6 @@
 ---
-title: Overview
-description: Documentation for Ice, the Slice language, and the Ice services.
+title: Ice Documentation
+description: Guides, examples, and reference for building distributed applications with Ice.
 shape: wide
 showReadingTime: false
 showAside: false
@@ -361,7 +361,7 @@ await communicator.shutdownCompleted()
 
 {% /showcase %}
 
-## Explore the Manual
+## Explore the Documentation
 
 The main chapters. Every chapter is in the table of contents; to find any page by name, use the search box in the top
 bar or press `⌘K`.
@@ -390,7 +390,7 @@ bar or press `⌘K`.
 - **[Backward Compatibility of Ice Versions](../compatibility)**: what a patch, minor, or major release keeps
   compatible.
 
-## Beyond the Manual
+## Beyond the Documentation
 
 - **API reference** for [C++](https://code.zeroc.com/ice/3.8/api/cpp/index.html),
   [C#](https://code.zeroc.com/ice/3.8/api/csharp/index.html),

@@ -1,5 +1,5 @@
-# The API reference page of each type the Ice 3.8 manual links to. A link to `api:Ice/Communicator` goes to the page
-# listed under Ice/Communicator for the reader's language; for a language with no page listed, the site shows the
+# The API reference page of each type the Ice 3.8 documentation links to. A link to `api:Ice/Communicator` goes to the
+# page listed under Ice/Communicator for the reader's language; for a language with no page listed, the site shows the
 # link's text without a link.
 Ice/ClassSliceLoader:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ClassSliceLoader.html

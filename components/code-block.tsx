@@ -12,7 +12,7 @@ import { MermaidDiagram } from './mermaid-diagram';
 
 const firaMono = Fira_Mono({ weight: '400', subsets: ['latin', 'latin-ext'] });
 
-// Info strings the manual uses that are not Prism language ids.
+// Info strings the docs use that are not Prism language ids.
 const LANGUAGE_ALIASES: Record<string, string> = {
   proto: 'protobuf',
   // Ice configuration files: `Ice.Default.Locator=…` with `#` comments.
@@ -23,7 +23,7 @@ const LANGUAGE_ALIASES: Record<string, string> = {
   txt: ''
 };
 
-// Display names for the languages the manual uses besides the mappings, which
+// Display names for the languages the docs use besides the mappings, which
 // `languageLabel` names.
 const LANGUAGE_NAMES: Record<string, string> = {
   diff: 'Diff',

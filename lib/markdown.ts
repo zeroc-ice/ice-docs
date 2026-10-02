@@ -19,7 +19,7 @@ export interface PageVariables {
   version: string;
   /**
    * The languages the text is for, for what is computed once per language:
-   * the manual's, or inside an `{% iflang %}`, its own.
+   * the version's, or inside an `{% iflang %}`, its own.
    */
   languages: string[];
   /** Page index used to resolve cross-page links at build time. */

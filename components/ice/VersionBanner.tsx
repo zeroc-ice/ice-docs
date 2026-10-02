@@ -2,7 +2,7 @@
 
 // A reader who lands on an older release from a search engine must be told so
 // before they read a line of it — silently serving stale documentation is the
-// most expensive failure a versioned manual can have.
+// most expensive failure versioned documentation can have.
 export function VersionBanner({
   version,
   status

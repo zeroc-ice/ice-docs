@@ -41,7 +41,7 @@ interface DocumentShellProps {
   type?: PageType;
   /** By language mapping: the page carries every mapping, and a reader reads theirs. */
   readingTime?: Record<string, string>;
-  /** The manual's languages. */
+  /** The version's languages. */
   languages: string[];
   /** The languages the page is written for; absent when it is written for all. */
   writtenFor?: string[];

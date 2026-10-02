@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  MANUAL_TITLE,
+  SITE_TITLE,
   breadcrumbs,
   buildSideNav,
   activeTrailKeys,
@@ -102,11 +102,11 @@ test('trailTo returns every ancestor down to the page, or null', () => {
   assert.equal(trailTo(SIDEBAR, 'not-a-page'), null);
 });
 
-test('breadcrumbs trace manual -> chapter -> group -> page, and the page is not a link', () => {
+test('breadcrumbs trace site -> chapter -> group -> page, and the page is not a link', () => {
   const crumbs = breadcrumbs(SIDEBAR, '3.8', ENUMERATIONS);
   assert.deepEqual(
     crumbs.map((c) => c.title),
-    [MANUAL_TITLE, 'The Slice Language', 'User-Defined Types', 'Enumerations']
+    [SITE_TITLE, 'The Slice Language', 'User-Defined Types', 'Enumerations']
   );
   assert.equal(crumbs[0].href, '/ice/3.8');
   assert.equal(crumbs[1].href, '/ice/3.8/slice');
@@ -114,11 +114,16 @@ test('breadcrumbs trace manual -> chapter -> group -> page, and the page is not 
   assert.equal(crumbs[3].href, undefined); // current page
 });
 
+test('the front page gets no trail', () => {
+  const sidebar = [{ title: 'Documentation', slug: '', items: [] }, ...SIDEBAR];
+  assert.deepEqual(breadcrumbs(sidebar, '3.8', ''), []);
+});
+
 test('a page outside the tree gets no trail', () => {
   assert.deepEqual(breadcrumbs(SIDEBAR, '3.8', 'orphan'), []);
 });
 
-test('prevNext walks the whole manual in reading order, across chapters', () => {
+test('prevNext walks the whole tree in reading order, across chapters', () => {
   const { prev, next } = prevNext(SIDEBAR, '3.8', ENUMERATIONS, 'cpp');
   assert.equal(prev?.title, 'User-Defined Types');
   assert.equal(next?.title, 'Sequences');

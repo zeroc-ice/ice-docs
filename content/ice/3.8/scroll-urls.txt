@@ -1,4 +1,4 @@
-# Every URL the Ice 3.8 manual had on the Scroll Viewport site, from its sitemaps on 2026-09-30,
+# Every URL the Ice 3.8 documentation had on the Scroll Viewport site, from its sitemaps on 2026-09-30,
 # before this site replaced it. redirects.yaml sends each to its page here; lib/docs-model/scroll-urls.test.ts checks it.
 /ice/3.8/cpp
 /ice/3.8/cpp/about-glacier2

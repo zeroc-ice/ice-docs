@@ -8,7 +8,7 @@ When the Administrative Facility is enabled, you can configure Ice to host an ad
 [Ice.Admin object adapter](../creating-the-admin-object), or you can programmatically host this object in your own
 object adapter.
 
-In this manual, we refer to the administrative object as the `admin`_object_.
+In this documentation, we refer to the administrative object as the `admin`_object_.
 
 You can retrieve a proxy to the admin object associated with your communicator, if any, by calling `getAdmin` on this
 communicator.
