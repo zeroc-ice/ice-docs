@@ -50,8 +50,9 @@ The monolithic `zeroc.ice.net` package has been replaced with modular NuGet pack
 
 #### Editing the Project File
 
-The Ice 3.8 assemblies target .NET 8 (`net8.0`). Set the `TargetFramework` of your project to `net8.0` or later, then
-replace the package references:
+The Ice 3.8 assemblies target .NET 8 (`net8.0`), and Ice 3.8 requires C# 12, the default language version of `net8.0`.
+Set the `TargetFramework` of your project to `net8.0` or later, remove a `LangVersion` property that selects an older C#
+version, then replace the package references:
 
 ```diff
 <PropertyGroup>
