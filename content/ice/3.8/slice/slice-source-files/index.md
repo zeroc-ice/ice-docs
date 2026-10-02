@@ -6,11 +6,7 @@ Slice defines a number of rules for the naming and contents of Slice source file
 
 ## File Naming
 
-Files containing Slice definitions must end in a `.ice` file extension, for example, `Clock.ice` is a valid file name.
-Other file extensions are rejected by the compilers.
-
-For case-insensitive file systems, the file extension may be written as uppercase or lowercase, so `Clock.ICE` is legal.
-For case-sensitive file systems (such as Unix), `Clock.ICE` is illegal. (The extension must be in lowercase.)
+Files containing Slice definitions must end in a `.ice` file extension, for example: `Clock.ice`.
 
 ## File Format
 

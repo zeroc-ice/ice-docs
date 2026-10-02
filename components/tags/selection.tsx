@@ -17,17 +17,11 @@ type Props = {
   version: string;
   languages: string[];
   versionOptions: VersionOption[];
-  previousVersions?: { label: string; url: string };
 };
 
 // The version and language switches, as two boxes that say what is selected
 // and open the same choices as the top bar.
-export const Selection = ({
-  version,
-  languages,
-  versionOptions,
-  previousVersions
-}: Props) => {
+export const Selection = ({ version, languages, versionOptions }: Props) => {
   const language = useLanguage();
   return (
     <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
@@ -37,11 +31,7 @@ export const Selection = ({
         value={`Ice ${version}`}
         note="Make sure it is the release you use."
       >
-        <VersionItems
-          current={version}
-          options={versionOptions}
-          previousVersions={previousVersions}
-        />
+        <VersionItems current={version} options={versionOptions} />
       </Switch>
       <Switch
         icon={<Languages aria-hidden="true" className="size-4" />}

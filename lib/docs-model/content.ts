@@ -3,6 +3,7 @@
 // Filesystem layer for the Ice docs content model. Reads page sources and
 // discovers routes under a content root laid out as:
 //
+//   <root>/<version>/version.yaml              the version's settings
 //   <root>/<version>/index.md                  the manual's front page
 //   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
 //   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
@@ -24,7 +25,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
-import { pageHref, type NavDoc, type NavNode } from './nav.ts';
+import {
+  pageHref,
+  type NavDoc,
+  type NavNode,
+  type VersionSettings
+} from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
 /** The content root, under the repository root that npm and Next run from. */
@@ -144,13 +150,20 @@ export function writtenFor(page: PageFiles): string[] | undefined {
   return page.shared ? undefined : Object.keys(page.overlays);
 }
 
+/** A version's settings, read from its `version.yaml`. */
+function readVersionSettings(root: string, version: string): VersionSettings {
+  return yamlLoad(
+    fs.readFileSync(path.join(root, version, 'version.yaml'), 'utf8')
+  ) as VersionSettings;
+}
+
 /**
- * A version's table of contents and settings, read from its pages: the front
- * page's frontmatter holds the settings and lists the chapters under `pages:`,
- * and a page with children lists them the same way. The front page is the
- * first entry, ahead of the chapters. A node takes its page's title. Throws
- * when the version has no front page, or when a page lists a page it does not
- * contain.
+ * A version's settings, from its `version.yaml`, and its table of contents,
+ * read from its pages: the front page's frontmatter lists the chapters under
+ * `pages:`, and a page with children lists them the same way. The front page
+ * is the first entry, ahead of the chapters. A node takes its page's title.
+ * Throws when the version has no front page, or when a page lists a page it
+ * does not contain.
  */
 export function readNavigation(root: string, version: string): NavDoc {
   type Listed = { title: string; pages?: string[] };
@@ -177,13 +190,9 @@ export function readNavigation(root: string, version: string): NavDoc {
     throw new Error(
       `${version} has no front page (index.md at the version root)`
     );
-  const { title, pages, languages, status, previousVersions } = readFrontmatter<
-    Listed & Omit<NavDoc, 'sidebar'>
-  >(front);
+  const { title, pages } = readFrontmatter<Listed>(front);
   return {
-    languages,
-    status,
-    previousVersions,
+    ...readVersionSettings(root, version),
     sidebar: [
       { title, slug: '', writtenFor: undefined, items: [] },
       ...nodes('', pages)
@@ -193,7 +202,7 @@ export function readNavigation(root: string, version: string): NavDoc {
 
 /**
  * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
- * and `/ice/latest/…` go to the version whose front page says `status: latest`,
+ * and `/ice/latest/…` go to the version whose `version.yaml` says `status: latest`,
  * and each URL a version's manual had on the Scroll Viewport site goes to its
  * page here. Throws unless exactly one version says `status: latest`, and when a
  * `redirects.yaml` names a page its version doesn't have.
@@ -201,12 +210,7 @@ export function readNavigation(root: string, version: string): NavDoc {
 export function readRedirects(root: string) {
   const versions = listVersions(root);
   const settings = new Map(
-    versions.map((version) => [
-      version,
-      frontmatterOf<{ status?: string; languages: string[] }>(
-        fs.readFileSync(path.join(root, version, 'index.md'), 'utf8')
-      )
-    ])
+    versions.map((version) => [version, readVersionSettings(root, version)])
   );
   const latest = versions.filter(
     (version) => settings.get(version)!.status === 'latest'
