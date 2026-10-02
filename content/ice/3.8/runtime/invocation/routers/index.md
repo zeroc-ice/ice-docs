@@ -8,9 +8,9 @@ A _router_ is an Ice object that provides information to the Ice runtime to allo
 servers. In a client, configuring a proxy to use a router produces a _routed proxy_ on which all invocations are sent to
 the router for forwarding to the target server. The endpoints in a routed proxy are ignored by the Ice runtime, at least
 for the purposes of connection establishment. Instead, the Ice runtime in the client establishes a connection to the
-router and [may pass along the proxy's endpoints](../routers) so that the router can establish its own connection to the
-target server. Ice typically opens only one connection to a router and reuses that connection for invocations on all of
-the routed proxies configured to use the same router.
+router and may pass along the proxy's endpoints so that the router can establish its own connection to the target
+server, as described in [Routing Tables](#routing-tables). Ice typically opens only one connection to a router and
+reuses that connection for invocations on all of the routed proxies configured to use the same router.
 
 The Ice distribution includes two router implementations that serve different purposes:
 
@@ -70,25 +70,19 @@ creating the object adapter with `createObjectAdapterWithRouter`.
 This is a one-to-one association: an object adapter can be associated with a single router and likewise a router can be
 associated with only one object adapter.
 
-When the object adapter is created, it calls `setAdapter` on the connection between the client and the router. This
+An object adapter with a router does not accept incoming connections, so you don't set its `Endpoints` property. When
+the object adapter is created, it associates itself with the connection between the client and the router. This
 connection is either reused (if a connection to the router already existed) or established during the creation of the
 object adapter. Later, when the server calls on a proxy to the callback object, the router forwards the request to the
 object adapter over this [bidirectional connection](../bidirectional-connections) between the client and the router.
 
-There are two differences between an object adapter that you configure for
-[bidirectional dispatch](../bidirectional-connections) (with `setAdapter` on a connection) and an object adapter
-configured with a router:
+The proxies created by an object adapter with a router carry the endpoints of the proxy returned by `getServerProxy`,
+which typically point to the "server-side" of the router. This way, the client can give these proxies to the server (via
+the router), and when the server sends a request using such a proxy, the request is directed to the router and then
+forwarded to the client's object adapter.
 
-- You can call `setAdapter` with the same object adapter on multiple connections, whereas you can have only one router
-  associated with a given object adapter.
-- The endpoints of the proxies created by an object adapter with a configured router are the endpoints of the proxy
-  returned by `getServerProxy`, which typically point to the "server-side" of the router. Endpoints and published
-  endpoints configured for this object adapter are ignored. This way, the client can give these proxies to the server
-  (via the router), and when the server sends a request using such a proxy, the request is directed to the router and
-  then forwarded to the client's object adapter. An object adapter configured for bidirectional dispatch (without a
-  router) uses `Endpoints` and `PublishedEndpoints` as usual to compute the published endpoints of the proxies it
-  creates; usually you will leave `Endpoints` and `PublishedEndpoints` empty and the object adapter will create proxies
-  with no endpoints at all.
+Without a router, you set up bidirectional dispatch by making an object adapter the communicator's default object
+adapter; see [Bidirectional Connections](../bidirectional-connections).
 
 See [Callbacks Through Glacier2](../callbacks-through-glacier2) for an example.
 

@@ -7,7 +7,7 @@
 ```swift
 let router = try makeProxy(
     communicator: communicator, proxyString: "...",
-    type: GreeterPrx.self)
+    type: RouterPrx.self)
 let greeter = try makeProxy(
     communicator: communicator, proxyString: "...",
     type: GreeterPrx.self)

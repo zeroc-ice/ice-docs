@@ -3,7 +3,7 @@
 ```csharp
 var router = RouterPrxHelper.createProxy(…);
 var greeter = GreeterPrxHelper.createProxy(...); // normal proxy
-var routedGreeter = greeter.ice_router(router);
+var routedGreeter = GreeterPrxHelper.uncheckedCast(greeter.ice_router(router));
 ```
 
 {% /language-section %}

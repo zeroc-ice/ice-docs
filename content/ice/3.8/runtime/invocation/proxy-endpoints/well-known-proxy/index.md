@@ -16,12 +16,18 @@ Root -o    # oneway proxy
 
 When you invoke an operation on a well-known proxy, Ice locates the target object as follows:
 
+{% iflang langs="js" %}
+
+Ice for JavaScript does not provide collocation optimization, so the resolution starts at step 2.
+
+{% /iflang %}
+
 1. If [collocation optimization](../collocated-invocation-and-dispatch) is enabled (the default), Ice looks up the
    object identity in the [Active Servant Map](../active-servant-map) (ASM) of all [object adapters](../dispatch)
-   associated with the same communicator as this well-known proxy. The servant locators and default servants registered
-   with these object adapters are not consulted. If the object is found in one of these ASMs, Ice then sends requests to
-   this object using collocation optimization. The [holding state](../object-adapter-activation-and-deactivation) of the
-   object adapter is ignored for this search and subsequent collocated dispatches to the servant.
+   created by the proxy's communicator. The servant locators and default servants registered with these object adapters
+   are not consulted. If the object is found in one of these ASMs, Ice then sends requests to this object using
+   collocation optimization. The [holding state](../object-adapter-activation-and-deactivation) of the object adapter is
+   ignored for this search and subsequent collocated dispatches to the servant.
 2. Otherwise, if Ice does not find this object identity in one of these local ASMs (or collocation optimization is
    disabled), and a [locator](../locators) is configured with the communicator:
 

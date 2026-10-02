@@ -48,7 +48,7 @@ have the same type; to draw the analogy with C++, a Slice interface corresponds 
 Ice object corresponds to a C++ class instance (but Ice objects can be implemented in multiple different address
 spaces).
 
-Ice also provides multiple interfaces for the same Ice object via a feature called [_facets_](../versioning).
+Ice also provides multiple interfaces for the same Ice object via a feature called [_facets_](../facets).
 
 A Slice interface defines the smallest grain of distribution in Ice: each Ice object has a unique identity (encapsulated
 in its proxy) that distinguishes it from other Ice objects; for communication to take place, you must invoke operations

@@ -2,8 +2,18 @@
 title: Proxy Defaults and Overrides
 ---
 
-Proxies are influenced by Ice configuration properties and settings. The relevant properties can be classified into two
-categories: defaults and overrides.
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+Two kinds of Ice configuration properties affect proxies: the default properties, which set the initial settings of new
+proxies, and the compression override, which replaces the compression setting of all proxies.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+The default properties of Ice set the initial settings of new proxies.
+
+{% /iflang %}
 
 ## Proxy Default Properties
 
@@ -23,25 +33,24 @@ GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 assert(greeter.ice_getEndpointSelection() == Ice::EndpointSelectionType::Ordered);
 ```
 
-## Proxy Override Properties
+## The Compression Override
 
-Defining an override property causes the Ice runtime to ignore any equivalent proxy option and use the override property
-value instead. For example, consider the following property definition:
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
-```config
-Ice.Override.Compress=1
-```
+[Ice.Override.Compress](../ice-override-properties) overrides the compression setting of all proxies. With
+`Ice.Override.Compress=1`, Ice enables compression for all requests; with `Ice.Override.Compress=0`, it disables
+compression for all requests. In both cases, Ice ignores the compression setting of each proxy (see `ice_compress`).
 
-This property instructs the Ice runtime to use only “compressed” requests, producing the same semantics as calling
-`ice_compress(true)` on every proxy. However, the property does not alter the existing proxy, but rather directs the Ice
-communicator to use protocol compression for all requests.
+The override also sets the compression flag of the endpoints on which object adapters listen, so the proxies that an
+object adapter creates from these endpoints carry the overridden compression setting.
 
-{% callout type="info" %}
+{% /iflang %}
 
-Previous versions of Ice had many override properties. As of Ice 3.8, `Ice.Override.Compress` is the only override
-property left.
+{% iflang langs="js" %}
 
-{% /callout %}
+Ice for JavaScript does not support `Ice.Override.Compress`.
+
+{% /iflang %}
 
 ## See Also
 
