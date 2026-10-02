@@ -2,6 +2,8 @@
 title: IceStorm Quality of Service
 ---
 
+<!-- cspell:ignore retrycount -->
+
 An IceStorm subscriber specifies Quality of Service (QoS) parameters at the time of subscription. The sections below
 describe the supported QoS parameters. IceStorm matches QoS parameter names exactly, including case, and ignores names
 it doesn't recognize: a `retrycount` parameter, for example, leaves the retry count at its default.
