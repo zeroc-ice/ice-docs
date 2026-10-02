@@ -59,8 +59,8 @@ If specified, the following command-line options override their property equival
    at the specified host. If no port is defined via the `-P` or `--port` options or the equivalent property,
    `icegridadmin` uses the standard IceGrid TCP (4061) or SSL (4062) port.
 4. Otherwise, `icegridadmin` attempts to locate a registry by issuing a UDP multicast
-   [discovery request](../icelocatordiscovery). (`icegridadmin` does not use the IceGridDiscovery plug-in.) If the tool
-   discovers more than one registry, it presents a list and asks you to select one.
+   [discovery request](../icelocatordiscovery). If the tool discovers more than one registry, it presents a list and
+   asks you to select one.
 
 {% callout type="tip" %}
 
