@@ -57,11 +57,9 @@ are initialized, provided [Ice.Admin.Endpoints](../ice-admin-properties#ice.admi
 
 ### Description {% id="ice.admin.enabled-description" %}
 
-If `num` is a value greater than zero, the [Administrative Facility](../administrative-facility) is enabled. If `num` is
-a zero or a negative value, the [Administrative Facility](../administrative-facility) is disabled. If this property is
-not set at all, the [Administrative Facility](../administrative-facility) is enabled when
-[Ice.Admin.Endpoints](../ice-admin-properties#ice.admin.adapterproperty) is defined and not empty, and is disabled
-otherwise.
+`1` enables the [Administrative Facility](../administrative-facility) and `0` disables it. When this property is unset,
+the facility is enabled if and only if [Ice.Admin.Endpoints](../ice-admin-properties#ice.admin.adapterproperty) is
+non-empty.
 
 ## Ice.Admin.Facets
 
@@ -127,12 +125,12 @@ remote loggers. Without this sub-communicator, sending log messages to remote lo
 which in turn would generate more logs sent to remote loggers: a single genuine log could trigger an infinite number of
 log messages.
 
-The properties of this sub-communicator are a few properties of the application's communicator (`Ice.Default.Locator`,
-`Ice.Plugin.IceSSL` and all [IceSSL](../icessl-properties) properties), plus the properties (if any) specified by
-_propertyList_. *propertyList*is a sequence of strings, that Ice reads using
-[getPropertyAsList](https://code.zeroc.com/manual/Ice/Properties). Each of these strings uses the syntax
-_PropertyName_=_PropertyValue_ to set a property. For example, you could turn on protocol tracing on the `Logger`
-facet's sub-communicator with:
+Ice copies properties with the prefixes `Ice.Default.Locator` and `IceSSL.` from the application's communicator to this
+sub-communicator, then applies the properties in _propertyList_. These additional properties override copied values.
+
+Ice reads _propertyList_ as a [list of strings](../properties-class), each using the syntax
+`PropertyName=PropertyValue`. For example, this property enables protocol tracing on the Logger facet's
+sub-communicator:
 
 ```config
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1

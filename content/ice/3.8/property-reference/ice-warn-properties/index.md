@@ -12,8 +12,16 @@ title: Ice.Warn.*
 
 ### Description {% id="ice.warn.connections-description" %}
 
-If `num` is set to a value larger than 0, the Ice runtime logs warnings for certain exceptional conditions in
-connections. The default value is 0.
+A positive value enables warnings when an error closes an established connection, such as a lost connection. The default
+value is 0.
+
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+
+This property also enables warnings for errors while accepting connections and exceptions while processing datagrams.
+Warnings about oversized datagrams are controlled separately by
+[Ice.Warn.Datagrams](../ice-warn-properties#ice.warn.datagrams).
+
+{% /iflang %}
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
@@ -39,19 +47,14 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 ### Description {% id="ice.warn.dispatch-description" %}
 
-This property is ignored when [Ice.Trace.Dispatch](../ice-trace-properties) has a value larger than 0.
+When [Ice.Trace.Dispatch](../ice-trace-properties) is 0, this property controls warnings from the logger middleware. The
+default value is 1.
 
-Otherwise, if `num` is set to a value larger than 0, the logger middleware logs warning messages when exceptions are
-thrown during dispatches.
-
-The default value is `1`.
-
-Warning levels:
-
-| 0   | Logs no warnings.                                                                                                                                                |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Logs warnings for: all exceptions except dispatch exceptions, and the 3 Unknown exceptions (`UnknownException`, `UnknownLocalException`, `UnknownUserException`) |
-| 2   | Like 1, but also logs warnings for dispatch exceptions such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`.            |
+| Value | Description                                                                                                                                                                               |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | No warnings from the logger middleware.                                                                                                                                                   |
+| 1     | Warn when a dispatch fails with `UnknownException`, `UnknownLocalException`, or `UnknownUserException`, or with any exception that is neither a user exception nor a `DispatchException`. |
+| 2     | Like 1, plus all other instances of `DispatchException`, such as `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException`.                                   |
 
 ## Ice.Warn.Endpoints
 
@@ -61,8 +64,9 @@ Warning levels:
 
 ### Description {% id="ice.warn.endpoints-description" %}
 
-If `num` is set to a value larger than 0, the Ice runtime logs a warning when a stringified proxy contains an endpoint
-that cannot be parsed. The default value is 1.
+If `num` is greater than 0, Ice logs a warning when it parses a stringified proxy that contains both endpoints with
+known transports and endpoints with unknown transports. Ice ignores the unknown endpoints and uses the recognized ones.
+The default value is 1.
 
 {% language-section name="lang-2" /%}
 

@@ -104,8 +104,8 @@ For a server deployed with IceGrid, you normally don't need to install the IceLo
 
 Support for multicast discovery is built into the [command-line](../icegridadmin-command-line-tool) and
 [graphical](../icegrid-gui-tool) IceGrid administrative utilities, therefore you don't need to install the plug-in. Both
-utilities support [configuration properties](../icegridadmin-properties) similar to the ones we described above for
-defining the multicast address and port.
+utilities read the same [IceLocatorDiscovery.*](../icelocatordiscovery-properties) properties as the plug-in, for
+example to change the multicast address and port.
 
 ### Configuring IceLocatorDiscovery in an IceGrid Registry
 
