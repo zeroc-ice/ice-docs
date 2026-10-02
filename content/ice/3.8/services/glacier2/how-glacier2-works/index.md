@@ -11,7 +11,7 @@ Glacier2 normally runs on a host in the private network behind a
 access to both public and private networks. In this configuration it follows that Glacier2 must have endpoints on each
 network.
 
-![A public client at 1.2.3.4 connects to Glacier2 client endpoints at 5.6.7.8. Glacier2 sends requests to the private server at 10.0.0.2. The server sends callbacks to Glacier2 server endpoints at 10.0.0.1.](/attachments/3.8/how-glacier2-works/client-and-server-endpoints.svg)
+![A public client at 1.2.3.4 connects to Glacier2 client endpoints at 5.6.7.8. Glacier2 sends requests to the private server at 10.0.0.2. The server sends callbacks to Glacier2 server endpoints at 10.0.0.1.](/images/ice/3.8/how-glacier2-works/client-and-server-endpoints.svg)
 
 {% callout type="info" %}
 

@@ -15,7 +15,7 @@ The figures below use dotted arrows for links between topics and solid arrows fo
 
 IceStorm messages are never propagated over more than one link. For example, consider the topic graph shown below:
 
-![Publisher PA publishes to topic A, which has a dotted link to B. Publisher PB publishes directly to B. B has a dotted link to C and sends to subscriber SB; C sends to subscriber SC. Solid arrows show message delivery.](/attachments/3.8/topic-federation/federation1.svg)
+![Publisher PA publishes to topic A, which has a dotted link to B. Publisher PB publishes directly to B. B has a dotted link to C and sends to subscriber SB; C sends to subscriber SC. Solid arrows show message delivery.](/images/ice/3.8/topic-federation/federation1.svg)
 
 In this case, messages published on `A` are propagated to `B`, but `B` does not propagate `A`'s messages to `C`.
 Therefore, subscriber SB receives messages published on topics `A` and B, but subscriber SC only receives messages
@@ -35,7 +35,7 @@ equals or exceeds the message cost. A cost value of zero (`0`) has the following
 - links with a cost value of zero (`0`) accept all messages regardless of the message cost. For example, consider the
   following topic graph:
 
-![Solid arrows show publishers P1 and P2 sending to topic A with message costs 1 and 2 respectively. Dotted arrows show a link from A to B with cost 0 and a link from A to C with cost 1.](/attachments/3.8/topic-federation/federation2.svg)
+![Solid arrows show publishers P1 and P2 sending to topic A with message costs 1 and 2 respectively. Dotted arrows show a link from A to B with cost 0 and a link from A to C with cost 1.](/images/ice/3.8/topic-federation/federation2.svg)
 
 Publisher P1 publishes a message on topic `A` with a cost of `1`. This message is propagated on the link to topic `B`
 because the link has a cost of `0` and therefore accepts all messages. The message is also propagated on the link to

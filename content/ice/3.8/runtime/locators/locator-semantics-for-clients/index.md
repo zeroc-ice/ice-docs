@@ -7,7 +7,7 @@ title: Locator Semantics for Clients
 On the first use of an indirect proxy in an application, the communicator may issue a remote invocation on the locator
 object. This activity is transparent to the application, as shown below:
 
-![The client calls initialOp on an indirect proxy. The Ice runtime queries the locator, then the client sends initialOp to the located target object.](/attachments/3.8/locator-semantics-for-clients/locating-an-object.svg)
+![The client calls initialOp on an indirect proxy. The Ice runtime queries the locator, then the client sends initialOp to the located target object.](/images/ice/3.8/locator-semantics-for-clients/locating-an-object.svg)
 
 _Locating an object._
 

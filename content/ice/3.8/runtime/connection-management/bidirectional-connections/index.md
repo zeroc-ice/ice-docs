@@ -8,14 +8,14 @@ An Ice connection normally allows requests to flow in only one direction. If an 
 to make callbacks to a client, the server usually establishes a new connection to that client in order to send callback
 requests, as shown below:
 
-![The client opens a connection to send requests to the server. The server opens a separate connection to send callbacks to the client.](/attachments/3.8/bidirectional-connections/callback1.svg)
+![The client opens a connection to send requests to the server. The server opens a separate connection to send callbacks to the client.](/images/ice/3.8/bidirectional-connections/callback1.svg)
 
 _Callbacks in an open network._
 
 Unfortunately, network restrictions often prevent a server from being able to create a separate connection to the
 client, such as when the client resides behind a firewall as shown here:
 
-![The client can open a connection to the server through its firewall, but the firewall blocks a separate incoming callback connection from the server.](/attachments/3.8/bidirectional-connections/callback2.svg)
+![The client can open a connection to the server through its firewall, but the firewall blocks a separate incoming callback connection from the server.](/images/ice/3.8/bidirectional-connections/callback2.svg)
 
 In this scenario, the firewall blocks any attempt to establish a connection directly to the client.
 

@@ -51,9 +51,9 @@ is a directory, and its path under the version is its slug, the path in its URL:
   name a type.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
-Images live under `public/attachments/<version>/<page>/` and are referenced as `/attachments/<version>/<page>/<file>`.
-Keep a shared figure in one page's attachment directory and reference that same asset from other pages instead of
-duplicating it.
+Images live under `public/images/ice/<version>/<page>/` and are referenced as `/images/ice/<version>/<page>/<file>`.
+Keep a shared figure in one page's image directory and reference that same asset from other pages instead of duplicating
+it. Images the site itself uses, such as the link arrow, live under `public/images/site/`.
 
 - **Every page is in the table of contents**: `check:content` fails a page that no `pages:` list reaches from the front
   page down.
@@ -101,10 +101,10 @@ duplicating it.
   reads it as part of that item or quote. An inline closer, `word{% /iflang %}`, has no space before it;
   `scripts/prettier-plugin-markdoc.ts`, the parser `format` uses for Markdown, glues one written after a space to the
   word before it, so that line filling moves the two together.
-- **Images** live under `public/attachments/`. A paragraph that is nothing but an image renders as a figure; an image
-  inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article column. Use a
-  plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md) for SVG
-  authoring.
+- **Images** live under `public/images/ice/<version>/<page>/`. A paragraph that is nothing but an image renders as a
+  figure; an image inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article
+  column. Use a plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md)
+  for SVG authoring.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
 - **Release note pages** carry `date:` (an ISO date, quoted) in their frontmatter; the front page's release list shows
   it.
@@ -114,7 +114,7 @@ duplicating it.
 
 ## Deployment
 
-`npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (attachments,
+`npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (images,
 search index) and `.next/static`. The sitemap's base URL, each page's canonical URL, and the links in its breadcrumb
 structured data come from `SITE_URL` (default `https://docs.zeroc.com`); `docker build --build-arg SITE_URL=…` passes it
 through.

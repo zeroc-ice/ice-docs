@@ -42,7 +42,7 @@ We will also assume you're running one IceGrid registry master instance, and two
 
 ## Ansible Configuration
 
-![The control machine uses SSH to ask the registry to disable and stop servers in step 1, synchronizes executables directly to Node1 and Node2 in step 2, and asks the registry to enable and start servers in step 3. Node1 hosts ServerA1 and ServerB1; Node2 hosts ServerA2.](/attachments/3.8/ansible/icegrid-ansible.svg)
+![The control machine uses SSH to ask the registry to disable and stop servers in step 1, synchronizes executables directly to Node1 and Node2 in step 2, and asks the registry to enable and start servers in step 3. Node1 hosts ServerA1 and ServerB1; Node2 hosts ServerA2.](/images/ice/3.8/ansible/icegrid-ansible.svg)
 
 We distribute our server applications in three steps using an Ansible playbook:
 

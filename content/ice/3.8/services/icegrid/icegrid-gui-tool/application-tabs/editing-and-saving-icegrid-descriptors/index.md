@@ -11,7 +11,7 @@ in-memory representation of the application definition. However these changes ar
 XML file until you save the application definition (see below).
 
 Editing a live application
-![live application](/attachments/3.8/editing-and-saving-icegrid-descriptors/live-application.jpeg) also disconnects this
+![live application](/images/ice/3.8/editing-and-saving-icegrid-descriptors/live-application.jpeg) also disconnects this
 application from the IceGrid registry: updates made by other users are no longer propagated to the Application tab.
 
 ## Copy & Paste
@@ -20,7 +20,7 @@ Most descriptor sub-trees can be copied and later pasted. Copies are always deep
 all the servers on this code are copied, including all the the sub-elements of these servers (object adapters, services,
 etc.).
 
-![node-copied.png](/attachments/3.8/editing-and-saving-icegrid-descriptors/node-copied.png)
+![node-copied.png](/images/ice/3.8/editing-and-saving-icegrid-descriptors/node-copied.png)
 
 After pasting a sub-tree, you typically need to check and edit the new elements to avoid any duplicate server IDs,
 adapter IDs etc.
@@ -86,4 +86,4 @@ To avoid this situation, you can acquire an exclusive write access to the IceGri
 `File > Acquire Exclusive Write Access`. After this exclusive write access is granted, any attempt by another session to
 save to the IceGrid registry will result in an error:
 
-![access-denied-exclusive-access.png](/attachments/3.8/editing-and-saving-icegrid-descriptors/access-denied-exclusive-access.png)
+![access-denied-exclusive-access.png](/images/ice/3.8/editing-and-saving-icegrid-descriptors/access-denied-exclusive-access.png)
