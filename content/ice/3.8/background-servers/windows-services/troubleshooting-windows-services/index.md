@@ -72,8 +72,9 @@ Glacier2 router service:
 1. Select Start, type `wf.msc`, and press Enter to open the Windows Firewall with Advanced Security console.
 2. Select "Inbound Rules" in the navigation pane, then select "Action" and "New Rule...".
 3. On the "Rule Type" page, select "Custom", which makes the wizard show all of the following pages.
-4. On the "Program" page, select "This program path" and enter the full path of the Glacier2 router executable,
-   `glacier2router.exe`.
+4. On the "Program" page, select "This program path" and enter the full path of the Glacier2 router executable, such as
+   `C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\glacier2router.exe` for an installation with the Ice Services
+   installer in its default folder.
 5. On the "Protocol and Ports" page, select the protocol type "TCP" and enter as local ports the ports of the router's
    endpoints.
 6. On the "Scope" page, enter the remote IP addresses allowed to connect to the router, or keep the rule open to any
@@ -87,7 +88,8 @@ example, the rule allows connections to the router on TCP port 4063 in the Domai
 
 ```powershell
 New-NetFirewallRule -DisplayName "Glacier2 router" -Direction Inbound -Action Allow `
-    -Program "C:\Program Files\ZeroC\Ice\bin\glacier2router.exe" -Protocol TCP -LocalPort 4063 -Profile Domain
+    -Program "C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\glacier2router.exe" `
+    -Protocol TCP -LocalPort 4063 -Profile Domain
 ```
 
 A rule that names the program and leaves the ports open allows connections to every port on which the program listens,
