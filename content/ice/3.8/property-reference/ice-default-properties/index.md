@@ -162,11 +162,10 @@ Note that you can also specify whether certain operations use the sliced format 
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-Specifies the numeric IP address used to bind outgoing socket
-connections{% iflang langs="cpp,python,ruby,php,matlab,swift" %}, except stream connections on iOS{% /iflang %}.
-Selecting a source IP address does not necessarily select the network interface used to send packets. Proxy endpoints
-can override this default with the [--sourceAddress](../endpoint-syntax) option. If this property is empty, the
-operating system selects the source address.
+Specifies the numeric IP address used to bind outgoing socket connections{% iflang langs="cpp,swift" %}, except stream
+connections on iOS{% /iflang %}. Selecting a source IP address does not necessarily select the network interface used to
+send packets. Proxy endpoints can override this default with the [--sourceAddress](../endpoint-syntax) option. If this
+property is empty, the operating system selects the source address.
 
 {% /iflang %}
 
