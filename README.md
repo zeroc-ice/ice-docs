@@ -22,7 +22,7 @@ npm test               # unit tests for the content model
 npm run check:content  # navigation, images, headings, language slots
 npm run check:markdoc  # every page against the Markdoc schema, every link resolved
 npm run lint           # eslint and markdownlint
-npm run format         # prettier
+npm run format         # prettier; CI runs format:check
 ```
 
 CI runs the same checks, so run them before pushing.

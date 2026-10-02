@@ -45,13 +45,13 @@ page and its overlays combine.
 
 ## Frontmatter
 
-| Field                    | Use                                                                                                                                                            |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`                  | The page title, and its `h1`.                                                                                                                                  |
-| `pages`                  | The pages under this one, in sidebar order.                                                                                                                    |
-| `description`            | A subtitle under the title, and the page's meta description. Search matches against it.                                                                        |
-| `type`                   | The page\'s kind, shown as a badge above the title and on its search hits: `tutorial`, `how-to`, `concept`, `reference`, `troubleshooting`, or `release-note`. |
-| `shape: wide`            | Runs the body on the wide track.                                                                                                                               |
-| `showAside: false`       | Drops the right rail.                                                                                                                                          |
-| `showReadingTime: false` | Drops the reading time.                                                                                                                                        |
-| `showDividers: false`    | Drops the rule under each `##` heading.                                                                                                                        |
+| Field                    | Use                                                                                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`                  | The page title, and its `h1`.                                                                                                                                 |
+| `pages`                  | The pages under this one, in sidebar order.                                                                                                                   |
+| `description`            | A subtitle under the title, and the page's meta description. Search matches against it.                                                                       |
+| `type`                   | The page's kind, shown as a badge above the title and on its search hits: `tutorial`, `how-to`, `concept`, `reference`, `troubleshooting`, or `release-note`. |
+| `shape: wide`            | Runs the body on the wide track.                                                                                                                              |
+| `showAside: false`       | Drops the right rail.                                                                                                                                         |
+| `showReadingTime: false` | Drops the reading time.                                                                                                                                       |
+| `showDividers: false`    | Drops the rule under each `##` heading.                                                                                                                       |
