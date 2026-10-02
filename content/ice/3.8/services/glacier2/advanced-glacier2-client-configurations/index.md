@@ -16,9 +16,9 @@ direct proxies this object adapter creates contain the router's server endpoints
 have endpoints of its own.
 
 The callback client therefore dedicates one object adapter,
-[configured with the router proxy](../callbacks-through-glacier2), to callback requests, and, in a language mapping
-whose object adapters accept incoming connections, a second object adapter with local endpoints to requests from local
-clients.
+[configured with the router proxy](../callbacks-through-glacier2), to callback requests. In a language mapping whose
+object adapters accept incoming connections, it dedicates a second object adapter, with local endpoints, to requests
+from local clients.
 
 ## Using Multiple Routers
 
