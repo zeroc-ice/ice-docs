@@ -15,8 +15,7 @@ const selection: Schema = {
     return new Tag('Selection', {
       version,
       languages,
-      versionOptions: chrome.versionOptions ?? [],
-      previousVersions: chrome.previousVersions
+      versionOptions: chrome.versionOptions ?? []
     });
   }
 };

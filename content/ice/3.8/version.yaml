@@ -1,0 +1,12 @@
+# The settings of the Ice 3.8 documentation: the language mappings it is written for, and its status.
+status: latest
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
