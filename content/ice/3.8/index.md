@@ -4,20 +4,6 @@ description: Documentation for Ice, the Slice language, and the Ice services.
 shape: wide
 showReadingTime: false
 showAside: false
-status: latest
-languages:
-  - cpp
-  - csharp
-  - java
-  - js
-  - matlab
-  - php
-  - python
-  - ruby
-  - swift
-previousVersions:
-  label: Previous Versions
-  url: https://archive.zeroc.com/
 pages:
   - greeter-example
   - upgrade-guide

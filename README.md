@@ -34,10 +34,10 @@ npm run format:check               # what CI runs
 Everything for one version of the manual lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page
 is a directory, and its path under the version is its slug, the path in its URL:
 
+- `version.yaml` — the version's settings: `status` and `languages`. The site root and `/ice` redirect to the front page
+  of the version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version.
 - `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
-  ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the front page of the
-  version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version. Its frontmatter lists the
-  chapters under `pages:` and holds the version's settings: `status`, `languages`, and `previousVersions`.
+  ahead of the chapters, and the breadcrumb root links to it. Its frontmatter lists the chapters under `pages:`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
   `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
   lists them under `pages:`.
@@ -46,7 +46,7 @@ is a directory, and its path under the version is its slug, the path in its URL:
 - `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,
   `/ice/<version>/<language>/<name>`, and the pages it named differently. Each URL redirects to the page here with the
   same name, or the one `redirects.yaml` names, keeping the language as `?lang=`; `lib/docs-model/scroll-urls.test.ts`
-  checks every one.
+  checks every one, and `check:markdoc` checks that one sent to a section lands on a heading its language shows.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
 Images live under `public/images/ice/<version>/<page>/` and are referenced as `/images/ice/<version>/<page>/<file>`.

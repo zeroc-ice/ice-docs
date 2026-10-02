@@ -28,11 +28,12 @@
 // text, one whose `#anchor` names no element on the page it links to, and one
 // whose `?lang=` names a mapping the manual lacks or one that doesn't show the
 // anchor. It also reports two headings that a reader of one language sees under
-// one anchor.
+// one anchor, and a URL of the Scroll Viewport site that redirects to a section
+// its language doesn't show.
 //
 // Exit code 1 on any diagnostic at warning level or above, on a link to a page,
-// an anchor, or a mapping that does not exist, and on two headings with one
-// anchor.
+// an anchor, or a mapping that does not exist, on two headings with one anchor,
+// and on a Scroll Viewport URL that lands on a section its language lacks.
 // `child-invalid`, which a `{% callout %}` reflowed into its paragraph
 // produces, is a warning.
 
@@ -55,11 +56,12 @@ import {
   listVersions,
   readNavigation,
   readPageSources,
+  readRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
 import { pageHref } from '../lib/docs-model/nav.ts';
-import { resolveDocument } from '../lib/docs-model/resolve.ts';
+import { resolveDocument, splitLines } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
 const resolverTags: Record<string, Schema> = {
@@ -322,6 +324,49 @@ for (const { where, url, href, languages } of checkedLinks) {
       where,
       text: `link to an anchor the ${language} mapping doesn't show: ${href}`
     });
+}
+
+// The URLs a version had on the Scroll Viewport site redirect to its pages (see
+// readRedirects); one that lands on a section must land on a heading the URL's
+// language shows. Scroll Viewport URL -> that page, section, and language:
+const scrollSections = new Map<
+  string,
+  { page: string; anchor: string; language: string }
+>();
+for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
+  const [, version, languages, rest] =
+    source.match(/^\/ice\/([^/]+)\/:lang\(([^)]*)\)(.*)$/) ?? [];
+  const [beforeHash, anchor] = destination.split('#');
+  if (!languages || anchor === undefined) continue;
+  const page = beforeHash.split('?')[0];
+  for (const language of languages.split('|'))
+    scrollSections.set(`/ice/${version}/${language}${rest}`, {
+      page,
+      anchor: decodeURIComponent(anchor),
+      language
+    });
+}
+for (const version of listVersions(CONTENT_ROOT)) {
+  const file = path.join(CONTENT_ROOT, version, 'scroll-urls.txt');
+  if (!fs.existsSync(file)) continue;
+  for (const scrollUrl of splitLines(fs.readFileSync(file, 'utf8'))) {
+    // The Scroll Viewport site spelled `js` as `javascript`.
+    const section = scrollSections.get(
+      scrollUrl.replace(`/ice/${version}/javascript/`, `/ice/${version}/js/`)
+    );
+    if (!section) continue;
+    const { page, anchor, language } = section;
+    // A page that failed to render is reported above.
+    const headings = headingsByPage.get(page);
+    if (!headings) continue;
+    const shown = ({ id, langs }: OutlineHeading) =>
+      id === anchor && (!langs || langs.includes(language));
+    if (!headings.some(shown))
+      diagnostics.push({
+        where: `${version}/redirects.yaml`,
+        text: `${scrollUrl} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
+      });
+  }
 }
 
 for (const d of diagnostics) console.error(`${d.where}: ${d.text}`);

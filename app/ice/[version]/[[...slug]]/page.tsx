@@ -157,7 +157,6 @@ export default async function Page(props: PageProps) {
       writtenFor: writtenFor(current),
       // For the front page's switches and release list.
       versionOptions,
-      previousVersions: nav.previousVersions,
       releases,
       // The property tables are a list of exact identifiers, not an essay, and
       // are typeset as such. Derived from the page's place in the manual — the
@@ -176,7 +175,6 @@ export default async function Page(props: PageProps) {
         version={version}
         languages={languages}
         versionOptions={versionOptions}
-        previousVersions={nav.previousVersions}
       />
       <script
         type="application/ld+json"

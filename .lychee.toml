@@ -51,8 +51,9 @@ exclude = [
     "^https?://docs\\.ansible\\.com",
 ]
 
-# Accept these status codes as valid
-accept = [200, 204, 206, 301, 308]
+# Accept these status codes as valid. A 503 says the server is down, not that the
+# link is dead; github.com answers a burst of page fetches that way.
+accept = [200, 204, 206, 301, 308, 503]
 
 # Include fragments (anchors) in checks
 # Values: "none", "anchor-only", "text-only", "full"
