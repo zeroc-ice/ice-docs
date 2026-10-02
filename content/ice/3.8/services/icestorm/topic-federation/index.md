@@ -28,9 +28,8 @@ established directly between `A` and `C`.
 As described above, IceStorm messages are only propagated on the originating topic's immediate links. In addition,
 applications can use the notion of cost to further restrict message propagation.
 
-A cost is associated with messages and links. When a publisher publishes a message on a topic, the topic compares the
-cost associated with each of its links against the message cost, and propagates the message only on those links whose
-cost is zero or equals or exceeds the message cost. A cost value of zero (`0`) has the following implications:
+Messages and links each carry a cost. A topic propagates a message only on its links whose cost is zero or at least the
+message's cost. A cost value of zero (`0`) has the following implications:
 
 - messages with a cost value of zero (`0`) are published on all of the topic's links regardless of the link cost;
 - links with a cost value of zero (`0`) accept all messages regardless of the message cost. For example, consider the
