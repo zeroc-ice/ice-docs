@@ -14,7 +14,7 @@ const index = buildPageIndex([
   'get-started'
 ]);
 
-const ctx = { version: '3.8', index };
+const ctx = { version: '3.8', slug: 'learn/slice/enumerations', index };
 
 test('a slug resolves to the page, and the query and anchor survive', () => {
   assert.equal(
@@ -30,6 +30,23 @@ test('a slug resolves to the page, and the query and anchor survive', () => {
     resolveDocLink('learn/runtime/communicator?lang=java#creating', ctx).href,
     '/ice/3.8/learn/runtime/communicator?lang=java#creating'
   );
+});
+
+test('a path starting with ./ or ../ is relative to the page', () => {
+  assert.equal(
+    resolveDocLink('../enumerations', ctx).href,
+    '/ice/3.8/learn/slice/enumerations'
+  );
+  assert.equal(
+    resolveDocLink('../../runtime/communicator#creating', ctx).href,
+    '/ice/3.8/learn/runtime/communicator#creating'
+  );
+  assert.equal(
+    resolveDocLink('./get-started', { ...ctx, slug: '' }).href,
+    '/ice/3.8/get-started'
+  );
+  // Stepping above the version names no page.
+  assert.equal(resolveDocLink('../../../../get-started', ctx).resolved, false);
 });
 
 test('links the resolver must not touch are returned unchanged', () => {
@@ -50,9 +67,9 @@ test('links the resolver must not touch are returned unchanged', () => {
 test('a link to no page is reported, not silently rewritten', () => {
   for (const href of [
     'learn/slice/a-page-that-was-never-migrated',
-    // A page name alone, or a relative path, is not a slug.
+    // A page name alone is not a slug.
     'enumerations',
-    '../enumerations'
+    '../a-page-that-was-never-migrated'
   ]) {
     const link = resolveDocLink(href, ctx);
     assert.equal(link.resolved, false, href);

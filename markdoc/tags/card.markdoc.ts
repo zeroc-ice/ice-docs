@@ -45,9 +45,10 @@ const card = {
   },
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
-    const { version, pageIndex } = config.variables as PageVariables;
+    const { version, slug, pageIndex } = config.variables as PageVariables;
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
       version,
+      slug,
       index: pageIndex
     });
     return new Tag(

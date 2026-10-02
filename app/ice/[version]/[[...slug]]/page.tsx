@@ -142,6 +142,7 @@ export default async function Page(props: PageProps) {
   const content = renderMarkdownString({
     source: body,
     path: routePath,
+    slug,
     version,
     languages,
     pageIndex,

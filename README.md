@@ -56,11 +56,11 @@ it. Images the site itself uses, such as the link arrow, live under `public/imag
 
 - **Every page is in the table of contents**: `check:content` fails a page that no `pages:` list reaches from the front
   page down.
-- **Cross-page links name a page by its slug** (`[Enumerations](slice/user-defined-types/enumerations)`) and are
-  resolved at build time. A link to a page that does not exist renders as plain text, and `check:markdoc` fails on it. A
-  link can name the language mapping to show with `?lang=`, as in
-  `[AMD in Java](slice/operations?lang=java#asynchronous-method-dispatch-amd)`; following it switches the reader to that
-  mapping. `check:markdoc` fails one whose mapping the version lacks or doesn't show the anchor.
+- **Cross-page links name a page by its slug** (`[Enumerations](slice/user-defined-types/enumerations)`) or by a path
+  relative to the page (`[Structures](../structures)`), and are resolved at build time. A link to a page that does not
+  exist renders as plain text, and `check:markdoc` fails on it. A link can name the language mapping to show with
+  `?lang=`, as in `[AMD in Java](slice/operations?lang=java#asynchronous-method-dispatch-amd)`; following it switches
+  the reader to that mapping. `check:markdoc` fails one whose mapping the version lacks or doesn't show the anchor.
 - **A link to a heading in the same file is a bare anchor** (`[size](#encoding-for-sizes)`), which MD051 checks. Where
   MD051 can't, because the heading sits in another file of the page or its anchor keeps a dot or comes from `{% id %}`,
   name the page as a cross-page link does: `[Ice.LogFile](property-reference/ice-properties#ice.logfile)`.

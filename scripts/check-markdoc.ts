@@ -131,6 +131,7 @@ function variablesFor({
     ...config.variables,
     frontmatter,
     path: pageHref(version, slug),
+    slug,
     readingTime: {},
     version,
     languages: languagesByVersion[version],
