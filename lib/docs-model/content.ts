@@ -41,11 +41,19 @@ export const CONTENT_ROOT = path.join(process.cwd(), 'content');
 
 /** Every version under the root: each directory holding a `version.yaml`, as its path under the root. */
 export function listVersions(root: string): string[] {
-  return filesNamed(root, 'version.yaml')
-    .map((file) =>
-      path.relative(root, path.dirname(file)).split(path.sep).join('/')
-    )
+  return versionDirectories(root)
+    .map((dir) => path.relative(root, dir).split(path.sep).join('/'))
     .sort();
+}
+
+/** The directories under `dir` that hold a `version.yaml`; a version's pages are not searched. */
+function versionDirectories(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  if (fs.existsSync(path.join(dir, 'version.yaml'))) return [dir];
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .flatMap((entry) => versionDirectories(path.join(dir, entry.name)));
 }
 
 /** Every file called `name` under `dir`. */
