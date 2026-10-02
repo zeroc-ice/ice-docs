@@ -50,7 +50,7 @@ import {
   snippetReader,
   type PageFiles
 } from '../lib/docs-model/content.ts';
-import { VERSIONS } from '../app/versions.ts';
+import { ICE_VERSIONS } from '../app/ice/versions.ts';
 import { navigationPages, type Version } from '../lib/docs-model/nav.ts';
 
 const strict = process.argv.includes('--strict');
@@ -452,7 +452,7 @@ function checkHeadings(
   }
 }
 
-for (const version of VERSIONS) {
+for (const version of ICE_VERSIONS) {
   const nav = readNavigation(version);
 
   const pages = listPages(version);

@@ -55,7 +55,7 @@ import {
   listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
-import { VERSIONS } from '../app/versions.ts';
+import { ICE_VERSIONS } from '../app/ice/versions.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
 import { pageHref, type Version } from '../lib/docs-model/nav.ts';
 import { resolveDocument } from '../lib/docs-model/resolve.ts';
@@ -137,7 +137,7 @@ const reported = new Set<string>();
 // 1. Every page as written.
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
-for (const version of VERSIONS) {
+for (const version of ICE_VERSIONS) {
   const files = listPages(version).flatMap((page) =>
     [page.shared, ...Object.values(page.overlays)]
       .filter((file) => file !== undefined)
@@ -193,7 +193,7 @@ const checkedLinks: {
   href: string;
   languages: string[];
 }[] = [];
-const allPages = VERSIONS.flatMap((version) =>
+const allPages = ICE_VERSIONS.flatMap((version) =>
   listPages(version).map((page) => ({ version, page }))
 );
 for (const { version, page } of allPages) {
@@ -324,8 +324,10 @@ for (const { where, url, href, languages } of checkedLinks) {
 
 // A redirect to a section (see listRedirects) must land on a heading the URL's
 // language shows.
-for (const { file, source, destination } of listRedirects(VERSIONS)) {
-  const version = VERSIONS.find((v) => source.startsWith(`${pageHref(v)}/`));
+for (const { file, source, destination } of listRedirects(ICE_VERSIONS)) {
+  const version = ICE_VERSIONS.find((v) =>
+    source.startsWith(`${pageHref(v)}/`)
+  );
   if (!version) continue;
   const [, languages, rest] =
     source

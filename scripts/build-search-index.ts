@@ -24,7 +24,7 @@ import {
   readPageSources,
   writtenFor
 } from '../lib/docs-model/content.ts';
-import { VERSIONS } from '../app/versions.ts';
+import { ICE_VERSIONS } from '../app/ice/versions.ts';
 import { pageHref, trailTo, type NavDoc } from '../lib/docs-model/nav.ts';
 import { splitFrontmatter, splitLines } from '../lib/docs-model/resolve.ts';
 
@@ -74,7 +74,7 @@ let files = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
-for (const version of VERSIONS) {
+for (const version of ICE_VERSIONS) {
   const nav = readNavigation(version);
   const { path: versionPath } = version;
 
