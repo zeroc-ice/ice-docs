@@ -13,11 +13,11 @@ import {
   breadcrumbs,
   pageHref,
   prevNext,
-  versionTitle
+  versionTitle,
+  type Version
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
-import { ICE_VERSIONS, iceVersion } from '@/app/ice/versions';
 import { SITE_URL } from '@/lib/site';
 import {
   listPages,
@@ -27,16 +27,11 @@ import {
   writtenFor
 } from '@/lib/docs-model/content';
 
-export const dynamicParams = false;
+// The page route of every version: `app/<product>/<version>/[[...slug]]/page.tsx`
+// is a thin wrapper that names its version and hands the rest to these.
 
-type Params = {
-  /** The version's directory under `content/ice/`. */
-  version: string;
-  slug?: string[];
-};
-
-type PageProps = {
-  params: Promise<Params>;
+export type PageProps = {
+  params: Promise<{ slug?: string[] }>;
 };
 
 type Pagination = ReturnType<typeof prevNext> & { langs: string[] };
@@ -46,20 +41,20 @@ function editUrl(file: string): string {
   return `https://github.com/zeroc-ice/ice-docs/edit/main/${path.relative(process.cwd(), file)}`;
 }
 
-export function generateStaticParams() {
+/** Every page of `version`, for the route's `generateStaticParams`. */
+export function docsPageParams(version: Version) {
   // The front page's slug is empty: it is served at the version root.
-  return ICE_VERSIONS.flatMap((version) =>
-    listPages(version).map((page) => ({
-      version: path.posix.basename(version.path),
-      slug: page.slug ? page.slug.split('/') : []
-    }))
-  );
+  return listPages(version).map((page) => ({
+    slug: page.slug ? page.slug.split('/') : []
+  }));
 }
 
-export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const params = await props.params;
-  const version = iceVersion(params.version);
-  const slug = params.slug?.join('/') ?? '';
+/** A page's metadata, for the route's `generateMetadata`. */
+export async function docsPageMetadata(
+  version: Version,
+  props: PageProps
+): Promise<Metadata> {
+  const slug = (await props.params).slug?.join('/') ?? '';
   const page = listPages(version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
@@ -72,10 +67,13 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-export default async function Page(props: PageProps) {
-  const params = await props.params;
-  const version = iceVersion(params.version);
-  const slug = params.slug?.join('/') ?? '';
+/** A page of `version`; `versions` are the ones the switcher offers. */
+export async function DocsPage({
+  version,
+  versions,
+  params
+}: PageProps & { version: Version; versions: Version[] }) {
+  const slug = (await params).slug?.join('/') ?? '';
   const { sidebar } = readNavigation(version);
   const { languages } = version;
 
@@ -116,7 +114,7 @@ export default async function Page(props: PageProps) {
   const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
-  const versionOptions: VersionOption[] = ICE_VERSIONS.map((other) => ({
+  const versionOptions: VersionOption[] = versions.map((other) => ({
     version: other,
     href: pageHref(other, slug)
   }));
