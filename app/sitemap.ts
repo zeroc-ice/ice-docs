@@ -2,19 +2,16 @@
 
 import type { MetadataRoute } from 'next';
 
-import {
-  CONTENT_ROOT,
-  listPages,
-  listVersions
-} from '@/lib/docs-model/content';
+import { ICE_DOCS } from '@/app/ice/docs';
+import { listPages } from '@/lib/docs-model/content';
 import { pageHref } from '@/lib/docs-model/nav';
 import { SITE_URL } from '@/lib/site';
 
 // Every page of every version, at the URL its canonical link names.
 export default function sitemap(): MetadataRoute.Sitemap {
-  return listVersions(CONTENT_ROOT).flatMap((version) =>
-    listPages(CONTENT_ROOT, version).map((page) => ({
-      url: new URL(pageHref(version, page.slug), SITE_URL).href
+  return ICE_DOCS.flatMap((docs) =>
+    listPages(docs).map((page) => ({
+      url: new URL(pageHref(docs, page.slug), SITE_URL).href
     }))
   );
 }

@@ -44,14 +44,14 @@ import {
 import {
   CONTENT_ROOT,
   frontmatterOf,
-  listVersions,
   listPages,
   readNavigation,
   readPageSources,
   snippetReader,
   type PageFiles
 } from '../lib/docs-model/content.ts';
-import { navigationPages } from '../lib/docs-model/nav.ts';
+import { ICE_DOCS } from '../app/ice/docs.ts';
+import { navigationPages, type Docs } from '../lib/docs-model/nav.ts';
 
 const strict = process.argv.includes('--strict');
 const PUBLIC = path.join(process.cwd(), 'public');
@@ -101,7 +101,7 @@ function imageFileFor(target: string, sourceFile: string) {
     : path.join(path.dirname(sourceFile), clean);
 }
 
-function checkImages(version: string, files: string[]) {
+function checkImages(docs: string, files: string[]) {
   const missing = new Map<string, number>();
   let total = 0;
 
@@ -140,14 +140,14 @@ function checkImages(version: string, files: string[]) {
 
   const missingCount = [...missing.values()].reduce((a, b) => a + b, 0);
   console.log(
-    `${version}: ${total} images, ${missingCount} missing (${missing.size} distinct)`
+    `${docs}: ${total} images, ${missingCount} missing (${missing.size} distinct)`
   );
   if (missingCount) {
     for (const [target, count] of [...missing.entries()].slice(0, 10)) {
       console.log(`  ${String(count).padStart(4)}  ${target}`);
     }
     if (missing.size > 10) console.log(`  ...and ${missing.size - 10} more`);
-    fail(`${version}: ${missingCount} images point at files that do not exist`);
+    fail(`${docs}: ${missingCount} images point at files that do not exist`);
   }
 }
 
@@ -162,7 +162,7 @@ const UNCLASSIFIED_SLOT_BASELINE = 333;
  * nothing", or "this mapping cannot do this, because…". A blank section says
  * none of those, and the reader cannot tell the three apart.
  */
-function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
+function checkSlots(docs: string, pages: PageFiles[], languages: string[]) {
   const counts = {
     content: 0,
     'no-addition': 0,
@@ -188,7 +188,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
         // The shared page asks for language-specific prose and none exists.
         missing += slots.length;
         fail(
-          `${version}/${language}: "${page.name}" declares ${slots.length} slot(s) but has no overlay`
+          `${docs}/${language}: "${page.name}" declares ${slots.length} slot(s) but has no overlay`
         );
         continue;
       }
@@ -200,7 +200,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
         );
       } catch (error) {
         fail(
-          `${version}/${language}: "${page.name}" overlay is malformed — ${(error as Error).message}`
+          `${docs}/${language}: "${page.name}" overlay is malformed — ${(error as Error).message}`
         );
         continue;
       }
@@ -210,7 +210,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
         if (!slot) {
           missing++;
           fail(
-            `${version}/${language}: "${page.name}" has no section for slot "${name}"`
+            `${docs}/${language}: "${page.name}" has no section for slot "${name}"`
           );
           continue;
         }
@@ -228,7 +228,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
         if (!slots.includes(name)) {
           unused++;
           fail(
-            `${version}/${language}: "${page.name}" overlay defines unused section "${name}"`
+            `${docs}/${language}: "${page.name}" overlay defines unused section "${name}"`
           );
         }
       }
@@ -251,7 +251,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
   const classified =
     counts.content + counts['no-addition'] + counts['not-applicable'];
   console.log(
-    `${version}: ${classified + counts.unclassified} language slots — ` +
+    `${docs}: ${classified + counts.unclassified} language slots — ` +
       `${counts.content} content, ${counts['no-addition']} no-addition, ` +
       `${counts['not-applicable']} not-applicable, ${counts.unclassified} unclassified`
   );
@@ -268,7 +268,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
 
   if (counts.unclassified > UNCLASSIFIED_SLOT_BASELINE) {
     fail(
-      `${version}: ${counts.unclassified} unclassified language slots, up from the ` +
+      `${docs}: ${counts.unclassified} unclassified language slots, up from the ` +
         `baseline of ${UNCLASSIFIED_SLOT_BASELINE}. A blank section must declare ` +
         `state="no-addition" or state="not-applicable" note="…".`
     );
@@ -280,7 +280,7 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
   }
   if (strict && counts.unclassified) {
     fail(
-      `${version}: ${counts.unclassified} language slots do not say why they are blank`
+      `${docs}: ${counts.unclassified} language slots do not say why they are blank`
     );
   }
   return { missing, unused };
@@ -398,14 +398,10 @@ const textOf = (node: Node) =>
  * overlay's sections inserted, since an overlay's headings nest under the
  * shared page's. A reader of each language meets a different sequence.
  */
-function checkHeadings(
-  version: string,
-  pages: PageFiles[],
-  languages: string[]
-) {
-  const readFile = snippetReader(CONTENT_ROOT, version);
+function checkHeadings(docs: Docs, pages: PageFiles[], languages: string[]) {
+  const readFile = snippetReader(docs);
   for (const page of pages) {
-    const where = `${version}/${page.slug}`;
+    const where = `${docs.path}/${page.slug}`;
     const { shared, overlays } = readPageSources(page);
     let body: string;
     try {
@@ -452,37 +448,37 @@ function checkHeadings(
   }
 }
 
-for (const version of listVersions(CONTENT_ROOT)) {
-  const nav = readNavigation(CONTENT_ROOT, version);
+for (const docs of ICE_DOCS) {
+  const nav = readNavigation(docs);
 
-  const pages = listPages(CONTENT_ROOT, version);
+  const pages = listPages(docs);
   const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
-  const languages = nav.languages;
+  const { languages } = docs;
+  const where = docs.path;
 
-  console.log(`\n${version}: ${pages.length} pages`);
+  console.log(`\n${where}: ${pages.length} pages`);
 
   // 1. every page is in the table of contents: listed under `pages:` by the
   //    page above it, up to the front page, index.md at the root, which lists
   //    the chapters.
   const orphans = pages.filter((page) => !declared.has(page.slug));
   for (const { slug } of orphans.slice(0, 20))
-    fail(`${version}: ${slug} is not in the table of contents`);
+    fail(`${where}: ${slug} is not in the table of contents`);
   if (orphans.length > 20)
     fail(
-      `${version}: ...and ${orphans.length - 20} more pages not in the table of contents`
+      `${where}: ...and ${orphans.length - 20} more pages not in the table of contents`
     );
 
   // 2. page names are unique (cross-page links are keyed by them)
-  for (const dup of duplicates)
-    fail(`${version}: duplicate page name "${dup}"`);
+  for (const dup of duplicates) fail(`${where}: duplicate page name "${dup}"`);
 
   // 3. a file beside a page's index.md is the overlay for the language it is named after
   for (const page of pages) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
-          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
+          `${where}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
         );
     }
   }
@@ -492,16 +488,16 @@ for (const version of listVersions(CONTENT_ROOT)) {
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
   ]);
-  checkImages(version, files);
+  checkImages(where, files);
   checkStrayMarkup(files);
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
   // 7. every language slot is answered, and says what kind of answer it is.
-  checkSlots(version, pages, languages);
+  checkSlots(where, pages, languages);
 
   // 10. headings step down one level at a time from the title.
-  checkHeadings(version, pages, languages);
+  checkHeadings(docs, pages, languages);
 
   // 8. a page written per language is one page: its files agree on the title
   for (const page of pages) {
@@ -513,7 +509,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     );
     if (titles.size > 1)
       fail(
-        `${version}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
+        `${where}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
       );
   }
 }

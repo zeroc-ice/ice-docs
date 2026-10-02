@@ -4,16 +4,16 @@
 import { ChevronDown } from 'lucide-react';
 
 import { Menu, MenuItem, MenuSeparator } from '@/components/menu';
+import type { Docs } from '@/lib/docs-model/nav';
 
 export interface VersionOption {
-  /** Version directory, e.g. "3.8". */
-  value: string;
+  docs: Docs;
   /** This page's path in that version. */
   href: string;
 }
 
 interface VersionSelectProps {
-  current: string;
+  current: Docs;
   options: VersionOption[];
 }
 
@@ -28,8 +28,8 @@ export function VersionSelect({ current, options }: VersionSelectProps) {
       triggerClassName="flex w-[8.5rem] items-center justify-between gap-1 rounded-md border border-black/15 py-1 pr-2 pl-3 text-sm hover:border-black/30 xl:w-[10rem] dark:border-white/20 dark:hover:border-white/40"
       trigger={
         <>
-          <span className="sr-only">Ice version: </span>
-          <span className="truncate">Ice {current}</span>
+          <span className="sr-only">Version: </span>
+          <span className="truncate">{current.title}</span>
           <ChevronDown
             aria-hidden="true"
             className="size-4 shrink-0 text-ink-muted"
@@ -49,11 +49,11 @@ export function VersionItems({ current, options }: VersionSelectProps) {
     <>
       {options.map((option) => (
         <MenuItem
-          key={option.value}
+          key={option.docs.path}
           href={option.href}
-          checked={option.value === current}
+          checked={option.docs.path === current.path}
         >
-          Ice {option.value}
+          {option.docs.title}
         </MenuItem>
       ))}
       <MenuSeparator />

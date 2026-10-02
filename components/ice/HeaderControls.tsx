@@ -6,10 +6,10 @@ import { LanguageSelect } from './LanguageSelect';
 import { VersionSelect, type VersionOption } from './VersionSelect';
 import { Search } from './Search';
 import { useMounted } from '@/context/state';
+import type { Docs } from '@/lib/docs-model/nav';
 
 interface HeaderControlsProps {
-  version: string;
-  languages: string[];
+  docs: Docs;
   versionOptions: VersionOption[];
 }
 
@@ -17,11 +17,7 @@ interface HeaderControlsProps {
 // and search. They are rendered here (portalled into #ice-header-controls) rather
 // than in the header itself because only the page knows the equivalent URL for
 // every version, and which languages the version has.
-export function HeaderControls({
-  version,
-  languages,
-  versionOptions
-}: HeaderControlsProps) {
+export function HeaderControls({ docs, versionOptions }: HeaderControlsProps) {
   // The portal target only exists once the header has rendered on the client.
   const mounted = useMounted();
   const target = mounted
@@ -31,9 +27,9 @@ export function HeaderControls({
 
   return createPortal(
     <>
-      <Search version={version} />
-      <VersionSelect current={version} options={versionOptions} />
-      <LanguageSelect languages={languages} />
+      <Search docs={docs} />
+      <VersionSelect current={docs} options={versionOptions} />
+      <LanguageSelect languages={docs.languages} />
     </>,
     target
   );

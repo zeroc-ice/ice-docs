@@ -1,0 +1,3 @@
+# The site root goes to the latest version of Ice.
+temporary:
+  '.': ice/3.8

@@ -63,10 +63,10 @@ const INTENTS: Record<
     icon: PackageMinus,
     className: 'callout-deprecated'
   },
-  // Version and platform differences — the note that docs covering several Ice
+  // Docs and platform differences — the note that docs covering several Ice
   // releases need constantly ("not available before Ice 3.8").
   compatibility: {
-    label: 'Version compatibility',
+    label: 'Docs compatibility',
     icon: GitCompareArrows,
     className: 'callout-compatibility'
   }

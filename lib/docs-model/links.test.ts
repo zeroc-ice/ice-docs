@@ -14,7 +14,12 @@ const { index } = buildPageIndex([
   'get-started/get-started'
 ]);
 
-const ctx = { version: '3.8', index };
+const ICE_3_8 = {
+  path: 'ice/3.8',
+  title: 'Ice 3.8',
+  languages: []
+};
+const ctx = { docs: ICE_3_8, index };
 
 test('a page name resolves to the page wherever it now lives', () => {
   assert.equal(
@@ -102,7 +107,7 @@ test('a full slug wins over another page with the same name', () => {
     'guides/security/overview',
     'learn/slice/overview'
   ]);
-  const ctx2 = { version: '3.8', index: idx };
+  const ctx2 = { docs: ICE_3_8, index: idx };
   // Spelled out in full: unambiguous, and must not be hijacked by the bare name.
   assert.equal(
     resolveDocLink('learn/slice/overview', ctx2).href,

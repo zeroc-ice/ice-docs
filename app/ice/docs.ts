@@ -1,0 +1,7 @@
+// Copyright (c) ZeroC, Inc.
+
+import type { Docs } from '@/lib/docs-model/nav';
+import { ICE_3_8 } from './3.8/docs.ts';
+
+/** The Ice documentation the site serves, one per release, each with its route under `app/ice/<version>/`. */
+export const ICE_DOCS: Docs[] = [ICE_3_8];

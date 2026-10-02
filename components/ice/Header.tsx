@@ -13,7 +13,7 @@ export function IceHeader() {
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-3 border-b border-hairline bg-surface/85 px-[clamp(1rem,2.5vw,2rem)] backdrop-blur">
       <div className="flex shrink-0 items-center gap-2">
         {/* The table of contents' menu button portals in here from the
-            version layout, the only place that has the tree. The slot has
+            docs layout, the only place that has the tree. The slot has
             no box of its own, so a page without the button has no gap. */}
         <div id="ice-header-menu" className="contents" />
         <Link href="/" className="flex items-baseline gap-1.5 text-[15px]">

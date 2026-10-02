@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useLanguage } from '@/context/state';
+import type { Docs } from '@/lib/docs-model/nav';
 
 interface Record {
   /** Title */
@@ -27,7 +28,7 @@ interface Record {
 
 // Documentation this size is unusable without search. The index is per version and
 // fetched the first time the palette opens.
-export function Search({ version }: { version: string }) {
+export function Search({ docs }: { docs: Docs }) {
   const router = useRouter();
   const language = useLanguage();
   const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ export function Search({ version }: { version: string }) {
   const [index, setIndex] = useState<{ key: string; pages: Record[] } | null>(
     null
   );
-  const records = index?.key === version ? index.pages : null;
+  const records = index?.key === docs.path ? index.pages : null;
 
   // ⌘K / Ctrl-K from anywhere. The modal dialog closes itself on Escape.
   useEffect(() => {
@@ -69,11 +70,11 @@ export function Search({ version }: { version: string }) {
     if (!dialog.open) dialog.showModal();
     inputRef.current?.focus();
     if (records) return;
-    fetch(`/search/${version}.json`)
+    fetch(`/search/${docs.path}.json`)
       .then((response) => response.json() as Promise<{ pages: Record[] }>)
-      .then((data) => setIndex({ key: version, pages: data.pages }))
-      .catch(() => setIndex({ key: version, pages: [] }));
-  }, [open, records, version]);
+      .then((data) => setIndex({ key: docs.path, pages: data.pages }))
+      .catch(() => setIndex({ key: docs.path, pages: [] }));
+  }, [open, records, docs]);
 
   const results = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -175,7 +176,7 @@ export function Search({ version }: { version: string }) {
               go(results[selected]);
             }
           }}
-          placeholder={`Search the Ice ${version} documentation…`}
+          placeholder={`Search the ${docs.title} documentation…`}
           aria-label="Search query"
           className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-none dark:border-white/10"
         />

@@ -28,12 +28,11 @@
 // text, one whose `#anchor` names no element on the page it links to, and one
 // whose `?lang=` names a mapping the version lacks or one that doesn't show the
 // anchor. It also reports two headings that a reader of one language sees under
-// one anchor, and a URL of the Scroll Viewport site that redirects to a section
-// its language doesn't show.
+// one anchor, and a redirect to a section its language doesn't show.
 //
 // Exit code 1 on any diagnostic at warning level or above, on a link to a page,
 // an anchor, or a mapping that does not exist, on two headings with one anchor,
-// and on a Scroll Viewport URL that lands on a section its language lacks.
+// and on a redirect that lands on a section its language lacks.
 // `child-invalid`, which a `{% callout %}` reflowed into its paragraph
 // produces, is a warning.
 
@@ -50,18 +49,16 @@ import Markdoc, {
 import config from '../markdoc/config.ts';
 import { parse } from '../markdoc/parse.ts';
 import {
-  CONTENT_ROOT,
   frontmatterOf,
   listPages,
-  listVersions,
-  readNavigation,
   readPageSources,
-  readRedirects,
+  listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
+import { ICE_DOCS } from '../app/ice/docs.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
-import { pageHref } from '../lib/docs-model/nav.ts';
-import { resolveDocument, splitLines } from '../lib/docs-model/resolve.ts';
+import { pageHref, type Docs } from '../lib/docs-model/nav.ts';
+import { resolveDocument } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
 const resolverTags: Record<string, Schema> = {
@@ -102,39 +99,31 @@ function validate(
     }));
 }
 
-const languagesByVersion: Record<string, string[]> = {};
-for (const version of listVersions(CONTENT_ROOT)) {
-  languagesByVersion[version] = readNavigation(CONTENT_ROOT, version).languages;
-}
-
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
 // `$path` validate here as they render there. Validation only needs a variable
 // to exist, so the reading time and the chrome are placeholders of the right
 // shape; nothing in the docs refers to either.
 const pageIndexes = new Map<string, PageIndex>();
 function variablesFor({
-  version,
+  docs,
   slug,
   frontmatter
 }: {
-  version: string;
+  docs: Docs;
   slug: string;
   frontmatter: Record<string, unknown>;
 }) {
-  if (!pageIndexes.has(version)) {
-    const { index } = buildPageIndex(
-      listPages(CONTENT_ROOT, version).map((page) => page.slug)
-    );
-    pageIndexes.set(version, index);
+  if (!pageIndexes.has(docs.path)) {
+    const { index } = buildPageIndex(listPages(docs).map((page) => page.slug));
+    pageIndexes.set(docs.path, index);
   }
   return {
     ...config.variables,
     frontmatter,
-    path: pageHref(version, slug),
+    path: pageHref(docs, slug),
     readingTime: {},
-    version,
-    languages: languagesByVersion[version],
-    pageIndex: pageIndexes.get(version),
+    docs,
+    pageIndex: pageIndexes.get(docs.path),
     chrome: { breadcrumbs: [], pagination: [] }
   };
 }
@@ -146,8 +135,8 @@ const reported = new Set<string>();
 // 1. Every page as written.
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
-for (const version of listVersions(CONTENT_ROOT)) {
-  const files = listPages(CONTENT_ROOT, version).flatMap((page) =>
+for (const docs of ICE_DOCS) {
+  const files = listPages(docs).flatMap((page) =>
     [page.shared, ...Object.values(page.overlays)]
       .filter((file) => file !== undefined)
       .map((file) => ({ file, slug: page.slug }))
@@ -158,7 +147,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     pages++;
     const source = fs.readFileSync(file, 'utf8');
     const variables = variablesFor({
-      version,
+      docs,
       slug,
       frontmatter: frontmatterOf(source)
     });
@@ -202,21 +191,21 @@ const checkedLinks: {
   href: string;
   languages: string[];
 }[] = [];
-const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
-  listPages(CONTENT_ROOT, version).map((page) => ({ version, page }))
+const allPages = ICE_DOCS.flatMap((docs) =>
+  listPages(docs).map((page) => ({ docs, page }))
 );
-for (const { version, page } of allPages) {
+for (const { docs, page } of allPages) {
   rendered++;
   const { slug } = page;
   const { shared, overlays, frontmatter } = readPageSources(page);
-  const where = `${version}/${slug} (assembled)`;
+  const where = `${docs.path}/${slug} (assembled)`;
   let body: string;
   try {
     // The same step as the page route.
     body = resolveDocument({
       shared: shared ?? '',
       overlays,
-      readFile: snippetReader(CONTENT_ROOT, version)
+      readFile: snippetReader(docs)
     });
   } catch (error) {
     diagnostics.push({
@@ -225,7 +214,7 @@ for (const { version, page } of allPages) {
     });
     continue;
   }
-  const variables = variablesFor({ version, slug, frontmatter });
+  const variables = variablesFor({ docs, slug, frontmatter });
   const ast = parse(body);
   for (const d of validate(ast, body, config.tags, variables)) {
     if (reported.has(`${d.text}\n${d.source}`)) continue;
@@ -246,7 +235,7 @@ for (const { version, page } of allPages) {
     });
     continue;
   }
-  const url = pageHref(version, slug);
+  const url = pageHref(docs, slug);
   const anchors = new Set<string>();
   for (const tag of tagsOf(tree)) {
     const { id, href, unresolved } = tag.attributes as {
@@ -261,7 +250,12 @@ for (const { version, page } of allPages) {
         text: `link to a page that does not exist: ${href}`
       });
     else if (typeof href === 'string' && /[#?]/.test(href))
-      checkedLinks.push({ where, url, href, languages: variables.languages });
+      checkedLinks.push({
+        where,
+        url,
+        href,
+        languages: variables.docs.languages
+      });
   }
   const { headings } = (tree as Tag).attributes as {
     headings: OutlineHeading[];
@@ -273,7 +267,7 @@ for (const { version, page } of allPages) {
   // anchor. MD024 sees a file at a time; this sees a shared page's headings
   // with each language's overlay headings among them, as the outline lists them.
   const repeats = new Map<string, Set<string>>();
-  for (const language of variables.languages) {
+  for (const language of variables.docs.languages) {
     const ids = headings
       .filter(({ langs }) => !langs || langs.includes(language))
       .map(({ id }) => id);
@@ -282,7 +276,7 @@ for (const { version, page } of allPages) {
   }
   for (const [id, languages] of repeats) {
     const only =
-      languages.size < variables.languages.length
+      languages.size < variables.docs.languages.length
         ? ` (${[...languages].join(', ')})`
         : '';
     diagnostics.push({
@@ -326,45 +320,28 @@ for (const { where, url, href, languages } of checkedLinks) {
     });
 }
 
-// The URLs a version had on the Scroll Viewport site redirect to its pages (see
-// readRedirects); one that lands on a section must land on a heading the URL's
-// language shows. Scroll Viewport URL -> that page, section, and language:
-const scrollSections = new Map<
-  string,
-  { page: string; anchor: string; language: string }
->();
-for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
-  const [, version, languages, rest] =
-    source.match(/^\/ice\/([^/]+)\/:lang\(([^)]*)\)(.*)$/) ?? [];
-  const [beforeHash, anchor] = destination.split('#');
-  if (!languages || anchor === undefined) continue;
+// A redirect to a section (see listRedirects) must land on a heading the URL's
+// language shows.
+for (const { file, source, destination } of listRedirects(ICE_DOCS)) {
+  const docs = ICE_DOCS.find((v) => source.startsWith(`${pageHref(v)}/`));
+  if (!docs) continue;
+  const [, languages, rest] =
+    source.slice(pageHref(docs).length + 1).match(/^:lang\(([^)]*)\)(.*)$/) ??
+    [];
+  const [beforeHash, hash] = destination.split('#');
+  if (!languages || hash === undefined) continue;
   const page = beforeHash.split('?')[0];
-  for (const language of languages.split('|'))
-    scrollSections.set(`/ice/${version}/${language}${rest}`, {
-      page,
-      anchor: decodeURIComponent(anchor),
-      language
-    });
-}
-for (const version of listVersions(CONTENT_ROOT)) {
-  const file = path.join(CONTENT_ROOT, version, 'scroll-urls.txt');
-  if (!fs.existsSync(file)) continue;
-  for (const scrollUrl of splitLines(fs.readFileSync(file, 'utf8'))) {
-    // The Scroll Viewport site spelled `js` as `javascript`.
-    const section = scrollSections.get(
-      scrollUrl.replace(`/ice/${version}/javascript/`, `/ice/${version}/js/`)
-    );
-    if (!section) continue;
-    const { page, anchor, language } = section;
-    // A page that failed to render is reported above.
-    const headings = headingsByPage.get(page);
-    if (!headings) continue;
+  const anchor = decodeURIComponent(hash);
+  // A page that failed to render is reported above.
+  const headings = headingsByPage.get(page);
+  if (!headings) continue;
+  for (const language of languages.split('|')) {
     const shown = ({ id, langs }: OutlineHeading) =>
       id === anchor && (!langs || langs.includes(language));
     if (!headings.some(shown))
       diagnostics.push({
-        where: `${version}/redirects.yaml`,
-        text: `${scrollUrl} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
+        where: file,
+        text: `${pageHref(docs)}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
       });
   }
 }

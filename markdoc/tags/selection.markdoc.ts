@@ -11,10 +11,9 @@ const selection: Schema = {
   render: 'Selection',
   selfClosing: true,
   transform(_node: Node, config: Config) {
-    const { version, languages, chrome } = config.variables as PageVariables;
+    const { docs, chrome } = config.variables as PageVariables;
     return new Tag('Selection', {
-      version,
-      languages,
+      docs,
       versionOptions: chrome.versionOptions ?? []
     });
   }

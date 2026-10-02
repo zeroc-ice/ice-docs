@@ -11,27 +11,26 @@ import {
   type VersionOption
 } from '@/components/ice/VersionSelect';
 import { useLanguage } from '@/context/state';
-import { languageLabel } from '@/lib/docs-model/nav';
+import { languageLabel, type Docs } from '@/lib/docs-model/nav';
 
 type Props = {
-  version: string;
-  languages: string[];
+  docs: Docs;
   versionOptions: VersionOption[];
 };
 
 // The version and language switches, as two boxes that say what is selected
 // and open the same choices as the top bar.
-export const Selection = ({ version, languages, versionOptions }: Props) => {
+export const Selection = ({ docs, versionOptions }: Props) => {
   const language = useLanguage();
   return (
     <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
       <Switch
         icon={<Tag aria-hidden="true" className="size-4" />}
-        label="Version"
-        value={`Ice ${version}`}
+        label="Docs"
+        value={docs.title}
         note="Make sure it is the release you use."
       >
-        <VersionItems current={version} options={versionOptions} />
+        <VersionItems current={docs} options={versionOptions} />
       </Switch>
       <Switch
         icon={<Languages aria-hidden="true" className="size-4" />}
@@ -39,7 +38,7 @@ export const Selection = ({ version, languages, versionOptions }: Props) => {
         value={languageLabel(language)}
         note="Code samples and mapping sections change with it."
       >
-        <LanguageItems languages={languages} />
+        <LanguageItems languages={docs.languages} />
       </Switch>
     </div>
   );
