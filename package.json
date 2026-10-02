@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.22.2 <23 || >=24.15 <25 || >=26",
+    "node": ">=24",
     "npm": ">=11.16"
   },
   "scripts": {
@@ -11,16 +11,16 @@
     "dev": "next dev",
     "prebuild": "npm run check:markdoc && npm run build:search",
     "build": "next build",
-    "build:search": "node scripts/build-search-index.js",
+    "build:search": "node scripts/build-search-index.ts",
     "start": "next start",
     "lint": "npm run lint:eslint && npm run lint:markdown",
     "lint:eslint": "eslint . --max-warnings=0",
     "lint:markdown": "markdownlint \"content/**/*.md\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.js\"",
-    "check:content": "node scripts/check-content.js",
-    "check:markdoc": "node --import ./scripts/markdoc-esm-hooks.js scripts/check-markdoc.js"
+    "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.ts\"",
+    "check:content": "node scripts/check-content.ts",
+    "check:markdoc": "node --import ./scripts/markdoc-esm-hooks.ts scripts/check-markdoc.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",

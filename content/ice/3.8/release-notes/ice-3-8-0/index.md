@@ -716,10 +716,10 @@ asynchronously. The `[amd]` metadata directive no longer has any effect in Swift
 
 With this change, we removed all previous promise-based APIs and the dependency on PromiseKit.
 
-### Removed Disp Structs
+### Removed Dispatch Structs
 
-We simplified the server-side mapping by removing the generated Disp structs. You can now implement the generated
-server-side protocols and use these implementation directly as servants like in other languages.
+We simplified the server-side mapping by removing the generated dispatch (Disp) structs. You can now implement the
+generated server-side protocols and use these implementations directly as servants like in other languages.
 
 ### CompileSlice Plugin
 

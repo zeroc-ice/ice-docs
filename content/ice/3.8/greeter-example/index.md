@@ -2,8 +2,8 @@
 title: Greeter Example
 pages:
   - defining-the-greeter-interface-in-slice
-  - writing-a-greeter-client
   - writing-a-greeter-server
+  - writing-a-greeter-client
 ---
 
 Writing a client-server application with Ice does not take much code. See for yourself!

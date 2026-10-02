@@ -1,7 +1,3 @@
-{% language-section name="lang-1" %}
+{% language-section name="lang-1" state="not-applicable" note="Ice for Ruby is client-only, so it does not dispatch requests." /%}
 
-{% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}
+{% language-section name="lang-2" state="not-applicable" note="Ice for Ruby is client-only, so it has no servants." /%}
