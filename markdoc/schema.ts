@@ -15,7 +15,6 @@ import { Aside } from '@/components/tags/aside';
 import { Step } from '@/components/tags/step';
 import { Prerequisites } from '@/components/tags/prerequisites';
 import { NextSteps } from '@/components/tags/next-steps';
-import { Releases } from '@/components/tags/releases';
 import { Selection } from '@/components/tags/selection';
 import { Showcase } from '@/components/tags/showcase';
 
@@ -35,7 +34,6 @@ export const components = {
   List,
   NextSteps,
   Prerequisites,
-  Releases,
   Selection,
   Showcase,
   Step,
