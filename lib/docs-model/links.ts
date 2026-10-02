@@ -58,6 +58,8 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const queryAt = beforeHash.indexOf('?');
   const path = queryAt === -1 ? beforeHash : beforeHash.slice(0, queryAt);
   const query = queryAt === -1 ? '' : beforeHash.slice(queryAt);
+  // A query or anchor alone, such as `?lang=java`, stays on the current page.
+  if (path === '') return { href: raw, resolved: true };
 
   const slug = decodeURIComponent(path).toLowerCase();
   const target = ctx.index[slug];

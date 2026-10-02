@@ -71,7 +71,7 @@ function markdownFiles(dir: string): string[] {
 export interface PageFiles {
   /** The page's path under the version, as in its URL: `''` for the front page. */
   slug: string;
-  /** The page's name, unique within the version: the last segment of its slug. */
+  /** The page's name: the last segment of its slug. */
   name: string;
   /** Its `index.md`, absolute; absent for a page written per language. */
   shared?: string;

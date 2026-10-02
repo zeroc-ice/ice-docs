@@ -38,6 +38,7 @@ test('links the resolver must not touch are returned unchanged', () => {
     '//cdn.example.com/x.png',
     'mailto:info@zeroc.com',
     '#in-page-anchor',
+    '?lang=java#in-page-anchor',
     '/ice/3.8/learn/overview'
   ]) {
     const resolved = resolveDocLink(href, ctx);
