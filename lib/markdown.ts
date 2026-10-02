@@ -18,8 +18,6 @@ export interface PageVariables {
   /** By language mapping. */
   readingTime: Record<string, string>;
   version: Version;
-  /** The version's languages, for what is computed once per language. */
-  languages: string[];
   /** Page index used to resolve cross-page links at build time. */
   pageIndex: PageIndex;
   /** Navigation-derived page chrome: breadcrumbs, prev/next, body shape. */
@@ -28,7 +26,7 @@ export interface PageVariables {
 
 export interface RenderOptions extends Omit<
   PageVariables,
-  'readingTime' | 'languages' | 'chrome'
+  'readingTime' | 'chrome'
 > {
   /** The assembled page source (shared prose + every language overlay + snippets). */
   source: string;
@@ -58,7 +56,6 @@ export function renderMarkdownString(opts: RenderOptions) {
     path,
     readingTime,
     version,
-    languages,
     pageIndex,
     chrome: opts.chrome ?? {}
   };

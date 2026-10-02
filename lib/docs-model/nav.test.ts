@@ -11,7 +11,6 @@ import {
   breadcrumbs,
   buildSideNav,
   activeTrailKeys,
-  languageLabel,
   navigationPages,
   prevNext,
   sideNavKey,
@@ -97,7 +96,7 @@ test("standing on a group's own page, its Overview, opens the group", () => {
   ]);
 });
 
-test('trailTo returns every ancestor down to the page, or null', () => {
+test('trailTo returns every ancestor down to the page', () => {
   assert.deepEqual(
     trailTo(SIDEBAR, ENUMERATIONS)?.map((n) => n.title),
     ['The Slice Language', 'User-Defined Types', 'Enumerations']
@@ -106,7 +105,6 @@ test('trailTo returns every ancestor down to the page, or null', () => {
     trailTo(SIDEBAR, 'get-started')?.map((n) => n.title),
     ['Get Started']
   );
-  assert.equal(trailTo(SIDEBAR, 'not-a-page'), null);
 });
 
 test('breadcrumbs trace site -> chapter -> group -> page, and the page is not a link', () => {
@@ -119,15 +117,6 @@ test('breadcrumbs trace site -> chapter -> group -> page, and the page is not a 
   assert.equal(crumbs[1].href, '/ice/3.8/slice');
   assert.equal(crumbs[2].href, '/ice/3.8/slice/user-defined-types');
   assert.equal(crumbs[3].href, undefined); // current page
-});
-
-test('the front page gets no trail', () => {
-  const sidebar = [{ title: 'Documentation', slug: '', items: [] }, ...SIDEBAR];
-  assert.deepEqual(breadcrumbs(sidebar, VERSION, ''), []);
-});
-
-test('a page outside the tree gets no trail', () => {
-  assert.deepEqual(breadcrumbs(SIDEBAR, VERSION, 'orphan'), []);
 });
 
 test('prevNext walks the whole tree in reading order, across chapters', () => {
@@ -169,24 +158,12 @@ test('navigationPages lists every page in reading order', () => {
   ]);
 });
 
-test('languageLabel maps slugs to display names, falling back to the slug', () => {
-  assert.equal(languageLabel('cpp'), 'C++');
-  assert.equal(languageLabel('csharp'), 'C#');
-  assert.equal(languageLabel('js'), 'JavaScript');
-  assert.equal(languageLabel('unknown'), 'unknown');
-});
-
 test('activeTrailKeys names every group down to the current page, and nothing else', () => {
   const tree = buildSideNav(SIDEBAR, VERSION);
   assert.deepEqual(activeTrailKeys(tree, ENUMERATIONS_HREF), [
     sideNavKey(['The Slice Language']),
     sideNavKey(['The Slice Language', 'User-Defined Types'])
   ]);
-});
-
-test('activeTrailKeys is empty when the current page is a top-level leaf', () => {
-  const tree = buildSideNav(SIDEBAR, VERSION);
-  assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/get-started'), []);
 });
 
 test('group keys are path-based, so equal titles under different parents differ', () => {

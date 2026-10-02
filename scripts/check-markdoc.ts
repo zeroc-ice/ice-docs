@@ -126,7 +126,6 @@ function variablesFor({
     path: pageHref(version, slug),
     readingTime: {},
     version,
-    languages: version.languages,
     pageIndex: pageIndexes.get(version.key),
     chrome: { breadcrumbs: [], pagination: [] }
   };
@@ -254,7 +253,12 @@ for (const { version, page } of allPages) {
         text: `link to a page that does not exist: ${href}`
       });
     else if (typeof href === 'string' && /[#?]/.test(href))
-      checkedLinks.push({ where, url, href, languages: variables.languages });
+      checkedLinks.push({
+        where,
+        url,
+        href,
+        languages: variables.version.languages
+      });
   }
   const { headings } = (tree as Tag).attributes as {
     headings: OutlineHeading[];
@@ -266,7 +270,7 @@ for (const { version, page } of allPages) {
   // anchor. MD024 sees a file at a time; this sees a shared page's headings
   // with each language's overlay headings among them, as the outline lists them.
   const repeats = new Map<string, Set<string>>();
-  for (const language of variables.languages) {
+  for (const language of variables.version.languages) {
     const ids = headings
       .filter(({ langs }) => !langs || langs.includes(language))
       .map(({ id }) => id);
@@ -275,7 +279,7 @@ for (const { version, page } of allPages) {
   }
   for (const [id, languages] of repeats) {
     const only =
-      languages.size < variables.languages.length
+      languages.size < variables.version.languages.length
         ? ` (${[...languages].join(', ')})`
         : '';
     diagnostics.push({
