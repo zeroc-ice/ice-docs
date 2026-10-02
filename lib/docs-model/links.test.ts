@@ -5,7 +5,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { buildPageIndex, resolveDocLink } from './links.ts';
+import { buildPageIndex, resolveApiLink, resolveDocLink } from './links.ts';
 
 const { index } = buildPageIndex([
   'learn/slice/enumerations',
@@ -115,4 +115,32 @@ test('a top-level page and a nested page of the same name collide too', () => {
   assert.deepEqual(duplicates, ['foo']);
   assert.equal(idx['foo'], 'foo');
   assert.equal(idx['learn/foo'], 'learn/foo');
+});
+
+const apiLinks = {
+  'Ice/Communicator': {
+    cpp: 'https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator.html',
+    java: 'https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html'
+  }
+};
+
+test("a link to a type goes to each language's page, and is text for the languages without one", () => {
+  assert.deepEqual(
+    resolveApiLink(
+      'Ice/Communicator',
+      ['cpp', 'java', 'matlab', 'php'],
+      apiLinks
+    ),
+    [
+      {
+        href: 'https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator.html',
+        langs: ['cpp']
+      },
+      {
+        href: 'https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html',
+        langs: ['java']
+      },
+      { href: '', langs: ['matlab', 'php'] }
+    ]
+  );
 });

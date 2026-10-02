@@ -34,7 +34,7 @@ communicator attempts to connect to each endpoint in the list until it succeeds 
 endpoints are selected for connection attempts depends on the endpoint selection policy. This policy can be set using a
 default property ([Ice.Default.EndpointSelection](../ice-default-properties)), using a proxy property
 ([_name_.EndpointSelection](../proxy-properties)), and using the `ice_endpointSelection`
-[proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx).
+[proxy method](api:Ice/ObjectPrx).
 
 ## Error Semantics for Failed Connections
 
@@ -89,12 +89,11 @@ of requests received over each connection. If the client wants to execute severa
 able to force the communicator to establish new connections at will.
 
 For those situations that require more control over connection reuse, Ice allows you to form arbitrary groups of proxies
-that share a connection by configuring them with the same connection identifier. The
-[proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx) `ice_connectionId` returns a new proxy configured with the
-given connection ID. Once configured, the communicator ensures that the proxy only reuses a connection that was
-established by a proxy with the same connection ID (assuming all other criteria for connection reuse are also
-satisfied). A new connection is created if none with a matching ID is found, which means each proxy could conceivably
-have its own connection if each were assigned a unique connection ID.
+that share a connection by configuring them with the same connection identifier. The [proxy method](api:Ice/ObjectPrx)
+`ice_connectionId` returns a new proxy configured with the given connection ID. Once configured, the communicator
+ensures that the proxy only reuses a connection that was established by a proxy with the same connection ID (assuming
+all other criteria for connection reuse are also satisfied). A new connection is created if none with a matching ID is
+found, which means each proxy could conceivably have its own connection if each were assigned a unique connection ID.
 
 As an example, consider the following code fragment:
 

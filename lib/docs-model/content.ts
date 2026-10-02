@@ -9,6 +9,7 @@
 //   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
 //   <root>/<version>/examples/...              (snippet sources)
 //   <root>/<version>/redirects.yaml            old URL to new URL
+//   <root>/<version>/api-links.yaml            each type's API reference pages
 //
 // A page is a directory, and its path under the version is its slug, the path in
 // its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
@@ -25,6 +26,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
+import type { ApiLinks } from './links.ts';
 import {
   FRONT_PAGE_NAV_TITLE,
   pageHref,
@@ -285,6 +287,13 @@ function scrollRedirects(root: string, version: string, languages: string[]) {
       permanent: true
     }))
   ];
+}
+
+/** A version's API reference pages, from its `api-links.yaml`. */
+export function readApiLinks(root: string, version: string): ApiLinks {
+  return yamlLoad(
+    fs.readFileSync(path.join(root, version, 'api-links.yaml'), 'utf8')
+  ) as ApiLinks;
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
