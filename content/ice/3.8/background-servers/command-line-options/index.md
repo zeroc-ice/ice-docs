@@ -11,7 +11,9 @@ command line options.
 
 ## Linux and macOS Daemons
 
-These options are available on Linux and macOS:
+A service managed by systemd, or by launchd on macOS, runs in the foreground, as the [systemd units](../linux-services)
+included in the Linux packages do: the init system tracks the process. The options below are for an init system that
+expects the service to detach. They are available on Linux and macOS:
 
 ```shell
 --daemon [--nochdir] [--noclose] [--pidfile FILE]
