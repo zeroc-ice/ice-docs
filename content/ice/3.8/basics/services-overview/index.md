@@ -11,28 +11,28 @@ to which your application acts as a client.
 
 ## DataStorm
 
-[DataStorm](../datastorm) is a data-centric publish/subscribe framework for C++.
+[DataStorm](services/datastorm) is a data-centric publish/subscribe framework for C++.
 
 ## Glacier2
 
-[Glacier2](../glacier2) allows clients and servers to securely communicate through a firewall without compromising
+[Glacier2](services/glacier2) allows clients and servers to securely communicate through a firewall without compromising
 security. Client-server traffic is SSL-encrypted using public key certificates and is bidirectional. Glacier2 offers
 support for mutual authentication as well as secure session management.
 
 ## IceBox
 
-[IceBox](../icebox) is an easy-to-use framework for Ice application services.
+[IceBox](services/icebox) is an easy-to-use framework for Ice application services.
 
 ## IceBridge
 
-[IceBridge](../icebridge) forwards requests from one or more clients to a target server that the clients cannot reach
-directly.
+[IceBridge](services/icebridge) forwards requests from one or more clients to a target server that the clients cannot
+reach directly.
 
 ## IceGrid
 
-[IceGrid](../icegrid) is an implementation of an Ice [location service](../locators) that resolves the symbolic
-information in an indirect proxy to a protocol-address pair for indirect binding. A location service is only the
-beginning of IceGrid's capabilities.
+[IceGrid](services/icegrid) is an implementation of an Ice [location service](runtime/locators) that resolves the
+symbolic information in an indirect proxy to a protocol-address pair for indirect binding. A location service is only
+the beginning of IceGrid's capabilities.
 
 IceGrid:
 
@@ -44,8 +44,8 @@ IceGrid:
 
 ## IceStorm
 
-[IceStorm](../icestorm) is a publish-subscribe service that decouples clients and servers. Fundamentally, IceStorm acts
-as a distribution switch for events. Publishers send events to the service, which, in turn, passes the events to
+[IceStorm](services/icestorm) is a publish-subscribe service that decouples clients and servers. Fundamentally, IceStorm
+acts as a distribution switch for events. Publishers send events to the service, which, in turn, passes the events to
 subscribers. In this way, a single event published by a publisher can be sent to multiple subscribers. Events are
 categorized by topic, and subscribers specify the topics they are interested in. Only events that match a subscriber's
 topic are sent to that subscriber. The service permits selection of a number of quality-of-service criteria to allow

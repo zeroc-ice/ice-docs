@@ -7,8 +7,8 @@ categories: defaults and overrides.
 
 ## Proxy Default Properties
 
-[Default properties](../ice-default-properties) affect proxies that you create from strings, or that Ice creates when
-unmarshaling the payload of a request or response.
+[Default properties](property-reference/ice-default-properties) affect proxies that you create from strings, or that Ice
+creates when unmarshaling the payload of a request or response.
 
 For example, suppose we define the following default property:
 
@@ -45,5 +45,5 @@ property left.
 
 ## See Also
 
-- [Ice.Default.*](../ice-default-properties)
-- [Ice.Override.*](../ice-override-properties)
+- [Ice.Default.*](property-reference/ice-default-properties)
+- [Ice.Override.*](property-reference/ice-override-properties)

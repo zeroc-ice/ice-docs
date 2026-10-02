@@ -46,4 +46,4 @@ slice2cpp -I. file1.ice file2.ice file3.ice
 
 ## See Also
 
-- [Slice Compilation](../slice-compilation)
+- [Slice Compilation](slice/slice-compilation)

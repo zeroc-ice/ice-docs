@@ -4,26 +4,27 @@ title: Setting Properties on the Command Line
 
 <!-- cspell:ignore Netwrok -->
 
-In addition to setting properties in a [configuration file](../using-configuration-files), you can also set properties
-on the command line, for example:
+In addition to setting properties in a
+[configuration file](runtime/properties-and-configuration/using-configuration-files), you can also set properties on the
+command line, for example:
 
 ```shell
 server --Ice.UDP.SndSize=65535 --IceSSL.Trace.Security=2
 ```
 
 When you pass arguments to communicator initialization, Ice converts options beginning with `--`, a
-[reserved prefix](../properties-overview), and a dot into property settings. For example, `--Ice.Trace.Network=1`
-matches, while `--IceFoo=1` remains an application argument. Property settings on the command line override settings in
-a configuration file. If you set the same property more than once on the same command line, the last setting overrides
-any previous ones.
+[reserved prefix](runtime/properties-and-configuration/properties-overview), and a dot into property settings. For
+example, `--Ice.Trace.Network=1` matches, while `--IceFoo=1` remains an application argument. Property settings on the
+command line override settings in a configuration file. If you set the same property more than once on the same command
+line, the last setting overrides any previous ones.
 
-Ice applies the same [property validation](../properties-overview#property-validation) to command-line options as to any
-other property, so a typo such as `--Ice.Trace.Netwrok=1` makes communicator initialization fail with a
-`PropertyException`.
+Ice applies the same [property validation](runtime/properties-and-configuration/properties-overview#property-validation)
+to command-line options as to any other property, so a typo such as `--Ice.Trace.Netwrok=1` makes communicator
+initialization fail with a `PropertyException`.
 
 The initialization overloads that update the argument array remove the options they consume. Other overloads leave the
 input unchanged or return the remaining arguments separately; see
-[Communicator Initialization and Destruction](../initialization-and-destruction).
+[Communicator Initialization and Destruction](runtime/communicator/initialization-and-destruction).
 
 For convenience, any property not explicitly set to a value is set to the value `1`. For example,
 
@@ -51,5 +52,5 @@ As for properties set from a configuration file, assigning nothing to a property
 
 ## See Also
 
-- [Properties Overview](../properties-overview)
-- [Using Configuration Files](../using-configuration-files)
+- [Properties Overview](runtime/properties-and-configuration/properties-overview)
+- [Using Configuration Files](runtime/properties-and-configuration/using-configuration-files)

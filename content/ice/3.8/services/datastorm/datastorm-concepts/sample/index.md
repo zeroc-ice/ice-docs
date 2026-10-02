@@ -11,9 +11,9 @@ members that can be accessed using getter methods. Each sample has three templat
 
 ### Key
 
-The **key** organizes the samples published to a topic. [Readers](../reader) can use keys to filter which samples they
-want to receive, and [writers](../writer) can use keys to identify the source or category of the data. You can access
-the key with the sample’s
+The **key** organizes the samples published to a topic. [Readers](services/datastorm/datastorm-concepts/reader) can use
+keys to filter which samples they want to receive, and [writers](services/datastorm/datastorm-concepts/writer) can use
+keys to identify the source or category of the data. You can access the key with the sample’s
 [getKey](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_afc5243abe0a81243fb1ecc2c893a66bd.html#afc5243abe0a81243fb1ecc2c893a66bd)
 method.
 

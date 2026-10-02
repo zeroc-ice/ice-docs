@@ -16,17 +16,18 @@ A server represents an Ice server deployed on a node as part of an application. 
 
 The Server Properties panel offers the following fields:
 
-- **Server ID** The ID of the server; corresponds to the [Ice.Admin.ServerId](../ice-admin-properties) property. Each
-  server must have a unique ID within an IceGrid deployment.
+- **Server ID** The ID of the server; corresponds to the [Ice.Admin.ServerId](property-reference/ice-admin-properties)
+  property. Each server must have a unique ID within an IceGrid deployment.
 - **Description** A free-text description of this server.
-- **Property Sets** List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include" all
-  its properties in the server.
+- **Property Sets** List of property-set IDs; you refer to a
+  [property set](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/property-set-descriptor) to
+  "include" all its properties in the server.
 - **Properties** Ice properties private to this server.
 - **Log Files** This table can be used to declare a number of log files used by this server. Path is the path to the log
   file (a relative path is relative to the IceGrid node working directory); when Property is set, IceGrid generates a
   property with this name and the log file path as value. You declare log files to be able to conveniently retrieve them
-  using IceGrid GUI (in the [Live Deployment](../live-deployment-tab) tab) or with the
-  [icegridadmin](../icegridadmin-command-line-tool) command-line utility.
+  using IceGrid GUI (in the [Live Deployment](services/icegrid/icegrid-gui-tool/live-deployment-tab) tab) or with the
+  [icegridadmin](services/icegrid/icegridadmin-command-line-tool) command-line utility.
 - **Path to Executable** Path to the server's executable; cannot be blank. A relative path is relative to the IceGrid
   node working directory.
 - **Ice Version** The Ice version of this server. If you don't provide a value, IceGrid assumes it's the same version as
@@ -40,29 +41,30 @@ The Server Properties panel offers the following fields:
   are in addition to variables defined in the IceGrid node own environment.
 - **Activation Mode** The server's activation mode. Must be one of:
 
-| **Activation Mode** | **Description**                                                                                                                    |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| always              | IceGrid keeps this server running all the time                                                                                     |
-| manual              | This server is started "manually", using IceGrid GUI or the [icegridadmin](../icegridadmin-command-line-tool) command-line utility |
-| on-demand           | IceGrid starts this server when it resolves the object-adapter ID of an object adapter defined in this server                      |
-| session             | IceGrid starts a separate instance of this server for each IceGrid session that allocates this server                              |
+| **Activation Mode** | **Description**                                                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| always              | IceGrid keeps this server running all the time                                                                                                   |
+| manual              | This server is started "manually", using IceGrid GUI or the [icegridadmin](services/icegrid/icegridadmin-command-line-tool) command-line utility |
+| on-demand           | IceGrid starts this server when it resolves the object-adapter ID of an object adapter defined in this server                                    |
+| session             | IceGrid starts a separate instance of this server for each IceGrid session that allocates this server                                            |
 
 The Activation Mode can also be a variable or a combination of variables that resolves to one of the values above.
 
 - **Activation Timeout** When activating a server, IceGrid gives timeout seconds to object adapters with server lifetime
   to register their endpoints with the IceGrid registry. During this time, lookup for the corresponding adapter IDs are
-  delayed. If not set or set to 0, the IceGrid node uses the value of its [IceGrid.Node.WaitTime](../icegrid-properties)
-  property.
+  delayed. If not set or set to 0, the IceGrid node uses the value of its
+  [IceGrid.Node.WaitTime](property-reference/icegrid-properties) property.
 - **Deactivation Timeout** When deactivating a server, IceGrid gives timeout seconds to the server to exit gracefully.
   After this timeout, the server process is killed. If not set or set to 0, the IceGrid node uses the value of its
-  [IceGrid.Node.WaitTime](../icegrid-properties) property.
+  [IceGrid.Node.WaitTime](property-reference/icegrid-properties) property.
 - **Allocatable** Specifies whether the server can be allocated. A server is allocated implicitly when one of its
   allocatable objects is allocated. This checkbox is ignored if the server activation mode is session; a server with
   this activation mode is always allocatable. Default: false.
 
 ### Children {% id="plain-server-children" %}
 
-A plain server can have [Adapter](../adapter-descriptor) children.
+A plain server can have
+[Adapter](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/adapter-descriptor) children.
 
 ## IceBox Server
 
@@ -77,14 +79,15 @@ When you create a new IceBox server, some properties are created automatically:
 | IceBox.InstanceName | ${server}          |
 | Ice.Admin.Endpoints | tcp -h 127.0.0.1   |
 
-The [Ice.Admin.Endpoints](../ice-admin-properties) setting enables the Admin object in the main communicator of this
-IceBox server.
+The [Ice.Admin.Endpoints](property-reference/ice-admin-properties) setting enables the Admin object in the main
+communicator of this IceBox server.
 
 The Path to Executable is typically `icebox` (C++), `java` (for a Java IceBox) or `dotnet` (for a .NET IceBox).
 
 ### Children {% id="icebox-server-children" %}
 
-An IceBox server can have [Service](../service-descriptor) children,
+An IceBox server can have
+[Service](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/service-descriptor) children,
 
 ## Server Instance
 
@@ -94,16 +97,19 @@ A server instance is a server created from a server template; it may be a plain 
 
 The Server Instance Properties panel offers the following fields:
 
-- **Template** The name of the [Server Template](../server-template-descriptor).
+- **Template** The name of the
+  [Server Template](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/server-template-descriptor).
 - **Parameters** Use this table to assign values to the template parameters defined in the server template.
-- **Property Sets** List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include" all
-  its properties in this server-instance.
+- **Property Sets** List of property-set IDs; you refer to a
+  [property set](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/property-set-descriptor) to
+  "include" all its properties in this server-instance.
 - **Properties** Ice properties private to this server. Overall, the properties of the server instance are a combination
   of properties defined in the server template (including its own property sets references) augmented and possibly
   overridden by properties defined in the server instance.
 
 ### Children {% id="server-instance-children" %}
 
-An instance of an IceBox server template can have [Property Set](../property-set-descriptor) children.
+An instance of an IceBox server template can have
+[Property Set](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/property-set-descriptor) children.
 
 An instance of a plain server template cannot have any child.

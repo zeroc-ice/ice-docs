@@ -51,5 +51,5 @@ provides a single datagram transport, UDP, and we don’t anticipate ever adding
 
 ## See Also
 
-- [Proxy Endpoints](../proxy-endpoints)
-- [Connection Establishment](../connection-establishment)
+- [Proxy Endpoints](runtime/invocation/proxy-endpoints)
+- [Connection Establishment](runtime/connection-management/connection-establishment)

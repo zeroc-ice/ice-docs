@@ -2,10 +2,11 @@
 title: Variable Descriptor Element
 ---
 
-A `variable` element defines a [variable](../using-descriptor-variables-and-parameters).
+A `variable` element defines a [variable](services/icegrid/using-descriptor-variables-and-parameters).
 
-This element may only appear as a child of an [application](../application-descriptor-element) element or
-[node](../node-descriptor-element) element.
+This element may only appear as a child of an
+[application](services/icegrid/icegrid-xml-reference/application-descriptor-element) element or
+[node](services/icegrid/icegrid-xml-reference/node-descriptor-element) element.
 
 The following attributes are supported:
 
@@ -28,6 +29,6 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
-- [Application Descriptor Element](../application-descriptor-element)
-- [Node Descriptor Element](../node-descriptor-element)
+- [Using Descriptor Variables and Parameters](services/icegrid/using-descriptor-variables-and-parameters)
+- [Application Descriptor Element](services/icegrid/icegrid-xml-reference/application-descriptor-element)
+- [Node Descriptor Element](services/icegrid/icegrid-xml-reference/node-descriptor-element)

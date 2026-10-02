@@ -72,8 +72,8 @@ The arguments passed to the promise resolution depend on the operation signature
 
 ### Exception Handling
 
-Any operation invocation may throw a [local exception](../local-and-dispatch-exceptions) and, if the operation has an
-exception specification, may also throw [user exceptions](../exceptions). Suppose we have the following simple
+Any operation invocation may throw a [local exception](runtime/local-and-dispatch-exceptions) and, if the operation has
+an exception specification, may also throw [user exceptions](slice/exceptions). Suppose we have the following simple
 interface:
 
 ```slice
@@ -267,7 +267,7 @@ no difference to the receiver: either way, the receiver sees an empty string.
 
 ### Optional Parameters in JavaScript
 
-[Optional parameters](../operations) use the same mapping as required parameters. The only difference is that
+[Optional parameters](slice/operations) use the same mapping as required parameters. The only difference is that
 `undefined` can be passed as the value of an optional parameter or return value to indicate an "unset" condition.
 Consider the following operation:
 

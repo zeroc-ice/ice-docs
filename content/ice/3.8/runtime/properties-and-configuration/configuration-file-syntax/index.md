@@ -114,5 +114,5 @@ and the character following it are both preserved.
 
 ## See Also
 
-- [Using Configuration Files](../using-configuration-files)
-- [Setting Properties on the Command Line](../setting-properties-on-the-command-line)
+- [Using Configuration Files](runtime/properties-and-configuration/using-configuration-files)
+- [Setting Properties on the Command Line](runtime/properties-and-configuration/setting-properties-on-the-command-line)

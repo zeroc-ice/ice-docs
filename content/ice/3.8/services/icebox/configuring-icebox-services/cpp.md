@@ -1,12 +1,13 @@
 {% language-section name="lang-1" %}
 
-For a C++ service, the [entry point](../icebox-properties) must have the form _library[,version]:symbol_, where
-_library_ is the simple name of the service's shared library or DLL, and _symbol_ is the name of the entry point
-function. A "simple name" is one without any platform-specific prefixes or extensions; the server adds appropriate
-decorations depending on the platform. The simple name may include a leading path, and the version is optional. If
-specified, the version is embedded in the library name.
+For a C++ service, the [entry point](property-reference/icebox-properties) must have the form
+_library[,version]:symbol_, where _library_ is the simple name of the service's shared library or DLL, and _symbol_ is
+the name of the entry point function. A "simple name" is one without any platform-specific prefixes or extensions; the
+server adds appropriate decorations depending on the platform. The simple name may include a leading path, and the
+version is optional. If specified, the version is embedded in the library name.
 
-As an example, here is how we could configure [IceStorm](../icestorm), which is implemented as an IceBox service in C++:
+As an example, here is how we could configure [IceStorm](services/icestorm), which is implemented as an IceBox service
+in C++:
 
 ```config
 IceBox.Service.IceStorm=IceStormService,38:createIceStorm
@@ -27,7 +28,7 @@ If the simple name does not include a leading path, the shared library or DLL mu
 `PATH` on Windows or the shared library search path (such as `LD_LIBRARY_PATH`) on POSIX systems.
 
 The entry point function, _symbol_, must have the signature that we originally presented in our
-[example](../developing-icebox-services):
+[example](services/icebox/developing-icebox-services):
 
 ```cpp
 IceBox::Service* factoryFunction(const Ice::CommunicatorPtr&)

@@ -2,8 +2,8 @@
 title: The Per-Process Logger
 ---
 
-Ice allows you to install a per-process [custom logger](../custom-loggers). This logger is used by all communicators
-that do not have their own specific logger established at the time they are created.
+Ice allows you to install a per-process [custom logger](administration/logger-facility/custom-loggers). This logger is
+used by all communicators that do not have their own specific logger established at the time they are created.
 
 You can set a per-process logger by calling `setProcessLogger`, and you can retrieve the per-process logger by calling
 `getProcessLogger`:

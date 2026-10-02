@@ -41,7 +41,7 @@ exception RangeException
 
 A user exception is much like a structure in that it contains a number of fields. However, unlike structures, exceptions
 can have zero fields, that is, be empty. Like classes, user exceptions support inheritance and may include
-[optional fields](../fields).
+[optional fields](slice/fields).
 
 {% callout type="info" %}
 
@@ -225,4 +225,4 @@ format explicitly.
 
 ## See Also
 
-- [Local and Dispatch Exceptions](../local-and-dispatch-exceptions)
+- [Local and Dispatch Exceptions](runtime/local-and-dispatch-exceptions)

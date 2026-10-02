@@ -9,7 +9,7 @@ An object adapter that was just created is in the `Holding` state. In this state
 requests are not read off the network. UDP requests are silently discarded in the `Holding` state.
 
 This should be a very temporary state for your object adapter, during which you typically add a few servants to the
-[Active Servant Map](../active-servant-map).
+[Active Servant Map](runtime/dispatch/active-servant-map).
 
 You transition your object adapter from the `Holding` state to the `Active` state by calling `activate`. For example:
 
@@ -21,8 +21,9 @@ over these connections.
 {% callout type="info" %}
 
 The distinction `Holding` vs Active `applies` only to requests dispatched through endpoints configured on the object
-adapter. It does not apply to requests received from [bidirectional connections](../bidirectional-connections), nor does
-it apply to [collocated dispatches](../collocated-invocation-and-dispatch).
+adapter. It does not apply to requests received from
+[bidirectional connections](runtime/connection-management/bidirectional-connections), nor does it apply to
+[collocated dispatches](runtime/collocated-invocation-and-dispatch).
 
 As a result, it’s optional to call `activate` on an object adapter that does not have any endpoint.
 
@@ -53,5 +54,5 @@ methods:
 
 ## See Also
 
-- [Collocated Invocation and Dispatch](../collocated-invocation-and-dispatch)
-- [Bidirectional Connections](../bidirectional-connections)
+- [Collocated Invocation and Dispatch](runtime/collocated-invocation-and-dispatch)
+- [Bidirectional Connections](runtime/connection-management/bidirectional-connections)

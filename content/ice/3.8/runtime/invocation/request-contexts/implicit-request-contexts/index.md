@@ -4,9 +4,10 @@ title: Implicit Request Contexts
 
 ## Using Implicit Request Contexts
 
-In addition to [explicit](../explicit-request-contexts) and [per-proxy](../per-proxy-request-contexts) request contexts,
-you can also establish an implicit context on a communicator. This implicit context is sent with all invocations made
-via proxies created by that communicator, provided that you do not supply an explicit context with the call.
+In addition to [explicit](runtime/invocation/request-contexts/explicit-request-contexts) and
+[per-proxy](runtime/invocation/request-contexts/per-proxy-request-contexts) request contexts, you can also establish an
+implicit context on a communicator. This implicit context is sent with all invocations made via proxies created by that
+communicator, provided that you do not supply an explicit context with the call.
 
 ## Scope of the Implicit Context
 
@@ -26,5 +27,5 @@ be set to the following values:
 
 ## See Also
 
-- [Explicit Request Contexts](../explicit-request-contexts)
-- [Per-Proxy Request Contexts](../per-proxy-request-contexts)
+- [Explicit Request Contexts](runtime/invocation/request-contexts/explicit-request-contexts)
+- [Per-Proxy Request Contexts](runtime/invocation/request-contexts/per-proxy-request-contexts)

@@ -10,9 +10,9 @@ title: IceGridAdmin.*
 
 ### Description {% id="icegridadmin.authenticateusingssl-description" %}
 
-If `num` is a value greater than zero, [icegridadmin](../icegridadmin-command-line-tool) uses SSL authentication when
-establishing its session with the IceGrid registry. If not defined or the value is zero, `icegridadmin` uses user name
-and password authentication.
+If `num` is a value greater than zero, [icegridadmin](services/icegrid/icegridadmin-command-line-tool) uses SSL
+authentication when establishing its session with the IceGrid registry. If not defined or the value is zero,
+`icegridadmin` uses user name and password authentication.
 
 ## IceGridAdmin.Discovery.Address
 
@@ -22,11 +22,11 @@ and password authentication.
 
 ### Description {% id="icegridadmin.discovery.address-description" %}
 
-Specifies the multicast IP address to use for sending [multicast discovery queries](../icelocatordiscovery). If not
-defined, the default value depends on the setting of [Ice.IPv4](../ice-properties): if enabled (the default), the client
-uses the address `239.255.0.1`, otherwise the client assumes it should use IPv6 and defaults to the address `ff15::1`
-instead. This property is used to compose the value of
-[IceGridAdmin.Discovery.Lookup](../icegridadmin-properties#icegridadmin.discovery.lookup).
+Specifies the multicast IP address to use for sending [multicast discovery queries](plugins/icelocatordiscovery). If not
+defined, the default value depends on the setting of [Ice.IPv4](property-reference/ice-properties): if enabled (the
+default), the client uses the address `239.255.0.1`, otherwise the client assumes it should use IPv6 and defaults to the
+address `ff15::1` instead. This property is used to compose the value of
+[IceGridAdmin.Discovery.Lookup](property-reference/icegridadmin-properties#icegridadmin.discovery.lookup).
 
 ## IceGridAdmin.Discovery.Interface
 
@@ -36,11 +36,11 @@ instead. This property is used to compose the value of
 
 ### Description {% id="icegridadmin.discovery.interface-description" %}
 
-Specifies the IP address of the interface to use for sending [multicast discovery queries](../icelocatordiscovery). If
-not defined, the discovery will use all the network interfaces available on the system to send UDP multicast datagrams.
-This property is used to compose the value of
-[IceGridAdmin.Discovery.Lookup](../icegridadmin-properties#icegridadmin.discovery.lookup) and
-[IceGridAdmin.Discovery.Reply.Endpoints](../icegridadmin-properties#icegridadmin.discovery.reply.adapterproperty).
+Specifies the IP address of the interface to use for sending [multicast discovery queries](plugins/icelocatordiscovery).
+If not defined, the discovery will use all the network interfaces available on the system to send UDP multicast
+datagrams. This property is used to compose the value of
+[IceGridAdmin.Discovery.Lookup](property-reference/icegridadmin-properties#icegridadmin.discovery.lookup) and
+[IceGridAdmin.Discovery.Reply.Endpoints](property-reference/icegridadmin-properties#icegridadmin.discovery.reply.adapterproperty).
 
 ## IceGridAdmin.Discovery.Lookup
 
@@ -50,16 +50,16 @@ This property is used to compose the value of
 
 ### Description {% id="icegridadmin.discovery.lookup-description" %}
 
-Specifies the endpoints that the client uses to send [multicast discovery queries](../icelocatordiscovery). If not
+Specifies the endpoints that the client uses to send [multicast discovery queries](plugins/icelocatordiscovery). If not
 defined, the endpoint is composed as follows:
 
 `udp -h addr -p port [--interface intf]`
 
 where `addr` is the value of
-[IceGridAdmin.Discovery.Address](../icegridadmin-properties#icegridadmin.discovery.address), `port` is the value of
-[IceGridAdmin.Port](../icegridadmin-properties#icegridadmin.port) and `intf` is the value of
-[IceGridAdmin.Discovery.Interface](../icegridadmin-properties#icegridadmin.discovery.interface). If multiple endpoints
-are defined, the queries will be sent on each endpoint.
+[IceGridAdmin.Discovery.Address](property-reference/icegridadmin-properties#icegridadmin.discovery.address), `port` is
+the value of [IceGridAdmin.Port](property-reference/icegridadmin-properties#icegridadmin.port) and `intf` is the value
+of [IceGridAdmin.Discovery.Interface](property-reference/icegridadmin-properties#icegridadmin.discovery.interface). If
+multiple endpoints are defined, the queries will be sent on each endpoint.
 
 ## IceGridAdmin.Discovery.Reply._AdapterProperty_
 
@@ -70,16 +70,16 @@ are defined, the queries will be sent on each endpoint.
 ### Description {% id="icegridadmin.discovery.reply.adapterproperty-description" %}
 
 The client creates an object adapter named `IceGridAdmin.Discovery.Reply` for receiving replies to
-[multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
+[multicast discovery queries](plugins/icelocatordiscovery). If not otherwise defined by
 `IceGridAdmin.Discovery.Reply.Endpoints`, the endpoint for this object adapter is composed as follows:
 
 `udp [-h intf]`
 
 where `intf` is the value of
-[IceGridAdmin.Discovery.Interface](../icegridadmin-properties#icegridadmin.discovery.interface). A fixed port is not
-necessary for this endpoint.
+[IceGridAdmin.Discovery.Interface](property-reference/icegridadmin-properties#icegridadmin.discovery.interface). A fixed
+port is not necessary for this endpoint.
 
-You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
+You don't normally need to set [other properties](property-reference/object-adapter-properties) for this object adapter.
 
 ## IceGridAdmin.Host
 
@@ -89,9 +89,9 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 
 ### Description {% id="icegridadmin.host-description" %}
 
-When used together with [IceGridAdmin.Port](../icegridadmin-properties#icegridadmin.port),
-[icegridadmin](../icegridadmin-command-line-tool) connects directly to the target registry at the specified host and
-port.
+When used together with [IceGridAdmin.Port](property-reference/icegridadmin-properties#icegridadmin.port),
+[icegridadmin](services/icegrid/icegridadmin-command-line-tool) connects directly to the target registry at the
+specified host and port.
 
 ## IceGridAdmin.InstanceName
 
@@ -101,11 +101,12 @@ port.
 
 ### Description {% id="icegridadmin.instancename-description" %}
 
-Specifies the name of an IceGrid instance to which [icegridadmin](../icegridadmin-command-line-tool) will connect.
+Specifies the name of an IceGrid instance to which [icegridadmin](services/icegrid/icegridadmin-command-line-tool) will
+connect.
 
-When using [multicast discovery](../icelocatordiscovery), you can define this property to limit your discovery results
-only to those locators deployed for the given instance, in case you have multiple unrelated IceGrid instances deployed
-that use the same multicast address and port.
+When using [multicast discovery](plugins/icelocatordiscovery), you can define this property to limit your discovery
+results only to those locators deployed for the given instance, in case you have multiple unrelated IceGrid instances
+deployed that use the same multicast address and port.
 
 ## IceGridAdmin.MetricsConfigs
 
@@ -149,11 +150,11 @@ IceGridGUI.Metrics.Connection.current.columnToolTip=Currently open connections
 
 ### Description {% id="icegridadmin.password-description" %}
 
-Specifies the password that [icegridadmin](../icegridadmin-command-line-tool) should use when authenticating its session
-with the IceGrid registry. For security reasons you may prefer not to define a password in a plain-text configuration
-property, in which case you should omit this property and allow `icegridadmin` to prompt you for it interactively. This
-property is ignored when SSL authentication is enabled via
-[IceGridAdmin.AuthenticateUsingSSL](../icegridadmin-properties#icegridadmin.authenticateusingssl).
+Specifies the password that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) should use when
+authenticating its session with the IceGrid registry. For security reasons you may prefer not to define a password in a
+plain-text configuration property, in which case you should omit this property and allow `icegridadmin` to prompt you
+for it interactively. This property is ignored when SSL authentication is enabled via
+[IceGridAdmin.AuthenticateUsingSSL](property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl).
 
 ## IceGridAdmin.Port
 
@@ -163,13 +164,13 @@ property is ignored when SSL authentication is enabled via
 
 ### Description {% id="icegridadmin.port-description" %}
 
-When used together with [IceGridAdmin.Host](../icegridadmin-properties#icegridadmin.host),
-[icegridadmin](../icegridadmin-command-line-tool) connects directly to the target registry at the specified host and
-port.
+When used together with [IceGridAdmin.Host](property-reference/icegridadmin-properties#icegridadmin.host),
+[icegridadmin](services/icegrid/icegridadmin-command-line-tool) connects directly to the target registry at the
+specified host and port.
 
-When using [multicast discovery](../icelocatordiscovery), this property specifies the port to use for sending multicast
-discovery queries. This property is also used to compose the value of
-[IceGridAdmin.Discovery.Lookup](../icegridadmin-properties#icegridadmin.discovery.lookup).
+When using [multicast discovery](plugins/icelocatordiscovery), this property specifies the port to use for sending
+multicast discovery queries. This property is also used to compose the value of
+[IceGridAdmin.Discovery.Lookup](property-reference/icegridadmin-properties#icegridadmin.discovery.lookup).
 
 If not set, the default value is `4061`.
 
@@ -181,8 +182,9 @@ If not set, the default value is `4061`.
 
 ### Description {% id="icegridadmin.replica-description" %}
 
-Specifies the name of the [registry replica](../registry-replication) that
-[icegridadmin](../icegridadmin-command-line-tool) should contact. If not defined, the default value is `Master`.
+Specifies the name of the [registry replica](services/icegrid/registry-replication) that
+[icegridadmin](services/icegrid/icegridadmin-command-line-tool) should contact. If not defined, the default value is
+`Master`.
 
 ## IceGridAdmin.Server._AdapterProperty_
 
@@ -193,8 +195,8 @@ Specifies the name of the [registry replica](../registry-replication) that
 ### Description {% id="icegridadmin.server.adapterproperty-description" %}
 
 When `icegridadmin` is started with the `--server` option, `icegridadmin` creates an object adapter named
-`IceGridAdmin.Server` to host its file parser object. [adapter properties](../object-adapter-properties) can be used to
-configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unset, `icegridadmin` uses
+`IceGridAdmin.Server` to host its file parser object. [adapter properties](property-reference/object-adapter-properties)
+can be used to configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unset, `icegridadmin` uses
 `"tcp -h localhost"` for these endpoints.
 
 ## IceGridAdmin.Trace.Observers
@@ -227,6 +229,6 @@ registry. If not defined, the default value is zero.
 
 ### Description {% id="icegridadmin.username-description" %}
 
-Specifies the username that [icegridadmin](../icegridadmin-command-line-tool) should use when authenticating its session
-with the IceGrid registry. This property is ignored when SSL authentication is enabled via
-[IceGridAdmin.AuthenticateUsingSSL](../icegridadmin-properties#icegridadmin.authenticateusingssl).
+Specifies the username that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) should use when
+authenticating its session with the IceGrid registry. This property is ignored when SSL authentication is enabled via
+[IceGridAdmin.AuthenticateUsingSSL](property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl).

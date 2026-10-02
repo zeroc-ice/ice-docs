@@ -4,10 +4,10 @@
 
 ### Mapping for Operations
 
-As we saw in the [Client-Side Python Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated proxy class contains 2 methods for this operation. To invoke
-an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
-[greeter example](../defining-the-greeter-interface-in-slice):
+As we saw in the [Client-Side Python Mapping for Interfaces](slice/interfaces#client-side-mapping-for-interfaces), for
+each [operation](slice/operations) on an interface, the generated proxy class contains 2 methods for this operation. To
+invoke an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+[greeter example](greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -58,9 +58,9 @@ We recommend using asyncio and async invocations in new applications.
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
-exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
-following simple interface:
+Any operation invocation may throw a [runtime exception](runtime/local-and-dispatch-exceptions) and, if the operation
+has an exception specification, may also throw [user exceptions](runtime/local-and-dispatch-exceptions). Suppose we have
+the following simple interface:
 
 ```slice
 exception Tantrum
@@ -90,10 +90,12 @@ except Tantrum as t:
 
 ### Default Mapping for Operations
 
-As we saw in the [Server-Side Python Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated skeleton class contains an abstract method with the same name.
+As we saw in the [Server-Side Python Mapping for Interfaces](slice/interfaces#server-side-mapping-for-interfaces), for
+each [operation](slice/operations) on an interface, the generated skeleton class contains an abstract method with the
+same name.
 
-For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
+For example, let’s take the generated code from the
+[greeter example](greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -373,7 +375,7 @@ synchronous and asynchronous dispatch are nearly identical—the only difference
   object.
 - Otherwise, the operation has **synchronous semantics**.
 
-The [parameter passing](../operations) rules for in parameters are the same in both cases.
+The [parameter passing](slice/operations) rules for in parameters are the same in both cases.
 
 Consider the Greeter example:
 
@@ -603,8 +605,8 @@ as `None` or as an empty string: either way, the receiver sees an empty string.
 
 ### Optional Parameters in Python
 
-[Optional parameters](../operations) use the same mapping as required parameters. The only difference is that `None` can
-be passed as the value of an optional parameter or return value. Consider the following operation:
+[Optional parameters](slice/operations) use the same mapping as required parameters. The only difference is that `None`
+can be passed as the value of an optional parameter or return value. Consider the following operation:
 
 ```slice
 optional(1) int execute(optional(2) string params, out optional(3) float value);
@@ -641,7 +643,7 @@ def execute(
 
 ## See Also
 
-- [Exceptions](../exceptions)
-- [The Ice Threading Model](../threading-model)
+- [Exceptions](slice/exceptions)
+- [The Ice Threading Model](runtime/threading-model)
 
 {% /language-section %}

@@ -9,14 +9,16 @@ The `addAdminFacet` method installs a new facet with the given name, or throw `A
 already exists with the same name. The `removeAdminFacet` method removes (and returns) the facet with the given name, or
 throws `NotRegisteredException` if no matching facet is found.
 
-The mechanism for [filtering administrative facets](../filtering-administrative-facets) also applies to
-application-defined facets. If you call `addAdminFacet` while a filter is in effect, and the name of your custom facet
-does not match the filter, the communicator will not expose your facet but instead keeps a reference to it so that a
-subsequent call to `removeAdminFacet` is possible.
+The mechanism for
+[filtering administrative facets](administration/administrative-facility/filtering-administrative-facets) also applies
+to application-defined facets. If you call `addAdminFacet` while a filter is in effect, and the name of your custom
+facet does not match the filter, the communicator will not expose your facet but instead keeps a reference to it so that
+a subsequent call to `removeAdminFacet` is possible.
 
-We provide an example of using these communicator methods in our discussion of the [Process](../process-facet) facet.
+We provide an example of using these communicator methods in our discussion of the
+[Process](administration/administrative-facility/process-facet) facet.
 
 ## See Also
 
-- [Filtering Administrative Facets](../filtering-administrative-facets)
-- [The Process Facet](../process-facet)
+- [Filtering Administrative Facets](administration/administrative-facility/filtering-administrative-facets)
+- [The Process Facet](administration/administrative-facility/process-facet)

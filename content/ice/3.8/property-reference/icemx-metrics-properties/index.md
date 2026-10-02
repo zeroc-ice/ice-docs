@@ -20,13 +20,14 @@ following:
 - IceMX.Metrics._view-name_.Map._map-name_.Map._submap-name_
 
 If a view is defined without Map properties, the view will contain all the metrics map known by the
-[Metrics facet](../metrics-facet). If a view defines one or more map properties it will only contain these maps.
+[Metrics facet](administration/administrative-facility/metrics-facet). If a view defines one or more map properties it
+will only contain these maps.
 
 For a list of supported maps see:
 
-- [The Metrics Facet](../metrics-facet)
-- [Glacier2 Metrics](../glacier2-metrics)
-- [IceStorm Metrics](../icestorm-metrics)
+- [The Metrics Facet](administration/administrative-facility/metrics-facet)
+- [Glacier2 Metrics](services/glacier2/glacier2-metrics)
+- [IceStorm Metrics](services/icestorm/icestorm-metrics)
 
 ## IceMX.Metrics._view_.Accept._attribute_
 

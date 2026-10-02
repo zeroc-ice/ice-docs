@@ -16,7 +16,7 @@ introduces a new patch version.
 Ice maintains source-code compatibility between a patch release (e.g., 3.8.5) and the most recent minor release (e.g.,
 3.8.0), but does not guarantee source-code compatibility between minor releases (e.g., between 3.7 and 3.8).
 
-The [Upgrade Guide](../upgrade-guide) describes the significant API changes in this release that may impact source-code
+The [Upgrade Guide](upgrade-guide) describes the significant API changes in this release that may impact source-code
 compatibility.
 
 ## Binary Compatibility
@@ -44,7 +44,7 @@ interface in one of these services may adversely affect your application.
 Interface changes in an Ice service can also impact compatibility with its administrative tools, which means it may not
 be possible to administer a service using a tool from a previous minor release (or vice-versa).
 
-The [Upgrade Guide](../upgrade-guide) describes interface changes made by Ice services.
+The [Upgrade Guide](upgrade-guide) describes interface changes made by Ice services.
 
 ## Database Compatibility
 
@@ -56,4 +56,4 @@ guarantee database schema compatibility between minor releases.
 For example, you can start an IceGrid registry 3.8.5 using a database created by IceGrid registry 3.8.0. But there is no
 blanket guarantee that you can start IceGrid registry 3.9 using a database created by IceGrid registry 3.8.5.
 
-The [Upgrade Guide](../upgrade-guide) describes database schema changes made by IceGrid and IceStorm.
+The [Upgrade Guide](upgrade-guide) describes database schema changes made by IceGrid and IceStorm.

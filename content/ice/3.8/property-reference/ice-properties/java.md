@@ -41,10 +41,10 @@ to `2`. Use of direct message buffers minimizes copying and typically results in
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Values range
-from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that higher
-levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a significant
-improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](protocol/protocol-compression). Values
+range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that
+higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
+significant improvement over lower levels. If not specified, the default value is `1`.
 
 ## Ice.Config
 
@@ -61,15 +61,17 @@ This property must be set from the command line with one of the options `--Ice.C
 `--Ice.Config=config_file`.
 
 If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the
-[ICE_CONFIG](../using-configuration-files) environment variable to retrieve the path names of one or more configuration
-files. Otherwise, `Ice.Config` must be set to the path names of one or more configuration files, separated by commas
-(path names can be relative or absolute). Property values are read from each of the configuration files listed.
+[ICE_CONFIG](runtime/properties-and-configuration/using-configuration-files) environment variable to retrieve the path
+names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more
+configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of
+the configuration files listed.
 
-In Java, Ice first attempts to open a configuration file as a [class loader resource](../alternate-property-stores). If
-that attempt fails, Ice opens the configuration file in the local file system.
+In Java, Ice first attempts to open a configuration file as a
+[class loader resource](runtime/properties-and-configuration/alternate-property-stores). If that attempt fails, Ice
+opens the configuration file in the local file system.
 
-Configuration files use a simple [syntax](../configuration-file-syntax) consisting of _name_=_value_ pairs with support
-for comments and escaping.
+Configuration files use a simple [syntax](runtime/properties-and-configuration/configuration-file-syntax) consisting of
+_name_=_value_ pairs with support for comments and escaping.
 
 {% /language-section %}
 
@@ -156,17 +158,18 @@ java -Djava.net.preferIPv4Stack=true ...
 ### Description {% id="ice.package.module-description" %}
 
 Ice for Java allows you to customize the Slice module to Java package mapping with the `java:package` and
-`java:identifier` [metadata directive](../slice-metadata-directives).
+`java:identifier` [metadata directive](slice/slice-metadata-directives).
 
 When you use this feature, you need to help Ice locate your remapped classes during unmarshaling, by installing a
-[Slice loader](../slice-loaders) in your communicator. The `Ice.Package.module` properties tell the Ice communicator to
-install automatically a [ModuleToPackageSliceLoader](https://code.zeroc.com/manual/Ice/ModuleToPackageSliceLoader)
-during initialization, configured using the module to package map created by these properties.
+[Slice loader](slice/user-defined-types/classes/slice-loaders) in your communicator. The `Ice.Package.module` properties
+tell the Ice communicator to install automatically a
+[ModuleToPackageSliceLoader](https://code.zeroc.com/manual/Ice/ModuleToPackageSliceLoader) during initialization,
+configured using the module to package map created by these properties.
 
 This property is provided primarily for backwards compatibility; we recommend configuring Slice loaders programmatically
 in new applications.
 
-See also: [Ice.Default.Package](../ice-default-properties)
+See also: [Ice.Default.Package](property-reference/ice-default-properties)
 
 ## Ice.PluginLoadOrder
 
@@ -176,7 +179,7 @@ See also: [Ice.Default.Package](../ice-default-properties)
 
 ### Description {% id="ice.pluginloadorder-description" %}
 
-Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
+Determines the order in which [plug-ins](plugins/plug-in-facility) are loaded (loaded is a synonym for created in this
 context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
 by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
 
@@ -225,7 +228,7 @@ task, like dispatching a request.
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
 return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
 the server will not shut down automatically. This property is often used for servers that are automatically
-[activated by IceGrid](../icegrid-server-activation).
+[activated by IceGrid](services/icegrid/icegrid-server-activation).
 
 ## Ice.SliceLoader.NotFoundCacheSize
 
@@ -240,7 +243,7 @@ Slice loader resolutions.
 
 The default value is 100.
 
-See also [Ice.Warn.SliceLoader](../ice-warn-properties).
+See also [Ice.Warn.SliceLoader](property-reference/ice-warn-properties).
 
 ## Ice.SOCKSProxyHost
 
@@ -321,7 +324,7 @@ The default value is `LOG_USER`.
 ### Description {% id="ice.sysloghost-description" %}
 
 Specifies the host name or IP address of the syslog daemon that receives log messages when
-[Ice.UseSyslog](../ice-properties#ice.usesyslog) is enabled. The default value is `localhost`.
+[Ice.UseSyslog](property-reference/ice-properties#ice.usesyslog) is enabled. The default value is `localhost`.
 
 ## Ice.SyslogPort
 
@@ -331,8 +334,9 @@ Specifies the host name or IP address of the syslog daemon that receives log mes
 
 ### Description {% id="ice.syslogport-description" %}
 
-Specifies the UDP port of the syslog daemon at [Ice.SyslogHost](../ice-properties#ice.sysloghost). The default value is
-`514`. This property takes effect when [Ice.UseSyslog](../ice-properties#ice.usesyslog) is enabled.
+Specifies the UDP port of the syslog daemon at [Ice.SyslogHost](property-reference/ice-properties#ice.sysloghost). The
+default value is `514`. This property takes effect when [Ice.UseSyslog](property-reference/ice-properties#ice.usesyslog)
+is enabled.
 
 ## Ice.ThreadPriority
 
@@ -351,8 +355,9 @@ property is unset by default.
 The named values can also include the `java.lang.Thread.` prefix, for example `java.lang.Thread.NORM_PRIORITY`.
 
 You can separately override the default priorities for the client and server thread pools using
-[Ice.ThreadPool._name_.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a
-specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
+[Ice.ThreadPool._name_.ThreadPriority](property-reference/ice-threadpool-properties#ice.threadpool.name.threadpriority)
+as well as for a specific object adapter using
+[_adapter_.ThreadPool.ThreadPriority](property-reference/object-adapter-properties).
 
 {% /language-section %}
 
@@ -367,11 +372,12 @@ specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-ad
 ### Description {% id="ice.usesyslog-description" %}
 
 If `num` is greater than 0, Ice for Java sends log messages as UDP datagrams to the syslog daemon configured by
-[Ice.SyslogHost](../ice-properties#ice.sysloghost) and [Ice.SyslogPort](../ice-properties#ice.syslogport). The messages
-use the RFC 3164 syslog format without a header and include the program name as their prefix.
-[Ice.SyslogFacility](../ice-properties#ice.syslogfacility) selects the facility. The default value of `Ice.UseSyslog`
-is 0. Ice ignores this property on Windows.
+[Ice.SyslogHost](property-reference/ice-properties#ice.sysloghost) and
+[Ice.SyslogPort](property-reference/ice-properties#ice.syslogport). The messages use the RFC 3164 syslog format without
+a header and include the program name as their prefix.
+[Ice.SyslogFacility](property-reference/ice-properties#ice.syslogfacility) selects the facility. The default value of
+`Ice.UseSyslog` is 0. Ice ignores this property on Windows.
 
-On other platforms, this property cannot be combined with [Ice.LogFile](../ice-properties#ice.logfile).
+On other platforms, this property cannot be combined with [Ice.LogFile](property-reference/ice-properties#ice.logfile).
 
 {% /language-section %}

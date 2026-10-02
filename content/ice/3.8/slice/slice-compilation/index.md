@@ -46,4 +46,4 @@ For Java, the Slice compiler creates a number of files whose names depend on the
 
 ## See Also
 
-- [Using the Slice Compilers](../using-the-slice-compiler)
+- [Using the Slice Compilers](slice/using-the-slice-compiler)

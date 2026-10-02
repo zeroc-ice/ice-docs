@@ -39,7 +39,7 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 ### Description {% id="ice.warn.dispatch-description" %}
 
-This property is ignored when [Ice.Trace.Dispatch](../ice-trace-properties) has a value larger than 0.
+This property is ignored when [Ice.Trace.Dispatch](property-reference/ice-trace-properties) has a value larger than 0.
 
 Otherwise, if `num` is set to a value larger than 0, the logger middleware logs warning messages when exceptions are
 thrown during dispatches.

@@ -15,15 +15,15 @@ C++-based language mappings. JavaScript does not support this plug-in.
 
 ### Description {% id="icelocatordiscovery.address-description" %}
 
-Specifies the multicast IP address to use for sending [multicast discovery queries](../icelocatordiscovery). If not
+Specifies the multicast IP address to use for sending [multicast discovery queries](plugins/icelocatordiscovery). If not
 defined, the default value depends on other property settings:
 
-- If [Ice.PreferIPv6Address](../ice-properties) is enabled or [Ice.IPv4](../ice-properties) is disabled,
-  IceLocatorDiscovery uses the IPv6 address `ff15::1`
+- If [Ice.PreferIPv6Address](property-reference/ice-properties) is enabled or
+  [Ice.IPv4](property-reference/ice-properties) is disabled, IceLocatorDiscovery uses the IPv6 address `ff15::1`
 - Otherwise IceLocatorDiscovery uses `239.255.0.1`
 
 This property is used to compose the value of
-[IceLocatorDiscovery.Lookup](../icelocatordiscovery-properties#icelocatordiscovery.lookup).
+[IceLocatorDiscovery.Lookup](property-reference/icelocatordiscovery-properties#icelocatordiscovery.lookup).
 
 ## IceLocatorDiscovery.InstanceName
 
@@ -50,11 +50,11 @@ identity category of its own locator object, or a UUID if this property is not s
 
 ### Description {% id="icelocatordiscovery.interface-description" %}
 
-Specifies the IP address of the interface to use for sending [multicast discovery queries](../icelocatordiscovery). If
-not defined, the discovery will use all the network interfaces available on the system to send UDP multicast datagrams.
-This property is used to compose the value of
-[IceLocatorDiscovery.Lookup](../icelocatordiscovery-properties#icelocatordiscovery.lookup) and
-[IceLocatorDiscovery.Reply.Endpoints](../icelocatordiscovery-properties#icelocatordiscovery.reply.adapterproperty).
+Specifies the IP address of the interface to use for sending [multicast discovery queries](plugins/icelocatordiscovery).
+If not defined, the discovery will use all the network interfaces available on the system to send UDP multicast
+datagrams. This property is used to compose the value of
+[IceLocatorDiscovery.Lookup](property-reference/icelocatordiscovery-properties#icelocatordiscovery.lookup) and
+[IceLocatorDiscovery.Reply.Endpoints](property-reference/icelocatordiscovery-properties#icelocatordiscovery.reply.adapterproperty).
 
 ## IceLocatorDiscovery.Locator._AdapterProperty_
 
@@ -65,7 +65,7 @@ This property is used to compose the value of
 ### Description {% id="icelocatordiscovery.locator.adapterproperty-description" %}
 
 IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Locator`, therefore all of the
-[object adapter properties](../object-adapter-properties) can be set.
+[object adapter properties](property-reference/object-adapter-properties) can be set.
 
 You don't normally need to set properties for this object adapter.
 
@@ -77,20 +77,20 @@ You don't normally need to set properties for this object adapter.
 
 ### Description {% id="icelocatordiscovery.lookup-description" %}
 
-Specifies the multicast endpoints used to send [discovery queries](../icelocatordiscovery). The plug-in sends each query
-on every endpoint in this list.
+Specifies the multicast endpoints used to send [discovery queries](plugins/icelocatordiscovery). The plug-in sends each
+query on every endpoint in this list.
 
 When this property is not set, the plug-in creates one endpoint per multicast-capable interface selected by
-[IceLocatorDiscovery.Interface](../icelocatordiscovery-properties#icelocatordiscovery.interface), or per available
-multicast-capable interface if that property is not set. It joins these endpoints with colons. Each endpoint has the
-form:
+[IceLocatorDiscovery.Interface](property-reference/icelocatordiscovery-properties#icelocatordiscovery.interface), or per
+available multicast-capable interface if that property is not set. It joins these endpoints with colons. Each endpoint
+has the form:
 
 `udp -h "addr" -p port --interface "intf"`
 
 Here, `addr` is the value of
-[IceLocatorDiscovery.Address](../icelocatordiscovery-properties#icelocatordiscovery.address), `port` is the value of
-[IceLocatorDiscovery.Port](../icelocatordiscovery-properties#icelocatordiscovery.port), and `intf` identifies the
-interface.
+[IceLocatorDiscovery.Address](property-reference/icelocatordiscovery-properties#icelocatordiscovery.address), `port` is
+the value of [IceLocatorDiscovery.Port](property-reference/icelocatordiscovery-properties#icelocatordiscovery.port), and
+`intf` identifies the interface.
 
 ## IceLocatorDiscovery.Port
 
@@ -111,16 +111,16 @@ Specifies the multicast port to use for sending multicast queries. If not set, t
 ### Description {% id="icelocatordiscovery.reply.adapterproperty-description" %}
 
 IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Reply` for receiving replies to
-[multicast discovery queries](../icelocatordiscovery). If not otherwise defined by
+[multicast discovery queries](plugins/icelocatordiscovery). If not otherwise defined by
 `IceLocatorDiscovery.Reply.Endpoints`, the endpoint for this object adapter is composed as follows:
 
 `udp [-h intf]`
 
 where `intf` is the value of
-[IceLocatorDiscovery.Interface](../icelocatordiscovery-properties#icelocatordiscovery.interface). A fixed port is not
-necessary for this endpoint.
+[IceLocatorDiscovery.Interface](property-reference/icelocatordiscovery-properties#icelocatordiscovery.interface). A
+fixed port is not necessary for this endpoint.
 
-You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
+You don't normally need to set [other properties](property-reference/object-adapter-properties) for this object adapter.
 
 ## IceLocatorDiscovery.RetryCount
 
@@ -131,9 +131,9 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 ### Description {% id="icelocatordiscovery.retrycount-description" %}
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast queries before giving up. The
-[IceLocatorDiscovery.Timeout](../icelocatordiscovery-properties#icelocatordiscovery.timeout) property determines how
-long the plug-in waits for a reply before trying again. If not defined, the default retry count is `3`, for a total of
-four attempts. A value of 0 sends only the initial query.
+[IceLocatorDiscovery.Timeout](property-reference/icelocatordiscovery-properties#icelocatordiscovery.timeout) property
+determines how long the plug-in waits for a reply before trying again. If not defined, the default retry count is `3`,
+for a total of four attempts. A value of 0 sends only the initial query.
 
 ## IceLocatorDiscovery.RetryDelay
 
@@ -144,8 +144,9 @@ four attempts. A value of 0 sends only the initial query.
 ### Description {% id="icelocatordiscovery.retrydelay-description" %}
 
 If the plug-in fails to receive any responses to a query after retrying the number of times specified by
-[IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount), the plug-in waits at
-least `num` milliseconds before starting another round of query attempts. If not defined, the default value is `2000`.
+[IceLocatorDiscovery.RetryCount](property-reference/icelocatordiscovery-properties#icelocatordiscovery.retrycount), the
+plug-in waits at least `num` milliseconds before starting another round of query attempts. If not defined, the default
+value is `2000`.
 
 ## IceLocatorDiscovery.Trace.Lookup
 
@@ -174,5 +175,5 @@ Controls lookup tracing in the `Lookup` trace category:
 
 Specifies the time interval in milliseconds to wait for replies to UDP multicast queries. If no server replies during
 this time interval, the client will retry the request the number of times specified by
-[IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount). If not defined, the
-default timeout is `300`. `num` must be greater than `0`.
+[IceLocatorDiscovery.RetryCount](property-reference/icelocatordiscovery-properties#icelocatordiscovery.retrycount). If
+not defined, the default timeout is `300`. `num` must be greater than `0`.

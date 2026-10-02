@@ -62,8 +62,8 @@ module Mod
 
 {% callout type="info" %}
 
-Metadata directives never change [type IDs](../type-ids). For example, exception `E` defined in module `Test` has type
-ID `"::Test::E"` regardless of any `swift:module` metadata directive on module `Test`.
+Metadata directives never change [type IDs](slice/type-ids). For example, exception `E` defined in module `Test` has
+type ID `"::Test::E"` regardless of any `swift:module` metadata directive on module `Test`.
 
 {% /callout %}
 

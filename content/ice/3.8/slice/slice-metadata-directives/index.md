@@ -50,7 +50,7 @@ This directive applies to interfaces and operations.
 
 In C++, C#, and Java, this directive instructs the Slice compiler to generate an asynchronous method in the skeleton
 class or interface instead of the default synchronous method. You could alternatively make your servant class derive
-from an async skeleton, and not rely on this metadata directive. See [Operations](../operations) for details.
+from an async skeleton, and not rely on this metadata directive. See [Operations](slice/operations) for details.
 
 This directive is ignored by other Slice compilers.
 
@@ -58,15 +58,16 @@ This directive is ignored by other Slice compilers.
 
 `deprecate[:message]`
 
-This directive allows you to emit a [deprecation warning for Slice constructs](../deprecating-slice-definitions).
+This directive allows you to emit a [deprecation warning for Slice constructs](slice/deprecating-slice-definitions).
 
 ### `format`
 
-This directive defines the [encoding format](../slicing-values-and-exceptions) used for any classes or exceptions
-marshaled as the arguments or results of an operation. The tag can be applied to an interface, which affects all of its
-operations, or to individual operations. Legal values for the tag are `format:sliced`, `format:compact`, and
-`format:default`. A tag specified for an operation overrides any setting applied to its enclosing interface. The
-[Ice.Default.SlicedFormat](../ice-default-properties) property defines the behavior when no tag is present.
+This directive defines the [encoding format](slice/user-defined-types/classes/slicing-values-and-exceptions) used for
+any classes or exceptions marshaled as the arguments or results of an operation. The tag can be applied to an interface,
+which affects all of its operations, or to individual operations. Legal values for the tag are `format:sliced`,
+`format:compact`, and `format:default`. A tag specified for an operation overrides any setting applied to its enclosing
+interface. The [Ice.Default.SlicedFormat](property-reference/ice-default-properties) property defines the behavior when
+no tag is present.
 
 ### `marshaled-result`
 

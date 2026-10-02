@@ -109,9 +109,8 @@ export default async function Page(props: PageProps) {
   }
 
   const routePath = pageHref(version, slug);
-  // Cross-page links are resolved against this index at build time, so moving a
-  // page never breaks the links pointing at it.
-  const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
+  // Cross-page links are resolved against this index at build time.
+  const pageIndex = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
   const versionOptions: VersionOption[] = listVersions(CONTENT_ROOT).map(

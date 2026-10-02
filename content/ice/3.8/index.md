@@ -30,7 +30,7 @@ Ice is a complete RPC framework that helps you build networked applications with
 - **Ice does the networking.** It takes care of opening network connections, serializing and deserializing data for
   network transmission, and retrying failed connection attempts, so you can focus on your application logic.
 - **Start with the Greeter Example.** Writing a client-server application with Ice does not take much code.
-  [See for yourself!](../greeter-example)
+  [See for yourself!](greeter-example)
 
 {% showcase %}
 
@@ -386,9 +386,8 @@ bar or press `⌘K`.
 
 {% releases /%}
 
-- **[Upgrade Guide](../upgrade-guide)**: moving an application from Ice 3.7 to Ice {% $version %}.
-- **[Backward Compatibility of Ice Versions](../compatibility)**: what a patch, minor, or major release keeps
-  compatible.
+- **[Upgrade Guide](upgrade-guide)**: moving an application from Ice 3.7 to Ice {% $version %}.
+- **[Backward Compatibility of Ice Versions](compatibility)**: what a patch, minor, or major release keeps compatible.
 
 ## Beyond the Documentation
 
@@ -404,4 +403,4 @@ bar or press `⌘K`.
 - **[Demos on GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8)**: sample programs for every language mapping.
 - **[Ice on GitHub](https://github.com/zeroc-ice/ice)**: source code, issue tracker, and the
   [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) of each release.
-- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See [Using Ice and IceRPC Together](../icerpc).
+- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See [Using Ice and IceRPC Together](icerpc).

@@ -1,7 +1,8 @@
 {% language-section name="lang-1" %}
 
 The Slice compiler generates a `makeProxy` function that allows you to construct a proxy from a communicator and a
-[stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the following example:
+[stringified representation](runtime/invocation/syntax-for-stringified-proxies) of the proxy, as shown in the following
+example:
 
 ```swift
 let greeter = try makeProxy(

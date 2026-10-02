@@ -18,7 +18,7 @@ Slice definitions permit both the C and the C++ style of writing comments:
 
 ## Keywords
 
-Slice uses a number of [keywords](../slice-keywords), which must be spelled in lowercase. For example, `class` and
+Slice uses a number of [keywords](slice/slice-keywords), which must be spelled in lowercase. For example, `class` and
 `dictionary` are keywords and must be spelled as shown. There are two exceptions to this lowercase rule: `Object` and
 `Value` are keywords and must be capitalized as shown.
 
@@ -79,4 +79,4 @@ ignored in that case.
 
 ## See Also
 
-- [Slice Keywords](../slice-keywords)
+- [Slice Keywords](slice/slice-keywords)

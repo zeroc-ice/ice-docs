@@ -8,9 +8,9 @@ Using Glacier2 in a minimal configuration involves the following tasks:
 
 1. Write a [configuration file](#configuring-the-router) for the router.
 2. Write a [password file](#writing-a-password-file) for the router. (Glacier2 also supports
-   [other ways](../securing-a-glacier2-router) to authenticate users.)
+   [other ways](services/glacier2/securing-a-glacier2-router) to authenticate users.)
 3. Decide whether to use the router's internal session manager, or supply your own
-   [session manager](../glacier2-session-management).
+   [session manager](services/glacier2/glacier2-session-management).
 4. [Start the router](#starting-the-router) on a host with access to the public and private networks.
 5. Modify the [client configuration](#configuring-a-glacier2-client) to use the router.
 6. Modify the client to create a [router session](#glacier2-sessions).
@@ -29,27 +29,27 @@ The following router configuration property establish the necessary endpoint:
 Glacier2.Client.Endpoints=tcp -h 5.6.7.8 -p 4063
 ```
 
-The endpoint defined by [Glacier2.Client.Endpoints](../glacier2-properties) is used by the Ice runtime in a client to
-interact directly with the router. It is also the endpoint where requests from routed proxies are sent. This endpoint is
-defined on the public network interface because it must be accessible to clients. Furthermore, the endpoint uses a fixed
-port because clients may be statically configured with a proxy for this endpoint. The port numbers 4063 (for TCP) and
-4064 (for SSL) are reserved for Glacier2 by the Internet Assigned Numbers Authority (IANA).
+The endpoint defined by [Glacier2.Client.Endpoints](property-reference/glacier2-properties) is used by the Ice runtime
+in a client to interact directly with the router. It is also the endpoint where requests from routed proxies are sent.
+This endpoint is defined on the public network interface because it must be accessible to clients. Furthermore, the
+endpoint uses a fixed port because clients may be statically configured with a proxy for this endpoint. The port numbers
+4063 (for TCP) and 4064 (for SSL) are reserved for Glacier2 by the Internet Assigned Numbers Authority (IANA).
 
 {% callout type="info" %}
 
 This sample configuration uses TCP as the endpoint protocol, although in most cases,
-[SSL is preferable](../securing-a-glacier2-router).
+[SSL is preferable](services/glacier2/securing-a-glacier2-router).
 
 {% /callout %}
 
 Note that this configuration enables the router to forward requests from clients to servers. Additional configuration is
-necessary to support [callbacks](../callbacks-through-glacier2) from servers to clients.
+necessary to support [callbacks](services/glacier2/callbacks-through-glacier2) from servers to clients.
 
 You must also decide which authentication scheme (or schemes) to use. A [file-based](#writing-a-password-file) mechanism
-is available, as are [more sophisticated strategies](../securing-a-glacier2-router).
+is available, as are [more sophisticated strategies](services/glacier2/securing-a-glacier2-router).
 
-If clients access a [location service](../icegrid-and-glacier2-integration) via the router, additional router
-configuration is typically necessary.
+If clients access a [location service](services/glacier2/icegrid-and-glacier2-integration) via the router, additional
+router configuration is typically necessary.
 
 ## Writing a Password File
 
@@ -78,7 +78,7 @@ On Linux:
 
 - Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
-The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the name of the password file:
+The property [Glacier2.CryptPasswords](property-reference/glacier2-properties) specifies the name of the password file:
 
 ```config
 Glacier2.CryptPasswords=passwords
@@ -127,7 +127,7 @@ Note that `icehashpassword` generates PBKDF2 hashes on Windows and macOS, and Cr
 {% callout type="info" %}
 
 This authentication scheme is intended for use in simple applications with a few users. Most applications should install
-their own custom [permissions verifier](../securing-a-glacier2-router).
+their own custom [permissions verifier](services/glacier2/securing-a-glacier2-router).
 
 {% /callout %}
 
@@ -148,15 +148,15 @@ The following property configures a client to use a Glacier2 router:
 Ice.Default.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-The [Ice.Default.Router](../ice-default-properties) property defines the router proxy. Its endpoints must match those in
-`Glacier2.Client.Endpoints`.
+The [Ice.Default.Router](property-reference/ice-default-properties) property defines the router proxy. Its endpoints
+must match those in `Glacier2.Client.Endpoints`.
 
 ## Glacier2 Object Identities
 
 A Glacier2 router hosts one well-known object. The default identity of this object is `Glacier2/router`, corresponding
 to the `Glacier2::Router` interface. If an application requires the use of multiple different (that is, not replicated)
 routers, it is a good idea to assign a unique identity to this object by configuring the routers with different values
-of the [Glacier2.InstanceName](../glacier2-properties) property, as shown in the following example:
+of the [Glacier2.InstanceName](property-reference/glacier2-properties) property, as shown in the following example:
 
 ```config
 Glacier2.InstanceName=PublicRouter
@@ -180,7 +180,7 @@ Ice.Default.Router=PublicRouter/router:tcp -h 5.6.7.8 -p 4063:tcp -h 6.10.7.8 -p
 {% callout type="info" %}
 
 A client can discover a router's proxy at run time using the
-[RouterFinder interface](../advanced-glacier2-client-configurations).
+[RouterFinder interface](services/glacier2/advanced-glacier2-client-configurations).
 
 {% /callout %}
 
@@ -219,20 +219,21 @@ router requires each client to create a session using one of these operations; o
 the router forward requests on behalf of the client.
 
 The `createSession` operation expects a user name and password and, depending on the
-[router's configuration](../glacier2-session-management), returns either a `Session` proxy or nil. When using the
-default authentication scheme, the given user name and password must match an entry in the router's password file in
-order to successfully create a session.
+[router's configuration](services/glacier2/glacier2-session-management), returns either a `Session` proxy or nil. When
+using the default authentication scheme, the given user name and password must match an entry in the router's password
+file in order to successfully create a session.
 
 The `createSessionFromSecureConnection` operation does not require a user name and password because it authenticates the
-client using the credentials associated with the client's [SSL connection](../securing-a-glacier2-router) to the router.
+client using the credentials associated with the client's [SSL connection](services/glacier2/securing-a-glacier2-router)
+to the router.
 
 To create a session, the client typically creates the router proxy from the communicator and then calls one of the
 `create` operations. For example:
 
 {% language-section name="lang-1" /%}
 
-If the router is configured with a [session manager](../glacier2-session-management), the `createSession` and
-`createSessionFromSecureConnection` operations may return a proxy for an object implementing the `Glacier2::Session`
+If the router is configured with a [session manager](services/glacier2/glacier2-session-management), the `createSession`
+and `createSessionFromSecureConnection` operations may return a proxy for an object implementing the `Glacier2::Session`
 interface (or an application-specific derived interface). The client receives a null proxy if no session manager is
 configured.
 
@@ -252,8 +253,8 @@ target back-end server, the router automatically destroys the session.
 
 ## See Also
 
-- [Callbacks Through Glacier2](../callbacks-through-glacier2)
-- [Securing a Glacier2 Router](../securing-a-glacier2-router)
-- [Glacier2 Session Management](../glacier2-session-management)
-- [Glacier2.*](../glacier2-properties)
-- [Windows Services](../windows-services)
+- [Callbacks Through Glacier2](services/glacier2/callbacks-through-glacier2)
+- [Securing a Glacier2 Router](services/glacier2/securing-a-glacier2-router)
+- [Glacier2 Session Management](services/glacier2/glacier2-session-management)
+- [Glacier2.*](property-reference/glacier2-properties)
+- [Windows Services](background-servers/windows-services)

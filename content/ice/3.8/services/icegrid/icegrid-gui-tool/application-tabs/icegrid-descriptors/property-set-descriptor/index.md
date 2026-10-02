@@ -4,12 +4,13 @@ title: Property Set Descriptor
 
 A Property Set defines a set of Ice properties. IceGrid GUI supports two kinds of Property Sets:
 
-- **Named Property Set** A property set defined within an [application](../application-descriptor) or within a
-  [node](../node-descriptor). Server and service definitions refer to such property sets to "include" the corresponding
-  properties.
+- **Named Property Set** A property set defined within an
+  [application](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/application-descriptor) or within
+  a [node](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/node-descriptor). Server and service
+  definitions refer to such property sets to "include" the corresponding properties.
 - **Service-Instance Property Set** A property set defined as a child of an
-  [IceBox server instance](../server-descriptor). Such a property set provides properties to a service instance within a
-  concrete IceBox server.
+  [IceBox server instance](services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/server-descriptor).
+  Such a property set provides properties to a service instance within a concrete IceBox server.
 
 ## Properties
 

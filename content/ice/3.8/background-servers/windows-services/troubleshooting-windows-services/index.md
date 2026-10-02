@@ -49,20 +49,21 @@ The IceBridge service terminated with service-specific error 1.
 
 Error code `1` corresponds to `EXIT_FAILURE`, the value used by the `Service` class to indicate a failure during
 startup. Additional diagnostic messages may be available in the `Application` event log. See
-[Service Logging Considerations](../service-logging-considerations) for more information on configuring a logger for a
-Windows service.
+[Service Logging Considerations](background-servers/service-logging-considerations) for more information on configuring
+a logger for a Windows service.
 
 As we mentioned earlier, insufficient access rights can also prevent a Windows service from starting successfully. By
 default, a Windows service is configured to run under a local system account, in which case the service may not be able
 to access resources owned by other users. It may be necessary for you to configure a service to run under a
-[different account](../installing-a-windows-service), which you can do using the Services control panel. You should also
-review the access rights of files and directories required by the service.
+[different account](background-servers/windows-services/installing-a-windows-service), which you can do using the
+Services control panel. You should also review the access rights of files and directories required by the service.
 
 ## Windows Firewall Interference
 
 Your choice of user account determines whether you receive any notification when the Windows Firewall blocks the ports
 that are used by your service. For example, if you use `Local Service` as we
-[recommended](../installing-a-windows-service), you will not see a Windows Security Alert dialog.
+[recommended](background-servers/windows-services/installing-a-windows-service), you will not see a Windows Security
+Alert dialog.
 
 If you are not prompted to unblock your service, you will need to manually add an exception in Windows Firewall. For
 example, follow the steps below to unblock the ports of a Glacier2 router service:
@@ -80,7 +81,8 @@ Refer to the Windows Firewall documentation for details.
 ## IceGrid Node Performance Monitoring Issues
 
 The IceGrid node uses Windows' `Perflib` facility to obtain statistics about the CPU utilization of its host for
-[load balancing](../load-balancing) purposes. Occasionally, the IceGrid node may log the following warning message:
+[load balancing](services/icegrid/load-balancing) purposes. Occasionally, the IceGrid node may log the following warning
+message:
 
 ```text
 warning: Unable to lookup the performance counter name
@@ -92,7 +94,8 @@ This message is an indication that the node does not have sufficient privileges 
 HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib
 ```
 
-As part of its installation procedure, the [iceserviceinstall](../using-the-ice-service-installer) utility modifies the
+As part of its installation procedure, the
+[iceserviceinstall](background-servers/windows-services/using-the-ice-service-installer) utility modifies the
 permissions of this registry key to grant read access to the node's designated user account. If you are trying to change
 the node's user account, we recommend using the `iceserviceinstall` utility to uninstall and reinstall the node. If you
 wish to modify the permissions of this registry key manually, follow these steps:
@@ -109,6 +112,6 @@ Another way to grant the node's user account with the necessary access rights is
 
 ## See Also
 
-- [Load Balancing](../load-balancing)
-- [Installing a Windows Service](../installing-a-windows-service)
-- [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)
+- [Load Balancing](services/icegrid/load-balancing)
+- [Installing a Windows Service](background-servers/windows-services/installing-a-windows-service)
+- [Manually Installing a Service as a Windows Service](background-servers/windows-services/manually-installing-a-service-as-a-windows-service)

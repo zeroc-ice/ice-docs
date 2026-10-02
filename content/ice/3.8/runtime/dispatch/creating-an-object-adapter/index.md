@@ -7,8 +7,8 @@ You create an object adapter by calling `createObjectAdapter` on your communicat
 {% language-section name="lang-1" /%}
 
 `createObjectAdapter` creates a new object adapter associated with this communicator. Each object adapter is associated
-with zero or more [transport endpoints](../object-adapter-endpoints). Typically, an object adapter has a single
-transport endpoint.
+with zero or more [transport endpoints](runtime/dispatch/object-adapter-endpoints). Typically, an object adapter has a
+single transport endpoint.
 
 {% callout type="info" %}
 
@@ -21,13 +21,13 @@ connections associated with the adapter when the adapter is configured for bidir
 
 {% /callout %}
 
-An application normally needs to configure an object adapter with [endpoints](../object-adapter-endpoints) or a
-[router](../glacier2). Calling `createObjectAdapter` with a non-empty value for `name` means the new object adapter will
-check the communicator's configuration for [properties](../object-adapter-properties), using its name as prefix,
-including:
+An application normally needs to configure an object adapter with [endpoints](runtime/dispatch/object-adapter-endpoints)
+or a [router](services/glacier2). Calling `createObjectAdapter` with a non-empty value for `name` means the new object
+adapter will check the communicator's configuration for [properties](property-reference/object-adapter-properties),
+using its name as prefix, including:
 
-- [_name_.Endpoints](../object-adapter-properties) - defines one or more object adapter endpoints
-- [_name_.Router](../object-adapter-properties) - specifies the stringified proxy of a router
+- [_name_.Endpoints](property-reference/object-adapter-properties) - defines one or more object adapter endpoints
+- [_name_.Router](property-reference/object-adapter-properties) - specifies the stringified proxy of a router
 
 If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
 is on your communicator. For example:
@@ -36,4 +36,4 @@ is on your communicator. For example:
 
 ## See Also
 
-- [Communicator](../communicator)
+- [Communicator](runtime/communicator)

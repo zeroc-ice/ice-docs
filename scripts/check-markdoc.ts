@@ -122,10 +122,10 @@ function variablesFor({
   frontmatter: Record<string, unknown>;
 }) {
   if (!pageIndexes.has(version)) {
-    const { index } = buildPageIndex(
-      listPages(CONTENT_ROOT, version).map((page) => page.slug)
+    pageIndexes.set(
+      version,
+      buildPageIndex(listPages(CONTENT_ROOT, version).map((page) => page.slug))
     );
-    pageIndexes.set(version, index);
   }
   return {
     ...config.variables,

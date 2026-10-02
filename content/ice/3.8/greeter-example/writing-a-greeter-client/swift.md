@@ -130,6 +130,6 @@ swift run Client
 
 {% callout type="info" %}
 
-This client won’t work unless you’ve also launched a [Greeter server](../writing-a-greeter-server).
+This client won’t work unless you’ve also launched a [Greeter server](greeter-example/writing-a-greeter-server).
 
 {% /callout %}

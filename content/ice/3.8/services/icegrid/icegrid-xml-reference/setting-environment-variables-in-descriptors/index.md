@@ -2,10 +2,11 @@
 title: Setting Environment Variables in Descriptors
 ---
 
-[Server descriptors](../server-descriptor-element) and [IceBox descriptors](../icebox-descriptor-element) may specify
-environment variables that the node will define when starting a server. An environment variable definition uses the
-familiar `name=value` syntax, and you can also refer to other environment variables within the value. The exact syntax
-for variable references depends on the platform on which the server's descriptor is deployed.
+[Server descriptors](services/icegrid/icegrid-xml-reference/server-descriptor-element) and
+[IceBox descriptors](services/icegrid/icegrid-xml-reference/icebox-descriptor-element) may specify environment variables
+that the node will define when starting a server. An environment variable definition uses the familiar `name=value`
+syntax, and you can also refer to other environment variables within the value. The exact syntax for variable references
+depends on the platform on which the server's descriptor is deployed.
 
 On a Linux, the Bourne shell syntax is required:
 
@@ -39,7 +40,7 @@ In XML, the `env` element supplies a definition for an environment variable:
 If a value refers to an environment variable that is not defined, the reference is substituted with an empty string.
 
 Environment variable definitions may also refer to
-[descriptor variables and template parameters](../using-descriptor-variables-and-parameters):
+[descriptor variables and template parameters](services/icegrid/using-descriptor-variables-and-parameters):
 
 ```xml
 <node name="LinuxBox">
@@ -64,11 +65,12 @@ as shown in the example below:
 </node>
 ```
 
-IceGrid does not attempt to perform [substitution](../using-descriptor-variables-and-parameters) on `$${PATH}`, but
-rather removes the leading `$` character and then performs environment variable substitution on `$${PATH}`.
+IceGrid does not attempt to perform [substitution](services/icegrid/using-descriptor-variables-and-parameters) on
+`$${PATH}`, but rather removes the leading `$` character and then performs environment variable substitution on
+`$${PATH}`.
 
 ## See Also
 
-- [Server Descriptor Element](../server-descriptor-element)
-- [IceBox Descriptor Element](../icebox-descriptor-element)
-- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
+- [Server Descriptor Element](services/icegrid/icegrid-xml-reference/server-descriptor-element)
+- [IceBox Descriptor Element](services/icegrid/icegrid-xml-reference/icebox-descriptor-element)
+- [Using Descriptor Variables and Parameters](services/icegrid/using-descriptor-variables-and-parameters)

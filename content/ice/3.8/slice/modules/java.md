@@ -30,7 +30,7 @@ package M1;
 Note that these definitions appear in the appropriate source files; source files for definitions in module `M1` are
 generated in directory `M1` underneath the top-level directory, and source files for definitions for module `M2` are
 generated in directory `M1/M2` underneath the top-level directory. You can set the top-level output directory using the
-`--output-dir` option with [slice2java](../using-the-slice-compiler).
+`--output-dir` option with [slice2java](slice/using-the-slice-compiler).
 
 ### Custom Mapping
 

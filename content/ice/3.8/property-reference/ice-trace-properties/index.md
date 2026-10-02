@@ -12,7 +12,7 @@ title: Ice.Trace.*
 
 ### Description {% id="ice.trace.admin.logger-description" %}
 
-Controls the trace level for the [Logger administrative facet](../logger-facet).
+Controls the trace level for the [Logger administrative facet](administration/administrative-facility/logger-facet).
 
 | 0   | No trace (default).                                                   |
 | --- | --------------------------------------------------------------------- |
@@ -27,7 +27,8 @@ Controls the trace level for the [Logger administrative facet](../logger-facet).
 
 ### Description {% id="ice.trace.admin.properties-description" %}
 
-Controls the trace level for property updates made via the [Properties facet](../properties-facet):
+Controls the trace level for property updates made via the
+[Properties facet](administration/administrative-facility/properties-facet):
 
 | Value | Description                                                                                                           |
 | ----- | --------------------------------------------------------------------------------------------------------------------- |
@@ -46,8 +47,8 @@ Controls the trace level for property updates made via the [Properties facet](..
 ### Description {% id="ice.trace.dispatch-description" %}
 
 If `num` is set to a value larger than zero, the logger middleware logs all dispatches and the value of
-[Ice.Warn.Dispatch](../ice-warn-properties) is ignored. Otherwise, `Ice.Warn.Dispatch` controls the logger middleware
-logging.
+[Ice.Warn.Dispatch](property-reference/ice-warn-properties) is ignored. Otherwise, `Ice.Warn.Dispatch` controls the
+logger middleware logging.
 
 ## Ice.Trace.Locator
 
@@ -57,7 +58,7 @@ logging.
 
 ### Description {% id="ice.trace.locator-description" %}
 
-The Ice runtime makes [locator](../locators) requests to resolve the endpoints of object adapters and well-known
+The Ice runtime makes [locator](runtime/locators) requests to resolve the endpoints of object adapters and well-known
 objects. Requests on the locator registry are used to update object adapter endpoints and set the server process proxy.
 This property controls the trace level for the Ice runtime's interactions with the locator:
 
@@ -76,11 +77,11 @@ This property controls the trace level for the Ice runtime's interactions with t
 
 Controls the trace level for low-level network activities such as connection establishment and read/write operations:
 
-| 0   | No network trace (default).                                                                                                                                                                                 |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Trace successful connection establishment and closure.                                                                                                                                                      |
-| 2   | Like 1, but also trace attempts to bind, connect, and disconnect sockets as well as Ice endpoint usage.                                                                                                     |
-| 3   | Like 2, but also trace data transfer, the [published endpoints](../object-adapter-endpoints) for an object adapter, and the current list of local addresses for an endpoint that uses the wildcard address. |
+| 0   | No network trace (default).                                                                                                                                                                                               |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Trace successful connection establishment and closure.                                                                                                                                                                    |
+| 2   | Like 1, but also trace attempts to bind, connect, and disconnect sockets as well as Ice endpoint usage.                                                                                                                   |
+| 3   | Like 2, but also trace data transfer, the [published endpoints](runtime/dispatch/object-adapter-endpoints) for an object adapter, and the current list of local addresses for an endpoint that uses the wildcard address. |
 
 ## Ice.Trace.Protocol
 
@@ -90,7 +91,7 @@ Controls the trace level for low-level network activities such as connection est
 
 ### Description {% id="ice.trace.protocol-description" %}
 
-Controls the trace level for Ice [protocol messages](../protocol-messages):
+Controls the trace level for Ice [protocol messages](protocol/protocol-messages):
 
 | 0   | No protocol trace (default). |
 | --- | ---------------------------- |
@@ -104,8 +105,8 @@ Controls the trace level for Ice [protocol messages](../protocol-messages):
 
 ### Description {% id="ice.trace.retry-description" %}
 
-Ice supports [automatic retries](../automatic-retries) in case of a request failure. This property controls the trace
-level for retry attempts:
+Ice supports [automatic retries](runtime/invocation/automatic-retries) in case of a request failure. This property
+controls the trace level for retry attempts:
 
 | 0   | No request retry trace (default).                                                           |
 | --- | ------------------------------------------------------------------------------------------- |
@@ -120,9 +121,9 @@ level for retry attempts:
 
 ### Description {% id="ice.trace.slicing-description" %}
 
-The Ice data encoding for [exceptions](../data-encoding-for-exceptions) and [classes](../data-encoding-for-classes)
-enables a receiver to slice an unknown exception or class type to a known type. This property controls the trace level
-for slicing activities:
+The Ice data encoding for [exceptions](encoding/data-encoding-for-exceptions) and
+[classes](encoding/data-encoding-for-classes) enables a receiver to slice an unknown exception or class type to a known
+type. This property controls the trace level for slicing activities:
 
 | 0   | No trace of slicing activity (default).                                                    |
 | --- | ------------------------------------------------------------------------------------------ |
@@ -138,7 +139,7 @@ for slicing activities:
 
 ### Description {% id="ice.trace.threadpool-description" %}
 
-Controls the trace level for the Ice [thread pool](../threading-model):
+Controls the trace level for the Ice [thread pool](runtime/threading-model):
 
 | 0   | No trace of thread pool activity (default).                 |
 | --- | ----------------------------------------------------------- |

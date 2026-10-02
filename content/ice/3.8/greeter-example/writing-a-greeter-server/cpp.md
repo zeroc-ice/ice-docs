@@ -27,7 +27,7 @@ slice2cpp Greeter.ice
 
 This produces two files: a header file, `Greeter.h`, and a C++ source file, `Greeter.cpp`. The header file provides the
 `Greeter` abstract base class we implement in the code below, and `Greeter.cpp` is compiled into the server like any
-other source file. See [Using the Slice Compiler](../using-the-slice-compiler) for the options `slice2cpp` accepts.
+other source file. See [Using the Slice Compiler](slice/using-the-slice-compiler) for the options `slice2cpp` accepts.
 
 In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your
 build project, like we demonstrate for the C++ demo programs.
@@ -66,7 +66,7 @@ implement.
 Notice that this function takes one more parameter than the Slice operation: a trailing `const Ice::Current&`. The Slice
 compiler adds this parameter to every operation it maps onto a servant. It describes the request being dispatched — the
 identity of the target Ice object, the operation name, the request context, and more. Our implementation doesn’t need
-any of this information, so we leave the parameter unnamed. See [operations](../operations) for the full mapping.
+any of this information, so we leave the parameter unnamed. See [operations](slice/operations) for the full mapping.
 
 {% callout type="info" %}
 
@@ -146,7 +146,7 @@ Putting this aside, the interesting parts of this application can be broken down
 
 ### 1. Create a Communicator
 
-First, we create a [Communicator](../communicator) with `Ice::initialize`:
+First, we create a [Communicator](runtime/communicator) with `Ice::initialize`:
 
 ```cpp
 Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
@@ -271,8 +271,8 @@ The server prints its listening message, then waits for clients:
 Listening on port 4061...
 ```
 
-Leave it running and start the [Greeter client](../writing-a-greeter-client) in a separate terminal. Each request the
-client sends shows up in the server’s output:
+Leave it running and start the [Greeter client](greeter-example/writing-a-greeter-client) in a separate terminal. Each
+request the client sends shows up in the server’s output:
 
 ```text
 Dispatching greet request { name = 'alice' }

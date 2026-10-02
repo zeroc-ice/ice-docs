@@ -19,9 +19,10 @@ IceGrid registry is the only process of interest on host `PC1`, while IceGrid no
 ![Host PC1 runs the registry. Host PC2 runs Node A and Server X. Host PC3 runs Node B and Server Y.](/images/ice/3.8/icegrid-architecture/icegrid1.svg)
 
 From a client application's perspective, the primary responsibility of the registry is to resolve indirect proxies as an
-Ice [location service](../locators). As such, this contribution is largely transparent: when a client first attempts to
-use an indirect proxy, the Ice run time in the client contacts the registry to convert the proxy's symbolic information
-into endpoints that allow the client to [establish a connection](../connection-establishment).
+Ice [location service](runtime/locators). As such, this contribution is largely transparent: when a client first
+attempts to use an indirect proxy, the Ice run time in the client contacts the registry to convert the proxy's symbolic
+information into endpoints that allow the client to
+[establish a connection](runtime/connection-management/connection-establishment).
 
 Although the registry might sound like nothing more than a simple lookup table, reality is quite different. For example,
 behind the scenes, a locate request might prompt a node to start the target server automatically, or the registry might
@@ -40,11 +41,11 @@ to replicate a server on each blade, as shown below:
 
 ![Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the same pattern through Blade N.](/images/ice/3.8/icegrid-architecture/icegrid2.svg)
 
-Replication in Ice is based on [object adapters](../dispatch), not servers. Any object adapter in any server could
+Replication in Ice is based on [object adapters](runtime/dispatch), not servers. Any object adapter in any server could
 participate in replication, but it is far more likely that all of the
-[replicated object adapters](../object-adapter-replication) are created by instances of the same server executable that
-is running on each computer. We are using this configuration in the example shown above, but IceGrid requires each
-server to have a unique name. `Server 1` and `Server 2` are our unique names for the same executable.
+[replicated object adapters](services/icegrid/object-adapter-replication) are created by instances of the same server
+executable that is running on each computer. We are using this configuration in the example shown above, but IceGrid
+requires each server to have a unique name. `Server 1` and `Server 2` are our unique names for the same executable.
 
 The binding process works somewhat differently when replication is involved, since the registry now has multiple object
 adapters to choose from. The description of the IceGrid application drives the registry's decision about which object
@@ -59,8 +60,8 @@ In IceGrid, _deployment_ is the process of describing an application to the regi
 following information:
 
 - Replica groups A _replica group_ is the term for a collection of
-  [replicated object adapters](../object-adapter-replication). An application can create any number of replica groups.
-  Each group requires a unique identifier.
+  [replicated object adapters](services/icegrid/object-adapter-replication). An application can create any number of
+  replica groups. Each group requires a unique identifier.
 
 - Nodes An application must assign its servers to one or more nodes.
 
@@ -70,17 +71,17 @@ following information:
 - Object adapters Information about an object adapter includes its endpoints and any well-known objects it advertises.
   If the object adapter is a member of a replica group, it must also supply that group's identifier.
 
-- Objects A [_well-known object_](../well-known-objects) is one that is known solely by its identity. The registry
-  maintains a global list of such objects for use during locate requests.
+- Objects A [_well-known object_](services/icegrid/well-known-objects) is one that is known solely by its identity. The
+  registry maintains a global list of such objects for use during locate requests.
 
 IceGrid uses the term _descriptor_ to refer to the description of an application and its components; deploying an
 application involves creating its descriptors in the registry. The are several ways to accomplish this:
 
-- You can use a [command-line tool](../icegridadmin-command-line-tool) that reads a file containing an XML
+- You can use a [command-line tool](services/icegrid/icegridadmin-command-line-tool) that reads a file containing an XML
   representation of the descriptors.
-- You can create descriptors interactively with the [graphical administration tool](../icegrid-gui-tool).
+- You can create descriptors interactively with the [graphical administration tool](services/icegrid/icegrid-gui-tool).
 - You can create descriptors programmatically via IceGrid's
-  [administrative interface](../icegrid-administrative-sessions).
+  [administrative interface](services/icegrid/icegrid-administrative-sessions).
 
 The registry server must be running in order to deploy an application, but it is not necessary for nodes to be active.
 Nodes that are started after deployment automatically retrieve the information they need from the registry. Once
@@ -88,8 +89,8 @@ deployed, you can update the application at any time.
 
 ## See Also
 
-- [Locators](../locators)
-- [Connection Establishment](../connection-establishment)
-- [Object Adapters](../dispatch)
-- [Object Adapter Replication](../object-adapter-replication)
-- [Well-Known Objects](../well-known-objects)
+- [Locators](runtime/locators)
+- [Connection Establishment](runtime/connection-management/connection-establishment)
+- [Object Adapters](runtime/dispatch)
+- [Object Adapter Replication](services/icegrid/object-adapter-replication)
+- [Well-Known Objects](services/icegrid/well-known-objects)

@@ -51,10 +51,10 @@ Of course, these are issues faced by most distributed applications. As you learn
 will discover that it offers solutions to these challenges. To get you started, we have summarized IceGrid's feature set
 below:
 
-- Location service As an implementation of an Ice [location service](../locators), IceGrid enables clients to bind
+- Location service As an implementation of an Ice [location service](runtime/locators), IceGrid enables clients to bind
   indirectly to their servers, making applications more flexible and resilient to changing requirements.
-  ([IceDiscovery](../icediscovery) is an alternate, lightweight location service implementation for applications that
-  don't require IceGrid's additional features.)
+  ([IceDiscovery](plugins/icediscovery) is an alternate, lightweight location service implementation for applications
+  that don't require IceGrid's additional features.)
 - On-demand server activation Starting an Ice server process is called _server activation_. IceGrid can be given
   responsibility for activating a server on demand, that is, when a client attempts to access an object hosted by the
   server. Activation usually occurs as a side effect of indirect binding, and is completely transparent to the client.
@@ -65,7 +65,7 @@ below:
 - Sessions and resource allocation An IceGrid client establishes a session in order to allocate a resource such as an
   object or a server. IceGrid prevents other clients from using the resource until the client releases it or the session
   expires. Sessions enhance security through the use of an authentication mechanism that can be integrated with a
-  [Glacier2 router](../glacier2).
+  [Glacier2 router](services/glacier2).
 - Automatic failover Ice supports automatic retry and failover in any proxy that contains multiple endpoints. When
   combined with IceGrid's support for replication and load balancing, automatic failover means that a failed request
   results in a client transparently retrying the request on the next endpoint with the lowest load.

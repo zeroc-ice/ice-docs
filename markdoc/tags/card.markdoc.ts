@@ -15,8 +15,7 @@ export const CARD_ICONS = [
 ] as const;
 
 // Landing pages are built out of cards, so a card's href is resolved through the
-// same page index as an ordinary link — a card can name a page and keep working
-// after that page moves.
+// same page index as an ordinary link.
 const card = {
   ...nodes.document,
   render: 'Card',

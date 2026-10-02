@@ -3,8 +3,8 @@ title: The Properties Class
 ---
 
 The `Properties` API lets you read and set the communicator's configuration and your own application settings. In
-mappings that support [configuration files](../using-configuration-files), a file can contain application properties
-alongside Ice properties. For example, a file system application could use:
+mappings that support [configuration files](runtime/properties-and-configuration/using-configuration-files), a file can
+contain application properties alongside Ice properties. For example, a file system application could use:
 
 ```config
 # Configuration file for file system application
@@ -74,14 +74,14 @@ property 'Filesystem.MaxFileSize' has an invalid integer value: 'large'
 ```
 
 `setProperty` sets a property, and clears it when the value is the empty string. It applies the
-[property validation](../properties-overview#property-validation) rules, so it throws `PropertyException` for a name Ice
-rejects.
+[property validation](runtime/properties-and-configuration/properties-overview#property-validation) rules, so it throws
+`PropertyException` for a name Ice rejects.
 
 ## Reading an Ice Property
 
 `getIceProperty`, `getIcePropertyAsInt`, and `getIcePropertyAsList` read Ice properties. Unlike the plain `getProperty`
 methods, they return the property's built-in default when it is not set; see the
-[property reference](../property-reference). For example, if you never set `Ice.Warn.Dispatch`,
+[property reference](property-reference). For example, if you never set `Ice.Warn.Dispatch`,
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of 1, while `getPropertyAsInt("Ice.Warn.Dispatch")`
 returns 0.
 

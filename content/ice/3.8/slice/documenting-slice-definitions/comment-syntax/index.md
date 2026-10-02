@@ -11,8 +11,8 @@ Slice supports two styles of comments: _line comments_ and _block comments_.
    going until it reaches a */
 ```
 
-Slice also supports two styles of _doc comments_, which [document](../documenting-slice-definitions) the definition that
-follows them.
+Slice also supports two styles of _doc comments_, which [document](slice/documenting-slice-definitions) the definition
+that follows them.
 
 A line doc comment is a line comment with a third slash. Consecutive lines form one doc comment:
 
@@ -34,9 +34,9 @@ A block doc comment is a block comment that starts with exactly two asterisks:
 Starting each line of a multi-line block doc comment with `*` is conventional but optional.
 
 The two styles are equivalent, and both accept only the tags described in
-[Doc-Comment Structure](../doc-comment-structure).
+[Doc-Comment Structure](slice/documenting-slice-definitions/doc-comment-structure).
 
 The Slice compilers treat every comment other than a doc comment as whitespace.
 
 All Slice definitions support doc comments, except parameters. To document a parameter, use a `@param` tag in its
-operation's doc comment; see [Operation Tags](../doc-comment-structure#operation-tags).
+operation's doc comment; see [Operation Tags](slice/documenting-slice-definitions/doc-comment-structure#operation-tags).

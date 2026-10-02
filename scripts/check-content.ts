@@ -6,18 +6,17 @@
 // violated, produces a page a reader cannot reach or a link that goes nowhere:
 //
 //   1. every page is in the table of contents: listed by the page above it, up to the front page
-//   2. no two pages share a name (cross-page links are keyed by it)
-//   3. every overlay is for one of the version's languages
-//   4. every cross-page link resolves to a real page — checked by check:markdoc,
+//   2. every overlay is for one of the version's languages
+//   3. every cross-page link resolves to a real page — checked by check:markdoc,
 //      on each page as the site renders it
-//   5. every image parses as an image, has alt text, and its file exists
-//   6. no raw HTML or Confluence markup survived the migration
-//   7. every language slot is answered, and says which kind of answer it is
-//   8. a page written per language has one title across its languages
-//   9. no page holds a no-break space (U+00A0)
-//  10. under the title, the page's h1, each heading is at most one level below
+//   4. every image parses as an image, has alt text, and its file exists
+//   5. no raw HTML or Confluence markup survived the migration
+//   6. every language slot is answered, and says which kind of answer it is
+//   7. a page written per language has one title across its languages
+//   8. no page holds a no-break space (U+00A0)
+//   9. under the title, the page's h1, each heading is at most one level below
 //      the one before it, in every language, and none is bold text alone
-//  11. no code holds a curly double quote, and no prose a backtick
+//  10. no code holds a curly double quote, and no prose a backtick
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
@@ -33,7 +32,6 @@ import path from 'node:path';
 import type { Node } from '@markdoc/markdoc';
 
 import { parse } from '../markdoc/parse.ts';
-import { buildPageIndex } from '../lib/docs-model/links.ts';
 import {
   declaredSlots,
   parseLanguageSections,
@@ -456,7 +454,6 @@ for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
 
   const pages = listPages(CONTENT_ROOT, version);
-  const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const languages = nav.languages;
 
@@ -473,11 +470,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
       `${version}: ...and ${orphans.length - 20} more pages not in the table of contents`
     );
 
-  // 2. page names are unique (cross-page links are keyed by them)
-  for (const dup of duplicates)
-    fail(`${version}: duplicate page name "${dup}"`);
-
-  // 3. a file beside a page's index.md is the overlay for the language it is named after
+  // 2. a file beside a page's index.md is the overlay for the language it is named after
   for (const page of pages) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
@@ -497,13 +490,13 @@ for (const version of listVersions(CONTENT_ROOT)) {
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
-  // 7. every language slot is answered, and says what kind of answer it is.
+  // 6. every language slot is answered, and says what kind of answer it is.
   checkSlots(version, pages, languages);
 
-  // 10. headings step down one level at a time from the title.
+  // 9. headings step down one level at a time from the title.
   checkHeadings(version, pages, languages);
 
-  // 8. a page written per language is one page: its files agree on the title
+  // 7. a page written per language is one page: its files agree on the title
   for (const page of pages) {
     if (page.shared) continue;
     const titles = new Set(

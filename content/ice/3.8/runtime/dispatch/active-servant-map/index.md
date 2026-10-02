@@ -9,7 +9,7 @@ Each object adapter maintains a data structure known as the active servant map.
 The _active servant map_ (or _ASM_, for short) is a lookup table that maps object identities to servants: the key is an
 identity and facet, and the value is the associated servant.
 
-In most servers, the ASM is the main component of the [dispatch pipeline](../dispatch-pipeline):
+In most servers, the ASM is the main component of the [dispatch pipeline](runtime/dispatch/dispatch-pipeline):
 
 ![The client proxy contains endpoint 212.8.7.33 and identity Joe. The request reaches the server object adapter, whose active servant map associates Fred, Joe, and Carl with servants. The highlighted Joe entry selects the matching servant.](/images/ice/3.8/active-servant-map/binding-request-to-servant.svg)
 
@@ -24,7 +24,7 @@ Using an adapter's ASM to map Ice objects to servants has a number of design imp
 {% callout type="info" %}
 
 It is possible to register a single servant with multiple identities. However, there is little point in doing so because
-a [default servant](../default-servants) achieves the same thing.
+a [default servant](runtime/dispatch/default-servants) achieves the same thing.
 
 {% /callout %}
 
@@ -49,10 +49,10 @@ large (or if each servant stores too much state), the server runs out of memory.
 
 The term _servant activation_ refers to making the presence of a servant for a particular Ice object known to the object
 adapter. Activating a servant adds an entry to the Active Servant Map (ASM). Another way of looking at servant
-activation is to think of it as creating a link between the [identity](../object-identity) and facet of an Ice object
-and the corresponding programming-language servant that handles requests for that Ice object. Once the object adapter’s
-dispatch pipeline has knowledge of this link, it can dispatch incoming requests to the correct servant. Without this
-link, that is, without a corresponding entry in the ASM, an incoming request for the identity results in an
+activation is to think of it as creating a link between the [identity](runtime/object-identity) and facet of an Ice
+object and the corresponding programming-language servant that handles requests for that Ice object. Once the object
+adapter’s dispatch pipeline has knowledge of this link, it can dispatch incoming requests to the correct servant.
+Without this link, that is, without a corresponding entry in the ASM, an incoming request for the identity results in an
 `ObjectNotExistException`. While a servant is activated, it is said to _incarnate_ the corresponding Ice object.
 
 The inverse operation is known as _servant deactivation_. Deactivating a servant removes an entry for a particular
@@ -84,7 +84,8 @@ important ones:
   entry from the ASM; it returns a reference to the removed servant. Once the servant is deactivated, new incoming
   requests for the removed identity cause the client to receive an `ObjectNotExistException`. Requests that are
   executing inside the servant at the time `remove` is called are allowed to complete normally. Deactivating an
-  [object adapter](../object-adapter-activation-and-deactivation) implicitly calls `remove` on all its servants.
+  [object adapter](runtime/dispatch/object-adapter-activation-and-deactivation) implicitly calls `remove` on all its
+  servants.
 
 {% callout type="info" %}
 
@@ -98,4 +99,4 @@ Servants are just one particular kind of dispatchers, and you can actually add a
 
 ## See Also
 
-- [Default Servants](../default-servants)
+- [Default Servants](runtime/dispatch/default-servants)

@@ -34,8 +34,8 @@ properties shown above are equivalent to the following statements:
 
 {% language-section name="lang-3" /%}
 
-The list of [supported proxy properties](../proxy-properties) includes the most commonly-used proxy settings. The
-communicator prints a warning by default if it does not recognize a subordinate property.
+The list of [supported proxy properties](property-reference/proxy-properties) includes the most commonly-used proxy
+settings. The communicator prints a warning by default if it does not recognize a subordinate property.
 
 Note that proxy properties can themselves have proxy properties. For example, the following sets the `EndpointSelection`
 property on the default locator's router:
@@ -64,6 +64,6 @@ For example:
 
 ## See Also
 
-- [Communicator](../communicator)
-- [Syntax for Stringified Proxies](../syntax-for-stringified-proxies)
-- [Proxy Properties](../proxy-properties)
+- [Communicator](runtime/communicator)
+- [Syntax for Stringified Proxies](runtime/invocation/syntax-for-stringified-proxies)
+- [Proxy Properties](property-reference/proxy-properties)

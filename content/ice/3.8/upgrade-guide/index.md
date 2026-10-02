@@ -5,7 +5,7 @@ title: Upgrade Guide
 Learn how to upgrade your application from Ice 3.7 to Ice 3.8.
 
 This page guides you through the upgrade process for an application that uses Ice 3.7. We recommend reading the
-[release notes](../release-notes) for a general list changes and improvements.
+[release notes](release-notes) for a general list changes and improvements.
 
 Ice 3.8 does not maintain binary compatibility or source compatibility with Ice 3.7. When upgrading, you need to
 recompile your Slice files and in some cases update your source code to use the latest APIs.
@@ -121,7 +121,8 @@ interface Foo
 ### Active Connection Management
 
 The connection management system used in Ice 3.7, _Active Connection Management (ACM)_, has been removed. In its place
-is a new [Idle Timeout mechanism](../connection-closure) which should usually require _zero_ configuration.
+is a new [Idle Timeout mechanism](runtime/connection-management/connection-closure) which should usually require _zero_
+configuration.
 
 The `Ice.ACM.*` properties have subsequently been removed.
 
@@ -145,7 +146,8 @@ The `setHeartbeatCallback` operation has been removed from the `Connection` clas
 ### Default Object Adapter
 
 A default Object Adapter can now be associated with a Communicator. This greatly simplifies the creation of
-bidirectional connections. See [Bidirectional Connections](../bidirectional-connections) for more information.
+bidirectional connections. See [Bidirectional Connections](runtime/connection-management/bidirectional-connections) for
+more information.
 
 ## Published Endpoints
 
@@ -154,7 +156,7 @@ The computation of an Object Adapter’s published endpoints has been updated.
 With the exception of some filtering for loopback addresses, the previous algorithm would produce endpoints containing
 the IP addresses for all network interfaces; some of which may be internal and unreachable. The new algorithm is simpler
 and uses the Fully Qualified Domain Name (FQDN) of the system. See
-[Object Adapter Endpoints](../object-adapter-endpoints) for more information.
+[Object Adapter Endpoints](runtime/dispatch/object-adapter-endpoints) for more information.
 
 A new property `_adapter_.PublishedHost` has been added. It is used to compute the default published endpoints.
 
@@ -192,7 +194,7 @@ Proxy creation has been simplified, allowing you to create a proxy from a commun
 Ice now validates properties with that start with an Ice property prefix (`Ice.`, `IceSSL.`, etc.). Setting an unknown
 Ice property or a property configured for the wrong Ice service will now fail.
 
-Please refer to the [property reference](../property-reference) for a complete list of Ice properties.
+Please refer to the [property reference](property-reference) for a complete list of Ice properties.
 
 The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so setting one of them now fails:
 `IceSSL.CertAuthDir`, `IceSSL.CertAuthFile`, `IceSSL.CertVerifier`, `IceSSL.Ciphers`, `IceSSL.DH.<bits>`,
