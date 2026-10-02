@@ -62,7 +62,7 @@ generated base class. Due to our application’s simplicity, we don’t here tho
 We’ll write our main server code in a file named `Program.cs`. The logic in this file can be broken down into four
 pieces:
 
-### Create a Communicator
+### 1. Create a Communicator
 
 First, we create a Communicator using its constructor:
 
@@ -77,7 +77,7 @@ It is important to make sure that your communicator is properly disposed when no
 network connections are gracefully closed, threads are joined, and other important clean-up occurs. The easiest way to
 do this is with an `await using` like we do here.
 
-### Create an Object Adapter
+### 2. Create an Object Adapter
 
 Next, we create an object adapter using our communicator:
 
@@ -105,7 +105,7 @@ adapter.add(new Server.Chatbot(), new Ice.Identity { name = "greeter" });
 Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our
 `Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
 
-### Activate the Object Adapter
+### 3. Activate the Object Adapter
 
 At this point, our object adapter does not accept connections yet. A client attempting to connect would get a
 `ConnectTimeoutException`.
@@ -120,7 +120,7 @@ Console.WriteLine("Listening on port 4061...");
 Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to
 our `Chatbot` servant.
 
-### Keep Running Until Ctrl+C
+### 4. Keep Running Until Ctrl+C
 
 It is essential to keep the server running and not fall off main prematurely. We use the following technique to achieve
 this goal:

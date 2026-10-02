@@ -49,8 +49,9 @@ Ice.ThreadPool.Server.SizeMax=10
 ```
 
 To monitor the thread pool activities of a communicator, you can enable the
-[Ice.Trace.ThreadPool](../ice-trace-properties) property. Setting this property to a non-0 value causes the communicator
-to log a message when it creates a thread pool, as well as each time the size of a thread pool increases or decreases.
+[Ice.Trace.ThreadPool](../ice-trace-properties) property. Setting this property to a non-zero value causes the
+communicator to log a message when it creates a thread pool, as well as each time the size of a thread pool increases or
+decreases.
 
 ## Dynamic Thread Pools
 

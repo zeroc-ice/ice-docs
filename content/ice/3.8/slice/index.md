@@ -21,7 +21,6 @@ pages:
   - using-the-slice-compiler
   - code-generation
   - documenting-slice-definitions
-  - generating-slice-documentation
   - slice-keywords
 ---
 

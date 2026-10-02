@@ -120,7 +120,7 @@ Using `async`/`await` for this invocation offers several advantages:
 
 When the main function exits, the defer statement destroys the communicator.
 
-## Run the Client
+## Running the Client
 
 To run the client, execute the following command (the executable will be compiled if necessary):
 

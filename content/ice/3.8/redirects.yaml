@@ -122,6 +122,7 @@ renamed:
   service-run-time-component: service-runtime-component
   slave-registry-run-time-component: slave-registry-runtime-component
   slice-specification-language-for-ice: slice-and-slice-compilers
+  startup-scripts-for-icegrid-and-glacier2-on-linux: linux-services
   swift-mapping-for-classes: classes
   swift-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
   the-active-servant-map: active-servant-map
