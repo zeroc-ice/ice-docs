@@ -2,7 +2,7 @@
 //
 // The Markdoc schema without its React components: the tags and nodes, which
 // is all that parsing and validation need. `schema.ts` adds the components for
-// rendering. `scripts/check-markdoc.js` loads this file under plain Node, which
+// rendering. `scripts/check-markdoc.ts` loads this file under plain Node, which
 // is why the imports here and in the modules below name their `.ts` files.
 
 import type { Config } from '@markdoc/markdoc';

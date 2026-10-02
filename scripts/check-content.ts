@@ -30,6 +30,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import type { Node } from '@markdoc/markdoc';
 
 import { parse } from '../markdoc/parse.ts';
 import { buildPageIndex } from '../lib/docs-model/links.ts';
@@ -37,7 +38,8 @@ import {
   declaredSlots,
   parseLanguageSections,
   resolveDocument,
-  splitFrontmatter
+  splitFrontmatter,
+  type LanguageSlot
 } from '../lib/docs-model/resolve.ts';
 import {
   CONTENT_ROOT,
@@ -46,7 +48,8 @@ import {
   listPages,
   readNavigation,
   readPageSources,
-  snippetReader
+  snippetReader,
+  type PageFiles
 } from '../lib/docs-model/content.ts';
 import { navigationPages } from '../lib/docs-model/nav.ts';
 
@@ -54,7 +57,7 @@ const strict = process.argv.includes('--strict');
 const PUBLIC = path.join(process.cwd(), 'public');
 
 let errors = 0;
-const fail = (message) => {
+const fail = (message: string) => {
   console.error(`error: ${message}`);
   errors++;
 };
@@ -83,7 +86,7 @@ const STRAY_MARKUP = [
 // Code samples are not prose: the IceGrid chapters are full of XML descriptors,
 // and a `<node>` element inside a fence is the subject matter, not a migration
 // artifact. Blank the fences (keeping line count) before scanning.
-function withoutCode(source) {
+function withoutCode(source: string) {
   return source
     .replace(/^```[\s\S]*?^```/gm, (block) => block.replace(/[^\n]/g, ' '))
     .replace(/`[^`\n]*`/g, (span) => span.replace(/[^\n]/g, ' '));
@@ -91,15 +94,15 @@ function withoutCode(source) {
 
 // Where an image target should resolve on disk: site-absolute paths come out of
 // `public/`, relative ones out of the page's own directory.
-function imageFileFor(target, sourceFile) {
+function imageFileFor(target: string, sourceFile: string) {
   const clean = decodeURI(target.split(/[?#]/)[0]);
   return clean.startsWith('/')
     ? path.join(PUBLIC, clean)
     : path.join(path.dirname(sourceFile), clean);
 }
 
-function checkImages(version, files) {
-  const missing = new Map();
+function checkImages(version: string, files: string[]) {
+  const missing = new Map<string, number>();
   let total = 0;
 
   for (const file of files) {
@@ -159,7 +162,7 @@ const UNCLASSIFIED_SLOT_BASELINE = 333;
  * nothing", or "this mapping cannot do this, because…". A blank section says
  * none of those, and the reader cannot tell the three apart.
  */
-function checkSlots(version, pages, languages) {
+function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
   const counts = {
     content: 0,
     'no-addition': 0,
@@ -168,7 +171,7 @@ function checkSlots(version, pages, languages) {
   };
   const perLanguage = Object.fromEntries(languages.map((l) => [l, 0]));
   // page name -> language -> slot names still blank, for the `--slots` worklist.
-  const blanks = new Map();
+  const blanks = new Map<string, Map<string, string[]>>();
   let missing = 0;
   let unused = 0;
 
@@ -190,14 +193,14 @@ function checkSlots(version, pages, languages) {
         continue;
       }
 
-      let sections;
+      let sections: Map<string, LanguageSlot>;
       try {
         sections = parseLanguageSections(
           splitFrontmatter(fs.readFileSync(overlayPath, 'utf8')).body
         );
       } catch (error) {
         fail(
-          `${version}/${language}: "${page.name}" overlay is malformed — ${error.message}`
+          `${version}/${language}: "${page.name}" overlay is malformed — ${(error as Error).message}`
         );
         continue;
       }
@@ -214,8 +217,9 @@ function checkSlots(version, pages, languages) {
         counts[slot.state]++;
         if (slot.state === 'unclassified') {
           perLanguage[language]++;
-          if (!blanks.has(page.name)) blanks.set(page.name, new Map());
-          const byLanguage = blanks.get(page.name);
+          const byLanguage =
+            blanks.get(page.name) ?? new Map<string, string[]>();
+          blanks.set(page.name, byLanguage);
           byLanguage.set(language, [...(byLanguage.get(language) ?? []), name]);
         }
       }
@@ -271,7 +275,7 @@ function checkSlots(version, pages, languages) {
   } else if (counts.unclassified < UNCLASSIFIED_SLOT_BASELINE) {
     console.log(
       `  ${UNCLASSIFIED_SLOT_BASELINE - counts.unclassified} fewer than the baseline — ` +
-        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.js to ${counts.unclassified}`
+        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.ts to ${counts.unclassified}`
     );
   }
   if (strict && counts.unclassified) {
@@ -282,7 +286,7 @@ function checkSlots(version, pages, languages) {
   return { missing, unused };
 }
 
-function checkStrayMarkup(files) {
+function checkStrayMarkup(files: string[]) {
   for (const file of files) {
     const source = withoutCode(fs.readFileSync(file, 'utf8'));
     const relative = path.relative(process.cwd(), file);
@@ -297,7 +301,7 @@ function checkStrayMarkup(files) {
   }
 }
 
-function checkNoBreakSpaces(files) {
+function checkNoBreakSpaces(files: string[]) {
   for (const file of files) {
     const source = fs.readFileSync(file, 'utf8');
     const hits = [...source.matchAll(/\u00a0/g)];
@@ -316,7 +320,7 @@ function checkNoBreakSpaces(files) {
  * was meant to open a code span. Curly single quotes are left alone: a code
  * comment can use one as an apostrophe.
  */
-function checkCodeCharacters(files) {
+function checkCodeCharacters(files: string[]) {
   const curly = /[\u201c\u201d]/;
   for (const file of files) {
     const source = fs.readFileSync(file, 'utf8');
@@ -325,18 +329,20 @@ function checkCodeCharacters(files) {
     // An inline node carries its whole block's lines, so find the one that
     // holds its text, with backslash escapes resolved as the parser resolves
     // them.
-    const lineOf = (node, text) => {
+    const lineOf = (node: Node, text: string) => {
       const [first, end] = node.lines;
       for (let i = first; i < end; i++)
         if (lines[i].replace(/\\([!-/:-@[-`{-~])/g, '$1').includes(text))
           return i + 1;
       return first + 1;
     };
-    const visit = (node) => {
-      const { content } = node.attributes;
+    const visit = (node: Node) => {
+      const content: unknown = node.attributes.content;
       if (node.type === 'fence') {
         // A fence's content starts on the line after its opening delimiter.
-        const at = content.split('\n').findIndex((line) => curly.test(line));
+        const at = (content as string)
+          .split('\n')
+          .findIndex((line) => curly.test(line));
         if (at !== -1)
           fail(
             `${relative}:${node.lines[0] + 2 + at}: curly double quote in code`
@@ -344,9 +350,9 @@ function checkCodeCharacters(files) {
         return;
       }
       if (node.type === 'code') {
-        if (curly.test(content))
+        if (curly.test(content as string))
           fail(
-            `${relative}:${lineOf(node, content)}: curly double quote in code`
+            `${relative}:${lineOf(node, content as string)}: curly double quote in code`
           );
         return;
       }
@@ -367,20 +373,24 @@ function checkCodeCharacters(files) {
 
 // Every heading in a parsed page, with the languages of the {% iflang %} block
 // around it; `langs` is undefined for a heading every language shows.
-function headingsIn(node, langs, out = []) {
+function headingsIn(
+  node: Node,
+  langs?: string[],
+  out: { node: Node; langs?: string[] }[] = []
+) {
   if (node.type === 'heading') out.push({ node, langs });
   const inner =
     node.type === 'tag' && node.tag === 'iflang'
-      ? node.attributes.langs.split(',').map((s) => s.trim())
+      ? (node.attributes.langs as string).split(',').map((s) => s.trim())
       : langs;
   for (const child of node.children) headingsIn(child, inner, out);
   return out;
 }
 
-const textOf = (node) =>
+const textOf = (node: Node) =>
   [...node.walk()]
     .filter((child) => child.type === 'text' || child.type === 'code')
-    .map((child) => child.attributes.content)
+    .map((child) => child.attributes.content as string)
     .join('');
 
 /**
@@ -388,16 +398,20 @@ const textOf = (node) =>
  * overlay's sections inserted, since an overlay's headings nest under the
  * shared page's. A reader of each language meets a different sequence.
  */
-function checkHeadings(version, pages, languages) {
+function checkHeadings(
+  version: string,
+  pages: PageFiles[],
+  languages: string[]
+) {
   const readFile = snippetReader(CONTENT_ROOT, version);
   for (const page of pages) {
     const where = `${version}/${page.slug}`;
     const { shared, overlays } = readPageSources(page);
-    let body;
+    let body: string;
     try {
       body = resolveDocument({ shared: shared ?? '', overlays, readFile });
     } catch (error) {
-      fail(`${where}: cannot assemble: ${error.message}`);
+      fail(`${where}: cannot assemble: ${(error as Error).message}`);
       continue;
     }
     const headings = headingsIn(parse(body));
@@ -410,18 +424,19 @@ function checkHeadings(version, pages, languages) {
       // Bold text alone is a caption, not a section.
       const [inline] = node.children;
       const parts = inline.children.filter(
-        (child) => child.type !== 'text' || child.attributes.content.trim()
+        (child) =>
+          child.type !== 'text' || (child.attributes.content as string).trim()
       );
       if (parts.length === 1 && parts[0].type === 'strong')
         fail(`${where}: heading "${textOf(node)}" is bold text alone`);
     }
 
-    const skips = new Map();
+    const skips = new Map<string, string[]>();
     for (const language of languages) {
       let previous = 1;
       for (const { node, langs } of headings) {
         if (langs && !langs.includes(language)) continue;
-        const { level } = node.attributes;
+        const level = node.attributes.level as number;
         if (level > previous + 1) {
           const skip = `heading "${textOf(node)}" is an h${level} under an h${previous}`;
           skips.set(skip, [...(skips.get(skip) ?? []), language]);

@@ -115,8 +115,8 @@ try {
 }
 ```
 
-With the asynchronous version, the call doesn’t block. Instead the method returns a `CompletableFuture` which can be
-polled for completion, as shown above.
+With the asynchronous version, the call doesn’t block. Instead the method returns a `CompletableFuture`. Calling `get`
+on this future waits for the invocation to complete and returns its result, as shown above.
 
 Asynchronous invocations are more semantically correct for remote calls, and they alert readers to the potential delays
 inherent to these calls. But in Java they’re slightly more complicated to write… as a result, the best invocation syntax

@@ -8,17 +8,16 @@
 // sends that specifier to the ES module build instead, which is the one Next
 // bundles. `npm run check:markdoc` registers it with `--import`.
 
-import { register } from 'node:module';
+import { register, type ResolveHook } from 'node:module';
 import { isMainThread } from 'node:worker_threads';
 
-export async function resolve(specifier, context, next) {
-  return next(
+export const resolve: ResolveHook = (specifier, context, next) =>
+  next(
     specifier === '@markdoc/markdoc'
       ? '@markdoc/markdoc/dist/index.mjs'
       : specifier,
     context
   );
-}
 
 // Registered from the main thread; the hook itself runs on a worker thread.
 if (isMainThread) register(import.meta.url);

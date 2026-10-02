@@ -13,13 +13,13 @@ IceBox.Service.IceStorm=IceStormService,38:createIceStorm
 ```
 
 IceBox uses the information provided in the entry point specification to compose a library name. For the IceStorm
-example shown above, IceBox on Windows would compose the library name `IceStormService38.dll`. If IceBox is compiled
-with debug information, it appends a `d` to the library name, so the name becomes `IceStormService38d.dll` instead.
+example shown above, IceBox on Windows would compose the library name `IceStormService38.dll`. If the Ice library is a
+Windows debug build, it appends a `d` to the version, so the name becomes `IceStormService38d.dll` instead.
 
 {% callout type="info" %}
 
 The exact name of the library that is loaded depends on the naming conventions of the platform IceBox executes on. For
-example, on a macOS machine, the library name is `libIceStormService38.dylib`.
+example, on macOS, the library name is `libIceStormService.38.dylib`.
 
 {% /callout %}
 

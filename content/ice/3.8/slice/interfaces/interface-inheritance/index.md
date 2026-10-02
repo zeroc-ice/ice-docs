@@ -59,7 +59,7 @@ interface I2 extends B { /* ... */ }
 interface D extends I1, I2 { /* ... */ }
 ```
 
-This definition results in the familiar diamond shape:DiamondShaped
+This definition results in the familiar diamond shape:
 
 ![D inherits from I1 and I2, which both inherit from B. Hollow arrowheads point toward each base interface.](/attachments/3.8/interface-inheritance/diamond.svg)
 
@@ -94,8 +94,8 @@ fact". To avoid accidental clashes, we suggest that you use descriptive operatio
 
 ## Implicit Inheritance from Object
 
-All Slice interfaces are ultimately derived from `Object`. For example, the
-[inheritance hierarchy](../interface-inheritance) would be shown more correctly as: bfde871b-f9b9-4d4c-b830-85c7c3d8e423
+All Slice interfaces are ultimately derived from `Object`. For example, the radio clock inheritance hierarchy shown
+earlier would be shown more correctly as:
 
 ![Radio and Clock implicitly inherit from Object. AlarmClock inherits from Clock, and RadioClock inherits from Radio and AlarmClock. Hollow arrowheads point toward the base interfaces.](/attachments/3.8/interface-inheritance/implicit-object.svg)
 

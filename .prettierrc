@@ -3,7 +3,7 @@
   "trailingComma": "none",
   "endOfLine": "auto",
   "plugins": [
-    "./scripts/prettier-plugin-markdoc.js",
+    "./scripts/prettier-plugin-markdoc.ts",
     "prettier-plugin-tailwindcss"
   ],
   "tailwindStylesheet": "./app/globals.css",

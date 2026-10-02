@@ -7,8 +7,12 @@
 ### Description {% id="ice.plugin.name-description" %}
 
 Defines a Java plug-in to be installed during communicator initialization. The specified class must implement the
-[PluginFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginFactory.html) interface. Any
-arguments that follow the class name are passed to the `create` method. For example:
+[PluginFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginFactory.html) interface.
+
+Arguments of the form `--name.X=Y` set the property `name.X` to `Y` and are removed from the argument list passed to the
+factory, where `name` is the plug-in name. For example, `--MyPlugin.Mode=fast` sets `MyPlugin.Mode=fast`.
+
+Ice passes the remaining arguments to the factory's `create` method. For example:
 
 ```config
 Ice.Plugin.MyPlugin=MyFactory arg1 arg2

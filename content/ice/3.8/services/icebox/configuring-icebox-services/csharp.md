@@ -3,12 +3,14 @@
 The [entry point](../icebox-properties) of a C# service has the form `assembly:class`. The assembly component can be a
 partially or fully qualified assembly name, or an assembly path name.
 
-The details on how assemblies are loaded depends on how you define the assembly component used by the application:
+The `assembly` component accepts these forms:
 
-| **Value for** `assembly` | **Examples**                                                                             | **Semantics**                                                                                                                                                                                                                                                     |
-| ------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Assembly name            | `GreeterService,Version=...,Culture=neutral,publicKeyToken=...` or `GreeterService`      | The assembly name can be a fully or partially qualified assembly name. The assembly is loaded using [Assembly.Load](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.load?view=net-8.0).                                                   |
-| Assembly path name       | `GreeterService.dll`, `services\GreeterService.dll`, or `C:\services\GreeterService.dll` | The path name can be an absolute path name or a path name relative to the iceboxnet's current working directory. The assembly is loaded using [Assembly.LoadFrom](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.loadfrom?view=net-8.0). |
+| Form          | Examples                                                                                |
+| ------------- | --------------------------------------------------------------------------------------- |
+| Assembly name | `GreeterService,Version=...,Culture=neutral,publicKeyToken=...` or `GreeterService`     |
+| Assembly path | `GreeterService.dll`, `services\GreeterService.dll` or `C:\services\GreeterService.dll` |
+
+IceBox resolves relative assembly paths against the `iceboxnet` process's current working directory.
 
 The `class` component is the complete class name of the service implementation class, which must define a public
 constructor.
