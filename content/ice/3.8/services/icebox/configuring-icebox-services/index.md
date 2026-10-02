@@ -142,11 +142,11 @@ The properties of the [shared communicator](../configuring-icebox-services) are 
 
 {% /callout %}
 
-Whatever the value of `IceBox.InheritProperties`, IceBox sets `Ice.ProgramName` in each service communicator to the
-service name, or to `SharedCommunicator` for the shared communicator. When the IceBox server's `Ice.ProgramName` is not
-empty, IceBox prefixes this name with the server's `Ice.ProgramName` and a hyphen.
-
 ## Logging Considerations for IceBox Services
+
+IceBox sets [Ice.ProgramName](../ice-properties) in each service communicator to the service name, or to
+`SharedCommunicator` for the shared communicator. When the IceBox server's `Ice.ProgramName` is not empty, IceBox
+prefixes this name with the server's `Ice.ProgramName` and a hyphen.
 
 The IceBox server only configures a logger for a service if that service has not already specified its own logger via
 the [Ice.LogFile](../ice-properties) or [Ice.UseSyslog](../ice-properties) properties.
