@@ -28,8 +28,7 @@
 // text, one whose `#anchor` names no element on the page it links to, and one
 // whose `?lang=` names a mapping the version lacks or one that doesn't show the
 // anchor. It also reports two headings that a reader of one language sees under
-// one anchor, and a redirect to a section
-// its language doesn't show.
+// one anchor, and a redirect to a section its language doesn't show.
 //
 // Exit code 1 on any diagnostic at warning level or above, on a link to a page,
 // an anchor, or a mapping that does not exist, on two headings with one anchor,
@@ -331,15 +330,16 @@ for (const { where, url, href, languages } of checkedLinks) {
 for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
   const [, version, languages, rest] =
     source.match(/^\/ice\/([^/]+)\/:lang\(([^)]*)\)(.*)$/) ?? [];
-  const [beforeHash, anchor] = destination.split('#');
-  if (!languages || anchor === undefined) continue;
+  const [beforeHash, hash] = destination.split('#');
+  if (!languages || hash === undefined) continue;
   const page = beforeHash.split('?')[0];
+  const anchor = decodeURIComponent(hash);
   // A page that failed to render is reported above.
   const headings = headingsByPage.get(page);
   if (!headings) continue;
   for (const language of languages.split('|')) {
     const shown = ({ id, langs }: OutlineHeading) =>
-      id === decodeURIComponent(anchor) && (!langs || langs.includes(language));
+      id === anchor && (!langs || langs.includes(language));
     if (!headings.some(shown))
       diagnostics.push({
         where: `${version}/redirects.yaml`,
