@@ -289,7 +289,7 @@ export function listRedirects(root: string) {
   );
 }
 
-/** Every `redirects.yaml` under `dir`, deepest last. */
+/** Every `redirects.yaml` under `dir`. */
 function redirectFiles(dir: string): string[] {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
