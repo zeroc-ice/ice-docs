@@ -88,7 +88,7 @@ let ctrlCHandler = CtrlCHandler()
 We’ll discuss this more later. It’s important to create this object before anything else; just keep it in the back of
 your head for now.
 
-The server application now be can be broken down into four pieces:
+The server application can now be broken down into four pieces:
 
 ### 1. Create a Communicator
 
@@ -104,7 +104,7 @@ defer {
 ```
 
 The communicator is our main entry point into the Ice runtime, handling the creation and caching of outgoing
-connections, among many other responsibilities..
+connections, among many other responsibilities.
 
 It is important to properly clean up the communicator when done, which we do with the defer block that calls
 `destroy()`.
