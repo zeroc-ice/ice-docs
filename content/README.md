@@ -12,7 +12,8 @@ page and its overlays combine.
 ## Headings
 
 - Headings start at `##` and never skip a level. `## See Also` comes last.
-- Titles and headings use Title Case; a name such as `icegridnode` or npm keeps its own case.
+- Titles and headings use Title Case: capitalize every word except articles, coordinating conjunctions, and prepositions
+  of four letters or fewer, unless the word comes first or last. A name such as `icegridnode` or npm keeps its own case.
 - An anchor is the heading text, lowercased, with hyphens for spaces and without `?`, `(`, or `)`:
   `## Asynchronous Method Dispatch (AMD)` is `#asynchronous-method-dispatch-amd`. When two headings on a page would
   share one, set it: `### Synopsis {% id="ice.default.host-synopsis" %}`.
