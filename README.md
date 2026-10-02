@@ -37,7 +37,7 @@ Each page of the docs is a directory under `content/`, and its path there is its
 | `content/ice/<version>/<page>/index.md`  | The page's shared text, with `{% language-section %}` slots. The pages under it are its subdirectories, listed under `pages:`; the version's own `index.md` is the front page. |
 | `content/ice/<version>/<page>/<lang>.md` | Fills the slots for one language, or is the whole page when there is no `index.md`.                                                                                            |
 | `content/ice/<version>/version.yaml`     | The version's settings: `status` and `languages`.                                                                                                                              |
-| `content/ice/<version>/redirects.yaml`   | Redirects from old page URLs.                                                                                                                                                  |
+| `content/ice/<version>/…/redirects.yaml` | Redirects from old URLs, relative to the directory's own URL.                                                                                                                  |
 | `public/images/ice/<version>/<page>/`    | Page images.                                                                                                                                                                   |
 | `public/images/site/`                    | Images the site itself uses.                                                                                                                                                   |
 

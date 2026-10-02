@@ -55,7 +55,7 @@ import {
   listVersions,
   readNavigation,
   readPageSources,
-  readRedirects,
+  listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
@@ -325,9 +325,9 @@ for (const { where, url, href, languages } of checkedLinks) {
     });
 }
 
-// A redirect to a section (see readRedirects) must land on a heading the URL's
+// A redirect to a section (see listRedirects) must land on a heading the URL's
 // language shows.
-for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
+for (const { file, source, destination } of listRedirects(CONTENT_ROOT)) {
   const [, version, languages, rest] =
     source.match(/^\/ice\/([^/]+)\/:lang\(([^)]*)\)(.*)$/) ?? [];
   const [beforeHash, hash] = destination.split('#');
@@ -342,7 +342,7 @@ for (const { source, destination } of readRedirects(CONTENT_ROOT)) {
       id === anchor && (!langs || langs.includes(language));
     if (!headings.some(shown))
       diagnostics.push({
-        where: `${version}/redirects.yaml`,
+        where: file,
         text: `/ice/${version}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
       });
   }
