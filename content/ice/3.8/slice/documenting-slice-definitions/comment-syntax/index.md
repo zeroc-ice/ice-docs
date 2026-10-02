@@ -2,51 +2,41 @@
 title: Comment Syntax
 ---
 
-Slice supports 2 styles of comments: _line comments_ and _block comments_.
+Slice supports two styles of comments: _line comments_ and _block comments_.
 
 ```slice
-// Inline comments start with '//' and extend to the end of their line.
+// A line comment starts with '//' and extends to the end of its line.
 
-/* Block comments always begin with a '/*' and keep
-   going until reaching a */
+/* A block comment starts with '/*' and keeps
+   going until it reaches a */
 ```
 
-Normally, Slice compilers ignore comments as-if they were whitespace. They have no effect on generated code, and the
-only way to see them is to read the Slice file itself. But, in addition to ‘normal’ comments, Slice also supports 2
-styles of _doc-comments_, which the compilers validate and attempt to map into generated code.
+Slice also supports two styles of _doc comments_, which [document](../documenting-slice-definitions) the definition that
+follows them.
 
-The 2 supported styles of doc-comment are:
-
-_Doxygen_ style doc-comments work the same as line comments, but have an extra forward slash:
+A line doc comment is a line comment with a third slash. Consecutive lines form one doc comment:
 
 ```slice
-/// This is a doxygen style doc-comment
-/// that spans two separate lines.
+/// This is a doc comment
+/// that spans two lines.
 ```
 
-_JavaDoc_ style doc-comments work the same as block comments, but have an extra asterisk at the beginning:
+A block doc comment is a block comment that starts with exactly two asterisks:
 
 ```slice
-/** This is a single-line JavaDoc style doc-comment. */
+/** This is a single-line block doc comment. */
 
 /**
- * This is a multi-line JavaDoc style doc-comment.
+ * This is a multi-line block doc comment.
  */
 ```
 
-{% callout type="info" %}
+Starting each line of a multi-line block doc comment with `*` is conventional but optional.
 
-Starting each line of a multi-line JavaDoc comment with ‘*' is conventional, but not required.
+The two styles are equivalent, and both accept only the tags described in
+[Doc-Comment Structure](../doc-comment-structure).
 
-{% /callout %}
+The Slice compilers treat every comment other than a doc comment as whitespace.
 
-The Slice compilers make no distinction between Doxygen and JavaDoc style comments. The comment’s text will be mapped
-the same, regardless of which style you use.
-
-<TODO: mention that these styles do not mean we fully support the tags!>
-
-Unlike regular comments comments (which can appear anywhere in your Slice file), doc-comments must be attached to a
-Slice definition; i.e. they should be written directly before the Slice definition that they describe.
-
-All Slice definitions support doc-comments, except for parameters. See <TODO: LINK TO OPERATION TAGS> for more
-information about documenting operation parameters.
+All Slice definitions support doc comments, except parameters. To document a parameter, use a `@param` tag in its
+operation's doc comment; see [Operation Tags](../doc-comment-structure#operation-tags).

@@ -46,7 +46,7 @@ is a directory, and its path under the version is its slug, the path in its URL:
 - `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,
   `/ice/<version>/<language>/<name>`, and the pages it named differently. Each URL redirects to the page here with the
   same name, or the one `redirects.yaml` names, keeping the language as `?lang=`; `lib/docs-model/scroll-urls.test.ts`
-  checks every one.
+  checks every one, and `check:markdoc` checks that one sent to a section lands on a heading its language shows.
 - `api-links.yaml` — the URL of each type's page in the API reference of each language that has one, for the links that
   name a type.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.

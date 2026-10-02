@@ -11,12 +11,12 @@ import path from 'node:path';
 
 import { CONTENT_ROOT, listPages, readRedirects } from './content.ts';
 import { pageHref } from './nav.ts';
+import { splitLines } from './resolve.ts';
 
 test('every URL of the 3.8 manual on the Scroll Viewport site redirects to a page', () => {
-  const scroll = fs
-    .readFileSync(path.join(CONTENT_ROOT, '3.8', 'scroll-urls.txt'), 'utf8')
-    .split('\n')
-    .filter((line) => line.startsWith('/'));
+  const scroll = splitLines(
+    fs.readFileSync(path.join(CONTENT_ROOT, '3.8', 'scroll-urls.txt'), 'utf8')
+  ).filter((line) => line.startsWith('/'));
   const redirects = readRedirects(CONTENT_ROOT);
   // Each rule written for a list of languages, spelled out for each language.
   const destinations = new Map(

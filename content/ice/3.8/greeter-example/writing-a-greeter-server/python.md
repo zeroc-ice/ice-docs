@@ -76,7 +76,7 @@ import Ice
 
 Next, we define the `main` function which runs the server. This application can be broken down into 4 parts:
 
-### Create a Communicator
+### 1. Create a Communicator
 
 First, we create a [Communicator](../communicator) using its constructor:
 
@@ -91,7 +91,7 @@ You should always ensure that `destroy` is called when you’re done with a comm
 gracefully closed and other clean-up is performed. The simplest way to do that is to use the `with` statement like we do
 here.
 
-### Create an Object Adapter
+### 2. Create an Object Adapter
 
 Next, we create an object adapter using our communicator:
 
@@ -117,7 +117,7 @@ adapter.add(chatbot.Chatbot(), Ice.Identity(name="greeter"))
 Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our
 `Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
 
-### Activate the Object Adapter
+### 3. Activate the Object Adapter
 
 At this point, our object adapter does not accept connections yet. A client attempting to connect would get a
 `ConnectTimeoutException`.
@@ -132,7 +132,7 @@ print("Listening on port 4061...")
 Our server is now active, waiting for connections and requests from clients, and dispatching requests for “greeter” to
 our `Chatbot` servant.
 
-### Keep Running Until Ctrl+C
+### 4. Keep Running Until Ctrl+C
 
 It’s essential to keep the server running and not fall off main prematurely.
 
