@@ -1,6 +1,5 @@
-# The URLs the Ice 3.8 pages had on the previous docs site, docs.zeroc.com/ice/3.8/<language>/<name>, and the
-# page each goes to, keeping the language as ?lang=. Next.js redirect patterns: :lang(...) lists the languages the
-# old page existed for.
+# The URLs the Ice 3.8 pages had on the previous site, /ice/3.8/<language>/<name>, and the page each goes to, keeping
+# the language as ?lang=. Next.js redirect patterns: :lang(...) lists the languages the old page existed for.
 
 '/ice/3.8/javascript/:rest*': '/ice/3.8/js/:rest*'
 '/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)': '/ice/3.8?lang=:lang'
