@@ -41,8 +41,8 @@ The `service` argument selects the type of service you are installing; use one o
 Note that the Ice service installer currently does not support the installation of an IceGrid node with a collocated
 registry, therefore you must install the registry and node separately.
 
-The `config-file` argument specifies the name of an [Ice configuration file](./). A `config-file` argument that starts
-with `HKLM\` names a key under `HKEY_LOCAL_MACHINE` that holds the service's properties in the
+The `config-file` argument names the configuration of the service: either the path of an [Ice configuration file](./)
+or, when the argument starts with `HKLM\`, a key under `HKEY_LOCAL_MACHINE` that holds the service's properties in the
 [Windows registry](../../../runtime/properties-and-configuration/alternate-property-stores).
 
 When installing a service, you define the installer's own properties on the command line using the --`name`=`value`
@@ -57,8 +57,8 @@ rights.
 
 ## `iceserviceinstall` Configuration File
 
-The Ice service installer requires that you specify the path name of the Ice configuration file for the service being
-installed or uninstalled. The tool needs this path name for several reasons:
+The Ice service installer requires the configuration of the service being installed or uninstalled. When `config-file`
+names a configuration file, the tool needs its path name for several reasons:
 
 - During installation, it verifies that the configuration file has sufficient access rights.
 - It configures a newly-installed service to load the configuration file using its absolute path name, therefore you
