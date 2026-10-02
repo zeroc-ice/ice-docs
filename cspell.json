@@ -59,6 +59,7 @@
     "datastorm",
     "datetimestamp",
     "dbenv",
+    "dbhome",
     "dbpath",
     "deallocates",
     "DECLSPEC",
