@@ -31,9 +31,13 @@ are used to construct the path name of a DLL or shared library. If no version is
 `function` component is the name of a function with C linkage. For example, the entry point `MyPlugin,38:create` would
 imply a shared library name of `libMyPlugin.so.38` on Linux, `libMyPlugin.38.dylib` on macOS, and `MyPlugin38.dll` on
 Windows. Furthermore, if Ice is built on Windows with debugging, a `d` is automatically appended to the version (for
-example, `MyPlugin38d.dll`).
+example, `MyPlugin38d.dll`). On macOS, if the `.dylib` cannot be loaded, Ice also tries `libMyPlugin.38.so` and
+`libMyPlugin.38.bundle`.
 
-Any arguments that follow the entry point are passed to the entry point function. For example:
+Arguments of the form `--name.X=Y` set the property `name.X` to `Y` and are removed from the argument list passed to the
+factory, where `name` is the plug-in name. For example, `--MyPlugin.Mode=fast` sets `MyPlugin.Mode=fast`.
+
+Ice passes the remaining arguments to the entry point function. For example:
 
 ```config
 Ice.Plugin.MyPlugin=MyFactory,38:create arg1 arg2
@@ -85,9 +89,8 @@ Ice.Plugin.IceDiscovery=1
 Ice.Plugin.IceLocatorDiscovery=1
 ```
 
-Arguments after the first token are still passed to the factory. Ice creates these built-in plug-ins before dynamically
-loaded plug-ins. If [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) includes an enabled built-in plug-in's
-name, communicator initialization fails with a `PluginInitializationException`.
+Ice passes the remaining arguments after the first token to the factory. Ice creates these built-in plug-ins before
+dynamically loaded plug-ins.
 
 {% /iflang %}
 

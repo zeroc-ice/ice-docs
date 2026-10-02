@@ -75,8 +75,7 @@ end.
 An application that needs the slicing behavior we discussed in the previous section must explicitly enable the sliced
 format as follows:
 
-- Set the [Ice.Default.SlicedFormat](../ice-default-properties) property to a non-zero value to force the Ice runtime to
-  use the sliced format by default.
+- Set the [Ice.Default.SlicedFormat](../ice-default-properties) property to `1` to use the sliced format by default.
 - Annotate your Slice definitions with the `format:sliced` [metadata](../slice-metadata-directives) to selectively
   enable the sliced format for certain operations or interfaces.
 
@@ -138,8 +137,8 @@ The metadata forces the client to use the compact format for the input parameter
 use the compact format for the return value.
 
 If you decide to use the `Ice.Default.SlicedFormat` property, be aware that this property only affects the sender of a
-value or exception. For example, if you enable this property in the client but not the server, then all values sent by
-the client use the sliced format by default, but all values returned by the server use the compact format by default.
+value. For example, if you enable this property in the client but not the server, then all values sent by the client use
+the sliced format by default, but all values returned by the server use the compact format by default.
 
 By offering two alternative formats, Ice gives you a great deal of flexibility in designing your applications. The
 compact format is ideal for applications that place a greater emphasis on efficiency, while the sliced format is helpful

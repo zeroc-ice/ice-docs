@@ -6,9 +6,8 @@ mapping it covers; the reader picks one (C++ until they do), and the choice is k
 
 ## Requirements
 
-Node.js 22.22.2 or later in the 22 line, 24.15 or later in the 24 line, or 26 or later, and npm 11.16 or later; `.npmrc`
-makes npm refuse to install on anything older. The scripts under `scripts/` import the TypeScript content model
-directly, through the type stripping those releases enable by default.
+- Node.js 24 or later
+- npm 11.16 or later
 
 ## Building
 
@@ -94,7 +93,7 @@ duplicating it.
   its own line, with the blank lines around it as written, and `check:markdoc` rejects anything that slips through.
   Under a list item or a quoted line, a tag that spans several lines needs a blank line above it, or Prettier's parser
   reads it as part of that item or quote. An inline closer, `word{% /iflang %}`, has no space before it;
-  `scripts/prettier-plugin-markdoc.js`, the parser `format` uses for Markdown, glues one written after a space to the
+  `scripts/prettier-plugin-markdoc.ts`, the parser `format` uses for Markdown, glues one written after a space to the
   word before it, so that line filling moves the two together.
 - **Images** live under `public/attachments/`. A paragraph that is nothing but an image renders as a figure; an image
   inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article column. Use a

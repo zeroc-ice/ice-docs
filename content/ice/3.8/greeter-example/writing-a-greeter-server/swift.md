@@ -28,9 +28,19 @@ contains a plugin for this purpose, `CompileSlice`, which can be added to the ex
 ),
 ```
 
-The `CompileSlice` plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as source file of the Server target.
-The generated code provides the APIs that we’ll need in our server code, so it’s an essential step of the development
-process.
+The `CompileSlice` plugin compiles the `.ice` files in the target's sources, and the files listed in a
+`slice-plugin.json` file in the target's sources. In this example, `Greeter.ice` is in the `slice` directory at the root
+of the package, outside `Sources/Server`, so `Sources/Server/slice-plugin.json` lists it, with a path relative to the
+directory that contains `slice-plugin.json`:
+
+```json
+{
+  "sources": ["../../slice/Greeter.ice"]
+}
+```
+
+The plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as a source file of the Server target. The generated
+code provides the APIs that we’ll need in our server code, so it’s an essential step of the development process.
 
 A Swift protocol is generated for each Slice interface. In our example, `Greeter`.
 
