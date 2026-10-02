@@ -2,7 +2,7 @@
 title: Command-Line Parsing and Initialization
 ---
 
-When you [initialize the Ice runtime](runtime/communicator/initialization-and-destruction) by calling `initialize`, you
+When you [initialize the Ice runtime](../../communicator/initialization-and-destruction) by calling `initialize`, you
 can pass the application's arguments to the initialization call.
 
 In most languages, this argument vector is an _in-out_ parameter. In C++, for example, `argc` is passed as a _reference_
@@ -40,9 +40,9 @@ explicitly skip them.
 
 `initialize` parses the arguments the same way in all languages, but only the overloads that update the argument array
 remove the options they consume. Other overloads leave the input unchanged or return the remaining arguments separately;
-see [Communicator Initialization and Destruction](runtime/communicator/initialization-and-destruction).
+see [Communicator Initialization and Destruction](../../communicator/initialization-and-destruction).
 
 ## See Also
 
-- [Using Configuration Files](runtime/properties-and-configuration/using-configuration-files)
-- [Communicator Initialization and Destruction](runtime/communicator/initialization-and-destruction)
+- [Using Configuration Files](../using-configuration-files)
+- [Communicator Initialization and Destruction](../../communicator/initialization-and-destruction)

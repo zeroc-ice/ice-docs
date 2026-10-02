@@ -22,4 +22,4 @@ The implementation of the weather sensor (or collector) can be summarized as fol
 
 ## See Also
 
-- [Configuring IceStorm](services/icestorm/configuring-icestorm)
+- [Configuring IceStorm](../../configuring-icestorm)

@@ -14,17 +14,16 @@ an application deployed on this IceGrid registry.
 
 A node provides the following actions, from its contextual menu and from the `Tools > Node` menu:
 
-- **Retrieve Ice log** Retrieve the log messages sent to the IceGrid node's [logger](administration/logger-facility)
-  into an [Ice Log Dialog](services/icegrid/icegrid-gui-tool/live-deployment-tab/log-file-dialog). The Ice Log Dialog
-  attaches a [remote logger](administration/administrative-facility/logger-facet) to the node's logger.
-- **Retrieve stdout** Retrieve the IceGrid node's stdout into a
-  [Log File Dialog](services/icegrid/icegrid-gui-tool/live-deployment-tab/log-file-dialog). This retrieval succeeds only
-  when the node's stdout output has been redirected to a file using the [Ice.StdOut](property-reference/ice-properties)
-  property.
-- **Retrieve stderr** Retrieve the IceGrid node's stderr into a
-  [Log File Dialog](services/icegrid/icegrid-gui-tool/live-deployment-tab/log-file-dialog). This retrieval succeeds only
-  when the node's stderr output has been redirected to a file using the [Ice.StdErr](property-reference/ice-properties)
-  property
+- **Retrieve Ice log** Retrieve the log messages sent to the IceGrid node's
+  [logger](../../../../../../administration/logger-facility) into an [Ice Log Dialog](../../log-file-dialog). The Ice
+  Log Dialog attaches a [remote logger](../../../../../../administration/administrative-facility/logger-facet) to the
+  node's logger.
+- **Retrieve stdout** Retrieve the IceGrid node's stdout into a [Log File Dialog](../../log-file-dialog). This retrieval
+  succeeds only when the node's stdout output has been redirected to a file using the
+  [Ice.StdOut](../../../../../../property-reference/ice-properties) property.
+- **Retrieve stderr** Retrieve the IceGrid node's stderr into a [Log File Dialog](../../log-file-dialog). This retrieval
+  succeeds only when the node's stderr output has been redirected to a file using the
+  [Ice.StdErr](../../../../../../property-reference/ice-properties) property
 - **Shutdown** Shutdown the IceGrid node process.
 
 {% callout type="warning" %}
@@ -47,7 +46,7 @@ The Node Properties panel shows:
   1, 5, and 15 minutes. On Linux/Unix, shows the load-average in the past 1, 5 and 15 minutes. These values are
   retrieved when the Node Properties panel is displayed. Click on the Refresh button to retrieve the latest values.
 - **Build Id** The build Id of this node: this corresponds to the Ice property
-  [BuildId](services/icegrid/icegrid-and-the-administrative-facility).
+  [BuildId](../../../../icegrid-and-the-administrative-facility).
 - **Properties** A table showing all the Ice properties currently set in this IceGrid node.
 - **Load Factor** Shows the load factor defined by each application using this node.
 
@@ -55,6 +54,6 @@ The Node Properties panel shows:
 
 An IceGrid node can only have the following types of children:
 
-- [Metrics View](services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/metrics-view-runtime-component)
-- [Regular Server](services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/server-runtime-component)
-- [IceBox Server](services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/server-runtime-component)
+- [Metrics View](../metrics-view-runtime-component)
+- [Regular Server](../server-runtime-component)
+- [IceBox Server](../server-runtime-component)

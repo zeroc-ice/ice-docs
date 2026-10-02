@@ -9,7 +9,7 @@ await using communicator = new Ice.Communicator(process.argv);
 ```
 
 This constructor accepts the argument vector. It scans the argument vector for any
-[command-line options](runtime/properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
+[command-line options](../../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
 the Ice runtime; any such options are removed from the argument vector so, when the constructor returns, the only
 options and arguments remaining are those that concern your application. If anything goes wrong during initialization,
 it throws an exception.

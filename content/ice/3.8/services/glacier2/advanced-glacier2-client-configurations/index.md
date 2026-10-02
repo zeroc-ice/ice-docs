@@ -29,7 +29,7 @@ server endpoints. As you might imagine, this could cause some subtle problems.
 
 The solution is to dedicate an object adapter solely to handling callback requests, and another one for servicing local
 clients. The object adapter dedicated to callback requests must be
-[configured with the router proxy](services/glacier2/callbacks-through-glacier2).
+[configured with the router proxy](../callbacks-through-glacier2).
 
 ## Using Multiple Routers
 
@@ -37,7 +37,7 @@ A client is not limited to using only one router at a time: the
 [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx) `ice_router` allows a client to configure its routed proxies
 as necessary. With respect to callbacks, a client must create a new callback object adapter for each router that can
 forward callback requests to the client. A client must also be aware of the
-[object identities](services/glacier2/getting-started-with-glacier2) in use by the routers.
+[object identities](../getting-started-with-glacier2) in use by the routers.
 
 ## Using the `RouterFinder` Interface
 
@@ -75,5 +75,5 @@ of a router's client endpoints, a client can discover the router's proxy with a 
 
 ## See Also
 
-- [Getting Started with Glacier2](services/glacier2/getting-started-with-glacier2)
-- [Callbacks Through Glacier2](services/glacier2/callbacks-through-glacier2)
+- [Getting Started with Glacier2](../getting-started-with-glacier2)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)

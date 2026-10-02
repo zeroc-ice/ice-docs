@@ -32,9 +32,14 @@ test('a slug resolves to the page, and the query and anchor survive', () => {
   );
 });
 
-test('a path starting with ./ or ../ is relative to the page', () => {
+test('a path starting with . or .. is relative to the page', () => {
   assert.equal(
     resolveDocLink('../enumerations', ctx).href,
+    '/ice/3.8/learn/slice/enumerations'
+  );
+  assert.equal(
+    resolveDocLink('..', { ...ctx, slug: 'learn/slice/enumerations/child' })
+      .href,
     '/ice/3.8/learn/slice/enumerations'
   );
   assert.equal(

@@ -19,8 +19,8 @@ The encoding for optional parameters and fields follows these general rules:
   values.)
 - An optional value is encoded only if the sender has supplied a value.
 
-Optional fields of a class or exception appear in the [slice](encoding/basic-data-encoding) after any required fields
-and before the indirection table, if present. The slice flags must indicate the presence of optional fields, which are
+Optional fields of a class or exception appear in the [slice](../basic-data-encoding) after any required fields and
+before the indirection table, if present. The slice flags must indicate the presence of optional fields, which are
 included in the byte count for the slice. If a slice contains optional fields, the byte value `255` must be written
 after the last optional field; this marker denotes the end of the optional fields and is also included in the byte count
 for the slice.
@@ -43,21 +43,20 @@ Optional values require Ice encoding version 1.1.
 The first byte of an encoded optional value includes the optional type, and may also include the tag. The optional type
 occupies the first three bits of this byte, as described in the table below:
 
-| **Name** | **Value** | **Description**                                                                                           | **Used for Slice type**                                             |
-| -------- | --------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| F1       | 0         | The value is encoded in one byte.                                                                         | bool, byte                                                          |
-| F2       | 1         | The value is encoded in two bytes.                                                                        | short                                                               |
-| F4       | 2         | The value is encoded in four bytes.                                                                       | int, float                                                          |
-| F8       | 3         | The value is encoded in eight bytes.                                                                      | double, long                                                        |
-| Size     | 4         | The value is encoded as a [size](encoding/basic-data-encoding).                                           | enum                                                                |
-| VSize    | 5         | A leading [size](encoding/basic-data-encoding) value indicates the number of bytes occupied by the value. | string, fixed-size structure, container of fixed-size elements      |
-| FSize    | 6         | A leading 32-bit integer indicates the number of bytes occupied by the value.                             | variable-size structure, container of variable-size elements, proxy |
-| Class    | 7         | A [class reference](encoding/data-encoding-for-classes) or inline instance.                               | class                                                               |
+| **Name** | **Value** | **Description**                                                                                     | **Used for Slice type**                                             |
+| -------- | --------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| F1       | 0         | The value is encoded in one byte.                                                                   | bool, byte                                                          |
+| F2       | 1         | The value is encoded in two bytes.                                                                  | short                                                               |
+| F4       | 2         | The value is encoded in four bytes.                                                                 | int, float                                                          |
+| F8       | 3         | The value is encoded in eight bytes.                                                                | double, long                                                        |
+| Size     | 4         | The value is encoded as a [size](../basic-data-encoding).                                           | enum                                                                |
+| VSize    | 5         | A leading [size](../basic-data-encoding) value indicates the number of bytes occupied by the value. | string, fixed-size structure, container of fixed-size elements      |
+| FSize    | 6         | A leading 32-bit integer indicates the number of bytes occupied by the value.                       | variable-size structure, container of variable-size elements, proxy |
+| Class    | 7         | A [class reference](../data-encoding-for-classes) or inline instance.                               | class                                                               |
 
 The next five bits of the leading byte contain the tag, but only if the tag value is less than 30. Otherwise, the next
-five bits contain the value 30 as a marker to indicate that the tag value is encoded as a
-[size](encoding/basic-data-encoding) starting with the next byte. As you can see, using tag values in the range 0 to 29
-produces the most compact encoding.
+five bits contain the value 30 as a marker to indicate that the tag value is encoded as a [size](../basic-data-encoding)
+starting with the next byte. As you can see, using tag values in the range 0 to 29 produces the most compact encoding.
 
 Variable-size types whose encoded size cannot be determined in advance use the FSize optional type, where "FSize"
 denotes a leading fixed-length (32-bit) size. For these types, the sender reserves four bytes to hold the size, encodes
@@ -65,11 +64,11 @@ the value as usual, then replaces the four bytes with the actual encoded size. T
 the encoded data in the buffer, at the expense of potentially consuming more bytes than necessary to encode the size.
 
 Fixed-size types use the VSize optional type, where "VSize" denotes a leading variable-length
-[size](encoding/basic-data-encoding). The sender can determine the encoded size of these types in advance, and therefore
+[size](../basic-data-encoding). The sender can determine the encoded size of these types in advance, and therefore
 encodes it as a size followed by the value as usual.
 
-Strings also use the VSize optional type but do not require an additional [size](encoding/basic-data-encoding) because
-the string encoding already includes a leading size. The same is true for sequences of elements of size 1, such as a
+Strings also use the VSize optional type but do not require an additional [size](../basic-data-encoding) because the
+string encoding already includes a leading size. The same is true for sequences of elements of size 1, such as a
 sequence of `bool`, a sequence of `byte` or a sequence of a `struct` with a single `bool` or `byte` field.
 
 The optional type Class represents a class reference or inline instance. Note that a receiver must decode an inline
@@ -77,19 +76,19 @@ instance even if it does not recognize the tag value because the instance may be
 
 The following table describes the encoding of Slice types:
 
-| **Slice type**                                                                                           | **Optional type** | **Data encoding**                                           | **Notes**                                                                    |
-| -------------------------------------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `bool`, `byte`                                                                                           | F1                | value                                                       |                                                                              |
-| `short`                                                                                                  | F2                | value                                                       |                                                                              |
-| `int`, `float`                                                                                           | F4                | value                                                       |                                                                              |
-| `long`, `double`                                                                                         | F8                | value                                                       |                                                                              |
-| Proxy                                                                                                    | FSize             | int + data                                                  | 32-bit integer holds the size of the encoded proxy.                          |
-| `class`                                                                                                  | Class             | [reference](encoding/data-encoding-for-classes) or instance |                                                                              |
-| `enum`                                                                                                   | Size              | size                                                        | Enumerator encoded as a [size](encoding/basic-data-encoding).                |
-| `string`                                                                                                 | VSize             | value                                                       | The encoded data for the string already contains a leading size.             |
-| `sequence<`_type-with-size-1_`>` such as `sequence<bool>`, `sequence<byte>`                              | VSize             | value                                                       | The encoded data for the sequence already contains a leading size, in bytes. |
-| `sequence<`_fixed-size type_`>` with fixed-size >= 2 `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value                                                | Size can be computed before encoding the container.                          |
-| `sequence<`_variable size type_`>`, `dictionary<`_variable-size key_,_variable-size value_`>`            | FSize             | int + value                                                 | 32-bit integer holds the size of the container.                              |
+| **Slice type**                                                                                           | **Optional type** | **Data encoding**                                     | **Notes**                                                                    |
+| -------------------------------------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `bool`, `byte`                                                                                           | F1                | value                                                 |                                                                              |
+| `short`                                                                                                  | F2                | value                                                 |                                                                              |
+| `int`, `float`                                                                                           | F4                | value                                                 |                                                                              |
+| `long`, `double`                                                                                         | F8                | value                                                 |                                                                              |
+| Proxy                                                                                                    | FSize             | int + data                                            | 32-bit integer holds the size of the encoded proxy.                          |
+| `class`                                                                                                  | Class             | [reference](../data-encoding-for-classes) or instance |                                                                              |
+| `enum`                                                                                                   | Size              | size                                                  | Enumerator encoded as a [size](../basic-data-encoding).                      |
+| `string`                                                                                                 | VSize             | value                                                 | The encoded data for the string already contains a leading size.             |
+| `sequence<`_type-with-size-1_`>` such as `sequence<bool>`, `sequence<byte>`                              | VSize             | value                                                 | The encoded data for the sequence already contains a leading size, in bytes. |
+| `sequence<`_fixed-size type_`>` with fixed-size >= 2 `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value                                          | Size can be computed before encoding the container.                          |
+| `sequence<`_variable size type_`>`, `dictionary<`_variable-size key_,_variable-size value_`>`            | FSize             | int + value                                           | 32-bit integer holds the size of the container.                              |
 
 ## Examples of Optional Value Encoding
 
@@ -120,7 +119,7 @@ Suppose the parameters have the values shown in the table below:
 | `p`            | `proxy`  | nil       | 2                             |
 | _return value_ | `bool`   | `true`    | 1                             |
 
-The parameters of the outgoing request are encoded in an [encapsulation](encoding/basic-data-encoding) with all required
+The parameters of the outgoing request are encoded in an [encapsulation](../basic-data-encoding) with all required
 parameters first, in order of declaration, followed by the optional parameters sorted by tag:
 
 | **Marshaled value**                   | **Size in bytes** | **Type** | **Byte offset** |
@@ -242,5 +241,5 @@ Notice the use of an end marker (byte value `255`) denoting the end of the optio
 
 ## See Also
 
-- [Basic Data Encoding](encoding/basic-data-encoding)
-- [Data Encoding for Classes](encoding/data-encoding-for-classes)
+- [Basic Data Encoding](../basic-data-encoding)
+- [Data Encoding for Classes](../data-encoding-for-classes)

@@ -15,14 +15,14 @@ value is `1` if any of the exception fields are classes (or if any of the except
 fields) and `0`, otherwise.
 
 Following the header byte, the exception is marshaled as a sequence of pairs: the first field of each pair is the
-[type ID](slice/type-ids) for an exception slice, and the second field of the pair is a
-[slice](encoding/basic-data-encoding) containing the marshaled fields of that slice. The sequence of pairs is marshaled
-in derived-to-base order, with the most-derived slice first, and ending with the least-derived slice. Within each slice,
-fields are marshaled as for [structures](encoding/basic-data-encoding): in the order in which they are defined in the
-Slice definition.
+[type ID](../../slice/type-ids) for an exception slice, and the second field of the pair is a
+[slice](../basic-data-encoding) containing the marshaled fields of that slice. The sequence of pairs is marshaled in
+derived-to-base order, with the most-derived slice first, and ending with the least-derived slice. Within each slice,
+fields are marshaled as for [structures](../basic-data-encoding): in the order in which they are defined in the Slice
+definition.
 
-Following the sequence of pairs, any [class instances](encoding/data-encoding-for-classes) that are used by the fields
-of the exception are marshaled. This final part is optional: it is present only if the header byte is `1`.
+Following the sequence of pairs, any [class instances](../data-encoding-for-classes) that are used by the fields of the
+exception are marshaled. This final part is optional: it is present only if the header byte is `1`.
 
 To illustrate the marshaling, consider the following exception hierarchy:
 
@@ -74,7 +74,7 @@ indicated for each component.)
 _Marshaled representation of the exception._
 
 Note that the size of each string is one larger than the actual string length. This is because each string is preceded
-by a count of its number of bytes, as directed by the [encoding for strings](encoding/basic-data-encoding).
+by a count of its number of bytes, as directed by the [encoding for strings](../basic-data-encoding).
 
 The receiver of this sequence of values uses the header byte to decide whether it eventually must unmarshal any class
 instances contained in the exception (none in this example) and then examines the first type ID (`::Derived`). If the
@@ -87,11 +87,11 @@ exception specification of an operation.) In this case, the receiver will eventu
 which it can report with a `MarshalException`.
 
 If an exception contains class fields, these fields are marshaled following the exception slices as described in the
-[class encoding](encoding/data-encoding-for-classes).
+[class encoding](../data-encoding-for-classes).
 
 ## Exception Encoding Version 1.1
 
-An exception is marshaled as a collection of [slices](encoding/basic-data-encoding) whose order matches the inheritance
+An exception is marshaled as a collection of [slices](../basic-data-encoding) whose order matches the inheritance
 hierarchy, with the most-derived type appearing first. The selected encoding format affects the content of each slice.
 The final slice, representing the least-derived type, has its _last slice_ bit set to true.
 
@@ -111,7 +111,7 @@ The leading byte of each slice is a set of bit flags that specifies the features
 includes a type ID in the initial (most-derived) slice but omits the type ID from all subsequent slices.
 
 The sliced format includes a type ID in every slice, along with a slice size and an optional
-[indirection table](encoding/data-encoding-for-classes/class-graphs):
+[indirection table](../data-encoding-for-classes/class-graphs):
 
 ![The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
 
@@ -168,7 +168,7 @@ marshaled representation is indicated for each component.)
 _Marshaled representation of the exception using the sliced format._
 
 Note that the size of each string is one larger than the actual string length. This is because each string is preceded
-by a count of its number of bytes, as directed by the [encoding for strings](encoding/basic-data-encoding).
+by a count of its number of bytes, as directed by the [encoding for strings](../basic-data-encoding).
 
 Repeating this exercise using the compact format produces the following encoding:
 
@@ -191,6 +191,6 @@ knowing how to decode its contents.
 
 ## See Also
 
-- [Type IDs](slice/type-ids)
-- [Basic Data Encoding](encoding/basic-data-encoding)
-- [Data Encoding for Classes](encoding/data-encoding-for-classes)
+- [Type IDs](../../slice/type-ids)
+- [Basic Data Encoding](../basic-data-encoding)
+- [Data Encoding for Classes](../data-encoding-for-classes)

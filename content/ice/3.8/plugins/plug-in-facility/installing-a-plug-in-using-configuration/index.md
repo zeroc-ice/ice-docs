@@ -3,7 +3,7 @@ title: Installing a Plug-in Using Configuration
 ---
 
 A plug-in can be installed into a communicator using a
-[configuration property](property-reference/ice-plugin-properties) of the following form:
+[configuration property](../../../property-reference/ice-plugin-properties) of the following form:
 
 ```config
 
@@ -14,8 +14,8 @@ Most plug-ins accept only one specific name, so make sure to use the plug-in’s
 
 {% language-section name="lang-1" /%}
 
-The [Ice.Plugin.*](property-reference/ice-plugin-properties) property reference describes `entry_point` in greater
-detail.
+The [Ice.Plugin.*](../../../property-reference/ice-plugin-properties) property reference describes `entry_point` in
+greater detail.
 
 After extracting the plug-in's entry point from the property value, any remaining text is parsed using semantics similar
 to that of command-line arguments. Whitespace separates the arguments, and any arguments that contain whitespace must be
@@ -29,5 +29,5 @@ Ice passes these arguments to the plug-in during construction.
 
 ## See Also
 
-- [Ice.Plugin.*](property-reference/ice-plugin-properties)
-- [Ice.PluginLoadOrder](property-reference/ice-properties)
+- [Ice.Plugin.*](../../../property-reference/ice-plugin-properties)
+- [Ice.PluginLoadOrder](../../../property-reference/ice-properties)

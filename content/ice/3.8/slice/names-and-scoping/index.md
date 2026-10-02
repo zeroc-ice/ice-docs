@@ -391,4 +391,4 @@ module M
 
 ## See Also
 
-- [Lexical Rules](slice/lexical-rules)
+- [Lexical Rules](../lexical-rules)

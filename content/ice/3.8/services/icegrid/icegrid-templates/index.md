@@ -6,16 +6,15 @@ IceGrid templates simplify the task of creating the descriptors for an applicati
 descriptor that you can instantiate as often as necessary, and they are descriptors in their own right. Templates are
 components of an IceGrid application and therefore they are stored in the registry's database. As such, their use is not
 restricted to XML files; templates can also be created and instantiated interactively using the
-[graphical administration tool](services/icegrid/icegrid-gui-tool).
+[graphical administration tool](../icegrid-gui-tool).
 
 You can define templates for server and service descriptors. The focus of this section is server templates; we discuss
-service descriptors and templates in the context of
-[IceBox integration](services/icegrid/icebox-integration-with-icegrid).
+service descriptors and templates in the context of [IceBox integration](../icebox-integration-with-icegrid).
 
 ## Server Templates
 
-You may recall from a [previous example](services/icegrid/using-icegrid-deployment) that the XML description of our
-sample application defined two nearly identical servers:
+You may recall from a [previous example](../using-icegrid-deployment) that the XML description of our sample application
+defined two nearly identical servers:
 
 ```xml
 <icegrid>
@@ -62,29 +61,28 @@ shown below:
 </icegrid>
 ```
 
-We have defined a [server template](services/icegrid/icegrid-xml-reference/server-template-descriptor-element) named
+We have defined a [server template](../icegrid-xml-reference/server-template-descriptor-element) named
 `EncoderServerTemplate`. Nested within the `server-template` element is a
-[server descriptor](services/icegrid/icegrid-xml-reference/server-descriptor-element) that defines an encoder server.
-The only difference between this `server` element and our previous example is that it is now parameterized: the template
+[server descriptor](../icegrid-xml-reference/server-descriptor-element) that defines an encoder server. The only
+difference between this `server` element and our previous example is that it is now parameterized: the template
 parameter `index` is used to form unique identifiers for the server and its adapter. The symbol `${index}` is replaced
 with the value of the `index` parameter wherever it occurs.
 
 The template is instantiated by a `server-instance` element, which may be used anywhere that a `server` element is used.
-The [server instance descriptor](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element) identifies
-the template to be instantiated, and supplies a value for the `index` parameter.
+The [server instance descriptor](../icegrid-xml-reference/server-instance-descriptor-element) identifies the template to
+be instantiated, and supplies a value for the `index` parameter.
 
 Although we have not significantly reduced the length of our XML file, we have made it more readable. And more
 importantly, deploying this server on additional nodes has become much easier.
 
 ## Template Parameters
 
-Parameters enable you to customize each instance of a template as necessary. The example
-[above](services/icegrid/icegrid-templates) defined the `index` parameter with a different value for each instance to
-ensure that identifiers are unique. A parameter may also declare a default value that is used in the template if no
-value is specified for it. In our sample application the `index` parameter is considered mandatory and therefore should
-not have a default value, but we can illustrate this feature in another way. For example, suppose that the path name of
-the server's executable may change on each node. We can supply a default value for this attribute and override it when
-necessary:
+Parameters enable you to customize each instance of a template as necessary. The example [above](./) defined the `index`
+parameter with a different value for each instance to ensure that identifiers are unique. A parameter may also declare a
+default value that is used in the template if no value is specified for it. In our sample application the `index`
+parameter is considered mandatory and therefore should not have a default value, but we can illustrate this feature in
+another way. For example, suppose that the path name of the server's executable may change on each node. We can supply a
+default value for this attribute and override it when necessary:
 
 ```xml
 <icegrid>
@@ -112,9 +110,8 @@ necessary:
 As you can see, the instance on `Node1` uses the default value for the new parameter `exepath`, but the instance on
 `Node2` defines a different location for the server's executable.
 
-Understanding the semantics of
-[descriptor variables and parameters](services/icegrid/using-descriptor-variables-and-parameters) will help you add
-flexibility to your own IceGrid applications.
+Understanding the semantics of [descriptor variables and parameters](../using-descriptor-variables-and-parameters) will
+help you add flexibility to your own IceGrid applications.
 
 ## Adding Properties to a Server Instance
 
@@ -147,10 +144,10 @@ This sets the `Ice.Trace.Network` property for a specific server.
 ## Default Templates
 
 The IceGrid registry can be configured to supply any number of default template descriptors for use in your
-applications. The configuration property [IceGrid.Registry.DefaultTemplates](property-reference/icegrid-properties)
-specifies the path name of an XML file containing template definitions. One such template file is provided in the Ice
-distribution as `config/templates.xml`, which contains helpful templates for deploying Ice services such as
-[Glacier2](services/glacier2).
+applications. The configuration property
+[IceGrid.Registry.DefaultTemplates](../../../property-reference/icegrid-properties) specifies the path name of an XML
+file containing template definitions. One such template file is provided in the Ice distribution as
+`config/templates.xml`, which contains helpful templates for deploying Ice services such as [Glacier2](../../glacier2).
 
 The template file must use the structure shown below:
 
@@ -165,10 +162,9 @@ The template file must use the structure shown below:
 ```
 
 The name you give to the application is not important, and you may only define
-[server](services/icegrid/icegrid-xml-reference/server-template-descriptor-element) and
-[service](services/icegrid/icegrid-xml-reference/service-template-descriptor-element) templates within it. After
-configuring the registry to use this file, your default templates become available to every application that imports
-them.
+[server](../icegrid-xml-reference/server-template-descriptor-element) and
+[service](../icegrid-xml-reference/service-template-descriptor-element) templates within it. After configuring the
+registry to use this file, your default templates become available to every application that imports them.
 
 The descriptor for each application indicates whether the default templates should be imported. (By default they are not
 imported.) If the templates are imported, they are essentially copied into the application descriptor and treated no
@@ -186,9 +182,8 @@ determines whether the default templates are imported, as shown in the following
 
 ## Using Templates with `icegridadmin`
 
-The [IceGrid administration tools](services/icegrid/icegridadmin-command-line-tool) allow you to inspect templates and
-instantiate new servers dynamically. First, let us ask `icegridadmin` to describe the server template we created
-[earlier](services/icegrid/icegrid-templates):
+The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you to inspect templates and instantiate new
+servers dynamically. First, let us ask `icegridadmin` to describe the server template we created [earlier](./):
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -236,7 +231,7 @@ potential synchronization issues.
 
 ## See Also
 
-- [Server Descriptor Element](services/icegrid/icegrid-xml-reference/server-descriptor-element)
-- [Server-Template Descriptor Element](services/icegrid/icegrid-xml-reference/server-template-descriptor-element)
-- [Server-Instance Descriptor Element](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element)
-- [icegridadmin Command Line Tool](services/icegrid/icegridadmin-command-line-tool)
+- [Server Descriptor Element](../icegrid-xml-reference/server-descriptor-element)
+- [Server-Template Descriptor Element](../icegrid-xml-reference/server-template-descriptor-element)
+- [Server-Instance Descriptor Element](../icegrid-xml-reference/server-instance-descriptor-element)
+- [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

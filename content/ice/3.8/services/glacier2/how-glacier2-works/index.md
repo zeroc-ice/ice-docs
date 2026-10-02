@@ -7,9 +7,9 @@ service to "intercept" requests on a properly-configured proxy and deliver them 
 implementation of this service, although other implementations are certainly possible.
 
 Glacier2 normally runs on a host in the private network behind a
-[port-forwarding firewall](services/glacier2/configuring-glacier2-behind-an-external-firewall), but it can also operate
-on a host with access to both public and private networks. In this configuration it follows that Glacier2 must have
-endpoints on each network.
+[port-forwarding firewall](../configuring-glacier2-behind-an-external-firewall), but it can also operate on a host with
+access to both public and private networks. In this configuration it follows that Glacier2 must have endpoints on each
+network.
 
 ![A public client at 1.2.3.4 connects to Glacier2 client endpoints at 5.6.7.8. Glacier2 sends requests to the private server at 10.0.0.2. The server sends callbacks to Glacier2 server endpoints at 10.0.0.1.](/images/ice/3.8/how-glacier2-works/client-and-server-endpoints.svg)
 
@@ -35,9 +35,9 @@ to use such a proxy. When configured with a router, however, the client ignores 
 requests to the router's client endpoints instead.
 
 Glacier2's server endpoints, which reside in the private network, are only used when a server makes a
-[callback to a client](services/glacier2/callbacks-through-glacier2).
+[callback to a client](../callbacks-through-glacier2).
 
 ## See Also
 
-- [Callbacks Through Glacier2](services/glacier2/callbacks-through-glacier2)
-- [Configuring Glacier2 Behind an External Firewall](services/glacier2/configuring-glacier2-behind-an-external-firewall)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)
+- [Configuring Glacier2 Behind an External Firewall](../configuring-glacier2-behind-an-external-firewall)

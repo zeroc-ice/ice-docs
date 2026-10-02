@@ -6,10 +6,10 @@ title: Constants and Literals
 
 Slice allows you to define constants for the following types:
 
-- An [integral](slice/basic-types) type (`bool`, `byte`, `short`, `int`, `long`)
-- A [floating point](slice/basic-types) type (`float` or `double`)
-- [string](slice/basic-types)
-- [enum](slice/user-defined-types/enumerations)
+- An [integral](../basic-types) type (`bool`, `byte`, `short`, `int`, `long`)
+- A [floating point](../basic-types) type (`float` or `double`)
+- [string](../basic-types)
+- [enum](../user-defined-types/enumerations)
 
 Here are a few examples:
 
@@ -58,7 +58,7 @@ const long WrongToo = 1000000L; // Syntax error
 ```
 
 The value of an integer literal must be within the range of its constant type, as shown in the
-[Built-In Basic Types table](slice/basic-types); otherwise the compiler will issue a diagnostic.
+[Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
 
 ## Floating-Point Literals
 
@@ -181,7 +181,7 @@ of `SIZE` (`500`) is within the range of the Slice `short` type. However, `BYTE_
 
 ## See Also
 
-- [Enumerations](slice/user-defined-types/enumerations)
-- [Structures](slice/user-defined-types/structures)
-- [Sequences](slice/user-defined-types/sequences)
-- [Dictionaries](slice/user-defined-types/dictionaries)
+- [Enumerations](../user-defined-types/enumerations)
+- [Structures](../user-defined-types/structures)
+- [Sequences](../user-defined-types/sequences)
+- [Dictionaries](../user-defined-types/dictionaries)

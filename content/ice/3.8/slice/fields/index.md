@@ -19,8 +19,8 @@ in:
 struct Point { int x; int y; }
 ```
 
-The type of a field can be a [basic type](slice/basic-types), a [user-defined type](slice/user-defined-types), `Object*`
-(an untyped proxy), or `Value`(an untyped class instance).
+The type of a field can be a [basic type](../basic-types), a [user-defined type](../user-defined-types), `Object*` (an
+untyped proxy), or `Value`(an untyped class instance).
 
 ## Nullable and Non-Nullable Fields
 
@@ -38,9 +38,9 @@ struct Example
 
 ## Optional Fields
 
-A field of a Slice [class](slice/user-defined-types/classes) or [exception](slice/exceptions) may be declared as
-optional to indicate that a program can leave its value unset. Fields not declared as optional are known as _required_
-fields; a program must supply legal values for all required fields.
+A field of a Slice [class](../user-defined-types/classes) or [exception](../exceptions) may be declared as optional to
+indicate that a program can leave its value unset. Fields not declared as optional are known as _required_ fields; a
+program must supply legal values for all required fields.
 
 Each optional field must be assigned a unique, non-negative integer _tag_:
 
@@ -98,11 +98,11 @@ class UnusualButValidPerson
 
 You can specify a default value for a field that has one of the following types:
 
-- An [integral](slice/basic-types) type (`byte`, `short`, `int`, `long`)
-- A [floating point](slice/basic-types) type (`float` or `double`)
-- [string](slice/basic-types)
-- [bool](slice/basic-types)
-- [enum](slice/user-defined-types/enumerations)
+- An [integral](../basic-types) type (`byte`, `short`, `int`, `long`)
+- A [floating point](../basic-types) type (`float` or `double`)
+- [string](../basic-types)
+- [bool](../basic-types)
+- [enum](../user-defined-types/enumerations)
 
 For example:
 
@@ -116,7 +116,7 @@ struct Location
 }
 ```
 
-The legal syntax for literal values is the same as for Slice [constants](slice/constants-and-literals), and you may also
+The legal syntax for literal values is the same as for Slice [constants](../constants-and-literals), and you may also
 use a constant as a default value. The language mapping guarantees that fields are initialized to their declared default
 values using a language-specific mechanism.
 

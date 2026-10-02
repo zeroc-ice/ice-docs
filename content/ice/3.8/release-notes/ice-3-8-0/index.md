@@ -31,8 +31,8 @@ and don’t mind rewriting all your communications code, look at our cutting-edg
 ## Changelog and Upgrade Guide
 
 There is significant overlap between the information in these release notes,
-[CHANGELOG-3.8](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md), and the [Upgrade Guide](upgrade-guide) -
-this is by design.
+[CHANGELOG-3.8](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md), and the
+[Upgrade Guide](../../upgrade-guide) - this is by design.
 
 The changelog is more comprehensive, but also more terse.
 
@@ -46,34 +46,36 @@ version of Ice.
 ### Replaced ACM and Connection Timeouts
 
 The powerful but complex Active Connection Management (ACM) mechanism provided in Ice 3.6 and Ice 3.7 was replaced by
-the much simpler [Idle Timeout mechanism](runtime/connection-management/connection-closure) first introduced in IceRPC.
-In most cases, you don’t need to do anything: remove your ACM config (if any) and just rely on the new default behavior.
+the much simpler [Idle Timeout mechanism](../../runtime/connection-management/connection-closure) first introduced in
+IceRPC. In most cases, you don’t need to do anything: remove your ACM config (if any) and just rely on the new default
+behavior.
 
 {% callout type="warning" %}
 
 Interop with previous versions You need to adjust the ACM properties of your older Ice applications, generally by
-setting `Ice.ACM.Heartbeat` to `3`. Refer to [The Idle Check](runtime/connection-management/connection-closure) for
-details.
+setting `Ice.ACM.Heartbeat` to `3`. Refer to [The Idle Check](../../runtime/connection-management/connection-closure)
+for details.
 
 {% /callout %}
 
 The new Idle Timeout also replaces connection timeouts (the `-t <timeout>` in your proxy and object adapter endpoints).
 These connection timeouts are still accepted in endpoints for backwards compatibility but no longer have any effect.
 
-We also added 3 new connection-related timeouts, for [inactivity](runtime/connection-management/connection-closure),
-[connection establishment](runtime/connection-management/connection-establishment), and
-[graceful closure](runtime/connection-management/connection-closure).
+We also added 3 new connection-related timeouts, for
+[inactivity](../../runtime/connection-management/connection-closure),
+[connection establishment](../../runtime/connection-management/connection-establishment), and
+[graceful closure](../../runtime/connection-management/connection-closure).
 
 ### New Properties for Flow Control
 
 As of Ice 3.8, we do not recommend using thread pool limits (starvation) for flow control. It’s acceptable for a thread
 pool to be out of threads for a short period of time, but generally, you always want to have at least one thread
-available in each of your Ice [thread pools](runtime/threading-model/thread-pools).
+available in each of your Ice [thread pools](../../runtime/threading-model/thread-pools).
 
-Ice provides new [Ice.Connection.name.MaxDispatches](property-reference/ice-connection-properties) properties that
+Ice provides new [Ice.Connection.name.MaxDispatches](../../property-reference/ice-connection-properties) properties that
 allows the “dispatch side” of a connection to apply back pressure on the peer. For complete flow-control, you want to
-combine `MaxDispatches` with the new [adapter.MaxConnections](property-reference/object-adapter-properties) property
-that allows an object adapter to limit the number of concurrent connections it accepts.
+combine `MaxDispatches` with the new [adapter.MaxConnections](../../property-reference/object-adapter-properties)
+property that allows an object adapter to limit the number of concurrent connections it accepts.
 
 ### Reworked the Published Endpoints of Object Adapters
 
@@ -87,10 +89,10 @@ equivalent `tcp -h *`). The work-around was to specify a specific address in you
 `tcp -h 1.2.3.4`, or `tcp -h myhost.domain`) which is problematic since you typically don’t want to tie your
 configuration to a specific host.
 
-In Ice 3.8, the [default published endpoints](runtime/dispatch/object-adapter-endpoints) are much simpler, and rely on
-the server’s hostname. Additionally, you can override this hostname with the property
-[adapter.PublishedHost](property-reference/object-adapter-properties). As of Ice 3.8, our general recommendation for
-your object adapter endpoints is to keep it very simple:
+In Ice 3.8, the [default published endpoints](../../runtime/dispatch/object-adapter-endpoints) are much simpler, and
+rely on the server’s hostname. Additionally, you can override this hostname with the property
+[adapter.PublishedHost](../../property-reference/object-adapter-properties). As of Ice 3.8, our general recommendation
+for your object adapter endpoints is to keep it very simple:
 
 - configure a single endpoint (not several endpoints despite the property name)
 - don’t use a DNS name for this endpoint
@@ -187,8 +189,8 @@ These APIs are platform-dependent. A good starting point is the `Ice/secure`
 
 When Ice unmarshals a Slice-defined class or exception, it first needs to locate and create an instance of the mapped
 C++/C#/Java (...) class, using the default parameter-less constructor of the mapped class. The new abstraction for this
-process is the [Slice loader](slice/user-defined-types/classes/slice-loaders), configured using the `sliceLoader` field
-on [InitializationData](https://code.zeroc.com/manual/Ice/InitializationData). This abstraction replaces the
+process is the [Slice loader](../../slice/user-defined-types/classes/slice-loaders), configured using the `sliceLoader`
+field on [InitializationData](https://code.zeroc.com/manual/Ice/InitializationData). This abstraction replaces the
 `ValueFactory` and `ValueFactoryManager` APIs provided by Ice 3.7 and earlier releases.
 
 In most languages, generated classes for Slice classes and exceptions register themselves at startup with a default
@@ -405,7 +407,7 @@ interface - and now you have two C++ skeleton classes to choose from: the defaul
 interface, and the async skeleton class, with the Async prefix.
 
 The async skeleton class is an “all AMD” abstract base class. See
-[Asynchronous Method Dispatch (AMD) in C++](slice/operations?lang=cpp#asynchronous-method-dispatch-amd) for more
+[Asynchronous Method Dispatch (AMD) in C++](../../slice/operations?lang=cpp#asynchronous-method-dispatch-amd) for more
 details.
 
 ### Printing Generated Classes
@@ -458,7 +460,7 @@ interface - and now you have two C# skeleton classes to choose from: the default
 interface, and the async skeleton class, with the Async prefix.
 
 The async skeleton class is an “all AMD” abstract base class. See
-[Asynchronous Method Dispatch (AMD) in C#](slice/operations?lang=csharp#asynchronous-method-dispatch-amd) for more
+[Asynchronous Method Dispatch (AMD) in C#](../../slice/operations?lang=csharp#asynchronous-method-dispatch-amd) for more
 details.
 
 ## Java Changes
@@ -474,7 +476,7 @@ interface - and now you have two Java skeleton interfaces to choose from: the de
 the Slice interface, and the async skeleton interface, with the Async prefix.
 
 The async skeleton interface is an “all AMD” Java interface. See
-[Asynchronous Method Dispatch (AMD) in Java](slice/operations?lang=java#asynchronous-method-dispatch-amd) for more
+[Asynchronous Method Dispatch (AMD) in Java](../../slice/operations?lang=java#asynchronous-method-dispatch-amd) for more
 details.
 
 ## JavaScript Changes
@@ -535,7 +537,7 @@ previous mapping (cell array of char).
 ### Mapping for Dictionaries
 
 A Slice dictionary now always maps to a MATLAB dictionary; the old `containers.Map` are no longer used. See
-[Dictionaries](slice/user-defined-types/dictionaries) for details.
+[Dictionaries](../../slice/user-defined-types/dictionaries) for details.
 
 ### Mapping for Fields
 
@@ -748,7 +750,7 @@ features were removed as a consequence:
 We also removed the Glacier2 helper classes, as they were not that helpful.
 
 Finally, we removed the session timeouts configured using `Glacier2.SessionTimeout`. The Glacier2 router now relies on
-the [Idle Timeout](runtime/connection-management/connection-closure) for these connection-bound sessions.
+the [Idle Timeout](../../runtime/connection-management/connection-closure) for these connection-bound sessions.
 
 ### IceGrid
 
@@ -756,7 +758,8 @@ We removed the deprecated server and application distributions in IceGrid. These
 service.
 
 We also removed the client and admin-client session timeouts configured using `IceGrid.Registry.SessionTimeout`. IceGrid
-now relies on the [Idle Timeout](runtime/connection-management/connection-closure) for these connection-bound sessions.
+now relies on the [Idle Timeout](../../runtime/connection-management/connection-closure) for these connection-bound
+sessions.
 
 ### IcePatch2
 

@@ -19,5 +19,5 @@ Our weather station implementation takes the following steps:
 
 ## See Also
 
-- [Using IceStorm](services/icestorm/using-icestorm)
-- [Oneway Invocations](runtime/invocation/invocation-mode/oneway-invocations)
+- [Using IceStorm](..)
+- [Oneway Invocations](../../../../runtime/invocation/invocation-mode/oneway-invocations)

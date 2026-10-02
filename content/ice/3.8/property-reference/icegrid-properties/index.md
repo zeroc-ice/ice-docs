@@ -11,8 +11,8 @@ title: IceGrid.*
 ### Description {% id="icegrid.instancename-description" %}
 
 Specifies an alternate identity category for the
-[well-known IceGrid objects](services/icegrid/icegrid-server-reference/well-known-registry-objects). If defined, the
-IceGrid objects use `name` as their identity category, for example:
+[well-known IceGrid objects](../../services/icegrid/icegrid-server-reference/well-known-registry-objects). If defined,
+the IceGrid objects use `name` as their identity category, for example:
 
 `name/AdminSessionManager` `name/AdminSessionManager-replica` `name/AdminSSLSessionManager`
 `name/AdminSSLSessionManager-replica` `name/NullPermissionsVerifier` `name/NullSSLPermissionsVerifier` `name/Locator`
@@ -38,8 +38,7 @@ specify it indirectly with `Ice.Default.Locator`.
 ### Description {% id="icegrid.node.adapterproperty-description" %}
 
 An IceGrid node uses the adapter name `IceGrid.Node` for the object adapter that the registry contacts to communicate
-with the node. Therefore, [adapter properties](property-reference/object-adapter-properties) can be used to configure
-this adapter.
+with the node. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter.
 
 ## IceGrid.Node.AllowEndpointsOverride
 
@@ -71,7 +70,7 @@ The default value of `num` is zero.
 
 ### Description {% id="icegrid.node.collocateregistry-description" %}
 
-If `num` is set to a value larger than zero, the [node](services/icegrid/icegrid-server-reference/icegridnode)
+If `num` is set to a value larger than zero, the [node](../../services/icegrid/icegrid-server-reference/icegridnode)
 collocates the IceGrid registry.
 
 The collocated registry is configured with the same properties as the standalone IceGrid registry.
@@ -84,10 +83,10 @@ The collocated registry is configured with the same properties as the standalone
 
 ### Description {% id="icegrid.node.data-description" %}
 
-Defines the path of the IceGrid node [data directory](services/icegrid/icegrid-server-reference/icegridnode). This
+Defines the path of the IceGrid node [data directory](../../services/icegrid/icegrid-server-reference/icegridnode). This
 property must be defined for each node, and the directory must already exist. The node creates a `servers` subdirectory
 in this directory if it does not already exist; `servers` contains the configuration files and data directory of each
-[deployed server](services/icegrid/using-icegrid-deployment).
+[deployed server](../../services/icegrid/using-icegrid-deployment).
 
 ## IceGrid.Node.DisableOnFailure
 
@@ -99,7 +98,7 @@ in this directory if it does not already exist; `servers` contains the configura
 
 The node considers a server to have terminated improperly if it has a non-zero exit code or if it exits due to one of
 the signals `SIGABRT`, `SIGBUS`, `SIGILL`, `SIGFPE`, or `SIGSEGV`. The node marks such a server as disabled if `num` is
-a non-zero value; a [disabled server](services/icegrid/icegrid-troubleshooting) cannot be activated on demand. For
+a non-zero value; a [disabled server](../../services/icegrid/icegrid-troubleshooting) cannot be activated on demand. For
 values of `num` greater than zero, the server is disabled for `num` seconds. If `num` is a negative value, the server is
 disabled indefinitely, or until it is explicitly enabled or started via an administrative action. The default value is
 zero, meaning the node does not disable servers in this situation.
@@ -125,10 +124,9 @@ be defined for each node.
 
 Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` of each server it starts
 to `path/server-id.out` and its `stderr` to `path/server-id.err`, where `server-id` is the server's ID. A server whose
-own configuration sets [Ice.StdOut](property-reference/ice-properties) or
-[Ice.StdErr](property-reference/ice-properties) keeps that setting. With
-[IceGrid.Node.RedirectErrToOut](property-reference/icegrid-properties#icegrid.node.redirecterrtoout) set, `stderr` goes
-to the `.out` file too. If this property is not set, the servers share the `stdout` and `stderr` of the node's process.
+own configuration sets [Ice.StdOut](../ice-properties) or [Ice.StdErr](../ice-properties) keeps that setting. With
+[IceGrid.Node.RedirectErrToOut](./#icegrid.node.redirecterrtoout) set, `stderr` goes to the `.out` file too. If this
+property is not set, the servers share the `stdout` and `stderr` of the node's process.
 
 ## IceGrid.Node.PrintServersReady
 
@@ -150,10 +148,10 @@ useful for scripts that wish to wait until all servers have been started and are
 ### Description {% id="icegrid.node.processorsocketcount-description" %}
 
 This property sets the number of processor sockets. This value is reported by the
-[icegridadmin](services/icegrid/icegridadmin-command-line-tool) `node sockets` command. On Windows Vista (or later),
-Windows Server 2008 (or later), and Linux systems, the number of processor sockets is set automatically by the Ice run
-time. On other systems, the run time cannot obtain the socket count from the operating system; you can use this property
-to set the number of processor sockets manually on such systems.
+[icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) `node sockets` command. On Windows Vista (or
+later), Windows Server 2008 (or later), and Linux systems, the number of processor sockets is set automatically by the
+Ice run time. On other systems, the run time cannot obtain the socket count from the operating system; you can use this
+property to set the number of processor sockets manually on such systems.
 
 ## IceGrid.Node.PropertiesOverride
 
@@ -164,8 +162,8 @@ to set the number of processor sockets manually on such systems.
 ### Description {% id="icegrid.node.propertiesoverride-description" %}
 
 Defines a list of properties that override the properties defined in server deployment descriptors. For example, in some
-cases it is desirable to set the property [Ice.Default.Host](property-reference/ice-default-properties) for servers, but
-not in server deployment descriptors. The property definitions must be separated by white space.
+cases it is desirable to set the property [Ice.Default.Host](../ice-default-properties) for servers, but not in server
+deployment descriptors. The property definitions must be separated by white space.
 
 ## IceGrid.Node.RedirectErrToOut
 
@@ -177,7 +175,7 @@ not in server deployment descriptors. The property definitions must be separated
 
 If `num` is set to a value larger than zero, the node redirects the `stderr` of each server it starts to the server's
 `.out` file instead of its `.err` file. This property takes effect only when
-[IceGrid.Node.Output](property-reference/icegrid-properties#icegrid.node.output) is set.
+[IceGrid.Node.Output](./#icegrid.node.output) is set.
 
 ## IceGrid.Node.Trace.Activator
 
@@ -269,12 +267,11 @@ Sets the node's trace level for server configuration updates and state changes:
 ### Description {% id="icegrid.node.useraccountmapper-description" %}
 
 Specifies the proxy of an object that implements the `IceGrid::UserAccountMapper` interface for
-[customizing](services/icegrid/icegrid-server-activation) the user accounts under which servers are activated. The
+[customizing](../../services/icegrid/icegrid-server-activation) the user accounts under which servers are activated. The
 IceGrid node invokes this proxy to map session identifiers (the user ID for sessions created with a user ID and
 password, or the distinguished name for sessions created from a secure connection) to user accounts.
 
-As a proxy property, you can configure additional [aspects of the proxy](property-reference/proxy-properties) using
-properties.
+As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
 ## IceGrid.Node.UserAccounts
 
@@ -289,8 +286,8 @@ space, and an identifier; the identifier is the rest of the line and may contain
 runs to the end of the line. The identifier is matched against the client session identifier (the user ID for sessions
 created with a user ID and password, or the distinguished name for sessions created from a secure connection). This user
 account map file is used by the node to
-[map session identifiers to user accounts](services/icegrid/icegrid-server-activation). This property is ignored if
-IceGrid.Node.UserAccountMapper is defined.
+[map session identifiers to user accounts](../../services/icegrid/icegrid-server-activation). This property is ignored
+if IceGrid.Node.UserAccountMapper is defined.
 
 ## IceGrid.Node.WaitTime
 
@@ -301,7 +298,7 @@ IceGrid.Node.UserAccountMapper is defined.
 ### Description {% id="icegrid.node.waittime-description" %}
 
 Defines the interval in seconds that IceGrid waits for
-[server activation and deactivation](services/icegrid/icegrid-server-activation).
+[server activation and deactivation](../../services/icegrid/icegrid-server-activation).
 
 If a server is automatically activated and does not register its object adapter endpoints within this time interval, the
 node assumes there is a problem with the server and returns an empty set of endpoints to the client.
@@ -323,13 +320,10 @@ The default value is 60 seconds.
 ### Description {% id="icegrid.registry.admincryptpasswords-description" %}
 
 Specifies the file name of an IceGrid registry
-[access control list for administrative clients](services/icegrid/resource-allocation-using-icegrid-sessions). The file
-uses the format described in
-[IceGrid.Registry.CryptPasswords](property-reference/icegrid-properties#icegrid.registry.cryptpasswords). This property
-is ignored if
-[IceGrid.Registry.AdminPermissionsVerifier](property-reference/icegrid-properties#icegrid.registry.adminpermissionsverifier)
-is defined. When neither property is defined, the registry rejects administrative sessions created with a user name and
-password.
+[access control list for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The
+file uses the format described in [IceGrid.Registry.CryptPasswords](./#icegrid.registry.cryptpasswords). This property
+is ignored if [IceGrid.Registry.AdminPermissionsVerifier](./#icegrid.registry.adminpermissionsverifier) is defined. When
+neither property is defined, the registry rejects administrative sessions created with a user name and password.
 
 ## IceGrid.Registry.AdminPermissionsVerifier
 
@@ -340,12 +334,11 @@ password.
 ### Description {% id="icegrid.registry.adminpermissionsverifier-description" %}
 
 Specifies the proxy of an object that implements the `Glacier2::PermissionsVerifier` interface for
-[controlling access to IceGrid administrative sessions](services/icegrid/icegrid-administrative-sessions). The IceGrid
-registry invokes this proxy to validate each new administrative session created by a client with the `IceGrid::Registry`
-interface.
+[controlling access to IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions). The
+IceGrid registry invokes this proxy to validate each new administrative session created by a client with the
+`IceGrid::Registry` interface.
 
-As a proxy property, you can configure additional [aspects of the proxy](property-reference/proxy-properties) using
-properties.
+As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
 ## IceGrid.Registry.AdminSessionFilters
 
@@ -355,11 +348,11 @@ properties.
 
 ### Description {% id="icegrid.registry.adminsessionfilters-description" %}
 
-When a client creates an administrative session through a [Glacier2](services/glacier2) router, using the
-[IceGrid session manager](services/icegrid/glacier2-integration-with-icegrid), this property controls whether IceGrid
-restricts the objects the client can reach through the router. If `num` is set to a value larger than zero, IceGrid
-configures [Glacier2's filters](services/glacier2/securing-a-glacier2-router) for the session to allow only the
-`IceGrid::AdminSession` object, the `IceGrid::Admin` object that is returned by the `getAdmin` operation, the
+When a client creates an administrative session through a [Glacier2](../../services/glacier2) router, using the
+[IceGrid session manager](../../services/icegrid/glacier2-integration-with-icegrid), this property controls whether
+IceGrid restricts the objects the client can reach through the router. If `num` is set to a value larger than zero,
+IceGrid configures [Glacier2's filters](../../services/glacier2/securing-a-glacier2-router) for the session to allow
+only the `IceGrid::AdminSession` object, the `IceGrid::Admin` object that is returned by the `getAdmin` operation, the
 `IceGrid::Query` object, and the server admin objects returned by `IceGrid::Admin::getServerAdmin`. If `num` is set to
 zero, IceGrid configures no filters, and access to objects is controlled solely by Glacier2's configuration.
 
@@ -374,10 +367,9 @@ The default value is `0`.
 ### Description {% id="icegrid.registry.adminsessionmanager.adapterproperty-description" %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.AdminSessionManager` for the object adapter that processes
-incoming requests from [IceGrid administrative sessions](services/icegrid/icegrid-administrative-sessions). Therefore,
-[adapter properties](property-reference/object-adapter-properties) can be used to configure this adapter. (Note any
-setting of `IceGrid.Registry.AdminSessionManager.AdapterId` is ignored because the registry always provides a direct
-adapter.)
+incoming requests from [IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions).
+Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any setting
+of `IceGrid.Registry.AdminSessionManager.AdapterId` is ignored because the registry always provides a direct adapter.)
 
 For security reasons, defining endpoints for this object adapter is optional. If you do define endpoints, they should
 only be accessible to Glacier2 routers used to create IceGrid administrative sessions.
@@ -391,12 +383,11 @@ only be accessible to Glacier2 routers used to create IceGrid administrative ses
 ### Description {% id="icegrid.registry.adminsslpermissionsverifier-description" %}
 
 Specifies the proxy of an object that implements the `Glacier2::SSLPermissionsVerifier` interface for
-[controlling access to IceGrid administrative sessions](services/icegrid/icegrid-administrative-sessions). The IceGrid
-registry invokes this proxy to validate each new administrative session created by a client from a secure connection
-with the `IceGrid::Registry` interface.
+[controlling access to IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions). The
+IceGrid registry invokes this proxy to validate each new administrative session created by a client from a secure
+connection with the `IceGrid::Registry` interface.
 
-As a proxy property, you can configure additional [aspects of the proxy](property-reference/proxy-properties) using the
-properties.
+As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using the properties.
 
 ## IceGrid.Registry.Client._AdapterProperty_
 
@@ -407,12 +398,11 @@ properties.
 ### Description {% id="icegrid.registry.client.adapterproperty-description" %}
 
 IceGrid uses the adapter name `IceGrid.Registry.Client` for the object adapter that processes incoming requests from
-clients. Therefore, [adapter properties](property-reference/object-adapter-properties) can be used to configure this
-adapter. (Note any setting of `IceGrid.Registry.Client.AdapterId` is ignored because the registry always provides a
-direct adapter.)
+clients. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any
+setting of `IceGrid.Registry.Client.AdapterId` is ignored because the registry always provides a direct adapter.)
 
-Note that [IceGrid.Registry.Client.Endpoints](property-reference/object-adapter-properties) controls the client endpoint
-for the registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for the registry by the
+Note that [IceGrid.Registry.Client.Endpoints](../object-adapter-properties) controls the client endpoint for the
+registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for the registry by the
 [Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
 
 ## IceGrid.Registry.CryptPasswords
@@ -424,13 +414,12 @@ for the registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserve
 ### Description {% id="icegrid.registry.cryptpasswords-description" %}
 
 Specifies the file name of an IceGrid registry
-[access control list](services/icegrid/resource-allocation-using-icegrid-sessions). Each line of the file contains a
-user name and a password hash, separated by white space. The supported hash formats depend on the platform; see
-[Writing a Password File](services/glacier2/getting-started-with-glacier2).
+[access control list](../../services/icegrid/resource-allocation-using-icegrid-sessions). Each line of the file contains
+a user name and a password hash, separated by white space. The supported hash formats depend on the platform; see
+[Writing a Password File](../../services/glacier2/getting-started-with-glacier2).
 
-This property is ignored if
-[IceGrid.Registry.PermissionsVerifier](property-reference/icegrid-properties#icegrid.registry.permissionsverifier) is
-defined. When neither property is defined, the registry rejects sessions created with a user name and password.
+This property is ignored if [IceGrid.Registry.PermissionsVerifier](./#icegrid.registry.permissionsverifier) is defined.
+When neither property is defined, the registry rejects sessions created with a user name and password.
 
 ## IceGrid.Registry.DefaultTemplates
 
@@ -440,9 +429,9 @@ defined. When neither property is defined, the registry rejects sessions created
 
 ### Description {% id="icegrid.registry.defaulttemplates-description" %}
 
-Defines the path name of an XML file containing default [template descriptors](services/icegrid/icegrid-templates). A
-sample file named `config/templates.xml` that contains convenient server templates for Ice services is provided in the
-Ice distribution.
+Defines the path name of an XML file containing default
+[template descriptors](../../services/icegrid/icegrid-templates). A sample file named `config/templates.xml` that
+contains convenient server templates for Ice services is provided in the Ice distribution.
 
 When this property is not set, the registry has no default templates.
 
@@ -455,7 +444,7 @@ When this property is not set, the registry has no default templates.
 ### Description {% id="icegrid.registry.discovery.adapterproperty-description" %}
 
 The IceGrid registry creates an object adapter named `IceGrid.Registry.Discovery` for receiving
-[multicast discovery queries](plugins/icelocatordiscovery) from clients. If not otherwise defined by
+[multicast discovery queries](../../plugins/icelocatordiscovery) from clients. If not otherwise defined by
 `IceGrid.Registry.Discovery.Endpoints`, the endpoint for this object adapter is composed as follows:
 
 `udp -h addr -p port [--interface intf]`
@@ -463,7 +452,7 @@ The IceGrid registry creates an object adapter named `IceGrid.Registry.Discovery
 where `addr` is the value of `IceGrid.Registry.Discovery.Address`, `port` is the value of
 `IceGrid.Registry.Discovery.Port`, and `intf` is the value of `IceGrid.Registry.Discovery.Interface`.
 
-You don't normally need to set [other properties](property-reference/object-adapter-properties) for this object adapter.
+You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
 
 ## IceGrid.Registry.Discovery.Address
 
@@ -474,9 +463,8 @@ You don't normally need to set [other properties](property-reference/object-adap
 ### Description {% id="icegrid.registry.discovery.address-description" %}
 
 Specifies the multicast IP address to use for receiving multicast discovery queries. The default value is `239.255.0.1`;
-it is `ff15::1` when [Ice.IPv4](property-reference/ice-properties) is disabled or
-[Ice.PreferIPv6Address](property-reference/ice-properties) is enabled. This property is used to compose the endpoint of
-the IceGrid.Registry.Discovery object adapter.
+it is `ff15::1` when [Ice.IPv4](../ice-properties) is disabled or [Ice.PreferIPv6Address](../ice-properties) is enabled.
+This property is used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
 
 ## IceGrid.Registry.Discovery.Enabled
 
@@ -487,8 +475,8 @@ the IceGrid.Registry.Discovery object adapter.
 ### Description {% id="icegrid.registry.discovery.enabled-description" %}
 
 If `num` is a value larger than zero, the registry creates the IceGrid.Registry.Discovery object adapter and listens for
-[multicast discovery queries](plugins/icelocatordiscovery). If not defined, the default value is `1`. Set this property
-to zero to disable multicast discovery.
+[multicast discovery queries](../../plugins/icelocatordiscovery). If not defined, the default value is `1`. Set this
+property to zero to disable multicast discovery.
 
 ## IceGrid.Registry.Discovery.Interface
 
@@ -525,11 +513,11 @@ If `num` is set to a value larger than zero, the locator registry does not requi
 adapters and replica groups, but rather creates them automatically if they do not exist. If this property is not
 defined, or `num` is set to zero, an attempt to register an unknown object adapter or replica group causes adapter
 activation to fail with `Ice.NotRegisteredException`. An object adapter registers itself when the
-[_adapter_.AdapterId](property-reference/object-adapter-properties) property is defined. The
-[_adapter_.ReplicaGroupId](property-reference/object-adapter-properties) property identifies the replica group. An
-adapter registered with dynamic registration can only be a member of a replica group also registered with dynamic
-registration. Trying to dynamically register an adapter with a replica group registered with the
-[deployment facility](services/icegrid/using-icegrid-deployment) will fail with `Ice.NotRegisteredException`.
+[_adapter_.AdapterId](../object-adapter-properties) property is defined. The
+[_adapter_.ReplicaGroupId](../object-adapter-properties) property identifies the replica group. An adapter registered
+with dynamic registration can only be a member of a replica group also registered with dynamic registration. Trying to
+dynamically register an adapter with a replica group registered with the
+[deployment facility](../../services/icegrid/using-icegrid-deployment) will fail with `Ice.NotRegisteredException`.
 
 ## IceGrid.Registry.Internal._AdapterProperty_
 
@@ -540,9 +528,9 @@ registration. Trying to dynamically register an adapter with a replica group reg
 ### Description {% id="icegrid.registry.internal.adapterproperty-description" %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Internal` for the object adapter that processes incoming
-requests from nodes and slave replicas. Therefore, [adapter properties](property-reference/object-adapter-properties)
-can be used to configure this adapter. (Note any setting of `IceGrid.Registry.Internal.AdapterId` is ignored because the
-registry always provides a direct adapter.)
+requests from nodes and slave replicas. Therefore, [adapter properties](../object-adapter-properties) can be used to
+configure this adapter. (Note any setting of `IceGrid.Registry.Internal.AdapterId` is ignored because the registry
+always provides a direct adapter.)
 
 ## IceGrid.Registry.LMDB.MapSize
 
@@ -564,7 +552,7 @@ megabytes. If not set, IceGrid uses a system-dependent default: 10 MB on Windows
 ### Description {% id="icegrid.registry.lmdb.path-description" %}
 
 Specifies the path of the directory where the IceGrid registry keeps its
-[persistent data](services/icegrid/icegrid-server-reference/icegrid-persistent-data), stored in an
+[persistent data](../../services/icegrid/icegrid-server-reference/icegrid-persistent-data), stored in an
 [LMDB](http://www.lmdb.tech/doc/) database environment: the deployed applications, and the well-known objects and object
 adapter endpoints registered at run time. This property must be defined, and the directory specified in `path` must
 exist: the IceGrid registry does not create this directory.
@@ -592,12 +580,11 @@ A value of `0` disables the expiration of node sessions; any other value must be
 ### Description {% id="icegrid.registry.permissionsverifier-description" %}
 
 Specifies the proxy of an object that implements the `Glacier2::PermissionsVerifier` interface for
-[controlling access to IceGrid sessions](services/icegrid/resource-allocation-using-icegrid-sessions). The IceGrid
+[controlling access to IceGrid sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). The IceGrid
 registry invokes this proxy to validate each new client session created by a client with the `IceGrid::Registry`
 interface.
 
-As a proxy property, you can configure additional [aspects of the proxy](property-reference/proxy-properties) using
-properties.
+As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
 ## IceGrid.Registry.ReplicaName
 
@@ -607,8 +594,8 @@ properties.
 
 ### Description {% id="icegrid.registry.replicaname-description" %}
 
-Specifies the name of a [registry replica](services/icegrid/registry-replication). If not defined, the default value is
-`Master`, which is the name reserved for the master replica. Each registry replica must have a unique name.
+Specifies the name of a [registry replica](../../services/icegrid/registry-replication). If not defined, the default
+value is `Master`, which is the name reserved for the master replica. Each registry replica must have a unique name.
 
 ## IceGrid.Registry.ReplicaSessionTimeout
 
@@ -618,10 +605,10 @@ Specifies the name of a [registry replica](services/icegrid/registry-replication
 
 ### Description {% id="icegrid.registry.replicasessiontimeout-description" %}
 
-Each IceGrid [registry replica](services/icegrid/registry-replication) establishes a session with the master registry
-that must be refreshed periodically. If a replica does not refresh its session within `num` seconds, the replica's
-session is destroyed and the replica no longer receives replication information from the master registry. If not
-specified, the default value is 30 seconds.
+Each IceGrid [registry replica](../../services/icegrid/registry-replication) establishes a session with the master
+registry that must be refreshed periodically. If a replica does not refresh its session within `num` seconds, the
+replica's session is destroyed and the replica no longer receives replication information from the master registry. If
+not specified, the default value is 30 seconds.
 
 A value of `0` disables the expiration of replica sessions; any other value must be at least `10`.
 
@@ -634,9 +621,9 @@ A value of `0` disables the expiration of replica sessions; any other value must
 ### Description {% id="icegrid.registry.server.adapterproperty-description" %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Server` for the object adapter that processes incoming
-requests from servers. Therefore, [adapter properties](property-reference/object-adapter-properties) can be used to
-configure this adapter. (Note any setting of `IceGrid.Registry.Server.AdapterId` is ignored because the registry always
-provides a direct adapter.)
+requests from servers. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this
+adapter. (Note any setting of `IceGrid.Registry.Server.AdapterId` is ignored because the registry always provides a
+direct adapter.)
 
 ## IceGrid.Registry.SessionFilters
 
@@ -647,8 +634,8 @@ provides a direct adapter.)
 ### Description {% id="icegrid.registry.sessionfilters-description" %}
 
 This property controls whether IceGrid establishes filters for sessions created with the
-[IceGrid session manager](services/icegrid/glacier2-integration-with-icegrid). If `num` is set to a value larger than
-zero, IceGrid establishes these filters, so Glacier2 limits access to the `IceGrid::Query` and `IceGrid::Session`
+[IceGrid session manager](../../services/icegrid/glacier2-integration-with-icegrid). If `num` is set to a value larger
+than zero, IceGrid establishes these filters, so Glacier2 limits access to the `IceGrid::Query` and `IceGrid::Session`
 objects, and to objects and adapters allocated by the session. If `num` is set to zero, IceGrid does not establish
 filters, so access to objects is controlled solely by Glacier2's configuration.
 
@@ -663,10 +650,9 @@ The default value is `0`.
 ### Description {% id="icegrid.registry.sessionmanager.adapterproperty-description" %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.SessionManager` for the object adapter that processes
-incoming requests from [client sessions](services/icegrid/resource-allocation-using-icegrid-sessions). Therefore,
-[adapter properties](property-reference/object-adapter-properties) can be used to configure this adapter. (Note any
-setting of `IceGrid.Registry.SessionManager.AdapterId` is ignored because the registry always provides a direct
-adapter.)
+incoming requests from [client sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). Therefore,
+[adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any setting of
+`IceGrid.Registry.SessionManager.AdapterId` is ignored because the registry always provides a direct adapter.)
 
 For security reasons, defining endpoints for this object adapter is optional. If you do define endpoints, they should
 only be accessible to Glacier2 routers used to create IceGrid client sessions.
@@ -680,12 +666,11 @@ only be accessible to Glacier2 routers used to create IceGrid client sessions.
 ### Description {% id="icegrid.registry.sslpermissionsverifier-description" %}
 
 Specifies the proxy of an object that implements the `Glacier2::SSLPermissionsVerifier` interface for
-[controlling access to IceGrid sessions](services/icegrid/resource-allocation-using-icegrid-sessions). The IceGrid
+[controlling access to IceGrid sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). The IceGrid
 registry invokes this proxy to validate each new client session created by a client from a secure connection with the
 `IceGrid::Registry` interface.
 
-As a proxy property, you can configure additional [aspects of the proxy](property-reference/proxy-properties) using
-properties.
+As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
 ## IceGrid.Registry.Trace.Adapter
 
@@ -852,8 +837,7 @@ The session trace level:
 ### Description {% id="icegrid.registry.useraccounts-description" %}
 
 Specifies the file name of an IceGrid registry user account map file. The file uses the format described in
-[IceGrid.Node.UserAccounts](property-reference/icegrid-properties#icegrid.node.useraccounts). The identifier is matched
-against the client session identifier (the user ID for sessions created with a user ID and password, or the
-distinguished name for sessions created from a secure connection). This user account map file is used by IceGrid nodes
-to map session identifiers to user accounts if the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy
-`IceGrid/RegistryUserAccountMapper`.
+[IceGrid.Node.UserAccounts](./#icegrid.node.useraccounts). The identifier is matched against the client session
+identifier (the user ID for sessions created with a user ID and password, or the distinguished name for sessions created
+from a secure connection). This user account map file is used by IceGrid nodes to map session identifiers to user
+accounts if the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy `IceGrid/RegistryUserAccountMapper`.

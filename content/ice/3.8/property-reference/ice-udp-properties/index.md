@@ -21,8 +21,7 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 ### Description {% id="ice.udp.rcvsize-description" %}
 
 This property sets the UDP receive buffer size to the specified value in bytes. Ice discards an incoming datagram larger
-than the receive buffer size minus 28 bytes, and logs a warning if
-[Ice.Warn.Datagrams](property-reference/ice-warn-properties) is set.
+than the receive buffer size minus 28 bytes, and logs a warning if [Ice.Warn.Datagrams](../ice-warn-properties) is set.
 
 The OS may impose lower and upper limits on the receive buffer size or otherwise adjust the buffer size. If a limit is
 requested that is lower than the OS-imposed minimum, the value is silently adjusted to the OS-imposed minimum. If a

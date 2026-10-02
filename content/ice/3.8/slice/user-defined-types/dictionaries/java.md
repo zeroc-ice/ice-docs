@@ -44,6 +44,6 @@ Note that extra care must be taken when defining dictionary types that contain n
 dictionary whose element type is a custom sequence. The Java compiler strictly enforces type safety, therefore any
 compatibility issues in the custom type metadata will be apparent when the generated code is compiled.
 
-Refer to the [Sequences](slice/user-defined-types/sequences) for more information about `java:type`.
+Refer to the [Sequences](../sequences) for more information about `java:type`.
 
 {% /language-section %}

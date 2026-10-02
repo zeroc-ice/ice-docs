@@ -13,8 +13,8 @@ title: Ice.*
 ### Description {% id="ice.backgroundlocatorcacheupdates-description" %}
 
 If `num` is set to 0 (the default), an invocation on an indirect proxy whose endpoints are older than the configured
-[locator cache](runtime/locators/locator-semantics-for-clients) timeout triggers a locator cache update; the run time
-delays the invocation until the new endpoints are returned by the locator.
+[locator cache](../../runtime/locators/locator-semantics-for-clients) timeout triggers a locator cache update; the run
+time delays the invocation until the new endpoints are returned by the locator.
 
 If `num` is set to a value larger than 0, an invocation on an indirect proxy with expired endpoints still triggers a
 locator cache update, but the update is performed in the background, and the run time uses the expired endpoints for the
@@ -29,24 +29,23 @@ invocation. This avoids delaying the first invocation that follows expiry of a c
 ### Description {% id="ice.batchautoflushsize-description" %}
 
 This property controls how the Ice runtime deals with flushing of
-[batch messages](runtime/invocation/invocation-mode/batched-invocations). If `num` is greater than `0`, the runtime
-automatically forces a flush of the current batch when a new message is added to a batch and that message would cause
-the batch to reach or exceed `num` KiB (1024 bytes per KiB). For stream transports, `0` disables automatic flushing: the
-application must flush batches explicitly. If not defined, the default value is `1024`.
+[batch messages](../../runtime/invocation/invocation-mode/batched-invocations). If `num` is greater than `0`, the
+runtime automatically forces a flush of the current batch when a new message is added to a batch and that message would
+cause the batch to reach or exceed `num` KiB (1024 bytes per KiB). For stream transports, `0` disables automatic
+flushing: the application must flush batches explicitly. If not defined, the default value is `1024`.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-For datagram proxies, Ice caps the flush threshold at [Ice.UDP.SndSize](property-reference/ice-udp-properties) bytes, or
-65507 bytes when that property is not set, including when `num` is `0`.
+For datagram proxies, Ice caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties) bytes, or 65507 bytes
+when that property is not set, including when `num` is `0`.
 
 {% /iflang %}
 
 {% callout type="warning" %}
 
 When flushed, batch requests are sent as a single Ice message. The Ice runtime in the receiver limits incoming messages
-to the maximum size specified by [Ice.MessageSizeMax](property-reference/ice-properties), therefore the sender must
-periodically flush batch requests (whether manually or automatically) to ensure they do not exceed the receiver's
-configured limit.
+to the maximum size specified by [Ice.MessageSizeMax](./), therefore the sender must periodically flush batch requests
+(whether manually or automatically) to ensure they do not exceed the receiver's configured limit.
 
 {% /callout %}
 
@@ -78,9 +77,9 @@ Setting this property to 0 (or to a negative number) disables the depth limit al
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](protocol/protocol-compression). Values
-range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that
-higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
+Specifies the bzip2 compression level to use when [compressing protocol messages](../../protocol/protocol-compression).
+Values range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
+that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
 ## Ice.Config
@@ -98,13 +97,13 @@ This property must be set from the command line with one of the options `--Ice.C
 `--Ice.Config=config_file`.
 
 If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the
-[ICE_CONFIG](runtime/properties-and-configuration/using-configuration-files) environment variable to retrieve the path
-names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more
+[ICE_CONFIG](../../runtime/properties-and-configuration/using-configuration-files) environment variable to retrieve the
+path names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more
 configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of
 the configuration files listed.
 
-Configuration files use a simple [syntax](runtime/properties-and-configuration/configuration-file-syntax) consisting of
-_name_=_value_ pairs with support for comments and escaping.
+Configuration files use a simple [syntax](../../runtime/properties-and-configuration/configuration-file-syntax)
+consisting of _name_=_value_ pairs with support for comments and escaping.
 
 {% /iflang %}
 
@@ -165,9 +164,9 @@ The port number of the HTTP proxy server. If not specified, the default value is
 ### Description {% id="ice.implicitcontext-description" %}
 
 Specifies whether a communicator has an
-[implicit request context](runtime/invocation/request-contexts/implicit-request-contexts) and, if so, at what scope the
-context applies. Legal values for this property are `None` (equivalent to the empty string), `PerThread`, and `Shared`.
-If not specified, the default value is `None`.
+[implicit request context](../../runtime/invocation/request-contexts/implicit-request-contexts) and, if so, at what
+scope the context applies. Legal values for this property are `None` (equivalent to the empty string), `PerThread`, and
+`Shared`. If not specified, the default value is `None`.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -236,9 +235,10 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 ### Description {% id="ice.logfile-description" %}
 
-Selects a file-based [logger](administration/logger-facility/default-logger) for the communicator. The logger appends
-messages to the specified file and creates the file if necessary. A logger supplied in `InitializationData` takes
-precedence over this property. The [per-process logger](administration/logger-facility/per-process-logger) is unchanged.
+Selects a file-based [logger](../../administration/logger-facility/default-logger) for the communicator. The logger
+appends messages to the specified file and creates the file if necessary. A logger supplied in `InitializationData`
+takes precedence over this property. The [per-process logger](../../administration/logger-facility/per-process-logger)
+is unchanged.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -286,9 +286,9 @@ When `num` is 0 or negative, the logger writes to a single file with unlimited s
 ### Description {% id="ice.logstderr.convert-description" %}
 
 If `num` is set to a value larger than 0, on Windows, the communicator's
-[default logger](administration/logger-facility/default-logger) converts log messages from the application's narrow
-string encoding to the Windows console's code page. The default value for this property is 1 when Ice.StdErr is not set,
-and 0 otherwise. This property is read by the first communicator created in a process; it is ignored by other
+[default logger](../../administration/logger-facility/default-logger) converts log messages from the application's
+narrow string encoding to the Windows console's code page. The default value for this property is 1 when Ice.StdErr is
+not set, and 0 otherwise. This property is read by the first communicator created in a process; it is ignored by other
 communicators.
 
 {% /iflang %}
@@ -309,13 +309,13 @@ A positive value must be at most 2,097,151 KiB (about 2 GiB). `0` selects the la
 bytes.
 
 Ice rejects an incoming message that exceeds this limit and logs a warning when
-[Ice.Warn.Connections](property-reference/ice-warn-properties) is set. Over connection-oriented transports, Ice also
-closes the connection: a client receiving an oversized reply gets a `MarshalException` from its invocation, and a client
-whose request is oversized gets a `ConnectionLostException`.
+[Ice.Warn.Connections](../ice-warn-properties) is set. Over connection-oriented transports, Ice also closes the
+connection: a client receiving an oversized reply gets a `MarshalException` from its invocation, and a client whose
+request is oversized gets a `ConnectionLostException`.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-See also [adapter.MessageSizeMax](property-reference/object-adapter-properties).
+See also [adapter.MessageSizeMax](../object-adapter-properties).
 
 {% /iflang %}
 
@@ -347,9 +347,9 @@ IceGrid, IceBox (IceStorm), and Glacier2 are implemented using `Ice::Service`.
 
 ### Description {% id="ice.pluginloadorder-description" %}
 
-Determines the order in which [plug-ins](plugins/plug-in-facility) are loaded (loaded is a synonym for created in this
-context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
-by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
+Determines the order in which [plug-ins](../../plugins/plug-in-facility) are loaded (loaded is a synonym for created in
+this context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is
+separated by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
 
 {% iflang langs="cpp" %}
 
@@ -362,8 +362,8 @@ factory-list order. If `names` includes one of these plug-ins, communicator init
 {% iflang langs="python,ruby,php,matlab,swift" %}
 
 The built-in IceDiscovery and IceLocatorDiscovery plug-ins are created before dynamically loaded plug-ins when enabled
-through [Ice.Plugin._name_](property-reference/ice-plugin-properties). If `names` includes one of these enabled
-plug-ins, communicator initialization fails with a `PluginInitializationException`.
+through [Ice.Plugin._name_](../ice-plugin-properties). If `names` includes one of these enabled plug-ins, communicator
+initialization fails with a `PluginInitializationException`.
 
 {% /iflang %}
 
@@ -478,11 +478,11 @@ In C# and Java, Ice also uses this value as a prefix for runtime thread names.
 
 ### Description {% id="ice.retryintervals-description" %}
 
-This property defines the number of times an operation is [automatically retried](runtime/invocation/automatic-retries)
-and the delay between each retry. For example, if the property is set to `0 100 500`, the operation is retried 3 times:
-immediately after the first failure, again after waiting 100ms after the second failure, and again after waiting 500ms
-after the third failure. The default value (`0`) means Ice retries once immediately. A first value of `-1` disables
-retries.
+This property defines the number of times an operation is
+[automatically retried](../../runtime/invocation/automatic-retries) and the delay between each retry. For example, if
+the property is set to `0 100 500`, the operation is retried 3 times: immediately after the first failure, again after
+waiting 100ms after the second failure, and again after waiting 500ms after the third failure. The default value (`0`)
+means Ice retries once immediately. A first value of `-1` disables retries.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -503,13 +503,12 @@ task, like dispatching a request.
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
 return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
 the server will not shut down automatically. This property is often used for servers that are automatically
-[activated by IceGrid](services/icegrid/icegrid-server-activation).
+[activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
 {% callout type="info" %}
 
 On Windows, the server idle time takes effect only once all the server thread pool idle threads have been reaped. The
-thread idle time can be configured with the [ThreadIdleTime](property-reference/ice-threadpool-properties) thread pool
-property.
+thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
 
 {% /callout %}
 
@@ -530,7 +529,7 @@ Slice loader resolutions.
 
 The default value is 100.
 
-See also [Ice.Warn.SliceLoader](property-reference/ice-warn-properties).
+See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
 {% /iflang %}
 
@@ -632,8 +631,8 @@ The default value is `Unicode`.
 
 ### Description {% id="ice.useoslog-description" %}
 
-If `num` is set to a value larger than 0, a special [logger](administration/logger-facility) is installed that logs
-using [OSLog](https://developer.apple.com/documentation/os/oslog). The subsystem is `com.zeroc.ice` when
+If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
+logs using [OSLog](https://developer.apple.com/documentation/os/oslog). The subsystem is `com.zeroc.ice` when
 `Ice.ProgramName` is empty, or `com.zeroc.ice.<ProgramName>` otherwise.
 
 ## Ice.UseSyslog
@@ -644,9 +643,9 @@ using [OSLog](https://developer.apple.com/documentation/os/oslog). The subsystem
 
 ### Description {% id="ice.usesyslog-description" %}
 
-If `num` is set to a value larger than 0, a special [logger](administration/logger-facility) is installed that logs to
-the `syslog` service instead of standard error. Use
-[Ice.SyslogFacility](property-reference/ice-properties#ice.syslogfacility) to select a `syslog` facility.
+If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
+logs to the `syslog` service instead of standard error. Use [Ice.SyslogFacility](./#ice.syslogfacility) to select a
+`syslog` facility.
 
 The connection to the `syslog` service is process-global: all syslog loggers in a process share a single connection,
 opened when the first syslog logger is created and closed when the last one is destroyed. As a result:
@@ -668,9 +667,9 @@ opened when the first syslog logger is created and closed when the last one is d
 
 ### Description {% id="ice.usesystemdjournal-description" %}
 
-If `num` is set to a value larger than 0, a special [logger](administration/logger-facility) is installed that logs to
-the systemd journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as their
-syslog identifier (the `SYSLOG_IDENTIFIER` journal field), so you can filter them with `journalctl -t name`.
+If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
+logs to the systemd journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as
+their syslog identifier (the `SYSLOG_IDENTIFIER` journal field), so you can filter them with `journalctl -t name`.
 
 This property takes effect only when Ice was built with systemd support.
 

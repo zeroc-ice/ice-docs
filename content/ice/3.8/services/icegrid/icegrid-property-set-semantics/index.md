@@ -2,40 +2,38 @@
 title: IceGrid Property Set Semantics
 ---
 
-Ice servers and clients are configured with [properties](runtime/properties-and-configuration). For servers
-[deployed](services/icegrid/using-icegrid-deployment) with IceGrid, these properties are automatically generated into a
-configuration file from the information contained in the application descriptor. The settings in that configuration file
-are passed to server via the [--Ice.Config](property-reference/ice-properties) command-line option.
+Ice servers and clients are configured with [properties](../../../runtime/properties-and-configuration). For servers
+[deployed](../using-icegrid-deployment) with IceGrid, these properties are automatically generated into a configuration
+file from the information contained in the application descriptor. The settings in that configuration file are passed to
+server via the [--Ice.Config](../../../property-reference/ice-properties) command-line option.
 
-[Property descriptors](services/icegrid/icegrid-xml-reference/properties-descriptor-element) allow you to define
-property sets to efficiently manage and specify properties. Here are some of the benefits of using property sets:
+[Property descriptors](../icegrid-xml-reference/properties-descriptor-element) allow you to define property sets to
+efficiently manage and specify properties. Here are some of the benefits of using property sets:
 
-- You can define sets of properties at the
-  [application](services/icegrid/icegrid-xml-reference/application-descriptor-element) or
-  [node](services/icegrid/icegrid-xml-reference/node-descriptor-element) element level and reference these properties in
-  other property sets.
-- You can specify properties for a specific
-  [server](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element) or
-  [service](services/icegrid/icegrid-xml-reference/service-instance-descriptor-element) instance.
+- You can define sets of properties at the [application](../icegrid-xml-reference/application-descriptor-element) or
+  [node](../icegrid-xml-reference/node-descriptor-element) element level and reference these properties in other
+  property sets.
+- You can specify properties for a specific [server](../icegrid-xml-reference/server-instance-descriptor-element) or
+  [service](../icegrid-xml-reference/service-instance-descriptor-element) instance.
 
 There are two kinds of property sets:
 
 - Named property sets Named property sets are defined at the application or node level. They are useful only as the
   target of references from other property sets. Specifically, a named property set has no effect unless you reference
-  it from a [server](services/icegrid/icegrid-xml-reference/server-descriptor-element) descriptor.
+  it from a [server](../icegrid-xml-reference/server-descriptor-element) descriptor.
 
 - Unnamed property sets Unnamed property sets can be defined in
-  [server](services/icegrid/icegrid-xml-reference/server-descriptor-element),
-  [service](services/icegrid/icegrid-xml-reference/service-descriptor-element),
-  [icebox](services/icegrid/icegrid-xml-reference/icebox-descriptor-element),
-  [server-instance](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element) or
-  [service-instance](services/icegrid/icegrid-xml-reference/service-instance-descriptor-element) elements and define the
-  properties for a server or service. Unnamed property sets can reference named property sets.
+  [server](../icegrid-xml-reference/server-descriptor-element),
+  [service](../icegrid-xml-reference/service-descriptor-element),
+  [icebox](../icegrid-xml-reference/icebox-descriptor-element),
+  [server-instance](../icegrid-xml-reference/server-instance-descriptor-element) or
+  [service-instance](../icegrid-xml-reference/service-instance-descriptor-element) elements and define the properties
+  for a server or service. Unnamed property sets can reference named property sets.
 
 Named and unnamed property sets are defined with the same
-[properties](services/icegrid/icegrid-xml-reference/properties-descriptor-element) descriptor. The context and the
-attributes of a `properties` element distinguish named property sets from unnamed property sets. Here is an example that
-defines a named and an unnamed property set:
+[properties](../icegrid-xml-reference/properties-descriptor-element) descriptor. The context and the attributes of a
+`properties` element distinguish named property sets from unnamed property sets. Here is an example that defines a named
+and an unnamed property set:
 
 ```xml
 <application name="App">
@@ -223,10 +221,10 @@ Here are some guidelines to help you decide whether to use a parameter or a prop
 
 ## See Also
 
-- [Properties and Configuration](runtime/properties-and-configuration)
-- [Using IceGrid Deployment](services/icegrid/using-icegrid-deployment)
-- [Properties Descriptor Element](services/icegrid/icegrid-xml-reference/properties-descriptor-element)
-- [Application Descriptor Element](services/icegrid/icegrid-xml-reference/application-descriptor-element)
-- [Node Descriptor Element](services/icegrid/icegrid-xml-reference/node-descriptor-element)
-- [Server-Instance Descriptor Element](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element)
-- [Service-Instance Descriptor Element](services/icegrid/icegrid-xml-reference/service-instance-descriptor-element)
+- [Properties and Configuration](../../../runtime/properties-and-configuration)
+- [Using IceGrid Deployment](../using-icegrid-deployment)
+- [Properties Descriptor Element](../icegrid-xml-reference/properties-descriptor-element)
+- [Application Descriptor Element](../icegrid-xml-reference/application-descriptor-element)
+- [Node Descriptor Element](../icegrid-xml-reference/node-descriptor-element)
+- [Server-Instance Descriptor Element](../icegrid-xml-reference/server-instance-descriptor-element)
+- [Service-Instance Descriptor Element](../icegrid-xml-reference/service-instance-descriptor-element)

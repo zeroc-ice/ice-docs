@@ -13,11 +13,12 @@ Ice.UDP.SndSize=65535
 
 In this example, the _property name_ is `Ice.UDP.SndSize`, and the _property value_ is `65535`.
 
-You can find a complete list of the properties used to configure Ice in the [property reference](property-reference).
+You can find a complete list of the properties used to configure Ice in the
+[property reference](../../../property-reference).
 
 Set properties that configure the Ice runtime and its services before initializing the component that uses them. For
 updates that take effect at run time, see
-[the Properties facet](administration/administrative-facility/properties-facet).
+[the Properties facet](../../../administration/administrative-facility/properties-facet).
 
 ## Property Categories
 
@@ -63,10 +64,9 @@ Give the properties of your own application a prefix of your own, such as `Files
 ## Property Validation
 
 Ice validates the name of every property that begins with a reserved prefix followed by a dot, whether the property
-comes from a configuration file, the command line, the Windows registry, the
-[Properties](runtime/properties-and-configuration/properties-class) class, or the
-[Properties facet](administration/administrative-facility/properties-facet). Ice rejects a name it does not know with a
-`PropertyException`:
+comes from a configuration file, the command line, the Windows registry, the [Properties](../properties-class) class, or
+the [Properties facet](../../../administration/administrative-facility/properties-facet). Ice rejects a name it does not
+know with a `PropertyException`:
 
 ```text
 unknown Ice property: Ice.Trace.Netwrok
@@ -80,7 +80,7 @@ even the misspelled `Iec.Trace.Network`.
 {% iflang langs="swift" %}
 
 The Swift `Properties` methods that are not declared `throws` terminate the program rather than report a rejected name;
-[the Properties class](runtime/properties-and-configuration/properties-class) says which ones.
+[the Properties class](../properties-class) says which ones.
 
 {% /iflang %}
 
@@ -98,9 +98,8 @@ Periods conventionally separate categories. Ice also uses the first period to id
 [property validation](#property-validation).
 
 Property names cannot contain leading or trailing white space. (If you create a property name with leading or trailing
-white space, that white space is silently stripped.) See
-[Configuration File Syntax](runtime/properties-and-configuration/configuration-file-syntax) for escaping special
-characters such as `=`, `#`, and backslash when writing a property name in a file.
+white space, that white space is silently stripped.) See [Configuration File Syntax](../configuration-file-syntax) for
+escaping special characters such as `=`, `#`, and backslash when writing a property name in a file.
 
 ## Property Value Syntax
 
@@ -114,16 +113,15 @@ This is a = property value.
 ```
 
 The configuration file parser preserves single and double quotes in property values. The
-[`getPropertyAsList` methods](runtime/properties-and-configuration/properties-class#reading-and-setting-a-property)
-interpret these quotes when splitting a value into a list. To preserve leading or trailing spaces in a configuration
-file value, escape them with backslashes; see
-[Configuration File Syntax](runtime/properties-and-configuration/configuration-file-syntax).
+[`getPropertyAsList` methods](../properties-class#reading-and-setting-a-property) interpret these quotes when splitting
+a value into a list. To preserve leading or trailing spaces in a configuration file value, escape them with backslashes;
+see [Configuration File Syntax](../configuration-file-syntax).
 
 ## Unused Properties
 
 During the destruction of a communicator, the Ice runtime can optionally emit a warning for properties that were set but
-never read. To enable this warning, set [Ice.Warn.UnusedProperties](property-reference/ice-warn-properties) to a
-non-zero value. By default, the warning is disabled.
+never read. To enable this warning, set [Ice.Warn.UnusedProperties](../../../property-reference/ice-warn-properties) to
+a non-zero value. By default, the warning is disabled.
 
 This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
 `Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.
@@ -134,4 +132,4 @@ names of the properties that have not been read.
 
 ## See Also
 
-- [Property Reference](property-reference)
+- [Property Reference](../../../property-reference)

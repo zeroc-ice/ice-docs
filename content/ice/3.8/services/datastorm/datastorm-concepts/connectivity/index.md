@@ -2,9 +2,8 @@
 title: Connectivity
 ---
 
-DataStorm [nodes](services/datastorm/datastorm-concepts/node) connect to each other to exchange
-[samples](services/datastorm/datastorm-concepts/sample). DataStorm supports multiple networking configurations to
-establish these connections:
+DataStorm [nodes](../node) connect to each other to exchange [samples](../sample). DataStorm supports multiple
+networking configurations to establish these connections:
 
 - **Multicast discovery** — nodes automatically discover peers using UDP multicast.
 - **Direct connections** — nodes connect directly to specific peers using configured endpoints.
@@ -75,8 +74,8 @@ this configuration, only the broker uses a well-known endpoint, while other node
 network. Once discovered, nodes can establish direct connections with each other to exchange samples without routing all
 traffic through the broker.
 
-In such scenarios, you can use the [dsnode server](services/datastorm/node-server) executable instead of creating a
-custom node server programmatically.
+In such scenarios, you can use the [dsnode server](../../node-server) executable instead of creating a custom node
+server programmatically.
 
 ## Example Configurations
 

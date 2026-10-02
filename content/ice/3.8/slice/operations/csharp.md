@@ -4,10 +4,10 @@
 
 ### Mapping for Operations
 
-As we saw in the [Client-Side C# Mapping for Interfaces](slice/interfaces#client-side-mapping-for-interfaces), for each
-[operation](slice/operations) on an interface, the generated proxy class contains two methods for this operation. To
-invoke an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
-[greeter example](greeter-example/defining-the-greeter-interface-in-slice):
+As we saw in the [Client-Side C# Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
+[operation](./) on an interface, the generated proxy class contains two methods for this operation. To invoke an
+operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -70,9 +70,9 @@ The “sync” methods are provided for backwards compatibility: you should only
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](runtime/local-and-dispatch-exceptions) and, if the operation
-has an exception specification, may also throw [user exceptions](runtime/local-and-dispatch-exceptions). Suppose we have
-the following simple interface:
+Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Suppose we have the following simple interface:
 
 ```slice
 exception Tantrum
@@ -108,12 +108,11 @@ catch (Tantrum t)
 
 ### Default Mapping for Operations
 
-As we saw in the [Server-Side C# Mapping for Interfaces](slice/interfaces#server-side-mapping-for-interfaces), for each
-[operation](slice/operations) on an interface, the generated skeleton class contains an abstract method with the same
-name.
+As we saw in the [Server-Side C# Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
+[operation](./) on an interface, the generated skeleton class contains an abstract method with the same name.
 
 For example, let’s take the generated code from the
-[greeter example](greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -235,7 +234,7 @@ public partial interface EmployeesPrx : Ice.ObjectPrx
 
 As you can see, the `getName` operation generates a `GetNameAsync` method that accepts several optional parameters:
 
-- a [per-invocation request context](runtime/invocation/request-contexts)
+- a [per-invocation request context](../../runtime/invocation/request-contexts)
 - a sent callback
 - a cancellation token
 
@@ -337,7 +336,7 @@ invocation is an `Ice.InvocationCanceledException`.
 ## Asynchronous Method Dispatch (AMD)
 
 The number of simultaneous synchronous requests a server is capable of supporting is determined by the number of threads
-in the server's [thread pool](runtime/threading-model). If all of the threads are busy dispatching long-running
+in the server's [thread pool](../../runtime/threading-model). If all of the threads are busy dispatching long-running
 operations, then no threads are available to process new requests and therefore clients may experience an unacceptable
 lack of responsiveness.
 
@@ -537,8 +536,8 @@ public partial interface ExamplePrx : Ice.ObjectPrx
 
 ### Optional Parameters
 
-The mapping for [optional parameters](slice/operations) is the same as for required parameters, except each mapped C#
-type is nullable, where null represents “not set”.
+The mapping for [optional parameters](./) is the same as for required parameters, except each mapped C# type is
+nullable, where null represents “not set”.
 
 Consider the following operation:
 
@@ -565,6 +564,6 @@ int? Execute(string? parameters, out float? value, Ice.Current current);
 
 ## See Also
 
-- [The Ice Threading Model](runtime/threading-model)
+- [The Ice Threading Model](../../runtime/threading-model)
 
 {% /language-section %}

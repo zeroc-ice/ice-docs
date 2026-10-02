@@ -3,10 +3,11 @@ title: IceGridAdmin.*
 ---
 
 The `IceGridAdmin.*` properties configure the IceGrid administrative tools,
-[icegridadmin](services/icegrid/icegridadmin-command-line-tool) and [IceGrid GUI](services/icegrid/icegrid-gui-tool);
-each entry names the tool that reads it. An [IceGrid node](services/icegrid/icegrid-server-reference/icegridnode)
-started with `--deploy` also reads `IceGridAdmin.AuthenticateUsingSSL`, `IceGridAdmin.Username` and
-`IceGridAdmin.Password`, to create the administrative session that deploys the application.
+[icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) and
+[IceGrid GUI](../../services/icegrid/icegrid-gui-tool); each entry names the tool that reads it. An
+[IceGrid node](../../services/icegrid/icegrid-server-reference/icegridnode) started with `--deploy` also reads
+`IceGridAdmin.AuthenticateUsingSSL`, `IceGridAdmin.Username` and `IceGridAdmin.Password`, to create the administrative
+session that deploys the application.
 
 ## IceGridAdmin.AuthenticateUsingSSL
 
@@ -16,7 +17,7 @@ started with `--deploy` also reads `IceGridAdmin.AuthenticateUsingSSL`, `IceGrid
 
 ### Description {% id="icegridadmin.authenticateusingssl-description" %}
 
-If `num` is a value greater than zero, [icegridadmin](services/icegrid/icegridadmin-command-line-tool) uses SSL
+If `num` is a value greater than zero, [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) uses SSL
 authentication when establishing its session with the IceGrid registry. If not defined or the value is zero,
 `icegridadmin` uses user name and password authentication.
 
@@ -28,16 +29,16 @@ authentication when establishing its session with the IceGrid registry. If not d
 
 ### Description {% id="icegridadmin.host-description" %}
 
-Specifies the host of the IceGrid registry that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) connects
-to directly, at the port set by [IceGridAdmin.Port](property-reference/icegridadmin-properties#icegridadmin.port). When
-[IceGridAdmin.AuthenticateUsingSSL](property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl) is
-enabled, `icegridadmin` connects to the registry over `ssl` only.
+Specifies the host of the IceGrid registry that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool)
+connects to directly, at the port set by [IceGridAdmin.Port](./#icegridadmin.port). When
+[IceGridAdmin.AuthenticateUsingSSL](./#icegridadmin.authenticateusingssl) is enabled, `icegridadmin` connects to the
+registry over `ssl` only.
 
-If this property is not set, `icegridadmin` finds the registry with [multicast discovery](plugins/icelocatordiscovery),
-configured with the [IceLocatorDiscovery.*](property-reference/icelocatordiscovery-properties) properties.
-`icegridadmin` ignores this property, and does not use discovery, when
-[Ice.Default.Locator](property-reference/ice-default-properties) or
-[Ice.Default.Router](property-reference/ice-default-properties) is set.
+If this property is not set, `icegridadmin` finds the registry with
+[multicast discovery](../../plugins/icelocatordiscovery), configured with the
+[IceLocatorDiscovery.*](../icelocatordiscovery-properties) properties. `icegridadmin` ignores this property, and does
+not use discovery, when [Ice.Default.Locator](../ice-default-properties) or
+[Ice.Default.Router](../ice-default-properties) is set.
 
 ## IceGridAdmin.InstanceName
 
@@ -47,12 +48,12 @@ configured with the [IceLocatorDiscovery.*](property-reference/icelocatordiscove
 
 ### Description {% id="icegridadmin.instancename-description" %}
 
-Specifies the instance name that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) expects from the
-registry at [IceGridAdmin.Host](property-reference/icegridadmin-properties#icegridadmin.host): `icegridadmin` connects
-only if the registry uses this instance name.
+Specifies the instance name that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) expects from the
+registry at [IceGridAdmin.Host](./#icegridadmin.host): `icegridadmin` connects only if the registry uses this instance
+name.
 
-To limit [multicast discovery](plugins/icelocatordiscovery) to one instance, set
-[IceLocatorDiscovery.InstanceName](property-reference/icelocatordiscovery-properties).
+To limit [multicast discovery](../../plugins/icelocatordiscovery) to one instance, set
+[IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties).
 
 ## IceGridAdmin.MetricsConfigs
 
@@ -96,11 +97,11 @@ IceGridGUI.Metrics.Connection.current.columnToolTip=Currently open connections
 
 ### Description {% id="icegridadmin.password-description" %}
 
-Specifies the password that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) should use when
+Specifies the password that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) should use when
 authenticating its session with the IceGrid registry. For security reasons you may prefer not to define a password in a
 plain-text configuration property, in which case you should omit this property and allow `icegridadmin` to prompt you
 for it interactively. This property is ignored when SSL authentication is enabled via
-[IceGridAdmin.AuthenticateUsingSSL](property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl).
+[IceGridAdmin.AuthenticateUsingSSL](./#icegridadmin.authenticateusingssl).
 
 ## IceGridAdmin.Port
 
@@ -110,9 +111,9 @@ for it interactively. This property is ignored when SSL authentication is enable
 
 ### Description {% id="icegridadmin.port-description" %}
 
-Specifies the port of the IceGrid registry that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) connects
-to at [IceGridAdmin.Host](property-reference/icegridadmin-properties#icegridadmin.host), for both `tcp` and `ssl`. If
-not set, `icegridadmin` uses port `4061` for `tcp` and port `4062` for `ssl`.
+Specifies the port of the IceGrid registry that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool)
+connects to at [IceGridAdmin.Host](./#icegridadmin.host), for both `tcp` and `ssl`. If not set, `icegridadmin` uses port
+`4061` for `tcp` and port `4062` for `ssl`.
 
 This property has no effect unless a host is given, with `IceGridAdmin.Host` or the `--host` option.
 
@@ -124,9 +125,9 @@ This property has no effect unless a host is given, with `IceGridAdmin.Host` or 
 
 ### Description {% id="icegridadmin.replica-description" %}
 
-Specifies the name of the [registry replica](services/icegrid/registry-replication) that
-[icegridadmin](services/icegrid/icegridadmin-command-line-tool) should contact. If not defined, the default value is
-`Master`.
+Specifies the name of the [registry replica](../../services/icegrid/registry-replication) that
+[icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) should contact. If not defined, the default value
+is `Master`.
 
 ## IceGridAdmin.Server._AdapterProperty_
 
@@ -137,8 +138,8 @@ Specifies the name of the [registry replica](services/icegrid/registry-replicati
 ### Description {% id="icegridadmin.server.adapterproperty-description" %}
 
 When `icegridadmin` is started with the `--server` option, `icegridadmin` creates an object adapter named
-`IceGridAdmin.Server` to host its file parser object. [adapter properties](property-reference/object-adapter-properties)
-can be used to configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unset, `icegridadmin` uses
+`IceGridAdmin.Server` to host its file parser object. [adapter properties](../object-adapter-properties) can be used to
+configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unset, `icegridadmin` uses
 `tcp -h 127.0.0.1` for these endpoints.
 
 ## IceGridAdmin.Trace.Observers
@@ -171,6 +172,6 @@ registry. If not defined, the default value is zero.
 
 ### Description {% id="icegridadmin.username-description" %}
 
-Specifies the username that [icegridadmin](services/icegrid/icegridadmin-command-line-tool) should use when
+Specifies the username that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) should use when
 authenticating its session with the IceGrid registry. This property is ignored when SSL authentication is enabled via
-[IceGridAdmin.AuthenticateUsingSSL](property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl).
+[IceGridAdmin.AuthenticateUsingSSL](./#icegridadmin.authenticateusingssl).

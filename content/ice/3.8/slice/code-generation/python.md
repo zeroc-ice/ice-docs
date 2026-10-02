@@ -67,7 +67,7 @@ Ice.loadSlice(["-I.", "Greeter.ice"])
 ```
 
 The supported arguments are the same as those documented for the **Slice for Python compiler** under
-[standard compiler options](slice/using-the-slice-compiler).
+[standard compiler options](../using-the-slice-compiler).
 
 ### Locating Slice Files in Python
 
@@ -200,5 +200,5 @@ will then consistently use the remapped identifier instead of the original Slice
 
 ## See Also
 
-- [Using the Slice Compilers](slice/using-the-slice-compiler)
-- [Slice Metadata Directives](slice/slice-metadata-directives)
+- [Using the Slice Compilers](../using-the-slice-compiler)
+- [Slice Metadata Directives](../slice-metadata-directives)

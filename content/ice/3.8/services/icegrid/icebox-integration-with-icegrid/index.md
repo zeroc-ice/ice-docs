@@ -2,14 +2,13 @@
 title: IceBox Integration with IceGrid
 ---
 
-IceGrid makes it easy to configure an [IceBox](services/icebox) server with one or more services.
+IceGrid makes it easy to configure an [IceBox](../../icebox) server with one or more services.
 
 ## Deploying an IceBox Server
 
 An IceBox server shares many of the same characteristics as other servers, but its special requirements necessitate a
-new [descriptor](services/icegrid/icegrid-xml-reference/icebox-descriptor-element). Unlike other servers, an IceBox
-server generally hosts multiple independent services, each requiring its own communicator instance and configuration
-file.
+new [descriptor](../icegrid-xml-reference/icebox-descriptor-element). Unlike other servers, an IceBox server generally
+hosts multiple independent services, each requiring its own communicator instance and configuration file.
 
 As an example, the following application deploys an IceBox server containing one service:
 
@@ -30,19 +29,18 @@ As an example, the following application deploys an IceBox server containing one
 ```
 
 It looks very similar to a server descriptor. The most significant difference is the
-[service descriptor](services/icegrid/icegrid-xml-reference/service-descriptor-element), which is constructed much like
-a server in that you can declare its attributes such as object adapters and configuration properties. The order in which
-services are defined determines the order in which they are loaded by the IceBox server.
+[service descriptor](../icegrid-xml-reference/service-descriptor-element), which is constructed much like a server in
+that you can declare its attributes such as object adapters and configuration properties. The order in which services
+are defined determines the order in which they are loaded by the IceBox server.
 
 The value of the adapter's `name` attribute needs additional explanation. The symbol `service` is one of the names
-[reserved by IceGrid](services/icegrid/using-descriptor-variables-and-parameters). In the context of a service
-descriptor, `${service}` is replaced with the service's name, and so the object adapter is also named `ServiceA`.
+[reserved by IceGrid](../using-descriptor-variables-and-parameters). In the context of a service descriptor,
+`${service}` is replaced with the service's name, and so the object adapter is also named `ServiceA`.
 
 ## Service Templates
 
-If you are familiar with [templates](services/icegrid/icegrid-templates) in general, an IceBox
-[service template](services/icegrid/icegrid-xml-reference/service-template-descriptor-element) is readily
-understandable:
+If you are familiar with [templates](../icegrid-templates) in general, an IceBox
+[service template](../icegrid-xml-reference/service-template-descriptor-element) is readily understandable:
 
 ```xml
 <icegrid>
@@ -68,10 +66,9 @@ understandable:
 
 In this application, an IceBox server is deployed on a node and has one service instantiated from the service template.
 Of particular interest is the `property` descriptor, which uses another
-[reserved name](services/icegrid/using-descriptor-variables-and-parameters) `server` to form the property value. When
-the template is instantiated by the
-[service instance descriptor](services/icegrid/icegrid-xml-reference/service-instance-descriptor-element), the symbol
-`${server}` is replaced with the name of the enclosing server, so the property definition expands as follows:
+[reserved name](../using-descriptor-variables-and-parameters) `server` to form the property value. When the template is
+instantiated by the [service instance descriptor](../icegrid-xml-reference/service-instance-descriptor-element), the
+symbol `${server}` is replaced with the name of the enclosing server, so the property definition expands as follows:
 
 ```config
 Service1.Identity=IceBoxServer-Service1
@@ -101,7 +98,7 @@ These properties can be defined in the `service-instance` element, as shown belo
 ## Advanced Service Templates
 
 A more sophisticated use of templates involves instantiating a service template in a
-[server template](services/icegrid/icegrid-xml-reference/server-template-descriptor-element):
+[server template](../icegrid-xml-reference/server-template-descriptor-element):
 
 ```xml
 <icegrid>
@@ -131,8 +128,7 @@ This application is equivalent to our first example of [service templates](#serv
 process of deploying an identical server on several nodes has become much simpler.
 
 If you need the ability to customize the configuration of a particular service instance, your server instance can define
-a [property set](services/icegrid/icegrid-xml-reference/properties-descriptor-element) that applies only to the desired
-service:
+a [property set](../icegrid-xml-reference/properties-descriptor-element) that applies only to the desired service:
 
 ```xml
 <icegrid>
@@ -152,10 +148,10 @@ As this example demonstrates, the `service` attribute of the property set denote
 
 ## See Also
 
-- [IceBox](services/icebox)
-- [IceBox Descriptor Element](services/icegrid/icegrid-xml-reference/icebox-descriptor-element)
-- [Service Descriptor Element](services/icegrid/icegrid-xml-reference/service-descriptor-element)
-- [Service-Template Descriptor Element](services/icegrid/icegrid-xml-reference/service-template-descriptor-element)
-- [Server-Template Descriptor Element](services/icegrid/icegrid-xml-reference/server-template-descriptor-element)
-- [Properties Descriptor Element](services/icegrid/icegrid-xml-reference/properties-descriptor-element)
-- [Using Descriptor Variables and Parameters](services/icegrid/using-descriptor-variables-and-parameters)
+- [IceBox](../../icebox)
+- [IceBox Descriptor Element](../icegrid-xml-reference/icebox-descriptor-element)
+- [Service Descriptor Element](../icegrid-xml-reference/service-descriptor-element)
+- [Service-Template Descriptor Element](../icegrid-xml-reference/service-template-descriptor-element)
+- [Server-Template Descriptor Element](../icegrid-xml-reference/server-template-descriptor-element)
+- [Properties Descriptor Element](../icegrid-xml-reference/properties-descriptor-element)
+- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)

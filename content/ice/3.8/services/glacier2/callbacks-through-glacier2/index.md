@@ -4,9 +4,8 @@ title: Callbacks Through Glacier2
 
 Callbacks from servers to clients are commonly used in distributed applications, often to notify the client about an
 event such as the completion of a long-running calculation or a change to a database record. Unfortunately, supporting
-callbacks in a complicated network environment presents its own
-[set of problems](services/glacier2/common-firewall-traversal-issues). Ice overcomes these obstacles using a Glacier2
-router and bidirectional connections.
+callbacks in a complicated network environment presents its own [set of problems](../common-firewall-traversal-issues).
+Ice overcomes these obstacles using a Glacier2 router and bidirectional connections.
 
 {% callout type="tip" title="Example" %}
 
@@ -18,12 +17,12 @@ provides instructions on running the example, and comments in the configuration 
 ## Bidirectional Connections with Glacier2
 
 While a regular unrouted connection allows requests to flow in only one direction (from client to server), a
-[bidirectional connection](runtime/connection-management/bidirectional-connections) enables requests to flow in both
-directions. This capability is necessary to circumvent the network restrictions that commonly cause
-[firewall traversal issues](services/glacier2/common-firewall-traversal-issues), namely, client-side firewalls that
-prevent a server from establishing an independent connection directly to the client. By sending callback requests over
-the existing connection from the client to the server (more accurately, from the client to the router), we have created
-a virtual connection back to the client.
+[bidirectional connection](../../../runtime/connection-management/bidirectional-connections) enables requests to flow in
+both directions. This capability is necessary to circumvent the network restrictions that commonly cause
+[firewall traversal issues](../common-firewall-traversal-issues), namely, client-side firewalls that prevent a server
+from establishing an independent connection directly to the client. By sending callback requests over the existing
+connection from the client to the server (more accurately, from the client to the router), we have created a virtual
+connection back to the client.
 
 This diagram shows the steps involved in making a callback using Glacier2:
 
@@ -64,7 +63,7 @@ client's callback proxy is bounded by the lifetime of the client's router sessio
 In order for the router to support callbacks from servers, it needs to have endpoints in the private network.
 
 The configuration file shown below adds the property
-[Glacier2.Server.Endpoints](property-reference/glacier2-properties):
+[Glacier2.Server.Endpoints](../../../property-reference/glacier2-properties):
 
 ```config
 Glacier2.Client.Endpoints=tcp -h 5.6.7.8 -p 4063
@@ -75,8 +74,8 @@ As this example shows, the server endpoint does not require a fixed port.
 
 {% callout type="info" %}
 
-Glacier2's implementation of [Ice::Router](runtime/invocation/routers)'s `getServerProxy` returns the
-[published endpoints](runtime/dispatch/object-adapter-endpoints) of this `Glacier2.Server` object adapter.
+Glacier2's implementation of [Ice::Router](../../../runtime/invocation/routers)'s `getServerProxy` returns the
+[published endpoints](../../../runtime/dispatch/object-adapter-endpoints) of this `Glacier2.Server` object adapter.
 
 {% /callout %}
 
@@ -94,33 +93,33 @@ Note that multiple object adapters created by the same communicator cannot use t
 {% /callout %}
 
 We supply the router's proxy by creating the object adapter with `createObjectAdapterWithRouter`, or by defining the
-object adapter property [_adapter_.Router](property-reference/object-adapter-properties) as shown below:
+object adapter property [_adapter_.Router](../../../property-reference/object-adapter-properties) as shown below:
 
 ```config
 CallbackAdapter.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-For each object adapter, the Ice run time maintains a [list of endpoints](runtime/dispatch/object-adapter-endpoints)
-that are embedded in proxies created by that adapter. Normally, this list simply contains the local endpoints defined
-for the object adapter but, when the adapter is configured with a router, the list only contains the router's server
-endpoints.
+For each object adapter, the Ice run time maintains a
+[list of endpoints](../../../runtime/dispatch/object-adapter-endpoints) that are embedded in proxies created by that
+adapter. Normally, this list simply contains the local endpoints defined for the object adapter but, when the adapter is
+configured with a router, the list only contains the router's server endpoints.
 
 An object adapter configured in this way allows the client to receive callback requests via the router. If the client
 also wants to service requests via local (non-routed) endpoints, the client must
-[create a separate adapter](services/glacier2/advanced-glacier2-client-configurations) for these requests.
+[create a separate adapter](../advanced-glacier2-client-configurations) for these requests.
 
 {% callout type="info" %}
 
-An [object adapter configured with a router](runtime/invocation/routers) receives only requests over the (bidirectional)
-connection to the router, and collocated dispatches.
+An [object adapter configured with a router](../../../runtime/invocation/routers) receives only requests over the
+(bidirectional) connection to the router, and collocated dispatches.
 
 {% /callout %}
 
 ## Callback Object Identities
 
-Glacier2 assigns a unique category to each client for use in the [identities](runtime/object-identity) of the client's
-callback objects. The client creates proxies that contain this identity category and pass these proxies to back-end
-servers for use in making callback requests to the client. This category serves two purposes:
+Glacier2 assigns a unique category to each client for use in the [identities](../../../runtime/object-identity) of the
+client's callback objects. The client creates proxies that contain this identity category and pass these proxies to
+back-end servers for use in making callback requests to the client. This category serves two purposes:
 
 1. Upon receipt of a callback request from a back-end server, the router uses the request's category to identify the
    intended client.
@@ -128,7 +127,7 @@ servers for use in making callback requests to the client. This category serves 
    misbehaving or malicious back-end server to send callback requests to an arbitrary client.
 
 A client can obtain its assigned category by calling `getCategoryForClient` on the
-[Router](services/glacier2/getting-started-with-glacier2) interface as shown in the example below:
+[Router](../getting-started-with-glacier2) interface as shown in the example below:
 
 {% language-section name="lang-1" /%}
 
@@ -136,20 +135,21 @@ A client can obtain its assigned category by calling `getCategoryForClient` on t
 
 If a router client intends to receive callbacks and make nested twoway invocations, it is important that the client be
 configured correctly. Specifically, you must
-[increase the size of the client thread pool](runtime/connection-management/bidirectional-connections) to at least two
-threads.
+[increase the size of the client thread pool](../../../runtime/connection-management/bidirectional-connections) to at
+least two threads.
 
 ## Handling Connection Loss
 
 If the client loses its connection to the Glacier2 router, the next invocation throws `ConnectionLostException`. The
 client can recover from this situation by re-creating the session, re-creating the callback adapter, and adding all the
-callback servants to the [Active Servant Map](runtime/dispatch/active-servant-map) (ASM) of the re-created adapter.
+callback servants to the [Active Servant Map](../../../runtime/dispatch/active-servant-map) (ASM) of the re-created
+adapter.
 
 ## See Also
 
-- [Bidirectional Connections](runtime/connection-management/bidirectional-connections)
-- [Object Adapter Endpoints](runtime/dispatch/object-adapter-endpoints)
-- [Object Identity](runtime/object-identity)
-- [Getting Started with Glacier2](services/glacier2/getting-started-with-glacier2)
-- [The Active Servant Map](runtime/dispatch/active-servant-map)
-- [Glacier2.*](property-reference/glacier2-properties)
+- [Bidirectional Connections](../../../runtime/connection-management/bidirectional-connections)
+- [Object Adapter Endpoints](../../../runtime/dispatch/object-adapter-endpoints)
+- [Object Identity](../../../runtime/object-identity)
+- [Getting Started with Glacier2](../getting-started-with-glacier2)
+- [The Active Servant Map](../../../runtime/dispatch/active-servant-map)
+- [Glacier2.*](../../../property-reference/glacier2-properties)

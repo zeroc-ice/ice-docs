@@ -21,9 +21,9 @@ _Ice client and server structure._
 Both client and server consist of a mixture of application code, library code, and code generated from Slice
 definitions:
 
-- The Ice core or [runtime](runtime) contains the client- and server-side runtime support for remote communication. Much
-  of this code is concerned with the details of networking, threading, byte ordering, and many other networking-related
-  issues that we want to keep away from application code.
+- The Ice core or [runtime](../runtime) contains the client- and server-side runtime support for remote communication.
+  Much of this code is concerned with the details of networking, threading, byte ordering, and many other
+  networking-related issues that we want to keep away from application code.
 
 - You use the Ice API to take care of administrative chores, such as initializing and finalizing the Ice runtime. The
   Ice API is identical for clients and servers (although servers use a larger part of the API than clients).

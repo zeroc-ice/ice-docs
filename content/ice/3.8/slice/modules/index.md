@@ -91,9 +91,9 @@ module ZeroC // OK, reopened module
 ```
 
 Reopened modules are useful for larger projects: they allow you to split the contents of a module over several different
-[source files](slice/slice-source-files). The advantage of doing this is that, when a developer makes a change to one
-part of the module, only files dependent on the changed part need be recompiled (instead of having to recompile all
-files that use the module).
+[source files](../slice-source-files). The advantage of doing this is that, when a developer makes a change to one part
+of the module, only files dependent on the changed part need be recompiled (instead of having to recompile all files
+that use the module).
 
 ## Language Mapping
 
@@ -101,4 +101,4 @@ files that use the module).
 
 ## See Also
 
-- [Slice Source Files](slice/slice-source-files)
+- [Slice Source Files](../slice-source-files)

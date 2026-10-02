@@ -45,5 +45,5 @@ To use the secured iAP endpoint, replace `iap` with `iaps`.
 
 ## See Also
 
-- [Plug-in Facility](plugins/plug-in-facility)
-- [Proxy and Endpoint Syntax](runtime/endpoint-syntax)
+- [Plug-in Facility](../plug-in-facility)
+- [Proxy and Endpoint Syntax](../../runtime/endpoint-syntax)

@@ -4,10 +4,10 @@
 
 ### Mapping for Operations
 
-As we saw in the [Client-Side MATLAB Mapping for Interfaces](slice/interfaces#client-side-mapping-for-interfaces), for
-each [operation](slice/operations) on an interface, the generated proxy class contains 2 methods for this operation. To
-invoke an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
-[greeter example](greeter-example/defining-the-greeter-interface-in-slice):
+As we saw in the [Client-Side MATLAB Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
+[operation](./) on an interface, the generated proxy class contains 2 methods for this operation. To invoke an
+operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 ["matlab:identifier:visitorcenter"]
@@ -66,9 +66,9 @@ convenient to call. You decide what’s more important for your application.
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](runtime/local-and-dispatch-exceptions) and, if the operation
-has an exception specification, may also throw [user exceptions](runtime/local-and-dispatch-exceptions). Suppose we have
-the following simple interface:
+Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Suppose we have the following simple interface:
 
 ```slice
 exception Tantrum
@@ -176,7 +176,7 @@ completed, meaning the future completed with an `Ice.InvocationCanceledException
 An in parameter is mapped to a MATLAB parameter with the same name; its type is the mapped MATLAB type.
 
 For example, a Slice parameter `string name` is mapped to a MATLAB parameter `name` with type `char` and size `(1 :)`.
-The rules are the same as for [Fields](slice/fields).
+The rules are the same as for [Fields](../fields).
 
 ### Out Parameters and Return Values
 
@@ -240,8 +240,8 @@ end
 
 ### Optional Parameters
 
-[Optional parameters](slice/operations) use the same mapping as required parameters, with one difference: the parameter
-accepts `Ice.Unset` as a valid value.
+[Optional parameters](./) use the same mapping as required parameters, with one difference: the parameter accepts
+`Ice.Unset` as a valid value.
 
 Consider the following operation:
 

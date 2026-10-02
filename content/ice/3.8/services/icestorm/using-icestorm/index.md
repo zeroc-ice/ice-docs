@@ -7,9 +7,9 @@ pages:
   - publishing-to-a-specific-subscriber
 ---
 
-Now we'll expand on the earlier [weather monitoring example](services/icestorm), and discuss how to create a publisher
-and a subscriber.
+Now we'll expand on the earlier [weather monitoring example](..), and discuss how to create a publisher and a
+subscriber.
 
 ## See Also
 
-- [IceStorm](services/icestorm)
+- [IceStorm](..)

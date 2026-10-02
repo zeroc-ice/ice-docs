@@ -32,10 +32,10 @@ throws a runtime exception that provides the reason for the failure.
 The `ice_isA` operation accepts a type ID (such as the string returned by `ice_id`) and tests whether the target object
 implements this Slice interface returning `true` if it does. You can use this operation to check whether a target object
 implements a particular interface. For example, referring to the diagram
-[Implicit Inheritance from Object](slice/interfaces/interface-inheritance) once more, assume that you are holding a
-proxy to a target object of type `AlarmClock`. The table below illustrates the result of calling `ice_isA` on that proxy
-with various arguments. (We assume that all types in the Implicit inheritance from Object diagram are defined in a
-module `Times`):
+[Implicit Inheritance from Object](../interfaces/interface-inheritance) once more, assume that you are holding a proxy
+to a target object of type `AlarmClock`. The table below illustrates the result of calling `ice_isA` on that proxy with
+various arguments. (We assume that all types in the Implicit inheritance from Object diagram are defined in a module
+`Times`):
 
 | **Argument**          | **Result** |
 | --------------------- | ---------- |
@@ -53,15 +53,15 @@ returns false for these types.
 
 ## `ice_id`
 
-The `ice_id` operation returns the [type ID](slice/type-ids) of the most-derived Slice interface implemented by the
-target object.
+The `ice_id` operation returns the [type ID](../type-ids) of the most-derived Slice interface implemented by the target
+object.
 
 ## `ice_ids`
 
-The `ice_ids` operation returns a sequence of [type IDs](slice/type-ids) that contains the type IDs of all Slice
-interfaces implemented by the target object, in alphabetical order.
+The `ice_ids` operation returns a sequence of [type IDs](../type-ids) that contains the type IDs of all Slice interfaces
+implemented by the target object, in alphabetical order.
 
 ## See Also
 
-- [Type IDs](slice/type-ids)
-- [Interface Inheritance](slice/interfaces/interface-inheritance)
+- [Type IDs](../type-ids)
+- [Interface Inheritance](../interfaces/interface-inheritance)

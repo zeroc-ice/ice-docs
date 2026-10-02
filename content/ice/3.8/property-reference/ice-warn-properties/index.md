@@ -18,8 +18,7 @@ value is 0.
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 This property also enables warnings for errors while accepting connections and exceptions while processing datagrams.
-Warnings about oversized datagrams are controlled separately by
-[Ice.Warn.Datagrams](property-reference/ice-warn-properties#ice.warn.datagrams).
+Warnings about oversized datagrams are controlled separately by [Ice.Warn.Datagrams](./#ice.warn.datagrams).
 
 {% /iflang %}
 
@@ -47,8 +46,8 @@ implementations silently drop received datagrams that are too large.) The defaul
 
 ### Description {% id="ice.warn.dispatch-description" %}
 
-When [Ice.Trace.Dispatch](property-reference/ice-trace-properties) is 0, this property controls warnings from the logger
-middleware. The default value is 1.
+When [Ice.Trace.Dispatch](../ice-trace-properties) is 0, this property controls warnings from the logger middleware. The
+default value is 1.
 
 | Value | Description                                                                                                                                                                               |
 | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

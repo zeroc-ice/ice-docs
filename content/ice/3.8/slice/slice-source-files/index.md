@@ -96,4 +96,4 @@ identifiers must be declared before they can be used.
 
 ## See Also
 
-- [Using the Slice Compilers](slice/using-the-slice-compiler)
+- [Using the Slice Compilers](../using-the-slice-compiler)

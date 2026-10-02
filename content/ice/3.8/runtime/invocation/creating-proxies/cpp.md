@@ -1,8 +1,7 @@
 {% language-section name="lang-1" %}
 
 The generated proxy class provides a constructor that constructs a proxy from a communicator and a
-[stringified representation](runtime/invocation/syntax-for-stringified-proxies) of the proxy, as shown in the following
-example:
+[stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the following example:
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};

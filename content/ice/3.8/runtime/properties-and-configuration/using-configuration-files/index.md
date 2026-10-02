@@ -21,7 +21,7 @@ argument vector. This occurs when the application passes an argument vector to c
 the application passes an argument vector to `Ice::initialize`.
 
 Both of the mechanisms described below can also retrieve property settings from
-[additional sources](runtime/properties-and-configuration/alternate-property-stores).
+[additional sources](../alternate-property-stores).
 
 ## The `ICE_CONFIG` Environment Variable
 
@@ -59,8 +59,8 @@ This causes property settings to be retrieved from `/usr/local/filesystem/config
 
 ## The `Ice.Config` Property
 
-The [Ice.Config](property-reference/ice-properties) property has special meaning to the Ice run time: it determines the
-path name of a configuration file from which to read property settings. For example:
+The [Ice.Config](../../../property-reference/ice-properties) property has special meaning to the Ice run time: it
+determines the path name of a configuration file from which to read property settings. For example:
 
 ```shell
 ./server --Ice.Config=/usr/local/filesystem/config
@@ -114,5 +114,5 @@ This causes property settings to be retrieved from `/usr/local/filesystem/config
 
 ## See Also
 
-- [Alternate Property Stores](runtime/properties-and-configuration/alternate-property-stores)
-- [The Properties Interface](runtime/properties-and-configuration/properties-class)
+- [Alternate Property Stores](../alternate-property-stores)
+- [The Properties Interface](../properties-class)

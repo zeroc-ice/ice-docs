@@ -40,7 +40,7 @@ The metadata directives for C++ uses the `cpp` prefix.
 ### `cpp:array`
 
 This directive applies to sequence parameters in operations. It directs the Slice compiler to map these parameters to
-[pairs of pointers](slice/user-defined-types/sequences).
+[pairs of pointers](../user-defined-types/sequences).
 
 ### `cpp:const`
 
@@ -163,15 +163,15 @@ required to make forward declared types visible to the source files.
 
 ### `cpp:type:c++-type`
 
-This directive applies to [sequences](slice/user-defined-types/sequences) and
-[dictionaries](slice/user-defined-types/dictionaries). It directs the Slice compiler to map the Slice type or parameter
-to the provided C++ type.
+This directive applies to [sequences](../user-defined-types/sequences) and
+[dictionaries](../user-defined-types/dictionaries). It directs the Slice compiler to map the Slice type or parameter to
+the provided C++ type.
 
 ### `cpp:type:string` and `cpp:type:wstring`
 
 These directives apply to fields of type string as well as to containers, such as structures, classes and exceptions.
-String fields [map by default](slice/basic-types) to `std::string`. You can use the `cpp:type:wstring` metadata to cause
-a string field (or all string fields in a structure, class or exception) to map to `std::wstring` instead. Use the
+String fields [map by default](../basic-types) to `std::string`. You can use the `cpp:type:wstring` metadata to cause a
+string field (or all string fields in a structure, class or exception) to map to `std::wstring` instead. Use the
 `cpp:type:string` metadata to force string fields to use the default mapping regardless of any enclosing metadata.
 
 ```slice

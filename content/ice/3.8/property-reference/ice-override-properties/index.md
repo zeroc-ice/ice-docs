@@ -22,7 +22,7 @@ Ice for JavaScript does not support `Ice.Override.Compress`. Setting it throws `
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-If set, this property overrides [compression](protocol/protocol-compression) settings in all proxies and in object
+If set, this property overrides [compression](../../protocol/protocol-compression) settings in all proxies and in object
 adapter listening endpoints. `1` enables compression and `0` disables it. Published endpoints derived from the listening
 endpoints inherit the resulting compression flag.
 

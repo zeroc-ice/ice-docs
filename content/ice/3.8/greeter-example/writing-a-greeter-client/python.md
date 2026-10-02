@@ -134,6 +134,6 @@ uv run main.py
 {% callout type="info" %}
 
 This client won’t work unless you’ve also launched a Greeter server — see
-[Writing a Greeter Server](greeter-example/writing-a-greeter-server).
+[Writing a Greeter Server](../writing-a-greeter-server).
 
 {% /callout %}

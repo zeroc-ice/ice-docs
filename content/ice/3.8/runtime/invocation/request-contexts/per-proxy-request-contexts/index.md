@@ -2,10 +2,9 @@
 title: Per-Proxy Request Contexts
 ---
 
-Instead of passing a context [explicitly](runtime/invocation/request-contexts/explicit-request-contexts) with an
-invocation, you can also use a _per-proxy context_. Per-proxy contexts allow you to set a context on a particular proxy
-once and, thereafter, whenever you use that proxy to invoke an operation, the previously-set context is sent with each
-invocation.
+Instead of passing a context [explicitly](../explicit-request-contexts) with an invocation, you can also use a
+_per-proxy context_. Per-proxy contexts allow you to set a context on a particular proxy once and, thereafter, whenever
+you use that proxy to invoke an operation, the previously-set context is sent with each invocation.
 
 ## Configuring a Per-Proxy Request Context Programmatically
 
@@ -31,7 +30,7 @@ GreeterProxy.Context.language=es
 ```
 
 The Context property has the form `name.Context.key=value`, where `key` and `value` can be any
-[legal property symbols](runtime/properties-and-configuration/properties-overview).
+[legal property symbols](../../../properties-and-configuration/properties-overview).
 
 The proxy returned by `propertyToProxy` already contains the context key/value pairs specified in the configuration
 properties. To make any modifications to the context at run time, you'll need to retrieve the proxy's context dictionary
@@ -40,5 +39,5 @@ we described above.
 
 ## See Also
 
-- [Explicit Request Contexts](runtime/invocation/request-contexts/explicit-request-contexts)
-- [Proxy Properties](property-reference/proxy-properties)
+- [Explicit Request Contexts](../explicit-request-contexts)
+- [Proxy Properties](../../../../property-reference/proxy-properties)

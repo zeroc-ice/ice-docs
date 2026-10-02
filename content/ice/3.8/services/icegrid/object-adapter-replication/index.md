@@ -2,15 +2,15 @@
 title: Object Adapter Replication
 ---
 
-As an implementation of an Ice location service, IceGrid supports [object adapter replication](basics/terminology). An
-application defines its replica groups and their participating object adapters using descriptors, and IceGrid generates
-the server configurations automatically.
+As an implementation of an Ice location service, IceGrid supports
+[object adapter replication](../../../basics/terminology). An application defines its replica groups and their
+participating object adapters using descriptors, and IceGrid generates the server configurations automatically.
 
 ## Deploying a Replica Group
 
-The [descriptor that defines a replica group](services/icegrid/icegrid-xml-reference/replica-group-descriptor-element)
-can optionally declare [well-known objects](services/icegrid/icegrid-xml-reference/object-descriptor-element) as well as
-configure the group to determine its behavior during locate requests. Consider this example:
+The [descriptor that defines a replica group](../icegrid-xml-reference/replica-group-descriptor-element) can optionally
+declare [well-known objects](../icegrid-xml-reference/object-descriptor-element) as well as configure the group to
+determine its behavior during locate requests. Consider this example:
 
 ```xml
 <icegrid>
@@ -66,8 +66,8 @@ With this configuration, a replica group is created implicitly as soon as an ada
 adapter is allowed to participate.
 
 The use of dynamic registration often leads to the accumulation of obsolete replica groups and adapters in the registry.
-The [IceGrid administration tools](services/icegrid/icegridadmin-command-line-tool) allow you to inspect and clean up
-the registry's state.
+The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you to inspect and clean up the registry's
+state.
 
 ## Using Replica Groups in the Ripper Application
 
@@ -112,8 +112,8 @@ replica group.
 
 ### Using a Replica Group in the Ripper Client
 
-In comparison to the examples that demonstrated [querying for well-known objects](services/icegrid/well-known-objects),
-the new version of our client has become much simpler:
+In comparison to the examples that demonstrated [querying for well-known objects](../well-known-objects), the new
+version of our client has become much simpler:
 
 ```cpp
 Ripper::MP3EncoderFactoryPrx factory{communicator, "EncoderFactory"};
@@ -125,12 +125,12 @@ lets the Ice runtime transparently interact with the location service. In respon
 `EncoderFactory`, the registry returns a proxy containing the endpoints of both object adapters. The Ice runtime in the
 client selects one of the endpoints at random, meaning we have now lost some functionality compared to the prior example
 in which system load was considered when selecting an endpoint. We will learn how to rectify this situation in our
-discussion of [load balancing](services/icegrid/load-balancing).
+discussion of [load balancing](../load-balancing).
 
 ## See Also
 
-- [Terminology](basics/terminology)
-- [Replica-Group Descriptor Element](services/icegrid/icegrid-xml-reference/replica-group-descriptor-element)
-- [Object Descriptor Element](services/icegrid/icegrid-xml-reference/object-descriptor-element)
-- [Well-Known Objects](services/icegrid/well-known-objects)
-- [Load Balancing](services/icegrid/load-balancing)
+- [Terminology](../../../basics/terminology)
+- [Replica-Group Descriptor Element](../icegrid-xml-reference/replica-group-descriptor-element)
+- [Object Descriptor Element](../icegrid-xml-reference/object-descriptor-element)
+- [Well-Known Objects](../well-known-objects)
+- [Load Balancing](../load-balancing)

@@ -13,7 +13,7 @@ payload is unmarshaled. For a one-way invocation, it stops the timer as soon as 
 
 ## Configuring the Default Invocation Timeout
 
-The property [Ice.Default.InvocationTimeout](property-reference/ice-default-properties) establishes the default
+The property [Ice.Default.InvocationTimeout](../../../property-reference/ice-default-properties) establishes the default
 invocation timeout value for proxies. This property has a default value of `-1`, which means invocations do not time out
 by default.
 
@@ -36,7 +36,7 @@ You have a couple of options for configuring the invocation timeout of a proxy:
 - Call `ice_invocationTimeout`
 
 Assuming you've defined a configuration property containing a proxy that your application reads using
-[propertyToProxy](runtime/invocation/creating-proxies), you can configure an invocation timeout as follows:
+[propertyToProxy](../creating-proxies), you can configure an invocation timeout as follows:
 
 ```config
 # Assumes the application calls propertyToProxy("GreeterProxy")
@@ -44,8 +44,8 @@ GreeterProxy=greeter:tcp -h localhost -p 4061
 GreeterProxy.InvocationTimeout=2500  # milliseconds
 ```
 
-The [InvocationTimeout](property-reference/proxy-properties) proxy property specifies the invocation timeout that will
-be used for all invocations made via the proxy returned by `propertyToProxy`.
+The [InvocationTimeout](../../../property-reference/proxy-properties) proxy property specifies the invocation timeout
+that will be used for all invocations made via the proxy returned by `propertyToProxy`.
 
 To configure an invocation timeout at runtime, use the `ice_invocationTimeout` proxy factory method to obtain a new
 proxy with the desired timeout:
@@ -64,12 +64,12 @@ sends one.
 
 {% callout type="info" %}
 
-Ice does **not** perform [automatic retries](runtime/invocation/automatic-retries) for invocation timeouts.
+Ice does **not** perform [automatic retries](../automatic-retries) for invocation timeouts.
 
 {% /callout %}
 
 ## See Also
 
-- [Proxy Properties](property-reference/proxy-properties)
-- [Ice.Default.*](property-reference/ice-default-properties)
-- [Obtaining Proxies](runtime/invocation/creating-proxies)
+- [Proxy Properties](../../../property-reference/proxy-properties)
+- [Ice.Default.*](../../../property-reference/ice-default-properties)
+- [Obtaining Proxies](../creating-proxies)

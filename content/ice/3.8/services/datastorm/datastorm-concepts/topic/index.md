@@ -3,7 +3,7 @@ title: Topic
 ---
 
 A **topic** can be seen as a typed stream or channel through which DataStorm nodes exchange data in the form of
-[**samples**](services/datastorm/datastorm-concepts/sample).
+[**samples**](../sample).
 
 The topic's name uniquely identifies it within a DataStorm application. The `Key`, `Value`, and `UpdateTag` types
 specify the typed data that will be written to and read from the topic.
@@ -41,7 +41,7 @@ Readers and writers created from a particular instance are disconnected when tha
 of other topic instances with the same name.
 
 For peer nodes receiving samples from a topic, the topic instances are indistinguishable, although each sample still
-identifies the [writer](services/datastorm/datastorm-concepts/writer) that published it.
+identifies the [writer](../writer) that published it.
 
 Applications **must not** create multiple topics with the same name but different type parameters. Doing so will result
 in decoding errors when subscribers attempt to decode samples that do not match the expected encoding.
@@ -77,8 +77,7 @@ The `setKeyFilter` method registers a factory function for key filters. The temp
 for the filter criteria. The first argument is the filter’s name, and the second argument is a factory function that
 returns a filter function for the given criteria.
 
-[Readers](services/datastorm/datastorm-concepts/reader) and writers created by a topic can use the key filter factories
-registered with that topic:
+[Readers](../reader) and writers created by a topic can use the key filter factories registered with that topic:
 
 - A **reader** uses the filter to ignore samples whose keys do not match the specified criteria.
 - A **writer** uses the filter to avoid attaching to readers whose filters exclude all of its configured keys.
@@ -130,9 +129,9 @@ The `_event` filter can be used only as a sample filter, allow filtering samples
 
 ### Updaters
 
-DataStorm **updaters** are used to process _partial update_ [samples](services/datastorm/datastorm-concepts/sample) —
-that is, samples with the `PartialUpdate` event type. A partial update sample represents a change relative to the
-previous sample rather than a complete replacement of the value.
+DataStorm **updaters** are used to process _partial update_ [samples](../sample) — that is, samples with the
+`PartialUpdate` event type. A partial update sample represents a change relative to the previous sample rather than a
+complete replacement of the value.
 
 Partial updates are useful when a topic’s value type contains large amounts of data, especially when only a subset
 changes frequently. By publishing partial updates instead of full values, applications can significantly reduce

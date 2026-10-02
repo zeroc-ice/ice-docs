@@ -2,8 +2,8 @@
 title: Dynamic Request Filtering with Glacier2
 ---
 
-Glacier2 can be [statically configured](services/glacier2/securing-a-glacier2-router) to filter requests, and also
-allows a session manager to customize filters for each session at run time via its `SessionControl` interface:
+Glacier2 can be [statically configured](../securing-a-glacier2-router) to filter requests, and also allows a session
+manager to customize filters for each session at run time via its `SessionControl` interface:
 
 ```slice
 module Glacier2
@@ -19,8 +19,8 @@ module Glacier2
 ```
 
 The router creates a `SessionControl` object for each client session and supplies a proxy for the object to the session
-manager [create](services/glacier2/glacier2-session-management) operations. Note that the `SessionControl` proxy is null
-unless the router is [configured with server endpoints](services/glacier2/callbacks-through-glacier2).
+manager [create](../glacier2-session-management) operations. Note that the `SessionControl` proxy is null unless the
+router is [configured with server endpoints](../callbacks-through-glacier2).
 
 Invoking the `destroy` operation causes the router to destroy the client's session, which eventually results in an
 invocation of `destroy` on the application-defined `Session` object, if one was provided.
@@ -84,10 +84,10 @@ category to the session's filter. As long as our back-end objects do not use a l
 categories, this strategy guarantees that a session's category can never match the category of a back-end object.
 
 For your convenience, Glacier2 already includes support for
-[automatic category filtering](services/glacier2/securing-a-glacier2-router).
+[automatic category filtering](../securing-a-glacier2-router).
 
 ## See Also
 
-- [Callbacks Through Glacier2](services/glacier2/callbacks-through-glacier2)
-- [Securing a Glacier2 Router](services/glacier2/securing-a-glacier2-router)
-- [Glacier2 Session Management](services/glacier2/glacier2-session-management)
+- [Callbacks Through Glacier2](../callbacks-through-glacier2)
+- [Securing a Glacier2 Router](../securing-a-glacier2-router)
+- [Glacier2 Session Management](../glacier2-session-management)

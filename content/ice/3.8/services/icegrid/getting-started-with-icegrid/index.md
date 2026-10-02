@@ -78,8 +78,8 @@ adapter (`@EncoderAdapter`) sent directly to the server without further involvem
 
 The registry needs a subdirectory in which to create its databases, and we will use `/opt/ripper/registry` for this
 purpose (the directory must exist before starting the registry). We also need to create an Ice configuration file to
-hold [properties](property-reference/icegrid-properties) required by the registry. The file `/opt/ripper/registry.cfg`
-contains the following properties:
+hold [properties](../../../property-reference/icegrid-properties) required by the registry. The file
+`/opt/ripper/registry.cfg` contains the following properties:
 
 ```config
 IceGrid.Registry.Client.Endpoints=tcp -p 4061
@@ -92,15 +92,15 @@ IceGrid.Registry.DynamicRegistration=1
 
 Several of the properties define endpoints, but only the value of `IceGrid.Registry.Client.Endpoints` needs a fixed
 port. This property specifies the endpoints of the IceGrid locator service; IceGrid clients must include these endpoints
-in their definition of [Ice.Default.Locator](property-reference/ice-default-properties), as discussed in the next
-section. The TCP port number (4061) used in this example has been reserved by the
+in their definition of [Ice.Default.Locator](../../../property-reference/ice-default-properties), as discussed in the
+next section. The TCP port number (4061) used in this example has been reserved by the
 [Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA) for the
 IceGrid registry, along with SSL port number 4062.
 
 Several other properties are worth mentioning:
 
 - `IceGrid.Registry.AdminPermissionsVerifier` Controls access to the registry's
-  [administrative functionality](services/icegrid/resource-allocation-using-icegrid-sessions).
+  [administrative functionality](../resource-allocation-using-icegrid-sessions).
 
 - `IceGrid.Registry.LMDB.Path` Specifies the registry's database directory.
 
@@ -108,29 +108,28 @@ Several other properties are worth mentioning:
   Dynamic registration is explained in more detail below.
 
 By default, IceGrid will not permit a server to register its object adapters without using IceGrid's
-[deployment facility](services/icegrid/using-icegrid-deployment). In some situations, such as in this sample
-application, you may want a client to be able to bind indirectly to a server without having to first deploy the server.
-That is, simply starting the server should be sufficient to make the server register itself with IceGrid and be
-reachable from clients.
+[deployment facility](../using-icegrid-deployment). In some situations, such as in this sample application, you may want
+a client to be able to bind indirectly to a server without having to first deploy the server. That is, simply starting
+the server should be sufficient to make the server register itself with IceGrid and be reachable from clients.
 
 You can achieve this by running the registry with the property
-[IceGrid.Registry.DynamicRegistration](property-reference/icegrid-properties) set to a non-zero value. With this
-setting, IceGrid permits an adapter to register itself upon activation even if it has not been previously deployed. To
-force the server to register its adapters, you must define `Ice.Default.Locator` (so the server can find the registry)
-and, for each adapter that you wish to register, you must set
-[_adapter-name_.AdapterId](property-reference/object-adapter-properties) to an identifier that is unique within the
-registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create direct proxies but
-rather to create indirect proxies that clients must resolve via the registry.
+[IceGrid.Registry.DynamicRegistration](../../../property-reference/icegrid-properties) set to a non-zero value. With
+this setting, IceGrid permits an adapter to register itself upon activation even if it has not been previously deployed.
+To force the server to register its adapters, you must define `Ice.Default.Locator` (so the server can find the
+registry) and, for each adapter that you wish to register, you must set
+[_adapter-name_.AdapterId](../../../property-reference/object-adapter-properties) to an identifier that is unique within
+the registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create direct proxies
+but rather to create indirect proxies that clients must resolve via the registry.
 
 ## Ripper Client Configuration
 
 The client requires only minimal configuration, namely a value for the property
-[Ice.Default.Locator](runtime/locators/locator-configuration-for-a-client). This property supplies the Ice runtime with
-the proxy for the locator service. In IceGrid, the locator service is implemented by the registry, and the locator
-object is available on the registry's client endpoints. The property `IceGrid.Registry.Client.Endpoints` defined above
-provides most of the information we need to construct the proxy. The missing piece is the identity of the locator
+[Ice.Default.Locator](../../../runtime/locators/locator-configuration-for-a-client). This property supplies the Ice
+runtime with the proxy for the locator service. In IceGrid, the locator service is implemented by the registry, and the
+locator object is available on the registry's client endpoints. The property `IceGrid.Registry.Client.Endpoints` defined
+above provides most of the information we need to construct the proxy. The missing piece is the identity of the locator
 object, which defaults to `IceGrid/Locator` but may change based on the
-[registry's configuration](services/icegrid/icegrid-server-reference/well-known-registry-objects):
+[registry's configuration](../icegrid-server-reference/well-known-registry-objects):
 
 ```config
 Ice.Default.Locator=IceGrid/Locator:tcp -h registryhost -p 4061
@@ -142,8 +141,8 @@ it cannot resolve indirect proxies without knowing the endpoints of the locator 
 
 {% callout type="tip" %}
 
-[IceLocatorDiscovery](plugins/icelocatordiscovery) eliminates the need for a client to define the `Ice.Default.Locator`
-property by using UDP multicast to discover registries at runtime.
+[IceLocatorDiscovery](../../../plugins/icelocatordiscovery) eliminates the need for a client to define the
+`Ice.Default.Locator` property by using UDP multicast to discover registries at runtime.
 
 {% /callout %}
 
@@ -159,19 +158,19 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h registryhost -p 4061
 
 The properties are described below:
 
-- [EncoderAdapter.AdapterId](property-reference/object-adapter-properties) This property supplies the object adapter
-  identifier that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
+- [EncoderAdapter.AdapterId](../../../property-reference/object-adapter-properties) This property supplies the object
+  adapter identifier that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
 
-- [EncoderAdapter.Endpoints](property-reference/object-adapter-properties) This property defines the
-  [object adapter's endpoint](runtime/dispatch/object-adapter-endpoints). Notice that the value does not contain any
-  port information, meaning that the adapter uses a system-assigned port. Without IceGrid, the use of a system-assigned
-  port would pose a significant problem: how would a client create a direct proxy if the adapter's port could change
-  every time the server is restarted? IceGrid solves this problem nicely because clients can use indirect proxies that
-  contain no endpoint dependencies. The registry resolves indirect proxies using the endpoint information supplied by
-  object adapters each time they are activated.
+- [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties) This property defines the
+  [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value does not
+  contain any port information, meaning that the adapter uses a system-assigned port. Without IceGrid, the use of a
+  system-assigned port would pose a significant problem: how would a client create a direct proxy if the adapter's port
+  could change every time the server is restarted? IceGrid solves this problem nicely because clients can use indirect
+  proxies that contain no endpoint dependencies. The registry resolves indirect proxies using the endpoint information
+  supplied by object adapters each time they are activated.
 
-- [Ice.Default.Locator](property-reference/ice-default-properties) The server requires a value for this property in
-  order to register its object adapter.
+- [Ice.Default.Locator](../../../property-reference/ice-default-properties) The server requires a value for this
+  property in order to register its object adapter.
 
 ## Starting the Registry for the Ripper Application
 
@@ -182,13 +181,13 @@ registry:
 icegridregistry --Ice.Config=/opt/ripper/registry.cfg
 ```
 
-Additional [command line options](services/icegrid/icegrid-server-reference/icegridregistry) are supported, including
-those that allow the registry to run as a Windows service or Unix daemon.
+Additional [command line options](../icegrid-server-reference/icegridregistry) are supported, including those that allow
+the registry to run as a Windows service or Unix daemon.
 
 ## Starting the Ripper Server
 
 With the registry up and running, we can now start the server. At a command prompt, we run the program and pass an
-[--Ice.Config](property-reference/ice-properties) option indicating the location of the configuration file:
+[--Ice.Config](../../../property-reference/ice-properties) option indicating the location of the configuration file:
 
 ```shell
 /opt/ripper/bin/server --Ice.Config=/opt/ripper/server.cfg
@@ -208,10 +207,10 @@ IceGrid node.
 
 ## See Also
 
-- [Locator Configuration for a Client](runtime/locators/locator-configuration-for-a-client)
-- [Resource Allocation Using IceGrid Sessions](services/icegrid/resource-allocation-using-icegrid-sessions)
-- [Well-Known Registry Objects](services/icegrid/icegrid-server-reference/well-known-registry-objects)
-- [Using IceGrid Deployment](services/icegrid/using-icegrid-deployment)
-- [Object Adapter Endpoints](runtime/dispatch/object-adapter-endpoints)
-- [icegridregistry](services/icegrid/icegrid-server-reference/icegridregistry)
-- [IceGrid.*](property-reference/icegrid-properties)
+- [Locator Configuration for a Client](../../../runtime/locators/locator-configuration-for-a-client)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [Well-Known Registry Objects](../icegrid-server-reference/well-known-registry-objects)
+- [Using IceGrid Deployment](../using-icegrid-deployment)
+- [Object Adapter Endpoints](../../../runtime/dispatch/object-adapter-endpoints)
+- [icegridregistry](../icegrid-server-reference/icegridregistry)
+- [IceGrid.*](../../../property-reference/icegrid-properties)

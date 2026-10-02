@@ -3,12 +3,11 @@ title: Reader
 ---
 
 A **reader** represents the subscriber side of a DataStorm publish–subscribe application. You create readers to receive
-data published by [writers](services/datastorm/datastorm-concepts/writer).
+data published by [writers](../writer).
 
-Readers receive data [samples](services/datastorm/datastorm-concepts/sample) from a specific topic. Each reader is
-associated with a single [topic](services/datastorm/datastorm-concepts/topic), but multiple readers can be created for
-the same topic. The reader’s `Key`, `Value`, and `UpdateTag` template parameters must match the corresponding types of
-the topic from which it is created.
+Readers receive data [samples](../sample) from a specific topic. Each reader is associated with a single
+[topic](../topic), but multiple readers can be created for the same topic. The reader’s `Key`, `Value`, and `UpdateTag`
+template parameters must match the corresponding types of the topic from which it is created.
 
 When a reader is created, DataStorm **notifies connected peers**. Writers whose configuration matches the reader (topic,
 keys/filters) will **attach** so they can send samples to that reader.
@@ -141,8 +140,7 @@ auto reader = makeSingleKeyReader(
 {% callout type="info" %}
 
 Sample filters are specified on readers but must be defined on the writer’s topic. Criteria types can be any
-[custom type](services/datastorm/datastorm-concepts/custom-types) for which your application provides encoding/decoding
-templates.
+[custom type](../custom-types) for which your application provides encoding/decoding templates.
 
 {% /callout %}
 
@@ -175,7 +173,7 @@ when constructing the node.
 Reader behavior is configurable via
 [DataStorm::ReaderConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1ReaderConfig.html). You can set:
 
-- **Global defaults** — [DataStorm.Topic.*](property-reference/datastorm-topic-properties) properties (e.g.,
+- **Global defaults** — [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties (e.g.,
   DataStorm.Topic.SampleCount)
 - **Topic-level defaults** — by calling
   [Topic::setReaderDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ae005c107f689e1e309e49a4c1421ed2a.html#ae005c107f689e1e309e49a4c1421ed2a)

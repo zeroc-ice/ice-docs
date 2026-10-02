@@ -3,15 +3,14 @@ title: Manually Installing a Service as a Windows Service
 ---
 
 This page describes how to manually install and configure an Ice service as a Windows Service using the
-[IceBridge](services/icebridge) service as a case study. For the purposes of this discussion, we assume that Ice is
-installed in the directory `C:\Program Files\ZeroC\Ice-3.8.2`. We also assume that you have administrative access to
-your system, which is required by many of the installation steps discussed below.
+[IceBridge](../../../services/icebridge) service as a case study. For the purposes of this discussion, we assume that
+Ice is installed in the directory `C:\Program Files\ZeroC\Ice-3.8.2`. We also assume that you have administrative access
+to your system, which is required by many of the installation steps discussed below.
 
 ## Selecting a User Account for the IceBridge Service
 
 The IceBridge service can run in a regular user account, therefore we will follow
-[our own recommendation](background-servers/windows-services/installing-a-windows-service) and use the Local Service
-account.
+[our own recommendation](../installing-a-windows-service) and use the Local Service account.
 
 ## Configuration File for the IceBridge Service
 
@@ -78,8 +77,7 @@ There are several important aspects of this command:
 - The `start=` option configures the start up behavior for the service. We used the argument `auto` to indicate the
   service should be started automatically when Windows boots.
 - The `obj=` option selects the user account in which this service runs. As we
-  [explained](background-servers/windows-services/installing-a-windows-service), the `Local Service` account is
-  appropriate for most services.
+  [explained](../installing-a-windows-service), the `Local Service` account is appropriate for most services.
 - The `password=` option supplies the password associated with the user account indicated by `obj=`. The `Local Service`
   account has an empty password.
 
@@ -154,8 +152,8 @@ Our configuration of the event log is now complete.
 Using the configuration described in the previous section, events logged by the IceBridge service are recorded in the
 event log using the source name `icebridge`. If you prefer to use a source name that differs from the service name, you
 can replace icebridge in the registry commands with the name of your choosing, but you must also add a matching
-definition for the property [Ice.EventLog.Source](property-reference/ice-properties) to the service's configuration
-file.
+definition for the property [Ice.EventLog.Source](../../../property-reference/ice-properties) to the service's
+configuration file.
 
 For example, to use the source name `Ice Bridging Service`, you would add the registry key as shown below:
 
@@ -222,8 +220,8 @@ custom log instead of the `Application` log, you should perform the following st
 After following these steps, open a log entry and ensure that it displays properly. If it does not, for example if the
 event properties indicate that the description of an event cannot be found, the problem is likely due to a misconfigured
 event source. Verify that the value of `EventMessageFile` refers to the correct location of the Ice run time DLL, and
-that the service is defining [Ice.EventLog.Source](property-reference/ice-properties) in its configuration file (if
-necessary).
+that the service is defining [Ice.EventLog.Source](../../../property-reference/ice-properties) in its configuration file
+(if necessary).
 
 ## Starting the IceBridge Service
 
@@ -246,4 +244,4 @@ successfully, you may still want to use the Event Viewer to confirm that the ser
 
 ## See Also
 
-- [Installing a Windows Service](background-servers/windows-services/installing-a-windows-service)
+- [Installing a Windows Service](../installing-a-windows-service)

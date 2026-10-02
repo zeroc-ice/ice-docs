@@ -29,8 +29,8 @@ The figure below illustrates the underlying concepts of registry replication:
    replica.
 5. In the case of a failure, the client automatically fails over to the slave. If the master registry's host has failed,
    then `Node1` and any servers that were active on this host also become unavailable. The use of
-   [object adapter replication](services/icegrid/object-adapter-replication) allows the client to transparently
-   reestablish communication with a server on `Node2`.
+   [object adapter replication](../object-adapter-replication) allows the client to transparently reestablish
+   communication with a server on `Node2`.
 
 ## Capabilities of a Registry Replica
 
@@ -55,8 +55,8 @@ server on behalf of a client.
 ### Queries
 
 Replicating the registry also replicates the object that supports the `IceGrid::Query` interface used to
-[query well-known objects](services/icegrid/well-known-objects). A client that resolves the `IceGrid/Query` object
-identity receives the endpoints of all active replicas, any of which can execute the client's requests.
+[query well-known objects](../well-known-objects). A client that resolves the `IceGrid/Query` object identity receives
+the endpoints of all active replicas, any of which can execute the client's requests.
 
 ### Allocation
 
@@ -65,8 +65,8 @@ A client that needs to allocate a resource must establish a session with the mas
 ### Administration
 
 The state of an IceGrid registry is accessible via the `IceGrid::Admin` interface or (more commonly) using an
-[administrative tool](services/icegrid/icegridadmin-command-line-tool) that encapsulates this interface. Modifications
-to the registry's state, such as deploying or updating an application, can only be done using the master replica.
+[administrative tool](../icegridadmin-command-line-tool) that encapsulates this interface. Modifications to the
+registry's state, such as deploying or updating an application, can only be done using the master replica.
 Administrative access to slave replicas is allowed but restricted to read-only operations. The administrative utilities
 provide mechanisms for you to select a particular replica to contact.
 
@@ -76,9 +76,9 @@ master replica and the identity `IceGrid/Registry-name` corresponds to the slave
 ### Glacier2 Support
 
 The registry implements the session manager interfaces required for
-[integration with a Glacier2 router](services/icegrid/glacier2-integration-with-icegrid). The master replica supports
-the object identities `IceGrid/SessionManager` and `IceGrid/AdminSessionManager`. The slave replicas offer support for
-read-only administrative sessions using the object identity `IceGrid/AdminSessionManager-name`.
+[integration with a Glacier2 router](../glacier2-integration-with-icegrid). The master replica supports the object
+identities `IceGrid/SessionManager` and `IceGrid/AdminSessionManager`. The slave replicas offer support for read-only
+administrative sessions using the object identity `IceGrid/AdminSessionManager-name`.
 
 ## Configuring Registry Replication
 
@@ -88,13 +88,13 @@ settings.
 ### Replicas
 
 Each replica must specify a unique name in its configuration property
-[IceGrid.Registry.ReplicaName](property-reference/icegrid-properties). The default value of this property is `Master`,
-therefore the master replica can omit this property if desired.
+[IceGrid.Registry.ReplicaName](../../../property-reference/icegrid-properties). The default value of this property is
+`Master`, therefore the master replica can omit this property if desired.
 
 At startup, a slave replica attempts to register itself with its master in order to synchronize its databases and obtain
 the list of active nodes. The slave uses the proxy supplied by the
-[Ice.Default.Locator](property-reference/ice-default-properties) property to find the master. At a minimum, this proxy
-should contain the endpoint of a replica that is connected to the master.
+[Ice.Default.Locator](../../../property-reference/ice-default-properties) property to find the master. At a minimum,
+this proxy should contain the endpoint of a replica that is connected to the master.
 
 For better reliability if a failure occurs, we recommend that you also include the endpoints of all slave replicas in
 the `Ice.Default.Locator` property. There is no harm in adding the slave's own endpoints to the proxy in
@@ -126,8 +126,8 @@ IceGrid.Registry.ReplicaName=Replica1
 
 {% callout type="tip" %}
 
-Configuring [IceLocatorDiscovery](plugins/icelocatordiscovery) in the replicas allows them to discover the master at run
-time without the need to define `Ice.Default.Locator`.
+Configuring [IceLocatorDiscovery](../../../plugins/icelocatordiscovery) in the replicas allows them to discover the
+master at run time without the need to define `Ice.Default.Locator`.
 
 {% /callout %}
 
@@ -147,8 +147,8 @@ Ice.Default.Locator=IceGrid/Locator:default -p 12000:default -p 12001
 
 {% callout type="tip" %}
 
-Configuring [IceLocatorDiscovery](plugins/icelocatordiscovery) in a client allows it to discover the replicas at runtime
-without the need to define `Ice.Default.Locator`.
+Configuring [IceLocatorDiscovery](../../../plugins/icelocatordiscovery) in a client allows it to discover the replicas
+at runtime without the need to define `Ice.Default.Locator`.
 
 {% /callout %}
 
@@ -173,8 +173,8 @@ IceGrid.Node.Data=db/node1
 
 {% callout type="tip" %}
 
-Configuring [IceLocatorDiscovery](plugins/icelocatordiscovery) in a node allows it to discover the replicas at runtime
-without the need to define `Ice.Default.Locator`.
+Configuring [IceLocatorDiscovery](../../../plugins/icelocatordiscovery) in a node allows it to discover the replicas at
+runtime without the need to define `Ice.Default.Locator`.
 
 {% /callout %}
 
@@ -183,11 +183,11 @@ without the need to define `Ice.Default.Locator`.
 You can use several configuration properties to enable trace messages that may help in diagnosing registry replication
 issues:
 
-- [IceGrid.Registry.Trace.Replica](property-reference/icegrid-properties) Displays information about the sessions
-  established between master and slave replicas.
+- [IceGrid.Registry.Trace.Replica](../../../property-reference/icegrid-properties) Displays information about the
+  sessions established between master and slave replicas.
 
-- [IceGrid.Registry.Trace.Node](property-reference/icegrid-properties)
-  [IceGrid.Node.Trace.Replica](property-reference/icegrid-properties) Displays information about the sessions
+- [IceGrid.Registry.Trace.Node](../../../property-reference/icegrid-properties)
+  [IceGrid.Node.Trace.Replica](../../../property-reference/icegrid-properties) Displays information about the sessions
   established between replicas and nodes.
 
 ## Using Registry Replication with External Load Balancing
@@ -217,7 +217,7 @@ is really only an issue when starting a slave with an empty database.
 
 ## See Also
 
-- [Well-Known Objects](services/icegrid/well-known-objects)
-- [icegridadmin Command Line Tool](services/icegrid/icegridadmin-command-line-tool)
-- [Glacier2 Integration with IceGrid](services/icegrid/glacier2-integration-with-icegrid)
-- [IceGrid.*](property-reference/icegrid-properties)
+- [Well-Known Objects](../well-known-objects)
+- [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
+- [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
+- [IceGrid.*](../../../property-reference/icegrid-properties)

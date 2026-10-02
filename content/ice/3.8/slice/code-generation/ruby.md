@@ -43,7 +43,7 @@ For example:
 Ice::loadSlice(["-I/opt/IceRuby/slice", "Color.ice"])
 ```
 
-In addition to the [standard compiler options](slice/using-the-slice-compiler), `Ice::loadSlice` also supports the
+In addition to the [standard compiler options](../using-the-slice-compiler), `Ice::loadSlice` also supports the
 following command-line option:
 
 - `--all` Generate code for all Slice definitions, including those from included files.
@@ -141,8 +141,7 @@ end
 ## Static Code Generation in Ruby
 
 You should be familiar with static code generation if you have used other Slice language mappings, such as C++ or Java.
-Using static code generation, the Slice compiler [slice2rb](slice/code-generation) generates Ruby code from your Slice
-definitions.
+Using static code generation, the Slice compiler [slice2rb](./) generates Ruby code from your Slice definitions.
 
 ### Compiler Output in Ruby
 
@@ -247,4 +246,4 @@ statically-generated file `Glacier2/Session.rb`. We can do this in a number of w
 
 ## See Also
 
-- [Using the Slice Compilers](slice/using-the-slice-compiler)
+- [Using the Slice Compilers](../using-the-slice-compiler)

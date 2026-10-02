@@ -2,7 +2,7 @@
 title: IceStorm.*
 ---
 
-[IceStorm](services/icestorm) is an IceBox service that you can install using any name you like. For example:
+[IceStorm](../../services/icestorm) is an IceBox service that you can install using any name you like. For example:
 
 ```config
 IceBox.Service.DataFeed=IceStormService,...
@@ -35,8 +35,8 @@ during this interval are not queued for this subscriber: IceStorm discards them,
 
 This interval applies only when the subscriber's `retryCount` QoS setting allows further retries — a value of `-1`, or a
 positive value with retries remaining. With the default `retryCount` of `0`, IceStorm removes the subscriber instead.
-See [Retry Count QoS for IceStorm](services/icestorm/icestorm-quality-of-service) for a complete description of how
-IceStorm handles delivery failures.
+See [Retry Count QoS for IceStorm](../../services/icestorm/icestorm-quality-of-service) for a complete description of
+how IceStorm handles delivery failures.
 
 The default value of this property is 60 seconds.
 
@@ -48,9 +48,9 @@ The default value of this property is 60 seconds.
 
 ### Description {% id="icestorm.election.electiontimeout-description" %}
 
-This property is used by a [replicated IceStorm deployment](services/icestorm/highly-available-icestorm). It specifies
-the interval in seconds at which a coordinator attempts to form larger groups of replicas. If not defined, the default
-value is 10.
+This property is used by a [replicated IceStorm deployment](../../services/icestorm/highly-available-icestorm). It
+specifies the interval in seconds at which a coordinator attempts to form larger groups of replicas. If not defined, the
+default value is 10.
 
 ## IceStorm.Election.MasterTimeout
 
@@ -60,8 +60,9 @@ value is 10.
 
 ### Description {% id="icestorm.election.mastertimeout-description" %}
 
-This property is used by a [replicated IceStorm deployment](services/icestorm/highly-available-icestorm). It specifies
-the interval in seconds at which a slave checks the status of the coordinator. If not defined, the default value is 10.
+This property is used by a [replicated IceStorm deployment](../../services/icestorm/highly-available-icestorm). It
+specifies the interval in seconds at which a slave checks the status of the coordinator. If not defined, the default
+value is 10.
 
 ## IceStorm.Election.ResponseTimeout
 
@@ -71,9 +72,9 @@ the interval in seconds at which a slave checks the status of the coordinator. I
 
 ### Description {% id="icestorm.election.responsetimeout-description" %}
 
-This property is used by a [replicated IceStorm deployment](services/icestorm/highly-available-icestorm). It specifies
-the interval in seconds that a replica waits for replies to an invitation to form a larger group. Lower priority
-replicas wait for intervals inversely proportional to the maximum priority:
+This property is used by a [replicated IceStorm deployment](../../services/icestorm/highly-available-icestorm). It
+specifies the interval in seconds that a replica waits for replies to an invitation to form a larger group. Lower
+priority replicas wait for intervals inversely proportional to the maximum priority:
 
 ```text
 ResponseTimeout + ResponseTimeout * (max - pri)
@@ -90,7 +91,7 @@ If not defined, the default value is 10.
 ### Description {% id="icestorm.flush.timeout-description" %}
 
 Defines the interval in milliseconds with which events are sent to
-[batch subscribers](services/icestorm/icestorm-delivery-modes). The default is 1000ms.
+[batch subscribers](../../services/icestorm/icestorm-delivery-modes). The default is 1000ms.
 
 ## IceStorm.InstanceName
 
@@ -100,9 +101,9 @@ Defines the interval in milliseconds with which events are sent to
 
 ### Description {% id="icestorm.instancename-description" %}
 
-Specifies the identity category of the [objects](services/icestorm/configuring-icestorm) hosted by the IceStorm object
-adapters, except the finder object, whose identity is always `IceStorm/Finder`. If not specified, the default identity
-category is `IceStorm`.
+Specifies the identity category of the [objects](../../services/icestorm/configuring-icestorm) hosted by the IceStorm
+object adapters, except the finder object, whose identity is always `IceStorm/Finder`. If not specified, the default
+identity category is `IceStorm`.
 
 ## IceStorm.LMDB.MapSize
 
@@ -124,8 +125,7 @@ in megabytes. If not set, IceStorm uses a system-dependent default: 10 MB on Win
 ### Description {% id="icestorm.lmdb.path-description" %}
 
 Specifies the path to the LMDB database environment of this IceStorm service. If not specified, the default value is
-`IceStorm`. This directory must exist when IceStorm starts up unless IceStorm is in
-[transient mode](property-reference/icestorm-properties).
+`IceStorm`. This directory must exist when IceStorm starts up unless IceStorm is in [transient mode](./).
 
 ## IceStorm.Node._AdapterProperty_
 
@@ -135,9 +135,9 @@ Specifies the path to the LMDB database environment of this IceStorm service. If
 
 ### Description {% id="icestorm.node.adapterproperty-description" %}
 
-In a [replicated deployment](services/icestorm/highly-available-icestorm), IceStorm uses the adapter name
-`IceStorm.Node` for the replica node's object adapter. Therefore,
-[adapter properties](property-reference/object-adapter-properties) can be used to configure this adapter.
+In a [replicated deployment](../../services/icestorm/highly-available-icestorm), IceStorm uses the adapter name
+`IceStorm.Node` for the replica node's object adapter. Therefore, [adapter properties](../object-adapter-properties) can
+be used to configure this adapter.
 
 ## IceStorm.NodeId
 
@@ -147,7 +147,7 @@ In a [replicated deployment](services/icestorm/highly-available-icestorm), IceSt
 
 ### Description {% id="icestorm.nodeid-description" %}
 
-Specifies the node ID of an IceStorm [replica](services/icestorm/highly-available-icestorm), where `value` is a
+Specifies the node ID of an IceStorm [replica](../../services/icestorm/highly-available-icestorm), where `value` is a
 non-negative integer. Node IDs must be unique, but they need not be contiguous or start at 0. The node ID is also used
 as the replica's priority, such that a larger value assigns higher priority to the replica. The replica with the highest
 priority becomes the coordinator of its group. This property must be defined for each replica. The default value is
@@ -163,10 +163,10 @@ A replicated deployment requires at least three replicas.
 
 ### Description {% id="icestorm.nodes.id-description" %}
 
-This property is used for a manual deployment of [highly available IceStorm](services/icestorm/configuring-icestorm), in
-which each of the replicas must be explicitly configured with the proxies of all other replicas. The value is a proxy
-for the replica with the given node `id`. A replica's object identity has the form `instance-name/nodeid`, such as
-`DemoIceStorm/node2`.
+This property is used for a manual deployment of
+[highly available IceStorm](../../services/icestorm/configuring-icestorm), in which each of the replicas must be
+explicitly configured with the proxies of all other replicas. The value is a proxy for the replica with the given node
+`id`. A replica's object identity has the form `instance-name/nodeid`, such as `DemoIceStorm/node2`.
 
 ## IceStorm.Publish._AdapterProperty_
 
@@ -177,8 +177,7 @@ for the replica with the given node `id`. A replica's object identity has the fo
 ### Description {% id="icestorm.publish.adapterproperty-description" %}
 
 IceStorm uses the adapter name `IceStorm.Publish` for the object adapter that processes incoming requests from
-publishers. Therefore, [adapter properties](property-reference/object-adapter-properties) can be used to configure this
-adapter.
+publishers. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter.
 
 ## IceStorm.ReplicatedPublishEndpoints
 
@@ -188,9 +187,10 @@ adapter.
 
 ### Description {% id="icestorm.replicatedpublishendpoints-description" %}
 
-This property is used for a manual deployment of [highly available IceStorm](services/icestorm/configuring-icestorm). It
-specifies the set of endpoints returned for the publisher proxy returned from `IceStorm::Topic::getPublisher`. This
-property takes effect only when `IceStorm.TopicManager.AdapterId` is not set.
+This property is used for a manual deployment of
+[highly available IceStorm](../../services/icestorm/configuring-icestorm). It specifies the set of endpoints returned
+for the publisher proxy returned from `IceStorm::Topic::getPublisher`. This property takes effect only when
+`IceStorm.TopicManager.AdapterId` is not set.
 
 If this property is not defined, the publisher proxy returned by a topic instance points directly at that replica and,
 should the replica become unavailable, publishers will not transparently failover to other replicas.
@@ -203,10 +203,10 @@ should the replica become unavailable, publishers will not transparently failove
 
 ### Description {% id="icestorm.replicatedtopicmanagerendpoints-description" %}
 
-This property is used for a manual deployment of [highly available IceStorm](services/icestorm/configuring-icestorm). It
-specifies the set of endpoints used in proxies that refer to a replicated topic. This set of endpoints should contain
-the endpoints of each IceStorm replica. This property takes effect only when `IceStorm.TopicManager.AdapterId` is not
-set.
+This property is used for a manual deployment of
+[highly available IceStorm](../../services/icestorm/configuring-icestorm). It specifies the set of endpoints used in
+proxies that refer to a replicated topic. This set of endpoints should contain the endpoints of each IceStorm replica.
+This property takes effect only when `IceStorm.TopicManager.AdapterId` is not set.
 
 For example, the operation `IceStorm::TopicManager::create` returns a proxy that contains this set of endpoints.
 
@@ -222,8 +222,7 @@ Specifies the invocation timeout in milliseconds that IceStorm applies when it f
 oneway and batch subscribers, the timeout covers connecting to the subscriber and sending the event; for twoway
 subscribers, it also covers waiting for the reply. When forwarding an event does not complete within `num` milliseconds,
 IceStorm handles the timeout according to the subscriber's `retryCount` QoS setting, as described under
-[IceStorm.Discard.Interval](property-reference/icestorm-properties#icestorm.discard.interval). The default value is
-`60000`. `-1` disables the timeout.
+[IceStorm.Discard.Interval](./#icestorm.discard.interval). The default value is `60000`. `-1` disables the timeout.
 
 ## IceStorm.Send.QueueSizeMax
 
@@ -235,8 +234,8 @@ IceStorm handles the timeout according to the subscriber's `retryCount` QoS sett
 
 The value of this property determines how many events can be queued for a subscriber by IceStorm. When the maximum size
 is reached, IceStorm drops the oldest events or removes the subscriber, as selected by
-[IceStorm.Send.QueueSizeMaxPolicy](property-reference/icestorm-properties#icestorm.send.queuesizemaxpolicy). `num` must
-be a positive value, or `-1` for an unbounded queue. The default value is `-1`.
+[IceStorm.Send.QueueSizeMaxPolicy](./#icestorm.send.queuesizemaxpolicy). `num` must be a positive value, or `-1` for an
+unbounded queue. The default value is `-1`.
 
 ## IceStorm.Send.QueueSizeMaxPolicy
 
@@ -259,7 +258,7 @@ older events will be removed to make room for new events. The default value is `
 ### Description {% id="icestorm.topicmanager.adapterproperty-description" %}
 
 IceStorm uses the adapter name `IceStorm.TopicManager` for the topic manager's object adapter. Therefore,
-[adapter properties](property-reference/object-adapter-properties) can be used to configure this adapter.
+[adapter properties](../object-adapter-properties) can be used to configure this adapter.
 
 ## IceStorm.Trace.Election
 

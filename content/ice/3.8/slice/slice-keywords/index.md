@@ -17,4 +17,4 @@ Keywords must be capitalized as shown.
 
 ## See Also
 
-- [Lexical Rules](slice/lexical-rules)
+- [Lexical Rules](../lexical-rules)

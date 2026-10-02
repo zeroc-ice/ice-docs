@@ -4,11 +4,12 @@ title: Well-Known Objects
 
 ## Overview of Well-Known Objects
 
-There are two types of [indirect proxies](basics/terminology): one specifies an identity and an object adapter
+There are two types of [indirect proxies](../../../basics/terminology): one specifies an identity and an object adapter
 identifier, while the other contains only an identity. The latter type of indirect proxy is known as a
-[_well-known proxy_](runtime/invocation/proxy-endpoints/well-known-proxy). A well-known proxy refers to a well-known
-object, that is, its identity alone is sufficient to allow the client to locate it. Ice requires all object identities
-in an application to be unique, but typically only a select few objects are able to be located only by their identities.
+[_well-known proxy_](../../../runtime/invocation/proxy-endpoints/well-known-proxy). A well-known proxy refers to a
+well-known object, that is, its identity alone is sufficient to allow the client to locate it. Ice requires all object
+identities in an application to be unique, but typically only a select few objects are able to be located only by their
+identities.
 
 In earlier sections we showed the relationship between indirect proxies containing an object adapter identifier and the
 IceGrid configuration. Briefly, in order for a client to use a proxy such as `factory@EncoderAdapter`, an object adapter
@@ -50,7 +51,8 @@ refers to itself? In this case, the registry returns the proxy `Object3` to the 
 
 The registry's database not only associates an identity with a proxy, but also a type. Technically, the "type" is an
 arbitrary string but, by convention, that string represents the most-derived Slice type of the object. For example, the
-Slice [type ID](slice/type-ids) of the encoder factory in our ripper application is `::Ripper::MP3EncoderFactory`.
+Slice [type ID](../../../slice/type-ids) of the encoder factory in our ripper application is
+`::Ripper::MP3EncoderFactory`.
 
 Object types are useful when performing [queries](#querying-well-known-objects).
 
@@ -148,9 +150,9 @@ catch (const IceGrid::ObjectExistsException&)
 }
 ```
 
-After obtaining a proxy for the [IceGrid::Admin interface](services/icegrid/icegrid-administrative-sessions), the code
-invokes `addObject`. Notice that the code catches `ObjectExistsException` and calls `updateObject` instead when the
-object is already registered.
+After obtaining a proxy for the [IceGrid::Admin interface](../icegrid-administrative-sessions), the code invokes
+`addObject`. Notice that the code catches `ObjectExistsException` and calls `updateObject` instead when the object is
+already registered.
 
 There is one subtle problem in this code: calling `addObject` causes the registry to invoke `ice_id` on our factory
 object, but we have not yet activated the object adapter. As a result, our program will hang indefinitely at the call to
@@ -175,10 +177,9 @@ catch (const IceGrid::ObjectExistsException&)
 
 ## Adding Well-Known Objects with `icegridadmin`
 
-The [icegridadmin utility](services/icegrid/icegridadmin-command-line-tool) provides commands that are the functional
-equivalents of the Slice operations for [managing well-known objects](#adding-well-known-objects-programmatically). We
-can use the utility to manually register the `EncoderFactory` object from our
-[descriptors](#deploying-well-known-objects):
+The [icegridadmin utility](../icegridadmin-command-line-tool) provides commands that are the functional equivalents of
+the Slice operations for [managing well-known objects](#adding-well-known-objects-programmatically). We can use the
+utility to manually register the `EncoderFactory` object from our [descriptors](#deploying-well-known-objects):
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -371,14 +372,14 @@ Incorporating intelligent load distribution is a worthwhile enhancement and is a
 to implement ourselves. However, our current design uses only well-known objects in order to make queries possible. We
 do not really need the encoder factory object on each compute server to be individually addressable as a well-known
 object, a fact that seems clear when we examine the identities we assigned to them: `EncoderFactory1`,
-`EncoderFactory2`, and so on. IceGrid's [replication features](services/icegrid/object-adapter-replication) give us the
-tools we need to improve our design.
+`EncoderFactory2`, and so on. IceGrid's [replication features](../object-adapter-replication) give us the tools we need
+to improve our design.
 
 ## See Also
 
-- [Terminology](basics/terminology)
-- [Type IDs](slice/type-ids)
-- [Object Descriptor Element](services/icegrid/icegrid-xml-reference/object-descriptor-element)
-- [IceGrid Administrative Sessions](services/icegrid/icegrid-administrative-sessions)
-- [icegridadmin Command Line Tool](services/icegrid/icegridadmin-command-line-tool)
-- [Object Adapter Replication](services/icegrid/object-adapter-replication)
+- [Terminology](../../../basics/terminology)
+- [Type IDs](../../../slice/type-ids)
+- [Object Descriptor Element](../icegrid-xml-reference/object-descriptor-element)
+- [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
+- [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
+- [Object Adapter Replication](../object-adapter-replication)

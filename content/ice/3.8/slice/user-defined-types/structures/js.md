@@ -42,14 +42,14 @@ class Employee {
 ```
 
 The generated class defines an `equals` method for comparison purposes and a `clone` method to create a shallow copy.
-For structures that are also [legal dictionary key types](slice/user-defined-types/dictionaries), the mapped class also
-defines a `hashCode` function as required by the `Ice.HashMap` type.
+For structures that are also [legal dictionary key types](../dictionaries), the mapped class also defines a `hashCode`
+function as required by the `Ice.HashMap` type.
 
 ### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
 single statement (instead of first having to construct the instance and then assign to its fields).
 
-All these parameters have also default values (see [Fields](slice/fields)).
+All these parameters have also default values (see [Fields](../../fields)).
 
 {% /language-section %}

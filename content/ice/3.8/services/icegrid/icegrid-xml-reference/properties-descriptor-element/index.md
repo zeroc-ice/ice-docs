@@ -8,21 +8,17 @@ The `properties` element is used in three situations:
 - as a reference to a named property set if the `refid` attribute is specified
 - as an unnamed property set if the `id` or `refid` attributes are not specified.
 
-A property set is useful for defining a set of [properties](runtime/properties-and-configuration) (a named property set)
-in application or node descriptors. Named property sets can be included in named or unnamed property sets with property
-set references.
+A property set is useful for defining a set of [properties](../../../../runtime/properties-and-configuration) (a named
+property set) in application or node descriptors. Named property sets can be included in named or unnamed property sets
+with property set references.
 
-A named property set element may only be a child of an
-[application](services/icegrid/icegrid-xml-reference/application-descriptor-element) element or a
-[node](services/icegrid/icegrid-xml-reference/node-descriptor-element) element. An unnamed property set element may only
-be a child of a [server](services/icegrid/icegrid-xml-reference/server-descriptor-element),
-[icebox](services/icegrid/icegrid-xml-reference/icebox-descriptor-element),
-[service](services/icegrid/icegrid-xml-reference/service-descriptor-element),
-[server-instance](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element) or
-[service-instance](services/icegrid/icegrid-xml-reference/service-instance-descriptor-element) element. An unnamed
-property set element with the `service` attribute defined may only be a child of a
-[server-instance](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element) element. A reference to a
-named property set can only be a child of a named or unnamed property set element.
+A named property set element may only be a child of an [application](../application-descriptor-element) element or a
+[node](../node-descriptor-element) element. An unnamed property set element may only be a child of a
+[server](../server-descriptor-element), [icebox](../icebox-descriptor-element),
+[service](../service-descriptor-element), [server-instance](../server-instance-descriptor-element) or
+[service-instance](../service-instance-descriptor-element) element. An unnamed property set element with the `service`
+attribute defined may only be a child of a [server-instance](../server-instance-descriptor-element) element. A reference
+to a named property set can only be a child of a named or unnamed property set element.
 
 The following attributes are supported:
 
@@ -51,11 +47,11 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [Properties and Configuration](runtime/properties-and-configuration)
-- [Application Descriptor Element](services/icegrid/icegrid-xml-reference/application-descriptor-element)
-- [Node Descriptor Element](services/icegrid/icegrid-xml-reference/node-descriptor-element)
-- [Server Descriptor Element](services/icegrid/icegrid-xml-reference/server-descriptor-element)
-- [IceBox Descriptor Element](services/icegrid/icegrid-xml-reference/icebox-descriptor-element)
-- [Service Descriptor Element](services/icegrid/icegrid-xml-reference/service-descriptor-element)
-- [Server-Instance Descriptor Element](services/icegrid/icegrid-xml-reference/server-instance-descriptor-element)
-- [Service-Instance Descriptor Element](services/icegrid/icegrid-xml-reference/service-instance-descriptor-element)
+- [Properties and Configuration](../../../../runtime/properties-and-configuration)
+- [Application Descriptor Element](../application-descriptor-element)
+- [Node Descriptor Element](../node-descriptor-element)
+- [Server Descriptor Element](../server-descriptor-element)
+- [IceBox Descriptor Element](../icebox-descriptor-element)
+- [Service Descriptor Element](../service-descriptor-element)
+- [Server-Instance Descriptor Element](../server-instance-descriptor-element)
+- [Service-Instance Descriptor Element](../service-instance-descriptor-element)

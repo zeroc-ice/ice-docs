@@ -13,7 +13,7 @@ The general rule to avoid deadlocks is **do not hold onto any shared resource wh
 
 If you make a synchronous two-way invocation, you’re waiting: your thread is blocked until it gets the response from the
 target Ice object. And if you make this synchronous invocation within a synchronous dispatch, you’re holding onto a
-shared resource: the dispatch thread (current thread) from an [Ice thread pool](runtime/threading-model/thread-pools).
+shared resource: the dispatch thread (current thread) from an [Ice thread pool](../thread-pools).
 
 ![The client calls opA on Server A, which calls opB on Server B. Server B attempts a callback to Server A, but Server A cannot dispatch it while its thread is blocked in the nested invocation.](/images/ice/3.8/nested-invocations/nested-deadlock.svg)
 
@@ -43,7 +43,7 @@ a shared resource (such as a mutex, or itself when the thread in question is a d
 
 ## See Also
 
-- [Thread Pools](runtime/threading-model/thread-pools)
-- [Object Adapter Thread Pools](runtime/threading-model/object-adapter-thread-pools)
-- [Thread Pool Design Considerations](runtime/threading-model/thread-pool-design-considerations)
-- [Oneway Invocations](runtime/invocation/invocation-mode/oneway-invocations)
+- [Thread Pools](../thread-pools)
+- [Object Adapter Thread Pools](../object-adapter-thread-pools)
+- [Thread Pool Design Considerations](../thread-pool-design-considerations)
+- [Oneway Invocations](../../invocation/invocation-mode/oneway-invocations)

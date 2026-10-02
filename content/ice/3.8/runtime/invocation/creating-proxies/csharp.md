@@ -1,8 +1,8 @@
 {% language-section name="lang-1" %}
 
 The generated helper class for a proxy provides a static factory method `createProxy` that creates a proxy from a
-communicator and a [stringified representation](runtime/invocation/syntax-for-stringified-proxies) of the proxy, as
-shown in the following example:
+communicator and a [stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the
+following example:
 
 ```csharp
 GreeterPrx greeter = GreeterPrxHelper.createProxy(

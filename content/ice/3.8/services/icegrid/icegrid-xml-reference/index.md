@@ -32,4 +32,4 @@ IceGrid XML files must use UTF-8 encoding.
 
 ## See Also
 
-- [Using IceGrid Deployment](services/icegrid/using-icegrid-deployment)
+- [Using IceGrid Deployment](../using-icegrid-deployment)

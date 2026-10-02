@@ -10,29 +10,29 @@ registry and node are storing, and discusses backup and recovery techniques.
 ### Data Stored
 
 The registry stores the following data in the [LMDB](https://www.symas.com/mdb) database specified through the
-[IceGrid.Registry.LMDB.Path](property-reference/icegrid-properties) property:
+[IceGrid.Registry.LMDB.Path](../../../../property-reference/icegrid-properties) property:
 
-- Applications [deployed](services/icegrid/using-icegrid-deployment) using the `addApplication` operation on the
-  `IceGrid::Admin` interface (which includes the IceGrid GUI and command-line
-  [administrative clients](services/icegrid/icegridadmin-command-line-tool)). Applications describe servers, well-known
-  objects, object adapters, replica groups, and allocatable objects. Applications can be removed with the
-  `removeApplication` operation.
-- [Well-known objects](services/icegrid/well-known-objects) registered using the `addObject` and `addObjectWithType`
-  operations on the `IceGrid::Admin` interface. Well-known objects added by these operations can be removed using the
-  `removeObject` operation.
-- [Adapter endpoints](runtime/dispatch/object-adapter-endpoints) registered dynamically by servers using the
-  `Ice::LocatorRegistry` interface. The property
-  [IceGrid.Registry.DynamicRegistration](property-reference/icegrid-properties) must be set to a value larger than zero
-  to allow the dynamic registration of object adapters. These adapters can be removed using the `removeAdapter`
+- Applications [deployed](../../using-icegrid-deployment) using the `addApplication` operation on the `IceGrid::Admin`
+  interface (which includes the IceGrid GUI and command-line
+  [administrative clients](../../icegridadmin-command-line-tool)). Applications describe servers, well-known objects,
+  object adapters, replica groups, and allocatable objects. Applications can be removed with the `removeApplication`
   operation.
+- [Well-known objects](../../well-known-objects) registered using the `addObject` and `addObjectWithType` operations on
+  the `IceGrid::Admin` interface. Well-known objects added by these operations can be removed using the `removeObject`
+  operation.
+- [Adapter endpoints](../../../../runtime/dispatch/object-adapter-endpoints) registered dynamically by servers using the
+  `Ice::LocatorRegistry` interface. The property
+  [IceGrid.Registry.DynamicRegistration](../../../../property-reference/icegrid-properties) must be set to a value
+  larger than zero to allow the dynamic registration of object adapters. These adapters can be removed using the
+  `removeAdapter` operation.
 - Some internal proxies used by the registry to contact nodes and other registry replicas during startup. The proxies
   enable the registry to notify these entities about the registry's availability.
 
-[Client session](services/icegrid/resource-allocation-using-icegrid-sessions) and
-[administrative sessions](services/icegrid/icegrid-administrative-sessions) established with the IceGrid registry are
-not stored in this database. If the registry is restarted, these sessions must be recreated. For client sessions in
-particular, this implies that objects allocated using the allocation mechanism will no longer be allocated once the
-IceGrid registry restarts.
+[Client session](../../resource-allocation-using-icegrid-sessions) and
+[administrative sessions](../../icegrid-administrative-sessions) established with the IceGrid registry are not stored in
+this database. If the registry is restarted, these sessions must be recreated. For client sessions in particular, this
+implies that objects allocated using the allocation mechanism will no longer be allocated once the IceGrid registry
+restarts.
 
 If the registry's database is corrupted or lost, you must recover the deployed applications, the well-known objects, and
 the adapter endpoints. You do not need to worry about the internal proxies stored by the registry, as the nodes and
@@ -56,8 +56,8 @@ deleted. This can be an issue if the deployed servers have databases stored in t
 
 A LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
 511 bytes. For example, IceGrid stores applications in a persistent map where the keys are the application names,
-encoded using the [Ice encoding](encoding) for strings, and this LMDB limitation means you cannot select an application
-name with an arbitrary size.
+encoded using the [Ice encoding](../../../../encoding) for strings, and this LMDB limitation means you cannot select an
+application name with an arbitrary size.
 
 | **IceGrid Registry Database Key** | **Slice Type**  | **Max Encoded Size** |
 | --------------------------------- | --------------- | -------------------- |
@@ -79,8 +79,8 @@ identity.
 #### Map Size
 
 A LMDB database has a maximum size, known as its map size. The IceGrid registry database can store up to
-[IceGrid.Registry.LMDB.MapSize](property-reference/icegrid-properties) megabytes of data in its database; any attempt to
-store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase
+[IceGrid.Registry.LMDB.MapSize](../../../../property-reference/icegrid-properties) megabytes of data in its database;
+any attempt to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase
 `IceGrid.Registry.LMDB.MapSize` and restart the IceGrid registry.
 
 If you don't set `IceGrid.Registry.LMDB.MapSize`, or set it to 0, IceGrid uses a map size of 10 MB on Windows, and 100
@@ -123,20 +123,20 @@ Status of Main DB
 You should consider making regular backups of your IceGrid registry database. We recommend using one of the following
 tools to perform backups while the IceGrid registry is running:
 
-- [icegriddb](services/icegrid/icegrid-database-utility) with the `--export` option
+- [icegriddb](../../icegrid-database-utility) with the `--export` option
 - [mdb_copy](https://manpages.org/mdb_copy) or [mdb_dump](https://manpages.org/mdb_dump)
 
 ## Node Persistent Data
 
 Each IceGrid node stores information in a directory specified through its
-[IceGrid.Node.Data](property-reference/icegrid-properties) property - the node's data directory. In IceGrid descriptors,
-the `node.data` variable is substituted with the path of the node data directory.
+[IceGrid.Node.Data](../../../../property-reference/icegrid-properties) property - the node's data directory. In IceGrid
+descriptors, the `node.data` variable is substituted with the path of the node data directory.
 
 Each node stores configuration files and user data for each server in a sub-directory named `servers/<server ID>`, where
-`<server ID>` represents the unique [server ID](services/icegrid/icegrid-xml-reference/server-descriptor-element) of
-that server. Per-server or per-service user data can be stored in the sub-directories named `servers/<server ID>/data`
-and `servers/<server ID>/data_<service name>`. In IceGrid descriptors, the `server.data` and `service.data` variables
-are replaced with the paths of the server or service data directory.
+`<server ID>` represents the unique [server ID](../../icegrid-xml-reference/server-descriptor-element) of that server.
+Per-server or per-service user data can be stored in the sub-directories named `servers/<server ID>/data` and
+`servers/<server ID>/data_<service name>`. In IceGrid descriptors, the `server.data` and `service.data` variables are
+replaced with the paths of the server or service data directory.
 
 If a server directory is deleted, the node recreates it at startup. The node will also recreate the server configuration
 files. However, the node cannot restore the prior contents of a server's user data directory. It is your responsibility
@@ -144,10 +144,10 @@ to back up the user data and restore them when necessary.
 
 ## See Also
 
-- [Using IceGrid Deployment](services/icegrid/using-icegrid-deployment)
-- [icegridadmin Command Line Tool](services/icegrid/icegridadmin-command-line-tool)
-- [Well-Known Objects](services/icegrid/well-known-objects)
-- [Object Adapter Endpoints](runtime/dispatch/object-adapter-endpoints)
-- [Resource Allocation Using IceGrid Sessions](services/icegrid/resource-allocation-using-icegrid-sessions)
-- [IceGrid Administrative Sessions](services/icegrid/icegrid-administrative-sessions)
-- [IceGrid.*](property-reference/icegrid-properties)
+- [Using IceGrid Deployment](../../using-icegrid-deployment)
+- [icegridadmin Command Line Tool](../../icegridadmin-command-line-tool)
+- [Well-Known Objects](../../well-known-objects)
+- [Object Adapter Endpoints](../../../../runtime/dispatch/object-adapter-endpoints)
+- [Resource Allocation Using IceGrid Sessions](../../resource-allocation-using-icegrid-sessions)
+- [IceGrid Administrative Sessions](../../icegrid-administrative-sessions)
+- [IceGrid.*](../../../../property-reference/icegrid-properties)

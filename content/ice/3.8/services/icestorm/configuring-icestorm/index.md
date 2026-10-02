@@ -3,9 +3,9 @@ title: Configuring IceStorm
 ---
 
 IceStorm is a relatively lightweight service in that it requires very little configuration and is implemented as an
-[IceBox](services/icebox) service. The configuration properties supported by IceStorm are described in
-[IceStorm Properties](property-reference/icestorm-properties); some of them control diagnostic output and are not
-discussed here.
+[IceBox](../../icebox) service. The configuration properties supported by IceStorm are described in
+[IceStorm Properties](../../../property-reference/icestorm-properties); some of them control diagnostic output and are
+not discussed here.
 
 ## IceStorm Server Configuration
 
@@ -27,42 +27,43 @@ IceStorm.Publish.Endpoints=tcp -p 10000
 IceStorm uses [LMDB](https://www.symas.com/mdb) to manage the service's persistent state, therefore the first property
 specifies the path name of the LMDB database environment directory for the service. Here the directory `db` is used,
 which must already exist in the current working directory. This property can be omitted when the service is running in
-[transient mode](property-reference/icestorm-properties).
+[transient mode](../../../property-reference/icestorm-properties).
 
 The final two properties specify the endpoints used by the IceStorm object adapters. The `TopicManager` property
 specifies the endpoints on which the `TopicManager` and `Topic` objects reside; these endpoints must use a
 connection-oriented protocol such as TCP or SSL. The `Publish` property specifies the endpoint(s) used by topic
-[publisher objects](services/icestorm/using-icestorm/using-an-icestorm-publisher-object); using a datagram endpoint in
-this property is possible but carries additional risk.
+[publisher objects](../using-icestorm/using-an-icestorm-publisher-object); using a datagram endpoint in this property is
+possible but carries additional risk.
 
-IceStorm's default [thread pool](runtime/threading-model) configuration is sufficient when the service is running on a
-single CPU machine. On a host with multiple CPUs, you may be able to improve IceStorm's performance by increasing the
-size of its client-side thread pool using the [Ice.ThreadPool.Client.*](property-reference/ice-threadpool-properties)
-properties, but the optimal number of threads can only be determined with careful benchmarking.
+IceStorm's default [thread pool](../../../runtime/threading-model) configuration is sufficient when the service is
+running on a single CPU machine. On a host with multiple CPUs, you may be able to improve IceStorm's performance by
+increasing the size of its client-side thread pool using the
+[Ice.ThreadPool.Client.*](../../../property-reference/ice-threadpool-properties) properties, but the optimal number of
+threads can only be determined with careful benchmarking.
 
 ## Deploying IceStorm Replicas
 
-There are two ways of deploying IceStorm in its [highly available](services/icestorm/highly-available-icestorm)
-(replicated) mode. In both cases, adding another replica requires that all active replicas be stopped while their
-configurations are updated; it is not possible to add a replica while replication is running.
+There are two ways of deploying IceStorm in its [highly available](../highly-available-icestorm) (replicated) mode. In
+both cases, adding another replica requires that all active replicas be stopped while their configurations are updated;
+it is not possible to add a replica while replication is running.
 
 To remove a replica, stop all replicas and alter the configuration as necessary. You must be careful not to remove a
 replica if it has the latest database state. This situation will never occur during normal operation since the database
 state of all replicas is identical. However, in the event of a crash it is possible for a coordinator to have later
 database state than all replicas. The safest approach is to verify that all replicas are active prior to stopping them.
-You can do this using the [icestormadmin](services/icestorm/icestorm-administration) utility by checking that all
-replicas are in the `Normal` state.
+You can do this using the [icestormadmin](../icestorm-administration) utility by checking that all replicas are in the
+`Normal` state.
 
 ### IceGrid Deployment
 
-[IceGrid](services/icegrid) is a convenient way of deploying IceStorm replicas. The term _replica_ is also used in the
+[IceGrid](../../icegrid) is a convenient way of deploying IceStorm replicas. The term _replica_ is also used in the
 context of IceGrid, specifically when referring to groups of object adapters that participate in
-[replication](services/icegrid/object-adapter-replication). It is important to be aware of the distinction between
-IceStorm replication and object adapter replication; IceStorm replication _uses_ object adapter replication when
-deployed with IceGrid, but IceStorm does not _require_ object adapter replication as you will see below.
+[replication](../../icegrid/object-adapter-replication). It is important to be aware of the distinction between IceStorm
+replication and object adapter replication; IceStorm replication _uses_ object adapter replication when deployed with
+IceGrid, but IceStorm does not _require_ object adapter replication as you will see below.
 
-An IceGrid [deployment](services/icegrid/using-icegrid-deployment) typically uses two adapter replica groups: one for
-the publisher proxies, and another for the topics, as shown below:
+An IceGrid [deployment](../../icegrid/using-icegrid-deployment) typically uses two adapter replica groups: one for the
+publisher proxies, and another for the topics, as shown below:
 
 ```xml
 <replica-group id="IceStorm-PublishReplicaGroup">
@@ -86,8 +87,8 @@ The object adapters are then configured to use these replica groups:
     replica-group="${instance-name}-TopicManagerReplicaGroup"/>
 ```
 
-An application may not want [publisher proxies](services/icestorm/highly-available-icestorm) to contain multiple
-endpoints. In this case you should remove `PublishReplicaGroup` from the above deployment.
+An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
+case you should remove `PublishReplicaGroup` from the above deployment.
 
 The next step is defining the endpoints for the adapter `Node`, which is used internally for communication with other
 IceStorm replicas and is not part of an adapter replica group:
@@ -97,16 +98,15 @@ IceStorm replicas and is not part of an adapter replica group:
 ```
 
 Finally, you must define the node ID for each IceStorm replica using the
-[NodeId](property-reference/icestorm-properties) property:
+[NodeId](../../../property-reference/icestorm-properties) property:
 
 ```xml
 <property name="${service}.NodeId" value="${index}"/>
 ```
 
 The node ID can be any non-negative integer. Each replica must have a unique node ID, but the IDs need not be contiguous
-or start at 0. The node ID is also the replica's priority for
-[coordinator elections](services/icestorm/highly-available-icestorm): a replica with a larger node ID has a higher
-priority.
+or start at 0. The node ID is also the replica's priority for [coordinator elections](../highly-available-icestorm): a
+replica with a larger node ID has a higher priority.
 
 In addition, each server's ID must consist of the instance name followed by the replica's node ID, as in
 `${instance-name}-${index}`: IceStorm identifies the replicas it discovers through the IceGrid registry by their server
@@ -118,13 +118,13 @@ You can also deploy IceStorm replicas without IceGrid, although it requires more
 deployment is simpler to maintain.
 
 The first step is defining the set of node proxies using properties of the form
-[Nodes._id_](property-reference/icestorm-properties). These proxies allow replicas to contact each other; their object
-identities are composed using `instance-name/nodeid`.
+[Nodes._id_](../../../property-reference/icestorm-properties). These proxies allow replicas to contact each other; their
+object identities are composed using `instance-name/nodeid`.
 
 The node IDs can be any non-negative integers. Each replica must have a unique node ID, but the IDs need not be
 contiguous or start at 0: it is fine to leave gaps, for example after decommissioning a replica. The node ID is also the
-replica's priority for [coordinator elections](services/icestorm/highly-available-icestorm): a replica with a larger
-node ID has a higher priority.
+replica's priority for [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a
+higher priority.
 
 For example, assuming we have three replicas with the identifiers 0, 1, 2, we can configure the proxies as shown below:
 
@@ -146,11 +146,11 @@ The endpoints for each replica and ID must match the proxies configured in the `
 
 Two additional properties allow you to configure replicated endpoints:
 
-- [IceStorm.ReplicatedTopicManagerEndpoints](property-reference/icestorm-properties) Defines the endpoints contained in
-  proxies returned by the topic manager.
+- [IceStorm.ReplicatedTopicManagerEndpoints](../../../property-reference/icestorm-properties) Defines the endpoints
+  contained in proxies returned by the topic manager.
 
-- [IceStorm.ReplicatedPublishEndpoints](property-reference/icestorm-properties) Defines the endpoints contained in the
-  publisher proxy returned by the topic.
+- [IceStorm.ReplicatedPublishEndpoints](../../../property-reference/icestorm-properties) Defines the endpoints contained
+  in the publisher proxy returned by the topic.
 
 For example, suppose we configure three replicas:
 
@@ -178,9 +178,8 @@ IceStorm.ReplicatedPublishEndpoints=tcp -h replica0 -p 10001:tcp -h replica1 -p 
 IceStorm.ReplicatedTopicManagerEndpoints=tcp -h replica0 -p 10000:tcp -h replica1 -p 10010:tcp -h replica2 -p 10020
 ```
 
-An application may not want [publisher proxies](services/icestorm/highly-available-icestorm) to contain multiple
-endpoints. In this case you should remove the definition of the `ReplicatedPublishEndpoints` property from the above
-deployment.
+An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
+case you should remove the definition of the `ReplicatedPublishEndpoints` property from the above deployment.
 
 ## IceStorm Client Configuration
 
@@ -191,16 +190,16 @@ TopicManager.Proxy=IceStorm/TopicManager:tcp -p 9999
 ```
 
 The name of the property is not relevant, but the endpoint must match that of the `service.TopicManager.Endpoints`
-property, and the object identity must use the IceStorm [instance name](property-reference/icestorm-properties) as the
-category and `TopicManager` as the name.
+property, and the object identity must use the IceStorm [instance name](../../../property-reference/icestorm-properties)
+as the category and `TopicManager` as the name.
 
 ## IceStorm Object Identities
 
-IceStorm hosts a [well-known object](services/icegrid/well-known-objects) that implements the `IceStorm::TopicManager`
+IceStorm hosts a [well-known object](../../icegrid/well-known-objects) that implements the `IceStorm::TopicManager`
 interface. The default identity of this object is `IceStorm/TopicManager`, as seen in the stringified proxy example
 above. If an application requires the use of multiple IceStorm services, it's a good idea to assign unique identities to
 their well-known objects by configuring the services with different values for the
-[IceStorm.InstanceName](property-reference/icestorm-properties) property, as shown in the following example:
+[IceStorm.InstanceName](../../../property-reference/icestorm-properties) property, as shown in the following example:
 
 ```config
 IceStorm.InstanceName=Measurement
@@ -243,11 +242,11 @@ auto topicManager = finder->getTopicManager();
 
 ## See Also
 
-- [IceStorm Properties](property-reference/icestorm-properties)
-- [IceBox](services/icebox)
-- [IceGrid](services/icegrid)
-- [The Ice Threading Model](runtime/threading-model)
-- [Object Adapter Replication](services/icegrid/object-adapter-replication)
-- [IceStorm Administration](services/icestorm/icestorm-administration)
-- [Using an IceStorm Publisher Object](services/icestorm/using-icestorm/using-an-icestorm-publisher-object)
-- [Highly Available IceStorm](services/icestorm/highly-available-icestorm)
+- [IceStorm Properties](../../../property-reference/icestorm-properties)
+- [IceBox](../../icebox)
+- [IceGrid](../../icegrid)
+- [The Ice Threading Model](../../../runtime/threading-model)
+- [Object Adapter Replication](../../icegrid/object-adapter-replication)
+- [IceStorm Administration](../icestorm-administration)
+- [Using an IceStorm Publisher Object](../using-icestorm/using-an-icestorm-publisher-object)
+- [Highly Available IceStorm](../highly-available-icestorm)

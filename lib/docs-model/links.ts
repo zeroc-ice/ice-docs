@@ -4,7 +4,7 @@
 //
 // A link names a page by its slug under the version, as in
 // `slice/user-defined-types/enumerations`, or by a path relative to the page it
-// is on, as in `../structures`, which starts with `./` or `../`. Either is
+// is on, as in `../structures`, which starts with `.` or `..`. Either is
 // resolved at build time against the version's page index, so a link to a page
 // that does not exist is reported rather than rendered as a dead link. The lookup
 // is case-insensitive and URL-decoded, since authored links do not always match
@@ -44,7 +44,7 @@ const MAILTO = /^mailto:/i;
  * Resolve one authored href to a site URL.
  *
  * - external / mailto / in-page anchors / already-absolute: unchanged
- * - a path starting with `./` or `../`: joined to the page's slug
+ * - a path starting with `.` or `..`: joined to the page's slug
  * - anything else: a slug
  *
  * The slug is looked up in the page index and rewritten to
@@ -68,7 +68,7 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   // A query or anchor alone, such as `?lang=java`, stays on the current page.
   if (path === '') return { href: raw, resolved: true };
 
-  const relative = path.startsWith('./') || path.startsWith('../');
+  const relative = /^\.\.?(?:\/|$)/.test(path);
   const slug = (relative ? joinSlug(ctx.slug, path) : path).toLowerCase();
   const target = ctx.index[decodeURIComponent(slug)];
   if (target === undefined) return { href: raw, resolved: false };

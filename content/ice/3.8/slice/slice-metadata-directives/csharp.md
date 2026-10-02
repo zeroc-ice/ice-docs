@@ -52,15 +52,15 @@ This directive applies to Slice structures. It directs the Slice compiler to emi
 
 ### `cs:generic:List`, `cs:generic:LinkedList`, `cs:generic:Queue` and `cs:generic:Stack`
 
-These directives apply to [sequences](slice/user-defined-types/sequences) and map them to the specified sequence type.
+These directives apply to [sequences](../user-defined-types/sequences) and map them to the specified sequence type.
 
 ### `cs:generic:SortedDictionary` and `cs:generic:SortedList`
 
-This directive applies to [dictionaries](slice/user-defined-types/dictionaries) and maps them to the specified type.
+This directive applies to [dictionaries](../user-defined-types/dictionaries) and maps them to the specified type.
 
 ### `cs:generic:csharp-custom-type`
 
-This directive applies to [sequences](slice/user-defined-types/sequences) and allows you map them to custom types.
+This directive applies to [sequences](../user-defined-types/sequences) and allows you map them to custom types.
 
 ### `cs:identifier:csharp-identifier`
 
@@ -94,7 +94,7 @@ namespace in the specified namespace. You should use `cs:identifier` instead.
 ### `cs:property`
 
 This directive applies to Slice structures, classes, and exceptions. It directs the Slice compiler to map Slice fields
-to C# properties instead of C# [fields](slice/fields).
+to C# properties instead of C# [fields](../fields).
 
 ### `cs:readonly`
 

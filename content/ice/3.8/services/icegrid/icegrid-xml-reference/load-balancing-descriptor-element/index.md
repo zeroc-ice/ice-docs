@@ -2,11 +2,10 @@
 title: Load-Balancing Descriptor Element
 ---
 
-A `load-balancing` element determines the [load balancing](services/icegrid/load-balancing) policy used by a
-[replica group](services/icegrid/object-adapter-replication).
+A `load-balancing` element determines the [load balancing](../../load-balancing) policy used by a
+[replica group](../../object-adapter-replication).
 
-This element may only appear as a child of a
-[replica-group](services/icegrid/icegrid-xml-reference/replica-group-descriptor-element) element.
+This element may only appear as a child of a [replica-group](../replica-group-descriptor-element) element.
 
 The following attributes are supported:
 
@@ -31,6 +30,6 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [Load Balancing](services/icegrid/load-balancing)
-- [Object Adapter Replication](services/icegrid/object-adapter-replication)
-- [Replica-Group Descriptor Element](services/icegrid/icegrid-xml-reference/replica-group-descriptor-element)
+- [Load Balancing](../../load-balancing)
+- [Object Adapter Replication](../../object-adapter-replication)
+- [Replica-Group Descriptor Element](../replica-group-descriptor-element)

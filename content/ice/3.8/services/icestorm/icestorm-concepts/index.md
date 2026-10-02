@@ -27,17 +27,17 @@ ensure that topics are used correctly.
 
 ## Unidirectional Messages
 
-IceStorm messages are [unidirectional](runtime/invocation/invocation-mode/oneway-invocations), that is, they must have
-`void` return type, cannot have out-parameters, and cannot raise user exceptions. It follows that a publisher cannot
-receive replies from its subscribers. Any of the Ice transports (TCP, SSL, UDP, etc.) can be used to publish and receive
-messages.
+IceStorm messages are [unidirectional](../../../runtime/invocation/invocation-mode/oneway-invocations), that is, they
+must have `void` return type, cannot have out-parameters, and cannot raise user exceptions. It follows that a publisher
+cannot receive replies from its subscribers. Any of the Ice transports (TCP, SSL, UDP, etc.) can be used to publish and
+receive messages.
 
 ## Federation
 
-IceStorm supports the formation of topic graphs, also known as [federation](services/icestorm/topic-federation). A topic
-graph is formed by creating links between topics, where a _link_ is a unidirectional association from one topic to
-another. Each link has a _cost_ that may restrict message delivery on that link. A message published on a topic is also
-published on all of the topic's links for which the message cost does not exceed the link cost.
+IceStorm supports the formation of topic graphs, also known as [federation](../topic-federation). A topic graph is
+formed by creating links between topics, where a _link_ is a unidirectional association from one topic to another. Each
+link has a _cost_ that may restrict message delivery on that link. A message published on a topic is also published on
+all of the topic's links for which the message cost does not exceed the link cost.
 
 Once a message has been published on a link, the receiving topic publishes the message to its subscribers, but does not
 publish it on any of its links. In other words, IceStorm messages propagate at most one hop from the originating topic
@@ -57,14 +57,14 @@ subscribed to both T2 and T3, then it would receive two requests for each messag
 
 ## Quality of Service
 
-IceStorm allows each subscriber to specify its own [_quality of service_](services/icestorm/icestorm-quality-of-service)
-(QoS) parameters that affect the delivery of its messages. Quality of service parameters are represented as a dictionary
-of name-value pairs.
+IceStorm allows each subscriber to specify its own [_quality of service_](../icestorm-quality-of-service) (QoS)
+parameters that affect the delivery of its messages. Quality of service parameters are represented as a dictionary of
+name-value pairs.
 
 ## Replication
 
-IceStorm supports [replication](services/icestorm/highly-available-icestorm) to provide higher availability for
-publishers and subscribers.
+IceStorm supports [replication](../highly-available-icestorm) to provide higher availability for publishers and
+subscribers.
 
 ## Persistent Mode
 
@@ -91,13 +91,13 @@ allows this error to propagate back to IceStorm, its subscription will be cancel
 
 {% callout type="info" %}
 
-Use the `retryCount` [quality of service](services/icestorm/icestorm-quality-of-service) parameter to configure
-IceStorm's behavior in error situations.
+Use the `retryCount` [quality of service](../icestorm-quality-of-service) parameter to configure IceStorm's behavior in
+error situations.
 
 {% /callout %}
 
 ## See Also
 
-- [Topic Federation](services/icestorm/topic-federation)
-- [IceStorm Quality of Service](services/icestorm/icestorm-quality-of-service)
-- [Configuring IceStorm](services/icestorm/configuring-icestorm)
+- [Topic Federation](../topic-federation)
+- [IceStorm Quality of Service](../icestorm-quality-of-service)
+- [Configuring IceStorm](../configuring-icestorm)

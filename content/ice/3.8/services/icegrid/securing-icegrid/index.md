@@ -12,9 +12,9 @@ This page describes the steps you can take to secure your IceGrid application.
 ## IceGrid Security Overview
 
 Using a firewall is one way to prevent unauthorized use of IceGrid's facilities. Another solution is to use
-[IceSSL](runtime/ssl-transport): you can generate SSL certificates for each component and configure them to trust and
-accept connections only from other authorized components. The remainder of this section discusses the IceSSL solution
-but also provides useful information for those interested in securing IceGrid with a firewall.
+[IceSSL](../../../runtime/ssl-transport): you can generate SSL certificates for each component and configure them to
+trust and accept connections only from other authorized components. The remainder of this section discusses the IceSSL
+solution but also provides useful information for those interested in securing IceGrid with a firewall.
 
 To restrict access using IceSSL, we need to establish trust relationships between IceGrid registry replicas, nodes, and
 deployed servers. IceSSL allows us to do this using configuration properties. The trust relationships are based on the
@@ -51,21 +51,21 @@ the common names shown below:
 
 The IceGrid registry has three mandatory endpoints representing the client, server, and internal endpoints. The registry
 also has two optional endpoints (the session manager and administrative session manager endpoints) that are only useful
-when [accessing IceGrid via Glacier2](services/icegrid/glacier2-integration-with-icegrid).
+when [accessing IceGrid via Glacier2](../glacier2-integration-with-icegrid).
 
 ### Client Endpoint
 
 The registry client endpoint is used by Ice applications that create client sessions in order to use the
-[resource allocation](services/icegrid/resource-allocation-using-icegrid-sessions) facility. It is also used by
-[administrative clients](services/icegrid/icegrid-administrative-sessions) that create sessions for managing the
-registry. Finally, the client endpoint is used by Ice applications that use the
-[IceGrid::Query](services/icegrid/well-known-objects) interface or resolve indirect proxies via the IceGrid locator.
+[resource allocation](../resource-allocation-using-icegrid-sessions) facility. It is also used by
+[administrative clients](../icegrid-administrative-sessions) that create sessions for managing the registry. Finally,
+the client endpoint is used by Ice applications that use the [IceGrid::Query](../well-known-objects) interface or
+resolve indirect proxies via the IceGrid locator.
 
 Two distinct permission verifiers authorize the creation of
-[client sessions](services/icegrid/resource-allocation-using-icegrid-sessions) and
-[administrative sessions](services/icegrid/icegrid-administrative-sessions). The remaining functionality available via
-the client endpoint, such as resolving objects and object adapters using the `IceGrid::Query` interface or the Ice
-locator mechanism, is accessible to any client that is able to connect to the client endpoint.
+[client sessions](../resource-allocation-using-icegrid-sessions) and
+[administrative sessions](../icegrid-administrative-sessions). The remaining functionality available via the client
+endpoint, such as resolving objects and object adapters using the `IceGrid::Query` interface or the Ice locator
+mechanism, is accessible to any client that is able to connect to the client endpoint.
 
 It is safe to use an insecure transport for the client endpoint if it is only being used for locator queries. However,
 you should use a secure transport if you have enabled client and administrative sessions (by configuring the appropriate
@@ -85,7 +85,7 @@ clients that create administrative sessions.
 ### Server Endpoint
 
 Ice servers use the registry's server endpoint to register their object adapter endpoints and send information to
-[administrative clients](services/icegrid/icegrid-and-the-administrative-facility) connected via the registry.
+[administrative clients](../icegrid-and-the-administrative-facility) connected via the registry.
 
 Securing this endpoint with IceSSL is necessary to prevent a malicious program from potentially hijacking a server by
 registering its endpoints first. The property definition shown below demonstrates how to limit access to this endpoint
@@ -98,8 +98,8 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.Server=CN="Server"
 ### Internal Endpoint
 
 IceGrid nodes and registry replicas use the internal endpoint to communicate with the registry. For example, nodes
-connect to the internal endpoint of each active registry, and [registry slaves](services/icegrid/registry-replication)
-establish a session with their master via this endpoint.
+connect to the internal endpoint of each active registry, and [registry slaves](../registry-replication) establish a
+session with their master via this endpoint.
 
 The internal endpoint must be secured with IceSSL to prevent malicious Ice applications from gaining access to sensitive
 functionality that is intended to be used only by nodes and registry replicas. You can restrict access to this endpoint
@@ -112,9 +112,9 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.Internal=CN="IceGrid Node";CN="IceGrid 
 ### Session Manager Endpoint
 
 The session manager endpoint is used by Glacier2 to create IceGrid
-[client sessions](services/icegrid/glacier2-integration-with-icegrid). The functionality exposed by this endpoint is
-unrestricted so you must either secure it or disable it (this endpoint is disabled by default). The property shown below
-demonstrates how to configure IceSSL so that only Glacier2 routers are accepted by this endpoint:
+[client sessions](../glacier2-integration-with-icegrid). The functionality exposed by this endpoint is unrestricted so
+you must either secure it or disable it (this endpoint is disabled by default). The property shown below demonstrates
+how to configure IceSSL so that only Glacier2 routers are accepted by this endpoint:
 
 ```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.SessionManager=CN="Glacier2 Router Client"
@@ -126,9 +126,9 @@ client sessions.
 ### Administrative Session Manager Endpoint
 
 Glacier2 routers use the registry's administrative session manager endpoint to create IceGrid
-[administrative sessions](services/icegrid/glacier2-integration-with-icegrid). The functionality exposed by this
-endpoint is unrestricted, so you must either secure it or disable it (this endpoint is disabled by default). The
-property shown below demonstrates how to configure IceSSL so that only Glacier2 routers are accepted by this endpoint:
+[administrative sessions](../glacier2-integration-with-icegrid). The functionality exposed by this endpoint is
+unrestricted, so you must either secure it or disable it (this endpoint is disabled by default). The property shown
+below demonstrates how to configure IceSSL so that only Glacier2 routers are accepted by this endpoint:
 
 ```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router Admin"
@@ -136,8 +136,8 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router
 
 In this example, `Glacier2 Router Admin` is the common name of the Glacier2 router used by clients to create IceGrid
 administrative sessions. Note that if you use a single Glacier2 router instance for
-[both client and administrative sessions](services/icegrid/glacier2-integration-with-icegrid), you will need to use the
-same common name to restrict access to both session manager endpoints:
+[both client and administrative sessions](../glacier2-integration-with-icegrid), you will need to use the same common
+name to restrict access to both session manager endpoints:
 
 ```config
 IceSSL.TrustOnly.Server.IceGrid.Registry.SessionManager=CN="Glacier2 Router Client"
@@ -147,14 +147,14 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router
 ### IceLocatorDiscovery Endpoint
 
 The registry (including all replicas) listens by default for UDP multicast requests from
-[IceLocatorDiscovery](plugins/icelocatordiscovery) clients. Each client request includes a proxy to which the registry
-sends its response; by default, the client's "response callback" proxy uses a UDP unicast endpoint but it can be
-configured to use a different transport. The registry invokes on the client's response callback proxy and provides a
+[IceLocatorDiscovery](../../../plugins/icelocatordiscovery) clients. Each client request includes a proxy to which the
+registry sends its response; by default, the client's "response callback" proxy uses a UDP unicast endpoint but it can
+be configured to use a different transport. The registry invokes on the client's response callback proxy and provides a
 proxy of its own containing the registry's client endpoint.
 
 Ice does not support a secure multicast transport therefore these discovery requests cannot be encrypted or restricted
 via trust relationships. You can prevent registries from listening for discovery requests by setting
-[IceGrid.Registry.Discovery.Enabled](property-reference/icegrid-properties):
+[IceGrid.Registry.Discovery.Enabled](../../../property-reference/icegrid-properties):
 
 ```config
 IceGrid.Registry.Discovery.Enabled=0
@@ -215,11 +215,11 @@ If your server invokes on other servers, you will need to modify this setting to
 
 ## See Also
 
-- [IceSSL](runtime/ssl-transport)
-- [Glacier2 Integration with IceGrid](services/icegrid/glacier2-integration-with-icegrid)
-- [Resource Allocation Using IceGrid Sessions](services/icegrid/resource-allocation-using-icegrid-sessions)
-- [IceGrid Administrative Sessions](services/icegrid/icegrid-administrative-sessions)
-- [Well-Known Objects](services/icegrid/well-known-objects)
-- [IceGrid and the Administrative Facility](services/icegrid/icegrid-and-the-administrative-facility)
-- [Registry Replication](services/icegrid/registry-replication)
-- [IceSSL.*](property-reference/icessl-properties)
+- [IceSSL](../../../runtime/ssl-transport)
+- [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
+- [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
+- [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
+- [Well-Known Objects](../well-known-objects)
+- [IceGrid and the Administrative Facility](../icegrid-and-the-administrative-facility)
+- [Registry Replication](../registry-replication)
+- [IceSSL.*](../../../property-reference/icessl-properties)

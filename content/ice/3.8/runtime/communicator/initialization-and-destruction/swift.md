@@ -8,7 +8,7 @@ let communicator = try Ice.initialize(CommandLine.arguments)
 ```
 
 `initialize` scans the argument array for any
-[command-line options](runtime/properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
+[command-line options](../../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
 the Ice runtime. If anything goes wrong during initialization, `initialize` throws an exception.
 
 {% callout type="info" %}

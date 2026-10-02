@@ -14,9 +14,9 @@ following activities:
 - Configuring the Windows Event Log so that the service can report status and error messages.
 
 There are many ways to perform these tasks. For example, an administrator can
-[execute them manually](background-servers/windows-services/manually-installing-a-service-as-a-windows-service). Another
-option is to write a script or program tailored to the needs of your application. Finally, you can build an installer
-using a developer tool such as InstallShield.
+[execute them manually](../manually-installing-a-service-as-a-windows-service). Another option is to write a script or
+program tailored to the needs of your application. Finally, you can build an installer using a developer tool such as
+InstallShield.
 
 ## Selecting a User Account for the Service
 
@@ -26,4 +26,4 @@ for this purpose, `Local Service`.
 
 ## See Also
 
-- [Manually Installing a Service as a Windows Service](background-servers/windows-services/manually-installing-a-service-as-a-windows-service)
+- [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)

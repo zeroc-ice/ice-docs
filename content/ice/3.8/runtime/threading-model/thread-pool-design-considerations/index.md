@@ -2,9 +2,8 @@
 title: Thread Pool Design Considerations
 ---
 
-Improper configuration of a [thread pool](runtime/threading-model/thread-pools) can have a serious impact on the
-performance of your application. This page discusses some issues that you should consider when designing and configuring
-your applications.
+Improper configuration of a [thread pool](../thread-pools) can have a serious impact on the performance of your
+application. This page discusses some issues that you should consider when designing and configuring your applications.
 
 ## Single-Threaded Pool
 
@@ -36,7 +35,7 @@ application in a realistic environment is the recommended way of determining the
 
 ## See Also
 
-- [Thread Pools](runtime/threading-model/thread-pools)
-- [Concurrent Proxy Invocations](runtime/invocation/concurrent-proxy-invocations)
-- [Nested Invocations](runtime/threading-model/nested-invocations)
-- [Connection Establishment](runtime/connection-management/connection-establishment)
+- [Thread Pools](../thread-pools)
+- [Concurrent Proxy Invocations](../../invocation/concurrent-proxy-invocations)
+- [Nested Invocations](../nested-invocations)
+- [Connection Establishment](../../connection-management/connection-establishment)

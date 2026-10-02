@@ -2,7 +2,7 @@
 title: Forward Declarations
 ---
 
-Both [interfaces](slice/interfaces) and [classes](slice/user-defined-types/classes) can be forward declared. Forward
+Both [interfaces](../interfaces) and [classes](../user-defined-types/classes) can be forward declared. Forward
 declarations permit the creation of mutually dependent objects, for example:
 
 ```slice
