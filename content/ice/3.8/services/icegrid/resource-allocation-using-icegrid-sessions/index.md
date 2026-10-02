@@ -78,9 +78,10 @@ catch (const IceGrid::PermissionDeniedException& ex)
 }
 ```
 
-IceGrid destroys a session when the connection that created it closes. A client that reconnects to the registry must
-create a new session. The client's [inactivity check](../connection-closure#the-inactivity-check) closes this connection
-when it carries no invocations for
+A client ends its session by calling `destroy`, which `Session` inherits from `Glacier2::Session`. IceGrid also destroys
+a session when the connection that created it closes; a client that reconnects to the registry must create a new
+session. The client's [inactivity check](../connection-closure#the-inactivity-check) closes this connection when it
+carries no invocations for
 [Ice.Connection.Client.InactivityTimeout](../ice-connection-properties#ice.connection.name.inactivitytimeout) seconds,
 300 by default; a client that keeps a session for longer without invoking operations on the registry sets this property
 to 0. Glacier2 destroys a session created through a Glacier2 router when the client's
@@ -200,9 +201,9 @@ objects.
 The `setAllocationTimeout` operation configures the timeout used by the allocation operations. If no allocatable objects
 are available when the client invokes `allocateObjectById` or `allocateObjectByType`, IceGrid waits for the specified
 timeout period for an allocatable object to become available. If the timeout expires, the client receives
-`AllocationTimeoutException`. The timeout is in milliseconds and applies while the request waits for an allocated object
-to be released. With a timeout of 0, IceGrid raises `AllocationTimeoutException` at once. With a negative timeout,
-IceGrid waits until an object becomes available; the default timeout is -1.
+`AllocationTimeoutException`. The timeout is in milliseconds. With a timeout of 0, IceGrid raises
+`AllocationTimeoutException` at once instead of waiting. With a negative timeout, IceGrid waits until an object becomes
+available; the default timeout is -1.
 
 ## Allocating Servers with an IceGrid Session
 
