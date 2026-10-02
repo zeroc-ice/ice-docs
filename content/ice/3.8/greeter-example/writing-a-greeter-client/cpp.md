@@ -149,7 +149,7 @@ You can instead call `greet` _asynchronously_, with one of the two `greetAsync` 
 class. The simpler overload returns a `future`:
 
 ```cpp
-future<string> futureGreeting = greeter.greetAsync("bob"); // Send the request.
+future<string> futureGreeting = greeter.greetAsync("bob"); // Start the invocation.
 
 // Wait for the response.
 greeting = futureGreeting.get();

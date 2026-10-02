@@ -39,7 +39,7 @@ directory that contains `slice-plugin.json`:
 }
 ```
 
-The plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as source file of the Server target. The generated
+The plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as a source file of the Server target. The generated
 code provides the APIs that we’ll need in our server code, so it’s an essential step of the development process.
 
 A Swift protocol is generated for each Slice interface. In our example, `Greeter`.

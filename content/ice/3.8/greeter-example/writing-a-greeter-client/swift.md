@@ -34,7 +34,7 @@ directory that contains `slice-plugin.json`:
 }
 ```
 
-The plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as source file of the Client target. The generated
+The plugin compiles `Greeter.ice` into `Greeter.swift` and adds it as a source file of the Client target. The generated
 code provides the APIs that we’ll call in our client code, so it’s an essential step of the development process.
 
 ## Client Implementation
