@@ -2,7 +2,7 @@
 //
 // Build the search index the header's search palette loads.
 //
-//   node scripts/build-search-index.js
+//   node scripts/build-search-index.ts
 //
 // One JSON file per version under `public/search/`. Runs from
 // `prebuild`/`predev`; the output is generated, and git-ignored.
@@ -26,15 +26,15 @@ import {
   readPageSources,
   writtenFor
 } from '../lib/docs-model/content.ts';
-import { pageHref, trailTo } from '../lib/docs-model/nav.ts';
+import { pageHref, trailTo, type NavDoc } from '../lib/docs-model/nav.ts';
 import { splitFrontmatter, splitLines } from '../lib/docs-model/resolve.ts';
 
 const OUT = path.join(process.cwd(), 'public', 'search');
 
 /** Heading text in a markdown body, skipping fenced code. */
-function headings(body) {
-  const out = [];
-  let fence = null;
+function headings(body: string): string[] {
+  const out: string[] = [];
+  let fence: { char: string; length: number } | null = null;
   for (const line of splitLines(body)) {
     const delimiter = /^\s{0,3}(`{3,}|~{3,})/.exec(line);
     if (delimiter) {
@@ -61,7 +61,7 @@ function headings(body) {
 }
 
 /** Where a page sits, for the result's context line: "The Slice Language › User-Defined Types". */
-function crumbFor(nav, slug) {
+function crumbFor(nav: NavDoc, slug: string): string {
   const trail = trailTo(nav.sidebar, slug);
   return trail
     ? trail
@@ -78,7 +78,7 @@ fs.mkdirSync(OUT, { recursive: true });
 for (const version of listVersions(CONTENT_ROOT)) {
   const nav = readNavigation(CONTENT_ROOT, version);
 
-  const records = [];
+  const records: object[] = [];
   for (const page of listPages(CONTENT_ROOT, version)) {
     const { shared, overlays, frontmatter } = readPageSources(page);
     const common = new Set(

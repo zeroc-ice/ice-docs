@@ -12,12 +12,12 @@
 
 ### Description {% id="ice.cachemessagebuffers-description" %}
 
-If `num` is a value greater than 0, the proxies cache message buffers for future reuse. This can improve performance and
+If `num` is greater than `0`, the proxies cache message buffers for future reuse. This can improve performance and
 reduce the amount of garbage produced by Ice internals that the garbage collector would eventually spend time to
 reclaim. However, for applications that exchange very large messages, this cache may consume excessive amounts of memory
-and therefore should be disabled by setting this property to 0.
+and therefore should be disabled by setting this property to `0`.
 
-The default value is 2.
+The default value is `2`.
 
 {% callout type="info" %}
 
@@ -26,8 +26,8 @@ for dispatches.
 
 {% /callout %}
 
-Ice for Java allocates non-direct message buffers when this property is set to 1 and direct message buffers when set
-to 2. Use of direct message buffers minimizes copying and typically results in improved throughput.
+Ice for Java allocates non-direct message buffers when this property is set to `1` and direct message buffers when set
+to `2`. Use of direct message buffers minimizes copying and typically results in improved throughput.
 
 {% /language-section %}
 
@@ -41,10 +41,10 @@ to 2. Use of direct message buffers minimizes copying and typically results in i
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Legal values
-for `num` are `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
-that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
-significant improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Values range
+from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that higher
+levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a significant
+improvement over lower levels. If not specified, the default value is `1`.
 
 ## Ice.Config
 
@@ -255,7 +255,8 @@ proxy server for all outgoing (client) connections.
 
 {% callout type="info" %}
 
-Ice currently only supports the SOCKS4 protocol, which means only IPv4 connections are allowed.
+Ice supports the SOCKS4 protocol, which requires IPv4. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are set, Ice
+uses the SOCKS proxy.
 
 {% /callout %}
 
@@ -280,6 +281,8 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
+`Ice.StdErr` and `Ice.StdOut` can name the same file.
+
 ## Ice.StdOut
 
 ### Synopsis {% id="ice.stdout-synopsis" %}
@@ -290,6 +293,8 @@ property is checked only for the first communicator that is created in a process
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
+
+`Ice.StdErr` and `Ice.StdOut` can name the same file.
 
 ## Ice.SyslogFacility
 
@@ -367,6 +372,6 @@ use the RFC 3164 syslog format without a header and include the program name as 
 [Ice.SyslogFacility](../ice-properties#ice.syslogfacility) selects the facility. The default value of `Ice.UseSyslog`
 is 0. Ice ignores this property on Windows.
 
-This property cannot be combined with [Ice.LogFile](../ice-properties#ice.logfile).
+On other platforms, this property cannot be combined with [Ice.LogFile](../ice-properties#ice.logfile).
 
 {% /language-section %}

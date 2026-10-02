@@ -99,8 +99,9 @@ default is 1000ms.
 
 ### Description {% id="icestorm.instancename-description" %}
 
-Specifies an alternate identity category for all [objects](../configuring-icestorm) hosted by the IceStorm object
-adapters. If not specified, the default identity category is `IceStorm`.
+Specifies the identity category of the [objects](../configuring-icestorm) hosted by the IceStorm object adapters, except
+the finder object, whose identity is always `IceStorm/Finder`. If not specified, the default identity category is
+`IceStorm`.
 
 ## IceStorm.LMDB.MapSize
 
@@ -111,8 +112,7 @@ adapters. If not specified, the default identity category is `IceStorm`.
 ### Description {% id="icestorm.lmdb.mapsize-description" %}
 
 Specifies the map size for the IceStorm [LMDB](http://www.lmdb.tech/doc/) database environment. The value is specified
-in megabytes. If not specified or set to 0, IceStorm uses a system-dependent default: 10 MB on Windows, and 100 MB on
-other platforms.
+in megabytes. If not set, IceStorm uses a system-dependent default: 10 MB on Windows, and 100 MB on other platforms.
 
 ## IceStorm.LMDB.Path
 
@@ -149,8 +149,10 @@ this adapter.
 Specifies the node ID of an IceStorm [replica](../highly-available-icestorm), where `value` is a non-negative integer.
 Node IDs must be unique, but they need not be contiguous or start at 0. The node ID is also used as the replica's
 priority, such that a larger value assigns higher priority to the replica. The replica with the highest priority becomes
-the coordinator of its group. This property must be defined for each replica. When this property is not set, IceStorm
-runs without replication.
+the coordinator of its group. This property must be defined for each replica. The default value is `-1`, which disables
+replication.
+
+A replicated deployment requires at least three replicas.
 
 ## IceStorm.Nodes._id_
 
@@ -184,7 +186,8 @@ publishers. Therefore, [adapter properties](../object-adapter-properties) can be
 ### Description {% id="icestorm.replicatedpublishendpoints-description" %}
 
 This property is used for a manual deployment of [highly available IceStorm](../configuring-icestorm). It specifies the
-set of endpoints returned for the publisher proxy returned from `IceStorm::Topic::getPublisher`.
+set of endpoints returned for the publisher proxy returned from `IceStorm::Topic::getPublisher`. This property takes
+effect only when `IceStorm.TopicManager.AdapterId` is not set.
 
 If this property is not defined, the publisher proxy returned by a topic instance points directly at that replica and,
 should the replica become unavailable, publishers will not transparently failover to other replicas.
@@ -199,7 +202,7 @@ should the replica become unavailable, publishers will not transparently failove
 
 This property is used for a manual deployment of [highly available IceStorm](../configuring-icestorm). It specifies the
 set of endpoints used in proxies that refer to a replicated topic. This set of endpoints should contain the endpoints of
-each IceStorm replica.
+each IceStorm replica. This property takes effect only when `IceStorm.TopicManager.AdapterId` is not set.
 
 For example, the operation `IceStorm::TopicManager::create` returns a proxy that contains this set of endpoints.
 
@@ -211,10 +214,12 @@ For example, the operation `IceStorm::TopicManager::create` returns a proxy that
 
 ### Description {% id="icestorm.send.timeout-description" %}
 
-IceStorm applies a send timeout when it forwards events to subscribers. The value of this property determines how long
-IceStorm will wait for forwarding of an event to complete. If an event cannot be forwarded within `num` milliseconds,
-the subscriber is considered dead and its subscription is cancelled. The default value is 60 seconds. Setting this
-property to a negative value disables timeouts.
+Specifies the invocation timeout in milliseconds that IceStorm applies when it forwards events to subscribers. For
+oneway and batch subscribers, the timeout covers connecting to the subscriber and sending the event; for twoway
+subscribers, it also covers waiting for the reply. When forwarding an event does not complete within `num` milliseconds,
+IceStorm handles the timeout according to the subscriber's `retryCount` QoS setting, as described under
+[IceStorm.Discard.Interval](../icestorm-properties#icestorm.discard.interval). The default value is `60000`. `-1`
+disables the timeout.
 
 ## IceStorm.Send.QueueSizeMax
 
@@ -225,14 +230,15 @@ property to a negative value disables timeouts.
 ### Description {% id="icestorm.send.queuesizemax-description" %}
 
 The value of this property determines how many events can be queued for a subscriber by IceStorm. When the maximum size
-is reached, the old events will either be dropped or the subscriber will be removed. Setting this property to a negative
-value specifies an infinite queue size. The default value is -1.
+is reached, IceStorm drops the oldest events or removes the subscriber, as selected by
+[IceStorm.Send.QueueSizeMaxPolicy](../icestorm-properties#icestorm.send.queuesizemaxpolicy). `num` must be a positive
+value, or `-1` for an unbounded queue. The default value is `-1`.
 
 ## IceStorm.Send.QueueSizeMaxPolicy
 
 ### Synopsis {% id="icestorm.send.queuesizemaxpolicy-synopsis" %}
 
-`IceStorm.Send.QueueSizePolicy=RemoveSubscriber|DropEvents`
+`IceStorm.Send.QueueSizeMaxPolicy=RemoveSubscriber|DropEvents`
 
 ### Description {% id="icestorm.send.queuesizemaxpolicy-description" %}
 
@@ -261,9 +267,10 @@ IceStorm uses the adapter name `IceStorm.TopicManager` for the topic manager's o
 
 Trace activity related to elections:
 
-| 0   | No election trace (default). |
-| --- | ---------------------------- |
-| 1   | Trace election activity.     |
+| Value | Description                  |
+| ----- | ---------------------------- |
+| 0     | No election trace (default). |
+| 1     | Trace election activity.     |
 
 ## IceStorm.Trace.Replication
 
@@ -275,9 +282,10 @@ Trace activity related to elections:
 
 Trace activity related to replication:
 
-| 0   | No replication trace (default). |
-| --- | ------------------------------- |
-| 1   | Trace replication activity.     |
+| Value | Description                     |
+| ----- | ------------------------------- |
+| 0     | No replication trace (default). |
+| 1     | Trace replication activity.     |
 
 ## IceStorm.Trace.Subscriber
 
@@ -289,10 +297,11 @@ Trace activity related to replication:
 
 The subscriber trace level:
 
-| 0   | No subscriber trace (default).                                                                                                                                                           |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Trace topic diagnostic information on subscription and unsubscription.                                                                                                                   |
-| 2   | Like 1, but more verbose, including state transitions for a subscriber (such as going offline after a temporary network failure, and going online again after a successful retry, etc.). |
+| Value | Description                                                                                                                                                                              |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0     | No subscriber trace (default).                                                                                                                                                           |
+| 1     | Trace topic diagnostic information on subscription and unsubscription.                                                                                                                   |
+| 2     | Like 1, but more verbose, including state transitions for a subscriber (such as going offline after a temporary network failure, and going online again after a successful retry, etc.). |
 
 ## IceStorm.Trace.Topic
 
@@ -304,10 +313,11 @@ The subscriber trace level:
 
 The topic trace level:
 
-| 0   | No topic trace (default).                                                              |
-| --- | -------------------------------------------------------------------------------------- |
-| 1   | Trace topic links, subscription, and unsubscription.                                   |
-| 2   | Like 1, but more verbose, including QoS information, and other diagnostic information. |
+| Value | Description                                                                            |
+| ----- | -------------------------------------------------------------------------------------- |
+| 0     | No topic trace (default).                                                              |
+| 1     | Trace topic links, subscription, and unsubscription.                                   |
+| 2     | Like 1, but more verbose, including QoS information, and other diagnostic information. |
 
 ## IceStorm.Trace.TopicManager
 
@@ -319,9 +329,11 @@ The topic trace level:
 
 The topic manager trace level:
 
-| 0   | No topic manager trace (default). |
-| --- | --------------------------------- |
-| 1   | Trace topic creation.             |
+| Value | Description                                                      |
+| ----- | ---------------------------------------------------------------- |
+| 0     | No topic manager trace (default).                                |
+| 1     | Trace topic creation, topic loading, and replica initialization. |
+| 2     | Like 1, but also trace the endpoints of each subscriber.         |
 
 ## IceStorm.Transient
 

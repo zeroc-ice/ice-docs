@@ -39,7 +39,13 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import Markdoc from '@markdoc/markdoc';
+import Markdoc, {
+  type Config,
+  type Node,
+  type RenderableTreeNode,
+  type Schema,
+  type Tag
+} from '@markdoc/markdoc';
 
 import config from '../markdoc/config.ts';
 import { parse } from '../markdoc/parse.ts';
@@ -53,12 +59,17 @@ import {
   readPageSources,
   snippetReader
 } from '../lib/docs-model/content.ts';
-import { API_SCHEME, buildPageIndex } from '../lib/docs-model/links.ts';
+import {
+  API_SCHEME,
+  buildPageIndex,
+  type ApiLinks,
+  type PageIndex
+} from '../lib/docs-model/links.ts';
 import { pageHref } from '../lib/docs-model/nav.ts';
 import { resolveDocument } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
-const resolverTags = {
+const resolverTags: Record<string, Schema> = {
   'language-section': {
     attributes: {
       name: { type: String, required: true },
@@ -77,9 +88,15 @@ const resolverTags = {
 };
 
 const LEVELS = ['debug', 'info', 'warning', 'error', 'critical'];
-const fails = (level) => LEVELS.indexOf(level) >= LEVELS.indexOf('warning');
+const fails = (level: string) =>
+  LEVELS.indexOf(level) >= LEVELS.indexOf('warning');
 
-function validate(ast, source, tags, variables) {
+function validate(
+  ast: Node,
+  source: string,
+  tags: Config['tags'],
+  variables: Config['variables']
+) {
   const lines = source.split('\n');
   return Markdoc.validate(ast, { ...config, tags, variables })
     .filter(({ error }) => fails(error.level))
@@ -90,8 +107,8 @@ function validate(ast, source, tags, variables) {
     }));
 }
 
-const languagesByVersion = {};
-const apiLinksByVersion = {};
+const languagesByVersion: Record<string, string[]> = {};
+const apiLinksByVersion: Record<string, ApiLinks> = {};
 for (const version of listVersions(CONTENT_ROOT)) {
   languagesByVersion[version] = readNavigation(CONTENT_ROOT, version).languages;
   apiLinksByVersion[version] = readApiLinks(CONTENT_ROOT, version);
@@ -101,8 +118,16 @@ for (const version of listVersions(CONTENT_ROOT)) {
 // `$path` validate here as they render there. Validation only needs a variable
 // to exist, so the reading time and the chrome are placeholders of the right
 // shape; nothing in the manual refers to either.
-const pageIndexes = new Map();
-function variablesFor({ version, slug, frontmatter }) {
+const pageIndexes = new Map<string, PageIndex>();
+function variablesFor({
+  version,
+  slug,
+  frontmatter
+}: {
+  version: string;
+  slug: string;
+  frontmatter: Record<string, unknown>;
+}) {
   if (!pageIndexes.has(version)) {
     const { index } = buildPageIndex(
       listPages(CONTENT_ROOT, version).map((page) => page.slug)
@@ -122,9 +147,9 @@ function variablesFor({ version, slug, frontmatter }) {
   };
 }
 
-const diagnostics = [];
+const diagnostics: { where: string; text: string }[] = [];
 // What the first pass reported, so the second does not repeat it.
-const reported = new Set();
+const reported = new Set<string>();
 
 // 1. Every page as written.
 let pages = 0;
@@ -132,7 +157,7 @@ const sourceTags = { ...config.tags, ...resolverTags };
 for (const version of listVersions(CONTENT_ROOT)) {
   const files = listPages(CONTENT_ROOT, version).flatMap((page) =>
     [page.shared, ...Object.values(page.overlays)]
-      .filter(Boolean)
+      .filter((file) => file !== undefined)
       .map((file) => ({ file, slug: page.slug }))
   );
   for (const { file, slug } of files.sort((a, b) =>
@@ -156,7 +181,9 @@ for (const version of listVersions(CONTENT_ROOT)) {
 }
 
 /** Every tag in a rendered tree, depth first. */
-function* tagsOf(node) {
+function* tagsOf(
+  node: RenderableTreeNode | RenderableTreeNode[]
+): Generator<Tag> {
   if (Array.isArray(node)) {
     for (const child of node) yield* tagsOf(child);
   } else if (Markdoc.Tag.isTag(node)) {
@@ -167,11 +194,22 @@ function* tagsOf(node) {
 
 // 2. Every page as the site renders it.
 let rendered = 0;
+/** A heading as the outline lists it, with the mappings that show it, if not all. */
+interface OutlineHeading {
+  id: string;
+  langs?: string[];
+}
+
 // Page URL -> the ids on the page, and its headings with the mappings that show
 // them; and the links to check against them once every page is rendered.
-const anchorsByPage = new Map();
-const headingsByPage = new Map();
-const checkedLinks = [];
+const anchorsByPage = new Map<string, Set<string>>();
+const headingsByPage = new Map<string, OutlineHeading[]>();
+const checkedLinks: {
+  where: string;
+  url: string;
+  href: string;
+  languages: string[];
+}[] = [];
 const allPages = listVersions(CONTENT_ROOT).flatMap((version) =>
   listPages(CONTENT_ROOT, version).map((page) => ({ version, page }))
 );
@@ -180,7 +218,7 @@ for (const { version, page } of allPages) {
   const { slug } = page;
   const { shared, overlays, frontmatter } = readPageSources(page);
   const where = `${version}/${slug} (assembled)`;
-  let body;
+  let body: string;
   try {
     // The same step as the page route.
     body = resolveDocument({
@@ -189,7 +227,10 @@ for (const { version, page } of allPages) {
       readFile: snippetReader(CONTENT_ROOT, version)
     });
   } catch (error) {
-    diagnostics.push({ where, text: `cannot assemble: ${error.message}` });
+    diagnostics.push({
+      where,
+      text: `cannot assemble: ${(error as Error).message}`
+    });
     continue;
   }
   const variables = variablesFor({ version, slug, frontmatter });
@@ -203,37 +244,47 @@ for (const { version, page } of allPages) {
   }
   // What the route does next: a tag's transform can throw where validation
   // passed.
-  let tree;
+  let tree: RenderableTreeNode;
   try {
     tree = Markdoc.transform(ast, { ...config, variables });
   } catch (error) {
-    diagnostics.push({ where, text: `transform failed: ${error.message}` });
+    diagnostics.push({
+      where,
+      text: `transform failed: ${(error as Error).message}`
+    });
     continue;
   }
   const url = pageHref(version, slug);
-  const anchors = new Set();
+  const anchors = new Set<string>();
   for (const tag of tagsOf(tree)) {
-    const { id, href, unresolved } = tag.attributes;
+    const { id, href, unresolved } = tag.attributes as {
+      id?: unknown;
+      href?: string;
+      unresolved?: boolean;
+    };
     if (typeof id === 'string') anchors.add(id);
     if (unresolved)
       diagnostics.push({
         where,
-        text: href.startsWith(API_SCHEME)
+        text: href!.startsWith(API_SCHEME)
           ? `link to a type that api-links.yaml does not list: ${href}`
           : `link to a page that does not exist: ${href}`
       });
     else if (typeof href === 'string' && /[#?]/.test(href))
       checkedLinks.push({ where, url, href, languages: variables.languages });
   }
+  const { headings } = (tree as Tag).attributes as {
+    headings: OutlineHeading[];
+  };
   anchorsByPage.set(url, anchors);
-  headingsByPage.set(url, tree.attributes.headings);
+  headingsByPage.set(url, headings);
 
   // A link or the outline reaches only the first of two headings with one
   // anchor. MD024 sees a file at a time; this sees a shared page's headings
   // with each language's overlay headings among them, as the outline lists them.
-  const repeats = new Map();
+  const repeats = new Map<string, Set<string>>();
   for (const language of variables.languages) {
-    const ids = tree.attributes.headings
+    const ids = headings
       .filter(({ langs }) => !langs || langs.includes(language))
       .map(({ id }) => id);
     for (const id of ids.filter((id, i) => ids.indexOf(id) !== i))
@@ -271,11 +322,14 @@ for (const { where, url, href, languages } of checkedLinks) {
   }
   if (hashAt === -1) continue;
   const anchor = decodeURIComponent(href.slice(hashAt + 1));
-  const shown = ({ id, langs }) =>
-    id === anchor && (!langs || langs.includes(language));
-  if (!anchors.has(anchor))
+  if (!anchors.has(anchor)) {
     diagnostics.push({ where, text: `link to a missing anchor: ${href}` });
-  else if (language !== null && !headingsByPage.get(target).some(shown))
+    continue;
+  }
+  if (language === null) continue;
+  const shown = ({ id, langs }: OutlineHeading) =>
+    id === anchor && (!langs || langs.includes(language));
+  if (!headingsByPage.get(target)!.some(shown))
     diagnostics.push({
       where,
       text: `link to an anchor the ${language} mapping doesn't show: ${href}`
