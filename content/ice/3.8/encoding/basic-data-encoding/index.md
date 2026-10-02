@@ -5,7 +5,7 @@ title: Basic Data Encoding
 ## Encoding for Sizes
 
 Many of the types involved in the Ice encoding, as well as several [protocol message](../protocol-messages) components,
-have an associated size or count. A size is a number in the range 0 to 2³¹−1, encoded in one of two forms:
+have an associated size or count. A size is a number in the range 0 to 2³¹−1, and Ice encodes it in one of two forms:
 
 1. Ice can encode a size from 0 to 254 as a single `byte` holding the size.
 2. Ice can encode any size as a `byte` with value `255`, followed by an `int` holding the size.
