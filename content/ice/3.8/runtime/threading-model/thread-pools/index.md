@@ -10,12 +10,14 @@ Each communicator creates two thread pools:
 
 - The _client thread pool_ services outgoing connections, which primarily involves handling the replies to outgoing
   requests and includes executing AMI callbacks. If a connection is used in
-  [bidirectional mode](../bidirectional-connections), the client thread pool also dispatches incoming requests.
+  [bidirectional mode](../../connection-management/bidirectional-connections), the client thread pool also dispatches
+  incoming requests.
 - The _server thread pool_ services incoming connections. It dispatches incoming requests and, for bidirectional
   connections, processes replies to outgoing requests.
 
-By default, these two thread pools are shared by all of the communicator's [object adapters](../dispatch). If necessary,
-you can configure individual object adapters to use a [private thread pool](../object-adapter-thread-pools) instead.
+By default, these two thread pools are shared by all of the communicator's [object adapters](../../dispatch). If
+necessary, you can configure individual object adapters to use a [private thread pool](../object-adapter-thread-pools)
+instead.
 
 If a thread pool is exhausted because all threads are currently dispatching a request, additional incoming requests are
 transparently delayed until a request completes and relinquishes its thread; that thread is then used to dispatch the
@@ -27,15 +29,15 @@ next pending request. Ice minimizes thread context switches in a thread pool by 
 While Ice tolerates a transient thread pool exhaustion, you should avoid thread exhaustion and not use thread pool
 exhaustion for flow-control.
 
-Use instead [Ice.Connection.name.MaxDispatches](../ice-connection-properties) and
-[adapter.MaxConnections](../object-adapter-properties).
+Use instead [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties) and
+[adapter.MaxConnections](../../../property-reference/object-adapter-properties).
 
 {% /callout %}
 
 ## Configuring Thread Pools
 
 Each thread pool has a unique name that serves as the prefix for its configuration properties:
-[*name.*Size](../ice-threadpool-properties), `name.SizeMax`, `name.SizeWarn`, etc.
+[*name.*Size](../../../property-reference/ice-threadpool-properties), `name.SizeMax`, `name.SizeWarn`, etc.
 
 For configuration purposes, the names of the client and server thread pools are `Ice.ThreadPool.Client` and
 `Ice.ThreadPool.Server`, respectively. As an example, the following properties establish the initial and maximum sizes
@@ -49,9 +51,9 @@ Ice.ThreadPool.Server.SizeMax=10
 ```
 
 To monitor the thread pool activities of a communicator, you can enable the
-[Ice.Trace.ThreadPool](../ice-trace-properties) property. Setting this property to a non-zero value causes the
-communicator to log a message when it creates a thread pool, as well as each time the size of a thread pool increases or
-decreases.
+[Ice.Trace.ThreadPool](../../../property-reference/ice-trace-properties) property. Setting this property to a non-zero
+value causes the communicator to log a message when it creates a thread pool, as well as each time the size of a thread
+pool increases or decreases.
 
 ## Dynamic Thread Pools
 
@@ -112,10 +114,10 @@ than `name.Size` allows a thread pool to grow beyond its initial capacity.
 ## See Also
 
 - [Thread Pool Design Considerations](../thread-pool-design-considerations)
-- [Bidirectional Connections](../bidirectional-connections)
-- [Object Adapters](../dispatch)
+- [Bidirectional Connections](../../connection-management/bidirectional-connections)
+- [Object Adapters](../../dispatch)
 - [Object Adapter Thread Pools](../object-adapter-thread-pools)
-- [Ice.ThreadPool.*](../ice-threadpool-properties)
+- [Ice.ThreadPool.*](../../../property-reference/ice-threadpool-properties)
 
 ## References
 

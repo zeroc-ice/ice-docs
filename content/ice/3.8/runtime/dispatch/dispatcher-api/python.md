@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
-The [Dispatcher](../terminology) abstraction was not mapped to Python yet. The only kind of dispatchers you can create
-in Python are servants.
+The [Dispatcher](../../../basics/terminology) abstraction was not mapped to Python yet. The only kind of dispatchers you
+can create in Python are servants.
 
 {% /language-section %}
 

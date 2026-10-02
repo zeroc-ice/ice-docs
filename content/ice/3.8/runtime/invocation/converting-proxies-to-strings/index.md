@@ -15,11 +15,12 @@ You can also perform a deeper proxy stringification by calling `proxyToProperty`
 
 {% language-section name="lang-2" /%}
 
-The resulting map or dictionary holds all the [proxy properties](../proxy-properties) for the supplied proxy. The second
-parameter of `proxyToProperty` is the base name for the [properties](../properties-overview) in the returned map.
+The resulting map or dictionary holds all the [proxy properties](../../../property-reference/proxy-properties) for the
+supplied proxy. The second parameter of `proxyToProperty` is the base name for the
+[properties](../../properties-and-configuration/properties-overview) in the returned map.
 
 ## See Also
 
 - [Obtaining Proxies](../creating-proxies)
-- [Proxy and Endpoint Syntax](../endpoint-syntax)
-- [Proxy Properties](../proxy-properties)
+- [Proxy and Endpoint Syntax](../../endpoint-syntax)
+- [Proxy Properties](../../../property-reference/proxy-properties)

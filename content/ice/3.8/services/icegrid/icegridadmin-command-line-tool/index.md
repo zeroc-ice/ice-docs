@@ -33,11 +33,12 @@ which you issue commands at a prompt.
 
 To communicate with the IceGrid registry, `icegridadmin` establishes an
 [administrative session](../icegrid-administrative-sessions). The tool uses SSL authentication if you specify the `-S`
-option or define its equivalent property [IceGridAdmin.AuthenticateUsingSSL](../icegridadmin-properties). Otherwise,
-`icegridadmin` uses password authentication and prompts you for the username and password if you do not specify them via
-command-line options or properties. If you want `icegridadmin` to establish its session using a
-[Glacier2 router](../glacier2-integration-with-icegrid), define [Ice.Default.Router](../ice-default-properties)
-appropriately.
+option or define its equivalent property
+[IceGridAdmin.AuthenticateUsingSSL](../../../property-reference/icegridadmin-properties). Otherwise, `icegridadmin` uses
+password authentication and prompts you for the username and password if you do not specify them via command-line
+options or properties. If you want `icegridadmin` to establish its session using a
+[Glacier2 router](../glacier2-integration-with-icegrid), define
+[Ice.Default.Router](../../../property-reference/ice-default-properties) appropriately.
 
 If specified, the following command-line options override their property equivalents:
 
@@ -59,13 +60,13 @@ If specified, the following command-line options override their property equival
    at the specified host. If no port is defined via the `-P` or `--port` options or the equivalent property,
    `icegridadmin` uses the standard IceGrid TCP (4061) or SSL (4062) port.
 4. Otherwise, `icegridadmin` attempts to locate a registry by issuing a UDP multicast
-   [discovery request](../icelocatordiscovery). If the tool discovers more than one registry, it presents a list and
-   asks you to select one.
+   [discovery request](../../../plugins/icelocatordiscovery). If the tool discovers more than one registry, it presents
+   a list and asks you to select one.
 
 {% callout type="tip" %}
 
-See [IceGridAdmin.*](../icegridadmin-properties) for more information on the configuration properties supported by
-`icegridadmin`.
+See [IceGridAdmin.*](../../../property-reference/icegridadmin-properties) for more information on the configuration
+properties supported by `icegridadmin`.
 
 {% /callout %}
 
@@ -120,14 +121,16 @@ You can obtain more information about each category using the `help` command:
 - `node ping NAME` Ping node `NAME`.
 - `node load NAME` Print the load of the node `NAME`.
 - `node sockets [NAME]` Print the number of processor sockets for node `NAME`. If `NAME` is omitted, print the number of
-  processor sockets for each node. (The [IceGrid.Node.ProcessorSocketCount](../icegrid-properties) property allows you
-  to explicitly set this value for systems where the number of sockets cannot be obtained programmatically.)
+  processor sockets for each node. (The
+  [IceGrid.Node.ProcessorSocketCount](../../../property-reference/icegrid-properties) property allows you to explicitly
+  set this value for systems where the number of sockets cannot be obtained programmatically.)
 - `node show [OPTIONS] NAME [log | stderr | stdout]` Print the Ice log messages of the node (with `log`), or print the
   text from the node's standard error or standard output (with `stderr` or `stdout`). The supported options are shown
   below:
 
-  - `-f`, `--follow` With `log`, create a [remote logger](../logger-facet) that prints each new log message. With
-    `stderr` or `stdout`, wait for new text to be available in the file where `stderr` or `stdout` is redirected.
+  - `-f`, `--follow` With `log`, create a [remote logger](../../../administration/administrative-facility/logger-facet)
+    that prints each new log message. With `stderr` or `stdout`, wait for new text to be available in the file where
+    `stderr` or `stdout` is redirected.
   - `-t`, `--tail N` Print the last `N` log messages (for `log`) or N lines of text (for `stderr` or `stdout)`
   - `-h`, `--head N` Print the first `N` lines of text (invalid option with `log`).
 
@@ -142,8 +145,9 @@ You can obtain more information about each category using the `help` command:
   print the text from the registry's standard error or standard output (with `stderr` or `stdout`). The supported
   options are shown below:
 
-  - `-f`, `--follow` With `log`, create a [remote logger](../logger-facet) that prints each new log message. With
-    `stderr` or `stdout`, wait for new text to be available in the file where `stderr` or `stdout` is redirected.
+  - `-f`, `--follow` With `log`, create a [remote logger](../../../administration/administrative-facility/logger-facet)
+    that prints each new log message. With `stderr` or `stdout`, wait for new text to be available in the file where
+    `stderr` or `stdout` is redirected.
   - `-t`, `--tail N` Print the last `N` log messages (for `log`) or N lines of text (for `stderr` or `stdout)`
   - `-h`, `--head N` Print the first `N` lines of text (invalid option with `log`).
 
@@ -167,8 +171,9 @@ You can obtain more information about each category using the `help` command:
   print the text from the server's standard error, standard output or the log file LOGFILE (with `stderr`, `stdout` or
   `LOGFILE`). The supported options are shown below:
 
-  - `-f`, `--follow` With `log`, create a [remote logger](../logger-facet) that prints each new log message. With
-    `stderr`, `stdout` and `LOGFILE,` wait for new text to be available in the file.
+  - `-f`, `--follow` With `log`, create a [remote logger](../../../administration/administrative-facility/logger-facet)
+    that prints each new log message. With `stderr`, `stdout` and `LOGFILE,` wait for new text to be available in the
+    file.
   - `-t`, `--tail N` Print the last `N` log messages (for `log`) or N lines of text (for `stderr`, `stdout` or
     `LOGFILE)`
   - `-h`, `--head N` Print the first `N` lines of text (invalid option with `log`).
@@ -223,5 +228,5 @@ The `object` command operates on [well-known objects](../well-known-objects).
 - [IceGrid XML Features](../icegrid-xml-features)
 - [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
 - [Getting Started with IceGrid](../getting-started-with-icegrid)
-- [IceGridAdmin.*](../icegridadmin-properties)
-- [IceLocatorDiscovery](../icelocatordiscovery)
+- [IceGridAdmin.*](../../../property-reference/icegridadmin-properties)
+- [IceLocatorDiscovery](../../../plugins/icelocatordiscovery)

@@ -27,4 +27,4 @@ a Slice loader for one or more generated classes (typically classes with remappe
 
 ## See Also
 
-- [Type IDs](../type-ids)
+- [Type IDs](../../../type-ids)

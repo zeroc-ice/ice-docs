@@ -51,8 +51,8 @@ Ice and IceRPC concepts aren’t an exact match.
 ## Protocol and Transport
 
 IceRPC implements two RPC protocols: `ice` and `icerpc`, while Ice implements a single RPC protocol, the
-[Ice Protocol](../protocol-in-a-nutshell). `ice` is identical to the Ice Protocol, so in your IceRPC components, make
-sure to use the `ice` protocol.
+[Ice Protocol](../basics/protocol-in-a-nutshell). `ice` is identical to the Ice Protocol, so in your IceRPC components,
+make sure to use the `ice` protocol.
 
 Ice and IceRPC have two transports in common: `tcp` and `ssl`. You can’t use `udp` or `bt` (since they are not supported
 by IceRPC), and you can’t use `quic` (since it’s not supported by Ice).
@@ -108,10 +108,10 @@ by Glacier2.
 
 ### Discovery
 
-The discovery plug-ins provided by Ice ([IceDiscovery](../icediscovery) and
-[IceLocatorDiscovery](../icelocatordiscovery)) rely on UDP multicast and IceRPC doesn’t provide any support for UDP. As
-a result, you can’t discover an IceRPC server using `IceDiscovery`, and an IceRPC client can’t discover an Ice server
-that uses `IceDiscovery`.
+The discovery plug-ins provided by Ice ([IceDiscovery](../plugins/icediscovery) and
+[IceLocatorDiscovery](../plugins/icelocatordiscovery)) rely on UDP multicast and IceRPC doesn’t provide any support for
+UDP. As a result, you can’t discover an IceRPC server using `IceDiscovery`, and an IceRPC client can’t discover an Ice
+server that uses `IceDiscovery`.
 
 ## See Also
 

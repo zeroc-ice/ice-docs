@@ -60,6 +60,6 @@ class property, plus one argument for each derived class property, in base-to-de
 
 You must either call the constructor with no arguments or with arguments for all of the parameters.
 
-Calling the constructor with no argument assigns default values to the properties (see [Fields](../fields)).
+Calling the constructor with no argument assigns default values to the properties (see [Fields](../../fields)).
 
 {% /language-section %}

@@ -38,10 +38,10 @@ for dispatches.
 
 ### Description {% id="ice.compression.level-description" %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../protocol-compression). Values range
-from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that higher
-levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a significant
-improvement over lower levels. If not specified, the default value is `1`.
+Specifies the bzip2 compression level to use when [compressing protocol messages](../../protocol/protocol-compression).
+Values range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
+that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
+significant improvement over lower levels. If not specified, the default value is `1`.
 
 ## Ice.Config
 
@@ -58,12 +58,13 @@ This property must be set from the command line with one of the options `--Ice.C
 `--Ice.Config=config_file`.
 
 If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the
-[ICE_CONFIG](../using-configuration-files) environment variable to retrieve the path names of one or more configuration
-files. Otherwise, `Ice.Config` must be set to the path names of one or more configuration files, separated by commas
-(path names can be relative or absolute). Property values are read from each of the configuration files listed.
+[ICE_CONFIG](../../runtime/properties-and-configuration/using-configuration-files) environment variable to retrieve the
+path names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more
+configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of
+the configuration files listed.
 
-Configuration files use a simple [syntax](../configuration-file-syntax) consisting of _name_=_value_ pairs with support
-for comments and escaping.
+Configuration files use a simple [syntax](../../runtime/properties-and-configuration/configuration-file-syntax)
+consisting of _name_=_value_ pairs with support for comments and escaping.
 
 ## Ice.ConsoleListener
 
@@ -78,7 +79,7 @@ When the communicator uses Ice's default trace logger, `1` adds Ice's console li
 through `System.Diagnostics.Trace` using the existing listeners.
 
 Ice consults this property when no logger is supplied in `InitializationData`, `Ice.LogFile` is empty and the
-[per-process logger](../per-process-logger) is Ice's default logger.
+[per-process logger](../../administration/logger-facility/per-process-logger) is Ice's default logger.
 
 The default value is `1`.
 
@@ -159,9 +160,9 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 ### Description {% id="ice.pluginloadorder-description" %}
 
-Determines the order in which [plug-ins](../plug-in-facility) are loaded (loaded is a synonym for created in this
-context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is separated
-by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
+Determines the order in which [plug-ins](../../plugins/plug-in-facility) are loaded (loaded is a synonym for created in
+this context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is
+separated by a comma or white space. Any plug-ins not mentioned in `names` are loaded afterward, in an undefined order.
 
 Plug-ins installed using `InitializationData::pluginFactories` are always created before all other plug-ins. They are
 not affected by this property.
@@ -230,7 +231,7 @@ task, like dispatching a request.
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
 return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
 the server will not shut down automatically. This property is often used for servers that are automatically
-[activated by IceGrid](../icegrid-server-activation).
+[activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
 {% callout type="info" %}
 

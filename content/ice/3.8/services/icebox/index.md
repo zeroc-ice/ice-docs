@@ -20,10 +20,11 @@ administered remotely. There are several advantages in using this architecture:
 - Multiple Java services can be active in a single instance of a Java Virtual Machine (JVM). This conserves operating
   system resources when compared to running several monolithic servers, each in its own JVM.
 - Services loaded by the same IceBox server can be configured to take advantage of Ice's
-  [collocation optimizations](../collocated-invocation-and-dispatch). For example, if one service is a client of another
-  service, and those services reside in the same IceBox server, then invocations between them can be optimized.
-- IceBox support is [integrated into IceGrid](../icebox-integration-with-icegrid), the server activation and deployment
-  service.
+  [collocation optimizations](../../runtime/collocated-invocation-and-dispatch). For example, if one service is a client
+  of another service, and those services reside in the same IceBox server, then invocations between them can be
+  optimized.
+- IceBox support is [integrated into IceGrid](../icegrid/icebox-integration-with-icegrid), the server activation and
+  deployment service.
 
 IceBox offers a refreshing change of perspective: developers focus on writing services, not applications. The definition
 of an application changes as well; using IceBox, an application becomes a collection of discrete services whose

@@ -5,9 +5,9 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side Swift Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated proxy protocol extension contains a method with the same name.
-To invoke an operation, you call this method on the proxy. For example, let’s take the generated code from the
-[greeter example](../defining-the-greeter-interface-in-slice):
+[operation](./) on an interface, the generated proxy protocol extension contains a method with the same name. To invoke
+an operation, you call this method on the proxy. For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -60,9 +60,9 @@ async/await model. Therefore, synchronous invocations are not supported.
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
-exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
-following simple interface:
+Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Suppose we have the following simple interface:
 
 ```slice
 exception Tantrum
@@ -94,10 +94,10 @@ do {
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side Swift Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated skeleton protocol contains an abstract method with the same
-name.
+[operation](./) on an interface, the generated skeleton protocol contains an abstract method with the same name.
 
-For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
+For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -246,7 +246,7 @@ public protocol Example: Ice.Dispatcher {
 
 ### Optional Parameters
 
-An [optional parameter](../operations) is mapped to a Swift parameter with the corresponding Swift optional type.
+An [optional parameter](./) is mapped to a Swift parameter with the corresponding Swift optional type.
 
 Consider the following operation:
 

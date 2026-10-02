@@ -15,7 +15,7 @@ let s = greeter.description;
 
 `ice_toString` (or `description`, which is equivalent) stringifies non-printable ASCII characters and non-ASCII
 characters in the proxy's identity, facet and object adapter ID as specified through the
-[Ice.ToStringMode](../ice-properties) property.
+[Ice.ToStringMode](../../../property-reference/ice-properties) property.
 
 {% /language-section %}
 

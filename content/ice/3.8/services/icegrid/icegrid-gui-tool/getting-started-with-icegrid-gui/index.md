@@ -13,13 +13,13 @@ The minimum requirements for running IceGrid GUI are listed below:
 - `icegridgui.jar`, usually installed in the `bin` or `lib` directory of your Ice installation
 - Java SE Runtime Environment 17 or later
 
-In order to use IceGrid GUI's [metrics graphs](../metrics-graph) feature, you will need the JavaFX Runtime Environment,
-bundled with recent updates of the Oracle Java SE Runtime Environment on Windows, Linux and macOS.
+In order to use IceGrid GUI's [metrics graphs](../live-deployment-tab/metrics-graph) feature, you will need the JavaFX
+Runtime Environment, bundled with recent updates of the Oracle Java SE Runtime Environment on Windows, Linux and macOS.
 
 You can download Oracle Java SE for most platforms from Oracle.
 
 If you want to read IceGrid XML files from IceGrid GUI, you also need to have the
-[icegridadmin](../icegridadmin-command-line-tool) command-line utility in your `PATH`.
+[icegridadmin](../../icegridadmin-command-line-tool) command-line utility in your `PATH`.
 
 ## Starting IceGrid GUI
 
@@ -52,7 +52,7 @@ icegridgui --Ice.Trace.Network=2
 ```
 
 There are also a number of properties specific to IceGrid GUI itself, described in
-[IceGridAdmin.*](../icegridadmin-properties).
+[IceGridAdmin.*](../../../../property-reference/icegridadmin-properties).
 
 If you need to set many properties, it is a good idea to write a configuration file and use the `--Ice.Config`
 command-line argument to specify the location of this file. For example:
@@ -97,5 +97,5 @@ received from the IceGrid registry.
 
 ## See Also
 
-- [IceGridAdmin.*](../icegridadmin-properties)
-- [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
+- [IceGridAdmin.*](../../../../property-reference/icegridadmin-properties)
+- [icegridadmin Command Line Tool](../../icegridadmin-command-line-tool)

@@ -26,4 +26,4 @@ structures and classes.
 
 ## See Also
 
-- [`@deprecated` Doc-Comment Tag](../doc-comment-structure#@deprecated)
+- [`@deprecated` Doc-Comment Tag](../documenting-slice-definitions/doc-comment-structure#@deprecated)

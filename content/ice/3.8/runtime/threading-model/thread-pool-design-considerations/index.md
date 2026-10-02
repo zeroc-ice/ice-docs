@@ -36,6 +36,6 @@ application in a realistic environment is the recommended way of determining the
 ## See Also
 
 - [Thread Pools](../thread-pools)
-- [Concurrent Proxy Invocations](../concurrent-proxy-invocations)
+- [Concurrent Proxy Invocations](../../invocation/concurrent-proxy-invocations)
 - [Nested Invocations](../nested-invocations)
-- [Connection Establishment](../connection-establishment)
+- [Connection Establishment](../../connection-management/connection-establishment)

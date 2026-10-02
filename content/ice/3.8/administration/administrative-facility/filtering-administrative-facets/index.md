@@ -4,8 +4,9 @@ title: Filtering Administrative Facets
 
 A communicator enables all of its built-in [administrative facets](../admin-object) by default, and an application may
 install its own [custom facets](../custom-administrative-facets). You can control which facets a communicator enables
-using the [Ice.Admin.Facets](../ice-admin-properties) property. For example, the following property definition enables
-the `Properties` facet and leaves the `Process` facet (and any application-defined facets) disabled:
+using the [Ice.Admin.Facets](../../../property-reference/ice-admin-properties) property. For example, the following
+property definition enables the `Properties` facet and leaves the `Process` facet (and any application-defined facets)
+disabled:
 
 ```config
 Ice.Admin.Facets=Properties
@@ -27,4 +28,4 @@ created at all.
 - [The Properties Facet](../properties-facet)
 - [The Metrics Facet](../metrics-facet)
 - [Custom Administrative Facets](../custom-administrative-facets)
-- [Ice.Admin.*](../ice-admin-properties)
+- [Ice.Admin.*](../../../property-reference/ice-admin-properties)

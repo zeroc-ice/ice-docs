@@ -4,7 +4,7 @@ title: Well-Known Registry Objects
 
 ## Default Identities of Registry Objects
 
-The IceGrid registry hosts several [well-known objects](../well-known-objects). The following table shows the default
+The IceGrid registry hosts several [well-known objects](../../well-known-objects). The following table shows the default
 identities of these objects and their corresponding Slice interfaces:
 
 | **Default Identity**                        | **Interface**                 |
@@ -23,8 +23,8 @@ identities of these objects and their corresponding Slice interfaces:
 | `IceGrid/SSLSessionManager`                 | `Glacier2::SSLSessionManager` |
 | `Ice/LocatorFinder`                         | `Ice::LocatorFinder`          |
 
-You can assign unique identities to these objects by configuring the [IceGrid.InstanceName](../icegrid-properties)
-property, as shown in the following example:
+You can assign unique identities to these objects by configuring the
+[IceGrid.InstanceName](../../../../property-reference/icegrid-properties) property, as shown in the following example:
 
 ```config
 IceGrid.InstanceName=MP3Grid
@@ -76,4 +76,4 @@ communicator->setDefaultLocator(locator);
 
 ## See Also
 
-- [Well-Known Objects](../well-known-objects)
+- [Well-Known Objects](../../well-known-objects)

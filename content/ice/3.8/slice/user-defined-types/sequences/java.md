@@ -131,8 +131,8 @@ use subclasses of `java.nio.Buffer`. This mapping provides several benefits:
 
 {% callout type="warning" %}
 
-To use buffers safely, applications must disable caching by setting [Ice.CacheMessageBuffers](../ice-properties) to
-zero.
+To use buffers safely, applications must disable caching by setting
+[Ice.CacheMessageBuffers](../../../property-reference/ice-properties) to zero.
 
 {% /callout %}
 

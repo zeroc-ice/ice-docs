@@ -23,9 +23,10 @@ node's current working directory).
 
 ## Troubleshooting Proxy Failures
 
-A client may receive `Ice::NotRegisteredException` if [binding fails](../locator-semantics-for-clients) for an indirect
-proxy. This exception indicates that the proxy's object identity or object adapter is not known by the IceGrid registry.
-The following steps may help you discover the cause of the exception:
+A client may receive `Ice::NotRegisteredException` if
+[binding fails](../../../runtime/locators/locator-semantics-for-clients) for an indirect proxy. This exception indicates
+that the proxy's object identity or object adapter is not known by the IceGrid registry. The following steps may help
+you discover the cause of the exception:
 
 1. Use [icegridadmin](../icegridadmin-command-line-tool) to verify that the object identity or object adapter identifier
    is actually registered, and that it matches what is used by the proxy:
@@ -54,7 +55,8 @@ are a few suggestions:
    operation invocation, enable protocol tracing in the Ice runtime by setting the configuration property
    `Ice.Trace.Protocol=1` to discover the object identity and operation name of all requests. Of course, the default log
    output channels (standard out and standard error) will probably be lost if the server is activated automatically, so
-   either start the server manually (see below) or [redirect the log output](../built-in-loggers). You can also use the
+   either start the server manually (see below) or
+   [redirect the log output](../../../administration/logger-facility/built-in-loggers). You can also use the
    `Ice::Logger` interface to emit your own trace messages.
 3. Run the server in a debugger; a server configured for automatic activation can also be started manually if necessary.
    However, since the IceGrid node did not activate the server, it cannot monitor the server process and therefore will
@@ -76,7 +78,7 @@ Another cause for a server to fail to activate correctly is if there is a mismat
 the server for its adapters, and the adapter identifiers specified in the server's deployment descriptor. After starting
 a server process, the node waits for the server to activate all of its object adapters and report them as ready; if the
 server does not do this, the node reports a failure once a timeout expires. The timeout is controlled by the setting of
-the property [IceGrid.Node.WaitTime](../icegrid-properties). (The default value is 60 seconds.)
+the property [IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties). (The default value is 60 seconds.)
 
 You can check the status of each of a server's adapters using `icegridadmin` or the GUI tool. While the node waits for
 an adapter to be activated by the server, it reports the status of the adapter as "activating". If you experience
@@ -92,18 +94,18 @@ exacerbated when the server is used frequently, in which case repeated cycles of
 great deal of disk space and threaten the viability of the application as a whole.
 
 As a defensive measure, you can configure an IceGrid node to disable these servers automatically using the
-[IceGrid.Node.DisableOnFailure](../icegrid-properties) property. In the disabled state, a server cannot be activated on
-demand. The default value of the property is zero, meaning the node does not disable a server that terminates
-improperly. A positive value causes the node to temporarily disable a faulty server, with the value representing the
-number of seconds the server should remain disabled. If the property has a negative value, the server is disabled
-indefinitely, or until the server is explicitly enabled or started via an administrative action.
+[IceGrid.Node.DisableOnFailure](../../../property-reference/icegrid-properties) property. In the disabled state, a
+server cannot be activated on demand. The default value of the property is zero, meaning the node does not disable a
+server that terminates improperly. A positive value causes the node to temporarily disable a faulty server, with the
+value representing the number of seconds the server should remain disabled. If the property has a negative value, the
+server is disabled indefinitely, or until the server is explicitly enabled or started via an administrative action.
 
 You can also manually disable a server at any time using an administrative tool. A manually disabled server remains
 disabled indefinitely until an administrator enables or starts it. Disabling an _active_ server has no effect on the
 server process; the server is unaware of the change to its status and continues to service requests from connected
 clients as usual. However, as of Ice 3.5, disabling a server does prevent IceGrid from including the endpoints of the
-server's object adapters in any subsequent [locate requests](../locator-semantics-for-clients), and it excludes those
-object adapters from any [replica groups](../load-balancing) in which they might participate.
+server's object adapters in any subsequent [locate requests](../../../runtime/locators/locator-semantics-for-clients),
+and it excludes those object adapters from any [replica groups](../load-balancing) in which they might participate.
 
 Typically, the ultimate goal of disabling a server is to gracefully migrate clients from the faulty server to ones that
 are behaving correctly. For a client that starts after the server is disabled, migration occurs immediately: the Ice
@@ -113,15 +115,16 @@ migrate to a different server until its Ice runtime issues a new locate request 
 the target object. The timing of this new locate request depends on several factors:
 
 - If the client has an existing connection to the server, that connection will remain open and active as determined by
-  the configuration settings of the client and server. For example, the [Inactivity Timeout](../connection-closure) can
-  cause the connection to be closed automatically from either end due to inactivity. A subsequent proxy invocation may
-  result in a new locate request.
-- The client's use of [connection caching](../locator-semantics-for-clients) also plays an important role. If the
-  client's proxy is configured to cache connections, the client may continue to use the disabled server indefinitely.
-  Connection caching should be disabled to ensure that migration eventually takes place.
-- The Ice runtime in the client also [caches the results](../locator-semantics-for-clients) of locate requests. Although
-  by default these results do not expire, setting a [cache timeout](../locator-semantics-for-clients) allows you to
-  specify how frequently the Ice runtime issues new locate requests. Consider this code:
+  the configuration settings of the client and server. For example, the
+  [Inactivity Timeout](../../../runtime/connection-management/connection-closure) can cause the connection to be closed
+  automatically from either end due to inactivity. A subsequent proxy invocation may result in a new locate request.
+- The client's use of [connection caching](../../../runtime/locators/locator-semantics-for-clients) also plays an
+  important role. If the client's proxy is configured to cache connections, the client may continue to use the disabled
+  server indefinitely. Connection caching should be disabled to ensure that migration eventually takes place.
+- The Ice runtime in the client also [caches the results](../../../runtime/locators/locator-semantics-for-clients) of
+  locate requests. Although by default these results do not expire, setting a
+  [cache timeout](../../../runtime/locators/locator-semantics-for-clients) allows you to specify how frequently the Ice
+  runtime issues new locate requests. Consider this code:
 
   ```cpp
   proxy = proxy->ice_connectionCached(false)->ice_locatorCacheTimeout(20);
@@ -133,5 +136,5 @@ the target object. The timing of this new locate request depends on several fact
 ## See Also
 
 - [IceGrid Server Activation](../icegrid-server-activation)
-- [Locator Semantics for Clients](../locator-semantics-for-clients)
+- [Locator Semantics for Clients](../../../runtime/locators/locator-semantics-for-clients)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)

@@ -33,7 +33,7 @@ struct SubscriberRecordKey
 }
 ```
 
-This key is streamed into a sequence of bytes using the [Ice encoding](../encoding).
+This key is streamed into a sequence of bytes using the [Ice encoding](../../../encoding).
 
 If you attempt to create a topic or register a subscriber with a topic and the resulting `SubscriberRecordKey`'s encoded
 representation is too large for the LMDB database, IceStorm will throw an `Ice::UnknownException`.
@@ -48,8 +48,9 @@ subscriber identities.
 ### Map Size
 
 A LMDB database has a maximum size, known as its map size. The IceStorm database can store up to
-[IceStorm.LMDB.MapSize](../icestorm-properties) megabytes of data in its database; any attempt to store more data will
-fail with an `Ice::UnknownException`. If you exceed this limit, increase `IceStorm.LMDB.MapSize` and restart IceStorm.
+[IceStorm.LMDB.MapSize](../../../property-reference/icestorm-properties) megabytes of data in its database; any attempt
+to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase `IceStorm.LMDB.MapSize`
+and restart IceStorm.
 
 If you don't set `IceStorm.LMDB.MapSize`, or set it to 0, IceStorm uses a map size of 10 MB on Windows, and 100 MB on
 Linux and macOS.

@@ -19,9 +19,10 @@ IceGrid registry is the only process of interest on host `PC1`, while IceGrid no
 ![Host PC1 runs the registry. Host PC2 runs Node A and Server X. Host PC3 runs Node B and Server Y.](/images/ice/3.8/icegrid-architecture/icegrid1.svg)
 
 From a client application's perspective, the primary responsibility of the registry is to resolve indirect proxies as an
-Ice [location service](../locators). As such, this contribution is largely transparent: when a client first attempts to
-use an indirect proxy, the Ice run time in the client contacts the registry to convert the proxy's symbolic information
-into endpoints that allow the client to [establish a connection](../connection-establishment).
+Ice [location service](../../../runtime/locators). As such, this contribution is largely transparent: when a client
+first attempts to use an indirect proxy, the Ice run time in the client contacts the registry to convert the proxy's
+symbolic information into endpoints that allow the client to
+[establish a connection](../../../runtime/connection-management/connection-establishment).
 
 Although the registry might sound like nothing more than a simple lookup table, reality is quite different. For example,
 behind the scenes, a locate request might prompt a node to start the target server automatically, or the registry might
@@ -40,8 +41,8 @@ to replicate a server on each blade, as shown below:
 
 ![Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the same pattern through Blade N.](/images/ice/3.8/icegrid-architecture/icegrid2.svg)
 
-Replication in Ice is based on [object adapters](../dispatch), not servers. Any object adapter in any server could
-participate in replication, but it is far more likely that all of the
+Replication in Ice is based on [object adapters](../../../runtime/dispatch), not servers. Any object adapter in any
+server could participate in replication, but it is far more likely that all of the
 [replicated object adapters](../object-adapter-replication) are created by instances of the same server executable that
 is running on each computer. We are using this configuration in the example shown above, but IceGrid requires each
 server to have a unique name. `Server 1` and `Server 2` are our unique names for the same executable.
@@ -88,8 +89,8 @@ deployed, you can update the application at any time.
 
 ## See Also
 
-- [Locators](../locators)
-- [Connection Establishment](../connection-establishment)
-- [Object Adapters](../dispatch)
+- [Locators](../../../runtime/locators)
+- [Connection Establishment](../../../runtime/connection-management/connection-establishment)
+- [Object Adapters](../../../runtime/dispatch)
 - [Object Adapter Replication](../object-adapter-replication)
 - [Well-Known Objects](../well-known-objects)

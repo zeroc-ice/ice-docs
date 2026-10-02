@@ -105,4 +105,4 @@ A variable definition can be overridden in an inner scope, but the inner definit
 
 ## See Also
 
-- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
+- [Using Descriptor Variables and Parameters](../../../../using-descriptor-variables-and-parameters)

@@ -71,7 +71,7 @@ function markdownFiles(dir: string): string[] {
 export interface PageFiles {
   /** The page's path under the version, as in its URL: `''` for the front page. */
   slug: string;
-  /** The page's name, unique within the version: the last segment of its slug. */
+  /** The page's name: the last segment of its slug. */
   name: string;
   /** Its `index.md`, absolute; absent for a page written per language. */
   shared?: string;
@@ -253,9 +253,16 @@ function scrollRedirects(root: string, version: string, languages: string[]) {
   const { renamed } = yamlLoad(fs.readFileSync(file, 'utf8')) as {
     renamed: Record<string, string>;
   };
-  const slugs = new Map(
-    listPages(root, version).map((page) => [page.name, page.slug])
-  );
+  // The Scroll Viewport site keyed its URLs by page name, so each name must
+  // belong to one page here.
+  const slugs = new Map<string, string>();
+  for (const page of listPages(root, version)) {
+    if (slugs.has(page.name))
+      throw new Error(
+        `${version}: two pages named "${page.name}"; Scroll Viewport URLs are keyed by name`
+      );
+    slugs.set(page.name, page.slug);
+  }
   // A page name here, with an optional heading anchor, keeping the language.
   const to = (target: string) => {
     const [name, anchor] = target.split('#');

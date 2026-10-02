@@ -31,7 +31,7 @@ responsibilities:
 - Dispatch incoming requests received from these clients. While these requests are often received over the network
   connections accepted by the object adapter, they can also come from local callers
   ([collocated invocations](../collocated-invocation-and-dispatch)) and from outgoing connections attached to this
-  object adapter ([bidirectional callbacks](../bidirectional-connections)).
+  object adapter ([bidirectional callbacks](../connection-management/bidirectional-connections)).
 
 Each object adapter belongs to exactly one communicator (but a single communicator can have many object adapters). Each
 object adapter has a name that distinguishes it from all other object adapters in the same communicator.

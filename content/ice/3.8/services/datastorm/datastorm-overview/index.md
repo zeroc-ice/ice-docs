@@ -51,9 +51,9 @@ deserialization. For other data encodings, you can provide your own `encode` and
 
 ## DataStorm vs. IceStorm
 
-Ice also includes [**IceStorm**](../icestorm), a broker-based publish/subscribe service that distributes Ice invocations
-to subscribers. In contrast, **DataStorm** is a brokerless, data-centric framework focused on efficiently distributing
-_data samples_ rather than remote calls.
+Ice also includes [**IceStorm**](../../icestorm), a broker-based publish/subscribe service that distributes Ice
+invocations to subscribers. In contrast, **DataStorm** is a brokerless, data-centric framework focused on efficiently
+distributing _data samples_ rather than remote calls.
 
 Use **IceStorm** when your application revolves around Ice interfaces and operations. Use **DataStorm** when you want
 lightweight, high-performance data sharing without a central broker.

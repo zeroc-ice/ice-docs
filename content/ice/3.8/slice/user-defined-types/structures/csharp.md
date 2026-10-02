@@ -149,7 +149,7 @@ The generated record class provides the following constructors:
 - a primary constructor with parameters for all the fields
 - a constructor with parameters for fields with the following Slice types: Sequence, Dictionary, Struct mapped to record
   class in C# This constructor may be parameterless. It initializes string fields to the empty string, and other fields
-  to their default value (typically `0`, `null` or `default`; see [Fields](../fields)).
+  to their default value (typically `0`, `null` or `default`; see [Fields](../../fields)).
 - an “unmarshaling” constructor that unmarshals the record class from an InputStream
 
 If you apply the `cs:readonly` metadata directive to the Slice struct, all the fields are mapped to readonly C# fields,

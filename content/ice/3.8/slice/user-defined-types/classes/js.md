@@ -57,10 +57,10 @@ For example:
 const tod = new TimeOfDayI(14, 45, 00, "PST"); // 14:45pm PST
 ```
 
-All these parameters have also default values (see [Fields](../fields)).
+All these parameters have also default values (see [Fields](../../fields)).
 
 For derived classes, the constructor requires an argument for every field of the class, including inherited fields. For
-example, consider the the definition from [Class Inheritance](../class-inheritance) once more:
+example, consider the the definition from [Class Inheritance](./class-inheritance) once more:
 
 ```slice
 class TimeOfDay

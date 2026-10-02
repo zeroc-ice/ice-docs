@@ -2,15 +2,15 @@
 title: Object Adapter Replication
 ---
 
-As an implementation of an Ice location service, IceGrid supports [object adapter replication](../terminology). An
-application defines its replica groups and their participating object adapters using descriptors, and IceGrid generates
-the server configurations automatically.
+As an implementation of an Ice location service, IceGrid supports
+[object adapter replication](../../../basics/terminology). An application defines its replica groups and their
+participating object adapters using descriptors, and IceGrid generates the server configurations automatically.
 
 ## Deploying a Replica Group
 
-The [descriptor that defines a replica group](../replica-group-descriptor-element) can optionally declare
-[well-known objects](../object-descriptor-element) as well as configure the group to determine its behavior during
-locate requests. Consider this example:
+The [descriptor that defines a replica group](../icegrid-xml-reference/replica-group-descriptor-element) can optionally
+declare [well-known objects](../icegrid-xml-reference/object-descriptor-element) as well as configure the group to
+determine its behavior during locate requests. Consider this example:
 
 ```xml
 <icegrid>
@@ -129,8 +129,8 @@ discussion of [load balancing](../load-balancing).
 
 ## See Also
 
-- [Terminology](../terminology)
-- [Replica-Group Descriptor Element](../replica-group-descriptor-element)
-- [Object Descriptor Element](../object-descriptor-element)
+- [Terminology](../../../basics/terminology)
+- [Replica-Group Descriptor Element](../icegrid-xml-reference/replica-group-descriptor-element)
+- [Object Descriptor Element](../icegrid-xml-reference/object-descriptor-element)
 - [Well-Known Objects](../well-known-objects)
 - [Load Balancing](../load-balancing)

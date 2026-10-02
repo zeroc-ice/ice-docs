@@ -4,7 +4,7 @@ title: Class Inheritance
 
 ## Simple Inheritance
 
-Unlike [structures](../structures), classes support inheritance. For example:
+Unlike [structures](../../structures), classes support inheritance. For example:
 
 ```slice
 module M
@@ -78,4 +78,4 @@ All classes implicitly inherit from `Value`. This way, a `Value` parameter in an
 
 ## See Also
 
-- [Structures](../structures)
+- [Structures](../../structures)

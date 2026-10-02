@@ -7,4 +7,4 @@ attributes.
 
 ## See Also
 
-- [Using IceGrid Deployment](../using-icegrid-deployment)
+- [Using IceGrid Deployment](../../using-icegrid-deployment)

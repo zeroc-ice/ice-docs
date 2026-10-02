@@ -38,9 +38,9 @@ struct Example
 
 ## Optional Fields
 
-A field of a Slice [class](../classes) or [exception](../exceptions) may be declared as optional to indicate that a
-program can leave its value unset. Fields not declared as optional are known as _required_ fields; a program must supply
-legal values for all required fields.
+A field of a Slice [class](../user-defined-types/classes) or [exception](../exceptions) may be declared as optional to
+indicate that a program can leave its value unset. Fields not declared as optional are known as _required_ fields; a
+program must supply legal values for all required fields.
 
 Each optional field must be assigned a unique, non-negative integer _tag_:
 
@@ -102,7 +102,7 @@ You can specify a default value for a field that has one of the following types:
 - A [floating point](../basic-types) type (`float` or `double`)
 - [string](../basic-types)
 - [bool](../basic-types)
-- [enum](../enumerations)
+- [enum](../user-defined-types/enumerations)
 
 For example:
 

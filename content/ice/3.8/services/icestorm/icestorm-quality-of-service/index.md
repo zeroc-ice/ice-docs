@@ -13,8 +13,8 @@ empty string. If not specified, the default value is the empty string (meaning n
 The `ordered` reliability QoS requires a twoway subscriber proxy. If you specify this reliability QoS, IceStorm will
 forward events in the order they are received but doesn't forward them immediately. Instead, IceStorm waits for the
 reply from the forwarding of an event before forwarding the next event. This guarantees that the subscriber will process
-the events in the same order as they were received even if its [thread pool](../thread-pool-design-considerations)
-doesn't serialize incoming requests.
+the events in the same order as they were received even if its
+[thread pool](../../../runtime/threading-model/thread-pool-design-considerations) doesn't serialize incoming requests.
 
 ## Retry Count QoS for IceStorm
 
@@ -39,21 +39,22 @@ will continue trying to deliver events to the subscriber at its old endpoint. Ic
 it receives a hard error, and that is only possible when the subscriber is reachable.
 
 To use a retry count of `-1` successfully, the subscriber can either register with a fixed endpoint, or use
-[IceGrid](../icegrid) to take advantage of indirect proxies and automatic activation.
+[IceGrid](../../icegrid) to take advantage of indirect proxies and automatic activation.
 
 ### Delivery Failures and Retries
 
 When delivery to a subscriber fails with a transient error (such as a connection failure or a timeout) and the
 subscriber's `retryCount` allows another attempt, IceStorm discards all events currently queued for this subscriber,
 increments the subscriber's failure count, and places the subscriber offline for the number of seconds specified by the
-[IceStorm.Discard.Interval](../icestorm-properties) property (60 seconds by default). While the subscriber is offline,
-IceStorm discards any new events published on the topic instead of queueing them for this subscriber. Once the interval
-has elapsed, the next published event puts the subscriber back online and delivery resumes, starting with that event.
+[IceStorm.Discard.Interval](../../../property-reference/icestorm-properties) property (60 seconds by default). While the
+subscriber is offline, IceStorm discards any new events published on the topic instead of queueing them for this
+subscriber. Once the interval has elapsed, the next published event puts the subscriber back online and delivery
+resumes, starting with that event.
 
 As a result, a subscriber does not receive the events that were queued or published between the failure and the end of
 the discard interval: a non-zero `retryCount` extends the lifetime of the subscription, but does not provide reliable
 delivery. You can observe these subscriber state transitions by setting
-[IceStorm.Trace.Subscriber](../icestorm-properties) to `2`.
+[IceStorm.Trace.Subscriber](../../../property-reference/icestorm-properties) to `2`.
 
 ### Hard Failures
 
@@ -64,28 +65,30 @@ they occur, regardless of the subscriber's `retryCount` setting:
 - `Ice::NotRegisteredException` — the subscriber's proxy is an indirect proxy that the configured locator can no longer
   resolve.
 - `IceStorm::SendQueueSizeMaxReachedException` — the number of events queued for the subscriber reached
-  [IceStorm.Send.QueueSizeMax](../icestorm-properties) and [IceStorm.Send.QueueSizeMaxPolicy](../icestorm-properties) is
-  set to `RemoveSubscriber` (the default).
+  [IceStorm.Send.QueueSizeMax](../../../property-reference/icestorm-properties) and
+  [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties) is set to `RemoveSubscriber` (the
+  default).
 
 ## Connection Caching QoS for IceStorm
 
-The QoS parameter `connectionCached` affects the [connection caching](../connection-establishment) setting of the
-subscriber proxy used for message delivery. Defining this QoS parameter is equivalent to invoking the
-`ice_connectionCached` proxy method.
+The QoS parameter `connectionCached` affects the
+[connection caching](../../../runtime/connection-management/connection-establishment) setting of the subscriber proxy
+used for message delivery. Defining this QoS parameter is equivalent to invoking the `ice_connectionCached` proxy
+method.
 
 ## Locator Cache Timeout QoS for IceStorm
 
-The QoS parameter `locatorCacheTimeout` affects the [locator cache timeout](../locator-semantics-for-clients) setting of
-the subscriber proxy used for message delivery. Defining this QoS parameter is equivalent to invoking the
-`ice_locatorCacheTimeout` proxy method.
+The QoS parameter `locatorCacheTimeout` affects the
+[locator cache timeout](../../../runtime/locators/locator-semantics-for-clients) setting of the subscriber proxy used
+for message delivery. Defining this QoS parameter is equivalent to invoking the `ice_locatorCacheTimeout` proxy method.
 
 ## IceStorm QoS Example
 
 The Slice type `IceStorm::QoS` is defined as a `dictionary` whose key and value types are both `string`, therefore the
 QoS parameter name and value are both represented as strings. The code we presented in our earlier
-[subscriber example](../implementing-an-icestorm-subscriber) used an empty dictionary for the QoS argument, meaning
-default values are used. The C++ and Java examples shown below illustrate how to set the `reliability` parameter to
-`ordered`.
+[subscriber example](../using-icestorm/implementing-an-icestorm-subscriber) used an empty dictionary for the QoS
+argument, meaning default values are used. The C++ and Java examples shown below illustrate how to set the `reliability`
+parameter to `ordered`.
 
 Here is the C++ example:
 
@@ -105,7 +108,7 @@ topic.subscribeAndGetPublisher(qos, proxy.ice_twoway());
 
 ## See Also
 
-- [IceGrid](../icegrid)
-- [Implementing an IceStorm Subscriber](../implementing-an-icestorm-subscriber)
+- [IceGrid](../../icegrid)
+- [Implementing an IceStorm Subscriber](../using-icestorm/implementing-an-icestorm-subscriber)
 - [IceStorm Delivery Modes](../icestorm-delivery-modes)
-- [Object Identity](../object-identity)
+- [Object Identity](../../../runtime/object-identity)

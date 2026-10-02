@@ -141,8 +141,7 @@ end
 ## Static Code Generation in Ruby
 
 You should be familiar with static code generation if you have used other Slice language mappings, such as C++ or Java.
-Using static code generation, the Slice compiler [slice2rb](../code-generation) generates Ruby code from your Slice
-definitions.
+Using static code generation, the Slice compiler [slice2rb](./) generates Ruby code from your Slice definitions.
 
 ### Compiler Output in Ruby
 

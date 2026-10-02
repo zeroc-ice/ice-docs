@@ -2,12 +2,13 @@
 title: Property Descriptor Element
 ---
 
-An IceGrid node generates a [configuration file](../properties-and-configuration) for each of its servers and services.
-This file generally should not be edited manually because any changes are lost the next time the node generates the
-file. The `property` element is the correct way to define additional properties in a configuration file.
+An IceGrid node generates a [configuration file](../../../../runtime/properties-and-configuration) for each of its
+servers and services. This file generally should not be edited manually because any changes are lost the next time the
+node generates the file. The `property` element is the correct way to define additional properties in a configuration
+file.
 
-Note that IceGrid [administrative utilities](../icegridadmin-command-line-tool) can retrieve the configuration
-properties of a server or service via the [administrative facility](../icegrid-and-the-administrative-facility).
+Note that IceGrid [administrative utilities](../../icegridadmin-command-line-tool) can retrieve the configuration
+properties of a server or service via the [administrative facility](../../icegrid-and-the-administrative-facility).
 
 This element may only appear as a child of a [server](../server-descriptor-element) element, a
 [service](../service-descriptor-element) element, an [icebox](../icebox-descriptor-element) element or a
@@ -37,9 +38,9 @@ Ice.ThreadPool.Server.SizeMax=10
 
 ## See Also
 
-- [Properties and Configuration](../properties-and-configuration)
-- [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
-- [IceGrid and the Administrative Facility](../icegrid-and-the-administrative-facility)
+- [Properties and Configuration](../../../../runtime/properties-and-configuration)
+- [icegridadmin Command Line Tool](../../icegridadmin-command-line-tool)
+- [IceGrid and the Administrative Facility](../../icegrid-and-the-administrative-facility)
 - [Server Descriptor Element](../server-descriptor-element)
 - [Service Descriptor Element](../service-descriptor-element)
 - [IceBox Descriptor Element](../icebox-descriptor-element)

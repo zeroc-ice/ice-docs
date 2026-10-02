@@ -2,7 +2,7 @@
 title: Parameter Descriptor Element
 ---
 
-A `parameter` element defines a [template](../icegrid-templates) parameter. Template parameters must be declared with
+A `parameter` element defines a [template](../../icegrid-templates) parameter. Template parameters must be declared with
 this element to be used in template instantiation.
 
 This element may only appear as a child of a [server-template](../server-template-descriptor-element) element or a
@@ -27,7 +27,7 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [IceGrid Templates](../icegrid-templates)
+- [IceGrid Templates](../../icegrid-templates)
 - [Server-Template Descriptor Element](../server-template-descriptor-element)
 - [Service-Template Descriptor Element](../service-template-descriptor-element)
-- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
+- [Using Descriptor Variables and Parameters](../../using-descriptor-variables-and-parameters)

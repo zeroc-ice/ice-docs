@@ -41,6 +41,6 @@ The generated constructor has one parameter for each property. You must either c
 or with arguments for all the properties.
 
 If you call the generated constructor with no argument, the constructor assigns default values to all properties (see
-[Fields](../fields)).
+[Fields](../../fields)).
 
 {% /language-section %}

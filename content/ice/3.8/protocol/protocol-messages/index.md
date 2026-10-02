@@ -12,7 +12,7 @@ The Ice protocol uses five messages:
 
 Of these messages, validate and close connection only apply to connection-oriented transports such as `tcp`.
 
-As with the [Ice Encoding](../encoding), protocol messages have no alignment restrictions. Each message consists of a
+As with the [Ice Encoding](../../encoding), protocol messages have no alignment restrictions. Each message consists of a
 message header and (except for validate and close connection) a message body that immediately follows the header.
 
 ## Message Header
@@ -82,19 +82,20 @@ struct RequestData
 
 The request fields are described in the following table.
 
-| **Field**   | **Description**                                                                      |
-| ----------- | ------------------------------------------------------------------------------------ |
-| `requestId` | The request identifier                                                               |
-| `id`        | The [object identity](../object-identity)                                            |
-| `facet`     | The [facet](../facets) name (zero- or one-element sequence)                          |
-| `operation` | The operation name                                                                   |
-| `mode`      | A byte representation of `Ice::OperationMode` (`0`=normal, `2`=idempotent)           |
-| `context`   | The invocation [context](../request-contexts)                                        |
-| `params`    | The [encapsulated](../basic-data-encoding) input parameters, in order of declaration |
+| **Field**   | **Description**                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------------------ |
+| `requestId` | The request identifier                                                                           |
+| `id`        | The [object identity](../../runtime/object-identity)                                             |
+| `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence)                           |
+| `operation` | The operation name                                                                               |
+| `mode`      | A byte representation of `Ice::OperationMode` (`0`=normal, `2`=idempotent)                       |
+| `context`   | The invocation [context](../../runtime/invocation/request-contexts)                              |
+| `params`    | The [encapsulated](../../encoding/basic-data-encoding) input parameters, in order of declaration |
 
-The request identifier zero (`0`) is reserved for use in [oneway](../oneway-invocations) requests and indicates that the
-server must not send a reply to the client. A non-zero request identifier must uniquely identify the request on a
-connection, and must not be reused while a reply for the identifier is outstanding.
+The request identifier zero (`0`) is reserved for use in
+[oneway](../../runtime/invocation/invocation-mode/oneway-invocations) requests and indicates that the server must not
+send a reply to the client. A non-zero request identifier must uniquely identify the request on a connection, and must
+not be reused while a reply for the identifier is outstanding.
 
 The `facet` field has either zero elements or one element. An empty sequence denotes the default facet, and a
 one-element sequence provides the facet name in its first field. If a receiver receives a request with a `facet` field
@@ -102,9 +103,10 @@ with more than one element, it must throw a `MarshalException`.
 
 ## Batch Request Message Body
 
-A [batch](../batched-invocations) request message contains one or more oneway requests, bundled together for the sake of
-efficiency. A batch request message is encoded as integer (not a size) that specifies the number of requests in the
-batch, followed by the corresponding number of requests, encoded as if each request were the following structure:
+A [batch](../../runtime/invocation/invocation-mode/batched-invocations) request message contains one or more oneway
+requests, bundled together for the sake of efficiency. A batch request message is encoded as integer (not a size) that
+specifies the number of requests in the batch, followed by the corresponding number of requests, encoded as if each
+request were the following structure:
 
 ```slice
 struct BatchRequestData
@@ -120,14 +122,14 @@ struct BatchRequestData
 
 The batch request fields are described in the following table.
 
-| **Field**   | **Description**                                             |
-| ----------- | ----------------------------------------------------------- |
-| `id`        | The [object identity](../object-identity)                   |
-| `facet`     | The [facet](../facets) name (zero- or one-element sequence) |
-| `operation` | The operation name                                          |
-| `mode`      | A byte representation of `Ice::OperationMode`               |
-| `context`   | The request [context](../request-contexts)                  |
-| `params`    | The encapsulated input parameters, in order of declaration  |
+| **Field**   | **Description**                                                        |
+| ----------- | ---------------------------------------------------------------------- |
+| `id`        | The [object identity](../../runtime/object-identity)                   |
+| `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence) |
+| `operation` | The operation name                                                     |
+| `mode`      | A byte representation of `Ice::OperationMode`                          |
+| `context`   | The request [context](../../runtime/invocation/request-contexts)       |
+| `params`    | The encapsulated input parameters, in order of declaration             |
 
 Note that no request ID is necessary for batch requests because only oneway invocations can be batched.
 
@@ -150,16 +152,16 @@ struct ReplyData
 ```
 
 The first four bytes of a reply message body contain a request ID. The request ID matches an outgoing request and allows
-the requester to associate the reply with the [original request](../protocol-messages).
+the requester to associate the reply with the [original request](./).
 
 The byte following the request ID indicates the status of the request. The reply payload follows the status byte; its
 format depends on the status value. The possible reply status values are shown in the table below (most of these values
-correspond to [common exceptions](../local-and-dispatch-exceptions)).
+correspond to [common exceptions](../../runtime/local-and-dispatch-exceptions)).
 
 | **Reply status**            | **Numeric value** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | --------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ok                          | `0`               | The dispatch completed successfully. The reply payload is an [encapsulation](../basic-data-encoding) containing out-parameters (in the order of declaration) followed by the return value of the operation, encoded according to their types as specified by the [Ice Encoding](../encoding). If an operation declares a `void` return type and no out-parameters, an empty encapsulation is encoded.                                                                                                                                                                                                                                                                                                            |
-| User exception              | `1`               | The dispatch completed with a user exception. The reply payload is an [encapsulation](../basic-data-encoding) containing the [encoded user exception](../data-encoding-for-exceptions).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Ok                          | `0`               | The dispatch completed successfully. The reply payload is an [encapsulation](../../encoding/basic-data-encoding) containing out-parameters (in the order of declaration) followed by the return value of the operation, encoded according to their types as specified by the [Ice Encoding](../../encoding). If an operation declares a `void` return type and no out-parameters, an empty encapsulation is encoded.                                                                                                                                                                                                                                                                                             |
+| User exception              | `1`               | The dispatch completed with a user exception. The reply payload is an [encapsulation](../../encoding/basic-data-encoding) containing the [encoded user exception](../../encoding/data-encoding-for-exceptions).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | Object does not exist       | `2`               | The dispatch completed with an `ObjectNotExistException`. The reply payload is the following Slice 1.0-encoded structure (it's not enclosed in an encapsulation): `struct RequestFailedData { Ice::Identity id; Ice::StringSeq facet; string operation; }` where `id` is the object identity of the target object, `facet` is the optional facet of the target object, and `operation` is the operation name. The `facet` field has either zero elements or one element. An empty sequence denotes the default facet, and a one-element sequence provides the facet name in its first field. If a receiver receives a reply with a `facet` field with more than one element, it must throw a `MarshalException`. |
 | Facet does not exist        | `3`               | The dispatch completed with a `FacetNotExistException`. The reply payload is the same as for reply status 2.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | Operation does not exist    | `4`               | The dispatch completed with an `OperationNotExistException`. The reply payload is the same as for reply status 2.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -206,7 +208,8 @@ The [message header](#message-header) comprises the entire validate connection m
 
 ## Close Connection Message
 
-A close connection message is sent when a peer is about to gracefully shutdown a [connection](../connection-management).
+A close connection message is sent when a peer is about to gracefully shutdown a
+[connection](../../runtime/connection-management).
 
 {% callout type="info" %}
 
@@ -230,11 +233,11 @@ events is:
 3. The server responds to the client's close connection message by closing the connection.
 
 The server side can close a connection whenever no operation invocation is in progress that was invoked via that
-connection. This guarantees that the server will not violate [at-most-once semantics](../automatic-retries): an
-operation, once invoked in a servant, is allowed to complete and its results are returned to the client. Note that the
-server can close a connection even after it has received a request from the client, provided that the request has not
-yet been passed to a servant. In other words, if the server decides that it wants to close a connection, the sequence of
-events is:
+connection. This guarantees that the server will not violate
+[at-most-once semantics](../../runtime/invocation/automatic-retries): an operation, once invoked in a servant, is
+allowed to complete and its results are returned to the client. Note that the server can close a connection even after
+it has received a request from the client, provided that the request has not yet been passed to a servant. In other
+words, if the server decides that it wants to close a connection, the sequence of events is:
 
 1. The server discards all incoming requests on the connection.
 2. The server waits until all still executing requests have completed and their results have been returned to the
@@ -255,11 +258,11 @@ From a client's perspective, the Ice protocol behaves according to the state mac
 
 _Protocol state machine._
 
-To summarize, a new connection is inactive until a [validate connection](../protocol-messages) message has been received
-by the client, at which point the active state is entered. The connection remains in the active state until it is shut
-down, which can occur when there are no more proxies using the connection, or after the connection has been idle for a
-while. At this point, the connection is [gracefully closed](../connection-closure), meaning that a
-[close connection](../protocol-messages) message is sent, and the connection is closed.
+To summarize, a new connection is inactive until a [validate connection](./) message has been received by the client, at
+which point the active state is entered. The connection remains in the active state until it is shut down, which can
+occur when there are no more proxies using the connection, or after the connection has been idle for a while. At this
+point, the connection is [gracefully closed](../../runtime/connection-management/connection-closure), meaning that a
+[close connection](./) message is sent, and the connection is closed.
 
 ## Disorderly Connection Closure
 
@@ -273,10 +276,10 @@ as a negative size, or a size that disagrees with the actual data that was unmar
 ## See Also
 
 - [Protocol Compression](../protocol-compression)
-- [Object Identity](../object-identity)
-- [Versioning](../versioning)
-- [Request Contexts](../request-contexts)
-- [Oneway Invocations](../oneway-invocations)
-- [Batched Invocations](../batched-invocations)
-- [Automatic Retries](../automatic-retries)
-- [Connection Closure](../connection-closure)
+- [Object Identity](../../runtime/object-identity)
+- [Versioning](../../versioning)
+- [Request Contexts](../../runtime/invocation/request-contexts)
+- [Oneway Invocations](../../runtime/invocation/invocation-mode/oneway-invocations)
+- [Batched Invocations](../../runtime/invocation/invocation-mode/batched-invocations)
+- [Automatic Retries](../../runtime/invocation/automatic-retries)
+- [Connection Closure](../../runtime/connection-management/connection-closure)

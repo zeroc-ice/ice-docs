@@ -1,8 +1,8 @@
 {% language-section name="lang-1" %}
 
-For a Java service, the [entry point](../icebox-properties) is typically the class name (including any package) of the
-service implementation class, but may also include a leading path to a class directory or JAR file. The class must
-define a public constructor.
+For a Java service, the [entry point](../../../property-reference/icebox-properties) is typically the class name
+(including any package) of the service implementation class, but may also include a leading path to a class directory or
+JAR file. The class must define a public constructor.
 
 To create the service, the IceBox server first checks to see if the service defines a constructor taking an argument of
 type `com.zeroc.Ice.Communicator`. If so, the server invokes this constructor and passes the server's communicator,

@@ -16,8 +16,8 @@ _Locating an object._
    has already been issued for the symbolic information in the proxy. If so, the cached endpoint is used and an
    invocation on the locator object is avoided. Otherwise, the communicator sends a locate request to the locator.
 3. If the object is successfully located, the locator returns its current endpoints. The communicator in the client
-   caches this information, [establishes a connection](../connection-establishment) to one of the endpoints, and
-   proceeds to send the invocation as usual.
+   caches this information, [establishes a connection](../../connection-management/connection-establishment) to one of
+   the endpoints, and proceeds to send the invocation as usual.
 4. If the object's endpoints cannot be determined, the client receives an exception. `NotRegisteredException` is thrown
    when an identity, object adapter identifier or replica group identifier is not known. A client may also receive
    `NoEndpointException` if the location service failed to determine the current endpoints.
@@ -33,10 +33,10 @@ As a result, the initial request on an indirect proxy may incur additional overh
 
 ## Replication with a Locator
 
-An indirect proxy may substitute a [replica group](../terminology) identifier in place of the object adapter identifier.
-In fact, the Ice runtime does not distinguish between these two cases and considers a replica group identifier as
-equivalent to an object adapter identifier for the purposes of resolving the proxy. The location service implementation
-must be able to distinguish between replica groups and object adapters using only this identifier.
+An indirect proxy may substitute a [replica group](../../../basics/terminology) identifier in place of the object
+adapter identifier. In fact, the Ice runtime does not distinguish between these two cases and considers a replica group
+identifier as equivalent to an object adapter identifier for the purposes of resolving the proxy. The location service
+implementation must be able to distinguish between replica groups and object adapters using only this identifier.
 
 The location service may return multiple endpoints in response to a locate request for an adapter or replica group
 identifier. These endpoints might all correspond to a single object adapter that is available at several addresses, or
@@ -45,9 +45,10 @@ no semantics to the collection of endpoints, but the application can make assump
 location service's behavior.
 
 When a location service returns more than one endpoint, the communicator behaves exactly as if the proxy had contained
-several endpoints. As always, the goal of the communicator is to [establish a connection](../connection-establishment)
-to one of the endpoints and deliver the client's request. By default, all requests made via the proxy that initiated the
-connection are sent to the same server until that connection is closed.
+several endpoints. As always, the goal of the communicator is to
+[establish a connection](../../connection-management/connection-establishment) to one of the endpoints and deliver the
+client's request. By default, all requests made via the proxy that initiated the connection are sent to the same server
+until that connection is closed.
 
 After the connection is closed, subsequent use of the proxy causes the communicator to obtain another connection.
 Whether that connection uses a different endpoint than previous connections depends on a number of factors, but it is
@@ -68,8 +69,8 @@ but this impact is influenced by the communicator's caching behavior.
 To minimize the number of `locate` requests, the communicator caches the results of previous requests. By default, the
 results are cached indefinitely, so that once the communicator has obtained the endpoints associated with an indirect
 proxy, it never issues another `locate` request for that proxy. Furthermore, the default behavior of a proxy is to
-[cache its connection](../connection-establishment), that is, once a proxy has obtained a connection, it continues to
-use that connection indefinitely.
+[cache its connection](../../connection-management/connection-establishment), that is, once a proxy has obtained a
+connection, it continues to use that connection indefinitely.
 
 Taken together, these two caching characteristics represent the Ice runtime's best efforts to optimize an application's
 use of a location service: after a proxy is associated with a connection, all future invocations on that proxy are sent
@@ -77,10 +78,11 @@ on the same connection without any need for cache lookups, locate requests, or n
 
 If a proxy's connection is closed, the next invocation on the proxy prompts the communicator to consult its locator
 cache to obtain the endpoints from the prior `locate` request. Next, the communicator searches for an
-[existing connection](../connection-establishment) to any of those endpoints and uses that if possible (assuming the
-proxy has [connection caching](../connection-establishment) enabled), otherwise it attempts to establish a new
-connection to each of the endpoints until one succeeds. Only if that process fails does the communicator clear the entry
-from its cache and issue a new `locate` request with the expectation that a usable endpoint is returned.
+[existing connection](../../connection-management/connection-establishment) to any of those endpoints and uses that if
+possible (assuming the proxy has [connection caching](../../connection-management/connection-establishment) enabled),
+otherwise it attempts to establish a new connection to each of the endpoints until one succeeds. Only if that process
+fails does the communicator clear the entry from its cache and issue a new `locate` request with the expectation that a
+usable endpoint is returned.
 
 The communicator's default behavior is optimized for applications that require minimal interaction with the location
 service, but some applications can benefit from more frequent `locate` requests. Normally this is desirable when
@@ -90,11 +92,11 @@ requests, an application must configure a timeout for the locator cache and mani
 ## Locator Cache Timeout
 
 An application can define a timeout to control the lifetime of entries in the locator cache. This timeout can be
-specified globally using the [Ice.Default.LocatorCacheTimeout](../ice-default-properties) property and for individual
-proxies using the [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx) `ice_locatorCacheTimeout`. The
-communicator's default behavior is equivalent to a timeout value of `-1`, meaning the cache entries never expire. Using
-a timeout value greater than zero causes the cache entries to expire after the specified number of seconds. Finally, a
-timeout value of zero disables the locator cache altogether.
+specified globally using the [Ice.Default.LocatorCacheTimeout](../../../property-reference/ice-default-properties)
+property and for individual proxies using the [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx)
+`ice_locatorCacheTimeout`. The communicator's default behavior is equivalent to a timeout value of `-1`, meaning the
+cache entries never expire. Using a timeout value greater than zero causes the cache entries to expire after the
+specified number of seconds. Finally, a timeout value of zero disables the locator cache altogether.
 
 The previous section explained the circumstances in which the communicator consults its locator cache. Briefly, this
 occurs only when the application has invoked an operation on a proxy and the proxy is not currently associated with a
@@ -106,19 +108,19 @@ Given this behavior, if your goal is to force a proxy invocation to issue `locat
 so only when the proxy is not associated with a connection. You can accomplish that in several ways:
 
 - create a new proxy, which is inherently not connected by default
-- [explicitly close](../connection-closure) the proxy's existing connection
-- disable the proxy's [connection caching](../connection-establishment) behavior
+- [explicitly close](../../connection-management/connection-closure) the proxy's existing connection
+- disable the proxy's [connection caching](../../connection-management/connection-establishment) behavior
 
 Of these choices, the last one is the most common.
 
 ## Load Balancing with a Locator
 
-Ice supports [proxy-based load balancing](../proxy-based-load-balancing) whose behavior is driven solely by a proxy's
-configuration settings. A disadvantage of relying solely on this form of load balancing is that the client cannot make
-any intelligent decisions based on the status of the servers. If you want to distribute your requests in a more
-sophisticated way, you must either modify your clients to query the servers directly, or use a location service that can
-transparently direct a client to an appropriate server. For example, the IceGrid location service can monitor the system
-load on each server host and use that information when responding to locate requests.
+Ice supports [proxy-based load balancing](../../invocation/proxy-based-load-balancing) whose behavior is driven solely
+by a proxy's configuration settings. A disadvantage of relying solely on this form of load balancing is that the client
+cannot make any intelligent decisions based on the status of the servers. If you want to distribute your requests in a
+more sophisticated way, you must either modify your clients to query the servers directly, or use a location service
+that can transparently direct a client to an appropriate server. For example, the IceGrid location service can monitor
+the system load on each server host and use that information when responding to locate requests.
 
 The location service may return only one endpoint, which presumably represents the best server (at that moment) for the
 client to use. With only one endpoint available, changing the proxy's endpoint selection type makes no difference.
@@ -142,7 +144,7 @@ the communicator issues a new `locate` request and obtains a fresh set of endpoi
 
 ## See Also
 
-- [Terminology](../terminology)
-- [Connection Establishment](../connection-establishment)
-- [Ice.Default.*](../ice-default-properties)
-- [Proxy-Based Load Balancing](../proxy-based-load-balancing)
+- [Terminology](../../../basics/terminology)
+- [Connection Establishment](../../connection-management/connection-establishment)
+- [Ice.Default.*](../../../property-reference/ice-default-properties)
+- [Proxy-Based Load Balancing](../../invocation/proxy-based-load-balancing)

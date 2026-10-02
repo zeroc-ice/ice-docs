@@ -4,8 +4,9 @@ title: Basic Data Encoding
 
 ## Encoding for Sizes
 
-Many of the types involved in the Ice encoding, as well as several [protocol message](../protocol-messages) components,
-have an associated size or count. A size is a non-negative number. Sizes and counts are encoded in one of two ways:
+Many of the types involved in the Ice encoding, as well as several [protocol message](../../protocol/protocol-messages)
+components, have an associated size or count. A size is a non-negative number. Sizes and counts are encoded in one of
+two ways:
 
 1. If the number of elements is less than 255, the size is encoded as a single `byte` indicating the number of elements.
 2. If the number of elements is greater than or equal to 255, the size is encoded as a `byte` with value `255`, followed
@@ -53,16 +54,18 @@ The encoding format of slices changed in version 1.1.
 the receiver of a value only partially understands the received value (that is, only has knowledge of a base type, but
 not of the actual run-time derived type). To allow the receiver of an exception or class to ignore those parts of a
 value that it does not understand, exception and class values are marshaled as a sequence of
-[slices](../slicing-values-and-exceptions) (one slice for each level of the inheritance hierarchy). A slice is a byte
-count encoded as a fixed-length four-byte integer, followed by the data for the slice. (The byte count includes the four
-bytes occupied by the count itself, so an empty slice has a byte count of four and no data.) The receiver of a value can
-skip over a slice by reading the byte count _b_, and then discarding the next _b-4_ bytes in the input stream.
+[slices](../../slice/user-defined-types/classes/slicing-values-and-exceptions) (one slice for each level of the
+inheritance hierarchy). A slice is a byte count encoded as a fixed-length four-byte integer, followed by the data for
+the slice. (The byte count includes the four bytes occupied by the count itself, so an empty slice has a byte count of
+four and no data.) The receiver of a value can skip over a slice by reading the byte count _b_, and then discarding the
+next _b-4_ bytes in the input stream.
 
 ### Encoding Version 1.1
 
 Version 1.1 of the encoding still marshals [exceptions](../data-encoding-for-exceptions) and
-[classes](../data-encoding-for-classes) as [slices](../slicing-values-and-exceptions) in conceptually the same manner as
-for version 1.0, but bit flags in the leading byte of each slice determine its format and content.
+[classes](../data-encoding-for-classes) as
+[slices](../../slice/user-defined-types/classes/slicing-values-and-exceptions) in conceptually the same manner as for
+version 1.0, but bit flags in the leading byte of each slice determine its format and content.
 
 #### Type ID
 
@@ -71,23 +74,23 @@ an exception, the type ID in the initial slice is encoded as a string. For a cla
 either be encoded as a string, an index (if the same type ID has already been encoded in the current encapsulation), or
 a compact ID.
 
-Whether any subsequent slices include some form of type ID depends on the [format](../slicing-values-and-exceptions)
-with which the value was encoded: to facilitate slicing an instance to a less-derived type, the sliced format includes a
-type ID in every slice, whereas the compact format excludes type IDs in subsequent slices to conserve space while
-sacrificing the slicing feature.
+Whether any subsequent slices include some form of type ID depends on the
+[format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) with which the value was encoded: to
+facilitate slicing an instance to a less-derived type, the sliced format includes a type ID in every slice, whereas the
+compact format excludes type IDs in subsequent slices to conserve space while sacrificing the slicing feature.
 
 #### Optional Fields
 
-This flag is true if the slice includes any [optional fields](../fields), which are encoded after all required fields.
-If a slice encodes its size, the size includes the optional fields.
+This flag is true if the slice includes any [optional fields](../../slice/fields), which are encoded after all required
+fields. If a slice encodes its size, the size includes the optional fields.
 
 #### Object Indirection Table
 
-This flag can only be true when using the [sliced format](../slicing-values-and-exceptions). In this case, fields that
-refer to class instances are encoded as indices into an [indirection table](../data-encoding-for-classes) that
-immediately follows the slice. The slice's size does _not_ include the indirection table. This flag should only be set
-to true when there is at least one non-nil object reference in the slice, that is, when the indirection table is not
-empty.
+This flag can only be true when using the
+[sliced format](../../slice/user-defined-types/classes/slicing-values-and-exceptions). In this case, fields that refer
+to class instances are encoded as indices into an [indirection table](../data-encoding-for-classes) that immediately
+follows the slice. The slice's size does _not_ include the indirection table. This flag should only be set to true when
+there is at least one non-nil object reference in the slice, that is, when the indirection table is not empty.
 
 #### Slice Size
 
@@ -99,9 +102,9 @@ does not include the size of an object indirection table, if present.
 A receiver can skip over a slice by reading the byte count _b_, and then discarding the next _b-4_ bytes in the input
 stream. If an object indirection table is present, the receiver must then decode the table.
 
-If this flag is false, it implies that the sender used the [compact format](../slicing-values-and-exceptions) and
-therefore skipping slices is not possible. The receiver must know the most-derived type in this situation otherwise
-decoding will fail.
+If this flag is false, it implies that the sender used the
+[compact format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) and therefore skipping slices is
+not possible. The receiver must know the most-derived type in this situation otherwise decoding will fail.
 
 #### Last Slice
 
@@ -168,9 +171,10 @@ The encoding format of enumerators changed in version 1.1.
 ### Encoding Version 1.0 {% id="enumerator-encoding-version-1.0" %}
 
 The number of bytes required to encode an enumerator in version 1.0 is determined by the largest value in the
-enumeration. In enumerations with no [custom enumerator values](../enumerations), the largest value is the number of
-enumerators less one; the value encoded for an enumerator is its ordinal value in the definition, with the first
-enumerator having the value zero. For example, the largest value in the following enumeration is 2:
+enumeration. In enumerations with no [custom enumerator values](../../slice/user-defined-types/enumerations), the
+largest value is the number of enumerators less one; the value encoded for an enumerator is its ordinal value in the
+definition, with the first enumerator having the value zero. For example, the largest value in the following enumeration
+is 2:
 
 ```slice
 // Encoded values: Apple = 0, Pear = 1, Orange = 2
@@ -223,6 +227,6 @@ types.
 
 ## See Also
 
-- [Protocol Messages](../protocol-messages)
+- [Protocol Messages](../../protocol/protocol-messages)
 - [Data Encoding for Exceptions](../data-encoding-for-exceptions)
 - [Data Encoding for Classes](../data-encoding-for-classes)

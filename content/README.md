@@ -5,7 +5,8 @@ page and its overlays combine.
 
 ## Links
 
-- Link to a page by name: `[Enumerations](../enumerations)`.
+- Link to a page by a path relative to this one, `[Structures](../structures)`, or by its slug under the version,
+  `[Enumerations](slice/user-defined-types/enumerations)`.
 - Add `#<anchor>` to link to a heading.
 - Add `?lang=<language>` to switch the reader to that mapping.
 

@@ -10,7 +10,7 @@ You can safely update your Slice definitions using the techniques described on t
 
 ## Adding Operations and Types
 
-Suppose that we’ve already deployed our [Greeter](../greeter-example) application (version 1) and want to add extra
+Suppose that we’ve already deployed our [Greeter](../../greeter-example) application (version 1) and want to add extra
 functionality to a new version (version 2). Specifically, let’s say we want to add a new greeting that depends on the
 time of day. How can we upgrade the existing application with this new functionality? Let’s start by looking at the
 original:
@@ -73,9 +73,9 @@ raises `OperationNotExistsException`, the client is dealing with a version 1 obj
 
 ## Optional Parameters and Fields
 
-Another way to upgrade our application is by using [optional parameters](../operations) or fields. These can be added to
-existing operations/definitions without breaking clients or servers that don’t know about them. For example, another
-approach to upgrading our `Greeter` application would have been:
+Another way to upgrade our application is by using [optional parameters](../../slice/operations) or fields. These can be
+added to existing operations/definitions without breaking clients or servers that don’t know about them. For example,
+another approach to upgrading our `Greeter` application would have been:
 
 ```slice
 // Version 2
@@ -100,8 +100,8 @@ new server, the server will receive this value and behave accordingly. An old se
 parameter and would continue to behave as before.
 
 Likewise, you can add optional fields to an existing class or exception without breaking existing applications that use
-it. See the [optional fields](../fields) page for more information.
+it. See the [optional fields](../../slice/fields) page for more information.
 
 ## See Also
 
-- [Optional Parameters and Return Values](../operations)
+- [Optional Parameters and Return Values](../../slice/operations)

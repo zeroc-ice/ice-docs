@@ -2,61 +2,38 @@
 //
 // Cross-page link resolution.
 //
-// Migrated content links to other pages by *page name*, relative to the page
-// being read (`[Object Adapters](../object-adapters)`) — the shape the Confluence
-// export produced. Resolving those relatively in the browser is fragile: the
-// answer depends on how deep the current URL happens to be, so any change to the
-// information architecture silently breaks thousands of links.
-//
-// Instead we resolve links at build time against a *page index* keyed by the
-// page's name, the last segment of its slug, which is stable and globally
-// unique. A page can move from `learn/slice/enumerations` to
-// `reference/slice/enumerations` and every link to it keeps working, untouched.
+// A link names a page by its slug under the version, as in
+// `slice/user-defined-types/enumerations`, or by a path relative to the page it
+// is on, as in `../structures`, which starts with `.` or `..`. Either is
+// resolved at build time against the version's page index, so a link to a page
+// that does not exist is reported rather than rendered as a dead link. The lookup
+// is case-insensitive and URL-decoded, since authored links do not always match
+// the slug's spelling.
 //
 // Pure, so it is unit-testable with plain objects.
 
 import { pageHref } from './nav.ts';
 
-/** page name (`enumerations`) or slug -> slug (`learn/slice/enumerations`). */
+/** lower-cased slug -> slug (`learn/slice/enumerations`). */
 export type PageIndex = Record<string, string>;
 
-/**
- * Index every page by its slug and by its name, lower-cased (authored links do
- * not always match the name's case).
- *
- * A collision between two pages' names is reported by `duplicates` and resolves
- * to the first slug in sorted order (deterministic).
- */
-export function buildPageIndex(slugs: string[]): {
-  index: PageIndex;
-  duplicates: string[];
-} {
-  const sorted = [...slugs].sort((a, b) => a.localeCompare(b));
+/** Index every page by its slug, lower-cased. */
+export function buildPageIndex(slugs: string[]): PageIndex {
   const index: PageIndex = {};
-  const duplicates: string[] = [];
-
-  // Two passes, so a page's own slug always wins over another page's name.
-  for (const slug of sorted) index[slug.toLowerCase()] = slug;
-
-  const byName: Record<string, string> = {};
-  for (const slug of sorted) {
-    const name = slug.split('/').pop()!.toLowerCase();
-    if (name in byName) duplicates.push(name);
-    else byName[name] = slug;
-  }
-  for (const [name, slug] of Object.entries(byName)) index[name] ??= slug;
-
-  return { index, duplicates };
+  for (const slug of slugs) index[slug.toLowerCase()] = slug;
+  return index;
 }
 
 export interface LinkContext {
   version: string;
+  /** The slug of the page the link is on; `''` for the front page. */
+  slug: string;
   index: PageIndex;
 }
 
 export interface ResolvedLink {
   href: string;
-  /** False when the link points at a page name that is not in the index. */
+  /** False when the link names a page that is not in the index. */
   resolved: boolean;
 }
 
@@ -67,9 +44,12 @@ const MAILTO = /^mailto:/i;
  * Resolve one authored href to a site URL.
  *
  * - external / mailto / in-page anchors / already-absolute: unchanged
- * - anything else: the page named by the link is looked up in the page index
- *   and rewritten to `/ice/<version>/<slug>`, preserving the query, such as a
- *   `?lang=` that names the language mapping to show, and `#anchor`.
+ * - a path starting with `.` or `..`: joined to the page's slug
+ * - anything else: a slug
+ *
+ * The slug is looked up in the page index and rewritten to
+ * `/ice/<version>/<slug>`, preserving the query, such as a `?lang=` that names
+ * the language mapping to show, and `#anchor`.
  */
 export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const raw = (href ?? '').trim();
@@ -85,19 +65,30 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const queryAt = beforeHash.indexOf('?');
   const path = queryAt === -1 ? beforeHash : beforeHash.slice(0, queryAt);
   const query = queryAt === -1 ? '' : beforeHash.slice(queryAt);
+  // A query or anchor alone, such as `?lang=java`, stays on the current page.
+  if (path === '') return { href: raw, resolved: true };
 
-  // Drop the `./` and `../` prefixes the export produced: they encoded "a sibling
-  // page", not a real filesystem relationship.
-  const segments = path
-    .split('/')
-    .filter((s) => s !== '' && s !== '.' && s !== '..');
-  if (segments.length === 0) return { href: raw, resolved: true };
-
-  // A spelled-out slug is unambiguous, so try it before the bare page name.
-  const full = decodeURIComponent(segments.join('/')).toLowerCase();
-  const name = decodeURIComponent(segments[segments.length - 1]).toLowerCase();
-  const target = ctx.index[full] ?? ctx.index[name];
-  if (!target) return { href: raw, resolved: false };
+  const relative = /^\.\.?(?:\/|$)/.test(path);
+  const slug = (relative ? joinSlug(ctx.slug, path) : path).toLowerCase();
+  const target = ctx.index[decodeURIComponent(slug)];
+  if (target === undefined) return { href: raw, resolved: false };
 
   return { href: pageHref(ctx.version, target) + query + hash, resolved: true };
+}
+
+/**
+ * Join a relative path to the slug of the page it is on: `..` steps up one
+ * page. A path that steps above the version comes back unchanged, so it is
+ * reported as unresolved.
+ */
+function joinSlug(slug: string, relative: string): string {
+  const segments = slug ? slug.split('/') : [];
+  for (const segment of relative.split('/')) {
+    if (segment === '' || segment === '.') continue;
+    if (segment === '..') {
+      if (segments.length === 0) return relative;
+      segments.pop();
+    } else segments.push(segment);
+  }
+  return segments.join('/');
 }

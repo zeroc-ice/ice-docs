@@ -23,7 +23,7 @@ other property, so a typo such as `--Ice.Trace.Netwrok=1` makes communicator ini
 
 The initialization overloads that update the argument array remove the options they consume. Other overloads leave the
 input unchanged or return the remaining arguments separately; see
-[Communicator Initialization and Destruction](../initialization-and-destruction).
+[Communicator Initialization and Destruction](../../communicator/initialization-and-destruction).
 
 For convenience, any property not explicitly set to a value is set to the value `1`. For example,
 

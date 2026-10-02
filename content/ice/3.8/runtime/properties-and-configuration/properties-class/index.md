@@ -81,7 +81,7 @@ rejects.
 
 `getIceProperty`, `getIcePropertyAsInt`, and `getIcePropertyAsList` read Ice properties. Unlike the plain `getProperty`
 methods, they return the property's built-in default when it is not set; see the
-[property reference](../property-reference). For example, if you never set `Ice.Warn.Dispatch`,
+[property reference](../../../property-reference). For example, if you never set `Ice.Warn.Dispatch`,
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of 1, while `getPropertyAsInt("Ice.Warn.Dispatch")`
 returns 0.
 

@@ -46,8 +46,8 @@ Step 3: Select Manual Endpoint to manually enter address information:
 
 ![image2017-4-3 12:25:15.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-12-25-15.png)
 
-IceGrid GUI can also [discover registries](../icelocatordiscovery) using UDP multicast. Any registries it finds will be
-shown in the list, or click the Refresh button to search again.
+IceGrid GUI can also [discover registries](../../../../../plugins/icelocatordiscovery) using UDP multicast. Any
+registries it finds will be shown in the list, or click the Refresh button to search again.
 
 Step 4: Select the first option to enter the addressing information as a hostname and port number.
 
@@ -65,7 +65,7 @@ Step 7: Click `Finish` to save the connection; IceGrid GUI then attempts to conn
 
 Now let's create a direct SSL connection to an IceGrid registry and authenticate using our X.509 key (also used for SSL
 authentication). The target IceGrid registry must be configured to accept SSL connections and authentication using SSL
-credentials; see [IceGrid.Registry.AdminSSLPermissionsVerifier](../icegrid-properties).
+credentials; see [IceGrid.Registry.AdminSSLPermissionsVerifier](../../../../../property-reference/icegrid-properties).
 
 Steps 1 to 4 are identical to the simple TCP connection described above.
 
@@ -99,7 +99,7 @@ saved) the X.509 key password with the connection, we are prompted for this pass
 Here we'll connect to an IceGrid registry "behind" a Glacier2 router. In this case, we need to connect to the Glacier2
 router and authenticate ourselves with the router. We do not provide any information about the IceGrid registry itself:
 we will connect to the IceGrid registry identified by the target Glacier2 router configuration. See
-[Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid).
+[Glacier2 Integration with IceGrid](../../../glacier2-integration-with-icegrid).
 
 Step 1: Select Routed Connection:
 
@@ -160,10 +160,10 @@ registry or Glacier2 router. IceGrid GUI performs the following checks when esta
   If you select `Yes, Always Trust`, the certificate is added in the persistent Server Certificates set.
 
 A "client" X.509 certificate (saved in My Certificates) is only necessary when the target IceGrid registry or Glacier2
-router requires one. This depends on the setting of the [IceSSL.VerifyPeer](../icessl-properties) property in those
-servers: when `IceSSL.VerifyPeer` is 2, IceGrid GUI must provide a valid certificate. If you forget to provide a
-certificate, or provide an invalid certificate, the connection establishment will fail and you will get an error dialog
-such as:
+router requires one. This depends on the setting of the
+[IceSSL.VerifyPeer](../../../../../property-reference/icessl-properties) property in those servers: when
+`IceSSL.VerifyPeer` is 2, IceGrid GUI must provide a valid certificate. If you forget to provide a certificate, or
+provide an invalid certificate, the connection establishment will fail and you will get an error dialog such as:
 
 ![image2017-4-6 10:39:23.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-6-10-39-23.png)
 

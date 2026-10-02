@@ -18,8 +18,9 @@ Metrics properties use the following prefixes for views, maps, and sub-maps:
 - IceMX.Metrics._view-name_.Map._map-name_
 - IceMX.Metrics._view-name_.Map._map-name_.Map._submap-name_
 
-When a view has no `Map.` properties, it includes all maps known to the [Metrics facet](../metrics-facet), using the
-view's configuration. When a view defines `Map.` properties, it includes only the maps configured under those prefixes.
+When a view has no `Map.` properties, it includes all maps known to the
+[Metrics facet](../../administration/administrative-facility/metrics-facet), using the view's configuration. When a view
+defines `Map.` properties, it includes only the maps configured under those prefixes.
 
 The same rule applies to sub-maps. If a parent map has no `Map.` properties, its sub-maps inherit its configuration. If
 the parent defines any `Map.` properties, Ice creates only the explicitly configured sub-maps. An explicitly configured
@@ -27,9 +28,9 @@ map or sub-map uses its own properties and their defaults.
 
 For a list of supported maps see:
 
-- [The Metrics Facet](../metrics-facet)
-- [Glacier2 Metrics](../glacier2-metrics)
-- [IceStorm Metrics](../icestorm-metrics)
+- [The Metrics Facet](../../administration/administrative-facility/metrics-facet)
+- [Glacier2 Metrics](../../services/glacier2/glacier2-metrics)
+- [IceStorm Metrics](../../services/icestorm/icestorm-metrics)
 
 ## Regular Expression Filters
 

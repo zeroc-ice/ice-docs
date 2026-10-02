@@ -59,8 +59,8 @@ This causes property settings to be retrieved from `/usr/local/filesystem/config
 
 ## The `Ice.Config` Property
 
-The [Ice.Config](../ice-properties) property has special meaning to the Ice run time: it determines the path name of a
-configuration file from which to read property settings. For example:
+The [Ice.Config](../../../property-reference/ice-properties) property has special meaning to the Ice run time: it
+determines the path name of a configuration file from which to read property settings. For example:
 
 ```shell
 ./server --Ice.Config=/usr/local/filesystem/config

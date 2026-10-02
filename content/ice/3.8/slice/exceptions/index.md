@@ -225,4 +225,4 @@ format explicitly.
 
 ## See Also
 
-- [Local and Dispatch Exceptions](../local-and-dispatch-exceptions)
+- [Local and Dispatch Exceptions](../../runtime/local-and-dispatch-exceptions)

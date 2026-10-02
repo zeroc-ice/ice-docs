@@ -34,10 +34,10 @@ properties shown above are equivalent to the following statements:
 
 {% language-section name="lang-3" /%}
 
-The [proxy properties](../proxy-properties) cover the proxy settings that a stringified proxy cannot express, except the
-compression setting (`ice_compress`), the connection ID (`ice_connectionId`) and a fixed connection (`ice_fixed`).
-`propertyToProxy` throws `PropertyException` if it finds a subordinate property that is not one of these proxy
-properties.
+The [proxy properties](../../../property-reference/proxy-properties) cover the proxy settings that a stringified proxy
+cannot express, except the compression setting (`ice_compress`), the connection ID (`ice_connectionId`) and a fixed
+connection (`ice_fixed`). `propertyToProxy` throws `PropertyException` if it finds a subordinate property that is not
+one of these proxy properties.
 
 Note that proxy properties can themselves have proxy properties. For example, the following sets the `EndpointSelection`
 property on the default locator's router:
@@ -66,6 +66,6 @@ For example:
 
 ## See Also
 
-- [Communicator](../communicator)
+- [Communicator](../../communicator)
 - [Syntax for Stringified Proxies](../syntax-for-stringified-proxies)
-- [Proxy Properties](../proxy-properties)
+- [Proxy Properties](../../../property-reference/proxy-properties)

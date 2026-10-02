@@ -2,7 +2,7 @@
 title: Object Adapter Thread Pools
 ---
 
-The default behavior of an [object adapter](../dispatch) is to share the [thread pool](../thread-pools) of its
+The default behavior of an [object adapter](../../dispatch) is to share the [thread pool](../thread-pools) of its
 communicator and, for many applications, this behavior is entirely sufficient. However, the ability to configure an
 object adapter with its own thread pool is useful in certain situations:
 
@@ -19,9 +19,10 @@ An object adapter's thread pool supports all of the properties described in [Con
 For configuration purposes, the name of an adapter's thread pool is `adapter.ThreadPool`, where `adapter` is the name of
 the adapter.
 
-An adapter creates its own thread pool when any [_adapter_.ThreadPool.\*](../object-adapter-properties) property is set;
-otherwise, it uses the communicator's server thread pool. These properties have the same semantics and default values as
-those described earlier.
+An adapter creates its own thread pool when any
+[_adapter_.ThreadPool.\*](../../../property-reference/object-adapter-properties) property is set; otherwise, it uses the
+communicator's server thread pool. These properties have the same semantics and default values as those described
+earlier.
 
 As an example, the properties shown below configure a thread pool for the object adapter named `PrinterAdapter`:
 
@@ -34,5 +35,5 @@ PrinterAdapter.ThreadPool.SizeWarn=14
 ## See Also
 
 - [Thread Pools](../thread-pools)
-- [Object Adapters](../dispatch)
-- [Object Adapter Properties](../object-adapter-properties)
+- [Object Adapters](../../dispatch)
+- [Object Adapter Properties](../../../property-reference/object-adapter-properties)

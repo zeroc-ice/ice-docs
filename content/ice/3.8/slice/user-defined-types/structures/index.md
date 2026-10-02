@@ -38,7 +38,7 @@ struct TwoPoints
 }
 ```
 
-This rule applies to Slice in general: type definitions cannot be nested (except for [modules](../modules), which do
+This rule applies to Slice in general: type definitions cannot be nested (except for [modules](../../modules), which do
 support nesting). The reason for this rule is that nested type definitions can be difficult to implement for some target
 languages and, even if implementable, greatly complicate the scope resolution rules. For a specification language, such
 as Slice, nested type definitions are unnecessary – you can always write the above definitions as follows (which is
@@ -64,5 +64,5 @@ struct TwoPoints      // Legal (and cleaner!)
 
 ## See Also
 
-- [Fields](../fields)
+- [Fields](../../fields)
 - [Classes](../classes)

@@ -53,10 +53,10 @@ The server implementation would take care of initializing this map with the key-
 The value type of a dictionary can be any Slice type. However, the key type of a dictionary is limited to one of the
 following types:
 
-- [Integral](../basic-types) types (`short`, `int`, `long`)
-- [bool](../basic-types)
-- [byte](../basic-types)
-- [string](../basic-types)
+- [Integral](../../basic-types) types (`short`, `int`, `long`)
+- [bool](../../basic-types)
+- [byte](../../basic-types)
+- [string](../../basic-types)
 - [enum](../enumerations)
 - [Structures](../structures) containing only data members of legal key types
 

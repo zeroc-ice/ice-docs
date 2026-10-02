@@ -68,20 +68,20 @@ diverse endpoints.
 
 Let’s take a few examples:
 
-| **Proxy Endpoint List**                       | **Analysis**                                                                                                                                                                                                                                                                                                                                                                |
-| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `udp -h venus -p 4061:tcp -h mars -p 4061`    | **Not recommended** Never combine a `udp`endpoint with any other transport in the same proxy.                                                                                                                                                                                                                                                                               |
-| `tcp -h venus -p 4061:ssl -h venus -p 4062`   | **Not recommended** Never combine secure and non-secure endpoints in the same proxy. The server should decide whether it accepts only secure or only non-secure connections.                                                                                                                                                                                                |
-| `ssl -h venus -p 10000:wss -h venus -p 10001` | **Unusual. Could be ok.**Possible use-case: you distribute the same proxies to various clients and you want web browser clients to use the `wss` endpoint (since they can’t connect with `ssl`); and you want other `ssl`-capable clients to use `ssl`. You would use this proxy endpoint list in conjunction with the `Ordered` [endpoint selection](../proxy-properties). |
+| **Proxy Endpoint List**                       | **Analysis**                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `udp -h venus -p 4061:tcp -h mars -p 4061`    | **Not recommended** Never combine a `udp`endpoint with any other transport in the same proxy.                                                                                                                                                                                                                                                                                                        |
+| `tcp -h venus -p 4061:ssl -h venus -p 4062`   | **Not recommended** Never combine secure and non-secure endpoints in the same proxy. The server should decide whether it accepts only secure or only non-secure connections.                                                                                                                                                                                                                         |
+| `ssl -h venus -p 10000:wss -h venus -p 10001` | **Unusual. Could be ok.**Possible use-case: you distribute the same proxies to various clients and you want web browser clients to use the `wss` endpoint (since they can’t connect with `ssl`); and you want other `ssl`-capable clients to use `ssl`. You would use this proxy endpoint list in conjunction with the `Ordered` [endpoint selection](../../../property-reference/proxy-properties). |
 
 ## Proxy with No Endpoint
 
 A proxy with one or more endpoints is called a _direct proxy_, while a proxy with no endpoint is called an _indirect
 proxy_.
 
-Indirect because when a proxy has no endpoint, the communicator uses a [locator](../locators) to retrieve the
+Indirect because when a proxy has no endpoint, the communicator uses a [locator](../../locators) to retrieve the
 endpoint(s) dynamically. One style of indirect proxy contains an
-[adapter identifier](../indirect-proxy-with-object-adapter-identifier):
+[adapter identifier](./indirect-proxy-with-object-adapter-identifier):
 
 ```text
 MyObject @ MyAdapter
@@ -90,7 +90,7 @@ MyObject @ MyAdapter
 When this proxy requires the endpoints associated with `MyAdapter`, it requests them from the locator.
 
 The other style of indirect proxy is a proxy with just an object identity, called a
-[well-known proxy](../well-known-proxy):
+[well-known proxy](./well-known-proxy):
 
 ```text
 MyObject
@@ -112,6 +112,6 @@ this local object adapter.
 
 ## See Also
 
-- [Terminology](../terminology)
-- [Object Adapter Endpoints](../object-adapter-endpoints)
-- [Locators](../locators)
+- [Terminology](../../../basics/terminology)
+- [Object Adapter Endpoints](../../dispatch/object-adapter-endpoints)
+- [Locators](../../locators)

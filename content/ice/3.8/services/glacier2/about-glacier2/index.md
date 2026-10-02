@@ -25,8 +25,8 @@ Glacier2 has the following advantages and limitations.
   connections from back-end servers to Glacier2 for the purposes of sending callbacks are also concentrated.
 - Servers are unaware of Glacier2's presence, and require no modifications whatsoever to use Glacier2. From a server's
   perspective, Glacier2 is just another local client, therefore servers are no longer required to advertise "public"
-  endpoints in the proxies they create. Furthermore, back-end services such as [IceGrid](../icegrid) can continue to be
-  used transparently via a Glacier2 router.
+  endpoints in the proxies they create. Furthermore, back-end services such as [IceGrid](../../icegrid) can continue to
+  be used transparently via a Glacier2 router.
 - [Callbacks through Glacier2](../callbacks-through-glacier2) are supported without requiring new connections from
   servers to clients. In other words, a callback from a server to a client is sent over an existing connection from the
   client to the server, thereby eliminating the administrative requirements associated with supporting callbacks in the
@@ -47,4 +47,4 @@ Glacier2 has the following advantages and limitations.
 - [How Glacier2 Works](../how-glacier2-works)
 - [Common Firewall Traversal Issues](../common-firewall-traversal-issues)
 - [Callbacks Through Glacier2](../callbacks-through-glacier2)
-- [IceGrid](../icegrid)
+- [IceGrid](../../icegrid)

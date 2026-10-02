@@ -20,7 +20,7 @@ module Ice
 As you can see, an object identity consists of a pair of strings, a `name` and a `category`. The complete object
 identity is the combination of `name` and `category`, that is, for two identities to be equal, both `name` and
 `category` must be the same. The `category` field is usually the empty string, unless you are using
-[default servants](../default-servants) or callbacks with [Glacier2](../glacier2).
+[default servants](../dispatch/default-servants) or callbacks with [Glacier2](../../services/glacier2).
 
 An identity with an empty `name` is not a valid identity.
 
@@ -55,8 +55,8 @@ Here are rules that the Ice runtime applies when parsing a stringified identity:
    identity, respectively; if no such slash character can be found, the entire string is parsed as the `name` field of
    the identity, and the `category` field is the empty string.
 2. Each of the `category` (if present) and `name` substrings are parsed like
-   [Slice String Literals](../constants-and-literals), except that an escaped slash character (`\/)` is converted into a
-   simple slash (`/`).
+   [Slice String Literals](../../slice/constants-and-literals), except that an escaped slash character (`\/)` is
+   converted into a simple slash (`/`).
 
 ## Identity Helper Functions
 
@@ -92,5 +92,5 @@ recognize universal character names and reject non-printable ASCII characters in
 
 ## See Also
 
-- [Default Servants](../default-servants)
-- [Glacier2](../glacier2)
+- [Default Servants](../dispatch/default-servants)
+- [Glacier2](../../services/glacier2)

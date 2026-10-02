@@ -13,7 +13,7 @@ Typically, the number of records is far too large to instantiate servants for ev
 
 A common technique for solving this problem is to use _default servants_. A default servant is a servant that, for each
 request, takes on the persona of a different Ice object. In other words, the servant changes its behavior according to
-the [object identity](../object-identity) that is accessed by a request, on a per-request basis. In this way, it is
+the [object identity](../../object-identity) that is accessed by a request, on a per-request basis. In this way, it is
 possible to allow clients access to an unlimited number of Ice objects with only a single servant in memory.
 
 Default servant implementations are attractive not only because of the memory savings they offer, but also because of
@@ -21,10 +21,10 @@ the simplicity of implementation: in essence, a default servant is a facade [\[1
 of an object in the database. This means that the programming required to implement a default servant is typically
 minimal: it simply consists of the code required to read and write the corresponding database records.
 
-A default servant is a regular servant that you implement and register with an [object adapter](../dispatch). For each
-incoming request, the object adapter first attempts to locate a servant in its ASM. If no servant is found, the object
-adapter dispatches the request to a default servant. With this design, a default servant is the object adapter's servant
-of last resort if no match was found in the ASM.
+A default servant is a regular servant that you implement and register with an [object adapter](..). For each incoming
+request, the object adapter first attempts to locate a servant in its ASM. If no servant is found, the object adapter
+dispatches the request to a default servant. With this design, a default servant is the object adapter's servant of last
+resort if no match was found in the ASM.
 
 Implementing a default servant requires a somewhat different mindset than the typical "one servant per Ice object"
 strategy used in less advanced applications. The most important quality of a default servant is its statelessness: it
@@ -134,9 +134,9 @@ If a request arrives for an object that no longer exists, it is the default serv
 ## See Also
 
 - [The Active Servant Map](../active-servant-map)
-- [Object Identity](../object-identity)
-- [Object Adapters](../dispatch)
-- [The Ice Threading Model](../threading-model)
+- [Object Identity](../../object-identity)
+- [Object Adapters](..)
+- [The Ice Threading Model](../../threading-model)
 
 ## References
 

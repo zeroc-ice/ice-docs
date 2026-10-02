@@ -2,13 +2,13 @@
 title: Proxy Properties
 ---
 
-The communicator operation [propertyToProxy](../creating-proxies) creates a proxy from a group of configuration
-properties. The argument to `propertyToProxy` is a string representing the base name of the property group (shown as
-_name_ in the property descriptions below). This name must correspond to a property that supplies the stringified form
-of the proxy. Subordinate properties can be defined to customize the proxy's local configuration.
+The communicator operation [propertyToProxy](../../runtime/invocation/creating-proxies) creates a proxy from a group of
+configuration properties. The argument to `propertyToProxy` is a string representing the base name of the property group
+(shown as _name_ in the property descriptions below). This name must correspond to a property that supplies the
+stringified form of the proxy. Subordinate properties can be defined to customize the proxy's local configuration.
 
-The communicator operation [proxyToProperty](../converting-proxies-to-strings) performs the inverse operation, that is,
-returns the property group for a proxy.
+The communicator operation [proxyToProperty](../../runtime/invocation/converting-proxies-to-strings) performs the
+inverse operation, that is, returns the property group for a proxy.
 
 ## _name_
 
@@ -31,8 +31,9 @@ Use the communicator operation `propertyToProxy` to retrieve the property and co
 
 ### Description {% id="name.connectioncached-description" %}
 
-If `num` is a value greater than zero, the proxy [caches](../connection-establishment) its chosen connection for use in
-subsequent requests. Defining this property is equivalent to invoking the `ice_connectionCached` proxy method.
+If `num` is a value greater than zero, the proxy [caches](../../runtime/connection-management/connection-establishment)
+its chosen connection for use in subsequent requests. Defining this property is equivalent to invoking the
+`ice_connectionCached` proxy method.
 
 ## _name_.Context._key_
 
@@ -42,7 +43,8 @@ subsequent requests. Defining this property is equivalent to invoking the `ice_c
 
 ### Description {% id="name.context.key-description" %}
 
-Adds the key/value pair to the proxy's [request context](../per-proxy-request-contexts).
+Adds the key/value pair to the proxy's
+[request context](../../runtime/invocation/request-contexts/per-proxy-request-contexts).
 
 ## _name_.EndpointSelection
 
@@ -52,8 +54,9 @@ Adds the key/value pair to the proxy's [request context](../per-proxy-request-co
 
 ### Description {% id="name.endpointselection-description" %}
 
-Specifies the proxy's [endpoint selection](../connection-establishment) type. Legal values are `Random` and `Ordered`.
-Defining this property is equivalent to invoking the `ice_endpointSelection` proxy method.
+Specifies the proxy's [endpoint selection](../../runtime/connection-management/connection-establishment) type. Legal
+values are `Random` and `Ordered`. Defining this property is equivalent to invoking the `ice_endpointSelection` proxy
+method.
 
 ## _name_.InvocationTimeout
 
@@ -63,9 +66,9 @@ Defining this property is equivalent to invoking the `ice_endpointSelection` pro
 
 ### Description {% id="name.invocationtimeout-description" %}
 
-Specifies the [invocation timeout](../invocation-timeouts) of this proxy, in milliseconds. The default is
-[Ice.Default.InvocationTimeout](../ice-default-properties#ice.default.invocationtimeout). Defining this property is
-equivalent to invoking the `ice_invocationTimeout` proxy method.
+Specifies the [invocation timeout](../../runtime/invocation/invocation-timeouts) of this proxy, in milliseconds. The
+default is [Ice.Default.InvocationTimeout](../ice-default-properties#ice.default.invocationtimeout). Defining this
+property is equivalent to invoking the `ice_invocationTimeout` proxy method.
 
 ## _name_.Locator
 
@@ -75,8 +78,8 @@ equivalent to invoking the `ice_invocationTimeout` proxy method.
 
 ### Description {% id="name.locator-description" %}
 
-Specifies the [locator](../locators) of this proxy. Defining this property is equivalent to invoking the `ice_locator`
-proxy method.
+Specifies the [locator](../../runtime/locators) of this proxy. Defining this property is equivalent to invoking the
+`ice_locator` proxy method.
 
 This is a proxy property, so you can configure additional local aspects of the proxy with subordinate properties. For
 example:
@@ -94,9 +97,9 @@ MyProxy.Locator.EndpointSelection=Ordered
 
 ### Description {% id="name.locatorcachetimeout-description" %}
 
-Specifies the [locator cache](../locator-semantics-for-clients) timeout of this proxy, in seconds. The default is
-[Ice.Default.LocatorCacheTimeout](../ice-default-properties#ice.default.locatorcachetimeout). A value of 0 disables
-caching. A negative value means cache entries never expire.
+Specifies the [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout of this proxy, in seconds.
+The default is [Ice.Default.LocatorCacheTimeout](../ice-default-properties#ice.default.locatorcachetimeout). A value of
+0 disables caching. A negative value means cache entries never expire.
 
 ## _name_.Router
 
@@ -106,8 +109,8 @@ caching. A negative value means cache entries never expire.
 
 ### Description {% id="name.router-description" %}
 
-Specifies the [router](../glacier2) of this proxy. Defining this property is equivalent to invoking the `ice_router`
-proxy method.
+Specifies the [router](../../services/glacier2) of this proxy. Defining this property is equivalent to invoking the
+`ice_router` proxy method.
 
 This is a proxy property, so you can configure additional local aspects of the proxy with subordinate properties. For
 example:

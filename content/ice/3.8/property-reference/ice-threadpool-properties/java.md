@@ -12,8 +12,8 @@
 
 ### Description {% id="ice.threadpool.name.stacksize-description" %}
 
-`num` is the stack size (in bytes) of threads in the `Client` or `Server` [thread pool](../threading-model). The default
-value is 0, meaning the operating system's default is used.
+`num` is the stack size (in bytes) of threads in the `Client` or `Server` [thread pool](../../runtime/threading-model).
+The default value is 0, meaning the operating system's default is used.
 
 {% /language-section %}
 
@@ -27,9 +27,9 @@ value is 0, meaning the operating system's default is used.
 
 ### Description {% id="ice.threadpool.name.threadpriority-description" %}
 
-`value` specifies a thread priority for the threads in the `Client` or `Server` [thread pool](../threading-model).
-Leaving this property unset causes the runtime to create threads with the default priority specified by
-[Ice.ThreadPriority](../ice-properties).
+`value` specifies a thread priority for the threads in the `Client` or `Server`
+[thread pool](../../runtime/threading-model). Leaving this property unset causes the runtime to create threads with the
+default priority specified by [Ice.ThreadPriority](../ice-properties).
 
 This property is unset by default.
 

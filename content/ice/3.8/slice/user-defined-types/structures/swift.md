@@ -136,6 +136,6 @@ struct Record
 The mapped Swift struct or class has always two public initializers:
 
 - a memberwise initializer that initializes all properties explicitly
-- a parameterless initializer that assigns default values to all properties (see [Fields](../fields))
+- a parameterless initializer that assigns default values to all properties (see [Fields](../../fields))
 
 {% /language-section %}

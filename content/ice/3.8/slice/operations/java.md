@@ -5,9 +5,9 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side Java Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated proxy interface contains 4 methods for this operation. To
-invoke an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
-[greeter example](../defining-the-greeter-interface-in-slice):
+[operation](./) on an interface, the generated proxy interface contains 4 methods for this operation. To invoke an
+operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 ["java:identifier:com.example.visitorcenter"]
@@ -72,9 +72,9 @@ what’s more important for your application.
 
 ### Exception Handling in Java
 
-Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
-exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
-following simple interface:
+Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Suppose we have the following simple interface:
 
 ```slice
 exception Tantrum
@@ -107,10 +107,10 @@ try {
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side Java Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated skeleton interface contains an abstract method with the same
-name.
+[operation](./) on an interface, the generated skeleton interface contains an abstract method with the same name.
 
-For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
+For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 ["java:identifier:com.example.visitorcenter"]
@@ -378,9 +378,9 @@ manner in which you registered the action. Here are some examples:
 ## Asynchronous Method Dispatch (AMD)
 
 The number of simultaneous synchronous requests a server is capable of supporting is determined by the number of threads
-in the server's [thread pool](../threading-model). If all of the threads are busy dispatching long-running operations,
-then no threads are available to process new requests and therefore clients may experience an unacceptable lack of
-responsiveness.
+in the server's [thread pool](../../runtime/threading-model). If all of the threads are busy dispatching long-running
+operations, then no threads are available to process new requests and therefore clients may experience an unacceptable
+lack of responsiveness.
 
 _Asynchronous Method Dispatch (AMD)_, the server-side equivalent of [AMI](#asynchronous-method-invocation-ami),
 addresses this scalability issue. Using AMD, a server can receive a request but then suspend its processing in order to
@@ -610,7 +610,7 @@ no difference to the receiver: either way, the receiver sees an empty string.
 
 ### Optional Parameters
 
-The mapping uses standard Java types to encapsulate [optional parameters](../operations):
+The mapping uses standard Java types to encapsulate [optional parameters](./):
 
 - `java.util.OptionalDouble` The mapped type for an optional `double`.
 - `java.util.OptionalInt` The mapped type for an optional `int`.
@@ -696,6 +696,6 @@ is not present.
 
 ## See Also
 
-- [The Ice Threading Model](../threading-model)
+- [The Ice Threading Model](../../runtime/threading-model)
 
 {% /language-section %}

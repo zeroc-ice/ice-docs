@@ -49,8 +49,8 @@ The IceBridge service terminated with service-specific error 1.
 
 Error code `1` corresponds to `EXIT_FAILURE`, the value used by the `Service` class to indicate a failure during
 startup. Additional diagnostic messages may be available in the `Application` event log. See
-[Service Logging Considerations](../service-logging-considerations) for more information on configuring a logger for a
-Windows service.
+[Service Logging Considerations](../../service-logging-considerations) for more information on configuring a logger for
+a Windows service.
 
 As we mentioned earlier, insufficient access rights can also prevent a Windows service from starting successfully. By
 default, a Windows service is configured to run under a local system account, in which case the service may not be able
@@ -80,7 +80,8 @@ Refer to the Windows Firewall documentation for details.
 ## IceGrid Node Performance Monitoring Issues
 
 The IceGrid node uses Windows' `Perflib` facility to obtain statistics about the CPU utilization of its host for
-[load balancing](../load-balancing) purposes. Occasionally, the IceGrid node may log the following warning message:
+[load balancing](../../../services/icegrid/load-balancing) purposes. Occasionally, the IceGrid node may log the
+following warning message:
 
 ```text
 warning: Unable to lookup the performance counter name
@@ -109,6 +110,6 @@ Another way to grant the node's user account with the necessary access rights is
 
 ## See Also
 
-- [Load Balancing](../load-balancing)
+- [Load Balancing](../../../services/icegrid/load-balancing)
 - [Installing a Windows Service](../installing-a-windows-service)
 - [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)

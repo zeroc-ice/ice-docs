@@ -18,14 +18,15 @@ The Adapter Properties panel offers the following fields:
   not belong to any replica group.
 - **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is 0.
 - **Endpoints** The configured endpoints for this object adapter. Corresponds to the
-  [_adapter-name_.Endpoints](../object-adapter-properties) property. Default: default, which means listen using the
-  default protocol (tcp by default) on an OS assigned port, on all interfaces.
+  [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties) property. Default: default,
+  which means listen using the default protocol (tcp by default) on an OS assigned port, on all interfaces.
 - **Published Endpoints** The configured published endpoints for this object adapter. Corresponds to the
-  [_adapter-name_.PublishedEndpoints](../object-adapter-properties) property. Default: actual endpoints (computed at run
-  time), derived by Ice from the Endpoints field above.
+  [_adapter-name_.PublishedEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
+  actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
 - **Proxy** **Options** The default Proxy Options for well-known objects defined within this object adapter, and the
   Proxy Options for proxies created by this object adapter. Corresponds to the
-  [_adapter-name_.ProxyEndpoints](../object-adapter-properties) property. Default: empty string.
+  [_adapter-name_.ProxyEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
+  empty string.
 - **Server Lifetime** When checked, IceGrid expects this adapter to register its endpoints during server startup and
   unregister them during server shutdown. See also Activation Timeout in [Server Properties](../server-descriptor).
   Default: true (checked).

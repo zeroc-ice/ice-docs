@@ -56,13 +56,14 @@ The IceBT plug-in must be installed in every client and server that needs to com
 
 ## Configuring IceBT
 
-The IceBT plug-in provides a number of [configuration properties](../icebt-properties), including settings to modify the
-size of the send and receive buffers for a connection. The default settings should be sufficient for most applications.
+The IceBT plug-in provides a number of [configuration properties](../../property-reference/icebt-properties), including
+settings to modify the size of the send and receive buffers for a connection. The default settings should be sufficient
+for most applications.
 
 Developers should also be aware of some core Ice properties that can affect Bluetooth connections:
 
 - Default device address – If you omit a device address from an object adapter endpoint or proxy endpoint, the plug-in
-  defaults to the address specified by the property [Ice.Default.Host](../ice-default-properties).
+  defaults to the address specified by the property [Ice.Default.Host](../../property-reference/ice-default-properties).
 - Connect timeout – Establishing a Bluetooth connection can take several seconds to complete. Ice's default timeout
   settings give plenty of time for a connection to succeed, but an application could experience problems if it
   configures custom timeouts that are too small for Bluetooth connections.
@@ -81,8 +82,8 @@ On Linux, you can use the `uuidgen` command to generate new UUIDs. Web-based UUI
 
 {% /callout %}
 
-For example, using the [syntax for Bluetooth endpoints](../endpoint-syntax), you can configure an
-[object adapter](../dispatch) named `GreeterAdapter` as follows:
+For example, using the [syntax for Bluetooth endpoints](../../runtime/endpoint-syntax), you can configure an
+[object adapter](../../runtime/dispatch) named `GreeterAdapter` as follows:
 
 ```config
 GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 --name "Greeter Service"
@@ -131,11 +132,12 @@ characters are used as separators in stringified proxies.
 
 {% callout type="warning" %}
 
-You can omit a device address if you define [Ice.Default.Host](../ice-default-properties).
+You can omit a device address if you define [Ice.Default.Host](../../property-reference/ice-default-properties).
 
 {% /callout %}
 
-Refer to [Proxy and Endpoint Syntax](../endpoint-syntax) for complete details on the format of a Bluetooth endpoint.
+Refer to [Proxy and Endpoint Syntax](../../runtime/endpoint-syntax) for complete details on the format of a Bluetooth
+endpoint.
 
 Applications are responsible for determining the Bluetooth address of the device hosting the target service, as
 described in the next section.
@@ -152,10 +154,10 @@ Be aware of the following limitation when using IceBT:
 
 - An application cannot open multiple Bluetooth connections to the same remote endpoint. This is not a limitation in Ice
   but rather in the Bluetooth stack. Normally this limitation won't impact your application because Ice's default
-  behavior is to [reuse an existing connection](../connection-establishment) to an endpoint whenever possible in
-  preference to opening a new connection. However, some application designs may attach additional semantics to a
-  connection, and use Ice APIs to override the default behavior and force the establishment of new connections to the
-  same endpoint. This strategy will not work when using Bluetooth.
+  behavior is to [reuse an existing connection](../../runtime/connection-management/connection-establishment) to an
+  endpoint whenever possible in preference to opening a new connection. However, some application designs may attach
+  additional semantics to a connection, and use Ice APIs to override the default behavior and force the establishment of
+  new connections to the same endpoint. This strategy will not work when using Bluetooth.
 
 ## Security Notes for IceBT
 
@@ -173,6 +175,6 @@ SSL configuration with `bts` to define your security settings.
 
 ## See Also
 
-- [IceBT.*](../icebt-properties)
+- [IceBT.*](../../property-reference/icebt-properties)
 - [Plug-in Facility](../plug-in-facility)
-- [Proxy and Endpoint Syntax](../endpoint-syntax)
+- [Proxy and Endpoint Syntax](../../runtime/endpoint-syntax)

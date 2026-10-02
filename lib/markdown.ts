@@ -14,6 +14,8 @@ export interface PageVariables {
   frontmatter: Record<string, unknown>;
   /** The route this page is rendered at, e.g. `/ice/3.8/slice/enumerations`. */
   path: string;
+  /** The page's slug under the version, `slice/enumerations`; `''` for the front page. */
+  slug: string;
   /** By language mapping. */
   readingTime: Record<string, string>;
   version: string;
@@ -37,7 +39,8 @@ export interface RenderOptions extends Omit<
 // Transform an already-assembled Markdoc/markdown string (a shared page merged
 // with its language overlays) into a renderable Markdoc node tree.
 export function renderMarkdownString(opts: RenderOptions) {
-  const { source, path, version, languages, pageIndex, frontmatter } = opts;
+  const { source, path, slug, version, languages, pageIndex, frontmatter } =
+    opts;
 
   // One reading time per language: the page carries every mapping, and a
   // reader only reads theirs.
@@ -54,6 +57,7 @@ export function renderMarkdownString(opts: RenderOptions) {
   const variables: PageVariables = {
     frontmatter,
     path,
+    slug,
     readingTime,
     version,
     languages,

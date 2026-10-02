@@ -26,8 +26,9 @@ property to `1.0`:
 
 ### Description {% id="ice.default.endpointselection-description" %}
 
-This property controls the default [endpoint selection](../connection-establishment) policy for proxies with multiple
-endpoints. Permissible values are `Ordered` and `Random`. The default value of this property is `Random`.
+This property controls the default [endpoint selection](../../runtime/connection-management/connection-establishment)
+policy for proxies with multiple endpoints. Permissible values are `Ordered` and `Random`. The default value of this
+property is `Random`.
 
 ## Ice.Default.Host
 
@@ -39,7 +40,7 @@ endpoints. Permissible values are `Ordered` and `Random`. The default value of t
 
 If an endpoint does not specify a host name (i.e., omits the `-h host` option in IP-based endpoints or the `-a address`
 option in a Bluetooth endpoint), the `host` value from this property is used instead. This property applies to both
-[client and server endpoints](../endpoint-syntax). It has no default value.
+[client and server endpoints](../../runtime/endpoint-syntax). It has no default value.
 
 ## Ice.Default.InvocationTimeout
 
@@ -49,8 +50,8 @@ option in a Bluetooth endpoint), the `host` value from this property is used ins
 
 ### Description {% id="ice.default.invocationtimeout-description" %}
 
-Specifies the default [invocation timeout](../invocation-timeouts) in milliseconds to use for all proxies. The default
-value is `-1`, which disables the timeout.
+Specifies the default [invocation timeout](../../runtime/invocation/invocation-timeouts) in milliseconds to use for all
+proxies. The default value is `-1`, which disables the timeout.
 
 ## Ice.Default.Locator
 
@@ -60,9 +61,9 @@ value is `-1`, which disables the timeout.
 
 ### Description {% id="ice.default.locator-description" %}
 
-Specifies a default [locator](../locators) for all proxies and object adapters. The value is a stringified proxy for the
-[IceGrid](../icegrid) locator object. The default locator can be overridden on a proxy using the `ice_locator`
-[proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx). The default value is no locator.
+Specifies a default [locator](../../runtime/locators) for all proxies and object adapters. The value is a stringified
+proxy for the [IceGrid](../../services/icegrid) locator object. The default locator can be overridden on a proxy using
+the `ice_locator` [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx). The default value is no locator.
 
 The default identity of the IceGrid locator object is `IceGrid/Locator`, but this identity is influenced by the
 [IceGrid.InstanceName](../icegrid-properties) property. The locator object is available on the IceGrid client endpoints.
@@ -88,9 +89,9 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ### Description {% id="ice.default.locatorcachetimeout-description" %}
 
-Specifies the default [locator cache](../locator-semantics-for-clients) timeout for indirect proxies, in seconds. If
-`num` is greater than `0`, locator cache entries older than `num` seconds are ignored. If set to `0`, the locator cache
-is not used. The default value, `-1`, means cache entries do not expire.
+Specifies the default [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout for indirect
+proxies, in seconds. If `num` is greater than `0`, locator cache entries older than `num` seconds are ignored. If set to
+`0`, the locator cache is not used. The default value, `-1`, means cache entries do not expire.
 
 Once a cache entry has expired, the Ice runtime performs a new locate request to refresh the cache before sending the
 next invocation; therefore, the invocation is delayed until the runtime has refreshed the entry. If you set
@@ -108,8 +109,8 @@ entry.
 
 ### Description {% id="ice.default.protocol-description" %}
 
-Sets the [transport protocol](../endpoint-syntax) that is being used if an endpoint uses `default` as the transport
-protocol specification.
+Sets the [transport protocol](../../runtime/endpoint-syntax) that is being used if an endpoint uses `default` as the
+transport protocol specification.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
@@ -131,8 +132,8 @@ The default value is `ws` in a browser and `tcp` in Node.js.
 
 ### Description {% id="ice.default.router-description" %}
 
-Specifies the default [router](../routers) for all proxies. The value is a stringified proxy for the Glacier2 router
-control interface. The default router can be overridden on a proxy using the `ice_router`
+Specifies the default [router](../../runtime/invocation/routers) for all proxies. The value is a stringified proxy for
+the Glacier2 router control interface. The default router can be overridden on a proxy using the `ice_router`
 [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx). The default value is no router. This property is only for
 proxies: it does not add a router to object adapters.
 
@@ -150,7 +151,7 @@ Specifies the encoding format of Slice classes. The default value is `0`, which 
 the sliced format. This property applies to version 1.1 of the Ice encoding.
 
 Note that you can also specify whether certain operations use the sliced format by annotating their definitions with
-[metadata](../slice-metadata-directives).
+[metadata](../../slice/slice-metadata-directives).
 
 ## Ice.Default.SourceAddress
 
@@ -165,15 +166,15 @@ Note that you can also specify whether certain operations use the sliced format 
 Specifies the numeric IP address used to bind outgoing socket
 connections{% iflang langs="cpp,python,ruby,php,matlab,swift" %}, except stream connections on iOS{% /iflang %}.
 Selecting a source IP address does not necessarily select the network interface used to send packets. Proxy endpoints
-can override this default with the [--sourceAddress](../endpoint-syntax) option. If this property is empty, the
-operating system selects the source address.
+can override this default with the [--sourceAddress](../../runtime/endpoint-syntax) option. If this property is empty,
+the operating system selects the source address.
 
 {% /iflang %}
 
 {% iflang langs="js" %}
 
 In Node.js, this property supplies the local address for outgoing TCP connections. Proxy endpoints can override it with
-the [--sourceAddress](../endpoint-syntax) option. WebSocket connections use the source address selected by the operating
-system.
+the [--sourceAddress](../../runtime/endpoint-syntax) option. WebSocket connections use the source address selected by
+the operating system.
 
 {% /iflang %}

@@ -5,9 +5,9 @@ title: Automatic Retries
 Ice may automatically retry a proxy invocation after a failure. This is a powerful feature that, when used in the proper
 situations, can significantly improve the robustness of your application without any additional programming effort. The
 retry facility is governed by one overriding principle: always respect at-most-once semantics.
-[At-most-once semantics](../terminology) dictate that the Ice runtime in the client must never retry a failed proxy
-invocation unless Ice guarantees that the server has not already received the request, or unless the application
-declares that it is safe for Ice to violate at-most-once semantics for the request.
+[At-most-once semantics](../../../basics/terminology) dictate that the Ice runtime in the client must never retry a
+failed proxy invocation unless Ice guarantees that the server has not already received the request, or unless the
+application declares that it is safe for Ice to violate at-most-once semantics for the request.
 
 To understand the importance of obeying at-most-once semantics, consider the following Slice definition:
 
@@ -55,8 +55,8 @@ Ice also never retries exceptions that derive from `RequestFailedException` beca
 One such subclass is `OperationNotExistException`, whose occurrence signals a serious problem in the application. For
 instance, it might mean that the client and server are using incompatible Slice definitions, or that the client is
 trying to invoke operations on the wrong object. The exception to this rule is `ObjectNotExistException`, which Ice does
-consider to be worthy of retry if the proxy in question is [indirect](../terminology) because it gives an application
-the ability to transparently migrate an Ice object.
+consider to be worthy of retry if the proxy in question is [indirect](../../../basics/terminology) because it gives an
+application the ability to transparently migrate an Ice object.
 
 In addition to user exceptions and subclasses of `RequestFailedException`, a server can also return an instance of
 `UnknownException`, `UnknownLocalException`, or `UnknownUserException` to indicate that it encountered an unexpected
@@ -88,8 +88,8 @@ retry fails with `ConnectTimeoutException`, the invocation throws `ConnectTimeou
 
 ## Automatic Retries for Idempotent Operations
 
-Annotating a Slice operation with the [idempotent](../operations) keyword notifies Ice that it can safely violate
-at-most-once semantics:
+Annotating a Slice operation with the [idempotent](../../../slice/operations) keyword notifies Ice that it can safely
+violate at-most-once semantics:
 
 ```slice
 interface Account
@@ -127,12 +127,12 @@ reached its configured retry limits.
 
 ### Retry Intervals
 
-The [Ice.RetryIntervals](../ice-properties) property configures the retry behavior for a communicator and affects
-invocations on every proxy created by that communicator. (Retry behavior cannot be configured on a per-proxy basis.) The
-value of this property consists of a series of integers separated by whitespace. The number of integers determines how
-many retry attempts Ice makes, and the value of each entry represents a delay in milliseconds. If this property is not
-defined, the default behavior is to retry once immediately after the first failure, which is equivalent to the following
-property definition:
+The [Ice.RetryIntervals](../../../property-reference/ice-properties) property configures the retry behavior for a
+communicator and affects invocations on every proxy created by that communicator. (Retry behavior cannot be configured
+on a per-proxy basis.) The value of this property consists of a series of integers separated by whitespace. The number
+of integers determines how many retry attempts Ice makes, and the value of each entry represents a delay in
+milliseconds. If this property is not defined, the default behavior is to retry once immediately after the first
+failure, which is equivalent to the following property definition:
 
 ```config
 Ice.RetryIntervals=0
@@ -153,8 +153,8 @@ logic and therefore require immediate notification when a failure occurs.
 
 ### Retry Logging
 
-To monitor Ice's retry activities, configure your program with the property [Ice.Trace.Retry](../ice-trace-properties)
-set to a non-zero value:
+To monitor Ice's retry activities, configure your program with the property
+[Ice.Trace.Retry](../../../property-reference/ice-trace-properties) set to a non-zero value:
 
 ```config
 Ice.Trace.Retry=1
@@ -191,17 +191,17 @@ eligible.
 
 One factor that influences retry behavior is the status of the connection on which the failed request was attempted. If
 the failure caused Ice to abort the connection (as discussed in the previous section), or if the request failed because
-Ice could not [establish a connection](../connection-establishment), Ice must try to obtain another connection before it
-can retry the request.
+Ice could not [establish a connection](../../connection-management/connection-establishment), Ice must try to obtain
+another connection before it can retry the request.
 
 It is also important to understand that Ice may not retry the invocation on the original endpoint _even if the
 connection that was used for the initial request remains open_. The retry behavior in this case depends on several
 criteria:
 
-- whether the proxy [caches its connection](../connection-establishment)
+- whether the proxy [caches its connection](../../connection-management/connection-establishment)
 - whether the proxy contains [multiple endpoints](../proxy-endpoints)
 - whether other connections exist to any of the proxy's endpoints
-- the proxy's configured [endpoint selection type](../connection-establishment)
+- the proxy's configured [endpoint selection type](../../connection-management/connection-establishment)
 
 Generally speaking, you must configure your application carefully if you need fine-grained control over Ice's retry
 behavior.
@@ -222,8 +222,8 @@ With an indirect proxy, the retry algorithm is a little bit different:
 
 ## See Also
 
-- [Terminology](../terminology)
-- [Operations](../operations)
+- [Terminology](../../../basics/terminology)
+- [Operations](../../../slice/operations)
 - [Invocation Timeouts](../invocation-timeouts)
-- [Connection Establishment](../connection-establishment)
-- [Getting Started with Glacier2](../getting-started-with-glacier2)
+- [Connection Establishment](../../connection-management/connection-establishment)
+- [Getting Started with Glacier2](../../../services/glacier2/getting-started-with-glacier2)

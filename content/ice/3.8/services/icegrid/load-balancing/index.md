@@ -10,17 +10,18 @@ determines whether the registry actually considers system load information while
 configuration also specifies how many replicas to include in the registry's response.
 
 IceGrid's load balancing capability assists the client in obtaining an initial set of endpoints for the purpose of
-[establishing a connection](../connection-establishment). Once a client has established a connection, all subsequent
-requests on the proxy that initiated the connection are normally sent to the same server without further consultation
-with the registry. As a result, the registry's response to a locate request can only be viewed as a snapshot of the
-replicas at a particular moment. If system loads are important to the client, it must take steps to periodically contact
-the registry and [update its endpoints](../locator-semantics-for-clients).
+[establishing a connection](../../../runtime/connection-management/connection-establishment). Once a client has
+established a connection, all subsequent requests on the proxy that initiated the connection are normally sent to the
+same server without further consultation with the registry. As a result, the registry's response to a locate request can
+only be viewed as a snapshot of the replicas at a particular moment. If system loads are important to the client, it
+must take steps to periodically contact the registry and
+[update its endpoints](../../../runtime/locators/locator-semantics-for-clients).
 
 ## Replica Group Load Balancing
 
-A [replica group descriptor](../replica-group-descriptor-element) optionally contains a
-[load balancing descriptor](../load-balancing-descriptor-element) that determines how system loads are used in locate
-requests. The load balancing descriptor specifies the following information:
+A [replica group descriptor](../icegrid-xml-reference/replica-group-descriptor-element) optionally contains a
+[load balancing descriptor](../icegrid-xml-reference/load-balancing-descriptor-element) that determines how system loads
+are used in locate requests. The load balancing descriptor specifies the following information:
 
 - Type Several [load balancing types](#load-balancing-types) are supported.
 
@@ -34,7 +35,7 @@ requests. The load balancing descriptor specifies the following information:
   object adapters. If the specified number _N_ is larger than one, the proxy returned in response to a locate request
   contains the endpoints of at most _N_ object adapters. If _N_ is 0, the proxy contains the endpoints of all the object
   adapters. The Ice run time in the client selects one of these endpoints at random when
-  [establishing a connection](../connection-establishment).
+  [establishing a connection](../../../runtime/connection-management/connection-establishment).
 
 For example, the descriptor shown below uses adaptive load balancing to return the endpoints of the two least-loaded
 object adapters sampled with five-minute intervals:
@@ -56,7 +57,7 @@ meaning the client that initiated the locate request will not receive the endpoi
 
 {% callout type="info" %}
 
-You can optionally use custom load balancing strategies by installing [replica group filters](../load-balancing).
+You can optionally use custom load balancing strategies by installing [replica group filters](./).
 
 {% /callout %}
 
@@ -81,7 +82,7 @@ A replica group can select one of the following load balancing types:
 Choosing the proper type of load balancing is highly dependent on the needs of client applications. Achieving the
 desired load balancing and fail-over behavior may also require the cooperation of your clients. To that end, it is very
 important that you understand how and when the Ice run time uses a
-[locator to resolve indirect proxies](../locator-semantics-for-clients).
+[locator to resolve indirect proxies](../../../runtime/locators/locator-semantics-for-clients).
 
 ## Using Load Balancing in the Ripper Application
 
@@ -149,7 +150,8 @@ In the sections below we describe how to implement these filters.
 
 ### Overview of Custom Load Balancing
 
-Filters are installed into the IceGrid registry using the standard Ice [plug-in facility](../plug-in-facility).
+Filters are installed into the IceGrid registry using the standard Ice
+[plug-in facility](../../../plugins/plug-in-facility).
 
 Since IceGrid is implemented in C++, you need to write and register a C++ plug-in.
 
@@ -218,7 +220,7 @@ private:
 ```
 
 The `initialize` method calls `getRegistryPluginFacade` to obtain a smart pointer for the registry's
-[facade object](../load-balancing). The plug-in uses this object to install a replica group filter.
+[facade object](./). The plug-in uses this object to install a replica group filter.
 
 We describe filter implementations in more detail below.
 
@@ -230,7 +232,8 @@ Continuing with our example, we use the following property to install our plug-i
 Ice.Plugin.RegistryPlugin=RegistryPlugin:createRegistryPlugin
 ```
 
-The [Ice.Plugin](../ice-plugin-properties) property must be defined in the registry's configuration file.
+The [Ice.Plugin](../../../property-reference/ice-plugin-properties) property must be defined in the registry's
+configuration file.
 
 {% callout type="tip" %}
 
@@ -242,9 +245,9 @@ behavior depending on which replica it's currently using.
 #### Filter Implementation Techniques
 
 A filter may require client-specific information in order to assemble its list of results. We recommend using
-[request contexts](../request-contexts) for this purpose. Briefly, a request context is a dictionary of key/value string
-pairs that a client can configure and send along as "out of band" metadata accompanying a request. Ice provides several
-ways for a client to establish a request context:
+[request contexts](../../../runtime/invocation/request-contexts) for this purpose. Briefly, a request context is a
+dictionary of key/value string pairs that a client can configure and send along as "out of band" metadata accompanying a
+request. Ice provides several ways for a client to establish a request context:
 
 - Implicit - provides a default request context for every request on all proxies
 - Per-proxy - configures a default request context for every request on a particular proxy
@@ -264,8 +267,8 @@ each kind of filter receives a request context:
   the discussion of type filters below for more details.)
 
   There are several ways you can configure a request context for the locator proxy. If a client configures its locator
-  proxy statically using properties, the simplest solution is to add [Context properties](../proxy-properties) to the
-  client's configuration, such as:
+  proxy statically using properties, the simplest solution is to add
+  [Context properties](../../../property-reference/proxy-properties) to the client's configuration, such as:
 
   ```config
   Ice.Default.Locator=...
@@ -284,11 +287,10 @@ each kind of filter receives a request context:
 
 So far we've discussed how client-specific information can be passed to a filter, but what if the filter needs to obtain
 more information about the object adapters (in the case of a replica group filter) or objects (in the case of a type
-filter) in order to perform its duties? This is where the registry's [facade object](../load-balancing) comes in handy,
-as with it the filter can retrieve information about the deployment. For example, a replica group filter can use
-server-specific properties as a form of metadata. The registry supplies the filter with a list of object adapter
-identifiers; each object adapter is hosted by a server, and the filter can look up property values for that server using
-the facade.
+filter) in order to perform its duties? This is where the registry's [facade object](./) comes in handy, as with it the
+filter can retrieve information about the deployment. For example, a replica group filter can use server-specific
+properties as a form of metadata. The registry supplies the filter with a list of object adapter identifiers; each
+object adapter is hosted by a server, and the filter can look up property values for that server using the facade.
 
 ### Implementing a Custom Replica Group Filter
 
@@ -310,19 +312,19 @@ The replica group's descriptor specifies the filter:
 </replica-group>
 ```
 
-Notice that the filter identifier `filterByCurrency` matches that used when the plug-in
-[registered the filter](../load-balancing).
+Notice that the filter identifier `filterByCurrency` matches that used when the plug-in [registered the filter](./).
 
-In this example, the client uses a [request context](../load-balancing) to indicate the desired currency. The context is
-configured on the locator proxy in the client's configuration file:
+In this example, the client uses a [request context](./) to indicate the desired currency. The context is configured on
+the locator proxy in the client's configuration file:
 
 ```config
 Ice.Default.Locator=...
 Ice.Default.Locator.Context.currency=USD
 ```
 
-Here we use the [Context](../proxy-properties) proxy property to statically assign a request context to the locator
-proxy, which means every invocation on the locator proxy includes the key/value pair `currency/USD`.
+Here we use the [Context](../../../property-reference/proxy-properties) proxy property to statically assign a request
+context to the locator proxy, which means every invocation on the locator proxy includes the key/value pair
+`currency/USD`.
 
 In addition to configuring the replica group filter, the deployment descriptor plays another important role here by
 defining server-specific properties that the filter uses in its implementation:
@@ -412,8 +414,8 @@ Refer to the previous section for more information on implementing a filter.
 ## See Also
 
 - [Object Adapter Replication](../object-adapter-replication)
-- [Connection Establishment](../connection-establishment)
-- [Replica-Group Descriptor Element](../replica-group-descriptor-element)
-- [Load-Balancing Descriptor Element](../load-balancing-descriptor-element)
+- [Connection Establishment](../../../runtime/connection-management/connection-establishment)
+- [Replica-Group Descriptor Element](../icegrid-xml-reference/replica-group-descriptor-element)
+- [Load-Balancing Descriptor Element](../icegrid-xml-reference/load-balancing-descriptor-element)
 - [Well-Known Objects](../well-known-objects)
 - [IceGrid Troubleshooting](../icegrid-troubleshooting)

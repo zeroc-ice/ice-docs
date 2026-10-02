@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a Java class with the same name. This mapping is similar to the mapping of
-[classes](../classes).
+[classes](../user-defined-types/classes).
 
 Consider the following Slice exceptions:
 
@@ -53,7 +53,7 @@ There are a number of things to note about this generated code:
 2. The generated class contains a public field for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
 4. The generated class provides a canonical constructor and a parameterless constructor; they are identical to the
-   generated constructors for classes. See [Java Mapping for Classes](../classes).
+   generated constructors for classes. See [Java Mapping for Classes](../user-defined-types/classes).
 
 ### Exception Specification
 
@@ -105,7 +105,8 @@ public interface Greeter extends com.zeroc.Ice.Object {
 {% callout type="info" %}
 
 If you remap your exception class name or the name of the enclosing package with `java:identifier` or `java:package`,
-remember to set a custom [Slice loader](../slice-loaders) in communicators that receive this exception.
+remember to set a custom [Slice loader](../user-defined-types/classes/slice-loaders) in communicators that receive this
+exception.
 
 {% /callout %}
 
