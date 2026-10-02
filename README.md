@@ -100,8 +100,6 @@ duplicating it.
   plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md) for SVG
   authoring.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
-- **Release note pages** carry `date:` (an ISO date, quoted) in their frontmatter; the front page's release list shows
-  it.
 - **Page layout** switches live in the frontmatter too: `shape: wide` runs the whole body on the wide track,
   `showAside: false` drops the right rail (the outline and the edit and discussion links), and `showReadingTime: false`
   drops the reading time. The front page sets all three.
