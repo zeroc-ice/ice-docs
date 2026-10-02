@@ -30,7 +30,9 @@ export interface PreviousVersions {
   url: string;
 }
 
-export interface NavDoc {
+/** A version's settings, from its `version.yaml`. */
+export interface VersionSettings {
+  /** The language mappings the version is written for. */
   languages: string[];
   /**
    * `latest` gets no banner and is where `/`, `/ice`, and `/ice/latest/…`
@@ -39,6 +41,9 @@ export interface NavDoc {
   status?: 'latest' | 'maintenance' | 'archived';
   /** Optional link to older docs kept on the previous platform. */
   previousVersions?: PreviousVersions;
+}
+
+export interface NavDoc extends VersionSettings {
   /** The table of contents. */
   sidebar: NavNode[];
 }

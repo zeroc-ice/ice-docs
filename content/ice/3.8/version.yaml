@@ -1,0 +1,16 @@
+# The settings of the Ice 3.8 documentation: the language mappings it is written for, its status, and where the
+# older versions live.
+status: latest
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
+previousVersions:
+  label: Previous Versions
+  url: https://archive.zeroc.com/
