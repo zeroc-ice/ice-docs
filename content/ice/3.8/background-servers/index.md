@@ -2,7 +2,7 @@
 title: Windows Services and Linux Daemons
 pages:
   - windows-services
-  - startup-scripts-for-icegrid-and-glacier2-on-linux
+  - linux-services
   - command-line-options
   - service-logging-considerations
 ---
