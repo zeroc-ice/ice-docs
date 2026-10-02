@@ -44,10 +44,8 @@ a directory, and its path under the version is its slug, the path in its URL:
   under `pages:`.
 - `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or, when no `index.md` sits beside it, the whole
   page for that language (`writing-a-greeter-client/cpp.md`).
-- `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,
-  `/ice/<version>/<language>/<name>`, and the pages it named differently. Each URL redirects to the page here with the
-  same name, or the one `redirects.yaml` names, keeping the language as `?lang=`; `lib/docs-model/scroll-urls.test.ts`
-  checks every one, and `check:markdoc` checks that one sent to a section lands on a heading its language shows.
+- `redirects.yaml` — the URLs this version's pages had on the previous site and the page each goes to, as Next.js
+  redirect patterns. `check:markdoc` checks that one sent to a section lands on a heading its language shows.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
 Images live under `public/images/ice/<version>/<page>/` and are referenced as `/images/ice/<version>/<page>/<file>`.

@@ -1,158 +1,411 @@
-# The Scroll Viewport site served each page of the Ice 3.8 documentation at /ice/3.8/<language>/<name>, with the language as
-# it spelled it (`javascript` for `js`). Each of those URLs redirects to the page here with the same name, keeping the
-# language as `?lang=`. The pages below were called something else there: the Scroll name, then the name of the page
-# here, with the heading anchor when the Scroll page became a section of it. `''` is the front page.
-renamed:
-  adapter-run-time-component: adapter-runtime-component
-  administration-and-diagnostics: administration
-  ami-in-python-with-futures: 'operations#asynchronous-method-invocation-ami'
-  application-distribution-with-ansible: ansible
-  application-notes-for-php: communicators-in-php
-  asynchronous-method-dispatch--amd--in-csharp: 'operations#asynchronous-method-dispatch-amd'
-  asynchronous-method-dispatch-amd-in-c: 'operations#asynchronous-method-dispatch-amd'
-  asynchronous-method-dispatch-amd-in-java: 'operations#asynchronous-method-dispatch-amd'
-  asynchronous-method-dispatch-amd-in-python: 'operations#asynchronous-method-dispatch-amd'
-  asynchronous-method-invocation--ami--in-csharp: 'operations#asynchronous-method-invocation-ami'
-  asynchronous-method-invocation-ami-in-c: 'operations#asynchronous-method-invocation-ami'
-  asynchronous-method-invocation-ami-in-java: 'operations#asynchronous-method-invocation-ami'
-  asynchronous-method-invocation-ami-in-matlab: 'operations#asynchronous-method-invocation-ami'
-  backward-compatibility-of-ice-versions: compatibility
-  c-mapping-for-classes: classes
-  c-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  c-plug-in-api-1: plug-in-api
-  c-plug-in-api: plug-in-api
-  classes-with-compact-type-ids: compact-type-ids
-  client-side-c-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-c-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-csharp-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-csharp-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-features: runtime
-  client-side-java-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-java-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-javascript-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-javascript-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-matlab-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-matlab-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-php-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-php-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-python-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-python-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-ruby-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-ruby-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  client-side-swift-mapping-for-interfaces: 'interfaces#client-side-mapping-for-interfaces'
-  client-side-swift-mapping-for-operations: 'operations#client-side-mapping-for-operations'
-  code-generation-in-python: code-generation
-  code-generation-in-ruby: code-generation
-  communicator-and-other-core-local-features: communicator
-  communicator-initialization: initialization-and-destruction
-  csharp-mapping-for-classes: classes
-  csharp-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  data-encoding-for-class-graphs: class-graphs
-  data-encoding-for-class-type-ids: class-type-ids
-  datastorm-features: datastorm-concepts
-  datastorm-node: datastorm-node-properties
-  datastorm-topic: datastorm-topic-properties
-  datastorm-trace: datastorm-trace-properties
-  filtering-proxy-endpoints: invocation-mode
-  get-started: ''
-  glacier2-1: glacier2-properties
-  ice-admin: ice-admin-properties
-  ice-architecture: basics
-  ice-connection: ice-connection-properties
-  ice-default: ice-default-properties
-  ice-encoding: encoding
-  ice-override: ice-override-properties
-  ice-plugin: ice-plugin-properties
-  ice-plugins: plugins
-  ice-protocol: protocol
-  ice-services-overview: services-overview
-  ice-services: services
-  ice-tcp: ice-tcp-properties
-  ice-threadpool: ice-threadpool-properties
-  ice-trace: ice-trace-properties
-  ice-udp: ice-udp-properties
-  ice-warn: ice-warn-properties
-  ice-ws: ice-ws-properties
-  ice: ice-properties
-  icebox-1: icebox-properties
-  iceboxadmin: iceboxadmin-properties
-  icebridge-1: icebridge-properties
-  icebt-1: icebt-properties
-  icediscovery-1: icediscovery-properties
-  icegrid-1: icegrid-properties
-  icegridadmin: icegridadmin-properties
-  icelocatordiscovery-1: icelocatordiscovery-properties
-  icemx-metrics: icemx-metrics-properties
-  icessl-1: icessl-properties
-  icestormadmin: icestormadmin-properties
-  java-mapping-for-classes: classes
-  java-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  java-plug-in-api: plug-in-api
-  javascript-mapping-for-classes: classes
-  javascript-mapping-for-parameters-and-return-value: 'operations#mapping-for-parameters-and-return-values'
-  logger-plug-ins: custom-logger-plug-in
-  matlab-mapping-for-classes: classes
-  matlab-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  metrics-view-run-time-component: metrics-view-runtime-component
-  node-run-time-component: node-runtime-component
-  object-adapter-states: object-adapter-activation-and-deactivation
-  object-adapters: dispatch
-  obtaining-proxies: creating-proxies
-  overview-of-the-ice-protocol: protocol-in-a-nutshell
-  php-mapping-for-classes: classes
-  php-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  plug-in-configuration: installing-a-plug-in-using-configuration
-  proxies: invocation
-  python-mapping-for-classes: classes
-  python-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  registry-run-time-component: registry-runtime-component
-  ruby-mapping-for-classes: classes
-  ruby-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  run-time-components: runtime-components
-  server-run-time-component: server-runtime-component
-  server-side-c-mapping-for-interfaces: 'interfaces#server-side-mapping-for-interfaces'
-  server-side-c-mapping-for-operations: 'operations#server-side-mapping-for-operations'
-  server-side-csharp-mapping-for-interfaces: 'interfaces#server-side-mapping-for-interfaces'
-  server-side-java-mapping-for-interfaces: 'interfaces#server-side-mapping-for-interfaces'
-  server-side-java-mapping-for-operations: 'operations#server-side-mapping-for-operations'
-  server-side-javascript-mapping-for-interfaces: 'interfaces#server-side-mapping-for-interfaces'
-  server-side-javascript-mapping-for-operations: 'operations#server-side-mapping-for-operations'
-  server-side-python-mapping-for-interfaces: 'interfaces#server-side-mapping-for-interfaces'
-  server-side-swift-mapping-for-interfaces: 'interfaces#server-side-mapping-for-interfaces'
-  service-run-time-component: service-runtime-component
-  slave-registry-run-time-component: slave-registry-runtime-component
-  slice-specification-language-for-ice: slice-and-slice-compilers
-  startup-scripts-for-icegrid-and-glacier2-on-linux: linux-services
-  swift-mapping-for-classes: classes
-  swift-mapping-for-parameters-and-return-values: 'operations#mapping-for-parameters-and-return-values'
-  the-active-servant-map: active-servant-map
-  the-admin-object: admin-object
-  the-default-logger: default-logger
-  the-dispatch-pipeline: dispatch-pipeline
-  the-ice-threading-model: threading-model
-  the-logger-facet: logger-facet
-  the-metrics-facet: metrics-facet
-  the-per-process-logger: per-process-logger
-  the-process-facet: process-facet
-  the-properties-facet: properties-facet
-  the-properties-interface: properties-class
-  the-slice-language: slice
-  upgrading-your-application-from-ice-3-7: upgrade-guide
-  user-exceptions: exceptions
-  using-ice-and-icerpc-together: icerpc
-  using-the-slice-compilers: using-the-slice-compiler
-  windows-services-and-linux-daemons: background-servers
-  writing-a-greeter-client-in-c-sharp: writing-a-greeter-client
-  writing-a-greeter-client-in-c: writing-a-greeter-client
-  writing-a-greeter-client-in-java: writing-a-greeter-client
-  writing-a-greeter-client-in-javascript: writing-a-greeter-client
-  writing-a-greeter-client-in-matlab: writing-a-greeter-client
-  writing-a-greeter-client-in-php: writing-a-greeter-client
-  writing-a-greeter-client-in-python: writing-a-greeter-client
-  writing-a-greeter-client-in-ruby: writing-a-greeter-client
-  writing-a-greeter-client-in-swift: writing-a-greeter-client
-  writing-a-greeter-server-in-c-sharp: writing-a-greeter-server
-  writing-a-greeter-server-in-c: writing-a-greeter-server
-  writing-a-greeter-server-in-java: writing-a-greeter-server
-  writing-a-greeter-server-in-python: writing-a-greeter-server
-  writing-a-greeter-server-in-swift: writing-a-greeter-server
+# The URLs the Ice 3.8 pages had on the previous docs site, docs.zeroc.com/ice/3.8/<language>/<name>, and the
+# page each goes to, keeping the language as ?lang=. Next.js redirect patterns: :lang(...) lists the languages the
+# old page existed for.
+
+'/ice/3.8/javascript/:rest*': '/ice/3.8/js/:rest*'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)': '/ice/3.8?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/about-glacier2': '/ice/3.8/services/glacier2/about-glacier2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/adapter-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/adapter-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/adapter-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/adapter-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/adapter-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/adapter-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/administration-and-diagnostics': '/ice/3.8/administration?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/administrative-facility': '/ice/3.8/administration/administrative-facility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/advanced-glacier2-client-configurations': '/ice/3.8/services/glacier2/advanced-glacier2-client-configurations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/allocatable-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/allocatable-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/alternate-property-stores': '/ice/3.8/runtime/properties-and-configuration/alternate-property-stores?lang=:lang'
+'/ice/3.8/:lang(python)/ami-in-python-with-futures': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-invocation-ami'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/application-component?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/application-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/application-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-distribution': '/ice/3.8/services/icegrid/application-distribution?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-distribution-with-ansible': '/ice/3.8/services/icegrid/application-distribution/ansible?lang=:lang'
+'/ice/3.8/:lang(php)/application-notes-for-php': '/ice/3.8/runtime/communicator/communicators-in-php?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-tabs': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs?lang=:lang'
+'/ice/3.8/:lang(csharp)/asynchronous-method-dispatch--amd--in-csharp': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-dispatch-amd'
+'/ice/3.8/:lang(cpp)/asynchronous-method-dispatch-amd-in-c': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-dispatch-amd'
+'/ice/3.8/:lang(java)/asynchronous-method-dispatch-amd-in-java': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-dispatch-amd'
+'/ice/3.8/:lang(python)/asynchronous-method-dispatch-amd-in-python': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-dispatch-amd'
+'/ice/3.8/:lang(csharp)/asynchronous-method-invocation--ami--in-csharp': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-invocation-ami'
+'/ice/3.8/:lang(cpp)/asynchronous-method-invocation-ami-in-c': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-invocation-ami'
+'/ice/3.8/:lang(java)/asynchronous-method-invocation-ami-in-java': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-invocation-ami'
+'/ice/3.8/:lang(matlab)/asynchronous-method-invocation-ami-in-matlab': '/ice/3.8/slice/operations?lang=:lang#asynchronous-method-invocation-ami'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/automatic-retries': '/ice/3.8/runtime/invocation/automatic-retries?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/backward-compatibility-of-ice-versions': '/ice/3.8/compatibility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/basic-data-encoding': '/ice/3.8/encoding/basic-data-encoding?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/basic-types': '/ice/3.8/slice/basic-types?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|python)/batched-invocation-interceptors': '/ice/3.8/runtime/invocation/invocation-mode/batched-invocation-interceptors?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/batched-invocations': '/ice/3.8/runtime/invocation/invocation-mode/batched-invocations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/bidirectional-connections': '/ice/3.8/runtime/connection-management/bidirectional-connections?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/built-in-loggers': '/ice/3.8/administration/logger-facility/built-in-loggers?lang=:lang'
+'/ice/3.8/:lang(cpp)/c-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(cpp)/c-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp)/c-plug-in-api': '/ice/3.8/plugins/plug-in-facility/plug-in-api?lang=:lang'
+'/ice/3.8/:lang(cpp)/c-plug-in-api-1': '/ice/3.8/plugins/plug-in-facility/plug-in-api?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/callbacks-through-glacier2': '/ice/3.8/services/glacier2/callbacks-through-glacier2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/class-inheritance': '/ice/3.8/slice/user-defined-types/classes/class-inheritance?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/classes-with-compact-type-ids': '/ice/3.8/slice/user-defined-types/classes/compact-type-ids?lang=:lang'
+'/ice/3.8/:lang(cpp)/client-side-c-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(cpp)/client-side-c-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(csharp)/client-side-csharp-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(csharp)/client-side-csharp-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/client-side-features': '/ice/3.8/runtime?lang=:lang'
+'/ice/3.8/:lang(java)/client-side-java-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(java)/client-side-java-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(js)/client-side-javascript-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(js)/client-side-javascript-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(matlab)/client-side-matlab-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(matlab)/client-side-matlab-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(php)/client-side-php-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(php)/client-side-php-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(python)/client-side-python-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(python)/client-side-python-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(ruby)/client-side-ruby-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(ruby)/client-side-ruby-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(swift)/client-side-swift-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#client-side-mapping-for-interfaces'
+'/ice/3.8/:lang(swift)/client-side-swift-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#client-side-mapping-for-operations'
+'/ice/3.8/:lang(python)/code-generation-in-python': '/ice/3.8/slice/code-generation?lang=:lang'
+'/ice/3.8/:lang(ruby)/code-generation-in-ruby': '/ice/3.8/slice/code-generation?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|python|swift)/collocated-invocation-and-dispatch': '/ice/3.8/runtime/collocated-invocation-and-dispatch?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/command-line-options': '/ice/3.8/background-servers/command-line-options?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/command-line-parsing-and-initialization': '/ice/3.8/runtime/properties-and-configuration/command-line-parsing-and-initialization?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/common-firewall-traversal-issues': '/ice/3.8/services/glacier2/common-firewall-traversal-issues?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/communicator-and-other-core-local-features': '/ice/3.8/runtime/communicator?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/communicator-initialization': '/ice/3.8/runtime/communicator/initialization-and-destruction?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/concurrent-proxy-invocations': '/ice/3.8/runtime/invocation/concurrent-proxy-invocations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/configuration-file-syntax': '/ice/3.8/runtime/properties-and-configuration/configuration-file-syntax?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/configuring-glacier2-behind-an-external-firewall': '/ice/3.8/services/glacier2/configuring-glacier2-behind-an-external-firewall?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java)/configuring-icebox-services': '/ice/3.8/services/icebox/configuring-icebox-services?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/configuring-icestorm': '/ice/3.8/services/icestorm/configuring-icestorm?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/connection-closure': '/ice/3.8/runtime/connection-management/connection-closure?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/connection-establishment': '/ice/3.8/runtime/connection-management/connection-establishment?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/connection-management': '/ice/3.8/runtime/connection-management?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/connection-to-an-icegrid-registry': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/connection-to-an-icegrid-registry?lang=:lang'
+'/ice/3.8/:lang(cpp)/connectivity': '/ice/3.8/services/datastorm/datastorm-concepts/connectivity?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/constants-and-literals': '/ice/3.8/slice/constants-and-literals?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/converting-proxies-to-strings': '/ice/3.8/runtime/invocation/converting-proxies-to-strings?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/creating-an-object-adapter': '/ice/3.8/runtime/dispatch/creating-an-object-adapter?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/creating-the-admin-object': '/ice/3.8/administration/administrative-facility/creating-the-admin-object?lang=:lang'
+'/ice/3.8/:lang(csharp)/csharp-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(csharp)/csharp-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/custom-administrative-facets': '/ice/3.8/administration/administrative-facility/custom-administrative-facets?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/custom-loggers': '/ice/3.8/administration/logger-facility/custom-loggers?lang=:lang'
+'/ice/3.8/:lang(cpp)/custom-types': '/ice/3.8/services/datastorm/datastorm-concepts/custom-types?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/data-encoding-for-class-graphs': '/ice/3.8/encoding/data-encoding-for-classes/class-graphs?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/data-encoding-for-class-type-ids': '/ice/3.8/encoding/data-encoding-for-classes/class-type-ids?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/data-encoding-for-classes': '/ice/3.8/encoding/data-encoding-for-classes?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/data-encoding-for-exceptions': '/ice/3.8/encoding/data-encoding-for-exceptions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/data-encoding-for-optional-values': '/ice/3.8/encoding/data-encoding-for-optional-values?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/data-encoding-for-proxies': '/ice/3.8/encoding/data-encoding-for-proxies?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/datagram-invocations': '/ice/3.8/runtime/invocation/invocation-mode/datagram-invocations?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm': '/ice/3.8/services/datastorm?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm-api-reference': '/ice/3.8/services/datastorm/datastorm-api-reference?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm-features': '/ice/3.8/services/datastorm/datastorm-concepts?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm-node': '/ice/3.8/property-reference/datastorm-node-properties?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm-overview': '/ice/3.8/services/datastorm/datastorm-overview?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm-topic': '/ice/3.8/property-reference/datastorm-topic-properties?lang=:lang'
+'/ice/3.8/:lang(cpp)/datastorm-trace': '/ice/3.8/property-reference/datastorm-trace-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/default-servants': '/ice/3.8/runtime/dispatch/default-servants?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/defining-the-greeter-interface-in-slice': '/ice/3.8/greeter-example/defining-the-greeter-interface-in-slice?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/deprecating-slice-definitions': '/ice/3.8/slice/deprecating-slice-definitions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/description-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/description-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/design-considerations-for-request-contexts': '/ice/3.8/runtime/invocation/request-contexts/design-considerations-for-request-contexts?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java)/developing-icebox-services': '/ice/3.8/services/icebox/developing-icebox-services?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/dictionaries': '/ice/3.8/slice/user-defined-types/dictionaries?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/dispatcher-api': '/ice/3.8/runtime/dispatch/dispatcher-api?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/dynamic-request-filtering-with-glacier2': '/ice/3.8/services/glacier2/dynamic-request-filtering-with-glacier2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/editing-and-saving-icegrid-descriptors': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/editing-and-saving-icegrid-descriptors?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/endpoint-syntax': '/ice/3.8/runtime/endpoint-syntax?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/enumerations': '/ice/3.8/slice/user-defined-types/enumerations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/explicit-request-contexts': '/ice/3.8/runtime/invocation/request-contexts/explicit-request-contexts?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/facets': '/ice/3.8/runtime/facets?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/fields': '/ice/3.8/slice/fields?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/filtering-administrative-facets': '/ice/3.8/administration/administrative-facility/filtering-administrative-facets?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/filtering-proxy-endpoints': '/ice/3.8/runtime/invocation/invocation-mode?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/forward-declarations': '/ice/3.8/slice/forward-declarations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/get-started': '/ice/3.8?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/getting-started-with-glacier2': '/ice/3.8/services/glacier2/getting-started-with-glacier2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/getting-started-with-icegrid': '/ice/3.8/services/icegrid/getting-started-with-icegrid?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/getting-started-with-icegrid-gui': '/ice/3.8/services/icegrid/icegrid-gui-tool/getting-started-with-icegrid-gui?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/glacier2': '/ice/3.8/services/glacier2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/glacier2-1': '/ice/3.8/property-reference/glacier2-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/glacier2-integration-with-icegrid': '/ice/3.8/services/icegrid/glacier2-integration-with-icegrid?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/glacier2-metrics': '/ice/3.8/services/glacier2/glacier2-metrics?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/glacier2-session-management': '/ice/3.8/services/glacier2/glacier2-session-management?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/greeter-example': '/ice/3.8/greeter-example?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/highly-available-icestorm': '/ice/3.8/services/icestorm/highly-available-icestorm?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/how-glacier2-uses-request-contexts': '/ice/3.8/services/glacier2/how-glacier2-uses-request-contexts?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/how-glacier2-works': '/ice/3.8/services/glacier2/how-glacier2-works?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice': '/ice/3.8/property-reference/ice-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-3-8-0': '/ice/3.8/release-notes/ice-3-8-0?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-3-8-1': '/ice/3.8/release-notes/ice-3-8-1?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-3-8-2': '/ice/3.8/release-notes/ice-3-8-2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-3-8-3': '/ice/3.8/release-notes/ice-3-8-3?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-admin': '/ice/3.8/property-reference/ice-admin-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-architecture': '/ice/3.8/basics?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-connection': '/ice/3.8/property-reference/ice-connection-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-default': '/ice/3.8/property-reference/ice-default-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-encoding': '/ice/3.8/encoding?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-log-dialog': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/ice-log-dialog?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-override': '/ice/3.8/property-reference/ice-override-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-plugin': '/ice/3.8/property-reference/ice-plugin-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-plugins': '/ice/3.8/plugins?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-protocol': '/ice/3.8/protocol?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-services': '/ice/3.8/services?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-services-overview': '/ice/3.8/basics/services-overview?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-tcp': '/ice/3.8/property-reference/ice-tcp-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-threadpool': '/ice/3.8/property-reference/ice-threadpool-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-trace': '/ice/3.8/property-reference/ice-trace-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-udp': '/ice/3.8/property-reference/ice-udp-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-warn': '/ice/3.8/property-reference/ice-warn-properties?lang=:lang'
+'/ice/3.8/:lang(js)/ice-ws': '/ice/3.8/property-reference/ice-ws-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java)/icebox': '/ice/3.8/services/icebox?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java)/icebox-1': '/ice/3.8/property-reference/icebox-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java)/icebox-administration': '/ice/3.8/services/icebox/icebox-administration?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icebox-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/icebox-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icebox-integration-with-icegrid': '/ice/3.8/services/icegrid/icebox-integration-with-icegrid?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/iceboxadmin': '/ice/3.8/property-reference/iceboxadmin-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icebridge': '/ice/3.8/services/icebridge?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icebridge-1': '/ice/3.8/property-reference/icebridge-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|java)/icebt': '/ice/3.8/plugins/icebt?lang=:lang'
+'/ice/3.8/:lang(cpp|java)/icebt-1': '/ice/3.8/property-reference/icebt-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icediscovery': '/ice/3.8/plugins/icediscovery?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/icediscovery-1': '/ice/3.8/property-reference/icediscovery-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid': '/ice/3.8/services/icegrid?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-1': '/ice/3.8/property-reference/icegrid-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-administrative-sessions': '/ice/3.8/services/icegrid/icegrid-administrative-sessions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-and-glacier2-integration': '/ice/3.8/services/glacier2/icegrid-and-glacier2-integration?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-and-the-administrative-facility': '/ice/3.8/services/icegrid/icegrid-and-the-administrative-facility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-architecture': '/ice/3.8/services/icegrid/icegrid-architecture?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-database-utility': '/ice/3.8/services/icegrid/icegrid-database-utility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/icegrid-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-descriptors': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-gui-tool': '/ice/3.8/services/icegrid/icegrid-gui-tool?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-persistent-data': '/ice/3.8/services/icegrid/icegrid-server-reference/icegrid-persistent-data?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-property-set-semantics': '/ice/3.8/services/icegrid/icegrid-property-set-semantics?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-server-activation': '/ice/3.8/services/icegrid/icegrid-server-activation?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-server-reference': '/ice/3.8/services/icegrid/icegrid-server-reference?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-templates': '/ice/3.8/services/icegrid/icegrid-templates?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-troubleshooting': '/ice/3.8/services/icegrid/icegrid-troubleshooting?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-xml-features': '/ice/3.8/services/icegrid/icegrid-xml-features?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegrid-xml-reference': '/ice/3.8/services/icegrid/icegrid-xml-reference?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegridadmin': '/ice/3.8/property-reference/icegridadmin-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegridadmin-command-line-tool': '/ice/3.8/services/icegrid/icegridadmin-command-line-tool?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegridnode': '/ice/3.8/services/icegrid/icegrid-server-reference/icegridnode?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icegridregistry': '/ice/3.8/services/icegrid/icegrid-server-reference/icegridregistry?lang=:lang'
+'/ice/3.8/:lang(cpp|swift)/iceiap': '/ice/3.8/plugins/iceiap?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/icelocatordiscovery': '/ice/3.8/plugins/icelocatordiscovery?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/icelocatordiscovery-1': '/ice/3.8/property-reference/icelocatordiscovery-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icemx-metrics': '/ice/3.8/property-reference/icemx-metrics-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icessl-1': '/ice/3.8/property-reference/icessl-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm': '/ice/3.8/services/icestorm?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-administration': '/ice/3.8/services/icestorm/icestorm-administration?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-concepts': '/ice/3.8/services/icestorm/icestorm-concepts?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-database-utility': '/ice/3.8/services/icestorm/icestorm-database-utility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-delivery-modes': '/ice/3.8/services/icestorm/icestorm-delivery-modes?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-metrics': '/ice/3.8/services/icestorm/icestorm-metrics?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-persistent-data': '/ice/3.8/services/icestorm/icestorm-persistent-data?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-properties': '/ice/3.8/property-reference/icestorm-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestorm-quality-of-service': '/ice/3.8/services/icestorm/icestorm-quality-of-service?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/icestormadmin': '/ice/3.8/property-reference/icestormadmin-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/implementing-an-icestorm-publisher': '/ice/3.8/services/icestorm/using-icestorm/implementing-an-icestorm-publisher?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/implementing-an-icestorm-subscriber': '/ice/3.8/services/icestorm/using-icestorm/implementing-an-icestorm-subscriber?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/implicit-request-contexts': '/ice/3.8/runtime/invocation/request-contexts/implicit-request-contexts?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/indirect-proxy-with-object-adapter-identifier': '/ice/3.8/runtime/invocation/proxy-endpoints/indirect-proxy-with-object-adapter-identifier?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/installing-a-windows-service': '/ice/3.8/background-servers/windows-services/installing-a-windows-service?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/interface-inheritance': '/ice/3.8/slice/interfaces/interface-inheritance?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/interfaces': '/ice/3.8/slice/interfaces?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/invocation-timeouts': '/ice/3.8/runtime/invocation/invocation-timeouts?lang=:lang'
+'/ice/3.8/:lang(java)/java-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(java)/java-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp)/java-plug-in-api': '/ice/3.8/plugins/plug-in-facility/plug-in-api?lang=:lang'
+'/ice/3.8/:lang(js)/javascript-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(js)/javascript-mapping-for-parameters-and-return-value': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/lexical-rules': '/ice/3.8/slice/lexical-rules?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/live-deployment-tab': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/load-balancing': '/ice/3.8/services/icegrid/load-balancing?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/load-balancing-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/load-balancing-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/local-and-dispatch-exceptions': '/ice/3.8/runtime/local-and-dispatch-exceptions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/locator-configuration-for-a-client': '/ice/3.8/runtime/locators/locator-configuration-for-a-client?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/locator-configuration-for-a-server': '/ice/3.8/runtime/locators/locator-configuration-for-a-server?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/locator-semantics-for-clients': '/ice/3.8/runtime/locators/locator-semantics-for-clients?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/locator-semantics-for-servers': '/ice/3.8/runtime/locators/locator-semantics-for-servers?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/locators': '/ice/3.8/runtime/locators?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/log-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/log-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/log-file-dialog': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/log-file-dialog?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/logger-facility': '/ice/3.8/administration/logger-facility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/logger-plug-ins': '/ice/3.8/plugins/custom-logger-plug-in?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/manually-installing-a-service-as-a-windows-service': '/ice/3.8/background-servers/windows-services/manually-installing-a-service-as-a-windows-service?lang=:lang'
+'/ice/3.8/:lang(matlab)/matlab-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(matlab)/matlab-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/metrics-graph': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/metrics-graph?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/metrics-view-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/metrics-view-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|swift)/middleware': '/ice/3.8/runtime/dispatch/middleware?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/modules': '/ice/3.8/slice/modules?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/names-and-scoping': '/ice/3.8/slice/names-and-scoping?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/navigation-within-an-application-tab': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/navigation-within-an-application-tab?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/nested-invocations': '/ice/3.8/runtime/threading-model/nested-invocations?lang=:lang'
+'/ice/3.8/:lang(cpp)/node': '/ice/3.8/services/datastorm/datastorm-concepts/node?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/node-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/node-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/node-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/node-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/node-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/node-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp)/node-server': '/ice/3.8/services/datastorm/node-server?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/object-adapter-endpoints': '/ice/3.8/runtime/dispatch/object-adapter-endpoints?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/object-adapter-properties': '/ice/3.8/property-reference/object-adapter-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/object-adapter-replication': '/ice/3.8/services/icegrid/object-adapter-replication?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/object-adapter-states': '/ice/3.8/runtime/dispatch/object-adapter-activation-and-deactivation?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/object-adapter-thread-pools': '/ice/3.8/runtime/threading-model/object-adapter-thread-pools?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/object-adapters': '/ice/3.8/runtime/dispatch?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/object-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/object-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/object-identity': '/ice/3.8/runtime/object-identity?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/obtaining-proxies': '/ice/3.8/runtime/invocation/creating-proxies?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/oneway-invocations': '/ice/3.8/runtime/invocation/invocation-mode/oneway-invocations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/operations': '/ice/3.8/slice/operations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/operations-on-object': '/ice/3.8/slice/operations-on-object?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/overview-of-the-ice-protocol': '/ice/3.8/basics/protocol-in-a-nutshell?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/parameter-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/parameter-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/per-proxy-request-contexts': '/ice/3.8/runtime/invocation/request-contexts/per-proxy-request-contexts?lang=:lang'
+'/ice/3.8/:lang(php)/php-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(php)/php-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/plug-in-configuration': '/ice/3.8/plugins/plug-in-facility/installing-a-plug-in-using-configuration?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|matlab|php|ruby|swift)/plug-in-facility': '/ice/3.8/plugins/plug-in-facility?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/promoting-a-registry-slave': '/ice/3.8/services/icegrid/icegrid-server-reference/promoting-a-registry-slave?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/properties-and-configuration': '/ice/3.8/runtime/properties-and-configuration?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/properties-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/properties-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/properties-overview': '/ice/3.8/runtime/properties-and-configuration/properties-overview?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/property-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/property-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/property-reference': '/ice/3.8/property-reference?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/property-set-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/property-set-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/protocol-compression': '/ice/3.8/protocol/protocol-compression?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/protocol-messages': '/ice/3.8/protocol/protocol-messages?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxies': '/ice/3.8/runtime/invocation?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-based-load-balancing': '/ice/3.8/runtime/invocation/proxy-based-load-balancing?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-defaults-and-overrides': '/ice/3.8/runtime/invocation/proxy-defaults-and-overrides?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-endpoints': '/ice/3.8/runtime/invocation/proxy-endpoints?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-properties': '/ice/3.8/property-reference/proxy-properties?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-types': '/ice/3.8/slice/interfaces/proxy-types?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/publishing-to-a-specific-subscriber': '/ice/3.8/services/icestorm/using-icestorm/publishing-to-a-specific-subscriber?lang=:lang'
+'/ice/3.8/:lang(python)/python-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(python)/python-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp)/reader': '/ice/3.8/services/datastorm/datastorm-concepts/reader?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/registry-replication': '/ice/3.8/services/icegrid/registry-replication?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/registry-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/registry-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/release-notes': '/ice/3.8/release-notes?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/replica-group-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/replica-group-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/replica-group-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/replica-group-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/request-contexts': '/ice/3.8/runtime/invocation/request-contexts?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/resource-allocation-using-icegrid-sessions': '/ice/3.8/services/icegrid/resource-allocation-using-icegrid-sessions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/routers': '/ice/3.8/runtime/invocation/routers?lang=:lang'
+'/ice/3.8/:lang(ruby)/ruby-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(ruby)/ruby-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/run-time-components': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components?lang=:lang'
+'/ice/3.8/:lang(cpp)/sample': '/ice/3.8/services/datastorm/datastorm-concepts/sample?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/securing-a-glacier2-router': '/ice/3.8/services/glacier2/securing-a-glacier2-router?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/securing-icegrid': '/ice/3.8/services/icegrid/securing-icegrid?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/security-considerations-for-administrative-facets': '/ice/3.8/administration/administrative-facility/security-considerations-for-administrative-facets?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/self-referential-classes': '/ice/3.8/slice/user-defined-types/classes/self-referential-classes?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/sequences': '/ice/3.8/slice/user-defined-types/sequences?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/server-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/server-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/server-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/server-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/server-instance-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/server-instance-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/server-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/server-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp)/server-side-c-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#server-side-mapping-for-interfaces'
+'/ice/3.8/:lang(cpp)/server-side-c-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#server-side-mapping-for-operations'
+'/ice/3.8/:lang(csharp)/server-side-csharp-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#server-side-mapping-for-interfaces'
+'/ice/3.8/:lang(java)/server-side-java-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#server-side-mapping-for-interfaces'
+'/ice/3.8/:lang(java)/server-side-java-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#server-side-mapping-for-operations'
+'/ice/3.8/:lang(js)/server-side-javascript-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#server-side-mapping-for-interfaces'
+'/ice/3.8/:lang(js)/server-side-javascript-mapping-for-operations': '/ice/3.8/slice/operations?lang=:lang#server-side-mapping-for-operations'
+'/ice/3.8/:lang(python)/server-side-python-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#server-side-mapping-for-interfaces'
+'/ice/3.8/:lang(swift)/server-side-swift-mapping-for-interfaces': '/ice/3.8/slice/interfaces?lang=:lang#server-side-mapping-for-interfaces'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/server-template-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/server-template-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/server-template-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/server-template-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/service-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/service-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-instance-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/service-instance-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-logging-considerations': '/ice/3.8/background-servers/service-logging-considerations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/service-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-template-descriptor': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/service-template-descriptor?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-template-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/service-template-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/setting-environment-variables-in-descriptors': '/ice/3.8/services/icegrid/icegrid-xml-reference/setting-environment-variables-in-descriptors?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/setting-properties-on-the-command-line': '/ice/3.8/runtime/properties-and-configuration/setting-properties-on-the-command-line?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/simple-classes': '/ice/3.8/slice/user-defined-types/classes/simple-classes?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/simple-example-of-class-encoding': '/ice/3.8/encoding/data-encoding-for-classes/simple-example-of-class-encoding?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slave-registry-run-time-component': '/ice/3.8/services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/slave-registry-runtime-component?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-compilation': '/ice/3.8/slice/slice-compilation?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-keywords': '/ice/3.8/slice/slice-keywords?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-loaders': '/ice/3.8/slice/user-defined-types/classes/slice-loaders?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-metadata-directives': '/ice/3.8/slice/slice-metadata-directives?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-source-files': '/ice/3.8/slice/slice-source-files?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-specification-language-for-ice': '/ice/3.8/basics/slice-and-slice-compilers?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slicing-values-and-exceptions': '/ice/3.8/slice/user-defined-types/classes/slicing-values-and-exceptions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ssl-transport': '/ice/3.8/runtime/ssl-transport?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java)/starting-the-icebox-server': '/ice/3.8/services/icebox/starting-the-icebox-server?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/startup-scripts-for-icegrid-and-glacier2-on-linux': '/ice/3.8/background-servers/linux-services?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/structures': '/ice/3.8/slice/user-defined-types/structures?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/supported-platforms-for-ice-3-8-0': '/ice/3.8/release-notes/supported-platforms-for-ice-3-8-0?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/supported-platforms-for-ice-3-8-1': '/ice/3.8/release-notes/supported-platforms-for-ice-3-8-1?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/supported-platforms-for-ice-3-8-2': '/ice/3.8/release-notes/supported-platforms-for-ice-3-8-2?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/supported-platforms-for-ice-3-8-3': '/ice/3.8/release-notes/supported-platforms-for-ice-3-8-3?lang=:lang'
+'/ice/3.8/:lang(swift)/swift-mapping-for-classes': '/ice/3.8/slice/user-defined-types/classes?lang=:lang'
+'/ice/3.8/:lang(swift)/swift-mapping-for-parameters-and-return-values': '/ice/3.8/slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/syntax-for-stringified-proxies': '/ice/3.8/runtime/invocation/syntax-for-stringified-proxies?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/terminology': '/ice/3.8/basics/terminology?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/the-active-servant-map': '/ice/3.8/runtime/dispatch/active-servant-map?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-admin-object': '/ice/3.8/administration/administrative-facility/admin-object?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-default-logger': '/ice/3.8/administration/logger-facility/default-logger?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/the-dispatch-pipeline': '/ice/3.8/runtime/dispatch/dispatch-pipeline?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-ice-threading-model': '/ice/3.8/runtime/threading-model?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-logger-facet': '/ice/3.8/administration/administrative-facility/logger-facet?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-metrics-facet': '/ice/3.8/administration/administrative-facility/metrics-facet?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python)/the-per-process-logger': '/ice/3.8/administration/logger-facility/per-process-logger?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-process-facet': '/ice/3.8/administration/administrative-facility/process-facet?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-properties-facet': '/ice/3.8/administration/administrative-facility/properties-facet?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-properties-interface': '/ice/3.8/runtime/properties-and-configuration/properties-class?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/the-slice-language': '/ice/3.8/slice?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/thread-pool-design-considerations': '/ice/3.8/runtime/threading-model/thread-pool-design-considerations?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/thread-pools': '/ice/3.8/runtime/threading-model/thread-pools?lang=:lang'
+'/ice/3.8/:lang(cpp)/topic': '/ice/3.8/services/datastorm/datastorm-concepts/topic?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/topic-federation': '/ice/3.8/services/icestorm/topic-federation?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/transports': '/ice/3.8/runtime/transports?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/troubleshooting-windows-services': '/ice/3.8/background-servers/windows-services/troubleshooting-windows-services?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/type-ids': '/ice/3.8/slice/type-ids?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/upgrading-your-application-from-ice-3-7': '/ice/3.8/upgrade-guide?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/user-defined-types': '/ice/3.8/slice/user-defined-types?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/user-exceptions': '/ice/3.8/slice/exceptions?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-an-icestorm-publisher-object': '/ice/3.8/services/icestorm/using-icestorm/using-an-icestorm-publisher-object?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-command-line-options-in-descriptors': '/ice/3.8/services/icegrid/icegrid-xml-reference/using-command-line-options-in-descriptors?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-configuration-files': '/ice/3.8/runtime/properties-and-configuration/using-configuration-files?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-descriptor-variables-and-parameters': '/ice/3.8/services/icegrid/using-descriptor-variables-and-parameters?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-ice-and-icerpc-together': '/ice/3.8/icerpc?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-icegrid-deployment': '/ice/3.8/services/icegrid/using-icegrid-deployment?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-icestorm': '/ice/3.8/services/icestorm/using-icestorm?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|python|swift)/using-multiple-object-adapters': '/ice/3.8/runtime/dispatch/using-multiple-object-adapters?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-the-admin-object': '/ice/3.8/administration/administrative-facility/using-the-admin-object?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-the-ice-service-installer': '/ice/3.8/background-servers/windows-services/using-the-ice-service-installer?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-the-slice-compilers': '/ice/3.8/slice/using-the-slice-compiler?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/variable-descriptor-element': '/ice/3.8/services/icegrid/icegrid-xml-reference/variable-descriptor-element?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/variables-in-icegrid-descriptors': '/ice/3.8/services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/variables-in-icegrid-descriptors?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/versioning': '/ice/3.8/versioning?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/versioning-through-incremental-updates': '/ice/3.8/versioning/versioning-through-incremental-updates?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/versioning-with-facets': '/ice/3.8/versioning/versioning-with-facets?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/well-known-objects': '/ice/3.8/services/icegrid/well-known-objects?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/well-known-proxy': '/ice/3.8/runtime/invocation/proxy-endpoints/well-known-proxy?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/well-known-registry-objects': '/ice/3.8/services/icegrid/icegrid-server-reference/well-known-registry-objects?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/windows-services': '/ice/3.8/background-servers/windows-services?lang=:lang'
+'/ice/3.8/:lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/windows-services-and-linux-daemons': '/ice/3.8/background-servers?lang=:lang'
+'/ice/3.8/:lang(cpp)/writer': '/ice/3.8/services/datastorm/datastorm-concepts/writer?lang=:lang'
+'/ice/3.8/:lang(cpp)/writing-a-greeter-client-in-c': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(csharp)/writing-a-greeter-client-in-c-sharp': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(java)/writing-a-greeter-client-in-java': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(js)/writing-a-greeter-client-in-javascript': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(matlab)/writing-a-greeter-client-in-matlab': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(php)/writing-a-greeter-client-in-php': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(python)/writing-a-greeter-client-in-python': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(ruby)/writing-a-greeter-client-in-ruby': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(swift)/writing-a-greeter-client-in-swift': '/ice/3.8/greeter-example/writing-a-greeter-client?lang=:lang'
+'/ice/3.8/:lang(cpp)/writing-a-greeter-server-in-c': '/ice/3.8/greeter-example/writing-a-greeter-server?lang=:lang'
+'/ice/3.8/:lang(csharp)/writing-a-greeter-server-in-c-sharp': '/ice/3.8/greeter-example/writing-a-greeter-server?lang=:lang'
+'/ice/3.8/:lang(java)/writing-a-greeter-server-in-java': '/ice/3.8/greeter-example/writing-a-greeter-server?lang=:lang'
+'/ice/3.8/:lang(python)/writing-a-greeter-server-in-python': '/ice/3.8/greeter-example/writing-a-greeter-server?lang=:lang'
+'/ice/3.8/:lang(swift)/writing-a-greeter-server-in-swift': '/ice/3.8/greeter-example/writing-a-greeter-server?lang=:lang'

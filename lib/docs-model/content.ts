@@ -8,7 +8,7 @@
 //   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
 //   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
 //   <root>/<version>/examples/...              (snippet sources)
-//   <root>/<version>/redirects.yaml            old URL to new URL
+//   <root>/<version>/redirects.yaml            old URLs and where each goes
 //
 // A page is a directory, and its path under the version is its slug, the path in
 // its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
@@ -209,9 +209,9 @@ export function readNavigation(root: string, version: string): NavDoc {
 /**
  * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
  * and `/ice/latest/…` go to the version whose `version.yaml` says `status: latest`,
- * and each URL a version's pages had on the Scroll Viewport site goes to its
- * page here. Throws unless exactly one version says `status: latest`, and when a
- * `redirects.yaml` names a page its version doesn't have.
+ * followed by each version's own `redirects.yaml`. Throws unless exactly one
+ * version says `status: latest`, and when a `redirects.yaml` names a page its
+ * version doesn't have.
  */
 export function readRedirects(root: string) {
   const versions = listVersions(root);
@@ -235,56 +235,34 @@ export function readRedirects(root: string) {
       destination: `${front}/:path*`,
       permanent: false
     },
-    ...versions.flatMap((version) =>
-      scrollRedirects(root, version, settings.get(version)!.languages)
-    )
+    ...versions.flatMap((version) => versionRedirects(root, version))
   ];
 }
 
 /**
- * The redirects for the URLs a version's pages had on the Scroll Viewport site,
- * `/ice/<version>/<language>/<name>`, when the version has a `redirects.yaml`:
- * each goes to the page here with the same name, or the one `redirects.yaml`
- * names, keeping the language as `?lang=`.
+ * The redirects a version's `redirects.yaml` lists: a source pattern and its
+ * destination, as Next's `redirects` config takes them. Throws when a
+ * destination names a page the version doesn't have.
  */
-function scrollRedirects(root: string, version: string, languages: string[]) {
+function versionRedirects(root: string, version: string) {
   const file = path.join(root, version, 'redirects.yaml');
   if (!fs.existsSync(file)) return [];
-  const { renamed } = yamlLoad(fs.readFileSync(file, 'utf8')) as {
-    renamed: Record<string, string>;
-  };
-  const slugs = new Map(
-    listPages(root, version).map((page) => [page.name, page.slug])
+  const entries = yamlLoad(fs.readFileSync(file, 'utf8')) as Record<
+    string,
+    string
+  >;
+  const pages = new Set(
+    listPages(root, version).map((page) => pageHref(version, page.slug))
   );
-  // A page name here, with an optional heading anchor, keeping the language.
-  const to = (target: string) => {
-    const [name, anchor] = target.split('#');
-    const slug = slugs.get(name);
-    if (slug === undefined)
+  return Object.entries(entries).map(([source, destination]) => {
+    const page = destination.split(/[?#]/)[0];
+    // A destination with a route parameter, `:rest*`, is not one page.
+    if (!page.includes(':') && !pages.has(page))
       throw new Error(
-        `${version}/redirects.yaml names "${name}", which is not a page`
+        `${version}/redirects.yaml sends ${source} to ${page}, which is not a page`
       );
-    return `${pageHref(version, slug)}?lang=:lang${anchor ? `#${anchor}` : ''}`;
-  };
-  const scroll = `/ice/${version}/:lang(${languages.join('|')})`;
-  return [
-    // The Scroll Viewport site spelled `js` as `javascript`.
-    {
-      source: `/ice/${version}/javascript/:rest*`,
-      destination: `/ice/${version}/js/:rest*`,
-      permanent: true
-    },
-    ...[...slugs.keys()].map((name) => ({
-      source: name ? `${scroll}/${name}` : scroll,
-      destination: to(name),
-      permanent: true
-    })),
-    ...Object.entries(renamed).map(([name, target]) => ({
-      source: `${scroll}/${name}`,
-      destination: to(target),
-      permanent: true
-    }))
-  ];
+    return { source, destination, permanent: true };
+  });
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
