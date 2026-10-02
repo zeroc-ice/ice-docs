@@ -2,7 +2,7 @@
 
 ### Swift Package
 
-Ice for Swift is distributed as the Swift package `https://github.com/zeroc-ice/ice.git`. This package replaces the
+ZeroC distributes Ice for Swift as the Swift package `https://github.com/zeroc-ice/ice.git`. This package replaces the
 Carthage dependency and the `ice-spm` Swift package of Ice 3.7.
 
 | **Product**    | **Description**                                                        |
@@ -134,7 +134,10 @@ a final class that synchronizes access to its state and is declared `@unchecked 
 }
 ```
 
-A skeleton protocol declares as `sending` each input parameter whose type is or contains a Slice class.
+A skeleton protocol declares as
+[`sending`](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0430-transferring-parameters-and-results.md)
+each input parameter whose type is or contains a Slice class. A servant method can omit `sending`. Code that calls such
+an operation directly on a servant must pass an argument that it does not access after the call.
 
 ## Removed Dispatch structs
 
