@@ -17,11 +17,9 @@ configuration files set [Ice.UseSystemdJournal](../ice-properties#ice.usesystemd
 
 Installing either package creates the user account `ice` and the group `ice`. The IceGrid package also creates the data
 directories that the sample configuration files name: `/var/lib/ice/icegrid/registry` for `icegridregistry` and
-`/var/lib/ice/icegrid/node1` for `icegridnode`. The DEB package assigns these directories to the user `ice` and the
-group `adm`; the RPM package assigns them to the user `ice` and the group `ice`.
+`/var/lib/ice/icegrid/node1` for `icegridnode`.
 
-Installing a package does not start its services. The DEB packages install the units disabled. The RPM packages enable
-or disable each unit according to the `systemd` preset policy of the distribution.
+Installing a package does not start its services: you enable and start them yourself.
 
 The IceGrid sample configuration files describe a deployment with the IceGrid registry and one IceGrid node, `node1`, on
 the same host. Review the configuration file of a service before you start it. Then start the service and enable it at
