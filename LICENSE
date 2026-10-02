@@ -1,9 +1,13 @@
 Copyright (c) ZeroC, Inc.
 
-This repository contains both documentation and code that helps render this documentation nicely.
+This repository contains the Ice documentation and the code of the website that renders it.
 
-The documentation is licensed under the Creative Commons Attribution 4.0 International Public License [1].
-Unless otherwise noted, the code is licensed under the Apache License, Version 2.0 [2].
+The documentation consists of the files in the content, diagrams and public/attachments directories. It is licensed
+under the Creative Commons Attribution 4.0 International Public License [1], except for the code samples it contains,
+which are licensed under the GNU General Public License, version 2 [2].
 
-[1]: https://creativecommons.org/licenses/by/4.0/legalcode
-[2]: https://www.apache.org/licenses/LICENSE-2.0
+Unless otherwise noted, all other files are licensed under the Apache License, Version 2.0 [3].
+
+[1]: LICENSES/CC-BY-4.0.txt
+[2]: LICENSES/GPL-2.0-only.txt
+[3]: LICENSES/Apache-2.0.txt

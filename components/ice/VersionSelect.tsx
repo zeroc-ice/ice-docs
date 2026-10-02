@@ -15,29 +15,13 @@ export interface VersionOption {
 interface VersionSelectProps {
   current: string;
   options: VersionOption[];
-  /** Older releases that live outside this site. */
-  previousVersions?: { label: string; url: string };
 }
 
 // Which version you are reading has to be unmistakable — it is the single most
 // expensive thing for a reader to get wrong, and search engines land people on
 // old releases constantly. So the version is always spelled out in the top bar,
 // even when there is only one to choose from.
-export function VersionSelect({
-  current,
-  options,
-  previousVersions
-}: VersionSelectProps) {
-  const single = options.length <= 1 && !previousVersions;
-
-  if (single) {
-    return (
-      <span className="rounded-md border border-black/15 px-3 py-1 text-sm dark:border-white/20">
-        Ice {current}
-      </span>
-    );
-  }
-
+export function VersionSelect({ current, options }: VersionSelectProps) {
   return (
     <Menu
       align="left"
@@ -53,22 +37,14 @@ export function VersionSelect({
         </>
       }
     >
-      <VersionItems
-        current={current}
-        options={options}
-        previousVersions={previousVersions}
-      />
+      <VersionItems current={current} options={options} />
     </Menu>
   );
 }
 
 // The version choices, shared with the front page's switch so that both offer
-// the same ones.
-export function VersionItems({
-  current,
-  options,
-  previousVersions
-}: VersionSelectProps) {
+// the same ones. The older releases live on the archive site.
+export function VersionItems({ current, options }: VersionSelectProps) {
   return (
     <>
       {options.map((option) => (
@@ -80,14 +56,8 @@ export function VersionItems({
           Ice {option.value}
         </MenuItem>
       ))}
-      {previousVersions && (
-        <>
-          <MenuSeparator />
-          <MenuItem href={previousVersions.url}>
-            {previousVersions.label}…
-          </MenuItem>
-        </>
-      )}
+      <MenuSeparator />
+      <MenuItem href="https://archive.zeroc.com/">Previous Versions…</MenuItem>
     </>
   );
 }
