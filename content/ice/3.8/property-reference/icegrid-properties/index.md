@@ -83,7 +83,8 @@ The collocated registry is configured with the same properties as the standalone
 
 Defines the path of the IceGrid node [data directory](../icegridnode). This property must be defined for each node, and
 the directory must already exist. The node creates a `servers` subdirectory in this directory if it does not already
-exist; `servers` contains configuration data for each [deployed server](../using-icegrid-deployment).
+exist; `servers` contains the configuration files and data directory of each
+[deployed server](../using-icegrid-deployment).
 
 ## IceGrid.Node.DisableOnFailure
 
@@ -108,8 +109,8 @@ meaning the node does not disable servers in this situation.
 
 ### Description {% id="icegrid.node.name-description" %}
 
-Defines the `name` of the IceGrid node. All nodes using the same registry must have unique names. This property must be
-defined for each node.
+Defines the `name` of the IceGrid node. Each node in an IceGrid deployment must have a unique name. This property must
+be defined for each node.
 
 ## IceGrid.Node.Output
 
@@ -119,13 +120,11 @@ defined for each node.
 
 ### Description {% id="icegrid.node.output-description" %}
 
-Defines the path of the IceGrid node output directory. If set, the node sets [Ice.StdOut](../ice-properties) to
-`path/server-id.out` and [Ice.StdErr](../ice-properties) to `path/server-id.err` in the configuration of each server it
-starts, where `server-id` is the server's ID. The node leaves `Ice.StdOut` or `Ice.StdErr` unchanged when the server's
-configuration already sets it.
-
-For a stream that neither the node nor the server's configuration redirects to a file, the server writes to the `stdout`
-or `stderr` of the node's process.
+Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` and `stderr` of each
+server it starts to `path/server-id.out` and `path/server-id.err`, where `server-id` is the server's ID, except for a
+stream that the server's own configuration redirects with [Ice.StdOut](../ice-properties) or
+[Ice.StdErr](../ice-properties). If this property is not set, the servers share the `stdout` and `stderr` of the node's
+process.
 
 ## IceGrid.Node.PrintServersReady
 
@@ -172,10 +171,9 @@ deployment descriptors. The property definitions must be separated by white spac
 
 ### Description {% id="icegrid.node.redirecterrtoout-description" %}
 
-If `num` is set to a value larger than zero, the node sets [Ice.StdErr](../ice-properties) to `path/server-id.out`
-instead of `path/server-id.err`, where `path` is the value of
-[IceGrid.Node.Output](../icegrid-properties#icegrid.node.output). This property takes effect only when
-`IceGrid.Node.Output` is set and the server's configuration does not set `Ice.StdErr`.
+If `num` is set to a value larger than zero, the node redirects the `stderr` of each server it starts to the server's
+`.out` file instead of its `.err` file. This property takes effect only when
+[IceGrid.Node.Output](../icegrid-properties#icegrid.node.output) is set.
 
 ## IceGrid.Node.Trace.Activator
 
@@ -320,10 +318,10 @@ The default value is 60 seconds.
 
 Specifies the file name of an IceGrid registry
 [access control list for administrative clients](../resource-allocation-using-icegrid-sessions). The file uses the
-format described in [IceGrid.Registry.CryptPasswords](../icegrid-properties#icegrid.registry.cryptpasswords). If this
-property is not defined, the registry does not use a password file for administrative clients. This property is ignored
-if [IceGrid.Registry.AdminPermissionsVerifier](../icegrid-properties#icegrid.registry.adminpermissionsverifier) is
-defined.
+format described in [IceGrid.Registry.CryptPasswords](../icegrid-properties#icegrid.registry.cryptpasswords). This
+property is ignored if
+[IceGrid.Registry.AdminPermissionsVerifier](../icegrid-properties#icegrid.registry.adminpermissionsverifier) is defined.
+When neither property is defined, the registry rejects administrative sessions created with a user name and password.
 
 ## IceGrid.Registry.AdminPermissionsVerifier
 
@@ -348,12 +346,13 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 ### Description {% id="icegrid.registry.adminsessionfilters-description" %}
 
-This property controls whether IceGrid establishes filters for sessions created with the
-[IceGrid session manager](../glacier2-integration-with-icegrid). If `num` is set to a value larger than zero, IceGrid
-establishes these filters, so [Glacier2](../glacier2) limits access to the `IceGrid::AdminSession` object, the
-`IceGrid::Admin` object that is returned by the `getAdmin` operation, the `IceGrid::Query` object, and the admin objects
-of the servers. If `num` is set to zero, IceGrid does not establish filters, so access to objects is controlled solely
-by Glacier2's configuration.
+When a client creates an administrative session through a [Glacier2](../glacier2) router, using the
+[IceGrid session manager](../glacier2-integration-with-icegrid), this property controls whether IceGrid restricts the
+objects the client can reach through the router. If `num` is set to a value larger than zero, IceGrid configures
+[Glacier2's filters](../securing-a-glacier2-router) for the session to allow only the `IceGrid::AdminSession` object,
+the `IceGrid::Admin` object that is returned by the `getAdmin` operation, the `IceGrid::Query` object, and the server
+admin objects returned by `IceGrid::Admin::getServerAdmin`. If `num` is set to zero, IceGrid configures no filters, and
+access to objects is controlled solely by Glacier2's configuration.
 
 The default value is 0.
 
@@ -413,18 +412,12 @@ registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for th
 ### Description {% id="icegrid.registry.cryptpasswords-description" %}
 
 Specifies the file name of an IceGrid registry [access control list](../resource-allocation-using-icegrid-sessions).
-Each line of the file contains a user name and a password hash, separated by white space.
+Each line of the file contains a user name and a password hash, separated by white space. The supported hash formats
+depend on the platform; see [Writing a Password File](../getting-started-with-glacier2).
 
-The accepted password hash formats depend on the platform:
-
-- On Linux, the registry accepts any password hash format supported by the system's `crypt` library, including SHA-256
-  and SHA-512 crypt.
-- On macOS and Windows, the registry accepts PBKDF2 hashes in the
-  [passlib format](https://pythonhosted.org/passlib/modular_crypt_format.html) only (`$pbkdf2$`, `$pbkdf2-sha256$`, and
-  `$pbkdf2-sha512$`).
-
-If this property is not defined, the registry does not use a password file. This property is ignored if
-[IceGrid.Registry.PermissionsVerifier](../icegrid-properties#icegrid.registry.permissionsverifier) is defined.
+This property is ignored if
+[IceGrid.Registry.PermissionsVerifier](../icegrid-properties#icegrid.registry.permissionsverifier) is defined. When
+neither property is defined, the registry rejects sessions created with a user name and password.
 
 ## IceGrid.Registry.DefaultTemplates
 
@@ -438,7 +431,7 @@ Defines the path name of an XML file containing default [template descriptors](.
 named `config/templates.xml` that contains convenient server templates for Ice services is provided in the Ice
 distribution.
 
-This property has no default value.
+When this property is not set, the registry has no default templates.
 
 ## IceGrid.Registry.Discovery._AdapterProperty_
 
@@ -467,10 +460,9 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 
 ### Description {% id="icegrid.registry.discovery.address-description" %}
 
-Specifies the multicast IP address to use for receiving multicast discovery queries. If not defined, the registry uses
-the address `239.255.0.1` when [Ice.IPv4](../ice-properties) is enabled (the default) and
-[Ice.PreferIPv6Address](../ice-properties) is disabled; otherwise, the registry uses the address `ff15::1`. This
-property is used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
+Specifies the multicast IP address to use for receiving multicast discovery queries. The default value is `239.255.0.1`;
+it is `ff15::1` when [Ice.IPv4](../ice-properties) is disabled or [Ice.PreferIPv6Address](../ice-properties) is enabled.
+This property is used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
 
 ## IceGrid.Registry.Discovery.Enabled
 
@@ -558,8 +550,10 @@ and 100 MB on other platforms.
 
 ### Description {% id="icegrid.registry.lmdb.path-description" %}
 
-Specifies the path of IceGrid registry LMDB [database environment](../icegrid-persistent-data). This property must be
-defined, and the directory specified in `path` must exist: the IceGrid registry does not create this directory.
+Specifies the path of the directory where the IceGrid registry keeps its [persistent data](../icegrid-persistent-data),
+stored in an [LMDB](http://www.lmdb.tech/doc/) database environment: the deployed applications, and the well-known
+objects and object adapter endpoints registered at run time. This property must be defined, and the directory specified
+in `path` must exist: the IceGrid registry does not create this directory.
 
 ## IceGrid.Registry.NodeSessionTimeout
 
