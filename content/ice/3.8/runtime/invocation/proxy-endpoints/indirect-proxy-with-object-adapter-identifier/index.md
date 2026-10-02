@@ -21,12 +21,18 @@ it corresponds to a local object adapter, or retrieves the endpoints published b
 
 The resolution proceeds as follows:
 
+{% iflang langs="js" %}
+
+Ice for JavaScript does not provide collocation optimization, so the resolution starts at step 2.
+
+{% /iflang %}
+
 1. If [collocation optimization](../collocated-invocation-and-dispatch) is enabled (the default), Ice checks if an
-   [object adapter](../dispatch) associated with the same communicator as the proxy has the desired object adapter
-   identifier (set through [ReplicaGroupId](../object-adapter-properties) or [AdapterId](../object-adapter-properties)).
-   If there is such an object adapter, Ice then sends requests to this object adapter using collocation optimization.
-   The [holding state](../object-adapter-activation-and-deactivation) of the object adapters is ignored for this search
-   and subsequent collocated dispatches.
+   [object adapter](../dispatch) created by the proxy's communicator has the desired object adapter identifier (set
+   through [ReplicaGroupId](../object-adapter-properties) or [AdapterId](../object-adapter-properties)). If there is
+   such an object adapter, Ice then sends requests to this object adapter using collocation optimization. The
+   [holding state](../object-adapter-activation-and-deactivation) of the object adapters is ignored for this search and
+   subsequent collocated dispatches.
 2. Otherwise, if no local object adapters carries the desired object adapter identifier (or collocation optimization is
    disabled), and a [locator](../locators) is configured with the communicator:
 
@@ -34,12 +40,6 @@ The resolution proceeds as follows:
    2. If this lookup fails, Ice resolves this object adapter identifier using the locator.
 
 3. In case the preceding steps can't locate the object adapter, the invocation fails with `NoEndpointException`.
-
-{% iflang langs="js" %}
-
-Ice for JavaScript does not provide collocation optimization, so the resolution starts at step 2.
-
-{% /iflang %}
 
 ## See Also
 
