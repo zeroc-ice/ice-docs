@@ -83,7 +83,7 @@ programmatically.
 
 The writer listens on a well known server endpoint and multiple readers can connect to it.
 
-![Two readers connect to a writer listening on TCP port 10000. The arrows show who initiates each connection.](/attachments/3.8/connectivity/one-writer-multiple-readers.svg)
+![Two readers connect to a writer listening on TCP port 10000. The arrows show who initiates each connection.](/images/ice/3.8/connectivity/one-writer-multiple-readers.svg)
 
 In this configuration the writer is acting as a server, the readers don’t need to configure any server endpoints.
 
@@ -91,7 +91,7 @@ In this configuration the writer is acting as a server, the readers don’t need
 
 The reader listens on a well known server endpoint and multiple writers can connect to it.
 
-![Two writers connect to a reader listening on TCP port 10000. The arrows show who initiates each connection.](/attachments/3.8/connectivity/one-reader-multiple-writers.svg)
+![Two writers connect to a reader listening on TCP port 10000. The arrows show who initiates each connection.](/images/ice/3.8/connectivity/one-reader-multiple-writers.svg)
 
 In this configuration the reader is acting as a server, the writers don’t need to configure any server endpoints.
 
@@ -103,7 +103,7 @@ and sample forwarding.
 The broker node can be any node in the system — for example, one of the readers or writers — or a dedicated node used
 exclusively for brokering connections.
 
-![Two writers and two readers connect to a broker node listening on TCP port 10000. All arrows point toward the broker because the readers and writers initiate the connections.](/attachments/3.8/connectivity/multiple-readers-and-writers-single-broker.svg)
+![Two writers and two readers connect to a broker node listening on TCP port 10000. All arrows point toward the broker because the readers and writers initiate the connections.](/images/ice/3.8/connectivity/multiple-readers-and-writers-single-broker.svg)
 
 Only the broker node needs to configure a server endpoint. Readers and writers can disable their own server endpoints
 and rely on the broker node for discovery and message relaying between nodes.
@@ -120,7 +120,7 @@ discovery.
 In this configuration, readers and writers connect to one of several **broker nodes**. This setup avoids the single
 point of failure present in the previous scenario with a single broker node.
 
-![Readers and writers are configured with both broker endpoints. Solid and dashed paths show their connections and alternate broker choices. Broker node 1 listens on port 10000; broker node 2 listens on port 10001 and connects to broker node 1.](/attachments/3.8/connectivity/multiple-readers-and-writers-with-replicated-broker.svg)
+![Readers and writers are configured with both broker endpoints. Solid and dashed paths show their connections and alternate broker choices. Broker node 1 listens on port 10000; broker node 2 listens on port 10001 and connects to broker node 1.](/images/ice/3.8/connectivity/multiple-readers-and-writers-with-replicated-broker.svg)
 
 Each reader and writer connects to a single broker node at a time. If the connection to that broker node fails, the
 client can automatically fall back to another available broker node. This ensures high availability and prevents any

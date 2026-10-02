@@ -69,18 +69,18 @@ The main IceGrid GUI window allows to navigate between your live deployment and 
 
 The main IceGrid GUI window shows one or more tabs:
 
-![image2017-4-3 11:52:48.png](/attachments/3.8/getting-started-with-icegrid-gui/image2017-4-3-11-52-48.png)
+![image2017-4-3 11:52:48.png](/images/ice/3.8/getting-started-with-icegrid-gui/image2017-4-3-11-52-48.png)
 
-- The Live Deployment tab ![live deployment](/attachments/3.8/getting-started-with-icegrid-gui/live-deployment.jpeg)
+- The Live Deployment tab ![live deployment](/images/ice/3.8/getting-started-with-icegrid-gui/live-deployment.jpeg)
   displays information about an IceGrid deployment you have logged into. There is always one and only one Live
   Deployment tab. When you are not connected to an IceGrid deployment, the corresponding pane is empty.
-- A Live Application tab ![live application](/attachments/3.8/getting-started-with-icegrid-gui/live-application.jpeg)
+- A Live Application tab ![live application](/images/ice/3.8/getting-started-with-icegrid-gui/live-application.jpeg)
   displays application definitions retrieved from the IceGrid registry you are connected to. As long as you do not
   change anything in the associated pane, IceGrid GUI will keep the information up-to-date. For example if another
   administrator adds a new server definition in this application definition, it will appear automatically and
   immediately in this pane.
 - A File-Based Application tab
-  ![file based application](/attachments/3.8/getting-started-with-icegrid-gui/file-based-application.jpeg) displays
+  ![file based application](/images/ice/3.8/getting-started-with-icegrid-gui/file-based-application.jpeg) displays
   application definitions retrieved from an IceGrid XML file.
 - An icon-less tab displays the definitions of an application that is not bound to an IceGrid registry or to a file,
   such as a brand new application. A live application with unsaved modifications also becomes icon-less if the
@@ -93,7 +93,7 @@ IceGrid GUI may show any number of application tabs, including none at all.
 The status bar at the bottom of the main window shows information about operations performed by IceGrid GUI, or messages
 received from the IceGrid registry.
 
-![image2017-4-3 13:42:19.png](/attachments/3.8/getting-started-with-icegrid-gui/image2017-4-3-13-42-19.png)
+![image2017-4-3 13:42:19.png](/images/ice/3.8/getting-started-with-icegrid-gui/image2017-4-3-13-42-19.png)
 
 ## See Also
 

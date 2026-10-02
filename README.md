@@ -1,8 +1,8 @@
 # Ice Docs
 
-Source for the Ice documentation site: a Next.js + Markdoc application that publishes the Ice manual at
-`/ice/<version>/<slug>` — for example `/ice/3.8/slice/user-defined-types/enumerations`. Each page carries every language
-mapping it covers; the reader picks one (C++ until they do), and the choice is kept in the browser.
+Source for the Ice documentation site: a Next.js + Markdoc application that serves each page at `/ice/<version>/<slug>`
+— for example `/ice/3.8/slice/user-defined-types/enumerations`. Each page carries every language mapping it covers; the
+reader picks one (C++ until they do), and the choice is kept in the browser.
 
 ## Requirements
 
@@ -31,16 +31,17 @@ npm run format:check               # what CI runs
 
 ## Content layout
 
-Everything for one version of the manual lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page
-is a directory, and its path under the version is its slug, the path in its URL:
+Everything for one version of the docs lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page is
+a directory, and its path under the version is its slug, the path in its URL:
 
 - `version.yaml` — the version's settings: `status` and `languages`. The site root and `/ice` redirect to the front page
   of the version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version.
-- `index.md` — the manual's front page, served at `/ice/<version>`. It is the first entry in the table of contents,
-  ahead of the chapters, and the breadcrumb root links to it. Its frontmatter lists the chapters under `pages:`.
+- `index.md` — the front page, served at `/ice/<version>`. It is the first entry in the table of contents, labeled
+  Documentation, ahead of the chapters, and the breadcrumb root links to it. Its frontmatter lists the chapters under
+  `pages:`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
-  `{% language-section %}` slots. The pages under it in the manual are its subdirectories, in the order its frontmatter
-  lists them under `pages:`.
+  `{% language-section %}` slots. The pages under it are its subdirectories, in the order its frontmatter lists them
+  under `pages:`.
 - `<dir>/…/<page>/<lang>.md` — the overlay filling that page's slots, or, when no `index.md` sits beside it, the whole
   page for that language (`writing-a-greeter-client/cpp.md`).
 - `scroll-urls.txt` and `redirects.yaml` — every URL this version had on the Scroll Viewport site,
@@ -49,9 +50,9 @@ is a directory, and its path under the version is its slug, the path in its URL:
   checks every one, and `check:markdoc` checks that one sent to a section lands on a heading its language shows.
 - `examples/<lang>/...` — compilable snippet sources; `{% snippet %}` pulls fragments out of them.
 
-Images live under `public/attachments/<version>/<page>/` and are referenced as `/attachments/<version>/<page>/<file>`.
-Keep a shared figure in one page's attachment directory and reference that same asset from other pages instead of
-duplicating it.
+Images live under `public/images/ice/<version>/<page>/` and are referenced as `/images/ice/<version>/<page>/<file>`.
+Keep a shared figure in one page's image directory and reference that same asset from other pages instead of duplicating
+it. Images the site itself uses, such as the link arrow, live under `public/images/site/`.
 
 - **Every page is in the table of contents**: `check:content` fails a page that no `pages:` list reaches from the front
   page down.
@@ -59,7 +60,7 @@ duplicating it.
 - **Cross-page links name a page by name** (`[Enumerations](../enumerations)`) and are resolved at build time. A link to
   a page that does not exist renders as plain text, and `check:markdoc` fails on it. A link can name the language
   mapping to show with `?lang=`, as in `[AMD in Java](../operations?lang=java#asynchronous-method-dispatch-amd)`;
-  following it switches the reader to that mapping. `check:markdoc` fails one whose mapping the manual lacks or doesn't
+  following it switches the reader to that mapping. `check:markdoc` fails one whose mapping the version lacks or doesn't
   show the anchor.
 - **A link to a heading in the same file is a bare anchor** (`[size](#encoding-for-sizes)`), which MD051 checks. Where
   MD051 can't, because the heading sits in another file of the page or its anchor keeps a dot or comes from `{% id %}`,
@@ -95,10 +96,10 @@ duplicating it.
   reads it as part of that item or quote. An inline closer, `word{% /iflang %}`, has no space before it;
   `scripts/prettier-plugin-markdoc.ts`, the parser `format` uses for Markdown, glues one written after a space to the
   word before it, so that line filling moves the two together.
-- **Images** live under `public/attachments/`. A paragraph that is nothing but an image renders as a figure; an image
-  inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article column. Use a
-  plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md) for SVG
-  authoring.
+- **Images** live under `public/images/ice/<version>/<page>/`. A paragraph that is nothing but an image renders as a
+  figure; an image inside a sentence stays on the line. SVG figures declare a native size and shrink to fit the article
+  column. Use a plain image URL; no sizing fragment is needed. See the [diagram style guide](diagrams/STYLE-GUIDE.md)
+  for SVG authoring.
 - **Page kinds** (`type:` in frontmatter) are optional and currently unused.
 - **Page layout** switches live in the frontmatter too: `shape: wide` runs the whole body on the wide track,
   `showAside: false` drops the right rail (the outline and the edit and discussion links), and `showReadingTime: false`
@@ -106,7 +107,7 @@ duplicating it.
 
 ## Deployment
 
-`npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (attachments,
+`npm run build` produces a standalone Next.js server; the `Dockerfile` packages it together with `public/` (images,
 search index) and `.next/static`. The sitemap's base URL, each page's canonical URL, and the links in its breadcrumb
 structured data come from `SITE_URL` (default `https://docs.zeroc.com`); `docker build --build-arg SITE_URL=…` passes it
 through.

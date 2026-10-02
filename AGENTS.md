@@ -50,7 +50,7 @@ Read it first. This file covers the conventions that recur in review.
 
 - **`diagrams/STYLE-GUIDE.md` is normative.** Read it before drawing or editing a figure: it defines the canvas and
   layout rules, the color and shape roles, the connector grammar, and the accessibility and SVG hygiene requirements.
-  Start from `diagrams/template.svg`, and publish the SVG under `public/attachments/<version>/<page>/`.
+  Start from `diagrams/template.svg`, and publish the SVG under `public/images/ice/<version>/<page>/`.
 - **Alt text describes what the figure shows**, in the identifiers the surrounding page uses. A name that appears only
   in the drawing leaves the reader unable to match the figure to the configuration they are following.
 

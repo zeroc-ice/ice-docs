@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 //
-// Pure navigation model: turn the manual's table of contents — one recursive
+// Pure navigation model: turn the table of contents — one recursive
 // tree of pages, read from the pages themselves — into the pieces a page needs:
 // the sidebar with its active branch, the breadcrumb trail, and the
 // previous/next links. No imports, so it is unit-testable with plain objects.
@@ -56,9 +56,12 @@ export interface SideNavNode {
  */
 export const GROUP_OVERVIEW_TITLE = 'Overview';
 
+/** The label the front page takes in the sidebar, under the site's name in the header. */
+export const FRONT_PAGE_NAV_TITLE = 'Documentation';
+
 /**
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
- * the manual's full shape shows), with a link for each page.
+ * the full shape shows), with a link for each page.
  */
 export function buildSideNav(nodes: NavNode[], version: string): SideNavNode[] {
   return nodes.map((node) => {
@@ -174,24 +177,30 @@ export interface Crumb {
   href?: string;
 }
 
-/** What the root of every breadcrumb trail is called. */
-export const MANUAL_TITLE = 'Ice Manual';
+/** The site's name, and the root of every breadcrumb trail. */
+export const SITE_TITLE = 'Ice Documentation';
+
+/** The site's name for one version, which every page of that version's tab title ends with. */
+export function versionTitle(version: string): string {
+  return `Ice ${version} Documentation`;
+}
 
 /**
- * The trail from the manual's front page down to the page at `slug`: the manual
- * itself, then every ancestor, then the page. The last crumb is the current
- * page and is never a link. Empty when the page is not in the tree.
+ * The trail from the front page down to the page at `slug`: the front
+ * page, then every ancestor, then the page. The last crumb is the current page
+ * and is never a link. Empty for the front page itself, and when the page is
+ * not in the tree.
  */
 export function breadcrumbs(
   nodes: NavNode[],
   version: string,
   slug: string
 ): Crumb[] {
-  const trail = trailTo(nodes, slug);
+  const trail = slug ? trailTo(nodes, slug) : null;
   if (!trail) return [];
 
   const crumbs: Crumb[] = [
-    { title: MANUAL_TITLE, href: pageHref(version) },
+    { title: SITE_TITLE, href: pageHref(version) },
     ...trail.map((node) => ({
       title: node.title,
       href: pageHref(version, node.slug)
@@ -247,7 +256,7 @@ export function prevNext(
 export const DEFAULT_LANGUAGE = 'cpp';
 export const LANGUAGE_STORAGE_KEY = 'language';
 
-// Display names for programming-language slugs, in the manual's canonical order.
+// Display names for programming-language slugs, in canonical order.
 export const LANGUAGE_LABELS: Record<string, string> = {
   cpp: 'C++',
   csharp: 'C#',

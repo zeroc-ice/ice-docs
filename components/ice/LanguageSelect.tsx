@@ -7,7 +7,7 @@ import { Menu, MenuItem } from '@/components/menu';
 import { setLanguage, useLanguage } from '@/context/state';
 import { languageLabel } from '@/lib/docs-model/nav';
 
-// A dropdown language switcher, sized for the manual's nine mappings.
+// A dropdown language switcher, sized for the nine mappings.
 // Selecting a language switches the page in place: every mapping is already in it.
 export function LanguageSelect({ languages }: { languages: string[] }) {
   const current = useLanguage();

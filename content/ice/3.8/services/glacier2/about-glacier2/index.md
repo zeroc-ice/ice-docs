@@ -7,7 +7,7 @@ Glacier2, the router-firewall for Ice applications, addresses
 firewall administrators). In the illustration below, Glacier2 becomes the server firewall for Ice applications. What is
 not obvious in the diagram, however, is how Glacier2 eliminates much of the complexity of firewall traversal.
 
-![Clients A and B use bidirectional connections through their firewall to Glacier2. Glacier2 forwards requests to servers A and B, which send callbacks to Glacier2 over separate connections.](/attachments/3.8/about-glacier2/multiple-clients-and-servers.svg)
+![Clients A and B use bidirectional connections through their firewall to Glacier2. Glacier2 forwards requests to servers A and B, which send callbacks to Glacier2 over separate connections.](/images/ice/3.8/about-glacier2/multiple-clients-and-servers.svg)
 
 Complex network environments are a fact of life. Unfortunately, the cost of securing an enterprise's network is
 increased application complexity and administrative overhead. Glacier2 helps to minimize these costs by providing a

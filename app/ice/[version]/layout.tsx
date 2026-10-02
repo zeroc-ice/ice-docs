@@ -2,22 +2,22 @@
 
 import type { Metadata } from 'next';
 
-import { buildSideNav } from '@/lib/docs-model/nav';
+import { buildSideNav, versionTitle } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
 import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
 
 type VersionParams = { params: Promise<{ version: string }> };
 
-// Every page of a version names it in its title: "Operations | Ice 3.8 Manual".
+// Every page of a version names it in its title: "Operations | Ice 3.8 Documentation".
 export async function generateMetadata({
   params
 }: VersionParams): Promise<Metadata> {
   const { version } = await params;
   return {
     title: {
-      template: `%s | Ice ${version} Manual`,
-      default: `Ice ${version} Manual`
+      template: `%s | ${versionTitle(version)}`,
+      default: versionTitle(version)
     }
   };
 }
@@ -37,7 +37,7 @@ export default async function VersionLayout({
       <VersionBanner version={version} status={nav.status} />
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
-          {/* Sidebar: the manual's table of contents. */}
+          {/* Sidebar: the version's table of contents. */}
           <SideNav nodes={buildSideNav(nav.sidebar, version)} />
 
           {/* Content */}

@@ -11,7 +11,7 @@ Up to this point, we have presented an Ice object as a single conceptual entity,
 most-derived interface and a single identity, with the object being implemented by a single servant. However, an Ice
 object is more correctly viewed as a collection of one or more sub-objects known as facets, as shown below:
 
-![One Ice object exposes five facets: the unnamed default facet, Facet 1, Facet 2, This Facet, and That Facet.](/attachments/3.8/facets/facets.svg)
+![One Ice object exposes five facets: the unnamed default facet, Facet 1, Facet 2, This Facet, and That Facet.](/images/ice/3.8/facets/facets.svg)
 
 _An Ice object with five facets sharing a single object identity._
 

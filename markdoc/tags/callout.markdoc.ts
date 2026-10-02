@@ -10,7 +10,7 @@ const callout: Schema = {
       type: String,
       default: 'note',
       // `compatibility` is the version-availability note ("not available before
-      // Ice 3.8") that a multi-version manual needs constantly; `deprecated`
+      // Ice 3.8") that multi-version docs need constantly; `deprecated`
       // marks obsolete APIs and behaviour.
       matches: [
         'note',

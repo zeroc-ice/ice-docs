@@ -74,7 +74,7 @@ export const AppLink = ({
           display: inline-block;
           width: 16px;
           height: 16px;
-          background-image: url('/images/link_arrow.svg');
+          background-image: url('/images/site/link_arrow.svg');
           background-repeat: no-repeat;
           background-size: cover;
           transform: scale(0.52);
@@ -82,7 +82,7 @@ export const AppLink = ({
         }
 
         :global(html.dark) .with-arrow::after {
-          background-image: url('/images/link_arrow_dark.svg');
+          background-image: url('/images/site/link_arrow_dark.svg');
         }
       `}</style>
     </Link>

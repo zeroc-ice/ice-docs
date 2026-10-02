@@ -16,7 +16,7 @@ As an example, this illustration shows a very simple IceGrid application running
 IceGrid registry is the only process of interest on host `PC1`, while IceGrid nodes are running on the hosts `PC2` and
 `PC3`. In this sample application, one server has been assigned to each node.
 
-![Host PC1 runs the registry. Host PC2 runs Node A and Server X. Host PC3 runs Node B and Server Y.](/attachments/3.8/icegrid-architecture/icegrid1.svg)
+![Host PC1 runs the registry. Host PC2 runs Node A and Server X. Host PC3 runs Node B and Server Y.](/images/ice/3.8/icegrid-architecture/icegrid1.svg)
 
 From a client application's perspective, the primary responsibility of the registry is to resolve indirect proxies as an
 Ice [location service](../locators). As such, this contribution is largely transparent: when a client first attempts to
@@ -38,7 +38,7 @@ indirection allows servers to migrate to different computers without the need to
 IceGrid's flexibility allows an endless variety of configurations. For example, suppose we have a grid network and want
 to replicate a server on each blade, as shown below:
 
-![Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the same pattern through Blade N.](/attachments/3.8/icegrid-architecture/icegrid2.svg)
+![Blade 1 runs the registry, Node 1, and Server 1. Blade 2 runs Node 2 and Server 2. Further blades follow the same pattern through Blade N.](/images/ice/3.8/icegrid-architecture/icegrid2.svg)
 
 Replication in Ice is based on [object adapters](../dispatch), not servers. Any object adapter in any server could
 participate in replication, but it is far more likely that all of the

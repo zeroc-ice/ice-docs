@@ -2,12 +2,12 @@
 //
 // Structural checks over the content tree. Run with `npm run check:content`.
 //
-// These are the invariants that make the manual hold together; each one, when
+// These are the invariants that make the docs hold together; each one, when
 // violated, produces a page a reader cannot reach or a link that goes nowhere:
 //
 //   1. every page is in the table of contents: listed by the page above it, up to the front page
 //   2. no two pages share a name (cross-page links are keyed by it)
-//   3. every overlay is for one of the manual's languages
+//   3. every overlay is for one of the version's languages
 //   4. every cross-page link resolves to a real page — checked by check:markdoc,
 //      on each page as the site renders it
 //   5. every image parses as an image, has alt text, and its file exists
@@ -482,7 +482,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
-          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the manual's languages`
+          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
         );
     }
   }

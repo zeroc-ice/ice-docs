@@ -25,7 +25,7 @@ interface Record {
   w?: string[];
 }
 
-// A manual this size is unusable without search. The index is per version and
+// Documentation this size is unusable without search. The index is per version and
 // fetched the first time the palette opens.
 export function Search({ version }: { version: string }) {
   const router = useRouter();
@@ -175,7 +175,7 @@ export function Search({ version }: { version: string }) {
               go(results[selected]);
             }
           }}
-          placeholder={`Search the Ice ${version} manual…`}
+          placeholder={`Search the Ice ${version} documentation…`}
           aria-label="Search query"
           className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-none dark:border-white/10"
         />

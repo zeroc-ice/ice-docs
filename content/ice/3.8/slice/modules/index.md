@@ -43,8 +43,9 @@ Python, which does not have a true global scope).
 
 {% callout type="info" %}
 
-Throughout the Ice manual, you will occasionally see Slice definitions that are not nested inside a module. This is to
-keep the examples short and free of clutter. Whenever you see such a definition, assume that it is nested in module `M`.
+Throughout the Ice documentation, you will occasionally see Slice definitions that are not nested inside a module. This
+is to keep the examples short and free of clutter. Whenever you see such a definition, assume that it is nested in
+module `M`.
 
 {% /callout %}
 

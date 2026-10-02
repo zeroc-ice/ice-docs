@@ -16,7 +16,7 @@ interface HeaderControlsProps {
 // The top bar carries the reader's whole context: which version, which language,
 // and search. They are rendered here (portalled into #ice-header-controls) rather
 // than in the header itself because only the page knows the equivalent URL for
-// every version, and which languages the manual has.
+// every version, and which languages the version has.
 export function HeaderControls({
   version,
   languages,

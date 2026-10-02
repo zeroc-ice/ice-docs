@@ -5,7 +5,7 @@ title: Log File Dialog
 The Log File dialog shows a log file (text file) retrieved through IceGrid. Often, a process will be writing to this log
 file and the dialog will periodically check for new lines to display.
 
-![image2017-4-3 14:24:50.png](/attachments/3.8/log-file-dialog/image2017-4-3-14-24-50.png)
+![image2017-4-3 14:24:50.png](/images/ice/3.8/log-file-dialog/image2017-4-3-14-24-50.png)
 
 ## States
 
@@ -21,7 +21,7 @@ A log file dialog is always in one of the following states:
 Use the `Edit > Preferences...` menu to open the Preferences dialog. These preferences apply to the current dialog and
 to any Log File dialog opened later on.
 
-![image2017-4-3 14:25:51.png](/attachments/3.8/log-file-dialog/image2017-4-3-14-25-51.png)
+![image2017-4-3 14:25:51.png](/images/ice/3.8/log-file-dialog/image2017-4-3-14-25-51.png)
 
 This dialog allows you to view and update the following settings:
 

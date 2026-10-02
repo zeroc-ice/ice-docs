@@ -140,7 +140,7 @@ name. Similarly, a template parameter overrides the value of a variable with the
 descriptor may refer to a variable defined in any enclosing scope, but its value is determined by the nearest scope. The
 following figure illustrates these concepts:
 
-![Application variable x is 1. Node A overrides x with 2; Node B defines y as 4 and inherits x as 1. A server instance in Node A passes parameter x as 3 to template T, while its own variable x remains 2. The server template sees parameter x as 3.](/attachments/3.8/variables-in-icegrid-descriptors/variable-scoping.svg)
+![Application variable x is 1. Node A overrides x with 2; Node B defines y as 4 and inherits x as 1. A server instance in Node A passes parameter x as 3 to template T, while its own variable x remains 2. The server template sees parameter x as 3.](/images/ice/3.8/variables-in-icegrid-descriptors/variable-scoping.svg)
 
 In this diagram, the variable `x` is defined at the application level with the value `1`. In `nodeA`, `x` is overridden
 with the value `2`, whereas `x` remains unchanged in `nodeB`. Within the context of `nodeA`, `x` continues to have the

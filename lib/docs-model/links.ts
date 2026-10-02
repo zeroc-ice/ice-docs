@@ -67,7 +67,6 @@ const MAILTO = /^mailto:/i;
  * Resolve one authored href to a site URL.
  *
  * - external / mailto / in-page anchors / already-absolute: unchanged
- * - `attachments/...`: left alone (assets, not pages)
  * - anything else: the page named by the link is looked up in the page index
  *   and rewritten to `/ice/<version>/<slug>`, preserving the query, such as a
  *   `?lang=` that names the language mapping to show, and `#anchor`.
@@ -93,7 +92,6 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
     .split('/')
     .filter((s) => s !== '' && s !== '.' && s !== '..');
   if (segments.length === 0) return { href: raw, resolved: true };
-  if (segments[0] === 'attachments') return { href: raw, resolved: true };
 
   // A spelled-out slug is unambiguous, so try it before the bare page name.
   const full = decodeURIComponent(segments.join('/')).toLowerCase();

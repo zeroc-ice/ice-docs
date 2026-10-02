@@ -10,24 +10,24 @@ an IceBox server hosting a number of IceBox services.
 A server is always in one of the following states (the first icon is for regular servers, the second for IceBox
 servers):
 
-- Unknown ![server unknown](/attachments/3.8/server-runtime-component/server_unknown.png)
-  ![icebox server unknown](/attachments/3.8/server-runtime-component/icebox_server_unknown.png)  
+- Unknown ![server unknown](/images/ice/3.8/server-runtime-component/server_unknown.png)
+  ![icebox server unknown](/images/ice/3.8/server-runtime-component/icebox_server_unknown.png)  
   this state is shown when the parent IceGrid node is down.
-- Inactive ![server inactive](/attachments/3.8/server-runtime-component/server_inactive.png)
-  ![icebox server inactive](/attachments/3.8/server-runtime-component/icebox_server_inactive.png) the server is not
+- Inactive ![server inactive](/images/ice/3.8/server-runtime-component/server_inactive.png)
+  ![icebox server inactive](/images/ice/3.8/server-runtime-component/icebox_server_inactive.png) the server is not
   running.
-- Activating ![server activating](/attachments/3.8/server-runtime-component/server_activating.png)
-  ![icebox server activating](/attachments/3.8/server-runtime-component/icebox_server_activating.png)  
+- Activating ![server activating](/images/ice/3.8/server-runtime-component/server_activating.png)
+  ![icebox server activating](/images/ice/3.8/server-runtime-component/icebox_server_activating.png)  
   the server is starting up. The IceGrid registry is waiting for the server to register all its object adapters with
   server lifetime.
-- Active ![server active](/attachments/3.8/server-runtime-component/server_active.png)
-  ![icebox server active](/attachments/3.8/server-runtime-component/icebox_server_active.png)  
+- Active ![server active](/images/ice/3.8/server-runtime-component/server_active.png)
+  ![icebox server active](/images/ice/3.8/server-runtime-component/icebox_server_active.png)  
   the server is running, and has registered all its object adapters with server lifetime with the IceGrid registry.
-- Deactivating ![server deactivating](/attachments/3.8/server-runtime-component/server_deactivating.png)
-  ![icebox server deactivating](/attachments/3.8/server-runtime-component/icebox_server_deactivating.png)  
+- Deactivating ![server deactivating](/images/ice/3.8/server-runtime-component/server_deactivating.png)
+  ![icebox server deactivating](/images/ice/3.8/server-runtime-component/icebox_server_deactivating.png)  
   the server is shutting down. The IceGrid registry is waiting for the server process to exit.
-- Destroyed ![server destroyed](/attachments/3.8/server-runtime-component/server-destroyed.jpeg)
-  ![icebox destroyed](/attachments/3.8/server-runtime-component/icebox-destroyed.jpeg)  
+- Destroyed ![server destroyed](/images/ice/3.8/server-runtime-component/server-destroyed.jpeg)
+  ![icebox destroyed](/images/ice/3.8/server-runtime-component/icebox-destroyed.jpeg)  
   the server being removed of the IceGrid registry. This is a very transient state.
 
 A server can also be either enabled or disabled; when disabled, the icons above are grayed-out. A disabled server cannot
@@ -75,7 +75,7 @@ The remaining Server Properties under Configuration come from the IceGrid descri
 
 - **Application**
 
-  ![link-to-application.png](/attachments/3.8/server-runtime-component/link-to-application.png)
+  ![link-to-application.png](/images/ice/3.8/server-runtime-component/link-to-application.png)
 
   The name of the application containing this server's definition. The button on the right shows the server definition
   in an Application tab.

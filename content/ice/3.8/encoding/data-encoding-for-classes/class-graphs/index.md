@@ -141,7 +141,7 @@ These definitions allow us to construct expression trees. Suppose the client ini
 the illustration below, representing the expression `(1 + 6 / 2) * (9 - 3)`. The values outside the nodes are the
 identities assigned by the client.
 
-![Both p1 and p2 reference the root multiplication node. Instance numbers identify the shared expression tree.](/attachments/3.8/class-graphs/expression-tree-shared-root.svg)
+![Both p1 and p2 reference the root multiplication node. Instance numbers identify the shared expression tree.](/images/ice/3.8/class-graphs/expression-tree-shared-root.svg)
 
 _Expression tree for the expression_`(1 + 6 / 2) * (9 - 3)`_. Both_`p1`_and_`p2`_denote the root node._
 
@@ -176,7 +176,7 @@ sequence contains all nodes that can be reached by traversing two links from the
 Now consider the same example once more, but with different parameter values for `sendTree`: `p1` denotes the root of
 the tree, and `p2` denotes the `-` operator of the right-hand sub-tree, as shown below:
 
-![p1 references the root multiplication node and p2 references its subtraction child. The subtraction node is instance 2, and the addition node is instance 3.](/attachments/3.8/class-graphs/expression-tree-different-nodes.svg)
+![p1 references the root multiplication node and p2 references its subtraction child. The subtraction node is instance 2, and the addition node is instance 3.](/images/ice/3.8/class-graphs/expression-tree-different-nodes.svg)
 
 _The expression tree of with_`p1`_and_`p2`_denoting different nodes._
 
@@ -257,7 +257,7 @@ struct S
 Suppose we create an instance of structure `S` and assign it to the variable `s`, then construct the following class
 graph:
 
-![The obj member of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7 through next.](/attachments/3.8/class-graphs/nodes.svg)
+![The obj member of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7 through next.](/images/ice/3.8/class-graphs/nodes.svg)
 
 _Class graph with circular reference._
 
@@ -385,14 +385,14 @@ e.op(p);
 
 As far as the client is concerned, the graph looks like the one shown below:
 
-![p references an instance that references a second instance through a derived member.](/attachments/3.8/class-graphs/sender-side-graph.svg)
+![p references an instance that references a second instance through a derived member.](/images/ice/3.8/class-graphs/sender-side-graph.svg)
 
 _Sender-side view of a graph containing derived instances._
 
 However, the server does not understand the derived part of the instances and slices them. Yet, the server unmarshals
 all the class instances, leading to the situation where the class graph has become disconnected, as shown here:
 
-![p references the first instance. The second instance remains separate after the derived member has been sliced off.](/attachments/3.8/class-graphs/receiver-side-graph.svg)
+![p references the first instance. The second instance remains separate after the derived member has been sliced off.](/images/ice/3.8/class-graphs/receiver-side-graph.svg)
 
 _Receiver-side view of the graph_.
 

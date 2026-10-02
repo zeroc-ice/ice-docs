@@ -7,8 +7,8 @@ A Metrics View displays the Metrics maps associated with a Server or Service.
 ## States
 
 A metrics view can be either enabled
-![metrics enabled](/attachments/3.8/metrics-view-runtime-component/metrics-enabled.jpeg) or disabled
-![metrics disabled](/attachments/3.8/metrics-view-runtime-component/metrics-disabled.jpeg). Once enabled, a Metrics View
+![metrics enabled](/images/ice/3.8/metrics-view-runtime-component/metrics-enabled.jpeg) or disabled
+![metrics disabled](/images/ice/3.8/metrics-view-runtime-component/metrics-disabled.jpeg). Once enabled, a Metrics View
 may degrade the performance of the instrumented server or service.
 
 ## Actions

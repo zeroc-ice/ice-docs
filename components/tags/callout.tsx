@@ -32,7 +32,7 @@ export type CalloutType =
   | 'compatibility';
 
 // One component, seven intents, deliberately unequal in weight. Most callouts in
-// a manual this size are notes; if every note looked urgent, a warning would
+// docs this size are notes; if every note looked urgent, a warning would
 // stop meaning anything. Only the icon, the label and the left edge carry the
 // intent's colour — the body text stays the same near-black as the surrounding
 // prose so the callout reads as an annotation, not as a second page.
@@ -44,7 +44,7 @@ const INTENTS: Record<
   { label: string; icon: LucideIcon; className: string }
 > = {
   note: { label: 'Note', icon: Info, className: 'callout-note' },
-  // The migrated manual writes `type="info"`; it is the same thing as a note.
+  // The migrated pages write `type="info"`; it is the same thing as a note.
   info: { label: 'Note', icon: Info, className: 'callout-note' },
   tip: { label: 'Tip', icon: Lightbulb, className: 'callout-tip' },
   important: {
@@ -63,8 +63,8 @@ const INTENTS: Record<
     icon: PackageMinus,
     className: 'callout-deprecated'
   },
-  // Version and platform differences — the note a manual covering several Ice
-  // releases needs constantly ("not available before Ice 3.8").
+  // Version and platform differences — the note that docs covering several Ice
+  // releases need constantly ("not available before Ice 3.8").
   compatibility: {
     label: 'Version compatibility',
     icon: GitCompareArrows,

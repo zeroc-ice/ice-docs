@@ -26,7 +26,7 @@ connection back to the client.
 
 This diagram shows the steps involved in making a callback using Glacier2:
 
-![Four-step request and callback flow through Glacier2. The callback returns to the client over the client's existing bidirectional connection to Glacier2.](/attachments/3.8/callbacks-through-glacier2/callback-via-glacier2.svg)
+![Four-step request and callback flow through Glacier2. The callback returns to the client over the client's existing bidirectional connection to Glacier2.](/images/ice/3.8/callbacks-through-glacier2/callback-via-glacier2.svg)
 
 _Request and callback flow through Glacier2._
 
