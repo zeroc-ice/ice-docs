@@ -4,20 +4,6 @@ description: Guides, examples, and reference for building distributed applicatio
 shape: wide
 showReadingTime: false
 showAside: false
-status: latest
-languages:
-  - cpp
-  - csharp
-  - java
-  - js
-  - matlab
-  - php
-  - python
-  - ruby
-  - swift
-previousVersions:
-  label: Previous Versions
-  url: https://archive.zeroc.com/
 pages:
   - greeter-example
   - upgrade-guide

@@ -11,7 +11,6 @@ interface HeaderControlsProps {
   version: string;
   languages: string[];
   versionOptions: VersionOption[];
-  previousVersions?: { label: string; url: string };
 }
 
 // The top bar carries the reader's whole context: which version, which language,
@@ -21,8 +20,7 @@ interface HeaderControlsProps {
 export function HeaderControls({
   version,
   languages,
-  versionOptions,
-  previousVersions
+  versionOptions
 }: HeaderControlsProps) {
   // The portal target only exists once the header has rendered on the client.
   const mounted = useMounted();
@@ -34,11 +32,7 @@ export function HeaderControls({
   return createPortal(
     <>
       <Search version={version} />
-      <VersionSelect
-        current={version}
-        options={versionOptions}
-        previousVersions={previousVersions}
-      />
+      <VersionSelect current={version} options={versionOptions} />
       <LanguageSelect languages={languages} />
     </>,
     target

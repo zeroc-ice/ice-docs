@@ -34,11 +34,11 @@ npm run format:check               # what CI runs
 Everything for one version of the docs lives under `content/ice/<version>/` (for example `content/ice/3.8/`). A page is
 a directory, and its path under the version is its slug, the path in its URL:
 
+- `version.yaml` — the version's settings: `status` and `languages`. The site root and `/ice` redirect to the front page
+  of the version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version.
 - `index.md` — the front page, served at `/ice/<version>`. It is the first entry in the table of contents, labeled
-  Documentation, ahead of the chapters, and the breadcrumb root links to it. The site root and `/ice` redirect to the
-  front page of the version whose `status` is `latest`, and `/ice/latest/…` to the same path in that version. Its
-  frontmatter lists the chapters under `pages:` and holds the version's settings: `status`, `languages`, and
-  `previousVersions`.
+  Documentation, ahead of the chapters, and the breadcrumb root links to it. Its frontmatter lists the chapters under
+  `pages:`.
 - `<dir>/…/<page>/index.md` — a page, served at `/ice/<version>/<dir>/…/<page>`: the language-neutral text, with
   `{% language-section %}` slots. The pages under it are its subdirectories, in the order its frontmatter lists them
   under `pages:`.

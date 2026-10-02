@@ -1,9 +1,5 @@
 ---
 title: Ice Documentation
-languages:
-  - cpp
-  - java
-  - python
 pages:
   - get-started
   - slice
