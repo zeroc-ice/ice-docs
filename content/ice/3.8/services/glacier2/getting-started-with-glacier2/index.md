@@ -84,45 +84,61 @@ The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the nam
 Glacier2.CryptPasswords=passwords
 ```
 
-Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. For example, the
-following password file contains an entry for the user name `test`:
+Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. The router fails
+to start if a line has any other number of fields or if a user name appears on more than one line.
+
+For example, the following password file contains an entry for the user name `test` on Linux:
 
 ```text
-test $5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19
+test $6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
+```
+
+The same entry on Windows and macOS:
+
+```text
+test $pbkdf2-sha256$29000$O4dQinGOcY7RWktJyXlvbQ$D0BZnA1kTw4Jl4xGUzdMOSxKO/vODiMCHEE9ZRLF4Gg
 ```
 
 ### `icehashpassword` Helper Script
 
-You can use the `icehashpassword` helper script to generate these username-password pairs. This script requires `Python`
-and `pip` to be installed. To install this script run:
+You can use the `icehashpassword` helper script to generate these password hashes. This script requires `Python` and
+`pip` to be installed. To install this script run:
 
 ```shell
 pip install zeroc-icehashpassword
 ```
 
-You can now use the command `icehashpassword`:
+`icehashpassword` generates PBKDF2 hashes on Windows and macOS, and crypt hashes on Linux. It reads the password and
+prints the hash. On Linux:
 
 ```shell
 icehashpassword
 Password:
-$5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19
+$6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
+```
+
+On Windows and macOS:
+
+```shell
+icehashpassword
+Password:
+$pbkdf2-sha256$29000$O4dQinGOcY7RWktJyXlvbQ$D0BZnA1kTw4Jl4xGUzdMOSxKO/vODiMCHEE9ZRLF4Gg
 ```
 
 You may also specify several optional parameters:
 
-- `-d MESSAGE_DIGEST_ALGORITHM, --digest=MESSAGE_DIGEST_ALGORITHM`
-- `-s SALT_SIZE, --salt=SALT_SIZE`
+- `-d MESSAGE_DIGEST_ALGORITHM, --digest=MESSAGE_DIGEST_ALGORITHM`: `sha1`, `sha256` (the default), or `sha512` on
+  Windows and macOS; `sha256` or `sha512` (the default) on Linux.
+- `-s SALT_SIZE, --salt=SALT_SIZE` (Windows and macOS only)
 - `-r ROUNDS, --rounds=ROUNDS`
 
 For example:
 
 ```shell
-python icehashpassword.py -r 25000 -s 32 -d sha256
+icehashpassword -r 25000 -d sha256
 Password:
 ...
 ```
-
-Note that `icehashpassword` generates PBKDF2 hashes on Windows and macOS, and Crypt hashes on Linux.
 
 {% callout type="info" %}
 
@@ -244,11 +260,10 @@ and nothing else is required. Otherwise, the client must explicitly configure th
 
 ### Glacier2 Session Destruction
 
-A router session is destroyed when a client calls `destroySession` on the router. The router also destroys a session if
-certain connection errors occur while attempting to route a request. These errors are represented by the runtime
-exceptions `SocketException`, `TimeoutException`, and `ProtocolException`. In other words, if any of these exceptions
-occur while Glacier2 attempts to establish a connection to the target back-end server, or forward a request to the
-target back-end server, the router automatically destroys the session.
+A router session ends when the client calls `destroySession` on the router, when the application calls `destroy` on the
+session's `SessionControl` object, or when the connection between the client and the router closes. A failure to connect
+to or invoke a back-end server leaves the session open; the router reports the failure to the client as the result of
+each affected twoway request.
 
 ## See Also
 
