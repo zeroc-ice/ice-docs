@@ -165,6 +165,7 @@
     "navigations",
     "NCPUS",
     "ndarray",
+    "netprofm",
     "nochdir",
     "noclose",
     "nodeid",
