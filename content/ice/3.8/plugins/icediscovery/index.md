@@ -126,8 +126,8 @@ those objects.
 
 ## Configuring IceDiscovery
 
-Applications configure IceDiscovery with properties. IceDiscovery installs its own locator as the default locator
-of the communicator: do not set `Ice.Default.Locator` in an application that installs IceDiscovery.
+Applications configure IceDiscovery with properties. IceDiscovery installs its own locator as the default locator of the
+communicator: do not set `Ice.Default.Locator` in an application that installs IceDiscovery.
 
 ### IceDiscovery Property Overview
 
@@ -136,11 +136,11 @@ port.
 
 The main properties are:
 
-- [IceDiscovery.DomainId](../icediscovery-properties#icediscovery.domainid) separates unrelated applications that
-  use the same multicast address and port: a client finds only the servers with the same domain ID.
+- [IceDiscovery.DomainId](../icediscovery-properties#icediscovery.domainid) separates unrelated applications that use
+  the same multicast address and port: a client finds only the servers with the same domain ID.
 - [IceDiscovery.Address](../icediscovery-properties#icediscovery.address) and
-  [IceDiscovery.Port](../icediscovery-properties#icediscovery.port) set the multicast address and port. The clients
-  and servers of an application must use the same values.
+  [IceDiscovery.Port](../icediscovery-properties#icediscovery.port) set the multicast address and port. The clients and
+  servers of an application must use the same values.
 - [IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface) restricts the plug-in to one network
   interface. By default, the plug-in uses all interfaces.
 

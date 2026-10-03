@@ -350,8 +350,7 @@ order.
 {% iflang langs="cpp" %}
 
 Ice creates plug-ins installed through `InitializationData::pluginFactories` before dynamically loaded plug-ins, in
-factory-list order. If `names` includes one of these plug-ins, communicator initialization fails with a
-`PluginInitializationException`.
+factory-list order.
 
 {% /iflang %}
 

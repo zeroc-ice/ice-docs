@@ -84,7 +84,7 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 ```cpp
 struct PluginFactory
 {
-    /// The default and preferred name for plug-ins created by this factory.
+    /// The name of the plug-ins created by this factory.
     std::string pluginName;
 
     /// The factory function.

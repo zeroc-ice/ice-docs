@@ -35,4 +35,3 @@ The factory receives `input.dat` in its arguments and can read `MyPlugin.Mode` f
 ## See Also
 
 - [Ice.Plugin.*](../ice-plugin-properties)
-- [Ice.PluginLoadOrder](../ice-properties)

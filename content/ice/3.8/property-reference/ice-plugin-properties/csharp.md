@@ -51,6 +51,6 @@ including already-loaded assemblies, probing paths and assembly-resolution callb
 
 A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
 `InitializationData.pluginFactories`. Use `1` as the entry-point token in this case; Ice passes the remaining arguments
-to the factory. Including this plug-in's name in `Ice.PluginLoadOrder` causes `PluginInitializationException`.
+to the factory.
 
 {% /language-section %}

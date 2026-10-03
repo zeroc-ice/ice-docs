@@ -182,8 +182,7 @@ by a comma or white space. Ice loads the remaining plug-ins configured with `Ice
 order.
 
 Ice creates plug-ins installed through `InitializationData.pluginFactories` before dynamically loaded plug-ins, in
-factory-list order. If `names` includes one of these plug-ins, communicator initialization fails with a
-`PluginInitializationException`.
+factory-list order.
 
 ## Ice.PreferIPv6Address
 
