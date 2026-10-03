@@ -32,11 +32,11 @@ This definition defines an interface type called `Clock`. The interface supports
 object: to read the current time, the client invokes the `getTime` operation; to set the current time, the client
 invokes the `setTime` operation, passing an argument of type `TimeOfDay`.
 
-Invoking an operation on a proxy instructs the Ice runtime to send a message to the target object. The target object can
-be in another address space or can be collocated (in the same process) as the caller — the location of the target object
-is transparent to the client. If the target object is in another (possibly remote) address space, the Ice runtime
-invokes the operation via a remote procedure call; if the target is collocated with the client, the Ice runtime bypasses
-the network stack altogether to deliver the request more efficiently.
+Invoking an operation on a proxy instructs the Ice runtime to send a message to the target object. The location of the
+target object is transparent to the client. When an object adapter of the proxy's communicator hosts the target object,
+the invocation is [collocated](../collocated-invocation-and-dispatch): by default, the Ice runtime bypasses the network
+stack altogether to deliver the request more efficiently. Otherwise, the Ice runtime sends the request through a
+transport, even when the target object is in the same process.
 
 Note that nothing but operation definitions are allowed to appear inside an interface definition. In particular, you
 cannot define a type, an exception, or a field inside an interface. This does not mean that your object implementation
@@ -58,8 +58,8 @@ an interface that allows clients to access the structure.
 
 The partition of an application into interfaces therefore has profound influence on the overall architecture.
 Distribution boundaries must follow interface boundaries; you can spread the implementation of interfaces over multiple
-address spaces (and you can implement multiple interfaces in the same address space), but you cannot implement parts of
-interfaces in different address spaces.
+processes (and you can implement multiple interfaces in the same process), but you cannot implement parts of an
+interface in different processes.
 
 ## Empty Interfaces
 
