@@ -56,8 +56,8 @@ An _Ice object_ is a conceptual entity, or abstraction. An Ice object can be cha
 
 For a client to be able to contact an Ice object, the client must hold a _proxy_ for the Ice object. A proxy is an
 artifact that is local to the client's address space; it represents the (possibly remote) Ice object for the client. A
-proxy acts as the local ambassador for an Ice object: when the client makes a synchronous twoway invocation on the
-proxy, the Ice runtime:
+proxy acts as the local ambassador for an Ice object: when the client invokes an operation on the proxy, the Ice
+runtime:
 
 1. Locates the Ice object's server
 2. Transmits any in-parameters to the Ice object
@@ -250,24 +250,20 @@ object with two different addresses for different machines. In that case, we wil
 containing a servant for the same Ice object. When a client invokes an operation on such an Ice object, the client-side
 runtime sends the request to one server. In other words, multiple servants for a single Ice object allow you to build
 redundant systems: when the client-side runtime cannot connect to one server, it can send the request to the second
-server. When a request fails after the client-side runtime sent it, the runtime sends the request again only if
-[at-most-once semantics](../terminology#at-most-once-semantics) and the [automatic retry](../automatic-retries) rules
-allow it; otherwise, it reports the error to the client-side application code.
+server, within the [at-most-once](../terminology#at-most-once-semantics) rules below.
 
 ## At-Most-Once Semantics
+
+At-most-once semantics are important because they guarantee that operations that are not _idempotent_ can be used
+safely. An idempotent operation is an operation that, if executed twice, has the same effect as if executed once. For
+example, `x = 1;` is an idempotent operation: if we execute the operation twice, the end result is the same as if we had
+executed it once. On the other hand, `x++;` is not idempotent: if we execute the operation twice, the end result is not
+the same as if we had executed it once.
 
 Ice requests have _at-most-once_ semantics: the Ice runtime does its best to deliver a request to the correct
 destination and, unless the operation is marked idempotent, [retries](../automatic-retries) a failed request only when
 the retry cannot make the server execute the operation twice, for example because the runtime did not send the request,
 or because the server closed the connection gracefully.
-
-A twoway invocation either returns the result of the operation or throws an exception. When the connection is lost after
-the Ice runtime sent such a request for an operation that is not idempotent and before it received the reply, the
-invocation throws an exception and the client cannot tell whether the server executed the operation.
-
-A oneway or datagram invocation completes when the transport accepts the request, and a batch invocation completes when
-the Ice runtime queues the request. The client receives no confirmation that the server executed the operation. See
-[Invocation Mode](../invocation-mode).
 
 {% callout type="note" %}
 
@@ -276,11 +272,11 @@ violation of at-most-once semantics.
 
 {% /callout %}
 
-At-most-once semantics are important because they guarantee that operations that are not _idempotent_ can be used
-safely. An idempotent operation is an operation that, if executed twice, has the same effect as if executed once. For
-example, `x = 1;` is an idempotent operation: if we execute the operation twice, the end result is the same as if we had
-executed it once. On the other hand, `x++;` is not idempotent: if we execute the operation twice, the end result is not
-the same as if we had executed it once.
+An invocation that waits for a reply either returns the result of the operation or throws an exception. When the
+connection is lost after the Ice runtime sent such a request for an operation that is not idempotent and before it
+received the reply, the invocation throws an exception and the client cannot tell whether the server executed the
+operation. An invocation that does not wait for a reply gives the client no confirmation that the server executed the
+operation: see [Invocation Mode](../invocation-mode).
 
 Without at-most-once semantics, we can build distributed systems that are more robust in the presence of network
 failures. However, realistic systems require non-idempotent operations, so at-most-once semantics are a necessity, even
@@ -318,18 +314,10 @@ is released only when the operation completes.
 
 With asynchronous method dispatch, the server-side application code is informed of the arrival of a request. However,
 instead of being forced to process the request immediately, the server-side application can choose to delay processing
-of the request and, in doing so, releases the execution thread for the request. Blocking work that the application code
-performs before it releases the thread still ties up that thread. Eventually, once the results of the operation are
-available, the server-side application code completes the dispatch through the mechanism of its language mapping: a
-callback, a task, future or promise, or the return of an `async` method. At that point, the server-side runtime sends
-the results of the operation to the client.
+of the request and, in doing so, releases the execution thread for the request. Once the results are available, the
+application completes the dispatch and the runtime sends them to the client.
 
-The language mapping determines which dispatch model a servant uses. In C++, C#, and Java, the Slice compiler generates
-two servant base types for each interface: one whose methods dispatch synchronously unless the Slice definition carries
-the `amd` metadata directive, and one whose methods all dispatch asynchronously. In JavaScript and Python, a servant
-method can return the results directly; it can also return a promise for them in JavaScript, and a future or a coroutine
-in Python. In Swift, the Slice compiler declares every servant method `async`, and a servant can implement it with a
-synchronous method.
+The language mapping determines which dispatch model a servant uses. See [Operations](../operations).
 
 Synchronous and asynchronous method dispatch are transparent to the client, that is, the client cannot tell whether a
 server chose to process a request synchronously or asynchronously.
