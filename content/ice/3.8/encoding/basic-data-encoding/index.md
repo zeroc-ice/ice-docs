@@ -4,21 +4,18 @@ title: Basic Data Encoding
 
 ## Encoding for Sizes
 
-Many of the types involved in the Ice encoding, as well as several [protocol message](../../protocol/protocol-messages)
-components, have an associated size or count. A size is a number in the range 0 to 2³¹−1, and Ice encodes it in one of
-two forms:
+Many types encoded by Ice, as well as several [protocol message](../../protocol/protocol-messages) components, have an
+associated size. A `size` is a number in the range 0 to 2³¹−1, and Ice encodes it in one of two forms:
 
-1. Ice can encode a size from 0 to 254 as a single `byte` holding the size.
-2. Ice can encode any size as a `byte` with value `255`, followed by an `int` holding the size.
+1. A single byte that encodes the `size` for values from 0 to 254.
+2. A single byte set to `255`, followed by an `int` that encodes the `size` (5 bytes total).
 
-Ice encodes a size below 255 in the single-byte form, except that C++ can use the five-byte form for a string that it
-converts with a string converter. A receiver accepts either form for a size from 0 to 254, and the five-byte form for
-any size.
+Ice usually encodes a `size` below 255 in the single-byte form, and a receiver accepts either form for such a `size`.
 
 Using this encoding to indicate sizes is significantly cheaper than always using an `int` to store the size, especially
-when marshaling sequences of short strings: counts of up to 254 fit in a single byte instead of four. This comes at the
-expense of counts greater than 254, which require five bytes instead of four. However, for sequences or strings of
-length greater than 254, the extra byte is insignificant.
+when marshaling sequences of short strings: sizes of up to 254 fit in a single byte instead of four. This comes at the
+expense of sizes greater than 254, which require five bytes instead of four. However, for sequences or strings of length
+greater than 254, the extra byte is insignificant.
 
 ## Encoding for Encapsulations
 
