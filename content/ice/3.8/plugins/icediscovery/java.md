@@ -19,6 +19,4 @@ Alternatively, you can install the IceDiscovery plug-in at runtime using configu
 Ice.Plugin.IceDiscovery=com.zeroc.IceDiscovery.PluginFactory
 ```
 
-Include the `IceDiscovery` JAR in the application's class path.
-
 {% /language-section %}

@@ -19,8 +19,13 @@ Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using 
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 ```
 
-Link your application with the IceLocatorDiscovery library when using its factory directly. Dynamic loading requires its
-shared library to be available to the operating system's library loader. When linking with the minimal static Ice
-library, also add `Ice::udpPluginFactory()` to `pluginFactories`.
+When you use `pluginFactories`, link your application with the IceLocatorDiscovery library.
+
+{% callout type="info" %}
+
+The static Ice library registers only the TCP and SSL transports by default. When you link with this library, also add
+`Ice::udpPluginFactory()` to `pluginFactories`.
+
+{% /callout %}
 
 {% /language-section %}

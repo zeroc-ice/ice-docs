@@ -141,8 +141,7 @@ described in the next section.
 ### Implementing Discovery
 
 Device discovery is a platform-specific activity that applications are responsible for implementing. On Linux, the
-Bluetooth service must know the target device before IceBT can connect to it. Discover or pair the device first; an
-unknown address causes `IceBT::BluetoothException`.
+Bluetooth service must know the target device before IceBT can connect to it: discover or pair the device first.
 
 {% language-section name="lang-3" /%}
 

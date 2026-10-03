@@ -20,6 +20,4 @@ Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using 
 Ice.Plugin.IceLocatorDiscovery=com.zeroc.IceLocatorDiscovery.PluginFactory
 ```
 
-Include the `IceLocatorDiscovery` JAR in the application's class path.
-
 {% /language-section %}

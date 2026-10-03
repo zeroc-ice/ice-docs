@@ -32,11 +32,6 @@ Ice.Plugin.MyPlugin=entry_point --MyPlugin.Mode=fast input.dat
 
 The factory receives `input.dat` in its arguments and can read `MyPlugin.Mode` from the communicator's properties.
 
-Use [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) to list dynamically loaded plug-ins whose construction
-order matters. Ice loads these first, in the specified order, and then loads the remaining configured plug-ins. It
-initializes plug-ins in construction order. A name in `Ice.PluginLoadOrder` must identify a configured plug-in that Ice
-has not already created through `InitializationData.pluginFactories`.
-
 ## See Also
 
 - [Ice.Plugin.*](../ice-plugin-properties)
