@@ -74,9 +74,9 @@ A replica group can select one of the following load balancing types:
   system load for a replica group with this type. Note that the round-robin information is not shared between registry
   replicas; each replica maintains its own notion of the "least recently used" object adapters.
 
-- Ordered Ordered load balancing selects the requested number of object adapters by priority. A priority can be set for
-  each object adapter member of the replica group. If you define several object adapters with the same priority, IceGrid
-  will order these object adapters according to their order of appearance in the descriptor.
+- Ordered Ordered load balancing selects the requested number of object adapters by priority. You can set a priority for
+  each object adapter in the replica group. IceGrid returns the object adapters with the smallest priority values first;
+  the order of object adapters with the same priority is unspecified.
 
 Choosing the proper type of load balancing is highly dependent on the needs of client applications. Achieving the
 desired load balancing and fail-over behavior may also require the cooperation of your clients. To that end, it is very
@@ -313,6 +313,9 @@ The replica group's descriptor specifies the filter:
 Notice that the filter identifier `filterByCurrency` matches that used when the plug-in
 [registered the filter](../load-balancing).
 
+A filter that the plug-in registers with an empty ID applies to every replica group whose descriptor has no `filter`
+attribute, including the replica groups that object adapters register dynamically.
+
 In this example, the client uses a [request context](../load-balancing) to indicate the desired currency. The context is
 configured on the locator proxy in the client's configuration file:
 
@@ -398,8 +401,16 @@ attributes.
 
 ### Implementing a Custom Type Filter
 
-A replica group filter must define a subclass of
-[IceGrid::TypeFilter](https://code.zeroc.com/manual/IceGrid/TypeFilter).
+A type filter must define a subclass of [IceGrid::TypeFilter](https://code.zeroc.com/manual/IceGrid/TypeFilter).
+
+The plug-in registers a type filter with `addTypeFilter`, passing the type ID of the well-known objects to filter. The
+registry calls the filter when a client looks up well-known objects of this type through the `IceGrid::Query` interface:
+
+```cpp
+facade->addTypeFilter(
+    "::Demo::PricingEngine",
+    make_shared<CustomTypeFilter>(facade));
+```
 
 {% callout type="warning" %}
 

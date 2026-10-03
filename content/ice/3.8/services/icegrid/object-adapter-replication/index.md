@@ -36,7 +36,9 @@ previously created by a replica group descriptor.
 
 The replica group `ReplicatedAdapter` declares a well-known object so that an indirect proxy of the form `TheObject` is
 equivalent to the indirect proxy `TheObject@ReplicatedAdapter`. Since this trivial example defines only one adapter in
-the replica group, the proxy `TheObject` is also equivalent to `TheObject@TheAdapter`.
+the replica group, the proxy `TheObject` is also equivalent to `TheObject@ReplicaServer.TheAdapter`: the adapter
+descriptor has no `id` attribute, so IceGrid gives the adapter the ID `ReplicaServer.TheAdapter`, the server ID followed
+by the adapter name.
 
 ## Replica Group Membership
 
@@ -122,7 +124,8 @@ auto encoder = factory.createEncoder();
 
 The client no longer needs to use the `IceGrid::Query` interface, but simply creates a proxy for a well-known object and
 lets the Ice runtime transparently interact with the location service. In response to a locate request for
-`EncoderFactory`, the registry returns a proxy containing the endpoints of both object adapters. The Ice runtime in the
+`EncoderFactory`, the registry returns the proxy `EncoderFactory@EncoderAdapters`, and the Ice runtime in the client
+then resolves the replica group `EncoderAdapters` to the endpoints of both object adapters. The Ice runtime in the
 client selects one of the endpoints at random, meaning we have now lost some functionality compared to the prior example
 in which system load was considered when selecting an endpoint. We will learn how to rectify this situation in our
 discussion of [load balancing](../load-balancing).
