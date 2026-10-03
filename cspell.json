@@ -141,6 +141,7 @@
     "istr",
     "journalctl",
     "libbz",
+    "libcustomlogger",
     "libisloaded",
     "Lippman",
     "LMDB",
