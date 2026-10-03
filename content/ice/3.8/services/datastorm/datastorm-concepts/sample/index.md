@@ -48,13 +48,14 @@ The value returned by
 [getValue](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_a74a40504816052b2c489e1777e0064e0.html#a74a40504816052b2c489e1777e0064e0)
 for a `PartialUpdate` event is the result of applying the updater associated with the tag returned by
 [getUpdateTag](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_a74a40504816052b2c489e1777e0064e0.html#a74a40504816052b2c489e1777e0064e0).
-If no updater is registered for this tag, the partial update is ignored and the current value remains unchanged.
+If the reader has a previous value for the key but its topic has no updater registered for this tag, the reader still
+receives the sample, and `getValue` returns the previous value unchanged.
 
 ### Timestamp
 
 The **timestamp** represents the time at which the sample was written. It is set by the writer when the sample is sent
 and can be obtained with the
-[getTimestamp](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_ae7a7d2ed6a30461f1c80205dd2b11110.html#ae7a7d2ed6a30461f1c80205dd2b11110)
+[getTimeStamp](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_ae7a7d2ed6a30461f1c80205dd2b11110.html#ae7a7d2ed6a30461f1c80205dd2b11110)
 method, which returns a `std::chrono::time_point<std::chrono::system_clock>` value.
 
 Timestamps are expressed in UTC and are independent of the system’s local time zone, making them suitable for exchanging
