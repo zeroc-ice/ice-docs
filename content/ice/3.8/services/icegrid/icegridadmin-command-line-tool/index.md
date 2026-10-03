@@ -156,7 +156,7 @@ You can obtain more information about each category using the `help` command:
 - `server describe ID` Describe server `ID`.
 - `server properties ID` Get the run-time properties of server `ID`.
 - `server property ID NAME` Get the run-time property `NAME` of server `ID`.
-- `server state ID` Get the state of server `ID`.
+- `server status ID` Get the status of server `ID`.
 - `server pid ID` Get the process ID of server `ID`.
 - `server start ID` Start server `ID`.
 - `server stop ID` Stop server `ID`.

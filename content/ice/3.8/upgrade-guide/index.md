@@ -12,7 +12,8 @@ recompile your Slice files and in some cases update your source code to use the 
 
 ## Requirements
 
-Please refer to the supported platforms page in the release notes for details on the supported platforms.
+[Supported Platforms for Ice 3.8.3](../supported-platforms-for-ice-3-8-3) lists the operating systems, compilers and
+language versions that Ice 3.8.3 supports.
 
 ## Packaging
 
@@ -38,6 +39,10 @@ class Foo
 -  void bar();
 }
 ```
+
+A class can no longer implement an interface, and `implements` is no longer a Slice keyword. The Slice compilers also
+reject a proxy to a class (`Foo*`). Move the operations of such a class to an interface, and replace each proxy to the
+class with a proxy to that interface.
 
 ### Optional Classes
 
@@ -116,6 +121,25 @@ interface Foo
 }
 ```
 
+### Identifier Collisions
+
+A Slice identifier can collide with a keyword or a reserved identifier of a programming language. The Ice 3.7 Slice
+compilers escaped such an identifier in the generated code. The Ice 3.8 Slice compilers no longer do: they use the Slice
+identifier as is, and you avoid the collision with the `<lang>:identifier` [metadata](../slice-metadata-directives),
+which gives a Slice definition another name in the code generated for one language.
+
+For example, `template` is a keyword in C++:
+
+```diff
+interface Document
+{
+-   string template();
++   ["cpp:identifier:getTemplate"] string template();
+}
+```
+
+The generated C++ function is then named `getTemplate`.
+
 ## Connection Management
 
 ### Active Connection Management
@@ -138,9 +162,30 @@ Ice 3.7 applications that wish to interoperate with Ice 3.8 are recommended to s
 +Ice.ACM.Timeout=60 # or leave unset since 60 is the default
 ```
 
+If you cannot change the configuration of the Ice 3.7 application, disable the idle check in the Ice 3.8 application by
+setting [EnableIdleCheck](../ice-connection-properties) to `0` for the connections to this Ice 3.7 application.
+
+### Connection Timeouts
+
+The Idle Timeout also replaces the connection timeouts of Ice 3.7: the `-t timeout` option in proxy and object adapter
+endpoints, the `ice_timeout` proxy method, and the `Ice.Default.Timeout` and `Ice.Override.Timeout` properties. Ice 3.8
+still accepts `-t timeout` in endpoints for backwards compatibility, but this option no longer has any effect. Remove
+the calls to `ice_timeout` and the two properties.
+
+Ice 3.8 adds three connection timeouts, for [inactivity](../connection-closure),
+[connection establishment](../connection-establishment) and [graceful closure](../connection-closure). You configure
+them with the [Ice.Connection properties](../ice-connection-properties); in most cases, the defaults are fine.
+
 ### Heartbeat Callback
 
 The `setHeartbeatCallback` operation has been removed from the `Connection` class.
+
+### Dispatch Flow Control
+
+By default, Ice 3.8 stops reading from a connection once 100 dispatches of requests received on this connection are in
+progress, and resumes reading when a dispatch completes. If your application relies on dispatching more requests from
+one connection concurrently, increase [MaxDispatches](../ice-connection-properties). Ice for JavaScript does not
+implement this limit.
 
 ### Default Object Adapter
 
@@ -201,6 +246,60 @@ The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so sett
 `IceSSL.ProtocolVersionMin`, `IceSSL.Random`, `IceSSL.SchannelStrongCrypto`, `IceSSL.SecurityLevel` and
 `IceSSL.VerifyDepthMax`.
 
+## Communicator Initialization
+
+- The `Application` helper class has been removed from the language mappings that provided it. Create and destroy the
+  communicator in your own code, as described in
+  [Communicator Initialization and Destruction](../initialization-and-destruction), and shut it down when your
+  application receives Ctrl+C or a termination signal.
+- The `dispatcher` field of `InitializationData` is now named `executor`.
+
+## Value Factories
+
+`ValueFactory` and `ValueFactoryManager` have been removed. In Ice 3.7, an application registered a value factory mainly
+to supply the implementation of a class with operations. Classes no longer have operations, so in most cases you remove
+your value factories and replace them with nothing. If you still need to create instances of your own classes during
+unmarshaling, implement a [Slice loader](../slice-loaders) and set the `sliceLoader` field of `InitializationData`.
+
+In Java, the `Ice.Default.Package` and `Ice.Package.module` properties still work, but they are deprecated: we recommend
+registering a Slice loader in `InitializationData` instead. In Java and MATLAB, a class with a compact ID requires a
+Slice loader.
+
+## SSL Transport
+
+The SSL transport is now part of the Ice library and is no longer a plug-in.
+
+- Remove the `Ice.Plugin.IceSSL` property from your configuration: Ice 3.8 provides no IceSSL plug-in to load.
+- The `IceSSL` certificate API, the certificate verifiers and the password callbacks have been removed. You can still
+  configure the SSL transport with the [IceSSL properties](../icessl-properties) in all language mappings. In C++, C#
+  and Java, we recommend the new [programmatic configuration](../ssl-transport), which uses the API of the SSL engine of
+  your platform and gives you more control than the properties.
+
+## Plug-ins
+
+The recommended way to install a plug-in has changed in C++, C# and Java: register a plug-in factory in the
+`pluginFactories` field of `InitializationData`, and Ice creates the plug-in when it initializes the communicator. For
+example, in C++:
+
+```cpp
+Ice::InitializationData initData;
+initData.pluginFactories = {IceDiscovery::discoveryPluginFactory()};
+```
+
+Your application then uses the plug-in's library like any other library it depends on, and you no longer need an
+`Ice.Plugin.name` property to load the plug-in.
+
+In the language mappings based on Ice for C++ (MATLAB, PHP, Python, Ruby and Swift), you install a plug-in with an
+`Ice.Plugin.name` property, as in Ice 3.7. These mappings now include the IceDiscovery and IceLocatorDiscovery plug-ins.
+You enable them with the properties `Ice.Plugin.IceDiscovery` and `Ice.Plugin.IceLocatorDiscovery`, and you can no
+longer choose another name for these plug-ins. For example:
+
+```config
+Ice.Plugin.IceDiscovery=1
+```
+
+See [IceDiscovery](../icediscovery) and [IceLocatorDiscovery](../icelocatordiscovery).
+
 ## Services
 
 ### DataStorm
@@ -213,9 +312,18 @@ product.
 The Slice definitions of Glacier2 are unchanged in Ice 3.8. As a result, you can use a 3.8 router with a 3.7 client, and
 vice-versa.
 
-### IceBox
+The buffered mode of the router has been removed. Glacier2 now has a single mode, the unbuffered mode of Ice 3.7, in
+which the router forwards each request without queuing it. Two features that depended on the buffered mode have been
+removed with it: request overrides (the `_ovrd` request context), and the batching of requests by the router
+(`Glacier2.Client.AlwaysBatch` and `Glacier2.Server.AlwaysBatch`).
 
-The Slice definitions of IceBox are unchanged in Ice 3.8.
+A session now lasts as long as the connection that created it: the router destroys the session when this connection
+closes, and relies on the [idle check](../connection-closure) to detect a dead client. The session timeout,
+`Glacier2.SessionTimeout`, has been removed.
+
+The Glacier2 helper classes (`Glacier2.Application`, `SessionFactoryHelper` and `SessionHelper`) have been removed.
+Create and destroy the session with the `Glacier2::Router` proxy, as described in
+[Getting Started with Glacier2](../getting-started-with-glacier2).
 
 ### IceGrid
 
@@ -230,6 +338,18 @@ You can nevertheless:
 
 The IceGrid registry database schema is the same in Ice 3.8 and Ice 3.7. This allows you to start a 3.8 registry with a
 LMDB database created by a 3.7 registry.
+
+The distribution of server files through IcePatch2 has been removed, and with it the `distrib` descriptor; the `dbenv`
+descriptor has been removed too. An IceGrid 3.8 registry ignores these descriptors in the applications it loads from a
+3.7 database, but it no longer accepts the `distrib` and `dbenv` elements in XML: remove them from your descriptor
+files, remove the `application patch` and `server patch` commands from your `icegridadmin` scripts, and distribute the
+files of your servers with another [tool](../application-distribution).
+
+A client or administrative session now lasts as long as the connection that created it. The session timeout,
+`IceGrid.Registry.SessionTimeout`, has been removed.
+
+The `icegridadmin` command `server state` has been renamed [`server status`](../icegridadmin-command-line-tool): update
+the scripts that call it.
 
 ### IcePatch2
 
@@ -246,6 +366,13 @@ The IceStorm configuration now uses the `IceStorm` prefix instead of the IceBox 
 +IceStorm.LMDB.Path=db
 +IceStorm.TopicManager.Endpoints=tcp -p 9999
 +IceStorm.Publish.Endpoints=tcp -p 10000
+```
+
+Update the version in the IceStorm entry point of your IceBox configuration:
+
+```diff
+-IceBox.Service.IceStorm=IceStormService,37:createIceStorm
++IceBox.Service.IceStorm=IceStormService,38:createIceStorm
 ```
 
 The Slice definitions of IceStorm are unchanged in Ice 3.8. This allows you to use a mix of 3.7 and 3.8 for your
