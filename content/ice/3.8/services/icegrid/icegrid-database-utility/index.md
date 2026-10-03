@@ -50,7 +50,7 @@ If you want to back-up the IceGrid registry database while the IceGrid registry 
 
 ## Importing an IceGrid Database
 
-To import an IceGrid registry database, use the `--import` option to specify the input file and the -`-dbpath` option to
+To import an IceGrid registry database, use the `--import` option to specify the input file and the `--dbpath` option to
 specify the path name of the registry's database directory. For example, use the following command to import a database
 into the `dbNew/registry` directory from a file named `registry.ixp`:
 
