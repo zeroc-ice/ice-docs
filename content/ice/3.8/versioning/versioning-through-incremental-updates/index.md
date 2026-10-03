@@ -73,9 +73,10 @@ raises `OperationNotExistException`, the client is dealing with a version 1 obje
 
 ## Optional Parameters and Fields
 
-Another way to upgrade our application is by using [optional parameters](../../slice/operations) or fields. These can be
-added to existing operations/definitions without breaking clients or servers that don’t know about them. For example,
-another approach to upgrading our `Greeter` application would have been:
+Another way to upgrade our application is by using
+[optional parameters](../../slice/operations#optional-parameters-and-return-values) or fields. These can be added to
+existing operations/definitions without breaking clients or servers that don’t know about them. For example, another
+approach to upgrading our `Greeter` application would have been:
 
 ```slice
 // Version 2
@@ -95,10 +96,13 @@ module VisitorCenter
 }
 ```
 
-Ice transmits optional values only with the 1.1 encoding, which is the default. With this encoding, a version 2 client
-can supply the `time` argument. A version 2 servant receives this value, while a version 1 server skips it and
-dispatches the request to its servant with `name` alone. A version 1 client sends only `name`: the version 2 servant
-then receives `time` unset, and has to handle this case, for example by returning the version 1 greeting.
+Ice transmits optional values only with the 1.1 encoding, which is the default:
+
+| Client    | Server    | `time`                                                                 |
+| --------- | --------- | ---------------------------------------------------------------------- |
+| version 2 | version 2 | received                                                               |
+| version 2 | version 1 | skipped; the servant gets `name` alone                                 |
+| version 1 | version 2 | unset; the servant handles it, for example with the version 1 greeting |
 
 When a proxy uses the 1.0 encoding, Ice leaves every optional value out of the request and of its reply, and the
 receiver reads each of them as unset.
@@ -108,29 +112,18 @@ it. See the [optional fields](../../slice/fields#optional-fields) page for more 
 
 ### Changing Optional Parameters and Fields
 
-With the 1.1 encoding, Ice [encodes](../../encoding/data-encoding-for-optional-values) an optional value that is set as its tag and
-an _optional type_ derived from its Slice type, followed by the value. The receiver looks up each optional value it
-knows by tag, skips the values whose tags it does not know, and reads as unset a value whose tag is missing. The name of
-the parameter or field is not transmitted. The consequences for applications built with different versions of a Slice
-definition are as follows:
+Ice identifies an optional value by its tag alone: a receiver skips the tags it does not know and reads a missing tag as
+unset.
 
-- Adding an optional parameter or field with a tag that no earlier version used is a compatible change, as shown above.
-- Removing an optional parameter or field is a compatible change: a receiver built without it skips the value, and a
-  receiver built with it reads it as unset. Keep the tag of a removed parameter or field unused as long as applications
-  built with the earlier definition remain deployed, since a receiver decodes any value carrying this tag as the
-  parameter or field it knows under this tag.
-- Changing the tag of an optional parameter or field to a tag that the earlier version does not use loses its value
-  between the two versions: each side skips the tag the other side sends and reads its own as unset.
-- Changing the type of an optional parameter or field while keeping its tag is an incompatible change. When the two
-  types have different optional types, such as `int` and `long`, the receiver raises `MarshalException`. When they share
-  an optional type, such as `int` and `float`, the receiver decodes the bytes of one type as the other, and either
-  produces a wrong value or raises `MarshalException`.
-- Making a required parameter or field optional, or an optional one required, is an incompatible change. Ice encodes
-  required values without a tag, in their order of declaration and ahead of the optional values, so a receiver built
-  with the other definition looks for the value in the wrong place.
+Within the parameters and return value of one operation, or the fields that one class or exception defines itself:
 
-These rules apply within the scope of a tag: the parameters and return value of one operation, or the fields that one
-class or exception defines itself. A base or derived type has its own tags.
+- Adding an optional parameter or field with an unused tag is a compatible change.
+- Removing one is a compatible change. Don't reuse its tag while applications built with the earlier definition are
+  still deployed.
+- Changing its tag loses the value between the two versions: each side reads it as unset.
+- Changing its type while keeping the tag is an incompatible change: the receiver decodes the bytes as the type it
+  knows, and either produces a wrong value or raises `MarshalException`.
+- Making a required parameter or field optional, or an optional one required, is an incompatible change.
 
 ## See Also
 
