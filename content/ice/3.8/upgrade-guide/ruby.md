@@ -31,6 +31,17 @@ command string, optionally followed by such an array.
 3.7 also accepted the name of a configuration file, and an argument array followed by an `Ice::InitializationData`
 object or by the name of a configuration file.
 
+To combine command-line arguments with an `Ice::InitializationData` object, create its properties from the arguments,
+with the properties it already holds as the defaults:
+
+```diff
+-Ice::initialize(ARGV, initData) do |communicator|
++initData.properties = Ice::createProperties(ARGV, initData.properties)
++Ice::initialize(initData) do |communicator|
+     ...
+ end
+```
+
 To combine command-line arguments with a configuration file, load the file into a `Properties` object and pass that
 object as the defaults to `Ice::createProperties`:
 
