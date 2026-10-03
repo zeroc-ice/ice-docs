@@ -21,38 +21,33 @@ namespace Ice
 
 A plug-in object's lifecycle consists of four phases:
 
-- Construction The Ice runtime creates the plug-in using a factory function (described below). During construction, a
-  plug-in can acquire resources but must not spawn new threads or perform activities that depend on other plug-ins.
+- **Construction.** Ice calls the plug-in factory during communicator initialization. Acquire resources here, but defer
+  starting threads and using other plug-ins until `initialize`.
+- **Initialization.** After constructing all plug-ins, Ice calls `initialize` in construction order. Factories in
+  `InitializationData.pluginFactories` run in list order, followed by plug-ins loaded through configuration. Use
+  [Ice.PluginLoadOrder](../ice-properties#ice.pluginloadorder) to order the latter. A plug-in can use another plug-in
+  after that plug-in has initialized.
+- **Active use.** The plug-in provides its services until the communicator is destroyed. Its implementation must handle
+  concurrent calls when multiple threads use these services.
+- **Destruction.** When the communicator is destroyed, Ice calls `destroy` in reverse initialization order.
 
-- Initialization After all plug-ins have been constructed, the Ice runtime invokes `initialize` on each plug-in. The
-  order in which plug-ins are initialized is undefined by default but can be customized using the
-  [Ice.PluginLoaderOrder](../ice-properties) property. If a plug-in has a dependency on another plug-in, you must
-  configure the Ice runtime so that initialization occurs in the proper order. In this phase it is safe for a plug-in to
-  spawn new threads; it is also safe for a plug-in to interact with other plug-ins and use their services, as long as
-  those plug-ins have already been initialized. If `initialize` throws an exception, the Ice runtime invokes `destroy`
-  on all plug-ins that were successfully initialized (in the reverse order of initialization) and throws the original
-  exception to the application.
-
-- Active The active phase spans the time between initialization and destruction. Plug-ins must be designed to operate
-  safely in the context of multiple threads.
-
-- Destruction The Ice runtime invokes `destroy` on each plug-in in the reverse order of initialization.
-
-This lifecycle is repeated for each new communicator that an application creates and destroys.
+If the `initialize` method of a plug-in throws an exception, communicator initialization fails with
+`PluginInitializationException`. Ice does not call `destroy` on this plug-in: `initialize` must release the resources it
+acquired before throwing.
 
 ## Plug-in Factory Function
 
 In C++, a plug-in factory is a function with the following signature:
 
 ```cpp
-using PluginFactoryFunc = Plugin* (*)(const CommunicatorPtr& communicator,
-                                      const std::string& name,
-                                      const StringSeq& args);
+using PluginFactoryFunc = Ice::Plugin* (*)(const Ice::CommunicatorPtr& communicator,
+                                          const std::string& name,
+                                          const Ice::StringSeq& args);
 ```
 
 You can choose any name for the factory function of your plug-in. If you want to load this plug-in at runtime, you will
-need to provide this name in configuration files and you should use a function with C linkage to avoid name-mangling.
-For example:
+need to export this function from the library and provide its name in configuration. Use C linkage to avoid
+name-mangling. For example:
 
 ```cpp
 extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createPlugin(
@@ -64,8 +59,7 @@ extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createPlugin(
 The arguments to the function consist of the communicator that is in the process of being initialized, the name assigned
 to the plug-in, and any arguments that were specified in the [plug-in's configuration](../ice-plugin-properties).
 
-The Ice runtime is responsible for deleting the plug-in returned by this factory function. This usually occurs when the
-communicator is destroyed, immediately after all the plug-ins have been destroyed.
+Allocate the plug-in with `new`. Ice takes ownership of the pointer returned by the factory function.
 
 ## Loading a Plug-in Using InitializationData
 
@@ -75,7 +69,9 @@ this plug-in to the `pluginFactories` field of your communicator’s `Initializa
 For example:
 
 ```cpp
-// My application relies on the IceDiscovery plug-in, so I always load it.
+#include <Ice/Ice.h>
+#include <IceDiscovery/IceDiscovery.h>
+
 Ice::InitializationData initData;
 initData.properties = Ice::createProperties(argc, argv);
 initData.pluginFactories = {IceDiscovery::discoveryPluginFactory()};
@@ -88,16 +84,38 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 ```cpp
 struct PluginFactory
 {
-    /// The default and preferred name for plug-ins created by this factory.
+    /// The name of the plug-ins created by this factory.
     std::string pluginName;
 
     /// The factory function.
-    PluginFactoryFunc factoryFunc;
+    Ice::PluginFactoryFunc factoryFunc;
 };
 ```
 
-Plug-ins that are installed in the communicator via `pluginFactories` are created before the plug-ins registered via
-configuration.
+Ice creates the plug-ins in list order, each with the name given by its factory, before the plug-ins loaded through
+configuration. A matching `Ice.Plugin.Name` property can supply arguments: use `1` as the entry-point token when
+providing the factory yourself. Ice passes the remaining arguments to the factory. For example:
+
+```config
+Ice.Plugin.MyPlugin=1 arg1 arg2
+```
+
+## Managing Plug-ins
+
+The plug-in manager of a communicator gives access to its plug-ins: call `getPluginManager` on the communicator, then
+`getPlugin` with the name of the plug-in. See [PluginManager](https://code.zeroc.com/manual/Ice/PluginManager) in the
+API reference.
+
+To configure a plug-in through its own API before Ice initializes it, set
+[Ice.InitPlugins](../ice-properties#ice.initplugins) to `0`. Create the communicator, obtain the plug-in with
+`getPlugin`, configure it, and then call `initializePlugins` on the plug-in manager.
+
+## Transport Factories and Static Linking
+
+The Ice C++ shared library registers the TCP, SSL, UDP, and WebSocket transports automatically. The static Ice library
+registers only TCP and SSL: when you link with this library, add `Ice::udpPluginFactory()` or `Ice::wsPluginFactory()`
+to `pluginFactories` for the UDP or WebSocket transport you need. The IceDiscovery and IceLocatorDiscovery plug-ins need
+UDP.
 
 ## See Also
 

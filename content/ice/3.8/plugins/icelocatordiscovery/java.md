@@ -5,18 +5,19 @@ of `InitializationData`:
 
 ```java
 InitializationData initData = new InitializationData();
+initData.properties = new com.zeroc.Ice.Properties(args);
 initData.pluginFactories =
-    Collections.singletonList(new com.zeroc.IceLocatorDiscovery.PluginFactory());
+    java.util.List.of(new com.zeroc.IceLocatorDiscovery.PluginFactory());
 
-try (Communicator communicator = Util.initialize(args)) {
-    ....
+try (Communicator communicator = new Communicator(initData)) {
+    // Use the communicator.
 }
 ```
 
 Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using configuration:
 
 ```config
-Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:com.zeroc.IceLocatorDiscovery.PluginFactory
+Ice.Plugin.IceLocatorDiscovery=com.zeroc.IceLocatorDiscovery.PluginFactory
 ```
 
 {% /language-section %}

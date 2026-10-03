@@ -28,6 +28,8 @@ Ice passes the remaining arguments to the factory's `create` method. For example
 Ice.Plugin.MyPlugin=MyFactory,Version=1.2.3.4:MyFactory arg1 arg2
 ```
 
+The factory class must provide a public parameterless constructor.
+
 Whitespace separates the arguments, and any arguments that contain whitespace must be enclosed in quotes.
 
 If you specify a relative path name in the entry point, the assembly is located relative to the program's current
@@ -46,5 +48,9 @@ Ice.Plugin.MyPlugin="C:\Program Files\MyPlugin\MyFactory.dll:MyFactory" arg1 arg
 Assembly names use the
 [.NET assembly-loading rules](https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/loading-managed),
 including already-loaded assemblies, probing paths and assembly-resolution callbacks.
+
+A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
+`InitializationData.pluginFactories`. Use `1` as the entry-point token in this case; Ice passes the remaining arguments
+to the factory.
 
 {% /language-section %}

@@ -19,13 +19,13 @@ Alternatively, you can install the IceLocatorDiscovery plug-in at runtime using 
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 ```
 
-The IceLocatorDiscovery library is always included in or linked with the Ice C++ support library you’re using.
+When you use `pluginFactories`, link your application with the IceLocatorDiscovery library.
 
-In order to load the IceLocatorDiscovery plug-in into your communicator, set the property
-`Ice.Plugin.IceLocatorDiscovery` to `1`:
+{% callout type="info" %}
 
-```config
-Ice.Plugin.IceLocatorDiscovery=1
-```
+The static Ice library registers only the TCP and SSL transports by default. When you link with this library, also add
+`Ice::udpPluginFactory()` to `pluginFactories`.
+
+{% /callout %}
 
 {% /language-section %}

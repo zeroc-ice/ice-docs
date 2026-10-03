@@ -72,8 +72,7 @@ DLL search path.
 
 The `Ice.Plugin.name` property can be used to configure a plug-in installed in the communicator using
 `InitializationData::pluginFactories`. In this situation, the `path[,version]:function` component of the property value
-is ignored. If `Ice.PluginLoadOrder` includes this plug-in's name, communicator initialization fails with a
-`PluginInitializationException`.
+is ignored.
 
 {% /callout %}
 
