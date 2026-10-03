@@ -46,6 +46,53 @@ property on the default locator's router:
 Ice.Default.Locator.Router.EndpointSelection=Ordered
 ```
 
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
+
+## Creating a Proxy from an Object Adapter
+
+An object adapter can create a proxy for any identity, whether or not it hosts an Ice object with this identity.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
+- `createProxy` returns a proxy with the given identity. If the object adapter has an
+  [AdapterId](../object-adapter-properties), the proxy is an indirect proxy that refers to the object adapter's
+  `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, the proxy is a direct proxy that
+  holds the object adapter's published endpoints.
+- `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
+- `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
+  [well-known proxy](../well-known-proxy) when the object adapter has no adapter ID.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+`createProxy` and `createDirectProxy` both return a direct proxy that holds the object adapter's published endpoints.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
+
+`add`, `addFacet`, `addWithUUID` and `addFacetWithUUID` register a servant with the
+[Active Servant Map](../active-servant-map) and return the proxy that `createProxy` creates for the identity of this
+servant, with its facet.
+
+All these proxies use the options set by the object adapter's [ProxyOptions](../object-adapter-properties) property,
+such as `-o` for oneway proxies.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,swift" %}
+
+## Creating a Proxy from a Connection
+
+`createProxy` on a connection returns a fixed proxy with the given identity: invocations on this proxy use only this
+connection. A server uses such a proxy to call back a client over a
+[bidirectional connection](../bidirectional-connections).
+
+{% /iflang %}
+
 ## Receiving a Proxy from an Operation
 
 An application can also receive a proxy as the result of an Ice invocation. Consider the following Slice definitions:
@@ -63,6 +110,34 @@ Invoking the `findAccount` operation returns a proxy for an `Account` object.
 For example:
 
 {% language-section name="lang-4" /%}
+
+## Proxy Factory Methods
+
+A proxy is immutable. Its factory methods, such as `ice_oneway`, `ice_facet` and `ice_invocationTimeout`, return a proxy
+with the requested setting, and leave the original proxy unchanged. See
+[ObjectPrx](https://code.zeroc.com/manual/Ice/ObjectPrx) in the API reference for the complete list of factory methods
+and the accessors that return the current settings.
+
+The [language mapping for interfaces](../interfaces) describes the type of the proxy that these factory methods return.
+
+## Casting a Proxy
+
+A cast converts a proxy into a proxy of another type, for the same Ice object. `uncheckedCast` performs this conversion
+without contacting the target object. `checkedCast` first calls `ice_isA` on the target object to verify that it
+implements the requested interface, and returns a null proxy if it does not.
+
+{% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
+
+The [language mapping for interfaces](../interfaces) shows the cast functions.
+
+{% /iflang %}
+
+{% iflang langs="cpp" %}
+
+In C++, the cast functions are the `Ice::uncheckedCast` and `Ice::checkedCast` function templates, for example
+`Ice::checkedCast<GreeterPrx>(proxy)`.
+
+{% /iflang %}
 
 ## See Also
 
