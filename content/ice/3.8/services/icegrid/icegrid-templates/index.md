@@ -192,23 +192,21 @@ icegridadmin --Ice.Config=/opt/ripper/config
 This command generates the following output:
 
 ```text
-server template `EncoderServerTemplate'
+server template 'EncoderServerTemplate'
 {
-    parameters = `index exepath'
-    server `EncoderServer${index}'
+    parameters = 'index exepath'
+    server 'EncoderServer${index}'
     {
-        exe = `${exepath}'
-        activation = `on-demand'
+        exe = '${exepath}'
+        activation = 'on-demand'
+        adapter 'EncoderAdapter'
+        {
+            id = '${server}.EncoderAdapter'
+            endpoints = 'tcp'
+            server lifetime = 'true'
+        }
         properties
         {
-            EncoderAdapter.Endpoints = `tcp'
-        }
-        adapter `EncoderAdapter'
-        {
-            id = `EncoderAdapter${index}'
-            replica group id =
-            endpoints = `tcp'
-            server lifetime = `true'
         }
     }
 }

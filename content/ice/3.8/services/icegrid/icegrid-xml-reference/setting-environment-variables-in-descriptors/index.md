@@ -7,7 +7,7 @@ environment variables that the node will define when starting a server. An envir
 familiar `name=value` syntax, and you can also refer to other environment variables within the value. The exact syntax
 for variable references depends on the platform on which the server's descriptor is deployed.
 
-On a Linux, the Bourne shell syntax is required:
+On Linux and macOS, the node expands references written in Bourne shell syntax:
 
 ```text
 LD_LIBRARY_PATH=/opt/Ice/lib:$LD_LIBRARY_PATH
@@ -43,29 +43,31 @@ Environment variable definitions may also refer to
 
 ```xml
 <node name="LinuxBox">
-    <server id="LinuxServer" exe="/opt/app/bin/server" ...>
-        <env>PATH=${server.distrib}/bin:$PATH</env>
+    <variable name="appdir" value="/opt/app"/>
+    <server id="LinuxServer" exe="${appdir}/bin/server" ...>
+        <env>PATH=${appdir}/bin:$PATH</env>
         ...
     </server>
 </node>
 ```
 
-On Linux, an environment variable `VAR` can be referenced as `$VAR` or `${VAR}`. You must be careful when using the
-latter syntax because IceGrid assumes `${VAR}` refers to a descriptor variable or parameter and will report an error if
-no match is found. If you prefer to use this style to refer to environment variables, you must escape these occurrences
-as shown in the example below:
+On Linux and macOS, an environment variable `VAR` can be referenced as `$VAR` or `${VAR}`. You must be careful when
+using the latter syntax because IceGrid assumes `${VAR}` refers to a descriptor variable or parameter and will report an
+error if no match is found. If you prefer to use this style to refer to environment variables, you must escape these
+occurrences as shown in the example below:
 
 ```xml
 <node name="LinuxBox">
-    <server id="LinuxServer" exe="/opt/app/bin/server" ...>
-        <env>PATH=${server.distrib}/bin:$${PATH}</env>
+    <variable name="appdir" value="/opt/app"/>
+    <server id="LinuxServer" exe="${appdir}/bin/server" ...>
+        <env>PATH=${appdir}/bin:$${PATH}</env>
         ...
     </server>
 </node>
 ```
 
-IceGrid does not attempt to perform [substitution](../using-descriptor-variables-and-parameters) on `$${PATH}`, but
-rather removes the leading `$` character and then performs environment variable substitution on `$${PATH}`.
+IceGrid removes the leading `$` from `$${PATH}` when it performs
+[substitution](../using-descriptor-variables-and-parameters); the node then expands `${PATH}` using its environment.
 
 ## See Also
 
