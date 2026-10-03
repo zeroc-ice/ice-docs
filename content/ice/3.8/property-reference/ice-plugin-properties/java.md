@@ -40,6 +40,6 @@ If `class` is specified without a path, Ice attempts to load the class using cla
 
 A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
 `InitializationData.pluginFactories`. Use `1` as the entry-point token in this case; Ice passes the remaining arguments
-to the factory. Including this plug-in's name in `Ice.PluginLoadOrder` causes `PluginInitializationException`.
+to the factory.
 
 {% /language-section %}

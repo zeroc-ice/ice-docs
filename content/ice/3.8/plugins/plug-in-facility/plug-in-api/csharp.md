@@ -51,8 +51,8 @@ The arguments to the create method consist of the communicator that is in the pr
 assigned to the plug-in, and any arguments that were specified in the
 [plug-in's configuration](../../../property-reference/ice-plugin-properties).
 
-The `pluginName` is the default and preferred name of this plug-in. It’s the name used by Ice when it creates a plug-in
-configured using `InitializationData.pluginFactories` (see below).
+Ice uses `pluginName` as the name of the plug-in when it creates a plug-in configured using
+`InitializationData.pluginFactories` (see below).
 
 ## Loading a Plug-in Using InitializationData
 
