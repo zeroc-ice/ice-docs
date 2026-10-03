@@ -14,10 +14,9 @@ class Link
 }
 ```
 
-Here, `value` and `next` are fields and the type of next is `Link`, which has _value_ semantics. In particular, while
-`next` looks and feels like a pointer, _it cannot denote an instance in a different address space_. This means that if
-we have a chain of `Link` instances, all of the instances are in our local address space and, when we read or write a
-value field, we are performing local address space operations.
+Here, the `next` field refers to another `Link` instance, or is null. All the instances in a chain of `Link` instances
+are in the same process, so reading or writing their fields is a local operation. To refer to an object in another
+process, a field must have a [proxy type](../proxy-types).
 
 Self-referential classes are particularly useful to model graphs. For example, we can create a simple expression tree
 along the following lines:
