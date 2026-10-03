@@ -137,6 +137,7 @@ types on some platforms, such as 64-bit Linux where `std::int64_t` is `long`; th
 The `IceUtil` namespace and the `IceUtil` headers no longer exist:
 
 - `Ice::CtrlCHandler` replaces `IceUtil::CtrlCHandler`.
+- `Ice::generateUUID` replaces `IceUtil::generateUUID`.
 - The string converter API, such as `StringConverter` and `setProcessStringConverter`, is now in the `Ice` namespace.
 - The other `IceUtil` classes, such as `IceUtil::Mutex`, `IceUtil::Thread` and `IceUtil::Time`, have been removed: use
   the C++ standard library.
@@ -156,6 +157,13 @@ communicator the process creates afterwards. In Ice 3.8, you list the plug-in fa
 +initData.pluginFactories = {IceDiscovery::discoveryPluginFactory()};
 +auto communicator = Ice::initialize(initData);
 ```
+
+The Ice library includes the SSL, UDP and WebSocket transports: remove the calls to `Ice::registerIceSSL`,
+`Ice::registerIceUDP` and `Ice::registerIceWS`. If you link with the static Ice libraries, add `Ice::udpPluginFactory()`
+and `Ice::wsPluginFactory()` to `pluginFactories` for UDP and WebSocket.
+
+The string converter plug-in has been removed: replace `Ice::registerIceStringConverter` and its `Ice.Plugin` property
+with a call to `Ice::setProcessStringConverter`, as described in [String Converters](../basic-types#string-converters).
 
 See [Plug-in API](../plug-in-api) for more information.
 
@@ -256,6 +264,7 @@ the `Ice::Byte`, `Ice::Short`, `Ice::Int`, `Ice::Long`, `Ice::Float` and `Ice::D
 The `IceUtil` namespace and the `IceUtil` headers no longer exist:
 
 - `Ice::CtrlCHandler` replaces `IceUtil::CtrlCHandler`.
+- `Ice::generateUUID` replaces `IceUtil::generateUUID`.
 - The string converter API, such as `StringConverter` and `setProcessStringConverter`, is now in the `Ice` namespace.
 - `std::shared_ptr` replaces `IceUtil::Handle`: a class held in a `std::shared_ptr` doesn't derive from
   `IceUtil::Shared`.
@@ -277,6 +286,13 @@ communicator the process creates afterwards. In Ice 3.8, you list the plug-in fa
 +initData.pluginFactories = {IceDiscovery::discoveryPluginFactory()};
 +Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 ```
+
+The Ice library includes the SSL, UDP and WebSocket transports: remove the calls to `Ice::registerIceSSL`,
+`Ice::registerIceUDP` and `Ice::registerIceWS`. If you link with the static Ice libraries, add `Ice::udpPluginFactory()`
+and `Ice::wsPluginFactory()` to `pluginFactories` for UDP and WebSocket.
+
+The string converter plug-in has been removed: replace `Ice::registerIceStringConverter` and its `Ice.Plugin` property
+with a call to `Ice::setProcessStringConverter`, as described in [String Converters](../basic-types#string-converters).
 
 See [Plug-in API](../plug-in-api) for more information.
 
