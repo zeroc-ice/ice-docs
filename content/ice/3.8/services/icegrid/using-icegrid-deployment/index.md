@@ -242,8 +242,8 @@ this early stage, we have already gained several benefits:
 
 - We no longer need to manually start the encoder server before starting the client, because the IceGrid node
   automatically starts it if it is not active at the time a client needs it. If the server happens to terminate for any
-  reason, such as an IceGrid administrative action or a server programming error, the node restarts it without
-  intervention on our part.
+  reason, such as an IceGrid administrative action or a server programming error, the node starts it again the next time
+  a client needs it, as long as the server is enabled, without intervention on our part.
 - We can manage the application remotely using one of the IceGrid administration tools. The ability to remotely modify
   applications, start and stop servers, and inspect every aspect of your configuration is a significant advantage.
 
@@ -338,9 +338,12 @@ icegridadmin --Ice.Config=/opt/ripper/config
 >>> application update "/opt/ripper/app.xml"
 ```
 
-If an update affects any of the application's servers that are currently running, IceGrid automatically stops those
-servers prior to performing the update and restarts them again after the update is complete. We can determine whether an
-update would require any restarts using the `application diff` command:
+If an update changes the configuration of a server that is currently running, such as its properties, executable or
+object adapters, IceGrid automatically stops the server prior to performing the update; an update that changes only
+descriptions leaves the server running. After the update, the node starts an enabled server with the `always` activation
+mode again. The node starts any other enabled server when it next activates it, for example on the next client request
+for an `on-demand` server or on an administrative `server start`. We can determine whether an update would require any
+restarts using the `application diff` command:
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -379,7 +382,7 @@ else
     adapter = "EncoderServer2.EncoderAdapter";
 }
 
-Ripper::MP3EncoderFactoryPrx{communicator, "factory@" + adapter};
+Ripper::MP3EncoderFactoryPrx factory{communicator, "factory@" + adapter};
 auto encoder = factory.createEncoder();
 ```
 
