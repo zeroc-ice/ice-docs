@@ -132,67 +132,32 @@ those objects.
 
 ## Configuring IceDiscovery
 
-Applications configure the IceDiscovery plug-in using configuration properties; the plug-in does not provide a local
-API.
+Applications configure IceDiscovery with properties. IceDiscovery installs its own locator as the default locator of the
+communicator: do not set `Ice.Default.Locator` in an application that installs IceDiscovery.
 
 ### IceDiscovery Property Overview
 
-The IceDiscovery plug-in supports a number of
-[configuration properties](../../property-reference/icediscovery-properties), most of which affect the endpoints that
-the plug-in uses to communicate with its peers:
+IceDiscovery works without any configuration: all the clients and servers use the same default multicast address and
+port.
 
-- Lookup endpoint This is the multicast endpoint on which all lookup queries are broadcast. It must use an IPv4 or IPv6
-  address in the multicast range with a fixed port.
+The main properties are:
 
-- Reply endpoint This is the endpoint on which a client receives replies from servers. In general, this endpoint should
-  not use a fixed port.
+- [IceDiscovery.DomainId](../../property-reference/icediscovery-properties#icediscovery.domainid) separates unrelated
+  applications that use the same multicast address and port: a client finds only the servers with the same domain ID.
+- [IceDiscovery.Address](../../property-reference/icediscovery-properties#icediscovery.address) and
+  [IceDiscovery.Port](../../property-reference/icediscovery-properties#icediscovery.port) set the multicast address and
+  port. The clients and servers of an application must use the same values.
+- [IceDiscovery.Interface](../../property-reference/icediscovery-properties#icediscovery.interface) restricts the
+  plug-in to one network interface. By default, the plug-in uses all interfaces.
 
-The plug-in uses sensible default values for all of its configuration properties, such that it's often unnecessary to
-define any of the plug-in's properties. However, it's still important to understand how the plug-in derives its endpoint
-information.
-
-IceDiscovery creates three object adapters: `IceDiscovery.Multicast` receives lookup requests, `IceDiscovery.Reply`
-receives replies, and `IceDiscovery.Locator` hosts the locator and locator registry used by the communicator. The last
-adapter uses collocated calls by default.
-
-The plug-in derives its multicast address from
-[IceDiscovery.Address](../../property-reference/icediscovery-properties#icediscovery.address). When this property is
-unset, it uses `239.255.0.1` if `Ice.IPv4` is enabled and `Ice.PreferIPv6Address` is disabled; otherwise it uses
-`ff15::1`. [IceDiscovery.Port](../../property-reference/icediscovery-properties#icediscovery.port) defaults to `4061`.
-
-[IceDiscovery.Interface](../../property-reference/icediscovery-properties#icediscovery.interface) selects a network
-interface. When it is unset, the plug-in uses the available interfaces for the selected IP version. Unless you override
-the endpoint properties, it creates:
-
-- A multicast listener at `udp -h address -p port`, with `--interface interface` when you select an interface.
-- One lookup endpoint per selected interface, each with `udp -h address -p port --interface interface`.
-- A reply listener at `udp -h "*"`, or `udp -h "interface"` when you select an interface. Ice chooses its port.
-
-For example, to use a different multicast group and port on the local interface `192.0.2.10`:
+For example, to use a different multicast address and port:
 
 ```config
 IceDiscovery.Address=239.255.0.99
 IceDiscovery.Port=8000
-IceDiscovery.Interface=192.0.2.10
 ```
 
-The plug-in listens and sends lookups on `239.255.0.99:8000` through that interface and receives replies on
-`192.0.2.10`. Replace the interface address with one belonging to the local host; clients and servers can have different
-interface addresses.
-
-You can override the multicast listener with `IceDiscovery.Multicast.Endpoints`, the outgoing lookup endpoints with
-`IceDiscovery.Lookup`, and the reply listener with `IceDiscovery.Reply.Endpoints`. Client lookup endpoints must reach
-the multicast address and port on which the servers listen.
-
-Clients and servers must share a [domain ID](../../property-reference/icediscovery-properties#icediscovery.domainid),
-which defaults to an empty string. Assign different domain IDs to unrelated applications sharing the same multicast
-address and port.
-
-The [Timeout](../../property-reference/icediscovery-properties#icediscovery.timeout) and
-[RetryCount](../../property-reference/icediscovery-properties#icediscovery.retrycount) properties control unanswered
-lookups. By default, the plug-in waits 300 milliseconds for a response and retries up to three times. For replica
-groups, [LatencyMultiplier](../../property-reference/icediscovery-properties#icediscovery.latencymultiplier) controls
-how long it collects additional replies after the first response.
+See [IceDiscovery Properties](../../property-reference/icediscovery-properties) for the complete list.
 
 ### Configuring IceDiscovery in Clients
 
@@ -227,11 +192,6 @@ The indirect proxy `someObject@greeter-1234` refers to an object in this particu
 proxy `someObject@greeterPool` could refer to any object having the identity `someObject` in any of the object adapters
 participating in the replica group `greeterPool`.
 
-### Configuring a Locator Proxy
-
-IceDiscovery installs its own locator as the communicator's default during plug-in initialization, replacing any
-configured default locator. Use it as the location service for adapters and proxies that participate in IceDiscovery.
-
 ## Using IceDiscovery
 
 As its name implies, the IceDiscovery plug-in allows clients to locate objects at runtime, as long as the servers
@@ -264,8 +224,7 @@ From a design perspective, incorporating IceDiscovery into your application requ
   above, and ensure your clients resolve indirect proxies using the replica group identifiers.
 
 IceDiscovery provides enough flexibility to support a wide variety of application architectures. If you need additional
-functionality, consider using IceGrid. [IceLocatorDiscovery](../icelocatordiscovery) discovers IceGrid's locator;
-IceGrid itself manages the registration of objects and object adapters.
+functionality, consider using IceGrid.
 
 ## See Also
 

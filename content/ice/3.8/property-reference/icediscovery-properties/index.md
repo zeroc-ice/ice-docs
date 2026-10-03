@@ -53,18 +53,6 @@ value of [IceDiscovery.Lookup](#icediscovery.lookup),
 [IceDiscovery.Reply.Endpoints](#icediscovery.reply.adapterproperty) and
 [IceDiscovery.Multicast.Endpoints](#icediscovery.multicast.adapterproperty).
 
-## IceDiscovery.Locator._AdapterProperty_
-
-### Synopsis {% id="icediscovery.locator.adapterproperty-synopsis" %}
-
-`IceDiscovery.Locator.AdapterProperty=value`
-
-### Description {% id="icediscovery.locator.adapterproperty-description" %}
-
-IceDiscovery creates an object adapter named `IceDiscovery.Locator` to host its locator and locator registry. The
-[object adapter properties](../object-adapter-properties) configure this adapter. When its `Endpoints` property is
-unset, the plug-in assigns a generated adapter ID and uses collocated calls to these objects.
-
 ## IceDiscovery.Lookup
 
 ### Synopsis {% id="icediscovery.lookup-synopsis" %}

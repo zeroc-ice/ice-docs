@@ -2,21 +2,22 @@
 title: Custom Logger Plug-in
 ---
 
-A logger plug-in installs a custom logger while Ice initializes a communicator.
-
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
-When you create the communicator in your own code, set `InitializationData.logger` to install a custom logger directly.
+When you create a communicator in your own code, install a custom logger by setting `InitializationData.logger`.
 
 {% /iflang %}
 
-However, in some situations, you have no access to `InitializationData`, for example:
+A logger plug-in installs a custom logger through configuration, during communicator initialization. Use a logger
+plug-in when you don't create the communicator yourself, for example in an IceBox service, or when you want to install a
+custom logger without changing any source code.
 
-- you are writing an IceBox service
-- you want to install a custom logger without changing any source code
+{% iflang langs="cpp,csharp,java" %}
 
-In mappings that support plug-ins, the plug-in facility allows you to inject your custom logger into the communicator at
-runtime, during communicator initialization.
+Adding a logger plug-in factory to `InitializationData.pluginFactories` works too, but it is more work for the same
+result as setting `InitializationData.logger`.
+
+{% /iflang %}
 
 ## Installing a Custom Logger
 

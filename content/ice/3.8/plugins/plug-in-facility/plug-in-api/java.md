@@ -27,10 +27,9 @@ A plug-in object's lifecycle consists of four phases:
   concurrent calls when multiple threads use these services.
 - **Destruction.** When the communicator is destroyed, Ice calls `destroy` in reverse initialization order.
 
-If `initialize` fails, Ice calls `destroy` on the plug-ins that initialized successfully, in reverse order, and reports
-`PluginInitializationException`. Ice preserves this exception when the plug-in throws it directly and wraps other
-runtime exceptions. The failing plug-in must clean up resources acquired by its failed initialization; Ice does not call
-its `destroy` method. A plug-in that only reached construction must also arrange to release its resources.
+If the `initialize` method of a plug-in throws an exception, communicator initialization fails with
+`PluginInitializationException`. Ice does not call `destroy` on this plug-in: `initialize` must release the resources it
+acquired before throwing.
 
 ## Plug-in Factory
 
@@ -72,7 +71,7 @@ try (Communicator communicator = new Communicator(initData)) {
 
 `pluginFactories` is a list of `com.zeroc.Ice.PluginFactory`.
 
-Ice uses each factory's preferred name and creates the plug-ins in list order, before the plug-ins loaded through
+Ice creates the plug-ins in list order, each with the name given by its factory, before the plug-ins loaded through
 configuration. A matching `Ice.Plugin.Name` property can supply arguments: use `1` as the entry-point token when
 providing the factory yourself. Ice passes the remaining arguments to the factory. For example:
 
@@ -80,28 +79,15 @@ providing the factory yourself. Ice passes the remaining arguments to the factor
 Ice.Plugin.MyPlugin=1 arg1 arg2
 ```
 
-Keep these names out of `Ice.PluginLoadOrder`: including a plug-in already installed through `pluginFactories` causes
-communicator initialization to fail with `PluginInitializationException`.
-
 ## Managing Plug-ins
 
-Call `getPluginManager` on the communicator to obtain its `PluginManager`. The manager provides these operations:
+The plug-in manager of a communicator gives access to its plug-ins: call `getPluginManager` on the communicator, then
+`getPlugin` with the name of the plug-in. See [PluginManager](https://code.zeroc.com/manual/Ice/PluginManager) in the
+API reference.
 
-| Operation                 | Behavior                                                                                                                                       |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `getPlugins()`            | Return the names of installed plug-ins.                                                                                                        |
-| `getPlugin(name)`         | Return the named plug-in, or throw `NotRegisteredException` if the name is unknown.                                                            |
-| `addPlugin(name, plugin)` | Register an existing plug-in instance, or throw `AlreadyRegisteredException` if the name is in use. This operation does not call `initialize`. |
-| `initializePlugins()`     | Initialize the installed plug-ins in registration order. Calling it after successful initialization throws `InitializationException`.          |
-
-To configure a plug-in through its own API before initialization, set
+To configure a plug-in through its own API before Ice initializes it, set
 [Ice.InitPlugins](../../../property-reference/ice-properties#ice.initplugins) to `0`. Create the communicator, obtain
-the plug-in with `getPlugin`, configure it, and then call `initializePlugins`. You can also call `addPlugin` before
-`initializePlugins` to include an application-created instance in initialization and destruction. If you add a plug-in
-after automatic initialization, initialize that instance yourself.
-
-Destroy the communicator to destroy its plug-ins. If you defer initialization and never call `initializePlugins`, Ice
-does not call their `destroy` methods.
+the plug-in with `getPlugin`, configure it, and then call `initializePlugins` on the plug-in manager.
 
 ## See Also
 

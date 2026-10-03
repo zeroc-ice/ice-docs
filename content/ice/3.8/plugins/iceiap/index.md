@@ -17,7 +17,7 @@ An accessory can be discovered based on a number of attributes:
 
 IceIAP searches the accessories that iOS reports as connected. The accessory must advertise the endpoint's protocol,
 which defaults to `com.zeroc.ice`. If you specify a name, manufacturer, or model number, each specified value must match
-exactly. If no connected accessory matches, connection establishment fails with `ConnectFailedException`.
+exactly.
 
 ## Installing IceIAP
 

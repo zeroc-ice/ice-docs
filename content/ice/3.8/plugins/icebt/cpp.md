@@ -39,7 +39,7 @@ plugin->startDiscovery(
 ```
 
 Replace `adapterAddress` with the address of a local Bluetooth adapter. Both `startDiscovery` and `stopDiscovery`
-require that address. An unknown adapter address causes `IceBT::BluetoothException`.
+require that address.
 
 The callback receives the remote device's Bluetooth address and an `IceBT::PropertyMap`, a string-to-string map of
 metadata. The plug-in can report the same device more than once. Discovery continues until you stop it with

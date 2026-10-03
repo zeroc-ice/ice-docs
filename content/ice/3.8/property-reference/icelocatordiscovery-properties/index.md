@@ -139,8 +139,8 @@ only the initial query.
 
 If the plug-in fails to receive any responses to a query after retrying the number of times specified by
 [IceLocatorDiscovery.RetryCount](../icelocatordiscovery-properties#icelocatordiscovery.retrycount), the plug-in waits at
-least `num` milliseconds before a later locator request can start another round of query attempts. Requests during this
-interval do not start discovery. If not defined, the default value is `2000`. The value must be zero or greater.
+least `num` milliseconds before a later locator request can start another round of query attempts. If not defined, the
+default value is `2000`.
 
 ## IceLocatorDiscovery.Trace.Lookup
 
