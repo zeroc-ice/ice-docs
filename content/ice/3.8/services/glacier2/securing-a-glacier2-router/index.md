@@ -115,24 +115,16 @@ module Glacier2
 }
 ```
 
-The structure includes address information about the remote and local hosts, and a string that describes the ciphersuite
-negotiated for the SSL connection between the client and the router. These values are generally of interest for logging
-purposes, whereas the `certs` member supplies the information the verifier needs to make its decision. The client's
-certificate chain is represented as a sequence of strings that use the Privacy Enhanced Mail (PEM) encoding.
+For a connection over IP, the `remoteHost`, `remotePort`, `localHost`, and `localPort` members hold the addresses of the
+client's connection to the router; for other connections, the hosts are empty and the ports are 0. The router leaves
+`cipher` empty. `certs` holds a single element: the client's certificate in the Privacy Enhanced Mail (PEM) encoding.
+The router rejects `createSessionFromSecureConnection` with `PermissionDeniedException`, without invoking the verifier,
+when the client does not provide a certificate or when the subject name of the certificate is empty.
 
-The first element of the sequence corresponds to the client's certificate, followed by its signing certificates. The
-certificate of the root Certificate Authority (CA) is the last element of the sequence. An empty sequence indicates that
-the client did not supply a certificate chain.
-
-Although the certificate chain has already been validated by the SSL implementation, a verifier implementation typically
-needs to examine it in detail before making its decision. As a result, the verifier will need to convert the contents of
-`certs` into a more usable form. Some Ice platforms, such as Java and .NET, already provide certificate abstractions,
-and IceSSL supplies its own for C++ users. IceSSL for Java and .NET defines the method `IceSSL.Util.createCertificate`,
-which accepts a PEM-encoded string and returns an instance of the platform's certificate class. In C++, the class
-`IceSSL::Certificate` has a constructor that accepts a PEM-encoded string.
-
-In addition to examining certificate attributes such as the distinguished name of the subject and issuer, it is also
-important that a verifier consider the length of the certificate chain.
+Although the SSL implementation has already validated the certificate, a verifier implementation typically needs to
+examine it in detail before making its decision, such as the distinguished names of its subject and issuer. The verifier
+decodes the PEM string with the certificate API of its platform, such as `X509Certificate2` in .NET or
+`CertificateFactory` in Java; see [The SSL Transport](../ssl-transport).
 
 To install your verifier, set the [Glacier2.SSLPermissionsVerifier](../glacier2-properties) property with the proxy of
 your verifier object.
@@ -164,9 +156,9 @@ permissions-verifier and session-manager calls and to requests forwarded from cl
 information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on session
 managers.
 
-The context entries include addressing details and, for SSL or WSS connections with a client certificate, the
-PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional context entries as
-shown below:
+The context entries include addressing details for connections over IP and, for SSL or WSS connections with a client
+certificate, the PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional
+context entries as shown below:
 
 ```cpp
 void unlockDoor(string id, const Ice::Current& current)
@@ -174,11 +166,13 @@ void unlockDoor(string id, const Ice::Current& current)
     auto i = current.ctx.find("_con.peerCert");
     if(i != current.ctx.end())
     {
-        string certPEM;
-        certPEM = i->second;
-        cout << "Client address = "
-             << current.ctx["_con.remoteAddress"]
-             << ":" << current.ctx["_con.remotePort"] << endl;
+        string certPEM = i->second;
+        auto address = current.ctx.find("_con.remoteAddress");
+        auto port = current.ctx.find("_con.remotePort");
+        if(address != current.ctx.end() && port != current.ctx.end())
+        {
+            cout << "Client address = " << address->second << ":" << port->second << endl;
+        }
         ...
     }
     ...
@@ -191,7 +185,9 @@ If the client supplied a certificate, the server can decode and examine it using
 ## Request Filtering
 
 The Glacier2 router is capable of filtering requests based on a variety of criteria, which helps to ensure that clients
-do not gain access to unintended objects.
+do not gain access to unintended objects. The category, identity, and adapter identifier filters accept a request when
+any one of them that is configured accepts it, and accept every request when none of them is configured. The address
+filters and the proxy size limit apply independently of these filters.
 
 ### Address Filters
 
@@ -211,9 +207,9 @@ The value of each property is a list of _address_:_port_ pairs separated by spac
 Glacier2.Filter.Address.Accept=192.168.1.5:4063 192.168.1.6:4063
 ```
 
-This configuration allows clients to use only two hosts in the back-end network, and only one port on each host. A
-client that attempts to use a proxy containing any other host or port receives an `ObjectNotExistException` on its
-initial request.
+This configuration allows clients to use only two hosts in the back-end network, and only one port on each host. When a
+client attempts to use a proxy containing any other host or port, the router aborts the client's connection, which ends
+its session; see [Client Impact](#client-impact).
 
 You can also use ranges, groups and wildcards when defining your address filters. For example, the following property
 value shows how to use an address range:
@@ -264,8 +260,9 @@ By default, a Glacier2 router forwards requests for any address.
 ### Category Filters
 
 The [Ice::Identity](../object-identity) type contains two string members: category and name. You can configure a router
-with a list of valid identity categories, in which case it only routes requests for objects in those categories. The
-configuration property [Glacier2.Filter.Category.Accept](../glacier2-properties) supplies the category list:
+with a list of accepted identity categories, in which case the category filter accepts requests for objects in those
+categories. The configuration property [Glacier2.Filter.Category.Accept](../glacier2-properties) supplies the category
+list:
 
 ```config
 Glacier2.Filter.Category.Accept=cat1 cat2
@@ -284,20 +281,20 @@ If a category contains spaces, you can enclose the value in single or double quo
 character, it must be escaped with a leading backslash.
 
 Glacier2 can optionally manipulate the category filter automatically. When you set
-[Glacier2.Filter.Category.AcceptUser](../glacier2-properties) to a value of 1, the router adds the session's user name
-(for password authentication) or distinguished name (for SSL authentication) to the list of accepted categories. To
-ensure the uniqueness of your categories, you may prefer setting the property to a value of 2, which causes the router
-to prepend an underscore to the user name or distinguished name before adding it to the list.
+[Glacier2.Filter.Category.AcceptUser](../glacier2-properties) to a value of 1, the router adds the user name of each
+session created with `createSession` to the list of accepted categories, unless that user name is empty. To ensure the
+uniqueness of your categories, you may prefer setting the property to a value of 2, which causes the router to prepend
+an underscore to the user name before adding it to the list.
 
 A session manager can also configure category filters [dynamically](../dynamic-request-filtering-with-glacier2) using
 Glacier2's `SessionControl` interface.
 
 ### Identity Filters
 
-The ability to filter on identity categories, as described in the previous section, is a convenient way to limit clients
-to particular groups of objects. For even stricter control over the identities that clients are allowed to access, you
-can use the [Glacier2.Filter.Identity.Accept](../glacier2-properties) property. The value of this property is a list of
-identities, separated by whitespace, representing the _only_ objects the router's clients may use.
+The ability to filter on identity categories, as described in the previous section, is a convenient way to give clients
+access to particular groups of objects. To give clients access to individual objects, you can use the
+[Glacier2.Filter.Identity.Accept](../glacier2-properties) property. The value of this property is a list of identities,
+separated by whitespace, and the identity filter accepts requests for these objects.
 
 If an identity contains spaces, you can enclose the value in single or double quotes. If an identity contains a quote
 character, it must be escaped with a leading backslash.
@@ -326,6 +323,8 @@ proxy `factory@SecretAdapter`:
 ```config
 Glacier2.Filter.AdapterId.Accept=WidgetAdapter
 ```
+
+The router applies this filter only to proxies with an adapter identifier.
 
 If an adapter identifier contains spaces, you can enclose the value in single or double quotes. If an adapter identifier
 contains a quote character, it must be escaped with a leading backslash.
