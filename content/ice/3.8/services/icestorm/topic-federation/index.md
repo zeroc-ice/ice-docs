@@ -4,10 +4,11 @@ title: Topic Federation
 
 The ability to link topics together into a federation provides IceStorm applications with a lot of flexibility, while
 the notion of a "cost" associated with links allows applications to restrict the flow of messages in creative ways.
-IceStorm applications have complete control of topic federation using the
-[TopicManager interface](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1TopicManager.html), allowing
-links to be created and removed dynamically as necessary. For many applications, however, the topic graph is static and
-therefore can be configured using the [administrative tool](../icestorm-administration).
+IceStorm applications have complete control of topic federation: an application creates and removes links dynamically
+with the `link` and `unlink` operations of the
+[Topic interface](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html). For many applications,
+however, the topic graph is static, and an administrator configures it with the
+[administrative tool](../icestorm-administration).
 
 The figures below use dotted arrows for links between topics and solid arrows for publishing and delivering messages.
 
@@ -18,7 +19,7 @@ IceStorm messages are never propagated over more than one link. For example, con
 ![Publisher PA publishes to topic A, which has a dotted link to B. Publisher PB publishes directly to B. B has a dotted link to C and sends to subscriber SB; C sends to subscriber SC. Solid arrows show message delivery.](/images/ice/3.8/topic-federation/federation1.svg)
 
 In this case, messages published on `A` are propagated to `B`, but `B` does not propagate `A`'s messages to `C`.
-Therefore, subscriber SB receives messages published on topics `A` and B, but subscriber SC only receives messages
+Therefore, subscriber SB receives messages published on topics `A` and `B`, but subscriber SC only receives messages
 published on topics `B` and `C`. If the application needs messages to propagate from `A` to `C`, then a link must be
 established directly between `A` and `C`.
 
@@ -27,9 +28,8 @@ established directly between `A` and `C`.
 As described above, IceStorm messages are only propagated on the originating topic's immediate links. In addition,
 applications can use the notion of cost to further restrict message propagation.
 
-A cost is associated with messages and links. When a message is published on a topic, the topic compares the cost
-associated with each of its links against the message cost, and only propagates the message on those links whose cost
-equals or exceeds the message cost. A cost value of zero (`0`) has the following implications:
+Messages and links each carry a cost. A topic propagates a message only on its links whose cost is zero or at least the
+message's cost. A cost value of zero (`0`) has the following implications:
 
 - messages with a cost value of zero (`0`) are published on all of the topic's links regardless of the link cost;
 - links with a cost value of zero (`0`) accept all messages regardless of the message cost. For example, consider the
