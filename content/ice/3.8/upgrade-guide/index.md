@@ -270,9 +270,10 @@ Slice loader.
 The SSL transport is now part of the Ice library and is no longer a plug-in.
 
 - Remove the `Ice.Plugin.IceSSL` property from your configuration: Ice 3.8 provides no IceSSL plug-in to load.
-- The `IceSSL` certificate API, the certificate verifiers and the password callbacks have been removed. In C++, C# and
-  Java, configure the SSL transport [programmatically](../ssl-transport) with the API of the SSL engine of your platform
-  instead; in the other language mappings, use the [IceSSL properties](../icessl-properties).
+- The `IceSSL` certificate API, the certificate verifiers and the password callbacks have been removed. You can still
+  configure the SSL transport with the [IceSSL properties](../icessl-properties) in all language mappings. In C++, C#
+  and Java, we recommend the new [programmatic configuration](../ssl-transport), which uses the API of the SSL engine of
+  your platform and gives you more control than the properties.
 
 ## Plug-ins
 
@@ -285,17 +286,19 @@ Ice::InitializationData initData;
 initData.pluginFactories = {IceDiscovery::discoveryPluginFactory()};
 ```
 
-Your application then links with the plug-in's library, Ice does not load the plug-in dynamically, and you no longer
-need an `Ice.Plugin.name` property to load it.
+Your application then uses the plug-in's library like any other library it depends on, and you no longer need an
+`Ice.Plugin.name` property to load the plug-in.
 
-The plug-ins provided by Ice now have fixed names. This matters in the language mappings without plug-in factories, such
-as Python, where you enable a plug-in with a property that must use this name:
+In the language mappings based on Ice for C++ (MATLAB, PHP, Python, Ruby and Swift), you install a plug-in with an
+`Ice.Plugin.name` property, as in Ice 3.7. These mappings now include the IceDiscovery and IceLocatorDiscovery plug-ins.
+You enable them with the properties `Ice.Plugin.IceDiscovery` and `Ice.Plugin.IceLocatorDiscovery`, and you can no
+longer choose another name for these plug-ins. For example:
 
 ```config
 Ice.Plugin.IceDiscovery=1
 ```
 
-See [IceDiscovery](../icediscovery), [IceLocatorDiscovery](../icelocatordiscovery) and [IceBT](../icebt).
+See [IceDiscovery](../icediscovery) and [IceLocatorDiscovery](../icelocatordiscovery).
 
 ## Services
 
