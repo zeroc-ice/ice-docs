@@ -69,13 +69,14 @@ only contact version 2 objects. However, for some applications, doing this is im
 
 Note that you could write version 2 clients to catch and react to an `OperationNotExistException` when they invoke the
 `greetAtTime` operation: if the operation succeeds, the client is dealing with a version 2 object, and if the operation
-raises `OperationNotExistsException`, the client is dealing with a version 1 object.
+raises `OperationNotExistException`, the client is dealing with a version 1 object.
 
 ## Optional Parameters and Fields
 
-Another way to upgrade our application is by using [optional parameters](../operations) or fields. These can be added to
-existing operations/definitions without breaking clients or servers that don’t know about them. For example, another
-approach to upgrading our `Greeter` application would have been:
+Another way to upgrade our application is by using
+[optional parameters](../operations#optional-parameters-and-return-values) or fields. These can be added to existing
+operations/definitions without breaking clients or servers that don’t know about them. For example, another approach to
+upgrading our `Greeter` application would have been:
 
 ```slice
 // Version 2
@@ -95,13 +96,36 @@ module VisitorCenter
 }
 ```
 
-A client using the updated Slice definition can provide this extra `time` parameter, and if its request is received by a
-new server, the server will receive this value and behave accordingly. An old server wouldn’t receive this optional
-parameter and would continue to behave as before.
+Ice transmits optional values only with the 1.1 encoding, which is the default:
+
+| Client    | Server    | `time`                                                                 |
+| --------- | --------- | ---------------------------------------------------------------------- |
+| version 2 | version 2 | received                                                               |
+| version 2 | version 1 | skipped; the servant gets `name` alone                                 |
+| version 1 | version 2 | unset; the servant handles it, for example with the version 1 greeting |
+
+When a proxy uses the 1.0 encoding, Ice leaves every optional value out of the request and of its reply, and the
+receiver reads each of them as unset.
 
 Likewise, you can add optional fields to an existing class or exception without breaking existing applications that use
-it. See the [optional fields](../fields) page for more information.
+it. See the [optional fields](../fields#optional-fields) page for more information.
+
+### Changing Optional Parameters and Fields
+
+Ice identifies an optional value by its tag alone: a receiver skips the tags it does not know and reads a missing tag as
+unset.
+
+Within the parameters and return value of one operation, or the fields that one class or exception defines itself:
+
+- Adding an optional parameter or field with an unused tag is a compatible change.
+- Removing one is a compatible change. Don't reuse its tag while applications built with the earlier definition are
+  still deployed.
+- Changing its tag loses the value between the two versions: each side reads it as unset.
+- Changing its type while keeping the tag is an incompatible change: the receiver decodes the bytes as the type it
+  knows, and either produces a wrong value or raises `MarshalException`.
+- Making a required parameter or field optional, or an optional one required, is an incompatible change.
 
 ## See Also
 
-- [Optional Parameters and Return Values](../operations)
+- [Optional Parameters and Return Values](../operations#optional-parameters-and-return-values)
+- [Data Encoding for Optional Values](../data-encoding-for-optional-values)
