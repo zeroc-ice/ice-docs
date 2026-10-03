@@ -48,7 +48,7 @@ Ice.Default.Locator.Router.EndpointSelection=Ordered
 
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
-## Creating a Proxy with an Object Adapter
+## Creating a Proxy from an Object Adapter
 
 An object adapter can create a proxy for any identity, whether or not it hosts an Ice object with this identity.
 
