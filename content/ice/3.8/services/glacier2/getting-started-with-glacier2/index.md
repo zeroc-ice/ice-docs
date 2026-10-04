@@ -2,6 +2,8 @@
 title: Getting Started with Glacier2
 ---
 
+<!-- cspell:ignore Aztd Ftgw Xlvb -->
+
 ## Using Glacier2
 
 Using Glacier2 in a minimal configuration involves the following tasks:
