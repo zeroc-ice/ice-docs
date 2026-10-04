@@ -115,7 +115,14 @@ controls how other generated code imports your generated code, as described in
 
 The optional `@zeroc/slice2js` package compiles your Slice files as a step of your build. It provides a plug-in for Vite
 (`@zeroc/slice2js/unplugin/vite`), Rollup (`@zeroc/slice2js/unplugin/rollup`), webpack
-(`@zeroc/slice2js/unplugin/webpack`) and esbuild (`@zeroc/slice2js/unplugin/esbuild`):
+(`@zeroc/slice2js/unplugin/webpack`) and esbuild (`@zeroc/slice2js/unplugin/esbuild`). Install it as a development
+dependency:
+
+```shell
+npm install --save-dev @zeroc/slice2js
+```
+
+Then add the plug-in to the configuration of your bundler. For example, with Vite:
 
 ```js
 // vite.config.js
