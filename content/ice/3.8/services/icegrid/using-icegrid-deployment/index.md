@@ -358,7 +358,8 @@ icegridadmin --Ice.Config=/opt/ripper/config
 >>> application update --no-restart "/opt/ripper/app.xml"
 ```
 
-With this option, the update would fail if any servers required a restart.
+With this option, IceGrid rejects the update if it removes a running server or changes anything in a server's descriptor
+other than its properties, including a change that affects only descriptions.
 
 ### Client Changes
 
