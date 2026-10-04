@@ -271,9 +271,10 @@ The SSL transport is now part of the Ice library and is no longer a plug-in.
 
 - Remove the `Ice.Plugin.IceSSL` property from your configuration: Ice 3.8 provides no IceSSL plug-in to load.
 - The `IceSSL` certificate API, the certificate verifiers and the password callbacks have been removed. You can still
-  configure the SSL transport with the [IceSSL properties](../icessl-properties) in all language mappings. In C++, C#
-  and Java, we recommend the new [programmatic configuration](../ssl-transport), which uses the API of the SSL engine of
-  your platform and gives you more control than the properties.
+  configure the SSL transport with the [IceSSL properties](../icessl-properties) in all language mappings except
+  JavaScript, which supports only the secure WebSocket transport (WSS). In C++, C# and Java, we recommend the new
+  [programmatic configuration](../ssl-transport), which uses the API of the SSL engine of your platform and gives you
+  more control than the properties.
 
 ## Plug-ins
 
