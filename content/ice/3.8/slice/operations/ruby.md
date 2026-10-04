@@ -221,8 +221,8 @@ value. For an [optional](#optional-parameters) parameter or field, `nil` instead
 
 ### Optional Parameters
 
-[Optional parameters](./) use the same mapping as required parameters. The only difference is that `Ice::Unset` can be
-passed as the value of an optional parameter or return value. Consider the following operation:
+[Optional parameters](./) use the same mapping as required parameters. The only difference is that `nil` can be passed
+as the value of an optional parameter or return value to leave it unset. Consider the following operation:
 
 ```slice
 optional(1) int execute(optional(2) string p, out optional(3) float value);
@@ -232,16 +232,14 @@ A client can invoke this operation as shown below:
 
 ```ruby
 i, v = proxy.execute("--file log.txt")
-i, v = proxy.execute(Ice::Unset)
+i, v = proxy.execute(nil)
 
-if v != Ice::Unset
+if v != nil
     puts "value = " + v.to_s
 end
 ```
 
-A well-behaved program must always compare an optional parameter to `Ice::Unset` prior to using its value. Keep in mind
-that the `Ice::Unset` marker value has different semantics than `nil`. Since `nil` is a legal value for certain Slice
-types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is set.
-An optional parameter set to `nil` is considered to be set.
+A well-behaved program must always compare an optional parameter to `nil` prior to using its value. `Ice::Unset` is an
+alias for `nil`.
 
 {% /language-section %}
