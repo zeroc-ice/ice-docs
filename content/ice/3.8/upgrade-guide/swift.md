@@ -21,9 +21,15 @@ Xcode builds.
 
 1. Remove Ice from the Carthage dependencies of your project, or remove the `ice-spm` package from `Package.swift`.
 2. Add the `ice` package to `Package.swift`, and add the products you need to the dependencies of each target. The
-   package requires macOS 15 or later, or iOS 18 or later.
+   package requires macOS 15 or later, or iOS 18 or later, and Swift 6.1 or later: set the `swift-tools-version` of
+   `Package.swift` to `6.1`.
 
    ```diff
+   -// swift-tools-version: 5.5
+   +// swift-tools-version: 6.1
+
+    import PackageDescription
+
     let package = Package(
         name: "greeter",
    +    platforms: [.macOS(.v15)],
