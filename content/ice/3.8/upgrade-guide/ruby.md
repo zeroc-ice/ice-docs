@@ -68,18 +68,20 @@ remove the options they recognize from the array you pass, so read the remaining
 `Ice::Unset` is now an alias for `nil`. In Ice 3.7, `Ice::Unset` was a separate marker object that Ice returned for an
 optional parameter, return value, or field without a value, and that the generated classes and exceptions used as the
 initial value of an optional field with no default value in Slice. Ice 3.8 returns and uses `nil` in all these cases, so
-a comparison with `Ice::Unset` still identifies an optional without a value, except for an optional proxy (see below).
+a comparison with `Ice::Unset` still identifies an optional without a value, except for an optional proxy or class (see
+below).
 
 Review the code that passes `nil` for an optional parameter or field. Ice 3.7 sent `nil` as a value: `false` for a
-`bool`, a null proxy, an empty sequence, an empty dictionary, or a default-constructed struct. Ice 3.8 sends no value
-for `nil`. To keep sending a value, pass `false`, an empty array, an empty hash, or a new instance of the struct:
+`bool`, a null proxy, a null class instance, an empty sequence, an empty dictionary, or a default-constructed struct.
+Ice 3.8 sends no value for `nil`. To keep sending a value, pass `false`, an empty array, an empty hash, or a new
+instance of the struct:
 
 ```diff
 -greeter.greetAll(nil)
 +greeter.greetAll([])
 ```
 
-An optional proxy no longer distinguishes a null proxy from a missing value: Ice 3.8 returns `nil` for both. An
+An optional proxy or class no longer distinguishes a null value from a missing value: Ice 3.8 returns `nil` for both. An
 application that relies on this distinction needs to represent it with a separate Slice parameter or field.
 
 {% /language-section %}
