@@ -320,7 +320,8 @@ that execute these continuations, such as a thread pool with a single thread, no
 
 - The `cs:serializable`, `cs:tie`, and `cs:implements` metadata directives have been removed; `slice2cs` ignores them
   with a warning. A `sequence<byte>` that carried `cs:serializable` now maps to `byte[]`: serialize and deserialize the
-  object in your own code.
+  object in your own code. A type that carried `cs:implements` no longer implements the named interface: declare this
+  interface on a partial declaration of the generated type in your own source file.
 
 See [Slice Metadata Directives](../slice-metadata-directives) for the metadata directives of Ice 3.8.
 
