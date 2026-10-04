@@ -2,15 +2,8 @@
 
 ## Obtaining the Local Metrics Facet
 
-We [already showed](../using-the-admin-object) how to obtain a proxy for a remote administrative facet, but suppose you
-want to interact with the facet of your own communicator directly, without a proxy. The code below shows the necessary
-steps:
-
-```py
-metricsAdmin = communicator.findAdminFacet("Metrics")
-if metricsAdmin is not None:
-    assert isinstance(metricsAdmin, Ice.MetricsAdmin)
-    ...
-```
+The Ice runtime implements the built-in `Metrics` facet without a Python servant, so
+`communicator.findAdminFacet("Metrics")` returns `None`. To interact with the `Metrics` facet of your own communicator,
+use a proxy, as [shown for a remote facet](../using-the-admin-object).
 
 {% /language-section %}
