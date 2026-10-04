@@ -246,7 +246,7 @@ arguments:
  initData = Ice.InitializationData()
  initData.logger = MyLogger()
 -communicator = Ice.initialize(sys.argv, initData)
-+initData.properties = Ice.createProperties(sys.argv)
++initData.properties = Ice.createProperties(sys.argv, initData.properties)
 +communicator = Ice.initialize(initData=initData)
 ```
 
@@ -274,17 +274,17 @@ generated classes and exceptions use `None` as the initial value of an optional 
 ```
 
 Review the code that passes `None` for an optional parameter or field. Ice 3.7 sent `None` as a value: `False` for a
-`bool`, an empty string for a `string`, a null proxy, an empty sequence, an empty dictionary, or a default-constructed
-struct. Ice 3.8 sends no value for `None`. To keep sending a value, pass `False`, an empty string, an empty list, an
-empty dictionary, or a new instance of the struct:
+`bool`, an empty string for a `string`, a null proxy, a null class instance, an empty sequence, an empty dictionary, or
+a default-constructed struct. Ice 3.8 sends no value for `None`. To keep sending a value, pass `False`, an empty string,
+an empty list, an empty dictionary, or a new instance of the struct:
 
 ```diff
 -greeter.greetAll(None)
 +greeter.greetAll([])
 ```
 
-An optional proxy no longer distinguishes a null proxy from a missing value: Ice 3.8 returns `None` for both. An
-application that relies on this distinction needs to represent it with a separate Slice parameter or field.
+An optional proxy or class no longer distinguishes a null value from a missing value: Ice 3.8 returns `None` for both.
+An application that relies on this distinction needs to represent it with a separate Slice parameter or field.
 
 ## Enumerations
 
