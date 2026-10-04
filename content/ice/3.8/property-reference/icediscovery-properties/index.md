@@ -133,7 +133,7 @@ endpoint for this object adapter is composed as follows:
 `udp -h "intf"`
 
 Here, `intf` is [IceDiscovery.Interface](../icediscovery-properties#icediscovery.interface). When that property is
-unset, the plug-in uses `udp -h "*"` to bind to all local interfaces. Ice chooses an available port. The
+unset, the plug-in uses `udp -h *` to bind to all local interfaces. The
 [object adapter properties](../object-adapter-properties) configure the other settings of this adapter.
 
 ## IceDiscovery.RetryCount

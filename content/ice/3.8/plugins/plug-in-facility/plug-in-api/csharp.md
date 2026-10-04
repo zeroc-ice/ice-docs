@@ -74,8 +74,9 @@ await using Ice.Communicator communicator = Ice.Util.initialize(initData);
 `pluginFactories` is a list of `PluginFactory`.
 
 Ice creates the plug-ins in list order, each with the name given by its factory, before the plug-ins loaded through
-configuration. A matching `Ice.Plugin.Name` property can supply arguments: use `1` as the entry-point token when
-providing the factory yourself. Ice passes the remaining arguments to the factory. For example:
+configuration. To pass arguments to one of these plug-ins, set the `Ice.Plugin.Name` property, where `Name` is the
+plug-in's name. Ice ignores the first token of the value, which holds the entry point of a plug-in loaded through
+configuration, and passes the remaining tokens to the factory. By convention, this first token is `1`. For example:
 
 ```config
 Ice.Plugin.MyPlugin=1 arg1 arg2

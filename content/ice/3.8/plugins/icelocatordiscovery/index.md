@@ -99,7 +99,11 @@ queries on its default multicast address and port.
 ### Configuring IceLocatorDiscovery in an IceGrid Node
 
 An IceGrid node can use the plug-in to find its registries, in place of setting `Ice.Default.Locator`. Load the plug-in
-in the node's configuration file, with the same property as for a slave registry.
+in the node's configuration file:
+
+```config
+Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
+```
 
 ## See Also
 

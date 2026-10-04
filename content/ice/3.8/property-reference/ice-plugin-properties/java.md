@@ -39,7 +39,7 @@ If `class` is specified without a path, Ice attempts to load the class using cla
 [InitializationData.classLoader](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/InitializationData.html#classLoader).
 
 A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
-`InitializationData.pluginFactories`. Use `1` as the entry-point token in this case; Ice passes the remaining arguments
-to the factory.
+`InitializationData.pluginFactories`. Ice ignores the first token of the value, which holds the entry point of a plug-in
+loaded through configuration, and passes the remaining tokens to the factory. By convention, this first token is `1`.
 
 {% /language-section %}

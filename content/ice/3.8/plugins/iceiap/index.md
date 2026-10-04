@@ -15,9 +15,9 @@ An accessory can be discovered based on a number of attributes:
 - its model number
 - an advertised protocol
 
-IceIAP searches the accessories that iOS reports as connected. The accessory must advertise the endpoint's protocol,
-which defaults to `com.zeroc.ice`. If you specify a name, manufacturer, or model number, each specified value must match
-exactly.
+IceIAP searches the accessories that iOS reports as connected. The protocol is the one required attribute: the accessory
+must advertise the endpoint's protocol, `com.zeroc.ice` unless the endpoint specifies another. The name, manufacturer,
+and model number are optional filters. An accessory matches only when each specified value equals the accessory's value.
 
 ## Installing IceIAP
 
@@ -34,6 +34,10 @@ For example, to invoke on a proxy for the `greeter` object running on an accesso
 `com.example.visitor` protocol, use the following stringified proxy:
 
 `greeter:iap -p com.example.visitor`
+
+The app's Info.plist lists the protocols the app uses, such as `com.example.visitor`, in the
+[UISupportedExternalAccessoryProtocols](https://developer.apple.com/documentation/bundleresources/information-property-list/uisupportedexternalaccessoryprotocols)
+key.
 
 To use TLS over iAP, replace `iap` with `iaps` and configure the [SSL transport](../../runtime/ssl-transport).
 

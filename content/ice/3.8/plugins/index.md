@@ -23,5 +23,3 @@ install and implement plug-ins, and how to use the plug-ins included with Ice.
 C++, C#, and Java expose APIs for implementing plug-ins and managing the plug-ins of a communicator. Python, Ruby, PHP,
 MATLAB, and Swift use the C++ plug-in implementation and configure plug-ins through properties. JavaScript does not
 provide a plug-in facility.
-
-The [SSL transport](../runtime/ssl-transport) is part of Ice and is available without plug-in configuration.

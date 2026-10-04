@@ -2,8 +2,9 @@
 title: IceBT
 ---
 
-IceBT is a transport plug-in that allows clients and servers to communicate via Bluetooth RFCOMM connections with Java
-on Android and C++ on Linux. C++-based language mappings on Linux can also load the IceBT shared library.
+IceBT is a transport plug-in that allows clients and servers to communicate over Bluetooth RFCOMM connections. Ice
+provides IceBT for C++ on Linux and for Java on Android. On Linux, Python, Ruby, PHP and MATLAB applications can also
+load the IceBT shared library.
 
 ## IceBT Overview
 

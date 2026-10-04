@@ -175,13 +175,13 @@ See also: [Ice.Default.Package](../ice-default-properties)
 
 ### Description {% id="ice.pluginloadorder-description" %}
 
-Determines the order in which [plug-ins](../../plugins/plug-in-facility) are loaded (loaded is a synonym for created in
-this context). The Ice runtime loads the plug-ins in the order they appear in `names`, where each plug-in name is
-separated by a comma or white space. Ice loads the remaining plug-ins configured with `Ice.Plugin.name` afterward, in an
-undefined order.
+Specifies the order in which Ice creates the plug-ins installed through configuration, with `Ice.Plugin.name`
+properties. `names` lists plug-in names separated by commas or white space. Ice creates the plug-ins in `names` first,
+in that order, and then the other plug-ins installed through configuration, in an undefined order.
 
-Ice creates plug-ins installed through `InitializationData.pluginFactories` before dynamically loaded plug-ins, in
-factory-list order.
+This property does not affect the plug-ins installed through `InitializationData.pluginFactories`, even when an
+`Ice.Plugin.name` property supplies their arguments: Ice creates these plug-ins in list order, before any plug-in
+installed through configuration.
 
 ## Ice.PreferIPv6Address
 

@@ -50,7 +50,7 @@ Assembly names use the
 including already-loaded assemblies, probing paths and assembly-resolution callbacks.
 
 A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
-`InitializationData.pluginFactories`. Use `1` as the entry-point token in this case; Ice passes the remaining arguments
-to the factory.
+`InitializationData.pluginFactories`. Ice ignores the first token of the value, which holds the entry point of a plug-in
+loaded through configuration, and passes the remaining tokens to the factory. By convention, this first token is `1`.
 
 {% /language-section %}

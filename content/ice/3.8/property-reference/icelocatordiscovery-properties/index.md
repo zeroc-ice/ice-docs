@@ -113,8 +113,8 @@ IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Reply` 
 `udp -h "intf"`
 
 Here, `intf` is [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties#icelocatordiscovery.interface). When
-that property is unset, the plug-in uses `udp -h "*"` to bind to all local interfaces. Ice chooses an available port.
-The [object adapter properties](../object-adapter-properties) configure the other settings of this adapter.
+that property is unset, the plug-in uses `udp -h *` to bind to all local interfaces. The
+[object adapter properties](../object-adapter-properties) configure the other settings of this adapter.
 
 ## IceLocatorDiscovery.RetryCount
 
