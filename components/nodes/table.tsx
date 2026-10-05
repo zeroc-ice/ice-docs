@@ -72,6 +72,7 @@ export const TD = ({ align, children, dividers }: TDProps) => {
         textAlignment(align)
       )}
     >
+      {/* A wide table scrolls, so a cell's code keeps its words whole. */}
       <div className="inline-block [&_code]:break-normal">{children}</div>
     </td>
   );
