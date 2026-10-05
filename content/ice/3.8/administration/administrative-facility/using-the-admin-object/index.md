@@ -2,12 +2,18 @@
 title: Using the admin Object
 ---
 
-A program can obtain a proxy for its `admin` object by calling the `getAdmin` operation on a communicator
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
-This method returns a null proxy if the administrative facility is disabled or the application has not created the admin
-object with `createAdmin`. The proxy returned by `getAdmin` cannot be used for invoking operations because it refers to
-the default facet and, as we mentioned [previously](../admin-object), the `admin` object does not support a default
-facet. A program must first obtain a proxy to a specific facet for the `admin` object.
+A program can obtain a proxy for its `admin` object by calling `getAdmin` on its communicator. This method creates the
+`admin` object if it does not exist yet, as described in [Creating the admin Object](../creating-the-admin-object). It
+returns a null proxy when the administrative facility is disabled, or when the `admin` object does not exist and
+`Ice.Admin.Endpoints` is not set.
+
+{% /iflang %}
+
+A proxy for the `admin` object cannot be used for invoking operations because it refers to the default facet and, as we
+mentioned [previously](../admin-object), the `admin` object does not support a default facet. A program must first
+obtain a proxy to a specific facet for the `admin` object.
 
 To administer a program remotely, somehow you must obtain a proxy for the program's `admin` object. There are several
 ways for the administrative client to accomplish this:

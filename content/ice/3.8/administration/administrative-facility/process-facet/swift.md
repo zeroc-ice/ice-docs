@@ -62,9 +62,9 @@ A servant must not call destroy on its communicator while dispatching a request.
 
 {% /callout %}
 
-To avoid the risk of a race condition, the recommended strategy for replacing the `Process` facet is to delay creation
-of the administrative facets until after communicator initialization, so that your application has a chance to replace
-the facet:
+To avoid the risk of a race condition, the recommended strategy for replacing the `Process` facet is to delay the
+creation of the admin object until after communicator initialization, so that your application can replace the facet
+before the admin object exposes it:
 
 ```config
 # Delay admin object creation for admin object hosted in the Ice.Admin
@@ -81,8 +81,7 @@ try communicator.removeAdminFacet("Process")
 try communicator.addAdminFacet(servant: MyProcess(...), facet: "Process")
 ```
 
-If you host the admin object in the `Ice.Admin` object adapter, the final step is to create the admin object by calling
-`getAdmin` on the communicator. And if you host the admin object in your own object adapter, the final set is to create
-the admin object with `createAdmin`.
+The final step is to create the admin object, by calling `getAdmin` on the communicator to host it in the `Ice.Admin`
+object adapter, or by calling `createAdmin` to host it in your own object adapter.
 
 {% /language-section %}
