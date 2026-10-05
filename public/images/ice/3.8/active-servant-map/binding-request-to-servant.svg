@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="329"
+  height="322.78"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1000 470"
+  viewBox="0 0 720 332"
   role="img"
   aria-labelledby="title description"
 >
@@ -33,6 +33,11 @@
       fill: #182235;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+    .process-title {
+      font-size: 17px;
+      font-weight: 650;
+      text-anchor: middle;
+    }
     .label {
       font-size: 16px;
       font-weight: 600;
@@ -41,10 +46,17 @@
     .annotation {
       fill: #566174;
       font-size: 14px;
+      font-weight: 500;
       text-anchor: middle;
     }
     .code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .process-boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
     }
     .application {
       fill: #ffffff;
@@ -78,52 +90,50 @@
     }
   </style>
 
-  <rect width="1000" height="470" fill="#ffffff"/>
+  <rect width="720" height="332" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <rect class="api" x="500" y="80" width="476" height="365" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="534" y="150" width="240" height="268" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="16" y="16" width="220" height="176" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="380" y="16" width="324" height="300" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="396" y="56" width="292" height="244" rx="8" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 725 245 L 877 245" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 725 295 L 877 295" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 725 345 L 877 345" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 258 174 L 400 202" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 400 202 H 534" vector-effect="non-scaling-stroke"/>
-    <path class="connector" d="M 400 174 V 242" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 216 136 H 412" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 316 120 V 152" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 552 168 H 626" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 552 208 H 626" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 552 248 H 626" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="80" width="260" height="146" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="api" x="50" y="153" width="156" height="42" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="api" x="206" y="153" width="52" height="42" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="565" y="220" width="180" height="50" rx="0" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 685 220 V 270" vector-effect="non-scaling-stroke"/>
-    <circle class="application" cx="895" cy="245" r="18" vector-effect="non-scaling-stroke"/>
-    <circle class="runtime" cx="895" cy="295" r="18" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="565" y="320" width="180" height="50" rx="0" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 685 320 V 370" vector-effect="non-scaling-stroke"/>
-    <circle class="application" cx="895" cy="345" r="18" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="565" y="270" width="180" height="50" rx="0" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 685 270 V 320" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="32" y="56" width="188" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="44" y="116" width="116" height="40" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="160" y="116" width="48" height="40" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="412" y="96" width="180" height="188" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="424" y="148" width="156" height="40" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="424" y="188" width="156" height="40" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="424" y="228" width="156" height="40" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 524 148 V 268" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="644" cy="168" r="16" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="644" cy="208" r="16" vector-effect="non-scaling-stroke"/>
+    <circle class="application" cx="644" cy="248" r="16" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="154" y="38">Client</text>
-    <text class="label" x="740" y="38">Server</text>
-    <text class="label" x="80" y="114">Proxy</text>
-    <text class="annotation code" x="128" y="180">212.8.7.33</text>
-    <text class="annotation" x="232" y="180">Joe</text>
-    <text class="label" x="650" y="115">Object adapter</text>
-    <text class="label" x="575" y="181">ASM</text>
-    <text class="annotation" x="880" y="192">Servant</text>
-    <text class="label" x="625" y="251">Fred</text>
-    <text class="label" x="625" y="301">Joe</text>
-    <text class="label" x="625" y="351">Carl</text>
-    <rect x="325.0" y="158" width="40" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="345" y="174">Joe</text>
-    <text class="annotation" x="400" y="147">Endpoint</text>
-    <text class="annotation code" x="400" y="273">212.8.7.33</text>
+    <text class="process-title" x="126" y="40">Client</text>
+    <text class="process-title" x="542" y="40">Server</text>
+    <text class="label" x="126" y="84">Proxy</text>
+    <text class="annotation code" x="102" y="141">212.8.7.33</text>
+    <text class="annotation" x="184" y="141">Joe</text>
+    <text class="annotation" x="262" y="128">Joe</text>
+    <text class="annotation" x="316" y="110">Endpoint</text>
+    <text class="annotation code" x="316" y="172">212.8.7.33</text>
+    <text class="label" x="542" y="82">Object adapter</text>
+    <text class="label" x="502" y="124">ASM</text>
+    <text class="annotation" x="644" y="140">Servants</text>
+    <text class="label" x="474" y="174">Fred</text>
+    <text class="label" x="474" y="214">Joe</text>
+    <text class="label" x="474" y="254">Carl</text>
   </g>
 </svg>
