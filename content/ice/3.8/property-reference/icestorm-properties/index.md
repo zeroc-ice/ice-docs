@@ -222,7 +222,7 @@ Specifies the invocation timeout in milliseconds that IceStorm applies when it f
 oneway and batch subscribers, the timeout covers connecting to the subscriber and sending the event; for twoway
 subscribers, it also covers waiting for the reply. When forwarding an event does not complete within `num` milliseconds,
 IceStorm handles the timeout according to the subscriber's `retryCount` QoS setting, as described under
-[IceStorm.Discard.Interval](./#icestorm.discard.interval). The default value is `60000`. `-1` disables the timeout.
+[IceStorm.Discard.Interval](#icestorm.discard.interval). The default value is `60000`. `-1` disables the timeout.
 
 ## IceStorm.Send.QueueSizeMax
 
@@ -234,7 +234,7 @@ IceStorm handles the timeout according to the subscriber's `retryCount` QoS sett
 
 The value of this property determines how many events can be queued for a subscriber by IceStorm. When the maximum size
 is reached, IceStorm drops the oldest events or removes the subscriber, as selected by
-[IceStorm.Send.QueueSizeMaxPolicy](./#icestorm.send.queuesizemaxpolicy). `num` must be a positive value, or `-1` for an
+[IceStorm.Send.QueueSizeMaxPolicy](#icestorm.send.queuesizemaxpolicy). `num` must be a positive value, or `-1` for an
 unbounded queue. The default value is `-1`.
 
 ## IceStorm.Send.QueueSizeMaxPolicy

@@ -2,5 +2,8 @@
   // Prettier wraps prose at 120 columns; nearly all longer lines left are one-line Markdoc tags, which it can't wrap.
   "MD013": false,
   // A language overlay is a fragment of its page, so it starts with a `{% language-section %}` tag, not a heading.
-  "MD041": false
+  "MD041": false,
+  // The site keeps dots in heading anchors (#ice.logfile) and sets ids with `{% id %}`; markdownlint knows
+  // neither, so check:markdoc checks anchors on the page as the site renders it.
+  "MD051": false
 }

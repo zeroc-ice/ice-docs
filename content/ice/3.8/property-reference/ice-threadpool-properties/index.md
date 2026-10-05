@@ -55,10 +55,10 @@ See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 
 [Thread pools](../../runtime/threading-model) in Ice can grow and shrink dynamically, based on an average load factor. A
 thread pool always has at least 1 thread and may grow as load increases up to the maximum size specified by
-[Ice.ThreadPool._name_.SizeMax](./#ice.threadpool.name.sizemax). If `SizeMax` is not specified, Ice uses the value of
+[Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax). If `SizeMax` is not specified, Ice uses the value of
 `num` as the pool's maximum size. The `Client` or `Server` thread pool is initialized with `num` active threads, but the
 pool may shrink to only 1 thread during idle periods as determined by
-[Ice.ThreadPool._name_.ThreadIdleTime](./#ice.threadpool.name.threadidletime).
+[Ice.ThreadPool._name_.ThreadIdleTime](#ice.threadpool.name.threadidletime).
 
 If not specified, the default value is 1 for both properties.
 
@@ -74,8 +74,8 @@ property.
 ### Description {% id="ice.threadpool.name.sizemax-description" %}
 
 `num` is the maximum number of threads for the `Client` or `Server` [thread pool](../../runtime/threading-model). Refer
-to the [Ice.ThreadPool._name_.Size](./#ice.threadpool.name.size) property for more information on configuring the size
-of a thread pool.
+to the [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) property for more information on configuring the size of
+a thread pool.
 
 The default value for `SizeMax` is the value of `Size`, meaning the thread pool can never grow larger than its initial
 size.
@@ -126,9 +126,8 @@ under-utilized thread pool will get reaped.
 {% /callout %}
 
 To disable the reaping of idle threads, set `ThreadIdleTime` to 0. In this situation, the thread pool is initialized
-with [Ice.ThreadPool._name_.Size](./#ice.threadpool.name.size) active threads and may grow to contain
-[Ice.ThreadPool._name_.SizeMax](./#ice.threadpool.name.sizemax) active threads, but the size of the pool never
-decreases.
+with [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) active threads and may grow to contain
+[Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax) active threads, but the size of the pool never decreases.
 
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.

@@ -324,7 +324,7 @@ The default value is `LOG_USER`.
 ### Description {% id="ice.sysloghost-description" %}
 
 Specifies the host name or IP address of the syslog daemon that receives log messages when
-[Ice.UseSyslog](./#ice.usesyslog) is enabled. The default value is `localhost`.
+[Ice.UseSyslog](#ice.usesyslog) is enabled. The default value is `localhost`.
 
 ## Ice.SyslogPort
 
@@ -334,8 +334,8 @@ Specifies the host name or IP address of the syslog daemon that receives log mes
 
 ### Description {% id="ice.syslogport-description" %}
 
-Specifies the UDP port of the syslog daemon at [Ice.SyslogHost](./#ice.sysloghost). The default value is `514`. This
-property takes effect when [Ice.UseSyslog](./#ice.usesyslog) is enabled.
+Specifies the UDP port of the syslog daemon at [Ice.SyslogHost](#ice.sysloghost). The default value is `514`. This
+property takes effect when [Ice.UseSyslog](#ice.usesyslog) is enabled.
 
 ## Ice.ThreadPriority
 
@@ -370,10 +370,10 @@ specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-ad
 ### Description {% id="ice.usesyslog-description" %}
 
 If `num` is greater than 0, Ice for Java sends log messages as UDP datagrams to the syslog daemon configured by
-[Ice.SyslogHost](./#ice.sysloghost) and [Ice.SyslogPort](./#ice.syslogport). The messages use the RFC 3164 syslog format
-without a header and include the program name as their prefix. [Ice.SyslogFacility](./#ice.syslogfacility) selects the
+[Ice.SyslogHost](#ice.sysloghost) and [Ice.SyslogPort](#ice.syslogport). The messages use the RFC 3164 syslog format
+without a header and include the program name as their prefix. [Ice.SyslogFacility](#ice.syslogfacility) selects the
 facility. The default value of `Ice.UseSyslog` is 0. Ice ignores this property on Windows.
 
-On other platforms, this property cannot be combined with [Ice.LogFile](./#ice.logfile).
+On other platforms, this property cannot be combined with [Ice.LogFile](#ice.logfile).
 
 {% /language-section %}

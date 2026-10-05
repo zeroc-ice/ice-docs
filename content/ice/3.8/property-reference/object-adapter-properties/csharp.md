@@ -11,7 +11,7 @@
 Assigns an adapter ID to this object adapter. An object adapter with an adapter ID is called an _indirect adapter_.
 
 This ID must be unique among all object adapters using the same [locator](../../runtime/locators) instance. If a locator
-proxy is defined using [adapter.Locator](./#adapter.locator) or [Ice.Default.Locator](../ice-default-properties), this
+proxy is defined using [adapter.Locator](#adapter.locator) or [Ice.Default.Locator](../ice-default-properties), this
 object adapter registers its endpoints with the locator registry upon activation.
 
 ## _adapter_.AllowedOrigins
@@ -203,11 +203,11 @@ is successfully established or all attempts have failed. Similarly, an outstandi
 automatically fail over to another object adapter of the replica group upon connection failure. The set of endpoints
 actually used by the client during binding is determined by the locator's configuration policies.
 
-Defining a value for this property has no effect unless [_adapter_.AdapterId](./#adapter.adapterid) is also defined.
+Defining a value for this property has no effect unless [_adapter_.AdapterId](#adapter.adapterid) is also defined.
 Furthermore, the locator registry may require replica groups to be defined in advance (see
 [IceGrid.Registry.DynamicRegistration](../icegrid-properties)), otherwise `Ice.NotRegisteredException` is thrown upon
 adapter activation. Regardless of whether an object adapter is replicated, it can always be addressed individually in an
-indirect proxy if it defines a value for [_adapter_.AdapterId](./#adapter.adapterid).
+indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapterid).
 
 {% /language-section %}
 
@@ -261,7 +261,7 @@ pool with one initial thread and a maximum of four threads.
 `num` is the maximum number of threads for the [thread pool](../../runtime/threading-model). See
 [Ice.ThreadPool._name_.SizeMax](../ice-threadpool-properties) for more information.
 
-The default value is the value of [_adapter_.ThreadPool.Size](./#adapter.threadpool.size), meaning the thread pool can
+The default value is the value of [_adapter_.ThreadPool.Size](#adapter.threadpool.size), meaning the thread pool can
 never grow larger than its initial size.
 
 ## _adapter_.ThreadPool.SizeWarn

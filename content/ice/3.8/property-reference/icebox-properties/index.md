@@ -13,7 +13,7 @@ title: IceBox.*
 If `num` is set to a value larger than zero, each service
 [inherits the configuration properties](../../services/icebox/configuring-icebox-services) of the IceBox server's
 communicator, except the properties whose names start with `IceBox.` or `Ice.Admin.`. Properties set by the service
-arguments in [IceBox.Service.name](./#icebox.service.name) override inherited properties. If not defined, the default
+arguments in [IceBox.Service.name](#icebox.service.name) override inherited properties. If not defined, the default
 value is zero.
 
 ## IceBox.LoadOrder
@@ -79,5 +79,5 @@ observers. If not defined, the default value is zero.
 
 If `num` is set to a value larger than zero, the service manager supplies the service `name` with a communicator that
 might be [shared by other services](../../services/icebox/configuring-icebox-services). If the
-[IceBox.InheritProperties](./#icebox.inheritproperties) property is also defined, the shared communicator inherits the
+[IceBox.InheritProperties](#icebox.inheritproperties) property is also defined, the shared communicator inherits the
 properties of the IceBox server. If not defined, the default value is zero.

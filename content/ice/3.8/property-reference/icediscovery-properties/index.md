@@ -23,8 +23,8 @@ settings:
   uses the IPv6 address `ff15::1`
 - Otherwise IceDiscovery uses `239.255.0.1`
 
-This property is used to compose the value of [IceDiscovery.Lookup](./#icediscovery.lookup) and
-[IceDiscovery.Multicast.Endpoints](./#icediscovery.multicast.adapterproperty).
+This property is used to compose the value of [IceDiscovery.Lookup](#icediscovery.lookup) and
+[IceDiscovery.Multicast.Endpoints](#icediscovery.multicast.adapterproperty).
 
 ## IceDiscovery.DomainId
 
@@ -49,9 +49,9 @@ default domain ID is an empty string.
 Specifies the IP address of the interface to use for sending or receiving
 [multicast discovery queries](../../plugins/icediscovery). If not defined, the discovery will use all the network
 interfaces available on the system to send and receive UDP multicast datagrams. This property is used to compose the
-value of [IceDiscovery.Lookup](./#icediscovery.lookup),
-[IceDiscovery.Reply.Endpoints](./#icediscovery.reply.adapterproperty) and
-[IceDiscovery.Multicast.Endpoints](./#icediscovery.multicast.adapterproperty).
+value of [IceDiscovery.Lookup](#icediscovery.lookup),
+[IceDiscovery.Reply.Endpoints](#icediscovery.reply.adapterproperty) and
+[IceDiscovery.Multicast.Endpoints](#icediscovery.multicast.adapterproperty).
 
 ## IceDiscovery.Lookup
 
@@ -65,13 +65,13 @@ Specifies the multicast endpoints used to send [discovery queries](../../plugins
 query on every endpoint in this list.
 
 When this property is not set, the plug-in creates one endpoint per multicast-capable interface selected by
-[IceDiscovery.Interface](./#icediscovery.interface), or per available multicast-capable interface if that property is
-not set. It joins these endpoints with colons. Each endpoint has the form:
+[IceDiscovery.Interface](#icediscovery.interface), or per available multicast-capable interface if that property is not
+set. It joins these endpoints with colons. Each endpoint has the form:
 
 `udp -h "addr" -p port --interface "intf"`
 
-Here, `addr` is the value of [IceDiscovery.Address](./#icediscovery.address), `port` is the value of
-[IceDiscovery.Port](./#icediscovery.port), and `intf` identifies the interface.
+Here, `addr` is the value of [IceDiscovery.Address](#icediscovery.address), `port` is the value of
+[IceDiscovery.Port](#icediscovery.port), and `intf` identifies the interface.
 
 ## IceDiscovery.Multicast._AdapterProperty_
 
@@ -87,9 +87,8 @@ follows:
 
 `udp -h "addr" -p port [--interface "intf"]`
 
-where `addr` is the value of [IceDiscovery.Address](./#icediscovery.address), `port` is the value of
-[IceDiscovery.Port](./#icediscovery.port), and `intf` is the value of
-[IceDiscovery.Interface](./#icediscovery.interface).
+where `addr` is the value of [IceDiscovery.Address](#icediscovery.address), `port` is the value of
+[IceDiscovery.Port](#icediscovery.port), and `intf` is the value of [IceDiscovery.Interface](#icediscovery.interface).
 
 You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
 
@@ -133,7 +132,7 @@ endpoint for this object adapter is composed as follows:
 
 `udp [-h intf]`
 
-where `intf` is the value of [IceDiscovery.Interface](./#icediscovery.interface). A fixed port is not necessary for this
+where `intf` is the value of [IceDiscovery.Interface](#icediscovery.interface). A fixed port is not necessary for this
 endpoint.
 
 You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
@@ -147,7 +146,7 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 ### Description {% id="icediscovery.retrycount-description" %}
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast requests before giving up. The
-[IceDiscovery.Timeout](./#icediscovery.timeout) property determines how long the plug-in waits for a reply before trying
+[IceDiscovery.Timeout](#icediscovery.timeout) property determines how long the plug-in waits for a reply before trying
 again. If not defined, the default retry count is `3`, for a total of four attempts. A value of 0 sends only the initial
 query.
 
@@ -161,5 +160,5 @@ query.
 
 Specifies the time interval in milliseconds to wait for replies to UDP multicast requests. If no server replies during
 this time interval, the client will retry the request the number of times specified by
-[IceDiscovery.RetryCount](./#icediscovery.retrycount). If not defined, the default timeout is `300`. `num` must be
-greater than `0`.
+[IceDiscovery.RetryCount](#icediscovery.retrycount). If not defined, the default timeout is `300`. `num` must be greater
+than `0`.

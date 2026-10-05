@@ -644,7 +644,7 @@ logs using [OSLog](https://developer.apple.com/documentation/os/oslog). The subs
 ### Description {% id="ice.usesyslog-description" %}
 
 If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
-logs to the `syslog` service instead of standard error. Use [Ice.SyslogFacility](./#ice.syslogfacility) to select a
+logs to the `syslog` service instead of standard error. Use [Ice.SyslogFacility](#ice.syslogfacility) to select a
 `syslog` facility.
 
 The connection to the `syslog` service is process-global: all syslog loggers in a process share a single connection,

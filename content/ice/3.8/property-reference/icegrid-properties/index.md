@@ -125,7 +125,7 @@ be defined for each node.
 Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` of each server it starts
 to `path/server-id.out` and its `stderr` to `path/server-id.err`, where `server-id` is the server's ID. A server whose
 own configuration sets [Ice.StdOut](../ice-properties) or [Ice.StdErr](../ice-properties) keeps that setting. With
-[IceGrid.Node.RedirectErrToOut](./#icegrid.node.redirecterrtoout) set, `stderr` goes to the `.out` file too. If this
+[IceGrid.Node.RedirectErrToOut](#icegrid.node.redirecterrtoout) set, `stderr` goes to the `.out` file too. If this
 property is not set, the servers share the `stdout` and `stderr` of the node's process.
 
 ## IceGrid.Node.PrintServersReady
@@ -174,8 +174,8 @@ deployment descriptors. The property definitions must be separated by white spac
 ### Description {% id="icegrid.node.redirecterrtoout-description" %}
 
 If `num` is set to a value larger than zero, the node redirects the `stderr` of each server it starts to the server's
-`.out` file instead of its `.err` file. This property takes effect only when
-[IceGrid.Node.Output](./#icegrid.node.output) is set.
+`.out` file instead of its `.err` file. This property takes effect only when [IceGrid.Node.Output](#icegrid.node.output)
+is set.
 
 ## IceGrid.Node.Trace.Activator
 
@@ -321,8 +321,8 @@ The default value is 60 seconds.
 
 Specifies the file name of an IceGrid registry
 [access control list for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The
-file uses the format described in [IceGrid.Registry.CryptPasswords](./#icegrid.registry.cryptpasswords). This property
-is ignored if [IceGrid.Registry.AdminPermissionsVerifier](./#icegrid.registry.adminpermissionsverifier) is defined. When
+file uses the format described in [IceGrid.Registry.CryptPasswords](#icegrid.registry.cryptpasswords). This property is
+ignored if [IceGrid.Registry.AdminPermissionsVerifier](#icegrid.registry.adminpermissionsverifier) is defined. When
 neither property is defined, the registry rejects administrative sessions created with a user name and password.
 
 ## IceGrid.Registry.AdminPermissionsVerifier
@@ -418,7 +418,7 @@ Specifies the file name of an IceGrid registry
 a user name and a password hash, separated by white space. The supported hash formats depend on the platform; see
 [Writing a Password File](../../services/glacier2/getting-started-with-glacier2).
 
-This property is ignored if [IceGrid.Registry.PermissionsVerifier](./#icegrid.registry.permissionsverifier) is defined.
+This property is ignored if [IceGrid.Registry.PermissionsVerifier](#icegrid.registry.permissionsverifier) is defined.
 When neither property is defined, the registry rejects sessions created with a user name and password.
 
 ## IceGrid.Registry.DefaultTemplates
@@ -837,7 +837,7 @@ The session trace level:
 ### Description {% id="icegrid.registry.useraccounts-description" %}
 
 Specifies the file name of an IceGrid registry user account map file. The file uses the format described in
-[IceGrid.Node.UserAccounts](./#icegrid.node.useraccounts). The identifier is matched against the client session
-identifier (the user ID for sessions created with a user ID and password, or the distinguished name for sessions created
-from a secure connection). This user account map file is used by IceGrid nodes to map session identifiers to user
-accounts if the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy `IceGrid/RegistryUserAccountMapper`.
+[IceGrid.Node.UserAccounts](#icegrid.node.useraccounts). The identifier is matched against the client session identifier
+(the user ID for sessions created with a user ID and password, or the distinguished name for sessions created from a
+secure connection). This user account map file is used by IceGrid nodes to map session identifiers to user accounts if
+the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy `IceGrid/RegistryUserAccountMapper`.

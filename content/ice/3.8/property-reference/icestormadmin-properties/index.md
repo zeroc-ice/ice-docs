@@ -12,7 +12,7 @@ title: IceStormAdmin.*
 
 Specifies the host of the IceStorm [finder object](../../services/icestorm/configuring-icestorm) that
 [icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager. This property
-requires [IceStormAdmin.Port](./#icestormadmin.port).
+requires [IceStormAdmin.Port](#icestormadmin.port).
 
 {% callout type="info" %}
 
@@ -30,7 +30,7 @@ requires [IceStormAdmin.Port](./#icestormadmin.port).
 
 Specifies the port of the IceStorm [finder object](../../services/icestorm/configuring-icestorm) that
 [icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager, on the host
-specified by [IceStormAdmin.Host](./#icestormadmin.host).
+specified by [IceStormAdmin.Host](#icestormadmin.host).
 
 {% callout type="info" %}
 
@@ -70,7 +70,7 @@ IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
 This sets the proxies for three topic managers. Note that `name` need not match the instance name of the corresponding
 topic manager — `name` simply serves as a tag. With these property settings, the `icestormadmin` commands that accept a
 topic can now specify a topic manager other than the default topic manager that is configured with
-[IceStormAdmin.*#IceStormAdmin.TopicManager.Default](./#icestormadmin.topicmanager.default). For example:
+[IceStormAdmin.*#IceStormAdmin.TopicManager.Default](#icestormadmin.topicmanager.default). For example:
 
 ```text
 current Foo

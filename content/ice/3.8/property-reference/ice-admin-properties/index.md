@@ -25,8 +25,8 @@ The Ice run time creates and activates an
 `Ice.Admin` if the [Administrative Facility](../../administration/administrative-facility) is enabled,
 [Ice.Admin.Endpoints](../object-adapter-properties) is defined and one of the following are true:
 
-- [Ice.Admin.DelayCreation](./#ice.admin.delaycreation) is not enabled
-- [Ice.Admin.DelayCreation](./#ice.admin.delaycreation) is enabled and the application calls `getAdmin` on the
+- [Ice.Admin.DelayCreation](#ice.admin.delaycreation) is not enabled
+- [Ice.Admin.DelayCreation](#ice.admin.delaycreation) is enabled and the application calls `getAdmin` on the
   communicator after communicator initialization
 - the application calls [createAdmin](../../administration/administrative-facility/creating-the-admin-object) with a
   null `adminAdapter` parameter
@@ -50,7 +50,7 @@ only trusted clients are allowed to use it.
 If `num` is a value greater than zero, the Ice run time delays the creation of the `Ice.Admin`
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) until `getAdmin`
 is invoked on the communicator. If not specified, the default value is zero, meaning the `Ice.Admin` object adapter is
-created immediately after all plug-ins are initialized, provided [Ice.Admin.Endpoints](./#ice.admin.adapterproperty) is
+created immediately after all plug-ins are initialized, provided [Ice.Admin.Endpoints](#ice.admin.adapterproperty) is
 defined.
 
 ## Ice.Admin.Enabled
@@ -62,7 +62,7 @@ defined.
 ### Description {% id="ice.admin.enabled-description" %}
 
 `1` enables the [Administrative Facility](../../administration/administrative-facility) and `0` disables it. When this
-property is unset, the facility is enabled if and only if [Ice.Admin.Endpoints](./#ice.admin.adapterproperty) is
+property is unset, the facility is enabled if and only if [Ice.Admin.Endpoints](#ice.admin.adapterproperty) is
 non-empty.
 
 ## Ice.Admin.Facets

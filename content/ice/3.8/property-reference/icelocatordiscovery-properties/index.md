@@ -22,7 +22,7 @@ If not defined, the default value depends on other property settings:
   IceLocatorDiscovery uses the IPv6 address `ff15::1`
 - Otherwise IceLocatorDiscovery uses `239.255.0.1`
 
-This property is used to compose the value of [IceLocatorDiscovery.Lookup](./#icelocatordiscovery.lookup).
+This property is used to compose the value of [IceLocatorDiscovery.Lookup](#icelocatordiscovery.lookup).
 
 ## IceLocatorDiscovery.InstanceName
 
@@ -52,8 +52,8 @@ identity category of its own locator object, or a UUID if this property is not s
 Specifies the IP address of the interface to use for sending
 [multicast discovery queries](../../plugins/icelocatordiscovery). If not defined, the discovery will use all the network
 interfaces available on the system to send UDP multicast datagrams. This property is used to compose the value of
-[IceLocatorDiscovery.Lookup](./#icelocatordiscovery.lookup) and
-[IceLocatorDiscovery.Reply.Endpoints](./#icelocatordiscovery.reply.adapterproperty).
+[IceLocatorDiscovery.Lookup](#icelocatordiscovery.lookup) and
+[IceLocatorDiscovery.Reply.Endpoints](#icelocatordiscovery.reply.adapterproperty).
 
 ## IceLocatorDiscovery.Locator._AdapterProperty_
 
@@ -80,13 +80,13 @@ Specifies the multicast endpoints used to send [discovery queries](../../plugins
 each query on every endpoint in this list.
 
 When this property is not set, the plug-in creates one endpoint per multicast-capable interface selected by
-[IceLocatorDiscovery.Interface](./#icelocatordiscovery.interface), or per available multicast-capable interface if that
+[IceLocatorDiscovery.Interface](#icelocatordiscovery.interface), or per available multicast-capable interface if that
 property is not set. It joins these endpoints with colons. Each endpoint has the form:
 
 `udp -h "addr" -p port --interface "intf"`
 
-Here, `addr` is the value of [IceLocatorDiscovery.Address](./#icelocatordiscovery.address), `port` is the value of
-[IceLocatorDiscovery.Port](./#icelocatordiscovery.port), and `intf` identifies the interface.
+Here, `addr` is the value of [IceLocatorDiscovery.Address](#icelocatordiscovery.address), `port` is the value of
+[IceLocatorDiscovery.Port](#icelocatordiscovery.port), and `intf` identifies the interface.
 
 ## IceLocatorDiscovery.Port
 
@@ -112,7 +112,7 @@ IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Reply` 
 
 `udp [-h intf]`
 
-where `intf` is the value of [IceLocatorDiscovery.Interface](./#icelocatordiscovery.interface). A fixed port is not
+where `intf` is the value of [IceLocatorDiscovery.Interface](#icelocatordiscovery.interface). A fixed port is not
 necessary for this endpoint.
 
 You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
@@ -126,7 +126,7 @@ You don't normally need to set [other properties](../object-adapter-properties) 
 ### Description {% id="icelocatordiscovery.retrycount-description" %}
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast queries before giving up. The
-[IceLocatorDiscovery.Timeout](./#icelocatordiscovery.timeout) property determines how long the plug-in waits for a reply
+[IceLocatorDiscovery.Timeout](#icelocatordiscovery.timeout) property determines how long the plug-in waits for a reply
 before trying again. If not defined, the default retry count is `3`, for a total of four attempts. A value of 0 sends
 only the initial query.
 
@@ -139,8 +139,8 @@ only the initial query.
 ### Description {% id="icelocatordiscovery.retrydelay-description" %}
 
 If the plug-in fails to receive any responses to a query after retrying the number of times specified by
-[IceLocatorDiscovery.RetryCount](./#icelocatordiscovery.retrycount), the plug-in waits at least `num` milliseconds
-before starting another round of query attempts. If not defined, the default value is `2000`.
+[IceLocatorDiscovery.RetryCount](#icelocatordiscovery.retrycount), the plug-in waits at least `num` milliseconds before
+starting another round of query attempts. If not defined, the default value is `2000`.
 
 ## IceLocatorDiscovery.Trace.Lookup
 
@@ -169,5 +169,5 @@ Controls lookup tracing in the `Lookup` trace category:
 
 Specifies the time interval in milliseconds to wait for replies to UDP multicast queries. If no server replies during
 this time interval, the client will retry the request the number of times specified by
-[IceLocatorDiscovery.RetryCount](./#icelocatordiscovery.retrycount). If not defined, the default timeout is `300`. `num`
+[IceLocatorDiscovery.RetryCount](#icelocatordiscovery.retrycount). If not defined, the default timeout is `300`. `num`
 must be greater than `0`.
