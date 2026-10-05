@@ -42,6 +42,12 @@
       font-size: 14px;
       text-anchor: middle;
     }
+    .connector-note {
+      text-anchor: end;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
@@ -66,7 +72,7 @@
 
   <g id="connectors" aria-hidden="true">
     <path class="connector one-way" d="M 220 130 L 530 130" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 653 255 L 653 316" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 600 216 V 316" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
@@ -78,7 +84,7 @@
 
   <g id="labels">
     <text class="annotation" x="125" y="256">74 min</text>
-    <text class="label" x="653.0" y="111.0">
+    <text class="label code" x="653.0" y="111.0">
       <tspan x="653.0" dy="0">song1.wav</tspan>
       <tspan x="653.0" dy="20">song2.wav</tspan>
       <tspan x="653.0" dy="20">…</tspan>
@@ -86,17 +92,17 @@
     <text class="annotation" x="653" y="246">650 MB</text>
     <text class="annotation" x="365" y="66">
       <tspan x="365" dy="0">Rip tracks from the music CD</tspan>
-      <tspan x="365" dy="20">as .wav files</tspan>
+      <tspan x="365" dy="20">as <tspan class="code">.wav</tspan> files</tspan>
     </text>
-    <text class="label" x="653.0" y="380.0">
+    <text class="label code" x="653.0" y="380.0">
       <tspan x="653.0" dy="0">song1.mp3</tspan>
       <tspan x="653.0" dy="20">song2.mp3</tspan>
       <tspan x="653.0" dy="20">…</tspan>
     </text>
     <text class="annotation" x="653" y="505">About 57 MB</text>
-    <text class="annotation" x="393" y="289">
-      <tspan x="393" dy="0">Encode as MP3</tspan>
-      <tspan x="393" dy="20">(lossy compression)</tspan>
+    <text class="annotation connector-note" x="586" y="281">
+      <tspan x="586" dy="0">Encode as MP3</tspan>
+      <tspan x="586" dy="20">(lossy compression)</tspan>
     </text>
   </g>
 </svg>
