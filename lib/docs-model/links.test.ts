@@ -14,12 +14,12 @@ const index = buildPageIndex([
   'get-started'
 ]);
 
-const ICE_3_8 = {
+const VERSION = {
   path: 'ice/3.8',
   title: 'Ice 3.8',
   languages: []
 };
-const ctx = { version: ICE_3_8, slug: 'learn/slice/enumerations', index };
+const ctx = { version: VERSION, slug: 'learn/slice/enumerations', index };
 
 test('a slug resolves to the page, and the query and anchor survive', () => {
   assert.equal(

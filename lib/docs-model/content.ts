@@ -19,9 +19,8 @@
 // overlay is the whole page for its language. A shared page that applies to
 // only some languages lists them under `languages:` in its frontmatter.
 //
-// Unit-testable with `node lib/docs-model/content.test.ts` and usable from Next
-// server components. Pure content transforms live in ./resolve.ts; the route
-// composes the two.
+// Usable from Next server components and from the scripts under plain Node.
+// Pure content transforms live in ./resolve.ts; the route composes the two.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -217,6 +216,7 @@ export function readNavigation(version: DocsVersion): NavDoc {
 
 /** The site's redirects, for Next's `redirects` config: every `redirects.yaml` under the root (see listRedirects). */
 export function readRedirects(versions: DocsVersion[]) {
+  // Next rejects a redirect with a key it doesn't know, so `file` stays behind.
   return listRedirects(versions).map(({ source, destination, permanent }) => ({
     source,
     destination,
