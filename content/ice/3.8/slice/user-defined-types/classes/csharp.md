@@ -62,7 +62,7 @@ There are a number of things to note about the generated code:
 ### Generated Constructors
 
 All generated classes have a public parameterless constructor that initializes all fields using default values (see
-[Fields](../fields)). This constructor is used by the unmarshaling code. The unmarshaling code guarantees that all
+[Fields](../../fields)). This constructor is used by the unmarshaling code. The unmarshaling code guarantees that all
 non-nullable fields receive a non-null value before the instance is returned to the application code.
 
 {% callout type="info" %}

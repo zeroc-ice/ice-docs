@@ -69,10 +69,10 @@ situation.
 {% /callout %}
 
 To configure the router with a custom session manager, define the properties
-[Glacier2.SessionManager](../glacier2-properties) or [Glacier2.SSLSessionManager](../glacier2-properties) with the
-proxies of the session manager objects. If necessary, you can configure a router with proxies for both types of session
-managers. If a session manager proxy is not supplied, the call to `createSession` or `createSessionFromSecureConnection`
-always returns a null proxy.
+[Glacier2.SessionManager](../../../property-reference/glacier2-properties) or
+[Glacier2.SSLSessionManager](../../../property-reference/glacier2-properties) with the proxies of the session manager
+objects. If necessary, you can configure a router with proxies for both types of session managers. If a session manager
+proxy is not supplied, the call to `createSession` or `createSessionFromSecureConnection` always returns a null proxy.
 
 The router attempts to contact the configured session manager at startup. If the object is unreachable, the router logs
 a warning message but continues its normal operation (you can suppress the warning using the
@@ -84,13 +84,14 @@ logs a message and returns `CannotCreateSessionException` to the client.
 ## Connection Caching for Session Managers
 
 You can distribute the load among multiple session manager objects by configuring the router with a session manager
-proxy that contains multiple endpoints. Glacier2 disables [connection caching](../connection-establishment) on this
-proxy so that each invocation on a session manager attempts to use a different endpoint.
+proxy that contains multiple endpoints. Glacier2 disables
+[connection caching](../../../runtime/connection-management/connection-establishment) on this proxy so that each
+invocation on a session manager attempts to use a different endpoint.
 
 This behavior achieves a basic form of load balancing without depending on the
-[replication](../object-adapter-replication) features provided by IceGrid. Be aware that including an invalid endpoint
-in your session manager proxy, such as the endpoint of a session manager server that is not currently running, can cause
-router clients to experience delays during session creation.
+[replication](../../icegrid/object-adapter-replication) features provided by IceGrid. Be aware that including an invalid
+endpoint in your session manager proxy, such as the endpoint of a session manager server that is not currently running,
+can cause router clients to experience delays during session creation.
 
 If your session managers are in an IceGrid replica group, refer to
 [IceGrid and Glacier2 Integration](../icegrid-and-glacier2-integration) for more information on the router's caching
@@ -102,5 +103,5 @@ behavior.
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)
 - [Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2)
 - [IceGrid and Glacier2 Integration](../icegrid-and-glacier2-integration)
-- [Object Adapter Replication](../object-adapter-replication)
-- [Glacier2.*](../glacier2-properties)
+- [Object Adapter Replication](../../icegrid/object-adapter-replication)
+- [Glacier2.*](../../../property-reference/glacier2-properties)

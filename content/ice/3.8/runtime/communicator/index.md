@@ -15,8 +15,9 @@ A communicator serves as the registry and owner for:
 - Outgoing connections A communicator maintains a cache of outgoing connections.
 - Configuration properties Various aspects of the Ice runtime can be configured via properties. Each communicator has
   its own set of such [configuration properties](../properties-and-configuration).
-- Logger object A [logger](../logger-facility) object implements the [Logger](https://code.zeroc.com/manual/Ice/Logger)
-  abstraction and determines how log messages that are produced by the Ice runtime are handled.
+- Logger object A [logger](../../administration/logger-facility) object implements the
+  [Logger](https://code.zeroc.com/manual/Ice/Logger) abstraction and determines how log messages that are produced by
+  the Ice runtime are handled.
 - Object adapters [Object adapters](../dispatch) dispatch incoming requests and take care of passing each request to the
   correct servant.
 - Client-side thread pool The client-side [thread pool](../threading-model) is used to process messages received from

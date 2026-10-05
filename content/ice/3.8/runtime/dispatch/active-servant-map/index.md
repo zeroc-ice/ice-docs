@@ -49,7 +49,7 @@ large (or if each servant stores too much state), the server runs out of memory.
 
 The term _servant activation_ refers to making the presence of a servant for a particular Ice object known to the object
 adapter. Activating a servant adds an entry to the Active Servant Map (ASM). Another way of looking at servant
-activation is to think of it as creating a link between the [identity](../object-identity) and facet of an Ice object
+activation is to think of it as creating a link between the [identity](../../object-identity) and facet of an Ice object
 and the corresponding programming-language servant that handles requests for that Ice object. Once the object adapter’s
 dispatch pipeline has knowledge of this link, it can dispatch incoming requests to the correct servant. Without this
 link, that is, without a corresponding entry in the ASM, an incoming request for the identity results in an

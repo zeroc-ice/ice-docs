@@ -16,7 +16,8 @@
 // served at /ice/3.8/slice/enumerations, and the pages under it are its
 // subdirectories, in the order its frontmatter lists them under `pages:`. A
 // directory with overlays but no index.md is a page written per language: each
-// overlay is the whole page for its language.
+// overlay is the whole page for its language. A shared page that applies to
+// only some languages lists them under `languages:` in its frontmatter.
 //
 // Unit-testable with `node lib/docs-model/content.test.ts` and usable from Next
 // server components. Pure content transforms live in ./resolve.ts; the route
@@ -69,7 +70,7 @@ function markdownFiles(dir: string): string[] {
 export interface PageFiles {
   /** The page's path under the version, as in its URL: `''` for the front page. */
   slug: string;
-  /** The page's name, unique within the version: the last segment of its slug. */
+  /** The page's name: the last segment of its slug. */
   name: string;
   /** Its `index.md`, absolute; absent for a page written per language. */
   shared?: string;
@@ -144,9 +145,28 @@ export function readPageSources(page: PageFiles) {
   return { shared, overlays, frontmatter: readFrontmatter(page) };
 }
 
-/** The languages a page is written for; `undefined` when it is written for all. */
-export function writtenFor(page: PageFiles): string[] | undefined {
-  return page.shared ? undefined : Object.keys(page.overlays);
+/**
+ * The languages a page is written for: a page written per language's overlays,
+ * or the `languages:` its index.md lists in `frontmatter`, the frontmatter the
+ * caller already read; `undefined` when it is written for all. Throws when
+ * `languages:` is not a list of languages.
+ */
+export function writtenFor(
+  page: PageFiles,
+  frontmatter: { languages?: unknown }
+): string[] | undefined {
+  if (!page.shared) return Object.keys(page.overlays);
+  const { languages } = frontmatter;
+  if (languages === undefined) return undefined;
+  if (
+    !Array.isArray(languages) ||
+    languages.length === 0 ||
+    !languages.every((language) => typeof language === 'string')
+  )
+    throw new Error(
+      `${page.shared} lists its languages as ${JSON.stringify(languages)}, not a list of languages`
+    );
+  return languages;
 }
 
 /**
@@ -158,7 +178,7 @@ export function writtenFor(page: PageFiles): string[] | undefined {
  * when a page lists a page it does not contain.
  */
 export function readNavigation(docs: Docs): NavDoc {
-  type Listed = { title: string; pages?: string[] };
+  type Listed = { title: string; pages?: string[]; languages?: unknown };
   const bySlug = new Map(listPages(docs).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
     names.map((name) => {
@@ -168,12 +188,12 @@ export function readNavigation(docs: Docs): NavDoc {
         throw new Error(
           `${docs.path}/${parent || 'index.md'} lists "${name}", which is not a page in it`
         );
-      const { title, pages } = readFrontmatter<Listed>(page);
+      const frontmatter = readFrontmatter<Listed>(page);
       return {
-        title,
+        title: frontmatter.title,
         slug,
-        writtenFor: writtenFor(page),
-        items: nodes(slug, pages)
+        writtenFor: writtenFor(page, frontmatter),
+        items: nodes(slug, frontmatter.pages)
       };
     });
 

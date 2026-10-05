@@ -3,7 +3,7 @@ title: Slicing Values and Exceptions
 ---
 
 This page describes the concept of _slicing_, which is how the Ice runtime reacts when it receives an instance of an
-unknown [class](../classes) or [exception](../exceptions).
+unknown [class](..) or [exception](../../../exceptions).
 
 ## Composition Using Slices
 
@@ -75,8 +75,9 @@ end.
 An application that needs the slicing behavior we discussed in the previous section must explicitly enable the sliced
 format as follows:
 
-- Set the [Ice.Default.SlicedFormat](../ice-default-properties) property to `1` to use the sliced format by default.
-- Annotate your Slice definitions with the `format:sliced` [metadata](../slice-metadata-directives) to selectively
+- Set the [Ice.Default.SlicedFormat](../../../../property-reference/ice-default-properties) property to `1` to use the
+  sliced format by default.
+- Annotate your Slice definitions with the `format:sliced` [metadata](../../../slice-metadata-directives) to selectively
   enable the sliced format for certain operations or interfaces.
 
 For example, suppose an application can safely use the compact format most of the time, but still needs slicing in a few

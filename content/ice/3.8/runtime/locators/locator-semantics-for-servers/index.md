@@ -2,7 +2,7 @@
 title: Locator Semantics for Servers
 ---
 
-A location service must know the endpoints of any [object adapter](../dispatch) whose identifier can be used in an
+A location service must know the endpoints of any [object adapter](../../dispatch) whose identifier can be used in an
 indirect proxy. For example, suppose a client uses the following proxy:
 
 ```text
@@ -19,20 +19,20 @@ its identifier and current endpoints. More specifically, the object adapter regi
 the `Ice::LocatorRegistry` interface, whose proxy the object adapter obtains from the locator.
 
 A location service may require that all object adapters be pre-registered via some implementation-specific mechanism.
-([IceGrid](../icegrid) behaves this way by default.) This implies that activation can fail if the object adapter
-supplies an identifier that is unknown to the location service. In such a situation, the object adapter's `activate`
-operation throws `NotRegisteredException`.
+([IceGrid](../../../services/icegrid) behaves this way by default.) This implies that activation can fail if the object
+adapter supplies an identifier that is unknown to the location service. In such a situation, the object adapter's
+`activate` operation throws `NotRegisteredException`.
 
-In a similar manner, an object adapter that participates in a [replica group](../terminology) includes the group's
-identifier in the locator request that is sent during activation. If the location service requires replica group members
-to be configured in advance, `activate` throws `NotRegisteredException` if the object adapter's identifier is not one of
-the group's [registered participants](../object-adapter-replication).
+In a similar manner, an object adapter that participates in a [replica group](../../../basics/terminology) includes the
+group's identifier in the locator request that is sent during activation. If the location service requires replica group
+members to be configured in advance, `activate` throws `NotRegisteredException` if the object adapter's identifier is
+not one of the group's [registered participants](../../../services/icegrid/object-adapter-replication).
 
 ## See Also
 
-- [Object Adapters](../dispatch)
+- [Object Adapters](../../dispatch)
 - [Locator Semantics for Clients](../locator-semantics-for-clients)
 - [Locator Configuration for a Server](../locator-configuration-for-a-server)
-- [IceGrid](../icegrid)
-- [Terminology](../terminology)
-- [Object Adapter Replication](../object-adapter-replication)
+- [IceGrid](../../../services/icegrid)
+- [Terminology](../../../basics/terminology)
+- [Object Adapter Replication](../../../services/icegrid/object-adapter-replication)

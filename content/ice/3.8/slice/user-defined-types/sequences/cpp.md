@@ -77,7 +77,7 @@ appropriate include directive with the `cpp:include` file metadata directive. Th
 to the generated header file.
 
 In addition to modifying the type of a sequence itself, you can also modify the mapping for particular
-[return values or parameters](../operations). For example:
+[return values or parameters](../../operations). For example:
 
 ```slice
 [["cpp:include:list"]]
@@ -194,10 +194,10 @@ a single operation parameter of type sequence to a pair of pointers.
 The array mapping for sequence parameters applies only to:
 
 - In parameters, on the client-side and on the server-side
-- Out and return parameters provided by the Ice runtime to [AMI](../operations#asynchronous-method-invocation-ami)
+- Out and return parameters provided by the Ice runtime to [AMI](../../operations#asynchronous-method-invocation-ami)
   callbacks
-- Out and return parameters provided to [marshaled results](../slice-metadata-directives) or
-  [AMD](../operations#asynchronous-method-dispatch-amd) callbacks
+- Out and return parameters provided to [marshaled results](../../slice-metadata-directives) or
+  [AMD](../../operations#asynchronous-method-dispatch-amd) callbacks
 
 {% callout type="info" %}
 

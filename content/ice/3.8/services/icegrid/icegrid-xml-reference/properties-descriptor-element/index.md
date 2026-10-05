@@ -8,9 +8,9 @@ The `properties` element is used in three situations:
 - as a reference to a named property set if the `refid` attribute is specified
 - as an unnamed property set if the `id` or `refid` attributes are not specified.
 
-A property set is useful for defining a set of [properties](../properties-and-configuration) (a named property set) in
-application or node descriptors. Named property sets can be included in named or unnamed property sets with property set
-references.
+A property set is useful for defining a set of [properties](../../../../runtime/properties-and-configuration) (a named
+property set) in application or node descriptors. Named property sets can be included in named or unnamed property sets
+with property set references.
 
 A named property set element may only be a child of an [application](../application-descriptor-element) element or a
 [node](../node-descriptor-element) element. An unnamed property set element may only be a child of a
@@ -47,7 +47,7 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [Properties and Configuration](../properties-and-configuration)
+- [Properties and Configuration](../../../../runtime/properties-and-configuration)
 - [Application Descriptor Element](../application-descriptor-element)
 - [Node Descriptor Element](../node-descriptor-element)
 - [Server Descriptor Element](../server-descriptor-element)

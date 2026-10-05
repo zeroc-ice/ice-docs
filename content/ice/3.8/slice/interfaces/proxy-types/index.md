@@ -7,7 +7,7 @@ title: Proxy Types
 A Slice interface is not a Slice type – you cannot use a Slice interface as the type for a field or for a parameter in
 an operation.
 
-Nevertheless, when you define an interface (or [forward-declare](../forward-declarations) this interface), you
+Nevertheless, when you define an interface (or [forward-declare](../../forward-declarations) this interface), you
 automatically create a new Slice type: the proxy type associated with this interface.
 
 The name of this proxy type is _InterfaceName_*. For example:

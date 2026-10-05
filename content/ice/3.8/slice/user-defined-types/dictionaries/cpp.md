@@ -95,7 +95,7 @@ Less formally, this means you can use any class or template class that looks lik
 your custom dictionary type.
 
 In addition to modifying the type of a dictionary itself, you can also modify the mapping for particular
-[return values or parameters](../operations). For example:
+[return values or parameters](../../operations). For example:
 
 ```slice
 [["cpp:include:unordered_map"]]

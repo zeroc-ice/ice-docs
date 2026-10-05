@@ -2,7 +2,7 @@
 title: Object Adapter Endpoints
 ---
 
-An object adapter maintains two sets of [endpoints](../endpoint-syntax). One set identifies the network interfaces on
+An object adapter maintains two sets of [endpoints](../../endpoint-syntax). One set identifies the network interfaces on
 which the adapter listens for new connections, and the other set is embedded in proxies created by the adapter and used
 by clients to communicate with it. We will refer to these sets of endpoints as the _physical endpoints_ and the
 _published endpoints_, respectively.
@@ -10,10 +10,10 @@ _published endpoints_, respectively.
 ## Physical Object Adapter Endpoints
 
 An object adapter's physical endpoints identify the network interfaces on which it receives requests from clients. These
-endpoints are configured via the [_name_.Endpoints](../object-adapter-properties) property, or they can be specified
-explicitly when [creating an adapter](../creating-an-object-adapter) using the operation
-`createObjectAdapterWithEndpoints`. The [endpoint syntax](../endpoint-syntax) generally consists of a transport protocol
-followed by an optional host name and port.
+endpoints are configured via the [_name_.Endpoints](../../../property-reference/object-adapter-properties) property, or
+they can be specified explicitly when [creating an adapter](../creating-an-object-adapter) using the operation
+`createObjectAdapterWithEndpoints`. The [endpoint syntax](../../endpoint-syntax) generally consists of a transport
+protocol followed by an optional host name and port.
 
 {% callout type="info" %}
 
@@ -23,12 +23,12 @@ a **single endpoint.**Specifying multiple endpoints, while possible, does not pr
 {% /callout %}
 
 If a host name is specified, the object adapter listens only on the network interface associated with that host name. If
-no host name is specified but the property [Ice.Default.Host](../ice-default-properties) is defined, the object adapter
-uses the property's value as the host name. Finally, if a host name is not specified, and the property
-`Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including the loopback
-interface. You may also force the object adapter to listen on all interfaces by using one of the host names `0.0.0.0` or
-`*`. The adapter does _not_ expand the list of interfaces when it is initialized. Instead, if no host is specified, or
-you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
+no host name is specified but the property [Ice.Default.Host](../../../property-reference/ice-default-properties) is
+defined, the object adapter uses the property's value as the host name. Finally, if a host name is not specified, and
+the property `Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including
+the loopback interface. You may also force the object adapter to listen on all interfaces by using one of the host names
+`0.0.0.0` or `*`. The adapter does _not_ expand the list of interfaces when it is initialized. Instead, if no host is
+specified, or you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
 
 If the host name refers to a DNS name which is configured with multiple addresses, the object adapter will listen on the
 network interfaces identified by each address. All the addresses should refer to local network interfaces or the object
@@ -80,8 +80,8 @@ listening at the same port.
 
 However, there are certain situations where a fixed port is not required. For example, an adapter whose servants are
 transient does not need a fixed port, because the proxies for those objects are not expected to remain valid past the
-lifetime of the server process. Similarly, a server using indirect binding via [IceGrid](../icegrid) does not need a
-fixed port because its port is never published.
+lifetime of the server process. Similarly, a server using indirect binding via [IceGrid](../../../services/icegrid) does
+not need a fixed port because its port is never published.
 
 ## Published-Object-Adapter-Endpoints Published Object Adapter Endpoints
 
@@ -99,7 +99,8 @@ useful for replicated servers, as presented below.
 
 The published endpoints of a regular object adapter (that is, not configured with a router) are computed as follows:
 
-1. If the property [adapter.PublishedEndpoints](../object-adapter-properties) is set, use the specified endpoints.
+1. If the property [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties) is set, use the
+   specified endpoints.
 2. start from the physical endpoints, split these endpoints in loopback and multicast endpoints on one side, and regular
    endpoints on the other
 
@@ -107,8 +108,8 @@ The published endpoints of a regular object adapter (that is, not configured wit
 
       1. discard the loopback and multicast endpoints
       2. replace the host name in each of these endpoints by the value of
-         [adapter.PublishedHost](../object-adapter-properties). If `adapter.PublishedHost` is not set, use the DNS name
-         of the current host as published host.
+         [adapter.PublishedHost](../../../property-reference/object-adapter-properties). If `adapter.PublishedHost` is
+         not set, use the DNS name of the current host as published host.
 
    2. otherwise, when all endpoints are loopback or multicast, replace the host name in each of these endpoints by the
       value of `adapter.PublishedHost`, if set. Don’t perform any substitution if `adapter.PublishedHost` is not set.
@@ -169,12 +170,12 @@ MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 
 If an object adapter is configured with a router, the adapter's published endpoints are those provided by the router's
 server proxy. Calling `setPublishedEndpoints` on such an object adapter will throw an illegal argument exception. See
-[Routers](../routers) for additional information.
+[Routers](../../invocation/routers) for additional information.
 
 ## See Also
 
-- [Object Adapter Properties](../object-adapter-properties)
-- [Ice.Default.*](../ice-default-properties)
-- [IceGrid](../icegrid)
-- [Communicator](../communicator)
-- [Routers](../routers)
+- [Object Adapter Properties](../../../property-reference/object-adapter-properties)
+- [Ice.Default.*](../../../property-reference/ice-default-properties)
+- [IceGrid](../../../services/icegrid)
+- [Communicator](../../communicator)
+- [Routers](../../invocation/routers)

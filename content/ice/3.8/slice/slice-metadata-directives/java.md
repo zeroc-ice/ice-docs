@@ -44,8 +44,8 @@ The metadata directives for Java uses the `java` prefix.
 
 ### `java:buffer`
 
-This directive applies to [sequences](../sequences) of certain primitive types. It directs the Slice compiler to map the
-sequence to a subclass of `java.nio.Buffer`.
+This directive applies to [sequences](../user-defined-types/sequences) of certain primitive types. It directs the Slice
+compiler to map the sequence to a subclass of `java.nio.Buffer`.
 
 ### `java:getset`
 
@@ -72,8 +72,9 @@ Java.
 {% callout type="warning" %}
 
 When you apply this directive to a module that contains classes or exceptions, or directly to a class or an exception,
-you need to install a [Slice loader](../slice-loaders) in communicators that receive (unmarshal) these classes or
-exceptions. Without a Slice loader, the communicator cannot locate the Java class and the unmarshaling fails.
+you need to install a [Slice loader](../user-defined-types/classes/slice-loaders) in communicators that receive
+(unmarshal) these classes or exceptions. Without a Slice loader, the communicator cannot locate the Java class and the
+unmarshaling fails.
 
 {% /callout %}
 
@@ -86,8 +87,8 @@ your modules.
 {% callout type="warning" %}
 
 When you apply this directive to a module that contains classes or exceptions, you need to install a
-[Slice loader](../slice-loaders) in communicators that receive (unmarshal) these classes or exceptions. Without a Slice
-loader, the communicator cannot locate the Java class and the unmarshaling fails.
+[Slice loader](../user-defined-types/classes/slice-loaders) in communicators that receive (unmarshal) these classes or
+exceptions. Without a Slice loader, the communicator cannot locate the Java class and the unmarshaling fails.
 
 {% /callout %}
 
@@ -98,15 +99,17 @@ objects, without having to define corresponding Slice definitions for these clas
 
 ### `java:serialVersionUID`
 
-The Slice-to-Java compiler computes a default value for the `serialVersionUID` member of Slice [classes](../classes),
-[exceptions](../exceptions) and [structures](../structures). This directive overrides the this default generated value.
+The Slice-to-Java compiler computes a default value for the `serialVersionUID` member of Slice
+[classes](../user-defined-types/classes), [exceptions](../exceptions) and
+[structures](../user-defined-types/structures). This directive overrides the this default generated value.
 
 By using this metadata, the application assumes responsibility for updating the UID whenever changes to the Slice
 definition affect the serializable state of the type.
 
 ### `java:type:<instance-type[:formal-type]>`
 
-This directive allows you to use custom types for [sequences](../sequences) and [dictionaries](../dictionaries).
+This directive allows you to use custom types for [sequences](../user-defined-types/sequences) and
+[dictionaries](../user-defined-types/dictionaries).
 
 ### `java:UserException`
 

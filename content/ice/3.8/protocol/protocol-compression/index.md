@@ -8,8 +8,8 @@ Compression is an optional feature of the Ice protocol; whether it is used for a
 several factors:
 
 1. Compression is not supported by all language mappings (see [below](#compression-support-by-language-mapping)).
-2. Compression can be used in a request or batch request only if the peer [advertises](../data-encoding-for-proxies) the
-   ability to accept compressed messages.
+2. Compression can be used in a request or batch request only if the peer
+   [advertises](../../encoding/data-encoding-for-proxies) the ability to accept compressed messages.
 3. For efficiency reasons, the Ice protocol engine does not compress messages smaller than 100 bytes.
 
 {% callout type="tip" %}
@@ -49,7 +49,7 @@ A client sends a compressed message if all the following conditions are true:
 - The client-side runtime supports compression
 - The size of the uncompressed message is at least 100 bytes
 - The proxy endpoint on which the message will be sent has the compression flag (`-z` for
-  [stringified endpoints](../endpoint-syntax))
+  [stringified endpoints](../../runtime/endpoint-syntax))
 
 Otherwise, the client sends an uncompressed message.
 
@@ -58,11 +58,11 @@ The client uses the message header's `compressionStatus` field as described in t
 ## Compression Semantics for Servers
 
 A server only receives a compressed message when the client's proxy endpoint has the compression flag (`-z` for
-[stringified endpoints](../endpoint-syntax)) and additional conditions are met (see above).
+[stringified endpoints](../../runtime/endpoint-syntax)) and additional conditions are met (see above).
 
 Such a proxy can be constructed in a client from a string or configuration property. It can also be created by an object
 adapter and then sent to a client. In this case, the compression flag needs to be set on the
-[object adapter endpoints](../object-adapter-endpoints) as shown in the example below:
+[object adapter endpoints](../../runtime/dispatch/object-adapter-endpoints) as shown in the example below:
 
 ```config
 MyAdapter.Endpoints=tcp -h 192.168.1.17 -p 2500 -z
@@ -100,5 +100,5 @@ is enabled.
 
 ## See Also
 
-- [Data Encoding for Proxies](../data-encoding-for-proxies)
+- [Data Encoding for Proxies](../../encoding/data-encoding-for-proxies)
 - [Protocol Messages](../protocol-messages)

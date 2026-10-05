@@ -39,7 +39,7 @@ In XML, the `env` element supplies a definition for an environment variable:
 If a value refers to an environment variable that is not defined, the reference is substituted with an empty string.
 
 Environment variable definitions may also refer to
-[descriptor variables and template parameters](../using-descriptor-variables-and-parameters):
+[descriptor variables and template parameters](../../using-descriptor-variables-and-parameters):
 
 ```xml
 <node name="LinuxBox">
@@ -64,11 +64,11 @@ as shown in the example below:
 </node>
 ```
 
-IceGrid does not attempt to perform [substitution](../using-descriptor-variables-and-parameters) on `$${PATH}`, but
+IceGrid does not attempt to perform [substitution](../../using-descriptor-variables-and-parameters) on `$${PATH}`, but
 rather removes the leading `$` character and then performs environment variable substitution on `$${PATH}`.
 
 ## See Also
 
 - [Server Descriptor Element](../server-descriptor-element)
 - [IceBox Descriptor Element](../icebox-descriptor-element)
-- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
+- [Using Descriptor Variables and Parameters](../../using-descriptor-variables-and-parameters)

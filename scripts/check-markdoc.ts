@@ -114,13 +114,16 @@ function variablesFor({
   frontmatter: Record<string, unknown>;
 }) {
   if (!pageIndexes.has(docs.path)) {
-    const { index } = buildPageIndex(listPages(docs).map((page) => page.slug));
-    pageIndexes.set(docs.path, index);
+    pageIndexes.set(
+      docs.path,
+      buildPageIndex(listPages(docs).map((page) => page.slug))
+    );
   }
   return {
     ...config.variables,
     frontmatter,
     path: pageHref(docs, slug),
+    slug,
     readingTime: {},
     docs,
     pageIndex: pageIndexes.get(docs.path),

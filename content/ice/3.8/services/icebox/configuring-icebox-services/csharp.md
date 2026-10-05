@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
-The [entry point](../icebox-properties) of a C# service has the form `assembly:class`. The assembly component can be a
-partially or fully qualified assembly name, or an assembly path name.
+The [entry point](../../../property-reference/icebox-properties) of a C# service has the form `assembly:class`. The
+assembly component can be a partially or fully qualified assembly name, or an assembly path name.
 
 The `assembly` component accepts these forms:
 

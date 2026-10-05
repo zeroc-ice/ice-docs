@@ -33,7 +33,7 @@ bool isEmpty();
 To write a backtick that does not start code, escape it with a backslash.
 
 `{@link identifier}` links to another Slice definition. The compilers look up the identifier like any
-[Slice name](../names-and-scoping), from the scope of the documented definition, and warn when it names nothing.
+[Slice name](../../names-and-scoping), from the scope of the documented definition, and warn when it names nothing.
 `Catalog#findItem` links to the member `findItem` of `Catalog`, and `#findItem` to a member of the documented type:
 
 ```slice

@@ -2,9 +2,10 @@
 title: Glacier2 Metrics
 ---
 
-You can monitor Glacier2 using the [Administrative Facility](../administrative-facility) and
-[the Metrics Facet](../metrics-facet). Glacier2 provides a metrics class to monitor session related metrics. The
-Glacier2 session metrics class is defined in `Glacier2/Metrics.ice` and is shown below.
+You can monitor Glacier2 using the [Administrative Facility](../../../administration/administrative-facility) and
+[the Metrics Facet](../../../administration/administrative-facility/metrics-facet). Glacier2 provides a metrics class to
+monitor session related metrics. The Glacier2 session metrics class is defined in `Glacier2/Metrics.ice` and is shown
+below.
 
 ```slice
 namespace IceMX
@@ -23,8 +24,8 @@ namespace IceMX
 
 Glacier2 records session metrics in the `Session` metrics map, the metrics objects contained in this map are instances
 of the `IceMX::SessionMetrics` class show above. To configure a metrics view to record Glacier2 session metrics you can
-use [metrics properties](../icemx-metrics-properties) with the `IceMX.Metrics.view-name.Map.Session` prefix, for
-example:
+use [metrics properties](../../../property-reference/icemx-metrics-properties) with the
+`IceMX.Metrics.view-name.Map.Session` prefix, for example:
 
 - `IceMX.Metrics.SessionView.Map.Session.GroupBy=id` to configure a view containing one metrics object per session.
 - `IceMX.Metrics.SessionView.Map.Session.GroupBy=none to` configure a view containing a single metrics object with
@@ -61,6 +62,6 @@ The connection and endpoint attributes are for the connection tied to the Glacie
 
 ## See Also
 
-- [Administrative Facility](../administrative-facility)
-- [The Metrics Facet](../metrics-facet)
-- [IceMX.Metrics.*](../icemx-metrics-properties)
+- [Administrative Facility](../../../administration/administrative-facility)
+- [The Metrics Facet](../../../administration/administrative-facility/metrics-facet)
+- [IceMX.Metrics.*](../../../property-reference/icemx-metrics-properties)

@@ -9,7 +9,7 @@ The metadata directives for Python uses the `python` prefix.
 ### `python:array.array`
 
 Instructs the Ice for Python runtime to unmarshal a sequence as a Python array.array type. This directive applies to
-integral built-in types. See [Python mapping for sequences.](../sequences).
+integral built-in types. See [Python mapping for sequences.](../user-defined-types/sequences).
 
 ### `python:identifier:<identifier>`
 
@@ -42,12 +42,12 @@ Instruct the Ice for Python runtime to unmarshal a sequence as a list.
 ### `python:memoryview:<factory>(:type-hint)`
 
 Instructs the Ice for Python runtime to unmarshal a sequence as a custom Python type created from a Python memoryview
-object. See [Python mapping for sequences.](../sequences).
+object. See [Python mapping for sequences.](../user-defined-types/sequences).
 
 ### `python:numpy.ndarray`
 
 Instructs the Ice for Python runtime to unmarshal a sequence as a Python numpy.ndarray type. This directive applies to
-integral built-in types. See [Python mapping for sequences.](../sequences).
+integral built-in types. See [Python mapping for sequences.](../user-defined-types/sequences).
 
 ### `python:tuple`
 

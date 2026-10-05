@@ -50,8 +50,8 @@ distinguished name associated with the session.
 ## Efficiency Considerations for Server Activation
 
 Once a server is activated, it remains running indefinitely (unless it uses the session activation mode). A node
-[deactivates a server](../locator-configuration-for-a-server) only when explicitly requested to do so. As a result,
-server processes tend to accumulate on the node's host.
+[deactivates a server](../../../runtime/locators/locator-configuration-for-a-server) only when explicitly requested to
+do so. As a result, server processes tend to accumulate on the node's host.
 
 One of the advantages of on-demand activation is the ability to manage computing resources more efficiently. Of course
 there are many aspects to this, but Ice makes one technique particularly simple: servers can be configured to terminate
@@ -59,7 +59,8 @@ gracefully after they have been idle for a certain amount of time.
 
 A typical scenario involves a server that is activated on demand, used for a while by one or more clients, and then
 terminated automatically when no requests have been made for a configurable number of seconds. All that is necessary is
-setting the server's configuration property [Ice.ServerIdleTime](../ice-properties) to the desired idle time.
+setting the server's configuration property [Ice.ServerIdleTime](../../../property-reference/ice-properties) to the
+desired idle time.
 
 For a server activated in session activation mode, IceGrid deactivates the server when the session releases the server
 or when the session is destroyed.
@@ -73,9 +74,9 @@ process.)
 
 For the remainder of this section, we assume that the node runs as root on a Unix machine.
 
-The `user` attribute of the [server descriptor](../server-descriptor-element) specifies the user ID for a server. If
-this attribute is not specified and the activation mode is not `session`, the default value is `nobody`. Otherwise, the
-default value is `${session.id}` if the activation mode is `session`.
+The `user` attribute of the [server descriptor](../icegrid-xml-reference/server-descriptor-element) specifies the user
+ID for a server. If this attribute is not specified and the activation mode is not `session`, the default value is
+`nobody`. Otherwise, the default value is `${session.id}` if the activation mode is `session`.
 
 Since individual users often have different account names and user IDs on different machines, IceGrid provides a
 mechanism to map the value of the `user` attribute in the server descriptor to a user account. To do this, you must
@@ -108,18 +109,19 @@ lisa O=ZeroC\\, Inc., OU=Ice, CN=Lisa S.
 The distinguished names must be unique. If the same distinguished name appears several times in a file, the last entry
 is used.
 
-You can specify the path of the user account file with the [IceGrid.Registry.UserAccounts](../icegrid-properties)
-property for the registry and the [IceGrid.Node.UserAccounts](../icegrid-properties) property for a node.
+You can specify the path of the user account file with the
+[IceGrid.Registry.UserAccounts](../../../property-reference/icegrid-properties) property for the registry and the
+[IceGrid.Node.UserAccounts](../../../property-reference/icegrid-properties) property for a node.
 
 To configure an IceGrid node to use the IceGrid registry file-based user account mapper, you need to set the
-[IceGrid.Node.UserAccountMapper](../icegrid-properties) property to the well-known proxy
+[IceGrid.Node.UserAccountMapper](../../../property-reference/icegrid-properties) property to the well-known proxy
 `IceGrid/RegistryUserAccountMapper`. Alternatively, you can set this property to the proxy of your own user account
 mapper object. Note that if this property is set, the node ignores the setting of `IceGrid.Node.UserAccounts`.
 
 ## Automating Endpoint Registration
 
-Servers must be [properly configured](../locator-configuration-for-a-server) to enable automatic endpoint registration.
-It should be noted however that IceGrid simplifies the configuration process in two ways:
+Servers must be [properly configured](../../../runtime/locators/locator-configuration-for-a-server) to enable automatic
+endpoint registration. It should be noted however that IceGrid simplifies the configuration process in two ways:
 
 - The IceGrid [deployment facility](../using-icegrid-deployment) automates the creation of a
   [configuration file](../getting-started-with-icegrid) for the server, including the definition of object adapter
@@ -132,7 +134,7 @@ It should be noted however that IceGrid simplifies the configuration process in 
 - [Getting Started with IceGrid](../getting-started-with-icegrid)
 - [IceGrid Architecture](../icegrid-architecture)
 - [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
-- [Server Descriptor Element](../server-descriptor-element)
-- [Locator Configuration for a Server](../locator-configuration-for-a-server)
+- [Server Descriptor Element](../icegrid-xml-reference/server-descriptor-element)
+- [Locator Configuration for a Server](../../../runtime/locators/locator-configuration-for-a-server)
 - [Using IceGrid Deployment](../using-icegrid-deployment)
-- [IceGrid.*](../icegrid-properties)
+- [IceGrid.*](../../../property-reference/icegrid-properties)

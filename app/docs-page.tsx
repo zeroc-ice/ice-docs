@@ -109,29 +109,14 @@ export async function DocsPage({
   }
 
   const routePath = pageHref(docs, slug);
-  // Cross-page links are resolved against this index at build time, so moving a
-  // page never breaks the links pointing at it.
-  const { index: pageIndex } = buildPageIndex(pages.map((p) => p.slug));
+  // Cross-page links are resolved against this index at build time.
+  const pageIndex = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
   const versionOptions: VersionOption[] = versions.map((other) => ({
     docs: other,
     href: pageHref(other, slug)
   }));
-
-  // The Release Notes chapter's pages, newest first, each with the date its
-  // frontmatter gives. Only the front page shows them, and reading every one
-  // of them for every page would multiply across the site.
-  const releases = slug
-    ? []
-    : (sidebar.find((n) => n.slug === 'release-notes')?.items ?? []).map(
-        (n) => ({
-          title: n.title,
-          href: pageHref(docs, n.slug),
-          date: readPageSources(pages.find((p) => p.slug === n.slug)!)
-            .frontmatter.date
-        })
-      );
 
   const body = resolveDocument({
     shared: shared ?? '',
@@ -141,6 +126,7 @@ export async function DocsPage({
   const content = renderMarkdownString({
     source: body,
     path: routePath,
+    slug,
     docs,
     pageIndex,
     frontmatter,
@@ -158,10 +144,9 @@ export async function DocsPage({
       },
       // A page written per language tells readers of the other languages
       // which ones have it.
-      writtenFor: writtenFor(current),
-      // For the front page's switches and release list.
+      writtenFor: writtenFor(current, frontmatter),
+      // For the front page's switches.
       versionOptions,
-      releases,
       // The property tables are a list of exact identifiers, not an essay, and
       // are typeset as such. Derived from the page's place in the tree — the
       // pages under the Property Reference chapter — rather than restated in

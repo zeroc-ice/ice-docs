@@ -13,8 +13,9 @@ class Client {
 ```
 
 the constructor accepts the argument vector that is passed to `main` by the operating system. The constructor scans the
-argument vector for any [command-line options](../setting-properties-on-the-command-line) that are relevant to the Ice
-runtime; if anything goes wrong during initialization, it throws an exception.
+argument vector for any
+[command-line options](../../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
+the Ice runtime; if anything goes wrong during initialization, it throws an exception.
 
 {% callout type="warning" %}
 

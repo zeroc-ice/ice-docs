@@ -2,8 +2,8 @@
 title: Using Descriptor Variables and Parameters
 ---
 
-[Variable descriptors](../variable-descriptor-element) allow you to define commonly-used information once and refer to
-them symbolically throughout your application descriptors.
+[Variable descriptors](../icegrid-xml-reference/variable-descriptor-element) allow you to define commonly-used
+information once and refer to them symbolically throughout your application descriptors.
 
 ## Descriptor Substitution Syntax
 
@@ -101,11 +101,11 @@ variable and defines the context in which it is valid.
 | `node.release`    | The operating system release of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value is obtained from the `OSVERSIONINFO` data structure.                                                      |
 | `node.version`    | The operating system version of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value represents the current service pack level.                                                                |
 | `node.machine`    | The machine hardware name of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value can be x86, x64, or IA64, depending on the machine architecture.                                             |
-| `node.data`       | The absolute pathname of the enclosing [node's data directory](../icegrid-persistent-data).                                                                                                                                     |
+| `node.data`       | The absolute pathname of the enclosing [node's data directory](../icegrid-server-reference/icegrid-persistent-data).                                                                                                            |
 | `server`          | The ID of the enclosing server.                                                                                                                                                                                                 |
-| `server.data`     | The pathname of the enclosing [server's user data directory](../icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data`.                                                                               |
+| `server.data`     | The pathname of the enclosing [server's user data directory](../icegrid-server-reference/icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data`.                                                      |
 | `service`         | The name of the enclosing service.                                                                                                                                                                                              |
-| `service.data`    | The pathname of the enclosing [service's user data directory](../icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data_${service}`.                                                                   |
+| `service.data`    | The pathname of the enclosing [service's user data directory](../icegrid-server-reference/icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data_${service}`.                                          |
 | `session.id`      | The client session identifier. For sessions created with a user name and password, the value is the user ID; for sessions created from a secure connection, the value is the distinguished name associated with the connection. |
 
 The availability of a variable is easily determined in some cases, but may not be readily apparent in others. For
@@ -227,7 +227,7 @@ As a result, the value of `y` in the above example is `2` because that is the mo
 
 ## See Also
 
-- [Variable Descriptor Element](../variable-descriptor-element)
+- [Variable Descriptor Element](../icegrid-xml-reference/variable-descriptor-element)
 - [IceGrid Templates](../icegrid-templates)
 - [Application Distribution](../application-distribution)
-- [Variables in IceGrid Descriptors](../variables-in-icegrid-descriptors)
+- [Variables in IceGrid Descriptors](../icegrid-gui-tool/application-tabs/icegrid-descriptors/variables-in-icegrid-descriptors)

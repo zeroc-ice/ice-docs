@@ -34,16 +34,17 @@ module IceGrid
 
 The `createAdminSession` operation expects a username and password and returns a session proxy if the client is allowed
 to create a session. By default, IceGrid does not allow the creation of administrative sessions. You must define the
-property [IceGrid.Registry.AdminPermissionsVerifier](../icegrid-properties) with the proxy of a permissions verifier
-object to enable session creation with `createAdminSession`. The verifier object must implement the interface
-[Glacier2::PermissionsVerifier](../securing-a-glacier2-router).
+property [IceGrid.Registry.AdminPermissionsVerifier](../../../property-reference/icegrid-properties) with the proxy of a
+permissions verifier object to enable session creation with `createAdminSession`. The verifier object must implement the
+interface [Glacier2::PermissionsVerifier](../../glacier2/securing-a-glacier2-router).
 
 The `createAdminSessionFromSecureConnection` operation does not require a username and password because it uses the
-credentials supplied by an [SSL](../ssl-transport) connection to authenticate the client. As with `createAdminSession`,
-you must configure the proxy of a permissions verifier object before clients can use
+credentials supplied by an [SSL](../../../runtime/ssl-transport) connection to authenticate the client. As with
+`createAdminSession`, you must configure the proxy of a permissions verifier object before clients can use
 `createAdminSessionFromSecureConnection` to create a session. In this case, the
-[IceGrid.Registry.AdminSSLPermissionsVerifier](../icegrid-properties) property specifies the proxy of a verifier object
-that implements the interface [Glacier2::SSLPermissionsVerifier](../securing-a-glacier2-router).
+[IceGrid.Registry.AdminSSLPermissionsVerifier](../../../property-reference/icegrid-properties) property specifies the
+proxy of a verifier object that implements the interface
+[Glacier2::SSLPermissionsVerifier](../../glacier2/securing-a-glacier2-router).
 
 As an example, the following code demonstrates how to obtain a proxy for the registry and invoke `createAdminSession`:
 
@@ -106,10 +107,11 @@ module IceGrid
 ```
 
 In order to access the text of a program's standard output or standard error log, you must configure it using the
-[Ice.StdOut](../ice-properties) and [Ice.StdErr](../ice-properties) properties, respectively. For registries and nodes,
-you must define these properties explicitly but, for servers, the node defines these properties automatically if the
-property [IceGrid.Node.Output](../icegrid-properties) is defined, causing the server's output to be logged in individual
-files.
+[Ice.StdOut](../../../property-reference/ice-properties) and [Ice.StdErr](../../../property-reference/ice-properties)
+properties, respectively. For registries and nodes, you must define these properties explicitly but, for servers, the
+node defines these properties automatically if the property
+[IceGrid.Node.Output](../../../property-reference/icegrid-properties) is defined, causing the server's output to be
+logged in individual files.
 
 If `IceGrid.Node.Output` is _not_ defined, the following rules apply:
 
@@ -121,12 +123,13 @@ If `IceGrid.Node.Output` is _not_ defined, the following rules apply:
 - If the node is started as a Windows service, the servers' output is lost even if `Ice.StdOut` and/or `Ice.StdErr` are
   set.
 
-Log messages from the node itself are sent to `stderr` unless you set [Ice.UseSyslog](../ice-properties) (for Unix). If
-the node is started as a Windows service, its log messages always are sent to the Windows event log.
+Log messages from the node itself are sent to `stderr` unless you set
+[Ice.UseSyslog](../../../property-reference/ice-properties) (for Unix). If the node is started as a Windows service, its
+log messages always are sent to the Windows event log.
 
 In the case of `openServerLog`, the value of the `path` argument must resolve to the same file as one of the server's
-[log descriptors](../log-descriptor-element). This security measure prevents a client from opening an arbitrary file on
-the server's host.
+[log descriptors](../icegrid-xml-reference/log-descriptor-element). This security measure prevents a client from opening
+an arbitrary file on the server's host.
 
 All of the operations accept a `count` argument and return a proxy to a `FileIterator` object. The `count` argument
 determines where to start reading the log file: if the value is negative, the iterator is positioned at the beginning of
@@ -148,7 +151,7 @@ module IceGrid
 
 A client may invoke the `read` operation as many times as necessary. The `size` argument specifies the maximum number of
 bytes that `read` can return; the client must not use a size that would cause the reply to exceed the client's
-configured [maximum message size](../ice-properties).
+configured [maximum message size](../../../property-reference/ice-properties).
 
 If this is the client's first call to `read`, the `lines` argument holds whatever text was available from the iterator's
 initial position, and the iterator is repositioned in preparation for the next call to `read`. The operation returns
@@ -190,23 +193,23 @@ when no data is currently available.
 The client should call `destroy` when the iterator object is no longer required. At the time the client's session
 terminates, IceGrid reclaims any iterators that were not explicitly destroyed.
 
-If the client waits for new data, it must take steps to prevent the
-[administrative session](../icegrid-administrative-sessions) from expiring.
+If the client waits for new data, it must take steps to prevent the [administrative session](./) from expiring.
 
 With these operations, an administrative client can retrieve any text file on a system where an IceGrid node is running.
-While it's common for this text file to contain the output of an Ice [logger](../logger-facility), it could contain
-other unrelated outputs. This text file is presented as a sequence of strings, with no particular structure for these
-strings.
+While it's common for this text file to contain the output of an Ice [logger](../../../administration/logger-facility),
+it could contain other unrelated outputs. This text file is presented as a sequence of strings, with no particular
+structure for these strings.
 
-The [Logger admin facet](../logger-facet) provides another, and often better, way to retrieve the log messages sent to
-the logger of a server, node or registry. With the `Logger` facet, you retrieve log messages–and only log messages–as
-typed structures, whether or not the logger's output is stored in a text file or stored at all. With the `AdminSession`
-file operations presented above, you can retrieve the log files of a server even when this server is not running;
-conversely, with the `Logger` admin facet, the target server must be running since this `Logger` facet is hosted in that
-server. Finally, the programming style espoused by the `AdminSession` file operations is a pull model: the
-administrative client calls `read` from time to time on the `FileIterator` object provided by IceGrid. With the `Logger`
-admin facet, the administrative client uses a push model: it registers a remote logger object with the target server,
-node and registry, and this remote logger receives new log messages as soon as they are generated.
+The [Logger admin facet](../../../administration/administrative-facility/logger-facet) provides another, and often
+better, way to retrieve the log messages sent to the logger of a server, node or registry. With the `Logger` facet, you
+retrieve log messages–and only log messages–as typed structures, whether or not the logger's output is stored in a text
+file or stored at all. With the `AdminSession` file operations presented above, you can retrieve the log files of a
+server even when this server is not running; conversely, with the `Logger` admin facet, the target server must be
+running since this `Logger` facet is hosted in that server. Finally, the programming style espoused by the
+`AdminSession` file operations is a pull model: the administrative client calls `read` from time to time on the
+`FileIterator` object provided by IceGrid. With the `Logger` admin facet, the administrative client uses a push model:
+it registers a remote logger object with the target server, node and registry, and this remote logger receives new log
+messages as soon as they are generated.
 
 ## Dynamic Monitoring in IceGrid
 
@@ -296,7 +299,7 @@ module IceGrid
 You should invoke `setObservers` and supply proxies when it is possible for the registry to establish a separate
 connection to the client to deliver its callbacks. If network restrictions such as firewalls prevent such a connection,
 you should use the `setObserversByIdentity` operation, which creates a
-[bidirectional connection](../bidirectional-connections) instead.
+[bidirectional connection](../../../runtime/connection-management/bidirectional-connections) instead.
 
 You can pass a null proxy for any parameter to `setObservers`, or an empty identity for any parameter to
 `setObserversByIdentity`, if you want to use only some of the observers. In addition, passing a null proxy or an empty
@@ -310,10 +313,10 @@ IceGrid GUI implementation in the Ice for Java distribution to see how observers
 ## See Also
 
 - [Registry Replication](../registry-replication)
-- [Securing a Glacier2 Router](../securing-a-glacier2-router)
+- [Securing a Glacier2 Router](../../glacier2/securing-a-glacier2-router)
 - [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
-- [Log Descriptor Element](../log-descriptor-element)
+- [Log Descriptor Element](../icegrid-xml-reference/log-descriptor-element)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
-- [Bidirectional Connections](../bidirectional-connections)
-- [IceGrid.*](../icegrid-properties)
-- [Logger admin Facet](../logger-facet)
+- [Bidirectional Connections](../../../runtime/connection-management/bidirectional-connections)
+- [IceGrid.*](../../../property-reference/icegrid-properties)
+- [Logger admin Facet](../../../administration/administrative-facility/logger-facet)

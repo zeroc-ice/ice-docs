@@ -67,8 +67,7 @@ The default connect timeout is `10` seconds.
 ### Description {% id="ice.connection.name.enableidlecheck-description" %}
 
 When `num` is greater than `0`, the communicator or object adapter performs the connection idle check described in
-[Ice.Connection.name.IdleTimeout](../ice-connection-properties#ice.connection.name.idletimeout). Otherwise, no idle
-check is performed.
+[Ice.Connection.name.IdleTimeout](#ice.connection.name.idletimeout). Otherwise, no idle check is performed.
 
 The default value for `num` is `1`.
 
@@ -82,8 +81,7 @@ The default value for `num` is `1`.
 
 Once a connection is established, this connection is considered healthy as long as it does not wait for more than `num`
 seconds to read a byte. If a connection waits for more than `num` seconds to read a byte, it's deemed idle and aborted
-when the idle check is enabled (see
-[Ice.Connection.name.EnableIdleCheck](../ice-connection-properties#ice.connection.name.enableidlecheck)).
+when the idle check is enabled (see [Ice.Connection.name.EnableIdleCheck](#ice.connection.name.enableidlecheck)).
 
 Idle is never a good state. To prevent connections from becoming idle and getting aborted by the idle check, Ice
 generates regular write activity on established connections: if there is no write on a connection for `num / 2` seconds,

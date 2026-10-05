@@ -12,9 +12,9 @@ This page describes the steps you can take to secure your IceGrid application.
 ## IceGrid Security Overview
 
 Using a firewall is one way to prevent unauthorized use of IceGrid's facilities. Another solution is to use
-[IceSSL](../ssl-transport): you can generate SSL certificates for each component and configure them to trust and accept
-connections only from other authorized components. The remainder of this section discusses the IceSSL solution but also
-provides useful information for those interested in securing IceGrid with a firewall.
+[IceSSL](../../../runtime/ssl-transport): you can generate SSL certificates for each component and configure them to
+trust and accept connections only from other authorized components. The remainder of this section discusses the IceSSL
+solution but also provides useful information for those interested in securing IceGrid with a firewall.
 
 To restrict access using IceSSL, we need to establish trust relationships between IceGrid registry replicas, nodes, and
 deployed servers. IceSSL allows us to do this using configuration properties. The trust relationships are based on the
@@ -147,14 +147,14 @@ IceSSL.TrustOnly.Server.IceGrid.Registry.AdminSessionManager=CN="Glacier2 Router
 ### IceLocatorDiscovery Endpoint
 
 The registry (including all replicas) listens by default for UDP multicast requests from
-[IceLocatorDiscovery](../icelocatordiscovery) clients. Each client request includes a proxy to which the registry sends
-its response; by default, the client's "response callback" proxy uses a UDP unicast endpoint but it can be configured to
-use a different transport. The registry invokes on the client's response callback proxy and provides a proxy of its own
-containing the registry's client endpoint.
+[IceLocatorDiscovery](../../../plugins/icelocatordiscovery) clients. Each client request includes a proxy to which the
+registry sends its response; by default, the client's "response callback" proxy uses a UDP unicast endpoint but it can
+be configured to use a different transport. The registry invokes on the client's response callback proxy and provides a
+proxy of its own containing the registry's client endpoint.
 
 Ice does not support a secure multicast transport therefore these discovery requests cannot be encrypted or restricted
 via trust relationships. You can prevent registries from listening for discovery requests by setting
-[IceGrid.Registry.Discovery.Enabled](../icegrid-properties):
+[IceGrid.Registry.Discovery.Enabled](../../../property-reference/icegrid-properties):
 
 ```config
 IceGrid.Registry.Discovery.Enabled=0
@@ -215,11 +215,11 @@ If your server invokes on other servers, you will need to modify this setting to
 
 ## See Also
 
-- [IceSSL](../ssl-transport)
+- [IceSSL](../../../runtime/ssl-transport)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
 - [Resource Allocation Using IceGrid Sessions](../resource-allocation-using-icegrid-sessions)
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [Well-Known Objects](../well-known-objects)
 - [IceGrid and the Administrative Facility](../icegrid-and-the-administrative-facility)
 - [Registry Replication](../registry-replication)
-- [IceSSL.*](../icessl-properties)
+- [IceSSL.*](../../../property-reference/icessl-properties)

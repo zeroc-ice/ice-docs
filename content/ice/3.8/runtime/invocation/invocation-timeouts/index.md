@@ -13,8 +13,9 @@ payload is unmarshaled. For a one-way invocation, it stops the timer as soon as 
 
 ## Configuring the Default Invocation Timeout
 
-The property [Ice.Default.InvocationTimeout](../ice-default-properties) establishes the default invocation timeout value
-for proxies. This property has a default value of `-1`, which means invocations do not time out by default.
+The property [Ice.Default.InvocationTimeout](../../../property-reference/ice-default-properties) establishes the default
+invocation timeout value for proxies. This property has a default value of `-1`, which means invocations do not time out
+by default.
 
 Consider this setting:
 
@@ -43,8 +44,8 @@ GreeterProxy=greeter:tcp -h localhost -p 4061
 GreeterProxy.InvocationTimeout=2500  # milliseconds
 ```
 
-The [InvocationTimeout](../proxy-properties) proxy property specifies the invocation timeout that will be used for all
-invocations made via the proxy returned by `propertyToProxy`.
+The [InvocationTimeout](../../../property-reference/proxy-properties) proxy property specifies the invocation timeout
+that will be used for all invocations made via the proxy returned by `propertyToProxy`.
 
 To configure an invocation timeout at runtime, use the `ice_invocationTimeout` proxy factory method to obtain a new
 proxy with the desired timeout:
@@ -69,6 +70,6 @@ Ice does **not** perform [automatic retries](../automatic-retries) for invocatio
 
 ## See Also
 
-- [Proxy Properties](../proxy-properties)
-- [Ice.Default.*](../ice-default-properties)
+- [Proxy Properties](../../../property-reference/proxy-properties)
+- [Ice.Default.*](../../../property-reference/ice-default-properties)
 - [Obtaining Proxies](../creating-proxies)

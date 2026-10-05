@@ -19,7 +19,7 @@ Topic<string, float> temperatures{node, "temperatures"};
 ```
 
 In this example, DataStorm uses the Ice encoding for both string and float. No additional code or configuration is
-needed because both string and float are [Slice built-in types](../basic-types).
+needed because both string and float are [Slice built-in types](../../../../slice/basic-types).
 
 ## Example: Custom Slice Type
 

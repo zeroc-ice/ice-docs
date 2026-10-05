@@ -4,11 +4,12 @@ title: Well-Known Objects
 
 ## Overview of Well-Known Objects
 
-There are two types of [indirect proxies](../terminology): one specifies an identity and an object adapter identifier,
-while the other contains only an identity. The latter type of indirect proxy is known as a
-[_well-known proxy_](../well-known-proxy). A well-known proxy refers to a well-known object, that is, its identity alone
-is sufficient to allow the client to locate it. Ice requires all object identities in an application to be unique, but
-typically only a select few objects are able to be located only by their identities.
+There are two types of [indirect proxies](../../../basics/terminology): one specifies an identity and an object adapter
+identifier, while the other contains only an identity. The latter type of indirect proxy is known as a
+[_well-known proxy_](../../../runtime/invocation/proxy-endpoints/well-known-proxy). A well-known proxy refers to a
+well-known object, that is, its identity alone is sufficient to allow the client to locate it. Ice requires all object
+identities in an application to be unique, but typically only a select few objects are able to be located only by their
+identities.
 
 In earlier sections we showed the relationship between indirect proxies containing an object adapter identifier and the
 IceGrid configuration. Briefly, in order for a client to use a proxy such as `factory@EncoderAdapter`, an object adapter
@@ -50,7 +51,8 @@ refers to itself? In this case, the registry returns the proxy `Object3` to the 
 
 The registry's database not only associates an identity with a proxy, but also a type. Technically, the "type" is an
 arbitrary string but, by convention, that string represents the most-derived Slice type of the object. For example, the
-Slice [type ID](../type-ids) of the encoder factory in our ripper application is `::Ripper::MP3EncoderFactory`.
+Slice [type ID](../../../slice/type-ids) of the encoder factory in our ripper application is
+`::Ripper::MP3EncoderFactory`.
 
 Object types are useful when performing [queries](#querying-well-known-objects).
 
@@ -375,9 +377,9 @@ to improve our design.
 
 ## See Also
 
-- [Terminology](../terminology)
-- [Type IDs](../type-ids)
-- [Object Descriptor Element](../object-descriptor-element)
+- [Terminology](../../../basics/terminology)
+- [Type IDs](../../../slice/type-ids)
+- [Object Descriptor Element](../icegrid-xml-reference/object-descriptor-element)
 - [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
 - [Object Adapter Replication](../object-adapter-replication)

@@ -23,8 +23,9 @@ without per-client pairing.
 For connection-oriented transports, IceBridge also provides:
 
 - **Bidirectional requests** IceBridge configures every connection to the server to support
-  [bidirectional requests](../bidirectional-connections). All bidirectional callback requests sent from the server are
-  automatically forwarded back to the client via the client's connection with the bridge.
+  [bidirectional requests](../../runtime/connection-management/bidirectional-connections). All bidirectional callback
+  requests sent from the server are automatically forwarded back to the client via the client's connection with the
+  bridge.
 - **Router support** IceBridge implements the `Ice::Router` interface, allowing clients to use the bridge without
   replacing the endpoints in each application proxy. For session authentication and access control, use
   [Glacier2](../glacier2).
@@ -34,16 +35,16 @@ and Bluetooth.
 
 ## Configuring IceBridge
 
-Configure the bridge with the following [IceBridge properties](../icebridge-properties):
+Configure the bridge with the following [IceBridge properties](../../property-reference/icebridge-properties):
 
 - `IceBridge.Source.Endpoints` This required property lists the endpoints on which IceBridge receives requests from
   clients. `IceBridge.Source` is also the name of an object adapter, which means all of the other
-  [object adapter properties](../object-adapter-properties) can be configured as well.
+  [object adapter properties](../../property-reference/object-adapter-properties) can be configured as well.
 - `IceBridge.Target.Endpoints` This required property lists the client endpoints of the target server, with the syntax
-  used in a [stringified proxy](../syntax-for-stringified-proxies). Unlike `IceBridge.Source`, `IceBridge.Target` is not
-  an object adapter. With several endpoints, IceBridge follows the usual Ice process for
-  [establishing a connection](../connection-establishment) to the server, and then keeps that connection for the
-  lifetime of the client's connection to the bridge.
+  used in a [stringified proxy](../../runtime/invocation/syntax-for-stringified-proxies). Unlike `IceBridge.Source`,
+  `IceBridge.Target` is not an object adapter. With several endpoints, IceBridge follows the usual Ice process for
+  [establishing a connection](../../runtime/connection-management/connection-establishment) to the server, and then
+  keeps that connection for the lifetime of the client's connection to the bridge.
 - `IceBridge.InstanceName` This optional property specifies the identity category of the
   [router object](#icebridge-object-identities). Its default value is `IceBridge`.
 
@@ -79,13 +80,13 @@ IceBridge terminates TLS: a secure client connection and a secure target connect
 IceBridge chooses the target endpoint without regard to whether the client connection is secure. To encrypt the
 connection to the target, configure only secure target endpoints.
 
-IceBridge presents the credentials configured with its [IceSSL properties](../icessl-properties) on both connections:
-when accepting secure client connections and when establishing secure connections to the target server. A target server
-that requires a client certificate authenticates the bridge's certificate.
+IceBridge presents the credentials configured with its [IceSSL properties](../../property-reference/icessl-properties)
+on both connections: when accepting secure client connections and when establishing secure connections to the target
+server. A target server that requires a client certificate authenticates the bridge's certificate.
 
 ### Bridging to Bluetooth
 
-On Linux, load the [IceBT transport plug-in](../icebt) to bridge between TCP and Bluetooth:
+On Linux, load the [IceBT transport plug-in](../../plugins/icebt) to bridge between TCP and Bluetooth:
 
 ```config
 Ice.Plugin.IceBT=IceBT:createIceBT
@@ -105,8 +106,9 @@ The bridge's source adapter hosts two objects with reserved identities:
 | `InstanceName/router` | `Ice::Router`       | Configures clients to route requests through the bridge. |
 | `Ice/RouterFinder`    | `Ice::RouterFinder` | Returns the bridge's router proxy from `getRouter`.      |
 
-`InstanceName` is the value of [IceBridge.InstanceName](../icebridge-properties#icebridge.instancename), `IceBridge` by
-default. Clients can configure a router proxy using this identity together with the bridge's source endpoints. IceBridge
+`InstanceName` is the value of
+[IceBridge.InstanceName](../../property-reference/icebridge-properties#icebridge.instancename), `IceBridge` by default.
+Clients can configure a router proxy using this identity together with the bridge's source endpoints. IceBridge
 dispatches requests for these two identities itself and does not forward them to the target. For example, with:
 
 ```config
@@ -155,7 +157,8 @@ provide.
 {% callout type="info" %}
 
 Setting `Ice.Default.Router` affects **all** proxies by default. Ice also provides more selective ways of configuring a
-router, such as with a [proxy property](../proxy-properties) or a [proxy method](../routers).
+router, such as with a [proxy property](../../property-reference/proxy-properties) or a
+[proxy method](../../runtime/invocation/routers).
 
 {% /callout %}
 
@@ -171,9 +174,11 @@ The client must create an object adapter and register its callback objects. It c
 bridge connection in either of these ways:
 
 - When using the bridge as a router, configure the callback adapter with the same router proxy, using the
-  [object adapter's `Router` property](../object-adapter-properties) or `createObjectAdapterWithRouter`.
+  [object adapter's `Router` property](../../property-reference/object-adapter-properties) or
+  `createObjectAdapterWithRouter`.
 - When connecting directly to the bridge's source endpoints, make the callback adapter the communicator's default object
-  adapter with `setDefaultObjectAdapter`, as described in [Bidirectional Connections](../bidirectional-connections).
+  adapter with `setDefaultObjectAdapter`, as described in
+  [Bidirectional Connections](../../runtime/connection-management/bidirectional-connections).
 
 For example, a client that creates a callback adapter named `Callbacks` can use:
 
@@ -185,7 +190,7 @@ Callbacks.Router=IceBridge/router:tcp -h bridge.host -p 10000
 The target server sends callbacks using a fixed proxy bound to the connection on which it received the client's request.
 It can create this proxy with the connection's `createProxy` method or bind a callback proxy with `ice_fixed`. IceBridge
 forwards the callback over the paired client connection. See
-[Configuring a Server for Bidirectional Connections](../bidirectional-connections#configuring-a-server-for-bidirectional-connections).
+[Configuring a Server for Bidirectional Connections](../../runtime/connection-management/bidirectional-connections#configuring-a-server-for-bidirectional-connections).
 
 ## Starting IceBridge
 
@@ -205,8 +210,8 @@ icebridge --Ice.Config=config
 IceBridge establishes target connections on demand, so successful startup does not verify that the target server is
 reachable. To check forwarding, invoke an operation such as `ice_ping` on an application object through the bridge.
 
-IceBridge supports the usual [command-line options](../command-line-options), including those for running it as a
-Windows service or Unix daemon.
+IceBridge supports the usual [command-line options](../../background-servers/command-line-options), including those for
+running it as a Windows service or Unix daemon.
 
 ### Connection Failures
 
@@ -244,7 +249,7 @@ required operations on the default facet.
 
 ### Bluetooth Connection Limit
 
-As mentioned in the [IceBT](../icebt) discussion, a Bluetooth client process cannot establish multiple connections to
-the same target endpoint. When using IceBridge with a Bluetooth target, only one client at a time can use the bridge.
-Furthermore, that client must only establish one connection to the bridge. You can start additional IceBridge instances
-to allow more clients to communicate with the Bluetooth device simultaneously.
+As mentioned in the [IceBT](../../plugins/icebt) discussion, a Bluetooth client process cannot establish multiple
+connections to the same target endpoint. When using IceBridge with a Bluetooth target, only one client at a time can use
+the bridge. Furthermore, that client must only establish one connection to the bridge. You can start additional
+IceBridge instances to allow more clients to communicate with the Bluetooth device simultaneously.

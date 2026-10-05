@@ -40,7 +40,7 @@ The metadata directives for C++ uses the `cpp` prefix.
 ### `cpp:array`
 
 This directive applies to sequence parameters in operations. It directs the Slice compiler to map these parameters to
-[pairs of pointers](../sequences).
+[pairs of pointers](../user-defined-types/sequences).
 
 ### `cpp:const`
 
@@ -163,8 +163,9 @@ required to make forward declared types visible to the source files.
 
 ### `cpp:type:c++-type`
 
-This directive applies to [sequences](../sequences) and [dictionaries](../dictionaries). It directs the Slice compiler
-to map the Slice type or parameter to the provided C++ type.
+This directive applies to [sequences](../user-defined-types/sequences) and
+[dictionaries](../user-defined-types/dictionaries). It directs the Slice compiler to map the Slice type or parameter to
+the provided C++ type.
 
 ### `cpp:type:string` and `cpp:type:wstring`
 

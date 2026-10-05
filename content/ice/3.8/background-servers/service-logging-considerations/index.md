@@ -2,9 +2,10 @@
 title: Service Logging Considerations
 ---
 
-A service that uses a [custom logger](../custom-loggers) has several ways of configuring it:
+A service that uses a [custom logger](../../administration/logger-facility/custom-loggers) has several ways of
+configuring it:
 
-- as a [process-wide logger](../per-process-logger),
+- as a [process-wide logger](../../administration/logger-facility/per-process-logger),
 - in the `InitializationData` argument that is passed to `main`,
 - by overriding the `initializeCommunicator` member function.
 

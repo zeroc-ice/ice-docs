@@ -60,7 +60,7 @@ infrequently, but for an application with high request rates it is necessary to 
 
 ## Managing Property Sets in PHP
 
-A PHP application can manually construct a [property set](../properties-and-configuration) for configuring its
+A PHP application can manually construct a [property set](../../properties-and-configuration) for configuring its
 communicator. The Ice for PHP extension also provides a PHP-specific property set API that helps to minimize the
 overhead associated with initializing a communicator, allowing you to configure a default property set along with an
 unlimited number of named property sets (or _profiles_).

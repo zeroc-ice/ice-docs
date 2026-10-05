@@ -6,10 +6,10 @@ pages:
   - class-graphs
 ---
 
-The marshaling for [classes](../classes) is complex, due to the need to deal with the pointer semantics for graphs of
-classes, as well as the need for the receiver to slice or preserve classes of unknown derived type. In addition, the
-marshaling for classes uses a [type ID](../type-ids) compression scheme to avoid repeatedly marshaling the same type IDs
-for large graphs of class instances.
+The marshaling for [classes](../../slice/user-defined-types/classes) is complex, due to the need to deal with the
+pointer semantics for graphs of classes, as well as the need for the receiver to slice or preserve classes of unknown
+derived type. In addition, the marshaling for classes uses a [type ID](../../slice/type-ids) compression scheme to avoid
+repeatedly marshaling the same type IDs for large graphs of class instances.
 
 ## Encoding for Class References
 
@@ -41,7 +41,7 @@ instance, it assigns the instance an unused ID, inserts it into the table, and e
 whose value is the _negative_ of the ID. If the encoder has already encountered that instance, it simply encodes the
 instance's previously-assigned ID as a negative 32-bit integer.
 
-All [class instances](../data-encoding-for-classes) are encoded at the end of the encapsulation.
+All [class instances](./) are encoded at the end of the encapsulation.
 
 ### Class Reference Encoding Version 1.1
 
@@ -52,8 +52,9 @@ reference, and ID value 1 to denote an _inline_ instance in which an instance's 
 first reference. Consequently, instance IDs must start at 2. The encoding assigns instance IDs sequentially in order of
 appearance, with the first instance assigned an ID of 2, the next instance has ID 3, and so on.
 
-The encoding for a reference depends on the [format](../slicing-values-and-exceptions) being used, and may also depend
-on the context in which the reference occurs:
+The encoding for a reference depends on the
+[format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) being used, and may also depend on the
+context in which the reference occurs:
 
 - **Compact format** In this format, the encoding always uses the inline scheme. Suppose we are encoding a value of the
   structure type `S` shown earlier. If its `obj` member refers to a class instance that the encoder has not yet
@@ -66,8 +67,7 @@ on the context in which the reference occurs:
   above. When marshaling this parameter, its `obj` member is encoded as a size with value 1, followed by the encoding of
   the `Node` instance itself. Now consider the marshaling of the `Node` instance, where we encounter a class reference
   in member `next` that occurs _inside_ the context of a class instance. To assist the Ice run time in unmarshaling and
-  remarshaling instances, such a reference is encoded as a size whose value is an index into an
-  [indirection table](../data-encoding-for-classes).
+  remarshaling instances, such a reference is encoded as a size whose value is an index into an [indirection table](./).
 
 ## Encoding for Class Instances
 
@@ -101,9 +101,10 @@ nil.
 
 The leading byte of a class instance is a [size](../basic-data-encoding) value of 1. Following this byte is a collection
 of [slices](../basic-data-encoding) arranged in derived-to-base order. Only data members are marshaled — no information
-is sent that would relate to operations. The initial (most-derived) slice always includes a [type ID](../class-type-ids)
+is sent that would relate to operations. The initial (most-derived) slice always includes a [type ID](./class-type-ids)
 that may be encoded as a string or as a numeric value, as specified by the flags that begin each slice. Depending on the
-[format](../slicing-values-and-exceptions) being used, subsequent slices may or may not include a type ID.
+[format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) being used, subsequent slices may or may
+not include a type ID.
 
 Each slice consists of a leading byte representing the slice flags, an optional type ID, an optional slice size, the
 required members for that slice in order of declaration, and the
@@ -122,7 +123,7 @@ When using the sliced format, a type ID is included in every slice, along with a
 
 _Sliced format for classes._
 
-A slice that contains at least one non-nil class reference must use an [indirection table](../class-graphs) for all
+A slice that contains at least one non-nil class reference must use an [indirection table](./class-graphs) for all
 references in that slice. The table is an array of instances encoded using the inline scheme. A leading size value
 indicates the number of elements in the table; each element is either an instance ID (if the instance has already been
 encoded within the current encapsulation), or the instance itself denoted by a leading size of 1. The indirection table
@@ -131,14 +132,14 @@ count denoted by the slice size_. To skip a slice for an unknown type, the recei
 number of bytes specified in the slice size, but then must process all references or instances in the indirection table,
 if one is present.
 
-To support [slice preservation](../slicing-values-and-exceptions) for an instance, the receiver must temporarily retain
-the slices of any unknown derived types, and also be able to reconstruct the indirection table in its original order for
-each of these slices in case the instance is later remarshaled.
+To support [slice preservation](../../slice/user-defined-types/classes/slicing-values-and-exceptions) for an instance,
+the receiver must temporarily retain the slices of any unknown derived types, and also be able to reconstruct the
+indirection table in its original order for each of these slices in case the instance is later remarshaled.
 
 ## See Also
 
-- [Classes](../classes)
-- [Type IDs](../type-ids)
+- [Classes](../../slice/user-defined-types/classes)
+- [Type IDs](../../slice/type-ids)
 - [Data Encoding for Exceptions](../data-encoding-for-exceptions)
 - [Basic Data Encoding](../basic-data-encoding)
-- [Slicing Values and Exceptions](../slicing-values-and-exceptions)
+- [Slicing Values and Exceptions](../../slice/user-defined-types/classes/slicing-values-and-exceptions)

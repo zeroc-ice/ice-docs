@@ -66,9 +66,9 @@ can decide whether to force the servers to restart using the other Save command.
 
 If you change a server's configuration properties with `Save to Registry (No Server restart)`, IceGrid updates the
 stored properties of this server, and also the properties of your running server instance through its
-[Properties Facet](../properties-facet). If these properties are only read by the server at start-up, this may not have
-the desired effect. If you want to trigger a server restart even when only properties have changed, use
-`Save to Registry (Servers may restart)`.
+[Properties Facet](../../../../../administration/administrative-facility/properties-facet). If these properties are only
+read by the server at start-up, this may not have the desired effect. If you want to trigger a server restart even when
+only properties have changed, use `Save to Registry (Servers may restart)`.
 
 {% /callout %}
 

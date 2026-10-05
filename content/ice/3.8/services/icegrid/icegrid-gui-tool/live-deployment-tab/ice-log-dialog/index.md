@@ -3,8 +3,8 @@ title: Ice Log Dialog
 ---
 
 The Ice Log dialog shows the Ice log messages of a server, service, node or registry retrieved through IceGrid. The
-monitored Ice application sends these log messages to a [remote logger](../logger-facet) implemented by the Ice Log
-dialog.
+monitored Ice application sends these log messages to a
+[remote logger](../../../../../administration/administrative-facility/logger-facet) implemented by the Ice Log dialog.
 
 ![image2017-4-3 14:21:22.png](/images/ice/3.8/ice-log-dialog/image2017-4-3-14-21-22.png)
 

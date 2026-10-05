@@ -11,7 +11,7 @@ The horizontal axis corresponds to the time, while the vertical axis plots the c
 ## Creating a New Metrics Graph
 
 You can create a new Metrics Graph window with the `File > New > Metrics Graph` menu, or with a contextual menu over a
-metric in a [Metrics View](../metrics-view-runtime-component), for example:
+metric in a [Metrics View](../runtime-components/metrics-view-runtime-component), for example:
 
 ![image2017-4-3 14:31:14.png](/images/ice/3.8/metrics-graph/image2017-4-3-14-31-14.png)
 

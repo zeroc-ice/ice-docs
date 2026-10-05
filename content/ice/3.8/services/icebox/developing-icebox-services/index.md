@@ -21,7 +21,7 @@ parameter supplies a communicator that IceBox creates for the service. Services 
 before activating its admin object.
 
 The `stop` method must release the resources owned by the service and destroy the
-[object adapters](../object-adapter-activation-and-deactivation) it created.
+[object adapters](../../../runtime/dispatch/object-adapter-activation-and-deactivation) it created.
 
 IceBox owns the communicator it passes to `start` and destroys it when the server shuts down.
 

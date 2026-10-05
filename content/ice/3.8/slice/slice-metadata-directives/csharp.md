@@ -52,15 +52,15 @@ This directive applies to Slice structures. It directs the Slice compiler to emi
 
 ### `cs:generic:List`, `cs:generic:LinkedList`, `cs:generic:Queue` and `cs:generic:Stack`
 
-These directives apply to [sequences](../sequences) and map them to the specified sequence type.
+These directives apply to [sequences](../user-defined-types/sequences) and map them to the specified sequence type.
 
 ### `cs:generic:SortedDictionary` and `cs:generic:SortedList`
 
-This directive applies to [dictionaries](../dictionaries) and maps them to the specified type.
+This directive applies to [dictionaries](../user-defined-types/dictionaries) and maps them to the specified type.
 
 ### `cs:generic:csharp-custom-type`
 
-This directive applies to [sequences](../sequences) and allows you map them to custom types.
+This directive applies to [sequences](../user-defined-types/sequences) and allows you map them to custom types.
 
 ### `cs:identifier:csharp-identifier`
 

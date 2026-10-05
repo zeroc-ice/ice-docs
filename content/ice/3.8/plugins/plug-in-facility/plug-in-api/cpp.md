@@ -26,12 +26,12 @@ A plug-in object's lifecycle consists of four phases:
 
 - Initialization After all plug-ins have been constructed, the Ice runtime invokes `initialize` on each plug-in. The
   order in which plug-ins are initialized is undefined by default but can be customized using the
-  [Ice.PluginLoaderOrder](../ice-properties) property. If a plug-in has a dependency on another plug-in, you must
-  configure the Ice runtime so that initialization occurs in the proper order. In this phase it is safe for a plug-in to
-  spawn new threads; it is also safe for a plug-in to interact with other plug-ins and use their services, as long as
-  those plug-ins have already been initialized. If `initialize` throws an exception, the Ice runtime invokes `destroy`
-  on all plug-ins that were successfully initialized (in the reverse order of initialization) and throws the original
-  exception to the application.
+  [Ice.PluginLoaderOrder](../../../property-reference/ice-properties) property. If a plug-in has a dependency on another
+  plug-in, you must configure the Ice runtime so that initialization occurs in the proper order. In this phase it is
+  safe for a plug-in to spawn new threads; it is also safe for a plug-in to interact with other plug-ins and use their
+  services, as long as those plug-ins have already been initialized. If `initialize` throws an exception, the Ice
+  runtime invokes `destroy` on all plug-ins that were successfully initialized (in the reverse order of initialization)
+  and throws the original exception to the application.
 
 - Active The active phase spans the time between initialization and destruction. Plug-ins must be designed to operate
   safely in the context of multiple threads.
@@ -62,7 +62,8 @@ extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createPlugin(
 ```
 
 The arguments to the function consist of the communicator that is in the process of being initialized, the name assigned
-to the plug-in, and any arguments that were specified in the [plug-in's configuration](../ice-plugin-properties).
+to the plug-in, and any arguments that were specified in the
+[plug-in's configuration](../../../property-reference/ice-plugin-properties).
 
 The Ice runtime is responsible for deleting the plug-in returned by this factory function. This usually occurs when the
 communicator is destroyed, immediately after all the plug-ins have been destroyed.
@@ -102,4 +103,4 @@ configuration.
 ## See Also
 
 - [Plug-in Configuration](../installing-a-plug-in-using-configuration)
-- [Ice.Plugin.*](../ice-plugin-properties)
+- [Ice.Plugin.*](../../../property-reference/ice-plugin-properties)

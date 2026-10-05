@@ -8,8 +8,8 @@ Ice supports two types of load balancing:
 - Proxy-based load balancing
 
 An application can use only one type or combine both to achieve the desired behavior. This page discusses proxy-based
-load balancing; refer to [Locator Semantics for Clients](../locator-semantics-for-clients) for information on load
-balancing with a locator.
+load balancing; refer to [Locator Semantics for Clients](../../locators/locator-semantics-for-clients) for information
+on load balancing with a locator.
 
 ## Proxy Connection Caching
 
@@ -22,8 +22,9 @@ establishment process.
 
 Note that each invocation on such a proxy does not necessarily cause the Ice runtime to establish a new connection. It
 only means that the Ice runtime does not assume that it can reuse the connection of the proxy's previous invocation.
-Whether the Ice runtime actually needs to [establish a new connection](../connection-establishment) for the next
-invocation depends on several factors.
+Whether the Ice runtime actually needs to
+[establish a new connection](../../connection-management/connection-establishment) for the next invocation depends on
+several factors.
 
 As with any feature, you should only use it when the benefits outweigh the risks. With respect to a proxy's connection
 caching behavior, there is certainly a small amount of computational overhead associated with executing the connection
@@ -33,14 +34,14 @@ actually created.
 ## Proxies with Multiple Endpoints
 
 A proxy can contain zero or more endpoints. A proxy with no endpoints typically means it's an indirect proxy that
-requires a [location service](../locators) to convert the proxy's symbolic information into endpoints at runtime.
+requires a [location service](../../locators) to convert the proxy's symbolic information into endpoints at runtime.
 Otherwise, a direct proxy contains at least one endpoint.
 
 Regardless of whether endpoints are specified directly or indirectly, a proxy having multiple endpoints implies at a
 minimum that the target object is available via multiple network interfaces, but often also means the object is
 replicated to improve scalability and reliability. Such a proxy provides a client with several load balancing options
 even when no location service is involved. The proxy's own configuration drives the run-time behavior, depending on how
-the client configures the proxy's [endpoint selection type](../connection-establishment) and
+the client configures the proxy's [endpoint selection type](../../connection-management/connection-establishment) and
 [connection caching](#proxy-connection-caching) settings.
 
 For example, suppose that a proxy contains several endpoints. In its default configuration, a proxy uses the `Random`
@@ -56,10 +57,11 @@ connection was chosen indefinitely.
 ## Per-Request Load Balancing
 
 When we disable the connection caching behavior of a proxy with multiple endpoints, its semantics undergo a significant
-change. Using the `Random` [endpoint selection type](../connection-establishment), the Ice runtime selects one of the
-endpoints at random and [establishes a connection](../connection-establishment) to it if one is not already established,
-and this process is repeated _prior to each subsequent invocation_. This is called _per-request load balancing_ because
-each request can potentially be directed to a different server.
+change. Using the `Random` [endpoint selection type](../../connection-management/connection-establishment), the Ice
+runtime selects one of the endpoints at random and
+[establishes a connection](../../connection-management/connection-establishment) to it if one is not already
+established, and this process is repeated _prior to each subsequent invocation_. This is called _per-request load
+balancing_ because each request can potentially be directed to a different server.
 
 {% callout type="info" %}
 
@@ -79,13 +81,13 @@ have established connections to both endpoints. After incurring the initial expe
 subsequent invocation will randomly use one of the existing connections.
 
 If you're also using a location service, you may want to modify the proxy's
-[locator cache timeout](../locator-semantics-for-clients) to force the Ice runtime in the client to query the locator
-more frequently.
+[locator cache timeout](../../locators/locator-semantics-for-clients) to force the Ice runtime in the client to query
+the locator more frequently.
 
 ## See Also
 
-- [Terminology](../terminology)
-- [Connection Establishment](../connection-establishment)
-- [Ice.Default.*](../ice-default-properties)
-- [Locator Semantics for Clients](../locator-semantics-for-clients)
-- [Load Balancing](../load-balancing)
+- [Terminology](../../../basics/terminology)
+- [Connection Establishment](../../connection-management/connection-establishment)
+- [Ice.Default.*](../../../property-reference/ice-default-properties)
+- [Locator Semantics for Clients](../../locators/locator-semantics-for-clients)
+- [Load Balancing](../../../services/icegrid/load-balancing)

@@ -17,8 +17,8 @@ The default properties of Ice set the initial settings of new proxies.
 
 ## Proxy Default Properties
 
-[Default properties](../ice-default-properties) affect proxies that you create from strings, or that Ice creates when
-unmarshaling the payload of a request or response.
+[Default properties](../../../property-reference/ice-default-properties) affect proxies that you create from strings, or
+that Ice creates when unmarshaling the payload of a request or response.
 
 For example, suppose we define the following default property:
 
@@ -37,9 +37,10 @@ assert(greeter.ice_getEndpointSelection() == Ice::EndpointSelectionType::Ordered
 
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
-[Ice.Override.Compress](../ice-override-properties) overrides the compression setting of all proxies. With
-`Ice.Override.Compress=1`, Ice enables compression for all requests; with `Ice.Override.Compress=0`, it disables
-compression for all requests. In both cases, Ice ignores the compression setting of each proxy (see `ice_compress`).
+[Ice.Override.Compress](../../../property-reference/ice-override-properties) overrides the compression setting of all
+proxies. With `Ice.Override.Compress=1`, Ice enables compression for all requests; with `Ice.Override.Compress=0`, it
+disables compression for all requests. In both cases, Ice ignores the compression setting of each proxy (see
+`ice_compress`).
 
 The override also sets the compression flag of the endpoints on which object adapters listen, so the proxies that an
 object adapter creates from these endpoints carry the overridden compression setting.
@@ -54,5 +55,5 @@ Ice for JavaScript does not support `Ice.Override.Compress`.
 
 ## See Also
 
-- [Ice.Default.*](../ice-default-properties)
-- [Ice.Override.*](../ice-override-properties)
+- [Ice.Default.*](../../../property-reference/ice-default-properties)
+- [Ice.Override.*](../../../property-reference/ice-override-properties)

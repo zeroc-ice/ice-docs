@@ -28,8 +28,8 @@ The proxy options are described in the table below:
 
 | **Option** | **Description**                                                                             |
 | ---------- | ------------------------------------------------------------------------------------------- |
-| `id`       | The [object identity](../object-identity)                                                   |
-| `facet`    | The [facet](../facets) name (zero- or one-element sequence)                                 |
+| `id`       | The [object identity](../../runtime/object-identity)                                        |
+| `facet`    | The [facet](../../runtime/facets) name (zero- or one-element sequence)                      |
 | `mode`     | The proxy mode (`0`=twoway, `1`=oneway, `2`=batch oneway, `3`=datagram, `4`=batch datagram) |
 | `secure`   | Ignored. Kept for backwards compatibility.                                                  |
 
@@ -72,11 +72,12 @@ The additional options are described in the table below:
 | `protocol` | The maximum protocol version supported by the server. Currently this value is always 1.0. |
 | `encoding` | The maximum encoding version supported by the server.                                     |
 
-The encoding for [UDP endpoints](../data-encoding-for-proxies) also changed in version 1.1.
+The encoding for [UDP endpoints](./) also changed in version 1.1.
 
 ## Encoding for Endpoints
 
-A proxy optionally contains an [endpoint list or an adapter identifier](../proxy-endpoints), but not both:
+A proxy optionally contains an [endpoint list or an adapter identifier](../../runtime/invocation/proxy-endpoints), but
+not both:
 
 - If a proxy contains endpoints, they are encoded immediately following the proxy options. A
   [size](../basic-data-encoding) specifying the number of endpoints is encoded first, followed by the endpoints. Each
@@ -86,15 +87,15 @@ A proxy optionally contains an [endpoint list or an adapter identifier](../proxy
   type are presented in the sections that follow.
 - If a proxy does not have endpoints, a single byte with value `0` immediately follows the proxy options and a string
   representing the object adapter identifier is encoded immediately following the zero byte.
-- For a proxy to a [well-known object](../well-known-objects), which has neither endpoints nor an object adapter
-  identifier, a single byte with value `0` immediately follows the proxy options and an empty string is encoded
-  immediately following the zero byte.
+- For a proxy to a [well-known object](../../services/icegrid/well-known-objects), which has neither endpoints nor an
+  object adapter identifier, a single byte with value `0` immediately follows the proxy options and an empty string is
+  encoded immediately following the zero byte.
 
 Type-specific endpoint options are encapsulated because a receiver may not be capable of decoding them. For example, a
-receiver can only decode BT endpoint options if it is configured with the [IceBT](../icebt) plug-in. However, the
-receiver must be able to re-encode the proxy with all of its original endpoints, in the order they were received, even
-if the receiver does not understand the type-specific options for an endpoint. Encapsulation of the endpoint into an
-opaque endpoint allows the receiver to do this.
+receiver can only decode BT endpoint options if it is configured with the [IceBT](../../plugins/icebt) plug-in. However,
+the receiver must be able to re-encode the proxy with all of its original endpoints, in the order they were received,
+even if the receiver does not understand the type-specific options for an endpoint. Encapsulation of the endpoint into
+an opaque endpoint allows the receiver to do this.
 
 ## Encoding for TCP Endpoints
 
@@ -117,7 +118,7 @@ The endpoint options are described in the following table.
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 
 ## Encoding for UDP Endpoints
 
@@ -142,15 +143,15 @@ struct UDPEndpointData
 
 The endpoint options are described in the following table.
 
-| **Option**      | **Description**                                                                                  |
-| --------------- | ------------------------------------------------------------------------------------------------ |
-| `host`          | The server host (a host name or IP address)                                                      |
-| `port`          | The server port (`1`-`65535`)                                                                    |
-| `protocolMajor` | The major protocol version supported by the endpoint                                             |
-| `protocolMinor` | The highest minor protocol version supported by the endpoint                                     |
-| `encodingMajor` | The major encoding version supported by the endpoint                                             |
-| `encodingMinor` | The highest minor encoding version supported by the endpoint                                     |
-| `compress`      | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false` |
+| **Option**      | **Description**                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------ |
+| `host`          | The server host (a host name or IP address)                                                                  |
+| `port`          | The server port (`1`-`65535`)                                                                                |
+| `protocolMajor` | The major protocol version supported by the endpoint                                                         |
+| `protocolMinor` | The highest minor protocol version supported by the endpoint                                                 |
+| `encodingMajor` | The major encoding version supported by the endpoint                                                         |
+| `encodingMinor` | The highest minor encoding version supported by the endpoint                                                 |
+| `compress`      | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false` |
 
 ### UDP Endpoint Encoding Version 1.1
 
@@ -168,11 +169,11 @@ struct UDPEndpointData
 
 The endpoint options are described in the following table.
 
-| **Option** | **Description**                                                                                  |
-| ---------- | ------------------------------------------------------------------------------------------------ |
-| `host`     | The server host (a host name or IP address)                                                      |
-| `port`     | The server port (`1`-`65535`)                                                                    |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false` |
+| **Option** | **Description**                                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------ |
+| `host`     | The server host (a host name or IP address)                                                                  |
+| `port`     | The server port (`1`-`65535`)                                                                                |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false` |
 
 ## Encoding for SSL Endpoints
 
@@ -195,7 +196,7 @@ The endpoint options are described in the following table.
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 
 ## Encoding for WS Endpoints
 
@@ -219,7 +220,7 @@ The endpoint options are described in the following table.
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 | `resource` | A URI representing the web server resource associated with this endpoint                                                 |
 
 ## Encoding for WSS Endpoints
@@ -244,7 +245,7 @@ The endpoint options are described in the following table.
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 | `resource` | A URI representing the web server resource associated with this endpoint                                                 |
 
 ## Encoding for BT Endpoints
@@ -268,7 +269,7 @@ The endpoint options are described in the following table.
 | `addr`     | The Bluetooth address of the server                                                                                      |
 | `uuid`     | The UUID of the target service                                                                                           |
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 
 ## Encoding for BTS Endpoints
 
@@ -291,7 +292,7 @@ The endpoint options are described in the following table.
 | `addr`     | The Bluetooth address of the server                                                                                      |
 | `uuid`     | The UUID of the target service                                                                                           |
 | `timeout`  | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress` | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress` | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 
 ## Encoding for iAP Endpoints
 
@@ -318,7 +319,7 @@ The endpoint options are described in the following table.
 | `name`         | The accessory name                                                                                                       |
 | `protocol`     | The protocol implemented by the accessory                                                                                |
 | `timeout`      | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress`     | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress`     | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |
 
 ## Encoding for iAPS Endpoints
 
@@ -345,4 +346,4 @@ The endpoint options are described in the following table.
 | `name`         | The accessory name                                                                                                       |
 | `protocol`     | The protocol implemented by the accessory                                                                                |
 | `timeout`      | The timeout in milliseconds for socket operations. This field is no longer used but is kept for backwards compatibility. |
-| `compress`     | `true` if [compression](../protocol-compression) should be used (if possible), otherwise `false`                         |
+| `compress`     | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false`             |

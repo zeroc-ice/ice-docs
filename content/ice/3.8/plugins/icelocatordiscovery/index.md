@@ -4,15 +4,15 @@ title: IceLocatorDiscovery
 
 ## IceLocatorDiscovery Overview
 
-IceLocatorDiscovery is an [Ice plug-in](../plug-in-facility) that discovers IceGrid and custom [locators](../locators)
-on a network using UDP multicast. Once installed, the plug-in automatically and transparently issues a multicast query
-in an attempt to find one or more locators, collects the responses, and configures the Ice runtime accordingly. The
-primary advantage of using IceLocatorDiscovery is that it eliminates the need to manually configure and maintain the
-`Ice.Default.Locator` property. It's even more helpful in a [replicated IceGrid deployment](../registry-replication)
-consisting of a master replica and one or more slave replicas, where the `Ice.Default.Locator` property would normally
-include endpoints for some or all of the replicas. Avoiding the need to configure the locator endpoints relieves some of
-the administrative burden, simplifies deployment and configuration tasks, and adds more flexibility to your application
-designs.
+IceLocatorDiscovery is an [Ice plug-in](../plug-in-facility) that discovers IceGrid and custom
+[locators](../../runtime/locators) on a network using UDP multicast. Once installed, the plug-in automatically and
+transparently issues a multicast query in an attempt to find one or more locators, collects the responses, and
+configures the Ice runtime accordingly. The primary advantage of using IceLocatorDiscovery is that it eliminates the
+need to manually configure and maintain the `Ice.Default.Locator` property. It's even more helpful in a
+[replicated IceGrid deployment](../../services/icegrid/registry-replication) consisting of a master replica and one or
+more slave replicas, where the `Ice.Default.Locator` property would normally include endpoints for some or all of the
+replicas. Avoiding the need to configure the locator endpoints relieves some of the administrative burden, simplifies
+deployment and configuration tasks, and adds more flexibility to your application designs.
 
 {% callout type="info" %}
 
@@ -35,8 +35,9 @@ local API.
 
 ### IceLocatorDiscovery Property Overview
 
-The IceDiscovery plug-in supports a number of [configuration properties](../icelocatordiscovery-properties), many of
-which affect the endpoints that the plug-in uses for its queries:
+The IceDiscovery plug-in supports a number of
+[configuration properties](../../property-reference/icelocatordiscovery-properties), many of which affect the endpoints
+that the plug-in uses for its queries:
 
 - Lookup endpoint This is the multicast endpoint on which all lookup queries are broadcast. It must use an IPv4 or IPv6
   address in the multicast range with a fixed port.
@@ -49,29 +50,30 @@ define any of the plug-in's properties. However, it's still important to underst
 information.
 
 First, you can override the default endpoint that the plug-in uses to broadcast its queries by defining
-[IceLocatorDiscovery.Lookup](../icelocatordiscovery-properties), otherwise the plug-in computes one endpoint for each
-multicast-capable interface, as follows:
+[IceLocatorDiscovery.Lookup](../../property-reference/icelocatordiscovery-properties), otherwise the plug-in computes
+one endpoint for each multicast-capable interface, as follows:
 
 `udp -h "address" -p port --interface "interface"`
 
 where
 
-- `address` is the value of [IceLocatorDiscovery.Address](../icelocatordiscovery-properties) - defaults to `239.255.0.1`
-  if IPv4 is enabled or `ff15::1` if IPv4 is disabled
-- `port` is the value of [IceLocatorDiscovery.Port](../icelocatordiscovery-properties) - defaults to `4061`
-- `interface` is the value of [IceLocatorDiscovery.Interface](../icelocatordiscovery-properties), or each available
-  multicast-capable interface when that property is not set
+- `address` is the value of [IceLocatorDiscovery.Address](../../property-reference/icelocatordiscovery-properties) -
+  defaults to `239.255.0.1` if IPv4 is enabled or `ff15::1` if IPv4 is disabled
+- `port` is the value of [IceLocatorDiscovery.Port](../../property-reference/icelocatordiscovery-properties) - defaults
+  to `4061`
+- `interface` is the value of [IceLocatorDiscovery.Interface](../../property-reference/icelocatordiscovery-properties),
+  or each available multicast-capable interface when that property is not set
 
 {% callout type="warning" %}
 
 For IceGrid users, the lookup endpoint must use the same multicast address and port as
-[IceGrid.Registry.Discovery.Endpoints](../object-adapter-endpoints) in the registry configuration.
+[IceGrid.Registry.Discovery.Endpoints](../../runtime/dispatch/object-adapter-endpoints) in the registry configuration.
 
 {% /callout %}
 
 IceLocatorDiscovery also creates object adapters in each communicator in which it's installed, including the object
-adapter [IceLocatorDiscovery.Reply](../icelocatordiscovery-properties). This object adapter corresponds to the Reply
-endpoint mentioned above.
+adapter [IceLocatorDiscovery.Reply](../../property-reference/icelocatordiscovery-properties). This object adapter
+corresponds to the Reply endpoint mentioned above.
 
 As you can see, the properties `IceLocatorDiscovery.Address`, `IceLocatorDiscovery.Port` and
 `IceLocatorDiscovery.Interface` are simply used as convenient shortcuts for customizing the details of the plug-in's
@@ -88,8 +90,8 @@ interface.
 {% callout type="warning" %}
 
 All of the components of an IceGrid application must use the same multicast address and port. You should also consider
-defining [IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties) to avoid any potential collisions from
-unrelated IceGrid applications that happen to use the same address and port.
+defining [IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties) to avoid any
+potential collisions from unrelated IceGrid applications that happen to use the same address and port.
 
 {% /callout %}
 
@@ -102,10 +104,11 @@ For a server deployed with IceGrid, you normally don't need to install the IceLo
 
 ### Configuring IceLocatorDiscovery in IceGrid Administrative Clients
 
-Support for multicast discovery is built into the [command-line](../icegridadmin-command-line-tool) and
-[graphical](../icegrid-gui-tool) IceGrid administrative utilities, therefore you don't need to install the plug-in. Both
-utilities read the same [IceLocatorDiscovery.*](../icelocatordiscovery-properties) properties as the plug-in, for
-example to change the multicast address and port.
+Support for multicast discovery is built into the [command-line](../../services/icegrid/icegridadmin-command-line-tool)
+and [graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative utilities, therefore you don't need to
+install the plug-in. Both utilities read the same
+[IceLocatorDiscovery.*](../../property-reference/icelocatordiscovery-properties) properties as the plug-in, for example
+to change the multicast address and port.
 
 ### Configuring IceLocatorDiscovery in an IceGrid Registry
 
@@ -115,18 +118,18 @@ master without configuring the master's endpoints. Install and configure the plu
 would for any C++ client.
 
 IceGrid registries listen for multicast discovery queries by default, but you can disable this feature by setting
-[IceGrid.Registry.Discovery.Enabled](../icegrid-properties) to `0`.
+[IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties) to `0`.
 
 If you've changed the default multicast address or port for IceLocatorDiscovery, you must also make corresponding
 changes to the configuration of each registry. The registry supports properties similar to those of IceLocatorDiscovery:
 
-- [IceGrid.Registry.Discovery.Address](../icegrid-properties)
-- [IceGrid.Registry.Discovery.Port](../icegrid-properties)
-- [IceGrid.Registry.Discovery.Interface](../icegrid-properties)
+- [IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties)
+- [IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties)
+- [IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties)
 
 These properties influence the endpoint on which the registry listens for multicast discovery queries. If you don't
-override the endpoint by setting [IceGrid.Registry.Discovery.Endpoints](../icegrid-properties), the registry uses these
-properties to compute its endpoint as follows:
+override the endpoint by setting [IceGrid.Registry.Discovery.Endpoints](../../property-reference/icegrid-properties),
+the registry uses these properties to compute its endpoint as follows:
 
 `IceGrid.Registry.Discovery.Endpoints=udp -h address -p port [--interface interface]`
 
@@ -144,6 +147,6 @@ endpoints. Install and configure the plug-in in a node just like you would for a
 
 ## See Also
 
-- [IceLocatorDiscovery Properties](../icelocatordiscovery-properties)
-- [Registry Replication](../registry-replication)
+- [IceLocatorDiscovery Properties](../../property-reference/icelocatordiscovery-properties)
+- [Registry Replication](../../services/icegrid/registry-replication)
 - [Plug-in Facility](../plug-in-facility)

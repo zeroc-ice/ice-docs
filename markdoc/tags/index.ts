@@ -11,6 +11,7 @@ export { default as divider } from './divider.markdoc.ts';
 export { default as grid } from './grid.markdoc.ts';
 export { default as iflang } from './iflang.markdoc.ts';
 export { default as prerequisites } from './prerequisites.markdoc.ts';
+export { default as release } from './release.markdoc.ts';
 export { default as releases } from './releases.markdoc.ts';
 export { default as selection } from './selection.markdoc.ts';
 export { default as showcase } from './showcase.markdoc.ts';

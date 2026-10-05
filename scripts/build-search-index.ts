@@ -99,7 +99,7 @@ for (const docs of ICE_DOCS) {
             .join(' · ')
         ])
       ),
-      w: writtenFor(page)
+      w: writtenFor(page, frontmatter)
     });
   }
 

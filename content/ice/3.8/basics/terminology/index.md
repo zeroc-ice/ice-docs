@@ -113,13 +113,15 @@ the server; the identity of the object is sent to the server with each request m
 
 An _indirect proxy_ has two forms. It may provide only an object's identity, or it may specify an identity together with
 an object adapter identifier. An object that is accessible using only its identity is called a well-known object, and
-the corresponding proxy is a [well-known proxy](../well-known-proxy). For example, the string:
+the corresponding proxy is a [well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy). For example,
+the string:
 
 ```text
 SimplePrinter
 ```
 
-is a [valid proxy for a well-known object](../well-known-proxy) with the identity `SimplePrinter`.
+is a [valid proxy for a well-known object](../../runtime/invocation/proxy-endpoints/well-known-proxy) with the identity
+`SimplePrinter`.
 
 An indirect proxy that includes an object adapter identifier has the stringified form
 
@@ -131,10 +133,10 @@ Any object of the object adapter can be accessed using such a proxy, regardless 
 well-known object.
 
 Notice that an indirect proxy contains no addressing information. To determine the correct server, the client-side
-runtime passes the proxy information to a [location service](../locators). In turn, the location service uses the object
-identity or the object adapter identifier as the key in a lookup table that contains the address of the server and
-returns the current server address to the client. The client-side runtime now knows how to contact the server and
-dispatches the client request as usual.
+runtime passes the proxy information to a [location service](../../runtime/locators). In turn, the location service uses
+the object identity or the object adapter identifier as the key in a lookup table that contains the address of the
+server and returns the current server address to the client. The client-side runtime now knows how to contact the server
+and dispatches the client request as usual.
 
 The entire process is similar to the mapping from Internet domain names to IP address by the Domain Name Service (DNS):
 when we use a domain name, such as `zeroc.com`, to look up a web page, the host name is first resolved to an IP address
@@ -159,14 +161,14 @@ A _fixed proxy_ is a proxy that is bound to a particular connection: instead of 
 adapter ID, the proxy contains a connection handle. The connection handle stays valid only for as long as the connection
 stays open so, once the connection is closed, the proxy no longer works (and will never work again). Fixed proxies
 cannot be marshaled, that is, they cannot be passed as parameters on operation invocations. Fixed proxies are used to
-allow [bidirectional communication](../bidirectional-connections), so a server can make callbacks to a client without
-having to open a new connection.
+allow [bidirectional communication](../../runtime/connection-management/bidirectional-connections), so a server can make
+callbacks to a client without having to open a new connection.
 
 ## Routed Proxies
 
 A _routed proxy_ is a proxy that forwards all invocations to a specific target object, instead of sending invocations
-directly to the actual target. Routed proxies are useful for implementing services such as [Glacier2](../glacier2),
-which enables clients to communicate with servers that are behind a firewall.
+directly to the actual target. Routed proxies are useful for implementing services such as
+[Glacier2](../../services/glacier2), which enables clients to communicate with servers that are behind a firewall.
 
 ## Replication
 
@@ -180,8 +182,9 @@ their implementations are designed to synchronize with a database (or each other
 of each object's state.
 
 Ice supports a limited form of replication when a proxy specifies multiple addresses for an object. The Ice runtime
-selects one of the addresses at random for its [initial connection attempt](../connection-establishment) and tries all
-of them in the case of a failure. For example, consider this proxy:
+selects one of the addresses at random for its
+[initial connection attempt](../../runtime/connection-management/connection-establishment) and tries all of them in the
+case of a failure. For example, consider this proxy:
 
 ```text
 SimplePrinter:tcp -h server1 -p 10001:tcp -h server2 -p 10002
@@ -194,7 +197,7 @@ servers are actually running on these computers at the specified ports.
 ## Replica Groups
 
 In addition to the proxy-based replication described above, Ice supports a more useful form of replication known as
-_replica groups_ that requires the use of a [location service](../locators).
+_replica groups_ that requires the use of a [location service](../../runtime/locators).
 
 A replica group has a unique identifier and consists of any number of object adapters. An object adapter may be a member
 of at most one replica group; such an adapter is considered to be a _replicated object adapter_.
@@ -314,12 +317,12 @@ server chose to process a request synchronously or asynchronously.
 
 ## Properties
 
-Much of the Ice runtime is configurable via [_properties_](../properties-and-configuration). Properties are name-value
-pairs, such as `Ice.Default.Protocol=tcp`. Properties are typically stored in text files and parsed by the Ice runtime
-to configure various options, such as the thread pool size, the level of tracing, and various other configuration
-parameters.
+Much of the Ice runtime is configurable via [_properties_](../../runtime/properties-and-configuration). Properties are
+name-value pairs, such as `Ice.Default.Protocol=tcp`. Properties are typically stored in text files and parsed by the
+Ice runtime to configure various options, such as the thread pool size, the level of tracing, and various other
+configuration parameters.
 
 ## See Also
 
-- [The Slice Language](../slice)
-- [The Ice Runtime](../runtime)
+- [The Slice Language](../../slice)
+- [The Ice Runtime](../../runtime)

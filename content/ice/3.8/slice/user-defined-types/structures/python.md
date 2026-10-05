@@ -22,7 +22,7 @@ class Employee:
     lastName: str = ""
 ```
 
-All mapped fields have default values, such as `0` and the empty string (see [Fields](../fields) for details).
+All mapped fields have default values, such as `0` and the empty string (see [Fields](../../fields) for details).
 
 For structures that are also [legal dictionary key types](../dictionaries), the mapped dataclass is configured with
 `order=True` and `unsafe_hash=True`, as shown in our example above. The hashing is “unsafe” because the mapped dataclass

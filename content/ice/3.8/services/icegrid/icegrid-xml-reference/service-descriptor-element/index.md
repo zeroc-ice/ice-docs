@@ -2,8 +2,8 @@
 title: Service Descriptor Element
 ---
 
-A `service` element defines an [IceBox](../icebox-integration-with-icegrid) service. It typically contains at least one
-[adapter](../adapter-descriptor-element) element, and may supply additional information such as
+A `service` element defines an [IceBox](../../icebox-integration-with-icegrid) service. It typically contains at least
+one [adapter](../adapter-descriptor-element) element, and may supply additional information such as
 [configuration properties](../properties-descriptor-element).
 
 This element may only appear as a child of an [icebox](../icebox-descriptor-element) element or a
@@ -11,10 +11,10 @@ This element may only appear as a child of an [icebox](../icebox-descriptor-elem
 
 The following attributes are supported:
 
-| **Attribute** | **Description**                                                                                                                                                                        | **Required** |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `entry`       | Specifies the entry point of this service.                                                                                                                                             | Yes          |
-| `name`        | Specifies the name of this service. Within the service, child elements can refer to its name using the [reserved variable](../using-descriptor-variables-and-parameters) `${service}`. | Yes          |
+| **Attribute** | **Description**                                                                                                                                                                           | **Required** |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `entry`       | Specifies the entry point of this service.                                                                                                                                                | Yes          |
+| `name`        | Specifies the name of this service. Within the service, child elements can refer to its name using the [reserved variable](../../using-descriptor-variables-and-parameters) `${service}`. | Yes          |
 
 An optional nested `description` element provides free-form descriptive text.
 
@@ -33,9 +33,9 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [IceBox](../icebox)
+- [IceBox](../../../icebox)
 - [Adapter Descriptor Element](../adapter-descriptor-element)
 - [Properties Descriptor Element](../properties-descriptor-element)
 - [IceBox Descriptor Element](../icebox-descriptor-element)
 - [Service-Template Descriptor Element](../service-template-descriptor-element)
-- [IceBox Integration with IceGrid](../icebox-integration-with-icegrid)
+- [IceBox Integration with IceGrid](../../icebox-integration-with-icegrid)

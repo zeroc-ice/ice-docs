@@ -51,10 +51,10 @@ Of course, these are issues faced by most distributed applications. As you learn
 will discover that it offers solutions to these challenges. To get you started, we have summarized IceGrid's feature set
 below:
 
-- Location service As an implementation of an Ice [location service](../locators), IceGrid enables clients to bind
-  indirectly to their servers, making applications more flexible and resilient to changing requirements.
-  ([IceDiscovery](../icediscovery) is an alternate, lightweight location service implementation for applications that
-  don't require IceGrid's additional features.)
+- Location service As an implementation of an Ice [location service](../../runtime/locators), IceGrid enables clients to
+  bind indirectly to their servers, making applications more flexible and resilient to changing requirements.
+  ([IceDiscovery](../../plugins/icediscovery) is an alternate, lightweight location service implementation for
+  applications that don't require IceGrid's additional features.)
 - On-demand server activation Starting an Ice server process is called _server activation_. IceGrid can be given
   responsibility for activating a server on demand, that is, when a client attempts to access an object hosted by the
   server. Activation usually occurs as a side effect of indirect binding, and is completely transparent to the client.

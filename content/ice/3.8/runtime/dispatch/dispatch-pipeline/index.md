@@ -3,7 +3,7 @@ title: The Dispatch Pipeline
 ---
 
 An object adapter dispatches incoming requests using its dispatch pipeline. A dispatch pipeline implements the
-[Dispatcher](../terminology) abstraction using a tree-like structure of dispatchers.
+[Dispatcher](../../../basics/terminology) abstraction using a tree-like structure of dispatchers.
 
 The leaves of this tree are servants, while intermediary nodes in this tree are middleware and an internal helper class,
 `ServantManager`.
@@ -30,7 +30,7 @@ An object adapter gives all incoming requests to its dispatch pipeline, which pe
   not use servant locators in new applications.
 - If none of the previous steps found a servant:
   - throw `FacetNotExistException` when the ASM contains a servant with a matching identity, but a non-matching
-    [facet](../facets)
+    [facet](../../facets)
   - otherwise, throw `ObjectNotExistException`
 
 As far as the dispatch pipeline is concerned, servants are just dispatchers – they accept requests and return responses.

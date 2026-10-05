@@ -77,9 +77,9 @@ In `B.xml`, the `include` element identifies the name of the file to include usi
 Note that the file name of an included file is relative to the application descriptor, not relative to the working
 directory.
 
-You can include [specific targets](../icegrid-xml-features) from a file by specifying their names in the optional
-`targets` attribute. If multiple targets are included, their names must be separated by whitespace. The example below
-illustrates the use of a target:
+You can include [specific targets](./) from a file by specifying their names in the optional `targets` attribute. If
+multiple targets are included, their names must be separated by whitespace. The example below illustrates the use of a
+target:
 
 ```xml
 <!-- File: A.xml -->

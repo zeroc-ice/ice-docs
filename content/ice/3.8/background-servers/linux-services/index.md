@@ -12,8 +12,8 @@ each service:
 | Glacier2 router  | `zeroc-glacier2` | `glacier2`  | `glacier2router.service`  | `/etc/glacier2router.conf`  |
 
 Each unit runs its service as the user `ice` and passes the service's configuration file in `--Ice.Config`. The sample
-configuration files set [Ice.UseSystemdJournal](../ice-properties#ice.usesystemdjournal), so the services log to the
-`systemd` journal.
+configuration files set [Ice.UseSystemdJournal](../../property-reference/ice-properties#ice.usesystemdjournal), so the
+services log to the `systemd` journal.
 
 Installing either package creates the user account `ice` and the group `ice`. The IceGrid package also creates the data
 directories that the sample configuration files name: `/var/lib/ice/icegrid/registry` for `icegridregistry` and

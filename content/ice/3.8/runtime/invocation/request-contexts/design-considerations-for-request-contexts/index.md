@@ -19,9 +19,9 @@ If you use [explicit](../explicit-request-contexts), [per-proxy](../per-proxy-re
 The purpose of request contexts is to permit services to be added to Ice that require some contextual information with
 every request. Contextual information can be used by services such as a transaction service (to provide the context of a
 currently established transaction) or a security service (to provide an authorization token to the server).
-[IceStorm](../icestorm) uses the context to provide an optional `cost` parameter to the service that influences how the
-service propagates messages to down-stream subscribers, and [Glacier2](../glacier2) uses the context to influence
-request routing.
+[IceStorm](../../../../services/icestorm) uses the context to provide an optional `cost` parameter to the service that
+influences how the service propagates messages to down-stream subscribers, and [Glacier2](../../../../services/glacier2)
+uses the context to influence request routing.
 
 In general, services that require such contextual information can be implemented much more elegantly using contexts
 because this hides explicit Slice parameters that would otherwise have to be supplied by the application programmer with
@@ -71,8 +71,8 @@ We _strongly_ urge you to resist any temptation to use contexts in this manner. 
 
 None of the preceding problems can arise if you use proper Slice parameters: parameters cannot be accidentally omitted
 and they are strongly typed, making it much less likely for the client to accidentally send a meaningless value.
-Furthermore, you can use [optional parameters](../operations) to modify the signature of an operation without breaking
-backward compatibility.
+Furthermore, you can use [optional parameters](../../../../slice/operations) to modify the signature of an operation
+without breaking backward compatibility.
 
 Contexts are meant to be used to transmit simple tokens (such as a transaction identifier) for services that cannot be
 reasonably implemented without them; you should restrict your use of contexts to that purpose and resist any temptation

@@ -30,7 +30,7 @@ GreeterProxy.Context.language=es
 ```
 
 The Context property has the form `name.Context.key=value`, where `key` and `value` can be any
-[legal property symbols](../properties-overview).
+[legal property symbols](../../../properties-and-configuration/properties-overview).
 
 The proxy returned by `propertyToProxy` already contains the context key/value pairs specified in the configuration
 properties. To make any modifications to the context at run time, you'll need to retrieve the proxy's context dictionary
@@ -40,4 +40,4 @@ we described above.
 ## See Also
 
 - [Explicit Request Contexts](../explicit-request-contexts)
-- [Proxy Properties](../proxy-properties)
+- [Proxy Properties](../../../../property-reference/proxy-properties)

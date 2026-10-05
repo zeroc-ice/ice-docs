@@ -10,10 +10,9 @@
 
 Assigns an adapter ID to this object adapter. An object adapter with an adapter ID is called an _indirect adapter_.
 
-This ID must be unique among all object adapters using the same [locator](../locators) instance. If a locator proxy is
-defined using [adapter.Locator](../object-adapter-properties#adapter.locator) or
-[Ice.Default.Locator](../ice-default-properties), this object adapter registers its endpoints with the locator registry
-upon activation.
+This ID must be unique among all object adapters using the same [locator](../../runtime/locators) instance. If a locator
+proxy is defined using [adapter.Locator](#adapter.locator) or [Ice.Default.Locator](../ice-default-properties), this
+object adapter registers its endpoints with the locator registry upon activation.
 
 ## _adapter_.AllowedOrigins
 
@@ -120,8 +119,8 @@ Overrides the setting of [Ice.Connection.Server.MaxDispatches](../ice-connection
 
 ### Description {% id="adapter.endpoints-description" %}
 
-Sets the [physical endpoints](../object-adapter-endpoints) of this object adapter. These endpoints correspond to the
-network interfaces on which the object adapter accepts connections and receives requests.
+Sets the [physical endpoints](../../runtime/dispatch/object-adapter-endpoints) of this object adapter. These endpoints
+correspond to the network interfaces on which the object adapter accepts connections and receives requests.
 
 ## _adapter_.Locator
 
@@ -131,8 +130,8 @@ network interfaces on which the object adapter accepts connections and receives 
 
 ### Description {% id="adapter.locator-description" %}
 
-Specifies the [locator](../locators) of this object adapter. The value is a stringified proxy to an `Ice::Locator`
-object.
+Specifies the [locator](../../runtime/locators) of this object adapter. The value is a stringified proxy to an
+`Ice::Locator` object.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
@@ -184,8 +183,9 @@ Specifies the published host for this object adapter. A published host is usuall
 address.
 
 The published host is used by the algorithm that computes the published endpoints of an object adapter, when
-`adapter.PublishedEndpoints` is not set. See [Published Object Adapter Endpoints](../object-adapter-endpoints). This
-property is particularly useful when the object adapter endpoints do not specify port numbers.
+`adapter.PublishedEndpoints` is not set. See
+[Published Object Adapter Endpoints](../../runtime/dispatch/object-adapter-endpoints). This property is particularly
+useful when the object adapter endpoints do not specify port numbers.
 
 ## _adapter_.ReplicaGroupId
 
@@ -195,20 +195,19 @@ property is particularly useful when the object adapter endpoints do not specify
 
 ### Description {% id="adapter.replicagroupid-description" %}
 
-Identifies the group of [replicated object adapters](../object-adapter-replication) to which this adapter belongs. The
-replica group is treated as a virtual object adapter, so that an indirect proxy of the form `identity@id` refers to the
-object adapters in the group. During binding, a client will attempt to establish a connection to an endpoint of one of
-the participating object adapters, and automatically try others until a connection is successfully established or all
-attempts have failed. Similarly, an outstanding request will, when permitted, automatically fail over to another object
-adapter of the replica group upon connection failure. The set of endpoints actually used by the client during binding is
-determined by the locator's configuration policies.
+Identifies the group of [replicated object adapters](../../services/icegrid/object-adapter-replication) to which this
+adapter belongs. The replica group is treated as a virtual object adapter, so that an indirect proxy of the form
+`identity@id` refers to the object adapters in the group. During binding, a client will attempt to establish a
+connection to an endpoint of one of the participating object adapters, and automatically try others until a connection
+is successfully established or all attempts have failed. Similarly, an outstanding request will, when permitted,
+automatically fail over to another object adapter of the replica group upon connection failure. The set of endpoints
+actually used by the client during binding is determined by the locator's configuration policies.
 
-Defining a value for this property has no effect unless
-[_adapter_.AdapterId](../object-adapter-properties#adapter.adapterid) is also defined. Furthermore, the locator registry
-may require replica groups to be defined in advance (see [IceGrid.Registry.DynamicRegistration](../icegrid-properties)),
-otherwise `Ice.NotRegisteredException` is thrown upon adapter activation. Regardless of whether an object adapter is
-replicated, it can always be addressed individually in an indirect proxy if it defines a value for
-[_adapter_.AdapterId](../object-adapter-properties#adapter.adapterid).
+Defining a value for this property has no effect unless [_adapter_.AdapterId](#adapter.adapterid) is also defined.
+Furthermore, the locator registry may require replica groups to be defined in advance (see
+[IceGrid.Registry.DynamicRegistration](../icegrid-properties)), otherwise `Ice.NotRegisteredException` is thrown upon
+adapter activation. Regardless of whether an object adapter is replicated, it can always be addressed individually in an
+indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapterid).
 
 {% /language-section %}
 
@@ -227,9 +226,9 @@ necessary to enable this feature in a thread pool whose maximum size is 1 thread
 implemented with AMD, it serializes the dispatching of requests from each connection, but it does not wait for a request
 to complete before it dispatches the next request.
 
-In a [multi-threaded pool](../threading-model), enabling serialization allows requests from different connections to be
-dispatched concurrently while preserving the order of messages on each connection. Note that serialization can have a
-significant impact on latency and throughput. If not defined, the default value is 0.
+In a [multi-threaded pool](../../runtime/threading-model), enabling serialization allows requests from different
+connections to be dispatched concurrently while preserving the order of messages on each connection. Note that
+serialization can have a significant impact on latency and throughput. If not defined, the default value is 0.
 
 ## _adapter_.ThreadPool.Size
 
@@ -240,9 +239,9 @@ significant impact on latency and throughput. If not defined, the default value 
 ### Description {% id="adapter.threadpool.size-description" %}
 
 A communicator creates a default server thread pool that dispatches requests to its object adapters. An object adapter
-can also be configured with its own [thread pool](../threading-model). This is useful in avoiding deadlocks due to
-thread starvation by ensuring that a minimum number of threads is available for dispatching requests to certain Ice
-objects.
+can also be configured with its own [thread pool](../../runtime/threading-model). This is useful in avoiding deadlocks
+due to thread starvation by ensuring that a minimum number of threads is available for dispatching requests to certain
+Ice objects.
 
 The adapter uses the communicator's server thread pool when no `adapter.ThreadPool.*` property is set. Setting any
 property with this prefix creates a dedicated pool. For example, setting only `adapter.ThreadPool.SizeMax=4` creates a
@@ -259,11 +258,11 @@ pool with one initial thread and a maximum of four threads.
 
 ### Description {% id="adapter.threadpool.sizemax-description" %}
 
-`num` is the maximum number of threads for the [thread pool](../threading-model). See
+`num` is the maximum number of threads for the [thread pool](../../runtime/threading-model). See
 [Ice.ThreadPool._name_.SizeMax](../ice-threadpool-properties) for more information.
 
-The default value is the value of [_adapter_.ThreadPool.Size](../object-adapter-properties#adapter.threadpool.size),
-meaning the thread pool can never grow larger than its initial size.
+The default value is the value of [_adapter_.ThreadPool.Size](#adapter.threadpool.size), meaning the thread pool can
+never grow larger than its initial size.
 
 ## _adapter_.ThreadPool.SizeWarn
 
@@ -273,8 +272,8 @@ meaning the thread pool can never grow larger than its initial size.
 
 ### Description {% id="adapter.threadpool.sizewarn-description" %}
 
-Whenever `num` threads are active in a [thread pool](../threading-model), a "low on threads" warning is printed. The
-default value is 0, which disables the warning.
+Whenever `num` threads are active in a [thread pool](../../runtime/threading-model), a "low on threads" warning is
+printed. The default value is 0, which disables the warning.
 
 ## _adapter_.ThreadPool.StackSize
 
@@ -284,8 +283,8 @@ default value is 0, which disables the warning.
 
 ### Description {% id="adapter.threadpool.stacksize-description" %}
 
-`num` is the stack size (in bytes) of threads in the [thread pool](../threading-model). The default value is 0, meaning
-the operating system's default is used.
+`num` is the stack size (in bytes) of threads in the [thread pool](../../runtime/threading-model). The default value is
+0, meaning the operating system's default is used.
 
 ## _adapter_.ThreadPool.ThreadIdleTime
 
@@ -295,8 +294,8 @@ the operating system's default is used.
 
 ### Description {% id="adapter.threadpool.threadidletime-description" %}
 
-In a dynamically-sized [thread pool](../threading-model), Ice reaps a thread after it is idle for `num` seconds. Setting
-this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
+In a dynamically-sized [thread pool](../../runtime/threading-model), Ice reaps a thread after it is idle for `num`
+seconds. Setting this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
 [Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties) for more information.
 
 ## _adapter_.ThreadPool.ThreadPriority
@@ -307,9 +306,9 @@ this property to 0 disables idle thread reaping. If not specified, the default v
 
 ### Description {% id="adapter.threadpool.threadpriority-description" %}
 
-`value` specifies a thread priority for the object adapter's [thread pool](../threading-model). The object adapter
-creates its threads with the specified priority. Leaving this property unset causes the adapter to create threads with
-the priority specified by [Ice.ThreadPriority](../ice-properties).
+`value` specifies a thread priority for the object adapter's [thread pool](../../runtime/threading-model). The object
+adapter creates its threads with the specified priority. Leaving this property unset causes the adapter to create
+threads with the priority specified by [Ice.ThreadPriority](../ice-properties).
 
 `value` can be `Lowest`, `BelowNormal`, `Normal`, `AboveNormal`, or `Highest`.
 

@@ -18,8 +18,7 @@ value is 0.
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 This property also enables warnings for errors while accepting connections and exceptions while processing datagrams.
-Warnings about oversized datagrams are controlled separately by
-[Ice.Warn.Datagrams](../ice-warn-properties#ice.warn.datagrams).
+Warnings about oversized datagrams are controlled separately by [Ice.Warn.Datagrams](#ice.warn.datagrams).
 
 {% /iflang %}
 

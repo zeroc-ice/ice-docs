@@ -50,11 +50,11 @@ never block, you can use asynchronous oneway invocations instead.
 Requests are delivered to the server in the order they were sent. However, the server’s thread pool may dispatch them in
 parallel, so a later request can be executed before an earlier one. If strict execution order is required, you can use
 one of the serialization techniques described in
-[Thread Pool Design Considerations](../thread-pool-design-considerations).
+[Thread Pool Design Considerations](../../../threading-model/thread-pool-design-considerations).
 
 ## See Also
 
-- [Terminology](../terminology)
+- [Terminology](../../../../basics/terminology)
 - [Batched Invocations](../batched-invocations)
-- [The Ice Threading Model](../threading-model)
+- [The Ice Threading Model](../../../threading-model)
 - [Datagram Invocations](../datagram-invocations)

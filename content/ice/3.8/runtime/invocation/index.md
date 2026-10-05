@@ -28,7 +28,7 @@ With Ice, you need a _proxy_ to make an invocation - proxies provide the only in
 A proxy is a local object that represents a remote Ice object, and encapsulates the following information:
 
 - the [identity](../object-identity) of the target object, plus an optional [facet](../facets)
-- addressing information to reach this remote object, namely one or more [endpoints](../proxy-endpoints)
+- addressing information to reach this remote object, namely one or more [endpoints](./proxy-endpoints)
 - various invocation options and connection selection options
 
 A proxy is also tied to a [communicator](../communicator) that provides the connection establishment and management
@@ -36,6 +36,6 @@ logic.
 
 ## See Also
 
-- [Terminology](../terminology)
+- [Terminology](../../basics/terminology)
 - [Object Identity](../object-identity)
-- [Connection Establishment](../connection-establishment)
+- [Connection Establishment](../connection-management/connection-establishment)

@@ -51,9 +51,9 @@ With these metadata directives, the strings are mapped as indicated by the comme
 
 ### String Converters
 
-On the wire, Ice [transmits](../basic-data-encoding) all strings as Unicode strings in UTF-8 encoding. For languages
-other than C++, Ice uses strings in their language-native Unicode representation and converts automatically to and from
-UTF-8 for transmission, so applications can transparently use characters from non-English alphabets.
+On the wire, Ice [transmits](../../encoding/basic-data-encoding) all strings as Unicode strings in UTF-8 encoding. For
+languages other than C++, Ice uses strings in their language-native Unicode representation and converts automatically to
+and from UTF-8 for transmission, so applications can transparently use characters from non-English alphabets.
 
 However, for C++, how strings are represented inside a process depends on the platform as well as the mapping that is
 chosen for a particular string.

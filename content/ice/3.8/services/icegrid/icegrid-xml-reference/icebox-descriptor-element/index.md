@@ -2,8 +2,8 @@
 title: IceBox Descriptor Element
 ---
 
-An `icebox` element defines an [IceBox](../icebox) server to be deployed on a node. It typically contains at least one
-[service](../service-descriptor-element) element, and may supply additional information such as
+An `icebox` element defines an [IceBox](../../../icebox) server to be deployed on a node. It typically contains at least
+one [service](../service-descriptor-element) element, and may supply additional information such as
 [command-line options](../using-command-line-options-in-descriptors),
 [environment variables](../setting-environment-variables-in-descriptors), and
 [configuration properties](../properties-descriptor-element).
@@ -34,7 +34,7 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [IceBox](../icebox)
+- [IceBox](../../../icebox)
 - [Service Descriptor Element](../service-descriptor-element)
 - [Adapter Descriptor Element](../adapter-descriptor-element)
 - [Properties Descriptor Element](../properties-descriptor-element)
@@ -44,4 +44,4 @@ Here is an example to demonstrate the use of this element:
 - [Description Descriptor Element](../description-descriptor-element)
 - [Using Command Line Options in Descriptors](../using-command-line-options-in-descriptors)
 - [Setting Environment Variables in Descriptors](../setting-environment-variables-in-descriptors)
-- [Administrative Facility](../administrative-facility)
+- [Administrative Facility](../../../../administration/administrative-facility)

@@ -30,7 +30,7 @@ Ice is a complete RPC framework that helps you build networked applications with
 - **Ice does the networking.** It takes care of opening network connections, serializing and deserializing data for
   network transmission, and retrying failed connection attempts, so you can focus on your application logic.
 - **Start with the Greeter Example.** Writing a client-server application with Ice does not take much code.
-  [See for yourself!](../greeter-example)
+  [See for yourself!](./greeter-example)
 
 {% showcase %}
 
@@ -384,11 +384,20 @@ bar or press `⌘K`.
 
 ## Releases
 
-{% releases /%}
+{% releases %}
 
-- **[Upgrade Guide](../upgrade-guide)**: moving an application from Ice 3.7 to Ice 3.8.
-- **[Backward Compatibility of Ice Versions](../compatibility)**: what a patch, minor, or major release keeps
-  compatible.
+{% release name="Ice 3.8.3" notes="./release-notes/ice-3-8-3" platforms="./release-notes/supported-platforms-for-ice-3-8-3" date="September 10, 2026" /%}
+
+{% release name="Ice 3.8.2" notes="./release-notes/ice-3-8-2" platforms="./release-notes/supported-platforms-for-ice-3-8-2" date="June 4, 2026" /%}
+
+{% release name="Ice 3.8.1" notes="./release-notes/ice-3-8-1" platforms="./release-notes/supported-platforms-for-ice-3-8-1" date="March 3, 2026" /%}
+
+{% release name="Ice 3.8.0" notes="./release-notes/ice-3-8-0" platforms="./release-notes/supported-platforms-for-ice-3-8-0" date="December 17, 2025" /%}
+
+{% /releases %}
+
+- **[Upgrade Guide](./upgrade-guide)**: moving an application from Ice 3.7 to Ice 3.8.
+- **[Backward Compatibility of Ice Versions](./compatibility)**: what a patch, minor, or major release keeps compatible.
 
 ## Beyond the Documentation
 
@@ -404,4 +413,4 @@ bar or press `⌘K`.
 - **[Demos on GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8)**: sample programs for every language mapping.
 - **[Ice on GitHub](https://github.com/zeroc-ice/ice)**: source code, issue tracker, and the
   [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) of each release.
-- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See [Using Ice and IceRPC Together](../icerpc).
+- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See [Using Ice and IceRPC Together](./icerpc).

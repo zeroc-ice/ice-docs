@@ -9,9 +9,10 @@ such as `std::invalid_argument`(C++) or `IllegalArgumentException`(Java), but ge
 from [LocalException](https://code.zeroc.com/manual/Ice/LocalException). These exceptions are known as _local
 exceptions_.
 
-As far as Ice is concerned, the opposite of a local exception is a user exception. [User exceptions](../exceptions) are
-defined in Slice and derive from [UserException](https://code.zeroc.com/manual/Ice/UserException); local exceptions are
-not defined in Slice and derive from `LocalException`.
+As far as Ice is concerned, the opposite of a local exception is a user exception.
+[User exceptions](../../slice/exceptions) are defined in Slice and derive from
+[UserException](https://code.zeroc.com/manual/Ice/UserException); local exceptions are not defined in Slice and derive
+from `LocalException`.
 
 {% callout type="info" %}
 
@@ -40,7 +41,7 @@ You can only get a dispatch exception when you make an invocation with a two-way
 
 {% /callout %}
 
-A dispatch information carries information transmitted in a [Reply](../protocol) message, namely:
+A dispatch information carries information transmitted in a [Reply](../../protocol) message, namely:
 
 - a [ReplyStatus](https://code.zeroc.com/manual/Ice/ReplyStatus) enumerator
 - one or more fields that depend on the `ReplyStatus` enumerator

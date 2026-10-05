@@ -27,9 +27,10 @@ ensure that topics are used correctly.
 
 ## Unidirectional Messages
 
-IceStorm messages are [unidirectional](../oneway-invocations), that is, they must have `void` return type, cannot have
-out-parameters, and cannot raise user exceptions. It follows that a publisher cannot receive replies from its
-subscribers. Any of the Ice transports (TCP, SSL, UDP, etc.) can be used to publish and receive messages.
+IceStorm messages are [unidirectional](../../../runtime/invocation/invocation-mode/oneway-invocations), that is, they
+must have `void` return type, cannot have out-parameters, and cannot raise user exceptions. It follows that a publisher
+cannot receive replies from its subscribers. Any of the Ice transports (TCP, SSL, UDP, etc.) can be used to publish and
+receive messages.
 
 ## Federation
 

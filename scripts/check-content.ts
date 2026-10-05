@@ -6,25 +6,26 @@
 // violated, produces a page a reader cannot reach or a link that goes nowhere:
 //
 //   1. every page is in the table of contents: listed by the page above it, up to the front page
-//   2. no two pages share a name (cross-page links are keyed by it)
-//   3. every overlay is for one of the version's languages
-//   4. every cross-page link resolves to a real page — checked by check:markdoc,
+//   2. every overlay, and every language a page lists under `languages:`, is one of
+//      the version's languages, and a page that lists its languages has no other overlay
+//   3. every cross-page link resolves to a real page — checked by check:markdoc,
 //      on each page as the site renders it
-//   5. every image parses as an image, has alt text, and its file exists
-//   6. no raw HTML or Confluence markup survived the migration
-//   7. every language slot is answered, and says which kind of answer it is
-//   8. a page written per language has one title across its languages
-//   9. no page holds a no-break space (U+00A0)
-//  10. under the title, the page's h1, each heading is at most one level below
+//   4. every image parses as an image, has alt text, and its file exists
+//   5. no raw HTML or Confluence markup survived the migration
+//   6. every language slot is answered, and says which kind of answer it is
+//   7. a page written per language has one title across its languages
+//   8. no page holds a no-break space (U+00A0)
+//   9. under the title, the page's h1, each heading is at most one level below
 //      the one before it, in every language, and none is bold text alone
-//  11. no code holds a curly double quote, and no prose a backtick
+//  10. no code holds a curly double quote, and no prose a backtick
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
 // regression. The exception is a slot that doesn't say which kind of answer it
 // is (7): many still don't, so those fail only when their count rises, or under
-// --strict. A version without a front page, or a page that lists a page it does
-// not contain, fails as the navigation is read.
+// --strict. A version without a front page, a page that lists a page it does
+// not contain, or one whose `languages:` is not a list, fails as the navigation
+// is read.
 
 // cspell:words noformat unparseable worklist
 
@@ -33,7 +34,6 @@ import path from 'node:path';
 import type { Node } from '@markdoc/markdoc';
 
 import { parse } from '../markdoc/parse.ts';
-import { buildPageIndex } from '../lib/docs-model/links.ts';
 import {
   declaredSlots,
   parseLanguageSections,
@@ -48,6 +48,7 @@ import {
   readNavigation,
   readPageSources,
   snippetReader,
+  writtenFor,
   type PageFiles
 } from '../lib/docs-model/content.ts';
 import { ICE_DOCS } from '../app/ice/docs.ts';
@@ -157,7 +158,8 @@ function checkImages(docs: string, files: string[]) {
 const UNCLASSIFIED_SLOT_BASELINE = 333;
 
 /**
- * Every slot a shared page declares must be answered by each language overlay,
+ * Every slot a shared page declares must be answered by the overlay of each
+ * language the page is written for,
  * and the answer must say which kind of answer it is: prose, "this mapping adds
  * nothing", or "this mapping cannot do this, because…". A blank section says
  * none of those, and the reader cannot tell the three apart.
@@ -177,12 +179,12 @@ function checkSlots(docs: string, pages: PageFiles[], languages: string[]) {
 
   for (const page of pages) {
     if (!page.shared) continue;
-    const slots = declaredSlots(
-      splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
-    );
+    const source = fs.readFileSync(page.shared, 'utf8');
+    const slots = declaredSlots(splitFrontmatter(source).body);
     if (slots.length === 0) continue;
 
-    for (const language of languages) {
+    for (const language of writtenFor(page, frontmatterOf(source)) ??
+      languages) {
       const overlayPath = page.overlays[language];
       if (!overlayPath) {
         // The shared page asks for language-specific prose and none exists.
@@ -402,7 +404,7 @@ function checkHeadings(docs: Docs, pages: PageFiles[], languages: string[]) {
   const readFile = snippetReader(docs);
   for (const page of pages) {
     const where = `${docs.path}/${page.slug}`;
-    const { shared, overlays } = readPageSources(page);
+    const { shared, overlays, frontmatter } = readPageSources(page);
     let body: string;
     try {
       body = resolveDocument({ shared: shared ?? '', overlays, readFile });
@@ -427,8 +429,9 @@ function checkHeadings(docs: Docs, pages: PageFiles[], languages: string[]) {
         fail(`${where}: heading "${textOf(node)}" is bold text alone`);
     }
 
+    const pageLanguages = writtenFor(page, frontmatter) ?? languages;
     const skips = new Map<string, string[]>();
-    for (const language of languages) {
+    for (const language of pageLanguages) {
       let previous = 1;
       for (const { node, langs } of headings) {
         if (langs && !langs.includes(language)) continue;
@@ -442,7 +445,9 @@ function checkHeadings(docs: Docs, pages: PageFiles[], languages: string[]) {
     }
     for (const [skip, affected] of skips) {
       const only =
-        affected.length < languages.length ? ` (${affected.join(', ')})` : '';
+        affected.length < pageLanguages.length
+          ? ` (${affected.join(', ')})`
+          : '';
       fail(`${where}: ${skip}${only}`);
     }
   }
@@ -452,7 +457,6 @@ for (const docs of ICE_DOCS) {
   const nav = readNavigation(docs);
 
   const pages = listPages(docs);
-  const { duplicates } = buildPageIndex(pages.map((page) => page.slug));
   const declared = new Set(navigationPages(nav.sidebar));
   const { languages } = docs;
   const where = docs.path;
@@ -470,20 +474,45 @@ for (const docs of ICE_DOCS) {
       `${where}: ...and ${orphans.length - 20} more pages not in the table of contents`
     );
 
-  // 2. page names are unique (cross-page links are keyed by them)
-  for (const dup of duplicates) fail(`${where}: duplicate page name "${dup}"`);
-
-  // 3. a file beside a page's index.md is the overlay for the language it is named after
+  // 2. a file beside a page's index.md is the overlay for the language it is named after,
+  //    and a shared page that lists its languages lists the version's, and has
+  //    overlays for those alone. A page written per language is written for
+  //    its overlays' languages, so it lists none.
   for (const page of pages) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
           `${where}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
         );
+      if (
+        !page.shared &&
+        'languages' in
+          frontmatterOf(fs.readFileSync(page.overlays[language], 'utf8'))
+      )
+        fail(
+          `${where}: ${path.relative(CONTENT_ROOT, page.overlays[language])} lists languages, but a page written per language is written for its overlays' languages`
+        );
     }
+    if (!page.shared) continue;
+    const listed = writtenFor(
+      page,
+      frontmatterOf(fs.readFileSync(page.shared, 'utf8'))
+    );
+    if (listed === undefined) continue;
+    const file = path.relative(CONTENT_ROOT, page.shared);
+    for (const language of listed)
+      if (!languages.includes(language))
+        fail(
+          `${where}: ${file} lists "${language}", which is not one of the version's languages`
+        );
+    for (const language of Object.keys(page.overlays))
+      if (!listed.includes(language))
+        fail(
+          `${where}: ${file} is not written for "${language}", but has an overlay for it`
+        );
   }
 
-  // 5, 6, 9 & 11: defects inside the files themselves.
+  // 4, 5, 8 & 10: defects inside the files themselves.
   const files = pages.flatMap((page) => [
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
@@ -493,13 +522,13 @@ for (const docs of ICE_DOCS) {
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
-  // 7. every language slot is answered, and says what kind of answer it is.
+  // 6. every language slot is answered, and says what kind of answer it is.
   checkSlots(where, pages, languages);
 
-  // 10. headings step down one level at a time from the title.
+  // 9. headings step down one level at a time from the title.
   checkHeadings(docs, pages, languages);
 
-  // 8. a page written per language is one page: its files agree on the title
+  // 7. a page written per language is one page: its files agree on the title
   for (const page of pages) {
     if (page.shared) continue;
     const titles = new Set(

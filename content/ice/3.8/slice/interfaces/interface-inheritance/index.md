@@ -2,8 +2,8 @@
 title: Interface Inheritance
 ---
 
-Interfaces support inheritance. For example, we could extend our [Clock interface](../interfaces) to support the concept
-of an alarm clock:
+Interfaces support inheritance. For example, we could extend our [Clock interface](..) to support the concept of an
+alarm clock:
 
 ```slice
 module M
@@ -113,8 +113,8 @@ interface ProxyStore
 `ProxyStore` interface is a generic proxy storage facility: the client can call `putProxy` to add a proxy of any type
 under a given name and later retrieve that proxy again by calling `getProxy` and supplying that name. The ability to
 generically store proxies in this fashion allows us to build general-purpose facilities, such as a
-[naming service](../icegrid) that can store proxies and deliver them to clients. Such a service, in turn, allows us to
-avoid hard-coding proxy details into clients and servers.
+[naming service](../../../services/icegrid) that can store proxies and deliver them to clients. Such a service, in turn,
+allows us to avoid hard-coding proxy details into clients and servers.
 
 Inheritance from type `Object` is always implicit. For example, the following Slice definition is illegal:
 
@@ -129,4 +129,4 @@ that type.
 
 ## See Also
 
-- [Operations](../operations)
+- [Operations](../../operations)

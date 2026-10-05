@@ -8,9 +8,9 @@ The Ice runtime is _location transparent_: the client does not need to know wher
 resides; an invocation on an object is automatically directed to the correct target, whether the object is implemented
 in the local address space, in another address space on the same machine, or in another address space on a remote
 machine. Location transparency is important because it allows us to change the location of an object implementation
-without breaking client programs and, by using a location service such as [IceDiscovery](../icediscovery) or
-[IceGrid](../icegrid), addressing information such as host names and port numbers can be externalized so they do not
-appear in stringified proxies.
+without breaking client programs and, by using a location service such as [IceDiscovery](../../plugins/icediscovery) or
+[IceGrid](../../services/icegrid), addressing information such as host names and port numbers can be externalized so
+they do not appear in stringified proxies.
 
 ## Collocated Invocations
 
@@ -50,8 +50,8 @@ The Ice runtime uses the following semantics to determine whether a proxy is eli
 
 - For an indirect proxy, collocation optimization is used if the proxy's adapter ID matches the adapter ID or replica
   group ID of an object adapter in the same communicator.
-- For a [well-known proxy](../well-known-proxy), the Ice runtime queries each object adapter Active Servant Map to
-  determine if the servant is local.
+- For a [well-known proxy](../invocation/proxy-endpoints/well-known-proxy), the Ice runtime queries each object adapter
+  Active Servant Map to determine if the servant is local.
 - For a direct proxy, the Ice runtime performs an endpoint search using the proxy's endpoints.
 
 When an endpoint search is required, the Ice runtime compares each of the proxy's endpoints against the endpoints of the
@@ -65,14 +65,14 @@ Datagram (UDP) endpoints are excluded from this search since Ice 3.8.
 {% /callout %}
 
 If a match is found, the invocation is dispatched using collocation optimization. Normally this search is executed only
-once, during the proxy's first invocation, although the proxy's [connection caching](../connection-establishment)
-setting influences this behavior.
+once, during the proxy's first invocation, although the proxy's
+[connection caching](../connection-management/connection-establishment) setting influences this behavior.
 
 Collocation optimization is enabled by default, but you can disable it for all proxies by setting the property
-[Ice.Default.CollocationOptimized=0](../ice-default-properties). You can also disable the optimization for an individual
-proxy using the factory method `ice_collocationOptimized(false)`. Finally, for proxies
-[created from a property](../creating-proxies) using `propertyToProxy`, the property
-[_name_.CollocationOptimized](../proxy-properties) configures the default setting for the proxy.
+[Ice.Default.CollocationOptimized=0](../../property-reference/ice-default-properties). You can also disable the
+optimization for an individual proxy using the factory method `ice_collocationOptimized(false)`. Finally, for proxies
+[created from a property](../invocation/creating-proxies) using `propertyToProxy`, the property
+[_name_.CollocationOptimized](../../property-reference/proxy-properties) configures the default setting for the proxy.
 
 ## Creating an Object Adapter for Collocated Invocations
 
@@ -86,12 +86,12 @@ using properties.
 Proxies created by a collocated-only object adapter contain no endpoints, which essentially makes them well-known
 proxies. When the program makes its initial invocation on such a proxy, Ice searches every local object adapter for a
 servant with an identity matching that of the proxy. For Ice to successfully find the collocated servant, it must be
-present in the object adapter's [active servant map](../active-servant-map). Default servants and servant locators are
-not queried in this situation.
+present in the object adapter's [active servant map](../dispatch/active-servant-map). Default servants and servant
+locators are not queried in this situation.
 
 ## See Also
 
-- [IceDiscovery](../icediscovery)
-- [IceGrid](../icegrid)
-- [Connection Establishment](../connection-establishment)
-- [Obtaining Proxies](../creating-proxies)
+- [IceDiscovery](../../plugins/icediscovery)
+- [IceGrid](../../services/icegrid)
+- [Connection Establishment](../connection-management/connection-establishment)
+- [Obtaining Proxies](../invocation/creating-proxies)

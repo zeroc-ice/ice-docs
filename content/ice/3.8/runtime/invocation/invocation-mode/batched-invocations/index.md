@@ -39,14 +39,16 @@ automatically flushes batched requests as soon as a batched request causes the a
 the specified limit. When this occurs, the Ice runtime immediately flushes the existing batch of requests and begins a
 new batch with this latest request as its first element.
 
-For batched oneway requests, a positive [Ice.BatchAutoFlushSize](../ice-properties#ice.batchautoflushsize) specifies the
-automatic flush threshold in KiB (1024-byte units). The default is 1024 KiB (1 MiB). A value of `0` disables automatic
-flushing for these requests.
+For batched oneway requests, a positive
+[Ice.BatchAutoFlushSize](../../../../property-reference/ice-properties#ice.batchautoflushsize) specifies the automatic
+flush threshold in KiB (1024-byte units). The default is 1024 KiB (1 MiB). A value of `0` disables automatic flushing
+for these requests.
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
-For batched datagram requests, Ice also caps the flush threshold at [Ice.UDP.SndSize](../ice-udp-properties) bytes, or
-65507 bytes when that property is not set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
+For batched datagram requests, Ice also caps the flush threshold at
+[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties) bytes, or 65507 bytes when that property is not
+set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
 
 {% /iflang %}
 

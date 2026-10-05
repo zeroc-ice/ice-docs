@@ -52,4 +52,4 @@ provides a single datagram transport, UDP, and we don’t anticipate ever adding
 ## See Also
 
 - [Proxy Endpoints](../proxy-endpoints)
-- [Connection Establishment](../connection-establishment)
+- [Connection Establishment](../../connection-management/connection-establishment)

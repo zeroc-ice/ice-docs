@@ -2,11 +2,11 @@
 
 ## Ice.Object Interface
 
-For historical reasons, the [Dispatcher](../terminology) abstraction does not correspond to a `Dispatcher` interface in
-C#. We use instead the interface `Ice.Object` as the base interface for dispatchers.
+For historical reasons, the [Dispatcher](../../../basics/terminology) abstraction does not correspond to a `Dispatcher`
+interface in C#. We use instead the interface `Ice.Object` as the base interface for dispatchers.
 
 `Object` is a interface that provides the default implementation for the pseudo Slice interface
-[Object](../operations-on-object):
+[Object](../../../slice/operations-on-object):
 
 ```csharp
 namespace Ice;

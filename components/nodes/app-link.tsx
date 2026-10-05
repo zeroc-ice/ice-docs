@@ -20,7 +20,7 @@ type AppLinkProps = {
 // Default styles for the link.
 const defaultStyle: CSSProperties = { textUnderlineOffset: '5px' };
 
-// Links arrive here already resolved: the link node rewrote page names into site
+// Links arrive here already resolved: the link node rewrote page slugs into site
 // URLs at build time. What is left to decide is how a link looks — an external
 // link gets an arrow, and a link to a page that does not exist is shown as text
 // rather than as a dead link.

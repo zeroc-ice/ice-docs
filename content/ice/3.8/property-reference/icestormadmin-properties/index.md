@@ -10,9 +10,9 @@ title: IceStormAdmin.*
 
 ### Description {% id="icestormadmin.host-description" %}
 
-Specifies the host of the IceStorm [finder object](../configuring-icestorm) that
-[icestormadmin](../icestorm-administration) uses to discover the topic manager. This property requires
-[IceStormAdmin.Port](../icestormadmin-properties#icestormadmin.port).
+Specifies the host of the IceStorm [finder object](../../services/icestorm/configuring-icestorm) that
+[icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager. This property
+requires [IceStormAdmin.Port](#icestormadmin.port).
 
 {% callout type="info" %}
 
@@ -28,9 +28,9 @@ Specifies the host of the IceStorm [finder object](../configuring-icestorm) that
 
 ### Description {% id="icestormadmin.port-description" %}
 
-Specifies the port of the IceStorm [finder object](../configuring-icestorm) that
-[icestormadmin](../icestorm-administration) uses to discover the topic manager, on the host specified by
-[IceStormAdmin.Host](../icestormadmin-properties#icestormadmin.host).
+Specifies the port of the IceStorm [finder object](../../services/icestorm/configuring-icestorm) that
+[icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager, on the host
+specified by [IceStormAdmin.Host](#icestormadmin.host).
 
 {% callout type="info" %}
 
@@ -47,8 +47,8 @@ Specifies the port of the IceStorm [finder object](../configuring-icestorm) that
 ### Description {% id="icestormadmin.topicmanager.default-description" %}
 
 Defines the proxy for the default IceStorm topic manager. This property is used by
-[icestormadmin](../icestorm-administration). If this property is not set, `icestormadmin` uses one of the
-`IceStormAdmin.TopicManager.name` proxies as its default.
+[icestormadmin](../../services/icestorm/icestorm-administration). If this property is not set, `icestormadmin` uses one
+of the `IceStormAdmin.TopicManager.name` proxies as its default.
 
 ## IceStormAdmin.TopicManager._name_
 
@@ -58,8 +58,8 @@ Defines the proxy for the default IceStorm topic manager. This property is used 
 
 ### Description {% id="icestormadmin.topicmanager.name-description" %}
 
-Defines a proxy for an IceStorm topic manager for [icestormadmin](../icestorm-administration). Properties with this
-pattern are used by `icestormadmin` if multiple topic managers are in use, for example:
+Defines a proxy for an IceStorm topic manager for [icestormadmin](../../services/icestorm/icestorm-administration).
+Properties with this pattern are used by `icestormadmin` if multiple topic managers are in use, for example:
 
 ```config
 IceStormAdmin.TopicManager.A=A/TopicManager:tcp -h x -p 9995
@@ -70,8 +70,7 @@ IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
 This sets the proxies for three topic managers. Note that `name` need not match the instance name of the corresponding
 topic manager — `name` simply serves as a tag. With these property settings, the `icestormadmin` commands that accept a
 topic can now specify a topic manager other than the default topic manager that is configured with
-[IceStormAdmin.*#IceStormAdmin.TopicManager.Default](../icestormadmin-properties#icestormadmin.topicmanager.default).
-For example:
+[IceStormAdmin.*#IceStormAdmin.TopicManager.Default](#icestormadmin.topicmanager.default). For example:
 
 ```text
 current Foo

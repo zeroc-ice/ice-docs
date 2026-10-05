@@ -5,12 +5,13 @@ title: The Logger Facet
 ## The `RemoteLogger` Interface
 
 An administrator may find it useful to view the log of a running Ice application, without going through an intermediary
-file. This is especially useful for [Ice services](../services) that use a system log, such as the Windows Event Log.
+file. This is especially useful for [Ice services](../../../services) that use a system log, such as the Windows Event
+Log.
 
 The `Logger` facet allows remote applications (such as administrative clients) to attach one or more remote loggers to
-the local [logger](../logger-facility) of any Ice application (provided this application enables the admin object with a
-`Logger` facet). The implementation of the `Logger` facet installs its own logger, which intercepts the log messages
-sent to the local logger, caches the most recent log messages, and forwards these log messages (after optional
+the local [logger](../../logger-facility) of any Ice application (provided this application enables the admin object
+with a `Logger` facet). The implementation of the `Logger` facet installs its own logger, which intercepts the log
+messages sent to the local logger, caches the most recent log messages, and forwards these log messages (after optional
 filtering) to the attached remote loggers.
 
 A remote logger is an Ice object that implements the `Ice::RemoteLogger` interface. Such object is typically implemented
@@ -158,13 +159,13 @@ auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix
 
 ## Configuring the `Logger` Facet
 
-The `Logger` facet caches the most recent log messages sent to application's [Logger](../logger-facility), to be able to
-provide these log messages to remote loggers (in the `init` operation) and to administrative clients that call `getLog`
-(see the [LoggerAdmin Interface](#the-loggeradmin-interface) above). You can configure how many log messages are cached
-by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../ice-admin-properties) and
-[Ice.Admin.Logger.KeepTraces](../ice-admin-properties) properties. The default is to keep the most recent 100 log
-messages other than trace messages plus the most recent 100 trace messages.
+The `Logger` facet caches the most recent log messages sent to application's [Logger](../../logger-facility), to be able
+to provide these log messages to remote loggers (in the `init` operation) and to administrative clients that call
+`getLog` (see the [LoggerAdmin Interface](#the-loggeradmin-interface) above). You can configure how many log messages
+are cached by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../../../property-reference/ice-admin-properties)
+and [Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties) properties. The default is to keep
+the most recent 100 log messages other than trace messages plus the most recent 100 trace messages.
 
 ## See Also
 
-- [Logger Facility](../logger-facility)
+- [Logger Facility](../../logger-facility)

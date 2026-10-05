@@ -16,7 +16,7 @@ allocated by a client, no other clients can allocate its objects.
 
 A client must create an IceGrid session before it can allocate objects. If you have configured a Glacier2 router to use
 [IceGrid's session managers](../glacier2-integration-with-icegrid), the client's
-[router session](../getting-started-with-glacier2) satisfies this requirement.
+[router session](../../glacier2/getting-started-with-glacier2) satisfies this requirement.
 
 In the absence of Glacier2, an IceGrid client invokes `createSession` or `createSessionFromSecureConnection` on
 IceGrid's `Registry` interface to create a session:
@@ -52,10 +52,10 @@ create a session. By default, IceGrid does not allow the creation of sessions. Y
 [enable session creation](#controlling-access-to-icegrid-sessions) with `createSession`.
 
 The `createSessionFromSecureConnection` operation does not require a username and password because it uses the
-credentials supplied by an [SSL](../ssl-transport) connection to authenticate the client. As with `createSession`, you
-must [enable session creation](#controlling-access-to-icegrid-sessions) by configuring the proxy of a permissions
-verifier object so that clients can use `createSessionFromSecureConnection` to create a session. In this case, the
-property is `IceGrid.Registry.SSLPermissionsVerifier`.
+credentials supplied by an [SSL](../../../runtime/ssl-transport) connection to authenticate the client. As with
+`createSession`, you must [enable session creation](#controlling-access-to-icegrid-sessions) by configuring the proxy of
+a permissions verifier object so that clients can use `createSessionFromSecureConnection` to create a session. In this
+case, the property is `IceGrid.Registry.SSLPermissionsVerifier`.
 
 To create a session, the client obtains the registry proxy by converting the well-known proxy string
 `"IceGrid/Registry"` to a proxy object with the communicator, downcasts the proxy to the `IceGrid::Registry` interface,
@@ -79,7 +79,8 @@ catch (const IceGrid::PermissionDeniedException& ex)
 
 {% callout type="info" %}
 
-The [identity of the registry object](../well-known-registry-objects) may change based on its configuration settings.
+The [identity of the registry object](../icegrid-server-reference/well-known-registry-objects) may change based on its
+configuration settings.
 
 {% /callout %}
 
@@ -88,13 +89,13 @@ The [identity of the registry object](../well-known-registry-objects) may change
 As described above, you must configure the IceGrid registry with the proxy of at least one permissions verifier object
 to enable session creation:
 
-- [IceGrid.Registry.PermissionsVerifier](../icegrid-properties) This property supplies the proxy of an object that
-  implements the interface `Glacier2::PermissionsVerifier`. Defining this property allows clients to create sessions
-  using `createSession`.
+- [IceGrid.Registry.PermissionsVerifier](../../../property-reference/icegrid-properties) This property supplies the
+  proxy of an object that implements the interface `Glacier2::PermissionsVerifier`. Defining this property allows
+  clients to create sessions using `createSession`.
 
-- [IceGrid.Registry.SSLPermissionsVerifier](../icegrid-properties) This property supplies the proxy of an object that
-  implements the interface `Glacier2::SSLPermissionsVerifier`. Defining this property allows clients to create sessions
-  using `createSessionFromSecureConnection`.
+- [IceGrid.Registry.SSLPermissionsVerifier](../../../property-reference/icegrid-properties) This property supplies the
+  proxy of an object that implements the interface `Glacier2::SSLPermissionsVerifier`. Defining this property allows
+  clients to create sessions using `createSessionFromSecureConnection`.
 
 IceGrid supplies built-in permissions verifier objects:
 
@@ -106,8 +107,8 @@ IceGrid supplies built-in permissions verifier objects:
   IceGrid.Registry.PermissionsVerifier=<instance-name>/NullPermissionsVerifier
   ```
 
-  Note that you have to substitute the correct [instance name](../well-known-registry-objects) for the object identity
-  category.
+  Note that you have to substitute the correct [instance name](../icegrid-server-reference/well-known-registry-objects)
+  for the object identity category.
 
 - A null permissions verifier for SSL, analogous to the one for TCP/IP. You select this verifier object by defining the
   following configuration property:
@@ -118,12 +119,12 @@ IceGrid supplies built-in permissions verifier objects:
 
 - A file-based permissions verifier. This object uses an access control list in a file that contains username-password
   pairs. The format of the password file is the same as the format of
-  [Glacier2 password files](../getting-started-with-glacier2). You enable this verifier implementation by defining the
-  configuration property [IceGrid.Registry.CryptPasswords](../icegrid-properties) with the pathname of the password
-  file. Note that this property is ignored if you specify the proxy of a permissions verifier object using
-  `IceGrid.Registry.PermissionsVerifier`.
+  [Glacier2 password files](../../glacier2/getting-started-with-glacier2). You enable this verifier implementation by
+  defining the configuration property [IceGrid.Registry.CryptPasswords](../../../property-reference/icegrid-properties)
+  with the pathname of the password file. Note that this property is ignored if you specify the proxy of a permissions
+  verifier object using `IceGrid.Registry.PermissionsVerifier`.
 
-You can also [implement your own permissions verifier object](../securing-a-glacier2-router).
+You can also [implement your own permissions verifier object](../../glacier2/securing-a-glacier2-router).
 
 ## Allocating Objects with an IceGrid Session
 
@@ -214,31 +215,32 @@ conceivably invoke an operation on it. IceGrid assumes that clients are cooperat
 allocation semantics.
 
 To prevent unauthorized clients from invoking operations on an allocated object or server, you can use
-[IceSSL](../ssl-transport) or [Glacier2](../glacier2):
+[IceSSL](../../../runtime/ssl-transport) or [Glacier2](../../glacier2):
 
 - Using IceSSL, you can secure access to a server or a particular object adapter with the properties
-  [IceSSL.TrustOnly.Server](../icessl-properties) or [IceSSL.TrustOnly.Server.AdapterName](../icessl-properties). For
-  example, if you configure a server with the session activation mode, you can set one of the `IceSSL.TrustOnly`
-  properties to the `${session.id}` variable, which is substituted with the session ID when the server is activated for
-  the session. If the IceGrid session was created from a secure connection, the session ID will be the distinguished
-  name associated with the secure connection, which effectively restricts access to the server or one of its adapters to
-  the client that established the session with IceGrid.
+  [IceSSL.TrustOnly.Server](../../../property-reference/icessl-properties) or
+  [IceSSL.TrustOnly.Server.AdapterName](../../../property-reference/icessl-properties). For example, if you configure a
+  server with the session activation mode, you can set one of the `IceSSL.TrustOnly` properties to the `${session.id}`
+  variable, which is substituted with the session ID when the server is activated for the session. If the IceGrid
+  session was created from a secure connection, the session ID will be the distinguished name associated with the secure
+  connection, which effectively restricts access to the server or one of its adapters to the client that established the
+  session with IceGrid.
 
 - With Glacier2, you can secure access to an allocated object or the object adapters of an allocated server with the
-  Glacier2 [filtering mechanism](../securing-a-glacier2-router). By default, IceGrid sessions created with a Glacier2
-  router are [automatically](../glacier2-integration-with-icegrid) given access to allocated objects, allocatable
-  objects, certain well-known objects, and the object adapters of allocated servers.
+  Glacier2 [filtering mechanism](../../glacier2/securing-a-glacier2-router). By default, IceGrid sessions created with a
+  Glacier2 router are [automatically](../glacier2-integration-with-icegrid) given access to allocated objects,
+  allocatable objects, certain well-known objects, and the object adapters of allocated servers.
 
 ## Deploying Allocatable Resources
 
 Allocatable objects are registered using a descriptor that is similar to
-[well-known object descriptors](../object-descriptor-element). Allocatable objects cannot be replicated and therefore
-can only be specified within an object adapter descriptor.
+[well-known object descriptors](../icegrid-xml-reference/object-descriptor-element). Allocatable objects cannot be
+replicated and therefore can only be specified within an object adapter descriptor.
 
 Servers can be specified as allocatable by setting the server descriptor's `allocatable` attribute.
 
 As an example, the following application defines an allocatable server and an
-[allocatable object](../allocatable-descriptor-element):
+[allocatable object](../icegrid-xml-reference/allocatable-descriptor-element):
 
 ```xml
 <icegrid>
@@ -313,11 +315,11 @@ forget to release an object, it remains allocated until the session is destroyed
 
 ## See Also
 
-- [Getting Started with Glacier2](../getting-started-with-glacier2)
-- [IceSSL](../ssl-transport)
-- [Well-Known Registry Objects](../well-known-registry-objects)
-- [Securing a Glacier2 Router](../securing-a-glacier2-router)
-- [Object Descriptor Element](../object-descriptor-element)
-- [Allocatable Descriptor Element](../allocatable-descriptor-element)
-- [IceGrid.*](../icegrid-properties)
-- [IceSSL.*](../icessl-properties)
+- [Getting Started with Glacier2](../../glacier2/getting-started-with-glacier2)
+- [IceSSL](../../../runtime/ssl-transport)
+- [Well-Known Registry Objects](../icegrid-server-reference/well-known-registry-objects)
+- [Securing a Glacier2 Router](../../glacier2/securing-a-glacier2-router)
+- [Object Descriptor Element](../icegrid-xml-reference/object-descriptor-element)
+- [Allocatable Descriptor Element](../icegrid-xml-reference/allocatable-descriptor-element)
+- [IceGrid.*](../../../property-reference/icegrid-properties)
+- [IceSSL.*](../../../property-reference/icessl-properties)

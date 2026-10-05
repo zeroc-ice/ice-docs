@@ -85,4 +85,4 @@ some time), the list is unaffected because IceStorm shields the list from such b
 
 ## See Also
 
-- [Using IceStorm](../using-icestorm)
+- [Using IceStorm](..)

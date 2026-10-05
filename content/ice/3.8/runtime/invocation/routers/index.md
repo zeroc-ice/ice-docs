@@ -14,18 +14,19 @@ reuses that connection for invocations on all of the routed proxies configured t
 
 The Ice distribution includes two router implementations that serve different purposes:
 
-- [Glacier2](../glacier2) is a sophisticated routing service that is commonly used as a single point of entry through
-  which clients on public networks access back-end services on an internal network, with support for
+- [Glacier2](../../../services/glacier2) is a sophisticated routing service that is commonly used as a single point of
+  entry through which clients on public networks access back-end services on an internal network, with support for
   application-specific session management and access control.
-- [IceBridge](../icebridge) is a simpler service that facilitates bridging connections over different transports.
+- [IceBridge](../../../services/icebridge) is a simpler service that facilitates bridging connections over different
+  transports.
 
 Both services implement the `Ice::Router` interface, which the Ice runtime requires of any router implementation.
 
 ## Default Router
 
 A communicator can be configured with a default router. The most common way to configure the default router is to set
-the property [Ice.Default.Router](../ice-default-properties). The value of this property is a proxy for the router's
-primary Ice object, as shown in the example below for Glacier2:
+the property [Ice.Default.Router](../../../property-reference/ice-default-properties). The value of this property is a
+proxy for the router's primary Ice object, as shown in the example below for Glacier2:
 
 ```config
 Ice.Default.Router=Glacier2/router:tcp -h routerhost -p 4063
@@ -51,7 +52,7 @@ obtain a routed proxy:
 
 {% language-section name="lang-2" /%}
 
-Another way to configure a router is with a [proxy property](../proxy-properties):
+Another way to configure a router is with a [proxy property](../../../property-reference/proxy-properties):
 
 ```config
 MyProxy.Router=Glacier2/router:tcp -h routerhost -p 4063
@@ -64,8 +65,9 @@ use Glacier2 router.
 
 A client that needs to receive callbacks from the server through the router creates an object adapter that hosts
 callback objects and associates the router with this object adapter. You create this object adapter-router association
-using the property `adapter.Router` (in the [object adapter's configuration](../object-adapter-properties)), or by
-creating the object adapter with `createObjectAdapterWithRouter`.
+using the property `adapter.Router` (in the
+[object adapter's configuration](../../../property-reference/object-adapter-properties)), or by creating the object
+adapter with `createObjectAdapterWithRouter`.
 
 This is a one-to-one association: an object adapter can be associated with a single router and likewise a router can be
 associated with only one object adapter.
@@ -74,7 +76,8 @@ An object adapter with a router does not accept incoming connections, so you don
 the object adapter is created, it associates itself with the connection between the client and the router. This
 connection is either reused (if a connection to the router already existed) or established during the creation of the
 object adapter. Later, when the server calls on a proxy to the callback object, the router forwards the request to the
-object adapter over this [bidirectional connection](../bidirectional-connections) between the client and the router.
+object adapter over this [bidirectional connection](../../connection-management/bidirectional-connections) between the
+client and the router.
 
 The proxies created by an object adapter with a router carry the endpoints of the proxy returned by `getServerProxy`,
 which typically point to the "server-side" of the router. This way, the client can give these proxies to the server (via
@@ -82,9 +85,9 @@ the router), and when the server sends a request using such a proxy, the request
 forwarded to the client's object adapter.
 
 Without a router, you set up bidirectional dispatch by making an object adapter the communicator's default object
-adapter; see [Bidirectional Connections](../bidirectional-connections).
+adapter; see [Bidirectional Connections](../../connection-management/bidirectional-connections).
 
-See [Callbacks Through Glacier2](../callbacks-through-glacier2) for an example.
+See [Callbacks Through Glacier2](../../../services/glacier2/callbacks-through-glacier2) for an example.
 
 ## Routing Tables
 
@@ -103,7 +106,7 @@ evicted from its table (the proxies returned by the call to `addProxies`).
 {% callout type="info" %}
 
 Ice uses object identities as the keys in its routing table, which means it's important that your Ice objects use
-[unique identities](../object-identity).
+[unique identities](../../object-identity).
 
 {% /callout %}
 
@@ -114,5 +117,5 @@ runtime must then register the proxy with the router and retry the invocation.
 
 ## See Also
 
-- [Glacier2](../glacier2)
-- [IceBridge](../icebridge)
+- [Glacier2](../../../services/glacier2)
+- [IceBridge](../../../services/icebridge)

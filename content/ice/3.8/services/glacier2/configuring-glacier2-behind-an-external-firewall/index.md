@@ -29,11 +29,12 @@ Glacier2.Client.PublishedEndpoints=ssl -h 5.6.7.8 -p 4064
 Glacier2.Server.Endpoints=tcp -h 10.0.0.1 -p 9999
 ```
 
-We need to specify [published endpoints](../object-adapter-endpoints) for the client object adapter because the router
-is located behind a firewall. Without this property, any proxies that the router creates would use the endpoints
-specified in [Glacier2.Client.Endpoints](../glacier2-properties), but of course those endpoints are inaccessible to
-clients outside the firewall. The [PublishedEndpoints](../object-adapter-properties) property forces the Ice run time to
-use the given endpoints in proxies created by the client object adapter.
+We need to specify [published endpoints](../../../runtime/dispatch/object-adapter-endpoints) for the client object
+adapter because the router is located behind a firewall. Without this property, any proxies that the router creates
+would use the endpoints specified in [Glacier2.Client.Endpoints](../../../property-reference/glacier2-properties), but
+of course those endpoints are inaccessible to clients outside the firewall. The
+[PublishedEndpoints](../../../property-reference/object-adapter-properties) property forces the Ice run time to use the
+given endpoints in proxies created by the client object adapter.
 
 Note also that the server endpoint in this example includes a fixed port `(9999)`, but a fixed port is not required in
 the server endpoint for the router to operate properly.
@@ -41,5 +42,5 @@ the server endpoint for the router to operate properly.
 ## See Also
 
 - [Callbacks Through Glacier2](../callbacks-through-glacier2)
-- [Object Adapter Endpoints](../object-adapter-endpoints)
-- [Glacier2.*](../glacier2-properties)
+- [Object Adapter Endpoints](../../../runtime/dispatch/object-adapter-endpoints)
+- [Glacier2.*](../../../property-reference/glacier2-properties)

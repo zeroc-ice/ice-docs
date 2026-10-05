@@ -44,11 +44,11 @@ with a cost of `2` is only propagated on the link to `B`.
 
 ### Request Context for Cost
 
-The cost of a message is specified in an Ice [request context](../request-contexts). Each Ice proxy operation has an
-implicit argument of type `Context` representing the request context. This argument is rarely used, but it is the ideal
-location for specifying the cost of an IceStorm message because an application only needs to supply a request context if
-it actually uses IceStorm's cost feature. If the request context does not contain a cost value, the message is assigned
-the default cost value of zero (0).
+The cost of a message is specified in an Ice [request context](../../../runtime/invocation/request-contexts). Each Ice
+proxy operation has an implicit argument of type `Context` representing the request context. This argument is rarely
+used, but it is the ideal location for specifying the cost of an IceStorm message because an application only needs to
+supply a request context if it actually uses IceStorm's cost feature. If the request context does not contain a cost
+value, the message is assigned the default cost value of zero (0).
 
 ### Publishing a Message with a Cost
 
@@ -77,8 +77,8 @@ be recomputed based on changing costs.
 ### Administration Tool Script
 
 A simple way to automate the creation of a topic graph is to create a text file containing commands to be executed by
-the IceStorm administration tool. For example, the commands to create the topic graph shown
-[earlier](../topic-federation) are shown below:
+the IceStorm administration tool. For example, the commands to create the topic graph shown [earlier](./) are shown
+below:
 
 ```text
 create A B C
@@ -93,17 +93,17 @@ icestormadmin --Ice.Config=config < graph.txt
 ```
 
 We assume that the configuration file `config` contains the definition for the property
-[IceStormAdmin.TopicManager.Default](../icestormadmin-properties).
+[IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties).
 
 ## Proxy Considerations for IceStorm Federation
 
 Note that, if you federate IceStorm servers, you must ensure that the proxies for the linked topics always use the same
-host and port (or, alternatively, can be indirectly bound via [IceGrid](../icegrid)), otherwise the federation cannot be
-re-established if one of the servers in the federation shuts down and is restarted later.
+host and port (or, alternatively, can be indirectly bound via [IceGrid](../../icegrid)), otherwise the federation cannot
+be re-established if one of the servers in the federation shuts down and is restarted later.
 
 ## See Also
 
 - [IceStorm Administration](../icestorm-administration)
-- [Request Contexts](../request-contexts)
-- [IceStorm Properties](../icestorm-properties)
-- [IceGrid](../icegrid)
+- [Request Contexts](../../../runtime/invocation/request-contexts)
+- [IceStorm Properties](../../../property-reference/icestorm-properties)
+- [IceGrid](../../icegrid)

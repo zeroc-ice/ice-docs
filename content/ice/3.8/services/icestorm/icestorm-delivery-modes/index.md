@@ -17,8 +17,8 @@ Without ordered delivery, events may be delivered out-of-order to the subscriber
 soon as possible (without waiting for a reply for the preceding event). If the subscriber uses a thread pool with more
 than one thread, this can result in out-of-order dispatch of messages in the subscriber.
 
-For single-threaded subscribers and subscribers using a [serialized thread pool](../threading-model), twoway delivery
-always produces in-order dispatch of events in the subscriber.
+For single-threaded subscribers and subscribers using a [serialized thread pool](../../../runtime/threading-model),
+twoway delivery always produces in-order dispatch of events in the subscriber.
 
 With twoway delivery, IceStorm is informed of any failure to deliver an event by the Ice run time. For example, IceStorm
 may not be able to establish a connection to a subscriber, or may receive an `ObjectNotExistException` when it forwards
@@ -27,22 +27,24 @@ results in the cancellation of the corresponding subscription.
 
 ## Subscribing with a Oneway Proxy
 
-In this mode each event is sent to the subscriber as a [oneway message](../oneway-invocations). This delivery mode is
-more efficient than using twoway delivery. However, if something goes wrong with the subscriber, such as the subscriber
-having destroyed its callback object without unsubscribing, or having subscribed an object with the wrong interface,
-IceStorm does not notice the failure and will continue to send events to the non-existent subscriber object for as long
-as it can maintain a connection to the subscriber's endpoint.
+In this mode each event is sent to the subscriber as a
+[oneway message](../../../runtime/invocation/invocation-mode/oneway-invocations). This delivery mode is more efficient
+than using twoway delivery. However, if something goes wrong with the subscriber, such as the subscriber having
+destroyed its callback object without unsubscribing, or having subscribed an object with the wrong interface, IceStorm
+does not notice the failure and will continue to send events to the non-existent subscriber object for as long as it can
+maintain a connection to the subscriber's endpoint.
 
 For multi-threaded subscribers, oneway delivery can result in out-of-order delivery of events. For single-threaded
 subscribers and subscribers using a serialized thread pool, events are delivered in order.
 
 ## Subscribing with a Batch Oneway Proxy
 
-With this delivery mode, IceStorm buffers events from publishers and sends them in [batches](../batched-invocations) to
-the subscriber. This reduces network overhead and is more efficient than oneway delivery. However, as for oneway
-delivery, events can be delivered out of order if the subscriber is multi-threaded. Batch oneway delivery, while
-providing better throughput, increases latency because events arrive in "bursts". You can control the interval at which
-batched events are flushed by setting the [IceStorm.Flush.Timeout](../icestorm-properties) property.
+With this delivery mode, IceStorm buffers events from publishers and sends them in
+[batches](../../../runtime/invocation/invocation-mode/batched-invocations) to the subscriber. This reduces network
+overhead and is more efficient than oneway delivery. However, as for oneway delivery, events can be delivered out of
+order if the subscriber is multi-threaded. Batch oneway delivery, while providing better throughput, increases latency
+because events arrive in "bursts". You can control the interval at which batched events are flushed by setting the
+[IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties) property.
 
 ## Subscribing with a Datagram Proxy
 
@@ -62,7 +64,7 @@ delivery mode.)
 
 ## See Also
 
-- [Oneway Invocations](../oneway-invocations)
-- [The Ice Threading Model](../threading-model)
-- [Batched Invocations](../batched-invocations)
-- [IceStorm Properties](../icestorm-properties)
+- [Oneway Invocations](../../../runtime/invocation/invocation-mode/oneway-invocations)
+- [The Ice Threading Model](../../../runtime/threading-model)
+- [Batched Invocations](../../../runtime/invocation/invocation-mode/batched-invocations)
+- [IceStorm Properties](../../../property-reference/icestorm-properties)

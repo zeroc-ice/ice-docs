@@ -74,8 +74,8 @@ this configuration, only the broker uses a well-known endpoint, while other node
 network. Once discovered, nodes can establish direct connections with each other to exchange samples without routing all
 traffic through the broker.
 
-In such scenarios, you can use the [dsnode server](../node-server) executable instead of creating a custom node server
-programmatically.
+In such scenarios, you can use the [dsnode server](../../node-server) executable instead of creating a custom node
+server programmatically.
 
 ## Example Configurations
 

@@ -15,10 +15,10 @@ communicator.
 
 ## Facets of the admin Object
 
-An Ice object is a collection of sub-objects known as [facets](../facets) whose types are not related. Although facets
-are typically used for extending and versioning types, they also allow a group of interfaces with a common purpose to be
-consolidated into a single Ice object with an established interface for navigation. These qualities make facets an
-excellent match for the requirements of the administrative facility.
+An Ice object is a collection of sub-objects known as [facets](../../../runtime/facets) whose types are not related.
+Although facets are typically used for extending and versioning types, they also allow a group of interfaces with a
+common purpose to be consolidated into a single Ice object with an established interface for navigation. These qualities
+make facets an excellent match for the requirements of the administrative facility.
 
 Each facet of the `admin` object represents a distinct administrative capability. The object does not have a default
 facet (that is, a facet with an empty name). However, the Ice runtime implements several built-in facets that it adds to
@@ -36,10 +36,10 @@ facets don’t inherit from a common Slice interface.
 ## See Also
 
 - [Creating the admin Object](../creating-the-admin-object)
-- [Object Identity](../object-identity)
-- [Versioning](../versioning)
+- [Object Identity](../../../runtime/object-identity)
+- [Versioning](../../../versioning)
 - [The Process Facet](../process-facet)
 - [The Properties Facet](../properties-facet)
 - [Filtering Administrative Facets](../filtering-administrative-facets)
 - [Custom Administrative Facets](../custom-administrative-facets)
-- [Ice.Admin.*](../ice-admin-properties)
+- [Ice.Admin.*](../../../property-reference/ice-admin-properties)

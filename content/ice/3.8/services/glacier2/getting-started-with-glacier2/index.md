@@ -29,11 +29,11 @@ The following router configuration property establish the necessary endpoint:
 Glacier2.Client.Endpoints=tcp -h 5.6.7.8 -p 4063
 ```
 
-The endpoint defined by [Glacier2.Client.Endpoints](../glacier2-properties) is used by the Ice runtime in a client to
-interact directly with the router. It is also the endpoint where requests from routed proxies are sent. This endpoint is
-defined on the public network interface because it must be accessible to clients. Furthermore, the endpoint uses a fixed
-port because clients may be statically configured with a proxy for this endpoint. The port numbers 4063 (for TCP) and
-4064 (for SSL) are reserved for Glacier2 by the Internet Assigned Numbers Authority (IANA).
+The endpoint defined by [Glacier2.Client.Endpoints](../../../property-reference/glacier2-properties) is used by the Ice
+runtime in a client to interact directly with the router. It is also the endpoint where requests from routed proxies are
+sent. This endpoint is defined on the public network interface because it must be accessible to clients. Furthermore,
+the endpoint uses a fixed port because clients may be statically configured with a proxy for this endpoint. The port
+numbers 4063 (for TCP) and 4064 (for SSL) are reserved for Glacier2 by the Internet Assigned Numbers Authority (IANA).
 
 {% callout type="info" %}
 
@@ -78,7 +78,8 @@ On Linux:
 
 - Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
-The property [Glacier2.CryptPasswords](../glacier2-properties) specifies the name of the password file:
+The property [Glacier2.CryptPasswords](../../../property-reference/glacier2-properties) specifies the name of the
+password file:
 
 ```config
 Glacier2.CryptPasswords=passwords
@@ -148,15 +149,16 @@ The following property configures a client to use a Glacier2 router:
 Ice.Default.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-The [Ice.Default.Router](../ice-default-properties) property defines the router proxy. Its endpoints must match those in
-`Glacier2.Client.Endpoints`.
+The [Ice.Default.Router](../../../property-reference/ice-default-properties) property defines the router proxy. Its
+endpoints must match those in `Glacier2.Client.Endpoints`.
 
 ## Glacier2 Object Identities
 
 A Glacier2 router hosts one well-known object. The default identity of this object is `Glacier2/router`, corresponding
 to the `Glacier2::Router` interface. If an application requires the use of multiple different (that is, not replicated)
 routers, it is a good idea to assign a unique identity to this object by configuring the routers with different values
-of the [Glacier2.InstanceName](../glacier2-properties) property, as shown in the following example:
+of the [Glacier2.InstanceName](../../../property-reference/glacier2-properties) property, as shown in the following
+example:
 
 ```config
 Glacier2.InstanceName=PublicRouter
@@ -255,5 +257,5 @@ target back-end server, the router automatically destroys the session.
 - [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [Securing a Glacier2 Router](../securing-a-glacier2-router)
 - [Glacier2 Session Management](../glacier2-session-management)
-- [Glacier2.*](../glacier2-properties)
-- [Windows Services](../windows-services)
+- [Glacier2.*](../../../property-reference/glacier2-properties)
+- [Windows Services](../../../background-servers/windows-services)
