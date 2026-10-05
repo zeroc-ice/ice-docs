@@ -21,7 +21,7 @@ const textAlignment = (align?: string): string => {
 
 export const Table = ({ children }: TableProps) => {
   return (
-    <div className="mb-10 min-w-full">
+    <div className="mb-10 overflow-x-auto">
       <table className="w-full border-collapse rounded-sm prose-headings:font-semibold">
         {children}
       </table>
@@ -72,9 +72,8 @@ export const TD = ({ align, children, dividers }: TDProps) => {
         textAlignment(align)
       )}
     >
-      <div className="[&>code]:overflow-x-none [&>a]:overflow-x-none [&>a]:break-word inline-block">
-        {children}
-      </div>
+      {/* A wide table scrolls, so a cell's code keeps its words whole. */}
+      <div className="inline-block [&_code]:break-normal">{children}</div>
     </td>
   );
 };

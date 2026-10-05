@@ -103,8 +103,12 @@ export const DocumentShell = ({
     <div className="flex shrink flex-row justify-center overflow-y-clip lg:justify-start">
       {/* The breadcrumbs are navigation rather than part of the article, so
           they sit above it in the page's column, clear of the article's prose
-          styles. */}
-      <div className="mx-6 size-full max-w-232 min-w-0 md:mx-10 lg:mx-12">
+          styles.
+
+          The column takes its width from the page, never from its content:
+          without the containment, a wide table or a nowrap title would widen
+          the column past a phone's screen. */}
+      <div className="size-full max-w-232 contain-inline-size sm:mx-6 md:mx-10 lg:mx-12">
         {breadcrumbs.length > 0 && (
           <nav
             aria-label="Breadcrumb"

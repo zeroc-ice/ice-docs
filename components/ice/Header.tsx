@@ -42,7 +42,12 @@ export function IceHeader() {
         >
           GitHub
         </a>
-        <ThemeToggle />
+        {/* A phone's bar has room for the search, version, and language
+            controls only; the navigation drawer carries the theme toggle
+            there. */}
+        <div className="hidden sm:contents">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
