@@ -82,11 +82,11 @@
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector inheritance" d="M 155 280 L 315 102" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 150 L 405 102" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 280 L 545 234" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 300 422 L 166 364" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 400 422 L 534 364" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 155 280 L 324.0 92" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 150 L 375.8 92" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 280 L 545.0 224" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 300 422 L 142.9 354" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 400 422 L 557.1 354" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
@@ -113,9 +113,7 @@
     <text class="label code" x="545.0" y="337.0">AlarmClock</text>
     <text class="badge" x="350.0" y="443">INTERFACE</text>
     <text class="label code" x="350.0" y="479.0">RadioClock</text>
-    <rect x="147.0" y="194" width="160" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="227" y="210">Implicit inheritance</text>
-    <rect x="440.0" y="107" width="160" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="520" y="123">Implicit inheritance</text>
+    <text class="annotation" x="212" y="205" style="text-anchor: end">Implicit inheritance</text>
+    <text class="annotation" x="480" y="108" style="text-anchor: start">Implicit inheritance</text>
   </g>
 </svg>
