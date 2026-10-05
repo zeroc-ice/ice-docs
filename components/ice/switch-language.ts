@@ -117,9 +117,20 @@ export function switchLanguage(language: string) {
   const line = firstHeading
     ? parseFloat(getComputedStyle(firstHeading).scrollMarginTop) || 0
     : 0;
-  const block = blockAtLine(body, line, language);
+  // Above the body, the title and the notices stay where they are as long as
+  // the scroll offset does. A body with nothing on show for the old mapping
+  // leaves only them, so the new mapping's body is read from the top.
+  const wasEmpty = !blockAtLine(body, -Infinity, language);
+  const block =
+    body.getBoundingClientRect().top < line
+      ? blockAtLine(body, line, language)
+      : undefined;
   const top = block?.getBoundingClientRect().top;
   setLanguage(language);
+  if (wasEmpty && blockAtLine(body, -Infinity, language)) {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    return;
+  }
   if (!block || top === undefined) return;
 
   if (shownIn(block, language, body)) {
