@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="280"
+  height="346.00"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 900 360"
+  viewBox="0 0 700 346"
   role="img"
   aria-labelledby="title description"
 >
@@ -67,50 +67,50 @@
     .legend-label {
       fill: #566174;
       font-size: 14px;
-      text-anchor: middle;
+      font-weight: 500;
     }
     .one-way {
       marker-end: url(#arrow);
     }
   </style>
 
-  <rect width="900" height="360" fill="#ffffff"/>
+  <rect width="700" height="346" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <rect class="boundary" x="225" y="24" width="475" height="260" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="150" y="24" width="370" height="260" rx="14" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 275 322 H 315" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way topic-link" d="M 495 322 H 535" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 114 105 L 290 105" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 114 235 L 430 211" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way topic-link" d="M 344 122 L 435 187" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way topic-link" d="M 485 188 L 585 122" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 640 105 L 786 105" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 490 205 L 786 235" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 24 320 H 60" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 216 320 H 252" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 104 105 L 200 105" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 104 235 L 305.2 208.9" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 251.7 125.7 L 313.3 184.3" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 356.7 184.3 L 418.3 125.7" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 470 105 L 596 105" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 364.8 208.4 L 596 235" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="77" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="24" y="207" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
-    <circle class="runtime" cx="320" cy="105" r="30" vector-effect="non-scaling-stroke"/>
-    <circle class="runtime" cx="460" cy="205" r="30" vector-effect="non-scaling-stroke"/>
-    <circle class="runtime" cx="610" cy="105" r="30" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="786" y="77" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="786" y="207" width="90" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="77" width="80" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="207" width="80" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="230" cy="105" r="30" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="335" cy="205" r="30" vector-effect="non-scaling-stroke"/>
+    <circle class="runtime" cx="440" cy="105" r="30" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="596" y="77" width="80" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="596" y="207" width="80" height="56" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="legend-label" x="385" y="327">Message delivery</text>
-    <text class="legend-label" x="590" y="327">Topic link</text>
-    <text class="label" x="462.5" y="49">IceStorm</text>
-    <text class="label" x="69.0" y="110.0">PA</text>
-    <text class="label" x="69.0" y="240.0">PB</text>
-    <text class="label" x="320" y="110">A</text>
-    <text class="label" x="460" y="210">B</text>
-    <text class="label" x="610" y="110">C</text>
-    <text class="label" x="831.0" y="110.0">SC</text>
-    <text class="label" x="831.0" y="240.0">SB</text>
+    <text class="legend-label" x="70" y="325">Message delivery</text>
+    <text class="legend-label" x="262" y="325">Topic link</text>
+    <text class="label" x="335" y="49">IceStorm</text>
+    <text class="label" x="64" y="110">PA</text>
+    <text class="label" x="64" y="240">PB</text>
+    <text class="label" x="230" y="110">A</text>
+    <text class="label" x="335" y="210">B</text>
+    <text class="label" x="440" y="110">C</text>
+    <text class="label" x="636" y="110">SC</text>
+    <text class="label" x="636" y="240">SB</text>
   </g>
 </svg>
