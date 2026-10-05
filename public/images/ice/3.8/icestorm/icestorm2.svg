@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="266"
+  height="312.16"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1000 380"
+  viewBox="0 0 740 330"
   role="img"
   aria-labelledby="title description"
 >
@@ -63,42 +63,42 @@
     }
   </style>
 
-  <rect width="1000" height="380" fill="#ffffff"/>
+  <rect width="740" height="330" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector" d="M 58 334 H 181 V 224" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 345 192 L 455 192" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 635 192 L 796 55" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 635 192 L 796 136" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 635 192 L 796 217" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 635 192 L 796 298" vector-effect="non-scaling-stroke"/>
+    <path class="connector" d="M 80 274 H 210 V 176" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 280 148 H 320" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 460 148 L 566 49" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 460 148 L 566 115" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 460 148 L 566 181" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 460 148 L 566 247" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
     <path
       class="connector"
-      d="M 50 40 V 326 M 66 40 V 326 M 40 70 H 76 M 40 70 V 88 H 50 M 66 88 H 86 V 70 M 50 80 L 66 105 L 50 130 L 66 155 L 50 180 L 66 205 L 50 230 L 66 255 L 50 280 L 66 305"
+      d="M 72 34 V 266 M 88 34 V 266 M 62 64 H 98 M 62 64 V 82 H 72 M 88 82 H 108 V 64 M 72 74 L 88 98 L 72 122 L 88 146 L 72 170 L 88 194 L 72 218 L 88 242 L 72 266"
       vector-effect="non-scaling-stroke"
     />
-    <rect class="application" x="34" y="326" width="48" height="8" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="155" y="160" width="190" height="64" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="455" y="160" width="180" height="64" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="796" y="24" width="180" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="796" y="105" width="180" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="796" y="186" width="180" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="796" y="267" width="180" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="56" y="266" width="48" height="8" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="140" y="120" width="140" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="320" y="120" width="140" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="566" y="24" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="566" y="90" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="566" y="156" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="566" y="222" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="annotation" x="100" y="365">Weather station</text>
-    <text class="label" x="250.0" y="197.0">Collector</text>
-    <text class="label" x="545.0" y="197.0">IceStorm</text>
-    <text class="label" x="886.0" y="60.0">Monitor</text>
-    <text class="label" x="886.0" y="141.0">Monitor</text>
-    <text class="label" x="886.0" y="222.0">Monitor</text>
-    <text class="label" x="886.0" y="303.0">Monitor</text>
+    <text class="annotation" x="80" y="300">Weather station</text>
+    <text class="label" x="210" y="154">Collector</text>
+    <text class="label" x="390" y="154">IceStorm</text>
+    <text class="label" x="641" y="55">Monitor</text>
+    <text class="label" x="641" y="121">Monitor</text>
+    <text class="label" x="641" y="187">Monitor</text>
+    <text class="label" x="641" y="253">Monitor</text>
   </g>
 </svg>
