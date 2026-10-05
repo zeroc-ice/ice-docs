@@ -386,12 +386,13 @@ bar or press `⌘K`.
 
 {% releases %}
 
-| Release   | Notes                         | Platforms                                                   | Date               |
-| --------- | ----------------------------- | ----------------------------------------------------------- | ------------------ |
-| Ice 3.8.3 | [Release notes](../ice-3-8-3) | [Supported platforms](../supported-platforms-for-ice-3-8-3) | September 10, 2026 |
-| Ice 3.8.2 | [Release notes](../ice-3-8-2) | [Supported platforms](../supported-platforms-for-ice-3-8-2) | June 4, 2026       |
-| Ice 3.8.1 | [Release notes](../ice-3-8-1) | [Supported platforms](../supported-platforms-for-ice-3-8-1) | March 3, 2026      |
-| Ice 3.8.0 | [Release notes](../ice-3-8-0) | [Supported platforms](../supported-platforms-for-ice-3-8-0) | December 17, 2025  |
+{% release name="Ice 3.8.3" notes="ice-3-8-3" platforms="supported-platforms-for-ice-3-8-3" date="September 10, 2026" /%}
+
+{% release name="Ice 3.8.2" notes="ice-3-8-2" platforms="supported-platforms-for-ice-3-8-2" date="June 4, 2026" /%}
+
+{% release name="Ice 3.8.1" notes="ice-3-8-1" platforms="supported-platforms-for-ice-3-8-1" date="March 3, 2026" /%}
+
+{% release name="Ice 3.8.0" notes="ice-3-8-0" platforms="supported-platforms-for-ice-3-8-0" date="December 17, 2025" /%}
 
 {% /releases %}
 

@@ -1,18 +1,11 @@
 // Copyright (c) ZeroC, Inc.
 
-import { Tag, type Node, type Config, type Schema } from '@markdoc/markdoc';
+import type { Schema } from '@markdoc/markdoc';
 
-// The front page's release list: a Markdown table of the releases, newest
-// first, that the `release-list` styles in app/globals.css set as a list.
+// The front page's release list: a release tag per release, newest first.
 const releases: Schema = {
-  children: ['table'],
-  transform(node: Node, config: Config) {
-    return new Tag(
-      'div',
-      { className: 'release-list' },
-      node.transformChildren(config)
-    );
-  }
+  render: 'Releases',
+  children: ['tag']
 };
 
 export default releases;
