@@ -20,9 +20,11 @@ server's [object adapter](../dispatch/object-adapter-endpoints) and the client's
 must have at least one matching endpoint, where an endpoint is simply a transport name together with any necessary
 options. Ice uses a simple text-based [syntax](../endpoint-syntax) for configuring endpoints.
 
-All of Ice's IP-based transports support both IPv4 and IPv6, as long as the underlying platform also supports both. You
-can set [configuration properties](../../property-reference) to enable or disable them, and control whether IPv4 or IPv6
-has priority.
+All of Ice's IP-based transports support both IPv4 and IPv6, as long as the underlying platform also supports both. In
+all language mappings except JavaScript, you can enable or disable them with
+[Ice.IPv4](../../property-reference/ice-properties#ice.ipv4) and
+[Ice.IPv6](../../property-reference/ice-properties#ice.ipv6), and give IPv6 priority with
+[Ice.PreferIPv6Address](../../property-reference/ice-properties#ice.preferipv6address).
 
 The following table summarizes the transports that Ice provides and indicates whether they are built into the Ice core
 in C++, C#, Java, and indirectly in the C++-based implementations:
@@ -35,7 +37,7 @@ in C++, C#, Java, and indirectly in the C++-based implementations:
 | ws (WebSocket)        | Yes          | Yes                      | Yes           | Especially useful when a client needs to communicate with a back-end service from a web browser application. |
 | wss(WebSocket Secure) | Yes          | Yes                      | Yes           | WebSocket over SSL, uses the platform's native SSL implementation.                                           |
 | bt (Bluetooth)        | No           | Yes                      | No            | Available on Linux and Android.                                                                              |
-| iap (Apple iAP)       | Yes, on iOS. | Yes                      | No            | Use the Apple iAP transport to communicate with accessories over Bluetooth.                                  |
+| iap (Apple iAP)       | Yes, on iOS. | Yes                      | No            | Communicates with accessories over Bluetooth or the Lightning connector; C++ installs it explicitly.         |
 
 Ice for JavaScript supports a different set of transports:
 

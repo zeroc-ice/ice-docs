@@ -11,3 +11,38 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 ```
 
 {% /language-section %}
+
+{% language-section name="endpoint-list-syntax-3" %}
+
+If you’re using C++ with a static build, you need to load the WebSocket transports explicitly; otherwise, the
+communicator has no `ws` or `wss` transport:
+
+```cpp
+Ice::InitializationData initData;
+initData.properties = Ice::createProperties(argc, argv);
+initData.pluginFactories = {Ice::wsPluginFactory()};
+
+Ice::CommunicatorPtr communicator = Ice::initialize(initData);
+```
+
+{% /language-section %}
+
+{% language-section name="endpoint-list-syntax-4" %}
+
+If you’re using C++ with a static build, you need to load `Ice::wsPluginFactory()`, as shown above for `ws` endpoints.
+
+{% /language-section %}
+
+{% language-section name="endpoint-list-syntax-5" %}
+
+A C++ application installs the iAP transport by adding its plug-in factory to the communicator's initialization data:
+
+```cpp
+Ice::InitializationData initData;
+initData.properties = Ice::createProperties(argc, argv);
+initData.pluginFactories = {Ice::iapPluginFactory()};
+
+Ice::CommunicatorPtr communicator = Ice::initialize(initData);
+```
+
+{% /language-section %}
