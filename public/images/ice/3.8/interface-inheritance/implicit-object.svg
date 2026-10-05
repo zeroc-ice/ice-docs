@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="520"
+  height="638"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 700 520"
+  viewBox="0 0 700 638"
   role="img"
   aria-labelledby="title description"
 >
@@ -76,44 +76,44 @@
     }
   </style>
 
-  <rect width="700" height="520" fill="#ffffff"/>
+  <rect width="700" height="638" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector inheritance" d="M 155 280 L 321.1 95.2" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 150 L 392.5 97.7" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 280 V 224" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 300 422 L 152.8 358.3" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 400 422 L 547.2 358.3" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 155 366 L 300 92" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 500 192 L 400 92" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 366 V 266" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 290 540 L 190 440" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 410 540 L 510 440" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
     <rect class="application" x="250" y="18" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
     <path class="divider" d="M 250 48 H 450" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="445" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 445 180 H 645" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="55" y="280" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 55 310 H 255" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="445" y="280" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 445 310 H 645" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="250" y="422" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 250 452 H 450" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="445" y="192" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 445 222 H 645" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="55" y="366" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 55 396 H 255" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="445" y="366" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 445 396 H 645" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="250" y="540" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 250 570 H 450" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
     <text class="badge" x="350.0" y="39">INTERFACE</text>
-    <text class="label code" x="350.0" y="75.0">Object</text>
-    <text class="badge" x="545.0" y="171">INTERFACE</text>
-    <text class="label code" x="545.0" y="207.0">Clock</text>
-    <text class="badge" x="155.0" y="301">INTERFACE</text>
-    <text class="label code" x="155.0" y="337.0">Radio</text>
-    <text class="badge" x="545.0" y="301">INTERFACE</text>
-    <text class="label code" x="545.0" y="337.0">AlarmClock</text>
-    <text class="badge" x="350.0" y="443">INTERFACE</text>
-    <text class="label code" x="350.0" y="479.0">RadioClock</text>
-    <text class="annotation" x="212" y="205" style="text-anchor: end">Implicit inheritance</text>
-    <text class="annotation" x="480" y="108" style="text-anchor: start">Implicit inheritance</text>
+    <text class="label code" x="350.0" y="75">Object</text>
+    <text class="badge" x="545.0" y="213">INTERFACE</text>
+    <text class="label code" x="545.0" y="249">Clock</text>
+    <text class="badge" x="155.0" y="387">INTERFACE</text>
+    <text class="label code" x="155.0" y="423">Radio</text>
+    <text class="badge" x="545.0" y="387">INTERFACE</text>
+    <text class="label code" x="545.0" y="423">AlarmClock</text>
+    <text class="badge" x="350.0" y="561">INTERFACE</text>
+    <text class="label code" x="350.0" y="597">RadioClock</text>
+    <text class="annotation" x="210" y="234" style="text-anchor: end">Implicit inheritance</text>
+    <text class="annotation" x="472" y="136" style="text-anchor: start">Implicit inheritance</text>
   </g>
 </svg>

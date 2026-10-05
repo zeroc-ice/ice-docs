@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="390"
+  height="464"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 700 390"
+  viewBox="0 0 700 464"
   role="img"
   aria-labelledby="title description"
 >
@@ -61,41 +61,41 @@
     }
   </style>
 
-  <rect width="700" height="390" fill="#ffffff"/>
+  <rect width="700" height="464" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true"/>
 
   <g id="connectors" aria-hidden="true">
-    <path class="inheritance" d="M 545 150 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="inheritance" d="M 300 292 L 163.2 227.7" vector-effect="non-scaling-stroke"/>
-    <path class="inheritance" d="M 400 292 L 536.8 227.7" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 545 192 V 92" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 290 366 L 190 266" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 410 366 L 510 266" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
     <rect class="interface" x="445" y="18" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
     <path class="interface-divider" d="M 445 48 H 645" vector-effect="non-scaling-stroke"/>
 
-    <rect class="interface" x="55" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="interface-divider" d="M 55 180 H 255" vector-effect="non-scaling-stroke"/>
+    <rect class="interface" x="55" y="192" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="interface-divider" d="M 55 222 H 255" vector-effect="non-scaling-stroke"/>
 
-    <rect class="interface" x="445" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="interface-divider" d="M 445 180 H 645" vector-effect="non-scaling-stroke"/>
+    <rect class="interface" x="445" y="192" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="interface-divider" d="M 445 222 H 645" vector-effect="non-scaling-stroke"/>
 
-    <rect class="interface" x="250" y="292" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="interface-divider" d="M 250 322 H 450" vector-effect="non-scaling-stroke"/>
+    <rect class="interface" x="250" y="366" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="interface-divider" d="M 250 396 H 450" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
     <text class="category-badge" x="545" y="39">INTERFACE</text>
     <text class="interface-name" x="545" y="76">Clock</text>
 
-    <text class="category-badge" x="155" y="171">INTERFACE</text>
-    <text class="interface-name" x="155" y="208">Radio</text>
+    <text class="category-badge" x="155" y="213">INTERFACE</text>
+    <text class="interface-name" x="155" y="250">Radio</text>
 
-    <text class="category-badge" x="545" y="171">INTERFACE</text>
-    <text class="interface-name" x="545" y="208">AlarmClock</text>
+    <text class="category-badge" x="545" y="213">INTERFACE</text>
+    <text class="interface-name" x="545" y="250">AlarmClock</text>
 
-    <text class="category-badge" x="350" y="313">INTERFACE</text>
-    <text class="interface-name" x="350" y="350">RadioClock</text>
+    <text class="category-badge" x="350" y="387">INTERFACE</text>
+    <text class="interface-name" x="350" y="424">RadioClock</text>
   </g>
 </svg>
