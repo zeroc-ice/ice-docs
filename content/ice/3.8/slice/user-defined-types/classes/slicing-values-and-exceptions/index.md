@@ -195,7 +195,7 @@ Exceptions are always marshaled in the sliced format (to allow slicing) but exce
 {% /callout %}
 
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a
-[SlicedData](api:Ice/SlicedData) object that hold the preserved slices.
+[SlicedData](api:Ice/SlicedData) object that holds the preserved slices.
 
 ## Unknown Sliced Values
 

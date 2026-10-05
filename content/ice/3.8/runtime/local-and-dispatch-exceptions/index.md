@@ -57,5 +57,5 @@ A dispatch information carries information transmitted in a [Reply](../../protoc
 | Any other value greater than `Unauthorized` |                                         |                                                 |
 
 A dispatch exception without an associated exception class is an instance of
-[DispatchException](api:Ice/DispatchException) . The `NotExist` and `Unknown` exceptions all ultimately derive from
+[DispatchException](api:Ice/DispatchException). The `NotExist` and `Unknown` exceptions all ultimately derive from
 `DispatchException`.
