@@ -122,7 +122,7 @@ while (true)
 {
     try
     {
-        topic.subscriberAndGetPublisher({}, sub);
+        topic.subscribeAndGetPublisher({}, sub);
     }
     catch (const Ice::UnknownException&)
     {
@@ -148,8 +148,10 @@ Subscribers can receive events from any replica. The subscriber will stop receiv
 ## Publisher Considerations for IceStorm Replication
 
 A publisher for HA IceStorm typically receives a proxy containing multiple endpoints. With this proxy, the publisher
-normally binds to a single replica and continues using that replica until there is a failure, or until the
-[Idle Check](../../../runtime/connection-management/connection-closure) closes the connection.
+binds to a single replica and continues using that replica until the connection closes. Besides a failure, the
+[Inactivity Check](../../../runtime/connection-management/connection-closure) closes a healthy connection that has no
+application-level activity for the inactivity timeout (300 seconds by default). The next invocation then establishes a
+new connection, possibly to a different replica.
 
 As with non-HA IceStorm, [event delivery ordering](../icestorm-delivery-modes) can be guaranteed if the subscriber and
 publisher are suitably configured and the publisher continues to use the same replica when publishing events.
@@ -157,7 +159,9 @@ publisher are suitably configured and the publisher continues to use the same re
 Ordering guarantees are lost as soon as a publisher changes to a different replica. Furthermore, a publisher may receive
 no notification that a change has occurred, which is possible under two circumstances:
 
-- The [Idle Check](../../../runtime/connection-management/connection-closure) has closed the connection.
+- The connection has closed, for example because of the
+  [Inactivity Check](../../../runtime/connection-management/connection-closure), and the next invocation established a
+  connection to a different replica.
 - Publishing to a replica fails and the Ice invocation can be [retried](../../../runtime/invocation/automatic-retries),
   in which case the Ice run time in the publisher automatically and transparently attempts to send the request to
   another replica. The publisher receives an exception if the invocation cannot be retried.
@@ -165,7 +169,7 @@ no notification that a change has occurred, which is possible under two circumst
 A publisher has two ways of ensuring that it is notified about a change in replicas:
 
 - The simplest method is to use the `Topic::getNonReplicatedPublisher` operation. The proxy returned by this operation
-  points directly at the current replica and no transparent failover to a different can occur.
+  points directly at the current replica and no transparent failover to a different replica can occur.
 - If you never want transparent failover to occur during publishing, you can
   [configure your publisher proxy](../configuring-icestorm) so that it contains only one endpoint. In this
   configuration, the `Topic::getPublisher` operation behaves exactly like `getNonReplicatedPublisher`.
