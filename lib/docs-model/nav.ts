@@ -89,7 +89,7 @@ export function buildSideNav(nodes: NavNode[], docs: Docs): SideNavNode[] {
   });
 }
 
-/** The URL of the page with `slug` in `version`; the front page, whose slug is empty, is at the version's root. */
+/** The URL of the page with `slug` in `docs`; the front page, whose slug is empty, is at the version's root. */
 export function pageHref(docs: Docs, slug?: string): string {
   return slug ? `/${docs.path}/${slug}` : `/${docs.path}`;
 }

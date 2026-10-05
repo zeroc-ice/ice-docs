@@ -41,7 +41,7 @@ function editUrl(file: string): string {
   return `https://github.com/zeroc-ice/ice-docs/edit/main/${path.relative(process.cwd(), file)}`;
 }
 
-/** Every page of `version`, for the route's `generateStaticParams`. */
+/** Every page of `docs`, for the route's `generateStaticParams`. */
 export function docsPageParams(docs: Docs) {
   // The front page's slug is empty: it is served at the version root.
   return listPages(docs).map((page) => ({
@@ -67,7 +67,7 @@ export async function docsPageMetadata(
   };
 }
 
-/** A page of `version`; `versions` are the ones the switcher offers. */
+/** A page of `docs`; `versions` are the ones the switcher offers. */
 export async function DocsPage({
   docs,
   versions,

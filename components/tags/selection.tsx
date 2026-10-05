@@ -26,7 +26,7 @@ export const Selection = ({ docs, versionOptions }: Props) => {
     <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
       <Switch
         icon={<Tag aria-hidden="true" className="size-4" />}
-        label="Docs"
+        label="Version"
         value={docs.title}
         note="Make sure it is the release you use."
       >
