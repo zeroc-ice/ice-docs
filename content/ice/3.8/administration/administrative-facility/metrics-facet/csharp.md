@@ -7,7 +7,7 @@ want to interact with the facet of your own communicator directly, without a pro
 steps:
 
 ```csharp
-if (communicator.findAdminFacet("Metrics") is Ice.MetricsAdmin metricsAdmin)
+if (communicator.findAdminFacet("Metrics") is IceMX.MetricsAdmin metricsAdmin)
 {
     ...
 }
