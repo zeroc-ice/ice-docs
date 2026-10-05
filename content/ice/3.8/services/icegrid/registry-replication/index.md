@@ -19,7 +19,7 @@ that can legally appear in an object identity.
 
 The figure below illustrates the underlying concepts of registry replication:
 
-![A client initially contacts the master registry and can fail over to the slave. The registries synchronize, and both nodes communicate with the replicas. Host Server 1 contains the master and Node1; Host Server 2 contains the slave and Node2.](/images/ice/3.8/registry-replication/registry-replication.svg)
+![Host Server 1 runs the master registry and Node1, and host Server 2 runs the slave registry and Node2. In step 1 the registries synchronize, in step 2 both nodes contact the master, in step 3 both nodes contact the slave, in step 4 the client contacts the master, and in step 5 the client fails over to the slave.](/images/ice/3.8/registry-replication/registry-replication.svg)
 
 1. The slave replica contacts the master replica at startup and synchronizes its databases. Any subsequent modifications
    to the deployed applications are made via the master replica, which distributes them to all active slaves.
