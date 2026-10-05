@@ -8,9 +8,10 @@ IceStorm server.
 Configuration properties inform `icestormadmin` about the topic manager(s) that you wish to administer. You have several
 configuration options:
 
-- Define [IceStormAdmin.Host](../../../property-reference/icestormadmin-properties) and
-  [IceStormAdmin.Port](../../../property-reference/icestormadmin-properties) - `icestormadmin` constructs its own proxy
-  for the topic manager at the specified host and port
+- Define [IceStormAdmin.Port](../../../property-reference/icestormadmin-properties) and optionally
+  [IceStormAdmin.Host](../../../property-reference/icestormadmin-properties) - when no `IceStormAdmin.TopicManager.*`
+  property provides a default topic manager, `icestormadmin` constructs a proxy for the `IceStorm/Finder` object at the
+  specified host and port, and calls `getTopicManager` on this proxy to obtain the default topic manager
 - Define [IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties) - specifies a proxy
   for the default topic manager on which administrative commands operate
 - Define [IceStormAdmin.TopicManager._name_](../../../property-reference/icestormadmin-properties) - specifies the
@@ -51,20 +52,22 @@ interactive session. The `help` command displays the following usage information
 
 - `current [INSTANCE-NAME]` Set the current topic manager to the topic manager with instance name `INSTANCE-NAME`. The
   proxy of the corresponding topic manager must be specified by setting an
-  [IceStormAdmin.TopicManager._name_](../../../property-reference/icestorm-properties) property. Without an argument,
-  the command shows the current topic manager.
+  [IceStormAdmin.TopicManager._name_](../../../property-reference/icestormadmin-properties) property. Without an
+  argument, the command shows the current topic manager.
 
 - `replica [INSTANCE-NAME]` Display [replication information](../highly-available-icestorm) for the given
   `INSTANCE-NAME`.
 
 - `subscribers TOPICS` Displays the identities of the subscribers for each of the `TOPICS`.
 
-Some of the commands accept one or more topic names (`TOPICS`) as arguments. Topic names containing white space or
-matching a command keyword must be enclosed in single or double quotes.
+Some of the commands accept one or more topic names (`TOPICS`) as arguments. Enclose a topic name that contains white
+space or a semicolon in single or double quotes.
 
 By default, `icestormadmin` uses the topic manager specified by your setting for
-[IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties). For example, without
-additional arguments, the `create` command operates on that topic manager.
+[IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties). When this property is not
+set, `icestormadmin` uses one of the topic managers configured with
+[IceStormAdmin.TopicManager._name_](../../../property-reference/icestormadmin-properties): the one whose object identity
+sorts first. For example, without additional arguments, the `create` command operates on that topic manager.
 
 If you are using multiple topic managers, you can specify their proxies by setting
 [IceStormAdmin.TopicManager._name_](../../../property-reference/icestormadmin-properties) for each topic manager. For
