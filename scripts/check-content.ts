@@ -7,7 +7,8 @@
 //
 //   1. every page is in the table of contents: listed by the page above it, up to the front page
 //   2. no two pages share a name (cross-page links are keyed by it)
-//   3. every overlay is for one of the version's languages
+//   3. every overlay, and every language a page lists under `languages:`, is one of
+//      the version's languages, and a page that lists its languages has no other overlay
 //   4. every cross-page link resolves to a real page — checked by check:markdoc,
 //      on each page as the site renders it
 //   5. every image parses as an image, has alt text, and its file exists
@@ -23,8 +24,9 @@
 // themselves, and the tree is clean of them today, so anything new is a
 // regression. The exception is a slot that doesn't say which kind of answer it
 // is (7): many still don't, so those fail only when their count rises, or under
-// --strict. A version without a front page, or a page that lists a page it does
-// not contain, fails as the navigation is read.
+// --strict. A version without a front page, a page that lists a page it does
+// not contain, or one whose `languages:` is not a list, fails as the navigation
+// is read.
 
 // cspell:words noformat unparseable worklist
 
@@ -49,6 +51,7 @@ import {
   readNavigation,
   readPageSources,
   snippetReader,
+  writtenFor,
   type PageFiles
 } from '../lib/docs-model/content.ts';
 import { navigationPages } from '../lib/docs-model/nav.ts';
@@ -157,7 +160,8 @@ function checkImages(version: string, files: string[]) {
 const UNCLASSIFIED_SLOT_BASELINE = 333;
 
 /**
- * Every slot a shared page declares must be answered by each language overlay,
+ * Every slot a shared page declares must be answered by the overlay of each
+ * language the page is written for,
  * and the answer must say which kind of answer it is: prose, "this mapping adds
  * nothing", or "this mapping cannot do this, because…". A blank section says
  * none of those, and the reader cannot tell the three apart.
@@ -177,12 +181,12 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
 
   for (const page of pages) {
     if (!page.shared) continue;
-    const slots = declaredSlots(
-      splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
-    );
+    const source = fs.readFileSync(page.shared, 'utf8');
+    const slots = declaredSlots(splitFrontmatter(source).body);
     if (slots.length === 0) continue;
 
-    for (const language of languages) {
+    for (const language of writtenFor(page, frontmatterOf(source)) ??
+      languages) {
       const overlayPath = page.overlays[language];
       if (!overlayPath) {
         // The shared page asks for language-specific prose and none exists.
@@ -406,7 +410,7 @@ function checkHeadings(
   const readFile = snippetReader(CONTENT_ROOT, version);
   for (const page of pages) {
     const where = `${version}/${page.slug}`;
-    const { shared, overlays } = readPageSources(page);
+    const { shared, overlays, frontmatter } = readPageSources(page);
     let body: string;
     try {
       body = resolveDocument({ shared: shared ?? '', overlays, readFile });
@@ -431,8 +435,9 @@ function checkHeadings(
         fail(`${where}: heading "${textOf(node)}" is bold text alone`);
     }
 
+    const pageLanguages = writtenFor(page, frontmatter) ?? languages;
     const skips = new Map<string, string[]>();
-    for (const language of languages) {
+    for (const language of pageLanguages) {
       let previous = 1;
       for (const { node, langs } of headings) {
         if (langs && !langs.includes(language)) continue;
@@ -446,7 +451,9 @@ function checkHeadings(
     }
     for (const [skip, affected] of skips) {
       const only =
-        affected.length < languages.length ? ` (${affected.join(', ')})` : '';
+        affected.length < pageLanguages.length
+          ? ` (${affected.join(', ')})`
+          : '';
       fail(`${where}: ${skip}${only}`);
     }
   }
@@ -477,14 +484,42 @@ for (const version of listVersions(CONTENT_ROOT)) {
   for (const dup of duplicates)
     fail(`${version}: duplicate page name "${dup}"`);
 
-  // 3. a file beside a page's index.md is the overlay for the language it is named after
+  // 3. a file beside a page's index.md is the overlay for the language it is named after,
+  //    and a shared page that lists its languages lists the version's, and has
+  //    overlays for those alone. A page written per language is written for
+  //    its overlays' languages, so it lists none.
   for (const page of pages) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
           `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
         );
+      if (
+        !page.shared &&
+        'languages' in
+          frontmatterOf(fs.readFileSync(page.overlays[language], 'utf8'))
+      )
+        fail(
+          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} lists languages, but a page written per language is written for its overlays' languages`
+        );
     }
+    if (!page.shared) continue;
+    const listed = writtenFor(
+      page,
+      frontmatterOf(fs.readFileSync(page.shared, 'utf8'))
+    );
+    if (listed === undefined) continue;
+    const where = path.relative(CONTENT_ROOT, page.shared);
+    for (const language of listed)
+      if (!languages.includes(language))
+        fail(
+          `${version}: ${where} lists "${language}", which is not one of the version's languages`
+        );
+    for (const language of Object.keys(page.overlays))
+      if (!listed.includes(language))
+        fail(
+          `${version}: ${where} is not written for "${language}", but has an overlay for it`
+        );
   }
 
   // 5, 6, 9 & 11: defects inside the files themselves.

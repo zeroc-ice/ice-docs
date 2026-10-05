@@ -99,7 +99,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
             .join(' · ')
         ])
       ),
-      w: writtenFor(page)
+      w: writtenFor(page, frontmatter)
     });
   }
 
