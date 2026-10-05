@@ -384,12 +384,16 @@ bar or press `⌘K`.
 
 ## Releases
 
-| Release                   | Platforms                                                   | Date               |
-| ------------------------- | ----------------------------------------------------------- | ------------------ |
-| [Ice 3.8.3](../ice-3-8-3) | [Supported platforms](../supported-platforms-for-ice-3-8-3) | September 10, 2026 |
-| [Ice 3.8.2](../ice-3-8-2) | [Supported platforms](../supported-platforms-for-ice-3-8-2) | June 4, 2026       |
-| [Ice 3.8.1](../ice-3-8-1) | [Supported platforms](../supported-platforms-for-ice-3-8-1) | March 3, 2026      |
-| [Ice 3.8.0](../ice-3-8-0) | [Supported platforms](../supported-platforms-for-ice-3-8-0) | December 17, 2025  |
+{% releases %}
+
+| Release   | Notes                         | Platforms                                                   | Date               |
+| --------- | ----------------------------- | ----------------------------------------------------------- | ------------------ |
+| Ice 3.8.3 | [Release notes](../ice-3-8-3) | [Supported platforms](../supported-platforms-for-ice-3-8-3) | September 10, 2026 |
+| Ice 3.8.2 | [Release notes](../ice-3-8-2) | [Supported platforms](../supported-platforms-for-ice-3-8-2) | June 4, 2026       |
+| Ice 3.8.1 | [Release notes](../ice-3-8-1) | [Supported platforms](../supported-platforms-for-ice-3-8-1) | March 3, 2026      |
+| Ice 3.8.0 | [Release notes](../ice-3-8-0) | [Supported platforms](../supported-platforms-for-ice-3-8-0) | December 17, 2025  |
+
+{% /releases %}
 
 - **[Upgrade Guide](../upgrade-guide)**: moving an application from Ice 3.7 to Ice {% $version %}.
 - **[Backward Compatibility of Ice Versions](../compatibility)**: what a patch, minor, or major release keeps
