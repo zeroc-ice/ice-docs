@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="228.57"
+  height="344"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 980 320"
+  viewBox="0 0 700 344"
   role="img"
   aria-labelledby="title description"
 >
@@ -37,15 +37,25 @@
       font-weight: 600;
       text-anchor: middle;
     }
-    .annotation {
+    .zone-label {
       fill: #566174;
       font-size: 14px;
-      text-anchor: middle;
+      font-weight: 650;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
     }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
       stroke-width: 1.5;
+    }
+    .firewall {
+      fill: #eef0f3;
+      stroke: #566174;
+      stroke-width: 1.75;
     }
     .network-boundary {
       fill: none;
@@ -69,44 +79,46 @@
     }
   </style>
 
-  <rect width="980" height="320" fill="#ffffff"/>
+  <rect width="700" height="344" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="network-boundary" d="M 490 18 V 250" vector-effect="non-scaling-stroke"/>
+    <path class="network-boundary" d="M 350 16 V 296" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 174 82 L 290 82" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 290 50 L 174 50" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 710 82 L 806 82" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 806 50 L 710 50" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 174 208 L 290 208" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 290 176 L 174 176" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 710 208 L 806 208" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 806 176 L 710 176" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 440 108 L 560 108" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 560 150 L 440 150" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 230 286 L 280 286" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 450 286 L 500 286" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 214 88 H 144" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 144 120 H 214" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 556 88 H 486" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 486 120 H 556" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 214 208 H 144" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 144 240 H 214" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 556 208 H 486" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 486 240 H 556" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 310 148 H 390" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 390 180 H 310" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="24" width="150" height="86" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="806" y="24" width="150" height="86" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="24" y="150" width="150" height="86" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="806" y="150" width="150" height="86" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="290" y="24" width="150" height="212" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="560" y="24" width="150" height="212" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="64" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="184" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="firewall" x="214" y="48" width="96" height="232" rx="3" vector-effect="non-scaling-stroke"/>
+    <rect class="firewall" x="390" y="48" width="96" height="232" rx="3" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="556" y="64" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="556" y="184" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="99.0" y="72.0">Client A</text>
-    <text class="label" x="881.0" y="72.0">Server A</text>
-    <text class="label" x="99.0" y="198.0">Client B</text>
-    <text class="label" x="881.0" y="198.0">Server B</text>
-    <text class="label" x="365.0" y="135.0">Firewall</text>
-    <text class="label" x="635.0" y="135.0">Firewall</text>
-    <text class="annotation" x="335" y="291">Request</text>
-    <text class="annotation" x="558" y="291">Callback</text>
+    <text class="zone-label" x="338" y="30" text-anchor="end">Client network</text>
+    <text class="zone-label" x="362" y="30">Server network</text>
+    <text class="label" x="84" y="109.5">Client A</text>
+    <text class="label" x="84" y="229.5">Client B</text>
+    <text class="label" x="262" y="74">Firewall</text>
+    <text class="label" x="438" y="74">Firewall</text>
+    <text class="label" x="616" y="109.5">Server A</text>
+    <text class="label" x="616" y="229.5">Server B</text>
+    <path class="connector one-way" d="M 24 320 H 60" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="70" y="325">Request</text>
+    <path class="connector callback" d="M 154 320 H 190" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="200" y="325">Callback</text>
   </g>
 </svg>

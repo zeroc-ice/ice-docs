@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="226.85"
+  height="261.58"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1080 350"
+  viewBox="0 0 760 284"
   role="img"
   aria-labelledby="title description"
 >
@@ -14,15 +14,7 @@
   </desc>
 
   <defs>
-    <marker
-      id="arrow"
-      viewBox="0 0 8 8"
-      refX="7.2"
-      refY="4"
-      markerWidth="7"
-      markerHeight="7"
-      orient="auto-start-reverse"
-    >
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
   </defs>
@@ -32,101 +24,118 @@
       fill: #182235;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    .label {
-      font-size: 16px;
-      font-weight: 600;
-      text-anchor: middle;
+
+    .process-boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
     }
-    .annotation {
-      fill: #566174;
-      font-size: 14px;
-      text-anchor: middle;
+
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
     }
-    .application {
+
+    .component {
       fill: #ffffff;
       stroke: #8d99aa;
       stroke-width: 1.5;
     }
-    .runtime {
+
+    .service {
       fill: #eef5ff;
       stroke: #1259d6;
       stroke-width: 1.75;
     }
-    .boundary {
-      fill: #fbfcfe;
-      stroke: #cbd3de;
-      stroke-width: 1.5;
-      stroke-dasharray: 7 5;
-    }
-    .network-boundary {
-      fill: none;
-      stroke: #7a8699;
-      stroke-width: 1.5;
-      stroke-dasharray: 7 5;
-    }
-    .connector {
-      fill: none;
-      stroke: #566174;
-      stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .one-way {
-      marker-end: url(#arrow);
-    }
+
     .divider {
       fill: none;
       stroke: #a6afbc;
       stroke-width: 1.25;
     }
+
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .one-way,
+    .callback {
+      marker-end: url(#arrow);
+    }
+
+    .process-title,
+    .component-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
+      text-anchor: middle;
+    }
+
+    .zone-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 650;
+    }
   </style>
 
-  <rect width="1080" height="350" fill="#ffffff"/>
+  <rect width="760" height="284" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <rect class="boundary" x="24" y="95" width="230" height="210" rx="14" vector-effect="non-scaling-stroke"/>
-    <rect class="boundary" x="360" y="55" width="360" height="270" rx="14" vector-effect="non-scaling-stroke"/>
-    <rect class="boundary" x="826" y="55" width="230" height="270" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="24" y="48" width="160" height="220" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="220" y="48" width="320" height="220" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="576" y="48" width="160" height="220" rx="14" vector-effect="non-scaling-stroke"/>
+    <!-- The zone line crosses the Firewall PC, leaving a gap for its title. -->
+    <path class="network-boundary" d="M 380 16 V 54 M 380 80 V 268" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 224 230 L 410 230" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 670 154 H 856" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 168 176 H 260" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 500 108 H 592" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="54" y="163" width="170" height="86" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="410" y="100" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 410 180 H 670" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="856" y="124" width="170" height="110" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component" x="40" y="141" width="128" height="70" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="service" x="260" y="88" width="240" height="136" rx="8" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 260 128 H 500 M 380 128 V 224" vector-effect="non-scaling-stroke"/>
+    <rect class="service" x="592" y="88" width="128" height="70" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <path class="network-boundary" d="M 540 18 V 326" vector-effect="non-scaling-stroke" aria-hidden="true"/>
-    <rect x="480" y="62" width="120" height="24" fill="#fbfcfe" aria-hidden="true"/>
-    <rect x="495" y="126" width="90" height="24" fill="#eef5ff" aria-hidden="true"/>
-    <text class="label" x="142" y="36">Public network</text>
-    <text class="label" x="938" y="36">Private network</text>
-    <text class="label" x="139.0" y="120">Client PC</text>
-    <text class="label" x="139.0" y="211.0">Client app</text>
-    <text class="annotation" x="139" y="285">IP: 1.2.3.4</text>
-    <text class="label" x="540.0" y="80">Firewall PC</text>
-    <text class="label" x="540.0" y="144">Glacier2</text>
-    <text class="label" x="475.0" y="211">
-      <tspan x="475.0" dy="0">Client</tspan>
-      <tspan x="475.0" dy="20">endpoints</tspan>
+    <text class="zone-label" x="368" y="30" text-anchor="end">Public network</text>
+    <text class="zone-label" x="392" y="30">Private network</text>
+    <text class="process-title" x="104" y="74">Client PC</text>
+    <text class="process-title" x="380" y="74">Firewall PC</text>
+    <text class="process-title" x="656" y="74">Server PC</text>
+    <text class="component-label" x="104" y="181">Client app</text>
+    <text class="annotation" x="104" y="248">IP: 1.2.3.4</text>
+    <text class="component-label" x="380" y="114">Glacier2</text>
+    <text class="component-label" x="320" y="170">
+      <tspan x="320">Client</tspan>
+      <tspan x="320" dy="20">endpoints</tspan>
     </text>
-    <text class="label" x="605.0" y="211">
-      <tspan x="605.0" dy="0">Server</tspan>
-      <tspan x="605.0" dy="20">endpoints</tspan>
+    <text class="component-label" x="440" y="170">
+      <tspan x="440">Server</tspan>
+      <tspan x="440" dy="20">endpoints</tspan>
     </text>
-    <text class="annotation" x="475" y="292">IP: 5.6.7.8</text>
-    <text class="annotation" x="605" y="292">IP: 10.0.0.1</text>
-    <text class="label" x="941.0" y="80">Server PC</text>
-    <text class="label" x="941.0" y="174.0">
-      <tspan x="941.0" dy="0">IceGrid</tspan>
-      <tspan x="941.0" dy="20">registry</tspan>
+    <text class="annotation" x="320" y="248">IP: 5.6.7.8</text>
+    <text class="annotation" x="440" y="248">IP: 10.0.0.1</text>
+    <text class="component-label" x="656" y="118">
+      <tspan x="656">IceGrid</tspan>
+      <tspan x="656" dy="20">registry</tspan>
     </text>
-    <text class="annotation" x="941" y="285">IP: 10.0.0.2</text>
+    <text class="annotation" x="656" y="248">IP: 10.0.0.2</text>
   </g>
 </svg>
