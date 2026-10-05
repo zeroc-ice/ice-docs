@@ -11,7 +11,7 @@
 //   3. every cross-page link resolves to a real page — checked by check:markdoc,
 //      on each page as the site renders it
 //   4. every image parses as an image, has alt text, and its file exists
-//   5. no raw HTML block tag or HTML entity in a page's prose
+//   5. none of the HTML block tags and entities STRAY_MARKUP lists in a page's prose
 //   6. every language slot is answered, and says which kind of answer it is
 //   7. a page written per language has one title across its languages
 //   8. no page holds a no-break space (U+00A0)
@@ -68,9 +68,9 @@ const fail = (message: string) => {
 // the ones that reach the page as visible `![...](...)` gibberish.
 const IMAGE_RE = /!\[([^\]]*)\]\(([^)]*)\)/g;
 
-// Block-level HTML and HTML entities, which a page writes in Markdown instead.
-// Inline `<...>` in prose is usually a Slice or C++ generic (`sequence<int>`,
-// `shared_ptr<T>`), so only block tags are listed.
+// The HTML a page must write in Markdown instead. Inline `<...>` in prose is
+// usually a Slice or C++ generic (`sequence<int>`, `shared_ptr<T>`), so only
+// these block tags are listed, and only the entities Markdown has a spelling for.
 const STRAY_MARKUP = [
   {
     name: 'raw HTML block tag',
