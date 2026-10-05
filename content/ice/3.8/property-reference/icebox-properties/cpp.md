@@ -32,7 +32,7 @@ The use of a relative path means the Ice runtime will look in the current workin
 If the `path` component contains spaces, the entire entry point must be enclosed in quotes:
 
 ```config
-IceBox.Service.IceStorm="C:\Program Files\ZeroC\Ice-3.8\bin\IceStormService,38:createIceStorm"
+IceBox.Service.IceStorm="C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\IceStormService,38:createIceStorm"
 ```
 
 If the `path` component does not include a leading path name, Ice delegates to the operating system to locate the shared
