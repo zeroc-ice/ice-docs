@@ -57,12 +57,12 @@ An object adapter can create a proxy for any identity, whether or not it hosts a
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
 - `createProxy` returns a proxy with the given identity. If the object adapter has an
-  [AdapterId](../object-adapter-properties), the proxy is an indirect proxy that refers to the object adapter's
-  `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, the proxy is a direct proxy that
-  holds the object adapter's published endpoints.
+  [AdapterId](../../../property-reference/object-adapter-properties), the proxy is an indirect proxy that refers to the
+  object adapter's `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, the proxy is a
+  direct proxy that holds the object adapter's published endpoints.
 - `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
 - `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
-  [well-known proxy](../well-known-proxy) when the object adapter has no adapter ID.
+  [well-known proxy](../proxy-endpoints/well-known-proxy) when the object adapter has no adapter ID.
 
 {% /iflang %}
 
@@ -75,11 +75,11 @@ An object adapter can create a proxy for any identity, whether or not it hosts a
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
 `add`, `addFacet`, `addWithUUID` and `addFacetWithUUID` register a servant with the
-[Active Servant Map](../active-servant-map) and return the proxy that `createProxy` creates for the identity of this
-servant, with its facet.
+[Active Servant Map](../../dispatch/active-servant-map) and return the proxy that `createProxy` creates for the identity
+of this servant, with its facet.
 
-All these proxies use the options set by the object adapter's [ProxyOptions](../object-adapter-properties) property,
-such as `-o` for oneway proxies.
+All these proxies use the options set by the object adapter's
+[ProxyOptions](../../../property-reference/object-adapter-properties) property, such as `-o` for oneway proxies.
 
 {% /iflang %}
 
@@ -89,7 +89,7 @@ such as `-o` for oneway proxies.
 
 `createProxy` on a connection returns a fixed proxy with the given identity: invocations on this proxy use only this
 connection. A server uses such a proxy to call back a client over a
-[bidirectional connection](../bidirectional-connections).
+[bidirectional connection](../../connection-management/bidirectional-connections).
 
 {% /iflang %}
 
@@ -118,7 +118,8 @@ with the requested setting, and leave the original proxy unchanged. See
 [ObjectPrx](https://code.zeroc.com/manual/Ice/ObjectPrx) in the API reference for the complete list of factory methods
 and the accessors that return the current settings.
 
-The [language mapping for interfaces](../interfaces) describes the type of the proxy that these factory methods return.
+The [language mapping for interfaces](../../../slice/interfaces) describes the type of the proxy that these factory
+methods return.
 
 ## Creating a Proxy of Another Type
 
@@ -132,7 +133,7 @@ and an application that converts a proxy of one type into a proxy of another typ
 
 {% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
 
-The [language mapping for interfaces](../interfaces) shows these functions.
+The [language mapping for interfaces](../../../slice/interfaces) shows these functions.
 
 {% /iflang %}
 
