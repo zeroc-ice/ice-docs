@@ -1,5 +1,14 @@
 ---
 title: Thread Pools
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
 A thread pool is a collection of threads that the Ice runtime draws upon to perform specific tasks.
