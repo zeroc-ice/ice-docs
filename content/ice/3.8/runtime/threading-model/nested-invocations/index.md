@@ -15,7 +15,7 @@ If you make a synchronous two-way invocation, you’re waiting: your thread is b
 target Ice object. And if you make this synchronous invocation within a synchronous dispatch, you’re holding onto a
 shared resource: the dispatch thread (current thread) from an [Ice thread pool](../thread-pools).
 
-![The client calls opA on Server A, which calls opB on Server B. Server B attempts a callback to Server A, but Server A cannot dispatch it while its thread is blocked in the nested invocation.](/images/ice/3.8/nested-invocations/nested-deadlock.svg)
+![The client calls opA on Server A. While dispatching opA, Server A calls opB on Server B. Server A's only dispatch thread waits for opB to return, so Server A cannot dispatch Server B's callback.](/images/ice/3.8/nested-invocations/nested-deadlock.svg)
 
 _Nested invocation deadlock._
 
