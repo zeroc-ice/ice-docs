@@ -32,12 +32,6 @@ public extension GreeterPrx {
         // ...
     }
 }
-
-public extension NodePrx {
-    func name(context: Ice.Context? = nil) async throws -> String {
-        ...
-    }
-}
 ```
 
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
@@ -128,8 +122,8 @@ struct Chatbot: Greeter {
 }
 ```
 
-Since our implementation dot perform call any asynchronous operations or throw any exception, we can omit the `async`
-and `throws` keywords from the function declaration.
+Since our implementation doesn't call any asynchronous operations or throw any exception, we can omit the `async` and
+`throws` keywords from the function declaration.
 
 ### AMD Mapping for Operations
 

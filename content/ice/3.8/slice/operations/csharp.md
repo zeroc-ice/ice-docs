@@ -239,7 +239,7 @@ As you can see, the `getName` operation generates a `GetNameAsync` method that a
 - a cancellation token
 
 The `GetNameAsync` method sends (or queues) an invocation of `getName`. This method does not block the calling thread.
-It returns a `Task` that you typically await. Here's an example that calls `getNameAsync`:
+It returns a `Task` that you typically await. Here's an example that calls `GetNameAsync`:
 
 ```csharp
 EmployeesPrx e = ...;

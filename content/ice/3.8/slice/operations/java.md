@@ -197,8 +197,8 @@ or asynchronously.
 
 If an invocation throws an exception, the exception can be obtained from the future in several ways:
 
-- Call `get` on the future; `get` throws `CompletionException` with the actual exception available via `getCause()`
-- Call `join` on the future; `join` throws `ExecutionException` with the actual exception available via `getCause()`
+- Call `get` on the future; `get` throws `ExecutionException` with the actual exception available via `getCause()`
+- Call `join` on the future; `join` throws `CompletionException` with the actual exception available via `getCause()`
 - Use chaining methods such as `exceptionally`, `handle` or `whenComplete` to execute custom actions
 
 The exception is provided by the future, even if the actual error condition for the exception was encountered during the

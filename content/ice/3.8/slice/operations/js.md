@@ -205,7 +205,7 @@ class ClientToServerPrx extends Ice.ObjectPrx {
 ```
 
 ```typescript
-abstract class ClientToServerPrx extends Ice.ObjectPrx {
+class ClientToServerPrx extends Ice.ObjectPrx {
     op1(
         i:number,
         f:number,
@@ -215,12 +215,12 @@ abstract class ClientToServerPrx extends Ice.ObjectPrx {
 
     op2(
         ns:NumberAndString,
-        ss:StringSeq,
-        st:StringTable,
+        ss:string[],
+        st:Map<bigint, string[]>,
         context?:Map<string, string>):Ice.AsyncResult<void>;
 
     op3(
-        proxy:ClientToServerPrx,
+        proxy:ClientToServerPrx | null,
         context?:Map<string, string>):Ice.AsyncResult<void>;
 }
 ```
