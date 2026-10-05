@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="350"
+  height="402"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 880 440"
+  viewBox="0 0 700 402"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">DataStorm sample flow</title>
   <desc id="description">
-    A temperature writer publishes through its topic and Node A. Samples travel to Node B, then through its
-    temperature topic to a reader.
+    A temperature writer publishes through its topic and Node A. Samples travel to Node B, then through its temperature
+    topic to a reader.
   </desc>
 
   <defs>
@@ -57,10 +57,10 @@
       stroke: #1259d6;
       stroke-width: 1.75;
     }
-    .generated {
-      fill: #f3f0f7;
-      stroke: #75658f;
-      stroke-width: 1.75;
+    .data {
+      fill: #f6f7f9;
+      stroke: #8d99aa;
+      stroke-width: 1.25;
     }
     .boundary {
       fill: #fbfcfe;
@@ -80,42 +80,42 @@
     }
   </style>
 
-  <rect width="880" height="440" fill="#ffffff"/>
+  <rect width="700" height="402" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <rect class="boundary" x="24" y="24" width="260" height="390" rx="14" vector-effect="non-scaling-stroke"/>
-    <rect class="boundary" x="596" y="24" width="260" height="390" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="16" y="16" width="240" height="370" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="444" y="16" width="240" height="370" rx="14" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 154 344 L 154 310" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 154 254 L 154 200" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 726 200 L 726 254" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 726 310 L 726 344" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 259 125 L 621 125" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 136 316 V 272" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 136 216 V 160" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 564 160 V 216" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 564 272 V 316" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 239 100 H 461" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="runtime" x="49" y="50" width="210" height="150" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="api" x="49" y="254" width="210" height="56" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="49" y="344" width="210" height="46" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="621" y="50" width="210" height="150" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="api" x="621" y="254" width="210" height="56" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="621" y="344" width="210" height="46" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="generated" x="310" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="generated" x="370" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="generated" x="430" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="generated" x="490" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="generated" x="550" y="115" width="20" height="20" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="33" y="40" width="206" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="33" y="216" width="206" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="33" y="316" width="206" height="46" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="461" y="40" width="206" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="api" x="461" y="216" width="206" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="461" y="316" width="206" height="46" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="data" x="279" y="91" width="18" height="18" rx="4" vector-effect="non-scaling-stroke"/>
+    <rect class="data" x="310" y="91" width="18" height="18" rx="4" vector-effect="non-scaling-stroke"/>
+    <rect class="data" x="341" y="91" width="18" height="18" rx="4" vector-effect="non-scaling-stroke"/>
+    <rect class="data" x="372" y="91" width="18" height="18" rx="4" vector-effect="non-scaling-stroke"/>
+    <rect class="data" x="403" y="91" width="18" height="18" rx="4" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="154.0" y="130.0">Node A</text>
-    <text class="label" x="154.0" y="287.0">Topic (temperature)</text>
-    <text class="label" x="154.0" y="372.0">Writer (temperature)</text>
-    <text class="label" x="726.0" y="130.0">Node B</text>
-    <text class="label" x="726.0" y="287.0">Topic (temperature)</text>
-    <text class="label" x="726.0" y="372.0">Reader (temperature)</text>
-    <text class="annotation" x="440" y="88">Samples</text>
+    <text class="label" x="136" y="105">Node A</text>
+    <text class="label" x="136" y="249">Topic (temperature)</text>
+    <text class="label" x="136" y="344">Writer (temperature)</text>
+    <text class="label" x="564" y="105">Node B</text>
+    <text class="label" x="564" y="249">Topic (temperature)</text>
+    <text class="label" x="564" y="344">Reader (temperature)</text>
+    <text class="annotation" x="350" y="76">Samples</text>
   </g>
 </svg>
