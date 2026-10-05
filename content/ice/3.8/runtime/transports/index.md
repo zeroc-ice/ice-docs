@@ -29,15 +29,15 @@ all language mappings except JavaScript, you can enable or disable them with
 The following table summarizes the transports that Ice provides and indicates whether they are built into the Ice core
 in C++, C#, Java, and indirectly in the C++-based implementations:
 
-| **Transport**         | **Core?**    | **Connection Oriented?** | **IP-based?** | **Description**                                                                                              |
-| --------------------- | ------------ | ------------------------ | ------------- | ------------------------------------------------------------------------------------------------------------ |
-| tcp                   | Yes          | Yes                      | Yes           | This is the default transport in Ice.                                                                        |
-| udp                   | Yes          | No                       | Yes           | Supports unicast and multicast datagram invocations.                                                         |
-| ssl                   | Yes          | Yes                      | Yes           | Uses your platform's native SSL implementation.                                                              |
-| ws (WebSocket)        | Yes          | Yes                      | Yes           | Especially useful when a client needs to communicate with a back-end service from a web browser application. |
-| wss(WebSocket Secure) | Yes          | Yes                      | Yes           | WebSocket over SSL, uses the platform's native SSL implementation.                                           |
-| bt (Bluetooth)        | No           | Yes                      | No            | Available on Linux and Android.                                                                              |
-| iap (Apple iAP)       | Yes, on iOS. | Yes                      | No            | Communicates with accessories over Bluetooth or the Lightning connector; C++ installs it explicitly.         |
+| **Transport**         | **Core?**    | **Connection Oriented?** | **IP-based?** | **Description**                                                                                                  |
+| --------------------- | ------------ | ------------------------ | ------------- | ---------------------------------------------------------------------------------------------------------------- |
+| tcp                   | Yes          | Yes                      | Yes           | This is the default transport in Ice.                                                                            |
+| udp                   | Yes          | No                       | Yes           | Supports unicast and multicast datagram invocations.                                                             |
+| ssl                   | Yes          | Yes                      | Yes           | Uses your platform's native SSL implementation.                                                                  |
+| ws (WebSocket)        | Yes          | Yes                      | Yes           | Especially useful when a client needs to communicate with a back-end service from a web browser application.     |
+| wss(WebSocket Secure) | Yes          | Yes                      | Yes           | WebSocket over SSL, uses the platform's native SSL implementation.                                               |
+| bt (Bluetooth)        | No           | Yes                      | No            | Available on Linux and Android.                                                                                  |
+| iap (Apple iAP)       | Yes, on iOS. | Yes                      | No            | Communicates with accessories over Bluetooth or the Lightning connector; C++ applications install it explicitly. |
 
 Ice for JavaScript supports a different set of transports:
 
