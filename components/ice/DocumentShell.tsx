@@ -105,9 +105,8 @@ export const DocumentShell = ({
           they sit above it in the page's column, clear of the article's prose
           styles.
 
-          The column takes its width from the page, never from its content:
-          without the containment, a wide table or a nowrap title would widen
-          the column past a phone's screen. */}
+          The column takes its width from the page, never from its content,
+          so a wide table or a nowrap title cannot widen it. */}
       <div className="size-full max-w-232 contain-inline-size sm:mx-6 md:mx-10 lg:mx-12">
         {breadcrumbs.length > 0 && (
           <nav

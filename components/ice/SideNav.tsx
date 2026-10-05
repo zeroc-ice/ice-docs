@@ -245,8 +245,6 @@ function Drawer({ children }: { children: React.ReactNode }) {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-14 shrink-0 items-center justify-end border-b border-hairline px-2">
-            {/* The header's theme toggle, on a phone, where the bar has no
-                room for it. */}
             <div className="sm:hidden">
               <ThemeToggle />
             </div>

@@ -7,9 +7,7 @@ import { Menu, MenuItem } from '@/components/menu';
 import { setLanguage, useLanguage } from '@/context/state';
 import { languageLabel } from '@/lib/docs-model/nav';
 
-// A dropdown language switcher, sized for the nine mappings from `sm` up. On
-// a phone it takes its label's width, and gives way first when the bar runs
-// out of room: the version has to stay legible.
+// A dropdown language switcher, sized for the nine mappings.
 // Selecting a language switches the page in place: every mapping is already in it.
 export function LanguageSelect({ languages }: { languages: string[] }) {
   const current = useLanguage();
