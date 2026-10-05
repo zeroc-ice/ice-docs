@@ -31,13 +31,25 @@ export function Analytics({ measurementId }: { measurementId: string }) {
             {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', ${JSON.stringify(measurementId)});`}
+gtag('config', ${JSON.stringify(measurementId)}, { cookie_domain: 'none' });`}
           </Script>
         </>
       )}
       {consent === 'unset' && <ConsentBanner />}
     </>
   );
+}
+
+// GA's cookies are `_ga` and `_ga_<container>`. `cookie_domain: 'none'` keeps
+// them on this host, so expiring them leaves zeroc.com's own GA cookies alone.
+function declineAnalytics() {
+  setConsent('denied');
+  for (const cookie of document.cookie.split('; ')) {
+    const name = cookie.split('=')[0];
+    if (name === '_ga' || name.startsWith('_ga_')) {
+      document.cookie = `${name}=; Max-Age=0; path=/`;
+    }
+  }
 }
 
 function ConsentBanner() {
@@ -60,7 +72,7 @@ function ConsentBanner() {
       <div className="mt-4 flex gap-3">
         <button
           type="button"
-          onClick={() => setConsent('denied')}
+          onClick={declineAnalytics}
           className="flex-1 rounded-lg border border-hairline-strong px-3 py-2 text-ink-secondary transition-colors hover:text-ink"
         >
           Decline
