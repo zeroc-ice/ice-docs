@@ -6,8 +6,7 @@ You have several options if you wish to install a logger other than the default 
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-- Select one of the other [built-in loggers](../built-in-loggers), which allow you to log to a file or to a system
-  logging service such as `syslog`
+- Select one of the other [built-in loggers](../built-in-loggers), such as the file logger
 - Supply your own logger implementation in [InitializationData](api:Ice/InitializationData) when you create a
   communicator
 - Load a logger implementation dynamically via the Ice [plug-in facility](../../../plugins/custom-logger-plug-in)
@@ -16,7 +15,7 @@ You have several options if you wish to install a logger other than the default 
 
 {% iflang langs="js" %}
 
-- Select the file logger, one of the [built-in loggers](../built-in-loggers)
+- In Node.js, select the file logger, one of the [built-in loggers](../built-in-loggers)
 - Supply your own logger implementation in [InitializationData](api:Ice/InitializationData) when you create a
   communicator
 
@@ -24,8 +23,7 @@ You have several options if you wish to install a logger other than the default 
 
 {% iflang langs="ruby,php,matlab" %}
 
-- Select one of the other [built-in loggers](../built-in-loggers), which allow you to log to a file or to a system
-  logging service such as `syslog`
+- Select one of the other [built-in loggers](../built-in-loggers), such as the file logger
 - Load a logger implemented in C++ via the Ice [plug-in facility](../../../plugins/custom-logger-plug-in)
 
 {% /iflang %}
