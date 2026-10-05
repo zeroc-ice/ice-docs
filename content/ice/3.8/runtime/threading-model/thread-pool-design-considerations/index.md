@@ -19,6 +19,13 @@ There are several implications of using a thread pool with a maximum size of one
 It is important to remember that a communicator's client and server thread pools have a default maximum size of **1
 thread**, therefore these limitations also apply to any object adapter that shares the communicator's thread pools.
 
+{% iflang langs="csharp,python,swift" %}
+
+These limitations apply only to the code that Ice runs on the thread pool's threads; see [Thread Pools](../thread-pools)
+for the code that this language mapping runs elsewhere.
+
+{% /iflang %}
+
 ## Multi-Threaded Pool
 
 Configuring a thread pool to support multiple threads implies that the application is prepared for the Ice runtime to

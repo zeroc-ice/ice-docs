@@ -15,6 +15,13 @@ object adapter with its own thread pool is useful in certain situations:
 
 - To ensure that a minimum number of threads is available for dispatching requests to an adapter's servants.
 
+{% iflang langs="csharp,python,swift" %}
+
+A thread pool limits only the code that Ice runs on the pool's threads; see [Thread Pools](../thread-pools) for the code
+that this language mapping runs elsewhere.
+
+{% /iflang %}
+
 An object adapter's thread pool supports all of the properties described in [Configuring Thread Pools](../thread-pools).
 For configuration purposes, the name of an adapter's thread pool is `adapter.ThreadPool`, where `adapter` is the name of
 the adapter.
@@ -23,6 +30,10 @@ An adapter creates its own thread pool when any
 [_adapter_.ThreadPool.\*](../../../property-reference/object-adapter-properties) property is set; otherwise, it uses the
 communicator's server thread pool. These properties have the same semantics and default values as those described
 earlier.
+
+An adapter's thread pool processes only the incoming connections of this adapter. An outgoing connection always uses the
+communicator's client thread pool, even when the object adapter associated with it for
+[bidirectional dispatches](../bidirectional-connections) has its own thread pool.
 
 As an example, the properties shown below configure a thread pool for the object adapter named `PrinterAdapter`:
 

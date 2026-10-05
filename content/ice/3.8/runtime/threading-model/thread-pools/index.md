@@ -19,6 +19,43 @@ By default, these two thread pools are shared by all of the communicator's [obje
 necessary, you can configure individual object adapters to use a [private thread pool](../object-adapter-thread-pools)
 instead.
 
+{% iflang langs="csharp" %}
+
+{% callout type="info" %}
+
+Ice completes the task of a C# asynchronous invocation with `RunContinuationsAsynchronously`, so the code that follows
+an awaited invocation runs on a .NET thread pool thread by default, rather than on the Ice thread that received the
+reply. The size of the client thread pool does not limit or serialize this code.
+
+{% /callout %}
+
+{% /iflang %}
+
+{% iflang langs="python" %}
+
+{% callout type="info" %}
+
+When the communicator has an event loop adapter, such as the asyncio event loop passed to `Ice.Communicator`, coroutine
+dispatch methods and the continuations of awaited invocations run on this event loop, not on an Ice thread. The size of
+a thread pool does not limit or serialize this code.
+
+{% /callout %}
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
+
+{% callout type="info" %}
+
+Ice for Swift dispatches each request in a new task, and resumes an awaited invocation through a Swift continuation. The
+size of a thread pool therefore does not limit or serialize Swift dispatches or the code that follows an awaited
+invocation. To limit the number of concurrent dispatches on a connection, use
+[Ice.Connection.name.MaxDispatches](../ice-connection-properties).
+
+{% /callout %}
+
+{% /iflang %}
+
 If a thread pool is exhausted because all threads are currently dispatching a request, additional incoming requests are
 transparently delayed until a request completes and relinquishes its thread; that thread is then used to dispatch the
 next pending request. Ice minimizes thread context switches in a thread pool by using a leader-follower implementation
@@ -110,6 +147,29 @@ This thread pool starts with 5 threads and can neither grow nor shrink.
 To summarize, the value of `name.ThreadIdleTime` determines whether (and how quickly) a thread pool can shrink to a size
 of 1. A thread pool that shrinks can also grow to its maximum size. Finally, setting `name.SizeMax` to a value larger
 than `name.Size` allows a thread pool to grow beyond its initial capacity.
+
+## Serializing the Messages of Each Connection
+
+A multi-threaded pool can dispatch several requests received over the same connection concurrently. Setting
+[_name_.Serialize](../ice-threadpool-properties) to a value greater than 0 makes the pool process the messages of each
+connection one at a time, in the order received, while it still dispatches requests from different connections
+concurrently. This property has an effect only on a pool whose maximum size is greater than 1.
+
+{% iflang langs="cpp,csharp,java,python" %}
+
+## Executing Dispatches and Callbacks with Your Own Executor
+
+By default, a thread pool thread executes the dispatches and the asynchronous invocation callbacks of its connections.
+The `executor` field of `InitializationData` lets the application choose this thread: the communicator calls the
+executor with each dispatch or callback to execute, and with the connection associated with this call, which can be
+null. The executor must eventually execute the call, for example by queuing it to a UI thread so that dispatches and
+callbacks can update UI objects directly. The executor, rather than the size of the thread pool, then determines which
+dispatches and callbacks run concurrently.
+
+The `threadStart` and `threadStop` fields of `InitializationData` are functions that the communicator calls when it
+starts a new thread and when this thread is about to terminate.
+
+{% /iflang %}
 
 ## See Also
 
