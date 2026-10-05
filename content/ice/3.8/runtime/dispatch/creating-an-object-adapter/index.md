@@ -22,12 +22,13 @@ connections associated with the adapter when the adapter is configured for bidir
 {% /callout %}
 
 An application normally needs to configure an object adapter with [endpoints](../object-adapter-endpoints) or a
-[router](../glacier2). Calling `createObjectAdapter` with a non-empty value for `name` means the new object adapter will
-check the communicator's configuration for [properties](../object-adapter-properties), using its name as prefix,
-including:
+[router](../../../services/glacier2). Calling `createObjectAdapter` with a non-empty value for `name` means the new
+object adapter will check the communicator's configuration for
+[properties](../../../property-reference/object-adapter-properties), using its name as prefix, including:
 
-- [_name_.Endpoints](../object-adapter-properties) - defines one or more object adapter endpoints
-- [_name_.Router](../object-adapter-properties) - specifies the stringified proxy of a router
+- [_name_.Endpoints](../../../property-reference/object-adapter-properties) - defines one or more object adapter
+  endpoints
+- [_name_.Router](../../../property-reference/object-adapter-properties) - specifies the stringified proxy of a router
 
 If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
 is on your communicator. For example:
@@ -36,4 +37,4 @@ is on your communicator. For example:
 
 ## See Also
 
-- [Communicator](../communicator)
+- [Communicator](../../communicator)

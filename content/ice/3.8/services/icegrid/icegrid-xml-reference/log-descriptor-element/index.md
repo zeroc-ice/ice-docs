@@ -3,8 +3,8 @@ title: Log Descriptor Element
 ---
 
 A `log` element specifies the name of a log file for a server or service. A `log` element must be defined for each log
-file that can be [accessed remotely](../icegrid-administrative-sessions) by an administrative tool. Note that it is not
-necessary to define a `log` element for the values of the `Ice.StdErr` and `Ice.StdOut` properties.
+file that can be [accessed remotely](../../icegrid-administrative-sessions) by an administrative tool. Note that it is
+not necessary to define a `log` element for the values of the `Ice.StdErr` and `Ice.StdOut` properties.
 
 This element may only appear as a child of a [server](../server-descriptor-element) element or a
 [service](../service-descriptor-element) element.
@@ -26,6 +26,6 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [IceGrid Administrative Sessions](../icegrid-administrative-sessions)
+- [IceGrid Administrative Sessions](../../icegrid-administrative-sessions)
 - [Server Descriptor Element](../server-descriptor-element)
 - [Service Descriptor Element](../service-descriptor-element)

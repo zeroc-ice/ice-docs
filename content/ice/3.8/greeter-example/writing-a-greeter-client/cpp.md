@@ -25,7 +25,7 @@ slice2cpp Greeter.ice
 
 This produces two files: a header file, `Greeter.h`, and a C++ source file, `Greeter.cpp`. The header file provides the
 `GreeterPrx` class we instantiate in the code below, and `Greeter.cpp` is compiled into the client like any other source
-file. See [Using the Slice Compiler](../using-the-slice-compiler) for the options `slice2cpp` accepts.
+file. See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options `slice2cpp` accepts.
 
 In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your
 build project, like we demonstrate for the C++ demo programs.
@@ -68,7 +68,7 @@ into four pieces:
 
 ### 1. Create a Communicator
 
-First, we create a [Communicator](../communicator) with `Ice::initialize`:
+First, we create a [Communicator](../../runtime/communicator) with `Ice::initialize`:
 
 ```cpp
 Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);

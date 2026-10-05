@@ -4,9 +4,9 @@ title: Simple Example of Class Encoding
 
 ## Sample Class Definitions
 
-We have separately discussed the primary components of the class encoding: [slices](../basic-data-encoding),
-[references](../data-encoding-for-classes), and [type IDs](../class-type-ids). To make the preceding discussions more
-concrete, consider the following class definitions:
+We have separately discussed the primary components of the class encoding: [slices](../../basic-data-encoding),
+[references](..), and [type IDs](../class-type-ids). To make the preceding discussions more concrete, consider the
+following class definitions:
 
 ```slice
 class Base
@@ -50,10 +50,10 @@ We describe how to marshal these instances using versions 1.0 and 1.1 of the enc
 
 ## Class Encoding Version 1.0
 
-The sender arbitrarily assigns a non-zero [identity](../data-encoding-for-classes) to each instance. Typically, the
-sender will simply consecutively number the instances starting at `1`. For this example, assume that the two instances
-have the identities `1` and `2`. The marshaled representation for the two instances (assuming that they are marshaled
-immediately following each other) is shown below:
+The sender arbitrarily assigns a non-zero [identity](..) to each instance. Typically, the sender will simply
+consecutively number the instances starting at `1`. For this example, assume that the two instances have the identities
+`1` and `2`. The marshaled representation for the two instances (assuming that they are marshaled immediately following
+each other) is shown below:
 
 | **Marshaled value**                    | **Size in bytes** | **Type** | **Byte offset** |
 | -------------------------------------- | ----------------- | -------- | --------------- |
@@ -90,12 +90,12 @@ immediately following each other) is shown below:
 | `5` _(byte count for slice)_           | 4                 | `int`    | 119             |
 | `0` _(number of dictionary entries)_   | 1                 | `size`   | 123             |
 
-Note that, because classes (like [exceptions](../data-encoding-for-exceptions)) are sent as a sequence of
-[slices](../basic-data-encoding), the receiver of a class can slice off any derived parts of a class it does not
+Note that, because classes (like [exceptions](../../data-encoding-for-exceptions)) are sent as a sequence of
+[slices](../../basic-data-encoding), the receiver of a class can slice off any derived parts of a class it does not
 understand. Also note that (as shown in the above table) each class instance contains three slices. The third slice is
-for the type `::Ice::Object`, which is the base type of all classes. The class [type ID](../type-ids) `::Ice::Object`
-has the number `3` in this example because it is the third distinct type ID that is marshaled by the sender. (See
-entries at byte offsets 58 and 118 in the above table.) All class instances have this final slice of type
+for the type `::Ice::Object`, which is the base type of all classes. The class [type ID](../../../slice/type-ids)
+`::Ice::Object` has the number `3` in this example because it is the third distinct type ID that is marshaled by the
+sender. (See entries at byte offsets 58 and 118 in the above table.) All class instances have this final slice of type
 `::Ice::Object`.
 
 Note that if a class has no fields, a type ID and slice for that class is still marshaled. The byte count of the slice
@@ -103,13 +103,13 @@ will be 4 in this case, indicating that the slice contains no data.
 
 ## Class Encoding Version 1.1
 
-A leading [size](../basic-data-encoding) value of `1` marks the beginning of an instance, followed by one or more
-[slices](../basic-data-encoding).
+A leading [size](../../basic-data-encoding) value of `1` marks the beginning of an instance, followed by one or more
+[slices](../../basic-data-encoding).
 
 ### Class Encoding in the Sliced Format
 
 The marshaled representation for the two instances (assuming that they are marshaled immediately following each other)
-in the [sliced format](../slicing-values-and-exceptions) is shown below:
+in the [sliced format](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) is shown below:
 
 | **Marshaled value**                                             | **Size in bytes** | **Type** | **Byte offset** |
 | --------------------------------------------------------------- | ----------------- | -------- | --------------- |
@@ -150,7 +150,7 @@ will be 4 in this case, indicating that the slice contains no data.
 ### Class Encoding in the Compact Format
 
 The marshaled representation for the two instances (assuming that they are marshaled immediately following each other)
-in the [compact format](../slicing-values-and-exceptions) is shown below:
+in the [compact format](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) is shown below:
 
 | **Marshaled value**                               | **Size in bytes** | **Type** | **Byte offset** |
 | ------------------------------------------------- | ----------------- | -------- | --------------- |
@@ -183,9 +183,9 @@ will be 4 in this case, indicating that the slice contains no data.
 ### Class Encoding in the Compact Format with Compact Type IDs
 
 [Compact type IDs](../class-type-ids) can be used regardless of the sender's chosen
-[format](../slicing-values-and-exceptions). For the sake of example, we will use compact type IDs together with the
-compact format to produce the smallest encoding possible. The Slice definitions below reflect the addition of the
-compact type IDs:
+[format](../../../slice/user-defined-types/classes/slicing-values-and-exceptions). For the sake of example, we will use
+compact type IDs together with the compact format to produce the smallest encoding possible. The Slice definitions below
+reflect the addition of the compact type IDs:
 
 ```slice
 class Base(10)
@@ -235,7 +235,7 @@ bytes to 58, less than half the size of version 1.0.
 
 ## See Also
 
-- [Data Encoding for Classes](../data-encoding-for-classes)
-- [Data Encoding for Exceptions](../data-encoding-for-exceptions)
-- [Basic Data Encoding](../basic-data-encoding)
-- [Type IDs](../type-ids)
+- [Data Encoding for Classes](..)
+- [Data Encoding for Exceptions](../../data-encoding-for-exceptions)
+- [Basic Data Encoding](../../basic-data-encoding)
+- [Type IDs](../../../slice/type-ids)

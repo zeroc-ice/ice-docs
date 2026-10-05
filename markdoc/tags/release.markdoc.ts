@@ -19,10 +19,11 @@ const release: Schema = {
     const { name, notes, platforms, date } = node.transformAttributes(
       config
     ) as Record<'name' | 'notes' | 'platforms' | 'date', string>;
-    const { version, pageIndex } = config.variables as PageVariables;
+    const { version, slug, pageIndex } = config.variables as PageVariables;
     const link = (page: string, text: string) => {
       const { href, resolved } = resolveDocLink(page, {
         version,
+        slug,
         index: pageIndex
       });
       return new Tag('AppLink', { href, unresolved: !resolved }, [text]);

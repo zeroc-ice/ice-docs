@@ -1,7 +1,7 @@
 {% language-section name="lang-1" %}
 
 A Slice exception is mapped to a MATLAB class with the same name. This mapping is similar to the mapping of
-[classes](../classes).
+[classes](../user-defined-types/classes).
 
 Consider the following Slice exceptions:
 
@@ -48,7 +48,7 @@ There are a number of things to note about this generated code:
 {% callout type="info" %}
 
 If you remap your exception class name or the name of the enclosing namespace with `matlab:identifier`, remember to set
-a custom [Slice loader](../slice-loaders) in communicators that receive this exception.
+a custom [Slice loader](../user-defined-types/classes/slice-loaders) in communicators that receive this exception.
 
 {% /callout %}
 

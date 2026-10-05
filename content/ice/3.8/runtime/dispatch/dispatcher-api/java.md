@@ -2,11 +2,11 @@
 
 ## Object Interface
 
-For historical reasons, the [Dispatcher](../terminology) abstraction does not correspond to a `Dispatcher` interface in
-Java. We use instead the interface `com.zeroc.Ice.Object` as the base interface for dispatchers.
+For historical reasons, the [Dispatcher](../../../basics/terminology) abstraction does not correspond to a `Dispatcher`
+interface in Java. We use instead the interface `com.zeroc.Ice.Object` as the base interface for dispatchers.
 
 `com.zeroc.Ice.Object` is a interface that provides the default implementation for the pseudo Slice interface
-[Object](../operations-on-object):
+[Object](../../../slice/operations-on-object):
 
 ```java
 package com.zeroc.Ice;

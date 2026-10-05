@@ -149,7 +149,7 @@ Subscribers can receive events from any replica. The subscriber will stop receiv
 
 A publisher for HA IceStorm typically receives a proxy containing multiple endpoints. With this proxy, the publisher
 normally binds to a single replica and continues using that replica until there is a failure, or until the
-[Idle Check](../connection-closure) closes the connection.
+[Idle Check](../../../runtime/connection-management/connection-closure) closes the connection.
 
 As with non-HA IceStorm, [event delivery ordering](../icestorm-delivery-modes) can be guaranteed if the subscriber and
 publisher are suitably configured and the publisher continues to use the same replica when publishing events.
@@ -157,10 +157,10 @@ publisher are suitably configured and the publisher continues to use the same re
 Ordering guarantees are lost as soon as a publisher changes to a different replica. Furthermore, a publisher may receive
 no notification that a change has occurred, which is possible under two circumstances:
 
-- The [Idle Check](../connection-closure) has closed the connection.
-- Publishing to a replica fails and the Ice invocation can be [retried](../automatic-retries), in which case the Ice run
-  time in the publisher automatically and transparently attempts to send the request to another replica. The publisher
-  receives an exception if the invocation cannot be retried.
+- The [Idle Check](../../../runtime/connection-management/connection-closure) has closed the connection.
+- Publishing to a replica fails and the Ice invocation can be [retried](../../../runtime/invocation/automatic-retries),
+  in which case the Ice run time in the publisher automatically and transparently attempts to send the request to
+  another replica. The publisher receives an exception if the invocation cannot be retried.
 
 A publisher has two ways of ensuring that it is notified about a change in replicas:
 
@@ -187,7 +187,7 @@ from the replicated topic using `getPublisher` or `getNonReplicatedPublisher`.
 - [IceStorm Administration](../icestorm-administration)
 - [IceStorm Quality of Service](../icestorm-quality-of-service)
 - [IceStorm Delivery Modes](../icestorm-delivery-modes)
-- [Automatic Retries](../automatic-retries)
+- [Automatic Retries](../../../runtime/invocation/automatic-retries)
 - [Configuring IceStorm](../configuring-icestorm)
 
 ## References

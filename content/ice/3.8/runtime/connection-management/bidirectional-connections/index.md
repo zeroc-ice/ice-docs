@@ -23,10 +23,10 @@ For situations such as these, a bidirectional connection offers a solution. Requ
 bidirectional connection, enabling a server to send callback requests to a client over the client's existing connection
 to the server.
 
-There are two ways to make use of a bidirectional connection. First, you can use a [Glacier2 router](../glacier2), in
-which case bidirectional connections are used automatically. If you do not require the functionality offered by Glacier2
-or you do not want an intermediary service between clients and servers, you can configure bidirectional connections
-manually.
+There are two ways to make use of a bidirectional connection. First, you can use a
+[Glacier2 router](../../../services/glacier2), in which case bidirectional connections are used automatically. If you do
+not require the functionality offered by Glacier2 or you do not want an intermediary service between clients and
+servers, you can configure bidirectional connections manually.
 
 The remainder of this section discusses manual configuration of bidirectional connections.
 
@@ -34,11 +34,12 @@ The remainder of this section discusses manual configuration of bidirectional co
 
 A client needs to perform the following steps in order to configure a bidirectional connection:
 
-1. [Create an object adapter](../creating-an-object-adapter) to receive callback requests. This adapter does not require
-   a name or endpoints if its only purpose is to receive callbacks over bidirectional connections.
+1. [Create an object adapter](../../dispatch/creating-an-object-adapter) to receive callback requests. This adapter does
+   not require a name or endpoints if its only purpose is to receive callbacks over bidirectional connections.
 2. Set this object adapter as the default object adapter on the communicator. This means the object adapter will gets
    associated with new outgoing connections created by the communicator.
-3. [Register the callback object](../object-adapter-activation-and-deactivation) or objects with the object adapter.
+3. [Register the callback object](../../dispatch/object-adapter-activation-and-deactivation) or objects with the object
+   adapter.
 
 {% callout type="tip" %}
 
@@ -87,11 +88,11 @@ Bidirectional connections have certain limitations:
 
 ## Threading Considerations for Bidirectional Connections
 
-An Ice communicator normally creates two [thread pools](../threading-model) for processing network traffic on
+An Ice communicator normally creates two [thread pools](../../threading-model) for processing network traffic on
 connections: the client thread pool manages outgoing connections and the server thread pool manages incoming
 connections. All of the object adapters in a server share the same thread pool by default, but an object adapter can
-also be configured to have [its own thread pool](../object-adapter-thread-pools). The default size of the client and
-server thread pools is one.
+also be configured to have [its own thread pool](../../threading-model/object-adapter-thread-pools). The default size of
+the client and server thread pools is one.
 
 The client thread pool processes replies to pending requests. When a client configures an outgoing connection for
 bidirectional requests, the client thread pool also becomes responsible for dispatching callback requests received over
@@ -100,16 +101,16 @@ bidirectional connection to send callback requests, then the server thread pool 
 requests.
 
 You must increase the size of the appropriate thread pool if you need the ability to dispatch multiple requests in
-parallel, or if you need to make [nested two-way invocations](../nested-invocations). For example, a client that
-receives a callback request over a bidirectional connection and makes nested invocations must increase the size of the
-_client_ thread pool.
+parallel, or if you need to make [nested two-way invocations](../../threading-model/nested-invocations). For example, a
+client that receives a callback request over a bidirectional connection and makes nested invocations must increase the
+size of the _client_ thread pool.
 
 ## See Also
 
-- [Glacier2](../glacier2)
-- [Creating an Object Adapter](../creating-an-object-adapter)
-- [Object Adapter Activation and Deactivation](../object-adapter-activation-and-deactivation)
-- [Object Identity](../object-identity)
-- [Nested Invocations](../nested-invocations)
-- [The Ice Threading Model](../threading-model)
-- [Object Adapter Thread Pools](../object-adapter-thread-pools)
+- [Glacier2](../../../services/glacier2)
+- [Creating an Object Adapter](../../dispatch/creating-an-object-adapter)
+- [Object Adapter Activation and Deactivation](../../dispatch/object-adapter-activation-and-deactivation)
+- [Object Identity](../../object-identity)
+- [Nested Invocations](../../threading-model/nested-invocations)
+- [The Ice Threading Model](../../threading-model)
+- [Object Adapter Thread Pools](../../threading-model/object-adapter-thread-pools)

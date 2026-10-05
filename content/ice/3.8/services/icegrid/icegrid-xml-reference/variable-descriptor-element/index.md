@@ -2,7 +2,7 @@
 title: Variable Descriptor Element
 ---
 
-A `variable` element defines a [variable](../using-descriptor-variables-and-parameters).
+A `variable` element defines a [variable](../../using-descriptor-variables-and-parameters).
 
 This element may only appear as a child of an [application](../application-descriptor-element) element or
 [node](../node-descriptor-element) element.
@@ -28,6 +28,6 @@ Here is an example to demonstrate the use of this element:
 
 ## See Also
 
-- [Using Descriptor Variables and Parameters](../using-descriptor-variables-and-parameters)
+- [Using Descriptor Variables and Parameters](../../using-descriptor-variables-and-parameters)
 - [Application Descriptor Element](../application-descriptor-element)
 - [Node Descriptor Element](../node-descriptor-element)

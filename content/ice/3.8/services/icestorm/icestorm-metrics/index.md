@@ -2,9 +2,10 @@
 title: IceStorm Metrics
 ---
 
-You can monitor IceStorm using the [Administrative Facility](../administrative-facility) and
-[the Metrics Facet](../metrics-facet). IceStorm provides two metrics class to monitor topic and subscriber related
-metrics. These classes are defined in `IceStorm/Metrics.ice` and are shown below.
+You can monitor IceStorm using the [Administrative Facility](../../../administration/administrative-facility) and
+[the Metrics Facet](../../../administration/administrative-facility/metrics-facet). IceStorm provides two metrics class
+to monitor topic and subscriber related metrics. These classes are defined in `IceStorm/Metrics.ice` and are shown
+below.
 
 ```slice
 module IceMX
@@ -67,6 +68,6 @@ The `Subscriber` map can be configured with the following attributes:
 
 See Also
 
-- [Administrative Facility](../administrative-facility)
-- [The Metrics Facet](../metrics-facet)
-- [IceMX.Metrics.*](../icemx-metrics-properties)
+- [Administrative Facility](../../../administration/administrative-facility)
+- [The Metrics Facet](../../../administration/administrative-facility/metrics-facet)
+- [IceMX.Metrics.*](../../../property-reference/icemx-metrics-properties)

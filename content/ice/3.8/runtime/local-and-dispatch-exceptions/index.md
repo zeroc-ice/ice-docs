@@ -8,9 +8,9 @@ The Ice runtime reports errors to the application by throwing exceptions. Ice oc
 such as `std::invalid_argument`(C++) or `IllegalArgumentException`(Java), but generally it throws exceptions derived
 from [LocalException](api:Ice/LocalException). These exceptions are known as _local exceptions_.
 
-As far as Ice is concerned, the opposite of a local exception is a user exception. [User exceptions](../exceptions) are
-defined in Slice and derive from [UserException](api:Ice/UserException); local exceptions are not defined in Slice and
-derive from `LocalException`.
+As far as Ice is concerned, the opposite of a local exception is a user exception.
+[User exceptions](../../slice/exceptions) are defined in Slice and derive from [UserException](api:Ice/UserException);
+local exceptions are not defined in Slice and derive from `LocalException`.
 
 {% callout type="info" %}
 
@@ -39,7 +39,7 @@ You can only get a dispatch exception when you make an invocation with a two-way
 
 {% /callout %}
 
-A dispatch information carries information transmitted in a [Reply](../protocol) message, namely:
+A dispatch information carries information transmitted in a [Reply](../../protocol) message, namely:
 
 - a [ReplyStatus](api:Ice/ReplyStatus) enumerator
 - one or more fields that depend on the `ReplyStatus` enumerator

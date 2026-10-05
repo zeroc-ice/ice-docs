@@ -5,9 +5,9 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side C++ Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated proxy class contains 3 member functions for this operation. To
-invoke an operation, you call one of these functions on the proxy. For example, let’s take the generated code from the
-[greeter example](../defining-the-greeter-interface-in-slice):
+[operation](./) on an interface, the generated proxy class contains 3 member functions for this operation. To invoke an
+operation, you call one of these functions on the proxy. For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -93,9 +93,9 @@ what’s more important for your application.
 
 ### Exception Handling
 
-Any operation invocation may throw [a runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
-exception specification, may also throw [user exceptions](../exceptions). Suppose we have the following simple
-interface:
+Any operation invocation may throw [a runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also throw [user exceptions](../exceptions). Suppose we have the following
+simple interface:
 
 ```slice
 exception Tantrum
@@ -129,10 +129,10 @@ catch (const Tantrum& t)
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side C++ Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated skeleton class contains a pure virtual function with the same
-name.
+[operation](./) on an interface, the generated skeleton class contains a pure virtual function with the same name.
 
-For example, let’s take the generated code from the [greeter example](../defining-the-greeter-interface-in-slice):
+For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -413,9 +413,9 @@ e.getNameAsync(
 ## Asynchronous Method Dispatch (AMD)
 
 The number of simultaneous synchronous requests a server is capable of supporting is determined by the number of threads
-in the server's [thread pool](../threading-model). If all of the threads are busy dispatching long-running operations,
-then no threads are available to process new requests and therefore clients may experience an unacceptable lack of
-responsiveness.
+in the server's [thread pool](../../runtime/threading-model). If all of the threads are busy dispatching long-running
+operations, then no threads are available to process new requests and therefore clients may experience an unacceptable
+lack of responsiveness.
 
 _Asynchronous Method Dispatch (AMD)_, the server-side equivalent of [AMI](#asynchronous-method-invocation-ami),
 addresses this scalability issue. Using AMD, a server can receive a request but then suspend its processing in order to
@@ -650,8 +650,8 @@ you’re loaning these values to Ice for marshaling.
 
 ### Optional Parameters
 
-The mapping for [optional parameters](../operations) is the same as for required parameters, except each mapped C++ type
-is enclosed in a `std::optional`.
+The mapping for [optional parameters](./) is the same as for required parameters, except each mapped C++ type is
+enclosed in a `std::optional`.
 
 Consider the following operation:
 
@@ -682,7 +682,7 @@ An optional parameter with a proxy type is mapped to a `std::optional<InterfaceN
 
 ## See Also
 
-- [The Ice Threading Model](../threading-model)
+- [The Ice Threading Model](../../runtime/threading-model)
 - [User Exceptions](../exceptions)
 
 {% /language-section %}

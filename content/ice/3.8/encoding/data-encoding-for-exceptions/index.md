@@ -15,10 +15,11 @@ value is `1` if any of the exception fields are classes (or if any of the except
 fields) and `0`, otherwise.
 
 Following the header byte, the exception is marshaled as a sequence of pairs: the first field of each pair is the
-[type ID](../type-ids) for an exception slice, and the second field of the pair is a [slice](../basic-data-encoding)
-containing the marshaled fields of that slice. The sequence of pairs is marshaled in derived-to-base order, with the
-most-derived slice first, and ending with the least-derived slice. Within each slice, fields are marshaled as for
-[structures](../basic-data-encoding): in the order in which they are defined in the Slice definition.
+[type ID](../../slice/type-ids) for an exception slice, and the second field of the pair is a
+[slice](../basic-data-encoding) containing the marshaled fields of that slice. The sequence of pairs is marshaled in
+derived-to-base order, with the most-derived slice first, and ending with the least-derived slice. Within each slice,
+fields are marshaled as for [structures](../basic-data-encoding): in the order in which they are defined in the Slice
+definition.
 
 Following the sequence of pairs, any [class instances](../data-encoding-for-classes) that are used by the fields of the
 exception are marshaled. This final part is optional: it is present only if the header byte is `1`.
@@ -110,7 +111,7 @@ The leading byte of each slice is a set of bit flags that specifies the features
 includes a type ID in the initial (most-derived) slice but omits the type ID from all subsequent slices.
 
 The sliced format includes a type ID in every slice, along with a slice size and an optional
-[indirection table](../class-graphs):
+[indirection table](../data-encoding-for-classes/class-graphs):
 
 ![The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
 
@@ -190,6 +191,6 @@ knowing how to decode its contents.
 
 ## See Also
 
-- [Type IDs](../type-ids)
+- [Type IDs](../../slice/type-ids)
 - [Basic Data Encoding](../basic-data-encoding)
 - [Data Encoding for Classes](../data-encoding-for-classes)

@@ -28,7 +28,7 @@ class TimeOfDay(Value):
 The generated class `TimeOfDay` inherits from `Ice.Value`. This means that all classes implicitly inherit from
 `Ice.Value`, which is the ultimate ancestor of all classes.
 
-All mapped fields have default values, such as `0` and the empty string (see [Fields](../fields) for details).
+All mapped fields have default values, such as `0` and the empty string (see [Fields](../../fields) for details).
 
 The mapped dataclass is configured with `eq=False` to provide reference-equality semantics like in other language
 mappings: two class instances are equal only when they are actually the same instance.

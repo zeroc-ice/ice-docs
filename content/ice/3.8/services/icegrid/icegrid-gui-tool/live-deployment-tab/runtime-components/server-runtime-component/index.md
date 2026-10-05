@@ -41,21 +41,22 @@ the Server Properties panel:
 - **Start** Instruct the IceGrid node to start the server.
 - **Stop** Instruct the IceGrid node to shutdown the server.
 - **Enable** Mark the server as "enabled".
-- **Disable** Mark the server as "disabled". A [disabled server](../icegrid-troubleshooting) cannot be started; however
-  an already running server can be marked "disabled".
+- **Disable** Mark the server as "disabled". A [disabled server](../../../../icegrid-troubleshooting) cannot be started;
+  however an already running server can be marked "disabled".
 - **Write Message** Open a dialog that allows you to write a message to the server's stdout or stderr.
-- **Retrieve Ice log** Retrieve the log messages sent to the server's [logger](../logger-facility) into an
-  [Ice Log Dialog](../ice-log-dialog). The Ice Log Dialog attaches a [remote logger](../logger-facet) to the server's
-  logger.
-- **Retrieve stdout** Retrieve the stdout log file of this server into a [Log File Dialog](../log-file-dialog). This
+- **Retrieve Ice log** Retrieve the log messages sent to the server's
+  [logger](../../../../../../administration/logger-facility) into an [Ice Log Dialog](../../ice-log-dialog). The Ice Log
+  Dialog attaches a [remote logger](../../../../../../administration/administrative-facility/logger-facet) to the
+  server's logger.
+- **Retrieve stdout** Retrieve the stdout log file of this server into a [Log File Dialog](../../log-file-dialog). This
   retrieval succeeds only when the server's stdout output has been redirected to a file using the
-  [Ice.StdOut](../ice-properties) property. This is usually achieved by setting the IceGrid.Node.Output property in the
-  IceGrid node configuration file.
-- **Retrieve stderr** Retrieve the stderr log file of this server into a [Log File Dialog](../log-file-dialog). This
+  [Ice.StdOut](../../../../../../property-reference/ice-properties) property. This is usually achieved by setting the
+  IceGrid.Node.Output property in the IceGrid node configuration file.
+- **Retrieve stderr** Retrieve the stderr log file of this server into a [Log File Dialog](../../log-file-dialog). This
   retrieval succeeds only when the server's stderr output has been redirected to a file using the
-  [Ice.StdErr](../ice-properties) property. This is usually achieved by setting the IceGrid.Node.Output property in the
-  IceGrid node configuration file.
-- **Retrieve log file** Retrieve a log file of this server into a [Log File Dialog](../log-file-dialog).
+  [Ice.StdErr](../../../../../../property-reference/ice-properties) property. This is usually achieved by setting the
+  IceGrid.Node.Output property in the IceGrid node configuration file.
+- **Retrieve log file** Retrieve a log file of this server into a [Log File Dialog](../../log-file-dialog).
 - **Send Signal** Send a signal to a server, for example SIGQUIT. Available only for non-Windows servers.
 
 ## Properties
@@ -66,7 +67,7 @@ The Server Properties panel shows first the Runtime Status of the server, i.e. "
 - **Enabled** A checkbox that is checked when the server is enabled.
 - **Process Id** The process ID of the server.
 - **Build Id** The build Id of this server: this corresponds to the Ice property
-  [BuildId](../icegrid-and-the-administrative-facility).
+  [BuildId](../../../../icegrid-and-the-administrative-facility).
 - **Properties** A table showing all the Ice properties currently set in this server. These properties are retrieved
   each time you select a new server in IceGrid GUI, and each time you click on the Refresh button next to the Build Id
   field.

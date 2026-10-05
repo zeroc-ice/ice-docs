@@ -5,7 +5,8 @@ page and its overlays combine.
 
 ## Links
 
-- Link to a page by name: `[Enumerations](../enumerations)`.
+- Link to a page by a path relative to this one, `[Structures](../structures)`, or by its slug under the version,
+  `[Enumerations](slice/user-defined-types/enumerations)`.
 - Add `#<anchor>` to link to a heading.
 - Add `?lang=<language>` to switch the reader to that mapping.
 - Link to a type in the API reference by module and name: `[Communicator](api:Ice/Communicator)`. The reader gets the
@@ -56,6 +57,7 @@ page and its overlays combine.
 | `pages`                  | The pages under this one, in sidebar order.                                                                                                                   |
 | `description`            | A subtitle under the title, and the page's meta description. Search matches against it.                                                                       |
 | `type`                   | The page's kind, shown as a badge above the title and on its search hits: `tutorial`, `how-to`, `concept`, `reference`, `troubleshooting`, or `release-note`. |
+| `languages`              | The languages a shared page is written for. The sidebar and search leave it out for the others, whose readers get a note instead of its text.                 |
 | `shape: wide`            | Runs the body on the wide track.                                                                                                                              |
 | `showAside: false`       | Drops the right rail.                                                                                                                                         |
 | `showReadingTime: false` | Drops the reading time.                                                                                                                                       |

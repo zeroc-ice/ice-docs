@@ -27,4 +27,4 @@ more generated classes (typically classes with remapped names or compact IDs).
 
 ## See Also
 
-- [Type IDs](../type-ids)
+- [Type IDs](../../../type-ids)

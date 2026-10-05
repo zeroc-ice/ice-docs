@@ -80,9 +80,9 @@ enumerators, the behavior of comparison operations may vary between language map
 
 {% callout type="warning" %}
 
-For an application that is still using version 1.0 of the [Ice encoding](../basic-data-encoding), changing the
-definition of an enumerated type **may** break backward compatibility with existing applications. For more information,
-please refer to the [encoding rules](../basic-data-encoding) for enumerators.
+For an application that is still using version 1.0 of the [Ice encoding](../../../encoding/basic-data-encoding),
+changing the definition of an enumerated type **may** break backward compatibility with existing applications. For more
+information, please refer to the [encoding rules](../../../encoding/basic-data-encoding) for enumerators.
 
 {% /callout %}
 
@@ -92,4 +92,4 @@ please refer to the [encoding rules](../basic-data-encoding) for enumerators.
 
 ## See Also
 
-- [Constants and Literals](../constants-and-literals)
+- [Constants and Literals](../../constants-and-literals)

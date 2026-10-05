@@ -3,9 +3,9 @@ title: Manually Installing a Service as a Windows Service
 ---
 
 This page describes how to manually install and configure an Ice service as a Windows Service using the
-[IceBridge](../icebridge) service as a case study. For the purposes of this discussion, we assume that Ice is installed
-in the directory `C:\Program Files\ZeroC\Ice-3.8.2`. We also assume that you have administrative access to your system,
-which is required by many of the installation steps discussed below.
+[IceBridge](../../../services/icebridge) service as a case study. For the purposes of this discussion, we assume that
+Ice is installed in the directory `C:\Program Files\ZeroC\Ice-3.8.2`. We also assume that you have administrative access
+to your system, which is required by many of the installation steps discussed below.
 
 ## Selecting a User Account for the IceBridge Service
 
@@ -152,7 +152,8 @@ Our configuration of the event log is now complete.
 Using the configuration described in the previous section, events logged by the IceBridge service are recorded in the
 event log using the source name `icebridge`. If you prefer to use a source name that differs from the service name, you
 can replace icebridge in the registry commands with the name of your choosing, but you must also add a matching
-definition for the property [Ice.EventLog.Source](../ice-properties) to the service's configuration file.
+definition for the property [Ice.EventLog.Source](../../../property-reference/ice-properties) to the service's
+configuration file.
 
 For example, to use the source name `Ice Bridging Service`, you would add the registry key as shown below:
 
@@ -219,7 +220,8 @@ custom log instead of the `Application` log, you should perform the following st
 After following these steps, open a log entry and ensure that it displays properly. If it does not, for example if the
 event properties indicate that the description of an event cannot be found, the problem is likely due to a misconfigured
 event source. Verify that the value of `EventMessageFile` refers to the correct location of the Ice run time DLL, and
-that the service is defining [Ice.EventLog.Source](../ice-properties) in its configuration file (if necessary).
+that the service is defining [Ice.EventLog.Source](../../../property-reference/ice-properties) in its configuration file
+(if necessary).
 
 ## Starting the IceBridge Service
 

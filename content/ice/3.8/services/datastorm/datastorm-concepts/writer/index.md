@@ -170,8 +170,8 @@ Configuration can be provided at multiple levels, allowing both global defaults 
 
 You can set:
 
-- **Global defaults** — using [DataStorm.Topic.*](../datastorm-topic-properties) properties (e.g.,
-  `DataStorm.Topic.SampleCount`)
+- **Global defaults** — using [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties
+  (e.g., `DataStorm.Topic.SampleCount`)
 - **Topic-level defaults** — by calling
   [Topic::setWriterDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ab2a2111a70b838cbc57278ac4c29e645.html#ab2a2111a70b838cbc57278ac4c29e645)
 - **Per-writer configuration** — via the writer constructor or

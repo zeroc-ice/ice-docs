@@ -2,8 +2,8 @@
 title: Forward Declarations
 ---
 
-Both [interfaces](../interfaces) and [classes](../classes) can be forward declared. Forward declarations permit the
-creation of mutually dependent objects, for example:
+Both [interfaces](../interfaces) and [classes](../user-defined-types/classes) can be forward declared. Forward
+declarations permit the creation of mutually dependent objects, for example:
 
 ```slice
 module Family

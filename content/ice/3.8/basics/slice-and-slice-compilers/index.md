@@ -23,7 +23,7 @@ interface Greeter
 With Ice, each [Ice object](../terminology) implements a Slice interface with one or more operations.
 
 Interfaces, operations, and the types of data that are exchanged between client and server are defined using the
-[_Slice language_](../slice). Slice allows you to define the client-server contract in a way that is independent of a
+[_Slice language_](../../slice). Slice allows you to define the client-server contract in a way that is independent of a
 specific programming language, such as C++, Java, or C#.
 
 ## Slice Compilers
@@ -47,4 +47,4 @@ PHP and Ruby.
 
 ## See Also
 
-- [The Slice Language](../slice)
+- [The Slice Language](../../slice)

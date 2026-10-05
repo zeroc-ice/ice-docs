@@ -22,9 +22,8 @@ DataStorm.Node.ConnectTo=tcp -h node.example.com -p 10000
 ```
 
 DataStorm uses these endpoints with the object identity `DataStorm/Lookup2`. Failed connection attempts retry
-indefinitely, using the delays described by
-[DataStorm.Node.RetryMultiplier](../datastorm-node-properties#datastorm.node.retrymultiplier). When an established
-connection closes, DataStorm attempts to reconnect immediately.
+indefinitely, using the delays described by [DataStorm.Node.RetryMultiplier](#datastorm.node.retrymultiplier). When an
+established connection closes, DataStorm attempts to reconnect immediately.
 
 ## DataStorm.Node.Name
 
@@ -50,8 +49,8 @@ set, DataStorm generates a UUID for the name. Set it when you want recognizable 
 Specifies the maximum number of retries to establish a peer session after a connection failure. The default is 6. A
 value of 0 or less disables these session retries.
 
-For the node configured with [DataStorm.Node.ConnectTo](../datastorm-node-properties#datastorm.node.connectto), retries
-continue indefinitely; `RetryCount` caps the exponent used to compute the retry delay.
+For the node configured with [DataStorm.Node.ConnectTo](#datastorm.node.connectto), retries continue indefinitely;
+`RetryCount` caps the exponent used to compute the retry delay.
 
 ## DataStorm.Node.RetryMultiplier
 
@@ -67,10 +66,9 @@ For peer-session retries, the first retry is immediate. For retry number `n` sta
 `RetryDelay * RetryMultiplier ^ min(n - 2, RetryCount)`. With the defaults, the six retry delays are 0, 500, 1,000,
 2,000, 4,000 and 8,000 milliseconds.
 
-For failed connection attempts to the node configured with
-[DataStorm.Node.ConnectTo](../datastorm-node-properties#datastorm.node.connectto), retry number `n` starts at 1 and uses
-`RetryDelay * RetryMultiplier ^ min(n - 1, RetryCount)`. With the defaults, these delays start at 500 milliseconds and
-double up to 32,000 milliseconds; subsequent attempts use the capped delay.
+For failed connection attempts to the node configured with [DataStorm.Node.ConnectTo](#datastorm.node.connectto), retry
+number `n` starts at 1 and uses `RetryDelay * RetryMultiplier ^ min(n - 1, RetryCount)`. With the defaults, these delays
+start at 500 milliseconds and double up to 32,000 milliseconds; subsequent attempts use the capped delay.
 
 ## DataStorm.Node.RetryDelay
 
@@ -81,8 +79,7 @@ double up to 32,000 milliseconds; subsequent attempts use the capped delay.
 ### Description {% id="datastorm.node.retrydelay-description" %}
 
 Specifies the base retry delay in milliseconds. The default is 500. DataStorm combines this value with
-[DataStorm.Node.RetryMultiplier](../datastorm-node-properties#datastorm.node.retrymultiplier) to compute the delay for
-each retry.
+[DataStorm.Node.RetryMultiplier](#datastorm.node.retrymultiplier) to compute the delay for each retry.
 
 ## DataStorm.Node.Server.Enabled
 

@@ -3,26 +3,26 @@ title: Defining the Greeter Interface in Slice
 ---
 
 The first step of writing an Ice application is to define the contract between our client and server using
-[Slice](../slice). For this example, we just want a single operation that accepts a name, and returns a greeting
+[Slice](../../slice). For this example, we just want a single operation that accepts a name, and returns a greeting
 computed from this name. Let’s see how to express this in Slice.
 
 ## Slice Files
 
-All Slice definitions must be stored in [Slice files](../slice-source-files), i.e. files ending with a `.ice` extension.
-For this example, we write our definitions in a Slice file named `Greeter.ice`.
+All Slice definitions must be stored in [Slice files](../../slice/slice-source-files), i.e. files ending with a `.ice`
+extension. For this example, we write our definitions in a Slice file named `Greeter.ice`.
 
 ## Writing the `Greeter.ice` Slice File
 
-We start by adding a [module](../modules) to our Slice file. Modules are containers that can be used to organize Slice
-definitions into named groups. Slice requires that all definitions be contained within modules. So at this point, our
-Slice file looks like:
+We start by adding a [module](../../slice/modules) to our Slice file. Modules are containers that can be used to
+organize Slice definitions into named groups. Slice requires that all definitions be contained within modules. So at
+this point, our Slice file looks like:
 
 {% language-section name="lang-1" /%}
 
 Now that we have a module, there’s only one more thing we need before we can define our operation: an
-[interface](../interfaces). Interfaces are at the core of Ice, as they specify the remote API (the ‘contract’) between
-clients and servers. So how you split your operations among interfaces can have large implications for the structure of
-your application. But, with only one operation, there are no such considerations in this example:
+[interface](../../slice/interfaces). Interfaces are at the core of Ice, as they specify the remote API (the ‘contract’)
+between clients and servers. So how you split your operations among interfaces can have large implications for the
+structure of your application. But, with only one operation, there are no such considerations in this example:
 
 ```slice
     interface Greeter

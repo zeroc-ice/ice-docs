@@ -2,15 +2,14 @@
 title: Data Encoding for Class Graphs
 ---
 
-[Classes](../classes) support pointer semantics, that is, you can construct graphs of classes. It follows that classes
-can arbitrarily point at each other, and therefore the encoding must provide a scheme for serializing and deserializing
-a class graph. Note that the marshaling format for [class references and instances](../data-encoding-for-classes)
-differs significantly between versions 1.0 and 1.1 of the encoding.
+[Classes](../../../slice/user-defined-types/classes) support pointer semantics, that is, you can construct graphs of
+classes. It follows that classes can arbitrarily point at each other, and therefore the encoding must provide a scheme
+for serializing and deserializing a class graph. Note that the marshaling format for
+[class references and instances](..) differs significantly between versions 1.0 and 1.1 of the encoding.
 
 ## Encoding a Class Graph Version 1.0
 
-In version 1.0 of the encoding, an [instance ID](../data-encoding-for-classes) is used to distinguish instances and
-pointers as follows:
+In version 1.0 of the encoding, an [instance ID](..) is used to distinguish instances and pointers as follows:
 
 - An instance ID of 0 denotes a null pointer.
 - An instance ID > 0 precedes the marshaled contents of an instance.
@@ -73,12 +72,12 @@ same contents).
 
 Marshaling the negative instance IDs instead of the contents of an instance allows the receiver to accurately
 reconstruct the class graph that was sent by the sender. However, this begs the question of _when_ the actual instances
-are to be marshaled as described at the beginning of this section. In Ice [protocol messages](../protocol-messages),
-parameters and return values are marshaled as if they were fields of a structure. For example, if an operation
-invocation has five input parameters, the client marshals the five parameters end-to-end as if they were fields of a
-single structure. If any of the five parameters are class instances, or are of complex type (recursively) containing
-class instances, the sender marshals the parameters in multiple passes: the first pass marshals the parameters
-end-to-end, using the usual depth-first algorithm:
+are to be marshaled as described at the beginning of this section. In Ice
+[protocol messages](../../../protocol/protocol-messages), parameters and return values are marshaled as if they were
+fields of a structure. For example, if an operation invocation has five input parameters, the client marshals the five
+parameters end-to-end as if they were fields of a single structure. If any of the five parameters are class instances,
+or are of complex type (recursively) containing class instances, the sender marshals the parameters in multiple passes:
+the first pass marshals the parameters end-to-end, using the usual depth-first algorithm:
 
 - If the sender encounters a class field during marshaling, it checks whether it has marshaled the same instance
   previously for the current request or reply:
@@ -96,8 +95,8 @@ instances that may be pointed at by various parameters or fields. The instance t
 instances for which negative IDs (pointers) were marshaled, so whatever is in the table at this point are the classes
 that the receiver still needs. The sender now marshals those instances in the table, but with positive IDs and followed
 by their contents, as described in [our earlier example](../simple-example-of-class-encoding). The outstanding instances
-are marshaled as a sequence, that is, the sender marshals the number of instances as a [size](../basic-data-encoding),
-followed by the actual instances.
+are marshaled as a sequence, that is, the sender marshals the number of instances as a
+[size](../../basic-data-encoding), followed by the actual instances.
 
 In turn, the instances just sent may themselves contain class fields; when those class fields are marshaled, the sender
 assigns IDs to new instances or uses a negative ID for previously marshaled instances as usual. This means that, by the
@@ -229,12 +228,13 @@ marshals a sequence containing a single element, namely instance `1`, and comple
 
 The most significant difference in the class encoding between version 1.0 and 1.1 is the location of class instances in
 the output stream. In version 1.0, instances are always marshaled at the end of the encapsulation, whereas in version
-1.1 instances are marshaled at the point of first reference. Our previous discussion of
-[class references](../data-encoding-for-classes) describes the factors that determine whether a given class reference is
-marshaled as a reference or as an inline instance. The encoding rules can be summarized as follows:
+1.1 instances are marshaled at the point of first reference. Our previous discussion of [class references](..) describes
+the factors that determine whether a given class reference is marshaled as a reference or as an inline instance. The
+encoding rules can be summarized as follows:
 
-- When using the compact [format](../slicing-values-and-exceptions), always marshal an instance inline at the point of
-  its first reference, and marshal all subsequent occurrences of the same instance as a reference.
+- When using the compact [format](../../../slice/user-defined-types/classes/slicing-values-and-exceptions), always
+  marshal an instance inline at the point of its first reference, and marshal all subsequent occurrences of the same
+  instance as a reference.
 - When using the sliced format, the encoding depends on the context in which a reference occurs: if the reference occurs
   while encoding a slice of an object or exception, encode it as an index into an indirection table that appears at the
   end of the slice, otherwise encode it as an inline instance or reference.
@@ -324,17 +324,18 @@ which has already been encoded.
 
 ### Importance of the Indirection Table
 
-The indirection table is necessary for implementing the [slice preservation](../slicing-values-and-exceptions) feature.
-Normally, when a receiver does not recognize the type ID in a slice, it has the option of ignoring that slice by
-skipping ahead in the stream by the number of bytes in the slice. However, when slice preservation is enabled, the
-receiver must keep a copy of the slice data in case the instance is later remarshaled. The need for the indirection
-table becomes apparent when you consider that an opaque blob of slice data may contain class references, and those class
-references can change during remarshaling. For example, without an indirection table, the sender might encode the
-instance ID `3` as the value of field `next`, but what happens if the receiver assigns that instance a different ID,
-such as `12`, when it remarshals the preserved slice? The receiver preserved the slice because it did not understand the
-type ID, which means it does not know the contents of the slice data and therefore it cannot "patch" any class
-references the slice might contain. The indirection table serves as an external "patch table" to solve this problem,
-essentially making the opaque slice data _relocatable_ with respect to class references.
+The indirection table is necessary for implementing the
+[slice preservation](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) feature. Normally, when a
+receiver does not recognize the type ID in a slice, it has the option of ignoring that slice by skipping ahead in the
+stream by the number of bytes in the slice. However, when slice preservation is enabled, the receiver must keep a copy
+of the slice data in case the instance is later remarshaled. The need for the indirection table becomes apparent when
+you consider that an opaque blob of slice data may contain class references, and those class references can change
+during remarshaling. For example, without an indirection table, the sender might encode the instance ID `3` as the value
+of field `next`, but what happens if the receiver assigns that instance a different ID, such as `12`, when it remarshals
+the preserved slice? The receiver preserved the slice because it did not understand the type ID, which means it does not
+know the contents of the slice data and therefore it cannot "patch" any class references the slice might contain. The
+indirection table serves as an external "patch table" to solve this problem, essentially making the opaque slice data
+_relocatable_ with respect to class references.
 
 The byte count for a slice does not include the indirection table because the receiver must process the table regardless
 of whether it recognizes that slice's type ID. Consequently, to "skip" a slice, the receiver can skip (or preserve) the
@@ -401,16 +402,16 @@ containing many instances.
 
 {% callout type="info" %}
 
-The [slice preservation](../slicing-values-and-exceptions) feature in version 1.1 of the encoding allows a receiver to
-re-marshal the original graph intact, despite the fact that the receiver's in-memory object graph may appear to be
-disconnected.
+The [slice preservation](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) feature in version 1.1
+of the encoding allows a receiver to re-marshal the original graph intact, despite the fact that the receiver's
+in-memory object graph may appear to be disconnected.
 
 {% /callout %}
 
 ## See Also
 
-- [Basic Data Encoding](../basic-data-encoding)
-- [Data Encoding for Classes](../data-encoding-for-classes)
+- [Basic Data Encoding](../../basic-data-encoding)
+- [Data Encoding for Classes](..)
 - [Simple Example of Class Encoding](../simple-example-of-class-encoding)
-- [Protocol Messages](../protocol-messages)
-- [Slicing Values and Exceptions](../slicing-values-and-exceptions)
+- [Protocol Messages](../../../protocol/protocol-messages)
+- [Slicing Values and Exceptions](../../../slice/user-defined-types/classes/slicing-values-and-exceptions)

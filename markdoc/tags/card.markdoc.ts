@@ -15,8 +15,7 @@ export const CARD_ICONS = [
 ] as const;
 
 // Landing pages are built out of cards, so a card's href is resolved through the
-// same page index as an ordinary link — a card can name a page and keep working
-// after that page moves.
+// same page index as an ordinary link.
 const card = {
   ...nodes.document,
   render: 'Card',
@@ -46,9 +45,10 @@ const card = {
   },
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
-    const { version, pageIndex } = config.variables as PageVariables;
+    const { version, slug, pageIndex } = config.variables as PageVariables;
     const { href, resolved } = resolveDocLink(String(attributes.href ?? ''), {
       version,
+      slug,
       index: pageIndex
     });
     return new Tag(

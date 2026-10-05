@@ -173,7 +173,7 @@ when constructing the node.
 Reader behavior is configurable via
 [DataStorm::ReaderConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1ReaderConfig.html). You can set:
 
-- **Global defaults** — [DataStorm.Topic.*](../datastorm-topic-properties) properties (e.g.,
+- **Global defaults** — [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties (e.g.,
   DataStorm.Topic.SampleCount)
 - **Topic-level defaults** — by calling
   [Topic::setReaderDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ae005c107f689e1e309e49a4c1421ed2a.html#ae005c107f689e1e309e49a4c1421ed2a)

@@ -46,4 +46,4 @@ a shared resource (such as a mutex, or itself when the thread in question is a d
 - [Thread Pools](../thread-pools)
 - [Object Adapter Thread Pools](../object-adapter-thread-pools)
 - [Thread Pool Design Considerations](../thread-pool-design-considerations)
-- [Oneway Invocations](../oneway-invocations)
+- [Oneway Invocations](../../invocation/invocation-mode/oneway-invocations)

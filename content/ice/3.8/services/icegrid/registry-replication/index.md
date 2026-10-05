@@ -88,13 +88,13 @@ settings.
 ### Replicas
 
 Each replica must specify a unique name in its configuration property
-[IceGrid.Registry.ReplicaName](../icegrid-properties). The default value of this property is `Master`, therefore the
-master replica can omit this property if desired.
+[IceGrid.Registry.ReplicaName](../../../property-reference/icegrid-properties). The default value of this property is
+`Master`, therefore the master replica can omit this property if desired.
 
 At startup, a slave replica attempts to register itself with its master in order to synchronize its databases and obtain
-the list of active nodes. The slave uses the proxy supplied by the [Ice.Default.Locator](../ice-default-properties)
-property to find the master. At a minimum, this proxy should contain the endpoint of a replica that is connected to the
-master.
+the list of active nodes. The slave uses the proxy supplied by the
+[Ice.Default.Locator](../../../property-reference/ice-default-properties) property to find the master. At a minimum,
+this proxy should contain the endpoint of a replica that is connected to the master.
 
 For better reliability if a failure occurs, we recommend that you also include the endpoints of all slave replicas in
 the `Ice.Default.Locator` property. There is no harm in adding the slave's own endpoints to the proxy in
@@ -126,8 +126,8 @@ IceGrid.Registry.ReplicaName=Replica1
 
 {% callout type="tip" %}
 
-Configuring [IceLocatorDiscovery](../icelocatordiscovery) in the replicas allows them to discover the master at run time
-without the need to define `Ice.Default.Locator`.
+Configuring [IceLocatorDiscovery](../../../plugins/icelocatordiscovery) in the replicas allows them to discover the
+master at run time without the need to define `Ice.Default.Locator`.
 
 {% /callout %}
 
@@ -147,8 +147,8 @@ Ice.Default.Locator=IceGrid/Locator:default -p 12000:default -p 12001
 
 {% callout type="tip" %}
 
-Configuring [IceLocatorDiscovery](../icelocatordiscovery) in a client allows it to discover the replicas at runtime
-without the need to define `Ice.Default.Locator`.
+Configuring [IceLocatorDiscovery](../../../plugins/icelocatordiscovery) in a client allows it to discover the replicas
+at runtime without the need to define `Ice.Default.Locator`.
 
 {% /callout %}
 
@@ -173,8 +173,8 @@ IceGrid.Node.Data=db/node1
 
 {% callout type="tip" %}
 
-Configuring [IceLocatorDiscovery](../icelocatordiscovery) in a node allows it to discover the replicas at runtime
-without the need to define `Ice.Default.Locator`.
+Configuring [IceLocatorDiscovery](../../../plugins/icelocatordiscovery) in a node allows it to discover the replicas at
+runtime without the need to define `Ice.Default.Locator`.
 
 {% /callout %}
 
@@ -183,11 +183,12 @@ without the need to define `Ice.Default.Locator`.
 You can use several configuration properties to enable trace messages that may help in diagnosing registry replication
 issues:
 
-- [IceGrid.Registry.Trace.Replica](../icegrid-properties) Displays information about the sessions established between
-  master and slave replicas.
+- [IceGrid.Registry.Trace.Replica](../../../property-reference/icegrid-properties) Displays information about the
+  sessions established between master and slave replicas.
 
-- [IceGrid.Registry.Trace.Node](../icegrid-properties) [IceGrid.Node.Trace.Replica](../icegrid-properties) Displays
-  information about the sessions established between replicas and nodes.
+- [IceGrid.Registry.Trace.Node](../../../property-reference/icegrid-properties)
+  [IceGrid.Node.Trace.Replica](../../../property-reference/icegrid-properties) Displays information about the sessions
+  established between replicas and nodes.
 
 ## Using Registry Replication with External Load Balancing
 
@@ -219,4 +220,4 @@ is really only an issue when starting a slave with an empty database.
 - [Well-Known Objects](../well-known-objects)
 - [icegridadmin Command Line Tool](../icegridadmin-command-line-tool)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
-- [IceGrid.*](../icegrid-properties)
+- [IceGrid.*](../../../property-reference/icegrid-properties)

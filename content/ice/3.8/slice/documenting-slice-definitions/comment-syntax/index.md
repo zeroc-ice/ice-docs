@@ -11,8 +11,7 @@ Slice supports two styles of comments: _line comments_ and _block comments_.
    going until it reaches a */
 ```
 
-Slice also supports two styles of _doc comments_, which [document](../documenting-slice-definitions) the definition that
-follows them.
+Slice also supports two styles of _doc comments_, which [document](..) the definition that follows them.
 
 A line doc comment is a line comment with a third slash. Consecutive lines form one doc comment:
 

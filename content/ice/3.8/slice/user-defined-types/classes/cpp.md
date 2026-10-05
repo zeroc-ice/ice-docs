@@ -1,7 +1,7 @@
 {% language-section name="language-mapping" %}
 
 A Slice class is mapped to a C++ class with the same name. The generated class contains a public data member for each
-Slice field (just as for [structures](../structures) and [exceptions](../exceptions)). Consider the following class
+Slice field (just as for [structures](../structures) and [exceptions](../../exceptions)). Consider the following class
 definition:
 
 ```slice
@@ -58,8 +58,8 @@ Classes have two constructors:
   member has a reasonable default value. This is especially true for enumerated types as the member's default value may
   be outside the legal range for the enumeration, in which case an exception will occur during marshaling unless the
   member is explicitly set to a legal value. To ensure that data members of primitive types are initialized to
-  reasonable values, you can declare default values in your [Slice definition](../classes), and the Slice compiler will
-  generate data member initializers for the corresponding C++ data members.
+  reasonable values, you can declare default values in your [Slice definition](./), and the Slice compiler will generate
+  data member initializers for the corresponding C++ data members.
 - a constructor with one parameter for each data member (the _one-shot_ constructor) This constructor allows you to
   construct and initialize a class instance in a single statement.
 

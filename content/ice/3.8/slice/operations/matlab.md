@@ -5,9 +5,9 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side MATLAB Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](../operations) on an interface, the generated proxy class contains 2 methods for this operation. To invoke
-an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
-[greeter example](../defining-the-greeter-interface-in-slice):
+[operation](./) on an interface, the generated proxy class contains 2 methods for this operation. To invoke an
+operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 ["matlab:identifier:visitorcenter"]
@@ -66,9 +66,9 @@ convenient to call. You decide what’s more important for your application.
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](../local-and-dispatch-exceptions) and, if the operation has an
-exception specification, may also throw [user exceptions](../local-and-dispatch-exceptions). Suppose we have the
-following simple interface:
+Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Suppose we have the following simple interface:
 
 ```slice
 exception Tantrum
@@ -240,8 +240,8 @@ end
 
 ### Optional Parameters
 
-[Optional parameters](../operations) use the same mapping as required parameters, with one difference: the parameter
-accepts `Ice.Unset` as a valid value.
+[Optional parameters](./) use the same mapping as required parameters, with one difference: the parameter accepts
+`Ice.Unset` as a valid value.
 
 Consider the following operation:
 

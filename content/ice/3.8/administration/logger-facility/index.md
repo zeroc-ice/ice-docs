@@ -7,9 +7,9 @@ pages:
   - per-process-logger
 ---
 
-Depending on the setting of [various properties](../properties-and-configuration), the Ice runtime produces trace,
-warning, or error messages. These messages are written via the [Logger](api:Ice/Logger) interface.
+Depending on the setting of [various properties](../../runtime/properties-and-configuration), the Ice runtime produces
+trace, warning, or error messages. These messages are written via the [Logger](api:Ice/Logger) interface.
 
 ## See Also
 
-- [Properties and Configuration](../properties-and-configuration)
+- [Properties and Configuration](../../runtime/properties-and-configuration)

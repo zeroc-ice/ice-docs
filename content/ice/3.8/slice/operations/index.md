@@ -179,8 +179,8 @@ the other hand, `x += 1;` is not an idempotent operation because executing it tw
 than executing it once. Obviously, any read-only operation is idempotent.
 
 The `idempotent` keyword is useful because it allows the Ice runtime to be more aggressive when performing
-[automatic retries](../automatic-retries) to recover from errors. Specifically, Ice guarantees _at-most-once_ semantics
-for operation invocations:
+[automatic retries](../../runtime/invocation/automatic-retries) to recover from errors. Specifically, Ice guarantees
+_at-most-once_ semantics for operation invocations:
 
 - For normal (not idempotent) operations, the Ice runtime has to be conservative about how it deals with errors. For
   example, if a client sends an operation invocation to a server and then loses connectivity, there is no way for the

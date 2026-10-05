@@ -19,7 +19,7 @@ initialization.
 
 ## See Also
 
-- [Custom Loggers](../custom-loggers)
-- [The Per-Process Logger](../per-process-logger)
+- [Custom Loggers](../../administration/logger-facility/custom-loggers)
+- [The Per-Process Logger](../../administration/logger-facility/per-process-logger)
 - [Plug-in Facility](../plug-in-facility)
-- [Ice.Plugin.*](../ice-plugin-properties)
+- [Ice.Plugin.*](../../property-reference/ice-plugin-properties)

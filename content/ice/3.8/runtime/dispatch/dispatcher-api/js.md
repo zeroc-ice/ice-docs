@@ -2,10 +2,10 @@
 
 ## Ice.Object Base Class
 
-For historical reasons, the [Dispatcher](../terminology) abstraction does not correspond to a `Dispatcher` base class in
-JavaScript. We use instead the base class `Ice.Object` as the dispatcher base class.
+For historical reasons, the [Dispatcher](../../../basics/terminology) abstraction does not correspond to a `Dispatcher`
+base class in JavaScript. We use instead the base class `Ice.Object` as the dispatcher base class.
 
-`Object` is a concrete class that implements the pseudo Slice interface [Object](../operations-on-object):
+`Object` is a concrete class that implements the pseudo Slice interface [Object](../../../slice/operations-on-object):
 
 ```js
 export class Object {

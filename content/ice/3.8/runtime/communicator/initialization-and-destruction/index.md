@@ -17,5 +17,5 @@ customize when you create a communicator.
 
 ## See Also
 
-- [Command-Line Parsing and Initialization](../command-line-parsing-and-initialization)
-- [The Properties Interface](../properties-class)
+- [Command-Line Parsing and Initialization](../../properties-and-configuration/command-line-parsing-and-initialization)
+- [The Properties Interface](../../properties-and-configuration/properties-class)

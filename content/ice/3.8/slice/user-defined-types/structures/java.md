@@ -42,7 +42,7 @@ public final class Employee implements java.lang.Cloneable, java.io.Serializable
 }
 ```
 
-You can optionally customize the mapping for [fields](../fields) to use getters and setters instead.
+You can optionally customize the mapping for [fields](../../fields) to use getters and setters instead.
 
 The `equals` method compares two structures for equality. Note that the generated class also provides the usual
 `hashCode` and `clone` methods. (`clone` has the default behavior of making a shallow copy.)
@@ -52,6 +52,6 @@ The `equals` method compares two structures for equality. Note that the generate
 The mapped Java class provides two constructors:
 
 - canonical constructor with parameters for all the fields
-- a parameterless constructor that initializes all fields to default values (see [Fields](../fields))
+- a parameterless constructor that initializes all fields to default values (see [Fields](../../fields))
 
 {% /language-section %}

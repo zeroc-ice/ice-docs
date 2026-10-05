@@ -44,7 +44,7 @@ There are a several things to note about the generated code:
 All generated classes have at least two constructors:
 
 - a canonical constructor that accepts one argument for each field of the class
-- a parameterless constructor that initializes all fields using default values described (see [Fields](../fields))
+- a parameterless constructor that initializes all fields using default values described (see [Fields](../../fields))
 
 When a Slice class declares both optional and non-optional fields, the mapped Java class provides a third constructor
 that accepts arguments for just the non-optional fields; the optional fields are left unset.
@@ -57,7 +57,7 @@ TimeOfDay tod = new TimeOfDay(14, 45, 00, "PST"); // 14:45pm PST
 ```
 
 For derived classes, the constructor requires an argument for every field of the class, including inherited members. For
-example, consider the the definition from [Class Inheritance](../class-inheritance) once more:
+example, consider the the definition from [Class Inheritance](./class-inheritance) once more:
 
 ```slice
 class TimeOfDay

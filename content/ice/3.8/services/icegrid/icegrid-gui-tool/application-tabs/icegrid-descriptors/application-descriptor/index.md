@@ -10,7 +10,8 @@ application definition.
 When you are connected to an IceGrid registry, you can also use
 `File > New Application with Default Templates from Registry`. This also opens new Application tab with a brand new
 application definition. This new application contains a copy of all the templates definitions contained in the IceGrid
-registry default template file. See [IceGrid.Registry.DefaultTemplates](../icegrid-properties).
+registry default template file. See
+[IceGrid.Registry.DefaultTemplates](../../../../../../property-reference/icegrid-properties).
 
 ## Properties
 

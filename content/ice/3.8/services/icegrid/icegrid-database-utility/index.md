@@ -63,7 +63,7 @@ The target directory must be empty.
 ### mapsize Option
 
 The `--mapsize` option allows you to set the map size of the new LMDB database. See
-[IceGrid.Registry.LMDB.MapSize](../icegrid-properties) for additional information.
+[IceGrid.Registry.LMDB.MapSize](../../../property-reference/icegrid-properties) for additional information.
 
 ### server-version Option
 

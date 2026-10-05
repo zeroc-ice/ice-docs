@@ -10,7 +10,7 @@ string s = greeter.ToString();
 ```
 
 `ToString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and object
-adapter ID as specified through the [Ice.ToStringMode](../ice-properties) property.
+adapter ID as specified through the [Ice.ToStringMode](../../../property-reference/ice-properties) property.
 
 {% /language-section %}
 

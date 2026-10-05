@@ -18,7 +18,8 @@ Likewise, a client may send a request to a server and not hear back from this se
 request dispatch takes a while, or because the connection dropped.
 
 Ice provides a simple mechanism to monitor connection health: the idle check. If a connection waits to read a byte for
-over [IdleTimeout](../ice-connection-properties), the connection is considered idle and aborted.
+over [IdleTimeout](../../../property-reference/ice-connection-properties), the connection is considered idle and
+aborted.
 
 The default idle timeout is 60 seconds.
 
@@ -42,7 +43,7 @@ setting `Ice.ACM.Heartbeat` to 3, and making sure `Ice.ACM.Timeout` matches your
 `Ice.ACM.Timeout` is 60 seconds, just like the default `IdleTimeout`.
 
 If you cannot reconfigure your older Ice application, you can disable the idle check on the 3.8 side by setting
-[EnableIdleCheck](../ice-connection-properties) to `0`.
+[EnableIdleCheck](../../../property-reference/ice-connection-properties) to `0`.
 
 {% /callout %}
 
@@ -53,8 +54,9 @@ While a connection doesn’t consume much resources, we’d rather clean it up a
 either the client or server shuts down.
 
 This is where the “inactivity check” comes in. A connection that remains inactive for
-[InactivityTimeout](../ice-connection-properties) is automatically closed. This timeout only takes into account
-application-level activities: heartbeats don’t count. The default inactivity timeout is 300 seconds (5 minutes).
+[InactivityTimeout](../../../property-reference/ice-connection-properties) is automatically closed. This timeout only
+takes into account application-level activities: heartbeats don’t count. The default inactivity timeout is 300 seconds
+(5 minutes).
 
 {% callout type="warning" %}
 
@@ -84,11 +86,11 @@ The peer sends this acknowledgment only after it has completed the dispatch of a
 `CloseConnection` message, and sent the corresponding responses.
 
 This process can take some time. If the graceful closure exceeds the configured
-[CloseTimeout](../ice-connection-properties), the connection is aborted.
+[CloseTimeout](../../../property-reference/ice-connection-properties), the connection is aborted.
 
 ## See Also
 
-- [Protocol Messages](../protocol-messages)
+- [Protocol Messages](../../../protocol/protocol-messages)
 - [Connection Establishment](../connection-establishment)
-- [Oneway Invocations](../oneway-invocations)
-- [Automatic Retries](../automatic-retries)
+- [Oneway Invocations](../../invocation/invocation-mode/oneway-invocations)
+- [Automatic Retries](../../invocation/automatic-retries)

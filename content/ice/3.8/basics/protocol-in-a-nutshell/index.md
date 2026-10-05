@@ -2,10 +2,10 @@
 title: The Ice Protocol in a Nutshell
 ---
 
-Ice provides an [RPC protocol](../protocol), called the _Ice protocol_, that can use a variety of underlying transports.
-The most common example is TCP, but Ice also supports [WebSocket](https://en.wikipedia.org/wiki/WebSocket),
-[Bluetooth](../icebt), and Apple's [iAP](../iceiap). In addition, Ice allows you to use [SSL](../ssl-transport) as a
-transport, so all communication between client and server is encrypted.
+Ice provides an [RPC protocol](../../protocol), called the _Ice protocol_, that can use a variety of underlying
+transports. The most common example is TCP, but Ice also supports [WebSocket](https://en.wikipedia.org/wiki/WebSocket),
+[Bluetooth](../../plugins/icebt), and Apple's [iAP](../../plugins/iceiap). In addition, Ice allows you to use
+[SSL](../../runtime/ssl-transport) as a transport, so all communication between client and server is encrypted.
 
 The Ice protocol defines:
 
@@ -24,13 +24,13 @@ a message without knowledge of the details of the information inside a message. 
 not do any unmarshaling and remarshaling of messages — they can forward a message by simply treating it as an opaque
 buffer of bytes.
 
-The Ice protocol also supports [bidirectional operation](../bidirectional-connections): if a server wants to send a
-message to an object provided by the client, the callback can be made over the connection that was originally created by
-the client. This feature is especially important when the client is behind a firewall that permits outgoing connections,
-but not incoming connections.
+The Ice protocol also supports [bidirectional operation](../../runtime/connection-management/bidirectional-connections):
+if a server wants to send a message to an object provided by the client, the callback can be made over the connection
+that was originally created by the client. This feature is especially important when the client is behind a firewall
+that permits outgoing connections, but not incoming connections.
 
 ## See Also
 
-- [Ice Protocol and Encoding](../protocol)
-- [IceSSL](../ssl-transport)
-- [Bidirectional Connections](../bidirectional-connections)
+- [Ice Protocol and Encoding](../../protocol)
+- [IceSSL](../../runtime/ssl-transport)
+- [Bidirectional Connections](../../runtime/connection-management/bidirectional-connections)

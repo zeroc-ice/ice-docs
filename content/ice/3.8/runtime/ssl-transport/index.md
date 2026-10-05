@@ -73,7 +73,7 @@ Sample client-side configuration showing how to set the trusted root authorities
 
 {% language-section name="lang-5" /%}
 
-For additional details refer to the [IceSSL properties](../icessl-properties) documentation.
+For additional details refer to the [IceSSL properties](../../property-reference/icessl-properties) documentation.
 
 ## Endpoint Security Considerations
 

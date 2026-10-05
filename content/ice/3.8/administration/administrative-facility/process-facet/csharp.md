@@ -16,11 +16,11 @@ if (communicator.findAdminFacet("Process") is Ice.Process process)
 ## Application Requirements for the Process Facet
 
 The default implementation of the `Process` facet requires cooperation from an application in order to successfully
-terminate a process. Specifically, the facet invokes `shutdown` on its [communicator](../communicator) and assumes that
-the application uses this event as a signal to commence its termination procedure. For example, an application typically
-uses a thread (often the main thread) to call the communicator operation `waitForShutdown`, which blocks the calling
-thread until the communicator is shut down or destroyed. After `waitForShutdown` returns, the calling thread can
-initiate a graceful shutdown of its process.
+terminate a process. Specifically, the facet invokes `shutdown` on its [communicator](../../../runtime/communicator) and
+assumes that the application uses this event as a signal to commence its termination procedure. For example, an
+application typically uses a thread (often the main thread) to call the communicator operation `waitForShutdown`, which
+blocks the calling thread until the communicator is shut down or destroyed. After `waitForShutdown` returns, the calling
+thread can initiate a graceful shutdown of its process.
 
 ## Replacing the Process Facet
 
@@ -77,8 +77,8 @@ the facet:
 Ice.Admin.DelayCreation=1
 ```
 
-With [Ice.Admin.DelayCreation](../ice-admin-properties) enabled, the application can safely remove the default `Process`
-facet and install its own:
+With [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) enabled, the application can safely
+remove the default `Process` facet and install its own:
 
 ```csharp
 Ice.Communicator communicator = ...;

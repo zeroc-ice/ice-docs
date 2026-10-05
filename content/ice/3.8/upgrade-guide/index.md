@@ -121,7 +121,8 @@ interface Foo
 ### Active Connection Management
 
 The connection management system used in Ice 3.7, _Active Connection Management (ACM)_, has been removed. In its place
-is a new [Idle Timeout mechanism](../connection-closure) which should usually require _zero_ configuration.
+is a new [Idle Timeout mechanism](../runtime/connection-management/connection-closure) which should usually require
+_zero_ configuration.
 
 The `Ice.ACM.*` properties have subsequently been removed.
 
@@ -145,7 +146,8 @@ The `setHeartbeatCallback` operation has been removed from the `Connection` clas
 ### Default Object Adapter
 
 A default Object Adapter can now be associated with a Communicator. This greatly simplifies the creation of
-bidirectional connections. See [Bidirectional Connections](../bidirectional-connections) for more information.
+bidirectional connections. See [Bidirectional Connections](../runtime/connection-management/bidirectional-connections)
+for more information.
 
 ## Published Endpoints
 
@@ -154,7 +156,7 @@ The computation of an Object Adapter’s published endpoints has been updated.
 With the exception of some filtering for loopback addresses, the previous algorithm would produce endpoints containing
 the IP addresses for all network interfaces; some of which may be internal and unreachable. The new algorithm is simpler
 and uses the Fully Qualified Domain Name (FQDN) of the system. See
-[Object Adapter Endpoints](../object-adapter-endpoints) for more information.
+[Object Adapter Endpoints](../runtime/dispatch/object-adapter-endpoints) for more information.
 
 A new property `_adapter_.PublishedHost` has been added. It is used to compute the default published endpoints.
 

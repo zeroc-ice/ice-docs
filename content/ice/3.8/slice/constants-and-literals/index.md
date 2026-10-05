@@ -9,7 +9,7 @@ Slice allows you to define constants for the following types:
 - An [integral](../basic-types) type (`bool`, `byte`, `short`, `int`, `long`)
 - A [floating point](../basic-types) type (`float` or `double`)
 - [string](../basic-types)
-- [enum](../enumerations)
+- [enum](../user-defined-types/enumerations)
 
 Here are a few examples:
 
@@ -181,7 +181,7 @@ of `SIZE` (`500`) is within the range of the Slice `short` type. However, `BYTE_
 
 ## See Also
 
-- [Enumerations](../enumerations)
-- [Structures](../structures)
-- [Sequences](../sequences)
-- [Dictionaries](../dictionaries)
+- [Enumerations](../user-defined-types/enumerations)
+- [Structures](../user-defined-types/structures)
+- [Sequences](../user-defined-types/sequences)
+- [Dictionaries](../user-defined-types/dictionaries)
