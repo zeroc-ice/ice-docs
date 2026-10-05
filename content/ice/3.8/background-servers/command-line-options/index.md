@@ -23,9 +23,9 @@ A service started without `--daemon` runs in the foreground. The other three opt
 
 - `--daemon` Run as a background daemon. The daemon sets its current working directory to the root directory, closes the
   file descriptors it inherited, and redirects standard input, standard output and standard error to `/dev/null`. It
-  keeps standard output when [Ice.StdOut](../ice-properties#ice.stdout) is set, and standard error when
-  [Ice.StdErr](../ice-properties#ice.stderr) is set; when only `Ice.StdOut` is set, standard error also goes to the file
-  named by `Ice.StdOut`.
+  keeps standard output when [Ice.StdOut](../../property-reference/ice-properties#ice.stdout) is set, and standard error
+  when [Ice.StdErr](../../property-reference/ice-properties#ice.stderr) is set; when only `Ice.StdOut` is set, standard
+  error also goes to the file named by `Ice.StdOut`.
 
 - `--pidfile FILE` Write the process ID of the daemon into the specified `FILE`. The daemon resolves a relative `FILE`
   against its current working directory, which is the root directory unless `--nochdir` is set.
