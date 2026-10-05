@@ -384,7 +384,17 @@ bar or press `⌘K`.
 
 ## Releases
 
-{% releases /%}
+{% releases %}
+
+{% release name="Ice 3.8.3" notes="ice-3-8-3" platforms="supported-platforms-for-ice-3-8-3" date="September 10, 2026" /%}
+
+{% release name="Ice 3.8.2" notes="ice-3-8-2" platforms="supported-platforms-for-ice-3-8-2" date="June 4, 2026" /%}
+
+{% release name="Ice 3.8.1" notes="ice-3-8-1" platforms="supported-platforms-for-ice-3-8-1" date="March 3, 2026" /%}
+
+{% release name="Ice 3.8.0" notes="ice-3-8-0" platforms="supported-platforms-for-ice-3-8-0" date="December 17, 2025" /%}
+
+{% /releases %}
 
 - **[Upgrade Guide](../upgrade-guide)**: moving an application from Ice 3.7 to Ice {% $version %}.
 - **[Backward Compatibility of Ice Versions](../compatibility)**: what a patch, minor, or major release keeps
