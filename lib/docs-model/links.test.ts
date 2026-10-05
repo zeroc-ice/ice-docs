@@ -19,7 +19,7 @@ const ICE_3_8 = {
   title: 'Ice 3.8',
   languages: []
 };
-const ctx = { docs: ICE_3_8, slug: 'learn/slice/enumerations', index };
+const ctx = { version: ICE_3_8, slug: 'learn/slice/enumerations', index };
 
 test('a slug resolves to the page, and the query and anchor survive', () => {
   assert.equal(

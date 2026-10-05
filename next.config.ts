@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next';
 
-import { ICE_DOCS } from './app/ice/docs';
+import { ICE_VERSIONS } from './app/ice/versions';
 import { readRedirects } from './lib/docs-model/content';
 import { NOINDEX } from './lib/site';
 
@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   // screenshots of it.
   devIndicators: false,
   redirects() {
-    return readRedirects(ICE_DOCS);
+    return readRedirects(ICE_VERSIONS);
   },
   // A build for a host that must stay out of search indexes (a dev deployment)
   // must not compete with the real site. The header also covers the files a

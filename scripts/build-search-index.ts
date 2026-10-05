@@ -24,7 +24,7 @@ import {
   readPageSources,
   writtenFor
 } from '../lib/docs-model/content.ts';
-import { ICE_DOCS } from '../app/ice/docs.ts';
+import { ICE_VERSIONS } from '../app/ice/versions.ts';
 import { pageHref, trailTo, type NavDoc } from '../lib/docs-model/nav.ts';
 import { splitFrontmatter, splitLines } from '../lib/docs-model/resolve.ts';
 
@@ -74,11 +74,11 @@ let files = 0;
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
-for (const docs of ICE_DOCS) {
-  const nav = readNavigation(docs);
+for (const version of ICE_VERSIONS) {
+  const nav = readNavigation(version);
 
   const records: object[] = [];
-  for (const page of listPages(docs)) {
+  for (const page of listPages(version)) {
     const { shared, overlays, frontmatter } = readPageSources(page);
     const common = new Set(
       headings(shared ? splitFrontmatter(shared).body : '')
@@ -88,7 +88,7 @@ for (const docs of ICE_DOCS) {
       d: frontmatter.description ?? '',
       c: crumbFor(nav, page.slug),
       k: frontmatter.type ?? '',
-      h: pageHref(docs, page.slug),
+      h: pageHref(version, page.slug),
       x: [...common].join(' · '),
       l: Object.fromEntries(
         Object.entries(overlays).map(([language, source]) => [
@@ -102,15 +102,15 @@ for (const docs of ICE_DOCS) {
     });
   }
 
-  const file = path.join(OUT, `${docs.path}.json`);
+  const file = path.join(OUT, `${version.path}.json`);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(
     file,
-    JSON.stringify({ version: docs.path, pages: records })
+    JSON.stringify({ version: version.path, pages: records })
   );
   files++;
   const kb = Math.round(fs.statSync(file).size / 1024);
-  console.log(`  ${docs.path}: ${records.length} pages (${kb} kB)`);
+  console.log(`  ${version.path}: ${records.length} pages (${kb} kB)`);
 }
 
 console.log(`search index: ${files} file(s) under public/search`);

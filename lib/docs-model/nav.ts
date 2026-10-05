@@ -26,7 +26,7 @@ export type PageType =
   | 'release-note';
 
 /** The documentation of one release: where it lives, which is also where it is served, and its settings. */
-export interface Docs {
+export interface DocsVersion {
   /** Its path under the content root, `ice/3.8`, and so its URL, `/ice/3.8`. */
   path: string;
   /** Its name as readers see it: `Ice 3.8`. */
@@ -64,11 +64,14 @@ export const FRONT_PAGE_NAV_TITLE = 'Documentation';
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
  * the full shape shows), with a link for each page.
  */
-export function buildSideNav(nodes: NavNode[], docs: Docs): SideNavNode[] {
+export function buildSideNav(
+  nodes: NavNode[],
+  version: DocsVersion
+): SideNavNode[] {
   return nodes.map((node) => {
-    const href = pageHref(docs, node.slug);
+    const href = pageHref(version, node.slug);
     const { writtenFor } = node;
-    const items = buildSideNav(node.items, docs);
+    const items = buildSideNav(node.items, version);
 
     // A group's row would have to answer two gestures: navigate to its page,
     // and open. Splitting them means the whole row — title included — becomes
@@ -89,9 +92,9 @@ export function buildSideNav(nodes: NavNode[], docs: Docs): SideNavNode[] {
   });
 }
 
-/** The URL of the page with `slug` in `docs`; the front page, whose slug is empty, is at the version's root. */
-export function pageHref(docs: Docs, slug?: string): string {
-  return slug ? `/${docs.path}/${slug}` : `/${docs.path}`;
+/** The URL of the page with `slug` in `version`; the front page, whose slug is empty, is at the version's root. */
+export function pageHref(version: DocsVersion, slug?: string): string {
+  return slug ? `/${version.path}/${slug}` : `/${version.path}`;
 }
 
 /**
@@ -182,8 +185,8 @@ export interface Crumb {
 export const SITE_TITLE = 'Ice Documentation';
 
 /** The site's name for one version; every page of that version's tab title ends with it. */
-export function docsTitle(docs: Docs): string {
-  return `${docs.title} Documentation`;
+export function versionTitle(version: DocsVersion): string {
+  return `${version.title} Documentation`;
 }
 
 /**
@@ -194,17 +197,17 @@ export function docsTitle(docs: Docs): string {
  */
 export function breadcrumbs(
   nodes: NavNode[],
-  docs: Docs,
+  version: DocsVersion,
   slug: string
 ): Crumb[] {
   const trail = slug ? trailTo(nodes, slug) : null;
   if (!trail) return [];
 
   const crumbs: Crumb[] = [
-    { title: SITE_TITLE, href: pageHref(docs) },
+    { title: SITE_TITLE, href: pageHref(version) },
     ...trail.map((node) => ({
       title: node.title,
-      href: pageHref(docs, node.slug)
+      href: pageHref(version, node.slug)
     }))
   ];
   return crumbs.map((crumb, i) =>
@@ -226,7 +229,7 @@ export interface PageLink {
  */
 export function prevNext(
   nodes: NavNode[],
-  docs: Docs,
+  version: DocsVersion,
   slug: string,
   language: string
 ): { prev?: PageLink; next?: PageLink } {
@@ -244,7 +247,7 @@ export function prevNext(
   const i = flat.findIndex((n) => n.slug === slug);
   if (i === -1) return {};
   const link = (node?: NavNode): PageLink | undefined =>
-    node && { title: node.title, href: pageHref(docs, node.slug) };
+    node && { title: node.title, href: pageHref(version, node.slug) };
   return { prev: link(flat[i - 1]), next: link(flat[i + 1]) };
 }
 

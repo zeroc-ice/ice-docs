@@ -1,12 +1,12 @@
 // Copyright (c) ZeroC, Inc.
 
-import type { Docs } from '@/lib/docs-model/nav';
+import type { DocsVersion } from '@/lib/docs-model/nav';
 
 // A reader who lands on an older release from a search engine must be told so
 // before they read a line of it — silently serving stale documentation is the
 // most expensive failure versioned documentation can have.
-export function VersionBanner({ docs }: { docs: Docs }) {
-  const { title, status } = docs;
+export function VersionBanner({ version }: { version: DocsVersion }) {
+  const { title, status } = version;
   if (!status || status === 'latest') return null;
 
   return (

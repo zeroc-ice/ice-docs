@@ -55,9 +55,9 @@ import {
   listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
-import { ICE_DOCS } from '../app/ice/docs.ts';
+import { ICE_VERSIONS } from '../app/ice/versions.ts';
 import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
-import { pageHref, type Docs } from '../lib/docs-model/nav.ts';
+import { pageHref, type DocsVersion } from '../lib/docs-model/nav.ts';
 import { resolveDocument } from '../lib/docs-model/resolve.ts';
 
 // Consumed by lib/docs-model/resolve.ts before a page reaches Markdoc.
@@ -105,28 +105,28 @@ function validate(
 // shape; nothing in the docs refers to either.
 const pageIndexes = new Map<string, PageIndex>();
 function variablesFor({
-  docs,
+  version,
   slug,
   frontmatter
 }: {
-  docs: Docs;
+  version: DocsVersion;
   slug: string;
   frontmatter: Record<string, unknown>;
 }) {
-  if (!pageIndexes.has(docs.path)) {
+  if (!pageIndexes.has(version.path)) {
     pageIndexes.set(
-      docs.path,
-      buildPageIndex(listPages(docs).map((page) => page.slug))
+      version.path,
+      buildPageIndex(listPages(version).map((page) => page.slug))
     );
   }
   return {
     ...config.variables,
     frontmatter,
-    path: pageHref(docs, slug),
+    path: pageHref(version, slug),
     slug,
     readingTime: {},
-    docs,
-    pageIndex: pageIndexes.get(docs.path),
+    version,
+    pageIndex: pageIndexes.get(version.path),
     chrome: { breadcrumbs: [], pagination: [] }
   };
 }
@@ -138,8 +138,8 @@ const reported = new Set<string>();
 // 1. Every page as written.
 let pages = 0;
 const sourceTags = { ...config.tags, ...resolverTags };
-for (const docs of ICE_DOCS) {
-  const files = listPages(docs).flatMap((page) =>
+for (const version of ICE_VERSIONS) {
+  const files = listPages(version).flatMap((page) =>
     [page.shared, ...Object.values(page.overlays)]
       .filter((file) => file !== undefined)
       .map((file) => ({ file, slug: page.slug }))
@@ -150,7 +150,7 @@ for (const docs of ICE_DOCS) {
     pages++;
     const source = fs.readFileSync(file, 'utf8');
     const variables = variablesFor({
-      docs,
+      version,
       slug,
       frontmatter: frontmatterOf(source)
     });
@@ -194,21 +194,21 @@ const checkedLinks: {
   href: string;
   languages: string[];
 }[] = [];
-const allPages = ICE_DOCS.flatMap((docs) =>
-  listPages(docs).map((page) => ({ docs, page }))
+const allPages = ICE_VERSIONS.flatMap((version) =>
+  listPages(version).map((page) => ({ version, page }))
 );
-for (const { docs, page } of allPages) {
+for (const { version, page } of allPages) {
   rendered++;
   const { slug } = page;
   const { shared, overlays, frontmatter } = readPageSources(page);
-  const where = `${docs.path}/${slug} (assembled)`;
+  const where = `${version.path}/${slug} (assembled)`;
   let body: string;
   try {
     // The same step as the page route.
     body = resolveDocument({
       shared: shared ?? '',
       overlays,
-      readFile: snippetReader(docs)
+      readFile: snippetReader(version)
     });
   } catch (error) {
     diagnostics.push({
@@ -217,7 +217,7 @@ for (const { docs, page } of allPages) {
     });
     continue;
   }
-  const variables = variablesFor({ docs, slug, frontmatter });
+  const variables = variablesFor({ version, slug, frontmatter });
   const ast = parse(body);
   for (const d of validate(ast, body, config.tags, variables)) {
     if (reported.has(`${d.text}\n${d.source}`)) continue;
@@ -238,7 +238,7 @@ for (const { docs, page } of allPages) {
     });
     continue;
   }
-  const url = pageHref(docs, slug);
+  const url = pageHref(version, slug);
   const anchors = new Set<string>();
   for (const tag of tagsOf(tree)) {
     const { id, href, unresolved } = tag.attributes as {
@@ -257,7 +257,7 @@ for (const { docs, page } of allPages) {
         where,
         url,
         href,
-        languages: variables.docs.languages
+        languages: variables.version.languages
       });
   }
   const { headings } = (tree as Tag).attributes as {
@@ -270,7 +270,7 @@ for (const { docs, page } of allPages) {
   // anchor. MD024 sees a file at a time; this sees a shared page's headings
   // with each language's overlay headings among them, as the outline lists them.
   const repeats = new Map<string, Set<string>>();
-  for (const language of variables.docs.languages) {
+  for (const language of variables.version.languages) {
     const ids = headings
       .filter(({ langs }) => !langs || langs.includes(language))
       .map(({ id }) => id);
@@ -279,7 +279,7 @@ for (const { docs, page } of allPages) {
   }
   for (const [id, languages] of repeats) {
     const only =
-      languages.size < variables.docs.languages.length
+      languages.size < variables.version.languages.length
         ? ` (${[...languages].join(', ')})`
         : '';
     diagnostics.push({
@@ -325,12 +325,15 @@ for (const { where, url, href, languages } of checkedLinks) {
 
 // A redirect to a section (see listRedirects) must land on a heading the URL's
 // language shows.
-for (const { file, source, destination } of listRedirects(ICE_DOCS)) {
-  const docs = ICE_DOCS.find((v) => source.startsWith(`${pageHref(v)}/`));
-  if (!docs) continue;
+for (const { file, source, destination } of listRedirects(ICE_VERSIONS)) {
+  const version = ICE_VERSIONS.find((v) =>
+    source.startsWith(`${pageHref(v)}/`)
+  );
+  if (!version) continue;
   const [, languages, rest] =
-    source.slice(pageHref(docs).length + 1).match(/^:lang\(([^)]*)\)(.*)$/) ??
-    [];
+    source
+      .slice(pageHref(version).length + 1)
+      .match(/^:lang\(([^)]*)\)(.*)$/) ?? [];
   const [beforeHash, hash] = destination.split('#');
   if (!languages || hash === undefined) continue;
   const page = beforeHash.split('?')[0];
@@ -344,7 +347,7 @@ for (const { file, source, destination } of listRedirects(ICE_DOCS)) {
     if (!headings.some(shown))
       diagnostics.push({
         where: file,
-        text: `${pageHref(docs)}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
+        text: `${pageHref(version)}/${language}${rest} lands on #${anchor}, which the ${language} mapping of ${page} doesn't show`
       });
   }
 }

@@ -7,9 +7,9 @@ import {
   docsPageMetadata,
   docsPageParams,
   type PageProps
-} from '@/app/docs-page';
-import { ICE_DOCS } from '../../docs';
-import { ICE_3_8 } from '../docs';
+} from '@/components/ice/DocsPage';
+import { ICE_VERSIONS } from '../../versions';
+import { ICE_3_8 } from '../version';
 
 export const dynamicParams = false;
 
@@ -22,5 +22,5 @@ export function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default function Page(props: PageProps) {
-  return <DocsPage docs={ICE_3_8} versions={ICE_DOCS} {...props} />;
+  return <DocsPage version={ICE_3_8} versions={ICE_VERSIONS} {...props} />;
 }

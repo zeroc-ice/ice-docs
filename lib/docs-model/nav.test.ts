@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  type Docs,
+  type DocsVersion,
   SITE_TITLE,
   breadcrumbs,
   buildSideNav,
@@ -58,7 +58,7 @@ const SIDEBAR: NavNode[] = [
   }
 ];
 
-const ICE_3_8: Docs = {
+const ICE_3_8: DocsVersion = {
   path: 'ice/3.8',
   title: 'Ice 3.8',
   languages: []

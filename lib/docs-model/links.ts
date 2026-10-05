@@ -12,7 +12,7 @@
 //
 // Pure, so it is unit-testable with plain objects.
 
-import { pageHref, type Docs } from './nav.ts';
+import { pageHref, type DocsVersion } from './nav.ts';
 
 /** lower-cased slug -> slug (`learn/slice/enumerations`). */
 export type PageIndex = Record<string, string>;
@@ -25,7 +25,7 @@ export function buildPageIndex(slugs: string[]): PageIndex {
 }
 
 export interface LinkContext {
-  docs: Docs;
+  version: DocsVersion;
   /** The slug of the page the link is on; `''` for the front page. */
   slug: string;
   index: PageIndex;
@@ -73,7 +73,7 @@ export function resolveDocLink(href: string, ctx: LinkContext): ResolvedLink {
   const target = ctx.index[decodeURIComponent(slug)];
   if (target === undefined) return { href: raw, resolved: false };
 
-  return { href: pageHref(ctx.docs, target) + query + hash, resolved: true };
+  return { href: pageHref(ctx.version, target) + query + hash, resolved: true };
 }
 
 /**

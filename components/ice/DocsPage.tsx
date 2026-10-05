@@ -13,8 +13,8 @@ import {
   breadcrumbs,
   pageHref,
   prevNext,
-  docsTitle,
-  type Docs
+  versionTitle,
+  type DocsVersion
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
@@ -41,50 +41,50 @@ function editUrl(file: string): string {
   return `https://github.com/zeroc-ice/ice-docs/edit/main/${path.relative(process.cwd(), file)}`;
 }
 
-/** Every page of `docs`, for the route's `generateStaticParams`. */
-export function docsPageParams(docs: Docs) {
+/** Every page of `version`, for the route's `generateStaticParams`. */
+export function docsPageParams(version: DocsVersion) {
   // The front page's slug is empty: it is served at the version root.
-  return listPages(docs).map((page) => ({
+  return listPages(version).map((page) => ({
     slug: page.slug ? page.slug.split('/') : []
   }));
 }
 
 /** A page's metadata, for the route's `generateMetadata`. */
 export async function docsPageMetadata(
-  docs: Docs,
+  version: DocsVersion,
   props: PageProps
 ): Promise<Metadata> {
   const slug = (await props.params).slug?.join('/') ?? '';
-  const page = listPages(docs).find((p) => p.slug === slug)!;
+  const page = listPages(version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
   return {
     // The front page's title is the site's name, which the template would
     // repeat.
-    title: slug ? title : { absolute: docsTitle(docs) },
+    title: slug ? title : { absolute: versionTitle(version) },
     description,
-    alternates: { canonical: pageHref(docs, slug) }
+    alternates: { canonical: pageHref(version, slug) }
   };
 }
 
-/** A page of `docs`; `versions` are the ones the switcher offers. */
+/** A page of `version`; `versions` are the ones the switcher offers. */
 export async function DocsPage({
-  docs,
+  version,
   versions,
   params
-}: PageProps & { docs: Docs; versions: Docs[] }) {
+}: PageProps & { version: DocsVersion; versions: DocsVersion[] }) {
   const slug = (await params).slug?.join('/') ?? '';
-  const { sidebar } = readNavigation(docs);
-  const { languages } = docs;
+  const { sidebar } = readNavigation(version);
+  const { languages } = version;
 
-  const pages = listPages(docs);
+  const pages = listPages(version);
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
   // The documentation is one tree, and this page's place in it gives the breadcrumb
   // trail and the reading order. A page outside the tree still renders; it just
   // gets no trail and no previous/next, which makes the omission obvious.
-  const crumbs = breadcrumbs(sidebar, docs, slug);
+  const crumbs = breadcrumbs(sidebar, version, slug);
   // The same trail as structured data, which search results can show in place
   // of the page's URL.
   const breadcrumbList = {
@@ -101,33 +101,33 @@ export async function DocsPage({
   // for the reader's language: one pair per language, alike ones sharing.
   const pagination = new Map<string, Pagination>();
   for (const language of languages) {
-    const links = prevNext(sidebar, docs, slug, language);
+    const links = prevNext(sidebar, version, slug, language);
     const key = JSON.stringify(links);
     const variant = pagination.get(key);
     if (variant) variant.langs.push(language);
     else pagination.set(key, { langs: [language], ...links });
   }
 
-  const routePath = pageHref(docs, slug);
+  const routePath = pageHref(version, slug);
   // Cross-page links are resolved against this index at build time.
   const pageIndex = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
   const versionOptions: VersionOption[] = versions.map((other) => ({
-    docs: other,
+    version: other,
     href: pageHref(other, slug)
   }));
 
   const body = resolveDocument({
     shared: shared ?? '',
     overlays,
-    readFile: snippetReader(docs)
+    readFile: snippetReader(version)
   });
   const content = renderMarkdownString({
     source: body,
     path: routePath,
     slug,
-    docs,
+    version,
     pageIndex,
     frontmatter,
     chrome: {
@@ -160,7 +160,7 @@ export async function DocsPage({
   return (
     <>
       {/* Search + version + language controls live in the global header (portal). */}
-      <HeaderControls docs={docs} versionOptions={versionOptions} />
+      <HeaderControls version={version} versionOptions={versionOptions} />
       {crumbs.length > 0 && (
         <script
           type="application/ld+json"

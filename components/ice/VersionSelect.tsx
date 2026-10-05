@@ -4,16 +4,16 @@
 import { ChevronDown } from 'lucide-react';
 
 import { Menu, MenuItem, MenuSeparator } from '@/components/menu';
-import type { Docs } from '@/lib/docs-model/nav';
+import type { DocsVersion } from '@/lib/docs-model/nav';
 
 export interface VersionOption {
-  docs: Docs;
+  version: DocsVersion;
   /** This page's path in that version. */
   href: string;
 }
 
 interface VersionSelectProps {
-  current: Docs;
+  current: DocsVersion;
   options: VersionOption[];
 }
 
@@ -49,11 +49,11 @@ export function VersionItems({ current, options }: VersionSelectProps) {
     <>
       {options.map((option) => (
         <MenuItem
-          key={option.docs.path}
+          key={option.version.path}
           href={option.href}
-          checked={option.docs.path === current.path}
+          checked={option.version.path === current.path}
         >
-          {option.docs.title}
+          {option.version.title}
         </MenuItem>
       ))}
       <MenuSeparator />
