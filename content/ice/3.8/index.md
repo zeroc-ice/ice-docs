@@ -1,5 +1,5 @@
 ---
-title: Ice Documentation
+title: The Ice Framework
 description: Guides, examples, and reference for building distributed applications with Ice.
 shape: wide
 showReadingTime: false

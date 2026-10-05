@@ -2,6 +2,7 @@
 
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Analytics } from '@/components/ice/Analytics';
 import { AnchorScroll } from '@/components/ice/AnchorScroll';
 import { IceHeader } from '@/components/ice/Header';
 import { Footer } from '@/components/ice/Footer';
@@ -11,7 +12,7 @@ import {
   LANGUAGE_STORAGE_KEY,
   SITE_TITLE
 } from '@/lib/docs-model/nav';
-import { NOINDEX, SITE_URL } from '@/lib/site';
+import { GA_MEASUREMENT_ID, NOINDEX, SITE_URL } from '@/lib/site';
 import { Inter } from 'next/font/google';
 import clsx from 'clsx';
 import { Metadata } from 'next';
@@ -98,6 +99,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          {GA_MEASUREMENT_ID && <Analytics measurementId={GA_MEASUREMENT_ID} />}
         </ThemeProvider>
       </body>
     </html>

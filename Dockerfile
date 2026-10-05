@@ -20,11 +20,14 @@ COPY . .
 
 # Base URL baked into the sitemap and the pages' canonical URLs and breadcrumb
 # data, and whether the build is for a host that search engines must not index;
-# pass --build-arg for a host other than docs.zeroc.com.
+# pass --build-arg for a host other than docs.zeroc.com. GA_MEASUREMENT_ID turns
+# on Google Analytics and its cookie banner.
 ARG SITE_URL
 ARG SITE_NOINDEX
+ARG GA_MEASUREMENT_ID
 ENV SITE_URL=$SITE_URL
 ENV SITE_NOINDEX=$SITE_NOINDEX
+ENV GA_MEASUREMENT_ID=$GA_MEASUREMENT_ID
 
 RUN npm run build
 

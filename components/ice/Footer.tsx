@@ -1,5 +1,8 @@
 // Copyright (c) ZeroC, Inc.
 
+import { CookieSettingsButton } from '@/components/ice/Analytics';
+import { GA_MEASUREMENT_ID } from '@/lib/site';
+
 const footerLinks = [
   { href: 'https://zeroc.com/about', text: 'About' },
   { href: 'https://zeroc.com/privacy', text: 'Privacy Policy' },
@@ -24,6 +27,11 @@ export function Footer() {
               </a>
             </li>
           ))}
+          {GA_MEASUREMENT_ID && (
+            <li>
+              <CookieSettingsButton />
+            </li>
+          )}
         </ul>
       </div>
     </footer>
