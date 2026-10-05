@@ -1,14 +1,12 @@
 ---
 title: Locator Semantics for Servers
+languages:
+  - cpp
+  - csharp
+  - java
+  - python
+  - swift
 ---
-
-{% callout type="info" title="JavaScript" %}
-
-An Ice for JavaScript object adapter cannot register with a locator. It does not support the `AdapterId`,
-`ReplicaGroupId` and `Locator` properties, and `createObjectAdapter` fails with `PropertyException` if any of them is
-set. A JavaScript client can still use a locator to resolve indirect proxies.
-
-{% /callout %}
 
 A location service must know the endpoints of any [object adapter](../../dispatch) whose identifier can be used in an
 indirect proxy. For example, suppose a client uses the following proxy:
