@@ -6,19 +6,11 @@ The default behavior of an [object adapter](../../dispatch) is to share the [thr
 communicator and, for many applications, this behavior is entirely sufficient. However, the ability to configure an
 object adapter with its own thread pool is useful in certain situations:
 
-- When the concurrency requirements of an object adapter does not match those of its communicator. In a server with
-  multiple object adapters, the configuration of the communicator's client and server thread pools may be a good match
-  for some object adapters, but others may have different requirements.{% iflang langs="cpp,java,ruby,php,matlab" %} For
-  example, the servants hosted by one object adapter may not support concurrent access, in which case limiting that
-  object adapter to a single-threaded pool eliminates the need for synchronization in those servants. On the other hand,
-  another object adapter might need a multi-threaded pool for better
-  performance.{% /iflang %}{% iflang langs="csharp,python" %} For example, limiting an object adapter to a
-  single-threaded pool serializes the calls to its servants' dispatch methods, but not the code that a dispatch method
-  runs after an `await`. On the other hand, another object adapter might need a multi-threaded pool for better
-  performance.{% /iflang %}{% iflang langs="swift" %} Each Swift dispatch runs in its own task, so a single-threaded
-  pool does not serialize the dispatches to an adapter's servants.{% /iflang %}
+- When the concurrency requirements of an object adapter do not match those of its communicator. In a server with
+  multiple object adapters, the communicator's server thread pool may suit some object adapters, while another needs a
+  thread pool of a different size.
 
-- To ensure that a minimum number of threads is available for dispatching requests to an adapter's servants.
+- To give an object adapter threads of its own, so that the dispatches of other object adapters cannot exhaust them.
 
 An object adapter's thread pool supports all of the properties described in [Configuring Thread Pools](../thread-pools).
 For configuration purposes, the name of an adapter's thread pool is `adapter.ThreadPool`, where `adapter` is the name of
@@ -31,7 +23,7 @@ earlier.
 
 An adapter's thread pool processes only the incoming connections of this adapter. An outgoing connection always uses the
 communicator's client thread pool, even when the object adapter associated with it for
-[bidirectional dispatches](../bidirectional-connections) has its own thread pool.
+[bidirectional dispatches](../../connection-management/bidirectional-connections) has its own thread pool.
 
 As an example, the properties shown below configure a thread pool for the object adapter named `PrinterAdapter`:
 

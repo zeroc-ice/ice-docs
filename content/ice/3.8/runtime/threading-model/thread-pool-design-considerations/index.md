@@ -33,8 +33,9 @@ There are several implications of using a thread pool with a maximum size of one
 {% iflang langs="swift" %}
 
 - **Only one message can be read at a time.** Each dispatch then runs in its own task, so dispatches can run
-  concurrently; [Ice.Connection.name.MaxDispatches](../ice-connection-properties) limits the concurrent dispatches on a
-  connection.
+  concurrently;
+  [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
+  limits the concurrent dispatches on a connection.
 - **Only one reply can be processed at a time.** An awaited invocation resumes through a Swift continuation, outside the
   thread pool.
 
