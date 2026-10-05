@@ -29,14 +29,14 @@ does not match the filter, the communicator will not expose your facet but inste
 
 `findAdminFacet` and `findAllAdminFacets` return only the facets implemented in Python and the built-in `Properties`
 facet. For the built-in `Process`, `Logger`, and `Metrics` facets, `findAdminFacet` returns `None`, and
-`findAllAdminFacets` omits them.
+`findAllAdminFacets` omits them. `removeAdminFacet` returns `None` for every built-in facet, including `Properties`.
 
 {% /iflang %}
 
 {% iflang langs="swift" %}
 
-For the built-in `Logger` and `Metrics` facets, `findAdminFacet` and `findAllAdminFacets` return a placeholder
-dispatcher that implements neither `LoggerAdmin` nor `MetricsAdmin`.
+For the built-in `Logger` and `Metrics` facets, `findAdminFacet`, `findAllAdminFacets`, and `removeAdminFacet` return a
+placeholder dispatcher that implements neither `LoggerAdmin` nor `MetricsAdmin`.
 
 {% /iflang %}
 

@@ -2,6 +2,17 @@
 title: Filtering Administrative Facets
 ---
 
+{% iflang langs="js" %}
+
+{% callout type="note" %}
+
+Ice for JavaScript does not provide the administrative facility. A JavaScript application can still
+[administer a remote program](../using-the-admin-object) through a proxy for its admin object.
+
+{% /callout %}
+
+{% /iflang %}
+
 A communicator enables all of its built-in [administrative facets](../admin-object) by
 default{% iflang langs="cpp,csharp,java,python,swift" %}, and an application may install its own
 [custom facets](../custom-administrative-facets){% /iflang %}. You can control which facets a communicator enables using
