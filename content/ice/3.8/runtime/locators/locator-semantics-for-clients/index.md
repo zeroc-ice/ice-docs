@@ -26,8 +26,7 @@ _Locating an object._
      `NoEndpointException`.
    - For any other failure, such as a locator that the communicator cannot reach, the invocation throws the exception
      that the locator request failed with. With [Ice.Trace.Locator](../../../property-reference/ice-trace-properties)
-     set to 1 or more, the communicator logs "could not contact the locator to retrieve endpoints" together with the
-     reason for such a failure.
+     set to 1 or more, the communicator logs such a failure.
 
 As far as the communicator is concerned, the locator simply converts the information in an indirect proxy into usable
 endpoints. Whether the locator's implementation is more sophisticated than a simple lookup table is irrelevant to the

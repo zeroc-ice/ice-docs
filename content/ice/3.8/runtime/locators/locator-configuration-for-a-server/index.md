@@ -1,15 +1,14 @@
 ---
 title: Locator Configuration for a Server
+languages:
+  - cpp
+  - csharp
+  - java
+  - python
+  - swift
 ---
 
 ## Configuring an Object Adapter with a Locator
-
-{% callout type="info" title="JavaScript" %}
-
-Ice for JavaScript does not support the `AdapterId`, `ReplicaGroupId` and `Locator` object adapter properties: an Ice
-for JavaScript object adapter cannot register with a location service.
-
-{% /callout %}
 
 An [object adapter](../../dispatch) must be able to obtain a [locator](..) proxy in order to register itself with a
 location service. Each object adapter can be configured with its own locator proxy by defining its
