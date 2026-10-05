@@ -88,10 +88,13 @@ IceStorm server, and IceStorm sends the events of this queue in order. The obser
 `itemChange` only if IceStorm queues `init` before any `itemChange` event published after the subscription. For example,
 the list can hold the lock that serializes its updates while it subscribes the observer, takes the snapshot it passes to
 `init`, and completes a twoway `init` invocation on the per-subscriber publisher, and publish each `itemChange` event
-with a twoway invocation under the same lock. If the observer's thread pool dispatches several requests concurrently,
-the observer can start processing an `itemChange` event before it finishes processing `init`, depending on the
-[delivery mode](../icestorm-delivery-modes). To make the observer finish processing `init` before it processes any
-update, subscribe it with a twoway proxy and the [ordered reliability](../icestorm-quality-of-service) quality of
+with a twoway invocation under the same lock. In a
+[replicated deployment](../../highly-available-icestorm#publisher-considerations-for-icestorm-replication), each replica
+has its own queue for the observer, so this ordering holds only while the list sends `init` and the `itemChange` events
+to the same replica. If the observer's thread pool dispatches several requests concurrently, the observer can start
+processing an `itemChange` event before it finishes processing `init`, depending on the
+[delivery mode](../../icestorm-delivery-modes). To make the observer finish processing `init` before it processes any
+update, subscribe it with a twoway proxy and the [ordered reliability](../../icestorm-quality-of-service) quality of
 service.
 
 ## See Also
