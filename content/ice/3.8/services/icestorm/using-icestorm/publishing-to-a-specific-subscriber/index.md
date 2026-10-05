@@ -8,7 +8,7 @@ subscribers for that topic:
 ```cpp
 IceStorm::TopicPrx topic = ...;
 auto publisher = topic->getPublisher();
-auto station = Ice::uncheckedCast<WeatherStationPrx>(pub);
+auto station = Ice::uncheckedCast<WeatherStationPrx>(publisher);
 ...
 station->report(sensorId, timeStamp, reading); // Sent to all subscribers
 ```
@@ -20,9 +20,9 @@ For example:
 auto servant = make_shared<ConsolePrinter>();
 auto station = adapter->addWithUUID<WeatherStationPrx>(servant)->ice_oneway();
 
-IceStorm::topicPrx topic = ...;
+IceStorm::TopicPrx topic = ...;
 
-auto pub = topic->subscribeAndGetPublisher({}, proxy);
+auto pub = topic->subscribeAndGetPublisher({}, station);
 auto pubStation = Ice::uncheckedCast<WeatherStationPrx>(pub);
 
 ...
@@ -78,10 +78,21 @@ informs all the subscribed observers of the change to the list. However, when an
 publish the initial state of the list on a topic that all observers subscribe to.
 
 The subscriber-specific proxy that is returned by `subscribeAndGetPublisher` solves this nicely: the implementation of
-`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the observer. This both subscribes the
-observer to the topic, and IceStorm forwards the call to `init` to the observer. This is preferable to the list invoking
-`init` on the observer directly: if the observer is misbehaved (for example, if its `init` implementation blocks for
-some time), the list is unaffected because IceStorm shields the list from such behavior.
+`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the returned per-subscriber publisher. This
+both subscribes the observer to the topic, and IceStorm forwards the call to `init` to the observer. This is preferable
+to the list invoking `init` on the observer directly: if the observer is misbehaved (for example, if its `init`
+implementation blocks for some time), the list is unaffected because IceStorm shields the list from such behavior.
+
+The per-subscriber publisher and the topic's publisher object use the same queue of events for the observer in an
+IceStorm server, and IceStorm sends the events of this queue in order. The observer receives `init` before any
+`itemChange` only if IceStorm queues `init` before any `itemChange` event published after the subscription. For example,
+the list can hold the lock that serializes its updates while it subscribes the observer, takes the snapshot it passes to
+`init`, and completes a twoway `init` invocation on the per-subscriber publisher, and publish each `itemChange` event
+with a twoway invocation under the same lock. If the observer's thread pool dispatches several requests concurrently,
+the observer can start processing an `itemChange` event before it finishes processing `init`, depending on the
+[delivery mode](../icestorm-delivery-modes). To make the observer finish processing `init` before it processes any
+update, subscribe it with a twoway proxy and the [ordered reliability](../icestorm-quality-of-service) quality of
+service.
 
 ## See Also
 
