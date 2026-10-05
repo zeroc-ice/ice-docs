@@ -14,7 +14,6 @@ const callout: Schema = {
       // marks obsolete APIs and behaviour.
       matches: [
         'note',
-        'info',
         'tip',
         'important',
         'warning',

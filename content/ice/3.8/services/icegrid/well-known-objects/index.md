@@ -266,7 +266,7 @@ objects. Rather, the operations simply compare the given type to the object's
 [registered type](#well-known-object-types) or, if the object was registered without a type, to the object's
 most-derived Slice type as determined by the registry.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Starting with Ice 3.7, the find by type functions now only return proxies for well-known objects from servers which are
 enabled or proxies not registered through the deployment descriptors.

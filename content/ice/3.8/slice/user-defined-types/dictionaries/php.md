@@ -6,7 +6,7 @@ dictionary types, however, because native PHP associative arrays support only in
 A Slice dictionary whose key type is an enumeration or one of the primitive types `boolean`, `byte`, `short`, `int`, or
 `long` is mapped as an associative array with an integer key.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Boolean values are treated as integers, with false equivalent to 0 (zero) and true equivalent to 1 (one).
 

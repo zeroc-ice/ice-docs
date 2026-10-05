@@ -48,14 +48,14 @@ object adapters sampled with five-minute intervals:
 
 The type must be specified, but the remaining attributes are optional.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 IceGrid ignores the object adapters of a [disabled server](../icegrid-troubleshooting) when executing a locate request,
 meaning the client that initiated the locate request will not receive the endpoints for any of these object adapters.
 
 {% /callout %}
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can optionally use custom load balancing strategies by installing [replica group filters](./).
 

@@ -25,7 +25,7 @@ struct S
 This proxy type can be marshaled/unmarshaled just like any other Slice type. It encapsulates the addressing information
 for the target object: object identity, endpoint(s), and proxy options.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The marshaled representation of a proxy does not include the proxy’s type.
 

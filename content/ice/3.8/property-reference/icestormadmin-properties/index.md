@@ -14,7 +14,7 @@ Specifies the host of the IceStorm [finder object](../../services/icestorm/confi
 [icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager. This property
 requires [IceStormAdmin.Port](#icestormadmin.port).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 `icestormadmin` ignores this setting if you define one or more `IceStormAdmin.TopicManager` properties.
 
@@ -32,7 +32,7 @@ Specifies the port of the IceStorm [finder object](../../services/icestorm/confi
 [icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager, on the host
 specified by [IceStormAdmin.Host](#icestormadmin.host).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 `icestormadmin` ignores this setting if you define one or more `IceStormAdmin.TopicManager` properties.
 

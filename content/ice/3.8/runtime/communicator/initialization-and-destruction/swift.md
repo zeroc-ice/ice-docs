@@ -11,7 +11,7 @@ let communicator = try Ice.initialize(CommandLine.arguments)
 [command-line options](../../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
 the Ice runtime. If anything goes wrong during initialization, `initialize` throws an exception.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `initialize` shown above does not modify the argument array. You can use another overload of `initialize` that
 removes all Ice-related options from the argument array.

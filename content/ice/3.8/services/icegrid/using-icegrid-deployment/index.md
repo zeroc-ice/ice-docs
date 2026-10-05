@@ -44,7 +44,7 @@ first we must define our descriptors in XML. The descriptors are quite brief:
 For IceGrid's purposes, we have named our application `Ripper`. It consists of a single server, `EncoderServer`,
 assigned to the node `Node1`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Since a computer typically runs only one node process, you might be tempted to give the node a name that identifies its
 host (such as `ComputeServerNode`). However, this naming convention becomes problematic as soon as you need to migrate
@@ -100,7 +100,7 @@ The registry and node can share this configuration file. In fact, by enabling
 [IceGrid.Node.CollocateRegistry](../../../property-reference/icegrid-properties), we have indicated that the registry
 and node should run in the same process.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We recommend that you always run `icegridnode` and `icegridregistry` as separate processes.
 

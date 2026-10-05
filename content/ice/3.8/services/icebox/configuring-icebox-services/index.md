@@ -139,7 +139,7 @@ IceBox.InheritProperties=1
 All services inherit the server's properties when `IceBox.InheritProperties` is set to a non-zero value. The service
 inherits all the properties of the IceBox server, except those whose names start with `IceBox.` or `Ice.Admin.`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The properties of the [shared communicator](./) are also affected by this setting.
 

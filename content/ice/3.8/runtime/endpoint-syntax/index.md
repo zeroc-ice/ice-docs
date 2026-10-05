@@ -38,7 +38,7 @@ _transport_ protocol). If an endpoint is malformed, the application receives a `
 endpoint is not registered with the communicator, an object adapter throws `ParseException` when it parses its
 endpoints, whereas Ice drops the endpoint from a [stringified proxy](../invocation/syntax-for-stringified-proxies).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 See [Object Adapter Endpoints](../dispatch/object-adapter-endpoints) for examples.
 

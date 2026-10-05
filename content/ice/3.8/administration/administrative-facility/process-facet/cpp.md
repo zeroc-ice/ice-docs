@@ -70,7 +70,7 @@ termination of the Ice runtime's server-side components and prevents object adap
 You can add your own application-specific behavior to the `shutdown` method to ensure that your program terminates in a
 timely manner.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 A servant must not call destroy on its communicator while dispatching a request.
 

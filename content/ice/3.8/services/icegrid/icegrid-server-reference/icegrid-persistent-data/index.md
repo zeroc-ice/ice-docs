@@ -69,7 +69,7 @@ application name with an arbitrary size.
 If you attempt to save an application, adapter ID or well-known object that is too large for the LMDB database, IceGrid
 will throw an `IceGrid::DeploymentException` or an `Ice::UnknownException` depending on the operation invoked.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This maximum key size is not configurable. If you exceed this limit, you need to shorten the corresponding name, ID or
 identity.
@@ -89,7 +89,7 @@ MB on Linux and macOS
 On Windows, LMDB immediately allocates a file with the given map size, while on Linux and OS X LMDB uses sparse files
 and the allocated data file starts small and grows as needed, until it reaches the configured limit.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The default `MapSize` provided by the IceGrid registry is expected to be sufficient for most applications. Unless you
 have an extremely large IceGrid deployment on Windows, we recommend keeping the default setting.

@@ -20,7 +20,7 @@ DataStorm::Topic<string, float> topic{node, "temperature"};
 The example above creates a topic named `"temperature"`, with a string `Key` type and a float `Value` type. The
 `UpdateTag` type used for partial updates defaults to `std::string`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can also create topics on the heap using std::make_shared.
 
@@ -82,7 +82,7 @@ returns a filter function for the given criteria.
 - A **reader** uses the filter to ignore samples whose keys do not match the specified criteria.
 - A **writer** uses the filter to avoid attaching to readers whose filters exclude all of its configured keys.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 **Attaching** refers to the process where a writer and a reader are connected because they use the same topic and share
 matching keys. Once attached, the reader receives all samples published by that writer that match its filters and key
@@ -180,7 +180,7 @@ module RideShare
 }
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We use Slice to define the data types for this example, but the same can be achieved with any other encoding format such
 as Protobuf, JSON, or a custom binary encoding. DataStorm is encoding-agnostic — applications are free to use whichever

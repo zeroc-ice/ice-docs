@@ -43,7 +43,7 @@ A user exception is much like a structure in that it contains a number of fields
 can have zero fields, that is, be empty. Like classes, user exceptions support inheritance and may include
 [optional fields](../fields).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Even though user exceptions are nominally exceptions that you throw and catch, it’s better to think of them as error
 results. You may receive a user exception only when you call a Slice operation.
@@ -211,7 +211,7 @@ The answer depends whether the client was built using the old or the updated def
   understood by the receiver (`AppException`, in this case) and discards the information that is specific to the derived
   part of the exception.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The exception slicing occurs when the exception is marshaled by the server using the sliced format. Started with Ice
 3.8, exceptions are always marshaled in the sliced format. In Ice 3.7 and prior releases, you need to enable the sliced

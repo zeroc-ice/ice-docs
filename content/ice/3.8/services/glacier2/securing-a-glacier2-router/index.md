@@ -256,7 +256,7 @@ In reality, this configuration only prevents clients from accessing servers usin
 contain endpoints. As a result, the property causes Glacier2 to accept only
 [indirect proxies](../../../basics/terminology).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 By default, a Glacier2 router forwards requests for any address.
 
@@ -276,7 +276,7 @@ Glacier2.Filter.Category.Accept=cat1 cat2
 This property does not affect the routing of [callback requests](../callbacks-through-glacier2) from back-end servers to
 router clients.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 By default a Glacier2 router forwards requests for any category.
 

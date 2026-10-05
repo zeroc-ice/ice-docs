@@ -47,7 +47,7 @@ When a remote logger is attached to a local logger, its `init` operation is call
 list of recent log messages (see the `LoggerAdmin` interface below). Then, each time a log message is sent to the local
 logger, the Logger facet forwards this message to the remote logger's `log` operation.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The Logger facet does not guarantee that `init` will be called on a remote logger before `log` is called on this remote
 logger, even though the log messages sent to `init` are always older than the log messages sent to `log`. It is indeed

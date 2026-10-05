@@ -86,7 +86,7 @@ const f = Fruit.valueOf(3);
 console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 TypeScript has an enumerated type, but the TypeScript definitions must match the JavaScript generated code, using
 enumerated types in TypeScript is identical to use them in JavaScript.

@@ -57,7 +57,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
   immediately. These async methods are described in more detail in
   [Asynchronous Method Invocation (AMI) in MATLAB](#asynchronous-method-invocation-ami).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Async invocations allow you to perform other work while the server is processing the request. Sync invocations are more
 convenient to call. You decide what’s more important for your application.
@@ -265,7 +265,7 @@ A well-behaved program must always test an optional parameter prior to using its
 Slice types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is
 set. An optional parameter set to an empty array is considered to be set.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 In MATLAB, you can distinguish between an optional proxy parameter set to null (represented by an empty array) and an
 optional proxy parameter that is not set (it carries the `Ice.Unset` value). Since other language mappings can’t make

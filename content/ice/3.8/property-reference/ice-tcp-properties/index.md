@@ -4,7 +4,7 @@ title: Ice.TCP.*
 
 {% iflang langs="js" %}
 
-{% callout type="info" title="JavaScript" %}
+{% callout type="note" title="JavaScript" %}
 
 Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
 

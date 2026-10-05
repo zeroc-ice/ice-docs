@@ -59,7 +59,7 @@ result of `createSession` or `createSessionFromSecureConnection`.
 Glacier2 invokes the `destroy` operation on a `Session` proxy when the session expires, giving a custom session manager
 the opportunity to reclaim resources that were acquired for the session during `create`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `create` operations may be called with information that identifies an existing session. For example, this can occur
 when a client loses its connection to the router but its previous session has not yet expired (and therefore the router

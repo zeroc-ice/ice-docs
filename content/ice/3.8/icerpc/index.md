@@ -5,7 +5,7 @@ title: Using Ice and IceRPC Together
 [IceRPC](https://docs.icerpc.dev/) is our new cutting-edge RPC framework, with a modular design, support for QUIC, an
 improved Slice language, and more.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 While Ice is available in many languages, IceRPC language support is much more limited.
 

@@ -13,7 +13,7 @@ network.
 
 ![A public client at 1.2.3.4 connects to Glacier2 client endpoints at 5.6.7.8. Glacier2 sends requests to the private server at 10.0.0.2. The server sends callbacks to Glacier2 server endpoints at 10.0.0.1.](/images/ice/3.8/how-glacier2-works/client-and-server-endpoints.svg)
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
 

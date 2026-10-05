@@ -199,7 +199,7 @@ port on each multicast-capable interface:
 IceDiscovery.Multicast.Endpoints=udp -h 239.255.0.99 -p 8000
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 All of the clients and servers comprising an application must use the same values for `IceDiscovery.Address` and
 `IceDiscovery.Port`. You should also consider defining

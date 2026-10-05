@@ -31,7 +31,7 @@ options class:
 - On **Windows**, use
   [Ice::SSL::SchannelClientAuthenticationOptions](https://code.zeroc.com/ice/3.8/api/cpp/structIce_1_1SSL_1_1SchannelClientAuthenticationOptions.html).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 [Ice::SSL::ClientAuthenticationOptions](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_1_1SSL_a5ed47c735f0c8e9f2e93b0818be8b1d3.html#a5ed47c735f0c8e9f2e93b0818be8b1d3)
 is an alias that resolves to the platform-specific class and can be used in cross-platform code.
@@ -54,7 +54,7 @@ options class:
 - On **Windows**, use
   [Ice::SSL::SchannelServerAuthenticationOptions](https://code.zeroc.com/ice/3.8/api/cpp/structIce_1_1SSL_1_1SchannelServerAuthenticationOptions.html).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 [Ice::SSL::ServerAuthenticationOptions](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_1_1SSL_a750cd76e81843f6d699c5f49fb2aad75.html#a750cd76e81843f6d699c5f49fb2aad75)
 is an alias that resolves to the platform-specific class and can be used in cross-platform code.

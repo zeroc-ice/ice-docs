@@ -73,7 +73,7 @@ $greeter = VisitorCenter\GreeterPrxHelper::createProxy(
 stringified proxy says that the target Ice object is named “greeter” and can be reached over `tcp` on `hello.zeroc.com`
 on port `4061`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
 hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
@@ -110,7 +110,7 @@ We can run this client script with PHP as follows:
 php Client.php
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice for PHP supports only client development.
 

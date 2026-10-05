@@ -50,7 +50,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
   immediately. These async methods are described in more detail in
   [Asynchronous Method Invocation (AMI) in Python](#asynchronous-method-invocation-ami).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We recommend using asyncio and async invocations in new applications.
 
@@ -164,7 +164,7 @@ completes.
 AMI is transparent to the server: there is no way for the server to tell whether a client sent a request synchronously
 or asynchronously.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We recommend using asyncio together with AMI in new Python applications.
 
@@ -407,7 +407,7 @@ async def greet(self, name: str, current: Ice.Current) -> str:
   return f"Hello, {name}!"
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The coroutine is executed according to the configured event loop adapter—for example, on the asyncio event loop thread
 when the communicator is initialized with an asyncio event loop.

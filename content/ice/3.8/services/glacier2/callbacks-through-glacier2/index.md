@@ -44,7 +44,7 @@ The arrows in the above illustration indicate the flow of requests; notice that 
 router and the server. Since the server is unaware of the router, it does not use routed proxies, and therefore does not
 use bidirectional connections.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 It is also possible for applications to manually configure bidirectional connections without the use of a router.
 
@@ -72,7 +72,7 @@ Glacier2.Server.Endpoints=tcp -h 10.0.0.1
 
 As this example shows, the server endpoint does not require a fixed port.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Glacier2's implementation of [Ice::Router](../../../runtime/invocation/routers)'s `getServerProxy` returns the
 [published endpoints](../../../runtime/dispatch/object-adapter-endpoints) of this `Glacier2.Server` object adapter.
@@ -86,7 +86,7 @@ adapter has endpoints in the local network, but those endpoints are of no use to
 environment. We really want the client's callback proxy to contain the router's server endpoints, and we accomplish that
 by configuring the client's object adapter with a proxy for the router.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Note that multiple object adapters created by the same communicator cannot use the same router.
 
@@ -108,7 +108,7 @@ An object adapter configured in this way allows the client to receive callback r
 also wants to service requests via local (non-routed) endpoints, the client must
 [create a separate adapter](../advanced-glacier2-client-configurations) for these requests.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 An [object adapter configured with a router](../../../runtime/invocation/routers) receives only requests over the
 (bidirectional) connection to the router, and collocated dispatches.

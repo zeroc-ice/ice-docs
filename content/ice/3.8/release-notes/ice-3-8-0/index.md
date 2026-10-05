@@ -247,7 +247,7 @@ In Ice 3.7 and prior releases, the local exceptions that could be marshaled were
 exceptions (`ObjectNotExistException`, `FacetNotExistException`, `OperationNotExistException`) and 3 unknown exceptions
 (`UnknownLocalException`, `UnknownUserException` and `UnknownException`).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 A local exception is just an exception class derived from [LocalException](api:Ice/LocalException).
 
@@ -685,7 +685,7 @@ visitor_center/Greeter.py
 visitor_center/Greeter_forward.py
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 For Slice interfaces the Slice Compiler for Python generates an additional `_forward` module containing forward
 declarations.

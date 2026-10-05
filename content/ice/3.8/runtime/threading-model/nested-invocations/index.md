@@ -28,7 +28,7 @@ while, but is brittle. The correct solution is to follow the shared resource rul
 invocation instead of a synchronous one from the dispatch thread. Or alternatively, dispatch asynchronously (with AMD)
 and make the synchronous invocation from a separate thread - not an Ice thread pool thread.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 When you make a **oneway** invocation, you generally don’t wait, or at least you don’t think you may wait.
 

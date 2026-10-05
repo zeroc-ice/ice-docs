@@ -30,7 +30,7 @@ in the peer. A heartbeat is a oneway, unacknowledged, `ValidateConnection` messa
 In order to operate properly, the idle check requires the same `IdleTimeout` configuration on both sides of the
 connection. You should assign the same idle timeout to all your clients and servers, and typically keep the default.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Interop with previous versions of Ice
 

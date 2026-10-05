@@ -154,7 +154,7 @@ When the client loads `Client.Proxy` with `propertyToProxy`, invocations on this
 `target.host` on port 21112. The bridge forwards requests for the identity `SomeObject`, which the target server must
 provide.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Setting `Ice.Default.Router` affects **all** proxies by default. Ice also provides more selective ways of configuring a
 router, such as with a [proxy property](../../property-reference/proxy-properties) or a

@@ -22,7 +22,7 @@ These extra capabilities are not free: the marshaling/unmarshaling of a class is
 than the marshaling/unmarshaling of a struct, and its binary representation is larger. As a result, you should only
 select a class over a struct when these extra capabilities may be useful for your application.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 A class represents data that you transmit over the wire, just like a struct. You can't define operations on a Slice
 class or implement an interface with a Slice class.

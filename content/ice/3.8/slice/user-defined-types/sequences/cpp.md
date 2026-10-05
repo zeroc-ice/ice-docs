@@ -180,7 +180,7 @@ void reportValues(std::span<const std::int32_t> values, ...);
 
 This span mapping can help reduce copies in the caller.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 `std::span` requires C++20.
 
@@ -199,7 +199,7 @@ The array mapping for sequence parameters applies only to:
 - Out and return parameters provided to [marshaled results](../../slice-metadata-directives) or
   [AMD](../../operations#asynchronous-method-dispatch-amd) callbacks
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `["cpp:array"]` metadata affects many more parameters than the span mapping described earlier.
 
@@ -241,7 +241,7 @@ The array mapping is useful to achieve zero-copy passing of sequences. The point
 transport buffer when receiving a request; this allows the runtime to avoid creating a `vector` to pass to the operation
 implementation, thereby avoiding both allocating memory for the sequence and copying its contents into that memory.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can use the array mapping for any sequence type. However, it provides a performance advantage only for byte
 sequences (on all platforms) and for sequences of integral or floating point types on some platforms when you enable

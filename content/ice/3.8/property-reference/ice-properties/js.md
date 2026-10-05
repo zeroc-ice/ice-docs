@@ -16,7 +16,7 @@
 
 {% language-section name="lang-5" %}
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `PerThread` type is currently not available for JavaScript.
 

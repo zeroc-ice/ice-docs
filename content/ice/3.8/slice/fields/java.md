@@ -183,7 +183,7 @@ public class C extends com.zeroc.Ice.Value {
 The `has` method allows you to test whether a field’s value has been set, and the `clear` method removes any existing
 value for a field.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Calling a `get` method when the field’s value has not been set throws `java.util.NoSuchElementException`.
 

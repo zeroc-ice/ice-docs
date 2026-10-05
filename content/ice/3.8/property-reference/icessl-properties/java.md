@@ -116,7 +116,7 @@ and `IceSSL.KeystorePassword`. In this case, `IceSSL.TruststoreType` and `IceSSL
 
 {% language-section name="lang-4" %}
 
-{% callout type="info" title="Certificate revocation" %}
+{% callout type="note" title="Certificate revocation" %}
 
 Ice for Java has no certificate revocation properties. IceSSL does not check certificate revocation itself; the
 revocation checking configured in the JDK applies.

@@ -102,7 +102,7 @@ public interface Greeter extends com.zeroc.Ice.Object {
 }
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 If you remap your exception class name or the name of the enclosing package with `java:identifier` or `java:package`,
 remember to set a custom [Slice loader](../user-defined-types/classes/slice-loaders) in communicators that receive this

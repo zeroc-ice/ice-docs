@@ -12,7 +12,7 @@ title: Ice.Override.*
 
 {% iflang langs="js" %}
 
-{% callout type="info" title="JavaScript" %}
+{% callout type="note" title="JavaScript" %}
 
 Ice for JavaScript does not support `Ice.Override.Compress`. Setting it throws `PropertyException`.
 

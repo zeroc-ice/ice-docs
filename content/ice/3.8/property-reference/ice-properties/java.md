@@ -19,7 +19,7 @@ and therefore should be disabled by setting this property to `0`.
 
 The default value is `2`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This property only affects the caching of message buffers for invocations. The Ice runtime never caches message buffers
 for dispatches.
@@ -256,7 +256,7 @@ See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
 proxy server for all outgoing (client) connections.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice supports the SOCKS4 protocol, which requires IPv4. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are set, Ice
 uses the SOCKS proxy.

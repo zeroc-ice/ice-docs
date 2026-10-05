@@ -19,7 +19,7 @@ from the network.
 
 ## DataStorm
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice 3.8.3 includes a number of fixes to DataStorm's internal protocol. As a result, DataStorm in Ice 3.8.3 is not wire
 compatible with DataStorm in earlier Ice 3.8 releases: a 3.8.3 DataStorm node does not communicate with 3.8.0-3.8.2

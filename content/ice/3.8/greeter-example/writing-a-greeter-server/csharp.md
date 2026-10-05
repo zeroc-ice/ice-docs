@@ -50,7 +50,7 @@ Since the `Greeter` Slice interface only has one operation (`greet`), there is o
 implement. You can see our implementation takes a `name` parameter, and returns a greeting based on the provided `name`,
 matching what was specified in our Slice file.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 It is normal for servants like `Chatbot` to contain fields and other methods in addition to the needed ones from the
 generated base class. Due to our application’s simplicity, we don’t here though.

@@ -18,7 +18,7 @@ with the Slice to JavaScript compiler (`slice2js`).
 Here, we compile the `Greeter.ice` Slice file created earlier. We recommend including this compilation step directly in
 your project’s build process, as demonstrated in the TypeScript demo programs.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 These demos use a simple npm script that runs both slice2js and the TypeScript compiler together.
 
@@ -84,7 +84,7 @@ The constructor accepts our communicator and a “stringified proxy” with the 
 stringified proxy says that the target Ice object is named “greeter” and can be reached via `tcp` on `hello.zeroc.com`
 on port `4061`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
 hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
@@ -123,7 +123,7 @@ with:
 node client.js
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice for JavaScript has limited server side support.
 

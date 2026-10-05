@@ -137,7 +137,7 @@ If the target object implements the Slice interface, `checkedCastAsync` returns 
 `uncheckedCast`. If the target object doesn’t implement this interface, `checkedCastAsync` returns null.
 `checkedCastAsync` can also throw an exception, for example if it cannot reach the remote object.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The generated proxy helper also provides a synchronous overload: `checkedCast`. We recommend you always use async
 methods when making remote calls, and avoid these synchronous overloads provided for backwards compatibility.

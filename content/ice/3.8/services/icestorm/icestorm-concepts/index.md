@@ -89,7 +89,7 @@ that both publishers and subscribers use the same Slice definitions; if you do n
 encounter marshaling errors when receiving an event from IceStorm with a mismatched Slice definition. If the subscriber
 allows this error to propagate back to IceStorm, its subscription will be canceled.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Use the `retryCount` [quality of service](../icestorm-quality-of-service) parameter to configure IceStorm's behavior in
 error situations.

@@ -20,7 +20,7 @@ that processes the invocation share the same communicator (so-called _collocated
 default, does not send the invocation via the transport specified in the proxy. Instead, collocated invocations take a
 short-cut inside the Ice runtime and are dispatched more efficiently.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Note that if the proxy and the servant do not use the same communicator, the invocation is _not_ collocated, even though
 caller and callee are in the same address space.
@@ -58,7 +58,7 @@ When an endpoint search is required, the Ice runtime compares each of the proxy'
 communicator's object adapters. Only the transport, address and port are considered; other attributes of an endpoint are
 not considered during this search.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Datagram (UDP) endpoints are excluded from this search since Ice 3.8.
 

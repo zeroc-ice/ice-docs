@@ -503,7 +503,7 @@ return. After that, a server will typically do some clean-up work before exiting
 the server will not shut down automatically. This property is often used for servers that are automatically
 [activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 On Windows, the server idle time takes effect only once all the server thread pool idle threads have been reaped. The
 thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
@@ -542,7 +542,7 @@ See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
 proxy server for all outgoing (client) connections.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice supports the SOCKS4 protocol, which requires IPv4. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are set, Ice
 uses the SOCKS proxy.

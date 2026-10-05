@@ -15,7 +15,7 @@ Ice.Admin.Facets=Properties
 To specify more than one facet, separate them with a comma or white space. A facet whose name contains white space must
 be enclosed in single or double quotes.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The communicator creates only the built-in administrative facets that are enabled. Disabled built-in facets are not
 created at all.

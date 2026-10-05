@@ -9,7 +9,7 @@ starting with the global scope (`::`) and forming the fully-qualified name of a 
 in which the construct is nested, and ending with the name of the construct itself; the components of the type ID are
 separated by `::`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The term “type ID” is a historical accident: of the 3 constructs with type IDs, only classes are types in the Slice
 language. Neither interfaces nor exceptions are types in Slice.

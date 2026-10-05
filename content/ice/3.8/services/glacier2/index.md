@@ -18,7 +18,7 @@ pages:
 
 Glacier2 is a lightweight firewall traversal solution for Ice applications.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We present many examples of client/server applications in this documentation, most of which assume that the client and
 server programs are running either on the same host, or on multiple hosts with no network restrictions. We can justify

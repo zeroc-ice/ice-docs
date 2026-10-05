@@ -84,7 +84,7 @@ For each operation, the Slice compiler generates 3 member functions on the proxy
   on the async overload you selected. These async functions are described in more detail in
   [Asynchronous Method Invocation (AMI) in C++](#asynchronous-method-invocation-ami).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Async invocations allow you to use threads more efficiently. Sync invocations are more convenient to call. You decide
 what’s more important for your application.
@@ -500,7 +500,7 @@ There are two processing contexts in which the logical implementation of an AMD 
 exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that sends
 the response).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 These are not necessarily two different threads: it is legal to send the response from the dispatch thread.
 
@@ -673,7 +673,7 @@ and the corresponding C++ skeleton function is:
 virtual std::optional<std::int32_t> execute(std::optional<std::string> params, std::optional<float>& value, ...);
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 An optional parameter with a proxy type is mapped to a `std::optional<InterfaceNamePrx>`, and not to a
 `std::optional<std::optional<InterfaceNamePrx>>`. This is the same rule as for optional fields with proxy types.

@@ -77,7 +77,7 @@ catch (const IceGrid::PermissionDeniedException& ex)
 }
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The [identity of the registry object](../icegrid-server-reference/well-known-registry-objects) may change based on its
 configuration settings.

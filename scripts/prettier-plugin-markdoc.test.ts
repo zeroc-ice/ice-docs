@@ -18,13 +18,13 @@ const format = (source: string) =>
   });
 
 test('a tag written against its prose keeps a line of its own', async () => {
-  const source = `{% callout type="info" %}
+  const source = `{% callout type="note" %}
 The router's public address is 5.6.7.8 and its private address is 10.0.0.1.
 {% /callout %}
 `;
   assert.equal(
     await format(source),
-    `{% callout type="info" %}
+    `{% callout type="note" %}
 The router's public address is 5.6.7.8 and its private
 address is 10.0.0.1.
 {% /callout %}
