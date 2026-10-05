@@ -150,7 +150,11 @@ export const DocumentShell = ({
                 earns its place on an article long enough that the reader is
                 deciding whether to start now. */}
               {Object.entries(readingTime ?? {})
-                .filter(([, text]) => Number.parseInt(text, 10) >= 2)
+                .filter(
+                  ([language, text]) =>
+                    (!writtenFor || writtenFor.includes(language)) &&
+                    Number.parseInt(text, 10) >= 2
+                )
                 .map(([language, text]) => (
                   <p
                     key={language}

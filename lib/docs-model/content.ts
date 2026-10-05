@@ -150,10 +150,21 @@ export function readPageSources(page: PageFiles) {
 /**
  * The languages a page is written for: a page written per language's overlays,
  * or the `languages:` its index.md lists; `undefined` when it is written for all.
+ * Throws when `languages:` is not a list of languages.
  */
 export function writtenFor(page: PageFiles): string[] | undefined {
   if (!page.shared) return Object.keys(page.overlays);
-  return readFrontmatter<{ languages?: string[] }>(page).languages;
+  const { languages } = readFrontmatter<{ languages?: unknown }>(page);
+  if (languages === undefined) return undefined;
+  if (
+    !Array.isArray(languages) ||
+    languages.length === 0 ||
+    !languages.every((language) => typeof language === 'string')
+  )
+    throw new Error(
+      `${page.shared} lists its languages as ${JSON.stringify(languages)}, not a list of languages`
+    );
+  return languages;
 }
 
 /** A version's settings, read from its `version.yaml`. */

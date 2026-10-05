@@ -7,6 +7,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 
 import {
@@ -80,6 +82,18 @@ test('a page is written for its overlays, the languages it lists, or every langu
   assert.deepEqual(writtenFor(bySlug['services/datastorm']), ['cpp', 'java']);
   assert.deepEqual(writtenFor(bySlug['services/icestorm']), ['cpp', 'java']);
   assert.equal(writtenFor(bySlug['slice/enumerations']), undefined);
+});
+
+test('a page that lists its languages as anything but a list of them is rejected', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'written-for-'));
+  for (const languages of ['cpp', '1', '[]']) {
+    const shared = join(dir, 'index.md');
+    writeFileSync(shared, `---\ntitle: T\nlanguages: ${languages}\n---\n`);
+    assert.throws(
+      () => writtenFor({ slug: 'p', name: 'p', shared, overlays: {} }),
+      /index\.md lists its languages as .*, not a list of languages/
+    );
+  }
 });
 
 test('a file without frontmatter has none', () => {

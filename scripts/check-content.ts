@@ -24,8 +24,9 @@
 // themselves, and the tree is clean of them today, so anything new is a
 // regression. The exception is a slot that doesn't say which kind of answer it
 // is (7): many still don't, so those fail only when their count rises, or under
-// --strict. A version without a front page, or a page that lists a page it does
-// not contain, fails as the navigation is read.
+// --strict. A version without a front page, a page that lists a page it does
+// not contain, or one whose `languages:` is not a list, fails as the navigation
+// is read.
 
 // cspell:words noformat unparseable worklist
 
@@ -506,20 +507,16 @@ for (const version of listVersions(CONTENT_ROOT)) {
     const listed = writtenFor(page);
     if (listed === undefined) continue;
     const where = path.relative(CONTENT_ROOT, page.shared);
-    if (!Array.isArray(listed) || listed.length === 0)
-      fail(`${version}: ${where} lists no languages under "languages:"`);
-    else {
-      for (const language of listed)
-        if (!languages.includes(language))
-          fail(
-            `${version}: ${where} lists "${language}", which is not one of the version's languages`
-          );
-      for (const language of Object.keys(page.overlays))
-        if (!listed.includes(language))
-          fail(
-            `${version}: ${where} is not written for "${language}", but has an overlay for it`
-          );
-    }
+    for (const language of listed)
+      if (!languages.includes(language))
+        fail(
+          `${version}: ${where} lists "${language}", which is not one of the version's languages`
+        );
+    for (const language of Object.keys(page.overlays))
+      if (!listed.includes(language))
+        fail(
+          `${version}: ${where} is not written for "${language}", but has an overlay for it`
+        );
   }
 
   // 5, 6, 9 & 11: defects inside the files themselves.
