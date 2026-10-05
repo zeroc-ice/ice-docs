@@ -7,7 +7,7 @@ standard error output. The `trace` operation accepts a `category` parameter in a
 allows you to separate trace output from different subsystems by sending the output through a filter.
 
 You can obtain the logger that is attached to a communicator using the `getLogger` method on
-[Communicator](https://code.zeroc.com/manual/Ice/Communicator).
+[Communicator](api:Ice/Communicator).
 
 {% language-section name="lang-1" /%}
 

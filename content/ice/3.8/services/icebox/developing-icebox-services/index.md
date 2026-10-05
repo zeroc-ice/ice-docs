@@ -4,8 +4,8 @@ title: Developing IceBox Services
 
 ## The IceBox `Service` Interface
 
-Writing an IceBox service requires implementing the [IceBox Service](https://code.zeroc.com/manual/IceBox/Service)
-interface or abstract base class.
+Writing an IceBox service requires implementing the [IceBox Service](api:IceBox/Service) interface or abstract base
+class.
 
 Your service implements two methods, `start` and `stop`. IceBox calls `start` after loading the service and `stop` when
 shutting down a running service. An administrator can also stop and restart the service through the

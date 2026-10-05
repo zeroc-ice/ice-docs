@@ -38,6 +38,7 @@ Each page of the docs is a directory under `content/`, and its path there is its
 | `content/ice/<version>/<page>/<lang>.md` | Fills the slots for one language, or is the whole page when there is no `index.md`.                                                                                            |
 | `app/ice/<version>/`                     | The route serving that release's documentation; its `version.ts` holds the path, title, status, and languages.                                                                 |
 | `content/…/redirects.yaml`               | Redirects, `permanent` or `temporary`, relative to the directory's own URL; `include` names files beside it.                                                                   |
+| `content/ice/<version>/api-links.yaml`   | Each type's page in the API reference of each language that has one, for `api:` links.                                                                                         |
 | `public/images/ice/<version>/<page>/`    | Page images.                                                                                                                                                                   |
 | `public/images/site/`                    | Images the site itself uses.                                                                                                                                                   |
 

@@ -68,8 +68,7 @@ create the corresponding identity).
 ### `ToStringMode` Enumeration
 
 When _stringifying_ an identity with `identityToString`, you can choose the algorithm, or mode, used in this "to string"
-implementation. These modes correspond to the enumerators of the
-[ToStringMode](https://code.zeroc.com/manual/Ice/ToStringMode) enumeration.
+implementation. These modes correspond to the enumerators of the [ToStringMode](api:Ice/ToStringMode) enumeration.
 
 These modes are used only when you create a stringified identity with `identityToString`, or when you “stringify” a
 proxy.

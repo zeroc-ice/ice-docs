@@ -160,7 +160,7 @@ Since IceGrid is implemented in C++, you need to write and register a C++ plug-i
 During initialization, your plug-in will obtain a reference to a facade object with which it can register one or more
 filters. A filter typically retains a reference to this facade object because it offers a number of useful methods that
 the filter might need during its implementation. This type of this facade object is the C++ class
-[IceGrid::RegistryPluginFacade](https://code.zeroc.com/manual/IceGrid/RegistryPluginFacade).
+[IceGrid::RegistryPluginFacade](https://code.zeroc.com/ice/3.8/api/cpp/classIceGrid_1_1RegistryPluginFacade.html).
 
 There are methods for adding and removing replica group and type filters, along with a number of methods for obtaining
 information about the deployment. As you can see, a great deal of information is available to a filter implementation
@@ -295,7 +295,7 @@ object adapter is hosted by a server, and the filter can look up property values
 ### Implementing a Custom Replica Group Filter
 
 A replica group filter must define a subclass of
-[IceGrid::ReplicaGroupFilter](https://code.zeroc.com/manual/IceGrid/ReplicaGroupFilter).
+[IceGrid::ReplicaGroupFilter](https://code.zeroc.com/ice/3.8/api/cpp/classIceGrid_1_1ReplicaGroupFilter.html).
 
 {% callout type="warning" %}
 
@@ -400,8 +400,8 @@ attributes.
 
 ### Implementing a Custom Type Filter
 
-A replica group filter must define a subclass of
-[IceGrid::TypeFilter](https://code.zeroc.com/manual/IceGrid/TypeFilter).
+A type filter must define a subclass of
+[IceGrid::TypeFilter](https://code.zeroc.com/ice/3.8/api/cpp/classIceGrid_1_1TypeFilter.html).
 
 {% callout type="warning" %}
 

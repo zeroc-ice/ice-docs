@@ -21,6 +21,7 @@ import { HeaderControls } from '@/components/ice/HeaderControls';
 import { SITE_URL } from '@/lib/site';
 import {
   listPages,
+  readApiLinks,
   readPageSources,
   readNavigation,
   snippetReader,
@@ -129,6 +130,7 @@ export async function DocsPage({
     slug,
     version,
     pageIndex,
+    apiLinks: readApiLinks(version),
     frontmatter,
     chrome: {
       breadcrumbs: crumbs,

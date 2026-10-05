@@ -7,6 +7,7 @@
 //   <root>/…/<version>/<dir>/…/<name>/index.md a page, at its URL path
 //   <root>/…/<version>/<dir>/…/<name>/<lang>.md one of its language overlays
 //   <root>/…/<version>/examples/...           (snippet sources)
+//   <root>/…/<version>/api-links.yaml         each type's API reference pages
 //   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
 // A version is one the site defines (app/ice/versions.ts), named by its path under
@@ -26,6 +27,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
+import type { ApiLinks } from './links.ts';
 import {
   FRONT_PAGE_NAV_TITLE,
   pageHref,
@@ -293,6 +295,16 @@ export function listRedirects(versions: DocsVersion[]) {
     ];
   };
   return redirectFiles(CONTENT_ROOT).flatMap(read);
+}
+
+/** A version's API reference pages, from its `api-links.yaml`. */
+export function readApiLinks(version: DocsVersion): ApiLinks {
+  return yamlLoad(
+    fs.readFileSync(
+      path.join(CONTENT_ROOT, version.path, 'api-links.yaml'),
+      'utf8'
+    )
+  ) as ApiLinks;
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

@@ -195,7 +195,7 @@ Exceptions are always marshaled in the sliced format (to allow slicing) but exce
 {% /callout %}
 
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a
-[SlicedData](https://code.zeroc.com/manual/Ice/SlicedData) object that hold the preserved slices.
+[SlicedData](api:Ice/SlicedData) object that holds the preserved slices.
 
 ## Unknown Sliced Values
 
@@ -231,8 +231,8 @@ definition of `transform` because the formal types in its signature do not impos
 `transform` operation uses the sliced format, this intermediary is capable of relaying values of any type.
 
 If the Ice runtime in the intermediary does not know any of the types in an object's inheritance hierarchy, and the
-formal type is `Value`, Ice uses an instance of
-[UnknownSlicedValue](https://code.zeroc.com/manual/Ice/UnknownSlicedValue) to represent the instance.
+formal type is `Value`, Ice uses an instance of [UnknownSlicedValue](api:Ice/UnknownSlicedValue) to represent the
+instance.
 
 The implementation of `transform` receives an instance of `UnknownSlicedValue` and can use that object as its return
 value. If necessary, the implementation can determine the most-derived type of the instance by calling `ice_id`.

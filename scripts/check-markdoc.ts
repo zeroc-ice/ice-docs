@@ -23,16 +23,17 @@
 // only point at a line of the assembled page, so it quotes the line, and it
 // skips anything the first pass already reported. Both passes see the variables
 // the route provides, so a page may refer to `$frontmatter` or `$path`. The
-// transform also resolves every link and card against the page index, so the
-// second pass reports one that names no page, which the site renders as plain
-// text, one whose `#anchor` names no element on the page it links to, and one
-// whose `?lang=` names a mapping the version lacks or one that doesn't show the
-// anchor. It also reports two headings that a reader of one language sees under
-// one anchor, and a redirect to a section its language doesn't show.
+// transform also resolves every link and card against the page index, and
+// every `api:` link against the version's `api-links.yaml`, so the second pass
+// reports one that names no page or no listed type, which the site renders as
+// plain text, one whose `#anchor` names no element on the page it links to,
+// and one whose `?lang=` names a mapping the version lacks or one that doesn't
+// show the anchor. It also reports two headings that a reader of one language
+// sees under one anchor, and a redirect to a section its language doesn't show.
 //
 // Exit code 1 on any diagnostic at warning level or above, on a link to a page,
-// an anchor, or a mapping that does not exist, on two headings with one anchor,
-// and on a redirect that lands on a section its language lacks.
+// an anchor, a mapping, or an API type that does not exist, on two headings
+// with one anchor, and on a redirect that lands on a section its language lacks.
 // `child-invalid`, which a `{% callout %}` reflowed into its paragraph
 // produces, is a warning.
 
@@ -51,12 +52,18 @@ import { parse } from '../markdoc/parse.ts';
 import {
   frontmatterOf,
   listPages,
+  readApiLinks,
   readPageSources,
   listRedirects,
   snippetReader
 } from '../lib/docs-model/content.ts';
 import { ICE_VERSIONS } from '../app/ice/versions.ts';
-import { buildPageIndex, type PageIndex } from '../lib/docs-model/links.ts';
+import {
+  API_SCHEME,
+  buildPageIndex,
+  type ApiLinks,
+  type PageIndex
+} from '../lib/docs-model/links.ts';
 import { pageHref, type DocsVersion } from '../lib/docs-model/nav.ts';
 import { resolveDocument } from '../lib/docs-model/resolve.ts';
 
@@ -99,6 +106,10 @@ function validate(
     }));
 }
 
+const apiLinksByVersion: Record<string, ApiLinks> = {};
+for (const version of ICE_VERSIONS)
+  apiLinksByVersion[version.path] = readApiLinks(version);
+
 // The variables lib/markdown.ts gives a page, so `$frontmatter.title` or
 // `$path` validate here as they render there. Validation only needs a variable
 // to exist, so the reading time and the chrome are placeholders of the right
@@ -126,7 +137,9 @@ function variablesFor({
     slug,
     readingTime: {},
     version,
+    languages: version.languages,
     pageIndex: pageIndexes.get(version.path),
+    apiLinks: apiLinksByVersion[version.path],
     chrome: { breadcrumbs: [], pagination: [] }
   };
 }
@@ -250,7 +263,9 @@ for (const { version, page } of allPages) {
     if (unresolved)
       diagnostics.push({
         where,
-        text: `link to a page that does not exist: ${href}`
+        text: href!.startsWith(API_SCHEME)
+          ? `link to a type that api-links.yaml does not list: ${href}`
+          : `link to a page that does not exist: ${href}`
       });
     else if (typeof href === 'string' && /[#?]/.test(href))
       checkedLinks.push({

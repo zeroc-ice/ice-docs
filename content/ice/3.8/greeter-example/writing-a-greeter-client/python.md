@@ -48,8 +48,7 @@ Then we get to the interesting part: The client logic. This logic can be broken 
 
 ### 1. Create a Communicator
 
-First, we create a [Communicator](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator.html) using its
-constructor:
+First, we create a [Communicator](api:Ice/Communicator) using its constructor:
 
 ```py
 async def main():

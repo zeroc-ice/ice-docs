@@ -33,10 +33,9 @@ clients. The object adapter dedicated to callback requests must be
 
 ## Using Multiple Routers
 
-A client is not limited to using only one router at a time: the
-[proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx) `ice_router` allows a client to configure its routed proxies
-as necessary. With respect to callbacks, a client must create a new callback object adapter for each router that can
-forward callback requests to the client. A client must also be aware of the
+A client is not limited to using only one router at a time: the [proxy method](api:Ice/ObjectPrx) `ice_router` allows a
+client to configure its routed proxies as necessary. With respect to callbacks, a client must create a new callback
+object adapter for each router that can forward callback requests to the client. A client must also be aware of the
 [object identities](../getting-started-with-glacier2) in use by the routers.
 
 ## Using the `RouterFinder` Interface

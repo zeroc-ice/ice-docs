@@ -6,8 +6,8 @@ You have several options if you wish to install a logger other than the default 
 
 - Select one of the other [built-in loggers](../built-in-loggers), which allow you to log to a file, to the `syslog` on
   Unix, and to the Windows event log
-- Supply your own logger implementation in [InitializationData](https://code.zeroc.com/manual/Ice/InitializationData)
-  when you create a communicator
+- Supply your own logger implementation in [InitializationData](api:Ice/InitializationData) when you create a
+  communicator
 - Load a logger implementation dynamically via the Ice [plug-in facility](../../../plugins/custom-logger-plug-in)
 
 Changing the `Logger` object that is attached to a communicator allows you to integrate Ice messages into your own

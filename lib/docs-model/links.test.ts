@@ -5,7 +5,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { buildPageIndex, resolveDocLink } from './links.ts';
+import { buildPageIndex, resolveApiLink, resolveDocLink } from './links.ts';
 
 const index = buildPageIndex([
   'learn/slice/enumerations',
@@ -96,5 +96,33 @@ test('resolution is case-insensitive and URL-decoded', () => {
     // cspell:disable-next-line -- a URL-encoded slug, not words
     resolveDocLink('reference/properties/ice%2Ddefault%2Dproperties', ctx).href,
     '/ice/3.8/reference/properties/ice-default-properties'
+  );
+});
+
+const apiLinks = {
+  'Ice/Communicator': {
+    cpp: 'https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator.html',
+    java: 'https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html'
+  }
+};
+
+test("a link to a type goes to each language's page, and is text for the languages without one", () => {
+  assert.deepEqual(
+    resolveApiLink(
+      'Ice/Communicator',
+      ['cpp', 'java', 'matlab', 'php'],
+      apiLinks
+    ),
+    [
+      {
+        href: 'https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator.html',
+        langs: ['cpp']
+      },
+      {
+        href: 'https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html',
+        langs: ['java']
+      },
+      { href: '', langs: ['matlab', 'php'] }
+    ]
   );
 });

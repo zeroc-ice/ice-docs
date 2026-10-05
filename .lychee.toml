@@ -1,11 +1,20 @@
 # Lychee link checker configuration
 # https://lychee.cli.rs/
 
-# Only the links that leave the site. Pages link to each other by page name
-# (`../enumerations`) and to images by site path (`/images/...`); both are
-# resolved by the build, and checked by `npm run check:markdoc` (pages and their
-# anchors) and `npm run check:content` (images), not by lychee.
+# Only the links that leave the site. Pages link to each other by slug or by
+# relative path (`../enumerations`) and to images by site path (`/images/...`);
+# both are resolved by the build, and checked by `npm run check:markdoc` (pages
+# and their anchors) and `npm run check:content` (images), not by lychee. A link
+# to the API reference that names a type (`api:Ice/Communicator`) resolves to a
+# URL in `api-links.yaml`, which lychee checks along with the pages.
 scheme = ["https", "http"]
+
+# The Swift API reference is a single-page app: its server answers any URL
+# under it with 200, page or not. Only a real page has a data file, so check
+# that instead.
+remap = [
+    "^(https://code\\.zeroc\\.com/ice/[^/]+/api/swift)/documentation/(.+)$ ${1}/data/documentation/${2}.json",
+]
 
 # Root-relative links (`/images/...`) resolve against the served tree, so
 # lychee can tell them apart from links that leave the site.

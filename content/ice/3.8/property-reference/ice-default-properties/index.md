@@ -63,7 +63,7 @@ proxies. The default value is `-1`, which disables the timeout.
 
 Specifies a default [locator](../../runtime/locators) for all proxies and object adapters. The value is a stringified
 proxy for the [IceGrid](../../services/icegrid) locator object. The default locator can be overridden on a proxy using
-the `ice_locator` [proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx). The default value is no locator.
+the `ice_locator` [proxy method](api:Ice/ObjectPrx). The default value is no locator.
 
 The default identity of the IceGrid locator object is `IceGrid/Locator`, but this identity is influenced by the
 [IceGrid.InstanceName](../icegrid-properties) property. The locator object is available on the IceGrid client endpoints.
@@ -134,8 +134,8 @@ The default value is `ws` in a browser and `tcp` in Node.js.
 
 Specifies the default [router](../../runtime/invocation/routers) for all proxies. The value is a stringified proxy for
 the Glacier2 router control interface. The default router can be overridden on a proxy using the `ice_router`
-[proxy method](https://code.zeroc.com/manual/Ice/ObjectPrx). The default value is no router. This property is only for
-proxies: it does not add a router to object adapters.
+[proxy method](api:Ice/ObjectPrx). The default value is no router. This property is only for proxies: it does not add a
+router to object adapters.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 

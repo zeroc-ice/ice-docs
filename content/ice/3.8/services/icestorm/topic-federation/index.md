@@ -64,7 +64,7 @@ station->report(sensorId, timeStamp, reading, context);
 ### Receiving a Message with a Cost
 
 A subscriber can retrieve the cost of a message by examining the request context supplied in the
-[Current](https://code.zeroc.com/manual/Ice/Current) argument.
+[Current](api:Ice/Current) argument.
 
 ## Automating IceStorm Federation
 

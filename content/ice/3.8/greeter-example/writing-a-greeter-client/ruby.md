@@ -41,7 +41,7 @@ The remainder of this script can be broken down into four pieces:
 
 ### 1. Create a Communicator
 
-First, we create a [Communicator](https://code.zeroc.com/manual/Ice/Communicator) using `Ice::initialize`:
+First, we create a [Communicator](api:Ice/Communicator) using `Ice::initialize`:
 
 ```ruby
 Ice::initialize(ARGV) do |communicator|
