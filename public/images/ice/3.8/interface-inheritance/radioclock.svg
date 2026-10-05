@@ -67,8 +67,8 @@
 
   <g id="connectors" aria-hidden="true">
     <path class="inheritance" d="M 545 150 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="inheritance" d="M 300 292 L 155.4 224" vector-effect="non-scaling-stroke"/>
-    <path class="inheritance" d="M 400 292 L 544.6 224" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 300 292 L 155.4 248 V 224" vector-effect="non-scaling-stroke"/>
+    <path class="inheritance" d="M 400 292 L 544.6 248 V 224" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">

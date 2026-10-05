@@ -96,6 +96,7 @@
     <rect class="process-boundary" x="16" y="16" width="220" height="176" rx="14" vector-effect="non-scaling-stroke"/>
     <rect class="process-boundary" x="380" y="16" width="324" height="300" rx="14" vector-effect="non-scaling-stroke"/>
     <rect class="api" x="396" y="56" width="292" height="244" rx="8" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="412" y="96" width="180" height="188" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
@@ -110,7 +111,6 @@
     <rect class="application" x="32" y="56" width="188" height="120" rx="7" vector-effect="non-scaling-stroke"/>
     <rect class="api" x="44" y="116" width="116" height="40" vector-effect="non-scaling-stroke"/>
     <rect class="api" x="160" y="116" width="48" height="40" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="412" y="96" width="180" height="188" rx="7" vector-effect="non-scaling-stroke"/>
     <rect class="application" x="424" y="148" width="156" height="40" vector-effect="non-scaling-stroke"/>
     <rect class="runtime" x="424" y="188" width="156" height="40" vector-effect="non-scaling-stroke"/>
     <rect class="application" x="424" y="228" width="156" height="40" vector-effect="non-scaling-stroke"/>
