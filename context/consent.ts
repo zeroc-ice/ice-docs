@@ -47,8 +47,18 @@ export function setConsent(value: Consent) {
 export const useConsent = () =>
   useSyncExternalStore<Consent>(
     (listener) => {
+      // A choice made in another tab arrives as a storage event.
+      const onStorage = (event: StorageEvent) => {
+        if (event.key !== CONSENT_STORAGE_KEY) return;
+        consent = undefined;
+        listener();
+      };
       listeners.add(listener);
-      return () => listeners.delete(listener);
+      window.addEventListener('storage', onStorage);
+      return () => {
+        listeners.delete(listener);
+        window.removeEventListener('storage', onStorage);
+      };
     },
     getConsent,
     () => 'denied'
