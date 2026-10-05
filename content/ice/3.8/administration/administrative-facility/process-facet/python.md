@@ -3,8 +3,10 @@
 ## Obtaining the Local Process Facet
 
 We [already showed](../using-the-admin-object) how to obtain a proxy for a remote administrative facet, but suppose you
-want to interact with the facet in your local address space. In Python, `findAdminFacet` returns `None` for the built-in
-`Process` facet, so Python applications can access this facet only through its proxy.
+want to interact with the facet in your local address space. The code below shows the necessary steps:
+
+The built-in process facet servant is not exposed in the Python mapping; Python applications can access it only via its
+proxy.
 
 ## Application Requirements for the Process Facet
 
@@ -68,7 +70,7 @@ communicator.addAdminFacet(myProcessFacet, "Process")
 ```
 
 If you host the admin object in the `Ice.Admin` object adapter, the final step is to create the admin object by calling
-`getAdmin` on the communicator. And if you host the admin object in your own object adapter, the final step is to create
+`getAdmin` on the communicator. And if you host the admin object in your own object adapter, the final set is to create
 the admin object with `createAdmin`.
 
 {% /language-section %}

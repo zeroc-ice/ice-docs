@@ -215,17 +215,18 @@ Ice validates the arguments to a proxy invocation at runtime and reports any typ
 
 ### Nil Parameters
 
-Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences and dictionaries can be `nil`,
-but the corresponding Slice types do not have the concept of a null value. To make life with these types easier,
-whenever you pass `nil` as a required parameter of type sequence or dictionary, the Ice runtime automatically sends an
-empty sequence or dictionary to the receiver.
+Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
+can be `nil`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
+easier, whenever you pass `nil` as a parameter or return value of type sequence, dictionary, or string, the Ice runtime
+automatically sends an empty sequence, dictionary, or string to the receiver.
 
-This behavior is useful as a convenience feature: especially for deeply-nested data types, members that are sequences or
-dictionaries automatically arrive as an empty value at the receiving end. This saves you having to explicitly
-initialize, for example, every sequence or dictionary member of a structure before sending the structure. Note that
-using `nil` in this way does _not_ create null semantics for Slice sequences or dictionaries. As far as the object model
-is concerned, these do not exist (only _empty_ sequences and dictionaries do). For example, it makes no difference to
-the receiver whether you send a sequence as `nil` or as an empty array: either way, the receiver sees an empty sequence.
+This behavior is useful as a convenience feature: especially for deeply-nested data types, members that are sequences,
+dictionaries, or strings automatically arrive as an empty value at the receiving end. This saves you having to
+explicitly initialize, for example, every string element in a large sequence before sending the sequence in order to
+avoid a run-time error. Note that using null parameters in this way does _not_ create null semantics for Slice
+sequences, dictionaries, or strings. As far as the object model is concerned, these do not exist (only _empty_
+sequences, dictionaries, and strings do). For example, it makes no difference to the receiver whether you send a string
+as `nil` or as an empty string: either way, the receiver sees an empty string.
 
 ### Optional Parameters
 
@@ -247,7 +248,9 @@ if v != Ice::Unset
 end
 ```
 
-A well-behaved program must always compare an optional parameter to `Ice::Unset` prior to using its value. `Ice::Unset`
-is an alias for `nil`, so the Ice runtime treats an optional parameter set to `nil` as not set.
+A well-behaved program must always compare an optional parameter to `Ice::Unset` prior to using its value. Keep in mind
+that the `Ice::Unset` marker value has different semantics than `nil`. Since `nil` is a legal value for certain Slice
+types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is set.
+An optional parameter set to `nil` is considered to be set.
 
 {% /language-section %}
