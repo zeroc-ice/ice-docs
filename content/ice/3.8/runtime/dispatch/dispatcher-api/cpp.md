@@ -40,8 +40,8 @@ The most common type of C++ servants are classes that implement skeleton classes
 generated skeleton classes reimplement `dispatch` by:
 
 - unmarshaling input parameters
-- calling the pure virtual member function whose name matches the operation name carried by the request (you implement
-  this pure virtual function in the servant class)
+- calling the pure virtual member function for the operation named in the request (you implement this pure virtual
+  function in the servant class)
 - creating a response from the return value and out parameters returned by this function
 
 They also implement or reimplement the 4 operations defined on `Object`.

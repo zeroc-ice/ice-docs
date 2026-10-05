@@ -10,9 +10,9 @@ same code also intercepts the outgoing response before it's sent back to the cal
 At a more technical level, a middleware is a dispatcher that holds another dispatcher ("next") and calls this next
 dispatcher as part of the implementation of its own dispatch method.
 
-A middleware can include logic before calling the next dispatcher (before the request is processed) and after this call
-returns (after the middleware receives the response). A middleware can also short-circuit the dispatch processing by
-returning a cached response or by returning an error.
+A middleware can include logic before calling the next dispatcher (before the request is processed) and after the next
+dispatcher produces the response. A middleware can also short-circuit the dispatch processing by producing a cached
+response or an error instead of calling the next dispatcher.
 
 ## Middleware API
 

@@ -39,8 +39,7 @@ The most common type of Java servants are classes that implement skeleton interf
 These generated skeleton interfaces reimplement `dispatch` by:
 
 - unmarshaling input parameters
-- calling the abstract method whose name matches the operation name carried by the request (you implement this method in
-  the servant class)
+- calling the abstract method for the operation named in the request (you implement this method in the servant class)
 - creating a response from the return value and out parameters returned by this method
 
 They also implement or reimplement the 4 operations defined on `Object`.

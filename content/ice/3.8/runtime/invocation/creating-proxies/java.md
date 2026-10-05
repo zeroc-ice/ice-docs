@@ -1,6 +1,6 @@
 {% language-section name="lang-1" %}
 
-The generated proxy class provides a static factory method `createProxy` from a communicator and a
+The generated proxy interface provides a static factory method `createProxy` from a communicator and a
 [stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the following example:
 
 ```java
