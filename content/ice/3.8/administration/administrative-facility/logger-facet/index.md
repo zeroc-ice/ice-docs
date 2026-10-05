@@ -175,9 +175,10 @@ not affect the forwarding of new log messages to attached remote loggers.
 
 The `Logger` facet calls `init` with the application's communicator, and sends `log` calls with a communicator of its
 own, which it creates when the first remote logger is attached. The proxy `prx` must therefore let the monitored
-application reach the remote logger through its endpoints or through the locator: the `Logger` facet does not call the
-remote logger over the connection that carried `attachRemoteLogger`, even when this connection is bidirectional. You
-configure this communicator with [Ice.Admin.Logger.Properties](../../../property-reference/ice-admin-properties). Set
+application reach the remote logger through its endpoints, the locator, or a router configured on these communicators:
+the `Logger` facet does not call the remote logger over the connection that carried `attachRemoteLogger`, even when this
+connection is bidirectional. You configure this communicator with
+[Ice.Admin.Logger.Properties](../../../property-reference/ice-admin-properties). Set
 [Ice.Trace.Admin.Logger](../../../property-reference/ice-trace-properties) to trace the attachment and detachment of
 remote loggers, and the sending of log messages to them.
 
