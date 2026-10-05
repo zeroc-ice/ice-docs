@@ -12,7 +12,8 @@
 //      on each page as the site renders it
 //   4. every image parses as an image, has alt text, and its file exists
 //   5. no raw HTML or Confluence markup survived the migration
-//   6. every section an overlay defines is a slot its page declares
+//   6. every section an overlay defines is a slot its page declares, and an
+//      overlay of a shared page has no text outside its sections
 //   7. a page written per language has one title across its languages
 //   8. no page holds a no-break space (U+00A0)
 //   9. under the title, the page's h1, each heading is at most one level below
@@ -149,9 +150,9 @@ function checkImages(version: string, files: string[]) {
 }
 
 /**
- * Every section an overlay defines must be a slot its shared page declares: a
- * section nobody asked for renders nowhere. A slot an overlay leaves out means
- * that language adds nothing there.
+ * Every section an overlay defines must be a slot its shared page declares, and
+ * nothing may sit outside its sections: either renders nowhere. A slot an
+ * overlay leaves out means that language adds nothing there.
  */
 function checkSlots(version: string, pages: PageFiles[]) {
   for (const page of pages) {
@@ -160,11 +161,10 @@ function checkSlots(version: string, pages: PageFiles[]) {
       splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
     );
     for (const [language, overlayPath] of Object.entries(page.overlays)) {
+      const { body } = splitFrontmatter(fs.readFileSync(overlayPath, 'utf8'));
       let sections: Map<string, string>;
       try {
-        sections = parseLanguageSections(
-          splitFrontmatter(fs.readFileSync(overlayPath, 'utf8')).body
-        );
+        sections = parseLanguageSections(body);
       } catch (error) {
         fail(
           `${version}/${language}: ${page.slug} overlay is malformed — ${(error as Error).message}`
@@ -176,6 +176,16 @@ function checkSlots(version: string, pages: PageFiles[]) {
           fail(
             `${version}/${language}: ${page.slug} overlay defines unused section "${name}"`
           );
+      const outside = body
+        .replace(
+          /\{% language-section name="[^"]*" %\}[\s\S]*?\{% \/language-section %\}/g,
+          ''
+        )
+        .trim();
+      if (outside)
+        fail(
+          `${version}/${language}: ${page.slug} overlay has text outside its sections, which renders nowhere: "${outside.split('\n')[0]}"`
+        );
     }
   }
 }
@@ -418,7 +428,8 @@ for (const version of ICE_VERSIONS) {
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
-  // 6. every section an overlay defines is a slot its page declares.
+  // 6. every section an overlay defines is a slot its page declares, and
+  //    nothing sits outside them.
   checkSlots(where, pages);
 
   // 9. headings step down one level at a time from the title.
