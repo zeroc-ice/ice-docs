@@ -11,12 +11,11 @@ on:
   schedule:
     - cron: '17 5 * * *'
 
-# A run that is reporting must not be cancelled half-way through.
+# Runs queue rather than overlap: two runs that both find no open issue would
+# each open one. A run that is reporting must not be cancelled half-way through.
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
-
-permissions: {}
 
 jobs:
   check-links:
