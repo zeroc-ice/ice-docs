@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="301.16"
+  height="298.96"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 860 370"
+  viewBox="0 0 768 328"
   role="img"
   aria-labelledby="title description"
 >
@@ -41,6 +41,9 @@
       font-size: 14px;
       text-anchor: middle;
     }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
@@ -58,31 +61,31 @@
     }
   </style>
 
-  <rect width="860" height="370" fill="#ffffff"/>
+  <rect width="768" height="328" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 551 84 L 309 155" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 551 280 L 309 225" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 444 124 H 344" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 444 204 H 344" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="130" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="551" y="24" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="551" y="220" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="104" width="320" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="444" y="24" width="300" height="120" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="444" y="184" width="300" height="120" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="166.5" y="160">Reader</text>
-    <text class="annotation" x="166.5" y="192">DataStorm.Node.Server.Endpoints=</text>
-    <text class="annotation" x="166.5" y="212">tcp -p 10000</text>
-    <text class="label" x="693.5" y="54">Writer</text>
-    <text class="annotation" x="693.5" y="86">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="693.5" y="106">tcp -p 10000 -h &lt;host&gt;</text>
-    <text class="label" x="693.5" y="250">Writer</text>
-    <text class="annotation" x="693.5" y="282">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="693.5" y="302">tcp -p 10000 -h &lt;host&gt;</text>
+    <text class="label" x="184.0" y="136">Reader</text>
+    <text class="annotation code" x="184.0" y="166">DataStorm.Node.Server.Endpoints=</text>
+    <text class="annotation code" x="184.0" y="186">tcp -p 10000</text>
+    <text class="label" x="594.0" y="56">Writer</text>
+    <text class="annotation code" x="594.0" y="86">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="594.0" y="106">tcp -p 10000 -h &lt;host&gt;</text>
+    <text class="label" x="594.0" y="216">Writer</text>
+    <text class="annotation code" x="594.0" y="246">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="594.0" y="266">tcp -p 10000 -h &lt;host&gt;</text>
   </g>
 </svg>

@@ -112,7 +112,7 @@ default server endpoints, and connect directly to each other once the broker nod
 In this configuration, readers and writers connect to one of several **broker nodes**. This setup avoids the single
 point of failure present in the previous scenario with a single broker node.
 
-![Readers and writers are configured with both broker endpoints. Solid and dashed paths show their connections and alternate broker choices. Broker node 1 listens on port 10000; broker node 2 listens on port 10001 and connects to broker node 1.](/images/ice/3.8/connectivity/multiple-readers-and-writers-with-replicated-broker.svg)
+![Two writers and two readers are configured with the endpoints of both broker nodes. The left writer and reader connect to broker node 1 and the right ones to broker node 2; dash-dot arrows show the alternate broker each one can use instead. Broker node 1 listens on port 10000; broker node 2 listens on port 10001 and connects to broker node 1.](/images/ice/3.8/connectivity/multiple-readers-and-writers-with-replicated-broker.svg)
 
 Each reader and writer connects to a single broker node at a time. If the connection to that broker node fails, the
 client can automatically fall back to another available broker node. This ensures high availability and prevents any
