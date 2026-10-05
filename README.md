@@ -42,7 +42,7 @@ Each page of the docs is a directory under `content/`, and its path there is its
 | `public/images/site/`                    | Images the site itself uses.                                                                                                                                                   |
 
 A page and its overlays render as one document: each distinct answer to a slot appears once, wrapped in `{% iflang %}`
-for its languages, and the stylesheet shows the reader's. `lib/docs-model/resolve.ts` has the slot states.
+for its languages, and the stylesheet shows the reader's. `lib/docs-model/resolve.ts` does the merge.
 
 ## Contributing
 
