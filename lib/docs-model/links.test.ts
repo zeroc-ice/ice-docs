@@ -76,10 +76,10 @@ test('links the resolver must not touch are returned unchanged', () => {
 
 test('a link to no page is reported, not silently rewritten', () => {
   for (const href of [
-    'learn/slice/a-page-that-was-never-migrated',
+    'learn/slice/no-such-page',
     // A page name alone is not a slug.
     'enumerations',
-    '../a-page-that-was-never-migrated'
+    '../no-such-page'
   ]) {
     const link = resolveDocLink(href, ctx);
     assert.equal(link.resolved, false, href);
