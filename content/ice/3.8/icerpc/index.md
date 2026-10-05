@@ -50,9 +50,9 @@ Ice and IceRPC concepts aren’t an exact match.
 
 ## Protocol and Transport
 
-IceRPC implements two RPC protocols: `ice` and `icerpc`, while Ice implements a single RPC protocol, the
-[Ice Protocol](../basics/protocol-in-a-nutshell). `ice` is identical to the Ice Protocol, so in your IceRPC components,
-make sure to use the `ice` protocol.
+IceRPC implements two RPC protocols: `ice` and `icerpc`. The `ice` protocol is IceRPC’s implementation of the
+[Ice Protocol](../basics/protocol-in-a-nutshell), the only RPC protocol Ice implements. Your IceRPC components must use
+the `ice` protocol to communicate with Ice components.
 
 Ice and IceRPC have two transports in common: `tcp` and `ssl`. You can’t use `udp` or `bt` (since they are not supported
 by IceRPC), and you can’t use `quic` (since it’s not supported by Ice).
@@ -64,8 +64,8 @@ IceRPC’s implementation of the Ice Protocol (`ice`) is fairly complete, except
 - batched requests
 - protocol compression
 
-An Ice client can’t send batched requests to an IceRPC server (they won’t be received and processed). Likewise, an Ice
-client can’t send compressed requests to an IceRPC server.
+IceRPC aborts a connection when it receives a batched request or a compressed frame. An Ice application that
+communicates with IceRPC components must therefore not use batch proxies or enable compression.
 
 ## Using Ice Files with IceRPC
 
