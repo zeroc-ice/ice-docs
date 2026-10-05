@@ -25,15 +25,14 @@ interface Props {
 
 // The Slice contract beside the client that calls it and, where the mapping
 // has one, the server that implements it. The language tabs are the site's
-// language switch, so the top bar follows. Always dark, whatever the theme, so
-// the panel reads as an editor rather than a pair of ordinary code blocks.
+// language switch, so the top bar follows.
 export const Showcase = ({ panels }: Props) => {
   const languages = panels.map((panel) => panel.lang);
 
   return (
     <section
       aria-label="Ice in every language"
-      className="doc-wide dark not-prose my-8 overflow-hidden rounded-lg border border-white/10 bg-[#0b0f19] text-ink [&_.code-block]:my-0 [&_code>div]:text-[11px] sm:[&_code>div]:text-xs [&_pre]:overflow-x-auto"
+      className="doc-wide not-prose my-8 overflow-hidden rounded-lg border border-hairline bg-surface-sunken text-ink [&_.code-block]:my-0 [&_code>div]:text-[11px] sm:[&_code>div]:text-xs [&_pre]:overflow-x-auto"
     >
       <LanguageTabs languages={languages} />
 

@@ -9,20 +9,20 @@ import { languageLabel } from '@/lib/docs-model/nav';
 
 const tab =
   '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
-const activeTab = 'border-sky-400 text-white';
-const idleTab = 'border-transparent text-white/55 hover:text-white';
+const activeTab = 'border-link text-ink';
+const idleTab = 'border-transparent text-ink-secondary hover:text-ink';
 
 export const LanguageTabs = ({ languages }: { languages: string[] }) => {
   const current = useLanguage();
 
   return (
-    <div className="flex items-center border-b border-white/10 px-2 sm:px-3">
+    <div className="flex items-center border-b border-hairline px-2 sm:px-3">
       <label className="my-2 sm:hidden">
         <span className="sr-only">Language</span>
         <select
           value={current}
           onChange={(event) => setLanguage(event.target.value)}
-          className="cursor-pointer rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[12px] text-white"
+          className="cursor-pointer rounded-md border border-hairline-strong bg-surface px-2.5 py-1 font-mono text-[12px] text-ink"
         >
           {languages.map((language) => (
             <option key={language} value={language}>
