@@ -16,7 +16,9 @@ const release: Schema = {
     date: { type: String, required: true }
   },
   transform(node: Node, config: Config) {
-    const { name, notes, platforms, date } = node.transformAttributes(config);
+    const { name, notes, platforms, date } = node.transformAttributes(
+      config
+    ) as Record<'name' | 'notes' | 'platforms' | 'date', string>;
     const { version, pageIndex } = config.variables as PageVariables;
     const link = (page: string, text: string) => {
       const { href, resolved } = resolveDocLink(page, {
