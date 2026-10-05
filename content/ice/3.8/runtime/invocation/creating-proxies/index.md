@@ -120,21 +120,25 @@ and the accessors that return the current settings.
 
 The [language mapping for interfaces](../interfaces) describes the type of the proxy that these factory methods return.
 
-## Casting a Proxy
+## Creating a Proxy of Another Type
 
-A cast converts a proxy into a proxy of another type, for the same Ice object. `uncheckedCast` performs this conversion
-without contacting the target object. `checkedCast` first calls `ice_isA` on the target object to verify that it
-implements the requested interface, and returns a null proxy if it does not.
+`uncheckedCast` and `checkedCast` create a proxy of the desired type from an existing proxy, for the same Ice object.
+Despite their names, these functions are not casts: they return a new proxy and leave the original proxy unchanged.
+`uncheckedCast` creates the new proxy without contacting the target object. `checkedCast` first calls `ice_isA` on the
+target object to verify that it implements the requested interface, and returns a null proxy if it does not.
+
+You rarely need these functions. In new code, you create a typed proxy directly with one of the methods described above,
+and an application that converts a proxy of one type into a proxy of another type is uncommon.
 
 {% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
 
-The [language mapping for interfaces](../interfaces) shows the cast functions.
+The [language mapping for interfaces](../interfaces) shows these functions.
 
 {% /iflang %}
 
 {% iflang langs="cpp" %}
 
-In C++, the cast functions are the `Ice::uncheckedCast` and `Ice::checkedCast` function templates, for example
+In C++, these functions are the `Ice::uncheckedCast` and `Ice::checkedCast` function templates, for example
 `Ice::checkedCast<GreeterPrx>(proxy)`.
 
 {% /iflang %}
