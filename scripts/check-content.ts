@@ -41,7 +41,6 @@ import {
 import {
   CONTENT_ROOT,
   frontmatterOf,
-  listVersions,
   listPages,
   readNavigation,
   readPageSources,
@@ -49,7 +48,8 @@ import {
   writtenFor,
   type PageFiles
 } from '../lib/docs-model/content.ts';
-import { navigationPages } from '../lib/docs-model/nav.ts';
+import { ICE_VERSIONS } from '../app/ice/versions.ts';
+import { navigationPages, type DocsVersion } from '../lib/docs-model/nav.ts';
 
 const PUBLIC = path.join(process.cwd(), 'public');
 
@@ -293,13 +293,13 @@ const textOf = (node: Node) =>
  * shared page's. A reader of each language meets a different sequence.
  */
 function checkHeadings(
-  version: string,
+  version: DocsVersion,
   pages: PageFiles[],
   languages: string[]
 ) {
-  const readFile = snippetReader(CONTENT_ROOT, version);
+  const readFile = snippetReader(version);
   for (const page of pages) {
-    const where = `${version}/${page.slug}`;
+    const where = `${version.path}/${page.slug}`;
     const { shared, overlays, frontmatter } = readPageSources(page);
     let body: string;
     try {
@@ -349,24 +349,25 @@ function checkHeadings(
   }
 }
 
-for (const version of listVersions(CONTENT_ROOT)) {
-  const nav = readNavigation(CONTENT_ROOT, version);
+for (const version of ICE_VERSIONS) {
+  const nav = readNavigation(version);
 
-  const pages = listPages(CONTENT_ROOT, version);
+  const pages = listPages(version);
   const declared = new Set(navigationPages(nav.sidebar));
-  const languages = nav.languages;
+  const { languages } = version;
+  const where = version.path;
 
-  console.log(`\n${version}: ${pages.length} pages`);
+  console.log(`\n${where}: ${pages.length} pages`);
 
   // 1. every page is in the table of contents: listed under `pages:` by the
   //    page above it, up to the front page, index.md at the root, which lists
   //    the chapters.
   const orphans = pages.filter((page) => !declared.has(page.slug));
   for (const { slug } of orphans.slice(0, 20))
-    fail(`${version}: ${slug} is not in the table of contents`);
+    fail(`${where}: ${slug} is not in the table of contents`);
   if (orphans.length > 20)
     fail(
-      `${version}: ...and ${orphans.length - 20} more pages not in the table of contents`
+      `${where}: ...and ${orphans.length - 20} more pages not in the table of contents`
     );
 
   // 2. a file beside a page's index.md is the overlay for the language it is named after,
@@ -377,7 +378,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     for (const language of Object.keys(page.overlays)) {
       if (!languages.includes(language))
         fail(
-          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
+          `${where}: ${path.relative(CONTENT_ROOT, page.overlays[language])} is an overlay for "${language}", which is not one of the version's languages`
         );
       if (
         !page.shared &&
@@ -385,7 +386,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
           frontmatterOf(fs.readFileSync(page.overlays[language], 'utf8'))
       )
         fail(
-          `${version}: ${path.relative(CONTENT_ROOT, page.overlays[language])} lists languages, but a page written per language is written for its overlays' languages`
+          `${where}: ${path.relative(CONTENT_ROOT, page.overlays[language])} lists languages, but a page written per language is written for its overlays' languages`
         );
     }
     if (!page.shared) continue;
@@ -394,16 +395,16 @@ for (const version of listVersions(CONTENT_ROOT)) {
       frontmatterOf(fs.readFileSync(page.shared, 'utf8'))
     );
     if (listed === undefined) continue;
-    const where = path.relative(CONTENT_ROOT, page.shared);
+    const file = path.relative(CONTENT_ROOT, page.shared);
     for (const language of listed)
       if (!languages.includes(language))
         fail(
-          `${version}: ${where} lists "${language}", which is not one of the version's languages`
+          `${where}: ${file} lists "${language}", which is not one of the version's languages`
         );
     for (const language of Object.keys(page.overlays))
       if (!listed.includes(language))
         fail(
-          `${version}: ${where} is not written for "${language}", but has an overlay for it`
+          `${where}: ${file} is not written for "${language}", but has an overlay for it`
         );
   }
 
@@ -412,13 +413,13 @@ for (const version of listVersions(CONTENT_ROOT)) {
     ...(page.shared ? [page.shared] : []),
     ...Object.values(page.overlays)
   ]);
-  checkImages(version, files);
+  checkImages(where, files);
   checkStrayMarkup(files);
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
   // 6. every section an overlay defines is a slot its page declares.
-  checkSlots(version, pages);
+  checkSlots(where, pages);
 
   // 9. headings step down one level at a time from the title.
   checkHeadings(version, pages, languages);
@@ -433,7 +434,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     );
     if (titles.size > 1)
       fail(
-        `${version}: ${page.slug} is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
+        `${where}: ${page.slug} is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
       );
   }
 }

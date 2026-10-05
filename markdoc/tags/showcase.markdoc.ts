@@ -13,7 +13,7 @@ const showcase: Schema = {
   render: 'Showcase',
   children: ['fence', 'tag'],
   transform(node: Node, config: Config) {
-    const { languages } = config.variables as PageVariables;
+    const { languages } = (config.variables as PageVariables).version;
     const blocks = (node.transformChildren(config) as unknown[])
       .flat(Infinity)
       .filter(Tag.isTag)

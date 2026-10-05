@@ -396,7 +396,7 @@ bar or press `⌘K`.
 
 {% /releases %}
 
-- **[Upgrade Guide](./upgrade-guide)**: moving an application from Ice 3.7 to Ice {% $version %}.
+- **[Upgrade Guide](./upgrade-guide)**: moving an application from Ice 3.7 to Ice 3.8.
 - **[Backward Compatibility of Ice Versions](./compatibility)**: what a patch, minor, or major release keeps compatible.
 
 ## Beyond the Documentation

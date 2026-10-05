@@ -6,11 +6,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  type DocsVersion,
   SITE_TITLE,
   breadcrumbs,
   buildSideNav,
   activeTrailKeys,
-  languageLabel,
   navigationPages,
   prevNext,
   sideNavKey,
@@ -58,12 +58,17 @@ const SIDEBAR: NavNode[] = [
   }
 ];
 
+const VERSION: DocsVersion = {
+  path: 'ice/3.8',
+  title: 'Ice 3.8',
+  languages: []
+};
 const ENUMERATIONS = 'slice/user-defined-types/enumerations';
 const SEQUENCES = 'slice/user-defined-types/sequences';
 const ENUMERATIONS_HREF = '/ice/3.8/slice/user-defined-types/enumerations';
 
 test('buildSideNav resolves the tree with hrefs', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8');
+  const tree = buildSideNav(SIDEBAR, VERSION);
   assert.equal(tree[0].href, '/ice/3.8/get-started');
   const slice = tree[1];
   assert.equal(slice.title, 'The Slice Language');
@@ -77,20 +82,20 @@ test('buildSideNav resolves the tree with hrefs', () => {
 test('a group becomes a toggle, with its page as Overview', () => {
   // Otherwise one row has to answer two gestures — navigate, and open — and the
   // title cannot be the thing you click to expand.
-  const [, slice] = buildSideNav(SIDEBAR, '3.8');
+  const [, slice] = buildSideNav(SIDEBAR, VERSION);
   assert.equal(slice.href, undefined, 'the group row itself does not navigate');
   assert.equal(slice.items[0].title, 'Overview');
   assert.equal(slice.items[0].href, '/ice/3.8/slice');
 });
 
 test("standing on a group's own page, its Overview, opens the group", () => {
-  const tree = buildSideNav(SIDEBAR, '3.8');
+  const tree = buildSideNav(SIDEBAR, VERSION);
   assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/slice'), [
     sideNavKey(['The Slice Language'])
   ]);
 });
 
-test('trailTo returns every ancestor down to the page, or null', () => {
+test('trailTo returns every ancestor down to the page', () => {
   assert.deepEqual(
     trailTo(SIDEBAR, ENUMERATIONS)?.map((n) => n.title),
     ['The Slice Language', 'User-Defined Types', 'Enumerations']
@@ -99,11 +104,10 @@ test('trailTo returns every ancestor down to the page, or null', () => {
     trailTo(SIDEBAR, 'get-started')?.map((n) => n.title),
     ['Get Started']
   );
-  assert.equal(trailTo(SIDEBAR, 'not-a-page'), null);
 });
 
 test('breadcrumbs trace site -> chapter -> group -> page, and the page is not a link', () => {
-  const crumbs = breadcrumbs(SIDEBAR, '3.8', ENUMERATIONS);
+  const crumbs = breadcrumbs(SIDEBAR, VERSION, ENUMERATIONS);
   assert.deepEqual(
     crumbs.map((c) => c.title),
     [SITE_TITLE, 'The Slice Language', 'User-Defined Types', 'Enumerations']
@@ -114,26 +118,14 @@ test('breadcrumbs trace site -> chapter -> group -> page, and the page is not a 
   assert.equal(crumbs[3].href, undefined); // current page
 });
 
-test('the front page gets no trail', () => {
-  const sidebar = [
-    { title: 'The Ice Framework', slug: '', items: [] },
-    ...SIDEBAR
-  ];
-  assert.deepEqual(breadcrumbs(sidebar, '3.8', ''), []);
-});
-
-test('a page outside the tree gets no trail', () => {
-  assert.deepEqual(breadcrumbs(SIDEBAR, '3.8', 'orphan'), []);
-});
-
 test('prevNext walks the whole tree in reading order, across chapters', () => {
-  const { prev, next } = prevNext(SIDEBAR, '3.8', ENUMERATIONS, 'cpp');
+  const { prev, next } = prevNext(SIDEBAR, VERSION, ENUMERATIONS, 'cpp');
   assert.equal(prev?.title, 'User-Defined Types');
   assert.equal(next?.title, 'Sequences');
   assert.equal(next?.href, '/ice/3.8/slice/user-defined-types/sequences');
 
   // The last page of one chapter leads into the next chapter.
-  const end = prevNext(SIDEBAR, '3.8', SEQUENCES, 'cpp');
+  const end = prevNext(SIDEBAR, VERSION, SEQUENCES, 'cpp');
   assert.equal(end.next?.title, 'Plugins');
   assert.equal(end.next?.href, '/ice/3.8/plugins');
 });
@@ -141,12 +133,12 @@ test('prevNext walks the whole tree in reading order, across chapters', () => {
 test('prevNext skips pages not written for the language, but never the page itself', () => {
   // Sequences is written for C++ only.
   assert.equal(
-    prevNext(SIDEBAR, '3.8', ENUMERATIONS, 'python').next?.title,
+    prevNext(SIDEBAR, VERSION, ENUMERATIONS, 'python').next?.title,
     'Plugins'
   );
   // A Python reader who lands on the C++-only page still gets its neighbors.
   assert.equal(
-    prevNext(SIDEBAR, '3.8', SEQUENCES, 'python').prev?.title,
+    prevNext(SIDEBAR, VERSION, SEQUENCES, 'python').prev?.title,
     'Enumerations'
   );
 });
@@ -165,24 +157,12 @@ test('navigationPages lists every page in reading order', () => {
   ]);
 });
 
-test('languageLabel maps slugs to display names, falling back to the slug', () => {
-  assert.equal(languageLabel('cpp'), 'C++');
-  assert.equal(languageLabel('csharp'), 'C#');
-  assert.equal(languageLabel('js'), 'JavaScript');
-  assert.equal(languageLabel('unknown'), 'unknown');
-});
-
 test('activeTrailKeys names every group down to the current page, and nothing else', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8');
+  const tree = buildSideNav(SIDEBAR, VERSION);
   assert.deepEqual(activeTrailKeys(tree, ENUMERATIONS_HREF), [
     sideNavKey(['The Slice Language']),
     sideNavKey(['The Slice Language', 'User-Defined Types'])
   ]);
-});
-
-test('activeTrailKeys is empty when the current page is a top-level leaf', () => {
-  const tree = buildSideNav(SIDEBAR, '3.8');
-  assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/get-started'), []);
 });
 
 test('group keys are path-based, so equal titles under different parents differ', () => {

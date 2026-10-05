@@ -6,13 +6,11 @@ title: Local and Dispatch Exceptions
 
 The Ice runtime reports errors to the application by throwing exceptions. Ice occasionally throws standard exceptions
 such as `std::invalid_argument`(C++) or `IllegalArgumentException`(Java), but generally it throws exceptions derived
-from [LocalException](https://code.zeroc.com/manual/Ice/LocalException). These exceptions are known as _local
-exceptions_.
+from [LocalException](api:Ice/LocalException). These exceptions are known as _local exceptions_.
 
 As far as Ice is concerned, the opposite of a local exception is a user exception.
-[User exceptions](../../slice/exceptions) are defined in Slice and derive from
-[UserException](https://code.zeroc.com/manual/Ice/UserException); local exceptions are not defined in Slice and derive
-from `LocalException`.
+[User exceptions](../../slice/exceptions) are defined in Slice and derive from [UserException](api:Ice/UserException);
+local exceptions are not defined in Slice and derive from `LocalException`.
 
 {% callout type="info" %}
 
@@ -43,7 +41,7 @@ You can only get a dispatch exception when you make an invocation with a two-way
 
 A dispatch information carries information transmitted in a [Reply](../../protocol) message, namely:
 
-- a [ReplyStatus](https://code.zeroc.com/manual/Ice/ReplyStatus) enumerator
+- a [ReplyStatus](api:Ice/ReplyStatus) enumerator
 - one or more fields that depend on the `ReplyStatus` enumerator
 
 | **ReplyStatus**                             | **Associated Exception Class** (if any) | **Fields**                                      |
@@ -59,5 +57,5 @@ A dispatch information carries information transmitted in a [Reply](../../protoc
 | Any other value greater than `Unauthorized` |                                         |                                                 |
 
 A dispatch exception without an associated exception class is an instance of
-[DispatchException](https://code.zeroc.com/manual/Ice/DispatchException) . The `NotExist` and `Unknown` exceptions all
-ultimately derive from `DispatchException`.
+[DispatchException](api:Ice/DispatchException). The `NotExist` and `Unknown` exceptions all ultimately derive from
+`DispatchException`.

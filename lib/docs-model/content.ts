@@ -3,52 +3,50 @@
 // Filesystem layer for the Ice docs content model. Reads page sources and
 // discovers routes under a content root laid out as:
 //
-//   <root>/<version>/version.yaml              the version's settings
-//   <root>/<version>/index.md                  the front page
-//   <root>/<version>/<dir>/…/<name>/index.md   a page, at its URL path
-//   <root>/<version>/<dir>/…/<name>/<lang>.md  one of its language overlays
-//   <root>/<version>/examples/...              (snippet sources)
-//   <root>/<version>/redirects.yaml            old URL to new URL
+//   <root>/…/<version>/index.md               the front page
+//   <root>/…/<version>/<dir>/…/<name>/index.md a page, at its URL path
+//   <root>/…/<version>/<dir>/…/<name>/<lang>.md one of its language overlays
+//   <root>/…/<version>/examples/...           (snippet sources)
+//   <root>/…/<version>/api-links.yaml         each type's API reference pages
+//   <root>/…/redirects.yaml                   redirects, relative to that directory's URL
 //
-// A page is a directory, and its path under the version is its slug, the path in
-// its URL: `slice/enumerations/index.md` is the page named `enumerations`, served
-// at /ice/<version>/slice/enumerations, and the pages under it are its
+// A version is one the site defines (app/ice/versions.ts), named by its path under
+// the root, `ice/3.8`, which is also its URL. A page is a directory, and its
+// path under the version is its slug, the path in its URL:
+// `ice/3.8/slice/enumerations/index.md` is the page named `enumerations`,
+// served at /ice/3.8/slice/enumerations, and the pages under it are its
 // subdirectories, in the order its frontmatter lists them under `pages:`. A
 // directory with overlays but no index.md is a page written per language: each
 // overlay is the whole page for its language. A shared page that applies to
 // only some languages lists them under `languages:` in its frontmatter.
 //
-// Unit-testable with `node lib/docs-model/content.test.ts` and usable from Next
-// server components. Pure content transforms live in ./resolve.ts; the route
-// composes the two.
+// Usable from Next server components and from the scripts under plain Node.
+// Pure content transforms live in ./resolve.ts; the route composes the two.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
 
+import type { ApiLinks } from './links.ts';
 import {
   FRONT_PAGE_NAV_TITLE,
   pageHref,
   type NavDoc,
   type NavNode,
-  type VersionSettings
+  type DocsVersion
 } from './nav.ts';
 import { splitFrontmatter } from './resolve.ts';
 
 /** The content root, under the repository root that npm and Next run from. */
-export const CONTENT_ROOT = path.join(process.cwd(), 'content', 'ice');
+export const CONTENT_ROOT = path.join(process.cwd(), 'content');
 
-/** Version directories look like `3.8`, `0.6`, etc. — this filters out any non-version dirs. */
-export function listVersions(root: string): string[] {
-  if (!fs.existsSync(root)) return [];
-  return fs
-    .readdirSync(root)
-    .filter(
-      (name) =>
-        /^\d+\.\d+/.test(name) &&
-        fs.statSync(path.join(root, name)).isDirectory()
-    )
-    .sort();
+/** Every `redirects.yaml` under `dir`. */
+function redirectFiles(dir: string): string[] {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return redirectFiles(full);
+    return entry.name === 'redirects.yaml' ? [full] : [];
+  });
 }
 
 /** Every .md file under `dir`, as paths relative to it with `/` separators. */
@@ -89,8 +87,8 @@ const pagesCache = new Map<string, PageFiles[]>();
  * each would otherwise re-walk the whole content tree. Never cached in
  * development, where pages change while the server is running.
  */
-export function listPages(root: string, version: string): PageFiles[] {
-  const base = path.join(root, version);
+export function listPages(version: DocsVersion): PageFiles[] {
+  const base = path.join(CONTENT_ROOT, version.path);
   const cacheable = process.env.NODE_ENV === 'production';
   let pages = cacheable ? pagesCache.get(base) : undefined;
   if (!pages) {
@@ -171,31 +169,24 @@ export function writtenFor(
   return languages;
 }
 
-/** A version's settings, read from its `version.yaml`. */
-function readVersionSettings(root: string, version: string): VersionSettings {
-  return yamlLoad(
-    fs.readFileSync(path.join(root, version, 'version.yaml'), 'utf8')
-  ) as VersionSettings;
-}
-
 /**
- * A version's settings, from its `version.yaml`, and its table of contents,
- * read from its pages: the front page's frontmatter lists the chapters under
+ * A version's table of contents, read from its pages: the front page's
+ * frontmatter lists the chapters under
  * `pages:`, and a page with children lists them the same way. The front page
  * is the first entry, ahead of the chapters, under its own label; every other
  * node takes its page's title. Throws when the version has no front page, or
  * when a page lists a page it does not contain.
  */
-export function readNavigation(root: string, version: string): NavDoc {
+export function readNavigation(version: DocsVersion): NavDoc {
   type Listed = { title: string; pages?: string[]; languages?: unknown };
-  const bySlug = new Map(listPages(root, version).map((p) => [p.slug, p]));
+  const bySlug = new Map(listPages(version).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
     names.map((name) => {
       const slug = parent ? `${parent}/${name}` : name;
       const page = bySlug.get(slug);
       if (!page)
         throw new Error(
-          `${version}/${parent || 'index.md'} lists "${name}", which is not a page in it`
+          `${version.path}/${parent || 'index.md'} lists "${name}", which is not a page in it`
         );
       const frontmatter = readFrontmatter<Listed>(page);
       return {
@@ -209,11 +200,10 @@ export function readNavigation(root: string, version: string): NavDoc {
   const front = bySlug.get('');
   if (!front)
     throw new Error(
-      `${version} has no front page (index.md at the version root)`
+      `${version.path} has no front page (index.md at the version root)`
     );
   const { pages } = readFrontmatter<Listed>(front);
   return {
-    ...readVersionSettings(root, version),
     sidebar: [
       {
         title: FRONT_PAGE_NAV_TITLE,
@@ -226,92 +216,99 @@ export function readNavigation(root: string, version: string): NavDoc {
   };
 }
 
-/**
- * The site's redirects, for Next's `redirects` config: the site root, `/ice`,
- * and `/ice/latest/…` go to the version whose `version.yaml` says `status: latest`,
- * and each URL a version's pages had on the Scroll Viewport site goes to its
- * page here. Throws unless exactly one version says `status: latest`, and when a
- * `redirects.yaml` names a page its version doesn't have.
- */
-export function readRedirects(root: string) {
-  const versions = listVersions(root);
-  const settings = new Map(
-    versions.map((version) => [version, readVersionSettings(root, version)])
-  );
-  const latest = versions.filter(
-    (version) => settings.get(version)!.status === 'latest'
-  );
-  if (latest.length !== 1)
-    throw new Error(
-      `expected one version with status: latest, found ${latest.length}`
-    );
-  const front = pageHref(latest[0]);
-  return [
-    // Temporary, since the latest version changes.
-    { source: '/', destination: front, permanent: false },
-    { source: '/ice', destination: front, permanent: false },
-    {
-      source: '/ice/latest/:path*',
-      destination: `${front}/:path*`,
-      permanent: false
-    },
-    ...versions.flatMap((version) =>
-      scrollRedirects(root, version, settings.get(version)!.languages)
-    )
-  ];
+/** The site's redirects, for Next's `redirects` config: every `redirects.yaml` under the root (see listRedirects). */
+export function readRedirects(versions: DocsVersion[]) {
+  // Next rejects a redirect with a key it doesn't know, so `file` stays behind.
+  return listRedirects(versions).map(({ source, destination, permanent }) => ({
+    source,
+    destination,
+    permanent
+  }));
 }
 
 /**
- * The redirects for the URLs a version's pages had on the Scroll Viewport site,
- * `/ice/<version>/<language>/<name>`, when the version has a `redirects.yaml`:
- * each goes to the page here with the same name, or the one `redirects.yaml`
- * names, keeping the language as `?lang=`.
+ * The redirects every `redirects.yaml` under the root lists, with the file each
+ * came from, relative to the root. A file holds a `permanent` map, a
+ * `temporary` map, or both, from source pattern to destination as Next's
+ * `redirects` config takes them, relative to the URL of the file's directory:
+ * in `ice/3.8/services/redirects.yaml` both are under `/ice/3.8/services`, and
+ * `.` is that URL itself. Its `include` list names files beside it of the same
+ * shape. Throws when a destination names a page that does not exist.
  */
-function scrollRedirects(root: string, version: string, languages: string[]) {
-  const file = path.join(root, version, 'redirects.yaml');
-  if (!fs.existsSync(file)) return [];
-  const { renamed } = yamlLoad(fs.readFileSync(file, 'utf8')) as {
-    renamed: Record<string, string>;
-  };
-  const slugs = new Map(
-    listPages(root, version).map((page) => [page.name, page.slug])
+export function listRedirects(versions: DocsVersion[]) {
+  const pages = new Set(
+    versions.flatMap((version) =>
+      listPages(version).map((page) => pageHref(version, page.slug))
+    )
   );
-  // A page name here, with an optional heading anchor, keeping the language.
-  const to = (target: string) => {
-    const [name, anchor] = target.split('#');
-    const slug = slugs.get(name);
-    if (slug === undefined)
-      throw new Error(
-        `${version}/redirects.yaml names "${name}", which is not a page`
-      );
-    return `${pageHref(version, slug)}?lang=:lang${anchor ? `#${anchor}` : ''}`;
+  const read = (
+    file: string
+  ): {
+    file: string;
+    source: string;
+    destination: string;
+    permanent: boolean;
+  }[] => {
+    const directory = path
+      .relative(CONTENT_ROOT, path.dirname(file))
+      .split(path.sep)
+      .join('/');
+    const prefix = directory ? `/${directory}` : '';
+    const under = (relative: string) => {
+      if (relative === '.') return prefix || '/';
+      if (relative.startsWith('?') || relative.startsWith('#'))
+        return (prefix || '/') + relative;
+      return `${prefix}/${relative}`;
+    };
+    const doc = yamlLoad(fs.readFileSync(file, 'utf8')) as {
+      include?: string[];
+      permanent?: Record<string, string>;
+      temporary?: Record<string, string>;
+    };
+    const where = path.relative(CONTENT_ROOT, file);
+    const own = [
+      ...Object.entries(doc.permanent ?? {}).map(
+        (entry) => [...entry, true] as const
+      ),
+      ...Object.entries(doc.temporary ?? {}).map(
+        (entry) => [...entry, false] as const
+      )
+    ].map(([source, destination, permanent]) => {
+      const page = under(destination).split(/[?#]/)[0];
+      // A destination with a route parameter, `:rest*`, is not one page.
+      if (!page.includes(':') && !pages.has(page))
+        throw new Error(
+          `${where} sends ${source} to ${page}, which is not a page`
+        );
+      return {
+        file: where,
+        source: under(source),
+        destination: under(destination),
+        permanent
+      };
+    });
+    return [
+      ...own,
+      ...(doc.include ?? []).flatMap((name) =>
+        read(path.join(path.dirname(file), name))
+      )
+    ];
   };
-  const scroll = `/ice/${version}/:lang(${languages.join('|')})`;
-  return [
-    // The Scroll Viewport site spelled `js` as `javascript`.
-    {
-      source: `/ice/${version}/javascript/:rest*`,
-      destination: `/ice/${version}/js/:rest*`,
-      permanent: true
-    },
-    ...[...slugs.keys()].map((name) => ({
-      source: name ? `${scroll}/${name}` : scroll,
-      destination: to(name),
-      permanent: true
-    })),
-    ...Object.entries(renamed).map(([name, target]) => ({
-      source: `${scroll}/${name}`,
-      destination: to(target),
-      permanent: true
-    }))
-  ];
+  return redirectFiles(CONTENT_ROOT).flatMap(read);
+}
+
+/** A version's API reference pages, from its `api-links.yaml`. */
+export function readApiLinks(version: DocsVersion): ApiLinks {
+  return yamlLoad(
+    fs.readFileSync(
+      path.join(CONTENT_ROOT, version.path, 'api-links.yaml'),
+      'utf8'
+    )
+  ) as ApiLinks;
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */
-export function snippetReader(
-  root: string,
-  version: string
-): (file: string) => string {
-  const base = path.join(root, version);
+export function snippetReader(version: DocsVersion): (file: string) => string {
+  const base = path.join(CONTENT_ROOT, version.path);
   return (file: string) => fs.readFileSync(path.join(base, file), 'utf8');
 }

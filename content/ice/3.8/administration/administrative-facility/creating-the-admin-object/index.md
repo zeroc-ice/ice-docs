@@ -26,7 +26,7 @@ set or empty, Ice generates a UUID for _instance-name_.
 
 If Ice does not create the admin object during communicator initialization as described above, you need to create the
 admin object after communicator initialization by calling `getAdmin` or `createAdmin` on the
-[Communicator](https://code.zeroc.com/manual/Ice/Communicator):
+[Communicator](api:Ice/Communicator):
 
 `getAdmin` is typically used to create the admin object when both `Ice.Admin.Endpoints` and `Ice.Admin.DelayCreation`
 are set. The resulting admin object's [enabled facets](../filtering-administrative-facets) are hosted in the `Ice.Admin`

@@ -6,8 +6,8 @@ Batch invocation interceptors allow you to implement your own auto-flush algorit
 auto-flush fails.
 
 You install an interceptor by setting the `batchRequestInterceptor` field of the
-[InitializationData](https://code.zeroc.com/manual/Ice/InitializationData) object you use to create your communicator.
-The communicator invokes the interceptor for each batch request, passing the following arguments:
+[InitializationData](api:Ice/InitializationData) object you use to create your communicator. The communicator invokes
+the interceptor for each batch request, passing the following arguments:
 
 - `req` - An object representing the batch request being queued
 - `count` - The number of requests currently in the queue

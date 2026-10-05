@@ -11,10 +11,9 @@ through `Ice.Config` or `ICE_CONFIG`.
 ## Prerequisites for Using Configuration Files
 
 The Ice runtime automatically loads a configuration file during the creation of a _property set_, which is an instance
-of the [Properties](https://code.zeroc.com/manual/Ice/Properties) abstraction. Every communicator has its own property
-set from which it derives its configuration. If an application does not supply a property set when it calls
-`Ice::initialize` (or equivalent, depending the language mapping), the Ice runtime internally creates a _property set_
-for the new communicator.
+of the [Properties](api:Ice/Properties) abstraction. Every communicator has its own property set from which it derives
+its configuration. If an application does not supply a property set when it calls `Ice::initialize` (or equivalent,
+depending the language mapping), the Ice runtime internally creates a _property set_ for the new communicator.
 
 Note however that Ice loads a configuration file automatically only when the application creates a property set using an
 argument vector. This occurs when the application passes an argument vector to create a property set explicitly, or when

@@ -2,18 +2,20 @@
 
 import type { Metadata } from 'next';
 
-import { buildSideNav, versionTitle } from '@/lib/docs-model/nav';
+import {
+  buildSideNav,
+  versionTitle,
+  type DocsVersion
+} from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
 import { VersionBanner } from '@/components/ice/VersionBanner';
-import { CONTENT_ROOT, readNavigation } from '@/lib/docs-model/content';
+import { readNavigation } from '@/lib/docs-model/content';
 
-type VersionParams = { params: Promise<{ version: string }> };
+// The layout of every version: `app/<product>/<version>/layout.tsx` is a thin
+// wrapper that names its version and hands the rest to these.
 
-// Every page of a version names it in its title: "Operations | Ice 3.8 Documentation".
-export async function generateMetadata({
-  params
-}: VersionParams): Promise<Metadata> {
-  const { version } = await params;
+/** Every page of a version names it in its title: "Operations | Ice 3.8 Documentation". */
+export function docsLayoutMetadata(version: DocsVersion): Metadata {
   return {
     title: {
       template: `%s | ${versionTitle(version)}`,
@@ -25,20 +27,25 @@ export async function generateMetadata({
 // What every page of a version shares: the older-release banner and the
 // sidebar. A layout rather than part of each page, so the client router fetches
 // the sidebar once per version rather than with every page it prefetches.
-export default async function VersionLayout({
-  params,
+export function DocsLayout({
+  version,
   children
-}: VersionParams & { children: React.ReactNode }) {
-  const { version } = await params;
-  const nav = readNavigation(CONTENT_ROOT, version);
+}: {
+  version: DocsVersion;
+  children: React.ReactNode;
+}) {
+  const nav = readNavigation(version);
 
   return (
     <div className="flex grow flex-col">
-      <VersionBanner version={version} status={nav.status} />
+      <VersionBanner version={version} />
       <div className="mt-8 flex grow flex-row justify-center">
         <div className="flex max-w-400 grow flex-row justify-center gap-6 px-6">
           {/* Sidebar: the version's table of contents. */}
-          <SideNav nodes={buildSideNav(nav.sidebar, version)} />
+          <SideNav
+            nodes={buildSideNav(nav.sidebar, version)}
+            version={version}
+          />
 
           {/* Content */}
           <div className="grow pb-8">

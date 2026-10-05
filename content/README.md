@@ -9,6 +9,10 @@ page and its overlays combine.
   `[Enumerations](slice/user-defined-types/enumerations)`.
 - Add `#<anchor>` to link to a heading.
 - Add `?lang=<language>` to switch the reader to that mapping.
+- Link to a type in the API reference by module and name: `[Communicator](api:Ice/Communicator)`. The reader gets the
+  type's page in their language's API reference, as `api-links.yaml` lists it, or plain text where it lists none; add a
+  new type there. Where the text means one language's API, such as the DataStorm C++ classes, link to that page
+  directly.
 
 ## Headings
 

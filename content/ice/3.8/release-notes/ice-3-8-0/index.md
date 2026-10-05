@@ -189,8 +189,8 @@ These APIs are platform-dependent. A good starting point is the `Ice/secure`
 When Ice unmarshals a Slice-defined class or exception, it first needs to locate and create an instance of the mapped
 C++/C#/Java (...) class, using the default parameter-less constructor of the mapped class. The new abstraction for this
 process is the [Slice loader](../../slice/user-defined-types/classes/slice-loaders), configured using the `sliceLoader`
-field on [InitializationData](https://code.zeroc.com/manual/Ice/InitializationData). This abstraction replaces the
-`ValueFactory` and `ValueFactoryManager` APIs provided by Ice 3.7 and earlier releases.
+field on [InitializationData](api:Ice/InitializationData). This abstraction replaces the `ValueFactory` and
+`ValueFactoryManager` APIs provided by Ice 3.7 and earlier releases.
 
 In most languages, generated classes for Slice classes and exceptions register themselves at startup with a default
 Slice loader implemented by Ice, and you don't need to do anything to help Ice locate these generated classes. However,
@@ -221,9 +221,8 @@ using the configured logger based on the value of `Ice.Trace.Dispatch` and `Ice.
 
 ### Simplify Bidir Setup
 
-We added a new `setDefaultObjectAdapter` operation on [Communicator](https://code.zeroc.com/manual/Ice/Communicator) to
-simplify the creation of bidir connections. See the `Ice/bidir` [demo](https://github.com/zeroc-ice/ice-demos) for an
-example.
+We added a new `setDefaultObjectAdapter` operation on [Communicator](api:Ice/Communicator) to simplify the creation of
+bidir connections. See the `Ice/bidir` [demo](https://github.com/zeroc-ice/ice-demos) for an example.
 
 ### Removed secure and PreferSecure
 
@@ -250,8 +249,7 @@ exceptions (`ObjectNotExistException`, `FacetNotExistException`, `OperationNotEx
 
 {% callout type="info" %}
 
-A local exception is just an exception class derived from
-[LocalException](https://code.zeroc.com/manual/Ice/LocalException).
+A local exception is just an exception class derived from [LocalException](api:Ice/LocalException).
 
 {% /callout %}
 

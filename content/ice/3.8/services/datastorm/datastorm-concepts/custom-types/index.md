@@ -53,7 +53,7 @@ Topic<string, ClearSky::AtmosphericConditionsPtr> temperatures{node, "temperatur
 ## Example: Non-Slice Types
 
 If your types are **not defined in Slice**, you must provide specializations of the
-[DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) and
+[DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Encoder.html) and
 [DataStorm::Decoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) templates for those types.
 
 ## Additional Requirements

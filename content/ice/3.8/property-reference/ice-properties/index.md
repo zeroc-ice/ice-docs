@@ -122,11 +122,10 @@ consisting of _name_=_value_ pairs with support for comments and escaping.
 ### Description {% id="ice.eventlog.source-description" %}
 
 Specifies the name of an event log source to be used by a Windows service that subclasses
-[Ice::Service](https://code.zeroc.com/manual/Ice/Service). The value of `name` represents a subkey of the `Eventlog`
-registry key. An application (or administrator) typically prepares the registry key when the service is installed. If no
-matching registry key is found, Windows logs events in the `Application` log. Any backslashes in `name` are silently
-converted to forward slashes. If not defined, `Ice::Service` uses the service name as specified by the `--service`
-option.
+[Ice::Service](api:Ice/Service). The value of `name` represents a subkey of the `Eventlog` registry key. An application
+(or administrator) typically prepares the registry key when the service is installed. If no matching registry key is
+found, Windows logs events in the `Application` log. Any backslashes in `name` are silently converted to forward
+slashes. If not defined, `Ice::Service` uses the service name as specified by the `--service` option.
 
 {% /iflang %}
 
@@ -414,9 +413,8 @@ If `num` is set to a value larger than 0, the process ID is printed on standard 
 
 {% iflang langs="cpp" %}
 
-If `num` is set to a value larger than 0, [Ice::LocalException](https://code.zeroc.com/manual/Ice/LocalException)
-collects the stack trace when a local exception is constructed. When set to 0, `Ice::LocalException` does not collect
-stack traces.
+If `num` is set to a value larger than 0, [Ice::LocalException](api:Ice/LocalException) collects the stack trace when a
+local exception is constructed. When set to 0, `Ice::LocalException` does not collect stack traces.
 
 If not set, the default value depends on how the Ice C++ library is compiled: 0 for an optimized build and 1 for a debug
 build.
@@ -615,9 +613,8 @@ The default value is `LOG_USER`.
 
 `string` must be one of the following: `Unicode`, `ASCII`, `Compat`.
 
-This property maps to an enumerator of [ToStringMode](https://code.zeroc.com/manual/Ice/ToStringMode) and controls how
-`identityToString` and `proxyToString` on the communicator escape non-printable ASCII characters and non-ASCII
-characters.
+This property maps to an enumerator of [ToStringMode](api:Ice/ToStringMode) and controls how `identityToString` and
+`proxyToString` on the communicator escape non-printable ASCII characters and non-ASCII characters.
 
 The default value is `Unicode`.
 

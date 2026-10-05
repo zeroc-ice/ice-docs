@@ -13,30 +13,26 @@ import {
   breadcrumbs,
   pageHref,
   prevNext,
-  versionTitle
+  versionTitle,
+  type DocsVersion
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
 import { SITE_URL } from '@/lib/site';
 import {
-  CONTENT_ROOT,
-  listVersions,
   listPages,
+  readApiLinks,
   readPageSources,
   readNavigation,
   snippetReader,
   writtenFor
 } from '@/lib/docs-model/content';
 
-export const dynamicParams = false;
+// The page route of every version: `app/<product>/<version>/[[...slug]]/page.tsx`
+// is a thin wrapper that names its version and hands the rest to these.
 
-type Params = {
-  version: string;
-  slug?: string[];
-};
-
-type PageProps = {
-  params: Promise<Params>;
+export type PageProps = {
+  params: Promise<{ slug?: string[] }>;
 };
 
 type Pagination = ReturnType<typeof prevNext> & { langs: string[] };
@@ -46,20 +42,21 @@ function editUrl(file: string): string {
   return `https://github.com/zeroc-ice/ice-docs/edit/main/${path.relative(process.cwd(), file)}`;
 }
 
-export function generateStaticParams() {
+/** Every page of `version`, for the route's `generateStaticParams`. */
+export function docsPageParams(version: DocsVersion) {
   // The front page's slug is empty: it is served at the version root.
-  return listVersions(CONTENT_ROOT).flatMap((version) =>
-    listPages(CONTENT_ROOT, version).map((page) => ({
-      version,
-      slug: page.slug ? page.slug.split('/') : []
-    }))
-  );
+  return listPages(version).map((page) => ({
+    slug: page.slug ? page.slug.split('/') : []
+  }));
 }
 
-export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const { version, slug: segments } = await props.params;
-  const slug = segments?.join('/') ?? '';
-  const page = listPages(CONTENT_ROOT, version).find((p) => p.slug === slug)!;
+/** A page's metadata, for the route's `generateMetadata`. */
+export async function docsPageMetadata(
+  version: DocsVersion,
+  props: PageProps
+): Promise<Metadata> {
+  const slug = (await props.params).slug?.join('/') ?? '';
+  const page = listPages(version).find((p) => p.slug === slug)!;
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
   return {
@@ -71,13 +68,17 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-export default async function Page(props: PageProps) {
-  const { version, slug: segments } = await props.params;
-  const nav = readNavigation(CONTENT_ROOT, version);
-  const { languages, sidebar } = nav;
-  const slug = segments?.join('/') ?? '';
+/** A page of `version`; `versions` are the ones the switcher offers. */
+export async function DocsPage({
+  version,
+  versions,
+  params
+}: PageProps & { version: DocsVersion; versions: DocsVersion[] }) {
+  const slug = (await params).slug?.join('/') ?? '';
+  const { sidebar } = readNavigation(version);
+  const { languages } = version;
 
-  const pages = listPages(CONTENT_ROOT, version);
+  const pages = listPages(version);
   const current = pages.find((p) => p.slug === slug)!;
   const { shared, overlays, frontmatter } = readPageSources(current);
 
@@ -113,25 +114,23 @@ export default async function Page(props: PageProps) {
   const pageIndex = buildPageIndex(pages.map((p) => p.slug));
 
   // One dropdown entry per version, at this page's path.
-  const versionOptions: VersionOption[] = listVersions(CONTENT_ROOT).map(
-    (other) => ({
-      value: other,
-      href: pageHref(other, slug)
-    })
-  );
+  const versionOptions: VersionOption[] = versions.map((other) => ({
+    version: other,
+    href: pageHref(other, slug)
+  }));
 
   const body = resolveDocument({
     shared: shared ?? '',
     overlays,
-    readFile: snippetReader(CONTENT_ROOT, version)
+    readFile: snippetReader(version)
   });
   const content = renderMarkdownString({
     source: body,
     path: routePath,
     slug,
     version,
-    languages,
     pageIndex,
+    apiLinks: readApiLinks(version),
     frontmatter,
     chrome: {
       breadcrumbs: crumbs,
@@ -161,11 +160,7 @@ export default async function Page(props: PageProps) {
   return (
     <>
       {/* Search + version + language controls live in the global header (portal). */}
-      <HeaderControls
-        version={version}
-        languages={languages}
-        versionOptions={versionOptions}
-      />
+      <HeaderControls version={version} versionOptions={versionOptions} />
       {crumbs.length > 0 && (
         <script
           type="application/ld+json"

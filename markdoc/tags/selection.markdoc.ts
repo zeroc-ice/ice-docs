@@ -10,8 +10,8 @@ const selection: Schema = {
   render: 'Selection',
   selfClosing: true,
   transform(_node: Node, config: Config) {
-    const { languages } = config.variables as PageVariables;
-    return new Tag('Selection', { languages });
+    const { version } = config.variables as PageVariables;
+    return new Tag('Selection', { languages: version.languages });
   }
 };
 

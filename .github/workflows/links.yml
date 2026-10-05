@@ -39,6 +39,7 @@ jobs:
             --verbose
             --no-progress
             'content/**/*.md'
+            'content/**/api-links.yaml'
             '*.md'
           fail: false
         env:
