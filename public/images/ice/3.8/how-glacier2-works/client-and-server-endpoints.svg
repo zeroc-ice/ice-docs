@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="256.67"
+  height="272.63"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 900 330"
+  viewBox="0 0 760 296"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">Glacier2 client and server endpoints</title>
   <desc id="description">
     A public client at 1.2.3.4 connects to Glacier2 client endpoints at 5.6.7.8. Glacier2 sends requests to the
-    private server at 10.0.0.2. The server sends callbacks to Glacier2 server endpoints at 10.0.0.1.
+    private server at 10.0.0.2. The server sends callbacks to Glacier2 server endpoints at 10.0.0.1. A legend
+    distinguishes requests from callbacks.
   </desc>
 
   <defs>
-    <marker
-      id="arrow"
-      viewBox="0 0 8 8"
-      refX="7.2"
-      refY="4"
-      markerWidth="7"
-      markerHeight="7"
-      orient="auto-start-reverse"
-    >
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
   </defs>
@@ -32,89 +25,116 @@
       fill: #182235;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    .label {
-      font-size: 16px;
-      font-weight: 600;
-      text-anchor: middle;
+
+    .network-boundary {
+      fill: none;
+      stroke: #7a8699;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
     }
-    .annotation {
-      fill: #566174;
-      font-size: 14px;
-      text-anchor: middle;
-    }
-    .application {
+
+    .component {
       fill: #ffffff;
       stroke: #8d99aa;
       stroke-width: 1.5;
     }
-    .runtime {
+
+    .service {
       fill: #eef5ff;
       stroke: #1259d6;
       stroke-width: 1.75;
     }
-    .network-boundary {
-      fill: none;
-      stroke: #7a8699;
-      stroke-width: 1.5;
-      stroke-dasharray: 7 5;
-    }
-    .connector {
-      fill: none;
-      stroke: #566174;
-      stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .one-way {
-      marker-end: url(#arrow);
-    }
-    .callback {
-      stroke-dasharray: 6 4;
-      marker-end: url(#arrow);
-    }
+
     .divider {
       fill: none;
       stroke: #a6afbc;
       stroke-width: 1.25;
     }
+
+    .connector {
+      fill: none;
+      stroke: #566174;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+    }
+
+    .one-way,
+    .callback {
+      marker-end: url(#arrow);
+    }
+
+    .callback {
+      stroke-dasharray: 6 4;
+    }
+
+    .process-title,
+    .component-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .annotation {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
+      text-anchor: middle;
+    }
+
+    .zone-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
+    }
   </style>
 
-  <rect width="900" height="330" fill="#ffffff"/>
+  <rect width="760" height="296" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="network-boundary" d="M 450 18 V 310" vector-effect="non-scaling-stroke"/>
+    <path class="network-boundary" d="M 380 16 V 248" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 184 202 L 320 202" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 580 116 H 650 V 158 H 716" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 716 202 L 580 202" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 164 152 H 260" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 500 84 H 556 V 128 H 616" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 616 168 H 500" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 24 268 H 60" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 177 268 H 213" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="132" width="160" height="100" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="320" y="72" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 320 152 H 580 M 450.0 152 V 232" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="716" y="132" width="160" height="100" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component" x="24" y="117" width="140" height="70" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="service" x="260" y="64" width="240" height="136" rx="8" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 260 104 H 500 M 380 104 V 200" vector-effect="non-scaling-stroke"/>
+    <rect class="component" x="616" y="112" width="120" height="70" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="150" y="40">Public network</text>
-    <text class="label" x="750" y="40">Private network</text>
-    <text class="label" x="104.0" y="187.0">Client</text>
-    <text class="label" x="450.0" y="116">Glacier2</text>
-    <text class="label" x="385.0" y="183">
-      <tspan x="385.0" dy="0">Client</tspan>
-      <tspan x="385.0" dy="20">endpoints</tspan>
+    <text class="zone-label" x="368" y="30" text-anchor="end">Public network</text>
+    <text class="zone-label" x="392" y="30">Private network</text>
+    <text class="component-label" x="94" y="157">Client</text>
+    <text class="annotation" x="94" y="224">IP: 1.2.3.4</text>
+    <text class="component-label" x="380" y="90">Glacier2</text>
+    <text class="component-label" x="320" y="146">
+      <tspan x="320">Client</tspan>
+      <tspan x="320" dy="20">endpoints</tspan>
     </text>
-    <text class="label" x="515.0" y="183">
-      <tspan x="515.0" dy="0">Server</tspan>
-      <tspan x="515.0" dy="20">endpoints</tspan>
+    <text class="component-label" x="440" y="146">
+      <tspan x="440">Server</tspan>
+      <tspan x="440" dy="20">endpoints</tspan>
     </text>
-    <text class="label" x="796.0" y="187.0">Server</text>
-    <text class="annotation" x="104" y="262">IP: 1.2.3.4</text>
-    <text class="annotation" x="385" y="262">IP: 5.6.7.8</text>
-    <text class="annotation" x="515" y="262">IP: 10.0.0.1</text>
-    <text class="annotation" x="796" y="262">IP: 10.0.0.2</text>
+    <text class="annotation" x="320" y="224">IP: 5.6.7.8</text>
+    <text class="annotation" x="440" y="224">IP: 10.0.0.1</text>
+    <text class="component-label" x="676" y="152">Server</text>
+    <text class="annotation" x="676" y="224">IP: 10.0.0.2</text>
+    <text class="legend-label" x="70" y="273">Request</text>
+    <text class="legend-label" x="223" y="273">Callback</text>
   </g>
 </svg>

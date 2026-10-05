@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="225.66"
+  height="208"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 760 245"
+  viewBox="0 0 700 208"
   role="img"
   aria-labelledby="title description"
 >
@@ -42,10 +42,20 @@
       font-size: 14px;
       text-anchor: middle;
     }
+    .zone-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 650;
+    }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
       stroke-width: 1.5;
+    }
+    .firewall {
+      fill: #eef0f3;
+      stroke: #566174;
+      stroke-width: 1.75;
     }
     .network-boundary {
       fill: none;
@@ -63,42 +73,43 @@
     .one-way {
       marker-end: url(#arrow);
     }
-    .blocked-cross {
-      stroke: #b42318;
+    .through-firewall {
+      stroke-dasharray: 2 5;
     }
     .blocked {
       stroke: #b42318;
       stroke-dasharray: 6 4;
     }
+    .blocked-cross {
+      stroke: #b42318;
+    }
   </style>
 
-  <rect width="760" height="245" fill="#ffffff"/>
+  <rect width="700" height="208" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="network-boundary" d="M 520 18 V 180" vector-effect="non-scaling-stroke"/>
+    <path class="network-boundary" d="M 438 16 V 192" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 164 98 L 310 98" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 450 98 L 596 98" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 144 96 H 556" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="60" width="140" height="110" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="310" y="60" width="140" height="110" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="596" y="60" width="140" height="110" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="connector blocked" d="M 596 148 H 366" vector-effect="non-scaling-stroke"/>
-    <path
-      class="connector blocked-cross"
-      d="M 355 137 L 377 159 M 355 159 L 377 137"
-      vector-effect="non-scaling-stroke"
-    />
+    <rect class="application" x="24" y="64" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="firewall" x="224" y="48" width="96" height="112" rx="3" vector-effect="non-scaling-stroke"/>
+    <path class="connector through-firewall" d="M 224 96 H 320" vector-effect="non-scaling-stroke"/>
+    <path class="connector blocked" d="M 556 128 H 311" vector-effect="non-scaling-stroke"/>
+    <path class="connector blocked-cross" d="M 289 117 L 311 139 M 289 139 L 311 117" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="556" y="64" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="94.0" y="120.0">Client</text>
-    <text class="label" x="380.0" y="120.0">Firewall</text>
-    <text class="label" x="666.0" y="120.0">Server</text>
-    <text class="annotation" x="380" y="210">Incoming callback connection blocked</text>
+    <text class="zone-label" x="426" y="30" text-anchor="end">Client network</text>
+    <text class="zone-label" x="450" y="30">Server network</text>
+    <text class="label" x="84" y="109.5">Client</text>
+    <text class="label" x="272" y="74">Firewall</text>
+    <text class="label" x="616" y="109.5">Server</text>
+    <text class="annotation" x="272" y="188">Incoming callback connection blocked</text>
   </g>
 </svg>
