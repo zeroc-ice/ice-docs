@@ -76,10 +76,10 @@
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector inheritance" d="M 155 150 L 324.2 116 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 150 L 375.8 116 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 300 292 L 142.9 248 V 224" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 400 292 L 557.1 248 V 224" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 155 150 L 307.5 97.7" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 150 L 392.5 97.7" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 300 292 L 152.8 228.3" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 400 292 L 547.2 228.3" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">

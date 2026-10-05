@@ -82,11 +82,11 @@
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector inheritance" d="M 155 280 L 324 116 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 150 L 375.8 116 V 92" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 280 L 545.0 224" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 300 422 L 142.9 378 V 354" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 400 422 L 557.1 378 V 354" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 155 280 L 321.1 95.2" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 150 L 392.5 97.7" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 545 280 V 224" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 300 422 L 152.8 358.3" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 400 422 L 547.2 358.3" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
