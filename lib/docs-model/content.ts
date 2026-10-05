@@ -39,13 +39,12 @@ import { splitFrontmatter } from './resolve.ts';
 /** The content root, under the repository root that npm and Next run from. */
 export const CONTENT_ROOT = path.join(process.cwd(), 'content');
 
-/** Every file called `name` under `dir`. */
-function filesNamed(dir: string, name: string): string[] {
-  if (!fs.existsSync(dir)) return [];
+/** Every `redirects.yaml` under `dir`. */
+function redirectFiles(dir: string): string[] {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) return filesNamed(full, name);
-    return entry.name === name ? [full] : [];
+    if (entry.isDirectory()) return redirectFiles(full);
+    return entry.name === 'redirects.yaml' ? [full] : [];
   });
 }
 
@@ -248,12 +247,11 @@ export function listRedirects(versions: Docs[]) {
     destination: string;
     permanent: boolean;
   }[] => {
-    const prefix = path
+    const directory = path
       .relative(CONTENT_ROOT, path.dirname(file))
       .split(path.sep)
-      .filter(Boolean)
-      .map((segment) => `/${segment}`)
-      .join('');
+      .join('/');
+    const prefix = directory ? `/${directory}` : '';
     const under = (relative: string) => {
       if (relative === '.') return prefix || '/';
       if (relative.startsWith('?') || relative.startsWith('#'))
@@ -294,7 +292,7 @@ export function listRedirects(versions: Docs[]) {
       )
     ];
   };
-  return filesNamed(CONTENT_ROOT, 'redirects.yaml').flatMap(read);
+  return redirectFiles(CONTENT_ROOT).flatMap(read);
 }
 
 /** A snippet reader bound to a version: resolves `file=` relative to `<root>/<version>/`. */

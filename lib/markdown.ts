@@ -19,6 +19,7 @@ export interface PageVariables {
   slug: string;
   /** By language mapping. */
   readingTime: Record<string, string>;
+  /** The documentation this page is part of. */
   docs: Docs;
   /** Page index used to resolve cross-page links at build time. */
   pageIndex: PageIndex;

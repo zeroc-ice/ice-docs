@@ -76,7 +76,6 @@ fs.mkdirSync(OUT, { recursive: true });
 
 for (const docs of ICE_DOCS) {
   const nav = readNavigation(docs);
-  const { path: versionPath } = docs;
 
   const records: object[] = [];
   for (const page of listPages(docs)) {
@@ -103,12 +102,15 @@ for (const docs of ICE_DOCS) {
     });
   }
 
-  const file = path.join(OUT, `${versionPath}.json`);
+  const file = path.join(OUT, `${docs.path}.json`);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify({ docs: versionPath, pages: records }));
+  fs.writeFileSync(
+    file,
+    JSON.stringify({ version: docs.path, pages: records })
+  );
   files++;
   const kb = Math.round(fs.statSync(file).size / 1024);
-  console.log(`  ${versionPath}: ${records.length} pages (${kb} kB)`);
+  console.log(`  ${docs.path}: ${records.length} pages (${kb} kB)`);
 }
 
 console.log(`search index: ${files} file(s) under public/search`);
