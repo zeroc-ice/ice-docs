@@ -181,12 +181,12 @@ function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
 
   for (const page of pages) {
     if (!page.shared) continue;
-    const slots = declaredSlots(
-      splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
-    );
+    const source = fs.readFileSync(page.shared, 'utf8');
+    const slots = declaredSlots(splitFrontmatter(source).body);
     if (slots.length === 0) continue;
 
-    for (const language of writtenFor(page) ?? languages) {
+    for (const language of writtenFor(page, frontmatterOf(source)) ??
+      languages) {
       const overlayPath = page.overlays[language];
       if (!overlayPath) {
         // The shared page asks for language-specific prose and none exists.
@@ -410,7 +410,7 @@ function checkHeadings(
   const readFile = snippetReader(CONTENT_ROOT, version);
   for (const page of pages) {
     const where = `${version}/${page.slug}`;
-    const { shared, overlays } = readPageSources(page);
+    const { shared, overlays, frontmatter } = readPageSources(page);
     let body: string;
     try {
       body = resolveDocument({ shared: shared ?? '', overlays, readFile });
@@ -435,7 +435,7 @@ function checkHeadings(
         fail(`${where}: heading "${textOf(node)}" is bold text alone`);
     }
 
-    const pageLanguages = writtenFor(page) ?? languages;
+    const pageLanguages = writtenFor(page, frontmatter) ?? languages;
     const skips = new Map<string, string[]>();
     for (const language of pageLanguages) {
       let previous = 1;
@@ -504,7 +504,10 @@ for (const version of listVersions(CONTENT_ROOT)) {
         );
     }
     if (!page.shared) continue;
-    const listed = writtenFor(page);
+    const listed = writtenFor(
+      page,
+      frontmatterOf(fs.readFileSync(page.shared, 'utf8'))
+    );
     if (listed === undefined) continue;
     const where = path.relative(CONTENT_ROOT, page.shared);
     for (const language of listed)

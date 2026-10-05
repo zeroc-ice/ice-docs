@@ -149,12 +149,16 @@ export function readPageSources(page: PageFiles) {
 
 /**
  * The languages a page is written for: a page written per language's overlays,
- * or the `languages:` its index.md lists; `undefined` when it is written for all.
- * Throws when `languages:` is not a list of languages.
+ * or the `languages:` its index.md lists in `frontmatter`, the frontmatter the
+ * caller already read; `undefined` when it is written for all. Throws when
+ * `languages:` is not a list of languages.
  */
-export function writtenFor(page: PageFiles): string[] | undefined {
+export function writtenFor(
+  page: PageFiles,
+  frontmatter: { languages?: unknown }
+): string[] | undefined {
   if (!page.shared) return Object.keys(page.overlays);
-  const { languages } = readFrontmatter<{ languages?: unknown }>(page);
+  const { languages } = frontmatter;
   if (languages === undefined) return undefined;
   if (
     !Array.isArray(languages) ||
@@ -183,7 +187,7 @@ function readVersionSettings(root: string, version: string): VersionSettings {
  * when a page lists a page it does not contain.
  */
 export function readNavigation(root: string, version: string): NavDoc {
-  type Listed = { title: string; pages?: string[] };
+  type Listed = { title: string; pages?: string[]; languages?: unknown };
   const bySlug = new Map(listPages(root, version).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
     names.map((name) => {
@@ -193,12 +197,12 @@ export function readNavigation(root: string, version: string): NavDoc {
         throw new Error(
           `${version}/${parent || 'index.md'} lists "${name}", which is not a page in it`
         );
-      const { title, pages } = readFrontmatter<Listed>(page);
+      const frontmatter = readFrontmatter<Listed>(page);
       return {
-        title,
+        title: frontmatter.title,
         slug,
-        writtenFor: writtenFor(page),
-        items: nodes(slug, pages)
+        writtenFor: writtenFor(page, frontmatter),
+        items: nodes(slug, frontmatter.pages)
       };
     });
 
