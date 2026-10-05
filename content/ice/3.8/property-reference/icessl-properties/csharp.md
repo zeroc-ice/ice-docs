@@ -148,11 +148,3 @@ The field names are case-insensitive. If multiple criteria are specified, only c
 selected. Values must be enclosed in single or double quotes to preserve white space.
 
 {% /language-section %}
-
-{% language-section name="lang-4" %}
-
-{% /language-section %}
-
-{% language-section name="lang-5" %}
-
-{% /language-section %}

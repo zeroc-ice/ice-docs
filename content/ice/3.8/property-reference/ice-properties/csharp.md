@@ -1,7 +1,3 @@
-{% language-section name="lang-1" %}
-
-{% /language-section %}
-
 {% language-section name="lang-2" %}
 
 ## Ice.CacheMessageBuffers
@@ -313,9 +309,5 @@ The named values can also include the `ThreadPriority.` prefix, for example `Thr
 You can separately override the default priorities for the client and server thread pools using
 [Ice.ThreadPool._name_.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a
 specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
-
-{% /language-section %}
-
-{% language-section name="lang-8" %}
 
 {% /language-section %}

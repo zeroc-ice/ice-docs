@@ -123,7 +123,3 @@ generated code uses the following default:
 | Yes                 | Any                                      | `\Ice\None`                           |
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

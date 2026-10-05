@@ -21,10 +21,6 @@ Ice.Plugin.IceBT=IceBT:createIceBT
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
-
-{% /language-section %}
-
 {% language-section name="lang-3" %}
 
 On Linux, the IceBT plug-in provides a C++ API for device discovery:

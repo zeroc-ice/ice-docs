@@ -153,7 +153,3 @@ c = Color.Red
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-3" %}
-
-{% /language-section %}

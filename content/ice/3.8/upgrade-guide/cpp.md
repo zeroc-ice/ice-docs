@@ -45,7 +45,3 @@ It also includes the Slice tools for C++, so the `zeroc.icebuilder.msbuild` pack
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-3" %}
-
-{% /language-section %}

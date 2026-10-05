@@ -122,7 +122,3 @@ these fields.
 {% /callout %}
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

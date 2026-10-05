@@ -77,7 +77,3 @@ const std::wstring Banana = L"\U0001F34C";
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

@@ -38,7 +38,6 @@ We implement this abstract base class with a Python class, `Chatbot`, declared i
 import Ice
 import VisitorCenter
 
-
 class Chatbot(VisitorCenter.Greeter):
 
     def greet(self, name: str, current: Ice.Current) -> str:

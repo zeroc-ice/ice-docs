@@ -1,7 +1,3 @@
-{% language-section name="lang-1" %}
-
-{% /language-section %}
-
 {% language-section name="lang-2" %}
 
 A Slice field maps to a Swift property with the same name. The type of the property is the mapped Slice type. When the

@@ -246,7 +246,3 @@ generated code uses the following default:
 | Yes                 | Any                                      | Not set                               |
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

@@ -151,7 +151,3 @@ generated code uses the following default:
 | Yes                 | Any                                      | undefined                             |
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

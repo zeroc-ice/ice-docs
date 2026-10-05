@@ -12,7 +12,7 @@
 //      on each page as the site renders it
 //   4. every image parses as an image, has alt text, and its file exists
 //   5. no raw HTML or Confluence markup survived the migration
-//   6. every language slot is answered, and says which kind of answer it is
+//   6. every section an overlay defines is a slot its page declares
 //   7. a page written per language has one title across its languages
 //   8. no page holds a no-break space (U+00A0)
 //   9. under the title, the page's h1, each heading is at most one level below
@@ -21,13 +21,11 @@
 //
 // Exit code 1 on a violation of any of them — those are defects in the files
 // themselves, and the tree is clean of them today, so anything new is a
-// regression. The exception is a slot that doesn't say which kind of answer it
-// is (7): many still don't, so those fail only when their count rises, or under
-// --strict. A version without a front page, a page that lists a page it does
+// regression. A version without a front page, a page that lists a page it does
 // not contain, or one whose `languages:` is not a list, fails as the navigation
 // is read.
 
-// cspell:words noformat unparseable worklist
+// cspell:words noformat unparseable
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -38,8 +36,7 @@ import {
   declaredSlots,
   parseLanguageSections,
   resolveDocument,
-  splitFrontmatter,
-  type LanguageSlot
+  splitFrontmatter
 } from '../lib/docs-model/resolve.ts';
 import {
   CONTENT_ROOT,
@@ -54,7 +51,6 @@ import {
 } from '../lib/docs-model/content.ts';
 import { navigationPages } from '../lib/docs-model/nav.ts';
 
-const strict = process.argv.includes('--strict');
 const PUBLIC = path.join(process.cwd(), 'public');
 
 let errors = 0;
@@ -152,140 +148,36 @@ function checkImages(version: string, files: string[]) {
   }
 }
 
-// The number of blank language sections that had no explanation when the slot
-// states were introduced. It is a ratchet: classifying slots lowers it, and the
-// check fails if it ever rises. When it reaches 0, delete this.
-const UNCLASSIFIED_SLOT_BASELINE = 333;
-
 /**
- * Every slot a shared page declares must be answered by the overlay of each
- * language the page is written for,
- * and the answer must say which kind of answer it is: prose, "this mapping adds
- * nothing", or "this mapping cannot do this, because…". A blank section says
- * none of those, and the reader cannot tell the three apart.
+ * Every section an overlay defines must be a slot its shared page declares: a
+ * section nobody asked for renders nowhere. A slot an overlay leaves out means
+ * that language adds nothing there.
  */
-function checkSlots(version: string, pages: PageFiles[], languages: string[]) {
-  const counts = {
-    content: 0,
-    'no-addition': 0,
-    'not-applicable': 0,
-    unclassified: 0
-  };
-  const perLanguage = Object.fromEntries(languages.map((l) => [l, 0]));
-  // page name -> language -> slot names still blank, for the `--slots` worklist.
-  const blanks = new Map<string, Map<string, string[]>>();
-  let missing = 0;
-  let unused = 0;
-
+function checkSlots(version: string, pages: PageFiles[]) {
   for (const page of pages) {
     if (!page.shared) continue;
-    const source = fs.readFileSync(page.shared, 'utf8');
-    const slots = declaredSlots(splitFrontmatter(source).body);
-    if (slots.length === 0) continue;
-
-    for (const language of writtenFor(page, frontmatterOf(source)) ??
-      languages) {
-      const overlayPath = page.overlays[language];
-      if (!overlayPath) {
-        // The shared page asks for language-specific prose and none exists.
-        missing += slots.length;
-        fail(
-          `${version}/${language}: "${page.name}" declares ${slots.length} slot(s) but has no overlay`
-        );
-        continue;
-      }
-
-      let sections: Map<string, LanguageSlot>;
+    const slots = declaredSlots(
+      splitFrontmatter(fs.readFileSync(page.shared, 'utf8')).body
+    );
+    for (const [language, overlayPath] of Object.entries(page.overlays)) {
+      let sections: Map<string, string>;
       try {
         sections = parseLanguageSections(
           splitFrontmatter(fs.readFileSync(overlayPath, 'utf8')).body
         );
       } catch (error) {
         fail(
-          `${version}/${language}: "${page.name}" overlay is malformed — ${(error as Error).message}`
+          `${version}/${language}: ${page.slug} overlay is malformed — ${(error as Error).message}`
         );
         continue;
       }
-
-      for (const name of slots) {
-        const slot = sections.get(name);
-        if (!slot) {
-          missing++;
+      for (const name of sections.keys())
+        if (!slots.includes(name))
           fail(
-            `${version}/${language}: "${page.name}" has no section for slot "${name}"`
+            `${version}/${language}: ${page.slug} overlay defines unused section "${name}"`
           );
-          continue;
-        }
-        counts[slot.state]++;
-        if (slot.state === 'unclassified') {
-          perLanguage[language]++;
-          const byLanguage =
-            blanks.get(page.name) ?? new Map<string, string[]>();
-          blanks.set(page.name, byLanguage);
-          byLanguage.set(language, [...(byLanguage.get(language) ?? []), name]);
-        }
-      }
-      // A section nobody asked for is dead content: it renders nowhere.
-      for (const name of sections.keys()) {
-        if (!slots.includes(name)) {
-          unused++;
-          fail(
-            `${version}/${language}: "${page.name}" overlay defines unused section "${name}"`
-          );
-        }
-      }
     }
   }
-
-  // `--slots` prints the classification worklist, grouped so a reviewer can take
-  // one page and answer it for every language at once.
-  if (process.argv.includes('--slots') && blanks.size) {
-    console.log('\nunclassified slots by page:');
-    for (const [name, byLanguage] of [...blanks.entries()].sort()) {
-      console.log(`  ${name}`);
-      for (const [language, names] of [...byLanguage.entries()].sort()) {
-        console.log(`    ${language.padEnd(7)} ${names.join(', ')}`);
-      }
-    }
-    console.log('');
-  }
-
-  const classified =
-    counts.content + counts['no-addition'] + counts['not-applicable'];
-  console.log(
-    `${version}: ${classified + counts.unclassified} language slots — ` +
-      `${counts.content} content, ${counts['no-addition']} no-addition, ` +
-      `${counts['not-applicable']} not-applicable, ${counts.unclassified} unclassified`
-  );
-
-  if (counts.unclassified) {
-    const worst = Object.entries(perLanguage)
-      .filter(([, n]) => n > 0)
-      .sort((a, b) => b[1] - a[1]);
-    console.log(
-      '  unclassified by language: ' +
-        worst.map(([l, n]) => `${l} ${n}`).join(', ')
-    );
-  }
-
-  if (counts.unclassified > UNCLASSIFIED_SLOT_BASELINE) {
-    fail(
-      `${version}: ${counts.unclassified} unclassified language slots, up from the ` +
-        `baseline of ${UNCLASSIFIED_SLOT_BASELINE}. A blank section must declare ` +
-        `state="no-addition" or state="not-applicable" note="…".`
-    );
-  } else if (counts.unclassified < UNCLASSIFIED_SLOT_BASELINE) {
-    console.log(
-      `  ${UNCLASSIFIED_SLOT_BASELINE - counts.unclassified} fewer than the baseline — ` +
-        `lower UNCLASSIFIED_SLOT_BASELINE in scripts/check-content.ts to ${counts.unclassified}`
-    );
-  }
-  if (strict && counts.unclassified) {
-    fail(
-      `${version}: ${counts.unclassified} language slots do not say why they are blank`
-    );
-  }
-  return { missing, unused };
 }
 
 function checkStrayMarkup(files: string[]) {
@@ -525,8 +417,8 @@ for (const version of listVersions(CONTENT_ROOT)) {
   checkNoBreakSpaces(files);
   checkCodeCharacters(files);
 
-  // 6. every language slot is answered, and says what kind of answer it is.
-  checkSlots(version, pages, languages);
+  // 6. every section an overlay defines is a slot its page declares.
+  checkSlots(version, pages);
 
   // 9. headings step down one level at a time from the title.
   checkHeadings(version, pages, languages);
@@ -541,7 +433,7 @@ for (const version of listVersions(CONTENT_ROOT)) {
     );
     if (titles.size > 1)
       fail(
-        `${version}: "${page.name}" is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
+        `${version}: ${page.slug} is titled ${[...titles].map((t) => `"${t}"`).join(', ')} — one title per page`
       );
   }
 }

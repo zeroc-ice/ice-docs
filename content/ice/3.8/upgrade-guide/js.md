@@ -43,7 +43,3 @@ The `slice2js` compiler can be executed by running `npx slice2js`.
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-3" %}
-
-{% /language-section %}

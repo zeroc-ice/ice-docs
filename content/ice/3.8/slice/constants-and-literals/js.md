@@ -57,7 +57,3 @@ Object.defineProperty(Example, 'Banana', {value: "\ud83c\udf4c"});
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

@@ -168,146 +168,48 @@ export function splitFrontmatter(md: string): {
 // ---------------------------------------------------------------------------
 
 /**
- * What an overlay says about one of a shared page's slots.
- *
- * A blank section used to mean three different things and the reader could not
- * tell which: the mapping genuinely adds nothing here, the mapping cannot do
- * this at all, or nobody has written it yet. 462 of the corpus's 1,035 slots are
- * blank, concentrated in the thin mappings, so the difference matters. Each
- * overlay now says which one it means:
- *
- *   {% language-section name="mapping" %}real prose{% /language-section %}
- *   {% language-section name="mapping" state="no-addition" /%}
- *   {% language-section name="mapping" state="not-applicable"
- *      note="MATLAB has no server-side dispatch." /%}
- *
- * `unclassified` is what a blank section with no state resolves to. It is not a
- * legal end state — `npm run check:content` counts them and refuses to let the
- * number grow.
+ * An overlay's sections by slot name: the prose it adds to each slot its
+ * shared page declares. A slot the overlay leaves out gets nothing from that
+ * language. Throws on a section with no prose, a self-closing section, one
+ * defined twice, or one not closed.
  */
-export type SlotState =
-  'content' | 'no-addition' | 'not-applicable' | 'unclassified';
-
-export const SLOT_STATES: readonly SlotState[] = [
-  'content',
-  'no-addition',
-  'not-applicable',
-  'unclassified'
-];
-
-export interface LanguageSlot {
-  name: string;
-  state: SlotState;
-  /** The overlay's prose. Empty for every state except `content`. */
-  content: string;
-  /** Why the feature is absent. Required when the state is `not-applicable`. */
-  note?: string;
-}
-
-/** Extract the named `{% language-section %}` blocks from an overlay body. */
 export function parseLanguageSections(
   overlayBody: string
-): Map<string, LanguageSlot> {
-  const out = new Map<string, LanguageSlot>();
-  let open: {
-    name: string;
-    end: number;
-    state: string | null;
-    note: string | null;
-  } | null = null;
-
-  const add = (slot: LanguageSlot) => {
-    if (out.has(slot.name)) {
-      throw new Error(`duplicate language-section "${slot.name}"`);
-    }
-    out.set(slot.name, slot);
-  };
+): Map<string, string> {
+  const out = new Map<string, string>();
+  let open: { name: string; end: number } | null = null;
 
   for (const t of iterTags(overlayBody)) {
     if (t.name !== 'language-section') continue;
 
     if (t.close) {
       if (open === null) throw new Error('unmatched {% /language-section %}');
-      add(
-        slotFrom(
-          open.name,
-          overlayBody.slice(open.end, t.index).trim(),
-          open.state,
-          open.note
-        )
-      );
+      const content = overlayBody.slice(open.end, t.index).trim();
+      if (!content)
+        throw new Error(
+          `language-section "${open.name}" is empty; leave it out when the mapping adds nothing`
+        );
+      if (out.has(open.name))
+        throw new Error(`duplicate language-section "${open.name}"`);
+      out.set(open.name, content);
       open = null;
       continue;
     }
 
     const name = getAttr(t.attrs, 'name');
     if (!name) throw new Error('language-section is missing a name');
-    const state = getAttr(t.attrs, 'state');
-    const note = getAttr(t.attrs, 'note');
-
-    // A self-closing section in an *overlay* declares a state and has no body.
-    if (isSelfClosing(overlayBody, t)) {
-      if (!state) {
-        throw new Error(
-          `language-section "${name}" is self-closing and must declare state="no-addition" or state="not-applicable"`
-        );
-      }
-      add(slotFrom(name, '', state, note));
-      continue;
-    }
-
+    if (isSelfClosing(overlayBody, t))
+      throw new Error(
+        `language-section "${name}" in an overlay must hold prose; leave it out when the mapping adds nothing`
+      );
     if (open !== null)
       throw new Error(`nested language-section inside "${open.name}"`);
-    open = { name, end: t.index + t.length, state, note };
+    open = { name, end: t.index + t.length };
   }
 
   if (open !== null)
     throw new Error(`language-section "${open.name}" is not closed`);
   return out;
-}
-
-function slotFrom(
-  name: string,
-  content: string,
-  state: string | null,
-  note: string | null
-): LanguageSlot {
-  if (state) {
-    if (state !== 'no-addition' && state !== 'not-applicable') {
-      throw new Error(
-        `language-section "${name}" has state="${state}"; expected "no-addition" or "not-applicable"`
-      );
-    }
-    if (content) {
-      throw new Error(
-        `language-section "${name}" declares state="${state}" but also has content`
-      );
-    }
-    if (state === 'not-applicable' && !note) {
-      throw new Error(
-        `language-section "${name}" is not-applicable and must explain why with note="…"`
-      );
-    }
-    return { name, state, content: '', ...(note ? { note } : {}) };
-  }
-  return content
-    ? { name, state: 'content', content }
-    : { name, state: 'unclassified', content: '' };
-}
-
-/** What one language's answer to a slot renders as; empty when it renders nothing. */
-function slotText(name: string, slot: LanguageSlot | undefined): string {
-  if (!slot)
-    throw new Error(`no overlay content for language-section "${name}"`);
-  if (slot.state === 'content') return slot.content;
-  if (slot.state === 'not-applicable') {
-    // The reader is told, rather than shown a silent gap where the other
-    // mappings have prose.
-    return `{% callout type="note" %}\n${slot.note}\n{% /callout %}`;
-  }
-  // `no-addition`, and a blank slot not yet classified, render nothing: the
-  // shared prose already covers it.
-  return '';
 }
 
 /** One `{% iflang %}` block: `text`, shown to readers of `langs`. */
@@ -318,11 +220,12 @@ function languageBlock(langs: string[], text: string): string {
 /**
  * Fill each `{% language-section name="x" /%}` slot in a shared body with every
  * language's section. Languages whose sections read the same share one
- * `{% iflang %}` block, so a page carries each distinct answer once.
+ * `{% iflang %}` block, so a page carries each distinct answer once; a language
+ * that leaves the slot out adds nothing to it.
  */
 export function resolveLanguageSections(
   sharedBody: string,
-  sections: Map<string, Map<string, LanguageSlot>>
+  sections: Map<string, Map<string, string>>
 ): string {
   let result = '';
   let last = 0;
@@ -339,7 +242,7 @@ export function resolveLanguageSections(
 
     const byText = new Map<string, string[]>();
     for (const [language, slots] of sections) {
-      const text = slotText(name, slots.get(name));
+      const text = slots.get(name);
       if (text) byText.set(text, [...(byText.get(text) ?? []), language]);
     }
     result += [...byText]

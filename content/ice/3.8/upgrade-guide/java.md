@@ -85,7 +85,3 @@ With that layout, you can omit `srcDirs` entirely—the plugin discovers it auto
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-3" %}
-
-{% /language-section %}

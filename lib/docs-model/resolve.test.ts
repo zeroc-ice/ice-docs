@@ -20,8 +20,7 @@ import {
   inlineSnippets,
   resolveDocument,
   declaredSlots,
-  splitLines,
-  type LanguageSlot
+  splitLines
 } from './resolve.ts';
 
 // --- markers ---------------------------------------------------------------
@@ -93,65 +92,27 @@ test('splitFrontmatter separates YAML block from body', () => {
 
 // --- language-section ------------------------------------------------------
 
-test('parseLanguageSections extracts named blocks as content slots', () => {
+test('parseLanguageSections extracts named blocks by slot name', () => {
   const overlay =
     'intro\n{% language-section name="mapping" %}\nCPP MAPPING\n{% /language-section %}\nend';
-  const slot = parseLanguageSections(overlay).get('mapping');
-  assert.equal(slot?.state, 'content');
-  assert.equal(slot?.content, 'CPP MAPPING');
+  assert.equal(parseLanguageSections(overlay).get('mapping'), 'CPP MAPPING');
 });
 
-test('a blank section is unclassified: it does not say which kind of blank it is', () => {
-  const overlay =
-    '{% language-section name="mapping" %}\n\n{% /language-section %}';
-  const slot = parseLanguageSections(overlay).get('mapping');
-  assert.equal(slot?.state, 'unclassified');
-  assert.equal(slot?.content, '');
-});
-
-test('an overlay can declare that it adds nothing, or that the feature is absent', () => {
-  const nothing = parseLanguageSections(
-    '{% language-section name="m" state="no-addition" /%}'
+test('an overlay says nothing by leaving a slot out, not with an empty section', () => {
+  assert.throws(
+    () =>
+      parseLanguageSections(
+        '{% language-section name="m" %}\n\n{% /language-section %}'
+      ),
+    /is empty/
   );
-  assert.equal(nothing.get('m')?.state, 'no-addition');
-
-  const absent = parseLanguageSections(
-    '{% language-section name="m" state="not-applicable" note="MATLAB is client-only." /%}'
-  );
-  assert.equal(absent.get('m')?.state, 'not-applicable');
-  assert.equal(absent.get('m')?.note, 'MATLAB is client-only.');
-});
-
-test('parseLanguageSections rejects malformed state declarations', () => {
-  // Self-closing with no state is the old ambiguous blank, spelled differently.
   assert.throws(
     () => parseLanguageSections('{% language-section name="m" /%}'),
-    /must declare state=/
-  );
-  assert.throws(
-    () =>
-      parseLanguageSections('{% language-section name="m" state="todo" /%}'),
-    /expected "no-addition" or "not-applicable"/
-  );
-  // "Not applicable" without a reason is not something a reader can act on.
-  assert.throws(
-    () =>
-      parseLanguageSections(
-        '{% language-section name="m" state="not-applicable" /%}'
-      ),
-    /must explain why/
-  );
-  assert.throws(
-    () =>
-      parseLanguageSections(
-        '{% language-section name="m" state="no-addition" %}prose{% /language-section %}'
-      ),
-    /also has content/
+    /must hold prose/
   );
 });
 
 test('parseLanguageSections rejects the same section twice', () => {
-  // Previously the second silently won, so an overlay could contradict itself.
   const overlay =
     '{% language-section name="m" %}one{% /language-section %}' +
     '{% language-section name="m" %}two{% /language-section %}';
@@ -167,38 +128,27 @@ test('declaredSlots lists what a shared page asks each overlay to fill', () => {
   assert.deepEqual(declaredSlots(shared), ['one', 'two']);
 });
 
-// One language's answer to a slot, and the block it renders as.
-const slot = (
-  name: string,
-  state: string,
-  extra: Record<string, string> = {}
-) =>
-  new Map([
-    ['cpp', new Map([[name, { name, state, content: '', ...extra }]])]
-  ]) as never;
+// One language's sections, and the block a section renders as.
+const sections = (entries: [string, string][]) =>
+  new Map([['cpp', new Map(entries)]]);
 const block = (langs: string, text: string) =>
   `{% iflang langs="${langs}" %}\n\n${text}\n\n{% /iflang %}`;
 
 test('resolveLanguageSections fills self-closing slots', () => {
   const shared = 'A\n{% language-section name="mapping" /%}\nB';
-  const out = resolveLanguageSections(
-    shared,
-    slot('mapping', 'content', { content: 'X' })
-  );
+  const out = resolveLanguageSections(shared, sections([['mapping', 'X']]));
   assert.equal(out, `A\n${block('cpp', 'X')}\nB`);
 });
 
 test('languages that answer a slot the same way share one block', () => {
   const shared = '{% language-section name="m" /%}';
-  const answer = (content: string) =>
-    new Map([['m', { name: 'm', state: 'content', content }]]);
   const out = resolveLanguageSections(
     shared,
     new Map([
-      ['cpp', answer('Same')],
-      ['java', answer('Same')],
-      ['python', answer('Other')]
-    ]) as never
+      ['cpp', new Map([['m', 'Same']])],
+      ['java', new Map([['m', 'Same']])],
+      ['python', new Map([['m', 'Other']])]
+    ])
   );
   assert.equal(
     out,
@@ -206,37 +156,9 @@ test('languages that answer a slot the same way share one block', () => {
   );
 });
 
-test('each slot state renders the thing that state means', () => {
+test('a slot an overlay leaves out renders nothing for that language', () => {
   const shared = 'A{% language-section name="m" /%}B';
-
-  // Nothing to add: the shared prose already covers it, so the page reads on.
-  assert.equal(resolveLanguageSections(shared, slot('m', 'no-addition')), 'AB');
-
-  // Absent feature: the reader is told, instead of finding a silent gap where
-  // the other eight mappings have prose.
-  const absent = resolveLanguageSections(
-    shared,
-    slot('m', 'not-applicable', { note: 'PHP has no server side.' })
-  );
-  assert.match(absent, /callout type="note"/);
-  assert.match(absent, /PHP has no server side\./);
-});
-
-test('an unclassified slot renders nothing', () => {
-  const shared = 'A{% language-section name="m" /%}B';
-  assert.equal(
-    resolveLanguageSections(shared, slot('m', 'unclassified')),
-    'AB'
-  );
-});
-
-test('resolveLanguageSections errors on a missing overlay section', () => {
-  const shared = '{% language-section name="mapping" /%}';
-  const none = new Map([['cpp', new Map<string, LanguageSlot>()]]);
-  assert.throws(
-    () => resolveLanguageSections(shared, none),
-    /no overlay content/
-  );
+  assert.equal(resolveLanguageSections(shared, sections([])), 'AB');
 });
 
 // --- snippets --------------------------------------------------------------

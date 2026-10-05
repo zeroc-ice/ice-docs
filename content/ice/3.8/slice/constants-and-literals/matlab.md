@@ -90,7 +90,3 @@ end
 The mapping uses the `sprintf` function to convert escaped strings into native MATLAB character arrays.
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

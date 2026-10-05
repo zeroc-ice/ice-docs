@@ -8,7 +8,3 @@ adapter.add(mockAlarmClock, new Ice.Identity("alarmClock"));
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

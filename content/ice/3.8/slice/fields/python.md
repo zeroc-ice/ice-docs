@@ -95,7 +95,3 @@ generated code uses the following default:
 | Yes                 | Any                      | `None`                                |
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}

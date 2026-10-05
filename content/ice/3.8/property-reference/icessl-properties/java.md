@@ -16,10 +16,6 @@ If this property is not defined, IceSSL uses the first key entry of the key stor
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
-
-{% /language-section %}
-
 {% language-section name="lang-3" %}
 
 ## IceSSL.Keystore

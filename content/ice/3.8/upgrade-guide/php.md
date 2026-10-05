@@ -1,7 +1,3 @@
-{% language-section name="lang-1" %}
-
-{% /language-section %}
-
 {% language-section name="lang-2" %}
 
 ```diff
@@ -10,9 +6,5 @@
 +$greeter =
 +    GreeterPrxHelper::createProxy($communicator, 'greeter:tcp -h localhost -p 4061');
 ```
-
-{% /language-section %}
-
-{% language-section name="lang-3" %}
 
 {% /language-section %}

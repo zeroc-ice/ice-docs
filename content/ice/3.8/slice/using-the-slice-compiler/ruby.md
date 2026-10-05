@@ -4,11 +4,3 @@
   the `--depend-file` option.
 
 {% /language-section %}
-
-{% language-section name="lang-2" %}
-
-{% /language-section %}
-
-{% language-section name="lang-3" %}
-
-{% /language-section %}

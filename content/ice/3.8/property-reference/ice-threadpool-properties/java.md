@@ -1,7 +1,3 @@
-{% language-section name="lang-1" %}
-
-{% /language-section %}
-
 {% language-section name="lang-2" %}
 
 ## Ice.ThreadPool._name_.StackSize

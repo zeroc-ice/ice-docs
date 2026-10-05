@@ -61,7 +61,3 @@ The monolithic `zeroc.ice.net` package has been replaced with modular NuGet pack
 ```
 
 {% /language-section %}
-
-{% language-section name="lang-3" %}
-
-{% /language-section %}
