@@ -24,6 +24,16 @@ module IceMX
 }
 ```
 
+These classes provide the following metrics:
+
+| **Metric**    | **Description**                                                                                                                                                                                                                                                             |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `published`   | The number of events that publishers sent to the topic.                                                                                                                                                                                                                     |
+| `forwarded`   | The number of events the topic received from linked topics.                                                                                                                                                                                                                 |
+| `queued`      | The number of events IceStorm queued for the subscriber and has not started sending yet.                                                                                                                                                                                    |
+| `outstanding` | The number of events IceStorm started sending to the subscriber and whose delivery has not completed.                                                                                                                                                                       |
+| `delivered`   | The number of events whose delivery completed. IceStorm counts an event as delivered when it receives the reply for a twoway subscriber or a topic link, when it sends the request for a oneway or datagram subscriber, and when it sends the batch for a batch subscriber. |
+
 IceStorm records metrics in the metrics map described below.
 
 | **Metrics map name** | **Slice class**            | **Description**    | **Property prefix**                      |
@@ -36,35 +46,40 @@ To configure a metrics view to record IceStorm topic and subscriber you can use 
 - `IceMX.Metrics.IceStormView.Map.Topic.GroupBy=id`
 - `IceMX.Metrics.IceStormView.Map.Subscriber.GroupBy=id`
 
-This will configure a view containing only the `Topic` and `Subscriber` maps. All the topics and subscribers from the
-IceStorm service will be monitored individually with separate metrics object.
+This will configure a view containing only the `Topic` and `Subscriber` maps, with one metrics object per topic and one
+metrics object per subscriber proxy. A proxy subscribed to several topics shares a single metrics object; use
+`IceMX.Metrics.IceStormView.Map.Subscriber.GroupBy=topic,id` to get one metrics object per topic subscription.
 
 You can use the following attributes when configuring the IceStorm `Topic` map:
 
-| **Name** | **Description**            |
-| -------- | -------------------------- |
-| id       | The id is the topic name.  |
-| parent   | The IceStorm service name. |
-| none     | The empty string.          |
-| topic    | The topic name.            |
-| service  | The IceStorm service name. |
+| **Name** | **Description**           |
+| -------- | ------------------------- |
+| id       | The id is the topic name. |
+| parent   | The string `IceStorm`.    |
+| none     | The empty string.         |
+| topic    | The topic name.           |
+| service  | The string `IceStorm`.    |
 
 The `Subscriber` map can be configured with the following attributes:
 
-| **Name** | **Description**                                                               |
-| -------- | ----------------------------------------------------------------------------- |
-| id       | The id of the subscriber metrics is the stringified proxy of the subscriber.  |
-| parent   | The name of the topic name to which this subscriber belongs.                  |
-| none     | The empty string.                                                             |
-| topic    | The name of the topic name to which this subscriber belongs.                  |
-| service  | The IceStorm service name.                                                    |
-| identity | The identity of the subscriber proxy.                                         |
-| facet    | The facet of the subscriber proxy.                                            |
-| encoding | The encoding of the subscriber proxy.                                         |
-| mode     | The mode of the subscriber proxy.                                             |
-| proxy    | The subscriber proxy.                                                         |
-| link     | The proxy of the topic linked to the the topic which owns this subscriber.    |
-| state    | The state of the subscriber. It can either be "online", "offline" or "error". |
+| **Name** | **Description**                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------------ |
+| id       | The id of the subscriber metrics is the stringified proxy of the subscriber.                           |
+| parent   | The name of the topic name to which this subscriber belongs.                                           |
+| none     | The empty string.                                                                                      |
+| topic    | The name of the topic name to which this subscriber belongs.                                           |
+| service  | The string `IceStorm`.                                                                                 |
+| identity | The identity of the subscriber proxy.                                                                  |
+| facet    | The facet of the subscriber proxy.                                                                     |
+| encoding | The encoding of the subscriber proxy.                                                                  |
+| mode     | The mode of the subscriber proxy: `twoway`, `oneway`, `batch-oneway`, `datagram`, or `batch-datagram`. |
+| proxy    | The subscriber proxy.                                                                                  |
+| link     | The proxy of the topic linked to the the topic which owns this subscriber.                             |
+| state    | The state of the subscriber. It can either be "online", "offline" or "error".                          |
+| qos.name | The value of the `name` entry in the subscriber's QoS, or `default` if the QoS has no such entry.      |
+
+For example, `IceMX.Metrics.IceStormView.Map.Subscriber.GroupBy=qos.reliability` groups subscribers by the value of
+their `reliability` QoS.
 
 See Also
 
