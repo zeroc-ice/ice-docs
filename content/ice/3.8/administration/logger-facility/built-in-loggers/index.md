@@ -8,8 +8,9 @@ logger{% /iflang %}.
 
 ## File Logger
 
-Setting the [Ice.LogFile](../../../property-reference/ice-properties) property selects the file-based logger. This
-logger appends its messages to the specified file and creates the file if necessary.
+Setting the [Ice.LogFile](../../../property-reference/ice-properties) property selects the file-based
+logger{% iflang langs="js" %} in Node.js{% /iflang %}. This logger appends its messages to the specified file and
+creates the file if necessary.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -20,8 +21,8 @@ new name and starts a new file when the file reaches the configured size.
 
 {% iflang langs="js" %}
 
-The file logger is available in Node.js. In a browser, communicator initialization fails with `InitializationException`
-when `Ice.LogFile` is set and the application doesn't supply a logger.
+In a browser, communicator initialization fails with `InitializationException` when `Ice.LogFile` is set and the
+application doesn't supply a logger.
 
 {% /iflang %}
 
