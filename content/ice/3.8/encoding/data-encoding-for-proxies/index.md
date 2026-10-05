@@ -4,7 +4,11 @@ title: Data Encoding for Proxies
 
 ## Encoding for Proxy Options
 
-The encoding format of proxies changed in version 1.1.
+The encoding format of proxies changed in version 1.1. The encoding version of the stream that contains a proxy selects
+the format.
+
+Ice throws `FixedProxyException` when an application marshals a [fixed proxy](../../basics/terminology#fixed-proxies),
+except in Swift, where it stops the program with a precondition failure.
 
 ### Proxy Encoding Version 1.0
 
@@ -34,8 +38,8 @@ The proxy options are described in the table below:
 | `secure`   | Ignored. Kept for backwards compatibility.                                                  |
 
 The `facet` field has either zero elements or one element. An empty sequence denotes the default facet, and a
-one-element sequence provides the facet name in its first member. If a receiver receives a proxy with a `facet` field
-with more than one element, it must throw a `ProxyUnmarshalException`.
+one-element sequence provides the facet name in its first member. Ice throws `MarshalException` when it decodes a proxy
+whose `facet` field has more than one element or whose `mode` is greater than `4`.
 
 ### Proxy Encoding Version 1.1
 
@@ -69,8 +73,11 @@ The additional options are described in the table below:
 
 | **Option** | **Description**                                                                           |
 | ---------- | ----------------------------------------------------------------------------------------- |
-| `protocol` | The maximum protocol version supported by the server. Currently this value is always 1.0. |
-| `encoding` | The maximum encoding version supported by the server.                                     |
+| `protocol` | The protocol version of the proxy. Ice 3.8 sends requests only with protocol version 1.0. |
+| `encoding` | The encoding version Ice uses to marshal request parameters sent through this proxy.      |
+
+When Ice decodes a proxy from a stream that uses encoding version 1.0, it sets the protocol and encoding versions of the
+proxy to 1.0.
 
 The encoding for [UDP endpoints](./) also changed in version 1.1.
 
@@ -122,7 +129,8 @@ The endpoint options are described in the following table.
 
 ## Encoding for UDP Endpoints
 
-The encoding format of UDP endpoints changed in version 1.1.
+The encoding format of UDP endpoints changed in version 1.1. The encoding version of the endpoint's encapsulation
+selects the format.
 
 ### UDP Endpoint Encoding Version 1.0
 
@@ -147,10 +155,10 @@ The endpoint options are described in the following table.
 | --------------- | ------------------------------------------------------------------------------------------------------------ |
 | `host`          | The server host (a host name or IP address)                                                                  |
 | `port`          | The server port (`1`-`65535`)                                                                                |
-| `protocolMajor` | The major protocol version supported by the endpoint                                                         |
-| `protocolMinor` | The highest minor protocol version supported by the endpoint                                                 |
-| `encodingMajor` | The major encoding version supported by the endpoint                                                         |
-| `encodingMinor` | The highest minor encoding version supported by the endpoint                                                 |
+| `protocolMajor` | Ice writes `1` and ignores the value when decoding the endpoint                                              |
+| `protocolMinor` | Ice writes `0` and ignores the value when decoding the endpoint                                              |
+| `encodingMajor` | Ice writes `1` and ignores the value when decoding the endpoint                                              |
+| `encodingMinor` | Ice writes `0` and ignores the value when decoding the endpoint                                              |
 | `compress`      | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false` |
 
 ### UDP Endpoint Encoding Version 1.1
