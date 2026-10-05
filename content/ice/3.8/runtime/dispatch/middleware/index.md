@@ -16,7 +16,7 @@ the dispatch processing by returning a cached response or by returning an error.
 
 ## Middleware API
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ### Built-in Middleware
 

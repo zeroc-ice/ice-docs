@@ -97,7 +97,7 @@ have its own connection if each were assigned a unique connection ID.
 
 As an example, consider the following code fragment:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 A total of three connections are established by this example:
 

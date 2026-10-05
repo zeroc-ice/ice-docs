@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 Here is the definition of our EmployeeMap once more:
 

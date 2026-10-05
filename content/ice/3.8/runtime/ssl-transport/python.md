@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="using-the-ssl-transport-1" %}
 
 ```py
 greeter = VisitorCenter.GreeterPrx(
@@ -8,7 +8,7 @@ greeter = VisitorCenter.GreeterPrx(
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="using-the-ssl-transport-2" %}
 
 ```py
 adapter = communicator.createObjectAdapterWithEndpoints(

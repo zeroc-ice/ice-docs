@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```ruby
 prx = SomePrx.new(communicator, "ident:tcp -p 10000")

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="language-mapping-1" %}
 
 A Slice field maps to a C# field, with by default the same name. The type of the C# field is the mapped Slice type.
 

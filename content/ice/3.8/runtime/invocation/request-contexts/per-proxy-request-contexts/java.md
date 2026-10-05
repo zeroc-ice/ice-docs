@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```java
 // setting the context on the proxy.

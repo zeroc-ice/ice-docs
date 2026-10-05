@@ -48,9 +48,9 @@ Setting a default router as described above means every proxy created by the com
 router by default. If your client needs to use a router more selectively, you can use the `ice_router` proxy method to
 obtain a routed proxy:
 
-{% language-section name="lang-1" /%}
+{% language-section name="configuring-a-router-for-client-invocations-1" /%}
 
-{% language-section name="lang-2" /%}
+{% language-section name="configuring-a-router-for-client-invocations-2" /%}
 
 Another way to configure a router is with a [proxy property](../../../property-reference/proxy-properties):
 

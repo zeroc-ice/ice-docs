@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class is mapped to a C# class with the same name. By default, the generated class contains a public field for
 each Slice field (just as for structures and exceptions). Alternatively, you can use the property mapping by specifying

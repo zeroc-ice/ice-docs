@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="ice.backgroundlocatorcacheupdates" %}
 
 {% callout type="note" %}
 MATLAB accepts class cycles without consulting Ice.AcceptClassCycles.

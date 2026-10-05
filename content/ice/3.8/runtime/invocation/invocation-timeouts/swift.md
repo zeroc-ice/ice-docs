@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="configuring-invocation-timeouts-for-proxies" %}
 
 ```swift
 var greeter = try makeProxy(
@@ -10,7 +10,7 @@ greeter = greeter.ice_invocationTimeout(2500)
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="invocation-timeout-failures" %}
 
 ```swift
 do {

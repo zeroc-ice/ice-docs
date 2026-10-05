@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="endpoint-list-syntax-2" %}
 
 If you’re using C++ with a static build, you need to load this transport explicitly as follows:
 

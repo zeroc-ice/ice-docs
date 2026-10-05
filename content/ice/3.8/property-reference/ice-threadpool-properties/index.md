@@ -24,7 +24,7 @@ In language mappings that support thread pools, a communicator creates two
 This page describes configuration properties for the client and server thread pools. These thread pools are named
 `Client` and `Server`, respectively. In the property descriptions below, replace `name` with `Client` or `Server`.
 
-{% language-section name="lang-1" /%}
+{% language-section name="ice.threadpool.name.serialize" /%}
 
 ## Ice.ThreadPool._name_.Serialize
 
@@ -104,7 +104,7 @@ threads" warning is printed. The default value is 0, which disables the warning.
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
 
-{% language-section name="lang-2" /%}
+{% language-section name="ice.threadpool.name.sizewarn" /%}
 
 ## Ice.ThreadPool._name_.ThreadIdleTime
 
@@ -132,4 +132,4 @@ with [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) active threads and 
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
 
-{% language-section name="lang-3" /%}
+{% language-section name="ice.threadpool.name.threadidletime" /%}

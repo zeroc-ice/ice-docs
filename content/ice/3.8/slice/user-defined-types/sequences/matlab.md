@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 The MATLAB mapping for a Slice sequence depends on the element type of the sequence:
 

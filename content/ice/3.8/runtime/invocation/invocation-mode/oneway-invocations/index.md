@@ -23,7 +23,7 @@ interface WeatherStation
 
 A client application can report a reading to a weather station like:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 In this example, the client reports a reading and immediately continues with the next one, without waiting for the
 server to process the previous request.

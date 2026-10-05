@@ -27,7 +27,7 @@ ways for the administrative client to accomplish this:
 Having obtained the proxy, the administrative client must select a facet before invoking any operations. For example,
 the code below shows how to obtain the configuration properties of the remote program:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 A remote client must also know (or be able to determine) which facets are available in the target server. Typically this
 information is statically configured in the client, since the client must also know the interface types of any facets

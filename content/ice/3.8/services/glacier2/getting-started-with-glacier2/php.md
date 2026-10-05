@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```php
 $router = Glacier2\RouterPrxHelper::createProxy(

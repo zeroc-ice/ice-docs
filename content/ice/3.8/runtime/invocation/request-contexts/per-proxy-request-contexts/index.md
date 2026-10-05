@@ -12,7 +12,7 @@ The proxy methods `ice_context` and `ice_getContext` set and retrieve the contex
 new proxy that stores the given context. Calling `ice_getContext` returns the stored context, or an empty dictionary if
 no per-proxy context has been configured for the proxy.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 This example shows how to configure a request context on a proxy. Once set, the request context is automatically
 included with every request sent through that proxy. An explicit request context provided at the time of an invocation

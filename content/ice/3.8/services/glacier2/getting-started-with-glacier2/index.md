@@ -231,7 +231,7 @@ client using the credentials associated with the client's [SSL connection](../se
 To create a session, the client typically creates the router proxy from the communicator and then calls one of the
 `create` operations. For example:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 If the router is configured with a [session manager](../glacier2-session-management), the `createSession` and
 `createSessionFromSecureConnection` operations may return a proxy for an object implementing the `Glacier2::Session`

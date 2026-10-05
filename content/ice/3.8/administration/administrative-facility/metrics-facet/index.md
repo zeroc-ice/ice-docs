@@ -128,7 +128,7 @@ operations is equivalent to setting the view [Disabled](../../../property-refere
 to 1 or 0.The `getMetricsView` operation returns the metrics for the given view. The `getMapMetricsFailures` and
 `getMetricsFailures` operations retrieve the metrics failures for a given map or metrics id.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Metrics Attributes
 

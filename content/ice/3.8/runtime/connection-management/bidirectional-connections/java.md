@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="configuring-a-client-for-bidirectional-connections" %}
 
 ```java
 ObjectAdapter adapter = communicator.createObjectAdapter("");
@@ -9,7 +9,7 @@ adapter.add(mockAlarmClock, new Identity("alarmClock", ""));
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="configuring-a-server-for-bidirectional-connections" %}
 
 ```java
 class BidirWakeUpService implements WakeUpService {

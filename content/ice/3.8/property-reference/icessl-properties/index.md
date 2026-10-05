@@ -169,7 +169,7 @@ An Ice program running as a Windows service will typically need to set this prop
 
 {% /iflang %}
 
-{% language-section name="lang-1" /%}
+{% language-section name="icessl.certstorelocation" /%}
 
 ## IceSSL.CheckCertName
 
@@ -205,7 +205,7 @@ In Java, IceSSL verifies the host name only when `IceSSL.VerifyPeer` is greater 
 the server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++ and
 .NET implementations always send a DNS host name with SNI.
 
-{% language-section name="lang-2" /%}
+{% language-section name="icessl.checkcertname" /%}
 
 ## IceSSL.DefaultDir
 
@@ -317,7 +317,7 @@ On iOS, this property is ignored.
 
 {% /iflang %}
 
-{% language-section name="lang-3" /%}
+{% language-section name="icessl.keychainpassword" /%}
 
 ## IceSSL.Password
 
@@ -421,7 +421,7 @@ IceSSL cannot determine the revocation status of a certificate that publishes on
 
 {% /iflang %}
 
-{% language-section name="lang-4" /%}
+{% language-section name="icessl.revocationcheckcacheonly" /%}
 
 ## IceSSL.Trace.Security
 
@@ -539,7 +539,7 @@ combined with those of `IceSSL.TrustOnly`. To configure trusted and untrusted pe
 Identifies trusted and untrusted peers for incoming (server) connections to the object adapter `AdapterName`. The
 entries defined in this property are combined with those of `IceSSL.TrustOnly` and `IceSSL.TrustOnly.Server`.
 
-{% language-section name="lang-5" /%}
+{% language-section name="icessl.trustonly.server.adaptername" /%}
 
 ## IceSSL.UsePlatformCAs
 

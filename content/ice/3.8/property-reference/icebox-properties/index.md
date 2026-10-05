@@ -56,7 +56,7 @@ method; `--Ice.Config=file` loads a configuration file into that communicator. T
 arguments to the `start` method in the `args` parameter. Whitespace separates the arguments, and any arguments that
 contain whitespace must be enclosed in quotes.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## IceBox.Trace.ServiceObserver
 

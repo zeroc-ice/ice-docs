@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 Build the service project before starting IceBox. The following configuration loads the example service from its .NET 8
 Debug build:

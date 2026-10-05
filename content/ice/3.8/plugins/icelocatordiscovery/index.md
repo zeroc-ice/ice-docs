@@ -26,7 +26,7 @@ primarily toward IceGrid users.
 The IceLocatorDiscovery plug-in must be installed in every client that needs to locate objects; you can optionally
 install it in IceGrid nodes and registry replicas.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Configuring IceLocatorDiscovery
 

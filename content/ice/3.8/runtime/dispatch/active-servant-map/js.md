@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```typescript
 add(servant: Ice.Object, id: Identity): Ice.ObjectPrx;

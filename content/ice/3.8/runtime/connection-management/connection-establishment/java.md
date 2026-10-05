@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```java
 var prx = SomePrx.createProxy(communicator, "ident:tcp -p 10000");

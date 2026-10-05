@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="using-the-ssl-transport-1" %}
 
 ```swift
 let greeter = try makeProxy(
@@ -9,7 +9,7 @@ let greeter = try makeProxy(
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="using-the-ssl-transport-2" %}
 
 ```swift
 let adapter = try communicator.createObjectAdapterWithEndpoints(

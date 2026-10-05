@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="using-the-ssl-transport-1" %}
 
 ```java
 var greeter = GreeterPrx.createProxy(
@@ -8,7 +8,7 @@ var greeter = GreeterPrx.createProxy(
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="using-the-ssl-transport-2" %}
 
 ```java
 var adapter = communicator.createObjectAdapterWithEndpoints(
@@ -18,7 +18,7 @@ var adapter = communicator.createObjectAdapterWithEndpoints(
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="using-the-ssl-transport-3" %}
 
 The [Ice/secure](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/secure) demo provides a good starting point
 for using these APIs.
@@ -40,7 +40,7 @@ This SSL configuration applies to all SSL incoming connections accepted by that 
 
 {% /language-section %}
 
-{% language-section name="lang-4" %}
+{% language-section name="using-the-ssl-transport-4" %}
 
 ```config
 # The keystore containing this server's certificate.
@@ -53,7 +53,7 @@ IceSSL.Trace.Security=1
 
 {% /language-section %}
 
-{% language-section name="lang-5" %}
+{% language-section name="using-the-ssl-transport-5" %}
 
 ```config
 # The keystore containing trusted certificated authorities used to validate

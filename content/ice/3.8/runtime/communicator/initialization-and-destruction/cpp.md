@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In C++, you create a communicator by calling the C++ function `Ice::initialize`, for example:
 

@@ -79,7 +79,7 @@ table below describes these semantics:
 When IPv4 and IPv6 are enabled, an object adapter endpoint that uses an IPv6 (or * wildcard) address can accept both
 IPv4 and IPv6 connections.
 
-{% language-section name="lang-1" /%}
+{% language-section name="endpoint-list-syntax-1" /%}
 
 ### TCP Endpoint Syntax
 
@@ -113,7 +113,7 @@ A `tcp` endpoint supports the following options:
 
 The UDP transport protocol is a built-in transport protocol that is always available.
 
-{% language-section name="lang-2" /%}
+{% language-section name="endpoint-list-syntax-2" /%}
 
 #### Description {% id="udp-description" %}
 

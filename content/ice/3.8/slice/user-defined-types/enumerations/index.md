@@ -88,7 +88,7 @@ information, please refer to the [encoding rules](../../../encoding/basic-data-e
 
 ## Language Mapping
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## See Also
 

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="stringifying-a-proxy" %}
 
 You can stringify a proxy by calling `ice_toString` on this proxy. For example:
 
@@ -12,7 +12,7 @@ object adapter ID as specified through the [Ice.ToStringMode](../../../property-
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-to-property" %}
 
 ```matlab
 greeter = GreeterPrx(communicator, 'greeter:tcp -h localhost -p 4061');

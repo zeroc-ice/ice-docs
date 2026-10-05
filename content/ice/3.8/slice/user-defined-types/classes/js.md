@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class is mapped to a JavaScript class with the same name. For each Slice field, the JavaScript instance contains
 a corresponding field (just as for structures and exceptions). Consider the following class definition:

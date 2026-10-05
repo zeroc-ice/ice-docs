@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="configuring-a-client-for-bidirectional-connections" %}
 
 ```swift
 let adapter = try communicator.createObjectAdapter("")
@@ -9,7 +9,7 @@ try adapter.add(servant: mockAlarmClock, id: Ice.Identity(name: "alarmClock"))
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="configuring-a-server-for-bidirectional-connections" %}
 
 ```swift
 struct BidirWakeUpService: WakeUpService {

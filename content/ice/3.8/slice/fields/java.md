@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="language-mapping-1" %}
 
 A Slice field maps to a Java field with the same name. The type of the Java field is the mapped Slice type. This is the
 default mapping.

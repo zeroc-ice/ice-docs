@@ -21,7 +21,7 @@ inverse operation, that is, returns the property group for a proxy.
 The base property of the group with an application-specific `name` supplying the stringified representation of a proxy.
 Use the communicator operation `propertyToProxy` to retrieve the property and convert it into a proxy.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## _name_.ConnectionCached
 

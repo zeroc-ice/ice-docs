@@ -12,7 +12,7 @@ Ice.Plugin.Name=entry_point [arg ...]
 
 Most plug-ins accept only one specific name, so make sure to use the plug-in’s name for _Name_.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 The [Ice.Plugin.*](../../../property-reference/ice-plugin-properties) property reference describes `entry_point` in
 greater detail.

@@ -55,7 +55,7 @@ We recommend using a dedicated, endpoint-less object adapter for “bidir” dis
 
 The code below illustrates these steps:
 
-{% language-section name="lang-1" /%}
+{% language-section name="configuring-a-client-for-bidirectional-connections" /%}
 
 The callback object (`mockAlarmClock` in the code above) will handle incoming requests for identity `alarmClock`.
 
@@ -71,7 +71,7 @@ again usually results in a `CloseConnectionException`.
 The connection object is accessible as a member of the `Current` parameter supplied to an operation implementation.
 These steps are illustrated in the code below:
 
-{% language-section name="lang-2" /%}
+{% language-section name="configuring-a-server-for-bidirectional-connections" /%}
 
 ## Limitations of Bidirectional Connections
 

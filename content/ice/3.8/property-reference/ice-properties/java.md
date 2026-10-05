@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="ice.batchautoflushsize" %}
 
 ## Ice.CacheMessageBuffers
 
@@ -27,7 +27,7 @@ to `2`. Use of direct message buffers minimizes copying and typically results in
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="ice.config" %}
 
 ## Ice.Compression.Level
 
@@ -71,7 +71,7 @@ consisting of _name_=_value_ pairs with support for comments and escaping.
 
 {% /language-section %}
 
-{% language-section name="lang-4" %}
+{% language-section name="ice.httpproxyport" %}
 
 ## Ice.HTTPProxyHost
 
@@ -96,7 +96,7 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 {% /language-section %}
 
-{% language-section name="lang-5" %}
+{% language-section name="ice.ipv6" %}
 
 ## Ice.InitPlugins
 
@@ -143,7 +143,7 @@ java -Djava.net.preferIPv4Stack=true ...
 
 {% /language-section %}
 
-{% language-section name="lang-6" %}
+{% language-section name="ice.printstacktraces" %}
 
 ## Ice.Package._module_
 
@@ -207,7 +207,7 @@ activation is complete. This is useful for scripts that need to wait until an ob
 
 {% /language-section %}
 
-{% language-section name="lang-7" %}
+{% language-section name="ice.syslogfacility" %}
 
 ## Ice.ServerIdleTime
 
@@ -355,7 +355,7 @@ specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-ad
 
 {% /language-section %}
 
-{% language-section name="lang-8" %}
+{% language-section name="ice.usesystemdjournal" %}
 
 ## Ice.UseSyslog
 

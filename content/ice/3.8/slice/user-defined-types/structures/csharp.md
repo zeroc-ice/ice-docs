@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 Ice for C# supports two different mappings for Slice structures. By default, Slice structures map to C# record structs
 if they (recursively) contain only value types. If a Slice structure (recursively) contains a string, proxy, class,

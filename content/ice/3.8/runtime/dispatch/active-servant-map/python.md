@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```py
 def add(self, servant: Object, id: Identity) -> ObjectPrx: ...

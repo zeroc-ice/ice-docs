@@ -97,7 +97,7 @@ that use the module).
 
 ## Language Mapping
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## See Also
 

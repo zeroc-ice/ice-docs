@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="ice.threadpool.name.sizewarn" %}
 
 ## Ice.ThreadPool._name_.StackSize
 
@@ -13,7 +13,7 @@ The default value is 0, meaning the operating system's default is used.
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="ice.threadpool.name.threadidletime" %}
 
 ## Ice.ThreadPool._name_.ThreadPriority
 

@@ -50,13 +50,13 @@ that will be used for all invocations made via the proxy returned by `propertyTo
 To configure an invocation timeout at runtime, use the `ice_invocationTimeout` proxy factory method to obtain a new
 proxy with the desired timeout:
 
-{% language-section name="lang-1" /%}
+{% language-section name="configuring-invocation-timeouts-for-proxies" /%}
 
 ## Invocation Timeout Failures
 
 An application that configures invocation timeouts must be prepared to catch `InvocationTimeoutException`:
 
-{% language-section name="lang-2" /%}
+{% language-section name="invocation-timeout-failures" /%}
 
 The effects of an invocation timeout are limited to the client; no indication is sent to the server, which may still be
 busy dispatching the request. The Ice runtime in the client ignores a response to this request if the server eventually

@@ -13,7 +13,7 @@ This should be a very temporary state for your object adapter, during which you 
 
 You transition your object adapter from the `Holding` state to the `Active` state by calling `activate`. For example:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 Once activated, the object adapter accepts incoming connections, and reads and dispatches incoming requests received
 over these connections.

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="language-mapping-1" %}
 
 Here are the sample constant definitions once more:
 

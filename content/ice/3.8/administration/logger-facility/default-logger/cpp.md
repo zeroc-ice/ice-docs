@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 On Windows, when the default C++ logger outputs a log message to the console, it converts this message from your narrow
 string encoding (as defined by narrow string converter you installed, if any) to your console code page. This conversion

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="general-metadata-directives" %}
 
 The mapped skeleton method for `getGrid` is:
 
@@ -38,7 +38,7 @@ public GridIntf.GetGridMarshaledResult getGrid(com.zeroc.Ice.Current current) {
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="language-specific-metadata-directives" %}
 
 The metadata directives for Java uses the `java` prefix.
 

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="packaging" %}
 
 ### Python Static Code Generation
 
@@ -144,7 +144,7 @@ c = Color.Red
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-creation-1" %}
 
 ```diff
 -proxy = communicator.stringToProxy("greeter: tcp -h localhost -p 4061");

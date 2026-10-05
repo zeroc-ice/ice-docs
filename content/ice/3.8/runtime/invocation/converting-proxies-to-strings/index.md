@@ -7,13 +7,13 @@ proxy's properties.
 
 ## Stringifying a Proxy
 
-{% language-section name="lang-1" /%}
+{% language-section name="stringifying-a-proxy" /%}
 
 ## Proxy to Property
 
 You can also perform a deeper proxy stringification by calling `proxyToProperty` on your communicator. For example:
 
-{% language-section name="lang-2" /%}
+{% language-section name="proxy-to-property" /%}
 
 The resulting map or dictionary holds all the [proxy properties](../../../property-reference/proxy-properties) for the
 supplied proxy. The second parameter of `proxyToProperty` is the base name for the

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 Ice for C# supports several different mappings for sequences. By default, sequences are mapped to arrays. You can use
 metadata directives to map sequences to a number of alternative types:

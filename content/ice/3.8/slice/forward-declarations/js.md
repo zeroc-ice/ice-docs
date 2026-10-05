@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In JavaScript when a forward declaration correspond to a type defined on separate Slice file, you must add the
 `[js:defined-in:<file>]` metadata to let the Slice-to-JavaScript compiler where the type is defined.

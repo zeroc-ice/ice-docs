@@ -175,9 +175,9 @@ of `SIZE` (`500`) is within the range of the Slice `short` type. However, `BYTE_
 
 ## Language Mapping
 
-{% language-section name="lang-1" /%}
+{% language-section name="language-mapping-1" /%}
 
-{% language-section name="lang-2" /%}
+{% language-section name="language-mapping-2" /%}
 
 ## See Also
 

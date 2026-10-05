@@ -136,6 +136,6 @@ An optional field with a default value is considered to be set by default.
 
 ## Language Mapping
 
-{% language-section name="lang-1" /%}
+{% language-section name="language-mapping-1" /%}
 
-{% language-section name="lang-2" /%}
+{% language-section name="language-mapping-2" /%}

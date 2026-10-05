@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="packaging" %}
 
 ### NPM Package
 
@@ -34,7 +34,7 @@ The `slice2js` compiler can be executed by running `npx slice2js`.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-creation-1" %}
 
 ```diff
 -const proxy = communicator.stringToProxy("greeter: tcp -h localhost -p 4061");

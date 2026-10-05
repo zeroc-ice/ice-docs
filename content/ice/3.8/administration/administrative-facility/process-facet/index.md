@@ -37,7 +37,7 @@ terminate the program abruptly.
 The `writeMessage` operation allows remote clients to print a message to the program's standard output (`fd` == 1) or
 standard error (`fd` == 2) channels.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Integrating the Process Facet with an Activation Service
 

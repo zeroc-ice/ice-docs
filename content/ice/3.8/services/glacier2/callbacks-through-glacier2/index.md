@@ -129,7 +129,7 @@ back-end servers for use in making callback requests to the client. This categor
 A client can obtain its assigned category by calling `getCategoryForClient` on the
 [Router](../getting-started-with-glacier2) interface as shown in the example below:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Nested Invocations with a Router
 

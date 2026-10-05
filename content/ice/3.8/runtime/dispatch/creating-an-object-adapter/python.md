@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="see-also-1" %}
 
 ```py
 adapter = communicator.createObjectAdapter("GreeterAdapter")
@@ -6,7 +6,7 @@ adapter = communicator.createObjectAdapter("GreeterAdapter")
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="see-also-2" %}
 
 ```py
 adapter = communicator.createObjectAdapterWithEndpoints(

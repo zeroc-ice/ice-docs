@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class is mapped to a C++ class with the same name. The generated class contains a public data member for each
 Slice field (just as for [structures](../structures) and [exceptions](../../exceptions)). Consider the following class

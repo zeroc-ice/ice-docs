@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="packaging" %}
 
 ### C++ NuGet Package
 
@@ -35,7 +35,7 @@ It also includes the Slice tools for C++, so the `zeroc.icebuilder.msbuild` pack
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-creation-1" %}
 
 ```diff
 -Ice::ObjectPrx proxy =

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="general-metadata-directives" %}
 
 The mapped skeleton member function for `getGrid` is:
 
@@ -33,7 +33,7 @@ GridServant::getGrid(const Ice::Current& current)
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="language-specific-metadata-directives" %}
 
 The metadata directives for C++ uses the `cpp` prefix.
 

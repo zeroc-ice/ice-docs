@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="adapter.messagesizemax" %}
 
 ## _adapter_.AdapterId
 
@@ -169,7 +169,7 @@ by this object adapter.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="adapter.replicagroupid" %}
 
 ## _adapter_.PublishedHost
 
@@ -211,7 +211,7 @@ indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapteri
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="adapter.threadpool.threadidletime" %}
 
 ## _adapter_.ThreadPool.Serialize
 

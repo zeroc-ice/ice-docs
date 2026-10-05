@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Python identifier maps to an identical Python identifier. For example, the Python identifier `Clock` becomes the
 Python identifier `Clock`.

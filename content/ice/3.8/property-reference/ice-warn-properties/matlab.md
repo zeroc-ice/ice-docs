@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="ice.warn.connections" %}
 
 {% callout type="note" %}
 MATLAB returns asynchronous results through futures rather than application callbacks, so Ice.Warn.AMICallback does not
@@ -7,7 +7,7 @@ apply to MATLAB application code.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="ice.warn.endpoints" %}
 
 ## Ice.Warn.SliceLoader
 

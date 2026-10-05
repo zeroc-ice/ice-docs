@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 The built-in types are mapped to C++ types as shown in this table:
 

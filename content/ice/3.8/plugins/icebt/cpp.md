@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="installing-icebt" %}
 
 You should install IceBT in your communicator using the `pluginFactories` field of `InitializationData`:
 
@@ -21,7 +21,7 @@ Ice.Plugin.IceBT=IceBT:createIceBT
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="using-icebt-2" %}
 
 On Linux, the IceBT plug-in provides a C++ API for device discovery:
 

@@ -18,11 +18,11 @@ The request represented by `req` is not included in the `count` and `size` figur
 A batch request is not queued until the interceptor calls `enqueue`. The minimal interceptor implementation is
 therefore:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping-1" /%}
 
 A more sophisticated implementation might use its own logic for automatically flushing queued requests:
 
-{% language-section name="lang-2" /%}
+{% language-section name="mapping-2" /%}
 
 In this example, the implementation consults the existing Ice property `Ice.BatchAutoFlushSize` to determine the limit
 that triggers an automatic flush. If a flush is necessary, the interceptor can obtain the relevant proxy by calling

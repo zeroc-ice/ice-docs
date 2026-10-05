@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="configuring-a-client-for-bidirectional-connections" %}
 
 ```py
 adapter = communicator.createObjectAdapter("")
@@ -9,7 +9,7 @@ adapter.add(mockAlarmClock, Ice.Identity(name="alarmClock"))
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="configuring-a-server-for-bidirectional-connections" %}
 
 ```py
 class BidirWakeUpService(WakeUpService):

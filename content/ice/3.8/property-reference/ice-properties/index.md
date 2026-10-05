@@ -2,7 +2,7 @@
 title: Ice.*
 ---
 
-{% language-section name="lang-1" /%}
+{% language-section name="ice.backgroundlocatorcacheupdates" /%}
 
 ## Ice.BackgroundLocatorCacheUpdates
 
@@ -49,7 +49,7 @@ to the maximum size specified by [Ice.MessageSizeMax](./), therefore the sender 
 
 {% /callout %}
 
-{% language-section name="lang-2" /%}
+{% language-section name="ice.batchautoflushsize" /%}
 
 ## Ice.ClassGraphDepthMax
 
@@ -107,7 +107,7 @@ consisting of _name_=_value_ pairs with support for comments and escaping.
 
 {% /iflang %}
 
-{% language-section name="lang-3" /%}
+{% language-section name="ice.config" /%}
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
@@ -153,7 +153,7 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 {% /iflang %}
 
-{% language-section name="lang-4" /%}
+{% language-section name="ice.httpproxyport" /%}
 
 ## Ice.ImplicitContext
 
@@ -225,7 +225,7 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 {% /iflang %}
 
-{% language-section name="lang-5" /%}
+{% language-section name="ice.ipv6" /%}
 
 ## Ice.LogFile
 
@@ -441,7 +441,7 @@ require the Ice PDB files.
 
 {% /iflang %}
 
-{% language-section name="lang-6" /%}
+{% language-section name="ice.printstacktraces" /%}
 
 ## Ice.ProgramName
 
@@ -603,7 +603,7 @@ The default value is `LOG_USER`.
 
 {% /iflang %}
 
-{% language-section name="lang-7" /%}
+{% language-section name="ice.syslogfacility" /%}
 
 ## Ice.ToStringMode
 
@@ -675,4 +675,4 @@ This property takes effect only when Ice was built with systemd support.
 
 {% /iflang %}
 
-{% language-section name="lang-8" /%}
+{% language-section name="ice.usesystemdjournal" /%}

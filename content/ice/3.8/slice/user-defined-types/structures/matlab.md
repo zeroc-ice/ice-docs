@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice structure maps to a MATLAB value class containing a public property for each field of the structure. For
 example, here is our Employee structure once more:

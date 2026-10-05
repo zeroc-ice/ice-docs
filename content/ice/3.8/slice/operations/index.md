@@ -194,4 +194,4 @@ _at-most-once_ semantics for operation invocations:
   the runtime report the error back to the application. (The number of retries can be increased with an Ice
   configuration parameter.)
 
-{% language-section name="language-mapping" /%}
+{% language-section name="mapping" /%}

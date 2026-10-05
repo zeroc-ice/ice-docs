@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ### Synopsis {% id="ice.plugin.name-synopsis" %}
 

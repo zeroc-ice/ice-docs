@@ -2,7 +2,7 @@
 title: Ice.Default.*
 ---
 
-{% language-section name="lang-1" /%}
+{% language-section name="ice.default.encodingversion" /%}
 
 ## Ice.Default.EncodingVersion
 
@@ -99,7 +99,7 @@ next invocation; therefore, the invocation is delayed until the runtime has refr
 performed but happens in the background; this avoids the delay for the first invocation that follows expiry of a cache
 entry.
 
-{% language-section name="lang-2" /%}
+{% language-section name="ice.default.locatorcachetimeout" /%}
 
 ## Ice.Default.Protocol
 

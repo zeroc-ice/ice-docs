@@ -105,7 +105,7 @@ interface GridIntf
 }
 ```
 
-{% language-section name="lang-1" /%}
+{% language-section name="general-metadata-directives" /%}
 
 {% callout type="warning" %}
 
@@ -140,4 +140,4 @@ It has no effect on the server-side generated code.
 
 ## Language-Specific Metadata Directives
 
-{% language-section name="lang-2" /%}
+{% language-section name="language-specific-metadata-directives" /%}

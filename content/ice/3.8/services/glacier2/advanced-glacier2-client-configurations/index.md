@@ -71,7 +71,7 @@ module Ice
 An object supporting this interface must be available with the identity `Ice/RouterFinder`. By knowing the host and port
 of a router's client endpoints, a client can discover the router's proxy with a call to `getRouter`:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## See Also
 

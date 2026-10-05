@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 Slice modules map to a **JavaScript object** with the same name and to a **TypeScript namespace** with the same name as
 the Slice module. The mapping preserves the nesting of Slice definitions.

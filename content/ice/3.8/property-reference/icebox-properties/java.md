@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In Java, `entry_point` has the form `[path:]class`.
 

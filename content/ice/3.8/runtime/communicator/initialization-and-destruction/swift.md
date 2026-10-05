@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 You create a communicator by calling
 [Ice.initialize](<https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/initialize(_:)-9a9sk>), for example:

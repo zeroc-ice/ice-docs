@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="packaging" %}
 
 ### Java Gradle Projects
 
@@ -75,7 +75,7 @@ With that layout, you can omit `srcDirs` entirely—the plugin discovers it auto
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-creation-1" %}
 
 ```diff
 -ObjectPrx proxy = communicator.stringToProxy("greeter: tcp -h localhost -p 4061");

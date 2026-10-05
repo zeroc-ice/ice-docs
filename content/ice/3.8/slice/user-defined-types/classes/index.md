@@ -31,4 +31,4 @@ class or implement an interface with a Slice class.
 
 ## Language Mapping
 
-{% language-section name="language-mapping" /%}
+{% language-section name="mapping" /%}

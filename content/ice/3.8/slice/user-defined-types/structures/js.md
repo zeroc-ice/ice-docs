@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice structure maps to a JavaScript class with the same name. For each Slice field, the JavaScript instance contains
 a corresponding field. As an example, here is our Employee structure once more:

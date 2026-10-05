@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class maps to a PHP class with the same name. For each Slice field, the generated class contains a public
 variable, just as for structures and exceptions. Consider the following class definition:

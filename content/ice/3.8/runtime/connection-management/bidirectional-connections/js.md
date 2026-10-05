@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="configuring-a-client-for-bidirectional-connections" %}
 
 ```typescript
 const adapter = await communicator.createObjectAdapter("");

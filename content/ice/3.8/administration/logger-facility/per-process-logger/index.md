@@ -8,7 +8,7 @@ that do not have their own specific logger established at the time they are crea
 You can set a per-process logger by calling `setProcessLogger`, and you can retrieve the per-process logger by calling
 `getProcessLogger`:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 If you call `getProcessLogger` without having called `setProcessLogger` first, the Ice runtime installs a default
 per-process logger. Note that if you call `setProcessLogger`, only communicators created after that point will use this

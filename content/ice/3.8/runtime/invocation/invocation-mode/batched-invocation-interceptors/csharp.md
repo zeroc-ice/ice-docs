@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping-1" %}
 
 ```csharp
 initData.batchRequestInterceptor = (req, _, _) => req.enqueue();
@@ -6,7 +6,7 @@ initData.batchRequestInterceptor = (req, _, _) => req.enqueue();
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="mapping-2" %}
 
 ```csharp
 int limit = initData.properties.getPropertyAsInt("Ice.BatchAutoFlushSize");

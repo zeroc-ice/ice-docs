@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/context) provides a complete example of
 using request context in Java.

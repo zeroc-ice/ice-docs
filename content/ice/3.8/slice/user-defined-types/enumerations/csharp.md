@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice enumeration maps to the corresponding enumeration in C#. For example:
 

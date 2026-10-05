@@ -52,7 +52,7 @@ IceBT" section below.
 
 The IceBT plug-in must be installed in every client and server that needs to communicate via Bluetooth.
 
-{% language-section name="lang-1" /%}
+{% language-section name="installing-icebt" /%}
 
 ## Configuring IceBT
 
@@ -123,7 +123,7 @@ GreeterPrx greeter{
   "greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a \"01:23:45:67:89:AB\""};
 ```
 
-{% language-section name="lang-2" /%}
+{% language-section name="using-icebt-1" /%}
 
 The UUID specified with the `-u` option must match the one you assigned to your object adapter endpoint.
 
@@ -146,7 +146,7 @@ described in the next section.
 
 Device discovery is a platform-specific activity that applications are responsible for implementing.
 
-{% language-section name="lang-3" /%}
+{% language-section name="using-icebt-2" /%}
 
 ### Connection Limitations
 

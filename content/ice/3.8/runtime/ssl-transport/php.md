@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="using-the-ssl-transport-1" %}
 
 ```php
 $greeter = VisitorCenter\GreeterPrxHelper::createProxy(

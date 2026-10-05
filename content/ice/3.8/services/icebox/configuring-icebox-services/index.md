@@ -27,7 +27,7 @@ service's name followed by a period. It passes the remaining arguments to the `s
 
 ## IceBox Service Configuration
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 You can use a configuration file to configure your IceBox service by specifying `--Ice.Config`. For example:
 

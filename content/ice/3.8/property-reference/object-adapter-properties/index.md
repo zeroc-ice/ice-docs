@@ -180,7 +180,7 @@ by this object adapter.
 
 {% /iflang %}
 
-{% language-section name="lang-1" /%}
+{% language-section name="adapter.messagesizemax" /%}
 
 ## _adapter_.ProxyOptions
 
@@ -247,7 +247,7 @@ indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapteri
 
 {% /iflang %}
 
-{% language-section name="lang-2" /%}
+{% language-section name="adapter.replicagroupid" /%}
 
 ## _adapter_.Router
 
@@ -350,4 +350,4 @@ seconds. Setting this property to 0 disables idle thread reaping. If not specifi
 
 {% /iflang %}
 
-{% language-section name="lang-3" /%}
+{% language-section name="adapter.threadpool.threadidletime" /%}

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice enumeration is emulated using a Ruby class: the name of the Slice enumeration becomes the name of the Ruby
 class; for each enumerator, the class contains a constant with the same name as the enumerator. For example:

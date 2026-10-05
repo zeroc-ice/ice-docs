@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice identifier maps to an identical Java identifier. For example, the Slice identifier `Clock` becomes the Java
 identifier `Clock`.

@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 ## Client-Side Mapping for Interfaces
 

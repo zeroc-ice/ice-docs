@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="configuring-a-router-for-client-invocations-2" %}
 
 ```matlab
 router = Ice.RouterPrx(...)

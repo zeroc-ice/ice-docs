@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class maps to a Python dataclass with the same name. The generated class contains a field for each Slice field
 (just as for structures and exceptions). Consider the following class definition:

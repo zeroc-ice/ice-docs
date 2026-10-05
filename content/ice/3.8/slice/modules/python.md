@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice module maps to a Python package with the same name. The mapping preserves the nesting of the Slice definitions.
 For example:

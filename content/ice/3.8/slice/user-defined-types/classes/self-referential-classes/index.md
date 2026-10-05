@@ -64,4 +64,4 @@ interface Evaluator
 Self-referential classes are not limited to acyclic graphs; the Ice runtime permits loops: it ensures that no resources
 are leaked and that infinite loops are avoided during marshaling.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```matlab
 router = Glacier2.RouterPrx(communicator, ...

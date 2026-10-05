@@ -62,7 +62,7 @@ result in an `ObjectNotExistException`.
 The object adapter offers a number of methods for managing servant activation and deactivation. We’ll focus on the most
 important ones:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 - `add` The `add` method adds a servant with the given identity (and empty facet) to the ASM. Requests are dispatched to
   that servant as soon as `add` is called. The return value is the proxy for the Ice object incarnated by that servant.

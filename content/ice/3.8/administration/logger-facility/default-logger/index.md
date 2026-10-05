@@ -9,7 +9,7 @@ allows you to separate trace output from different subsystems by sending the out
 You can obtain the logger that is attached to a communicator using the `getLogger` method on
 [Communicator](https://code.zeroc.com/manual/Ice/Communicator).
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## See Also
 

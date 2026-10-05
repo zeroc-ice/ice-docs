@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```java
 public ObjectPrx add(Object servant, Identity id) { ... }

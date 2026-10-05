@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```typescript
 const prx = new SomePrx(communicator, "ident:tcp -p 10000");

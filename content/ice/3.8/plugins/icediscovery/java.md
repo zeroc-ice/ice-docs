@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 You should install `IceDiscovery` in your communicator using the `pluginFactories` field of `InitializationData`:
 

@@ -54,4 +54,4 @@ interfaces.
 A forward declaration maps to a forward declaration in programming languages with forward declarations (such as C++). It
 maps to nothing in other languages.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}

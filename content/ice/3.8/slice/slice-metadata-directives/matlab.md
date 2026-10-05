@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="language-specific-metadata-directives" %}
 
 The metadata directives for MATLAB uses the `matlab` prefix.
 

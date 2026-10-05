@@ -4,7 +4,7 @@ title: Communicator Initialization and Destruction
 
 ## Creating a Communicator
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Initialization Data
 

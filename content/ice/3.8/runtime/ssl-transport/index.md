@@ -16,11 +16,11 @@ To use the SSL transport, you must configure `ssl` endpoints for your client and
 
 Clients use the SSL transport by specifying a `ssl` endpoint when creating a proxy:
 
-{% language-section name="lang-1" /%}
+{% language-section name="using-the-ssl-transport-1" /%}
 
 Servers enable the SSL transport by using a `ssl` endpoint for their object adapter:
 
-{% language-section name="lang-2" /%}
+{% language-section name="using-the-ssl-transport-2" /%}
 
 Both client and server must provide additional configuration to use the SSL transport. The configuration can be done
 using the SSL transport configuration properties, or programmatically using the platform specific APIs for the SSL
@@ -61,17 +61,17 @@ These APIs address the following needs:
 - Support custom certificate validation.
 - Allow advanced configuration of the platform SSL engine.
 
-{% language-section name="lang-3" /%}
+{% language-section name="using-the-ssl-transport-3" /%}
 
 ### Configure the SSL Transport Using Properties
 
 Sample server-side configuration showing how to set the server’s certificate and private key:
 
-{% language-section name="lang-4" /%}
+{% language-section name="using-the-ssl-transport-4" /%}
 
 Sample client-side configuration showing how to set the trusted root authorities for validating the server certificate:
 
-{% language-section name="lang-5" /%}
+{% language-section name="using-the-ssl-transport-5" /%}
 
 For additional details refer to the [IceSSL properties](../../property-reference/icessl-properties) documentation.
 

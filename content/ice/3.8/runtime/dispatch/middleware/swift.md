@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In Swift, a middleware is a type that implements `Ice.Dispatcher` protocol and delegates to another dispatcher called
 “next”. For example:

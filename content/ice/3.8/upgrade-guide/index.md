@@ -19,7 +19,7 @@ Please refer to the supported platforms page in the release notes for details on
 Many Slice compilers such as `slice2cs`, `slice2swift`, etc. are no longer available as part of the general installation
 of the Linux, macOS, and Windows packages. To use these compilers, install the appropriate language-specific package.
 
-{% language-section name="lang-1" /%}
+{% language-section name="packaging" /%}
 
 ## Slice
 
@@ -185,9 +185,9 @@ Proxies should not contain a mix of secure and non-secure endpoints.
 
 Proxy creation has been simplified, allowing you to create a proxy from a communicator and endpoint string.
 
-{% language-section name="lang-2" /%}
+{% language-section name="proxy-creation-1" /%}
 
-{% language-section name="lang-3" /%}
+{% language-section name="proxy-creation-2" /%}
 
 ## Property Validation
 

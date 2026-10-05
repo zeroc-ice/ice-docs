@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice dictionary maps to a native PHP associative array. The PHP mapping does not currently support all Slice
 dictionary types, however, because native PHP associative arrays support only integers and strings as keys.

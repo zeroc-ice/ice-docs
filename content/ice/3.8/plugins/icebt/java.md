@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="installing-icebt" %}
 
 You should install IceBT in your communicator using the `pluginFactories` field of `InitializationData`:
 
@@ -22,7 +22,7 @@ Ice.Plugin.IceBT=com.zeroc.IceBT.PluginFactory
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="using-icebt-1" %}
 
 ```java
 var greeter = GreeterPrx.createProxy(
@@ -32,7 +32,7 @@ var greeter = GreeterPrx.createProxy(
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="using-icebt-2" %}
 
 On Android, an app can use the APIs in `android.bluetooth` to initiate discovery and receive intent notifications about
 nearby devices.

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice structure maps to a Swift structure when this Slice structure does not have (recursively) any Slice class field.
 Conversely, a Slice structure maps to a Swift class when this Slice structure has (recursively) one or more Slice class

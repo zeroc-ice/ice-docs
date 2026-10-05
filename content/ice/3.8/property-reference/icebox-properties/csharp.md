@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In C#, `entry_point` has the form `assembly:class`.
 

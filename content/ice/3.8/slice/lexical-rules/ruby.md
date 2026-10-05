@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice identifier maps to an identical Ruby identifier, or a Ruby identifier derived from this Slice identifier. For
 example, Slice interface `Greeter` is mapped to the Ruby class `GreeterPrx`.

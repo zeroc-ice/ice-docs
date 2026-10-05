@@ -2,7 +2,7 @@
 title: Ice.Warn.*
 ---
 
-{% language-section name="lang-1" /%}
+{% language-section name="ice.warn.connections" /%}
 
 ## Ice.Warn.Connections
 
@@ -67,7 +67,7 @@ If `num` is greater than 0, Ice logs a warning when it parses a stringified prox
 known transports and endpoints with unknown transports. Ice ignores the unknown endpoints and uses the recognized ones.
 The default value is 1.
 
-{% language-section name="lang-2" /%}
+{% language-section name="ice.warn.endpoints" /%}
 
 ## Ice.Warn.UnusedProperties
 

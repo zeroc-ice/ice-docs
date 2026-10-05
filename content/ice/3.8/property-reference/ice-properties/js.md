@@ -1,4 +1,4 @@
-{% language-section name="lang-5" %}
+{% language-section name="ice.ipv6" %}
 
 {% callout type="info" %}
 

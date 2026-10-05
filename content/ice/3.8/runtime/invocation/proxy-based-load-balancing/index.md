@@ -73,7 +73,7 @@ primary server during each request.
 
 Here's some code that shows how to configure the proxy:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 We create a proxy with two endpoints, then use the factory methods to disable connection caching and set the endpoint
 selection type. The `Random` setting means that, after we've made a few invocations with the proxy, the Ice runtime will

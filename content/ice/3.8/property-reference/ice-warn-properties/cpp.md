@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="ice.warn.connections" %}
 
 ## Ice.Warn.AMICallback
 

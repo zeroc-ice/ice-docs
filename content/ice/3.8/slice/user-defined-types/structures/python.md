@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice structure maps to a Python dataclass with the same name. For each Slice field, the Python dataclass contains a
 corresponding field. For example, here is our Employee structure once more:

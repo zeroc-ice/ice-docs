@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 The complete source code for this example is on
 [GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8/php/Ice/greeter), alongside several other demo programs.

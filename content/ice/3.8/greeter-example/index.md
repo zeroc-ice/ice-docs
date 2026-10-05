@@ -36,4 +36,4 @@ or Swift, and call it from the client you write here.
 
 {% /iflang %}
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}

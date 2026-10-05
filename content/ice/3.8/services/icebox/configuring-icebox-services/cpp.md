@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 For a C++ service, the [entry point](../../../property-reference/icebox-properties) must have the form
 _library[,version]:symbol_, where _library_ is the simple name of the service's shared library or DLL, and _symbol_ is

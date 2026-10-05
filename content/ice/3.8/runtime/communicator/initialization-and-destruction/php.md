@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 You create a communicator by calling `Ice\initialize`, for example:
 

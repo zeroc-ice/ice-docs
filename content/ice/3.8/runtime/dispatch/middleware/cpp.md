@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In C++, a middleware is a concrete class that implements `Ice::Object` and delegates to another dispatcher called
 “next”. For example:

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="packaging" %}
 
 ### C# NuGet Packages
 
@@ -50,7 +50,7 @@ The monolithic `zeroc.ice.net` package has been replaced with modular NuGet pack
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-creation-1" %}
 
 ```diff
 -Ice.ObjectPrx proxy =

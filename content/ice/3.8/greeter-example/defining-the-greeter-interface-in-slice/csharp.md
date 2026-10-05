@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="writing-the-greeter.ice-slice-file-1" %}
 
 ```slice
 module VisitorCenter
@@ -9,7 +9,7 @@ module VisitorCenter
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="writing-the-greeter.ice-slice-file-2" %}
 
 ```slice
     ["cs:identifier:Greet"]
@@ -29,7 +29,7 @@ for method names in C#.
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="writing-the-greeter.ice-slice-file-3" %}
 
 ```slice
 module VisitorCenter

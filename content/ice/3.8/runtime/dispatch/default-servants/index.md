@@ -39,7 +39,7 @@ access cached state, performance may be entirely acceptable.
 
 The default servant API consists of the following methods on the object adapter class:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 As you can see, the object adapter allows you to add and remove default servants. Note that, when you register a default
 servant, you must provide an argument for the `category` parameter. The value of the `category` parameter controls which

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```csharp
 Ice.ObjectPrx admin = ...; // proxy to the admin object

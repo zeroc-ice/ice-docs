@@ -2,8 +2,8 @@
 title: Dispatcher API
 ---
 
-{% language-section name="lang-1" /%}
+{% language-section name="servants-1" /%}
 
 ## Servants
 
-{% language-section name="lang-2" /%}
+{% language-section name="servants-2" /%}

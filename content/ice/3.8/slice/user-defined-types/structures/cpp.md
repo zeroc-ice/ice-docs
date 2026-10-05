@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 Slice structures map to C++ structures with the same name. For each Slice field, the C++ structure contains a public
 data member. For example, here is our Employee structure once more:

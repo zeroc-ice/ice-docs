@@ -6,7 +6,7 @@ This page describes all the ways an application can create a proxy.
 
 ## Creating a Proxy from a String
 
-{% language-section name="lang-1" /%}
+{% language-section name="creating-a-proxy-from-a-string" /%}
 
 ## Creating a Proxy from a Property
 
@@ -18,7 +18,7 @@ our stringified proxy as follows:
 Greeter.Proxy=greeter:tcp -h localhost -p 4061
 ```
 
-{% language-section name="lang-2" /%}
+{% language-section name="creating-a-proxy-from-a-property-1" /%}
 
 As an added convenience, `propertyToProxy` allows you to define subordinate properties that configure the proxy's local
 settings. The properties below demonstrate this feature:
@@ -32,7 +32,7 @@ These additional properties simplify the task of customizing a proxy (as you can
 [proxy methods](https://code.zeroc.com/manual/Ice/ObjectPrx)) without the need to change the application's code. The
 properties shown above are equivalent to the following statements:
 
-{% language-section name="lang-3" /%}
+{% language-section name="creating-a-proxy-from-a-property-2" /%}
 
 The [proxy properties](../../../property-reference/proxy-properties) cover the proxy settings that a stringified proxy
 cannot express, except the compression setting (`ice_compress`), the connection ID (`ice_connectionId`) and a fixed
@@ -62,7 +62,7 @@ Invoking the `findAccount` operation returns a proxy for an `Account` object.
 
 For example:
 
-{% language-section name="lang-4" /%}
+{% language-section name="receiving-a-proxy-from-an-operation" /%}
 
 ## See Also
 

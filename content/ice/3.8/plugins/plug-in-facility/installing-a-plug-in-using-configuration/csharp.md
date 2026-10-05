@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 In C#, `entry_point` is a path to the assembly containing the plug-in, and the name of the plug-in factory class in this
 assembly.

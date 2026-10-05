@@ -128,4 +128,4 @@ something we recommend), you will effectively disable the inactivity timeout as 
 
 {% /callout %}
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}

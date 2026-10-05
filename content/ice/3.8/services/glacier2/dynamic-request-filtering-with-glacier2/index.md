@@ -77,7 +77,7 @@ selected category is sufficiently unique that it will not conflict with another 
 that the categories you assign to sessions never match the categories of back-end objects that are not meant to be
 accessed by router clients. As an example, consider the following session manager implementation:
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 This session manager derives a category for the session by prepending an underscore to the user name and then adds this
 category to the session's filter. As long as our back-end objects do not use a leading underscore in their identity

@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class is mapped to a Java class with the same name. The generated class contains a public field for each Slice
 field (just as for structures and exceptions). Consider the following class definition:

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice exception is mapped to a PHP class with the same name. This mapping is similar to the mapping of
 [classes](../user-defined-types/classes).

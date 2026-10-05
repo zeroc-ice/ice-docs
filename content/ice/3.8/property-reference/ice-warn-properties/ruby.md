@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="ice.warn.connections" %}
 
 {% callout type="note" %}
 Ruby exposes synchronous invocations, so Ice.Warn.AMICallback does not apply to Ruby application code.

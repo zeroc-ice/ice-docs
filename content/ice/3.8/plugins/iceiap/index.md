@@ -27,7 +27,7 @@ An accessory endpoint can be configured with any of these attributes to find an 
 
 ## Installing IceIAP
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Using IceIAP
 

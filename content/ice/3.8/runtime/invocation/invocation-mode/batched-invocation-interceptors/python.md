@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="mapping-2" %}
 
 ```py
 def enqueue(self, request: Ice.BatchRequest, count: int, size: int):

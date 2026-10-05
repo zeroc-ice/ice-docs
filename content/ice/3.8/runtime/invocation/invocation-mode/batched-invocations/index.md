@@ -14,7 +14,7 @@ of being sent as a separate requests, a batch request is placed into a client-si
 batch requests are added to the buffer and accumulated on the client side until they are flushed, either explicitly by
 the client or automatically by the Ice runtime.
 
-{% language-section name="lang-1" /%}
+{% language-section name="proxy-methods-for-batched-invocations" /%}
 
 ## Proxy Methods for Batched Invocations
 
@@ -64,7 +64,7 @@ the connection.
 Automatic flushing is enabled by default as a convenience for clients to ensure a batch never exceeds the configured
 limit.
 
-{% language-section name="lang-2" /%}
+{% language-section name="automatically-flushing-batched-requests" /%}
 
 ## Batched Invocations for Fixed Proxies
 

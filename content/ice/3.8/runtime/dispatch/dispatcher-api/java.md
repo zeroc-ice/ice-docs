@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="servants-1" %}
 
 ## Object Interface
 
@@ -29,7 +29,7 @@ and reimplements `dispatch`. This dispatcher may (but does not need to) implemen
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="servants-2" %}
 
 In Java, a servant is a concrete class that implements the Dispatcher abstraction by itself, without delegating to some
 other object. In other words, a servant is a “terminal dispatcher”. A servant should generally handle the 4 operations

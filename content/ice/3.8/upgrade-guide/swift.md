@@ -1,4 +1,4 @@
-{% language-section name="lang-2" %}
+{% language-section name="proxy-creation-1" %}
 
 ```diff
 -let proxy = communicator.stringToProxy("greeter: tcp -h localhost -p 4061")!
@@ -11,7 +11,7 @@
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="proxy-creation-2" %}
 
 ## async/await and Structured Concurrency
 

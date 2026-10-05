@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="stringifying-a-proxy" %}
 
 You can stringify a proxy by calling `toString` on this proxy. For example:
 
@@ -14,7 +14,7 @@ adapter ID as specified through the [Ice.ToStringMode](../../../property-referen
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="proxy-to-property" %}
 
 ```java
 GreeterPrx greeter = GreeterPrx.createProxy(

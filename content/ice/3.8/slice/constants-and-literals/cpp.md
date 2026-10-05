@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="language-mapping-1" %}
 
 Slice constant definitions map to corresponding C++ constant definitions. Slice constants are mapped to `constexpr`
 constants whenever possible, and to `const` constants otherwise. For example:

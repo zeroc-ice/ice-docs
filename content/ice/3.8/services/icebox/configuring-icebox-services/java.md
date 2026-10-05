@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 For a Java service, the [entry point](../../../property-reference/icebox-properties) is typically the class name
 (including any package) of the service implementation class, but may also include a leading path to a class directory or

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 ```py
 prx = SomePrx(communicator, "ident:tcp -p 10000")

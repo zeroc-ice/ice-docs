@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice identifier maps to an identical PHP identifier, or a PHP identifier derived from this Slice identifier. For
 example, Slice interface `Greeter` is mapped to the PHP class `GreeterPrx`.

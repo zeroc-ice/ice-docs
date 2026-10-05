@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 The Slice built-in types are mapped to JavaScript and TypeScript types as follows:
 

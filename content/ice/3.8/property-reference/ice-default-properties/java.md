@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="ice.default.encodingversion" %}
 
 ## Ice.Default.CollocationOptimized
 
@@ -16,7 +16,7 @@ If not specified, the default value is 1. Set the property to 0 to disable collo
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="ice.default.locatorcachetimeout" %}
 
 ## Ice.Default.Package
 

@@ -4,7 +4,7 @@ title: Creating an Object Adapter
 
 You create an object adapter by calling `createObjectAdapter` on your communicator. For example:
 
-{% language-section name="lang-1" /%}
+{% language-section name="see-also-1" /%}
 
 `createObjectAdapter` creates a new object adapter associated with this communicator. Each object adapter is associated
 with zero or more [transport endpoints](../object-adapter-endpoints). Typically, an object adapter has a single
@@ -33,7 +33,7 @@ object adapter will check the communicator's configuration for
 If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
 is on your communicator. For example:
 
-{% language-section name="lang-2" /%}
+{% language-section name="see-also-2" /%}
 
 ## See Also
 

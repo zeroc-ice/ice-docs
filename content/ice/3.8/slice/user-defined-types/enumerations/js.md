@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 JavaScript does not have an enumerated type, so a Slice enumeration is emulated using JavaScript objects where each
 enumerator is an instance of the same type. For example:

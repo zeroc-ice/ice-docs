@@ -128,7 +128,7 @@ IceGrid.
 The IceDiscovery plug-in must be installed in every client that need to locate objects and in every server that hosts
 those objects.
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 ## Configuring IceDiscovery
 

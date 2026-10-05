@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="servants-1" %}
 
 The [Dispatcher](../../../basics/terminology) abstraction corresponds to the Swift
 [Dispatcher protocol](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/dispatcher)
@@ -14,7 +14,7 @@ A dispatcher is any type that implements this protocol.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="servants-2" %}
 
 In Swift, a servant is a “terminal dispatcher”: a type that implements the Dispatcher abstraction by itself, without
 delegating to another object.

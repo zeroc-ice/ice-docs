@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="creating-a-proxy-from-a-string" %}
 
 The Slice compiler generates a `makeProxy` function that allows you to construct a proxy from a communicator and a
 [stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the following example:
@@ -12,7 +12,7 @@ let greeter = try makeProxy(
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="creating-a-proxy-from-a-property-1" %}
 
 We can use the `propertyToProxy` method on `Communicator` to convert the property's value into a proxy. A null proxy
 (nil) is returned if no property is found with the specified name.
@@ -23,7 +23,7 @@ let greeter = try communicator.propertyToProxy("Greeter.Proxy")
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="creating-a-proxy-from-a-property-2" %}
 
 ```swift
 var greeter = try makeProxy(
@@ -36,7 +36,7 @@ greeter = greeter.ice_endpointSelection(.Ordered)
 
 {% /language-section %}
 
-{% language-section name="lang-4" %}
+{% language-section name="receiving-a-proxy-from-an-operation" %}
 
 ```swift
 let account = try await bank.findAccount("WXY-123456")

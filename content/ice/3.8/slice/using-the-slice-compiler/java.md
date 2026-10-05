@@ -1,4 +1,4 @@
-{% language-section name="lang-3" %}
+{% language-section name="common-options-3" %}
 
 ## The Slice Compiler for Java
 

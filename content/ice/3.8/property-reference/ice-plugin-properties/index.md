@@ -96,4 +96,4 @@ dynamically loaded plug-ins.
 
 {% /iflang %}
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}

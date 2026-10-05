@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="ice.warn.connections" %}
 
 {% callout type="note" %}
 Python logs exceptions from future completion callbacks through the Ice.Future Python logger. Ice.Warn.AMICallback does

@@ -1,11 +1,11 @@
-{% language-section name="lang-1" %}
+{% language-section name="servants-1" %}
 
 The [Dispatcher](../../../basics/terminology) abstraction was not mapped to Python yet. The only kind of dispatchers you
 can create in Python are servants.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="servants-2" %}
 
 In Python, a servant is a concrete class derived from class `Ice.Object`.
 

@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="servants-1" %}
 
 {% callout type="note" %}
 Ice for PHP is client-only, so it does not dispatch requests.
@@ -6,7 +6,7 @@ Ice for PHP is client-only, so it does not dispatch requests.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="servants-2" %}
 
 {% callout type="note" %}
 Ice for PHP is client-only, so it has no servants.

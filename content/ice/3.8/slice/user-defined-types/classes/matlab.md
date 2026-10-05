@@ -1,4 +1,4 @@
-{% language-section name="language-mapping" %}
+{% language-section name="mapping" %}
 
 A Slice class is mapped to a MATLAB class with the same name. The generated class contains a public property for each
 Slice field (just as for structures and exceptions).

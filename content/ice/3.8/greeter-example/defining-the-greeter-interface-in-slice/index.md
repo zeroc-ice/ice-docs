@@ -17,7 +17,7 @@ We start by adding a [module](../../slice/modules) to our Slice file. Modules ar
 organize Slice definitions into named groups. Slice requires that all definitions be contained within modules. So at
 this point, our Slice file looks like:
 
-{% language-section name="lang-1" /%}
+{% language-section name="writing-the-greeter.ice-slice-file-1" /%}
 
 Now that we have a module, there’s only one more thing we need before we can define our operation: an
 [interface](../../slice/interfaces). Interfaces are at the core of Ice, as they specify the remote API (the ‘contract’)
@@ -34,7 +34,7 @@ structure of your application. But, with only one operation, there are no such c
 Finally, we can write our operation. It should take a name and return a greeting. So we write an operation named `greet`
 which takes a single `string` parameter (named `name`) and returns a `string`:
 
-{% language-section name="lang-2" /%}
+{% language-section name="writing-the-greeter.ice-slice-file-2" /%}
 
 Notice that there is no implementation for our operation. Slice is only for defining the API between clients and
 servers. How operations get called or implemented is not the domain of Slice, and will be covered separately in the
@@ -42,4 +42,4 @@ following pages.
 
 Putting it all together (and adding some doc-comments), here is what our final Slice file looks like:
 
-{% language-section name="lang-3" /%}
+{% language-section name="writing-the-greeter.ice-slice-file-3" /%}

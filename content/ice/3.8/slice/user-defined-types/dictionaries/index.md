@@ -67,4 +67,4 @@ semantics for equality.
 
 ## Language Mapping
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}

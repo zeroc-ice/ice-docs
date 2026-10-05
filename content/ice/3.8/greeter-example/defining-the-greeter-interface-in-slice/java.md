@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="writing-the-greeter.ice-slice-file-1" %}
 
 ```slice
 ["java:identifier:com.example.visitorcenter"]
@@ -21,7 +21,7 @@ placed in the `com.example.visitorcenter` package instead.
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="writing-the-greeter.ice-slice-file-2" %}
 
 ```slice
     string greet(string name);
@@ -29,7 +29,7 @@ placed in the `com.example.visitorcenter` package instead.
 
 {% /language-section %}
 
-{% language-section name="lang-3" %}
+{% language-section name="writing-the-greeter.ice-slice-file-3" %}
 
 ```slice
 ["java:identifier:com.example.visitorcenter"]

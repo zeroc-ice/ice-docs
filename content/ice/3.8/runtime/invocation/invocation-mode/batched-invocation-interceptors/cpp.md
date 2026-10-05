@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping-1" %}
 
 ```cpp
 initData.batchRequestInterceptor =
@@ -10,7 +10,7 @@ initData.batchRequestInterceptor =
 
 {% /language-section %}
 
-{% language-section name="lang-2" %}
+{% language-section name="mapping-2" %}
 
 ```cpp
 int limit = initData.properties->getPropertyAsInt("Ice.BatchAutoFlushSize");

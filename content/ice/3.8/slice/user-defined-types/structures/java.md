@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 A Slice structure maps to a Java class with the same name. For each Slice field, the Java class contains a corresponding
 public field. For example, here is our Employee structure once more:

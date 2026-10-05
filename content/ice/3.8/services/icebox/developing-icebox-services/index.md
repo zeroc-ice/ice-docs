@@ -27,7 +27,7 @@ IceBox owns the communicator it passes to `start` and destroys it when the serve
 
 ## IceBox Service Example
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
 
 [Configuring IceBox Services](../configuring-icebox-services) provides more information on entry points and describes
 how to configure your service into an IceBox server.

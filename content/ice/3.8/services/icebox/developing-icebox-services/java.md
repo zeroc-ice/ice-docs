@@ -1,4 +1,4 @@
-{% language-section name="lang-1" %}
+{% language-section name="mapping" %}
 
 The example we present here is taken from the `IceBox/greeter` demo program.
 

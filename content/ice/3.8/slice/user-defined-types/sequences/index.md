@@ -30,4 +30,4 @@ the application to decide whether or not order is important; by discarding order
 
 ## Language Mapping
 
-{% language-section name="lang-1" /%}
+{% language-section name="mapping" /%}
