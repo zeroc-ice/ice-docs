@@ -3,7 +3,7 @@
   "MD013": false,
   // A language overlay is a fragment of its page, so it starts with a `{% language-section %}` tag, not a heading.
   "MD041": false,
-  // The site's anchors keep their dots (#ice.logfile), which this rule slugs away, and come from `{% id %}` and a
-  // page's other files, which it can't see; check:markdoc validates them on the rendered page.
+  // The site generates its own anchors, which this rule can't reproduce, and takes them from `{% id %}` and a page's
+  // other files, which it can't see; check:markdoc validates them on the rendered page.
   "MD051": false
 }
