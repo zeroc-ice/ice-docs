@@ -16,7 +16,5 @@ The [systemd units](../linux-services) included in the Linux packages start `gla
 `icegridregistry` in the foreground, and the sample configuration files installed with them set
 [Ice.UseSystemdJournal](../ice-properties#ice.usesystemdjournal), so these services log to the systemd journal.
 
-An Ice service that fails before it initializes its communicator logs the error to the
-[per-process logger](../per-process-logger) when the application installs its own, and otherwise to standard error, or
-to the `Application` event log when it runs as a Windows service. `Ice::Service::main` loads the configuration before it
-processes `--service`, so a Windows service that fails to load its configuration file logs that error to standard error.
+An Ice service that fails before it initializes its communicator logs the error to standard error, or to the
+`Application` event log when it runs as a Windows service, even when it is configured to use a different logger.
