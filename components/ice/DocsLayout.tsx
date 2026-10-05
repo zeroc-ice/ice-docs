@@ -46,7 +46,6 @@ export function DocsLayout({
             version={version}
           />
 
-          {/* Content */}
           <div className="grow pb-8">
             <div id="skip-nav" />
             {children}
