@@ -8,19 +8,17 @@ object adapter with its own thread pool is useful in certain situations:
 
 - When the concurrency requirements of an object adapter does not match those of its communicator. In a server with
   multiple object adapters, the configuration of the communicator's client and server thread pools may be a good match
-  for some object adapters, but others may have different requirements. For example, the servants hosted by one object
-  adapter may not support concurrent access, in which case limiting that object adapter to a single-threaded pool
-  eliminates the need for synchronization in those servants. On the other hand, another object adapter might need a
-  multi-threaded pool for better performance.
+  for some object adapters, but others may have different requirements.{% iflang langs="cpp,java,ruby,php,matlab" %} For
+  example, the servants hosted by one object adapter may not support concurrent access, in which case limiting that
+  object adapter to a single-threaded pool eliminates the need for synchronization in those servants. On the other hand,
+  another object adapter might need a multi-threaded pool for better
+  performance.{% /iflang %}{% iflang langs="csharp,python" %} For example, limiting an object adapter to a
+  single-threaded pool serializes the calls to its servants' dispatch methods, but not the code that a dispatch method
+  runs after an `await`. On the other hand, another object adapter might need a multi-threaded pool for better
+  performance.{% /iflang %}{% iflang langs="swift" %} Each Swift dispatch runs in its own task, so a single-threaded
+  pool does not serialize the dispatches to an adapter's servants.{% /iflang %}
 
 - To ensure that a minimum number of threads is available for dispatching requests to an adapter's servants.
-
-{% iflang langs="csharp,python,swift" %}
-
-A thread pool limits only the code that Ice runs on the pool's threads; see [Thread Pools](../thread-pools) for the code
-that this language mapping runs elsewhere.
-
-{% /iflang %}
 
 An object adapter's thread pool supports all of the properties described in [Configuring Thread Pools](../thread-pools).
 For configuration purposes, the name of an adapter's thread pool is `adapter.ThreadPool`, where `adapter` is the name of
