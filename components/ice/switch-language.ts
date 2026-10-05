@@ -18,9 +18,7 @@ function shownIn(el: Element, language: string, root: Element) {
 /**
  * The block of `parent` that the reader is at: the first one, in reading order,
  * that reaches below `line`. A language block shown in place adds no box, so its
- * own blocks count instead. So do the blocks of one holding language blocks,
- * which move its content without moving its top, unless the switch to
- * `language` hides the one the reader is at; the outer block then stays put.
+ * own blocks count instead.
  */
 function blockAtLine(
   parent: Element,
@@ -35,12 +33,25 @@ function blockAtLine(
       child.getClientRects().length > 0 &&
       child.getBoundingClientRect().bottom > line
     ) {
-      if (!child.querySelector('div[data-langs]')) return child;
-      const inner = blockAtLine(child, line, language);
-      return inner && shownIn(inner, language, child) ? inner : child;
+      return blockWithin(child, line, language);
     }
   }
   return undefined;
+}
+
+/**
+ * The block of `container` that the reader is at. A container holding language
+ * blocks moves their content without moving its own top, so the reader's block
+ * inside it counts instead, unless the switch to `language` hides that block.
+ */
+function blockWithin(
+  container: Element,
+  line: number,
+  language: string
+): Element {
+  if (!container.querySelector('div[data-langs]')) return container;
+  const inner = blockAtLine(container, line, language);
+  return inner && shownIn(inner, language, container) ? inner : container;
 }
 
 const precedes = (a: Node, b: Node) =>
@@ -101,8 +112,9 @@ function headingFor(
  * change height with the switch, so the scroll offset alone would land the
  * reader in another section. A block shown in both mappings stays where it
  * was; a reader inside the old mapping's own text goes to the start of the new
- * mapping's text for the same section, or to the top of a page with no such
- * heading.
+ * mapping's text for the same section. Without such a heading, the reader
+ * keeps the scroll offset: a page written per language holds its copies in
+ * parallel, so the offset lands near the matching section.
  */
 export function switchLanguage(language: string) {
   const oldLanguage = document.documentElement.dataset.lang ?? '';
@@ -120,7 +132,7 @@ export function switchLanguage(language: string) {
   // Above the body, the title and the notices stay where they are as long as
   // the scroll offset does. A body with nothing on show for the old mapping
   // leaves only them, so the new mapping's body is read from the top.
-  const wasEmpty = !blockAtLine(body, -Infinity, language);
+  const wasEmpty = !blockAtLine(body, -Infinity, oldLanguage);
   const block =
     body.getBoundingClientRect().top < line
       ? blockAtLine(body, line, language)
@@ -141,6 +153,5 @@ export function switchLanguage(language: string) {
     return;
   }
   const heading = headingFor(body, block, oldLanguage, language);
-  if (heading) heading.scrollIntoView({ block: 'start', behavior: 'instant' });
-  else window.scrollTo({ top: 0, behavior: 'instant' });
+  heading?.scrollIntoView({ block: 'start', behavior: 'instant' });
 }
