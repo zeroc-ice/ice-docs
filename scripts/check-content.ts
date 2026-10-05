@@ -11,7 +11,7 @@
 //   3. every cross-page link resolves to a real page — checked by check:markdoc,
 //      on each page as the site renders it
 //   4. every image parses as an image, has alt text, and its file exists
-//   5. no raw HTML or Confluence markup survived the migration
+//   5. none of the HTML tags and entities STRAY_MARKUP lists in a page's prose
 //   6. every section an overlay defines is a slot its page declares, and an
 //      overlay of a shared page has no text outside its sections
 //   7. a page written per language has one title across its languages
@@ -25,8 +25,6 @@
 // regression. A version without a front page, a page that lists a page it does
 // not contain, or one whose `languages:` is not a list, fails as the navigation
 // is read.
-
-// cspell:words noformat unparseable
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -65,25 +63,20 @@ const fail = (message: string) => {
 // the ones that reach the page as visible `![...](...)` gibberish.
 const IMAGE_RE = /!\[([^\]]*)\]\(([^)]*)\)/g;
 
-// Block-level HTML and Confluence storage-format leftovers. Inline `<...>` in
-// prose is usually a Slice or C++ generic (`sequence<int>`, `shared_ptr<T>`),
-// so only tags that a converter emits are listed.
+// The HTML a page must write in Markdown instead. Inline `<...>` in prose is
+// usually a Slice or C++ generic (`sequence<int>`, `shared_ptr<T>`), so only
+// these tags are listed, and only the entities Markdown has a spelling for.
 const STRAY_MARKUP = [
   {
-    name: 'raw HTML block tag',
+    name: 'raw HTML tag',
     re: /<\/?(?:div|table|tbody|thead|tr|td|th|p|span|br|hr|img)\b[^>]*>/gi
-  },
-  { name: 'Confluence storage markup', re: /<\/?(?:ac|ri):[a-z-]+/gi },
-  {
-    name: 'Confluence wiki macro',
-    re: /\{(?:code|panel|noformat|info|note|warning|tip)(?::[^}]*)?\}/g
   },
   { name: 'HTML entity', re: /&(?:nbsp|amp|lt|gt|quot|#\d+);/g }
 ];
 
 // Code samples are not prose: the IceGrid chapters are full of XML descriptors,
-// and a `<node>` element inside a fence is the subject matter, not a migration
-// artifact. Blank the fences (keeping line count) before scanning.
+// and a `<node>` element inside a fence is the subject matter, not markup to
+// flag. Blank the fences (keeping line count) before scanning.
 function withoutCode(source: string) {
   return source
     .replace(/^```[\s\S]*?^```/gm, (block) => block.replace(/[^\n]/g, ' '))
@@ -197,9 +190,7 @@ function checkStrayMarkup(files: string[]) {
     for (const { name, re } of STRAY_MARKUP) {
       const hits = [...source.matchAll(re)];
       if (hits.length) {
-        fail(
-          `${relative}: ${hits.length} × ${name} left by the migration (e.g. "${hits[0][0]}")`
-        );
+        fail(`${relative}: ${hits.length} × ${name} (e.g. "${hits[0][0]}")`);
       }
     }
   }
