@@ -10,8 +10,8 @@
   <title id="title">Ice protocol state machine</title>
   <desc id="description">
     A new connection enters the inactive state, becomes active after validation, enters graceful close
-    after a close-connection message, then closes and terminates. Inactive, active, and graceful-close
-    connections can also transition directly to close. Inactive and graceful close apply only to
+    after sending a close-connection message, then closes and terminates. Inactive, active, and
+    graceful-close connections can also transition directly to close. Inactive and graceful close apply only to
     connection-oriented protocols such as TCP and SSL.
   </desc>
 
@@ -119,7 +119,7 @@
     <text class="state-label" x="280" y="431">close</text>
 
     <text class="transition-label" x="304" y="150">validate connection</text>
-    <text class="transition-label" x="304" y="256">close connection</text>
+    <text class="transition-label" x="304" y="256">send close connection</text>
 
     <text class="annotation" x="440" y="301">
       <tspan x="440">* Only for connection-oriented</tspan>

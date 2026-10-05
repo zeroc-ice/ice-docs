@@ -82,8 +82,8 @@ Then, it waits for the peer to acknowledge this `CloseConnection` message. This 
   about the same time; or
 - the closure of the underlying transport connection
 
-The peer sends this acknowledgment only after it has completed the dispatch of all requests received before the
-`CloseConnection` message, and sent the corresponding responses.
+The peer closes the connection when it receives the `CloseConnection` message, without waiting for its own dispatches to
+complete.
 
 This process can take some time. If the graceful closure exceeds the configured
 [CloseTimeout](../../../property-reference/ice-connection-properties), the connection is aborted.
