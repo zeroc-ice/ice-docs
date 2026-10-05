@@ -45,7 +45,8 @@ since the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time) (January 1st, 19
 
 When a remote logger is attached to a local logger, its `init` operation is called with the local logger's prefix and a
 list of recent log messages (see the `LoggerAdmin` interface below). Then, each time a log message is sent to the local
-logger, the Logger facet forwards this message to the remote logger's `log` operation.
+logger, the Logger facet forwards this message to the remote logger's `log` operation.{% iflang langs="swift" %} Swift
+maps the `init` operation to `initialize`.{% /iflang %}
 
 {% callout type="note" %}
 
@@ -94,6 +95,11 @@ filters:
   messages will be sent to `init` (provided they satisfy the `messageTypes` and `traceCategories` filters). If
   messageMax is 0, no log message will be sent to `init`. If `messageMax` is greater than 0, the most recent
   `messageMax` log messages that satisfy the `messageTypes` and `traceCategories` filters will be sent to `init`.
+  `messageMax` does not limit the log messages that the `Logger` facet sends to `log` after the attachment.
+
+The `Logger` facet calls the remote logger through a twoway proxy, whatever the mode of `prx`. It identifies a remote
+logger by the identity of its proxy: `attachRemoteLogger` throws `RemoteLoggerAlreadyAttachedException` when a remote
+logger with the same identity is already attached, even if the two proxies have different facets or endpoints.
 
 For example, in C++, you can attach a remote logger with no filtering at all as follows:
 
@@ -164,7 +170,16 @@ to provide these log messages to remote loggers (in the `init` operation) and to
 `getLog` (see the [LoggerAdmin Interface](#the-loggeradmin-interface) above). You can configure how many log messages
 are cached by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../../../property-reference/ice-admin-properties)
 and [Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties) properties. The default is to keep
-the most recent 100 log messages other than trace messages plus the most recent 100 trace messages.
+the most recent 100 log messages other than trace messages plus the most recent 100 trace messages. These properties do
+not affect the forwarding of new log messages to attached remote loggers.
+
+The `Logger` facet calls `init` with the application's communicator, and sends `log` calls with a communicator of its
+own, which it creates when the first remote logger is attached. The proxy `prx` must therefore let the monitored
+application reach the remote logger through its endpoints or through the locator: the `Logger` facet does not call the
+remote logger over the connection that carried `attachRemoteLogger`, even when this connection is bidirectional. You
+configure this communicator with [Ice.Admin.Logger.Properties](../../../property-reference/ice-admin-properties). Set
+[Ice.Trace.Admin.Logger](../../../property-reference/ice-trace-properties) to trace the attachment and detachment of
+remote loggers, and the sending of log messages to them.
 
 ## See Also
 
