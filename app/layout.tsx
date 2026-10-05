@@ -10,6 +10,7 @@ import {
   DEFAULT_LANGUAGE,
   LANGUAGE_LABELS,
   LANGUAGE_STORAGE_KEY,
+  OPEN_GRAPH,
   SITE_TITLE
 } from '@/lib/docs-model/nav';
 import { GA_MEASUREMENT_ID, NOINDEX, SITE_URL } from '@/lib/site';
@@ -27,11 +28,7 @@ export const metadata: Metadata = {
   },
   description:
     'Learn how to develop and deploy networked applications with Ice.',
-  openGraph: {
-    type: 'website',
-    siteName: SITE_TITLE,
-    locale: 'en_US'
-  },
+  openGraph: OPEN_GRAPH,
   twitter: {
     card: 'summary_large_image'
   },

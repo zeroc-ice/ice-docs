@@ -11,6 +11,7 @@ import { resolveDocument } from '@/lib/docs-model/resolve';
 import { buildPageIndex } from '@/lib/docs-model/links';
 import {
   breadcrumbs,
+  OPEN_GRAPH,
   pageHref,
   prevNext,
   versionTitle,
@@ -82,6 +83,7 @@ export async function docsPageMetadata(
     alternates: { canonical: pageHref(version, slug) },
     // The page's own card, from app/og; the Twitter card follows it.
     openGraph: {
+      ...OPEN_GRAPH,
       images: [
         { url: `/og${pageHref(version, slug)}`, ...imageSize, alt: title }
       ]

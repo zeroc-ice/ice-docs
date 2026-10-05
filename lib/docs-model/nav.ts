@@ -184,6 +184,13 @@ export interface Crumb {
 /** The site's name, and the root of every breadcrumb trail. */
 export const SITE_TITLE = 'Ice Documentation';
 
+/** The Open Graph fields every page shares; a page's own metadata replaces the whole object, so it spreads these in. */
+export const OPEN_GRAPH = {
+  type: 'website',
+  siteName: SITE_TITLE,
+  locale: 'en_US'
+} as const;
+
 /** The site's name for one version; every page of that version's tab title ends with it. */
 export function versionTitle(version: DocsVersion): string {
   return `${version.title} Documentation`;
