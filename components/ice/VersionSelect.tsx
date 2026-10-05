@@ -37,16 +37,7 @@ export function VersionSelect({ current, options }: VersionSelectProps) {
         </>
       }
     >
-      <VersionItems current={current} options={options} />
-    </Menu>
-  );
-}
-
-// The version choices, shared with the front page's switch so that both offer
-// the same ones. The older releases live on the archive site.
-export function VersionItems({ current, options }: VersionSelectProps) {
-  return (
-    <>
+      {/* The older releases live on the archive site. */}
       {options.map((option) => (
         <MenuItem
           key={option.value}
@@ -58,6 +49,6 @@ export function VersionItems({ current, options }: VersionSelectProps) {
       ))}
       <MenuSeparator />
       <MenuItem href="https://archive.zeroc.com/">Previous Versions…</MenuItem>
-    </>
+    </Menu>
   );
 }

@@ -148,8 +148,6 @@ export default async function Page(props: PageProps) {
       // A page written per language tells readers of the other languages
       // which ones have it.
       writtenFor: writtenFor(current),
-      // For the front page's switches.
-      versionOptions,
       // The property tables are a list of exact identifiers, not an essay, and
       // are typeset as such. Derived from the page's place in the tree — the
       // pages under the Property Reference chapter — rather than restated in

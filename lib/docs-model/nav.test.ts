@@ -115,7 +115,10 @@ test('breadcrumbs trace site -> chapter -> group -> page, and the page is not a 
 });
 
 test('the front page gets no trail', () => {
-  const sidebar = [{ title: 'Documentation', slug: '', items: [] }, ...SIDEBAR];
+  const sidebar = [
+    { title: 'The Ice Framework', slug: '', items: [] },
+    ...SIDEBAR
+  ];
   assert.deepEqual(breadcrumbs(sidebar, '3.8', ''), []);
 });
 
