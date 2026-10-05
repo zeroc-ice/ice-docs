@@ -171,8 +171,12 @@ export const DocumentShell = ({
             </div>
           )}
 
-          <div className="doc-body" style={{ counterReset: 'step-counter' }}>
-            {children}
+          {/* The outline hides with the body, so a reader the page is not
+              written for is left with the notice above. */}
+          <div data-langs={writtenFor?.join(' ')}>
+            <div className="doc-body" style={{ counterReset: 'step-counter' }}>
+              {children}
+            </div>
           </div>
 
           {pagination

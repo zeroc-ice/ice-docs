@@ -15,7 +15,8 @@ import {
   listPages,
   readPageSources,
   readNavigation,
-  snippetReader
+  snippetReader,
+  writtenFor
 } from './content.ts';
 
 const ROOT = join(
@@ -72,6 +73,15 @@ test('a page written per language takes its frontmatter from its first overlay',
   assert.equal(datastorm.frontmatter.description, 'DataStorm for C++');
 });
 
+test('a page is written for its overlays, the languages it lists, or every language', () => {
+  const bySlug = Object.fromEntries(
+    listPages(ROOT, '3.8').map((p) => [p.slug, p])
+  );
+  assert.deepEqual(writtenFor(bySlug['services/datastorm']), ['cpp', 'java']);
+  assert.deepEqual(writtenFor(bySlug['services/icestorm']), ['cpp', 'java']);
+  assert.equal(writtenFor(bySlug['slice/enumerations']), undefined);
+});
+
 test('a file without frontmatter has none', () => {
   // An overlay of a shared page carries only its sections.
   assert.deepEqual(
@@ -114,6 +124,12 @@ test('readNavigation builds the tree from the pages each page lists, front page 
         {
           title: 'DataStorm',
           slug: 'services/datastorm',
+          writtenFor: ['cpp', 'java'],
+          items: []
+        },
+        {
+          title: 'IceStorm',
+          slug: 'services/icestorm',
           writtenFor: ['cpp', 'java'],
           items: []
         }

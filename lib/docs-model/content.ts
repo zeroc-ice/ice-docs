@@ -15,7 +15,8 @@
 // at /ice/<version>/slice/enumerations, and the pages under it are its
 // subdirectories, in the order its frontmatter lists them under `pages:`. A
 // directory with overlays but no index.md is a page written per language: each
-// overlay is the whole page for its language.
+// overlay is the whole page for its language. A shared page that applies to
+// only some languages lists them under `languages:` in its frontmatter.
 //
 // Unit-testable with `node lib/docs-model/content.test.ts` and usable from Next
 // server components. Pure content transforms live in ./resolve.ts; the route
@@ -146,9 +147,13 @@ export function readPageSources(page: PageFiles) {
   return { shared, overlays, frontmatter: readFrontmatter(page) };
 }
 
-/** The languages a page is written for; `undefined` when it is written for all. */
+/**
+ * The languages a page is written for: a page written per language's overlays,
+ * or the `languages:` its index.md lists; `undefined` when it is written for all.
+ */
 export function writtenFor(page: PageFiles): string[] | undefined {
-  return page.shared ? undefined : Object.keys(page.overlays);
+  if (!page.shared) return Object.keys(page.overlays);
+  return readFrontmatter<{ languages?: string[] }>(page).languages;
 }
 
 /** A version's settings, read from its `version.yaml`. */
