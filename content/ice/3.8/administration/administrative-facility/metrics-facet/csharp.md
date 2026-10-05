@@ -6,7 +6,7 @@ We [already showed](../using-the-admin-object) how to obtain a proxy for a remot
 want to interact with the facet in your local address space. The code below shows the necessary steps:
 
 ```csharp
-if (communicator.findAdminFacet("Metrics") is Ice.MetricsAdmin metricsAdmin)
+if (communicator.findAdminFacet("Metrics") is IceMX.MetricsAdmin metricsAdmin)
 {
     ...
 }

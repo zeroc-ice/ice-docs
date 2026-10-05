@@ -48,10 +48,10 @@ following objects and activities:
 - Connection establishment
 - Endpoint resolution
 
-The `id` of a metric identifies the instrumented object(s). The `total` and `current` members specify the total and
-current number of instrumented objects created since the creation of the Ice communicator, respectively. The
-`totalLifetime` member is the sum of the lifetime of each instrumented object and `failures` is the number of failures
-that have occurred for the metrics object(s).
+The `id` of a metric identifies the instrumented object(s). The `total` member is the number of instrumented objects or
+operations that the metrics object has observed since its creation, and `current` is the number it observes now. The
+`totalLifetime` member is the sum, in microseconds, of the lifetimes of the instrumented objects or operations that are
+no longer observed, and `failures` is the number of failures that have occurred for the metrics object(s).
 
 Failures are specified using a separate `IceMX::MetricsFailures` structure:
 
@@ -87,9 +87,21 @@ following metrics maps:
 | EndpointLookup          | `IceMX::Metrics`           | Endpoint lookup metrics. For tcp, ssl and udp endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
 | ConnectionEstablishment | `IceMX::Metrics`           | Connection establishment metrics.                                                                                                         |
 
-A metrics map can also contain sub-metrics maps. An example is the `Invocation` metrics map, which provides a `Remote`
-sub-metrics map to record metrics associated with remote invocations. The Slice class for remote invocation metrics is
-`IceMX::Metrics`.
+A metrics map can also contain sub-metrics maps. The `Invocation` metrics map provides two sub-metrics maps, stored in
+each `IceMX::InvocationMetrics` object: `Remote` records the invocations sent over a connection with
+`IceMX::RemoteMetrics` objects (in the `remotes` member), and `Collocated` records the collocated invocations with
+`IceMX::CollocatedMetrics` objects (in the `collocated` member). Both classes derive from
+`IceMX::ChildInvocationMetrics`. An invocation that Ice retries can have several child invocations.
+
+The classes derived from `IceMX::Metrics` add the following members:
+
+| **Slice class**                 | **Members**                                                                                                                                                                |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `IceMX::ConnectionMetrics`      | `receivedBytes` and `sentBytes`: the number of bytes received and sent by the connections.                                                                                 |
+| `IceMX::ThreadMetrics`          | `inUseForIO`, `inUseForUser`, and `inUseForOther`: the number of threads currently performing socket reads or writes, calling application code, or doing other activities. |
+| `IceMX::InvocationMetrics`      | `retry`: the number of retries; `userException`: the number of invocations that failed with a user exception; `remotes` and `collocated`: the sub-metrics maps.            |
+| `IceMX::DispatchMetrics`        | `userException`: the number of dispatches that failed with a user exception; `size` and `replySize`: the accumulated size of the marshaled requests and replies.           |
+| `IceMX::ChildInvocationMetrics` | `size` and `replySize`: the accumulated size of the marshaled requests and replies.                                                                                        |
 
 ## The `MetricsAdmin` Interface
 
@@ -102,7 +114,7 @@ module IceMX
 
     interface MetricsAdmin
     {
-        Ice::StringSeq getMetricsViewNames(out Ice::StringSeq disableViews);
+        Ice::StringSeq getMetricsViewNames(out Ice::StringSeq disabledViews);
 
         void enableMetricsView(string name)
             throws UnknownMetricsView;
@@ -122,13 +134,39 @@ module IceMX
 }
 ```
 
-The `getMetricsViewName` operation retrieves the names of the configured enabled and disabled views. The
+The `getMetricsViewNames` operation retrieves the names of the configured enabled and disabled views. The
 `enableMetricsView` and `disableMetricsView` operations allow you to enable and disable a specific view. Calling those
 operations is equivalent to setting the view [Disabled](../../../property-reference/icemx-metrics-properties) property
-to 1 or 0.The `getMetricsView` operation returns the metrics for the given view. The `getMapMetricsFailures` and
-`getMetricsFailures` operations retrieve the metrics failures for a given map or metrics id.
+to 0 or 1, respectively. The `getMetricsView` operation returns the metrics for the given view, and returns an empty
+view for a disabled view. Its `timestamp` parameter is the process's time in milliseconds when the metrics were
+retrieved; compute differences between timestamps from the same process, as the reference point of this time depends on
+the language mapping. The `getMapMetricsFailures` and `getMetricsFailures` operations retrieve the metrics failures for
+a given map or metrics id. The operations that take a view name throw `UnknownMetricsView` for a view that is not
+configured.
 
 {% language-section name="mapping" /%}
+
+## Configuring Metrics Views
+
+The `Metrics` facet records metrics only for the views you configure with
+[IceMX Metrics properties](../../../property-reference/icemx-metrics-properties). For example, the following
+configuration enables the `Metrics` facet and defines a view named `Debug` that records invocation and dispatch metrics
+grouped by operation:
+
+```config
+Ice.Admin.Endpoints=tcp -h localhost -p 10002
+Ice.Admin.InstanceName=MyServer
+IceMX.Metrics.Debug.Map.Invocation.GroupBy=operation
+IceMX.Metrics.Debug.Map.Invocation.Map.Remote.GroupBy=id
+IceMX.Metrics.Debug.Map.Invocation.Map.Collocated.GroupBy=id
+IceMX.Metrics.Debug.Map.Dispatch.GroupBy=operation
+```
+
+When the [Properties facet](../properties-facet) is also enabled, the `Metrics` facet applies updates of `IceMX.*`
+properties made through this facet: it creates, updates, or removes the corresponding views and maps. Ice discards the
+metrics recorded by a map when it reconfigures this map, and the metrics recorded by a view when it disables this view;
+a view that is enabled again gets new maps. A map keeps the metrics objects with a `current` value of 0 up to the limit
+set by [RetainDetached](../../../property-reference/icemx-metrics-properties).
 
 ## Metrics Attributes
 
@@ -143,22 +181,21 @@ The table below describes the attributes supported by the Ice runtime's metrics 
 | parent             | All                                                                   | The parent of the instrumented object or operation.                                                                                                  |
 | none               | All                                                                   | The none attribute is a special attribute that evaluates to the empty string.                                                                        |
 | endpoint           | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The stringified endpoint.                                                                                                                            |
-| endpointType       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint numerical type as defined in `Ice/Endpoint.ice.`                                                                                        |
+| endpointType       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint numerical type, as defined in `Ice/EndpointTypes.ice`.                                                                                  |
 | endpointIsDatagram | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint is a datagram endpoint.                                                                                         |
 | endpointIsSecure   | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint is secure.                                                                                                      |
-| endpointTimeout    | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint timeout.                                                                                                                                |
 | endpointCompress   | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint requires compression.                                                                                           |
 | endpointHost       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint host.                                                                                                                                   |
 | endpointPort       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint port.                                                                                                                                   |
-| connection         | Dispatch                                                              | The connection description.                                                                                                                          |
+| connection         | Dispatch                                                              | The connection description, provided by the C++ runtime only.                                                                                        |
 | incoming           | Connection, Dispatch, Remote                                          | A boolean where true indicates an incoming (server) connection and false an outgoing (client) connection.                                            |
 | adapterName        | Connection, Dispatch, Remote                                          | If the connection is a server connection, adapterName returns the name of the adapter that created the connection, otherwise it is the empty string. |
 | connectionId       | Connection, Dispatch, Remote                                          | The ID of the connection if one is set, otherwise it is the empty string.                                                                            |
-| localAddress       | Connection, Dispatch, Remote                                          | The connection's local address.                                                                                                                      |
+| localHost          | Connection, Dispatch, Remote                                          | The connection's local address.                                                                                                                      |
 | localPort          | Connection, Dispatch, Remote                                          | The connection's local port.                                                                                                                         |
-| remoteAddress      | Connection, Dispatch, Remote                                          | The connection's remote address.                                                                                                                     |
+| remoteHost         | Connection, Dispatch, Remote                                          | The connection's remote address.                                                                                                                     |
 | remotePort         | Connection, Dispatch, Remote                                          | The connection's remote port.                                                                                                                        |
-| mcastAddress       | Connection, Dispatch, Remote                                          | The connection's multicast address.                                                                                                                  |
+| mcastHost          | Connection, Dispatch, Remote                                          | The connection's multicast address.                                                                                                                  |
 | mcastPort          | Connection, Dispatch, Remote                                          | The connection's multicast port.                                                                                                                     |
 | state              | Connection                                                            | The state of the connection.                                                                                                                         |
 | operation          | Dispatch, Invocation                                                  | The dispatched or invoked operation name.                                                                                                            |
@@ -168,16 +205,23 @@ The table below describes the attributes supported by the Ice runtime's metrics 
 | context*.key*      | Dispatch, Invocation                                                  | The value of the dispatch or invocation context with the given key.                                                                                  |
 | proxy              | Invocation                                                            | The proxy used for the invocation.                                                                                                                   |
 | encoding           | Invocation                                                            | The proxy encoding.                                                                                                                                  |
+| requestId          | Dispatch, Remote, Collocated                                          | The request ID of the dispatch or invocation; 0 for a oneway request.                                                                                |
 
 The `id`, `parent` and `none` attributes are supported by all maps.
 
-The value of the `parent` attribute depends on the map. For the Connection, Dispatch and Remote maps, the `parent` will
-either be "Communicator" if the connection is a client connection, or the object adapter name if it's a server
-connection. For the Invocation, EndpointLookup, and ConnectionEstablishment maps, it will always be "Communicator". The
-`parent` attribute enables the filtering of metrics based on the object adapter. When used with the `GroupBy` property
-it also allows you to obtain metrics at the object adapter level. For instance, the following configuration does not
-monitor any metrics for the `Ice.Admin` object adapter and it groups all the metrics based on the object adapter or
-communicator:
+An attribute resolves only when the instrumented object provides the corresponding information: the connection
+attributes of a Dispatch observation require a connection, `localHost`, `localPort`, `remoteHost`, and `remotePort`
+require an IP connection, `mcastHost` and `mcastPort` require a UDP connection, and `endpointHost` and `endpointPort`
+require an IP endpoint. A map does not record an observation whose `GroupBy` attributes do not all resolve.
+
+The value of the `parent` attribute depends on the map. For the Dispatch map, it is the name of the object adapter that
+dispatches the request. For the Connection and Remote maps, it is the name of the connection's object adapter, or
+"Communicator" for a connection without an object adapter. For the Invocation, Collocated, EndpointLookup, and
+ConnectionEstablishment maps, it is always "Communicator". For the Thread map, it is the name of the component that owns
+the thread, such as the configuration prefix of a thread pool, or "Communicator". The `parent` attribute enables the
+filtering of metrics based on the object adapter. When used with the `GroupBy` property it also allows you to obtain
+metrics at the object adapter level. For instance, the following configuration does not monitor any metrics for the
+`Ice.Admin` object adapter and it groups all the metrics based on the object adapter or communicator:
 
 ```config
 IceMX.Metrics.MyView.GroupBy=parent
@@ -187,9 +231,26 @@ IceMX.Metrics.MyView.Reject.parent=Ice\.Admin   # Escape the dot in Ice.Admin
 This configuration enables the communicator to get metrics on a per object adapter or communicator basis.
 
 You can also use the `none` attribute to get metrics for the communicator including the metrics from object adapters,
-e.g., `IceMX.Metrics.MyView.GroupBy=none`. This provides the lowest possible level of detail as all the statistics will
-be recorded by a single metrics object.
+e.g., `IceMX.Metrics.MyView.GroupBy=none`. This provides the lowest possible level of detail as each metrics map records
+all its statistics in a single metrics object.
 
-The `id` attribute allows you to get a higher level of detail by recording metrics on a per instrumented object or
-operation basis. If you specify `IceMX.Metrics.MyView.GroupBy=id`, the `Metrics` facet will record metrics for each
-individual object or operation.
+The `id` attribute allows you to get a higher level of detail. Each map computes `id` from its instrumented object or
+operation; for example, the id of a dispatch is the target identity followed by the operation name. If you specify
+`IceMX.Metrics.MyView.GroupBy=id`, the `Metrics` facet records the observations with the same id in the same metrics
+object.
+
+{% iflang langs="cpp,csharp,java" %}
+
+## Custom Instrumentation
+
+To observe the Ice runtime with your own instrumentation, set the `observer` member of `InitializationData` to your
+implementation of the `Ice::Instrumentation::CommunicatorObserver` interface. When the `Metrics` facet is enabled, Ice
+also forwards the observations to this observer.
+
+{% /iflang %}
+
+## See Also
+
+- [IceMX.Metrics.\*](../../../property-reference/icemx-metrics-properties)
+- [Glacier2 Metrics](../../../services/glacier2/glacier2-metrics)
+- [IceStorm Metrics](../../../services/icestorm/icestorm-metrics)

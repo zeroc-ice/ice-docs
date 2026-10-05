@@ -7,7 +7,7 @@ want to interact with the facet in your local address space. The code below show
 
 ```cpp
 // It's nullptr when the facet is not enabled
-auto metricsAdmin = communicator->findAdminFacet<Ice::MetricsAdmin>("Metrics");
+auto metricsAdmin = communicator->findAdminFacet<IceMX::MetricsAdmin>("Metrics");
 ```
 
 {% /language-section %}
