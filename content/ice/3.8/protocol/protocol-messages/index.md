@@ -171,7 +171,7 @@ correspond to [common exceptions](../../runtime/local-and-dispatch-exceptions)).
 | Facet does not exist        | `3`               | The dispatch completed with a `FacetNotExistException`. The reply payload is the same as for reply status 2.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | Operation does not exist    | `4`               | The dispatch completed with an `OperationNotExistException`. The reply payload is the same as for reply status 2.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | Unknown Ice local exception | `5`               | The dispatch completed with an `UnknownLocalException` or with an Ice local exception other than a `DispatchException`, such as a `MarshalException` raised while unmarshaling the input parameters. The reply payload is an Ice 1.0-encoded string that describes the exception.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Unknown Ice user exception  | `6`               | The dispatch completed with an `UnknownUserException`, for example one that the servant received from an invocation it made and did not catch. The reply payload is an Ice 1.0-encoded string that describes the exception. A servant that throws a Slice user exception produces reply status 1, even when the operation's exception specification does not list this exception; the client converts such an exception into an `UnknownUserException`.                                                                                                                                                                                                                                                        |
+| Unknown Ice user exception  | `6`               | The dispatch completed with an `UnknownUserException`, for example one that the servant received from an invocation it made and did not catch. The reply payload is an Ice 1.0-encoded string that describes the exception. A servant that throws a Slice user exception produces reply status 1, even when this exception does not match the operation's exception specification; the client converts such an exception into an `UnknownUserException`.                                                                                                                                                                                                                                                       |
 | Unknown exception           | `7`               | The dispatch completed with another type of exception. The reply payload is an Ice 1.0-encoded string that describes the exception.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | Invalid data                | `8`               | The dispatch failed because the request payload could not be unmarshaled. The reply payload is an Ice 1.0-encoded string that describes the exception.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Unauthorized                | `9`               | The caller is not authorized to access the requested resource. The reply payload is an Ice 1.0-encoded string that describes the exception.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -243,8 +243,9 @@ When the application closes a connection, Ice starts this sequence once it has r
 requests sent on this connection; the close timeout also applies to this wait.
 
 Because of steps 1 and 2, the receiver can re-issue its outstanding requests on a new connection without violating
-[at-most-once semantics](../../runtime/invocation/automatic-retries), and Ice retries these requests as described in
-[Automatic Retries](../../runtime/invocation/automatic-retries).
+[at-most-once semantics](../../runtime/invocation/automatic-retries). Ice retries these requests as described in
+[Automatic Retries](../../runtime/invocation/automatic-retries), except for requests sent with a fixed proxy, which is
+bound to the closed connection.
 
 ## Protocol State Machine
 
@@ -267,12 +268,12 @@ aborts the connection, for example because the connection did not receive any by
 
 ## Disorderly Connection Closure
 
-A violation of the protocol rules results in a disorderly connection closure: the side of the connection that detects
-the violation unceremoniously closes it (without sending a close connection message or similar). For example, the
-receiver closes the connection when a message has a bad magic number, an incompatible version, a size smaller than the
-header size, or an unknown message type; when the client receives a message other than validate connection before the
-connection is validated; or when it cannot unmarshal a request header in a request or batch request: the fields that
-precede `params`, and the size and encoding version of the `params` encapsulation.
+On a connection-oriented transport, a violation of the protocol rules results in a disorderly connection closure: the
+side of the connection that detects the violation unceremoniously closes it (without sending a close connection message
+or similar). For example, the receiver closes the connection when a message has a bad magic number, an incompatible
+version, a size smaller than the header size, or an unknown message type; when the client receives a message other than
+validate connection before the connection is validated; or when it cannot unmarshal a request header in a request or
+batch request: the fields that precede `params`, and the size and encoding version of the `params` encapsulation.
 
 The receiver of a reply ignores a reply whose request ID does not match that of an outstanding request, such as the
 reply to a request that timed out. Once the connection is validated, either side accepts a validate connection message
@@ -280,11 +281,17 @@ as a heartbeat.
 
 When the dispatch of a request fails with an exception, including a failure to unmarshal the input parameters in
 `params`, the receiver of the request keeps the connection open and, for a twoway request, sends a reply with the
-corresponding [reply status](#reply-message-body), such as `5` for a `MarshalException`.
+corresponding [reply status](#reply-message-body), such as `5` for a `MarshalException`. In a batch request, the
+receiver reads each request header from where the dispatch of the previous request stopped reading, so a failure to
+unmarshal the input parameters of a batched request can leave the next request header unreadable, which closes the
+connection.
 
-With a datagram transport such as `udp`, the receiver discards a datagram whose message header or message it cannot
-read, and keeps receiving datagrams; it logs a warning when
-[Ice.Warn.Connections](../../property-reference/ice-warn-properties#ice.warn.connections) is set.
+With a datagram transport such as `udp`, the receiver discards a datagram with an invalid message header, an unknown
+message type, or a body it cannot decompress, and keeps receiving datagrams; it logs a warning when
+[Ice.Warn.Connections](../../property-reference/ice-warn-properties#ice.warn.connections) is set. It also discards a
+datagram larger than its receive buffer, and logs a warning when
+[Ice.Warn.Datagrams](../../property-reference/ice-warn-properties#ice.warn.datagrams) is set. A request header that the
+receiver cannot unmarshal closes the datagram connection, as it does on a connection-oriented transport.
 
 ## See Also
 
