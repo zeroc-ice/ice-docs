@@ -45,7 +45,7 @@ export namespace VisitorCenter {
 }
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 `Ice.AsyncResult` extends the JavaScript `Promise` type. It adds functionality specific to Ice invocations.
 
@@ -284,7 +284,7 @@ execute(
   Ice.AsyncResult<[number | undefined, number | undefined]>;
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 For optional parameters and optional return values, there is not distinction between `null` and `undefined`, both are
 treated as a not set optional and unmarshall as `undefined`.

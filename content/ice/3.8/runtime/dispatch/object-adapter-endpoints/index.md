@@ -15,7 +15,7 @@ they can be specified explicitly when [creating an adapter](../creating-an-objec
 `createObjectAdapterWithEndpoints`. The [endpoint syntax](../../endpoint-syntax) generally consists of a transport
 protocol followed by an optional host name and port.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Despite the name of the property and the name of the method, we recommend you always configure your object adapter with
 a **single endpoint.**Specifying multiple endpoints, while possible, does not provide any real benefit.
@@ -34,7 +34,7 @@ If the host name refers to a DNS name which is configured with multiple addresse
 network interfaces identified by each address. All the addresses should refer to local network interfaces or the object
 adapter creation will fail.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You should not use DNS names for your object adapter endpoint(s). This DNS support is only provided for backwards
 compatibility with previous versions of Ice.
@@ -87,7 +87,7 @@ not need a fixed port because its port is never published.
 
 When an object adapter creates a proxy, it embeds its published endpoints in this proxy.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The published endpoints of an object adapter matter only if you create proxies with this object adapter and then
 transmit these proxies to other applications.
@@ -115,7 +115,7 @@ The published endpoints of a regular object adapter (that is, not configured wit
       value of `adapter.PublishedHost`, if set. Don’t perform any substitution if `adapter.PublishedHost` is not set.
    3. finally, eliminate duplicate endpoints
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Your physical endpoint(s) should be simple: a single endpoint that is loopback, multicast, or neither loopback nor
 multicast (typically, `INADDR_ANY`).

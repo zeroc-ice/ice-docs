@@ -79,7 +79,7 @@ proxies, and you have three options for manually flushing:
 - Calling `flushBatchRequests` on the communicator flushes all batched requests on all connections associated with the
   target communicator
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 `flushBatchRequests` on a connection or communicator has no effect on batched requests queued by regular (non-fixed)
 proxies.
@@ -112,7 +112,7 @@ Batched invocations are more efficient if you also enable compression for the tr
 messages are unlikely to compress well, whereas batched messages are likely to provide better compression because the
 compression algorithm has more data to work with.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Regardless of whether you used batched messages or not, you should enable compression only on lower-speed links. For
 high-speed LAN connections, the CPU time spent doing the compression and decompression is typically longer than the time

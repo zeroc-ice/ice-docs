@@ -49,7 +49,7 @@ communicator to load it at runtime. For example:
 Ice.Plugin.CustomLogger=CustomLogger.dll:ClearSky.CustomLoggerPluginFactory
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Even though you didn’t implement the plug-in class (`Ice.LoggerPlugin`), you are in effect creating a new plug-in since
 you choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in

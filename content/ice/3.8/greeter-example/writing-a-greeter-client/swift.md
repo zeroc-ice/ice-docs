@@ -91,7 +91,7 @@ The `makeProxy` function accepts our communicator and a “stringified proxy” 
 Here, our stringified proxy says that the target Ice object is named “greeter” and can be reached via `tcp` on
 `localhost` on port `4061`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
 hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
@@ -128,7 +128,7 @@ To run the client, execute the following command (the executable will be compile
 swift run Client
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This client won’t work unless you’ve also launched a [Greeter server](../writing-a-greeter-server).
 

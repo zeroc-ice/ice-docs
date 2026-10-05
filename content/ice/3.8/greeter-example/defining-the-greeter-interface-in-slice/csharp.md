@@ -16,7 +16,7 @@ module VisitorCenter
     string greet(string name);
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 In addition to our operation, you’ll notice we also added some [_metadata_](../../slice/slice-metadata-directives).
 Metadata allows you to customize the language mapping for your Slice in various ways. Here we use the `cs:identifier`

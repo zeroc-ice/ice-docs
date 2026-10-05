@@ -46,7 +46,7 @@ module N
 
 Slice does not permit empty enumerations.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 In Ice releases prior to Ice 3.7, an enum type did not create a new namespace and its enumerators were in the same
 namespace as the enum type itself. With these releases, you had to select longer enumerator names to avoid a naming

@@ -37,7 +37,7 @@ In the client's address space, an instance of `SimplePrx` is the local ambassado
 that implements `Simple` and is known as a proxy instance. All the details about the server-side object, such as its
 address, what protocol to use, and its object identity are encapsulated in that instance.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice.AsyncResult is a class derived from the standard JavaScript Promise class. The generated operations are always
 asynchronous.

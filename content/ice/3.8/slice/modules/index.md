@@ -41,7 +41,7 @@ interface I   // Error: only modules can appear at global scope
 Definitions at global scope are prohibited because they cause problems with some implementation languages (such as
 Python, which does not have a true global scope).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Throughout the Ice documentation, you will occasionally see Slice definitions that are not nested inside a module. This
 is to keep the examples short and free of clutter. Whenever you see such a definition, assume that it is nested in

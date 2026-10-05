@@ -29,7 +29,7 @@ for separating object interfaces from their implementations. Slice establishes a
 describes the interfaces, operations and data types used by an application. This description is independent of the
 implementation language, so it does not matter whether the client is written in the same language as the server.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Even though Slice is an acronym, it is pronounced as a single syllable, like a slice of bread.
 

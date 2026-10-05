@@ -42,11 +42,8 @@ This adapter must be accessible to IceBridge clients.
 
 This required property specifies the client [endpoints](../../runtime/endpoint-syntax) of the target server, with the
 syntax used in a [stringified proxy](../../runtime/invocation/syntax-for-stringified-proxies). Unlike
-`IceBridge.Source`, `IceBridge.Target` is not an object adapter. For connection-oriented transports, IceBridge creates a
-dedicated outgoing connection when it receives the first request to forward on a client connection. The bridge uses the
-same outgoing connection for subsequent requests on that client connection. Closing either connection causes the bridge
-to close the other.
+`IceBridge.Source`, `IceBridge.Target` is not an object adapter. IceBridge creates a dedicated outgoing connection when
+it receives the first request to forward on a client connection. The bridge uses the same outgoing connection for
+subsequent requests on that client connection. Closing either connection causes the bridge to close the other.
 
-Multiple endpoints must all reach the same logical target server, for example its replicas or its other transports. A
-UDP source endpoint requires a UDP target endpoint; a connection-oriented source endpoint requires a connection-oriented
-target endpoint.
+Multiple endpoints must all reach the same logical target server, for example its replicas or its other transports.

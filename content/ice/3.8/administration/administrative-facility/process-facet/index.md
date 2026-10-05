@@ -8,7 +8,7 @@ POSIX platforms when the server is prepared to intercept signals and react appro
 less reliably for C++ servers, and not at all for Java servers. For these reasons, the `Process` facet provides an
 alternative that is both portable and reliable.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Be aware of the [security considerations](../security-considerations-for-administrative-facets) associated with enabling
 the `Process` facet.

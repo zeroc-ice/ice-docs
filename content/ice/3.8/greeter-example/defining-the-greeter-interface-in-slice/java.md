@@ -8,7 +8,7 @@ module VisitorCenter
 }
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 In addition to the module declaration, you’ll notice we also added some
 [_metadata_](../../slice/slice-metadata-directives). Metadata allows you to customize the language mapping for your

@@ -12,7 +12,7 @@ As far as Ice is concerned, the opposite of a local exception is a user exceptio
 [User exceptions](../../slice/exceptions) are defined in Slice and derive from [UserException](api:Ice/UserException);
 local exceptions are not defined in Slice and derive from `LocalException`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Even though user exceptions are nominally exceptions that you throw and catch, it’s better to think of them as error
 results. You may receive a user exception only when you make an invocation using a two-way proxy.
@@ -33,7 +33,7 @@ exceptions.
 A dispatch exception represents a failure that occurred in the server while dispatching an incoming request. If you get
 a dispatch exception, it means Ice was able to communicate with the server - and got a failure-response from the server.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can only get a dispatch exception when you make an invocation with a two-way proxy.
 

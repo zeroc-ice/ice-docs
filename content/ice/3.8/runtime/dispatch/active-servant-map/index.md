@@ -21,7 +21,7 @@ Using an adapter's ASM to map Ice objects to servants has a number of design imp
 
 - Each Ice object is represented by a different servant.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 It is possible to register a single servant with multiple identities. However, there is little point in doing so because
 a [default servant](../default-servants) achieves the same thing.
@@ -86,7 +86,7 @@ important ones:
   executing inside the servant at the time `remove` is called are allowed to complete normally. Deactivating an
   [object adapter](../object-adapter-activation-and-deactivation) implicitly calls `remove` on all its servants.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The Active Servant Map has “servant” in its name, and uses the term servant in parameter and method names. And indeed,
 the objects added to the ASM are often servants.

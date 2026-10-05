@@ -63,7 +63,7 @@ runtime selects one of the endpoints at random and
 established, and this process is repeated _prior to each subsequent invocation_. This is called _per-request load
 balancing_ because each request can potentially be directed to a different server.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Using the `Ordered` endpoint selection type is not as common in this scenario; its main purpose would be to fall back on
 a secondary server if the primary server is not available, but it causes the Ice runtime to attempt to contact the

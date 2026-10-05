@@ -118,7 +118,7 @@ uses the compact type ID for `Base`.
 A compact type ID is encoded as a [size](../../basic-data-encoding), with the relevant bits set in the
 [slice flags](../../basic-data-encoding).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The developer is responsible for ensuring compact type IDs are sufficiently unique. Using values less than 255 produces
 the most efficient encoding.

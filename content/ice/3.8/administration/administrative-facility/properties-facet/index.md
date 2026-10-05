@@ -38,7 +38,7 @@ if a call to `setProperties` results in any changes to the property set.
 adding, changing, or removing an entry. A rejected entry makes the call fail, and the entries applied before it stay in
 place.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Changing a property generally does not reconfigure an initialized Ice component. When the Metrics facet is also enabled,
 updates to `IceMX.Metrics.*` through this facet reconfigure the metrics views. Application properties take effect when

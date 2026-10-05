@@ -176,7 +176,7 @@ correspond to [common exceptions](../../runtime/local-and-dispatch-exceptions)).
 
 A server sends a validate connection message when it receives a new connection.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Validate connection messages are only used for connection-oriented transports.
 
@@ -197,7 +197,7 @@ The purpose of the validate connection message is two-fold:
   the middle of shutting down when the server's TCP/IP stack accepts an incoming connection and so avoids the race
   condition.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Validate connection messages may also be sent at any time by either side as a heartbeat.
 
@@ -211,7 +211,7 @@ The [message header](#message-header) comprises the entire validate connection m
 A close connection message is sent when a peer is about to gracefully shutdown a
 [connection](../../runtime/connection-management).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Close connection messages are only used for connection-oriented transports.
 

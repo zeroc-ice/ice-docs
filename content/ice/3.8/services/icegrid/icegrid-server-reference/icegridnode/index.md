@@ -9,7 +9,7 @@ running on each host on which servers are activated automatically, and nodes can
 The IceGrid node server is implemented by the `icegridnode` executable. If you wish to run a registry and node in one
 process, `icegridnode` is the executable you must use.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We recommend that you always run `icegridnode` and `icegridregistry` in separate processes.
 

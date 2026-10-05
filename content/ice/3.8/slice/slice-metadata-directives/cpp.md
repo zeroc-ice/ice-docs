@@ -47,7 +47,7 @@ This directive applies to sequence parameters in operations. It directs the Slic
 This directive applies to operations. It directs the Slice compiler to create a `const` pure virtual member function for
 the skeleton class.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The generated skeleton code calls servant member functions using a `shared_ptr<non-const-T>`. Adding this `const` only
 affects your own servant implementation code.

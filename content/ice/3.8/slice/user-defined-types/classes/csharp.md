@@ -65,7 +65,7 @@ All generated classes have a public parameterless constructor that initializes a
 [Fields](../../fields)). This constructor is used by the unmarshaling code. The unmarshaling code guarantees that all
 non-nullable fields receive a non-null value before the instance is returned to the application code.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The parameterless constructor initializes fields with certain types (sequence, dictionary, struct mapped to class) to
 `null!`. If you call this constructor, make sure to set these fields after construction.

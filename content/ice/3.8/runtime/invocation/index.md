@@ -17,7 +17,7 @@ pages:
 
 The process of sending a request and receiving the corresponding response is called an invocation.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Making invocations is the primary activity of client applications.
 

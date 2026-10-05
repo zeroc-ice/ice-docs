@@ -137,7 +137,7 @@ auto reader = makeSingleKeyReader(
     "kitchen-reader");
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Sample filters are specified on readers but must be defined on the writer’s topic. Criteria types can be any
 [custom type](../custom-types) for which your application provides encoding/decoding templates.

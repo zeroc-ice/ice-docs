@@ -32,7 +32,7 @@ An optional value is encoded as the tuple _<type, tag, value>_, where _type_ is 
 receiver how to determine the number of bytes occupied by the value. The value itself is marshaled using the standard
 Ice encoding rules for its Slice type.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Optional values require Ice encoding version 1.1.
 
@@ -150,7 +150,7 @@ value 300 is too large to combine with the optional type, therefore it appears i
 encoded as a size. A proxy value uses the FSize optional type, meaning a 32-bit integer precedes the encoded value to
 specify its size.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Although the return value is required in this example, an optional return value is treated as if it were an optional out
 parameter.

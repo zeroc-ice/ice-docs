@@ -26,7 +26,7 @@ the `slice2js` compiler for Linux, macOS, and Windows.
    npm install @zeroc/ice --save
    ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `slice2js` compiler can be executed by running `npx slice2js`.
 

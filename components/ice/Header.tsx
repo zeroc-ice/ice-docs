@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { IceMark } from './IceMark';
 
 // The one global bar, identical on every page including the homepage. Readers
 // arrive at the homepage from search engines as often as anywhere else, so the
@@ -16,13 +17,12 @@ export function IceHeader() {
             docs layout, the only place that has the tree. The slot has
             no box of its own, so a page without the button has no gap. */}
         <div id="ice-header-menu" className="contents" />
-        <Link href="/" className="flex items-baseline gap-1.5 text-[15px]">
-          <span className="font-semibold tracking-tight text-ink">Ice</span>
-          {/* Names the site rather than decorating the brand, so it is the
-              first thing to go when the bar runs out of room — never a
-              control. */}
-          <span className="hidden text-ink-secondary sm:inline">
-            Documentation
+        <Link href="/" className="flex items-center gap-2">
+          <IceMark className="size-8" />
+          {/* The mark alone has to do on a phone, where the controls already
+              fill the bar. */}
+          <span className="sr-only text-xl tracking-tight text-ink sm:not-sr-only">
+            <span className="font-semibold">Ice</span> Docs
           </span>
         </Link>
       </div>

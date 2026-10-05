@@ -10,7 +10,7 @@ You create an object adapter by calling `createObjectAdapter` on your communicat
 with zero or more [transport endpoints](../object-adapter-endpoints). Typically, an object adapter has a single
 transport endpoint.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 An object adapter can also offer multiple endpoints. If so, these endpoints each lead to the same set of objects and
 represent alternative means of accessing these objects.

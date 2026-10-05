@@ -160,7 +160,7 @@ EarlyRiser/__init__.py
   need to manually import `_forward` files.
 - `__init__.py` – is the package index and re-exports all definitions from the other modules.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 All code is generated relative to the output directory, which defaults to the current directory. You can change this
 location using the --output-dir compiler option.

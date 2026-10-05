@@ -184,7 +184,7 @@ The API for registered communicators consists of three functions:
   communicator is destroyed as soon as all pending requests that are currently using the communicator have completed.
   Destroying a registered communicator explicitly also removes its registration.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 In the common situation where you use a single-threaded PHP runtime, `unregister` destroys your communicator
 immediately.

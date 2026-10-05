@@ -81,7 +81,7 @@ The constructor accepts our communicator and a “stringified proxy” with the 
 stringified proxy says the target Ice object is named “greeter” and can be reached via `tcp` on `hello.zeroc.com`, on
 port `4061`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
 hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
@@ -134,7 +134,7 @@ We can run `client` directly in the MATLAB console:
 client
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice for MATLAB supports only client development.
 

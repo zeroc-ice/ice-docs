@@ -14,7 +14,7 @@ connections, with `Server`.
 
 {% iflang langs="js" %}
 
-{% callout type="info" title="JavaScript" %}
+{% callout type="note" title="JavaScript" %}
 
 Ice for JavaScript does not support `Ice.Connection.Server.*` properties. Setting any of them throws
 `PropertyException`.
@@ -23,7 +23,7 @@ Ice for JavaScript does not support `Ice.Connection.Server.*` properties. Settin
 
 {% /iflang %}
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 These properties apply only to connections over connection-oriented transports such a TCP. They have no effect on UDP
 “connections”.
@@ -92,7 +92,7 @@ configuration.
 
 The default idle timeout is `60` seconds.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We recommend you use the same idle timeout for all clients and servers in your application. The default value (60
 seconds) should be appropriate for most applications.

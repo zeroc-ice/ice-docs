@@ -259,7 +259,7 @@ deliver the request, or, if it cannot deliver the request, inform the client wit
 circumstances is a request delivered twice, that is, retries are attempted only if it is known that a previous attempt
 definitely failed.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 One exception to this rule are datagram invocations over UDP transports. For these, duplicated UDP packets can lead to a
 violation of at-most-once semantics.

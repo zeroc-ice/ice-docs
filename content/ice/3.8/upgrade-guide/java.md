@@ -65,7 +65,7 @@ slice {
   }
   ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Prefer the conventional layout: put your Slice files in `src/main/slice`.
 

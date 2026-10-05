@@ -35,7 +35,7 @@ Ice.Default.Router=Glacier2/router:tcp -h routerhost -p 4063
 You can also specify a default router by calling `setDefaultRouter` on the communicator, and obtain the current setting
 using `getDefaultRouter`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Proxies created with this communicator are configured with this router by default (see below). Object adapters created
 with this communicator are not affected by the default router.
@@ -103,7 +103,7 @@ own local version of the routing table in order to minimize overhead; Ice only s
 once. Furthermore, Ice keeps its table synchronized with the router's by tracking any proxies that the router might have
 evicted from its table (the proxies returned by the call to `addProxies`).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice uses object identities as the keys in its routing table, which means it's important that your Ice objects use
 [unique identities](../../object-identity).

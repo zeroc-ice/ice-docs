@@ -4,7 +4,7 @@ title: Ice.Plugin.*
 
 {% iflang langs="js" %}
 
-{% callout type="info" title="JavaScript" %}
+{% callout type="note" title="JavaScript" %}
 
 Ice for JavaScript does not support the properties on this page. Setting any of them throws `PropertyException`.
 
@@ -68,7 +68,7 @@ DLL search path.
 
 {% iflang langs="cpp" %}
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `Ice.Plugin.name` property can be used to configure a plug-in installed in the communicator using
 `InitializationData::pluginFactories`. In this situation, the `path[,version]:function` component of the property value

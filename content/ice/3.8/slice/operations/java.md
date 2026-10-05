@@ -63,7 +63,7 @@ For each operation, the Slice compiler generates 4 methods on the proxy interfac
   `CompletableFuture` immediately. These async methods are described in more detail in
   [Asynchronous Method Invocation (AMI) in Java](#asynchronous-method-invocation-ami).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Async invocations allow you to use threads more efficiently. Sync invocations are more convenient to call. You decide
 what’s more important for your application.
@@ -472,7 +472,7 @@ There are two processing contexts in which the logical implementation of an AMD 
 exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that sends
 the response).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 These are not necessarily two different threads: it is legal to send the response from the dispatch thread.
 
@@ -669,7 +669,7 @@ if (i.isPresent()) {
 
 Passing `null` where an optional value is expected is equivalent to passing an instance whose value is unset.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Java's optional classes do not consider `null` to be a legal value. Consider this example:
 

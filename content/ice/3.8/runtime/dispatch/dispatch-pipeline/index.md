@@ -8,7 +8,7 @@ An object adapter dispatches incoming requests using its dispatch pipeline. A di
 The leaves of this tree are servants, while intermediary nodes in this tree are middleware and an internal helper class,
 `ServantManager`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Servants, middleware, and even the internal `ServantManager` class, all implement the Dispatcher abstraction.
 

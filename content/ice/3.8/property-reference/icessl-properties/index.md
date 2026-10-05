@@ -22,7 +22,7 @@ they use the IceSSL properties for SChannel, SecureTransport or OpenSSL as appro
 
 {% iflang langs="js" %}
 
-{% callout type="info" title="JavaScript" %}
+{% callout type="note" title="JavaScript" %}
 
 Ice for JavaScript does not support these IceSSL properties. Setting any of them throws `PropertyException`.
 

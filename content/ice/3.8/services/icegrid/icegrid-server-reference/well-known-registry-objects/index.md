@@ -33,7 +33,7 @@ IceGrid.InstanceName=MP3Grid
 This property changes the identities of the well-known objects to use `MP3Grid` instead of `IceGrid` as the identity
 category. For example, the identity of the locator becomes `MP3Grid/Locator`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Changes to `IceGrid.InstanceName` do not affect the identity of the `Ice/LocatorFinder` object. See the next section for
 more information.

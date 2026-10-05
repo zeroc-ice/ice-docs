@@ -84,7 +84,7 @@ The constructor accepts our communicator and a “stringified proxy” with the 
 stringified proxy says that the target Ice object is named “greeter” and can be reached via `tcp` on `localhost` on port
 `4061`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
 hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
@@ -108,7 +108,7 @@ the proxy unmarshals its payload and returns a string (the greeting).
 Note that `greetAsync` returns an `Awaitable` object that we await. This allows the event loop thread to do other work
 while it is waiting for the invocation to complete.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Because the communicator was initialized with an asyncio event loop, the returned Awaitable is an `asyncio.Future`,
 which can be awaited within the same event loop.
@@ -130,7 +130,7 @@ with:
 uv run main.py
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This client won’t work unless you’ve also launched a Greeter server — see
 [Writing a Greeter Server](../writing-a-greeter-server).

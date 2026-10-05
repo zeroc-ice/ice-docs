@@ -52,7 +52,7 @@ public abstract class FavoriteFruit
 As you can see, each Slice constant is mapped to a class with the same name as the constant. The class contains a field
 named `value` that holds the value of the constant.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The mapping to classes instead of to plain constants is necessary because C# does not permit constant definitions at
 namespace scope.

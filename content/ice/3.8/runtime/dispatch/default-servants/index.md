@@ -65,7 +65,7 @@ servant raise `NotRegisteredException`. The operation returns the removed defaul
 successfully removed for the specified category, the Ice runtime guarantees that no new incoming requests for that
 category are dispatched to the servant.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Default servants have “servant” in their names, and are indeed often servants – concrete classes that dispatch requests
 on their own.

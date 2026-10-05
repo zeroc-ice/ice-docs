@@ -62,7 +62,7 @@ For each operation, the Slice compiler generates 2 methods on the proxy class:
   get the result (return value or exception) through a `Task`. These async methods are described in more detail in
   [Asynchronous Method Invocation (AMI) in C#](#asynchronous-method-invocation-ami).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The “sync” methods are provided for backwards compatibility: you should only use the async methods in modern C# code.
 
@@ -197,7 +197,7 @@ completes.
 AMI is transparent to the server: there is no way for the server to tell whether a client sent a request synchronously
 or asynchronously.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 In a modern C# application, you should always use AMI. The synchronous API is provided for backwards compatibility.
 
@@ -262,7 +262,7 @@ There are two exceptions to this rule:
 - a call to an `Async` method can throw `TwowayOnlyException`. An `Async` method throws this exception if you call an
   operation that has a return value or out-parameters on a oneway proxy.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This behavior is provided for consistency with other Ice language mappings. In modern C#, it is preferable to report
 synchronous exceptions (such as marshaling exceptions) synchronously.
@@ -421,7 +421,7 @@ There are two processing contexts in which the logical implementation of an AMD 
 exception: the dispatch thread (the thread that receives the request), and the response thread (the thread that
 completes the task).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 These are not necessarily two different threads: it is legal to complete the task from the dispatch thread.
 

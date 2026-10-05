@@ -160,7 +160,7 @@ and uses the Fully Qualified Domain Name (FQDN) of the system. See
 
 A new property `_adapter_.PublishedHost` has been added. It is used to compute the default published endpoints.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Users who are setting `_adapter_.PublishedEndpoints` to limit the published endpoints are encouraged to try the new
 default.

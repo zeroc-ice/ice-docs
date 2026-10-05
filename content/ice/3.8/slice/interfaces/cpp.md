@@ -57,7 +57,7 @@ object that implements `Simple` and is known as a _proxy class instance_, or sim
 server-side object, such as its address, what transport to use, and its object identity are encapsulated in that
 instance.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Notice that all proxy member functions are `const` – proxy instances are immutable.
 

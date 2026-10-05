@@ -1,6 +1,6 @@
 {% language-section name="ice.ipv6" %}
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The `PerThread` type is currently not available for JavaScript.
 

@@ -36,7 +36,7 @@ output parameter in a servant method), you have flexibility:
   provided its elements match the Python-mapped type of the Slice element.
 - For `sequence<byte>`, in addition to a bytes object, you may also use any type that conforms to `Sequence[int]`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Using a bytes object for a byte sequence bypasses the validation step and avoids an extra copy, resulting in much
 greater throughput than a tuple or list. For larger byte sequences, the use of a bytes object is strongly recommended.

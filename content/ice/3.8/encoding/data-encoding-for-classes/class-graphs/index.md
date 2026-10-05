@@ -400,7 +400,7 @@ _Receiver-side view of the graph_.
 Of course, more complex situations are possible, such that the receiver ends up with multiple disconnected graphs, each
 containing many instances.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The [slice preservation](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) feature in version 1.1
 of the encoding allows a receiver to re-marshal the original graph intact, despite the fact that the receiver's

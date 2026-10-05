@@ -13,7 +13,7 @@ that a Windows service is launched by the operating system and can be configured
 means the service's environment (most importantly its `PATH`) may not match yours and therefore extra steps are
 necessary to ensure that the service can locate its required DLLs.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The command-line utility `dumpbin` can be used to discover the dependencies of an executable or DLL.
 
@@ -24,7 +24,7 @@ solution is undesirable, another option is to modify the system `PATH` to includ
 containing the required DLLs. (Note that modifying the system `PATH` requires restarting the system.) Finally, you can
 copy the necessary DLLs to `\WINDOWS\system32`, although we do not recommend this approach.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Copying DLLs to `\WINDOWS\system32` often results in subtle problems later when trying to develop using newer versions
 of the DLLs. Inevitably you will forget about the DLLs in `\WINDOWS\system32` and struggle to determine why your

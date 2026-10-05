@@ -33,7 +33,7 @@ accepts.
 In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your
 build project, like we demonstrate for the C++ demo programs.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can easily integrate Slice compilation with most build projects. The C++ demo programs use
 [CMake](https://cmake.org/).
@@ -70,7 +70,7 @@ identity of the target Ice object, the operation name, the request context, and 
 any of this information, so we leave the parameter unnamed. See [operations](../../slice/operations) for the full
 mapping.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 It is normal for servants like `Chatbot` to contain fields and other functions in addition to the needed ones from the
 generated base class. Due to our application’s simplicity, we don’t here though.

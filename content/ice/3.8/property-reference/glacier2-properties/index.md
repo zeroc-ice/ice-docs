@@ -207,7 +207,7 @@ legal values are shown below:
 | 1     | Add the user ID.                           |
 | 2     | Add the user ID with a leading underscore. |
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This property applies only to regular sessions (with username/password authentication). It has no effect on SSL
 sessions.

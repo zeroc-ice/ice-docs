@@ -34,7 +34,7 @@ Ice considers a request to have failed if any of the following conditions are tr
 - An error occurred in the server while dispatching the request that causes the server to return an `UnknownException`
   or `RequestFailedException`
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Ice considers an invocation that results in a user exception to be successful and therefore excludes it from
 consideration for automatic retries.

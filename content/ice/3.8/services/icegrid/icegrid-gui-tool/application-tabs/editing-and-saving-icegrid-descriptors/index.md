@@ -62,7 +62,7 @@ allows restarts and one that does not. To avoid accidentally causing any disrupt
 `No server restart` option first; this command will fail if any of your updates require a restart. At that point, you
 can decide whether to force the servers to restart using the other Save command.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 If you change a server's configuration properties with `Save to Registry (No Server restart)`, IceGrid updates the
 stored properties of this server, and also the properties of your running server instance through its

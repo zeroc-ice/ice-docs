@@ -28,7 +28,7 @@ module M
 This example illustrates one major reason for using a class: a class can be extended by inheritance, whereas a structure
 is not extensible. The previous example defines `DateTime` to extend the `TimeOfDay` class with a date.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 If you are puzzled by the comment about the year 1753, search the Web for "1752 date change". The intricacies of
 calendars for various countries prior to that year can keep you occupied for months...

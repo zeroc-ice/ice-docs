@@ -138,7 +138,7 @@ Instantiating the `Glacier2` template creates a server identified as `Glacier2De
 default value for the `instance-name` parameter). The router's objects use this value as the category in their
 identities, such as `Glacier2Demo.Glacier2/router`. The router proxy used by clients must contain a matching identity.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 We recommend you keep the default instance name (Glacier2) unless you find yourself in the unusual situation where the
 same program needs to communicate with multiple Glacier2 routers.

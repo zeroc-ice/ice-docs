@@ -14,7 +14,7 @@ more slave replicas, where the `Ice.Default.Locator` property would normally inc
 replicas. Avoiding the need to configure the locator endpoints relieves some of the administrative burden, simplifies
 deployment and configuration tasks, and adds more flexibility to your application designs.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can think of IceLocatorDiscovery as an application-specific version of [IceDiscovery](../icediscovery) geared
 primarily toward IceGrid users.

@@ -31,7 +31,7 @@ greeter:tcp -h frosty.zeroc.com -p 4061
 
 This endpoint states that an object is reachable via TCP on host `frosty.zeroc.com` and the port `4061`.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The corresponding object adapter endpoint is typically different. For starters, you should not use DNS names in object
 adapter endpoints, while it’s common to use them in proxy endpoints.
@@ -100,7 +100,7 @@ Just like with the `@` style, the communicator requests endpoint(s) for such a p
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-{% callout type="info" title="Locator optional" %}
+{% callout type="note" title="Locator optional" %}
 
 An indirect proxy can also refer to a collocated target object. In this case, you don’t need to configure a locator to
 resolve the endpoints of this proxy - Ice doesn’t need any endpoint since it doesn’t establish a network connection to

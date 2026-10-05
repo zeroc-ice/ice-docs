@@ -152,7 +152,7 @@ Operations in the same interface must have different names, regardless of what t
 This restriction exists because overloaded functions cannot sensibly be mapped to languages without built-in support for
 overloading.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Name mangling is not an option in this case: while it works fine for compilers, it is unacceptable to humans.
 

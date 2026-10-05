@@ -24,7 +24,7 @@ The Metrics Report panel shows the maps included in the Metrics View. The column
 themselves (for example, the total number of operations dispatched by the server since the Metrics view was enabled) and
 computed values (for example, the average lifetime of an operation dispatch, since the Metrics view was enabled).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Tool tips on each column describe the metrics or computed value displayed by the column.
 

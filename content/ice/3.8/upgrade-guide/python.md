@@ -99,7 +99,7 @@ Key points:
 
   Applications **do not** need to import these _forward modules directly.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Import semantics are unchanged:
 

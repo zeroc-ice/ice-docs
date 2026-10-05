@@ -15,7 +15,7 @@ Using Glacier2 in a minimal configuration involves the following tasks:
 5. Modify the [client configuration](#configuring-a-glacier2-client) to use the router.
 6. Modify the client to create a [router session](#glacier2-sessions).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
 
@@ -35,7 +35,7 @@ sent. This endpoint is defined on the public network interface because it must b
 the endpoint uses a fixed port because clients may be statically configured with a proxy for this endpoint. The port
 numbers 4063 (for TCP) and 4064 (for SSL) are reserved for Glacier2 by the Internet Assigned Numbers Authority (IANA).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This sample configuration uses TCP as the endpoint protocol, although in most cases,
 [SSL is preferable](../securing-a-glacier2-router).
@@ -64,7 +64,7 @@ On Windows and macOS:
 
 - `PBKDF2` using `SHA-1`, `SHA-256`, or `SHA-512` as the digest algorithm.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 PBKDF2 does not have a standard form in the `MCF` specification. In this case Glacier2 uses the same format as
 [passlib](https://pythonhosted.org/passlib/modular_crypt_format.html).
@@ -125,7 +125,7 @@ Password:
 
 Note that `icehashpassword` generates PBKDF2 hashes on Windows and macOS, and Crypt hashes on Linux.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 This authentication scheme is intended for use in simple applications with a few users. Most applications should install
 their own custom [permissions verifier](../securing-a-glacier2-router).
@@ -179,7 +179,7 @@ instance name, and the router clients can use proxies with multiple endpoints, s
 Ice.Default.Router=PublicRouter/router:tcp -h 5.6.7.8 -p 4063:tcp -h 6.10.7.8 -p 4063
 ```
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 A client can discover a router's proxy at run time using the
 [RouterFinder interface](../advanced-glacier2-client-configurations).

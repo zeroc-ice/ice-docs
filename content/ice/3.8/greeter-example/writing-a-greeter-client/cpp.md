@@ -30,7 +30,7 @@ file. See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for t
 In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your
 build project, like we demonstrate for the C++ demo programs.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 You can easily integrate Slice compilation with most build projects. The C++ demo programs use
 [CMake](https://cmake.org/).
@@ -114,7 +114,7 @@ The constructor accepts our communicator and a “stringified proxy” with the 
 stringified proxy says that the target Ice object is named `greeter` and can be reached via `tcp` on `localhost` on port
 `4061`. If you run the server on another computer, replace `localhost` with that computer’s hostname or IP address.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The name of the interface (`Greeter`) and the identity of the Ice object (`greeter`) are independent. The Ice objects
 hosted in the server could just as easily have identities like `santa`, `bugsBunny`, etc.
@@ -134,7 +134,7 @@ The `greet` function does all the heavy lifting for us: the proxy creates a requ
 communicator establishes a connection to `localhost:4061`, and the request is sent over it. When a response is received,
 the proxy will unmarshal its payload and finally return a string (the greeting).
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 A proxy is a value, not a pointer, but `GreeterPrx` also provides `operator->`: `greeter.greet("alice")` and
 `greeter->greet("alice")` are equivalent. The demo source uses the `->` syntax.
@@ -201,7 +201,7 @@ After building the client (see the demo’s
 [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/cpp/Ice/greeter/README.md) for instructions), running it is as
 simple as running any other executable:
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Start a Greeter server before you run the client — see [Writing a Greeter Server](../writing-a-greeter-server).
 

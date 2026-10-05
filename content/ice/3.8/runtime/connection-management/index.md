@@ -17,7 +17,7 @@ need to make callbacks from a server to a client through a firewall, you must us
 Ice API also provides direct access to connections, allowing you to explicitly control establishment and closure of both
 unidirectional and bidirectional connections.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 The discussion that follows assumes that you are familiar with [proxies](../invocation) and
 [endpoints](../invocation/proxy-endpoints).

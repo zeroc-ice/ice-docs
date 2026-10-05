@@ -116,7 +116,7 @@ do for `getAccount`.
 
 The format affects the marshaling of input parameters, output parameters, and return value of an operation.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 As of Ice 3.8, exceptions are always marshaled in the sliced format.
 
@@ -186,7 +186,7 @@ To address this limitation, the unmarshaling of a class instance with unknown sl
 preserves them (in encoded form). This way, when `transform` returns the class instance (after processing), the skipped
 slices are automatically “reattached”.
 
-{% callout type="info" %}
+{% callout type="note" %}
 
 Slice preservation requires the sliced format, and applies only to classes.
 
