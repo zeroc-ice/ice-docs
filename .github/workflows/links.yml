@@ -1,31 +1,29 @@
 name: Check Links
 
+# External links are checked once a day rather than on each change: a server
+# that answers with errors for a while would otherwise fail every pull request,
+# and lychee retries only timeouts, dropped connections and 429. Pages, anchors
+# and images within the site are checked on each change by `check:markdoc` and
+# `check:content`. A run that finds broken links reports them in an issue, and
+# the first run that finds none closes it.
 on:
   workflow_dispatch:
-  push:
-    branches: ['main']
-    paths:
-      - '**.md'
-      - '.lychee.toml'
-      - '.github/workflows/links.yml'
-  pull_request:
-    branches: ['main']
-    paths:
-      - '**.md'
-      - '.lychee.toml'
-      - '.github/workflows/links.yml'
+  schedule:
+    - cron: '17 5 * * *'
 
+# Runs queue rather than overlap: two runs that both find no open issue would
+# each open one. A run that is reporting must not be cancelled half-way through.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-permissions:
-  contents: read
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 jobs:
   check-links:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -33,6 +31,7 @@ jobs:
           persist-credentials: false
 
       - name: Check links
+        id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: >-
@@ -41,7 +40,45 @@ jobs:
             --no-progress
             'content/**/*.md'
             '*.md'
-          fail: true
+          fail: false
         env:
           # Lets GitHub links be checked without tripping the anonymous rate limit.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # The issue tracks main. lychee exits with 2 when it finds broken links,
+      # and with 1 or 3 when it cannot run, which leaves the issue as it is.
+      - name: Report the result
+        if: github.repository == 'zeroc-ice/ice-docs' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title='Broken external links'
+          issue=$(gh issue list --state open --json number,title \
+            --search "in:title \"$title\" author:app/github-actions" \
+            --jq "map(select(.title == \"$title\"))[0].number // empty")
+          if [ "$EXIT_CODE" = 0 ]; then
+            if [ -n "$issue" ]; then
+              gh issue close "$issue" --comment "The link check passes: $RUN_URL"
+            fi
+          elif [ "$EXIT_CODE" = 2 ]; then
+            # An issue body or comment holds at most 65536 characters.
+            {
+              echo "The link check found broken links: $RUN_URL"
+              echo
+              head -c 60000 lychee/out.md
+            } > report.md
+            if [ -n "$issue" ]; then
+              gh issue comment "$issue" --body-file report.md
+            else
+              gh issue create --title "$title" --body-file report.md
+            fi
+          fi
+
+      - name: Fail on broken links
+        if: steps.lychee.outputs.exit_code != '0'
+        env:
+          EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
+        run: exit "$EXIT_CODE"
