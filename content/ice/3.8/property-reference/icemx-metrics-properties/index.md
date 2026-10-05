@@ -97,12 +97,28 @@ the invocation metrics by operation name or proxy identity. All the invocations 
 identity will record metrics using the same metrics object. You can specify several attributes to group metrics based on
 multiple attributes. You must delimit the attributes with delimiters when specifying the value of the GroupBy property.
 A delimiter is any character which is not an alpha numeric or the dot character. Attributes which can be used to specify
-the value of this property are defined in the relevant section of the Ice documentation. Here are some examples of
-GroupBy properties.
+the value of this property are defined in the relevant section of the Ice documentation.
 
-- `IceMX.Metrics.MyView.GroupBy=operation`
-- `IceMX.Metrics.MyView.GroupBy=identity [operation]`
-- `IceMX.Metrics.MyView.GroupBy=remoteHost:remotePort`
+A map records an instrumented object or operation only when it can resolve every attribute named by `GroupBy`. When a
+view has no `Map.` properties, every map uses the view-level `GroupBy`, so this `GroupBy` suits only attributes common
+to all maps, such as `id`, `parent`, or `none`. To group by an attribute that only some maps provide, set `GroupBy` on
+those maps:
+
+```config
+IceMX.Metrics.ByOperation.Map.Invocation.GroupBy=operation
+IceMX.Metrics.ByOperation.Map.Invocation.Map.Remote.GroupBy=id
+IceMX.Metrics.ByOperation.Map.Invocation.Map.Collocated.GroupBy=id
+
+IceMX.Metrics.ByIdentity.Map.Invocation.GroupBy=identity [operation]
+IceMX.Metrics.ByIdentity.Map.Invocation.Map.Remote.GroupBy=id
+IceMX.Metrics.ByIdentity.Map.Invocation.Map.Collocated.GroupBy=id
+
+IceMX.Metrics.ByPeer.Map.Connection.GroupBy=remoteHost:remotePort
+```
+
+Each of these views includes only the maps configured under its `Map.` prefix. The `Remote` and `Collocated` sub-maps
+provide neither `operation` nor `identity`, so the first two views configure them with their own `GroupBy`; otherwise
+they inherit the Invocation map's grouping and record nothing.
 
 ## IceMX.Metrics._view_.Reject._attribute_
 
