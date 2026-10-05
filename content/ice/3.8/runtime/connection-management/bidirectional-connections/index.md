@@ -86,10 +86,10 @@ Bidirectional connections have certain limitations:
 
 - They can only be configured for connection-oriented transports such as TCP and SSL.
 - Most proxy factory methods are not relevant for a fixed proxy. The proxy is bound to an existing connection, therefore
-  the proxy reflects the connection's configuration. `ice_endpoints`, `ice_adapterId`, `ice_locator`, `ice_router`,
-  `ice_collocationOptimized`, `ice_connectionCached`, `ice_endpointSelection`, `ice_locatorCacheTimeout` and
-  `ice_connectionId` throw `FixedProxyException` when called on a fixed proxy. Note however that it is legal to
-  configure a fixed proxy for using oneway or twoway invocations.
+  the proxy reflects the connection's configuration. Changing the endpoints, adapter ID, locator, router,
+  {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}collocation optimization, {% /iflang %}connection
+  caching, endpoint selection, locator cache timeout or connection ID of a fixed proxy throws `FixedProxyException`.
+  Note however that it is legal to configure a fixed proxy for using oneway or twoway invocations.
 - Marshaling a fixed proxy, for example as an operation parameter, or converting it to proxy properties throws
   `FixedProxyException`.
 - A connection established from a Glacier2 router to a server is not configured for bidirectional use. Only the

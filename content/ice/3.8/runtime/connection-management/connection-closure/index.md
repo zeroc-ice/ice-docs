@@ -38,8 +38,8 @@ connection. You should assign the same idle timeout to all your clients and serv
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-A connection suspends its idle check while it stops reading: when its object adapter is on hold, or when it reaches the
-[MaxDispatches](../../../property-reference/ice-connection-properties) limit.
+A connection suspends its idle check while it stops reading: when the object adapter of an incoming connection is on
+hold, or when it reaches the [MaxDispatches](../../../property-reference/ice-connection-properties) limit.
 
 {% /iflang %}
 
@@ -116,6 +116,11 @@ object in a dispatch. It can then close this connection:
 
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
+A connection sends `CloseConnection` only once its dispatches have completed, so a dispatch that waits for the closure
+of its own connection never completes. In a dispatch, start the closure of the connection that received the request and
+return without waiting for the closure to complete. In Java, whose `close` blocks until the connection is closed, call
+`close` from another thread.
+
 To be notified when a connection closes, whatever the reason, register a callback with `setCloseCallback`. Ice calls
 this callback once the connection is closed; when you set it on a connection that is already closed, Ice calls it
 asynchronously right away.
@@ -127,18 +132,18 @@ asynchronously right away.
 A connection records the exception that describes why it closed. `Connection.throwException` throws this exception, and
 invocations on a [fixed proxy](../bidirectional-connections) bound to this connection fail with it:
 
-| Reason for the closure                                                  | Exception                                                             |
-| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| The application called `abort`.                                         | `ConnectionAbortedException`, with `closedByApplication` set to true  |
-| The idle check aborted the connection.                                  | `ConnectionAbortedException`, with `closedByApplication` set to false |
-| The application called `close`.                                         | `ConnectionClosedException`, with `closedByApplication` set to true   |
-| The inactivity check closed the connection.                             | `ConnectionClosedException`, with `closedByApplication` set to false  |
-| The peer closed the connection gracefully.                              | `CloseConnectionException`                                            |
-| The connection was not established within the connect timeout.          | `ConnectTimeoutException`                                             |
-| The graceful closure did not complete within the close timeout.         | `CloseTimeoutException`                                               |
-| The communicator was destroyed.                                         | `CommunicatorDestroyedException`                                      |
-| The object adapter of an incoming connection was deactivated.           | `ObjectAdapterDeactivatedException`                                   |
-| The transport connection failed, for example when the peer disappeared. | `ConnectionLostException` or another socket exception                 |
+| Reason for the closure                                                                                       | Exception                                                             |
+| ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| The application called `abort`.                                                                              | `ConnectionAbortedException`, with `closedByApplication` set to true  |
+| The idle check aborted the connection.                                                                       | `ConnectionAbortedException`, with `closedByApplication` set to false |
+| The application called `close`.                                                                              | `ConnectionClosedException`, with `closedByApplication` set to true   |
+| The inactivity check closed the connection.                                                                  | `ConnectionClosedException`, with `closedByApplication` set to false  |
+| The peer closed the connection gracefully.                                                                   | `CloseConnectionException`                                            |
+| The connection was not established within the connect timeout.                                               | `ConnectTimeoutException`                                             |
+| The graceful closure did not complete within the close timeout.                                              | `CloseTimeoutException`                                               |
+| The communicator of an outgoing connection was destroyed.                                                    | `CommunicatorDestroyedException`                                      |
+| The object adapter of an incoming connection was deactivated, including when its communicator was destroyed. | `ObjectAdapterDeactivatedException`                                   |
+| The transport connection failed, for example when the peer disappeared.                                      | `ConnectionLostException` or another socket exception                 |
 
 ## See Also
 
