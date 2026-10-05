@@ -11,12 +11,13 @@ Each communicator creates two thread pools:
 - The _client thread pool_ services outgoing connections: it sends the requests that the invoking thread cannot write
   without blocking, such as requests queued while the connection is being established, and it handles the replies to
   outgoing requests{% iflang langs="cpp,java" %} and includes executing AMI
-  callbacks{% /iflang %}{% iflang langs="python" %} and includes executing the callbacks of Ice futures; when the
-  communicator has an event loop adapter, such as the asyncio event loop passed to `Ice.Communicator`, an awaited
-  invocation resumes on this event loop instead{% /iflang %}{% iflang langs="csharp" %}; Ice completes the task of an
-  asynchronous invocation with `RunContinuationsAsynchronously`, so the code that follows an awaited invocation runs on
-  a .NET thread pool thread by default{% /iflang %}{% iflang langs="swift" %}; an awaited invocation resumes through a
-  Swift continuation, outside the thread pool{% /iflang %}. If a connection is used in
+  callbacks{% /iflang %}{% iflang langs="python" %} and includes executing the callbacks of Ice futures, such as the
+  code that follows an awaited invocation in a coroutine dispatch method; when the communicator has an event loop
+  adapter, such as the asyncio event loop passed to `Ice.Communicator`, an awaited invocation resumes on this event loop
+  instead{% /iflang %}{% iflang langs="csharp" %}; Ice completes the task of an asynchronous invocation with
+  `RunContinuationsAsynchronously`, so the code that follows an awaited invocation runs on a .NET thread pool thread by
+  default{% /iflang %}{% iflang langs="swift" %}; an awaited invocation resumes through a Swift continuation, outside
+  the thread pool{% /iflang %}. If a connection is used in
   [bidirectional mode](../../connection-management/bidirectional-connections), the client thread pool also dispatches
   incoming requests.
 - The _server thread pool_ services incoming connections. It dispatches incoming requests and, for bidirectional
@@ -146,7 +147,9 @@ The `executor` field of `InitializationData` lets the application choose this th
 executor with each dispatch or callback to execute, and with the connection associated with this call, which can be
 null. The executor must eventually execute the call, for example by queuing it to a UI thread so that dispatches and
 callbacks can update UI objects directly. The executor, rather than the size of the thread pool, then determines which
-of the calls it receives run concurrently.
+of the calls it receives run concurrently.{% iflang langs="python" %} When the communicator has an event loop adapter,
+the adapter runs coroutine dispatch methods and the code that follows an awaited invocation on its event loop, whichever
+thread the executor chooses.{% /iflang %}
 
 The `threadStart` and `threadStop` fields of `InitializationData` are functions that the communicator calls when it
 starts a new thread and when this thread is about to terminate.

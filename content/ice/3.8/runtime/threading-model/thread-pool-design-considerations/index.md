@@ -20,13 +20,25 @@ There are several implications of using a thread pool with a maximum size of one
 
 {% /iflang %}
 
-{% iflang langs="csharp,python" %}
+{% iflang langs="csharp" %}
 
 - **Only one message can be dispatched at a time.** The pool's thread calls one dispatch method at a time, which lets
   you avoid (or postpone) dealing with thread-safety issues in the code that a dispatch method runs before its first
   `await`. The code that follows an `await` runs elsewhere and can run concurrently with other dispatches.
 - **Only one reply can be processed at a time.** The code that follows an awaited invocation runs elsewhere and can run
   concurrently with the processing of other replies.
+
+{% /iflang %}
+
+{% iflang langs="python" %}
+
+- **Only one message can be dispatched at a time.** The pool's thread calls one dispatch method at a time. Without an
+  event loop adapter, this thread also runs a coroutine dispatch method up to its first `await`. When the communicator
+  has an event loop adapter, the adapter runs the whole coroutine on its event loop, even when an executor runs
+  dispatches on another thread.
+- **Only one reply can be processed at a time.** Without an event loop adapter, the code that follows an awaited
+  invocation in a coroutine dispatch method runs on the thread that completes the invocation, and it occupies this
+  thread while it runs. When the communicator has an event loop adapter, this code runs on the event loop.
 
 {% /iflang %}
 
