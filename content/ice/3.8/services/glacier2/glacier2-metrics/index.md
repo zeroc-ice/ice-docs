@@ -28,7 +28,7 @@ use [metrics properties](../../../property-reference/icemx-metrics-properties) w
 `IceMX.Metrics.view-name.Map.Session` prefix, for example:
 
 - `IceMX.Metrics.SessionView.Map.Session.GroupBy=id` to configure a view containing one metrics object per session
-  identity. Sessions created with the same user ID or certificate subject DN share one metrics object.
+  identity. Glacier2 records all the sessions with the same user ID or certificate subject DN in one metrics object.
 - `IceMX.Metrics.SessionView.Map.Session.GroupBy=none` to configure a view containing a single metrics object with
   metrics for all the sessions.
 
