@@ -7,3 +7,28 @@ $greeter = VisitorCenter\GreeterPrxHelper::createProxy(
 ```
 
 {% /language-section %}
+
+{% language-section name="using-the-ssl-transport-2" %}
+
+{% callout type="note" %}
+Ice for PHP is client-only: it cannot create object adapters.
+{% /callout %}
+
+{% /language-section %}
+
+{% language-section name="using-the-ssl-transport-4" %}
+
+{% callout type="note" %}
+Ice for PHP is client-only: it cannot create object adapters.
+{% /callout %}
+
+{% /language-section %}
+
+{% language-section name="using-the-ssl-transport-5" %}
+
+```config
+# The trusted certificate authorities used to validate peer certificates.
+IceSSL.CAs=ca_cert.pem
+```
+
+{% /language-section %}

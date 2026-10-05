@@ -37,6 +37,12 @@ or
 
 This SSL configuration applies to all SSL incoming connections accepted by that object adapter.
 
+When you set these options, the SSL transport uses them instead of the configuration it builds from the `IceSSL`
+properties.
+
+When the `IceSSL` properties provide no certificate and the application provides no `serverAuthenticationOptions`,
+creating an object adapter with an `ssl` endpoint throws `Ice.SecurityException`.
+
 {% /language-section %}
 
 {% language-section name="using-the-ssl-transport-4" %}
@@ -55,7 +61,7 @@ IceSSL.Trace.Security=1
 {% language-section name="using-the-ssl-transport-5" %}
 
 ```config
-# The trusted certificated authorities used to validate peer certificates.
+# The trusted certificate authorities used to validate peer certificates.
 IceSSL.CAs=ca_cert.pem
 ```
 
