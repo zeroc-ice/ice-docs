@@ -7,9 +7,14 @@
       "name": "heading-anchor",
       "pattern": "/\\{%\\s*id=\"[^\"]*\"\\s*%\\}/g",
       "description": "A heading's own anchor, such as {% id=\"ice.default.host-synopsis\" %}: lowercased names the heading text already spells"
+    },
+    {
+      "name": "slot-name",
+      "pattern": "/\\{%\\s*language-section name=\"[^\"]*\"[^%]*%\\}/g",
+      "description": "A language slot's name, such as {% language-section name=\"ice.default.encodingversion\" /%}: lowercased names the heading it sits under already spells"
     }
   ],
-  "ignoreRegExpList": ["heading-anchor"],
+  "ignoreRegExpList": ["heading-anchor", "slot-name"],
   "words": [
     "abstractmethod",
     "adapterid",
