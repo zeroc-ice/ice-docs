@@ -21,6 +21,7 @@ env:
   IMAGE: ghcr.io/zeroc-ice/ice-docs
   SITE_URL: https://dev.docs.zeroc.com
   SITE_NOINDEX: '1'
+  GA_MEASUREMENT_ID: G-6J8F67JWKT
 
 jobs:
   test:
@@ -100,6 +101,7 @@ jobs:
           build-args: |
             SITE_URL=${{ env.SITE_URL }}
             SITE_NOINDEX=${{ env.SITE_NOINDEX }}
+            GA_MEASUREMENT_ID=${{ env.GA_MEASUREMENT_ID }}
           # Pushed by digest only; the publish job tags the multi-arch index.
           outputs: >-
             type=image,
