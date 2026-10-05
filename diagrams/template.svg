@@ -100,6 +100,18 @@
       stroke-width: 1.5;
     }
 
+    .firewall {
+      fill: #eef0f3;
+      stroke: #566174;
+      stroke-width: 1.75;
+    }
+
+    .data {
+      fill: #f6f7f9;
+      stroke: #8d99aa;
+      stroke-width: 1.25;
+    }
+
     .network-boundary {
       fill: none;
       stroke: #7a8699;
@@ -158,6 +170,11 @@
       stroke-dasharray: 2 5;
     }
 
+    .alternate {
+      marker-end: url(#arrow);
+      stroke-dasharray: 10 4 2 4;
+    }
+
     .inheritance {
       fill: none;
       marker-end: url(#inheritance-arrow);
@@ -211,8 +228,21 @@
       text-anchor: middle;
     }
 
+    .zone-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
     .file-label,
-    .interface-name {
+    .interface-name,
+    .code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
 
@@ -259,6 +289,10 @@
   <!-- Every stroked shape and path must set vector-effect="non-scaling-stroke". -->
   <g id="boundaries" aria-hidden="true">
     <!-- Process, host, network, and API boundaries. -->
+    <!-- Network zone example; its .zone-label texts go in the labels group:
+         <path class="network-boundary" d="M X Y1 V Y2" vector-effect="non-scaling-stroke"/>
+         <text class="zone-label" x="X-12" y="Y1+14" text-anchor="end">Public network</text>
+         <text class="zone-label" x="X+12" y="Y1+14">Private network</text> -->
   </g>
   <g id="connectors" aria-hidden="true">
     <!-- One-way, two-way, callback, association, blocked, topic-link, through-firewall, and inheritance paths. -->
@@ -268,10 +302,26 @@
   </g>
   <g id="components" aria-hidden="true">
     <!-- Applications, actors, interfaces, states, documents, runtimes, generated code, and services. -->
+    <!-- Firewall example, 96 units wide; a traversing connection continues across it:
+         <rect class="firewall" x="X" y="Y" width="96" height="H" rx="3" vector-effect="non-scaling-stroke"/>
+         <path class="connector through-firewall" d="M X Yc H X+96" vector-effect="non-scaling-stroke"/>
+         Label: <text class="component-label" x="X+48" y="Y+26">Firewall</text> -->
+    <!-- Glacier2 example, 240 × 136 with a 40-unit header and two endpoint cells:
+         <rect class="service" x="X" y="Y" width="240" height="136" rx="8" vector-effect="non-scaling-stroke"/>
+         <path class="divider" d="M X Y+40 H X+240 M X+120 Y+40 V Y+136" vector-effect="non-scaling-stroke"/>
+         Labels: "Glacier2" at (X+120, Y+26); "Client" / "endpoints" centered at X+60 and "Server" / "endpoints"
+         centered at X+180, first baseline Y+82, second Y+102; addresses as annotations from Y+136+24. -->
+    <!-- Data in transit example: <rect class="data" x="X" y="Y" width="W" height="30" rx="4"
+         vector-effect="non-scaling-stroke"/> with an .annotation label. -->
   </g>
   <g id="labels">
     <!-- Titles, component labels, label knockouts, annotations, and numbered step badges. -->
     <!-- Badge example: <use href="#step-badge-shape" transform="translate(X Y)"/> followed by native <text>. -->
     <!-- Document example: <use href="#document-shape" class="generated" x="X" y="Y" width="160" height="92"/>. -->
+    <!-- Legend example, below the drawing and left-aligned with it; entries in one row are 28 units apart:
+         <path class="connector one-way" d="M X Y H X+36" vector-effect="non-scaling-stroke"/>
+         <text class="legend-label" x="X+46" y="Y+5">Request</text>
+         <path class="connector callback" d="M X2 Y H X2+36" vector-effect="non-scaling-stroke"/>
+         <text class="legend-label" x="X2+46" y="Y+5">Callback</text> -->
   </g>
 </svg>

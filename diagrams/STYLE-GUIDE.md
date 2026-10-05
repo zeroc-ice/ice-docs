@@ -63,12 +63,25 @@ font-family:
 
 Use bold component labels and lighter annotation text. Most published diagrams, and the template, use 16-unit component
 labels and 14-unit annotations; the pilot figures and some dense flow diagrams use more specific roles and sizes. These
-sizes are starting points, not a fixed scale for every canvas. SVG units scale with the image: judge readability at the
-native display size and at the width available on the page.
+sizes are starting points, not a fixed scale for every canvas.
 
-Use sentence case. Set code identifiers and filenames in the shared monospace stack. Break long component labels into
-centered lines with enough baseline spacing for their type size. Give boundary titles their own clear header area so no
-border, connector, or pattern crosses the text.
+SVG units scale with the image. A font size of S units renders at S × `width` ÷ `viewBox` width pixels at the native
+display size, the largest size the page shows. At that size, component labels and boundary titles must render at 13
+pixels or more, and all other text, including annotations, step numbers, and category headers, at 12 pixels or more.
+`npm run check:diagrams` enforces the 12-pixel floor. The template sizes meet both limits on a `viewBox` up to 740 units
+wide at a native width of 700 pixels; a wider drawing needs larger type, so compact the layout first.
+
+Use sentence case. Set code identifiers, filenames, operation names, and property names in the shared monospace stack:
+
+```css
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+```
+
+Encoding layouts set each row that holds one encoded field of a fixed wire type, such as `Slice flags (byte)` or
+`Slice size (int)`, in the monospace stack, and each row that stands for a group of members or a table, such as
+`Required members`, in the sans-serif stack. Break long component labels into centered lines with enough baseline
+spacing for their type size. Give boundary titles their own clear header area so no border, connector, or pattern
+crosses the text.
 
 ## Color and shape roles
 
@@ -85,6 +98,8 @@ border, connector, or pattern crosses the text.
 | Inheritance connector          | —         | `#465266` | 2, hollow triangle marker      |
 | Divider inside a component     | —         | `#a6afbc` | 1.25, solid                    |
 | Network zone boundary          | —         | `#7a8699` | 1.5, dashed `7 5`              |
+| Firewall                       | `#eef0f3` | `#566174` | 1.75, solid, radius 3          |
+| Data in transit                | `#f6f7f9` | `#8d99aa` | 1.25, solid, radius 4          |
 | Blocked path                   | —         | `#b42318` | 1.75, dashed, red × terminator |
 | Out-of-threads activation span | hatch     | `#8d99aa` | 1.5, solid, 45° hatch          |
 
@@ -111,8 +126,8 @@ Standard compact components are approximately `120 × 54`; application and gener
 ## Connectors
 
 Use `.connector` for the shared line treatment and add a semantic modifier: `.one-way`, `.two-way`, `.callback`,
-`.blocked`, `.topic-link`, or `.through-firewall`. Family-specific connectors such as `.inheritance` are appropriate
-when their marker carries a different established meaning.
+`.blocked`, `.topic-link`, `.through-firewall`, or `.alternate`. Family-specific connectors such as `.inheritance` are
+appropriate when their marker carries a different established meaning.
 
 - Two-way: solid line with `marker-start` and `marker-end` set to `url(#arrow)`. Use it only when calls or messages and
   their replies genuinely flow in both directions.
@@ -123,6 +138,9 @@ when their marker carries a different established meaning.
 - Topic link: dotted `1 5` line with `marker-end`, for a link between IceStorm topics as opposed to message delivery.
   State the distinction in a legend or in the surrounding text.
 - Through a firewall: dotted `2 5` segment across the firewall component, continuing the connection that traverses it.
+- Alternate: dash-dot `10 4 2 4` line with `marker-end`, for a connection a peer opens to another configured endpoint
+  when its primary peer is unavailable, such as a second DataStorm broker. Run it beside the primary path it backs up,
+  and include it in a legend.
 - Network: use the standard connector color and place the label over a solid background that interrupts the line
   visually.
 - Association or “uses”: plain solid line without arrowheads. Do not use a two-way arrow as a generic association.
@@ -135,27 +153,42 @@ component rather than its label area.
 Connection count is part of a flow diagram's technical meaning. Do not turn one reused connection into two parallel
 lanes or merge two independent connections into one.
 
-Put an opaque white rounded knockout behind text placed over a connector. Give the text enough horizontal padding to
-make the interruption intentional.
+End each connector on the edge of the component it reaches, including the curved edge of a document shape: the template
+markers put the arrowhead at the path's end point, so a path that stops short leaves a gap under the arrowhead.
+
+Put an opaque white rounded knockout behind text placed over a horizontal or vertical connector. Give the text enough
+horizontal padding to make the interruption intentional. Place the label of a diagonal connector beside the line
+instead, because a rectangular knockout cuts a sloped line unevenly.
 
 When a diagram contains both forward requests and callbacks, use solid arrows for the original request and dashed arrows
-for the callback. Include a compact legend unless the surrounding page already establishes this convention
-unambiguously.
+for the callback.
+
+A figure that draws both requests and callbacks, or that uses the topic-link or alternate role, includes a legend. The
+legend sits below the drawing, left-aligned with it, without a title or frame: each entry is a 36-unit sample of the
+connector followed 10 units later by `.legend-label` text, and entries in one row are 28 units apart.
 
 Numbered steps use a white circular badge with a ZeroC-blue border and a centered number. The template provides a
 24-unit badge; size the number and nearby label for the figure. Define the circle once as `step-badge-shape` in
-`<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Leave a visible gap between the badge and its
-label.
+`<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Place each badge beside the connector it
+numbers, and leave a visible gap between the badge and its label.
 
 ## Boundaries and annotations
 
 - Processes and hosts use the dashed boundary style. Name them at the top center inside the boundary.
 - Ice API and other logical groupings use a solid boundary with a subtle tinted fill.
-- Firewall devices use a distinct narrow component with a clear `Firewall` label. A firewall or policy boundary uses a
-  labeled dashed line. Do not represent either with color alone.
+- Firewall devices use the `.firewall` component: 96 units wide, at least as tall as the components it connects, with a
+  `Firewall` component label at the top center inside it. When a figure shows a connection traversing the firewall, the
+  connection continues across it as a `.through-firewall` segment. A firewall or policy boundary uses a labeled dashed
+  line. Do not represent either with color alone.
 - Network zones use labeled boundaries only when the zone itself is meaningful. Use a dashed `7 5` line with a 1.5-unit
   `#7a8699` stroke so it remains visible at page size. Keep this stronger network boundary distinct from the lighter
-  host outlines, and interrupt it behind labels. Otherwise label the connector `Network`.
+  host outlines, and interrupt it behind labels. Name the zone on each side of the line in `.zone-label` text at the top
+  of the drawing, 12 units from the line and anchored toward it, for example `Public network` and `Private network`.
+  When the zones are not meaningful, omit the line and label the connector `Network`.
+- Glacier2 uses the service treatment: a `240 × 136` component with `Glacier2` centered in a 40-unit header, a divider
+  under the header, and two equal cells labeled `Client endpoints` and `Server endpoints` on two lines each. Set each
+  cell's addresses as annotations below the component, centered under the cell.
+- Data in transit, such as DataStorm samples, uses the `.data` treatment with an annotation that names it.
 - Set addresses and ports in annotation text immediately below the owning component, for example `IP: 10.0.0.1` or
   `tcp: 4061`.
 

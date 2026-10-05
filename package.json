@@ -20,7 +20,8 @@
     "format:check": "prettier --check .",
     "test": "node --test \"lib/**/*.test.ts\" \"utils/**/*.test.ts\" \"scripts/**/*.test.ts\"",
     "check:content": "node scripts/check-content.ts",
-    "check:markdoc": "node --import ./scripts/markdoc-esm-hooks.ts scripts/check-markdoc.ts"
+    "check:markdoc": "node --import ./scripts/markdoc-esm-hooks.ts scripts/check-markdoc.ts",
+    "check:diagrams": "node scripts/check-diagrams.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
