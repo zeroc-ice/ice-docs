@@ -62,21 +62,21 @@ You can use the following attributes when configuring the IceStorm `Topic` map:
 
 The `Subscriber` map can be configured with the following attributes:
 
-| **Name** | **Description**                                                                                        |
-| -------- | ------------------------------------------------------------------------------------------------------ |
-| id       | The id of the subscriber metrics is the stringified proxy of the subscriber.                           |
-| parent   | The name of the topic name to which this subscriber belongs.                                           |
-| none     | The empty string.                                                                                      |
-| topic    | The name of the topic name to which this subscriber belongs.                                           |
-| service  | The string `IceStorm`.                                                                                 |
-| identity | The identity of the subscriber proxy.                                                                  |
-| facet    | The facet of the subscriber proxy.                                                                     |
-| encoding | The encoding of the subscriber proxy.                                                                  |
-| mode     | The mode of the subscriber proxy: `twoway`, `oneway`, `batch-oneway`, `datagram`, or `batch-datagram`. |
-| proxy    | The subscriber proxy.                                                                                  |
-| link     | The proxy of the topic linked to the the topic which owns this subscriber.                             |
-| state    | The state of the subscriber. It can either be "online", "offline" or "error".                          |
-| qos.name | The value of the `name` entry in the subscriber's QoS, or `default` if the QoS has no such entry.      |
+| **Name**     | **Description**                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| id           | The id of the subscriber metrics is the stringified proxy of the subscriber.                           |
+| parent       | The name of the topic name to which this subscriber belongs.                                           |
+| none         | The empty string.                                                                                      |
+| topic        | The name of the topic name to which this subscriber belongs.                                           |
+| service      | The string `IceStorm`.                                                                                 |
+| identity     | The identity of the subscriber proxy.                                                                  |
+| facet        | The facet of the subscriber proxy.                                                                     |
+| encoding     | The encoding of the subscriber proxy.                                                                  |
+| mode         | The mode of the subscriber proxy: `twoway`, `oneway`, `batch-oneway`, `datagram`, or `batch-datagram`. |
+| proxy        | The subscriber proxy.                                                                                  |
+| link         | The proxy of the topic linked to the the topic which owns this subscriber.                             |
+| state        | The state of the subscriber. It can either be "online", "offline" or "error".                          |
+| `qos.<name>` | The value of the `<name>` entry in the subscriber's QoS, or `default` if the QoS has no such entry.    |
 
 For example, `IceMX.Metrics.IceStormView.Map.Subscriber.GroupBy=qos.reliability` groups subscribers by the value of
 their `reliability` QoS.
