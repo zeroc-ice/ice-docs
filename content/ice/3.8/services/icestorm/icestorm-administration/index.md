@@ -61,7 +61,7 @@ interactive session. The `help` command displays the following usage information
 - `subscribers TOPICS` Displays the identities of the subscribers for each of the `TOPICS`.
 
 Some of the commands accept one or more topic names (`TOPICS`) as arguments. Enclose a topic name that contains white
-space or a semicolon in single or double quotes.
+space or a semicolon, or that starts with `//` or `/*`, in single or double quotes.
 
 By default, `icestormadmin` uses the topic manager specified by your setting for
 [IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties). When this property is not
