@@ -18,6 +18,7 @@ import {
 } from '@/lib/docs-model/nav';
 import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
+import { size as imageSize } from '@/components/ice/OpenGraphImage';
 import { SITE_URL } from '@/lib/site';
 import {
   listPages,
@@ -50,13 +51,27 @@ export function docsPageParams(version: DocsVersion) {
   }));
 }
 
+/** The page the route's params name, and its slug. */
+async function pageOf(version: DocsVersion, props: PageProps) {
+  const slug = (await props.params).slug?.join('/') ?? '';
+  return { slug, page: listPages(version).find((p) => p.slug === slug)! };
+}
+
+/** A page's title, for the route's link preview card. */
+export async function docsPageTitle(
+  version: DocsVersion,
+  props: PageProps
+): Promise<string> {
+  const { page } = await pageOf(version, props);
+  return readPageSources(page).frontmatter.title;
+}
+
 /** A page's metadata, for the route's `generateMetadata`. */
 export async function docsPageMetadata(
   version: DocsVersion,
   props: PageProps
 ): Promise<Metadata> {
-  const slug = (await props.params).slug?.join('/') ?? '';
-  const page = listPages(version).find((p) => p.slug === slug)!;
+  const { slug, page } = await pageOf(version, props);
   const { title, description = '' } = readPageSources(page).frontmatter;
   // One URL for every language mapping: `?lang=` only picks the one shown.
   return {
@@ -64,7 +79,13 @@ export async function docsPageMetadata(
     // repeat.
     title: slug ? title : { absolute: versionTitle(version) },
     description,
-    alternates: { canonical: pageHref(version, slug) }
+    alternates: { canonical: pageHref(version, slug) },
+    // The page's own card, from app/og; the Twitter card follows it.
+    openGraph: {
+      images: [
+        { url: `/og${pageHref(version, slug)}`, ...imageSize, alt: title }
+      ]
+    }
   };
 }
 
