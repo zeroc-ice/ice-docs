@@ -20,6 +20,12 @@ falls back on its default Slice loader when your Slice loader doesn't create an 
 
 {% /iflang %}
 
+{% iflang langs="cpp,csharp,java,js,matlab,swift" %}
+
+The communicator calls your Slice loader for both Slice classes and Slice exceptions.
+
+{% /iflang %}
+
 {% language-section name="custom-slice-loaders" /%}
 
 ## See Also
