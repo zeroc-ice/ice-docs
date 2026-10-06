@@ -36,11 +36,11 @@ the size of the compressed message, including the uncompressed header, plus an a
 The `compressionStatus` field of the message header indicates whether a message is compressed and provides additional
 information, as shown in the table below.
 
-| **Compression status**                                       | **Value** | **Applies to**                                                       | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------------------------------------------ | --------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Message is uncompressed. Client requests uncompressed reply. | `0`       | Request, Batch Request, Reply, Validate Connection, Close Connection | A client that does not support compression always uses this value. A client that supports compression uses this value when compression is not enabled for the invocation. A server uses this value for an uncompressed reply when it does not support compression or when the request has compression status 0. Ice for C++ and Ice for Java also use this value when the dispatch throws an exception, regardless of the request's compression status (in Ice for Java, also when an asynchronous dispatch completes with an exception). |
-| Message is uncompressed. Client requests compressed reply.   | `1`       | Request, Batch Request, Reply                                        | A client that supports compression uses this value when compression is enabled for the invocation, but the client did not compress this particular message (for example because the message is smaller than 100 bytes). A server that supports compression uses this value for other uncompressed replies to a request with compression status 1 or 2. The receiver of a reply handles this value like 0.                                                                                                                                 |
-| Message is compressed. Client requests compressed reply.     | `2`       | Request, Batch Request, Reply                                        | A client that supports compression uses this value when compression is enabled for the invocation and the client compressed the message. A server uses this value for compressed replies.                                                                                                                                                                                                                                                                                                                                                 |
+| **Value** | **Applies to**                                                       | **Description**                                                                                                                           |
+| --------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`       | Request, Batch Request, Reply, Validate Connection, Close Connection | The message is not compressed, and the sender does not request a compressed reply.                                                        |
+| `1`       | Request, Batch Request, Reply                                        | The message is not compressed. In a request, the client requests a compressed reply. A receiver handles a reply with this value like `0`. |
+| `2`       | Request, Batch Request, Reply                                        | The message is compressed. In a request, the client requests a compressed reply.                                                          |
 
 The message body of a compressed request, batch request, or reply message is encoded by first writing the size of the
 uncompressed message (including its header) as a four-byte integer, followed by the compressed message body (excluding
@@ -61,7 +61,9 @@ A client attempts to compress a message if all the following conditions are true
 
 Otherwise, the client sends an uncompressed message.
 
-The client uses the message header's `compressionStatus` field as described in the table above.
+A client that compresses a message sets its compression status to 2. When compression is enabled for the invocation but
+the client does not compress the message, it sets 1; otherwise it sets 0. A client without compression support always
+sets 0.
 
 ## Compression Semantics for Servers
 
@@ -89,9 +91,11 @@ compress a reply if all the following conditions are true:
 - The server-side runtime supports compression
 - The size of the uncompressed reply is at least 100 bytes
 - The `compressionStatus` field of the corresponding request message has a value of 1 or 2
-- With Ice for C++ and Ice for Java, the dispatch did not throw an exception (see the table above)
+- With Ice for C++, a synchronous dispatch did not throw an exception; with Ice for Java, the dispatch did not throw or
+  complete with an exception
 
-Otherwise, the server sends an uncompressed reply.
+Otherwise, the server sends an uncompressed reply. A server sets the compression status of a compressed reply to 2, and
+of an uncompressed reply to 0 or 1.
 
 ## Compression Support by Language Mapping
 
