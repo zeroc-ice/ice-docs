@@ -236,8 +236,7 @@ See [Code Generation](../slice/code-generation).
 ## Arguments of Ice.initialize
 
 `Ice.initialize` takes either an argument list, such as `Ice.initialize(sys.argv)`, or an `Ice.InitializationData`
-object as the `initData` keyword argument. Ice 3.7 also accepted an argument list followed by an `InitializationData`
-object or by the name of a configuration file, and accepted each of them alone as the first argument.
+object as the `initData` keyword argument.
 
 To combine command-line arguments with an `InitializationData` object, create the properties of this object from the
 arguments:
@@ -250,22 +249,19 @@ arguments:
 +communicator = Ice.initialize(initData=initData)
 ```
 
-To combine command-line arguments with a configuration file, load the file into a `Properties` object and pass that
-object as the defaults to `Ice.createProperties`:
+To combine command-line arguments with a configuration file, add `--Ice.Config` to the arguments:
 
 ```diff
 -communicator = Ice.initialize(sys.argv, "config.client")
-+defaults = Ice.createProperties()
-+defaults.load("config.client")
-+initData = Ice.InitializationData()
-+initData.properties = Ice.createProperties(sys.argv, defaults)
-+communicator = Ice.initialize(initData=initData)
++sys.argv.append("--Ice.Config=config.client")
++communicator = Ice.initialize(sys.argv)
 ```
 
 ## Optional Values
 
-Ice 3.8 removes `Ice.Unset` and uses `None` for an optional parameter, return value, or field without a value, and the
-generated classes and exceptions use `None` as the initial value of an optional field with no default value in Slice.
+Ice 3.8 removes `Ice.Unset` and uses `None` in its place: Ice returns `None` for an optional parameter, return value or
+field without a value, an optional field with no default value in Slice is initially `None`, and a `None` you pass for
+an optional parameter or field means "not set".
 
 ```diff
 -if greeting is not Ice.Unset:
@@ -273,29 +269,14 @@ generated classes and exceptions use `None` as the initial value of an optional 
      print(greeting)
 ```
 
-Review the code that passes `None` for an optional parameter or field. Ice 3.7 sent `None` as a value: `False` for a
-`bool`, an empty string for a `string`, a null proxy, a null class instance, an empty sequence, an empty dictionary, or
-a default-constructed struct. Ice 3.8 sends no value for `None`. To keep sending a value, pass `False`, an empty string,
-an empty list, an empty dictionary, or a new instance of the struct:
-
-```diff
--greeter.greetAll(None)
-+greeter.greetAll([])
-```
-
-An optional proxy or class no longer distinguishes a null value from a missing value: Ice 3.8 returns `None` for both.
-An application that relies on this distinction needs to represent it with a separate Slice parameter or field.
-
 ## Enumerations
 
 A generated enumeration now derives from the `enum.Enum` class of Python, and Ice 3.8 removes `Ice.EnumBase`. An
 enumerator keeps its `name` and `value` attributes. Update the code that uses the following:
 
-- `valueOf`: call the enumeration with the value. `Color.valueOf(n)` returned `None` when no enumerator has the value
-  `n`; `Color(n)` raises `ValueError`.
-- The `<`, `<=`, `>` and `>=` operators: Ice 3.7 compared the values of two enumerators, and `enum.Enum` raises
-  `TypeError`. Compare the `value` attributes.
-- `str`: `str(Color.Red)` returned `Red` and now returns `Color.Red`. Read the `name` attribute to get `Red`.
+- `Color.valueOf(n)` becomes `Color(n)`.
+- The `<`, `<=`, `>` and `>=` operators no longer work on enumerators: compare the `value` attributes.
+- `str(Color.Red)` now returns `Color.Red`; use `Color.Red.name` to get `Red`.
 
 ```diff
 -color = Color.valueOf(n)
@@ -305,7 +286,7 @@ enumerator keeps its `name` and `value` attributes. Update the code that uses th
      ...
 ```
 
-## Structs, Sequences, and Dictionaries
+## Using None for a Struct
 
 Marshaling `None` for a struct parameter, return value, or field that is not optional now fails with a `ValueError`. Ice
 3.7 marshaled a default-constructed struct in this case. Pass an instance of the struct:
@@ -315,16 +296,24 @@ Marshaling `None` for a struct parameter, return value, or field that is not opt
 +clock.setTime(TimeOfDay())
 ```
 
-When you construct a generated class, exception, or struct without a value for a sequence or dictionary field that is
-not optional, this field is now an empty sequence or an empty dictionary. In Ice 3.7, this field was `None`. Update the
-code that compares such a field with `None`.
-
 ## Asynchronous Invocations
 
-Ice 3.8 removes the `begin_` and `end_` methods and `Ice.AsyncResult`. Call the `Async` method of the same operation,
-such as `greetAsync` or `flushBatchRequestsAsync`, which Ice 3.7 also provides. When you create the communicator without
-an event loop and without an event loop adapter, a proxy's `Async` method returns an `Ice.InvocationFuture` as in Ice
-3.7, and your application does not need to use `asyncio`:
+The synchronous proxy methods work as in Ice 3.7. For asynchronous invocations, we recommend the `Async` methods with
+`asyncio`: create the communicator with the running event loop, then `await` the invocation. The code is as simple as
+with the synchronous methods, and the event loop can run other tasks while the invocation is in progress:
+
+```python
+async def main():
+    async with Ice.Communicator(sys.argv, eventLoop=asyncio.get_running_loop()) as communicator:
+        greeter = GreeterPrx(communicator, "greeter:tcp -h localhost -p 4061")
+        greeting = await greeter.greetAsync("alice")
+        print(greeting)
+
+asyncio.run(main())
+```
+
+Ice 3.8 removes the `begin_` and `end_` methods and `Ice.AsyncResult`. Without an event loop, an `Async` method returns
+an `Ice.InvocationFuture`, as in Ice 3.7:
 
 ```diff
 -result = greeter.begin_greet("alice")
@@ -334,9 +323,7 @@ an event loop and without an event loop adapter, a proxy's `Async` method return
 ```
 
 Replace the `_response` and `_ex` callbacks of a `begin_` method with a callback registered with `add_done_callback` on
-the future, and the `_sent` callback with a callback registered with `add_sent_callback`.
-
-A callback registered with `add_sent_callback` now receives a single argument. Ice 3.7 passed the future as the first
+the future, and the `_sent` callback with a callback registered with `add_sent_callback`, which now receives a single
 argument:
 
 ```diff
@@ -349,8 +336,9 @@ argument:
 
 ## Sequence Metadata
 
-Replace the `python:seq:list` and `python:seq:tuple` metadata with `python:list` and `python:tuple`, and remove the
-`python:seq:default` and `python:default` metadata. `slice2py` ignores these four directives with a warning. See the
+The `python:seq:list`, `python:seq:tuple`, `python:seq:default` and `python:default` metadata directives have been
+removed; `slice2py` ignores them with a warning. Replace `python:seq:list` and `python:seq:tuple` with `python:list` and
+`python:tuple`, and remove `python:seq:default` and `python:default`. See the
 [sequence mapping](../slice/user-defined-types/sequences).
 
 ```diff
@@ -358,25 +346,22 @@ Replace the `python:seq:list` and `python:seq:tuple` metadata with `python:list`
 +["python:tuple"] sequence<string> StringSeq;
 ```
 
-The factory function of a `python:memoryview` directive now takes two parameters, the memory view and the element type.
-Ice 3.7 passed a third parameter, `copy`. The memory view always refers to the buffer that Ice unmarshals from, as it
-did in Ice 3.7 when `copy` was true, and Ice passes `None` for an empty sequence. Ice 3.8 removes `Ice.createArray` and
-`Ice.createNumPyArray`: use the `python:array.array` and `python:numpy.ndarray` metadata, or create the sequence in your
-factory function.
+Ice 3.8 removes `Ice.createArray` and `Ice.createNumPyArray`, the factory functions that Ice 3.7 provided for the
+`python:memoryview` metadata. To map a sequence to an `array.array` or to a NumPy array, use the `python:array.array` or
+`python:numpy.ndarray` metadata instead:
 
 ```diff
--def myIntSeq(buffer, type, copy):
--    return Ice.createNumPyArray(buffer, type, copy)
-+def myIntSeq(buffer, type):
-+    if buffer is None:
-+        return numpy.empty(0, numpy.int32)
-+    return numpy.frombuffer(buffer.tobytes(), numpy.int32)
+-["python:memoryview:MyModule.createIntArray"] sequence<int> IntSeq;
++["python:numpy.ndarray"] sequence<int> IntSeq;
 ```
+
+A factory function for `python:memoryview` now takes two parameters, the memory view and the element type; Ice 3.7
+passed a third parameter, `copy`.
 
 ## Marshaled Results
 
-`slice2py` no longer generates the `MarshaledResult` helper functions for an operation with the `marshaled-result`
-metadata. Return the result itself from the servant method:
+The `marshaled-result` metadata no longer affects the generated Python code: `slice2py` no longer generates the
+`MarshaledResult` helper methods, and the servant method returns the result itself:
 
 ```diff
  def getNode(self, current):
@@ -384,12 +369,7 @@ metadata. Return the result itself from the servant method:
 +    return self._node
 ```
 
-Ice marshals this result after the method returns. If the method returns an object that another thread modifies, return
-a copy of this object. Keep the `marshaled-result` metadata in a Slice file that you also compile for another language
-mapping.
-
-## UUIDs
-
-Ice 3.8 removes `Ice.generateUUID`. Call `str(uuid.uuid4())` with the `uuid` module of Python.
+Keep the `marshaled-result` metadata in a Slice file that you also compile for another language mapping, where it still
+applies.
 
 {% /language-section %}
