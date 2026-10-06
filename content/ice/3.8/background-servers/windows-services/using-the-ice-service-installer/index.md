@@ -9,11 +9,6 @@ services as Windows services:
 - [IceGrid node](../../../services/icegrid/icegrid-server-reference/icegridnode)
 - [Glacier2 router](../../../services/glacier2/getting-started-with-glacier2)
 
-Ice includes other programs that can also be run as Windows services, such as the [IceBox](../../../services/icebox)
-server. Typically it is not necessary to install these programs as Windows services because they can be launched by an
-IceGrid node service. However, if you wish to run an IceBox as a Windows service without the use of IceGrid, you must
-[manually install](../manually-installing-a-service-as-a-windows-service) the service.
-
 Here we describe how to use the Ice service installer and discuss its actions and prerequisites.
 
 ## `iceserviceinstall` Command Line Options
@@ -179,9 +174,7 @@ proceeds to remove the service. The service's event log source is removed and, i
 - [icegridregistry](../../../services/icegrid/icegrid-server-reference/icegridregistry)
 - [icegridnode](../../../services/icegrid/icegrid-server-reference/icegridnode)
 - [Getting Started with Glacier2](../../../services/glacier2/getting-started-with-glacier2)
-- [IceBox](../../../services/icebox)
 - [Installing a Windows Service](../installing-a-windows-service)
-- [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)
 - [Troubleshooting Windows Services](../troubleshooting-windows-services)
 - [IceGrid.*](../../../property-reference/icegrid-properties)
 - [Glacier2.*](../../../property-reference/glacier2-properties)

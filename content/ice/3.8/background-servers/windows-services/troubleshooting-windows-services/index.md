@@ -112,4 +112,3 @@ Another way to grant the node's user account with the necessary access rights is
 
 - [Load Balancing](../../../services/icegrid/load-balancing)
 - [Installing a Windows Service](../installing-a-windows-service)
-- [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)
