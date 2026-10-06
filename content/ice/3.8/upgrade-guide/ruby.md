@@ -23,9 +23,7 @@ command string, optionally followed by such an array.
 
 ## Communicator Initialization
 
-`Ice::initialize` now takes at most one argument, either an argument array or an `Ice::InitializationData` object. Ice
-3.7 also accepted the name of a configuration file, and an argument array followed by an `Ice::InitializationData`
-object or by the name of a configuration file.
+`Ice::initialize` now takes at most one argument, either an argument array or an `Ice::InitializationData` object.
 
 To combine command-line arguments with an `Ice::InitializationData` object, create its properties from the arguments,
 with the properties it already holds as the defaults:
@@ -38,15 +36,11 @@ with the properties it already holds as the defaults:
  end
 ```
 
-To combine command-line arguments with a configuration file, load the file into a `Properties` object and pass that
-object as the defaults to `Ice::createProperties`:
+To combine command-line arguments with a configuration file, add `--Ice.Config` to the arguments:
 
 ```diff
 -Ice::initialize(ARGV, "config.client") do |communicator|
-+defaults = Ice::createProperties
-+defaults.load("config.client")
-+properties = Ice::createProperties(ARGV, defaults)
-+Ice::initialize(Ice::InitializationData.new(properties)) do |communicator|
++Ice::initialize(ARGV + ["--Ice.Config=config.client"]) do |communicator|
      ...
  end
 ```
@@ -65,23 +59,18 @@ remove the options they recognize from the array you pass, so read the remaining
 
 ## Optional Values
 
-`Ice::Unset` is now an alias for `nil`. In Ice 3.7, `Ice::Unset` was a separate marker object that Ice returned for an
-optional parameter, return value, or field without a value, and that the generated classes and exceptions used as the
-initial value of an optional field with no default value in Slice. Ice 3.8 returns and uses `nil` in all these cases, so
-a comparison with `Ice::Unset` still identifies an optional without a value, except for an optional proxy or class (see
-below).
+`Ice::Unset` is now an alias for `nil`: Ice returns `nil` for an optional parameter, return value or field without a
+value, an optional field with no default value in Slice is initially `nil`, and a `nil` you pass for an optional
+parameter or field means "not set". Code that compares with `Ice::Unset` keeps working.
 
-Review the code that passes `nil` for an optional parameter or field. Ice 3.7 sent `nil` as a value: `false` for a
-`bool`, a null proxy, a null class instance, an empty sequence, an empty dictionary, or a default-constructed struct.
-Ice 3.8 sends no value for `nil`. To keep sending a value, pass `false`, an empty array, an empty hash, or a new
-instance of the struct:
+## Using nil for a Struct
+
+A non-optional struct parameter or field no longer accepts `nil`. Ice 3.7 marshaled a default-constructed struct in its
+place. Pass an instance of the struct:
 
 ```diff
--greeter.greetAll(nil)
-+greeter.greetAll([])
+-greeter.setLocation(nil)
++greeter.setLocation(VisitorCenter::Location.new)
 ```
-
-An optional proxy or class no longer distinguishes a null value from a missing value: Ice 3.8 returns `nil` for both. An
-application that relies on this distinction needs to represent it with a separate Slice parameter or field.
 
 {% /language-section %}
