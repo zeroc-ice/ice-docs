@@ -119,7 +119,8 @@ For a connection over IP, the `remoteHost`, `remotePort`, `localHost`, and `loca
 client's connection to the router; for other connections, the hosts are empty and the ports are 0. The router leaves
 `cipher` empty. `certs` holds a single element: the client's certificate in the Privacy Enhanced Mail (PEM) encoding.
 The router rejects `createSessionFromSecureConnection` with `PermissionDeniedException`, without invoking the verifier,
-when the client does not provide a certificate or when the subject name of the certificate is empty.
+when the client's connection is not an SSL connection, when the client does not provide a certificate, or when the
+subject name of the certificate is empty.
 
 Although the SSL implementation has already validated the certificate, a verifier implementation typically needs to
 examine it in detail before making its decision, such as the distinguished names of its subject and issuer. The verifier
@@ -325,7 +326,7 @@ proxy `factory@SecretAdapter`:
 Glacier2.Filter.AdapterId.Accept=WidgetAdapter
 ```
 
-The router applies this filter only to proxies with an adapter identifier.
+This filter does not apply to requests for well-known objects or for objects reached through direct proxies.
 
 If an adapter identifier contains spaces, you can enclose the value in single or double quotes. If an adapter identifier
 contains a quote character, it must be escaped with a leading backslash.
