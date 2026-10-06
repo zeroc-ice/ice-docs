@@ -163,32 +163,39 @@ The byte following the request ID indicates the status of the request, and the r
 The possible reply status values are shown in the table below (most of these values correspond to
 [common exceptions](../../runtime/local-and-dispatch-exceptions)).
 
-| **Reply status**            | **Numeric value** | **Payload**                                                                      | **Description**                                                                                                                                                                                      |
-| --------------------------- | ----------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ok                          | `0`               | Encapsulation: the results                                                       | The dispatch completed successfully.                                                                                                                                                                 |
-| User exception              | `1`               | Encapsulation: the [user exception](../../encoding/data-encoding-for-exceptions) | The dispatch completed with a user exception.                                                                                                                                                        |
-| Object does not exist       | `2`               | [`RequestFailedData`](#request-failed-reply-payload)                             | The dispatch completed with an `ObjectNotExistException`.                                                                                                                                            |
-| Facet does not exist        | `3`               | [`RequestFailedData`](#request-failed-reply-payload)                             | The dispatch completed with a `FacetNotExistException`.                                                                                                                                              |
-| Operation does not exist    | `4`               | [`RequestFailedData`](#request-failed-reply-payload)                             | The dispatch completed with an `OperationNotExistException`.                                                                                                                                         |
-| Unknown Ice local exception | `5`               | `string`                                                                         | The dispatch completed with an `UnknownLocalException` or with an Ice local exception other than a `DispatchException`, such as a `MarshalException` raised while unmarshaling the input parameters. |
-| Unknown Ice user exception  | `6`               | `string`                                                                         | The dispatch completed with an `UnknownUserException`, for example one that the servant received from an invocation it made and did not catch.                                                       |
-| Unknown exception           | `7`               | `string`                                                                         | The dispatch completed with another type of exception.                                                                                                                                               |
-| Invalid data                | `8`               | `string`                                                                         | The dispatch failed because the request payload could not be unmarshaled.                                                                                                                            |
-| Unauthorized                | `9`               | `string`                                                                         | The caller is not authorized to access the requested resource.                                                                                                                                       |
-| Not supported               | `10`              | `string`                                                                         | The dispatch failed because the request requires a feature that the server or the target servant does not support.                                                                                   |
-| Other                       | `11` to `255`     | `string`                                                                         | The dispatch failed for some other reason. The client reports such a reply as a `DispatchException` that carries the reply status value.                                                             |
+| **Reply status**            | **Numeric value** | **Payload**                                                  | **Description**                                                                                                                                                                                      |
+| --------------------------- | ----------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ok                          | `0`               | [Encapsulated results](#ok-reply-payload)                    | The dispatch completed successfully.                                                                                                                                                                 |
+| User exception              | `1`               | [Encapsulated user exception](#user-exception-reply-payload) | The dispatch completed with a user exception.                                                                                                                                                        |
+| Object does not exist       | `2`               | [`RequestFailedData`](#request-failed-reply-payload)         | The dispatch completed with an `ObjectNotExistException`.                                                                                                                                            |
+| Facet does not exist        | `3`               | [`RequestFailedData`](#request-failed-reply-payload)         | The dispatch completed with a `FacetNotExistException`.                                                                                                                                              |
+| Operation does not exist    | `4`               | [`RequestFailedData`](#request-failed-reply-payload)         | The dispatch completed with an `OperationNotExistException`.                                                                                                                                         |
+| Unknown Ice local exception | `5`               | `string`                                                     | The dispatch completed with an `UnknownLocalException` or with an Ice local exception other than a `DispatchException`, such as a `MarshalException` raised while unmarshaling the input parameters. |
+| Unknown Ice user exception  | `6`               | `string`                                                     | The dispatch completed with an `UnknownUserException`, for example one that the servant received from an invocation it made and did not catch.                                                       |
+| Unknown exception           | `7`               | `string`                                                     | The dispatch completed with another type of exception.                                                                                                                                               |
+| Invalid data                | `8`               | `string`                                                     | The dispatch failed because the request payload could not be unmarshaled.                                                                                                                            |
+| Unauthorized                | `9`               | `string`                                                     | The caller is not authorized to access the requested resource.                                                                                                                                       |
+| Not supported               | `10`              | `string`                                                     | The dispatch failed because the request requires a feature that the server or the target servant does not support.                                                                                   |
+| Other                       | `11` to `255`     | `string`                                                     | The dispatch failed for some other reason. The client reports such a reply as a `DispatchException` that carries the reply status value.                                                             |
 
-For reply statuses 0 and 1, the reply payload is an [encapsulation](../../encoding/basic-data-encoding), which carries
-its own encoding version. For every other reply status, the reply payload is not enclosed in an encapsulation and uses
-the encoding version of the message header. A `string` payload describes the exception.
+For reply statuses 0 and 1, the reply payload is an [encapsulation](../../encoding/basic-data-encoding) that uses the
+encoding version of the request's `params` encapsulation. For every other reply status, the reply payload is not
+enclosed in an encapsulation and uses the encoding version of the message header. A `string` payload describes the
+exception.
 
-The encapsulation of an Ok reply holds the required out-parameters in order of declaration, followed by the return value
-if it is required, followed by the [optional](../../encoding/data-encoding-for-optional-values) out-parameters and
-optional return value sorted by tag. If an operation declares a `void` return type and no out-parameters, the
-encapsulation is empty.
+### Ok Reply Payload
 
-A servant that throws a Slice user exception produces reply status 1, even when this exception does not match the
-operation's exception specification; the client converts such an exception into an `UnknownUserException`.
+For reply status 0, the reply payload is an encapsulation that holds the required out-parameters in order of
+declaration, followed by the return value if it is required, followed by the
+[optional](../../encoding/data-encoding-for-optional-values) out-parameters and optional return value sorted by tag. If
+an operation declares a `void` return type and no out-parameters, the encapsulation is empty.
+
+### User Exception Reply Payload
+
+For reply status 1, the reply payload is an encapsulation that holds the
+[encoded user exception](../../encoding/data-encoding-for-exceptions). A servant that throws a Slice user exception
+produces reply status 1, even when this exception does not match the operation's exception specification; the client
+converts such an exception into an `UnknownUserException`.
 
 ### Request Failed Reply Payload
 
