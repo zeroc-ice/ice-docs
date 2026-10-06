@@ -16,8 +16,8 @@ fields) and `0`, otherwise.
 
 Following the header byte, the exception is marshaled as a sequence of pairs: the first field of each pair is the
 [type ID](../../slice/type-ids) for an exception slice, and the second field of the pair is a
-[slice](../basic-data-encoding) containing the marshaled fields of that slice. The sequence of pairs is marshaled in
-derived-to-base order, with the most-derived slice first, and ending with the least-derived slice. Within each slice,
+[slice](../data-encoding-for-slices) containing the marshaled fields of that slice. The sequence of pairs is marshaled
+in derived-to-base order, with the most-derived slice first, and ending with the least-derived slice. Within each slice,
 fields are marshaled as for [structures](../basic-data-encoding): in the order in which they are defined in the Slice
 definition.
 
@@ -91,7 +91,7 @@ If an exception contains class fields, these fields are marshaled following the 
 
 ## Exception Encoding Version 1.1
 
-An exception is marshaled as a collection of [slices](../basic-data-encoding) whose order matches the inheritance
+An exception is marshaled as a collection of [slices](../data-encoding-for-slices) whose order matches the inheritance
 hierarchy, with the most-derived type appearing first. The selected encoding format affects the content of each slice.
 The final slice, representing the least-derived type, has its _last slice_ bit set to true.
 

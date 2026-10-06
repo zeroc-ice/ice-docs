@@ -19,7 +19,7 @@ The encoding for optional parameters and fields follows these general rules:
   values.)
 - An optional value is encoded only if the sender has supplied a value.
 
-Optional fields of a class or exception appear in the [slice](../basic-data-encoding) after any required fields and
+Optional fields of a class or exception appear in the [slice](../data-encoding-for-slices) after any required fields and
 before the indirection table, if present. The slice flags indicate the presence of optional fields. When a slice
 contains optional fields, the byte value `255` follows the last optional field and marks the end of the optional fields.
 When the slice encodes its size, the byte count for the slice includes the optional fields and the end marker.
