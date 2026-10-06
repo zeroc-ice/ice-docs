@@ -122,10 +122,11 @@ This property is ignored if [Glacier2.PermissionsVerifier](#glacier2.permissions
 ### Description {% id="glacier2.filter.adapterid.accept-description" %}
 
 Specifies a space-separated list of adapter identifiers. If defined, the Glacier2 router
-[filters requests](../../services/glacier2/securing-a-glacier2-router) so that it accepts a request that it forwards to
-an object adapter whose identifier matches one of the entries in this list, and forwards a request that this filter or
-another category or identity filter accepts. This filter does not apply to requests for well-known objects or for
-objects reached through direct proxies.
+[filters requests](../../services/glacier2/securing-a-glacier2-router) so that it accepts requests to Ice objects with
+an adapter identifier that matches one of the entries in this list. The router also forwards a request that the category
+or identity filter accepts.
+
+This filter does not apply to requests for well-known objects or for objects reached through direct proxies.
 
 Identifiers that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identifier must be escaped with a leading backslash.
@@ -184,8 +185,8 @@ The host restrictions described for [Glacier2.Filter.Address.Accept](#glacier2.f
 
 Specifies a space-separated list of identity categories. If defined, the Glacier2 router
 [filters requests](../../services/glacier2/securing-a-glacier2-router) so that it accepts a request whose target
-identity has a category that matches one of the categories in this list, and forwards a request that this filter or
-another identity or adapter identifier filter accepts. If
+identity has a category that matches one of the categories in this list. The router also forwards a request that the
+identity or adapter identifier filter accepts. If
 [Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-zero value,
 the router automatically adds the non-empty user name of each session created with `createSession` to this list.
 
@@ -227,7 +228,7 @@ sessions.
 
 Specifies a space-separated list of identities. If defined, the Glacier2 router
 [filters requests](../../services/glacier2/securing-a-glacier2-router) so that it accepts a request whose target
-identity matches one of the entries in this list, and forwards a request that this filter or another category or adapter
+identity matches one of the entries in this list. The router also forwards a request that the category or adapter
 identifier filter accepts.
 
 Identities that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
