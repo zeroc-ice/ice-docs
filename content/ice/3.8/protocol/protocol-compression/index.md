@@ -36,11 +36,11 @@ the size of the compressed message, including the uncompressed header, plus an a
 The `compressionStatus` field of the message header indicates whether a message is compressed and provides additional
 information, as shown in the table below.
 
-| **Value** | **Applies to**                                                       | **Description**                                                                                                                           |
-| --------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `0`       | Request, Batch Request, Reply, Validate Connection, Close Connection | The message is not compressed, and the sender does not request a compressed reply.                                                        |
-| `1`       | Request, Batch Request, Reply                                        | The message is not compressed. In a request, the client requests a compressed reply. A receiver handles a reply with this value like `0`. |
-| `2`       | Request, Batch Request, Reply                                        | The message is compressed. In a request, the client requests a compressed reply.                                                          |
+| **Value** | **Applies to**                | **Description**                                                                                                                           |
+| --------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`       | All messages                  | The message is not compressed, and the sender does not request a compressed reply.                                                        |
+| `1`       | Request, Batch Request, Reply | The message is not compressed. In a request, the client requests a compressed reply. A receiver handles a reply with this value like `0`. |
+| `2`       | Request, Batch Request, Reply | The message is compressed. In a request, the client requests a compressed reply.                                                          |
 
 The message body of a compressed request, batch request, or reply message is encoded by first writing the size of the
 uncompressed message (including its header) as a four-byte integer, followed by the compressed message body (excluding
