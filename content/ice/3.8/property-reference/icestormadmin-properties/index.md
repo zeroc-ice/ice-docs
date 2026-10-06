@@ -70,7 +70,7 @@ IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
 This sets the proxies for three topic managers. Note that `name` need not match the instance name of the corresponding
 topic manager — `name` simply serves as a tag. With these property settings, the `icestormadmin` commands that accept a
 topic can now specify a topic manager other than the default topic manager that is configured with
-[IceStormAdmin.*#IceStormAdmin.TopicManager.Default](#icestormadmin.topicmanager.default). For example:
+[IceStormAdmin.TopicManager.Default](#icestormadmin.topicmanager.default). For example:
 
 ```text
 current Foo
