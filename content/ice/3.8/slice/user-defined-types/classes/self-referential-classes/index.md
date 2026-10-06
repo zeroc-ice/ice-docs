@@ -14,9 +14,7 @@ class Link
 }
 ```
 
-Here, the `next` field refers to another `Link` instance, or is null. All the instances in a chain of `Link` instances
-are in the same process, so reading or writing their fields is a local operation. To refer to an object in another
-process, a field must have a [proxy type](../../../interfaces/proxy-types).
+Here, the `next` field refers to another `Link` instance, or is null.
 
 Self-referential classes are particularly useful to model graphs. For example, we can create a simple expression tree
 along the following lines:
@@ -60,7 +58,6 @@ interface Evaluator
 }
 ```
 
-Self-referential classes are not limited to acyclic graphs; the Ice runtime permits loops: it ensures that no resources
-are leaked and that infinite loops are avoided during marshaling.
+Self-referential classes are not limited to acyclic graphs: a class graph can contain cycles.
 
 {% language-section name="mapping" /%}
