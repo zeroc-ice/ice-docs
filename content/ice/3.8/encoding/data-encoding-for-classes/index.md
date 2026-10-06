@@ -77,8 +77,8 @@ pointer is pointing. Marshaling an instance means we are encoding the data membe
 
 ### Class Instance Encoding Version 1.0
 
-Classes are marshaled as a number of pairs containing a type ID and a [slice](../basic-data-encoding) (one pair for each
-level of the inheritance hierarchy) and marshaled in derived-to-base order. Only data members are marshaled — no
+Classes are marshaled as a number of pairs containing a type ID and a [slice](../data-encoding-for-slices) (one pair for
+each level of the inheritance hierarchy) and marshaled in derived-to-base order. Only data members are marshaled — no
 information is sent that would relate to operations. Each marshaled class instance is preceded by a (non-zero) positive
 integer that provides an identity for the instance. The sender assigns this identity during marshaling such that each
 marshaled instance has a different identity. The receiver uses that identity to correctly reconstruct graphs of classes.
@@ -100,17 +100,17 @@ nil.
 ### Class Instance Encoding Version 1.1
 
 The leading byte of a class instance is a [size](../basic-data-encoding) value of 1. Following this byte is a collection
-of [slices](../basic-data-encoding) arranged in derived-to-base order. Only data members are marshaled — no information
-is sent that would relate to operations. The initial (most-derived) slice always includes a [type ID](./class-type-ids)
-that may be encoded as a string or as a numeric value, as specified by the flags that begin each slice. Depending on the
-[format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) being used, subsequent slices may or may
-not include a type ID.
+of [slices](../data-encoding-for-slices) arranged in derived-to-base order. Only data members are marshaled — no
+information is sent that would relate to operations. The initial (most-derived) slice always includes a
+[type ID](./class-type-ids) that may be encoded as a string or as a numeric value, as specified by the flags that begin
+each slice. Depending on the [format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) being used,
+subsequent slices may or may not include a type ID.
 
 Each slice consists of a leading byte representing the slice flags, an optional type ID, an optional slice size, the
 required members for that slice in order of declaration, and the
 [optional members](../data-encoding-for-optional-values) of that slice. The sender must set the appropriate
-[slice flags](../basic-data-encoding) to indicate whether the slice includes a type ID, size, and optional data members,
-and whether this is the last slice of the instance. The compact format only includes a type ID in the initial
+[slice flags](../data-encoding-for-slices) to indicate whether the slice includes a type ID, size, and optional data
+members, and whether this is the last slice of the instance. The compact format only includes a type ID in the initial
 (most-derived) slice and omits the slice size, as shown in the following diagram:
 
 ![The compact classes format starts with identity marker 1. The most-derived slice contains slice flags, a type ID, required members, and optional members when needed. Subsequent slices omit the type ID.](/images/ice/3.8/data-encoding-for-classes/compact-format.svg)

@@ -4,7 +4,7 @@ title: Simple Example of Class Encoding
 
 ## Sample Class Definitions
 
-We have separately discussed the primary components of the class encoding: [slices](../../basic-data-encoding),
+We have separately discussed the primary components of the class encoding: [slices](../../data-encoding-for-slices),
 [references](..), and [type IDs](../class-type-ids). To make the preceding discussions more concrete, consider the
 following class definitions:
 
@@ -91,7 +91,7 @@ each other) is shown below:
 | `0` _(number of dictionary entries)_   | 1                 | `size`   | 123             |
 
 Note that, because classes (like [exceptions](../../data-encoding-for-exceptions)) are sent as a sequence of
-[slices](../../basic-data-encoding), the receiver of a class can slice off any derived parts of a class it does not
+[slices](../../data-encoding-for-slices), the receiver of a class can slice off any derived parts of a class it does not
 understand. Also note that (as shown in the above table) each class instance contains three slices. The third slice is
 for the type `::Ice::Object`, which is the base type of all classes. The class [type ID](../../../slice/type-ids)
 `::Ice::Object` has the number `3` in this example because it is the third distinct type ID that is marshaled by the
@@ -104,7 +104,7 @@ will be 4 in this case, indicating that the slice contains no data.
 ## Class Encoding Version 1.1
 
 A leading [size](../../basic-data-encoding) value of `1` marks the beginning of an instance, followed by one or more
-[slices](../../basic-data-encoding).
+[slices](../../data-encoding-for-slices).
 
 ### Class Encoding in the Sliced Format
 
