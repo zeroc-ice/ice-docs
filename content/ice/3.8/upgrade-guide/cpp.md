@@ -19,17 +19,6 @@ It also includes the Slice tools for C++, so the `zeroc.icebuilder.msbuild` pack
    - all `zeroc.ice.vXXX` packages
 
 3. On the Browse tab, search for `ZeroC.Ice.Cpp`.
-
-   - For preview builds:
-
-     - Add the ZeroC Nightly Builds feed:
-
-       ```text
-       https://download.zeroc.com/nexus/repository/nuget-nightly/
-       ```
-
-     - Enable **Include prerelease**
-
 4. Select the desired **3.8 version** and click **Install**.
 5. **Rebuild** the solution.
 
@@ -137,17 +126,15 @@ types on some platforms, such as 64-bit Linux where `std::int64_t` is `long`; th
 The `IceUtil` namespace and the `IceUtil` headers no longer exist:
 
 - `Ice::CtrlCHandler` replaces `IceUtil::CtrlCHandler`.
-- `Ice::generateUUID` replaces `IceUtil::generateUUID`.
 - The string converter API, such as `StringConverter` and `setProcessStringConverter`, is now in the `Ice` namespace.
 - The other `IceUtil` classes, such as `IceUtil::Mutex`, `IceUtil::Thread` and `IceUtil::Time`, have been removed: use
   the C++ standard library.
 
 #### Plug-in Registration {% id="cpp11-plug-in-registration" %}
 
-`InitializationData::pluginFactories` replaces `Ice::registerPluginFactory` and the registration functions of
-`Ice/RegisterPlugins.h`. In Ice 3.7, a function such as `Ice::registerIceDiscovery` registers a plug-in for every
-communicator the process creates afterwards. In Ice 3.8, you list the plug-in factories of each communicator in the
-`InitializationData` you pass to `Ice::initialize`:
+`Ice::registerPluginFactory` and the `Ice::registerXxx` functions of `Ice/RegisterPlugins.h` have been removed. In Ice
+3.8, you install a plug-in by adding its factory to the `pluginFactories` field of the `InitializationData` you pass to
+`Ice::initialize`:
 
 ```diff
 -Ice::registerIceDiscovery();
@@ -158,13 +145,15 @@ communicator the process creates afterwards. In Ice 3.8, you list the plug-in fa
 +auto communicator = Ice::initialize(initData);
 ```
 
-The Ice library includes the SSL, UDP and WebSocket transports: remove the calls to `Ice::registerIceSSL`,
-`Ice::registerIceUDP` and `Ice::registerIceWS`. If you link with the static Ice libraries, add `Ice::udpPluginFactory()`
-and `Ice::wsPluginFactory()` to `pluginFactories` for UDP and WebSocket.
+- `Ice::registerIceDiscovery`, `Ice::registerIceLocatorDiscovery`, `Ice::registerIceBT` and `Ice::registerIceIAP` become
+  `IceDiscovery::discoveryPluginFactory()`, `IceLocatorDiscovery::locatorDiscoveryPluginFactory()`,
+  `IceBT::btPluginFactory()` and `Ice::iapPluginFactory()` in `pluginFactories`.
+- `Ice::registerIceSSL`, `Ice::registerIceUDP` and `Ice::registerIceWS` go away: the Ice library includes the SSL, UDP
+  and WebSocket transports. When you link with the static Ice library, add `Ice::udpPluginFactory()` and
+  `Ice::wsPluginFactory()` to `pluginFactories` for the UDP and WebSocket transports.
 
-The string converter plug-in has been removed: replace `Ice::registerIceStringConverter` and its `Ice.Plugin` property
-with a call to `Ice::setProcessStringConverter`, as described in
-[String Converters](../slice/basic-types#string-converters).
+The string converter plug-in, installed with `Ice::registerIceStringConverter` or an `Ice.Plugin` property, has been
+removed. See [String Converters](../slice/basic-types#string-converters) for the string converters of Ice 3.8.
 
 See [Plug-in API](../plugins/plug-in-facility/plug-in-api) for more information.
 
@@ -205,8 +194,8 @@ auto widget = communicator->propertyToProxy<WidgetPrx>("MyWidget");
 function of these types with `std::dynamic_pointer_cast`:
 
 ```diff
--Ice::ObjectPtr servant = new GreeterI;
-+Ice::ObjectPtr servant = std::make_shared<GreeterI>();
+-GreeterPtr servant = new GreeterI;
++GreeterPtr servant = std::make_shared<GreeterI>();
 ```
 
 ```diff
@@ -255,17 +244,23 @@ dispatched this way, without the `amd` metadata.
 #### Integer Types {% id="cpp98-integer-types" %}
 
 The Slice compiler now maps the Slice integer types to the fixed-width integer types of the C++ standard library, and
-the `Ice::Byte`, `Ice::Short`, `Ice::Int`, `Ice::Long`, `Ice::Float` and `Ice::Double` aliases no longer exist:
-`std::uint8_t`, `std::int16_t`, `std::int32_t` and `std::int64_t` replace `Ice::Byte`, `Ice::Short`, `Ice::Int` and
-`Ice::Long`. A Slice `sequence<byte>` now maps to `std::vector<std::byte>`; in Ice 3.7, it mapped to
-`std::vector<Ice::Byte>`.
+the `Ice::Byte`, `Ice::Short`, `Ice::Int`, `Ice::Long`, `Ice::Float` and `Ice::Double` aliases no longer exist.
+
+| Slice type | Ice 3.7 (C++98 mapping)        | Ice 3.8        |
+| ---------- | ------------------------------ | -------------- |
+| `byte`     | `Ice::Byte` (`unsigned char`)  | `std::uint8_t` |
+| `short`    | `Ice::Short` (`short`)         | `std::int16_t` |
+| `int`      | `Ice::Int` (`int`)             | `std::int32_t` |
+| `long`     | `Ice::Long` (`IceUtil::Int64`) | `std::int64_t` |
+
+Update the servant operation signatures and the variables that use these types. A Slice `sequence<byte>` now maps to
+`std::vector<std::byte>`; in Ice 3.7, it mapped to `std::vector<Ice::Byte>`.
 
 #### IceUtil {% id="cpp98-iceutil" %}
 
 The `IceUtil` namespace and the `IceUtil` headers no longer exist:
 
 - `Ice::CtrlCHandler` replaces `IceUtil::CtrlCHandler`.
-- `Ice::generateUUID` replaces `IceUtil::generateUUID`.
 - The string converter API, such as `StringConverter` and `setProcessStringConverter`, is now in the `Ice` namespace.
 - `std::shared_ptr` replaces `IceUtil::Handle`: a class held in a `std::shared_ptr` doesn't derive from
   `IceUtil::Shared`.
@@ -274,10 +269,9 @@ The `IceUtil` namespace and the `IceUtil` headers no longer exist:
 
 #### Plug-in Registration {% id="cpp98-plug-in-registration" %}
 
-`InitializationData::pluginFactories` replaces `Ice::registerPluginFactory` and the registration functions of
-`Ice/RegisterPlugins.h`. In Ice 3.7, a function such as `Ice::registerIceDiscovery` registers a plug-in for every
-communicator the process creates afterwards. In Ice 3.8, you list the plug-in factories of each communicator in the
-`InitializationData` you pass to `Ice::initialize`:
+`Ice::registerPluginFactory` and the `Ice::registerXxx` functions of `Ice/RegisterPlugins.h` have been removed. In Ice
+3.8, you install a plug-in by adding its factory to the `pluginFactories` field of the `InitializationData` you pass to
+`Ice::initialize`:
 
 ```diff
 -Ice::registerIceDiscovery();
@@ -288,13 +282,15 @@ communicator the process creates afterwards. In Ice 3.8, you list the plug-in fa
 +Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 ```
 
-The Ice library includes the SSL, UDP and WebSocket transports: remove the calls to `Ice::registerIceSSL`,
-`Ice::registerIceUDP` and `Ice::registerIceWS`. If you link with the static Ice libraries, add `Ice::udpPluginFactory()`
-and `Ice::wsPluginFactory()` to `pluginFactories` for UDP and WebSocket.
+- `Ice::registerIceDiscovery`, `Ice::registerIceLocatorDiscovery`, `Ice::registerIceBT` and `Ice::registerIceIAP` become
+  `IceDiscovery::discoveryPluginFactory()`, `IceLocatorDiscovery::locatorDiscoveryPluginFactory()`,
+  `IceBT::btPluginFactory()` and `Ice::iapPluginFactory()` in `pluginFactories`.
+- `Ice::registerIceSSL`, `Ice::registerIceUDP` and `Ice::registerIceWS` go away: the Ice library includes the SSL, UDP
+  and WebSocket transports. When you link with the static Ice library, add `Ice::udpPluginFactory()` and
+  `Ice::wsPluginFactory()` to `pluginFactories` for the UDP and WebSocket transports.
 
-The string converter plug-in has been removed: replace `Ice::registerIceStringConverter` and its `Ice.Plugin` property
-with a call to `Ice::setProcessStringConverter`, as described in
-[String Converters](../slice/basic-types#string-converters).
+The string converter plug-in, installed with `Ice::registerIceStringConverter` or an `Ice.Plugin` property, has been
+removed. See [String Converters](../slice/basic-types#string-converters) for the string converters of Ice 3.8.
 
 See [Plug-in API](../plugins/plug-in-facility/plug-in-api) for more information.
 
