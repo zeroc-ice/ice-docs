@@ -13,14 +13,7 @@ the `slice2js` compiler for Linux, macOS, and Windows.
    npm uninstall ice slice2js
    ```
 
-2. For preview builds, add the ZeroC NPM feed to your project’s **.npmrc** file:
-
-   ```ini
-   # Use ZeroC nightly registry for @zeroc packages
-   @zeroc:registry=https://download.zeroc.com/nexus/repository/npm-nightly/
-   ```
-
-3. Install the new package:
+2. Install the new package:
 
    ```shell
    npm install @zeroc/ice --save
