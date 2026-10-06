@@ -12,8 +12,8 @@ recompile your Slice files and in some cases update your source code to use the 
 
 ## Requirements
 
-[Supported Platforms for Ice 3.8.3](../supported-platforms-for-ice-3-8-3) lists the operating systems, compilers and
-language versions that Ice 3.8.3 supports.
+[Supported Platforms for Ice 3.8.3](../release-notes/supported-platforms-for-ice-3-8-3) lists the operating systems,
+compilers and language versions that Ice 3.8.3 supports.
 
 ## Packaging
 
@@ -125,8 +125,9 @@ interface Foo
 
 A Slice identifier can collide with a keyword or a reserved identifier of a programming language. The Ice 3.7 Slice
 compilers escaped such an identifier in the generated code. The Ice 3.8 Slice compilers no longer do: they use the Slice
-identifier as is, and you avoid the collision with the `<lang>:identifier` [metadata](../slice-metadata-directives),
-which gives a Slice definition another name in the code generated for one language.
+identifier as is, and you avoid the collision with the `<lang>:identifier`
+[metadata](../slice/slice-metadata-directives), which gives a Slice definition another name in the code generated for
+one language.
 
 For example, `template` is a keyword in C++:
 
@@ -164,7 +165,8 @@ Ice 3.7 applications that wish to interoperate with Ice 3.8 are recommended to s
 ```
 
 If you cannot change the configuration of the Ice 3.7 application, disable the idle check in the Ice 3.8 application by
-setting [EnableIdleCheck](../ice-connection-properties) to `0` for the connections to this Ice 3.7 application.
+setting [EnableIdleCheck](../property-reference/ice-connection-properties) to `0` for the connections to this Ice 3.7
+application.
 
 ### Connection Timeouts
 
@@ -173,9 +175,10 @@ endpoints, the `ice_timeout` proxy method, and the `Ice.Default.Timeout` and `Ic
 still accepts `-t timeout` in endpoints for backwards compatibility, but this option no longer has any effect. Remove
 the calls to `ice_timeout` and the two properties.
 
-Ice 3.8 adds three connection timeouts, for [inactivity](../connection-closure),
-[connection establishment](../connection-establishment) and [graceful closure](../connection-closure). You configure
-them with the [Ice.Connection properties](../ice-connection-properties); in most cases, the defaults are fine.
+Ice 3.8 adds three connection timeouts, for [inactivity](../runtime/connection-management/connection-closure),
+[connection establishment](../runtime/connection-management/connection-establishment) and
+[graceful closure](../runtime/connection-management/connection-closure). You configure them with the
+[Ice.Connection properties](../property-reference/ice-connection-properties); in most cases, the defaults are fine.
 
 ### Heartbeat Callback
 
@@ -185,8 +188,8 @@ The `setHeartbeatCallback` operation has been removed from the `Connection` clas
 
 By default, Ice 3.8 stops reading from a connection once 100 dispatches of requests received on this connection are in
 progress, and resumes reading when a dispatch completes. If your application relies on dispatching more requests from
-one connection concurrently, increase [MaxDispatches](../ice-connection-properties). Ice for JavaScript does not
-implement this limit.
+one connection concurrently, increase [MaxDispatches](../property-reference/ice-connection-properties). Ice for
+JavaScript does not implement this limit.
 
 ### Default Object Adapter
 
@@ -252,8 +255,8 @@ The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so sett
 
 - The `Application` helper class has been removed from the language mappings that provided it. Create and destroy the
   communicator in your own code, as described in
-  [Communicator Initialization and Destruction](../initialization-and-destruction), and shut it down when your
-  application receives Ctrl+C or a termination signal.
+  [Communicator Initialization and Destruction](../runtime/communicator/initialization-and-destruction), and shut it
+  down when your application receives Ctrl+C or a termination signal.
 - The `dispatcher` field of `InitializationData` is now named `executor`.
 
 ## Value Factories
@@ -261,7 +264,8 @@ The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so sett
 `ValueFactory` and `ValueFactoryManager` have been removed. In Ice 3.7, an application registered a value factory mainly
 to supply the implementation of a class with operations. Classes no longer have operations, so in most cases you remove
 your value factories and replace them with nothing. If you still need to create instances of your own classes during
-unmarshaling, implement a [Slice loader](../slice-loaders) and set the `sliceLoader` field of `InitializationData`.
+unmarshaling, implement a [Slice loader](../slice/user-defined-types/classes/slice-loaders) and set the `sliceLoader`
+field of `InitializationData`.
 
 In Java, the `Ice.Default.Package` and `Ice.Package.module` properties still work, but they are deprecated: we recommend
 registering a Slice loader in `InitializationData` instead. In Java and MATLAB, a class with a compact ID requires a
@@ -273,10 +277,10 @@ The SSL transport is now part of the Ice library and is no longer a plug-in.
 
 - Remove the `Ice.Plugin.IceSSL` property from your configuration: Ice 3.8 provides no IceSSL plug-in to load.
 - The `IceSSL` certificate API, the certificate verifiers and the password callbacks have been removed. You can still
-  configure the SSL transport with the [IceSSL properties](../icessl-properties) in all language mappings except
-  JavaScript, which supports only the secure WebSocket transport (WSS). In C++, C# and Java, we recommend the new
-  [programmatic configuration](../ssl-transport), which uses the API of the SSL engine of your platform and gives you
-  more control than the properties.
+  configure the SSL transport with the [IceSSL properties](../property-reference/icessl-properties) in all language
+  mappings except JavaScript, which supports only the secure WebSocket transport (WSS). In C++, C# and Java, we
+  recommend the new [programmatic configuration](../runtime/ssl-transport), which uses the API of the SSL engine of your
+  platform and gives you more control than the properties.
 
 ## Plug-ins
 
@@ -301,7 +305,7 @@ longer choose another name for these plug-ins. For example:
 Ice.Plugin.IceDiscovery=1
 ```
 
-See [IceDiscovery](../icediscovery) and [IceLocatorDiscovery](../icelocatordiscovery).
+See [IceDiscovery](../plugins/icediscovery) and [IceLocatorDiscovery](../plugins/icelocatordiscovery).
 
 ## Services
 
@@ -321,12 +325,12 @@ removed with it: request overrides (the `_ovrd` request context), and the batchi
 (`Glacier2.Client.AlwaysBatch` and `Glacier2.Server.AlwaysBatch`).
 
 A session now lasts as long as the connection that created it: the router destroys the session when this connection
-closes, and relies on the [idle check](../connection-closure) to detect a dead client. The session timeout,
-`Glacier2.SessionTimeout`, has been removed.
+closes, and relies on the [idle check](../runtime/connection-management/connection-closure) to detect a dead client. The
+session timeout, `Glacier2.SessionTimeout`, has been removed.
 
 The Glacier2 helper classes (`Glacier2.Application`, `SessionFactoryHelper` and `SessionHelper`) have been removed.
 Create and destroy the session with the `Glacier2::Router` proxy, as described in
-[Getting Started with Glacier2](../getting-started-with-glacier2).
+[Getting Started with Glacier2](../services/glacier2/getting-started-with-glacier2).
 
 ### IceGrid
 
@@ -346,13 +350,13 @@ The distribution of server files through IcePatch2 has been removed, and with it
 descriptor has been removed too. An IceGrid 3.8 registry ignores these descriptors in the applications it loads from a
 3.7 database, but it no longer accepts the `distrib` and `dbenv` elements in XML: remove them from your descriptor
 files, remove the `application patch` and `server patch` commands from your `icegridadmin` scripts, and distribute the
-files of your servers with another [tool](../application-distribution).
+files of your servers with another [tool](../services/icegrid/application-distribution).
 
 A client or administrative session now lasts as long as the connection that created it. The session timeout,
 `IceGrid.Registry.SessionTimeout`, has been removed.
 
-The `icegridadmin` command `server state` has been renamed [`server status`](../icegridadmin-command-line-tool): update
-the scripts that call it.
+The `icegridadmin` command `server state` has been renamed
+[`server status`](../services/icegrid/icegridadmin-command-line-tool): update the scripts that call it.
 
 ### IcePatch2
 

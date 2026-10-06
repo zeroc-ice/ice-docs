@@ -21,7 +21,7 @@ command string, optionally followed by such an array.
 +Ice::loadSlice(["-I.", "Foo.ice"])
 ```
 
-## Communicator Initialization
+## Arguments of Ice::initialize
 
 `Ice::initialize` now takes at most one argument, either an argument array or an `Ice::InitializationData` object.
 
