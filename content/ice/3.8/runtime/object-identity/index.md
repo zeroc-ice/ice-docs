@@ -89,6 +89,47 @@ The default mode is `Unicode`.
 The `Compat` mode is provided for backwards-compatibility with Ice 3.6 and earlier. These older versions do not
 recognize universal character names and reject non-printable ASCII characters in stringified identities.
 
+## Comparing Proxies by Identity
+
+Proxy equality (`==` in C++, MATLAB, PHP, Python, Ruby, and Swift; `Equals` in C#; `equals` in Java and JavaScript)
+compares every setting of the two proxies: the identity, facet, endpoints, adapter ID, context, invocation mode,
+invocation timeout, and the other proxy options. Two proxies with the same identity that differ in any of these
+settings, for example in their invocation timeout, compare unequal, and a collection that compares its proxy keys with
+this equality holds a separate entry for each of them.
+
+To compare two proxies by identity alone, or by identity and facet, use the helpers of your language mapping:
+
+| Language | Compares the identity                                                       | Compares the identity and facet                                                          |
+| -------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| C++      | `Ice::proxyIdentityEqual`, `Ice::proxyIdentityLess`                         | `Ice::proxyIdentityAndFacetEqual`, `Ice::proxyIdentityAndFacetLess`                      |
+| C#       | `Ice.Util.proxyIdentityCompare`, `Ice.ProxyIdentityKey`                     | `Ice.Util.proxyIdentityAndFacetCompare`, `Ice.ProxyIdentityFacetKey`                     |
+| Java     | `com.zeroc.Ice.Util.proxyIdentityCompare`, `com.zeroc.Ice.ProxyIdentityKey` | `com.zeroc.Ice.Util.proxyIdentityAndFacetCompare`, `com.zeroc.Ice.ProxyIdentityFacetKey` |
+| MATLAB   | `Ice.proxyIdentityCompare`                                                  | `Ice.proxyIdentityAndFacetCompare`                                                       |
+| PHP      | `Ice\proxyIdentityCompare`, `Ice\proxyIdentityEqual`                        | `Ice\proxyIdentityAndFacetCompare`, `Ice\proxyIdentityAndFacetEqual`                     |
+| Python   | `Ice.proxyIdentityCompare`, `Ice.proxyIdentityEqual`                        | `Ice.proxyIdentityAndFacetCompare`, `Ice.proxyIdentityAndFacetEqual`                     |
+| Ruby     | `Ice::proxyIdentityCompare`, `Ice::proxyIdentityEqual`                      | `Ice::proxyIdentityAndFacetCompare`, `Ice::proxyIdentityAndFacetEqual`                   |
+
+A `Compare` function returns a negative number, zero, or a positive number, and an `Equal` function returns a boolean.
+To key a collection by identity:
+
+- In C++, pass `Ice::proxyIdentityLess` or `Ice::proxyIdentityAndFacetLess` as the comparator of an ordered container
+  such as `std::map` or `std::set`.
+- In C#, `ProxyIdentityKey` and `ProxyIdentityFacetKey` implement the non-generic `System.Collections.IEqualityComparer`
+  and `System.Collections.IComparer` interfaces. Pass an instance to a non-generic collection such as `Hashtable` or
+  `SortedList`. These classes don't implement `IEqualityComparer<T>`, so `Dictionary<TKey, TValue>` and `HashSet<T>`
+  don't accept them.
+- In Java, `ProxyIdentityKey` and `ProxyIdentityFacetKey` wrap a proxy, and their `hashCode` and `equals` methods use
+  the identity, or the identity and facet, of that proxy. Use the wrapper as the key of a `HashMap` or `HashSet`, and
+  call `getProxy` to retrieve the proxy. `Util::proxyIdentityCompare` and `Util::proxyIdentityAndFacetCompare` also
+  serve as the `Comparator` of a `TreeMap` or `TreeSet`.
+
+JavaScript and Swift provide no such helpers: compare the identities that `ice_getIdentity` returns. To key a collection
+by identity, use the `Identity` itself in Swift, where it is `Hashable`, and the string that `identityToString` returns
+in JavaScript, where a `Map` compares object keys by reference.
+
+These helpers ignore endpoints: two proxies with the same identity, and for the identity-and-facet helpers the same
+facet, compare equal even when they target separate deployments that each host an object with that identity.
+
 ## See Also
 
 - [Default Servants](../dispatch/default-servants)
