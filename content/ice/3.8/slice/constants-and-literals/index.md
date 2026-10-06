@@ -48,13 +48,6 @@ Be aware that, if you interpret `byte` as a number instead of a bit pattern, you
 languages. For example, for C++, `byte` maps to `std::uint8_t` whereas, for Java, `byte` maps to `byte`, which is a
 signed type.
 
-Note that suffixes to indicate long and unsigned constants (`l`, `L`, `u`, `U`, used by C++) are illegal:
-
-```slice
-const long Wrong = 0u;          // Syntax error
-const long WrongToo = 1000000L; // Syntax error
-```
-
 The value of an integer literal must be within the range of its constant type, as shown in the
 [Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
 
@@ -62,7 +55,7 @@ The value of an integer literal must be within the range of its constant type, a
 
 A floating-point literal has an integer part, a fractional part after a period, or both, followed by an optional
 exponent. A literal without a period requires an exponent. A floating-point literal can end with an `f` or `F` suffix,
-which the Slice compiler ignores; an `l` or `L` suffix is a syntax error.
+which the Slice compiler ignores.
 
 Here are a few examples:
 

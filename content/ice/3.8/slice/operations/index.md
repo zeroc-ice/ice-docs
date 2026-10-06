@@ -160,9 +160,9 @@ Name mangling is not an option in this case: while it works fine for compilers, 
 
 ## Idempotent Operations
 
-Some operations, such as `getTime` in the `Clock` interface, do not modify the state of the object they operate on.
-Other operations, such as `setTime`, modify the state of the object but are idempotent. You can indicate this in Slice
-as follows:
+An operation is idempotent when two successive invocations have the same effect as a single invocation. Operations that
+do not modify the state of the object, such as `getTime` in the `Clock` interface, are idempotent; so is `setTime`, even
+though it modifies the state. You mark such operations with the `idempotent` keyword:
 
 ```slice
 interface Clock
@@ -171,12 +171,6 @@ interface Clock
     idempotent void setTime(TimeOfDay time);
 }
 ```
-
-This marks the `getTime` and `setTime` operations as idempotent. An operation is idempotent if two successive
-invocations of the operation have the same effect as a single invocation. For example, `x = 1;` is an idempotent
-operation because it does not matter whether it is executed once or twice — either way, `x` ends up with the value 1. On
-the other hand, `x += 1;` is not an idempotent operation because executing it twice results in a different value for `x`
-than executing it once. Obviously, any read-only operation is idempotent.
 
 The `idempotent` keyword is useful because it allows the Ice runtime to be more aggressive when performing
 [automatic retries](../../runtime/invocation/automatic-retries) to recover from errors. Specifically, Ice guarantees

@@ -4,7 +4,7 @@ title: Enumerations
 
 ## Enumeration Syntax and Semantics
 
-A Slice enumeration defines a type with a fixed set of named values, its enumerators:
+An enumeration defines a set of named values, its enumerators:
 
 ```slice
 module M
