@@ -81,20 +81,20 @@ declaration whose type is a class or contains a class, so no Slice type uses thi
 
 The following table describes the encoding of Slice types:
 
-| **Slice type**                                                                                           | **Optional type** | **Data encoding** | **Notes**                                                                    |
-| -------------------------------------------------------------------------------------------------------- | ----------------- | ----------------- | ---------------------------------------------------------------------------- |
-| `bool`, `byte`                                                                                           | F1                | value             |                                                                              |
-| `short`                                                                                                  | F2                | value             |                                                                              |
-| `int`, `float`                                                                                           | F4                | value             |                                                                              |
-| `long`, `double`                                                                                         | F8                | value             |                                                                              |
-| Proxy                                                                                                    | FSize             | int + data        | 32-bit integer holds the size of the encoded proxy.                          |
-| `enum`                                                                                                   | Size              | size              | Enumerator encoded as a [size](../basic-data-encoding).                      |
-| `string`                                                                                                 | VSize             | value             | The encoded data for the string already contains a leading size.             |
-| `sequence<`_type-with-size-1_`>` such as `sequence<bool>`, `sequence<byte>`                              | VSize             | value             | The encoded data for the sequence already contains a leading size, in bytes. |
-| `sequence<`_fixed-size type_`>` with fixed-size >= 2 `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value      | Size can be computed before encoding the container.                          |
-| `sequence<`_variable size type_`>`, `dictionary<`_key_,_value_`>` with a variable-size key or value      | FSize             | int + value       | 32-bit integer holds the size of the container.                              |
-| Fixed-size `struct`                                                                                      | VSize             | size + value      | Size can be computed before encoding the structure.                          |
-| Variable-size `struct`                                                                                   | FSize             | int + value       | 32-bit integer holds the size of the structure.                              |
+| **Slice type**                                                                                            | **Optional type** | **Data encoding** | **Notes**                                                                    |
+| --------------------------------------------------------------------------------------------------------- | ----------------- | ----------------- | ---------------------------------------------------------------------------- |
+| `bool`, `byte`                                                                                            | F1                | value             |                                                                              |
+| `short`                                                                                                   | F2                | value             |                                                                              |
+| `int`, `float`                                                                                            | F4                | value             |                                                                              |
+| `long`, `double`                                                                                          | F8                | value             |                                                                              |
+| Proxy                                                                                                     | FSize             | int + data        | 32-bit integer holds the size of the encoded proxy.                          |
+| `enum`                                                                                                    | Size              | size              | Enumerator encoded as a [size](../basic-data-encoding).                      |
+| `string`                                                                                                  | VSize             | value             | The encoded data for the string already contains a leading size.             |
+| `sequence<`_type-with-size-1_`>` such as `sequence<bool>`, `sequence<byte>`                               | VSize             | value             | The encoded data for the sequence already contains a leading size, in bytes. |
+| `sequence<`_fixed-size type_`>` with fixed-size >= 2, `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value      | Size can be computed before encoding the container.                          |
+| `sequence<`_variable size type_`>`, `dictionary<`_key_,_value_`>` with a variable-size key or value       | FSize             | int + value       | 32-bit integer holds the size of the container.                              |
+| Fixed-size `struct`                                                                                       | VSize             | size + value      | Size can be computed before encoding the structure.                          |
+| Variable-size `struct`                                                                                    | FSize             | int + value       | 32-bit integer holds the size of the structure.                              |
 
 ## Examples of Optional Value Encoding
 
