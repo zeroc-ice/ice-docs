@@ -41,19 +41,19 @@ The `service` argument selects the type of service you are installing; use one o
 Note that the Ice service installer currently does not support the installation of an IceGrid node with a collocated
 registry, therefore you must install the registry and node separately.
 
-The `config-file` argument names the configuration of the service: either the path of an [Ice configuration file](./)
-or, when the argument starts with `HKLM\`, a key under `HKEY_LOCAL_MACHINE` that holds the service's properties in the
+The `config-file` argument names the configuration of the service: either the path of an
+[Ice configuration file](../../../runtime/properties-and-configuration/using-configuration-files) or, when the argument
+starts with `HKLM\`, a key under `HKEY_LOCAL_MACHINE` that holds the service's properties in the
 [Windows registry](../../../runtime/properties-and-configuration/alternate-property-stores).
 
 When installing a service, you define the installer's own properties on the command line using the --`name`=`value`
-syntax. The supported properties are described [below](./).
+syntax. The supported properties are described [below](#iceserviceinstall-properties).
 
 ## Security Considerations for Ice Services
 
 None of the Ice services require privileges beyond a normal user account. In the case of the IceGrid node service in
 particular, we do not recommend running it in a [user account](../installing-a-windows-service) with elevated privileges
-because the service is responsible for launching server executables, and those servers would inherit the node's access
-rights.
+because the node launches server executables, and those servers inherit its access rights.
 
 ## `iceserviceinstall` Configuration File
 
@@ -67,13 +67,12 @@ names a configuration file, the tool needs its path name for several reasons:
   IceGrid registry service, the tool verifies that the directory specified by the property
   [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) has sufficient access rights.
 
-When `config-file` names a registry key, the tool reads the service's properties from that key and configures the
-service to load its configuration from the same key. The tool leaves the access rights of the key unchanged, so the
-account that runs the service must already be able to read it.
+When `config-file` names a registry key, the tool reads the service's properties from that key and registers the service
+with `--Ice.Config` set to the same key. Make sure the account that runs the service can read this key.
 
-You may still modify a service's configuration file or registry key after installation, but uninstall the service before
-you change any of the properties that influence the service installer's actions, and reinstall it afterwards. The table
-below describes the service properties that affect the installer:
+You can edit the service's configuration after installation, except for the properties in the table below: the installer
+derives the service name and other settings from them. To change one of these properties, uninstall the service, edit
+the configuration, then install the service again.
 
 | **Property**                                                                 | **Service**                   | **Description**                                                                                                                                                                            |
 | ---------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -85,7 +84,7 @@ below describes the service properties that affect the installer:
 | [Ice.Default.Locator](../../../property-reference/ice-default-properties)    | IceGrid Node, Glacier2 Router | The IceGrid instance name is the category of the identity in this proxy. A node requires a proxy whose identity has a category; a router requires one when `DependOnRegistry` is not zero. |
 | [Ice.EventLog.Source](../../../property-reference/ice-properties)            | All                           | Specifies the name of an event log source for the service.                                                                                                                                 |
 
-The steps performed by the tool during an installation are described in detail [below](./).
+The steps performed by the tool during an installation are described in detail [below](#service-installation-process).
 
 ### Sample Configuration Files
 
@@ -104,11 +103,6 @@ properties on the command line using the familiar --`name`=`value` syntax:
 ```powershell
 iceserviceinstall --AutoStart=0 --DisplayName="My registry" icegridregistry registry.cfg
 ```
-
-`iceserviceinstall` also reads these properties from its own configuration, which it loads like any Ice program from the
-files named by `--Ice.Config` or the `ICE_CONFIG` environment variable; a value given on the command line takes
-precedence. Keep the installer's properties in a file of their own: `iceserviceinstall` reads `config-file` only for the
-service properties listed above, and it rejects `IceGrid` and `Glacier2` properties in its own configuration.
 
 The installer's properties are listed below:
 
@@ -143,16 +137,16 @@ The installer's properties are listed below:
 
 ## Service Installation Process
 
-The Ice service installer performs a number of steps to install a service. As discussed [earlier](./), you must specify
-the service's configuration file or registry key because the service installer uses certain properties during the
-installation process. The actions taken by the service installer are described below:
+The Ice service installer performs a number of steps to install a service. As discussed
+[earlier](#iceserviceinstall-configuration-file), you must specify the service's configuration file or registry key
+because the service installer uses certain properties during the installation process. The actions taken by the service
+installer are described below:
 
-- Obtain the service's _instance name_ from `config-file`. The instance name is specified by the property
-  [IceGrid.InstanceName](../../../property-reference/icegrid-properties) or
-  [Glacier2.InstanceName](../../../property-reference/glacier2-properties). If an instance name is not specified, the
-  default value is `IceGrid` or `Glacier2`, respectively. For an IceGrid node or a Glacier2 router, the IceGrid instance
-  name is the category of the identity in the [Ice.Default.Locator](../../../property-reference/ice-default-properties)
-  proxy. A node requires this category, as does a router installed with a nonzero `DependOnRegistry`.
+- Obtain the service's _instance name_ from `config-file`. For an IceGrid registry, it is the value of
+  [IceGrid.InstanceName](../../../property-reference/icegrid-properties), `IceGrid` by default. For an IceGrid node, it
+  is the category of the identity in the [Ice.Default.Locator](../../../property-reference/ice-default-properties)
+  proxy, which the node's configuration must set. For a Glacier2 router, it is the value of
+  [Glacier2.InstanceName](../../../property-reference/glacier2-properties), `Glacier2` by default.
 - For an IceGrid node, obtain the node's name from the property
   [IceGrid.Node.Name](../../../property-reference/icegrid-properties). This property must be defined when installing or
   uninstalling a node.
@@ -162,13 +156,11 @@ installation process. The actions taken by the service installer are described b
 - Resolve the user account specified by `ObjectName`.
 - Grant `ObjectName` read and execute permissions on the parent directory of `ImagePath`.
 - For an IceGrid registry, create the data directory specified by the property
-  [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) and ensure that the user account
-  specified by `ObjectName` has read/write access to the directory. The installation fails unless this property is set
-  to an absolute path.
+  [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) and grant the user account specified by
+  `ObjectName` full access to it.
 - For an IceGrid node, create the data directory specified by the property
-  [IceGrid.Node.Data](../../../property-reference/icegrid-properties) and ensure that the user account specified by
-  `ObjectName` has read/write access to the directory. The installation fails unless this property is set to an absolute
-  path.
+  [IceGrid.Node.Data](../../../property-reference/icegrid-properties) and grant the user account specified by
+  `ObjectName` full access to it.
 - For an IceGrid node, ensure that the user account specified by `ObjectName` has read access to the following registry
   key: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib` This key allows the node to access
   [CPU utilization statistics](../troubleshooting-windows-services).
@@ -178,30 +170,24 @@ installation process. The actions taken by the service installer are described b
 - Add an event log source under `EventLog` for the source name specified by
   [Ice.EventLog.Source](../../../property-reference/ice-properties). If this property is not defined, the service name
   is used as the source name.
-- Select the service's dependency: the Windows service `icegridregistry.<instance-name>` when `DependOnRegistry` is not
-  zero; otherwise the first of the Windows services `netprofm` and `Nla` that the installer can open, if any.
 - Install the service with the startup type selected by `AutoStart`, including command line arguments that specify the
   service name (`--service name`) and the absolute path name of the configuration file or the registry key
   (`--Ice.Config=config-file`).
 
-The installer leaves the new service stopped. Start it yourself, for example with `sc start icegridregistry.IceGrid`.
+The installer does not start the new service. Start it with the Services control panel or with `sc.exe`, for example
+`sc.exe start icegridregistry.IceGrid`.
 
-The Ice service installer currently does not**verify that the user account specified by `ObjectName` has the right to
-"Log on as a service".
+The Ice service installer does not verify that the user account specified by `ObjectName` has the right to "Log on as a
+service".
 
 ## Uninstalling a Windows Service
 
-When uninstalling an existing service, the Ice service installer asks Windows to stop the service, then asks Windows to
-delete it without waiting for the service to stop. Windows removes the service once it has stopped and every open handle
-to it is closed. If you need to replace the service's files or install the service again, first check with
-`sc query <service-name>` that the service is gone.
+When uninstalling a service, the Ice service installer asks Windows to stop the service and then to delete it; Windows
+completes the deletion once the service has stopped. The installer then removes the service's event log source and, if
+this source was in a log other than `Application`, the log's registry key, unless other sources still use it.
 
-The installer then removes the service's event log source and, if the source belonged to a log other than `Application`,
-attempts to delete that log's registry key. Windows keeps a key that still contains other keys, such as the sources of
-other services.
-
-The installer computes the service name and the event log source name from `config-file`, so uninstall a service with
-the configuration you installed it with. The installer properties have no effect on uninstallation.
+The installer computes the service name and the event log source from `config-file`, so uninstall a service with the
+configuration you installed it with.
 
 ## See Also
 
