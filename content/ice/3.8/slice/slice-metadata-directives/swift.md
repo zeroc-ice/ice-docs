@@ -7,6 +7,21 @@ The metadata directives for Swift uses the `swift` prefix.
 This directive adds the specified Swift attribute to the generated code. It can be used with classes, structs, enums,
 and exceptions.
 
+### `swift:class-resolver-prefix:prefix`
+
+This directive applies to Slice files. It instructs the Slice compiler to add `prefix` to the names of the methods that
+the Swift [Slice loader](../user-defined-types/classes/slice-loaders) uses to locate the generated classes and
+exceptions of this file. A communicator locates these classes and exceptions only when you install a
+`DefaultSliceLoader` created with the same prefix:
+
+```slice
+[["swift:class-resolver-prefix:Demo"]]
+```
+
+```swift
+let communicator = try Ice.initialize(Ice.InitializationData(sliceLoader: DefaultSliceLoader("Demo")))
+```
+
 ### `swift:identifier:swift-identifier`
 
 This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified
