@@ -121,4 +121,3 @@ averages the node reports.
 
 - [Load Balancing](../../../services/icegrid/load-balancing)
 - [Installing a Windows Service](../installing-a-windows-service)
-- [Manually Installing a Service as a Windows Service](../manually-installing-a-service-as-a-windows-service)

@@ -234,7 +234,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/log-file-dialog': 'services/icegrid/icegrid-gui-tool/live-deployment-tab/log-file-dialog?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/logger-facility': 'administration/logger-facility?lang=:lang'
   ':lang(cpp|csharp|java|matlab|php|ruby|swift)/logger-plug-ins': 'plugins/custom-logger-plug-in?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/manually-installing-a-service-as-a-windows-service': 'background-servers/windows-services/manually-installing-a-service-as-a-windows-service?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/manually-installing-a-service-as-a-windows-service': 'background-servers/windows-services/using-the-ice-service-installer?lang=:lang'
   ':lang(matlab)/matlab-mapping-for-classes': 'slice/user-defined-types/classes?lang=:lang'
   ':lang(matlab)/matlab-mapping-for-parameters-and-return-values': 'slice/operations?lang=:lang#mapping-for-parameters-and-return-values'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/metrics-graph': 'services/icegrid/icegrid-gui-tool/live-deployment-tab/metrics-graph?lang=:lang'
