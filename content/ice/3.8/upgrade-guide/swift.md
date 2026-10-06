@@ -9,7 +9,7 @@ Carthage dependency and the `ice-spm` Swift package of Ice 3.7.
 | -------------- | ---------------------------------------------------------------------- |
 | `Ice`          | The main Ice library.                                                  |
 | `Glacier2`     | The Glacier2 library, used by Glacier2 client applications.            |
-| `IceBox`       | The IceBox library.                                                    |
+| `IceBox`       | The IceBox library, used by IceBox client applications.                |
 | `IceGrid`      | The IceGrid library, used by IceGrid client applications.              |
 | `IceStorm`     | The IceStorm library, used by publishers and subscribers for IceStorm. |
 | `CompileSlice` | A build tool plugin that compiles Slice files with `slice2swift`.      |
@@ -85,8 +85,8 @@ Xcode builds.
 
 ## async/await and Structured Concurrency
 
-Ice for Swift now requires Swift 6.1 and includes support for `async/await` and structured concurrency. As a result
-we’ve removed the dependency on `PromiseKit`. In addition all proxy invocations and dispatch operations are now `async`.
+Ice for Swift now requires Swift 6.1, uses `async/await` and structured concurrency, and no longer depends on
+PromiseKit. Every proxy invocation is `async`:
 
 ```diff
 -let greeting = try greeter.greet(name)
@@ -102,24 +102,22 @@ print(greeting)
 print(greeting)
 ```
 
-```diff
--func greetAsync(name: String, current _: Current) -> Promise<String> {
-    ...
-}
-+func greet(name: String, current _: Ice.Current) async throws -> String {
+Every operation of a skeleton protocol is now `async throws`, and the `amd` metadata directive no longer affects the
+generated code. A servant method that completes synchronously and throws no exception keeps its Ice 3.7 signature, since
+a method can omit `async` and `throws`:
+
+```swift
+func greet(name: String, current _: Ice.Current) -> String {
     ...
 }
 ```
 
-The Slice compiler generates each operation of a skeleton protocol as `async throws`, with or without the `amd` metadata
-directive. A servant method that completes synchronously can omit `async`, and a method that throws no exception can
-omit `throws`:
+A servant method that implemented an `amd` operation with PromiseKit becomes an `async` method:
 
-```swift
-struct Chatbot: Greeter {
-    func greet(name: String, current _: Ice.Current) -> String {
-        "Hello, \(name)!"
-    }
+```diff
+-func greetAsync(name: String, current _: Ice.Current) -> Promise<String> {
++func greet(name: String, current _: Ice.Current) async throws -> String {
+    ...
 }
 ```
 
@@ -140,15 +138,10 @@ a final class that synchronizes access to its state and is declared `@unchecked 
 }
 ```
 
-A skeleton protocol declares as
-[`sending`](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0430-transferring-parameters-and-results.md)
-each input parameter whose type is or contains a Slice class. A servant method can omit `sending`. Code that calls such
-an operation directly on a servant must pass an argument that it does not access after the call.
-
 ## Removed Dispatch Structs
 
-Generated dispatch (Disp) structs for Slice interfaces have been removed. Implementations of server-side protocols can
-now be used directly as ObjectAdapter servants.
+The generated dispatch structs, such as `GreeterDisp`, have been removed: you now add an object that implements the
+skeleton protocol directly to the object adapter.
 
 ```diff
 -try adapter.add(servant: GreeterDisp(Chatbot()), id: Ice.Identity(name: "greeter"))
