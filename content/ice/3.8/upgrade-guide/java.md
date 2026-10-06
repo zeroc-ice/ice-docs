@@ -3,7 +3,7 @@
 ### Java Gradle Projects
 
 The `com.zeroc.slice-tools` Gradle plugin replaces the `com.zeroc.gradle.ice-builder.slice` plugin used in Ice 3.7 Java
-Gradle projects. It includes the `slice2java` compiler for Linux, macOS and Windows and the Ice Slice files.
+Gradle projects. It includes the `slice2java` compiler for Linux, macOS, and Windows and the Ice Slice files.
 
 The plugin adds a `slice` block to each Java or Android source set. In this block, `srcDir` or `srcDirs` sets the
 directories that hold your Slice files, `includeSearchPath` replaces the `include` setting of the Ice Builder plugin,
@@ -130,11 +130,10 @@ Ice 3.8 removes the `com.zeroc.Ice.Exception` class, the base class of `com.zero
  }
 ```
 
-### Null Structs and Enums
+### Using null for a Struct or Enum
 
-Marshaling a `null` struct or a `null` enum value now throws `NullPointerException`. Ice 3.7 marshaled a
-default-constructed struct or the first enumerator of the enumeration in its place. Set each struct and enum parameter,
-return value and field to a non-null value before your application sends it.
+Ice 3.7 accepted `null` for a struct or enum parameter, return value, or field, and marshaled a default-constructed
+struct or the first enumerator in its place. Ice 3.8 requires a non-null value.
 
 ### Slice Loaders
 
