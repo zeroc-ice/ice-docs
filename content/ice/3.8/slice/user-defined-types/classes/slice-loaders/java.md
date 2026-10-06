@@ -3,7 +3,10 @@
 The default Slice loader of Ice for Java converts the Slice type ID into a Java class name. It cannot locate the class
 for a Slice class or exception when:
 
-- you remap either the class name or an enclosing module using the `java:identifier` or `java:package` metadata; or
+- you remap either the class name or an enclosing module using the `java:identifier` metadata;
+- you remap an enclosing module using the `java:package` metadata, and set neither the matching
+  [Ice.Package._module_](../../../../property-reference/ice-properties#ice.package.module) property nor
+  [Ice.Default.Package](../../../../property-reference/ice-default-properties#ice.default.package); or
 - you assign a compact ID to the class.
 
 For these classes, install a [ClassSliceLoader](api:Ice/ClassSliceLoader) created from the generated classes, in the
