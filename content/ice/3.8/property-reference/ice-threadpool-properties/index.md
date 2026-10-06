@@ -53,11 +53,11 @@ See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 
 ### Description {% id="ice.threadpool.name.size-description" %}
 
-[Thread pools](../../runtime/threading-model) in Ice can grow and shrink dynamically, based on an average load factor. A
-thread pool always has at least 1 thread and may grow as load increases up to the maximum size specified by
-[Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax). If `SizeMax` is not specified, Ice uses the value of
-`num` as the pool's maximum size. The `Client` or `Server` thread pool is initialized with `num` active threads, but the
-pool may shrink to only 1 thread during idle periods as determined by
+[Thread pools](../../runtime/threading-model) in Ice can grow and shrink dynamically. A thread pool always has at least
+1 thread. When a thread becomes busy and no idle thread remains in the pool, Ice adds a thread, up to the maximum size
+specified by [Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax). If `SizeMax` is not specified, Ice uses the
+value of `num` as the pool's maximum size. The `Client` or `Server` thread pool is initialized with `num` active
+threads, but the pool may shrink to only 1 thread during idle periods as determined by
 [Ice.ThreadPool._name_.ThreadIdleTime](#ice.threadpool.name.threadidletime).
 
 If not specified, the default value is 1 for both properties.
