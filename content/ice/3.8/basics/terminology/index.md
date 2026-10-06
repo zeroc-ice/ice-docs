@@ -59,14 +59,10 @@ artifact that is local to the client's address space; it represents the (possibl
 proxy acts as the local ambassador for an Ice object: when the client invokes an operation on the proxy, the Ice
 runtime:
 
-1. Locates the Ice object's server
+1. Connects to the server that hosts the Ice object, using the addressing information in the proxy
 2. Transmits any in-parameters to the Ice object
 3. Waits for the operation to complete
 4. Returns any out-parameters and the return value to the client (or throws an exception in case of an error)
-
-A location service such as IceGrid can start a server that is not running when the client-side runtime locates it,
-provided you deploy the server for [on-demand activation](../icegrid-server-activation). In the server, the object
-adapter selects the [servant](../terminology#servants) that processes the request.
 
 A proxy encapsulates all the necessary information for this sequence of steps to take place. In particular, a proxy
 contains:
@@ -249,41 +245,7 @@ Conversely, a single Ice object can have multiple servants. For example, we migh
 object with two different addresses for different machines. In that case, we will have two servers, with each server
 containing a servant for the same Ice object. When a client invokes an operation on such an Ice object, the client-side
 runtime sends the request to one server. In other words, multiple servants for a single Ice object allow you to build
-redundant systems: when the client-side runtime cannot connect to one server, it can send the request to the second
-server, within the [at-most-once](../terminology#at-most-once-semantics) rules below.
-
-## At-Most-Once Semantics
-
-At-most-once semantics are important because they guarantee that operations that are not _idempotent_ can be used
-safely. An idempotent operation is an operation that, if executed twice, has the same effect as if executed once. For
-example, `x = 1;` is an idempotent operation: if we execute the operation twice, the end result is the same as if we had
-executed it once. On the other hand, `x++;` is not idempotent: if we execute the operation twice, the end result is not
-the same as if we had executed it once.
-
-Ice requests have _at-most-once_ semantics: the Ice runtime does its best to deliver a request to the correct
-destination and, unless the operation is marked idempotent, [retries](../automatic-retries) a failed request only when
-the retry cannot make the server execute the operation twice, for example because the runtime did not send the request,
-or because the server closed the connection gracefully.
-
-{% callout type="note" %}
-
-One exception to this rule are datagram invocations over UDP transports. For these, duplicated UDP packets can lead to a
-violation of at-most-once semantics.
-
-{% /callout %}
-
-An invocation that waits for a reply either returns the result of the operation or throws an exception. When the
-connection is lost after the Ice runtime sent such a request for an operation that is not idempotent and before it
-received the reply, the invocation throws an exception and the client cannot tell whether the server executed the
-operation. An invocation that does not wait for a reply gives the client no confirmation that the server executed the
-operation: see [Invocation Mode](../invocation-mode).
-
-Without at-most-once semantics, we can build distributed systems that are more robust in the presence of network
-failures. However, realistic systems require non-idempotent operations, so at-most-once semantics are a necessity, even
-though they make the system less robust in the presence of network failures. Ice permits you to mark individual
-operations as idempotent. For such operations, the Ice runtime uses a more aggressive error recovery mechanism than for
-non-idempotent operations: it can also retry a request that it already sent, so the server can execute an idempotent
-operation more than once.
+redundant systems: when the client-side runtime cannot connect to one server, it connects to the other server instead.
 
 ## Asynchronous Method Invocation
 
@@ -307,20 +269,19 @@ that a client has invoked an operation on an object.
 
 ## Asynchronous Method Dispatch
 
-_Asynchronous method dispatch (AMD)_ is the server-side equivalent of AMI. For synchronous dispatch, the server-side
-runtime calls into the application code to process a request received from a client. While the operation is executing
-(or sleeping, for example, because it is waiting for data), a thread of execution is tied up in the server; that thread
-is released only when the operation completes.
+When the server-side runtime receives a request, it calls the servant's implementation of the operation. With
+_synchronous method dispatch_, the implementation processes the request and returns the results, and the dispatch thread
+is busy until then, including while the implementation waits for I/O or for another task.
 
-With asynchronous method dispatch, the server-side application code is informed of the arrival of a request. However,
-instead of being forced to process the request immediately, the server-side application can choose to delay processing
-of the request and, in doing so, releases the execution thread for the request. Once the results are available, the
-application completes the dispatch and the runtime sends them to the client.
+With _asynchronous method dispatch (AMD)_, the implementation frees the dispatch thread while it waits for I/O or for
+another task, for example at an `await`. When the implementation completes the dispatch, immediately or later, the
+runtime sends the results to the client.
 
-The language mapping determines which dispatch model a servant uses. See [Operations](../operations).
+The language mappings let you choose, for each operation, between synchronous and asynchronous dispatch. See
+[Operations](../../slice/operations).
 
-Synchronous and asynchronous method dispatch are transparent to the client, that is, the client cannot tell whether a
-server chose to process a request synchronously or asynchronously.
+Synchronous and asynchronous method dispatch are transparent to the client: the client cannot tell whether a server
+processed a request synchronously or asynchronously.
 
 ## Properties
 

@@ -194,4 +194,10 @@ _at-most-once_ semantics for operation invocations:
   the runtime report the error back to the application. (The number of retries can be increased with an Ice
   configuration parameter.)
 
+{% callout type="note" %}
+
+Datagram invocations over UDP are an exception: duplicated UDP datagrams can violate at-most-once semantics.
+
+{% /callout %}
+
 {% language-section name="mapping" /%}
