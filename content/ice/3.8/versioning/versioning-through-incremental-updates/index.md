@@ -96,36 +96,28 @@ module VisitorCenter
 }
 ```
 
-Ice transmits optional values only with the 1.1 encoding, which is the default:
+A receiver ignores an optional parameter it does not know, and reads an optional parameter it does not receive as unset:
 
 | Client    | Server    | `time`                                                                 |
 | --------- | --------- | ---------------------------------------------------------------------- |
 | version 2 | version 2 | received                                                               |
-| version 2 | version 1 | skipped; the servant gets `name` alone                                 |
+| version 2 | version 1 | ignored; the servant gets `name` alone                                 |
 | version 1 | version 2 | unset; the servant handles it, for example with the version 1 greeting |
-
-When a proxy uses the 1.0 encoding, Ice leaves every optional value out of the request and of its reply, and the
-receiver reads each of them as unset.
 
 Likewise, you can add optional fields to an existing class or exception without breaking existing applications that use
 it. See the [optional fields](../../slice/fields#optional-fields) page for more information.
 
 ### Changing Optional Parameters and Fields
 
-Ice identifies an optional value by its tag alone: a receiver skips the tags it does not know and reads a missing tag as
-unset.
-
-Within the parameters and return value of one operation, or the fields that one class or exception defines itself:
+The tag of an optional parameter or field identifies it across the versions of your Slice definitions. The scope of a
+tag is an operation, for its parameters and return value, or a class or exception, for the fields it declares. Within
+this scope:
 
 - Adding an optional parameter or field with an unused tag is a compatible change.
 - Removing one is a compatible change. Don't reuse its tag while applications built with the earlier definition are
   still deployed.
-- Changing its tag loses the value between the two versions: each side reads it as unset.
-- Changing its type while keeping the tag is an incompatible change: the receiver decodes the bytes as the type it
-  knows, and either produces a wrong value or raises `MarshalException`.
 - Making a required parameter or field optional, or an optional one required, is an incompatible change.
 
 ## See Also
 
 - [Optional Parameters and Return Values](../../slice/operations#optional-parameters-and-return-values)
-- [Data Encoding for Optional Values](../../encoding/data-encoding-for-optional-values)
