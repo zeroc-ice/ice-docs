@@ -89,7 +89,7 @@ The request fields are described in the following table.
 | `id`        | The [object identity](../../runtime/object-identity)                                                                                                                                                                            |
 | `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence)                                                                                                                                                          |
 | `operation` | The operation name                                                                                                                                                                                                              |
-| `mode`      | A byte representation of `Ice::OperationMode`: `0`=normal, `1`=nonmutating (a deprecated equivalent of idempotent), `2`=idempotent                                                                                              |
+| `mode`      | A byte representation of `Ice::OperationMode`: `0` = `Normal`, `1` = `Nonmutating` (deprecated, equivalent to `Idempotent`), `2` = `Idempotent`                                                                                 |
 | `context`   | The invocation [context](../../runtime/invocation/request-contexts)                                                                                                                                                             |
 | `params`    | The [encapsulated](../../encoding/basic-data-encoding) input parameters: the required parameters in order of declaration, followed by the [optional parameters](../../encoding/data-encoding-for-optional-values) sorted by tag |
 
