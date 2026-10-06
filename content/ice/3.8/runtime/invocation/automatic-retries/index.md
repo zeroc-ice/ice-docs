@@ -5,9 +5,9 @@ title: Automatic Retries
 Ice may automatically retry a proxy invocation after a failure. This is a powerful feature that, when used in the proper
 situations, can significantly improve the robustness of your application without any additional programming effort. The
 retry facility is governed by one overriding principle: always respect at-most-once semantics.
-[At-most-once semantics](../../../basics/terminology) dictate that the Ice runtime in the client must never retry a
-failed proxy invocation unless Ice guarantees that the server has not already received the request, or unless the
-application declares that it is safe for Ice to violate at-most-once semantics for the request.
+[At-most-once semantics](../../../slice/operations#idempotent-operations) dictate that the Ice runtime in the client
+must never retry a failed proxy invocation unless Ice guarantees that the server has not already received the request,
+or unless the application declares that it is safe for Ice to violate at-most-once semantics for the request.
 
 To understand the importance of obeying at-most-once semantics, consider the following Slice definition:
 
