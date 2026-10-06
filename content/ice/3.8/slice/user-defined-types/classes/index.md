@@ -32,3 +32,21 @@ class or implement an interface with a Slice class.
 ## Language Mapping
 
 {% language-section name="mapping" /%}
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+## Marshaling Hooks
+
+A class instance can update its fields before Ice marshals it, and rebuild local state after Ice unmarshals it:
+
+- Ice calls `ice_preMarshal` on each class instance just before it marshals the fields of this instance.
+- Ice calls `ice_postUnmarshal` on each class instance after it has unmarshaled the fields of this instance and set the
+  fields that refer to other class instances.
+
+Ice creates an instance with the [Slice loader](./slice-loaders) before it unmarshals the instance's fields, so code
+that depends on the received values belongs in `ice_postUnmarshal`, not in a constructor. For Ice to call your hooks on
+the instances it unmarshals, install a Slice loader that creates your class for the type ID of the generated class.
+
+{% language-section name="hooks" /%}
+
+{% /iflang %}

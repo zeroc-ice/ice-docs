@@ -110,3 +110,26 @@ class DateTime extends TimeOfDay {
 ```
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice.Value` defines `ice_preMarshal` and `ice_postUnmarshal` as methods that do nothing. You override them in a class
+derived from the generated class:
+
+```js
+class TimeOfDayI extends TimeOfDay {
+    #secondsSinceMidnight = 0;
+
+    ice_preMarshal() {
+        this.hour = Math.floor(this.#secondsSinceMidnight / 3600);
+        this.minute = Math.floor(this.#secondsSinceMidnight / 60) % 60;
+        this.second = this.#secondsSinceMidnight % 60;
+    }
+
+    ice_postUnmarshal() {
+        this.#secondsSinceMidnight = this.hour * 3600 + this.minute * 60 + this.second;
+    }
+}
+```
+
+{% /language-section %}

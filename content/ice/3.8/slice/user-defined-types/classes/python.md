@@ -34,3 +34,22 @@ The mapped dataclass is configured with `eq=False` to provide reference-equality
 mappings: two class instances are equal only when they are actually the same instance.
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice.Value` does not define `ice_preMarshal` or `ice_postUnmarshal`; Ice calls each method only when the instance has
+it:
+
+```py
+class TimeOfDayI(TimeOfDay):
+    seconds_since_midnight = 0
+
+    def ice_preMarshal(self):
+        self.hour, remainder = divmod(self.seconds_since_midnight, 3600)
+        self.minute, self.second = divmod(remainder, 60)
+
+    def ice_postUnmarshal(self):
+        self.seconds_since_midnight = self.hour * 3600 + self.minute * 60 + self.second
+```
+
+{% /language-section %}

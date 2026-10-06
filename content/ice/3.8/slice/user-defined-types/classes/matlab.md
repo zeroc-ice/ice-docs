@@ -63,3 +63,28 @@ You must either call the constructor with no arguments or with arguments for all
 Calling the constructor with no argument assigns default values to the properties (see [Fields](../../fields)).
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice.Value` defines `ice_preMarshal` and `ice_postUnmarshal` as methods that do nothing. You override them in a class
+derived from the generated class:
+
+```matlab
+classdef TimeOfDayI < TimeOfDay
+    properties (Access = private)
+        SecondsSinceMidnight (1, 1) int32 = 0
+    end
+    methods
+        function ice_preMarshal(obj)
+            obj.Hour = int16(idivide(obj.SecondsSinceMidnight, int32(3600)));
+            obj.Minute = int16(mod(idivide(obj.SecondsSinceMidnight, int32(60)), 60));
+            obj.Second = int16(mod(obj.SecondsSinceMidnight, 60));
+        end
+        function ice_postUnmarshal(obj)
+            obj.SecondsSinceMidnight = int32(obj.Hour) * 3600 + int32(obj.Minute) * 60 + int32(obj.Second);
+        end
+    end
+end
+```
+
+{% /language-section %}

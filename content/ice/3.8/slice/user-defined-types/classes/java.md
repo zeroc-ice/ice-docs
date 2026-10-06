@@ -111,3 +111,28 @@ public class DateTime extends TimeOfDay {
 ```
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`com.zeroc.Ice.Value` declares `ice_preMarshal` and `ice_postUnmarshal` as methods that do nothing. You override them in
+a class derived from the generated class:
+
+```java
+public class TimeOfDayI extends TimeOfDay {
+    private int secondsSinceMidnight;
+
+    @Override
+    public void ice_preMarshal() {
+        hour = (short) (secondsSinceMidnight / 3600);
+        minute = (short) (secondsSinceMidnight / 60 % 60);
+        second = (short) (secondsSinceMidnight % 60);
+    }
+
+    @Override
+    public void ice_postUnmarshal() {
+        secondsSinceMidnight = hour * 3600 + minute * 60 + second;
+    }
+}
+```
+
+{% /language-section %}

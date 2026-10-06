@@ -138,3 +138,28 @@ The Slice compiler then generates an `ice_print` override declaration in the map
 to implement this member function.
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice::Value` declares `ice_preMarshal` and `ice_postUnmarshal` as virtual functions that do nothing. You override them
+in a class derived from the generated class:
+
+```cpp
+class TimeOfDayI final : public TimeOfDay
+{
+public:
+    void ice_preMarshal() final
+    {
+        hour = static_cast<std::int16_t>(_secondsSinceMidnight / 3600);
+        minute = static_cast<std::int16_t>(_secondsSinceMidnight / 60 % 60);
+        second = static_cast<std::int16_t>(_secondsSinceMidnight % 60);
+    }
+
+    void ice_postUnmarshal() final { _secondsSinceMidnight = hour * 3600 + minute * 60 + second; }
+
+private:
+    int _secondsSinceMidnight{0};
+};
+```
+
+{% /language-section %}
