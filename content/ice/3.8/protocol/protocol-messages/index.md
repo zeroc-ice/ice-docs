@@ -7,7 +7,7 @@ The Ice protocol uses five messages:
 - Request (from client to server)
 - Batch request (from client to server)
 - Reply (from server to client)
-- Validate connection (from server to client, or from either side as a heartbeat)
+- Validate connection (from server to client to establish the connection, then from either side as a heartbeat)
 - Close connection (client to server or server to client)
 
 Of these messages, validate and close connection only apply to connection-oriented transports such as `tcp`.
