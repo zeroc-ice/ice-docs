@@ -29,9 +29,8 @@ time it takes to just send the uncompressed data. Measure with representative me
 
 ## Encoding for Compressed Messages
 
-If compression is used, the entire protocol message excluding the [header](./) is compressed using the
-[bzip2](https://en.wikipedia.org/wiki/Bzip2) algorithm. The `messageSize` field of the message header therefore reflects
-the size of the compressed message, including the uncompressed header, plus an additional four bytes.
+If compression is used, the entire protocol message excluding the [header](../protocol-messages#message-header) is
+compressed using the [bzip2](https://en.wikipedia.org/wiki/Bzip2) algorithm.
 
 The `compressionStatus` field of the message header indicates whether a message is compressed and provides additional
 information, as shown in the table below.
@@ -42,14 +41,16 @@ information, as shown in the table below.
 | `1`       | Request, Batch Request, Reply | The message is not compressed. In a request, the client requests a compressed reply. A receiver handles a reply with this value like `0`. |
 | `2`       | Request, Batch Request, Reply | The message is compressed. In a request, the client requests a compressed reply.                                                          |
 
-The message body of a compressed request, batch request, or reply message is encoded by first writing the size of the
-uncompressed message (including its header) as a four-byte integer, followed by the compressed message body (excluding
-the header). It follows that the size of a compressed message is 14 bytes for the header, plus four bytes to record the
-size of the uncompressed message, plus the number of bytes occupied by the compressed message body. Writing the
-uncompressed message size prior to the body enables the receiver to allocate a buffer that is large enough to
-accommodate the uncompressed message body. A receiver that supports compression checks both the size of the compressed
-message and the size of the uncompressed message against its
-[message size limit](../../property-reference/ice-properties#ice.messagesizemax).
+A compressed request, batch request, or reply message consists of:
+
+- The 14-byte [message header](../protocol-messages#message-header), uncompressed. Its `messageSize` field holds the
+  size of the compressed message, including the header.
+- The size of the uncompressed message, including its header, as a four-byte integer. The receiver uses it to allocate a
+  buffer for the uncompressed message.
+- The message body, compressed with bzip2.
+
+A receiver that supports compression checks both the size of the compressed message and the size of the uncompressed
+message against its [message size limit](../../property-reference/ice-properties#ice.messagesizemax).
 
 ## Compression Semantics for Clients
 
@@ -119,4 +120,4 @@ datagram. In both cases, it logs a warning when
 ## See Also
 
 - [Data Encoding for Proxies](../../encoding/data-encoding-for-proxies)
-- [Protocol Messages](./)
+- [Protocol Messages](../protocol-messages)
