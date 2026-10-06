@@ -42,7 +42,8 @@ interface Catalog
 ```
 
 `@p name` refers to the operation's parameter `name`, which the compilers format as code. It is valid only in an
-operation's doc comment:
+operation's doc comment, and it is the only way to refer to a parameter: the compilers warn about a `{@link}` or `@see`
+tag that names one:
 
 ```slice
 /// Looks for the item whose primary key is @p p and whose secondary key is @p s.
