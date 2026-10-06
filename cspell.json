@@ -176,6 +176,7 @@
     "nodiscard",
     "noexcept",
     "Nohup",
+    "Nonmutating",
     "nopause",
     "nowarn",
     "npos",
