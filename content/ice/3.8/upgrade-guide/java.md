@@ -3,11 +3,7 @@
 ### Java Gradle Projects
 
 The `com.zeroc.slice-tools` Gradle plugin replaces the `com.zeroc.gradle.ice-builder.slice` plugin used in Ice 3.7 Java
-Gradle projects. The Ice Builder plugin remains compatible with Ice 3.8; we recommend the `com.zeroc.slice-tools` plugin
-for better integration with Ice 3.8.
-
-The `com.zeroc.slice-tools` plugin includes the `slice2java` compiler for Linux, macOS and Windows and the Ice Slice
-files. It is no longer necessary to install a separate _devel_ package to obtain the Slice compiler or the Slice files.
+Gradle projects. It includes the `slice2java` compiler for Linux, macOS and Windows and the Ice Slice files.
 
 The plugin adds a `slice` block to each Java or Android source set. In this block, `srcDir` or `srcDirs` sets the
 directories that hold your Slice files, `includeSearchPath` replaces the `include` setting of the Ice Builder plugin,
@@ -99,14 +95,13 @@ With that layout, you can omit `srcDirs` entirely—the plugin discovers it auto
 
 ### Java 17
 
-Ice for Java 3.8 requires Java 17. Ice for Java 3.7 required Java 8.
+Ice for Java 3.8 requires Java 17.
 
 ### Communicator Creation
 
-`Communicator` is now a class with public constructors, and `Util.initialize` keeps only the overloads that accept no
-argument, an argument array, an argument array with a list for the remaining arguments, or an `InitializationData`. When
-your application passes both command-line arguments and an `InitializationData`, parse the arguments into the
-`properties` field first:
+`Communicator` is now a class with public constructors, and `Util.initialize` has fewer overloads. The
+`InitializationData` overload covers every case: if your application passed both command-line arguments and an
+`InitializationData` to `Util.initialize`, parse the arguments into the `properties` field first:
 
 ```diff
 -Communicator communicator = Util.initialize(args, initData);
@@ -114,46 +109,11 @@ your application passes both command-line arguments and an `InitializationData`,
 +Communicator communicator = new Communicator(initData);
 ```
 
-Ice 3.8 removes the `com.zeroc.Ice.Application` and `com.zeroc.Glacier2.Application` helper classes. Create the
-communicator in `main` with a `try`-with-resources statement, and register a shutdown hook when the application shuts
-down the communicator on Ctrl+C:
+### Thread Interrupts
 
-```java
-try (Communicator communicator = new Communicator(args)) {
-    ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("GreeterAdapter", "tcp -p 4061");
-    adapter.add(new Chatbot(), new Identity("greeter", ""));
-    adapter.activate();
-
-    Thread mainThread = Thread.currentThread();
-    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-        communicator.shutdown();
-        try {
-            mainThread.join();
-        } catch (InterruptedException e) {
-            assert false;
-        }
-    }));
-
-    communicator.waitForShutdown();
-}
-```
-
-### Executor
-
-The `dispatcher` field of `InitializationData` is now named `executor`. Its type is unchanged.
-
-```diff
--initData.dispatcher = (runnable, connection) -> SwingUtilities.invokeLater(runnable);
-+initData.executor = (runnable, connection) -> SwingUtilities.invokeLater(runnable);
-```
-
-### Thread Hooks and Interrupts
-
-Ice 3.8 removes the `ThreadHookPlugin` class. Set the `threadStart` and `threadStop` fields of `InitializationData`
-instead.
-
-Ice 3.8 removes the `Ice.ThreadInterruptSafe` property: Ice for Java 3.8 supports thread interrupts without it. Remove
-this property from your configuration: setting it now fails, like setting any other unknown Ice property.
+Ice for Java now always supports thread interrupts: interrupting a thread blocked in an Ice call throws
+`OperationInterruptedException`. The `Ice.ThreadInterruptSafe` property, which enabled this behavior in Ice 3.7, has
+been removed.
 
 ### Exceptions
 
@@ -170,63 +130,49 @@ Ice 3.8 removes the `com.zeroc.Ice.Exception` class, the base class of `com.zero
  }
 ```
 
-### Proxy Timeouts
-
-The `ice_getInvocationTimeout` and `ice_getLocatorCacheTimeout` proxy methods now return a `java.time.Duration`. In Ice
-3.7, they returned an `int`: a number of milliseconds for the invocation timeout and a number of seconds for the locator
-cache timeout.
-
-```diff
--int invocationTimeout = greeter.ice_getInvocationTimeout();
--int locatorCacheTimeout = greeter.ice_getLocatorCacheTimeout();
-+long invocationTimeout = greeter.ice_getInvocationTimeout().toMillis();
-+long locatorCacheTimeout = greeter.ice_getLocatorCacheTimeout().toSeconds();
-```
-
-The `ice_invocationTimeout` and `ice_locatorCacheTimeout` proxy methods accept an `int`, as in Ice 3.7, or a `Duration`.
-
 ### Null Structs and Enums
 
 Marshaling a `null` struct or a `null` enum value now throws `NullPointerException`. Ice 3.7 marshaled a
 default-constructed struct or the first enumerator of the enumeration in its place. Set each struct and enum parameter,
 return value and field to a non-null value before your application sends it.
 
-### Custom Loggers
-
-The `Logger` interface now extends `java.lang.AutoCloseable`, so a class that implements `Logger` must implement
-`close`. Ice calls `close` on a logger installed with a `LoggerPlugin` when it destroys the communicator. Your
-application closes a logger that it sets in the `logger` field of `InitializationData`.
-
 ### Slice Loaders
 
-Ice 3.8 removes the `ValueFactory` and `ValueFactoryManager` interfaces, and the `compactIdResolver` field of
-`InitializationData`. Set the `sliceLoader` field of `InitializationData` to create your own instances of Slice classes
-during unmarshaling:
+Ice 3.8 removes the `ValueFactory` and `ValueFactoryManager` interfaces. Set the `sliceLoader` field of
+`InitializationData` to create your own instances of Slice classes during unmarshaling. See
+[Slice Loaders](../slice/user-defined-types/classes/slice-loaders).
+
+The `java:package` metadata is deprecated: `slice2java` warns when it sees it. Replace it with `java:identifier` on the
+module. `java:identifier` gives the full name of the Java package, where `java:package` gave a prefix. To keep the
+generated code unchanged, use the package that `java:package` produced:
 
 ```diff
--communicator.getValueFactoryManager().add(typeId -> new NodeI(), Node.ice_staticId());
-+initData.sliceLoader = typeId -> Node.ice_staticId().equals(typeId) ? new NodeI() : null;
+-["java:package:com.example"]
++["java:identifier:com.example.VisitorCenter"]
+module VisitorCenter
 ```
 
-Ice 3.8 locates the generated class for a Slice class with a compact ID only through a Slice loader that you install. A
-Slice class or exception that you remap with the `java:identifier` metadata needs one too. Pass the generated classes to
-a `ClassSliceLoader`, which resolves their type IDs and compact IDs. When `java:identifier` remaps a whole Slice module
-to a Java package, a `ModuleToPackageSliceLoader` resolves the type IDs of all the classes and exceptions in this
-module:
+Your `Ice.Package.<module>` or `Ice.Default.Package` property then keeps locating the generated classes, as in Ice 3.7.
+If you move the module to another package, such as `com.example.visitorcenter`, these properties no longer apply:
+install a `ModuleToPackageSliceLoader` for this module instead:
 
 ```java
 var initData = new InitializationData();
-initData.sliceLoader = new CompositeSliceLoader(
-    new ClassSliceLoader(AtmosphericConditions.class),
-    new ModuleToPackageSliceLoader("::VisitorCenter", "com.example.visitorcenter"));
+initData.sliceLoader = new ModuleToPackageSliceLoader("::VisitorCenter", "com.example.visitorcenter");
 
 try (Communicator communicator = new Communicator(initData)) {
     // ...
 }
 ```
 
-The `Ice.Package.<module>` and `Ice.Default.Package` properties still locate the classes and exceptions of a module
-remapped with the deprecated `java:package` metadata. See
-[Slice Loaders](../slice/user-defined-types/classes/slice-loaders) for more information.
+A Slice class with a compact ID also needs a Slice loader: pass its generated class to a `ClassSliceLoader`. Combine
+several loaders with a `CompositeSliceLoader`:
+
+```java
+var initData = new InitializationData();
+initData.sliceLoader = new CompositeSliceLoader(
+    new ClassSliceLoader(AtmosphericConditions.class),
+    new ModuleToPackageSliceLoader("::VisitorCenter", "com.example.visitorcenter"));
+```
 
 {% /language-section %}
