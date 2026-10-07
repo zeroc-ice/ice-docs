@@ -24,6 +24,31 @@ be set to the following values:
 - `PerThread` The communicator maintains a separate implicit context for each thread. This allows you to propagate
   contexts that depend on the sending thread (for example, to send per-thread transaction IDs).
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+Any other value makes the creation of the communicator fail with `InitializationException`.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+Ice for JavaScript accepts only `None` and `Shared`: any other value, including `PerThread`, makes the creation of the
+communicator fail with `InitializationException`.
+
+{% /iflang %}
+
+## Using the Implicit Context
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+`getImplicitContext` on the communicator returns its implicit context. The `get`, `put`, `remove`, and `containsKey`
+methods of the implicit context read and update a single entry, and `getContext` and `setContext` read and replace the
+whole context. With `PerThread`, these methods act on the context of the calling thread.
+
+{% /iflang %}
+
+{% language-section name="using-the-implicit-context" /%}
+
 ## See Also
 
 - [Explicit Request Contexts](../explicit-request-contexts)

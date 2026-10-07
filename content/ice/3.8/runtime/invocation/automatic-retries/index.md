@@ -62,6 +62,12 @@ In addition to user exceptions and subclasses of `RequestFailedException`, a ser
 `UnknownException`, `UnknownLocalException`, or `UnknownUserException` to indicate that it encountered an unexpected
 exception while dispatching the request. These exceptions _are_ eligible for retry.
 
+Ice also never retries a request that fails with `CommunicatorDestroyedException`,
+`ObjectAdapterDestroyedException`,{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+`ObjectAdapterDeactivatedException`,{% /iflang %}{% iflang langs="java" %} `OperationInterruptedException`,{% /iflang %}
+`InvocationCanceledException`, or with a `ConnectionAbortedException` or `ConnectionClosedException` caused by the
+application closing the connection. It never retries an invocation on a batch proxy or on a fixed proxy.
+
 **2. When did the error occur?**
 
 If the error is still a candidate for retry, Ice needs to know whether the server has received the request. Naturally,
@@ -149,7 +155,16 @@ With this setting, Ice retries immediately as in the default case. If the first 
 milliseconds before trying again, then 500 milliseconds, and finally tries one more time after waiting one second.
 
 In some situations you may need to disable retries completely. For example, an application might implement its own retry
-logic and therefore require immediate notification when a failure occurs.
+logic and therefore require immediate notification when a failure occurs. A first value of `-1` disables the retries
+governed by this property:
+
+```config
+Ice.RetryIntervals=-1
+```
+
+Ice retries a request that fails with `CloseConnectionException` one more time after it reaches the retry limit, even
+when `-1` disables retries. Ice also always retries a request that a router rejects with `ObjectNotExistException` for
+`ice_add_proxy`, so that the router learns the proxy.
 
 ### Retry Logging
 
