@@ -284,9 +284,8 @@ transport. The task completes with an exception if an error occurs before the re
 
 ### Flow Control
 
-Asynchronous method invocations never block the thread that calls the asynchronous proxy method. The Ice runtime checks
-to see whether it can write the request to the local transport. If it can, it does so immediately in the caller's
-thread. Alternatively, if the local transport does not have sufficient buffer space to accept the request, the Ice
+Asynchronous method invocations never block the thread that calls the asynchronous proxy method. If the local transport
+can accept the request without blocking, the Ice runtime writes the request in the caller's thread. Otherwise, the Ice
 runtime queues the request internally for later transmission in the background.
 
 This creates a potential problem: if a client sends many asynchronous requests at the time the server is too busy to
