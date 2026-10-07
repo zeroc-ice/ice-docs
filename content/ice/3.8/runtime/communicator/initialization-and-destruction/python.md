@@ -18,7 +18,7 @@ the Ice runtime; any such options are removed from the argument list so, when `I
 the only options and arguments remaining are those that concern your application. If anything goes wrong during
 initialization, it throws an exception.
 
-`Communicator` implements the [Python context manager protocol](https://peps.python.org/pep-0343/), with cleans up the
+`Communicator` implements the [Python context manager protocol](https://peps.python.org/pep-0343/), which cleans up the
 communicator automatically at the end of the with block.
 
 `async with` is preferred in an async context. For example:

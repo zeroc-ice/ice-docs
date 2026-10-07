@@ -19,9 +19,17 @@ options and arguments remaining are those that concern your application. If anyt
 
 {% callout type="warning" %}
 
-The Ice namespace provides additional `initialize`
-[overloads](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce.html#r_ae7b6bf9c35f1cb30463e15c4d9b4ad4c) to pass other
-information to the Ice runtime.
+The other `initialize`
+[overload](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce.html#r_ae7b6bf9c35f1cb30463e15c4d9b4ad4c) accepts an
+[InitializationData](api:Ice/InitializationData) to pass other information to the Ice runtime. To combine this
+information with the argument vector, create the communicator's properties from `argc` and `argv`:
+
+```cpp
+Ice::InitializationData initData;
+initData.properties = std::make_shared<Ice::Properties>(argc, argv);
+// ... set other initData fields ...
+Ice::CommunicatorPtr communicator = Ice::initialize(std::move(initData));
+```
 
 {% /callout %}
 

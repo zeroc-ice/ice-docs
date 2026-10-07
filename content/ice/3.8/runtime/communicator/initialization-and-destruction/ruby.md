@@ -10,7 +10,7 @@ Ice.initialize(ARGV) do |communicator|
 end
 ```
 
-`Ice,initialize` accepts the argument list that is passed to the program by the operating system. The function scans the
+`Ice.initialize` accepts the argument list that is passed to the program by the operating system. The function scans the
 argument list for any [command-line options](../../properties-and-configuration/setting-properties-on-the-command-line)
 that are relevant to the Ice runtime; any such options are removed from the argument list so, when `Ice.initialize`
 returns, the only options and arguments remaining are those that concern your application. If anything goes wrong during

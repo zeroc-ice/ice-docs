@@ -83,7 +83,7 @@ default property set, respectively. These directives must appear in PHP's config
 ; Snippet from php.ini on Linux
 extension=IcePHP.so
 ice.config=/opt/MyApp/default.cfg
-ice.options="--Ice.Override.Timeout=2000"
+ice.options="--Ice.Trace.Network=1"
 ```
 
 ### Profiles in PHP
@@ -180,16 +180,9 @@ The API for registered communicators consists of three functions:
   In that case, the most recent value of expires takes precedence.
 
 - `Ice\unregister($name)` Removes the registration for a communicator with the given name. Returns true if a match was
-  found or false otherwise. Calling `Ice\unregister` does not cause the communicator to be destroyed; rather, the
-  communicator is destroyed as soon as all pending requests that are currently using the communicator have completed.
-  Destroying a registered communicator explicitly also removes its registration.
-
-{% callout type="note" %}
-
-In the common situation where you use a single-threaded PHP runtime, `unregister` destroys your communicator
-immediately.
-
-{% /callout %}
+  found or false otherwise. The Ice extension destroys the communicator once it has no registered name left and every
+  request that created it or retrieved it with `Ice\find` has completed. Destroying a registered communicator explicitly
+  also removes its registrations.
 
 - `Ice\find($name)` Retrieves the communicator associated with the given name. Returns `null` if no match is found.
 
