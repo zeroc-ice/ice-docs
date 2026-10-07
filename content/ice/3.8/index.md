@@ -408,7 +408,7 @@ bar or press `Ctrl+K`, or `⌘K` on macOS.
   [PHP](https://code.zeroc.com/ice/3.8/api/php/index.html),
   [Python](https://code.zeroc.com/ice/3.8/api/python/index.html),
   [Ruby](https://code.zeroc.com/ice/3.8/api/ruby/index.html), and
-  [Swift](https://code.zeroc.com/ice/3.8/api/swift/index.html), plus the
+  [Swift](https://code.zeroc.com/ice/3.8/api/swift/documentation/), plus the
   [Slice definitions](https://code.zeroc.com/ice/3.8/api/slice/index.html) that ship with Ice.
 - **[Demos on GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8)**: sample programs for every language mapping.
 - **[Ice on GitHub](https://github.com/zeroc-ice/ice)**: source code, issue tracker, and the
