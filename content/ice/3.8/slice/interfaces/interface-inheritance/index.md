@@ -123,8 +123,8 @@ interface MyInterface extends Object { /* ... */ } // Error!
 
 It is understood that all interfaces inherit from type `Object`; you are not allowed to restate that.
 
-Type `Object` is mapped to an abstract type by the various language mappings, so you cannot instantiate an Ice object of
-that type.
+Every interface therefore provides the [operations of `Object`](../../operations-on-object), such as `ice_ping` and
+`ice_isA`.
 
 ## See Also
 

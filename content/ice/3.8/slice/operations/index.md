@@ -101,6 +101,9 @@ unset. Parameters not declared as optional are known as _required_ parameters; a
 all required parameters. In the discussion below, we use _parameter_ to refer to input parameters, output parameters,
 and return values.
 
+Optional parameters require [Ice encoding](../../encoding/data-encoding-for-optional-values) 1.1: when Ice marshals a
+request or a reply with encoding 1.0, it omits the optional parameters, and the receiver sees them unset.
+
 A unique, non-negative integer _tag_ must be assigned to each optional parameter:
 
 ```slice

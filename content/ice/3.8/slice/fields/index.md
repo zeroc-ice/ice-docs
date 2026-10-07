@@ -42,6 +42,9 @@ A field of a Slice [class](../user-defined-types/classes) or [exception](../exce
 indicate that a program can leave its value unset. Fields not declared as optional are known as _required_ fields; a
 program must supply legal values for all required fields.
 
+Optional fields require [Ice encoding](../../encoding/data-encoding-for-optional-values) 1.1: when Ice marshals a class
+or exception with encoding 1.0, it omits the optional fields, and the receiver sees them unset.
+
 Each optional field must be assigned a unique, non-negative integer _tag_:
 
 ```slice
