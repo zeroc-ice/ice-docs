@@ -56,8 +56,6 @@ This directive is ignored by other Slice compilers.
 
 ### `deprecated[:message]`
 
-`deprecate[:message]`
-
 This directive allows you to emit a [deprecation warning for Slice constructs](../deprecating-slice-definitions).
 
 ### `format`
