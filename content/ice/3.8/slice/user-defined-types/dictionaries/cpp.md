@@ -11,7 +11,7 @@ dictionary<long, Employee> EmployeeMap;
 The following code is generated for this definition:
 
 ```cpp
-using EmployeeMap = std::map<long long, Employee>;
+using EmployeeMap = std::map<std::int64_t, Employee>;
 ```
 
 Again, there are no surprises here: a Slice dictionary simply maps to a standard `std::map`. As a result, you can use
@@ -88,6 +88,7 @@ The class or template class you provide must meet the following requirements:
 - The class must provide `iterator` and `const_iterator` types and provide `begin` and `end` member functions with the
   usual semantics; these iterators must be comparable for equality and inequality.
 - The class must provide a `clear` function.
+- The class must provide a `size` function that returns the number of entries.
 - The class must provide an `insert` function that takes an `iterator` (as location hint) plus a `value_type` parameter,
   and returns an `iterator` to the new entry or to the existing entry with the given key.
 
@@ -112,7 +113,7 @@ module HR
 
     interface Office
     {
-        ["cpp:type:std::unordered_map<long long, Employee>"]
+        ["cpp:type:std::unordered_map<std::int64_t, Employee>"]
         EmployeeMap getAllEmployees();
     }
 }

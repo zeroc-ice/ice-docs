@@ -128,6 +128,7 @@ If you use a class that also meets the following requirements
   type.
 - The class has a member function `size` that returns the number of elements in the sequence as an unsigned integral
   type.
+- The class defines a `value_type` type, the type of its elements.
 - The class provides a member function `swap` that swaps the contents of the sequence with another sequence of the same
   type.
 - The class defines `iterator` and `const_iterator` types and provides `begin` and `end` member functions with the usual
@@ -219,7 +220,7 @@ this directive, the `write` function on the proxy has the following signature:
 
 ```cpp
 void write(
-    const std::pair<const std::byte*, const std::byte*>& contents,
+    std::pair<const std::byte*, const std::byte*> contents,
     const Ice::Context& = Ice::noExplicitContext);
 ```
 
@@ -240,6 +241,11 @@ usual semantics for iterators).
 The array mapping is useful to achieve zero-copy passing of sequences. The pointers point directly into the server-side
 transport buffer when receiving a request; this allows the runtime to avoid creating a `vector` to pass to the operation
 implementation, thereby avoiding both allocating memory for the sequence and copying its contents into that memory.
+
+The Ice runtime owns the elements that these pointers denote. The pointers it gives to a servant function remain valid
+until this function returns, even when the function is the `Async` function of an AMD operation that sends its response
+later. The pointers it gives to an AMI response callback remain valid until this callback returns. Copy the elements if
+you need them after that.
 
 {% callout type="note" %}
 
