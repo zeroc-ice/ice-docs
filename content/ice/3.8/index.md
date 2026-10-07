@@ -364,7 +364,7 @@ await communicator.shutdownCompleted()
 ## Explore the Documentation
 
 The main chapters. Every chapter is in the table of contents; to find any page by name, use the search box in the top
-bar or press `⌘K`.
+bar or press `Ctrl+K`, or `⌘K` on macOS.
 
 {% grid %}
 
