@@ -402,6 +402,15 @@
   .doc-body > [data-langs]:not(:not([data-langs]) ~ *) > :first-child {
     margin-top: 0;
   }
+
+  /* The first block after a property section's label closes up to it the same
+     way; the label is the one block that may precede the language blocks. */
+  .property-section > :nth-child(2),
+  .property-section
+    > [data-langs]:not(:not([data-langs]):not(:first-child) ~ *)
+    > :first-child {
+    margin-top: 0;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -598,6 +607,12 @@
    below mirror LANGUAGE_LABELS in lib/docs-model/nav.ts. */
 div[data-langs],
 span[data-langs] {
+  display: contents;
+}
+
+/* A property section is a label and what follows it, on the article's own
+   tracks. */
+.property-section {
   display: contents;
 }
 
