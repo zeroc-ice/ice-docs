@@ -151,10 +151,10 @@ echo "$greeting\n";
 
 ## Registered Communicators in PHP
 
-You can register a communicator to prevent it from being destroyed at the completion of a script. For example, a
-session-based PHP application can create a communicator for each new session and register it for reuse in subsequent
-requests of the same session. Reusing a communicator in this way avoids the overhead associated with creating and
-destroying a communicator in each request. Furthermore, it allows network connections established by the Ice
+When a request completes, the Ice extension destroys every communicator that the script created and did not register.
+For example, a session-based PHP application can create a communicator for each new session and register it for reuse in
+subsequent requests of the same session. Reusing a communicator in this way avoids the overhead associated with creating
+and destroying a communicator in each request. Furthermore, it allows network connections established by the Ice
 communicator to remain open and available for use in another request.
 
 ### Limitations of Registered Communicators in PHP
