@@ -242,10 +242,10 @@ The array mapping is useful to achieve zero-copy passing of sequences. The point
 transport buffer when receiving a request; this allows the runtime to avoid creating a `vector` to pass to the operation
 implementation, thereby avoiding both allocating memory for the sequence and copying its contents into that memory.
 
-The Ice runtime owns the elements that these pointers denote. The pointers it gives to a servant function remain valid
-until this function returns, even when the function is the `Async` function of an AMD operation that sends its response
-later. The pointers it gives to an AMI response callback remain valid until this callback returns. Copy the elements if
-you need them after that.
+When Ice gives you such a pair, the Ice runtime owns the elements that its pointers denote. The pointers it gives to a
+servant function remain valid until this function returns, even when the function is the `Async` function of an AMD
+operation that sends its response later. The pointers it gives to an AMI response callback remain valid until this
+callback returns. Copy the elements if you need them after that.
 
 {% callout type="note" %}
 
