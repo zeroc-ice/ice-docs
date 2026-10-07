@@ -171,20 +171,23 @@ communicators is outside the scope of this documentation.
 
 The API for registered communicators consists of three functions:
 
-- `Ice\register($communicator, $name, $expires=0)` Registers a communicator with the given name. On success, the
-  function returns true. If another communicator is already registered with the same name, the function returns false.
-  The `expires` argument specifies a timeout value in minutes; if `expires` is greater than zero, the Ice extension
-  automatically destroys the communicator if it has not been retrieved (via `find`) for the specified number of minutes.
-  The default value (zero) means the communicator never expires, in which case the Ice for PHP extension only destroys
-  the communicator when the current process terminates. It is legal to register a communicator with more than one name.
-  In that case, the most recent value of expires takes precedence.
+- `Ice\register($communicator, $name, $expires=0)` Registers a communicator with the given name. Returns false if
+  another communicator is already registered with this name, and true otherwise.
+- `Ice\find($name)` Returns the communicator registered with the given name, or `null` if there is none.
+- `Ice\unregister($name)` Removes the registration with the given name. Returns true if a communicator was registered
+  with this name, and false otherwise.
 
-- `Ice\unregister($name)` Removes the registration for a communicator with the given name. Returns true if a match was
-  found or false otherwise. The Ice extension destroys the communicator once it has no registered name left and every
-  request that created it or retrieved it with `Ice\find` has completed. Destroying a registered communicator explicitly
-  also removes its registrations.
+You can register a communicator with several names. The Ice extension destroys a registered communicator when one of the
+following happens:
 
-- `Ice\find($name)` Retrieves the communicator associated with the given name. Returns `null` if no match is found.
+- **It expires.** When `$expires` is greater than zero, the Ice extension destroys the communicator and removes all its
+  registrations once no script has retrieved it with `Ice\find` for `$expires` minutes. Each call to `Ice\register`
+  replaces the expiration time of the communicator, and the default value, 0, means the communicator never expires.
+- **You remove its last registration.** After `Ice\unregister` removes the last name of a communicator, the Ice
+  extension destroys the communicator once every request that created it or retrieved it with `Ice\find` has completed.
+- **The process terminates.**
+
+Destroying a registered communicator yourself also removes all its registrations.
 
 An application typically uses registered communicators as follows:
 
