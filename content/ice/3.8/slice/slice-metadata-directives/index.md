@@ -62,12 +62,13 @@ This directive allows you to emit a [deprecation warning for Slice constructs](.
 
 ### `format`
 
-This directive defines the [encoding format](../user-defined-types/classes/slicing-values-and-exceptions) used for any
-classes or exceptions marshaled as the arguments or results of an operation. The tag can be applied to an interface,
-which affects all of its operations, or to individual operations. Legal values for the tag are `format:sliced`,
-`format:compact`, and `format:default`. A tag specified for an operation overrides any setting applied to its enclosing
-interface. The [Ice.Default.SlicedFormat](../../property-reference/ice-default-properties) property defines the behavior
-when no tag is present.
+This directive defines the [encoding format](../user-defined-types/classes/slicing-values-and-exceptions) used for class
+instances marshaled as the arguments or results of an operation. Ice always marshals user exceptions in the sliced
+format. The tag can be applied to an interface, which affects all of its operations, or to individual operations. Legal
+values for the tag are `format:sliced`, `format:compact`, and `format:default`. A tag specified for an operation
+overrides any setting applied to its enclosing interface. The
+[Ice.Default.SlicedFormat](../../property-reference/ice-default-properties) property defines the behavior when no tag is
+present.
 
 ### `marshaled-result`
 
