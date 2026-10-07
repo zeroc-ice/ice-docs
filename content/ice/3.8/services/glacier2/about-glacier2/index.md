@@ -38,10 +38,9 @@ Glacier2 has the following advantages and limitations.
 
 ## Limitations
 
-- Clients connect to the router over a connection-oriented transport; Glacier2 does not support UDP between clients and
-  the router. The router forwards a request to a back-end server as a datagram when `d` or `D` is the last mode
-  character in the [`_fwd` context](../how-glacier2-uses-request-contexts) entry of the request. The router forwards a
-  callback to a client over the client's connection to the router, so it cannot forward a callback as a datagram.
+- Clients connect to the router over a connection-oriented transport such as TCP or SSL; Glacier2 does not accept UDP
+  connections from clients. The router can still forward a request to a back-end server as a datagram, see
+  [the `_fwd` context](../how-glacier2-uses-request-contexts).
 - [Callback objects](../callbacks-through-glacier2) in a client must use a Glacier2-supplied category in their
   identities.
 

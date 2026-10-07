@@ -98,7 +98,7 @@ returned to the client as a member of `PermissionDeniedException`. Starting with
 `Glacier2::PermissionDeniedException`. Glacier2 forwards this exception as-is to the client, which means the verifier
 can raise a subclass of `PermissionDeniedException` in order to provide more information to the client.
 
-The verifier examines the members of `SSLInfo` to authenticate a client:
+The verifier examines the fields of `SSLInfo` to authenticate a client:
 
 ```slice
 module Glacier2
@@ -115,17 +115,14 @@ module Glacier2
 }
 ```
 
-For a connection over IP, the `remoteHost`, `remotePort`, `localHost`, and `localPort` members hold the addresses of the
-client's connection to the router; for other connections, the hosts are empty and the ports are 0. The router leaves
-`cipher` empty. `certs` holds a single element: the client's certificate in the Privacy Enhanced Mail (PEM) encoding.
-The router rejects `createSessionFromSecureConnection` with `PermissionDeniedException`, without invoking the verifier,
-when the client's connection is not an SSL connection, when the client does not provide a certificate, or when the
-subject name of the certificate is empty.
+`certs` holds a single element: the client's certificate in the Privacy Enhanced Mail (PEM) encoding.
+`createSessionFromSecureConnection` requires an SSL connection with a client certificate whose subject name is not
+empty. For a connection over IP, the `remoteHost`, `remotePort`, `localHost`, and `localPort` fields hold the addresses
+of the client's connection to the router; for other connections, the hosts are empty and the ports are 0. The router
+leaves `cipher` empty.
 
-Although the SSL implementation has already validated the certificate, a verifier implementation typically needs to
-examine it in detail before making its decision, such as the distinguished names of its subject and issuer. The verifier
-decodes the PEM string with the certificate API of its platform, such as `X509Certificate2` in .NET or
-`CertificateFactory` in Java; see [The SSL Transport](../../../runtime/ssl-transport).
+The verifier typically examines the certificate's subject and issuer names. It decodes the PEM string with the
+certificate API of its platform, such as `X509Certificate2` in .NET or `CertificateFactory` in Java.
 
 To install your verifier, set the [Glacier2.SSLPermissionsVerifier](../../../property-reference/glacier2-properties)
 property with the proxy of your verifier object.
@@ -185,10 +182,9 @@ If the client supplied a certificate, the server can decode and examine it using
 
 ## Request Filtering
 
-The Glacier2 router is capable of filtering requests based on a variety of criteria, which helps to ensure that clients
-do not gain access to unintended objects. The category, identity, and adapter identifier filters accept a request when
-any one of them that is configured accepts it, and accept every request when none of them is configured. The address
-filters and the proxy size limit apply independently of these filters.
+The Glacier2 router can restrict the objects that a client reaches through it. The router forwards a request when at
+least one of the configured category, identity and adapter identifier filters accepts it, and forwards every request
+when none of these filters is configured. The address filters and the proxy size limit apply independently.
 
 ### Address Filters
 
@@ -208,9 +204,8 @@ The value of each property is a list of _address_:_port_ pairs separated by spac
 Glacier2.Filter.Address.Accept=192.168.1.5:4063 192.168.1.6:4063
 ```
 
-This configuration allows clients to use only two hosts in the back-end network, and only one port on each host. When a
-client attempts to use a proxy containing any other host or port, the router aborts the client's connection, which ends
-its session; see [Client Impact](#client-impact).
+With this configuration, clients can reach two back-end hosts, each on a single port. The router rejects a proxy with
+any other address (endpoint); see [Client Impact](#client-impact) for what a rejection means for the client.
 
 You can also use ranges, groups and wildcards when defining your address filters. For example, the following property
 value shows how to use an address range:
@@ -325,8 +320,6 @@ proxy `factory@SecretAdapter`:
 ```config
 Glacier2.Filter.AdapterId.Accept=WidgetAdapter
 ```
-
-This filter does not apply to requests for well-known objects or for objects reached through direct proxies.
 
 If an adapter identifier contains spaces, you can enclose the value in single or double quotes. If an adapter identifier
 contains a quote character, it must be escaped with a leading backslash.

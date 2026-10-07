@@ -3,20 +3,21 @@ title: How Glacier2 Uses Request Contexts
 ---
 
 The Glacier2 router examines the [context](../../../runtime/invocation/request-contexts) of an incoming request for
-special keys that affect how the router forwards the request. These contexts have the same semantics regardless of
-whether the request is sent from client to server or from server to client.
+special keys that affect how the router forwards the request. These keys have the same semantics for requests from
+clients to servers and for callbacks from servers to clients, except that the router forwards only requests to servers
+as datagrams.
 
 ## The `_fwd` Context
 
 The `_fwd` context determines the proxy mode that the router uses when forwarding the request. The value associated with
 the `_fwd` key must be a string containing one or more of the characters shown in the following table:
 
-| **Value** | **Mode** |
-| --------- | -------- |
-| d or D    | Datagram |
-| o or O    | Oneway   |
-| t         | Twoway   |
-| z         | Compress |
+| **Value** | **Mode**                                    |
+| --------- | ------------------------------------------- |
+| d or D    | Datagram, for requests forwarded to servers |
+| o or O    | Oneway                                      |
+| t         | Twoway                                      |
+| z         | Compress                                    |
 
 _Legal values for the `_fwd` context key_.
 

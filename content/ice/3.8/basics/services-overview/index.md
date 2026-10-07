@@ -15,9 +15,10 @@ to which your application acts as a client.
 
 ## Glacier2
 
-[Glacier2](../../services/glacier2) routes requests and callbacks between clients and servers through a firewall. You
-can configure TLS on client-to-router and router-to-server connections. Glacier2 supports certificate-based mutual
-authentication and session management.
+[Glacier2](../../services/glacier2) is a router. A client on one network sends its requests to the Glacier2 router,
+which forwards them to servers on another network, typically behind a firewall. The router also forwards callbacks from
+these servers to the client, over the connection the client opened to the router. Glacier2 also authenticates clients
+and manages their sessions.
 
 ## IceBox
 
