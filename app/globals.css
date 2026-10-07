@@ -399,27 +399,6 @@
   .doc-body > [data-langs]:not(:not([data-langs]) ~ *) > :first-child {
     margin-top: 0;
   }
-
-  /* On a property reference page, Synopsis and Description drop to labels,
-     which is what they are. */
-  [data-page-shape='property-list'] .doc-body h3 {
-    margin-top: 1.25rem;
-    margin-bottom: 0.125rem;
-    color: var(--text-muted);
-    font-size: 0.6875rem;
-    font-weight: 650;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
-
-  /* A platform named under Platform Notes is a subheading of the notes, so it
-     stays at the size of the text around it. */
-  [data-page-shape='property-list'] .doc-body h4 {
-    margin-top: 1rem;
-    margin-bottom: 0.125rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
-  }
 }
 
 /* ---------------------------------------------------------------------------

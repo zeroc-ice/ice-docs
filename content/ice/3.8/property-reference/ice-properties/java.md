@@ -2,11 +2,13 @@
 
 ## Ice.CacheMessageBuffers
 
-### Synopsis {% id="ice.cachemessagebuffers-synopsis" %}
+{% synopsis %}
 
 `Ice.CacheMessageBuffers=num`
 
-### Description {% id="ice.cachemessagebuffers-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is greater than `0`, the proxies cache message buffers for future reuse. This can improve performance and
 reduce the amount of garbage produced by Ice internals that the garbage collector would eventually spend time to
@@ -25,33 +27,41 @@ for dispatches.
 Ice for Java allocates non-direct message buffers when this property is set to `1` and direct message buffers when set
 to `2`. Use of direct message buffers minimizes copying and typically results in improved throughput.
 
+{% /description %}
+
 {% /language-section %}
 
 {% language-section name="ice.config" %}
 
 ## Ice.Compression.Level
 
-### Synopsis {% id="ice.compression.level-synopsis" %}
+{% synopsis %}
 
 `Ice.Compression.Level=num`
 
-### Description {% id="ice.compression.level-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the bzip2 compression level to use when [compressing protocol messages](../../protocol/protocol-compression).
 Values range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
 that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
+{% /description %}
+
 ## Ice.Config
 
-### Synopsis {% id="ice.config-synopsis" %}
+{% synopsis %}
 
 ```config
 Ice.Config=config_file[,config_file,...]
 Ice.Config=1
 ```
 
-### Description {% id="ice.config-description" %}
+{% /synopsis %}
+
+{% description %}
 
 This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
 `--Ice.Config=config_file`.
@@ -69,30 +79,40 @@ Ice opens the configuration file in the local file system.
 Configuration files use a simple [syntax](../../runtime/properties-and-configuration/configuration-file-syntax)
 consisting of _name_=_value_ pairs with support for comments and escaping.
 
+{% /description %}
+
 {% /language-section %}
 
 {% language-section name="ice.httpproxyport" %}
 
 ## Ice.HTTPProxyHost
 
-### Synopsis {% id="ice.httpproxyhost-synopsis" %}
+{% synopsis %}
 
 `Ice.HTTPProxyHost=addr`
 
-### Description {% id="ice.httpproxyhost-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP
 proxy server for all outgoing (client) connections.
 
+{% /description %}
+
 ## Ice.HTTPProxyPort
 
-### Synopsis {% id="ice.httpproxyport-synopsis" %}
+{% synopsis %}
 
 `Ice.HTTPProxyPort=num`
 
-### Description {% id="ice.httpproxyport-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The port number of the HTTP proxy server. If not specified, the default value is `1080`.
+
+{% /description %}
 
 {% /language-section %}
 
@@ -100,11 +120,13 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 ## Ice.InitPlugins
 
-### Synopsis {% id="ice.initplugins-synopsis" %}
+{% synopsis %}
 
 `Ice.InitPlugins=num`
 
-### Description {% id="ice.initplugins-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
 initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
@@ -112,24 +134,32 @@ this order. An application may need to set this property to zero in order to int
 has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
 plug-in manager to complete the initialization process. If not defined, the default value is 1.
 
+{% /description %}
+
 ## Ice.IPv4
 
-### Synopsis {% id="ice.ipv4-synopsis" %}
+{% synopsis %}
 
 `Ice.IPv4=num`
 
-### Description {% id="ice.ipv4-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
 value is 1.
 
+{% /description %}
+
 ## Ice.IPv6
 
-### Synopsis {% id="ice.ipv6-synopsis" %}
+{% synopsis %}
 
 `Ice.IPv6=num`
 
-### Description {% id="ice.ipv6-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
 value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
@@ -141,17 +171,21 @@ can configure the Java runtime to use only IPv4 by starting your application wit
 java -Djava.net.preferIPv4Stack=true ...
 ```
 
+{% /description %}
+
 {% /language-section %}
 
 {% language-section name="ice.printstacktraces" %}
 
 ## Ice.Package._module_
 
-### Synopsis {% id="ice.package.module-synopsis" %}
+{% synopsis %}
 
 `Ice.Package.module=package`
 
-### Description {% id="ice.package.module-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Ice for Java allows you to customize the Slice module to Java package mapping with the `java:package` and
 `java:identifier` [metadata directive](../../slice/slice-metadata-directives).
@@ -167,13 +201,17 @@ in new applications.
 
 See also: [Ice.Default.Package](../ice-default-properties)
 
+{% /description %}
+
 ## Ice.PluginLoadOrder
 
-### Synopsis {% id="ice.pluginloadorder-synopsis" %}
+{% synopsis %}
 
 `Ice.PluginLoadOrder=names`
 
-### Description {% id="ice.pluginloadorder-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the order in which Ice creates the plug-ins installed through configuration, with `Ice.Plugin.name`
 properties. `names` lists plug-in names separated by commas or white space. Ice creates the plug-ins in `names` first,
@@ -183,28 +221,38 @@ This property does not affect the plug-ins installed through `InitializationData
 `Ice.Plugin.name` property supplies their arguments: Ice creates these plug-ins in list order, before any plug-in
 installed through configuration.
 
+{% /description %}
+
 ## Ice.PreferIPv6Address
 
-### Synopsis {% id="ice.preferipv6address-synopsis" %}
+{% synopsis %}
 
 `Ice.PreferIPv6Address=num`
 
-### Description {% id="ice.preferipv6address-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
 resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
 value is 0.
 
+{% /description %}
+
 ## Ice.PrintAdapterReady
 
-### Synopsis {% id="ice.printadapterready-synopsis" %}
+{% synopsis %}
 
 `Ice.PrintAdapterReady=num`
 
-### Description {% id="ice.printadapterready-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
 activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
+
+{% /description %}
 
 {% /language-section %}
 
@@ -212,11 +260,13 @@ activation is complete. This is useful for scripts that need to wait until an ob
 
 ## Ice.ServerIdleTime
 
-### Synopsis {% id="ice.serveridletime-synopsis" %}
+{% synopsis %}
 
 `Ice.ServerIdleTime=num`
 
-### Description {% id="ice.serveridletime-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
 pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
@@ -227,13 +277,17 @@ return. After that, a server will typically do some clean-up work before exiting
 the server will not shut down automatically. This property is often used for servers that are automatically
 [activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
+{% /description %}
+
 ## Ice.SliceLoader.NotFoundCacheSize
 
-### Synopsis {% id="ice.sliceloader.notfoundcachesize-synopsis" %}
+{% synopsis %}
 
 `Ice.SliceLoader.NotFoundCacheSize=num`
 
-### Description {% id="ice.sliceloader.notfoundcachesize-description" %}
+{% /synopsis %}
+
+{% description %}
 
 When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
 Slice loader resolutions.
@@ -242,13 +296,17 @@ The default value is 100.
 
 See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
+{% /description %}
+
 ## Ice.SOCKSProxyHost
 
-### Synopsis {% id="ice.socksproxyhost-synopsis" %}
+{% synopsis %}
 
 `Ice.SOCKSProxyHost=addr`
 
-### Description {% id="ice.socksproxyhost-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
 proxy server for all outgoing (client) connections.
@@ -260,49 +318,65 @@ uses the SOCKS proxy.
 
 {% /callout %}
 
+{% /description %}
+
 ## Ice.SOCKSProxyPort
 
-### Synopsis {% id="ice.socksproxyport-synopsis" %}
+{% synopsis %}
 
 `Ice.SOCKSProxyPort=num`
 
-### Description {% id="ice.socksproxyport-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The port number of the SOCKS proxy server. If not specified, the default value is `1080`.
 
+{% /description %}
+
 ## Ice.StdErr
 
-### Synopsis {% id="ice.stderr-synopsis" %}
+{% synopsis %}
 
 `Ice.StdErr=filename`
 
-### Description {% id="ice.stderr-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
 `Ice.StdErr` and `Ice.StdOut` can name the same file.
 
+{% /description %}
+
 ## Ice.StdOut
 
-### Synopsis {% id="ice.stdout-synopsis" %}
+{% synopsis %}
 
 `Ice.StdOut=filename`
 
-### Description {% id="ice.stdout-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
 `Ice.StdErr` and `Ice.StdOut` can name the same file.
 
+{% /description %}
+
 ## Ice.SyslogFacility
 
-### Synopsis {% id="ice.syslogfacility-synopsis" %}
+{% synopsis %}
 
 `Ice.SyslogFacility=string` (Unix only)
 
-### Description {% id="ice.syslogfacility-description" %}
+{% /synopsis %}
+
+{% description %}
 
 This property sets the syslog facility to `string`. This property has no effect if `Ice.UseSyslog` is not set. Each
 communicator can use its own facility, even when several communicators in the same process log to `syslog`.
@@ -312,35 +386,47 @@ communicator can use its own facility, even when several communicators in the sa
 
 The default value is `LOG_USER`.
 
+{% /description %}
+
 ## Ice.SyslogHost
 
-### Synopsis {% id="ice.sysloghost-synopsis" %}
+{% synopsis %}
 
 `Ice.SyslogHost=host` (Unix only)
 
-### Description {% id="ice.sysloghost-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the host name or IP address of the syslog daemon that receives log messages when
 [Ice.UseSyslog](#ice.usesyslog) is enabled. The default value is `localhost`.
 
+{% /description %}
+
 ## Ice.SyslogPort
 
-### Synopsis {% id="ice.syslogport-synopsis" %}
+{% synopsis %}
 
 `Ice.SyslogPort=port` (Unix only)
 
-### Description {% id="ice.syslogport-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the UDP port of the syslog daemon at [Ice.SyslogHost](#ice.sysloghost). The default value is `514`. This
 property takes effect when [Ice.UseSyslog](#ice.usesyslog) is enabled.
 
+{% /description %}
+
 ## Ice.ThreadPriority
 
-### Synopsis {% id="ice.threadpriority-synopsis" %}
+{% synopsis %}
 
 `Ice.ThreadPriority=value`
 
-### Description {% id="ice.threadpriority-description" %}
+{% /synopsis %}
+
+{% description %}
 
 `value` specifies a thread priority. Threads created by the Ice runtime are created with the specified priority by
 default. Leaving this property unset causes the runtime to create threads with the system default priority. This
@@ -354,17 +440,21 @@ You can separately override the default priorities for the client and server thr
 [Ice.ThreadPool._name_.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a
 specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
 
+{% /description %}
+
 {% /language-section %}
 
 {% language-section name="ice.usesystemdjournal" %}
 
 ## Ice.UseSyslog
 
-### Synopsis {% id="ice.usesyslog-synopsis" %}
+{% synopsis %}
 
 `Ice.UseSyslog=num` (Unix only)
 
-### Description {% id="ice.usesyslog-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is greater than 0, Ice for Java sends log messages as UDP datagrams to the syslog daemon configured by
 [Ice.SyslogHost](#ice.sysloghost) and [Ice.SyslogPort](#ice.syslogport). The messages use the RFC 3164 syslog format
@@ -372,5 +462,7 @@ without a header and include the program name as their prefix. [Ice.SyslogFacili
 facility. The default value of `Ice.UseSyslog` is 0. Ice ignores this property on Windows.
 
 On other platforms, this property cannot be combined with [Ice.LogFile](#ice.logfile).
+
+{% /description %}
 
 {% /language-section %}

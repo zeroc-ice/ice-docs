@@ -4,11 +4,13 @@ title: IceGrid.*
 
 ## IceGrid.InstanceName
 
-### Synopsis {% id="icegrid.instancename-synopsis" %}
+{% synopsis %}
 
 `IceGrid.InstanceName=name`
 
-### Description {% id="icegrid.instancename-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies an alternate identity category for the
 [well-known IceGrid objects](../../services/icegrid/icegrid-server-reference/well-known-registry-objects). If defined,
@@ -29,32 +31,48 @@ If this property is not set, the category (`name`) is computed as follows:
 For example, in the configuration of an IceGrid node, you don’t need to set `IceGrid.InstanceName` since you already
 specify it indirectly with `Ice.Default.Locator`.
 
+{% /description %}
+
 ## IceGrid.Node._AdapterProperty_
 
-### Synopsis {% id="icegrid.node.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.AdapterProperty=value`
 
-### Description {% id="icegrid.node.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 An IceGrid node uses the adapter name `IceGrid.Node` for the object adapter that the registry contacts to communicate
 with the node. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter.
 
+{% /description %}
+
 ## IceGrid.Node.AllowEndpointsOverride
 
-### Synopsis {% id="icegrid.node.allowendpointsoverride-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.AllowEndpointsOverride=num`
+
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a non-zero value, an IceGrid node permits servers to override previously set endpoints even if the
 server is active. Setting this property to a non-zero value is necessary if the servers managed by the node use the
 object adapter operation `refreshPublishedEndpoints`. The default value of `num` is zero.
 
+{% /description %}
+
 ## IceGrid.Node.AllowRunningServersAsRoot
 
-### Synopsis {% id="icegrid.node.allowrunningserversasroot-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.AllowRunningServersAsRoot=num`
+
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a non-zero value, an IceGrid node will permit servers started by the node to run with super-user
 privileges. Note that you should not set this property unless the node uses a secure endpoint; otherwise, clients can
@@ -62,39 +80,51 @@ start arbitrary processes with super-user privileges on the node's machine.
 
 The default value of `num` is zero.
 
+{% /description %}
+
 ## IceGrid.Node.CollocateRegistry
 
-### Synopsis {% id="icegrid.node.collocateregistry-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.CollocateRegistry=num`
 
-### Description {% id="icegrid.node.collocateregistry-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a value larger than zero, the [node](../../services/icegrid/icegrid-server-reference/icegridnode)
 collocates the IceGrid registry.
 
 The collocated registry is configured with the same properties as the standalone IceGrid registry.
 
+{% /description %}
+
 ## IceGrid.Node.Data
 
-### Synopsis {% id="icegrid.node.data-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Data=path`
 
-### Description {% id="icegrid.node.data-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines the path of the IceGrid node [data directory](../../services/icegrid/icegrid-server-reference/icegridnode). This
 property must be defined for each node, and the directory must already exist. The node creates a `servers` subdirectory
 in this directory if it does not already exist; `servers` contains the configuration files and data directory of each
 [deployed server](../../services/icegrid/using-icegrid-deployment).
 
+{% /description %}
+
 ## IceGrid.Node.DisableOnFailure
 
-### Synopsis {% id="icegrid.node.disableonfailure-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.DisableOnFailure=num`
 
-### Description {% id="icegrid.node.disableonfailure-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The node considers a server to have terminated improperly if it has a non-zero exit code or if it exits due to one of
 the signals `SIGABRT`, `SIGBUS`, `SIGILL`, `SIGFPE`, or `SIGSEGV`. The node marks such a server as disabled if `num` is
@@ -103,24 +133,32 @@ values of `num` greater than zero, the server is disabled for `num` seconds. If 
 disabled indefinitely, or until it is explicitly enabled or started via an administrative action. The default value is
 zero, meaning the node does not disable servers in this situation.
 
+{% /description %}
+
 ## IceGrid.Node.Name
 
-### Synopsis {% id="icegrid.node.name-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Name=name`
 
-### Description {% id="icegrid.node.name-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines the `name` of the IceGrid node. Each node in an IceGrid deployment must have a unique name. This property must
 be defined for each node.
 
+{% /description %}
+
 ## IceGrid.Node.Output
 
-### Synopsis {% id="icegrid.node.output-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Output=path`
 
-### Description {% id="icegrid.node.output-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines the path of the IceGrid node output directory. If set, the node redirects the `stdout` of each server it starts
 to `path/server-id.out` and its `stderr` to `path/server-id.err`, where `server-id` is the server's ID. A server whose
@@ -128,24 +166,32 @@ own configuration sets [Ice.StdOut](../ice-properties) or [Ice.StdErr](../ice-pr
 [IceGrid.Node.RedirectErrToOut](#icegrid.node.redirecterrtoout) set, `stderr` goes to the `.out` file too. If this
 property is not set, the servers share the `stdout` and `stderr` of the node's process.
 
+{% /description %}
+
 ## IceGrid.Node.PrintServersReady
 
-### Synopsis {% id="icegrid.node.printserversready-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.PrintServersReady=token`
 
-### Description {% id="icegrid.node.printserversready-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The IceGrid node prints "`token` ready" on standard output after all the servers managed by the node are ready. This is
 useful for scripts that wish to wait until all servers have been started and are ready for use.
 
+{% /description %}
+
 ## IceGrid.Node.ProcessorSocketCount
 
-### Synopsis {% id="icegrid.node.processorsocketcount-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.ProcessorSocketCount=num`
 
-### Description {% id="icegrid.node.processorsocketcount-description" %}
+{% /synopsis %}
+
+{% description %}
 
 This property sets the number of processor sockets. This value is reported by the
 [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) `node sockets` command. On Windows Vista (or
@@ -153,37 +199,49 @@ later), Windows Server 2008 (or later), and Linux systems, the number of process
 Ice run time. On other systems, the run time cannot obtain the socket count from the operating system; you can use this
 property to set the number of processor sockets manually on such systems.
 
+{% /description %}
+
 ## IceGrid.Node.PropertiesOverride
 
-### Synopsis {% id="icegrid.node.propertiesoverride-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.PropertiesOverride=overrides`
 
-### Description {% id="icegrid.node.propertiesoverride-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines a list of properties that override the properties defined in server deployment descriptors. For example, in some
 cases it is desirable to set the property [Ice.Default.Host](../ice-default-properties) for servers, but not in server
 deployment descriptors. The property definitions must be separated by white space.
 
+{% /description %}
+
 ## IceGrid.Node.RedirectErrToOut
 
-### Synopsis {% id="icegrid.node.redirecterrtoout-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.RedirectErrToOut=num`
 
-### Description {% id="icegrid.node.redirecterrtoout-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a value larger than zero, the node redirects the `stderr` of each server it starts to the server's
 `.out` file instead of its `.err` file. This property takes effect only when [IceGrid.Node.Output](#icegrid.node.output)
 is set.
 
+{% /description %}
+
 ## IceGrid.Node.Trace.Activator
 
-### Synopsis {% id="icegrid.node.trace.activator-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Trace.Activator=num`
 
-### Description {% id="icegrid.node.trace.activator-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The activator trace level:
 
@@ -193,13 +251,17 @@ The activator trace level:
 | 1     | Trace process activation, termination.                                                                                                                                                                                                                                                                                                                                                      |
 | 2     | Like 1, but more verbose: includes process signaling, the activation parameters of each spawned server (path, working directory, uid/gid, arguments, and environment variables), and more diagnostic messages. Note: environment variables and arguments may carry secrets (passwords, tokens, certificate passphrases) injected via your deployment — treat the trace output as sensitive. |
 
+{% /description %}
+
 ## IceGrid.Node.Trace.Adapter
 
-### Synopsis {% id="icegrid.node.trace.adapter-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Trace.Adapter=num`
 
-### Description {% id="icegrid.node.trace.adapter-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The object adapter trace level:
 
@@ -209,13 +271,17 @@ The object adapter trace level:
 | 2     | Trace object adapter activation, deactivation, and activation failures. |
 | 3     | Like 2, plus requests waiting for the activation of an object adapter.  |
 
+{% /description %}
+
 ## IceGrid.Node.Trace.Admin
 
-### Synopsis {% id="icegrid.node.trace.admin-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Trace.Admin=num`
 
-### Description {% id="icegrid.node.trace.admin-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Set the trace level for the routing of operations to Ice.Admin objects through this node.
 
@@ -224,13 +290,17 @@ Set the trace level for the routing of operations to Ice.Admin objects through t
 | 0     | No admin trace (default).                        |
 | 1     | Trace routing of operations to Ice.Admin objects |
 
+{% /description %}
+
 ## IceGrid.Node.Trace.Replica
 
-### Synopsis {% id="icegrid.node.trace.replica-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Trace.Replica=num`
 
-### Description {% id="icegrid.node.trace.replica-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The replica trace level:
 
@@ -241,13 +311,17 @@ The replica trace level:
 | 2     | Like 1, but more verbose, including session establishment attempts and failures. |
 | 3     | Like 2, but more verbose, including keep alive messages sent to the replica.     |
 
+{% /description %}
+
 ## IceGrid.Node.Trace.Server
 
-### Synopsis {% id="icegrid.node.trace.server-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.Trace.Server=num`
 
-### Description {% id="icegrid.node.trace.server-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Sets the node's trace level for server configuration updates and state changes:
 
@@ -258,13 +332,17 @@ Sets the node's trace level for server configuration updates and state changes:
 | 2     | Like 1, plus runtime property update attempts for individual servers and services, activation timeouts, and changes to the Active, Inactive, and Destroyed states. Changes from Loading to Inactive require level 3. |
 | 3     | Like 2, plus all other server state changes, including Loading and WaitForActivation.                                                                                                                                |
 
+{% /description %}
+
 ## IceGrid.Node.UserAccountMapper
 
-### Synopsis {% id="icegrid.node.useraccountmapper-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.UserAccountMapper=proxy`
 
-### Description {% id="icegrid.node.useraccountmapper-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the proxy of an object that implements the `IceGrid::UserAccountMapper` interface for
 [customizing](../../services/icegrid/icegrid-server-activation) the user accounts under which servers are activated. The
@@ -273,13 +351,17 @@ password, or the distinguished name for sessions created from a secure connectio
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
+{% /description %}
+
 ## IceGrid.Node.UserAccounts
 
-### Synopsis {% id="icegrid.node.useraccounts-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.UserAccounts=file`
 
-### Description {% id="icegrid.node.useraccounts-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the file name of an IceGrid node user account map file. Each line of the file contains a user account, white
 space, and an identifier; the identifier is the rest of the line and may contain spaces. A `#` starts a comment that
@@ -289,13 +371,17 @@ account map file is used by the node to
 [map session identifiers to user accounts](../../services/icegrid/icegrid-server-activation). This property is ignored
 if IceGrid.Node.UserAccountMapper is defined.
 
+{% /description %}
+
 ## IceGrid.Node.WaitTime
 
-### Synopsis {% id="icegrid.node.waittime-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Node.WaitTime=num`
 
-### Description {% id="icegrid.node.waittime-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines the interval in seconds that IceGrid waits for
 [server activation and deactivation](../../services/icegrid/icegrid-server-activation).
@@ -311,13 +397,17 @@ this property for that server.
 
 The default value is 60 seconds.
 
+{% /description %}
+
 ## IceGrid.Registry.AdminCryptPasswords
 
-### Synopsis {% id="icegrid.registry.admincryptpasswords-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.AdminCryptPasswords=file`
 
-### Description {% id="icegrid.registry.admincryptpasswords-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the file name of an IceGrid registry
 [access control list for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The
@@ -325,13 +415,17 @@ file uses the format described in [IceGrid.Registry.CryptPasswords](#icegrid.reg
 ignored if [IceGrid.Registry.AdminPermissionsVerifier](#icegrid.registry.adminpermissionsverifier) is defined. When
 neither property is defined, the registry rejects administrative sessions created with a user name and password.
 
+{% /description %}
+
 ## IceGrid.Registry.AdminPermissionsVerifier
 
-### Synopsis {% id="icegrid.registry.adminpermissionsverifier-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.AdminPermissionsVerifier=proxy`
 
-### Description {% id="icegrid.registry.adminpermissionsverifier-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the proxy of an object that implements the `Glacier2::PermissionsVerifier` interface for
 [controlling access to IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions). The
@@ -340,13 +434,17 @@ IceGrid registry invokes this proxy to validate each new administrative session 
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
+{% /description %}
+
 ## IceGrid.Registry.AdminSessionFilters
 
-### Synopsis {% id="icegrid.registry.adminsessionfilters-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.AdminSessionFilters=num`
 
-### Description {% id="icegrid.registry.adminsessionfilters-description" %}
+{% /synopsis %}
+
+{% description %}
 
 When a client creates an administrative session through a [Glacier2](../../services/glacier2) router, using the
 [IceGrid session manager](../../services/icegrid/glacier2-integration-with-icegrid), this property controls whether
@@ -358,13 +456,17 @@ zero, IceGrid configures no filters, and access to objects is controlled solely 
 
 The default value is `0`.
 
+{% /description %}
+
 ## IceGrid.Registry.AdminSessionManager._AdapterProperty_
 
-### Synopsis {% id="icegrid.registry.adminsessionmanager.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.AdminSessionManager.AdapterProperty=value`
 
-### Description {% id="icegrid.registry.adminsessionmanager.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.AdminSessionManager` for the object adapter that processes
 incoming requests from [IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions).
@@ -374,13 +476,17 @@ of `IceGrid.Registry.AdminSessionManager.AdapterId` is ignored because the regis
 For security reasons, defining endpoints for this object adapter is optional. If you do define endpoints, they should
 only be accessible to Glacier2 routers used to create IceGrid administrative sessions.
 
+{% /description %}
+
 ## IceGrid.Registry.AdminSSLPermissionsVerifier
 
-### Synopsis {% id="icegrid.registry.adminsslpermissionsverifier-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.AdminSSLPermissionsVerifier=proxy`
 
-### Description {% id="icegrid.registry.adminsslpermissionsverifier-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the proxy of an object that implements the `Glacier2::SSLPermissionsVerifier` interface for
 [controlling access to IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions). The
@@ -389,13 +495,17 @@ connection with the `IceGrid::Registry` interface.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using the properties.
 
+{% /description %}
+
 ## IceGrid.Registry.Client._AdapterProperty_
 
-### Synopsis {% id="icegrid.registry.client.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Client.AdapterProperty=value`
 
-### Description {% id="icegrid.registry.client.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 IceGrid uses the adapter name `IceGrid.Registry.Client` for the object adapter that processes incoming requests from
 clients. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any
@@ -405,13 +515,17 @@ Note that [IceGrid.Registry.Client.Endpoints](../object-adapter-properties) cont
 registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for the registry by the
 [Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
 
+{% /description %}
+
 ## IceGrid.Registry.CryptPasswords
 
-### Synopsis {% id="icegrid.registry.cryptpasswords-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.CryptPasswords=file`
 
-### Description {% id="icegrid.registry.cryptpasswords-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the file name of an IceGrid registry
 [access control list](../../services/icegrid/resource-allocation-using-icegrid-sessions). Each line of the file contains
@@ -421,13 +535,17 @@ a user name and a password hash, separated by white space. The supported hash fo
 This property is ignored if [IceGrid.Registry.PermissionsVerifier](#icegrid.registry.permissionsverifier) is defined.
 When neither property is defined, the registry rejects sessions created with a user name and password.
 
+{% /description %}
+
 ## IceGrid.Registry.DefaultTemplates
 
-### Synopsis {% id="icegrid.registry.defaulttemplates-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.DefaultTemplates=path`
 
-### Description {% id="icegrid.registry.defaulttemplates-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines the path name of an XML file containing default
 [template descriptors](../../services/icegrid/icegrid-templates). A sample file named `config/templates.xml` that
@@ -435,13 +553,17 @@ contains convenient server templates for Ice services is provided in the Ice dis
 
 When this property is not set, the registry has no default templates.
 
+{% /description %}
+
 ## IceGrid.Registry.Discovery._AdapterProperty_
 
-### Synopsis {% id="icegrid.registry.discovery.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Discovery.AdapterProperty=value`
 
-### Description {% id="icegrid.registry.discovery.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The IceGrid registry creates an object adapter named `IceGrid.Registry.Discovery` for receiving
 [multicast discovery queries](../../plugins/icelocatordiscovery) from clients. If not otherwise defined by
@@ -454,60 +576,80 @@ where `addr` is the value of `IceGrid.Registry.Discovery.Address`, `port` is the
 
 You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
 
+{% /description %}
+
 ## IceGrid.Registry.Discovery.Address
 
-### Synopsis {% id="icegrid.registry.discovery.address-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Discovery.Address=addr`
 
-### Description {% id="icegrid.registry.discovery.address-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the multicast IP address to use for receiving multicast discovery queries. The default value is `239.255.0.1`;
 it is `ff15::1` when [Ice.IPv4](../ice-properties) is disabled or [Ice.PreferIPv6Address](../ice-properties) is enabled.
 This property is used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
 
+{% /description %}
+
 ## IceGrid.Registry.Discovery.Enabled
 
-### Synopsis {% id="icegrid.registry.discovery.enabled-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Discovery.Enabled=num`
 
-### Description {% id="icegrid.registry.discovery.enabled-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is a value larger than zero, the registry creates the IceGrid.Registry.Discovery object adapter and listens for
 [multicast discovery queries](../../plugins/icelocatordiscovery). If not defined, the default value is `1`. Set this
 property to zero to disable multicast discovery.
 
+{% /description %}
+
 ## IceGrid.Registry.Discovery.Interface
 
-### Synopsis {% id="icegrid.registry.discovery.interface-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Discovery.Interface=intf`
 
-### Description {% id="icegrid.registry.discovery.interface-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the IP address of the interface to use for receiving multicast discovery queries. If not defined, the
 operating system will select a default interface to send and receive the UDP multicast datagrams. This property is used
 to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
 
+{% /description %}
+
 ## IceGrid.Registry.Discovery.Port
 
-### Synopsis {% id="icegrid.registry.discovery.port-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Discovery.Port=port`
 
-### Description {% id="icegrid.registry.discovery.port-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the multicast port to use for receiving multicast discovery queries. If not set, the default value is `4061`.
 This property is used to compose the endpoint of the IceGrid.Registry.Discovery object adapter.
 
+{% /description %}
+
 ## IceGrid.Registry.DynamicRegistration
 
-### Synopsis {% id="icegrid.registry.dynamicregistration-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.DynamicRegistration=num`
 
-### Description {% id="icegrid.registry.dynamicregistration-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If `num` is set to a value larger than zero, the locator registry does not require Ice servers to preregister object
 adapters and replica groups, but rather creates them automatically if they do not exist. If this property is not
@@ -519,37 +661,49 @@ with dynamic registration can only be a member of a replica group also registere
 dynamically register an adapter with a replica group registered with the
 [deployment facility](../../services/icegrid/using-icegrid-deployment) will fail with `Ice.NotRegisteredException`.
 
+{% /description %}
+
 ## IceGrid.Registry.Internal._AdapterProperty_
 
-### Synopsis {% id="icegrid.registry.internal.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Internal.AdapterProperty=value`
 
-### Description {% id="icegrid.registry.internal.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Internal` for the object adapter that processes incoming
 requests from nodes and slave replicas. Therefore, [adapter properties](../object-adapter-properties) can be used to
 configure this adapter. (Note any setting of `IceGrid.Registry.Internal.AdapterId` is ignored because the registry
 always provides a direct adapter.)
 
+{% /description %}
+
 ## IceGrid.Registry.LMDB.MapSize
 
-### Synopsis {% id="icegrid.registry.lmdb.mapsize-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.LMDB.MapSize=num`
 
-### Description {% id="icegrid.registry.lmdb.mapsize-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the map size for the IceGrid [LMDB](http://www.lmdb.tech/doc/) database environment. The value is specified in
 megabytes. If not set, IceGrid uses a system-dependent default: 10 MB on Windows, and 100 MB on other platforms.
 
+{% /description %}
+
 ## IceGrid.Registry.LMDB.Path
 
-### Synopsis {% id="icegrid.registry.lmdb.path-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.LMDB.Path=path`
 
-### Description {% id="icegrid.registry.lmdb.path-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the path of the directory where the IceGrid registry keeps its
 [persistent data](../../services/icegrid/icegrid-server-reference/icegrid-persistent-data), stored in an
@@ -557,13 +711,17 @@ Specifies the path of the directory where the IceGrid registry keeps its
 adapter endpoints registered at run time. This property must be defined, and the directory specified in `path` must
 exist: the IceGrid registry does not create this directory.
 
+{% /description %}
+
 ## IceGrid.Registry.NodeSessionTimeout
 
-### Synopsis {% id="icegrid.registry.nodesessiontimeout-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.NodeSessionTimeout=num`
 
-### Description {% id="icegrid.registry.nodesessiontimeout-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Each IceGrid node establishes a session with the registry that must be refreshed periodically. If a node does not
 refresh its session within `num` seconds, the node's session is destroyed and the servers deployed on that node become
@@ -571,13 +729,17 @@ unavailable to new clients. If not specified, the default value is 30 seconds.
 
 A value of `0` disables the expiration of node sessions; any other value must be at least `10`.
 
+{% /description %}
+
 ## IceGrid.Registry.PermissionsVerifier
 
-### Synopsis {% id="icegrid.registry.permissionsverifier-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.PermissionsVerifier=proxy`
 
-### Description {% id="icegrid.registry.permissionsverifier-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the proxy of an object that implements the `Glacier2::PermissionsVerifier` interface for
 [controlling access to IceGrid sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). The IceGrid
@@ -586,24 +748,32 @@ interface.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
+{% /description %}
+
 ## IceGrid.Registry.ReplicaName
 
-### Synopsis {% id="icegrid.registry.replicaname-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.ReplicaName=name`
 
-### Description {% id="icegrid.registry.replicaname-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the name of a [registry replica](../../services/icegrid/registry-replication). If not defined, the default
 value is `Master`, which is the name reserved for the master replica. Each registry replica must have a unique name.
 
+{% /description %}
+
 ## IceGrid.Registry.ReplicaSessionTimeout
 
-### Synopsis {% id="icegrid.registry.replicasessiontimeout-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.ReplicaSessionTimeout=num`
 
-### Description {% id="icegrid.registry.replicasessiontimeout-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Each IceGrid [registry replica](../../services/icegrid/registry-replication) establishes a session with the master
 registry that must be refreshed periodically. If a replica does not refresh its session within `num` seconds, the
@@ -612,26 +782,34 @@ not specified, the default value is 30 seconds.
 
 A value of `0` disables the expiration of replica sessions; any other value must be at least `10`.
 
+{% /description %}
+
 ## IceGrid.Registry.Server._AdapterProperty_
 
-### Synopsis {% id="icegrid.registry.server.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Server.AdapterProperty=value`
 
-### Description {% id="icegrid.registry.server.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Server` for the object adapter that processes incoming
 requests from servers. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this
 adapter. (Note any setting of `IceGrid.Registry.Server.AdapterId` is ignored because the registry always provides a
 direct adapter.)
 
+{% /description %}
+
 ## IceGrid.Registry.SessionFilters
 
-### Synopsis {% id="icegrid.registry.sessionfilters-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.SessionFilters=num`
 
-### Description {% id="icegrid.registry.sessionfilters-description" %}
+{% /synopsis %}
+
+{% description %}
 
 This property controls whether IceGrid establishes filters for sessions created with the
 [IceGrid session manager](../../services/icegrid/glacier2-integration-with-icegrid). If `num` is set to a value larger
@@ -641,13 +819,17 @@ filters, so access to objects is controlled solely by Glacier2's configuration.
 
 The default value is `0`.
 
+{% /description %}
+
 ## IceGrid.Registry.SessionManager._AdapterProperty_
 
-### Synopsis {% id="icegrid.registry.sessionmanager.adapterproperty-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.SessionManager.AdapterProperty=value`
 
-### Description {% id="icegrid.registry.sessionmanager.adapterproperty-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.SessionManager` for the object adapter that processes
 incoming requests from [client sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). Therefore,
@@ -657,13 +839,17 @@ incoming requests from [client sessions](../../services/icegrid/resource-allocat
 For security reasons, defining endpoints for this object adapter is optional. If you do define endpoints, they should
 only be accessible to Glacier2 routers used to create IceGrid client sessions.
 
+{% /description %}
+
 ## IceGrid.Registry.SSLPermissionsVerifier
 
-### Synopsis {% id="icegrid.registry.sslpermissionsverifier-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.SSLPermissionsVerifier=proxy`
 
-### Description {% id="icegrid.registry.sslpermissionsverifier-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the proxy of an object that implements the `Glacier2::SSLPermissionsVerifier` interface for
 [controlling access to IceGrid sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). The IceGrid
@@ -672,13 +858,17 @@ registry invokes this proxy to validate each new client session created by a cli
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Adapter
 
-### Synopsis {% id="icegrid.registry.trace.adapter-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Adapter=num`
 
-### Description {% id="icegrid.registry.trace.adapter-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The object adapter trace level:
 
@@ -686,13 +876,17 @@ The object adapter trace level:
 | --- | ------------------------------------------------------------ |
 | `1` | Trace object adapter registration, removal, and replication. |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Admin
 
-### Synopsis {% id="icegrid.registry.trace.admin-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Admin=num`
 
-### Description {% id="icegrid.registry.trace.admin-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Set the trace level for the routing of operations to Ice.Admin objects through this registry.
 
@@ -701,13 +895,17 @@ Set the trace level for the routing of operations to Ice.Admin objects through t
 | 0     | No admin trace (default).                        |
 | 1     | Trace routing of operations to Ice.Admin objects |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Application
 
-### Synopsis {% id="icegrid.registry.trace.application-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Application=num`
 
-### Description {% id="icegrid.registry.trace.application-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The application trace level:
 
@@ -716,13 +914,17 @@ The application trace level:
 | 0     | No application trace (default).                  |
 | 1     | Trace application addition, update, and removal. |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Discovery
 
-### Synopsis {% id="icegrid.registry.trace.discovery-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Discovery=num`
 
-### Description {% id="icegrid.registry.trace.discovery-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The discovery trace level:
 
@@ -731,13 +933,17 @@ The discovery trace level:
 | `1` | Trace replied discovery lookup requests.         |
 | 2   | Like 1, also includes discarded lookup requests. |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Locator
 
-### Synopsis {% id="icegrid.registry.trace.locator-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Locator=num`
 
-### Description {% id="icegrid.registry.trace.locator-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The locator and locator registry trace level:
 
@@ -747,13 +953,17 @@ The locator and locator registry trace level:
 | 1     | Trace failures to locate an adapter or object, and failures to register adapter endpoints. |
 | 2     | Like 1, but more verbose, including registration of adapter endpoints.                     |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Node
 
-### Synopsis {% id="icegrid.registry.trace.node-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Node=num`
 
-### Description {% id="icegrid.registry.trace.node-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The node trace level:
 
@@ -763,13 +973,17 @@ The node trace level:
 | 1, 2  | Trace nodes going up and down, and node session creation and destruction. |
 | 3     | Like 1, plus the keep-alive messages of each node with its load averages. |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Object
 
-### Synopsis {% id="icegrid.registry.trace.object-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Object=num`
 
-### Description {% id="icegrid.registry.trace.object-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The object trace level:
 
@@ -779,13 +993,17 @@ The object trace level:
 | 1     | Trace object registration, removal.                             |
 | 2     | Like 1, plus the allocation and release of allocatable objects. |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Replica
 
-### Synopsis {% id="icegrid.registry.trace.replica-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Replica=num`
 
-### Description {% id="icegrid.registry.trace.replica-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The replica trace level:
 
@@ -796,13 +1014,17 @@ The replica trace level:
 | 2     | Like 1, plus session establishment attempts and failures.                                                      |
 | 3     | Like 2, plus keep-alive messages.                                                                              |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Server
 
-### Synopsis {% id="icegrid.registry.trace.server-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Server=num`
 
-### Description {% id="icegrid.registry.trace.server-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The server trace level:
 
@@ -813,13 +1035,17 @@ The server trace level:
 | 2     | Like 1, but more verbose: includes load/unload failures, properties updates, and more. |
 | 3     | Like 2, plus the start of each server load and unload on a node.                       |
 
+{% /description %}
+
 ## IceGrid.Registry.Trace.Session
 
-### Synopsis {% id="icegrid.registry.trace.session-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.Trace.Session=num`
 
-### Description {% id="icegrid.registry.trace.session-description" %}
+{% /synopsis %}
+
+{% description %}
 
 The session trace level:
 
@@ -828,16 +1054,22 @@ The session trace level:
 | 0     | No client or admin session trace (default).                                                          |
 | 1     | Trace client or admin session creation and destruction, and failures to call a permissions verifier. |
 
+{% /description %}
+
 ## IceGrid.Registry.UserAccounts
 
-### Synopsis {% id="icegrid.registry.useraccounts-synopsis" %}
+{% synopsis %}
 
 `IceGrid.Registry.UserAccounts=file`
 
-### Description {% id="icegrid.registry.useraccounts-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the file name of an IceGrid registry user account map file. The file uses the format described in
 [IceGrid.Node.UserAccounts](#icegrid.node.useraccounts). The identifier is matched against the client session identifier
 (the user ID for sessions created with a user ID and password, or the distinguished name for sessions created from a
 secure connection). This user account map file is used by IceGrid nodes to map session identifiers to user accounts if
 the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy `IceGrid/RegistryUserAccountMapper`.
+
+{% /description %}

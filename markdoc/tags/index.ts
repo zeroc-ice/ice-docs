@@ -7,6 +7,7 @@
 export { default as aside } from './aside.markdoc.ts';
 export { default as callout } from './callout.markdoc.ts';
 export { default as card } from './card.markdoc.ts';
+export { default as description } from './description.markdoc.ts';
 export { default as divider } from './divider.markdoc.ts';
 export { default as grid } from './grid.markdoc.ts';
 export { default as iflang } from './iflang.markdoc.ts';
@@ -16,3 +17,4 @@ export { default as releases } from './releases.markdoc.ts';
 export { default as selection } from './selection.markdoc.ts';
 export { default as showcase } from './showcase.markdoc.ts';
 export { default as step } from './step.markdoc.ts';
+export { default as synopsis } from './synopsis.markdoc.ts';

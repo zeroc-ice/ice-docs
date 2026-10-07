@@ -4,11 +4,13 @@ title: DataStorm.Trace.*
 
 ## DataStorm.Trace.Topic
 
-### Synopsis {% id="datastorm.trace.topic-synopsis" %}
+{% synopsis %}
 
 `DataStorm.Trace.Topic=num`
 
-### Description {% id="datastorm.trace.topic-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Controls the trace level for topics:
 
@@ -17,13 +19,17 @@ Controls the trace level for topics:
 | 0     | No topic trace (default).             |
 | 1     | Trace topic creation and destruction. |
 
+{% /description %}
+
 ## DataStorm.Trace.Data
 
-### Synopsis {% id="datastorm.trace.data-synopsis" %}
+{% synopsis %}
 
 `DataStorm.Trace.Data=num`
 
-### Description {% id="datastorm.trace.data-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Controls the trace level for writers and readers:
 
@@ -34,13 +40,17 @@ Controls the trace level for writers and readers:
 | 2     | Like 1, and trace reader and writer connections, disconnections and sample initialization.                          |
 | 3     | Like 2, and trace samples being queued, discarded or published.                                                     |
 
+{% /description %}
+
 ## DataStorm.Trace.Session
 
-### Synopsis {% id="datastorm.trace.session-synopsis" %}
+{% synopsis %}
 
 `DataStorm.Trace.Session=num`
 
-### Description {% id="datastorm.trace.session-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Controls the trace level for sessions:
 
@@ -50,3 +60,5 @@ Controls the trace level for sessions:
 | 1     | Trace session creation, destruction, connections and disconnections, plus peer session retries, reconnect attempts and retry-limit exhaustion. |
 | 2     | Like 1, and trace topic announcements, topic, writer and reader subscriptions, and sample initialization.                                      |
 | 3     | Like 2, and trace session-level topic announcements, writer and reader announcements, attachments and individual samples.                      |
+
+{% /description %}

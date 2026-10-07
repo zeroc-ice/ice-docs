@@ -6,11 +6,13 @@ title: Ice.Default.*
 
 ## Ice.Default.EncodingVersion
 
-### Synopsis {% id="ice.default.encodingversion-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.EncodingVersion=ver`
 
-### Description {% id="ice.default.encodingversion-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If this property is not defined, Ice uses encoding version 1.1 when parsing a string that represents a proxy if this
 string does not specify an encoding with the `-e` option. To use encoding version 1.0 as the default instead, set this
@@ -18,48 +20,64 @@ property to `1.0`:
 
 `Ice.Default.EncodingVersion=1.0`
 
+{% /description %}
+
 ## Ice.Default.EndpointSelection
 
-### Synopsis {% id="ice.default.endpointselection-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.EndpointSelection=policy`
 
-### Description {% id="ice.default.endpointselection-description" %}
+{% /synopsis %}
+
+{% description %}
 
 This property controls the default [endpoint selection](../../runtime/connection-management/connection-establishment)
 policy for proxies with multiple endpoints. Permissible values are `Ordered` and `Random`. The default value of this
 property is `Random`.
 
+{% /description %}
+
 ## Ice.Default.Host
 
-### Synopsis {% id="ice.default.host-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.Host=host`
 
-### Description {% id="ice.default.host-description" %}
+{% /synopsis %}
+
+{% description %}
 
 If an endpoint does not specify a host name (i.e., omits the `-h host` option in IP-based endpoints or the `-a address`
 option in a Bluetooth endpoint), the `host` value from this property is used instead. This property applies to both
 [client and server endpoints](../../runtime/endpoint-syntax). It has no default value.
 
+{% /description %}
+
 ## Ice.Default.InvocationTimeout
 
-### Synopsis {% id="ice.default.invocationtimeout-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.InvocationTimeout=num`
 
-### Description {% id="ice.default.invocationtimeout-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the default [invocation timeout](../../runtime/invocation/invocation-timeouts) in milliseconds to use for all
 proxies. The default value is `-1`, which disables the timeout.
 
+{% /description %}
+
 ## Ice.Default.Locator
 
-### Synopsis {% id="ice.default.locator-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.Locator=locator`
 
-### Description {% id="ice.default.locator-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies a default [locator](../../runtime/locators) for all proxies and object adapters. The value is a stringified
 proxy for the [IceGrid](../../services/icegrid) locator object. The default locator can be overridden on a proxy using
@@ -81,13 +99,17 @@ Ice.Default.Locator=IceGrid/Locator:tcp -p 12000 -h localhost
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
+{% /description %}
+
 ## Ice.Default.LocatorCacheTimeout
 
-### Synopsis {% id="ice.default.locatorcachetimeout-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.LocatorCacheTimeout=num`
 
-### Description {% id="ice.default.locatorcachetimeout-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the default [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout for indirect
 proxies, in seconds. If `num` is greater than `0`, locator cache entries older than `num` seconds are ignored. If set to
@@ -99,15 +121,19 @@ next invocation; therefore, the invocation is delayed until the runtime has refr
 performed but happens in the background; this avoids the delay for the first invocation that follows expiry of a cache
 entry.
 
+{% /description %}
+
 {% language-section name="ice.default.locatorcachetimeout" /%}
 
 ## Ice.Default.Protocol
 
-### Synopsis {% id="ice.default.protocol-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.Protocol=transport protocol`
 
-### Description {% id="ice.default.protocol-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Sets the [transport protocol](../../runtime/endpoint-syntax) that is being used if an endpoint uses `default` as the
 transport protocol specification.
@@ -124,13 +150,17 @@ The default value is `ws` in a browser and `tcp` in Node.js.
 
 {% /iflang %}
 
+{% /description %}
+
 ## Ice.Default.Router
 
-### Synopsis {% id="ice.default.router-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.Router=router`
 
-### Description {% id="ice.default.router-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the default [router](../../runtime/invocation/routers) for all proxies. The value is a stringified proxy for
 the Glacier2 router control interface. The default router can be overridden on a proxy using the `ice_router`
@@ -139,13 +169,17 @@ router to object adapters.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
+{% /description %}
+
 ## Ice.Default.SlicedFormat
 
-### Synopsis {% id="ice.default.slicedformat-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.SlicedFormat=num`
 
-### Description {% id="ice.default.slicedformat-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the encoding format of Slice classes. The default value is `0`, which selects the compact format; `1` selects
 the sliced format. This property applies to version 1.1 of the Ice encoding.
@@ -153,13 +187,17 @@ the sliced format. This property applies to version 1.1 of the Ice encoding.
 Note that you can also specify whether certain operations use the sliced format by annotating their definitions with
 [metadata](../../slice/slice-metadata-directives).
 
+{% /description %}
+
 ## Ice.Default.SourceAddress
 
-### Synopsis {% id="ice.default.sourceaddress-synopsis" %}
+{% synopsis %}
 
 `Ice.Default.SourceAddress=addr`
 
-### Description {% id="ice.default.sourceaddress-description" %}
+{% /synopsis %}
+
+{% description %}
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
@@ -177,3 +215,5 @@ the [--sourceAddress](../../runtime/endpoint-syntax) option. WebSocket connectio
 the operating system.
 
 {% /iflang %}
+
+{% /description %}

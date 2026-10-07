@@ -4,11 +4,13 @@ title: Ice.Override.*
 
 ## Ice.Override.Compress
 
-### Synopsis {% id="ice.override.compress-synopsis" %}
+{% synopsis %}
 
 `Ice.Override.Compress=num`
 
-### Description {% id="ice.override.compress-description" %}
+{% /synopsis %}
+
+{% description %}
 
 {% iflang langs="js" %}
 
@@ -35,3 +37,5 @@ printed on `stderr`.
 Regardless of the setting of this property, requests smaller than 100 bytes are never compressed.
 
 {% /iflang %}
+
+{% /description %}

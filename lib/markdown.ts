@@ -30,7 +30,7 @@ export interface PageVariables {
   pageIndex: PageIndex;
   /** API reference pages used to resolve `api:` links at build time. */
   apiLinks: ApiLinks;
-  /** Navigation-derived page chrome: breadcrumbs, prev/next, body shape. */
+  /** Navigation-derived page chrome: breadcrumbs, prev/next. */
   chrome: Record<string, unknown>;
 }
 

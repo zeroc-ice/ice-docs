@@ -169,14 +169,7 @@ export async function DocsPage({
       },
       // A page written per language tells readers of the other languages
       // which ones have it.
-      writtenFor: writtenFor(current, frontmatter),
-      // The property tables are a list of exact identifiers, not an essay, and
-      // are typeset as such. Derived from the page's place in the tree — the
-      // pages under the Property Reference chapter — rather than restated in
-      // the frontmatter of every one of them; a page can still override it.
-      shape: slug.startsWith('property-reference/')
-        ? 'property-list'
-        : undefined
+      writtenFor: writtenFor(current, frontmatter)
     }
   });
 

@@ -14,22 +14,28 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 ## Ice.TCP.Backlog
 
-### Synopsis {% id="ice.tcp.backlog-synopsis" %}
+{% synopsis %}
 
 `Ice.TCP.Backlog=num`
 
-### Description {% id="ice.tcp.backlog-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Specifies the size of the listen queue for each TCP-based server endpoint (`tcp`, `ssl`, `ws`, or `wss`). The default
 value is `511`.
 
+{% /description %}
+
 ## Ice.TCP.RcvSize
 
-### Synopsis {% id="ice.tcp.rcvsize-synopsis" %}
+{% synopsis %}
 
 `Ice.TCP.RcvSize=num`
 
-### Description {% id="ice.tcp.rcvsize-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Sets the TCP receive buffer size in bytes for `tcp`, `ssl`, `ws`, and `wss` connections. The default value is `131072`
 (128 KiB) on Windows and `0` on other platforms. A value of `0` or less leaves the operating system's buffer size
@@ -40,13 +46,17 @@ requested that is lower than the OS-imposed minimum, the value is silently adjus
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
 
+{% /description %}
+
 ## Ice.TCP.SndSize
 
-### Synopsis {% id="ice.tcp.sndsize-synopsis" %}
+{% synopsis %}
 
 `Ice.TCP.SndSize=num`
 
-### Description {% id="ice.tcp.sndsize-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Sets the TCP send buffer size in bytes for `tcp`, `ssl`, `ws`, and `wss` connections. The default value is `131072` (128
 KiB) on Windows and `0` on other platforms. A value of `0` or less leaves the operating system's buffer size unchanged.
@@ -55,3 +65,5 @@ The OS may impose lower and upper limits on the send buffer size or otherwise ad
 requested that is lower than the OS-imposed minimum, the value is silently adjusted to the OS-imposed minimum. If a
 limit is requested that is larger than the OS-imposed maximum, the value is adjusted to the OS-imposed maximum; in
 addition, Ice logs a warning showing the requested size and the adjusted size.
+
+{% /description %}

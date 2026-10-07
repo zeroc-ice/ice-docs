@@ -20,11 +20,13 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
-### Synopsis {% id="ice.plugin.name-synopsis" %}
+{% synopsis %}
 
 `Ice.Plugin.name=path[,version]:function [args]`
 
-### Description {% id="ice.plugin.name-description" %}
+{% /synopsis %}
+
+{% description %}
 
 Defines a C++ plug-in to be installed during communicator initialization. The `path` and optional `version` components
 are used to construct the path name of a DLL or shared library. If no version is supplied, the Ice version is used. The
@@ -92,6 +94,8 @@ Ice passes the remaining arguments after the first token to the factory. Ice cre
 dynamically loaded plug-ins.
 
 {% /iflang %}
+
+{% /description %}
 
 {% /iflang %}
 
