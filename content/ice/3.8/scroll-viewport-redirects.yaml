@@ -19,7 +19,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-descriptor': 'services/icegrid/icegrid-gui-tool/application-tabs/icegrid-descriptors/application-descriptor?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-descriptor-element': 'services/icegrid/icegrid-xml-reference/application-descriptor-element?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-distribution': 'services/icegrid/application-distribution?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-distribution-with-ansible': 'services/icegrid/application-distribution/ansible?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-distribution-with-ansible': 'services/icegrid/application-distribution?lang=:lang'
   ':lang(php)/application-notes-for-php': 'runtime/communicator/communicators-in-php?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/application-tabs': 'services/icegrid/icegrid-gui-tool/application-tabs?lang=:lang'
   ':lang(csharp)/asynchronous-method-dispatch--amd--in-csharp': 'slice/operations?lang=:lang#asynchronous-method-dispatch-amd'
