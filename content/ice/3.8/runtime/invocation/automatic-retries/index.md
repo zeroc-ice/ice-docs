@@ -226,14 +226,13 @@ behavior.
 With a direct proxy, Ice tries to establish a connection using each suitable endpoint of the proxy, and, if this fails,
 Ice retries these connection attempts (Ice retries once immediately with the default retry configuration).
 
-With an indirect proxy, the retry algorithm is a little bit different:
+With an indirect proxy, Ice gets the proxy's endpoints from the locator and caches them. When Ice cannot establish a
+connection to these endpoints, it removes them from its locator cache:
 
-- Ice first attempts to establish a connection using the endpoints found in its locator cache, with one attempt for each
-  suitable endpoint.
-- if this fails, Ice refreshes its locator cache and tries to establish a connection using the refreshed endpoints (this
-  new attempt with just-refreshed endpoints does not count as a retry).
-- if all these attempts still fail, Ice refreshes its locator cache again and tries to establish a connection to the
-  re-refreshed endpoints, which represents retry attempt number 1
+- If the endpoints came from the locator cache, Ice asks the locator for the endpoints again and tries to establish a
+  connection to the new endpoints. This attempt does not count as a retry.
+- Otherwise, the invocation fails or Ice retries it according to `Ice.RetryIntervals`, and each retry asks the locator
+  for the endpoints again.
 
 ## See Also
 
