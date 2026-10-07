@@ -140,7 +140,7 @@ Specifies a space-separated list of address-port pairs. When defined, the Glacie
 [filters requests](../../services/glacier2/securing-a-glacier2-router) so that it only allows requests to Ice objects
 through direct proxies whose endpoints all match the same address-port pair in this list. If not defined, this property
 imposes no address restriction. Requests accepted by this property may be rejected by the
-[Glacier2.*#Glacier2.Filter.Address.Reject](#glacier2.filter.address.reject) property.
+[Glacier2.Filter.Address.Reject](#glacier2.filter.address.reject) property.
 
 Each pair is of the form `address` or `address:port`. The `address` portion can include wildcards ('`*`'). Port
 selection can be individual, value ranges, or groups. Ranges and groups have the form `[value1,value2,value3,...]`
@@ -160,10 +160,9 @@ spaces or control characters, or an IPv4 address with a non-canonical spelling o
 
 Specifies a space-separated list of address-port pairs. When defined, the Glacier2 router rejects requests to Ice
 objects through proxies with any endpoint matching any address-port pair in this list. If not set, the Glacier2 router
-allows requests to any network address unless the
-[Glacier2.*#Glacier2.Filter.Address.Accept](#glacier2.filter.address.accept) property is set, in which case requests
-will be accepted or rejected based on the `Glacier2.Filter.Address.Accept` property. If both the
-`Glacier2.Filter.Address.Accept` and `Glacier2.Filter.Address.Reject` properties are defined, the
+allows requests to any network address unless the [Glacier2.Filter.Address.Accept](#glacier2.filter.address.accept)
+property is set, in which case requests will be accepted or rejected based on the `Glacier2.Filter.Address.Accept`
+property. If both the `Glacier2.Filter.Address.Accept` and `Glacier2.Filter.Address.Reject` properties are defined, the
 `Glacier2.Filter.Address.Reject` property takes precedence.
 
 Each pair is of the form `address` or `address:port`. The `address` portion can include wildcards ('`*`'). Port
@@ -183,8 +182,8 @@ The host restrictions described for [Glacier2.Filter.Address.Accept](#glacier2.f
 Specifies a space-separated list of identity categories. If defined, the Glacier2 router
 [filters requests](../../services/glacier2/securing-a-glacier2-router) so that it only allows requests to Ice objects
 with an identity that matches one of the categories in this list. If
-[Glacier2.*#Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-0 value,
-the router automatically adds the user name of each session to this list.
+[Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-0 value, the router
+automatically adds the user name of each session to this list.
 
 Categories that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within a
 category must be escaped with a leading backslash.
@@ -198,8 +197,8 @@ category must be escaped with a leading backslash.
 ### Description {% id="glacier2.filter.category.acceptuser-description" %}
 
 Specifies whether to add an authenticated user ID to the
-[Glacier2.*#Glacier2.Filter.Category.Accept](#glacier2.filter.category.accept) property when creating a new session. The
-legal values are shown below:
+[Glacier2.Filter.Category.Accept](#glacier2.filter.category.accept) property when creating a new session. The legal
+values are shown below:
 
 | Value | Description                                |
 | ----- | ------------------------------------------ |
@@ -265,14 +264,13 @@ The default value is `Glacier2`.
 Specifies the proxy of an object that implements the `Glacier2::PermissionsVerifier` interface for
 [controlling access to Glacier2 sessions](../../services/glacier2/securing-a-glacier2-router). The router invokes this
 proxy to validate the user name and password of each new session. Glacier2 uses the object specified in
-[Glacier2.*#Glacier2.SSLPermissionsVerifier](#glacier2.sslpermissionsverifier) when the client calls
+[Glacier2.SSLPermissionsVerifier](#glacier2.sslpermissionsverifier) when the client calls
 `createSessionFromSecureConnection`. For simple configurations, you can specify the name of a password file using
-[Glacier2.*#Glacier2.CryptPasswords](#glacier2.cryptpasswords).
+[Glacier2.CryptPasswords](#glacier2.cryptpasswords).
 
 Glacier2 supplies a "null" permissions verifier object that accepts any username and password combination for situations
 in which no authentication is necessary. To enable this verifier, set the property value to
-`instance/NullPermissionsVerifier`, where `instance` is the value of
-[Glacier2.*#Glacier2.InstanceName](#glacier2.instancename).
+`instance/NullPermissionsVerifier`, where `instance` is the value of [Glacier2.InstanceName](#glacier2.instancename).
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
@@ -361,12 +359,11 @@ Specifies the proxy of an object that implements the `Glacier2::SSLPermissionsVe
 [controlling access to Glacier2 sessions](../../services/glacier2/securing-a-glacier2-router). The router invokes this
 proxy to verify the credentials of clients that attempt to create a session from a secure connection. Sessions created
 with a user name and password are verified by the object specified in
-[Glacier2.*#Glacier2.PermissionsVerifier](#glacier2.permissionsverifier).
+[Glacier2.PermissionsVerifier](#glacier2.permissionsverifier).
 
 Glacier2 supplies a "null" permissions verifier object that accepts the credentials of any client for situations in
 which no authentication is necessary. To enable this verifier, set the property value to
-`instance/NullSSLPermissionsVerifier`, where `instance` is the value of
-[Glacier2.*#Glacier2.InstanceName](#glacier2.instancename).
+`instance/NullSSLPermissionsVerifier`, where `instance` is the value of [Glacier2.InstanceName](#glacier2.instancename).
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
