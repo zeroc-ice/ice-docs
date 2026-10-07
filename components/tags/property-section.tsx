@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 
 // A labeled part of a property reference entry. The label is not a heading:
 // the entry's heading is the property, and the outline lists properties alone.
-const EntrySection = ({
+const PropertySection = ({
   label,
   children
 }: {
@@ -20,9 +20,9 @@ const EntrySection = ({
 );
 
 export const Synopsis = ({ children }: { children: ReactNode }) => (
-  <EntrySection label="Synopsis">{children}</EntrySection>
+  <PropertySection label="Synopsis">{children}</PropertySection>
 );
 
 export const Description = ({ children }: { children: ReactNode }) => (
-  <EntrySection label="Description">{children}</EntrySection>
+  <PropertySection label="Description">{children}</PropertySection>
 );
