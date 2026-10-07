@@ -66,13 +66,14 @@ You cannot use a backslash in `#include` directives:
 
 ### Detecting Ice Versions
 
-The Slice compilers define the preprocessor macro `__ICE_VERSION__` with a numeric representation of the Ice version.
+The Slice compilers define the preprocessor macro `__ICE_VERSION__` as the Ice version in the decimal form `AABBCC`,
+where `AA` is the major version, `BB` the minor version, and `CC` the patch level; for example, `30800` for Ice 3.8.0.
 You can use this macro to make your Slice definitions backward-compatible with older Ice releases, while still taking
 advantage of newer Ice features when possible. For example, the Slice definition shown below makes use of custom
 enumerator values:
 
 ```slice
-#if defined(__ICE_VERSION__) && __ICE_VERSION__ >= 030500
+#if defined(__ICE_VERSION__) && __ICE_VERSION__ >= 30500
 enum Fruit { Apple, Pear = 3, Orange }
 #else
 enum Fruit { Apple, Pear, Orange }

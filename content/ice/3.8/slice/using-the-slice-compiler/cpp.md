@@ -80,7 +80,14 @@ precompiled header mechanism.
 
 ### `--include-dir DIR`
 
-Modifies `#include` directives in source files to prepend the path name of each header file with the directory `DIR`.
+Prepends the directory `DIR` to the path in the `#include` directive that the generated source file uses to include its
+own header file.
+
+### `--dll-export SYMBOL`
+
+Uses `SYMBOL` to export the generated definitions, like the `cpp:dll-export:SYMBOL`
+[metadata directive](../slice-metadata-directives). This option is deprecated: use the metadata directive instead. If
+you specify both, `slice2cpp` uses the `SYMBOL` given on the command line.
 
 ## Include Directives
 
@@ -206,8 +213,9 @@ avoid specifying include paths that enable the preprocessor to locate a file in 
 
 ### Source Files
 
-By default, the compiler generates `#include` directives in source files using only the base name of the included file.
-This behavior is usually appropriate when the source file and header file reside in the same directory.
+By default, the generated source file includes its own header file with an `#include` directive that uses only the base
+name of the header file. This behavior is usually appropriate when the source file and header file reside in the same
+directory.
 
 For example, suppose `A.ice` includes `B.ice` from a subdirectory, as shown in the following snippet of `A.ice`:
 
@@ -226,8 +234,10 @@ Upon examination, we see that the source file contains the following `#include` 
 
 ```cpp
 // A.cpp
-#include <B.h>
+#include "A.h"
 ```
+
+The `#include` directive for `B.h` appears in `A.h`, as described in [Header Files](#header-files).
 
 However, suppose that we wish to enforce a particular standard for generated `#include` directives so that they are
 compatible with our C++ compiler's existing include path settings. In this case, we use the `--include-dir` option to
@@ -241,9 +251,9 @@ The source file now contains the following `#include` directive:
 
 ```cpp
 // A.cpp
-#include <src/B.h>
+#include "src/A.h"
 ```
 
-Any leading path in the included file is discarded as usual, and the value of the `--include-dir` option is prepended.
+The directive still omits the directory of the Slice file, `inc`.
 
 {% /language-section %}
