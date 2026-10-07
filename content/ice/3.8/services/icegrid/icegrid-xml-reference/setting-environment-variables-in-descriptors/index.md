@@ -51,10 +51,9 @@ Environment variable definitions may also refer to
 </node>
 ```
 
-On Linux and macOS, an environment variable `VAR` can be referenced as `$VAR` or `${VAR}`. You must be careful when
-using the latter syntax because IceGrid assumes `${VAR}` refers to a descriptor variable or parameter and will report an
-error if no match is found. If you prefer to use this style to refer to environment variables, you must escape these
-occurrences as shown in the example below:
+On Linux and macOS, an environment variable `VAR` can be referenced as `$VAR` or `${VAR}`. IceGrid interprets `${VAR}`
+as a reference to a descriptor variable or parameter; to refer to an environment variable with this syntax, escape it as
+`$${VAR}`:
 
 ```xml
 <node name="LinuxBox">
