@@ -314,8 +314,10 @@ The replica group's descriptor specifies the filter:
 
 Notice that the filter identifier `filterByCurrency` matches that used when the plug-in [registered the filter](./).
 
-A filter that the plug-in registers with an empty ID applies to every replica group whose descriptor has no `filter`
-attribute, including the replica groups that object adapters register dynamically.
+A replica group filter registered with an empty filter identifier applies to every replica group whose descriptor has no
+`filter` attribute, and to the replica groups created through
+[dynamic registration](../../../property-reference/icegrid-properties#icegrid.registry.dynamicregistration), which have
+no descriptor.
 
 In this example, the client uses a [request context](./) to indicate the desired currency. The context is configured on
 the locator proxy in the client's configuration file:

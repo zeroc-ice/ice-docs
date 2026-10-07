@@ -34,11 +34,10 @@ determine its behavior during locate requests. Consider this example:
 The adapter's descriptor declares itself to be a member of the replica group `ReplicatedAdapter`, which must have been
 previously created by a replica group descriptor.
 
-The replica group `ReplicatedAdapter` declares a well-known object so that an indirect proxy of the form `TheObject` is
-equivalent to the indirect proxy `TheObject@ReplicatedAdapter`. Since this trivial example defines only one adapter in
-the replica group, the proxy `TheObject` is also equivalent to `TheObject@ReplicaServer.TheAdapter`: the adapter
-descriptor has no `id` attribute, so IceGrid gives the adapter the ID `ReplicaServer.TheAdapter`, the server ID followed
-by the adapter name.
+The replica group `ReplicatedAdapter` declares a well-known object, so the indirect proxy `TheObject` is equivalent to
+`TheObject@ReplicatedAdapter`. The adapter descriptor has no `id` attribute: IceGrid derives the adapter ID from the
+server ID and the adapter name, here `ReplicaServer.TheAdapter`. Since this replica group has a single member,
+`TheObject` is also equivalent to `TheObject@ReplicaServer.TheAdapter`.
 
 ## Replica Group Membership
 
