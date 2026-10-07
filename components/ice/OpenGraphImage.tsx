@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 
+import { SITE_URL } from '@/lib/site';
+
 // The link preview card of every page: `app/**/opengraph-image.tsx` and the
 // `app/og` routes are thin wrappers that name the page and hand the rest to
 // these.
@@ -16,8 +18,8 @@ const mark = `data:image/svg+xml;base64,${readFileSync(
   join(process.cwd(), 'app/icon.svg')
 ).toString('base64')}`;
 
-/** The card: the mark and a line naming the site or version, over the title. */
-export function openGraphImage(eyebrow: string, title: string) {
+/** The card: the site's mark and host along the top, the title at the foot with a line naming its section under it. */
+export function openGraphImage(title: string, section?: string) {
   return new ImageResponse(
     <div
       style={{
@@ -34,36 +36,44 @@ export function openGraphImage(eyebrow: string, title: string) {
       <div
         style={{
           display: 'flex',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 28,
-          fontSize: 38,
+          fontSize: 40,
           color: '#566174'
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain img elements. */}
-        <img src={mark} width={80} height={80} alt="" />
-        {eyebrow}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain img elements. */}
+          <img src={mark} width={88} height={88} alt="" />
+          <span style={{ color: '#182235' }}>Ice Docs</span>
+        </div>
+        {new URL(SITE_URL).host}
       </div>
-      {/* Satori measures a word without its kerning and draws it with it,
-            so a run of text comes out with uneven gaps between words. Each
-            letter is a box of its own, measured and drawn alike, and the gap
-            between words is fixed. */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          columnGap: 22,
-          fontSize: 76,
-          lineHeight: 1.15
-        }}
-      >
-        {title.split(' ').map((word, i) => (
-          <span key={i} style={{ display: 'flex' }}>
-            {[...word].map((letter, j) => (
-              <span key={j}>{letter}</span>
-            ))}
-          </span>
-        ))}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {/* Satori measures a word without its kerning and draws it with it,
+              so a run of text comes out with uneven gaps between words. Each
+              letter is a box of its own, measured and drawn alike, and the gap
+              between words is fixed. */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            columnGap: 26,
+            fontSize: 88,
+            lineHeight: 1.1
+          }}
+        >
+          {title.split(' ').map((word, i) => (
+            <span key={i} style={{ display: 'flex' }}>
+              {[...word].map((letter, j) => (
+                <span key={j}>{letter}</span>
+              ))}
+            </span>
+          ))}
+        </div>
+        {section && (
+          <div style={{ fontSize: 40, color: '#566174' }}>{section}</div>
+        )}
       </div>
     </div>,
     size

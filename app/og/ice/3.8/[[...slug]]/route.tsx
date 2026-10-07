@@ -20,7 +20,7 @@ export function generateStaticParams() {
 
 export async function GET(_request: Request, props: PageProps) {
   return openGraphImage(
-    versionTitle(ICE_3_8),
-    await docsPageTitle(ICE_3_8, props)
+    await docsPageTitle(ICE_3_8, props),
+    versionTitle(ICE_3_8)
   );
 }
