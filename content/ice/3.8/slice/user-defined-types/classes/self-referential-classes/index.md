@@ -60,9 +60,9 @@ interface Evaluator
 
 Self-referential classes are not limited to acyclic graphs: a class graph can contain cycles.
 
-The Ice runtime that unmarshals a class graph limits how deeply its instances can nest: when a graph is nested more than
-[Ice.ClassGraphDepthMax](../../../../property-reference/ice-properties#ice.classgraphdepthmax) levels deep (10 by
-default), it throws a `MarshalException`. A long list of `Link` instances or a deep expression tree reaches this limit
-without containing a cycle.
+The Ice runtime that unmarshals a class graph limits how deeply its instances can nest: when
+[Ice.ClassGraphDepthMax](../../../../property-reference/ice-properties#ice.classgraphdepthmax) is positive (10 by
+default) and a graph is nested more than this many levels deep, it throws a `MarshalException`. A long list of `Link`
+instances or a deep expression tree reaches this limit without containing a cycle.
 
 {% language-section name="mapping" /%}
