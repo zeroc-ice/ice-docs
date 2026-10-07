@@ -9,6 +9,7 @@ pages:
   - facets
   - properties-and-configuration
   - local-and-dispatch-exceptions
+  - input-and-output-streams
   - connection-management
   - locators
   - threading-model
