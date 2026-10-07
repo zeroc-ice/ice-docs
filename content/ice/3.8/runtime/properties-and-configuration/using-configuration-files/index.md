@@ -8,6 +8,14 @@ modify your application. This page describes two ways of loading property settin
 support configuration files. Ice for JavaScript uses programmatic settings and argument arrays; it does not load files
 through `Ice.Config` or `ICE_CONFIG`.
 
+{% iflang langs="php" %}
+
+In PHP, you can also name the configuration file and command-line options of a default property set and of named
+profiles in `php.ini`. Ice for PHP creates these property sets once, when the web server loads the extension; see
+[Managing Property Sets in PHP](../../communicator/communicators-in-php#managing-property-sets-in-php).
+
+{% /iflang %}
+
 ## Prerequisites for Using Configuration Files
 
 The Ice runtime automatically loads a configuration file during the creation of a _property set_, which is an instance
