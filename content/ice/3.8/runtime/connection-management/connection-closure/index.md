@@ -122,8 +122,10 @@ return without waiting for the closure to complete. In Java, whose `close` block
 `close` from another thread.
 
 To be notified when a connection closes, whatever the reason, register a callback with `setCloseCallback`. Ice calls
-this callback once the connection is closed; when you set it on a connection that is already closed, Ice calls it
-asynchronously right away.
+this callback once the connection is closed. When you set it on a connection that is already closed, Ice schedules the
+call immediately; it never calls the callback from `setCloseCallback` itself.
+{% iflang langs="cpp,csharp,java,python" %}Like dispatches and asynchronous invocation callbacks, the close callback
+runs through the communicator's executor when one is configured.{% /iflang %}
 
 {% /iflang %}
 
