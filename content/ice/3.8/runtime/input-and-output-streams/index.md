@@ -45,10 +45,9 @@ can also create an `OutputStream` with an explicit encoding version and class fo
 
 ## Creating an Input Stream
 
-By default, an `InputStream` uses the communicator's
-[Slice loader](../../slice/user-defined-types/classes/slice-loaders) to create class and exception instances. Outside an
-encapsulation, it decodes with the encoding version you give to its constructor, or with the communicator's default
-encoding version when you give none.
+An `InputStream` uses the communicator's [Slice loader](../../slice/user-defined-types/classes/slice-loaders) to create
+class and exception instances. Outside an encapsulation, it decodes with the encoding version you give to its
+constructor, or with the communicator's default encoding version when you give none.
 
 {% language-section name="input-stream" /%}
 
