@@ -11,14 +11,11 @@ object adapters. For example, suppose we have the network configuration shown in
 
 ![A local client at 10.0.0.2 calls the callback client at 10.0.0.1. The callback client reuses a bidirectional connection through its firewall at 1.2.3.4 to Glacier2. Both Glacier2 endpoint sets use 10.0.0.1. The server at 10.0.0.2 uses a separate callback connection.](/images/ice/3.8/advanced-glacier2-client-configurations/callback-and-local-requests.svg)
 
-The router's server endpoints become the published endpoints of an object adapter configured with a router, so the
-direct proxies this object adapter creates contain the router's server endpoints. Such an object adapter cannot also
-have endpoints of its own.
-
+An object adapter configured with a router has no endpoints of its own: its published endpoints are the published
+endpoints of the router's server object adapter, `Glacier2.Server`, so the proxies it creates contain these endpoints.
 The callback client therefore dedicates one object adapter,
-[configured with the router proxy](../callbacks-through-glacier2), to callback requests. In a language mapping whose
-object adapters accept incoming connections, it dedicates a second object adapter, with local endpoints, to requests
-from local clients.
+[configured with the router proxy](../callbacks-through-glacier2), to callback requests, and a second object adapter,
+with local endpoints, to requests from local clients.
 
 ## Using Multiple Routers
 
@@ -29,36 +26,10 @@ object adapter for each router that can forward callback requests to the client.
 
 ## Using the `RouterFinder` Interface
 
-`Glacier2.InstanceName` specifies the category of the router's identity. The default identity of a Glacier2 router is
-`Glacier2/router`, but we can change it to `Production/router` with the following setting:
-
-```config
-Glacier2.InstanceName=Production
-```
-
-A client could configure its corresponding router proxy as follows:
-
-```config
-Ice.Default.Router=Production/router:tcp -p 4063 -h prodhost
-```
-
-In most cases the client can statically configure the router's proxy as we've shown here. For clients that need to
-discover a router's proxy at run time, Ice also requires router implementations to support the `RouterFinder` interface:
-
-```slice
-module Ice
-{
-    interface RouterFinder
-    {
-        Router* getRouter();
-    }
-}
-```
-
-An object supporting this interface must be available with the identity `Ice/RouterFinder`. By knowing the host and port
-of a router's client endpoints, a client can discover the router's proxy with a call to `getRouter`:
-
-{% language-section name="mapping" /%}
+You may know the endpoints of a Glacier2 router but not its identity, since a router can be configured with a
+non-default identity through `Glacier2.InstanceName`. In this situation, create a proxy with the identity
+`Ice/RouterFinder` and the router's endpoints, for example `Ice/RouterFinder:tcp -h prodhost -p 4063`, and call
+`getRouter` on this proxy. The router finder returns a proxy to the Glacier2 router.
 
 ## See Also
 
