@@ -394,22 +394,8 @@
     margin-top: 0;
   }
 
-  /* Property reference pages. Each heading is an exact identifier a reader will
-     copy into a config file, so it is set in the code face and upright —
-     italicised `adapter.AdapterId` reads as emphasised prose, not as a name.
-     Synopsis/Description drop to labels, which is what they are. */
-  [data-page-shape='property-list'] .doc-body h2 {
-    font-family: var(--font-mono);
-    font-size: 1.375rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-top: 2.75rem;
-  }
-
-  [data-page-shape='property-list'] .doc-body h2 em {
-    font-style: normal;
-  }
-
+  /* On a property reference page, Synopsis and Description drop to labels,
+     which is what they are. */
   [data-page-shape='property-list'] .doc-body h3 {
     margin-top: 1.25rem;
     margin-bottom: 0.125rem;

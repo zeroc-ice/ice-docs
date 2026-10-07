@@ -15,8 +15,7 @@ const heading: Schema = {
   children: ['inline'],
   attributes: {
     id: { type: String },
-    level: { type: Number, required: true, default: 1 },
-    className: { type: String }
+    level: { type: Number, required: true, default: 1 }
   },
   transform(node: Node, config: Config) {
     const attributes = node.transformAttributes(config);
