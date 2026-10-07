@@ -41,8 +41,8 @@ selection policy. This policy can be set using a default property
 If a failure occurs during a connection attempt, the communicator tries to connect to all of the proxy's remaining
 endpoints until either a connection is successfully established or all attempts have failed. At that point, the
 communicator may attempt [automatic retries](../../invocation/automatic-retries) depending on the value of the
-[Ice.RetryIntervals](../../../property-reference/ice-properties) configuration property. The default value of this
-property is `0`, which causes the communicator to try connecting to all of the endpoints one more time.
+[Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) configuration property. The default
+value of this property is `0`, which causes the communicator to try connecting to all of the endpoints one more time.
 
 {% callout type="tip" %}
 

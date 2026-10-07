@@ -47,8 +47,8 @@ for these requests.
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 For batched datagram requests, Ice also caps the flush threshold at
-[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties) bytes, or 65507 bytes when that property is not
-set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
+[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) bytes, or 65507 bytes when that
+property is not set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
 
 {% /iflang %}
 
