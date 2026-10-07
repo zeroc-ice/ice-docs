@@ -32,7 +32,7 @@ are also permitted in identifiers with the following limitations:
 Given these rules, the identifier `get_account_name` is legal but not `_account`, `account_`, or `get__account`.
 
 The Slice compiler rejects a module, type, constant, field, parameter, or enumerator whose name ends with `Helper`,
-`Holder`, `Prx`, or `Ptr`, with this exact capitalization; for example, `WidgetPrx` is illegal but `WidgetPRX` is legal.
+`Holder`, `Prx`, or `Ptr`.
 
 Slice identifiers are restricted to the ASCII range of alphabetic characters and cannot contain non-English letters,
 such as Å.
