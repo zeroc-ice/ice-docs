@@ -14,8 +14,8 @@ for your application.
 
 ### Array Mapping for Sequences
 
-By default, the Slice-to-C# compiler maps sequences to arrays. Interestingly, no code is generated in this case; you
-simply define an array of elements to model the Slice sequence. For example:
+By default, the Slice-to-C# compiler maps sequences to arrays. The compiler generates only a helper class that marshals
+and unmarshals the sequence; you simply define an array of elements to model the Slice sequence. For example:
 
 ```slice
 sequence<Fruit> FruitPlatter;
@@ -98,6 +98,7 @@ to your custom type as `global::MyTypes.PriorityQueue<int>`.
 Your custom type can have whatever interface you deem appropriate, but it must meet the following requirements:
 
 - The custom type must derive from `System.Collections.Generic.IEnumerable<T>`.
+- The custom type must provide a parameterless constructor that the generated code can access.
 - The custom type must provide a readable `Count` property that returns the number of elements in the collection.
 - The custom type must provide an `Add` method that appends an element to the end of the collection.
 - If (and only if) the Slice sequence contains elements that are Slice classes, the custom type must provide an indexer
@@ -130,7 +131,7 @@ enum Fruit { Apple, Orange, Pear }
 ["cs:generic:LinkedList"] sequence<FruitPlatter> Cornucopia;
 ```
 
-If we use these definitions as shown, the type of FruitPlatter in the generated code is:
+If we use these definitions as shown, the type of `Cornucopia` in the generated code is:
 
 ```csharp
 System.Collections.Generic.LinkedList<System.Collections.Generic.List<Fruit>>
@@ -152,7 +153,7 @@ With this definition, the type of `Cornucopia` becomes:
 System.Collections.Generic.LinkedList<Fruit[]>
 ```
 
-The generated code now no longer mentions the type `FruitPlatter` anywhere and deals with the outer sequence elements as
-an array of `Fruit` instead.
+Here the outer sequence contains elements of type `Fruit[]`, and `FruitPlatter` appears only in the name of the
+generated `FruitPlatterHelper` class.
 
 {% /language-section %}
