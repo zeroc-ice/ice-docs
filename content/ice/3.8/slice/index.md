@@ -45,12 +45,5 @@ Because Slice describes interfaces and types (but not implementations), it is a 
 way to write executable statements in Slice.
 
 Slice definitions focus on object interfaces, the operations supported by those interfaces, and exceptions that may be
-raised by operations. This requires quite a bit of supporting machinery; in particular, much of Slice is concerned with
-the definition of data types. This is because data can be exchanged between client and server only if their types are
-defined in Slice. You cannot exchange arbitrary C++ data between a client and a server because it would destroy the
-language independence of Ice. However, you can always create a Slice type definition that corresponds to the C++ data
-you want to send, and then you can transmit the Slice type.
-
-We present the full syntax and semantics of Slice here. Because much of Slice is based on C++ and Java, we focus on
-those areas where Slice differs from C++ or Java or constrains the equivalent C++ or Java feature in some way. Slice
-features that are identical to C++ and Java are mentioned mostly by example.
+thrown by operations. Much of Slice is concerned with the definition of data types, because a client and a server can
+exchange only data whose types are defined in Slice: to send application data, you define a Slice type for it.

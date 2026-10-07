@@ -25,7 +25,7 @@ export function VersionSelect({ current, options }: VersionSelectProps) {
   return (
     <Menu
       align="left"
-      triggerClassName="flex w-[8.5rem] items-center justify-between gap-1 rounded-md border border-black/15 py-1 pr-2 pl-3 text-sm hover:border-black/30 xl:w-[10rem] dark:border-white/20 dark:hover:border-white/40"
+      triggerClassName="flex shrink-0 items-center justify-between gap-1 rounded-md border border-black/15 py-1 pr-2 pl-3 text-sm hover:border-black/30 sm:w-[8.5rem] xl:w-[10rem] dark:border-white/20 dark:hover:border-white/40"
       trigger={
         <>
           <span className="sr-only">Version: </span>

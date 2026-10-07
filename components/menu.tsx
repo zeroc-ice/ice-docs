@@ -85,7 +85,7 @@ export function Menu({
   }, [open]);
 
   return (
-    <div ref={root} className="relative flex">
+    <div ref={root} className="relative flex min-w-0">
       <button
         ref={button}
         id={buttonId}

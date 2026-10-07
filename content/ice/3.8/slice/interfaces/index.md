@@ -43,13 +43,6 @@ cannot define a type, an exception, or a field inside an interface. This does no
 cannot contain state — it can, but how that state is implemented (in the form of fields or otherwise) is hidden from the
 client and, therefore, need not appear in the object's interface definition.
 
-An Ice object has exactly one (most derived) Slice interface type. Of course, you can create multiple Ice objects that
-have the same type; to draw the analogy with C++, a Slice interface corresponds to a C++ class definition, whereas an
-Ice object corresponds to a C++ class instance (but Ice objects can be implemented in multiple different address
-spaces).
-
-Ice also provides multiple interfaces for the same Ice object via a feature called [_facets_](../../runtime/facets).
-
 A Slice interface defines the smallest grain of distribution in Ice: each Ice object has a unique identity (encapsulated
 in its proxy) that distinguishes it from other Ice objects; for communication to take place, you must invoke operations
 on an object's proxy. There is no other notion of an addressable entity in Ice. You cannot, for example, instantiate a

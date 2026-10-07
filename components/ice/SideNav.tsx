@@ -16,6 +16,7 @@ import {
   sideNavKey
 } from '@/lib/docs-model/nav';
 import { useLanguage, useMounted } from '@/context/state';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 // The groups the reader has open live in session storage, per tab, keyed by
 // version (keys are titles and hrefs, which differ between versions), so they
@@ -244,6 +245,9 @@ function Drawer({ children }: { children: React.ReactNode }) {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-14 shrink-0 items-center justify-end border-b border-hairline px-2">
+            <div className="sm:hidden">
+              <ThemeToggle />
+            </div>
             <button
               type="button"
               onClick={() => dialogRef.current!.close()}

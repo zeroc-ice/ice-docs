@@ -17,9 +17,8 @@ module M
 }
 ```
 
-The semantics of this are the same as for C++ or Java: `AlarmClock` is a subtype of `Clock` and an `AlarmClock` proxy
-can be substituted wherever a `Clock` proxy is expected. Obviously, an `AlarmClock` supports the same `getTime` and
-`setTime` operations as a `Clock` but also supports the `getAlarmTime` and `setAlarmTime` operations.
+`AlarmClock` inherits all the operations of `Clock`: an `AlarmClock` object provides the `getTime` and `setTime`
+operations in addition to its own `getAlarmTime` and `setAlarmTime` operations.
 
 Multiple interface inheritance is also possible. For example, we can construct a radio alarm clock as follows:
 

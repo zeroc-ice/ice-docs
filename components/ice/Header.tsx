@@ -42,7 +42,9 @@ export function IceHeader() {
         >
           GitHub
         </a>
-        <ThemeToggle />
+        <div className="hidden sm:contents">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

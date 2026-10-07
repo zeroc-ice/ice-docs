@@ -187,6 +187,7 @@
     "numpy",
     "OCSP",
     "Oneway",
+    "opengraph",
     "Operationalizes",
     "ostringstream",
     "OSVERSIONINFO",

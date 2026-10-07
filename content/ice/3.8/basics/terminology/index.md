@@ -59,12 +59,10 @@ artifact that is local to the client's address space; it represents the (possibl
 proxy acts as the local ambassador for an Ice object: when the client invokes an operation on the proxy, the Ice
 runtime:
 
-1. Locates the Ice object
-2. Activates the Ice object's server if it is not running
-3. Activates the Ice object within the server
-4. Transmits any in-parameters to the Ice object
-5. Waits for the operation to complete
-6. Returns any out-parameters and the return value to the client (or throws an exception in case of an error)
+1. Connects to the server that hosts the Ice object, using the addressing information in the proxy
+2. Transmits any in-parameters to the Ice object
+3. Waits for the operation to complete
+4. Returns any out-parameters and the return value to the client (or throws an exception in case of an error)
 
 A proxy encapsulates all the necessary information for this sequence of steps to take place. In particular, a proxy
 contains:
@@ -246,37 +244,8 @@ request.
 Conversely, a single Ice object can have multiple servants. For example, we might choose to create a proxy for an Ice
 object with two different addresses for different machines. In that case, we will have two servers, with each server
 containing a servant for the same Ice object. When a client invokes an operation on such an Ice object, the client-side
-runtime sends the request to exactly one server. In other words, multiple servants for a single Ice object allow you to
-build redundant systems: the client-side runtime attempts to send the request to one server and, if that attempt fails,
-sends the request to the second server. An error is reported back to the client-side application code only if that
-second attempt also fails.
-
-## At-Most-Once Semantics
-
-Ice requests have _at-most-once_ semantics: the Ice runtime does its best to deliver a request to the correct
-destination and, depending on the exact circumstances, may retry a failed request. Ice guarantees that it will either
-deliver the request, or, if it cannot deliver the request, inform the client with an appropriate exception; under no
-circumstances is a request delivered twice, that is, retries are attempted only if it is known that a previous attempt
-definitely failed.
-
-{% callout type="note" %}
-
-One exception to this rule are datagram invocations over UDP transports. For these, duplicated UDP packets can lead to a
-violation of at-most-once semantics.
-
-{% /callout %}
-
-At-most-once semantics are important because they guarantee that operations that are not _idempotent_ can be used
-safely. An idempotent operation is an operation that, if executed twice, has the same effect as if executed once. For
-example, `x = 1;` is an idempotent operation: if we execute the operation twice, the end result is the same as if we had
-executed it once. On the other hand, `x++;` is not idempotent: if we execute the operation twice, the end result is not
-the same as if we had executed it once.
-
-Without at-most-once semantics, we can build distributed systems that are more robust in the presence of network
-failures. However, realistic systems require non-idempotent operations, so at-most-once semantics are a necessity, even
-though they make the system less robust in the presence of network failures. Ice permits you to mark individual
-operations as idempotent. For such operations, the Ice runtime uses a more aggressive error recovery mechanism than for
-non-idempotent operations.
+runtime sends the request to one server. In other words, multiple servants for a single Ice object allow you to build
+redundant systems: when the client-side runtime cannot connect to one server, it connects to the other server instead.
 
 ## Asynchronous Method Invocation
 
@@ -300,20 +269,19 @@ that a client has invoked an operation on an object.
 
 ## Asynchronous Method Dispatch
 
-_Asynchronous method dispatch (AMD)_ is the server-side equivalent of AMI. For synchronous dispatch (the default), the
-server-side runtime calls into the application code to process a request received from a client. While the operation is
-executing (or sleeping, for example, because it is waiting for data), a thread of execution is tied up in the server;
-that thread is released only when the operation completes.
+When the server-side runtime receives a request, it calls the servant's implementation of the operation. With
+_synchronous method dispatch_, the implementation processes the request and returns the results, and the dispatch thread
+is busy until then, including while the implementation waits for I/O or for another task.
 
-With asynchronous method dispatch, the server-side application code is informed of the arrival of a request. However,
-instead of being forced to process the request immediately, the server-side application can choose to delay processing
-of the request and, in doing so, releases the execution thread for the request. The server-side application code is now
-free to do whatever it likes. Eventually, once the results of the operation are available, the server-side application
-code makes an API call to inform the server-side Ice runtime that a request that was dispatched previously is now
-complete; at that point, the results of the operation are returned to the client.
+With _asynchronous method dispatch (AMD)_, the implementation frees the dispatch thread while it waits for I/O or for
+another task, for example at an `await`. When the implementation completes the dispatch, immediately or later, the
+runtime sends the results to the client.
 
-Synchronous and asynchronous method dispatch are transparent to the client, that is, the client cannot tell whether a
-server chose to process a request synchronously or asynchronously.
+The language mappings let you choose, for each operation, between synchronous and asynchronous dispatch. See
+[Operations](../../slice/operations).
+
+Synchronous and asynchronous method dispatch are transparent to the client: the client cannot tell whether a server
+processed a request synchronously or asynchronously.
 
 ## Properties
 

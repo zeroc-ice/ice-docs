@@ -52,7 +52,7 @@ entry in the list, the upgrade is accepted. An unlisted or malformed origin caus
 the connection.
 
 This property is intended to mitigate cross-site WebSocket hijacking against browser-based Ice clients (Ice for
-JavaScript). Non-browser Ice clients are unaffected.
+JavaScript).
 
 ### Example {% id="adapter.allowedorigins-example" %}
 

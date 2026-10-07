@@ -386,6 +386,12 @@
     font-weight: 650;
   }
 
+  /* A property name such as IceSSL.TrustOnly.Server.AdapterName has no break
+     opportunity, so on a phone it breaks rather than overflow the page. */
+  main article :is(h1, h2, h3, h4) {
+    overflow-wrap: anywhere;
+  }
+
   /* The first heading of a page follows the title block, which already carries
      its own bottom margin. On a page written per language it opens the block on
      show, which nothing but the other languages' blocks precede. */

@@ -10,12 +10,13 @@ import {
   DEFAULT_LANGUAGE,
   LANGUAGE_LABELS,
   LANGUAGE_STORAGE_KEY,
+  OPEN_GRAPH,
   SITE_TITLE
 } from '@/lib/docs-model/nav';
 import { GA_MEASUREMENT_ID, NOINDEX, SITE_URL } from '@/lib/site';
 import { Inter } from 'next/font/google';
 import clsx from 'clsx';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'] });
 
@@ -27,19 +28,22 @@ export const metadata: Metadata = {
   },
   description:
     'Learn how to develop and deploy networked applications with Ice.',
-  keywords: [
-    'Ice',
-    'ZeroC',
-    'RPC',
-    'networking',
-    'documentation',
-    'docs',
-    'guide'
-  ],
+  openGraph: OPEN_GRAPH,
+  twitter: {
+    card: 'summary_large_image'
+  },
   robots: {
     index: !NOINDEX,
     follow: !NOINDEX
   }
+};
+
+// The page surface in each theme, for the browser chrome around it.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1c21' }
+  ]
 };
 
 // Applies the reader's language mapping before the first paint, so the page
