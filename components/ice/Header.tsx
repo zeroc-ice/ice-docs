@@ -12,6 +12,14 @@ import { IceMark } from './IceMark';
 export function IceHeader() {
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-3 border-b border-hairline bg-surface/85 px-[clamp(1rem,2.5vw,2rem)] backdrop-blur">
+      {/* The first thing the Tab key reaches: past the bar and the table of
+          contents, straight to the page. */}
+      <a
+        href="#skip-nav"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-ink focus:outline-2 focus:outline-link"
+      >
+        Skip to content
+      </a>
       <div className="flex shrink-0 items-center gap-2">
         {/* The table of contents' menu button portals in here from the
             docs layout, the only place that has the tree. The slot has
