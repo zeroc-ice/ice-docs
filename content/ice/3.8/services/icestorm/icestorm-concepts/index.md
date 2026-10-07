@@ -34,21 +34,18 @@ receive messages.
 
 ## Federation
 
-IceStorm supports the formation of topic graphs, also known as [federation](../topic-federation). A topic graph is
-formed by creating links between topics, where a _link_ is a unidirectional association from one topic to another. Each
-link has a _cost_ that may restrict message delivery on that link. A topic forwards each message published on it to
-every link whose cost is zero or at least the message's cost.
+IceStorm supports the formation of topic graphs, also known as [federation](../topic-federation): an application links
+topics together, where a _link_ is a unidirectional association from one topic to another. IceStorm forwards the
+messages published on a link's source topic to the link's target topic. Each link has a _cost_ that can restrict which
+messages IceStorm forwards on that link, as described in [Topic Federation](../topic-federation).
 
-Once a message has been published on a link, the receiving topic publishes the message to its subscribers, but does not
-publish it on any of its links. In other words, IceStorm messages propagate at most one hop from the originating topic
-in a federation.
+A topic that receives a message over a link delivers the message to its subscribers but does not forward it on its own
+links: messages propagate at most one hop from the originating topic.
 
 The following figure presents an example of topic federation. Topic T1 has links to T2 and T3, as indicated by the
 dotted arrows. Solid arrows show publishers sending messages to topics and topics delivering messages to subscribers.
 The subscribers S1 and S2 receive all messages published on T2, as well as those published on T1. Subscriber S3 receives
 messages only from T1, and S4 receives messages from both T3 and T1.
-
-This section discusses several concepts that are important for understanding IceStorm's capabilities.
 
 ![Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 has dotted links to T2 and T3. Solid arrows show delivery from publishers to topics and from T1 to S3, T2 to S1 and S2, and T3 to S4.](/images/ice/3.8/icestorm-concepts/topic-federation.svg)
 
@@ -80,20 +77,14 @@ this mode.
 
 ## Subscriber Errors
 
-By default, IceStorm removes a subscription from a topic if a subscriber failure occurs while attempting to deliver a
-message. For example, IceStorm may be unable to establish a connection to the subscriber using the proxy that the
-subscriber provided, meaning the subscriber is not currently active at the proxy's endpoints, or those endpoints are
-inaccessible to IceStorm. Another common failure scenario is a subscriber with a twoway proxy that allows an exception
-to propagate back to IceStorm. This is important if you make changes to a Slice data type or operation signature: if you
-do, you must ensure that both publishers and subscribers use the same Slice definitions; if you do not, the subscriber
-is likely to encounter marshaling errors when receiving an event from IceStorm with a mismatched Slice definition. If
-the subscriber allows this error to propagate back to IceStorm, IceStorm cancels its subscription.
+By default, IceStorm removes a subscription when it fails to deliver a message to the subscriber. For example, IceStorm
+cannot connect to the subscriber's endpoints, or an invocation on a subscriber registered with a twoway proxy throws an
+exception.
 
 {% callout type="note" %}
 
-With a `retryCount` [quality of service](../icestorm-quality-of-service) parameter of `-1` or a positive value, IceStorm
-puts the subscriber offline after a transient failure, and removes it only once the retries are exhausted or a hard
-failure occurs.
+The `retryCount` [quality of service](../icestorm-quality-of-service) parameter lets IceStorm retry delivery instead of
+removing the subscriber on the first failure.
 
 {% /callout %}
 

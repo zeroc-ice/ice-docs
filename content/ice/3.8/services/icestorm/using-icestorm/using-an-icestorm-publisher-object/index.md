@@ -8,17 +8,13 @@ requiring knowledge of the operation types.
 
 ## Type Safety Considerations for the Publisher Object
 
-From the publisher's perspective, the publisher object appears to be an application-specific type. In reality, the
-publisher object can forward requests for any type, and that introduces a degree of risk: a misbehaving publisher can
-use `uncheckedCast` to narrow the publisher object to any type and invoke any operation; the publisher object
-unknowingly forwards those requests to the subscribers.
-
-If a publisher sends a request using an incorrect type, the Ice run time in a subscriber typically responds by raising
-`OperationNotExistException`. A twoway invocation by the publisher completes once the publisher object has queued the
-message for the subscribers, whatever the outcome of each delivery. IceStorm receives the exception only from a
-subscriber that subscribed with a twoway proxy, and handles it as a delivery failure, which cancels the subscription
-unless the subscriber's `retryCount` allows a retry. In short, IceStorm places the burden on the developer to ensure
-that publishers and subscribers are using it correctly.
+`Topic::getPublisher` returns an untyped proxy to the topic's publisher object, and the publisher creates a proxy of the
+expected interface from it. The publisher object forwards every request it receives to the subscribers without checking
+the operation or its parameters. A type mismatch between the publisher and a subscriber shows up only when the
+subscriber dispatches the request; for a subscriber registered with a twoway proxy, IceStorm treats the resulting
+exception as a delivery failure. The publisher itself is never notified: a twoway invocation on the publisher object
+completes once the publisher object has queued the message, whatever happens during delivery. It is up to you to ensure
+that publishers and subscribers use the same Slice interface.
 
 ## Publish Using Oneway or Twoway Invocations?
 

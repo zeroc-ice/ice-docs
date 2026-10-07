@@ -2,11 +2,8 @@
 title: IceStorm Quality of Service
 ---
 
-<!-- cspell:ignore retrycount -->
-
 An IceStorm subscriber specifies Quality of Service (QoS) parameters at the time of subscription. The sections below
-describe the supported QoS parameters. IceStorm matches QoS parameter names exactly, including case, and ignores names
-it doesn't recognize: a `retrycount` parameter, for example, leaves the retry count at its default.
+describe the supported QoS parameters. Parameter names are case-sensitive, and IceStorm ignores unknown parameters.
 
 ## Reliability QoS for IceStorm
 
@@ -23,11 +20,10 @@ the events in the same order as they were received even if its
 
 The QoS parameter `retryCount` determines how many _consecutive_ delivery failures IceStorm tolerates before it removes
 a subscriber. A value of `-1` means IceStorm retries forever and never automatically removes a subscriber unless a hard
-failure occurs (see Hard Failures below). A value of `0`, or any negative value other than `-1`, means IceStorm never
-retries and immediately removes the subscriber upon any failure. For positive values, IceStorm increments the
-subscriber's failure count on each failed delivery attempt and removes the subscriber once this count exceeds
-`retryCount`. Linked topics always have a configured retry count of `-1`. The default value of the `retryCount`
-parameter is `0`.
+failure occurs (see Hard Failures below). A value of `0` means IceStorm never retries and immediately removes the
+subscriber upon any failure. For positive values, IceStorm increments the subscriber's failure count on each failed
+delivery attempt and removes the subscriber once this count exceeds `retryCount`. Linked topics always have a configured
+retry count of `-1`. The default value of the `retryCount` parameter is `0`.
 
 The failure count is not cumulative over the lifetime of the subscription: IceStorm resets it to zero after each
 successful delivery to the subscriber. A subscriber is therefore removed only when `retryCount + 1` consecutive delivery
@@ -36,12 +32,9 @@ experiences occasional, isolated network failures is never removed, while a subs
 consecutive delivery attempts is removed.
 
 A retry count of `-1` adds some resiliency to your IceStorm application by ignoring intermittent network failures such
-as `ConnectionRefusedException`. However, there is also some risk inherent in using a retry count of `-1` because an
-improperly configured subscriber may never be removed. For example, consider what happens when a subscriber registers
-using a transient endpoint: if that subscriber happens to terminate and resubscribe with a different endpoint, IceStorm
-will continue trying to deliver events to the subscriber at its old endpoint. IceStorm removes such a subscriber only on
-a [hard failure](#hard-failures), such as an `ObjectNotExistException` raised by an object adapter that now listens at
-the old endpoint.
+as `ConnectionRefusedException`. The risk is that a subscription whose subscriber is gone for good, for example a
+subscriber process that terminated without unsubscribing, is never removed: IceStorm keeps retrying as long as the
+failures stay transient.
 
 To use a retry count of `-1` successfully, the subscriber can either register with a fixed endpoint, or use
 [IceGrid](../../icegrid) to take advantage of indirect proxies and automatic activation.
@@ -79,8 +72,7 @@ they occur, regardless of the subscriber's `retryCount` setting:
 The QoS parameter `connectionCached` affects the
 [connection caching](../../../runtime/connection-management/connection-establishment) setting of the subscriber proxy
 used for message delivery. Defining this QoS parameter is equivalent to invoking the `ice_connectionCached` proxy
-method. The value must be an integer: a positive value enables connection caching, and `0` or a negative value disables
-it. Any other value, such as `true`, makes `subscribeAndGetPublisher` raise `BadQoS`.
+method. The value is an integer: a positive value enables connection caching and `0` disables it.
 
 ## Locator Cache Timeout QoS for IceStorm
 
@@ -88,7 +80,7 @@ The QoS parameter `locatorCacheTimeout` affects the
 [locator cache timeout](../../../runtime/locators/locator-semantics-for-clients) setting of the subscriber proxy used
 for message delivery. Defining this QoS parameter is equivalent to invoking the `ice_locatorCacheTimeout` proxy method.
 The value is an integer number of seconds: `0` disables locator caching, and a negative value caches endpoints
-indefinitely. A non-integer value makes `subscribeAndGetPublisher` raise `BadQoS`.
+indefinitely.
 
 ## IceStorm QoS Example
 

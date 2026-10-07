@@ -2,12 +2,9 @@
 title: Topic Federation
 ---
 
-The ability to link topics together into a federation provides IceStorm applications with a lot of flexibility, while
-the notion of a "cost" associated with links allows applications to restrict the flow of messages in creative ways.
-IceStorm applications have complete control of topic federation: an application creates and removes links dynamically
-with the `link` and `unlink` operations of the
-[Topic interface](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html). For many applications,
-however, the topic graph is static, and an administrator configures it with the
+A federation links topics together, and the cost associated with each link lets you restrict the flow of messages
+between topics. You create and remove links with the `link` and `unlink` operations of the
+[Topic interface](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html), or with the
 [administrative tool](../icestorm-administration).
 
 The figures below use dotted arrows for links between topics and solid arrows for publishing and delivering messages.
@@ -28,12 +25,8 @@ established directly between `A` and `C`.
 As described above, IceStorm messages are only propagated on the originating topic's immediate links. In addition,
 applications can use the notion of cost to further restrict message propagation.
 
-Messages and links each carry a cost. A topic propagates a message only on its links whose cost is zero or at least the
-message's cost. A cost value of zero (`0`) has the following implications:
-
-- messages with a cost value of zero (`0`) are published on all of the topic's links whose cost is zero or positive;
-- links with a cost value of zero (`0`) accept all messages regardless of the message cost. For example, consider the
-  following topic graph:
+Messages and links each carry a cost. A topic forwards a message on a link only when the message's cost does not exceed
+the link's cost; a link with a cost of zero carries every message. For example, consider the following topic graph:
 
 ![Solid arrows show publishers P1 and P2 sending to topic A with message costs 1 and 2 respectively. Dotted arrows show a link from A to B with cost 0 and a link from A to C with cost 1.](/images/ice/3.8/topic-federation/federation2.svg)
 
