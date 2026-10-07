@@ -4,13 +4,13 @@ title: DataStorm.Trace.*
 
 ## DataStorm.Trace.Topic
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Trace.Topic=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Controls the trace level for topics:
 
@@ -19,17 +19,17 @@ Controls the trace level for topics:
 | 0     | No topic trace (default).             |
 | 1     | Trace topic creation and destruction. |
 
-{% /description %}
+{% /property-description %}
 
 ## DataStorm.Trace.Data
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Trace.Data=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Controls the trace level for writers and readers:
 
@@ -40,17 +40,17 @@ Controls the trace level for writers and readers:
 | 2     | Like 1, and trace reader and writer connections, disconnections and sample initialization.                          |
 | 3     | Like 2, and trace samples being queued, discarded or published.                                                     |
 
-{% /description %}
+{% /property-description %}
 
 ## DataStorm.Trace.Session
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Trace.Session=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Controls the trace level for sessions:
 
@@ -61,4 +61,4 @@ Controls the trace level for sessions:
 | 2     | Like 1, and trace topic announcements, topic, writer and reader subscriptions, and sample initialization.                                      |
 | 3     | Like 2, and trace session-level topic announcements, writer and reader announcements, attachments and individual samples.                      |
 
-{% /description %}
+{% /property-description %}

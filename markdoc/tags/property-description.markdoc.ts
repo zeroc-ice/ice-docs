@@ -4,8 +4,8 @@ import type { Schema } from '@markdoc/markdoc';
 
 // What a property does, as a property reference entry states it after the
 // synopsis.
-const description: Schema = {
-  render: 'Description'
+const propertyDescription: Schema = {
+  render: 'PropertyDescription'
 };
 
-export default description;
+export default propertyDescription;

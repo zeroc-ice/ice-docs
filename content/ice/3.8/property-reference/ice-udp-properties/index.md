@@ -14,13 +14,13 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 ## Ice.UDP.RcvSize
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.UDP.RcvSize=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property sets the UDP receive buffer size to the specified value in bytes. Ice discards an incoming datagram larger
 than the receive buffer size minus 28 bytes, and logs a warning if [Ice.Warn.Datagrams](../ice-warn-properties) is set.
@@ -39,17 +39,17 @@ the kernel.
 A buffer smaller than 65535 bytes limits the size of Ice datagrams, whether it comes from this property or from the
 operating system's default.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.UDP.SndSize
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.UDP.SndSize=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property sets the UDP send buffer size to the specified value in bytes. Sending a request or batch request larger
 than the send buffer size minus 28 bytes fails with a `DatagramLimitException`.
@@ -68,4 +68,4 @@ the kernel.
 A buffer smaller than 65535 bytes limits the size of Ice datagrams, whether it comes from this property or from the
 operating system's default.
 
-{% /description %}
+{% /property-description %}

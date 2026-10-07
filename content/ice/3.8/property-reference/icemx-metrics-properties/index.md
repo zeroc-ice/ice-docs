@@ -58,13 +58,13 @@ Regular expressions use .NET's `Regex` syntax and match any substring of the att
 
 ## IceMX.Metrics._view_.Accept._attribute_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceMX.Metrics.view.Accept.attribute=regexp`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Requires `attribute` to match `regexp` when that attribute is available on the instrumented object or operation, subject
 to the other [filter rules](#regular-expression-filters).
@@ -74,33 +74,33 @@ For example, to accept monitoring instrumented objects or operations which are f
 
 - `IceMX.Metrics.MyView.Accept.parent=MyAdapter`
 
-{% /description %}
+{% /property-description %}
 
 ## IceMX.Metrics._view_.Disabled
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceMX.Metrics.view.Disabled=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If `num` is set to a value larger than zero, the metrics view or the map is disabled. This property is useful to
 pre-configure a view or map. The view can be disabled initially to not incur overhead and enabled only when needed at
 runtime.
 
-{% /description %}
+{% /property-description %}
 
 ## IceMX.Metrics._view_.GroupBy
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceMX.Metrics.view.GroupBy=delimited attributes`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property defines how metrics are grouped and how the ID of each metrics object is created. The default value is
 `id`. The grouping is based on attributes specific to the instrumented object or operation. For example, you can group
@@ -115,17 +115,17 @@ GroupBy properties.
 - `IceMX.Metrics.MyView.GroupBy=identity [operation]`
 - `IceMX.Metrics.MyView.GroupBy=remoteHost:remotePort`
 
-{% /description %}
+{% /property-description %}
 
 ## IceMX.Metrics._view_.Reject._attribute_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceMX.Metrics.view.Reject.attribute=regexp`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Excludes an instrumented object or operation when `attribute` matches `regexp`. A matching `Reject` rule takes
 precedence over any `Accept` rules; see [Regular Expression Filters](#regular-expression-filters).
@@ -135,17 +135,17 @@ For example, to reject monitoring instrumented objects or operations which are f
 
 - `IceMX.Metrics.MyView.Reject.parent=Ice\.Admin`
 
-{% /description %}
+{% /property-description %}
 
 ## IceMX.Metrics._view_.RetainDetached
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceMX.Metrics.view.RetainDetached=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If `num` is set to a value larger than zero, up to `num` metrics object whose `current` value is 0 will be kept in
 memory by the metrics map. This is useful to prevent indefinite memory growth if the monitoring of an instrumented
@@ -153,4 +153,4 @@ object or operation creates a unique metrics object, only the last `num` metrics
 default value is `10`, meaning that at most ten metrics object with a `current` value equal to 0 will be retained by the
 metrics map.
 
-{% /description %}
+{% /property-description %}

@@ -4,16 +4,16 @@ title: IceBoxAdmin.*
 
 ## IceBoxAdmin.ServiceManager.Proxy
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceBoxAdmin.ServiceManager.Proxy=proxy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property configures the proxy that is used by the [iceboxadmin](../../services/icebox/icebox-administration)
 utility to locate the service manager. The C++ `iceboxadmin` utility and the Java `com.zeroc.IceBox.Admin` utility read
 this property.
 
-{% /description %}
+{% /property-description %}

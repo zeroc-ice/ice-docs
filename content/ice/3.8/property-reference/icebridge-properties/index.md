@@ -7,30 +7,30 @@ server.
 
 ## IceBridge.InstanceName
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceBridge.InstanceName=name`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the identity category of the IceBridge router object. The router's identity is `name/router`. The
 `Ice::RouterFinder` object retains the identity `Ice/RouterFinder`.
 
 If not defined, the default value is `IceBridge`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceBridge.Source._AdapterProperty_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceBridge.Source.AdapterProperty=value`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. Therefore,
 [adapter properties](../object-adapter-properties) can be used to configure this adapter. The only required adapter
@@ -38,17 +38,17 @@ property is `IceBridge.Source.Endpoints`.
 
 This adapter must be accessible to IceBridge clients.
 
-{% /description %}
+{% /property-description %}
 
 ## IceBridge.Target.Endpoints
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceBridge.Target.Endpoints=endpoints`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This required property specifies the client [endpoints](../../runtime/endpoint-syntax) of the target server, with the
 syntax used in a [stringified proxy](../../runtime/invocation/syntax-for-stringified-proxies). Unlike
@@ -58,4 +58,4 @@ subsequent requests on that client connection. Closing either connection causes 
 
 Multiple endpoints must all reach the same logical target server, for example its replicas or its other transports.
 
-{% /description %}
+{% /property-description %}

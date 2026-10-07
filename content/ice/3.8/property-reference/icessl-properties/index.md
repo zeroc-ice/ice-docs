@@ -34,20 +34,20 @@ Ice for JavaScript does not support these IceSSL properties. Setting any of them
 
 ## IceSSL.CAs
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CAs=path` (SChannel, SecureTransport, OpenSSL)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the path name of a file containing the certificates of trusted certificate authorities (CAs).
 
 If you wish to use the CA certificates bundled with your platform, leave this property unset and enable
 `IceSSL.UsePlatformCAs`.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.cas-platform-notes" %}
 
@@ -73,13 +73,13 @@ and relative to the working directory otherwise.
 
 ## IceSSL.CertificateRevocationListFiles
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertificateRevocationListFiles=file[,file...]` (OpenSSL)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the PEM files containing the certificate revocation lists (CRLs) that IceSSL uses for revocation checks.
 Separate several files with commas or whitespace. A relative path is resolved under `IceSSL.DefaultDir` when that
@@ -90,22 +90,22 @@ initialization fails with an `InitializationException` if a file is missing or c
 certificate. During the handshake, OpenSSL looks up the CRL of each certificate it checks in these files. If the CRL is
 not there, the handshake fails.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.CertFile
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertFile=file` (SecureTransport, SChannel, OpenSSL)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the file that contains the program's certificate and, unless `IceSSL.KeyFile` names a separate file, its
 private key. The file name may be specified relative to the default directory defined by `IceSSL.DefaultDir`.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.certfile-platform-notes" %}
 
@@ -145,13 +145,13 @@ and relative to the working directory otherwise.
 
 ## IceSSL.CertStore
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertStore=name` (SChannel)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the name of a certificate store to use when locating certificates via `IceSSL.FindCert`. Legal values for
 `name` include `AddressBook`, `AuthRoot`, `CertificateAuthority`, `Disallowed`, `My`, `Root`, `TrustedPeople`, and
@@ -159,17 +159,17 @@ Specifies the name of a certificate store to use when locating certificates via 
 
 If not specified, the default value is `My`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.CertStoreLocation
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (SChannel)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property is used for two different purposes:
 
@@ -185,7 +185,7 @@ An Ice program running as a Windows service will typically need to set this prop
 
 {% /callout %}
 
-{% /description %}
+{% /property-description %}
 
 {% /iflang %}
 
@@ -193,13 +193,13 @@ An Ice program running as a Windows service will typically need to set this prop
 
 ## IceSSL.CheckCertName
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CheckCertName=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies if certificate host name verification is enabled. The legal values are shown in the table below. If this
 property is not defined, the default value is 0.
@@ -227,41 +227,41 @@ In Java, IceSSL verifies the host name only when `IceSSL.VerifyPeer` is greater 
 the server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++ and
 .NET implementations always send a DNS host name with SNI.
 
-{% /description %}
+{% /property-description %}
 
 {% language-section name="icessl.checkcertname" /%}
 
 ## IceSSL.DefaultDir
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.DefaultDir=path`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the default directory in which to look for certificates, key stores, and other files. See the descriptions of
 the relevant properties for more information.
 
-{% /description %}
+{% /property-description %}
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
 ## IceSSL.FindCert
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.FindCert=criteria` (SChannel, SecureTransport)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Selects the program's certificate from a certificate store or keychain instead of loading it from a file. IceSSL ignores
 this property when `IceSSL.CertFile` is defined.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.findcert-platform-notes" %}
 
@@ -307,13 +307,13 @@ selected. Values must be enclosed in single or double quotes to preserve white s
 
 ## IceSSL.Keychain
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.Keychain=name` (SecureTransport)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the name of a keychain in which to import the certificate identified by `IceSSL.CertFile`. Set
 `IceSSL.KeychainPassword` if the specified keychain has a password.
@@ -325,39 +325,39 @@ communicator is destroyed.
 
 On iOS this property is ignored, IceSSL uses the default device keychain.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.KeyFile
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.KeyFile=file` (SChannel, SecureTransport, OpenSSL)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies a file that contains the program's private key. The file name may be specified relative to the default
 directory defined by `IceSSL.DefaultDir`. The corresponding certificate must be specified using `IceSSL.CertFile`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.KeychainPassword
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.KeychainPassword=password` (SecureTransport)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the password for the keychain identified by `IceSSL.Keychain`. If not defined, IceSSL attempts to open the
 keychain without a password.
 
 On iOS, this property is ignored.
 
-{% /description %}
+{% /property-description %}
 
 {% /iflang %}
 
@@ -365,17 +365,17 @@ On iOS, this property is ignored.
 
 ## IceSSL.Password
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.Password=password`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the password necessary to decrypt the private key.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.password-platform-notes" %}
 
@@ -401,13 +401,13 @@ This property supplies the password that was used to secure the file defined by 
 
 ## IceSSL.RevocationCheck
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.RevocationCheck=num` (OpenSSL, SChannel, SecureTransport)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies whether IceSSL checks the certificates of the peer's chain for revocation:
 
@@ -420,7 +420,7 @@ Specifies whether IceSSL checks the certificates of the peer's chain for revocat
 IceSSL aborts the connection when it finds a revoked certificate or cannot determine the revocation status of a
 certificate.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.revocationcheck-platform-notes" %}
 
@@ -443,13 +443,13 @@ the macOS trust evaluation still performs its own best-effort check and rejects 
 
 ## IceSSL.RevocationCheckCacheOnly
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.RevocationCheckCacheOnly=num` (SChannel, SecureTransport)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies whether revocation checks may access the network:
 
@@ -460,7 +460,7 @@ Specifies whether revocation checks may access the network:
 
 With the default value, IceSSL rejects a certificate whose revocation status is not already in the system cache.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.revocationcheckcacheonly-platform-notes" %}
 
@@ -481,13 +481,13 @@ IceSSL cannot determine the revocation status of a certificate that publishes on
 
 ## IceSSL.Trace.Security
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.Trace.Security=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 The SSL plug-in trace level:
 
@@ -497,17 +497,17 @@ The SSL plug-in trace level:
 | 1     | Displays a summary of each SSL connection, the reason a connection is rejected, and the peer's distinguished name when an `IceSSL.TrustOnly*` property applies. |
 | 2     | Additionally displays the `IceSSL.TrustOnly*` entries evaluated against the peer's distinguished name. .NET displays these at level `1`.                        |
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.TrustOnly
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.TrustOnly=ENTRY[;ENTRY;...]`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Identifies trusted and untrusted peers. This family of properties provides an additional level of authentication by
 using the peer certificate's distinguished name (DN) to decide whether to accept or reject a connection.
@@ -567,82 +567,82 @@ non-zero value, which causes IceSSL to display the DN of each peer during connec
 This property affects incoming and outgoing connections. IceSSL also supports similar properties that affect only
 incoming connections or only outgoing connections.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.TrustOnly.Client
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.TrustOnly.Client=ENTRY[;ENTRY;...]`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Identifies trusted and untrusted peers for outgoing (client) connections. The entries defined in this property are
 combined with those of `IceSSL.TrustOnly`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.TrustOnly.Server
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.TrustOnly.Server=ENTRY[;ENTRY;...]`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Identifies trusted and untrusted peers for incoming ("server") connections. The entries defined in this property are
 combined with those of `IceSSL.TrustOnly`. To configure trusted and untrusted peers for a particular object adapter, use
 `IceSSL.TrustOnly.Server.AdapterName`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.TrustOnly.Server._AdapterName_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.TrustOnly.Server.AdapterName=ENTRY[;ENTRY;...]`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Identifies trusted and untrusted peers for incoming (server) connections to the object adapter `AdapterName`. The
 entries defined in this property are combined with those of `IceSSL.TrustOnly` and `IceSSL.TrustOnly.Server`.
 
-{% /description %}
+{% /property-description %}
 
 {% language-section name="icessl.trustonly.server.adaptername" /%}
 
 ## IceSSL.UsePlatformCAs
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.UsePlatformCAs=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If `num` is a value greater than zero, IceSSL uses the platform's bundled Root Certificate Authorities. This setting is
 ignored if `IceSSL.CAs` is defined.
 
 If not defined, the default value is zero.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.VerifyPeer
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.VerifyPeer=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies whether an object adapter accepting an incoming connection requests a certificate from the client, and whether
 the client must supply one. The legal values are shown in the table below; any other value causes communicator
@@ -657,7 +657,7 @@ initialization to fail with an `InitializationException`. If this property is no
 This property has no effect on outgoing connections (except in Java, see below): a client always requires and verifies
 the server's certificate.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.verifypeer-platform-notes" %}
 

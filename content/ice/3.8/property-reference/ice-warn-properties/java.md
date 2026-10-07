@@ -2,18 +2,18 @@
 
 ## Ice.Warn.AMICallback
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Warn.AMICallback=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If `num` is set to a value larger than 0, the Ice runtime logs a warning when an AMI callback throws an exception. The
 default value is 1.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}
 
@@ -21,13 +21,13 @@ default value is 1.
 
 ## Ice.Warn.SliceLoader
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Warn.SliceLoader=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 When [Ice.SliceLoader.NotFoundCacheSize](../ice-properties) is set to a value larger than 0, the communicator installs a
 “not found” cache to cache failed Slice loader resolutions. And when this cache is full, additional failed Slice loader
@@ -38,6 +38,6 @@ cached because the cache is full.
 
 The default value is 1.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}

@@ -8,44 +8,44 @@ node. To set defaults for an individual topic, use `DataStorm::Topic::setReaderD
 
 ## DataStorm.Topic.SampleLifetime
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Topic.SampleLifetime=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Defines the lifetime in milliseconds of samples queued in a writer or reader sample queue. DataStorm removes samples
 older than this lifetime from the queue. The default is 0. A value of 0 or less means an unlimited lifetime.
 
-{% /description %}
+{% /property-description %}
 
 ## DataStorm.Topic.SampleCount
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Topic.SampleCount=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property defines the maximum number of samples queued in the writer or reader sample queue. If the maximum is
 reached, oldest samples are removed to make room for new samples in the queue. A negative value is equivalent to an
 infinite sample count. If set to 0, samples are not queued. If not defined, the default value is `-1`.
 
-{% /description %}
+{% /property-description %}
 
 ## DataStorm.Topic.ClearHistory
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Topic.ClearHistory=value`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property determines when the reader or writer sample history is cleared. Legal values and their description are
 presented in the table below:
@@ -60,17 +60,17 @@ presented in the table below:
 
 If not defined, the default value is `OnAll`.
 
-{% /description %}
+{% /property-description %}
 
 ## DataStorm.Topic.DiscardPolicy
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Topic.DiscardPolicy=value`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property specifies how samples might be discarded by a reader.
 
@@ -82,18 +82,18 @@ This property specifies how samples might be discarded by a reader.
 
 If not defined, the default value is `Never`.
 
-{% /description %}
+{% /property-description %}
 
 ## DataStorm.Topic.Priority
 
-{% synopsis %}
+{% property-synopsis %}
 
 `DataStorm.Topic.Priority=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property specifies the priority assigned to the topic's writers. If not defined, the default value is 0.
 
-{% /description %}
+{% /property-description %}

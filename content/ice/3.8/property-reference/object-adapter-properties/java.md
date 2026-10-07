@@ -2,13 +2,13 @@
 
 ## _adapter_.AdapterId
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.AdapterId=id`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Assigns an adapter ID to this object adapter. An object adapter with an adapter ID is called an _indirect adapter_.
 
@@ -16,17 +16,17 @@ This ID must be unique among all object adapters using the same [locator](../../
 proxy is defined using [adapter.Locator](#adapter.locator) or [Ice.Default.Locator](../ice-default-properties), this
 object adapter registers its endpoints with the locator registry upon activation.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.AllowedOrigins
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.AllowedOrigins=originList`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Restricts which HTTP Origin headers are accepted on the WebSocket upgrade request received by this object adapter. This
 property has effect only for adapters with WebSocket endpoints (`ws` or `wss`).
@@ -49,7 +49,7 @@ the connection.
 This property is intended to mitigate cross-site WebSocket hijacking against browser-based Ice clients (Ice for
 JavaScript).
 
-{% /description %}
+{% /property-description %}
 
 ### Example {% id="adapter.allowedorigins-example" %}
 
@@ -60,130 +60,130 @@ MyAdapter.AllowedOrigins=https://web.example.com, https://admin.example.com
 
 ## _adapter_.Connection.CloseTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Connection.CloseTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Overrides the setting of [Ice.Connection.Server.CloseTimeout](../ice-connection-properties) for this object adapter.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Connection.ConnectTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Connection.ConnectTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Overrides the setting of [Ice.Connection.Server.ConnectTimeout](../ice-connection-properties) for this object adapter.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Connection.EnableIdleCheck
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Connection.EnableIdleCheck=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Overrides the setting of [Ice.Connection.Server.EnableIdleCheck](../ice-connection-properties) for this object adapter.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Connection.IdleTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Connection.IdleTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Overrides the setting of [Ice.Connection.Server.IdleTimeout](../ice-connection-properties) for this object adapter.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Connection.InactivityTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Connection.InactivityTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Overrides the setting of [Ice.Connection.Server.InactivityTimeout](../ice-connection-properties) for this object
 adapter.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Connection.MaxDispatches
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Connection.MaxDispatches=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Overrides the setting of [Ice.Connection.Server.MaxDispatches](../ice-connection-properties) for this object adapter.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Endpoints
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Endpoints=endpoints`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Sets the [physical endpoints](../../runtime/dispatch/object-adapter-endpoints) of this object adapter. These endpoints
 correspond to the network interfaces on which the object adapter accepts connections and receives requests.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.Locator
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.Locator=locator`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the [locator](../../runtime/locators) of this object adapter. The value is a stringified proxy to an
 `Ice::Locator` object.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.MaxConnections
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.MaxConnections=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 When `num` is greater than `0`, Ice limits the number of incoming connections separately for each listening endpoint of
 this object adapter. Once an endpoint reaches the limit, Ice accepts and immediately closes additional connections to
@@ -191,17 +191,17 @@ that endpoint until an existing connection closes. UDP endpoints are exempt from
 
 The default value is `0`. A value of `0` or less disables the limit.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.MessageSizeMax
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.MessageSizeMax=num` (in KiB)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Limits the size of the Ice protocol messages this adapter receives, in KiB (1024 bytes). The limit applies to the whole
 message, including the protocol header; for a compressed message, it also applies to the decompressed size. If not
@@ -213,7 +213,7 @@ A value of `0` or less selects the maximum supported size of 2,147,483,647 bytes
 This property is logically a connection property, and only applies to messages received over network connections created
 by this object adapter.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}
 
@@ -221,13 +221,13 @@ by this object adapter.
 
 ## _adapter_.PublishedHost
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.PublishedHost=host`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the published host for this object adapter. A published host is usually a DNS name, but it can also be an IP
 address.
@@ -237,17 +237,17 @@ The published host is used by the algorithm that computes the published endpoint
 [Published Object Adapter Endpoints](../../runtime/dispatch/object-adapter-endpoints). This property is particularly
 useful when the object adapter endpoints do not specify port numbers.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ReplicaGroupId
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ReplicaGroupId=id`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Identifies the group of [replicated object adapters](../../services/icegrid/object-adapter-replication) to which this
 adapter belongs. The replica group is treated as a virtual object adapter, so that an indirect proxy of the form
@@ -263,7 +263,7 @@ Furthermore, the locator registry may require replica groups to be defined in ad
 adapter activation. Regardless of whether an object adapter is replicated, it can always be addressed individually in an
 indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapterid).
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}
 
@@ -271,13 +271,13 @@ indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapteri
 
 ## _adapter_.ThreadPool.Serialize
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.Serialize=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If `num` is a value greater than 0, the adapter's thread pool serializes all messages from each connection. It is not
 necessary to enable this feature in a thread pool whose maximum size is 1 thread. When a thread pool dispatches requests
@@ -288,17 +288,17 @@ In a [multi-threaded pool](../../runtime/threading-model), enabling serializatio
 connections to be dispatched concurrently while preserving the order of messages on each connection. Note that
 serialization can have a significant impact on latency and throughput. If not defined, the default value is 0.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ThreadPool.Size
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.Size=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 A communicator creates a default server thread pool that dispatches requests to its object adapters. An object adapter
 can also be configured with its own [thread pool](../../runtime/threading-model). This is useful in avoiding deadlocks
@@ -312,17 +312,17 @@ pool with one initial thread and a maximum of four threads.
 `num` is the initial number of threads in the dedicated pool. Its default value is `1`. See
 [Ice.ThreadPool._name_.Size](../ice-threadpool-properties) for more information.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ThreadPool.SizeMax
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.SizeMax=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 `num` is the maximum number of threads for the [thread pool](../../runtime/threading-model). See
 [Ice.ThreadPool._name_.SizeMax](../ice-threadpool-properties) for more information.
@@ -330,63 +330,63 @@ pool with one initial thread and a maximum of four threads.
 The default value is the value of [_adapter_.ThreadPool.Size](#adapter.threadpool.size), meaning the thread pool can
 never grow larger than its initial size.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ThreadPool.SizeWarn
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.SizeWarn=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Whenever `num` threads are active in a [thread pool](../../runtime/threading-model), a "low on threads" warning is
 printed. The default value is 0, which disables the warning.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ThreadPool.StackSize
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.StackSize=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 `num` is the stack size (in bytes) of threads in the [thread pool](../../runtime/threading-model). The default value is
 0, meaning the operating system's default is used.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ThreadPool.ThreadIdleTime
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.ThreadIdleTime=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 In a dynamically-sized [thread pool](../../runtime/threading-model), Ice reaps a thread after it is idle for `num`
 seconds. Setting this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
 [Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties) for more information.
 
-{% /description %}
+{% /property-description %}
 
 ## _adapter_.ThreadPool.ThreadPriority
 
-{% synopsis %}
+{% property-synopsis %}
 
 `adapter.ThreadPool.ThreadPriority=value`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 `value` specifies a thread priority for the object adapter's [thread pool](../../runtime/threading-model). The object
 adapter creates its threads with the specified priority. Leaving this property unset causes the adapter to create
@@ -396,6 +396,6 @@ threads with the priority specified by [Ice.ThreadPriority](../ice-properties).
 
 The named values can also include the `java.lang.Thread.` prefix, for example `java.lang.Thread.NORM_PRIORITY`.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}

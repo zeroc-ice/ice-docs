@@ -2,13 +2,13 @@
 
 ## IceSSL.CAs
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CAs=path` (.NET)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the path name of a file containing the certificates of trusted certificate authorities (CAs). The file can be
 encoded using the DER or PEM formats. When using PEM, the file can contain multiple certificates.
@@ -19,17 +19,17 @@ locate `path` relative to the default directory defined by `IceSSL.DefaultDir`.
 If you wish to use the CA certificates bundled with your platform, leave this property unset and enable
 `IceSSL.UsePlatformCAs`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.CertFile
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertFile=file` (.NET)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies a file that contains the program's certificate and the corresponding private key. The file must use the PFX
 (PKCS#12) format. If a password is required to load the file, the application must supply the password using
@@ -41,17 +41,17 @@ locate `file` relative to the default directory defined by `IceSSL.DefaultDir`.
 IceSSL imports the private key into the machine key set when `IceSSL.CertStoreLocation` is `LocalMachine`, and into the
 user key set otherwise.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.CertStore
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertStore=name` (.NET)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the name of a certificate store to use when locating certificates via `IceSSL.FindCert`. Legal values for
 `name` include `AddressBook`, `AuthRoot`, `CertificateAuthority`, `Disallowed`, `My`, `Root`, `TrustedPeople`, and
@@ -59,17 +59,17 @@ Specifies the name of a certificate store to use when locating certificates via 
 
 If not specified, the default value is `My`.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.CertStoreLocation
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CertStoreLocation=CurrentUser|LocalMachine` (.NET)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the location of the certificate store to use when locating certificates via `IceSSL.FindCert`. The location
 also selects the key set into which IceSSL imports the private key of the certificate loaded from `IceSSL.CertFile`: the
@@ -83,7 +83,7 @@ An Ice program running as a Windows service will typically need to set this prop
 
 {% /callout %}
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}
 
@@ -91,13 +91,13 @@ An Ice program running as a Windows service will typically need to set this prop
 
 ## IceSSL.CheckCRL
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.CheckCRL=num` (.NET)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies whether IceSSL checks the revocation status of the certificates in the peer's chain, and what happens when the
 revocation status of a certificate cannot be determined. The legal values are shown in the table below. If
@@ -119,7 +119,7 @@ The revocation sources are those of the platform, since .NET delegates certifica
 to its own OpenSSL-based chain builder on Linux, and to the Security framework on macOS. Windows and Linux fetch CRLs
 from the distribution points and query the OCSP responders named in the certificates.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icessl.checkcrl-platform-notes" %}
 
@@ -135,13 +135,13 @@ with the value `2`, whether or not it is revoked.
 
 ## IceSSL.FindCert
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.FindCert=criteria` (.NET)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Selects the program's certificate from a certificate store instead of loading it from a file. IceSSL ignores this
 property when `IceSSL.CertFile` is defined.
@@ -169,6 +169,6 @@ The value for `criteria` may be `*`, in which case all of the certificates in th
 The field names are case-insensitive. If multiple criteria are specified, only certificates that match all criteria are
 selected. Values must be enclosed in single or double quotes to preserve white space.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}

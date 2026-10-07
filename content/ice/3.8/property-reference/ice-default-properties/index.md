@@ -6,13 +6,13 @@ title: Ice.Default.*
 
 ## Ice.Default.EncodingVersion
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.EncodingVersion=ver`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If this property is not defined, Ice uses encoding version 1.1 when parsing a string that represents a proxy if this
 string does not specify an encoding with the `-e` option. To use encoding version 1.0 as the default instead, set this
@@ -20,64 +20,64 @@ property to `1.0`:
 
 `Ice.Default.EncodingVersion=1.0`
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.EndpointSelection
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.EndpointSelection=policy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property controls the default [endpoint selection](../../runtime/connection-management/connection-establishment)
 policy for proxies with multiple endpoints. Permissible values are `Ordered` and `Random`. The default value of this
 property is `Random`.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.Host
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.Host=host`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If an endpoint does not specify a host name (i.e., omits the `-h host` option in IP-based endpoints or the `-a address`
 option in a Bluetooth endpoint), the `host` value from this property is used instead. This property applies to both
 [client and server endpoints](../../runtime/endpoint-syntax). It has no default value.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.InvocationTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.InvocationTimeout=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the default [invocation timeout](../../runtime/invocation/invocation-timeouts) in milliseconds to use for all
 proxies. The default value is `-1`, which disables the timeout.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.Locator
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.Locator=locator`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies a default [locator](../../runtime/locators) for all proxies and object adapters. The value is a stringified
 proxy for the [IceGrid](../../services/icegrid) locator object. The default locator can be overridden on a proxy using
@@ -99,17 +99,17 @@ Ice.Default.Locator=IceGrid/Locator:tcp -p 12000 -h localhost
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.LocatorCacheTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.LocatorCacheTimeout=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the default [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout for indirect
 proxies, in seconds. If `num` is greater than `0`, locator cache entries older than `num` seconds are ignored. If set to
@@ -121,19 +121,19 @@ next invocation; therefore, the invocation is delayed until the runtime has refr
 performed but happens in the background; this avoids the delay for the first invocation that follows expiry of a cache
 entry.
 
-{% /description %}
+{% /property-description %}
 
 {% language-section name="ice.default.locatorcachetimeout" /%}
 
 ## Ice.Default.Protocol
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.Protocol=transport protocol`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Sets the [transport protocol](../../runtime/endpoint-syntax) that is being used if an endpoint uses `default` as the
 transport protocol specification.
@@ -150,17 +150,17 @@ The default value is `ws` in a browser and `tcp` in Node.js.
 
 {% /iflang %}
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.Router
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.Router=router`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the default [router](../../runtime/invocation/routers) for all proxies. The value is a stringified proxy for
 the Glacier2 router control interface. The default router can be overridden on a proxy using the `ice_router`
@@ -169,17 +169,17 @@ router to object adapters.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.SlicedFormat
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.SlicedFormat=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the encoding format of Slice classes. The default value is `0`, which selects the compact format; `1` selects
 the sliced format. This property applies to version 1.1 of the Ice encoding.
@@ -187,17 +187,17 @@ the sliced format. This property applies to version 1.1 of the Ice encoding.
 Note that you can also specify whether certain operations use the sliced format by annotating their definitions with
 [metadata](../../slice/slice-metadata-directives).
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Default.SourceAddress
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.SourceAddress=addr`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
@@ -216,4 +216,4 @@ the operating system.
 
 {% /iflang %}
 
-{% /description %}
+{% /property-description %}

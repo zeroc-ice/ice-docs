@@ -2,13 +2,13 @@
 
 ## IceSSL.Alias
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.Alias=alias` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Selects a particular certificate from the key store specified by `IceSSL.Keystore`. IceSSL presents the certificate
 identified by `alias` to the peer during authentication. If the alias does not name a key entry of the key store,
@@ -16,7 +16,7 @@ communicator initialization fails with an `InitializationException`.
 
 If this property is not defined, IceSSL uses the first key entry of the key store that has a certificate chain.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}
 
@@ -24,13 +24,13 @@ If this property is not defined, IceSSL uses the first key entry of the key stor
 
 ## IceSSL.Keystore
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.Keystore=file` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies a key store file containing certificates and their private keys. If the key store contains multiple
 certificates, you should specify a particular one to use for authentication using `IceSSL.Alias`. IceSSL first attempts
@@ -41,17 +41,17 @@ file is determined by `IceSSL.KeystoreType`.
 If this property is not defined, the application will not be able to supply a certificate during SSL handshaking. As a
 result, the application may not be able to negotiate a secure connection.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.KeystorePassword
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.KeystorePassword=password` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the password used to load the key store defined by `IceSSL.Keystore`. Depending on the key store type and
 security provider, this password can be used to verify the store's integrity and to decrypt its contents, including
@@ -67,17 +67,17 @@ OpenJDK default `pkcs12`. See `IceSSL.KeystoreType` for what each password means
 If `IceSSL.Keystore` and `IceSSL.Truststore` have the same value, Ice uses `IceSSL.KeystorePassword` to load the shared
 store; `IceSSL.TruststorePassword` is not used.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.KeystoreType
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.KeystoreType=type` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the type of the key store file defined by `IceSSL.Keystore`. Ice passes this value unchanged to
 `KeyStore.getInstance(String)`, so it must name a key store type supplied by an installed security provider, such as
@@ -122,7 +122,7 @@ empty-password PKCS12 store, at `IceSSL.KeystoreType=PKCS12`.
 If `IceSSL.Keystore` and `IceSSL.Truststore` have the same value, Ice loads the file once using `IceSSL.KeystoreType`
 and `IceSSL.KeystorePassword`. In this case, `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` are not used.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}
 
@@ -141,13 +141,13 @@ revocation checking configured in the JDK applies.
 
 ## IceSSL.Truststore
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.Truststore=file` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies a key store file containing the certificates of trusted certificate authorities. IceSSL first attempts to open
 `file` as a class loader resource and then as a regular file. If the given path is relative but does not exist, IceSSL
@@ -157,17 +157,17 @@ determined by `IceSSL.TruststoreType`.
 If no truststore is specified the application will not be able to authenticate the peer's certificate during SSL
 handshaking. As a result, the application may not be able to negotiate a secure connection.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.TruststorePassword
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.TruststorePassword=password` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the password used to load the trust store defined by `IceSSL.Truststore`. Depending on the key store type and
 security provider, this password can be used to verify the store's integrity and to decrypt its contents, including
@@ -180,17 +180,17 @@ OpenJDK default `pkcs12`. See `IceSSL.KeystoreType` for what each password means
 If `IceSSL.Truststore` and `IceSSL.Keystore` have the same value, Ice loads the shared store using
 `IceSSL.KeystorePassword`; `IceSSL.TruststorePassword` is not used.
 
-{% /description %}
+{% /property-description %}
 
 ## IceSSL.TruststoreType
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceSSL.TruststoreType=type` (Java)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the type of the trust store file defined by `IceSSL.Truststore`. Ice passes this value unchanged to
 `KeyStore.getInstance(String)`, so it must name a key store type supplied by an installed security provider, such as
@@ -214,6 +214,6 @@ empty-password PKCS12 store, at `IceSSL.TruststoreType=PKCS12`.
 If `IceSSL.Truststore` and `IceSSL.Keystore` have the same value, Ice loads the file once using `IceSSL.KeystoreType`.
 In this case, `IceSSL.TruststoreType` and `IceSSL.TruststorePassword` are not used.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}

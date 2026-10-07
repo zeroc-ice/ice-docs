@@ -12,93 +12,93 @@ inverse operation, that is, returns the property group for a proxy.
 
 ## _name_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name=proxy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 The base property of the group with an application-specific `name` supplying the stringified representation of a proxy.
 Use the communicator operation `propertyToProxy` to retrieve the property and convert it into a proxy.
 
-{% /description %}
+{% /property-description %}
 
 {% language-section name="mapping" /%}
 
 ## _name_.ConnectionCached
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.ConnectionCached=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 If `num` is a value greater than zero, the proxy [caches](../../runtime/connection-management/connection-establishment)
 its chosen connection for use in subsequent requests. Defining this property is equivalent to invoking the
 `ice_connectionCached` proxy method.
 
-{% /description %}
+{% /property-description %}
 
 ## _name_.Context._key_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.Context.key=value`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Adds the key/value pair to the proxy's
 [request context](../../runtime/invocation/request-contexts/per-proxy-request-contexts).
 
-{% /description %}
+{% /property-description %}
 
 ## _name_.EndpointSelection
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.EndpointSelection=type`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the proxy's [endpoint selection](../../runtime/connection-management/connection-establishment) type. Legal
 values are `Random` and `Ordered`. Defining this property is equivalent to invoking the `ice_endpointSelection` proxy
 method.
 
-{% /description %}
+{% /property-description %}
 
 ## _name_.InvocationTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.InvocationTimeout=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the [invocation timeout](../../runtime/invocation/invocation-timeouts) of this proxy, in milliseconds. The
 default is [Ice.Default.InvocationTimeout](../ice-default-properties#ice.default.invocationtimeout). Defining this
 property is equivalent to invoking the `ice_invocationTimeout` proxy method.
 
-{% /description %}
+{% /property-description %}
 
 ## _name_.Locator
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.Locator=proxy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the [locator](../../runtime/locators) of this proxy. Defining this property is equivalent to invoking the
 `ice_locator` proxy method.
@@ -111,33 +111,33 @@ MyProxy.Locator=...
 MyProxy.Locator.EndpointSelection=Ordered
 ```
 
-{% /description %}
+{% /property-description %}
 
 ## _name_.LocatorCacheTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.LocatorCacheTimeout=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout of this proxy, in seconds.
 The default is [Ice.Default.LocatorCacheTimeout](../ice-default-properties#ice.default.locatorcachetimeout). A value of
 0 disables caching. A negative value means cache entries never expire.
 
-{% /description %}
+{% /property-description %}
 
 ## _name_.Router
 
-{% synopsis %}
+{% property-synopsis %}
 
 `name.Router=proxy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the [router](../../services/glacier2) of this proxy. Defining this property is equivalent to invoking the
 `ice_router` proxy method.
@@ -150,4 +150,4 @@ MyProxy.Router=...
 MyProxy.Router.EndpointSelection=Ordered
 ```
 
-{% /description %}
+{% /property-description %}

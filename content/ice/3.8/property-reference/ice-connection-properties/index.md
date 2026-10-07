@@ -32,13 +32,13 @@ These properties apply only to connections over connection-oriented transports s
 
 ## Ice.Connection._name_.CloseTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Connection.name.CloseTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 A graceful connection closure transitions to connection abort if it takes more than `num` seconds to complete.
 
@@ -46,17 +46,17 @@ Setting `num` to `0` or less disables this timeout entirely.
 
 The default close timeout is `10` seconds.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Connection._name_.ConnectTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Connection.name.ConnectTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 A connection establishment fails if it takes more than `num` seconds to complete.
 
@@ -64,34 +64,34 @@ Setting `num` to `0` or less disables this timeout entirely.
 
 The default connect timeout is `10` seconds.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Connection._name_.EnableIdleCheck
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Connection.name.EnableIdleCheck=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 When `num` is greater than `0`, the communicator or object adapter performs the connection idle check described in
 [Ice.Connection.name.IdleTimeout](#ice.connection.name.idletimeout). Otherwise, no idle check is performed.
 
 The default value for `num` is `1`.
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Connection._name_.IdleTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Connection.name.IdleTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Once a connection is established, this connection is considered healthy as long as it does not wait for more than `num`
 seconds to read a byte. If a connection waits for more than `num` seconds to read a byte, it's deemed idle and aborted
@@ -113,17 +113,17 @@ seconds) should be appropriate for most applications.
 
 {% /callout %}
 
-{% /description %}
+{% /property-description %}
 
 ## Ice.Connection._name_.InactivityTimeout
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Connection.name.InactivityTimeout=num` (in seconds)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 A connection is considered inactive when there is no application-level activity on this connection: there is no
 outstanding invocation (we're not waiting for a response to a request we've sent), there is no outstanding dispatch, and
@@ -146,6 +146,6 @@ something we recommend), you will effectively disable the inactivity timeout as 
 
 {% /callout %}
 
-{% /description %}
+{% /property-description %}
 
 {% language-section name="mapping" /%}

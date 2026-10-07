@@ -4,13 +4,13 @@ title: Ice.WS.*
 
 ## Ice.WS.MaxBufferedAmount
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.WS.MaxBufferedAmount=num` (JavaScript only, in bytes)
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property limits the number of bytes queued for transmission by a WebSocket connection. When `num` is greater than
 zero, Ice sends data in chunks of at most `num` bytes and delays a chunk until sending it would keep the WebSocket's
@@ -18,4 +18,4 @@ zero, Ice sends data in chunks of at most `num` bytes and delays a chunk until s
 
 Setting `num` to `0` or less disables this limit. The default value is `524288` bytes (512 KiB).
 
-{% /description %}
+{% /property-description %}

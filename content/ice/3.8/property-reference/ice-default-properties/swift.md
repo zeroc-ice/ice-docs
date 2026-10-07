@@ -2,13 +2,13 @@
 
 ## Ice.Default.CollocationOptimized
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Default.CollocationOptimized=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies whether proxy invocations use [collocation optimization](../../runtime/collocated-invocation-and-dispatch) by
 default. When enabled, proxy invocations on a collocated servant (i.e., a servant whose object adapter was created by
@@ -16,6 +16,6 @@ the same communicator as the proxy) are made more efficiently by avoiding the ne
 
 If not specified, the default value is 1. Set the property to 0 to disable collocation optimization by default.
 
-{% /description %}
+{% /property-description %}
 
 {% /language-section %}

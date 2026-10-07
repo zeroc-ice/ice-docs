@@ -19,10 +19,10 @@ const PropertySection = ({
   </section>
 );
 
-export const Synopsis = ({ children }: { children: ReactNode }) => (
+export const PropertySynopsis = ({ children }: { children: ReactNode }) => (
   <PropertySection label="Synopsis">{children}</PropertySection>
 );
 
-export const Description = ({ children }: { children: ReactNode }) => (
+export const PropertyDescription = ({ children }: { children: ReactNode }) => (
   <PropertySection label="Description">{children}</PropertySection>
 );

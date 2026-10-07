@@ -4,13 +4,13 @@ title: IceStormAdmin.*
 
 ## IceStormAdmin.Host
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceStormAdmin.Host=host`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the host of the IceStorm [finder object](../../services/icestorm/configuring-icestorm) that
 [icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager. This property
@@ -22,17 +22,17 @@ requires [IceStormAdmin.Port](#icestormadmin.port).
 
 {% /callout %}
 
-{% /description %}
+{% /property-description %}
 
 ## IceStormAdmin.Port
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceStormAdmin.Port=port`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Specifies the port of the IceStorm [finder object](../../services/icestorm/configuring-icestorm) that
 [icestormadmin](../../services/icestorm/icestorm-administration) uses to discover the topic manager, on the host
@@ -44,33 +44,33 @@ specified by [IceStormAdmin.Host](#icestormadmin.host).
 
 {% /callout %}
 
-{% /description %}
+{% /property-description %}
 
 ## IceStormAdmin.TopicManager.Default
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceStormAdmin.TopicManager.Default=proxy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Defines the proxy for the default IceStorm topic manager. This property is used by
 [icestormadmin](../../services/icestorm/icestorm-administration). If this property is not set, `icestormadmin` uses one
 of the `IceStormAdmin.TopicManager.name` proxies as its default.
 
-{% /description %}
+{% /property-description %}
 
 ## IceStormAdmin.TopicManager._name_
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceStormAdmin.TopicManager.name=proxy`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 Defines a proxy for an IceStorm topic manager for [icestormadmin](../../services/icestorm/icestorm-administration).
 Properties with this pattern are used by `icestormadmin` if multiple topic managers are in use, for example:
@@ -95,4 +95,4 @@ create Bar/myOtherTopic
 This sets the current topic manager to the one with instance name `Foo`; the first `create` command then creates the
 topic within that topic manager, whereas the second `create` command uses the topic manager with instance name `Bar`.
 
-{% /description %}
+{% /property-description %}

@@ -4,13 +4,13 @@ title: Ice.Override.*
 
 ## Ice.Override.Compress
 
-{% synopsis %}
+{% property-synopsis %}
 
 `Ice.Override.Compress=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 {% iflang langs="js" %}
 
@@ -38,4 +38,4 @@ Regardless of the setting of this property, requests smaller than 100 bytes are 
 
 {% /iflang %}
 
-{% /description %}
+{% /property-description %}

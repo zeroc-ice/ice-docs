@@ -6,18 +6,18 @@ IceBT provides a Java Bluetooth transport plug-in for Android and a C++ Bluetoot
 
 ## IceBT.RcvSize
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceBT.RcvSize=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property sets the receive buffer size in bytes: the Bluetooth socket buffer on Linux, or the Java transport's
 internal buffer on Android.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icebt.rcvsize-platform-notes" %}
 
@@ -36,18 +36,18 @@ addition, Ice logs a warning showing the requested size and the adjusted size.
 
 ## IceBT.SndSize
 
-{% synopsis %}
+{% property-synopsis %}
 
 `IceBT.SndSize=num`
 
-{% /synopsis %}
+{% /property-synopsis %}
 
-{% description %}
+{% property-description %}
 
 This property sets the send buffer size in bytes: the Bluetooth socket buffer on Linux, or the Java transport's internal
 buffer on Android.
 
-{% /description %}
+{% /property-description %}
 
 ### Platform Notes {% id="icebt.sndsize-platform-notes" %}
 
