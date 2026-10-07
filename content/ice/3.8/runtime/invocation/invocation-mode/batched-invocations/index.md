@@ -79,6 +79,14 @@ proxies, and you have three options for manually flushing:
 - Calling `flushBatchRequests` on the communicator flushes all batched requests on all connections associated with the
   target communicator
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+The `flushBatchRequests` methods of the connection and the communicator take a `CompressBatch` argument that selects
+whether Ice compresses the flushed batch: `Yes`, `No`, or `BasedOnProxy`, which compresses the batch if at least one of
+its requests was made on a proxy with compression enabled.
+
+{% /iflang %}
+
 {% callout type="note" %}
 
 `flushBatchRequests` on a connection or communicator has no effect on batched requests queued by regular (non-fixed)

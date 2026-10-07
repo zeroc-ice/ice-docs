@@ -9,10 +9,10 @@ initData.batchRequestInterceptor = (req, _, _) => req.enqueue();
 {% language-section name="mapping-2" %}
 
 ```csharp
-int limit = initData.properties.getPropertyAsInt("Ice.BatchAutoFlushSize");
-initData.batchRequestInterceptor = (req, _, size) =>
+const int maxBatchSize = 64 * 1024; // in bytes
+initData.batchRequestInterceptor = (req, count, size) =>
 {
-    if (size + req.getSize() > limit)
+    if (size + req.getSize() > maxBatchSize)
     {
         _ = req.getProxy().ice_flushBatchRequestsAsync();
     }
