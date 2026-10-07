@@ -25,7 +25,10 @@ still trigger the warning unless they are deprecated too.
 What the `["deprecated"]` metadata directive generates depends on the language mapping:
 
 - In C++ and C#, the generated code carries the language's deprecation attribute, `[[deprecated]]` or `[Obsolete]`, with
-  the message, so the C++ or C# compiler warns about application code that uses a deprecated definition.
+  the message, so the C++ or C# compiler warns about application code that uses a deprecated definition. For a
+  deprecated operation, the attribute marks the proxy methods, so client code that calls the operation gets the warning;
+  a servant that implements the operation does not. For a deprecated interface, C++ marks the proxy class, and C#
+  generates no attribute.
 - In JavaScript, the generated code carries a JSDoc `@deprecated` tag, with the message of the `@deprecated` doc-comment
   tag, or the metadata message when the doc comment gives none.
 - In MATLAB, the generated help text has a "Deprecated" section, with the message of the `@deprecated` doc-comment tag
