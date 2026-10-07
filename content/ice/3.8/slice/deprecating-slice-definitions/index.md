@@ -17,8 +17,10 @@ interface Example
 The message that follows the colon is optional, and says why the definition is deprecated or what to use instead.
 
 The Slice compilers warn about a Slice definition that uses a deprecated definition, such as an operation whose
-parameter type is deprecated. A deprecated class or interface does not trigger this warning for the definitions it
-inherits from, and a deprecated class does not trigger it for the types of its fields.
+parameter type is deprecated. A definition that is itself deprecated does not trigger this warning for the definitions
+it uses: a deprecated operation, field, sequence, dictionary, or constant for its types, a deprecated class, exception,
+or structure for its base and fields, and a deprecated interface for its bases. The operations of a deprecated interface
+still trigger the warning unless they are deprecated too.
 
 What the `["deprecated"]` metadata directive generates depends on the language mapping:
 
