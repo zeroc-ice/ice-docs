@@ -20,6 +20,18 @@ Substitution is only performed in string values, and excludes the following case
   <server-template id="${invalid}" ...>
   ```
 
+- Template named by a server or service instance
+
+  ```xml
+  <server-instance template="${invalid}" ...>
+  ```
+
+- Identifier of a named property set
+
+  ```xml
+  <properties id="${invalid}">
+  ```
+
 - Name of a variable definition
 
   ```xml
@@ -92,21 +104,22 @@ IceGrid defines a set of read-only variables to hold information that may be of 
 variables are reserved and cannot be used as variable or parameter names. The table describes the purpose of each
 variable and defines the context in which it is valid.
 
-| **Reserved Name** | **Description**                                                                                                                                                                                                                 |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `application`     | The name of the enclosing application.                                                                                                                                                                                          |
-| `node`            | The name of the enclosing node.                                                                                                                                                                                                 |
-| `node.os`         | The name of the enclosing node's operating system. On Unix, this is value is provided by `uname`. On Windows, the value is `Windows`.                                                                                           |
-| `node.hostname`   | The host name of the enclosing node.                                                                                                                                                                                            |
-| `node.release`    | The operating system release of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value is obtained from the `OSVERSIONINFO` data structure.                                                      |
-| `node.version`    | The operating system version of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value represents the current service pack level.                                                                |
-| `node.machine`    | The machine hardware name of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value can be x86, x64, or IA64, depending on the machine architecture.                                             |
-| `node.data`       | The absolute pathname of the enclosing [node's data directory](../icegrid-server-reference/icegrid-persistent-data).                                                                                                            |
-| `server`          | The ID of the enclosing server.                                                                                                                                                                                                 |
-| `server.data`     | The pathname of the enclosing [server's user data directory](../icegrid-server-reference/icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data`.                                                      |
-| `service`         | The name of the enclosing service.                                                                                                                                                                                              |
-| `service.data`    | The pathname of the enclosing [service's user data directory](../icegrid-server-reference/icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data_${service}`.                                          |
-| `session.id`      | The client session identifier. For sessions created with a user name and password, the value is the user ID; for sessions created from a secure connection, the value is the distinguished name associated with the connection. |
+| **Reserved Name**    | **Description**                                                                                                                                                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `application`        | The name of the enclosing application.                                                                                                                                                                                          |
+| `node`               | The name of the enclosing node.                                                                                                                                                                                                 |
+| `node.os`            | The name of the enclosing node's operating system. On Unix, `uname` provides this value. On Windows, the value is `Windows`.                                                                                                    |
+| `node.hostname`      | The host name of the enclosing node.                                                                                                                                                                                            |
+| `node.release`       | The operating system release of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value is the Windows version, such as `10.0`.                                                                   |
+| `node.version`       | The operating system version of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value is the Windows version and build number, such as `10.0.22631`.                                            |
+| `node.machine`       | The machine hardware name of the enclosing node. On Unix, this value is provided by `uname`. On Windows, the value is the processor architecture, such as `x64`.                                                                |
+| `node.data`          | The absolute pathname of the enclosing [node's data directory](../icegrid-server-reference/icegrid-persistent-data).                                                                                                            |
+| `node.ice.soversion` | The shared-library version of the Ice installation on the enclosing node, such as `38` for Ice 3.8.                                                                                                                             |
+| `server`             | The ID of the enclosing server.                                                                                                                                                                                                 |
+| `server.data`        | The pathname of the enclosing [server's user data directory](../icegrid-server-reference/icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data`.                                                      |
+| `service`            | The name of the enclosing service.                                                                                                                                                                                              |
+| `service.data`       | The pathname of the enclosing [service's user data directory](../icegrid-server-reference/icegrid-persistent-data), and an alias for `${node.data}/servers/${server}/data_${service}`.                                          |
+| `session.id`         | The client session identifier. For sessions created with a user name and password, the value is the user ID; for sessions created from a secure connection, the value is the distinguished name associated with the connection. |
 
 The availability of a variable is easily determined in some cases, but may not be readily apparent in others. For
 example, the following example represents a valid use of the `${node}` variable:
@@ -182,7 +195,7 @@ when an IceBox server template instantiates a service template, as shown in the 
         </service-template>
         <server-template id="ServerTemplate">
             <parameter name="id"/>
-            <icebox id="${id}" endpoints="default" ...>
+            <icebox id="${id}" ...>
                 <service-instance template="ServiceTemplate" name="Service1"/>
             </icebox>
         </server-template>
