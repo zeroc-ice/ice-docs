@@ -331,19 +331,22 @@
     min-width: 0;
   }
 
-  /* A language block has no box of its own, so the tracks reach through it to
-     what it holds. */
-  :where(.doc-body, .doc-body > [data-langs]) > * {
+  /* A language block and a property section have no box of their own, so the
+     tracks reach through them to what they hold. */
+  :where(.doc-body, .doc-body :is([data-langs], .property-section)) > * {
     max-width: var(--measure);
   }
 
-  :where(.doc-body, .doc-body > [data-langs]) > .doc-wide {
+  :where(.doc-body, .doc-body :is([data-langs], .property-section))
+    > .doc-wide {
     max-width: var(--measure-wide);
   }
 
   /* A page that is not an essay, such as the front page, runs its prose on
      the wide track too, so its text, switches, and panels share one edge. */
-  [data-page-shape='wide'] :where(.doc-body, .doc-body > [data-langs]) > * {
+  [data-page-shape='wide']
+    :where(.doc-body, .doc-body :is([data-langs], .property-section))
+    > * {
     max-width: var(--measure-wide);
   }
 

@@ -4,8 +4,9 @@ import { ReactNode } from 'react';
 
 // A labeled part of a property reference entry. The label is not a heading:
 // the entry's heading is the property, and the outline lists properties alone.
-// A language block has no box of its own, so the first node inside one sits
-// against the label like any other first node.
+// The section has no box of its own, so what it holds sits on the article's
+// width tracks like any other block; the first node after the label, or the
+// first inside a language block there, closes up to it.
 const PropertySection = ({
   label,
   children
@@ -13,13 +14,11 @@ const PropertySection = ({
   label: string;
   children: ReactNode;
 }) => (
-  <section className="mt-5">
-    <div className="mb-0.5 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
+  <section className="property-section contents [&>:nth-child(2)]:mt-0 [&>[data-langs]:nth-child(2)>:first-child]:mt-0">
+    <div className="mt-5 mb-0.5 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
       {label}
     </div>
-    <div className="[&>:first-child]:mt-0 [&>[data-langs]:first-child>:first-child]:mt-0">
-      {children}
-    </div>
+    {children}
   </section>
 );
 
