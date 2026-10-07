@@ -55,7 +55,8 @@ constructor, or with the communicator's default encoding version when you give n
 
 An encapsulation holds encoded values preceded by their size and their encoding version, as described in
 [Encoding for Encapsulations](../../encoding/basic-data-encoding#encoding-for-encapsulations). Wrap the values you store
-or send in an encapsulation: the `InputStream` then decodes them with the encoding version recorded in the bytes.
+or send in an encapsulation: the `InputStream` then decodes them with the encoding version recorded in the
+encapsulation.
 
 On an `OutputStream`, `startEncapsulation` writes the start of an encapsulation that uses the stream's encoding version
 and class format{% iflang langs="cpp,csharp,java,js" %}, or those of the enclosing encapsulation for a nested
