@@ -17,8 +17,12 @@ module M
 ```
 
 Apart from the keyword `class`, this definition is identical to the [structure](../../structures) example. You can use a
-Slice class wherever you can use a Slice structure (but, for performance reasons, you should not use a class where a
-structure is sufficient). Unlike structures, classes can be empty:
+Slice class wherever you can use a Slice structure, with two exceptions: a class cannot be a
+[dictionary key type](../../dictionaries#allowable-types-for-dictionary-keys-and-values), and a type that uses classes
+cannot be the type of an [optional field](../../../fields#optional-fields),
+[optional parameter, or optional return value](../../../operations#optional-parameters-and-return-values). For
+performance reasons, you should not use a class where a structure is sufficient. Unlike structures, classes can be
+empty:
 
 ```slice
 class EmptyClass {}    // OK
