@@ -179,7 +179,7 @@ When the `Relay` server marshals this instance in the compact format, Ice omits 
 
 {% callout type="note" %}
 
-Slice preservation requires the sliced format, and applies only to classes.
+Slice preservation requires encoding 1.1 and the sliced format, and applies only to classes.
 
 {% /callout %}
 
