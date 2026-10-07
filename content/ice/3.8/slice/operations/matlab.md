@@ -150,10 +150,9 @@ transport. The future completes exceptionally if an error occurs before the requ
 
 ### Flow Control
 
-Asynchronous method invocations never block the thread that calls the `Async` function : the Ice runtime checks to see
-whether it can write the request to the local transport. If it can, it does so immediately in the caller's thread.
-Alternatively, if the local transport does not have sufficient buffer space to accept the request, the Ice runtime
-queues the request internally for later transmission in the background.
+Asynchronous method invocations never block the thread that calls the `Async` function. If the local transport can
+accept the request without blocking, the Ice runtime writes the request in the caller's thread. Otherwise, the Ice
+runtime queues the request internally for later transmission in the background.
 
 This creates a potential problem: if a client sends many asynchronous requests at the time the server is too busy to
 keep up with them, the requests pile up in the client-side runtime until, eventually, the client runs out of memory.
