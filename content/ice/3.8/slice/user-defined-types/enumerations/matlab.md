@@ -57,7 +57,9 @@ switch f2            % Switch on enum
 end
 ```
 
-You can obtain the ordinal value of an enumerator using the `uint8` function:
+The generated enumeration derives from `uint8` when its largest enumerator value is 255 or less, and from `int32`
+otherwise. You obtain the ordinal value of an enumerator by converting it to this base type, here with the `uint8`
+function:
 
 ```matlab
 val = uint8(Fruit.Pear);

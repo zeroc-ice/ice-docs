@@ -54,7 +54,10 @@ end
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a MATLAB property just like a regular field, except you can also set this property to the
-marker value `Ice.Unset`. The tag value is not mapped to MATLAB.
+marker value `Ice.Unset`, unless the field is a proxy. The tag value is not mapped to MATLAB.
+
+An optional proxy field represents both a proxy that is not set and a null proxy with an empty array, and you test it
+with `isempty`.
 
 A well-behaved program must test a MATLAB property (mapped from an optional field) before using its value:
 
@@ -127,6 +130,7 @@ property, the generated code uses the following default:
 |                     | `Value`, `class`, `struct` | `MappedType.empty`(implicit default when the MATLAB class is specified)                                     |
 |                     | `sequence`                 | `MappedElementType.empty`(implicit default), or `{}` (implicit default when the MATLAB class is specified). |
 |                     | `dictionary`               | `configureDictionary('keyType', 'valueType')`                                                               |
-| Yes                 | Any                        | `Ice.Unset`                                                                                                 |
+| Yes                 | `Object*`, proxy           | `MappedPrx.empty`                                                                                           |
+|                     | Other types                | `Ice.Unset`                                                                                                 |
 
 {% /language-section %}
