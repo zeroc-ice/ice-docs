@@ -19,7 +19,7 @@ struct Point
 This simple structure does not have any Slice class field so it maps to a public Swift structure:
 
 ```swift
-public struct Point {
+public struct Point: Sendable {
     public var x: Double = 0
     public var y: Double = 0
 
@@ -35,8 +35,9 @@ public struct Point {
 For each field in the Slice definition, the Swift structure contains a corresponding public stored property of the same
 name.
 
-When all the stored properties of the generated Swift structure are `Hashable`, the generated structure is itself
-hashable. For example:
+The generated Swift structure conforms to `Sendable`. When the Slice structure is a legal
+[dictionary key type](../dictionaries) (all its fields are integral types, `bool`, `byte`, `string`, enumerations, or
+structures that are legal key types), the generated structure also conforms to `Hashable`. For example:
 
 ```slice
 struct TimeOfDay
@@ -50,7 +51,7 @@ struct TimeOfDay
 The corresponding Swift structure conforms to `Hashable`:
 
 ```swift
-public struct TimeOfDay: Hashable {
+public struct TimeOfDay: Hashable, Sendable {
     public var hour: Int16 = 0
     public var minute: Int16 = 0
     public var second: Int16 = 0
@@ -82,10 +83,10 @@ struct Entry
 }
 ```
 
-`Entry` is mapped to a public Swift class:
+`slice2swift` maps `Entry` to a public final Swift class:
 
 ```swift
-public class Entry {
+public final class Entry {
     public var key: Int32 = 0
     public var value: Data? = nil
 

@@ -152,7 +152,10 @@ func write(text: [String], current _: Ice.Current) throws {
 If you throw an arbitrary Swift exception, the Ice runtime catches the exception and then returns an `UnknownException`
 to the client.
 
-If you throw an Ice runtime exception, such as `MarshalException`, the client receives an `UnknownLocalException`.
+If you throw a [dispatch exception](../../runtime/local-and-dispatch-exceptions#dispatch-exceptions), such as
+`ObjectNotExistException`, the Ice runtime sends its reply status to the client, and the client receives the
+corresponding dispatch exception. If you throw any other Ice local exception, such as `MarshalException`, the client
+receives an `UnknownLocalException`.
 
 The server-side Ice runtime does not validate user exceptions thrown by an operation implementation to ensure they are
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
@@ -168,11 +171,36 @@ An in parameter is mapped to a Swift parameter with the same name; its type is t
 For example, a Slice parameter `string name` is mapped to a Swift parameter `name` with type `String`. The rules are the
 same as for [Fields](../fields).
 
+The mapped types of a Slice class, and of a [structure](../user-defined-types/structures), sequence or dictionary that
+contains a class, don't conform to `Sendable`. When the type of an in parameter contains a class, the mapped skeleton
+method declares this parameter `sending`, which transfers the unmarshaled value into the isolation domain of your
+servant method. For example:
+
+```slice
+class Photo
+{
+    ...
+}
+
+interface Archive
+{
+    void store(string name, Photo photo);
+}
+```
+
+maps to the skeleton protocol:
+
+```swift
+public protocol Archive: Ice.Dispatcher {
+    func store(name: String, photo: sending Photo?, current: Ice.Current) async throws
+}
+```
+
 #### Parameter Labels
 
 The mapped method (in the proxy and skeleton) always uses the Slice parameter names as parameter labels except in one
-situation: when the operation has a single parameter, the mapped proxy method doesn’t use any label for this sole
-parameter. (But the mapped skeleton method does, as usual.).
+situation: when the operation has exactly one in parameter, the mapped proxy method doesn’t use any label for this sole
+in parameter. (But the mapped skeleton method does, as usual.).
 
 Consider the following Slice interface:
 
