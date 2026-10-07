@@ -355,13 +355,13 @@ function Tree({
               ) : (
                 <>
                   <span className="w-5 shrink-0" />
-                  <Link
+                  <RailLink
                     href={node.href!}
                     aria-current={active ? 'page' : undefined}
                     className={label}
                   >
                     {node.title}
-                  </Link>
+                  </RailLink>
                 </>
               )}
             </div>
@@ -397,5 +397,32 @@ function Tree({
         );
       })}
     </ul>
+  );
+}
+
+// The rail lists every page of the version, so prefetching the entries on
+// screen, as a link does by default, would fetch dozens of pages on every load,
+// nearly all unread. A pointer over an entry is the intent worth acting on, so
+// the page is fetched then, and is there by the click.
+function RailLink({
+  href,
+  children,
+  ...props
+}: {
+  href: string;
+  'aria-current'?: 'page';
+  className: string;
+  children: React.ReactNode;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link
+      href={href}
+      prefetch={hovered ? null : false}
+      onMouseEnter={() => setHovered(true)}
+      {...props}
+    >
+      {children}
+    </Link>
   );
 }
