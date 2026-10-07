@@ -64,10 +64,10 @@ A client that needs to allocate a resource must establish a session with the mas
 
 ### Administration
 
-The state of an IceGrid registry is accessible via the `IceGrid::Admin` interface or (more commonly) using an
-[administrative tool](../icegridadmin-command-line-tool) that encapsulates this interface. An administrative client must
-use the master replica to modify the registry's state, for example to deploy or update an application. A slave replica
-rejects these modifications but accepts the other administrative operations, such as starting and stopping servers. The
+You administer an IceGrid registry through the `IceGrid::Admin` interface, directly or, more commonly, with an
+[administrative tool](../icegridadmin-command-line-tool) that uses this interface. An administrative client must use the
+master replica to modify the registry's state, for example to deploy or update an application. A slave replica rejects
+these modifications but accepts the other administrative operations, such as starting and stopping servers. The
 administrative utilities provide mechanisms for you to select a particular replica to contact.
 
 For programmatic access to a replica's administrative interface, the `IceGrid/Registry` identity corresponds to the

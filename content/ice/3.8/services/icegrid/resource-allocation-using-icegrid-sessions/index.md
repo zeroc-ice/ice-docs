@@ -5,8 +5,8 @@ title: Resource Allocation Using IceGrid Sessions
 IceGrid provides a resource allocation facility that coordinates access to the objects and servers of an IceGrid
 application. To allocate a resource for exclusive use, a client must first establish a session by authenticating itself
 with the IceGrid registry or a Glacier2 router, after which the client may reserve objects and servers that the
-application indicates are allocatable. The client should release the resource when it is no longer needed, otherwise
-IceGrid reclaims it when it destroys the client's session.
+application indicates are allocatable. The client should release the resource when it no longer needs this resource;
+IceGrid releases any resource the client still holds when the client's session ends.
 
 An allocatable server offers at least one allocatable object. The server is considered to be allocated when its first
 allocatable object is claimed, and is not released until all of its allocated objects are released. While the server is
@@ -55,8 +55,8 @@ The `createSessionFromSecureConnection` operation does not require a username an
 credentials supplied by an [SSL](../../../runtime/ssl-transport) connection to authenticate the client. As with
 `createSession`, you must [enable session creation](#controlling-access-to-icegrid-sessions) by configuring the proxy of
 a permissions verifier object so that clients can use `createSessionFromSecureConnection` to create a session. In this
-case, the property is `IceGrid.Registry.SSLPermissionsVerifier`. The registry raises `PermissionDeniedException` unless
-the client presents a certificate with a non-empty subject name over this connection.
+case, the property is `IceGrid.Registry.SSLPermissionsVerifier`. `createSessionFromSecureConnection` requires a client
+certificate with a non-empty subject name.
 
 To create a session, the client obtains the registry proxy by converting the well-known proxy string
 `"IceGrid/Registry"` to a proxy object with the communicator, downcasts the proxy to the `IceGrid::Registry` interface,
@@ -78,14 +78,12 @@ catch (const IceGrid::PermissionDeniedException& ex)
 }
 ```
 
-A client ends its session by calling `destroy`, which `Session` inherits from `Glacier2::Session`. IceGrid also destroys
-a session when the connection that created it closes; a client that reconnects to the registry must create a new
-session. The client's [inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check)
-closes this connection when it carries no invocations for
+A session ends when the connection that created it closes, or when the client calls `destroy` on the session object. The
+client-side [inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) closes a
+connection that carries no invocations for
 [Ice.Connection.Client.InactivityTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.inactivitytimeout)
-seconds, 300 by default; a client that keeps a session for longer without invoking operations on the registry sets this
-property to 0. Glacier2 destroys a session created through a Glacier2 router when the client's
-[router session](../../glacier2/glacier2-session-management) ends.
+seconds, 300 by default; a client that holds a session idle for longer sets this property to 0. A session created
+through a Glacier2 router ends with the client's [router session](../../glacier2/glacier2-session-management).
 
 {% callout type="note" %}
 
@@ -202,9 +200,8 @@ objects.
 The `setAllocationTimeout` operation configures the timeout used by the allocation operations. If no allocatable objects
 are available when the client invokes `allocateObjectById` or `allocateObjectByType`, IceGrid waits for the specified
 timeout period for an allocatable object to become available. If the timeout expires, the client receives
-`AllocationTimeoutException`. The timeout is in milliseconds. With a timeout of 0, IceGrid raises
-`AllocationTimeoutException` at once instead of waiting. With a negative timeout, IceGrid waits until an object becomes
-available; the default timeout is -1.
+`AllocationTimeoutException`. The timeout is in milliseconds. With the default timeout, -1, IceGrid waits until an
+object becomes available; with a timeout of 0, the allocation fails immediately when no object is available.
 
 ## Allocating Servers with an IceGrid Session
 

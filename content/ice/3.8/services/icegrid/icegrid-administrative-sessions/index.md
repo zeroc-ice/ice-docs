@@ -8,7 +8,7 @@ servers; deployment of new components such as well-known objects; and dynamic mo
 
 Note that, for [replicated registries](../registry-replication), an administrative client can establish a session with
 either the master or a slave registry replica. A slave replica rejects operations that change the registry database,
-such as deploying an application, but it can start, stop and signal servers and shut down nodes.
+such as deploying an application, but it can start and stop servers.
 
 ## Creating an Administrative Session
 
@@ -45,8 +45,8 @@ credentials supplied by an [SSL](../../../runtime/ssl-transport) connection to a
 `createAdminSessionFromSecureConnection` to create a session. In this case, the
 [IceGrid.Registry.AdminSSLPermissionsVerifier](../../../property-reference/icegrid-properties) property specifies the
 proxy of a verifier object that implements the interface
-[Glacier2::SSLPermissionsVerifier](../../glacier2/securing-a-glacier2-router). The registry raises
-`PermissionDeniedException` unless the client presents a certificate with a non-empty subject name over this connection.
+[Glacier2::SSLPermissionsVerifier](../../glacier2/securing-a-glacier2-router). `createAdminSessionFromSecureConnection`
+requires a client certificate with a non-empty subject name.
 
 As an example, the following code demonstrates how to obtain a proxy for the registry and invoke `createAdminSession`:
 
@@ -65,15 +65,13 @@ catch (const IceGrid::PermissionDeniedException& ex)
 }
 ```
 
-A client ends its session by calling `destroy`, which `AdminSession` inherits from `Glacier2::Session`. IceGrid also
-destroys a session when the connection that created it closes; a client that reconnects to the registry must create a
-new session. The client's
-[inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) closes this
-connection when it carries no invocations for
+An administrative session ends when the connection that created it closes, or when the client calls `destroy` on the
+session object. The client-side
+[inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) closes a connection
+that carries no invocations for
 [Ice.Connection.Client.InactivityTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.inactivitytimeout)
-seconds, 300 by default; a client that keeps a session for longer without invoking operations on the registry sets this
-property to 0. Glacier2 destroys a session created through a Glacier2 router when the client's
-[router session](../../glacier2/glacier2-session-management) ends.
+seconds, 300 by default; a client that holds a session idle for longer sets this property to 0. A session created
+through a Glacier2 router ends with the client's [router session](../../glacier2/glacier2-session-management).
 
 The `AdminSession` interface provides operations for [accessing log files](#accessing-log-files-remotely) and
 establishing [observers](#dynamic-monitoring-in-icegrid). Its `getAdmin` operation returns a proxy for the
@@ -205,9 +203,6 @@ when no data is currently available.
 
 The client should call `destroy` when the iterator object is no longer required. At the time the client's session
 terminates, IceGrid reclaims any iterators that were not explicitly destroyed.
-
-If the client waits for new data, it must keep open the connection that created its
-[administrative session](#creating-an-administrative-session).
 
 With these operations, an administrative client can retrieve any text file on a system where an IceGrid node is running.
 While it's common for this text file to contain the output of an Ice [logger](../../../administration/logger-facility),
