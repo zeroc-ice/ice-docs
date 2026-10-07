@@ -64,11 +64,11 @@ A client that needs to allocate a resource must establish a session with the mas
 
 ### Administration
 
-The state of an IceGrid registry is accessible via the `IceGrid::Admin` interface or (more commonly) using an
-[administrative tool](../icegridadmin-command-line-tool) that encapsulates this interface. Modifications to the
-registry's state, such as deploying or updating an application, can only be done using the master replica.
-Administrative access to slave replicas is allowed but restricted to read-only operations. The administrative utilities
-provide mechanisms for you to select a particular replica to contact.
+You administer an IceGrid registry through the `IceGrid::Admin` interface, directly or, more commonly, with an
+[administrative tool](../icegridadmin-command-line-tool) that uses this interface. An administrative client must use the
+master replica to modify the registry's state, for example to deploy or update an application. A slave replica rejects
+these modifications but accepts the other administrative operations, such as starting and stopping servers. The
+administrative utilities provide mechanisms for you to select a particular replica to contact.
 
 For programmatic access to a replica's administrative interface, the `IceGrid/Registry` identity corresponds to the
 master replica and the identity `IceGrid/Registry-name` corresponds to the slave with the given name.
@@ -77,7 +77,7 @@ master replica and the identity `IceGrid/Registry-name` corresponds to the slave
 
 The registry implements the session manager interfaces required for
 [integration with a Glacier2 router](../glacier2-integration-with-icegrid). The master replica supports the object
-identities `IceGrid/SessionManager` and `IceGrid/AdminSessionManager`. The slave replicas offer support for read-only
+identities `IceGrid/SessionManager` and `IceGrid/AdminSessionManager`. The slave replicas offer support for
 administrative sessions using the object identity `IceGrid/AdminSessionManager-name`.
 
 ## Configuring Registry Replication
