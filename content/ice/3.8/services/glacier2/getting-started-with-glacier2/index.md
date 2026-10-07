@@ -87,8 +87,8 @@ password file:
 Glacier2.CryptPasswords=passwords
 ```
 
-Each non-blank line contains exactly two whitespace-separated fields: a user name and a password hash. The router fails
-to start if a line has any other number of fields or if a user name appears on more than one line.
+Each non-blank line contains exactly two whitespace-separated fields, a user name and a password hash, and each user
+name appears only once.
 
 For example, the following password file contains an entry for the user name `test` on Linux:
 
@@ -264,10 +264,9 @@ and nothing else is required. Otherwise, the client must explicitly configure th
 
 ### Glacier2 Session Destruction
 
-A router session ends when the client calls `destroySession` on the router, when the application calls `destroy` on the
-session's `SessionControl` object, or when the connection between the client and the router closes. A failure to connect
-to or invoke a back-end server leaves the session open; the router reports the failure to the client as the result of
-each affected twoway request.
+A Glacier2 session ends when the connection between the client and the router closes or when the client calls
+`destroySession` on the router. The server-side application can also end a session by calling `destroy` on the
+`SessionControl` object that the router passes to the session manager's `create` operation.
 
 ## See Also
 

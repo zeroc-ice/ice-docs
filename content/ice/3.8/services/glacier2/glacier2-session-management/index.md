@@ -3,9 +3,10 @@ title: Glacier2 Session Management
 ---
 
 A Glacier2 router requires a client to [create a session](../getting-started-with-glacier2) and forwards requests on
-behalf of the client until its session ends. A session ends when the client calls `destroySession` on the router, when
-the application calls `destroy` on the session's `SessionControl` object, or when the connection between the client and
-the router closes.
+behalf of the client until its session ends. A Glacier2 session ends when the connection between the client and the
+router closes or when the client calls `destroySession` on the router. The server-side application can also end a
+session by calling `destroy` on the `SessionControl` object that the router passes to the session manager's `create`
+operation.
 
 You can configure a router to use a custom session manager if your application needs to track the router's session
 activities. For example, your application may need to acquire resources and initialize the state of back-end services
@@ -62,10 +63,9 @@ opportunity to reclaim resources that were acquired for the session during `crea
 
 {% callout type="note" %}
 
-The router may call `create` with information that identifies an existing session. For example, a client that loses its
-connection to the router can create a new session before the router detects the closed connection, or before the session
-manager has processed the `destroy` call on the previous `Session` proxy. A session manager implementation must be
-prepared to handle this situation.
+Glacier2 does not limit a user to one session: the same user can have several sessions at the same time, for example
+when a client reconnects before the router has detected the loss of its previous connection. A session manager must
+therefore handle a `create` call for a user who already has a session.
 
 {% /callout %}
 
