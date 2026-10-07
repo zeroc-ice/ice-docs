@@ -134,11 +134,11 @@ reached its configured retry limits.
 ### Retry Intervals
 
 The [Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) property configures the retry
-behavior for a communicator and affects invocations on every proxy created by that communicator. (Retry behavior cannot
-be configured on a per-proxy basis.) The value of this property consists of a series of integers separated by
-whitespace. The number of integers determines how many retry attempts Ice makes, and the value of each entry represents
-a delay in milliseconds. If this property is not defined, the default behavior is to retry once immediately after the
-first failure, which is equivalent to the following property definition:
+behavior for a communicator and affects invocations on every proxy created by that communicator; you cannot configure
+retries for an individual proxy. The value of this property consists of a series of integers separated by whitespace.
+The number of integers determines how many retry attempts Ice makes, and the value of each entry represents a delay in
+milliseconds. If this property is not defined, the default behavior is to retry once immediately after the first
+failure, which is equivalent to the following property definition:
 
 ```config
 Ice.RetryIntervals=0
