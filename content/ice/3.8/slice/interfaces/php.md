@@ -18,8 +18,8 @@ proxy, as described on this page.
 
 ### Creating a Proxy
 
-For each Slice interface, apart from the proxy interface, the Slice-to-PHP compiler creates a helper class: for an
-interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
+For each Slice interface, the Slice-to-PHP compiler creates a helper class: for an interface `Simple`, the name of the
+generated helper class is `SimplePrxHelper`.
 
 This helper class provides the `createProxy` method. With our previous example:
 

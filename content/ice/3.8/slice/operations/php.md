@@ -86,7 +86,7 @@ interface ClientToServer
 }
 ```
 
-The Slice compiler generates the following methods for this definition:
+The Ice extension gives a `ClientToServer` proxy the following methods:
 
 ```php
 function op1($i, $f, $b, $s, $context=null);
@@ -144,12 +144,12 @@ interface ServerToClient
 }
 ```
 
-The PHP mapping looks the same as it did for the in parameters version:
+The Ice extension gives a `ServerToClient` proxy the following methods:
 
 ```php
-function op1($i, $f, $b, $s, $context=null);
-function op2($ns, $ss, $st, $context=null);
-function op3($proxy, $context=null);
+function op1(&$i, &$f, &$b, &$s, $context=null);
+function op2(&$ns, &$ss, &$st, $context=null);
+function op3(&$proxy, $context=null);
 ```
 
 Given a proxy to a `ServerToClient` object, the client code can receive the results as in the following example:
