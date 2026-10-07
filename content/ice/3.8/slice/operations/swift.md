@@ -200,7 +200,7 @@ public protocol Archive: Ice.Dispatcher {
 
 The mapped method (in the proxy and skeleton) always uses the Slice parameter names as parameter labels except in one
 situation: when the operation has exactly one in parameter, the mapped proxy method doesn’t use any label for this sole
-in parameter. (But the mapped skeleton method does, as usual.).
+in parameter. (But the mapped skeleton method does, as usual.)
 
 Consider the following Slice interface:
 
