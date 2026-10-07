@@ -294,14 +294,9 @@ keep up with them, the requests pile up in the client-side runtime until, eventu
 The API provides a way for you to implement flow control by counting the number of requests that are queued so, if that
 number exceeds some threshold, the client stops invoking more operations until some of the queued operations have
 drained out of the local transport. One of the optional arguments to every asynchronous proxy invocation is a
-`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when the request has been sent,
-with a boolean argument indicating whether the request was sent synchronously. This argument is true if the entire
-request could be transferred to the local transport in the caller's thread without blocking, otherwise the argument is
-false. Furthermore, a value of true indicates that Ice is calling `Report` recursively from the calling thread, whereas
-a value of false indicates that Ice is calling `Report` from an Ice thread pool thread. If you pass a
-`System.Progress<bool>`, its `Report` method posts your handler to the synchronization context captured when you created
-the `Progress<bool>`, or to the .NET thread pool when it captured none; the thread that runs your handler depends on
-that context, whatever the value of the boolean.
+`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when it has sent the request,
+with a boolean argument that is true if Ice wrote the entire request to the local transport in the caller's thread
+without blocking, and false if Ice queued the request and sent it later.
 
 Here's a simple example to demonstrate the flow control feature:
 
