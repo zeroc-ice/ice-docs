@@ -5,9 +5,9 @@ import Image from 'next/image';
 import sharp from 'sharp';
 
 // Every image names its file under `public/`, which gives the page the image's
-// size to lay out around before the file arrives. A raster image is served by
-// the image optimizer at the size and in the format the browser asks for; the
-// component serves an SVG as it is.
+// size to lay out around before the file arrives. The file itself is served as
+// it is: none is wider than the page column, so the image optimizer would only
+// re-encode it, at the cost of an encoder and a cache in the server.
 export async function MarkdownImage({
   src,
   alt = '',
@@ -27,6 +27,7 @@ export async function MarkdownImage({
       width={width}
       height={height}
       className={className}
+      unoptimized
     />
   );
 }
