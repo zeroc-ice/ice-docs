@@ -243,7 +243,7 @@ this early stage, we have already gained several benefits:
 - We no longer need to manually start the encoder server before starting the client, because the IceGrid node
   automatically starts it if it is not active at the time a client needs it. If the server happens to terminate for any
   reason, such as an IceGrid administrative action or a server programming error, the node starts it again the next time
-  a client needs it, as long as the server is enabled, without intervention on our part.
+  a client needs it, without intervention on our part.
 - We can manage the application remotely using one of the IceGrid administration tools. The ability to remotely modify
   applications, start and stop servers, and inspect every aspect of your configuration is a significant advantage.
 
@@ -339,12 +339,10 @@ icegridadmin --Ice.Config=/opt/ripper/config
 >>> application update "/opt/ripper/app.xml"
 ```
 
-If an update changes the configuration of a server that is currently running, such as its properties, executable or
-object adapters, IceGrid automatically stops the server prior to performing the update; an update that changes only
-descriptions leaves the server running. After the update, the node starts an enabled server with the `always` activation
-mode again. The node starts any other enabled server when it next activates it, for example on the next client request
-for an `on-demand` server or on an administrative `server start`. We can determine whether an update would require any
-restarts using the `application diff` command:
+If an update changes the configuration of a running server, IceGrid stops the server before applying the update; a
+change to descriptions or to well-known or allocatable objects leaves the server running. After the update, the node
+restarts the servers with the `always` activation mode and starts the other enabled servers on demand, as usual. We can
+determine whether an update would require any restarts using the `application diff` command:
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -358,8 +356,8 @@ icegridadmin --Ice.Config=/opt/ripper/config
 >>> application update --no-restart "/opt/ripper/app.xml"
 ```
 
-With this option, IceGrid rejects the update if it removes a running server or changes anything in a server's descriptor
-other than its properties, including a change that affects only descriptions.
+With this option, IceGrid accepts an update only if its changes to existing servers are limited to their configuration
+properties, and it rejects the removal of a running server.
 
 ### Client Changes
 

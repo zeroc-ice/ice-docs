@@ -35,11 +35,10 @@ The Server Properties panel offers the following fields:
   the IceGrid registry.
 - **Working Directory** The working directory for the server when started by the IceGrid node.
 - **Command Arguments** The command-line arguments given to the server when started by the IceGrid node.
-- **Run as** On Linux and Unix, when IceGrid node is running as root, it is possible to run the server under any
-  username. Enter the desired username in this field. When not set (the default), the server runs as the same user as
-  the IceGrid node, except when IceGrid node runs as root. In this case, the server runs as the user named by the ID of
-  the session that allocated it, or as `nobody` when no session owns it. If the node has a user account mapper, the node
-  runs the server under the account that the mapper returns for this name.
+- **Run as** On Linux and Unix, when the IceGrid node runs as root, it can run the server under any user name; enter
+  this name here. When not set (the default), the server runs as the same user as the IceGrid node, except when the node
+  runs as root: the server then runs as `nobody`, or, for a server allocated by a session, as the user named by the
+  session ID.
 - **Environment Variables** The environment variables for the server when started by the IceGrid node. These variables
   are in addition to variables defined in the IceGrid node own environment.
 - **Activation Mode** The server's activation mode. Must be one of:

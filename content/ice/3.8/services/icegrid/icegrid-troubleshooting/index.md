@@ -102,11 +102,10 @@ value representing the number of seconds the server should remain disabled. If t
 server is disabled indefinitely, or until the server is explicitly enabled or started via an administrative action.
 
 You can also manually disable a server at any time using an administrative tool. A manually disabled server remains
-disabled until an administrator enables it. Disabling an _active_ server has no effect on the server process; the server
-is unaware of the change to its status and continues to service requests from connected clients as usual. However,
-disabling a server prevents IceGrid from including the endpoints of the server's object adapters in any subsequent
-[locate requests](../../../runtime/locators/locator-semantics-for-clients), and it excludes those object adapters from
-any [replica groups](../load-balancing) in which they might participate.
+disabled until an administrator enables it. Disabling an _active_ server has no effect on the server process: the server
+continues to service requests from connected clients. However, the registry no longer returns the endpoints of the
+server's object adapters to clients, whether a client resolves one of these adapters directly or through a
+[replica group](../load-balancing) that includes it.
 
 Typically, the ultimate goal of disabling a server is to gracefully migrate clients from the faulty server to ones that
 are behaving correctly. For a client that starts after the server is disabled, migration occurs immediately: the Ice
