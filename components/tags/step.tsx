@@ -46,7 +46,9 @@ export const Step = ({ title, level = 2, id, children }: StepProps) => {
           role="presentation"
           className="step mt-4 mb-0 scroll-mt-28 items-center text-xl *:hover:opacity-100"
         >
-          <span role="heading" aria-level={level}>
+          {/* Focusable, so that going to the step moves keyboard focus to its
+              title, as a fragment does: the element with the id is not. */}
+          <span role="heading" aria-level={level} tabIndex={-1}>
             {title}
           </span>
         </Component>

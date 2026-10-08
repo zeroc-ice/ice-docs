@@ -8,6 +8,7 @@ import {
   type DocsVersion
 } from '@/lib/docs-model/nav';
 import { SideNav } from '@/components/ice/SideNav';
+import { SkipTarget } from '@/components/ice/SkipTarget';
 import { VersionBanner } from '@/components/ice/VersionBanner';
 import { readNavigation } from '@/lib/docs-model/content';
 
@@ -47,7 +48,7 @@ export function DocsLayout({
           />
 
           <div className="grow pb-8">
-            <div id="skip-nav" />
+            <SkipTarget />
             {children}
           </div>
         </div>
