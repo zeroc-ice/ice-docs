@@ -2,10 +2,9 @@
 title: About Glacier2
 ---
 
-Glacier2, the router-firewall for Ice applications, addresses
-[common firewall traversal issues](../common-firewall-traversal-issues) with minimal impact on clients or servers (or
-firewall administrators). In the illustration below, Glacier2 becomes the server firewall for Ice applications. What is
-not obvious in the diagram, however, is how Glacier2 eliminates much of the complexity of firewall traversal.
+Glacier2 is a router that addresses the [common firewall traversal issues](../common-firewall-traversal-issues) with
+minimal impact on clients, servers and firewall administrators. In the illustration below, clients connect to Glacier2,
+which forwards their requests to the servers and forwards the servers' callbacks to the clients.
 
 ![Clients A and B use bidirectional connections through their firewall to Glacier2. Glacier2 forwards requests to servers A and B, which send callbacks to Glacier2 over separate connections.](/images/ice/3.8/about-glacier2/multiple-clients-and-servers.svg)
 

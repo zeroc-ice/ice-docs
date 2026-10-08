@@ -2,18 +2,17 @@
 title: Securing a Glacier2 Router
 ---
 
-As a firewall, a Glacier2 router represents a doorway into a private network, and in most cases that doorway should have
-a good lock. The obvious first step is to use [SSL](../../../runtime/ssl-transport) for the router's client endpoints.
-This allows you to secure the message traffic and restrict access to clients having the proper credentials. However, the
-router takes security even further by providing access control and filtering capabilities.
+A Glacier2 router accepts connections from clients outside a private network and forwards their requests to servers
+inside it. Use [SSL](../../../runtime/ssl-transport) for the router's client endpoints to encrypt the traffic between
+clients and the router, and to authenticate clients by their certificates. On top of SSL, the router provides access
+control, which decides which clients can create a session, and request filtering, which decides which objects a client
+can reach.
 
 ## Glacier2 Access Control
 
-The authentication capabilities of SSL may not be sufficient for all applications: the certificate validation phase of
-the SSL handshake verifies that the user is who he says he is, but how do we know that he should be allowed to use the
-router? Glacier2 addresses this issue through the use of an access control facility that supports two forms of
-authentication: passwords and certificates. You can configure the router to use whichever authentication method is most
-appropriate for your application, or you can configure both methods in the same router.
+Validating a client's certificate during the SSL handshake establishes who the client is, but not whether that client
+may use the router. Glacier2 decides this with an access control facility that supports two forms of authentication:
+passwords and certificates. You can configure the router to use either form, or both.
 
 ### Password Authentication
 
