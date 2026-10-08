@@ -52,6 +52,8 @@ function scrollToId(id: string) {
   target.scrollIntoView();
   // Keyboard focus follows, as it does when the browser goes to a fragment
   // itself: to the heading's text, or to the target when it is not a heading.
+  // Focus already inside, on the heading's copy button, stays there.
+  if (target.contains(document.activeElement)) return;
   const focused =
     target.querySelector<HTMLElement>('[role="heading"]') ?? target;
   focused.focus({ preventScroll: true });
