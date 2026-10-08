@@ -95,9 +95,9 @@ module Glacier2
 Router clients may only use `createSessionFromSecureConnection` if the router is configured with a proxy for an
 `SSLPermissionsVerifier` object. The implementation of `authorize` must return true to allow the client to establish a
 session. To reject the session, `authorize` must return false and may optionally provide a value for `reason`, which is
-returned to the client as a member of `PermissionDeniedException`. Starting with Ice 3.5, it can also throw
-`Glacier2::PermissionDeniedException`. Glacier2 forwards this exception as-is to the client, which means the verifier
-can raise a subclass of `PermissionDeniedException` in order to provide more information to the client.
+returned to the client as a member of `PermissionDeniedException`. `authorize` can also throw
+`Glacier2::PermissionDeniedException`: the Glacier2 router forwards this exception as-is to the client, which means the
+verifier can throw a subclass of `PermissionDeniedException` in order to provide more information to the client.
 
 The verifier examines the fields of `SSLInfo` to authenticate a client:
 
