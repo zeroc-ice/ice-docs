@@ -133,7 +133,9 @@ remaining _b-4_ bytes, and then must process all references or instances in the 
 
 To support [slice preservation](../../slice/user-defined-types/classes/slicing-values-and-exceptions) for an instance,
 the receiver must temporarily retain the slices of any unknown derived types, and also be able to reconstruct the
-indirection table in its original order for each of these slices in case the instance is later remarshaled.
+indirection table in its original order for each of these slices in case the instance is later remarshaled. Because a
+preserved indirection table can hold the only reference to an instance, the receiver must also retain every instance
+that such a table references, even an instance none of whose type IDs it recognizes.
 
 ## See Also
 
