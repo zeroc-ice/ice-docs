@@ -141,6 +141,20 @@ interface Document
 
 The generated C++ function is then named `getTemplate`.
 
+### Deprecated Metadata
+
+The `deprecated` [metadata directive](../slice/deprecating-slice-definitions) replaces `deprecate`. The Ice 3.8 Slice
+compilers still accept `deprecate`, but you cannot apply both to the same definition.
+
+```diff
+interface Greeter
+{
+-   ["deprecate:use greet instead"]
++   ["deprecated:use greet instead"]
+    string sayHello();
+}
+```
+
 ## Connection Management
 
 ### Active Connection Management
