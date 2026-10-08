@@ -13,8 +13,8 @@ module M
 }
 ```
 
-This definition introduces a type named `Fruit` that becomes a new type in its own right. By default, the first
-enumerator has a value of zero, with sequentially increasing values for subsequent enumerators.
+This definition introduces a new type named `Fruit`. By default, the first enumerator has a value of zero, with
+sequentially increasing values for subsequent enumerators.
 
 A Slice enum type introduces a new namespace scope, so the following is legal:
 
@@ -74,8 +74,8 @@ Slice does not require custom enumerator values to be declared in increasing ord
 enum Fruit { Apple = 5, Pear = 3, Orange = 1 }   // Legal
 ```
 
-Whether enumerators support ordering comparisons, and whether these comparisons follow the enumerators' values or their
-declaration order, depends on the language mapping.
+The language mapping determines whether a program can compare two enumerators for order, and whether such a comparison
+follows the enumerators' values or their declaration order.
 
 {% callout type="warning" %}
 
