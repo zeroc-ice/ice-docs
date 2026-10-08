@@ -55,7 +55,7 @@ configuration is typically necessary.
 
 ## Writing a Password File
 
-The router's simplest authentication mechanism uses an access control list in a text file containing user names and
+The simplest way for the router to authenticate clients is a password file, a text file that contains user names and
 password hashes. The supported hash formats depend on the platform.
 
 Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the

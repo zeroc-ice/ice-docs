@@ -106,10 +106,10 @@ from a client. The default value is `0`.
 
 ### Description {% id="glacier2.cryptpasswords-description" %}
 
-Specifies the file name of a Glacier2 [access control list](../../services/glacier2/securing-a-glacier2-router). Each
-non-blank line contains a user name and a password hash, separated by whitespace. User names must be unique. The
-supported hash formats depend on the platform; see
-[Writing a Password File](../../services/glacier2/getting-started-with-glacier2).
+Specifies the name of the password file with which the router verifies the user name and password of a client creating a
+session. Each non-blank line contains a user name and a password hash, separated by whitespace. User names must be
+unique. The supported hash formats depend on the platform; see
+[Writing a Password File](../../services/glacier2/getting-started-with-glacier2#writing-a-password-file).
 
 This property is ignored if [Glacier2.PermissionsVerifier](#glacier2.permissionsverifier) is defined.
 

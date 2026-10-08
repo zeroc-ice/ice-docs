@@ -20,11 +20,13 @@ The router verifies the user name and password arguments to its [createSession](
 operation before it forwards any requests on behalf of the client. Given that the password is sent "in the clear," it is
 important to protect these values by using an SSL connection with the router.
 
-There are two ways for the router to verify a user name and password. By default, the router uses a file-based access
-control list, but you can override this behavior by installing a proxy for an application-defined verifier object.
-Configuration properties define the password file name or the verifier proxy; if you install a verifier proxy, the
-password file is ignored. Since we have already discussed the [password file](../getting-started-with-glacier2), we will
-focus on the custom verifier interface here.
+The router verifies the user name and password with a permissions verifier, and rejects every `createSession` call when
+none is configured. Set
+[Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords) to have the router
+check them against a [password file](../getting-started-with-glacier2#writing-a-password-file), or set
+[Glacier2.PermissionsVerifier](../../../property-reference/glacier2-properties#glacier2.permissionsverifier) to the
+proxy of your own verifier object. When both properties are set, the router ignores the password file. The rest of this
+section covers the verifier interface.
 
 An application that has special requirements can implement the interface `Glacier2::PermissionsVerifier` to gain
 programmatic control over access to a router. This can be especially useful in situations where a repository of account
