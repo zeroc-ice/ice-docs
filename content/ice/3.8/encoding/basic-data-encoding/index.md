@@ -4,13 +4,14 @@ title: Basic Data Encoding
 
 ## Encoding for Sizes
 
-Many types encoded by Ice, as well as several [protocol message](../../protocol/protocol-messages) components, have an
-associated size. A `size` is a number in the range 0 to 2³¹−1, and Ice encodes it in one of two forms:
+The Ice encoding uses a compact representation, called a `size`, for most of the counts that appear in encoded data,
+such as the number of elements of a sequence or the number of bytes of a string. A `size` is an integer in the range 0
+to 2³¹−1, encoded in one of two forms:
 
 1. A single byte that encodes the `size` for values from 0 to 254.
 2. A single byte set to `255`, followed by an `int` that encodes the `size` (5 bytes total).
 
-Ice usually encodes a `size` below 255 in the single-byte form, and a receiver accepts either form for such a `size`.
+The single-byte form is for a `size` below 255; the five-byte form is accepted for any `size`.
 
 Using this encoding to indicate sizes is significantly cheaper than always using an `int` to store the size, especially
 when marshaling sequences of short strings: sizes of up to 254 fit in a single byte instead of four. This comes at the
@@ -149,8 +150,8 @@ _Encoding for basic types._
 
 ## Encoding for Strings
 
-Ice encodes a string as a [size](#encoding-for-sizes) holding the number of bytes in the string's
-[UTF-8](https://en.wikipedia.org/wiki/UTF-8) encoding, followed by those bytes. Ice encodes an empty string as a size of
+A string is encoded as a [size](#encoding-for-sizes) holding the number of bytes in its
+[UTF-8](https://en.wikipedia.org/wiki/UTF-8) encoding, followed by those bytes. An empty string is encoded as a size of
 zero.
 
 ## Encoding for Sequences
