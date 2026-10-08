@@ -38,11 +38,6 @@ The `size` field specifies the size of the encapsulation in bytes (including the
 The `major` and `minor` fields specify the encoding version of the data contained in the encapsulation. The version
 information is followed by `size-6` bytes of encoded data.
 
-All the data in an encapsulation is context-free, that is, nothing inside an encapsulation can refer to anything outside
-the encapsulation. This property allows encapsulations to be forwarded among address spaces as a blob of data.
-
-Encapsulations can be nested, that is, contain other encapsulations.
-
 An encapsulation can be empty, in which case the value of `size` is 6.
 
 ## Encoding for Slices

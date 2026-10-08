@@ -28,9 +28,9 @@ class SimplePrx < Ice::ObjectPrx
 end
 ```
 
-In the client's address space, an instance of `SimplePrx` is the local ambassador for a remote instance of an Ice object
-that implements `Simple` and is known as a _proxy instance_. All the details about the server-side object, such as its
-address, what protocol to use, and its object identity are encapsulated in that instance.
+In the client, an instance of `SimplePrx` is the local ambassador for a remote instance of an Ice object that implements
+`Simple` and is known as a _proxy instance_. All the details about the server-side object, such as its address, what
+transport to use, and its object identity are encapsulated in that instance.
 
 ### Creating a Proxy
 

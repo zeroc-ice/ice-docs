@@ -33,7 +33,7 @@ as _peer-to-peer_ systems.
 
 An _Ice object_ is a conceptual entity, or abstraction. An Ice object can be characterized by the following points:
 
-- An Ice object is an entity in the local or a remote address space that can respond to client requests.
+- An Ice object is an entity in the local process or in a remote process that can respond to client requests.
 - A single Ice object can be instantiated in a single server or, redundantly, in multiple servers. If an object has
   multiple simultaneous instantiations, it is still a single Ice object.
 - Each Ice object has one or more _interfaces_. An interface is a collection of named _operations_ that are supported by
@@ -54,10 +54,9 @@ An _Ice object_ is a conceptual entity, or abstraction. An Ice object can be cha
 
 ## Proxies
 
-For a client to be able to contact an Ice object, the client must hold a _proxy_ for the Ice object. A proxy is an
-artifact that is local to the client's address space; it represents the (possibly remote) Ice object for the client. A
-proxy acts as the local ambassador for an Ice object: when the client invokes an operation on the proxy, the Ice
-runtime:
+For a client to be able to contact an Ice object, the client must hold a _proxy_ for the Ice object. A proxy is a local
+value that identifies the Ice object and tells the Ice runtime how to reach it; it is the client's representative of the
+(possibly remote) Ice object. When the client invokes an operation on the proxy, the Ice runtime:
 
 1. Connects to the server that hosts the Ice object, using the addressing information in the proxy
 2. Transmits any in-parameters to the Ice object
