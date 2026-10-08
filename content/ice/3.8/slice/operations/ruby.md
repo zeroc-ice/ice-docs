@@ -216,8 +216,8 @@ Ice validates the arguments to a proxy invocation at runtime and reports any typ
 ### Nil Parameters
 
 Slice sequences and dictionaries have no null value. When you pass `nil` for a sequence or dictionary, whether as a
-parameter, a field, or a sequence element, Ice sends an empty sequence or dictionary, and the receiver gets an empty
-value. For an [optional](#optional-parameters) parameter or field, `nil` instead leaves the value unset.
+parameter, a field, or a sequence element, Ice sends an empty sequence or dictionary. For an
+[optional](#optional-parameters) parameter or field, `nil` instead leaves the value unset.
 
 ### Optional Parameters
 
@@ -239,7 +239,6 @@ if v != nil
 end
 ```
 
-A well-behaved program must always compare an optional parameter to `nil` prior to using its value. `Ice::Unset` is an
-alias for `nil`.
+Check an optional parameter against `nil` before using its value.
 
 {% /language-section %}

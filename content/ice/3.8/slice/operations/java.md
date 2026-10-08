@@ -596,8 +596,7 @@ public interface ExamplePrx extends com.zeroc.Ice.ObjectPrx {
 ### Null Parameters
 
 Slice strings, sequences, and dictionaries have no null value. When you pass `null` for one of these types, whether as a
-parameter, a return value, a field, or a sequence element, Ice sends an empty string, sequence, or dictionary, and the
-receiver gets an empty value.
+parameter, a return value, a field, or a sequence element, Ice sends an empty string, sequence, or dictionary.
 
 ### Optional Parameters
 

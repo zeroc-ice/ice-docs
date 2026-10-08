@@ -254,8 +254,8 @@ await p.op3(p);                               // Pass proxy
 
 Slice strings, sequences, and dictionaries have no null value. When you pass `null` or `undefined` for one of these
 types, whether as a parameter, a return value, a field, or a sequence element, Ice sends an empty string, sequence, or
-dictionary, and the receiver gets an empty value. For an [optional](#optional-parameters-in-javascript) parameter,
-return value, or field, `null` and `undefined` instead leave the value unset.
+dictionary. For an [optional](#optional-parameters-in-javascript) parameter, return value, or field, `null` and
+`undefined` instead leave the value unset.
 
 ### Optional Parameters in JavaScript
 

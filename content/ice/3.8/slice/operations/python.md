@@ -590,9 +590,8 @@ validation on the arguments to a proxy invocation and reports any type mismatche
 ### Null Parameters
 
 Slice strings, sequences, and dictionaries have no null value. When you pass `None` for one of these types, whether as a
-parameter, a return value, a field, or a sequence element, Ice sends an empty string, sequence, or dictionary, and the
-receiver gets an empty value. For an [optional](#optional-parameters-in-python) parameter, return value, or field,
-`None` instead leaves the value unset.
+parameter, a return value, a field, or a sequence element, Ice sends an empty string, sequence, or dictionary. For an
+[optional](#optional-parameters-in-python) parameter, return value, or field, `None` instead leaves the value unset.
 
 ### Optional Parameters in Python
 
