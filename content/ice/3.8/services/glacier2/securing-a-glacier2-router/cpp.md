@@ -21,7 +21,7 @@ void unlockDoor(string id, const Ice::Current& current) override
 }
 ```
 
-If the client supplied a certificate, the server can decode and examine it using the techniques discussed for
-[IceSSL](../../../runtime/ssl-transport).
+If the client supplied a certificate, the server can decode and examine it with the native APIs of its platform's SSL
+engine.
 
 {% /language-section %}

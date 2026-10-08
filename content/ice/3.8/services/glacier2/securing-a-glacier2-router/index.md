@@ -355,7 +355,7 @@ removed from the routing table. Note however that the routing table is destroyed
 ## See Also
 
 - [Glacier2.*](../../../property-reference/glacier2-properties)
-- [IceSSL](../../../runtime/ssl-transport)
+- [SSL Transport](../../../runtime/ssl-transport)
 - [Getting Started with Glacier2](../getting-started-with-glacier2)
 - [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2)
