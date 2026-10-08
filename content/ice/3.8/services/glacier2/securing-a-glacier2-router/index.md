@@ -116,11 +116,10 @@ module Glacier2
 }
 ```
 
-`certs` holds a single element: the client's certificate in the Privacy Enhanced Mail (PEM) encoding.
-`createSessionFromSecureConnection` requires an SSL connection with a client certificate whose subject name is not
-empty. For a connection over IP, the `remoteHost`, `remotePort`, `localHost`, and `localPort` fields hold the addresses
-of the client's connection to the router; for other connections, the hosts are empty and the ports are 0. The router
-leaves `cipher` empty.
+`certs` holds a single element: the client's PEM-encoded certificate. `createSessionFromSecureConnection` requires an
+SSL connection with a client certificate whose subject name is not empty. For a connection over IP, the `remoteHost`,
+`remotePort`, `localHost`, and `localPort` fields hold the addresses of the client's connection to the router; for other
+connections, the hosts are empty and the ports are 0. The router leaves `cipher` empty.
 
 The verifier typically examines the certificate's subject and issuer names. It decodes the PEM string with the
 certificate API of its platform, such as `X509Certificate2` in .NET or `CertificateFactory` in Java.
@@ -150,10 +149,10 @@ makes another attempt to contact the verifier; if the object is still unavailabl
 ### Obtaining SSL Credentials for a Router Client
 
 Servers that need information about a client's connection to the router can set
-[Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties) to 1. The router then adds connection
-information to permissions-verifier and session-manager calls and to requests forwarded from clients to servers. Value 2
-adds this information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on
-session managers.
+[Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties) to `1`. The router then adds connection
+information to permissions-verifier and session-manager calls and to requests forwarded from clients to servers. Value
+`2` adds this information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls
+on session managers.
 
 The context entries include addressing details for connections over IP and, for SSL or WSS connections with a client
 certificate, the PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional
@@ -279,10 +278,10 @@ If a category contains spaces, you can enclose the value in single or double quo
 character, it must be escaped with a leading backslash.
 
 Glacier2 can optionally manipulate the category filter automatically. When you set
-[Glacier2.Filter.Category.AcceptUser](../../../property-reference/glacier2-properties) to a value of 1, the router adds
-the user name of each session created with `createSession` to the list of accepted categories, unless that user name is
-empty. To ensure the uniqueness of your categories, you may prefer setting the property to a value of 2, which causes
-the router to prepend an underscore to the user name before adding it to the list.
+[Glacier2.Filter.Category.AcceptUser](../../../property-reference/glacier2-properties) to a value of `1`, the router
+adds the user name of each session created with `createSession` to the list of accepted categories, unless that user
+name is empty. To ensure the uniqueness of your categories, you may prefer setting the property to a value of `2`, which
+causes the router to prepend an underscore to the user name before adding it to the list.
 
 A session manager can also configure category filters [dynamically](../dynamic-request-filtering-with-glacier2) using
 Glacier2's `SessionControl` interface.
@@ -297,12 +296,11 @@ is a list of identities, separated by whitespace, and the identity filter accept
 If an identity contains spaces, you can enclose the value in single or double quotes. If an identity contains a quote
 character, it must be escaped with a leading backslash.
 
-Clearly, specifying a static list of identities is only practical for a small set of objects. Furthermore, in many
-applications, the complete set of identities cannot be known in advance, such as when objects are created on a
-per-session basis and use UUIDs in their identities. For these situations, category-based filtering is generally
-sufficient. However, a session manager can also use Glacier2's
-[dynamic filtering](../dynamic-request-filtering-with-glacier2) interface, `SessionControl`, to manage the set of valid
-identities at run time.
+Specifying a static list of identities is only practical for a small set of objects. Furthermore, in many applications,
+the complete set of identities cannot be known in advance, such as when objects are created on a per-session basis and
+use UUIDs in their identities. For these situations, category-based filtering is generally sufficient. However, a
+session manager can also use Glacier2's [dynamic filtering](../dynamic-request-filtering-with-glacier2) interface,
+`SessionControl`, to manage the set of valid identities at run time.
 
 ### Adapter Filters
 
@@ -338,7 +336,7 @@ two properties that you can use to limit the size of the routing table and defen
 The property [Glacier2.RoutingTable.MaxSize](../../../property-reference/glacier2-properties) specifies the maximum
 number of entries allowed in the routing table. If the size of the table exceeds the value of this property, the router
 evicts older entries on a least-recently-used basis. (Eviction of proxies from the routing table is transparent to
-router clients.) The default size of the routing table is 1000, but you may need to define a different value depending
+router clients.) The default size of the routing table is `1000`, but you may need to define a different value depending
 on the needs of your application. While experimenting with different values, you may find it useful to define the
 property [Glacier2.Trace.RoutingTable](../../../property-reference/glacier2-properties) to see a log of the router's
 activities with respect to the routing table.
@@ -375,7 +373,7 @@ Furthermore, the amount of memory that all of the routing tables consume grows w
 The property [Glacier2.RoutingTable.MaxSize](../../../property-reference/glacier2-properties) allows you to specify an
 upper limit on the number of entries in the routing table. If the size of the table exceeds the value of this property,
 the router evicts older entries on a least-recently-used basis. (Eviction of proxies from the routing table is
-transparent to router clients.) The default size of the routing table is 1000, but you may need to define a different
+transparent to router clients.) The default size of the routing table is `1000`, but you may need to define a different
 value depending on the needs of your application. While experimenting with different values, you may find it useful to
 define the property [Glacier2.Trace.RoutingTable](../../../property-reference/glacier2-properties) to see a log of the
 router's activities with respect to the routing table.

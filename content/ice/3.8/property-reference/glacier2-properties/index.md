@@ -68,8 +68,8 @@ If `num` is set to a value larger than 0, the Glacier2 router includes the
 [request context](../../services/glacier2/how-glacier2-uses-request-contexts) when forwarding requests from clients to
 servers. The default value is `0`.
 
-When `Glacier2.AddConnectionContext` is 1, Glacier2 includes its connection-information context even if
-`Glacier2.Client.ForwardContext` is 0.
+When `Glacier2.AddConnectionContext` is `1`, Glacier2 includes its connection-information context even if
+`Glacier2.Client.ForwardContext` is `0`.
 
 ## Glacier2.Client.Trace.Reject
 
@@ -237,7 +237,7 @@ an identity must be escaped with a leading backslash.
 ### Description {% id="glacier2.filter.proxysizemax-description" %}
 
 If `num` is greater than 0, the Glacier2 router [rejects requests](../../services/glacier2/securing-a-glacier2-router)
-whose stringified proxies are longer than `num` bytes. The default value is 0, which imposes no proxy-size limit.
+whose stringified proxies are longer than `num` bytes. The default value is `0`, which imposes no proxy-size limit.
 
 ## Glacier2.InstanceName
 
@@ -291,7 +291,7 @@ used basis.
 
 Clients automatically retry operation calls on evicted proxies and transparently re-add such proxies to the table.
 
-The default size of the routing table is 1000.
+The default size of the routing table is `1000`.
 
 ## Glacier2.Server._AdapterProperty_
 
