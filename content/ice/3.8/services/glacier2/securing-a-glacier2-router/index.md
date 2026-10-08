@@ -262,8 +262,8 @@ adds the user name of each session created with `createSession` to the list of a
 name is empty. To ensure the uniqueness of your categories, you may prefer setting the property to a value of `2`, which
 causes the router to prepend an underscore to the user name before adding it to the list.
 
-A session manager can also configure category filters [dynamically](../dynamic-request-filtering-with-glacier2) using
-Glacier2's `SessionControl` interface.
+A session manager can also change the accepted categories at run time, as described in
+[Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Identity Filters
 
@@ -277,9 +277,9 @@ character, it must be escaped with a leading backslash.
 
 Specifying a static list of identities is only practical for a small set of objects. Furthermore, in many applications,
 the complete set of identities cannot be known in advance, such as when objects are created on a per-session basis and
-use UUIDs in their identities. For these situations, category-based filtering is generally sufficient. However, a
-session manager can also use Glacier2's [dynamic filtering](../dynamic-request-filtering-with-glacier2) interface,
-`SessionControl`, to manage the set of valid identities at run time.
+use UUIDs in their identities. For these situations, category-based filtering is generally sufficient. A session manager
+can also change the accepted identities at run time, as described in
+[Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Adapter Filters
 
@@ -302,8 +302,8 @@ Glacier2.Filter.AdapterId.Accept=WidgetAdapter
 If an adapter identifier contains spaces, you can enclose the value in single or double quotes. If an adapter identifier
 contains a quote character, it must be escaped with a leading backslash.
 
-A session manager can also configure this filter [dynamically](../dynamic-request-filtering-with-glacier2) using
-Glacier2's `SessionControl` interface.
+A session manager can also change the accepted adapter identifiers at run time, as described in
+[Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Proxy Filters
 
