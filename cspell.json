@@ -16,7 +16,6 @@
   ],
   "ignoreRegExpList": ["heading-anchor", "slot-name"],
   "words": [
-    "AABBCC",
     "abstractmethod",
     "adapterid",
     "adpt",

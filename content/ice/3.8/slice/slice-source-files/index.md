@@ -66,11 +66,10 @@ You cannot use a backslash in `#include` directives:
 
 ### Detecting Ice Versions
 
-The Slice compilers define the preprocessor macro `__ICE_VERSION__` as the Ice version in the decimal form `AABBCC`,
-where `AA` is the major version, `BB` the minor version, and `CC` the patch level; for example, `30800` for Ice 3.8.0.
-You can use this macro to make your Slice definitions backward-compatible with older Ice releases, while still taking
-advantage of newer Ice features when possible. For example, the Slice definition shown below makes use of custom
-enumerator values:
+The Slice compilers define the preprocessor macro `__ICE_VERSION__` as the Ice version expressed as the decimal number
+`major * 10000 + minor * 100 + patch`; for example, `30800` for Ice 3.8.0. You can use this macro to make your Slice
+definitions backward-compatible with older Ice releases, while still taking advantage of newer Ice features when
+possible. For example, the Slice definition shown below makes use of custom enumerator values:
 
 ```slice
 #if defined(__ICE_VERSION__) && __ICE_VERSION__ >= 30500

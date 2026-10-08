@@ -33,8 +33,6 @@ mapping:
 
 - `--depend-file FILE` Directs dependency information to the specified file. The output format depends on whether
   `--depend`, `--depend-xml`, or `--depend-json` is specified.
-- `--validate` Checks the provided command-line options for correctness, and does not generate any code. `slice2cpp`,
-  `slice2cs`, `slice2java`, `slice2js`, `slice2matlab`, `slice2php`, and `slice2swift` support this option.
 
 The Slice compilers permit you to compile more than a single source file, so you can compile several Slice definitions
 at once, for example:
