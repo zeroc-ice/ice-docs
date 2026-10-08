@@ -44,7 +44,7 @@ When using session activation mode, IceGrid requires that the server be
 allocated.
 
 The session activation mode recognizes an additional [reserved variable](../using-descriptor-variables-and-parameters)
-in the server descriptor, `${session.id`}. The value of this variable is the user ID or, for SSL sessions, the
+in the server descriptor, `${session.id}`. The value of this variable is the user ID or, for SSL sessions, the
 distinguished name associated with the session.
 
 ## Efficiency Considerations for Server Activation

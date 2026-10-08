@@ -242,8 +242,8 @@ this early stage, we have already gained several benefits:
 
 - We no longer need to manually start the encoder server before starting the client, because the IceGrid node
   automatically starts it if it is not active at the time a client needs it. If the server happens to terminate for any
-  reason, such as an IceGrid administrative action or a server programming error, the node restarts it without
-  intervention on our part.
+  reason, such as an IceGrid administrative action or a server programming error, the node starts it again the next time
+  a client needs it, without intervention on our part.
 - We can manage the application remotely using one of the IceGrid administration tools. The ability to remotely modify
   applications, start and stop servers, and inspect every aspect of your configuration is a significant advantage.
 
@@ -339,9 +339,10 @@ icegridadmin --Ice.Config=/opt/ripper/config
 >>> application update "/opt/ripper/app.xml"
 ```
 
-If an update affects any of the application's servers that are currently running, IceGrid automatically stops those
-servers prior to performing the update and restarts them again after the update is complete. We can determine whether an
-update would require any restarts using the `application diff` command:
+If an update changes the configuration of a running server, IceGrid stops the server before applying the update; a
+change to descriptions or to well-known or allocatable objects leaves the server running. After the update, the node
+restarts the servers with the `always` activation mode and starts the other enabled servers on demand, as usual. We can
+determine whether an update would require any restarts using the `application diff` command:
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -355,7 +356,8 @@ icegridadmin --Ice.Config=/opt/ripper/config
 >>> application update --no-restart "/opt/ripper/app.xml"
 ```
 
-With this option, the update would fail if any servers required a restart.
+With this option, IceGrid accepts an update only if its changes to existing servers are limited to their configuration
+properties, and it rejects the removal of a running server.
 
 ### Client Changes
 
@@ -380,7 +382,7 @@ else
     adapter = "EncoderServer2.EncoderAdapter";
 }
 
-Ripper::MP3EncoderFactoryPrx{communicator, "factory@" + adapter};
+Ripper::MP3EncoderFactoryPrx factory{communicator, "factory@" + adapter};
 auto encoder = factory.createEncoder();
 ```
 
