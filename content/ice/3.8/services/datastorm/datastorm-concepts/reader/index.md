@@ -164,8 +164,8 @@ You can register callbacks with
 [onSamples(init, queue)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ae800f5b1148ddd9adb10b8d3ded203ca.html#ae800f5b1148ddd9adb10b8d3ded203ca),
 which replaces any callbacks registered before. If unread samples are queued, the node queues `init` with those samples
 on its callback executor; it calls `queue` with each new sample the reader receives. Either function can be empty.
-Callback delivery leaves samples in the unread queue; set `sampleCount` to 0 to receive callbacks without keeping unread
-samples.
+Callback delivery leaves samples in the unread queue; set `sampleCount` to `0` to receive callbacks without keeping
+unread samples.
 
 Callbacks are executed by the node’s callback executor. By default, the executor uses a dedicated thread; you can supply
 a custom executor via

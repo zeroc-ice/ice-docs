@@ -19,7 +19,7 @@ and
 {% property-description %}
 
 Defines the lifetime in milliseconds of samples queued in a writer or reader sample queue. DataStorm removes samples
-older than this lifetime from the queue. The default is 0. A value of 0 or less means an unlimited lifetime.
+older than this lifetime from the queue. The default is `0`. A value of `0` or less means an unlimited lifetime.
 
 {% /property-description %}
 
@@ -35,7 +35,7 @@ older than this lifetime from the queue. The default is 0. A value of 0 or less 
 
 This property defines the maximum number of samples queued in the writer or reader sample queue. If the maximum is
 reached, oldest samples are removed to make room for new samples in the queue. A negative value is equivalent to an
-infinite sample count. If set to 0, samples are not queued. If not defined, the default value is `-1`.
+infinite sample count. If set to `0`, samples are not queued. If not defined, the default value is `-1`.
 
 {% /property-description %}
 
