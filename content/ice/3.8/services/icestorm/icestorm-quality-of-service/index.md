@@ -20,10 +20,10 @@ the events in the same order as they were received even if its
 
 The QoS parameter `retryCount` determines how many _consecutive_ delivery failures IceStorm tolerates before it removes
 a subscriber. A value of `-1` means IceStorm retries forever and never automatically removes a subscriber unless a hard
-failure occurs (see Hard Failures below). A value of `0` means IceStorm never retries and immediately removes the
-subscriber upon any failure. For positive values, IceStorm increments the subscriber's failure count on each failed
-delivery attempt and removes the subscriber once this count exceeds `retryCount`. Linked topics always have a configured
-retry count of `-1`. The default value of the `retryCount` parameter is `0`.
+failure occurs (see [Hard Failures](#hard-failures)). A value of `0` means IceStorm never retries and immediately
+removes the subscriber upon any failure. For positive values, IceStorm increments the subscriber's failure count on each
+failed delivery attempt and removes the subscriber once this count exceeds `retryCount`. Linked topics always have a
+configured retry count of `-1`. The default value of the `retryCount` parameter is `0`.
 
 The failure count is not cumulative over the lifetime of the subscription: IceStorm resets it to zero after each
 successful delivery to the subscriber. A subscriber is therefore removed only when `retryCount + 1` consecutive delivery
