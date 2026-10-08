@@ -19,10 +19,6 @@ Slice provides a number of built-in basic types, as shown in this table:
 
 The range of `byte` depends on whether the language mapping uses a signed or an unsigned type for it.
 
-All the basic types (except `byte`) are subject to changes in representation as they are transmitted between clients and
-servers. For example, a `long` value is byte-swapped when sent from a little-endian to a big-endian machine. However,
-these changes are transparent to the programmer and do exactly what is required.
-
 ## Integer Types
 
 Slice provides integer types `short`, `int`, and `long`, with 16-bit, 32-bit, and 64-bit ranges, respectively. Note
@@ -48,9 +44,7 @@ if one is available.
 
 ## Bytes
 
-The Slice type `byte` is an (at least) 8-bit type that is guaranteed not to undergo any changes in representation as it
-is transmitted between programs. This guarantee permits exchange of binary data such that it is not tampered with in
-transit. All other Slice types are subject to changes in representation during transmission.
+The Slice type `byte` is an 8-bit type. A `sequence<byte>` carries binary data unchanged.
 
 ## Language Mapping
 

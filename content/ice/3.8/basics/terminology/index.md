@@ -54,9 +54,9 @@ An _Ice object_ is a conceptual entity, or abstraction. An Ice object can be cha
 
 ## Proxies
 
-For a client to be able to contact an Ice object, the client must hold a _proxy_ for the Ice object. A proxy is an
-object local to the client; it represents the (possibly remote) Ice object for the client. A proxy acts as the local
-ambassador for an Ice object: when the client invokes an operation on the proxy, the Ice runtime:
+For a client to be able to contact an Ice object, the client must hold a _proxy_ for the Ice object. A proxy is a local
+value that identifies the Ice object and tells the Ice runtime how to reach it; it is the client's representative of the
+(possibly remote) Ice object. When the client invokes an operation on the proxy, the Ice runtime:
 
 1. Connects to the server that hosts the Ice object, using the addressing information in the proxy
 2. Transmits any in-parameters to the Ice object

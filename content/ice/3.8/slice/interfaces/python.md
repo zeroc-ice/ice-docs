@@ -31,7 +31,7 @@ As you can see, the compiler generates a _proxy class_ `SimplePrx`. In general, 
 
 In the client, an instance of `SimplePrx` is the local ambassador for a remote instance of an Ice object that implements
 `Simple` and is known as a _proxy instance_. All the details about the server-side object, such as its address, what
-protocol to use, and its object identity are encapsulated in that instance.
+transport to use, and its object identity are encapsulated in that instance.
 
 ### Inheritance from `Ice.ObjectPrx`
 

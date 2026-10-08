@@ -32,11 +32,10 @@ This definition defines an interface type called `Clock`. The interface supports
 object: to read the current time, the client invokes the `getTime` operation; to set the current time, the client
 invokes the `setTime` operation, passing an argument of type `TimeOfDay`.
 
-Invoking an operation on a proxy instructs the Ice runtime to send a message to the target object. The location of the
-target object is transparent to the client. When an object adapter of the proxy's communicator hosts the target object,
-the invocation is [collocated](../../runtime/collocated-invocation-and-dispatch): by default, the Ice runtime bypasses
-the network stack altogether to deliver the request more efficiently. Otherwise, the Ice runtime sends the request
-through a transport, even when the target object is in the same process.
+Invoking an operation on a proxy instructs the Ice runtime to send a request to the target object. The location of the
+target object is transparent to the client; see
+[Collocated Invocation and Dispatch](../../runtime/collocated-invocation-and-dispatch) for how the Ice runtime delivers
+the request.
 
 Note that nothing but operation definitions are allowed to appear inside an interface definition. In particular, you
 cannot define a type, an exception, or a field inside an interface. This does not mean that your object implementation

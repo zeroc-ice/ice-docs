@@ -2,9 +2,9 @@
 
 ## Obtaining the Local Process Facet
 
-The Ice runtime implements the built-in `Process` facet without a Python servant, so
-`communicator.findAdminFacet("Process")` returns `None`. To interact with the `Process` facet of your own communicator,
-use a proxy, as [shown for a remote facet](../using-the-admin-object).
+Ice for Python does not expose the built-in `Process` facet as a local object: `communicator.findAdminFacet("Process")`
+returns `None`. To interact with the `Process` facet of your own communicator, use a proxy, as
+[shown for a remote facet](../using-the-admin-object).
 
 ## Application Requirements for the Process Facet
 
