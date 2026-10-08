@@ -44,8 +44,8 @@ of other topic instances with the same name.
 For peer nodes receiving samples from a topic, the topic instances are indistinguishable, although each sample still
 identifies the [writer](../writer) that published it.
 
-Applications **must not** create multiple topics with the same name but different type parameters. Doing so can cause
-decoding errors or incorrectly decoded samples when subscribers decode samples that do not match the expected encoding.
+The applications that share a topic name must all create this topic with the same `Key`, `Value` and `UpdateTag` type
+parameters: DataStorm does not check these types across applications.
 
 ## Filters
 
@@ -54,9 +54,7 @@ DataStorm topics support two types of filters:
 - **Key filters**, used by readers to receive only samples whose keys match specific criteria.
 - **Sample filters**, used by readers to receive only samples that meet specific conditions.
 
-Register every key and sample filter factory before the topic announces itself, that is, before you create a reader or
-writer from the topic or call its coordination or default-configuration methods. The topic does not synchronize its set
-of filter factories, so registering a factory once the topic is in use races with the Ice threads that use the topic.
+Register every key and sample filter factory before the topic announces itself (see above).
 
 ### Key Filters
 
@@ -157,8 +155,7 @@ DataStorm uses **updaters** to process _partial update_ [samples](../sample) —
 event type. A partial update sample represents a change relative to the previous sample rather than a complete
 replacement of the value. When a writer publishes a partial update, it applies the updater to its current value for the
 key, so the key must have a current value: the writer published a full value for the key and did not remove the key
-since. Otherwise, publishing the partial update throws `std::logic_error`; see
-[Publishing Samples](../writer#publishing-single-key-writer).
+since.
 
 Partial updates are useful when a topic’s value type contains large amounts of data, especially when only a subset
 changes frequently. By publishing partial updates instead of full values, applications can significantly reduce

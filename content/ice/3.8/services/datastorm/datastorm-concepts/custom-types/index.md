@@ -52,24 +52,21 @@ Topic<string, ClearSky::AtmosphericConditionsPtr> temperatures{node, "temperatur
 
 ## Example: Non-Slice Types
 
-By default, DataStorm encodes and decodes values with Ice streams. For a type that Ice streams cannot encode and decode,
-you must provide specializations of the
+If your types are **not defined in Slice**, you must provide specializations of the
 [DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Encoder.html) and
-[DataStorm::Decoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) templates for that type.
+[DataStorm::Decoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) templates for those types.
 
 ## Additional Requirements
 
 DataStorm keeps keys, update tags, and filter criteria in ordered maps, so their types must be ordered by `std::less`,
 which uses `operator<` unless you specialize it. A `Value` type must be default-constructible and copyable.
 
-For **partial updates**, an updater modifies a clone of the previous value. The
-[DataStorm::Cloner](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Cloner.html) template creates this clone:
-by default, it copies the value with its **copy constructor**, and for a `std::shared_ptr` to a Slice class, it calls
-`ice_clone`, which copies the object but not the objects it references.
-
-Specialize `Cloner` for your `Value` type when a copy shares state that an updater modifies, such as the object a
-`std::shared_ptr` to a non-Slice type points to. Otherwise, the updater also modifies the previous values that readers
-and writers keep.
+For **partial updates**, an updater modifies a clone of the previous value. This clone must be an independent copy,
+since the previous value may remain in use. DataStorm creates the clone with the
+[DataStorm::Cloner](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Cloner.html) template: by default,
+`Cloner` copies the value with its copy constructor, and for a `std::shared_ptr` to a Slice class, it calls `ice_clone`
+on the object, which makes a shallow copy. If this default does not produce an independent copy of your `Value` type,
+specialize `Cloner` for this type.
 
 ## Stringification
 
