@@ -161,9 +161,6 @@ $p->op2($ns, $ss, $st);
 $p->op3($stcp);
 ```
 
-Note that it is not necessary to use the reference operator (`&`) before each argument because the Ice runtime forces
-each `out` parameter to have reference semantics.
-
 ### Parameter Type Mismatches
 
 Ice validates the arguments to a proxy invocation at runtime and reports any type mismatches as a

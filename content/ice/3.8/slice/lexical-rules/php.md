@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
 A Slice identifier maps to an identical PHP identifier, or a PHP identifier derived from this Slice identifier. For
-example, Slice interface `Greeter` is mapped to the PHP class `GreeterPrxHelper`.
+example, the Slice-to-PHP compiler generates the PHP class `GreeterPrxHelper` for Slice interface `Greeter`.
 
 You can change this mapping and specify your own PHP identifier with the `php:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
