@@ -22,9 +22,9 @@ module IceMX
 }
 ```
 
-Glacier2 records session metrics in the `Session` metrics map, the metrics objects contained in this map are instances
-of the `IceMX::SessionMetrics` class show above. To configure a metrics view to record Glacier2 session metrics you can
-use [metrics properties](../../../property-reference/icemx-metrics-properties) with the
+Glacier2 records session metrics in the `Session` metrics map. The metrics objects in this map are instances of the
+`IceMX::SessionMetrics` class shown above. To configure a metrics view to record Glacier2 session metrics you can use
+[metrics properties](../../../property-reference/icemx-metrics-properties) with the
 `IceMX.Metrics.view-name.Map.Session` prefix, for example:
 
 - `IceMX.Metrics.SessionView.Map.Session.GroupBy=id` to configure a view containing one metrics object per session
@@ -40,7 +40,7 @@ You can use the following attributes when configuring the Glacier2 Session metri
 | parent             | The Glacier2 router instance name.                                                                                                                                         |
 | none               | The empty string.                                                                                                                                                          |
 | endpoint           | The stringified endpoint.                                                                                                                                                  |
-| endpointType       | The endpoint numerical type as defined in `Ice/Endpoint.ice.`                                                                                                              |
+| endpointType       | The endpoint numerical type as defined in `Ice/Endpoint.ice`.                                                                                                              |
 | endpointIsDatagram | A boolean indicating if the endpoint is a datagram endpoint.                                                                                                               |
 | endpointIsSecure   | A boolean indicating if the endpoint is secure.                                                                                                                            |
 | endpointCompress   | A boolean indicating if the endpoint requires compression.                                                                                                                 |
