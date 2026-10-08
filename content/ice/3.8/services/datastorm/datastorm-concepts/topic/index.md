@@ -33,8 +33,9 @@ auto topic = std::make_shared<DataStorm::Topic<string, float>>(
 
 {% /callout %}
 
-Creating a topic does **not** trigger any network activity. It is only when a reader or writer is created within the
-topic that the event is announced to connected peer nodes.
+Creating a topic does **not** trigger any network activity. The topic announces itself to connected peer nodes when you
+create its first reader or writer, or when you first call one of its coordination methods (such as `hasWriters` or
+`waitForReaders`) or its `setReaderDefaultConfig` or `setWriterDefaultConfig` method.
 
 Applications can create multiple instances of the same named topic—these instances represent the same logical topic.
 Readers and writers created from a particular instance are disconnected when that instance is destroyed, independently
@@ -43,8 +44,8 @@ of other topic instances with the same name.
 For peer nodes receiving samples from a topic, the topic instances are indistinguishable, although each sample still
 identifies the [writer](../writer) that published it.
 
-Applications **must not** create multiple topics with the same name but different type parameters. Doing so will result
-in decoding errors when subscribers attempt to decode samples that do not match the expected encoding.
+The applications that share a topic name must all create this topic with the same `Key`, `Value` and `UpdateTag` type
+parameters: DataStorm does not check these types across applications.
 
 ## Filters
 
@@ -52,6 +53,8 @@ DataStorm topics support two types of filters:
 
 - **Key filters**, used by readers to receive only samples whose keys match specific criteria.
 - **Sample filters**, used by readers to receive only samples that meet specific conditions.
+
+Register every key and sample filter factory before the topic announces itself (see above).
 
 ### Key Filters
 
@@ -122,16 +125,37 @@ filter.
 
 DataStorm includes two predefined filters, with names `_regex` and `_event`.
 
-The `_regexp` filter can be used both as a key filter, and as a value filter providing that the value type can be
-converted to a string using the `ostream <<` operator.
+The `_regex` filter takes a `std::string` regular expression and matches it against the entire `operator<<`
+representation of the key, when used as a key filter, or of the sample value, when used as a sample filter. The topic
+registers the `_regex` key filter only when its `Key` type supports `operator<<`, and the `_regex` sample filter only
+when its `Value` type does.
 
-The `_event` filter can be used only as a sample filter, allow filtering samples based on its event type.
+The `_event` filter is a sample filter. It takes a `DataStorm::SampleEventSeq` and accepts the samples whose event is in
+that sequence.
+
+```cpp
+DataStorm::Topic<string, float> topic{node, "temperatures"};
+
+// Receive the samples of the keys that start with "floor1/".
+auto floor1Reader = DataStorm::makeFilteredKeyReader(
+    topic,
+    DataStorm::Filter<string>("_regex", "floor1/.*"));
+
+// Receive only Update samples.
+auto updateReader = DataStorm::makeAnyKeyReader(
+    topic,
+    DataStorm::Filter<DataStorm::SampleEventSeq>(
+        "_event",
+        DataStorm::SampleEventSeq{DataStorm::SampleEvent::Update}));
+```
 
 ### Updaters
 
-DataStorm **updaters** are used to process _partial update_ [samples](../sample) — that is, samples with the
-`PartialUpdate` event type. A partial update sample represents a change relative to the previous sample rather than a
-complete replacement of the value.
+DataStorm uses **updaters** to process _partial update_ [samples](../sample) — that is, samples with the `PartialUpdate`
+event type. A partial update sample represents a change relative to the previous sample rather than a complete
+replacement of the value. When a writer publishes a partial update, it applies the updater to its current value for the
+key, so the key must have a current value: the writer published a full value for the key and did not remove the key
+since.
 
 Partial updates are useful when a topic’s value type contains large amounts of data, especially when only a subset
 changes frequently. By publishing partial updates instead of full values, applications can significantly reduce
