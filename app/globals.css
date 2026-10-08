@@ -331,19 +331,22 @@
     min-width: 0;
   }
 
-  /* A language block has no box of its own, so the tracks reach through it to
-     what it holds. */
-  :where(.doc-body, .doc-body > [data-langs]) > * {
+  /* A language block and a property section have no box of their own, so the
+     tracks reach through them to what they hold. */
+  :where(.doc-body, .doc-body :is([data-langs], .property-section)) > * {
     max-width: var(--measure);
   }
 
-  :where(.doc-body, .doc-body > [data-langs]) > .doc-wide {
+  :where(.doc-body, .doc-body :is([data-langs], .property-section))
+    > .doc-wide {
     max-width: var(--measure-wide);
   }
 
   /* A page that is not an essay, such as the front page, runs its prose on
      the wide track too, so its text, switches, and panels share one edge. */
-  [data-page-shape='wide'] :where(.doc-body, .doc-body > [data-langs]) > * {
+  [data-page-shape='wide']
+    :where(.doc-body, .doc-body :is([data-langs], .property-section))
+    > * {
     max-width: var(--measure-wide);
   }
 
@@ -400,39 +403,13 @@
     margin-top: 0;
   }
 
-  /* Property reference pages. Each heading is an exact identifier a reader will
-     copy into a config file, so it is set in the code face and upright —
-     italicised `adapter.AdapterId` reads as emphasised prose, not as a name.
-     Synopsis/Description drop to labels, which is what they are. */
-  [data-page-shape='property-list'] .doc-body h2 {
-    font-family: var(--font-mono);
-    font-size: 1.375rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-top: 2.75rem;
-  }
-
-  [data-page-shape='property-list'] .doc-body h2 em {
-    font-style: normal;
-  }
-
-  [data-page-shape='property-list'] .doc-body h3 {
-    margin-top: 1.25rem;
-    margin-bottom: 0.125rem;
-    color: var(--text-muted);
-    font-size: 0.6875rem;
-    font-weight: 650;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
-
-  /* A platform named under Platform Notes is a subheading of the notes, so it
-     stays at the size of the text around it. */
-  [data-page-shape='property-list'] .doc-body h4 {
-    margin-top: 1rem;
-    margin-bottom: 0.125rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
+  /* The first block after a property section's label closes up to it the same
+     way; the label is the one block that may precede the language blocks. */
+  .property-section > :nth-child(2),
+  .property-section
+    > [data-langs]:not(:not([data-langs]):not(:first-child) ~ *)
+    > :first-child {
+    margin-top: 0;
   }
 }
 
@@ -630,6 +607,12 @@
    below mirror LANGUAGE_LABELS in lib/docs-model/nav.ts. */
 div[data-langs],
 span[data-langs] {
+  display: contents;
+}
+
+/* A property section is a label and what follows it, on the article's own
+   tracks. */
+.property-section {
   display: contents;
 }
 

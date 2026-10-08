@@ -50,7 +50,7 @@ interface DocumentShellProps {
   pagination: Pagination[];
   edit: EditLinks;
   showAside?: boolean;
-  /** Body layout when the page is not ordinary prose, e.g. "property-list". */
+  /** Body layout when the page is not ordinary prose, e.g. "wide". */
   shape?: string;
 }
 
@@ -80,15 +80,8 @@ export const DocumentShell = ({
   showAside = true,
   shape
 }: DocumentShellProps) => {
-  // On a property page, each h3 is a property's Synopsis or Description label
-  // rather than a section, so the outline lists the properties alone.
   const toc = headings
-    .filter(
-      (h) =>
-        h &&
-        h.id &&
-        (h.level === 2 || (h.level === 3 && shape !== 'property-list'))
-    )
+    .filter((h) => h && h.id && (h.level === 2 || h.level === 3))
     .map((h) => ({
       id: h.id!,
       title: h.title ?? '',

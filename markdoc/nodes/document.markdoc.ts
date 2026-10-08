@@ -32,7 +32,7 @@ const document = {
         // Diátaxis form of this page, when its frontmatter declares one.
         type: frontmatter.type,
         // How the body is laid out, when it is not ordinary prose.
-        shape: frontmatter.shape ?? chrome.shape,
+        shape: frontmatter.shape,
         headings,
         path,
         breadcrumbs: chrome.breadcrumbs,

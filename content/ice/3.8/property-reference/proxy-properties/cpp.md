@@ -2,14 +2,18 @@
 
 ## _name_.CollocationOptimized
 
-### Synopsis {% id="name.collocationoptimized-synopsis" %}
+{% property-synopsis %}
 
 `name.CollocationOptimized=num`
 
-### Description {% id="name.collocationoptimized-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than zero, the proxy is configured to use
 [collocated invocations](../../runtime/collocated-invocation-and-dispatch) when possible. Defining this property is
 equivalent to invoking the `ice_collocationOptimized` proxy method.
+
+{% /property-description %}
 
 {% /language-section %}

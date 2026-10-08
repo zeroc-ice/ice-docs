@@ -14,11 +14,13 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 ## Ice.Admin._AdapterProperty_
 
-### Synopsis {% id="ice.admin.adapterproperty-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.AdapterProperty=value`
 
-### Description {% id="ice.admin.adapterproperty-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 The Ice run time creates and activates an
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) named
@@ -39,13 +41,17 @@ administrative object to shut down the process. As a result, the
 [endpoints](../../runtime/dispatch/object-adapter-endpoints) for this object adapter should be carefully defined so that
 only trusted clients are allowed to use it.
 
+{% /property-description %}
+
 ## Ice.Admin.DelayCreation
 
-### Synopsis {% id="ice.admin.delaycreation-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.DelayCreation=num`
 
-### Description {% id="ice.admin.delaycreation-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than zero, the Ice run time delays the creation of the `Ice.Admin`
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) until `getAdmin`
@@ -53,25 +59,33 @@ is invoked on the communicator. If not specified, the default value is zero, mea
 created immediately after all plug-ins are initialized, provided [Ice.Admin.Endpoints](#ice.admin.adapterproperty) is
 defined.
 
+{% /property-description %}
+
 ## Ice.Admin.Enabled
 
-### Synopsis {% id="ice.admin.enabled-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.Enabled=num`
 
-### Description {% id="ice.admin.enabled-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 `1` enables the [Administrative Facility](../../administration/administrative-facility) and `0` disables it. When this
 property is unset, the facility is enabled if and only if [Ice.Admin.Endpoints](#ice.admin.adapterproperty) is
 non-empty.
 
+{% /property-description %}
+
 ## Ice.Admin.Facets
 
-### Synopsis {% id="ice.admin.facets-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.Facets=name [name ...]`
 
-### Description {% id="ice.admin.facets-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the facets enabled by the [administrative object](../../administration/administrative-facility/admin-object),
 allowing you to [filter](../../administration/administrative-facility/filtering-administrative-facets) the facets that
@@ -81,49 +95,65 @@ Ice run time creates only the built-in facets (such as Process and Properties) t
 administrative facets without checking the value of this property. Ice ensures that only enabled administrative facets
 are available to clients.
 
+{% /property-description %}
+
 ## Ice.Admin.InstanceName
 
-### Synopsis {% id="ice.admin.instancename-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.InstanceName=name`
 
-### Description {% id="ice.admin.instancename-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies an identity category for the [administrative object](../../administration/administrative-facility), when this
 object is created during communicator initialization or by a call to `getAdmin` on the communicator. If defined, the
 identity of the object becomes `name/admin`. If not specified, the default identity category is a UUID.
 
+{% /property-description %}
+
 ## Ice.Admin.Logger.KeepLogs
 
-### Synopsis {% id="ice.admin.logger.keeplogs-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.Logger.KeepLogs=num`
 
-### Description {% id="ice.admin.logger.keeplogs-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 The [Logger admin facet](../../administration/administrative-facility/logger-facet), when enabled, caches up the _num_
 most recent log messages with a type other than `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet
 does not cache any of these log messages. The default value for _num_ is 100.
 
+{% /property-description %}
+
 ## Ice.Admin.Logger.KeepTraces
 
-### Synopsis {% id="ice.admin.logger.keeptraces-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.Logger.KeepTraces=num`
 
-### Description {% id="ice.admin.logger.keeptraces-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 The [Logger admin facet](../../administration/administrative-facility/logger-facet), when enabled, caches up the _num_
 most recent log messages with type `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache
 any of these trace messages. The default value for _num_ is 100.
 
+{% /property-description %}
+
 ## Ice.Admin.Logger.Properties
 
-### Synopsis {% id="ice.admin.logger.properties-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.Logger.Properties=propertyList`
 
-### Description {% id="ice.admin.logger.properties-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 The [Logger admin facet](../../administration/administrative-facility/logger-facet), when enabled, creates its own
 communicator to send log messages to attached remote loggers. Without this sub-communicator, sending log messages to
@@ -141,13 +171,19 @@ sub-communicator:
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1
 ```
 
+{% /property-description %}
+
 ## Ice.Admin.ServerId
 
-### Synopsis {% id="ice.admin.serverid-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Admin.ServerId=id`
 
-### Description {% id="ice.admin.serverid-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies an identifier that uniquely identifies the process when the Ice runtime
 [registers the Process facet of its admin object with the locator registry](../../services/icegrid/icegrid-and-the-administrative-facility).
+
+{% /property-description %}

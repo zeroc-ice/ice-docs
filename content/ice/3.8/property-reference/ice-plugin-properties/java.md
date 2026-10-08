@@ -1,10 +1,12 @@
 {% language-section name="mapping" %}
 
-### Synopsis {% id="ice.plugin.name-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Plugin.name=[path:]class [args]`
 
-### Description {% id="ice.plugin.name-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Defines a Java plug-in to be installed during communicator initialization. The specified class must implement the
 [PluginFactory](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginFactory.html) interface.
@@ -41,5 +43,7 @@ If `class` is specified without a path, Ice attempts to load the class using cla
 A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
 `InitializationData.pluginFactories`. Ice ignores the first token of the value, which holds the entry point of a plug-in
 loaded through configuration, and passes the remaining tokens to the factory. By convention, this first token is `1`.
+
+{% /property-description %}
 
 {% /language-section %}

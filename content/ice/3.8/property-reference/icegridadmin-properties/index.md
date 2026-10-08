@@ -11,23 +11,29 @@ session that deploys the application.
 
 ## IceGridAdmin.AuthenticateUsingSSL
 
-### Synopsis {% id="icegridadmin.authenticateusingssl-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.AuthenticateUsingSSL=num`
 
-### Description {% id="icegridadmin.authenticateusingssl-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than zero, [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) uses SSL
 authentication when establishing its session with the IceGrid registry. If not defined or the value is zero,
 `icegridadmin` uses user name and password authentication.
 
+{% /property-description %}
+
 ## IceGridAdmin.Host
 
-### Synopsis {% id="icegridadmin.host-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Host=host`
 
-### Description {% id="icegridadmin.host-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the host of the IceGrid registry that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool)
 connects to directly, at the port set by [IceGridAdmin.Port](#icegridadmin.port). When
@@ -40,13 +46,17 @@ If this property is not set, `icegridadmin` finds the registry with
 not use discovery, when [Ice.Default.Locator](../ice-default-properties) or
 [Ice.Default.Router](../ice-default-properties) is set.
 
+{% /property-description %}
+
 ## IceGridAdmin.InstanceName
 
-### Synopsis {% id="icegridadmin.instancename-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.InstanceName=name`
 
-### Description {% id="icegridadmin.instancename-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the instance name that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) expects from the
 registry at [IceGridAdmin.Host](#icegridadmin.host): `icegridadmin` connects only if the registry uses this instance
@@ -55,13 +65,17 @@ name.
 To limit [multicast discovery](../../plugins/icelocatordiscovery) to one instance, set
 [IceLocatorDiscovery.InstanceName](../icelocatordiscovery-properties).
 
+{% /property-description %}
+
 ## IceGridAdmin.MetricsConfigs
 
-### Synopsis {% id="icegridadmin.metricsconfigs-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.MetricsConfigs=file[,file,...]` (IceGrid GUI only)
 
-### Description {% id="icegridadmin.metricsconfigs-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies a comma-separated list of property files that customize the IceGrid GUI's metrics tables. The GUI loads its
 built-in `metrics.cfg` first, then loads these files in order. Later files override earlier property values. By default,
@@ -89,13 +103,17 @@ IceGridGUI.Metrics.Connection.current.columnName=Open
 IceGridGUI.Metrics.Connection.current.columnToolTip=Currently open connections
 ```
 
+{% /property-description %}
+
 ## IceGridAdmin.Password
 
-### Synopsis {% id="icegridadmin.password-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Password=password`
 
-### Description {% id="icegridadmin.password-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the password that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) should use when
 authenticating its session with the IceGrid registry. For security reasons you may prefer not to define a password in a
@@ -103,13 +121,17 @@ plain-text configuration property, in which case you should omit this property a
 for it interactively. This property is ignored when SSL authentication is enabled via
 [IceGridAdmin.AuthenticateUsingSSL](#icegridadmin.authenticateusingssl).
 
+{% /property-description %}
+
 ## IceGridAdmin.Port
 
-### Synopsis {% id="icegridadmin.port-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Port=port`
 
-### Description {% id="icegridadmin.port-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the port of the IceGrid registry that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool)
 connects to at [IceGridAdmin.Host](#icegridadmin.host), for both `tcp` and `ssl`. If not set, `icegridadmin` uses port
@@ -117,61 +139,83 @@ connects to at [IceGridAdmin.Host](#icegridadmin.host), for both `tcp` and `ssl`
 
 This property has no effect unless a host is given, with `IceGridAdmin.Host` or the `--host` option.
 
+{% /property-description %}
+
 ## IceGridAdmin.Replica
 
-### Synopsis {% id="icegridadmin.replica-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Replica=name`
 
-### Description {% id="icegridadmin.replica-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the name of the [registry replica](../../services/icegrid/registry-replication) that
 [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) should contact. If not defined, the default value
 is `Master`.
 
+{% /property-description %}
+
 ## IceGridAdmin.Server._AdapterProperty_
 
-### Synopsis {% id="icegridadmin.server.adapterproperty-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Server.AdapterProperty=value`
 
-### Description {% id="icegridadmin.server.adapterproperty-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 When `icegridadmin` is started with the `--server` option, `icegridadmin` creates an object adapter named
 `IceGridAdmin.Server` to host its file parser object. [adapter properties](../object-adapter-properties) can be used to
 configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unset, `icegridadmin` uses
 `tcp -h 127.0.0.1` for these endpoints.
 
+{% /property-description %}
+
 ## IceGridAdmin.Trace.Observers
 
-### Synopsis {% id="icegridadmin.trace.observers-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Trace.Observers=num`
 
-### Description {% id="icegridadmin.trace.observers-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than zero, IceGrid GUI displays trace information about the observer callbacks it receives
 from the registry. If not defined, the default value is zero.
 
+{% /property-description %}
+
 ## IceGridAdmin.Trace.SaveToRegistry
 
-### Synopsis {% id="icegridadmin.trace.savetoregistry-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Trace.SaveToRegistry=num`
 
-### Description {% id="icegridadmin.trace.savetoregistry-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than zero, IceGrid GUI displays trace information about the modifications it commits to the
 registry. If not defined, the default value is zero.
 
+{% /property-description %}
+
 ## IceGridAdmin.Username
 
-### Synopsis {% id="icegridadmin.username-synopsis" %}
+{% property-synopsis %}
 
 `IceGridAdmin.Username=name`
 
-### Description {% id="icegridadmin.username-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the username that [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) should use when
 authenticating its session with the IceGrid registry. This property is ignored when SSL authentication is enabled via
 [IceGridAdmin.AuthenticateUsingSSL](#icegridadmin.authenticateusingssl).
+
+{% /property-description %}

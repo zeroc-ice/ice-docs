@@ -10,6 +10,10 @@ import { MarkdownImage } from '@/components/nodes/image';
 import { Callout } from '@/components/tags/callout';
 import { Card } from '@/components/tags/card';
 import { Divider } from '@/components/divider';
+import {
+  PropertyDescription,
+  PropertySynopsis
+} from '@/components/tags/property-section';
 import { Grid } from '@/components/tags/grid';
 import { LangBlock } from '@/components/tags/lang-block';
 import { Aside } from '@/components/tags/aside';
@@ -37,6 +41,8 @@ export const components = {
   List,
   NextSteps,
   Prerequisites,
+  PropertyDescription,
+  PropertySynopsis,
   Release,
   Releases,
   Selection,
