@@ -77,9 +77,9 @@ this mode.
 
 ## Subscriber Errors
 
-By default, IceStorm removes a subscription when it fails to deliver a message to the subscriber. For example, IceStorm
-cannot connect to the subscriber's endpoints, or an invocation on a subscriber registered with a twoway proxy throws an
-exception.
+By default, IceStorm removes a subscription when it fails to deliver a message to the subscriber, for example when
+IceStorm cannot connect to the subscriber's endpoints, or when an invocation on a subscriber registered with a twoway
+proxy throws an exception.
 
 {% callout type="note" %}
 

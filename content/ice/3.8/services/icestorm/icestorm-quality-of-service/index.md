@@ -36,8 +36,8 @@ as `ConnectionRefusedException`. The risk is that a subscription whose subscribe
 subscriber process that terminated without unsubscribing, is never removed: IceStorm keeps retrying as long as the
 failures stay transient.
 
-To use a retry count of `-1` successfully, the subscriber can either register with a fixed endpoint, or use
-[IceGrid](../../icegrid) to take advantage of indirect proxies and automatic activation.
+To use a retry count of `-1` successfully, the subscriber can either register with an endpoint whose port number you
+chose, or use [IceGrid](../../icegrid) to take advantage of indirect proxies and automatic activation.
 
 ### Delivery Failures and Retries
 
