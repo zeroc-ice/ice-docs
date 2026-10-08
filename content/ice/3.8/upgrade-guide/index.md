@@ -235,8 +235,6 @@ Proxy creation has been simplified, allowing you to create a proxy from a commun
 
 {% language-section name="proxy-creation-1" /%}
 
-{% language-section name="proxy-creation-2" /%}
-
 ## Property Validation
 
 Ice now validates properties with that start with an Ice property prefix (`Ice.`, `IceSSL.`, etc.). Setting an unknown
@@ -393,3 +391,5 @@ service with a LMDB database created by IceStorm 3.7.
 
 - The Objective-C mapping has been removed. You should upgrade to the Swift mapping.
 - The Java Compat mapping has been removed. You should upgrade to the Java mapping.
+
+{% language-section name="mapping" /%}

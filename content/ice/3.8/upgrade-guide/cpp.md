@@ -35,7 +35,7 @@ It also includes the Slice tools for C++, so the `zeroc.icebuilder.msbuild` pack
 
 {% /language-section %}
 
-{% language-section name="proxy-creation-2" %}
+{% language-section name="mapping" %}
 
 ## C++ Mapping
 
