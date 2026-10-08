@@ -15,13 +15,10 @@ Options:
 -v, --version          Display version.
 --import FILE          Import database from FILE.
 --export FILE          Export database to FILE.
---dbhome DIR           Source or target database environment.
 --dbpath DIR           Source or target database environment.
 --mapsize VALUE        Set LMDB map size in MB (optional, import only).
 -d, --debug            Print debug messages.
 ```
-
-`--dbhome` and `--dbpath` are synonyms; specify exactly one of them.
 
 ## Exporting an IceStorm Database
 
@@ -35,11 +32,9 @@ icestormdb --export db.ixp --dbpath db
 
 {% callout type="tip" %}
 
-You can back up a running IceStorm service with `--export`: `icestormdb` reads the database in a single read-only
-transaction, which gives it a consistent snapshot while IceStorm continues to update the database.
-
-If you want to back-up the IceStorm database while IceStorm is running, we recommend using the
-[mdb_copy](https://manpages.org/mdb_copy) tool.
+You can export the database while IceStorm is running: `icestormdb` reads it in a single read-only transaction and does
+not block IceStorm. To copy the database files themselves, use the [mdb_copy](https://manpages.org/mdb_copy) tool, which
+also works while IceStorm is running.
 
 {% /callout %}
 

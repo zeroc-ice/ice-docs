@@ -40,11 +40,9 @@ icegriddb --export registry.ixp --dbpath db/registry
 
 {% callout type="tip" %}
 
-You can export an IceGrid registry database while the IceGrid registry is actively using this database. Write operations
-to the IceGrid registry database will block while icegriddb is reading the database.
-
-If you want to back-up the IceGrid registry database while the IceGrid registry is running, we recommend using the
-[mdb_copy](https://manpages.org/mdb_copy) tool.
+You can export the database while the IceGrid registry is running: `icegriddb` reads it in a single read-only
+transaction and does not block the registry. To copy the database files themselves, use the
+[mdb_copy](https://manpages.org/mdb_copy) tool, which also works while the registry is running.
 
 {% /callout %}
 
@@ -55,10 +53,11 @@ specify the path name of the registry's database directory. For example, use the
 into the `dbNew/registry` directory from a file named `registry.ixp`:
 
 ```shell
+mkdir -p dbNew/registry
 icegriddb --import registry.ixp --dbpath dbNew/registry
 ```
 
-The target directory must be empty.
+The target directory must already exist and be empty.
 
 ### mapsize Option
 
