@@ -307,18 +307,9 @@ Glacier2's `SessionControl` interface.
 
 ### Proxy Filters
 
-The Glacier2 router maintains an internal routing table that contains an entry for each proxy used by a router client;
-the size of the routing table grows in proportion to the number of clients and their proxy usage. Furthermore, the
-amount of memory that the routing table consumes is affected by the number of endpoints in each proxy. Glacier2 provides
-two properties that you can use to limit the size of the routing table and defend against malicious router clients.
-
-The property [Glacier2.RoutingTable.MaxSize](../../../property-reference/glacier2-properties) specifies the maximum
-number of entries allowed in the routing table. If the size of the table exceeds the value of this property, the router
-evicts older entries on a least-recently-used basis. (Eviction of proxies from the routing table is transparent to
-router clients.) The default size of the routing table is `1000`, but you may need to define a different value depending
-on the needs of your application. While experimenting with different values, you may find it useful to define the
-property [Glacier2.Trace.RoutingTable](../../../property-reference/glacier2-properties) to see a log of the router's
-activities with respect to the routing table.
+Each session's routing table holds every proxy its client uses, so a client can make the router consume memory by using
+many proxies or very large ones. [Glacier2 Routing Table](#glacier2-routing-table) describes how to limit the number of
+entries.
 
 The property [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties) sets a limit on the size of
 a stringified proxy. The Ice run time places no limits on the size of proxy components such as identities and host
