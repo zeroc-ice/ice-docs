@@ -221,8 +221,7 @@ Whether to discard samples on receipt of new samples
 Default: `None`.
 
 - **None**— never discard
-- **SendTime**— discard if the new sample’s timestamp is at or before the last accepted sample’s timestamp. The reader
-  compares each sample of the initial history a writer sends with the timestamp the reader accepted before that history.
+- **SendTime**— discard if the new sample’s timestamp is at or before the latest timestamp the reader has accepted.
 - **Priority**— keep only samples from the highest-priority writers connected for the sample's key; the reader accepts
   samples from every writer that shares the highest priority
 
