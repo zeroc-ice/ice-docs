@@ -12,8 +12,7 @@ import { IceMark } from './IceMark';
 export function IceHeader() {
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-3 border-b border-hairline bg-surface/85 px-[clamp(1rem,2.5vw,2rem)] backdrop-blur">
-      {/* The first thing the Tab key reaches: past the bar and the table of
-          contents, straight to the page. */}
+      {/* First in the bar, so it is the first thing the Tab key reaches. */}
       <a
         href="#skip-nav"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-ink focus:outline-2 focus:outline-link"

@@ -47,7 +47,7 @@ export function DocsLayout({
           />
 
           <div className="grow pb-8">
-            <div id="skip-nav" tabIndex={-1} />
+            <div id="skip-nav" tabIndex={-1} className="scroll-mt-28" />
             {children}
           </div>
         </div>
