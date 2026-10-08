@@ -3,8 +3,10 @@ title: DataStorm.Topic.*
 ---
 
 These properties define node-wide defaults for topic readers and writers. DataStorm reads them once when you create the
-node. To set defaults for an individual topic, use `DataStorm::Topic::setReaderDefaultConfig` and
-`DataStorm::Topic::setWriterDefaultConfig`.
+node. To set defaults for an individual topic, use
+[DataStorm::Topic::setReaderDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ae005c107f689e1e309e49a4c1421ed2a.html#ae005c107f689e1e309e49a4c1421ed2a)
+and
+[DataStorm::Topic::setWriterDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ab2a2111a70b838cbc57278ac4c29e645.html#ab2a2111a70b838cbc57278ac4c29e645).
 
 ## DataStorm.Topic.SampleLifetime
 
