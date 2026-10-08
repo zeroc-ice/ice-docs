@@ -2,21 +2,17 @@
 title: Data Encoding for Proxies
 ---
 
-## Encoding for Proxy Options
+## Encoding for Proxy Fields
 
-The encoding format of proxies changed in version 1.1. The encoding version of the stream that contains a proxy selects
-the format.
-
-Ice throws `FixedProxyException` when an application marshals a [fixed proxy](../../basics/terminology#fixed-proxies),
-except in Swift, where it stops the program with a precondition failure.
+The encoding format of proxies changed in version 1.1.
 
 ### Proxy Encoding Version 1.0
 
 The first component of an encoded proxy is a value of type `Ice::Identity`. If the proxy is a nil value, the `category`
-and `name` members are empty strings, and no additional data is encoded. The encoding for a non-null proxy consists of
-proxy options followed by endpoints.
+and `name` fields are empty strings, and no additional data is encoded. The encoding for a non-null proxy consists of
+proxy fields followed by endpoints.
 
-The proxy options are encoded as if they were members of the following structure:
+The proxy fields are encoded as if they were fields of the following structure:
 
 ```slice
 struct ProxyData
@@ -28,23 +24,22 @@ struct ProxyData
 }
 ```
 
-The proxy options are described in the table below:
+The proxy fields are described in the table below:
 
-| **Option** | **Description**                                                                             |
-| ---------- | ------------------------------------------------------------------------------------------- |
-| `id`       | The [object identity](../../runtime/object-identity)                                        |
-| `facet`    | The [facet](../../runtime/facets) name (zero- or one-element sequence)                      |
-| `mode`     | The proxy mode (`0`=twoway, `1`=oneway, `2`=batch oneway, `3`=datagram, `4`=batch datagram) |
-| `secure`   | Ignored. Kept for backwards compatibility.                                                  |
+| **Field** | **Description**                                                                             |
+| --------- | ------------------------------------------------------------------------------------------- |
+| `id`      | The [object identity](../../runtime/object-identity)                                        |
+| `facet`   | The [facet](../../runtime/facets) name (zero- or one-element sequence)                      |
+| `mode`    | The proxy mode (`0`=twoway, `1`=oneway, `2`=batch oneway, `3`=datagram, `4`=batch datagram) |
+| `secure`  | Ignored. Kept for backwards compatibility.                                                  |
 
 The `facet` field has either zero elements or one element. An empty sequence denotes the default facet, and a
-one-element sequence provides the facet name in its first member. Ice throws `MarshalException` when it decodes a proxy
-whose `facet` field has more than one element or whose `mode` is greater than `4`.
+one-element sequence provides the facet name.
 
 ### Proxy Encoding Version 1.1
 
-Version 1.1 of the encoding adds two options to the existing proxy options in version 1.0: protocol and encoding
-versions. The proxy options are encoded as if they were members of the following structure:
+Version 1.1 of the encoding adds two fields to the existing proxy fields in version 1.0: protocol and encoding versions.
+The proxy fields are encoded as if they were fields of the following structure:
 
 ```slice
 struct ProtocolVersion
@@ -69,40 +64,37 @@ struct ProxyData
 }
 ```
 
-The additional options are described in the table below:
+The additional fields are described in the table below:
 
-| **Option** | **Description**                                                                           |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| `protocol` | The protocol version of the proxy. Ice 3.8 sends requests only with protocol version 1.0. |
-| `encoding` | The encoding version Ice uses to marshal request parameters sent through this proxy.      |
+| **Field**  | **Description**                                                                        |
+| ---------- | -------------------------------------------------------------------------------------- |
+| `protocol` | The protocol version of the proxy: 1.0 for the Ice protocol.                           |
+| `encoding` | The encoding version used to marshal the parameters of requests sent using this proxy. |
 
-When Ice decodes a proxy from a stream that uses encoding version 1.0, it sets the protocol and encoding versions of the
-proxy to 1.0.
-
-The encoding for [UDP endpoints](./) also changed in version 1.1.
+The encoding for [UDP endpoints](#encoding-for-udp-endpoints) also changed in version 1.1.
 
 ## Encoding for Endpoints
 
 A proxy optionally contains an [endpoint list or an adapter identifier](../../runtime/invocation/proxy-endpoints), but
 not both:
 
-- If a proxy contains endpoints, they are encoded immediately following the proxy options. A
+- If a proxy contains endpoints, they are encoded immediately following the proxy fields. A
   [size](../basic-data-encoding) specifying the number of endpoints is encoded first, followed by the endpoints. Each
   endpoint is encoded as a `short` specifying the
   [endpoint type](https://code.zeroc.com/ice/3.8/api/slice/namespaceIce.html#var-members), followed by an
-  [encapsulation](../basic-data-encoding) of type-specific endpoint options. The type-specific options for each endpoint
+  [encapsulation](../basic-data-encoding) of type-specific endpoint fields. The type-specific fields for each endpoint
   type are presented in the sections that follow.
-- If a proxy does not have endpoints, a single byte with value `0` immediately follows the proxy options and a string
+- If a proxy does not have endpoints, a single byte with value `0` immediately follows the proxy fields and a string
   representing the object adapter identifier is encoded immediately following the zero byte.
 - For a proxy to a [well-known object](../../services/icegrid/well-known-objects), which has neither endpoints nor an
-  object adapter identifier, a single byte with value `0` immediately follows the proxy options and an empty string is
+  object adapter identifier, a single byte with value `0` immediately follows the proxy fields and an empty string is
   encoded immediately following the zero byte.
 
-Type-specific endpoint options are encapsulated because a receiver may not be capable of decoding them. For example, a
-receiver can only decode BT endpoint options if it is configured with the [IceBT](../../plugins/icebt) plug-in. However,
+Type-specific endpoint fields are encapsulated because a receiver may not be capable of decoding them. For example, a
+receiver can only decode BT endpoint fields if it is configured with the [IceBT](../../plugins/icebt) plug-in. However,
 the receiver must be able to re-encode the proxy with all of its original endpoints, in the order they were received,
-even if the receiver does not understand the type-specific options for an endpoint. Encapsulation of the endpoint into
-an opaque endpoint allows the receiver to do this.
+even if the receiver does not understand the type-specific fields for an endpoint. Encapsulation of the endpoint into an
+opaque endpoint allows the receiver to do this.
 
 ## Encoding for TCP Endpoints
 
@@ -118,9 +110,9 @@ struct TCPEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                                          |
+| **Field**  | **Description**                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
@@ -129,8 +121,7 @@ The endpoint options are described in the following table.
 
 ## Encoding for UDP Endpoints
 
-The encoding format of UDP endpoints changed in version 1.1. The encoding version of the endpoint's encapsulation
-selects the format.
+The encoding format of UDP endpoints changed in version 1.1.
 
 ### UDP Endpoint Encoding Version 1.0
 
@@ -149,21 +140,23 @@ struct UDPEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option**      | **Description**                                                                                              |
+| **Field**       | **Description**                                                                                              |
 | --------------- | ------------------------------------------------------------------------------------------------------------ |
 | `host`          | The server host (a host name or IP address)                                                                  |
 | `port`          | The server port (`1`-`65535`)                                                                                |
-| `protocolMajor` | Ice writes `1` and ignores the value when decoding the endpoint                                              |
-| `protocolMinor` | Ice writes `0` and ignores the value when decoding the endpoint                                              |
-| `encodingMajor` | Ice writes `1` and ignores the value when decoding the endpoint                                              |
-| `encodingMinor` | Ice writes `0` and ignores the value when decoding the endpoint                                              |
+| `protocolMajor` | Always `1`                                                                                                   |
+| `protocolMinor` | Always `0`                                                                                                   |
+| `encodingMajor` | Always `1`                                                                                                   |
+| `encodingMinor` | Always `0`                                                                                                   |
 | `compress`      | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false` |
+
+The four version fields are ignored when the endpoint is decoded. They are kept for backwards compatibility.
 
 ### UDP Endpoint Encoding Version 1.1
 
-Version 1.1 of the encoding omits the protocol and encoding versions because these options are handled as proxy options
+Version 1.1 of the encoding omits the protocol and encoding versions because these fields are handled as proxy fields
 instead:
 
 ```slice
@@ -175,9 +168,9 @@ struct UDPEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                              |
+| **Field**  | **Description**                                                                                              |
 | ---------- | ------------------------------------------------------------------------------------------------------------ |
 | `host`     | The server host (a host name or IP address)                                                                  |
 | `port`     | The server port (`1`-`65535`)                                                                                |
@@ -197,9 +190,9 @@ struct SSLEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                                          |
+| **Field**  | **Description**                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
@@ -221,9 +214,9 @@ struct WSEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                                          |
+| **Field**  | **Description**                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
@@ -246,9 +239,9 @@ struct WSSEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                                          |
+| **Field**  | **Description**                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `host`     | The server host (a host name or IP address)                                                                              |
 | `port`     | The server port (`1`-`65535`)                                                                                            |
@@ -270,9 +263,9 @@ struct BTEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                                          |
+| **Field**  | **Description**                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `addr`     | The Bluetooth address of the server                                                                                      |
 | `uuid`     | The UUID of the target service                                                                                           |
@@ -293,9 +286,9 @@ struct BTSEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option** | **Description**                                                                                                          |
+| **Field**  | **Description**                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `addr`     | The Bluetooth address of the server                                                                                      |
 | `uuid`     | The UUID of the target service                                                                                           |
@@ -318,9 +311,9 @@ struct IAPEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option**     | **Description**                                                                                                          |
+| **Field**      | **Description**                                                                                                          |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `manufacturer` | The accessory manufacturer                                                                                               |
 | `modelNumber`  | The accessory model number                                                                                               |
@@ -345,9 +338,9 @@ struct IAPSEndpointData
 }
 ```
 
-The endpoint options are described in the following table.
+The endpoint fields are described in the following table.
 
-| **Option**     | **Description**                                                                                                          |
+| **Field**      | **Description**                                                                                                          |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `manufacturer` | The accessory manufacturer                                                                                               |
 | `modelNumber`  | The accessory model number                                                                                               |
