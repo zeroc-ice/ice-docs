@@ -42,7 +42,9 @@ export function IceHeader() {
         >
           GitHub
         </a>
-        <div className="hidden sm:contents">
+        {/* On a phone the bar is full on a page with a navigation drawer,
+            which carries the toggle instead. */}
+        <div className="contents max-sm:[body:has(#ice-nav-drawer)_&]:hidden">
           <ThemeToggle />
         </div>
       </div>
