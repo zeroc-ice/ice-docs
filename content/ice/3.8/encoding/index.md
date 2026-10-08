@@ -2,6 +2,7 @@
 title: Ice Encoding
 pages:
   - basic-data-encoding
+  - data-encoding-for-slices
   - data-encoding-for-exceptions
   - data-encoding-for-classes
   - data-encoding-for-proxies

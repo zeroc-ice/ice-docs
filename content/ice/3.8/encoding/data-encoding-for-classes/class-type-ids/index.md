@@ -20,9 +20,9 @@ class Derived extends Base
 }
 ```
 
-The type IDs for the class [slices](../../basic-data-encoding) are `::Derived` and `::Base`. Suppose the sender marshals
-three instances of `::Derived` as part of a single request. (For example, two instances could be out-parameters and one
-instance could be the return value.)
+The type IDs for the class [slices](../../data-encoding-for-slices) are `::Derived` and `::Base`. Suppose the sender
+marshals three instances of `::Derived` as part of a single request. (For example, two instances could be out-parameters
+and one instance could be the return value.)
 
 The first instance that is sent on the wire contains the type IDs `::Derived` and `::Base` preceding their respective
 slices. Because marshaling proceeds in derived-to-base order, the first type ID that is sent is `::Derived`. Every time
@@ -58,9 +58,9 @@ of as a string. Because type IDs can be long, especially if you are using nested
 
 ## Type ID Encoding Version 1.1
 
-Each [slice](../../basic-data-encoding) of a class instance has a leading byte containing flags that describe various
-aspects of the slice, including whether the slice includes a type ID and how that type ID is encoded. There are four
-possibilities:
+Each [slice](../../data-encoding-for-slices) of a class instance has a leading byte containing flags that describe
+various aspects of the slice, including whether the slice includes a type ID and how that type ID is encoded. There are
+four possibilities:
 
 1. No type ID included
 2. Type ID is encoded as a string
@@ -80,8 +80,8 @@ The encoding for string type IDs uses a "compression" scheme similar to that of 
 a sender encounters a type ID, the sender assigns an integer index to the ID and encodes the ID as a string. For all
 subsequent occurrences of the same type ID within the encapsulation, the sender encodes the index associated with that
 type ID as a [size](../../basic-data-encoding). Index values start at `1` and increase sequentially with each new type
-ID. The sender is responsible for setting the relevant bits in the [flags](../../basic-data-encoding) of each slice to
-specify how the type ID is encoded.
+ID. The sender is responsible for setting the relevant bits in the [flags](../../data-encoding-for-slices) of each slice
+to specify how the type ID is encoded.
 
 The slice flags in version 1.1 of the encoding serve the same purpose as the boolean value that precedes each type ID in
 version 1.0, without consuming an entire byte.
@@ -116,7 +116,7 @@ uses the string type ID for `MoreDerived`, the next slice uses the compact type 
 uses the compact type ID for `Base`.
 
 A compact type ID is encoded as a [size](../../basic-data-encoding), with the relevant bits set in the
-[slice flags](../../basic-data-encoding).
+[slice flags](../../data-encoding-for-slices).
 
 {% callout type="note" %}
 
