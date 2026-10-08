@@ -193,14 +193,14 @@ takes each option you leave unset from the next level.
 
 #### Sample Count (sampleCount)
 
-How many samples to keep in the unread queue. When the queue is full, the oldest samples are discarded. 0 keeps no
-samples; a negative value (the default, -1) sets no count limit. With the default `OnAll` clear-history policy, the
+How many samples to keep in the unread queue. When the queue is full, the oldest samples are discarded. `0` keeps no
+samples; a negative value (the default, `-1`) sets no count limit. With the default `OnAll` clear-history policy, the
 queue still holds at most the latest sample.
 
 #### Sample Lifetime (sampleLifetime)
 
 How long to keep a sample in the unread queue, in milliseconds. When the reader receives samples, DataStorm removes the
-queued samples older than this duration. 0 (the default) or a negative value sets no age limit.
+queued samples older than this duration. `0` (the default) or a negative value sets no age limit.
 
 #### Clear History (`clearHistory`)
 
@@ -232,7 +232,7 @@ Default: `None`.
 - [hasWriters](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ae69539f596e0bc112d1bc941e029487b.html#ae69539f596e0bc112d1bc941e029487b)
   — checks whether any writers are currently connected.
 - [waitForWriters](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_a99b0977be1c023ea0a07a83b2a8c62b4.html#a99b0977be1c023ea0a07a83b2a8c62b4)
-  — waits for the given number of writers to connect (default 1).
+  — waits for the given number of writers to connect (default `1`).
 - [waitForNoWriters](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_a38b41ff9bcebfb9f17edc4899be49ccb.html#a38b41ff9bcebfb9f17edc4899be49ccb)
   — blocks until all writers disconnect.
 - [getConnectedKeys](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_a03ef25596619a659835b4358b571ecb2.html#a03ef25596619a659835b4358b571ecb2)

@@ -201,13 +201,13 @@ takes each option you leave unset from the next level.
 #### Sample Count (`sampleCount`)
 
 Specifies how many samples are kept in the writer’s history queue. When the queue is full, the oldest samples are
-discarded. 0 keeps no samples; a negative value (the default, -1) sets no count limit. With the default `OnAll`
+discarded. `0` keeps no samples; a negative value (the default, `-1`) sets no count limit. With the default `OnAll`
 clear-history policy, the queue still holds at most the latest sample.
 
 #### Sample Lifetime (`sampleLifetime`)
 
 Specifies how long samples are retained in the writer’s queue, in milliseconds. When the writer publishes a sample or
-sends its history to a newly connected reader, DataStorm removes the queued samples older than this duration. 0 (the
+sends its history to a newly connected reader, DataStorm removes the queued samples older than this duration. `0` (the
 default) or a negative value sets no age limit.
 
 #### Clear History (`clearHistory`)
@@ -237,7 +237,7 @@ Writers provide methods and listener callbacks to coordinate with connected read
 - [hasReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a91b9693902db142aaaefe92f4f024560.html#a91b9693902db142aaaefe92f4f024560)
   — checks whether any readers are currently connected.
 - [waitForReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a4fcb25334734007f070b1e3c7b6c51f4.html#a4fcb25334734007f070b1e3c7b6c51f4)
-  — waits for the given number of readers to connect (default 1).
+  — waits for the given number of readers to connect (default `1`).
 - [waitForNoReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_af19ce42df5c3108b2362d4b38419035d.html#af19ce42df5c3108b2362d4b38419035d)
   — blocks until all readers disconnect.
 - [getConnectedKeys](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a970d44f9f1e538bfd492c8dc626c99d0.html#a970d44f9f1e538bfd492c8dc626c99d0)

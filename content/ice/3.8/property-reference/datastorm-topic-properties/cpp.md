@@ -96,6 +96,6 @@ If not defined, the default value is `Never`.
 
 {% property-description %}
 
-This property specifies the priority assigned to the topic's writers. If not defined, the default value is 0.
+This property specifies the priority assigned to the topic's writers. If not defined, the default value is `0`.
 
 {% /property-description %}
