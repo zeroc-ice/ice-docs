@@ -155,30 +155,9 @@ information to permissions-verifier and session-manager calls and to requests fo
 on session managers.
 
 The context entries include addressing details for connections over IP and, for SSL or WSS connections with a client
-certificate, the PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional
-context entries as shown below:
+certificate, the PEM-encoded certificate in `_con.peerCert`.
 
-```cpp
-void unlockDoor(string id, const Ice::Current& current)
-{
-    auto i = current.ctx.find("_con.peerCert");
-    if(i != current.ctx.end())
-    {
-        string certPEM = i->second;
-        auto address = current.ctx.find("_con.remoteAddress");
-        auto port = current.ctx.find("_con.remotePort");
-        if(address != current.ctx.end() && port != current.ctx.end())
-        {
-            cout << "Client address = " << address->second << ":" << port->second << endl;
-        }
-        ...
-    }
-    ...
-}
-```
-
-If the client supplied a certificate, the server can decode and examine it using the techniques discussed for
-[IceSSL](../../../runtime/ssl-transport).
+{% language-section name="connection-context" /%}
 
 ## Request Filtering
 
