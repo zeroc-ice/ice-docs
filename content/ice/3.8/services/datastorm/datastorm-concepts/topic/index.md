@@ -47,6 +47,26 @@ identifies the [writer](../writer) that published it.
 The applications that share a topic name must all create this topic with the same `Key`, `Value` and `UpdateTag` type
 parameters: DataStorm does not check these types across applications.
 
+## Waiting for Readers and Writers
+
+A topic reports and waits for the readers attached to the writers created from it, and for the writers attached to the
+readers created from it:
+
+| Method                  | Description                                                                |
+| ----------------------- | -------------------------------------------------------------------------- |
+| `hasReaders()`          | Returns `true` when a reader is attached to one of the topic's writers.    |
+| `waitForReaders(count)` | Blocks until the topic's writers have at least `count` reader attachments. |
+| `waitForNoReaders()`    | Blocks until no reader is attached to the topic's writers.                 |
+| `hasWriters()`          | Returns `true` when a writer is attached to one of the topic's readers.    |
+| `waitForWriters(count)` | Blocks until the topic's readers have at least `count` writer attachments. |
+| `waitForNoWriters()`    | Blocks until no writer is attached to the topic's readers.                 |
+
+The `count` parameter defaults to 1. An attachment links one writer and one reader for a key or a key filter, so a
+reader can count more than once: for example, when it is attached to two of the topic's writers, or when it shares two
+keys with one writer. A topic with no writers has no attached readers, so its `hasReaders` returns `false`.
+
+The `waitFor` methods throw `DataStorm::NodeShutdownException` once the node is shut down.
+
 ## Filters
 
 DataStorm topics support two types of filters:
@@ -254,3 +274,17 @@ topic.setUpdater<RideShare::Status>(
 
 With this setup, vehicles can send partial updates to modify **battery level**, **coordinates**, **speed**, or
 **status** independently — or send a full **update sample** when multiple fields change at once.
+
+When a topic has no updater for the tag of a partial update, the reader or writer leaves the value unchanged: the sample
+carries the key's previous value.
+
+#### Sample Filters and Partial Updates
+
+A writer sends a reader only the samples that the reader's [sample filter](#sample-filters) accepts. The reader applies
+each partial update to its current value for the key, which can differ from the value the writer applied the update to:
+
+- When the reader has no value for the key, it discards the partial updates it receives for this key until it receives a
+  full value. When a reader attaches, the writer sends the first sample of each key with a full value, even when this
+  sample is a partial update.
+- When the filter rejected samples that changed the value after the reader's current value, the reader applies a later
+  partial update to an older value than the writer did, so the reader's value can differ from the writer's.
