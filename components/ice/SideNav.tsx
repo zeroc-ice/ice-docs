@@ -403,7 +403,9 @@ function Tree({
 // The rail lists every page of the version, so prefetching the entries on
 // screen, as a link does by default, would fetch dozens of pages on every load,
 // nearly all unread. A pointer over an entry is the intent worth acting on, so
-// the page is fetched then, and is there by the click.
+// the page is fetched then, and is there by the click: Next's hover-triggered
+// prefetch, where `null` turns the default back on once the pointer arrives.
+// https://nextjs.org/docs/app/guides/prefetching#hover-triggered-prefetch
 function RailLink({
   href,
   children,
