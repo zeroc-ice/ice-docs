@@ -1,7 +1,8 @@
 {% language-section name="mapping" %}
 
 {% callout type="note" %}
-MATLAB has no object adapters, so a MATLAB client cannot receive callbacks.
+Ice for MATLAB is a client-only mapping: a MATLAB application can send requests but cannot dispatch them, so it cannot
+receive callbacks.
 {% /callout %}
 
 {% /language-section %}
