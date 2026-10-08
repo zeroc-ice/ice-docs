@@ -14,33 +14,32 @@ interface Example
 }
 ```
 
-The message that follows the colon is optional, and says why the definition is deprecated or what to use instead.
+The message that follows the colon is optional, and says why the definition is deprecated or what to use instead. You
+can apply the `["deprecated"]` metadata directive to interfaces, classes, exceptions, structures, enumerations,
+enumerators, sequences, dictionaries, constants, operations, and fields.
 
 The Slice compilers warn about a Slice definition that uses a deprecated definition, such as an operation whose
-parameter type is deprecated. A definition that is itself deprecated does not trigger this warning for the definitions
-it uses: a deprecated operation, field, sequence, dictionary, or constant for its types, a deprecated class, exception,
-or structure for its base and fields, and a deprecated interface for its bases. The operations of a deprecated interface
-still trigger the warning unless they are deprecated too.
+parameter type is deprecated. A deprecated definition does not trigger this warning for the definitions it uses, and
+neither do the fields of a deprecated class, exception, or structure. The operations of a deprecated interface still
+trigger it unless they are deprecated too.
 
 What the `["deprecated"]` metadata directive generates depends on the language mapping:
 
 - In C++ and C#, the generated code carries the language's deprecation attribute, `[[deprecated]]` or `[Obsolete]`, with
-  the message, so the C++ or C# compiler warns about application code that uses a deprecated definition. For a
-  deprecated operation, the attribute marks the proxy methods, so client code that calls the operation gets the warning;
-  a servant that implements the operation does not. For a deprecated interface, C++ marks the proxy class, and C#
-  generates no attribute.
-- In JavaScript, the generated code carries a JSDoc `@deprecated` tag, with the message of the `@deprecated` doc-comment
-  tag, or the metadata message when the doc comment gives none.
+  the message, so the C++ or C# compiler warns about application code that uses a deprecated definition. Client code
+  that calls a deprecated operation gets the warning; a servant that implements it does not. For a deprecated interface,
+  `slice2cpp` marks the proxy class; `slice2cs` marks nothing for a deprecated interface or constant.
+- In JavaScript, the TypeScript declaration file that `slice2js --typescript` generates carries a JSDoc `@deprecated`
+  tag on every deprecated definition, and the JavaScript code carries it on a deprecated class, exception, structure,
+  enumeration, or proxy class. The tag's text is the message of the `@deprecated` doc-comment tag, or the metadata
+  message when the doc comment gives none.
 - In MATLAB, the generated help text has a "Deprecated" section, with the message of the `@deprecated` doc-comment tag
   when the definition has that tag, and otherwise the metadata message.
-- In Ruby, the first invocation of a deprecated operation issues a Ruby warning, with the message, when Ruby runs with
-  verbose warnings enabled. The directive has no effect on other definitions.
-- In Java, PHP, Python, and Swift, the directive does not change the generated code's API and produces no warning. In
-  Java, the [`@deprecated`](../documenting-slice-definitions/doc-comment-structure#@deprecated) doc-comment tag
-  generates the `@Deprecated` annotation.
-
-You can apply the `["deprecated"]` metadata directive to interfaces, classes, exceptions, structures, enumerations,
-enumerators, sequences, dictionaries, constants, operations, and fields.
+- In Ruby, the Ice runtime issues a warning, with the message, the first time the application invokes a deprecated
+  operation, when Ruby runs with verbose warnings enabled (`ruby -w`). The directive acts on operations only.
+- In Java, PHP, Python, and Swift, the directive has no effect. In Java, the
+  [`@deprecated`](../documenting-slice-definitions/doc-comment-structure#@deprecated) doc-comment tag generates the
+  `@Deprecated` annotation.
 
 ## See Also
 

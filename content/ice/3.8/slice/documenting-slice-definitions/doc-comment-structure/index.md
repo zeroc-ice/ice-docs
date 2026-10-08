@@ -49,7 +49,7 @@ operation's doc comment:
 Item findItem(Key p, Key s) throws NotFound;
 ```
 
-A `{@link}` or `@see` tag cannot name a parameter; the compilers warn about one that does.
+The compilers warn about a `{@link}` or `@see` tag that names a parameter.
 
 ## General Tags
 
