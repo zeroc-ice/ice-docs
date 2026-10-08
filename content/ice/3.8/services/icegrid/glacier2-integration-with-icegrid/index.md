@@ -141,18 +141,13 @@ identities, such as `Glacier2Demo.Glacier2/router`. The router proxy used by cli
 {% callout type="note" %}
 
 We recommend you keep the template's default instance name (`${application}.Glacier2`) unless the application deploys
-several Glacier2 routers: the template uses the instance name as the server ID, and IceGrid rejects an application in
-which two servers have the same ID.
+several Glacier2 routers: the template uses the instance name as the server ID, so each router needs its own.
 
 {% /callout %}
 
 In order to refer to the `Glacier2` template in your application, you must have already configured the registry to use
 the `config/templates.xml` file as your [default templates](../icegrid-templates), or copied the template into the XML
 file describing your application.
-
-If the router's private key is encrypted, which on Windows requires a PKCS#12 file, set
-[IceSSL.Password](../../../property-reference/icessl-properties) in the router's server properties and restrict access
-to the files that contain it.
 
 ## See Also
 
