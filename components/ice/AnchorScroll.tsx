@@ -48,10 +48,13 @@ function scrollToId(id: string) {
     if (langs) setLanguage(langs.split(' ')[0]);
   }
   const target = visibleTarget(id);
-  target?.scrollIntoView();
+  if (!target) return;
+  target.scrollIntoView();
   // Keyboard focus follows, as it does when the browser goes to a fragment
-  // itself; a heading cannot take focus and ignores this.
-  target?.focus({ preventScroll: true });
+  // itself: to the heading's text, or to the target when it is not a heading.
+  const focused =
+    target.querySelector<HTMLElement>('[role="heading"]') ?? target;
+  focused.focus({ preventScroll: true });
 }
 
 /**
