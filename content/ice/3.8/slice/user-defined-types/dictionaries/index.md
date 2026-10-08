@@ -37,11 +37,6 @@ following types:
 - [enum](../enumerations)
 - [Structures](../structures) containing only fields of legal key types
 
-Other complex types, such as dictionaries, and floating-point types (`float` and `double`) cannot be used as the key
-type. Complex types are disallowed because they complicate the language mappings for dictionaries, and floating-point
-types are disallowed because representational changes of values as they cross machine boundaries can lead to ill-defined
-semantics for equality.
-
 ## Language Mapping
 
 {% language-section name="mapping" /%}
