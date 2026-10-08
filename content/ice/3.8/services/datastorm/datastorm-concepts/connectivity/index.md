@@ -14,17 +14,12 @@ networking configurations to establish these connections:
 When multicast discovery is enabled (the default), nodes broadcast reader and writer creation announcements to a
 configured multicast address and listen for announcements from other nodes on the same address.
 
-DataStorm nodes use the `DataStorm.Multicast` object adapter to handle multicast communication. By default, it listens
-on the following endpoint:
+DataStorm nodes use the `DataStorm.Node.Multicast` object adapter to handle multicast communication. By default, it
+listens on the following endpoint:
 
 `udp -h 239.255.0.1 -p 10000`
 
-You can override this by setting the property:`DataStorm.Multicast.Endpoint=<endpoint>`
-
-If you change the multicast endpoint, you must also configure one of the following:
-
-- `DataStorm.Node.Multicast.PublishedHost` — specifies the host used by the multicast endpoint.
-- `DataStorm.Node.Multicast.Proxy` — specifies the proxy used to send multicast announcements.
+You can override this endpoint by setting `DataStorm.Node.Multicast.Endpoints=<endpoint>`.
 
 To disable multicast discovery, set:
 
@@ -32,8 +27,9 @@ To disable multicast discovery, set:
 
 {% callout type="note" %}
 
-Multicast is used only for discovery. Nodes must still configure server endpoints to connect to each other after
-discovery, but these endpoints do not need to be fixed or well-known.
+Multicast carries only the discovery announcements. Nodes communicate with one another over regular network connections,
+typically TCP connections. Each announcement includes the endpoints of the announcing node; a node that finds a matching
+reader or writer in an announcement then connects to the announcing node over these endpoints.
 
 {% /callout %}
 
@@ -108,12 +104,8 @@ exclusively for brokering connections.
 Only the broker node needs to configure a server endpoint. Readers and writers can disable their own server endpoints
 and rely on the broker node for discovery and message relaying between nodes.
 
-You can also use a **hybrid setup** where the broker node is used only for discovery. In this case, readers and writers
-connect directly to each other after discovery.
-
-Readers and writers in this configuration must still configure server endpoints, but these do not need to be fixed or
-well-known. Their endpoints are automatically discovered through the broker node, which acts as a registry for network
-discovery.
+You can also use a **hybrid setup** where the broker node is used only for discovery: readers and writers keep their
+default server endpoints, and connect directly to each other once the broker node has forwarded their announcements.
 
 ### Multiple Readers and Writers with Replicated Broker Nodes
 
