@@ -4,7 +4,7 @@ title: Manually Installing a Service as a Windows Service
 
 This page describes how to manually install and configure an Ice service as a Windows Service using the
 [IceBridge](../../../services/icebridge) service as a case study. For the purposes of this discussion, we assume that
-Ice is installed under `C:\Program Files\ZeroC\Ice-Services-3.8.3`. We also assume that you have administrative access
+Ice is installed in the directory `C:\Program Files\ZeroC\Ice-3.8.2`. We also assume that you have administrative access
 to your system, which is required by many of the installation steps discussed below.
 
 ## Selecting a User Account for the IceBridge Service
@@ -56,7 +56,7 @@ Our first `sc` command does the majority of the work (the command is formatted f
 single line):
 
 ```powershell
-sc create icebridge binPath= "C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\icebridge.exe
+sc create icebridge binPath= "C:\Program Files\ZeroC\Ice-3.8.2\bin\icebridge.exe
   --Ice.Config=C:\ProgramData\Ice\icebridge.cfg --service icebridge"
   DisplayName= "IceBridge Server" start= auto obj= "NT Authority\LocalService"
   password= ""
@@ -123,7 +123,7 @@ Inside this key we must add a value specifies the location of the Ice run time D
 ```powershell
 reg add HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Application\icebridge
   /v EventMessageFile /t REG_EXPAND_SZ
-  /d "C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\ice37.dll"
+  /d "C:\Program Files\ZeroC\Ice-3.8.2\bin\ice37.dll"
 ```
 
 We will also add a value indicating the types of events that the source supports:
@@ -190,7 +190,7 @@ Now we can define values for `EventMessageFile` and `TypesSupported`:
 ```powershell
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog\MyApp\Ice Bridging Service"
   /v EventMessageFile /t REG_EXPAND_SZ
-  /d "C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\ice38.dll"
+  /d "C:\Program Files\ZeroC\Ice-3.8.2\bin\ice38.dll"
 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog\MyApp\Ice Bridging Service"
   /v TypesSupported /t REG_DWORD /d 7
