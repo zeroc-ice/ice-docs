@@ -1,5 +1,11 @@
 ---
 title: Locator Configuration for a Server
+languages:
+  - cpp
+  - csharp
+  - java
+  - python
+  - swift
 ---
 
 ## Configuring an Object Adapter with a Locator
@@ -66,6 +72,14 @@ One of the benefits of the Ice [administrative facility](../../../administration
 creates an implementation of `Process` and makes it available via an administrative object adapter, or your own object
 adapter. Furthermore, IceGrid automatically enables this facility on the servers that it activates.
 
+The communicator registers the `Process` facet with the location service when it creates the admin object, provided
+[Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) is set and the object adapter hosting the admin
+object has a locator: it calls `setServerProcessProxy` on the locator registry with the server ID and a proxy for the
+`Process` facet. If the location service does not know the server ID, the call that creates the admin object throws
+`InitializationException`. See
+[Integrating the Process Facet with an Activation Service](../../../administration/administrative-facility/process-facet#integrating-the-process-facet-with-an-activation-service)
+for details.
+
 ## See Also
 
 - [Object Adapters](../../dispatch)
@@ -74,4 +88,5 @@ adapter. Furthermore, IceGrid automatically enables this facility on the servers
 - [Locator Semantics for Servers](../locator-semantics-for-servers)
 - [The Process Facet](../../../administration/administrative-facility/process-facet)
 - [Administrative Facility](../../../administration/administrative-facility)
+- [Ice.Admin.*](../../../property-reference/ice-admin-properties)
 - [IceGrid](../../../services/icegrid)
