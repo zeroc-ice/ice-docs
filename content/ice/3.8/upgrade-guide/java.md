@@ -89,7 +89,7 @@ With that layout, you can omit `srcDirs` entirely—the plugin discovers it auto
 
 {% /language-section %}
 
-{% language-section name="proxy-creation-2" %}
+{% language-section name="mapping" %}
 
 ## Java Mapping
 

@@ -81,7 +81,7 @@ Xcode builds.
 
 {% /language-section %}
 
-{% language-section name="proxy-creation-2" %}
+{% language-section name="mapping" %}
 
 ## async/await and Structured Concurrency
 

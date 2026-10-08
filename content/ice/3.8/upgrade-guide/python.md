@@ -210,7 +210,7 @@ c = Color.Red
 
 {% /language-section %}
 
-{% language-section name="proxy-creation-2" %}
+{% language-section name="mapping" %}
 
 ## Loading Slice Files
 
