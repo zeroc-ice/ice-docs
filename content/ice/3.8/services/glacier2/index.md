@@ -17,10 +17,5 @@ pages:
 ---
 
 Glacier2 is a router that forwards client requests to servers on another network, typically behind a firewall. It also
-forwards server callbacks to clients over their existing connections, authenticates clients, and manages their sessions.
-
-The examples in this documentation assume that clients and servers run on the same host, or on hosts with no network
-restrictions between them. In a real deployment, hosts are often behind firewalls that block incoming connections and
-that use Network Address Translation (NAT) to place them in a private address space.
-[Common Firewall Traversal Issues](./common-firewall-traversal-issues) describes the problems this creates for Ice
-applications.
+forwards server callbacks to clients over their existing connections. A client authenticates with the router by creating
+a session, and the router forwards the requests of this client for the duration of the session.

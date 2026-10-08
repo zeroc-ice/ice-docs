@@ -14,7 +14,4 @@ func unlockDoor(id: String, current: Ice.Current) throws {
 }
 ```
 
-If the client supplied a certificate, the server can decode and examine it with the native APIs of its platform's SSL
-engine.
-
 {% /language-section %}

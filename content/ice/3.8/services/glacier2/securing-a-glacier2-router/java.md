@@ -17,7 +17,4 @@ public void unlockDoor(String id, Current current) {
 }
 ```
 
-If the client supplied a certificate, the server can decode and examine it with the native APIs of its platform's SSL
-engine.
-
 {% /language-section %}

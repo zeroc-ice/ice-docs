@@ -106,8 +106,8 @@ from a client. The default value is `0`.
 
 ### Description {% id="glacier2.cryptpasswords-description" %}
 
-Specifies the name of the password file with which the router verifies the user name and password of a client creating a
-session. Each non-blank line contains a user name and a password hash, separated by whitespace. User names must be
+Specifies the path of the router's password file. The router uses this file to verify the user name and password that a
+client provides when it creates a session. Each non-blank line contains a user name and a password hash, separated by
 unique. The supported hash formats depend on the platform; see
 [Writing a Password File](../../services/glacier2/getting-started-with-glacier2#writing-a-password-file).
 

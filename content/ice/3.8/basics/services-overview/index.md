@@ -16,8 +16,9 @@ to which your application acts as a client.
 ## Glacier2
 
 [Glacier2](../../services/glacier2) is a router that forwards client requests to servers on another network, typically
-behind a firewall. It also forwards server callbacks to clients over their existing connections, authenticates clients,
-and manages their sessions.
+behind a firewall. It also forwards server callbacks to clients over their existing connections. A client authenticates
+with the router by creating a session, and the router forwards the requests of this client for the duration of the
+session.
 
 ## IceBox
 

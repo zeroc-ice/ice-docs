@@ -17,21 +17,19 @@ passwords and certificates. You can configure the router to use either form, or 
 ### Password Authentication
 
 The router verifies the user name and password arguments to its [createSession](../getting-started-with-glacier2)
-operation before it forwards any requests on behalf of the client. Given that the password is sent "in the clear," it is
-important to protect these values by using an SSL connection with the router.
+operation before it forwards any requests on behalf of the client.
 
-The router verifies the user name and password with a permissions verifier, and rejects every `createSession` call when
-none is configured. Set
-[Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords) to have the router
-check them against a [password file](../getting-started-with-glacier2#writing-a-password-file), or set
+The router always verifies the user name and password with a permissions verifier, an object that implements the
+`Glacier2::PermissionsVerifier` interface. Glacier2 includes a verifier that checks the user name and password against a
+[password file](../getting-started-with-glacier2#writing-a-password-file); set
+[Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords) to the path of this
+file to install this verifier in the router. To use your own verifier instead, set
 [Glacier2.PermissionsVerifier](../../../property-reference/glacier2-properties#glacier2.permissionsverifier) to the
-proxy of your own verifier object. When both properties are set, the router ignores the password file. The rest of this
-section covers the verifier interface.
+proxy of your verifier object; when both properties are set, the router uses your verifier. The rest of this section
+covers the verifier interface.
 
-An application that has special requirements can implement the interface `Glacier2::PermissionsVerifier` to gain
-programmatic control over access to a router. This can be especially useful in situations where a repository of account
-information already exists (such as an LDAP directory), in which case duplicating that information in another file would
-be tedious and error-prone.
+A custom verifier is useful when a repository of account information already exists (such as an LDAP directory), in
+which case duplicating that information in another file would be tedious and error-prone.
 
 The Slice definition for the interface contains just one operation:
 
@@ -116,10 +114,9 @@ module Glacier2
 }
 ```
 
-`certs` holds a single element: the client's PEM-encoded certificate. `createSessionFromSecureConnection` requires an
-SSL connection with a client certificate whose subject name is not empty. For a connection over IP, the `remoteHost`,
-`remotePort`, `localHost`, and `localPort` fields hold the addresses of the client's connection to the router; for other
-connections, the hosts are empty and the ports are 0. The router leaves `cipher` empty.
+`certs` holds a single element: the certificate the client presented when it established its SSL connection to the
+router, in PEM encoding. The `remoteHost`, `remotePort`, `localHost`, and `localPort` fields hold the addresses of the
+client's connection to the router. The router leaves `cipher` empty.
 
 The verifier typically examines the certificate's subject and issuer names. It decodes the PEM string with the
 certificate API of its platform, such as `X509Certificate2` in .NET or `CertificateFactory` in Java.
@@ -154,8 +151,8 @@ information to permissions-verifier and session-manager calls and to requests fo
 `2` adds this information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls
 on session managers.
 
-The context entries include addressing details for connections over IP and, for SSL or WSS connections with a client
-certificate, the PEM-encoded certificate in `_con.peerCert`.
+The context entries describe the client's connection to the router: its type, its local and remote addresses and ports,
+and, when the client presented a certificate, the PEM-encoded certificate in `_con.peerCert`.
 
 {% language-section name="connection-context" /%}
 

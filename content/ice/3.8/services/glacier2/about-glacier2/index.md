@@ -2,15 +2,13 @@
 title: About Glacier2
 ---
 
-Glacier2 is a router that addresses the [common firewall traversal issues](../common-firewall-traversal-issues) with
-minimal impact on clients, servers and firewall administrators. In the illustration below, clients connect to Glacier2,
-which forwards their requests to the servers and forwards the servers' callbacks to the clients.
+Glacier2 is a forward proxy deployed near your servers. Clients connect to Glacier2 and send it their requests, and
+Glacier2 forwards these requests to the servers. Callbacks from the servers to the clients travel the other way through
+Glacier2, over the connections the clients opened. The servers are usually unaware of Glacier2: the clients connected
+through Glacier2 look like local clients to them. The illustration below shows two clients and two servers communicating
+through Glacier2.
 
 ![Clients A and B use bidirectional connections through their firewall to Glacier2. Glacier2 forwards requests to servers A and B, which send callbacks to Glacier2 over separate connections.](/images/ice/3.8/about-glacier2/multiple-clients-and-servers.svg)
-
-Complex network environments are a fact of life. Unfortunately, the cost of securing an enterprise's network is
-increased application complexity and administrative overhead. Glacier2 helps to minimize these costs by providing a
-low-impact, efficient and secure router for Ice applications.
 
 Glacier2 has the following advantages and limitations.
 
@@ -38,8 +36,7 @@ Glacier2 has the following advantages and limitations.
 ## Limitations
 
 - Clients connect to the router over a connection-oriented transport such as TCP or SSL; Glacier2 does not accept UDP
-  connections from clients. The router can still forward a request to a back-end server as a datagram, see
-  [the `_fwd` context](../how-glacier2-uses-request-contexts).
+  connections from clients.
 - [Callback objects](../callbacks-through-glacier2) in a client must use a Glacier2-supplied category in their
   identities.
 
