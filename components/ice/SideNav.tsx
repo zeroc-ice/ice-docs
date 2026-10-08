@@ -421,7 +421,7 @@ function RailLink({
     <Link
       href={href}
       prefetch={hovered ? null : false}
-      onMouseEnter={() => setHovered(true)}
+      onPointerEnter={() => setHovered(true)}
       {...props}
     >
       {children}
