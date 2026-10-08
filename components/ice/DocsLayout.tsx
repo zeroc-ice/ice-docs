@@ -47,8 +47,6 @@ export function DocsLayout({
           />
 
           <div className="grow pb-8">
-            {/* The skip link's target: focusable, so the keys carry on from
-                here. */}
             <div id="skip-nav" tabIndex={-1} />
             {children}
           </div>
