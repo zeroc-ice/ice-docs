@@ -38,6 +38,9 @@ or
 
 This SSL configuration applies to all SSL incoming connections accepted by that object adapter.
 
+When you set an SSL engine factory, the SSL transport uses it instead of the configuration it builds from the `IceSSL`
+properties.
+
 {% /language-section %}
 
 {% language-section name="using-the-ssl-transport-4" %}
@@ -56,7 +59,7 @@ IceSSL.Trace.Security=1
 {% language-section name="using-the-ssl-transport-5" %}
 
 ```config
-# The keystore containing trusted certificated authorities used to validate
+# The keystore containing trusted certificate authorities used to validate
 # peer certificates.
 IceSSL.Truststore=ca.jks
 ```
