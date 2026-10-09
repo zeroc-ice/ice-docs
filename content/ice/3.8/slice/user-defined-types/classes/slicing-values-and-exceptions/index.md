@@ -46,8 +46,8 @@ interface I
 
 Now suppose a client invokes `getValue`. Let's also suppose that the server actually returns an instance of class `C`,
 which is legal given that `C` derives from `B`. The Ice runtime in the client knows that the formal return type of the
-`getObject` operation is `B`, therefore `B` is the least-derived type that the client can accept for this operation. At
-a high level, the Ice runtime in the client behaves as follows:
+`getValue` operation is `B`, therefore `B` is the least-derived type that the client can accept for this operation. At a
+high level, the Ice runtime in the client behaves as follows:
 
 1. It discovers that the most-derived type of the returned instance is `C` and checks whether this type is known.
 2. If this type is known to the client, Ice instantiates the object, extracts the fields for each of its slices, and
