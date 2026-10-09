@@ -86,10 +86,16 @@ border, connector, or pattern crosses the text.
 | Divider inside a component     | —         | `#a6afbc` | 1.25, solid                    |
 | Network zone boundary          | —         | `#7a8699` | 1.5, dashed `7 5`              |
 | Blocked path                   | —         | `#b42318` | 1.75, dashed, red × terminator |
+| Out-of-threads activation span | hatch     | `#8d99aa` | 1.5, solid, 45° hatch          |
 
 Use color to reinforce a semantic distinction, never as its only indicator. ZeroC blue identifies primary Ice-owned
 runtime and service elements. Generated code uses the secondary violet treatment and retains an explicit `Generated`
 label. Avoid shadows, decorative gradients, and textures unless they encode information.
+
+In a sequence diagram, a hatched segment of an activation bar (`.waiting`) means the process is out of threads: its
+dispatch thread is blocked in a synchronous nested invocation, so it cannot dispatch anything else for that span. Fill
+the segment with the `waiting-hatch` pattern: 2-unit `#8d99aa` lines at 45° on white, 6 units apart. Label the hatched
+span with what the thread waits for.
 
 Published diagrams currently use an opaque white canvas in both light and dark documentation themes, matching the legacy
 raster-image treatment. Do not make only part of a diagram theme-aware; introduce a complete reviewed dark palette if

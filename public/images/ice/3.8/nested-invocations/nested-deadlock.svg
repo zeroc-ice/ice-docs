@@ -118,8 +118,8 @@
     <text class="annotation" x="483" y="288">Callback blocked</text>
     <text class="annotation side-note" x="318" y="155">Dispatching opA</text>
     <text class="annotation side-note" x="318" y="304">
-      <tspan x="318" dy="0">Its only thread waits</tspan>
-      <tspan x="318" dy="20">for opB to return</tspan>
+      <tspan x="318" dy="0">Server A's only thread</tspan>
+      <tspan x="318" dy="20">waits for opB to return</tspan>
     </text>
   </g>
 </svg>
