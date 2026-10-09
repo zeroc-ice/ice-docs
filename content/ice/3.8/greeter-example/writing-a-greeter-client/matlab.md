@@ -113,12 +113,12 @@ greeting = futureGreeting.fetchOutputs();
 fprintf('%s\n', greeting);
 ```
 
-With the asynchronous version, the method call doesn’t block. Instead, the method returns a future immediately and we
-later poll this future (with `fetchOutputs`) to wait until the result is available.
+With the asynchronous version, the method call doesn’t block. Instead, the method returns a future immediately. We call
+`fetchOutputs` once when we are ready to wait for the result; it blocks until the invocation completes.
 
 Asynchronous invocations are more semantically correct for remote calls, and they alert readers to the potential delays
-inherent to these calls. But they are more complicated to write and are of limited value in MATLAB since we have to poll
-the returned future – MATLAB does not support the more elegant async/await syntax. In practice, making synchronous
+inherent to these calls. But they are more complicated to write and are of limited value in MATLAB since we have to wait
+on the returned future – MATLAB does not support the more elegant async/await syntax. In practice, making synchronous
 invocations is simpler and more common in MATLAB.
 
 ### 4. Cleanup
