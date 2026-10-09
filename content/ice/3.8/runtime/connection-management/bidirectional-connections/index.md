@@ -36,8 +36,8 @@ A client needs to perform the following steps in order to configure a bidirectio
 
 1. [Create an object adapter](../../dispatch/creating-an-object-adapter) to receive callback requests. This adapter does
    not require a name or endpoints if its only purpose is to receive callbacks over bidirectional connections.
-2. Set this object adapter as the default object adapter on the communicator. This means the object adapter will gets
-   associated with new outgoing connections created by the communicator.
+2. Set this object adapter as the default object adapter on the communicator. The communicator associates its default
+   object adapter with the outgoing connections it creates afterward.
 3. [Register the callback object](../../dispatch/object-adapter-activation-and-deactivation) or objects with the object
    adapter.
 
@@ -59,14 +59,21 @@ The code below illustrates these steps:
 
 The callback object (`mockAlarmClock` in the code above) will handle incoming requests for identity `alarmClock`.
 
+To associate an object adapter with a connection that already exists, or a different object adapter with each
+connection, call `setAdapter` on the connection, for example on the connection returned by a proxy's
+`ice_getConnection`. `setAdapter` applies only to outgoing connections. A connection without an object adapter rejects
+incoming requests with `ObjectNotExistException`.
+
 ## Configuring a Server for Bidirectional Connections
 
 A server needs to create or obtain a proxy to the callback object. This proxy is bound to the incoming connection and is
 known as a “fixed” proxy.
 
-A fixed proxy is bound to the connection that created it, and ceases to work once that connection is closed. If the
-connection is closed, the server can no longer make callback requests using that proxy. Any attempt to use the proxy
-again usually results in a `CloseConnectionException`.
+A fixed proxy is bound to a connection, and ceases to work once that connection is closed. Ice does not retry an
+invocation on a fixed proxy: once the connection is closed, invocations on the proxy fail with the
+[exception that describes the closure](../connection-closure#closure-exceptions), such as `CloseConnectionException`
+when the client closed the connection gracefully. The `ice_fixed` proxy method creates a fixed proxy bound to the
+connection you give it.
 
 The connection object is accessible as a member of the `Current` parameter supplied to an operation implementation.
 These steps are illustrated in the code below:
@@ -79,9 +86,12 @@ Bidirectional connections have certain limitations:
 
 - They can only be configured for connection-oriented transports such as TCP and SSL.
 - Most proxy factory methods are not relevant for a fixed proxy. The proxy is bound to an existing connection, therefore
-  the proxy reflects the connection's configuration. Attempting to change settings such as the proxy's timeout value
-  causes the Ice runtime to throw `FixedProxyException`. Note however that it is legal to configure a fixed proxy for
-  using oneway or twoway invocations.
+  the proxy reflects the connection's configuration. Changing the endpoints, adapter ID, locator, router,
+  {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}collocation optimization, {% /iflang %}connection
+  caching, endpoint selection, locator cache timeout or connection ID of a fixed proxy throws `FixedProxyException`.
+  Note however that it is legal to configure a fixed proxy for using oneway or twoway invocations.
+- Marshaling a fixed proxy, for example as an operation parameter, or converting it to proxy properties throws
+  `FixedProxyException`.
 - A connection established from a Glacier2 router to a server is not configured for bidirectional use. Only the
   connection from a client to the router is bidirectional. However, the client must not attempt to manually configure a
   bidirectional connection to a router, as this is handled internally by the Ice runtime.
@@ -91,7 +101,8 @@ Bidirectional connections have certain limitations:
 An Ice communicator normally creates two [thread pools](../../threading-model) for processing network traffic on
 connections: the client thread pool manages outgoing connections and the server thread pool manages incoming
 connections. All of the object adapters in a server share the same thread pool by default, but an object adapter can
-also be configured to have [its own thread pool](../../threading-model/object-adapter-thread-pools). The default size of
+also be configured to have [its own thread pool](../../threading-model/object-adapter-thread-pools). An outgoing
+connection always uses the client thread pool, even when its object adapter has its own thread pool. The default size of
 the client and server thread pools is one.
 
 The client thread pool processes replies to pending requests. When a client configures an outgoing connection for
