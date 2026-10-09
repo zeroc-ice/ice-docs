@@ -8,7 +8,7 @@ steps:
 
 ```cpp
 // It's nullptr when the facet is not enabled
-auto metricsAdmin = communicator->findAdminFacet<Ice::MetricsAdmin>("Metrics");
+auto metricsAdmin = communicator->findAdminFacet<IceMX::MetricsAdmin>("Metrics");
 ```
 
 {% /language-section %}
