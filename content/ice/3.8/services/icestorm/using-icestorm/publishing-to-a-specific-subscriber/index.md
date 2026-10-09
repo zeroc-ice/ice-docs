@@ -77,25 +77,11 @@ informs all the subscribed observers of the change to the list. However, when an
 `init` operation must be called. Moreover, we want to call that method only once for each observer, so we cannot just
 publish the initial state of the list on a topic that all observers subscribe to.
 
-The subscriber-specific proxy that is returned by `subscribeAndGetPublisher` solves this nicely: the implementation of
-`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the returned per-subscriber publisher. This
-both subscribes the observer to the topic, and IceStorm forwards the call to `init` to the observer. This is preferable
-to the list invoking `init` on the observer directly: if the observer is misbehaved (for example, if its `init`
-implementation blocks for some time), the list is unaffected because IceStorm shields the list from such behavior.
-
-The per-subscriber publisher and the topic's publisher object use the same queue of events for the observer in an
-IceStorm server, and IceStorm sends the events of this queue in order. The observer receives `init` before any
-`itemChange` only if IceStorm queues `init` before any `itemChange` event published after the subscription. For example,
-the list can hold the lock that serializes its updates while it subscribes the observer, takes the snapshot it passes to
-`init`, and completes a twoway `init` invocation on the per-subscriber publisher, and publish each `itemChange` event
-with a twoway invocation under the same lock. In a
-[replicated deployment](../../highly-available-icestorm#publisher-considerations-for-icestorm-replication), each replica
-has its own queue for the observer, so this ordering holds only while the list sends `init` and the `itemChange` events
-to the same replica. If the observer's thread pool dispatches several requests concurrently, the observer can start
-processing an `itemChange` event before it finishes processing `init`, depending on the
-[delivery mode](../../icestorm-delivery-modes). To make the observer finish processing `init` before it processes any
-update, subscribe it with a twoway proxy and the [ordered reliability](../../icestorm-quality-of-service) quality of
-service.
+The per-subscriber publisher returned by `subscribeAndGetPublisher` solves this nicely: the implementation of
+`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the returned proxy. IceStorm forwards this
+`init` to this observer only, through the same event queue as the `itemChange` events published on the `ListUpdates`
+topic, in the order IceStorm receives them. The observer can therefore receive `itemChange` events published after its
+subscription but before `init`.
 
 ## See Also
 

@@ -15,8 +15,8 @@ Our weather station implementation takes the following steps:
 3. Create an object adapter to host our `WeatherStation` servant.
 4. Instantiate the servant and add the servant to the object adapter.
 5. Activate the object adapter, so that it dispatches the events IceStorm delivers to the servant.
-6. Subscribe to the `weather` topic by calling `subscribeAndGetPublisher` with the proxy of the servant.
-7. Process `report` messages until shutdown.
+6. Activate the object adapter so that it can dispatch the events IceStorm delivers to the servant.
+7. Subscribe to the `weather` topic by calling `subscribeAndGetPublisher` with a proxy for the `WeatherStation` object.
 8. Unsubscribe from the `weather` topic by calling `unsubscribe` with the same proxy.
 
 ## Subscriber Identity
