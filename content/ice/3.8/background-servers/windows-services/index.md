@@ -3,7 +3,6 @@ title: Windows Services
 pages:
   - installing-a-windows-service
   - using-the-ice-service-installer
-  - manually-installing-a-service-as-a-windows-service
   - troubleshooting-windows-services
 ---
 
