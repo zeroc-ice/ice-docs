@@ -37,7 +37,7 @@ Use the communicator operation `propertyToProxy` to retrieve the property and co
 
 {% property-description %}
 
-If `num` is a value greater than zero, the proxy [caches](../../runtime/connection-management/connection-establishment)
+If `num` is a value greater than `0`, the proxy [caches](../../runtime/connection-management/connection-establishment)
 its chosen connection for use in subsequent requests. Defining this property is equivalent to invoking the
 `ice_connectionCached` proxy method.
 
@@ -125,7 +125,7 @@ MyProxy.Locator.EndpointSelection=Ordered
 
 Specifies the [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout of this proxy, in seconds.
 The default is [Ice.Default.LocatorCacheTimeout](../ice-default-properties#ice.default.locatorcachetimeout). A value of
-0 disables caching. A negative value means cache entries never expire.
+`0` disables caching. A negative value means cache entries never expire.
 
 {% /property-description %}
 

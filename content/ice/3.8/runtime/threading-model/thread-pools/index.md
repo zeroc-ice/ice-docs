@@ -86,9 +86,10 @@ The configuration properties
 [_name_.SizeMax](../../../property-reference/ice-threadpool-properties#ice.threadpool.name.sizemax), and
 [_name_.ThreadIdleTime](../../../property-reference/ice-threadpool-properties#ice.threadpool.name.threadidletime)
 determine whether a thread pool is dynamic. A thread pool is not dynamic in its default configuration because
-`name.Size` and `name.SizeMax` are both set to 1, meaning the pool can never grow to contain more than a single thread.
-To configure a dynamic thread pool, you must set at least one of `name.Size` or `name.SizeMax` to a value greater
-than 1. We can use several configuration scenarios to explore the semantics of dynamic thread pools in greater detail:
+`name.Size` and `name.SizeMax` are both set to `1`, meaning the pool can never grow to contain more than a single
+thread. To configure a dynamic thread pool, you must set at least one of `name.Size` or `name.SizeMax` to a value
+greater than `1`. We can use several configuration scenarios to explore the semantics of dynamic thread pools in greater
+detail:
 
 ```config
 name.SizeMax=5
