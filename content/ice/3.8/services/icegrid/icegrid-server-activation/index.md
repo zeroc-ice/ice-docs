@@ -96,7 +96,9 @@ permits it.
 
 A user account mapper maps user strings to operating system accounts. Mapping is useful because an account name can
 differ from one machine to another, and because a session ID, such as a distinguished name, is not an account name. A
-user account mapper implements the `IceGrid::UserAccountMapper` interface:
+user account mapper implements the
+[`IceGrid::UserAccountMapper`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceGrid_1_1UserAccountMapper.html)
+interface:
 
 ```slice
 exception UserAccountNotFoundException {}

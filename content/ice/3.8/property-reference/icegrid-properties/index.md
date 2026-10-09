@@ -344,10 +344,11 @@ Sets the node's trace level for server configuration updates and state changes:
 
 {% property-description %}
 
-Specifies the proxy of an object that implements the `IceGrid::UserAccountMapper` interface. The IceGrid node calls this
-object to map a server's user string to the operating system account under which the node runs the server. The user
-string is the `user` attribute of the server descriptor or, when this attribute is not set and the node runs as root on
-Unix, the session ID or `nobody`; see
+Specifies the proxy of an object that implements the
+[`IceGrid::UserAccountMapper`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceGrid_1_1UserAccountMapper.html)
+interface. The IceGrid node calls this object to map a server's user string to the operating system account under which
+the node runs the server. The user string is the `user` attribute of the server descriptor or, when this attribute is
+not set and the node runs as root on Unix, the session ID or `nobody`; see
 [Activating Servers with Specific User IDs](../../services/icegrid/icegrid-server-activation#activating-servers-with-specific-user-ids).
 The node can run a server under an account other than its own only when it runs as root on Unix. When this property is
 set, the node ignores `IceGrid.Node.UserAccounts`.
