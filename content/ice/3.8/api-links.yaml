@@ -1,6 +1,7 @@
-# The API reference page of each type the Ice 3.8 documentation links to. A link to `api:Ice/Communicator` goes to the
-# page listed under Ice/Communicator for the reader's language; for a language with no page listed, the site shows the
-# link's text without a link.
+# The API reference page of each type or method the Ice 3.8 documentation links to. A link to `api:Ice/Communicator`
+# goes to the page listed under Ice/Communicator for the reader's language, and a link to `api:Ice/ObjectPrx.ice_invoke`
+# to the page listed under Ice/ObjectPrx.ice_invoke; for a language with no page listed, the site shows the link's text
+# without a link.
 Ice/ClassSliceLoader:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ClassSliceLoader.html
 Ice/Communicator:
@@ -63,6 +64,17 @@ Ice/ObjectPrx:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx
+Ice/ObjectPrx.ice_invoke:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_ad8e9a5bc7efd45641c1059a3174055ab.html#ad8e9a5bc7efd45641c1059a3174055ab
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_invoke_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_invoke(java.lang.String,com.zeroc.Ice.OperationMode,byte[])
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_invoke
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx/ice_invoke(operation:mode:inencaps:context:)
+Ice/ObjectPrx.ice_invokeAsync:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_a4c456a506fc4db4c7c8a7503dec13282.html#a4c456a506fc4db4c7c8a7503dec13282
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_invokeAsync_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_invokeAsync(java.lang.String,com.zeroc.Ice.OperationMode,byte[])
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_invokeAsync
 Ice/Properties:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html
