@@ -21,6 +21,7 @@ npm run build  # build the site
 npm test               # unit tests for the content model
 npm run check:content  # navigation, images, headings, language slots
 npm run check:markdoc  # every page against the Markdoc schema, every link resolved
+npm run check:diagrams # the text of every SVG figure renders at a readable size
 npm run lint           # eslint and markdownlint
 npm run format         # prettier
 ```

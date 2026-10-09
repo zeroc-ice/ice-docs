@@ -46,6 +46,9 @@ jobs:
       - name: Content structure (navigation, links)
         run: npm run check:content
 
+      - name: Diagram text size
+        run: npm run check:diagrams
+
       - name: Lint
         run: npm run lint
 

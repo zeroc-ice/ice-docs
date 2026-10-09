@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="280"
+  height="380.27"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1000 400"
+  viewBox="0 0 740 402"
   role="img"
   aria-labelledby="title description"
 >
@@ -43,13 +43,21 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .label {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       text-anchor: middle;
     }
     .annotation {
       fill: #566174;
-      font-size: 17px;
+      font-size: 14px;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .step-number {
+      fill: #1259d6;
+      font-size: 13px;
+      font-weight: 700;
       text-anchor: middle;
     }
     .application {
@@ -80,45 +88,42 @@
     }
   </style>
 
-  <rect width="1000" height="400" fill="#ffffff"/>
+  <rect width="740" height="402" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <rect class="boundary" x="24" y="110" width="220" height="170" rx="14" vector-effect="non-scaling-stroke"/>
-    <rect class="boundary" x="560" y="24" width="416" height="352" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="16" y="16" width="180" height="370" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="boundary" x="492" y="16" width="232" height="370" rx="14" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 204 190 L 772 116" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 204 220 L 600 251" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 857 147 L 857 300" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 772 331 H 685 V 282" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 176 208 H 228 V 110 H 527" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 612 138 V 186" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 612 242 V 306" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 176 236 H 228 V 334 H 527" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="64" y="176" width="140" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="772" y="85" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="600" y="220" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="772" y="300" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="36" y="194" width="140" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="527" y="82" width="170" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="527" y="186" width="170" height="56" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="527" y="306" width="170" height="56" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="134.0" y="135">Client PC</text>
-    <text class="label" x="134.0" y="212.0">Client</text>
-    <text class="label" x="768.0" y="49">Host: ComputeServer</text>
-    <text class="label" x="857.0" y="121.0">Registry</text>
-    <text class="label" x="685.0" y="256.0">EncoderServer</text>
-    <use href="#step-badge-shape" x="340" y="151"/>
-    <text class="annotation" x="340" y="156">1</text>
-    <rect x="362.0" y="140" width="192" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="458" y="156">locate(EncoderAdapter)</text>
-    <use href="#step-badge-shape" x="354" y="239"/>
-    <text class="annotation" x="354" y="244">3</text>
-    <rect x="376.0" y="228" width="64" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="408" y="244">encode</text>
-    <text class="label" x="857.0" y="336.0">Node</text>
-    <use href="#step-badge-shape" x="650" y="307"/>
-    <text class="annotation" x="650" y="312">2</text>
-    <rect x="672" y="296" width="56" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="700" y="312">start</text>
+    <text class="label" x="106" y="42">Client PC</text>
+    <text class="label" x="106" y="228">Client</text>
+    <text class="label" x="608" y="42">Host: ComputeServer</text>
+    <text class="label" x="612" y="116">Registry</text>
+    <text class="label" x="612" y="220">Node</text>
+    <text class="label" x="612" y="340">EncoderServer</text>
+    <use href="#step-badge-shape" x="252" y="92"/>
+    <text class="step-number" x="252" y="96.5">1</text>
+    <text class="annotation code" x="272" y="97">locate(EncoderAdapter)</text>
+    <use href="#step-badge-shape" x="636" y="274"/>
+    <text class="step-number" x="636" y="278.5">2</text>
+    <text class="annotation" x="656" y="279">start</text>
+    <use href="#step-badge-shape" x="252" y="316"/>
+    <text class="step-number" x="252" y="320.5">3</text>
+    <text class="annotation code" x="272" y="321">encode</text>
   </g>
 </svg>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="285.71"
+  height="322.37"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 980 400"
+  viewBox="0 0 760 350"
   role="img"
   aria-labelledby="title description"
 >
@@ -14,27 +14,12 @@
   </desc>
 
   <defs>
-    <marker
-      id="arrow"
-      viewBox="0 0 8 8"
-      refX="7.2"
-      refY="4"
-      markerWidth="7"
-      markerHeight="7"
-      orient="auto-start-reverse"
-    >
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
-    <circle
-      id="step-badge-shape"
-      cx="0"
-      cy="0"
-      r="12"
-      fill="#ffffff"
-      stroke="#1259d6"
-      stroke-width="1.5"
-      vector-effect="non-scaling-stroke"
-    />
+    <g id="step-badge-shape">
+      <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
+    </g>
   </defs>
 
   <style>
@@ -42,78 +27,109 @@
       fill: #182235;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    .label {
-      font-size: 18px;
-      font-weight: 600;
-      text-anchor: middle;
+
+    .process-boundary {
+      fill: #fbfcfe;
+      stroke: #cbd3de;
+      stroke-dasharray: 7 5;
+      stroke-width: 1.5;
     }
-    .annotation {
-      fill: #566174;
-      font-size: 17px;
-      text-anchor: middle;
-    }
-    .application {
+
+    .component {
       fill: #ffffff;
       stroke: #8d99aa;
       stroke-width: 1.5;
     }
-    .runtime {
+
+    .service {
       fill: #eef5ff;
       stroke: #1259d6;
       stroke-width: 1.75;
     }
-    .boundary {
-      fill: #fbfcfe;
-      stroke: #cbd3de;
-      stroke-width: 1.5;
-      stroke-dasharray: 7 5;
-    }
+
     .connector {
       fill: none;
       stroke: #566174;
-      stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
+      stroke-width: 1.75;
     }
+
+    .one-way,
+    .callback {
+      marker-end: url(#arrow);
+    }
+
     .callback {
       stroke-dasharray: 6 4;
-      marker-end: url(#arrow);
+    }
+
+    .label-knockout {
+      fill: #ffffff;
+    }
+
+    .process-title,
+    .component-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+    }
+
+    .connector-label {
+      fill: #182235;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .step-badge {
+      fill: #ffffff;
+      stroke: #1259d6;
+      stroke-width: 1.5;
+    }
+
+    .step-number {
+      fill: #1259d6;
+      font-size: 14px;
+      font-weight: 700;
+      text-anchor: middle;
     }
   </style>
 
-  <rect width="980" height="400" fill="#ffffff"/>
+  <rect width="760" height="350" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <rect class="boundary" x="24" y="100" width="230" height="170" rx="14" vector-effect="non-scaling-stroke"/>
-    <rect class="boundary" x="534" y="24" width="422" height="352" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="24" y="24" width="176" height="126" rx="14" vector-effect="non-scaling-stroke"/>
+    <rect class="process-boundary" x="344" y="24" width="392" height="310" rx="14" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector callback" d="M 720 250 H 839 V 137" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 754 106 H 360 L 224 190" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 512 191 H 644 V 130" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 576 99 H 184" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="54" y="168" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="754" y="75" width="170" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="570" y="220" width="150" height="62" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="754" y="310" width="170" height="54" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component" x="40" y="68" width="144" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="service" x="576" y="68" width="136" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="component" x="368" y="160" width="144" height="62" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="service" x="576" y="248" width="136" height="62" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="839" y="342">Node</text>
-    <text class="label" x="139.0" y="125">Client PC</text>
-    <text class="label" x="139.0" y="204.0">Admin client</text>
-    <text class="label" x="745.0" y="49">Server PC</text>
-    <text class="label" x="839.0" y="111.0">Registry</text>
-    <text class="label" x="645.0" y="256.0">Server</text>
-    <use href="#step-badge-shape" x="734" y="282"/>
-    <text class="annotation" x="734" y="287">1</text>
-    <rect x="756.0" y="271" width="80" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="796" y="287">callback</text>
-    <use href="#step-badge-shape" x="365" y="80"/>
-    <text class="annotation" x="365" y="85">2</text>
-    <rect x="387.0" y="69" width="80" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="427" y="85">callback</text>
+    <text class="process-title" x="112" y="48">Client PC</text>
+    <text class="component-label" x="112" y="104">Admin client</text>
+    <text class="process-title" x="540" y="48">Server PC</text>
+    <text class="component-label" x="644" y="104">Registry</text>
+    <text class="component-label" x="440" y="196">Server</text>
+    <text class="component-label" x="644" y="284">Node</text>
+    <use href="#step-badge-shape" transform="translate(222 79)"/>
+    <text class="step-number" x="222" y="84">2</text>
+    <text class="connector-label" x="242" y="84">callback</text>
+    <use href="#step-badge-shape" transform="translate(548 213)"/>
+    <text class="step-number" x="548" y="218">1</text>
+    <text class="connector-label" x="568" y="218">callback</text>
   </g>
 </svg>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="390"
+  height="464"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 700 390"
+  viewBox="0 0 700 464"
   role="img"
   aria-labelledby="title description"
 >
@@ -70,37 +70,37 @@
     }
   </style>
 
-  <rect width="700" height="390" fill="#ffffff"/>
+  <rect width="700" height="464" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector inheritance" d="M 155 150 L 295 102" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 545 150 L 405 102" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 300 292 L 166 234" vector-effect="non-scaling-stroke"/>
-    <path class="connector inheritance" d="M 400 292 L 534 234" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 200 192 L 300 92" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 500 192 L 400 92" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 290 366 L 190 266" vector-effect="non-scaling-stroke"/>
+    <path class="connector inheritance" d="M 410 366 L 510 266" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
     <rect class="application" x="250" y="18" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
     <path class="divider" d="M 250 48 H 450" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="55" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 55 180 H 255" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="445" y="150" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 445 180 H 645" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="250" y="292" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 250 322 H 450" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="55" y="192" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 55 222 H 255" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="445" y="192" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 445 222 H 645" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="250" y="366" width="200" height="74" rx="7" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 250 396 H 450" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
     <text class="badge" x="350.0" y="39">INTERFACE</text>
-    <text class="label code" x="350.0" y="75.0">B</text>
-    <text class="badge" x="155.0" y="171">INTERFACE</text>
-    <text class="label code" x="155.0" y="207.0">I1</text>
-    <text class="badge" x="545.0" y="171">INTERFACE</text>
-    <text class="label code" x="545.0" y="207.0">I2</text>
-    <text class="badge" x="350.0" y="313">INTERFACE</text>
-    <text class="label code" x="350.0" y="349.0">D</text>
+    <text class="label code" x="350.0" y="75">B</text>
+    <text class="badge" x="155.0" y="213">INTERFACE</text>
+    <text class="label code" x="155.0" y="249">I1</text>
+    <text class="badge" x="545.0" y="213">INTERFACE</text>
+    <text class="label code" x="545.0" y="249">I2</text>
+    <text class="badge" x="350.0" y="387">INTERFACE</text>
+    <text class="label code" x="350.0" y="423">D</text>
   </g>
 </svg>

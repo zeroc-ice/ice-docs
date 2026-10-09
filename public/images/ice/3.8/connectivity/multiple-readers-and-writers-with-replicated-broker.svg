@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="330.56"
+  height="629.46"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1080 510"
+  viewBox="0 0 774 696"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">Readers and writers using replicated brokers</title>
   <desc id="description">
-    Readers and writers are configured with both broker endpoints. Solid and dashed paths show their connections and
-    alternate broker choices. Broker node 1 listens on port 10000; broker node 2 listens on port 10001 and connects
-    to broker node 1.
+    Two writers above and two readers below are configured with the endpoints of both broker nodes. The left writer and
+    reader connect to broker node 1 and the right ones to broker node 2; dash-dot arrows show the alternate broker each
+    one can use instead. Broker node 1 listens on port 10000; broker node 2 listens on port 10001 and connects to broker
+    node 1.
   </desc>
 
   <defs>
@@ -43,6 +44,9 @@
       font-size: 14px;
       text-anchor: middle;
     }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
@@ -64,61 +68,70 @@
       marker-end: url(#arrow);
     }
     .alternate {
-      stroke-dasharray: 6 4;
+      stroke-dasharray: 10 4 2 4;
       marker-end: url(#arrow);
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
     }
   </style>
 
-  <rect width="1080" height="510" fill="#ffffff"/>
+  <rect width="774" height="696" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 309 90 L 397 124" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 309 410 L 397 410" vector-effect="non-scaling-stroke"/>
-    <path class="connector alternate" d="M 309 90 L 397 330" vector-effect="non-scaling-stroke"/>
-    <path class="connector alternate" d="M 309 410 L 397 164" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 771 90 L 682 124" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 771 410 L 682 410" vector-effect="non-scaling-stroke"/>
-    <path class="connector alternate" d="M 771 90 L 682 330" vector-effect="non-scaling-stroke"/>
-    <path class="connector alternate" d="M 771 410 L 682 164" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 539 290 L 539 184" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 182 178 V 248" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 578 178 V 248" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 182 478 V 408" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 578 478 V 408" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 420 328 H 340" vector-effect="non-scaling-stroke"/>
+    <path class="connector alternate" d="M 420 160 H 380 V 300 H 340" vector-effect="non-scaling-stroke"/>
+    <path class="connector alternate" d="M 420 496 H 380 V 356 H 340" vector-effect="non-scaling-stroke"/>
+    <path class="connector alternate" d="M 182 48 V 24 H 756 V 300 H 736" vector-effect="non-scaling-stroke"/>
+    <path class="connector alternate" d="M 182 608 V 632 H 756 V 356 H 736" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="24" width="285" height="140" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="24" y="340" width="285" height="140" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="771" y="24" width="285" height="140" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="771" y="340" width="285" height="140" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="397" y="64" width="285" height="120" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="397" y="290" width="285" height="190" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="48" width="316" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="420" y="48" width="316" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="24" y="248" width="316" height="160" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="runtime" x="420" y="248" width="316" height="160" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="478" width="316" height="130" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="420" y="478" width="316" height="130" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="166.5" y="54">Writer</text>
-    <text class="annotation" x="166.5" y="86">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="166.5" y="106">tcp -p 10000 -h &lt;host 1&gt;:</text>
-    <text class="annotation" x="166.5" y="126">tcp -p 10001 -h &lt;host 2&gt;</text>
-    <text class="label" x="166.5" y="370">Writer</text>
-    <text class="annotation" x="166.5" y="402">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="166.5" y="422">tcp -p 10000 -h &lt;host 1&gt;:</text>
-    <text class="annotation" x="166.5" y="442">tcp -p 10001 -h &lt;host 2&gt;</text>
-    <text class="label" x="913.5" y="54">Reader</text>
-    <text class="annotation" x="913.5" y="86">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="913.5" y="106">tcp -p 10000 -h &lt;host 1&gt;:</text>
-    <text class="annotation" x="913.5" y="126">tcp -p 10001 -h &lt;host 2&gt;</text>
-    <text class="label" x="913.5" y="370">Reader</text>
-    <text class="annotation" x="913.5" y="402">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="913.5" y="422">tcp -p 10000 -h &lt;host 1&gt;:</text>
-    <text class="annotation" x="913.5" y="442">tcp -p 10001 -h &lt;host 2&gt;</text>
-    <text class="label" x="539.5" y="94">Broker node 1</text>
-    <text class="annotation" x="539.5" y="126">DataStorm.Node.Server.Endpoints=</text>
-    <text class="annotation" x="539.5" y="146">tcp -p 10000</text>
-    <text class="label" x="539.5" y="320">Broker node 2</text>
-    <text class="annotation" x="539.5" y="352">DataStorm.Node.Server.Endpoints=</text>
-    <text class="annotation" x="539.5" y="372">tcp -p 10001</text>
-    <text class="annotation" x="539.5" y="392">DataStorm.Node.ConnectTo=</text>
-    <text class="annotation" x="539.5" y="412">tcp -p 10000 -h &lt;host 1&gt;</text>
+    <text class="label" x="182.0" y="80">Writer</text>
+    <text class="annotation code" x="182.0" y="110">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="182.0" y="130">tcp -p 10000 -h &lt;host 1&gt;:</text>
+    <text class="annotation code" x="182.0" y="150">tcp -p 10001 -h &lt;host 2&gt;</text>
+    <text class="label" x="578.0" y="80">Writer</text>
+    <text class="annotation code" x="578.0" y="110">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="578.0" y="130">tcp -p 10000 -h &lt;host 1&gt;:</text>
+    <text class="annotation code" x="578.0" y="150">tcp -p 10001 -h &lt;host 2&gt;</text>
+    <text class="label" x="182.0" y="280">Broker node 1</text>
+    <text class="annotation code" x="182.0" y="310">DataStorm.Node.Server.Endpoints=</text>
+    <text class="annotation code" x="182.0" y="330">tcp -p 10000</text>
+    <text class="label" x="578.0" y="280">Broker node 2</text>
+    <text class="annotation code" x="578.0" y="310">DataStorm.Node.Server.Endpoints=</text>
+    <text class="annotation code" x="578.0" y="330">tcp -p 10001</text>
+    <text class="annotation code" x="578.0" y="350">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="578.0" y="370">tcp -p 10000 -h &lt;host 1&gt;</text>
+    <text class="label" x="182.0" y="510">Reader</text>
+    <text class="annotation code" x="182.0" y="540">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="182.0" y="560">tcp -p 10000 -h &lt;host 1&gt;:</text>
+    <text class="annotation code" x="182.0" y="580">tcp -p 10001 -h &lt;host 2&gt;</text>
+    <text class="label" x="578.0" y="510">Reader</text>
+    <text class="annotation code" x="578.0" y="540">DataStorm.Node.ConnectTo=</text>
+    <text class="annotation code" x="578.0" y="560">tcp -p 10000 -h &lt;host 1&gt;:</text>
+    <text class="annotation code" x="578.0" y="580">tcp -p 10001 -h &lt;host 2&gt;</text>
+    <path class="connector one-way" d="M 24 670 H 60" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="70" y="675">Connection</text>
+    <path class="connector alternate" d="M 176 670 H 212" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="222" y="675">Alternate broker</text>
   </g>
 </svg>

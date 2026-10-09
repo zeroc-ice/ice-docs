@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="226.85"
+  height="266.67"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1080 350"
+  viewBox="0 0 756 288"
   role="img"
   aria-labelledby="title description"
 >
@@ -43,14 +43,29 @@
       font-size: 14px;
       text-anchor: middle;
     }
+    .zone-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 650;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
+    }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
       stroke-width: 1.5;
     }
-    .runtime {
+    .service {
       fill: #eef5ff;
       stroke: #1259d6;
+      stroke-width: 1.75;
+    }
+    .firewall {
+      fill: #eef0f3;
+      stroke: #566174;
       stroke-width: 1.75;
     }
     .network-boundary {
@@ -58,6 +73,11 @@
       stroke: #7a8699;
       stroke-width: 1.5;
       stroke-dasharray: 7 5;
+    }
+    .divider {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
     }
     .connector {
       fill: none;
@@ -73,64 +93,68 @@
       marker-start: url(#arrow);
       marker-end: url(#arrow);
     }
-    .through-firewall {
-      stroke-dasharray: 2 5;
-    }
     .callback {
       stroke-dasharray: 6 4;
       marker-end: url(#arrow);
     }
-    .divider {
-      fill: none;
-      stroke: #a6afbc;
-      stroke-width: 1.25;
+    .through-firewall {
+      stroke-dasharray: 2 5;
+    }
+    .label-knockout {
+      fill: #ffffff;
     }
   </style>
 
-  <rect width="1080" height="350" fill="#ffffff"/>
+  <rect width="756" height="288" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
-    <path class="network-boundary" d="M 350 18 V 330" vector-effect="non-scaling-stroke"/>
+    <path class="network-boundary" d="M 236 16 V 248" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector two-way" d="M 194 196 H 570" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 830 122 H 916" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 916 196 L 830 196" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 144 160 H 328" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 568 68 H 612" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 612 160 H 568" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="24" y="118" width="170" height="108" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="280" y="118" width="160" height="108" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="runtime" x="570" y="66" width="260" height="160" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="divider" d="M 570 146 H 830 M 700.0 146 V 226" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="916" y="94" width="140" height="132" rx="7" vector-effect="non-scaling-stroke"/>
-    <path class="connector through-firewall" d="M 280 196 H 440" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="104" width="120" height="80" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="firewall" x="188" y="48" width="96" height="136" rx="3" vector-effect="non-scaling-stroke"/>
+    <path class="connector through-firewall" d="M 188 160 H 284" vector-effect="non-scaling-stroke"/>
+    <rect class="service" x="328" y="48" width="240" height="136" rx="8" vector-effect="non-scaling-stroke"/>
+    <path class="divider" d="M 328 88 H 568 M 448 88 V 184" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="612" y="48" width="120" height="136" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="label" x="140" y="35">Public network</text>
-    <text class="label" x="900" y="35">Private network</text>
-    <text class="label" x="109.0" y="177.0">Client</text>
-    <text class="label" x="360" y="153">Firewall</text>
-    <text class="label" x="700.0" y="110">Glacier2</text>
-    <text class="label" x="635.0" y="177">
-      <tspan x="635.0" dy="0">Client</tspan>
-      <tspan x="635.0" dy="20">endpoints</tspan>
+    <text class="zone-label" x="224" y="30" text-anchor="end">Public network</text>
+    <text class="zone-label" x="248" y="30">Private network</text>
+    <text class="label" x="84" y="149.5">Client</text>
+    <text class="label" x="236" y="74">Firewall</text>
+    <text class="label" x="448" y="74">Glacier2</text>
+    <text class="label" x="388" y="130">
+      <tspan x="388" dy="0">Client</tspan>
+      <tspan x="388" dy="20">endpoints</tspan>
     </text>
-    <text class="label" x="765.0" y="177">
-      <tspan x="765.0" dy="0">Server</tspan>
-      <tspan x="765.0" dy="20">endpoints</tspan>
+    <text class="label" x="508" y="130">
+      <tspan x="508" dy="0">Server</tspan>
+      <tspan x="508" dy="20">endpoints</tspan>
     </text>
-    <text class="label" x="986.0" y="165.0">Server</text>
-    <text class="annotation" x="109" y="258">IP: 1.2.3.4</text>
-    <rect x="300" y="240" width="120" height="48" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="360" y="258">IP: 5.6.7.8</text>
-    <text class="annotation" x="360" y="280">Port: 4064</text>
-    <text class="annotation" x="635" y="258">IP: 10.0.0.1</text>
-    <text class="annotation" x="635" y="280">Port: 9998</text>
-    <text class="annotation" x="765" y="258">IP: 10.0.0.1</text>
-    <text class="annotation" x="765" y="280">Port: 9999</text>
-    <text class="annotation" x="986" y="258">IP: 10.0.0.2</text>
+    <text class="label" x="672" y="121.5">Server</text>
+    <rect class="label-knockout" x="192" y="192" width="88" height="44" rx="4"/>
+    <text class="annotation" x="84" y="208">IP: 1.2.3.4</text>
+    <text class="annotation" x="236" y="208">IP: 5.6.7.8</text>
+    <text class="annotation" x="236" y="228">Port: 4064</text>
+    <text class="annotation" x="388" y="208">IP: 10.0.0.1</text>
+    <text class="annotation" x="388" y="228">Port: 9998</text>
+    <text class="annotation" x="508" y="208">IP: 10.0.0.1</text>
+    <text class="annotation" x="508" y="228">Port: 9999</text>
+    <text class="annotation" x="672" y="208">IP: 10.0.0.2</text>
+    <path class="connector two-way" d="M 24 272 H 60" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="70" y="277">Bidirectional connection</text>
+    <path class="connector one-way" d="M 270 272 H 306" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="316" y="277">Request</text>
+    <path class="connector callback" d="M 400 272 H 436" vector-effect="non-scaling-stroke"/>
+    <text class="legend-label" x="446" y="277">Callback</text>
   </g>
 </svg>
