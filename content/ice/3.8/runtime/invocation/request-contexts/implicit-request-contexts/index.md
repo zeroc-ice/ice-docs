@@ -21,8 +21,27 @@ be set to the following values:
   `ImplicitContext` class is interlocked, so different threads can concurrently manipulate the context without risking
   data corruption or reading stale values.
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 - `PerThread` The communicator maintains a separate implicit context for each thread. This allows you to propagate
   contexts that depend on the sending thread (for example, to send per-thread transaction IDs).
+
+{% /iflang %}
+
+Any other value makes the creation of the communicator fail with `InitializationException`.
+
+## Using the Implicit Context
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+`getImplicitContext` on the communicator returns its implicit context. The `get`, `put`, `remove`, and `containsKey`
+methods of the implicit context read and update a single entry, and `getContext` and `setContext` read and replace the
+whole context. {% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}With `PerThread`, these methods act on the
+context of the calling thread.{% /iflang %}
+
+{% /iflang %}
+
+{% language-section name="using-the-implicit-context" /%}
 
 ## See Also
 

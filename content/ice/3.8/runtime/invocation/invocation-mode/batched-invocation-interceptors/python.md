@@ -1,12 +1,24 @@
+{% language-section name="mapping-1" %}
+
+```py
+initData.batchRequestInterceptor = lambda request, count, size: request.enqueue()
+```
+
+{% /language-section %}
+
 {% language-section name="mapping-2" %}
 
 ```py
-def enqueue(self, request: Ice.BatchRequest, count: int, size: int):
-    if size + req.getSize() > limit:
-        _ = req.getProxy().ice_flushBatchRequestAsync()
-    req.enqueue()
+maxBatchSize = 64 * 1024  # in bytes
 
-initData.batchRequestInterceptor = enqueue
+
+def interceptor(request: Ice.BatchRequest, count: int, size: int) -> None:
+    if size + request.getSize() > maxBatchSize:
+        request.getProxy().ice_flushBatchRequestsAsync()
+    request.enqueue()
+
+
+initData.batchRequestInterceptor = interceptor
 ```
 
 {% /language-section %}

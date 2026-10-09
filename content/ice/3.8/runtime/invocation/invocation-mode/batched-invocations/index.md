@@ -47,8 +47,8 @@ for these requests.
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 For batched datagram requests, Ice also caps the flush threshold at
-[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties) bytes, or 65507 bytes when that property is not
-set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
+[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) bytes, or 65507 bytes when that
+property is not set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
 
 {% /iflang %}
 
@@ -78,6 +78,14 @@ proxies, and you have three options for manually flushing:
 - Calling `flushBatchRequests` on the connection flushes all batched requests queued by the target connection
 - Calling `flushBatchRequests` on the communicator flushes all batched requests on all connections associated with the
   target communicator
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+The `flushBatchRequests` methods of the connection and the communicator take a `CompressBatch` argument that selects
+whether Ice compresses the flushed batch: `Yes`, `No`, or `BasedOnProxy`, which compresses the batch if at least one of
+its requests was made on a proxy with compression enabled.
+
+{% /iflang %}
 
 {% callout type="note" %}
 

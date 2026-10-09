@@ -5,7 +5,7 @@ WeatherStationPrx weatherStation(
     communicator,
     "ClearSky:tcp -p 4061 -h localhost");
 
-// Configure the proxy to use the bath oneway invocation mode.
+// Configure the proxy to use the batch oneway invocation mode.
 weatherStation = weatherStation.ice_batchOneway();
 
 ...
@@ -25,7 +25,7 @@ while (true) {
 
 {% language-section name="automatically-flushing-batched-requests" %}
 
-A client can track batch request activity, and even implement its own auto-flush logic, by installing a
+A client can track batch request activity, and flush batches before they reach `Ice.BatchAutoFlushSize`, by installing a
 [Batch Invocation Interceptor](../batched-invocation-interceptors).
 
 {% /language-section %}
