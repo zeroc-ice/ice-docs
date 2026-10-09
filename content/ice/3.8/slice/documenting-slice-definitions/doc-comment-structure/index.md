@@ -49,6 +49,8 @@ operation's doc comment:
 Item findItem(Key p, Key s) throws NotFound;
 ```
 
+The compilers warn about a `{@link}` or `@see` tag that names a parameter.
+
 ## General Tags
 
 You can use the following tags in any doc comment.
