@@ -26,8 +26,7 @@ of the Linux, macOS, and Windows packages. To use these compilers, install the a
 
 ### Local Slice
 
-Support for local Slice has been removed. Previously defined local Slice types will need to be defined directly in your
-programming.
+Support for local Slice has been removed. Define your local Slice types directly in your programming language.
 
 ### Operations on Classes
 
@@ -46,7 +45,8 @@ class with a proxy to that interface.
 
 ### Optional Classes
 
-Optional fields or parameters can no longer be a `class` or contain (including nesting) a `class`.
+The type of an optional field or parameter can no longer be a class, or a type that holds class instances such as a
+sequence of classes or a struct with a class field.
 
 ```diff
 class Person
@@ -68,6 +68,10 @@ class Node
 -   optional(1) Node next; // error!
 }
 ```
+
+An Ice 3.8 application cannot unmarshal an optional class value sent by an Ice 3.7 application: the unmarshaling fails
+with a `MarshalException`. Stop setting these optional fields and parameters in your Ice 3.7 applications before you
+upgrade the applications that receive them.
 
 Several upgrade options are available depending on the application needs and constraints.
 
@@ -111,15 +115,8 @@ Slice definitions.
 
 ### Interface by Value
 
-Support for passing an interface by value was removed. This feature was previously deprecated.
-
-```diff
-interface Foo
-{
--   void passFooByValue(Foo foo); // error!
-    void passFooProxy(Foo* foo);
-}
-```
+Support for passing an interface by value was removed. This feature was previously deprecated. Pass a class instance
+instead: define a class with the fields you need, and use this class as the parameter type.
 
 ### Identifier Collisions
 
@@ -171,7 +168,7 @@ The `Ice.ACM.*` properties have subsequently been removed.
 -Ice.ACM.Close=2
 ```
 
-Ice 3.7 applications that wish to interoperate with Ice 3.8 are recommended to set the following properties.
+Set the following properties in an Ice 3.7 application that communicates with Ice 3.8 applications.
 
 ```diff
 +Ice.ACM.Heartbeat=3
@@ -194,10 +191,6 @@ Ice 3.8 adds three connection timeouts, for [inactivity](../runtime/connection-m
 [graceful closure](../runtime/connection-management/connection-closure). You configure them with the
 [Ice.Connection properties](../property-reference/ice-connection-properties); in most cases, the defaults are fine.
 
-### Heartbeat Callback
-
-The `setHeartbeatCallback` operation has been removed from the `Connection` class.
-
 ### Dispatch Flow Control
 
 By default, Ice 3.8 stops reading from a connection once 100 dispatches of requests received on this connection are in
@@ -207,29 +200,22 @@ JavaScript does not implement this limit.
 
 ### Default Object Adapter
 
-A default Object Adapter can now be associated with a Communicator. This greatly simplifies the creation of
-bidirectional connections. See [Bidirectional Connections](../runtime/connection-management/bidirectional-connections)
-for more information.
+If your application calls `setAdapter` on a connection to receive callbacks over this connection, call
+`setDefaultObjectAdapter` on the communicator instead, before the communicator creates this connection. See
+[Bidirectional Connections](../runtime/connection-management/bidirectional-connections).
 
 ## Published Endpoints
 
-The computation of an Object Adapter’s published endpoints has been updated.
+An object adapter computes its default published endpoints differently in Ice 3.8.
 
-With the exception of some filtering for loopback addresses, the previous algorithm would produce endpoints containing
-the IP addresses for all network interfaces; some of which may be internal and unreachable. The new algorithm is simpler
-and uses the Fully Qualified Domain Name (FQDN) of the system. See
-[Object Adapter Endpoints](../runtime/dispatch/object-adapter-endpoints) for more information.
+In Ice 3.7, when an endpoint listened on all the network interfaces of the host, the default published endpoints listed
+the IP address of each interface, some of which could be internal and unreachable. In Ice 3.8, the default published
+endpoints use a single host: the value of the new `_adapter_.PublishedHost` property, which defaults to the name of the
+host. See [Object Adapter Endpoints](../runtime/dispatch/object-adapter-endpoints).
 
-A new property `_adapter_.PublishedHost` has been added. It is used to compute the default published endpoints.
+If you set `_adapter_.PublishedEndpoints` only to limit the published endpoints, try the new default.
 
-{% callout type="note" %}
-
-Users who are setting `_adapter_.PublishedEndpoints` to limit the published endpoints are encouraged to try the new
-default.
-
-{% /callout %}
-
-Additionally, the `refreshPublishedEndpoints` method has been removed from `ObjectAdapter`.
+The `refreshPublishedEndpoints` method has been removed from `ObjectAdapter`.
 
 ## Secure Proxy Options, Properties, and Methods
 
