@@ -31,7 +31,7 @@ namespace VisitorCenter
             string name,
             Dictionary<string, string>? context = null);
 
-        Tasks.Task<string> GreetAsync(
+        Task<string> GreetAsync(
             string name,
             Dictionary<string, string>? context = null,
             IProgress<bool>? progress = null,
@@ -178,7 +178,9 @@ public override void Write(string[] text, Ice.Current current)
 If you throw an arbitrary C# exception (such as a `ArgumentException`), the Ice runtime catches the exception and then
 returns an `UnknownException` to the client.
 
-If you throw an Ice runtime exception, such as `MarshalException`, the client receives an `UnknownLocalException`.
+If you throw a [dispatch exception](../../runtime/local-and-dispatch-exceptions#dispatch-exceptions), such as
+`ObjectNotExistException`, the client receives a dispatch exception with the same reply status. If you throw any other
+Ice local exception, such as `MarshalException`, the client receives an `UnknownLocalException`.
 
 The server-side Ice runtime does not validate user exceptions thrown by an operation implementation to ensure they are
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
@@ -255,12 +257,14 @@ call to the `Async` method ("on the way out"). The advantage of this behavior is
 with the code that handles the task (instead of being present twice, once where the `Async` method is called, and again
 where the task is handled).
 
-There are two exceptions to this rule:
+There are three exceptions to this rule:
 
 - if you destroy the communicator and then make an asynchronous invocation, the `Async` method throws
   `CommunicatorDestroyedException` directly.
-- a call to an `Async` method can throw `TwowayOnlyException`. An `Async` method throws this exception if you call an
-  operation that has a return value or out-parameters on a oneway proxy.
+- an `Async` method throws `TwowayOnlyException` directly if you call an operation that has a return value,
+  out-parameters, or an exception specification on a oneway proxy.
+- an `Async` method throws `OnewayOnlyException` directly if you call an operation with the
+  [`oneway`](../slice-metadata-directives#oneway) metadata on a twoway proxy.
 
 {% callout type="note" %}
 
@@ -280,9 +284,8 @@ transport. The task completes with an exception if an error occurs before the re
 
 ### Flow Control
 
-Asynchronous method invocations never block the thread that calls the asynchronous proxy method. The Ice runtime checks
-to see whether it can write the request to the local transport. If it can, it does so immediately in the caller's
-thread. Alternatively, if the local transport does not have sufficient buffer space to accept the request, the Ice
+Asynchronous method invocations never block the thread that calls the asynchronous proxy method. If the local transport
+can accept the request without blocking, the Ice runtime writes the request in the caller's thread. Otherwise, the Ice
 runtime queues the request internally for later transmission in the background.
 
 This creates a potential problem: if a client sends many asynchronous requests at the time the server is too busy to
@@ -291,11 +294,9 @@ keep up with them, the requests pile up in the client-side runtime until, eventu
 The API provides a way for you to implement flow control by counting the number of requests that are queued so, if that
 number exceeds some threshold, the client stops invoking more operations until some of the queued operations have
 drained out of the local transport. One of the optional arguments to every asynchronous proxy invocation is a
-`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when the request has been sent,
-with a boolean argument indicating whether the request was sent synchronously. This argument is true if the entire
-request could be transferred to the local transport in the caller's thread without blocking, otherwise the argument is
-false. Furthermore, a value of true indicates that Ice is calling `Report` recursively from the calling thread, whereas
-a value of false indicates that Ice is calling `Report` from an Ice thread pool thread.
+`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when it has sent the request,
+with a boolean argument that is true if Ice wrote the entire request to the local transport in the caller's thread
+without blocking, and false if Ice queued the request and sent it later.
 
 Here's a simple example to demonstrate the flow control feature:
 

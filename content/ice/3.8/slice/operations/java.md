@@ -314,11 +314,10 @@ transport. The future completes exceptionally if an error occurs before the requ
 
 ### Flow Control
 
-Asynchronous method invocations never block the thread that calls the asynchronous proxy method. The Ice runtime checks
-to see whether it can write the request to the local transport. If it can, it does so immediately in the caller's
-thread. (In that case, `InvocationFuture.sentSynchronously` returns true.) Alternatively, if the local transport does
-not have sufficient buffer space to accept the request, the Ice runtime queues the request internally for later
-transmission in the background. (In that case, `InvocationFuture.sentSynchronously` returns false.)
+Asynchronous method invocations never block the thread that calls the asynchronous proxy method. If the local transport
+can accept the request without blocking, the Ice runtime writes the request in the caller's thread, and
+`InvocationFuture.sentSynchronously` returns true. Otherwise, the Ice runtime queues the request internally for later
+transmission in the background, and `sentSynchronously` returns false.
 
 This creates a potential problem: if a client sends many asynchronous requests at the time the server is too busy to
 keep up with them, the requests pile up in the client-side run time until, eventually, the client runs out of memory.
