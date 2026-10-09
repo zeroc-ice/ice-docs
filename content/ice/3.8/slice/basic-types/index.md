@@ -6,16 +6,16 @@ title: Basic Types
 
 Slice provides a number of built-in basic types, as shown in this table:
 
-| **Type** | **Range of Mapped Type** | **Size of Mapped Type** |
-| -------- | ------------------------ | ----------------------- |
-| `bool`   | `false` or `true`        | ≥ 1 bit                 |
-| `byte`   | -128 to 127 or 0 to 255  | ≥ 8 bits                |
-| `short`  | -2¹⁵ to 2¹⁵ - 1          | ≥ 16 bits               |
-| `int`    | -2³¹ to 2³¹ - 1          | ≥ 32 bits               |
-| `long`   | -2⁶³ to 2⁶³ - 1          | ≥ 64 bits               |
-| `float`  | IEEE single-precision    | ≥ 32 bits               |
-| `double` | IEEE double-precision    | ≥ 64 bits               |
-| `string` | All Unicode characters   | Variable-length         |
+| **Type** | **Range of Mapped Type**                              | **Size of Mapped Type** |
+| -------- | ----------------------------------------------------- | ----------------------- |
+| `bool`   | `false` or `true`                                     | ≥ 1 bit                 |
+| `byte`   | -128 to 127 or 0 to 255                               | ≥ 8 bits                |
+| `short`  | -2{% sup %}15{% /sup %} to 2{% sup %}15{% /sup %} - 1 | ≥ 16 bits               |
+| `int`    | -2{% sup %}31{% /sup %} to 2{% sup %}31{% /sup %} - 1 | ≥ 32 bits               |
+| `long`   | -2{% sup %}63{% /sup %} to 2{% sup %}63{% /sup %} - 1 | ≥ 64 bits               |
+| `float`  | IEEE single-precision                                 | ≥ 32 bits               |
+| `double` | IEEE double-precision                                 | ≥ 64 bits               |
+| `string` | All Unicode characters                                | Variable-length         |
 
 The range of `byte` depends on whether the language mapping uses a signed or an unsigned type for it.
 
