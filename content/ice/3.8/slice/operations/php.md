@@ -89,10 +89,14 @@ interface ClientToServer
 The Ice extension gives a `ClientToServer` proxy the following methods:
 
 ```php
-function op1($i, $f, $b, $s, $context=null);
-function op2($ns, $ss, $st, $context=null);
-function op3($proxy, $context=null);
+function op1($i, $f, $b, $s);
+function op2($ns, $ss, $st);
+function op3($proxy);
 ```
+
+Each method also accepts an optional last argument, an associative array that holds the
+[request context](../../runtime/invocation/request-contexts/explicit-request-contexts) of the invocation. When you pass
+this argument, it must be an array: Ice rejects `null` with an `InvalidArgumentException`.
 
 Given a proxy to a `ClientToServer` object, the client code can pass parameters as in the following example:
 
@@ -147,10 +151,12 @@ interface ServerToClient
 The Ice extension gives a `ServerToClient` proxy the following methods:
 
 ```php
-function op1(&$i, &$f, &$b, &$s, $context=null);
-function op2(&$ns, &$ss, &$st, $context=null);
-function op3(&$proxy, $context=null);
+function op1(&$i, &$f, &$b, &$s);
+function op2(&$ns, &$ss, &$st);
+function op3(&$proxy);
 ```
+
+These methods also accept the optional request context argument after the out parameters.
 
 Given a proxy to a `ServerToClient` object, the client code can receive the results as in the following example:
 
