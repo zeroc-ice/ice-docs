@@ -14,8 +14,8 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 
 {% language-section name="endpoint-list-syntax-3" %}
 
-If you’re using C++ with a static build, you need to load the WebSocket transports explicitly; otherwise, the
-communicator has no `ws` or `wss` transport:
+If you’re using C++ with a static build, you need to load the WebSocket transports (`ws` and `wss`) explicitly as
+follows:
 
 ```cpp
 Ice::InitializationData initData;
@@ -29,7 +29,7 @@ Ice::CommunicatorPtr communicator = Ice::initialize(initData);
 
 {% language-section name="endpoint-list-syntax-4" %}
 
-If you’re using C++ with a static build, you need to load `Ice::wsPluginFactory()`, as shown above for `ws` endpoints.
+If you’re using C++ with a static build, the WebSocket plug-in loaded above for `ws` endpoints provides `wss` as well.
 
 {% /language-section %}
 
