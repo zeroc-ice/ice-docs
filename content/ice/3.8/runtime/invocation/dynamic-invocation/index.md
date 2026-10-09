@@ -4,10 +4,10 @@ languages: [cpp, csharp, java, python, swift]
 ---
 
 A typed proxy encodes the parameters of an operation and decodes its results with code generated from the Slice
-definition of the operation. The `ice_invoke` method of [ObjectPrx](api:Ice/ObjectPrx) invokes an operation by name
-instead: the application supplies the encoded in-parameters and receives the encoded reply. An application that forwards
-requests it does not decode, or that calls operations without the generated code for the target interface, uses
-`ice_invoke`.
+definition of the operation. The [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) method of [ObjectPrx](api:Ice/ObjectPrx)
+invokes an operation by name instead: the application supplies the encoded in-parameters and receives the encoded reply.
+An application that forwards requests it does not decode, or that calls operations without the generated code for the
+target interface, uses `ice_invoke`.
 
 ## Invoking an Operation
 

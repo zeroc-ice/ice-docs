@@ -1,6 +1,6 @@
 {% language-section name="invoking-an-operation" %}
 
-`ObjectPrx` provides an asynchronous `ice_invoke`:
+`ObjectPrx` provides an asynchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke):
 
 ```swift
 extension ObjectPrx {
@@ -78,5 +78,8 @@ struct Forwarder: Dispatcher {
     }
 }
 ```
+
+The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Ice/Forwarder) provides a complete
+example of a forwarding server in Swift.
 
 {% /language-section %}

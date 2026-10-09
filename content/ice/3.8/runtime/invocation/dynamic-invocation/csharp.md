@@ -1,6 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
-`Ice.ObjectPrx` provides a synchronous `ice_invoke` and an asynchronous `ice_invokeAsync`:
+`Ice.ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and an asynchronous
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync):
 
 ```csharp
 namespace Ice;
@@ -97,6 +98,9 @@ internal sealed class Forwarder : Ice.Object
     }
 }
 ```
+
+The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Ice/Forwarder) provides a complete
+example of a forwarding server in C#.
 
 Ice provides the `Ice.Blobject` and `Ice.BlobjectAsync` base classes for backward compatibility: they implement
 `dispatchAsync` by calling an `ice_invoke` or `ice_invokeAsync` method that you override. New code implements
