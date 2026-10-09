@@ -148,7 +148,7 @@ export function SideNav({
         // stretches to the row, capped at the viewport. The scrollbar's space
         // stays reserved while the tree fits, so the labels don't rewrap when
         // opening a group makes the rail scroll.
-        className="sticky top-20 hidden max-h-[calc(100vh-6.5rem)] w-66 shrink-0 scrollbar-gutter-stable overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
+        className="sticky top-22 hidden max-h-[calc(100vh-7rem)] w-66 shrink-0 scrollbar-gutter-stable overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
       >
         {tree}
       </nav>

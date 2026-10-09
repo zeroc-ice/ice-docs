@@ -222,7 +222,7 @@ export const DocumentShell = ({
       {/* A long outline scrolls on its own, so the actions under it stay in
           view. */}
       {showAside && (
-        <aside className="sticky top-20 ml-8 hidden h-[calc(100vh-6.5rem)] w-58 shrink-0 flex-col gap-2 xl:flex">
+        <aside className="sticky top-22 ml-8 hidden h-[calc(100vh-7rem)] w-58 shrink-0 flex-col gap-2 xl:flex">
           <PageOutline
             headings={toc}
             languages={languages}
