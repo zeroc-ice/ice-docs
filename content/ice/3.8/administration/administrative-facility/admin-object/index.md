@@ -5,13 +5,17 @@ title: The admin Object
 ## Overview of the admin Object
 
 When the Administrative Facility is enabled, you can configure Ice to host an administrative object in the
-[Ice.Admin object adapter](../creating-the-admin-object), or you can programmatically host this object in your own
-object adapter.
+[Ice.Admin object adapter](../creating-the-admin-object){% iflang langs="cpp,csharp,java,python,swift" %}, or you can
+programmatically host this object in your own object adapter{% /iflang %}.
 
 In this documentation, we refer to the administrative object as the `admin`_object_.
 
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
 You can retrieve a proxy to the admin object associated with your communicator, if any, by calling `getAdmin` on this
 communicator.
+
+{% /iflang %}
 
 ## Facets of the admin Object
 
@@ -30,8 +34,9 @@ the `admin` object:
 - the [Metrics](../metrics-facet) facet
 
 An application can [control which facets are installed](../filtering-administrative-facets) with a configuration
-property. An application can also [install its own facets](../custom-administrative-facets) if necessary. Administrative
-facets don’t inherit from a common Slice interface.
+property. {% iflang langs="cpp,csharp,java,python,swift" %}An application can also
+[install its own facets](../custom-administrative-facets) if necessary.{% /iflang %} Administrative facets don’t inherit
+from a common Slice interface.
 
 ## See Also
 
