@@ -2,28 +2,31 @@
 title: Slice Loaders
 ---
 
-When Ice unmarshals a Slice-defined class or exception, it starts by locating and creating an instance of the mapped
-class, using the parameterless constructor of the mapped class.
+When Ice unmarshals a Slice-defined class or exception, it starts by locating the mapped class and creating an instance
+of this class.
 
-The abstraction that drives this locate and create process is called the Slice loader. You can install your own custom
-Slice loader on a communicator by setting the `sliceLoader` field in [InitializationData](api:Ice/InitializationData).
-Such a custom Slice loader allows you to instantiate custom (derived) implementations during unmarshaling. This custom
-Slice loader is always in addition to an internal Slice loader that Ice uses when you don't set a custom Slice loader or
-when your Slice loader returns null.
+The abstraction that drives this locate and create process is called the Slice loader. Each communicator has a default
+Slice loader, implemented by Ice, that locates the generated class for a Slice type ID.
 
-In most languages, generated classes for Slice classes and exceptions register themselves at startup with a default
-Slice loader implemented by Ice, and you don't need to do anything to help Ice locate these generated classes. However,
-in Java and MATLAB, there is no such registration at startup, and you need to help Ice locate these generated classes
-when:
+{% language-section name="default-slice-loader" /%}
 
-- you remap either the class name or an enclosing module using the `java:identifier`, `java:package`, or
-  `matlab:identifier` metadata; or
-- you assign a compact ID to your class
+## Custom Slice Loaders
 
-You help Ice locate these classes by installing a Slice loader in `InitializationData`, just like when you provide a
-custom Slice loader. Ice for Java and Ice for MATLAB provide implementations of `SliceLoader` for this purpose. For
-example, you can use the [ClassSliceLoader](api:Ice/ClassSliceLoader) implementation to create a Slice loader for one or
-more generated classes (typically classes with remapped names or compact IDs).
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+You can install your own custom Slice loader on a communicator to create instances of your own classes, typically
+classes derived from the generated classes, during unmarshaling. The communicator calls your Slice loader first, and
+falls back on its default Slice loader when your Slice loader doesn't create an instance.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,js,matlab,swift" %}
+
+The communicator calls your Slice loader for both Slice classes and Slice exceptions.
+
+{% /iflang %}
+
+{% language-section name="custom-slice-loaders" /%}
 
 ## See Also
 
