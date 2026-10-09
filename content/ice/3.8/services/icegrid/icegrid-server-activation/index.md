@@ -67,20 +67,37 @@ or when the session is destroyed.
 
 ## Activating Servers with Specific User IDs
 
-On Unix platforms you can activate server processes with specific effective user IDs, provided that the IceGrid node is
-running as root. If the IceGrid node does not run as root, servers are always activated with the effective user ID of
-the IceGrid node process. (The same is true for Windows — servers always run with the same user ID as the IceGrid node
-process.)
+An IceGrid node that runs as root on Unix, including macOS, runs each server under the operating system account that the
+server's user string, described below, maps to. On Windows, or when the node does not run as root, the node runs every
+server under its own account, and fails to load a server whose user string maps to another account.
 
-For the remainder of this section, we assume that the node runs as root on a Unix machine.
+### The User String
 
-The `user` attribute of the [server descriptor](../icegrid-xml-reference/server-descriptor-element) specifies the user
-ID for a server. If this attribute is not specified and the activation mode is not `session`, the default value is
-`nobody`. Otherwise, the default value is `${session.id}` if the activation mode is `session`.
+For each server, the node computes a user string:
 
-Since individual users often have different account names and user IDs on different machines, IceGrid provides a
-mechanism to map the value of the `user` attribute in the server descriptor to a user account. To do this, you must
-configure the node to use a user account mapper object. This object must implement the `IceGrid::UserAccountMapper`
+- When the [server descriptor](../icegrid-xml-reference/server-descriptor-element) sets the `user` attribute, the user
+  string is the value of this attribute.
+- When the `user` attribute is not set and the node runs as root on Unix, the user string is the session ID for a server
+  with the `session` activation mode, and `nobody` for a server with any other activation mode.
+
+The node computes the user string of a server with the `session` activation mode when a session allocates the server;
+until then, this user string is empty.
+
+The session ID is the user ID for a session created with a user ID and password, and the distinguished name of the
+client certificate for a session created from a secure connection. It is also the value of the `${session.id}`
+[reserved variable](../using-descriptor-variables-and-parameters).
+
+When a user account mapper is configured, the node maps a non-empty user string to an account name, whatever the
+activation mode. Without a mapper, the user string is the account name. The node refuses to run a server as root unless
+[IceGrid.Node.AllowRunningServersAsRoot](../../../property-reference/icegrid-properties#icegrid.node.allowrunningserversasroot)
+permits it.
+
+### User Account Mappers
+
+A user account mapper maps user strings to operating system accounts. Mapping is useful because an account name can
+differ from one machine to another, and because a session ID, such as a distinguished name, is not an account name. A
+user account mapper implements the
+[`IceGrid::UserAccountMapper`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceGrid_1_1UserAccountMapper.html)
 interface:
 
 ```slice
@@ -93,30 +110,39 @@ interface UserAccountMapper
 }
 ```
 
-The IceGrid node invokes `getUserAccount` and passes the value of the server descriptor's `user` attribute. The return
-value is the name of the user account.
+The node calls `getUserAccount` with the user string and runs the server under the returned account. When the mapper
+throws `UserAccountNotFoundException`, the node fails to load the server.
 
-IceGrid provides a built-in file-based user account mapper that you can configure for the node and the registry. The
-file contains any number of user-account-ID pairs. Each pair appears on a separate line, with white space separating the
-user account from the identifier. For example, the file shown below contains two entries that map two distinguished
-names to the user account `lisa`:
+IceGrid provides a built-in file-based user account mapper, which you can configure for a node and for the registry.
+Each line of the file contains an account name, white space, and the user string that maps to this account. The user
+string is the rest of the line and can contain spaces. A `#` starts a comment that runs to the end of the line. When the
+same user string appears on several lines, the last line wins. The file-based mapper throws
+`UserAccountNotFoundException` for any user string missing from the file, including `nobody`.
+
+The following file maps the `user` attribute `lisa` of a server descriptor, the user ID `lisa` of a session created with
+a password, and the distinguished name of Lisa's client certificate to the local account `lisa`, and maps `nobody` to
+itself for the other servers that set no `user` attribute:
 
 ```text
-lisa O=ZeroC\\, Inc., OU=Ice, CN=Lisa
-lisa O=ZeroC\\, Inc., OU=Ice, CN=Lisa S.
+lisa lisa
+lisa CN=Lisa,OU=Ice,O=ZeroC
+nobody nobody
 ```
 
-The distinguished names must be unique. If the same distinguished name appears several times in a file, the last entry
-is used.
+With this file, a node running as root runs a server whose descriptor sets `user="lisa"` under the account `lisa`. It
+also runs a server with the `session` activation mode and no `user` attribute under `lisa` when a session created from a
+secure connection with Lisa's certificate allocates the server.
 
 You can specify the path of the user account file with the
-[IceGrid.Registry.UserAccounts](../../../property-reference/icegrid-properties) property for the registry and the
-[IceGrid.Node.UserAccounts](../../../property-reference/icegrid-properties) property for a node.
+[IceGrid.Registry.UserAccounts](../../../property-reference/icegrid-properties#icegrid.registry.useraccounts) property
+for the registry and the
+[IceGrid.Node.UserAccounts](../../../property-reference/icegrid-properties#icegrid.node.useraccounts) property for a
+node.
 
-To configure an IceGrid node to use the IceGrid registry file-based user account mapper, you need to set the
-[IceGrid.Node.UserAccountMapper](../../../property-reference/icegrid-properties) property to the well-known proxy
-`IceGrid/RegistryUserAccountMapper`. Alternatively, you can set this property to the proxy of your own user account
-mapper object. Note that if this property is set, the node ignores the setting of `IceGrid.Node.UserAccounts`.
+To configure an IceGrid node to use the registry's file-based user account mapper, set the
+[IceGrid.Node.UserAccountMapper](../../../property-reference/icegrid-properties#icegrid.node.useraccountmapper) property
+to the well-known proxy `IceGrid/RegistryUserAccountMapper`. You can also set this property to the proxy of your own
+user account mapper object. When this property is set, the node ignores `IceGrid.Node.UserAccounts`.
 
 ## Automating Endpoint Registration
 
