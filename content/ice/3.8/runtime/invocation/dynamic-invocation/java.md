@@ -1,7 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
-`ObjectPrx` provides a synchronous `ice_invoke` and an asynchronous `ice_invokeAsync`, each with an overload that
-accepts a request context:
+`ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and an asynchronous
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync), each with an overload that accepts a request context:
 
 ```java
 package com.zeroc.Ice;
@@ -92,6 +92,9 @@ final class Forwarder implements com.zeroc.Ice.Object {
     }
 }
 ```
+
+The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/forwarder) provides a complete example
+of a forwarding server in Java.
 
 Ice provides the `Blobject` and `BlobjectAsync` interfaces for backward compatibility: they implement `dispatch` by
 calling an `ice_invoke` or `ice_invokeAsync` method that you implement. New code implements `dispatch` instead.

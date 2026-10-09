@@ -1,7 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
-`Ice::ObjectPrx` provides a synchronous `ice_invoke` and two asynchronous `ice_invokeAsync` overloads, one returning a
-future and one accepting callbacks:
+`Ice::ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and two asynchronous
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync) overloads, one returning a future and one accepting callbacks:
 
 ```cpp
 namespace Ice
@@ -123,6 +123,9 @@ private:
     Ice::ObjectPrx _target;
 };
 ```
+
+The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Ice/forwarder) provides a complete example
+of a forwarding server in C++.
 
 Ice provides the `Ice::Blobject`, `Ice::BlobjectArray`, `Ice::BlobjectAsync`, and `Ice::BlobjectArrayAsync` base classes
 for backward compatibility: they implement `dispatch` by calling an `ice_invoke` or `ice_invokeAsync` function that you

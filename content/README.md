@@ -11,8 +11,8 @@ page and its overlays combine.
 - Add `?lang=<language>` to switch the reader to that mapping.
 - Link to a type in the API reference by module and name: `[Communicator](api:Ice/Communicator)`. The reader gets the
   type's page in their language's API reference, as `api-links.yaml` lists it, or plain text where it lists none; add a
-  new type there. Where the text means one language's API, such as the DataStorm C++ classes, link to that page
-  directly.
+  new type there. Link to a method by its type and name, as in `[ice_invoke](api:Ice/ObjectPrx.ice_invoke)`. Where the
+  text means one language's API, such as the DataStorm C++ classes, link to that page directly.
 
 ## Headings
 

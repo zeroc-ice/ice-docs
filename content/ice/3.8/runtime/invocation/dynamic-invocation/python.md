@@ -1,6 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
-`Ice.ObjectPrx` provides a synchronous `ice_invoke` and an asynchronous `ice_invokeAsync`:
+`Ice.ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and an asynchronous
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync):
 
 ```py
 class ObjectPrx:
