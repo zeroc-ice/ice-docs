@@ -175,7 +175,7 @@ completed, meaning the future completed with an `Ice.InvocationCanceledException
 
 An in parameter is mapped to a MATLAB parameter with the same name; its type is the mapped MATLAB type.
 
-For example, a Slice parameter `string name` is mapped to a MATLAB parameter `name` with type `char` and size `(1 :)`.
+For example, a Slice parameter `string name` is mapped to a MATLAB parameter `name` with type `char` and size `(1, :)`.
 The rules are the same as for [Fields](../fields).
 
 ### Out Parameters and Return Values

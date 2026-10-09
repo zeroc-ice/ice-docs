@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
-In Java, a middleware is a concrete class that implements `Ice.Object` and delegates to another dispatcher called
-“next”. For example:
+In Java, a middleware is a concrete class that implements `com.zeroc.Ice.Object` and delegates to another dispatcher
+called “next”. For example:
 
 ```java
 // A typical Java middleware class

@@ -168,7 +168,7 @@ the correct proxy type as shown above.
 ### Skeleton Classes
 
 On the server side, interfaces map to _skeleton_ classes. A skeleton is a class that has an abstract method for each
-operation on the corresponding interface. For example, consider our Slice definition for the `Node` interface:
+operation on the corresponding interface. For example, consider our Slice definition for the `Greeter` interface:
 
 ```slice
 module VisitorCenter
@@ -266,7 +266,7 @@ public class Chatbot : VisitorCenter.GreeterDisp_
 
 Note that `Chatbot` inherits from `VisitorCenter.GreeterDisp_`, one of the two skeleton classes.
 
-As far as Ice is concerned, the `Chatbot` class must implement only a single method: the abstract method `Name` that it
+As far as Ice is concerned, the `Chatbot` class must implement only a single method: the abstract method `Greet` that it
 inherits from the skeleton class. This makes the servant class a concrete class that you can instantiate. You can add
 other methods and fields as you see fit to support your implementation.
 

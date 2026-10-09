@@ -84,9 +84,7 @@ results in the following additional code being generated into `Widget.h`:
 
 ```cpp
 #ifndef WIDGET_API
-#   if defined(ICE_STATIC_LIBS)
-#       define WIDGET_API /**/
-#   ifdef WIDGET_API_EXPORTS
+#   if defined(WIDGET_API_EXPORTS)
 #       define WIDGET_API ICE_DECLSPEC_EXPORT
 #   else
 #       define WIDGET_API ICE_DECLSPEC_IMPORT
@@ -110,8 +108,8 @@ With GCC and clang, they are defined as:
 
 ```cpp
 #elif defined(__GNUC__) || defined(__clang__)
-#   define ICE_DECLSPEC_EXPORT __attribute__((visibility ("default")))
-#   define ICE_DECLSPEC_IMPORT __attribute__((visibility ("default")))
+#   define ICE_DECLSPEC_EXPORT [[gnu::visibility("default")]]
+#   define ICE_DECLSPEC_IMPORT [[gnu::visibility("default")]]
 ```
 
 The generated .cpp file (`Widget.cpp` in our example) defines `SYMBOL_EXPORTS`; this way, you don't need to do anything

@@ -20,8 +20,8 @@ internal class AuthorizationMiddleware : Ice.Object
 }
 ```
 
-The constructor accepts the “next” dispatcher and other data, and `dispatch` dispatches incoming requests by delegating
-to “next”.
+The constructor accepts the “next” dispatcher and other data, and `dispatchAsync` dispatches incoming requests by
+delegating to “next”.
 
 You install a middleware on an object adapter by calling `use`:
 

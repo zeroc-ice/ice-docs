@@ -5,7 +5,7 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side C# Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated proxy class contains two methods for this operation. To invoke an
+[operation](./) on an interface, the generated proxy interface contains two methods for this operation. To invoke an
 operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
@@ -51,7 +51,7 @@ string greeting = await greeter.GreetAsync("Alice");  // Get greeting via RPC
 
 ### Sync and Async Methods
 
-For each operation, the Slice compiler generates 2 methods on the proxy class:
+For each operation, the Slice compiler generates 2 methods on the proxy interface:
 
 - a “sync” method with the same name as the operation. When you call this method, your thread waits synchronously until
   the invocation completes. A successful invocation completes with a return value (which can be void), while an
@@ -239,7 +239,7 @@ As you can see, the `getName` operation generates a `GetNameAsync` method that a
 - a cancellation token
 
 The `GetNameAsync` method sends (or queues) an invocation of `getName`. This method does not block the calling thread.
-It returns a `Task` that you typically await. Here's an example that calls `getNameAsync`:
+It returns a `Task` that you typically await. Here's an example that calls `GetNameAsync`:
 
 ```csharp
 EmployeesPrx e = ...;

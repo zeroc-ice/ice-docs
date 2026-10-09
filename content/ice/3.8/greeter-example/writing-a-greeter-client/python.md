@@ -63,7 +63,8 @@ servers, caching these connections, and managing configuration properties. We al
 Our client, like most Ice applications, creates a single communicator.
 
 We define main as an `async def` function to build an asynchronous application. By passing the current asyncio event
-loop to `Ice.initialize`, we ensure that the communicator integrates with this loop for all asynchronous operations.
+loop to the `Ice.Communicator` constructor, we ensure that the communicator integrates with this loop for all
+asynchronous operations.
 
 It is important to always destroy the communicator before exiting the application. This guarantees that network
 connections are properly closed and other clean-up tasks are performed. In an asynchronous application, the simplest way

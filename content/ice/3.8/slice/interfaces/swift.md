@@ -4,8 +4,8 @@
 
 ### Proxy Protocols
 
-On the client side, a Slice interface maps to an empty Swift protocol. A public extension of this protocol provides two
-methods for each Slice operation of your Slice interface.
+On the client side, a Slice interface maps to an empty Swift protocol. A public extension of this protocol provides an
+async method for each Slice operation of your Slice interface.
 
 Consider the following Slice interface:
 

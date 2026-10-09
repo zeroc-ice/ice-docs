@@ -42,9 +42,9 @@ The most common type of JavaScript servants are classes that implement skeleton 
 These generated skeleton classes reimplement `dispatch` by:
 
 - unmarshaling input parameters
-- calling the pure virtual member function whose name matches the operation name carried by the request (you implement
-  this pure virtual function in the servant class)
-- creating a response from the return value and out parameters returned by this function
+- calling the abstract method whose name matches the operation name carried by the request (you implement this method in
+  the servant class)
+- creating a response from the return value and out parameters returned by this method
 
 They also implement or reimplement the 4 operations defined on `Object`.
 

@@ -124,7 +124,7 @@ M.Location = class {
 }
 ```
 
-Generates the following JavaScript code:
+And the corresponding TypeScript declarations:
 
 ```typescript
 export class Location {
