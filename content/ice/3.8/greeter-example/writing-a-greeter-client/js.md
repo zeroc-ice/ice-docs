@@ -15,18 +15,22 @@ You can find the complete source code for this example in the
 The first step when writing a TypeScript application with Ice is to compile the Slice definitions for this application
 with the Slice to JavaScript compiler (`slice2js`).
 
-Here, we compile the `Greeter.ice` Slice file created earlier. We recommend including this compilation step directly in
-your project’s build process, as demonstrated in the TypeScript demo programs.
+Here, we compile the `Greeter.ice` Slice file created earlier:
 
-{% callout type="note" %}
+```shell
+slice2js --typescript Greeter.ice
+```
 
-These demos use a simple npm script that runs both slice2js and the TypeScript compiler together.
+This produces two files: a JavaScript module, `Greeter.js`, and a TypeScript declaration file, `Greeter.d.ts`. The
+declaration file describes the `GreeterPrx` class we instantiate in the code below, and the TypeScript compiler needs it
+to check our client code. `slice2js` generates `Greeter.d.ts` only when you pass `--typescript`. See
+[Using the Slice Compiler](../../slice/using-the-slice-compiler?lang=js) for the options `slice2js` accepts.
 
-{% /callout %}
-
-The Slice compiler generates two files from `Greeter.ice`: a TypeScript declaration file, `Greeter.d.ts`, and a
-JavaScript module, `Greeter.js`. The declaration file provides the APIs that our client code will call, so generating it
-is an essential first step in the development process.
+We recommend that you include this Slice compilation step in your build, like we demonstrate for the TypeScript demo
+programs: the demo’s `build.ts` script runs esbuild with the `@zeroc/slice2js` esbuild plug-in, which runs
+`slice2js --typescript` on `Greeter.ice` before esbuild bundles `client.ts` into `client.js`. esbuild strips the
+TypeScript types without checking them; the demo’s `npm run typecheck` script runs the TypeScript compiler
+(`tsc --noEmit`) to check them.
 
 ## Client Implementation
 
