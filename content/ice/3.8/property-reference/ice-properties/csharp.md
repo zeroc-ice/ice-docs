@@ -2,11 +2,13 @@
 
 ## Ice.CacheMessageBuffers
 
-### Synopsis {% id="ice.cachemessagebuffers-synopsis" %}
+{% property-synopsis %}
 
 `Ice.CacheMessageBuffers=num`
 
-### Description {% id="ice.cachemessagebuffers-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than 0, the proxies cache message buffers for future reuse. This can improve performance and
 reduce the amount of garbage produced by Ice internals that the garbage collector would eventually spend time to
@@ -22,33 +24,41 @@ for dispatches.
 
 {% /callout %}
 
+{% /property-description %}
+
 {% /language-section %}
 
 {% language-section name="ice.config" %}
 
 ## Ice.Compression.Level
 
-### Synopsis {% id="ice.compression.level-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Compression.Level=num`
 
-### Description {% id="ice.compression.level-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the bzip2 compression level to use when [compressing protocol messages](../../protocol/protocol-compression).
 Values range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
 that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
+{% /property-description %}
+
 ## Ice.Config
 
-### Synopsis {% id="ice.config-synopsis" %}
+{% property-synopsis %}
 
 ```config
 Ice.Config=config_file[,config_file,...]
 Ice.Config=1
 ```
 
-### Description {% id="ice.config-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
 `--Ice.Config=config_file`.
@@ -62,13 +72,17 @@ the configuration files listed.
 Configuration files use a simple [syntax](../../runtime/properties-and-configuration/configuration-file-syntax)
 consisting of _name_=_value_ pairs with support for comments and escaping.
 
+{% /property-description %}
+
 ## Ice.ConsoleListener
 
-### Synopsis {% id="ice.consolelistener-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ConsoleListener=num`
 
-### Description {% id="ice.consolelistener-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 When the communicator uses Ice's default trace logger, `1` adds Ice's console listener to
 `System.Diagnostics.Trace.Listeners`. This listener writes messages to `stderr`. With `0`, the logger continues writing
@@ -79,30 +93,40 @@ Ice consults this property when no logger is supplied in `InitializationData`, `
 
 The default value is `1`.
 
+{% /property-description %}
+
 {% /language-section %}
 
 {% language-section name="ice.httpproxyport" %}
 
 ## Ice.HTTPProxyHost
 
-### Synopsis {% id="ice.httpproxyhost-synopsis" %}
+{% property-synopsis %}
 
 `Ice.HTTPProxyHost=addr`
 
-### Description {% id="ice.httpproxyhost-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP
 proxy server for all outgoing (client) connections.
 
+{% /property-description %}
+
 ## Ice.HTTPProxyPort
 
-### Synopsis {% id="ice.httpproxyport-synopsis" %}
+{% property-synopsis %}
 
 `Ice.HTTPProxyPort=num`
 
-### Description {% id="ice.httpproxyport-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 The port number of the HTTP proxy server. If not specified, the default value is `1080`.
+
+{% /property-description %}
 
 {% /language-section %}
 
@@ -110,11 +134,13 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 ## Ice.InitPlugins
 
-### Synopsis {% id="ice.initplugins-synopsis" %}
+{% property-synopsis %}
 
 `Ice.InitPlugins=num`
 
-### Description {% id="ice.initplugins-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
 initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
@@ -122,27 +148,37 @@ this order. An application may need to set this property to zero in order to int
 has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
 plug-in manager to complete the initialization process. If not defined, the default value is 1.
 
+{% /property-description %}
+
 ## Ice.IPv4
 
-### Synopsis {% id="ice.ipv4-synopsis" %}
+{% property-synopsis %}
 
 `Ice.IPv4=num`
 
-### Description {% id="ice.ipv4-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
 value is 1.
 
+{% /property-description %}
+
 ## Ice.IPv6
 
-### Synopsis {% id="ice.ipv6-synopsis" %}
+{% property-synopsis %}
 
 `Ice.IPv6=num`
 
-### Description {% id="ice.ipv6-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
 value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
+
+{% /property-description %}
 
 {% /language-section %}
 
@@ -150,11 +186,13 @@ value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
 
 ## Ice.PluginLoadOrder
 
-### Synopsis {% id="ice.pluginloadorder-synopsis" %}
+{% property-synopsis %}
 
 `Ice.PluginLoadOrder=names`
 
-### Description {% id="ice.pluginloadorder-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the order in which Ice creates the plug-ins installed through configuration, with `Ice.Plugin.name`
 properties. `names` lists plug-in names separated by commas or white space. Ice creates the plug-ins in `names` first,
@@ -164,50 +202,68 @@ This property does not affect the plug-ins installed through `InitializationData
 `Ice.Plugin.name` property supplies their arguments: Ice creates these plug-ins in list order, before any plug-in
 installed through configuration.
 
+{% /property-description %}
+
 ## Ice.PreferIPv6Address
 
-### Synopsis {% id="ice.preferipv6address-synopsis" %}
+{% property-synopsis %}
 
 `Ice.PreferIPv6Address=num`
 
-### Description {% id="ice.preferipv6address-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
 resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
 value is 0.
 
+{% /property-description %}
+
 ## Ice.PreloadAssemblies
 
-### Synopsis {% id="ice.preloadassemblies-synopsis" %}
+{% property-synopsis %}
 
 `Ice.PreloadAssemblies=num`
 
-### Description {% id="ice.preloadassemblies-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is set to a value larger than 0, the Ice runtime will try to load all the assemblies referenced by the process
 during communicator initialization, otherwise the referenced assemblies will be initialized lazily. The default value
 is 0.
 
+{% /property-description %}
+
 ## Ice.PrintAdapterReady
 
-### Synopsis {% id="ice.printadapterready-synopsis" %}
+{% property-synopsis %}
 
 `Ice.PrintAdapterReady=num`
 
-### Description {% id="ice.printadapterready-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
 activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
 
+{% /property-description %}
+
 ## Ice.PrintProcessId
 
-### Synopsis {% id="ice.printprocessid-synopsis" %}
+{% property-synopsis %}
 
 `Ice.PrintProcessId=num`
 
-### Description {% id="ice.printprocessid-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is set to a value larger than 0, the process ID is printed on standard output upon startup.
+
+{% /property-description %}
 
 {% /language-section %}
 
@@ -215,11 +271,13 @@ If `num` is set to a value larger than 0, the process ID is printed on standard 
 
 ## Ice.ServerIdleTime
 
-### Synopsis {% id="ice.serveridletime-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ServerIdleTime=num`
 
-### Description {% id="ice.serveridletime-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
 pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
@@ -237,13 +295,17 @@ time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) t
 
 {% /callout %}
 
+{% /property-description %}
+
 ## Ice.SOCKSProxyHost
 
-### Synopsis {% id="ice.socksproxyhost-synopsis" %}
+{% property-synopsis %}
 
 `Ice.SOCKSProxyHost=addr`
 
-### Description {% id="ice.socksproxyhost-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
 proxy server for all outgoing (client) connections.
@@ -255,49 +317,65 @@ uses the SOCKS proxy.
 
 {% /callout %}
 
+{% /property-description %}
+
 ## Ice.SOCKSProxyPort
 
-### Synopsis {% id="ice.socksproxyport-synopsis" %}
+{% property-synopsis %}
 
 `Ice.SOCKSProxyPort=num`
 
-### Description {% id="ice.socksproxyport-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 The port number of the SOCKS proxy server. If not specified, the default value is `1080`.
 
+{% /property-description %}
+
 ## Ice.StdErr
 
-### Synopsis {% id="ice.stderr-synopsis" %}
+{% property-synopsis %}
 
 `Ice.StdErr=filename`
 
-### Description {% id="ice.stderr-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
 `Ice.StdErr` and `Ice.StdOut` can name the same file.
 
+{% /property-description %}
+
 ## Ice.StdOut
 
-### Synopsis {% id="ice.stdout-synopsis" %}
+{% property-synopsis %}
 
 `Ice.StdOut=filename`
 
-### Description {% id="ice.stdout-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
 `Ice.StdErr` and `Ice.StdOut` can name the same file.
 
+{% /property-description %}
+
 ## Ice.ThreadPriority
 
-### Synopsis {% id="ice.threadpriority-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ThreadPriority=value`
 
-### Description {% id="ice.threadpriority-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 `value` specifies a thread priority. Threads created by the Ice runtime are created with the specified priority by
 default. Leaving this property unset causes the runtime to create threads with the system default priority. This
@@ -310,5 +388,7 @@ The named values can also include the `ThreadPriority.` prefix, for example `Thr
 You can separately override the default priorities for the client and server thread pools using
 [Ice.ThreadPool._name_.ThreadPriority](../ice-threadpool-properties#ice.threadpool.name.threadpriority) as well as for a
 specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-adapter-properties).
+
+{% /property-description %}
 
 {% /language-section %}

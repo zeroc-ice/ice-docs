@@ -143,26 +143,20 @@ interface CircadianRhythm
 
     void modify(    TimeOfDay startTime,        // Error
                     TimeOfDay endTime,
-                out timeOfDay prevStartTime,
+                out TimeOfDay prevStartTime,
                 out TimeOfDay prevEndTime);
 }
 ```
 
 Operations in the same interface must have different names, regardless of what type and number of parameters they have.
-This restriction exists because overloaded functions cannot sensibly be mapped to languages without built-in support for
-overloading.
-
-{% callout type="note" %}
-
-Name mangling is not an option in this case: while it works fine for compilers, it is unacceptable to humans.
-
-{% /callout %}
+A request identifies the operation it invokes by name only, and many of the languages Ice maps to, such as Python,
+JavaScript, and Ruby, do not support overloading.
 
 ## Idempotent Operations
 
-Some operations, such as `getTime` in the `Clock` interface, do not modify the state of the object they operate on. They
-are the conceptual equivalent of C++ `const` member functions. Similarly, `setTime` does modify the state of the object,
-but is idempotent. You can indicate this in Slice as follows:
+An operation is idempotent when two successive invocations have the same effect as a single invocation. Operations that
+do not modify the state of the object, such as `getTime` in the `Clock` interface, are idempotent; so is `setTime`, even
+though it modifies the state. You mark such operations with the `idempotent` keyword:
 
 ```slice
 interface Clock
@@ -171,12 +165,6 @@ interface Clock
     idempotent void setTime(TimeOfDay time);
 }
 ```
-
-This marks the `getTime` and `setTime` operations as idempotent. An operation is idempotent if two successive
-invocations of the operation have the same effect as a single invocation. For example, `x = 1;` is an idempotent
-operation because it does not matter whether it is executed once or twice — either way, `x` ends up with the value 1. On
-the other hand, `x += 1;` is not an idempotent operation because executing it twice results in a different value for `x`
-than executing it once. Obviously, any read-only operation is idempotent.
 
 The `idempotent` keyword is useful because it allows the Ice runtime to be more aggressive when performing
 [automatic retries](../../runtime/invocation/automatic-retries) to recover from errors. Specifically, Ice guarantees
@@ -193,5 +181,11 @@ _at-most-once_ semantics for operation invocations:
   everything is fine and the application never notices the (temporary) failure. Only if the second attempt fails need
   the runtime report the error back to the application. (The number of retries can be increased with an Ice
   configuration parameter.)
+
+{% callout type="note" %}
+
+Datagram invocations over UDP are an exception: duplicated UDP datagrams can violate at-most-once semantics.
+
+{% /callout %}
 
 {% language-section name="mapping" /%}

@@ -10,7 +10,7 @@ import { getLanguage } from '@/context/state';
 
 export const HeadingCopyButton = ({ id }: { id: string }) => (
   <button
-    className="h-5 pl-2 opacity-0 duration-100 ease-in-out group-hover:opacity-100"
+    className="h-5 pl-2 opacity-0 duration-100 ease-in-out group-hover:opacity-100 focus-visible:opacity-100"
     aria-label="Copy link to heading"
     onClick={(event) => {
       // A heading in one mapping's section is linked in that mapping, so the

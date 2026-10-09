@@ -215,23 +215,14 @@ Ice validates the arguments to a proxy invocation at runtime and reports any typ
 
 ### Nil Parameters
 
-Some Slice types naturally have "empty" or "not there" semantics. Specifically, sequences, dictionaries, and strings all
-can be `nil`, but the corresponding Slice types do not have the concept of a null value. To make life with these types
-easier, whenever you pass `nil` as a parameter or return value of type sequence, dictionary, or string, the Ice runtime
-automatically sends an empty sequence, dictionary, or string to the receiver.
-
-This behavior is useful as a convenience feature: especially for deeply-nested data types, members that are sequences,
-dictionaries, or strings automatically arrive as an empty value at the receiving end. This saves you having to
-explicitly initialize, for example, every string element in a large sequence before sending the sequence in order to
-avoid a run-time error. Note that using null parameters in this way does _not_ create null semantics for Slice
-sequences, dictionaries, or strings. As far as the object model is concerned, these do not exist (only _empty_
-sequences, dictionaries, and strings do). For example, it makes no difference to the receiver whether you send a string
-as `nil` or as an empty string: either way, the receiver sees an empty string.
+Slice sequences and dictionaries have no null value. When you pass `nil` for a sequence or dictionary, whether as a
+parameter, a field, or a sequence element, Ice sends an empty sequence or dictionary. For an
+[optional](#optional-parameters) parameter or field, `nil` instead leaves the value unset.
 
 ### Optional Parameters
 
-[Optional parameters](./) use the same mapping as required parameters. The only difference is that `Ice::Unset` can be
-passed as the value of an optional parameter or return value. Consider the following operation:
+[Optional parameters](./) use the same mapping as required parameters. The only difference is that `nil` can be passed
+as the value of an optional parameter or return value to leave it unset. Consider the following operation:
 
 ```slice
 optional(1) int execute(optional(2) string p, out optional(3) float value);
@@ -241,16 +232,13 @@ A client can invoke this operation as shown below:
 
 ```ruby
 i, v = proxy.execute("--file log.txt")
-i, v = proxy.execute(Ice::Unset)
+i, v = proxy.execute(nil)
 
-if v != Ice::Unset
+if v != nil
     puts "value = " + v.to_s
 end
 ```
 
-A well-behaved program must always compare an optional parameter to `Ice::Unset` prior to using its value. Keep in mind
-that the `Ice::Unset` marker value has different semantics than `nil`. Since `nil` is a legal value for certain Slice
-types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is set.
-An optional parameter set to `nil` is considered to be set.
+Check an optional parameter against `nil` before using its value.
 
 {% /language-section %}

@@ -32,16 +32,18 @@ Here is an example to demonstrate the use of this element:
 
 ```xml
 <application name="Simple">
-   <properties id="Debug">
+    <properties id="Debug">
         <property name="Ice.Trace.Network" value="1"/>
-   </properties>
+    </properties>
 
-    <server id="MyServer" exe="./server">
-        <properties>
-            <properties refid="Debug"/>
-            <property name="AppProperty" value="1"/>
-        </properties>
-    </server>
+    <node name="Node1">
+        <server id="MyServer" exe="./server">
+            <properties>
+                <properties refid="Debug"/>
+                <property name="AppProperty" value="1"/>
+            </properties>
+        </server>
+    </node>
 </application>
 ```
 

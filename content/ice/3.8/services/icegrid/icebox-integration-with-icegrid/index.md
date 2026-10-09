@@ -55,7 +55,7 @@ If you are familiar with [templates](../icegrid-templates) in general, an IceBox
             </service>
         </service-template>
         <node name="Node1">
-            <icebox id="IceBoxServer" endpoints="default"
+            <icebox id="IceBoxServer"
                 exe="/opt/Ice/bin/icebox" activation="on-demand">
                 <service-instance template="ServiceTemplate" name="Service1"/>
             </icebox>
@@ -82,7 +82,7 @@ These properties can be defined in the `service-instance` element, as shown belo
     <application name="IceBoxApp">
         ...
         <node name="Node1">
-            <icebox id="IceBoxServer"endpoints="default"
+            <icebox id="IceBoxServer"
                 exe="/opt/Ice/bin/icebox" activation="on-demand">
                 <service-instance template="ServiceTemplate" name="Service1">
                     <properties>
@@ -112,7 +112,7 @@ A more sophisticated use of templates involves instantiating a service template 
         </service-template>
         <server-template id="ServerTemplate">
             <parameter name="id"/>
-            <icebox id="${id}" endpoints="default"
+            <icebox id="${id}"
                 exe="/opt/Ice/bin/icebox" activation="on-demand">
                 <service-instance template="ServiceTemplate" name="Service1"/>
             </icebox>

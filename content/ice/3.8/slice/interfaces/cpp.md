@@ -52,10 +52,9 @@ public:
 Your client code interacts directly with the _proxy class_, `M::SimplePrx` in the example above. More generally, the
 generated proxy class for an interface in module `M` is the C++ proxy class `M::<interface-name>Prx`.
 
-In the client's address space, an instance of the proxy class is the local ambassador for a remote instance of an Ice
-object that implements `Simple` and is known as a _proxy class instance_, or simply _proxy_. All the details about the
-server-side object, such as its address, what transport to use, and its object identity are encapsulated in that
-instance.
+In the client, an instance of the proxy class is the local ambassador for a remote instance of an Ice object that
+implements `Simple` and is known as a _proxy class instance_, or simply _proxy_. All the details about the server-side
+object, such as its address, what transport to use, and its object identity are encapsulated in that instance.
 
 {% callout type="note" %}
 

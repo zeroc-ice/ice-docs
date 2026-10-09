@@ -16,6 +16,7 @@ import {
   sideNavKey
 } from '@/lib/docs-model/nav';
 import { useLanguage, useMounted } from '@/context/state';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 // The groups the reader has open live in session storage, per tab, keyed by
 // version (keys are titles and hrefs, which differ between versions), so they
@@ -244,6 +245,9 @@ function Drawer({ children }: { children: React.ReactNode }) {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-14 shrink-0 items-center justify-end border-b border-hairline px-2">
+            <div className="sm:hidden">
+              <ThemeToggle />
+            </div>
             <button
               type="button"
               onClick={() => dialogRef.current!.close()}
@@ -351,13 +355,13 @@ function Tree({
               ) : (
                 <>
                   <span className="w-5 shrink-0" />
-                  <Link
+                  <RailLink
                     href={node.href!}
                     aria-current={active ? 'page' : undefined}
                     className={label}
                   >
                     {node.title}
-                  </Link>
+                  </RailLink>
                 </>
               )}
             </div>
@@ -393,5 +397,34 @@ function Tree({
         );
       })}
     </ul>
+  );
+}
+
+// The rail lists every page of the version, so prefetching the entries on
+// screen, as a link does by default, would fetch dozens of pages on every load,
+// nearly all unread. A pointer over an entry is the intent worth acting on, so
+// the page is fetched then, and is there by the click: Next's hover-triggered
+// prefetch, where `null` turns the default back on once the pointer arrives.
+// https://nextjs.org/docs/app/guides/prefetching#hover-triggered-prefetch
+function RailLink({
+  href,
+  children,
+  ...props
+}: {
+  href: string;
+  'aria-current'?: 'page';
+  className: string;
+  children: React.ReactNode;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link
+      href={href}
+      prefetch={hovered ? null : false}
+      onPointerEnter={() => setHovered(true)}
+      {...props}
+    >
+      {children}
+    </Link>
   );
 }

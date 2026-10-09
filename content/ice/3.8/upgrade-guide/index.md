@@ -141,6 +141,20 @@ interface Document
 
 The generated C++ function is then named `getTemplate`.
 
+### Deprecated Metadata
+
+The `deprecated` [metadata directive](../slice/deprecating-slice-definitions) replaces `deprecate`. The Ice 3.8 Slice
+compilers still accept `deprecate`, but you cannot apply both to the same definition.
+
+```diff
+interface Greeter
+{
+-   ["deprecate:use greet instead"]
++   ["deprecated:use greet instead"]
+    string sayHello();
+}
+```
+
 ## Connection Management
 
 ### Active Connection Management
@@ -234,8 +248,6 @@ Proxies should not contain a mix of secure and non-secure endpoints.
 Proxy creation has been simplified, allowing you to create a proxy from a communicator and endpoint string.
 
 {% language-section name="proxy-creation-1" /%}
-
-{% language-section name="proxy-creation-2" /%}
 
 ## Property Validation
 
@@ -393,3 +405,5 @@ service with a LMDB database created by IceStorm 3.7.
 
 - The Objective-C mapping has been removed. You should upgrade to the Swift mapping.
 - The Java Compat mapping has been removed. You should upgrade to the Java mapping.
+
+{% language-section name="mapping" /%}

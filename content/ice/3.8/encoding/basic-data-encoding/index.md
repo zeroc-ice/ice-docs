@@ -4,18 +4,19 @@ title: Basic Data Encoding
 
 ## Encoding for Sizes
 
-Many of the types involved in the Ice encoding, as well as several [protocol message](../../protocol/protocol-messages)
-components, have an associated size or count. A size is a non-negative number. Sizes and counts are encoded in one of
-two ways:
+The Ice encoding uses a compact representation, called a `size`, for most of the counts that appear in encoded data,
+such as the number of elements of a sequence or the number of bytes of a string. A `size` is an integer in the range 0
+to 2³¹−1, encoded in one of two forms:
 
-1. If the number of elements is less than 255, the size is encoded as a single `byte` indicating the number of elements.
-2. If the number of elements is greater than or equal to 255, the size is encoded as a `byte` with value `255`, followed
-   by an `int` indicating the number of elements.
+1. A single byte that encodes the `size` for values from 0 to 254.
+2. A single byte set to `255`, followed by an `int` that encodes the `size` (5 bytes total).
+
+The single-byte form is for a `size` below 255; the five-byte form is accepted for any `size`.
 
 Using this encoding to indicate sizes is significantly cheaper than always using an `int` to store the size, especially
-when marshaling sequences of short strings: counts of up to 254 require only a single byte instead of four. This comes
-at the expense of counts greater than 254, which require five bytes instead of four. However, for sequences or strings
-of length greater than 254, the extra byte is insignificant.
+when marshaling sequences of short strings: sizes of up to 254 fit in a single byte instead of four. This comes at the
+expense of sizes greater than 254, which require five bytes instead of four. However, for sequences or strings of length
+greater than 254, the extra byte is insignificant.
 
 ## Encoding for Encapsulations
 
@@ -36,11 +37,6 @@ struct Encapsulation
 The `size` field specifies the size of the encapsulation in bytes (including the `size`, `major`, and `minor` fields).
 The `major` and `minor` fields specify the encoding version of the data contained in the encapsulation. The version
 information is followed by `size-6` bytes of encoded data.
-
-All the data in an encapsulation is context-free, that is, nothing inside an encapsulation can refer to anything outside
-the encapsulation. This property allows encapsulations to be forwarded among address spaces as a blob of data.
-
-Encapsulations can be nested, that is, contain other encapsulations.
 
 An encapsulation can be empty, in which case the value of `size` is 6.
 
@@ -69,15 +65,16 @@ version 1.0, but bit flags in the leading byte of each slice determine its forma
 
 #### Type ID
 
-The initial slice of a class or exception, representing the instance's most-derived type, always includes a type ID. For
-an exception, the type ID in the initial slice is encoded as a string. For a class, the type ID in the initial slice can
-either be encoded as a string, an index (if the same type ID has already been encoded in the current encapsulation), or
-a compact ID.
+Every slice of an exception includes its type ID, encoded as a string.
 
-Whether any subsequent slices include some form of type ID depends on the
-[format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) with which the value was encoded: to
-facilitate slicing an instance to a less-derived type, the sliced format includes a type ID in every slice, whereas the
-compact format excludes type IDs in subsequent slices to conserve space while sacrificing the slicing feature.
+The initial slice of a class, representing the instance's most-derived type, always includes a type ID. When the class
+has a compact type ID, the slice encodes this compact ID as a size. Otherwise, the slice encodes the type ID as a string
+the first time this type ID appears in the encapsulation; when the type ID string was already encoded in this
+encapsulation, the slice encodes instead an index to this earlier type ID, as a size. The sender's
+[format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) determines whether subsequent slices of a
+class include a type ID: to facilitate slicing an instance to a less-derived type, the sliced format includes a type ID
+in every slice, whereas the compact format excludes type IDs in subsequent slices to conserve space while sacrificing
+the slicing feature.
 
 #### Optional Fields
 
@@ -116,7 +113,8 @@ The table below shows how to interpret the bit flags in the leading byte of a sl
 
 | **Bit number** | **Description**                                             |
 | -------------- | ----------------------------------------------------------- |
-| 0-1            | 0 = no type ID is encoded for the slice                     |
+| 0-1            | Type ID of a class slice:                                   |
+|                | 0 = no type ID is encoded for the slice                     |
 |                | 1 = type ID is encoded as a string                          |
 |                | 2 = type ID is an index encoded as a size                   |
 |                | 3 = type ID is a compact ID encoded as a size               |
@@ -128,6 +126,8 @@ The table below shows how to interpret the bit flags in the leading byte of a sl
 | 7              | Reserved for future use                                     |
 
 _Bit flags for a slice._
+
+An exception slice leaves bits 0-1 at 0.
 
 ## Encoding for Basic Types
 
@@ -149,9 +149,9 @@ _Encoding for basic types._
 
 ## Encoding for Strings
 
-Strings are encoded as a [size](#encoding-for-sizes), followed by the string contents in
-[UTF-8](https://en.wikipedia.org/wiki/UTF-8) format. Strings are not null-terminated. An empty string is encoded with a
-size of zero.
+A string is encoded as a [size](#encoding-for-sizes) holding the number of bytes in its
+[UTF-8](https://en.wikipedia.org/wiki/UTF-8) encoding, followed by those bytes. An empty string is encoded as a size of
+zero.
 
 ## Encoding for Sequences
 

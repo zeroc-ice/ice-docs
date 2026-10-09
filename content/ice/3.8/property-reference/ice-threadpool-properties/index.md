@@ -28,11 +28,13 @@ This page describes configuration properties for the client and server thread po
 
 ## Ice.ThreadPool._name_.Serialize
 
-### Synopsis {% id="ice.threadpool.name.serialize-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ThreadPool.name.Serialize=num`
 
-### Description {% id="ice.threadpool.name.serialize-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 If `num` is a value greater than 0, the `Client` or `Server` [thread pool](../../runtime/threading-model) serializes all
 messages from each connection. It is not necessary to enable this feature in a thread pool whose maximum size is 1
@@ -45,13 +47,17 @@ impact on latency and throughput. If not defined, the default value is 0.
 
 See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 
+{% /property-description %}
+
 ## Ice.ThreadPool._name_.Size
 
-### Synopsis {% id="ice.threadpool.name.size-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ThreadPool.name.Size=num`
 
-### Description {% id="ice.threadpool.name.size-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 [Thread pools](../../runtime/threading-model) in Ice can grow and shrink dynamically, based on an average load factor. A
 thread pool always has at least 1 thread and may grow as load increases up to the maximum size specified by
@@ -65,13 +71,17 @@ If not specified, the default value is 1 for both properties.
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
 
+{% /property-description %}
+
 ## Ice.ThreadPool._name_.SizeMax
 
-### Synopsis {% id="ice.threadpool.name.sizemax-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ThreadPool.name.SizeMax=num`
 
-### Description {% id="ice.threadpool.name.sizemax-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 `num` is the maximum number of threads for the `Client` or `Server` [thread pool](../../runtime/threading-model). Refer
 to the [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) property for more information on configuring the size of
@@ -90,13 +100,17 @@ runtime.
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
 
+{% /property-description %}
+
 ## Ice.ThreadPool._name_.SizeWarn
 
-### Synopsis {% id="ice.threadpool.name.sizewarn-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ThreadPool.name.SizeWarn=num`
 
-### Description {% id="ice.threadpool.name.sizewarn-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Whenever `num` threads are active in the `Client` or `Server` [thread pool](../../runtime/threading-model), a "low on
 threads" warning is printed. The default value is 0, which disables the warning.
@@ -104,15 +118,19 @@ threads" warning is printed. The default value is 0, which disables the warning.
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
 
+{% /property-description %}
+
 {% language-section name="ice.threadpool.name.sizewarn" /%}
 
 ## Ice.ThreadPool._name_.ThreadIdleTime
 
-### Synopsis {% id="ice.threadpool.name.threadidletime-synopsis" %}
+{% property-synopsis %}
 
 `Ice.ThreadPool.name.ThreadIdleTime=num`
 
-### Description {% id="ice.threadpool.name.threadidletime-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Ice can automatically reap idle threads in the `Client` or `Server` [thread pool](../../runtime/threading-model) to
 conserve resources. This property specifies the number of seconds a thread must be idle before it is reaped. If not
@@ -131,5 +149,7 @@ with [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) active threads and 
 
 To monitor the thread pool activities of the Ice runtime, enable the [Ice.Trace.ThreadPool](../ice-trace-properties)
 property.
+
+{% /property-description %}
 
 {% language-section name="ice.threadpool.name.threadidletime" /%}

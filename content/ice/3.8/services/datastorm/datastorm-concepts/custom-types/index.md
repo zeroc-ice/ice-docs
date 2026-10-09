@@ -58,15 +58,15 @@ If your types are **not defined in Slice**, you must provide specializations of 
 
 ## Additional Requirements
 
-For **partial updates**, DataStorm needs to clone values. By default, DataStorm performs cloning using the type’s **copy
-constructor**.
+DataStorm keeps keys, update tags, and filter criteria in ordered maps, so their types must be ordered by `std::less`,
+which uses `operator<` unless you specialize it. A `Value` type must be default-constructible and copyable.
 
-In some cases, using the copy constructor may not be appropriate — for example, when the value is a `std::shared_ptr` or
-another reference type that should not be deep-copied.
-
-The [DataStorm::Cloner](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Cloner.html) template allows
-applications to customize how values are cloned for their own types. You can specialize this template to define a custom
-clone behavior that suits your data types.
+For **partial updates**, an updater modifies a clone of the previous value. This clone must be an independent copy,
+since the previous value may remain in use. DataStorm creates the clone with the
+[DataStorm::Cloner](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Cloner.html) template: by default,
+`Cloner` copies the value with its copy constructor, and for a `std::shared_ptr` to a Slice class, it calls `ice_clone`
+on the object, which makes a shallow copy. If this default does not produce an independent copy of your `Value` type,
+specialize `Cloner` for this type.
 
 ## Stringification
 

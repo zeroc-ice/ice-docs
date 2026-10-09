@@ -88,7 +88,7 @@ administrative sessions. If this restriction is too limiting, you must use two r
 The Ice distribution includes [default server templates](../icegrid-templates) for Ice services such as IceStorm and
 Glacier2 that simplify the task of deploying these servers in an IceGrid domain.
 
-The relevant portion from the file `config/template.xml` for Glacier2 is shown below:
+The file `config/templates.xml` defines the Glacier2 template as follows:
 
 ```xml
 <!-- Creates a Glacier2 router with activation mode "always" -->
@@ -140,18 +140,14 @@ identities, such as `Glacier2Demo.Glacier2/router`. The router proxy used by cli
 
 {% callout type="note" %}
 
-We recommend you keep the default instance name (Glacier2) unless you find yourself in the unusual situation where the
-same program needs to communicate with multiple Glacier2 routers.
+We recommend you keep the template's default instance name (`${application}.Glacier2`) unless the application deploys
+several Glacier2 routers: the template uses the instance name as the server ID, so each router needs its own.
 
 {% /callout %}
 
 In order to refer to the `Glacier2` template in your application, you must have already configured the registry to use
 the `config/templates.xml` file as your [default templates](../icegrid-templates), or copied the template into the XML
 file describing your application.
-
-Note that IceGrid cannot start a Glacier2 router if the router's security configuration requires that a passphrase be
-entered. In this situation, you have no choice but to start the router yourself so that you can provide the passphrase
-when prompted.
 
 ## See Also
 

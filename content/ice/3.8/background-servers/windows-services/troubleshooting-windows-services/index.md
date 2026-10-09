@@ -60,38 +60,43 @@ review the access rights of files and directories required by the service.
 
 ## Windows Firewall Interference
 
-Your choice of user account determines whether you receive any notification when the Windows Firewall blocks the ports
-that are used by your service. For example, if you use `Local Service` as we
-[recommended](../installing-a-windows-service), you will not see a Windows Security Alert dialog.
+Windows Firewall blocks inbound connections by default, so a service that accepts connections needs an inbound rule that
+allows them. Create this rule when you install the service; `iceserviceinstall` does not create it. For example, this
+`New-NetFirewallRule` command, in an elevated PowerShell session, allows connections to a Glacier2 router on TCP port
+4063:
 
-If you are not prompted to unblock your service, you will need to manually add an exception in Windows Firewall. For
-example, follow the steps below to unblock the ports of a Glacier2 router service:
+```powershell
+New-NetFirewallRule -DisplayName "Glacier2 router" -Direction Inbound -Action Allow `
+    -Program "C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\glacier2router.exe" `
+    -Protocol TCP -LocalPort 4063
+```
 
-1. Open the Windows Firewall Settings panel and navigate to the Exceptions panel.
-2. Select "Add program..."
-3. Select "Browse," navigate to the Glacier2 router executable, and click "OK."
-
-Note that adding an exception for a program unblocks all ports on which the program listens. Review the endpoint
-configurations of your services carefully to ensure that no unnecessary ports are opened.
-
-For services listening on one or a few fixed ports, you could also create port exceptions in your Windows Firewall.
-Refer to the Windows Firewall documentation for details.
+A block rule takes precedence over an allow rule. If the service remains unreachable, look in the Inbound Rules of the
+Windows Firewall with Advanced Security console (`wf.msc`) for block rules on the service executable, and delete them.
+See
+[Windows Firewall rules](https://learn.microsoft.com/en-us/windows/security/operating-system-security/network-security/windows-firewall/rules)
+for the rule types and their precedence.
 
 ## IceGrid Node Performance Monitoring Issues
 
 The IceGrid node uses Windows' `Perflib` facility to obtain statistics about the CPU utilization of its host for
 [load balancing](../../../services/icegrid/load-balancing) purposes. Occasionally, the IceGrid node may log the
-following warning message:
+following warning message when it starts:
 
 ```text
-warning: Unable to lookup the performance counter name
+warning: Unable to lookup the performance counter name:
+<error description>
+This usually occurs when you do not have sufficient privileges
 ```
 
-This message is an indication that the node does not have sufficient privileges to access a key in the Windows registry:
+The second line is the description Windows provides for the error. One cause is that the node's user account cannot read
+the following key in the Windows registry:
 
 ```text
 HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib
 ```
+
+After logging this warning, the node reports a load average of 0 until you restart it.
 
 As part of its installation procedure, the [iceserviceinstall](../using-the-ice-service-installer) utility modifies the
 permissions of this registry key to grant read access to the node's designated user account. If you are trying to change
@@ -107,6 +112,10 @@ wish to modify the permissions of this registry key manually, follow these steps
 
 Another way to grant the node's user account with the necessary access rights is to add it to the
 `Performance Monitor Users` group.
+
+After you correct the access rights, restart the IceGrid node and check that it no longer logs this warning. The
+[icegridadmin](../../../services/icegrid/icegridadmin-command-line-tool) command `node load NAME` prints the load
+averages the node reports.
 
 ## See Also
 

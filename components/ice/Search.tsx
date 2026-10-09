@@ -44,6 +44,11 @@ export function Search({ version }: { version: DocsVersion }) {
   );
   const records = index?.key === version.path ? index.pages : null;
 
+  // The header controls render only after mount, so `navigator` exists here.
+  const hotkey = /mac|iphone|ipad|ipod/i.test(navigator.userAgent)
+    ? '⌘K'
+    : 'Ctrl+K';
+
   // ⌘K / Ctrl-K from anywhere. The modal dialog closes itself on Escape.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -142,7 +147,7 @@ export function Search({ version }: { version: DocsVersion }) {
         </svg>
         <span className="hidden lg:inline">Search</span>
         <kbd className="hidden rounded border border-black/15 px-1 text-[10px] xl:inline dark:border-white/20">
-          ⌘K
+          {hotkey}
         </kbd>
       </button>
 

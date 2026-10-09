@@ -1,10 +1,12 @@
 {% language-section name="mapping" %}
 
-### Synopsis {% id="ice.plugin.name-synopsis" %}
+{% property-synopsis %}
 
 `Ice.Plugin.name=assembly:class [args]`
 
-### Description {% id="ice.plugin.name-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Defines a C# plug-in to be installed during communicator initialization. The `assembly` component can be a partially or
 fully qualified assembly name, or an assembly path name.
@@ -52,5 +54,7 @@ including already-loaded assemblies, probing paths and assembly-resolution callb
 A matching `Ice.Plugin.name` property can also supply arguments for a factory installed through
 `InitializationData.pluginFactories`. Ice ignores the first token of the value, which holds the entry point of a plug-in
 loaded through configuration, and passes the remaining tokens to the factory. By convention, this first token is `1`.
+
+{% /property-description %}
 
 {% /language-section %}

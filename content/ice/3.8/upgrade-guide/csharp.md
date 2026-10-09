@@ -91,7 +91,7 @@ dotnet tool install iceboxnet --create-manifest-if-needed
 
 {% /language-section %}
 
-{% language-section name="proxy-creation-2" %}
+{% language-section name="mapping" %}
 
 ## Optional Values
 

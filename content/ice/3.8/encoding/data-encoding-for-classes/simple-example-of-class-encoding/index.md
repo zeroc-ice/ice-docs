@@ -177,8 +177,8 @@ In an effort to conserve bandwidth, the compact format omits certain details tha
 derived parts of a class, such as the slice size and the type IDs for base classes. The result is an encoding that
 requires only 67 bytes for the two sample instances.
 
-Note that if a class has no fields, a type ID and slice for that class is still marshaled. The byte count of the slice
-will be 4 in this case, indicating that the slice contains no data.
+Note that if a class has no fields, it still contributes a slice. In the compact format, only the most-derived slice
+includes a type ID, so an empty base slice consists only of its flags byte.
 
 ### Class Encoding in the Compact Format with Compact Type IDs
 

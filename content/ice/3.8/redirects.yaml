@@ -1,2 +1,6 @@
 include:
   - scroll-viewport-redirects.yaml
+
+# Pages removed from this site, and the page each goes to.
+permanent:
+  'services/icegrid/application-distribution/ansible': 'services/icegrid/application-distribution'

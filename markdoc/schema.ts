@@ -4,11 +4,16 @@
 import { DocumentShell } from '@/components/ice/DocumentShell';
 import { CodeBlock, AppLink, Heading, List } from '@/components';
 import { TH, TR, TD, Table } from '@/components/nodes/table';
+import { MarkdownImage } from '@/components/nodes/image';
 
 // Tags
 import { Callout } from '@/components/tags/callout';
 import { Card } from '@/components/tags/card';
 import { Divider } from '@/components/divider';
+import {
+  PropertyDescription,
+  PropertySynopsis
+} from '@/components/tags/property-section';
 import { Grid } from '@/components/tags/grid';
 import { LangBlock } from '@/components/tags/lang-block';
 import { Aside } from '@/components/tags/aside';
@@ -31,10 +36,13 @@ export const components = {
   Document: DocumentShell,
   Grid,
   Heading,
+  Image: MarkdownImage,
   LangBlock,
   List,
   NextSteps,
   Prerequisites,
+  PropertyDescription,
+  PropertySynopsis,
   Release,
   Releases,
   Selection,

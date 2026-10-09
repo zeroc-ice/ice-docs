@@ -99,10 +99,9 @@ object adapter property [_adapter_.Router](../../../property-reference/object-ad
 CallbackAdapter.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-For each object adapter, the Ice run time maintains a
-[list of endpoints](../../../runtime/dispatch/object-adapter-endpoints) that are embedded in proxies created by that
-adapter. Normally, this list simply contains the local endpoints defined for the object adapter but, when the adapter is
-configured with a router, the list only contains the router's server endpoints.
+The direct proxies an object adapter creates contain its
+[published endpoints](../../../runtime/dispatch/object-adapter-endpoints). For an object adapter configured with a
+router, the published endpoints are the published endpoints of the router's server object adapter, `Glacier2.Server`.
 
 An object adapter configured in this way allows the client to receive callback requests via the router. If the client
 also wants to service requests via local (non-routed) endpoints, the client must
@@ -140,10 +139,10 @@ least two threads.
 
 ## Handling Connection Loss
 
-If the client loses its connection to the Glacier2 router, the next invocation throws `ConnectionLostException`. The
-client can recover from this situation by re-creating the session, re-creating the callback adapter, and adding all the
-callback servants to the [Active Servant Map](../../../runtime/dispatch/active-servant-map) (ASM) of the re-created
-adapter.
+If the client loses its connection to the Glacier2 router, its session ends, and the router no longer forwards callback
+requests for that session's category. To receive callbacks again, the client destroys its callback object adapter and
+starts over with a new session: the new session has a new category, so the client creates its callback objects with new
+identities and passes the new callback proxies to the back-end servers.
 
 ## See Also
 

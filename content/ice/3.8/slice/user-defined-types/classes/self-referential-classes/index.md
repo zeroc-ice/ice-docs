@@ -14,10 +14,7 @@ class Link
 }
 ```
 
-Here, `value` and `next` are fields and the type of next is `Link`, which has _value_ semantics. In particular, while
-`next` looks and feels like a pointer, _it cannot denote an instance in a different address space_. This means that if
-we have a chain of `Link` instances, all of the instances are in our local address space and, when we read or write a
-value field, we are performing local address space operations.
+Here, the `next` field refers to another `Link` instance, or is null.
 
 Self-referential classes are particularly useful to model graphs. For example, we can create a simple expression tree
 along the following lines:
@@ -61,7 +58,6 @@ interface Evaluator
 }
 ```
 
-Self-referential classes are not limited to acyclic graphs; the Ice runtime permits loops: it ensures that no resources
-are leaked and that infinite loops are avoided during marshaling.
+Self-referential classes are not limited to acyclic graphs: a class graph can contain cycles.
 
 {% language-section name="mapping" /%}

@@ -68,11 +68,12 @@ are a few suggestions:
    >>> server start TheServer
    ```
 
-This will cause the node to activate (and therefore monitor) the server process. If you do not want to leave the server
-running, you can stop it with the `server stop` command. 4. After the server is activated and is in a quiescent state,
-attach your debugger to the running server process. This avoids the issues associated with starting the server manually
-(as described in the previous step), but does not provide as much flexibility in customizing the server's startup
-environment.
+   This will cause the node to activate (and therefore monitor) the server process. If you do not want to leave the
+   server running, you can stop it with the `server stop` command.
+
+4. After the node activates the server and the server is in a quiescent state, attach your debugger to the running
+   server process. This avoids the issues associated with starting the server manually (as described in the previous
+   step), but does not provide as much flexibility in customizing the server's startup environment.
 
 Another cause for a server to fail to activate correctly is if there is a mismatch in the adapter identifiers used by
 the server for its adapters, and the adapter identifiers specified in the server's deployment descriptor. After starting
@@ -101,11 +102,10 @@ value representing the number of seconds the server should remain disabled. If t
 server is disabled indefinitely, or until the server is explicitly enabled or started via an administrative action.
 
 You can also manually disable a server at any time using an administrative tool. A manually disabled server remains
-disabled indefinitely until an administrator enables or starts it. Disabling an _active_ server has no effect on the
-server process; the server is unaware of the change to its status and continues to service requests from connected
-clients as usual. However, as of Ice 3.5, disabling a server does prevent IceGrid from including the endpoints of the
-server's object adapters in any subsequent [locate requests](../../../runtime/locators/locator-semantics-for-clients),
-and it excludes those object adapters from any [replica groups](../load-balancing) in which they might participate.
+disabled until an administrator enables it. Disabling an _active_ server has no effect on the server process: the server
+continues to service requests from connected clients. However, the registry no longer returns the endpoints of the
+server's object adapters to clients, whether a client resolves one of these adapters directly or through a
+[replica group](../load-balancing) that includes it.
 
 Typically, the ultimate goal of disabling a server is to gracefully migrate clients from the faulty server to ones that
 are behaving correctly. For a client that starts after the server is disabled, migration occurs immediately: the Ice

@@ -27,8 +27,6 @@ module M
 }
 ```
 
-The syntax for literals is the same as for C++ and Java (with a few minor exceptions).
-
 ## Boolean Constants
 
 Boolean constants can only be initialized with the keywords `false` and `true`. (You cannot use `0` and `1` to represent
@@ -50,20 +48,14 @@ Be aware that, if you interpret `byte` as a number instead of a bit pattern, you
 languages. For example, for C++, `byte` maps to `std::uint8_t` whereas, for Java, `byte` maps to `byte`, which is a
 signed type.
 
-Note that suffixes to indicate long and unsigned constants (`l`, `L`, `u`, `U`, used by C++) are illegal:
-
-```slice
-const long Wrong = 0u;          // Syntax error
-const long WrongToo = 1000000L; // Syntax error
-```
-
 The value of an integer literal must be within the range of its constant type, as shown in the
 [Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
 
 ## Floating-Point Literals
 
-Floating-point literals use C++ syntax, except that you cannot use an `l` or `L` suffix to indicate an extended
-floating-point constant; however, `f` and `F` are legal (but are ignored).
+A floating-point literal has an integer part, a fractional part after a period, or both, followed by an optional
+exponent. A literal without a period requires an exponent. A floating-point literal can end with an `f` or `F` suffix,
+which the Slice compiler ignores.
 
 Here are a few examples:
 
@@ -81,9 +73,7 @@ will issue a diagnostic.
 
 ## String Literals
 
-Slice string literals support the same
-[escape sequences as C++](https://en.cppreference.com/w/cpp/language/escape.html), with the exception of hexadecimal
-escape sequences that are limited to two hexadecimal digits.
+Slice string literals support the following escape sequences:
 
 | **Escape Sequence** | **Name**                    | **Corresponding ASCII or** **Unicode Code Point** | **Notes**                                                                                                                          |
 | ------------------- | --------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |

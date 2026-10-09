@@ -52,25 +52,20 @@ nodes. In turn, each node applies those changes to its servers. If a server is r
 node may need to stop and restart it, depending on the changes that you make. Consequently, saving to the registry could
 cause a disruption in service to any clients that are actively using the affected servers.
 
-The following application changes do _not_ require a restart:
+IceGrid GUI provides two versions of the `Save to Registry` command:
 
-- Adding, modifying, or removing a server's configuration properties
-- Adding new servers
+- `Save to Registry (Servers may restart)`: the node stops and restarts a running server whose descriptor changed,
+  including a change to its configuration properties. A change to descriptions or to well-known or allocatable objects
+  leaves the server running.
+- `Save to Registry (No Server restart)`: IceGrid rejects the update unless it changes only the configuration properties
+  of servers; a change to `Ice.Admin.Enabled` or `Ice.Admin.Endpoints` that enables or disables the Admin object counts
+  as more than a property change. The node applies the new properties to a running server through its
+  [Properties Facet](../../../../../administration/administrative-facility/properties-facet). The Ice runtime reads most
+  of its properties at start-up, so a change to these properties takes effect when you restart the server, at a time of
+  your choosing.
 
-All other changes will require a restart. IceGrid GUI provides two versions of the `Save to Registry` command, one that
-allows restarts and one that does not. To avoid accidentally causing any disruption in service, we recommend using the
-`No server restart` option first; this command will fail if any of your updates require a restart. At that point, you
-can decide whether to force the servers to restart using the other Save command.
-
-{% callout type="note" %}
-
-If you change a server's configuration properties with `Save to Registry (No Server restart)`, IceGrid updates the
-stored properties of this server, and also the properties of your running server instance through its
-[Properties Facet](../../../../../administration/administrative-facility/properties-facet). If these properties are only
-read by the server at start-up, this may not have the desired effect. If you want to trigger a server restart even when
-only properties have changed, use `Save to Registry (Servers may restart)`.
-
-{% /callout %}
+To avoid accidentally causing any disruption in service, we recommend using the `No server restart` option first. If
+IceGrid rejects it, you can decide whether to force the servers to restart using the other Save command.
 
 ## Discarding Updates
 

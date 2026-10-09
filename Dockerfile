@@ -6,9 +6,6 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json* .npmrc ./
-
-# See https://nextjs.org/docs/messages/sharp-missing-in-production
-RUN npm i sharp
 RUN npm ci
 
 FROM base AS builder

@@ -50,7 +50,7 @@ interface DocumentShellProps {
   pagination: Pagination[];
   edit: EditLinks;
   showAside?: boolean;
-  /** Body layout when the page is not ordinary prose, e.g. "property-list". */
+  /** Body layout when the page is not ordinary prose, e.g. "wide". */
   shape?: string;
 }
 
@@ -80,15 +80,8 @@ export const DocumentShell = ({
   showAside = true,
   shape
 }: DocumentShellProps) => {
-  // On a property page, each h3 is a property's Synopsis or Description label
-  // rather than a section, so the outline lists the properties alone.
   const toc = headings
-    .filter(
-      (h) =>
-        h &&
-        h.id &&
-        (h.level === 2 || (h.level === 3 && shape !== 'property-list'))
-    )
+    .filter((h) => h && h.id && (h.level === 2 || h.level === 3))
     .map((h) => ({
       id: h.id!,
       title: h.title ?? '',
@@ -101,10 +94,7 @@ export const DocumentShell = ({
 
   return (
     <div className="flex shrink flex-row justify-center overflow-y-clip lg:justify-start">
-      {/* The breadcrumbs are navigation rather than part of the article, so
-          they sit above it in the page's column, clear of the article's prose
-          styles. */}
-      <div className="mx-6 size-full max-w-232 min-w-0 md:mx-10 lg:mx-12">
+      <div className="size-full max-w-232 contain-inline-size sm:mx-6 md:mx-10 lg:mx-12">
         {breadcrumbs.length > 0 && (
           <nav
             aria-label="Breadcrumb"

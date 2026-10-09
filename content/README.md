@@ -21,7 +21,7 @@ page and its overlays combine.
   of four letters or fewer, unless the word comes first or last. A name such as `icegridnode` or npm keeps its own case.
 - An anchor is the heading text, lowercased, with hyphens for spaces and without `?`, `(`, or `)`:
   `## Asynchronous Method Dispatch (AMD)` is `#asynchronous-method-dispatch-amd`. When two headings on a page would
-  share one, set it: `### Synopsis {% id="ice.default.host-synopsis" %}`.
+  share one, set it: `### Optional Fields {% id="language-mapping-optional-fields" %}`.
 
 ## Tags
 
@@ -31,6 +31,7 @@ page and its overlays combine.
 | `{% iflang langs="cpp,java" %}`                                                                      | A block or inline span shown only for those languages.                                                                                                                                                                          |
 | `{% callout type="…" title="…" %}`                                                                   | A note box. `type` is `note`, `tip`, `important`, `warning`, `danger`, `deprecated`, or `compatibility`.                                                                                                                        |
 | `{% id="…" %}`                                                                                       | After a heading, sets its anchor.                                                                                                                                                                                               |
+| `{% property-synopsis %}`, `{% property-description %}`                                              | The two parts of a property reference entry, under the property's heading.                                                                                                                                                      |
 | `{% title="…" %}`                                                                                    | After a fence's language, captions the code block.                                                                                                                                                                              |
 | `{% snippet file="…" name="…" /%}`                                                                   | A fenced code block cut from a source file under `content/ice/<version>/`: the lines between `// <name>` and `// </name>` marker lines (`#` and `%` work too). The fence language comes from the file extension, or `lang="…"`. |
 | `{% aside %}`                                                                                        | Two columns side by side.                                                                                                                                                                                                       |

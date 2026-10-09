@@ -28,15 +28,17 @@ The Server Properties panel offers the following fields:
   property with this name and the log file path as value. You declare log files to be able to conveniently retrieve them
   using IceGrid GUI (in the [Live Deployment](../../../live-deployment-tab) tab) or with the
   [icegridadmin](../../../../icegridadmin-command-line-tool) command-line utility.
-- **Path to Executable** Path to the server's executable; cannot be blank. A relative path is relative to the IceGrid
-  node working directory.
+- **Path to Executable** Path to the server's executable; cannot be blank. The node resolves a relative path as
+  described for the `exe` attribute of the
+  [server element](../../../../icegrid-xml-reference/server-descriptor-element).
 - **Ice Version** The Ice version of this server. If you don't provide a value, IceGrid assumes it's the same version as
   the IceGrid registry.
 - **Working Directory** The working directory for the server when started by the IceGrid node.
 - **Command Arguments** The command-line arguments given to the server when started by the IceGrid node.
-- **Run as** On Linux and Unix, when IceGrid node is running as root, it is possible to run the server under any
-  username. Enter the desired username in this field. When not set (the default), the server runs as the same user as
-  the IceGrid node, except when IceGrid node runs as root. In this case, the server runs as nobody.
+- **Run as** On Linux and Unix, when the IceGrid node runs as root, it can run the server under any user name; enter
+  this name here. When not set (the default), the server runs as the same user as the IceGrid node, except when the node
+  runs as root: the server then runs as `nobody`, or, for a server allocated by a session, as the user named by the
+  session ID.
 - **Environment Variables** The environment variables for the server when started by the IceGrid node. These variables
   are in addition to variables defined in the IceGrid node own environment.
 - **Activation Mode** The server's activation mode. Must be one of:
@@ -71,15 +73,10 @@ A plain server can have [Adapter](../adapter-descriptor) children.
 
 The Properties panel for an IceBox server is identical to the Properties panel for a Plain Server (see above).
 
-When you create a new IceBox server, some properties are created automatically:
-
-| **Property Name**   | **Property Value** |
-| ------------------- | ------------------ |
-| IceBox.InstanceName | ${server}          |
-| Ice.Admin.Endpoints | tcp -h 127.0.0.1   |
-
-The [Ice.Admin.Endpoints](../../../../../../property-reference/ice-admin-properties) setting enables the Admin object in
-the main communicator of this IceBox server.
+IceGrid enables the Admin object in the main communicator of this IceBox server by generating
+`Ice.Admin.Endpoints=tcp -h 127.0.0.1`, unless the server's properties set
+[Ice.Admin.Enabled or Ice.Admin.Endpoints](../../../../../../property-reference/ice-admin-properties). See
+[IceGrid and the Administrative Facility](../../../../icegrid-and-the-administrative-facility).
 
 The Path to Executable is typically `icebox` (C++), `java` (for a Java IceBox) or `dotnet` (for a .NET IceBox).
 

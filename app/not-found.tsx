@@ -1,8 +1,11 @@
 // Copyright (c) ZeroC, Inc.
 
+import { SkipTarget } from '@/components/ice/SkipTarget';
+
 export default function NotFound() {
   return (
     <div className="flex grow flex-col items-center justify-center">
+      <SkipTarget />
       <div className="flex flex-row items-center">
         <h2 className="border-r-2 border-r-light-border pr-6 text-3xl leading-10 font-semibold">
           404

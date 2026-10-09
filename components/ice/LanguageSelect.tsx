@@ -14,7 +14,7 @@ export function LanguageSelect({ languages }: { languages: string[] }) {
   return (
     <Menu
       align="right"
-      triggerClassName="flex w-[6rem] items-center justify-between gap-1 rounded-md border border-black/15 py-1 pr-2 pl-3 text-sm hover:border-black/30 xl:w-[7.5rem] dark:border-white/20 dark:hover:border-white/40"
+      triggerClassName="flex min-w-0 items-center justify-between gap-1 rounded-md border border-black/15 py-1 pr-2 pl-3 text-sm hover:border-black/30 sm:w-[6rem] xl:w-[7.5rem] dark:border-white/20 dark:hover:border-white/40"
       trigger={
         <>
           <span className="sr-only">Programming language: </span>

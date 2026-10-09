@@ -9,11 +9,13 @@ C++-based language mappings. JavaScript does not support this plug-in.
 
 ## IceDiscovery.Address
 
-### Synopsis {% id="icediscovery.address-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Address=addr`
 
-### Description {% id="icediscovery.address-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the multicast IP address to use for sending or receiving
 [multicast discovery queries](../../plugins/icediscovery). If not defined, the default value depends on other property
@@ -26,25 +28,33 @@ settings:
 This property is used to compose the value of [IceDiscovery.Lookup](#icediscovery.lookup) and
 [IceDiscovery.Multicast.Endpoints](#icediscovery.multicast.adapterproperty).
 
+{% /property-description %}
+
 ## IceDiscovery.DomainId
 
-### Synopsis {% id="icediscovery.domainid-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.DomainId=id`
 
-### Description {% id="icediscovery.domainid-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the domain ID used to locate objects and object adapters. The IceDiscovery plug-in only responds to requests
 from clients with the same domain ID and ignores requests from clients with a different domain ID. If not defined, the
 default domain ID is an empty string.
 
+{% /property-description %}
+
 ## IceDiscovery.Interface
 
-### Synopsis {% id="icediscovery.interface-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Interface=intf`
 
-### Description {% id="icediscovery.interface-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the IP address of the interface to use for sending or receiving
 [multicast discovery queries](../../plugins/icediscovery). If not defined, the discovery will use all the network
@@ -53,13 +63,17 @@ value of [IceDiscovery.Lookup](#icediscovery.lookup),
 [IceDiscovery.Reply.Endpoints](#icediscovery.reply.adapterproperty) and
 [IceDiscovery.Multicast.Endpoints](#icediscovery.multicast.adapterproperty).
 
+{% /property-description %}
+
 ## IceDiscovery.Lookup
 
-### Synopsis {% id="icediscovery.lookup-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Lookup=endpoints`
 
-### Description {% id="icediscovery.lookup-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the multicast endpoints used to send [discovery queries](../../plugins/icediscovery). The plug-in sends each
 query on every endpoint in this list.
@@ -73,13 +87,17 @@ set. It joins these endpoints with colons. Each endpoint has the form:
 Here, `addr` is the value of [IceDiscovery.Address](#icediscovery.address), `port` is the value of
 [IceDiscovery.Port](#icediscovery.port), and `intf` identifies the interface.
 
+{% /property-description %}
+
 ## IceDiscovery.Multicast._AdapterProperty_
 
-### Synopsis {% id="icediscovery.multicast.adapterproperty-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Multicast.AdapterProperty=value`
 
-### Description {% id="icediscovery.multicast.adapterproperty-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 IceDiscovery creates an object adapter named `IceDiscovery.Multicast` for receiving discovery queries from clients. If
 not otherwise defined by `IceDiscovery.Multicast.Endpoints`, the endpoint for this object adapter is composed as
@@ -92,13 +110,17 @@ where `addr` is the value of [IceDiscovery.Address](#icediscovery.address), `por
 
 You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
 
+{% /property-description %}
+
 ## IceDiscovery.LatencyMultiplier
 
-### Synopsis {% id="icediscovery.latencymultiplier-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.LatencyMultiplier=num`
 
-### Description {% id="icediscovery.latencymultiplier-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the multiplier to apply to the latency of the first discovery request-reply for replica groups. When
 IceDiscovery receives a reply for a discovery request and this reply indicates that the adapter identifier is a replica
@@ -107,24 +129,32 @@ on the latency of the first request-reply and the latency multiplier. For exampl
 15 milliseconds and the multiplier is set to 4, IceDiscovery will wait for an additional 60 milliseconds for replies
 from other servers. If not defined, the default is `1`. `num` must be `1` or greater.
 
+{% /property-description %}
+
 ## IceDiscovery.Port
 
-### Synopsis {% id="icediscovery.port-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Port=port`
 
-### Description {% id="icediscovery.port-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the multicast port to use for sending or receiving multicast requests. If not set, the default value is
 `4061`.
 
+{% /property-description %}
+
 ## IceDiscovery.Reply._AdapterProperty_
 
-### Synopsis {% id="icediscovery.reply.adapterproperty-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Reply.AdapterProperty=value`
 
-### Description {% id="icediscovery.reply.adapterproperty-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 IceDiscovery creates an object adapter named `IceDiscovery.Reply` for receiving replies to
 [multicast requests](../../plugins/icediscovery). If not otherwise defined by `IceDiscovery.Reply.Endpoints`, the
@@ -136,28 +166,38 @@ Here, `intf` is [IceDiscovery.Interface](../icediscovery-properties#icediscovery
 unset, the plug-in uses `udp -h *` to bind to all local interfaces. The
 [object adapter properties](../object-adapter-properties) configure the other settings of this adapter.
 
+{% /property-description %}
+
 ## IceDiscovery.RetryCount
 
-### Synopsis {% id="icediscovery.retrycount-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.RetryCount=num`
 
-### Description {% id="icediscovery.retrycount-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast requests before giving up. The
 [IceDiscovery.Timeout](#icediscovery.timeout) property determines how long the plug-in waits for a reply before trying
 again. If not defined, the default retry count is `3`, for a total of four attempts. A value of 0 sends only the initial
 query.
 
+{% /property-description %}
+
 ## IceDiscovery.Timeout
 
-### Synopsis {% id="icediscovery.timeout-synopsis" %}
+{% property-synopsis %}
 
 `IceDiscovery.Timeout=num`
 
-### Description {% id="icediscovery.timeout-description" %}
+{% /property-synopsis %}
+
+{% property-description %}
 
 Specifies the time interval in milliseconds to wait for replies to UDP multicast requests. If no server replies during
 this time interval, the client will retry the request the number of times specified by
 [IceDiscovery.RetryCount](#icediscovery.retrycount). If not defined, the default timeout is `300`. `num` must be greater
 than `0`.
+
+{% /property-description %}

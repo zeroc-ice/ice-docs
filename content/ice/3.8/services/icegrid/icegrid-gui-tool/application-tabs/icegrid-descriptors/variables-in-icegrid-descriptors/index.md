@@ -16,6 +16,7 @@ when the application is saved to an IceGrid registry.
 Substitution is performed in all string fields except the following:
 
 - server and service template IDs (when defining a template or when referring to a template)
+- property set IDs
 - variable names
 - template parameter names
 - node names
@@ -36,19 +37,22 @@ IceGrid defines a set of read-only variables to hold information that may be of 
 variables are reserved and cannot be used as variable or parameter names. The table below describes the purpose of each
 variable and defines the context in which it is valid.
 
-| **Name**      | **Description**                                                                                                                                                                                                                 |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| application   | The name of the enclosing application.                                                                                                                                                                                          |
-| node          | The name of the enclosing node.                                                                                                                                                                                                 |
-| node.os       | The name of the enclosing node operating system. On Unix, this is value is provided by uname. On Windows, the value is Windows.                                                                                                 |
-| node.hostname | The host name of the enclosing node.                                                                                                                                                                                            |
-| node.release  | The operation system release of the enclosing node. On Unix, this value is provided by uname. On Windows, the value is obtained from the OSVERSIONINFO data structure.                                                          |
-| node.version  | The operation system version of the enclosing node. On Unix, this value is provided by uname. On Windows, the value represents the current service pack level.                                                                  |
-| node.machine  | The machine hardware name of the enclosing node. On Unix, this value is provided by uname. On Windows, the value is x86 or x64.                                                                                                 |
-| node.datadir  | The absolute pathname of the enclosing node data directory.                                                                                                                                                                     |
-| server        | The ID of the enclosing server.                                                                                                                                                                                                 |
-| service       | The name of the enclosing service.                                                                                                                                                                                              |
-| session.id    | The client session identifier. For sessions created with a user name and password, the value is the user ID; for sessions created from a secure connection, the value is the distinguished name associated with the connection. |
+| **Name**           | **Description**                                                                                                                                                                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| application        | The name of the enclosing application.                                                                                                                                                                                          |
+| node               | The name of the enclosing node.                                                                                                                                                                                                 |
+| node.os            | The name of the enclosing node operating system. On Unix, uname provides this value. On Windows, the value is Windows.                                                                                                          |
+| node.hostname      | The host name of the enclosing node.                                                                                                                                                                                            |
+| node.release       | The operating system release of the enclosing node. On Unix, this value is provided by uname. On Windows, the value is the Windows version, such as 10.0.                                                                       |
+| node.version       | The operating system version of the enclosing node. On Unix, this value is provided by uname. On Windows, the value is the Windows version and build number, such as 10.0.22631.                                                |
+| node.machine       | The machine hardware name of the enclosing node. On Unix, this value is provided by uname. On Windows, the value is the processor architecture, such as x64.                                                                    |
+| node.data          | The absolute pathname of the enclosing node data directory.                                                                                                                                                                     |
+| node.ice.soversion | The shared-library version of the Ice installation on the enclosing node, such as 38 for Ice 3.8.                                                                                                                               |
+| server             | The ID of the enclosing server.                                                                                                                                                                                                 |
+| server.data        | The pathname of the enclosing server user data directory, and an alias for ${node.data}/servers/${server}/data.                                                                                                                 |
+| service            | The name of the enclosing service.                                                                                                                                                                                              |
+| service.data       | The pathname of the enclosing service user data directory, and an alias for ${node.data}/servers/${server}/data_${service}.                                                                                                     |
+| session.id         | The client session identifier. For sessions created with a user name and password, the value is the user ID; for sessions created from a secure connection, the value is the distinguished name associated with the connection. |
 
 The availability of a variable is easily determined in some cases, but may not be readily apparent in others. For
 example, you can use the ${node} variable in a property value within a server template definition, because variables in
@@ -94,7 +98,6 @@ precedence:
 - Pre-defined variables
 - Node variables, if applicable
 - Application variables
-- Template Parameters
 
 Template parameters are not visible in nested template instances. This situation can only occur when an IceBox server
 template instantiates a service template.
