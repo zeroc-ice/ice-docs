@@ -12,9 +12,9 @@ The implementation of the weather sensor (or collector) can be summarized as fol
 1. Create a proxy for the IceStorm
    [TopicManager](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1TopicManager.html) . This is the primary
    IceStorm object, used by both publishers and subscribers.
-2. Obtain a proxy for the `weather` [topic](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html)
-   from the `TopicManager`, either by creating the topic if it does not exist, or by retrieving the proxy for the
-   existing topic.
+2. Obtain a proxy for the `weather` [topic](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html) by
+   calling `createOrRetrieve("weather")` on the `TopicManager`. This operation returns a proxy to the topic with this
+   name, creating this topic first if it does not exist.
 3. Obtain a proxy for the `weather` topic's "publisher object" by calling `getPublisher` on the topic proxy. This proxy
    is provided for the purpose of publishing messages, and therefore is narrowed to the topic interface
    (`WeatherStation`).

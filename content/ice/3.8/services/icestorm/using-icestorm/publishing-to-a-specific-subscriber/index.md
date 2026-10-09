@@ -8,7 +8,7 @@ subscribers for that topic:
 ```cpp
 IceStorm::TopicPrx topic = ...;
 auto publisher = topic->getPublisher();
-auto station = Ice::uncheckedCast<WeatherStationPrx>(pub);
+auto station = Ice::uncheckedCast<WeatherStationPrx>(publisher);
 ...
 station->report(sensorId, timeStamp, reading); // Sent to all subscribers
 ```
@@ -20,9 +20,9 @@ For example:
 auto servant = make_shared<ConsolePrinter>();
 auto station = adapter->addWithUUID<WeatherStationPrx>(servant)->ice_oneway();
 
-IceStorm::topicPrx topic = ...;
+IceStorm::TopicPrx topic = ...;
 
-auto pub = topic->subscribeAndGetPublisher({}, proxy);
+auto pub = topic->subscribeAndGetPublisher({}, station);
 auto pubStation = Ice::uncheckedCast<WeatherStationPrx>(pub);
 
 ...
@@ -77,11 +77,11 @@ informs all the subscribed observers of the change to the list. However, when an
 `init` operation must be called. Moreover, we want to call that method only once for each observer, so we cannot just
 publish the initial state of the list on a topic that all observers subscribe to.
 
-The subscriber-specific proxy that is returned by `subscribeAndGetPublisher` solves this nicely: the implementation of
-`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the observer. This both subscribes the
-observer to the topic, and IceStorm forwards the call to `init` to the observer. This is preferable to the list invoking
-`init` on the observer directly: if the observer is misbehaved (for example, if its `init` implementation blocks for
-some time), the list is unaffected because IceStorm shields the list from such behavior.
+The per-subscriber publisher returned by `subscribeAndGetPublisher` solves this nicely: the implementation of
+`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the returned proxy. IceStorm forwards this
+`init` to this observer only, through the same event queue as the `itemChange` events published on the `ListUpdates`
+topic, in the order IceStorm receives them. The observer can therefore receive `itemChange` events published after its
+subscription but before `init`.
 
 ## See Also
 
