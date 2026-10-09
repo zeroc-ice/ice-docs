@@ -78,8 +78,8 @@ If `num` is set to a value larger than 0, the Glacier2 router includes the
 [request context](../../services/glacier2/how-glacier2-uses-request-contexts) when forwarding requests from clients to
 servers. The default value is `0`.
 
-When `Glacier2.AddConnectionContext` is 1, Glacier2 includes its connection-information context even if
-`Glacier2.Client.ForwardContext` is 0.
+When `Glacier2.AddConnectionContext` is `1`, Glacier2 includes its connection-information context even if
+`Glacier2.Client.ForwardContext` is `0`.
 
 {% /property-description %}
 
@@ -128,10 +128,10 @@ from a client. The default value is `0`.
 
 {% property-description %}
 
-Specifies the file name of a Glacier2 [access control list](../../services/glacier2/securing-a-glacier2-router). Each
-non-blank line contains a user name and a password hash, separated by whitespace. User names must be unique. The
-supported hash formats depend on the platform; see
-[Writing a Password File](../../services/glacier2/getting-started-with-glacier2).
+Specifies the path of the router's password file. The router uses this file to verify the user name and password that a
+client provides when it creates a session. Each non-blank line contains a user name and a password hash, separated by
+whitespace. User names must be unique. The supported hash formats depend on the platform; see
+[Writing a Password File](../../services/glacier2/getting-started-with-glacier2#writing-a-password-file).
 
 This property is ignored if [Glacier2.PermissionsVerifier](#glacier2.permissionsverifier) is defined.
 
@@ -147,9 +147,9 @@ This property is ignored if [Glacier2.PermissionsVerifier](#glacier2.permissions
 
 {% property-description %}
 
-Specifies a space-separated list of adapter identifiers. If defined, the Glacier2 router
-[filters requests](../../services/glacier2/securing-a-glacier2-router) so that it only allows requests to Ice objects
-with an adapter identifier that matches one of the entries in this list.
+Specifies a space-separated list of adapter IDs. The Glacier2 router's
+[adapter ID filter](../../services/glacier2/securing-a-glacier2-router) accepts a request when the adapter ID of the
+target proxy matches one of the entries in this list.
 
 Identifiers that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identifier must be escaped with a leading backslash.
@@ -217,11 +217,11 @@ The host restrictions described for [Glacier2.Filter.Address.Accept](#glacier2.f
 
 {% property-description %}
 
-Specifies a space-separated list of identity categories. If defined, the Glacier2 router
-[filters requests](../../services/glacier2/securing-a-glacier2-router) so that it only allows requests to Ice objects
-with an identity that matches one of the categories in this list. If
-[Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-0 value, the router
-automatically adds the user name of each session to this list.
+Specifies a space-separated list of identity categories. The Glacier2 router's
+[category filter](../../services/glacier2/securing-a-glacier2-router) accepts a request when the category of the target
+identity matches one of the categories in this list. If
+[Glacier2.Filter.Category.AcceptUser](#glacier2.filter.category.acceptuser) is defined with a non-zero value, the router
+automatically adds the non-empty user name of each session created with `createSession` to this list.
 
 Categories that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within a
 category must be escaped with a leading backslash.
@@ -267,9 +267,9 @@ sessions.
 
 {% property-description %}
 
-Specifies a space-separated list of identities. If defined, the Glacier2 router
-[filters requests](../../services/glacier2/securing-a-glacier2-router) so that it only allows requests to Ice objects
-with an identity that matches one of the entries in this list.
+Specifies a space-separated list of identities. The Glacier2 router's
+[identity filter](../../services/glacier2/securing-a-glacier2-router) accepts a request when the target identity matches
+one of the entries in this list.
 
 Identities that contain spaces must be enclosed in single or double quotes. Single or double quotes that appear within
 an identity must be escaped with a leading backslash.
@@ -287,7 +287,7 @@ an identity must be escaped with a leading backslash.
 {% property-description %}
 
 If `num` is greater than 0, the Glacier2 router [rejects requests](../../services/glacier2/securing-a-glacier2-router)
-whose stringified proxies are longer than `num` bytes. The default value is 0, which imposes no proxy-size limit.
+whose stringified proxies are longer than `num` bytes. The default value is `0`, which imposes no proxy-size limit.
 
 {% /property-description %}
 
@@ -353,7 +353,7 @@ used basis.
 
 Clients automatically retry operation calls on evicted proxies and transparently re-add such proxies to the table.
 
-The default size of the routing table is 1000.
+The default size of the routing table is `1000`.
 
 {% /property-description %}
 

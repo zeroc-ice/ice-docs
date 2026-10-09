@@ -58,7 +58,8 @@ module Glacier2
 ```
 
 In both interfaces, the `add` operation silently ignores duplicates, and the `remove` operation silently ignores
-non-existent entries.
+non-existent entries. Empty filters do not block requests: when all three filters of a session are empty, the router
+forwards the session's requests for any object.
 
 Dynamic filtering is often necessary when each session must be restricted to a particular group of objects. Upon session
 creation, a session manager typically allocates a number of objects in back-end servers for that session to use. To
@@ -75,13 +76,7 @@ To aid in logging and debugging, you can select a category that identifies the c
 supplied during session creation, or an attribute of the client's certificate such as the common name, as long as the
 selected category is sufficiently unique that it will not conflict with another client's session. You must also ensure
 that the categories you assign to sessions never match the categories of back-end objects that are not meant to be
-accessed by router clients. As an example, consider the following session manager implementation:
-
-{% language-section name="mapping" /%}
-
-This session manager derives a category for the session by prepending an underscore to the user name and then adds this
-category to the session's filter. As long as our back-end objects do not use a leading underscore in their identity
-categories, this strategy guarantees that a session's category can never match the category of a back-end object.
+accessed by router clients.
 
 For your convenience, Glacier2 already includes support for
 [automatic category filtering](../securing-a-glacier2-router).

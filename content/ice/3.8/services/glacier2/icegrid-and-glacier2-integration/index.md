@@ -44,7 +44,7 @@ Glacier2.SSLSessionManager.LocatorCacheTimeout=30
 ```
 
 As you can see, timeouts are specified individually for the `SessionManager` and `SSLSessionManager` proxies. You can
-also disable caching completely by using a value of 0, in which case the router queries the locator before every
+also disable caching completely by using a value of `0`, in which case the router queries the locator before every
 invocation on a session manager. See the discussion of [session management](../glacier2-session-management) for more
 details.
 

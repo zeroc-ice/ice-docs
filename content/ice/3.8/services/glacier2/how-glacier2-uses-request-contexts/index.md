@@ -3,20 +3,20 @@ title: How Glacier2 Uses Request Contexts
 ---
 
 The Glacier2 router examines the [context](../../../runtime/invocation/request-contexts) of an incoming request for
-special keys that affect how the router forwards the request. These contexts have the same semantics regardless of
-whether the request is sent from client to server or from server to client.
+special keys that affect how the router forwards the request. These keys have the same semantics for requests from
+clients to servers and for callbacks from servers to clients.
 
 ## The `_fwd` Context
 
 The `_fwd` context determines the proxy mode that the router uses when forwarding the request. The value associated with
 the `_fwd` key must be a string containing one or more of the characters shown in the following table:
 
-| **Value** | **Mode** |
-| --------- | -------- |
-| d or D    | Datagram |
-| o or O    | Oneway   |
-| t         | Twoway   |
-| z         | Compress |
+| **Value** | **Mode**                                         |
+| --------- | ------------------------------------------------ |
+| d or D    | Datagram (requests from clients to servers only) |
+| o or O    | Oneway                                           |
+| t         | Twoway                                           |
+| z         | Compress                                         |
 
 _Legal values for the `_fwd` context key_.
 
@@ -39,8 +39,9 @@ the context when forwarding a request. The former property affects requests from
 affects requests from servers to clients. If a property is not defined or has the value zero, the router does not
 include the context when forwarding requests.
 
-When [Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties) is 1, the router includes
-connection information when forwarding requests from clients to servers, even if `Glacier2.Client.ForwardContext` is 0.
+When [Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties) is `1`, the router includes
+connection information when forwarding requests from clients to servers, even if `Glacier2.Client.ForwardContext` is
+`0`.
 
 ## See Also
 

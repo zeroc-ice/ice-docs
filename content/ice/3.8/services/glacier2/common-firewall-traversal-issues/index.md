@@ -29,7 +29,7 @@ to forwarding requests.
 
 ![Two clients and two servers exchange requests and callbacks through the same pair of firewalls. Separate arrows show requests and callbacks.](/images/ice/3.8/common-firewall-traversal-issues/firewall3.svg)
 
-Clearly, these scenarios do not scale well, and are unnecessarily complex. Fortunately, Ice provides a solution in
+These scenarios do not scale well, and are unnecessarily complex. Fortunately, Ice provides a solution in
 [Glacier2](../about-glacier2).
 
 ## See Also

@@ -15,9 +15,10 @@ to which your application acts as a client.
 
 ## Glacier2
 
-[Glacier2](../../services/glacier2) allows clients and servers to securely communicate through a firewall without
-compromising security. Client-server traffic is SSL-encrypted using public key certificates and is bidirectional.
-Glacier2 offers support for mutual authentication as well as secure session management.
+[Glacier2](../../services/glacier2) is a router that forwards client requests to servers on another network, typically
+behind a firewall. It also forwards server callbacks to clients over their existing connections. A client authenticates
+with the router by creating a session, and the router forwards the requests of this client for the duration of the
+session.
 
 ## IceBox
 

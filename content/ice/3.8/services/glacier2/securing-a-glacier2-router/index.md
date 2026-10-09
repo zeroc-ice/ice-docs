@@ -2,35 +2,34 @@
 title: Securing a Glacier2 Router
 ---
 
-As a firewall, a Glacier2 router represents a doorway into a private network, and in most cases that doorway should have
-a good lock. The obvious first step is to use [SSL](../../../runtime/ssl-transport) for the router's client endpoints.
-This allows you to secure the message traffic and restrict access to clients having the proper credentials. However, the
-router takes security even further by providing access control and filtering capabilities.
+A Glacier2 router accepts connections from clients outside a private network and forwards their requests to servers
+inside it. Use [SSL](../../../runtime/ssl-transport) for the router's client endpoints to encrypt the traffic between
+clients and the router, and to authenticate clients by their certificates. On top of SSL, the router provides access
+control, which decides which clients can create a session, and request filtering, which decides which objects a client
+can reach.
 
 ## Glacier2 Access Control
 
-The authentication capabilities of SSL may not be sufficient for all applications: the certificate validation phase of
-the SSL handshake verifies that the user is who he says he is, but how do we know that he should be allowed to use the
-router? Glacier2 addresses this issue through the use of an access control facility that supports two forms of
-authentication: passwords and certificates. You can configure the router to use whichever authentication method is most
-appropriate for your application, or you can configure both methods in the same router.
+Validating a client's certificate during the SSL handshake establishes who the client is, but not whether that client
+may use the router. Glacier2 decides this with an access control facility that supports two forms of authentication:
+passwords and certificates. You can configure the router to use either form, or both.
 
 ### Password Authentication
 
 The router verifies the user name and password arguments to its [createSession](../getting-started-with-glacier2)
-operation before it forwards any requests on behalf of the client. Given that the password is sent "in the clear," it is
-important to protect these values by using an SSL connection with the router.
+operation before it forwards any requests on behalf of the client.
 
-There are two ways for the router to verify a user name and password. By default, the router uses a file-based access
-control list, but you can override this behavior by installing a proxy for an application-defined verifier object.
-Configuration properties define the password file name or the verifier proxy; if you install a verifier proxy, the
-password file is ignored. Since we have already discussed the [password file](../getting-started-with-glacier2), we will
-focus on the custom verifier interface here.
+The router always verifies the user name and password with a permissions verifier, an object that implements the
+`Glacier2::PermissionsVerifier` interface. Glacier2 includes a verifier that checks the user name and password against a
+[password file](../getting-started-with-glacier2#writing-a-password-file); set
+[Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords) to the path of this
+file to install this verifier in the router. To use your own verifier instead, set
+[Glacier2.PermissionsVerifier](../../../property-reference/glacier2-properties#glacier2.permissionsverifier) to the
+proxy of your verifier object; when both properties are set, the router uses your verifier. The rest of this section
+covers the verifier interface.
 
-An application that has special requirements can implement the interface `Glacier2::PermissionsVerifier` to gain
-programmatic control over access to a router. This can be especially useful in situations where a repository of account
-information already exists (such as an LDAP directory), in which case duplicating that information in another file would
-be tedious and error-prone.
+A custom verifier is useful when a repository of account information already exists (such as an LDAP directory), in
+which case duplicating that information in another file would be tedious and error-prone.
 
 The Slice definition for the interface contains just one operation:
 
@@ -94,11 +93,10 @@ module Glacier2
 Router clients may only use `createSessionFromSecureConnection` if the router is configured with a proxy for an
 `SSLPermissionsVerifier` object. The implementation of `authorize` must return true to allow the client to establish a
 session. To reject the session, `authorize` must return false and may optionally provide a value for `reason`, which is
-returned to the client as a member of `PermissionDeniedException`. Starting with Ice 3.5, it can also throw
-`Glacier2::PermissionDeniedException`. Glacier2 forwards this exception as-is to the client, which means the verifier
-can raise a subclass of `PermissionDeniedException` in order to provide more information to the client.
+returned to the client as a field of `PermissionDeniedException`. `authorize` can also throw
+`Glacier2::PermissionDeniedException`; the router then throws this exception, with the same `reason`, to the client.
 
-The verifier examines the members of `SSLInfo` to authenticate a client:
+The verifier examines the fields of `SSLInfo` to authenticate a client:
 
 ```slice
 module Glacier2
@@ -115,24 +113,12 @@ module Glacier2
 }
 ```
 
-The structure includes address information about the remote and local hosts, and a string that describes the ciphersuite
-negotiated for the SSL connection between the client and the router. These values are generally of interest for logging
-purposes, whereas the `certs` member supplies the information the verifier needs to make its decision. The client's
-certificate chain is represented as a sequence of strings that use the Privacy Enhanced Mail (PEM) encoding.
+`certs` holds a single element: the certificate the client presented when it established its SSL connection to the
+router, in PEM encoding. The `remoteHost`, `remotePort`, `localHost`, and `localPort` fields hold the addresses of the
+client's connection to the router. The router leaves `cipher` empty.
 
-The first element of the sequence corresponds to the client's certificate, followed by its signing certificates. The
-certificate of the root Certificate Authority (CA) is the last element of the sequence. An empty sequence indicates that
-the client did not supply a certificate chain.
-
-Although the certificate chain has already been validated by the SSL implementation, a verifier implementation typically
-needs to examine it in detail before making its decision. As a result, the verifier will need to convert the contents of
-`certs` into a more usable form. Some Ice platforms, such as Java and .NET, already provide certificate abstractions,
-and IceSSL supplies its own for C++ users. IceSSL for Java and .NET defines the method `IceSSL.Util.createCertificate`,
-which accepts a PEM-encoded string and returns an instance of the platform's certificate class. In C++, the class
-`IceSSL::Certificate` has a constructor that accepts a PEM-encoded string.
-
-In addition to examining certificate attributes such as the distinguished name of the subject and issuer, it is also
-important that a verifier consider the length of the certificate chain.
+The verifier typically examines the certificate's subject and issuer names. It decodes the PEM string with the
+certificate API of its platform, such as `X509Certificate2` in .NET or `CertificateFactory` in Java.
 
 To install your verifier, set the [Glacier2.SSLPermissionsVerifier](../../../property-reference/glacier2-properties)
 property with the proxy of your verifier object.
@@ -159,39 +145,21 @@ makes another attempt to contact the verifier; if the object is still unavailabl
 ### Obtaining SSL Credentials for a Router Client
 
 Servers that need information about a client's connection to the router can set
-[Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties) to 1. The router then adds connection
-information to permissions-verifier and session-manager calls and to requests forwarded from clients to servers. Value 2
-adds this information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on
-session managers.
+[Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties) to `1`. The router then adds connection
+information to permissions-verifier and session-manager calls and to requests forwarded from clients to servers. Value
+`2` adds this information only to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls
+on session managers.
 
-The context entries include addressing details and, for SSL or WSS connections with a client certificate, the
-PEM-encoded certificate in `_con.peerCert`. A server can check for this entry and extract additional context entries as
-shown below:
+The context entries describe the client's connection to the router: its type, its local and remote addresses and ports,
+and, when the client presented a certificate, the PEM-encoded certificate in `_con.peerCert`.
 
-```cpp
-void unlockDoor(string id, const Ice::Current& current)
-{
-    auto i = current.ctx.find("_con.peerCert");
-    if(i != current.ctx.end())
-    {
-        string certPEM;
-        certPEM = i->second;
-        cout << "Client address = "
-             << current.ctx["_con.remoteAddress"]
-             << ":" << current.ctx["_con.remotePort"] << endl;
-        ...
-    }
-    ...
-}
-```
-
-If the client supplied a certificate, the server can decode and examine it using the techniques discussed for
-[IceSSL](../../../runtime/ssl-transport).
+{% language-section name="connection-context" /%}
 
 ## Request Filtering
 
-The Glacier2 router is capable of filtering requests based on a variety of criteria, which helps to ensure that clients
-do not gain access to unintended objects.
+The Glacier2 router can restrict the objects that a client reaches through it. The router forwards a request when at
+least one of the configured category, identity and adapter identifier filters accepts it, and forwards every request
+when none of these filters is configured. The address filters and the proxy size limit apply independently.
 
 ### Address Filters
 
@@ -211,9 +179,8 @@ The value of each property is a list of _address_:_port_ pairs separated by spac
 Glacier2.Filter.Address.Accept=192.168.1.5:4063 192.168.1.6:4063
 ```
 
-This configuration allows clients to use only two hosts in the back-end network, and only one port on each host. A
-client that attempts to use a proxy containing any other host or port receives an `ObjectNotExistException` on its
-initial request.
+With this configuration, clients can reach two back-end hosts, each on a single port. The router rejects a proxy with
+any other address (endpoint); see [Client Impact](#client-impact) for what a rejection means for the client.
 
 You can also use ranges, groups and wildcards when defining your address filters. For example, the following property
 value shows how to use an address range:
@@ -264,10 +231,9 @@ By default, a Glacier2 router forwards requests for any address.
 
 ### Category Filters
 
-The [Ice::Identity](../../../runtime/object-identity) type contains two string members: category and name. You can
-configure a router with a list of valid identity categories, in which case it only routes requests for objects in those
-categories. The configuration property
-[Glacier2.Filter.Category.Accept](../../../property-reference/glacier2-properties) supplies the category list:
+An [Ice::Identity](../../../runtime/object-identity) has two string fields: category and name. The category filter
+accepts requests for objects whose identity category is in the list configured with
+[Glacier2.Filter.Category.Accept](../../../property-reference/glacier2-properties):
 
 ```config
 Glacier2.Filter.Category.Accept=cat1 cat2
@@ -286,31 +252,29 @@ If a category contains spaces, you can enclose the value in single or double quo
 character, it must be escaped with a leading backslash.
 
 Glacier2 can optionally manipulate the category filter automatically. When you set
-[Glacier2.Filter.Category.AcceptUser](../../../property-reference/glacier2-properties) to a value of 1, the router adds
-the session's user name (for password authentication) or distinguished name (for SSL authentication) to the list of
-accepted categories. To ensure the uniqueness of your categories, you may prefer setting the property to a value of 2,
-which causes the router to prepend an underscore to the user name or distinguished name before adding it to the list.
+[Glacier2.Filter.Category.AcceptUser](../../../property-reference/glacier2-properties) to a value of `1`, the router
+adds the user name of each session created with `createSession` to the list of accepted categories, unless that user
+name is empty. To ensure the uniqueness of your categories, you may prefer setting the property to a value of `2`, which
+causes the router to prepend an underscore to the user name before adding it to the list.
 
-A session manager can also configure category filters [dynamically](../dynamic-request-filtering-with-glacier2) using
-Glacier2's `SessionControl` interface.
+A session manager can also change the accepted categories at run time, as described in
+[Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Identity Filters
 
-The ability to filter on identity categories, as described in the previous section, is a convenient way to limit clients
-to particular groups of objects. For even stricter control over the identities that clients are allowed to access, you
-can use the [Glacier2.Filter.Identity.Accept](../../../property-reference/glacier2-properties) property. The value of
-this property is a list of identities, separated by whitespace, representing the _only_ objects the router's clients may
-use.
+The ability to filter on identity categories, as described in the previous section, is a convenient way to give clients
+access to particular groups of objects. To give clients access to individual objects, you can use the
+[Glacier2.Filter.Identity.Accept](../../../property-reference/glacier2-properties) property. The value of this property
+is a list of identities, separated by whitespace, and the identity filter accepts requests for these objects.
 
 If an identity contains spaces, you can enclose the value in single or double quotes. If an identity contains a quote
 character, it must be escaped with a leading backslash.
 
-Clearly, specifying a static list of identities is only practical for a small set of objects. Furthermore, in many
-applications, the complete set of identities cannot be known in advance, such as when objects are created on a
-per-session basis and use UUIDs in their identities. For these situations, category-based filtering is generally
-sufficient. However, a session manager can also use Glacier2's
-[dynamic filtering](../dynamic-request-filtering-with-glacier2) interface, `SessionControl`, to manage the set of valid
-identities at run time.
+Specifying a static list of identities is only practical for a small set of objects. Furthermore, in many applications,
+the complete set of identities cannot be known in advance, such as when objects are created on a per-session basis and
+use UUIDs in their identities. For these situations, category-based filtering is generally sufficient. A session manager
+can also change the accepted identities at run time, as described in
+[Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Adapter Filters
 
@@ -333,29 +297,15 @@ Glacier2.Filter.AdapterId.Accept=WidgetAdapter
 If an adapter identifier contains spaces, you can enclose the value in single or double quotes. If an adapter identifier
 contains a quote character, it must be escaped with a leading backslash.
 
-A session manager can also configure this filter [dynamically](../dynamic-request-filtering-with-glacier2) using
-Glacier2's `SessionControl` interface.
+A session manager can also change the accepted adapter identifiers at run time, as described in
+[Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Proxy Filters
 
-The Glacier2 router maintains an internal routing table that contains an entry for each proxy used by a router client;
-the size of the routing table grows in proportion to the number of clients and their proxy usage. Furthermore, the
-amount of memory that the routing table consumes is affected by the number of endpoints in each proxy. Glacier2 provides
-two properties that you can use to limit the size of the routing table and defend against malicious router clients.
-
-The property [Glacier2.RoutingTable.MaxSize](../../../property-reference/glacier2-properties) specifies the maximum
-number of entries allowed in the routing table. If the size of the table exceeds the value of this property, the router
-evicts older entries on a least-recently-used basis. (Eviction of proxies from the routing table is transparent to
-router clients.) The default size of the routing table is 1000, but you may need to define a different value depending
-on the needs of your application. While experimenting with different values, you may find it useful to define the
-property [Glacier2.Trace.RoutingTable](../../../property-reference/glacier2-properties) to see a log of the router's
-activities with respect to the routing table.
-
-The property [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties) sets a limit on the size of
-a stringified proxy. The Ice run time places no limits on the size of proxy components such as identities and host
-names, but a malicious client could manufacture very large proxies in a denial-of-service attack on a Glacier2 router.
-By setting this property to a reasonably small value, you can prevent proxies from consuming excessive memory in the
-router process.
+The proxy filter rejects a proxy whose [stringified form](../../../runtime/invocation/syntax-for-stringified-proxies) is
+longer than [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties) bytes. By default, the
+router does not limit the size of proxies. This filter protects the router against clients that send very large proxies,
+since each session's routing table holds every proxy its client uses.
 
 ### Client Impact
 
@@ -383,7 +333,7 @@ Furthermore, the amount of memory that all of the routing tables consume grows w
 The property [Glacier2.RoutingTable.MaxSize](../../../property-reference/glacier2-properties) allows you to specify an
 upper limit on the number of entries in the routing table. If the size of the table exceeds the value of this property,
 the router evicts older entries on a least-recently-used basis. (Eviction of proxies from the routing table is
-transparent to router clients.) The default size of the routing table is 1000, but you may need to define a different
+transparent to router clients.) The default size of the routing table is `1000`, but you may need to define a different
 value depending on the needs of your application. While experimenting with different values, you may find it useful to
 define the property [Glacier2.Trace.RoutingTable](../../../property-reference/glacier2-properties) to see a log of the
 router's activities with respect to the routing table.
@@ -395,7 +345,7 @@ removed from the routing table. Note however that the routing table is destroyed
 ## See Also
 
 - [Glacier2.*](../../../property-reference/glacier2-properties)
-- [IceSSL](../../../runtime/ssl-transport)
+- [SSL Transport](../../../runtime/ssl-transport)
 - [Getting Started with Glacier2](../getting-started-with-glacier2)
 - [Callbacks Through Glacier2](../callbacks-through-glacier2)
 - [Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2)
