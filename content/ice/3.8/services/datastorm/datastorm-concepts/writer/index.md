@@ -9,8 +9,8 @@ A writer publishes **data samples** to a specific topic. Each writer is associat
 writers can be created for the same topic. The writer’s `Key`, `Value`, and `UpdateTag` template parameters must match
 the corresponding types of the topic from which it is created.
 
-When a writer is created, DataStorm **notifies connected peers**. Readers whose configuration matches the writer (topic,
-or keys) will **attach** so they can receive samples from that writer.
+When a writer is created, DataStorm **notifies connected peers**. Readers whose configuration matches the writer (topic
+and keys) will **attach** so they can receive samples from that writer.
 
 You can optionally assign a **name** to a writer at creation time. This name is visible to readers and is used in
 **listener notifications** (for connected writers or keys).

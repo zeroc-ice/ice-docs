@@ -11,7 +11,7 @@ DataStorm helps you exchange data between your networked applications, with a pa
 
 - Ease of use - simple exchanges require just a few lines of code
 - Flexibility
-- High-performance
+- High performance
 
 A DataStorm application consists of _publishers_ and _subscribers_. Publishers write data to **topics**, and subscribers
 read data from these topics.
@@ -20,7 +20,7 @@ A **topic** is a named object within a DataStorm node. It can be seen as a strea
 exchanged between topics is called a **sample**. A sample consists of a key–value pair (or data element) along with
 additional metadata attached when it is written.
 
-A typical DataStorm application consists of multiple **nodes**. Within these nodes, you creates topics; each topic
+A typical DataStorm application consists of multiple **nodes**. Within these nodes, you create topics; each topic
 represents a type of data you want to distribute. For each topic, you create **writers** and **readers** to produce and
 consume the samples that flow between nodes.
 
@@ -29,7 +29,7 @@ consume the samples that flow between nodes.
 DataStorm applications do not rely on a central service to communicate. Nodes can connect directly to each other and
 exchange samples whenever they share common topics for which one node has a writer and another has a matching reader.
 
-Nodes can be statically configured to connect to each others (by providing endpoints), or they can use **UDP multicast**
+Nodes can be statically configured to connect to each other (by providing endpoints), or they can use **UDP multicast**
 for automatic peer discovery. When using **TCP** for discovery, nodes can connect to other regular or dedicated
 discovery nodes. Discovery nodes can also be replicated and connected together to ensure there is no single point of
 failure.

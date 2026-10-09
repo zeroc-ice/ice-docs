@@ -22,7 +22,7 @@ The example above creates a topic named `"temperature"`, with a string `Key` typ
 
 {% callout type="note" %}
 
-You can also create topics on the heap using std::make_shared.
+You can also create topics on the heap using `std::make_shared`.
 
 ```cpp
 DataStorm::Node node{argc, argv};
@@ -66,7 +66,7 @@ filter:
 ```cpp
 DataStorm::Topic<string, float> topic{node, "temperatures"};
 
-topic.setKeyFilter<string>("startswith", [](string prefix)
+topic.setKeyFilter<string>("startsWith", [](string prefix)
 {
     return [prefix](const string& key)
     {

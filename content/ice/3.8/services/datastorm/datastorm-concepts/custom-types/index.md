@@ -18,8 +18,8 @@ For **types defined in Slice**, DataStorm automatically uses the **Ice encoding*
 Topic<string, float> temperatures{node, "temperatures"};
 ```
 
-In this example, DataStorm uses the Ice encoding for both string and float. No additional code or configuration is
-needed because both string and float are [Slice built-in types](../../../../slice/basic-types).
+In this example, DataStorm uses the Ice encoding for both `string` and `float`. No additional code or configuration is
+needed because both `string` and `float` are [Slice built-in types](../../../../slice/basic-types).
 
 ## Example: Custom Slice Type
 
@@ -41,9 +41,9 @@ module ClearSky
 
 You must include the slice2cpp-generated code when building your application.
 
-DataStorm will use the Ice encoding for both parameters:
+DataStorm will use the Ice encoding for both type parameters:
 
-- string is encoded as a built-in Slice type.
+- `string` is encoded as a built-in Slice type.
 - `ClearSky::AtmosphericConditions` is encoded and decoded using the generated Slice code.
 
 ```cpp
@@ -72,7 +72,7 @@ specialize `Cloner` for this type.
 
 DataStorm converts types to strings using the `operator<<` overload for `std::ostream` in two scenarios:
 
-- **Tracing** DataStorm traces include the string representation of keys. If a key type does not support string
+- **Tracing** — DataStorm traces include the string representation of keys. If a key type does not support string
   conversion via `operator<<`, DataStorm falls back to printing the key’s `typeid` and memory address.
-- **Regex Filters** DataStorm provides a built-in `_regex` filter. The regular expression is applied to the string
+- **Regex Filters** — DataStorm provides a built-in `_regex` filter. The regular expression is applied to the string
   representation of the key or value, which requires that the type implement a valid `operator<<` overload.

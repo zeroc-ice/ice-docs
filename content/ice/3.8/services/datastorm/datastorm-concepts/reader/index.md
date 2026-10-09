@@ -44,8 +44,8 @@ the topic.
 Topic<string, float> temperatures{node, "temperatures"};
 SingleKeyReader<string, float> reader{
     temperatures,
-      "floor1/kitchen",
-      "kitchen-reader"};
+    "floor1/kitchen",
+    "kitchen-reader"};
 ```
 
 Or
@@ -157,7 +157,7 @@ Readers provide methods to retrieve unread samples:
 - [hasUnread](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ab0a08e79d3a4eaf5dcb2facfba50d695.html#ab0a08e79d3a4eaf5dcb2facfba50d695)
   — checks if there are unread samples in the queue.
 
-If the node is shutdown, blocking methods (e.g., `waitForUnread`, `getNextUnread`) throw
+If the node is shut down, blocking methods (e.g., `waitForUnread`, `getNextUnread`) throw
 [NodeShutdownException](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1NodeShutdownException.html).
 
 You can register a callback with
@@ -177,7 +177,7 @@ Reader behavior is configurable via
   DataStorm.Topic.SampleCount)
 - **Topic-level defaults** — by calling
   [Topic::setReaderDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ae005c107f689e1e309e49a4c1421ed2a.html#ae005c107f689e1e309e49a4c1421ed2a)
-- **Per-reader configuration** — via the reader constructor or or
+- **Per-reader configuration** — via the reader constructor or
   [makeXxxReader](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#r_a6959df6a3e35c9e37a4ed065757fc0fc)
   helper
 
@@ -210,9 +210,9 @@ Controls when the reader’s unread sample queue is cleared, based on sample eve
 Whether to discard samples on receipt of new samples
 ([DiscardPolicy](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473)):
 
-- **None**— never discard
-- **SendTime**— discard if the new sample’s timestamp is at or before the last accepted sample’s timestamp
-- **Priority**— keep only samples from the highest-priority connected writers
+- **None** — never discard
+- **SendTime** — discard if the new sample’s timestamp is at or before the last accepted sample’s timestamp
+- **Priority** — keep only samples from the highest-priority connected writers
 
 ### Coordination & Listeners
 
