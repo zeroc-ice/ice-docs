@@ -24,13 +24,43 @@
       markerHeight="7"
       orient="auto-start-reverse"
     >
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--diagram-connector)"/>
     </marker>
   </defs>
 
   <style>
+    :root {
+      --diagram-canvas: #ffffff;
+      --diagram-component: #ffffff;
+      --diagram-text: #182235;
+      --diagram-secondary-text: #566174;
+      --diagram-connector: #566174;
+      --diagram-component-stroke: #8d99aa;
+      --diagram-runtime-stroke: #1259d6;
+      --diagram-runtime: #eef5ff;
+      --diagram-divider: #a6afbc;
+      --diagram-network: #7a8699;
+      --diagram-firewall: #eef0f3;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --diagram-canvas: #1a1c21;
+        --diagram-component: #232429;
+        --diagram-text: #e6ebf4;
+        --diagram-secondary-text: #a7b3c6;
+        --diagram-connector: #a7b3c6;
+        --diagram-component-stroke: #8391a6;
+        --diagram-runtime-stroke: #6aa6ff;
+        --diagram-runtime: #21324c;
+        --diagram-divider: #667389;
+        --diagram-network: #8391a6;
+        --diagram-firewall: #2c3039;
+      }
+    }
+
     text {
-      fill: #182235;
+      fill: var(--diagram-text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .label {
@@ -39,49 +69,49 @@
       text-anchor: middle;
     }
     .annotation {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 14px;
       text-anchor: middle;
     }
     .zone-label {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 14px;
       font-weight: 650;
     }
     .legend-label {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 14px;
       font-weight: 500;
     }
     .application {
-      fill: #ffffff;
-      stroke: #8d99aa;
+      fill: var(--diagram-component);
+      stroke: var(--diagram-component-stroke);
       stroke-width: 1.5;
     }
     .service {
-      fill: #eef5ff;
-      stroke: #1259d6;
+      fill: var(--diagram-runtime);
+      stroke: var(--diagram-runtime-stroke);
       stroke-width: 1.75;
     }
     .firewall {
-      fill: #eef0f3;
-      stroke: #566174;
+      fill: var(--diagram-firewall);
+      stroke: var(--diagram-connector);
       stroke-width: 1.75;
     }
     .network-boundary {
       fill: none;
-      stroke: #7a8699;
+      stroke: var(--diagram-network);
       stroke-width: 1.5;
       stroke-dasharray: 7 5;
     }
     .divider {
       fill: none;
-      stroke: #a6afbc;
+      stroke: var(--diagram-divider);
       stroke-width: 1.25;
     }
     .connector {
       fill: none;
-      stroke: #566174;
+      stroke: var(--diagram-connector);
       stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -101,11 +131,11 @@
       stroke-dasharray: 2 5;
     }
     .label-knockout {
-      fill: #ffffff;
+      fill: var(--diagram-canvas);
     }
   </style>
 
-  <rect width="756" height="288" fill="#ffffff"/>
+  <rect width="756" height="288" fill="var(--diagram-canvas)"/>
 
   <g id="boundaries" aria-hidden="true">
     <path class="network-boundary" d="M 236 16 V 248" vector-effect="non-scaling-stroke"/>

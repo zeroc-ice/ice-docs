@@ -8,7 +8,7 @@ This guide defines reusable visual and accessibility conventions for diagrams au
    request.
 2. Use `diagrams/template.svg` as a starting point, keeping only the styles and shapes the figure needs. Place every
    element explicitly.
-3. Render the SVG to a bitmap and inspect it at both full size and typical documentation width.
+3. Render both palettes to bitmaps and inspect them at full size and typical documentation width.
 4. Publish the reviewed SVG under `public/images/ice/<version>/<page>/`. Reuse the same asset when multiple pages show
    the same figure.
 
@@ -85,34 +85,44 @@ crosses the text.
 
 ## Color and shape roles
 
-| Role                           | Fill      | Stroke    | Treatment                      |
-| ------------------------------ | --------- | --------- | ------------------------------ |
-| Canvas                         | `#ffffff` | —         | Opaque background              |
-| Process or host boundary       | `#fbfcfe` | `#cbd3de` | 1.5, dashed `7 5`, radius 14   |
-| Ice API or logical boundary    | `#f8fbff` | `#4f78bb` | 1.5, solid, radius 8           |
-| Application component          | `#ffffff` | `#8d99aa` | 1.5, solid, radius 7           |
-| Primary Ice runtime or service | `#eef5ff` | `#1259d6` | 1.75, solid, radius 7–8        |
-| Generated code                 | `#f3f0f7` | `#75658f` | 1.75, solid, radius 7          |
-| Text                           | —         | —         | `#182235`                      |
-| Connector                      | —         | `#566174` | 1.75, rounded                  |
-| Inheritance connector          | —         | `#465266` | 2, hollow triangle marker      |
-| Divider inside a component     | —         | `#a6afbc` | 1.25, solid                    |
-| Network zone boundary          | —         | `#7a8699` | 1.5, dashed `7 5`              |
-| Firewall                       | `#eef0f3` | `#566174` | 1.75, solid, radius 3          |
-| Data in transit                | `#f6f7f9` | `#8d99aa` | 1.25, solid, radius 4          |
-| Blocked path                   | —         | `#b42318` | 1.75, dashed, red × terminator |
+| Role                           | Light fill | Light stroke | Dark fill | Dark stroke | Treatment                      |
+| ------------------------------ | ---------- | ------------ | --------- | ----------- | ------------------------------ |
+| Canvas                         | `#ffffff`  | —            | `#1a1c21` | —           | Opaque background              |
+| Process or host boundary       | `#fbfcfe`  | `#cbd3de`    | `#20232b` | `#667389`   | 1.5, dashed `7 5`, radius 14   |
+| Ice API or logical boundary    | `#f8fbff`  | `#4f78bb`    | `#202c3e` | `#7da7e6`   | 1.5, solid, radius 8           |
+| Application component          | `#ffffff`  | `#8d99aa`    | `#232429` | `#8391a6`   | 1.5, solid, radius 7           |
+| Primary Ice runtime or service | `#eef5ff`  | `#1259d6`    | `#21324c` | `#6aa6ff`   | 1.75, solid, radius 7–8        |
+| Generated code                 | `#f3f0f7`  | `#75658f`    | `#312b3e` | `#b6a0d2`   | 1.75, solid, radius 7          |
+| Text                           | `#182235`  | —            | `#e6ebf4` | —           | Primary labels                 |
+| Secondary text                 | `#566174`  | —            | `#a7b3c6` | —           | Annotations and legends        |
+| Connector                      | —          | `#566174`    | —         | `#a7b3c6`   | 1.75, rounded                  |
+| Inheritance connector          | —          | `#465266`    | —         | `#a7b3c6`   | 2, hollow triangle marker      |
+| Divider inside a component     | —          | `#a6afbc`    | —         | `#667389`   | 1.25, solid                    |
+| Network zone boundary          | —          | `#7a8699`    | —         | `#8391a6`   | 1.5, dashed `7 5`              |
+| Firewall                       | `#eef0f3`  | `#566174`    | `#2c3039` | `#a7b3c6`   | 1.75, solid, radius 3          |
+| Data in transit                | `#f6f7f9`  | `#8d99aa`    | `#292e38` | `#8391a6`   | 1.25, solid, radius 4          |
+| Blocked path                   | —          | `#b42318`    | —         | `#ff938a`   | 1.75, dashed, red × terminator |
 
 Use color to reinforce a semantic distinction, never as its only indicator. ZeroC blue identifies primary Ice-owned
 runtime and service elements. Generated code uses the secondary violet treatment and retains an explicit `Generated`
 label. Avoid shadows, decorative gradients, and textures unless they encode information.
 
-Published diagrams currently use an opaque white canvas in both light and dark documentation themes, matching the legacy
-raster-image treatment. Do not make only part of a diagram theme-aware; introduce a complete reviewed dark palette if
-adaptive diagrams are added later.
+Each SVG defines its palette as CSS custom properties on `:root`, using the `--diagram-` names in the template. Keep
+only the properties the figure uses. Use these properties for every fill and stroke, including the canvas, marker
+geometry, label knockouts, and badges. Each figure retains an opaque canvas that matches the page surface.
+
+Set the light palette as the default and override the same properties inside
+`@media screen and (prefers-color-scheme: dark)`. The site's print stylesheet sets `color-scheme: light` on article
+images so embedded SVGs use the light palette when the reader prints a dark page.
+
+The site theme provider sets `color-scheme` on the HTML root to the reader's resolved Light, Dark, or System choice. An
+SVG embedded through an image reference evaluates `prefers-color-scheme` against the embedding element's used color
+scheme, as the [CSS specification](https://www.w3.org/TR/mediaqueries-5/#prefers-color-scheme) defines. Keep the palette
+inside the SVG: the page's CSS custom properties do not cross the image boundary.
 
 When category headers replace a legacy legend, use small bold type with modest letter spacing. Use blue `API` headers
-(`#365f9e`) for Ice API/runtime elements and violet `GENERATED` headers (`#68587e`) for generated code. These shades are
-darker than the matching strokes so that small type stays legible on the tinted fills.
+(`#365f9e` in light mode, `#9cc4ff` in dark mode) for Ice API/runtime elements and violet `GENERATED` headers (`#68587e`
+in light mode, `#d1bdea` in dark mode) for generated code. Keep these small labels legible on their tinted fills.
 
 Standard compact components are approximately `120 × 54`; application and generated-code components may be
 `165–180 × 62–72`. Keep at least 16 units of internal horizontal padding.
@@ -150,9 +160,10 @@ lanes or merge two independent connections into one.
 End each connector on the edge of the component it reaches, including the curved edge of a document shape: the template
 markers put the arrowhead at the path's end point, so a path that stops short leaves a gap under the arrowhead.
 
-Put an opaque white rounded knockout behind text placed over a horizontal or vertical connector. Give the text enough
-horizontal padding to make the interruption intentional. Place the label of a diagonal connector beside the line
-instead, because a rectangular knockout cuts a sloped line unevenly.
+Put an opaque rounded knockout behind text placed over a horizontal or vertical connector. Use white in light mode; in
+dark mode, match the canvas or host surface beneath it with `--diagram-canvas` or `--diagram-host-knockout`. Give the
+text enough horizontal padding to make the interruption intentional. Place the label of a diagonal connector beside the
+line instead, because a rectangular knockout cuts a sloped line unevenly.
 
 When a diagram contains both forward requests and callbacks, use solid arrows for the original request and dashed arrows
 for the callback.
@@ -161,9 +172,9 @@ A figure that draws both requests and callbacks, or that uses the topic-link or 
 legend sits below the drawing, left-aligned with it, without a title or frame: each entry is a 36-unit sample of the
 connector followed 10 units later by `.legend-label` text, and entries in one row are 28 units apart.
 
-Numbered steps use a white circular badge with a ZeroC-blue border and a centered number. The template provides a
-24-unit badge; size the number and nearby label for the figure. Define the circle once as `step-badge-shape` in
-`<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Place each badge beside the connector it
+Numbered steps use a circular badge with the canvas fill, a runtime-blue border, and a centered number. The template
+provides a 24-unit badge; size the number and nearby label for the figure. Define the circle once as `step-badge-shape`
+in `<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Place each badge beside the connector it
 numbers, and leave a visible gap between the badge and its label.
 
 ## Boundaries and annotations
@@ -175,10 +186,11 @@ numbers, and leave a visible gap between the badge and its label.
   connection continues across it as a `.through-firewall` segment. A firewall or policy boundary uses a labeled dashed
   line. Do not represent either with color alone.
 - Network zones use labeled boundaries only when the zone itself is meaningful. Use a dashed `7 5` line with a 1.5-unit
-  `#7a8699` stroke so it remains visible at page size. Keep this stronger network boundary distinct from the lighter
-  host outlines, and interrupt it behind labels. Name the zone on each side of the line in `.zone-label` text at the top
-  of the drawing, 12 units from the line and anchored toward it, for example `Public network` and `Private network`.
-  When the zones are not meaningful, omit the line and label the connector `Network`.
+  `--diagram-network` stroke (`#7a8699` in light mode, `#8391a6` in dark mode) so it remains visible at page size. Keep
+  this stronger network boundary distinct from the lighter host outlines, and interrupt it behind labels. Name the zone
+  on each side of the line in `.zone-label` text at the top of the drawing, 12 units from the line and anchored toward
+  it, for example `Public network` and `Private network`. When the zones are not meaningful, omit the line and label the
+  connector `Network`.
 - Glacier2 uses the service treatment: a `240 × 136` component with `Glacier2` centered in a 40-unit header, a divider
   under the header, and two equal cells labeled `Client endpoints` and `Server endpoints` on two lines each. Set each
   cell's addresses as annotations below the component, centered under the cell.
@@ -197,7 +209,7 @@ numbers, and leave a visible gap between the badge and its label.
 - Mark purely structural connector groups `aria-hidden="true"` when the description already explains them.
 - Use class names that describe semantic roles rather than appearance. Names are local to each self-contained SVG:
   published figures commonly use `.boundary`, `.api`, and `.application`, while the template offers more specific roles
-  such as `.process-boundary` and `.api-boundary`. A label background can use `.label-knockout` or an explicit white
-  fill; its purpose is to keep lines from crossing the text.
+  such as `.process-boundary` and `.api-boundary`. Use `.label-knockout` for text over the canvas and
+  `.host-label-knockout` for text over a host surface; both use palette properties to keep lines from crossing the text.
 - Keep the SVG self-contained: no scripts, external fonts, runtime dependencies, or editor metadata.
 - Format the source consistently and include comments only where they explain layout intent.

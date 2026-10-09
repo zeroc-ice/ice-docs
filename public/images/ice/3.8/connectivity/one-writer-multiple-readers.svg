@@ -22,13 +22,33 @@
       markerHeight="7"
       orient="auto-start-reverse"
     >
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--diagram-connector)"/>
     </marker>
   </defs>
 
   <style>
+    :root {
+      --diagram-canvas: #ffffff;
+      --diagram-component: #ffffff;
+      --diagram-text: #182235;
+      --diagram-secondary-text: #566174;
+      --diagram-connector: #566174;
+      --diagram-component-stroke: #8d99aa;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --diagram-canvas: #1a1c21;
+        --diagram-component: #232429;
+        --diagram-text: #e6ebf4;
+        --diagram-secondary-text: #a7b3c6;
+        --diagram-connector: #a7b3c6;
+        --diagram-component-stroke: #8391a6;
+      }
+    }
+
     text {
-      fill: #182235;
+      fill: var(--diagram-text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .label {
@@ -37,7 +57,7 @@
       text-anchor: middle;
     }
     .annotation {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 14px;
       text-anchor: middle;
     }
@@ -45,13 +65,13 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
     .application {
-      fill: #ffffff;
-      stroke: #8d99aa;
+      fill: var(--diagram-component);
+      stroke: var(--diagram-component-stroke);
       stroke-width: 1.5;
     }
     .connector {
       fill: none;
-      stroke: #566174;
+      stroke: var(--diagram-connector);
       stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -61,7 +81,7 @@
     }
   </style>
 
-  <rect width="768" height="328" fill="#ffffff"/>
+  <rect width="768" height="328" fill="var(--diagram-canvas)"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>

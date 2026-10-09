@@ -299,6 +299,12 @@
     @apply mx-auto my-6 block object-contain;
   }
 
+  @media print {
+    main article img {
+      color-scheme: light;
+    }
+  }
+
   li {
     @apply leading-[1.7];
   }
