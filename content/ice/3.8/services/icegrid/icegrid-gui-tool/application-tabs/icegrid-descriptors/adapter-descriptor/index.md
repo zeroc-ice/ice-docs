@@ -16,7 +16,7 @@ The Adapter Properties panel offers the following fields:
   ${server}._adapter-name_.
 - **Replica Group** The ID of this adapter's [Replica Group](../replica-group-descriptor). By default, an adapter does
   not belong to any replica group.
-- **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is 0.
+- **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is `0`.
 - **Endpoints** The configured endpoints for this object adapter. Corresponds to the
   [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties) property. Default: default,
   which means listen using the default protocol (tcp by default) on an OS assigned port, on all interfaces.

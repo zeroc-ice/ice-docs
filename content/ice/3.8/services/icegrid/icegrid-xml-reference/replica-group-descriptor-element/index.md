@@ -8,7 +8,7 @@ adapters. An [adapter](../adapter-descriptor-element) element declares its membe
 desired replica group. The element may declare [well-known objects](../../well-known-objects) that are available in all
 of the participating object adapters. A `replica-group` element may contain a `load-balancing` child element that
 specifies the load-balancing algorithm the registry should use when resolving locate requests. If not specified, the
-registry uses a random load balancing policy with the number of replicas set to 0.
+registry uses a random load balancing policy with the number of replicas set to `0`.
 
 This element may only appear as a child of an [application](../application-descriptor-element) element.
 

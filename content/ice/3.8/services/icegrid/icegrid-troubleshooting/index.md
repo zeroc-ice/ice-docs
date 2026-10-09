@@ -96,7 +96,7 @@ great deal of disk space and threaten the viability of the application as a whol
 
 As a defensive measure, you can configure an IceGrid node to disable these servers automatically using the
 [IceGrid.Node.DisableOnFailure](../../../property-reference/icegrid-properties) property. In the disabled state, a
-server cannot be activated on demand. The default value of the property is zero, meaning the node does not disable a
+server cannot be activated on demand. The default value of the property is `0`, meaning the node does not disable a
 server that terminates improperly. A positive value causes the node to temporarily disable a faulty server, with the
 value representing the number of seconds the server should remain disabled. If the property has a negative value, the
 server is disabled indefinitely, or until the server is explicitly enabled or started via an administrative action.

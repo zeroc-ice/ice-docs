@@ -60,7 +60,7 @@ table, and to show a given entry in its own dialog.
 This table shows the object adapters registered dynamically with the registry. It is typically empty. A registry allows
 dynamically registered adapters only when its
 [IceGrid.Registry.DynamicRegistration](../../../../../../property-reference/icegrid-properties) property is set to a
-value greater than 0. A contextual menu allows you to remove entries from this table.
+value greater than `0`. A contextual menu allows you to remove entries from this table.
 
 Note that application filtering does not affect this panel: all applications, well-known objects and dynamic object
 adapters are always displayed.

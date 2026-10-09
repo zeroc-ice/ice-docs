@@ -279,14 +279,14 @@ indirect proxy if it defines a value for [_adapter_.AdapterId](#adapter.adapteri
 
 {% property-description %}
 
-If `num` is a value greater than 0, the adapter's thread pool serializes all messages from each connection. It is not
+If `num` is a value greater than `0`, the adapter's thread pool serializes all messages from each connection. It is not
 necessary to enable this feature in a thread pool whose maximum size is 1 thread. When a thread pool dispatches requests
 implemented with AMD, it serializes the dispatching of requests from each connection, but it does not wait for a request
 to complete before it dispatches the next request.
 
 In a [multi-threaded pool](../../runtime/threading-model), enabling serialization allows requests from different
 connections to be dispatched concurrently while preserving the order of messages on each connection. Note that
-serialization can have a significant impact on latency and throughput. If not defined, the default value is 0.
+serialization can have a significant impact on latency and throughput. If not defined, the default value is `0`.
 
 {% /property-description %}
 
@@ -343,7 +343,7 @@ never grow larger than its initial size.
 {% property-description %}
 
 Whenever `num` threads are active in a [thread pool](../../runtime/threading-model), a "low on threads" warning is
-printed. The default value is 0, which disables the warning.
+printed. The default value is `0`, which disables the warning.
 
 {% /property-description %}
 
@@ -358,7 +358,7 @@ printed. The default value is 0, which disables the warning.
 {% property-description %}
 
 `num` is the stack size (in bytes) of threads in the [thread pool](../../runtime/threading-model). The default value is
-0, meaning the operating system's default is used.
+`0`, meaning the operating system's default is used.
 
 {% /property-description %}
 
@@ -373,8 +373,8 @@ printed. The default value is 0, which disables the warning.
 {% property-description %}
 
 In a dynamically-sized [thread pool](../../runtime/threading-model), Ice reaps a thread after it is idle for `num`
-seconds. Setting this property to 0 disables idle thread reaping. If not specified, the default value is 60 seconds. See
-[Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties) for more information.
+seconds. Setting this property to `0` disables idle thread reaping. If not specified, the default value is 60 seconds.
+See [Ice.ThreadPool._name_.ThreadIdleTime](../ice-threadpool-properties) for more information.
 
 {% /property-description %}
 

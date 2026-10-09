@@ -17,11 +17,12 @@ Controls the connection information that Glacier2 adds to the
 
 | Value | Description                                                                                                                             |
 | ----- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | Do not add connection information (default).                                                                                            |
-| 1     | Add connection information to permissions-verifier and session-manager calls, and to requests forwarded from clients to servers.        |
-| 2     | Add connection information to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on session managers. |
+| `0`   | Do not add connection information (default).                                                                                            |
+| `1`   | Add connection information to permissions-verifier and session-manager calls, and to requests forwarded from clients to servers.        |
+| `2`   | Add connection information to `checkPermissions` and `authorize` calls on permissions verifiers and `create` calls on session managers. |
 
-For values 1 and 2, Glacier2 supplies the following entries when the connection provides the corresponding information:
+For values `1` and `2`, Glacier2 supplies the following entries when the connection provides the corresponding
+information:
 
 | Key                  | Description                                                                                                |
 | -------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -58,7 +59,7 @@ recommended.
 4063 (for TCP) and 4064 (for SSL) are reserved for Glacier2 by the
 [Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
 
-`Glacier2.Client.Connection.InactivityTimeout` defaults to 0. The client adapter's connection idle timeout,
+`Glacier2.Client.Connection.InactivityTimeout` defaults to `0`. The client adapter's connection idle timeout,
 `Glacier2.Client.Connection.IdleTimeout`, supplies the value returned by `Glacier2::Router::getSessionTimeout`; it
 defaults to `Ice.Connection.Server.IdleTimeout`.
 
@@ -74,7 +75,7 @@ defaults to `Ice.Connection.Server.IdleTimeout`.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the Glacier2 router includes the
+If `num` is set to a value larger than `0`, the Glacier2 router includes the
 [request context](../../services/glacier2/how-glacier2-uses-request-contexts) when forwarding requests from clients to
 servers. The default value is `0`.
 
@@ -95,11 +96,11 @@ When `Glacier2.AddConnectionContext` is 1, Glacier2 includes its connection-info
 
 Controls tracing for the router's [filters](../../services/glacier2/securing-a-glacier2-router):
 
-| Value | Description                                                                                                                                                                                               |
-| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No filter trace (default).                                                                                                                                                                                |
-| 1, 2  | Trace proxy acceptance and rejection by the address and proxy-size filters, request rejections by category, identity and adapter-ID filters, and requests rejected because the connection has no session. |
-| 3     | Like 1, with details of individual address and port matches.                                                                                                                                              |
+| Value    | Description                                                                                                                                                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`      | No filter trace (default).                                                                                                                                                                                |
+| `1`, `2` | Trace proxy acceptance and rejection by the address and proxy-size filters, request rejections by category, identity and adapter-ID filters, and requests rejected because the connection has no session. |
+| `3`      | Like `1`, with details of individual address and port matches.                                                                                                                                            |
 
 {% /property-description %}
 
@@ -113,7 +114,7 @@ Controls tracing for the router's [filters](../../services/glacier2/securing-a-g
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the Glacier2 router logs a trace message for each request that is forwarded
+If `num` is set to a value larger than `0`, the Glacier2 router logs a trace message for each request that is forwarded
 from a client. The default value is `0`.
 
 {% /property-description %}
@@ -244,9 +245,9 @@ values are shown below:
 
 | Value | Description                                |
 | ----- | ------------------------------------------ |
-| 0     | Do not add the user ID (default).          |
-| 1     | Add the user ID.                           |
-| 2     | Add the user ID with a leading underscore. |
+| `0`   | Do not add the user ID (default).          |
+| `1`   | Add the user ID.                           |
+| `2`   | Add the user ID with a leading underscore. |
 
 {% callout type="note" %}
 
@@ -386,7 +387,7 @@ Glacier2 passes a null `SessionControl` proxy to session managers.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the Glacier2 router includes the
+If `num` is set to a value larger than `0`, the Glacier2 router includes the
 [request context](../../services/glacier2/how-glacier2-uses-request-contexts) when forwarding requests from servers to
 clients. The default value is `0`.
 
@@ -402,7 +403,7 @@ clients. The default value is `0`.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the Glacier2 router logs a trace message for each request that is forwarded
+If `num` is set to a value larger than `0`, the Glacier2 router logs a trace message for each request that is forwarded
 from a server. The default value is `0`.
 
 {% /property-description %}
@@ -484,11 +485,11 @@ Glacier2 always disables connection caching for this proxy. Its locator cache ti
 
 The routing table trace level:
 
-| Value | Description                                                                                                               |
-| ----- | ------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No routing table trace (default).                                                                                         |
-| 1     | Trace proxy additions and attempts to add a proxy already in the routing table.                                           |
-| 2     | Like 1, and trace proxy evictions when the table exceeds [Glacier2.RoutingTable.MaxSize](#glacier2.routingtable.maxsize). |
+| Value | Description                                                                                                                 |
+| ----- | --------------------------------------------------------------------------------------------------------------------------- |
+| `0`   | No routing table trace (default).                                                                                           |
+| `1`   | Trace proxy additions and attempts to add a proxy already in the routing table.                                             |
+| `2`   | Like `1`, and trace proxy evictions when the table exceeds [Glacier2.RoutingTable.MaxSize](#glacier2.routingtable.maxsize). |
 
 {% /property-description %}
 
@@ -502,7 +503,7 @@ The routing table trace level:
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the Glacier2 router logs trace messages about session-related activities. The
-default value is `0`.
+If `num` is set to a value larger than `0`, the Glacier2 router logs trace messages about session-related activities.
+The default value is `0`.
 
 {% /property-description %}

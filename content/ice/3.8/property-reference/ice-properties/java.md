@@ -66,7 +66,7 @@ Ice.Config=1
 This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
 `--Ice.Config=config_file`.
 
-If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the
+If the `Ice.Config` property is empty or set to `1`, or not set at all, the Ice runtime examines the contents of the
 [ICE_CONFIG](../../runtime/properties-and-configuration/using-configuration-files) environment variable to retrieve the
 path names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more
 configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of
@@ -128,11 +128,11 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 {% property-description %}
 
-If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
+If `num` is a value greater than `0`, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
 initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
-this order. An application may need to set this property to zero in order to interact directly with a plug-in after it
+this order. An application may need to set this property to `0` in order to interact directly with a plug-in after it
 has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
-plug-in manager to complete the initialization process. If not defined, the default value is 1.
+plug-in manager to complete the initialization process. If not defined, the default value is `1`.
 
 {% /property-description %}
 
@@ -146,8 +146,8 @@ plug-in manager to complete the initialization process. If not defined, the defa
 
 {% property-description %}
 
-Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
-value is 1.
+Specifies whether Ice uses IPv4. If `num` is a value greater than `0`, IPv4 is enabled. If not specified, the default
+value is `1`.
 
 {% /property-description %}
 
@@ -161,8 +161,8 @@ value is 1.
 
 {% property-description %}
 
-Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
-value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
+Specifies whether Ice uses IPv6. If `num` is a value greater than `0`, IPv6 is enabled. If not specified, the default
+value is `1` if the system supports the creation of IPv6 sockets, and `0` otherwise.
 
 Java's default network stack always accepts both IPv4 and IPv6 connections regardless of the settings of `Ice.IPv6`. You
 can configure the Java runtime to use only IPv4 by starting your application with the following JVM option:
@@ -234,8 +234,8 @@ installed through configuration.
 {% property-description %}
 
 If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
-resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
-value is 0.
+resolving hostnames. If `num` is a value greater than `0`, IPv6 addresses are preferred. If not specified, the default
+value is `0`.
 
 {% /property-description %}
 
@@ -249,7 +249,7 @@ value is 0.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
+If `num` is set to a value larger than `0`, an object adapter prints "_adapter_name_ ready" on standard output after
 activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
 
 {% /property-description %}
@@ -268,12 +268,12 @@ activation is complete. This is useful for scripts that need to wait until an ob
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
-pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
-task, like dispatching a request.
+If `num` is set to a value larger than `0`, Ice automatically calls `shutdown` on the communicator when its server
+thread pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is
+performing some task, like dispatching a request.
 
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
-return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
+return. After that, a server will typically do some clean-up work before exiting. The default value is `0`, meaning that
 the server will not shut down automatically. This property is often used for servers that are automatically
 [activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
@@ -289,10 +289,10 @@ the server will not shut down automatically. This property is often used for ser
 
 {% property-description %}
 
-When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
+When `num` is set to a value larger than `0`, the communicator installs an internal “not found” cache that caches failed
 Slice loader resolutions.
 
-The default value is 100.
+The default value is `100`.
 
 See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
@@ -456,10 +456,10 @@ specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-ad
 
 {% property-description %}
 
-If `num` is greater than 0, Ice for Java sends log messages as UDP datagrams to the syslog daemon configured by
+If `num` is greater than `0`, Ice for Java sends log messages as UDP datagrams to the syslog daemon configured by
 [Ice.SyslogHost](#ice.sysloghost) and [Ice.SyslogPort](#ice.syslogport). The messages use the RFC 3164 syslog format
 without a header and include the program name as their prefix. [Ice.SyslogFacility](#ice.syslogfacility) selects the
-facility. The default value of `Ice.UseSyslog` is 0. Ice ignores this property on Windows.
+facility. The default value of `Ice.UseSyslog` is `0`. Ice ignores this property on Windows.
 
 On other platforms, this property cannot be combined with [Ice.LogFile](#ice.logfile).
 

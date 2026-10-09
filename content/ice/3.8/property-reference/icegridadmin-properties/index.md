@@ -19,8 +19,8 @@ session that deploys the application.
 
 {% property-description %}
 
-If `num` is a value greater than zero, [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) uses SSL
-authentication when establishing its session with the IceGrid registry. If not defined or the value is zero,
+If `num` is a value greater than `0`, [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) uses SSL
+authentication when establishing its session with the IceGrid registry. If not defined or the value is `0`,
 `icegridadmin` uses user name and password authentication.
 
 {% /property-description %}
@@ -184,8 +184,8 @@ configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unse
 
 {% property-description %}
 
-If `num` is a value greater than zero, IceGrid GUI displays trace information about the observer callbacks it receives
-from the registry. If not defined, the default value is zero.
+If `num` is a value greater than `0`, IceGrid GUI displays trace information about the observer callbacks it receives
+from the registry. If not defined, the default value is `0`.
 
 {% /property-description %}
 
@@ -199,8 +199,8 @@ from the registry. If not defined, the default value is zero.
 
 {% property-description %}
 
-If `num` is a value greater than zero, IceGrid GUI displays trace information about the modifications it commits to the
-registry. If not defined, the default value is zero.
+If `num` is a value greater than `0`, IceGrid GUI displays trace information about the modifications it commits to the
+registry. If not defined, the default value is `0`.
 
 {% /property-description %}
 

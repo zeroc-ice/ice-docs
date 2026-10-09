@@ -77,7 +77,7 @@ Likewise, if an endpoint is malformed, the application receives a `ParseExceptio
 
 Ice drops an endpoint whose transport is not registered with the communicator, such as a `bt` endpoint in a runtime
 without IceBT, and logs a warning that lists the dropped endpoints when
-[Ice.Warn.Endpoints](../../../property-reference/ice-warn-properties) is greater than 0, which is the default. If Ice
+[Ice.Warn.Endpoints](../../../property-reference/ice-warn-properties) is greater than `0`, which is the default. If Ice
 drops every endpoint of the stringified proxy, the application receives a `ParseException`.
 
 ## See Also

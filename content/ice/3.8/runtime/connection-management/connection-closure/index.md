@@ -39,7 +39,7 @@ uses Ice 3.7 (or earlier) and the other side uses Ice 3.8 (or newer), the idle c
 but inactive connection.
 
 To prevent such idle check aborts, configure your Ice 3.7 or 3.6 application to generate regular write activity by
-setting `Ice.ACM.Heartbeat` to 3, and making sure `Ice.ACM.Timeout` matches your Ice 3.8 `IdleTimeout`. The default
+setting `Ice.ACM.Heartbeat` to `3`, and making sure `Ice.ACM.Timeout` matches your Ice 3.8 `IdleTimeout`. The default
 `Ice.ACM.Timeout` is 60 seconds, just like the default `IdleTimeout`.
 
 If you cannot reconfigure your older Ice application, you can disable the idle check on the 3.8 side by setting

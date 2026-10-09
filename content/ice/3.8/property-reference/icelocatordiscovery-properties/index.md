@@ -42,7 +42,7 @@ Specifies the name of a locator instance. If you have multiple unrelated locator
 address and port, you can define this property to limit your discovery results only to those locators deployed for the
 given instance. If not defined, the plug-in adopts the instance name of the first locator to respond to a query; if a
 subsequent query discovers a locator with a different instance name, the plug-in ignores the result. It traces the
-mismatch when `IceLocatorDiscovery.Trace.Lookup` is 3 or greater.
+mismatch when `IceLocatorDiscovery.Trace.Lookup` is `3` or greater.
 
 The instance name is the category of the discovered locator's identity. The plug-in also uses the configured name as the
 identity category of its own locator object, or a UUID if this property is not set.
@@ -156,7 +156,7 @@ that property is unset, the plug-in uses `udp -h *` to bind to all local interfa
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast queries before giving up. The
 [IceLocatorDiscovery.Timeout](#icelocatordiscovery.timeout) property determines how long the plug-in waits for a reply
-before trying again. If not defined, the default retry count is `3`, for a total of four attempts. A value of 0 sends
+before trying again. If not defined, the default retry count is `3`, for a total of four attempts. A value of `0` sends
 only the initial query.
 
 {% /property-description %}
@@ -190,12 +190,12 @@ default value is `2000`.
 
 Controls lookup tracing in the `Lookup` trace category:
 
-| Value | Description                                                                   |
-| ----- | ----------------------------------------------------------------------------- |
-| 0     | No lookup trace (default).                                                    |
-| 1     | Trace lookup success, failure and timeout.                                    |
-| 2     | Like 1, and trace lookup invocations.                                         |
-| 3     | Like 2, and trace replies ignored because their instance name does not match. |
+| Value | Description                                                                     |
+| ----- | ------------------------------------------------------------------------------- |
+| `0`   | No lookup trace (default).                                                      |
+| `1`   | Trace lookup success, failure and timeout.                                      |
+| `2`   | Like `1`, and trace lookup invocations.                                         |
+| `3`   | Like `2`, and trace replies ignored because their instance name does not match. |
 
 {% /property-description %}
 

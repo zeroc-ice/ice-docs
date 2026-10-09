@@ -105,7 +105,7 @@ Finally, you must define the node ID for each IceStorm replica using the
 ```
 
 The node ID can be any non-negative integer. Each replica must have a unique node ID, but the IDs need not be contiguous
-or start at 0. The node ID is also the replica's priority for [coordinator elections](../highly-available-icestorm): a
+or start at `0`. The node ID is also the replica's priority for [coordinator elections](../highly-available-icestorm): a
 replica with a larger node ID has a higher priority.
 
 In addition, each server's ID must consist of the instance name followed by the replica's node ID, as in
@@ -122,11 +122,12 @@ The first step is defining the set of node proxies using properties of the form
 object identities are composed using `instance-name/nodeid`.
 
 The node IDs can be any non-negative integers. Each replica must have a unique node ID, but the IDs need not be
-contiguous or start at 0: it is fine to leave gaps, for example after decommissioning a replica. The node ID is also the
-replica's priority for [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a
+contiguous or start at `0`: it is fine to leave gaps, for example after decommissioning a replica. The node ID is also
+the replica's priority for [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a
 higher priority.
 
-For example, assuming we have three replicas with the identifiers 0, 1, 2, we can configure the proxies as shown below:
+For example, assuming we have three replicas with the identifiers `0`, `1`, `2`, we can configure the proxies as shown
+below:
 
 ```config
 IceStorm.Nodes.0=IceStorm/node0:tcp -p 13000

@@ -3,11 +3,11 @@ title: Creating the admin Object
 ---
 
 The administrative facility is disabled by default. To enable it, you must set the property
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to a numeric value greater than 0, or leave
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to a numeric value greater than `0`, or leave
 [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) unset and specify endpoints for the `Ice.Admin`
 administrative object adapter using the property
 [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties). When
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) is set to 0 or a negative value, the
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) is set to `0` or a negative value, the
 administrative facility is disabled, and `Ice.Admin.Endpoints` is ignored.
 
 Ice creates automatically the admin object during communicator initialization, and hosts all its
@@ -16,8 +16,8 @@ Ice creates automatically the admin object during communicator initialization, a
 - The administrative facility is enabled,
 - The [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) property specifies endpoints for the
   Ice.Admin object adapter, and
-- The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) property is not set, or is set to 0 or
-  a negative value.
+- The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) property is not set, or is set to `0`
+  or a negative value.
 
 This admin object and its facets are created at the end of communicator initialization, after the initialization of all
 plugins. Ice gives this object the identity `instance-name`/admin, where _instance-name_ is the value of the

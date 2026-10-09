@@ -95,12 +95,12 @@ An application can define a timeout to control the lifetime of entries in the lo
 specified globally using the [Ice.Default.LocatorCacheTimeout](../../../property-reference/ice-default-properties)
 property and for individual proxies using the [proxy method](api:Ice/ObjectPrx) `ice_locatorCacheTimeout`. The
 communicator's default behavior is equivalent to a timeout value of `-1`, meaning the cache entries never expire. Using
-a timeout value greater than zero causes the cache entries to expire after the specified number of seconds. Finally, a
-timeout value of zero disables the locator cache altogether.
+a timeout value greater than `0` causes the cache entries to expire after the specified number of seconds. Finally, a
+timeout value of `0` disables the locator cache altogether.
 
 The previous section explained the circumstances in which the communicator consults its locator cache. Briefly, this
 occurs only when the application has invoked an operation on a proxy and the proxy is not currently associated with a
-connection. If the timeout is set to zero, the communicator issues a new `locate` request immediately. Otherwise, for a
+connection. If the timeout is set to `0`, the communicator issues a new `locate` request immediately. Otherwise, for a
 non-zero timeout, the communicator examines its locator cache to determine whether the endpoints from the previous
 `locate` request have expired. If so, the communicator discards them and issues a new `locate` request.
 

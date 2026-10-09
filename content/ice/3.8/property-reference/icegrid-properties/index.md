@@ -60,7 +60,7 @@ with the node. Therefore, [adapter properties](../object-adapter-properties) can
 
 If `num` is set to a non-zero value, an IceGrid node permits servers to override previously set endpoints even if the
 server is active. Setting this property to a non-zero value is necessary if the servers managed by the node use the
-object adapter operation `refreshPublishedEndpoints`. The default value of `num` is zero.
+object adapter operation `refreshPublishedEndpoints`. The default value of `num` is `0`.
 
 {% /property-description %}
 
@@ -78,7 +78,7 @@ If `num` is set to a non-zero value, an IceGrid node will permit servers started
 privileges. Note that you should not set this property unless the node uses a secure endpoint; otherwise, clients can
 start arbitrary processes with super-user privileges on the node's machine.
 
-The default value of `num` is zero.
+The default value of `num` is `0`.
 
 {% /property-description %}
 
@@ -92,7 +92,7 @@ The default value of `num` is zero.
 
 {% property-description %}
 
-If `num` is set to a value larger than zero, the [node](../../services/icegrid/icegrid-server-reference/icegridnode)
+If `num` is set to a value larger than `0`, the [node](../../services/icegrid/icegrid-server-reference/icegridnode)
 collocates the IceGrid registry.
 
 The collocated registry is configured with the same properties as the standalone IceGrid registry.
@@ -129,9 +129,9 @@ in this directory if it does not already exist; `servers` contains the configura
 The node considers a server to have terminated improperly if it has a non-zero exit code or if it exits due to one of
 the signals `SIGABRT`, `SIGBUS`, `SIGILL`, `SIGFPE`, or `SIGSEGV`. The node marks such a server as disabled if `num` is
 a non-zero value; a [disabled server](../../services/icegrid/icegrid-troubleshooting) cannot be activated on demand. For
-values of `num` greater than zero, the server is disabled for `num` seconds. If `num` is a negative value, the server is
+values of `num` greater than `0`, the server is disabled for `num` seconds. If `num` is a negative value, the server is
 disabled indefinitely, or until it is explicitly enabled or started via an administrative action. The default value is
-zero, meaning the node does not disable servers in this situation.
+`0`, meaning the node does not disable servers in this situation.
 
 {% /property-description %}
 
@@ -227,7 +227,7 @@ deployment descriptors. The property definitions must be separated by white spac
 
 {% property-description %}
 
-If `num` is set to a value larger than zero, the node redirects the `stderr` of each server it starts to the server's
+If `num` is set to a value larger than `0`, the node redirects the `stderr` of each server it starts to the server's
 `.out` file instead of its `.err` file. This property takes effect only when [IceGrid.Node.Output](#icegrid.node.output)
 is set.
 
@@ -245,11 +245,11 @@ is set.
 
 The activator trace level:
 
-| Value | Description                                                                                                                                                                                                                                                                                                                                                                                 |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No activator trace (default).                                                                                                                                                                                                                                                                                                                                                               |
-| 1     | Trace process activation, termination.                                                                                                                                                                                                                                                                                                                                                      |
-| 2     | Like 1, but more verbose: includes process signaling, the activation parameters of each spawned server (path, working directory, uid/gid, arguments, and environment variables), and more diagnostic messages. Note: environment variables and arguments may carry secrets (passwords, tokens, certificate passphrases) injected via your deployment — treat the trace output as sensitive. |
+| Value | Description                                                                                                                                                                                                                                                                                                                                                                                   |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`   | No activator trace (default).                                                                                                                                                                                                                                                                                                                                                                 |
+| `1`   | Trace process activation, termination.                                                                                                                                                                                                                                                                                                                                                        |
+| `2`   | Like `1`, but more verbose: includes process signaling, the activation parameters of each spawned server (path, working directory, uid/gid, arguments, and environment variables), and more diagnostic messages. Note: environment variables and arguments may carry secrets (passwords, tokens, certificate passphrases) injected via your deployment — treat the trace output as sensitive. |
 
 {% /property-description %}
 
@@ -265,11 +265,11 @@ The activator trace level:
 
 The object adapter trace level:
 
-| Value | Description                                                             |
-| ----- | ----------------------------------------------------------------------- |
-| 0, 1  | No object adapter trace. The default value is `0`.                      |
-| 2     | Trace object adapter activation, deactivation, and activation failures. |
-| 3     | Like 2, plus requests waiting for the activation of an object adapter.  |
+| Value    | Description                                                              |
+| -------- | ------------------------------------------------------------------------ |
+| `0`, `1` | No object adapter trace. The default value is `0`.                       |
+| `2`      | Trace object adapter activation, deactivation, and activation failures.  |
+| `3`      | Like `2`, plus requests waiting for the activation of an object adapter. |
 
 {% /property-description %}
 
@@ -287,8 +287,8 @@ Set the trace level for the routing of operations to Ice.Admin objects through t
 
 | Value | Description                                      |
 | ----- | ------------------------------------------------ |
-| 0     | No admin trace (default).                        |
-| 1     | Trace routing of operations to Ice.Admin objects |
+| `0`   | No admin trace (default).                        |
+| `1`   | Trace routing of operations to Ice.Admin objects |
 
 {% /property-description %}
 
@@ -304,12 +304,12 @@ Set the trace level for the routing of operations to Ice.Admin objects through t
 
 The replica trace level:
 
-| Value | Description                                                                      |
-| ----- | -------------------------------------------------------------------------------- |
-| 0     | No replica trace (default).                                                      |
-| 1     | Trace session lifecycle between nodes and replicas.                              |
-| 2     | Like 1, but more verbose, including session establishment attempts and failures. |
-| 3     | Like 2, but more verbose, including keep alive messages sent to the replica.     |
+| Value | Description                                                                        |
+| ----- | ---------------------------------------------------------------------------------- |
+| `0`   | No replica trace (default).                                                        |
+| `1`   | Trace session lifecycle between nodes and replicas.                                |
+| `2`   | Like `1`, but more verbose, including session establishment attempts and failures. |
+| `3`   | Like `2`, but more verbose, including keep alive messages sent to the replica.     |
 
 {% /property-description %}
 
@@ -325,12 +325,12 @@ The replica trace level:
 
 Sets the node's trace level for server configuration updates and state changes:
 
-| Value | Description                                                                                                                                                                                                          |
-| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No server trace (default).                                                                                                                                                                                           |
-| 1     | Trace completed server configuration and runtime property updates.                                                                                                                                                   |
-| 2     | Like 1, plus runtime property update attempts for individual servers and services, activation timeouts, and changes to the Active, Inactive, and Destroyed states. Changes from Loading to Inactive require level 3. |
-| 3     | Like 2, plus all other server state changes, including Loading and WaitForActivation.                                                                                                                                |
+| Value | Description                                                                                                                                                                                                            |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`   | No server trace (default).                                                                                                                                                                                             |
+| `1`   | Trace completed server configuration and runtime property updates.                                                                                                                                                     |
+| `2`   | Like `1`, plus runtime property update attempts for individual servers and services, activation timeouts, and changes to the Active, Inactive, and Destroyed states. Changes from Loading to Inactive require level 3. |
+| `3`   | Like `2`, plus all other server state changes, including Loading and WaitForActivation.                                                                                                                                |
 
 {% /property-description %}
 
@@ -448,11 +448,11 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 When a client creates an administrative session through a [Glacier2](../../services/glacier2) router, using the
 [IceGrid session manager](../../services/icegrid/glacier2-integration-with-icegrid), this property controls whether
-IceGrid restricts the objects the client can reach through the router. If `num` is set to a value larger than zero,
+IceGrid restricts the objects the client can reach through the router. If `num` is set to a value larger than `0`,
 IceGrid configures [Glacier2's filters](../../services/glacier2/securing-a-glacier2-router) for the session to allow
 only the `IceGrid::AdminSession` object, the `IceGrid::Admin` object that is returned by the `getAdmin` operation, the
 `IceGrid::Query` object, and the server admin objects returned by `IceGrid::Admin::getServerAdmin`. If `num` is set to
-zero, IceGrid configures no filters, and access to objects is controlled solely by Glacier2's configuration.
+`0`, IceGrid configures no filters, and access to objects is controlled solely by Glacier2's configuration.
 
 The default value is `0`.
 
@@ -604,9 +604,9 @@ This property is used to compose the endpoint of the IceGrid.Registry.Discovery 
 
 {% property-description %}
 
-If `num` is a value larger than zero, the registry creates the IceGrid.Registry.Discovery object adapter and listens for
+If `num` is a value larger than `0`, the registry creates the IceGrid.Registry.Discovery object adapter and listens for
 [multicast discovery queries](../../plugins/icelocatordiscovery). If not defined, the default value is `1`. Set this
-property to zero to disable multicast discovery.
+property to `0` to disable multicast discovery.
 
 {% /property-description %}
 
@@ -651,9 +651,9 @@ This property is used to compose the endpoint of the IceGrid.Registry.Discovery 
 
 {% property-description %}
 
-If `num` is set to a value larger than zero, the locator registry does not require Ice servers to preregister object
+If `num` is set to a value larger than `0`, the locator registry does not require Ice servers to preregister object
 adapters and replica groups, but rather creates them automatically if they do not exist. If this property is not
-defined, or `num` is set to zero, an attempt to register an unknown object adapter or replica group causes adapter
+defined, or `num` is set to `0`, an attempt to register an unknown object adapter or replica group causes adapter
 activation to fail with `Ice.NotRegisteredException`. An object adapter registers itself when the
 [_adapter_.AdapterId](../object-adapter-properties) property is defined. The
 [_adapter_.ReplicaGroupId](../object-adapter-properties) property identifies the replica group. An adapter registered
@@ -813,8 +813,8 @@ direct adapter.)
 
 This property controls whether IceGrid establishes filters for sessions created with the
 [IceGrid session manager](../../services/icegrid/glacier2-integration-with-icegrid). If `num` is set to a value larger
-than zero, IceGrid establishes these filters, so Glacier2 limits access to the `IceGrid::Query` and `IceGrid::Session`
-objects, and to objects and adapters allocated by the session. If `num` is set to zero, IceGrid does not establish
+than `0`, IceGrid establishes these filters, so Glacier2 limits access to the `IceGrid::Query` and `IceGrid::Session`
+objects, and to objects and adapters allocated by the session. If `num` is set to `0`, IceGrid does not establish
 filters, so access to objects is controlled solely by Glacier2's configuration.
 
 The default value is `0`.
@@ -892,8 +892,8 @@ Set the trace level for the routing of operations to Ice.Admin objects through t
 
 | Value | Description                                      |
 | ----- | ------------------------------------------------ |
-| 0     | No admin trace (default).                        |
-| 1     | Trace routing of operations to Ice.Admin objects |
+| `0`   | No admin trace (default).                        |
+| `1`   | Trace routing of operations to Ice.Admin objects |
 
 {% /property-description %}
 
@@ -911,8 +911,8 @@ The application trace level:
 
 | Value | Description                                      |
 | ----- | ------------------------------------------------ |
-| 0     | No application trace (default).                  |
-| 1     | Trace application addition, update, and removal. |
+| `0`   | No application trace (default).                  |
+| `1`   | Trace application addition, update, and removal. |
 
 {% /property-description %}
 
@@ -928,10 +928,10 @@ The application trace level:
 
 The discovery trace level:
 
-| `0` | No discovery trace (default).                    |
-| --- | ------------------------------------------------ |
-| `1` | Trace replied discovery lookup requests.         |
-| 2   | Like 1, also includes discarded lookup requests. |
+| `0` | No discovery trace (default).                      |
+| --- | -------------------------------------------------- |
+| `1` | Trace replied discovery lookup requests.           |
+| `2` | Like `1`, also includes discarded lookup requests. |
 
 {% /property-description %}
 
@@ -949,9 +949,9 @@ The locator and locator registry trace level:
 
 | Value | Description                                                                                |
 | ----- | ------------------------------------------------------------------------------------------ |
-| 0     | No locator trace (default).                                                                |
-| 1     | Trace failures to locate an adapter or object, and failures to register adapter endpoints. |
-| 2     | Like 1, but more verbose, including registration of adapter endpoints.                     |
+| `0`   | No locator trace (default).                                                                |
+| `1`   | Trace failures to locate an adapter or object, and failures to register adapter endpoints. |
+| `2`   | Like `1`, but more verbose, including registration of adapter endpoints.                   |
 
 {% /property-description %}
 
@@ -967,11 +967,11 @@ The locator and locator registry trace level:
 
 The node trace level:
 
-| Value | Description                                                               |
-| ----- | ------------------------------------------------------------------------- |
-| 0     | No node trace (default).                                                  |
-| 1, 2  | Trace nodes going up and down, and node session creation and destruction. |
-| 3     | Like 1, plus the keep-alive messages of each node with its load averages. |
+| Value    | Description                                                                 |
+| -------- | --------------------------------------------------------------------------- |
+| `0`      | No node trace (default).                                                    |
+| `1`, `2` | Trace nodes going up and down, and node session creation and destruction.   |
+| `3`      | Like `1`, plus the keep-alive messages of each node with its load averages. |
 
 {% /property-description %}
 
@@ -987,11 +987,11 @@ The node trace level:
 
 The object trace level:
 
-| Value | Description                                                     |
-| ----- | --------------------------------------------------------------- |
-| 0     | No object trace (default).                                      |
-| 1     | Trace object registration, removal.                             |
-| 2     | Like 1, plus the allocation and release of allocatable objects. |
+| Value | Description                                                       |
+| ----- | ----------------------------------------------------------------- |
+| `0`   | No object trace (default).                                        |
+| `1`   | Trace object registration, removal.                               |
+| `2`   | Like `1`, plus the allocation and release of allocatable objects. |
 
 {% /property-description %}
 
@@ -1009,10 +1009,10 @@ The replica trace level:
 
 | Value | Description                                                                                                    |
 | ----- | -------------------------------------------------------------------------------------------------------------- |
-| 0     | No replica trace (default).                                                                                    |
-| 1     | Trace replicas going up and down, and the session lifecycle between the master replica and the other replicas. |
-| 2     | Like 1, plus session establishment attempts and failures.                                                      |
-| 3     | Like 2, plus keep-alive messages.                                                                              |
+| `0`   | No replica trace (default).                                                                                    |
+| `1`   | Trace replicas going up and down, and the session lifecycle between the master replica and the other replicas. |
+| `2`   | Like `1`, plus session establishment attempts and failures.                                                    |
+| `3`   | Like `2`, plus keep-alive messages.                                                                            |
 
 {% /property-description %}
 
@@ -1028,12 +1028,12 @@ The replica trace level:
 
 The server trace level:
 
-| Value | Description                                                                            |
-| ----- | -------------------------------------------------------------------------------------- |
-| 0     | No server trace (default).                                                             |
-| 1     | Trace the addition and removal of servers in the Registry database.                    |
-| 2     | Like 1, but more verbose: includes load/unload failures, properties updates, and more. |
-| 3     | Like 2, plus the start of each server load and unload on a node.                       |
+| Value | Description                                                                              |
+| ----- | ---------------------------------------------------------------------------------------- |
+| `0`   | No server trace (default).                                                               |
+| `1`   | Trace the addition and removal of servers in the Registry database.                      |
+| `2`   | Like `1`, but more verbose: includes load/unload failures, properties updates, and more. |
+| `3`   | Like `2`, plus the start of each server load and unload on a node.                       |
 
 {% /property-description %}
 
@@ -1051,8 +1051,8 @@ The session trace level:
 
 | Value | Description                                                                                          |
 | ----- | ---------------------------------------------------------------------------------------------------- |
-| 0     | No client or admin session trace (default).                                                          |
-| 1     | Trace client or admin session creation and destruction, and failures to call a permissions verifier. |
+| `0`   | No client or admin session trace (default).                                                          |
+| `1`   | Trace client or admin session creation and destruction, and failures to call a permissions verifier. |
 
 {% /property-description %}
 

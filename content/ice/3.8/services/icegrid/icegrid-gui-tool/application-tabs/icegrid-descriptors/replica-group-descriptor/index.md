@@ -24,7 +24,7 @@ The Replica Properties panel offers the following fields:
 | Random      | Returns the endpoints of object adapters selected at random. This is the default policy.                                                                                                                                                                                                                                   |
 | Round-robin | IceGrid puts all the object adapters in a list, and for each new resolution, it returns the endpoints from the next _How many Adapters_ items on this list.                                                                                                                                                                |
 
-- **How many Adapters** Specify the number of object adapters selected by IceGrid for each resolution. 1 is a common
-  value. When set to 0 (the default), IceGrid returns the endpoints of all object adapters in this replica group.
+- **How many Adapters** Specify the number of object adapters selected by IceGrid for each resolution. `1` is a common
+  value. When set to `0` (the default), IceGrid returns the endpoints of all object adapters in this replica group.
 - **Load Sample** Available only with the Adaptive load-balancing policy. Specify the load-average or CPU utilization
   sample to use when comparing nodes: it can be 1 (default), 5 or 15 minutes.

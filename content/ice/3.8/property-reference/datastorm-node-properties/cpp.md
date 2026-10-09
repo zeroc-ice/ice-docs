@@ -56,8 +56,8 @@ set, DataStorm generates a UUID for the name. Set it when you want recognizable 
 
 {% property-description %}
 
-Specifies the maximum number of retries to establish a peer session after a connection failure. The default is 6. A
-value of 0 or less disables these session retries.
+Specifies the maximum number of retries to establish a peer session after a connection failure. The default is `6`. A
+value of `0` or less disables these session retries.
 
 For the node configured with [DataStorm.Node.ConnectTo](#datastorm.node.connectto), retries continue indefinitely;
 `RetryCount` caps the exponent used to compute the retry delay.
@@ -74,7 +74,7 @@ For the node configured with [DataStorm.Node.ConnectTo](#datastorm.node.connectt
 
 {% property-description %}
 
-Specifies the multiplier used to increase the delay between connection attempts. The default is 2.
+Specifies the multiplier used to increase the delay between connection attempts. The default is `2`.
 
 For peer-session retries, the first retry is immediate. For retry number `n` starting at 2, the delay in milliseconds is
 `RetryDelay * RetryMultiplier ^ min(n - 2, RetryCount)`. With the defaults, the six retry delays are 0, 500, 1,000,
@@ -96,7 +96,7 @@ start at 500 milliseconds and double up to 32,000 milliseconds; subsequent attem
 
 {% property-description %}
 
-Specifies the base retry delay in milliseconds. The default is 500. DataStorm combines this value with
+Specifies the base retry delay in milliseconds. The default is `500`. DataStorm combines this value with
 [DataStorm.Node.RetryMultiplier](#datastorm.node.retrymultiplier) to compute the delay for each retry.
 
 {% /property-description %}
@@ -111,10 +111,10 @@ Specifies the base retry delay in milliseconds. The default is 500. DataStorm co
 
 {% property-description %}
 
-If `num` is a value greater than 0, the DataStorm node will accept connections through the endpoints defined with
-[DataStorm.Node.Server.Endpoints](../object-adapter-properties). If 0, the node won't accept connections and will
+If `num` is a value greater than `0`, the DataStorm node will accept connections through the endpoints defined with
+[DataStorm.Node.Server.Endpoints](../object-adapter-properties). If `0`, the node won't accept connections and will
 instead receive data through client network connections established with other DataStorm nodes. If not defined the
-default value is 1.
+default value is `1`.
 
 If a peer loses its connection to a node with no endpoints, it waits for that node to reconnect. The peer removes the
 session if the node does not reconnect within `2 * RetryDelay * RetryMultiplier ^ RetryCount` milliseconds (64,000
@@ -152,8 +152,8 @@ allocated port number.
 
 {% property-description %}
 
-If `num` is a value greater than 0, the DataStorm node will forward received discovery announcements over multicast if
-multicast is enabled. If not defined the default value is 0.
+If `num` is a value greater than `0`, the DataStorm node will forward received discovery announcements over multicast if
+multicast is enabled. If not defined the default value is `0`.
 
 {% /property-description %}
 
@@ -167,8 +167,8 @@ multicast is enabled. If not defined the default value is 0.
 
 {% property-description %}
 
-If `num` is a value greater than 0, multicast discovery is enabled for the DataStorm node. If not defined the default
-value is 1.
+If `num` is a value greater than `0`, multicast discovery is enabled for the DataStorm node. If not defined the default
+value is `1`.
 
 {% /property-description %}
 

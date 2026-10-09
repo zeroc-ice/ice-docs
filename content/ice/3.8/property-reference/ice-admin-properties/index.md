@@ -53,9 +53,9 @@ only trusted clients are allowed to use it.
 
 {% property-description %}
 
-If `num` is a value greater than zero, the Ice run time delays the creation of the `Ice.Admin`
+If `num` is a value greater than `0`, the Ice run time delays the creation of the `Ice.Admin`
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) until `getAdmin`
-is invoked on the communicator. If not specified, the default value is zero, meaning the `Ice.Admin` object adapter is
+is invoked on the communicator. If not specified, the default value is `0`, meaning the `Ice.Admin` object adapter is
 created immediately after all plug-ins are initialized, provided [Ice.Admin.Endpoints](#ice.admin.adapterproperty) is
 defined.
 
@@ -124,8 +124,8 @@ identity of the object becomes `name/admin`. If not specified, the default ident
 {% property-description %}
 
 The [Logger admin facet](../../administration/administrative-facility/logger-facet), when enabled, caches up the _num_
-most recent log messages with a type other than `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet
-does not cache any of these log messages. The default value for _num_ is 100.
+most recent log messages with a type other than `Ice::TraceMessage`. When _num_ is `0` or less than `0`, the Logger
+facet does not cache any of these log messages. The default value for _num_ is `100`.
 
 {% /property-description %}
 
@@ -140,8 +140,8 @@ does not cache any of these log messages. The default value for _num_ is 100.
 {% property-description %}
 
 The [Logger admin facet](../../administration/administrative-facility/logger-facet), when enabled, caches up the _num_
-most recent log messages with type `Ice::TraceMessage`. When _num_ is 0 or less than 0, the Logger facet does not cache
-any of these trace messages. The default value for _num_ is 100.
+most recent log messages with type `Ice::TraceMessage`. When _num_ is `0` or less than `0`, the Logger facet does not
+cache any of these trace messages. The default value for _num_ is `100`.
 
 {% /property-description %}
 

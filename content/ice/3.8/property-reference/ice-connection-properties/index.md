@@ -141,7 +141,7 @@ The default inactivity timeout is `300` seconds.
 {% callout type="warning" %}
 
 Make sure your inactivity timeout is greater than your idle timeout, as the implementation of the inactivity timeout
-relies on a smaller idle timeout value. If you disable the idle timeout by setting it to 0 or very large value (not
+relies on a smaller idle timeout value. If you disable the idle timeout by setting it to `0` or very large value (not
 something we recommend), you will effectively disable the inactivity timeout as well.
 
 {% /callout %}
