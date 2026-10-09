@@ -5,6 +5,15 @@ pages:
   - object-adapter-thread-pools
   - thread-pool-design-considerations
   - nested-invocations
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
 Ice is inherently a multi-threaded platform. There is no such thing as a single-threaded server in Ice. As a result, you
