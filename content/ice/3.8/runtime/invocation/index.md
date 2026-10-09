@@ -12,6 +12,7 @@ pages:
   - invocation-timeouts
   - automatic-retries
   - concurrent-proxy-invocations
+  - dynamic-invocation
   - routers
 ---
 
