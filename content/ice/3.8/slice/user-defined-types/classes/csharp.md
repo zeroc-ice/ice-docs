@@ -111,3 +111,26 @@ public partial class Point : Ice.Value
 ```
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice.Value` declares `ice_preMarshal` and `ice_postUnmarshal` as virtual methods that do nothing. You override them in a
+class derived from the generated class:
+
+```csharp
+public class TimeOfDayI : TimeOfDay
+{
+    private int _secondsSinceMidnight;
+
+    public override void ice_preMarshal()
+    {
+        Hour = (short)(_secondsSinceMidnight / 3600);
+        Minute = (short)(_secondsSinceMidnight / 60 % 60);
+        Second = (short)(_secondsSinceMidnight % 60);
+    }
+
+    public override void ice_postUnmarshal() => _secondsSinceMidnight = Hour * 3600 + Minute * 60 + Second;
+}
+```
+
+{% /language-section %}

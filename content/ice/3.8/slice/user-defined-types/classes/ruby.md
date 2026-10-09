@@ -44,3 +44,28 @@ For derived classes, the constructor has one parameter for each of the base clas
 of the derived class's fields, in base-to-derived order.
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice::Value` does not define `ice_preMarshal` or `ice_postUnmarshal`; Ice calls each method only when the instance has
+it:
+
+```ruby
+class TimeOfDayI < TimeOfDay
+    def initialize
+        super
+        @seconds_since_midnight = 0
+    end
+
+    def ice_preMarshal
+        @hour, remainder = @seconds_since_midnight.divmod(3600)
+        @minute, @second = remainder.divmod(60)
+    end
+
+    def ice_postUnmarshal
+        @seconds_since_midnight = @hour * 3600 + @minute * 60 + @second
+    end
+end
+```
+
+{% /language-section %}

@@ -42,3 +42,26 @@ There are a several things to note about the generated code:
    all stored properties to zero, nil or empty, as appropriate. See [Fields](../../fields) for details.
 
 {% /language-section %}
+
+{% language-section name="hooks" %}
+
+`Ice.Value` declares `ice_preMarshal` and `ice_postUnmarshal` as open methods that do nothing. You override them in a
+class derived from the generated class:
+
+```swift
+class TimeOfDayI: TimeOfDay {
+    private var secondsSinceMidnight: Int32 = 0
+
+    override func ice_preMarshal() {
+        hour = Int16(secondsSinceMidnight / 3600)
+        minute = Int16(secondsSinceMidnight / 60 % 60)
+        second = Int16(secondsSinceMidnight % 60)
+    }
+
+    override func ice_postUnmarshal() {
+        secondsSinceMidnight = Int32(hour) * 3600 + Int32(minute) * 60 + Int32(second)
+    }
+}
+```
+
+{% /language-section %}
