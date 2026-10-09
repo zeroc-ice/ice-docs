@@ -16,13 +16,13 @@ module VisitorCenter
 
 When the Slice to Swift compiler (`slice2swift`) compiles this file, it does not generate anything for `VisitorCenter`.
 
-The mapped Swift module is used only when you make cross-module references, as in:
+The mapped Swift module is used only when you make cross-module references. `slice2swift` requires all the top-level
+modules of a Slice file to map to the same Swift module, so you define the types of each Swift module in their own Slice
+files, and include the files that define the types you reference. For example, `PointOfInterest.ice` includes
+`Greeter.ice` to reference `VisitorCenter::Greeter`:
 
-```slice
-module VisitorCenter
-{
-   interface Greeter { ... }
-}
+```slice {% title="PointOfInterest.ice" %}
+#include "Greeter.ice"
 
 module TourOperator
 {
