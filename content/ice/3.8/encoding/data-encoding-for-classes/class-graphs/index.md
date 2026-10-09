@@ -116,7 +116,7 @@ class Node {}
 
 class UnaryOperator extends Node
 {
-    UnaryOp operator;
+    UnaryOp op;
     Node operand;
 }
 
