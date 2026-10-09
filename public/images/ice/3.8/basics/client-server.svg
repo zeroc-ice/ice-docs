@@ -19,53 +19,89 @@
 
   <defs>
     <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--diagram-connector)"/>
     </marker>
   </defs>
 
   <style>
+    :root {
+      --diagram-canvas: #ffffff;
+      --diagram-component: #ffffff;
+      --diagram-text: #182235;
+      --diagram-secondary-text: #566174;
+      --diagram-connector: #566174;
+      --diagram-component-stroke: #8d99aa;
+      --diagram-runtime-stroke: #1259d6;
+      --diagram-runtime: #eef5ff;
+      --diagram-api: #f8fbff;
+      --diagram-api-stroke: #4f78bb;
+      --diagram-generated: #f3f0f7;
+      --diagram-generated-stroke: #75658f;
+      --diagram-api-label: #365f9e;
+      --diagram-generated-label: #68587e;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --diagram-canvas: #1a1c21;
+        --diagram-component: #232429;
+        --diagram-text: #e6ebf4;
+        --diagram-secondary-text: #a7b3c6;
+        --diagram-connector: #a7b3c6;
+        --diagram-component-stroke: #8391a6;
+        --diagram-runtime-stroke: #6aa6ff;
+        --diagram-runtime: #21324c;
+        --diagram-api: #202c3e;
+        --diagram-api-stroke: #7da7e6;
+        --diagram-generated: #312b3e;
+        --diagram-generated-stroke: #b6a0d2;
+        --diagram-api-label: #9cc4ff;
+        --diagram-generated-label: #d1bdea;
+      }
+    }
+
     text {
-      fill: #182235;
+      fill: var(--diagram-text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .application {
-      fill: #ffffff;
-      stroke: #8d99aa;
+      fill: var(--diagram-component);
+      stroke: var(--diagram-component-stroke);
       stroke-width: 1.5;
     }
 
     .api-component {
-      fill: #f8fbff;
-      stroke: #4f78bb;
+      fill: var(--diagram-api);
+      stroke: var(--diagram-api-stroke);
       stroke-width: 1.5;
     }
 
     .generated-component {
-      fill: #f3f0f7;
-      stroke: #75658f;
+      fill: var(--diagram-generated);
+      stroke: var(--diagram-generated-stroke);
       stroke-width: 1.75;
     }
 
     .runtime {
-      fill: #eef5ff;
-      stroke: #1259d6;
+      fill: var(--diagram-runtime);
+      stroke: var(--diagram-runtime-stroke);
       stroke-width: 1.75;
     }
 
     .api-divider {
-      stroke: #4f78bb;
+      stroke: var(--diagram-api-stroke);
       stroke-width: 1.25;
     }
 
     .generated-divider {
-      stroke: #75658f;
+      stroke: var(--diagram-generated-stroke);
       stroke-width: 1.25;
     }
 
     .connector {
       fill: none;
-      stroke: #566174;
+      stroke: var(--diagram-connector);
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 1.75;
@@ -98,19 +134,19 @@
     }
 
     .api-badge {
-      fill: #365f9e;
+      fill: var(--diagram-api-label);
     }
 
     .generated-badge {
-      fill: #68587e;
+      fill: var(--diagram-generated-label);
     }
 
     .network-label-background {
-      fill: #ffffff;
+      fill: var(--diagram-canvas);
     }
 
     .network-label {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 14px;
       font-weight: 600;
       text-anchor: middle;
@@ -122,7 +158,7 @@
     }
   </style>
 
-  <rect width="800" height="456" fill="#ffffff"/>
+  <rect width="800" height="456" fill="var(--diagram-canvas)"/>
 
   <!-- No process boundary: the three full-width layers establish each side's grouping. -->
   <g id="boundaries" aria-hidden="true"/>

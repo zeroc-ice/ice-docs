@@ -15,7 +15,7 @@
 
   <defs>
     <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--diagram-connector)"/>
     </marker>
     <g id="step-badge-shape">
       <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
@@ -23,33 +23,59 @@
   </defs>
 
   <style>
+    :root {
+      --diagram-canvas: #ffffff;
+      --diagram-component: #ffffff;
+      --diagram-text: #182235;
+      --diagram-connector: #566174;
+      --diagram-component-stroke: #8d99aa;
+      --diagram-runtime-stroke: #1259d6;
+      --diagram-runtime: #eef5ff;
+      --diagram-host-stroke: #cbd3de;
+      --diagram-host: #fbfcfe;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --diagram-canvas: #1a1c21;
+        --diagram-component: #232429;
+        --diagram-text: #e6ebf4;
+        --diagram-connector: #a7b3c6;
+        --diagram-component-stroke: #8391a6;
+        --diagram-runtime-stroke: #6aa6ff;
+        --diagram-runtime: #21324c;
+        --diagram-host-stroke: #667389;
+        --diagram-host: #20232b;
+      }
+    }
+
     text {
-      fill: #182235;
+      fill: var(--diagram-text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .process-boundary {
-      fill: #fbfcfe;
-      stroke: #cbd3de;
+      fill: var(--diagram-host);
+      stroke: var(--diagram-host-stroke);
       stroke-dasharray: 7 5;
       stroke-width: 1.5;
     }
 
     .component {
-      fill: #ffffff;
-      stroke: #8d99aa;
+      fill: var(--diagram-component);
+      stroke: var(--diagram-component-stroke);
       stroke-width: 1.5;
     }
 
     .service {
-      fill: #eef5ff;
-      stroke: #1259d6;
+      fill: var(--diagram-runtime);
+      stroke: var(--diagram-runtime-stroke);
       stroke-width: 1.75;
     }
 
     .connector {
       fill: none;
-      stroke: #566174;
+      stroke: var(--diagram-connector);
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 1.75;
@@ -65,7 +91,7 @@
     }
 
     .label-knockout {
-      fill: #ffffff;
+      fill: var(--diagram-canvas);
     }
 
     .process-title,
@@ -76,7 +102,7 @@
     }
 
     .connector-label {
-      fill: #182235;
+      fill: var(--diagram-text);
       font-size: 14px;
       font-weight: 500;
     }
@@ -86,20 +112,20 @@
     }
 
     .step-badge {
-      fill: #ffffff;
-      stroke: #1259d6;
+      fill: var(--diagram-canvas);
+      stroke: var(--diagram-runtime-stroke);
       stroke-width: 1.5;
     }
 
     .step-number {
-      fill: #1259d6;
+      fill: var(--diagram-runtime-stroke);
       font-size: 14px;
       font-weight: 700;
       text-anchor: middle;
     }
   </style>
 
-  <rect width="760" height="320" fill="#ffffff"/>
+  <rect width="760" height="320" fill="var(--diagram-canvas)"/>
 
   <g id="boundaries" aria-hidden="true">
     <rect class="process-boundary" x="24" y="24" width="176" height="126" rx="14" vector-effect="non-scaling-stroke"/>

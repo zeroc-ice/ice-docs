@@ -23,13 +23,43 @@
       markerHeight="10"
       orient="auto"
     >
-      <path d="M 1 1 L 11 6 L 1 11 Z" fill="#ffffff" stroke="#465266" stroke-linejoin="round" stroke-width="1.8"/>
+      <path
+        d="M 1 1 L 11 6 L 1 11 Z"
+        fill="var(--diagram-canvas)"
+        stroke="var(--diagram-inheritance)"
+        stroke-linejoin="round"
+        stroke-width="1.8"
+      />
     </marker>
   </defs>
 
   <style>
+    :root {
+      --diagram-canvas: #ffffff;
+      --diagram-component: #ffffff;
+      --diagram-text: #182235;
+      --diagram-secondary-text: #566174;
+      --diagram-connector: #566174;
+      --diagram-component-stroke: #8d99aa;
+      --diagram-divider: #a6afbc;
+      --diagram-inheritance: #465266;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --diagram-canvas: #1a1c21;
+        --diagram-component: #232429;
+        --diagram-text: #e6ebf4;
+        --diagram-secondary-text: #a7b3c6;
+        --diagram-connector: #a7b3c6;
+        --diagram-component-stroke: #8391a6;
+        --diagram-divider: #667389;
+        --diagram-inheritance: #a7b3c6;
+      }
+    }
+
     text {
-      fill: #182235;
+      fill: var(--diagram-text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .label {
@@ -38,7 +68,7 @@
       text-anchor: middle;
     }
     .annotation {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 14px;
       text-anchor: middle;
     }
@@ -46,37 +76,37 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
     .badge {
-      fill: #566174;
+      fill: var(--diagram-secondary-text);
       font-size: 13px;
       font-weight: 750;
       letter-spacing: 0.05em;
       text-anchor: middle;
     }
     .application {
-      fill: #ffffff;
-      stroke: #8d99aa;
+      fill: var(--diagram-component);
+      stroke: var(--diagram-component-stroke);
       stroke-width: 1.5;
     }
     .connector {
       fill: none;
-      stroke: #566174;
+      stroke: var(--diagram-connector);
       stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
     .inheritance {
-      stroke: #465266;
+      stroke: var(--diagram-inheritance);
       stroke-width: 2;
       marker-end: url(#inheritance-arrow);
     }
     .divider {
       fill: none;
-      stroke: #a6afbc;
+      stroke: var(--diagram-divider);
       stroke-width: 1.25;
     }
   </style>
 
-  <rect width="700" height="638" fill="#ffffff"/>
+  <rect width="700" height="638" fill="var(--diagram-canvas)"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
