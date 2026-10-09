@@ -344,10 +344,13 @@ Sets the node's trace level for server configuration updates and state changes:
 
 {% property-description %}
 
-Specifies the proxy of an object that implements the `IceGrid::UserAccountMapper` interface for
-[customizing](../../services/icegrid/icegrid-server-activation) the user accounts under which servers are activated. The
-IceGrid node invokes this proxy to map session identifiers (the user ID for sessions created with a user ID and
-password, or the distinguished name for sessions created from a secure connection) to user accounts.
+Specifies the proxy of an object that implements the `IceGrid::UserAccountMapper` interface. The IceGrid node calls this
+object to map a server's user string to the operating system account under which the node runs the server. The user
+string is the `user` attribute of the server descriptor or, when this attribute is not set and the node runs as root on
+Unix, the session ID or `nobody`; see
+[Activating Servers with Specific User IDs](../../services/icegrid/icegrid-server-activation#activating-servers-with-specific-user-ids).
+The node can run a server under an account other than its own only when it runs as root on Unix. When this property is
+set, the node ignores `IceGrid.Node.UserAccounts`.
 
 As a proxy property, you can configure additional [aspects of the proxy](../proxy-properties) using properties.
 
@@ -363,13 +366,13 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 {% property-description %}
 
-Specifies the file name of an IceGrid node user account map file. Each line of the file contains a user account, white
-space, and an identifier; the identifier is the rest of the line and may contain spaces. A `#` starts a comment that
-runs to the end of the line. The identifier is matched against the client session identifier (the user ID for sessions
-created with a user ID and password, or the distinguished name for sessions created from a secure connection). This user
-account map file is used by the node to
-[map session identifiers to user accounts](../../services/icegrid/icegrid-server-activation). This property is ignored
-if IceGrid.Node.UserAccountMapper is defined.
+Specifies the file name of an IceGrid node user account map file. The node uses this file to map a server's user string
+to the operating system account under which the node runs the server; see
+[Activating Servers with Specific User IDs](../../services/icegrid/icegrid-server-activation#activating-servers-with-specific-user-ids).
+Each line of the file contains an account name, white space, and a user string; the user string is the rest of the line
+and may contain spaces. A `#` starts a comment that runs to the end of the line. The node can run a server under an
+account other than its own only when it runs as root on Unix. The node ignores this property when
+`IceGrid.Node.UserAccountMapper` is set.
 
 {% /property-description %}
 
@@ -1066,10 +1069,11 @@ The session trace level:
 
 {% property-description %}
 
-Specifies the file name of an IceGrid registry user account map file. The file uses the format described in
-[IceGrid.Node.UserAccounts](#icegrid.node.useraccounts). The identifier is matched against the client session identifier
-(the user ID for sessions created with a user ID and password, or the distinguished name for sessions created from a
-secure connection). This user account map file is used by IceGrid nodes to map session identifiers to user accounts if
-the nodes' IceGrid.Node.UserAccountMapper property is set to the proxy `IceGrid/RegistryUserAccountMapper`.
+Specifies the file name of an IceGrid registry user account map file, in the format described in
+[IceGrid.Node.UserAccounts](#icegrid.node.useraccounts). The registry serves this file through the well-known object
+`IceGrid/RegistryUserAccountMapper`. An IceGrid node whose `IceGrid.Node.UserAccountMapper` property is set to this
+proxy uses the file to map a server's user string to the operating system account under which the node runs the server;
+see
+[Activating Servers with Specific User IDs](../../services/icegrid/icegrid-server-activation#activating-servers-with-specific-user-ids).
 
 {% /property-description %}
