@@ -6,7 +6,7 @@ title: Basic Data Encoding
 
 The Ice encoding uses a compact representation, called a `size`, for most of the counts that appear in encoded data,
 such as the number of elements of a sequence or the number of bytes of a string. A `size` is an integer in the range 0
-to 2³¹−1, encoded in one of two forms:
+to 2{% sup %}31{% /sup %}−1, encoded in one of two forms:
 
 1. A single byte that encodes the `size` for values from 0 to 254.
 2. A single byte set to `255`, followed by an `int` that encodes the `size` (5 bytes total).
