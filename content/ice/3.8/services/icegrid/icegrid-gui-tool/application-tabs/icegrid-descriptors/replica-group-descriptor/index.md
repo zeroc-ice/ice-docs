@@ -12,6 +12,9 @@ The Replica Properties panel offers the following fields:
 - **Replica Group ID** The ID of this replica group. Must be unique within an IceGrid deployment.
 - **Description** A free-text description of this replica group.
 - **Proxy** **Options** The default Proxy Options for well-known objects defined within this replica group.
+- **Filter** The identifier of a replica group filter that a registry plug-in installs to perform
+  [custom load balancing](../../../../load-balancing#custom-load-balancing-strategies). Default: empty string, which
+  selects the filters registered with an empty identifier.
 
 - **Well-known Objects** A table of well-known objects defined by this replica group.
 - **Load Balancing Policy** The load-balancing policy used by IceGrid when resolving the Replica Group ID in proxies.

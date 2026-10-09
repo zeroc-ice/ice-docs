@@ -14,8 +14,8 @@ The Node Properties panel offers the following fields:
 - **Variables** This table shows node-level [IceGrid variables](../variables-in-icegrid-descriptors).
 - **Load Factor** A floating point value used to compare different nodes when making a
   [load-balancing](../replica-group-descriptor) decision based on load-average (for Linux and Unix) or CPU utilization
-  (for Windows). Leaving this value blank is equivalent to the default: 1.0 on Linux and Unix, and 1.0 divided by the
-  number of CPUs on Windows.
+  (for Windows). Leaving this value blank is equivalent to the default: 1.0 divided by the number of CPUs on Linux and
+  Unix, and 1.0 on Windows.
 
 ## Children
 
