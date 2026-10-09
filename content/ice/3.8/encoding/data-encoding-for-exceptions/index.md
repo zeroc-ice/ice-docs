@@ -170,6 +170,15 @@ _Marshaled representation of the exception using the sliced format._
 Note that the size of each string is one larger than the actual string length. This is because each string is preceded
 by a count of its number of bytes, as directed by the [encoding for strings](../basic-data-encoding).
 
+The receiver reads the type ID of the first slice and looks it up with its
+[Slice loader](../../slice/user-defined-types/classes/slice-loaders). When the Slice loader finds the exception type for
+this type ID, the receiver unmarshals the exception as this type. Otherwise, with the sliced format, the receiver uses
+the slice size to skip the rest of the slice, and repeats this lookup with the next slice. For example, a receiver that
+knows `Base` but not `Derived` reads the slice size `20`, skips 20-4 bytes to the flags of the `::Base` slice at byte
+offset 31, and unmarshals the exception as `Base`. The receiver
+[discards the slices it skips](../../slice/user-defined-types/classes/slicing-values-and-exceptions). When the receiver
+skips the last slice without finding a type, it raises a `MarshalException`.
+
 Repeating this exercise using the compact format produces the following encoding:
 
 | **Marshaled value**            | **Size in bytes** | **Type** | **Byte offset** |
@@ -187,7 +196,7 @@ Repeating this exercise using the compact format produces the following encoding
 _Marshaled representation of the exception using the compact format._
 
 With the compact format, the receiver _must_ know the most-derived type: without slice sizes, it cannot skip a slice it
-does not know how to decode.
+does not know how to decode, and raises a `MarshalException`.
 
 ## See Also
 
