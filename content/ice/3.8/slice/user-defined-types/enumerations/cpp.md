@@ -14,7 +14,7 @@ The generated C++ enumeration is:
 enum class Fruit : std::uint8_t { Apple, Pear, Orange };
 ```
 
-The underlying type is `std::uint8_t` when the enumeration's largest enumerator value is not greater than 254, otherwise
+The underlying type is `std::uint8_t` when the enumeration's largest enumerator value is not greater than 255, otherwise
 it's `std::int32_t`.
 
 Suppose we modify the Slice definition to include a custom enumerator value:
@@ -32,9 +32,11 @@ enum class Fruit : std::uint8_t { Apple = 0, Pear = 3, Orange = 4 };
 {% callout type="tip" %}
 
 If you use custom enumerator values and 0 does not correspond to any enumerator, you must be particularly careful with
-structs, classes or exceptions that have such as enumeration as a field. The default constructor of such a struct, class
-or exception will zero-initialize this data member, and you will get a marshal error if you attempt to send this invalid
-enumerator through Ice.
+structs, classes or exceptions that have such an enumeration as a required field. Unless the Slice definition gives this
+field a default value, the default constructor of such a struct, class or exception leaves this data member
+uninitialized, and value-initializing the struct, class or exception sets this data member to 0. Ice throws
+`MarshalException` if you attempt to send a value smaller than the smallest enumerator or greater than the largest
+enumerator.
 
 {% /callout %}
 
