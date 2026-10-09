@@ -1,8 +1,8 @@
 // Copyright (c) ZeroC, Inc.
 'use client';
 
-import { setLanguage } from '@/context/state';
 import { languageLabel } from '@/lib/docs-model/nav';
+import { switchLanguage } from './switch-language';
 
 // Read by someone whose language a page is not written for: it names the
 // languages that have the page, and each name switches to it.
@@ -15,7 +15,7 @@ export function LanguageNotice({ writtenFor }: { writtenFor: string[] }) {
           <button
             key={i}
             type="button"
-            onClick={() => setLanguage(part.value)}
+            onClick={() => switchLanguage(part.value)}
             className="font-semibold text-link hover:underline"
           >
             {languageLabel(part.value)}
