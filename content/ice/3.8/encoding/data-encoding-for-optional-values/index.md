@@ -20,10 +20,9 @@ The encoding for optional parameters and fields follows these general rules:
 - An optional value is encoded only if the sender has supplied a value.
 
 Optional fields of a class or exception appear in the [slice](../basic-data-encoding) after any required fields and
-before the indirection table, if present. The slice flags must indicate the presence of optional fields. If a slice
-contains optional fields, the byte value `255` must be written after the last optional field; this marker denotes the
-end of the optional fields. When the slice encodes its size, the byte count for the slice includes the optional fields
-and the end marker.
+before the indirection table, if present. The slice flags indicate the presence of optional fields. When a slice
+contains optional fields, the byte value `255` follows the last optional field and marks the end of the optional fields.
+When the slice encodes its size, the byte count for the slice includes the optional fields and the end marker.
 
 The encoding does not use an explicit end marker for optional parameters; the end of the encapsulation also marks the
 end of any optional parameters.
@@ -34,8 +33,7 @@ Ice encoding rules for its Slice type.
 
 {% callout type="note" %}
 
-Optional values require Ice encoding version 1.1. With encoding 1.0, Ice writes no optional values, and a receiver reads
-every optional value as not set.
+Optional values require Ice encoding version 1.1.
 
 {% /callout %}
 
@@ -44,16 +42,16 @@ every optional value as not set.
 The first byte of an encoded optional value includes the optional type, and may also include the tag. The optional type
 occupies the first three bits of this byte, as described in the table below:
 
-| **Name** | **Value** | **Description**                                                                                         | **Used for Slice type**                                             |
-| -------- | --------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| F1       | 0         | The value is encoded in one byte.                                                                       | bool, byte                                                          |
-| F2       | 1         | The value is encoded in two bytes.                                                                      | short                                                               |
-| F4       | 2         | The value is encoded in four bytes.                                                                     | int, float                                                          |
-| F8       | 3         | The value is encoded in eight bytes.                                                                    | double, long                                                        |
-| Size     | 4         | The value is encoded as a [size](../basic-data-encoding).                                               | enum                                                                |
-| VSize    | 5         | A leading [size](../basic-data-encoding) value indicates the number of bytes occupied by the value.     | string, fixed-size structure, container of fixed-size elements      |
-| FSize    | 6         | A leading 32-bit integer indicates the number of bytes occupied by the value.                           | variable-size structure, container of variable-size elements, proxy |
-| Class    | 7         | Ice 3.8 does not encode this type, and throws `MarshalException` when it receives a value of this type. | none                                                                |
+| **Name** | **Value** | **Description**                                                                                     | **Used for Slice type**                                             |
+| -------- | --------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| F1       | 0         | The value is encoded in one byte.                                                                   | bool, byte                                                          |
+| F2       | 1         | The value is encoded in two bytes.                                                                  | short                                                               |
+| F4       | 2         | The value is encoded in four bytes.                                                                 | int, float                                                          |
+| F8       | 3         | The value is encoded in eight bytes.                                                                | double, long                                                        |
+| Size     | 4         | The value is encoded as a [size](../basic-data-encoding).                                           | enum                                                                |
+| VSize    | 5         | A leading [size](../basic-data-encoding) value indicates the number of bytes occupied by the value. | string, fixed-size structure, container of fixed-size elements      |
+| FSize    | 6         | A leading 32-bit integer indicates the number of bytes occupied by the value.                       | variable-size structure, container of variable-size elements, proxy |
+| Class    | 7         | Not used: Slice does not allow an optional value whose type uses classes.                           | none                                                                |
 
 The next five bits of the leading byte contain the tag, but only if the tag value is less than 30. Otherwise, the next
 five bits contain the value 30 as a marker to indicate that the tag value is encoded as a [size](../basic-data-encoding)
@@ -61,15 +59,14 @@ starting with the next byte. As you can see, using tag values in the range 0 to 
 
 Variable-size types whose encoded size cannot be determined in advance use the FSize optional type, where "FSize"
 denotes a leading fixed-length (32-bit) size. For these types, the sender reserves four bytes to hold the size, encodes
-the value as usual, then replaces the four bytes with the actual encoded size. This strategy avoids the need to shift
-the encoded data in the buffer, at the expense of potentially consuming more bytes than necessary to encode the size.
+the value as usual, then replaces the four bytes with the actual encoded size.
 
 Fixed-size structures and containers of fixed-size elements use the VSize optional type, where "VSize" denotes a leading
 variable-length [size](../basic-data-encoding). The sender can determine the encoded size of these types in advance, and
 therefore encodes it as a size followed by the value as usual.
 
-The leading VSize or FSize gives the number of bytes of the encoded value that follows it. When Ice writes this count
-before a sequence or dictionary, the count includes the container's own leading size that holds the number of elements.
+The leading VSize or FSize gives the number of bytes of the encoded value that follows it. For a sequence or dictionary,
+this count includes the container's own leading size, the one that holds the number of elements.
 
 Strings also use the VSize optional type but do not require an additional [size](../basic-data-encoding) because the
 string encoding already includes a leading size. The same is true for sequences of elements of size 1, such as a
