@@ -121,10 +121,8 @@ Inheritance from type `Object` is always implicit. For example, the following Sl
 interface MyInterface extends Object { /* ... */ } // Error!
 ```
 
-It is understood that all interfaces inherit from type `Object`; you are not allowed to restate that.
-
-Type `Object` is mapped to an abstract type by the various language mappings, so you cannot instantiate an Ice object of
-that type.
+Every interface inherits the four [operations of `Object`](../../operations-on-object): `ice_ping`, `ice_isA`, `ice_id`,
+and `ice_ids`.
 
 ## See Also
 

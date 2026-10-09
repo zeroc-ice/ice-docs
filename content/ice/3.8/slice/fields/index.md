@@ -94,6 +94,9 @@ class UnusualButValidPerson
 }
 ```
 
+Optional fields require [Ice encoding version 1.1](../../encoding/data-encoding-for-optional-values): when Ice marshals
+a class or exception with encoding 1.0, it omits the optional fields, and the receiver sees them unset.
+
 ## Default Values
 
 You can specify a default value for a field that has one of the following types:

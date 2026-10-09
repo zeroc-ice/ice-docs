@@ -116,8 +116,7 @@ a class type: optional and class are incompatible.
 
 {% /callout %}
 
-Optional fields and required fields can appear in any order in your class definition. You can also assign tags in any
-order.
+You can assign tags in any order.
 
 An operation's signature can include any combination of required and optional parameters, but output parameters still
 must follow input parameters:
@@ -131,6 +130,9 @@ bool example(
 ```
 
 Language mappings specify an API for passing optional parameters and testing whether a parameter is present.
+
+Optional parameters require [Ice encoding version 1.1](../../encoding/data-encoding-for-optional-values): when Ice
+marshals a request or a reply with encoding 1.0, it omits the optional parameters, and the receiver sees them unset.
 
 ## Overloading Operations
 
