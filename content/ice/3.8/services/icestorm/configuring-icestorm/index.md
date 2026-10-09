@@ -113,7 +113,7 @@ the deployment and set `publish-replica-group` to an empty value. The publisher 
 point to a single replica.
 
 IceStorm requires at least three replicas, each with a unique node ID. A node ID can be any non-negative integer, and
-the IDs need not be contiguous or start at 0. The node ID is also the replica's priority for
+the IDs need not be contiguous or start at `0`. The node ID is also the replica's priority for
 [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a higher priority.
 
 If you don't use the `IceStorm-HA` templates, give each replica's IceStorm service the same adapters and properties as
@@ -155,11 +155,12 @@ to contact each other; the object identity of each node has the instance name as
 the node ID as its name, such as `IceStorm/node0`.
 
 The node IDs can be any non-negative integers. Each replica must have a unique node ID, but the IDs need not be
-contiguous or start at 0: it is fine to leave gaps, for example after decommissioning a replica. The node ID is also the
-replica's priority for [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a
+contiguous or start at `0`: it is fine to leave gaps, for example after decommissioning a replica. The node ID is also
+the replica's priority for [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a
 higher priority.
 
-For example, assuming we have three replicas with the identifiers 0, 1, 2, we can configure the proxies as shown below:
+For example, assuming we have three replicas with the identifiers `0`, `1`, `2`, we can configure the proxies as shown
+below:
 
 ```config
 IceStorm.Nodes.0=IceStorm/node0:tcp -p 13000

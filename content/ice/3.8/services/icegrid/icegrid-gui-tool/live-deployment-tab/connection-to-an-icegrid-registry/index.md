@@ -162,7 +162,7 @@ registry or Glacier2 router. IceGrid GUI performs the following checks when esta
 A "client" X.509 certificate (saved in My Certificates) is only necessary when the target IceGrid registry or Glacier2
 router requires one. This depends on the setting of the
 [IceSSL.VerifyPeer](../../../../../property-reference/icessl-properties) property in those servers: when
-`IceSSL.VerifyPeer` is 2, IceGrid GUI must provide a valid certificate. If you forget to provide a certificate, or
+`IceSSL.VerifyPeer` is `2`, IceGrid GUI must provide a valid certificate. If you forget to provide a certificate, or
 provide an invalid certificate, the connection establishment will fail and you will get an error dialog such as:
 
 ![image2017-4-6 10:39:23.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-6-10-39-23.png)

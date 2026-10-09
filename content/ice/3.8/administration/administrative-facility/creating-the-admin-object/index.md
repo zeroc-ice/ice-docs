@@ -12,11 +12,11 @@ languages:
 ---
 
 The administrative facility is disabled by default. To enable it, you must set the property
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to 1, or leave
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to `1`, or leave
 [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) unset and specify endpoints for the `Ice.Admin`
 administrative object adapter using the property
 [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties). When
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) is set to 0, the administrative facility is
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) is set to `0`, the administrative facility is
 disabled, and `Ice.Admin.Endpoints` is ignored.
 
 Ice creates the admin object during communicator initialization, and hosts all its

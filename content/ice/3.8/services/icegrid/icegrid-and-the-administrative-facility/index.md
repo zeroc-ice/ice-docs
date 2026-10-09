@@ -54,8 +54,8 @@ Specifying a fixed port is unnecessary because the server registers its endpoint
 Each IceGrid node and IceGrid registry replica provides by default an
 [admin object](../../../administration/administrative-facility/admin-object) hosted in the `IceGrid.Node` object adapter
 (for nodes) or in the `IceGrid.Registry.Internal` object adapter (for registry replicas). If you don't want to an admin
-object in a node or registry replica, set [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to 0 or
-a negative value in this node or registry's configuration.
+object in a node or registry replica, set [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to `0`
+or a negative value in this node or registry's configuration.
 
 Each of these admin objects carries all the built-in facets, currently `Logger`, Metrics, Process and Properties.
 Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations
