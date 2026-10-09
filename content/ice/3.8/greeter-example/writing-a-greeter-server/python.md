@@ -21,7 +21,12 @@ You can find the complete source code for this example in the
 The first step when writing a Python application with Ice is to compile its Slice definitions using the Slice to Python
 compiler (`slice2py`).
 
-Here we compile the `Greeter.ice` Slice file we wrote earlier.
+Here we compile the `Greeter.ice` Slice file we wrote earlier. The demo runs `slice2py` with uv from its `server`
+directory, so uv takes the compiler from the server project’s `zeroc-ice` dependency:
+
+```shell
+uv run slice2py ../slice/Greeter.ice
+```
 
 This compilation generates a Python package named `VisitorCenter`, which matches the Slice module name. Inside this
 package, you’ll find the generated `Greeter` module corresponding to the `Greeter` interface defined in Slice. This
@@ -155,11 +160,13 @@ The main thread is just waiting in this call - it does not perform any work.
 Once the exception handler finishes, the communicator goes out of scope and is automatically destroyed (because we used
 the with statement). At that point, the application exits cleanly.
 
+The server in the demo is an asyncio application: it creates the communicator with the running event loop and awaits
+`communicator.shutdownCompleted()` instead of calling `waitForShutdown`.
+
 ## Running the Server
 
-After building the server (see the demo’s
-[README](https://github.com/zeroc-ice/ice-demos/blob/3.8/python/Ice/greeter/README.md) for instructions), you can run it
-with:
+The demo’s [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/python/Ice/greeter/README.md) lists the
+prerequisites. After compiling the Slice definitions, you run the server from the demo’s `server` directory with:
 
 ```shell
 uv run main.py
