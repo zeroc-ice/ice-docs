@@ -56,6 +56,44 @@ If your types are **not defined in Slice**, you must provide specializations of 
 [DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Encoder.html) and
 [DataStorm::Decoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) templates for those types.
 
+For example, the following specializations encode a `Color` in three bytes:
+
+```cpp
+struct Color
+{
+    uint8_t red = 0;
+    uint8_t green = 0;
+    uint8_t blue = 0;
+};
+
+namespace DataStorm
+{
+    template<> struct Encoder<Color>
+    {
+        static Ice::ByteSeq encode(const Ice::CommunicatorPtr&, const Color& color) noexcept
+        {
+            return {byte{color.red}, byte{color.green}, byte{color.blue}};
+        }
+    };
+
+    template<> struct Decoder<Color>
+    {
+        static Color decode(const Ice::CommunicatorPtr&, const Ice::ByteSeq& bytes)
+        {
+            if (bytes.size() != 3)
+            {
+                throw invalid_argument{"a Color is encoded in 3 bytes"};
+            }
+            return Color{to_integer<uint8_t>(bytes[0]), to_integer<uint8_t>(bytes[1]), to_integer<uint8_t>(bytes[2])};
+        }
+    };
+}
+
+Topic<string, Color> colors{node, "colors"};
+```
+
+You can declare `encode` and `decode` without the communicator parameter: omit it from both functions or from neither.
+
 ## Additional Requirements
 
 DataStorm keeps keys, update tags, and filter criteria in ordered maps, so their types must be ordered by `std::less`,
