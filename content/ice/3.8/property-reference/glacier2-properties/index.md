@@ -108,7 +108,7 @@ from a client. The default value is `0`.
 
 Specifies the path of the router's password file. The router uses this file to verify the user name and password that a
 client provides when it creates a session. Each non-blank line contains a user name and a password hash, separated by
-unique. The supported hash formats depend on the platform; see
+whitespace. User names must be unique. The supported hash formats depend on the platform; see
 [Writing a Password File](../../services/glacier2/getting-started-with-glacier2#writing-a-password-file).
 
 This property is ignored if [Glacier2.PermissionsVerifier](#glacier2.permissionsverifier) is defined.

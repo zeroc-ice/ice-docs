@@ -93,9 +93,8 @@ module Glacier2
 Router clients may only use `createSessionFromSecureConnection` if the router is configured with a proxy for an
 `SSLPermissionsVerifier` object. The implementation of `authorize` must return true to allow the client to establish a
 session. To reject the session, `authorize` must return false and may optionally provide a value for `reason`, which is
-returned to the client as a member of `PermissionDeniedException`. `authorize` can also throw
-`Glacier2::PermissionDeniedException`: the Glacier2 router forwards this exception as-is to the client, which means the
-verifier can throw a subclass of `PermissionDeniedException` in order to provide more information to the client.
+returned to the client as a field of `PermissionDeniedException`. `authorize` can also throw
+`Glacier2::PermissionDeniedException`; the router then throws this exception, with the same `reason`, to the client.
 
 The verifier examines the fields of `SSLInfo` to authenticate a client:
 
@@ -232,10 +231,9 @@ By default, a Glacier2 router forwards requests for any address.
 
 ### Category Filters
 
-The [Ice::Identity](../../../runtime/object-identity) type contains two string members: category and name. You can
-configure a router with a list of accepted identity categories, in which case the category filter accepts requests for
-objects in those categories. The configuration property
-[Glacier2.Filter.Category.Accept](../../../property-reference/glacier2-properties) supplies the category list:
+An [Ice::Identity](../../../runtime/object-identity) has two string fields: category and name. The category filter
+accepts requests for objects whose identity category is in the list configured with
+[Glacier2.Filter.Category.Accept](../../../property-reference/glacier2-properties):
 
 ```config
 Glacier2.Filter.Category.Accept=cat1 cat2
@@ -304,15 +302,10 @@ A session manager can also change the accepted adapter identifiers at run time, 
 
 ### Proxy Filters
 
-Each session's routing table holds every proxy its client uses, so a client can make the router consume memory by using
-many proxies or very large ones. [Glacier2 Routing Table](#glacier2-routing-table) describes how to limit the number of
-entries.
-
-The property [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties) sets a limit on the size of
-a stringified proxy. The Ice run time places no limits on the size of proxy components such as identities and host
-names, but a malicious client could manufacture very large proxies in a denial-of-service attack on a Glacier2 router.
-By setting this property to a reasonably small value, you can prevent proxies from consuming excessive memory in the
-router process.
+The proxy filter rejects a proxy whose [stringified form](../../../runtime/invocation/syntax-for-stringified-proxies) is
+longer than [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties) bytes. By default, the
+router does not limit the size of proxies. This filter protects the router against clients that send very large proxies,
+since each session's routing table holds every proxy its client uses.
 
 ### Client Impact
 
