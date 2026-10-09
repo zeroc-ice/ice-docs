@@ -18,10 +18,10 @@ proxy, as described on this page.
 
 ### Creating a Proxy
 
-For each Slice interface, apart from the proxy interface, the Slice-to-PHP compiler creates a helper class: for an
-interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
+For each Slice interface, the Slice-to-PHP compiler creates a helper class: for an interface `Simple`, the name of the
+generated helper class is `SimplePrxHelper`.
 
-This helper class provides the `createProxy` method. With our previous example:
+This helper class provides the `createProxy` method. For an interface `Simple` in module `M`, this helper class is:
 
 ```php
 namespace M
@@ -74,7 +74,7 @@ namespace M
 The helper’s `uncheckedCast` static method allows you to convert any proxy into a proxy of this type. For example:
 
 ```php
-// Convert a SimplePrx into a WidgetPrx, even though the two types are unrelated.
+// Convert a Simple proxy into a Widget proxy, even though the two interfaces are unrelated.
 $widget = M\WidgetPrxHelper::uncheckedCast($simple);
 ```
 
@@ -100,14 +100,14 @@ you know or should know the type of your proxies and calling `checkedCast` is ra
 
 ### Proxy Factory Methods
 
-The base proxy interface `ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are immutable,
-each of these factory methods returns a copy of the original proxy that contains the desired modification. For example,
-you can obtain a proxy configured with a ten second invocation timeout as shown below:
+The `ObjectPrx` class supports a variety of methods for customizing a proxy. Since proxies are immutable, each of these
+factory methods returns a copy of the original proxy that contains the desired modification. For example, you can obtain
+a proxy configured with a ten second invocation timeout as shown below:
 
 ```php
 $greeter = VisitorCenter\GreeterPrxHelper::createProxy(...);
 
-// Create a new GreeterPrx and assign it to $greeter.
+// Create a new Greeter proxy and assign it to $greeter.
 $greeter = $greeter->ice_invocationTimeout(10000);
 ```
 
