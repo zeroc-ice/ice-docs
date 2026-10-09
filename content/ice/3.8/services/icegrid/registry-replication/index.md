@@ -80,6 +80,26 @@ The registry implements the session manager interfaces required for
 identities `IceGrid/SessionManager` and `IceGrid/AdminSessionManager`. The slave replicas offer support for
 administrative sessions using the object identity `IceGrid/AdminSessionManager-name`.
 
+### Objects of the Locator's Replica
+
+The registry's locator object implements `IceGrid::Locator`, which extends `Ice::Locator`:
+
+```slice
+module IceGrid
+{
+    interface Locator extends Ice::Locator
+    {
+        idempotent Registry* getLocalRegistry();
+        idempotent Query* getLocalQuery();
+    }
+}
+```
+
+`getLocalRegistry` and `getLocalQuery` return proxies to the `Registry` and `Query` objects of the replica that hosts
+the locator, with that replica's client endpoints. A client reaches the replica it is connected to by casting its
+default locator proxy to an `IceGrid::Locator` proxy and calling these operations, for example to create an
+administrative session with that replica.
+
 ## Configuring Registry Replication
 
 Incorporating registry replication into an application is primarily accomplished by modifying your IceGrid configuration

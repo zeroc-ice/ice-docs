@@ -324,6 +324,45 @@ Once the observers are registered, operations corresponding to state changes wil
 Slice API Reference for details on the data passed to the observers. You can also look at the source code for the
 IceGrid GUI implementation in the Ice for Java distribution to see how observers are used by the GUI.)
 
+## Locking Application Updates
+
+A client that replaces an application descriptor based on a stale copy overwrites the changes that other clients saved
+since it read that copy. An administrative session prevents concurrent changes by holding the registry's exclusive
+update lock:
+
+```slice
+module IceGrid
+{
+    interface AdminSession extends Glacier2::Session
+    {
+        int startUpdate()
+            throws AccessDeniedException;
+
+        void finishUpdate()
+            throws AccessDeniedException;
+        // ...
+    }
+}
+```
+
+`startUpdate` acquires the lock for the session and returns the serial number of the latest application update that the
+registry published to application observers. While the session holds the lock, the registry raises
+`AccessDeniedException` when another session calls `startUpdate` or an `Admin` operation that changes an application:
+`addApplication`, `syncApplication`, `updateApplication`, `syncApplicationWithoutRestart`,
+`updateApplicationWithoutRestart`, `removeApplication`, or `instantiateServer`. The `lockUserId` member of this
+exception holds the user ID of the session that holds the lock.
+
+`finishUpdate` releases the lock, and raises `AccessDeniedException` if the session does not hold it. IceGrid also
+releases the lock when it destroys the session. The lock belongs to the registry replica that hosts the session, so a
+client that updates applications acquires it in a session with the master replica.
+
+Each `ApplicationObserver` callback carries the serial number of the update it reports. A client that registered an
+application observer waits until its observer receives the serial number returned by `startUpdate` before it modifies an
+application, so that its observer reflects every application update the registry published before the session acquired
+the lock. The
+[IceGrid GUI tool](../icegrid-gui-tool/application-tabs/editing-and-saving-icegrid-descriptors#concurrent-updates-to-the-same-icegrid-registry)
+acquires this lock with `File > Acquire Exclusive Write Access`.
+
 ## See Also
 
 - [Registry Replication](../registry-replication)
