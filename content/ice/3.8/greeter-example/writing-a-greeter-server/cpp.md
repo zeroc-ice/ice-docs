@@ -30,13 +30,14 @@ This produces two files: a header file, `Greeter.h`, and a C++ source file, `Gre
 other source file. See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options `slice2cpp`
 accepts.
 
-In a real project you don’t run `slice2cpp` by hand. We recommend that you include this Slice compilation step in your
-build project, like we demonstrate for the C++ demo programs.
+We recommend that you include this Slice compilation step in your build project, like we demonstrate for the C++ demo
+programs.
 
 {% callout type="note" %}
 
-You can easily integrate Slice compilation with most build projects. The C++ demo programs use
-[CMake](https://cmake.org/).
+The C++ demo programs build with [CMake](https://cmake.org/): the `slice2cpp_generate` function of the Ice CMake package
+compiles `Greeter.ice` as part of the build. See
+[Compiling Slice Files with CMake](../../slice/using-the-slice-compiler#compiling-slice-files-with-cmake).
 
 {% /callout %}
 

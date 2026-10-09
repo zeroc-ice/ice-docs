@@ -246,4 +246,37 @@ The source file now contains the following `#include` directive:
 
 Any leading path in the included file is discarded as usual, and the value of the `--include-dir` option is prepended.
 
+## Compiling Slice Files with CMake
+
+An Ice for C++ installation includes a CMake package, which requires CMake 3.21 or later. The package defines an
+imported library target for each Ice library, such as `Ice::Ice` and `Ice::IceGrid`, and the `slice2cpp_generate`
+function, which compiles the Slice files of a target as part of the build. For example:
+
+```cmake
+cmake_minimum_required(VERSION 3.21)
+project(greeter CXX)
+
+find_package(Ice REQUIRED CONFIG)
+
+add_executable(client Client.cpp Greeter.ice)
+slice2cpp_generate(client)
+target_link_libraries(client PRIVATE Ice::Ice)
+```
+
+The `CONFIG` keyword makes `find_package` load the Ice package rather than the `FindIce` module that CMake provides.
+When Ice is not installed in a standard location, add the Ice installation directory to `CMAKE_PREFIX_PATH`. On Windows,
+Ice for C++ is the `ZeroC.Ice.Cpp` NuGet package: set `Ice_ROOT` to the directory where NuGet extracted the package.
+
+`slice2cpp_generate` compiles each `.ice` file in the target's sources with `slice2cpp`, adds the generated header and
+source files to the target, and adds the directory of the generated headers to the target's include directories, so
+`Client.cpp` includes `Greeter.h` with `#include "Greeter.h"`. It always passes the directory of the Ice Slice files to
+`slice2cpp` with `-I`, so `#include <Ice/Identity.ice>` resolves without further configuration. The build runs
+`slice2cpp` again on a Slice file when that file, or a Slice file it includes, changes. Call `slice2cpp_generate` in the
+directory that creates the target, after adding all of the target's `.ice` files.
+
+The `INCLUDE_DIRS` argument adds `-I` directories, and the `OPTIONS` argument passes other `slice2cpp` options, such as
+`-D` or `--header-ext`. The [CMake package README](https://github.com/zeroc-ice/ice/blob/3.8/cpp/cmake/README.md)
+describes all the arguments of `slice2cpp_generate`, the variables that `find_package` sets, and how to copy the Ice
+DLLs on Windows.
+
 {% /language-section %}
