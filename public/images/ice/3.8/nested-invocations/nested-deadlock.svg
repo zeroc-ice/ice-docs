@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="680"
-  height="500"
+  height="490"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 680 500"
+  viewBox="0 0 680 490"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">Deadlock during nested invocations</title>
   <desc id="description">
-    The client calls opA on Server A, which calls opB on Server B. Server B attempts a callback to Server A, but
-    Server A cannot dispatch it while its thread is blocked in the nested invocation.
+    The client calls opA on Server A. While dispatching opA, Server A calls opB on Server B. Server A's only dispatch
+    thread waits for opB to return, so Server A cannot dispatch Server B's callback.
   </desc>
 
   <defs>
@@ -25,6 +25,10 @@
     >
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
+    <pattern id="waiting-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="6" fill="#ffffff"/>
+      <path d="M 0 0 V 6" stroke="#8d99aa" stroke-width="2"/>
+    </pattern>
   </defs>
 
   <style>
@@ -42,8 +46,21 @@
       font-size: 14px;
       text-anchor: middle;
     }
-    .application {
+    .side-note {
+      text-anchor: end;
+    }
+    .lifeline {
+      fill: none;
+      stroke: #a6afbc;
+      stroke-width: 1.25;
+    }
+    .activation {
       fill: #ffffff;
+      stroke: #8d99aa;
+      stroke-width: 1.5;
+    }
+    .waiting {
+      fill: url(#waiting-hatch);
       stroke: #8d99aa;
       stroke-width: 1.5;
     }
@@ -57,50 +74,52 @@
     .one-way {
       marker-end: url(#arrow);
     }
-    .callback {
+    .blocked {
+      stroke: #b42318;
       stroke-dasharray: 6 4;
-      marker-end: url(#arrow);
     }
     .blocked-cross {
       stroke: #b42318;
     }
   </style>
 
-  <rect width="680" height="500" fill="#ffffff"/>
+  <rect width="680" height="490" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector" d="M 80 54 L 80 475" vector-effect="non-scaling-stroke"/>
-    <path class="connector" d="M 340 54 L 340 475" vector-effect="non-scaling-stroke"/>
-    <path class="connector" d="M 600 54 L 600 475" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 102 130 L 318 130" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 362 210 L 578 210" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 578 330 H 410" vector-effect="non-scaling-stroke"/>
+    <path class="lifeline" d="M 80 54 V 470" vector-effect="non-scaling-stroke"/>
+    <path class="lifeline" d="M 340 54 V 470" vector-effect="non-scaling-stroke"/>
+    <path class="lifeline" d="M 600 54 V 470" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 90 110 H 330" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 350 190 H 590" vector-effect="non-scaling-stroke"/>
+    <path class="connector blocked" d="M 590 300 H 368" vector-effect="non-scaling-stroke"/>
     <path
       class="connector blocked-cross"
-      d="M 379 313 L 411 347 M 379 347 L 411 313"
+      d="M 360 292 L 376 308 M 360 308 L 376 292"
       vector-effect="non-scaling-stroke"
     />
   </g>
 
   <g id="components" aria-hidden="true">
-    <rect class="application" x="58" y="80" width="44" height="355" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="318" y="80" width="44" height="355" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="578" y="80" width="44" height="355" rx="0" vector-effect="non-scaling-stroke"/>
+    <rect class="activation" x="70" y="110" width="20" height="330" vector-effect="non-scaling-stroke"/>
+    <rect class="activation" x="330" y="110" width="20" height="80" vector-effect="non-scaling-stroke"/>
+    <rect class="waiting" x="330" y="190" width="20" height="250" vector-effect="non-scaling-stroke"/>
+    <rect class="activation" x="590" y="190" width="20" height="250" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
     <text class="label" x="80" y="36">Client</text>
     <text class="label" x="340" y="36">Server A</text>
     <text class="label" x="600" y="36">Server B</text>
-    <rect x="190.0" y="99" width="40" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="210" y="115">opA</text>
-    <rect x="450.0" y="179" width="40" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="470" y="195">opB</text>
-    <rect x="452.0" y="296" width="80" height="24" rx="4" fill="#ffffff"/>
-    <text class="annotation" x="492" y="312">callback</text>
-    <text class="annotation" x="470" y="387">Callback blocked</text>
+    <text class="annotation" x="210" y="98">opA</text>
+    <text class="annotation" x="470" y="178">opB</text>
+    <text class="annotation" x="483" y="288">Callback blocked</text>
+    <text class="annotation side-note" x="318" y="155">Dispatching opA</text>
+    <text class="annotation side-note" x="318" y="304">
+      <tspan x="318" dy="0">Server A's only thread</tspan>
+      <tspan x="318" dy="20">waits for opB to return</tspan>
+    </text>
   </g>
 </svg>
