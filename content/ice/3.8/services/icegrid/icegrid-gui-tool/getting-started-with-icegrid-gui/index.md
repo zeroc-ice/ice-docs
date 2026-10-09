@@ -58,7 +58,7 @@ If you need to set many properties, it is a good idea to write a configuration f
 command-line argument to specify the location of this file. For example:
 
 ```shell
-java -jar "C:\Program Files\ZeroC\Ice-3.8.0\bin\icegridgui.jar" --Ice.Config=icegridgui.cfg
+java -jar "C:\Program Files\ZeroC\Ice-Services-3.8.3\bin\icegridgui.jar" --Ice.Config=icegridgui.cfg
 ```
 
 ## Main IceGrid GUI Window
