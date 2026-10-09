@@ -56,7 +56,7 @@ The default value of this property is 60 seconds.
 
 This property is used by a [replicated IceStorm deployment](../../services/icestorm/highly-available-icestorm). It
 specifies the interval in seconds at which a coordinator attempts to form larger groups of replicas. If not defined, the
-default value is 10.
+default value is `10`.
 
 {% /property-description %}
 
@@ -72,7 +72,7 @@ default value is 10.
 
 This property is used by a [replicated IceStorm deployment](../../services/icestorm/highly-available-icestorm). It
 specifies the interval in seconds at which a slave checks the status of the coordinator. If not defined, the default
-value is 10.
+value is `10`.
 
 {% /property-description %}
 
@@ -94,7 +94,7 @@ priority replicas wait for intervals inversely proportional to the maximum prior
 ResponseTimeout + ResponseTimeout * (max - pri)
 ```
 
-If not defined, the default value is 10.
+If not defined, the default value is `10`.
 
 {% /property-description %}
 
@@ -186,7 +186,7 @@ be used to configure this adapter.
 {% property-description %}
 
 Specifies the node ID of an IceStorm [replica](../../services/icestorm/highly-available-icestorm), where `value` is a
-non-negative integer. Node IDs must be unique, but they need not be contiguous or start at 0. The node ID is also used
+non-negative integer. Node IDs must be unique, but they need not be contiguous or start at `0`. The node ID is also used
 as the replica's priority, such that a larger value assigns higher priority to the replica. The replica with the highest
 priority becomes the coordinator of its group. This property must be defined for each replica. The default value is
 `-1`, which disables replication.
@@ -346,8 +346,8 @@ Trace activity related to elections:
 
 | Value | Description                  |
 | ----- | ---------------------------- |
-| 0     | No election trace (default). |
-| 1     | Trace election activity.     |
+| `0`   | No election trace (default). |
+| `1`   | Trace election activity.     |
 
 {% /property-description %}
 
@@ -365,8 +365,8 @@ Trace activity related to replication:
 
 | Value | Description                     |
 | ----- | ------------------------------- |
-| 0     | No replication trace (default). |
-| 1     | Trace replication activity.     |
+| `0`   | No replication trace (default). |
+| `1`   | Trace replication activity.     |
 
 {% /property-description %}
 
@@ -382,11 +382,11 @@ Trace activity related to replication:
 
 The subscriber trace level:
 
-| Value | Description                                                                                                                                                                              |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No subscriber trace (default).                                                                                                                                                           |
-| 1     | Trace topic diagnostic information on subscription and unsubscription.                                                                                                                   |
-| 2     | Like 1, but more verbose, including state transitions for a subscriber (such as going offline after a temporary network failure, and going online again after a successful retry, etc.). |
+| Value | Description                                                                                                                                                                                |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `0`   | No subscriber trace (default).                                                                                                                                                             |
+| `1`   | Trace topic diagnostic information on subscription and unsubscription.                                                                                                                     |
+| `2`   | Like `1`, but more verbose, including state transitions for a subscriber (such as going offline after a temporary network failure, and going online again after a successful retry, etc.). |
 
 {% /property-description %}
 
@@ -402,11 +402,11 @@ The subscriber trace level:
 
 The topic trace level:
 
-| Value | Description                                                                            |
-| ----- | -------------------------------------------------------------------------------------- |
-| 0     | No topic trace (default).                                                              |
-| 1     | Trace topic links, subscription, and unsubscription.                                   |
-| 2     | Like 1, but more verbose, including QoS information, and other diagnostic information. |
+| Value | Description                                                                              |
+| ----- | ---------------------------------------------------------------------------------------- |
+| `0`   | No topic trace (default).                                                                |
+| `1`   | Trace topic links, subscription, and unsubscription.                                     |
+| `2`   | Like `1`, but more verbose, including QoS information, and other diagnostic information. |
 
 {% /property-description %}
 
@@ -424,9 +424,9 @@ The topic manager trace level:
 
 | Value | Description                                                      |
 | ----- | ---------------------------------------------------------------- |
-| 0     | No topic manager trace (default).                                |
-| 1     | Trace topic creation, topic loading, and replica initialization. |
-| 2     | Like 1, but also trace the endpoints of each subscriber.         |
+| `0`   | No topic manager trace (default).                                |
+| `1`   | Trace topic creation, topic loading, and replica initialization. |
+| `2`   | Like `1`, but also trace the endpoints of each subscriber.       |
 
 {% /property-description %}
 
@@ -440,7 +440,7 @@ The topic manager trace level:
 
 {% property-description %}
 
-If `num` is a value greater than zero, IceStorm runs in a fully transient mode in which no database is required.
-Replication is not supported in this mode. If not defined, the default value is zero.
+If `num` is a value greater than `0`, IceStorm runs in a fully transient mode in which no database is required.
+Replication is not supported in this mode. If not defined, the default value is `0`.
 
 {% /property-description %}

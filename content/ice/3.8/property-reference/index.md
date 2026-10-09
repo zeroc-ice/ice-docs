@@ -36,7 +36,7 @@ pages:
 This section provides a reference for all properties used by the Ice runtime and its services.
 
 Unless the description of a property says otherwise, its default value is the empty string. For a numeric property, that
-means 0.
+means `0`.
 
 The default value listed in an entry is the value the Ice runtime uses when the property is not set. It is also what the
 `getIceProperty` methods return for an unset property. The plain `getProperty` methods do not know about these defaults:

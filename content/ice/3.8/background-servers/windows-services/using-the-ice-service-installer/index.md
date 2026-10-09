@@ -74,15 +74,15 @@ You can edit the service's configuration after installation, except for the prop
 derives the service name and other settings from them. To change one of these properties, uninstall the service, edit
 the configuration, then install the service again.
 
-| **Property**                                                                 | **Service**                   | **Description**                                                                                                                                                                            |
-| ---------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Glacier2.InstanceName](../../../property-reference/glacier2-properties)     | Glacier2 Router               | The installer includes the value in the service name and, unless `DisplayName` is set, in the default display name.                                                                        |
-| [IceGrid.InstanceName](../../../property-reference/icegrid-properties)       | IceGrid Registry              | The installer includes the value in the service name and, unless `DisplayName` is set, in the default display name.                                                                        |
-| [IceGrid.Node.Data](../../../property-reference/icegrid-properties)          | IceGrid Node                  | Required when installing; must be an absolute path. The installer creates the directory if necessary and grants the `ObjectName` account full access to it.                                |
-| [IceGrid.Node.Name](../../../property-reference/icegrid-properties)          | IceGrid Node                  | Required. The installer includes the value in the service name and, unless `DisplayName` is set, in the default display name.                                                              |
-| [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) | IceGrid Registry              | Required when installing; must be an absolute path. The installer creates the directory if necessary and grants the `ObjectName` account full access to it.                                |
-| [Ice.Default.Locator](../../../property-reference/ice-default-properties)    | IceGrid Node, Glacier2 Router | The IceGrid instance name is the category of the identity in this proxy. A node requires a proxy whose identity has a category; a router requires one when `DependOnRegistry` is not zero. |
-| [Ice.EventLog.Source](../../../property-reference/ice-properties)            | All                           | Specifies the name of an event log source for the service.                                                                                                                                 |
+| **Property**                                                                 | **Service**                   | **Description**                                                                                                                                                                           |
+| ---------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Glacier2.InstanceName](../../../property-reference/glacier2-properties)     | Glacier2 Router               | The installer includes the value in the service name and, unless `DisplayName` is set, in the default display name.                                                                       |
+| [IceGrid.InstanceName](../../../property-reference/icegrid-properties)       | IceGrid Registry              | The installer includes the value in the service name and, unless `DisplayName` is set, in the default display name.                                                                       |
+| [IceGrid.Node.Data](../../../property-reference/icegrid-properties)          | IceGrid Node                  | Required when installing; must be an absolute path. The installer creates the directory if necessary and grants the `ObjectName` account full access to it.                               |
+| [IceGrid.Node.Name](../../../property-reference/icegrid-properties)          | IceGrid Node                  | Required. The installer includes the value in the service name and, unless `DisplayName` is set, in the default display name.                                                             |
+| [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) | IceGrid Registry              | Required when installing; must be an absolute path. The installer creates the directory if necessary and grants the `ObjectName` account full access to it.                               |
+| [Ice.Default.Locator](../../../property-reference/ice-default-properties)    | IceGrid Node, Glacier2 Router | The IceGrid instance name is the category of the identity in this proxy. A node requires a proxy whose identity has a category; a router requires one when `DependOnRegistry` is not `0`. |
+| [Ice.EventLog.Source](../../../property-reference/ice-properties)            | All                           | Specifies the name of an event log source for the service.                                                                                                                                |
 
 The steps performed by the tool during an installation are described in detail [below](#service-installation-process).
 
@@ -106,23 +106,23 @@ iceserviceinstall --AutoStart=0 --DisplayName="My registry" icegridregistry regi
 
 The installer's properties are listed below:
 
-- AutoStart=_num_ If not specified, the default _num_ value is 1. You should select 2, Automatic (Delayed Start), when
-  your service is listening on a Wireless LAN interface.
+- AutoStart=_num_ If not specified, the default _num_ value is `1`. You should select `2`, Automatic (Delayed Start),
+  when your service is listening on a Wireless LAN interface.
 
 | _**Num**_**value** | **Service Startup Type**  |
 | ------------------ | ------------------------- |
-| 0                  | Manual                    |
-| 1                  | Automatic                 |
-| 2                  | Automatic (Delayed Start) |
+| `0`                | Manual                    |
+| `1`                | Automatic                 |
+| `2`                | Automatic (Delayed Start) |
 
-- Debug=_num_ If _num_ is not zero, iceserviceinstall outputs diagnostics when installing a service. If not specified,
-  the default value is 0.
-- `DependOnRegistry=num` If num is not zero, the installer makes the service depend on the Windows service
+- Debug=_num_ If _num_ is not `0`, iceserviceinstall outputs diagnostics when installing a service. If not specified,
+  the default value is `0`.
+- `DependOnRegistry=num` If num is not `0`, the installer makes the service depend on the Windows service
   `icegridregistry.<instance-name>` on the same host, so Windows starts that registry before this service.
   `<instance-name>` is the category of the identity in the
   [Ice.Default.Locator](../../../property-reference/ice-default-properties) proxy defined in `config-file`. This
   property applies to an IceGrid node and a Glacier2 router; installing an IceGrid registry with a nonzero value fails.
-  If not specified, the default value is zero.
+  If not specified, the default value is `0`.
 - `Description=value` A brief description of the service. If not specified, a general description is used.
 - `DisplayName=name` The friendly name that identifies the service to the user. If not specified, `iceserviceinstall`
   composes a default display name.

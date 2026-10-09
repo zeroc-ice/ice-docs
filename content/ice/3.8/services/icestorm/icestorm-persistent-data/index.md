@@ -52,7 +52,7 @@ A LMDB database has a maximum size, known as its map size. The IceStorm database
 to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase `IceStorm.LMDB.MapSize`
 and restart IceStorm.
 
-If you don't set `IceStorm.LMDB.MapSize`, or set it to 0, IceStorm uses a map size of 10 MB on Windows, and 100 MB on
+If you don't set `IceStorm.LMDB.MapSize`, or set it to `0`, IceStorm uses a map size of 10 MB on Windows, and 100 MB on
 Linux and macOS.
 
 On Windows, LMDB immediately allocates a file with the given map size, while on Linux and macOS LMDB uses sparse files

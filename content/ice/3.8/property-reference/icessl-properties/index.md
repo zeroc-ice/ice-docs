@@ -85,7 +85,7 @@ Specifies the PEM files containing the certificate revocation lists (CRLs) that 
 Separate several files with commas or whitespace. A relative path is resolved under `IceSSL.DefaultDir` when that
 property is set, and relative to the working directory otherwise.
 
-IceSSL reads these files only when `IceSSL.RevocationCheck` is greater than zero, and then requires them: communicator
+IceSSL reads these files only when `IceSSL.RevocationCheck` is greater than `0`, and then requires them: communicator
 initialization fails with an `InitializationException` if a file is missing or contains no PEM-encoded CRL or
 certificate. During the handshake, OpenSSL looks up the CRL of each certificate it checks in these files. If the CRL is
 not there, the handshake fails.
@@ -202,13 +202,13 @@ An Ice program running as a Windows service will typically need to set this prop
 {% property-description %}
 
 Specifies if certificate host name verification is enabled. The legal values are shown in the table below. If this
-property is not defined, the default value is 0.
+property is not defined, the default value is `0`.
 
 | Value | Description                                                                           |
 | ----- | ------------------------------------------------------------------------------------- |
-| 0     | Host name verification is disabled.                                                   |
-| 1     | Host name verification is enabled.                                                    |
-| 2     | Host name verification is enabled. In Java, IceSSL also sends the host name with SNI. |
+| `0`   | Host name verification is disabled.                                                   |
+| `1`   | Host name verification is enabled.                                                    |
+| `2`   | Host name verification is enabled. In Java, IceSSL also sends the host name with SNI. |
 
 This property has no effect on a server's validation of a client's certificate.
 
@@ -223,9 +223,9 @@ platform or language:
 - if the endpoint uses a DNS name: SecureTransport on macOS only matches the DNS name against the subject alternative
   names, it doesn't check the `CommonName`
 
-In Java, IceSSL verifies the host name only when `IceSSL.VerifyPeer` is greater than zero, and sends the host name to
-the server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++ and
-.NET implementations always send a DNS host name with SNI.
+In Java, IceSSL verifies the host name only when `IceSSL.VerifyPeer` is greater than `0`, and sends the host name to the
+server through the TLS server name indication (SNI) extension only when this property is set to `2`. The C++ and .NET
+implementations always send a DNS host name with SNI.
 
 {% /property-description %}
 
@@ -413,9 +413,9 @@ Specifies whether IceSSL checks the certificates of the peer's chain for revocat
 
 | Value | Description                                                 |
 | ----- | ----------------------------------------------------------- |
-| 0     | Revocation checks are disabled (default).                   |
-| 1     | Checks the revocation status of the peer's own certificate. |
-| 2     | Checks the revocation status of the whole chain.            |
+| `0`   | Revocation checks are disabled (default).                   |
+| `1`   | Checks the revocation status of the peer's own certificate. |
+| `2`   | Checks the revocation status of the whole chain.            |
 
 IceSSL aborts the connection when it finds a revoked certificate or cannot determine the revocation status of a
 certificate.
@@ -427,7 +427,7 @@ certificate.
 #### OpenSSL {% id="icessl.revocationcheck-openssl" %}
 
 The revocation status is looked up in the CRL files listed in `IceSSL.CertificateRevocationListFiles`, which must be set
-when this property is greater than zero; otherwise communicator initialization fails. OpenSSL reports an error when it
+when this property is greater than `0`; otherwise communicator initialization fails. OpenSSL reports an error when it
 finds no CRL for a certificate it checks, so with the value `2` the files must cover every issuer in the chain.
 
 #### SChannel {% id="icessl.revocationcheck-schannel" %}
@@ -455,8 +455,8 @@ Specifies whether revocation checks may access the network:
 
 | Value | Description                                                                                                            |
 | ----- | ---------------------------------------------------------------------------------------------------------------------- |
-| 0     | Revocation checks may fetch CRLs from the distribution points and query the OCSP responders named in the certificates. |
-| 1     | Revocation checks consult only the system's revocation cache (default).                                                |
+| `0`   | Revocation checks may fetch CRLs from the distribution points and query the OCSP responders named in the certificates. |
+| `1`   | Revocation checks consult only the system's revocation cache (default).                                                |
 
 With the default value, IceSSL rejects a certificate whose revocation status is not already in the system cache.
 
@@ -493,9 +493,9 @@ The SSL plug-in trace level:
 
 | Value | Description                                                                                                                                                     |
 | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | No security tracing (default).                                                                                                                                  |
-| 1     | Displays a summary of each SSL connection, the reason a connection is rejected, and the peer's distinguished name when an `IceSSL.TrustOnly*` property applies. |
-| 2     | Additionally displays the `IceSSL.TrustOnly*` entries evaluated against the peer's distinguished name. .NET displays these at level `1`.                        |
+| `0`   | No security tracing (default).                                                                                                                                  |
+| `1`   | Displays a summary of each SSL connection, the reason a connection is rejected, and the peer's distinguished name when an `IceSSL.TrustOnly*` property applies. |
+| `2`   | Additionally displays the `IceSSL.TrustOnly*` entries evaluated against the peer's distinguished name. .NET displays these at level `1`.                        |
 
 {% /property-description %}
 
@@ -627,10 +627,10 @@ entries defined in this property are combined with those of `IceSSL.TrustOnly` a
 
 {% property-description %}
 
-If `num` is a value greater than zero, IceSSL uses the platform's bundled Root Certificate Authorities. This setting is
+If `num` is a value greater than `0`, IceSSL uses the platform's bundled Root Certificate Authorities. This setting is
 ignored if `IceSSL.CAs` is defined.
 
-If not defined, the default value is zero.
+If not defined, the default value is `0`.
 
 {% /property-description %}
 
@@ -650,9 +650,9 @@ initialization to fail with an `InitializationException`. If this property is no
 
 | Value | Description                                                                                                                                                                                    |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | The server does not request a certificate from the client.                                                                                                                                     |
-| 1     | The server requests a certificate from the client and accepts a client that supplies none. If the client supplies one, the server verifies it and aborts the connection if verification fails. |
-| 2     | The server requires a certificate from the client and aborts the connection if the client supplies none or if verification fails.                                                              |
+| `0`   | The server does not request a certificate from the client.                                                                                                                                     |
+| `1`   | The server requests a certificate from the client and accepts a client that supplies none. If the client supplies one, the server verifies it and aborts the connection if verification fails. |
+| `2`   | The server requires a certificate from the client and aborts the connection if the client supplies none or if verification fails.                                                              |
 
 This property has no effect on outgoing connections (except in Java, see below): a client always requires and verifies
 the server's certificate.

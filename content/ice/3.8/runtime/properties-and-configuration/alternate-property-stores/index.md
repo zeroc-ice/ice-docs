@@ -18,7 +18,7 @@ For this example, Ice loads the string values under `HKEY_LOCAL_MACHINE\MyCompan
 or `HKCU\` path directly to `Properties.load`.
 
 The name of each string value is the name of the property (such as `Ice.Trace.Network`). Note that the value must be a
-string (even if the property setting is numeric). For example, to set `Ice.Trace.Network` to 3, you must store the
+string (even if the property setting is numeric). For example, to set `Ice.Trace.Network` to `3`, you must store the
 string "3" as the value, not a binary or `DWORD` value.
 
 String values in the registry can be regular strings (`REG_SZ`) or expandable strings (`REG_EXPAND_SZ`). Expandable

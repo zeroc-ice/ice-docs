@@ -14,11 +14,11 @@ title: Ice.*
 
 {% property-description %}
 
-If `num` is set to 0 (the default), an invocation on an indirect proxy whose endpoints are older than the configured
+If `num` is set to `0` (the default), an invocation on an indirect proxy whose endpoints are older than the configured
 [locator cache](../../runtime/locators/locator-semantics-for-clients) timeout triggers a locator cache update; the run
 time delays the invocation until the new endpoints are returned by the locator.
 
-If `num` is set to a value larger than 0, an invocation on an indirect proxy with expired endpoints still triggers a
+If `num` is set to a value larger than `0`, an invocation on an indirect proxy with expired endpoints still triggers a
 locator cache update, but the update is performed in the background, and the run time uses the expired endpoints for the
 invocation. This avoids delaying the first invocation that follows expiry of a cache entry.
 
@@ -72,10 +72,10 @@ to the maximum size specified by [Ice.MessageSizeMax](./), therefore the sender 
 Specifies the maximum depth for a graph of Slice class instances to unmarshal. If this maximum is reached, the Ice
 runtime throws a `MarshalException`. Reading and destroying a Slice class graph are recursive operations. This property
 prevents stack overflows from occurring if a sender sends a very large graph and not enough space on the stack is
-available. To read larger graphs, you can increase the value of this property. If not specified, the default value
-is 10.
+available. To read larger graphs, you can increase the value of this property. If not specified, the default value is
+`10`.
 
-Setting this property to 0 (or to a negative number) disables the depth limit altogether.
+Setting this property to `0` (or to a negative number) disables the depth limit altogether.
 
 {% /property-description %}
 
@@ -114,7 +114,7 @@ Ice.Config=1
 This property must be set from the command line with one of the options `--Ice.Config`, `--Ice.Config=1`, or
 `--Ice.Config=config_file`.
 
-If the `Ice.Config` property is empty or set to 1, or not set at all, the Ice runtime examines the contents of the
+If the `Ice.Config` property is empty or set to `1`, or not set at all, the Ice runtime examines the contents of the
 [ICE_CONFIG](../../runtime/properties-and-configuration/using-configuration-files) environment variable to retrieve the
 path names of one or more configuration files. Otherwise, `Ice.Config` must be set to the path names of one or more
 configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of
@@ -217,22 +217,22 @@ scope the context applies. Legal values for this property are `None` (equivalent
 
 {% iflang langs="cpp" %}
 
-If `num` is a value greater than zero, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
+If `num` is a value greater than `0`, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
 initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
-this order. An application may need to set this property to zero in order to interact directly with a plug-in after it
+this order. An application may need to set this property to `0` in order to interact directly with a plug-in after it
 has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
-plug-in manager to complete the initialization process. If not defined, the default value is 1.
+plug-in manager to complete the initialization process. If not defined, the default value is `1`.
 
 {% /iflang %}
 
 {% iflang langs="python,ruby,php,matlab,swift" %}
 
-If `num` is greater than zero, Ice initializes the plug-ins it loads during communicator initialization. The default
-value is 1. Setting this property to 0 leaves the plug-ins loaded but uninitialized.
+If `num` is greater than `0`, Ice initializes the plug-ins it loads during communicator initialization. The default
+value is `1`. Setting this property to `0` leaves the plug-ins loaded but uninitialized.
 
 {% iflang langs="swift" %}
 
-After setting this property to 0, call `Communicator.initializePlugins()` to initialize the loaded plug-ins.
+After setting this property to `0`, call `Communicator.initializePlugins()` to initialize the loaded plug-ins.
 
 {% /iflang %}
 
@@ -250,8 +250,8 @@ After setting this property to 0, call `Communicator.initializePlugins()` to ini
 
 {% property-description %}
 
-Specifies whether Ice uses IPv4. If `num` is a value greater than zero, IPv4 is enabled. If not specified, the default
-value is 1.
+Specifies whether Ice uses IPv4. If `num` is a value greater than `0`, IPv4 is enabled. If not specified, the default
+value is `1`.
 
 {% /property-description %}
 
@@ -265,8 +265,8 @@ value is 1.
 
 {% property-description %}
 
-Specifies whether Ice uses IPv6. If `num` is a value greater than zero, IPv6 is enabled. If not specified, the default
-value is 1 if the system supports the creation of IPv6 sockets, and 0 otherwise.
+Specifies whether Ice uses IPv6. If `num` is a value greater than `0`, IPv6 is enabled. If not specified, the default
+value is `1` if the system supports the creation of IPv6 sockets, and `0` otherwise.
 
 {% /property-description %}
 
@@ -323,12 +323,12 @@ Browsers do not support this property.
 
 {% property-description %}
 
-When `num` is greater than 0, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
+When `num` is greater than `0`, it sets the rotation threshold in bytes for log files configured through `Ice.LogFile`.
 Before writing a message that would bring a non-empty log file to or above this threshold, the Ice file-based logger
 renames the file to `basename-YYYYMMDD-HHMMSS.ext` and creates a new log file. The logger writes each message in full,
 even if the message exceeds the threshold.
 
-When `num` is 0 or negative, the logger writes to a single file with unlimited size. The default value is 0.
+When `num` is `0` or negative, the logger writes to a single file with unlimited size. The default value is `0`.
 
 {% /property-description %}
 
@@ -342,10 +342,10 @@ When `num` is 0 or negative, the logger writes to a single file with unlimited s
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, on Windows, the communicator's
+If `num` is set to a value larger than `0`, on Windows, the communicator's
 [default logger](../../administration/logger-facility/default-logger) converts log messages from the application's
-narrow string encoding to the Windows console's code page. The default value for this property is 1 when Ice.StdErr is
-not set, and 0 otherwise. This property is read by the first communicator created in a process; it is ignored by other
+narrow string encoding to the Windows console's code page. The default value for this property is `1` when Ice.StdErr is
+not set, and `0` otherwise. This property is read by the first communicator created in a process; it is ignored by other
 communicators.
 
 {% /property-description %}
@@ -396,9 +396,9 @@ See also [adapter.MessageSizeMax](../object-adapter-properties).
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the `Ice::Service` C++ class ignores `SIGHUP` on Unix and `CTRL_LOGOFF_EVENT`
-on Windows. As a result, a server/service that sets `Ice.Nohup` continues to run if the user that started the
-server/service logs off. The default value of this property is 1.
+If `num` is set to a value larger than `0`, the `Ice::Service` C++ class ignores `SIGHUP` on Unix and
+`CTRL_LOGOFF_EVENT` on Windows. As a result, a server/service that sets `Ice.Nohup` continues to run if the user that
+started the server/service logs off. The default value of this property is `1`.
 
 IceGrid, IceBox (IceStorm), and Glacier2 are implemented using `Ice::Service`.
 
@@ -449,8 +449,8 @@ initialization fails with a `PluginInitializationException`.
 {% property-description %}
 
 If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
-resolving hostnames. If `num` is a value greater than zero, IPv6 addresses are preferred. If not specified, the default
-value is 0.
+resolving hostnames. If `num` is a value greater than `0`, IPv6 addresses are preferred. If not specified, the default
+value is `0`.
 
 {% /property-description %}
 
@@ -466,7 +466,7 @@ value is 0.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, an object adapter prints "_adapter_name_ ready" on standard output after
+If `num` is set to a value larger than `0`, an object adapter prints "_adapter_name_ ready" on standard output after
 activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
 
 {% /property-description %}
@@ -483,7 +483,7 @@ activation is complete. This is useful for scripts that need to wait until an ob
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, the process ID is printed on standard output upon startup.
+If `num` is set to a value larger than `0`, the process ID is printed on standard output upon startup.
 
 {% /property-description %}
 
@@ -499,11 +499,11 @@ If `num` is set to a value larger than 0, the process ID is printed on standard 
 
 {% iflang langs="cpp" %}
 
-If `num` is set to a value larger than 0, [Ice::LocalException](api:Ice/LocalException) collects the stack trace when a
-local exception is constructed. When set to 0, `Ice::LocalException` does not collect stack traces.
+If `num` is set to a value larger than `0`, [Ice::LocalException](api:Ice/LocalException) collects the stack trace when
+a local exception is constructed. When set to `0`, `Ice::LocalException` does not collect stack traces.
 
-If not set, the default value depends on how the Ice C++ library is compiled: 0 for an optimized build and 1 for a debug
-build.
+If not set, the default value depends on how the Ice C++ library is compiled: `0` for an optimized build and `1` for a
+debug build.
 
 The stack trace (if collected) is included in the exception message printed by `ice_print` or `operator<<`. It’s not
 included in the `what` message.
@@ -515,11 +515,11 @@ system always creates PDB files next to your DLLs and executables, and Windows w
 
 {% iflang langs="python,ruby,php,matlab,swift" %}
 
-If `num` is greater than 0, Ice enables native stack-trace collection for local exceptions in the C++ runtime. These are
-native stack traces, rather than stack traces in the application's language.
+If `num` is greater than `0`, Ice enables native stack-trace collection for local exceptions in the C++ runtime. These
+are native stack traces, rather than stack traces in the application's language.
 
-The default value is 0 for an optimized C++ runtime and 1 for a debug runtime. On Windows, usable native stack traces
-require the Ice PDB files.
+The default value is `0` for an optimized C++ runtime and `1` for a debug runtime. On Windows, usable native stack
+traces require the Ice PDB files.
 
 {% /iflang %}
 
@@ -592,12 +592,12 @@ means Ice retries once immediately. A first value of `-1` disables retries.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, Ice automatically calls `shutdown` on the communicator when its server thread
-pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is performing some
-task, like dispatching a request.
+If `num` is set to a value larger than `0`, Ice automatically calls `shutdown` on the communicator when its server
+thread pool has been idle for `num` seconds. The server thread pool is not idle as long as any of its thread is
+performing some task, like dispatching a request.
 
 This call to `shutdown` shuts down the communicator's server side and causes any thread waiting on `waitForShutdown` to
-return. After that, a server will typically do some clean-up work before exiting. The default value is 0, meaning that
+return. After that, a server will typically do some clean-up work before exiting. The default value is `0`, meaning that
 the server will not shut down automatically. This property is often used for servers that are automatically
 [activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
@@ -624,10 +624,10 @@ thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-p
 
 {% property-description %}
 
-When `num` is set to a value larger than 0, the communicator installs an internal “not found” cache that caches failed
+When `num` is set to a value larger than `0`, the communicator installs an internal “not found” cache that caches failed
 Slice loader resolutions.
 
-The default value is 100.
+The default value is `100`.
 
 See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
@@ -758,7 +758,7 @@ The default value is `Unicode`.
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
+If `num` is set to a value larger than `0`, a special [logger](../../administration/logger-facility) is installed that
 logs using [OSLog](https://developer.apple.com/documentation/os/oslog). The subsystem is `com.zeroc.ice` when
 `Ice.ProgramName` is empty, or `com.zeroc.ice.<ProgramName>` otherwise.
 
@@ -774,7 +774,7 @@ logs using [OSLog](https://developer.apple.com/documentation/os/oslog). The subs
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
+If `num` is set to a value larger than `0`, a special [logger](../../administration/logger-facility) is installed that
 logs to the `syslog` service instead of standard error. Use [Ice.SyslogFacility](#ice.syslogfacility) to select a
 `syslog` facility.
 
@@ -802,7 +802,7 @@ opened when the first syslog logger is created and closed when the last one is d
 
 {% property-description %}
 
-If `num` is set to a value larger than 0, a special [logger](../../administration/logger-facility) is installed that
+If `num` is set to a value larger than `0`, a special [logger](../../administration/logger-facility) is installed that
 logs to the systemd journal instead of standard error. Journal entries are tagged with the value of `Ice.ProgramName` as
 their syslog identifier (the `SYSLOG_IDENTIFIER` journal field), so you can filter them with `journalctl -t name`.
 

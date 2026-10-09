@@ -125,7 +125,7 @@ module IceMX
 The `getMetricsViewName` operation retrieves the names of the configured enabled and disabled views. The
 `enableMetricsView` and `disableMetricsView` operations allow you to enable and disable a specific view. Calling those
 operations is equivalent to setting the view [Disabled](../../../property-reference/icemx-metrics-properties) property
-to 1 or 0.The `getMetricsView` operation returns the metrics for the given view. The `getMapMetricsFailures` and
+to `1` or `0`. The `getMetricsView` operation returns the metrics for the given view. The `getMapMetricsFailures` and
 `getMetricsFailures` operations retrieve the metrics failures for a given map or metrics id.
 
 {% language-section name="mapping" /%}

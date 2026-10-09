@@ -12,11 +12,11 @@ title: IceBox.*
 
 {% property-description %}
 
-If `num` is set to a value larger than zero, each service
+If `num` is set to a value larger than `0`, each service
 [inherits the configuration properties](../../services/icebox/configuring-icebox-services) of the IceBox server's
 communicator, except the properties whose names start with `IceBox.` or `Ice.Admin.`. Properties set by the service
 arguments in [IceBox.Service.name](#icebox.service.name) override inherited properties. If not defined, the default
-value is zero.
+value is `0`.
 
 {% /property-description %}
 
@@ -84,8 +84,8 @@ contain whitespace must be enclosed in quotes.
 
 {% property-description %}
 
-If `num` is set to a value larger than zero, the service manager traces the registration and removal of service
-observers. If not defined, the default value is zero.
+If `num` is set to a value larger than `0`, the service manager traces the registration and removal of service
+observers. If not defined, the default value is `0`.
 
 {% /property-description %}
 
@@ -99,9 +99,9 @@ observers. If not defined, the default value is zero.
 
 {% property-description %}
 
-If `num` is set to a value larger than zero, the service manager supplies the service `name` with a communicator that
+If `num` is set to a value larger than `0`, the service manager supplies the service `name` with a communicator that
 might be [shared by other services](../../services/icebox/configuring-icebox-services). If the
 [IceBox.InheritProperties](#icebox.inheritproperties) property is also defined, the shared communicator inherits the
-properties of the IceBox server. If not defined, the default value is zero.
+properties of the IceBox server. If not defined, the default value is `0`.
 
 {% /property-description %}

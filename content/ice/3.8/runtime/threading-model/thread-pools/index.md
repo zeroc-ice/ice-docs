@@ -63,15 +63,15 @@ pool's maximum size. Threads may also be terminated automatically when they have
 
 The dynamic nature of a thread pool is determined by the configuration properties `name.Size`, `name.SizeMax`, and
 `name.ThreadIdleTime`. A thread pool is not dynamic in its default configuration because `name.Size` and `name.SizeMax`
-are both set to 1, meaning the pool can never grow to contain more than a single thread. To configure a dynamic thread
-pool, you must set at least one of `name.Size` or `name.SizeMax` to a value greater than 1. We can use several
+are both set to `1`, meaning the pool can never grow to contain more than a single thread. To configure a dynamic thread
+pool, you must set at least one of `name.Size` or `name.SizeMax` to a value greater than `1`. We can use several
 configuration scenarios to explore the semantics of dynamic thread pools in greater detail:
 
 ```config
 name.SizeMax=5
 ```
 
-This thread pool initially contains a single thread because `name.Size` has a default value of 1, and Ice can grow the
+This thread pool initially contains a single thread because `name.Size` has a default value of `1`, and Ice can grow the
 pool up to the maximum of 5 threads. During periods of inactivity, idle threads terminate after 60 seconds (the default
 value for `name.ThreadIdleTime`) until the pool contains just 1 thread again.
 
@@ -98,7 +98,7 @@ name.ThreadIdleTime=0
 ```
 
 This thread pool can grow from its initial size of 1 thread to contain up to 5 threads, but it will never shrink because
-`name.ThreadIdleTime` is set to 0.
+`name.ThreadIdleTime` is set to `0`.
 
 ```config
 name.Size=5

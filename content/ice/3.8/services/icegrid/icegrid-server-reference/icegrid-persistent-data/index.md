@@ -23,7 +23,7 @@ The registry stores the following data in the [LMDB](https://www.symas.com/mdb) 
 - [Adapter endpoints](../../../../runtime/dispatch/object-adapter-endpoints) registered dynamically by servers using the
   `Ice::LocatorRegistry` interface. The property
   [IceGrid.Registry.DynamicRegistration](../../../../property-reference/icegrid-properties) must be set to a value
-  larger than zero to allow the dynamic registration of object adapters. These adapters can be removed using the
+  larger than `0` to allow the dynamic registration of object adapters. These adapters can be removed using the
   `removeAdapter` operation.
 - Some internal proxies used by the registry to contact nodes and other registry replicas during startup. The proxies
   enable the registry to notify these entities about the registry's availability.
@@ -83,7 +83,7 @@ A LMDB database has a maximum size, known as its map size. The IceGrid registry 
 any attempt to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase
 `IceGrid.Registry.LMDB.MapSize` and restart the IceGrid registry.
 
-If you don't set `IceGrid.Registry.LMDB.MapSize`, or set it to 0, IceGrid uses a map size of 10 MB on Windows, and 100
+If you don't set `IceGrid.Registry.LMDB.MapSize`, or set it to `0`, IceGrid uses a map size of 10 MB on Windows, and 100
 MB on Linux and macOS
 
 On Windows, LMDB immediately allocates a file with the given map size, while on Linux and OS X LMDB uses sparse files

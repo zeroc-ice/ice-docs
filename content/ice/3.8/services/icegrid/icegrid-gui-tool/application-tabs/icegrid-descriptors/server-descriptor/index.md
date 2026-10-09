@@ -54,10 +54,10 @@ The Activation Mode can also be a variable or a combination of variables that re
 
 - **Activation Timeout** When activating a server, IceGrid gives timeout seconds to object adapters with server lifetime
   to register their endpoints with the IceGrid registry. During this time, lookup for the corresponding adapter IDs are
-  delayed. If not set or set to 0, the IceGrid node uses the value of its
+  delayed. If not set or set to `0`, the IceGrid node uses the value of its
   [IceGrid.Node.WaitTime](../../../../../../property-reference/icegrid-properties) property.
 - **Deactivation Timeout** When deactivating a server, IceGrid gives timeout seconds to the server to exit gracefully.
-  After this timeout, the server process is killed. If not set or set to 0, the IceGrid node uses the value of its
+  After this timeout, the server process is killed. If not set or set to `0`, the IceGrid node uses the value of its
   [IceGrid.Node.WaitTime](../../../../../../property-reference/icegrid-properties) property.
 - **Allocatable** Specifies whether the server can be allocated. A server is allocated implicitly when one of its
   allocatable objects is allocated. This checkbox is ignored if the server activation mode is session; a server with

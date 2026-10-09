@@ -70,7 +70,7 @@ session object. The client-side
 [inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) closes a connection
 that carries no invocations for
 [Ice.Connection.Client.InactivityTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.inactivitytimeout)
-seconds, 300 by default; a client that holds a session idle for longer sets this property to 0. A session created
+seconds, 300 by default; a client that holds a session idle for longer sets this property to `0`. A session created
 through a Glacier2 router ends with the client's [router session](../../glacier2/glacier2-session-management).
 
 The `AdminSession` interface provides operations for [accessing log files](#accessing-log-files-remotely) and
