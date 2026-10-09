@@ -126,14 +126,14 @@ executed by the writer. This minimizes network usage: only samples matching the 
 - The criteria type must match the type used to register the filter; otherwise, the writer cannot unmarshal the
   criteria.
 
-Example: receive temperatures greater than 26 °C:
+Example: receive temperatures lower than 18 °C:
 
 ```cpp
 Topic<string, float> temperatures{node, "temperatures"};
 auto reader = makeSingleKeyReader(
     temperatures,
     "floor1/kitchen",
-    Filter<float>("greater-than", 26.0f),
+    Filter<float>("lower-than", 18.0f),
     "kitchen-reader");
 ```
 
@@ -162,16 +162,15 @@ If the node is shutdown, blocking methods (e.g., `waitForUnread`, `getNextUnread
 
 You can register callbacks with
 [onSamples(init, queue)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ae800f5b1148ddd9adb10b8d3ded203ca.html#ae800f5b1148ddd9adb10b8d3ded203ca),
-which replaces any callbacks registered before. If unread samples are queued, the node queues `init` with those samples
-on its callback executor; it calls `queue` with each new sample the reader receives. Either function can be empty.
-Callback delivery leaves samples in the unread queue; set `sampleCount` to `0` to receive callbacks without keeping
-unread samples.
+which replaces any callbacks registered before. `init` receives the samples in the unread queue at the time you register
+the callbacks, if there are any; `queue` receives each sample the reader receives afterwards. Either function can be
+empty. The callbacks do not remove samples from the unread queue; a reader that uses only callbacks typically sets
+`sampleCount` to `0`.
 
 Callbacks are executed by the node’s callback executor. By default, the executor uses a dedicated thread; you can supply
 a custom executor via
 [NodeOptions::customExecutor](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1NodeOptions_a3df111998db4f25bc2d877b0ac96ba20.html#a3df111998db4f25bc2d877b0ac96ba20)
-when constructing the node. A callback must not throw: an exception that propagates to the node's callback thread
-terminates the application.
+when constructing the node.
 
 ## Reader Configuration
 
@@ -193,20 +192,21 @@ takes each option you leave unset from the next level.
 
 #### Sample Count (sampleCount)
 
-How many samples to keep in the unread queue. When the queue is full, the oldest samples are discarded. `0` keeps no
-samples; a negative value (the default, `-1`) sets no count limit. With the default `OnAll` clear-history policy, the
-queue still holds at most the latest sample.
+Specifies the maximum number of samples kept in the unread queue. When the queue is full, the oldest samples are
+discarded. A negative value, the default, sets no limit; `0` keeps no samples. Note that with the default `clearHistory`
+policy, `OnAll`, the queue holds at most one sample.
 
 #### Sample Lifetime (sampleLifetime)
 
-How long to keep a sample in the unread queue, in milliseconds. When the reader receives samples, DataStorm removes the
-queued samples older than this duration. `0` (the default) or a negative value sets no age limit.
+Specifies how long a sample stays in the unread queue, in milliseconds. DataStorm removes samples older than this
+duration from the queue. `0`, the default, or a negative value sets no age limit.
 
 #### Clear History (`clearHistory`)
 
 Controls when the reader’s unread sample queue is cleared, based on sample events
 ([ClearHistoryPolicy](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_a2c7845f01c34e16389d4e1fa54f30c05.html#a2c7845f01c34e16389d4e1fa54f30c05)).
-When history is enabled, DataStorm applies the clearing policy before queuing the triggering sample. Default: `OnAll`.
+DataStorm clears the queue before it queues the sample that triggers the clearing, so the queue then holds only this
+sample. Default: `OnAll`.
 
 - **OnAdd** — clears the unread queue on receiving an `Add` sample.
 - **OnRemove** — clears the unread queue on receiving a `Remove` sample.
@@ -222,8 +222,8 @@ Default: `None`.
 
 - **None**— never discard
 - **SendTime**— discard if the new sample’s timestamp is at or before the latest timestamp the reader has accepted.
-- **Priority**— keep only samples from the highest-priority writers connected for the sample's key; the reader accepts
-  samples from every writer that shares the highest priority
+- **Priority**— keep only the samples from the writers with the highest priority among the writers connected for the
+  sample's key
 
 ### Coordination & Listeners
 
@@ -246,8 +246,8 @@ Default: `None`.
   [onConnectedKeys(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ab1257d44f1504f39994f865c6f096b79.html#ab1257d44f1504f39994f865c6f096b79)
   to register callbacks that monitor connected keys, replacing any callbacks registered before:
 
-  - The node queues `initCallback` on its callback executor with the initial set of connected keys.
-  - The node calls `updateCallback` whenever a key is connected or disconnected.
+  - DataStorm calls `initCallback` once with the initial set of connected keys.
+  - DataStorm calls `updateCallback` whenever a key is connected or disconnected.
 
 #### Connected Writers Listener
 
@@ -255,5 +255,5 @@ Default: `None`.
   [onConnectedWriters(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_a141f030489315d97fa5c7464c32556a2.html#a141f030489315d97fa5c7464c32556a2)
   to register callbacks that monitor connected writers, replacing any callbacks registered before:
 
-  - The node queues `initCallback` on its callback executor with the initial set of connected writers.
-  - The node calls `updateCallback` whenever a writer connects or disconnects.
+  - DataStorm calls `initCallback` once with the initial set of connected writers.
+  - DataStorm calls `updateCallback` whenever a writer connects or disconnects.

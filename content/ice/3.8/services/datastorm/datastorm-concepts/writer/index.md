@@ -138,9 +138,9 @@ increment(0.5f);
 writer.remove();
 ```
 
-The template parameter of `partialUpdate` must match the type used to register the updater with `Topic::setUpdater`.
-Calling the returned function for a key this writer has not given a full value with `add` or `update`, or has removed
-since, throws `std::logic_error`.
+The template parameter of `partialUpdate` must match the type used to register the updater with `Topic::setUpdater`. The
+key must have a current value when you call the returned function: this writer gave it a value with `add` or `update`,
+and did not remove it since.
 
 ### Multi-Key and Any-Key Writers
 
@@ -200,20 +200,20 @@ takes each option you leave unset from the next level.
 
 #### Sample Count (`sampleCount`)
 
-Specifies how many samples are kept in the writer’s history queue. When the queue is full, the oldest samples are
-discarded. `0` keeps no samples; a negative value (the default, `-1`) sets no count limit. With the default `OnAll`
-clear-history policy, the queue still holds at most the latest sample.
+Specifies the maximum number of samples kept in the writer’s history queue. When the queue is full, the oldest samples
+are discarded. A negative value, the default, sets no limit; `0` keeps no samples. Note that with the default
+`clearHistory` policy, `OnAll`, the queue holds at most one sample.
 
 #### Sample Lifetime (`sampleLifetime`)
 
-Specifies how long samples are retained in the writer’s queue, in milliseconds. When the writer publishes a sample or
-sends its history to a newly connected reader, DataStorm removes the queued samples older than this duration. `0` (the
-default) or a negative value sets no age limit.
+Specifies how long a sample stays in the writer’s history queue, in milliseconds. DataStorm removes samples older than
+this duration from the queue. `0`, the default, or a negative value sets no age limit.
 
 #### Clear History (`clearHistory`)
 
-Controls when the writer’s sample queue is cleared, based on sample events (`ClearHistoryPolicy`). When history is
-enabled, DataStorm applies the clearing policy before queuing the triggering sample. Default: `OnAll`.
+Controls when the writer’s sample queue is cleared, based on sample events (`ClearHistoryPolicy`). DataStorm clears the
+queue before it queues the sample that triggers the clearing, so the queue then holds only this sample. Default:
+`OnAll`.
 
 - **OnAdd** — clears the queue when publishing an `Add` sample.
 - **OnRemove** — clears the queue when publishing a `Remove` sample.
@@ -223,10 +223,9 @@ enabled, DataStorm applies the clearing policy before queuing the triggering sam
 
 #### Priority (`priority`)
 
-Specifies the **priority** of the writer. Default: 0. Readers can be configured with a discard policy (see
+Specifies the **priority** of the writer. Default: `0`. Readers can be configured with a discard policy (see
 [DiscardPolicy::Priority](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473))
-to accept only samples from the highest-priority writers connected for the sample's key; the reader accepts samples from
-every writer that shares the highest priority.
+to accept only the samples from the writers with the highest priority among the writers connected for the sample's key.
 
 ### Coordination & Listeners
 
@@ -254,8 +253,8 @@ Use
 [onConnectedKeys(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a8e95ce3faae3df238b50727e2e4ff729.html#a8e95ce3faae3df238b50727e2e4ff729)
 to register callbacks that monitor connected keys, replacing any callbacks registered before:
 
-- The node queues `initCallback` on its callback executor with the initial set of connected keys.
-- The node calls `updateCallback` whenever a key is connected or disconnected.
+- DataStorm calls `initCallback` once with the initial set of connected keys.
+- DataStorm calls `updateCallback` whenever a key is connected or disconnected.
 
 #### Connected Readers Listener
 
@@ -263,5 +262,5 @@ Use
 [onConnectedReaders(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a2abe48f42f26a47a1f143c66ceb5a34c.html#a2abe48f42f26a47a1f143c66ceb5a34c)
 to register callbacks that monitor connected readers, replacing any callbacks registered before:
 
-- The node queues `initCallback` on its callback executor with the initial set of connected readers.
-- The node calls `updateCallback` whenever a reader connects or disconnects.
+- DataStorm calls `initCallback` once with the initial set of connected readers.
+- DataStorm calls `updateCallback` whenever a reader connects or disconnects.
