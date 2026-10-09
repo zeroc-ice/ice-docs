@@ -67,9 +67,9 @@ or when the session is destroyed.
 
 ## Activating Servers with Specific User IDs
 
-An IceGrid node that runs as root on Unix can run each server under its own operating system account. Any other node, a
-node on Windows or a node that does not run as root, runs every server under the node's own account, and fails to load a
-server whose user string, described below, resolves to another account.
+An IceGrid node that runs as root on Unix, including macOS, runs each server under the operating system account that the
+server's user string, described below, maps to. On Windows, or when the node does not run as root, the node runs every
+server under its own account, and fails to load a server whose user string maps to another account.
 
 ### The User String
 
