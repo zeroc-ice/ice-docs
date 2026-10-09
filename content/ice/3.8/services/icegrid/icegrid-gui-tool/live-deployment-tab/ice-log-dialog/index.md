@@ -35,7 +35,16 @@ This dialog allows you to view and update the following settings:
 
 - **Max log messages in buffer** The maximum number of lines displayed in the Ice log dialog.
 - **Number of log messages retrieved initially** When a new dialog is opened, or when restarting a stopped dialog, the
-  dialog retrieves and displays up to this number of lines.
+  dialog retrieves and displays up to this number of lines. The value `-1` retrieves all the log messages that the
+  monitored application's logger keeps and that match the dialog's [filter](#filter).
+
+## Saving and Copying
+
+Use `File > Save As...` to save the messages in the dialog's table to a local CSV file, one record per message with the
+timestamp, type, trace category, and message text. A paused dialog queues new messages outside the table; resume the
+dialog to display them before saving.
+
+Use `Edit > Copy` to copy the selected rows to the clipboard as tab-separated text.
 
 ## Filter
 

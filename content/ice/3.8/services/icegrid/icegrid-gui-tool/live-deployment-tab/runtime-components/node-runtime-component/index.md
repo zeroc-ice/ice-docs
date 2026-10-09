@@ -15,15 +15,19 @@ an application deployed on this IceGrid registry.
 A node provides the following actions, from its contextual menu and from the `Tools > Node` menu:
 
 - **Retrieve Ice log** Retrieve the log messages sent to the IceGrid node's
-  [logger](../../../../../../administration/logger-facility) into an [Ice Log Dialog](../../log-file-dialog). The Ice
-  Log Dialog attaches a [remote logger](../../../../../../administration/administrative-facility/logger-facet) to the
-  node's logger.
+  [logger](../../../../../../administration/logger-facility) into an [Ice Log Dialog](../../ice-log-dialog). The Ice Log
+  Dialog attaches a [remote logger](../../../../../../administration/administrative-facility/logger-facet) to the node's
+  logger.
 - **Retrieve stdout** Retrieve the IceGrid node's stdout into a [Log File Dialog](../../log-file-dialog). This retrieval
   succeeds only when the node's stdout output has been redirected to a file using the
   [Ice.StdOut](../../../../../../property-reference/ice-properties) property.
 - **Retrieve stderr** Retrieve the IceGrid node's stderr into a [Log File Dialog](../../log-file-dialog). This retrieval
   succeeds only when the node's stderr output has been redirected to a file using the
-  [Ice.StdErr](../../../../../../property-reference/ice-properties) property
+  [Ice.StdErr](../../../../../../property-reference/ice-properties) property.
+- **Start All Servers** Start each server of this node that is inactive, enabled, and not configured with `session`
+  activation, including servers hidden by the [Filter live deployment](../../application-component) action.
+- **Stop All Servers** Stop each server of this node that is not inactive, including servers hidden by the Filter live
+  deployment action.
 - **Shutdown** Shutdown the IceGrid node process.
 
 {% callout type="warning" %}
