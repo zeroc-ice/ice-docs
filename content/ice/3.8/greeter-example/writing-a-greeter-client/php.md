@@ -53,7 +53,7 @@ servers, caching these connections, and managing configuration properties. We al
 Our client, like most Ice applications, creates a single communicator.
 
 It is important to make sure our communicator is properly destroyed (cleaned up) when it’s no longer needed. This
-ensures that network connections are gracefully closed, threads and joined, and other important clean-up occurs. In PHP,
+ensures that network connections are gracefully closed, threads are joined, and other important clean-up occurs. In PHP,
 the communicator is destroyed automatically at the end of the script.
 
 ### 2. Create a Greeter Proxy
@@ -99,8 +99,7 @@ supports only synchronous invocations; other languages support asynchronous invo
 
 ### 4. Cleanup
 
-The final step is the end of our block. At this point, our communicator goes out of scope causing it to be destroyed,
-and then our script completes.
+At the end of the script, Ice destroys the communicator.
 
 ## Running the Client
 
