@@ -69,12 +69,14 @@ when no tag is present.
 
 ### `marshaled-result`
 
-This directive applies to operations and changes the return type of mapped skeleton methods in C++, C#, and Java. It has
-no effect on the client-side mapping.
+This directive lets a servant marshal the results of an operation as soon as it computes them, typically while it holds
+the lock that protects the data it returns. The mapped skeleton method returns a “marshaled result” struct or class
+whose constructor marshals the return value and out parameters immediately.
 
-With this directive, the mapped skeleton method returns a “marshaled result” struct or class that marshals the return
-value and out parameters immediately in its constructor. This allows you to perform the marshaling in a thread-safe
-manner, typically while holding a mutex lock.
+You can apply this directive to an operation, or to an interface, where it covers every operation that the interface
+defines. The Slice compiler changes the mapping of an operation only when its return type or one of its out parameters
+is a class, structure, sequence, or dictionary. This directive affects the server-side mapping in C++, C#, and Java, and
+has no effect on the client-side mapping.
 
 For example:
 
