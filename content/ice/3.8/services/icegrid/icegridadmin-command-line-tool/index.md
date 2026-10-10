@@ -185,6 +185,7 @@ You can obtain more information about each category using the `help` command:
 
 - `service start ID NAME` Starts service `NAME` in IceBox server `ID`.
 - `service stop ID NAME` Stops service `NAME` in IceBox server `ID`.
+- `service status ID NAME` Print whether service `NAME` in IceBox server `ID` is running or stopped.
 - `service describe ID NAME` Describes service `NAME` in IceBox server `ID`.
 - `service properties ID NAME` Get the run-time properties of service `NAME` from IceBox server `ID`.
 - `service property ID NAME PROPERTY` Get the run-time property `PROPERTY` of service `NAME` from IceBox server `ID`.

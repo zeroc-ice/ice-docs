@@ -68,7 +68,7 @@ port of a locator's client endpoints, a client can discover the locator's proxy 
 ```cpp
 Ice::LocatorFinderPrx finder{
     communicator,
-    "Ice/LocatorFinder:tcp -p 4061 -h gridhost");
+    "Ice/LocatorFinder:tcp -p 4061 -h gridhost"};
 
 auto locator = finder.getLocator();
 communicator->setDefaultLocator(locator);

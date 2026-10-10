@@ -17,7 +17,6 @@ Usage: icegridregistry [options]
 Options:
 -h, --help           Show this message.
 -v, --version        Display the Ice version.
---nowarn             Don't print any security warnings.
 --readonly           Start the master registry in read-only mode.
 --initdb-from-replica <replica>
                      Initialize the database from the given replica.
@@ -35,7 +34,7 @@ Additional command line options are supported, including those that allow the re
 
 ## Configuring Registry Endpoints
 
-The IceGrid registry creates up to five sets of endpoints, configured with the following properties:
+The IceGrid registry creates up to six sets of endpoints, configured with the following properties:
 
 - [IceGrid.Registry.Client.Endpoints](../../../../property-reference/icegrid-properties) Client-side endpoints
   supporting the following interfaces:
@@ -66,6 +65,11 @@ There are security implications in allowing access to administrative sessions, a
 
 - [IceGrid.Registry.Internal.Endpoints](../../../../property-reference/icegrid-properties) Internal endpoints used by
   IceGrid nodes and registry replicas. This property must be defined even if no nodes or replicas are being used.
+
+- [IceGrid.Registry.Discovery.Endpoints](../../../../property-reference/icegrid-properties) UDP multicast endpoints that
+  receive [locator discovery](../../../../plugins/icelocatordiscovery) queries. The registry creates these endpoints by
+  default, on port `4061`; setting `IceGrid.Registry.Discovery.Enabled` to `0` disables them. If the registry cannot
+  create them, for example because it cannot join the multicast group, it logs a warning and starts without them.
 
 ## Registry Security Considerations
 
