@@ -71,9 +71,9 @@ configuration files for this server that are compatible with the specified Ice v
 Ice version, IceGrid assumes this server uses the same version of Ice, for example, IceGrid 3.8.2 assumes such a server
 also uses Ice 3.8.2.
 
-By default, `icegriddb` does not change this `ice-version` attribute when importing IceGrid databases: an unset
-attribute remains unset, and a set attribute keeps the same value. You can make `icegriddb` change all unset
-`ice-version` attributes to a specific version with the `--server-version` option, as shown in the example below:
+By default, `icegriddb` imports each server's `ice-version` attribute unchanged. With the `--server-version` option,
+`icegriddb` sets the `ice-version` attribute of every server and IceBox server to the version you specify, including the
+servers that already have an `ice-version`, as shown in the example below:
 
 ```shell
 icegriddb --server-version 3.7.1 --import registry.ixp --dbpath dbNew/registry
