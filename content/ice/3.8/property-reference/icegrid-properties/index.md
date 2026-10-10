@@ -410,8 +410,8 @@ The default value is 60 seconds.
 {% property-description %}
 
 Specifies the file name of an IceGrid registry
-[access control list for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The
-file uses the format described in [IceGrid.Registry.CryptPasswords](#icegrid.registry.cryptpasswords). This property is
+[password file for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The file
+uses the format described in [IceGrid.Registry.CryptPasswords](#icegrid.registry.cryptpasswords). This property is
 ignored if [IceGrid.Registry.AdminPermissionsVerifier](#icegrid.registry.adminpermissionsverifier) is defined. When
 neither property is defined, the registry rejects administrative sessions created with a user name and password.
 
@@ -528,9 +528,9 @@ registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for th
 {% property-description %}
 
 Specifies the file name of an IceGrid registry
-[access control list](../../services/icegrid/resource-allocation-using-icegrid-sessions). Each line of the file contains
-a user name and a password hash, separated by white space. The supported hash formats depend on the platform; see
-[Writing a Password File](../../services/glacier2/getting-started-with-glacier2).
+[password file](../../services/icegrid/resource-allocation-using-icegrid-sessions). Each line of the file contains a
+user name and a password hash, separated by white space. The supported hash formats depend on the platform; see
+[Writing a Password File](../../services/glacier2/getting-started-with-glacier2#writing-a-password-file).
 
 This property is ignored if [IceGrid.Registry.PermissionsVerifier](#icegrid.registry.permissionsverifier) is defined.
 When neither property is defined, the registry rejects sessions created with a user name and password.
