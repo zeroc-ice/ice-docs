@@ -13,10 +13,8 @@ The minimum requirements for running IceGrid GUI are listed below:
 - `icegridgui.jar`, usually installed in the `bin` or `lib` directory of your Ice installation
 - Java SE Runtime Environment 17 or later
 
-In order to use IceGrid GUI's [metrics graphs](../live-deployment-tab/metrics-graph) feature, you will need the JavaFX
-Runtime Environment, bundled with recent updates of the Oracle Java SE Runtime Environment on Windows, Linux and macOS.
-
-You can download Oracle Java SE for most platforms from Oracle.
+The [metrics graphs](../live-deployment-tab/metrics-graph) feature uses JavaFX. The distributed `icegridgui.jar`
+includes the JavaFX runtime for the platform it was built for.
 
 If you want to read IceGrid XML files from IceGrid GUI, you also need to have the
 [icegridadmin](../../icegridadmin-command-line-tool) command-line utility in your `PATH`.

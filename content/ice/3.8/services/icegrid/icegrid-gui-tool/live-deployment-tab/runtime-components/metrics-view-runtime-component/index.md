@@ -2,14 +2,14 @@
 title: Metrics View Runtime Component
 ---
 
-A Metrics View displays the Metrics maps associated with a Server or Service.
+A Metrics View displays the Metrics maps of a registry, slave registry, node, server, or IceBox service.
 
 ## States
 
 A metrics view can be either enabled
 ![metrics enabled](/images/ice/3.8/metrics-view-runtime-component/metrics-enabled.jpeg) or disabled
 ![metrics disabled](/images/ice/3.8/metrics-view-runtime-component/metrics-disabled.jpeg). Once enabled, a Metrics View
-may degrade the performance of the instrumented server or service.
+may degrade the performance of the instrumented process.
 
 ## Actions
 

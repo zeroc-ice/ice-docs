@@ -58,6 +58,8 @@ the Server Properties panel:
   IceGrid.Node.Output property in the IceGrid node configuration file.
 - **Retrieve log file** Retrieve a log file of this server into a [Log File Dialog](../../log-file-dialog).
 - **Send Signal** Send a signal to a server, for example SIGQUIT. Available only for non-Windows servers.
+- **Open Definition** Open the application that defines this server in a Live Application tab, and select the server's
+  definition.
 
 ## Properties
 
@@ -90,7 +92,9 @@ The remaining Server Properties under Configuration come from the IceGrid descri
 - **Command Arguments** The command-line arguments given to the server when started by IceGrid.
 - **Run as** On Linux/Unix, a server may be started as a specific user when the IceGrid node runs as root. Run as shows
   this user name. When blank, the server runs as the IceGrid node user, except when the node runs as root: the server
-  then runs as `nobody`, or, for a server allocated by a session, as the user named by the session ID.
+  then runs as `nobody`, or, for a server allocated by a session, as the user named by the session ID. If the node uses
+  a [user account mapper](../../../../icegrid-server-activation#activating-servers-with-specific-user-ids), the node
+  maps this user name to the account that runs the server.
 - **Environment Variables** A server started by IceGrid node gets these environment variables in addition to the
   environment variables inherited from the IceGrid node.
 - **Activation Mode** The server's activation mode.

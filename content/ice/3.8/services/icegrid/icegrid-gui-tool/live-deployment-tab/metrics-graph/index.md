@@ -2,7 +2,8 @@
 title: Metrics Graph
 ---
 
-A Metrics Graph displays metrics retrieved from one or more Ice servers or IceBox services.
+A Metrics Graph displays metrics retrieved from one or more registries, slave registries, nodes, servers, or IceBox
+services.
 
 ![image2017-4-3 14:28:32.png](/images/ice/3.8/metrics-graph/image2017-4-3-14-28-32.png)
 
