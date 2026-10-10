@@ -168,8 +168,8 @@ is `Master`.
 {% property-description %}
 
 When `icegridadmin` is started with the `--server` option, `icegridadmin` creates an object adapter named
-`IceGridAdmin.Server` to host its file parser object. [adapter properties](../object-adapter-properties) can be used to
-configure this object adapter. When `IceGridAdmin.Server.Endpoints` is left unset, `icegridadmin` uses
+`IceGridAdmin.Server` to host its file parser object. When
+[IceGridAdmin.Server.Endpoints](../object-adapter-properties#adapter.endpoints) is left unset, `icegridadmin` uses
 `tcp -h 127.0.0.1` for these endpoints.
 
 {% /property-description %}
