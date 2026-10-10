@@ -13,7 +13,8 @@ The Adapter Properties panel offers the following fields:
   is only used to lookup adapter properties.
 - **Description** A free-text description of this object adapter.
 - **Adapter ID** The ID of the object adapter. This ID must be unique within an IceGrid deployment. Default value:
-  ${server}._adapter-name_.
+  ${server}._adapter-name_ for an adapter of a server, and ${server}.${service}._adapter-name_ for an adapter of an
+  IceBox service.
 - **Replica Group** The ID of this adapter's [Replica Group](../replica-group-descriptor). By default, an adapter does
   not belong to any replica group.
 - **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is 0.
@@ -25,8 +26,8 @@ The Adapter Properties panel offers the following fields:
   actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
 - **Proxy** **Options** The default Proxy Options for well-known objects defined within this object adapter, and the
   Proxy Options for proxies created by this object adapter. Corresponds to the
-  [_adapter-name_.ProxyEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
-  empty string.
+  [_adapter-name_.ProxyOptions](../../../../../../property-reference/object-adapter-properties) property. Default: empty
+  string.
 - **Server Lifetime** When checked, IceGrid expects this adapter to register its endpoints during server startup and
   unregister them during server shutdown. See also Activation Timeout in [Server Properties](../server-descriptor).
   Default: true (checked).

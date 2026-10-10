@@ -12,7 +12,7 @@ The following attributes are supported:
 | **Attribute** | **Description**                                                                                                                                                                                                             | **Required** |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | `load-sample` | Specifies the load sample to use for the adaptive load balancing policy. It can only be defined if `type` is set to `adaptive`. Legal values are `1`, `5` and `15`. If not specified, the load sample default value is `1`. | No           |
-| `n-replicas`  | Specifies the maximum number of replicas used to compute the endpoints of the replica group. If not specified, the default value is `1`.                                                                                    | No           |
+| `n-replicas`  | Specifies the maximum number of replicas used to compute the endpoints of the replica group. A value of `0` selects all the replicas. If not specified, the default value is `1`.                                           | No           |
 | `type`        | Specifies the type of load balancing. Legal values are `adaptive`, `ordered`, `round-robin` and `random`.                                                                                                                   | Yes          |
 
 Here is an example to demonstrate the use of this element:
