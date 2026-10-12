@@ -15,9 +15,10 @@ You can find the complete source code for this example in the
 The first step when writing a MATLAB application with Ice is to compile the Slice definitions for this application with
 the Slice to MATLAB compiler (`slice2matlab`).
 
-For our client application, we call `slice2matlab` on the `Greeter.ice` Slice file we wrote earlier:
+For our client application, we call the Ice toolbox's `slice2matlab` function on the `Greeter.ice` Slice file we wrote
+earlier, from the MATLAB console:
 
-```shell
+```matlab
 slice2matlab Greeter.ice
 ```
 
