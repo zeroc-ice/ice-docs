@@ -70,10 +70,16 @@ The SSL classes are `SSLEndpointInfo` and `SSLConnectionInfo` in Python, Swift, 
 
 A transport that runs over another transport wraps the information of that transport: the `underlying` field holds the
 information object of the transport below, and holds no object for a transport that does not run over another transport.
-For example, the information of a `wss` connection is a `WSConnectionInfo` whose `underlying` field holds the SSL
-connection information, whose `underlying` field holds a `TCPConnectionInfo`. To read the fields of one transport, walk
-the `underlying` chain until you reach an object of the class you need. The
-[SSL transport](../ssl-transport#ssl-connection-information) page shows this for the SSL connection information.
+For example, the information of a `ws` connection is a `WSConnectionInfo` whose `underlying` field holds a
+`TCPConnectionInfo`; for a `wss` connection, the SSL connection information sits between these two. To read the fields
+of one transport, walk the `underlying` chain until you reach an object of the class you need. For instance, the
+`remoteAddress` and `remotePort` fields of the `TCPConnectionInfo` give the address of the peer of a `ws` connection.
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+The [SSL transport](../ssl-transport#ssl-connection-information) page shows how to reach the SSL connection information.
+
+{% /iflang %}
 
 {% iflang langs="cpp,java" %}
 
