@@ -35,8 +35,9 @@ set or empty, Ice generates a UUID for _instance-name_.
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
 An application that needs to add or replace administrative facets before the admin object exposes them, such as the
-[Process](../process-facet) facet, sets `Ice.Admin.DelayCreation` to a value greater than 0: the communicator then
-creates the admin object when the application calls `getAdmin` on the [Communicator](api:Ice/Communicator).
+[Process](../process-facet) facet, sets `Ice.Admin.DelayCreation` to a value greater than 0 in addition to
+`Ice.Admin.Endpoints`: the communicator then creates the admin object when the application calls `getAdmin` on the
+[Communicator](api:Ice/Communicator).
 
 {% /iflang %}
 
