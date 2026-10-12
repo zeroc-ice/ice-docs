@@ -42,8 +42,6 @@ SampleAdapter.ReplicaGroupId=SampleGroupId
 SampleAdapter.Locator=IceGrid/Locator:tcp -h locatorhost -p 10000
 ```
 
-Note that a location service may enforce [pre-registration requirements](../locator-semantics-for-servers).
-
 ## Registering a Process with a Locator
 
 An activation service, such as an [IceGrid](../../../services/icegrid) node, needs a reliable way to gracefully shut
@@ -73,10 +71,9 @@ creates an implementation of `Process` and makes it available via an administrat
 adapter. Furthermore, IceGrid automatically enables this facility on the servers that it activates.
 
 The communicator registers the `Process` facet with the location service when it creates the admin object, provided
-[Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) is set and the object adapter hosting the admin
-object has a locator: it calls `setServerProcessProxy` on the locator registry with the server ID and a proxy for the
-`Process` facet. If the location service does not know the server ID, the call that creates the admin object throws
-`InitializationException`. See
+[Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) is configured and the communicator has a default
+locator: it calls `setServerProcessProxy` on the locator registry with the server ID and a proxy for the `Process`
+facet. See
 [Integrating the Process Facet with an Activation Service](../../../administration/administrative-facility/process-facet#integrating-the-process-facet-with-an-activation-service)
 for details.
 

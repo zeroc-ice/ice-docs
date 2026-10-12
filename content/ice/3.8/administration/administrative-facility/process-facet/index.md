@@ -41,12 +41,10 @@ standard error (`fd` == 2) channels.
 
 ## Integrating the Process Facet with an Activation Service
 
-If the [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) property is defined and the object adapter
-hosting the admin object has a locator, such as the default locator set by
-[Ice.Default.Locator](../../../property-reference/ice-default-properties), the communicator performs the following steps
-after creating the admin object:
+If [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) is configured and the communicator has a
+default locator, the communicator performs the following steps after creating the admin object:
 
-- Obtains proxies for the `Process` facet and the object adapter's locator
+- Obtains proxies for the `Process` facet and the default locator
 - Invokes `getRegistry` on the locator proxy to obtain a proxy for the locator registry
 - Invokes `setServerProcessProxy` on the locator registry and supplies the value of `Ice.Admin.ServerId` along with a
   proxy for the `Process` facet
