@@ -38,18 +38,15 @@ The message header fields are described in the following table.
 | **Field**           | **Description**                                                                                                |
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `magic`             | A four-byte magic number consisting of the ASCII-encoded values of 'I', 'c', 'e', 'P' (0x49, 0x63, 0x65, 0x50) |
-| `protocolMajor`     | The Ice protocol major version number                                                                          |
-| `protocolMinor`     | The Ice protocol minor version number                                                                          |
-| `encodingMajor`     | The Ice encoding major version number                                                                          |
-| `encodingMinor`     | The Ice encoding minor version number                                                                          |
+| `protocolMajor`     | The Ice protocol major version number, always 1                                                                |
+| `protocolMinor`     | The Ice protocol minor version number, always 0                                                                |
+| `encodingMajor`     | The Ice encoding major version number, always 1                                                                |
+| `encodingMinor`     | The Ice encoding minor version number, always 0                                                                |
 | `messageType`       | The message type                                                                                               |
 | `compressionStatus` | The [compression](../protocol-compression) status of the message                                               |
 | `messageSize`       | The size of the message in bytes, including the header                                                         |
 
-The encoding version number represents the version of the Ice encoding used to encode fields of the Ice protocol
-messages, such as `messageSize`. This encoding version depends on the protocol version and is therefore redundant. For
-Ice protocol 1.0, the encoding version is always 1.0. Each encapsulation in a message body, such as the `params` of a
-request, carries its own encoding version.
+The protocol version is always 1.0, and the encoding version is always 1.0.
 
 The valid message types are shown in the following table.
 
@@ -152,36 +149,32 @@ struct ReplyData
 }
 ```
 
-This layout describes an uncompressed message. For a [compressed](../protocol-compression) message, it applies to the
-decompressed message, and `messageSize` in this layout is the uncompressed message size that precedes the compressed
-body.
-
 The first four bytes of a reply message body contain a request ID. The request ID matches an outgoing request and allows
-the requester to associate the reply with the [original request](./).
+the requester to associate the reply with the [original request](./). The requester ignores a reply whose request ID
+does not match that of an outstanding request, such as the reply to a request that timed out.
 
 The byte following the request ID indicates the status of the request, and the reply payload follows the status byte.
-The possible reply status values are shown in the table below (most of these values correspond to
-[common exceptions](../../runtime/local-and-dispatch-exceptions)).
+The possible reply status values are shown in the table below; the first column gives the corresponding
+[ReplyStatus](api:Ice/ReplyStatus) enumerator.
 
-| **Reply status**            | **Numeric value** | **Payload**                                                                  | **Description**                                                                                                                                                                                      |
-| --------------------------- | ----------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ok                          | `0`               | [Encapsulation containing the results](#ok-reply-payload)                    | The dispatch completed successfully.                                                                                                                                                                 |
-| User exception              | `1`               | [Encapsulation containing the user exception](#user-exception-reply-payload) | The dispatch completed with a user exception.                                                                                                                                                        |
-| Object does not exist       | `2`               | [`RequestFailedData`](#request-failed-reply-payload)                         | The dispatch completed with an `ObjectNotExistException`.                                                                                                                                            |
-| Facet does not exist        | `3`               | [`RequestFailedData`](#request-failed-reply-payload)                         | The dispatch completed with a `FacetNotExistException`.                                                                                                                                              |
-| Operation does not exist    | `4`               | [`RequestFailedData`](#request-failed-reply-payload)                         | The dispatch completed with an `OperationNotExistException`.                                                                                                                                         |
-| Unknown Ice local exception | `5`               | `string`                                                                     | The dispatch completed with an `UnknownLocalException` or with an Ice local exception other than a `DispatchException`, such as a `MarshalException` raised while unmarshaling the input parameters. |
-| Unknown Ice user exception  | `6`               | `string`                                                                     | The dispatch completed with an `UnknownUserException`, for example one that the servant received from an invocation it made and did not catch.                                                       |
-| Unknown exception           | `7`               | `string`                                                                     | The dispatch completed with another type of exception.                                                                                                                                               |
-| Invalid data                | `8`               | `string`                                                                     | The dispatch failed because the request payload could not be unmarshaled.                                                                                                                            |
-| Unauthorized                | `9`               | `string`                                                                     | The caller is not authorized to access the requested resource.                                                                                                                                       |
-| Not supported               | `10`              | `string`                                                                     | The dispatch failed because the request requires a feature that the server or the target servant does not support.                                                                                   |
-| Other                       | `11` to `255`     | `string`                                                                     | The dispatch failed for some other reason. The client reports such a reply as a `DispatchException` that carries the reply status value.                                                             |
+| **Reply status**        | **Numeric value** | **Payload**                                                                  | **Description**                                                                                                                                                         |
+| ----------------------- | ----------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Ok`                    | `0`               | [Encapsulation containing the results](#ok-reply-payload)                    | The dispatch completed successfully.                                                                                                                                    |
+| `UserException`         | `1`               | [Encapsulation containing the user exception](#user-exception-reply-payload) | The dispatch completed with a Slice user exception.                                                                                                                     |
+| `ObjectNotExist`        | `2`               | [`RequestFailedData`](#request-failed-reply-payload)                         | The dispatch could not find an implementation for the target object.                                                                                                    |
+| `FacetNotExist`         | `3`               | [`RequestFailedData`](#request-failed-reply-payload)                         | The dispatch found an implementation for the target object but could not find the requested facet.                                                                      |
+| `OperationNotExist`     | `4`               | [`RequestFailedData`](#request-failed-reply-payload)                         | The dispatch found an implementation for the target object but could not find the requested operation.                                                                  |
+| `UnknownLocalException` | `5`               | `string`                                                                     | The dispatch failed with an Ice local exception.                                                                                                                        |
+| `UnknownUserException`  | `6`               | `string`                                                                     | The dispatch failed with a Slice user exception that does not conform to the exception specification of the operation.                                                  |
+| `UnknownException`      | `7`               | `string`                                                                     | The dispatch failed with some other exception (neither an Ice local exception nor a Slice user exception).                                                              |
+| `InvalidData`           | `8`               | `string`                                                                     | The dispatch failed because the request payload could not be unmarshaled. It is typically due to a mismatch in the Slice definitions used by the client and the server. |
+| `Unauthorized`          | `9`               | `string`                                                                     | The caller is not authorized to access the requested resource.                                                                                                          |
+| `NotSupported`          | `10`              | `string`                                                                     | The dispatch failed because the request requires a feature that the server or the target servant does not support.                                                      |
+|                         | `11` to `255`     | `string`                                                                     | The dispatch failed for some other reason.                                                                                                                              |
 
-For reply statuses 0 and 1, the reply payload is an [encapsulation](../../encoding/basic-data-encoding) that uses the
-encoding version of the request's `params` encapsulation. For every other reply status, the reply payload is not
-enclosed in an encapsulation and uses the encoding version of the message header. A `string` payload describes the
-exception.
+For reply statuses 0 and 1, the reply payload is an [encapsulation](../../encoding/basic-data-encoding). For every other
+reply status, the reply payload is an Ice-encoded value, not enclosed in an encapsulation: a `RequestFailedData` for
+statuses 2, 3, and 4, and a `string` that describes the exception otherwise.
 
 ### Ok Reply Payload
 
@@ -215,27 +208,16 @@ struct RequestFailedData
 
 ## Validate Connection Message
 
-A server sends a validate connection message when it receives a new connection.
+A server sends a validate connection message when it accepts a new connection, to indicate that it is ready to receive
+requests: the client must not send any message on this connection before it receives the validate connection message.
+This message also confirms to the client that the server is indeed an Ice server and not another type of server reached
+by accident.
 
 {% callout type="note" %}
 
 Validate connection messages are only used for connection-oriented transports.
 
 {% /callout %}
-
-The message indicates that the server is ready to receive requests; the client must not send any messages on the
-connection until it has received the validate connection message from the server. No reply to the message is expected by
-the server.
-
-The purpose of the validate connection message is two-fold:
-
-- It confirms to the client that the server is indeed an Ice server and not another type of server reached by accident.
-- It prevents the client from writing a request message to its local transport buffers until the server has accepted the
-  connection at the Ice level. The server's TCP/IP stack can accept connections in its backlog while the server is in
-  the process of shutting down: if the client were to send a request in this situation, the request would be lost but
-  the client could not safely re-issue the request because that might violate at-most-once semantics. When the server
-  closes such a connection without sending a validate connection message, the client knows that it has not sent any
-  request on this connection.
 
 {% callout type="note" %}
 
@@ -263,70 +245,36 @@ The [message header](#message-header) comprises the entire close connection mess
 Either side of a connection can initiate a graceful connection closure. The side that initiates the closure (the
 initiator) proceeds as follows:
 
-1. The initiator discards any request or batch request it receives from now on, without dispatching it.
-2. The initiator waits until the dispatch of all requests it accepted on the connection has completed and their replies
-   have been sent.
+1. The initiator stops sending requests to the peer, and discards any request or batch request it receives from now on,
+   without dispatching it.
+2. The initiator waits until the dispatch of all the requests it accepted on the connection has completed and their
+   replies have been sent.
 3. The initiator sends a close connection message.
-4. The initiator waits for the peer to close the connection. If the peer does not close the connection within the
+4. The initiator waits for the peer to close the connection, then closes the connection. If the peer does not close the
+   connection within the
    [close timeout](../../property-reference/ice-connection-properties#ice.connection.name.closetimeout), the initiator
    aborts the connection.
 
-The peer that receives the close connection message (the receiver) closes the connection without waiting for its own
-dispatches to complete.
+When the application closes the connection, the initiator first waits for its outstanding invocations on the connection
+to complete; the close timeout also applies to this wait.
 
-When the application closes a connection, Ice starts this sequence once it has received the replies to all outstanding
-requests sent on this connection; the close timeout also applies to this wait.
+The peer that receives the close connection message (the receiver) closes the connection.
 
 Because of steps 1 and 2, the receiver can re-issue its outstanding requests on a new connection without violating
 [at-most-once semantics](../../runtime/invocation/automatic-retries). Ice retries these requests as described in
 [Automatic Retries](../../runtime/invocation/automatic-retries), except for requests sent with a fixed proxy, which is
 bound to the closed connection.
 
-## Protocol State Machine
+## Connection Abort
 
-From a client's perspective, the Ice protocol behaves according to the state machine shown below:
-
-![Ice protocol state machine from inactive through active and graceful close to the final closed state.](/images/ice/3.8/protocol-messages/protocol-state-machine.svg)
-
-_Protocol state machine._
-
-To summarize, a new connection is inactive until a [validate connection](#validate-connection-message) message has been
-received by the client, at which point the active state is entered. The connection remains in the active state until one
-side closes it. When the client initiates a
-[graceful closure](../../runtime/connection-management/connection-closure#graceful-connection-closure), for example
-because the application closed the connection or the connection remained inactive for longer than the
-[inactivity timeout](../../runtime/connection-management/connection-closure#the-inactivity-check), the client sends a
-[close connection](#close-connection-message) message and enters the graceful close state until the connection is
-closed. The connection goes directly to the close state when the client receives a close connection message, or when Ice
-aborts the connection, for example because the connection did not receive any bytes for longer than the
+Either side can abort a connection at any time: it closes the connection without sending a close connection message. Ice
+aborts a connection when it detects a violation of the protocol rules, such as a message with a bad magic number, when
+it receives a message larger than [Ice.MessageSizeMax](../../property-reference/ice-properties#ice.messagesizemax), or
+when the connection does not receive any bytes for longer than the
 [idle timeout](../../runtime/connection-management/connection-closure#the-idle-check).
 
-## Disorderly Connection Closure
-
-On a connection-oriented transport, a violation of the protocol rules results in a disorderly connection closure: the
-side of the connection that detects the violation unceremoniously closes it (without sending a close connection message
-or similar). For example, the receiver closes the connection when a message has a bad magic number, an incompatible
-version, a size smaller than the header size, or an unknown message type; when the client receives a message other than
-validate connection before the connection is validated; or when it cannot unmarshal a request header in a request or
-batch request: the fields that precede `params`, and the size and encoding version of the `params` encapsulation.
-
-The receiver of a reply ignores a reply whose request ID does not match that of an outstanding request, such as the
-reply to a request that timed out. Once the connection is validated, either side accepts a validate connection message
-as a heartbeat.
-
-When the dispatch of a request fails with an exception, including a failure to unmarshal the input parameters in
-`params`, the receiver of the request keeps the connection open and, for a twoway request, sends a reply with the
-corresponding [reply status](#reply-message-body), such as `5` for a `MarshalException`. In a batch request, the
-receiver reads each request header from where the dispatch of the previous request stopped reading, so a failure to
-unmarshal the input parameters of a batched request can leave the next request header unreadable, which closes the
-connection.
-
-With a datagram transport such as `udp`, the receiver discards a datagram with an invalid message header, an unknown
-message type, or a body it cannot decompress, and keeps receiving datagrams; it logs a warning when
-[Ice.Warn.Connections](../../property-reference/ice-warn-properties#ice.warn.connections) is set. It also discards a
-datagram larger than its receive buffer, and logs a warning when
-[Ice.Warn.Datagrams](../../property-reference/ice-warn-properties#ice.warn.datagrams) is set. A request header that the
-receiver cannot unmarshal closes the datagram connection, as it does on a connection-oriented transport.
+With a datagram transport such as `udp`, the receiver discards a datagram that violates the protocol rules and keeps
+receiving datagrams.
 
 ## See Also
 
