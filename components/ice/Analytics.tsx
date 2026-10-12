@@ -63,7 +63,7 @@ function ConsentBanner() {
         See our{' '}
         <a
           href="https://zeroc.com/privacy"
-          className="text-link hover:underline"
+          className="outline-room text-link hover:underline"
         >
           Privacy Policy
         </a>
@@ -95,7 +95,7 @@ export function CookieSettingsButton() {
     <button
       type="button"
       onClick={() => setConsent('unset')}
-      className="text-ink-secondary transition-colors hover:text-ink"
+      className="outline-room text-ink-secondary transition-colors hover:text-ink"
     >
       Cookie Settings
     </button>
