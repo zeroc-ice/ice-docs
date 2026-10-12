@@ -158,8 +158,8 @@ and, when the client presented a certificate, the PEM-encoded certificate in `_c
 ## Request Filtering
 
 The Glacier2 router can restrict the objects that a client reaches through it. The router forwards a request when at
-least one of the configured category, identity and adapter identifier filters accepts it, and forwards every request
-when none of these filters is configured. The address filters and the proxy size limit apply independently.
+least one of the configured category, identity and adapter ID filters accepts it, and forwards every request when none
+of these filters is configured. The address filters and the proxy size limit apply independently.
 
 ### Address Filters
 
@@ -282,10 +282,10 @@ Applications often use [IceGrid](../../icegrid) in their back-end network to sim
 advantage of the benefits offered by indirect proxies. Once you have configured Glacier2 with an appropriate
 [locator proxy](../icegrid-and-glacier2-integration), clients can use indirect proxies to refer to objects in
 IceGrid-managed servers. Indirect proxies come in two forms: one that contains only an identity, and one that contains
-an identity and an object adapter identifier. You can use the category and identity filters described in previous
-sections to control identity-only proxies, and you can use the property
+an identity and an object adapter ID. You can use the category and identity filters described in previous sections to
+control identity-only proxies, and you can use the property
 [Glacier2.Filter.AdapterId.Accept](../../../property-reference/glacier2-properties) to enforce restrictions on indirect
-proxies that use an object adapter identifier.
+proxies that use an object adapter ID.
 
 For example, the following property definition allows a client to use the proxy `factory@WidgetAdapter` but not the
 proxy `factory@SecretAdapter`:
@@ -294,10 +294,10 @@ proxy `factory@SecretAdapter`:
 Glacier2.Filter.AdapterId.Accept=WidgetAdapter
 ```
 
-If an adapter identifier contains spaces, you can enclose the value in single or double quotes. If an adapter identifier
-contains a quote character, it must be escaped with a leading backslash.
+If an adapter ID contains spaces, you can enclose the value in single or double quotes. If an adapter ID contains a
+quote character, it must be escaped with a leading backslash.
 
-A session manager can also change the accepted adapter identifiers at run time, as described in
+A session manager can also change the accepted adapter IDs at run time, as described in
 [Dynamic Request Filtering with Glacier2](../dynamic-request-filtering-with-glacier2).
 
 ### Proxy Filters
@@ -314,8 +314,8 @@ address filter or exceeds the size limit defined by the property
 [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties). The Ice run time in the client responds
 by raising `ConnectionLostException` to the application.
 
-For category, identity, and adapter identifier filters, the router raises `ObjectNotExistException` if any of the
-filters rejects a proxy and none of the filters accepts it.
+For category, identity, and adapter ID filters, the router raises `ObjectNotExistException` if any of the filters
+rejects a proxy and none of the filters accepts it.
 
 To obtain more information on the router's reasons for terminating a session or rejecting a request, set the following
 property and examine the router's log output:

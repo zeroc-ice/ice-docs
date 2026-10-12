@@ -389,7 +389,7 @@ auto encoder = factory.createEncoder();
 There are a few disadvantages in this design:
 
 - The client application must be modified each time a new server is added or removed because it knows all of the adapter
-  identifiers.
+  IDs.
 - The client cannot distribute the load intelligently; it is just as likely to assign a task to a heavily-loaded
   computer as it is an idle one.
 

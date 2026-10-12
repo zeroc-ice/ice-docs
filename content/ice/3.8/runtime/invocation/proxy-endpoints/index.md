@@ -81,7 +81,7 @@ proxy_.
 
 Indirect because when a proxy has no endpoint, the communicator uses a [locator](../../locators) to retrieve the
 endpoint(s) dynamically. One style of indirect proxy contains an
-[adapter identifier](./indirect-proxy-with-object-adapter-identifier):
+[adapter ID](./indirect-proxy-with-object-adapter-identifier):
 
 ```text
 MyObject @ MyAdapter

@@ -34,8 +34,8 @@ As a result, the initial request on an indirect proxy may incur additional overh
 ## Replication with a Locator
 
 An indirect proxy may substitute a [replica group](../../../basics/terminology) identifier in place of the object
-adapter identifier. In fact, the Ice runtime does not distinguish between these two cases and considers a replica group
-identifier as equivalent to an object adapter identifier for the purposes of resolving the proxy. The location service
+adapter ID. In fact, the Ice runtime does not distinguish between these two cases and considers a replica group
+identifier as equivalent to an object adapter ID for the purposes of resolving the proxy. The location service
 implementation must be able to distinguish between replica groups and object adapters using only this identifier.
 
 The location service may return multiple endpoints in response to a locate request for an adapter or replica group
