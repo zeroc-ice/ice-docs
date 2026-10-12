@@ -58,12 +58,12 @@ with `getEndpoint`, and you get the connection of a proxy with `ice_getConnectio
 Each transport provides its own subclass of these two classes, with fields specific to that transport, such as the host
 and port of a TCP endpoint or the local and remote addresses of a TCP connection:
 
-| **Transport** | **Endpoint Information** | **Connection Information** |
-| ------------- | ------------------------ | -------------------------- |
-| tcp           | `TCPEndpointInfo`        | `TCPConnectionInfo`        |
-| udp           | `UDPEndpointInfo`        | `UDPConnectionInfo`        |
-| ws            | `WSEndpointInfo`         | `WSConnectionInfo`         |
-| ssl           | SSL endpoint information | SSL connection information |
+| **Transport**           | **Endpoint Information** | **Connection Information**                                                |
+| ----------------------- | ------------------------ | ------------------------------------------------------------------------- |
+| tcp                     | `TCPEndpointInfo`        | `TCPConnectionInfo`                                                       |
+| udp                     | `UDPEndpointInfo`        | `UDPConnectionInfo`                                                       |
+| ws                      | `WSEndpointInfo`         | `WSConnectionInfo`                                                        |
+| [ssl](../ssl-transport) | SSL endpoint information | [SSL connection information](../ssl-transport#ssl-connection-information) |
 
 The SSL classes are `SSLEndpointInfo` and `SSLConnectionInfo` in Python, Swift, Ruby, and PHP, and `EndpointInfo` and
 `ConnectionInfo` in the `SSL` namespace or package in the other language mappings.
