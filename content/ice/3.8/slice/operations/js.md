@@ -71,6 +71,20 @@ The value that fulfills the promise depends on the number of results, counting t
 - With **several results**, the promise is fulfilled with an array: the return value (if any) followed by the out
   parameters in declaration order.
 
+The mapping uses an array so that you can bind the results with a destructuring assignment. The proxy method declares
+this array as a TypeScript tuple, so each variable gets the type of its result. For example, given the following
+operation:
+
+```slice
+string getTime(out int hour, out int minute);
+```
+
+A client retrieves the three results as follows:
+
+```typescript
+const [time, hour, minute] = await clock.getTime();
+```
+
 ### Exception Handling
 
 Any operation invocation may throw a [local exception](../../runtime/local-and-dispatch-exceptions) and, if the
@@ -150,7 +164,8 @@ The servant implementation can choose how to provide the result:
 - **Declare the method as async** and use await inside the implementation.
 
 The result follows the same rule as on the client side: an operation with several results returns, or fulfills its
-promise with, an array that holds the return value (if any) followed by the out parameters in declaration order.
+promise with, an array that holds the return value (if any) followed by the out parameters in declaration order, such as
+`return [time, hour, minute];` for the `getTime` operation above.
 
 **Synchronous version:**
 
