@@ -343,14 +343,16 @@ i.whenSent((sentSynchronously, ex) -> {
 
 The `whenSent` method has the following semantics:
 
-- If the Ice runtime was able to pass the entire request to the local transport immediately, the action will be invoked
-  from the current thread and the `sentSynchronously` argument will be true.
-- If Ice wasn't able to write the entire request without blocking, the action will eventually be invoked from an Ice
-  thread pool thread and the `sentSynchronously` argument will be false.
+- If Ice has already sent the request when you call `whenSent`, the action executes immediately in the calling thread.
+  This is always the case when Ice wrote the request in the caller's thread, but Ice can also send a queued request
+  before you call `whenSent`.
+- Otherwise, the action executes in an Ice thread pool thread once Ice sends the request.
+
+In both cases, the `sentSynchronously` argument is the value that `InvocationFuture.sentSynchronously` returns: true if
+Ice wrote the request in the caller's thread, and false if Ice queued the request.
 
 If you need more control over the execution environment of your action, you can use one of the `whenSentAsync` methods
-instead. The `sentSynchronously` argument still behaves as described above, but your executor's implementation will
-determine the threading behavior.
+instead: your executor's implementation determines the thread context in which the action executes.
 
 ### Canceling an Asynchronous Invocation
 
@@ -492,6 +494,10 @@ type and derives its response from that of the other object:
 ```java
 class ExampleServant implements AsyncExample {
     private final ExamplePrx _other;
+
+    ExampleServant(ExamplePrx other) {
+        _other = other;
+    }
 
     @Override
     public CompletionStage<Example.OpResult> opAsync(short s, Current current) {
