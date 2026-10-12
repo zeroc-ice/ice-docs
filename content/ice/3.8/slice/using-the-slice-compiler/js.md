@@ -27,7 +27,7 @@ options:
 
 ## Running slice2js
 
-The `@zeroc/ice` package includes the `slice2js` compiler for Linux (x64 and arm64), macOS (arm64) and Windows (x64).
+The `@zeroc/ice` package includes the `slice2js` compiler for Linux (x64 and arm64), macOS (arm64), and Windows (x64).
 Run it with `npx`:
 
 ```shell
@@ -40,14 +40,11 @@ Slice files can include them, as in `#include <Ice/Identity.ice>`.
 ## Compiling Slice Files During the Build
 
 The optional `@zeroc/slice2js` package provides a plug-in that compiles your Slice files at the start of each build of a
-Vite, Rollup, webpack or esbuild project. Install it as a development dependency:
+Vite, Rollup, webpack, or esbuild project. Install it as a development dependency:
 
 ```shell
 npm install --save-dev @zeroc/slice2js
 ```
-
-This package runs the compiler through its plug-in and its programmatic API; the `slice2js` command comes from
-`@zeroc/ice`.
 
 Import the plug-in for your bundler from its entry point:
 
@@ -77,17 +74,15 @@ export default {
 
 The plug-in accepts the following options:
 
-| Option      | Description                                                                                                                       |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `inputs`    | The Slice files to compile, as file names or glob patterns. Required.                                                             |
-| `outputDir` | The directory for the generated files. The plug-in creates it if it doesn't exist. Required.                                      |
-| `include`   | Additional directories for the include search path of `slice2js`.                                                                 |
-| `args`      | Additional `slice2js` command-line options, such as `--typescript`.                                                               |
-| `cwd`       | The directory against which the relative paths in `inputs`, `outputDir` and `include` resolve. Defaults to the current directory. |
-| `toolsPath` | The directory of a `slice2js` executable that replaces the one in the package.                                                    |
-| `slicePath` | The directory of Slice files that replaces the Slice files of Ice in the include search path.                                     |
-
-The plug-in skips the compilation when no file matches `inputs`, and fails the build when `slice2js` reports an error.
+| Option      | Description                                                                                                                        |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `inputs`    | The Slice files to compile, as file names or glob patterns. Required.                                                              |
+| `outputDir` | The directory for the generated files. The plug-in creates it if it doesn't exist. Required.                                       |
+| `include`   | Additional directories for the include search path of `slice2js`.                                                                  |
+| `args`      | Additional `slice2js` command-line options, such as `--typescript`.                                                                |
+| `cwd`       | The directory against which the relative paths in `inputs`, `outputDir`, and `include` resolve. Defaults to the current directory. |
+| `toolsPath` | The directory of a `slice2js` executable that replaces the one in the package.                                                     |
+| `slicePath` | The directory of Slice files that replaces the Slice files of Ice in the include search path.                                      |
 
 To compile Slice files from your own build script, call `runSlice2js` from `@zeroc/slice2js/unplugin`, which takes the
 same options as the plug-in, or `compile` from `@zeroc/slice2js`, which takes the `slice2js` command-line arguments and
