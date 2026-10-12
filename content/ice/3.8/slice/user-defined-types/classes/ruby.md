@@ -17,7 +17,7 @@ The Ruby mapping generates the following code for this definition:
 
 ```ruby
 class TimeOfDay < ::Ice::Value
-    attr_accessor :hours, :minutes, :seconds
+    attr_accessor :hour, :minute, :second
 
     def initialize(hour=0, minute=0, second=0)
         @hour = hour
