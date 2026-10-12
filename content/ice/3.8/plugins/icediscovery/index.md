@@ -24,8 +24,8 @@ This section reviews some concepts that will help you as you learn more about Ic
 - `identityOnly` This format ([well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy)) uses only
   the object's identity.
 
-- `identity@adapterId` This format combines the object identity and an adapter identifier. This identifier can either
-  refer to a specific object adapter or a replica group.
+- `identity@adapterId` This format combines the object identity and an adapter ID. This identifier can either refer to a
+  specific object adapter or a replica group.
 
 Notice that neither format includes any endpoints, such as `tcp -h somehost -p 10000`. The ability to resolve an
 indirect proxy using only symbolic information, much like a DNS lookup, helps to loosen the coupling between clients and
@@ -208,10 +208,10 @@ From a design perspective, incorporating IceDiscovery into your application requ
   discovery, while proxies for other objects can be obtained by invoking operations on these initial objects.
 
 - How should clients refer to these well-known objects? [Indirect proxies](#indirect-proxies) for well-known objects
-  take two forms: an identity by itself, or an identity with an adapter identifier, such as factory and
+  take two forms: an identity by itself, or an identity with an adapter ID, such as factory and
   `factory@AccountAdapter`, respectively. Clearly, using only identities places a greater burden on the application to
   ensure that they are globally unique among all of the clients and servers sharing the same address and domain
-  settings. Including an object adapter identifier can help to further partition the object namespace, so that
+  settings. Including an object adapter ID can help to further partition the object namespace, so that
   `factory@AccountAdapter` and `factory@AdminAdapter` represent distinct objects without requiring artificially unique
   identities such as `accountFactory` and `adminFactory`.
 

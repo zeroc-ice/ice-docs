@@ -159,7 +159,7 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h registryhost -p 4061
 The properties are described below:
 
 - [EncoderAdapter.AdapterId](../../../property-reference/object-adapter-properties) This property supplies the object
-  adapter identifier that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
+  adapter ID that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
 
 - [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) This property
   defines the [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value
