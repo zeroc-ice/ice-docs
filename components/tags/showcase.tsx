@@ -32,7 +32,7 @@ export const Showcase = ({ panels }: Props) => {
   return (
     <section
       aria-label="Ice in every language"
-      className="doc-wide not-prose my-8 overflow-hidden rounded-lg border border-hairline bg-surface-sunken text-ink [&_.code-block]:my-0 [&_code>div]:text-[11px] sm:[&_code>div]:text-xs [&_pre]:overflow-x-auto"
+      className="doc-wide not-prose my-8 rounded-lg border border-hairline bg-surface-sunken text-ink [&_.code-block]:my-0 [&_code>div]:text-[11px] sm:[&_code>div]:text-xs [&_pre]:overflow-x-auto"
     >
       <LanguageTabs languages={languages} />
 

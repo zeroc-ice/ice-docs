@@ -189,7 +189,7 @@ export function PageOutline({
             <a
               href={`#${heading.id}`}
               className={clsx(
-                '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere transition-colors',
+                '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere transition-colors focus-visible:outline-inside',
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
                   ? 'border-link text-link'

@@ -93,7 +93,7 @@ export const DocumentShell = ({
     : [];
 
   return (
-    <div className="flex shrink flex-row justify-center overflow-y-clip lg:justify-start">
+    <div className="flex shrink flex-row justify-center lg:justify-start">
       <div className="size-full max-w-232 contain-inline-size sm:mx-6 md:mx-10 lg:mx-12">
         {breadcrumbs.length > 0 && (
           <nav
@@ -111,7 +111,7 @@ export const DocumentShell = ({
                   {crumb.href ? (
                     <Link
                       href={crumb.href}
-                      className="font-medium text-link transition-colors hover:text-ink"
+                      className="outline-room font-medium text-link transition-colors hover:text-ink"
                     >
                       {crumb.title}
                     </Link>

@@ -19,8 +19,9 @@ export const CopyButton = ({ text }: { text: string }) => {
     <button
       aria-label="Copy to clipboard"
       // Inherits the code block's own palette, so it stays visible on the light
-      // header as well as the dark one.
-      className="rounded-sm px-[6px] py-1 text-(--code-header-fg) opacity-80 hover:bg-black/5 hover:opacity-100 dark:hover:bg-white/10"
+      // header as well as the dark one. A flex box, so it is the size of its
+      // icon rather than of a line of the article's text.
+      className="flex rounded-sm px-[6px] py-1 text-(--code-header-fg) opacity-80 hover:bg-black/5 hover:opacity-100 focus-visible:opacity-100 dark:hover:bg-white/10"
       onClick={() => void copyText()}
     >
       {copied ? '🎉' : <FontAwesomeIcon icon={faCopy} className="size-4" />}

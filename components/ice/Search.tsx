@@ -128,7 +128,7 @@ export function Search({ version }: { version: DocsVersion }) {
           // The results may have changed with the mapping since it closed.
           setSelected(0);
         }}
-        className="flex shrink-0 items-center gap-2 rounded-md border border-black/15 px-2 py-1 text-sm opacity-70 hover:opacity-100 lg:px-3 dark:border-white/20"
+        className="flex h-8 shrink-0 items-center gap-2 rounded-md border border-black/15 px-2 text-sm opacity-70 hover:opacity-100 focus-visible:opacity-100 lg:px-3 dark:border-white/20"
       >
         <svg
           width="14"
@@ -201,7 +201,7 @@ export function Search({ version }: { version: DocsVersion }) {
               type="button"
               onMouseEnter={() => setSelected(i)}
               onClick={() => go(record)}
-              className={`flex w-full flex-col items-start gap-0.5 px-4 py-2.5 text-left ${
+              className={`flex w-full flex-col items-start gap-0.5 px-4 py-2.5 text-left focus-visible:outline-inside ${
                 i === selected ? 'bg-blue-600/10' : ''
               }`}
             >

@@ -7,8 +7,10 @@ import { clsx } from 'clsx';
 import { setLanguage, useLanguage } from '@/context/state';
 import { languageLabel } from '@/lib/docs-model/nav';
 
+// The focus ring is drawn inside the tab, over its bottom border, whose ends
+// the ring's rounded corners would otherwise curve.
 const tab =
-  '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
+  '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors focus-visible:outline-inside';
 const activeTab = 'border-link text-ink';
 const idleTab = 'border-transparent text-ink-secondary hover:text-ink';
 

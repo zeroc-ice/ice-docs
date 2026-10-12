@@ -218,7 +218,7 @@ function Drawer({ children }: { children: React.ReactNode }) {
               dialogRef.current!.showModal();
               setExpanded(true);
             }}
-            className="-ml-2 rounded-md p-2 text-ink transition-colors hover:bg-surface-subtle lg:hidden"
+            className="-ml-1.5 flex size-8 items-center justify-center rounded-md text-ink transition-colors hover:bg-surface-subtle lg:hidden"
           >
             <Menu className="size-5" aria-hidden="true" />
             <span className="sr-only">Table of contents</span>
@@ -251,7 +251,7 @@ function Drawer({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => dialogRef.current!.close()}
-              className="rounded-md p-2 text-ink transition-colors hover:bg-surface-subtle"
+              className="flex size-8 items-center justify-center rounded-md text-ink transition-colors hover:bg-surface-subtle"
             >
               <X className="size-5" aria-hidden="true" />
               <span className="sr-only">Close</span>
@@ -345,7 +345,7 @@ function Tree({
                   type="button"
                   onClick={() => toggle(k)}
                   aria-expanded={isOpen}
-                  className="flex flex-1 items-start text-left"
+                  className="flex flex-1 items-start rounded-[5px] text-left focus-visible:outline-inside"
                 >
                   <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted">
                     {chevron}
@@ -358,7 +358,7 @@ function Tree({
                   <RailLink
                     href={node.href!}
                     aria-current={active ? 'page' : undefined}
-                    className={label}
+                    className={clsx(label, 'focus-visible:outline-inside')}
                   >
                     {node.title}
                   </RailLink>

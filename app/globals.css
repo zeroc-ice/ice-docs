@@ -17,6 +17,22 @@
   }
 }
 
+/* A focus ring around bare text is tight at the sides, where the glyphs meet
+   the box, while the font's own leading gives it room above and below. A text
+   link widens its box by 2px each side, with margins that keep the text in
+   place. */
+@utility outline-room {
+  padding-inline: 2px;
+  margin-inline: -2px;
+}
+
+/* A control flush against an edge that clips, such as a list that scrolls or
+   a group's animated box, draws its focus ring inside its own box, where the
+   clip cannot cut it. */
+@utility outline-inside {
+  outline-offset: -2px;
+}
+
 @theme {
   --color-primary: rgb(var(--primary-color));
   --color-light-border: #dce6e9;
@@ -144,6 +160,25 @@
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
+  }
+
+  /* One focus ring for the whole site, in place of each browser's own: 2px in
+     the link colour, 2px clear of the element, with rounded corners on an
+     element that has none of its own; a text field keeps its square ones. The
+     colour is set on every element, focused or not, so a control's colour
+     transition does not fade the ring in from the text colour. */
+  * {
+    outline-color: var(--link);
+  }
+
+  :focus-visible {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: 2px;
+  }
+
+  :focus-visible:not(input) {
+    border-radius: var(--radius-md);
   }
 
   :root {

@@ -27,7 +27,7 @@ const defaultStyle: CSSProperties = { textUnderlineOffset: '5px' };
 export const AppLink = ({
   href,
   target,
-  className = 'text-link hover:text-link-hover font-medium',
+  className = 'text-link hover:text-link-hover font-medium outline-room',
   style: originalStyle,
   showArrow = true,
   unresolved = false,
