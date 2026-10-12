@@ -104,8 +104,9 @@ transport implementation:
 on macOS and iOS, and
 [SchannelConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1SchannelConnectionInfo.html) on
 Windows. Its `peerCertificate` field holds the peer's certificate, with the platform's certificate type: `X509*` with
-OpenSSL, `SecCertificateRef` with Secure Transport, and `PCCERT_CONTEXT` with Schannel. The connection information
-object owns this certificate and releases it when it is destroyed.
+OpenSSL, `SecCertificateRef` with Secure Transport, and `PCCERT_CONTEXT` with Schannel; it holds a null pointer when the
+peer did not provide a certificate. The connection information object owns this certificate and releases it when it is
+destroyed.
 
 ```cpp
 Ice::SSL::ConnectionInfoPtr
