@@ -54,10 +54,10 @@ mapping for the sequence's element type.
 The compiler requires the formal type to implement `java.util.List<E>`, where `E` is the Java mapping of the element
 type. If you do not specify a formal type, the compiler uses `java.util.List<E>` by default.
 
-When unmarshaling the sequence, the generated code creates an instance of the instance type with its parameterless
-constructor and then calls `add` for each element. For a sequence of classes, the generated code calls `add(null)` for
-each element and later replaces this placeholder with `set`. The instance type must therefore provide a parameterless
-constructor that the generated code can access and a mutable implementation of these methods.
+When unmarshaling a sequence, the generated code calls the instance type's parameterless constructor and then calls
+`add` for each element. For a sequence of classes, it calls `add(null)` for each element and later replaces each
+placeholder with `set`. The instance type must therefore provide an accessible parameterless constructor and mutable
+implementations of these methods.
 
 Note that extra care must be taken when defining custom types that contain nested generic types, such as a custom
 sequence whose element type is also a custom sequence. The Java compiler strictly enforces type safety, therefore any
