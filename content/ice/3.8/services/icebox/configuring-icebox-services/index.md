@@ -5,9 +5,9 @@ title: Configuring IceBox Services
 ## Installing an IceBox Service
 
 A service is configured into an IceBox server using a single
-[IceBox.Service](../../../property-reference/icebox-properties) property. This property serves several purposes: it
-defines the name of the service, it provides the server with the service entry point, and it defines properties and
-arguments for the service.
+[IceBox.Service](../../../property-reference/icebox-properties#icebox.service.name) property. This property serves
+several purposes: it defines the name of the service, it provides the server with the service entry point, and it
+defines properties and arguments for the service.
 
 The format of the property is shown below:
 
@@ -39,7 +39,7 @@ IceBox.Service.Greeter=<entry point> --Ice.Config=/etc/greeter.cfg
 
 By default, the server loads the configured services in an undefined order, meaning services in the same IceBox server
 should not depend on one another. If services must be loaded in a particular order, the
-[IceBox.LoadOrder](../../../property-reference/icebox-properties) property can be used:
+[IceBox.LoadOrder](../../../property-reference/icebox-properties#icebox.loadorder) property can be used:
 
 ```config
 IceBox.LoadOrder=Service1,Service2
@@ -54,8 +54,9 @@ During shutdown, services are stopped in the reverse of the order in which they 
 
 IceBox creates a separate communicator instance for each service by default in order to minimize the chances of
 accidental conflicts among services. You can optionally specify that certain services use a shared communicator instead
-by setting [IceBox.UseSharedCommunicator._name_](../../../property-reference/icebox-properties) properties in the
-server's configuration:
+by setting
+[IceBox.UseSharedCommunicator._name_](../../../property-reference/icebox-properties#icebox.usesharedcommunicator.name)
+properties in the server's configuration:
 
 ```config
 IceBox.Service.Hello=...
@@ -124,11 +125,12 @@ Ice.Trace.Network=1
 ```
 
 The `Weather` service only receives the properties that are defined in its
-[IceBox.Service](../../../property-reference/icebox-properties) property. In the example above, the service's
-communicator is initialized with the properties from the file `svc.cfg`.
+[IceBox.Service](../../../property-reference/icebox-properties#icebox.service.name) property. In the example above, the
+service's communicator is initialized with the properties from the file `svc.cfg`.
 
 If services need to inherit the IceBox server's configuration properties, define the
-[IceBox.InheritProperties](../../../property-reference/icebox-properties) property in the IceBox server's configuration:
+[IceBox.InheritProperties](../../../property-reference/icebox-properties#icebox.inheritproperties) property in the
+IceBox server's configuration:
 
 ```config
 IceBox.Service.Weather=... --Ice.Config=svc.cfg
@@ -147,13 +149,13 @@ The properties of the [shared communicator](./) are also affected by this settin
 
 ## Logging Considerations for IceBox Services
 
-IceBox sets [Ice.ProgramName](../../../property-reference/ice-properties) in each service communicator to the service
-name, or to `SharedCommunicator` for the shared communicator. When the IceBox server's `Ice.ProgramName` is not empty,
-IceBox prefixes this name with the server's `Ice.ProgramName` and a hyphen.
+IceBox sets [Ice.ProgramName](../../../property-reference/ice-properties#ice.programname) in each service communicator
+to the service name, or to `SharedCommunicator` for the shared communicator. When the IceBox server's `Ice.ProgramName`
+is not empty, IceBox prefixes this name with the server's `Ice.ProgramName` and a hyphen.
 
 The IceBox server only configures a logger for a service if that service has not already specified its own logger via
-the [Ice.LogFile](../../../property-reference/ice-properties) or
-[Ice.UseSyslog](../../../property-reference/ice-properties) properties.
+the [Ice.LogFile](../../../property-reference/ice-properties#ice.logfile) or
+[Ice.UseSyslog](../../../property-reference/ice-properties#ice.usesyslog) properties.
 
 ## See Also
 

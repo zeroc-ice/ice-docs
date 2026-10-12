@@ -93,13 +93,13 @@ settings.
 ### Replicas
 
 Each replica must specify a unique name in its configuration property
-[IceGrid.Registry.ReplicaName](../../../property-reference/icegrid-properties). The default value of this property is
-`Master`, therefore the master replica can omit this property if desired.
+[IceGrid.Registry.ReplicaName](../../../property-reference/icegrid-properties#icegrid.registry.replicaname). The default
+value of this property is `Master`, therefore the master replica can omit this property if desired.
 
 At startup, a slave replica attempts to register itself with its master in order to synchronize its databases and obtain
 the list of active nodes. The slave uses the proxy supplied by the
-[Ice.Default.Locator](../../../property-reference/ice-default-properties) property to find the master. At a minimum,
-this proxy should contain the endpoint of a replica that is connected to the master.
+[Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) property to find the
+master. At a minimum, this proxy should contain the endpoint of a replica that is connected to the master.
 
 For better reliability if a failure occurs, we recommend that you also include the endpoints of all slave replicas in
 the `Ice.Default.Locator` property. There is no harm in adding the slave's own endpoints to the proxy in
@@ -188,12 +188,12 @@ runtime without the need to define `Ice.Default.Locator`.
 You can use several configuration properties to enable trace messages that may help in diagnosing registry replication
 issues:
 
-- [IceGrid.Registry.Trace.Replica](../../../property-reference/icegrid-properties) Displays information about the
-  sessions established between master and slave replicas.
+- [IceGrid.Registry.Trace.Replica](../../../property-reference/icegrid-properties#icegrid.registry.trace.replica)
+  Displays information about the sessions established between master and slave replicas.
 
-- [IceGrid.Registry.Trace.Node](../../../property-reference/icegrid-properties)
-  [IceGrid.Node.Trace.Replica](../../../property-reference/icegrid-properties) Displays information about the sessions
-  established between replicas and nodes.
+- [IceGrid.Registry.Trace.Node](../../../property-reference/icegrid-properties#icegrid.registry.trace.node)
+  [IceGrid.Node.Trace.Replica](../../../property-reference/icegrid-properties#icegrid.node.trace.replica) Displays
+  information about the sessions established between replicas and nodes.
 
 ## Using Registry Replication with External Load Balancing
 

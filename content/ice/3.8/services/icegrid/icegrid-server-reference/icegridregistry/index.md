@@ -75,20 +75,21 @@ configure the registry carefully if you intend to allow the use of administrativ
 
 Administrative sessions are disabled unless you explicitly configure the registry to use an authentication mechanism. To
 allow authentication with a user name and password, you can specify a password file using the property
-[IceGrid.Registry.AdminCryptPasswords](../../../../property-reference/icegrid-properties) or use your own
-[permissions verifier](../../../glacier2/securing-a-glacier2-router) object by supplying its proxy in the property
-[IceGrid.Registry.AdminPermissionsVerifier](../../../../property-reference/icegrid-properties). Your verifier object
-must implement the `Glacier2::PermissionsVerifier` interface.
+[IceGrid.Registry.AdminCryptPasswords](../../../../property-reference/icegrid-properties#icegrid.registry.admincryptpasswords)
+or use your own [permissions verifier](../../../glacier2/securing-a-glacier2-router) object by supplying its proxy in
+the property
+[IceGrid.Registry.AdminPermissionsVerifier](../../../../property-reference/icegrid-properties#icegrid.registry.adminpermissionsverifier).
+Your verifier object must implement the `Glacier2::PermissionsVerifier` interface.
 
 To authenticate administrative clients using their SSL connections, define
-[IceGrid.Registry.AdminSSLPermissionsVerifier](../../../../property-reference/icegrid-properties) with the proxy of a
-verifier object that implements the `Glacier2::SSLPermissionsVerifier` interface.
+[IceGrid.Registry.AdminSSLPermissionsVerifier](../../../../property-reference/icegrid-properties#icegrid.registry.adminsslpermissionsverifier)
+with the proxy of a verifier object that implements the `Glacier2::SSLPermissionsVerifier` interface.
 
 ## Configuring the Registry's Database Directory
 
 You must provide an empty directory in which the registry can initialize its [database](../icegrid-persistent-data). The
 path name of this directory is supplied by the configuration property
-[IceGrid.Registry.LMDB.Path](../../../../property-reference/icegrid-properties).
+[IceGrid.Registry.LMDB.Path](../../../../property-reference/icegrid-properties#icegrid.registry.lmdb.path).
 
 The files in this directory must not be edited manually, but rather indirectly using one of the
 [administrative tools](../../icegridadmin-command-line-tool). To clear a registry's database, first ensure the server is

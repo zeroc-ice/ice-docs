@@ -57,8 +57,8 @@ before the admin object exposes it:
 Ice.Admin.DelayCreation=1
 ```
 
-With [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) enabled, the application can safely
-remove the default `Process` facet and install its own:
+With [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties#ice.admin.delaycreation) enabled, the
+application can safely remove the default `Process` facet and install its own:
 
 ```py
 communicator = ...

@@ -97,13 +97,13 @@ configuration settings.
 As described above, you must configure the IceGrid registry with the proxy of at least one permissions verifier object
 to enable session creation:
 
-- [IceGrid.Registry.PermissionsVerifier](../../../property-reference/icegrid-properties) This property supplies the
-  proxy of an object that implements the interface `Glacier2::PermissionsVerifier`. Defining this property allows
-  clients to create sessions using `createSession`.
+- [IceGrid.Registry.PermissionsVerifier](../../../property-reference/icegrid-properties#icegrid.registry.permissionsverifier)
+  This property supplies the proxy of an object that implements the interface `Glacier2::PermissionsVerifier`. Defining
+  this property allows clients to create sessions using `createSession`.
 
-- [IceGrid.Registry.SSLPermissionsVerifier](../../../property-reference/icegrid-properties) This property supplies the
-  proxy of an object that implements the interface `Glacier2::SSLPermissionsVerifier`. Defining this property allows
-  clients to create sessions using `createSessionFromSecureConnection`.
+- [IceGrid.Registry.SSLPermissionsVerifier](../../../property-reference/icegrid-properties#icegrid.registry.sslpermissionsverifier)
+  This property supplies the proxy of an object that implements the interface `Glacier2::SSLPermissionsVerifier`.
+  Defining this property allows clients to create sessions using `createSessionFromSecureConnection`.
 
 IceGrid supplies built-in permissions verifier objects:
 
@@ -227,13 +227,13 @@ To prevent unauthorized clients from invoking operations on an allocated object 
 [IceSSL](../../../runtime/ssl-transport) or [Glacier2](../../glacier2):
 
 - Using IceSSL, you can secure access to a server or a particular object adapter with the properties
-  [IceSSL.TrustOnly.Server](../../../property-reference/icessl-properties) or
-  [IceSSL.TrustOnly.Server.AdapterName](../../../property-reference/icessl-properties). For example, if you configure a
-  server with the session activation mode, you can set one of the `IceSSL.TrustOnly` properties to the `${session.id}`
-  variable, which is substituted with the session ID when the server is activated for the session. If the IceGrid
-  session was created from a secure connection, the session ID will be the distinguished name associated with the secure
-  connection, which effectively restricts access to the server or one of its adapters to the client that established the
-  session with IceGrid.
+  [IceSSL.TrustOnly.Server](../../../property-reference/icessl-properties#icessl.trustonly.server) or
+  [IceSSL.TrustOnly.Server.AdapterName](../../../property-reference/icessl-properties#icessl.trustonly.server.adaptername).
+  For example, if you configure a server with the session activation mode, you can set one of the `IceSSL.TrustOnly`
+  properties to the `${session.id}` variable, which is substituted with the session ID when the server is activated for
+  the session. If the IceGrid session was created from a secure connection, the session ID will be the distinguished
+  name associated with the secure connection, which effectively restricts access to the server or one of its adapters to
+  the client that established the session with IceGrid.
 
 - With Glacier2, you can secure access to an allocated object or the object adapters of an allocated server with the
   Glacier2 [filtering mechanism](../../glacier2/securing-a-glacier2-router). By default, IceGrid sessions created with a

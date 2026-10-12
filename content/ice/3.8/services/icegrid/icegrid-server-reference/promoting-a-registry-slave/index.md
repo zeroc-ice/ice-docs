@@ -9,12 +9,13 @@ the master, such as the [resource allocation](../../resource-allocation-using-ic
 to modify the [deployment](../../using-icegrid-deployment) data.
 
 To promote a slave to become the new master, you must shut down the slave and change its
-[IceGrid.Registry.ReplicaName](../../../../property-reference/icegrid-properties) property to `Master` (or remove the
-property altogether). On restart, the new master notifies the nodes and registries that were active before it was shut
-down. An inactive registry or node will eventually connect to the new master if its default locator proxy contains the
-endpoint of the new master registry or the endpoint of a slave that is connected to the new master. If you cannot afford
-any down-time of the registry and want to minimize the down-time of the master, you should run at least two slaves. That
-way, if the master becomes unavailable, there will always be one registry available while you promote one of the slaves.
+[IceGrid.Registry.ReplicaName](../../../../property-reference/icegrid-properties#icegrid.registry.replicaname) property
+to `Master` (or remove the property altogether). On restart, the new master notifies the nodes and registries that were
+active before it was shut down. An inactive registry or node will eventually connect to the new master if its default
+locator proxy contains the endpoint of the new master registry or the endpoint of a slave that is connected to the new
+master. If you cannot afford any down-time of the registry and want to minimize the down-time of the master, you should
+run at least two slaves. That way, if the master becomes unavailable, there will always be one registry available while
+you promote one of the slaves.
 
 IceGrid ensures that an out-of-date master database cannot overwrite a newer slave database. In such a scenario, an
 error message is printed out on the consoles of the IceGrid master and slave, and the slave connection to the master is

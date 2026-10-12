@@ -9,9 +9,9 @@ integrate Glacier2 and IceGrid.
 
 It is not uncommon for a Glacier2 client to require access to a locator service such as IceGrid. In the absence of
 Glacier2, a locator client would typically define the property
-[Ice.Default.Locator](../../../property-reference/ice-default-properties) with a stringified proxy for the
-[locator service](../../icegrid/getting-started-with-icegrid). However, when that locator service is accessed via a
-Glacier2 router, the configuration requirements are slightly different. It is no longer necessary for the client's
+[Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) with a stringified proxy
+for the [locator service](../../icegrid/getting-started-with-icegrid). However, when that locator service is accessed
+via a Glacier2 router, the configuration requirements are slightly different. It is no longer necessary for the client's
 configuration to include `Ice.Default.Locator`; this property must be defined in the router's configuration instead.
 
 For example, consider the following network architecture:

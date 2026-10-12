@@ -232,8 +232,8 @@ Continuing with our example, we use the following property to install our plug-i
 Ice.Plugin.RegistryPlugin=RegistryPlugin:createRegistryPlugin
 ```
 
-The [Ice.Plugin](../../../property-reference/ice-plugin-properties) property must be defined in the registry's
-configuration file.
+The [Ice.Plugin](../../../property-reference/ice-plugin-properties#ice.plugin.name) property must be defined in the
+registry's configuration file.
 
 {% callout type="tip" %}
 

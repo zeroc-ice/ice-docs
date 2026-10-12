@@ -24,7 +24,8 @@ identities of these objects and their corresponding Slice interfaces:
 | `Ice/LocatorFinder`                         | `Ice::LocatorFinder`          |
 
 You can assign unique identities to these objects by configuring the
-[IceGrid.InstanceName](../../../../property-reference/icegrid-properties) property, as shown in the following example:
+[IceGrid.InstanceName](../../../../property-reference/icegrid-properties#icegrid.instancename) property, as shown in the
+following example:
 
 ```config
 IceGrid.InstanceName=MP3Grid

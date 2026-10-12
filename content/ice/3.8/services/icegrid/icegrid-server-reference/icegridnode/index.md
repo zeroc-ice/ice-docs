@@ -67,8 +67,8 @@ privileges, such as the root account on Unix or the Administrator account on Win
 
 The node requires an empty directory that it can use to store server files - more specifically, Ice config files for
 these servers. The pathname of this directory is supplied by the configuration property
-[IceGrid.Node.Data](../../../../property-reference/icegrid-properties). To clear a node's state, first ensure the server
-is not currently running, then remove all of the files in its data directory and restart the server.
+[IceGrid.Node.Data](../../../../property-reference/icegrid-properties#icegrid.node.data). To clear a node's state, first
+ensure the server is not currently running, then remove all of the files in its data directory and restart the server.
 
 {% callout type="warning" %}
 
@@ -90,17 +90,17 @@ IceGrid.Node.Data=/opt/ripper/node
 Ice.Default.Locator=IceGrid/Locator:tcp -p 4061
 ```
 
-The value of the [IceGrid.Node.Name](../../../../property-reference/icegrid-properties) property must match that of a
-deployed node known by the registry.
+The value of the [IceGrid.Node.Name](../../../../property-reference/icegrid-properties#icegrid.node.name) property must
+match that of a deployed node known by the registry.
 
-The [Ice.Default.Locator](../../../../property-reference/ice-default-properties) property is used by the node to contact
-the registry. The value is a proxy that contains the [registry's client endpoints](../../getting-started-with-icegrid).
-(You can avoid the need to define `Ice.Default.Locator` by using
-[IceLocatorDiscovery](../../../../plugins/icelocatordiscovery).)
+The [Ice.Default.Locator](../../../../property-reference/ice-default-properties#ice.default.locator) property is used by
+the node to contact the registry. The value is a proxy that contains the
+[registry's client endpoints](../../getting-started-with-icegrid). (You can avoid the need to define
+`Ice.Default.Locator` by using [IceLocatorDiscovery](../../../../plugins/icelocatordiscovery).)
 
 If you wish to run a collocated registry and node server, enable the property
-[IceGrid.Node.CollocateRegistry](../../../../property-reference/icegrid-properties) and include the
-[registry's configuration properties](../icegridregistry).
+[IceGrid.Node.CollocateRegistry](../../../../property-reference/icegrid-properties#icegrid.node.collocateregistry) and
+include the [registry's configuration properties](../icegridregistry).
 
 The remaining configuration properties are discussed in [IceGrid.*](../../../../property-reference/icegrid-properties).
 
