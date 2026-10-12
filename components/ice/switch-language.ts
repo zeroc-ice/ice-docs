@@ -139,7 +139,10 @@ export function switchLanguage(language: string) {
       : undefined;
   const top = block?.getBoundingClientRect().top;
   setLanguage(language);
-  if (wasEmpty && blockAtLine(body, -Infinity, language)) {
+  // A page not written for the new mapping hides its whole body, from outside
+  // `.doc-body`, and leaves the reader its notice at the top.
+  const hidesBody = body.getClientRects().length === 0;
+  if (hidesBody || (wasEmpty && blockAtLine(body, -Infinity, language))) {
     window.scrollTo({ top: 0, behavior: 'instant' });
     return;
   }
