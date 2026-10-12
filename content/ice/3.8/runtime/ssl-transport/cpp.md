@@ -94,3 +94,32 @@ IceSSL.CAs=ca_cert.pem
 ```
 
 {% /language-section %}
+
+{% language-section name="ssl-connection-information" %}
+
+The SSL connection information class is `Ice::SSL::ConnectionInfo`, an alias for the class of the platform's SSL
+transport implementation:
+[OpenSSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1OpenSSLConnectionInfo.html) on Linux,
+[SecureTransportConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1SecureTransportConnectionInfo.html)
+on macOS and iOS, and
+[SchannelConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1SchannelConnectionInfo.html) on
+Windows. Its `peerCertificate` field holds the peer's certificate, with the platform's certificate type: `X509*` with
+OpenSSL, `SecCertificateRef` with Secure Transport, and `PCCERT_CONTEXT` with Schannel. The connection information
+object owns this certificate and releases it when it is destroyed.
+
+```cpp
+Ice::SSL::ConnectionInfoPtr
+getSSLConnectionInfo(const Ice::ConnectionPtr& connection)
+{
+    for (Ice::ConnectionInfoPtr info = connection->getInfo(); info; info = info->underlying)
+    {
+        if (auto sslInfo = std::dynamic_pointer_cast<Ice::SSL::ConnectionInfo>(info))
+        {
+            return sslInfo;
+        }
+    }
+    return nullptr;
+}
+```
+
+{% /language-section %}

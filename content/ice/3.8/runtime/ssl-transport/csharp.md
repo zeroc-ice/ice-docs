@@ -63,3 +63,30 @@ IceSSL.CAs=ca_cert.pem
 ```
 
 {% /language-section %}
+
+{% language-section name="ssl-connection-information" %}
+
+The SSL connection information class is
+[Ice.SSL.ConnectionInfo](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.SSL.ConnectionInfo.html). It provides the
+following fields:
+
+- `cipher`: the negotiated cipher suite.
+- `certs`: the peer's certificate in a single-element array, or an empty array when the peer did not provide a
+  certificate.
+- `verified`: always `true` once the SSL handshake has completed.
+
+```csharp
+static Ice.SSL.ConnectionInfo? GetSSLConnectionInfo(Ice.Connection connection)
+{
+    for (Ice.ConnectionInfo? info = connection.getInfo(); info is not null; info = info.underlying)
+    {
+        if (info is Ice.SSL.ConnectionInfo sslInfo)
+        {
+            return sslInfo;
+        }
+    }
+    return null;
+}
+```
+
+{% /language-section %}

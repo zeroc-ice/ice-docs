@@ -65,3 +65,27 @@ IceSSL.Truststore=ca.jks
 ```
 
 {% /language-section %}
+
+{% language-section name="ssl-connection-information" %}
+
+The SSL connection information class is
+[com.zeroc.Ice.SSL.ConnectionInfo](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/SSL/ConnectionInfo.html).
+It provides the following fields:
+
+- `cipher`: the negotiated cipher suite.
+- `certs`: the peer's certificate chain, starting with the peer's own certificate, or `null` when the peer did not
+  provide a certificate.
+- `verified`: `true` when the peer provided a certificate chain.
+
+```java
+static com.zeroc.Ice.SSL.ConnectionInfo getSSLConnectionInfo(com.zeroc.Ice.Connection connection) {
+    for (com.zeroc.Ice.ConnectionInfo info = connection.getInfo(); info != null; info = info.underlying) {
+        if (info instanceof com.zeroc.Ice.SSL.ConnectionInfo sslInfo) {
+            return sslInfo;
+        }
+    }
+    return null;
+}
+```
+
+{% /language-section %}

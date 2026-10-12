@@ -47,3 +47,48 @@ Ice for JavaScript supports a different set of transports:
 | ssl           | No                        | No                          |                                                          |
 | ws            | Yes                       | Yes (Node.js >= 24)         |                                                          |
 | wss           | Yes                       | Yes (Node.js >= 24)         |                                                          |
+
+## Endpoint and Connection Information
+
+The Ice runtime describes an endpoint or a connection with an information object. An endpoint's `getInfo` method returns
+an [EndpointInfo](api:Ice/EndpointInfo), and a connection's `getInfo` method returns a
+[ConnectionInfo](api:Ice/ConnectionInfo). You get endpoints from a proxy with `ice_getEndpoints` and from a connection
+with `getEndpoint`, and you get the connection of a proxy with `ice_getConnection`.
+
+Each transport provides its own subclass of these two classes, with fields specific to that transport, such as the host
+and port of a TCP endpoint or the local and remote addresses of a TCP connection:
+
+| **Transport** | **Endpoint Information** | **Connection Information** |
+| ------------- | ------------------------ | -------------------------- |
+| tcp           | `TCPEndpointInfo`        | `TCPConnectionInfo`        |
+| udp           | `UDPEndpointInfo`        | `UDPConnectionInfo`        |
+| ws            | `WSEndpointInfo`         | `WSConnectionInfo`         |
+| ssl           | SSL endpoint information | SSL connection information |
+
+The SSL classes are `SSLEndpointInfo` and `SSLConnectionInfo` in Python, Swift, Ruby, and PHP, and `EndpointInfo` and
+`ConnectionInfo` in the `SSL` namespace or package in the other language mappings.
+
+A transport that runs over another transport wraps the information of that transport: the `underlying` field holds the
+information object of the transport below, and holds no object for a transport that does not run over another transport.
+For example, the information of a `wss` connection is a `WSConnectionInfo` whose `underlying` field holds the SSL
+connection information, whose `underlying` field holds a `TCPConnectionInfo`. To read the fields of one transport, walk
+the `underlying` chain until you reach an object of the class you need. The
+[SSL transport](../ssl-transport#ssl-connection-information) page shows this for the SSL connection information.
+
+{% iflang langs="cpp,java" %}
+
+The Bluetooth transport provides the `EndpointInfo` and `ConnectionInfo` classes of the `IceBT` namespace or package.
+
+{% /iflang %}
+
+{% iflang langs="cpp,swift" %}
+
+The iAP transport provides `IAPEndpointInfo` and `IAPConnectionInfo`.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+Ice for JavaScript provides no UDP classes.
+
+{% /iflang %}
