@@ -69,32 +69,38 @@ generated base class. Due to our application’s simplicity, we don’t here tho
 Our main server code is placed in its own file, `main.py` to keep it separate from the servant implementation. We start
 this file by importing the following:
 
+- `asyncio`: To write async code using `async/await` syntax.
 - `sys`: For accessing command line arguments
 - `chatbot`: This contains our servant implementation.
 - `Ice`: For accessing the Ice runtime.
 
 ```py
+import asyncio
 import sys
+
 import chatbot
 import Ice
 ```
 
-Next, we define the `main` function which runs the server. This application can be broken down into 4 parts:
+Next, we define the `main` coroutine which runs the server. This application can be broken down into 4 parts:
 
 ### 1. Create a Communicator
 
 First, we create a [Communicator](../../runtime/communicator) using its constructor:
 
 ```py
-with Ice.Communicator(sys.argv) as communicator:
+async def main():
+    loop = asyncio.get_running_loop()
+    async with Ice.Communicator(sys.argv, eventLoop=loop) as communicator:
 ```
 
 The communicator is our main entry point into the Ice runtime. In this simple server application, we need this
-communicator to create an object adapter and nothing else (see next step).
+communicator to create an object adapter and nothing else (see next step). By passing the running asyncio event loop to
+the communicator constructor, we enable asyncio support in the communicator.
 
 You should always ensure that `destroy` is called when you’re done with a communicator so that connections are
-gracefully closed and other clean-up is performed. The simplest way to do that is to use the `with` statement like we do
-here.
+gracefully closed and other clean-up is performed. In an asynchronous application, the simplest way to do that is to use
+the `async with` statement like we do here.
 
 ### 2. Create an Object Adapter
 
@@ -130,7 +136,7 @@ At this point, our object adapter does not accept connections yet. A client atte
 We call `activate` to start accepting connections:
 
 ```py
-adapter.activate();
+adapter.activate()
 print("Listening on port 4061...")
 ```
 
@@ -141,27 +147,26 @@ our `Chatbot` servant.
 
 It’s essential to keep the server running and not fall off main prematurely.
 
-We use `waitForShutdown` to wait until the communicator is shut down. In this server, this never happens - no code shuts
-down the communication. The call only returns when the user hits `Ctrl+C` which raises `KeyboardInterrupt` exception:
+We await `shutdownCompleted` to wait until the communicator is shut down. In this server, this never happens: no code
+shuts down the communicator. When the user presses `Ctrl+C`, `asyncio.run` cancels the `main` task, and the await raises
+`asyncio.CancelledError`:
 
 ```py
 try:
-    communicator.waitForShutdown()
-except KeyboardInterrupt:
-    print("Caught Ctrl+C, exiting...")
+    await communicator.shutdownCompleted()
+except asyncio.CancelledError:
+    print("Caught Ctrl+C, shutting down...")
 ```
 
-{% callout type="note" %}
-
-The main thread is just waiting in this call - it does not perform any work.
-
-{% /callout %}
-
 Once the exception handler finishes, the communicator goes out of scope and is automatically destroyed (because we used
-the with statement). At that point, the application exits cleanly.
+the `async with` statement).
 
-The server in the demo is an asyncio application: it creates the communicator with the running event loop and awaits
-`communicator.shutdownCompleted()` instead of calling `waitForShutdown`.
+Finally, the script runs `main` with `asyncio.run`, which creates the event loop that `main` passes to the communicator:
+
+```py
+if __name__ == "__main__":
+    asyncio.run(main())
+```
 
 ## Running the Server
 
