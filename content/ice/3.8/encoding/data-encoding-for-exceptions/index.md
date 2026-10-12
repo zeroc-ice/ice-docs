@@ -177,7 +177,7 @@ the slice size to skip the rest of the slice, and repeats this lookup with the n
 knows `Base` but not `Derived` reads the slice size `20`, skips 20-4 bytes to the flags of the `::Base` slice at byte
 offset 31, and unmarshals the exception as `Base`. The receiver
 [discards the slices it skips](../../slice/user-defined-types/classes/slicing-values-and-exceptions). When the receiver
-skips the last slice without finding a type, it raises a `MarshalException`.
+skips the last slice without finding a known type, it raises a `MarshalException`.
 
 Repeating this exercise using the compact format produces the following encoding:
 
