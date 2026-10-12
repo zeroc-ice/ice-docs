@@ -62,7 +62,7 @@ function Action({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 py-1 text-[13px] leading-snug text-ink-secondary transition-colors hover:text-ink"
+        className="outline-room flex items-center gap-2 py-1 text-[13px] leading-snug text-ink-secondary transition-colors hover:text-ink"
       >
         <Icon className="size-3.5 shrink-0" />
         {children}

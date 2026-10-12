@@ -183,7 +183,7 @@ export function Search({ version }: { version: DocsVersion }) {
           }}
           placeholder={`Search the ${version.title} documentation…`}
           aria-label="Search query"
-          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base focus-visible:outline-inside dark:border-white/10"
+          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base dark:border-white/10"
         />
 
         <div className="overflow-y-auto">
@@ -201,7 +201,7 @@ export function Search({ version }: { version: DocsVersion }) {
               type="button"
               onMouseEnter={() => setSelected(i)}
               onClick={() => go(record)}
-              className={`flex w-full flex-col items-start gap-0.5 px-4 py-2.5 text-left focus-visible:outline-inside ${
+              className={`flex w-full flex-col items-start gap-0.5 px-4 py-2.5 text-left ${
                 i === selected ? 'bg-blue-600/10' : ''
               }`}
             >

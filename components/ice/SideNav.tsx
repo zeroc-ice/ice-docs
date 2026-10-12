@@ -345,7 +345,7 @@ function Tree({
                   type="button"
                   onClick={() => toggle(k)}
                   aria-expanded={isOpen}
-                  className="flex flex-1 items-start rounded-[5px] text-left focus-visible:outline-inside"
+                  className="flex flex-1 items-start rounded-[5px] text-left"
                 >
                   <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted">
                     {chevron}
@@ -358,7 +358,7 @@ function Tree({
                   <RailLink
                     href={node.href!}
                     aria-current={active ? 'page' : undefined}
-                    className={clsx(label, 'focus-visible:outline-inside')}
+                    className={label}
                   >
                     {node.title}
                   </RailLink>

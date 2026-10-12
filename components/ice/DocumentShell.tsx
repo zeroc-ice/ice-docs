@@ -186,7 +186,10 @@ export const DocumentShell = ({
                 page in this section" the same visual weight as the article, which
                 is conspicuous on a short page where the card is most of it. */}
                 {prev ? (
-                  <Link href={prev.href} className="group min-w-0 flex-1">
+                  <Link
+                    href={prev.href}
+                    className="group outline-room min-w-0 flex-1"
+                  >
                     <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Previous
                     </div>
@@ -201,7 +204,7 @@ export const DocumentShell = ({
                 {next ? (
                   <Link
                     href={next.href}
-                    className="group min-w-0 flex-1 text-right"
+                    className="group outline-room min-w-0 flex-1 text-right"
                   >
                     <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Next
