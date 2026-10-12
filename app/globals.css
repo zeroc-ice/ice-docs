@@ -164,9 +164,9 @@
 
   /* One focus ring for the whole site, in place of each browser's own: 2px in
      the link colour, 2px clear of the element, with rounded corners on an
-     element that has none of its own; a text field keeps its square ones. The
-     colour is set on every element, focused or not, so a control's colour
-     transition does not fade the ring in from the text colour. */
+     element that has none of its own. The colour is set on every element,
+     focused or not, so a control's colour transition does not fade the ring in
+     from the text colour. */
   * {
     outline-color: var(--link);
   }
@@ -175,9 +175,6 @@
     outline-width: 2px;
     outline-style: solid;
     outline-offset: 2px;
-  }
-
-  :focus-visible:not(input) {
     border-radius: var(--radius-md);
   }
 

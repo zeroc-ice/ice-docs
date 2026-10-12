@@ -105,7 +105,7 @@ export const CodeBlock = ({
         <div
           className={clsx(
             'absolute top-2 right-0 mr-4 rounded-sm border border-(--code-border) bg-(--code-bg) opacity-0',
-            'transition-opacity duration-500 group-hover:opacity-100'
+            'transition-opacity duration-500 group-hover:opacity-100 focus-within:opacity-100'
           )}
         >
           <CopyButton text={children} />

@@ -183,7 +183,7 @@ export function Search({ version }: { version: DocsVersion }) {
           }}
           placeholder={`Search the ${version.title} documentation…`}
           aria-label="Search query"
-          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-none dark:border-white/10"
+          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base focus-visible:outline-inside dark:border-white/10"
         />
 
         <div className="overflow-y-auto">
