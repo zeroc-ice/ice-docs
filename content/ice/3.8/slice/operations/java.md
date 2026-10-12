@@ -174,7 +174,9 @@ method.
 If you throw an arbitrary Java exception (such as a `IllegalArgumentException`), the Ice runtime catches the exception
 and then returns an `UnknownException` to the client.
 
-If you throw an Ice runtime exception, such as `MarshalException`, the client receives an `UnknownLocalException`.
+If you throw a [dispatch exception](../../runtime/local-and-dispatch-exceptions#dispatch-exceptions), such as
+`ObjectNotExistException`, the client receives the same exception. If you throw any other Ice local exception, such as
+`MarshalException`, the client receives an `UnknownLocalException`.
 
 The server-side Ice runtime does not validate user exceptions thrown by an operation implementation to ensure they are
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
@@ -206,12 +208,14 @@ call to the `Async` method ("on the way out"). The advantage of this behavior is
 with the code that handles the future (instead of being present twice, once where the `Async` method is called, and
 again where the future is handled).
 
-There are two exceptions to this rule:
+There are three exceptions to this rule:
 
 - if you destroy the communicator and then make an asynchronous invocation, the `Async` method throws
   `CommunicatorDestroyedException` directly.
-- a call to an `Async` method can throw `TwowayOnlyException`. An `Async` method throws this exception if you call an
-  operation that has a return value or out-parameters on a oneway proxy.
+- if you use a oneway proxy to call an operation that has a return value, out-parameters, or an exception specification,
+  the `Async` method throws `TwowayOnlyException` directly.
+- if you use a twoway proxy to call an operation with the [`oneway`](../slice-metadata-directives#oneway) metadata, the
+  `Async` method throws `OnewayOnlyException` directly.
 
 ### `InvocationFuture` Class
 

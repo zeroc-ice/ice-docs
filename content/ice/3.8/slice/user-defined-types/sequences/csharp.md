@@ -10,12 +10,13 @@ metadata directives to map sequences to a number of alternative types:
 - User-defined custom types that derive from `System.Collections.Generic.IEnumerable<T>`.
 
 The different mappings allow you to map a sequence to a container type that provides the correct performance trade-off
-for your application.
+for your application. Whichever mapping you choose, the compiler also generates a helper class, named after the sequence
+with a `Helper` suffix, that marshals and unmarshals the sequence.
 
 ### Array Mapping for Sequences
 
-By default, the Slice-to-C# compiler maps sequences to arrays. The compiler generates only a helper class that marshals
-and unmarshals the sequence; you simply define an array of elements to model the Slice sequence. For example:
+By default, the Slice-to-C# compiler maps sequences to arrays: you simply define an array of elements to model the Slice
+sequence. For example:
 
 ```slice
 sequence<Fruit> FruitPlatter;
@@ -153,7 +154,6 @@ With this definition, the type of `Cornucopia` becomes:
 System.Collections.Generic.LinkedList<Fruit[]>
 ```
 
-Here the outer sequence contains elements of type `Fruit[]`, and `FruitPlatter` appears only in the name of the
-generated `FruitPlatterHelper` class.
+Here the outer sequence contains elements of type `Fruit[]`.
 
 {% /language-section %}
