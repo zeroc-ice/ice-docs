@@ -1,8 +1,8 @@
 {% language-section name="mapping" %}
 
-A Slice structure maps to a Ruby class with the same name. For each Slice field, the Ruby class contains a corresponding
-instance variable as well as accessors to read and write its value. For example, here is our Employee structure once
-more:
+A Slice structure maps to a Ruby class named after the Slice structure, with its first letter capitalized. For each
+Slice field, the Ruby class contains a corresponding instance variable as well as accessors to read and write its value.
+For example, here is our Employee structure once more:
 
 ```slice
 struct Employee

@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
-A Slice module maps to a Ruby module with the same name, with its first letter capitalized. The mapping preserves the
-nesting of the Slice definitions. For example:
+A Slice module maps to a Ruby module named after the Slice module, with its first letter capitalized. The mapping
+preserves the nesting of the Slice definitions. For example:
 
 ```slice
 module M1::M2
@@ -20,13 +20,13 @@ module M1    // Reopen M1
 This definition maps to the corresponding Ruby definitions:
 
 ```ruby
-module M1
+module ::M1
     module M2
         # ...
     end
 end
 
-module M1
+module ::M1
     # ...
 end
 ```

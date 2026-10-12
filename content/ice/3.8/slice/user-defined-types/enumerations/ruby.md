@@ -1,8 +1,9 @@
 {% language-section name="mapping" %}
 
-A Slice enumeration is emulated using a Ruby class: the name of the Slice enumeration becomes the name of the Ruby
-class; for each enumerator, the class contains a constant with the same name as the enumerator. The mapping capitalizes
-the first letter of both names, as Ruby requires for a class or a constant. For example:
+A Slice enumeration is emulated using a Ruby class: the Ruby class is named after the Slice enumeration, and for each
+enumerator, the class contains a constant named after the enumerator. The mapping capitalizes the first letter of both
+names, as Ruby requires for a class or a constant. For example, `enum fruit { apple }` maps to the class `Fruit` with
+the constant `Fruit::Apple`. Consider this enumeration:
 
 ```slice
 enum Fruit { Apple, Pear, Orange }

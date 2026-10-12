@@ -161,8 +161,7 @@ does not generate Ruby code for Slice definitions in included files. Rather, the
 `#include` statement into a Ruby `require` or `require_relative` statement. The form depends on the path by which the
 preprocessor reports the included file.
 
-When the preprocessor reports an absolute path, which is the case for a file it finds in a directory specified with the
-`-I` option, the compiler generates a `require` statement in the following manner:
+When the preprocessor reports an absolute path, the compiler generates a `require` statement in the following manner:
 
 1. Create the shortest possible relative pathname for the included file by iterating over each of the include
    directories (specified using the `-I` option) and removing the leading directory from the included file if possible.
@@ -180,9 +179,8 @@ As a result, you can use `-I` options to tailor the `require` statements generat
 absolute pathnames and match the organizational structure of your application's source files. Ruby searches for the
 required file in the interpreter's load path.
 
-When the preprocessor reports a path relative to the directory of the including Slice file, which is the case for a file
-it finds relative to that directory rather than in an include directory, the compiler generates a `require_relative`
-statement with that path, and the `.ice` extension replaced with `.rb`:
+When the preprocessor reports a path relative to the directory of the including Slice file, the compiler generates a
+`require_relative` statement with that path, and the `.ice` extension replaced with `.rb`:
 
 ```ruby
 require_relative 'OS/Process.rb'
