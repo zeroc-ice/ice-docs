@@ -327,8 +327,8 @@ IceGrid GUI implementation in the Ice for Java distribution to see how observers
 ## Locking Application Updates
 
 A client that replaces an application descriptor based on a stale copy overwrites the changes that other clients saved
-since it read that copy. An administrative session prevents concurrent changes by holding the registry's exclusive
-update lock:
+since it read that copy. An administrative session prevents other sessions from starting application changes by holding
+the registry's exclusive update lock:
 
 ```slice
 module IceGrid
@@ -350,7 +350,9 @@ registry published to application observers. While the session holds the lock, t
 `AccessDeniedException` when another session calls `startUpdate` or an `Admin` operation that changes an application:
 `addApplication`, `syncApplication`, `updateApplication`, `syncApplicationWithoutRestart`,
 `updateApplicationWithoutRestart`, `removeApplication`, or `instantiateServer`. The `lockUserId` member of this
-exception holds the user ID of the session that holds the lock.
+exception holds the user ID of the session that holds the lock. The registry checks the lock when an operation starts,
+so an application change that another session started before the session acquired the lock can complete while the
+session holds it.
 
 `finishUpdate` releases the lock, and raises `AccessDeniedException` if the session does not hold it. IceGrid also
 releases the lock when it destroys the session. The lock belongs to the registry replica that hosts the session, so a
