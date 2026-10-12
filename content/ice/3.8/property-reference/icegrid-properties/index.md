@@ -1083,5 +1083,6 @@ Specifies the file name of an IceGrid registry user account map file, in the for
 proxy uses the file to map a server's user string to the operating system account under which the node runs the server;
 see
 [Activating Servers with Specific User IDs](../../services/icegrid/icegrid-server-activation#activating-servers-with-specific-user-ids).
+The node can run a server under an account other than its own only when it runs as root on Unix.
 
 {% /property-description %}

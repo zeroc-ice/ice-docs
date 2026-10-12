@@ -121,7 +121,7 @@ same user string appears on several lines, the last line wins. The file-based ma
 
 The following file maps the `user` attribute `lisa` of a server descriptor, the user ID `lisa` of a session created with
 a password, and the distinguished name of Lisa's client certificate to the local account `lisa`, and maps `nobody` to
-itself for the other servers that set no `user` attribute:
+itself for the servers that set no `user` attribute and use an activation mode other than `session`:
 
 ```text
 lisa lisa
