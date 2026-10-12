@@ -19,9 +19,9 @@ plugins {
 ```
 
 The plugin includes `slice2java` for Linux (x64 and arm64), macOS (arm64), and Windows (x64), and the Slice files of
-Ice, Glacier2, IceBox, IceGrid, IceStorm, and DataStorm. It extracts them into the Gradle user home directory and passes
-the directory of the Slice files to `slice2java` with `-I`, so your Slice files can include them, for example
-`#include <Ice/Identity.ice>`.
+Ice, Glacier2, IceBox, IceGrid, IceStorm, and DataStorm. It extracts them into the Gradle user home directory and,
+unless you set `toolsPath`, passes the directory of the Slice files to `slice2java` with `-I`, so your Slice files can
+include them, for example `#include <Ice/Identity.ice>`.
 
 ### Project Settings
 
@@ -41,7 +41,8 @@ slice {
 }
 ```
 
-Set `toolsPath` on a platform for which the plugin includes no `slice2java`, such as macOS on x64.
+Set `toolsPath` to run the `slice2java` of a local Ice build, or on a platform for which the plugin includes no
+`slice2java`.
 
 ### Slice Source Sets
 
