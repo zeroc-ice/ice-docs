@@ -15,12 +15,19 @@ You can find the complete source code for this example in the
 The first step when writing a Python application with Ice is to compile its Slice definitions using the Slice to Python
 compiler (`slice2py`).
 
-Here we compile the `Greeter.ice` Slice file we wrote earlier. The demo runs `slice2py` with uv from its `client`
-directory, so uv takes the compiler from the client project’s `zeroc-ice` dependency:
+The demo is a [uv](https://docs.astral.sh/uv/) project. uv is a Python package and project manager: the demo’s
+`pyproject.toml` declares a dependency on the `zeroc-ice` package, which provides the Ice for Python runtime and the
+`slice2py` compiler. `uv run` runs a command in the project’s virtual environment, and creates this environment and
+installs the dependencies the first time you run it.
+
+Here we compile the `Greeter.ice` Slice file we wrote earlier, from the demo’s `client` directory:
 
 ```shell
 uv run slice2py ../slice/Greeter.ice
 ```
+
+Without uv, you install `zeroc-ice` with `pip` in a virtual environment, then run `slice2py ../slice/Greeter.ice` and
+`python main.py` in that environment.
 
 This compilation generates a Python package named `VisitorCenter`, which matches the Slice module name. Inside this
 package, you’ll find the generated `Greeter` module corresponding to the `Greeter` interface defined in Slice. This
@@ -135,8 +142,7 @@ Finally, at the end of our logic, our communicator goes out of scope and is dest
 
 ## Running the Client
 
-The demo’s [README](https://github.com/zeroc-ice/ice-demos/blob/3.8/python/Ice/greeter/README.md) lists the
-prerequisites. After compiling the Slice definitions, you run the client from the demo’s `client` directory with:
+After compiling the Slice definitions, you run the client from the demo’s `client` directory with:
 
 ```shell
 uv run main.py
