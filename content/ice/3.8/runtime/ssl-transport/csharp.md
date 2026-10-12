@@ -37,11 +37,8 @@ or
 
 This SSL configuration applies to all SSL incoming connections accepted by that object adapter.
 
-When you set these options, the SSL transport uses them instead of the configuration it builds from the `IceSSL`
-properties.
-
-When the `IceSSL` properties provide no certificate and the application provides no `serverAuthenticationOptions`,
-creating an object adapter with an `ssl` endpoint throws `Ice.SecurityException`.
+When you set these options, the SSL transport uses them as the SSL configuration for these connections; it does not use
+the `IceSSL` properties.
 
 {% /language-section %}
 

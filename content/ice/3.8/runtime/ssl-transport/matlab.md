@@ -19,7 +19,7 @@ Ice for MATLAB is client-only: it cannot create object adapters.
 {% language-section name="using-the-ssl-transport-4" %}
 
 {% callout type="note" %}
-Ice for MATLAB is client-only: it cannot create object adapters.
+Ice for MATLAB is client-only, so this server-side configuration does not apply.
 {% /callout %}
 
 {% /language-section %}

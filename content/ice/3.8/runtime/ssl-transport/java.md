@@ -38,8 +38,8 @@ or
 
 This SSL configuration applies to all SSL incoming connections accepted by that object adapter.
 
-When you set an SSL engine factory, the SSL transport uses it instead of the configuration it builds from the `IceSSL`
-properties.
+When you set an SSL engine factory, the SSL transport uses the engines it creates as the SSL configuration for these
+connections; it does not use the `IceSSL` properties.
 
 {% /language-section %}
 
