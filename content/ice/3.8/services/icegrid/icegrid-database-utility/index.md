@@ -79,7 +79,10 @@ servers that already have an `ice-version`, as shown in the example below:
 icegriddb --server-version 3.7.1 --import registry.ixp --dbpath dbNew/registry
 ```
 
+The `--server-version` option also applies to `--export`: `icegriddb` then sets the `ice-version` attribute of every
+server and IceBox server in the exported file to the version you specify.
+
 ## Compatibility
 
 Besides importing files that it creates itself, `icegriddb` can also import the files exported by older versions of this
-utility.
+utility, from IceGrid 3.6 on. It rejects a file exported by IceGrid 3.5 or earlier.
