@@ -244,9 +244,6 @@ Writers provide methods and listener callbacks to coordinate with connected read
 - [getConnectedReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a139caf6992bf90fd211abbf3250b8683.html#a139caf6992bf90fd211abbf3250b8683)
   — returns the names of connected readers.
 
-If the node is shut down, `waitForReaders` and `waitForNoReaders` throw
-[NodeShutdownException](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1NodeShutdownException.html).
-
 #### Connected Keys Listener
 
 Use

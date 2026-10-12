@@ -157,9 +157,6 @@ Readers provide methods to retrieve unread samples:
 - [hasUnread](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ab0a08e79d3a4eaf5dcb2facfba50d695.html#ab0a08e79d3a4eaf5dcb2facfba50d695)
   — checks if there are unread samples in the queue.
 
-If the node is shutdown, blocking methods (e.g., `waitForUnread`, `getNextUnread`) throw
-[NodeShutdownException](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1NodeShutdownException.html).
-
 You can register callbacks with
 [onSamples(init, queue)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ae800f5b1148ddd9adb10b8d3ded203ca.html#ae800f5b1148ddd9adb10b8d3ded203ca),
 which replaces any callbacks registered before. `init` receives the samples in the unread queue at the time you register
