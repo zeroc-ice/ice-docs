@@ -280,8 +280,10 @@ sets this idle timeout and defaults to `Ice.Connection.Server.IdleTimeout`, whic
 The router sets `Glacier2.Client.Connection.InactivityTimeout` to `0` unless you set it, which disables the router's
 inactivity check on client connections. The client's own
 [inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) still closes an
-inactive connection to the router, and this closure ends the session. `Ice.Connection.Client.InactivityTimeout` sets the
-client's inactivity timeout, 300 seconds by default; a client that keeps an unused session open sets it to `0`.
+inactive connection to the router, and this closure ends the session. The client checks for inactivity each time it
+sends a heartbeat, every half idle timeout, so this check requires `Ice.Connection.Client.IdleTimeout` to be greater
+than `0`. `Ice.Connection.Client.InactivityTimeout` sets the client's inactivity timeout, 300 seconds by default; a
+client that keeps an unused session open sets it to `0`.
 
 ## See Also
 
