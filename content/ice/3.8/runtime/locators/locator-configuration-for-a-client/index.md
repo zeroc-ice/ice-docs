@@ -15,7 +15,6 @@ endpoints. You give a proxy its locator by configuring a locator proxy, in one o
 To trace how the Ice runtime resolves indirect proxies, set the following properties:
 
 ```config
-Ice.Trace.Network=2
 Ice.Trace.Protocol=1
 Ice.Trace.Locator=2
 ```
