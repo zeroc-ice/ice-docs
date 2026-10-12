@@ -10,6 +10,39 @@ on this object.
 You can find the complete source code for this example in the
 [ice-demos repository](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/greeter).
 
+## Compile Slice File with Slice Compiler
+
+The first step when writing a Java application with Ice is to compile the Slice definitions for this application with
+the Slice to Java compiler (`slice2java`).
+
+Here, we compile the `Greeter.ice` Slice file we wrote earlier as part of the project's build. The
+`com.zeroc.slice-tools` Gradle plugin runs `slice2java` on the Slice files of the `slice` source set when Gradle builds
+the project, as the demo's build script does:
+
+```kotlin {% title="build.gradle.kts" %}
+plugins {
+    id("application")
+    id("com.zeroc.slice-tools") version "3.8.+"
+}
+
+dependencies {
+    implementation("com.zeroc:ice:3.8.+")
+}
+
+sourceSets {
+    main {
+        slice {
+            srcDirs("../slice")
+        }
+    }
+}
+```
+
+See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the plugin and the options of `slice2java`.
+
+The build generates the `com.example.visitorcenter` package, which provides the `GreeterPrx` proxy interface that our
+client code uses.
+
 ## Client Implementation
 
 The structure of our client is going to look like:
@@ -19,7 +52,6 @@ package com.example.ice.greeter.client;
 
 import com.example.visitorcenter.GreeterPrx;
 import com.zeroc.Ice.Communicator;
-import com.zeroc.Ice.Util;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -102,7 +134,7 @@ Here, we called the _synchronous_ version of `greet`, which means this method ca
 received. And don’t let the simplicity of the syntax fool you: this is a remote call which will be much slower than a
 local call!
 
-You can instead class `greet` _asynchronously_ with `greetAsync` on our proxy like this:
+You can instead call `greet` _asynchronously_ with `greetAsync` on our proxy like this:
 
 ```java
 CompletableFuture<String> futureGreeting = greeter.greetAsync("alice");

@@ -20,11 +20,22 @@ You can find the complete source code for this example in the
 The first step when writing a C# application with Ice is to compile the Slice definitions for this application with the
 Slice to C# compiler (`slice2cs`).
 
-Here, we compile the `Greeter.ice` Slice file we wrote earlier. We recommend that you include this Slice compiler step
-in your build project, like we demonstrate for the C# demo programs.
+Here, we compile the `Greeter.ice` Slice file we wrote earlier as part of the project's build. The
+`ZeroC.Ice.Slice.Tools` NuGet package runs `slice2cs` on each `SliceCompile` item when you build the project with
+`dotnet build`, as the demo's project file does:
 
-This generates a single file named `Greeter.cs` which provides the `GreeterDisp_` abstract base class we implement in
-the code below.
+```xml {% title="Server.csproj" %}
+<ItemGroup>
+  <SliceCompile Include="../slice/Greeter.ice" />
+  <PackageReference Include="ZeroC.Ice" Version="3.8.*" />
+  <PackageReference Include="ZeroC.Ice.Slice.Tools" Version="3.8.*" PrivateAssets="all" />
+</ItemGroup>
+```
+
+See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options of `slice2cs`.
+
+The build generates a single file named `Greeter.cs`, which provides the `GreeterDisp_` abstract base class we implement
+in the code below.
 
 ### Implement Servant Class
 
