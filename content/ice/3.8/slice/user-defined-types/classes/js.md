@@ -54,7 +54,7 @@ single statement (instead of first having to construct the instance and then ass
 For example:
 
 ```js
-const tod = new TimeOfDayI(14, 45, 00, "PST"); // 14:45pm PST
+const tod = new TimeOfDay(14, 45, 0, "PST"); // 2:45pm PST
 ```
 
 All these parameters have also default values (see [Fields](../../fields)).

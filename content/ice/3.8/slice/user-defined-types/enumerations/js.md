@@ -49,7 +49,7 @@ enum Fruit { Apple, Pear = 3, Orange }
 The generated code changes accordingly:
 
 ```js
-class Fruit = { ... };
+class Fruit { ... }
 Fruit.Apple = new Fruit("Apple", 0);
 Fruit.Pear = new Fruit("Pear", 3);
 Fruit.Orange = new Fruit("Orange", 4);

@@ -9,7 +9,7 @@ A Slice dictionary maps to:
 This distinction is necessary because:
 
 - JavaScript Map uses the `===` operator for key equality.
-- `Ice.HashMap` allows custom comparators, so struct keys can use their equals method for equality.
+- `Ice.HashMap` accepts a key comparator, so struct keys can use their `equals` method for equality.
 
 ### Example: Dictionary with Built-in Key
 
@@ -53,7 +53,7 @@ class EmployeeDeptMap extends Ice.HashMap {
 class EmployeeDeptMap extends Ice.HashMap<Employee, string> { ... }
 ```
 
-- `new EmployeeDeptMap()` automatically sets the comparators for struct keys and values.
-- Using `new Ice.HashMap()` directly would require you to provide custom comparators yourself.
+- `new EmployeeDeptMap()` creates an `Ice.HashMap` that compares keys with their `equals` method.
+- `new Ice.HashMap()` compares keys with `===` unless you pass a key comparator to its constructor.
 
 {% /language-section %}

@@ -140,14 +140,15 @@ export class Location {
 When you don’t define a default value in Slice, and you initialize a field without providing a value for this field, the
 generated code uses the following default:
 
-| **Optional Field?** | **Slice Field Type**                     | **Default JavaScript Value**          |
-| ------------------- | ---------------------------------------- | ------------------------------------- |
-| No                  | `string`                                 | Empty string                          |
-|                     | `enum`                                   | First enumerator in enumeration       |
-|                     | `struct`                                 | New instance created with no argument |
-|                     | Numeric                                  | `0`                                   |
-|                     | `bool`                                   | `false`                               |
-|                     | `sequence`, `dictionary`, `class`, proxy | `null`                                |
-| Yes                 | Any                                      | undefined                             |
+| **Optional Field?** | **Slice Field Type**                      | **Default JavaScript Value**          |
+| ------------------- | ----------------------------------------- | ------------------------------------- |
+| No                  | `string`                                  | Empty string                          |
+|                     | `enum`                                    | First enumerator in enumeration       |
+|                     | `struct`                                  | New instance created with no argument |
+|                     | `byte`, `short`, `int`, `float`, `double` | `0`                                   |
+|                     | `long`                                    | `0n`                                  |
+|                     | `bool`                                    | `false`                               |
+|                     | `sequence`, `dictionary`, `class`, proxy  | `null`                                |
+| Yes                 | Any                                       | undefined                             |
 
 {% /language-section %}

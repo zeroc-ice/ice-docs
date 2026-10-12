@@ -41,9 +41,10 @@ class Employee {
 }
 ```
 
-The generated class defines an `equals` method for comparison purposes and a `clone` method to create a shallow copy.
-For structures that are also [legal dictionary key types](../dictionaries), the mapped class also defines a `hashCode`
-function as required by the `Ice.HashMap` type.
+The generated class defines an `equals` method for comparison purposes and a `clone` method that returns a copy of the
+structure: `clone` clones each structure field, copies each `Array` field into a new array that holds the same elements,
+and assigns every other field as is. For structures that are also [legal dictionary key types](../dictionaries), the
+mapped class also defines a `hashCode` function as required by the `Ice.HashMap` type.
 
 ### Generated Constructor
 

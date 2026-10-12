@@ -1,21 +1,27 @@
 {% language-section name="mapping" %}
 
-In JavaScript when a forward declaration correspond to a type defined on separate Slice file, you must add the
-`[js:defined-in:<file>]` metadata to let the Slice-to-JavaScript compiler where the type is defined.
+In JavaScript when a forward declaration corresponds to a type defined in a separate Slice file, you must add the
+`[js:defined-in:<file>]` metadata to tell the Slice-to-JavaScript compiler where the type is defined.
 
 ```slice
 // Greeter.ice
+module VisitorCenter
+{
+    ["js:defined-in:./Admin.ice"]
+    interface GreeterAdmin;
 
-["js:defined-in:./Admin.ice"]
-interface GreeterAdmin;
-
-module VisitorCenter {
-    GreeterAdmin* getAdminObject();
-    string greet(string name);
+    interface Greeter
+    {
+        GreeterAdmin* getAdminObject();
+        string greet(string name);
+    }
 }
 
 // Admin.ice
-interface GreeterAdmin { ... }
+module VisitorCenter
+{
+    interface GreeterAdmin { ... }
+}
 ```
 
 {% /language-section %}

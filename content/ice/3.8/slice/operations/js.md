@@ -64,11 +64,12 @@ const greeting = await greeter.greet("Alice");  // Get name via RPC
 Ice for JavaScript supports only **asynchronous method invocation (AMI)**. The JavaScript runtime does not provide a
 blocking I/O model in order to keep the event loop responsive.
 
-The arguments passed to the promise resolution depend on the operation signature:
+The value that fulfills the promise depends on the number of results, counting the return value and the out parameters:
 
-- If the operation has a **single return value**, the promise is fulfilled with that value.
-- If the operation has a **return value and/or out parameters**, the promise is fulfilled with an array: the return
-  value (if any) followed by the out parameters.
+- With **no results**, the promise is fulfilled with `undefined`.
+- With **one result**, either the return value or a single out parameter, the promise is fulfilled with that value.
+- With **several results**, the promise is fulfilled with an array: the return value (if any) followed by the out
+  parameters in declaration order.
 
 ### Exception Handling
 
@@ -148,6 +149,9 @@ The servant implementation can choose how to provide the result:
 - **Return a promise-like object** that will be fulfilled with the result.
 - **Declare the method as async** and use await inside the implementation.
 
+The result follows the same rule as on the client side: an operation with several results returns, or fulfills its
+promise with, an array that holds the return value (if any) followed by the out parameters in declaration order.
+
 **Synchronous version:**
 
 ```typescript
@@ -171,7 +175,8 @@ async greet(name: string, current: Ice.Current): Promise<string> {
 
 The parameter passing rules for the JavaScript mapping are very simple: parameters are passed either by value (for
 simple types) or by reference (for complex types). Semantically, the two ways of passing parameters are identical: it is
-guaranteed that the value of a parameter will not be changed by the invocation.
+guaranteed that the value of a parameter will not be changed by the invocation. A `long` parameter also accepts a
+`number`, as described in [Basic Types](../basic-types).
 
 Here is an interface with operations that pass parameters of various types from client to server:
 
