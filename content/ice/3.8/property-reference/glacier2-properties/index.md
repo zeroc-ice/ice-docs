@@ -286,7 +286,7 @@ an identity must be escaped with a leading backslash.
 
 {% property-description %}
 
-If `num` is greater than 0, the Glacier2 router [rejects requests](../../services/glacier2/securing-a-glacier2-router)
+If `num` is greater than `0`, the Glacier2 router [rejects requests](../../services/glacier2/securing-a-glacier2-router)
 whose stringified proxies are longer than `num` bytes. The default value is `0`, which imposes no proxy-size limit.
 
 {% /property-description %}
