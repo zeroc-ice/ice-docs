@@ -143,6 +143,9 @@ export function SideNav({
       <nav
         ref={navRef}
         aria-label={`${SITE_TITLE} navigation`}
+        // A scrolling box is a Tab stop in Firefox; its entries are reachable
+        // without it.
+        tabIndex={-1}
         // `contain-size` keeps the tree's height out of the row's, so a short
         // page stays viewport-high with the footer at the bottom; the rail then
         // stretches to the row, capped at the viewport. The scrollbar's space
@@ -259,6 +262,9 @@ function Drawer({ children }: { children: React.ReactNode }) {
           </div>
           <nav
             ref={navRef}
+            // A scrolling box is a Tab stop in Firefox; its entries are
+            // reachable without it.
+            tabIndex={-1}
             // Positioned, as revealCurrentPage requires.
             className="relative grow scrollbar-gutter-stable overflow-y-auto overscroll-contain px-4 pt-4 pb-8 text-sm"
           >

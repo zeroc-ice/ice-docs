@@ -178,6 +178,9 @@ export function PageOutline({
     <nav
       aria-label="On this page"
       data-langs={writtenFor?.join(' ')}
+      // A scrolling box is a Tab stop in Firefox; its entries are reachable
+      // without it.
+      tabIndex={-1}
       className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain mask-b-from-[calc(100%-1.5rem)] pb-6"
     >
       <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">

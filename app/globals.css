@@ -21,11 +21,13 @@
    the box would cross the glyphs. A text link draws its ring 2px outside a box
    widened by 2px each side, with margins that keep the text in place: the ring
    then clears the glyphs by 4px at the sides and by the font's own leading
-   above and below. */
+   above and below. A ring's curve grows with its distance from the box, so the
+   box's corners are 4px tighter for the same curve as a ring drawn inside. */
 @utility outline-room {
   padding-inline: 2px;
   margin-inline: -2px;
   outline-offset: 2px;
+  border-radius: calc(var(--radius-md) - 4px);
 }
 
 @theme {
@@ -162,7 +164,8 @@
      that clips at its edge can cut it, with rounded corners on an element that
      has none of its own. The colour is set on every element, focused or not,
      so a control's colour transition does not fade the ring in from the text
-     colour. */
+     colour, and again on focus, where Tailwind's preflight resets it in
+     Firefox. */
   * {
     outline-color: var(--link);
   }
@@ -170,6 +173,7 @@
   :focus-visible {
     outline-width: 2px;
     outline-style: solid;
+    outline-color: var(--link);
     outline-offset: -2px;
     border-radius: var(--radius-md);
   }
