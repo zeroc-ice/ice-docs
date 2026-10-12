@@ -18,7 +18,7 @@ The [facet filter](../filtering-administrative-facets) applies to custom facets:
 communicator exposes a custom facet only if the filter lists its name.
 
 You can add facets before or after the communicator creates the admin object: the admin object hosts the facets added
-before its creation that the filter lets through.
+before its creation.
 
 We provide an example of using these communicator methods in our discussion of the [Process](../process-facet) facet.
 

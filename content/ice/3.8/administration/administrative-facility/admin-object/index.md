@@ -12,7 +12,7 @@ programmatically host this object in your own object adapter{% /iflang %}.
 
 {% /iflang %}
 
-In this documentation, we refer to the administrative object as the `admin`_object_.
+In this documentation, we refer to the administrative object as the `admin` object.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
