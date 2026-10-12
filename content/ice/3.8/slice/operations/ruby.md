@@ -5,8 +5,8 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side Ruby Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated proxy class contains a method with the same name. To invoke an operation,
-you call this method on the proxy. For example, let’s take the generated code from the
+[operation](#operation-syntax) on an interface, the generated proxy class contains a method with the same name. To
+invoke an operation, you call this method on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
@@ -221,8 +221,9 @@ parameter, a field, or a sequence element, Ice sends an empty sequence or dictio
 
 ### Optional Parameters
 
-[Optional parameters](./) use the same mapping as required parameters. The only difference is that `nil` can be passed
-as the value of an optional parameter or return value to leave it unset. Consider the following operation:
+[Optional parameters](#optional-parameters-and-return-values) use the same mapping as required parameters. The only
+difference is that `nil` can be passed as the value of an optional parameter or return value to leave it unset. Consider
+the following operation:
 
 ```slice
 optional(1) int execute(optional(2) string p, out optional(3) float value);

@@ -109,7 +109,8 @@ catch (Tantrum t)
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side C# Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated skeleton class contains an abstract method with the same name.
+[operation](#operation-syntax) on an interface, the generated skeleton class contains an abstract method with the same
+name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
@@ -537,8 +538,8 @@ public partial interface ExamplePrx : Ice.ObjectPrx
 
 ### Optional Parameters
 
-The mapping for [optional parameters](./) is the same as for required parameters, except each mapped C# type is
-nullable, where null represents “not set”.
+The mapping for [optional parameters](#optional-parameters-and-return-values) is the same as for required parameters,
+except each mapped C# type is nullable, where null represents “not set”.
 
 Consider the following operation:
 

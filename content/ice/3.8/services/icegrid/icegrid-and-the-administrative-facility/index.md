@@ -90,12 +90,12 @@ about pending deactivation. However, we recommend that servers be allowed to use
 ## Routing Administrative Requests
 
 IceGrid defaults to using the local host interface when defining the endpoints of a deployed server's
-[administrative object adapter](./). This configuration allows local clients such as the IceGrid node to access the
-server's [admin object](../../../administration/administrative-facility/admin-object) while preventing direct
-invocations from remote clients. A server's `admin` object may still be accessed remotely, but only by clients that
-establish an [IceGrid administrative session](../icegrid-administrative-sessions). To facilitate these requests, IceGrid
-uses an intermediary object that relays requests to the server via its node. For example, the following figure
-illustrates the path of a `getProperty` invocation:
+[administrative object adapter](#ice.admin.endpoints-for-servers). This configuration allows local clients such as the
+IceGrid node to access the server's [admin object](../../../administration/administrative-facility/admin-object) while
+preventing direct invocations from remote clients. A server's `admin` object may still be accessed remotely, but only by
+clients that establish an [IceGrid administrative session](../icegrid-administrative-sessions). To facilitate these
+requests, IceGrid uses an intermediary object that relays requests to the server via its node. For example, the
+following figure illustrates the path of a `getProperty` invocation:
 
 ![An administrative client sends getProperty to the registry, which forwards the request through the node to the server.](/images/ice/3.8/icegrid-and-the-administrative-facility/routing.svg)
 
@@ -331,7 +331,7 @@ service property MyServerId MyService BuildId
 ```
 
 The utilities use the [Properties facet](../../../administration/administrative-facility/properties-facet) to access
-these properties, via a proxy obtained as described [above](./).
+these properties, via a proxy obtained as described [above](#obtaining-a-proxy).
 
 ### Administering IceBox Services
 
@@ -341,8 +341,8 @@ operations are available in both the command line and graphical utilities.
 
 IceBox also defines a [ServiceObserver](../../icebox/icebox-administration) interface for receiving callbacks when
 services are stopped or started. The graphical utility implements this interface so that it can present an updated view
-of the state of an IceBox server. We presented [examples](./) that demonstrate how to register an observer with the
-IceBox administrative facet.
+of the state of an IceBox server. We presented [examples](#callbacks-without-glacier2) that demonstrate how to register
+an observer with the IceBox administrative facet.
 
 ## See Also
 

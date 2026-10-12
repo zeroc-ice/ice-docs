@@ -28,8 +28,8 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h 10.0.0.2 -p 4061
 
 An IceGrid application might want to use [replication](../../icegrid/object-adapter-replication) to increase the
 availability of Glacier2 session managers. When you configure an indirect proxy for a session manager (and
-[configure Glacier2 with a locator proxy](./)), the Ice runtime in the router queries the locator to obtain a proxy for
-a session manager replica.
+[configure Glacier2 with a locator proxy](#configuring-router-clients-for-icegrid)), the Ice runtime in the router
+queries the locator to obtain a proxy for a session manager replica.
 
 By default, this proxy is cached for 10 minutes, meaning the router uses the same session manager proxy to create
 sessions for a 10-minute period, after which it queries the locator again. If you want to distribute the

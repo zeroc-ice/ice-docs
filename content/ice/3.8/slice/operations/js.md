@@ -259,9 +259,9 @@ dictionary. For an [optional](#optional-parameters-in-javascript) parameter, ret
 
 ### Optional Parameters in JavaScript
 
-[Optional parameters](./) use the same mapping as required parameters. The only difference is that `undefined` can be
-passed as the value of an optional parameter or return value to indicate an "unset" condition. Consider the following
-operation:
+[Optional parameters](#optional-parameters-and-return-values) use the same mapping as required parameters. The only
+difference is that `undefined` can be passed as the value of an optional parameter or return value to indicate an
+"unset" condition. Consider the following operation:
 
 ```slice
 optional(1) int execute(optional(2) string params, out optional(3) float value);
