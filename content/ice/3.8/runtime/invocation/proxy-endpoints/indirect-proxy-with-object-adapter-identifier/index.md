@@ -34,7 +34,7 @@ Ice for JavaScript does not provide collocation optimization, so the resolution 
    sends requests to this object adapter using collocation optimization. The
    [holding state](../../../dispatch/object-adapter-activation-and-deactivation) of the object adapters is ignored for
    this search and subsequent collocated dispatches.
-2. Otherwise, if no local object adapters carries the desired object adapter ID (or collocation optimization is
+2. Otherwise, if no local object adapter carries the desired object adapter ID (or collocation optimization is
    disabled), and a [locator](../../../locators) is configured with the communicator:
 
    1. Ice looks up this object adapter ID in its [locator cache](../../../locators/locator-semantics-for-clients).
