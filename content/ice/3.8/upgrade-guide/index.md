@@ -395,11 +395,11 @@ Update the version in the IceStorm entry point of your IceBox configuration:
 ```
 
 Ice 3.8 adds the `createOrRetrieve` operation to `IceStorm::TopicManager`, and removes the `getSliceChecksums` operation
-of `TopicManager` and the `InvalidSubscriber` exception. The other IceStorm Slice definitions are unchanged. This allows
-you to use a mix of 3.7 and 3.8 for your IceStorm service, publishers and subscribers, provided they call only the
-operations that both versions provide: a 3.8 application cannot call `createOrRetrieve` on a 3.7 IceStorm service, and a
-3.7 application cannot call `getSliceChecksums` on a 3.8 IceStorm service. You can even use a mix of 3.7 and 3.8
-IceStorm replicas in a replicated deployment.
+of `TopicManager` and the `InvalidSubscriber` exception. Apart from metadata, the other IceStorm Slice definitions are
+unchanged. This allows you to use a mix of 3.7 and 3.8 for your IceStorm service, publishers and subscribers, provided
+they call only the operations that both versions provide: a 3.8 application cannot call `createOrRetrieve` on a 3.7
+IceStorm service, and a 3.7 application cannot call `getSliceChecksums` on a 3.8 IceStorm service. You can even use a
+mix of 3.7 and 3.8 IceStorm replicas in a replicated deployment.
 
 Moreover, the IceStorm database schema is the same in Ice 3.8 and Ice 3.7. This allows you to start an IceStorm 3.8
 service with a LMDB database created by IceStorm 3.7.
