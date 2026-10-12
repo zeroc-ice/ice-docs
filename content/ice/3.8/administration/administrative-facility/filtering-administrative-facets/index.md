@@ -1,17 +1,15 @@
 ---
 title: Filtering Administrative Facets
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
-
-{% iflang langs="js" %}
-
-{% callout type="note" %}
-
-Ice for JavaScript does not provide the administrative facility. A JavaScript application can still
-[administer a remote program](../using-the-admin-object) through a proxy for its admin object.
-
-{% /callout %}
-
-{% /iflang %}
 
 A communicator enables all of its built-in [administrative facets](../admin-object) by
 default{% iflang langs="cpp,csharp,java,python,swift" %}, and an application may install its own
@@ -23,8 +21,8 @@ definition enables the `Properties` facet and leaves the `Process` facet (and an
 Ice.Admin.Facets=Properties
 ```
 
-The communicator reads this property during its initialization. To specify more than one facet, separate them with a
-comma or white space. A facet whose name contains white space must be enclosed in single or double quotes.
+The communicator reads this property during its initialization. The value of this property is a list of facet names, in
+the format accepted by [getPropertyAsList](../../../runtime/properties-and-configuration/properties-class).
 
 {% callout type="note" %}
 

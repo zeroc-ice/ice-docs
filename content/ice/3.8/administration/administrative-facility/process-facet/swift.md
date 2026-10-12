@@ -82,7 +82,6 @@ try communicator.removeAdminFacet("Process")
 try communicator.addAdminFacet(servant: MyProcess(...), facet: "Process")
 ```
 
-The final step is to create the admin object, by calling `getAdmin` on the communicator to host it in the `Ice.Admin`
-object adapter, or by calling `createAdmin` to host it in your own object adapter.
+The final step is to create the admin object by calling `getAdmin` on the communicator.
 
 {% /language-section %}

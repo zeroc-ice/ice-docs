@@ -166,6 +166,21 @@ are cached by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../../../pro
 and [Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties) properties. The default is to keep
 the most recent 100 log messages other than trace messages plus the most recent 100 trace messages.
 
+{% iflang langs="python" %}
+
+Ice for Python does not expose the built-in `Logger` facet as a local object: `communicator.findAdminFacet("Logger")`
+returns `None`. To interact with the `Logger` facet of your own communicator, use a proxy, as
+[shown for a remote facet](../using-the-admin-object).
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
+
+Ice for Swift does not expose the built-in `Logger` facet as a local `LoggerAdmin` object. To interact with the `Logger`
+facet of your own communicator, use a proxy, as [shown for a remote facet](../using-the-admin-object).
+
+{% /iflang %}
+
 ## See Also
 
 - [Logger Facility](../../logger-facility)
