@@ -343,13 +343,17 @@ i.whenSent((sentSynchronously, ex) -> {
 
 The `whenSent` method has the following semantics:
 
-- If Ice has already sent the request when you call `whenSent`, the action executes immediately in the calling thread.
-  This is always the case when Ice wrote the request in the caller's thread, but Ice can also send a queued request
-  before you call `whenSent`.
-- Otherwise, the action executes in an Ice thread pool thread once Ice sends the request.
+- If the invocation has already failed with a `LocalException` when you call `whenSent`, the action executes immediately
+  in the calling thread.
+- Otherwise, if Ice has already sent the request when you call `whenSent`, the action executes immediately in the
+  calling thread. This is always the case when Ice wrote the request in the caller's thread, but Ice can also send a
+  queued request before you call `whenSent`.
+- Otherwise, the action executes in an Ice thread pool thread once Ice sends the request, or when Ice completes the
+  future with a `LocalException` if the invocation fails before Ice sends the request.
 
-In both cases, the `sentSynchronously` argument is the value that `InvocationFuture.sentSynchronously` returns: true if
-Ice wrote the request in the caller's thread, and false if Ice queued the request.
+When the invocation failed, the `sentSynchronously` argument is null and the second argument is the exception.
+Otherwise, the `sentSynchronously` argument is the value that `InvocationFuture.sentSynchronously` returns: true if Ice
+wrote the request in the caller's thread, and false if Ice queued the request.
 
 If you need more control over the execution environment of your action, you can use one of the `whenSentAsync` methods
 instead: your executor's implementation determines the thread context in which the action executes.
