@@ -14,8 +14,8 @@ extension. For this example, we write our definitions in a Slice file named `Gre
 ## Writing the `Greeter.ice` Slice File
 
 We start by adding a [module](../../slice/modules) to our Slice file. Modules are containers that can be used to
-organize Slice definitions into named groups. Slice requires that all definitions be contained within modules. So at
-this point, our Slice file looks like:
+organize Slice definitions into named groups. Every other Slice definition must be inside a module. Our Slice file now
+looks like this:
 
 {% language-section name="writing-the-greeter.ice-slice-file-1" /%}
 
