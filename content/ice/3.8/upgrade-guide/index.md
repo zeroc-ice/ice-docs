@@ -45,8 +45,8 @@ class with a proxy to that interface.
 
 ### Optional Classes
 
-The type of an optional field or parameter can no longer be a class, or a type that holds class instances such as a
-sequence of classes or a struct with a class field.
+The type of an optional field, parameter, or return value can no longer be a class, or a type that holds class instances
+such as a sequence of classes or a struct with a class field.
 
 ```diff
 class Person
@@ -70,8 +70,8 @@ class Node
 ```
 
 An Ice 3.8 application cannot unmarshal an optional class value sent by an Ice 3.7 application: the unmarshaling fails
-with a `MarshalException`. Stop setting these optional fields and parameters in your Ice 3.7 applications before you
-upgrade the applications that receive them.
+with a `MarshalException`. Stop setting these optional fields, parameters, and return values in your Ice 3.7
+applications before you upgrade the applications that receive them.
 
 Several upgrade options are available depending on the application needs and constraints.
 
