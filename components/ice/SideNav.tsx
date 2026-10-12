@@ -317,7 +317,7 @@ function Tree({
         );
 
         const label = clsx(
-          'block flex-1 rounded-[5px] px-2 py-1.5 text-left leading-snug transition-colors',
+          'block flex-1 px-2 py-1.5 text-left leading-snug transition-colors',
           active
             ? 'text-link'
             : onActiveTrail
@@ -345,7 +345,7 @@ function Tree({
                   type="button"
                   onClick={() => toggle(k)}
                   aria-expanded={isOpen}
-                  className="flex flex-1 items-start rounded-[5px] text-left"
+                  className="flex flex-1 items-start text-left"
                 >
                   <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted">
                     {chevron}
