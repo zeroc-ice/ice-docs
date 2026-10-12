@@ -12,7 +12,7 @@ module VisitorCenter
 {% language-section name="writing-the-greeter.ice-slice-file-2" %}
 
 ```slice
-    string greet(string name);
+string greet(string name);
 ```
 
 {% /language-section %}

@@ -12,8 +12,8 @@ module VisitorCenter
 {% language-section name="writing-the-greeter.ice-slice-file-2" %}
 
 ```slice
-    ["cs:identifier:Greet"]
-    string greet(string name);
+["cs:identifier:Greet"]
+string greet(string name);
 ```
 
 {% callout type="note" %}

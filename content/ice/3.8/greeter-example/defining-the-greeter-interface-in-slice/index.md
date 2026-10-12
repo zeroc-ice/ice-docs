@@ -25,10 +25,10 @@ between clients and servers. So how you split your operations among interfaces c
 structure of your application. But, with only one operation, there are no such considerations in this example:
 
 ```slice
-    interface Greeter
-    {
-        // ... operations go here
-    }
+interface Greeter
+{
+    // ... operations go here
+}
 ```
 
 Finally, we can write our operation. It should take a name and return a greeting. So we write an operation named `greet`
