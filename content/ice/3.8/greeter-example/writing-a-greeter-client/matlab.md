@@ -63,7 +63,7 @@ connections and performs other important cleanups. We use the `onCleanup` functi
 method:
 
 ```matlab
- cleanup = onCleanup(@() communicator.destroy());
+cleanup = onCleanup(@() communicator.destroy());
 ```
 
 ### 2. Create a Greeter Proxy

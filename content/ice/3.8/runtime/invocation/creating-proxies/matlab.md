@@ -4,7 +4,7 @@ The constructor of the generated proxy class allows you to construct a proxy fro
 [stringified representation](../syntax-for-stringified-proxies) of the proxy, as shown in the following example:
 
 ```matlab
- greeter = GreeterPrx(communicator, 'greeter:tcp -h localhost -p 4061');
+greeter = GreeterPrx(communicator, 'greeter:tcp -h localhost -p 4061');
 ```
 
 {% /language-section %}
