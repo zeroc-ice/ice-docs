@@ -269,9 +269,9 @@ We added a new `ice2slice` compiler that converts Slice files in the `.ice` form
 The Slice compilers are no longer packaged all together in their own package. Each Slice compiler is now usually
 included in its associated language package.
 
-For example, the Slice to C# compiler binaries (`slice2cs`) for all platforms are included in the NuGet package
-`ZeroC.Ice.Slice.Tools`. Likewise, the Slice to Java compiler (`slice2java`) for all platforms is included in the
-`com.zeroc.slice-tools` Gradle plugin.
+For example, the NuGet package `ZeroC.Ice.Slice.Tools` includes the Slice to C# compiler (`slice2cs`) for Linux (x64 and
+arm64), macOS (arm64), and Windows (x64). Likewise, the `com.zeroc.slice-tools` Gradle plugin includes the Slice to Java
+compiler (`slice2java`) for the same platforms.
 
 On Linux, the Slice to C++ compiler is included in the Ice-C++ dev or devel package depending on the distribution. And
 the Slice to PHP compiler (`slice2php`) is included directly in the Ice-PHP package.
