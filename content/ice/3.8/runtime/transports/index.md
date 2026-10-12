@@ -96,6 +96,8 @@ The iAP transport provides `IAPEndpointInfo` and `IAPConnectionInfo`.
 {% iflang langs="js" %}
 
 Ice for JavaScript provides no UDP classes. It accepts `ssl` endpoints but cannot establish `ssl` connections, so the
-SSL connection information appears only in the `underlying` chain of a `wss` connection.
+SSL connection information appears only in the `underlying` chain of a `wss` connection. This SSL connection information
+has no fields of its own: the browser or Node.js performs the TLS handshake, and Ice for JavaScript does not expose its
+details.
 
 {% /iflang %}
