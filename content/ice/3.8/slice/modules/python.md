@@ -21,10 +21,10 @@ This definition maps to the corresponding Python definitions:
 
 ```text
 M1/__init__.py
-M2/M2/__init__.py
+M1/M2/__init__.py
 ```
 
-If a Slice module is reopened, the corresponding PHP namespace is reopened as well.
+If a Slice module is reopened, the definitions of each occurrence map to the same Python package.
 
 ### Custom Mapping
 
@@ -33,7 +33,7 @@ For example:
 
 ```slice
 // module Time becomes package Remote.Clock in Python.
-["python:identifier:Remote\Clock"]
+["python:identifier:Remote.Clock"]
 module Time
 {
     // ...

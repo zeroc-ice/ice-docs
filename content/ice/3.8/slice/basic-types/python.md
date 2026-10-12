@@ -5,6 +5,7 @@ The Slice built-in types are mapped to Python types as shown in this table:
 | **Slice** | **Python** |
 | --------- | ---------- |
 | `bool`    | `bool`     |
+| `byte`    | `int`      |
 | `short`   | `int`      |
 | `int`     | `int`      |
 | `long`    | `int`      |

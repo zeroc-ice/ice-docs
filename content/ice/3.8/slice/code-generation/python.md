@@ -58,16 +58,14 @@ The function is defined as:
 def Ice.loadSlice(args:[str])
 ```
 
-The args parameter supports all standard Slice compiler options.
+The `args` parameter accepts the following [standard compiler options](../using-the-slice-compiler): `-D`, `-U`, `-I`,
+and `-d` (`--debug`). `Ice.loadSlice` raises `RuntimeError` for any other option.
 
 For example:
 
 ```py
 Ice.loadSlice(["-I.", "Greeter.ice"])
 ```
-
-The supported arguments are the same as those documented for the **Slice for Python compiler** under
-[standard compiler options](../using-the-slice-compiler).
 
 ### Locating Slice Files in Python
 

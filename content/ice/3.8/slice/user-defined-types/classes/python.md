@@ -20,7 +20,6 @@ class TimeOfDay(Value):
     hour: int = 0
     minute: int = 0
     second: int = 0
-    tz: str = ""
 
     # ...
 ```

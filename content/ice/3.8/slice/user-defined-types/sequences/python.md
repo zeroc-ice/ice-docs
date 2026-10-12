@@ -58,7 +58,10 @@ ok5 = (7, 8, 9)          # tuple[int] also accepted
 ```
 
 Furthermore, the Ice runtime accepts any object that implements Python’s **buffer protocol** as a valid value for
-sequences of all primitive types (except strings).
+sequences of all primitive types (except strings). For a sequence of any type other than `byte`, the Ice runtime raises
+`ValueError` if the buffer's byte order is not the platform's native byte order or its item size does not match the
+Slice element type, and otherwise copies the buffer's memory without converting its elements. The buffer's items must
+therefore have the same representation as the Slice element type, such as 32-bit integers for `sequence<int>`.
 
 For example, you can use the array module to create a buffer that is transferred more efficiently than a tuple or list:
 
@@ -86,13 +89,16 @@ You can change the container type used for received sequences by adding metadata
 
 #### Supported Metadata Directives
 
-| **Metadata**                                                | **Description**                                                                                                               |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `python:list`                                               | Map to a Python list.                                                                                                         |
-| `python:tuple`                                              | Map to a Python tuple.                                                                                                        |
-| `python:array.array`                                        | Map to a Python `array.array` (valid for integral types, excluding strings).                                                  |
-| `python:numpy.ndarray`                                      | Map to a `numpy.ndarray` (valid for integral types, excluding strings).                                                       |
-| `python:memoryview:<factory function>:<optional type hint>` | Map to a custom Python type created from a memoryview using a factory function (valid for integral types, excluding strings). |
+| **Metadata**                                                | **Description**                                                                 |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `python:list`                                               | Map to a Python list.                                                           |
+| `python:tuple`                                              | Map to a Python tuple.                                                          |
+| `python:array.array`                                        | Map to a Python `array.array`.                                                  |
+| `python:numpy.ndarray`                                      | Map to a `numpy.ndarray`.                                                       |
+| `python:memoryview:<factory function>:<optional type hint>` | Map to a custom Python type created from a memoryview using a factory function. |
+
+The `python:array.array`, `python:numpy.ndarray`, and `python:memoryview` directives are valid only for sequences of
+`bool`, `byte`, `short`, `int`, `long`, `float`, and `double`.
 
 Metadata can be specified when defining a sequence, or at the point of use (parameter, return value, or field).
 
