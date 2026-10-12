@@ -167,8 +167,8 @@ The following property configures a client to use a Glacier2 router:
 Ice.Default.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-The [Ice.Default.Router](../../../property-reference/ice-default-properties) property defines the router proxy. Its
-endpoints must match those in `Glacier2.Client.Endpoints`.
+The [Ice.Default.Router](../../../property-reference/ice-default-properties#ice.default.router) property defines the
+router proxy. Its endpoints must match those in `Glacier2.Client.Endpoints`.
 
 ## Glacier2 Object Identities
 

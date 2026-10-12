@@ -26,15 +26,16 @@ As we saw in our [deployment example](../using-icegrid-deployment), the configur
 include definitions for the following properties:
 
 - [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties)
-- [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties)
+- [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties#ice.admin.serverid)
 
 The definition of `Ice.Admin.Endpoints` enables the
 [Administrative Facility](../../../administration/administrative-facility).
 
 ### Ice.Admin.Endpoints for Servers
 
-If a server's descriptor does not set [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) and does not
-supply a value for `Ice.Admin.Endpoints`, IceGrid supplies a default value for `Ice.Admin.Endpoints` as shown below:
+If a server's descriptor does not set
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) and does not supply a value for
+`Ice.Admin.Endpoints`, IceGrid supplies a default value for `Ice.Admin.Endpoints` as shown below:
 
 ```config
 Ice.Admin.Endpoints=tcp -h 127.0.0.1
@@ -74,7 +75,8 @@ When the node is ready to deactivate a server, it invokes the `shutdown` operati
 If the server does not terminate in a timely manner, the node asks the operating system to terminate the process. Each
 server can be configured with its own [deactivation timeout](../icegrid-xml-reference/server-descriptor-element). If no
 timeout is configured, the node uses the value of the property
-[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties), which defaults to `60` seconds.
+[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties#icegrid.node.waittime), which defaults to `60`
+seconds.
 
 If a server does not register an `Ice::Process` proxy, the IceGrid node cannot request a graceful termination and must
 resort instead to a more drastic, and potentially harmful, alternative by asking the operating system to terminate the

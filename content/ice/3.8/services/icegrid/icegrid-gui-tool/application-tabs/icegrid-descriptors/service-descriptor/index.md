@@ -30,8 +30,9 @@ The Service Properties panel offers the following fields:
   [icegridadmin](../../../../icegridadmin-command-line-tool) command-line utility.
 - **Entry Point** The service's [entry point](../../../../../icebox/configuring-icebox-services), for example
   `IceStormService,38:createIceStorm`. IceGrid will append `--Ice.Config=path-to-service-config-file` to this entry
-  point when it generates the [IceBox.Service._name_](../../../../../../property-reference/icebox-properties) property
-  in the enclosing IceBox server config file.
+  point when it generates the
+  [IceBox.Service._name_](../../../../../../property-reference/icebox-properties#icebox.service.name) property in the
+  enclosing IceBox server config file.
 
 ### Children
 

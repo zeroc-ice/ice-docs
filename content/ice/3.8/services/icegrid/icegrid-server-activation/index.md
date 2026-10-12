@@ -59,8 +59,8 @@ gracefully after they have been idle for a certain amount of time.
 
 A typical scenario involves a server that is activated on demand, used for a while by one or more clients, and then
 terminated automatically when no requests have been made for a configurable number of seconds. All that is necessary is
-setting the server's configuration property [Ice.ServerIdleTime](../../../property-reference/ice-properties) to the
-desired idle time.
+setting the server's configuration property
+[Ice.ServerIdleTime](../../../property-reference/ice-properties#ice.serveridletime) to the desired idle time.
 
 For a server activated in session activation mode, IceGrid deactivates the server when the session releases the server
 or when the session is destroyed.

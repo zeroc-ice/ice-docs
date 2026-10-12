@@ -23,12 +23,13 @@ a **single endpoint.**Specifying multiple endpoints, while possible, does not pr
 {% /callout %}
 
 If a host name is specified, the object adapter listens only on the network interface associated with that host name. If
-no host name is specified but the property [Ice.Default.Host](../../../property-reference/ice-default-properties) is
-defined, the object adapter uses the property's value as the host name. Finally, if a host name is not specified, and
-the property `Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including
-the loopback interface. You may also force the object adapter to listen on all interfaces by using one of the host names
-`0.0.0.0` or `*`. The adapter does _not_ expand the list of interfaces when it is initialized. Instead, if no host is
-specified, or you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
+no host name is specified but the property
+[Ice.Default.Host](../../../property-reference/ice-default-properties#ice.default.host) is defined, the object adapter
+uses the property's value as the host name. Finally, if a host name is not specified, and the property
+`Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including the loopback
+interface. You may also force the object adapter to listen on all interfaces by using one of the host names `0.0.0.0` or
+`*`. The adapter does _not_ expand the list of interfaces when it is initialized. Instead, if no host is specified, or
+you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
 
 If the host name refers to a DNS name which is configured with multiple addresses, the object adapter will listen on the
 network interfaces identified by each address. All the addresses should refer to local network interfaces or the object

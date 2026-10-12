@@ -72,10 +72,12 @@ As of Ice 3.8, we do not recommend using thread pool limits (starvation) for flo
 pool to be out of threads for a short period of time, but generally, you always want to have at least one thread
 available in each of your Ice [thread pools](../../../runtime/threading-model/thread-pools).
 
-Ice provides new [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties) properties
-that allows the “dispatch side” of a connection to apply back pressure on the peer. For complete flow-control, you want
-to combine `MaxDispatches` with the new [adapter.MaxConnections](../../../property-reference/object-adapter-properties)
-property that allows an object adapter to limit the number of concurrent connections it accepts.
+Ice provides new
+[Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
+properties that allows the “dispatch side” of a connection to apply back pressure on the peer. For complete
+flow-control, you want to combine `MaxDispatches` with the new
+[adapter.MaxConnections](../../../property-reference/object-adapter-properties) property that allows an object adapter
+to limit the number of concurrent connections it accepts.
 
 ### Reworked the Published Endpoints of Object Adapters
 

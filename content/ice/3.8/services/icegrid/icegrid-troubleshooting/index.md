@@ -79,7 +79,8 @@ Another cause for a server to fail to activate correctly is if there is a mismat
 the server for its adapters, and the adapter identifiers specified in the server's deployment descriptor. After starting
 a server process, the node waits for the server to activate all of its object adapters and report them as ready; if the
 server does not do this, the node reports a failure once a timeout expires. The timeout is controlled by the setting of
-the property [IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties). (The default value is 60 seconds.)
+the property [IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties#icegrid.node.waittime). (The default
+value is 60 seconds.)
 
 You can check the status of each of a server's adapters using `icegridadmin` or the GUI tool. While the node waits for
 an adapter to be activated by the server, it reports the status of the adapter as "activating". If you experience

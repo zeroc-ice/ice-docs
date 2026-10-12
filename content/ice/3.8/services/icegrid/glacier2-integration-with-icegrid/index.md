@@ -17,7 +17,7 @@ _Using IceGrid via a Glacier2 router._
 In this situation, it is the router that must be configured with a locator proxy.
 
 Assuming the registry's client endpoint in the illustration uses port `8000`, the router requires the following setting
-for the [Ice.Default.Locator](../../../property-reference/ice-default-properties) property:
+for the [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) property:
 
 ```config
 Ice.Default.Locator=IceGrid/Locator:tcp -h 10.0.0.2 -p 8000
