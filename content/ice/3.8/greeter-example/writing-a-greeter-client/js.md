@@ -15,22 +15,19 @@ You can find the complete source code for this example in the
 The first step when writing a TypeScript application with Ice is to compile the Slice definitions for this application
 with the Slice to JavaScript compiler (`slice2js`).
 
-Here, we compile the `Greeter.ice` Slice file created earlier:
+Here, we compile the `Greeter.ice` Slice file we wrote earlier:
 
 ```shell
-slice2js --typescript Greeter.ice
+npx slice2js --typescript Greeter.ice
 ```
 
-This produces two files: a JavaScript module, `Greeter.js`, and a TypeScript declaration file, `Greeter.d.ts`. The
-declaration file describes the `GreeterPrx` class we instantiate in the code below, and the TypeScript compiler needs it
-to check our client code. `slice2js` generates `Greeter.d.ts` only when you pass `--typescript`. See
-[Using the Slice Compiler](../../slice/using-the-slice-compiler?lang=js) for the options `slice2js` accepts.
+This produces a JavaScript module, `Greeter.js`, and, because we pass `--typescript`, a TypeScript declaration file,
+`Greeter.d.ts`. The declaration file describes the `GreeterPrx` class we instantiate in the code below, and the
+TypeScript compiler needs it to check our client code.
 
-We recommend that you include this Slice compilation step in your build, like we demonstrate for the TypeScript demo
-programs: the demo’s `build.ts` script runs esbuild with the `@zeroc/slice2js` esbuild plug-in, which runs
-`slice2js --typescript` on `Greeter.ice` before esbuild bundles `client.ts` into `client.js`. esbuild strips the
-TypeScript types without checking them; the demo’s `npm run typecheck` script runs the TypeScript compiler
-(`tsc --noEmit`) to check them.
+We recommend that you include this Slice compilation step in your build. The `@zeroc/slice2js` package provides a
+plug-in that runs `slice2js` during a Vite, Rollup, webpack, or esbuild build. See
+[Using the Slice Compiler](../../slice/using-the-slice-compiler) for the plug-in and the `slice2js` options.
 
 ## Client Implementation
 
