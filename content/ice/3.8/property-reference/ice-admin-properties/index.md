@@ -25,7 +25,7 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 The Ice run time creates and activates an
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) named
 `Ice.Admin` if the [Administrative Facility](../../administration/administrative-facility) is enabled,
-[Ice.Admin.Endpoints](../object-adapter-properties#adapter.endpoints) is defined and one of the following are true:
+[Ice.Admin.Endpoints](../object-adapter-properties#adapter.endpoints) is defined and one of the following is true:
 
 - [Ice.Admin.DelayCreation](#ice.admin.delaycreation) is not enabled
 - [Ice.Admin.DelayCreation](#ice.admin.delaycreation) is enabled and the application calls `getAdmin` on the
