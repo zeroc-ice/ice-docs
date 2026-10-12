@@ -275,8 +275,8 @@ topic.setUpdater<RideShare::Status>(
 With this setup, vehicles can send partial updates to modify **battery level**, **coordinates**, **speed**, or
 **status** independently — or send a full **update sample** when multiple fields change at once.
 
-When a topic has no updater for the tag of a partial update, the reader or writer leaves the value unchanged: the sample
-carries the key's previous value.
+When a topic has no updater for the tag of a partial update, the reader or writer that has a value for the key leaves
+this value unchanged: the sample carries the key's previous value.
 
 #### Sample Filters and Partial Updates
 
@@ -284,7 +284,7 @@ A writer sends a reader only the samples that the reader's [sample filter](#samp
 each partial update to its current value for the key, which can differ from the value the writer applied the update to:
 
 - When the reader has no value for the key, it discards the partial updates it receives for this key until it receives a
-  full value. When a reader attaches, the writer sends the first sample of each key with a full value, even when this
-  sample is a partial update.
+  full value. When a reader attaches and the first sample the writer sends it for a key is a partial update, the writer
+  sends this sample with a full value.
 - When the filter rejected samples that changed the value after the reader's current value, the reader applies a later
   partial update to an older value than the writer did, so the reader's value can differ from the writer's.
