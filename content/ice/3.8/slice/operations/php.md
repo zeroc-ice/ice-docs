@@ -94,9 +94,8 @@ function op2($ns, $ss, $st);
 function op3($proxy);
 ```
 
-Each method also accepts an optional last argument, an associative array that holds the
-[request context](../../runtime/invocation/request-contexts/explicit-request-contexts) of the invocation. When you pass
-this argument, it must be an array: Ice rejects `null` with an `InvalidArgumentException`.
+Each method also accepts an optional last argument: an associative array that holds the
+[request context](../../runtime/invocation/request-contexts/explicit-request-contexts) of the invocation.
 
 Given a proxy to a `ClientToServer` object, the client code can pass parameters as in the following example:
 
@@ -122,10 +121,11 @@ $p->op2($ns, $ss, $st);                  // Pass complex variables
 $p->op3($p);                             // Pass proxy
 ```
 
-### Out Parameters
+### Out Parameters and Return Values
 
-Out parameters are passed by reference. Here is the same Slice definition we saw earlier, but this time with all
-parameters being passed in the out direction:
+A method returns the operation's return value, and assigns each out parameter to the variable you pass by reference.
+Here again are the same Slice definitions we saw earlier, but this time with all parameters being passed in the `out`
+direction, and with `op1` returning a value:
 
 ```slice
 struct NumberAndString
@@ -140,7 +140,7 @@ dictionary<long, StringSeq> StringTable;
 
 interface ServerToClient
 {
-    void op1(out int i, out float f, out bool b, out string s);
+    int op1(out float f, out bool b, out string s);
     void op2(out NumberAndString ns,
              out StringSeq ss,
              out StringTable st);
@@ -151,7 +151,7 @@ interface ServerToClient
 The Ice extension gives a `ServerToClient` proxy the following methods:
 
 ```php
-function op1(&$i, &$f, &$b, &$s);
+function op1(&$f, &$b, &$s);
 function op2(&$ns, &$ss, &$st);
 function op3(&$proxy);
 ```
@@ -162,7 +162,7 @@ Given a proxy to a `ServerToClient` object, the client code can receive the resu
 
 ```php
 $p = ...                 // Get proxy...
-$p->op1($i, $f, $b, $s);
+$i = $p->op1($f, $b, $s);
 $p->op2($ns, $ss, $st);
 $p->op3($stcp);
 ```
