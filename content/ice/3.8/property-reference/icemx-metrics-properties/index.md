@@ -91,13 +91,13 @@ runtime.
 
 ### Description {% id="icemx.metrics.view.groupby-description" %}
 
-Sets the attributes that group the metrics of a map: the map records the instrumented objects or operations whose
-attributes have the same values with the same metrics object, and builds the ID of this metrics object from these
-values. The default value is `id`, which gives each instrumented object or operation its own metrics object.
+Sets the attributes by which a map groups the instrumented objects or operations it records: all those with the same
+values for these attributes are grouped into one metrics object, whose ID is built from these values. The default value
+is `id`, which groups nothing: each instrumented object or operation gets its own metrics object.
 
-To group by several attributes, separate them with delimiters, which are any characters other than letters, digits and
-dots; the delimiters also appear in the ID. For example, `identity [operation]` groups invocations by proxy identity and
-operation name, with IDs such as `hello [sayHello]`.
+To group by several attributes, separate them with a space or punctuation (any character other than a letter, a digit or
+a dot). The separators appear in the IDs: for example, `identity [operation]` groups invocations by proxy identity and
+operation name, with IDs such as `hello [sayHello]`, and `remoteHost:remotePort` gives IDs such as `192.168.1.10:4061`.
 
 Each map supports its own set of attributes, listed in
 [Metrics Attributes](../../administration/administrative-facility/metrics-facet#metrics-attributes) for the Ice runtime,
@@ -122,8 +122,8 @@ IceMX.Metrics.ByPeer.Map.Connection.GroupBy=remoteHost:remotePort
 ```
 
 A view with `Map.` properties includes only the maps they name. The `Remote` and `Collocated` sub-maps of the Invocation
-map support neither `operation` nor `identity`, so the first two views set their `GroupBy` to `id`; otherwise, they
-would inherit the Invocation map's grouping and record nothing.
+map inherit its `GroupBy` unless they set their own, and they support neither `operation` nor `identity`, so the first
+two views set their `GroupBy` to `id`.
 
 ## IceMX.Metrics._view_.Reject._attribute_
 
