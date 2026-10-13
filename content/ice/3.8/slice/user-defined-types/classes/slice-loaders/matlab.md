@@ -6,8 +6,8 @@ into `M.Node`. It cannot locate the class for a Slice class or exception when:
 - you remap either the class name or an enclosing module using the `matlab:identifier` metadata; or
 - you assign a compact ID to the class.
 
-For these classes, create an `Ice.ClassSliceLoader` from the meta classes of the generated classes and give it to the
-communicator, in the same way as a custom Slice loader:
+For these classes, create an `Ice.ClassSliceLoader` from the meta classes of the generated classes and install it as
+your custom Slice loader (see below); the communicator keeps using its default Slice loader for all other classes:
 
 ```matlab
 communicator = Ice.Communicator(args, SliceLoader = Ice.ClassSliceLoader(?Compact, ?CompactExt));

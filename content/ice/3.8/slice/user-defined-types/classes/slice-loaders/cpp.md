@@ -15,7 +15,8 @@ public:
 
 Ice::InitializationData initData;
 initData.sliceLoader = std::make_shared<NodeLoader>();
-Ice::CommunicatorHolder ich{std::move(initData)};
+Ice::CommunicatorPtr communicator = Ice::initialize(initData);
+Ice::CommunicatorHolder communicatorHolder{communicator};
 ```
 
 {% /language-section %}

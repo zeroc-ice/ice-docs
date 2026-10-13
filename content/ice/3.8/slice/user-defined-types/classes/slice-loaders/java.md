@@ -9,8 +9,8 @@ for a Slice class or exception when:
   [Ice.Default.Package](../../../../property-reference/ice-default-properties#ice.default.package); or
 - you assign a compact ID to the class.
 
-For these classes, install a [ClassSliceLoader](api:Ice/ClassSliceLoader) created from the generated classes, in the
-same way as a custom Slice loader:
+For these classes, install a [ClassSliceLoader](api:Ice/ClassSliceLoader) created from the generated classes as your
+custom Slice loader (see below); the communicator keeps using its default Slice loader for all other classes:
 
 ```java
 var initData = new InitializationData();
