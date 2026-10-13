@@ -186,9 +186,7 @@ export function Search({ version }: { version: DocsVersion }) {
           className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base dark:border-white/10"
         />
 
-        {/* A scrolling box is a Tab stop in Firefox; its rows are reachable
-            without it. */}
-        <div className="overflow-y-auto" tabIndex={-1}>
+        <div className="overflow-y-auto">
           {query && results.length === 0 && (
             <p className="px-4 py-6 text-sm opacity-60">
               {records === null
