@@ -46,10 +46,10 @@ The code below illustrates these steps:
 
 The callback object (`mockAlarmClock` in the code above) will handle incoming requests for identity `alarmClock`.
 
-To associate an object adapter with a connection that already exists, or a different object adapter with each
-connection, call `setAdapter` on the connection, for example on the connection returned by a proxy's
-`ice_getConnection`. `setAdapter` applies only to outgoing connections. A connection without an object adapter rejects
-incoming requests with `ObjectNotExistException`.
+To set an object adapter on a connection created before you set the default object adapter, or to give a connection a
+different object adapter, call `setAdapter` on this outgoing connection, for example the connection returned by a
+proxy's `ice_getConnection`. A connection without an object adapter rejects incoming requests with
+`ObjectNotExistException`.
 
 ## Configuring a Server for Bidirectional Connections
 
