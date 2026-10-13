@@ -45,10 +45,15 @@ following objects and activities:
 - Connection establishment
 - Endpoint resolution
 
-The `id` of a metric identifies the instrumented object(s). The `total` member is the number of instrumented objects or
-operations that the metrics object has observed since its creation, and `current` is the number it observes now. The
-`totalLifetime` member is the sum, in microseconds, of the lifetimes of the instrumented objects or operations that are
-no longer observed, and `failures` is the number of failures that have occurred for the metrics object(s).
+The members of `Metrics` are:
+
+- `id`: the ID of the metrics object, built from the attributes named by the map's
+  [GroupBy](../../../property-reference/icemx-metrics-properties#icemx.metrics.view.groupby) property.
+- `total`: the number of instrumented objects or operations that the metrics object has observed since its creation.
+- `current`: the number of instrumented objects or operations it observes now.
+- `totalLifetime`: the sum, in microseconds, of the lifetimes of the instrumented objects or operations it no longer
+  observes.
+- `failures`: the number of failures that have occurred for these instrumented objects or operations.
 
 Failures are specified using a separate `IceMX::MetricsFailures` structure:
 
