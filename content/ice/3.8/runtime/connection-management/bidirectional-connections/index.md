@@ -23,8 +23,9 @@ the connection the client established.
 
 A client needs to perform the following steps in order to configure a bidirectional connection:
 
-1. [Create an object adapter](../../dispatch/creating-an-object-adapter) to receive callback requests. This adapter does
-   not require a name or endpoints if its only purpose is to receive callbacks over bidirectional connections.
+1. [Create an object adapter](../../dispatch/creating-an-object-adapter) to receive callback requests. If its only
+   purpose is to receive callbacks over bidirectional connections, this adapter needs no name or endpoints, and you
+   don't need to activate it.
 2. Set this object adapter as the default object adapter on the communicator. The communicator associates its default
    object adapter with the outgoing connections it creates afterward.
 3. [Register the callback object](../../dispatch/object-adapter-activation-and-deactivation) or objects with the object
@@ -34,9 +35,6 @@ A client needs to perform the following steps in order to configure a bidirectio
 
 The object adapter remains a regular object adapter, unaware of the outgoing connection(s) associated with it. These
 connections have no effect on the endpoints and other properties of proxies created by this object adapter.
-
-However, calling `activate` on this object adapter is optional if it's used only for bidirectional and collocated
-dispatches.
 
 We recommend using a dedicated, endpoint-less object adapter for “bidir” dispatches.
 
