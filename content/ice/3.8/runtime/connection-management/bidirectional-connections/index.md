@@ -12,12 +12,9 @@ usually establishes a new connection to that client to send callback requests, a
 
 _Callbacks in an open network._
 
-Unfortunately, network restrictions often prevent a server from being able to create a separate connection to the
-client, such as when the client resides behind a firewall as shown here:
+A firewall in front of the client, however, typically blocks this connection:
 
 ![The client can open a connection to the server through its firewall, but the firewall blocks a separate incoming callback connection from the server.](/images/ice/3.8/bidirectional-connections/callback2.svg)
-
-In this scenario, the firewall blocks any attempt to establish a connection directly to the client.
 
 For situations such as these, a bidirectional connection offers a solution. Requests may flow in both directions over a
 bidirectional connection, enabling a server to send callback requests to a client over the client's existing connection
