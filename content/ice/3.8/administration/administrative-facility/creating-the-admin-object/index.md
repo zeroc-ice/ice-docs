@@ -25,7 +25,7 @@ Ice creates the admin object during communicator initialization, and hosts all i
 - The administrative facility is enabled,
 - The [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) property specifies endpoints for the
   Ice.Admin object adapter, and
-- The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) property is not set, or is set to 0.
+- The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) property is not set, or is set to `0`.
 
 Ice gives this object the identity `instance-name`/admin, where _instance-name_ is the value of the
 [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties) property. If `Ice.Admin.InstanceName` is not
@@ -34,7 +34,7 @@ set or empty, Ice generates a UUID for _instance-name_.
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
 An application that needs to add or replace administrative facets before the admin object exposes them, such as the
-[Process](../process-facet) facet, sets `Ice.Admin.DelayCreation` to 1, with `Ice.Admin.Endpoints` set as above: the
+[Process](../process-facet) facet, sets `Ice.Admin.DelayCreation` to `1`, with `Ice.Admin.Endpoints` set as above: the
 communicator then creates the admin object when the application calls `getAdmin` on the
 [Communicator](api:Ice/Communicator).
 
