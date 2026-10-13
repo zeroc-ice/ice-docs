@@ -59,6 +59,22 @@ the conventions that recur in review.
 - Comments explain what the code cannot say for itself. Do not add a comment that narrates the markup or restates the
   class names on the line below it.
 
+## Keyboard and screen readers
+
+- **Every control draws the site's focus ring.** A button, link, input, or `tabindex="0"` element carries `focus-ring`;
+  a bare text link carries `focus-ring-text`. A control with no corners of its own adds `rounded-md`, or
+  `focus-visible:rounded-md` when a radius at rest would curve a border it draws. Menu items highlight by background
+  instead, and a scroll target such as a heading or the skip-to-content target draws no ring.
+- **A control hidden until hover shows on focus too**: `focus-visible:opacity-100` on the control, or
+  `focus-within:opacity-100` on the wrapper that hides it.
+- **Header controls are 32px tall** (`h-8`, `size-8`), so their rings match.
+- **Every control has a name and a state.** An icon-only button has an `aria-label` or `sr-only` text, a `nav` has an
+  `aria-label`, a toggle sets `aria-expanded` or `aria-pressed`, and a menu uses `components/menu.tsx`, which follows
+  the WAI-ARIA menu button pattern.
+- **Check with the keyboard, in Chrome and Firefox.** Tab through a fresh load of the front page, a long reference page,
+  the search dialog, and the phone drawer: every stop shows the whole ring in the link colour, and nothing moves when it
+  appears. Firefox also stops on a scrollable box, which is its own behaviour and stays.
+
 <!-- prettier-ignore-start -->
 
 <!-- BEGIN:nextjs-agent-rules -->
