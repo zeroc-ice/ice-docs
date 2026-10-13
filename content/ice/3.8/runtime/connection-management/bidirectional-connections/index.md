@@ -4,9 +4,9 @@ title: Bidirectional Connections
 
 ## Use Cases for Bidirectional Connections
 
-An Ice connection normally allows requests to flow in only one direction. If an application's design requires the server
-to make callbacks to a client, the server usually establishes a new connection to that client in order to send callback
-requests, as shown below:
+By default, requests flow over an Ice connection in one direction: from the client that establishes the connection to
+the server that accepts it. If an application's design requires the server to make callbacks to the client, the server
+usually establishes a new connection to that client to send callback requests, as shown below:
 
 ![The client opens a connection to send requests to the server. The server opens a separate connection to send callbacks to the client.](/images/ice/3.8/bidirectional-connections/callback1.svg)
 
