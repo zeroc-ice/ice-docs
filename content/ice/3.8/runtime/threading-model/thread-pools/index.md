@@ -17,25 +17,31 @@ A thread pool is a collection of threads that the Ice runtime draws upon to perf
 
 Each communicator creates two thread pools:
 
-- The _client thread pool_ services outgoing connections: it sends the requests that the invoking thread cannot write
-  without blocking, such as requests queued while the connection is being established, and it handles the replies to
-  outgoing requests{% iflang langs="cpp,java" %} and includes executing AMI
-  callbacks{% /iflang %}{% iflang langs="python" %} and includes executing the callbacks of Ice futures, such as the
-  code that follows an awaited invocation in a coroutine dispatch method; when the communicator has an event loop
-  adapter, such as the asyncio event loop passed to `Ice.Communicator`, an awaited invocation resumes on this event loop
-  instead{% /iflang %}{% iflang langs="csharp" %}; Ice completes the task of an asynchronous invocation with
-  `RunContinuationsAsynchronously`, so the code that follows an awaited invocation runs on a .NET thread pool thread by
-  default{% /iflang %}{% iflang langs="swift" %}; an awaited invocation resumes through a Swift continuation, outside
-  the thread pool{% /iflang %}. If a connection is used in
+- The _client thread pool_ services outgoing connections: it sends the requests that the invoking thread cannot send
+  right away and handles the replies to outgoing requests{% iflang langs="cpp,java" %}, which includes running the AMI
+  callbacks{% /iflang %}. If a connection is used in
   [bidirectional mode](../../connection-management/bidirectional-connections), the client thread pool also dispatches
   incoming requests.
-- The _server thread pool_ services incoming connections. It dispatches incoming requests and, for bidirectional
-  connections, sends the outgoing requests that the invoking thread cannot write and processes their
-  replies.{% iflang langs="python" %} When the communicator has an event loop adapter, a coroutine dispatch method runs
-  on this event loop.{% /iflang %}{% iflang langs="swift" %} Each Swift dispatch runs in a new task, so the size of a
-  thread pool does not limit concurrent Swift dispatches; use
-  [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
-  to limit the concurrent dispatches on a connection.{% /iflang %}
+- The _server thread pool_ services incoming connections: it dispatches incoming requests and, for bidirectional
+  connections, services the outgoing requests sent over these connections.
+
+{% iflang langs="python" %}
+
+When the communicator has an event loop adapter, which you set by passing an asyncio event loop to `Ice.Communicator` or
+through `InitializationData.eventLoopAdapter`, a coroutine dispatch method and the code that follows an awaited
+invocation run on this event loop. Otherwise, they run on the thread pool thread that dispatches the request or
+completes the invocation.
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
+
+Each dispatch runs in its own Swift task, outside the thread pool: the thread pool reads the incoming requests but does
+not limit how many of them are dispatched concurrently. Use
+[Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
+to limit the concurrent dispatches on a connection.
+
+{% /iflang %}
 
 By default, these two thread pools are shared by all of the communicator's [object adapters](../../dispatch). If
 necessary, you can configure individual object adapters to use a [private thread pool](../object-adapter-thread-pools)
@@ -75,10 +81,9 @@ Ice.ThreadPool.Server.Size=1
 Ice.ThreadPool.Server.SizeMax=10
 ```
 
-To monitor the thread pool activities of a communicator, you can enable the
-[Ice.Trace.ThreadPool](../../../property-reference/ice-trace-properties#ice.trace.threadpool) property. Setting this
-property to a non-zero value causes the communicator to log a message when it creates a thread pool, as well as each
-time the size of a thread pool increases or decreases.
+To monitor the thread pool activities of a communicator, set
+[Ice.Trace.ThreadPool](../../../property-reference/ice-trace-properties#ice.trace.threadpool) to 1: the communicator
+then logs a message when it creates a thread pool, and each time the size of a thread pool increases or decreases.
 
 ## Dynamic Thread Pools
 
@@ -142,23 +147,27 @@ than `name.Size` allows a thread pool to grow beyond its initial capacity.
 ## Serializing the Messages of Each Connection
 
 A multi-threaded pool can dispatch several requests received over the same connection concurrently. Setting
-[_name_.Serialize](../../../property-reference/ice-threadpool-properties#ice.threadpool.name.serialize) to a value
-greater than 0 makes the pool process the messages of each connection one at a time, in the order received, while it
-still dispatches requests from different connections concurrently. This property has an effect only on a pool whose
-maximum size is greater than 1.
+[_name_.Serialize](../../../property-reference/ice-threadpool-properties#ice.threadpool.name.serialize) to 1 makes the
+pool process the messages of each connection one at a time, in the order received, while it still dispatches requests
+from different connections concurrently. This property has an effect only on a pool whose maximum size is greater
+than 1.
+
+`Serialize` differs from
+[Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
+set to 1. With `Serialize`, the pool starts the next dispatch of a connection as soon as the previous dispatch method
+returns, even when this dispatch completes later, asynchronously. With `MaxDispatches`, the connection stops reading
+requests while a dispatch is in progress, until its response is sent.
 
 {% iflang langs="cpp,csharp,java,python" %}
 
 ## Executing Dispatches and Callbacks with Your Own Executor
 
-By default, a thread pool thread executes the dispatches and the asynchronous invocation callbacks of its connections.
-The `executor` field of `InitializationData` lets the application choose this thread: the communicator calls the
-executor with each dispatch or callback to execute, and with the connection associated with this call, which can be
-null. The executor must eventually execute the call, for example by queuing it to a UI thread so that dispatches and
-callbacks can update UI objects directly. The executor, rather than the size of the thread pool, then determines which
-of the calls it receives run concurrently.{% iflang langs="python" %} When the communicator has an event loop adapter,
-the adapter runs coroutine dispatch methods and the code that follows an awaited invocation on its event loop, whichever
-thread the executor chooses.{% /iflang %}
+By default, a thread pool thread executes the dispatches of its connections{% iflang langs="cpp,java" %} and the AMI
+callbacks{% /iflang %}{% iflang langs="python" %} and the callbacks of Ice futures{% /iflang %}. The `executor` field of
+`InitializationData` lets your application execute these calls instead: the communicator passes each call to your
+executor, which must execute it, for example by queuing it to a UI thread so that
+dispatches{% iflang langs="cpp,java,python" %} and callbacks{% /iflang %} can update UI objects directly. The executor,
+rather than the size of the thread pool, then determines which of the calls it receives run concurrently.
 
 The `threadStart` and `threadStop` fields of `InitializationData` are functions that the communicator calls when it
 starts a new thread and when this thread is about to terminate.
