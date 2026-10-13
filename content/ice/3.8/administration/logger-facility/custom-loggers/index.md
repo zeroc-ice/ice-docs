@@ -15,7 +15,7 @@ You have several options if you wish to install a logger other than the default 
 
 {% iflang langs="js" %}
 
-- In Node.js, select the file logger, one of the [built-in loggers](../built-in-loggers)
+- In Node.js, select the [file logger](../built-in-loggers)
 - Supply your own logger implementation in [InitializationData](api:Ice/InitializationData) when you create a
   communicator
 
@@ -28,22 +28,16 @@ You have several options if you wish to install a logger other than the default 
 
 {% /iflang %}
 
-Changing the `Logger` object that is attached to a communicator allows you to integrate Ice messages into your own
-message handling system. For example, for a complex application, you might have an existing logging framework. To
-integrate Ice messages into that framework, you can create your own `Logger` implementation that logs messages to the
-existing framework.
+A custom logger lets you integrate the messages the Ice runtime logs into your application's logging framework: your
+`Logger` implementation forwards each log message to this framework.
 
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
 ## Implementing a Logger
 
-A logger implements the `print`, `trace`, `warning`, and `error` methods described in [Logger Facility](..), and
-`cloneWithPrefix`, which returns a new logger that logs with the given
-prefix{% iflang langs="cpp,csharp,java,python,swift" %}. `getPrefix` returns the prefix of the logger{% /iflang %}.
-
-The Ice runtime calls `print`, `trace`, `warning`, and `error` from contexts where it cannot handle an exception, so
-implementations of these methods must not throw exceptions.{% iflang langs="cpp,csharp,java,python,swift" %} The Ice
-runtime calls the logger from its own threads, concurrently, so the implementation must be thread-safe.{% /iflang %}
+A custom logger implements the [Logger](api:Ice/Logger) interface, whose methods are described in
+[Logger Facility](..).{% iflang langs="cpp,csharp,java,python,swift" %} The Ice runtime calls the logger from its own
+threads, concurrently, so the implementation must be thread-safe.{% /iflang %}
 
 {% /iflang %}
 
@@ -70,8 +64,7 @@ Destroying a communicator leaves its logger usable: you can keep using the logge
 `Logger` extends `IDisposable`. When you destroy a communicator, the communicator disposes the logger it created, either
 from [Ice.LogFile](../../../property-reference/ice-properties) or as its default logger, and the logger installed by a
 [logger plug-in](../../../plugins/custom-logger-plug-in). You manage the lifetime of a logger you supply in
-`InitializationData` or install with `setProcessLogger` (see [The Per-Process Logger](../per-process-logger)). The
-caller of `cloneWithPrefix` disposes the returned logger.
+`InitializationData` or install with `setProcessLogger` (see [The Per-Process Logger](../per-process-logger)).
 
 {% /iflang %}
 

@@ -7,16 +7,15 @@ pages:
   - per-process-logger
 ---
 
-Depending on the setting of [various properties](../../runtime/properties-and-configuration), the Ice runtime produces
-trace, warning, or error messages. These messages are written via the [Logger](api:Ice/Logger) interface.
+The Ice runtime logs trace messages, warnings, and errors through the [Logger](api:Ice/Logger) interface. The
+[Ice.Trace.\*](../../property-reference/ice-trace-properties) and
+[Ice.Warn.\*](../../property-reference/ice-warn-properties) properties select which trace messages and warnings it logs.
 
 A logger provides one method for each kind of message:
 
 - `print` logs a message as is, without a timestamp or prefix.
-- `trace` logs a trace message in a category, such as `Network` for the messages enabled by
-  [Ice.Trace.Network](../../property-reference/ice-trace-properties).
-- `warning` logs a warning, such as the warnings enabled by the
-  [Ice.Warn.\*](../../property-reference/ice-warn-properties) properties.
+- `trace` logs a trace message in a category.
+- `warning` logs a warning.
 - `error` logs an error.
 
 {% iflang langs="cpp" %}

@@ -1,9 +1,16 @@
 ---
 title: The Per-Process Logger
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - ruby
 ---
 
-A communicator created without a logger of its own and without logger properties uses the per-process logger when it is
-a custom logger, and Ice's default logger otherwise.
+A communicator created without a logger of its own and without logger properties uses the per-process logger if you set
+one with `setProcessLogger`, and Ice's default logger otherwise.
 
 {% iflang langs="cpp,csharp,java,js,python" %}
 
