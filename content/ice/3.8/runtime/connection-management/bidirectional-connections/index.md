@@ -16,9 +16,8 @@ A firewall in front of the client, however, typically blocks this connection:
 
 ![The client can open a connection to the server through its firewall, but the firewall blocks a separate incoming callback connection from the server.](/images/ice/3.8/bidirectional-connections/callback2.svg)
 
-For situations such as these, a bidirectional connection offers a solution. Requests may flow in both directions over a
-bidirectional connection, enabling a server to send callback requests to a client over the client's existing connection
-to the server.
+A bidirectional connection solves this: requests flow over it in both directions, so the server can send callbacks over
+the connection the client established.
 
 ## Configuring a Client for Bidirectional Connections
 
