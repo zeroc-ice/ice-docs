@@ -37,6 +37,10 @@ Ice/InitializationData:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.InitializationData.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/InitializationData.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/initializationdata
+Ice/Instrumentation/CommunicatorObserver:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Instrumentation_1_1CommunicatorObserver.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Instrumentation.CommunicatorObserver.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Instrumentation/CommunicatorObserver.html
 Ice/LocalException:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1LocalException.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.LocalException.html

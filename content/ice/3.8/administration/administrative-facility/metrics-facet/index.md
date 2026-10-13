@@ -261,9 +261,9 @@ object.
 
 ## Custom Instrumentation
 
-To observe the Ice runtime with your own instrumentation, set the `observer` member of `InitializationData` to your
-implementation of
-{% iflang langs="cpp" %}`Ice::Instrumentation::CommunicatorObserver`{% /iflang %}{% iflang langs="csharp" %}`Ice.Instrumentation.CommunicatorObserver`{% /iflang %}{% iflang langs="java" %}`com.zeroc.Ice.Instrumentation.CommunicatorObserver`{% /iflang %}.
+To observe the Ice runtime with your own instrumentation, set the `observer` member of
+[`InitializationData`](api:Ice/InitializationData) to your implementation of
+{% iflang langs="cpp" %}[`Ice::Instrumentation::CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}{% iflang langs="csharp" %}[`Ice.Instrumentation.CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}{% iflang langs="java" %}[`com.zeroc.Ice.Instrumentation.CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}.
 When the `Metrics` facet is enabled, Ice calls this observer only for the kinds of objects and operations whose map at
 least one enabled view includes; for example, it reports invocations only while an enabled view has an Invocation map.
 
