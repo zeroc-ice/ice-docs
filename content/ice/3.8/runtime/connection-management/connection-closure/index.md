@@ -104,6 +104,17 @@ complete.
 This process can take some time. If the graceful closure exceeds the configured
 [CloseTimeout](../../../property-reference/ice-connection-properties), the connection is aborted.
 
+Ice starts a graceful closure when:
+
+- the application closes the connection with `close`, as described [below](#closing-a-connection-from-the-application);
+- an object adapter is deactivated, including when you shut down its communicator: the object adapter closes its
+  incoming connections;
+- a communicator is destroyed: the communicator closes its incoming and outgoing connections; or
+- the [inactivity check](#the-inactivity-check) closes an inactive connection.
+
+Only `close` waits for the connection's outstanding invocations. When an object adapter is deactivated or a communicator
+is destroyed, these invocations fail with the [closure exception](#closure-exceptions) of the connection.
+
 ## Closing a Connection from the Application
 
 An application obtains a connection from a proxy with `ice_getConnection`, or from the `con` field of the `Current`
