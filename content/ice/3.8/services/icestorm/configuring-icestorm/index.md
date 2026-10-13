@@ -2,10 +2,8 @@
 title: Configuring IceStorm
 ---
 
-IceStorm is a relatively lightweight service in that it requires very little configuration and is implemented as an
-[IceBox](../../icebox) service. The configuration properties supported by IceStorm are described in
-[IceStorm Properties](../../../property-reference/icestorm-properties); some of them control diagnostic output and are
-not discussed here.
+IceStorm runs as an [IceBox](../../icebox) service. This page covers the properties you set to deploy IceStorm and its
+clients; [IceStorm Properties](../../../property-reference/icestorm-properties) describes all of them.
 
 ## IceStorm Server Configuration
 
