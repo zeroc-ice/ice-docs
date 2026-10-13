@@ -13,11 +13,12 @@ pages:
   - security-considerations-for-administrative-facets
 ---
 
-Ice applications often require remote administration, such as when an IceGrid node needs to
-[gracefully deactivate](../../runtime/locators/locator-configuration-for-a-server) a running server. The Ice runtime
-provides an extensible, centralized facility for exporting administrative functionality.
+The Administrative Facility lets you administer a running Ice application remotely: shut it down, view and change its
+configuration properties, read its log, and monitor its metrics. The Ice runtime provides each of these capabilities as
+a [facet](../../runtime/facets) of a single [admin object](./admin-object), to which you can add your own facets.
+[IceGrid](../../services/icegrid) relies on this facility to manage the servers it deploys.
 
 ## See Also
 
-- [Locator Configuration for a Server](../../runtime/locators/locator-configuration-for-a-server)
+- [Facets](../../runtime/facets)
 - [Object Adapters](../../runtime/dispatch)
