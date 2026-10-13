@@ -55,7 +55,7 @@ The members of `Metrics` are:
   observes.
 - `failures`: the number of failures that have occurred for these instrumented objects or operations.
 
-Failures are specified using a separate `IceMX::MetricsFailures` structure:
+Each `IceMX::MetricsFailures` structure counts the failures of one metrics object:
 
 ```slice
 struct MetricsFailures
@@ -65,9 +65,9 @@ struct MetricsFailures
 }
 ```
 
-The `failures` dictionary provides the count of each type of failure for a metric identified by `id`. Failures are
-dependent on the instrumented objects. For example, failures for Ice connections are represented with the name of the
-exception that caused the connection to fail (e.g., `Ice::ConnectionLostException` or `Ice::TimeoutException`).
+- `id`: the ID of the metrics object.
+- `failures`: the number of failures of each kind, keyed by the exception that caused them, such as
+  `::Ice::ConnectionLostException` or `::Ice::CloseTimeoutException` for a connection.
 
 A metrics map is simply defined as a sequence of `IceMX::Metrics` objects, and a metrics view is defined as a dictionary
 of metrics map:
