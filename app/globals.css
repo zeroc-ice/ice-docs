@@ -17,11 +17,9 @@
   }
 }
 
-/* The focus ring of a control: 2px in the link colour, drawn just inside the
-   element's edge, where no container that clips at its edge can cut it. The
-   ring follows the element's corners; one with no corners of its own adds
-   `rounded-md`. The colour is set before focus too, so a control's colour
-   transition does not fade the ring in from the text colour. */
+/* A control's focus ring, drawn inside its edge so no clipping container can
+   cut it. The colour is set before focus too, so a colour transition does not
+   fade the ring in. */
 @utility focus-ring {
   outline-color: var(--link);
   &:focus-visible {
@@ -31,12 +29,9 @@
   }
 }
 
-/* The focus ring of a text link. Bare text fills its box from side to side,
-   so the ring is drawn 2px outside a box widened by 2px each side, with
-   margins that keep the text in place: it then clears the glyphs by 4px at the
-   sides and by the font's own leading above and below. A ring's curve grows
-   with its distance from the box, so the corners are 4px tighter than a
-   control's for the same curve. */
+/* A text link's focus ring, drawn outside a box widened by 2px each side so it
+   clears the glyphs; the margins keep the text in place. The tighter corners
+   give the same curve as a ring drawn inside. */
 @utility focus-ring-text {
   padding-inline: 2px;
   margin-inline: -2px;
