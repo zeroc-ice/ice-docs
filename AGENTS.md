@@ -65,7 +65,6 @@ the conventions that recur in review.
   ring.
 - A control has a name and a state: an `aria-label` or `sr-only` text where it shows no text, and `aria-expanded` or
   `aria-pressed` where it toggles.
-- Tab through the page in Chrome and Firefox: every stop shows the whole ring, and nothing moves when it appears.
 
 <!-- prettier-ignore-start -->
 
