@@ -28,9 +28,9 @@ directory of this database: `db`, which must exist in the current working direct
 
 The final two properties specify the endpoints used by the IceStorm object adapters. The `TopicManager` property
 specifies the endpoints on which the `TopicManager` and `Topic` objects reside; these endpoints must use a
-connection-oriented protocol such as TCP or SSL. The `Publish` property specifies the endpoint(s) used by topic
-[publisher objects](../using-icestorm/using-an-icestorm-publisher-object); using a datagram endpoint in this property is
-possible but carries additional risk.
+connection-oriented protocol such as TCP or SSL. The `Publish` property specifies the endpoints of the topic
+[publisher objects](../using-icestorm/using-an-icestorm-publisher-object). It can include a UDP endpoint, so that
+publishers can send events as datagrams, at the cost of possibly losing them.
 
 IceStorm's default [thread pool](../../../runtime/threading-model) configuration is sufficient when the service is
 running on a single CPU machine. On a host with multiple CPUs, you may be able to improve IceStorm's performance by
