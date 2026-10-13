@@ -108,14 +108,5 @@ because they are sent over connection-oriented transports, so individual packets
 
 ## Compressing Batched Invocations
 
-Batched invocations are more efficient if you also enable compression for the transport: many isolated and small
-messages are unlikely to compress well, whereas batched messages are likely to provide better compression because the
-compression algorithm has more data to work with.
-
-{% callout type="note" %}
-
-Regardless of whether you used batched messages or not, you should enable compression only on lower-speed links. For
-high-speed LAN connections, the CPU time spent doing the compression and decompression is typically longer than the time
-it takes to just transmit the uncompressed data.
-
-{% /callout %}
+A batch compresses better than isolated requests, because it gives the compression algorithm more data to work with. See
+[Compression](../../../compression) for when compression helps and how to enable it.

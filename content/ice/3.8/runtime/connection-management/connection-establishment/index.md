@@ -71,9 +71,9 @@ connection; or it can select an endpoint with an established connection and reus
 
 ### Proxy Settings and Connection Reuse
 
-The communicator does not consider [compression](../../../protocol/protocol-compression) settings when searching for
-existing connections to reuse; proxies whose compression settings differ can share the same connection (assuming all
-other selection criteria are satisfied).
+The communicator does not consider [compression](../../compression) settings when searching for existing connections to
+reuse; proxies whose compression settings differ can share the same connection (assuming all other selection criteria
+are satisfied).
 
 Likewise, the communicator does not consider the deprecated endpoint timeout (`-t`) setting when searching for existing
 connections to reuse.

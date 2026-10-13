@@ -14,6 +14,7 @@ pages:
   - threading-model
   - transports
   - ssl-transport
+  - compression
   - endpoint-syntax
 ---
 

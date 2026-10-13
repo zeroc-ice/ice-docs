@@ -40,9 +40,9 @@ for dispatches.
 
 {% property-description %}
 
-Specifies the bzip2 compression level to use when [compressing protocol messages](../../protocol/protocol-compression).
-Values range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note
-that higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
+Specifies the bzip2 compression level to use when [compressing protocol messages](../../runtime/compression). Values
+range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that
+higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
 significant improvement over lower levels. If not specified, the default value is `1`.
 
 {% /property-description %}
