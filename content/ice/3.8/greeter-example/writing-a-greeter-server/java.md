@@ -43,7 +43,8 @@ sourceSets {
 }
 ```
 
-See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the plugin and the options of `slice2java`.
+See [Slice Tools for Ice and Java](https://github.com/zeroc-ice/ice/blob/3.8/java/tools/slice-tools/README.md) for the
+plugin settings, and [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options of `slice2java`.
 
 The Slice compiler produces 4 files in a folder named `com/example/visitorcenter`:
 
