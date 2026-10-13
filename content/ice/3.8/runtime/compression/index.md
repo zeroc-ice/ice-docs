@@ -21,8 +21,8 @@ Compression is likely to improve performance only over lower-speed links, for wh
 Over high-speed LAN links, the CPU time spent compressing and uncompressing messages can be longer than the time it
 takes to send the uncompressed data. Measure with representative messages before enabling compression.
 
-[Batched invocations](../invocation/invocation-mode/batched-invocations) compress better than isolated requests: small
-messages are unlikely to compress well, whereas a batch gives bzip2 more data to work with.
+[Batched invocations](../invocation/invocation-mode/batched-invocations) are likely to compress better than isolated
+requests: small messages are unlikely to compress well, whereas a batch gives bzip2 more data to work with.
 
 ## Enabling Compression
 
@@ -57,12 +57,16 @@ its requests was made on a proxy with compression enabled.
 
 ## How Ice Compresses Messages
 
-When compression is enabled for an invocation, Ice compresses the request when it is at least 100 bytes long. It sends a
-shorter request uncompressed, still asking for a compressed reply.{% iflang langs="csharp,java" %} Ice also sends a
-message uncompressed when compressing it does not make it smaller.{% /iflang %}
+When compression is enabled for an invocation and the runtime supports compression (see
+[Compression Support by Language Mapping](#compression-support-by-language-mapping)), Ice compresses the request when it
+is at least 100 bytes long. It sends a shorter request uncompressed, still asking for a compressed
+reply.{% iflang langs="csharp,java" %} Ice also sends a message uncompressed when compressing it saves little or no
+space.{% /iflang %}
 
-A server compresses a reply when the request asked for a compressed reply and the reply is at least 100 bytes long. The
-server's own proxies and endpoints do not affect this decision.
+An object adapter compresses a reply when the request asked for a compressed reply and the reply is at least 100 bytes
+long; its own proxies and endpoints do not affect this decision.{% iflang langs="cpp,java,python,swift" %} An object
+adapter can send a reply that reports a dispatch failure uncompressed, even when the request asked for a compressed
+reply.{% /iflang %}
 
 [Ice.Compression.Level](../../property-reference/ice-properties#ice.compression.level) sets the bzip2 compression level,
 from `1` (fastest, the default) to `9` (best compression).

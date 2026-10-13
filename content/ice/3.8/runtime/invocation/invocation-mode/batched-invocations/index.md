@@ -108,5 +108,5 @@ because they are sent over connection-oriented transports, so individual packets
 
 ## Compressing Batched Invocations
 
-A batch compresses better than isolated requests, because it gives the compression algorithm more data to work with. See
-[Compression](../../../compression) for when compression helps and how to enable it.
+A batch is likely to compress better than isolated requests, because it gives the compression algorithm more data to
+work with. See [Compression](../../../compression) for when compression helps and how to enable it.
