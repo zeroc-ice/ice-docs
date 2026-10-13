@@ -145,7 +145,7 @@ export function Search({ version }: { version: DocsVersion }) {
             strokeLinecap="round"
           />
         </svg>
-        <span className="hidden lg:inline">Search</span>
+        <span className="sr-only lg:not-sr-only">Search</span>
         <kbd className="hidden rounded border border-black/15 px-1 text-[10px] xl:inline dark:border-white/20">
           {hotkey}
         </kbd>

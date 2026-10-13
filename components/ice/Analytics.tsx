@@ -77,10 +77,11 @@ function ConsentBanner() {
         >
           Decline
         </button>
+        {/* Filled in the ring's own colour, so the ring sits outside it. */}
         <button
           type="button"
           onClick={() => setConsent('granted')}
-          className="flex-1 rounded-lg bg-link px-3 py-2 font-medium text-surface focus-ring transition-colors hover:bg-link-hover"
+          className="flex-1 rounded-lg bg-link px-3 py-2 font-medium text-surface focus-ring transition-colors hover:bg-link-hover focus-visible:outline-offset-2"
         >
           Accept
         </button>

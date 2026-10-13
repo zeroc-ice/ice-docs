@@ -61,8 +61,8 @@ the conventions that recur in review.
 
 ## Keyboard and screen readers
 
-- A control carries `focus-ring`, a bare text link `focus-ring-text`; see `app/globals.css`. A scroll target draws no
-  ring.
+- A control carries `focus-ring`, a bare text link `focus-ring-text`; see `app/globals.css`. A menu item highlights by
+  background instead, and a scroll target draws no ring.
 - A control has a name and a state: an `aria-label` or `sr-only` text where it shows no text, and `aria-expanded` or
   `aria-pressed` where it toggles.
 
