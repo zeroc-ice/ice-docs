@@ -26,17 +26,12 @@ IceStorm keeps its persistent state in an [LMDB](https://www.symas.com/mdb) data
 directory of this database: `db`, which must exist in the current working directory before the service starts. In
 [transient mode](../../../property-reference/icestorm-properties), IceStorm keeps no database and ignores this property.
 
-The final two properties specify the endpoints used by the IceStorm object adapters. The `TopicManager` property
-specifies the endpoints on which the `TopicManager` and `Topic` objects reside; these endpoints must use a
-connection-oriented protocol such as TCP or SSL. The `Publish` property specifies the endpoints of the topic
-[publisher objects](../using-icestorm/using-an-icestorm-publisher-object). It can include a UDP endpoint, so that
-publishers can send events as datagrams, at the cost of possibly losing them.
-
-IceStorm's default [thread pool](../../../runtime/threading-model) configuration is sufficient when the service is
-running on a single CPU machine. On a host with multiple CPUs, you may be able to improve IceStorm's performance by
-increasing the size of its client-side thread pool using the
-[Ice.ThreadPool.Client.*](../../../property-reference/ice-threadpool-properties) properties, but the optimal number of
-threads can only be determined with careful benchmarking.
+The last two properties set the endpoints of the two IceStorm object adapters. `IceStorm.TopicManager.Endpoints` sets
+the endpoints of the adapter that hosts the topic manager and the topic objects; these endpoints must use a
+connection-oriented transport such as TCP or SSL. `IceStorm.Publish.Endpoints` sets the endpoints of the adapter that
+hosts the [publisher objects](../using-icestorm/using-an-icestorm-publisher-object). The publisher objects have their
+own adapter because, unlike the topic manager, they can accept events over UDP. A publisher that sends events with a
+datagram proxy gets the semantics of UDP: an event can be lost, duplicated, or delivered out of order.
 
 To deploy a non-replicated IceStorm service with IceGrid, use the `IceStorm` server or service template in the
 `config/templates.xml` file. These templates accept the `instance-name`, `topic-manager-endpoints`, `publish-endpoints`
@@ -66,20 +61,21 @@ single instance of this service. To use them, configure the IceGrid registry wit
 [default templates](../../icegrid/icegrid-templates) and import them into your application, or copy them into your
 application descriptor. Both templates accept the following parameters:
 
-| Parameter                     | Description                                                                                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `instance-name`               | The IceStorm [instance name](../../../property-reference/icestorm-properties), which also prefixes the adapter IDs. The default is `${application}.IceStorm`. |
-| `node-id`                     | The replica's [node ID](../../../property-reference/icestorm-properties). Required.                                                                           |
-| `topic-manager-replica-group` | The replica group of the `IceStorm.TopicManager` adapter. Required.                                                                                           |
-| `publish-replica-group`       | The replica group of the `IceStorm.Publish` adapter. Required; an empty value keeps the adapter out of any replica group.                                     |
-| `topic-manager-endpoints`     | The endpoints of the `IceStorm.TopicManager` adapter. The default is `default`.                                                                               |
-| `publish-endpoints`           | The endpoints of the `IceStorm.Publish` adapter. The default is `default`.                                                                                    |
-| `node-endpoints`              | The endpoints of the `IceStorm.Node` adapter, which replicas use to communicate with each other. The default is `default`.                                    |
-| `flush-timeout`               | The value of [IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties). The default is `1000`.                                                |
+| Parameter                     | Description                                                                                                                |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `instance-name`               | The IceStorm [instance name](../../../property-reference/icestorm-properties). The default is `${application}.IceStorm`.   |
+| `node-id`                     | The replica's [node ID](../../../property-reference/icestorm-properties). Required.                                        |
+| `topic-manager-replica-group` | The replica group of the `IceStorm.TopicManager` adapter. Required.                                                        |
+| `publish-replica-group`       | The replica group of the `IceStorm.Publish` adapter. Required; an empty value keeps the adapter out of any replica group.  |
+| `topic-manager-endpoints`     | The endpoints of the `IceStorm.TopicManager` adapter. The default is `default`.                                            |
+| `publish-endpoints`           | The endpoints of the `IceStorm.Publish` adapter. The default is `default`.                                                 |
+| `node-endpoints`              | The endpoints of the `IceStorm.Node` adapter, which replicas use to communicate with each other. The default is `default`. |
+| `flush-timeout`               | The value of [IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties). The default is `1000`.             |
 
-The application defines the two replica groups: one for the publisher proxies, and another for the topics. The topic
-manager replica group must register the well-known object `instance-name/TopicManager`, because each replica finds the
-other replicas through this object. The following application deploys three replicas with the default instance name:
+The application defines the two replica groups: one for the `IceStorm.Publish` adapters of the replicas, and another for
+their `IceStorm.TopicManager` adapters. The topic manager replica group declares the well-known object
+`instance-name/TopicManager`, which each replica uses to find the other replicas. The following application deploys
+three replicas with the default instance name:
 
 ```xml
 <icegrid>
@@ -111,16 +107,18 @@ other replicas through this object. The following application deploys three repl
 </icegrid>
 ```
 
-An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
-case, remove `IceStorm-PublishReplicaGroup` from the above deployment and set `publish-replica-group` to an empty value.
+To rule out [transparent failover](../highly-available-icestorm#publisher-considerations-for-icestorm-replication) when
+publishing, keep the `IceStorm.Publish` adapters out of any replica group: remove `IceStorm-PublishReplicaGroup` from
+the deployment and set `publish-replica-group` to an empty value. The publisher proxies returned by the topics then
+point to a single replica.
 
 IceStorm requires at least three replicas, each with a unique node ID. A node ID can be any non-negative integer, and
 the IDs need not be contiguous or start at 0. The node ID is also the replica's priority for
 [coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a higher priority.
 
-If you write the descriptors yourself, configure each replica's IceStorm service with the adapters and properties that
-the `IceStorm-HA` service template defines, as in this excerpt of a service template with `instance-name` and `node-id`
-parameters:
+If you don't use the `IceStorm-HA` templates, give each replica's IceStorm service the same adapters and properties as
+the `IceStorm-HA` service template, where `${instance-name}` and `${node-id}` stand for the instance name and the
+replica's node ID:
 
 ```xml
 <adapter name="IceStorm.TopicManager"
@@ -142,10 +140,9 @@ parameters:
 <property name="IceStorm.NodeId" value="${node-id}"/>
 ```
 
-Keep these adapter and property names whatever the name of the IceBox service, and build each adapter ID as shown: the
-instance name, the node ID, then `.TopicManager`, `.Publish` or `.Node`. IceStorm finds the other replicas through the
-`instance-name/TopicManager` replica group and reads each replica's node ID from its adapter ID, so the IceStorm service
-fails to start when an adapter ID doesn't follow this pattern.
+Build each adapter ID as shown: the instance name, the node ID, then `.TopicManager`, `.Publish` or `.Node`. IceStorm
+finds the other replicas through the `instance-name/TopicManager` replica group and reads each replica's node ID from
+its adapter ID.
 
 ### Manual Deployment
 
@@ -153,9 +150,9 @@ You can also deploy IceStorm replicas without IceGrid, although it requires more
 deployment is simpler to maintain.
 
 The first step is defining the set of node proxies using properties of the form
-[Nodes._id_](../../../property-reference/icestorm-properties). These proxies allow replicas to contact each other; the
-object identity of each node has the instance name as its category, and `node` followed by the node ID as its name, such
-as `IceStorm/node0`.
+[IceStorm.Nodes._id_](../../../property-reference/icestorm-properties#icestorm.nodes.id). These proxies allow replicas
+to contact each other; the object identity of each node has the instance name as its category, and `node` followed by
+the node ID as its name, such as `IceStorm/node0`.
 
 The node IDs can be any non-negative integers. Each replica must have a unique node ID, but the IDs need not be
 contiguous or start at 0: it is fine to leave gaps, for example after decommissioning a replica. The node ID is also the
@@ -178,7 +175,8 @@ IceStorm.NodeId=0
 IceStorm.Node.Endpoints=tcp -p 13000
 ```
 
-The endpoints for each replica and ID must match the proxies configured in the `Nodes.id` properties.
+The endpoints for each replica and ID must match the proxies configured in the
+[IceStorm.Nodes._id_](../../../property-reference/icestorm-properties#icestorm.nodes.id) properties.
 
 Two additional properties allow you to configure replicated endpoints:
 
@@ -214,42 +212,31 @@ IceStorm.ReplicatedPublishEndpoints=tcp -h replica0 -p 10001:tcp -h replica1 -p 
 IceStorm.ReplicatedTopicManagerEndpoints=tcp -h replica0 -p 10000:tcp -h replica1 -p 10010:tcp -h replica2 -p 10020
 ```
 
-An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
-case you should remove the definition of the `ReplicatedPublishEndpoints` property from the above deployment.
+To rule out [transparent failover](../highly-available-icestorm#publisher-considerations-for-icestorm-replication) when
+publishing, leave `IceStorm.ReplicatedPublishEndpoints` unset: the publisher proxies returned by the topics then point
+to a single replica.
 
 ## IceStorm Client Configuration
 
-Clients of the service can define a proxy for the `TopicManager` object as follows:
+A client reaches IceStorm through a proxy for its topic manager. Without IceGrid, this is a direct proxy with an
+endpoint of the `IceStorm.TopicManager` adapter, which the client application configures with a property of its own,
+such as:
 
 ```config
-TopicManager.Proxy=IceStorm/TopicManager:tcp -p 9999
+TopicManager.Proxy=IceStorm/TopicManager:tcp -h icestormhost -p 9999
 ```
 
-The name of the property is not relevant, but the endpoint must match that of the `IceStorm.TopicManager.Endpoints`
-property, and the object identity must use the IceStorm [instance name](../../../property-reference/icestorm-properties)
-as the category and `TopicManager` as the name.
+The identity of the topic manager is `IceStorm/TopicManager` by default. When you run several IceStorm services, give
+each one its own [IceStorm.InstanceName](../../../property-reference/icestorm-properties): this property sets the
+category of the topic manager's identity, so a service configured with `IceStorm.InstanceName=Measurement` has the topic
+manager `Measurement/TopicManager`, and its clients use this identity in their proxies.
 
-## IceStorm Object Identities
+With IceGrid, the topic manager is the well-known object `instance-name/TopicManager`, declared by the `IceStorm`
+template or, for replicas, by the topic manager replica group, and a client uses an indirect proxy such as
+`Weather.IceStorm/TopicManager`.
 
-IceStorm hosts a [well-known object](../../icegrid/well-known-objects) that implements the `IceStorm::TopicManager`
-interface. The default identity of this object is `IceStorm/TopicManager`, as seen in the stringified proxy example
-above. If an application requires the use of multiple IceStorm services, it's a good idea to assign unique identities to
-their well-known objects by configuring the services with different values for the
-[IceStorm.InstanceName](../../../property-reference/icestorm-properties) property, as shown in the following example:
-
-```config
-IceStorm.InstanceName=Measurement
-```
-
-This property changes the category of the object's identity, which becomes `Measurement/TopicManager`. The client's
-configuration must also be changed to reflect the new identity:
-
-```config
-TopicManager.Proxy=Measurement/TopicManager:tcp -p 9999
-```
-
-IceStorm also hosts an object with the identity `IceStorm/Finder`, as described in the next section. This identity is
-not affected by changes to `IceStorm.InstanceName`.
+IceStorm also hosts an object with the identity `IceStorm/Finder`, described in the next section. This identity does not
+depend on `IceStorm.InstanceName`.
 
 ## Using the IceStorm `Finder` Interface
 
