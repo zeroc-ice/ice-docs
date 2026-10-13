@@ -218,7 +218,7 @@ function Drawer({ children }: { children: React.ReactNode }) {
               dialogRef.current!.showModal();
               setExpanded(true);
             }}
-            className="-ml-1.5 flex size-8 items-center justify-center rounded-md text-ink transition-colors hover:bg-surface-subtle lg:hidden"
+            className="-ml-1.5 flex size-8 items-center justify-center rounded-md text-ink focus-ring transition-colors hover:bg-surface-subtle lg:hidden"
           >
             <Menu className="size-5" aria-hidden="true" />
             <span className="sr-only">Table of contents</span>
@@ -251,7 +251,7 @@ function Drawer({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => dialogRef.current!.close()}
-              className="flex size-8 items-center justify-center rounded-md text-ink transition-colors hover:bg-surface-subtle"
+              className="flex size-8 items-center justify-center rounded-md text-ink focus-ring transition-colors hover:bg-surface-subtle"
             >
               <X className="size-5" aria-hidden="true" />
               <span className="sr-only">Close</span>
@@ -317,7 +317,7 @@ function Tree({
         );
 
         const label = clsx(
-          'block flex-1 px-2 py-1.5 text-left leading-snug transition-colors',
+          'block flex-1 rounded-md px-2 py-1.5 text-left leading-snug transition-colors focus-ring',
           active
             ? 'text-link'
             : onActiveTrail
@@ -345,7 +345,7 @@ function Tree({
                   type="button"
                   onClick={() => toggle(k)}
                   aria-expanded={isOpen}
-                  className="flex flex-1 items-start text-left"
+                  className="flex flex-1 items-start rounded-md text-left focus-ring"
                 >
                   <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted">
                     {chevron}

@@ -21,7 +21,7 @@ export function Footer() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="outline-room text-ink-secondary transition-colors hover:text-ink"
+                className="focus-ring-text text-ink-secondary transition-colors hover:text-ink"
               >
                 {link.text}
               </a>

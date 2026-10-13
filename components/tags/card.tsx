@@ -52,7 +52,7 @@ export const Card = ({
     <AppLink
       href={href}
       unresolved={unresolved}
-      className="group col-span-1 block rounded-[10px] border border-hairline bg-surface p-5 transition duration-150 hover:-translate-y-px hover:border-link/40 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
+      className="group col-span-1 block rounded-[10px] border border-hairline bg-surface p-5 focus-ring transition duration-150 hover:-translate-y-px hover:border-link/40 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
       showArrow={false}
     >
       {Icon && (

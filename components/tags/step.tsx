@@ -34,7 +34,7 @@ export const Step = ({ title, level = 2, id, children }: StepProps) => {
   return (
     <div className="border-t border-light-border dark:border-dark-border">
       <div
-        className="mb-4 flex flex-row items-center justify-between"
+        className="mb-4 flex flex-row items-center justify-between rounded-md focus-ring"
         onClick={() => setIsExpanded(!isExpanded)}
         onKeyDown={handleKeyDown}
         tabIndex={0}
@@ -47,14 +47,8 @@ export const Step = ({ title, level = 2, id, children }: StepProps) => {
           className="step mt-4 mb-0 scroll-mt-28 items-center text-xl *:hover:opacity-100"
         >
           {/* Focusable, so that going to the step moves keyboard focus to its
-              title, as a fragment does: the element with the id is not. A
-              landing point rather than a control, so it draws no focus ring. */}
-          <span
-            role="heading"
-            aria-level={level}
-            tabIndex={-1}
-            className="outline-none"
-          >
+              title, as a fragment does: the element with the id is not. */}
+          <span role="heading" aria-level={level} tabIndex={-1}>
             {title}
           </span>
         </Component>

@@ -33,14 +33,8 @@ export const Heading = ({
       <div className="flex items-center justify-start">
         {/* Focusable, so that going to the heading moves keyboard focus to
             it, as a fragment does: the element with the id is not, because it
-            also holds the copy button. A landing point rather than a control,
-            so it draws no focus ring. */}
-        <span
-          role="heading"
-          aria-level={level}
-          tabIndex={-1}
-          className="outline-none"
-        >
+            also holds the copy button. */}
+        <span role="heading" aria-level={level} tabIndex={-1}>
           {children}
         </span>
         <HeadingCopyButton id={id} />

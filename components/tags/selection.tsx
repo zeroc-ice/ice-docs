@@ -20,7 +20,7 @@ export const Selection = ({ languages }: Props) => {
     <div className="not-prose my-6 sm:w-1/2">
       <Menu
         align="left"
-        triggerClassName="group border-hairline bg-surface-subtle hover:border-link/40 flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition duration-150 hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
+        triggerClassName="group border-hairline bg-surface-subtle hover:border-link/40 flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition duration-150 focus-ring hover:shadow-[0_8px_24px_rgb(22_41_73/0.08)]"
         trigger={
           <>
             <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-accent-soft text-link">

@@ -7,8 +7,10 @@ import { clsx } from 'clsx';
 import { setLanguage, useLanguage } from '@/context/state';
 import { languageLabel } from '@/lib/docs-model/nav';
 
+// Rounded only while focused: a radius at rest would curve the ends of the
+// underline, which is the tab's bottom border. The ring covers it.
 const tab =
-  '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors';
+  '-mb-px border-b-2 px-3 py-2.5 font-mono text-[12px] whitespace-nowrap transition-colors focus-visible:rounded-md focus-ring';
 const activeTab = 'border-link text-ink';
 const idleTab = 'border-transparent text-ink-secondary hover:text-ink';
 
@@ -22,7 +24,7 @@ export const LanguageTabs = ({ languages }: { languages: string[] }) => {
         <select
           value={current}
           onChange={(event) => setLanguage(event.target.value)}
-          className="cursor-pointer rounded-md border border-hairline-strong bg-surface px-2.5 py-1 font-mono text-[12px] text-ink"
+          className="cursor-pointer rounded-md border border-hairline-strong bg-surface px-2.5 py-1 font-mono text-[12px] text-ink focus-ring"
         >
           {languages.map((language) => (
             <option key={language} value={language}>

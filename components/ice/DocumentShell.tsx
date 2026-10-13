@@ -111,7 +111,7 @@ export const DocumentShell = ({
                   {crumb.href ? (
                     <Link
                       href={crumb.href}
-                      className="outline-room font-medium text-link transition-colors hover:text-ink"
+                      className="focus-ring-text font-medium text-link transition-colors hover:text-ink"
                     >
                       {crumb.title}
                     </Link>
@@ -188,7 +188,7 @@ export const DocumentShell = ({
                 {prev ? (
                   <Link
                     href={prev.href}
-                    className="group outline-room min-w-0 flex-1"
+                    className="group focus-ring-text min-w-0 flex-1"
                   >
                     <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Previous
@@ -204,7 +204,7 @@ export const DocumentShell = ({
                 {next ? (
                   <Link
                     href={next.href}
-                    className="group outline-room min-w-0 flex-1 text-right"
+                    className="group focus-ring-text min-w-0 flex-1 text-right"
                   >
                     <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Next

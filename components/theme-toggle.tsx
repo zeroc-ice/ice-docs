@@ -14,7 +14,7 @@ export function ThemeToggle() {
   return (
     <Menu
       align="right"
-      triggerClassName="dark:hover:bg-dark-accent flex size-8 items-center justify-center rounded-md transition-colors hover:bg-zinc-100"
+      triggerClassName="dark:hover:bg-dark-accent flex size-8 items-center justify-center rounded-md transition-colors focus-ring hover:bg-zinc-100"
       trigger={
         <>
           <Sun className="size-[1.2rem] scale-100 rotate-0 ring-0 ring-offset-0 transition-all dark:scale-0 dark:-rotate-90" />

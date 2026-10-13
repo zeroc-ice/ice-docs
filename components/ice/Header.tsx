@@ -18,7 +18,7 @@ export function IceHeader() {
             it, so nothing else in the bar moves. */}
         <a
           href="#skip-nav"
-          className="sr-only focus:not-sr-only focus:absolute focus:inset-y-0 focus:left-0 focus:z-10 focus:flex focus:min-w-full focus:items-center focus:rounded-md focus:bg-surface focus:px-3 focus:text-xl focus:whitespace-nowrap focus:text-ink"
+          className="sr-only focus-ring focus:not-sr-only focus:absolute focus:inset-y-0 focus:left-0 focus:z-10 focus:flex focus:min-w-full focus:items-center focus:rounded-md focus:bg-surface focus:px-3 focus:text-xl focus:whitespace-nowrap focus:text-ink"
         >
           Skip to content
         </a>
@@ -26,7 +26,7 @@ export function IceHeader() {
             docs layout, the only place that has the tree. The slot has
             no box of its own, so a page without the button has no gap. */}
         <div id="ice-header-menu" className="contents" />
-        <Link href="/" className="outline-room flex items-center gap-2">
+        <Link href="/" className="focus-ring-text flex items-center gap-2">
           <IceMark className="size-8" />
           {/* The mark alone has to do on a phone, where the controls already
               fill the bar. */}
@@ -47,7 +47,7 @@ export function IceHeader() {
           href="https://github.com/zeroc-ice/ice"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden h-8 shrink-0 items-center px-2 text-ink-secondary transition-colors hover:text-ink lg:flex"
+          className="hidden h-8 shrink-0 items-center rounded-md px-2 text-ink-secondary focus-ring transition-colors hover:text-ink lg:flex"
         >
           GitHub
         </a>
