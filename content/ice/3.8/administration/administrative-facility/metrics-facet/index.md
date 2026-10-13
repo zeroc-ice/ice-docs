@@ -2,9 +2,9 @@
 title: The Metrics Facet
 ---
 
-The `Metrics` facet provides convenient access to metrics for the Ice runtime and select Ice services. The metrics
-provided by this facet include the number of threads currently running and their state, the number of connections,
-information on invocations and dispatch, as well as connection establishment and endpoint name resolution.
+The `Metrics` facet provides the metrics of the Ice runtime and of the Glacier2 and IceStorm services. The Ice runtime
+metrics cover threads and their state, connections, invocations, dispatches, connection establishment, and endpoint
+resolution.
 
 ## Metrics Terminology
 
