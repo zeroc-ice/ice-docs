@@ -4,10 +4,7 @@ languages:
   - cpp
   - csharp
   - java
-  - matlab
-  - php
   - python
-  - ruby
   - swift
 ---
 

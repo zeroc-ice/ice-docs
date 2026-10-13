@@ -1,5 +1,14 @@
 ---
 title: Datagram Invocations
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
 ## Design Considerations for Datagram Invocations

@@ -88,6 +88,31 @@ test('a group becomes a toggle, with its page as Overview', () => {
   assert.equal(slice.items[0].href, '/ice/3.8/slice');
 });
 
+test('a group written for some languages carries them on its row and its Overview', () => {
+  // The row is what the sidebar hides for other languages; without them, it
+  // would stay visible and open onto nothing but hidden entries.
+  const [threading] = buildSideNav(
+    [
+      {
+        title: 'Threading Model',
+        slug: 'runtime/threading-model',
+        writtenFor: ['cpp', 'java'],
+        items: [
+          {
+            title: 'Thread Pools',
+            slug: 'runtime/threading-model/thread-pools',
+            writtenFor: ['cpp', 'java'],
+            items: []
+          }
+        ]
+      }
+    ],
+    VERSION
+  );
+  assert.deepEqual(threading.writtenFor, ['cpp', 'java']);
+  assert.deepEqual(threading.items[0].writtenFor, ['cpp', 'java']);
+});
+
 test("standing on a group's own page, its Overview, opens the group", () => {
   const tree = buildSideNav(SIDEBAR, VERSION);
   assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/slice'), [

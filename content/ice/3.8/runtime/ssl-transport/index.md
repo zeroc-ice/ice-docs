@@ -12,8 +12,8 @@ languages:
 ---
 
 The SSL transport provides support for securing Ice connections using the SSL/TLS protocols. It is a built-in transport
-available with all supported platforms and with every language mapping other than JavaScript, which secures its outgoing
-connections with the [WSS transport](../transports).
+available on all supported platforms and in every language mapping except JavaScript, which secures its connections with
+the [WSS transport](../transports).
 
 The SSL transport is built on top of each platform’s native SSL/TLS engine. This ensures interoperability with
 platform-provided features and that any security updates to the SSL/TLS engine also apply to your Ice applications.

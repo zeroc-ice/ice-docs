@@ -81,6 +81,7 @@ export function buildSideNav(
     if (items.length > 0) {
       return {
         title: node.title,
+        writtenFor,
         items: [
           { title: GROUP_OVERVIEW_TITLE, href, writtenFor, items: [] },
           ...items
