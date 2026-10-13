@@ -61,29 +61,21 @@ the conventions that recur in review.
 
 ## Keyboard and screen readers
 
-- **Every control draws the site's focus ring.** A button, link, input, or `tabindex="0"` element carries `focus-ring`;
-  a bare text link carries `focus-ring-text`. A control with no corners of its own adds `rounded-md`, or
-  `focus-visible:rounded-md` when a radius at rest would curve a border it draws. Menu items highlight by background
-  instead, and a scroll target such as a heading or the skip-to-content target draws no ring.
-- **A control hidden until hover shows on focus too**: `focus-visible:opacity-100` on the control, or
-  `focus-within:opacity-100` on the wrapper that hides it.
-- **Header controls are 32px tall** (`h-8`, `size-8`), so their rings match.
-- **Every control has a name and a state.** An icon-only button has an `aria-label` or `sr-only` text, a `nav` has an
-  `aria-label`, a toggle sets `aria-expanded` or `aria-pressed`, and a menu uses `components/menu.tsx`, which follows
-  the WAI-ARIA menu button pattern.
-- **Check with the keyboard, in Chrome and Firefox.** Tab through a fresh load of the front page, a long reference page,
-  the search dialog, and the phone drawer: every stop shows the whole ring in the link colour, and nothing moves when it
-  appears. Firefox also stops on a scrollable box, which is its own behaviour and stays.
-
-<!-- prettier-ignore-start -->
-
-<!-- BEGIN:nextjs-agent-rules -->
+- A control carries `focus-ring`, a bare text link `focus-ring-text`; see `app/globals.css`. A scroll target draws no
+  ring.
+- A control has a name and a state: an `aria-label` or `sr-only` text where it shows no text, and `aria-expanded` or
+  `aria-pressed` where it toggles.
+- Tab through the page in Chrome and Firefox: every stop shows the whole ring, and nothing moves when it appears.
 
 # This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read
+the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next`
+package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+This block is written and re-added by `next dev` — verify at
+`node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted
+change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
 
