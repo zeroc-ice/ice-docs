@@ -8,16 +8,13 @@ resolution.
 
 ## Metrics Terminology
 
-- metric: an "analytical measurement intended to quantify the state of a system", recorded by the Ice runtime, such as
-  bytes sent over a connection.
-- metric name: the name of the metric, such as "number of connections".
-- metrics map: a collection of metrics objects.
-- metrics view: a collection of metrics maps. A view contains metrics maps of different types (e.g., connections and
-  threads). Several metrics views can be configured with different purposes. For example, you can have a "debug" metrics
-  view to get detailed metrics of each of the instrumented objects in the Ice communicator. This view can be enabled
-  from time to time for debugging purposes but it's disabled most of the time. You could also have a more coarse-grained
-  metrics view to collect data at a higher level, such as the amount of bytes received and sent by all the connections
-  from the communicator. This metrics view can be enabled all the time.
+- metric: a measurement that the Ice runtime records, such as the number of bytes sent over a connection.
+- metrics object: the metrics of one or more instrumented objects or operations, such as all the invocations of the
+  `sayHello` operation.
+- metrics map: the metrics objects of one kind of instrumented object or operation, such as the `Connection` map, which
+  by default holds one metrics object per connection.
+- metrics view: a named set of metrics maps that you configure and enable together; see
+  [Configuring Metrics Views](#configuring-metrics-views).
 
 ## Metrics Types
 
