@@ -27,9 +27,6 @@ This produces two files: a header file, `Greeter.h`, and a C++ source file, `Gre
 `GreeterPrx` class we instantiate in the code below, and `Greeter.cpp` is compiled into the client like any other source
 file. See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options `slice2cpp` accepts.
 
-We recommend that you include this Slice compilation step in your build project, like we demonstrate for the C++ demo
-programs.
-
 {% callout type="note" %}
 
 The C++ demo programs build with [CMake](https://cmake.org/): the `slice2cpp_generate` function of the Ice CMake package
