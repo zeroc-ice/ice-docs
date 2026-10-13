@@ -151,7 +151,7 @@ module IceMX
 - `getMetricsViewNames`: returns the names of the enabled views, and the names of the disabled views in its
   `disabledViews` out parameter.
 - `enableMetricsView` and `disableMetricsView`: enable or disable a view, like setting its
-  [Disabled](../../../property-reference/icemx-metrics-properties) property to 0 or 1, respectively.
+  [Disabled](../../../property-reference/icemx-metrics-properties) property to `0` or `1`, respectively.
 - `getMetricsView`: returns the metrics of a view, or an empty view for a disabled view. Its `timestamp` out parameter
   is the process's time, in milliseconds, when the metrics were retrieved; its reference point depends on the language
   mapping, so compare only timestamps from the same process.
