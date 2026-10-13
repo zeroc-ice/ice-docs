@@ -57,19 +57,28 @@ callbacks to it. With `setAdapter`, only the connections you choose accept callb
 
 ## Configuring a Server for Bidirectional Connections
 
-A server needs to create or obtain a proxy to the callback object. This proxy is bound to the incoming connection and is
-known as a “fixed” proxy.
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
-A fixed proxy is bound to a connection, and ceases to work once that connection is closed. Ice does not retry an
-invocation on a fixed proxy: once the connection is closed, invocations on the proxy fail with the
-[exception that describes the closure](../connection-closure#closure-exceptions), such as `CloseConnectionException`
-when the client closed the connection gracefully. The `ice_fixed` proxy method creates a fixed proxy bound to the
-connection you give it.
+A server sends callbacks over the incoming connection with a _fixed proxy_, a proxy bound to this connection. The
+connection is the `con` member of the `Current` object passed to the operation implementation. You create a fixed proxy
+in one of two ways:
 
-The connection object is accessible as a member of the `Current` parameter supplied to an operation implementation.
-These steps are illustrated in the code below:
+- Call `createProxy` on the connection with the identity of the callback object, as the code below does.
+- Call `ice_fixed` with the connection on a proxy that the client sent, for example a callback proxy passed as an
+  operation argument. The fixed proxy keeps the identity, facet, and other settings of this proxy.
+
+{% /iflang %}
 
 {% language-section name="configuring-a-server-for-bidirectional-connections" /%}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
+A fixed proxy ceases to work once its connection is closed. Ice does not retry an invocation on a fixed proxy: once the
+connection is closed, invocations on the proxy fail with the
+[exception that describes the closure](../connection-closure#closure-exceptions), such as `CloseConnectionException`
+when the client closed the connection gracefully.
+
+{% /iflang %}
 
 ## Limitations of Bidirectional Connections
 
