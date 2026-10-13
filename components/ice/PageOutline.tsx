@@ -188,8 +188,10 @@ export function PageOutline({
           <li key={`${heading.id}-${i}`} data-langs={heading.langs?.join(' ')}>
             <a
               href={`#${heading.id}`}
+              // Rounded only while focused: a radius at rest would curve the
+              // ends of the active entry's indicator, its left border.
               className={clsx(
-                '-ml-px block rounded-md border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere focus-ring transition-colors',
+                '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere focus-ring transition-colors focus-visible:rounded-md',
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
                   ? 'border-link text-link'
