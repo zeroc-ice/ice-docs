@@ -21,7 +21,7 @@ resolution.
 Metrics are specified as Slice classes defined in the `Ice/Metrics.ice` Slice file. All the metrics types are defined in
 the `IceMX` module.
 
-The base class is `IceMX::Metrics`:
+The base class is [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html):
 
 ```slice
 class Metrics
@@ -55,7 +55,8 @@ The members of `Metrics` are:
   observes.
 - `failures`: the number of failures that have occurred for these instrumented objects or operations.
 
-Each `IceMX::MetricsFailures` structure counts the failures of one metrics object:
+Each [`IceMX::MetricsFailures`](https://code.zeroc.com/ice/3.8/api/slice/structIceMX_1_1MetricsFailures.html) structure
+counts the failures of one metrics object:
 
 ```slice
 struct MetricsFailures
@@ -114,7 +115,9 @@ The classes derived from `IceMX::Metrics` add the following members:
 
 ## The `MetricsAdmin` Interface
 
-The Slice interface `IceMX::MetricsAdmin` allows you to retrieve the metrics associated with the Ice communicator:
+The Slice interface
+[`IceMX::MetricsAdmin`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceMX_1_1MetricsAdmin.html) allows you to
+retrieve the metrics associated with the Ice communicator:
 
 ```slice
 module IceMX
@@ -143,15 +146,21 @@ module IceMX
 }
 ```
 
-The `getMetricsViewNames` operation retrieves the names of the configured enabled and disabled views. The
-`enableMetricsView` and `disableMetricsView` operations allow you to enable and disable a specific view. Calling those
-operations is equivalent to setting the view [Disabled](../../../property-reference/icemx-metrics-properties) property
-to 0 or 1, respectively. The `getMetricsView` operation returns the metrics for the given view, and returns an empty
-view for a disabled view. Its `timestamp` parameter is the process's time in milliseconds when the metrics were
-retrieved; compute differences between timestamps from the same process, as the reference point of this time depends on
-the language mapping. The `getMapMetricsFailures` and `getMetricsFailures` operations retrieve the metrics failures for
-a given map or metrics id. The operations that take a view name throw `UnknownMetricsView` for a view that is not
-configured.
+`MetricsAdmin` provides the following operations:
+
+- `getMetricsViewNames`: returns the names of the enabled views, and the names of the disabled views in its
+  `disabledViews` out parameter.
+- `enableMetricsView` and `disableMetricsView`: enable or disable a view, like setting its
+  [Disabled](../../../property-reference/icemx-metrics-properties) property to 0 or 1, respectively.
+- `getMetricsView`: returns the metrics of a view, or an empty view for a disabled view. Its `timestamp` out parameter
+  is the process's time, in milliseconds, when the metrics were retrieved; its reference point depends on the language
+  mapping, so compare only timestamps from the same process.
+- `getMapMetricsFailures`: returns the failures of the metrics objects of a map that have recorded at least one failure.
+- `getMetricsFailures`: returns the failures of the metrics object with the given ID.
+
+Each operation that takes a view name throws
+[`UnknownMetricsView`](https://code.zeroc.com/ice/3.8/api/slice/exceptionIceMX_1_1UnknownMetricsView.html) when no view
+with this name is configured.
 
 {% language-section name="mapping" /%}
 
