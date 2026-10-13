@@ -17,7 +17,25 @@ bytes in the input stream.
 
 ## Encoding Version 1.1
 
-In version 1.1, a slice starts with a byte of bit flags that determine its format and content.
+In version 1.1, a slice starts with a byte of bit flags that determine its format and content:
+
+| **Bit number** | **Description**                                             |
+| -------------- | ----------------------------------------------------------- |
+| 0-1            | Type ID of a class slice:                                   |
+|                | 0 = no type ID is encoded for the slice                     |
+|                | 1 = type ID is encoded as a string                          |
+|                | 2 = type ID is an index encoded as a size                   |
+|                | 3 = type ID is a compact ID encoded as a size               |
+| 2              | Whether or not the slice contains optional fields           |
+| 3              | Whether or not the slice contains an indirection table      |
+| 4              | Whether or not the slice size follows the type ID           |
+| 5              | If 0, more slices will follow, if 1, this is the last slice |
+| 6              | Reserved for future use                                     |
+| 7              | Reserved for future use                                     |
+
+_Bit flags for a slice._
+
+An exception slice leaves bits 0-1 at 0.
 
 ### Type ID
 
@@ -62,28 +80,6 @@ not possible. The receiver must know the most-derived type in this situation oth
 ### Last Slice
 
 This flag indicates whether the current slice is the last slice of the instance.
-
-### Slice Flags
-
-The table below shows how to interpret the bit flags in the leading byte of a slice:
-
-| **Bit number** | **Description**                                             |
-| -------------- | ----------------------------------------------------------- |
-| 0-1            | Type ID of a class slice:                                   |
-|                | 0 = no type ID is encoded for the slice                     |
-|                | 1 = type ID is encoded as a string                          |
-|                | 2 = type ID is an index encoded as a size                   |
-|                | 3 = type ID is a compact ID encoded as a size               |
-| 2              | Whether or not the slice contains optional fields           |
-| 3              | Whether or not the slice contains an indirection table      |
-| 4              | Whether or not the slice size follows the type ID           |
-| 5              | If 0, more slices will follow, if 1, this is the last slice |
-| 6              | Reserved for future use                                     |
-| 7              | Reserved for future use                                     |
-
-_Bit flags for a slice._
-
-An exception slice leaves bits 0-1 at 0.
 
 ## See Also
 

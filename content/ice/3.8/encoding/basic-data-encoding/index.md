@@ -139,5 +139,6 @@ types.
 ## See Also
 
 - [Protocol Messages](../../protocol/protocol-messages)
+- [Data Encoding for Slices](../data-encoding-for-slices)
 - [Data Encoding for Exceptions](../data-encoding-for-exceptions)
 - [Data Encoding for Classes](../data-encoding-for-classes)
