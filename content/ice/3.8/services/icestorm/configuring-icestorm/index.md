@@ -22,10 +22,9 @@ IceStorm.TopicManager.Endpoints=tcp -p 9999
 IceStorm.Publish.Endpoints=tcp -p 10000
 ```
 
-IceStorm uses [LMDB](https://www.symas.com/mdb) to manage the service's persistent state, therefore the first property
-specifies the path name of the LMDB database environment directory for the service. Here the directory `db` is used,
-which must already exist in the current working directory. This property can be omitted when the service is running in
-[transient mode](../../../property-reference/icestorm-properties).
+IceStorm keeps its persistent state in an [LMDB](https://www.symas.com/mdb) database, and the first property sets the
+directory of this database: `db`, which must exist in the current working directory before the service starts. In
+[transient mode](../../../property-reference/icestorm-properties), IceStorm keeps no database and ignores this property.
 
 The final two properties specify the endpoints used by the IceStorm object adapters. The `TopicManager` property
 specifies the endpoints on which the `TopicManager` and `Topic` objects reside; these endpoints must use a
