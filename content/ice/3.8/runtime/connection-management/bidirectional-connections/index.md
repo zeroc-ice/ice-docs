@@ -23,13 +23,6 @@ For situations such as these, a bidirectional connection offers a solution. Requ
 bidirectional connection, enabling a server to send callback requests to a client over the client's existing connection
 to the server.
 
-There are two ways to make use of a bidirectional connection. First, you can use a
-[Glacier2 router](../../../services/glacier2), in which case bidirectional connections are used automatically. If you do
-not require the functionality offered by Glacier2 or you do not want an intermediary service between clients and
-servers, you can configure bidirectional connections manually.
-
-The remainder of this section discusses manual configuration of bidirectional connections.
-
 ## Configuring a Client for Bidirectional Connections
 
 A client needs to perform the following steps in order to configure a bidirectional connection:
@@ -118,7 +111,7 @@ size of the _client_ thread pool.
 
 ## See Also
 
-- [Glacier2](../../../services/glacier2)
+- [Callbacks through Glacier2](../../../services/glacier2/callbacks-through-glacier2)
 - [Creating an Object Adapter](../../dispatch/creating-an-object-adapter)
 - [Object Adapter Activation and Deactivation](../../dispatch/object-adapter-activation-and-deactivation)
 - [Object Identity](../../object-identity)
