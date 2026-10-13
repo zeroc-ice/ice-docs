@@ -80,20 +80,23 @@ dictionary<string, MetricsMap> MetricsView;
 The key for the metrics view dictionary is a string that identifies the metrics map. The Ice runtime supports the
 following metrics maps:
 
-| **Metrics map name**    | **Slice class**            | **Description**                                                                                                                           |
-| ----------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Connection              | `IceMX::ConnectionMetrics` | Connection metrics.                                                                                                                       |
-| Thread                  | `IceMX::ThreadMetrics`     | Thread metrics. The Ice runtime instruments threads for the communicator's thread pools as well as threads used internally.               |
-| Invocation              | `IceMX::InvocationMetrics` | Client-side proxy invocation metrics.                                                                                                     |
-| Dispatch                | `IceMX::DispatchMetrics`   | Server-side dispatch metrics.                                                                                                             |
-| EndpointLookup          | `IceMX::Metrics`           | Endpoint lookup metrics. For tcp, ssl and udp endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
-| ConnectionEstablishment | `IceMX::Metrics`           | Connection establishment metrics.                                                                                                         |
+| **Metrics map name**    | **Slice class**                                                                                             | **Description**                                                                                                                           |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Connection              | [`IceMX::ConnectionMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ConnectionMetrics.html) | Connection metrics.                                                                                                                       |
+| Thread                  | [`IceMX::ThreadMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ThreadMetrics.html)         | Thread metrics. The Ice runtime instruments threads for the communicator's thread pools as well as threads used internally.               |
+| Invocation              | [`IceMX::InvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1InvocationMetrics.html) | Client-side proxy invocation metrics.                                                                                                     |
+| Dispatch                | [`IceMX::DispatchMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1DispatchMetrics.html)     | Server-side dispatch metrics.                                                                                                             |
+| EndpointLookup          | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Endpoint lookup metrics. For tcp, ssl and udp endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
+| ConnectionEstablishment | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Connection establishment metrics.                                                                                                         |
 
 A metrics map can also contain sub-metrics maps. The `Invocation` metrics map provides two sub-metrics maps, stored in
 each `IceMX::InvocationMetrics` object: `Remote` records the invocations sent over a connection with
-`IceMX::RemoteMetrics` objects (in the `remotes` member), and `Collocated` records the collocated invocations with
-`IceMX::CollocatedMetrics` objects (in the `collocated` member). Both classes derive from
-`IceMX::ChildInvocationMetrics`. An invocation that Ice retries can have several child invocations.
+[`IceMX::RemoteMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1RemoteMetrics.html) objects (in the
+`remotes` member), and `Collocated` records the collocated invocations with
+[`IceMX::CollocatedMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1CollocatedMetrics.html) objects (in
+the `collocated` member). Both classes derive from
+[`IceMX::ChildInvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ChildInvocationMetrics.html).
+An invocation that Ice retries can have several child invocations.
 
 The classes derived from `IceMX::Metrics` add the following members:
 
