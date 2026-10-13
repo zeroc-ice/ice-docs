@@ -89,14 +89,18 @@ following metrics maps:
 | EndpointLookup          | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Endpoint lookup metrics. For tcp, ssl and udp endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
 | ConnectionEstablishment | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Connection establishment metrics.                                                                                                         |
 
-A metrics map can also contain sub-metrics maps. The `Invocation` metrics map provides two sub-metrics maps, stored in
-each `IceMX::InvocationMetrics` object: `Remote` records the invocations sent over a connection with
-[`IceMX::RemoteMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1RemoteMetrics.html) objects (in the
-`remotes` member), and `Collocated` records the collocated invocations with
-[`IceMX::CollocatedMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1CollocatedMetrics.html) objects (in
-the `collocated` member). Both classes derive from
-[`IceMX::ChildInvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ChildInvocationMetrics.html).
-An invocation that Ice retries can have several child invocations.
+The `Invocation` map has two sub-maps, stored in each `IceMX::InvocationMetrics` object:
+
+- `Remote`, in the `remotes` member:
+  [`IceMX::RemoteMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1RemoteMetrics.html) objects for the
+  invocations sent over a connection.
+- `Collocated`, in the `collocated` member:
+  [`IceMX::CollocatedMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1CollocatedMetrics.html) objects
+  for the collocated invocations.
+
+Both classes derive from
+[`IceMX::ChildInvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ChildInvocationMetrics.html):
+each records a child invocation, and an invocation that Ice retries can have several.
 
 The classes derived from `IceMX::Metrics` add the following members:
 
