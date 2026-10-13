@@ -109,8 +109,8 @@ occurs only when the application has invoked an operation on a proxy and the pro
 connection. If the timeout is set to `0`, the communicator issues a new `locate` request immediately. Otherwise, for a
 non-zero timeout, the communicator examines its locator cache to determine whether the endpoints from the previous
 `locate` request have expired. If so, the communicator issues a new `locate` request. With
-[Ice.BackgroundLocatorCacheUpdates](../../../property-reference/ice-properties) set to 0, the default, the invocation
-waits for the locator's reply and uses the new endpoints. With a value greater than 0, the invocation uses the expired
+[Ice.BackgroundLocatorCacheUpdates](../../../property-reference/ice-properties) set to `0`, the default, the invocation
+waits for the locator's reply and uses the new endpoints. With a value greater than `0`, the invocation uses the expired
 cache entry, and the `locate` request refreshes the cache in the background.
 
 Given this behavior, if your goal is to force a proxy invocation to issue `locate` requests more frequently, you can do
