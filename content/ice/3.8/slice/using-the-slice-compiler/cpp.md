@@ -246,11 +246,11 @@ The source file now contains the following `#include` directive:
 
 Any leading path in the included file is discarded as usual, and the value of the `--include-dir` option is prepended.
 
-## Compiling Slice Files with CMake
+## Using Ice with CMake
 
-An Ice for C++ installation includes a CMake package. The package defines an imported library target for each Ice
-library, such as `Ice::Ice` and `Ice::IceGrid`, and the `slice2cpp_generate` function, which compiles the Slice files of
-a target as part of the build. For example:
+Ice for C++ ships with a CMake package that defines an imported library target for each Ice library, such as `Ice::Ice`
+and `Ice::IceGrid`, and the `slice2cpp_generate` function, which compiles the Slice files of a target as part of the
+build. For example:
 
 ```cmake
 cmake_minimum_required(VERSION 3.21)
@@ -264,8 +264,8 @@ target_link_libraries(client PRIVATE Ice::Ice)
 ```
 
 The package requires CMake 3.21 or later. The `CONFIG` keyword makes `find_package` use config mode: it loads the
-package configuration file that the Ice installation provides, rather than the `FindIce` find module that ships with
-CMake. Config mode is what CMake recommends for a project that provides its own package configuration
+package configuration file that Ice for C++ provides, rather than the `FindIce` find module that ships with CMake.
+Config mode is what CMake recommends for a project that provides its own package configuration
 ([cmake-packages(7)](https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html)).
 
 If you installed Ice in a directory that CMake does not search by default, such as `/opt/Ice`, add that directory to
