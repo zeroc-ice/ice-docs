@@ -92,43 +92,12 @@ recognize universal character names and reject non-printable ASCII characters in
 ## Comparing Proxies by Identity
 
 Proxy equality (`==` in C++, MATLAB, PHP, Python, Ruby, and Swift; `Equals` in C#; `equals` in Java and JavaScript)
-compares every setting of the two proxies: the identity, facet, endpoints, adapter ID, context, invocation mode,
-invocation timeout, and the other proxy options. Two proxies with the same identity that differ in any of these
-settings, for example in their invocation timeout, compare unequal, and a collection that compares its proxy keys with
-this equality holds a separate entry for each of them.
+compares all the settings of the two proxies, not just their identities: two proxies for the same Ice object with
+different endpoints or invocation timeouts are not equal.
 
-To compare two proxies by identity alone, or by identity and facet, use the helpers of your language mapping:
-
-| Language | Compares the identity                                                                                                                                                                                                                                                                                                             | Compares the identity and facet                                                                                                                                                                                                                                                                                                                             |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| C++      | [`Ice::proxyIdentityEqual`](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_ad1543c07ceb2a34ee3919be6bccc94b1.html), [`Ice::proxyIdentityLess`](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_a7ddaa507d15cc44b1a73fe9324d84ccd.html)                                                                                   | [`Ice::proxyIdentityAndFacetEqual`](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_a119e6113f1abadfeb11f28745e069149.html), [`Ice::proxyIdentityAndFacetLess`](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_a12e0cc8561bb591ff1d6e46184a84c47.html)                                                                                             |
-| C#       | [`Ice.Util.proxyIdentityCompare`](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Util.html#Ice_Util_proxyIdentityCompare_Ice_ObjectPrx_Ice_ObjectPrx_), [`Ice.ProxyIdentityKey`](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ProxyIdentityKey.html)                                                                      | [`Ice.Util.proxyIdentityAndFacetCompare`](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Util.html#Ice_Util_proxyIdentityAndFacetCompare_Ice_ObjectPrx_Ice_ObjectPrx_), [`Ice.ProxyIdentityFacetKey`](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ProxyIdentityFacetKey.html)                                                                      |
-| Java     | [`com.zeroc.Ice.Util.proxyIdentityCompare`](<https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Util.html#proxyIdentityCompare(com.zeroc.Ice.ObjectPrx,com.zeroc.Ice.ObjectPrx)>), [`com.zeroc.Ice.ProxyIdentityKey`](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ProxyIdentityKey.html) | [`com.zeroc.Ice.Util.proxyIdentityAndFacetCompare`](<https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Util.html#proxyIdentityAndFacetCompare(com.zeroc.Ice.ObjectPrx,com.zeroc.Ice.ObjectPrx)>), [`com.zeroc.Ice.ProxyIdentityFacetKey`](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ProxyIdentityFacetKey.html) |
-| MATLAB   | `Ice.proxyIdentityCompare`                                                                                                                                                                                                                                                                                                        | `Ice.proxyIdentityAndFacetCompare`                                                                                                                                                                                                                                                                                                                          |
-| PHP      | [`Ice\proxyIdentityCompare`](https://code.zeroc.com/ice/3.8/api/php/namespaces/ice.html#function_proxyIdentityCompare), [`Ice\proxyIdentityEqual`](https://code.zeroc.com/ice/3.8/api/php/namespaces/ice.html#function_proxyIdentityEqual)                                                                                        | [`Ice\proxyIdentityAndFacetCompare`](https://code.zeroc.com/ice/3.8/api/php/namespaces/ice.html#function_proxyIdentityAndFacetCompare), [`Ice\proxyIdentityAndFacetEqual`](https://code.zeroc.com/ice/3.8/api/php/namespaces/ice.html#function_proxyIdentityAndFacetEqual)                                                                                  |
-| Python   | [`Ice.proxyIdentityCompare`](https://code.zeroc.com/ice/3.8/api/python/Ice.proxyIdentityCompare.html), [`Ice.proxyIdentityEqual`](https://code.zeroc.com/ice/3.8/api/python/Ice.proxyIdentityEqual.html)                                                                                                                          | [`Ice.proxyIdentityAndFacetCompare`](https://code.zeroc.com/ice/3.8/api/python/Ice.proxyIdentityAndFacetCompare.html), [`Ice.proxyIdentityAndFacetEqual`](https://code.zeroc.com/ice/3.8/api/python/Ice.proxyIdentityAndFacetEqual.html)                                                                                                                    |
-| Ruby     | `Ice::proxyIdentityCompare`, `Ice::proxyIdentityEqual`                                                                                                                                                                                                                                                                            | `Ice::proxyIdentityAndFacetCompare`, `Ice::proxyIdentityAndFacetEqual`                                                                                                                                                                                                                                                                                      |
-
-A `Compare` function returns a negative number, zero, or a positive number, and an `Equal` function returns a boolean.
-To key a collection by identity:
-
-- In C++, pass `Ice::proxyIdentityLess` or `Ice::proxyIdentityAndFacetLess` as the comparator of an ordered container
-  such as `std::map` or `std::set`.
-- In C#, `ProxyIdentityKey` and `ProxyIdentityFacetKey` implement the non-generic `System.Collections.IEqualityComparer`
-  and `System.Collections.IComparer` interfaces. Pass an instance to a non-generic collection such as `Hashtable` or
-  `SortedList`. These classes don't implement `IEqualityComparer<T>`, so `Dictionary<TKey, TValue>` and `HashSet<T>`
-  don't accept them.
-- In Java, `ProxyIdentityKey` and `ProxyIdentityFacetKey` wrap a proxy, and their `hashCode` and `equals` methods use
-  the identity, or the identity and facet, of that proxy. Use the wrapper as the key of a `HashMap` or `HashSet`, and
-  call `getProxy` to retrieve the proxy. `Util::proxyIdentityCompare` and `Util::proxyIdentityAndFacetCompare` also
-  serve as the `Comparator` of a `TreeMap` or `TreeSet`.
-
-JavaScript and Swift provide no such helpers: compare the identities that `ice_getIdentity` returns. To key a collection
-by identity, use the `Identity` itself in Swift, where it is `Hashable`, and the string that `identityToString` returns
-in JavaScript, where a `Map` compares object keys by reference.
-
-These helpers ignore endpoints: two proxies with the same identity, and for the identity-and-facet helpers the same
-facet, compare equal even when they target separate deployments that each host an object with that identity.
+To compare proxies by identity, compare the identities returned by
+`ice_getIdentity`{% iflang langs="cpp,csharp,java,matlab,php,python,ruby" %}, or use the identity comparison helpers of
+your language mapping, described in its API reference{% /iflang %}.
 
 ## See Also
 
