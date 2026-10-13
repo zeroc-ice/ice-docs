@@ -58,17 +58,13 @@ You can do this using the [icestormadmin](../icestorm-administration) utility by
 
 ### IceGrid Deployment
 
-[IceGrid](../../icegrid) is a convenient way of deploying IceStorm replicas. The term _replica_ is also used in the
-context of IceGrid, specifically when referring to groups of object adapters that participate in
-[replication](../../icegrid/object-adapter-replication). It is important to be aware of the distinction between IceStorm
-replication and object adapter replication; IceStorm replication _uses_ object adapter replication when deployed with
-IceGrid, but IceStorm does not _require_ object adapter replication as you will see below.
-
-The `config/templates.xml` file in the Ice distribution provides two `IceStorm-HA` templates for this deployment: a
-service template that configures one IceStorm replica, and a server template that creates an IceBox server named
-`${instance-name}${node-id}` hosting a single instance of this service. To use them, configure the IceGrid registry with
-this file as its [default templates](../../icegrid/icegrid-templates) and import them into your application, or copy
-them into your application descriptor. Both templates accept the following parameters:
+[IceGrid](../../icegrid) is a convenient way of deploying IceStorm replicas, which use IceGrid
+[replica groups](../../icegrid/object-adapter-replication) for their adapters. The `config/templates.xml` file in the
+Ice distribution provides two `IceStorm-HA` templates for this deployment: a service template that configures one
+IceStorm replica, and a server template that creates an IceBox server named `${instance-name}${node-id}` hosting a
+single instance of this service. To use them, configure the IceGrid registry with this file as its
+[default templates](../../icegrid/icegrid-templates) and import them into your application, or copy them into your
+application descriptor. Both templates accept the following parameters:
 
 | Parameter                     | Description                                                                                                                                                   |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -118,9 +114,9 @@ other replicas through this object. The following application deploys three repl
 An application may not want [publisher proxies](../highly-available-icestorm) to contain multiple endpoints. In this
 case, remove `IceStorm-PublishReplicaGroup` from the above deployment and set `publish-replica-group` to an empty value.
 
-The node ID can be any non-negative integer. Each replica must have a unique node ID, but the IDs need not be contiguous
-or start at 0. The node ID is also the replica's priority for [coordinator elections](../highly-available-icestorm): a
-replica with a larger node ID has a higher priority.
+IceStorm requires at least three replicas, each with a unique node ID. A node ID can be any non-negative integer, and
+the IDs need not be contiguous or start at 0. The node ID is also the replica's priority for
+[coordinator elections](../highly-available-icestorm): a replica with a larger node ID has a higher priority.
 
 If you write the descriptors yourself, configure each replica's IceStorm service with the adapters and properties that
 the `IceStorm-HA` service template defines, as in this excerpt of a service template with `instance-name` and `node-id`
@@ -146,19 +142,10 @@ parameters:
 <property name="IceStorm.NodeId" value="${node-id}"/>
 ```
 
-The adapter and property names are fixed: IceStorm uses them regardless of the name of the IceBox service. IceStorm
-replicas communicate with each other through the `IceStorm.Node` adapter, which does not belong to an adapter replica
-group.
-
-IceStorm derives the node ID of each replica from its adapter IDs, which the template builds as
-`${instance-name}${node-id}.TopicManager` and `${instance-name}${node-id}.Node`. At startup, a replica asks the IceGrid
-registry for the adapters of the replica group that hosts `instance-name/TopicManager`. The adapter ID of each of these
-`IceStorm.TopicManager` adapters must start with the instance name and contain `.TopicManager`; IceStorm takes the first
-sequence of digits after the instance name as the node ID, and reaches that replica's node through the adapter ID with
-`.Node` in place of `.TopicManager`. The replica's own `IceStorm.Node` adapter ID must likewise equal its
-`IceStorm.TopicManager` adapter ID with `.Node` in place of `.TopicManager`. The IceStorm service fails to start if an
-adapter ID does not follow these rules, if the replicas it finds have fewer than three distinct node IDs, or if its own
-`IceStorm.NodeId` is not one of them.
+Keep these adapter and property names whatever the name of the IceBox service, and build each adapter ID as shown: the
+instance name, the node ID, then `.TopicManager`, `.Publish` or `.Node`. IceStorm finds the other replicas through the
+`instance-name/TopicManager` replica group and reads each replica's node ID from its adapter ID, so the IceStorm service
+fails to start when an adapter ID doesn't follow this pattern.
 
 ### Manual Deployment
 
