@@ -51,6 +51,10 @@ different object adapter, call `setAdapter` on this outgoing connection, for exa
 proxy's `ice_getConnection`. A connection without an object adapter rejects incoming requests with
 `ObjectNotExistException`.
 
+These two approaches differ in scope. With a default object adapter, every outgoing connection that the communicator
+creates afterward dispatches the requests it receives to this adapter, so any server the client connects to can send
+callbacks to it. With `setAdapter`, only the connections you choose accept callbacks.
+
 ## Configuring a Server for Bidirectional Connections
 
 A server needs to create or obtain a proxy to the callback object. This proxy is bound to the incoming connection and is
