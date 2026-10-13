@@ -41,11 +41,9 @@ threads, concurrently, so the implementation must be thread-safe.{% /iflang %}
 
 {% /iflang %}
 
+{% iflang langs="csharp,java" %}
+
 ## Logger Lifetime
-
-{% iflang langs="cpp,js,python,ruby,php,matlab,swift" %}
-
-Destroying a communicator leaves its logger usable: you can keep using the logger after you destroy the communicator.
 
 {% /iflang %}
 
