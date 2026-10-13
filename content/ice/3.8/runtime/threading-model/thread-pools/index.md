@@ -47,10 +47,9 @@ By default, these two thread pools are shared by all of the communicator's [obje
 necessary, you can configure individual object adapters to use a [private thread pool](../object-adapter-thread-pools)
 instead.
 
-If a thread pool is exhausted because all threads are currently dispatching a request, additional incoming requests are
-transparently delayed until a request completes and relinquishes its thread; that thread is then used to dispatch the
-next pending request. Ice minimizes thread context switches in a thread pool by using a leader-follower implementation
-[\[1\]](#references).
+When all the threads of a thread pool are busy, the pool is exhausted: Ice delays the processing of additional incoming
+messages until a thread becomes available. Ice minimizes thread context switches in a thread pool by using a
+leader-follower implementation [\[1\]](#references).
 
 {% callout type="warning" %}
 
@@ -168,6 +167,12 @@ callbacks{% /iflang %}{% iflang langs="python" %} and the callbacks of Ice futur
 executor, which must execute it, for example by queuing it to a UI thread so that
 dispatches{% iflang langs="cpp,java,python" %} and callbacks{% /iflang %} can update UI objects directly. The executor,
 rather than the size of the thread pool, then determines which of the calls it receives run concurrently.
+
+{% iflang langs="python" %}
+
+With an event loop adapter, the body of a coroutine dispatch method runs on the event loop, not in your executor.
+
+{% /iflang %}
 
 The `threadStart` and `threadStop` fields of `InitializationData` are functions that the communicator calls when it
 starts a new thread and when this thread is about to terminate.

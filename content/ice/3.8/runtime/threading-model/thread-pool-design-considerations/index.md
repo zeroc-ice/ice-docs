@@ -15,20 +15,34 @@ application. This page discusses some issues that you should consider when desig
 
 There are several implications of using a thread pool with a maximum size of one thread:
 
-{% iflang langs="cpp,csharp,java" %}
+{% iflang langs="cpp,java" %}
 
 - **Only one request is dispatched at a time.** This can be convenient because it lets you avoid (or postpone) dealing
   with thread-safety issues in your servants. However, it also eliminates the possibility of dispatching requests
   concurrently, which can be a bottleneck when dispatches perform blocking operations.
 - **Only one reply is processed at a time.** An application must increase the size of the client thread pool to process
-  several replies{% iflang langs="cpp,java" %} and run several AMI callbacks{% /iflang %} in parallel.
+  several replies and run several AMI callbacks in parallel.
+
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
+- **Only one dispatch method is called at a time.** A larger pool lets dispatches that block run concurrently. An async
+  dispatch method returns its thread to the pool at its first `await` of an incomplete task, and the code that follows
+  this `await` runs outside the thread pool, concurrently with the next dispatches: an async servant must be thread-safe
+  whatever the size of the pool.
+- **Only one reply is processed at a time.** An application must increase the size of the client thread pool to process
+  several replies in parallel.
 
 {% /iflang %}
 
 {% iflang langs="python" %}
 
-- **Only one request is dispatched at a time.** A larger pool lets several dispatches be in progress, but the Python
-  interpreter executes only one of them at a time: more threads help only when dispatches block, for example on I/O.
+- **Only one dispatch method is called at a time.** For synchronous dispatch methods, a larger pool lets several
+  dispatches be in progress, but the Python interpreter executes only one of them at a time: more threads help only when
+  dispatches block, for example on I/O. A coroutine dispatch method returns its thread to the pool when it awaits an
+  incomplete future, or runs on the event loop when the communicator has an event loop adapter, so several coroutine
+  dispatches can be in progress with a single thread.
 - **Only one reply is processed at a time.** The same applies to the callbacks of Ice futures.
 
 {% /iflang %}
