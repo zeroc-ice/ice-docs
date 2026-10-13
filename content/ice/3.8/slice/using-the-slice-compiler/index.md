@@ -10,6 +10,13 @@ Ice provides a Slice compiler for each language mapping. The compilers share a s
 slice2<name> [options] file...
 ```
 
+{% iflang langs="matlab" %}
+
+In MATLAB, you run the Slice-to-MATLAB compiler with the `slice2matlab` function of the Ice toolbox, as shown in
+[Running the Compiler](#running-the-compiler).
+
+{% /iflang %}
+
 Regardless of which compiler you use, a number of command-line options are common to the compilers for any language
 mapping:
 

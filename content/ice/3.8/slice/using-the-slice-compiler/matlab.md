@@ -2,15 +2,6 @@
 
 ## The Slice Compiler for MATLAB
 
-The Ice toolbox provides the Slice-to-MATLAB compiler and a `slice2matlab` MATLAB function that runs it. You call this
-function from the MATLAB console or from a MATLAB script. It adds the directory of the Ice Slice files to the include
-search path, forwards its arguments to the compiler, and returns the compiler's exit status:
-
-```matlab
-slice2matlab Greeter.ice
-status = slice2matlab('--output-dir', 'generated', 'Greeter.ice');
-```
-
 The Slice-to-MATLAB compiler offers two additional options:
 
 - `--all` Generate code for all Slice definitions, including those from included files.
@@ -18,5 +9,16 @@ The Slice-to-MATLAB compiler offers two additional options:
 
 `slice2matlab` does **not** support the `--depend` flag, although it does still support `--depend-xml` and
 `--depend-file`.
+
+### Running the Compiler
+
+The Ice toolbox provides the Slice-to-MATLAB compiler and a `slice2matlab` function that runs it. You call this function
+from the MATLAB console or from a MATLAB script. It adds the directory of the Ice Slice files to the include search
+path, forwards its arguments to the compiler, and returns the compiler's exit status:
+
+```matlab
+slice2matlab Greeter.ice
+status = slice2matlab('--output-dir', 'generated', 'Greeter.ice');
+```
 
 {% /language-section %}
