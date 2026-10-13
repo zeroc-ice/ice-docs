@@ -92,9 +92,6 @@ Bidirectional connections have certain limitations:
   Note however that it is legal to configure a fixed proxy for using oneway or twoway invocations.
 - Marshaling a fixed proxy, for example as an operation parameter, or converting it to proxy properties throws
   `FixedProxyException`.
-- A connection established from a Glacier2 router to a server is not configured for bidirectional use. Only the
-  connection from a client to the router is bidirectional. However, the client must not attempt to manually configure a
-  bidirectional connection to a router, as this is handled internally by the Ice runtime.
 
 ## Threading Considerations for Bidirectional Connections
 

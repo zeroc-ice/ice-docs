@@ -46,7 +46,9 @@ use bidirectional connections.
 
 {% callout type="note" %}
 
-It is also possible for applications to manually configure bidirectional connections without the use of a router.
+An object adapter created with a router becomes the object adapter of the client's connections to this router, so you
+don't configure these connections for bidirectional use yourself. To use bidirectional connections without a router, see
+[Bidirectional Connections](../../../runtime/connection-management/bidirectional-connections).
 
 {% /callout %}
 
