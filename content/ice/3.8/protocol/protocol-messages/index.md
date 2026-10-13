@@ -46,8 +46,6 @@ The message header fields are described in the following table.
 | `compressionStatus` | The [compression](../protocol-compression) status of the message                                               |
 | `messageSize`       | The size of the message in bytes, including the header                                                         |
 
-The protocol version is always 1.0, and the encoding version is always 1.0.
-
 The valid message types are shown in the following table.
 
 | **Message Type**    | **Encoding** |
@@ -80,20 +78,23 @@ struct RequestData
 
 The request fields are described in the following table.
 
-| **Field**   | **Description**                                                                                                                                                                                                                 |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `requestId` | The request identifier                                                                                                                                                                                                          |
-| `id`        | The [object identity](../../runtime/object-identity)                                                                                                                                                                            |
-| `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence)                                                                                                                                                          |
-| `operation` | The operation name                                                                                                                                                                                                              |
-| `mode`      | A byte representation of `Ice::OperationMode`: `0` = `Normal`, `1` = `Nonmutating` (deprecated, equivalent to `Idempotent`), `2` = `Idempotent`                                                                                 |
-| `context`   | The invocation [context](../../runtime/invocation/request-contexts)                                                                                                                                                             |
-| `params`    | The [encapsulated](../../encoding/basic-data-encoding) input parameters: the required parameters in order of declaration, followed by the [optional parameters](../../encoding/data-encoding-for-optional-values) sorted by tag |
+| **Field**   | **Description**                                                                                                                                 |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `requestId` | The request identifier                                                                                                                          |
+| `id`        | The [object identity](../../runtime/object-identity)                                                                                            |
+| `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence)                                                                          |
+| `operation` | The operation name                                                                                                                              |
+| `mode`      | A byte representation of `Ice::OperationMode`: `0` = `Normal`, `1` = `Nonmutating` (deprecated, equivalent to `Idempotent`), `2` = `Idempotent` |
+| `context`   | The invocation [context](../../runtime/invocation/request-contexts)                                                                             |
+| `params`    | The [encapsulated](../../encoding/basic-data-encoding) input parameters                                                                         |
+
+The `params` encapsulation holds the required input parameters in order of declaration, followed by the
+[optional](../../encoding/data-encoding-for-optional-values) input parameters sorted by tag.
 
 The request identifier zero (`0`) is reserved for use in
 [oneway](../../runtime/invocation/invocation-mode/oneway-invocations) requests and indicates that the server must not
-send a reply to the client. A non-zero request identifier must be unique among the sender's outstanding requests on the
-connection.
+send a reply to the client. The sender gives each of its outstanding twoway requests on the connection a distinct
+non-zero request identifier.
 
 The `facet` field has either zero elements or one element. An empty sequence denotes the default facet, and a
 one-element sequence provides the facet name in its first field. If a receiver receives a request with a `facet` field
@@ -120,14 +121,14 @@ struct BatchRequestData
 
 The batch request fields are described in the following table.
 
-| **Field**   | **Description**                                                                               |
-| ----------- | --------------------------------------------------------------------------------------------- |
-| `id`        | The [object identity](../../runtime/object-identity)                                          |
-| `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence)                        |
-| `operation` | The operation name                                                                            |
-| `mode`      | A byte representation of `Ice::OperationMode`, as in a [request](#request-message-body)       |
-| `context`   | The request [context](../../runtime/invocation/request-contexts)                              |
-| `params`    | The encapsulated input parameters, in the same order as in a [request](#request-message-body) |
+| **Field**   | **Description**                                                                         |
+| ----------- | --------------------------------------------------------------------------------------- |
+| `id`        | The [object identity](../../runtime/object-identity)                                    |
+| `facet`     | The [facet](../../runtime/facets) name (zero- or one-element sequence)                  |
+| `operation` | The operation name                                                                      |
+| `mode`      | A byte representation of `Ice::OperationMode`, as in a [request](#request-message-body) |
+| `context`   | The request [context](../../runtime/invocation/request-contexts)                        |
+| `params`    | The encapsulated input parameters                                                       |
 
 Note that no request ID is necessary for batch requests because only oneway invocations can be batched.
 
@@ -154,7 +155,7 @@ the requester to associate the reply with the [original request](./). The reques
 does not match that of an outstanding request, such as the reply to a request that timed out.
 
 The byte following the request ID indicates the status of the request, and the reply payload follows the status byte.
-The possible reply status values are shown in the table below; the first column gives the corresponding
+The table below shows the possible reply status values; the first column gives the corresponding
 [ReplyStatus](api:Ice/ReplyStatus) enumerator.
 
 | **Reply status**        | **Numeric value** | **Payload**                                                                  | **Description**                                                                                                                                                         |
@@ -172,9 +173,8 @@ The possible reply status values are shown in the table below; the first column 
 | `NotSupported`          | `10`              | `string`                                                                     | The dispatch failed because the request requires a feature that the server or the target servant does not support.                                                      |
 |                         | `11` to `255`     | `string`                                                                     | The dispatch failed for some other reason.                                                                                                                              |
 
-For reply statuses 0 and 1, the reply payload is an [encapsulation](../../encoding/basic-data-encoding). For every other
-reply status, the reply payload is an Ice-encoded value, not enclosed in an encapsulation: a `RequestFailedData` for
-statuses 2, 3, and 4, and a `string` that describes the exception otherwise.
+Only the payloads of reply statuses 0 and 1 are [encapsulations](../../encoding/basic-data-encoding); the
+`RequestFailedData` and `string` payloads follow the status byte directly.
 
 ### Ok Reply Payload
 
@@ -186,9 +186,7 @@ an operation declares a `void` return type and no out-parameters, the encapsulat
 ### User Exception Reply Payload
 
 For reply status 1, the reply payload is an encapsulation that holds the
-[encoded user exception](../../encoding/data-encoding-for-exceptions). A servant that throws a Slice user exception
-produces reply status 1, even when this exception does not match the operation's exception specification; the client
-converts such an exception into an `UnknownUserException`.
+[encoded user exception](../../encoding/data-encoding-for-exceptions).
 
 ### Request Failed Reply Payload
 
@@ -221,7 +219,7 @@ Validate connection messages are only used for connection-oriented transports.
 
 {% callout type="note" %}
 
-Once the connection is validated, either side can also send validate connection messages as a heartbeat.
+After the client receives this message, either side can also send validate connection messages as a heartbeat.
 
 {% /callout %}
 
@@ -247,21 +245,18 @@ initiator) proceeds as follows:
 
 1. The initiator stops sending requests to the peer, and discards any request or batch request it receives from now on,
    without dispatching it.
-2. The initiator waits until the dispatch of all the requests it accepted on the connection has completed and their
-   replies have been sent.
+2. The initiator waits until its outstanding invocations on the connection have completed, and until the dispatch of all
+   the requests it accepted on the connection has completed and it has sent their replies.
 3. The initiator sends a close connection message.
 4. The initiator waits for the peer to close the connection, then closes the connection. If the peer does not close the
    connection within the
    [close timeout](../../property-reference/ice-connection-properties#ice.connection.name.closetimeout), the initiator
    aborts the connection.
 
-When the application closes the connection, the initiator first waits for its outstanding invocations on the connection
-to complete; the close timeout also applies to this wait.
-
 The peer that receives the close connection message (the receiver) closes the connection.
 
 Because of steps 1 and 2, the receiver can re-issue its outstanding requests on a new connection without violating
-[at-most-once semantics](../../runtime/invocation/automatic-retries). Ice retries these requests as described in
+[at-most-once semantics](../../slice/operations#idempotent-operations). Ice retries these requests as described in
 [Automatic Retries](../../runtime/invocation/automatic-retries), except for requests sent with a fixed proxy, which is
 bound to the closed connection.
 
@@ -269,8 +264,8 @@ bound to the closed connection.
 
 Either side can abort a connection at any time: it closes the connection without sending a close connection message. Ice
 aborts a connection when it detects a violation of the protocol rules, such as a message with a bad magic number, when
-it receives a message larger than [Ice.MessageSizeMax](../../property-reference/ice-properties#ice.messagesizemax), or
-when the connection does not receive any bytes for longer than the
+it receives a message larger than its [message size limit](../../property-reference/ice-properties#ice.messagesizemax),
+or when the connection does not receive any bytes for longer than the
 [idle timeout](../../runtime/connection-management/connection-closure#the-idle-check).
 
 With a datagram transport such as `udp`, the receiver discards a datagram that violates the protocol rules and keeps

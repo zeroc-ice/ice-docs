@@ -10,8 +10,8 @@ transports. The most common example is TCP, but Ice also supports [WebSocket](ht
 The Ice protocol defines:
 
 - a number of message types, such as request and reply message types,
-- a protocol state machine that determines in what sequence different message types are exchanged by client and server,
-  together with the associated connection establishment and tear-down semantics for TCP/IP,
+- rules that determine when client and server send each message type, including how they establish and gracefully close
+  a connection,
 - a header for each message type that contains details such as the message type, the message size, and the protocol and
   encoding version in use.
 
