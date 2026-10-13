@@ -93,25 +93,29 @@ Bidirectional connections have certain limitations:
 - Marshaling a fixed proxy, for example as an operation parameter, or converting it to proxy properties throws
   `FixedProxyException`.
 
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
 ## Threading Considerations for Bidirectional Connections
 
-An Ice communicator normally creates two [thread pools](../../threading-model) for processing network traffic on
-connections: the client thread pool manages outgoing connections and the server thread pool manages incoming
-connections. All of the object adapters in a server share the same thread pool by default, but an object adapter can
-also be configured to have [its own thread pool](../../threading-model/object-adapter-thread-pools). An outgoing
-connection always uses the client thread pool, even when its object adapter has its own thread pool. The default size of
-the client and server thread pools is one.
+On a bidirectional connection, the [thread pool](../../threading-model/thread-pools) that services the connection
+handles traffic in both directions:
 
-The client thread pool processes replies to pending requests. When a client configures an outgoing connection for
-bidirectional requests, the client thread pool also becomes responsible for dispatching callback requests received over
-that connection. Similarly, the server thread pool normally dispatches requests from clients. If a server uses a
-bidirectional connection to send callback requests, then the server thread pool must also process the replies to those
-requests.
+- In the client, the client thread pool processes the replies to the client's requests and the callbacks received over
+  the connection. An outgoing connection always uses the client thread pool, even when the callback object adapter has
+  its own thread pool.
+- In the server, the thread pool of the object adapter that accepted the connection dispatches the client's requests and
+  processes the replies to the server's callbacks.
 
-You must increase the size of the appropriate thread pool if you need the ability to dispatch multiple requests in
-parallel, or if you need to make [nested two-way invocations](../../threading-model/nested-invocations). For example, a
-client that receives a callback request over a bidirectional connection and makes nested invocations must increase the
-size of the _client_ thread pool.
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,python" %}
+
+With a single thread, the client thread pool dispatches one callback at a time, and a callback that blocks waiting for a
+[nested twoway invocation](../../threading-model/nested-invocations) blocks the only thread that can process the reply.
+Increase the size of the client thread pool to dispatch callbacks in parallel or to make nested twoway invocations from
+a callback.
+
+{% /iflang %}
 
 ## See Also
 
