@@ -13,8 +13,9 @@ export function IceHeader() {
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-3 border-b border-hairline bg-surface/85 px-[clamp(1rem,2.5vw,2rem)] backdrop-blur">
       <div className="relative flex shrink-0 items-center gap-2">
-        {/* First in the bar, so it is the first thing the Tab key reaches. It
-            shows over the logo, in its place, so the bar keeps its shape. */}
+        {/* The first element in the bar, so the Tab key reaches it before
+            anything else. When it has focus it is drawn over the logo, covering
+            it, so nothing else in the bar moves. */}
         <a
           href="#skip-nav"
           className="sr-only focus:not-sr-only focus:absolute focus:inset-y-0 focus:left-0 focus:z-10 focus:flex focus:min-w-full focus:items-center focus:rounded-md focus:bg-surface focus:px-3 focus:text-xl focus:whitespace-nowrap focus:text-ink"
