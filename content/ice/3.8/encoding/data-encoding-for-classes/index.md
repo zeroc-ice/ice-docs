@@ -49,8 +49,8 @@ As in version 1.0 of the encoding, each instance is assigned a unique ID per enc
 version 1.1 encodes a reference as a [size](../basic-data-encoding) value, with a nil reference encoded as a size value
 of zero and a non-nil reference encoded as a positive size value. The encoding reserves ID value zero to denote a nil
 reference, and ID value 1 to denote an _inline_ instance in which an instance's state is marshaled at the point of its
-first reference. Consequently, instance IDs must start at 2. The encoding assigns instance IDs sequentially in order of
-appearance, with the first instance assigned an ID of 2, the next instance has ID 3, and so on.
+first reference. Consequently, the encoding assigns instance IDs sequentially in order of appearance, starting at 2: the
+first instance has ID 2, the next instance has ID 3, and so on.
 
 The encoding for a reference depends on the
 [format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) being used, and may also depend on the
@@ -89,14 +89,13 @@ The overall marshaling format for classes is shown below:
 
 _Marshaling format for classes._
 
-Prior to ending an encapsulation, the sender must encode all instances referenced within that encapsulation in an object
+Before the end of an encapsulation, the sender encodes all instances referenced within that encapsulation in an object
 table. The encoding may require multiple passes: as the sender processes an instance in the current pass, it may
 encounter additional instances to be processed in a subsequent pass. For each pass, the sender encodes a
 [size](../basic-data-encoding) denoting the number of objects in the pass. To signify that all instances have been
-encoded, the sender must marshal a size value of zero.
+encoded, the sender marshals a size value of zero.
 
-This object table must be written if any operation parameter or data member has a class type, even if all references are
-nil.
+This object table is present if any operation parameter or data member has a class type, even if all references are nil.
 
 ### Class Instance Encoding Version 1.1
 
@@ -109,10 +108,10 @@ subsequent slices may or may not include a type ID.
 
 Each slice consists of a leading byte representing the slice flags, an optional type ID, an optional slice size, the
 required members for that slice in order of declaration, and the
-[optional members](../data-encoding-for-optional-values) of that slice. The sender must set the appropriate
-[slice flags](../data-encoding-for-slices) to indicate whether the slice includes a type ID, size, and optional data
-members, and whether this is the last slice of the instance. The compact format only includes a type ID in the initial
-(most-derived) slice and omits the slice size, as shown in the following diagram:
+[optional members](../data-encoding-for-optional-values) of that slice. The [slice flags](../data-encoding-for-slices)
+indicate whether the slice includes a type ID, size, and optional data members, and whether this is the last slice of
+the instance. The compact format only includes a type ID in the initial (most-derived) slice and omits the slice size,
+as shown in the following diagram:
 
 ![The compact classes format starts with identity marker 1. The most-derived slice contains slice flags, a type ID, required members, and optional members when needed. Subsequent slices omit the type ID.](/images/ice/3.8/data-encoding-for-classes/compact-format.svg)
 
@@ -124,19 +123,19 @@ When using the sliced format, a type ID is included in every slice, along with a
 
 _Sliced format for classes._
 
-A slice that contains at least one non-nil class reference must use an [indirection table](./class-graphs) for all
+A slice that contains at least one non-nil class reference uses an [indirection table](./class-graphs) for all
 references in that slice. The table is an array of instances encoded using the inline scheme. A leading size value
 indicates the number of elements in the table; each element is either an instance ID (if the instance has already been
 encoded within the current encapsulation), or the instance itself denoted by a leading size of 1. The indirection table
 appears in the encoding immediately following the required and optional data members, _but is not included in the byte
 count denoted by the slice size_. To skip a slice for an unknown type, the receiver reads the slice size _b_, skips the
-remaining _b-4_ bytes, and then must process all references or instances in the indirection table, if one is present.
+remaining _b-4_ bytes, and then processes all references or instances in the indirection table, if one is present.
 
 To support [slice preservation](../../slice/user-defined-types/classes/slicing-values-and-exceptions) for an instance,
-the receiver must temporarily retain the slices of any unknown derived types, and also be able to reconstruct the
-indirection table in its original order for each of these slices in case the instance is later remarshaled. Because a
-preserved indirection table can hold the only reference to an instance, the receiver must also retain every instance
-that such a table references, even an instance none of whose type IDs it recognizes.
+the receiver retains the slices of any unknown derived types, along with what it needs to reconstruct the indirection
+table in its original order for each of these slices in case the instance is later remarshaled. Because a preserved
+indirection table can hold the only reference to an instance, the receiver also retains every instance that such a table
+references, even an instance none of whose type IDs it recognizes.
 
 ## See Also
 
