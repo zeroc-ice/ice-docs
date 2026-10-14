@@ -4,10 +4,10 @@ title: Data Encoding for Optional Values
 
 Slice definitions can use optional values as parameters and as fields. To make optional values truly useful, the
 receiver needs the ability to gracefully ignore an optional value that it does not recognize. Although the Ice encoding
-omits type information and therefore is not self-describing, the encoding for optional values must include enough
+omits type information and therefore is not self-describing, the encoding for optional values includes enough
 information for a receiver to determine how many bytes an optional value occupies so that it can skip to the next value
-in the stream. Despite this requirement, the encoding rules minimize the overhead associated with optional values, as
-you will see below.
+in the stream. The encoding rules nonetheless minimize the overhead associated with optional values, as you will see
+below.
 
 ## Overview of the Optional Value Encoding
 
@@ -15,7 +15,7 @@ The encoding for optional parameters and fields follows these general rules:
 
 - Each optional value has a corresponding integer tag that uniquely identifies it.
 - Optional values always appear _after_ any required values.
-- Optional values must be sorted by their tags. (Unlike required values, order of declaration does not affect optional
+- Optional values appear in increasing tag order. (Unlike required values, order of declaration does not affect optional
   values.)
 - An optional value is encoded only if the sender has supplied a value.
 
