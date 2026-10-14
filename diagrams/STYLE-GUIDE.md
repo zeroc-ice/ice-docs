@@ -68,8 +68,12 @@ sizes are starting points, not a fixed scale for every canvas.
 SVG units scale with the image. A font size of S units renders at S × `width` ÷ `viewBox` width pixels at the native
 display size, the largest size the page shows. At that size, component labels and boundary titles must render at 13
 pixels or more, and all other text, including annotations, step numbers, and category headers, at 12 pixels or more.
-`npm run check:diagrams` enforces the 12-pixel floor. The template sizes meet both limits on a `viewBox` up to 740 units
-wide at a native width of 700 pixels; a wider drawing needs larger type, so compact the layout first.
+`npm run check:diagrams` enforces both limits. The 13-pixel tier covers `.label`, `.component-label`, `.major-label`,
+`.actor-label`, `.application-label`, `.runtime-label`, `.executable-label`, `.interface-name`, `.file-label`,
+`.facet-name`, `.state-label`, `.process-title`, `.boundary-title`, `.group-label`, and `.zone-label`. Nested spans
+inherit the enclosing label's tier; superscript `.asterisk` annotations use the 12-pixel tier. The template sizes meet
+both limits on a `viewBox` up to 740 units wide at a native width of 700 pixels; a wider drawing needs larger type, so
+compact the layout first.
 
 Use sentence case. Set code identifiers, filenames, operation names, and property names in the shared monospace stack:
 
@@ -147,8 +151,9 @@ appropriate when their marker carries a different established meaning.
 
 Do not give an existing line style a new meaning; add and document a new role instead. Arrowheads, line style, and
 nearby labels must communicate direction and meaning without relying on color. Define each marker once in `<defs>` and
-use `orient="auto-start-reverse"` for a marker shared by both ends. Connect to deliberate ports on the edge of each
-component rather than its label area.
+use `orient="auto-start-reverse"` for a marker shared by both ends. Use `markerWidth="5"` and `markerHeight="5"` for
+solid arrowheads, and `markerWidth="7"` and `markerHeight="7"` for hollow inheritance arrowheads. Connect to deliberate
+ports on the edge of each component rather than its label area.
 
 Connection count is part of a flow diagram's technical meaning. Do not turn one reused connection into two parallel
 lanes or merge two independent connections into one.
@@ -185,9 +190,9 @@ numbers, and leave a visible gap between the badge and its label.
   host outlines, and interrupt it behind labels. Name the zone on each side of the line in `.zone-label` text at the top
   of the drawing, 12 units from the line and anchored toward it, for example `Public network` and `Private network`.
   When the zones are not meaningful, omit the line and label the connector `Network`.
-- Glacier2 uses the service treatment: a `240 × 136` component with `Glacier2` centered in a 40-unit header, a divider
-  under the header, and two equal cells labeled `Client endpoints` and `Server endpoints` on two lines each. Set each
-  cell's addresses as annotations below the component, centered under the cell.
+- When a figure shows Glacier2's endpoints, use the service treatment: a `240 × 136` component with `Glacier2` centered
+  in a 40-unit header, a divider under the header, and two equal cells labeled `Client endpoints` and `Server endpoints`
+  on two lines each. Set each cell's addresses as annotations below the component, centered under the cell.
 - Data in transit, such as DataStorm samples, uses the `.data` treatment with an annotation that names it.
 - Set addresses and ports in annotation text immediately below the owning component, for example `IP: 10.0.0.1` or
   `tcp: 4061`.

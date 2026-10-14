@@ -19,8 +19,8 @@
       viewBox="0 0 8 8"
       refX="7.2"
       refY="4"
-      markerWidth="7"
-      markerHeight="7"
+      markerWidth="5"
+      markerHeight="5"
       orient="auto-start-reverse"
     >
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
@@ -41,6 +41,11 @@
       fill: #566174;
       font-size: 14px;
       text-anchor: middle;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
     }
     .application {
       fill: #ffffff;
@@ -71,8 +76,8 @@
   <g id="connectors" aria-hidden="true">
     <path class="connector one-way" d="M 144 48 L 456 48" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 456 88 L 144 88" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 100 152 L 145 152" vector-effect="non-scaling-stroke"/>
-    <path class="connector callback" d="M 310 152 L 355 152" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 24 152 H 60" vector-effect="non-scaling-stroke"/>
+    <path class="connector callback" d="M 154 152 H 190" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
@@ -83,7 +88,7 @@
   <g id="labels">
     <text class="label" x="84.0" y="72.0">Client</text>
     <text class="label" x="516.0" y="72.0">Server</text>
-    <text class="annotation" x="195" y="157">Request</text>
-    <text class="annotation" x="410" y="157">Callback</text>
+    <text class="legend-label" x="70" y="157">Request</text>
+    <text class="legend-label" x="200" y="157">Callback</text>
   </g>
 </svg>

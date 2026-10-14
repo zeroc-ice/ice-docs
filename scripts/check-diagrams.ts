@@ -18,9 +18,23 @@ import path from 'node:path';
 const IMAGES = path.join(process.cwd(), 'public', 'images');
 const MIN_RENDERED_PX = 12;
 
-// Figures drawn before the rule whose text is not yet at the floor.
-const EXEMPT = new Set([
-  'ice/3.8/protocol-messages/protocol-state-machine.svg'
+const MIN_LABEL_PX = 13;
+const LABEL_CLASSES = new Set([
+  'label',
+  'component-label',
+  'major-label',
+  'actor-label',
+  'application-label',
+  'runtime-label',
+  'executable-label',
+  'interface-name',
+  'file-label',
+  'facet-name',
+  'state-label',
+  'process-title',
+  'boundary-title',
+  'group-label',
+  'zone-label'
 ]);
 
 interface FontRule {
@@ -77,20 +91,27 @@ function fontSize(
 const attribute = (tag: string, name: string) =>
   new RegExp(`\\s${name}="([^"]*)"`).exec(tag)?.[1];
 
-function smallestText(svg: string) {
+/** Finds the text closest to or furthest below its rendered-size minimum. */
+function leastReadableText(svg: string) {
   const root = /<svg\b[^>]*>/.exec(svg)?.[0] ?? '';
   const width = Number(attribute(root, 'width'));
   const viewBoxWidth = Number(attribute(root, 'viewBox')?.split(/\s+/)[2]);
   const scale = width / viewBoxWidth;
   const rules = fontRules(svg);
 
-  let smallest: { px: number; text: string } | undefined;
-  const record = (size: number, content: string) => {
+  let leastReadable:
+    { px: number; minimumPx: number; text: string } | undefined;
+  const record = (size: number, minimumPx: number, content: string) => {
     const text = content.trim();
-    if (text && (!smallest || size * scale < smallest.px))
-      smallest = { px: size * scale, text };
+    const px = size * scale;
+    if (
+      text &&
+      (!leastReadable ||
+        px / minimumPx < leastReadable.px / leastReadable.minimumPx)
+    )
+      leastReadable = { px, minimumPx, text };
   };
-  const parents: number[] = [];
+  const parents: { size: number; minimumPx: number }[] = [];
   for (const [tag, closing, name, content] of svg
     .matchAll(/<(\/?)(text|tspan)\b[^>]*?(\/?)>([^<]*)/g)
     .map((match) => [match[0], match[1], match[2], match[4]])) {
@@ -98,19 +119,25 @@ function smallestText(svg: string) {
       parents.pop();
       // Text after a closing </tspan> belongs to the enclosing element.
       const enclosing = parents.at(-1);
-      if (enclosing !== undefined) record(enclosing, content);
+      if (enclosing !== undefined)
+        record(enclosing.size, enclosing.minimumPx, content);
       continue;
     }
     const classes = (attribute(tag, 'class') ?? '').split(/\s+/);
     const size =
       fontSize(name, classes, rules) ??
-      parents.at(-1) ??
+      parents.at(-1)?.size ??
       fontSize('text', [], rules) ??
       16;
-    if (!tag.endsWith('/>')) parents.push(size);
-    record(size, content);
+    const minimumPx = classes.includes('asterisk')
+      ? MIN_RENDERED_PX
+      : classes.some((name) => LABEL_CLASSES.has(name))
+        ? MIN_LABEL_PX
+        : (parents.at(-1)?.minimumPx ?? MIN_RENDERED_PX);
+    if (!tag.endsWith('/>')) parents.push({ size, minimumPx });
+    record(size, minimumPx, content);
   }
-  return { scale, smallest };
+  return { scale, leastReadable };
 }
 
 function svgFiles(directory: string): string[] {
@@ -128,16 +155,20 @@ let errors = 0;
 const files = svgFiles(IMAGES);
 for (const file of files) {
   const relative = path.relative(IMAGES, file).split(path.sep).join('/');
-  if (EXEMPT.has(relative)) continue;
-  const { scale, smallest } = smallestText(fs.readFileSync(file, 'utf8'));
+  const { scale, leastReadable } = leastReadableText(
+    fs.readFileSync(file, 'utf8')
+  );
   if (!Number.isFinite(scale)) {
     console.error(
       `error: ${relative}: the root <svg> needs a numeric width and viewBox`
     );
     errors++;
-  } else if (smallest && smallest.px < MIN_RENDERED_PX - 1e-9) {
+  } else if (
+    leastReadable &&
+    leastReadable.px < leastReadable.minimumPx - 1e-9
+  ) {
     console.error(
-      `error: ${relative}: "${smallest.text}" renders at ${smallest.px.toFixed(1)} px; text must render at ${MIN_RENDERED_PX} px or more (font size × width ÷ viewBox width)`
+      `error: ${relative}: "${leastReadable.text}" renders at ${leastReadable.px.toFixed(2)} px; text must render at ${leastReadable.minimumPx} px or more (font size × width ÷ viewBox width)`
     );
     errors++;
   }
@@ -148,5 +179,5 @@ if (errors) {
   process.exit(1);
 }
 console.log(
-  `${files.length - EXEMPT.size} diagrams checked (${EXEMPT.size} exempt): all text renders at ${MIN_RENDERED_PX} px or more`
+  `${files.length} diagrams checked: labels and titles render at ${MIN_LABEL_PX} px or more; other text at ${MIN_RENDERED_PX} px or more`
 );

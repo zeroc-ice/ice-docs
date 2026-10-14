@@ -9,14 +9,14 @@
 >
   <title id="title">Glacier2 router configuration for IceGrid</title>
   <desc id="description">
-    The client at 10.0.0.1 uses a bidirectional connection to Glacier2 client endpoints at 1.2.3.4 on the public
-    network. Glacier2 server endpoints use 10.0.0.1 on the private network. Glacier2 and the IceGrid registry at
-    10.0.0.2 port 4061 use separate request and callback connections. A legend distinguishes requests from
-    callbacks.
+    The client at 10.0.0.1 uses a bidirectional connection to Glacier2 client endpoints at 1.2.3.4.
+    Glacier2 server endpoints use 10.0.0.1. Glacier2 and the IceGrid registry at
+    10.0.0.2 port 4061 use separate request and callback connections. A legend distinguishes requests,
+    callbacks, and bidirectional connections.
   </desc>
 
   <defs>
-    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
   </defs>
@@ -90,7 +90,7 @@
 
     .zone-label {
       fill: #566174;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 650;
     }
 
@@ -113,6 +113,7 @@
     <path class="connector callback" d="M 616 168 H 500" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 24 288 H 60" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 177 288 H 213" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 314 288 H 350" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
@@ -123,8 +124,8 @@
   </g>
 
   <g id="labels">
-    <text class="zone-label" x="368" y="30" text-anchor="end">Public network</text>
-    <text class="zone-label" x="392" y="30">Private network</text>
+    <text class="zone-label" x="368" y="30" text-anchor="end">Client network</text>
+    <text class="zone-label" x="392" y="30">Server network</text>
     <text class="component-label" x="94" y="157">Client</text>
     <text class="annotation" x="94" y="224">IP: 10.0.0.1</text>
     <text class="component-label" x="380" y="90">Glacier2</text>
@@ -146,5 +147,6 @@
     <text class="annotation" x="676" y="244">Port: 4061</text>
     <text class="legend-label" x="70" y="293">Request</text>
     <text class="legend-label" x="223" y="293">Callback</text>
+    <text class="legend-label" x="360" y="293">Bidirectional connection</text>
   </g>
 </svg>

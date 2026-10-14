@@ -12,12 +12,12 @@
     Four numbered steps show a client request crossing Glacier2 to a server and a callback returning
     through Glacier2 to the client. Steps one and four share the client's bidirectional connection,
     while steps two and three use separate server-side connections. Glacier2 has client-endpoint and
-    server-endpoint compartments with public and private IP addresses. A legend distinguishes requests
-    from callbacks.
+    server-endpoint compartments with public and private IP addresses. A legend distinguishes requests,
+    callbacks, and bidirectional connections.
   </desc>
 
   <defs>
-    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
     <g id="step-badge-shape">
@@ -94,7 +94,7 @@
 
     .zone-label {
       fill: #566174;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 650;
     }
 
@@ -132,6 +132,7 @@
     <path class="connector callback" d="M 616 168 H 500" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 24 268 H 60" vector-effect="non-scaling-stroke"/>
     <path class="connector callback" d="M 177 268 H 213" vector-effect="non-scaling-stroke"/>
+    <path class="connector two-way" d="M 314 268 H 350" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
@@ -173,5 +174,6 @@
     <text class="step-number" x="564" y="195">3</text>
     <text class="legend-label" x="70" y="273">Request</text>
     <text class="legend-label" x="223" y="273">Callback</text>
+    <text class="legend-label" x="360" y="273">Bidirectional connection</text>
   </g>
 </svg>

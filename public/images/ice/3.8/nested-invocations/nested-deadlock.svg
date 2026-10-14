@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="680"
-  height="490"
+  height="548"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 680 490"
+  viewBox="0 0 680 548"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">Deadlock during nested invocations</title>
   <desc id="description">
     The client calls opA on Server A. While dispatching opA, Server A calls opB on Server B. Server A's only dispatch
-    thread waits for opB to return, so Server A cannot dispatch Server B's callback.
+    thread waits for opB to return, so Server A cannot dispatch Server B's callback. A legend distinguishes requests
+    from blocked callbacks.
   </desc>
 
   <defs>
@@ -19,8 +20,8 @@
       viewBox="0 0 8 8"
       refX="7.2"
       refY="4"
-      markerWidth="7"
-      markerHeight="7"
+      markerWidth="5"
+      markerHeight="5"
       orient="auto-start-reverse"
     >
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
@@ -45,6 +46,11 @@
       fill: #566174;
       font-size: 14px;
       text-anchor: middle;
+    }
+    .legend-label {
+      fill: #566174;
+      font-size: 14px;
+      font-weight: 500;
     }
     .side-note {
       text-anchor: end;
@@ -83,12 +89,15 @@
     }
   </style>
 
-  <rect width="680" height="490" fill="#ffffff"/>
+  <rect width="680" height="548" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
+    <path class="connector one-way" d="M 58 520 H 94" vector-effect="non-scaling-stroke"/>
+    <path class="connector blocked" d="M 188 520 H 224" vector-effect="non-scaling-stroke"/>
+    <path class="connector blocked-cross" d="M 220 516 L 228 524 M 220 524 L 228 516" vector-effect="non-scaling-stroke"/>
     <path class="lifeline" d="M 80 54 V 470" vector-effect="non-scaling-stroke"/>
     <path class="lifeline" d="M 340 54 V 470" vector-effect="non-scaling-stroke"/>
     <path class="lifeline" d="M 600 54 V 470" vector-effect="non-scaling-stroke"/>
@@ -110,6 +119,8 @@
   </g>
 
   <g id="labels">
+    <text class="legend-label" x="104" y="525">Request</text>
+    <text class="legend-label" x="234" y="525">Blocked callback</text>
     <text class="label" x="80" y="36">Client</text>
     <text class="label" x="340" y="36">Server A</text>
     <text class="label" x="600" y="36">Server B</text>

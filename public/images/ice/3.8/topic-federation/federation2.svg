@@ -19,8 +19,8 @@
       viewBox="0 0 8 8"
       refX="7.2"
       refY="4"
-      markerWidth="7"
-      markerHeight="7"
+      markerWidth="5"
+      markerHeight="5"
       orient="auto-start-reverse"
     >
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
@@ -71,7 +71,7 @@
     .legend-label {
       fill: #566174;
       font-size: 14px;
-      text-anchor: middle;
+      font-weight: 500;
     }
     .one-way {
       marker-end: url(#arrow);
@@ -85,8 +85,8 @@
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector one-way" d="M 145 382 H 185" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way topic-link" d="M 365 382 H 405" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 24 382 H 60" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way topic-link" d="M 216 382 H 252" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 114 153 L 296 190" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way" d="M 114 253 L 296 212" vector-effect="non-scaling-stroke"/>
     <path class="connector one-way topic-link" d="M 353 188 L 522 117" vector-effect="non-scaling-stroke"/>
@@ -102,8 +102,8 @@
   </g>
 
   <g id="labels">
-    <text class="legend-label" x="255" y="387">Message delivery</text>
-    <text class="legend-label" x="460" y="387">Topic link</text>
+    <text class="legend-label" x="70" y="387">Message delivery</text>
+    <text class="legend-label" x="262" y="387">Topic link</text>
     <text class="label" x="428.0" y="49">IceStorm</text>
     <text class="label" x="69.0" y="158.0">P1</text>
     <text class="label" x="69.0" y="258.0">P2</text>

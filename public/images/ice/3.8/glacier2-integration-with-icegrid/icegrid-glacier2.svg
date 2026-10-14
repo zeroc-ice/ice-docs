@@ -14,7 +14,7 @@
   </desc>
 
   <defs>
-    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
   </defs>
@@ -86,7 +86,7 @@
 
     .zone-label {
       fill: #566174;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 650;
     }
   </style>

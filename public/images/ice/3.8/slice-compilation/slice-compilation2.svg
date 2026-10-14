@@ -17,7 +17,7 @@
   </desc>
 
   <defs>
-    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+    <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
     </marker>
     <symbol id="document-shape" viewBox="0 0 160 92" preserveAspectRatio="none">
@@ -104,9 +104,15 @@
       fill: #ffffff;
     }
 
-    .group-label,
     .category-badge {
       font-size: 14px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+
+    .group-label {
+      font-size: 15px;
       font-weight: 750;
       letter-spacing: 0.05em;
       text-anchor: middle;
