@@ -153,9 +153,8 @@ If you throw an arbitrary Swift exception, the Ice runtime catches the exception
 to the client.
 
 If you throw a [dispatch exception](../../runtime/local-and-dispatch-exceptions#dispatch-exceptions), such as
-`ObjectNotExistException`, the Ice runtime sends its reply status to the client, and the client receives the
-corresponding dispatch exception. If you throw any other Ice local exception, such as `MarshalException`, the client
-receives an `UnknownLocalException`.
+`ObjectNotExistException`, the client receives the same exception. If you throw any other Ice local exception, such as
+`MarshalException`, the client receives an `UnknownLocalException`.
 
 The server-side Ice runtime does not validate user exceptions thrown by an operation implementation to ensure they are
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the

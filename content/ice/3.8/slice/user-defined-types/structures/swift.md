@@ -36,8 +36,7 @@ For each field in the Slice definition, the Swift structure contains a correspon
 name.
 
 The generated Swift structure conforms to `Sendable`. When the Slice structure is a legal
-[dictionary key type](../dictionaries) (all its fields are integral types, `bool`, `byte`, `string`, enumerations, or
-structures that are legal key types), the generated structure also conforms to `Hashable`. For example:
+[dictionary key type](../dictionaries), the generated structure also conforms to `Hashable`. For example:
 
 ```slice
 struct TimeOfDay
