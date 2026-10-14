@@ -17,5 +17,10 @@ The [systemd units](../linux-services) included in the Linux packages start `gla
 [Ice.UseSystemdJournal](../../property-reference/ice-properties#ice.usesystemdjournal), so these services log to the
 systemd journal.
 
-An Ice service that fails before it initializes its communicator logs the error to standard error, or to the
-`Application` event log when it runs as a Windows service, even when it is configured to use a different logger.
+On Linux and macOS, and on Windows without `--service`, an Ice service that fails before it initializes its communicator
+reports the error to standard error, even if its configuration selects a different logger. Running as a Windows service,
+it reports a failure to initialize its communicator to the event log instead. It reads its configuration file before it
+opens the event log, however, so an error in reading that file goes to standard error, and a Windows service has no
+console to show it.
+[Troubleshooting Windows Services](../windows-services/troubleshooting-windows-services#service-fails-to-start)
+describes how to see this error.

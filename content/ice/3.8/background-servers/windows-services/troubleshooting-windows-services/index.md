@@ -2,61 +2,38 @@
 title: Troubleshooting Windows Services
 ---
 
-This page describes how to troubleshoot Windows Services.
+This page describes how to diagnose problems with an Ice service that runs as a Windows service.
 
-## Missing Libraries for a Windows Service
+## Service Fails to Start
 
-One failure that commonly occurs when starting a Windows service is caused by missing DLLs, which usually results in an
-error window stating a particular DLL cannot be found. Fixing this problem can often be a trial-and-error process
-because the DLL mentioned in the error may depend on other DLLs that are also missing. It is important to understand
-that a Windows service is launched by the operating system and can be configured to execute as a different user, which
-means the service's environment (most importantly its `PATH`) may not match yours and therefore extra steps are
-necessary to ensure that the service can locate its required DLLs.
-
-{% callout type="note" %}
-
-The command-line utility `dumpbin` can be used to discover the dependencies of an executable or DLL.
-
-{% /callout %}
-
-The simplest approach is to copy all of the necessary DLLs to the directory containing the service executable. If this
-solution is undesirable, another option is to modify the system `PATH` to include the directory or directories
-containing the required DLLs. (Note that modifying the system `PATH` requires restarting the system.) Finally, you can
-copy the necessary DLLs to `\WINDOWS\system32`, although we do not recommend this approach.
-
-{% callout type="note" %}
-
-Copying DLLs to `\WINDOWS\system32` often results in subtle problems later when trying to develop using newer versions
-of the DLLs. Inevitably you will forget about the DLLs in `\WINDOWS\system32` and struggle to determine why your
-application is misbehaving or failing to start.
-
-{% /callout %}
-
-Assuming that DLL issues are resolved, a Windows service can fail to start for a number of other reasons, including
+An Ice service running as a Windows service can fail to start because of:
 
 - invalid command-line arguments or configuration properties
-- inability to access necessary resources such as file systems and databases, because either the resources do not exist
-  or the service does not have sufficient access rights to them
-- networking issues, such as attempting to open a port that is already in use, or DNS lookup failures
+- a file or directory that does not exist or that the service's account cannot access, such as the configuration file or
+  a data directory
+- an IceBox service or Ice plug-in whose library Windows cannot find
+- networking issues, such as an endpoint whose port is already in use, or a DNS lookup failure
 
-Failures encountered by the Ice run time prior to initialization of the communicator are reported to the Windows event
-log if no other logger implementation is defined, so that should be the first place you look. Typically you will find an
-entry in the `System` event log resembling the following message:
+When an Ice service fails after it reports to the Windows service control manager, it stops with the service-specific
+exit code `1`, and Windows records an entry in the `System` event log stating that the service terminated with a
+service-specific error. The service writes its own error messages to the event log, under the source named by
+[Ice.EventLog.Source](../../../property-reference/ice-properties#ice.eventlog.source) or under the service name, until
+it initializes its communicator. After that, it writes them with the logger its configuration selects, such as the file
+named by [Ice.LogFile](../../../property-reference/ice-properties#ice.logfile), or to the event log when the
+configuration selects no logger. The [Ice service installer](../using-the-ice-service-installer) registers the event log
+source in the `Application` event log unless you set its `EventLog` property.
 
-```text
-The IceBridge service terminated with service-specific error 1.
-```
+An Ice service that cannot read its configuration file exits earlier, before it reports to the service control manager
+or opens the event log: Windows records no service-specific error, and the service writes no message to the event log.
+To see the error, run the service's command line in a console without the `--service NAME` option: the service prints
+the error to standard error. The console uses your account and environment, not the service's, so an error caused by the
+service account's access rights may not occur there.
 
-Error code `1` corresponds to `EXIT_FAILURE`, the value used by the `Service` class to indicate a failure during
-startup. Additional diagnostic messages may be available in the `Application` event log. See
-[Service Logging Considerations](../../service-logging-considerations) for more information on configuring a logger for
-a Windows service.
-
-As we mentioned earlier, insufficient access rights can also prevent a Windows service from starting successfully. By
-default, a Windows service is configured to run under a local system account, in which case the service may not be able
-to access resources owned by other users. It may be necessary for you to configure a service to run under a
-[different account](../installing-a-windows-service), which you can do using the Services control panel. You should also
-review the access rights of files and directories required by the service.
+The Ice service installer installs a service to run under the `NT Authority\LocalService` account unless you set its
+`ObjectName` property. It grants this account read access to the configuration file and full access to the data
+directory of an IceGrid registry or node. If you change the account of the service, for example with the Services
+control panel, or move these files, grant the account the same access rights, or uninstall and reinstall the service
+with the installer.
 
 ## Windows Firewall Interference
 
