@@ -187,14 +187,14 @@ java -Djava.net.preferIPv4Stack=true ...
 
 {% property-description %}
 
-Ice for Java allows you to customize the Slice module to Java package mapping with the `java:package` and
-`java:identifier` [metadata directive](../../slice/slice-metadata-directives).
-
-When you use this feature, you need to help Ice locate your remapped classes during unmarshaling, by installing a
-[Slice loader](../../slice/user-defined-types/classes/slice-loaders) in your communicator. The `Ice.Package.module`
-properties tell the Ice communicator to install automatically a
-[ModuleToPackageSliceLoader](api:Ice/ModuleToPackageSliceLoader) during initialization, configured using the module to
-package map created by these properties.
+Specifies the Java package that encloses the Java package of the top-level Slice module _module_, such as the package
+that the `java:package` [metadata directive](../../slice/slice-metadata-directives) sets for this module. When one or
+more of these properties are set, the communicator adds a
+[ModuleToPackageSliceLoader](api:Ice/ModuleToPackageSliceLoader) to its default
+[Slice loader](../../slice/user-defined-types/classes/slice-loaders). This Slice loader maps each _module_ to the Java
+package `package._module_`: with `Ice.Package.Demo=com.example`, it loads the class `com.example.Demo.Node` for the type
+ID `::Demo::Node`. It locates a class or exception only when its modules and its own name keep their Slice names in
+Java.
 
 This property is provided primarily for backwards compatibility; we recommend configuring Slice loaders programmatically
 in new applications.
