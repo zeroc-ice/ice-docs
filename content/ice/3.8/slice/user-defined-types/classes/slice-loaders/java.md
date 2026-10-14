@@ -1,7 +1,7 @@
 {% language-section name="default-slice-loader" %}
 
-The default Slice loader of Ice for Java converts the Slice type ID into a Java class name. It cannot locate the class
-for a Slice class or exception when:
+The default Slice loader of Ice for Java converts the Slice type ID into a Java class name: for the type ID
+`::Demo::Node`, it loads the class `Demo.Node`. It cannot locate the class for a Slice class or exception when:
 
 - you remap either the class name or an enclosing module using the `java:identifier` metadata;
 - you remap an enclosing module using the `java:package` metadata, and set neither the matching

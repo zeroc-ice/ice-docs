@@ -1,7 +1,7 @@
 {% language-section name="custom-slice-loaders" %}
 
-A custom Slice loader is an object with a `newInstance` method that takes a type ID and returns a new instance, or
-`nil`. You install it by setting the `sliceLoader` attribute of [InitializationData](api:Ice/InitializationData):
+A custom Slice loader is an object with a `newInstance` method that takes a type ID and returns a new instance. You
+install it by setting the `sliceLoader` attribute of [InitializationData](api:Ice/InitializationData):
 
 ```ruby
 class NodeLoader

@@ -17,8 +17,8 @@ communicator = Ice.Communicator(args, SliceLoader = Ice.ClassSliceLoader(?Compac
 
 {% language-section name="custom-slice-loaders" %}
 
-A custom Slice loader derives from `Ice.SliceLoader` and implements its `newInstance` method, which returns an empty
-array when it does not create an instance:
+A custom Slice loader derives from `Ice.SliceLoader` and implements its `newInstance` method, which takes a type ID and
+returns a new instance:
 
 ```matlab
 classdef NodeLoader < Ice.SliceLoader
