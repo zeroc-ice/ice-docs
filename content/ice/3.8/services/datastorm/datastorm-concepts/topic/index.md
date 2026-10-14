@@ -49,8 +49,10 @@ parameters: DataStorm does not check these types across applications.
 
 ## Waiting for Readers and Writers
 
-A topic reports and waits for the readers attached to the writers created from it, and for the writers attached to the
-readers created from it:
+A topic lets you check for and wait for:
+
+- the readers attached to the writers created from this topic;
+- the writers attached to the readers created from this topic.
 
 | Method                  | Description                                                                |
 | ----------------------- | -------------------------------------------------------------------------- |
@@ -61,9 +63,9 @@ readers created from it:
 | `waitForWriters(count)` | Blocks until the topic's readers have at least `count` writer attachments. |
 | `waitForNoWriters()`    | Blocks until no writer is attached to the topic's readers.                 |
 
-The `count` parameter defaults to 1. An attachment links one writer and one reader for a key or a key filter, so a
-reader can count more than once: for example, when it is attached to two of the topic's writers, or when it shares two
-keys with one writer. A topic with no writers has no attached readers, so its `hasReaders` returns `false`.
+The `count` parameter, 1 by default, counts attachments rather than readers or writers. An attachment links one writer
+and one reader for a key or a key filter, so the same reader counts twice when it is attached to two of the topic's
+writers, or when it shares two keys with one writer.
 
 The `waitFor` methods throw `DataStorm::NodeShutdownException` once the node is shut down.
 
