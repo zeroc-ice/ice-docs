@@ -14,6 +14,25 @@ the conventions that recur in review.
 - **Do not define by negation, and do not write against the text you are replacing.** "IceSSL never prompts for the
   password" answers an older claim; the reader needs only the rule that holds.
 - **Prefer the plain word.** "cannot determine the revocation status" over "an undeterminable revocation status".
+- **Lead with what it does.** Open with what the feature, directive, or option does; its scope, default, and special
+  values follow.
+- **Name things precisely.** An operation returns a proxy, not an object or a topic, and a servant has no proxy: the
+  proxy is for the Ice object the servant implements. `tcp` and `ssl` are transports; "protocol" means the `ice` or
+  `icerpc` protocol. The members of a Slice struct are fields.
+
+## What the manual leaves out
+
+- **The rule, not the failure mode.** A page says what the reader must do and what Ice does. Which exception a violation
+  throws, what Ice does with invalid input, and what happens after a misconfiguration stay out.
+- **What the API reference documents.** Method-by-method lists, the exceptions a method throws, and per-method contracts
+  such as "this callback must not throw" belong to the API reference; the manual gives the rules it does not, and links
+  to it.
+- **Implementation detail and rationale.** Describe what the reader observes, not how Ice achieves it: which thread or
+  object adapter does the work, when a queue gets trimmed, how promptly a step happens. Give the reason for a rule only
+  when the reader needs it to apply the rule.
+- **Deprecated options, properties, and APIs**, and the warnings they produce. The upgrade guide covers renames.
+- **Known bugs.** State the intended rule; a bug, or a feature that one mapping lacks, goes in a `zeroc-ice/ice` issue,
+  not on the page.
 
 ## Accuracy
 
@@ -25,7 +44,21 @@ the conventions that recur in review.
 - **A page documents the release as it is.** Properties removed since the previous release, changes made in a patch
   release and other version history belong in the release notes, the changelog or the upgrade guide.
 - **Fix every copy of what you fix.** Prose is copied between the language overlays of a page and between related pages.
-  After correcting one, grep for the same sentence in the sibling overlays and fix or report those too.
+  After correcting one, grep for the same sentence in the sibling overlays and fix or report those too. Overlays that
+  state the same rule use the same wording.
+
+## Language mappings
+
+- **Leave a page out with `languages`.** When a page does not apply to a mapping, list the mappings it applies to in its
+  `languages` frontmatter. Do not add an overlay or a callout that tells the reader the page is not for them.
+- **Ice for Ruby, PHP, and MATLAB are client-only.** They have no object adapters, no dispatch, and no AMI callbacks, so
+  pages about these topics leave them out. Ice for JavaScript has no administrative facility.
+- **Say it once on the shared page.** A sentence that every overlay would repeat belongs on the shared page.
+
+## Encoding and protocol pages
+
+- **These pages define the layout**, not what the runtime does while it marshals or unmarshals, and not instructions to
+  an encoder ("must"). The passive "is encoded as" is right here: the subject is the byte layout, not an actor.
 
 ## Code samples
 
@@ -38,8 +71,16 @@ the conventions that recur in review.
 
 - **Describe the behavior, not the advice.** A property entry says what the property does; what an application typically
   sets belongs in the guide that covers the feature.
+- **Boolean properties take `1` and `0`.** Say what to set, "set `Ice.UseSyslog` to 1", and document `1` and `0` only,
+  not every value the parser accepts.
 - A table of property values gets a `| Value | Description |` header row. Without one, Markdown renders the first value
   row as the header.
+
+## Pages and pull requests
+
+- **A deleted page gets no redirect.** Remove the redirects that pointed to it too.
+- **File the follow-up you defer.** When a PR description defers part of the work to a follow-up issue, file it and link
+  it, or drop the sentence.
 
 ## Markdown
 
