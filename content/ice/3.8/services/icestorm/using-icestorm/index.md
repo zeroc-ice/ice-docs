@@ -16,8 +16,6 @@ Publishers, subscribers and administrative tools use the following operations of
 [TopicManager](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1TopicManager.html) and
 [Topic](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1Topic.html) interfaces:
 
-| Operation | Description |
-
 | Operation                                                 | Description                                                                                                                   |
 | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `TopicManager::createOrRetrieve`                          | Returns a proxy to the topic with the given name, creating this topic first if it does not exist.                             |
