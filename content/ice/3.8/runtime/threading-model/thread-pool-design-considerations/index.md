@@ -48,9 +48,6 @@ A thread pool with a maximum size of one thread behaves as follows:
 
 {% /iflang %}
 
-It is important to remember that a communicator's client and server thread pools have a default maximum size of **1
-thread**, therefore these limitations also apply to any object adapter that shares the communicator's thread pools.
-
 ## Multi-Threaded Pool
 
 {% iflang langs="cpp,csharp,java" %}

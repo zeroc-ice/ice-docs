@@ -27,10 +27,10 @@ Each communicator creates two thread pools:
 
 {% iflang langs="python" %}
 
-When the communicator has an event loop adapter, which you set by passing an asyncio event loop to `Ice.Communicator` or
-through `InitializationData.eventLoopAdapter`, a coroutine dispatch method and the code that follows an awaited
-invocation run on this event loop. Otherwise, they run on the thread pool thread that dispatches the request or
-completes the invocation.
+A communicator can have an event loop adapter: you give it one by creating the communicator with an asyncio event loop
+or by setting `InitializationData.eventLoopAdapter`. A coroutine dispatch method and the code that follows an awaited
+invocation then run on this event loop. Without an event loop adapter, they run on the thread pool thread that
+dispatches the request or completes the invocation.
 
 {% /iflang %}
 
@@ -144,8 +144,8 @@ from different connections concurrently.
 `Serialize` differs from
 [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
 set to 1. With `Serialize`, the pool starts the next dispatch of a connection as soon as the previous dispatch method
-returns, even when this dispatch completes later, asynchronously. With `MaxDispatches`, the connection stops reading
-requests from the start of a dispatch until it sends the dispatch's response.
+returns, even when this dispatch completes later, asynchronously. With `MaxDispatches` set to 1, the connection stops
+reading requests from the start of a dispatch until it sends the dispatch's response.
 
 {% iflang langs="cpp,csharp,java,python" %}
 
