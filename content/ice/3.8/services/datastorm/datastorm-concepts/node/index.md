@@ -36,7 +36,8 @@ creates its Ice communicator from these properties and destroys it when the node
 
 ## Creating a Node with NodeOptions
 
-An application that already has an Ice communicator, or that needs other node options, creates the node from a
+To configure a node from code, such as setting its properties, a logger, or SSL client authentication options, create an
+Ice communicator for the node and pass it in a
 [NodeOptions](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1NodeOptions.html) structure:
 
 ```cpp
@@ -48,32 +49,32 @@ main(int argc, char* argv[])
 {
     Ice::InitializationData initData;
     initData.properties = std::make_shared<Ice::Properties>(argc, argv);
+    initData.properties->setProperty("DataStorm.Node.ConnectTo", "tcp -h localhost -p 4061");
     initData.properties->setProperty("Ice.ThreadPool.Client.Serialize", "1");
-    Ice::CommunicatorHolder communicatorHolder{std::move(initData)};
 
     DataStorm::NodeOptions options;
-    options.communicator = communicatorHolder.communicator();
+    options.communicator = Ice::initialize(std::move(initData));
+    options.nodeOwnsCommunicator = true;
     DataStorm::Node node{std::move(options)};
     ...
 }
 ```
 
-The `DataStorm::Node` constructor that takes only a communicator is a shorthand for this constructor with the other
-options left at their defaults.
+With `nodeOwnsCommunicator` set to `true`, the node destroys the communicator when the node is destroyed, including when
+the `DataStorm::Node` constructor throws. When it is `false`, the default, destroying the node releases the node's
+resources and destroys its object adapters, and the communicator remains usable. The `DataStorm::Node` constructor that
+takes only a communicator is a shorthand for `NodeOptions` with this communicator and the other options left at their
+defaults.
 
 A communicator you supply must meet two requirements:
 
-- It must not have a default object adapter. The `DataStorm::Node` constructor throws `std::invalid_argument` otherwise.
-  The node sets the communicator's default object adapter to one of its own object adapters, so two nodes cannot use the
-  same communicator at the same time.
+- It must not have a default object adapter. The node sets the communicator's default object adapter to one of its own
+  object adapters, and the `DataStorm::Node` constructor throws `std::invalid_argument` when one is already set.
 - It must dispatch the requests it receives on a connection in the order they were sent, because a partial update
   applies to the value left by the preceding sample for the same key. A node sets
   [Ice.ThreadPool.Client.Serialize](../../../../property-reference/ice-threadpool-properties#ice.threadpool.name.serialize)
-  to `1` by default on the communicators it creates, but not on a communicator you supply: set this property before you
-  create the communicator. An executor set through `Ice::InitializationData` must also preserve this dispatch order.
-
-The node destroys a supplied communicator only when `nodeOwnsCommunicator` is `true`; the default is `false`. Otherwise,
-destroying the node releases the node's resources and destroys its object adapters, and the communicator remains usable.
+  to `1` on the communicators it creates, but not on a communicator you supply: set this property before you create the
+  communicator. An executor set through `Ice::InitializationData` must also preserve this dispatch order.
 
 `NodeOptions` has two other options:
 
