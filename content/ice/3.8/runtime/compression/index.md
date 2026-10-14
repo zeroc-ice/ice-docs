@@ -19,37 +19,31 @@ page describes when Ice compresses a message and how you enable it.
 
 Compression is likely to improve performance only over lower-speed links, for which bandwidth is the limiting factor.
 Over high-speed LAN links, the CPU time spent compressing and uncompressing messages can be longer than the time it
-takes to send the uncompressed data. Measure with representative messages before enabling compression.
+takes to send the uncompressed data.
 
 [Batched invocations](../invocation/invocation-mode/batched-invocations) are likely to compress better than isolated
 requests: small messages are unlikely to compress well, whereas a batch gives bzip2 more data to work with.
 
 ## Enabling Compression
 
-Compression is a setting of the proxy a client uses for an invocation: the client compresses the request, and asks for a
-compressed reply, only when compression is enabled for this invocation. The compression flag of the endpoint used for
-the invocation enables it:
+A client compresses a request, and asks for a compressed reply, when the endpoint it uses for the invocation has the
+compression flag set. You set this flag in two ways:
 
-- In a stringified proxy or endpoint, the `-z` option sets this flag (see [Endpoint Syntax](../endpoint-syntax)).
+- In a stringified endpoint, the `-z` option sets this flag (see [Endpoint Syntax](../endpoint-syntax)).
 - `ice_compress` returns a proxy with this flag set or cleared on all its endpoints. For a fixed proxy, which has no
   endpoints, `ice_compress` sets the compression setting of the proxy itself.
 
-An object adapter puts the compression flag of its endpoints in the direct proxies it creates. An object adapter without
-[published endpoints](../../property-reference/object-adapter-properties#adapter.publishedendpoints) publishes its
-[object adapter endpoints](../dispatch/object-adapter-endpoints), so the following configuration makes every proxy
-created by this object adapter request compression:
+The proxies an object adapter creates carry the compression flag of its
+[published endpoints](../dispatch/object-adapter-endpoints). For example, the following configuration gives every proxy
+created by this object adapter endpoints with compression enabled:
 
 ```config
-MyAdapter.Endpoints=tcp -h 192.168.1.17 -p 2500 -z
+MyAdapter.Endpoints=tcp -h 192.168.1.17 -p 4061 -z
 ```
 
-When you set `PublishedEndpoints`, the object adapter publishes the compression flags of these endpoints instead.
-
-[Ice.Override.Compress](../../property-reference/ice-override-properties#ice.override.compress) replaces the compression
-setting of all the proxies of a communicator: `1` enables compression and `0` disables it, regardless of the proxy's own
-setting. It also sets the compression flag of the endpoints on which the communicator's object adapters listen, and
-therefore of the published endpoints derived from them; it does not change the endpoints you set with
-`PublishedEndpoints`.
+[Ice.Override.Compress](../../property-reference/ice-override-properties#ice.override.compress) overrides this flag for
+every invocation a communicator makes: with `1`, the communicator compresses every request and asks for compressed
+replies; with `0`, it compresses none.
 
 When you flush the batch requests of a connection or communicator, the `CompressBatch` argument of `flushBatchRequests`
 selects whether Ice compresses the batch: `Yes`, `No`, or `BasedOnProxy`, which compresses the batch if at least one of
@@ -57,19 +51,11 @@ its requests was made on a proxy with compression enabled.
 
 ## How Ice Compresses Messages
 
-When compression is enabled for an invocation and the runtime supports compression (see
-[Compression Support by Language Mapping](#compression-support-by-language-mapping)), Ice compresses the request when it
-is at least 100 bytes long. It sends a shorter request uncompressed, still asking for a compressed
-reply.{% iflang langs="csharp,java" %} Ice also sends a message uncompressed when compressing it saves little or no
-space.{% /iflang %}
+When compression is enabled for an invocation, Ice compresses the request message when it is at least 100 bytes long,
+header included. It sends a shorter request uncompressed, still asking for a compressed reply.
 
-An object adapter compresses a reply when the request asked for a compressed reply and the reply is at least 100 bytes
-long; its own proxies and endpoints do not affect this decision.{% iflang langs="cpp,java,python,swift" %} An object
-adapter can send a reply that reports a dispatch failure uncompressed, even when the request asked for a compressed
-reply.{% /iflang %}
-
-[Ice.Compression.Level](../../property-reference/ice-properties#ice.compression.level) sets the bzip2 compression level,
-from `1` (fastest, the default) to `9` (best compression).
+A server compresses a reply when the request asked for a compressed reply and the reply message is at least 100 bytes
+long, header included.
 
 ## Compression Support by Language Mapping
 
@@ -92,15 +78,9 @@ connection; if it receives a compressed datagram, it discards this datagram. In 
 
 {% iflang langs="csharp,java" %}
 
-When bzip2 is not available, setting `Ice.Override.Compress` to `1` has no effect, and Ice prints a warning on `stderr`.
+When bzip2 is not available, setting `Ice.Override.Compress` to `1` has no effect.
 
 {% /iflang %}
-
-## Compression and Connection Reuse
-
-The communicator does not consider compression settings when it looks for an existing connection to reuse: proxies that
-differ only in their compression settings share the same connection, and each request uses the compression setting of
-the proxy it was made on.
 
 ## See Also
 

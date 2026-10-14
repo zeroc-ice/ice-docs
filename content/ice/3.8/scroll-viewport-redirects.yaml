@@ -279,7 +279,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/protocol-messages': 'protocol/protocol-messages?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxies': 'runtime/invocation?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-based-load-balancing': 'runtime/invocation/proxy-based-load-balancing?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-defaults-and-overrides': 'runtime/invocation/proxy-defaults-and-overrides?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-defaults-and-overrides': 'runtime/invocation/proxy-defaults?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-endpoints': 'runtime/invocation/proxy-endpoints?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-properties': 'property-reference/proxy-properties?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/proxy-types': 'slice/interfaces/proxy-types?lang=:lang'
