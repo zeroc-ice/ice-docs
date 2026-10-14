@@ -182,6 +182,7 @@
     "nodiscard",
     "noexcept",
     "Nohup",
+    "nonisolated",
     "Nonmutating",
     "nopause",
     "nowarn",
