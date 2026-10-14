@@ -8,52 +8,43 @@ languages:
   - swift
 ---
 
-Improper configuration of a [thread pool](../thread-pools) can have a serious impact on the performance of your
-application. This page discusses some issues that you should consider when designing and configuring your applications.
+By default, the client and server thread pools of a communicator have a single thread, so Ice dispatches one request at
+a time and processes one reply at a time. To let your application dispatch requests or process replies concurrently, you
+increase the maximum size of these thread pools. This page describes what each choice means for your application.
 
 ## Single-Threaded Pool
 
-There are several implications of using a thread pool with a maximum size of one thread:
+A thread pool with a maximum size of one thread behaves as follows:
 
 {% iflang langs="cpp,java" %}
 
-- **Only one request is dispatched at a time.** This can be convenient because it lets you avoid (or postpone) dealing
-  with thread-safety issues in your servants. However, it also eliminates the possibility of dispatching requests
-  concurrently, which can be a bottleneck when dispatches perform blocking operations.
-- **Only one reply is processed at a time.** An application must increase the size of the client thread pool to process
-  several replies and run several AMI callbacks in parallel.
+- **The pool dispatches one request at a time**, which lets you avoid (or postpone) dealing with thread-safety issues in
+  your servants.
+- **The pool processes one reply at a time.** The AMI callbacks, which run on the same thread, also run one at a time.
 
 {% /iflang %}
 
 {% iflang langs="csharp" %}
 
-- **Only one dispatch method is called at a time.** A larger pool lets dispatches that block run concurrently. An async
-  dispatch method returns its thread to the pool at its first `await` of an incomplete task, and the code that follows
-  this `await` runs outside the thread pool, concurrently with the next dispatches: an async servant must be thread-safe
-  whatever the size of the pool.
-- **Only one reply is processed at a time.** An application must increase the size of the client thread pool to process
-  several replies in parallel.
+- **The pool dispatches one request at a time**, which lets you avoid (or postpone) dealing with thread-safety issues in
+  servants with synchronous dispatch methods.
+- **The pool processes one reply at a time.**
 
 {% /iflang %}
 
 {% iflang langs="python" %}
 
-- **Only one dispatch method is called at a time.** For synchronous dispatch methods, a larger pool lets several
-  dispatches be in progress, but the Python interpreter executes only one of them at a time: more threads help only when
-  dispatches block, for example on I/O. A coroutine dispatch method returns its thread to the pool when it awaits an
-  incomplete future, or runs on the event loop when the communicator has an event loop adapter, so several coroutine
-  dispatches can be in progress with a single thread.
-- **Only one reply is processed at a time.** The same applies to the callbacks of Ice futures.
+- **The pool dispatches one request at a time.**
+- **The pool processes one reply at a time.**
 
 {% /iflang %}
 
 {% iflang langs="swift" %}
 
-- **Only one request is read at a time.** Each dispatch then runs in its own task, so dispatches can run concurrently;
+- **The pool reads one request at a time.** The dispatches themselves run concurrently, each in its own task;
   [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
   limits the concurrent dispatches on a connection.
-- **Only one reply is processed at a time.** An application must increase the size of the client thread pool to process
-  several replies in parallel.
+- **The pool processes one reply at a time.**
 
 {% /iflang %}
 
@@ -74,17 +65,17 @@ find this size.
 
 {% iflang langs="python" %}
 
-The Python interpreter executes one thread at a time: a multi-threaded pool lets a dispatch block, on I/O for example,
-while another one runs, but never runs two dispatches in parallel. Your servants must still be thread-safe, since the
-interpreter switches threads between dispatches at any point.
+The Python interpreter executes one thread at a time. With a multi-threaded pool, a dispatch that blocks (on I/O, for
+example) lets another dispatch run, but two dispatches never run in parallel. Your servants must still be thread-safe,
+since the interpreter can switch from one dispatch to another at any point.
 
 {% /iflang %}
 
 {% iflang langs="swift" %}
 
-Each dispatch runs in its own task whatever the size of the pool, and dispatches run concurrently, so your servants must
-be safe for concurrent calls. A multi-threaded pool only reads requests and replies in parallel;
-`Ice.Connection.name.MaxDispatches` is what bounds the concurrent dispatches on a connection.
+Each dispatch runs in its own task, executed by Swift concurrency's global concurrent executor whatever the size of the
+Ice thread pool, so dispatches run concurrently and your servants must be safe for concurrent calls. A multi-threaded
+pool only reads requests and replies in parallel.
 
 {% /iflang %}
 

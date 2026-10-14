@@ -16,11 +16,11 @@ In language mappings that support thread pools, a communicator creates two
 [thread pools](../../runtime/threading-model):
 
 - the client thread pool is associated with outgoing connections: it reads [Reply](../../protocol/protocol-messages)
-  messages{% iflang langs="cpp,java" %} and executes AMI callbacks{% /iflang %}; it also reads and dispatches Request
-  messages.
+  messages{% iflang langs="cpp,java,python" %} and executes AMI callbacks{% /iflang %}; it also reads and dispatches
+  Request messages.
 - the server thread pool is associated with incoming connections: it reads and dispatches
-  [Request](../../protocol/protocol-messages) messages; it also reads Reply messages{% iflang langs="cpp,java" %} and
-  executes AMI callbacks{% /iflang %} for [bidir](../../runtime/connection-management/bidirectional-connections)
+  [Request](../../protocol/protocol-messages) messages; it also reads Reply messages{% iflang langs="cpp,java,python" %}
+  and executes AMI callbacks{% /iflang %} for [bidir](../../runtime/connection-management/bidirectional-connections)
   invocations on these connections.
 
 This page describes configuration properties for the client and server thread pools. These thread pools are named
