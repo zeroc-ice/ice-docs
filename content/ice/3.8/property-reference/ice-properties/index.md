@@ -366,7 +366,7 @@ Sets the maximum size of an incoming Ice protocol message, in KiB (1024 bytes). 
 including the protocol header; for a compressed message, it also applies to the decompressed size. The default value is
 `1024` (1 MiB).
 
-A value of `0` or less selects the largest supported size; a positive value must be at most `2097151`.
+A value of `0` or less selects the largest supported size; a positive value must be at most 2,097,151 KiB (about 2 GiB).
 
 Ice rejects an incoming message that exceeds this limit and logs a warning when
 [Ice.Warn.Connections](../ice-warn-properties) is set. Over connection-oriented transports, Ice also closes the
