@@ -32,13 +32,15 @@ If not specified, the default value is 1. Set the property to 0 to disable collo
 
 {% property-description %}
 
-Specifies a Java package that encloses the Java packages of top-level Slice modules, such as the package that the
-`java:package` [metadata directive](../../slice/slice-metadata-directives) sets. When this property is set, the
-communicator adds a [DefaultPackageSliceLoader](api:Ice/DefaultPackageSliceLoader) to its default
-[Slice loader](../../slice/user-defined-types/classes/slice-loaders). This Slice loader converts the type ID into a Java
-class name in `package`: with `Ice.Default.Package=com.example`, it loads the class `com.example.Demo.Node` for the type
-ID `::Demo::Node`. It locates a class or exception only when its modules and its own name keep their Slice names in
-Java.
+Specifies the base Java package for top-level Slice modules, typically the package that the `java:package`
+[metadata directive](../../slice/slice-metadata-directives) sets.
+
+When this property is set, the communicator adds a [DefaultPackageSliceLoader](api:Ice/DefaultPackageSliceLoader) to its
+default [Slice loader](../../slice/user-defined-types/classes/slice-loaders). This loader maps Slice type IDs to Java
+class names under the specified package. For example, with `Ice.Default.Package=com.example`, it loads
+`com.example.Demo.Node` for the type ID `::Demo::Node`.
+
+The loader can find a class or exception only if its Slice module and type names are preserved in Java.
 
 This property is provided primarily for backwards compatibility; we recommend configuring Slice loaders programmatically
 in new applications.
