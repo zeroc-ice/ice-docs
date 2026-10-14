@@ -2,8 +2,8 @@
 title: IceStorm Persistent Data
 ---
 
-IceStorm stores various information in a [LMDB](https://www.symas.com/mdb) database, unless it's in transient mode. This
-section describes the data stored by IceStorm and database-related constraints.
+IceStorm stores various information in a [LMDB](https://www.symas.com/lmdb.php) database, unless it's in transient mode.
+This section describes the data stored by IceStorm and database-related constraints.
 
 ## Data Stored
 

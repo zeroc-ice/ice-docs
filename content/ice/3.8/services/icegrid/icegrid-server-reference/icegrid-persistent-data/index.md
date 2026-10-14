@@ -9,7 +9,7 @@ registry and node are storing, and discusses backup and recovery techniques.
 
 ### Data Stored
 
-The registry stores the following data in the [LMDB](https://www.symas.com/mdb) database specified through the
+The registry stores the following data in the [LMDB](https://www.symas.com/lmdb.php) database specified through the
 [IceGrid.Registry.LMDB.Path](../../../../property-reference/icegrid-properties) property:
 
 - Applications [deployed](../../using-icegrid-deployment) using the `addApplication` operation on the `IceGrid::Admin`

@@ -4,7 +4,7 @@ Source for [docs.zeroc.com](https://docs.zeroc.com), the documentation for [Ice]
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 24 or later
+- [Node.js](https://nodejs.org/en) 24 or later
 - [npm](https://www.npmjs.com/) 11.16 or later
 
 ## Getting started
