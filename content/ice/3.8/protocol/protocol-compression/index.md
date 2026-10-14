@@ -28,8 +28,8 @@ be unable to read a compressed reply.
 
 A compressed request, batch request, or reply message consists of:
 
-- The 14-byte [message header](../protocol-messages#message-header), uncompressed. Its `messageSize` field holds the
-  size of the compressed message, including the header.
+- The 14-byte [message header](../protocol-messages#message-header), uncompressed. Its `compressionStatus` field is `2`,
+  and its `messageSize` field holds the size of the compressed message, including the header.
 - The size of the uncompressed message, including its header, as a four-byte integer.
 - Everything that follows the header in the uncompressed message, compressed with bzip2.
 
