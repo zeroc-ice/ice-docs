@@ -9,10 +9,12 @@ resolution.
 ## Metrics Terminology
 
 - metric: a measurement that the Ice runtime records, such as the number of bytes sent over a connection.
-- metrics object: the metrics of one or more instrumented objects or operations, such as all the invocations of the
-  `sayHello` operation.
-- metrics map: the metrics objects of one kind of instrumented object or operation, such as the `Connection` map, which
-  by default holds one metrics object per connection.
+- instrumented object: what the Ice runtime measures: a thread, a connection, an invocation, a dispatch, a connection
+  establishment, or an endpoint lookup.
+- metrics object: the metrics of one or more instrumented objects, such as all the invocations of the `sayHello`
+  operation.
+- metrics map: the metrics objects of one kind of instrumented object, keyed by their `id`, such as the `Connection`
+  map, which by default holds one metrics object per connection.
 - metrics view: a named set of metrics maps that you configure and enable together; see
   [Configuring Metrics Views](#configuring-metrics-views).
 
@@ -34,26 +36,14 @@ class Metrics
 }
 ```
 
-A metrics object is an instance of `IceMX::Metrics` and represents metrics of one or more instrumented objects. An
-instrumented object can be anything that supports instrumentation. The Ice runtime supports instrumentation of the
-following objects and activities:
-
-- Threads
-- Connections
-- Invocations
-- Dispatches
-- Connection establishment
-- Endpoint resolution
-
-The members of `Metrics` are:
+The fields of `Metrics` are:
 
 - `id`: the ID of the metrics object, built from the attributes named by the map's
   [GroupBy](../../../property-reference/icemx-metrics-properties#icemx.metrics.view.groupby) property.
-- `total`: the number of instrumented objects or operations that the metrics object has observed since its creation.
-- `current`: the number of instrumented objects or operations it observes now.
-- `totalLifetime`: the sum, in microseconds, of the lifetimes of the instrumented objects or operations it no longer
-  observes.
-- `failures`: the number of failures that have occurred for these instrumented objects or operations.
+- `total`: the number of instrumented objects that the metrics object has observed since its creation.
+- `current`: the number of instrumented objects it observes now.
+- `totalLifetime`: the sum, in microseconds, of the lifetimes of the instrumented objects it no longer observes.
+- `failures`: the number of failures that have occurred for these instrumented objects.
 
 Each [`IceMX::MetricsFailures`](https://code.zeroc.com/ice/3.8/api/slice/structIceMX_1_1MetricsFailures.html) structure
 counts the failures of one metrics object:
@@ -67,8 +57,8 @@ struct MetricsFailures
 ```
 
 - `id`: the ID of the metrics object.
-- `failures`: the number of failures of each kind, keyed by the exception that caused them, such as
-  `::Ice::ConnectionLostException` or `::Ice::CloseTimeoutException` for a connection.
+- `failures`: the number of failures of each kind, keyed by the type ID of the exception that caused them, such as
+  `::Ice::ConnectionLostException` for a connection.
 
 A metrics map is simply defined as a sequence of `IceMX::Metrics` objects, and a metrics view is defined as a dictionary
 of metrics map:
@@ -84,83 +74,44 @@ following metrics maps:
 | **Metrics map name**    | **Slice class**                                                                                             | **Description**                                                                                                                           |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Connection              | [`IceMX::ConnectionMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ConnectionMetrics.html) | Connection metrics.                                                                                                                       |
-| Thread                  | [`IceMX::ThreadMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ThreadMetrics.html)         | Thread metrics. The Ice runtime instruments threads for the communicator's thread pools as well as threads used internally.               |
+| Thread                  | [`IceMX::ThreadMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ThreadMetrics.html)         | Thread metrics: the threads of the client, server and object adapter thread pools, and the communicator's timer and DNS lookup threads.   |
 | Invocation              | [`IceMX::InvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1InvocationMetrics.html) | Client-side proxy invocation metrics.                                                                                                     |
 | Dispatch                | [`IceMX::DispatchMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1DispatchMetrics.html)     | Server-side dispatch metrics.                                                                                                             |
 | EndpointLookup          | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Endpoint lookup metrics. For tcp, ssl and udp endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
 | ConnectionEstablishment | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Connection establishment metrics.                                                                                                         |
 
-The `Invocation` map has two sub-maps, stored in each `IceMX::InvocationMetrics` object:
+An invocation on a proxy results in one or more child invocations: a remote invocation each time Ice sends the request
+over a connection, or a collocated invocation each time Ice dispatches it directly to a collocated object adapter. An
+invocation that Ice retries has several child invocations. The `Invocation` map records them in two sub-maps, stored in
+each `IceMX::InvocationMetrics` object:
 
-- `Remote`, in the `remotes` member:
+- `Remote`, in the `remotes` field:
   [`IceMX::RemoteMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1RemoteMetrics.html) objects for the
-  invocations sent over a connection.
-- `Collocated`, in the `collocated` member:
+  remote invocations.
+- `Collocated`, in the `collocated` field:
   [`IceMX::CollocatedMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1CollocatedMetrics.html) objects
   for the collocated invocations.
 
 Both classes derive from
-[`IceMX::ChildInvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ChildInvocationMetrics.html):
-each records a child invocation, and an invocation that Ice retries can have several.
+[`IceMX::ChildInvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ChildInvocationMetrics.html).
 
-The classes derived from `IceMX::Metrics` add the following members:
+The classes derived from `IceMX::Metrics` add the following fields:
 
-| **Slice class**                 | **Members**                                                                                                                                                                |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `IceMX::ConnectionMetrics`      | `receivedBytes` and `sentBytes`: the number of bytes received and sent by the connections.                                                                                 |
-| `IceMX::ThreadMetrics`          | `inUseForIO`, `inUseForUser`, and `inUseForOther`: the number of threads currently performing socket reads or writes, calling application code, or doing other activities. |
-| `IceMX::InvocationMetrics`      | `retry`: the number of retries; `userException`: the number of invocations that failed with a user exception; `remotes` and `collocated`: the sub-metrics maps.            |
-| `IceMX::DispatchMetrics`        | `userException`: the number of dispatches that failed with a user exception; `size` and `replySize`: the accumulated size of the marshaled requests and replies.           |
-| `IceMX::ChildInvocationMetrics` | `size` and `replySize`: the accumulated size of the marshaled requests and replies.                                                                                        |
+| **Slice class**                 | **Fields**                                                                                                                                                                                                |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `IceMX::ConnectionMetrics`      | `receivedBytes` and `sentBytes`: the number of bytes received and sent by the connections.                                                                                                                |
+| `IceMX::ThreadMetrics`          | `inUseForIO`, `inUseForUser`, and `inUseForOther`: the number of threads currently performing socket reads or writes, calling application code, or doing other work such as a DNS lookup or a timer task. |
+| `IceMX::InvocationMetrics`      | `retry`: the number of retries; `userException`: the number of invocations that failed with a user exception; `remotes` and `collocated`: the sub-metrics maps.                                           |
+| `IceMX::DispatchMetrics`        | `userException`: the number of dispatches that failed with a user exception; `size` and `replySize`: the accumulated size of the marshaled requests and replies.                                          |
+| `IceMX::ChildInvocationMetrics` | `size` and `replySize`: the accumulated size of the marshaled requests and replies.                                                                                                                       |
 
 ## The `MetricsAdmin` Interface
 
-The Slice interface
-[`IceMX::MetricsAdmin`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceMX_1_1MetricsAdmin.html) allows you to
-retrieve the metrics associated with the Ice communicator:
-
-```slice
-module IceMX
-{
-    exception UnknownMetricsView {}
-
-    interface MetricsAdmin
-    {
-        Ice::StringSeq getMetricsViewNames(out Ice::StringSeq disabledViews);
-
-        void enableMetricsView(string name)
-            throws UnknownMetricsView;
-
-        void disableMetricsView(string name)
-            throws UnknownMetricsView;
-
-        MetricsView getMetricsView(string view, out long timestamp)
-            throws UnknownMetricsView;
-
-        MetricsFailuresSeq getMapMetricsFailures(string view, string map)
-            throws UnknownMetricsView;
-
-        MetricsFailures getMetricsFailures(string view, string map, string id)
-            throws UnknownMetricsView;
-    }
-}
-```
-
-`MetricsAdmin` provides the following operations:
-
-- `getMetricsViewNames`: returns the names of the enabled views, and the names of the disabled views in its
-  `disabledViews` out parameter.
-- `enableMetricsView` and `disableMetricsView`: enable or disable a view, like setting its
-  [Disabled](../../../property-reference/icemx-metrics-properties) property to `0` or `1`, respectively.
-- `getMetricsView`: returns the metrics of a view, or an empty view for a disabled view. Its `timestamp` out parameter
-  is the process's time, in milliseconds, when the metrics were retrieved; its reference point depends on the language
-  mapping, so compare only timestamps from the same process.
-- `getMapMetricsFailures`: returns the failures of the metrics objects of a map that have recorded at least one failure.
-- `getMetricsFailures`: returns the failures of the metrics object with the given ID.
-
-Each operation that takes a view name throws
-[`UnknownMetricsView`](https://code.zeroc.com/ice/3.8/api/slice/exceptionIceMX_1_1UnknownMetricsView.html) when no view
-with this name is configured.
+The `Metrics` facet implements the Slice interface
+[`IceMX::MetricsAdmin`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceMX_1_1MetricsAdmin.html), whose operations
+return the metrics of a view and the failures recorded by a map or by a metrics object, and enable or disable a view.
+Enabling or disabling a view has the same effect as setting its
+[Disabled](../../../property-reference/icemx-metrics-properties#icemx.metrics.view.disabled) property to `0` or `1`.
 
 {% language-section name="mapping" /%}
 
@@ -180,11 +131,9 @@ IceMX.Metrics.Debug.Map.Invocation.Map.Collocated.GroupBy=id
 IceMX.Metrics.Debug.Map.Dispatch.GroupBy=operation
 ```
 
-When the [Properties facet](../properties-facet) is also enabled, the `Metrics` facet applies updates of `IceMX.*`
-properties made through this facet: it creates, updates, or removes the corresponding views and maps. Ice discards the
-metrics recorded by a map when it reconfigures this map, and the metrics recorded by a view when it disables this view;
-a view that is enabled again gets new maps. A map keeps the metrics objects with a `current` value of 0 up to the limit
-set by [RetainDetached](../../../property-reference/icemx-metrics-properties).
+You can also update the `IceMX.*` properties at run time through the [Properties facet](../properties-facet): the
+`Metrics` facet then creates, updates, or removes the corresponding views and maps. A map that you reconfigure and a
+view that you disable lose the metrics they recorded.
 
 ## Metrics Attributes
 
@@ -195,8 +144,8 @@ The table below describes the attributes supported by the Ice runtime's metrics 
 
 | **Name**           | **Maps**                                                              | **Description**                                                                                                                                      |
 | ------------------ | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id                 | All                                                                   | A unique identifier to select the instrumented object or operation.                                                                                  |
-| parent             | All                                                                   | The parent of the instrumented object or operation.                                                                                                  |
+| id                 | All                                                                   | A unique identifier to select the instrumented object.                                                                                               |
+| parent             | All                                                                   | The parent of the instrumented object.                                                                                                               |
 | none               | All                                                                   | The none attribute is a special attribute that evaluates to the empty string.                                                                        |
 | endpoint           | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The stringified endpoint.                                                                                                                            |
 | endpointType       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint numerical type, as defined in `Ice/EndpointTypes.ice`.                                                                                  |
@@ -227,33 +176,27 @@ The table below describes the attributes supported by the Ice runtime's metrics 
 
 The `id`, `parent` and `none` attributes are supported by all maps.
 
-An attribute resolves only when the instrumented object provides the corresponding information: the connection
-attributes of a Dispatch observation require a connection, `localHost`, `localPort`, `remoteHost`, and `remotePort`
-require an IP connection, `mcastHost` and `mcastPort` require a UDP connection, and `endpointHost` and `endpointPort`
-require an IP endpoint. A map does not record an observation whose `GroupBy` attributes do not all resolve.
-
 The value of the `parent` attribute depends on the map. For the Dispatch map, it is the name of the object adapter that
-dispatches the request. For the Connection and Remote maps, it is the name of the connection's object adapter, or
-"Communicator" for a connection without an object adapter. For the Invocation, Collocated, EndpointLookup, and
-ConnectionEstablishment maps, it is always "Communicator". For the Thread map, it is the name of the component that owns
-the thread, such as the configuration prefix of a thread pool, or "Communicator". The `parent` attribute enables the
-filtering of metrics based on the object adapter. When used with the `GroupBy` property it also allows you to obtain
-metrics at the object adapter level. For instance, the following configuration does not monitor any metrics for the
-`Ice.Admin` object adapter and it groups all the metrics based on the object adapter or communicator:
+dispatches the request. For the Connection map, it is the name of the object adapter that accepted the connection, or
+"Communicator" for an outgoing connection. The Remote map uses the parent of the connection that carries the request.
+For the Invocation, Collocated, EndpointLookup, and ConnectionEstablishment maps, it is always "Communicator". For the
+Thread map, it is the name of the component that owns the thread, such as the configuration prefix of a thread pool, or
+"Communicator". The `parent` attribute enables the filtering of metrics based on the object adapter. When used with the
+`GroupBy` property it also allows you to obtain metrics at the object adapter level. For instance, the following
+configuration does not monitor any metrics for the `Ice.Admin` object adapter and it groups all the metrics based on the
+object adapter or communicator:
 
 ```config
 IceMX.Metrics.MyView.GroupBy=parent
 IceMX.Metrics.MyView.Reject.parent=Ice\.Admin   # Escape the dot in Ice.Admin
 ```
 
-This configuration enables the communicator to get metrics on a per object adapter or communicator basis.
-
 You can also use the `none` attribute to get metrics for the communicator including the metrics from object adapters,
 e.g., `IceMX.Metrics.MyView.GroupBy=none`. This provides the lowest possible level of detail as each metrics map records
 all its statistics in a single metrics object.
 
-The `id` attribute allows you to get a higher level of detail. Each map computes `id` from its instrumented object or
-operation; for example, the id of a dispatch is the target identity followed by the operation name. If you specify
+The `id` attribute allows you to get a higher level of detail. Each map computes `id` from its instrumented object; for
+example, the id of a dispatch is the target identity followed by the operation name. If you specify
 `IceMX.Metrics.MyView.GroupBy=id`, the `Metrics` facet records the observations with the same id in the same metrics
 object.
 
@@ -264,8 +207,6 @@ object.
 To observe the Ice runtime with your own instrumentation, set the `observer` member of
 [`InitializationData`](api:Ice/InitializationData) to your implementation of
 {% iflang langs="cpp" %}[`Ice::Instrumentation::CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}{% iflang langs="csharp" %}[`Ice.Instrumentation.CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}{% iflang langs="java" %}[`com.zeroc.Ice.Instrumentation.CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}.
-When the `Metrics` facet is enabled, Ice calls this observer only for the kinds of objects and operations whose map at
-least one enabled view includes; for example, it reports invocations only while an enabled view has an Invocation map.
 
 {% /iflang %}
 
