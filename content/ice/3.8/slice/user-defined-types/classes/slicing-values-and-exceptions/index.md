@@ -68,9 +68,9 @@ continue to function properly even when it does not recognize the most-derived t
 
 ## Slice Formats
 
-Ice provides two on-the-wire formats for class and exception slices: the compact format and the sliced format. Ice
-always marshals exceptions in the sliced format. For class instances, Ice uses the compact format by default, which is
-more space-efficient on the wire but offers less flexibility on the receiving end.
+Ice provides two on-the-wire formats for class and exception slices: the compact format and the sliced format. For class
+instances, Ice uses the compact format by default, which is more space-efficient on the wire but offers less flexibility
+on the receiving end.
 
 An application that needs the slicing behavior we discussed in the previous section for class instances must explicitly
 enable the sliced format as follows:
@@ -129,7 +129,7 @@ interface Ledger
 ```
 
 The metadata forces the client to use the compact format for the input parameter `oldAccount`, and forces the server to
-use the compact format for the return value. The server still marshals `IncompatibleAccount` in the sliced format.
+use the compact format for the return value.
 
 If you decide to use the `Ice.Default.SlicedFormat` property, be aware that this property only affects the sender of a
 value. For example, if you enable this property in the client but not the server, then all values sent by the client use
@@ -139,9 +139,16 @@ By offering two alternative formats, Ice gives you a great deal of flexibility i
 compact format is ideal for applications that place a greater emphasis on efficiency, while the sliced format is helpful
 when clients and servers evolve independently.
 
+{% callout type="note" %}
+
+Ice always marshals exceptions in the sliced format. The `format` metadata and `Ice.Default.SlicedFormat` apply to class
+instances only.
+
+{% /callout %}
+
 ## Preserving Slices
 
-When Ice slices a class instance, it preserves the slices of unknown types. Here is a simple example:
+With encoding 1.1, when Ice slices a class instance, it preserves the slices of unknown types. Here is a simple example:
 
 ```slice
 class Base
