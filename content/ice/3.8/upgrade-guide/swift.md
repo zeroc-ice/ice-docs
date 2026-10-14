@@ -124,8 +124,7 @@ A servant method that implemented an `amd` operation with PromiseKit becomes an 
 ## Sendable Servants
 
 Skeleton protocols inherit `Sendable` from `Ice.Dispatcher`, and the object adapter dispatches each request in its own
-task, so several tasks can call the same servant concurrently. Implement a servant with mutable state as an actor, or as
-a final class that synchronizes access to its state and is declared `@unchecked Sendable`.
+task, so several tasks can call the same servant concurrently. Implement a servant with mutable state as an actor.
 
 ```diff
 -class MFile: File {
