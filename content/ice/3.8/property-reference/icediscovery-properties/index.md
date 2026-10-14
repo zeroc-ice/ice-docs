@@ -4,8 +4,8 @@ title: IceDiscovery.*
 
 This page describes the properties supported by the [IceDiscovery](../../plugins/icediscovery) plug-in.
 
-These properties configure the C++, C# and Java plug-ins, and the C++ plug-in loaded through `Ice.Plugin.*` in the
-C++-based language mappings. JavaScript does not support this plug-in.
+These properties configure the C++, C# and Java plug-ins. Python, Ruby, PHP, MATLAB and Swift use the C++ plug-in.
+JavaScript does not support this plug-in.
 
 ## IceDiscovery.Address
 
