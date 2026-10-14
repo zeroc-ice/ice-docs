@@ -53,11 +53,11 @@ end
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a MATLAB property just like a regular field, except you can also set this property to the
-marker value `Ice.Unset`, unless the field is a proxy. The tag value is not mapped to MATLAB.
+An optional field maps to a MATLAB property just like a regular field, and accepts the marker value `Ice.Unset` to mark
+the field as unset. `Ice.Unset` applies to any field type except proxies: use an empty proxy array, such as
+`GreeterPrx.empty`, to mark a proxy field as unset.
 
-An optional proxy field represents both a proxy that is not set and a null proxy with an empty array, and you test it
-with `isempty`.
+The tag value is not mapped to MATLAB.
 
 A well-behaved program must test a MATLAB property (mapped from an optional field) before using its value:
 

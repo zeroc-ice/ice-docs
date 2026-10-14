@@ -116,9 +116,7 @@ Asynchronous invocations return an instance of the `Ice.Future` class – the fu
 MATLAB's [parallel.future](https://www.mathworks.com/help/matlab/ref/parallel.future.html) class, in particular, you can
 call `wait` and `fetchOutputs` on this future object.
 
-`fetchOutputs` blocks until the invocation completes. You can call `fetchOutputs` only once, including when it throws: a
-second call raises an error with the identifier `Ice:InvalidStateException`. Keep the returned values if your
-application needs them again.
+`fetchOutputs` blocks until the invocation completes, and you can call it only once.
 
 ### Asynchronous Exception Semantics
 
@@ -128,16 +126,14 @@ during the call to the `Async` method ("on the way out"). The advantage of this 
 is located with the code that handles the future (instead of being present twice, once where the `Async` method is
 called, and again where the future is handled).
 
-The `Async` method throws directly, before returning a future, in the following cases:
+There are three exceptions to this rule:
 
-- an argument fails validation, or the generated method fails to marshal the arguments.
-- you destroyed the communicator: the `Async` method throws `Ice.CommunicatorDestroyedException`.
-- you call an operation that has a return value, out-parameters or an exception specification on a oneway proxy: the
-  `Async` method throws `Ice.TwowayOnlyException`.
-- you call an operation with the `["oneway"]` metadata directive on a twoway proxy: the `Async` method throws
-  `Ice.OnewayOnlyException`.
-
-Handle these errors where you call the `Async` method, and the errors of the invocation where you call `fetchOutputs`.
+- if you destroy the communicator and then make an asynchronous invocation, the `Async` method throws
+  `Ice.CommunicatorDestroyedException` directly.
+- if you use a oneway proxy to call an operation that has a return value, out-parameters, or an exception specification,
+  the `Async` method throws `Ice.TwowayOnlyException` directly.
+- if you use a twoway proxy to call an operation with the [`oneway`](../slice-metadata-directives#oneway) metadata, the
+  `Async` method throws `Ice.OnewayOnlyException` directly.
 
 ### Asynchronous Oneway Invocations
 
@@ -269,9 +265,7 @@ end
 A well-behaved program must always test an optional parameter prior to using its value. Keep in mind that the
 `Ice.Unset` marker value has different semantics than an empty array. Since an empty array is a legal value for certain
 Slice types, the Ice runtime requires a separate marker value so that it can determine whether an optional parameter is
-set. An optional parameter set to an empty array is considered to be set, unless it is a proxy.
-
-An optional proxy parameter represents both a proxy that is not set and a null proxy with an empty array. Pass an empty
-array to leave such a parameter unset, and test it with `isempty`.
+set. An optional parameter set to an empty array is considered to be set. `Ice.Unset` applies to any parameter type
+except proxies: use an empty array to mark a proxy parameter as unset.
 
 {% /language-section %}
