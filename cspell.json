@@ -91,6 +91,7 @@
     "frombuffer",
     "frontmatter",
     "fsadapter",
+    "GENEX",
     "getlogin",
     "getpass",
     "getset",

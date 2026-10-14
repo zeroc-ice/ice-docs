@@ -318,22 +318,6 @@ The package also defines two imported executables: `Ice::slice2cpp`, the Slice c
 and on Windows `Ice::icebox_EXE`, the IceBox server. A custom command that runs `slice2cpp` uses
 `$<TARGET_FILE:Ice::slice2cpp>` in its `COMMAND` and `DEPENDS`, so it runs again when the compiler changes.
 
-### Result Variables
-
-`find_package` sets the following variables:
-
-| Variable                   | Description                                            |
-| -------------------------- | ------------------------------------------------------ |
-| `Ice_VERSION`              | The Ice version, such as `3.8.3`.                      |
-| `Ice_SO_VERSION`           | The version of the Ice shared libraries, such as `38`. |
-| `Ice_PREFIX`               | The installation prefix.                               |
-| `Ice_INCLUDE_DIR`          | The directory of the Ice header files.                 |
-| `Ice_SLICE_DIR`            | The directory of the Ice Slice files.                  |
-| `Ice_SLICE2CPP_EXECUTABLE` | The path of the `slice2cpp` compiler.                  |
-
-Use `Ice_SLICE2CPP_EXECUTABLE` where CMake does not evaluate generator expressions, such as in `execute_process` at
-configure time.
-
 ### Windows
 
 On Windows, Ice for C++ is the `ZeroC.Ice.Cpp` NuGet package. Restore the package, then set `Ice_ROOT` to its directory
@@ -385,19 +369,17 @@ endif()
 By default, `slice2cpp_generate` writes the files it generates for a target under `generated/<target>` in the current
 binary directory, `CMAKE_CURRENT_BINARY_DIR`.
 
-`slice2cpp_generate` places the files generated from a Slice file in one of the `INCLUDE_DIRS` directories at the Slice
-file's path relative to that directory, the same path that `slice2cpp` uses in the `#include` directives it generates
-for that file (see [Header Files](#header-files)). For example, with `INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/slice`,
-the Slice file `slice/Demo/Weather.ice` generates `Demo/Weather.h` and `Demo/Weather.cpp`, and the
-`#include <Demo/Weather.ice>` directive of another Slice file becomes `#include <Demo/Weather.h>` in its generated
-header. The files generated from a Slice file outside the `INCLUDE_DIRS` directories go directly in
-`generated/<target>`.
+Within this directory, `slice2cpp_generate` keeps the Slice file's path relative to the `INCLUDE_DIRS` directory that
+contains it. For example, with `INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/slice`, the Slice file `slice/Demo/Weather.ice`
+generates `Demo/Weather.h` and `Demo/Weather.cpp` under `generated/<target>`. This is the path that `slice2cpp` uses in
+the `#include` directives it generates for that file: the `#include <Demo/Weather.ice>` directive of another Slice file
+becomes `#include <Demo/Weather.h>` in its generated header (see [Header Files](#header-files)). A Slice file outside
+the `INCLUDE_DIRS` directories generates its files directly in `generated/<target>`.
 
-`HEADER_OUTPUT_DIR` moves the generated headers to that directory and keeps their relative paths; the generated sources
-stay in `generated/<target>`. `slice2cpp_generate` resolves a relative `HEADER_OUTPUT_DIR` against the current binary
-directory. `INCLUDE_DIR` is a relative path that adds a directory level above the generated headers, in
-`HEADER_OUTPUT_DIR` or in `generated/<target>`, and each generated source includes its header through that path. For
-example:
+Use `HEADER_OUTPUT_DIR` to choose the directory for the generated headers, which keep their relative paths. A relative
+`HEADER_OUTPUT_DIR` starts at `CMAKE_CURRENT_BINARY_DIR`. The generated sources stay in `generated/<target>`. Use
+`INCLUDE_DIR` to add a subdirectory beneath the header directory; each generated source then includes its header through
+this subdirectory. For example:
 
 ```cmake
 add_library(weather_api Weather.ice)
@@ -412,13 +394,11 @@ This call generates `${CMAKE_BINARY_DIR}/include/Demo/Weather.h` and `Weather.cp
 
 ### Sharing Generated Headers Between Targets
 
-With `INCLUDE_SCOPE PUBLIC`, `slice2cpp_generate` adds the directories of the generated headers to the target's usage
-requirements: a target that links this target with `target_link_libraries` gets these directories too, so its sources
-can include the generated headers.
+Set `INCLUDE_SCOPE PUBLIC` so that targets that link your library can include its generated headers.
 
-`slice2cpp_generate` compiles only the Slice files in the target's own sources; `INCLUDE_DIRS` only lets `slice2cpp`
-find the Slice files that these files include. When the Slice files of several targets include the same Slice file,
-compile that file in a target of its own, and link that target from the others:
+`slice2cpp_generate` compiles only the Slice files listed in the target's sources; `INCLUDE_DIRS` only lets `slice2cpp`
+find the Slice files that they include. Compile a Slice file shared by several targets in a separate library, and link
+that library from each target that uses it:
 
 ```cmake
 add_library(demo_common ../slice/Demo/Common.ice)
@@ -428,11 +408,10 @@ slice2cpp_generate(demo_common
   INCLUDE_SCOPE PUBLIC)
 target_link_libraries(demo_common PUBLIC Ice::Ice)
 
-add_library(weather_api Weather.ice)
+add_library(weather_api ../slice/Demo/Weather.ice)
 slice2cpp_generate(weather_api
   INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../slice
   HEADER_OUTPUT_DIR ${CMAKE_BINARY_DIR}/include
-  INCLUDE_DIR Demo
   INCLUDE_SCOPE PUBLIC)
 target_link_libraries(weather_api PUBLIC demo_common)
 ```
@@ -443,9 +422,9 @@ include both `Demo/Weather.h` and `Demo/Common.h`.
 
 ### Installing the Generated Headers
 
-Install the generated headers with the CMake `install` command. The `GENERATED_HEADERS` and `GENERATED_SOURCES`
-arguments name variables that receive the absolute paths of the files that the call generates. When the headers are all
-in one directory, install them with `install(FILES)`:
+Install the generated headers with the CMake `install` command. Add `GENERATED_HEADERS` to the target's existing
+`slice2cpp_generate` call to collect the absolute paths of the generated headers. When all headers belong in one
+installation directory, install them with `install(FILES)`:
 
 ```cmake
 slice2cpp_generate(weather_api INCLUDE_SCOPE PUBLIC GENERATED_HEADERS weather_api_headers)
@@ -466,5 +445,21 @@ export declares the installed include directory itself:
 ```cmake
 target_include_directories(weather_api PUBLIC $<INSTALL_INTERFACE:include>)
 ```
+
+### Result Variables
+
+`find_package` sets the following variables:
+
+| Variable                   | Description                                            |
+| -------------------------- | ------------------------------------------------------ |
+| `Ice_VERSION`              | The Ice version, such as `3.8.3`.                      |
+| `Ice_SO_VERSION`           | The version of the Ice shared libraries, such as `38`. |
+| `Ice_PREFIX`               | The installation prefix.                               |
+| `Ice_INCLUDE_DIR`          | The directory of the Ice header files.                 |
+| `Ice_SLICE_DIR`            | The directory of the Ice Slice files.                  |
+| `Ice_SLICE2CPP_EXECUTABLE` | The path of the `slice2cpp` compiler.                  |
+
+Use `Ice_SLICE2CPP_EXECUTABLE` where CMake does not evaluate generator expressions, such as in `execute_process` at
+configure time.
 
 {% /language-section %}
