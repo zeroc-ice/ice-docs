@@ -104,12 +104,11 @@ public interface Greeter extends com.zeroc.Ice.Object {
 
 {% callout type="note" %}
 
-If you place the enclosing top-level module in another Java package with `java:package`, set the matching
+If you rename the exception or an enclosing module with `java:identifier`, or place the enclosing top-level module in
+another Java package with `java:package`, install a [Slice loader](../user-defined-types/classes/slice-loaders) in
+communicators that receive this exception. For `java:package` alone, setting the matching
 [Ice.Package._module_](../../property-reference/ice-properties#ice.package.module) property or
-[Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package), or install a
-[Slice loader](../user-defined-types/classes/slice-loaders), in communicators that receive this exception. If you rename
-the exception or an enclosing module with `java:identifier`, install a
-[Slice loader](../user-defined-types/classes/slice-loaders) in these communicators.
+[Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) also works.
 
 {% /callout %}
 

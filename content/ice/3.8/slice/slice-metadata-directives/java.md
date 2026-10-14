@@ -86,10 +86,10 @@ your modules.
 {% callout type="warning" %}
 
 When you apply this directive to a module that contains classes or exceptions, communicators that receive (unmarshal)
-these classes or exceptions locate their Java classes only when you set the matching
-[Ice.Package._module_](../../property-reference/ice-properties#ice.package.module) property or
-[Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) to `enclosing-java-package`,
-or install a [Slice loader](../user-defined-types/classes/slice-loaders).
+these classes or exceptions need a [Slice loader](../user-defined-types/classes/slice-loaders) to locate their Java
+classes. Setting the matching [Ice.Package._module_](../../property-reference/ice-properties#ice.package.module)
+property or [Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) to
+`enclosing-java-package` also works.
 
 {% /callout %}
 
