@@ -8,21 +8,19 @@ languages:
   - swift
 ---
 
-An application can add its own facets to the [admin object](../admin-object) by calling `addAdminFacet` on the
-[Communicator](api:Ice/Communicator) with a servant and a facet name, and remove them with `removeAdminFacet`.
-`findAdminFacet` returns the servant of a custom facet, and `findAllAdminFacets` includes the servants of all custom
-facets, keyed by facet name. A custom facet is an Ice object like any other: its servant implements the Slice interface
-of your choice, and an administrative client invokes it through a proxy for this facet of the admin object, as described
-in [Using the admin Object](../using-the-admin-object).
+Applications can add custom facets to the [admin object](../admin-object) by calling `addAdminFacet` on the
+[Communicator](api:Ice/Communicator) with a servant and facet name. They can add facets before or after the admin object
+is created. `removeAdminFacet` removes a facet, `findAdminFacet` returns its servant, and `findAllAdminFacets` returns
+all facet servants keyed by name.
 
-The [facet filter](../filtering-administrative-facets) applies to custom facets: when `Ice.Admin.Facets` is set, the
-communicator exposes a custom facet only if the filter lists its name. The communicator keeps a custom facet that the
-filter leaves out: `findAdminFacet` and `findAllAdminFacets` return its servant, and `removeAdminFacet` removes it.
+A custom facet's servant implements a Slice interface of your choice. Administrative clients invoke it through a proxy
+to the corresponding facet of the admin object, as described in [Using the admin Object](../using-the-admin-object).
 
-You can add facets before or after the communicator creates the admin object: the admin object hosts the facets added
-before its creation.
+The [facet filter](../filtering-administrative-facets) also applies to custom facets. When `Ice.Admin.Facets` is set,
+the communicator exposes only the facets that the filter lists. Excluded facets remain registered: `findAdminFacet` and
+`findAllAdminFacets` still return their servants, and `removeAdminFacet` removes them.
 
-We provide an example of using these communicator methods in our discussion of the [Process](../process-facet) facet.
+For an example, see the [Process](../process-facet) facet.
 
 ## See Also
 
