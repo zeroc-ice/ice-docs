@@ -315,8 +315,10 @@ find_package(Ice REQUIRED CONFIG COMPONENTS IceGrid IceStorm)
 ```
 
 The package also defines two imported executables: `Ice::slice2cpp`, the Slice compiler that `slice2cpp_generate` runs,
-and on Windows `Ice::icebox_EXE`, the IceBox server. A custom command that runs `slice2cpp` uses
-`$<TARGET_FILE:Ice::slice2cpp>` in its `COMMAND` and `DEPENDS`, so it runs again when the compiler changes.
+and, on Windows, `Ice::icebox_EXE`, the IceBox server from the NuGet package. `Ice::icebox_EXE` resolves to the Debug
+`icebox.exe` in the Debug configuration and to the Release `icebox.exe` in every other configuration, like the Ice
+libraries. A custom command that runs `slice2cpp` uses `$<TARGET_FILE:Ice::slice2cpp>` in its `COMMAND` and `DEPENDS`,
+so it runs again when the compiler changes.
 
 ### Windows
 
