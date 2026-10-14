@@ -72,12 +72,12 @@ same contents).
 
 Marshaling the negative instance IDs instead of the contents of an instance allows the receiver to accurately
 reconstruct the class graph that was sent by the sender. However, this begs the question of _when_ the actual instances
-are to be marshaled as described at the beginning of this section. In Ice
-[protocol messages](../../../protocol/protocol-messages), parameters and return values are marshaled as if they were
-fields of a structure. For example, if an operation invocation has five input parameters, the client marshals the five
-parameters end-to-end as if they were fields of a single structure. If any of the five parameters are class instances,
-or are of complex type (recursively) containing class instances, the sender marshals the parameters in multiple passes:
-the first pass marshals the parameters end-to-end, using the usual depth-first algorithm:
+are to be marshaled as described at the beginning of this section. In
+[request and reply payloads](../../data-encoding-for-request-and-reply-payloads), parameters and return values are
+marshaled as if they were fields of a structure. For example, if an operation invocation has five input parameters, the
+client marshals the five parameters end-to-end as if they were fields of a single structure. If any of the five
+parameters are class instances, or are of complex type (recursively) containing class instances, the sender marshals the
+parameters in multiple passes: the first pass marshals the parameters end-to-end, using the usual depth-first algorithm:
 
 - If the sender encounters a class field during marshaling, it checks whether it has marshaled the same instance
   previously for the current request or reply:
