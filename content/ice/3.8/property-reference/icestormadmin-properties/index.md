@@ -58,15 +58,15 @@ specified by [IceStormAdmin.Host](#icestormadmin.host).
 
 Defines the proxy for the default IceStorm topic manager. This property is used by
 [icestormadmin](../../services/icestorm/icestorm-administration). If this property is not set, `icestormadmin` uses one
-of the `IceStormAdmin.TopicManager.name` proxies as its default.
+of the `IceStormAdmin.TopicManager.tag` proxies as its default.
 
 {% /property-description %}
 
-## IceStormAdmin.TopicManager._name_
+## IceStormAdmin.TopicManager._tag_
 
 {% property-synopsis %}
 
-`IceStormAdmin.TopicManager.name=proxy`
+`IceStormAdmin.TopicManager.tag=proxy`
 
 {% /property-synopsis %}
 
@@ -81,10 +81,10 @@ IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9995
 IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h x -p 9987
 ```
 
-This sets the proxies for three topic managers. Note that `name` need not match the instance name of the corresponding
-topic manager — `name` simply serves as a tag. With these property settings, the `icestormadmin` commands that accept a
-topic can now specify a topic manager other than the default topic manager that is configured with
-[IceStormAdmin.TopicManager.Default](#icestormadmin.topicmanager.default). For example:
+This sets the proxies for three topic managers. `tag` is any string that makes the property name unique. With these
+property settings, the `icestormadmin` commands that accept a topic can now specify a topic manager other than the
+default topic manager that is configured with [IceStormAdmin.TopicManager.Default](#icestormadmin.topicmanager.default).
+For example:
 
 ```text
 current Foo

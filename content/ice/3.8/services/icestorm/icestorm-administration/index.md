@@ -41,8 +41,8 @@ interactive session. The `help` command displays the following usage information
 
 - `current [INSTANCE-NAME]` Set the current topic manager to the topic manager with instance name `INSTANCE-NAME`. The
   proxy of the corresponding topic manager must be specified by setting an
-  [IceStormAdmin.TopicManager._name_](../../../property-reference/icestormadmin-properties) property. Without an
-  argument, the command shows the current topic manager.
+  [IceStormAdmin.TopicManager._tag_](../../../property-reference/icestormadmin-properties#icestormadmin.topicmanager.tag)
+  property. Without an argument, the command shows the current topic manager.
 
 - `replica [INSTANCE-NAME]` Display [replication information](../highly-available-icestorm) for the given
   `INSTANCE-NAME`.
@@ -56,15 +56,15 @@ space or a semicolon, or that starts with `//` or `/*`, in single or double quot
 
 `icestormadmin` sends its commands to the topic managers that you configure with these properties:
 
-- [IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties) sets the proxy of the
-  default topic manager, which the commands use unless you name another one.
-- [IceStormAdmin.TopicManager._name_](../../../property-reference/icestormadmin-properties) sets the proxy of an
-  additional topic manager, for any number of names. When `IceStormAdmin.TopicManager.Default` is not set, one of these
-  topic managers is the default.
-- [IceStormAdmin.Port](../../../property-reference/icestormadmin-properties) and optionally
-  [IceStormAdmin.Host](../../../property-reference/icestormadmin-properties) apply only when the two properties above
-  are not set: `icestormadmin` then asks the `IceStorm/Finder` object at this host and port for its topic manager, which
-  becomes the default.
+- [IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties#icestormadmin.topicmanager.default)
+  sets the proxy of the default topic manager, which the commands use unless you name another one.
+- [IceStormAdmin.TopicManager._tag_](../../../property-reference/icestormadmin-properties#icestormadmin.topicmanager.tag)
+  sets the proxy of an additional topic manager; `tag` is any string that makes the property name unique. When
+  `IceStormAdmin.TopicManager.Default` is not set, one of these topic managers is the default.
+- [IceStormAdmin.Port](../../../property-reference/icestormadmin-properties#icestormadmin.port) and optionally
+  [IceStormAdmin.Host](../../../property-reference/icestormadmin-properties#icestormadmin.host) apply only when the two
+  properties above are not set: `icestormadmin` then asks the `IceStorm/Finder` object at this host and port for its
+  topic manager, which becomes the default.
 
 For example:
 
@@ -74,9 +74,9 @@ IceStormAdmin.TopicManager.B=Foo/TopicManager:tcp -h x -p 9996
 IceStormAdmin.TopicManager.C=Bar/TopicManager:tcp -h z -p 9995
 ```
 
-This sets the proxies for three topic managers; `name` is a tag and need not match the instance name of the topic
-manager. The commands select a topic manager by its instance name: `current` makes it the current topic manager, and a
-topic name of the form `instance-name/topic` selects it for one command. For example:
+This sets the proxies for three topic managers. The commands select a topic manager by its instance name, not by its
+tag: `current` makes it the current topic manager, and a topic name of the form `instance-name/topic` selects it for one
+command. For example:
 
 ```text
 current Foo
