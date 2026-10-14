@@ -49,7 +49,7 @@ A message is unidirectional: its operation returns `void`, has no out-parameters
 publisher receives no results from the subscribers.
 
 A publisher can send messages to IceStorm with oneway or twoway invocations. A twoway invocation returns once IceStorm
-has queued the message for the topic's subscribers, whether or not they have received it yet.
+has accepted the message for forwarding, whether or not the subscribers have received it yet.
 
 IceStorm forwards messages to each subscriber with the invocation mode of the proxy the subscriber registered, as
 described in [IceStorm Delivery Modes](../icestorm-delivery-modes).
@@ -60,9 +60,11 @@ Each subscriber can set [quality of service](../icestorm-quality-of-service) (Qo
 including message ordering and the handling of delivery failures.
 
 By default, IceStorm removes a subscriber when a delivery fails with an Ice run-time exception, for example when
-IceStorm cannot connect to the subscriber's endpoints. The `retryCount` parameter sets how many consecutive failures
-IceStorm tolerates before it removes the subscriber. While a failing subscriber is retained, IceStorm discards the
-messages for this subscriber until the
+IceStorm cannot connect to the subscriber's endpoints. The `retryCount` parameter sets how many consecutive transient
+failures IceStorm tolerates before it removes the subscriber; a
+[hard failure](../icestorm-quality-of-service#hard-failures), such as `Ice::ObjectNotExistException` when the
+subscriber's servant is gone, removes the subscriber regardless of `retryCount`. While a failing subscriber is retained,
+IceStorm discards the messages for this subscriber until the
 [IceStorm.Discard.Interval](../../../property-reference/icestorm-properties#icestorm.discard.interval) period ends:
 retries extend the subscription, and each message reaches only the subscribers IceStorm can deliver it to when it
 forwards the message.
