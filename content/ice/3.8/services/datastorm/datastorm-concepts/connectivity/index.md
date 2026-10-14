@@ -38,8 +38,9 @@ reader or writer in an announcement then connects to the announcing node over th
 A DataStorm node can connect directly to another node by setting the `DataStorm.Node.ConnectTo` property to the endpoint
 of the peer node it should connect to.
 
-Nodes that act as servers use the `DataStorm.Node.Server` object adapter, which can be configured using the
-`DataStorm.Node.Server.*` object adapter properties.
+Nodes that act as servers accept connections through the
+[DataStorm.Node.Server](../../../../property-reference/datastorm-node-properties#datastorm.node.server.adapterproperty)
+object adapter.
 
 When configured this way, a node establishes a session with its peer on startup. Once a session is established between
 two nodes, they exchange reader and writer creation announcements.
