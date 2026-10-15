@@ -47,9 +47,11 @@ Ice communicator for the node and pass it in a
 int
 main(int argc, char* argv[])
 {
+    auto defaults = std::make_shared<Ice::Properties>();
+    defaults->setProperty("DataStorm.Node.ConnectTo", "tcp -h localhost -p 4061");
+
     Ice::InitializationData initData;
-    initData.properties = std::make_shared<Ice::Properties>(argc, argv);
-    initData.properties->setProperty("DataStorm.Node.ConnectTo", "tcp -h localhost -p 4061");
+    initData.properties = std::make_shared<Ice::Properties>(argc, argv, defaults);
     initData.properties->setProperty("Ice.ThreadPool.Client.Serialize", "1");
 
     DataStorm::NodeOptions options;
@@ -76,20 +78,19 @@ A communicator you supply must meet two requirements:
   to `1` on the communicators it creates, but not on a communicator you supply: set this property before you create the
   communicator. An executor set through `Ice::InitializationData` must also preserve this dispatch order.
 
-`NodeOptions` has two other options:
-
-- `customExecutor` is a function that receives, from the node's callback thread, the functions that deliver user
-  notifications, such as the `onSamples` callbacks described in [Reading Samples](../reader#reading-samples). Without
-  it, the node runs these functions on that thread.
-- `serverAuthenticationOptions` configures the SSL server side of the `DataStorm.Node.Server` object adapter that
-  accepts connections from other nodes, described in [Node Server](../../node-server).
+`NodeOptions` also sets the executor that runs your callbacks, described in
+[Reading Samples](../reader#reading-samples), and the SSL server authentication options of the `DataStorm.Node.Server`
+object adapter, described in [Direct Node Connections](../connectivity#direct-node-connections). When `communicator` is
+`nullptr`, the node creates its own communicator and destroys it with the node.
 
 ## Shutting Down a Node
 
 After the node is destroyed, writers will no longer publish samples, and readers will no longer receive samples.
 
 The `Node::shutdown` method can be used to unblock readers and writers that are waiting to receive a sample or for a
-peer node to connect. In this case, the waiting threads throw a `NodeShutdownException` exception. `Node::isShutdown`
-returns whether the node is shut down, and `Node::waitForShutdown` blocks until it is. Shutting down a node doesn't
-destroy it: the node releases its resources, and destroys the communicator it owns, when the `DataStorm::Node` object is
-destroyed. `Node::getCommunicator` returns the node's communicator.
+peer node to connect. In this case, the waiting threads throw a `NodeShutdownException` exception.
+
+A program that runs until the user interrupts it can block its main thread in `Node::waitForShutdown`, or loop until
+`Node::isShutdown` returns `true`, and call `shutdown` from an `Ice::CtrlCHandler` callback. The
+[DataStorm::Node](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Node.html) API reference describes the node's
+other methods.
