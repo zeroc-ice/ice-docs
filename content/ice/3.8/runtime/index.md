@@ -18,8 +18,8 @@ pages:
   - endpoint-syntax
 ---
 
-The very core of the Ice framework is the Ice runtime library. It’s the runtime that creates and caches network
-connections, sends requests over these connections, reads these requests off the network and sends the corresponding
-responses, and offers you various features to tailor this process for your needs.
+The Ice runtime is the core of the Ice framework. It manages network connections, sends requests, receives responses,
+and dispatches incoming requests to servants. You can customize its behavior through its API and through
+[Ice properties](./properties-and-configuration).
 
-We present in this chapter the components that form the Ice runtime.
+This chapter introduces the main components of the Ice runtime.
