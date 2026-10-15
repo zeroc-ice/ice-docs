@@ -43,17 +43,6 @@ IceSSL.CAs=ca_cert.pem
 {% language-section name="ssl-connection-information" %}
 
 The SSL connection information class is
-[Ice.SSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/python/Ice.SSLConnectionInfo.html). Its `peerCertificate`
-field holds the peer's certificate, PEM-encoded, or an empty string when the peer did not provide a certificate.
-
-```py
-def getSSLConnectionInfo(connection: Ice.Connection) -> Ice.SSLConnectionInfo | None:
-    info = connection.getInfo()
-    while info is not None:
-        if isinstance(info, Ice.SSLConnectionInfo):
-            return info
-        info = info.underlying
-    return None
-```
+[Ice.SSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/python/Ice.SSLConnectionInfo.html).
 
 {% /language-section %}

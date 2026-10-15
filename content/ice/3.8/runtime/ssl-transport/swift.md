@@ -44,20 +44,6 @@ IceSSL.CAs=ca_cert.pem
 {% language-section name="ssl-connection-information" %}
 
 The SSL connection information class is
-[SSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/sslconnectioninfo). Its `peerCertificate`
-property holds the peer's certificate, or `nil` when the peer did not provide a certificate.
-
-```swift
-func getSSLConnectionInfo(_ connection: Connection) throws -> SSLConnectionInfo? {
-    var info: ConnectionInfo? = try connection.getInfo()
-    while let current = info {
-        if let sslInfo = current as? SSLConnectionInfo {
-            return sslInfo
-        }
-        info = current.underlying
-    }
-    return nil
-}
-```
+[SSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/sslconnectioninfo).
 
 {% /language-section %}

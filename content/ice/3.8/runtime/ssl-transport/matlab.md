@@ -38,18 +38,4 @@ IceSSL.CAs=ca_cert.pem
 The SSL connection information class is `Ice.SSL.ConnectionInfo`. Its `peerCertificate` property holds the peer's
 certificate, PEM-encoded, or an empty character vector when the peer did not provide a certificate.
 
-```matlab
-function sslInfo = getSSLConnectionInfo(connection)
-    sslInfo = [];
-    info = connection.getInfo();
-    while ~isempty(info)
-        if isa(info, 'Ice.SSL.ConnectionInfo')
-            sslInfo = info;
-            return;
-        end
-        info = info.underlying;
-    end
-end
-```
-
 {% /language-section %}

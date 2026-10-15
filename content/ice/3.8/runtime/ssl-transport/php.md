@@ -38,16 +38,4 @@ IceSSL.CAs=ca_cert.pem
 The SSL connection information class is `Ice\SSLConnectionInfo`. Its `peerCertificate` property holds the peer's
 certificate, PEM-encoded, or an empty string when the peer did not provide a certificate.
 
-```php
-function getSSLConnectionInfo($connection)
-{
-    for ($info = $connection->getInfo(); $info != null; $info = $info->underlying) {
-        if ($info instanceof Ice\SSLConnectionInfo) {
-            return $info;
-        }
-    }
-    return null;
-}
-```
-
 {% /language-section %}
