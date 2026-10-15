@@ -222,18 +222,12 @@ a request and returns the corresponding response.
 
 ## Servants
 
-As we mentioned, an [Ice Object](#ice-objects) is a conceptual entity that has a type, identity, and addressing
-information. However, client requests ultimately must end up with a concrete server-side processing entity that can
-provide the behavior for an operation invocation. To put this differently, a client request must ultimately end up
-executing code inside the server, with that code written in a specific programming language and executing on a specific
-processor.
+A _servant_ is an instance of an application class that implements the operations of an Ice object's interface. The
+server registers it with the server-side runtime as the servant for one or more Ice objects, and the server-side runtime
+dispatches the requests for these objects to it. A servant is also a [dispatcher](#dispatcher).
 
-The server-side artifact that provides this behavior is known as a _servant_. A servant provides substance for (or
-_incarnates_) one or more Ice objects. It’s also a [Dispatcher](#dispatcher).
-
-In practice, a servant is simply an instance of a class that is written by the server developer and that is registered
-with the server-side runtime as the servant for one or more Ice objects. Methods on the class correspond to the
-operations on the Ice object's interface and provide the behavior for the operations.
+The Ice object is the conceptual entity a client addresses with a proxy, and the servant is the code that implements it
+in a specific server; the servant is said to _incarnate_ the Ice object.
 
 A single servant can incarnate a single Ice object at a time or several Ice objects simultaneously. If the former, the
 identity of the Ice object incarnated by the servant is implicit in the servant. If the latter, the servant is provided

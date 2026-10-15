@@ -28,19 +28,14 @@ specific programming language, such as C++, Java, or C#.
 
 ## Slice Compilers
 
-The Slice definitions are compiled by a compiler into an API for a specific programming language, that is, the part of
-the API that is specific to the interfaces and types you have defined consists of generated code.
+A Slice compiler translates your Slice definitions into code for one programming language. This generated code is the
+part of your API that is specific to the interfaces and types you defined, such as the proxy types you use to call
+operations and the types that carry your data.
 
-The rules that govern how each Slice construct is translated into a specific programming language are known as
-_**language mappings**_. For example, for the C++ mapping, a Slice sequence appears as a `std::vector`, whereas, for the
-Java mapping, a Slice sequence appears as a Java array. In order to determine what the API for a specific Slice
-construct looks like, you only need the Slice definition and knowledge of the language mapping rules. The rules are
-simple and regular enough to make it unnecessary to read the generated code to work out how to use the generated API.
-
-Of course, you are free to peruse the generated code. However, as a rule, that is inefficient because the generated code
-is not necessarily suitable for human consumption. We recommend that you familiarize yourself with the language mapping
-rules; that way, you can mostly ignore the generated code and need to refer to it only when you are interested in some
-specific detail.
+The rules that govern how each Slice construct maps to a programming language are known as _**language mappings**_. For
+example, the C++ mapping maps a Slice sequence to a `std::vector`, whereas the Java mapping maps it to a Java array. The
+Slice definition and the mapping rules tell you what the generated API looks like; you need to read the generated code
+only to check a specific detail.
 
 Currently, Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift and, for the client side, MATLAB,
 PHP and Ruby.
