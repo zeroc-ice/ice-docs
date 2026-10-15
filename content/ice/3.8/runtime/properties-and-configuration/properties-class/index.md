@@ -83,7 +83,7 @@ rejects.
 methods, they return the property's built-in default when it is not set; see the
 [property reference](../../../property-reference). For example, if you never set `Ice.Warn.Dispatch`,
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of `1`, while `getPropertyAsInt("Ice.Warn.Dispatch")`
-returns 0.
+returns `0`.
 
 These three methods accept the name of an Ice property and throw `PropertyException` for any other name. Read the
 properties of your own application with the plain `getProperty` methods, which take any name.

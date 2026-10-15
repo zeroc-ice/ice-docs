@@ -168,9 +168,10 @@ For example, to reject monitoring instrumented objects or operations which are f
 
 {% property-description %}
 
-If `num` is set to a value larger than `0`, up to `num` metrics object whose `current` value is 0 will be kept in memory
-by the metrics map. This is useful to prevent indefinite memory growth if the monitoring of an instrumented object or
-operation creates a unique metrics object, only the last `num` metrics object will be kept in memory. The default value
-is `10`, meaning that at most ten metrics object with a `current` value equal to 0 will be retained by the metrics map.
+If `num` is set to a value larger than `0`, up to `num` metrics object whose `current` value is `0` will be kept in
+memory by the metrics map. This is useful to prevent indefinite memory growth if the monitoring of an instrumented
+object or operation creates a unique metrics object, only the last `num` metrics object will be kept in memory. The
+default value is `10`, meaning that at most ten metrics object with a `current` value equal to `0` will be retained by
+the metrics map.
 
 {% /property-description %}

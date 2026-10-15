@@ -65,9 +65,9 @@ See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 When a thread becomes busy and no idle thread remains in the pool, Ice adds a thread, up to
 [Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax). Ice reaps idle threads as
 [Ice.ThreadPool._name_.ThreadIdleTime](#ice.threadpool.name.threadidletime) specifies, but always keeps at least 1
-thread in the pool. The default value is 1.
+thread in the pool. The default value is `1`.
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
@@ -95,7 +95,7 @@ runtime.
 
 {% /iflang %}
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
@@ -112,7 +112,7 @@ To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadP
 Whenever `num` threads are active in the `Client` or `Server` [thread pool](../../runtime/threading-model), a "low on
 threads" warning is printed. The default value is `0`, which disables the warning.
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
@@ -143,7 +143,7 @@ To disable the reaping of idle threads, set `ThreadIdleTime` to `0`. In this sit
 with [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) active threads and may grow to contain
 [Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax) active threads, but the size of the pool never decreases.
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 

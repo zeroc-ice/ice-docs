@@ -510,8 +510,8 @@ IceGrid uses the adapter name `IceGrid.Registry.Client` for the object adapter t
 clients.
 
 The registry requires [IceGrid.Registry.Client.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
-[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers 4061 (TCP) and 4062
-(SSL) to the registry.
+[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers `4061` (TCP) and
+`4062` (SSL) to the registry.
 
 {% /property-description %}
 
@@ -869,9 +869,10 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 
 The object adapter trace level:
 
-| `0` | No object adapter trace (default).                           |
-| --- | ------------------------------------------------------------ |
-| `1` | Trace object adapter registration, removal, and replication. |
+| Value | Description                                                  |
+| ----- | ------------------------------------------------------------ |
+| `0`   | No object adapter trace (default).                           |
+| `1`   | Trace object adapter registration, removal, and replication. |
 
 {% /property-description %}
 
@@ -925,10 +926,11 @@ The application trace level:
 
 The discovery trace level:
 
-| `0` | No discovery trace (default).                      |
-| --- | -------------------------------------------------- |
-| `1` | Trace replied discovery lookup requests.           |
-| `2` | Like `1`, also includes discarded lookup requests. |
+| Value | Description                                        |
+| ----- | -------------------------------------------------- |
+| `0`   | No discovery trace (default).                      |
+| `1`   | Trace replied discovery lookup requests.           |
+| `2`   | Like `1`, also includes discarded lookup requests. |
 
 {% /property-description %}
 

@@ -169,7 +169,7 @@ IceStorm.Nodes.2=IceStorm/node2:tcp -p 13020
 ```
 
 These properties must be defined in each replica. Additionally, each replica must define its node ID, as well as the
-node's endpoints. For example, we can configure node 0 as follows:
+node's endpoints. For example, we can configure node `0` as follows:
 
 ```config
 IceStorm.NodeId=0

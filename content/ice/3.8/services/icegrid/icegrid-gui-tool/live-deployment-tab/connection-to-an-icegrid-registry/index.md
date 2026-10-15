@@ -70,7 +70,7 @@ credentials; see [IceGrid.Registry.AdminSSLPermissionsVerifier](../../../../../p
 Steps 1 to 4 are identical to the simple TCP connection described above.
 
 Step 5: Enter the hostname of the IceGrid registry, leave the port number empty to use the default IceGrid port number
-(4061 for TCP and 4062 for SSL), and select SSL for the protocol:
+(`4061` for TCP and `4062` for SSL), and select SSL for the protocol:
 
 ![image2017-4-3 13:44:5.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-44-5.png)
 
