@@ -29,11 +29,6 @@ std::ostream& operator<<(std::ostream& os, Fruit value);
 constexpr Fruit FavoriteFruit = Fruit::Pear;
 ```
 
-A string constant maps to a `const std::string` or `const std::wstring` object. All other constants map to `constexpr`
-constants, which you can use in contexts where a compile-time constant expression is required; for example, an integral
-constant can dimension an array, and an integral or enumeration constant can be the `case` label of a `switch`
-statement.
-
 A Slice string literal that contains non-ASCII characters is mapped by default to a narrow C++ string literal with the
 non-ASCII characters replaced by the octal escape sequences for the characters' UTF-8 encoding. For example:
 

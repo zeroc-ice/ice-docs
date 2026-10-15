@@ -238,9 +238,6 @@ There are three exceptions to this rule:
 - a call to an `Async` function can throw `OnewayOnlyException`. An `Async` function throws this exception if you call
   an operation with the [oneway](../slice-metadata-directives#oneway) metadata on a twoway proxy.
 
-The `Async` function throws `TwowayOnlyException` and `OnewayOnlyException` before it returns the future or the cancel
-function, so neither the future nor the exception callback reports them.
-
 ### Asynchronous Oneway Invocations
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
@@ -566,11 +563,18 @@ this parameter to Ice for marshaling (an outgoing value), or is Ice giving you t
 incoming value)?
 
 For incoming values, the mapped C++ type is always “by value”: Ice transfers these arguments to you, and you get full
-ownership, except for a sequence parameter with the `cpp:array` metadata, whose pair of pointers denotes elements that
-Ice owns, as described in
-[Array Mapping for Sequence Parameters](../user-defined-types/sequences#array-mapping-for-sequence-parameters). For
-outgoing values, Ice only needs to “borrow” the arguments while it marshals them synchronously into the payload of the
-request.
+ownership. For outgoing values, Ice only needs to “borrow” the arguments while it marshals them synchronously into the
+payload of the request.
+
+{% callout type="note" %}
+
+A sequence parameter with the `cpp:array` metadata is the exception. In a function that you implement and Ice calls,
+such as a servant function or an AMI response callback, the pair of pointers Ice gives you denotes elements that Ice
+owns, and these pointers remain valid only until your function returns; see
+[Array Mapping for Sequence Parameters](../user-defined-types/sequences#array-mapping-for-sequence-parameters). A
+function you call never returns such a pair.
+
+{% /callout %}
 
 | **Slice Parameter Type**                                            | **Mapped C++ Parameter Type (Outgoing)**                        | **Mapped C++ Parameter Type (Incoming, Always by Value)** |
 | ------------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------- |
