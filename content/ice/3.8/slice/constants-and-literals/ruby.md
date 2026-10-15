@@ -24,9 +24,8 @@ PI = 3.1416
 FavoriteFruit = Fruit::Pear
 ```
 
-As you can see, each Slice constant maps to a Ruby constant named after the Slice constant, with its first letter
-capitalized as Ruby requires for a constant. For example, the Slice constant `answer` maps to the Ruby constant
-`Answer`.
+Each Slice constant maps to a Ruby constant named after the Slice constant, with its first letter capitalized as Ruby
+requires for a constant. For example, the Slice constant `answer` maps to the Ruby constant `Answer`.
 
 Slice string literals that contain non-ASCII characters or universal character names are mapped to Ruby string literals
 with these characters by Unicode escape sequences. For example:

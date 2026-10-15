@@ -158,10 +158,11 @@ default output directory is the current working directory, but a different direc
 
 It is important to understand how `slice2rb` handles include files. In the absence of the `--all` option, the compiler
 does not generate Ruby code for Slice definitions in included files. Rather, the compiler translates each Slice
-`#include` statement into a Ruby `require` or `require_relative` statement. The form depends on the path by which the
-preprocessor reports the included file.
+`#include` statement into a Ruby `require` or `require_relative` statement. The form depends on where the preprocessor
+finds the included file.
 
-When the preprocessor reports an absolute path, the compiler generates a `require` statement in the following manner:
+When the preprocessor finds the included file in a directory named by an `-I` option, the compiler generates a `require`
+statement in the following manner:
 
 1. Create the shortest possible relative pathname for the included file by iterating over each of the include
    directories (specified using the `-I` option) and removing the leading directory from the included file if possible.
@@ -179,8 +180,8 @@ As a result, you can use `-I` options to tailor the `require` statements generat
 absolute pathnames and match the organizational structure of your application's source files. Ruby searches for the
 required file in the interpreter's load path.
 
-When the preprocessor reports a path relative to the directory of the including Slice file, the compiler generates a
-`require_relative` statement with that path, and the `.ice` extension replaced with `.rb`:
+When the preprocessor finds the included file relative to the directory of the including Slice file, the compiler
+generates a `require_relative` statement with that relative path, and the `.ice` extension replaced with `.rb`:
 
 ```ruby
 require_relative 'OS/Process.rb'
