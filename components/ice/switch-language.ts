@@ -1,6 +1,6 @@
 // Copyright (c) ZeroC, Inc.
 
-import { setLanguage } from '@/context/state';
+import { getLanguage, setLanguage } from '@/context/state';
 
 /** Whether `el` shows to readers of `language`, judged from its markup. */
 function shownIn(el: Element, language: string, root: Element) {
@@ -117,7 +117,7 @@ function headingFor(
  * parallel, so the offset lands near the matching section.
  */
 export function switchLanguage(language: string) {
-  const oldLanguage = document.documentElement.dataset.lang ?? '';
+  const oldLanguage = getLanguage();
   const body = document.querySelector('.doc-body');
   if (!body || language === oldLanguage) {
     setLanguage(language);
@@ -130,19 +130,20 @@ export function switchLanguage(language: string) {
     ? parseFloat(getComputedStyle(firstHeading).scrollMarginTop) || 0
     : 0;
   // Above the body, the title and the notices stay where they are as long as
-  // the scroll offset does. A body with nothing on show for the old mapping
-  // leaves only them, so the new mapping's body is read from the top.
-  const wasEmpty = !blockAtLine(body, -Infinity, oldLanguage);
+  // the scroll offset does.
   const block =
     body.getBoundingClientRect().top < line
       ? blockAtLine(body, line, language)
       : undefined;
   const top = block?.getBoundingClientRect().top;
+  // `.doc-body` has no padding, so it measures zero exactly when nothing in it
+  // is on show, whether its own language blocks or a wrapper outside it hide
+  // its content.
+  const wasEmpty = body.getBoundingClientRect().height === 0;
   setLanguage(language);
-  // A page not written for the new mapping hides its whole body, from outside
-  // `.doc-body`, and leaves the reader its notice at the top.
-  const hidesBody = body.getClientRects().length === 0;
-  if (hidesBody || (wasEmpty && blockAtLine(body, -Infinity, language))) {
+  // A body with nothing on show before or after the switch leaves only the
+  // title and the notices, so the reader goes to the top.
+  if (wasEmpty || body.getBoundingClientRect().height === 0) {
     window.scrollTo({ top: 0, behavior: 'instant' });
     return;
   }
