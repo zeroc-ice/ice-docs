@@ -1,5 +1,14 @@
 ---
 title: Implicit Request Contexts
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - matlab
+  - python
+  - ruby
+  - swift
 ---
 
 ## Using Implicit Request Contexts
@@ -21,7 +30,7 @@ be set to the following values:
   `ImplicitContext` class is interlocked, so different threads can concurrently manipulate the context without risking
   data corruption or reading stale values.
 
-{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}
 
 - `PerThread` The communicator maintains a separate implicit context for each thread. This allows you to propagate
   contexts that depend on the sending thread (for example, to send per-thread transaction IDs).
@@ -32,14 +41,12 @@ Any other value makes the creation of the communicator fail with `Initialization
 
 ## Using the Implicit Context
 
-{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
-
 `getImplicitContext` on the communicator returns its implicit context. The `get`, `put`, `remove`, and `containsKey`
 methods of the implicit context read and update a single entry, and `getContext` and `setContext` read and replace the
-whole context. {% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}With `PerThread`, these methods act on the
-context of the calling thread.{% /iflang %}
-
-{% /iflang %}
+whole context.{% iflang langs="csharp,java" %} When `Ice.ImplicitContext` is `PerThread`, these methods read and update
+the implicit context of the thread that calls them.{% /iflang %}{% iflang langs="cpp,matlab,python,ruby,swift" %} When
+`Ice.ImplicitContext` is `PerThread`, `getImplicitContext` returns the implicit context of the thread that calls it, and
+the methods of that object update only that thread's context.{% /iflang %}
 
 {% language-section name="using-the-implicit-context" /%}
 

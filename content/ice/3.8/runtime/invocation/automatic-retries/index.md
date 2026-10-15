@@ -62,11 +62,13 @@ In addition to user exceptions and subclasses of `RequestFailedException`, a ser
 `UnknownException`, `UnknownLocalException`, or `UnknownUserException` to indicate that it encountered an unexpected
 exception while dispatching the request. These exceptions _are_ eligible for retry.
 
-Ice also never retries a request that fails with `CommunicatorDestroyedException`,
-`ObjectAdapterDestroyedException`,{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
-`ObjectAdapterDeactivatedException`,{% /iflang %}{% iflang langs="java" %} `OperationInterruptedException`,{% /iflang %}
-`InvocationCanceledException`, or with a `ConnectionAbortedException` or `ConnectionClosedException` caused by the
-application closing the connection. It never retries an invocation on a batch proxy or on a fixed proxy.
+Ice also never retries a request that fails with
+`CommunicatorDestroyedException`,{% iflang langs="cpp,csharp,java,js,python,swift" %}
+`ObjectAdapterDestroyedException`,{% /iflang %}{% iflang langs="cpp,csharp,java,python,swift" %}
+`ObjectAdapterDeactivatedException`,{% /iflang %}{% iflang langs="java" %}
+`OperationInterruptedException`,{% /iflang %}{% iflang langs="cpp,csharp,java,js,matlab,python" %}
+`InvocationCanceledException`,{% /iflang %} or with a `ConnectionAbortedException` or `ConnectionClosedException` caused
+by the application closing the connection. It never retries an invocation on a batch proxy or on a fixed proxy.
 
 **2. When did the error occur?**
 
@@ -134,11 +136,11 @@ reached its configured retry limits.
 ### Retry Intervals
 
 The [Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) property configures the retry
-behavior for a communicator and affects invocations on every proxy created by that communicator; you cannot configure
-retries for an individual proxy. The value of this property is a list of integers, separated by commas or whitespace.
-The number of integers determines how many retry attempts Ice makes, and the value of each entry represents a delay in
-milliseconds. If this property is not defined, the default behavior is to retry once immediately after the first
-failure, which is equivalent to the following property definition:
+behavior for a communicator and affects invocations on every proxy created by that communicator. The value of this
+property is a list of integers, separated by commas or whitespace. The number of integers determines how many retry
+attempts Ice makes, and the value of each entry represents a delay in milliseconds. If this property is not defined, the
+default behavior is to retry once immediately after the first failure, which is equivalent to the following property
+definition:
 
 ```config
 Ice.RetryIntervals=0
