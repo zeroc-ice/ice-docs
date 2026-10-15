@@ -31,11 +31,9 @@ This dialog allows you to view and update the following settings:
   retrieves and displays up to this number of lines. The value `-1` retrieves the log file from its beginning.
 - **Max bytes read per request** The maximum number of bytes retrieved by each request. Pick a value that is low enough
   to make the dialog appear responsive and big enough to avoid many round-trips when lots of data are logged. IceGrid
-  GUI raises a value below 100 to 100, and lowers a value above IceGrid GUI's `Ice.MessageSizeMax` setting, converted
-  from kilobytes to bytes, minus 512 bytes to that bound.
+  GUI accepts values from 100 up to its `Ice.MessageSizeMax` setting, converted to bytes, minus 512.
 - **Poll period (seconds)** When in the running state, the dialog attempts to retrieve new lines from the log file
-  (through IceGrid) every Poll period seconds. IceGrid GUI raises a value below 0.2 seconds to 0.2 seconds, and lowers a
-  value above 5 seconds to 5 seconds.
+  (through IceGrid) every Poll period seconds. IceGrid GUI accepts values from 0.2 to 5 seconds.
 
 ## Saving and Copying
 

@@ -94,7 +94,7 @@ The remaining Server Properties under Configuration come from the IceGrid descri
   this user name. When blank, the server runs as the IceGrid node user, except when the node runs as root: the server
   then runs as `nobody`, or, for a server allocated by a session, as the user named by the session ID. If the node uses
   a [user account mapper](../../../../icegrid-server-activation#activating-servers-with-specific-user-ids), the node
-  maps this user name to the account that runs the server.
+  passes the resulting name to the mapper, which returns the account that runs the server.
 - **Environment Variables** A server started by IceGrid node gets these environment variables in addition to the
   environment variables inherited from the IceGrid node.
 - **Activation Mode** The server's activation mode.
