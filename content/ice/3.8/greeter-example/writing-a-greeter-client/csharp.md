@@ -15,9 +15,10 @@ You can find the complete source code for this example in the
 The first step when writing a C# application with Ice is to compile the Slice definitions for this application with the
 Slice to C# compiler (`slice2cs`).
 
-Here, we compile the `Greeter.ice` Slice file we wrote earlier as part of the project's build. The
-`ZeroC.Ice.Slice.Tools` NuGet package runs `slice2cs` on each `SliceCompile` item when you build the project with
-`dotnet build`, as the demo's project file does:
+To compile `Greeter.ice`, the demo adds the `ZeroC.Ice.Slice.Tools` NuGet package to the project and `Greeter.ice` as a
+`SliceCompile` item; MSBuild then runs `slice2cs` as part of every build. By default, the package adds every `.ice` file
+under the project directory as a `SliceCompile` item, but the demo keeps `Greeter.ice` in `../slice`, outside the
+project directory, so its project file adds it explicitly:
 
 ```xml {% title="Client.csproj" %}
 <ItemGroup>
@@ -27,7 +28,9 @@ Here, we compile the `Greeter.ice` Slice file we wrote earlier as part of the pr
 </ItemGroup>
 ```
 
-See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options of `slice2cs`.
+See [Slice Tools for Ice and C#](https://github.com/zeroc-ice/ice/blob/3.8/csharp/src/ZeroC.Ice.Slice.Tools/README.md)
+for the `SliceCompile` item metadata, and [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the
+options of `slice2cs`.
 
 The build generates a single file named `Greeter.cs`, which provides the APIs that our client code calls.
 
