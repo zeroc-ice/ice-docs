@@ -35,10 +35,8 @@ namespace Ice
 }
 ```
 
-Each of these functions has an overload that accepts the in-parameters as a
-`std::pair<const std::byte*, const std::byte*>` instead of a vector. The callback overload in this form passes the reply
-to `response` as a pair of pointers into a buffer that the Ice runtime owns; copy the bytes if you need them after
-`response` returns.
+Each function also has an overload that takes the in-parameters as a `std::pair<const std::byte*, const std::byte*>`;
+see the API reference.
 
 {% /language-section %}
 
@@ -90,39 +88,7 @@ the callbacks.
 
 {% language-section name="forwarding-requests" %}
 
-A forwarding dispatcher derives from `Ice::Object` and overrides `dispatch`:
-
-```cpp
-class Forwarder final : public Ice::Object
-{
-public:
-    explicit Forwarder(Ice::ObjectPrx target) : _target{std::move(target)} {}
-
-    void dispatch(
-        Ice::IncomingRequest& request,
-        std::function<void(Ice::OutgoingResponse)> sendResponse) final
-    {
-        const Ice::Current& current = request.current();
-        const std::byte* inEncaps;
-        std::int32_t size;
-        request.inputStream().readEncapsulation(inEncaps, size);
-
-        _target.ice_invokeAsync(
-            current.operation,
-            current.mode,
-            {inEncaps, inEncaps + size},
-            [sendResponse, current](bool ok, std::pair<const std::byte*, const std::byte*> outEncaps)
-            { sendResponse(Ice::makeOutgoingResponse(ok, outEncaps, current)); },
-            [sendResponse, current](std::exception_ptr ex)
-            { sendResponse(Ice::makeOutgoingResponse(ex, current)); },
-            nullptr,
-            current.ctx);
-    }
-
-private:
-    Ice::ObjectPrx _target;
-};
-```
+A forwarding dispatcher derives from `Ice::Object` and overrides `dispatch`.
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Ice/forwarder) provides a complete example
 of a forwarding server in C++.

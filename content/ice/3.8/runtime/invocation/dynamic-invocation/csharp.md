@@ -76,28 +76,7 @@ else
 
 {% language-section name="forwarding-requests" %}
 
-A forwarding dispatcher implements `Ice.Object` and its `dispatchAsync` method:
-
-```csharp
-internal sealed class Forwarder : Ice.Object
-{
-    private readonly ObjectPrx _target;
-
-    internal Forwarder(ObjectPrx target) => _target = target;
-
-    public async ValueTask<OutgoingResponse> dispatchAsync(IncomingRequest request)
-    {
-        Current current = request.current;
-        byte[] inEncaps = request.inputStream.readEncapsulation(out _);
-        Object_Ice_invokeResult result = await _target.ice_invokeAsync(
-            current.operation,
-            current.mode,
-            inEncaps,
-            current.ctx);
-        return current.createOutgoingResponse(result.returnValue, result.outEncaps);
-    }
-}
-```
+A forwarding dispatcher implements `Ice.Object` and its `dispatchAsync` method.
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Ice/Forwarder) provides a complete
 example of a forwarding server in C#.

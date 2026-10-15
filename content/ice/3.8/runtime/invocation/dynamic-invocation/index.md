@@ -47,20 +47,20 @@ For a twoway invocation, `ice_invoke` returns a success flag and an encapsulatio
   [encoded user exception](../../../encoding/data-encoding-for-exceptions). `ice_invoke` returns any user exception the
   servant throws, including one that the operation's exception specification does not list.
 
-Any other failure, such as a [local or dispatch exception](../../local-and-dispatch-exceptions), makes `ice_invoke`
-throw this exception.
-
-{% language-section name="reading-the-reply" /%}
+For any other failure, `ice_invoke` throws a [local or dispatch exception](../../local-and-dispatch-exceptions).
 
 For a oneway or datagram invocation, `ice_invoke` returns `true` and an empty byte sequence once the transport accepts
 the request. For a batch oneway or batch datagram invocation, it returns `true` and an empty byte sequence once it adds
-the request to the batch; the request is sent when the batch is [flushed](../invocation-mode/batched-invocations).
+the request to the batch; the Ice runtime sends the request when it [flushes](../invocation-mode/batched-invocations)
+the batch.
+
+{% language-section name="reading-the-reply" /%}
 
 ## Forwarding Requests
 
 An application can forward the requests that its object adapter receives with `ice_invoke`, without decoding their
 parameters. The forwarding code takes the encapsulation of the in-parameters from the incoming request, calls
-`ice_invoke` on a twoway target proxy with the operation name, mode, and context of the incoming request, and builds the
+`ice_invoke` on the target proxy with the operation name, mode, and context of the incoming request, and builds the
 response from the success flag and the encapsulation that `ice_invoke` returns.
 
 {% language-section name="forwarding-requests" /%}

@@ -72,26 +72,7 @@ if (result.returnValue) {
 
 {% language-section name="forwarding-requests" %}
 
-A forwarding dispatcher implements `com.zeroc.Ice.Object` and its `dispatch` method:
-
-```java
-final class Forwarder implements com.zeroc.Ice.Object {
-    private final ObjectPrx _target;
-
-    Forwarder(ObjectPrx target) {
-        _target = target;
-    }
-
-    @Override
-    public CompletionStage<OutgoingResponse> dispatch(IncomingRequest request) {
-        Current current = request.current;
-        byte[] inParams = request.inputStream.readEncapsulation(null);
-        return _target
-            .ice_invokeAsync(current.operation, current.mode, inParams, current.ctx)
-            .thenApply(result -> current.createOutgoingResponse(result.returnValue, result.outParams));
-    }
-}
-```
+A forwarding dispatcher implements `com.zeroc.Ice.Object` and its `dispatch` method.
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/forwarder) provides a complete example
 of a forwarding server in Java.

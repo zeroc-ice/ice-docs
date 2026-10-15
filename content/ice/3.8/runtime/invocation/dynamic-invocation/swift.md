@@ -60,24 +60,7 @@ if ok {
 
 {% language-section name="forwarding-requests" %}
 
-A forwarding dispatcher adopts the `Dispatcher` protocol:
-
-```swift
-struct Forwarder: Dispatcher {
-    let target: ObjectPrx
-
-    func dispatch(_ request: sending IncomingRequest) async throws -> OutgoingResponse {
-        let current = request.current
-        let (inEncaps, _) = try request.inputStream.readEncapsulation()
-        let (ok, outEncaps) = try await target.ice_invoke(
-            operation: current.operation,
-            mode: current.mode,
-            inEncaps: inEncaps,
-            context: current.ctx)
-        return current.makeOutgoingResponse(ok: ok, encapsulation: outEncaps)
-    }
-}
-```
+A forwarding dispatcher adopts the `Dispatcher` protocol.
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Ice/Forwarder) provides a complete
 example of a forwarding server in Swift.

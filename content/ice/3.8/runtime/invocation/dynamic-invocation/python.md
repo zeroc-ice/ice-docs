@@ -31,15 +31,7 @@ ok, outParams = proxy.ice_invoke("greet", Ice.OperationMode.Normal, inParams)
 {% language-section name="forwarding-requests" %}
 
 A forwarding servant derives from `Ice.Blobject` and implements its `ice_invoke` method, which receives the
-encapsulation of the in-parameters and returns the success flag and the encapsulation of the reply:
-
-```py
-class Forwarder(Ice.Blobject):
-    def __init__(self, target: Ice.ObjectPrx):
-        self._target = target
-
-    def ice_invoke(self, inParams: bytes, current: Ice.Current) -> tuple[bool, bytes]:
-        return self._target.ice_invoke(current.operation, current.mode, inParams, current.ctx)
-```
+encapsulation of the in-parameters and returns the success flag and the encapsulation of the reply, or an awaitable for
+them, such as the one that `ice_invokeAsync` returns.
 
 {% /language-section %}
