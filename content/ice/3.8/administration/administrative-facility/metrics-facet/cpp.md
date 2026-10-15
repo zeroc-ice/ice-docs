@@ -2,7 +2,7 @@
 
 ## Obtaining the Local Metrics Facet
 
-To use the `Metrics` facet of your own communicator directly, without a proxy, call `findAdminFacet`:
+To use the `Metrics` facet of your own communicator without a [proxy](../using-the-admin-object), call `findAdminFacet`:
 
 ```cpp
 // It's nullptr when the facet is not enabled

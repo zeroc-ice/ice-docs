@@ -2,7 +2,7 @@
 
 ## Obtaining the Local Process Facet
 
-To use the `Process` facet of your own communicator directly, without a proxy, call `findAdminFacet`:
+To use the `Process` facet of your own communicator without a [proxy](../using-the-admin-object), call `findAdminFacet`:
 
 ```cpp
 // It's nullptr when the facet is not enabled

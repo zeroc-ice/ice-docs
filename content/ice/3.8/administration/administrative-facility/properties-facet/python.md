@@ -2,7 +2,8 @@
 
 ## Obtaining the Local Properties Facet
 
-To use the `Properties` facet of your own communicator directly, without a proxy, call `findAdminFacet`:
+To use the `Properties` facet of your own communicator without a [proxy](../using-the-admin-object), call
+`findAdminFacet`:
 
 ```py
 propertiesAdmin = communicator.findAdminFacet("Properties")
@@ -11,7 +12,7 @@ if propertiesAdmin is not None:
     ...
 ```
 
-The facet is registered with the name `Properties`. `findAdminFacet` returns a
+`findAdminFacet` returns a
 [NativePropertiesAdmin](https://code.zeroc.com/ice/3.8/api/python/Ice.NativePropertiesAdmin.html) wrapper that provides
 access to the C++ facet's update callbacks. `removeAdminFacet` returns `None` for this facet.
 
