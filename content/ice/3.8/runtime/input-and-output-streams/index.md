@@ -19,8 +19,10 @@ Your application uses these streams directly to:
 
 {% iflang langs="js" %}
 
-Your application uses these streams directly to store Slice values in a file or a database, or to send them through a
-channel other than an Ice connection.
+Your application uses these streams directly to:
+
+- read the parameters and write the results in a servant that dispatches requests without generated code;
+- store Slice values in a file or a database, or send them through a channel other than an Ice connection.
 
 {% /iflang %}
 
@@ -45,23 +47,6 @@ and read the encapsulation and the value in the same order.
 
 {% language-section name="example" /%}
 
-## Creating an Output Stream
-
-An `OutputStream` created from a communicator alone encodes with the encoding version set by
-[Ice.Default.EncodingVersion](../../property-reference/ice-default-properties#ice.default.encodingversion) and the class
-format set by [Ice.Default.SlicedFormat](../../property-reference/ice-default-properties#ice.default.slicedformat). You
-can also create an `OutputStream` with an explicit encoding version and class format, without a communicator.
-
-{% language-section name="output-stream" /%}
-
-## Creating an Input Stream
-
-An `InputStream` uses the communicator's [Slice loader](../../slice/user-defined-types/classes/slice-loaders) to create
-class and exception instances. Outside an encapsulation, it decodes with the encoding version you give to its
-constructor, or with the communicator's default encoding version when you give none.
-
-{% language-section name="input-stream" /%}
-
 ## Encapsulations
 
 An encapsulation holds encoded values preceded by their size and their encoding version, as described in
@@ -69,20 +54,11 @@ An encapsulation holds encoded values preceded by their size and their encoding 
 or send in an encapsulation: the `InputStream` then decodes them with the encoding version recorded in the
 encapsulation.
 
-On an `OutputStream`, `startEncapsulation` writes the start of an encapsulation that uses the stream's encoding version
-and class format{% iflang langs="cpp,csharp,java,js" %}, or those of the enclosing encapsulation for a nested
-encapsulation{% /iflang %}. An overload of `startEncapsulation` takes the encoding version and class format to use
-instead. `endEncapsulation` writes the size of the encapsulation.
-
-On an `InputStream`, `startEncapsulation` reads the size and the encoding version of the encapsulation and returns this
-encoding version. With the 1.1 encoding, `endEncapsulation` skips the optional values you did not read.
-
-{% language-section name="encapsulations" /%}
-
 ## Writing and Reading Slice Types
 
-The stream classes provide methods to write and read the Slice built-in types. The following table shows how you write
-and read the types you define in Slice:
+See [OutputStream](api:Ice/OutputStream) and [InputStream](api:Ice/InputStream) for the constructors, the methods for
+the built-in types, and the errors the streams report. The following table shows how you write and read the types you
+define in Slice:
 
 {% language-section name="types" /%}
 
@@ -91,27 +67,6 @@ and read the types you define in Slice:
 When the values you encode include a class type, the writer calls `writePendingValues` once after writing them, and the
 reader calls `readPendingValues` once after reading them: with the 1.0 encoding, the streams write and read the class
 instances at that point.
-
-The following example encodes and decodes an instance of this Slice class:
-
-```slice
-module Inventory
-{
-    class Product
-    {
-        string name;
-    }
-}
-```
-
-{% language-section name="classes" /%}
-
-## Errors
-
-An `InputStream` throws `MarshalException` when the bytes do not hold the values you read, for example when a read goes
-past the end of the bytes. `startEncapsulation` throws `MarshalException` when the size of the encapsulation exceeds the
-remaining bytes or when the Ice runtime does not support its encoding version. With the 1.1 encoding, `endEncapsulation`
-throws `MarshalException` when data remains unread in the encapsulation after it skips the remaining optional values.
 
 ## See Also
 
