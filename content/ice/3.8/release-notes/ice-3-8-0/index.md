@@ -482,8 +482,8 @@ details.
 
 The Ice for JavaScript NPM package has been converted to a scoped package named `@zeroc/ice`.
 
-The package includes a `slice2js` bin script that executes the native `slice2js` compiler for the current platform, the
-`slice2js` native binaries for Linux, macOS, and Windows are included in the `@zeroc/ice` NPM package.
+The package includes the native `slice2js` compiler for Linux (x64 and arm64), macOS (arm64), and Windows (x64), and a
+`slice2js` bin script that runs the compiler for the current platform.
 
 The NPM package is now compatible with Node.js and Browsers, and there is no need to use a separate bundle when
 developing applications targeting a web browser.

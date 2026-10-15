@@ -3,7 +3,8 @@
 ### Java Gradle Projects
 
 The `com.zeroc.slice-tools` Gradle plugin replaces the `com.zeroc.gradle.ice-builder.slice` plugin used in Ice 3.7 Java
-Gradle projects. It includes the `slice2java` compiler for Linux, macOS, and Windows and the Ice Slice files.
+Gradle projects. It includes the `slice2java` compiler for Linux (x64 and arm64), macOS (arm64), and Windows (x64), and
+the Ice Slice files.
 
 The plugin adds a `slice` block to each Java or Android source set. In this block, `srcDir` or `srcDirs` sets the
 directories that hold your Slice files, `includeSearchPath` replaces the `include` setting of the Ice Builder plugin,

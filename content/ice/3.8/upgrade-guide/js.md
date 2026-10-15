@@ -3,7 +3,7 @@
 ### NPM Package
 
 The Ice NPM package has been renamed and converted into a scoped package: `@zeroc/ice`. This new package also includes
-the `slice2js` compiler for Linux, macOS, and Windows.
+the `slice2js` compiler for Linux (x64 and arm64), macOS (arm64), and Windows (x64).
 
 ### Upgrade Steps
 
