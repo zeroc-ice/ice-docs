@@ -24,10 +24,10 @@ pages:
   - slice-keywords
 ---
 
-The Slice [IDL](https://en.wikipedia.org/wiki/Interface_description_language) is the fundamental abstraction mechanism
-for separating object interfaces from their implementations. Slice establishes a contract between client and server that
-describes the interfaces, operations and data types used by an application. This description is independent of the
-implementation language, so it does not matter whether the client is written in the same language as the server.
+Slice is the [interface definition language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL) of Ice.
+Slice definitions describe the interfaces of Ice objects, with their operations, parameters, return values and
+exceptions, and the data types those operations exchange. A client and a server can exchange only data whose types are
+defined in Slice.
 
 {% callout type="note" %}
 
@@ -35,15 +35,12 @@ Even though Slice is an acronym, it is pronounced as a single syllable, like a s
 
 {% /callout %}
 
-Slice definitions are compiled for a particular implementation language by a compiler. The language-specific Slice
-compiler translates the language-independent Slice definitions into language-specific type definitions and APIs. These
-types and APIs are used by the developer to provide application functionality and to interact with Ice. The translation
-algorithms for various implementation languages are known as _language mappings_, and Ice provides a number of language
-mappings (for C++, C#, Java, JavaScript, Python, Swift and more).
+Slice definitions are independent of any programming language. They form a contract between client and server, so the
+client and the server can be written in different languages.
 
-Because Slice describes interfaces and types (but not implementations), it is a purely declarative language; there is no
-way to write executable statements in Slice.
+Each language has its own Slice compiler, such as `slice2cpp` for C++ or `slice2java` for Java, which translates Slice
+definitions into types and APIs for that language. Clients use the generated code to invoke operations, and servers use
+it to implement them. The rules of this translation are called a _language mapping_; Ice provides language mappings for
+C++, C#, Java, JavaScript, MATLAB, PHP, Python, Ruby and Swift.
 
-Slice definitions focus on object interfaces, the operations supported by those interfaces, and exceptions that may be
-thrown by operations. Much of Slice is concerned with the definition of data types, because a client and a server can
-exchange only data whose types are defined in Slice: to send application data, you define a Slice type for it.
+Slice is a purely declarative language: it describes interfaces and types, and contains no executable statements.
