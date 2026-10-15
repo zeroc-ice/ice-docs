@@ -2,10 +2,12 @@
 title: Callbacks Through Glacier2
 ---
 
-Callbacks from servers to clients are commonly used in distributed applications, often to notify the client about an
-event such as the completion of a long-running calculation or a change to a database record. Unfortunately, supporting
-callbacks in a complicated network environment presents its own [set of problems](../common-firewall-traversal-issues).
-Ice overcomes these obstacles using a Glacier2 router and bidirectional connections.
+On this page, the client is the application that connects to the Glacier2 router, and the back-end servers are the
+applications the client reaches through the router. A callback is a request that a back-end server sends to an object in
+the client, often to notify the client about an event such as the completion of a long-running calculation or a change
+to a database record. Unfortunately, supporting callbacks in a complicated network environment presents its own
+[set of problems](../common-firewall-traversal-issues). Ice overcomes these obstacles using a Glacier2 router and
+bidirectional connections.
 
 {% callout type="tip" title="Example" %}
 
@@ -16,13 +18,13 @@ provides instructions on running the example, and comments in the configuration 
 
 ## Bidirectional Connections with Glacier2
 
-While a regular unrouted connection allows requests to flow in only one direction (from client to server), a
-[bidirectional connection](../../../runtime/connection-management/bidirectional-connections) enables requests to flow in
-both directions. This capability is necessary to circumvent the network restrictions that commonly cause
-[firewall traversal issues](../common-firewall-traversal-issues), namely, client-side firewalls that prevent a server
-from establishing an independent connection directly to the client. By sending callback requests over the existing
-connection from the client to the server (more accurately, from the client to the router), we have created a virtual
-connection back to the client.
+While a regular unrouted connection carries requests in only one direction, from the application that established it to
+its peer, a [bidirectional connection](../../../runtime/connection-management/bidirectional-connections) carries
+requests in both directions. This capability is necessary to circumvent the network restrictions that commonly cause
+[firewall traversal issues](../common-firewall-traversal-issues), namely, firewalls in front of the client that prevent
+a back-end server from establishing a connection directly to the client. The router sends callback requests to the
+client over the connection the client established to the router, which creates a virtual connection from the back-end
+servers back to the client.
 
 This diagram shows the steps involved in making a callback using Glacier2:
 
@@ -30,19 +32,19 @@ This diagram shows the steps involved in making a callback using Glacier2:
 
 _Request and callback flow through Glacier2._
 
-1. The client has a routed proxy for the server and makes an invocation. A connection is established to the router's
-   client endpoint and the request is sent to the router.
-2. The router, using information from the client's proxy, establishes a connection to the server and forwards the
-   request. In this example, one of the arguments in the request is a proxy for a callback object in the client.
-3. The server makes a callback to the client. For this to succeed, the proxy for the callback object must contain
-   endpoints that are accessible to the server. The only path back to the client is through the router, therefore the
-   proxy contains the [router's server endpoints](#configuring-the-router-for-callbacks). The server connects to the
-   router and sends the request.
+1. The client has a routed proxy for an object in a back-end server and makes an invocation. The client establishes a
+   connection to the router's client endpoint and sends the request to the router.
+2. The router, using information from the client's proxy, establishes a connection to the back-end server and forwards
+   the request. In this example, one of the arguments in the request is a proxy for a callback object in the client.
+3. The back-end server makes a callback to the client. For this to succeed, the proxy for the callback object must
+   contain endpoints that the back-end server can reach. The only path back to the client is through the router,
+   therefore the proxy contains the [router's server endpoints](#configuring-the-router-for-callbacks). The back-end
+   server connects to the router and sends the request.
 4. The router forwards the callback request to the client using the bidirectional connection established in step 1.
 
 The arrows in the above illustration indicate the flow of requests; notice that two connections are used between the
-router and the server. Since the server is unaware of the router, it does not use routed proxies, and therefore does not
-use bidirectional connections.
+router and the back-end server. Since the back-end server is unaware of the router, it does not use routed proxies, and
+therefore does not use bidirectional connections.
 
 {% callout type="note" %}
 
@@ -54,15 +56,15 @@ don't configure this connection for bidirectional use yourself. To use bidirecti
 
 ## Callbacks and Connection Closure
 
-When a client terminates, it closes its connection to the router. If a server later attempts to make a callback to the
-client, the attempt fails because the router has no connection to the client over which to forward the request. This
-situation is no worse than if the server attempted to contact the client directly, which would be prevented by the
-client's firewall. However, this illustrates the inherent limitation of bidirectional connections: the lifetime of a
-client's callback proxy is bounded by the lifetime of the client's router session.
+When a client terminates, it closes its connection to the router. If a back-end server later attempts to make a callback
+to the client, the attempt fails because the router has no connection to the client over which to forward the request.
+This situation is no worse than if the back-end server attempted to contact the client directly, which would be
+prevented by the client's firewall. However, this illustrates the inherent limitation of bidirectional connections: the
+lifetime of a client's callback proxy is bounded by the lifetime of the client's router session.
 
 ## Configuring the Router for Callbacks
 
-In order for the router to support callbacks from servers, it needs to have endpoints in the private network.
+In order for the router to support callbacks from back-end servers, it needs to have endpoints in the private network.
 
 The configuration file shown below adds the property
 [Glacier2.Server.Endpoints](../../../property-reference/glacier2-properties):
@@ -72,7 +74,7 @@ Glacier2.Client.Endpoints=tcp -h 5.6.7.8 -p 4063
 Glacier2.Server.Endpoints=tcp -h 10.0.0.1
 ```
 
-As this example shows, the server endpoint does not require a fixed port.
+As this example shows, `Glacier2.Server.Endpoints` does not require a fixed port.
 
 {% callout type="note" %}
 
@@ -83,10 +85,10 @@ Glacier2's implementation of [Ice::Router](../../../runtime/invocation/routers)'
 
 ## Configuring the Client's Object Adapter with a Router
 
-A client that receives callbacks is also a server, and therefore must have an object adapter. Typically, an object
-adapter has endpoints in the local network, but those endpoints are of no use to a server in our restricted network
-environment. We really want the client's callback proxy to contain the router's server endpoints, and we accomplish that
-by configuring the client's object adapter with a proxy for the router.
+A client that receives callbacks needs an object adapter to dispatch them. Typically, an object adapter has endpoints in
+the local network, but those endpoints are of no use to a back-end server in our restricted network environment. We
+really want the client's callback proxy to contain the router's server endpoints, and we accomplish that by configuring
+the client's object adapter with a proxy for the router.
 
 {% callout type="note" %}
 
