@@ -79,9 +79,9 @@ identity.
 #### Map Size
 
 An LMDB database has a maximum size, known as its map size. The IceGrid registry database can store up to
-[IceGrid.Registry.LMDB.MapSize](../../../../property-reference/icegrid-properties) megabytes of data in its database;
-any attempt to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase
-`IceGrid.Registry.LMDB.MapSize` and restart the IceGrid registry.
+[IceGrid.Registry.LMDB.MapSize](../../../../property-reference/icegrid-properties#icegrid.registry.lmdb.mapsize)
+megabytes of data in its database; any attempt to store more data will fail with an `Ice::UnknownException`. If you
+exceed this limit, increase `IceGrid.Registry.LMDB.MapSize` and restart the IceGrid registry.
 
 If you don't set `IceGrid.Registry.LMDB.MapSize`, or set it to 0, IceGrid uses a map size of 10 MB on Windows, and 100
 MB on Linux and macOS

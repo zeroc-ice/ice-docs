@@ -80,8 +80,8 @@ On Linux:
 
 - Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
-The property [Glacier2.CryptPasswords](../../../property-reference/glacier2-properties) specifies the name of the
-password file:
+The property [Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords)
+specifies the name of the password file:
 
 ```config
 Glacier2.CryptPasswords=passwords

@@ -34,9 +34,9 @@ which you issue commands at a prompt.
 To communicate with the IceGrid registry, `icegridadmin` establishes an
 [administrative session](../icegrid-administrative-sessions). The tool uses SSL authentication if you specify the `-S`
 option or define its equivalent property
-[IceGridAdmin.AuthenticateUsingSSL](../../../property-reference/icegridadmin-properties). Otherwise, `icegridadmin` uses
-password authentication and prompts you for the username and password if you do not specify them via command-line
-options or properties. If you want `icegridadmin` to establish its session using a
+[IceGridAdmin.AuthenticateUsingSSL](../../../property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl).
+Otherwise, `icegridadmin` uses password authentication and prompts you for the username and password if you do not
+specify them via command-line options or properties. If you want `icegridadmin` to establish its session using a
 [Glacier2 router](../glacier2-integration-with-icegrid), define
 [Ice.Default.Router](../../../property-reference/ice-default-properties#ice.default.router) appropriately.
 

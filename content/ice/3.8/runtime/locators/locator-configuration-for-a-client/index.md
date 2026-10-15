@@ -6,11 +6,11 @@ An indirect proxy needs a [locator](../locator-semantics-for-clients) to resolve
 endpoints. You give a proxy its locator by configuring a locator proxy, in one of several ways:
 
 - by explicitly configuring an indirect proxy using the `ice_locator` proxy method
-- by defining the [name.Locator](../../../property-reference/proxy-properties) property of a proxy that the application
-  creates with `propertyToProxy`
+- by defining the [name.Locator](../../../property-reference/proxy-properties#name.locator) property of a proxy that the
+  application creates with `propertyToProxy`
 - by calling `setDefaultLocator` on a communicator, after which all new proxies use the given locator by default
-- by defining the [Ice.Default.Locator](../../../property-reference/ice-default-properties) configuration property,
-  which causes all proxies to use the given locator by default
+- by defining the [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator)
+  configuration property, which causes all proxies to use the given locator by default
 
 To trace how the Ice runtime resolves indirect proxies, set the following properties:
 

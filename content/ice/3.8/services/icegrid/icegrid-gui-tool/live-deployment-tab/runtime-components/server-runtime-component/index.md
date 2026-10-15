@@ -50,12 +50,12 @@ the Server Properties panel:
   server's logger.
 - **Retrieve stdout** Retrieve the stdout log file of this server into a [Log File Dialog](../../log-file-dialog). This
   retrieval succeeds only when the server's stdout output has been redirected to a file using the
-  [Ice.StdOut](../../../../../../property-reference/ice-properties) property. This is usually achieved by setting the
-  IceGrid.Node.Output property in the IceGrid node configuration file.
+  [Ice.StdOut](../../../../../../property-reference/ice-properties#ice.stdout) property. This is usually achieved by
+  setting the IceGrid.Node.Output property in the IceGrid node configuration file.
 - **Retrieve stderr** Retrieve the stderr log file of this server into a [Log File Dialog](../../log-file-dialog). This
   retrieval succeeds only when the server's stderr output has been redirected to a file using the
-  [Ice.StdErr](../../../../../../property-reference/ice-properties) property. This is usually achieved by setting the
-  IceGrid.Node.Output property in the IceGrid node configuration file.
+  [Ice.StdErr](../../../../../../property-reference/ice-properties#ice.stderr) property. This is usually achieved by
+  setting the IceGrid.Node.Output property in the IceGrid node configuration file.
 - **Retrieve log file** Retrieve a log file of this server into a [Log File Dialog](../../log-file-dialog).
 - **Send Signal** Send a signal to a server, for example SIGQUIT. Available only for non-Windows servers.
 - **Open Definition** Open the application that defines this server in a Live Application tab, and select the server's
