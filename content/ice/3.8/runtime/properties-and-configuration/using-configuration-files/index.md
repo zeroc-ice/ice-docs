@@ -10,7 +10,8 @@ through `Ice.Config` or `ICE_CONFIG`.
 
 {% iflang langs="php" %}
 
-Ice for PHP can also load configuration files once, when PHP loads the extension, from settings in `php.ini`; see
+With settings in `php.ini`, Ice for PHP can also load configuration files once, when PHP loads the extension, into
+property sets that a script retrieves with `Ice\getProperties`; see
 [Managing Property Sets in PHP](../../communicator/communicators-in-php#managing-property-sets-in-php).
 
 {% /iflang %}
