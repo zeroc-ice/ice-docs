@@ -35,36 +35,19 @@ An instance of class `C` contains the following slices, listed in order from mos
 | `B`       | `float f`    |
 | `A`       | `int i`      |
 
-Let's add the following interface to our discussion:
+A receiver that knows the most-derived type of an instance, here `C`, unmarshals all its slices. Otherwise, what the
+receiver does depends on the format the sender used to marshal the instance:
 
-```slice
-interface I
-{
-    B getValue();
-}
-```
+- **Compact format**: the receiver must know the most-derived type of the instance. If it does not, Ice throws a
+  `MarshalException`.
+- **Sliced format**: the receiver skips the slices of the types it does not know, also known as _slicing_ the instance,
+  and creates an instance of the most-derived type it knows. This instance must still be an instance of the declared
+  type, such as the return type of an operation; otherwise, Ice throws a `MarshalException`. If the receiver knows none
+  of the types of a class instance, Ice keeps it as an [unknown sliced value](#unknown-sliced-values), which only the
+  declared type `Value` accepts.
 
-Now suppose a client invokes `getValue`. Let's also suppose that the server actually returns an instance of class `C`,
-which is legal given that `C` derives from `B`. The Ice runtime in the client knows that the formal return type of the
-`getValue` operation is `B`, therefore `B` is the least-derived type that the client can accept for this operation. At a
-high level, the Ice runtime in the client behaves as follows:
-
-1. It discovers that the most-derived type of the returned instance is `C` and checks whether this type is known.
-2. If this type is known to the client, Ice instantiates the object, extracts the fields for each of its slices, and
-   returns the object.
-3. If type `C` is _not_ known to the client, which can occur when the client and server are using different versions of
-   the Slice definitions, Ice skips the fields for slice `C` (also known as _slicing_ the object) and tries again with
-   the next slice.
-4. If type `B` is also not known to the client then we have a problem. First, from a logical standpoint, the client
-   _must_ know type `B` because it is the statically-declared return type of the operation that the client just invoked.
-   Second, we cannot slice this object any further because it would no longer be compatible with the formal signature of
-   the operation; the returned object must at least be an instance of `B`, so we could not return an instance of `A`. In
-   either case, the Ice runtime would throw an exception.
-
-Generally speaking, upon receipt of an instance of a class or exception, the Ice runtime skips the slices of unknown
-types until it finds a type that it recognizes, exhausts all slices, or can no longer satisfy the formal type signature
-of the operation. This slicing feature allows the receiver, whose Slice definitions may be limited or outdated, to
-continue to function properly even when it does not recognize the most-derived type.
+An exception follows the sliced-format rule: the receiver slices it down to the most-derived exception type it knows,
+and Ice throws a `MarshalException` if the receiver knows none of its types.
 
 ## Slice Formats
 
