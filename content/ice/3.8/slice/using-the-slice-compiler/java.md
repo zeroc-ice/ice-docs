@@ -18,21 +18,21 @@ plugins {
 }
 ```
 
-The plugin includes `slice2java` for Linux (x64 and arm64), macOS (arm64), and Windows (x64), and the Slice files of
-Ice, Glacier2, IceBox, IceGrid, IceStorm, and DataStorm. It extracts them into the Gradle user home directory and,
-unless you set `toolsPath`, passes the directory of the Slice files to `slice2java` with `-I`, so your Slice files can
-include them, for example `#include <Ice/Identity.ice>`.
+The plugin includes `slice2java` for Linux (x64 and arm64), macOS (arm64), and Windows (x64), as well as the Slice files
+of Ice, Glacier2, IceBox, IceGrid, IceStorm, and DataStorm. By default, it compiles your Slice files with the included
+`slice2java` and puts the included Slice files on the include path, so your Slice files can
+`#include <Ice/Identity.ice>`.
 
 ### Project Settings
 
-The `slice` block of the project holds the settings that apply to every Slice source set:
+The `slice` block of the project holds the Slice source sets and the settings that apply to all of them:
 
-| Setting             | Description                                                                                                                                                                                                                                                                              |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `compilerArgs`      | Arguments the plugin passes to `slice2java`, such as `-D` options.                                                                                                                                                                                                                       |
-| `includeSearchPath` | Directories the plugin passes to `slice2java` with `-I`.                                                                                                                                                                                                                                 |
-| `sourceSets`        | The Slice source sets of the project, one for each Java or Android source set.                                                                                                                                                                                                           |
-| `toolsPath`         | The directory that holds the `slice2java` compiler the plugin runs instead of the included one. With `toolsPath` set, the plugin passes only the directories of `includeSearchPath` to `slice2java` with `-I`; when your Slice files include Ice Slice files, add their directory to it. |
+| Setting             | Description                                                                                                                                                                                                                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `compilerArgs`      | Arguments the plugin passes to `slice2java`, such as `-D` options.                                                                                                                                                                                                                                                       |
+| `includeSearchPath` | Directories the plugin passes to `slice2java` with `-I`.                                                                                                                                                                                                                                                                 |
+| `sourceSets`        | The Slice source sets of the project, one for each Java or Android source set.                                                                                                                                                                                                                                           |
+| `toolsPath`         | The directory that holds the `slice2java` to run instead of the included one, for example from a local Ice build or on a platform the plugin doesn't include. With `toolsPath` set, the included Slice files are not on the include path; add their directory to `includeSearchPath` when your Slice files include them. |
 
 ```kotlin
 slice {
@@ -40,9 +40,6 @@ slice {
     compilerArgs.addAll("-DUSE_TRACING")
 }
 ```
-
-Set `toolsPath` to run the `slice2java` of a local Ice build, or on a platform for which the plugin includes no
-`slice2java`.
 
 ### Slice Source Sets
 
@@ -71,7 +68,8 @@ sourceSets {
 ```
 
 The plugin registers a `compileSlice<SourceSet>` task for each source set, such as `compileSliceMain`, that generates
-Java files into `build/generated/source/slice/<source set>`. The `compileSlice` task runs all of them.
+Java files into `build/generated/source/slice/<source set>` in a Java project, and into
+`build/generated/java/compileSlice<SourceSet>` in an Android project. The `compileSlice` task runs all of them.
 
 ### Java Projects
 
@@ -86,12 +84,29 @@ product flavors, and the combination of the product flavors and the build type. 
 a project with a `free` product flavor compiles the files generated from `src/main/slice`, `src/debug/slice`,
 `src/free/slice`, and `src/freeDebug/slice`.
 
+In a Groovy build script, you configure a Slice source set in the `slice` block of its Android source set:
+
 ```groovy
 android {
     sourceSets {
         main {
             slice {
                 srcDir "../slice"
+            }
+        }
+    }
+}
+```
+
+In a Kotlin build script, Gradle generates the `slice` accessor only for Java source sets, so you configure the Slice
+source set of an Android source set through its extensions:
+
+```kotlin
+android {
+    sourceSets {
+        getByName("main") {
+            (this as ExtensionAware).extensions.configure<com.zeroc.slice.tools.SliceSourceSet>("slice") {
+                srcDir("../slice")
             }
         }
     }
