@@ -39,7 +39,8 @@ Instruct the Ice for Python runtime to unmarshal a sequence as a list.
 ### `python:memoryview:<factory>(:type-hint)`
 
 Instructs the Ice for Python runtime to unmarshal a sequence as a custom Python type created from a Python memoryview
-object. See [Python mapping for sequences.](../user-defined-types/sequences).
+object. This directive applies to sequences of `bool`, `byte`, `short`, `int`, `long`, `float`, and `double`. See
+[Python mapping for sequences.](../user-defined-types/sequences).
 
 ### `python:numpy.ndarray`
 

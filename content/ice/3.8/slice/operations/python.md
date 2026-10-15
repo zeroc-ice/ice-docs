@@ -220,7 +220,7 @@ The exception is provided by the awaitable, even if the actual error condition f
 the call to the `Async` method ("on the way out"). The advantage of this behavior is that all exception handling is
 located with the code that awaits the result.
 
-There are three exceptions to this rule:
+There are four exceptions to this rule:
 
 - if you destroy the communicator and then make an asynchronous invocation, the `Async` method throws
   `CommunicatorDestroyedException` directly.
@@ -228,10 +228,11 @@ There are three exceptions to this rule:
   the `Async` method throws `TwowayOnlyException` directly.
 - if you use a twoway proxy to call an operation with the [`oneway`](../slice-metadata-directives#oneway) metadata, the
   `Async` method throws `OnewayOnlyException` directly.
+- if an argument has the wrong type or is out of range for its Slice type, or the request context is not a dictionary of
+  strings, the `Async` method throws `ValueError` directly.
 
-This distinction matters only when you handle the returned awaitable without awaiting it. When you `await` the call
-inside a `try` statement, the same `except` clause handles the exceptions that the `Async` method throws directly and
-the exceptions that the awaitable provides.
+When you `await` the call inside a `try` statement, the same `except` clause handles the exceptions that the `Async`
+method throws directly and the exceptions that the awaitable provides.
 
 ### Awaitable Objects
 

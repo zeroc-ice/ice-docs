@@ -15,7 +15,7 @@ The Slice-to-Python compiler (`slice2py`) supports the following additional opti
 
   - `--build=modules` Generates only the Python module files for the Slice definitions.
   - `--build=index` Generates only the Python package index files (`__init__.py`).
-  - `--build=all`. Generates both module and index files (this is the default if --build is omitted).
+  - `--build=all` Generates both module and index files (this is the default if --build is omitted).
 
 - `--list-generated` `modules|index|all` Lists the Python files that would be generated for the given Slice definitions,
   without producing any output files.

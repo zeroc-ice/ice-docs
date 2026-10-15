@@ -49,8 +49,8 @@ module VisitorCenter
 
 ### `Ice.loadSlice` Options in Python
 
-The `Ice.loadSlice` function behaves like the Slice compiler: it accepts command-line arguments for specifying
-preprocessor options and controlling code generation. The arguments must include at least one Slice file.
+The `Ice.loadSlice` function accepts command-line arguments in the same form as the Slice compiler. The arguments must
+include at least one Slice file.
 
 The function is defined as:
 
@@ -165,22 +165,22 @@ location using the --output-dir compiler option.
 
 {% /callout %}
 
-The **init**.py file for each generated package re-exports all definitions from the modules within the package. For this
-reason, you must compile **all Slice files that contribute to a given package** in the same invocation of the Slice
+The `__init__.py` file for each generated package re-exports all definitions from the modules within the package. For
+this reason, you must compile **all Slice files that contribute to a given package** in the same invocation of the Slice
 compiler.
 
 If you compile only a subset of the Slice files, the generated `__init__.py` will be incomplete, and some definitions
 may be missing from the package.
 
 A related situation arises when a Python package contains a mix of Slice-generated code and manually written code. In
-this case, you should avoid generating an **init**.py file with the Slice compiler, since it will not account for your
+this case, you should avoid generating an `__init__.py` file with the Slice compiler, since it will not account for your
 manually written code.
 
 The Slice compiler `--build` option allows you to control what kind of files are generated:
 
 - `--build=modules` Generates only the Python module files for the Slice definitions.
-- `--build=index` Generates only the Python package index files (**init**.py).
-- `--build=all`. Generates both module and index files (this is the default if --build is omitted).
+- `--build=index` Generates only the Python package index files (`__init__.py`).
+- `--build=all` Generates both module and index files (this is the default if --build is omitted).
 
 ### Customizing Compiler Output Using Metadata in Python
 
