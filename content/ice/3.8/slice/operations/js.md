@@ -66,9 +66,9 @@ blocking I/O model in order to keep the event loop responsive.
 
 The value that fulfills the promise depends on the number of results, counting the return value and the out parameters:
 
-- With **no results**, the promise is fulfilled with `undefined`.
-- With **one result**, either the return value or a single out parameter, the promise is fulfilled with that value.
-- With **several results**, the promise is fulfilled with an array: the return value (if any) followed by the out
+- With **no results**, Ice fulfills the promise with `undefined`.
+- With **one result**, either the return value or a single out parameter, Ice fulfills the promise with that value.
+- With **several results**, Ice fulfills the promise with an array: the return value (if any) followed by the out
   parameters in declaration order.
 
 The mapping uses an array so that you can bind the results with a destructuring assignment. The proxy method declares
@@ -163,9 +163,8 @@ The servant implementation can choose how to provide the result:
 - **Return a promise-like object** that will be fulfilled with the result.
 - **Declare the method as async** and use await inside the implementation.
 
-The result follows the same rule as on the client side: an operation with several results returns, or fulfills its
-promise with, an array that holds the return value (if any) followed by the out parameters in declaration order, such as
-`return [time, hour, minute];` for the `getTime` operation above.
+A servant method provides its results by the same rule as the client side, such as `return [time, hour, minute];` for
+the `getTime` operation above.
 
 **Synchronous version:**
 

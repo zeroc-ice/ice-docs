@@ -4,9 +4,9 @@ The metadata directives for JavaScript uses the `js` prefix.
 
 ### `js:defined-in:file-name`
 
-This directive apply to forward declarations. The Slice compiler needs to know where the forward declared type is
-defined in order to generate the correct JavaScript import statements, file-name must be the relative path to the file
-that defines the forward declared type.
+This directive applies to forward declarations of interfaces and classes. It tells the Slice-to-JavaScript compiler
+which file to import the forward-declared type from in the TypeScript declarations; file-name is the relative path to
+the Slice file that defines the type.
 
 ### `js:identifier:javascript-identifier`
 
