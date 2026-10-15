@@ -8,11 +8,11 @@ eventually closes incoming connections.
 A connection closure can be either graceful or abortive. A graceful close requires coordination with the peer, and
 therefore can take some time, while an abort is immediate.
 
-The timeouts described on this page are [Ice.Connection.\*](../../../property-reference/ice-connection-properties)
-properties: the `Ice.Connection.Client.*` properties configure outgoing connections and, in language mappings that
-accept incoming connections, the [adapter.Connection.\*](../../../property-reference/object-adapter-properties)
-properties configure the incoming connections of an object adapter and default to the `Ice.Connection.Server.*`
-properties. The idle check and the inactivity check apply only to connection-oriented transports.
+The timeouts on this page are [Ice.Connection.\*](../../../property-reference/ice-connection-properties) properties:
+`Ice.Connection.Client.*` configures outgoing connections, and
+[adapter.Connection.\*](../../../property-reference/object-adapter-properties) configures the incoming connections of an
+object adapter, with `Ice.Connection.Server.*` as defaults. The idle check and the inactivity check do not apply to UDP
+connections.
 
 ## The Idle Check
 
@@ -27,7 +27,7 @@ Ice provides a simple mechanism to monitor connection health: the idle check. If
 over [IdleTimeout](../../../property-reference/ice-connection-properties), the connection is considered idle and
 aborted.
 
-The default idle timeout is 60 seconds. Setting `IdleTimeout` to 0 or less disables both the idle check and heartbeats.
+The default idle timeout is 60 seconds. Setting `IdleTimeout` to 0 disables the idle check and the heartbeats.
 
 This idle check requires regular “write” activity from a healthy peer, which Ice provides: when the application does not
 write anything to a connection for half the idle timeout, Ice sends (writes) a heartbeat message to clear the idle check
@@ -38,8 +38,10 @@ connection. You should assign the same idle timeout to all your clients and serv
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-A connection suspends its idle check while it stops reading: when the object adapter of an incoming connection is on
-hold, or when it reaches the [MaxDispatches](../../../property-reference/ice-connection-properties) limit.
+A connection that reached its [MaxDispatches](../../../property-reference/ice-connection-properties) limit stops reading
+and suspends its idle check until the number of dispatches falls below this limit. A connection that nobody reads
+because all the threads of its thread pool are busy does not suspend it: when the starvation lasts longer than the idle
+timeout, the idle check aborts the connection.
 
 {% /iflang %}
 
@@ -71,8 +73,7 @@ This is where the “inactivity check” comes in. A connection that remains ina
 takes into account application-level activities: heartbeats don’t count. The default inactivity timeout is 300 seconds
 (5 minutes).
 
-Setting `InactivityTimeout` to 0 or less disables the inactivity check. Calling `disableInactivityCheck` on a connection
-disables it for that connection only.
+Setting `InactivityTimeout` to 0 disables the inactivity check; `disableInactivityCheck` disables it for one connection.
 
 {% callout type="warning" %}
 
@@ -104,16 +105,19 @@ complete.
 This process can take some time. If the graceful closure exceeds the configured
 [CloseTimeout](../../../property-reference/ice-connection-properties), the connection is aborted.
 
-Ice starts a graceful closure when:
+Ice closes a connection gracefully when:
 
-- the application closes the connection with `close`, as described [below](#closing-a-connection-from-the-application);
-- an object adapter is deactivated, including when you shut down its communicator: the object adapter closes its
-  incoming connections;
-- a communicator is destroyed: the communicator closes its incoming and outgoing connections; or
-- the [inactivity check](#the-inactivity-check) closes an inactive connection.
+- the application closes it with `close`, as described [below](#closing-a-connection-from-the-application); or
+- the [inactivity check](#the-inactivity-check) finds it inactive.
 
-Only `close` waits for the connection's outstanding invocations. When an object adapter is deactivated or a communicator
-is destroyed, these invocations fail with the [closure exception](#closure-exceptions) of the connection.
+Ice also closes connections when:
+
+- an object adapter is deactivated, including when you shut down its communicator: Ice closes its incoming connections;
+  or
+- a communicator is destroyed: Ice closes all its connections.
+
+For these closures, Ice waits for dispatches in progress before sending `CloseConnection`, but it does not wait for
+outstanding invocations, which fail with `ObjectAdapterDeactivatedException` or `CommunicatorDestroyedException`.
 
 ## Closing a Connection from the Application
 
@@ -139,24 +143,6 @@ call immediately; it never calls the callback from `setCloseCallback` itself.
 runs through the communicator's executor when one is configured.{% /iflang %}
 
 {% /iflang %}
-
-## Closure Exceptions
-
-A connection records the exception that describes why it closed. `Connection.throwException` throws this exception, and
-invocations on a [fixed proxy](../bidirectional-connections) bound to this connection fail with it:
-
-| Reason for the closure                                                                                       | Exception                                                             |
-| ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| The application called `abort`.                                                                              | `ConnectionAbortedException`, with `closedByApplication` set to true  |
-| The idle check aborted the connection.                                                                       | `ConnectionAbortedException`, with `closedByApplication` set to false |
-| The application called `close`.                                                                              | `ConnectionClosedException`, with `closedByApplication` set to true   |
-| The inactivity check closed the connection.                                                                  | `ConnectionClosedException`, with `closedByApplication` set to false  |
-| The peer closed the connection gracefully.                                                                   | `CloseConnectionException`                                            |
-| The connection was not established within the connect timeout.                                               | `ConnectTimeoutException`                                             |
-| The graceful closure did not complete within the close timeout.                                              | `CloseTimeoutException`                                               |
-| The communicator of an outgoing connection was destroyed.                                                    | `CommunicatorDestroyedException`                                      |
-| The object adapter of an incoming connection was deactivated, including when its communicator was destroyed. | `ObjectAdapterDeactivatedException`                                   |
-| The transport connection failed, for example when the peer disappeared.                                      | `ConnectionLostException` or another socket exception                 |
 
 ## See Also
 

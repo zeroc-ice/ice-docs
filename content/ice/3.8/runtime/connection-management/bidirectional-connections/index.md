@@ -1,12 +1,13 @@
 ---
 title: Bidirectional Connections
+languages: [cpp, csharp, java, js, python, swift]
 ---
 
 ## Use Cases for Bidirectional Connections
 
 By default, requests flow over an Ice connection in one direction: from the client that establishes the connection to
-the server that accepts it. If an application's design requires the server to make callbacks to the client, the server
-usually establishes a new connection to that client to send callback requests, as shown below:
+the server that accepts it. If the server needs to call back the client, it usually establishes a new connection to that
+client to send these callback requests, as shown below:
 
 ![The client opens a connection to send requests to the server. The server opens a separate connection to send callbacks to the client.](/images/ice/3.8/bidirectional-connections/callback1.svg)
 
@@ -23,9 +24,7 @@ the connection the client established.
 
 A client needs to perform the following steps in order to configure a bidirectional connection:
 
-1. [Create an object adapter](../../dispatch/creating-an-object-adapter) to receive callback requests. If its only
-   purpose is to receive callbacks over bidirectional connections, this adapter needs no name or endpoints, and you
-   don't need to activate it.
+1. [Create an object adapter](../../dispatch/creating-an-object-adapter) to receive callback requests.
 2. Set this object adapter as the default object adapter on the communicator. The communicator associates its default
    object adapter with the outgoing connections it creates afterward.
 3. [Register the callback object](../../dispatch/object-adapter-activation-and-deactivation) or objects with the object
@@ -33,10 +32,10 @@ A client needs to perform the following steps in order to configure a bidirectio
 
 {% callout type="tip" %}
 
-The object adapter remains a regular object adapter, unaware of the outgoing connection(s) associated with it. These
-connections have no effect on the endpoints and other properties of proxies created by this object adapter.
-
-We recommend using a dedicated, endpoint-less object adapter for “bidir” dispatches.
+We recommend a dedicated object adapter for the callbacks. Such an object adapter needs no name or endpoints, and you
+don't need to activate it, since it accepts no connection: it only dispatches the callbacks received over the
+bidirectional connections. You can also use an object adapter with endpoints: it then dispatches the requests received
+over its own incoming connections as well as the callbacks.
 
 {% /callout %}
 
@@ -74,9 +73,8 @@ in one of two ways:
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
 A fixed proxy ceases to work once its connection is closed. Ice does not retry an invocation on a fixed proxy: once the
-connection is closed, invocations on the proxy fail with the
-[exception that describes the closure](../connection-closure#closure-exceptions), such as `CloseConnectionException`
-when the client closed the connection gracefully.
+connection is closed, invocations on the proxy fail with the exception that closed the connection, such as
+`CloseConnectionException` when the client closed it gracefully.
 
 {% /iflang %}
 
@@ -85,35 +83,19 @@ when the client closed the connection gracefully.
 Bidirectional connections have certain limitations:
 
 - They can only be configured for connection-oriented transports such as TCP and SSL.
-- Most proxy factory methods are not relevant for a fixed proxy. The proxy is bound to an existing connection, therefore
-  the proxy reflects the connection's configuration. Changing the endpoints, adapter ID, locator, router,
-  {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}collocation optimization, {% /iflang %}connection
-  caching, endpoint selection, locator cache timeout or connection ID of a fixed proxy throws `FixedProxyException`.
-  Note however that it is legal to configure a fixed proxy for using oneway or twoway invocations.
-- Marshaling a fixed proxy, for example as an operation parameter, or converting it to proxy properties throws
-  `FixedProxyException`.
+- A fixed proxy is bound to an existing connection: you cannot change the settings that select a connection, such as its
+  endpoints or its router, and you cannot marshal it or convert it to proxy properties. You can still change its
+  invocation mode, for example to oneway.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
 ## Threading Considerations for Bidirectional Connections
 
-On a bidirectional connection, the [thread pool](../../threading-model/thread-pools) that services the connection
-handles traffic in both directions:
-
-- In the client, the client thread pool processes the replies to the client's requests and the callbacks received over
-  the connection. An outgoing connection always uses the client thread pool, even when the callback object adapter has
-  its own thread pool.
-- In the server, the thread pool of the object adapter that accepted the connection dispatches the client's requests and
-  processes the replies to the server's callbacks.
-
-{% /iflang %}
-
-{% iflang langs="cpp,csharp,java,python" %}
-
-With a single thread, the client thread pool dispatches one callback at a time, and a callback that blocks waiting for a
-[nested twoway invocation](../../threading-model/nested-invocations) blocks the only thread that can process the reply.
-Increase the size of the client thread pool to dispatch callbacks in parallel or to make nested twoway invocations from
-a callback.
+Over a bidirectional connection, each side sends requests and dispatches the requests it receives, but the thread pool
+does not depend on the direction of a request: the client thread pool services an outgoing connection, even when the
+callback object adapter has its own thread pool, and the thread pool of the object adapter that accepted the connection
+services an incoming connection. This pool dispatches the requests and processes the replies received over the
+connection; see [Thread Pools](../../threading-model/thread-pools).
 
 {% /iflang %}
 

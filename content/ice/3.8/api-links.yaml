@@ -10,6 +10,13 @@ Ice/Communicator:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Communicator.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Communicator.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator
+Ice/Connection:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Connection.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Connection.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Connection.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Connection.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Connection.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/connection
 Ice/Current:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/structIce_1_1Current.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Current.html

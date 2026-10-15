@@ -46,8 +46,8 @@ use bidirectional connections.
 
 {% callout type="note" %}
 
-An object adapter created with a router becomes the object adapter of the client's connections to this router, so you
-don't configure these connections for bidirectional use yourself. To use bidirectional connections without a router, see
+An object adapter created with a router becomes the object adapter of the client's connection to this router, so you
+don't configure this connection for bidirectional use yourself. To use bidirectional connections without a router, see
 [Bidirectional Connections](../../../runtime/connection-management/bidirectional-connections).
 
 {% /callout %}
@@ -137,8 +137,8 @@ A client can obtain its assigned category by calling `getCategoryForClient` on t
 
 If a router client intends to receive callbacks and make nested twoway invocations, it is important that the client be
 configured correctly. Specifically, you must
-[increase the size of the client thread pool](../../../runtime/connection-management/bidirectional-connections) to at
-least two threads.
+[increase the size of the client thread pool](../../../runtime/threading-model/nested-invocations) to at least two
+threads.
 
 ## Handling Connection Loss
 
