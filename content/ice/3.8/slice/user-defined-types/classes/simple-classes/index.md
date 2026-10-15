@@ -20,9 +20,10 @@ Apart from the keyword `class`, this definition is identical to the [structure](
 Slice class wherever you can use a Slice structure, except in a
 [dictionary key type](../../dictionaries#allowable-types-for-dictionary-keys-and-values) or in the type of an
 [optional field](../../../fields#optional-fields),
-[optional parameter, or optional return value](../../../operations#optional-parameters-and-return-values). For
-performance reasons, you should not use a class where a structure is sufficient. Unlike structures, classes can be
-empty:
+[optional parameter, or optional return value](../../../operations#optional-parameters-and-return-values). Marshaling
+and unmarshaling a class instance costs more time and space than a structure.
+
+Unlike structures, classes can be empty:
 
 ```slice
 class EmptyClass {}    // OK

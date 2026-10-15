@@ -63,11 +63,8 @@ This directive allows you to emit a [deprecation warning for Slice constructs](.
 This directive defines the [encoding format](../user-defined-types/classes/slicing-values-and-exceptions) used for class
 instances marshaled as the arguments or result of an operation. Ice always marshals user exceptions in the sliced
 format. You can apply this directive to an interface, which affects all of its operations, or to an operation. Its
-argument is `compact`, `sliced`, or `default`:
-
-- `format:compact` selects the compact format, and `format:sliced` selects the sliced format. On an operation, they
-  override the `format` directive of its enclosing interface.
-- `format:default` has the same effect as no `format` directive.
+argument is `compact` or `sliced`: `format:compact` selects the compact format, and `format:sliced` selects the sliced
+format. On an operation, the directive overrides the `format` directive of its enclosing interface.
 
 When neither an operation nor its enclosing interface selects a format, the
 [Ice.Default.SlicedFormat](../../property-reference/ice-default-properties) property selects it.

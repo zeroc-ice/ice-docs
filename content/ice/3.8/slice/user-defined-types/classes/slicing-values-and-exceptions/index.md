@@ -141,8 +141,8 @@ when clients and servers evolve independently.
 
 {% callout type="note" %}
 
-Ice always marshals exceptions in the sliced format. The `format` metadata and `Ice.Default.SlicedFormat` apply to class
-instances only.
+As of Ice 3.8, Ice always marshals exceptions in the sliced format; the `format` metadata and `Ice.Default.SlicedFormat`
+apply to class instances only.
 
 {% /callout %}
 
@@ -183,12 +183,6 @@ so the back-end server receives all the slices of the `Derived` instance.
 
 When the `Relay` server marshals this instance in the compact format, Ice omits the preserved slices and writes only the
 `Base` slice.
-
-{% callout type="note" %}
-
-Slice preservation requires encoding 1.1 and the sliced format, and applies only to classes.
-
-{% /callout %}
 
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a
 [SlicedData](api:Ice/SlicedData) object that holds the preserved slices.
