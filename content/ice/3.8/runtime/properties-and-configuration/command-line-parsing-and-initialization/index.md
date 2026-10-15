@@ -8,7 +8,7 @@ can pass the application's arguments to the initialization call.
 In C++, `initialize` takes the argument vector as an _in-out_ parameter, with `argc` as a _reference_ to an `int`:
 
 ```cpp
-template<typename ArgvT> CommunicatorPtr initialize(int& argc, ArgvT argv);
+auto communicator = Ice::initialize(argc, argv);
 ```
 
 `initialize` parses the argument vector and initializes the new communicator's properties accordingly. It also removes

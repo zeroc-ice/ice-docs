@@ -55,15 +55,8 @@ This example shows that leading and trailing white space for property values is 
 whereas, white space that is surrounded by non-white space characters is preserved exactly, whether it is escaped or
 not. As usual, you can insert a literal backslash into a property value by using a double backslash.
 
-If you set the same property more than once, the last setting prevails and overrides any previous setting. Ice removes a
-property from the property set when you assign it an empty value, such as `Ice.Trace.Protocol` in the preceding example.
-For example, in C++:
-
-```cpp
-// returns 3 because Ice.Trace.Protocol is not set
-int traceProtocol =
-    properties->getPropertyAsIntWithDefault("Ice.Trace.Protocol", 3);
-```
+If you set the same property more than once, the last setting prevails and overrides any previous setting. Assigning an
+empty value to a property removes it from the property set: the first example above leaves `Ice.Trace.Protocol` unset.
 
 Property values can include characters from non-English alphabets. The Ice runtime expects the configuration file to use
 UTF-8 encoding for such characters.

@@ -30,9 +30,4 @@ provides additional constructor overloads to pass other information to the Ice r
 `Communicator` implements `AutoCloseable`. This allows you to create and cleanup your communicator in a
 try-with-resources statement as shown above.
 
-Both `close` and `destroy` destroy the communicator. `close`, which try-with-resources calls, completes the destruction
-even when the calling thread is interrupted, and then restores the thread's interrupt status. `destroy` throws
-`OperationInterruptedException` when the calling thread is interrupted while `destroy` waits during the destruction; the
-destruction is then incomplete, and you complete it by calling `destroy` or `close` again.
-
 {% /language-section %}
