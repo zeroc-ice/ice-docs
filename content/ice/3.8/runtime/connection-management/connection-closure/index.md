@@ -116,8 +116,9 @@ Ice also closes connections when:
   or
 - a communicator is destroyed: Ice closes all its connections.
 
-For these closures, Ice waits for dispatches in progress before sending `CloseConnection`, but it does not wait for
-outstanding invocations, which fail with `ObjectAdapterDeactivatedException` or `CommunicatorDestroyedException`.
+When it deactivates an object adapter or destroys a communicator, Ice waits for the dispatches in progress to complete,
+but not for the outstanding invocations, which fail with `ObjectAdapterDeactivatedException` or
+`CommunicatorDestroyedException`.
 
 ## Closing a Connection from the Application
 

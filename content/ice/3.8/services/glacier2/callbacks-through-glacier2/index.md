@@ -135,10 +135,10 @@ A client can obtain its assigned category by calling `getCategoryForClient` on t
 
 ## Nested Invocations with a Router
 
-If a router client intends to receive callbacks and make nested twoway invocations, it is important that the client be
-configured correctly. Specifically, you must
-[increase the size of the client thread pool](../../../runtime/threading-model/nested-invocations) to at least two
-threads.
+The client thread pool dispatches the callbacks the client receives through the router, and this pool has a single
+thread by default. A callback implementation that makes a synchronous twoway invocation blocks this thread, which is
+also the thread that would process the reply. Make the invocation asynchronously, or increase the size of the client
+thread pool; see [Nested Invocations](../../../runtime/threading-model/nested-invocations).
 
 ## Handling Connection Loss
 
