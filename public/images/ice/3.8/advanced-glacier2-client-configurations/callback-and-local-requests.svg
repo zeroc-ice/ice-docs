@@ -24,43 +24,13 @@
       markerHeight="5"
       orient="auto-start-reverse"
     >
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--diagram-connector)"/>
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--text-secondary, #566174)"/>
     </marker>
   </defs>
 
   <style>
-    :root {
-      --diagram-canvas: #ffffff;
-      --diagram-component: #ffffff;
-      --diagram-text: #182235;
-      --diagram-secondary-text: #566174;
-      --diagram-connector: #566174;
-      --diagram-component-stroke: #8d99aa;
-      --diagram-runtime-stroke: #1259d6;
-      --diagram-runtime: #eef5ff;
-      --diagram-divider: #a6afbc;
-      --diagram-network: #7a8699;
-      --diagram-firewall: #eef0f3;
-    }
-
-    @media screen and (prefers-color-scheme: dark) {
-      :root {
-        --diagram-canvas: #1a1c21;
-        --diagram-component: #232429;
-        --diagram-text: #e6ebf4;
-        --diagram-secondary-text: #a7b3c6;
-        --diagram-connector: #a7b3c6;
-        --diagram-component-stroke: #8391a6;
-        --diagram-runtime-stroke: #6aa6ff;
-        --diagram-runtime: #21324c;
-        --diagram-divider: #667389;
-        --diagram-network: #8391a6;
-        --diagram-firewall: #2c3039;
-      }
-    }
-
     text {
-      fill: var(--diagram-text);
+      fill: var(--text-primary, #182235);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .label {
@@ -69,49 +39,49 @@
       text-anchor: middle;
     }
     .annotation {
-      fill: var(--diagram-secondary-text);
+      fill: var(--text-secondary, #566174);
       font-size: 14px;
       text-anchor: middle;
     }
     .zone-label {
-      fill: var(--diagram-secondary-text);
+      fill: var(--text-secondary, #566174);
       font-size: 15px;
       font-weight: 650;
     }
     .legend-label {
-      fill: var(--diagram-secondary-text);
+      fill: var(--text-secondary, #566174);
       font-size: 14px;
       font-weight: 500;
     }
     .application {
-      fill: var(--diagram-component);
-      stroke: var(--diagram-component-stroke);
+      fill: var(--diagram-component, #ffffff);
+      stroke: var(--diagram-component-stroke, #8d99aa);
       stroke-width: 1.5;
     }
     .service {
-      fill: var(--diagram-runtime);
-      stroke: var(--diagram-runtime-stroke);
+      fill: var(--diagram-runtime, #eef5ff);
+      stroke: var(--link, #1259d6);
       stroke-width: 1.75;
     }
     .firewall {
-      fill: var(--diagram-firewall);
-      stroke: var(--diagram-connector);
+      fill: var(--diagram-firewall, #eef0f3);
+      stroke: var(--text-secondary, #566174);
       stroke-width: 1.75;
     }
     .network-boundary {
       fill: none;
-      stroke: var(--diagram-network);
+      stroke: var(--diagram-network, #7a8699);
       stroke-width: 1.5;
       stroke-dasharray: 7 5;
     }
     .divider {
       fill: none;
-      stroke: var(--diagram-divider);
+      stroke: var(--diagram-divider, #a6afbc);
       stroke-width: 1.25;
     }
     .connector {
       fill: none;
-      stroke: var(--diagram-connector);
+      stroke: var(--text-secondary, #566174);
       stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -132,7 +102,7 @@
     }
   </style>
 
-  <rect width="756" height="316" fill="var(--diagram-canvas)"/>
+  <rect width="756" height="316" fill="var(--surface, #ffffff)"/>
 
   <g id="boundaries" aria-hidden="true">
     <path class="network-boundary" d="M 448 16 V 276" vector-effect="non-scaling-stroke"/>
