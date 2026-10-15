@@ -143,7 +143,7 @@ installer are described below:
   an IceGrid node, it is the category of the identity in the
   [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) proxy, which the node's
   configuration must set. For a Glacier2 router, it is the value of
-  [Glacier2.InstanceName](../../../property-reference/glacier2-properties), `Glacier2` by default.
+  [Glacier2.InstanceName](../../../property-reference/glacier2-properties#glacier2.instancename), `Glacier2` by default.
 - For an IceGrid node, obtain the node's name from the property
   [IceGrid.Node.Name](../../../property-reference/icegrid-properties#icegrid.node.name). This property must be defined
   when installing or uninstalling a node.

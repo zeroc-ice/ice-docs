@@ -78,7 +78,8 @@ Collocation optimization is enabled by default, but you can disable it for all p
 [Ice.Default.CollocationOptimized=0](../../property-reference/ice-default-properties). You can also disable the
 optimization for an individual proxy using the factory method `ice_collocationOptimized(false)`. Finally, for proxies
 [created from a property](../invocation/creating-proxies) using `propertyToProxy`, the property
-[_name_.CollocationOptimized](../../property-reference/proxy-properties) configures the default setting for the proxy.
+[_name_.CollocationOptimized](../../property-reference/proxy-properties#name.collocationoptimized) configures the
+default setting for the proxy.
 
 ## Creating an Object Adapter for Collocated Invocations
 

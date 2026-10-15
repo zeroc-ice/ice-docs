@@ -67,9 +67,9 @@ adapter identity filter for the server's indirect adapters and removes that filt
 
 Providing access to [administrative sessions](../icegrid-administrative-sessions) and
 [client sessions](../resource-allocation-using-icegrid-sessions) both require that you define at least one of the
-properties [Glacier2.SessionManager](../../../property-reference/glacier2-properties) and
-[Glacier2.SSLSessionManager](../../../property-reference/glacier2-properties), which presents a potential problem if you
-intend to access both types of sessions via the same Glacier2 router.
+properties [Glacier2.SessionManager](../../../property-reference/glacier2-properties#glacier2.sessionmanager) and
+[Glacier2.SSLSessionManager](../../../property-reference/glacier2-properties#glacier2.sslsessionmanager), which presents
+a potential problem if you intend to access both types of sessions via the same Glacier2 router.
 
 The simplest solution is to dedicate a router instance to each type of session. However, if you need to access both
 types of sessions from a single router, you can accomplish it only if you use a different authentication mechanism for
@@ -115,8 +115,8 @@ The template defines only a few properties; if you want to set additional proper
 instance property set.
 
 Of interest is the `instance-name` parameter, which allows you to configure the
-[Glacier2.InstanceName](../../../property-reference/glacier2-properties) property. The parameter's default value
-includes the name of the application in which the template is used. This parameter also affects the
+[Glacier2.InstanceName](../../../property-reference/glacier2-properties#glacier2.instancename) property. The parameter's
+default value includes the name of the application in which the template is used. This parameter also affects the
 [identities](../../glacier2/getting-started-with-glacier2) of the objects implemented by the router.
 
 Consider the following sample application:

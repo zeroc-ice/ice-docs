@@ -14,8 +14,9 @@ languages:
 A communicator enables all of its built-in [administrative facets](../admin-object) by
 default{% iflang langs="cpp,csharp,java,python,swift" %}, and an application may install its own
 [custom facets](../custom-administrative-facets){% /iflang %}. You can control which facets a communicator enables using
-the [Ice.Admin.Facets](../../../property-reference/ice-admin-properties) property. For example, the following property
-definition enables the `Properties` facet and leaves the `Process` facet (and any application-defined facets) disabled:
+the [Ice.Admin.Facets](../../../property-reference/ice-admin-properties#ice.admin.facets) property. For example, the
+following property definition enables the `Properties` facet and leaves the `Process` facet (and any application-defined
+facets) disabled:
 
 ```config
 Ice.Admin.Facets=Properties

@@ -70,7 +70,7 @@ If `endpoints` are specified, they must be separated with a colon (`:`) and form
 the default `Random` endpoint selection type, Ice shuffles the endpoints each time the proxy needs a connection, as a
 form of load balancing. You can change this default behavior using the properties
 [Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection) and
-[_name_.EndpointSelection](../../../property-reference/proxy-properties).
+[_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection).
 
 If an unknown option is specified, or the stringified proxy is malformed, the application receives a `ParseException`.
 Likewise, if an endpoint is malformed, the application receives a `ParseException`.

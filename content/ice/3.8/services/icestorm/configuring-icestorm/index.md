@@ -61,16 +61,16 @@ single instance of this service. To use them, configure the IceGrid registry wit
 [default templates](../../icegrid/icegrid-templates) and import them into your application, or copy them into your
 application descriptor. Both templates accept the following parameters:
 
-| Parameter                     | Description                                                                                                                |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `instance-name`               | The IceStorm [instance name](../../../property-reference/icestorm-properties). The default is `${application}.IceStorm`.   |
-| `node-id`                     | The replica's [node ID](../../../property-reference/icestorm-properties). Required.                                        |
-| `topic-manager-replica-group` | The replica group of the `IceStorm.TopicManager` adapter. Required.                                                        |
-| `publish-replica-group`       | The replica group of the `IceStorm.Publish` adapter. Required; an empty value keeps the adapter out of any replica group.  |
-| `topic-manager-endpoints`     | The endpoints of the `IceStorm.TopicManager` adapter. The default is `default`.                                            |
-| `publish-endpoints`           | The endpoints of the `IceStorm.Publish` adapter. The default is `default`.                                                 |
-| `node-endpoints`              | The endpoints of the `IceStorm.Node` adapter, which replicas use to communicate with each other. The default is `default`. |
-| `flush-timeout`               | The value of [IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties). The default is `1000`.             |
+| Parameter                     | Description                                                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `instance-name`               | The IceStorm [instance name](../../../property-reference/icestorm-properties). The default is `${application}.IceStorm`.              |
+| `node-id`                     | The replica's [node ID](../../../property-reference/icestorm-properties). Required.                                                   |
+| `topic-manager-replica-group` | The replica group of the `IceStorm.TopicManager` adapter. Required.                                                                   |
+| `publish-replica-group`       | The replica group of the `IceStorm.Publish` adapter. Required; an empty value keeps the adapter out of any replica group.             |
+| `topic-manager-endpoints`     | The endpoints of the `IceStorm.TopicManager` adapter. The default is `default`.                                                       |
+| `publish-endpoints`           | The endpoints of the `IceStorm.Publish` adapter. The default is `default`.                                                            |
+| `node-endpoints`              | The endpoints of the `IceStorm.Node` adapter, which replicas use to communicate with each other. The default is `default`.            |
+| `flush-timeout`               | The value of [IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties#icestorm.flush.timeout). The default is `1000`. |
 
 The application defines the two replica groups: one for the `IceStorm.Publish` adapters of the replicas, and another for
 their `IceStorm.TopicManager` adapters. The topic manager replica group declares the well-known object
@@ -180,11 +180,11 @@ The endpoints for each replica and ID must match the proxies configured in the
 
 Two additional properties allow you to configure replicated endpoints:
 
-- [IceStorm.ReplicatedTopicManagerEndpoints](../../../property-reference/icestorm-properties) Defines the endpoints
-  contained in proxies returned by the topic manager.
+- [IceStorm.ReplicatedTopicManagerEndpoints](../../../property-reference/icestorm-properties#icestorm.replicatedtopicmanagerendpoints)
+  Defines the endpoints contained in proxies returned by the topic manager.
 
-- [IceStorm.ReplicatedPublishEndpoints](../../../property-reference/icestorm-properties) Defines the endpoints contained
-  in the publisher proxy returned by the topic.
+- [IceStorm.ReplicatedPublishEndpoints](../../../property-reference/icestorm-properties#icestorm.replicatedpublishendpoints)
+  Defines the endpoints contained in the publisher proxy returned by the topic.
 
 For example, suppose we configure three replicas:
 
@@ -227,9 +227,10 @@ TopicManager.Proxy=IceStorm/TopicManager:tcp -h icestormhost -p 9999
 ```
 
 The identity of the topic manager is `IceStorm/TopicManager` by default. When you run several IceStorm services, give
-each one its own [IceStorm.InstanceName](../../../property-reference/icestorm-properties): this property sets the
-category of the topic manager's identity, so a service configured with `IceStorm.InstanceName=Measurement` has the topic
-manager `Measurement/TopicManager`, and its clients use this identity in their proxies.
+each one its own [IceStorm.InstanceName](../../../property-reference/icestorm-properties#icestorm.instancename): this
+property sets the category of the topic manager's identity, so a service configured with
+`IceStorm.InstanceName=Measurement` has the topic manager `Measurement/TopicManager`, and its clients use this identity
+in their proxies.
 
 With IceGrid, the topic manager is the well-known object `instance-name/TopicManager`, declared by the `IceStorm`
 template or, for replicas, by the topic manager replica group, and a client uses an indirect proxy such as

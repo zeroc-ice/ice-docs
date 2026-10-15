@@ -161,13 +161,13 @@ The properties are described below:
 - [EncoderAdapter.AdapterId](../../../property-reference/object-adapter-properties) This property supplies the object
   adapter identifier that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
 
-- [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties) This property defines the
-  [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value does not
-  contain any port information, meaning that the adapter uses a system-assigned port. Without IceGrid, the use of a
-  system-assigned port would pose a significant problem: how would a client create a direct proxy if the adapter's port
-  could change every time the server is restarted? IceGrid solves this problem nicely because clients can use indirect
-  proxies that contain no endpoint dependencies. The registry resolves indirect proxies using the endpoint information
-  supplied by object adapters each time they are activated.
+- [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) This property
+  defines the [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value
+  does not contain any port information, meaning that the adapter uses a system-assigned port. Without IceGrid, the use
+  of a system-assigned port would pose a significant problem: how would a client create a direct proxy if the adapter's
+  port could change every time the server is restarted? IceGrid solves this problem nicely because clients can use
+  indirect proxies that contain no endpoint dependencies. The registry resolves indirect proxies using the endpoint
+  information supplied by object adapters each time they are activated.
 
 - [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) The server requires a
   value for this property in order to register its object adapter.
