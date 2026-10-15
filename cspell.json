@@ -70,6 +70,7 @@
     "Demultiplexing",
     "deque",
     "desaturated",
+    "describedby",
     "Dienstag",
     "discardable",
     "Diátaxis",
@@ -146,6 +147,7 @@
     "isinstance",
     "istr",
     "journalctl",
+    "labelledby",
     "libbz",
     "libcustomlogger",
     "libisloaded",
@@ -282,6 +284,7 @@
     "worktrees",
     "writeln",
     "WUCS",
+    "xlink",
     "Xnoclassgc",
     "zeroc"
   ]
