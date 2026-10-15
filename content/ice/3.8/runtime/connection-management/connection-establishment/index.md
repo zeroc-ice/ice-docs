@@ -57,13 +57,19 @@ indicates the reason for the final failed attempt.
 
 ## Reusing an Existing Connection
 
-When establishing a connection for a proxy, the communicator reuses an existing connection when all the following
-conditions are met:
+Ice reuses connections at two levels. By default, a proxy remembers the connection it selected and keeps using it for
+subsequent invocations; see [Connection Caching](#connection-caching). The communicator also keeps the connections it
+establishes, and other proxies can share them. Disabling the proxy's connection cache makes Ice select an endpoint for
+each invocation; Ice can still reuse an existing connection to the selected endpoint.
 
-- The proxy has [connection caching](#connection-caching) enabled.
+When the communicator selects a connection for a proxy with connection caching enabled, it prefers an endpoint that
+already has a connection: it reuses an existing connection that meets the following conditions, and establishes a new
+connection only when no existing connection does:
+
 - The remote endpoint matches one of the proxy's endpoints.
-- The connection matches the proxy's configuration. If a proxy configured with a [connection ID](./), the communicator
-  only reuses a connection if it was established by a proxy with the same connection ID.
+- The connection matches the proxy's configuration. If a proxy is configured with a
+  [connection ID](#influencing-connection-reuse), the communicator only reuses a connection if it was established by a
+  proxy with the same connection ID.
 
 When a proxy has connection caching disabled, the communicator does not prefer an endpoint with an already established
 connection over other endpoints. It can select an endpoint without an established connection and create a new
