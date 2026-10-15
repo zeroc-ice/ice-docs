@@ -40,7 +40,7 @@ You can use the following attributes when configuring the Glacier2 Session metri
 | parent             | The Glacier2 router instance name.                                                                                                                                         |
 | none               | The empty string.                                                                                                                                                          |
 | endpoint           | The stringified endpoint.                                                                                                                                                  |
-| endpointType       | The endpoint numerical type as defined in `Ice/Endpoint.ice`.                                                                                                              |
+| endpointType       | The endpoint numerical type as defined in `Ice/EndpointTypes.ice`.                                                                                                         |
 | endpointIsDatagram | A boolean indicating if the endpoint is a datagram endpoint.                                                                                                               |
 | endpointIsSecure   | A boolean indicating if the endpoint is secure.                                                                                                                            |
 | endpointCompress   | A boolean indicating if the endpoint requires compression.                                                                                                                 |

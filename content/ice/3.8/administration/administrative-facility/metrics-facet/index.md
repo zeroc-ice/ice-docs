@@ -71,14 +71,14 @@ dictionary<string, MetricsMap> MetricsView;
 The key for the metrics view dictionary is a string that identifies the metrics map. The Ice runtime supports the
 following metrics maps:
 
-| **Metrics map name**    | **Slice class**                                                                                             | **Description**                                                                                                                           |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Connection              | [`IceMX::ConnectionMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ConnectionMetrics.html) | Connection metrics.                                                                                                                       |
-| Thread                  | [`IceMX::ThreadMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ThreadMetrics.html)         | Thread metrics: the threads of the client, server and object adapter thread pools, and the communicator's timer and DNS lookup threads.   |
-| Invocation              | [`IceMX::InvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1InvocationMetrics.html) | Client-side proxy invocation metrics.                                                                                                     |
-| Dispatch                | [`IceMX::DispatchMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1DispatchMetrics.html)     | Server-side dispatch metrics.                                                                                                             |
-| EndpointLookup          | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Endpoint lookup metrics. For tcp, ssl and udp endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
-| ConnectionEstablishment | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Connection establishment metrics.                                                                                                         |
+| **Metrics map name**    | **Slice class**                                                                                             | **Description**                                                                                                                                  |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Connection              | [`IceMX::ConnectionMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ConnectionMetrics.html) | Connection metrics.                                                                                                                              |
+| Thread                  | [`IceMX::ThreadMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1ThreadMetrics.html)         | Thread metrics: the threads of the client, server, and object adapter thread pools, and the communicator's timer and DNS lookup threads.         |
+| Invocation              | [`IceMX::InvocationMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1InvocationMetrics.html) | Client-side proxy invocation metrics.                                                                                                            |
+| Dispatch                | [`IceMX::DispatchMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1DispatchMetrics.html)     | Server-side dispatch metrics.                                                                                                                    |
+| EndpointLookup          | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Endpoint lookup metrics. For `tcp`, `ssl`, and `udp` endpoints, this corresponds to the DNS lookups made to resolve the host names in endpoints. |
+| ConnectionEstablishment | [`IceMX::Metrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1Metrics.html)                     | Connection establishment metrics.                                                                                                                |
 
 An invocation on a proxy results in one or more child invocations: a remote invocation each time Ice sends the request
 over a connection, or a collocated invocation each time Ice dispatches it directly to a collocated object adapter. An
@@ -137,8 +137,6 @@ view that you disable lose the metrics they recorded.
 
 ## Metrics Attributes
 
-Metrics views are configured with [IceMX Metrics properties](../../../property-reference/icemx-metrics-properties).
-
 The `GroupBy`, `Accept` and `Reject` properties are specified using attributes that are specific to each metrics map.
 The table below describes the attributes supported by the Ice runtime's metrics maps.
 
@@ -154,7 +152,7 @@ The table below describes the attributes supported by the Ice runtime's metrics 
 | endpointCompress   | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint requires compression.                                                                                           |
 | endpointHost       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint host.                                                                                                                                   |
 | endpointPort       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint port.                                                                                                                                   |
-| connection         | Dispatch                                                              | The connection description, provided by the C++ runtime only.                                                                                        |
+| connection         | Dispatch                                                              | The connection description, provided by Ice for C++ and the language mappings built on it.                                                           |
 | incoming           | Connection, Dispatch, Remote                                          | A boolean where true indicates an incoming (server) connection and false an outgoing (client) connection.                                            |
 | adapterName        | Connection, Dispatch, Remote                                          | If the connection is a server connection, adapterName returns the name of the adapter that created the connection, otherwise it is the empty string. |
 | connectionId       | Connection, Dispatch, Remote                                          | The ID of the connection if one is set, otherwise it is the empty string.                                                                            |
@@ -206,7 +204,7 @@ object.
 
 To observe the Ice runtime with your own instrumentation, set the `observer` member of
 [`InitializationData`](api:Ice/InitializationData) to your implementation of
-{% iflang langs="cpp" %}[`Ice::Instrumentation::CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}{% iflang langs="csharp" %}[`Ice.Instrumentation.CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}{% iflang langs="java" %}[`com.zeroc.Ice.Instrumentation.CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver){% /iflang %}.
+[`CommunicatorObserver`](api:Ice/Instrumentation/CommunicatorObserver).
 
 {% /iflang %}
 
