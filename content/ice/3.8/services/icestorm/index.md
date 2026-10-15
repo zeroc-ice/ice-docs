@@ -28,8 +28,8 @@ With IceStorm, the collector is a publisher and the monitors are subscribers:
 
 ![A weather station feeds a collector, which publishes updates through IceStorm to four monitors.](/images/ice/3.8/icestorm/icestorm2.svg)
 
-The collector publishes each update to an IceStorm [topic](./icestorm-concepts#topics-and-messages), and IceStorm forwards
-the update to the monitors subscribed to that topic:
+The collector publishes each update to an IceStorm [topic](./icestorm-concepts), and IceStorm forwards the update to the
+monitors subscribed to that topic:
 
 - The collector sends each update to IceStorm once, regardless of how many monitors are subscribed.
 - Monitors subscribe to and unsubscribe from the topic through IceStorm, without involving the collector.
