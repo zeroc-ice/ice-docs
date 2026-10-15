@@ -75,7 +75,7 @@ When the node is ready to deactivate a server, it invokes the `shutdown` operati
 If the server does not terminate in a timely manner, the node asks the operating system to terminate the process. Each
 server can be configured with its own [deactivation timeout](../icegrid-xml-reference/server-descriptor-element). If no
 timeout is configured, the node uses the value of the property
-[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties#icegrid.node.waittime), which defaults to `60`
+[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties#icegrid.node.waittime), which defaults to 60
 seconds.
 
 If a server does not register an `Ice::Process` proxy, the IceGrid node cannot request a graceful termination and must

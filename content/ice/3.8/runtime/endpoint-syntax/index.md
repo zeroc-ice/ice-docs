@@ -259,14 +259,14 @@ containing an unknown endpoint, it writes the endpoint as an opaque endpoint.
 
 An `opaque` endpoint supports the following options:
 
-| Option        | Description                                                                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `-t` `type`   | Specifies the endpoint type (also known as transport code) for the endpoint. TCP is 1, SSL is 2, UDP is 3, etc. |
-| `-e encoding` | Specifies the encoding version used to encode the endpoint marshaled data.                                      |
-| `-v` `value`  | Specifies the marshaled encoding of the endpoint in base-64 encoding.                                           |
+| Option        | Description                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `-t` `type`   | Specifies the endpoint type (also known as transport code) for the endpoint. TCP is `1`, SSL is `2`, UDP is `3`, etc. |
+| `-e encoding` | Specifies the encoding version used to encode the endpoint marshaled data.                                            |
+| `-v` `value`  | Specifies the marshaled encoding of the endpoint in base-64 encoding.                                                 |
 
 Exactly one each of the `-t` and `-v` options must be present in an opaque endpoint. If `-e` is not specified, the
-encoding version is 1.0.
+encoding version is `1.0`.
 
 ## See Also
 

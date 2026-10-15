@@ -95,7 +95,7 @@ detail:
 name.SizeMax=5
 ```
 
-This thread pool initially contains a single thread because `name.Size` has a default value of 1, and Ice can grow the
+This thread pool initially contains a single thread because `name.Size` has a default value of `1`, and Ice can grow the
 pool up to the maximum of 5 threads. During periods of inactivity, idle threads terminate after 60 seconds (the default
 value for `name.ThreadIdleTime`) until the pool contains just 1 thread again.
 
@@ -122,7 +122,7 @@ name.ThreadIdleTime=0
 ```
 
 This thread pool can grow from its initial size of 1 thread to contain up to 5 threads, but it will never shrink because
-`name.ThreadIdleTime` is set to 0.
+`name.ThreadIdleTime` is set to `0`.
 
 ```config
 name.Size=5
@@ -144,8 +144,8 @@ from different connections concurrently.
 
 `Serialize` differs from
 [Ice.Connection.name.MaxDispatches](../../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
-set to 1. With `Serialize`, the pool starts the next dispatch of a connection as soon as the previous dispatch method
-returns, even when this dispatch completes later, asynchronously. With `MaxDispatches` set to 1, the connection stops
+set to `1`. With `Serialize`, the pool starts the next dispatch of a connection as soon as the previous dispatch method
+returns, even when this dispatch completes later, asynchronously. With `MaxDispatches` set to `1`, the connection stops
 reading requests from the start of a dispatch until it sends the dispatch's response.
 
 {% iflang langs="cpp,csharp,java,python" %}

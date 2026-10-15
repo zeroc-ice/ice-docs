@@ -109,7 +109,7 @@ If not defined, the default value is `10`.
 {% property-description %}
 
 Defines the interval in milliseconds with which events are sent to
-[batch subscribers](../../services/icestorm/icestorm-delivery-modes). The default is 1000ms.
+[batch subscribers](../../services/icestorm/icestorm-delivery-modes). The default is 1000 milliseconds.
 
 {% /property-description %}
 
