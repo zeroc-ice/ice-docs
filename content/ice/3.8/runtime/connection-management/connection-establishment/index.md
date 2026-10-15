@@ -32,8 +32,10 @@ If [connection caching](#connection-caching) is enabled and the communicator
 [already has a compatible connection](#reusing-an-existing-connection), it reuses the cached connection. Otherwise, the
 communicator attempts to connect to each endpoint in the list until it succeeds or exhausts the list; the order in which
 endpoints are selected for connection attempts depends on the endpoint selection policy. This policy can be set using a
-default property ([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties)), using a proxy
-property ([_name_.EndpointSelection](../../../property-reference/proxy-properties)), and using the
+default property
+([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection)),
+using a proxy property
+([_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection)), and using the
 `ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
 
 ## Error Semantics for Failed Connections
@@ -62,7 +64,7 @@ conditions are met:
 
 - The proxy has [connection caching](#connection-caching) enabled.
 - The remote endpoint matches one of the proxy's endpoints.
-- The connection matches the proxy's configuration. If a proxy configured with a
+- The connection matches the proxy's configuration. If a proxy is configured with a
   [connection ID](#influencing-connection-reuse), the communicator only reuses a connection if it was established by a
   proxy with the same connection ID.
 

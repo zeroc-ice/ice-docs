@@ -171,7 +171,7 @@ In addition to [installing the plug-in](#installing-icediscovery) and optionally
 [configuring its addressing information](#icediscovery-property-overview), you also need to configure an identifier for
 each of a server's object adapters that hosts well-known (discoverable) objects. For example, suppose a server creates
 an object adapter named `GreeterAdapter` and we want its objects to be discoverable. We can configure the object
-adapter's [AdapterId](../../property-reference/object-adapter-properties) property as follows:
+adapter's [AdapterId](../../property-reference/object-adapter-properties#adapter.adapterid) property as follows:
 
 ```config
 GreeterAdapter.AdapterId=greeterAdapterId

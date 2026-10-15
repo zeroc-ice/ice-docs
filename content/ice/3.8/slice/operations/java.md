@@ -5,8 +5,8 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side Java Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](#operation-syntax) on an interface, the generated proxy interface contains 4 methods for this operation. To
-invoke an operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+operation on an interface, the generated proxy interface contains 4 methods for this operation. To invoke an operation,
+you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
@@ -107,8 +107,7 @@ try {
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side Java Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](#operation-syntax) on an interface, the generated skeleton interface contains an abstract method with the
-same name.
+operation on an interface, the generated skeleton interface contains an abstract method with the same name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):

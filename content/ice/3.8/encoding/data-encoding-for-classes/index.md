@@ -41,7 +41,7 @@ instance, it assigns the instance an unused ID, inserts it into the table, and e
 whose value is the _negative_ of the ID. If the encoder has already encountered that instance, it simply encodes the
 instance's previously-assigned ID as a negative 32-bit integer.
 
-All [class instances](#class-instance-encoding-version-1.0) are encoded at the end of the encapsulation.
+All [class instances](../../slice/user-defined-types/classes) are encoded at the end of the encapsulation.
 
 ### Class Reference Encoding Version 1.1
 
