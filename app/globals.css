@@ -121,6 +121,25 @@
     --link: #6aa6ff;
     --link-hover: #9cc4ff;
     --accent-soft: rgba(66, 133, 244, 0.16);
+
+    --diagram-component: var(--surface-subtle);
+    --diagram-component-stroke: var(--text-muted);
+    --diagram-runtime: #21324c;
+    --diagram-host-stroke: var(--text-disabled);
+    --diagram-host: #20232b;
+    --diagram-host-knockout: var(--diagram-host);
+    --diagram-divider: var(--text-disabled);
+    --diagram-api: #202c3e;
+    --diagram-api-stroke: #7da7e6;
+    --diagram-network: var(--text-muted);
+    --diagram-firewall: #2c3039;
+    --diagram-generated: #312b3e;
+    --diagram-generated-stroke: #b6a0d2;
+    --diagram-api-label: var(--link-hover);
+    --diagram-generated-label: #d1bdea;
+    --diagram-inheritance: var(--text-secondary);
+    --diagram-blocked: #ff938a;
+    --diagram-data: #292e38;
   }
 }
 
@@ -289,20 +308,14 @@
      stays on the line, sits near the baseline and takes no vertical room. A
      figure — a paragraph that is nothing but an image, marked by the paragraph
      node — gets the room. */
-  main article img:not(.figure) {
+  main article :is(img, svg.markdown-svg):not(.figure) {
     /* :not() lifts the specificity above the typography plugin's `img` margins,
        which would otherwise stretch the line box the icon sits in. */
     @apply m-0 inline h-auto max-w-full align-[-0.2em];
   }
 
-  main article img.figure {
+  main article :is(img, svg.markdown-svg).figure {
     @apply mx-auto my-6 block object-contain;
-  }
-
-  @media print {
-    main article img {
-      color-scheme: light;
-    }
   }
 
   body {
@@ -330,7 +343,8 @@
     min-width: 0;
   }
 
-  main article img.figure[src$='.svg'] {
+  main article img.figure[src$='.svg'],
+  main article svg.markdown-svg.figure {
     max-width: 100%;
     height: auto;
   }

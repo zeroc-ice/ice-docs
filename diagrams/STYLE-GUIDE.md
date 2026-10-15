@@ -114,25 +114,22 @@ label. Avoid shadows, decorative gradients, and textures unless they encode info
 
 In a sequence diagram, a hatched segment of an activation bar (`.waiting`) means the process is out of threads: its
 dispatch thread is blocked in a synchronous nested invocation, so it cannot dispatch anything else for that span. Fill
-the segment with the `waiting-hatch` pattern: 2-unit `--diagram-component-stroke` lines at 45° on `--diagram-component`,
-6 units apart. Label the hatched span with what the thread waits for.
+the segment with the `waiting-hatch` pattern: 2-unit `var(--diagram-component-stroke, #8d99aa)` lines at 45° on
+`var(--diagram-component, #ffffff)`, 6 units apart. Label the hatched span with what the thread waits for.
 
-Each SVG defines its palette as CSS custom properties on `:root`, using the `--diagram-` names in the template. Keep
-only the properties the figure uses. Use these properties for every fill and stroke, including the canvas, marker
-geometry, label knockouts, and badges. Each figure retains an opaque canvas that matches the page surface.
+Figures use the site's CSS custom properties for every fill and stroke, with an explicit light fallback, such as
+`fill: var(--surface, #ffffff)`. Reuse the site tokens for the canvas (`--surface`), primary and secondary text
+(`--text-primary` and `--text-secondary`), and ZeroC blue (`--link`). The `.dark` block in `app/globals.css` defines the
+additional `--diagram-` roles shown in the template. Each figure retains an opaque canvas that matches the page surface.
 
-Set the light palette as the default and override the same properties inside
-`@media screen and (prefers-color-scheme: dark)`. The site's print stylesheet sets `color-scheme: light` on article
-images so embedded SVGs use the light palette when the reader prints a dark page.
-
-The site theme provider sets `color-scheme` on the HTML root to the reader's resolved Light, Dark, or System choice. An
-SVG embedded through an image reference evaluates `prefers-color-scheme` against the embedding element's used color
-scheme, as the [CSS specification](https://www.w3.org/TR/mediaqueries-5/#prefers-color-scheme) defines. Keep the palette
-inside the SVG: the page's CSS custom properties do not cross the image boundary.
+`MarkdownImage` renders SVG figures inline so they inherit the reader's selected Light, Dark, or System theme, including
+when printing. It prefixes each occurrence's IDs and scopes its stylesheet selectors, so figures can reuse local class
+names and IDs without affecting one another. Standalone SVGs use their light fallbacks.
 
 When category headers replace a legacy legend, use small bold type with modest letter spacing. Use blue `API` headers
 (`#365f9e` in light mode, `#9cc4ff` in dark mode) for Ice API/runtime elements and violet `GENERATED` headers (`#68587e`
-in light mode, `#d1bdea` in dark mode) for generated code. Keep these small labels legible on their tinted fills.
+in light mode, `#d1bdea` in dark mode) for generated code. These shades contrast more with the tinted fills than the
+matching strokes do, so small type stays legible.
 
 Standard compact components are approximately `120 × 54`; application and generated-code components may be
 `165–180 × 62–72`. Keep at least 16 units of internal horizontal padding.
@@ -171,10 +168,10 @@ lanes or merge two independent connections into one.
 End each connector on the edge of the component it reaches, including the curved edge of a document shape: the template
 markers put the arrowhead at the path's end point, so a path that stops short leaves a gap under the arrowhead.
 
-Put an opaque rounded knockout behind text placed over a horizontal or vertical connector. Use white in light mode; in
-dark mode, match the canvas or host surface beneath it with `--diagram-canvas` or `--diagram-host-knockout`. Give the
-text enough horizontal padding to make the interruption intentional. Place the label of a diagonal connector beside the
-line instead, because a rectangular knockout cuts a sloped line unevenly.
+Put an opaque rounded knockout behind text placed over a horizontal or vertical connector, using `.label-knockout` over
+the canvas and `.host-label-knockout` over a host surface. Give the text enough horizontal padding to make the
+interruption intentional. Place the label of a diagonal connector beside the line instead, because a rectangular
+knockout cuts a sloped line unevenly.
 
 When a diagram contains both forward requests and callbacks, use solid arrows for the original request and dashed arrows
 for the callback.
@@ -183,7 +180,7 @@ A figure that draws both requests and callbacks, or that uses the topic-link or 
 legend sits below the drawing, left-aligned with it, without a title or frame: each entry is a 36-unit sample of the
 connector followed 10 units later by `.legend-label` text, and entries in one row are 28 units apart.
 
-Numbered steps use a circular badge with the canvas fill, a runtime-blue border, and a centered number. The template
+Numbered steps use a circular badge with the canvas fill, a ZeroC-blue border, and a centered number. The template
 provides a 24-unit badge; size the number and nearby label for the figure. Define the circle once as `step-badge-shape`
 in `<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Place each badge beside the connector it
 numbers, and leave a visible gap between the badge and its label.
@@ -220,7 +217,6 @@ numbers, and leave a visible gap between the badge and its label.
 - Mark purely structural connector groups `aria-hidden="true"` when the description already explains them.
 - Use class names that describe semantic roles rather than appearance. Names are local to each self-contained SVG:
   published figures commonly use `.boundary`, `.api`, and `.application`, while the template offers more specific roles
-  such as `.process-boundary` and `.api-boundary`. Use `.label-knockout` for text over the canvas and
-  `.host-label-knockout` for text over a host surface; both use palette properties to keep lines from crossing the text.
+  such as `.process-boundary` and `.api-boundary`.
 - Keep the SVG self-contained: no scripts, external fonts, runtime dependencies, or editor metadata.
 - Format the source consistently and include comments only where they explain layout intent.
