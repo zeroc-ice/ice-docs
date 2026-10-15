@@ -121,28 +121,9 @@ outstanding invocations, which fail with `ObjectAdapterDeactivatedException` or 
 
 ## Closing a Connection from the Application
 
-An application obtains a connection from a proxy with `ice_getConnection`, or from the `con` field of the `Current`
-object in a dispatch. It can then close this connection:
-
-- `close` (`closeAsync` in C#) waits for the connection's outstanding invocations to complete and then starts a graceful
-  closure. The close timeout covers this wait as well as the closure. `close` completes when the connection is closed,
-  and fails when the closure is not graceful, such as when it exceeds the close timeout.
-- `abort` aborts the connection immediately.
-
-{% iflang langs="cpp,csharp,java,js,python,swift" %}
-
-A connection sends `CloseConnection` only once its dispatches have completed, so a dispatch that waits for the closure
-of its own connection never completes. In a dispatch, start the closure of the connection that received the request and
-return without waiting for the closure to complete. In Java, whose `close` blocks until the connection is closed, call
-`close` from another thread.
-
-To be notified when a connection closes, whatever the reason, register a callback with `setCloseCallback`. Ice calls
-this callback once the connection is closed. When you set it on a connection that is already closed, Ice schedules the
-call immediately; it never calls the callback from `setCloseCallback` itself.
-{% iflang langs="cpp,csharp,java,python" %}Like dispatches and asynchronous invocation callbacks, the close callback
-runs through the communicator's executor when one is configured.{% /iflang %}
-
-{% /iflang %}
+An application can close a connection it obtained from a proxy with `ice_getConnection` or from the `Current` object of
+a dispatch: `close` closes the connection gracefully, once its outstanding invocations have completed, and `abort`
+aborts it. See [Connection](api:Ice/Connection) in the API reference.
 
 ## See Also
 
