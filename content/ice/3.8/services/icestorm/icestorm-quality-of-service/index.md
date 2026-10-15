@@ -18,18 +18,22 @@ the events in the same order as they were received even if its
 
 ## Retry Count QoS for IceStorm
 
-The QoS parameter `retryCount` determines how many _consecutive_ delivery failures IceStorm tolerates before it removes
-a subscriber. A value of `-1` means IceStorm retries forever and never automatically removes a subscriber unless a hard
-failure occurs (see [Hard Failures](#hard-failures)). A value of `0` means IceStorm never retries and immediately
-removes the subscriber upon any failure. For positive values, IceStorm increments the subscriber's failure count on each
-failed delivery attempt and removes the subscriber once this count exceeds `retryCount`. Linked topics always have a
-configured retry count of `-1`. The default value of the `retryCount` parameter is `0`.
+When delivery to a subscriber fails, IceStorm discards the events queued for this subscriber and does not redeliver them
+(see [Delivery Failures and Retries](#delivery-failures-and-retries)). The QoS parameter `retryCount` sets how many
+delivery failures a subscription survives before IceStorm removes the subscriber:
 
-The failure count is not cumulative over the lifetime of the subscription: IceStorm resets it to zero after each
-successful delivery to the subscriber. A subscriber is therefore removed only when `retryCount + 1` consecutive delivery
-attempts fail with no successful delivery in between. For example, with a `retryCount` of `3`, a subscriber that
-experiences occasional, isolated network failures is never removed, while a subscriber that remains unreachable for four
-consecutive delivery attempts is removed.
+| Value         | Description                                                                                                                                                               |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-1`          | IceStorm never removes the subscriber after a delivery failure, only after a [hard failure](#hard-failures). IceStorm always uses this value for a link to another topic. |
+| `0` (default) | IceStorm removes the subscriber on its first delivery failure.                                                                                                            |
+| Positive      | IceStorm removes the subscriber when its failure count exceeds `retryCount`.                                                                                              |
+
+IceStorm counts consecutive failures only: it resets the subscriber's failure count to zero after each successful
+delivery. A delivery to a twoway or ordered subscriber, or to a linked topic, succeeds when IceStorm receives the reply;
+a delivery to a oneway or datagram subscriber succeeds when IceStorm sends the event, and a delivery to a batch
+subscriber when IceStorm flushes the batch. For example, with a `retryCount` of `3`, a subscriber that experiences
+occasional, isolated network failures is never removed, while a subscriber that remains unreachable for four consecutive
+delivery attempts is removed.
 
 A retry count of `-1` adds some resiliency to your IceStorm application by ignoring intermittent network failures such
 as `ConnectionRefusedException`. The risk is that a subscription whose subscriber is gone for good, for example a
@@ -50,8 +54,7 @@ queueing them for this subscriber. Once the interval has elapsed, the next publi
 online and delivery resumes, starting with that event.
 
 As a result, a subscriber does not receive the events that were queued or published between the failure and the end of
-the discard interval: a `retryCount` that allows retries extends the lifetime of the subscription, but does not provide
-reliable delivery. You can observe these subscriber state transitions by setting
+the discard interval. You can observe these subscriber state transitions by setting
 [IceStorm.Trace.Subscriber](../../../property-reference/icestorm-properties#icestorm.trace.subscriber) to `2`.
 
 ### Hard Failures
