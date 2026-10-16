@@ -114,9 +114,8 @@ For example:
 ## Proxy Factory Methods
 
 A proxy is immutable. Its factory methods, such as `ice_oneway`, `ice_facet` and `ice_invocationTimeout`, return a proxy
-with the requested setting, and leave the original proxy unchanged. See
-[ObjectPrx](https://code.zeroc.com/manual/Ice/ObjectPrx) in the API reference for the complete list of factory methods
-and the accessors that return the current settings.
+with the requested setting, and leave the original proxy unchanged. See [ObjectPrx](api:Ice/ObjectPrx) in the API
+reference for the complete list of factory methods and the accessors that return the current settings.
 
 The [language mapping for interfaces](../../../slice/interfaces) describes the type of the proxy that these factory
 methods return.
