@@ -182,8 +182,10 @@ connector followed 10 units later by `.legend-label` text, and entries in one ro
 
 Numbered steps use a circular badge with the canvas fill, a ZeroC-blue border, and a centered number. The template
 provides a 24-unit badge; size the number and nearby label for the figure. Define the circle once as `step-badge-shape`
-in `<defs>`, reuse it with `<use>`, and keep the number as native `<text>`. Place each badge beside the connector it
-numbers, and leave a visible gap between the badge and its label.
+in `<defs>` without a class, reuse it with `<use class="step-badge">`, and keep the number as native `<text>`. The class
+goes on the `<use>` because Chrome and Firefox do not match the figure's scoped selectors inside the copy that `<use>`
+makes; the circle inherits its fill and stroke from the `<use>`. Place each badge beside the connector it numbers, and
+leave a visible gap between the badge and its label.
 
 ## Boundaries and annotations
 

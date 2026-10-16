@@ -18,7 +18,7 @@
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--text-secondary, #566174)"/>
     </marker>
     <g id="step-badge-shape">
-      <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
+      <circle cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
     </g>
   </defs>
 
@@ -126,12 +126,12 @@
     <text class="component-label" x="644" y="104">Registry</text>
     <text class="component-label" x="440" y="258">Server</text>
     <text class="component-label" x="644" y="258">Node</text>
-    <use href="#step-badge-shape" transform="translate(222 79)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(222 79)"/>
     <text class="step-number" x="222" y="84">1</text>
     <text class="connector-label code" x="242" y="84">getProperty</text>
-    <use href="#step-badge-shape" transform="translate(668 176)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(668 176)"/>
     <text class="step-number" x="668" y="181">2</text>
-    <use href="#step-badge-shape" transform="translate(544 233)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(544 233)"/>
     <text class="step-number" x="544" y="238">3</text>
   </g>
 </svg>

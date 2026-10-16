@@ -24,7 +24,7 @@
       />
     </marker>
     <g id="step-badge-shape">
-      <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
+      <circle cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
     </g>
     <symbol id="document-shape" viewBox="0 0 160 92" preserveAspectRatio="none">
       <path d="M 1 1 H 159 V 76 C 134 65 118 91 89 79 C 60 67 37 91 1 76 Z" vector-effect="non-scaling-stroke"/>
@@ -326,7 +326,7 @@
   </g>
   <g id="labels">
     <!-- Titles, component labels, label knockouts, annotations, and numbered step badges. -->
-    <!-- Badge example: <use href="#step-badge-shape" transform="translate(X Y)"/> followed by native <text>. -->
+    <!-- Badge example: <use class="step-badge" href="#step-badge-shape" transform="translate(X Y)"/> followed by native <text>. -->
     <!-- Document example: <use href="#document-shape" class="generated" x="X" y="Y" width="160" height="92"/>. -->
     <!-- Legend example, below the drawing and left-aligned with it; entries in one row are 28 units apart:
          <path class="connector one-way" d="M X Y H X+36" vector-effect="non-scaling-stroke"/>
