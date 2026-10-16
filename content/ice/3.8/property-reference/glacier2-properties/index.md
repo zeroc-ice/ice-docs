@@ -55,8 +55,8 @@ This adapter must be accessible to clients of Glacier2. Use of a secure transpor
 recommended.
 
 The router requires [Glacier2.Client.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
-[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers 4063 (TCP) and 4064
-(SSL) to Glacier2.
+[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers `4063` (TCP) and
+`4064` (SSL) to Glacier2.
 
 `Glacier2.Client.Connection.InactivityTimeout` defaults to `0`. The client adapter's connection idle timeout,
 `Glacier2.Client.Connection.IdleTimeout`, supplies the value returned by `Glacier2::Router::getSessionTimeout`; it
