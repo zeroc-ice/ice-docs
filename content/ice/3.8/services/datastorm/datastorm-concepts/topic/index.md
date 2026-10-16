@@ -49,25 +49,11 @@ parameters: DataStorm does not check these types across applications.
 
 ## Waiting for Readers and Writers
 
-A topic lets you check for and wait for:
-
-- the readers attached to the writers created from this topic;
-- the writers attached to the readers created from this topic.
-
-| Method                  | Description                                                                |
-| ----------------------- | -------------------------------------------------------------------------- |
-| `hasReaders()`          | Returns `true` when a reader is attached to one of the topic's writers.    |
-| `waitForReaders(count)` | Blocks until the topic's writers have at least `count` reader attachments. |
-| `waitForNoReaders()`    | Blocks until no reader is attached to the topic's writers.                 |
-| `hasWriters()`          | Returns `true` when a writer is attached to one of the topic's readers.    |
-| `waitForWriters(count)` | Blocks until the topic's readers have at least `count` writer attachments. |
-| `waitForNoWriters()`    | Blocks until no writer is attached to the topic's readers.                 |
-
-The `count` parameter, 1 by default, counts attachments rather than readers or writers. An attachment links one writer
-and one reader for a key or a key filter, so the same reader counts twice when it is attached to two of the topic's
-writers, or when it shares two keys with one writer.
-
-The `waitFor` methods throw `DataStorm::NodeShutdownException` once the node is shut down.
+A topic lets you check whether readers are attached to its writers and wait until they are, or until none is, with
+`hasReaders`, `waitForReaders` and `waitForNoReaders`; `hasWriters`, `waitForWriters` and `waitForNoWriters` do the same
+for the writers attached to its readers. The
+[DataStorm::Topic](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic.html) API reference describes these
+methods.
 
 ## Filters
 
@@ -282,11 +268,11 @@ this value unchanged: the sample carries the key's previous value.
 
 #### Sample Filters and Partial Updates
 
-A writer sends a reader only the samples that the reader's [sample filter](#sample-filters) accepts. The reader applies
-each partial update to its current value for the key, which can differ from the value the writer applied the update to:
+A writer applies a reader's [sample filter](#sample-filters) to its own samples and sends only those the filter accepts.
+The reader applies each partial update it receives to its own current value for the key, not to the value the writer
+updated:
 
 - When the reader has no value for the key, it discards the partial updates it receives for this key until it receives a
   full value. When a reader attaches and the first sample the writer sends it for a key is a partial update, the writer
   sends this sample with a full value.
-- When the filter rejected samples that changed the value after the reader's current value, the reader applies a later
-  partial update to an older value than the writer did, so the reader's value can differ from the writer's.
+- When the filter rejected samples that changed the key's value, the reader's value diverges from the writer's.

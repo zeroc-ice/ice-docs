@@ -56,43 +56,53 @@ If your types are **not defined in Slice**, you must provide specializations of 
 [DataStorm::Encoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Encoder.html) and
 [DataStorm::Decoder](https://code.zeroc.com/ice/3.8/api/cpp/structDataStorm_1_1Decoder.html) templates for those types.
 
-For example, the following specializations encode a `Color` in three bytes:
+For example, with a message type defined in Protobuf:
+
+```protobuf
+syntax = "proto3";
+
+package vehicle;
+
+message Telemetry {
+  float battery_level = 1;
+  float speed = 2;
+}
+```
+
+the following specializations encode and decode it with the Protobuf library:
 
 ```cpp
-struct Color
-{
-    uint8_t red = 0;
-    uint8_t green = 0;
-    uint8_t blue = 0;
-};
-
 namespace DataStorm
 {
-    template<> struct Encoder<Color>
+    template<> struct Encoder<vehicle::Telemetry>
     {
-        static Ice::ByteSeq encode(const Ice::CommunicatorPtr&, const Color& color) noexcept
+        static Ice::ByteSeq encode(const vehicle::Telemetry& telemetry)
         {
-            return {byte{color.red}, byte{color.green}, byte{color.blue}};
+            Ice::ByteSeq bytes(telemetry.ByteSizeLong());
+            telemetry.SerializeToArray(bytes.data(), static_cast<int>(bytes.size()));
+            return bytes;
         }
     };
 
-    template<> struct Decoder<Color>
+    template<> struct Decoder<vehicle::Telemetry>
     {
-        static Color decode(const Ice::CommunicatorPtr&, const Ice::ByteSeq& bytes)
+        static vehicle::Telemetry decode(const Ice::ByteSeq& bytes)
         {
-            if (bytes.size() != 3)
+            vehicle::Telemetry telemetry;
+            if (!telemetry.ParseFromArray(bytes.data(), static_cast<int>(bytes.size())))
             {
-                throw invalid_argument{"a Color is encoded in 3 bytes"};
+                throw invalid_argument{"invalid Telemetry message"};
             }
-            return Color{to_integer<uint8_t>(bytes[0]), to_integer<uint8_t>(bytes[1]), to_integer<uint8_t>(bytes[2])};
+            return telemetry;
         }
     };
 }
 
-Topic<string, Color> colors{node, "colors"};
+Topic<string, vehicle::Telemetry> topic{node, "telemetry"};
 ```
 
-You can declare `encode` and `decode` without the communicator parameter: omit it from both functions or from neither.
+`encode` and `decode` can also take the node's communicator, a `const Ice::CommunicatorPtr&`, as their first parameter:
+declare it in both functions or in neither.
 
 ## Additional Requirements
 
