@@ -85,8 +85,7 @@ Ice.Plugin.MyPlugin=1 arg1 arg2
 ## Managing Plug-ins
 
 The plug-in manager of a communicator gives access to its plug-ins: call `getPluginManager` on the communicator, then
-`getPlugin` with the name of the plug-in. See [PluginManager](https://code.zeroc.com/manual/Ice/PluginManager) in the
-API reference.
+`getPlugin` with the name of the plug-in. See [PluginManager](api:Ice/PluginManager) in the API reference.
 
 To configure a plug-in through its own API before Ice initializes it, set
 [Ice.InitPlugins](../../../property-reference/ice-properties#ice.initplugins) to `0`. Create the communicator, obtain
