@@ -42,8 +42,9 @@ enumerator:
 - **PartialUpdate** — indicates that the sample contains a partial update to the value.
 
 For `Remove` samples, the value is a default-constructed instance. For `PartialUpdate` samples, the sample also provides
-the **update tag**, which can be retrieved using `getUpdateTag()`. A writer publishes a partial update only for a key it
-has given a current value; see [Publishing Samples](../writer#publishing-samples).
+the **update tag**, which can be retrieved using `getUpdateTag()`. A partial update modifies a key's current value, so a
+writer can publish one only after publishing a value for this key; see
+[Publishing Samples](../writer#publishing-samples).
 
 The value returned by
 [getValue](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_a0664d2f1004fb9ed28be7b817d615b34.html#a0664d2f1004fb9ed28be7b817d615b34)
@@ -65,5 +66,5 @@ data between machines with different regional settings.
 
 The **origin** identifies the writer that created the sample. It can be obtained using the
 [getOrigin](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Sample_a921bbfef9a9bb86197b7242eab276eda.html#a921bbfef9a9bb86197b7242eab276eda)
-method. In a sample that a reader receives, the origin is the name given to the writer that published the sample, or an
-identifier that DataStorm generates when that writer has no name.
+method. In a sample that a reader receives, the origin is the writer's name, or an identifier that DataStorm generates
+when the writer has no name.
