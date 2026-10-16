@@ -28,11 +28,10 @@ With IceStorm, the collector is a publisher and the monitors are subscribers:
 
 ![A weather station feeds a collector, which publishes updates through IceStorm to four monitors.](/images/ice/3.8/icestorm/icestorm2.svg)
 
-The collector publishes each update to an IceStorm [topic](./icestorm-concepts), and IceStorm forwards the update to the
-monitors subscribed to that topic:
+The collector publishes each update once to an IceStorm [topic](./icestorm-concepts), however many monitors there are,
+and IceStorm forwards the update to the monitors subscribed to that topic:
 
-- The collector sends each update to IceStorm once, regardless of how many monitors are subscribed.
 - Monitors subscribe to and unsubscribe from the topic through IceStorm, without involving the collector.
-- IceStorm removes a subscriber it cannot reach, after the retries set by its
-  [quality of service](./icestorm-quality-of-service#retry-count-qos-for-icestorm), so the collector does not track
-  monitor failures.
+- IceStorm removes a subscriber when a delivery to it fails, unless the subscriber's
+  [quality of service](./icestorm-quality-of-service#retry-count-qos-for-icestorm) tolerates the failure, so the
+  collector does not track monitor failures.
