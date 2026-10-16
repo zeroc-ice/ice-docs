@@ -164,7 +164,7 @@ export function SideNav({
         // the footer. `contain-size` keeps the tree's height out of the row's,
         // so a short page stays viewport-high with the footer at the bottom;
         // the rail then stretches to the row, capped at the viewport.
-        className="sticky top-14 hidden max-h-[calc(100vh-3.5rem)] w-72 shrink-0 flex-col border-r border-hairline text-sm contain-size lg:flex"
+        className="sticky top-14 hidden max-h-[calc(100vh-3.5rem)] w-75 shrink-0 flex-col border-r border-hairline text-sm contain-size lg:flex"
       >
         {contents}
       </nav>
