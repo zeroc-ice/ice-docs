@@ -1,13 +1,14 @@
 // Copyright (c) ZeroC, Inc.
 
+import fs from 'node:fs/promises';
 import path from 'node:path';
+import { useId } from 'react';
 import Image from 'next/image';
+import clsx from 'clsx';
 import sharp from 'sharp';
+import { prepareSvg } from '@/lib/svg-image';
 
-// Every image names its file under `public/`, which gives the page the image's
-// size to lay out around before the file arrives. The file itself is served as
-// it is: none is wider than the page column, so the image optimizer would only
-// re-encode it, at the cost of an encoder and a cache in the server.
+/** Renders a local documentation image, inlining SVGs so they inherit the page theme. */
 export async function MarkdownImage({
   src,
   alt = '',
@@ -17,9 +18,17 @@ export async function MarkdownImage({
   alt?: string;
   className?: string;
 }) {
-  const { width, height } = await sharp(
-    path.join(process.cwd(), 'public', src)
-  ).metadata();
+  const file = path.join(process.cwd(), 'public', src);
+  if (src.endsWith('.svg')) {
+    return (
+      <InlineSvg
+        source={await fs.readFile(file, 'utf8')}
+        alt={alt}
+        className={className}
+      />
+    );
+  }
+  const { width, height } = await sharp(file).metadata();
   return (
     <Image
       src={src}
@@ -28,6 +37,36 @@ export async function MarkdownImage({
       height={height}
       className={className}
       unoptimized
+    />
+  );
+}
+
+/** Gives each SVG occurrence its own IDs and preserves the Markdown alternative text. */
+function InlineSvg({
+  source,
+  alt,
+  className
+}: {
+  source: string;
+  alt: string;
+  className?: string;
+}) {
+  const prefix = `diagram-${Buffer.from(useId()).toString('hex')}`;
+  const svg = prepareSvg(source, prefix);
+  // These SVGs are reviewed repository assets. Their IDs and CSS must stay local
+  // because several figures can share a page, including repeated occurrences.
+  return (
+    <svg
+      {...svg.attributes}
+      id={prefix}
+      className={clsx('markdown-svg', className)}
+      role="img"
+      aria-labelledby={undefined}
+      aria-label={alt || undefined}
+      aria-describedby={alt ? svg.descriptionId : undefined}
+      aria-hidden={alt ? undefined : true}
+      focusable="false"
+      dangerouslySetInnerHTML={{ __html: svg.content }}
     />
   );
 }
