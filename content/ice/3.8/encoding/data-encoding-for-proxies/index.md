@@ -92,8 +92,8 @@ not both:
 
 Type-specific endpoint fields are encapsulated because a receiver may not be capable of decoding them. For example, a
 receiver can only decode BT endpoint fields if it is configured with the [IceBT](../../plugins/icebt) plug-in. However,
-the receiver must be able to re-encode the proxy with all of its original endpoints, in the order they were received,
-even if the receiver does not understand the type-specific fields for an endpoint. Encapsulation of the endpoint into an
+when the receiver re-encodes the proxy, it encodes all of its original endpoints, in the order they were received, even
+if the receiver does not understand the type-specific fields for an endpoint. Encapsulation of the endpoint into an
 opaque endpoint allows the receiver to do this.
 
 ## Encoding for TCP Endpoints

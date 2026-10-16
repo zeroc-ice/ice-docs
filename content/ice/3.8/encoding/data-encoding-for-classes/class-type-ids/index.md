@@ -49,8 +49,8 @@ Note that this numbering scheme is re-established for each new [encapsulation](.
 see in our discussion of [protocol messages](../../../protocol/protocol-messages), parameters, return values, and
 exceptions are always marshaled inside an enclosing encapsulation.) For subsequent or nested encapsulation, the
 numbering scheme restarts, with the first new type ID being assigned the value `1`. In other words, each encapsulation
-uses its own independent numbering scheme for class type IDs to satisfy the constraint that encapsulations must not
-depend on their surrounding context.
+uses its own independent numbering scheme for class type IDs, so that an encapsulation does not depend on its
+surrounding context.
 
 Encoding class type IDs in this way provides significant savings in bandwidth: whenever an ID is marshaled a second and
 subsequent time, it is marshaled as a two-byte value (assuming no more than 254 distinct type IDs per request) instead
@@ -80,8 +80,7 @@ The encoding for string type IDs uses a "compression" scheme similar to that of 
 a sender encounters a type ID, the sender assigns an integer index to the ID and encodes the ID as a string. For all
 subsequent occurrences of the same type ID within the encapsulation, the sender encodes the index associated with that
 type ID as a [size](../../basic-data-encoding). Index values start at `1` and increase sequentially with each new type
-ID. The sender is responsible for setting the relevant bits in the [flags](../../data-encoding-for-slices) of each slice
-to specify how the type ID is encoded.
+ID. The [flags](../../data-encoding-for-slices) of each slice specify how the type ID is encoded.
 
 The slice flags in version 1.1 of the encoding serve the same purpose as the boolean value that precedes each type ID in
 version 1.0, without consuming an entire byte.
