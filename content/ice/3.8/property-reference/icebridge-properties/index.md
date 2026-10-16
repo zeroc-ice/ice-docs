@@ -32,9 +32,8 @@ If not defined, the default value is `IceBridge`.
 
 {% property-description %}
 
-IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. Therefore,
-[adapter properties](../object-adapter-properties) can be used to configure this adapter. The only required adapter
-property is `IceBridge.Source.Endpoints`.
+IceBridge uses the adapter name `IceBridge.Source` for the object adapter that it provides to clients. IceBridge
+requires [IceBridge.Source.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 This adapter must be accessible to IceBridge clients.
 

@@ -48,15 +48,14 @@ manager.
 
 {% property-description %}
 
-Glacier2 uses the adapter name `Glacier2.Client` for the object adapter that it provides to clients. Therefore,
-[adapter properties](../object-adapter-properties) can be used to configure this adapter.
+Glacier2 uses the adapter name `Glacier2.Client` for the object adapter that it provides to clients.
 
 This adapter must be accessible to clients of Glacier2. Use of a secure transport for this adapter is highly
 recommended.
 
-`Glacier2.Client.Endpoints` specifies the client endpoints and must be set for the router to start. The port numbers
-4063 (for TCP) and 4064 (for SSL) are reserved for Glacier2 by the
-[Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
+The router requires [Glacier2.Client.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
+[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers 4063 (TCP) and 4064
+(SSL) to Glacier2.
 
 `Glacier2.Client.Connection.InactivityTimeout` defaults to 0. The client adapter's connection idle timeout,
 `Glacier2.Client.Connection.IdleTimeout`, supplies the value returned by `Glacier2::Router::getSessionTimeout`; it
@@ -367,12 +366,11 @@ The default size of the routing table is `1000`.
 
 {% property-description %}
 
-Glacier2 uses the adapter name `Glacier2.Server` for the object adapter that it provides to servers. Therefore,
-[adapter properties](../object-adapter-properties) can be used to configure this adapter.
+Glacier2 uses the adapter name `Glacier2.Server` for the object adapter that it provides to servers.
 
-Glacier2 creates this adapter only when `Glacier2.Server.Endpoints` is set. The adapter provides access to the
-`SessionControl` interface and must be accessible to servers that call back to router clients. Without this adapter,
-Glacier2 passes a null `SessionControl` proxy to session managers.
+Glacier2 creates this adapter only when [Glacier2.Server.Endpoints](../object-adapter-properties#adapter.endpoints) is
+set. The adapter provides access to the `SessionControl` interface and must be accessible to servers that call back to
+router clients. Without this adapter, Glacier2 passes a null `SessionControl` proxy to session managers.
 
 {% /property-description %}
 
