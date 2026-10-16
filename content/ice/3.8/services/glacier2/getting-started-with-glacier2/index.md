@@ -172,9 +172,9 @@ endpoints must match those in `Glacier2.Client.Endpoints`.
 
 ## Glacier2 Object Identities
 
-A Glacier2 router hosts one well-known object. The default identity of this object is `Glacier2/router`, corresponding
-to the `Glacier2::Router` interface. If an application requires the use of multiple different routers, it is a good idea
-to assign a unique identity to this object by configuring the routers with different values of the
+A Glacier2 router hosts a single object, which implements the `Glacier2::Router` interface and has the identity
+`Glacier2/router` by default. If an application uses several different routers, as opposed to replicas, give this object
+a unique identity in each router by configuring the routers with different values of the
 [Glacier2.InstanceName](../../../property-reference/glacier2-properties) property, as shown in the following example:
 
 ```config
@@ -188,17 +188,13 @@ configuration must also be changed to reflect the new identity:
 Ice.Default.Router=PublicRouter/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-One exception to this rule is if you deploy multiple Glacier2 routers that clients use interchangeably, for example, to
-gain redundancy or to distribute the message-forwarding load over a number of machines. In that case, all the routers
-must use the same instance name, and the router clients can use proxies with multiple endpoints, such as:
+Glacier2 routers deployed as replicas, for example to gain redundancy or to distribute the message-forwarding load over
+several machines, use the same instance name, and their clients use a proxy with the endpoints of all the replicas, such
+as:
 
 ```config
 Ice.Default.Router=PublicRouter/router:tcp -h 5.6.7.8 -p 4063:tcp -h 6.10.7.8 -p 4063
 ```
-
-A session exists only in the router that created it, and ends when the client's connection to that router closes. A
-client that loses this connection and connects to another router must create a new session in that router and set up its
-callbacks again, as described in [Handling Connection Loss](../callbacks-through-glacier2#handling-connection-loss).
 
 {% callout type="note" %}
 
@@ -271,19 +267,23 @@ A Glacier2 session ends when the connection between the client and the router cl
 `destroySession` on the router. The server-side application can also end a session by calling `destroy` on the
 `SessionControl` object that the router passes to the session manager's `create` operation.
 
-With the [idle check](../../../runtime/connection-management/connection-closure#the-idle-check) enabled, the router
-detects a client that disappears without closing its connection: when the router receives nothing from the client for
-longer than the idle timeout, it aborts the connection, which ends the session. The
-[Glacier2.Client](../../../property-reference/glacier2-properties) property `Glacier2.Client.Connection.IdleTimeout`
-sets this idle timeout and defaults to `Ice.Connection.Server.IdleTimeout`, which defaults to 60 seconds.
+A session exists only in the replica that created it, and ends when the client's connection to that replica closes. A
+client that loses this connection and connects to another replica must create a new session there and set up its
+callbacks again, as described in [Handling Connection Loss](../callbacks-through-glacier2#handling-connection-loss).
 
-The router sets `Glacier2.Client.Connection.InactivityTimeout` to `0` unless you set it, which disables the router's
-inactivity check on client connections. The client's own
-[inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) still closes an
-inactive connection to the router, and this closure ends the session. The client checks for inactivity each time it
-sends a heartbeat, every half idle timeout, so this check requires `Ice.Connection.Client.IdleTimeout` to be greater
-than `0`. `Ice.Connection.Client.InactivityTimeout` sets the client's inactivity timeout, 300 seconds by default; a
-client that keeps an unused session open sets it to `0`.
+The router's [idle check](../../../runtime/connection-management/connection-closure#the-idle-check) detects a client
+that disappears without closing its connection: when the router receives nothing on the connection for the idle timeout,
+60 seconds by default, it aborts the connection, which ends the session.
+[Glacier2.Client.Connection.IdleTimeout](../../../property-reference/glacier2-properties#glacier2.client.adapterproperty)
+sets this timeout.
+
+The router does not close an inactive client connection: it disables its
+[inactivity check](../../../runtime/connection-management/connection-closure#the-inactivity-check) on these connections
+unless you set `Glacier2.Client.Connection.InactivityTimeout`. The client's own inactivity check closes a connection it
+has not used for 300 seconds by default, and this closure ends the session. A client that wishes to keep an unused
+session open can set
+[Ice.Connection.Client.InactivityTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.inactivitytimeout)
+to `0`.
 
 ## See Also
 
