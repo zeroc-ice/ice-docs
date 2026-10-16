@@ -156,8 +156,7 @@ p.op3(p)                                # Pass proxy
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
 
-- Zero values The corresponding Ruby method returns `void`. For the purposes of this discussion, we're not interested in
-  these operations.
+- Zero values The corresponding Ruby method returns `nil`.
 - One value The client receives a single return value, regardless of whether the Slice definition of the operation
   declared it as a return value or as an out parameter.
 - Two or more value The client receives them in the form of a _result array_. A non-`void` return value, if any, is

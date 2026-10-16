@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
-A Slice enumeration is emulated using a Ruby class: the name of the Slice enumeration becomes the name of the Ruby
-class; for each enumerator, the class contains a constant with the same name as the enumerator. For example:
+A Slice enumeration maps to a Ruby class with the same name, capitalized, and each enumerator maps to a constant of this
+class, also capitalized. Consider this enumeration:
 
 ```slice
 enum Fruit { Apple, Pear, Orange }

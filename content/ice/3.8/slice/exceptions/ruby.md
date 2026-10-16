@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-A Slice exception is mapped to a Ruby class with the same name. This mapping is similar to the mapping of
+A Slice exception maps to a Ruby class with the same name, capitalized. This mapping is similar to the mapping of
 [classes](../user-defined-types/classes).
 
 Consider the following Slice exceptions:
