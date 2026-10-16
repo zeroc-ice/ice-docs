@@ -94,15 +94,16 @@ export const DocumentShell = ({
     : [];
 
   // The outline keeps to the right edge of the window, as the sidebar keeps to
-  // the left, and the article is centered in the space between them. Code,
-  // tables and diagrams stay within the article's width, as its text does.
+  // the left, and the article is centered in the space between them. Its width
+  // keeps lines of text comfortable to read, and code, tables and diagrams stay
+  // within it. A page that is not an essay, such as the front page, is wider.
   return (
     <div className="flex flex-row">
       <div className="min-w-0 grow sm:px-6 md:px-10 lg:px-2">
         <div
           className={clsx(
             'mx-auto contain-inline-size',
-            shape === 'wide' ? 'max-w-(--measure-wide)' : 'max-w-(--measure)'
+            shape === 'wide' ? 'max-w-4xl' : 'max-w-3xl'
           )}
         >
           {breadcrumbs.length > 0 && (

@@ -113,12 +113,6 @@
     --link-hover: #0b47ad;
     --accent-soft: #eef5ff;
 
-    /* The article's width: a comfortable line length, which code, tables and
-       diagrams share. A page that is not an essay, such as the front page,
-       takes the wider one. */
-    --measure: 47.5rem;
-    --measure-wide: 58rem;
-
     --docsearch-searchbox-height: 38px !important;
     --docsearch-primary-color: #1259d6 !important;
   }
