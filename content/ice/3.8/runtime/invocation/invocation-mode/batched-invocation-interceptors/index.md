@@ -18,9 +18,7 @@ the interceptor for each batch request, passing the following arguments:
 - `count` - The number of requests currently in the queue
 - `size` - The number of bytes of the queued batch message, including its header
 
-The request represented by `req` is not included in the `count` and `size` figures. Its `getSize` method returns the
-size of the request in bytes, `getOperation` returns the name of the operation, and `getProxy` returns the proxy that
-made the request.
+The request represented by `req` is not included in the `count` and `size` figures.
 
 A batch request is not queued until the interceptor calls `enqueue`. The minimal interceptor implementation is
 therefore:
@@ -36,10 +34,6 @@ larger than 64 KiB.
 
 Ice checks its own automatic flush threshold, set by `Ice.BatchAutoFlushSize`, before it calls the interceptor. An
 interceptor that flushes at a lower limit therefore flushes the batch before Ice does.
-
-Specifying your own exception handler when calling `ice_flushBatchRequestsAsync` gives you the ability to take action if
-a failure occurs (Ice's default automatic flushing implementation ignores any errors). Aside from logging a message,
-your options are somewhat limited because it's not possible for the interceptor to force a retry.
 
 {% callout type="note" %}
 

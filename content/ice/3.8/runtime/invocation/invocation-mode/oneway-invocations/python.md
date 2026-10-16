@@ -9,7 +9,7 @@ weatherStation = weatherStation.ice_oneway()
 ...
 
 while True:
-    weatherStation.report(sensorId, timeStamp, getAtmosphericConditions())
+    await weatherStation.reportAsync(sensorId, timeStamp, getAtmosphericConditions())
     ...
 ```
 

@@ -12,12 +12,12 @@ weatherStation = WeatherStationPrxHelper.uncheckedCast(weatherStation.ice_batchO
 
 while (true)
 {
-    weatherStation.report(sensorId, timeStamp, getAtmosphericConditions());
+    await weatherStation.ReportAsync(sensorId, timeStamp, GetAtmosphericConditions());
     ...
     // Send a batch with the last 10 readings.
     if (++count == 10)
     {
-        weatherStation.ice_flushBatchRequests();
+        await weatherStation.ice_flushBatchRequestsAsync();
         count = 0;
     }
 }

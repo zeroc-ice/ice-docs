@@ -12,7 +12,7 @@ weatherStation = WeatherStationPrxHelper.uncheckedCast(weatherStation.ice_oneway
 
 while (true)
 {
-    weatherStation.report(sensorId, timeStamp, getAtmosphericConditions());
+    await weatherStation.ReportAsync(sensorId, timeStamp, GetAtmosphericConditions());
     ...
 }
 ```

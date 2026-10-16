@@ -37,16 +37,12 @@ be set to the following values:
 
 {% /iflang %}
 
-Any other value makes the creation of the communicator fail with `InitializationException`.
-
 ## Using the Implicit Context
 
-`getImplicitContext` on the communicator returns its implicit context. The `get`, `put`, `remove`, and `containsKey`
-methods of the implicit context read and update a single entry, and `getContext` and `setContext` read and replace the
-whole context.{% iflang langs="csharp,java" %} When `Ice.ImplicitContext` is `PerThread`, these methods read and update
-the implicit context of the thread that calls them.{% /iflang %}{% iflang langs="cpp,matlab,python,ruby,swift" %} When
-`Ice.ImplicitContext` is `PerThread`, `getImplicitContext` returns the implicit context of the thread that calls it, and
-the methods of that object update only that thread's context.{% /iflang %}
+`getImplicitContext` on the communicator returns its implicit context, an object with methods to read and update the
+context's entries.{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %} When `Ice.ImplicitContext` is
+`PerThread`, each thread has its own implicit context: call `getImplicitContext` and update the context on the thread
+that makes the invocations.{% /iflang %}
 
 {% language-section name="using-the-implicit-context" /%}
 

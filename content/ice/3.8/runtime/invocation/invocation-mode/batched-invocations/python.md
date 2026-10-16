@@ -9,12 +9,12 @@ weatherStation = weatherStation.ice_batchOneway()
 ...
 
 while True:
-    weatherStation.report(sensorId, timeStamp, getAtmosphericConditions())
+    await weatherStation.reportAsync(sensorId, timeStamp, getAtmosphericConditions())
     ...
     # Send a batch with the last 10 readings.
     count += 1
     if count == 10:
-        weatherStation.ice_flushBatchRequests()
+        await weatherStation.ice_flushBatchRequestsAsync()
         count = 0
 ```
 

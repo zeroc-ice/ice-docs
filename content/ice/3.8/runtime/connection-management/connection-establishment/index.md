@@ -38,22 +38,16 @@ selection policy. This policy can be set using a default property
 
 ## Error Semantics for Failed Connections
 
-If a failure occurs during a connection attempt, the communicator tries to connect to all of the proxy's remaining
-endpoints until either a connection is successfully established or all attempts have failed. At that point, the
-communicator may attempt [automatic retries](../../invocation/automatic-retries) depending on the value of the
-[Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) configuration property. The default
-value of this property is `0`, which causes the communicator to try connecting to all of the endpoints one more time.
+When a connection attempt fails, the communicator tries the next endpoint, until it establishes a connection or has
+tried all the endpoints. When all the attempts fail, the invocation fails. Ice may then
+[retry the invocation](../../invocation/automatic-retries), and a retried invocation goes through connection
+establishment again, with all the endpoints.
 
 {% callout type="tip" %}
 
-Define the property `Ice.Trace.Retry=2` to monitor these attempts.
+Set `Ice.Trace.Network=2` to log each failed connection attempt, and `Ice.Trace.Retry=1` to log the retries.
 
 {% /callout %}
-
-If no connection can be established on this second attempt, the communicator throws an exception that indicates the
-reason for the final failed attempt (typically `ConnectFailedException`). Similarly, if a connection was lost during a
-request and could not be reestablished (assuming the request can be retried), the communicator throws an exception that
-indicates the reason for the final failed attempt.
 
 ## Reusing an Existing Connection
 
