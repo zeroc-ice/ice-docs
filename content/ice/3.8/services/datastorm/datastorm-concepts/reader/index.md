@@ -44,8 +44,8 @@ the topic.
 Topic<string, float> temperatures{node, "temperatures"};
 SingleKeyReader<string, float> reader{
     temperatures,
-      "floor1/kitchen",
-      "kitchen-reader"};
+    "floor1/kitchen",
+    "kitchen-reader"};
 ```
 
 Or
@@ -101,7 +101,7 @@ auto reader = makeAnyKeyReader(temperatures, "temperature-reader");
 Topic<string, float> temperatures{node, "temperatures"};
 FilteredKeyReader<string, float> reader{
     temperatures,
-    Filter<string>("startswith", "floor1/"),
+    Filter<string>("startsWith", "floor1/"),
     "temperature-reader"};
 ```
 
@@ -112,7 +112,7 @@ Or
 Topic<string, float> temperatures{node, "temperatures"};
 auto reader = makeFilteredKeyReader(
     temperatures,
-    Filter<string>("startswith", "floor1/"),
+    Filter<string>("startsWith", "floor1/"),
     "temperature-reader");
 ```
 
@@ -217,9 +217,9 @@ Whether to discard samples on receipt of new samples
 ([DiscardPolicy](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473)).
 Default: `None`.
 
-- **None**— never discard
-- **SendTime**— discard if the new sample’s timestamp is at or before the latest timestamp the reader has accepted.
-- **Priority**— keep only the samples from the writers with the highest priority among the writers connected for the
+- **None** — never discard
+- **SendTime** — discard if the new sample’s timestamp is at or before the latest timestamp the reader has accepted.
+- **Priority** — keep only the samples from the writers with the highest priority among the writers connected for the
   sample's key
 
 ### Coordination & Listeners

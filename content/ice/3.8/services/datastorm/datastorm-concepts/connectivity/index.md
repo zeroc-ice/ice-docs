@@ -77,7 +77,7 @@ server programmatically.
 
 ### One Writer with Multiple Readers
 
-The writer listens on a well known server endpoint and multiple readers can connect to it.
+The writer listens on a well-known server endpoint and multiple readers can connect to it.
 
 ![Two readers connect to a writer listening on TCP port 10000. The arrows show who initiates each connection.](/images/ice/3.8/connectivity/one-writer-multiple-readers.svg)
 
@@ -85,7 +85,7 @@ In this configuration the writer is acting as a server, the readers don’t need
 
 ### One Reader with Multiple Writers
 
-The reader listens on a well known server endpoint and multiple writers can connect to it.
+The reader listens on a well-known server endpoint and multiple writers can connect to it.
 
 ![Two writers connect to a reader listening on TCP port 10000. The arrows show who initiates each connection.](/images/ice/3.8/connectivity/one-reader-multiple-writers.svg)
 
