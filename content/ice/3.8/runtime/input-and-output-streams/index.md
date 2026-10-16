@@ -1,6 +1,6 @@
 ---
 title: Input and Output Streams
-languages: [cpp, csharp, java, js, swift]
+languages: [cpp, csharp, java, js, matlab, swift]
 ---
 
 An [OutputStream](api:Ice/OutputStream) encodes Slice values into bytes with the [Ice encoding](../../encoding), and an
@@ -23,6 +23,13 @@ Your application uses these streams directly to:
 
 - read the parameters and write the results in a servant that dispatches requests without generated code;
 - store Slice values in a file or a database, or send them through a channel other than an Ice connection.
+
+{% /iflang %}
+
+{% iflang langs="matlab" %}
+
+Your application uses these streams directly to store Slice values in a file or a database, or send them through a
+channel other than an Ice connection.
 
 {% /iflang %}
 
@@ -50,27 +57,30 @@ and read the encapsulation and the value in the same order.
 ## Encapsulations
 
 An encapsulation holds encoded values preceded by their size and their encoding version, as described in
-[Encoding for Encapsulations](../../encoding/basic-data-encoding#encoding-for-encapsulations). Wrap the values you store
-or send in an encapsulation: the `InputStream` then decodes them with the encoding version recorded in the
-encapsulation.
+[Encoding for Encapsulations](../../encoding/basic-data-encoding#encoding-for-encapsulations). The Ice protocol carries
+the parameters of a request and the results of a reply in encapsulations.{% iflang langs="cpp,csharp,java,swift" %} The
+in-parameters you pass to `ice_invoke` and the results it returns are such encapsulations, which you encode and decode
+as in the example above.{% /iflang %}{% iflang langs="cpp,csharp,java,js,swift" %} A servant that
+[dispatches requests](../dispatch/dispatcher-api) without generated code reads the parameters from the encapsulation at
+the start of the request's input stream, and creates its response with the dispatcher API, which puts the results it
+writes in an encapsulation.{% /iflang %}
 
 ## Writing and Reading Slice Types
 
+{% iflang langs="cpp,csharp,java,js,swift" %}
+
 See [OutputStream](api:Ice/OutputStream) and [InputStream](api:Ice/InputStream) for the constructors, the methods for
-the built-in types, and the errors the streams report. The following table shows how you write and read the types you
-define in Slice:
+the built-in types, and the errors the streams report.
+
+{% /iflang %}
+
+The following table shows how you write and read the types you define in Slice:
 
 {% language-section name="types" /%}
-
-## Class Instances
-
-When the values you encode include a class type, the writer calls `writePendingValues` once after writing them, and the
-reader calls `readPendingValues` once after reading them: with the 1.0 encoding, the streams write and read the class
-instances at that point.
 
 ## See Also
 
 - [Ice Encoding](../../encoding)
 - [Basic Data Encoding](../../encoding/basic-data-encoding)
-- [Ice.Default.\*](../../property-reference/ice-default-properties)
+- [Dispatcher API](../dispatch/dispatcher-api)
 - [Slice Loaders](../../slice/user-defined-types/classes/slice-loaders)
