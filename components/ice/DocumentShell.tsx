@@ -188,7 +188,7 @@ export const DocumentShell = ({
                 {prev ? (
                   <Link
                     href={prev.href}
-                    className="group focus-ring-text min-w-0 flex-1"
+                    className="group min-w-0 flex-1 focus-ring-text"
                   >
                     <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Previous
@@ -204,7 +204,7 @@ export const DocumentShell = ({
                 {next ? (
                   <Link
                     href={next.href}
-                    className="group focus-ring-text min-w-0 flex-1 text-right"
+                    className="group min-w-0 flex-1 focus-ring-text text-right"
                   >
                     <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
                       Next

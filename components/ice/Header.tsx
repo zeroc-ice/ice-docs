@@ -26,7 +26,7 @@ export function IceHeader() {
             docs layout, the only place that has the tree. The slot has
             no box of its own, so a page without the button has no gap. */}
         <div id="ice-header-menu" className="contents" />
-        <Link href="/" className="focus-ring-text flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 focus-ring-text">
           <IceMark className="size-8" />
           {/* The mark alone has to do on a phone, where the controls already
               fill the bar. */}
