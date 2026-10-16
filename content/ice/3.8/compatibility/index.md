@@ -29,29 +29,15 @@ upgrade your source code to use the latest Ice APIs.
 
 ## On-the-Wire Compatibility
 
-Applications using different Ice releases can communicate with each other only when:
-
-- both applications support the encoding version that the proxy selects. A proxy that Ice 3.8 creates from a string uses
-  encoding version 1.1 unless
-  [Ice.Default.EncodingVersion](../property-reference/ice-default-properties#ice.default.encodingversion) or the proxy's
-  `-e` option selects another version, while Ice 3.4 and earlier support only encoding version 1.0.
-- the data they exchange uses only Slice features that both releases support. For example, Ice 3.8 cannot skip an
-  [optional class](../upgrade-guide#optional-classes), so an Ice 3.8 application can reject a request or response from
-  an Ice 3.7 application that carries an optional parameter or field of a class type, even when its own Slice
-  definitions no longer include this parameter or field.
-- their connection settings are compatible. The idle check of an Ice 3.8 application can abort a healthy connection to
-  an Ice 3.7 or earlier application that does not send heartbeats; see
-  [The Idle Check](../runtime/connection-management/connection-closure#the-idle-check) for the configuration that
-  prevents these aborts.
+Ice maintains on-the-wire compatibility across releases: a client and a server using different Ice releases can
+communicate with each other.
 
 ## Interface Compatibility
 
-Changing Slice definitions can also lead to incompatibilities between applications. Ice maintains interface
-compatibility between a patch release and the most recent minor release, but does not guarantee interface compatibility
-between minor releases.
-
-This issue is particularly relevant if your application uses Ice services such as IceGrid or IceStorm, as a change to an
-interface in one of these services may adversely affect your application.
+Ice and the Ice services define Slice interfaces that your application uses, such as `Ice::Locator`, the IceStorm
+`Topic` interface or the IceGrid `Query` interface. Ice does not change these Slice definitions in an incompatible way
+between a patch release and the most recent minor release, but makes no such promise between minor releases, even though
+these definitions rarely change.
 
 Interface changes in an Ice service can also impact compatibility with its administrative tools, which means it may not
 be possible to administer a service using a tool from a previous minor release (or vice-versa).
