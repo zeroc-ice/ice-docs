@@ -83,15 +83,23 @@ class Location:
 When you don’t define a default value in Slice, and you initialize a field without providing a value for this field, the
 generated code uses the following default:
 
-| **Optional Field?** | **Slice Field Type**     | **Default Python Value**              |
-| ------------------- | ------------------------ | ------------------------------------- |
-| No                  | `string`                 | Empty string                          |
-|                     | `enum`                   | First enumerator in enumeration       |
-|                     | `struct`                 | New instance created with no argument |
-|                     | Numeric                  | `0`                                   |
-|                     | `bool`                   | `False`                               |
-|                     | `sequence`, `dictionary` | Empty list, empty dictionary          |
-|                     | `class`, proxy           | `None`                                |
-| Yes                 | Any                      | `None`                                |
+| **Optional Field?** | **Slice Field Type**           | **Default Python Value**              |
+| ------------------- | ------------------------------ | ------------------------------------- |
+| No                  | `string`                       | Empty string                          |
+|                     | `enum`                         | First enumerator in enumeration       |
+|                     | `struct`                       | New instance created with no argument |
+|                     | `byte`, `short`, `int`, `long` | `0`                                   |
+|                     | `float`, `double`              | `0.0`                                 |
+|                     | `bool`                         | `False`                               |
+|                     | `sequence<byte>`               | Empty `bytes`                         |
+|                     | Other `sequence`               | Empty list                            |
+|                     | `dictionary`                   | Empty dictionary                      |
+|                     | `class`, proxy                 | `None`                                |
+| Yes                 | Any                            | `None`                                |
+
+A sequence field whose type or declaration carries a
+[sequence metadata directive](../user-defined-types/sequences#customizing-the-sequence-mapping) defaults to an empty
+instance of the type the directive selects, such as an empty tuple for `python:tuple`. With `python:memoryview`, the
+generated code calls the factory function with `None` to create the default value.
 
 {% /language-section %}

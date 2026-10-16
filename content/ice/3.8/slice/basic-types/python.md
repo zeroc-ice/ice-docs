@@ -5,6 +5,7 @@ The Slice built-in types are mapped to Python types as shown in this table:
 | **Slice** | **Python** |
 | --------- | ---------- |
 | `bool`    | `bool`     |
+| `byte`    | `int`      |
 | `short`   | `int`      |
 | `int`     | `int`      |
 | `long`    | `int`      |
@@ -13,6 +14,6 @@ The Slice built-in types are mapped to Python types as shown in this table:
 | `string`  | `str`      |
 
 Although Python supports arbitrary precision in its integer types, the Ice runtime validates integer values to ensure
-they have valid ranges for their declared Slice types.
+they have valid ranges for their declared Slice types. For `byte`, the valid range is 0 to 255.
 
 {% /language-section %}
