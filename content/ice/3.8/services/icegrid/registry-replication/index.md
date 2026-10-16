@@ -198,8 +198,8 @@ files whenever you add or remove a registry replica. There are two ways to simpl
 
 - **Use a DNS name bound to multiple address (A) records** Configure the DNS name to point to the IP addresses of each
   of the registry replicas. You can then define the `Ice.Default.Locator` property with a single endpoint that embeds
-  the DNS name. The Ice run time in the client randomly picks one of these IP addresses when it resolves the DNS name.
-  All replicas must use the same port.
+  the DNS name. The Ice runtime in the client tries these IP addresses in the order the DNS resolver returns them, so
+  this order determines which replica a client contacts first. All replicas must use the same port.
 
 - **Use a TCP load balancer** Configure the load balancer to redirect traffic to the registry replicas and define the
   `Ice.Default.Locator` property with an endpoint that embeds the IP address and port of the TCP load balancer. The Ice
