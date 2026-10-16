@@ -261,9 +261,10 @@ The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so sett
 
 `ValueFactory` and `ValueFactoryManager` have been removed. In Ice 3.7, an application registered a value factory mainly
 to supply the implementation of a class with operations. Classes no longer have operations, so in most cases you remove
-your value factories and replace them with nothing. If you still need to create instances of your own classes during
-unmarshaling, implement a [Slice loader](../slice/user-defined-types/classes/slice-loaders) and set the `sliceLoader`
-field of `InitializationData`.
+your value factories and replace them with nothing.{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %} If
+you still need to create instances of your own classes during unmarshaling, implement a
+[Slice loader](../slice/user-defined-types/classes/slice-loaders) and set `sliceLoader` on `InitializationData`, or
+`SliceLoader` in MATLAB.{% /iflang %}
 
 In Java, the `Ice.Default.Package` and `Ice.Package.module` properties still work, but they are deprecated: we recommend
 registering a Slice loader in `InitializationData` instead. In Java and MATLAB, a class with a compact ID requires a
