@@ -54,7 +54,7 @@ deleted. This can be an issue if the deployed servers have databases stored in t
 
 #### Key Size
 
-A LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
+An LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
 511 bytes. For example, IceGrid stores applications in a persistent map where the keys are the application names,
 encoded using the [Ice encoding](../../../../encoding) for strings, and this LMDB limitation means you cannot select an
 application name with an arbitrary size.
@@ -78,7 +78,7 @@ identity.
 
 #### Map Size
 
-A LMDB database has a maximum size, known as its map size. The IceGrid registry database can store up to
+An LMDB database has a maximum size, known as its map size. The IceGrid registry database can store up to
 [IceGrid.Registry.LMDB.MapSize](../../../../property-reference/icegrid-properties) megabytes of data in its database;
 any attempt to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase
 `IceGrid.Registry.LMDB.MapSize` and restart the IceGrid registry.
@@ -95,7 +95,7 @@ The default `MapSize` provided by the IceGrid registry is expected to be suffici
 have an extremely large IceGrid deployment on Windows, we recommend keeping the default setting.
 
 Use the [mdb_stat](https://manpages.org/mdb_stat) utility to monitor the pages used by your IceGrid registry database.
-The example below shows a LMDB database with the default size on Linux (100 MB):
+The example below shows an LMDB database with the default size on Linux (100 MB):
 
 ```shell
 $ mdb_stat -e registry

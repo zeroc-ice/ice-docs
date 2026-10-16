@@ -2,8 +2,8 @@
 title: IceStorm Persistent Data
 ---
 
-IceStorm stores various information in a [LMDB](https://www.symas.com/lmdb.php) database, unless it's in transient mode.
-This section describes the data stored by IceStorm and database-related constraints.
+IceStorm stores various information in an [LMDB](https://www.symas.com/lmdb.php) database, unless it's in transient
+mode. This section describes the data stored by IceStorm and database-related constraints.
 
 ## Data Stored
 
@@ -17,7 +17,7 @@ IceStorm stores the following data in its LMDB database:
 
 ### Key Size
 
-A LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
+An LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
 511 bytes.
 
 IceStorm uses a single persistent map with application-provided data. This map has the following key:
@@ -47,7 +47,7 @@ subscriber identities.
 
 ### Map Size
 
-A LMDB database has a maximum size, known as its map size. The IceStorm database can store up to
+An LMDB database has a maximum size, known as its map size. The IceStorm database can store up to
 [IceStorm.LMDB.MapSize](../../../property-reference/icestorm-properties) megabytes of data in its database; any attempt
 to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase `IceStorm.LMDB.MapSize`
 and restart IceStorm.
@@ -64,7 +64,7 @@ The default `MapSize` provided by IceStorm is expected to be sufficient for most
 large IceStorm deployment on Windows, we recommend keeping the default setting.
 
 Use the [mdb_stat](https://manpages.org/mdb_stat) utility to monitor the pages used by your IceStorm database. The
-example below shows a LMDB database with the default size on Linux (100 MB):
+example below shows an LMDB database with the default size on Linux (100 MB):
 
 ```shell
 mdb_stat -e -a db
