@@ -28,8 +28,8 @@ A client may receive `Ice::NotRegisteredException` if
 that the proxy's object identity or object adapter is not known by the IceGrid registry. The following steps may help
 you discover the cause of the exception:
 
-1. Use [icegridadmin](../icegridadmin-command-line-tool) to verify that the object identity or object adapter identifier
-   is actually registered, and that it matches what is used by the proxy:
+1. Use [icegridadmin](../icegridadmin-command-line-tool) to verify that the object identity or object adapter ID is
+   actually registered, and that it matches what is used by the proxy:
 
    ```shell
    >>> adapter list
@@ -75,11 +75,11 @@ are a few suggestions:
    server process. This avoids the issues associated with starting the server manually (as described in the previous
    step), but does not provide as much flexibility in customizing the server's startup environment.
 
-Another cause for a server to fail to activate correctly is if there is a mismatch in the adapter identifiers used by
-the server for its adapters, and the adapter identifiers specified in the server's deployment descriptor. After starting
-a server process, the node waits for the server to activate all of its object adapters and report them as ready; if the
-server does not do this, the node reports a failure once a timeout expires. The timeout is controlled by the setting of
-the property [IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties). (The default value is 60 seconds.)
+Another cause for a server to fail to activate correctly is if there is a mismatch in the adapter IDs used by the server
+for its adapters, and the adapter IDs specified in the server's deployment descriptor. After starting a server process,
+the node waits for the server to activate all of its object adapters and report them as ready; if the server does not do
+this, the node reports a failure once a timeout expires. The timeout is controlled by the setting of the property
+[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties). (The default value is 60 seconds.)
 
 You can check the status of each of a server's adapters using `icegridadmin` or the GUI tool. While the node waits for
 an adapter to be activated by the server, it reports the status of the adapter as "activating". If you experience

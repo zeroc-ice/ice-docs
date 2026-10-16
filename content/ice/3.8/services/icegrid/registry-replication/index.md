@@ -44,8 +44,8 @@ master, the slave must be restarted.
 
 One of the most important functions of a registry replica is responding to locate requests from clients, and every
 replica has the capability to service these requests. Slaves synchronize their databases with the master so that they
-have all of the information necessary to transform object identities, object adapter identifiers, and replica group
-identifiers into an appropriate set of endpoints.
+have all of the information necessary to transform object identities, object adapter IDs, and replica group identifiers
+into an appropriate set of endpoints.
 
 ### Server Activation
 

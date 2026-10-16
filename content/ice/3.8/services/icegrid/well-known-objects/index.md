@@ -5,15 +5,15 @@ title: Well-Known Objects
 ## Overview of Well-Known Objects
 
 There are two types of [indirect proxies](../../../basics/terminology): one specifies an identity and an object adapter
-identifier, while the other contains only an identity. The latter type of indirect proxy is known as a
+ID, while the other contains only an identity. The latter type of indirect proxy is known as a
 [_well-known proxy_](../../../runtime/invocation/proxy-endpoints/well-known-proxy). A well-known proxy refers to a
 well-known object, that is, its identity alone is sufficient to allow the client to locate it. Ice requires all object
 identities in an application to be unique, but typically only a select few objects are able to be located only by their
 identities.
 
-In earlier sections we showed the relationship between indirect proxies containing an object adapter identifier and the
-IceGrid configuration. Briefly, in order for a client to use a proxy such as `factory@EncoderAdapter`, an object adapter
-must be given the identifier `EncoderAdapter`.
+In earlier sections we showed the relationship between indirect proxies containing an object adapter ID and the IceGrid
+configuration. Briefly, in order for a client to use a proxy such as `factory@EncoderAdapter`, an object adapter must be
+given the identifier `EncoderAdapter`.
 
 A similar requirement exists for well-known objects. The registry maintains a table of these objects, which can be
 populated in a number of ways:
@@ -303,8 +303,8 @@ selecting which of the two adapters receives the next task, we now need to selec
 
 ### Querying Ripper Objects with `findAllObjectsByType`
 
-The `IceGrid::Query` interface provides a way to eliminate the client's dependency on object adapter identifiers and
-object identities. Since our factories are registered with the same type, we can search for all objects of that type:
+The `IceGrid::Query` interface provides a way to eliminate the client's dependency on object adapter IDs and object
+identities. Since our factories are registered with the same type, we can search for all objects of that type:
 
 ```cpp
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};

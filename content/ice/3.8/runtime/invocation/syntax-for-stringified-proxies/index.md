@@ -12,14 +12,14 @@ title: Syntax for Stringified Proxies
 
 ## Description
 
-A stringified proxy consists of an identity, proxy options, and an optional object adapter identifier or endpoint list.
-The proxy options follow the identity and precede the `@` or `:` separator, and the object adapter identifier ends the
-string. White space (the space, tab (`\t`), line feed (`\n`), and carriage return (`\r`) characters) act as token
-delimiters; if a white space character appears as part of a component of a stringified proxy (such as the identity), it
-must be quoted or escaped as described below.
+A stringified proxy consists of an identity, proxy options, and an optional object adapter ID or endpoint list. The
+proxy options follow the identity and precede the `@` or `:` separator, and the object adapter ID ends the string. White
+space (the space, tab (`\t`), line feed (`\n`), and carriage return (`\r`) characters) act as token delimiters; if a
+white space character appears as part of a component of a stringified proxy (such as the identity), it must be quoted or
+escaped as described below.
 
 A proxy containing an identity with no endpoints is a [well-known proxy](../proxy-endpoints/well-known-proxy); a proxy
-with an identity and an object adapter identifier represents an indirect proxy that will be resolved using the
+with an identity and an object adapter ID represents an indirect proxy that will be resolved using the
 [Ice locator](../../locators).
 
 The following options are available:
@@ -47,7 +47,7 @@ The `facet` argument of the `-f` option represents a [facet](../../facets) name.
 must be enclosed in single or double quotes. A facet name is a string encoded like a
 [Slice String Literal](../../../slice/constants-and-literals).
 
-Likewise, an object adapter identifier `adapter_id` is a string encoded like a
+Likewise, an object adapter ID `adapter_id` is a string encoded like a
 [Slice String Literal](../../../slice/constants-and-literals). If `adapter_id` contains white space, it must be enclosed
 in single or double quotes.
 

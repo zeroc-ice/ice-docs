@@ -29,7 +29,7 @@ The interface operations `categories`, `adapterIds`, and `identities` return pro
 modifiable filters for the session. The router initializes these filters using their respective static configuration
 properties.
 
-The `SessionControl` object uses a `StringSet` to manage the category and adapter identifier filters:
+The `SessionControl` object uses a `StringSet` to manage the category and adapter ID filters:
 
 ```slice
 module Glacier2
