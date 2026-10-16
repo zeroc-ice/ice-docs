@@ -1,5 +1,8 @@
 ---
 title: Ice 3.8.1
+overviewTitle: Release Notes
+pages:
+  - supported-platforms
 ---
 
 This [patch release](../../compatibility) includes bug fixes and small improvements to Ice 3.8.

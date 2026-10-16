@@ -1,5 +1,8 @@
 ---
 title: Ice 3.8.0
+overviewTitle: Release Notes
+pages:
+  - supported-platforms
 ---
 
 ## Themes

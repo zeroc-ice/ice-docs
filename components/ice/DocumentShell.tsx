@@ -92,134 +92,143 @@ export const DocumentShell = ({
     ? languages.filter((language) => !writtenFor.includes(language))
     : [];
 
+  // The outline keeps to the right edge of the window, as the sidebar keeps to
+  // the left, and the article is centered in the space between them.
   return (
-    <div className="flex shrink flex-row justify-center lg:justify-start">
-      <div className="size-full max-w-232 contain-inline-size sm:mx-6 md:mx-10 lg:mx-12">
-        {breadcrumbs.length > 0 && (
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-5 text-[13px] text-ink-secondary"
-          >
-            <ol className="flex flex-wrap items-center gap-1.5">
-              {breadcrumbs.map((crumb, i) => (
-                <li key={i} className="flex items-center gap-1.5">
-                  {i > 0 && (
-                    <span aria-hidden="true" className="text-ink-disabled">
-                      /
-                    </span>
-                  )}
-                  {crumb.href ? (
-                    <Link
-                      href={crumb.href}
-                      className="focus-ring-text font-medium text-link transition-colors hover:text-ink"
-                    >
-                      {crumb.title}
-                    </Link>
-                  ) : (
-                    <span>{crumb.title}</span>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </nav>
-        )}
+    <div className="flex flex-row">
+      <div className="min-w-0 grow sm:px-6 md:px-10 lg:px-12">
+        <div className="mx-auto max-w-232 contain-inline-size">
+          {breadcrumbs.length > 0 && (
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-5 text-[13px] text-ink-secondary"
+            >
+              <ol className="flex flex-wrap items-center gap-1.5">
+                {breadcrumbs.map((crumb, i) => (
+                  <li key={i} className="flex items-center gap-1.5">
+                    {i > 0 && (
+                      <span aria-hidden="true" className="text-ink-disabled">
+                        /
+                      </span>
+                    )}
+                    {crumb.href ? (
+                      <Link
+                        href={crumb.href}
+                        className="focus-ring-text font-medium text-link transition-colors hover:text-ink"
+                      >
+                        {crumb.title}
+                      </Link>
+                    ) : (
+                      <span>{crumb.title}</span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
 
-        <article data-page-shape={shape}>
-          {title && (
-            <header className="mb-10">
-              {type && (
-                <div className="mb-2">
-                  <PageTypeBadge type={type} />
-                </div>
-              )}
-              <h1>{title}</h1>
-              {description && (
-                <p className="mt-3 text-lg text-ink-secondary">{description}</p>
-              )}
-              {/* "1 min read" under a one-sentence signpost is noise; the time
+          <article data-page-shape={shape}>
+            {title && (
+              <header className="mb-10">
+                {type && (
+                  <div className="mb-2">
+                    <PageTypeBadge type={type} />
+                  </div>
+                )}
+                <h1>{title}</h1>
+                {description && (
+                  <p className="mt-3 text-lg text-ink-secondary">
+                    {description}
+                  </p>
+                )}
+                {/* "1 min read" under a one-sentence signpost is noise; the time
                 earns its place on an article long enough that the reader is
                 deciding whether to start now. */}
-              {Object.entries(readingTime ?? {})
-                .filter(
-                  ([language, text]) =>
-                    (!writtenFor || writtenFor.includes(language)) &&
-                    Number.parseInt(text, 10) >= 2
-                )
-                .map(([language, text]) => (
-                  <p
-                    key={language}
-                    data-langs={language}
-                    className="mt-2 text-[13px] text-ink-muted"
-                  >
-                    {text}
-                  </p>
-                ))}
-            </header>
-          )}
+                {Object.entries(readingTime ?? {})
+                  .filter(
+                    ([language, text]) =>
+                      (!writtenFor || writtenFor.includes(language)) &&
+                      Number.parseInt(text, 10) >= 2
+                  )
+                  .map(([language, text]) => (
+                    <p
+                      key={language}
+                      data-langs={language}
+                      className="mt-2 text-[13px] text-ink-muted"
+                    >
+                      {text}
+                    </p>
+                  ))}
+              </header>
+            )}
 
-          {writtenFor && notWrittenFor.length > 0 && (
-            <div data-langs={notWrittenFor.join(' ')}>
-              <Callout type="note">
-                <LanguageNotice writtenFor={writtenFor} />
-              </Callout>
-            </div>
-          )}
+            {writtenFor && notWrittenFor.length > 0 && (
+              <div data-langs={notWrittenFor.join(' ')}>
+                <Callout type="note">
+                  <LanguageNotice writtenFor={writtenFor} />
+                </Callout>
+              </div>
+            )}
 
-          {/* The body hides as the outline already does, leaving a reader the
+            {/* The body hides as the outline already does, leaving a reader the
               page is not written for the notice alone. */}
-          <div data-langs={writtenFor?.join(' ')}>
-            <div className="doc-body" style={{ counterReset: 'step-counter' }}>
-              {children}
-            </div>
-          </div>
-
-          {pagination
-            .filter(({ prev, next }) => prev || next)
-            .map(({ langs, prev, next }) => (
-              <nav
-                key={langs.join(' ')}
-                data-langs={langs.join(' ')}
-                aria-label="Pagination"
-                className="mt-14 flex gap-3 border-t border-hairline pt-5 text-sm"
+            <div data-langs={writtenFor?.join(' ')}>
+              <div
+                className="doc-body"
+                style={{ counterReset: 'step-counter' }}
               >
-                {/* Text links, not cards. A bordered half-width card gives "the next
+                {children}
+              </div>
+            </div>
+
+            {pagination
+              .filter(({ prev, next }) => prev || next)
+              .map(({ langs, prev, next }) => (
+                <nav
+                  key={langs.join(' ')}
+                  data-langs={langs.join(' ')}
+                  aria-label="Pagination"
+                  className="mt-14 flex gap-3 border-t border-hairline pt-5 text-sm"
+                >
+                  {/* Text links, not cards. A bordered half-width card gives "the next
                 page in this section" the same visual weight as the article, which
                 is conspicuous on a short page where the card is most of it. */}
-                {prev ? (
-                  <Link
-                    href={prev.href}
-                    className="group focus-ring-text min-w-0 flex-1"
-                  >
-                    <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
-                      Previous
-                    </div>
-                    <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
-                      <span aria-hidden="true">← </span>
-                      {prev.title}
-                    </div>
-                  </Link>
-                ) : (
-                  <div className="flex-1" />
-                )}
-                {next ? (
-                  <Link
-                    href={next.href}
-                    className="group focus-ring-text min-w-0 flex-1 text-right"
-                  >
-                    <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
-                      Next
-                    </div>
-                    <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
-                      {next.title}
-                      <span aria-hidden="true"> →</span>
-                    </div>
-                  </Link>
-                ) : (
-                  <div className="flex-1" />
-                )}
-              </nav>
-            ))}
-        </article>
+                  {prev ? (
+                    <Link
+                      href={prev.href}
+                      className="group focus-ring-text min-w-0 flex-1"
+                    >
+                      <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
+                        Previous
+                      </div>
+                      <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
+                        <span aria-hidden="true">← </span>
+                        {prev.title}
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="flex-1" />
+                  )}
+                  {next ? (
+                    <Link
+                      href={next.href}
+                      className="group focus-ring-text min-w-0 flex-1 text-right"
+                    >
+                      <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
+                        Next
+                      </div>
+                      <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
+                        {next.title}
+                        <span aria-hidden="true"> →</span>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="flex-1" />
+                  )}
+                </nav>
+              ))}
+          </article>
+        </div>
       </div>
 
       {/* A long outline scrolls on its own, so the actions under it stay in

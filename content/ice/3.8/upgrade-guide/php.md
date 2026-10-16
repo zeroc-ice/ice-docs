@@ -14,7 +14,7 @@
 ## PHP Requirements
 
 Ice for PHP 3.8 requires PHP 8.0 or later and runs on Linux and macOS. See
-[Supported Platforms for Ice 3.8.3](../release-notes/supported-platforms-for-ice-3-8-3) for the tested PHP versions and
+[Supported Platforms for Ice 3.8.3](../release-notes/ice-3-8-3/supported-platforms) for the tested PHP versions and
 operating systems.
 
 ## Flattened Mapping

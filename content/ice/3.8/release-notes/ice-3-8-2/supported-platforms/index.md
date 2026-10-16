@@ -1,5 +1,5 @@
 ---
-title: Supported Platforms for Ice 3.8.2
+title: Supported Platforms
 ---
 
 Ice 3.8.2 is fully tested and supported on the platform, compiler, and environment combinations shown below. Other

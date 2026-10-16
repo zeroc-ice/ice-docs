@@ -6,13 +6,14 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import { ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronDown, ChevronRight, ListFilter, Menu, X } from 'lucide-react';
 
 import {
   type DocsVersion,
   type SideNavNode,
   SITE_TITLE,
   activeTrailKeys,
+  filterSideNav,
   sideNavKey
 } from '@/lib/docs-model/nav';
 import { useLanguage, useMounted } from '@/context/state';
@@ -53,6 +54,10 @@ function writeState(key: string, value: unknown) {
 // branch stays emphasised while folded, so "where am I" survives the fold. What
 // the reader opened stays open across navigations, so the tree does not
 // rearrange itself under the click that moved them.
+//
+// A filter above the tree narrows it to the entries whose titles match, with
+// every group on the way down to them open. It leaves the groups the reader
+// opened alone, so clearing it brings back the tree they had.
 //
 // The tree is the same on every page of a version, so the current page is the
 // entry whose link is the address's path.
@@ -95,11 +100,26 @@ export function SideNav({
   }
   const open = clicked ?? initialOpen;
 
+  // The filter outlasts a navigation, so a reader can work through what it
+  // found. While it is on, every group it shows starts open, and a click folds
+  // one away until the query changes.
+  const [query, setQuery] = useState('');
+  const filter = query.trim();
+  const language = useLanguage();
+  const matches = useMemo(
+    () => (filter ? filterSideNav(nodes, filter, language) : null),
+    [nodes, filter, language]
+  );
+  const [folded, setFolded] = useState<Set<string> | null>(null);
+  const changeQuery = (value: string) => {
+    setQuery(value);
+    setFolded(null);
+  };
+
+  const isOpen = (key: string) => (matches ? !folded?.has(key) : open.has(key));
   const toggle = (key: string) => {
-    const next = new Set(open);
-    if (next.has(key)) next.delete(key);
-    else next.add(key);
-    setClicked(next);
+    if (matches) setFolded(flip(folded ?? new Set(), key));
+    else setClicked(flip(open, key));
   };
 
   // Persist the effective set, not just the clicks: the branch that opened on
@@ -109,77 +129,197 @@ export function SideNav({
     if (mounted) writeState(openKey(version.path), [...open]);
   }, [mounted, open, version]);
 
-  // On load and on every navigation, make sure the current page is in view: it
-  // is when the reader clicked it in the rail, and may not be when they
-  // arrived by a previous/next link, from search, or by loading the page. A
-  // language switch can move it too, by showing or hiding the entries written
-  // for some languages.
-  const language = useLanguage();
-  const navRef = useRef<HTMLElement>(null);
-  useLayoutEffect(() => {
-    if (mounted && navRef.current) revealCurrentPage(navRef.current);
-  }, [mounted, pathname, language]);
-
   if (nodes.length === 0) return null;
 
-  const tree = (
-    <Tree
-      nodes={nodes}
-      path={[]}
-      depth={0}
-      pathname={pathname}
-      open={open}
-      trail={trail}
-      toggle={toggle}
-      // Groups open by a click slide open; groups restored from storage or
-      // opened for the current page are simply there, so the rail lays out
-      // at its final height before the current page is brought into view.
-      animate={clicked !== null}
-    />
+  const tree =
+    matches?.length === 0 ? (
+      <p className="px-2 py-1.5 text-ink-muted">No page matches “{filter}”.</p>
+    ) : (
+      <Tree
+        nodes={matches ?? nodes}
+        path={[]}
+        depth={0}
+        pathname={pathname}
+        isOpen={isOpen}
+        trail={trail}
+        toggle={toggle}
+        // Groups open by a click slide open; groups restored from storage,
+        // opened for the current page, or opened by the filter are simply
+        // there, so the rail lays out at its final height before the current
+        // page is brought into view.
+        animate={matches ? folded !== null : clicked !== null}
+      />
+    );
+  const contents = (
+    <Contents query={query} onQueryChange={changeQuery} filter={filter}>
+      {tree}
+    </Contents>
   );
 
   return (
     <>
       <nav
-        ref={navRef}
         aria-label={`${SITE_TITLE} navigation`}
-        // `contain-size` keeps the tree's height out of the row's, so a short
-        // page stays viewport-high with the footer at the bottom; the rail then
-        // stretches to the row, capped at the viewport. The scrollbar's space
-        // stays reserved while the tree fits, so the labels don't rewrap when
-        // opening a group makes the rail scroll.
-        className="sticky top-22 hidden max-h-[calc(100vh-7rem)] w-66 shrink-0 scrollbar-gutter-stable overflow-y-auto overscroll-contain pr-3 pb-8 text-sm contain-size lg:block"
+        // The rail runs down the left edge of the window, from the header to
+        // the footer. `contain-size` keeps the tree's height out of the row's,
+        // so a short page stays viewport-high with the footer at the bottom;
+        // the rail then stretches to the row, capped at the viewport.
+        className="sticky top-14 hidden max-h-[calc(100vh-3.5rem)] w-72 shrink-0 flex-col border-r border-hairline text-sm contain-size lg:flex"
       >
-        {tree}
+        {contents}
       </nav>
-      <Drawer>{tree}</Drawer>
+      <Drawer>{contents}</Drawer>
     </>
   );
 }
 
-// Scrolls `nav` to the current page's entry unless it is in view already.
-// `nav` must be positioned, so that it is its entries' offset parent. An entry
-// hidden for the reader's language has no position to show.
-function revealCurrentPage(nav: HTMLElement) {
+// A copy of `set` with `key` added, or removed if it was there.
+function flip(set: ReadonlySet<string>, key: string): Set<string> {
+  const next = new Set(set);
+  if (next.has(key)) next.delete(key);
+  else next.add(key);
+  return next;
+}
+
+// The filter box and the tree, in the rail and in the drawer alike. They scroll
+// as one, with the box held at the top while the tree passes under it.
+function Contents({
+  query,
+  onQueryChange,
+  filter,
+  children
+}: {
+  query: string;
+  onQueryChange: (query: string) => void;
+  /** The query as it applies, without surrounding spaces. */
+  filter: string;
+  children: React.ReactNode;
+}) {
+  const mounted = useMounted();
+  const pathname = usePathname();
+  const language = useLanguage();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const reveal = () =>
+    revealCurrentPage(scrollRef.current!, boxRef.current!.offsetHeight);
+  // A line under the box shows that the tree has scrolled under it.
+  const [scrolled, setScrolled] = useState(false);
+
+  // On load and on every navigation, make sure the current page is in view: it
+  // is when the reader clicked it in the rail, and may not be when they
+  // arrived by a previous/next link, from search, or by loading the page. A
+  // language switch can move it too, by showing or hiding the entries written
+  // for some languages.
+  useLayoutEffect(() => {
+    if (mounted) reveal();
+  }, [mounted, pathname, language]);
+
+  // A new filter shows what it matched from the top; clearing it goes back to
+  // the current page.
+  useLayoutEffect(() => {
+    if (filter) scrollRef.current!.scrollTop = 0;
+    else reveal();
+  }, [filter]);
+
+  return (
+    <div
+      ref={scrollRef}
+      onScroll={(event) => setScrolled(event.currentTarget.scrollTop > 0)}
+      // Positioned, as revealCurrentPage requires. The scrollbar's space
+      // stays reserved while the tree fits, so the labels don't rewrap when
+      // opening a group makes the rail scroll.
+      className="relative min-h-0 grow scrollbar-gutter-stable overflow-y-auto overscroll-contain px-3 pb-8"
+    >
+      <div
+        ref={boxRef}
+        className={clsx(
+          'sticky top-0 z-10 -mx-3 border-b bg-surface/85 px-3 pt-4 pb-3 backdrop-blur transition-colors',
+          scrolled ? 'border-hairline' : 'border-transparent'
+        )}
+      >
+        <NavFilter value={query} onChange={onQueryChange} />
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function NavFilter({
+  value,
+  onChange
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <div className="relative">
+      <ListFilter
+        className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-ink-muted"
+        aria-hidden="true"
+      />
+      <input
+        ref={inputRef}
+        type="search"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onKeyDown={(event) => {
+          // Escape empties the box before it closes the drawer.
+          if (event.key === 'Escape' && value) {
+            event.preventDefault();
+            onChange('');
+          }
+        }}
+        placeholder="Filter sidebar"
+        aria-label="Filter sidebar"
+        // 16px text on a phone, where Safari zooms into anything smaller as
+        // it takes focus. The browser's own clear button gives way to ours,
+        // which every browser shows.
+        className="h-8 w-full rounded-md border border-hairline-strong bg-surface pr-8 pl-8 text-base text-ink focus-ring placeholder:text-ink-muted lg:text-sm [&::-webkit-search-cancel-button]:appearance-none"
+      />
+      {value && (
+        <button
+          type="button"
+          onClick={() => {
+            onChange('');
+            inputRef.current!.focus();
+          }}
+          className="absolute inset-y-0 right-0 flex w-8 items-center justify-center rounded-md text-ink-muted focus-ring transition-colors hover:text-ink"
+        >
+          <X className="size-3.5" aria-hidden="true" />
+          <span className="sr-only">Clear the filter</span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+// Scrolls `nav` to the current page's entry unless it is in view already,
+// below the `covered` pixels the filter box holds at its top. `nav` must be
+// positioned, so that it is its entries' offset parent. An entry hidden for the
+// reader's language has no position to show.
+function revealCurrentPage(nav: HTMLElement, covered: number) {
   const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
   if (!active || active.offsetParent === null) return;
   const top = active.offsetTop;
   const bottom = top + active.offsetHeight;
-  if (top < nav.scrollTop || bottom > nav.scrollTop + nav.clientHeight) {
-    nav.scrollTop = Math.max(0, top - nav.clientHeight / 2);
+  if (
+    top < nav.scrollTop + covered ||
+    bottom > nav.scrollTop + nav.clientHeight
+  ) {
+    nav.scrollTop = Math.max(0, top - (covered + nav.clientHeight) / 2);
   }
 }
 
 // Below the large breakpoint the rail has no room, so a button in the header
-// opens the same tree, with the same groups open, in a drawer. Only the version
-// layout has the tree, so the button renders into the header's
-// #ice-header-menu. The drawer holds the tree only while it is open, so the
-// page carries one copy of it rather than two.
+// opens the same tree, with the same groups open and the same filter, in a
+// drawer. Only the version layout has the tree, so the button renders into the
+// header's #ice-header-menu. The drawer holds the tree only while it is open,
+// so the page carries one copy of it rather than two.
 function Drawer({ children }: { children: React.ReactNode }) {
   const mounted = useMounted();
   const target = mounted ? document.getElementById('ice-header-menu') : null;
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const navRef = useRef<HTMLElement>(null);
   const [expanded, setExpanded] = useState(false);
 
   // A navigation from outside the drawer, such as going back, closes it too.
@@ -199,12 +339,6 @@ function Drawer({ children }: { children: React.ReactNode }) {
     wide.addEventListener('change', onChange);
     return () => wide.removeEventListener('change', onChange);
   }, []);
-
-  // The tree renders as the drawer opens, so it is brought to the current page
-  // once it is there, before paint.
-  useLayoutEffect(() => {
-    if (expanded) revealCurrentPage(navRef.current!);
-  }, [expanded]);
 
   return (
     <>
@@ -257,11 +391,9 @@ function Drawer({ children }: { children: React.ReactNode }) {
               <span className="sr-only">Close</span>
             </button>
           </div>
-          <nav
-            ref={navRef}
-            // Positioned, as revealCurrentPage requires.
-            className="relative grow scrollbar-gutter-stable overflow-y-auto overscroll-contain px-4 pt-4 pb-8 text-sm"
-          >
+          {/* The contents render as the drawer opens, which brings the tree
+              to the current page. */}
+          <nav className="flex min-h-0 grow flex-col text-sm">
             {expanded && children}
           </nav>
         </div>
@@ -276,7 +408,7 @@ interface TreeProps {
   depth: number;
   /** The current page's path, which its entry links to. */
   pathname: string;
-  open: ReadonlySet<string>;
+  isOpen: (key: string) => boolean;
   /** The keys of the groups that lead to the current page. */
   trail: ReadonlySet<string>;
   toggle: (key: string) => void;
@@ -288,81 +420,78 @@ function Tree({
   path,
   depth,
   pathname,
-  open,
+  isOpen,
   trail,
   toggle,
   animate
 }: TreeProps) {
   return (
-    <ul className="flex flex-col">
+    // A nested list hangs on a guide line under its group's title.
+    <ul
+      className={clsx(
+        'flex flex-col',
+        depth > 0 && 'ml-2 border-l border-hairline pl-3'
+      )}
+    >
       {nodes.map((node) => {
         const nodePath = [...path, node.href ?? node.title];
         const k = sideNavKey(nodePath);
         const hasItems = node.items.length > 0;
-        const isOpen = hasItems && open.has(k);
+        const expanded = hasItems && isOpen(k);
         const active = node.href === pathname;
 
         // The trail down to the current page stays emphasised even when folded.
         const onActiveTrail = trail.has(k);
 
-        const chevron = (
-          <ChevronRight
-            className={clsx(
-              'size-3.5 ease-out motion-reduce:transition-none',
-              animate && 'transition-transform duration-200',
-              isOpen && 'rotate-90'
-            )}
-            aria-hidden="true"
-          />
-        );
+        // Two icons rather than one rotated: Safari draws a transformed
+        // element over the blurred filter box when the tree scrolls under it.
+        // A rotation can return once Safari blurs it like the rest.
+        const Chevron = expanded ? ChevronDown : ChevronRight;
+        const chevron = <Chevron className="size-3.5" aria-hidden="true" />;
 
         const label = clsx(
           'block flex-1 rounded-md px-2 py-1.5 text-left leading-snug transition-colors focus-ring',
           active
             ? 'text-link'
             : onActiveTrail
-              ? 'text-ink hover:text-link font-semibold'
+              ? 'text-ink group-hover:text-link font-semibold'
               : // Top-level entries carry the shape of the docs, so they read at
                 // full strength; their children step back a shade.
                 clsx(
-                  'hover:text-link',
+                  'group-hover:text-link',
                   depth === 0 ? 'text-ink' : 'text-ink-secondary'
                 )
         );
 
         return (
           <li key={k} data-langs={node.writtenFor?.join(' ')}>
-            {/* The chevron keeps its own column at every depth, so labels line
-                up on one edge instead of stepping in and out with the arrows. */}
-            <div
-              className="flex items-start"
-              style={{ paddingLeft: depth * 12 }}
-            >
+            {/* The chevron ends the row, so the labels at a depth start on one
+                edge whether or not they have one. The row is the hover
+                target, so pointing at a group's chevron lights its title. */}
+            <div className="group flex items-start">
               {hasItems ? (
-                // A group's page is its Overview entry, so the whole row
-                // toggles: the target is the row rather than a 14px arrow.
+                // A group's own page, when it has one, is its first entry, so
+                // the whole row toggles: the target is the row rather than a
+                // 14px arrow.
                 <button
                   type="button"
                   onClick={() => toggle(k)}
-                  aria-expanded={isOpen}
+                  aria-expanded={expanded}
                   className="flex flex-1 items-start rounded-md text-left focus-ring"
                 >
-                  <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted">
+                  <span className={label}>{node.title}</span>
+                  <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center text-ink-muted transition-colors group-hover:text-link">
                     {chevron}
                   </span>
-                  <span className={label}>{node.title}</span>
                 </button>
               ) : (
-                <>
-                  <span className="w-5 shrink-0" />
-                  <RailLink
-                    href={node.href!}
-                    aria-current={active ? 'page' : undefined}
-                    className={label}
-                  >
-                    {node.title}
-                  </RailLink>
-                </>
+                <RailLink
+                  href={node.href!}
+                  aria-current={active ? 'page' : undefined}
+                  className={label}
+                >
+                  {node.title}
+                </RailLink>
               )}
             </div>
 
@@ -376,7 +505,7 @@ function Tree({
                   'grid ease-out motion-reduce:transition-none',
                   animate &&
                     'transition-[grid-template-rows,visibility] duration-200',
-                  isOpen ? 'grid-rows-[1fr]' : 'invisible grid-rows-[0fr]'
+                  expanded ? 'grid-rows-[1fr]' : 'invisible grid-rows-[0fr]'
                 )}
               >
                 <div className="overflow-hidden">
@@ -385,7 +514,7 @@ function Tree({
                     path={nodePath}
                     depth={depth + 1}
                     pathname={pathname}
-                    open={open}
+                    isOpen={isOpen}
                     trail={trail}
                     toggle={toggle}
                     animate={animate}

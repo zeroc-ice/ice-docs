@@ -20,7 +20,13 @@ pages:
   - property-reference
   - compatibility
   - icerpc
-  - release-notes
+  - release-notes:
+      title: Release Notes
+      pages:
+        - ice-3-8-3
+        - ice-3-8-2
+        - ice-3-8-1
+        - ice-3-8-0
 ---
 
 {% selection /%}
@@ -386,13 +392,13 @@ bar or press `Ctrl+K`, or `⌘K` on macOS.
 
 {% releases %}
 
-{% release name="Ice 3.8.3" notes="./release-notes/ice-3-8-3" platforms="./release-notes/supported-platforms-for-ice-3-8-3" date="September 10, 2026" /%}
+{% release name="Ice 3.8.3" notes="./release-notes/ice-3-8-3" platforms="./release-notes/ice-3-8-3/supported-platforms" date="September 10, 2026" /%}
 
-{% release name="Ice 3.8.2" notes="./release-notes/ice-3-8-2" platforms="./release-notes/supported-platforms-for-ice-3-8-2" date="June 4, 2026" /%}
+{% release name="Ice 3.8.2" notes="./release-notes/ice-3-8-2" platforms="./release-notes/ice-3-8-2/supported-platforms" date="June 4, 2026" /%}
 
-{% release name="Ice 3.8.1" notes="./release-notes/ice-3-8-1" platforms="./release-notes/supported-platforms-for-ice-3-8-1" date="March 3, 2026" /%}
+{% release name="Ice 3.8.1" notes="./release-notes/ice-3-8-1" platforms="./release-notes/ice-3-8-1/supported-platforms" date="March 3, 2026" /%}
 
-{% release name="Ice 3.8.0" notes="./release-notes/ice-3-8-0" platforms="./release-notes/supported-platforms-for-ice-3-8-0" date="December 17, 2025" /%}
+{% release name="Ice 3.8.0" notes="./release-notes/ice-3-8-0" platforms="./release-notes/ice-3-8-0/supported-platforms" date="December 17, 2025" /%}
 
 {% /releases %}
 
