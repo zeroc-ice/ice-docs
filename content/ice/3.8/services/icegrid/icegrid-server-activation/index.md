@@ -67,9 +67,9 @@ or when the session is destroyed.
 
 ## Activating Servers with Specific User IDs
 
-An IceGrid node that runs as root on Unix, including macOS, runs each server under the operating system account that the
+An IceGrid node that runs as root on Linux or macOS runs each server under the operating system account that the
 server's user string, described below, maps to. On Windows, or when the node does not run as root, the node runs every
-server under its own account, and fails to load a server whose user string maps to another account.
+server under its own account and needs no user account mapper; a user string, when set, must map to this account.
 
 ### The User String
 
@@ -77,15 +77,11 @@ For each server, the node computes a user string:
 
 - When the [server descriptor](../icegrid-xml-reference/server-descriptor-element) sets the `user` attribute, the user
   string is the value of this attribute.
-- When the `user` attribute is not set and the node runs as root on Unix, the user string is the session ID for a server
-  with the `session` activation mode, and `nobody` for a server with any other activation mode.
-
-The node computes the user string of a server with the `session` activation mode when a session allocates the server;
-until then, this user string is empty.
+- Otherwise, on a node running as root on Linux or macOS, the user string is the session ID for a server with the
+  `session` activation mode, and `nobody` for any other server; on other nodes, it is empty.
 
 The session ID is the user ID for a session created with a user ID and password, and the distinguished name of the
-client certificate for a session created from a secure connection. It is also the value of the `${session.id}`
-[reserved variable](../using-descriptor-variables-and-parameters).
+client certificate for a session created from a secure connection.
 
 When a user account mapper is configured, the node maps a non-empty user string to an account name, whatever the
 activation mode. Without a mapper, the user string is the account name. The node refuses to run a server as root unless
@@ -110,14 +106,14 @@ interface UserAccountMapper
 }
 ```
 
-The node calls `getUserAccount` with the user string and runs the server under the returned account. When the mapper
-throws `UserAccountNotFoundException`, the node fails to load the server.
+The node calls `getUserAccount` with the user string and runs the server under the returned account. A server whose user
+string the mapper does not know cannot start.
 
 IceGrid provides a built-in file-based user account mapper, which you can configure for a node and for the registry.
 Each line of the file contains an account name, white space, and the user string that maps to this account. The user
 string is the rest of the line and can contain spaces. A `#` starts a comment that runs to the end of the line. When the
-same user string appears on several lines, the last line wins. The file-based mapper throws
-`UserAccountNotFoundException` for any user string missing from the file, including `nobody`.
+same user string appears on several lines, the last line wins. The file has no default entry: every user string the node
+can produce, `nobody` included, needs a line.
 
 The following file maps the `user` attribute `lisa` of a server descriptor, the user ID `lisa` of a session created with
 a password, and the distinguished name of Lisa's client certificate to the local account `lisa`, and maps `nobody` to
