@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
-A Slice module maps to a Ruby module named after the Slice module, with its first letter capitalized. The mapping
-preserves the nesting of the Slice definitions. For example:
+A Slice module maps to a Ruby module with the same name, capitalized. The mapping preserves the nesting of the Slice
+definitions. For example:
 
 ```slice
 module M1::M2
@@ -47,8 +47,8 @@ module Time
 }
 ```
 
-The generated code defines the module `Remote::Clock` but not the module `Remote`: your application must define `Remote`
-before it loads the generated code.
+The generated code defines `Remote::Clock` but not `Remote`, which your application must define before it loads the
+generated code.
 
 You can only use `ruby:identifier` on a module with a simple name - this metadata directive is not compatible with the
 nested module syntax.
