@@ -135,9 +135,8 @@ milliseconds with the defaults).
 DataStorm uses the adapter name `DataStorm.Node.Server` for the object adapter that processes incoming requests from
 other DataStorm nodes.
 
-[DataStorm.Node.Server.Endpoints](../object-adapter-properties#adapter.endpoints) controls the server endpoint for a
-DataStorm node. If not defined, the default endpoint is `tcp`, and the node listens on all available network interfaces
-with a system allocated port number.
+If [DataStorm.Node.Server.Endpoints](../object-adapter-properties#adapter.endpoints) is not defined, the node uses
+`tcp`: it listens on all available network interfaces with a system allocated port number.
 
 {% /property-description %}
 

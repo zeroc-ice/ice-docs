@@ -171,8 +171,6 @@ Specifies the path to the LMDB database environment of this IceStorm service. If
 
 In a [replicated deployment](../../services/icestorm/highly-available-icestorm), IceStorm uses the adapter name
 `IceStorm.Node` for the replica node's object adapter.
-[IceStorm.Node.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints on which this adapter
-receives requests from the other replicas.
 
 {% /property-description %}
 
@@ -224,8 +222,7 @@ explicitly configured with the proxies of all other replicas. The value is a pro
 {% property-description %}
 
 IceStorm uses the adapter name `IceStorm.Publish` for the object adapter that processes incoming requests from
-publishers. [IceStorm.Publish.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints on which
-this adapter receives events.
+publishers.
 
 {% /property-description %}
 
@@ -329,9 +326,8 @@ older events will be removed to make room for new events. The default value is `
 
 {% property-description %}
 
-IceStorm uses the adapter name `IceStorm.TopicManager` for the topic manager's object adapter.
-[IceStorm.TopicManager.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints of the topic
-manager and topic objects.
+IceStorm uses the adapter name `IceStorm.TopicManager` for the object adapter that hosts the topic manager and the
+topics.
 
 {% /property-description %}
 

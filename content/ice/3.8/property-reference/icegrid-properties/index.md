@@ -44,8 +44,7 @@ specify it indirectly with `Ice.Default.Locator`.
 {% property-description %}
 
 An IceGrid node uses the adapter name `IceGrid.Node` for the object adapter that the registry contacts to communicate
-with the node. [IceGrid.Node.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints of this
-adapter. The node requires this property to start.
+with the node. The node requires [IceGrid.Node.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 {% /property-description %}
 
@@ -470,9 +469,7 @@ The default value is `0`.
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.AdminSessionManager` for the object adapter that processes
-incoming requests from [IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions). (Note
-any setting of `IceGrid.Registry.AdminSessionManager.AdapterId` is ignored because the registry always provides a direct
-adapter.)
+incoming requests from [IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions).
 
 The registry creates this adapter only when
 [IceGrid.Registry.AdminSessionManager.Endpoints](../object-adapter-properties#adapter.endpoints) is set. These endpoints
@@ -510,13 +507,11 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 {% property-description %}
 
 IceGrid uses the adapter name `IceGrid.Registry.Client` for the object adapter that processes incoming requests from
-clients. (Note any setting of `IceGrid.Registry.Client.AdapterId` is ignored because the registry always provides a
-direct adapter.)
+clients.
 
-[IceGrid.Registry.Client.Endpoints](../object-adapter-properties#adapter.endpoints) sets the client endpoints of the
-registry. The registry requires this property to start. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved
-for the registry by the
-[Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
+The registry requires [IceGrid.Registry.Client.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
+[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers 4061 (TCP) and 4062
+(SSL) to the registry.
 
 {% /property-description %}
 
@@ -677,11 +672,9 @@ dynamically register an adapter with a replica group registered with the
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Internal` for the object adapter that processes incoming
-requests from nodes and slave replicas. (Note any setting of `IceGrid.Registry.Internal.AdapterId` is ignored because
-the registry always provides a direct adapter.)
+requests from nodes and slave replicas.
 
-[IceGrid.Registry.Internal.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints of this
-adapter. The registry requires this property to start.
+The registry requires [IceGrid.Registry.Internal.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 {% /property-description %}
 
@@ -800,11 +793,9 @@ A value of `0` disables the expiration of replica sessions; any other value must
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Server` for the object adapter that processes incoming
-requests from servers. (Note any setting of `IceGrid.Registry.Server.AdapterId` is ignored because the registry always
-provides a direct adapter.)
+requests from servers.
 
-[IceGrid.Registry.Server.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints of this adapter.
-The registry requires this property to start.
+The registry requires [IceGrid.Registry.Server.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 {% /property-description %}
 
@@ -839,9 +830,7 @@ The default value is `0`.
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.SessionManager` for the object adapter that processes
-incoming requests from [client sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). (Note any
-setting of `IceGrid.Registry.SessionManager.AdapterId` is ignored because the registry always provides a direct
-adapter.)
+incoming requests from [client sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions).
 
 The registry creates this adapter only when
 [IceGrid.Registry.SessionManager.Endpoints](../object-adapter-properties#adapter.endpoints) is set. These endpoints
