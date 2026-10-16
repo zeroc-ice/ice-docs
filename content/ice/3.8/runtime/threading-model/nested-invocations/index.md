@@ -8,44 +8,52 @@ languages:
   - swift
 ---
 
-A _nested invocation_ is one that is made within the context of another Ice operation. For instance, the implementation
-of an operation in a servant might want to invoke an operation another object (using a proxy).
+A _nested invocation_ occurs when the implementation of an Ice operation invokes another operation through a proxy.
 
 ## Deadlocks with Nested Invocations
 
-Making a nested invocation is legitimate, even common, however you need be careful to avoid deadlocks.
+Nested invocations are common, but they can deadlock. To avoid deadlocks, do not hold a shared resource, such as a mutex
+or a thread of an [Ice thread pool](../thread-pools), while waiting.
 
-The general rule to avoid deadlocks is **do not hold onto any shared resource while waiting.**
+{% iflang langs="cpp,csharp,java,python" %}
 
-If you make a synchronous two-way invocation, you’re waiting: your thread is blocked until it gets the response from the
-target Ice object. And if you make this synchronous invocation within a synchronous dispatch, you’re holding onto a
-shared resource: the dispatch thread (current thread) from an [Ice thread pool](../thread-pools).
+A synchronous dispatch holds the thread that executes it, by default a thread of the server thread pool, until it
+returns, and a synchronous twoway invocation blocks its thread until the response arrives. A synchronous invocation made
+from a synchronous dispatch therefore holds a dispatch thread while it waits. If the invocation depends, directly or
+indirectly, on another dispatch from the same thread pool, the two can deadlock:
 
 ![The client calls opA on Server A. While dispatching opA, Server A calls opB on Server B. Server A's only dispatch thread waits for opB to return, so Server A cannot dispatch Server B's callback.](/images/ice/3.8/nested-invocations/nested-deadlock.svg)
 
 _Nested invocation deadlock._
 
-In this diagram, we assume all calls are synchronous and both Server A and Server B use the default configuration, with
-a single thread in their respective server thread pools. We get a deadlock because Server A’s thread pool is exhausted
-(its only thread is waiting for the opB invocation to complete).
+In this example, all the calls are synchronous, and both servers use the default server thread pool, which has a single
+thread. Server A's thread is blocked waiting for opB to complete, but Server B cannot complete opB until Server A
+dispatches its callback. Neither invocation can complete.
 
-Making the shared resource more abundant (e.g., by configuring more threads in your Ice thread pool) can work for a
-while, but is brittle. The correct solution is to follow the shared resource rule (see above) and make an asynchronous
-invocation instead of a synchronous one from the dispatch thread. Or alternatively, dispatch asynchronously (with AMD)
-and make the synchronous invocation from a separate thread - not an Ice thread pool thread.
+A larger server thread pool avoids this deadlock only while fewer nested invocations are pending than the pool has
+threads. To avoid exhausting the dispatch threads, release the dispatch thread while the nested invocation is pending:
+implement the outer operation with asynchronous dispatch (AMD), make the nested invocation asynchronously, and complete
+the dispatch when the nested invocation completes. Making the nested invocation asynchronously and then waiting for its
+result in the dispatch thread still holds that thread. With asynchronous dispatch, you can also make the synchronous
+invocation from a thread of your own instead of an Ice thread pool thread.
 
 {% callout type="note" %}
 
-When you make a **oneway** invocation, you generally don’t wait, or at least you don’t think you may wait.
-
-In reality, a _synchronous_ oneway invocation may block for a while: the Ice runtime can establish a connection to the
-server as part of this invocation (if it’s the first call), or it can take some time to write a large message to the
-network connection.
-
-As a result, you may want to perform an asynchronous oneway invocation to avoid any waiting in a thread that holds onto
-a shared resource (such as a mutex, or itself when the thread in question is a dispatch thread).
+A oneway invocation does not wait for a response from the server. However, a synchronous oneway invocation can block
+while the Ice runtime establishes a connection or writes the request to the connection. To avoid blocking a dispatch
+thread or a thread holding a mutex, make an asynchronous oneway invocation.
 
 {% /callout %}
+
+{% /iflang %}
+
+{% iflang langs="swift" %}
+
+Each dispatch runs in its own task, and proxy invocations are asynchronous. A servant that awaits a nested invocation
+suspends its task without holding a thread of the Ice thread pool, so nested invocations do not exhaust the server
+thread pool.
+
+{% /iflang %}
 
 ## See Also
 
