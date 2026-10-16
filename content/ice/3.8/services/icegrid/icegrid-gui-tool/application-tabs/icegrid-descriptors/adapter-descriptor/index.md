@@ -13,14 +13,15 @@ The Adapter Properties panel offers the following fields:
   is only used to lookup adapter properties.
 - **Description** A free-text description of this object adapter.
 - **Adapter ID** The ID of the object adapter. This ID must be unique within an IceGrid deployment. Default value:
-  ${server}._adapter-name_ for an adapter of a server, and ${server}.${service}._adapter-name_ for an adapter of an
-  IceBox service.
+  ${server}._adapter-name_, or ${server}.${service}._adapter-name_ for an adapter defined in an IceBox service.
 - **Replica Group** The ID of this adapter's [Replica Group](../replica-group-descriptor). By default, an adapter does
   not belong to any replica group.
 - **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is 0.
-- **Endpoints** The configured endpoints for this object adapter. Corresponds to the
-  [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties) property. Default: default,
-  which means listen using the default protocol (tcp by default) on an OS assigned port, on all interfaces.
+- **Endpoints** The endpoints of this object adapter. Use a single endpoint, with an IP address rather than a DNS name
+  if it specifies a host. When the endpoint does not specify a port, the operating system selects an ephemeral port when
+  the server creates the adapter. Corresponds to the
+  [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
+  `default`, which means listen with the default transport (`tcp` by default) on all interfaces.
 - **Published Endpoints** The configured published endpoints for this object adapter. Corresponds to the
   [_adapter-name_.PublishedEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
   actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
