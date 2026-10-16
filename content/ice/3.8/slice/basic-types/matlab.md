@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-The Slice basic types are mapped to MATLAB types as shown in this table:
+The Slice basic types map to MATLAB types as shown in this table:
 
 | **Slice** | **MATLAB**                                                                                |
 | --------- | ----------------------------------------------------------------------------------------- |

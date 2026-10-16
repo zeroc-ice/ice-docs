@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-The Slice basic types are mapped to Ruby types as shown in this table:
+The Slice basic types map to Ruby types as shown in this table:
 
 | **Slice** | **Ruby**             |
 | --------- | -------------------- |

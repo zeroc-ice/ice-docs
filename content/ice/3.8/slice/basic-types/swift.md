@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-The Slice basic types are mapped to Swift types as shown below:
+The Slice basic types map to Swift types as shown below:
 
 | **Slice** | **Swift** |
 | --------- | --------- |

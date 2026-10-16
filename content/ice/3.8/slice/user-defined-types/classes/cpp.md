@@ -53,13 +53,13 @@ Classes have two constructors:
 
 - a default constructor that default-constructs each data member This default constructor is no-op and implemented as
   `= default`. Members having a complex type, such as strings, sequences, and dictionaries, are initialized by their own
-  default constructor. However, the default constructor performs no initialization for members having one of the simple
-  built-in types boolean, integer, floating point, or enumeration. For such a member, it is not safe to assume that the
-  member has a reasonable default value. This is especially true for enumerated types as the member's default value may
-  be outside the legal range for the enumeration, in which case an exception will occur during marshaling unless the
-  member is explicitly set to a legal value. To ensure that data members of primitive types are initialized to
-  reasonable values, you can declare default values in your [Slice definition](./), and the Slice compiler will generate
-  data member initializers for the corresponding C++ data members.
+  default constructor. However, the default constructor performs no initialization for members of type `bool`, of an
+  integer or floating-point type, or of an enumeration type. For such a member, it is not safe to assume that the member
+  has a reasonable default value. This is especially true for enumerated types as the member's default value may be
+  outside the legal range for the enumeration, in which case an exception will occur during marshaling unless the member
+  is explicitly set to a legal value. To ensure that data members of primitive types are initialized to reasonable
+  values, you can declare default values in your [Slice definition](./), and the Slice compiler will generate data
+  member initializers for the corresponding C++ data members.
 - a constructor with one parameter for each data member (the _one-shot_ constructor) This constructor allows you to
   construct and initialize a class instance in a single statement.
 

@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-The Slice basic types are mapped to Java types as follows:
+The Slice basic types map to Java types as follows:
 
 | **Slice** | **Java**  |
 | --------- | --------- |
