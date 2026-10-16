@@ -52,9 +52,6 @@ servers, caching these connections, and managing configuration properties. We al
 
 Our client, like most Ice applications, creates a single communicator.
 
-It is important to make sure our communicator is properly destroyed (cleaned up) when it’s no longer needed. This
-ensures that network connections are gracefully closed, threads are joined, and other important clean-up occurs.
-
 ### 2. Create a Greeter Proxy
 
 Next, we need a way to call on a remote `Greeter` object. In Ice, this is done with _proxies_. Proxies are local
@@ -98,7 +95,7 @@ supports only synchronous invocations; other languages support asynchronous invo
 
 ### 4. Cleanup
 
-At the end of the script, Ice destroys the communicator.
+At the end of the script, Ice destroys the communicator, which gracefully closes the connection to the server.
 
 ## Running the Client
 
