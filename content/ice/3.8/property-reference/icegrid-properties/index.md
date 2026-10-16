@@ -566,15 +566,14 @@ When this property is not set, the registry has no default templates.
 {% property-description %}
 
 The IceGrid registry creates an object adapter named `IceGrid.Registry.Discovery` for receiving
-[multicast discovery queries](../../plugins/icelocatordiscovery) from clients. If not otherwise defined by
-`IceGrid.Registry.Discovery.Endpoints`, the endpoint for this object adapter is composed as follows:
+[multicast discovery queries](../../plugins/icelocatordiscovery) from clients.
+[IceGrid.Registry.Discovery.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints on which this
+adapter receives these queries. When this property is not set, the registry sets it to:
 
 `udp -h addr -p port [--interface intf]`
 
 where `addr` is the value of `IceGrid.Registry.Discovery.Address`, `port` is the value of
 `IceGrid.Registry.Discovery.Port`, and `intf` is the value of `IceGrid.Registry.Discovery.Interface`.
-
-You don't normally need to set [other properties](../object-adapter-properties) for this object adapter.
 
 {% /property-description %}
 

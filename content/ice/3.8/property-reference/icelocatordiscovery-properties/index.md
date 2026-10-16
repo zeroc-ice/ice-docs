@@ -77,10 +77,12 @@ interfaces available on the system to send UDP multicast datagrams. This propert
 
 {% property-description %}
 
-IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Locator`, therefore all of the
-[object adapter properties](../object-adapter-properties) can be set.
-
-You don't normally need to set properties for this object adapter.
+IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Locator` to host the locator object that it
+installs as the communicator's default locator.
+[IceLocatorDiscovery.Locator.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints on which this
+adapter receives locator requests. When this property is not set, the plug-in sets
+`IceLocatorDiscovery.Locator.AdapterId` to a UUID, and the communicator reaches the locator object through collocated
+calls.
 
 {% /property-description %}
 
