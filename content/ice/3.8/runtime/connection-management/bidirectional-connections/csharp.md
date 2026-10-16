@@ -14,7 +14,7 @@ adapter.add(mockAlarmClock, new Ice.Identity { name = "alarmClock" });
 ```csharp
 internal class BidirWakeUpService : WakeUpServiceDisp_
 {
-    public override void WakeMeUp(long timeStamp, Ice.Current current)
+    public override void wakeMeUp(long timeStamp, Ice.Current current)
     {
         // The connection from the client to the server.
         Ice.Connection? connection = current.con;
