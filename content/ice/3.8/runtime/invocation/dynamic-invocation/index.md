@@ -36,6 +36,13 @@ pass an empty byte sequence; the Ice runtime then sends an empty encapsulation.
 
 {% language-section name="encoding-the-in-parameters" /%}
 
+{% iflang langs="cpp,csharp,java,swift" %}
+
+[Input and Output Streams](../../input-and-output-streams) shows how to write and read each kind of Slice type with
+these streams.
+
+{% /iflang %}
+
 ## Reading the Reply
 
 For a twoway invocation, `ice_invoke` returns a success flag and an encapsulation:
