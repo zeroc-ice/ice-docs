@@ -35,6 +35,18 @@ Even though Slice is an acronym, it is pronounced as a single syllable, like a s
 
 {% /callout %}
 
+For example, this definition describes an interface with one operation:
+
+```slice
+module VisitorCenter
+{
+    interface Greeter
+    {
+        string greet(string name);
+    }
+}
+```
+
 Slice definitions are independent of any programming language. They form a contract between client and server, so the
 client and the server can be written in different languages.
 
@@ -42,5 +54,8 @@ Each language has its own Slice compiler, such as `slice2cpp` for C++ or `slice2
 definitions into types and APIs for that language. Clients use the generated code to invoke operations, and servers use
 it to implement them. The rules of this translation are called a _language mapping_; Ice provides language mappings for
 C++, C#, Java, JavaScript, MATLAB, PHP, Python, Ruby and Swift.
+
+The generated code and the Ice runtime encode the Slice types into bytes and decode them with the
+[Ice encoding](../encoding), a compact binary format. Most applications never need to know its details.
 
 Slice is a purely declarative language: it describes interfaces and types, and contains no executable statements.
