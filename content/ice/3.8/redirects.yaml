@@ -3,15 +3,15 @@ include:
 
 # Pages removed from this site, and the page each goes to.
 permanent:
-  'release-notes/ice-3-8-0': 'release-notes/ice-3-8-0/release-notes'
-  'release-notes/ice-3-8-1': 'release-notes/ice-3-8-1/release-notes'
-  'release-notes/ice-3-8-2': 'release-notes/ice-3-8-2/release-notes'
-  'release-notes/ice-3-8-3': 'release-notes/ice-3-8-3/release-notes'
   'release-notes': '#releases'
+  'release-notes/ice-3-8-0': 'releases/ice-3-8-0/release-notes'
+  'release-notes/ice-3-8-1': 'releases/ice-3-8-1/release-notes'
+  'release-notes/ice-3-8-2': 'releases/ice-3-8-2/release-notes'
+  'release-notes/ice-3-8-3': 'releases/ice-3-8-3/release-notes'
+  'release-notes/supported-platforms-for-ice-3-8-0': 'releases/ice-3-8-0/supported-platforms'
+  'release-notes/supported-platforms-for-ice-3-8-1': 'releases/ice-3-8-1/supported-platforms'
+  'release-notes/supported-platforms-for-ice-3-8-2': 'releases/ice-3-8-2/supported-platforms'
+  'release-notes/supported-platforms-for-ice-3-8-3': 'releases/ice-3-8-3/supported-platforms'
   'services/icegrid/application-distribution/ansible': 'services/icegrid/application-distribution'
   'background-servers/windows-services/manually-installing-a-service-as-a-windows-service': 'background-servers/windows-services/using-the-ice-service-installer'
   'runtime/invocation/proxy-defaults-and-overrides': 'runtime/invocation/proxy-defaults'
-  'release-notes/supported-platforms-for-ice-3-8-0': 'release-notes/ice-3-8-0/supported-platforms'
-  'release-notes/supported-platforms-for-ice-3-8-1': 'release-notes/ice-3-8-1/supported-platforms'
-  'release-notes/supported-platforms-for-ice-3-8-2': 'release-notes/ice-3-8-2/supported-platforms'
-  'release-notes/supported-platforms-for-ice-3-8-3': 'release-notes/ice-3-8-3/supported-platforms'
