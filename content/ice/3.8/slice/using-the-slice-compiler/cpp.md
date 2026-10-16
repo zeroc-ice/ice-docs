@@ -305,20 +305,18 @@ target, after that call lists the target's Slice files.
 | IceStorm            | `Ice::IceStorm`             |
 | IceBT               | `Ice::IceBT`, on Linux only |
 
-Each target adds the Ice include directory, requires C++17, and links the Ice libraries that its library depends on, so
-a target that links `Ice::IceGrid` also links `Ice::Glacier2` and `Ice::Ice`.
+Each target adds the Ice include directory, compiles the target that links it with C++17 or later, and links the Ice
+libraries that its library depends on, so a target that links `Ice::IceGrid` also links `Ice::Glacier2` and `Ice::Ice`.
 
-To make `find_package` fail when a library is missing from the installation, list it as a component:
+List the Ice libraries your project links as `COMPONENTS`, and `find_package` checks that the installation provides
+them:
 
 ```cmake
 find_package(Ice REQUIRED CONFIG COMPONENTS IceGrid IceStorm)
 ```
 
 The package also defines two imported executables: `Ice::slice2cpp`, the Slice compiler that `slice2cpp_generate` runs,
-and, on Windows, `Ice::icebox_EXE`, the IceBox server from the NuGet package. `Ice::icebox_EXE` resolves to the Debug
-`icebox.exe` in the Debug configuration and to the Release `icebox.exe` in every other configuration, like the Ice
-libraries. A custom command that runs `slice2cpp` uses `$<TARGET_FILE:Ice::slice2cpp>` in its `COMMAND` and `DEPENDS`,
-so it runs again when the compiler changes.
+and, on Windows, `Ice::icebox_EXE`, the IceBox server from the NuGet package.
 
 ### Windows
 
@@ -335,12 +333,11 @@ find_package(Ice REQUIRED CONFIG)
 ```
 
 The package contains Debug and Release libraries for the `x64` and `Win32` platforms. The Debug configuration links the
-Debug libraries, and every other configuration links the Release libraries. The `Ice_WIN32_PLATFORM` cache variable
-selects the platform; it defaults to `x64` in a 64-bit build and to `Win32` in a 32-bit build.
+Debug libraries, and every other configuration links the Release libraries.
 
 The Ice DLLs stay in the package directory, so copy them next to the executable to run it from the build directory.
 `$<TARGET_RUNTIME_DLLS:client>` lists the DLLs of the Ice libraries that `client` links, and the `ICE_RUNTIME_DLLS`
-property of `Ice::Ice` lists the other DLLs that Ice loads, such as the bzip2 DLL:
+property of `Ice::Ice` lists the bzip2 DLL that the Ice DLL depends on:
 
 ```cmake
 if(WIN32)
@@ -378,22 +375,6 @@ the `#include` directives it generates for that file: the `#include <Demo/Weathe
 becomes `#include <Demo/Weather.h>` in its generated header (see [Header Files](#header-files)). A Slice file outside
 the `INCLUDE_DIRS` directories generates its files directly in `generated/<target>`.
 
-Use `HEADER_OUTPUT_DIR` to choose the directory for the generated headers, which keep their relative paths. A relative
-`HEADER_OUTPUT_DIR` starts at `CMAKE_CURRENT_BINARY_DIR`. The generated sources stay in `generated/<target>`. Use
-`INCLUDE_DIR` to add a subdirectory beneath the header directory; each generated source then includes its header through
-this subdirectory. For example:
-
-```cmake
-add_library(weather_api Weather.ice)
-slice2cpp_generate(weather_api
-  HEADER_OUTPUT_DIR ${CMAKE_BINARY_DIR}/include
-  INCLUDE_DIR Demo)
-target_link_libraries(weather_api PUBLIC Ice::Ice)
-```
-
-This call generates `${CMAKE_BINARY_DIR}/include/Demo/Weather.h` and `Weather.cpp` in `generated/weather_api`, and
-`Weather.cpp` includes its header with `#include "Demo/Weather.h"`.
-
 ### Sharing Generated Headers Between Targets
 
 Set `INCLUDE_SCOPE PUBLIC` so that targets that link your library can include its generated headers.
@@ -429,7 +410,7 @@ Install the generated headers with the CMake `install` command. Add `GENERATED_H
 installation directory, install them with `install(FILES)`:
 
 ```cmake
-slice2cpp_generate(weather_api INCLUDE_SCOPE PUBLIC GENERATED_HEADERS weather_api_headers)
+slice2cpp_generate(weather_api INCLUDE_DIR Demo INCLUDE_SCOPE PUBLIC GENERATED_HEADERS weather_api_headers)
 install(FILES ${weather_api_headers} DESTINATION include/Demo)
 ```
 
