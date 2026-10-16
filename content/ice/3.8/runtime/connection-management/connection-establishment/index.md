@@ -22,11 +22,13 @@ The proxy performs the following steps to derive its endpoint list:
 2. Remove endpoints that are not suitable for the proxy's invocation mode. For example, datagram endpoints are removed
    for twoway, oneway and batch oneway proxies. Similarly, non-datagram endpoints are removed for datagram and batch
    datagram proxies.
-3. Perform DNS queries to convert host names into IP addresses, if necessary. For a multi-homed host name, the proxy
-   adds a new endpoint for each address returned by the DNS query.
-4. Sort the endpoints according to the configured selection type, which is established using the `ice_endpointSelection`
+3. Sort the endpoints according to the configured selection type, which is established using the `ice_endpointSelection`
    proxy method. The default value is `Random`, meaning the endpoints are randomly shuffled. Alternatively, the value
    `Ordered` maintains the existing order of the endpoints.
+4. Resolve host names into IP addresses. When a host name resolves to several addresses, Ice tries them in the order the
+   DNS resolver returns them, with IPv4 addresses ahead of IPv6 addresses unless
+   [Ice.PreferIPv6Address](../../../property-reference/ice-properties#ice.preferipv6address) is set. The selection type
+   orders the endpoints, not these addresses.
 
 If [connection caching](#connection-caching) is enabled and the communicator [already has a compatible connection](./),
 it reuses the cached connection. Otherwise, the communicator attempts to connect to each endpoint in the list until it
