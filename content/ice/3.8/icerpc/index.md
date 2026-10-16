@@ -54,10 +54,9 @@ IceRPC implements two RPC protocols: `ice` and `icerpc`. The `ice` protocol is I
 [Ice Protocol](../basics/protocol-in-a-nutshell), the only RPC protocol Ice implements. Your IceRPC components must use
 the `ice` protocol to communicate with Ice components.
 
-IceRPC sends and accepts request payloads only in encoding 1.1, the default
-[Ice.Default.EncodingVersion](../property-reference/ice-default-properties#ice.default.encodingversion). IceRPC aborts a
-connection when it receives a request in another encoding version, so your Ice components must not use encoding 1.0 to
-send requests to IceRPC components.
+IceRPC supports only encoding 1.1, the default
+[Ice.Default.EncodingVersion](../property-reference/ice-default-properties#ice.default.encodingversion). Make sure your
+Ice configuration doesn't set this property to `1.0`.
 
 Ice and IceRPC have two transports in common: `tcp` and `ssl`. You can’t use `udp` or `bt` (since they are not supported
 by IceRPC), and you can’t use `quic` (since it’s not supported by Ice).
@@ -104,8 +103,9 @@ concerned, publishers and subscribers are just regular clients and servers.
 IceRPC provides client-side support for Locators and indirectly IceGrid: an IceRPC application can find objects in
 IceGrid-managed servers and send requests to these objects.
 
-IceRPC doesn’t provide server-side IceGrid integration: it doesn’t read the Ice configuration file that an IceGrid node
-generates for a server, and it doesn’t register the server’s endpoints or process with the IceGrid registry.
+IceRPC doesn't provide server-side IceGrid integration. An IceGrid node configures the servers it starts through Ice
+configuration files, which IceRPC doesn't read, and the registration of a server's endpoints and Process object with the
+registry, which the Ice runtime performs from this configuration, is not built into IceRPC.
 
 ### Glacier2
 
@@ -114,10 +114,12 @@ by Glacier2.
 
 ### Discovery
 
-The discovery plug-ins provided by Ice ([IceDiscovery](../plugins/icediscovery) and
-[IceLocatorDiscovery](../plugins/icelocatordiscovery)) rely on UDP multicast and IceRPC doesn’t provide any support for
-UDP. As a result, `IceDiscovery` can’t find an IceRPC server, and an IceRPC client can’t send the multicast lookups that
-find an Ice server.
+The discovery plug-ins provided by Ice rely on UDP multicast, which IceRPC doesn't support.
+[IceDiscovery](../plugins/icediscovery) lets a client discover objects and object adapters through multicast lookups
+that the servers answer: an IceRPC client can't send these lookups and an IceRPC server can't answer them, so
+`IceDiscovery` works only between Ice components. [IceLocatorDiscovery](../plugins/icelocatordiscovery) lets a client
+discover an IceGrid registry the same way: an IceRPC client can't, so you configure the registry's address in its
+locator interceptor.
 
 ## See Also
 
