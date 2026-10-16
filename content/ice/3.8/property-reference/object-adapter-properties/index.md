@@ -220,8 +220,10 @@ defined, the adapter uses the communicator's [Ice.MessageSizeMax](../ice-propert
 
 A value of `0` or less selects the largest supported size; a positive value must be at most 2,097,151 KiB (about 2 GiB).
 
-This property is logically a connection property, and only applies to messages received over network connections created
-by this object adapter.
+This limit applies to the messages this object adapter receives over the connections it accepts. It does not apply to
+the requests the adapter receives over an outgoing connection associated with it
+([bidirectional connections](../../runtime/connection-management/bidirectional-connections)): the communicator's
+`Ice.MessageSizeMax` limits those.
 
 {% /property-description %}
 
