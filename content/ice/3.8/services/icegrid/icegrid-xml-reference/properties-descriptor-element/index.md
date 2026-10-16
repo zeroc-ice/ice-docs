@@ -12,13 +12,14 @@ A property set is useful for defining a set of [properties](../../../../runtime/
 property set) in application or node descriptors. Named property sets can be included in named or unnamed property sets
 with property set references.
 
-A named property set element may only be a child of an [application](../application-descriptor-element) element or a
-[node](../node-descriptor-element) element. An unnamed property set element may only be a child of a
-[server](../server-descriptor-element), [icebox](../icebox-descriptor-element),
-[service](../service-descriptor-element), [server-instance](../server-instance-descriptor-element) or
-[service-instance](../service-instance-descriptor-element) element. An unnamed property set element with the `service`
-attribute defined may only be a child of a [server-instance](../server-instance-descriptor-element) element. A reference
-to a named property set can only be a child of a named or unnamed property set element.
+Each form may only be a child of the following elements:
+
+| Form                                          | Allowed parents                                                                                                                                                                                                                                |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Named property set                            | [application](../application-descriptor-element), [node](../node-descriptor-element)                                                                                                                                                           |
+| Unnamed property set                          | [server](../server-descriptor-element), [icebox](../icebox-descriptor-element), [service](../service-descriptor-element), [server-instance](../server-instance-descriptor-element), [service-instance](../service-instance-descriptor-element) |
+| Unnamed property set with `service` attribute | [server-instance](../server-instance-descriptor-element)                                                                                                                                                                                       |
+| Reference to a named property set             | A named or unnamed property set                                                                                                                                                                                                                |
 
 The following attributes are supported:
 
