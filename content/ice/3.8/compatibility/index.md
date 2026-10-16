@@ -29,17 +29,15 @@ upgrade your source code to use the latest Ice APIs.
 
 ## On-the-Wire Compatibility
 
-Ice always maintains "on the wire" compatibility with prior releases. A client using Ice version _x_ can communicate
-with a server using Ice version _y_ and vice versa.
+Ice maintains on-the-wire compatibility across releases: a client and a server using different Ice releases can
+communicate with each other.
 
 ## Interface Compatibility
 
-Although Ice always maintains compatibility at the protocol level, changing Slice definitions can also lead to
-incompatibilities. As a result, Ice maintains interface compatibility between a patch release and the most recent minor
-release, but does not guarantee interface compatibility between minor releases.
-
-This issue is particularly relevant if your application uses Ice services such as IceGrid or IceStorm, as a change to an
-interface in one of these services may adversely affect your application.
+Ice and the Ice services define Slice interfaces that your application uses, such as `Ice::Locator`, the IceStorm
+`Topic` interface or the IceGrid `Query` interface. Ice does not change these Slice definitions in an incompatible way
+between a patch release and the most recent minor release, but makes no such promise between minor releases, even though
+these definitions rarely change.
 
 Interface changes in an Ice service can also impact compatibility with its administrative tools, which means it may not
 be possible to administer a service using a tool from a previous minor release (or vice-versa).
