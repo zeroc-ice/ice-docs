@@ -25,9 +25,9 @@ Glacier2 has the following advantages and limitations.
   endpoints in the proxies they create. Furthermore, back-end services such as [IceGrid](../../icegrid) can continue to
   be used transparently via a Glacier2 router.
 - [Callbacks through Glacier2](../callbacks-through-glacier2) are supported without requiring new connections from
-  servers to clients. In other words, a callback from a server to a client is sent over an existing connection from the
-  client to the server, thereby eliminating the administrative requirements associated with supporting callbacks in the
-  client firewall.
+  servers to clients. In other words, the router forwards a callback from a server to a client over the connection that
+  the client established to the router, thereby eliminating the administrative requirements associated with supporting
+  callbacks in the client firewall.
 - Glacier2 requires no knowledge of the application's Slice definitions and therefore is very efficient: it routes
   request and reply messages without unmarshalling the message contents.
 - In addition to its primary responsibility of forwarding Ice requests, Glacier2 offers support for
