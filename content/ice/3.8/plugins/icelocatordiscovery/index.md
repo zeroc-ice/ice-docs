@@ -74,14 +74,15 @@ Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 The master registry does not need the plug-in.
 
 IceGrid registries listen for multicast discovery queries by default, but you can disable this feature by setting
-[IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties) to `0`.
+[IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties#icegrid.registry.discovery.enabled) to
+`0`.
 
 If you've changed the default multicast address or port for IceLocatorDiscovery, you must also make corresponding
 changes to the configuration of each registry. The registry supports properties similar to those of IceLocatorDiscovery:
 
-- [IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties)
-- [IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties)
-- [IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties)
+- [IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties#icegrid.registry.discovery.address)
+- [IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties#icegrid.registry.discovery.port)
+- [IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
 
 These properties influence the endpoint on which the registry listens for multicast discovery queries. If you don't
 override the endpoint by setting [IceGrid.Registry.Discovery.Endpoints](../../property-reference/icegrid-properties),

@@ -40,7 +40,7 @@ The remaining Server Properties come from the IceGrid descriptors associated wit
 - **Properties** A table showing all the Ice properties of this service. These properties may come from template
   definitions, property sets, service-instance properties etc. They are all combined in this table.
 - **Entry Point** The entry point for this service. This corresponds to the value of the
-  [IceBox.Service._name_](../../../../../../property-reference/icebox-properties) property.
+  [IceBox.Service._name_](../../../../../../property-reference/icebox-properties#icebox.service.name) property.
 
 ## Children
 

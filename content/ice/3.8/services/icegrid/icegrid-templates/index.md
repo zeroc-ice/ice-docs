@@ -145,9 +145,10 @@ This sets the `Ice.Trace.Network` property for a specific server.
 
 The IceGrid registry can be configured to supply any number of default template descriptors for use in your
 applications. The configuration property
-[IceGrid.Registry.DefaultTemplates](../../../property-reference/icegrid-properties) specifies the path name of an XML
-file containing template definitions. One such template file is provided in the Ice distribution as
-`config/templates.xml`, which contains helpful templates for deploying Ice services such as [Glacier2](../../glacier2).
+[IceGrid.Registry.DefaultTemplates](../../../property-reference/icegrid-properties#icegrid.registry.defaulttemplates)
+specifies the path name of an XML file containing template definitions. One such template file is provided in the Ice
+distribution as `config/templates.xml`, which contains helpful templates for deploying Ice services such as
+[Glacier2](../../glacier2).
 
 The template file must use the structure shown below:
 

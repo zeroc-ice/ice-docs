@@ -71,10 +71,12 @@ As of Ice 3.8, we do not recommend using thread pool limits (starvation) for flo
 pool to be out of threads for a short period of time, but generally, you always want to have at least one thread
 available in each of your Ice [thread pools](../../runtime/threading-model/thread-pools).
 
-Ice provides new [Ice.Connection.name.MaxDispatches](../../property-reference/ice-connection-properties) properties that
-allows the “dispatch side” of a connection to apply back pressure on the peer. For complete flow-control, you want to
-combine `MaxDispatches` with the new [adapter.MaxConnections](../../property-reference/object-adapter-properties)
-property that allows an object adapter to limit the number of concurrent connections it accepts.
+Ice provides new
+[Ice.Connection.name.MaxDispatches](../../property-reference/ice-connection-properties#ice.connection.name.maxdispatches)
+properties that allows the “dispatch side” of a connection to apply back pressure on the peer. For complete
+flow-control, you want to combine `MaxDispatches` with the new
+[adapter.MaxConnections](../../property-reference/object-adapter-properties#adapter.maxconnections) property that allows
+an object adapter to limit the number of concurrent connections it accepts.
 
 ### Reworked the Published Endpoints of Object Adapters
 
@@ -90,8 +92,8 @@ configuration to a specific host.
 
 In Ice 3.8, the [default published endpoints](../../runtime/dispatch/object-adapter-endpoints) are much simpler, and
 rely on the server’s hostname. Additionally, you can override this hostname with the property
-[adapter.PublishedHost](../../property-reference/object-adapter-properties). As of Ice 3.8, our general recommendation
-for your object adapter endpoints is to keep it very simple:
+[adapter.PublishedHost](../../property-reference/object-adapter-properties#adapter.publishedhost). As of Ice 3.8, our
+general recommendation for your object adapter endpoints is to keep it very simple:
 
 - configure a single endpoint (not several endpoints despite the property name)
 - don’t use a DNS name for this endpoint

@@ -86,7 +86,7 @@ icestormadmin --Ice.Config=config < graph.txt
 ```
 
 We assume that the configuration file `config` contains the definition for the property
-[IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties).
+[IceStormAdmin.TopicManager.Default](../../../property-reference/icestormadmin-properties#icestormadmin.topicmanager.default).
 
 ## Proxy Considerations for IceStorm Federation
 

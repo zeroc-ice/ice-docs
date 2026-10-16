@@ -17,8 +17,8 @@ A server represents an Ice server deployed on a node as part of an application. 
 The Server Properties panel offers the following fields:
 
 - **Server ID** The ID of the server; corresponds to the
-  [Ice.Admin.ServerId](../../../../../../property-reference/ice-admin-properties) property. Each server must have a
-  unique ID within an IceGrid deployment.
+  [Ice.Admin.ServerId](../../../../../../property-reference/ice-admin-properties#ice.admin.serverid) property. Each
+  server must have a unique ID within an IceGrid deployment.
 - **Description** A free-text description of this server.
 - **Property Sets** List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include" all
   its properties in the server.

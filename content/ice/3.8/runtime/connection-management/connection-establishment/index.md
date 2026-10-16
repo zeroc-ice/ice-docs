@@ -32,9 +32,9 @@ If [connection caching](#connection-caching) is enabled and the communicator [al
 it reuses the cached connection. Otherwise, the communicator attempts to connect to each endpoint in the list until it
 succeeds or exhausts the list; the order in which endpoints are selected for connection attempts depends on the endpoint
 selection policy. This policy can be set using a default property
-([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties)), using a proxy property
-([_name_.EndpointSelection](../../../property-reference/proxy-properties)), and using the `ice_endpointSelection`
-[proxy method](api:Ice/ObjectPrx).
+([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection)),
+using a proxy property ([_name_.EndpointSelection](../../../property-reference/proxy-properties)), and using the
+`ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
 
 ## Error Semantics for Failed Connections
 
@@ -144,8 +144,8 @@ within the allotted time, Ice throws `ConnectTimeoutException`.
 You can force Ice to use a specific source address for TCP/IP connections. This can be useful in specific uses cases,
 such as to overcome the limited number of ephemeral ports. There are two ways to do this:
 
-- Define the [Ice.Default.SourceAddress](../../../property-reference/ice-default-properties) property to establish a
-  default source address for all outgoing connections created by a communicator
+- Define the [Ice.Default.SourceAddress](../../../property-reference/ice-default-properties#ice.default.sourceaddress)
+  property to establish a default source address for all outgoing connections created by a communicator
 - Include a [--sourceAddress](../../endpoint-syntax) option in proxy endpoints, which overrides any setting for
   `Ice.Default.SourceAddress`
 

@@ -25,8 +25,8 @@ Both services implement the `Ice::Router` interface, which the Ice runtime requi
 ## Default Router
 
 A communicator can be configured with a default router. The most common way to configure the default router is to set
-the property [Ice.Default.Router](../../../property-reference/ice-default-properties). The value of this property is a
-proxy for the router's primary Ice object, as shown in the example below for Glacier2:
+the property [Ice.Default.Router](../../../property-reference/ice-default-properties#ice.default.router). The value of
+this property is a proxy for the router's primary Ice object, as shown in the example below for Glacier2:
 
 ```config
 Ice.Default.Router=Glacier2/router:tcp -h routerhost -p 4063

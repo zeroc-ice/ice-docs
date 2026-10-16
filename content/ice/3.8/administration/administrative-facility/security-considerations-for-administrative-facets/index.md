@@ -51,8 +51,8 @@ You could disable a facet using filtering, but doing so may disrupt IceGrid's no
   in a trusted environment, the use of a UUID may create additional work, such as the need to add an interface that an
   administrative client can use to obtain the identity or proxy of a remote `admin` object. An obscure identity might be
   more of a hindrance in this situation, and therefore specifying a static category via the
-  [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties) property is a reasonable alternative. In
-  general, however, we recommend using the default behavior.
+  [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property is a
+  reasonable alternative. In general, however, we recommend using the default behavior.
 
 ## See Also
 

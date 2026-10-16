@@ -216,8 +216,9 @@ From a design perspective, incorporating IceDiscovery into your application requ
   identities such as `accountFactory` and `adminFactory`.
 
 - Can unrelated applications share the same multicast address and port? If so, select unique domain identifiers for the
-  applications and configure [IceDiscovery.DomainId](../../property-reference/icediscovery-properties) properties to
-  avoid the potential for subtle bugs.
+  applications and configure
+  [IceDiscovery.DomainId](../../property-reference/icediscovery-properties#icediscovery.domainid) properties to avoid
+  the potential for subtle bugs.
 
 - Do you need replicated objects? Replicated object adapters can improve the fault tolerance of your application by
   allowing independent server processes to implement the same logical objects. Configure your servers as described

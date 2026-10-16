@@ -26,9 +26,10 @@ An application normally needs to configure an object adapter with [endpoints](..
 object adapter will check the communicator's configuration for
 [properties](../../../property-reference/object-adapter-properties), using its name as prefix, including:
 
-- [_name_.Endpoints](../../../property-reference/object-adapter-properties) - defines one or more object adapter
-  endpoints
-- [_name_.Router](../../../property-reference/object-adapter-properties) - specifies the stringified proxy of a router
+- [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) - defines one or more
+  object adapter endpoints
+- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router) - specifies the stringified
+  proxy of a router
 
 If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
 is on your communicator. For example:

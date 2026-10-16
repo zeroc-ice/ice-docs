@@ -35,16 +35,17 @@ module IceGrid
 
 The `createAdminSession` operation expects a username and password and returns a session proxy if the client is allowed
 to create a session. By default, IceGrid does not allow the creation of administrative sessions. You must define the
-property [IceGrid.Registry.AdminPermissionsVerifier](../../../property-reference/icegrid-properties) with the proxy of a
-permissions verifier object to enable session creation with `createAdminSession`. The verifier object must implement the
-interface [Glacier2::PermissionsVerifier](../../glacier2/securing-a-glacier2-router).
+property
+[IceGrid.Registry.AdminPermissionsVerifier](../../../property-reference/icegrid-properties#icegrid.registry.adminpermissionsverifier)
+with the proxy of a permissions verifier object to enable session creation with `createAdminSession`. The verifier
+object must implement the interface [Glacier2::PermissionsVerifier](../../glacier2/securing-a-glacier2-router).
 
 The `createAdminSessionFromSecureConnection` operation does not require a username and password because it uses the
 credentials supplied by an [SSL](../../../runtime/ssl-transport) connection to authenticate the client. As with
 `createAdminSession`, you must configure the proxy of a permissions verifier object before clients can use
 `createAdminSessionFromSecureConnection` to create a session. In this case, the
-[IceGrid.Registry.AdminSSLPermissionsVerifier](../../../property-reference/icegrid-properties) property specifies the
-proxy of a verifier object that implements the interface
+[IceGrid.Registry.AdminSSLPermissionsVerifier](../../../property-reference/icegrid-properties#icegrid.registry.adminsslpermissionsverifier)
+property specifies the proxy of a verifier object that implements the interface
 [Glacier2::SSLPermissionsVerifier](../../glacier2/securing-a-glacier2-router). `createAdminSessionFromSecureConnection`
 requires a client certificate with a non-empty subject name.
 
@@ -117,11 +118,11 @@ module IceGrid
 ```
 
 In order to access the text of a program's standard output or standard error log, you must configure it using the
-[Ice.StdOut](../../../property-reference/ice-properties) and [Ice.StdErr](../../../property-reference/ice-properties)
-properties, respectively. For registries and nodes, you must define these properties explicitly but, for servers, the
-node defines these properties automatically if the property
-[IceGrid.Node.Output](../../../property-reference/icegrid-properties) is defined, causing the server's output to be
-logged in individual files.
+[Ice.StdOut](../../../property-reference/ice-properties#ice.stdout) and
+[Ice.StdErr](../../../property-reference/ice-properties#ice.stderr) properties, respectively. For registries and nodes,
+you must define these properties explicitly but, for servers, the node defines these properties automatically if the
+property [IceGrid.Node.Output](../../../property-reference/icegrid-properties#icegrid.node.output) is defined, causing
+the server's output to be logged in individual files.
 
 If `IceGrid.Node.Output` is _not_ defined, the following rules apply:
 
@@ -134,8 +135,8 @@ If `IceGrid.Node.Output` is _not_ defined, the following rules apply:
   set.
 
 Log messages from the node itself are sent to `stderr` unless you set
-[Ice.UseSyslog](../../../property-reference/ice-properties) (for Unix). If the node is started as a Windows service, its
-log messages always are sent to the Windows event log.
+[Ice.UseSyslog](../../../property-reference/ice-properties#ice.usesyslog) (for Unix). If the node is started as a
+Windows service, its log messages always are sent to the Windows event log.
 
 In the case of `openServerLog`, the value of the `path` argument must resolve to the same file as one of the server's
 [log descriptors](../icegrid-xml-reference/log-descriptor-element). This security measure prevents a client from opening
