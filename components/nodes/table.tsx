@@ -22,7 +22,7 @@ const textAlignment = (align?: string): string => {
 export const Table = ({ children }: TableProps) => {
   return (
     // A wide table scrolls, so the code in its cells keeps its words whole.
-    <div className="doc-wide mb-10 overflow-x-auto [&_code]:break-normal">
+    <div className="mb-10 overflow-x-auto [&_code]:break-normal">
       <table className="w-full border-collapse rounded-sm prose-headings:font-semibold">
         {children}
       </table>

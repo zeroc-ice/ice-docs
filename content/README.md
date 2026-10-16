@@ -61,7 +61,7 @@ page and its overlays combine.
 | `description`            | A subtitle under the title, and the page's meta description. Search matches against it.                                                                       |
 | `type`                   | The page's kind, shown as a badge above the title and on its search hits: `tutorial`, `how-to`, `concept`, `reference`, `troubleshooting`, or `release-note`. |
 | `languages`              | The languages a shared page is written for. The sidebar and search leave it out for the others, whose readers get a note instead of its text.                 |
-| `shape: wide`            | Runs the body on the wide track.                                                                                                                              |
+| `shape: wide`            | Gives the page a wider column, for a page that is not an essay, such as the front page.                                                                       |
 | `showAside: false`       | Drops the right rail.                                                                                                                                         |
 | `showReadingTime: false` | Drops the reading time.                                                                                                                                       |
 | `showDividers: false`    | Drops the rule under each `##` heading.                                                                                                                       |

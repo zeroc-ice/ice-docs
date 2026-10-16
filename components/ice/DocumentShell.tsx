@@ -2,6 +2,7 @@
 
 import { ReactElement } from 'react';
 import Link from 'next/link';
+import { clsx } from 'clsx';
 
 import { PageTypeBadge } from '@/components/ice/PageTypeBadge';
 import { PageOutline } from '@/components/ice/PageOutline';
@@ -93,11 +94,17 @@ export const DocumentShell = ({
     : [];
 
   // The outline keeps to the right edge of the window, as the sidebar keeps to
-  // the left, and the article is centered in the space between them.
+  // the left, and the article is centered in the space between them. Code,
+  // tables and diagrams stay within the article's width, as its text does.
   return (
     <div className="flex flex-row">
-      <div className="min-w-0 grow sm:px-6 md:px-10 lg:px-12">
-        <div className="mx-auto max-w-232 contain-inline-size">
+      <div className="min-w-0 grow sm:px-6 md:px-10 lg:px-2">
+        <div
+          className={clsx(
+            'mx-auto contain-inline-size',
+            shape === 'wide' ? 'max-w-(--measure-wide)' : 'max-w-(--measure)'
+          )}
+        >
           {breadcrumbs.length > 0 && (
             <nav
               aria-label="Breadcrumb"
@@ -127,7 +134,7 @@ export const DocumentShell = ({
             </nav>
           )}
 
-          <article data-page-shape={shape}>
+          <article>
             {title && (
               <header className="mb-10">
                 {type && (
@@ -234,7 +241,7 @@ export const DocumentShell = ({
       {/* A long outline scrolls on its own, so the actions under it stay in
           view. */}
       {showAside && (
-        <aside className="sticky top-22 ml-8 hidden h-[calc(100vh-7rem)] w-58 shrink-0 flex-col gap-2 xl:flex">
+        <aside className="sticky top-22 ml-6 hidden h-[calc(100vh-7rem)] w-58 shrink-0 flex-col gap-2 xl:flex">
           <PageOutline
             headings={toc}
             languages={languages}
