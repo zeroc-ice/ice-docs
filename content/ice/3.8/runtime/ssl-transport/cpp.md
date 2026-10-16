@@ -94,3 +94,15 @@ IceSSL.CAs=ca_cert.pem
 ```
 
 {% /language-section %}
+
+{% language-section name="ssl-connection-information" %}
+
+The SSL connection information class is `Ice::SSL::ConnectionInfo`, an alias for the class of the platform's SSL
+transport implementation:
+[OpenSSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1OpenSSLConnectionInfo.html) on Linux,
+[SecureTransportConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1SecureTransportConnectionInfo.html)
+on macOS and iOS, and
+[SchannelConnectionInfo](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1SSL_1_1SchannelConnectionInfo.html) on
+Windows.
+
+{% /language-section %}

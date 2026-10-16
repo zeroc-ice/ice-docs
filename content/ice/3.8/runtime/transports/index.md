@@ -47,3 +47,35 @@ Ice for JavaScript supports a different set of transports:
 | ssl           | No                        | No                          |                                                          |
 | ws            | Yes                       | Yes (Node.js >= 24)         |                                                          |
 | wss           | Yes                       | Yes (Node.js >= 24)         |                                                          |
+
+## Endpoint and Connection Information
+
+The Ice runtime describes an endpoint or a connection with an information object. An endpoint's `getInfo` method returns
+an [EndpointInfo](api:Ice/EndpointInfo), and a connection's `getInfo` method returns a
+[ConnectionInfo](api:Ice/ConnectionInfo). You get endpoints from a proxy with `ice_getEndpoints` and from a connection
+with `getEndpoint`, and you get the connection of a proxy with `ice_getConnection`.
+
+Each transport provides its own subclass of these two classes, with fields specific to that transport, such as the host
+and port of a TCP endpoint or the local and remote addresses of a TCP connection; the API reference of `EndpointInfo`
+and `ConnectionInfo` lists these subclasses.
+
+A transport that runs over another transport wraps the information of that transport: the `underlying` field holds the
+information of the transport below, and holds no object at the bottom of the chain. For example, the information of a
+`ws` connection is a `WSConnectionInfo` whose `underlying` field holds a `TCPConnectionInfo`; for a `wss` connection,
+the SSL connection information sits between these two. To read the information of one transport, walk the chain and
+downcast each object to the class you need.
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+The [SSL transport](../ssl-transport#ssl-connection-information) page describes the SSL connection information.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+Ice for JavaScript proxies can hold `ssl` endpoints, but Ice for JavaScript cannot establish `ssl` connections, so the
+SSL connection information appears only in the `underlying` chain of a `wss` connection. This SSL connection information
+has no fields of its own: the browser or Node.js performs the TLS handshake, and Ice for JavaScript does not expose its
+details.
+
+{% /iflang %}
