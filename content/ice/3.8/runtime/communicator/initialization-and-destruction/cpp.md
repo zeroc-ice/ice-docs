@@ -33,13 +33,11 @@ Ice::CommunicatorPtr communicator = Ice::initialize(std::move(initData));
 
 {% /callout %}
 
-You need to call `destroy` on the returned object when you're done with this communicator, typically just before
-returning from `main`. The `destroy` member function is responsible for cleaning-up the communicator. In particular, in
-a server, `destroy` waits for any operation dispatch that are still executing to complete. In addition, `destroy`
-ensures that any outstanding threads are joined with and reclaims a number of operating system resources, such as file
-descriptors and memory.
+When you're done with a communicator, call `destroy` on it. `destroy` destroys the communicator's object adapters,
+closes its outgoing connections, and waits for all outstanding dispatches to complete before returning.
 
-The general shape of the `main` function of an Ice-based application is therefore:
+An `Ice::CommunicatorHolder` destroys the communicator it holds when it goes out of scope, including when the
+application throws an exception:
 
 ```cpp
 #include <Ice/Ice.h>
@@ -47,72 +45,49 @@ The general shape of the `main` function of an Ice-based application is therefor
 int
 main(int argc, char* argv[])
 {
-    int status = 0;
-    try
-    {
-        // CommunicatorPtr is an alias for std::shared_ptr<Ice::Communicator>
-        Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
-
-        try
-        {
-            ... application code ...
-
-            communicator->destroy(); // destroy is noexcept
-        }
-        catch (const std::exception&)
-        {
-            ...
-            // make sure communicator is destroyed if an exception is thrown
-            communicator->destroy();
-            throw;
-        }
-    }
-    catch (const std::exception& e)
-    {
-        cerr << e.what() << endl;
-        status = 1;
-    }
-    return status;
-}
-```
-
-This code is a little bit clunky, as we need to make sure the communicator gets destroyed in all paths, including when
-an exception is thrown. As a result, most of the time, you should use a helper class to call `destroy` on your
-communicator.
-
-## `Ice::CommunicatorHolder` Helper Class
-
-A `CommunicatorHolder` is a small helper class that you construct with a communicator. It’s then responsible for
-destroying it.
-
-With a `CommunicatorHolder`, our typical `main` function becomes much simpler:
-
-```cpp
-#include <Ice/Ice.h>
-
-int
-main(int argc, char* argv[])
-{
-    int status = 0;
     try
     {
         Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
-
-        // Schedule destruction of communicator.
         Ice::CommunicatorHolder communicatorHolder{communicator};
 
-        ... application code ...
-
-        // CommunicatorHolder's destructor calls destroy on the communicator
-        // whether or not an exception is thrown.
+        // ... application code ...
     }
     catch (const std::exception& e)
     {
-        cerr << e.what() << endl;
-        status = 1;
+        std::cerr << e.what() << std::endl;
+        return 1;
     }
-    return status;
+    return 0;
 }
 ```
+
+The `CommunicatorHolder` constructor also accepts the arguments of `Ice::initialize`, such as `argc` and `argv`, and
+creates the communicator itself:
+
+```cpp
+Ice::CommunicatorHolder communicatorHolder{argc, argv};
+Ice::CommunicatorPtr communicator = communicatorHolder.communicator();
+```
+
+### Explicit Lifetime Management
+
+Without a `CommunicatorHolder`, your application calls `destroy` in every path, including when it throws an exception:
+
+```cpp
+Ice::CommunicatorPtr communicator = Ice::initialize(argc, argv);
+try
+{
+    // ... application code ...
+}
+catch (...)
+{
+    communicator->destroy();
+    throw;
+}
+communicator->destroy();
+```
+
+To take over the destruction of a communicator that a `CommunicatorHolder` holds, call `release`: it returns the
+communicator and empties the holder, whose destructor then no longer destroys it.
 
 {% /language-section %}
