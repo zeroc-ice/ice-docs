@@ -73,6 +73,11 @@ administrative utilities provide mechanisms for you to select a particular repli
 For programmatic access to a replica's administrative interface, the `IceGrid/Registry` identity corresponds to the
 master replica and the identity `IceGrid/Registry-name` corresponds to the slave with the given name.
 
+The registry's locator object also implements
+[`IceGrid::Locator`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceGrid_1_1Locator.html), which extends
+`Ice::Locator` with two operations: `getLocalRegistry` returns the `Registry` object of the replica your locator proxy
+is connected to, and `getLocalQuery` its `Query` object.
+
 ### Glacier2 Support
 
 The registry implements the session manager interfaces required for

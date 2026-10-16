@@ -324,6 +324,43 @@ Once the observers are registered, operations corresponding to state changes wil
 Slice API Reference for details on the data passed to the observers. You can also look at the source code for the
 IceGrid GUI implementation in the Ice for Java distribution to see how observers are used by the GUI.)
 
+## Locking Application Updates
+
+The registry provides an exclusive update lock. While an administrative session holds it, no other session can change
+applications, so a tool can read the current application descriptors, edit them and save them without another tool
+saving in between:
+
+```slice
+module IceGrid
+{
+    interface AdminSession extends Glacier2::Session
+    {
+        int startUpdate()
+            throws AccessDeniedException;
+
+        void finishUpdate()
+            throws AccessDeniedException;
+        // ...
+    }
+}
+```
+
+The registry numbers its application updates. `startUpdate` acquires the lock for the session and returns the serial
+number of the latest update. While the session holds the lock, the registry throws `AccessDeniedException` when another
+session calls `startUpdate` or an `Admin` operation that changes an application: `addApplication`, `syncApplication`,
+`updateApplication`, `syncApplicationWithoutRestart`, `updateApplicationWithoutRestart`, `removeApplication`, or
+`instantiateServer`.
+
+`finishUpdate` releases the lock, and throws `AccessDeniedException` if the session does not hold it. IceGrid also
+releases the lock when it destroys the session.
+
+Each `ApplicationObserver` callback carries the serial number of the update it reports. A tool that mirrors the
+applications with an application observer is up to date once its observer has received a callback with the serial number
+`startUpdate` returned; it can then edit the applications and save its changes. The
+[IceGrid GUI tool](../icegrid-gui-tool/application-tabs/editing-and-saving-icegrid-descriptors#concurrent-updates-to-the-same-icegrid-registry)
+acquires this lock with `File > Acquire Exclusive Write Access`, and waits until it is up to date before it saves your
+changes.
+
 ## See Also
 
 - [Registry Replication](../registry-replication)
