@@ -1,5 +1,6 @@
 ---
-title: Release Notes
+title: Ice 3.8.1 Release Notes
+sidebarLabel: Release Notes
 ---
 
 This [patch release](../../../compatibility) includes bug fixes and small improvements to Ice 3.8.

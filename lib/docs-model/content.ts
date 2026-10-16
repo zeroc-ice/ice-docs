@@ -180,7 +180,12 @@ export function writtenFor(
  * does not contain.
  */
 export function readNavigation(version: DocsVersion): NavDoc {
-  type Listed = { title: string; pages?: string[]; languages?: unknown };
+  type Listed = {
+    title: string;
+    pages?: string[];
+    sidebarLabel?: string;
+    languages?: unknown;
+  };
   const bySlug = new Map(listPages(version).map((p) => [p.slug, p]));
   const nodes = (parent: string, names: string[] = []): NavNode[] =>
     names.map((name) => {
@@ -207,7 +212,8 @@ export function readNavigation(version: DocsVersion): NavDoc {
         title: frontmatter.title,
         slug,
         writtenFor: writtenFor(page, frontmatter),
-        items: nodes(slug, frontmatter.pages)
+        items: nodes(slug, frontmatter.pages),
+        sidebarLabel: frontmatter.sidebarLabel
       };
     });
 

@@ -1,5 +1,6 @@
 ---
-title: Release Notes
+title: Ice 3.8.0 Release Notes
+sidebarLabel: Release Notes
 ---
 
 ## Themes
