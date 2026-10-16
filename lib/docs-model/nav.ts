@@ -14,8 +14,6 @@ export interface NavNode {
   writtenFor?: string[];
   /** The pages under it; a node with any is an expandable group. */
   items: NavNode[];
-  /** For a group, the label its own page takes among its entries; absent for the default. */
-  overviewTitle?: string;
 }
 
 /** Diátaxis-derived page kinds a page may declare in its frontmatter. */
@@ -55,8 +53,7 @@ export interface SideNavNode {
 }
 
 /**
- * The label a group's own page takes once it moves inside the group, unless
- * the page names another.
+ * The label a group's own page takes once it moves inside the group.
  */
 export const GROUP_OVERVIEW_TITLE = 'Overview';
 
@@ -92,12 +89,7 @@ export function buildSideNav(
         title: node.title,
         writtenFor,
         items: [
-          {
-            title: node.overviewTitle ?? GROUP_OVERVIEW_TITLE,
-            href,
-            writtenFor,
-            items: []
-          },
+          { title: GROUP_OVERVIEW_TITLE, href, writtenFor, items: [] },
           ...items
         ]
       };

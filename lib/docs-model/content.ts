@@ -184,7 +184,6 @@ export function readNavigation(version: DocsVersion): NavDoc {
   type Listed = {
     title: string;
     pages?: Entry[];
-    overviewTitle?: string;
     languages?: unknown;
   };
   const bySlug = new Map(listPages(version).map((p) => [p.slug, p]));
@@ -206,8 +205,7 @@ export function readNavigation(version: DocsVersion): NavDoc {
         title: frontmatter.title,
         slug,
         writtenFor: writtenFor(page, frontmatter),
-        items: nodes(slug, frontmatter.pages),
-        overviewTitle: frontmatter.overviewTitle
+        items: nodes(slug, frontmatter.pages)
       };
     });
 

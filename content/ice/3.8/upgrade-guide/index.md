@@ -5,7 +5,7 @@ title: Upgrade Guide
 Learn how to upgrade your application from Ice 3.7 to Ice 3.8.
 
 This page guides you through the upgrade process for an application that uses Ice 3.7. We recommend reading the
-[Ice 3.8.0 release notes](../release-notes/ice-3-8-0) for a general list of changes and improvements.
+[Ice 3.8.0 release notes](../release-notes/ice-3-8-0/release-notes) for a general list of changes and improvements.
 
 Ice 3.8 does not maintain binary compatibility or source compatibility with Ice 3.7. When upgrading, you need to
 recompile your Slice files and in some cases update your source code to use the latest APIs.

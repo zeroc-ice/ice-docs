@@ -115,28 +115,6 @@ test('a group written for some languages carries them on its row and its Overvie
   assert.deepEqual(threading.items[0].writtenFor, ['cpp', 'java']);
 });
 
-test('a group can name its own page something other than Overview', () => {
-  const [notes] = buildSideNav(
-    [
-      {
-        title: 'Ice 3.8.3',
-        slug: 'release-notes/ice-3-8-3',
-        overviewTitle: 'Release Notes',
-        items: [
-          {
-            title: 'Supported Platforms',
-            slug: 'release-notes/ice-3-8-3/supported-platforms',
-            items: []
-          }
-        ]
-      }
-    ],
-    VERSION
-  );
-  assert.equal(notes.items[0].title, 'Release Notes');
-  assert.equal(notes.items[0].href, '/ice/3.8/release-notes/ice-3-8-3');
-});
-
 // A group with no page of its own, holding two release pages.
 const RELEASES: NavNode[] = [
   { title: 'Compatibility', slug: 'compatibility', items: [] },
