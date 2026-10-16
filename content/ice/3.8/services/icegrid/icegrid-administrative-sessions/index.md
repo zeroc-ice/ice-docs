@@ -326,9 +326,9 @@ IceGrid GUI implementation in the Ice for Java distribution to see how observers
 
 ## Locking Application Updates
 
-A client that replaces an application descriptor based on a stale copy overwrites the changes that other clients saved
-since it read that copy. An administrative session prevents other sessions from starting application changes by holding
-the registry's exclusive update lock:
+The registry provides an exclusive update lock. While an administrative session holds it, no other session can change
+applications, so a tool can read the current application descriptors, edit them and save them without another tool
+saving in between:
 
 ```slice
 module IceGrid
@@ -345,25 +345,21 @@ module IceGrid
 }
 ```
 
-`startUpdate` acquires the lock for the session and returns the serial number of the latest application update that the
-registry published to application observers. While the session holds the lock, the registry raises
-`AccessDeniedException` when another session calls `startUpdate` or an `Admin` operation that changes an application:
-`addApplication`, `syncApplication`, `updateApplication`, `syncApplicationWithoutRestart`,
-`updateApplicationWithoutRestart`, `removeApplication`, or `instantiateServer`. The `lockUserId` member of this
-exception holds the user ID of the session that holds the lock. The registry checks the lock when an operation starts,
-so an application change that another session started before the session acquired the lock can complete while the
-session holds it.
+The registry numbers its application updates. `startUpdate` acquires the lock for the session and returns the serial
+number of the latest update. While the session holds the lock, the registry throws `AccessDeniedException` when another
+session calls `startUpdate` or an `Admin` operation that changes an application: `addApplication`, `syncApplication`,
+`updateApplication`, `syncApplicationWithoutRestart`, `updateApplicationWithoutRestart`, `removeApplication`, or
+`instantiateServer`.
 
-`finishUpdate` releases the lock, and raises `AccessDeniedException` if the session does not hold it. IceGrid also
-releases the lock when it destroys the session. The lock belongs to the registry replica that hosts the session, so a
-client that updates applications acquires it in a session with the master replica.
+`finishUpdate` releases the lock, and throws `AccessDeniedException` if the session does not hold it. IceGrid also
+releases the lock when it destroys the session.
 
-Each `ApplicationObserver` callback carries the serial number of the update it reports. A client that registered an
-application observer waits until its observer receives the serial number returned by `startUpdate` before it modifies an
-application, so that its observer reflects every application update the registry published before the session acquired
-the lock. The
+Each `ApplicationObserver` callback carries the serial number of the update it reports. A tool that mirrors the
+applications with an application observer is up to date once its observer has received a callback with the serial number
+`startUpdate` returned; it can then edit the applications and save its changes. The
 [IceGrid GUI tool](../icegrid-gui-tool/application-tabs/editing-and-saving-icegrid-descriptors#concurrent-updates-to-the-same-icegrid-registry)
-acquires this lock with `File > Acquire Exclusive Write Access`.
+acquires this lock with `File > Acquire Exclusive Write Access`, and waits until it is up to date before it saves your
+changes.
 
 ## See Also
 

@@ -73,32 +73,17 @@ administrative utilities provide mechanisms for you to select a particular repli
 For programmatic access to a replica's administrative interface, the `IceGrid/Registry` identity corresponds to the
 master replica and the identity `IceGrid/Registry-name` corresponds to the slave with the given name.
 
+The registry's locator object also implements
+[`IceGrid::Locator`](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceGrid_1_1Locator.html), which extends
+`Ice::Locator` with two operations: `getLocalRegistry` returns the `Registry` object of the replica your locator proxy
+is connected to, and `getLocalQuery` its `Query` object.
+
 ### Glacier2 Support
 
 The registry implements the session manager interfaces required for
 [integration with a Glacier2 router](../glacier2-integration-with-icegrid). The master replica supports the object
 identities `IceGrid/SessionManager` and `IceGrid/AdminSessionManager`. The slave replicas offer support for
 administrative sessions using the object identity `IceGrid/AdminSessionManager-name`.
-
-### Objects of the Locator's Replica
-
-The registry's locator object implements `IceGrid::Locator`, which extends `Ice::Locator`:
-
-```slice
-module IceGrid
-{
-    interface Locator extends Ice::Locator
-    {
-        idempotent Registry* getLocalRegistry();
-        idempotent Query* getLocalQuery();
-    }
-}
-```
-
-`getLocalRegistry` and `getLocalQuery` return proxies to the `Registry` and `Query` objects of the replica that hosts
-the locator, with that replica's client endpoints. A client reaches the replica it is connected to by casting its
-default locator proxy to an `IceGrid::Locator` proxy and calling these operations, for example to create an
-administrative session with that replica.
 
 ## Configuring Registry Replication
 
