@@ -23,7 +23,8 @@ module IceMX
 ```
 
 Glacier2 records session metrics in the `Session` metrics map. The metrics objects in this map are instances of the
-`IceMX::SessionMetrics` class shown above. To configure a metrics view to record Glacier2 session metrics you can use
+[`IceMX::SessionMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1SessionMetrics.html) class shown above.
+To configure a metrics view to record Glacier2 session metrics you can use
 [metrics properties](../../../property-reference/icemx-metrics-properties) with the
 `IceMX.Metrics.view-name.Map.Session` prefix, for example:
 

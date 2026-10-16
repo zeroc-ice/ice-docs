@@ -36,10 +36,10 @@ These classes provide the following metrics:
 
 IceStorm records metrics in the metrics map described below.
 
-| **Metrics map name** | **Slice class**            | **Description**    | **Property prefix**                      |
-| -------------------- | -------------------------- | ------------------ | ---------------------------------------- |
-| Topic                | `IceMX::TopicMetrics`      | Topic metrics      | `IceMX.Metrics.view-name.Map.Topic`      |
-| Subscriber           | `IceMX::SubscriberMetrics` | Subscriber metrics | `IceMX.Metrics.view-name.Map.Subscriber` |
+| **Metrics map name** | **Slice class**                                                                                             | **Description**    | **Property prefix**                      |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------- |
+| Topic                | [`IceMX::TopicMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1TopicMetrics.html)           | Topic metrics      | `IceMX.Metrics.view-name.Map.Topic`      |
+| Subscriber           | [`IceMX::SubscriberMetrics`](https://code.zeroc.com/ice/3.8/api/slice/classIceMX_1_1SubscriberMetrics.html) | Subscriber metrics | `IceMX.Metrics.view-name.Map.Subscriber` |
 
 To configure a metrics view to record IceStorm topic and subscriber you can use for example:
 
