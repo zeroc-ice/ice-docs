@@ -48,13 +48,21 @@ proxies and does not marshal the per-proxy context when a proxy is marshaled.)
 
 ## Recommendations for Request Contexts
 
-Contexts are a powerful mechanism for transparent propagation of context information, _if used correctly_. In
-particular, you may be tempted to use contexts as a means of versioning an application as it evolves over time. For
-example, version 2 of your application may accept two parameters on an operation that, in version 1, used to accept only
-a single parameter. Using contexts, you could supply the second parameter as a name-value pair to the server and avoid
-changing the Slice definition of the operation in order to maintain backward compatibility.
+A request context carries request metadata: information about the request rather than input to the operation, such as a
+transaction identifier, an authorization token, or a preference that the server can honor or ignore. A value that the
+operation requires is operation input, and belongs in the operation's Slice definition.
 
-We _strongly_ urge you to resist any temptation to use contexts in this manner. The strategy is fraught with problems:
+A language preference can fall on either side. The `language` context of the greeting examples is metadata, like the
+HTTP `Accept-Language` header: the greeter returns a greeting in the requested language, and falls back to English when
+the context has no `language` entry or names a language it does not support. For an operation that cannot produce a
+result without a language, such as a translation operation, the target language is operation input and belongs in Slice.
+
+A context can also look like a way to version an application as it evolves over time: version 2 of your application may
+accept two parameters on an operation that, in version 1, used to accept only a single parameter. Using contexts, you
+could supply the second parameter as a name-value pair to the server and avoid changing the Slice definition of the
+operation in order to maintain backward compatibility.
+
+Passing operation input in a context has the following problems:
 
 - Missing context There is nothing that would compel a client to actually send a context when the server expects to
   receive a context: if a client forgets to send a context, the server, somehow, has to make do without it (or throw an
@@ -74,12 +82,7 @@ and they are strongly typed, making it much less likely for the client to accide
 Furthermore, you can use [optional parameters](../../../../slice/operations) to modify the signature of an operation
 without breaking backward compatibility.
 
-Contexts are meant to be used to transmit simple tokens (such as a transaction identifier) for services that cannot be
-reasonably implemented without them; you should restrict your use of contexts to that purpose and resist any temptation
-to use contexts for any other purpose.
-
 Finally, be aware that, if a request is routed via one or more Ice routers, contexts may be dropped by intermediate
 routers if they consider them illegal. This means that, in general, you cannot rely on an arbitrary context value that
 is created by an application to actually still be present when a request arrives at the server — only those context
-values that are known to routers and that are considered legitimate are passed on. It follows that you should not abuse
-contexts to pass things that really should be passed as parameters.
+values that are known to routers and that are considered legitimate are passed on.
