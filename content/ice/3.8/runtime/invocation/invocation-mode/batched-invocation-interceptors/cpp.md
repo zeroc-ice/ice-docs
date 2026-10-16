@@ -13,13 +13,17 @@ initData.batchRequestInterceptor =
 {% language-section name="mapping-2" %}
 
 ```cpp
-int limit = initData.properties->getPropertyAsInt("Ice.BatchAutoFlushSize");
+constexpr int maxBatchSize = 64 * 1024; // in bytes
 initData.batchRequestInterceptor =
-    [limit](const Ice::BatchRequest& req, int count, int size)
+    [](const Ice::BatchRequest& req, int count, int size)
     {
-        if (size + req.getSize() > limit)
+        if (size + req.getSize() > maxBatchSize)
         {
-            req.getProxy()->ice_flushBatchRequestsAsync();
+            req.getProxy()->ice_flushBatchRequestsAsync(
+                [](std::exception_ptr ex)
+                {
+                    // Log the failure.
+                });
         }
         req.enqueue();
     };

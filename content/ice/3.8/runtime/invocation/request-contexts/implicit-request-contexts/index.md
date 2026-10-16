@@ -1,5 +1,14 @@
 ---
 title: Implicit Request Contexts
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - matlab
+  - python
+  - ruby
+  - swift
 ---
 
 ## Using Implicit Request Contexts
@@ -21,8 +30,21 @@ be set to the following values:
   `ImplicitContext` class is interlocked, so different threads can concurrently manipulate the context without risking
   data corruption or reading stale values.
 
+{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}
+
 - `PerThread` The communicator maintains a separate implicit context for each thread. This allows you to propagate
   contexts that depend on the sending thread (for example, to send per-thread transaction IDs).
+
+{% /iflang %}
+
+## Using the Implicit Context
+
+`getImplicitContext` on the communicator returns its implicit context, an object with methods to read and update the
+context's entries.{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %} When `Ice.ImplicitContext` is
+`PerThread`, each thread has its own implicit context: call `getImplicitContext` and update the context on the thread
+that makes the invocations.{% /iflang %}
+
+{% language-section name="using-the-implicit-context" /%}
 
 ## See Also
 

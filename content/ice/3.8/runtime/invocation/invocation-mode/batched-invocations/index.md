@@ -14,8 +14,6 @@ of being sent as a separate requests, a batch request is placed into a client-si
 batch requests are added to the buffer and accumulated on the client side until they are flushed, either explicitly by
 the client or automatically by the Ice runtime.
 
-{% language-section name="proxy-methods-for-batched-invocations" /%}
-
 ## Proxy Methods for Batched Invocations
 
 The `ice_batchOneway` and `ice_batchDatagram` methods create a new proxy configured for batch invocations. Once you
@@ -25,6 +23,8 @@ batched requests. This causes the batched requests to be sent "in bulk", precede
 server side, batched requests are dispatched by a single thread, in the order in which they were written into the batch.
 This means that requests from a single batch cannot appear to be reordered in the server. Moreover, either all messages
 in a batch are delivered or none of them. (This is true even for batched datagrams.)
+
+{% language-section name="proxy-methods-for-batched-invocations" /%}
 
 Batched requests are queued by the proxy on which the operation was invoked (this is true for all proxies except fixed
 proxies). It's important to be aware of this behavior for several reasons:
@@ -47,8 +47,8 @@ for these requests.
 {% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 For batched datagram requests, Ice also caps the flush threshold at
-[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties) bytes, or 65507 bytes when that property is not
-set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
+[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) bytes, or 65507 bytes when that
+property is not set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
 
 {% /iflang %}
 
@@ -78,6 +78,14 @@ proxies, and you have three options for manually flushing:
 - Calling `flushBatchRequests` on the connection flushes all batched requests queued by the target connection
 - Calling `flushBatchRequests` on the communicator flushes all batched requests on all connections associated with the
   target communicator
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+The `flushBatchRequests` methods of the connection and the communicator take a `CompressBatch` argument that selects
+whether Ice compresses the flushed batch: `Yes`, `No`, or `BasedOnProxy`, which compresses the batch if at least one of
+its requests was made on a proxy with compression enabled.
+
+{% /iflang %}
 
 {% callout type="note" %}
 

@@ -14,6 +14,7 @@ A typical example is reporting events:
 ```slice
 interface WeatherStation
 {
+    ["cs:identifier:Report"] // We prefer PascalCase for C# methods.
     void report(
         string sensorId,
         string timeStamp,
