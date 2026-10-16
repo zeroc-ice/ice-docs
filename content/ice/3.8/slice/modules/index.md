@@ -28,8 +28,8 @@ use a well-known name, such as a company or product name, as the name of the out
 
 ## Modules Are Mandatory
 
-Slice requires all definitions to be nested inside a module, that is, you cannot define anything other than a module at
-global scope. For example, the following is illegal:
+Slice allows only modules at global scope: you must nest all other definitions inside a module. For example, the
+following is illegal:
 
 ```slice
 interface I   // Error: only modules can appear at global scope
