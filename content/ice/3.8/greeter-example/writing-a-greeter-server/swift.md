@@ -137,14 +137,14 @@ An object adapter serves two purposes in Ice:
 In this example, we create an object adapter named `GreeterAdapter` which listens for TCP connections on port 4061, and
 later receives requests over these connections.
 
-We then register out Chatbot servant with this adapter under the identity `greeter`:
+We then register our `Chatbot` servant with this adapter under the identity `greeter`:
 
 ```swift
 try adapter.add(servant: Chatbot(), id: Ice.Identity(name: "greeter"))
 ```
 
 Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our
-`Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
+`Chatbot` servant. It is therefore essential that the client uses the same identity in its proxy.
 
 ### 3. Activate the Object Adapter
 

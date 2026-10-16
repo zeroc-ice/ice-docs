@@ -103,7 +103,7 @@ adapter.add(new Server.Chatbot(), new Ice.Identity { name = "greeter" });
 ```
 
 Later on, when the object adapter receives a request with identity “greeter”, it will route this request to our
-`Chatbot` instance. It is therefore essential that the client uses the same identity in its proxy.
+`Chatbot` servant. It is therefore essential that the client uses the same identity in its proxy.
 
 ### 3. Activate the Object Adapter
 
