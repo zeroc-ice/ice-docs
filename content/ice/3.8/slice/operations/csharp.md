@@ -291,39 +291,51 @@ runtime queues the request internally for later transmission in the background.
 This creates a potential problem: if a client sends many asynchronous requests at the time the server is too busy to
 keep up with them, the requests pile up in the client-side runtime until, eventually, the client runs out of memory.
 
-The API provides a way for you to implement flow control by counting the number of requests that are queued so, if that
-number exceeds some threshold, the client stops invoking more operations until some of the queued operations have
-drained out of the local transport. One of the optional arguments to every asynchronous proxy invocation is a
-`System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method when it has sent the request,
-with a boolean argument that is true if Ice wrote the entire request to the local transport in the caller's thread
-without blocking, and false if Ice queued the request and sent it later.
+To limit the requests that pile up, count the invocations that Ice has not sent yet: stop invoking operations when this
+count reaches a limit, and resume as Ice sends the queued requests and the count goes down.
 
-Here's a simple example to demonstrate the flow control feature:
+Ice tells you when it has sent a request through the sent callback: the optional `progress` parameter of every
+asynchronous proxy method, a `System.IProgress<bool>`. If you provide one, the Ice runtime calls its `Report` method
+once it has sent the request. The `bool` argument (`sentSynchronously`) is true when Ice wrote the entire request to the
+local transport in the caller's thread; in this case, the Ice runtime calls `Report` from the calling thread, before the
+asynchronous proxy method returns. It is false when Ice queued the request and sent it later; the Ice runtime then calls
+`Report` from a separate thread.
+
+The following example allows at most 100 invocations that Ice has not sent yet. It takes a slot before invoking the
+operation, because Ice can call `Report` before `GetNameAsync` returns, and frees the slot of an invocation that fails
+before Ice sends it:
 
 ```csharp
-ExamplePrx proxy = ...;
-proxy.DoSomethingAsync(progress: new SentCallback());
+EmployeesPrx e = ...;
+var unsent = new SemaphoreSlim(100);
+var tasks = new List<Task<string>>();
 
-class SentCallback : IProgress<bool>
+for (int number = 0; number < 10_000; ++number)
 {
-    public void Report(bool sentSynchronously)
+    await unsent.WaitAsync(); // Waits while 100 invocations are not sent yet.
+    var sentCallback = new SentCallback(unsent);
+    Task<string> task = e.GetNameAsync(number, progress: sentCallback);
+    _ = task.ContinueWith(_ => sentCallback.Release(), TaskScheduler.Default);
+    tasks.Add(task);
+}
+string[] names = await Task.WhenAll(tasks);
+
+class SentCallback(SemaphoreSlim unsent) : IProgress<bool>
+{
+    private int _released;
+
+    public void Report(bool sentSynchronously) => Release();
+
+    // Called from Report and when the invocation completes; only the first call frees the slot.
+    public void Release()
     {
-        if (sentSynchronously)
+        if (Interlocked.Exchange(ref _released, 1) == 0)
         {
-            // Entire request was accepted by the transport,
-            // called recursively from this thread
-        }
-        else
-        {
-            // Request was queued but has now been sent,
-            // called from a separate thread
+            unsent.Release();
         }
     }
 }
 ```
-
-Using this feature, you can limit the number of queued requests by counting the number of requests that are queued and
-decrementing the count when the Ice runtime passes a request to the local transport.
 
 ### Canceling an Asynchronous Invocation
 
