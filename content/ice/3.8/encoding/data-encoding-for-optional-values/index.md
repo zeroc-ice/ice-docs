@@ -118,8 +118,8 @@ Suppose the parameters have the values shown in the table below:
 | `p`            | `proxy`  | `hello`   | 16                            |
 | _return value_ | `bool`   | `true`    | 1                             |
 
-The parameters of the outgoing request are encoded in an [encapsulation](../basic-data-encoding) with all required
-parameters first, in order of declaration, followed by the optional parameters sorted by tag:
+The parameters of the outgoing request are encoded in an [encapsulation](../basic-data-encoding), as described in
+[Request Payload](../data-encoding-for-request-and-reply-payloads#request-payload):
 
 | **Marshaled value**                   | **Size in bytes** | **Type** | **Byte offset** |
 | ------------------------------------- | ----------------- | -------- | --------------- |

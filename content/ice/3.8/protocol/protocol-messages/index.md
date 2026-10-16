@@ -88,8 +88,8 @@ The request fields are described in the following table.
 | `context`   | The invocation [context](../../runtime/invocation/request-contexts)                                                                             |
 | `params`    | The [encapsulated](../../encoding/basic-data-encoding) input parameters                                                                         |
 
-The `params` encapsulation holds the required input parameters in order of declaration, followed by the
-[optional](../../encoding/data-encoding-for-optional-values) input parameters sorted by tag.
+[Data Encoding for Request and Reply Payloads](../../encoding/data-encoding-for-request-and-reply-payloads#request-payload)
+describes the contents of the `params` encapsulation.
 
 The request identifier zero (`0`) is reserved for use in
 [oneway](../../runtime/invocation/invocation-mode/oneway-invocations) requests and indicates that the server must not
@@ -178,15 +178,13 @@ Only the payloads of reply statuses 0 and 1 are [encapsulations](../../encoding/
 
 ### Ok Reply Payload
 
-For reply status 0, the reply payload is an encapsulation that holds the required out-parameters in order of
-declaration, followed by the return value if it is required, followed by the
-[optional](../../encoding/data-encoding-for-optional-values) out-parameters and optional return value sorted by tag. If
-an operation declares a `void` return type and no out-parameters, the encapsulation is empty.
+For reply status 0, the reply payload is an encapsulation that holds the out-parameters and return value, as described
+in [Ok Reply Payload](../../encoding/data-encoding-for-request-and-reply-payloads#ok-reply-payload).
 
 ### User Exception Reply Payload
 
-For reply status 1, the reply payload is an encapsulation that holds the
-[encoded user exception](../../encoding/data-encoding-for-exceptions).
+For reply status 1, the reply payload is an encapsulation that holds the user exception, as described in
+[User Exception Reply Payload](../../encoding/data-encoding-for-request-and-reply-payloads#user-exception-reply-payload).
 
 ### Request Failed Reply Payload
 
@@ -274,6 +272,7 @@ receiving datagrams.
 ## See Also
 
 - [Protocol Compression](../protocol-compression)
+- [Data Encoding for Request and Reply Payloads](../../encoding/data-encoding-for-request-and-reply-payloads)
 - [Object Identity](../../runtime/object-identity)
 - [Versioning](../../versioning)
 - [Request Contexts](../../runtime/invocation/request-contexts)
