@@ -137,13 +137,15 @@ export const DocumentShell = ({
 
           <article>
             {title && (
-              <header className="mb-10">
+              <header className="not-prose mb-10">
                 {type && (
                   <div className="mb-2">
                     <PageTypeBadge type={type} />
                   </div>
                 )}
-                <h1>{title}</h1>
+                <h1 className="text-4xl font-bold tracking-tight text-ink">
+                  {title}
+                </h1>
                 {description && (
                   <p className="mt-3 text-lg text-ink-secondary">
                     {description}
