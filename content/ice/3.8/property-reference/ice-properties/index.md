@@ -344,9 +344,9 @@ When `num` is `0` or negative, the logger writes to a single file with unlimited
 
 If `num` is set to a value larger than `0`, on Windows, the communicator's
 [default logger](../../administration/logger-facility/default-logger) converts log messages from the application's
-narrow string encoding to the Windows console's code page. The default value for this property is `1` when Ice.StdErr is
-not set, and `0` otherwise. This property is read by the first communicator created in a process; it is ignored by other
-communicators.
+narrow string encoding to the Windows console's code page. The default value for this property is `1` when `Ice.StdErr`
+is not set, and `0` otherwise. This property is read by the first communicator created in a process; it is ignored by
+other communicators.
 
 {% /property-description %}
 
