@@ -525,8 +525,7 @@ For example, a Slice parameter `string name` is mapped to a Java parameter `Stri
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
 
-- Zero values The corresponding Java method returns `void`. For the purposes of this discussion, we're not interested in
-  these operations.
+- Zero values The corresponding Java method returns `void`.
 - One value The corresponding Java method returns the mapped type, regardless of whether the Slice definition of the
   operation declared it as a return value or as an out parameter. Consider this example:
 
