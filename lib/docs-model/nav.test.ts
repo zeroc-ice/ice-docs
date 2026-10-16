@@ -168,10 +168,9 @@ test('a group with no page of its own only opens', () => {
   ]);
 });
 
-test('a group with no page of its own is a crumb without a link, and reading order passes over it', () => {
+test('a group with no page of its own stays out of the breadcrumb and the reading order', () => {
   assert.deepEqual(breadcrumbs(RELEASES, VERSION, 'release-notes/ice-3-8-0'), [
     { title: SITE_TITLE, href: '/ice/3.8' },
-    { title: 'Release Notes', href: undefined },
     { title: 'Ice 3.8.0' }
   ]);
   assert.deepEqual(prevNext(RELEASES, VERSION, 'compatibility', 'cpp'), {

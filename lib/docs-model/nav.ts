@@ -239,9 +239,9 @@ export function versionTitle(version: DocsVersion): string {
 
 /**
  * The trail from the front page down to the page at `slug`: the front
- * page, then every ancestor, then the page. The last crumb is the current page
- * and is never a link. Empty for the front page itself, and when the page is
- * not in the tree.
+ * page, then every ancestor that is a page, then the page. The last crumb is
+ * the current page and is never a link. Empty for the front page itself, and
+ * when the page is not in the tree.
  */
 export function breadcrumbs(
   nodes: NavNode[],
@@ -253,10 +253,13 @@ export function breadcrumbs(
 
   const crumbs: Crumb[] = [
     { title: SITE_TITLE, href: pageHref(version) },
-    ...trail.map((node) => ({
-      title: node.title,
-      href: node.slug === undefined ? undefined : pageHref(version, node.slug)
-    }))
+    // A folder with no page of its own is not a place to go, so it has no
+    // crumb: https://www.nngroup.com/articles/breadcrumbs/ (guideline 6).
+    ...trail.flatMap((node) =>
+      node.slug === undefined
+        ? []
+        : [{ title: node.title, href: pageHref(version, node.slug) }]
+    )
   ];
   return crumbs.map((crumb, i) =>
     i === crumbs.length - 1 ? { title: crumb.title } : crumb

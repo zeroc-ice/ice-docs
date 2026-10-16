@@ -110,20 +110,16 @@ export async function DocsPage({
   // gets no trail and no previous/next, which makes the omission obvious.
   const crumbs = breadcrumbs(sidebar, version, slug);
   // The same trail as structured data, which search results can show in place
-  // of the page's URL. Every crumb there but the last needs a URL, so a folder
-  // with no page of its own stays out of it.
-  // https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+  // of the page's URL.
   const breadcrumbList = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: crumbs
-      .filter((crumb, i) => crumb.href || i === crumbs.length - 1)
-      .map((crumb, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: crumb.title,
-        item: crumb.href && new URL(crumb.href, SITE_URL).href
-      }))
+    itemListElement: crumbs.map((crumb, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: crumb.title,
+      item: crumb.href && new URL(crumb.href, SITE_URL).href
+    }))
   };
   // Previous and next follow the sidebar, which hides the pages not written
   // for the reader's language: one pair per language, alike ones sharing.
