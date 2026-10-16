@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-The Slice basic types are mapped to JavaScript and TypeScript types as follows:
+The Slice basic types map to JavaScript and TypeScript types as follows:
 
 | **Slice** | **JavaScript** | **TypeScript** |
 | --------- | -------------- | -------------- |

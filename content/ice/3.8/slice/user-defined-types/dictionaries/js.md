@@ -3,7 +3,7 @@
 A Slice dictionary maps to:
 
 - A JavaScript [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) when the
-  key is a Slice built-in type or an enumeration.
+  key is a Slice basic type or an enumeration.
 - An [`Ice.HashMap`](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html) when the key is a Slice structure.
 
 This distinction is necessary because:
@@ -11,7 +11,7 @@ This distinction is necessary because:
 - JavaScript Map uses the `===` operator for key equality.
 - `Ice.HashMap` accepts a key comparator, so struct keys can use their `equals` method for equality.
 
-### Example: Dictionary with Built-in Key
+### Example: Dictionary with a Basic Key Type
 
 ```slice
 struct Employee
