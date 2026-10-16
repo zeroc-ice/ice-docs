@@ -17,7 +17,7 @@ Options:
  --export FILE          Export database to FILE.
  --dbpath DIR           Source or target database environment.
  --mapsize VALUE        Set LMDB map size in MB (optional, import only).
- --server-version VER   Set Ice version for IceGrid servers (optional, import only).
+ --server-version VER   Set Ice version for IceGrid servers (optional).
  -d, --debug            Print debug messages.
 ```
 
@@ -66,23 +66,10 @@ The `--mapsize` option allows you to set the map size of the new LMDB database. 
 
 ### server-version Option
 
-IceGrid allows you to assign an Ice version to each server it manages. IceGrid uses this information to generate
-configuration files for this server that are compatible with the specified Ice version. When a server has no associated
-Ice version, IceGrid assumes this server uses the same version of Ice, for example, IceGrid 3.8.2 assumes such a server
-also uses Ice 3.8.2.
-
-By default, `icegriddb` imports each server's `ice-version` attribute unchanged. With the `--server-version` option,
-`icegriddb` sets the `ice-version` attribute of every server and IceBox server to the version you specify, including the
-servers that already have an `ice-version`, as shown in the example below:
-
-```shell
-icegriddb --server-version 3.7.1 --import registry.ixp --dbpath dbNew/registry
-```
-
-The `--server-version` option also applies to `--export`: `icegriddb` then sets the `ice-version` attribute of every
-server and IceBox server in the exported file to the version you specify.
+The `--server-version` option sets the `ice-version` attribute of every server and IceBox server in the imported or
+exported data to the version you specify. Use it after upgrading your servers to replace the Ice versions recorded in
+your database with the version the servers now use.
 
 ## Compatibility
 
-Besides importing files that it creates itself, `icegriddb` can also import the files exported by older versions of this
-utility, from IceGrid 3.6 on. It rejects a file exported by IceGrid 3.5 or earlier.
+`icegriddb` imports the files it exports itself and the files exported by this utility in IceGrid 3.6 and later.
