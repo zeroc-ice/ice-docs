@@ -27,7 +27,7 @@
       <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--text-secondary, #566174)"/>
     </marker>
     <g id="step-badge-shape">
-      <circle class="step-badge" cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
+      <circle cx="0" cy="0" r="12" vector-effect="non-scaling-stroke"/>
     </g>
   </defs>
 
@@ -129,19 +129,19 @@
       <tspan x="534" dy="20">registry</tspan>
     </text>
     <text class="label" x="534" y="414">Node2</text>
-    <use href="#step-badge-shape" transform="translate(350 272)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(350 272)"/>
     <text class="step-number" x="350" y="276.5">1</text>
-    <use href="#step-badge-shape" transform="translate(142 356)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(142 356)"/>
     <text class="step-number" x="142" y="360.5">2</text>
-    <use href="#step-badge-shape" transform="translate(350 528)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(350 528)"/>
     <text class="step-number" x="350" y="532.5">2</text>
-    <use href="#step-badge-shape" transform="translate(558 356)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(558 356)"/>
     <text class="step-number" x="558" y="360.5">3</text>
-    <use href="#step-badge-shape" transform="translate(290 388)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(290 388)"/>
     <text class="step-number" x="290" y="392.5">3</text>
-    <use href="#step-badge-shape" transform="translate(279 170)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(279 170)"/>
     <text class="step-number" x="279" y="174.5">4</text>
-    <use href="#step-badge-shape" transform="translate(421 170)"/>
+    <use class="step-badge" href="#step-badge-shape" transform="translate(421 170)"/>
     <text class="step-number" x="421" y="174.5">5</text>
   </g>
 </svg>
