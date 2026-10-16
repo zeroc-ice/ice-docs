@@ -2,42 +2,87 @@
 title: IceStorm Concepts
 ---
 
-## Message
+IceStorm distributes messages from publishers to subscribers through named topics: a publisher sends a message to a
+topic, and IceStorm forwards it to the topic's subscribers.
 
-An IceStorm _message_ is strongly typed and is represented by an invocation of a Slice operation: the operation name
-identifies the type of the message, and the operation parameters define the message contents. A message is published by
-invoking the operation on an IceStorm proxy in the normal fashion. Similarly, subscribers receive the message as a
-regular operation dispatch. As a result, IceStorm uses the "push" model for message delivery; polling is not supported.
+## Topics and Messages
 
-## IceStorm Topics
+A topic is a named channel. An IceStorm service hosts any number of topics, which applications create at run time, and
+each topic can have multiple publishers and subscribers.
 
-An application indicates its interest in receiving messages by subscribing to a _topic_. An IceStorm server supports any
-number of topics, which are created dynamically and distinguished by unique names. Each topic can have multiple
-publishers and subscribers.
+A message is an invocation of a Slice operation: the operation name identifies the kind of message, and the parameters
+carry its data. The publishers and subscribers of a topic agree on a Slice interface for its messages. For example, the
+weather application uses the `WeatherStation` interface, and each call to `report` is a message:
 
-A topic is essentially equivalent to an application-defined Slice interface: the operations of the interface define the
-types of messages supported by the topic. A publisher uses a proxy for the topic interface to send its messages, and a
-subscriber implements the topic interface in order to receive the messages. This is no different than if the publisher
-and subscriber were communicating directly in the traditional client-server style; the interface represents the contract
-between the client (the publisher) and the server (the subscriber), except IceStorm transparently forwards each message
-to multiple recipients.
+```slice
+module ClearSky
+{
+    class AtmosphericConditions
+    {
+        double temperature;
+        double humidity;
+    }
 
-IceStorm does not verify that publishers and subscribers are using compatible interfaces, therefore applications must
-ensure that topics are used correctly.
+    interface WeatherStation
+    {
+        void report(string sensorId, string timeStamp, AtmosphericConditions reading);
+    }
+}
+```
 
-## Unidirectional Messages
+IceStorm forwards messages without checking their types, so the interface is a contract among the applications: the
+topic determines where a message goes, and the interface determines what it contains.
 
-IceStorm messages are [unidirectional](../../../runtime/invocation/invocation-mode/oneway-invocations), that is, they
-must have `void` return type, cannot have out-parameters, and cannot raise user exceptions. It follows that a publisher
-cannot receive replies from its subscribers. Any of the Ice transports (TCP, SSL, UDP, etc.) can be used to publish and
-receive messages.
+## Publishing and Subscribing
 
-## Federation
+A publisher calls `getPublisher` on the topic to obtain a proxy to the topic's
+[publisher object](../using-icestorm/using-an-icestorm-publisher-object), and sends a message by invoking an operation
+on this proxy.
 
-IceStorm supports the formation of topic graphs, also known as [federation](../topic-federation): an application links
-topics together, where a _link_ is a unidirectional association from one topic to another. IceStorm forwards the
-messages published on a link's source topic to the link's target topic. Each link has a _cost_ that can restrict which
-messages IceStorm forwards on that link, as described in [Topic Federation](../topic-federation).
+A subscriber registers a proxy to an Ice object that implements the topic's interface, by calling
+`subscribeAndGetPublisher` on the topic. IceStorm pushes each message to the subscriber as it arrives, and the
+subscriber receives it as a regular dispatch of the operation; subscribers cannot poll for messages.
+
+## Message Delivery
+
+A message is unidirectional: its operation returns `void`, has no out-parameters and declares no user exceptions, so a
+publisher receives no results from the subscribers.
+
+A publisher can send messages to IceStorm with oneway or twoway invocations. A twoway invocation returns once IceStorm
+has accepted the message for forwarding, whether or not the subscribers have received it yet.
+
+IceStorm forwards messages to each subscriber with the invocation mode of the proxy the subscriber registered, as
+described in [IceStorm Delivery Modes](../icestorm-delivery-modes).
+
+## Quality of Service and Subscriber Failures
+
+Each subscriber can set [quality of service](../icestorm-quality-of-service) (QoS) parameters that control its delivery,
+including message ordering and the handling of delivery failures.
+
+By default, IceStorm removes a subscriber when a delivery fails with an Ice run-time exception, for example when
+IceStorm cannot connect to the subscriber's endpoints. The `retryCount` parameter sets how many consecutive transient
+failures IceStorm tolerates before it removes the subscriber; a
+[hard failure](../icestorm-quality-of-service#hard-failures), such as `Ice::ObjectNotExistException` when the
+subscriber's servant is gone, removes the subscriber regardless of `retryCount`. While a failing subscriber is retained,
+IceStorm discards the messages for this subscriber until the
+[IceStorm.Discard.Interval](../../../property-reference/icestorm-properties#icestorm.discard.interval) period ends:
+retries extend the subscription, and each message reaches only the subscribers IceStorm can deliver it to when it
+forwards the message.
+
+## Persistence
+
+By default, IceStorm stores its topics, links and subscriptions in a database, so they survive a restart of the service.
+IceStorm queues messages in memory only while forwarding them: a subscriber receives only the messages published while
+it is subscribed, and IceStorm discards each message once it has forwarded it to the current subscribers.
+
+In transient mode, IceStorm uses no database: its topics, links and subscriptions last only until the service stops, and
+replication is unavailable.
+
+## Topic Federation
+
+[Federation](../topic-federation) links topics, so that the messages published on one topic also reach the subscribers
+of other topics. A link goes from a source topic to a target topic, and has a cost that can restrict which messages
+IceStorm forwards on it.
 
 A topic that receives a message over a link delivers the message to its subscribers but does not forward it on its own
 links: messages propagate at most one hop from the originating topic.
@@ -49,47 +94,18 @@ messages only from T1, and S4 receives messages from both T3 and T1.
 
 ![Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 has dotted links to T2 and T3. Solid arrows show delivery from publishers to topics and from T1 to S3, T2 to S1 and S2, and T3 to S4.](/images/ice/3.8/icestorm-concepts/topic-federation.svg)
 
-IceStorm makes no attempt to prevent a subscriber from receiving duplicate messages. For example, if a subscriber is
-subscribed to both T2 and T3, then it would receive two requests for each message published on T1.
-
-## Quality of Service
-
-IceStorm allows each subscriber to specify its own [_quality of service_](../icestorm-quality-of-service) (QoS)
-parameters that affect the delivery of its messages. Quality of service parameters are represented as a dictionary of
-name-value pairs.
+A subscriber of both T2 and T3 receives each message published on T1 twice, once through each link.
 
 ## Replication
 
-IceStorm supports [replication](../highly-available-icestorm) to provide higher availability for publishers and
-subscribers.
-
-## Persistent Mode
-
-IceStorm's default behavior maintains information about topics, links, and subscribers in a database. However, a message
-sent via IceStorm is not stored persistently, but rather is discarded as soon as it is delivered to the topic's current
-set of subscribers. If an error occurs during delivery to a subscriber, IceStorm does not queue messages for that
-subscriber.
-
-## Transient Mode
-
-IceStorm can optionally run in a fully transient mode in which no database is required. Replication is not supported in
-this mode.
-
-## Subscriber Errors
-
-By default, IceStorm removes a subscription when it fails to deliver a message to the subscriber, for example when
-IceStorm cannot connect to the subscriber's endpoints, or when an invocation on a subscriber registered with a twoway
-proxy throws an exception.
-
-{% callout type="note" %}
-
-The `retryCount` [quality of service](../icestorm-quality-of-service) parameter lets IceStorm retry delivery instead of
-removing the subscriber on the first failure.
-
-{% /callout %}
+A [replicated](../highly-available-icestorm) IceStorm service keeps topics and subscriptions available when a replica
+fails. The replicas share their topics, links and subscriptions, and each replica forwards the messages published to it:
+a message that a replica has accepted is lost if this replica fails before forwarding it.
 
 ## See Also
 
-- [Topic Federation](../topic-federation)
+- [Using IceStorm](../using-icestorm)
+- [IceStorm Delivery Modes](../icestorm-delivery-modes)
 - [IceStorm Quality of Service](../icestorm-quality-of-service)
+- [Topic Federation](../topic-federation)
 - [Configuring IceStorm](../configuring-icestorm)
