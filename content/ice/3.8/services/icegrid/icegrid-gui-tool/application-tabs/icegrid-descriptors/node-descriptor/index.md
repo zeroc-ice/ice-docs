@@ -15,7 +15,7 @@ The Node Properties panel offers the following fields:
 - **Load Factor** A floating point value by which the registry multiplies the node's load when the Adaptive
   [load-balancing](../replica-group-descriptor) policy ranks the nodes from least to most loaded. The node's load is its
   load average on Linux and macOS, and its CPU utilization on Windows. When this value is blank, the IceGrid registry
-  uses the default: 1.0 divided by the number of hardware threads on Linux and macOS, and 1.0 on Windows, which puts
+  uses the default: `1.0` divided by the number of hardware threads on Linux and macOS, and `1.0` on Windows, which puts
   both on the same scale, the share of the node's processing capacity in use. A larger factor makes the node rank as
   more loaded.
 

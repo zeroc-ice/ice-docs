@@ -54,8 +54,8 @@ Specifying a fixed port is unnecessary because the server registers its endpoint
 Each IceGrid node and IceGrid registry replica provides by default an
 [admin object](../../../administration/administrative-facility/admin-object) hosted in the `IceGrid.Node` object adapter
 (for nodes) or in the `IceGrid.Registry.Internal` object adapter (for registry replicas). If you don't want to an admin
-object in a node or registry replica, set [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to 0 or
-a negative value in this node or registry's configuration.
+object in a node or registry replica, set [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to `0`
+or a negative value in this node or registry's configuration.
 
 Each of these admin objects carries all the built-in facets, currently `Logger`, Metrics, Process and Properties.
 Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations
@@ -74,7 +74,7 @@ When the node is ready to deactivate a server, it invokes the `shutdown` operati
 If the server does not terminate in a timely manner, the node asks the operating system to terminate the process. Each
 server can be configured with its own [deactivation timeout](../icegrid-xml-reference/server-descriptor-element). If no
 timeout is configured, the node uses the value of the property
-[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties), which defaults to `60` seconds.
+[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties), which defaults to 60 seconds.
 
 If a server does not register an `Ice::Process` proxy, the IceGrid node cannot request a graceful termination and must
 resort instead to a more drastic, and potentially harmful, alternative by asking the operating system to terminate the

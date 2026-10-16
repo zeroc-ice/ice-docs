@@ -126,7 +126,7 @@ Specifies the multiplier to apply to the latency of the first discovery request-
 IceDiscovery receives a reply for a discovery request and this reply indicates that the adapter identifier is a replica
 group, it waits for an additional time interval for other responses from replicated servers. This time interval is based
 on the latency of the first request-reply and the latency multiplier. For example, if the first reply is received after
-15 milliseconds and the multiplier is set to 4, IceDiscovery will wait for an additional 60 milliseconds for replies
+15 milliseconds and the multiplier is set to `4`, IceDiscovery will wait for an additional 60 milliseconds for replies
 from other servers. If not defined, the default is `1`. `num` must be `1` or greater.
 
 {% /property-description %}
@@ -180,8 +180,8 @@ unset, the plug-in uses `udp -h *` to bind to all local interfaces. The
 
 Specifies the maximum number of times that the plug-in will retry sending UDP multicast requests before giving up. The
 [IceDiscovery.Timeout](#icediscovery.timeout) property determines how long the plug-in waits for a reply before trying
-again. If not defined, the default retry count is `3`, for a total of four attempts. A value of 0 sends only the initial
-query.
+again. If not defined, the default retry count is `3`, for a total of four attempts. A value of `0` sends only the
+initial query.
 
 {% /property-description %}
 

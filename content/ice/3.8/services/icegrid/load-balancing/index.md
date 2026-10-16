@@ -32,9 +32,9 @@ are used in locate requests. The load balancing descriptor specifies the followi
   node reports the CPU utilization averaged over the interval.
 
 - Number of replicas The replica group can instruct the registry to return the endpoints of one (the default) or more
-  object adapters. If the specified number _N_ is larger than one, the proxy returned in response to a locate request
-  contains the endpoints of at most _N_ object adapters. If _N_ is 0, the proxy contains the endpoints of all the object
-  adapters. The Ice run time in the client selects one of these endpoints at random when
+  object adapters. If the specified number _N_ is larger than `1`, the proxy returned in response to a locate request
+  contains the endpoints of at most _N_ object adapters. If _N_ is `0`, the proxy contains the endpoints of all the
+  object adapters. The Ice run time in the client selects one of these endpoints at random when
   [establishing a connection](../../../runtime/connection-management/connection-establishment).
 
 For example, the descriptor shown below uses adaptive load balancing to return the endpoints of the two least-loaded

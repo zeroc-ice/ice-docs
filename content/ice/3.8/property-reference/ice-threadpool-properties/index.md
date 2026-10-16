@@ -38,14 +38,14 @@ This page describes configuration properties for the client and server thread po
 
 {% property-description %}
 
-If `num` is a value greater than 0, the `Client` or `Server` [thread pool](../../runtime/threading-model) serializes all
-messages from each connection. It is not necessary to enable this feature in a thread pool whose maximum size is 1
+If `num` is a value greater than `0`, the `Client` or `Server` [thread pool](../../runtime/threading-model) serializes
+all messages from each connection. It is not necessary to enable this feature in a thread pool whose maximum size is 1
 thread. When a thread pool dispatches requests implemented with AMD, it serializes the dispatching of requests from each
 connection, but it does not wait for a request to complete before it dispatches the next request.
 
 In a multi-threaded pool, enabling serialization allows requests from different connections to be dispatched
 concurrently while preserving the order of messages on each connection. Note that serialization can have a significant
-impact on latency and throughput. If not defined, the default value is 0.
+impact on latency and throughput. If not defined, the default value is `0`.
 
 See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 
@@ -65,9 +65,9 @@ See also: [Ice.Connection.MaxDispatches](../ice-connection-properties)
 When a thread becomes busy and no idle thread remains in the pool, Ice adds a thread, up to
 [Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax). Ice reaps idle threads as
 [Ice.ThreadPool._name_.ThreadIdleTime](#ice.threadpool.name.threadidletime) specifies, but always keeps at least 1
-thread in the pool. The default value is 1.
+thread in the pool. The default value is `1`.
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
@@ -95,7 +95,7 @@ runtime.
 
 {% /iflang %}
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
@@ -110,9 +110,9 @@ To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadP
 {% property-description %}
 
 Whenever `num` threads are active in the `Client` or `Server` [thread pool](../../runtime/threading-model), a "low on
-threads" warning is printed. The default value is 0, which disables the warning.
+threads" warning is printed. The default value is `0`, which disables the warning.
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
@@ -139,11 +139,11 @@ under-utilized thread pool will get reaped.
 
 {% /callout %}
 
-To disable the reaping of idle threads, set `ThreadIdleTime` to 0. In this situation, the thread pool is initialized
+To disable the reaping of idle threads, set `ThreadIdleTime` to `0`. In this situation, the thread pool is initialized
 with [Ice.ThreadPool._name_.Size](#ice.threadpool.name.size) active threads and may grow to contain
 [Ice.ThreadPool._name_.SizeMax](#ice.threadpool.name.sizemax) active threads, but the size of the pool never decreases.
 
-To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to 1.
+To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadPool](../ice-trace-properties) to `1`.
 
 {% /property-description %}
 
