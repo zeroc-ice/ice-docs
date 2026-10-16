@@ -126,33 +126,8 @@ module IceGrid
 - `removeObject` The `removeObject` operation removes the well-known object with the given identity from the database.
   If no object with the given identity is registered, the operation raises `ObjectNotRegisteredException`.
 
-The following C++ example produces the same result as the [descriptor](#deploying-well-known-objects) we deployed
-earlier:
-
-```cpp
-auto adapter = communicator->createObjectAdapter("EncoderAdapter");
-auto ident = Ice::stringToIdentity("EncoderFactory");
-auto f = make_shared<FactoryImpl>();
-auto factory = adapter->add(f, ident);
-IceGrid::AdminPrx admin = // ...
-try
-{
-    admin.addObject(factory); // doesn't work
-}
-catch (const IceGrid::ObjectExistsException&)
-{
-    admin.updateObject(factory);
-}
-```
-
-After obtaining a proxy for the [IceGrid::Admin interface](../icegrid-administrative-sessions), the code invokes
-`addObject`. Notice that the code catches `ObjectExistsException` and calls `updateObject` instead when the object is
-already registered.
-
-There is one subtle problem in this code: calling `addObject` causes the registry to invoke `ice_id` on our factory
-object, but we have not yet activated the object adapter. As a result, our program will hang indefinitely at the call to
-`addObject`. One solution is to activate the adapter prior to the invocation of `addObject`; another solution is to use
-`addObjectWithType` as shown below:
+To register the object before activating its adapter, supply its type with `addObjectWithType`. The following C++
+example produces the same result as the [descriptor](#deploying-well-known-objects) we deployed earlier:
 
 ```cpp
 auto adapter = communicator->createObjectAdapter("EncoderAdapter");
@@ -162,12 +137,25 @@ auto factory = adapter->add(f, ident);
 IceGrid::AdminPrx admin = // ...
 try
 {
-    admin.addObjectWithType(factory, factory->ice_id());
+    admin->addObjectWithType(factory, Ripper::MP3EncoderFactory::ice_staticId());
 }
 catch (const IceGrid::ObjectExistsException&)
 {
-    admin.updateObject(factory);
+    admin->updateObject(factory);
 }
+```
+
+After obtaining a proxy for the [IceGrid::Admin interface](../icegrid-administrative-sessions), the code invokes
+`addObjectWithType`. Notice that the code catches `ObjectExistsException` and calls `updateObject` instead when the
+object is already registered.
+
+`addObject` asks the object for its type, so the registry can reach the object only once its adapter is active. Before
+activation, the registry's `ice_id` invocation fails once its connection attempt times out, and `addObject` raises
+`DeploymentException`. Activate the adapter before calling `addObject`:
+
+```cpp
+adapter->activate();
+admin->addObject(factory);
 ```
 
 ## Adding Well-Known Objects with `icegridadmin`
@@ -309,7 +297,7 @@ object identities. Since our factories are registered with the same type, we can
 ```cpp
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};
 string type = Ripper::MP3EncoderFactory::ice_staticId();
-auto seq = query.findAllObjectsByType(type);
+auto seq = query->findAllObjectsByType(type);
 if (seq.empty())
 {
     // no match
@@ -347,7 +335,7 @@ distributing the encoding tasks more intelligently. The change to the client's c
 IceGrid::QueryPrx query{communicator, "IceGrid/Query"};
 string type = Ripper::MP3EncoderFactory::ice_staticId();
 auto obj =
-    query.findObjectByTypeOnLeastLoadedNode(type, IceGrid::LoadSample::LoadSample1);
+    query->findObjectByTypeOnLeastLoadedNode(type, IceGrid::LoadSample::LoadSample1);
 if (!obj)
 {
     // no match
