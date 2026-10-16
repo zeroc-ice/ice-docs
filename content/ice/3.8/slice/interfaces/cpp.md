@@ -62,19 +62,6 @@ Notice that all proxy member functions are `const` – proxy instances are immut
 
 {% /callout %}
 
-The `Ice::Proxy` template is a mix-in class that adds functionality to the proxy class via inheritance. It derives from
-the provided base proxy classes (here, only `Ice::ObjectPrx`):
-
-```cpp
-template<typename Prx, typename... Bases>
-class Proxy : public virtual Bases...
-{
-   // Helper functions for Prx
-}
-```
-
-It’s an instance of the Curiously Recurring Template Pattern (CRTP).
-
 ### Creating a Proxy
 
 Use the constructor of the generated class to create a proxy from a communicator and a “stringified” proxy. For example:
@@ -128,9 +115,10 @@ from `C`'s base interfaces.
 
 ### Proxy Factory Methods
 
-The base proxy class `Ice::ObjectPrx` supports a variety of methods for customizing a proxy. Since proxies are
-immutable, each of these "factory methods" returns a copy of the original proxy that contains the desired modification.
-For example, you can obtain a proxy configured with a ten second invocation timeout as shown below:
+A proxy provides a variety of methods for customizing it. Since proxies are immutable, each of these "factory methods"
+returns a copy of the original proxy that contains the desired modification. The factory methods return the proxy's own
+type: calling `ice_invocationTimeout` on a `GreeterPrx` returns a `GreeterPrx`. For example, you can obtain a proxy
+configured with a ten second invocation timeout as shown below:
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
@@ -139,11 +127,9 @@ GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 greeter = greeter.ice_invocationTimeout(10000);
 ```
 
-The factory methods usually return a proxy of the same type as the current proxy, as in the example above.
-
-The only exceptions are the factory methods `ice_facet` and `ice_identity`. Calls to either of these functions may
-produce a proxy for an object of an unrelated type, and you need to supply the desired proxy type when you call them.
-For example:
+The factory methods `ice_facet` and `ice_identity` are the exceptions. The new facet or identity can designate an object
+of an unrelated type, so these two functions return an `Ice::ObjectPrx` unless you supply the desired proxy type as a
+template argument. For example:
 
 ```cpp
 GreeterPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
