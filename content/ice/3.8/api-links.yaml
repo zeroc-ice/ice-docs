@@ -86,6 +86,10 @@ Ice/OutputStream:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/OutputStream.html
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/OutputStream.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/outputstream
+Ice/PluginManager:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1PluginManager.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.PluginManager.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginManager.html
 Ice/Properties:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html

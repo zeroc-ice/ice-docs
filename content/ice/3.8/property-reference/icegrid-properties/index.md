@@ -44,7 +44,7 @@ specify it indirectly with `Ice.Default.Locator`.
 {% property-description %}
 
 An IceGrid node uses the adapter name `IceGrid.Node` for the object adapter that the registry contacts to communicate
-with the node. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter.
+with the node. The node requires [IceGrid.Node.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 {% /property-description %}
 
@@ -410,8 +410,8 @@ The default value is 60 seconds.
 {% property-description %}
 
 Specifies the file name of an IceGrid registry
-[access control list for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The
-file uses the format described in [IceGrid.Registry.CryptPasswords](#icegrid.registry.cryptpasswords). This property is
+[password file for administrative clients](../../services/icegrid/resource-allocation-using-icegrid-sessions). The file
+uses the format described in [IceGrid.Registry.CryptPasswords](#icegrid.registry.cryptpasswords). This property is
 ignored if [IceGrid.Registry.AdminPermissionsVerifier](#icegrid.registry.adminpermissionsverifier) is defined. When
 neither property is defined, the registry rejects administrative sessions created with a user name and password.
 
@@ -470,11 +470,10 @@ The default value is `0`.
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.AdminSessionManager` for the object adapter that processes
 incoming requests from [IceGrid administrative sessions](../../services/icegrid/icegrid-administrative-sessions).
-Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any setting
-of `IceGrid.Registry.AdminSessionManager.AdapterId` is ignored because the registry always provides a direct adapter.)
 
-For security reasons, defining endpoints for this object adapter is optional. If you do define endpoints, they should
-only be accessible to Glacier2 routers used to create IceGrid administrative sessions.
+The registry creates this adapter only when
+[IceGrid.Registry.AdminSessionManager.Endpoints](../object-adapter-properties#adapter.endpoints) is set. These endpoints
+should only be accessible to Glacier2 routers used to create IceGrid administrative sessions.
 
 {% /property-description %}
 
@@ -508,12 +507,11 @@ As a proxy property, you can configure additional [aspects of the proxy](../prox
 {% property-description %}
 
 IceGrid uses the adapter name `IceGrid.Registry.Client` for the object adapter that processes incoming requests from
-clients. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any
-setting of `IceGrid.Registry.Client.AdapterId` is ignored because the registry always provides a direct adapter.)
+clients.
 
-Note that [IceGrid.Registry.Client.Endpoints](../object-adapter-properties) controls the client endpoint for the
-registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for the registry by the
-[Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA).
+The registry requires [IceGrid.Registry.Client.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
+[IANA](https://www.iana.org/assignments/service-names-port-numbers) has assigned the port numbers 4061 (TCP) and 4062
+(SSL) to the registry.
 
 {% /property-description %}
 
@@ -528,9 +526,9 @@ registry. The port numbers 4061 (for TCP) and 4062 (for SSL) are reserved for th
 {% property-description %}
 
 Specifies the file name of an IceGrid registry
-[access control list](../../services/icegrid/resource-allocation-using-icegrid-sessions). Each line of the file contains
-a user name and a password hash, separated by white space. The supported hash formats depend on the platform; see
-[Writing a Password File](../../services/glacier2/getting-started-with-glacier2).
+[password file](../../services/icegrid/resource-allocation-using-icegrid-sessions). Each non-blank line of the file
+contains a user name and a password hash, separated by white space. The supported hash formats depend on the platform;
+see [Writing a Password File](../../services/glacier2/getting-started-with-glacier2#writing-a-password-file).
 
 This property is ignored if [IceGrid.Registry.PermissionsVerifier](#icegrid.registry.permissionsverifier) is defined.
 When neither property is defined, the registry rejects sessions created with a user name and password.
@@ -674,9 +672,9 @@ dynamically register an adapter with a replica group registered with the
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Internal` for the object adapter that processes incoming
-requests from nodes and slave replicas. Therefore, [adapter properties](../object-adapter-properties) can be used to
-configure this adapter. (Note any setting of `IceGrid.Registry.Internal.AdapterId` is ignored because the registry
-always provides a direct adapter.)
+requests from nodes and slave replicas.
+
+The registry requires [IceGrid.Registry.Internal.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 {% /property-description %}
 
@@ -795,9 +793,9 @@ A value of `0` disables the expiration of replica sessions; any other value must
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.Server` for the object adapter that processes incoming
-requests from servers. Therefore, [adapter properties](../object-adapter-properties) can be used to configure this
-adapter. (Note any setting of `IceGrid.Registry.Server.AdapterId` is ignored because the registry always provides a
-direct adapter.)
+requests from servers.
+
+The registry requires [IceGrid.Registry.Server.Endpoints](../object-adapter-properties#adapter.endpoints) to start.
 
 {% /property-description %}
 
@@ -832,12 +830,11 @@ The default value is `0`.
 {% property-description %}
 
 The IceGrid registry uses the adapter name `IceGrid.Registry.SessionManager` for the object adapter that processes
-incoming requests from [client sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions). Therefore,
-[adapter properties](../object-adapter-properties) can be used to configure this adapter. (Note any setting of
-`IceGrid.Registry.SessionManager.AdapterId` is ignored because the registry always provides a direct adapter.)
+incoming requests from [client sessions](../../services/icegrid/resource-allocation-using-icegrid-sessions).
 
-For security reasons, defining endpoints for this object adapter is optional. If you do define endpoints, they should
-only be accessible to Glacier2 routers used to create IceGrid client sessions.
+The registry creates this adapter only when
+[IceGrid.Registry.SessionManager.Endpoints](../object-adapter-properties#adapter.endpoints) is set. These endpoints
+should only be accessible to Glacier2 routers used to create IceGrid client sessions.
 
 {% /property-description %}
 

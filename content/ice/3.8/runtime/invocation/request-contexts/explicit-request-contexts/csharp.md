@@ -10,6 +10,7 @@ module VisitorCenter
 {
     interface Greeter
     {
+        ["cs:identifier:Greet"]
         string greet(string name);
     }
 }

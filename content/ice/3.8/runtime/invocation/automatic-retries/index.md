@@ -31,8 +31,7 @@ Ice considers a request to have failed if any of the following conditions are tr
 - A connection could not be established
 - A connection was lost before the reply was received
 - An exception occurred while sending the request or receiving the reply
-- An error occurred in the server while dispatching the request that causes the server to return an `UnknownException`
-  or `RequestFailedException`
+- The server reported a [dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions)
 
 {% callout type="note" %}
 
@@ -45,22 +44,24 @@ Ice must determine the answers to several questions to decide whether to retry a
 
 **1. What kind of error caused the request to fail?**
 
-Ice does not bother retrying a request if it knows the same error is going to occur again. For example, Ice never
-retries an invocation that throws a `MarshalException`, which indicates that there was a problem while encoding or
-decoding a message. Retrying such an invocation is unlikely to change the outcome. It also doesn't retry
-[invocation timeouts](../invocation-timeouts), if a server didn't respond within the invocation timeout period, it's
-unlikely that a retry would provide better results.
+Ice does not retry a request when the same error would occur again. It never retries a request that failed:
 
-Ice also never retries exceptions that derive from `RequestFailedException` because they indicate a permanent failure.
-One such subclass is `OperationNotExistException`, whose occurrence signals a serious problem in the application. For
-instance, it might mean that the client and server are using incompatible Slice definitions, or that the client is
-trying to invoke operations on the wrong object. The exception to this rule is `ObjectNotExistException`, which Ice does
-consider to be worthy of retry if the proxy in question is [indirect](../../../basics/terminology) because it gives an
-application the ability to transparently migrate an Ice object.
+- with `MarshalException`, a problem while encoding the request or decoding the reply
+- because the invocation timed out or was canceled{% iflang langs="java" %}, or because its thread was
+  interrupted{% /iflang %}
+- because its communicator or object adapter was destroyed or deactivated
+- because the application closed the connection
+- with `FacetNotExistException` or `OperationNotExistException`, which usually mean the client and the server use
+  incompatible Slice definitions, or the client calls the wrong object
+- with `ObjectNotExistException`, unless the proxy is [indirect](../../../basics/terminology), since the Ice object may
+  have moved to another server
 
-In addition to user exceptions and subclasses of `RequestFailedException`, a server can also return an instance of
-`UnknownException`, `UnknownLocalException`, or `UnknownUserException` to indicate that it encountered an unexpected
-exception while dispatching the request. These exceptions _are_ eligible for retry.
+Nor does Ice retry an invocation on a fixed proxy, or the flush of the requests queued on a
+[batch proxy](../invocation-mode/batched-invocations).
+
+Any other local exception remains a candidate for retry, including any other
+[dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions), such as `UnknownException`,
+`UnknownLocalException` or `UnknownUserException`.
 
 **2. When did the error occur?**
 
@@ -127,12 +128,12 @@ reached its configured retry limits.
 
 ### Retry Intervals
 
-The [Ice.RetryIntervals](../../../property-reference/ice-properties) property configures the retry behavior for a
-communicator and affects invocations on every proxy created by that communicator. (Retry behavior cannot be configured
-on a per-proxy basis.) The value of this property consists of a series of integers separated by whitespace. The number
-of integers determines how many retry attempts Ice makes, and the value of each entry represents a delay in
-milliseconds. If this property is not defined, the default behavior is to retry once immediately after the first
-failure, which is equivalent to the following property definition:
+The [Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) property configures the retry
+behavior for a communicator and affects invocations on every proxy created by that communicator. The value of this
+property is a list of integers, separated by commas or whitespace. The number of integers determines how many retry
+attempts Ice makes, and the value of each entry represents a delay in milliseconds. If this property is not defined, the
+default behavior is to retry once immediately after the first failure, which is equivalent to the following property
+definition:
 
 ```config
 Ice.RetryIntervals=0
@@ -149,12 +150,17 @@ With this setting, Ice retries immediately as in the default case. If the first 
 milliseconds before trying again, then 500 milliseconds, and finally tries one more time after waiting one second.
 
 In some situations you may need to disable retries completely. For example, an application might implement its own retry
-logic and therefore require immediate notification when a failure occurs.
+logic and therefore require immediate notification when a failure occurs. A first value of `-1` disables the retries
+governed by this property:
+
+```config
+Ice.RetryIntervals=-1
+```
 
 ### Retry Logging
 
 To monitor Ice's retry activities, configure your program with the property
-[Ice.Trace.Retry](../../../property-reference/ice-trace-properties) set to a non-zero value:
+[Ice.Trace.Retry](../../../property-reference/ice-trace-properties#ice.trace.retry) set to a non-zero value:
 
 ```config
 Ice.Trace.Retry=1
@@ -170,55 +176,6 @@ Ice.Trace.Retry=2
 ```
 
 This setting prompts Ice to include additional details about connections and endpoints.
-
-## Connections and Automatic Retries
-
-The behavior of automatic retries is intimately tied to the presence (and absence) of connections. This section
-describes the errors that cause Ice to abort connections, and provides more details about how connections influence
-retries.
-
-### Connection Errors
-
-Ice automatically aborts a connection in response to certain fatal error conditions, such as:
-
-- a socket failure while performing I/O on the connection
-- receiving an improperly formatted message
-
-When Ice aborts a connection, all other outstanding requests on the same connection also fail and may be retried if
-eligible.
-
-### Connection Status
-
-One factor that influences retry behavior is the status of the connection on which the failed request was attempted. If
-the failure caused Ice to abort the connection (as discussed in the previous section), or if the request failed because
-Ice could not [establish a connection](../../connection-management/connection-establishment), Ice must try to obtain
-another connection before it can retry the request.
-
-It is also important to understand that Ice may not retry the invocation on the original endpoint _even if the
-connection that was used for the initial request remains open_. The retry behavior in this case depends on several
-criteria:
-
-- whether the proxy [caches its connection](../../connection-management/connection-establishment)
-- whether the proxy contains [multiple endpoints](../proxy-endpoints)
-- whether other connections exist to any of the proxy's endpoints
-- the proxy's configured [endpoint selection type](../../connection-management/connection-establishment)
-
-Generally speaking, you must configure your application carefully if you need fine-grained control over Ice's retry
-behavior.
-
-## Automatic Retries: Direct Proxy Versus Indirect Proxies
-
-With a direct proxy, Ice tries to establish a connection using each suitable endpoint of the proxy, and, if this fails,
-Ice retries these connection attempts (Ice retries once immediately with the default retry configuration).
-
-With an indirect proxy, the retry algorithm is a little bit different:
-
-- Ice first attempts to establish a connection using the endpoints found in its locator cache, with one attempt for each
-  suitable endpoint.
-- if this fails, Ice refreshes its locator cache and tries to establish a connection using the refreshed endpoints (this
-  new attempt with just-refreshed endpoints does not count as a retry).
-- if all these attempts still fail, Ice refreshes its locator cache again and tries to establish a connection to the
-  re-refreshed endpoints, which represents retry attempt number 1
 
 ## See Also
 
