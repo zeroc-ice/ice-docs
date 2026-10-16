@@ -57,7 +57,8 @@ meaning the client that initiated the locate request will not receive the endpoi
 
 {% callout type="note" %}
 
-You can optionally use custom load balancing strategies by installing [replica group filters](./).
+You can optionally use custom load balancing strategies by installing
+[replica group filters](#custom-load-balancing-strategies).
 
 {% /callout %}
 
@@ -220,7 +221,7 @@ private:
 ```
 
 The `initialize` method calls `getRegistryPluginFacade` to obtain a smart pointer for the registry's
-[facade object](./). The plug-in uses this object to install a replica group filter.
+[facade object](#the-registry-plug-in-facade-object). The plug-in uses this object to install a replica group filter.
 
 We describe filter implementations in more detail below.
 
@@ -287,10 +288,11 @@ each kind of filter receives a request context:
 
 So far we've discussed how client-specific information can be passed to a filter, but what if the filter needs to obtain
 more information about the object adapters (in the case of a replica group filter) or objects (in the case of a type
-filter) in order to perform its duties? This is where the registry's [facade object](./) comes in handy, as with it the
-filter can retrieve information about the deployment. For example, a replica group filter can use server-specific
-properties as a form of metadata. The registry supplies the filter with a list of object adapter identifiers; each
-object adapter is hosted by a server, and the filter can look up property values for that server using the facade.
+filter) in order to perform its duties? This is where the registry's
+[facade object](#the-registry-plug-in-facade-object) comes in handy, as with it the filter can retrieve information
+about the deployment. For example, a replica group filter can use server-specific properties as a form of metadata. The
+registry supplies the filter with a list of object adapter identifiers; each object adapter is hosted by a server, and
+the filter can look up property values for that server using the facade.
 
 ### Implementing a Custom Replica Group Filter
 
@@ -312,15 +314,16 @@ The replica group's descriptor specifies the filter:
 </replica-group>
 ```
 
-Notice that the filter identifier `filterByCurrency` matches that used when the plug-in [registered the filter](./).
+Notice that the filter identifier `filterByCurrency` matches that used when the plug-in
+[registered the filter](#implementing-a-registry-plug-in).
 
 A replica group filter registered with an empty filter identifier applies to every replica group whose descriptor has no
 `filter` attribute, and to the replica groups created through
 [dynamic registration](../../../property-reference/icegrid-properties#icegrid.registry.dynamicregistration), which have
 no descriptor.
 
-In this example, the client uses a [request context](./) to indicate the desired currency. The context is configured on
-the locator proxy in the client's configuration file:
+In this example, the client uses a [request context](../../../runtime/invocation/request-contexts) to indicate the
+desired currency. The context is configured on the locator proxy in the client's configuration file:
 
 ```config
 Ice.Default.Locator=...

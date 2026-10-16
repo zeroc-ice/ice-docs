@@ -5,7 +5,7 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side C++ Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated proxy class contains 3 member functions for this operation. To invoke an
+operation on an interface, the generated proxy class contains 3 member functions for this operation. To invoke an
 operation, you call one of these functions on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
@@ -129,7 +129,7 @@ catch (const Tantrum& t)
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side C++ Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated skeleton class contains a pure virtual function with the same name.
+operation on an interface, the generated skeleton class contains a pure virtual function with the same name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
@@ -664,8 +664,8 @@ you’re loaning these values to Ice for marshaling.
 
 ### Optional Parameters
 
-The mapping for [optional parameters](./) is the same as for required parameters, except each mapped C++ type is
-enclosed in a `std::optional`.
+The mapping for [optional parameters](#optional-parameters-and-return-values) is the same as for required parameters,
+except each mapped C++ type is enclosed in a `std::optional`.
 
 Consider the following operation:
 

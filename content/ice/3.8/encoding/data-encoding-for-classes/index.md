@@ -41,7 +41,7 @@ instance, it assigns the instance an unused ID, inserts it into the table, and e
 whose value is the _negative_ of the ID. If the encoder has already encountered that instance, it simply encodes the
 instance's previously-assigned ID as a negative 32-bit integer.
 
-All [class instances](./) are encoded at the end of the encapsulation.
+All [class instances](../../slice/user-defined-types/classes) are encoded at the end of the encapsulation.
 
 ### Class Reference Encoding Version 1.1
 
@@ -67,7 +67,8 @@ context in which the reference occurs:
   above. When marshaling this parameter, its `obj` member is encoded as a size with value 1, followed by the encoding of
   the `Node` instance itself. Now consider the marshaling of the `Node` instance, where we encounter a class reference
   in member `next` that occurs _inside_ the context of a class instance. To assist the Ice run time in unmarshaling and
-  remarshaling instances, such a reference is encoded as a size whose value is an index into an [indirection table](./).
+  remarshaling instances, such a reference is encoded as a size whose value is an index into an
+  [indirection table](#class-instance-encoding-version-1.1).
 
 ## Encoding for Class Instances
 

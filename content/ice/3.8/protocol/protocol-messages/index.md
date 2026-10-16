@@ -151,8 +151,8 @@ struct ReplyData
 ```
 
 The first four bytes of a reply message body contain a request ID. The request ID matches an outgoing request and allows
-the requester to associate the reply with the [original request](./). The requester ignores a reply whose request ID
-does not match that of an outstanding request, such as the reply to a request that timed out.
+the requester to associate the reply with the [original request](#request-message-body). The requester ignores a reply
+whose request ID does not match that of an outstanding request, such as the reply to a request that timed out.
 
 The byte following the request ID indicates the status of the request, and the reply payload follows the status byte.
 The table below shows the possible reply status values; the first column gives the corresponding

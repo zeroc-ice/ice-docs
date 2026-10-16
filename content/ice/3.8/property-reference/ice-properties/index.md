@@ -50,8 +50,8 @@ when that property is not set, including when `num` is `0`.
 {% callout type="warning" %}
 
 When flushed, batch requests are sent as a single Ice message. The Ice runtime in the receiver limits incoming messages
-to the maximum size specified by [Ice.MessageSizeMax](./), therefore the sender must periodically flush batch requests
-(whether manually or automatically) to ensure they do not exceed the receiver's configured limit.
+to the maximum size specified by [Ice.MessageSizeMax](#ice.messagesizemax), therefore the sender must periodically flush
+batch requests (whether manually or automatically) to ensure they do not exceed the receiver's configured limit.
 
 {% /callout %}
 

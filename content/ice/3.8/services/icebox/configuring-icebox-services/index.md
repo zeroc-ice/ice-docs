@@ -74,8 +74,9 @@ This optimization is not possible with the default behavior that creates a new c
 
 IceBox prepares the property set of this shared communicator as follows:
 
-- If services [inherit the server's properties](./), the property set initially contains the IceBox server's properties,
-  except those whose names start with `IceBox.` or `Ice.Admin.`; otherwise the property set starts out empty.
+- If services [inherit the server's properties](#inheriting-properties-from-the-icebox-server), the property set
+  initially contains the IceBox server's properties, except those whose names start with `IceBox.` or `Ice.Admin.`;
+  otherwise the property set starts out empty.
 - For each service that uses the shared communicator:
 
   - Merge its properties into the shared property set, overwriting any existing properties with the same names
@@ -83,9 +84,9 @@ IceBox prepares the property set of this shared communicator as follows:
     `Ice.Trace.Network=` clears any existing setting of `Ice.Trace.Network` in the shared property set.
   - Translate service-specific command-line settings into properties (e.g., `--Hello.Debug=1`)
 
-Service properties are merged in the same order as the [services are loaded](./). As a result, the final value of a
-property that is defined by multiple services depends on the order in which those services are loaded. Let's expand our
-example to demonstrate this behavior:
+Service properties are merged in the same order as the [services are loaded](#load-order-for-icebox-services). As a
+result, the final value of a property that is defined by multiple services depends on the order in which those services
+are loaded. Let's expand our example to demonstrate this behavior:
 
 ```config
 # File: server.cfg
@@ -141,7 +142,7 @@ inherits all the properties of the IceBox server, except those whose names start
 
 {% callout type="note" %}
 
-The properties of the [shared communicator](./) are also affected by this setting.
+The properties of the [shared communicator](#using-a-shared-communicator) are also affected by this setting.
 
 {% /callout %}
 
