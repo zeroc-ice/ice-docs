@@ -71,7 +71,7 @@ export const TD = ({ align, children, dividers }: TDProps) => {
   return (
     <td
       className={clsx(
-        'prose-sm min-w-[100px] rounded-sm py-3 pl-4 align-top',
+        'prose-sm min-w-25 rounded-sm py-3 pl-4 align-top',
         dividers && 'border border-light-border/60 dark:border-dark-border/40',
         textAlignment(align)
       )}

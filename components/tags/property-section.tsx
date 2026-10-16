@@ -14,7 +14,7 @@ const PropertySection = ({
   children: ReactNode;
 }) => (
   <section className="property-section">
-    <div className="mt-5 mb-0.5 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
+    <div className="mt-5 mb-0.5 text-xs font-semibold tracking-wider text-ink-muted uppercase">
       {label}
     </div>
     {children}

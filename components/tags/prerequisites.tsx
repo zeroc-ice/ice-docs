@@ -13,7 +13,7 @@ export const Prerequisites = ({
     aria-label={title}
     className="my-6 rounded-md border border-hairline bg-surface-subtle p-4"
   >
-    <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
+    <div className="mb-2 text-xs font-semibold tracking-wider text-ink-muted uppercase">
       {title}
     </div>
     <div className="text-sm leading-6 *:my-1">{children}</div>

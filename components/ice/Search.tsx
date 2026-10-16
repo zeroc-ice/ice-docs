@@ -146,7 +146,7 @@ export function Search({ version }: { version: DocsVersion }) {
           />
         </svg>
         <span className="sr-only lg:not-sr-only">Search</span>
-        <kbd className="hidden rounded border border-black/15 px-1 text-[10px] xl:inline dark:border-white/20">
+        <kbd className="hidden rounded border border-black/15 px-1 text-xs xl:inline dark:border-white/20">
           {hotkey}
         </kbd>
       </button>
@@ -208,7 +208,7 @@ export function Search({ version }: { version: DocsVersion }) {
               <span className="flex items-center gap-2">
                 <span className="font-medium">{record.t}</span>
                 {record.k && (
-                  <span className="rounded-full bg-black/5 px-1.5 py-0.5 text-[10px] tracking-wide uppercase opacity-60 dark:bg-white/10">
+                  <span className="rounded-full bg-black/5 px-1.5 py-0.5 text-xs tracking-wide uppercase opacity-60 dark:bg-white/10">
                     {record.k}
                   </span>
                 )}
@@ -220,7 +220,7 @@ export function Search({ version }: { version: DocsVersion }) {
           ))}
         </div>
 
-        <div className="flex gap-4 border-t border-black/10 px-4 py-2 text-[11px] opacity-50 dark:border-white/10">
+        <div className="flex gap-4 border-t border-black/10 px-4 py-2 text-xs opacity-50 dark:border-white/10">
           <span>↑↓ to navigate</span>
           <span>↵ to open</span>
           <span>esc to close</span>

@@ -47,7 +47,7 @@ export function PageTypeBadge({ type }: { type: PageType }) {
   if (!entry) return null;
   return (
     <span
-      className={`inline-block rounded px-1.5 py-0.5 text-[11px] font-semibold tracking-[0.04em] uppercase ${entry.className}`}
+      className={`inline-block rounded px-1.5 py-0.5 text-xs font-semibold tracking-wider uppercase ${entry.className}`}
     >
       {entry.label}
     </span>
