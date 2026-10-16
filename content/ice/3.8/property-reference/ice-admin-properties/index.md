@@ -30,8 +30,7 @@ The Ice run time creates and activates an
 - [Ice.Admin.DelayCreation](#ice.admin.delaycreation) is not enabled
 - [Ice.Admin.DelayCreation](#ice.admin.delaycreation) is enabled and the application calls `getAdmin` on the
   communicator after communicator initialization
-- the application calls [createAdmin](../../administration/administrative-facility/creating-the-admin-object) with a
-  null `adminAdapter` parameter
+- the application calls `createAdmin` on the [communicator](api:Ice/Communicator) with a null `adminAdapter` parameter
 
 This object adapter is created to host the [admin object](../../administration/administrative-facility/admin-object).
 [Adapter properties](../object-adapter-properties) can be used to configure the `Ice.Admin` object adapter.
