@@ -20,29 +20,7 @@ pages:
   - property-reference
   - compatibility
   - icerpc
-  - release-notes:
-      title: Release Notes
-      pages:
-        - ice-3-8-3:
-            title: Ice 3.8.3
-            pages:
-              - release-notes
-              - supported-platforms
-        - ice-3-8-2:
-            title: Ice 3.8.2
-            pages:
-              - release-notes
-              - supported-platforms
-        - ice-3-8-1:
-            title: Ice 3.8.1
-            pages:
-              - release-notes
-              - supported-platforms
-        - ice-3-8-0:
-            title: Ice 3.8.0
-            pages:
-              - release-notes
-              - supported-platforms
+  - release-notes
 ---
 
 {% selection /%}

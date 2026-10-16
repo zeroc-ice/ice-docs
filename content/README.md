@@ -56,7 +56,7 @@ page and its overlays combine.
 | Field                    | Use                                                                                                                                                           |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `title`                  | The page title, and its `h1`.                                                                                                                                 |
-| `pages`                  | The pages under this one, in sidebar order. An entry `name: { title, pages }` is a group with no page of its own: the folder `name`, holding `pages`.         |
+| `pages`                  | The pages under this one, in sidebar order. A folder with no page of its own lists its `title` and `pages` in an `index.yaml`.                                |
 | `description`            | A subtitle under the title, and the page's meta description. Search matches against it.                                                                       |
 | `type`                   | The page's kind, shown as a badge above the title and on its search hits: `tutorial`, `how-to`, `concept`, `reference`, `troubleshooting`, or `release-note`. |
 | `languages`              | The languages a shared page is written for. The sidebar and search leave it out for the others, whose readers get a note instead of its text.                 |

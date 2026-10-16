@@ -174,32 +174,34 @@ export function writtenFor(
  * frontmatter lists the chapters under
  * `pages:`, and a page with children lists them the same way. The front page
  * is the first entry, ahead of the chapters, under its own label; every other
- * node takes its page's title. A group with no page of its own is a directory
- * its parent lists with a title and pages: `name: { title, pages }`. Throws
- * when the version has no front page, or when a page lists a page it does not
- * contain.
+ * node takes its page's title. A folder with no page of its own has an
+ * `index.yaml` in place of an `index.md`, with only `title` and `pages`.
+ * Throws when the version has no front page, or when a page lists a page it
+ * does not contain.
  */
 export function readNavigation(version: DocsVersion): NavDoc {
-  type Entry = string | Record<string, { title: string; pages: Entry[] }>;
-  type Listed = {
-    title: string;
-    pages?: Entry[];
-    languages?: unknown;
-  };
+  type Listed = { title: string; pages?: string[]; languages?: unknown };
   const bySlug = new Map(listPages(version).map((p) => [p.slug, p]));
-  const nodes = (parent: string, entries: Entry[] = []): NavNode[] =>
-    entries.map((entry) => {
-      if (typeof entry !== 'string') {
-        const [[name, group]] = Object.entries(entry);
-        const directory = parent ? `${parent}/${name}` : name;
-        return { title: group.title, items: nodes(directory, group.pages) };
-      }
-      const slug = parent ? `${parent}/${entry}` : entry;
+  const nodes = (parent: string, names: string[] = []): NavNode[] =>
+    names.map((name) => {
+      const slug = parent ? `${parent}/${name}` : name;
       const page = bySlug.get(slug);
-      if (!page)
-        throw new Error(
-          `${version.path}/${parent || 'index.md'} lists "${entry}", which is not a page in it`
+      if (!page) {
+        const folder = path.join(
+          CONTENT_ROOT,
+          version.path,
+          slug,
+          'index.yaml'
         );
+        if (!fs.existsSync(folder))
+          throw new Error(
+            `${version.path}/${parent || 'index.md'} lists "${name}", which is neither a page nor a folder with an index.yaml in it`
+          );
+        const { title, pages } = yamlLoad(
+          fs.readFileSync(folder, 'utf8')
+        ) as Listed;
+        return { title, items: nodes(slug, pages) };
+      }
       const frontmatter = readFrontmatter<Listed>(page);
       return {
         title: frontmatter.title,
