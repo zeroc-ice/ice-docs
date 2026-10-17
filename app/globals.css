@@ -319,7 +319,7 @@
   }
 
   code {
-    @apply rounded-sm border border-hairline bg-surface-sunken px-1 py-0.5 font-mono text-[0.9em] break-all text-ink md:break-normal;
+    @apply rounded-sm border border-hairline bg-surface-sunken px-1 py-0.5 font-mono text-[0.9em] wrap-anywhere text-ink;
   }
 
   a code {

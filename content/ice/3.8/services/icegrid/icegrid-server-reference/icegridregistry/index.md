@@ -17,7 +17,6 @@ Usage: icegridregistry [options]
 Options:
 -h, --help           Show this message.
 -v, --version        Display the Ice version.
---nowarn             Don't print any security warnings.
 --readonly           Start the master registry in read-only mode.
 --initdb-from-replica <replica>
                      Initialize the database from the given replica.
@@ -35,17 +34,12 @@ Additional command line options are supported, including those that allow the re
 
 ## Configuring Registry Endpoints
 
-The IceGrid registry creates up to five sets of endpoints, configured with the following properties:
+The IceGrid registry creates up to six object adapters. You configure their endpoints with the following properties:
 
-- [IceGrid.Registry.Client.Endpoints](../../../../property-reference/icegrid-properties) Client-side endpoints
-  supporting the following interfaces:
-
-  - `Ice::Locator`
-  - `IceGrid::Query`
-  - `IceGrid::Registry`
-  - `IceGrid::Session`
-  - `IceGrid::AdminSession`
-  - `IceGrid::Admin`
+- [IceGrid.Registry.Client.Endpoints](../../../../property-reference/icegrid-properties) The `IceGrid.Registry.Client`
+  adapter hosts the objects that clients use: the locator (`Ice::Locator`), the `IceGrid::Query` and `IceGrid::Registry`
+  objects, and the `IceGrid::Session`, `IceGrid::AdminSession` and `IceGrid::Admin` objects of the sessions that clients
+  create. The registry requires this property to start.
 
 {% callout type="warning" %}
 
@@ -53,19 +47,29 @@ There are security implications in allowing access to administrative sessions, a
 
 {% /callout %}
 
-- [IceGrid.Registry.Server.Endpoints](../../../../property-reference/icegrid-properties) Server-side endpoints for
-  object adapter registration.
+- [IceGrid.Registry.Server.Endpoints](../../../../property-reference/icegrid-properties) The `IceGrid.Registry.Server`
+  adapter hosts the locator registry (`Ice::LocatorRegistry`), with which servers register their object adapters. The
+  registry requires this property to start.
 
-- [IceGrid.Registry.SessionManager.Endpoints](../../../../property-reference/icegrid-properties) Optional endpoints for
-  delegating [session](../../resource-allocation-using-icegrid-sessions) authentication to a
-  [Glacier2 router](../../glacier2-integration-with-icegrid).
+- [IceGrid.Registry.Internal.Endpoints](../../../../property-reference/icegrid-properties) The
+  `IceGrid.Registry.Internal` adapter hosts the objects that IceGrid nodes and registry replicas use. The registry
+  requires this property to start, even when there are no nodes or replicas.
 
-- [IceGrid.Registry.AdminSessionManager.Endpoints](../../../../property-reference/icegrid-properties) Optional endpoints
-  for delegating [administrative session](../../icegrid-administrative-sessions) authentication to a
-  [Glacier2 router](../../glacier2-integration-with-icegrid).
+- [IceGrid.Registry.SessionManager.Endpoints](../../../../property-reference/icegrid-properties) The
+  `IceGrid.Registry.SessionManager` adapter hosts the Glacier2 session managers that create
+  [sessions](../../resource-allocation-using-icegrid-sessions) for the clients of a
+  [Glacier2 router](../../glacier2-integration-with-icegrid). The registry creates this adapter only when this property
+  is set.
 
-- [IceGrid.Registry.Internal.Endpoints](../../../../property-reference/icegrid-properties) Internal endpoints used by
-  IceGrid nodes and registry replicas. This property must be defined even if no nodes or replicas are being used.
+- [IceGrid.Registry.AdminSessionManager.Endpoints](../../../../property-reference/icegrid-properties) The
+  `IceGrid.Registry.AdminSessionManager` adapter hosts the Glacier2 session managers that create
+  [administrative sessions](../../icegrid-administrative-sessions) for the clients of a Glacier2 router. The registry
+  creates this adapter only when this property is set.
+
+- [IceGrid.Registry.Discovery.Endpoints](../../../../property-reference/icegrid-properties) The
+  `IceGrid.Registry.Discovery` adapter hosts the object that answers
+  [locator discovery](../../../../plugins/icelocatordiscovery) queries, on UDP multicast endpoints. The registry creates
+  this adapter by default, with port `4061`; setting `IceGrid.Registry.Discovery.Enabled` to `0` disables it.
 
 ## Registry Security Considerations
 
