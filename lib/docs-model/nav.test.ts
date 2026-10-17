@@ -11,11 +11,13 @@ import {
   breadcrumbs,
   buildSideNav,
   activeTrailKeys,
+  filterSideNav,
   navigationPages,
   prevNext,
   sideNavKey,
   trailTo,
-  type NavNode
+  type NavNode,
+  type SideNavNode
 } from './nav.ts';
 
 const SIDEBAR: NavNode[] = [
@@ -113,6 +115,70 @@ test('a group written for some languages carries them on its row and its Overvie
   assert.deepEqual(threading.items[0].writtenFor, ['cpp', 'java']);
 });
 
+test("a page's sidebar label replaces its title, or a group's Overview", () => {
+  const [notes, runtime] = buildSideNav(
+    [
+      {
+        title: 'Ice 3.8.3 Release Notes',
+        slug: 'release-notes/ice-3-8-3/release-notes',
+        sidebarLabel: 'Release Notes',
+        items: []
+      },
+      {
+        title: 'The Ice Runtime',
+        slug: 'runtime',
+        sidebarLabel: 'About the Runtime',
+        items: [
+          { title: 'Communicator', slug: 'runtime/communicator', items: [] }
+        ]
+      }
+    ],
+    VERSION
+  );
+  assert.equal(notes.title, 'Release Notes');
+  assert.equal(notes.href, '/ice/3.8/release-notes/ice-3-8-3/release-notes');
+  assert.equal(runtime.title, 'The Ice Runtime');
+  assert.equal(runtime.items[0].title, 'About the Runtime');
+  assert.equal(runtime.items[0].href, '/ice/3.8/runtime');
+});
+
+// A group with no page of its own, holding two release pages.
+const RELEASES: NavNode[] = [
+  { title: 'Compatibility', slug: 'compatibility', items: [] },
+  {
+    title: 'Release Notes',
+    items: [
+      { title: 'Ice 3.8.1', slug: 'release-notes/ice-3-8-1', items: [] },
+      { title: 'Ice 3.8.0', slug: 'release-notes/ice-3-8-0', items: [] }
+    ]
+  }
+];
+
+test('a group with no page of its own only opens', () => {
+  const [, notes] = buildSideNav(RELEASES, VERSION);
+  assert.equal(notes.href, undefined);
+  assert.deepEqual(
+    notes.items.map((item) => item.title),
+    ['Ice 3.8.1', 'Ice 3.8.0']
+  );
+  assert.deepEqual(navigationPages(RELEASES), [
+    'compatibility',
+    'release-notes/ice-3-8-1',
+    'release-notes/ice-3-8-0'
+  ]);
+});
+
+test('a group with no page of its own stays out of the breadcrumb and the reading order', () => {
+  assert.deepEqual(breadcrumbs(RELEASES, VERSION, 'release-notes/ice-3-8-0'), [
+    { title: SITE_TITLE, href: '/ice/3.8' },
+    { title: 'Ice 3.8.0' }
+  ]);
+  assert.deepEqual(prevNext(RELEASES, VERSION, 'compatibility', 'cpp'), {
+    prev: undefined,
+    next: { title: 'Ice 3.8.1', href: '/ice/3.8/release-notes/ice-3-8-1' }
+  });
+});
+
 test("standing on a group's own page, its Overview, opens the group", () => {
   const tree = buildSideNav(SIDEBAR, VERSION);
   assert.deepEqual(activeTrailKeys(tree, '/ice/3.8/slice'), [
@@ -196,4 +262,35 @@ test('group keys are path-based, so equal titles under different parents differ'
     sideNavKey(['Slice', 'Interfaces']),
     sideNavKey(['The Ice Runtime', 'Interfaces'])
   );
+});
+
+// A filtered tree as titles, with a group's entries after its title.
+const outline = (nodes: SideNavNode[]): unknown[] =>
+  nodes.map((node) =>
+    node.items.length > 0 ? [node.title, outline(node.items)] : node.title
+  );
+
+test('filterSideNav keeps each match and the groups down to it', () => {
+  const tree = buildSideNav(SIDEBAR, VERSION);
+  assert.deepEqual(outline(filterSideNav(tree, 'ENUM', 'python')), [
+    ['The Slice Language', [['User-Defined Types', ['Enumerations']]]]
+  ]);
+  assert.deepEqual(outline(filterSideNav(tree, 'plug-in', 'python')), [
+    ['Plugins', ['C++ Plug-in API', 'Installing a Plug-in']]
+  ]);
+});
+
+test('a group whose title matches keeps everything under it', () => {
+  const tree = buildSideNav(SIDEBAR, VERSION);
+  assert.deepEqual(outline(filterSideNav(tree, 'plugins', 'python')), [
+    ['Plugins', ['Overview', 'C++ Plug-in API', 'Installing a Plug-in']]
+  ]);
+});
+
+test('a page not written for the language never matches', () => {
+  const tree = buildSideNav(SIDEBAR, VERSION);
+  assert.deepEqual(filterSideNav(tree, 'sequences', 'python'), []);
+  assert.deepEqual(outline(filterSideNav(tree, 'sequences', 'cpp')), [
+    ['The Slice Language', [['User-Defined Types', ['Sequences']]]]
+  ]);
 });
