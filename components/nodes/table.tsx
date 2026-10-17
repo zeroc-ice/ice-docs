@@ -21,12 +21,12 @@ const textAlignment = (align?: string): string => {
 
 export const Table = ({ children }: TableProps) => {
   return (
-    // A wide table scrolls, so the code in its cells keeps its words whole. The
-    // table takes its content width, and fills the column when narrower; on a
-    // phone it wraps its cells at a readable width rather than squeeze them
-    // into the column.
+    // A wide table scrolls, so the code in its cells keeps its words whole.
+    // Below md the table takes its content width, capped so that prose cells
+    // wrap at a readable width rather than squeeze into the column; from md up
+    // the table fills the column.
     <div className="doc-wide mb-10 overflow-x-auto [&_code]:wrap-normal">
-      <table className="w-max max-w-[max(100%,36rem)] min-w-full border-collapse rounded-sm prose-headings:font-semibold">
+      <table className="w-full border-collapse rounded-sm max-md:w-max max-md:max-w-[max(100%,36rem)] max-md:min-w-full prose-headings:font-semibold">
         {children}
       </table>
     </div>
