@@ -12,3 +12,22 @@ let session = try await router.createSession(
 ```
 
 {% /language-section %}
+
+{% language-section name="greeter-demo" %}
+
+{% callout type="tip" title="Example" %}
+
+The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Glacier2/Greeter) shows a Swift client
+that calls an object in a server behind a Glacier2 router, with the server and the router configuration,
+`glacier2.conf`.
+
+{% /callout %}
+
+{% /language-section %}
+
+{% language-section name="session-demo" %}
+
+The [Glacier2 session demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Glacier2/Session) implements and
+configures a session manager in Swift.
+
+{% /language-section %}

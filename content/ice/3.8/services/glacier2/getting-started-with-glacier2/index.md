@@ -23,6 +23,8 @@ For the sake of example, the router's public address is 5.6.7.8 and its private 
 
 {% /callout %}
 
+{% language-section name="greeter-demo" /%}
+
 ## Configuring the Router
 
 The following router configuration property establish the necessary endpoint:
@@ -254,6 +256,8 @@ If the router is configured with a [session manager](../glacier2-session-managem
 `createSessionFromSecureConnection` operations may return a proxy for an object implementing the `Glacier2::Session`
 interface (or an application-specific derived interface). The client receives a null proxy if no session manager is
 configured.
+
+{% language-section name="session-demo" /%}
 
 A non-null session proxy returned by a `create` operation must be configured with the router that created it because the
 session object is only accessible via the router. If the router is configured as the client's default router at the time
