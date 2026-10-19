@@ -151,7 +151,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-plugins': 'plugins?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-protocol': 'protocol?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-services': 'services?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-services-overview': 'basics/services-overview?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-services-overview': 'services?lang=:lang'
   ':lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-tcp': 'property-reference/ice-tcp-properties?lang=:lang'
   ':lang(cpp|csharp|java|matlab|php|ruby|swift)/ice-threadpool': 'property-reference/ice-threadpool-properties?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/ice-trace': 'property-reference/ice-trace-properties?lang=:lang'
