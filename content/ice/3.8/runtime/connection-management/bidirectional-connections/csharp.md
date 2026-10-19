@@ -11,6 +11,17 @@ adapter.add(mockAlarmClock, new Ice.Identity { name = "alarmClock" });
 
 {% language-section name="configuring-a-server-for-bidirectional-connections" %}
 
+The Slice definition maps `wakeMeUp` to `WakeMeUp` with [`cs:identifier`](../../../slice/slice-metadata-directives)
+metadata:
+
+```slice
+interface WakeUpService
+{
+    ["cs:identifier:WakeMeUp"]
+    void wakeMeUp(long timeStamp);
+}
+```
+
 ```csharp
 internal class BidirWakeUpService : WakeUpServiceDisp_
 {
