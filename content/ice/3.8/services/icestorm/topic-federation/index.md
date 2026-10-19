@@ -70,8 +70,8 @@ be recomputed based on changing costs.
 ### Administration Tool Script
 
 A simple way to automate the creation of a topic graph is to create a text file containing commands to be executed by
-the IceStorm administration tool. For example, the commands to create the topic graph shown
-[earlier](#using-cost-to-limit-message-propagation) are shown below:
+the IceStorm administration tool. For example, these commands create the topic graph from
+[Using Cost to Limit Message Propagation](#using-cost-to-limit-message-propagation):
 
 ```text
 create A B C

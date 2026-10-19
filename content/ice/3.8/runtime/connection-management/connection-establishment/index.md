@@ -64,9 +64,8 @@ conditions are met:
 
 - The proxy has [connection caching](#connection-caching) enabled.
 - The remote endpoint matches one of the proxy's endpoints.
-- The connection matches the proxy's configuration. If a proxy is configured with a
-  [connection ID](#influencing-connection-reuse), the communicator only reuses a connection if it was established by a
-  proxy with the same connection ID.
+- The connection matches the proxy's configuration. For a proxy with a [connection ID](#influencing-connection-reuse),
+  the communicator reuses only a connection established by a proxy with the same connection ID.
 
 When a proxy has connection caching disabled, the communicator does not prefer an endpoint with an already established
 connection over other endpoints. It can select an endpoint without an established connection and create a new
@@ -119,8 +118,8 @@ to close the connection after a while.
 Once a proxy has been associated with a connection, the proxy's default behavior is to continue using that connection
 for all subsequent requests. In effect, the proxy caches the connection and attempts to use it for as long as possible
 in order to minimize the overhead of creating new connections. If the connection is later closed and the proxy is used
-again, the proxy repeats the connection-establishment procedure described
-[earlier](#endpoint-selection-for-new-connections).
+again, the proxy establishes a new connection as described in
+[Endpoint Selection for New Connections](#endpoint-selection-for-new-connections).
 
 There are situations in which this default caching behavior is undesirable, such as when a client has a proxy with
 multiple endpoints and wishes to balance the load among the servers at those endpoints. The client can disable

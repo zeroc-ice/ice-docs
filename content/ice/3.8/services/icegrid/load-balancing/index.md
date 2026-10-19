@@ -289,10 +289,10 @@ each kind of filter receives a request context:
 So far we've discussed how client-specific information can be passed to a filter, but what if the filter needs to obtain
 more information about the object adapters (in the case of a replica group filter) or objects (in the case of a type
 filter) in order to perform its duties? This is where the registry's
-[facade object](#the-registry-plug-in-facade-object) comes in handy, as with it the filter can retrieve information
-about the deployment. For example, a replica group filter can use server-specific properties as a form of metadata. The
-registry supplies the filter with a list of object adapter identifiers; each object adapter is hosted by a server, and
-the filter can look up property values for that server using the facade.
+[facade object](#the-registry-plug-in-facade-object) helps: through it, the filter can retrieve information about the
+deployment. For example, a replica group filter can use server-specific properties as a form of metadata. The registry
+supplies the filter with a list of object adapter identifiers; each object adapter is hosted by a server, and the filter
+can look up property values for that server using the facade.
 
 ### Implementing a Custom Replica Group Filter
 

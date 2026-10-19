@@ -5,7 +5,7 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side C++ Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-operation on an interface, the generated proxy class contains 3 member functions for this operation. To invoke an
+operation on an interface, the generated proxy class contains three member functions for this operation. To invoke an
 operation, you call one of these functions on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
@@ -73,7 +73,7 @@ destructor of the returned value takes care of deallocating memory as needed.
 
 ### Sync and Async Functions
 
-For each operation, the Slice compiler generates 3 member functions on the proxy class:
+For each operation, the Slice compiler generates three member functions on the proxy class:
 
 - one “sync” function with the same name as the operation. When you call this function, your thread waits synchronously
   until the invocation completes. A successful invocation completes with a return value (which can be void), while an

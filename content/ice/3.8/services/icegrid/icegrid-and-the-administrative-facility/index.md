@@ -58,8 +58,8 @@ object in a node or registry replica, set [Ice.Admin.Enabled](../../../property-
 a negative value in this node or registry's configuration.
 
 Each of these admin objects carries all the built-in facets, currently `Logger`, Metrics, Process and Properties.
-Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations
-[described below](#obtaining-a-proxy).
+Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations described
+in [Obtaining a Proxy](#obtaining-a-proxy).
 
 ## Deactivating a Deployed Server
 
@@ -331,7 +331,7 @@ service property MyServerId MyService BuildId
 ```
 
 The utilities use the [Properties facet](../../../administration/administrative-facility/properties-facet) to access
-these properties, via a proxy obtained as described [above](#obtaining-a-proxy).
+these properties, through a proxy obtained as described in [Obtaining a Proxy](#obtaining-a-proxy).
 
 ### Administering IceBox Services
 
@@ -341,8 +341,8 @@ operations are available in both the command line and graphical utilities.
 
 IceBox also defines a [ServiceObserver](../../icebox/icebox-administration) interface for receiving callbacks when
 services are stopped or started. The graphical utility implements this interface so that it can present an updated view
-of the state of an IceBox server. We presented [examples](#callbacks-without-glacier2) that demonstrate how to register
-an observer with the IceBox administrative facet.
+of the state of an IceBox server. [Callbacks Without Glacier2](#callbacks-without-glacier2) shows how to register an
+observer with the IceBox administrative facet.
 
 ## See Also
 

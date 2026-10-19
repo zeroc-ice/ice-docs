@@ -77,12 +77,13 @@ importantly, deploying this server on additional nodes has become much easier.
 
 ## Template Parameters
 
-Parameters enable you to customize each instance of a template as necessary. The example [above](#server-templates)
-defined the `index` parameter with a different value for each instance to ensure that identifiers are unique. A
-parameter may also declare a default value that is used in the template if no value is specified for it. In our sample
-application the `index` parameter is considered mandatory and therefore should not have a default value, but we can
-illustrate this feature in another way. For example, suppose that the path name of the server's executable may change on
-each node. We can supply a default value for this attribute and override it when necessary:
+Parameters enable you to customize each instance of a template as necessary. The
+[server template example](#server-templates) defines the `index` parameter with a different value for each instance to
+ensure that identifiers are unique. A parameter may also declare a default value that is used in the template if no
+value is specified for it. In our sample application the `index` parameter is considered mandatory and therefore should
+not have a default value, but we can illustrate this feature in another way. For example, suppose that the path name of
+the server's executable may change on each node. We can supply a default value for this attribute and override it when
+necessary:
 
 ```xml
 <icegrid>
@@ -183,8 +184,7 @@ determines whether the default templates are imported, as shown in the following
 ## Using Templates with `icegridadmin`
 
 The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you to inspect templates and instantiate new
-servers dynamically. First, let us ask `icegridadmin` to describe the server template we created
-[earlier](#server-templates):
+servers dynamically. First, ask `icegridadmin` to describe the [server template](#server-templates):
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config

@@ -87,7 +87,7 @@ The `Ice.Admin` object adapter is enabled automatically in an IceBox server that
 {% /callout %}
 
 With the administrative facility enabled, IceBox registers an administrative facet with the name
-`IceBox.ServiceManager`. We discuss the [identity](#icebox-admin-facets) of the `admin` object below.
+`IceBox.ServiceManager`. See [IceBox Admin Facets](#icebox-admin-facets) for the identity of the `admin` object.
 
 {% callout type="warning" %}
 

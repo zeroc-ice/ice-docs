@@ -161,9 +161,8 @@ See [IceDiscovery Properties](../../property-reference/icediscovery-properties) 
 
 ### Configuring IceDiscovery in Clients
 
-Aside from [installing the plug-in](#installing-icediscovery) and optionally
-[configuring its addressing information](#icediscovery-property-overview), no other configuration steps are required for
-an IceDiscovery client.
+An IceDiscovery client needs no configuration beyond [installing the plug-in](#installing-icediscovery) and, optionally,
+[configuring its addressing information](#icediscovery-property-overview).
 
 ### Configuring IceDiscovery in Servers
 
@@ -208,11 +207,11 @@ From a design perspective, incorporating IceDiscovery into your application requ
   _every_ object available for discovery. Rather, designs often only make "bootstrap" or "factory" objects available for
   discovery, while proxies for other objects can be obtained by invoking operations on these initial objects.
 
-- How should clients refer to these well-known objects? As we explained [earlier](#indirect-proxies), proxies for
-  well-known objects can take two forms: an identity by itself, or an identity with an adapter identifier, such as
-  factory and `factory@AccountAdapter`, respectively. Clearly, using only identities places a greater burden on the
-  application to ensure that they are globally unique among all of the clients and servers sharing the same address and
-  domain settings. Including an object adapter identifier can help to further partition the object namespace, so that
+- How should clients refer to these well-known objects? [Indirect proxies](#indirect-proxies) for well-known objects
+  take two forms: an identity by itself, or an identity with an adapter identifier, such as factory and
+  `factory@AccountAdapter`, respectively. Clearly, using only identities places a greater burden on the application to
+  ensure that they are globally unique among all of the clients and servers sharing the same address and domain
+  settings. Including an object adapter identifier can help to further partition the object namespace, so that
   `factory@AccountAdapter` and `factory@AdminAdapter` represent distinct objects without requiring artificially unique
   identities such as `accountFactory` and `adminFactory`.
 

@@ -51,7 +51,7 @@ string greeting = await greeter.GreetAsync("Alice");  // Get greeting via RPC
 
 ### Sync and Async Methods
 
-For each operation, the Slice compiler generates 2 methods on the proxy interface:
+For each operation, the Slice compiler generates two methods on the proxy interface:
 
 - a “sync” method with the same name as the operation. When you call this method, your thread waits synchronously until
   the invocation completes. A successful invocation completes with a return value (which can be void), while an
