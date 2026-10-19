@@ -197,7 +197,7 @@ The following properties enable tracing for registry replication:
   [IceGrid.Node.Trace.Replica](../../../property-reference/icegrid-properties#icegrid.node.trace.replica) trace the
   sessions between the replicas and the nodes.
 
-## Using Registry Replication with External Load Balancing
+## Reaching All Replicas Through a Single Endpoint
 
 Listing every replica in `Ice.Default.Locator` means editing the configuration of every client, node and slave replica
 when you add or remove a replica. In a large deployment, you can instead give `Ice.Default.Locator` a single endpoint
