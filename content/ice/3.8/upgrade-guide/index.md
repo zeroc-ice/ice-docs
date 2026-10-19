@@ -30,7 +30,7 @@ Support for local Slice has been removed. Define your local Slice types directly
 
 ### Operations on Classes
 
-Support for operations on classes was removed. This feature was previously deprecated.
+Support for operations on classes has been removed. This feature was previously deprecated.
 
 ```diff
 class Foo
@@ -69,9 +69,9 @@ class Node
 }
 ```
 
-An Ice 3.8 application cannot unmarshal an optional class value sent by an Ice 3.7 application: the unmarshaling fails
-with a `MarshalException`. Stop setting these optional fields, parameters, and return values in your Ice 3.7
-applications before you upgrade the applications that receive them.
+An Ice 3.8 application cannot receive an optional class value from an Ice 3.7 application. Stop setting these optional
+fields, parameters, and return values in your Ice 3.7 applications before you upgrade the applications that receive
+them.
 
 Several upgrade options are available depending on the application needs and constraints.
 
@@ -115,8 +115,8 @@ Slice definitions.
 
 ### Interface by Value
 
-Support for passing an interface by value was removed. This feature was previously deprecated. Pass a class instance
-instead: define a class with the fields you need, and use this class as the parameter type.
+Support for passing an interface by value has been removed. This feature was previously deprecated. Pass a class
+instance instead: define a class with the fields you need, and use this class as the parameter type.
 
 ### Identifier Collisions
 
@@ -200,8 +200,9 @@ JavaScript does not implement this limit.
 
 ### Default Object Adapter
 
-If your application calls `setAdapter` on a connection to receive callbacks over this connection, call
-`setDefaultObjectAdapter` on the communicator instead, before the communicator creates this connection. See
+In Ice 3.7, a client that received callbacks over its outgoing connection called `setAdapter` on this connection. In Ice
+3.8, call `setDefaultObjectAdapter` on the communicator instead: the communicator associates this adapter with every
+outgoing connection it creates afterwards. `setAdapter` remains available for a specific connection. See
 [Bidirectional Connections](../runtime/connection-management/bidirectional-connections).
 
 ## Published Endpoints
