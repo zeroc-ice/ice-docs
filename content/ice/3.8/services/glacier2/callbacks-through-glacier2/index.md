@@ -18,13 +18,11 @@ provides instructions on running the example, and comments in the configuration 
 
 ## Bidirectional Connections with Glacier2
 
-While a regular unrouted connection carries requests in only one direction, from the application that established it to
-its peer, a [bidirectional connection](../../../runtime/connection-management/bidirectional-connections) carries
-requests in both directions. This capability is necessary to circumvent the network restrictions that commonly cause
-[firewall traversal issues](../common-firewall-traversal-issues), namely, firewalls in front of the client that prevent
-a back-end server from establishing a connection directly to the client. The router sends callback requests to the
-client over the connection the client established to the router, which creates a virtual connection from the back-end
-servers back to the client.
+A firewall in front of the client usually prevents a back-end server from establishing a connection to the client, one
+of the [firewall traversal issues](../common-firewall-traversal-issues). The router therefore sends callbacks to the
+client over the connection the client established to the router. This connection carries requests in both directions:
+the client's requests to the router, and the callbacks to the client, which the client's object adapter dispatches. See
+[Bidirectional Connections](../../../runtime/connection-management/bidirectional-connections).
 
 This diagram shows the steps involved in making a callback using Glacier2:
 
@@ -43,8 +41,8 @@ _Request and callback flow through Glacier2._
 4. The router forwards the callback request to the client using the bidirectional connection established in step 1.
 
 The arrows in the above illustration indicate the flow of requests; notice that two connections are used between the
-router and the back-end server. Since the back-end server is unaware of the router, it does not use routed proxies, and
-therefore does not use bidirectional connections.
+router and the back-end server. The back-end server is unaware of the router: it sends its callbacks over its own
+connection to the router's server endpoints, not over the connection the router established to it.
 
 {% callout type="note" %}
 
