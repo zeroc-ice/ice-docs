@@ -26,7 +26,7 @@ As described above, IceStorm messages are only propagated on the originating top
 applications can use the notion of cost to further restrict message propagation.
 
 Messages and links each carry a cost. A topic forwards a message on a link only when the message's cost does not exceed
-the link's cost; a link with a cost of zero carries every message. For example, consider the following topic graph:
+the link's cost; a link with a cost of `0` carries every message. For example, consider the following topic graph:
 
 ![Solid arrows show publishers P1 and P2 sending to topic A with message costs 1 and 2 respectively. Dotted arrows show a link from A to B with cost 0 and a link from A to C with cost 1.](/images/ice/3.8/topic-federation/federation2.svg)
 
@@ -41,7 +41,7 @@ The cost of a message is specified in an Ice [request context](../../../runtime/
 proxy operation has an implicit argument of type `Context` representing the request context. This argument is rarely
 used, but it is the ideal location for specifying the cost of an IceStorm message because an application only needs to
 supply a request context if it actually uses IceStorm's cost feature. If the request context does not contain a cost
-value, the message is assigned the default cost value of zero (0).
+value, the message is assigned the default cost, `0`.
 
 ### Publishing a Message with a Cost
 

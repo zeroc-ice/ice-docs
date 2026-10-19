@@ -37,8 +37,8 @@ The configuration properties
 [Glacier2.Client.ForwardContext](../../../property-reference/glacier2-properties#glacier2.client.forwardcontext) and
 [Glacier2.Server.ForwardContext](../../../property-reference/glacier2-properties#glacier2.server.forwardcontext)
 determine whether the router includes the context when forwarding a request. The former property affects requests from
-clients to servers, while the latter affects requests from servers to clients. If a property is not defined or has the
-value zero, the router does not include the context when forwarding requests.
+clients to servers, while the latter affects requests from servers to clients. If a property is not defined or is set to
+`0`, the router does not include the context when forwarding requests.
 
 When [Glacier2.AddConnectionContext](../../../property-reference/glacier2-properties#glacier2.addconnectioncontext) is
 `1`, the router includes connection information when forwarding requests from clients to servers, even if
