@@ -99,8 +99,6 @@ A connection attempt fails with `ConnectTimeoutException` when it does not compl
 [Ice.Connection.Client.ConnectTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.connecttimeout),
 10 seconds by default.
 
-{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
-
 ## Source Address for New Connections
 
 Ice binds an outgoing connection to the source address of the endpoint it connects to. You set this address with the
@@ -110,6 +108,11 @@ endpoints it parses without this option, such as those of a stringified proxy. A
 an endpoint returned by a locator, has no source address, and the operating system then selects the source address. Both
 settings take a numeric IP address.{% iflang langs="cpp,swift" %} On iOS, Ice does not bind TCP and SSL connections to a
 source address.{% /iflang %}
+
+{% iflang langs="js" %}
+
+In Ice for JavaScript, this applies to TCP connections in Node.js. WebSocket connections use the source address selected
+by the operating system.
 
 {% /iflang %}
 
