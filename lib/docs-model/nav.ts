@@ -14,7 +14,7 @@ export interface NavNode {
   writtenFor?: string[];
   /** The pages under it; a node with any is an expandable group. */
   items: NavNode[];
-  /** What the sidebar's link to the page says; absent for its title, or Overview in a group. */
+  /** What the sidebar says for the page, or for the group whose page it is; absent for its title. */
   sidebarLabel?: string;
 }
 
@@ -55,8 +55,7 @@ export interface SideNavNode {
 }
 
 /**
- * The label a group's own page takes once it moves inside the group, unless
- * the page sets its own sidebar label.
+ * The label a group's own page takes once it moves inside the group.
  */
 export const GROUP_OVERVIEW_TITLE = 'Overview';
 
@@ -89,11 +88,11 @@ export function buildSideNav(
     // and how Stripe's sidebar reads.
     if (items.length > 0) {
       return {
-        title: node.title,
+        title: node.sidebarLabel ?? node.title,
         writtenFor,
         items: [
           {
-            title: node.sidebarLabel ?? GROUP_OVERVIEW_TITLE,
+            title: GROUP_OVERVIEW_TITLE,
             href,
             writtenFor,
             items: []

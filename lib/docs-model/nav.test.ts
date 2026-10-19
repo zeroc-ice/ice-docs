@@ -115,7 +115,7 @@ test('a group written for some languages carries them on its row and its Overvie
   assert.deepEqual(threading.items[0].writtenFor, ['cpp', 'java']);
 });
 
-test("a page's sidebar label replaces its title, or a group's Overview", () => {
+test("a page's sidebar label replaces its title, or its group's row title", () => {
   const [notes, runtime] = buildSideNav(
     [
       {
@@ -127,7 +127,7 @@ test("a page's sidebar label replaces its title, or a group's Overview", () => {
       {
         title: 'The Ice Runtime',
         slug: 'runtime',
-        sidebarLabel: 'About the Runtime',
+        sidebarLabel: 'Ice Runtime',
         items: [
           { title: 'Communicator', slug: 'runtime/communicator', items: [] }
         ]
@@ -137,8 +137,8 @@ test("a page's sidebar label replaces its title, or a group's Overview", () => {
   );
   assert.equal(notes.title, 'Release Notes');
   assert.equal(notes.href, '/ice/3.8/release-notes/ice-3-8-3/release-notes');
-  assert.equal(runtime.title, 'The Ice Runtime');
-  assert.equal(runtime.items[0].title, 'About the Runtime');
+  assert.equal(runtime.title, 'Ice Runtime');
+  assert.equal(runtime.items[0].title, 'Overview');
   assert.equal(runtime.items[0].href, '/ice/3.8/runtime');
 });
 
