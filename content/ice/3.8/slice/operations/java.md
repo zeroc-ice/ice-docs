@@ -5,7 +5,7 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side Java Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated proxy interface contains 4 methods for this operation. To invoke an
+operation on an interface, the generated proxy interface contains four methods for this operation. To invoke an
 operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
@@ -53,7 +53,7 @@ String greeting = greeter.greet("Alice");  // Get name via RPC
 
 ### Sync and Async Methods
 
-For each operation, the Slice compiler generates 4 methods on the proxy interface:
+For each operation, the Slice compiler generates four methods on the proxy interface:
 
 - two overloaded “sync” methods with the same name as the operation. When you call these methods, your thread waits
   synchronously until the invocation completes. A successful invocation completes with a return value (which can be
@@ -107,7 +107,7 @@ try {
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side Java Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated skeleton interface contains an abstract method with the same name.
+operation on an interface, the generated skeleton interface contains an abstract method with the same name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
@@ -603,7 +603,7 @@ parameter, a return value, a field, or a sequence element, Ice sends an empty st
 
 ### Optional Parameters
 
-The mapping uses standard Java types to encapsulate [optional parameters](./):
+The mapping uses standard Java types to encapsulate [optional parameters](#optional-parameters-and-return-values):
 
 - `java.util.OptionalDouble` The mapped type for an optional `double`.
 - `java.util.OptionalInt` The mapped type for an optional `int`.

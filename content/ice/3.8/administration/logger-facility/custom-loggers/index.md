@@ -50,8 +50,8 @@ threads, concurrently, so the implementation must be thread-safe.{% /iflang %}
 {% iflang langs="java" %}
 
 `Logger` extends `AutoCloseable`. When you destroy a communicator, the communicator closes the logger it created from
-[Ice.LogFile](../../../property-reference/ice-properties) or
-[Ice.UseSyslog](../../../property-reference/ice-properties), and the logger installed by a
+[Ice.LogFile](../../../property-reference/ice-properties#ice.logfile) or
+[Ice.UseSyslog](../../../property-reference/ice-properties#ice.usesyslog), and the logger installed by a
 [logger plug-in](../../../plugins/custom-logger-plug-in). You manage the lifetime of a logger you supply in
 `InitializationData` or install with `setProcessLogger` (see [The Per-Process Logger](../per-process-logger)).
 
@@ -60,9 +60,9 @@ threads, concurrently, so the implementation must be thread-safe.{% /iflang %}
 {% iflang langs="csharp" %}
 
 `Logger` extends `IDisposable`. When you destroy a communicator, the communicator disposes the logger it created, either
-from [Ice.LogFile](../../../property-reference/ice-properties) or as its default logger, and the logger installed by a
-[logger plug-in](../../../plugins/custom-logger-plug-in). You manage the lifetime of a logger you supply in
-`InitializationData` or install with `setProcessLogger` (see [The Per-Process Logger](../per-process-logger)).
+from [Ice.LogFile](../../../property-reference/ice-properties#ice.logfile) or as its default logger, and the logger
+installed by a [logger plug-in](../../../plugins/custom-logger-plug-in). You manage the lifetime of a logger you supply
+in `InitializationData` or install with `setProcessLogger` (see [The Per-Process Logger](../per-process-logger)).
 
 {% /iflang %}
 

@@ -22,10 +22,10 @@ ways for the administrative client to accomplish this:
   the [stringified proxy](../../../runtime/endpoint-syntax) is as follows: _adminId_ -f _admin-facet_:_admin-endpoints_
   The identity, represented here by _adminId_, is _instance-name_/admin for admin objects created during communicator
   initialization or with `getAdmin`, where _instance-name_ is the value of the
-  [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties) property or a UUID if that property is not
-  defined. (Clearly, the use of a UUID makes the proxy much more difficult for a client to construct on its own.) The
-  name of the administrative facet is supplied as the value of the -f option, and the endpoints of the object adapter
-  that hosts the admin object appear last in the proxy.
+  [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property or a UUID
+  if that property is not defined. (Clearly, the use of a UUID makes the proxy much more difficult for a client to
+  construct on its own.) The name of the administrative facet is supplied as the value of the -f option, and the
+  endpoints of the object adapter that hosts the admin object appear last in the proxy.
 - Invoke an application-specific interface for retrieving the `admin` object's proxy.
 - Use the `getServerAdmin` operation on the `IceGrid::Admin` interface, if the remote program was activated by IceGrid
   (see [IceGrid Server Activation](../../../services/icegrid/icegrid-server-activation)).

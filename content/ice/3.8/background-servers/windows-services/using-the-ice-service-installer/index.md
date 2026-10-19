@@ -60,7 +60,8 @@ names a configuration file, the tool needs its path name for several reasons:
   must decide in advance where the file will be located.
 - It reads the configuration file and examines certain service-specific properties. For example, prior to installing an
   IceGrid registry service, the tool verifies that the directory specified by the property
-  [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) has sufficient access rights.
+  [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties#icegrid.registry.lmdb.path) has sufficient
+  access rights.
 
 When `config-file` names a registry key, the tool reads the service's properties from that key and registers the service
 with `--Ice.Config` set to the same key. Make sure the account that runs the service can read this key.
@@ -138,24 +139,25 @@ because the service installer uses certain properties during the installation pr
 installer are described below:
 
 - Obtain the service's _instance name_ from `config-file`. For an IceGrid registry, it is the value of
-  [IceGrid.InstanceName](../../../property-reference/icegrid-properties), `IceGrid` by default. For an IceGrid node, it
-  is the category of the identity in the [Ice.Default.Locator](../../../property-reference/ice-default-properties)
-  proxy, which the node's configuration must set. For a Glacier2 router, it is the value of
-  [Glacier2.InstanceName](../../../property-reference/glacier2-properties), `Glacier2` by default.
+  [IceGrid.InstanceName](../../../property-reference/icegrid-properties#icegrid.instancename), `IceGrid` by default. For
+  an IceGrid node, it is the category of the identity in the
+  [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) proxy, which the node's
+  configuration must set. For a Glacier2 router, it is the value of
+  [Glacier2.InstanceName](../../../property-reference/glacier2-properties#glacier2.instancename), `Glacier2` by default.
 - For an IceGrid node, obtain the node's name from the property
-  [IceGrid.Node.Name](../../../property-reference/icegrid-properties). This property must be defined when installing or
-  uninstalling a node.
+  [IceGrid.Node.Name](../../../property-reference/icegrid-properties#icegrid.node.name). This property must be defined
+  when installing or uninstalling a node.
 - Compose the service name from the service type, instance name, and node name (for an IceGrid node). For example, the
   default service name for an IceGrid registry is `icegridregistry.IceGrid`. Note that the service name is not the same
   as the display name.
 - Resolve the user account specified by `ObjectName`.
 - Grant `ObjectName` read and execute permissions on the parent directory of `ImagePath`.
 - For an IceGrid registry, create the data directory specified by the property
-  [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties) and grant the user account specified by
-  `ObjectName` full access to it.
+  [IceGrid.Registry.LMDB.Path](../../../property-reference/icegrid-properties#icegrid.registry.lmdb.path) and grant the
+  user account specified by `ObjectName` full access to it.
 - For an IceGrid node, create the data directory specified by the property
-  [IceGrid.Node.Data](../../../property-reference/icegrid-properties) and grant the user account specified by
-  `ObjectName` full access to it.
+  [IceGrid.Node.Data](../../../property-reference/icegrid-properties#icegrid.node.data) and grant the user account
+  specified by `ObjectName` full access to it.
 - For an IceGrid node, ensure that the user account specified by `ObjectName` has read access to the following registry
   key: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib` This key allows the node to access
   [CPU utilization statistics](../troubleshooting-windows-services).
@@ -163,8 +165,8 @@ installer are described below:
   this step when `config-file` names a registry key.
 - Create a new Windows event log by adding the registry key specified by `EventLog`.
 - Add an event log source under `EventLog` for the source name specified by
-  [Ice.EventLog.Source](../../../property-reference/ice-properties). If this property is not defined, the service name
-  is used as the source name.
+  [Ice.EventLog.Source](../../../property-reference/ice-properties#ice.eventlog.source). If this property is not
+  defined, the service name is used as the source name.
 - Install the service with the startup type selected by `AutoStart`, including command line arguments that specify the
   service name (`--service name`) and the absolute path name of the configuration file or the registry key
   (`--Ice.Config=config-file`).

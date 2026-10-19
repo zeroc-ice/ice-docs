@@ -120,8 +120,9 @@ see [Configuration File Syntax](../configuration-file-syntax).
 ## Unused Properties
 
 During the destruction of a communicator, the Ice runtime can optionally emit a warning for properties that were set but
-never read. To enable this warning, set [Ice.Warn.UnusedProperties](../../../property-reference/ice-warn-properties) to
-a non-zero value. By default, the warning is disabled.
+never read. To enable this warning, set
+[Ice.Warn.UnusedProperties](../../../property-reference/ice-warn-properties#ice.warn.unusedproperties) to a non-zero
+value. By default, the warning is disabled.
 
 This warning catches a misspelled property name in your own application, such as `Filesystem.MaxFilSize` instead of
 `Filesystem.MaxFileSize`, and a name that misspells a reserved prefix, such as `Iec.Trace.Network`.

@@ -155,7 +155,8 @@ in megabytes. If not set, IceStorm uses a system-dependent default: 10 MB on Win
 {% property-description %}
 
 Specifies the path to the LMDB database environment of this IceStorm service. If not specified, the default value is
-`IceStorm`. This directory must exist when IceStorm starts up unless IceStorm is in [transient mode](./).
+`IceStorm`. This directory must exist when IceStorm starts up unless IceStorm is in
+[transient mode](#icestorm.transient).
 
 {% /property-description %}
 

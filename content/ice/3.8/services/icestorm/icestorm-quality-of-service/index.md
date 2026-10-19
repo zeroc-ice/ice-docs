@@ -44,15 +44,15 @@ chose, or use [IceGrid](../../icegrid) to take advantage of indirect proxies and
 When delivery to a subscriber fails with a transient error (such as a connection failure or a timeout) and the
 subscriber's `retryCount` allows another attempt, IceStorm discards all events currently queued for this subscriber,
 increments the subscriber's failure count, and places the subscriber offline for the number of seconds specified by the
-[IceStorm.Discard.Interval](../../../property-reference/icestorm-properties) property (60 seconds by default). While the
-subscriber is offline, IceStorm discards any new events published on the topic instead of queueing them for this
-subscriber. Once the interval has elapsed, the next published event puts the subscriber back online and delivery
-resumes, starting with that event.
+[IceStorm.Discard.Interval](../../../property-reference/icestorm-properties#icestorm.discard.interval) property (60
+seconds by default). While the subscriber is offline, IceStorm discards any new events published on the topic instead of
+queueing them for this subscriber. Once the interval has elapsed, the next published event puts the subscriber back
+online and delivery resumes, starting with that event.
 
 As a result, a subscriber does not receive the events that were queued or published between the failure and the end of
 the discard interval: a `retryCount` that allows retries extends the lifetime of the subscription, but does not provide
 reliable delivery. You can observe these subscriber state transitions by setting
-[IceStorm.Trace.Subscriber](../../../property-reference/icestorm-properties) to `2`.
+[IceStorm.Trace.Subscriber](../../../property-reference/icestorm-properties#icestorm.trace.subscriber) to `2`.
 
 ### Hard Failures
 
@@ -63,9 +63,9 @@ they occur, regardless of the subscriber's `retryCount` setting:
 - `Ice::NotRegisteredException` — the subscriber's proxy is an indirect proxy that the configured locator can no longer
   resolve.
 - `IceStorm::SendQueueSizeMaxReachedException` — the number of events queued for the subscriber reached
-  [IceStorm.Send.QueueSizeMax](../../../property-reference/icestorm-properties) and
-  [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties) is set to `RemoveSubscriber` (the
-  default).
+  [IceStorm.Send.QueueSizeMax](../../../property-reference/icestorm-properties#icestorm.send.queuesizemax) and
+  [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties#icestorm.send.queuesizemaxpolicy)
+  is set to `RemoveSubscriber` (the default).
 
 ## Connection Caching QoS for IceStorm
 

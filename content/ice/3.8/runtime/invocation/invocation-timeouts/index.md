@@ -13,9 +13,10 @@ payload is unmarshaled. For a one-way invocation, it stops the timer as soon as 
 
 ## Configuring the Default Invocation Timeout
 
-The property [Ice.Default.InvocationTimeout](../../../property-reference/ice-default-properties) establishes the default
-invocation timeout value for proxies. This property has a default value of `-1`, which means invocations do not time out
-by default.
+The property
+[Ice.Default.InvocationTimeout](../../../property-reference/ice-default-properties#ice.default.invocationtimeout)
+establishes the default invocation timeout value for proxies. This property has a default value of `-1`, which means
+invocations do not time out by default.
 
 Consider this setting:
 

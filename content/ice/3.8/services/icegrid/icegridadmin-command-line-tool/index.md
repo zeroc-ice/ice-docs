@@ -34,11 +34,11 @@ which you issue commands at a prompt.
 To communicate with the IceGrid registry, `icegridadmin` establishes an
 [administrative session](../icegrid-administrative-sessions). The tool uses SSL authentication if you specify the `-S`
 option or define its equivalent property
-[IceGridAdmin.AuthenticateUsingSSL](../../../property-reference/icegridadmin-properties). Otherwise, `icegridadmin` uses
-password authentication and prompts you for the username and password if you do not specify them via command-line
-options or properties. If you want `icegridadmin` to establish its session using a
+[IceGridAdmin.AuthenticateUsingSSL](../../../property-reference/icegridadmin-properties#icegridadmin.authenticateusingssl).
+Otherwise, `icegridadmin` uses password authentication and prompts you for the username and password if you do not
+specify them via command-line options or properties. If you want `icegridadmin` to establish its session using a
 [Glacier2 router](../glacier2-integration-with-icegrid), define
-[Ice.Default.Router](../../../property-reference/ice-default-properties) appropriately.
+[Ice.Default.Router](../../../property-reference/ice-default-properties#ice.default.router) appropriately.
 
 If specified, the following command-line options override their property equivalents:
 
@@ -122,8 +122,9 @@ You can obtain more information about each category using the `help` command:
 - `node load NAME` Print the load of the node `NAME`.
 - `node sockets [NAME]` Print the number of processor sockets for node `NAME`. If `NAME` is omitted, print the number of
   processor sockets for each node. (The
-  [IceGrid.Node.ProcessorSocketCount](../../../property-reference/icegrid-properties) property allows you to explicitly
-  set this value for systems where the number of sockets cannot be obtained programmatically.)
+  [IceGrid.Node.ProcessorSocketCount](../../../property-reference/icegrid-properties#icegrid.node.processorsocketcount)
+  property allows you to explicitly set this value for systems where the number of sockets cannot be obtained
+  programmatically.)
 - `node show [OPTIONS] NAME [log | stderr | stdout]` Print the Ice log messages of the node (with `log`), or print the
   text from the node's standard error or standard output (with `stderr` or `stdout`). The supported options are shown
   below:

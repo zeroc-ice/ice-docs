@@ -80,8 +80,8 @@ On Linux:
 
 - Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
-The property [Glacier2.CryptPasswords](../../../property-reference/glacier2-properties) specifies the name of the
-password file:
+The property [Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords)
+specifies the name of the password file:
 
 ```config
 Glacier2.CryptPasswords=passwords
@@ -167,8 +167,8 @@ The following property configures a client to use a Glacier2 router:
 Ice.Default.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
 ```
 
-The [Ice.Default.Router](../../../property-reference/ice-default-properties) property defines the router proxy. Its
-endpoints must match those in `Glacier2.Client.Endpoints`.
+The [Ice.Default.Router](../../../property-reference/ice-default-properties#ice.default.router) property defines the
+router proxy. Its endpoints must match those in `Glacier2.Client.Endpoints`.
 
 ## Glacier2 Object Identities
 

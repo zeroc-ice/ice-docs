@@ -28,8 +28,8 @@ Ice creates the admin object during communicator initialization, and hosts all i
 - The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) property is not set, or is set to 0.
 
 Ice gives this object the identity `instance-name`/admin, where _instance-name_ is the value of the
-[Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties) property. If `Ice.Admin.InstanceName` is not
-set or empty, Ice generates a UUID for _instance-name_.
+[Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property. If
+`Ice.Admin.InstanceName` is not set or empty, Ice generates a UUID for _instance-name_.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 

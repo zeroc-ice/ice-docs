@@ -77,12 +77,13 @@ importantly, deploying this server on additional nodes has become much easier.
 
 ## Template Parameters
 
-Parameters enable you to customize each instance of a template as necessary. The example [above](./) defined the `index`
-parameter with a different value for each instance to ensure that identifiers are unique. A parameter may also declare a
-default value that is used in the template if no value is specified for it. In our sample application the `index`
-parameter is considered mandatory and therefore should not have a default value, but we can illustrate this feature in
-another way. For example, suppose that the path name of the server's executable may change on each node. We can supply a
-default value for this attribute and override it when necessary:
+Parameters enable you to customize each instance of a template as necessary. The
+[server template example](#server-templates) defines the `index` parameter with a different value for each instance to
+ensure that identifiers are unique. A parameter may also declare a default value that is used in the template if no
+value is specified for it. In our sample application the `index` parameter is considered mandatory and therefore should
+not have a default value, but we can illustrate this feature in another way. For example, suppose that the path name of
+the server's executable may change on each node. We can supply a default value for this attribute and override it when
+necessary:
 
 ```xml
 <icegrid>
@@ -145,9 +146,10 @@ This sets the `Ice.Trace.Network` property for a specific server.
 
 The IceGrid registry can be configured to supply any number of default template descriptors for use in your
 applications. The configuration property
-[IceGrid.Registry.DefaultTemplates](../../../property-reference/icegrid-properties) specifies the path name of an XML
-file containing template definitions. One such template file is provided in the Ice distribution as
-`config/templates.xml`, which contains helpful templates for deploying Ice services such as [Glacier2](../../glacier2).
+[IceGrid.Registry.DefaultTemplates](../../../property-reference/icegrid-properties#icegrid.registry.defaulttemplates)
+specifies the path name of an XML file containing template definitions. One such template file is provided in the Ice
+distribution as `config/templates.xml`, which contains helpful templates for deploying Ice services such as
+[Glacier2](../../glacier2).
 
 The template file must use the structure shown below:
 
@@ -183,7 +185,7 @@ determines whether the default templates are imported, as shown in the following
 ## Using Templates with `icegridadmin`
 
 The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you to inspect templates and instantiate new
-servers dynamically. First, let us ask `icegridadmin` to describe the server template we created [earlier](./):
+servers dynamically. First, ask `icegridadmin` to describe the [server template](#server-templates):
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config

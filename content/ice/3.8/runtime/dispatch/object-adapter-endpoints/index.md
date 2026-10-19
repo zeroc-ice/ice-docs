@@ -10,8 +10,9 @@ _published endpoints_, respectively.
 ## Physical Object Adapter Endpoints
 
 An object adapter's physical endpoints identify the network interfaces on which it receives requests from clients. These
-endpoints are configured via the [_name_.Endpoints](../../../property-reference/object-adapter-properties) property, or
-they can be specified explicitly when [creating an adapter](../creating-an-object-adapter) using the operation
+endpoints are configured via the
+[_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) property, or they can be
+specified explicitly when [creating an adapter](../creating-an-object-adapter) using the operation
 `createObjectAdapterWithEndpoints`. The [endpoint syntax](../../endpoint-syntax) generally consists of a transport
 protocol followed by an optional host name and port.
 
@@ -23,12 +24,13 @@ a **single endpoint.**Specifying multiple endpoints, while possible, does not pr
 {% /callout %}
 
 If a host name is specified, the object adapter listens only on the network interface associated with that host name. If
-no host name is specified but the property [Ice.Default.Host](../../../property-reference/ice-default-properties) is
-defined, the object adapter uses the property's value as the host name. Finally, if a host name is not specified, and
-the property `Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including
-the loopback interface. You may also force the object adapter to listen on all interfaces by using one of the host names
-`0.0.0.0` or `*`. The adapter does _not_ expand the list of interfaces when it is initialized. Instead, if no host is
-specified, or you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
+no host name is specified but the property
+[Ice.Default.Host](../../../property-reference/ice-default-properties#ice.default.host) is defined, the object adapter
+uses the property's value as the host name. Finally, if a host name is not specified, and the property
+`Ice.Default.Host` is undefined, the object adapter listens on all available network interfaces, including the loopback
+interface. You may also force the object adapter to listen on all interfaces by using one of the host names `0.0.0.0` or
+`*`. The adapter does _not_ expand the list of interfaces when it is initialized. Instead, if no host is specified, or
+you use `-h *` or `-h "::0"`, the adapter binds to `INADDR_ANY` to listen for incoming requests.
 
 If the host name refers to a DNS name which is configured with multiple addresses, the object adapter will listen on the
 network interfaces identified by each address. All the addresses should refer to local network interfaces or the object
@@ -99,8 +101,9 @@ useful for replicated servers, as presented below.
 
 The published endpoints of a regular object adapter (that is, not configured with a router) are computed as follows:
 
-1. If the property [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties) is set, use the
-   specified endpoints.
+1. If the property
+   [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) is
+   set, use the specified endpoints.
 2. start from the physical endpoints, split these endpoints in loopback and multicast endpoints on one side, and regular
    endpoints on the other
 
@@ -108,8 +111,8 @@ The published endpoints of a regular object adapter (that is, not configured wit
 
       1. discard the loopback and multicast endpoints
       2. replace the host name in each of these endpoints by the value of
-         [adapter.PublishedHost](../../../property-reference/object-adapter-properties). If `adapter.PublishedHost` is
-         not set, use the DNS name of the current host as published host.
+         [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost). If
+         `adapter.PublishedHost` is not set, use the DNS name of the current host as published host.
 
    2. otherwise, when all endpoints are loopback or multicast, replace the host name in each of these endpoints by the
       value of `adapter.PublishedHost`, if set. Don’t perform any substitution if `adapter.PublishedHost` is not set.

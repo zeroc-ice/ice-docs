@@ -16,10 +16,10 @@ A registry provides the following actions, from its contextual menu and from the
   registry's logger.
 - **Retrieve stdout** Retrieve the IceGrid registry's stdout into a [Log File Dialog](../../log-file-dialog). This
   retrieval succeeds only when the registry's stdout output has been redirected to a file using the
-  [Ice.StdOut](../../../../../../property-reference/ice-properties) property.
+  [Ice.StdOut](../../../../../../property-reference/ice-properties#ice.stdout) property.
 - **Retrieve stderr** Retrieve the IceGrid registry's stderr into a [Log File Dialog](../../log-file-dialog). This
   retrieval succeeds only when the registry's stderr output has been redirected to a file using the
-  [Ice.StdErr](../../../../../../property-reference/ice-properties) property.
+  [Ice.StdErr](../../../../../../property-reference/ice-properties#ice.stderr) property.
 - **Shutdown** Shutdown the registry process.
 
 {% callout type="warning" %}

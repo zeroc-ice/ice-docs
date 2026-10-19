@@ -146,7 +146,7 @@ export function Search({ version }: { version: DocsVersion }) {
           />
         </svg>
         <span className="sr-only lg:not-sr-only">Search</span>
-        <kbd className="hidden rounded border border-black/15 px-1 text-xs xl:inline dark:border-white/20">
+        <kbd className="hidden rounded border border-black/15 px-1 font-[inherit] text-xs leading-4 xl:inline dark:border-white/20">
           {hotkey}
         </kbd>
       </button>
@@ -160,8 +160,9 @@ export function Search({ version }: { version: DocsVersion }) {
           // click on its backdrop.
           if (event.target === event.currentTarget) setOpen(false);
         }}
-        className="mx-auto mt-[12vh] max-h-[70vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-xl border border-black/10 bg-white text-inherit shadow-2xl backdrop:bg-black/40 open:flex dark:border-white/10 dark:bg-neutral-900"
+        className="mx-auto mt-[12vh] max-h-[70vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-lg border border-black/10 bg-white text-inherit shadow-2xl backdrop:bg-black/40 open:flex dark:border-white/10 dark:bg-neutral-900"
       >
+        {/* No focus ring: the caret marks focus in the dialog's only text field. */}
         <input
           ref={inputRef}
           value={query}
@@ -183,7 +184,7 @@ export function Search({ version }: { version: DocsVersion }) {
           }}
           placeholder={`Search the ${version.title} documentation…`}
           aria-label="Search query"
-          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base focus-ring focus-visible:rounded-md dark:border-white/10"
+          className="w-full border-b border-black/10 bg-transparent px-4 py-3.5 text-base outline-hidden dark:border-white/10"
         />
 
         <div className="overflow-y-auto">

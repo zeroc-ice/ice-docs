@@ -26,15 +26,16 @@ As we saw in our [deployment example](../using-icegrid-deployment), the configur
 include definitions for the following properties:
 
 - [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties)
-- [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties)
+- [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties#ice.admin.serverid)
 
 The definition of `Ice.Admin.Endpoints` enables the
 [Administrative Facility](../../../administration/administrative-facility).
 
 ### Ice.Admin.Endpoints for Servers
 
-If a server's descriptor does not set [Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) and does not
-supply a value for `Ice.Admin.Endpoints`, IceGrid supplies a default value for `Ice.Admin.Endpoints` as shown below:
+If a server's descriptor does not set
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) and does not supply a value for
+`Ice.Admin.Endpoints`, IceGrid supplies a default value for `Ice.Admin.Endpoints` as shown below:
 
 ```config
 Ice.Admin.Endpoints=tcp -h 127.0.0.1
@@ -58,8 +59,8 @@ object in a node or registry replica, set [Ice.Admin.Enabled](../../../property-
 a negative value in this node or registry's configuration.
 
 Each of these admin objects carries all the built-in facets, currently `Logger`, Metrics, Process and Properties.
-Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations
-[described below](#obtaining-a-proxy).
+Proxies to these admin objects can be retrieved through the `getNodeAdmin` and `getRegistryAdmin` operations described
+in [Obtaining a Proxy](#obtaining-a-proxy).
 
 ## Deactivating a Deployed Server
 
@@ -74,7 +75,8 @@ When the node is ready to deactivate a server, it invokes the `shutdown` operati
 If the server does not terminate in a timely manner, the node asks the operating system to terminate the process. Each
 server can be configured with its own [deactivation timeout](../icegrid-xml-reference/server-descriptor-element). If no
 timeout is configured, the node uses the value of the property
-[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties), which defaults to `60` seconds.
+[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties#icegrid.node.waittime), which defaults to `60`
+seconds.
 
 If a server does not register an `Ice::Process` proxy, the IceGrid node cannot request a graceful termination and must
 resort instead to a more drastic, and potentially harmful, alternative by asking the operating system to terminate the
@@ -90,12 +92,12 @@ about pending deactivation. However, we recommend that servers be allowed to use
 ## Routing Administrative Requests
 
 IceGrid defaults to using the local host interface when defining the endpoints of a deployed server's
-[administrative object adapter](./). This configuration allows local clients such as the IceGrid node to access the
-server's [admin object](../../../administration/administrative-facility/admin-object) while preventing direct
-invocations from remote clients. A server's `admin` object may still be accessed remotely, but only by clients that
-establish an [IceGrid administrative session](../icegrid-administrative-sessions). To facilitate these requests, IceGrid
-uses an intermediary object that relays requests to the server via its node. For example, the following figure
-illustrates the path of a `getProperty` invocation:
+[administrative object adapter](#ice.admin.endpoints-for-servers). This configuration allows local clients such as the
+IceGrid node to access the server's [admin object](../../../administration/administrative-facility/admin-object) while
+preventing direct invocations from remote clients. A server's `admin` object may still be accessed remotely, but only by
+clients that establish an [IceGrid administrative session](../icegrid-administrative-sessions). To facilitate these
+requests, IceGrid uses an intermediary object that relays requests to the server via its node. For example, the
+following figure illustrates the path of a `getProperty` invocation:
 
 ![An administrative client sends getProperty to the registry, which forwards the request through the node to the server.](/images/ice/3.8/icegrid-and-the-administrative-facility/routing.svg)
 
@@ -331,7 +333,7 @@ service property MyServerId MyService BuildId
 ```
 
 The utilities use the [Properties facet](../../../administration/administrative-facility/properties-facet) to access
-these properties, via a proxy obtained as described [above](./).
+these properties, through a proxy obtained as described in [Obtaining a Proxy](#obtaining-a-proxy).
 
 ### Administering IceBox Services
 
@@ -341,8 +343,8 @@ operations are available in both the command line and graphical utilities.
 
 IceBox also defines a [ServiceObserver](../../icebox/icebox-administration) interface for receiving callbacks when
 services are stopped or started. The graphical utility implements this interface so that it can present an updated view
-of the state of an IceBox server. We presented [examples](./) that demonstrate how to register an observer with the
-IceBox administrative facet.
+of the state of an IceBox server. [Callbacks Without Glacier2](#callbacks-without-glacier2) shows how to register an
+observer with the IceBox administrative facet.
 
 ## See Also
 

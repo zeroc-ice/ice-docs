@@ -7,14 +7,14 @@ service. You select one of these loggers with properties.
 
 ## File Logger
 
-Setting the [Ice.LogFile](../../../property-reference/ice-properties) property selects the file-based
+Setting the [Ice.LogFile](../../../property-reference/ice-properties#ice.logfile) property selects the file-based
 logger{% iflang langs="js" %} in Node.js{% /iflang %}. This logger appends its messages to the specified file and
 creates the file if necessary.
 
 {% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
-[Ice.LogFile.SizeMax](../../../property-reference/ice-properties) enables log file rotation: when the log file reaches
-the configured size, the file logger archives it under a new name and starts a new file.
+[Ice.LogFile.SizeMax](../../../property-reference/ice-properties#ice.logfile.sizemax) enables log file rotation: when
+the log file reaches the configured size, the file logger archives it under a new name and starts a new file.
 
 {% /iflang %}
 

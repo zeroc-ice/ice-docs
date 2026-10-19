@@ -44,7 +44,7 @@ With this delivery mode, IceStorm buffers events from publishers and sends them 
 overhead and is more efficient than oneway delivery. However, as for oneway delivery, events can be delivered out of
 order if the subscriber is multi-threaded. Batch oneway delivery, while providing better throughput, increases latency
 because events arrive in "bursts". You can control the interval at which batched events are flushed by setting the
-[IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties) property.
+[IceStorm.Flush.Timeout](../../../property-reference/icestorm-properties#icestorm.flush.timeout) property.
 
 ## Subscribing with a Datagram Proxy
 

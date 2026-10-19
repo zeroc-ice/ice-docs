@@ -87,7 +87,7 @@ The `Ice.Admin` object adapter is enabled automatically in an IceBox server that
 {% /callout %}
 
 With the administrative facility enabled, IceBox registers an administrative facet with the name
-`IceBox.ServiceManager`. We discuss the [identity](./) of the `admin` object below.
+`IceBox.ServiceManager`. See [IceBox Admin Facets](#icebox-admin-facets) for the identity of the `admin` object.
 
 {% callout type="warning" %}
 
@@ -99,7 +99,7 @@ Consequently, you should
 
 ## IceBox Admin Facets
 
-When you [enable the service manager](./), IceBox adds it as a facet of the server's
+When you [enable the service manager](#enabling-the-service-manager), IceBox adds it as a facet of the server's
 [admin](../../../administration/administrative-facility/admin-object) object. As a result, the identity of the service
 manager is the same as that of the `admin` object, and the name of its facet is `IceBox.ServiceManager`.
 
@@ -122,16 +122,17 @@ except `Process`, to the server's `admin` object under these names:
   `IceBox.SharedCommunicator.Properties`.
 
 To add only some of these facets, list their names in the IceBox server's
-[Ice.Admin.Facets](../../../property-reference/ice-admin-properties) property. This property filters every facet of the
-`admin` object, including `IceBox.ServiceManager`, so list every facet you use:
+[Ice.Admin.Facets](../../../property-reference/ice-admin-properties#ice.admin.facets) property. This property filters
+every facet of the `admin` object, including `IceBox.ServiceManager`, so list every facet you use:
 
 ```config
 Ice.Admin.Facets=IceBox.ServiceManager IceBox.Service.Greeter.Properties
 ```
 
 To keep a service's facets out of the `admin` object, set
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to `0` in that service's configuration. The shared
-communicator uses a merged configuration, so this setting applies to all services that share it.
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) to `0` in that service's
+configuration. The shared communicator uses a merged configuration, so this setting applies to all services that share
+it.
 
 ## IceBox Administrative Client Configuration
 
@@ -142,9 +143,9 @@ construct the proxy itself. If the IceBox server is deployed with IceGrid, the c
 our discussion of [IceGrid](../../icegrid/icegrid-and-the-administrative-facility) to access its `admin` object.
 
 In the absence of IceGrid, the IceBox server should set the
-[Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties) property if remote administration is
-required. In so doing, the identity of the `admin` object becomes well-known, and a client can construct the proxy on
-its own. For example, let's assume that the IceBox server defines the following property:
+[Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property if remote
+administration is required. In so doing, the identity of the `admin` object becomes well-known, and a client can
+construct the proxy on its own. For example, let's assume that the IceBox server defines the following property:
 
 ```config
 Ice.Admin.InstanceName=IceBox
@@ -194,8 +195,8 @@ The C++ and Java utilities obtain the service manager's proxy from the property
 defined in the program's configuration file or on the command line, and the proxy's contents depend on the server's
 configuration. If the IceBox server is deployed with IceGrid, we recommend using the IceGrid
 [administrative utilities](../../icegrid/icegridadmin-command-line-tool) instead, which provide equivalent commands for
-administering an IceBox server. Otherwise, the proxy should have the [endpoints](./) and identity configured for the
-server.
+administering an IceBox server. Otherwise, the proxy should have the [endpoints](#enabling-the-service-manager) and
+identity configured for the server.
 
 For an IceBox server configured with `Ice.Admin.Endpoints=tcp -h 127.0.0.1 -p 10001` and
 `Ice.Admin.InstanceName=IceBox`, save the following property in `admin.cfg`:

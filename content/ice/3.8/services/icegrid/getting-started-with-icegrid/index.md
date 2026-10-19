@@ -92,8 +92,8 @@ IceGrid.Registry.DynamicRegistration=1
 
 Several of the properties define endpoints, but only the value of `IceGrid.Registry.Client.Endpoints` needs a fixed
 port. This property specifies the endpoints of the IceGrid locator service; IceGrid clients must include these endpoints
-in their definition of [Ice.Default.Locator](../../../property-reference/ice-default-properties), as discussed in the
-next section. The TCP port number (4061) used in this example has been reserved by the
+in their definition of [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator), as
+discussed in the next section. The TCP port number (4061) used in this example has been reserved by the
 [Internet Assigned Numbers Authority](https://www.iana.org/assignments/service-names-port-numbers) (IANA) for the
 IceGrid registry, along with SSL port number 4062.
 
@@ -113,10 +113,10 @@ a client to be able to bind indirectly to a server without having to first deplo
 the server should be sufficient to make the server register itself with IceGrid and be reachable from clients.
 
 You can achieve this by running the registry with the property
-[IceGrid.Registry.DynamicRegistration](../../../property-reference/icegrid-properties) set to a non-zero value. With
-this setting, IceGrid permits an adapter to register itself upon activation even if it has not been previously deployed.
-To force the server to register its adapters, you must define `Ice.Default.Locator` (so the server can find the
-registry) and, for each adapter that you wish to register, you must set
+[IceGrid.Registry.DynamicRegistration](../../../property-reference/icegrid-properties#icegrid.registry.dynamicregistration)
+set to a non-zero value. With this setting, IceGrid permits an adapter to register itself upon activation even if it has
+not been previously deployed. To force the server to register its adapters, you must define `Ice.Default.Locator` (so
+the server can find the registry) and, for each adapter that you wish to register, you must set
 [_adapter-name_.AdapterId](../../../property-reference/object-adapter-properties) to an identifier that is unique within
 the registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create direct proxies
 but rather to create indirect proxies that clients must resolve via the registry.
@@ -161,16 +161,16 @@ The properties are described below:
 - [EncoderAdapter.AdapterId](../../../property-reference/object-adapter-properties) This property supplies the object
   adapter identifier that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
 
-- [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties) This property defines the
-  [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value does not
-  contain any port information, meaning that the adapter uses a system-assigned port. Without IceGrid, the use of a
-  system-assigned port would pose a significant problem: how would a client create a direct proxy if the adapter's port
-  could change every time the server is restarted? IceGrid solves this problem nicely because clients can use indirect
-  proxies that contain no endpoint dependencies. The registry resolves indirect proxies using the endpoint information
-  supplied by object adapters each time they are activated.
+- [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) This property
+  defines the [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value
+  does not contain any port information, meaning that the adapter uses a system-assigned port. Without IceGrid, the use
+  of a system-assigned port would pose a significant problem: how would a client create a direct proxy if the adapter's
+  port could change every time the server is restarted? IceGrid solves this problem nicely because clients can use
+  indirect proxies that contain no endpoint dependencies. The registry resolves indirect proxies using the endpoint
+  information supplied by object adapters each time they are activated.
 
-- [Ice.Default.Locator](../../../property-reference/ice-default-properties) The server requires a value for this
-  property in order to register its object adapter.
+- [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) The server requires a
+  value for this property in order to register its object adapter.
 
 ## Starting the Registry for the Ripper Application
 

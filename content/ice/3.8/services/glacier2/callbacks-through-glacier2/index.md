@@ -95,7 +95,8 @@ Note that multiple object adapters created by the same communicator cannot use t
 {% /callout %}
 
 We supply the router's proxy by creating the object adapter with `createObjectAdapterWithRouter`, or by defining the
-object adapter property [_adapter_.Router](../../../property-reference/object-adapter-properties) as shown below:
+object adapter property [_adapter_.Router](../../../property-reference/object-adapter-properties#adapter.router) as
+shown below:
 
 ```config
 CallbackAdapter.Router=Glacier2/router:tcp -h 5.6.7.8 -p 4063
