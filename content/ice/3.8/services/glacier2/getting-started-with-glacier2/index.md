@@ -267,9 +267,8 @@ A Glacier2 session ends when the connection between the client and the router cl
 `destroySession` on the router. The server-side application can also end a session by calling `destroy` on the
 `SessionControl` object that the router passes to the session manager's `create` operation.
 
-A session exists only in the replica that created it, and ends when the client's connection to that replica closes. A
-client that loses this connection and connects to another replica must create a new session there and set up its
-callbacks again, as described in [Handling Connection Loss](../callbacks-through-glacier2#handling-connection-loss).
+A client that creates a new session, for example after losing its connection to the router, must set up its callbacks
+again, as described in [Handling Connection Loss](../callbacks-through-glacier2#handling-connection-loss).
 
 The router's [idle check](../../../runtime/connection-management/connection-closure#the-idle-check) detects a client
 that disappears without closing its connection: when the router receives nothing on the connection for the idle timeout,
