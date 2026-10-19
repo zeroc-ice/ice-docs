@@ -13,16 +13,16 @@ introduces a new patch version.
 
 ## Source-Code Compatibility
 
-Ice maintains source-code compatibility between a patch release (e.g., 3.8.5) and the most recent minor release (e.g.,
-3.8.0), but does not guarantee source-code compatibility between minor releases (e.g., between 3.7 and 3.8).
+Ice keeps source code compatible across the patch releases of a minor version: code that builds with Ice 3.8.0 builds
+with Ice 3.8.5. Ice does not guarantee source-code compatibility between minor releases, such as 3.7 and 3.8.
 
 The [Upgrade Guide](../upgrade-guide) describes the significant API changes in this release that may impact source-code
 compatibility.
 
 ## Binary Compatibility
 
-As for source-code compatibility, Ice maintains backward binary compatibility between a patch release and the most
-recent minor release, but does not guarantee binary compatibility between minor releases.
+Ice keeps binary compatibility across the patch releases of a minor version: an application built with Ice 3.8.0 runs
+with Ice 3.8.5. Ice does not guarantee binary compatibility between minor releases.
 
 When upgrading to a new minor (or major) release, you always need to recompile your Slice files. You also need to
 upgrade your source code to use the latest Ice APIs.
@@ -47,8 +47,8 @@ The [Upgrade Guide](../upgrade-guide) describes interface changes made by Ice se
 
 The IceGrid and IceStorm services store data persistently in LMDB databases.
 
-Ice maintains database schema compatibility between a patch release and the most recent minor release, but does not
-guarantee database schema compatibility between minor releases.
+Ice keeps the database schema compatible across the patch releases of a minor version, but does not guarantee its
+compatibility between minor releases.
 
 For example, you can start an IceGrid registry 3.8.5 using a database created by IceGrid registry 3.8.0. But there is no
 blanket guarantee that you can start IceGrid registry 3.9 using a database created by IceGrid registry 3.8.5.
