@@ -260,7 +260,7 @@
   }
 
   main article {
-    @apply prose max-w-none dark:prose-invert prose-a:no-underline prose-code:font-light prose-code:before:hidden prose-code:after:hidden;
+    @apply prose max-w-none dark:prose-invert prose-a:no-underline prose-code:font-light prose-code:before:hidden prose-code:after:hidden prose-li:my-1;
 
     /* Point the typography plugin at the token scale. Both the light and the
        inverted set resolve to the same variables, which already flip with the
@@ -294,10 +294,6 @@
     --tw-prose-invert-code: var(--text-primary);
     --tw-prose-invert-th-borders: var(--border-strong);
     --tw-prose-invert-td-borders: var(--border-subtle);
-  }
-
-  main article li {
-    @apply mb-2 pl-1;
   }
 
   /* An image inside a sentence (the IceGrid GUI's state icons) is a word: it
