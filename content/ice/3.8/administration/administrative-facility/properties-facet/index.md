@@ -30,8 +30,8 @@ The `setProperties` operation merges the entries in `newProperties` with the com
 entry in `newProperties` matches the name of an existing property, that property's value is replaced with the new value.
 If the new value is an empty string, the property is removed. Any existing properties that are not modified or removed
 by the entries in `newProperties` are retained with their original values. If the
-[Ice.Trace.Admin.Properties](../../../property-reference/ice-trace-properties) property is enabled, Ice logs a message
-if a call to `setProperties` results in any changes to the property set.
+[Ice.Trace.Admin.Properties](../../../property-reference/ice-trace-properties#ice.trace.admin.properties) property is
+enabled, Ice logs a message if a call to `setProperties` results in any changes to the property set.
 
 `setProperties` applies the usual
 [property validation](../../../runtime/properties-and-configuration/properties-overview#property-validation) when

@@ -65,7 +65,8 @@ Step 7: Click `Finish` to save the connection; IceGrid GUI then attempts to conn
 
 Now let's create a direct SSL connection to an IceGrid registry and authenticate using our X.509 key (also used for SSL
 authentication). The target IceGrid registry must be configured to accept SSL connections and authentication using SSL
-credentials; see [IceGrid.Registry.AdminSSLPermissionsVerifier](../../../../../property-reference/icegrid-properties).
+credentials; see
+[IceGrid.Registry.AdminSSLPermissionsVerifier](../../../../../property-reference/icegrid-properties#icegrid.registry.adminsslpermissionsverifier).
 
 Steps 1 to 4 are identical to the simple TCP connection described above.
 

@@ -70,10 +70,11 @@ therefore handle a `create` call for a user who already has a session.
 {% /callout %}
 
 To configure the router with a custom session manager, define the properties
-[Glacier2.SessionManager](../../../property-reference/glacier2-properties) or
-[Glacier2.SSLSessionManager](../../../property-reference/glacier2-properties) with the proxies of the session manager
-objects. If necessary, you can configure a router with proxies for both types of session managers. If a session manager
-proxy is not supplied, the call to `createSession` or `createSessionFromSecureConnection` always returns a null proxy.
+[Glacier2.SessionManager](../../../property-reference/glacier2-properties#glacier2.sessionmanager) or
+[Glacier2.SSLSessionManager](../../../property-reference/glacier2-properties#glacier2.sslsessionmanager) with the
+proxies of the session manager objects. If necessary, you can configure a router with proxies for both types of session
+managers. If a session manager proxy is not supplied, the call to `createSession` or `createSessionFromSecureConnection`
+always returns a null proxy.
 
 The router attempts to contact the configured session manager at startup. If the object is unreachable, the router logs
 a warning message but continues its normal operation. The router does not contact the session manager again until it

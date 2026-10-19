@@ -97,8 +97,8 @@ Ice.Default.Locator=IceGrid/Locator:tcp -p 4061
 ```
 
 The registry and node can share this configuration file. In fact, by enabling
-[IceGrid.Node.CollocateRegistry](../../../property-reference/icegrid-properties), we have indicated that the registry
-and node should run in the same process.
+[IceGrid.Node.CollocateRegistry](../../../property-reference/icegrid-properties#icegrid.node.collocateregistry), we have
+indicated that the registry and node should run in the same process.
 
 {% callout type="note" %}
 
@@ -107,23 +107,25 @@ We recommend that you always run `icegridnode` and `icegridregistry` as separate
 {% /callout %}
 
 One difference from our [initial configuration](../getting-started-with-icegrid) is that we no longer define
-[IceGrid.Registry.DynamicRegistration](../../../property-reference/icegrid-properties). By omitting this property, we
-force the registry to reject the registration of object adapters that have not been deployed.
+[IceGrid.Registry.DynamicRegistration](../../../property-reference/icegrid-properties#icegrid.registry.dynamicregistration).
+By omitting this property, we force the registry to reject the registration of object adapters that have not been
+deployed.
 
 The node properties are explained below:
 
 - [IceGrid.Node.Endpoints](../../../property-reference/icegrid-properties) This property specifies the node's endpoints.
   A fixed port is not required.
 
-- [IceGrid.Node.Name](../../../property-reference/icegrid-properties) This property defines the unique name for this
-  node. Its value must match the descriptor we wrote above.
+- [IceGrid.Node.Name](../../../property-reference/icegrid-properties#icegrid.node.name) This property defines the unique
+  name for this node. Its value must match the descriptor we wrote above.
 
-- [IceGrid.Node.Data](../../../property-reference/icegrid-properties) This property specifies the node's data directory.
+- [IceGrid.Node.Data](../../../property-reference/icegrid-properties#icegrid.node.data) This property specifies the
+  node's data directory.
 
-- [Ice.Default.Locator](../../../property-reference/ice-default-properties) This property is defined for use by the
-  [icegridadmin](../icegridadmin-command-line-tool) tool. The node would also require this property if the registry is
-  not collocated. Refer to our discussion of the [ripper client configuration](../getting-started-with-icegrid) for more
-  information on this setting.
+- [Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) This property is defined
+  for use by the [icegridadmin](../icegridadmin-command-line-tool) tool. The node would also require this property if
+  the registry is not collocated. Refer to our discussion of the
+  [ripper client configuration](../getting-started-with-icegrid) for more information on this setting.
 
 ## Ripper Server Configuration Using Deployment
 
@@ -146,7 +148,7 @@ Ice.Default.Locator=IceGrid/Locator:default -p 4061
 As you can see, the configuration file that IceGrid generates from the descriptor resembles the
 [initial configuration](../getting-started-with-icegrid), with two additional properties:
 
-- [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties)
+- [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties#ice.admin.serverid)
 - [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties)
 
 The `Ice.Admin.Endpoints` property enables the [administrative facility](../icegrid-and-the-administrative-facility)
@@ -199,8 +201,9 @@ node to run as a Windows service or Unix daemon.
 ## Deploying the Ripper Application
 
 With the registry up and running, it is now time to deploy our application. Like our client, the `icegridadmin` utility
-also requires a definition for the [Ice.Default.Locator](../../../property-reference/ice-default-properties) property.
-We can start the utility with the following command:
+also requires a definition for the
+[Ice.Default.Locator](../../../property-reference/ice-default-properties#ice.default.locator) property. We can start the
+utility with the following command:
 
 ```shell
 icegridadmin --Ice.Config=/opt/ripper/config
@@ -305,9 +308,10 @@ purposes.
 
 We can continue to use the configuration file we created [earlier](#ripper-registry-and-node-configuration) for our
 combined registry-node process. We need a separate configuration file for `Node2`, primarily to define a different value
-for the property [IceGrid.Node.Name](../../../property-reference/icegrid-properties). However, we also cannot have two
-nodes configured with [IceGrid.Node.CollocateRegistry](../../../property-reference/icegrid-properties) because only one
-master registry is allowed, so we must remove this property:
+for the property [IceGrid.Node.Name](../../../property-reference/icegrid-properties#icegrid.node.name). However, we also
+cannot have two nodes configured with
+[IceGrid.Node.CollocateRegistry](../../../property-reference/icegrid-properties#icegrid.node.collocateregistry) because
+only one master registry is allowed, so we must remove this property:
 
 ```config
 IceGrid.Node.Endpoints=tcp

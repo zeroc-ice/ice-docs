@@ -48,9 +48,9 @@ subscriber identities.
 ### Map Size
 
 An LMDB database has a maximum size, known as its map size. The IceStorm database can store up to
-[IceStorm.LMDB.MapSize](../../../property-reference/icestorm-properties) megabytes of data in its database; any attempt
-to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase `IceStorm.LMDB.MapSize`
-and restart IceStorm.
+[IceStorm.LMDB.MapSize](../../../property-reference/icestorm-properties#icestorm.lmdb.mapsize) megabytes of data in its
+database; any attempt to store more data will fail with an `Ice::UnknownException`. If you exceed this limit, increase
+`IceStorm.LMDB.MapSize` and restart IceStorm.
 
 If you don't set `IceStorm.LMDB.MapSize`, or set it to 0, IceStorm uses a map size of 10 MB on Windows, and 100 MB on
 Linux and macOS.

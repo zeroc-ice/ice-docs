@@ -164,16 +164,18 @@ auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix
 The `Logger` facet caches the most recent log messages sent to application's [Logger](../../logger-facility), to be able
 to provide these log messages to remote loggers (in the `init` operation) and to administrative clients that call
 `getLog` (see the [LoggerAdmin Interface](#the-loggeradmin-interface) above). You can configure how many log messages
-are cached by the Logger facet with the [Ice.Admin.Logger.KeepLogs](../../../property-reference/ice-admin-properties)
-and [Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties) properties. The default is to keep
-the most recent 100 log messages other than trace messages plus the most recent 100 trace messages. These properties do
-not affect the forwarding of new log messages to attached remote loggers.
+are cached by the Logger facet with the
+[Ice.Admin.Logger.KeepLogs](../../../property-reference/ice-admin-properties#ice.admin.logger.keeplogs) and
+[Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties#ice.admin.logger.keeptraces) properties.
+The default is to keep the most recent 100 log messages other than trace messages plus the most recent 100 trace
+messages. These properties do not affect the forwarding of new log messages to attached remote loggers.
 
 The `Logger` facet does not send log messages over the connection that delivered the `attachRemoteLogger` request: it
 sends them with a communicator of its own, which you configure with
-[Ice.Admin.Logger.Properties](../../../property-reference/ice-admin-properties). The remote logger must therefore be
-reachable from the monitored application. Set [Ice.Trace.Admin.Logger](../../../property-reference/ice-trace-properties)
-to trace the attachment and detachment of remote loggers and the sending of log messages to them.
+[Ice.Admin.Logger.Properties](../../../property-reference/ice-admin-properties#ice.admin.logger.properties). The remote
+logger must therefore be reachable from the monitored application. Set
+[Ice.Trace.Admin.Logger](../../../property-reference/ice-trace-properties#ice.trace.admin.logger) to trace the
+attachment and detachment of remote loggers and the sending of log messages to them.
 
 {% iflang langs="python" %}
 

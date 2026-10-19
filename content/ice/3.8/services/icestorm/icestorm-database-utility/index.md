@@ -54,7 +54,8 @@ The target directory must already exist and be empty.
 ### mapsize Option
 
 The `--mapsize` option allows you to set the map size of the new LMDB database. See
-[IceStorm.LMDB.MapSize](../../../property-reference/icestorm-properties) for additional information.
+[IceStorm.LMDB.MapSize](../../../property-reference/icestorm-properties#icestorm.lmdb.mapsize) for additional
+information.
 
 ## Compatibility
 

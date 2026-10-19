@@ -27,10 +27,10 @@ There are several possible strategies for generating certificates. At a minimum 
 - one certificate for all of the servers managed by IceGrid
 
 Protect access to each private key with file system permissions. We do not recommend encrypting a private key with a
-password: IceSSL reads the password from a property, [IceSSL.Password](../../../property-reference/icessl-properties),
-which then appears in clear text in a configuration file. For a server deployed with IceGrid, the password is also
-stored in the server's descriptor, in the IceGrid registry database, and in the configuration file that the IceGrid node
-generates from this descriptor.
+password: IceSSL reads the password from a property,
+[IceSSL.Password](../../../property-reference/icessl-properties#icessl.password), which then appears in clear text in a
+configuration file. For a server deployed with IceGrid, the password is also stored in the server's descriptor, in the
+IceGrid registry database, and in the configuration file that the IceGrid node generates from this descriptor.
 
 Depending on your organization and the roles of each person that uses IceGrid, you may decide to create additional
 certificates. For example, you might create a unique certificate for each IceGrid node instance if you deploy nodes on
@@ -152,7 +152,7 @@ proxy of its own containing the registry's client endpoint.
 
 Ice does not support a secure multicast transport therefore these discovery requests cannot be encrypted or restricted
 via trust relationships. You can prevent registries from listening for discovery requests by setting
-[IceGrid.Registry.Discovery.Enabled](../../../property-reference/icegrid-properties):
+[IceGrid.Registry.Discovery.Enabled](../../../property-reference/icegrid-properties#icegrid.registry.discovery.enabled):
 
 ```config
 IceGrid.Registry.Discovery.Enabled=0

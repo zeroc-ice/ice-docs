@@ -122,16 +122,17 @@ except `Process`, to the server's `admin` object under these names:
   `IceBox.SharedCommunicator.Properties`.
 
 To add only some of these facets, list their names in the IceBox server's
-[Ice.Admin.Facets](../../../property-reference/ice-admin-properties) property. This property filters every facet of the
-`admin` object, including `IceBox.ServiceManager`, so list every facet you use:
+[Ice.Admin.Facets](../../../property-reference/ice-admin-properties#ice.admin.facets) property. This property filters
+every facet of the `admin` object, including `IceBox.ServiceManager`, so list every facet you use:
 
 ```config
 Ice.Admin.Facets=IceBox.ServiceManager IceBox.Service.Greeter.Properties
 ```
 
 To keep a service's facets out of the `admin` object, set
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to `0` in that service's configuration. The shared
-communicator uses a merged configuration, so this setting applies to all services that share it.
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) to `0` in that service's
+configuration. The shared communicator uses a merged configuration, so this setting applies to all services that share
+it.
 
 ## IceBox Administrative Client Configuration
 
@@ -142,9 +143,9 @@ construct the proxy itself. If the IceBox server is deployed with IceGrid, the c
 our discussion of [IceGrid](../../icegrid/icegrid-and-the-administrative-facility) to access its `admin` object.
 
 In the absence of IceGrid, the IceBox server should set the
-[Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties) property if remote administration is
-required. In so doing, the identity of the `admin` object becomes well-known, and a client can construct the proxy on
-its own. For example, let's assume that the IceBox server defines the following property:
+[Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property if remote
+administration is required. In so doing, the identity of the `admin` object becomes well-known, and a client can
+construct the proxy on its own. For example, let's assume that the IceBox server defines the following property:
 
 ```config
 Ice.Admin.InstanceName=IceBox
