@@ -2,11 +2,15 @@
 title: Publishing to a Specific Subscriber
 ---
 
-Some events are meant for a single subscriber of a topic. For example, a new subscriber may need an initial snapshot of
-some state, while later updates to that state are broadcast to all subscribers. `Topic::subscribeAndGetPublisher` adds a
-subscriber to the topic and returns a publisher proxy for that subscriber: IceStorm forwards an event published through
-this proxy to that subscriber only. An event published through the proxy returned by `Topic::getPublisher` goes to all
-subscribers of the topic.
+`Topic::subscribeAndGetPublisher` adds a subscriber to a topic and returns a publisher proxy for this subscriber:
+IceStorm forwards an event published through this proxy to this subscriber only. An event published through the proxy
+returned by `Topic::getPublisher` goes to all subscribers of the topic.
+
+This per-subscriber publisher serves a specific setup: an observed object that notifies its observers through an
+IceStorm topic, and is the only publisher on this topic. When an observer subscribes, the observed object sends it the
+current state through the per-subscriber publisher, and IceStorm delivers this state like any other event, so a slow
+observer does not delay the observed object. If a slow observer is not a concern, the observed object can call the
+observer directly instead.
 
 As an example, we might have a list whose state is to be monitored by a number of observers. Updates to the list are
 published to an IceStorm topic, say, `ListUpdates`. The observers of the list subscribe with an interface such as:
