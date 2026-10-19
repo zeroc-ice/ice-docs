@@ -58,8 +58,8 @@ Classes have two constructors:
   member has a reasonable default value. This is especially true for enumerated types as the member's default value may
   be outside the legal range for the enumeration, in which case an exception will occur during marshaling unless the
   member is explicitly set to a legal value. To ensure that data members of primitive types are initialized to
-  reasonable values, you can declare default values in your [Slice definition](./), and the Slice compiler will generate
-  data member initializers for the corresponding C++ data members.
+  reasonable values, you can declare [default values](../../fields#default-values) in your Slice definition, and the
+  Slice compiler will generate data member initializers for the corresponding C++ data members.
 - a constructor with one parameter for each data member (the _one-shot_ constructor) This constructor allows you to
   construct and initialize a class instance in a single statement.
 

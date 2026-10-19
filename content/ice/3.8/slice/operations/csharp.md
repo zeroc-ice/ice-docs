@@ -5,7 +5,7 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side C# Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated proxy interface contains two methods for this operation. To invoke an
+operation on an interface, the generated proxy interface contains two methods for this operation. To invoke an
 operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
@@ -51,7 +51,7 @@ string greeting = await greeter.GreetAsync("Alice");  // Get greeting via RPC
 
 ### Sync and Async Methods
 
-For each operation, the Slice compiler generates 2 methods on the proxy interface:
+For each operation, the Slice compiler generates two methods on the proxy interface:
 
 - a “sync” method with the same name as the operation. When you call this method, your thread waits synchronously until
   the invocation completes. A successful invocation completes with a return value (which can be void), while an
@@ -109,7 +109,7 @@ catch (Tantrum t)
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side C# Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated skeleton class contains an abstract method with the same name.
+operation on an interface, the generated skeleton class contains an abstract method with the same name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
@@ -537,8 +537,8 @@ public partial interface ExamplePrx : Ice.ObjectPrx
 
 ### Optional Parameters
 
-The mapping for [optional parameters](./) is the same as for required parameters, except each mapped C# type is
-nullable, where null represents “not set”.
+The mapping for [optional parameters](#optional-parameters-and-return-values) is the same as for required parameters,
+except each mapped C# type is nullable, where null represents “not set”.
 
 Consider the following operation:
 

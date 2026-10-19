@@ -28,13 +28,15 @@ The proxy performs the following steps to derive its endpoint list:
    proxy method. The default value is `Random`, meaning the endpoints are randomly shuffled. Alternatively, the value
    `Ordered` maintains the existing order of the endpoints.
 
-If [connection caching](#connection-caching) is enabled and the communicator [already has a compatible connection](./),
-it reuses the cached connection. Otherwise, the communicator attempts to connect to each endpoint in the list until it
-succeeds or exhausts the list; the order in which endpoints are selected for connection attempts depends on the endpoint
-selection policy. This policy can be set using a default property
-([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties)), using a proxy property
-([_name_.EndpointSelection](../../../property-reference/proxy-properties)), and using the `ice_endpointSelection`
-[proxy method](api:Ice/ObjectPrx).
+If [connection caching](#connection-caching) is enabled and the communicator
+[already has a compatible connection](#reusing-an-existing-connection), it reuses the cached connection. Otherwise, the
+communicator attempts to connect to each endpoint in the list until it succeeds or exhausts the list; the order in which
+endpoints are selected for connection attempts depends on the endpoint selection policy. This policy can be set using a
+default property
+([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection)),
+using a proxy property
+([_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection)), and using the
+`ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
 
 ## Error Semantics for Failed Connections
 
@@ -56,8 +58,8 @@ conditions are met:
 
 - The proxy has [connection caching](#connection-caching) enabled.
 - The remote endpoint matches one of the proxy's endpoints.
-- The connection matches the proxy's configuration. If a proxy configured with a [connection ID](./), the communicator
-  only reuses a connection if it was established by a proxy with the same connection ID.
+- The connection matches the proxy's configuration. For a proxy with a [connection ID](#influencing-connection-reuse),
+  the communicator reuses only a connection established by a proxy with the same connection ID.
 
 When a proxy has connection caching disabled, the communicator does not prefer an endpoint with an already established
 connection over other endpoints. It can select an endpoint without an established connection and create a new
@@ -102,14 +104,16 @@ connection can change over time, such that a proxy might use several connections
 transparently replaced by a new connection when activity resumes.
 
 After establishing a connection in response to proxy activities, the communicator associated with this proxy adds the
-connection to an internal pool for subsequent [reuse](./) by other proxies. The communicator manages the lifetime of the
-connection and eventually [closes](../connection-closure) it. The connection is not affected by the life cycle of the
-proxies that use it, except that the lack of activity may prompt the communicator to close the connection after a while.
+connection to an internal pool for subsequent [reuse](#reusing-an-existing-connection) by other proxies. The
+communicator manages the lifetime of the connection and eventually [closes](../connection-closure) it. The connection is
+not affected by the life cycle of the proxies that use it, except that the lack of activity may prompt the communicator
+to close the connection after a while.
 
 Once a proxy has been associated with a connection, the proxy's default behavior is to continue using that connection
 for all subsequent requests. In effect, the proxy caches the connection and attempts to use it for as long as possible
 in order to minimize the overhead of creating new connections. If the connection is later closed and the proxy is used
-again, the proxy repeats the connection-establishment procedure described [earlier](./).
+again, the proxy establishes a new connection as described in
+[Endpoint Selection for New Connections](#endpoint-selection-for-new-connections).
 
 There are situations in which this default caching behavior is undesirable, such as when a client has a proxy with
 multiple endpoints and wishes to balance the load among the servers at those endpoints. The client can disable

@@ -5,8 +5,8 @@
 ### Mapping for Operations
 
 As we saw in the [Client-Side Python Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated proxy class contains 2 methods for this operation. To invoke an
-operation, you call one of these methods on the proxy. For example, let’s take the generated code from the
+operation on an interface, the generated proxy class contains two methods for this operation. To invoke an operation,
+you call one of these methods on the proxy. For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
@@ -40,7 +40,7 @@ greeting = await greeter.greetAsync("Alice")  # Get name via RPC
 
 ### Sync and Async Methods
 
-For each operation, the Slice compiler generates 2 methods on the proxy class:
+For each operation, the Slice compiler generates two methods on the proxy class:
 
 - a “sync” method with the same name as the operation. When you call this method, your program waits synchronously until
   the invocation completes. A successful invocation completes with a return value (which can be void), while an
@@ -91,7 +91,7 @@ except Tantrum as t:
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side Python Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-[operation](./) on an interface, the generated skeleton class contains an abstract method with the same name.
+operation on an interface, the generated skeleton class contains an abstract method with the same name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
@@ -374,7 +374,7 @@ synchronous and asynchronous dispatch are nearly identical—the only difference
   object.
 - Otherwise, the operation has **synchronous semantics**.
 
-The [parameter passing](./) rules for in parameters are the same in both cases.
+The [parameter passing](#in-parameters) rules for in parameters are the same in both cases.
 
 Consider the Greeter example:
 
@@ -595,8 +595,9 @@ parameter, a return value, a field, or a sequence element, Ice sends an empty st
 
 ### Optional Parameters in Python
 
-[Optional parameters](./) use the same mapping as required parameters. The only difference is that `None` can be passed
-as the value of an optional parameter or return value. Consider the following operation:
+[Optional parameters](#optional-parameters-and-return-values) use the same mapping as required parameters. The only
+difference is that `None` can be passed as the value of an optional parameter or return value. Consider the following
+operation:
 
 ```slice
 optional(1) int execute(optional(2) string params, out optional(3) float value);
