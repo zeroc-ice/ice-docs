@@ -21,4 +21,7 @@ class BidirWakeUpService(WakeUpService):
         ...
 ```
 
+The [Ice bidir demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/python/Ice/bidir) provides a complete client and
+server in Python that communicate over a bidirectional connection.
+
 {% /language-section %}
