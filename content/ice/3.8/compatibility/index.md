@@ -34,13 +34,12 @@ communicate with each other.
 
 ## Interface Compatibility
 
-Ice and the Ice services define Slice interfaces that your application uses, such as `Ice::Locator`, the IceStorm
-`Topic` interface or the IceGrid `Query` interface. Ice does not change these Slice definitions in an incompatible way
-between a patch release and the most recent minor release, but makes no such promise between minor releases, even though
-these definitions rarely change.
+Ice and its services provide Slice interfaces that applications use, such as `Ice::Locator`, `IceStorm::Topic` or
+`IceGrid::Query`. Ice keeps these interfaces compatible across the patch releases of a minor version, but does not
+guarantee their compatibility between minor releases.
 
-Interface changes in an Ice service can also impact compatibility with its administrative tools, which means it may not
-be possible to administer a service using a tool from a previous minor release (or vice-versa).
+Changes to service interfaces can also make an administrative tool incompatible with a service from another minor
+release.
 
 The [Upgrade Guide](../upgrade-guide) describes interface changes made by Ice services.
 
