@@ -40,9 +40,9 @@ see the API reference.
 
 {% /language-section %}
 
-{% language-section name="encoding-the-in-parameters" %}
+{% language-section name="marshaling-the-in-parameters" %}
 
-You encode the in-parameters with an `Ice::OutputStream`. The following example invokes the `greet` operation of the
+You marshal the in-parameters with an `Ice::OutputStream`. The following example invokes the `greet` operation of the
 `Greeter` interface, which takes a `string` parameter:
 
 ```cpp
@@ -50,7 +50,7 @@ Ice::ObjectPrx greeter{communicator, "greeter:tcp -h localhost -p 4061"};
 
 Ice::OutputStream outputStream{communicator};
 outputStream.startEncapsulation();
-outputStream.write(std::string{"alice"});
+outputStream.write("alice");
 outputStream.endEncapsulation();
 std::vector<std::byte> inParams;
 outputStream.finished(inParams);
@@ -63,7 +63,7 @@ bool ok = greeter.ice_invoke("greet", Ice::OperationMode::Normal, inParams, outP
 
 {% language-section name="reading-the-reply" %}
 
-You decode the reply with an `Ice::InputStream`. `throwException` decodes a user exception and throws it:
+You unmarshal the reply with an `Ice::InputStream`. `throwException` unmarshals a user exception and throws it:
 
 ```cpp
 Ice::InputStream inputStream{communicator, outParams};
@@ -76,7 +76,15 @@ if (ok)
 }
 else
 {
-    inputStream.throwException();
+    try
+    {
+        inputStream.throwException();
+    }
+    catch (const Ice::UserException&)
+    {
+        inputStream.endEncapsulation();
+        throw;
+    }
 }
 ```
 
@@ -92,9 +100,5 @@ A forwarding dispatcher derives from `Ice::Object` and overrides `dispatch`.
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Ice/forwarder) provides a complete example
 of a forwarding server in C++.
-
-Ice provides the `Ice::Blobject`, `Ice::BlobjectArray`, `Ice::BlobjectAsync`, and `Ice::BlobjectArrayAsync` base classes
-for backward compatibility: they implement `dispatch` by calling an `ice_invoke` or `ice_invokeAsync` function that you
-override. New code overrides `dispatch` instead.
 
 {% /language-section %}

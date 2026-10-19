@@ -16,9 +16,9 @@ extension ObjectPrx {
 
 {% /language-section %}
 
-{% language-section name="encoding-the-in-parameters" %}
+{% language-section name="marshaling-the-in-parameters" %}
 
-You encode the in-parameters with an `OutputStream`. The following example invokes the `greet` operation of the
+You marshal the in-parameters with an `OutputStream`. The following example invokes the `greet` operation of the
 `Greeter` interface, which takes a `string` parameter:
 
 ```swift
@@ -43,7 +43,7 @@ let (ok, outEncaps) = try await greeter.ice_invoke(
 
 {% language-section name="reading-the-reply" %}
 
-You decode the reply with an `InputStream`. `throwException` decodes a user exception and throws it:
+You unmarshal the reply with an `InputStream`. `throwException` unmarshals a user exception and throws it:
 
 ```swift
 let inputStream = InputStream(communicator: communicator, bytes: outEncaps)
@@ -52,7 +52,12 @@ if ok {
     let greeting: String = try inputStream.read()
     try inputStream.endEncapsulation()
 } else {
-    try inputStream.throwException()
+    do {
+        try inputStream.throwException()
+    } catch let error as UserException {
+        try inputStream.endEncapsulation()
+        throw error
+    }
 }
 ```
 

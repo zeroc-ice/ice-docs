@@ -30,9 +30,9 @@ public record struct Object_Ice_invokeResult(bool returnValue, byte[] outEncaps)
 
 {% /language-section %}
 
-{% language-section name="encoding-the-in-parameters" %}
+{% language-section name="marshaling-the-in-parameters" %}
 
-You encode the in-parameters with an `OutputStream`. The following example invokes the `greet` operation of the
+You marshal the in-parameters with an `OutputStream`. The following example invokes the `greet` operation of the
 `Greeter` interface, which takes a `string` parameter:
 
 ```csharp
@@ -56,7 +56,7 @@ Object_Ice_invokeResult result = await greeter.ice_invokeAsync(
 
 {% language-section name="reading-the-reply" %}
 
-You decode the reply with an `InputStream`. `throwException` decodes a user exception and throws it:
+You unmarshal the reply with an `InputStream`. `throwException` unmarshals a user exception and throws it:
 
 ```csharp
 var inputStream = new InputStream(communicator, result.outEncaps);
@@ -68,7 +68,15 @@ if (result.returnValue)
 }
 else
 {
-    inputStream.throwException();
+    try
+    {
+        inputStream.throwException();
+    }
+    catch (UserException)
+    {
+        inputStream.endEncapsulation();
+        throw;
+    }
 }
 ```
 
@@ -80,9 +88,5 @@ A forwarding dispatcher implements `Ice.Object` and its `dispatchAsync` method.
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Ice/Forwarder) provides a complete
 example of a forwarding server in C#.
-
-Ice provides the `Ice.Blobject` and `Ice.BlobjectAsync` base classes for backward compatibility: they implement
-`dispatchAsync` by calling an `ice_invoke` or `ice_invokeAsync` method that you override. New code implements
-`dispatchAsync` instead.
 
 {% /language-section %}

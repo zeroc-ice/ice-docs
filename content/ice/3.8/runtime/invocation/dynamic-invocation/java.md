@@ -33,9 +33,9 @@ The result holds the success flag in its `returnValue` field and the encapsulati
 
 {% /language-section %}
 
-{% language-section name="encoding-the-in-parameters" %}
+{% language-section name="marshaling-the-in-parameters" %}
 
-You encode the in-parameters with an `OutputStream`. The following example invokes the `greet` operation of the
+You marshal the in-parameters with an `OutputStream`. The following example invokes the `greet` operation of the
 `Greeter` interface, which takes a `string` parameter:
 
 ```java
@@ -55,7 +55,7 @@ com.zeroc.Ice.Object.Ice_invokeResult result =
 
 {% language-section name="reading-the-reply" %}
 
-You decode the reply with an `InputStream`. `throwException` decodes a user exception and throws it:
+You unmarshal the reply with an `InputStream`. `throwException` unmarshals a user exception and throws it:
 
 ```java
 var inputStream = new InputStream(communicator, result.outParams);
@@ -64,7 +64,12 @@ if (result.returnValue) {
     String greeting = inputStream.readString();
     inputStream.endEncapsulation();
 } else {
-    inputStream.throwException();
+    try {
+        inputStream.throwException();
+    } catch (UserException ex) {
+        inputStream.endEncapsulation();
+        throw ex;
+    }
 }
 ```
 
@@ -76,8 +81,5 @@ A forwarding dispatcher implements `com.zeroc.Ice.Object` and its `dispatch` met
 
 The [Ice forwarder demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/forwarder) provides a complete example
 of a forwarding server in Java.
-
-Ice provides the `Blobject` and `BlobjectAsync` interfaces for backward compatibility: they implement `dispatch` by
-calling an `ice_invoke` or `ice_invokeAsync` method that you implement. New code implements `dispatch` instead.
 
 {% /language-section %}
