@@ -31,6 +31,10 @@ PrinterAdapter.ThreadPool.SizeMax=15
 PrinterAdapter.ThreadPool.SizeWarn=14
 ```
 
+An object adapter's own thread pool services only the connections that this object adapter accepts. An outgoing
+[bidirectional connection](../../connection-management/bidirectional-connections) uses the client thread pool of the
+communicator, even when it dispatches requests to an object adapter with its own thread pool.
+
 ## See Also
 
 - [Thread Pools](../thread-pools)
