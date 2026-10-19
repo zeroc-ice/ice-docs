@@ -1,6 +1,5 @@
 ---
 title: Ice Services Overview
-sidebarLabel: Ice Services
 ---
 
 The Ice core provides a sophisticated client-server platform for distributed application development. However, realistic
