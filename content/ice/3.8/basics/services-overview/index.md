@@ -6,37 +6,54 @@ The Ice core provides a sophisticated client-server platform for distributed app
 applications usually require more than just a remoting capability: typically, you also need a way to start servers on
 demand, distribute proxies to clients, distribute asynchronous events, configure your application, and so on.
 
-Ice ships with a number of services that provide these and other features. Glacier2, IceBridge, IceGrid, and IceStorm
-are Ice servers that your application uses as a client. IceBox is a server that hosts your own services, and DataStorm
-is a library that your applications link with.
+Ice ships with a number of services that provide these and other features. The services are implemented as Ice servers
+to which your application acts as a client.
 
 ## DataStorm
 
-To exchange data between applications without a central broker, use [DataStorm](../../services/datastorm), a C++
-publish/subscribe library.
+[DataStorm](../../services/datastorm) is a data-centric publish/subscribe framework for C++.
 
 ## Glacier2
 
-To let clients reach servers behind a firewall, use [Glacier2](../../services/glacier2), a router that forwards client
-requests to these servers and forwards server callbacks to clients over the clients' existing connections.
+[Glacier2](../../services/glacier2) is a router that forwards client requests to servers on another network, typically
+behind a firewall. It also forwards server callbacks to clients over their existing connections. A client authenticates
+with the router by creating a session, and the router forwards the requests of this client for the duration of the
+session.
 
 ## IceBox
 
-To deploy several services in a single server process, use [IceBox](../../services/icebox), which loads services written
-in C++, C#, or Java into a generic server, configures them with properties, and lets you administer them remotely.
+[IceBox](../../services/icebox) is an easy-to-use framework for Ice application services.
 
 ## IceBridge
 
-To forward requests to a server that clients cannot reach directly, use [IceBridge](../../services/icebridge), which
-relays requests from one or more clients to that server.
+[IceBridge](../../services/icebridge) forwards requests from one or more clients to a target server that the clients
+cannot reach directly.
 
 ## IceGrid
 
-To locate, start, and replicate servers, use [IceGrid](../../services/icegrid), a
-[location service](../../runtime/locators) that resolves indirect proxies, starts servers on demand, balances load
-across replicas, and deploys applications to a set of computers.
+[IceGrid](../../services/icegrid) is an implementation of an Ice [location service](../../runtime/locators) that
+resolves the symbolic information in an indirect proxy to a protocol-address pair for indirect binding. A location
+service is only the beginning of IceGrid's capabilities.
+
+IceGrid:
+
+- allows you to register servers for automatic start-up: instead of requiring a server to be running at the time a
+  client issues a request, IceGrid starts servers on demand, when the first client request arrives.
+- provides tools that make it easy to configure complex applications containing several servers.
+- supports replication and load-balancing.
+- provides a simple query service that allows clients to obtain proxies for objects they are interested in.
 
 ## IceStorm
 
-To distribute events to many subscribers, use [IceStorm](../../services/icestorm), a publish/subscribe service that
-forwards each event published on a topic to every subscriber of that topic.
+[IceStorm](../../services/icestorm) is a publish-subscribe service that decouples clients and servers. Fundamentally,
+IceStorm acts as a distribution switch for events. Publishers send events to the service, which, in turn, passes the
+events to subscribers. In this way, a single event published by a publisher can be sent to multiple subscribers. Events
+are categorized by topic, and subscribers specify the topics they are interested in. Only events that match a
+subscriber's topic are sent to that subscriber. The service permits selection of a number of quality-of-service criteria
+to allow applications to choose the appropriate trade-off between reliability and performance.
+
+IceStorm is particularly useful if you have a need to distribute information to large numbers of application components.
+(A typical example is a stock ticker application with a large number of subscribers.) IceStorm decouples the publishers
+of information from subscribers and takes care of the redistribution of the published events. In addition, IceStorm can
+be run as a _federated_ service, that is, multiple instances of the service can be run on different machines to spread
+the processing load over a number of CPUs.
