@@ -1,5 +1,6 @@
 ---
 title: Communicators in PHP
+sidebarLabel: In PHP
 ---
 
 ## PHP Request Semantics

@@ -1,5 +1,5 @@
 ---
-title: Using the admin Object
+title: Use the admin Object
 ---
 
 {% iflang langs="cpp,csharp,java,python,swift" %}

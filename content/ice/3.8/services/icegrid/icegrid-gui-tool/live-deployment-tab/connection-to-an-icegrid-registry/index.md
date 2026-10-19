@@ -1,5 +1,6 @@
 ---
-title: Connection to an IceGrid Registry
+title: Connect to an IceGrid Registry
+sidebarLabel: Connect to a Registry
 ---
 
 In order to administer or monitor an IceGrid deployment, you need to connect to the IceGrid registry of this deployment.

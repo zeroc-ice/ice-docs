@@ -1,5 +1,6 @@
 ---
 title: Dynamic Request Filtering with Glacier2
+sidebarLabel: Request Filtering
 ---
 
 Glacier2 can be [statically configured](../securing-a-glacier2-router) to filter requests, and also allows a session

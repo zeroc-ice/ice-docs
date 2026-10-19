@@ -1,5 +1,6 @@
 ---
 title: Registry Runtime Component
+sidebarLabel: Registry
 ---
 
 The registry is the root node of the Runtime Components tree, and represents the IceGrid registry process administered

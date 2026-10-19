@@ -1,5 +1,6 @@
 ---
 title: Properties Overview
+sidebarLabel: Properties
 ---
 
 <!-- cspell:ignore Netwrok -->

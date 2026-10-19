@@ -1,5 +1,6 @@
 ---
 title: Service Descriptor
+sidebarLabel: Service
 ---
 
 A service represents an IceBox service deployed on an IceBox server. IceGrid supports two kinds of services:

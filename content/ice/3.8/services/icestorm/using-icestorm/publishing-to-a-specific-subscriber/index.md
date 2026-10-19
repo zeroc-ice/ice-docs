@@ -1,5 +1,6 @@
 ---
-title: Publishing to a Specific Subscriber
+title: Publish to a Specific Subscriber
+sidebarLabel: Publish to One Subscriber
 ---
 
 `Topic::subscribeAndGetPublisher` adds a subscriber to a topic and returns a proxy to a publisher object for this

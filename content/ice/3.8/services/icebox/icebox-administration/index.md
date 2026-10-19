@@ -1,5 +1,6 @@
 ---
 title: IceBox Administration
+sidebarLabel: Administration
 ---
 
 An IceBox server internally creates an object called the service manager that is responsible for loading and

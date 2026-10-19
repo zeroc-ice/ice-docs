@@ -1,5 +1,6 @@
 ---
 title: Datagram Invocations
+sidebarLabel: Datagram
 languages:
   - cpp
   - csharp

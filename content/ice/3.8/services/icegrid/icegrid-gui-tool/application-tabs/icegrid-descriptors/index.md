@@ -1,5 +1,6 @@
 ---
 title: IceGrid Descriptors
+sidebarLabel: Descriptors
 pages:
   - variables-in-icegrid-descriptors
   - application-descriptor

@@ -1,5 +1,6 @@
 ---
 title: The Slice Language
+sidebarLabel: Slice
 pages:
   - slice-compilation
   - slice-source-files

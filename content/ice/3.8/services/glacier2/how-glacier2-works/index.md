@@ -1,5 +1,6 @@
 ---
 title: How Glacier2 Works
+sidebarLabel: How It Works
 ---
 
 The Ice core supports a generic router facility, represented by the `Ice::Router` interface, that allows a third-party

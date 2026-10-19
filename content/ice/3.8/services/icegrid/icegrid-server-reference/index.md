@@ -1,5 +1,6 @@
 ---
 title: IceGrid Server Reference
+sidebarLabel: Server Reference
 pages:
   - icegridregistry
   - icegridnode

@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Optional Values
+sidebarLabel: Optional Values
 ---
 
 Slice definitions can use optional values as parameters and as fields. To make optional values truly useful, the

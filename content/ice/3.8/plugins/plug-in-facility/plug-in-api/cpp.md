@@ -1,5 +1,6 @@
 ---
 title: Plug-in API
+sidebarLabel: API
 ---
 
 ## The `Plugin` Base Class

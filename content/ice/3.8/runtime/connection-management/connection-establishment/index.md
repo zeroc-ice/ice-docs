@@ -1,5 +1,6 @@
 ---
 title: Connection Establishment
+sidebarLabel: Establishment
 ---
 
 Connections are established as a side effect of using proxies. The first invocation on a proxy causes the associated

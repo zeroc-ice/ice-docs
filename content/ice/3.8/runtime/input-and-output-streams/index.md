@@ -1,5 +1,6 @@
 ---
 title: Input and Output Streams
+sidebarLabel: Streams
 languages: [cpp, csharp, java, js, matlab, swift]
 ---
 

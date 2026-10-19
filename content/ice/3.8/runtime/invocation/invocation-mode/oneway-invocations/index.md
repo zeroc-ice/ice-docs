@@ -1,5 +1,6 @@
 ---
 title: Oneway Invocations
+sidebarLabel: Oneway
 ---
 
 Oneway invocations are sent on the client side by writing the request to the client’s local transport buffer. The

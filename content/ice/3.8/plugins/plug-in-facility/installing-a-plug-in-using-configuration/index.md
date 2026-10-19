@@ -1,5 +1,6 @@
 ---
-title: Installing a Plug-in Using Configuration
+title: Install a Plug-in Using Configuration
+sidebarLabel: Install a Plug-in
 ---
 
 A plug-in can be installed into a communicator using a

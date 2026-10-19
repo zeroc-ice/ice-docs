@@ -1,5 +1,6 @@
 ---
 title: IceStorm Persistent Data
+sidebarLabel: Persistent Data
 ---
 
 IceStorm stores various information in an [LMDB](https://www.symas.com/lmdb.php) database, unless it's in transient

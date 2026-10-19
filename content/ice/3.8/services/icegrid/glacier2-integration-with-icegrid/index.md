@@ -1,5 +1,6 @@
 ---
 title: Glacier2 Integration with IceGrid
+sidebarLabel: Glacier2 Integration
 ---
 
 This section provides information on integrating a [Glacier2 router](../../glacier2) into your IceGrid environment.

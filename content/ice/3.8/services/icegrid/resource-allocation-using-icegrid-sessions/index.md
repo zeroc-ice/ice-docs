@@ -1,5 +1,6 @@
 ---
 title: Resource Allocation Using IceGrid Sessions
+sidebarLabel: Resource Allocation
 ---
 
 IceGrid provides a resource allocation facility that coordinates access to the objects and servers of an IceGrid

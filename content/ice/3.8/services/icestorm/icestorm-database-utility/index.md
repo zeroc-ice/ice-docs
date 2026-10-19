@@ -1,5 +1,6 @@
 ---
 title: IceStorm Database Utility
+sidebarLabel: Database Utility
 ---
 
 The `icestormdb` utility is a command-line tool for importing and exporting IceStorm databases.

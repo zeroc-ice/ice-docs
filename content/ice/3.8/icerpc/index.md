@@ -1,5 +1,6 @@
 ---
 title: Using Ice and IceRPC Together
+sidebarLabel: Ice and IceRPC
 ---
 
 [IceRPC](https://docs.icerpc.dev/) is our new cutting-edge RPC framework, with a modular design, support for QUIC, an

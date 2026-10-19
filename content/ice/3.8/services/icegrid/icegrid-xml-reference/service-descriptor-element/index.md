@@ -1,5 +1,6 @@
 ---
-title: Service Descriptor Element
+title: "<service> Element"
+sidebarLabel: "<service>"
 ---
 
 A `service` element defines an [IceBox](../../icebox-integration-with-icegrid) service. It typically contains at least

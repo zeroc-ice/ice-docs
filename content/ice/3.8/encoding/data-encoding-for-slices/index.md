@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Slices
+sidebarLabel: Slices
 ---
 
 Ice marshals an [exception](../data-encoding-for-exceptions) or a [class](../data-encoding-for-classes) instance as a

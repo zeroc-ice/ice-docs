@@ -1,5 +1,6 @@
 ---
 title: Batched Invocations
+sidebarLabel: Batched
 ---
 
 Oneway and datagram invocations are normally sent as individual requests, that is, the Ice runtime sends the oneway or

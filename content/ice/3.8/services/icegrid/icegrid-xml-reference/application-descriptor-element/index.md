@@ -1,5 +1,6 @@
 ---
-title: Application Descriptor Element
+title: "<application> Element"
+sidebarLabel: "<application>"
 ---
 
 An `application` element defines an [IceGrid application](../../icegrid-architecture). An application typically contains

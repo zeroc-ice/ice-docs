@@ -1,5 +1,6 @@
 ---
 title: Slice Compilation
+sidebarLabel: Compilation
 ---
 
 A Slice compiler produces source files that must be combined with application code to produce client and server

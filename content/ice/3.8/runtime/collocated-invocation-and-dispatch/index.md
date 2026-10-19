@@ -1,5 +1,6 @@
 ---
 title: Collocated Invocation and Dispatch
+sidebarLabel: Collocation
 languages:
   - cpp
   - csharp

@@ -1,5 +1,6 @@
 ---
-title: Documenting Slice Definitions
+title: Document Slice Definitions
+sidebarLabel: Doc Comments
 pages:
   - comment-syntax
   - doc-comment-structure

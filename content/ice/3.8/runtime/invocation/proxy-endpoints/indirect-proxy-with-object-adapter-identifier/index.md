@@ -1,5 +1,6 @@
 ---
 title: Indirect Proxy with Adapter ID
+sidebarLabel: Adapter ID Proxy
 ---
 
 A proxy with an adapter ID (`@adapterId` in stringified form) is a form of

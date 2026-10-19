@@ -1,5 +1,6 @@
 ---
-title: IceBox Descriptor Element
+title: "<icebox> Element"
+sidebarLabel: "<icebox>"
 ---
 
 An `icebox` element defines an [IceBox](../../../icebox) server to be deployed on a node. It typically contains at least

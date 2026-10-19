@@ -1,5 +1,6 @@
 ---
 title: The Process Facet
+sidebarLabel: Process Facet
 ---
 
 An activation service, such as an [IceGrid](../../../services/icegrid) node, needs a reliable way to gracefully

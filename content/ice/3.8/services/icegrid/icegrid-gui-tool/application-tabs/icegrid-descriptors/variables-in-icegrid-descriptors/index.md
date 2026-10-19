@@ -1,5 +1,6 @@
 ---
 title: Variables in IceGrid Descriptors
+sidebarLabel: Variables
 ---
 
 Variables allow you to define commonly-used information once and refer to them symbolically throughout your application

@@ -1,5 +1,6 @@
 ---
 title: Concurrent Proxy Invocations
+sidebarLabel: Concurrent Invocations
 ---
 
 [Proxy objects](..) are fully thread safe, meaning a client can invoke on the same proxy object from multiple threads

@@ -1,5 +1,6 @@
 ---
 title: Classes with Compact Type IDs
+sidebarLabel: Compact Type IDs
 ---
 
 You can optionally associate a numeric identifier with a class. The Ice runtime substitutes this value, known as a

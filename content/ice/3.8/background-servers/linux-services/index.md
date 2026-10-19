@@ -1,5 +1,6 @@
 ---
 title: systemd Services for IceGrid and Glacier2 on Linux
+sidebarLabel: Linux systemd Services
 ---
 
 The ZeroC DEB and RPM packages for IceGrid and Glacier2 install a `systemd` unit and a sample configuration file for

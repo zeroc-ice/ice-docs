@@ -1,5 +1,6 @@
 ---
 title: The Properties Class
+sidebarLabel: Properties Class
 ---
 
 The `Properties` API lets you read and set the communicator's configuration and your own application settings. In

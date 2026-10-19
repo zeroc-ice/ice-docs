@@ -1,5 +1,6 @@
 ---
 title: IceGrid and the Administrative Facility
+sidebarLabel: Admin Facility
 ---
 
 The Ice [administrative facility](../../../administration/administrative-facility) provides a general purpose solution

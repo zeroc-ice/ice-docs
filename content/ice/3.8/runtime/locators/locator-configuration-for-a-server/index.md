@@ -1,5 +1,6 @@
 ---
-title: Locator Configuration for a Server
+title: "Configure a Server's Locator"
+sidebarLabel: Configure a Server
 languages:
   - cpp
   - csharp

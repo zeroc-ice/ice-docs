@@ -1,5 +1,5 @@
 ---
-title: Configuring IceStorm
+title: Configure IceStorm
 ---
 
 IceStorm runs as an [IceBox](../../icebox) service. This page covers the properties you set to deploy IceStorm and its

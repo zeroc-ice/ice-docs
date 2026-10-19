@@ -1,5 +1,6 @@
 ---
 title: Slave Registry Runtime Component
+sidebarLabel: Slave Registry
 ---
 
 An IceGrid deployment may use several IceGrid registry replicas, with one Master registry and a number of read-only

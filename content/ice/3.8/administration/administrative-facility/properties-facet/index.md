@@ -1,5 +1,6 @@
 ---
 title: The Properties Facet
+sidebarLabel: Properties Facet
 ---
 
 ## The `PropertiesAdmin` Interface

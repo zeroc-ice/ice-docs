@@ -1,5 +1,6 @@
 ---
 title: IceGrid GUI Tool
+sidebarLabel: GUI Tool
 pages:
   - getting-started-with-icegrid-gui
   - live-deployment-tab

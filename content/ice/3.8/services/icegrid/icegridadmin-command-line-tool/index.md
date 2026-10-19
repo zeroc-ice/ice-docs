@@ -1,5 +1,6 @@
 ---
 title: icegridadmin Command Line Tool
+sidebarLabel: icegridadmin
 ---
 
 The `icegridadmin` utility is a command-line tool for administering an IceGrid domain. Deploying an application with

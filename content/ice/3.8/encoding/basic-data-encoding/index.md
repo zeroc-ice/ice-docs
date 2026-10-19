@@ -1,5 +1,6 @@
 ---
 title: Basic Data Encoding
+sidebarLabel: Basic Types
 ---
 
 ## Encoding for Sizes

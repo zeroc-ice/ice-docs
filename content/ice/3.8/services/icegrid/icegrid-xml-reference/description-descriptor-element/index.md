@@ -1,5 +1,6 @@
 ---
-title: Description Descriptor Element
+title: "<description> Element"
+sidebarLabel: "<description>"
 ---
 
 A `description` element specifies a description of its parent element.

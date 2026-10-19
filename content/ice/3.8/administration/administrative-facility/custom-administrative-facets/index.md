@@ -1,5 +1,6 @@
 ---
 title: Custom Administrative Facets
+sidebarLabel: Custom Facets
 languages:
   - cpp
   - csharp

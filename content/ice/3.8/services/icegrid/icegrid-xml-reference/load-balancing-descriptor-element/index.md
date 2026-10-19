@@ -1,5 +1,6 @@
 ---
-title: Load-Balancing Descriptor Element
+title: "<load-balancing> Element"
+sidebarLabel: "<load-balancing>"
 ---
 
 A `load-balancing` element determines the [load balancing](../../load-balancing) policy used by a

@@ -1,5 +1,6 @@
 ---
 title: Invocation Timeouts
+sidebarLabel: Timeouts
 ---
 
 ## Overview of Invocation Timeouts

@@ -1,5 +1,6 @@
 ---
 title: The Ice Protocol in a Nutshell
+sidebarLabel: Ice Protocol
 ---
 
 Ice provides an [RPC protocol](../../protocol), called the _Ice protocol_, that can use a variety of underlying

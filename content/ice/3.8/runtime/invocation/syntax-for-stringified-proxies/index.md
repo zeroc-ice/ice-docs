@@ -1,5 +1,6 @@
 ---
 title: Syntax for Stringified Proxies
+sidebarLabel: Proxy String Syntax
 ---
 
 ## Synopsis

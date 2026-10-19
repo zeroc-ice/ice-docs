@@ -1,5 +1,6 @@
 ---
 title: Server Descriptor
+sidebarLabel: Server
 ---
 
 A server represents an Ice server deployed on a node as part of an application. IceGrid supports three kinds of servers:

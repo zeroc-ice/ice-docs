@@ -1,5 +1,5 @@
 ---
-title: Creating an Object Adapter
+title: Create an Object Adapter
 ---
 
 You create an object adapter by calling `createObjectAdapter` on your communicator. For example:

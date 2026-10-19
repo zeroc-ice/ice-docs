@@ -1,5 +1,6 @@
 ---
-title: Getting Started with IceGrid
+title: Get Started with IceGrid
+sidebarLabel: Get Started
 ---
 
 This page introduces a sample application that will help us demonstrate IceGrid's capabilities.

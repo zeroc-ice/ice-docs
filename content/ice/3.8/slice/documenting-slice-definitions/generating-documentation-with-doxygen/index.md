@@ -1,5 +1,6 @@
 ---
-title: Generating Documentation with Doxygen
+title: Generate Documentation with Doxygen
+sidebarLabel: Doxygen
 ---
 
 Using [Doxygen](https://www.doxygen.nl), version 1.8.15 or later, you can generate an API reference for your Slice

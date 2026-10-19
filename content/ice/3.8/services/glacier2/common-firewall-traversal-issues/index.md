@@ -1,5 +1,6 @@
 ---
 title: Common Firewall Traversal Issues
+sidebarLabel: Firewall Traversal
 ---
 
 Let's assume that a client and server need to communicate over an untrusted network, and that the client and server

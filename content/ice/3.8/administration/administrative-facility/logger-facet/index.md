@@ -1,5 +1,6 @@
 ---
 title: The Logger Facet
+sidebarLabel: Logger Facet
 ---
 
 ## The `RemoteLogger` Interface

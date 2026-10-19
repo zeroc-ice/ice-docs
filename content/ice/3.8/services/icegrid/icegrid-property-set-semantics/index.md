@@ -1,5 +1,6 @@
 ---
 title: IceGrid Property Set Semantics
+sidebarLabel: Property Sets
 ---
 
 Ice servers and clients are configured with [properties](../../../runtime/properties-and-configuration). For servers

@@ -1,5 +1,6 @@
 ---
-title: Server-Template Descriptor Element
+title: "<server-template> Element"
+sidebarLabel: "<server-template>"
 ---
 
 A `server-template` element defines a [template](../../icegrid-templates) for a [server](../server-descriptor-element)

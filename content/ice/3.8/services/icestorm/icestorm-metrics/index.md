@@ -1,5 +1,6 @@
 ---
 title: IceStorm Metrics
+sidebarLabel: Metrics
 ---
 
 You can monitor IceStorm using the [Administrative Facility](../../../administration/administrative-facility) and

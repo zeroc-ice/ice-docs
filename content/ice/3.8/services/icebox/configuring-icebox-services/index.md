@@ -1,5 +1,6 @@
 ---
-title: Configuring IceBox Services
+title: Configure IceBox Services
+sidebarLabel: Configure Services
 ---
 
 ## Installing an IceBox Service

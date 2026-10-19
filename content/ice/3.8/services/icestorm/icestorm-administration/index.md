@@ -1,5 +1,6 @@
 ---
 title: IceStorm Administration
+sidebarLabel: Administration
 ---
 
 The IceStorm administration tool, `icestormadmin`, is a command-line program that provides administrative control of an

@@ -1,5 +1,6 @@
 ---
 title: IceStorm Quality of Service
+sidebarLabel: Quality of Service
 ---
 
 An IceStorm subscriber specifies Quality of Service (QoS) parameters at the time of subscription. The sections below

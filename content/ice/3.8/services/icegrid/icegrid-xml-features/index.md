@@ -1,5 +1,6 @@
 ---
 title: IceGrid XML Features
+sidebarLabel: XML Features
 ---
 
 IceGrid provides some convenient features to simplify the task of defining descriptors in XML.

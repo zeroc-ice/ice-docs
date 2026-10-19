@@ -1,5 +1,6 @@
 ---
 title: Using an IceStorm Publisher Object
+sidebarLabel: Publisher Objects
 ---
 
 Each topic creates a publisher object for the express purpose of publishing messages. It is a special object in that it

@@ -1,5 +1,6 @@
 ---
-title: Log Descriptor Element
+title: "<log> Element"
+sidebarLabel: "<log>"
 ---
 
 A `log` element specifies the name of a log file for a server or service. A `log` element must be defined for each log

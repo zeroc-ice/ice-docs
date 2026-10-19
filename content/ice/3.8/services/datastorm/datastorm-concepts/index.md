@@ -1,5 +1,6 @@
 ---
 title: DataStorm Concepts
+sidebarLabel: Concepts
 pages:
   - node
   - topic

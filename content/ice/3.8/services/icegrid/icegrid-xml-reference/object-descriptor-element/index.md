@@ -1,5 +1,6 @@
 ---
-title: Object Descriptor Element
+title: "<object> Element"
+sidebarLabel: "<object>"
 ---
 
 An `object` element defines a [well-known object](../../well-known-objects) in the IceGrid registry. Clients can refer

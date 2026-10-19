@@ -1,5 +1,6 @@
 ---
-title: Getting Started with Glacier2
+title: Get Started with Glacier2
+sidebarLabel: Get Started
 ---
 
 <!-- cspell:ignore Aztd Ftgw Xlvb -->

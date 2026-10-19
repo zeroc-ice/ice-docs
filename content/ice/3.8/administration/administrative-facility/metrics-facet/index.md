@@ -1,5 +1,6 @@
 ---
 title: The Metrics Facet
+sidebarLabel: Metrics Facet
 ---
 
 The `Metrics` facet provides the metrics of the Ice runtime and of the Glacier2 and IceStorm services. The Ice runtime

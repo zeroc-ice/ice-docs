@@ -1,5 +1,5 @@
 ---
-title: Creating Proxies
+title: Create a Proxy
 ---
 
 This page describes all the ways an application can create a proxy.

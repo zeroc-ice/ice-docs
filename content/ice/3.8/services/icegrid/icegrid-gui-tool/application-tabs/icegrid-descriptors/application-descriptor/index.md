@@ -1,5 +1,6 @@
 ---
 title: Application Descriptor
+sidebarLabel: Application
 ---
 
 ## Creating a New Application

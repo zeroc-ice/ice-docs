@@ -1,5 +1,5 @@
 ---
-title: Creating the admin Object
+title: Create the admin Object
 languages:
   - cpp
   - csharp

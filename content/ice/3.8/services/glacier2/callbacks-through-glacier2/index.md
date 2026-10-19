@@ -1,5 +1,6 @@
 ---
 title: Callbacks Through Glacier2
+sidebarLabel: Callbacks
 ---
 
 On this page, the client is the application that connects to the Glacier2 router, and the back-end servers are the

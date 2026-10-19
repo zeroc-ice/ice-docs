@@ -1,5 +1,6 @@
 ---
-title: Using IceGrid Deployment
+title: Deploy an Application
+sidebarLabel: Deployment
 ---
 
 Here we extend the capabilities of our [sample application](../getting-started-with-icegrid) using IceGrid's deployment

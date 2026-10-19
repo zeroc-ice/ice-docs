@@ -1,5 +1,6 @@
 ---
 title: IceGrid Database Utility
+sidebarLabel: Database Utility
 ---
 
 The `icegriddb` utility is a command-line tool for importing and exporting an IceGrid registry database.

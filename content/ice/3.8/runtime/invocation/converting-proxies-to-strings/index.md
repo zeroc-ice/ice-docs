@@ -1,5 +1,5 @@
 ---
-title: Converting Proxies to Strings
+title: Convert a Proxy to a String
 ---
 
 This page describes how an application can _stringify_ a proxy and create a property dictionary that captures all the

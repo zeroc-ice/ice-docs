@@ -1,5 +1,6 @@
 ---
 title: Versioning with Facets
+sidebarLabel: Facets
 ---
 
 In the most general sense, facets provide a mechanism for implementing multiple interfaces for a single object. The key

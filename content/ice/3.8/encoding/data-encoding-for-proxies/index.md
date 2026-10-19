@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Proxies
+sidebarLabel: Proxies
 ---
 
 ## Encoding for Proxy Fields

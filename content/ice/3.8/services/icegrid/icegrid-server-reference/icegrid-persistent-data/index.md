@@ -1,5 +1,6 @@
 ---
 title: IceGrid Persistent Data
+sidebarLabel: Persistent Data
 ---
 
 The IceGrid registry and node both store information in files. This section describes what type of information the

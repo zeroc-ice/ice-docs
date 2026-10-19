@@ -1,5 +1,6 @@
 ---
-title: Server-Instance Descriptor Element
+title: "<server-instance> Element"
+sidebarLabel: "<server-instance>"
 ---
 
 A `server-instance` element deploys an instance of a [server-template](../server-template-descriptor-element) element on

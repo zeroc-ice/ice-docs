@@ -1,5 +1,6 @@
 ---
-title: Service-Instance Descriptor Element
+title: "<service-instance> Element"
+sidebarLabel: "<service-instance>"
 ---
 
 A `service-instance` element creates an instance of a [service-template](../service-template-descriptor-element) element

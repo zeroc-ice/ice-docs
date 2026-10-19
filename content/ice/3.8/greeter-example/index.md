@@ -1,5 +1,6 @@
 ---
-title: Greeter Example
+title: Get Started with Ice
+sidebarLabel: Get Started
 pages:
   - defining-the-greeter-interface-in-slice
   - writing-a-greeter-server

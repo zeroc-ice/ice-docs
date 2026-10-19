@@ -1,5 +1,6 @@
 ---
 title: IceGrid Architecture
+sidebarLabel: Architecture
 ---
 
 An IceGrid domain consists of a _registry_ and any number of _nodes_. Together, the registry and nodes cooperate to

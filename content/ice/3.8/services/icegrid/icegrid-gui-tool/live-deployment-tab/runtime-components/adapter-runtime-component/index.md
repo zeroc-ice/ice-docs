@@ -1,5 +1,6 @@
 ---
 title: Adapter Runtime Component
+sidebarLabel: Adapter
 ---
 
 An adapter represents an Ice object adapter described in the IceGrid registry that resides in a server or an IceBox

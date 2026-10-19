@@ -1,5 +1,6 @@
 ---
 title: Adapter Descriptor
+sidebarLabel: Adapter
 ---
 
 Each indirect object adapter registered with IceGrid requires its own Adapter descriptor. If you need to specify a

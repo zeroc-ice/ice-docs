@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Exceptions
+sidebarLabel: Exceptions
 ---
 
 ## Exception Encoding Version 1.0

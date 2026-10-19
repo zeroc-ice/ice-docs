@@ -1,5 +1,6 @@
 ---
-title: Filtering Administrative Facets
+title: Filter Administrative Facets
+sidebarLabel: Filter Facets
 languages:
   - cpp
   - csharp

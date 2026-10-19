@@ -1,5 +1,6 @@
 ---
-title: Implementing an IceStorm Subscriber
+title: Implement an IceStorm Subscriber
+sidebarLabel: Implement a Subscriber
 ---
 
 An IceStorm subscriber is an Ice server application that hosts a subscriber object, and registers a proxy to this object

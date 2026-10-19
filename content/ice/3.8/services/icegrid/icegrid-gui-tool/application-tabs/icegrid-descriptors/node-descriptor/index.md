@@ -1,5 +1,6 @@
 ---
 title: Node Descriptor
+sidebarLabel: Node
 ---
 
 A node represents an IceGrid node that starts and monitors your servers. Several applications can be deployed on the

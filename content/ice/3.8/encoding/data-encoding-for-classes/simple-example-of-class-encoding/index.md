@@ -1,5 +1,6 @@
 ---
 title: Simple Example of Class Encoding
+sidebarLabel: Example
 ---
 
 ## Sample Class Definitions

@@ -1,5 +1,6 @@
 ---
 title: Using Descriptor Variables and Parameters
+sidebarLabel: Variables and Parameters
 ---
 
 [Variable descriptors](../icegrid-xml-reference/variable-descriptor-element) allow you to define commonly-used

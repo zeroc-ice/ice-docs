@@ -1,5 +1,6 @@
 ---
-title: Locator Configuration for a Client
+title: "Configure a Client's Locator"
+sidebarLabel: Configure a Client
 ---
 
 An indirect proxy needs a [locator](../locator-semantics-for-clients) to resolve its adapter ID or identity into

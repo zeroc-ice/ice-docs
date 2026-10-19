@@ -1,5 +1,6 @@
 ---
 title: IceGrid Server Activation
+sidebarLabel: Server Activation
 ---
 
 ## Server Activation Modes

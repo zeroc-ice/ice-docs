@@ -1,5 +1,6 @@
 ---
-title: Using the Slice Compiler
+title: Run the Slice Compiler
+sidebarLabel: Slice Compiler
 ---
 
 ## Common Options

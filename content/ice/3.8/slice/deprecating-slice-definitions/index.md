@@ -1,5 +1,6 @@
 ---
-title: Deprecating Slice Definitions
+title: Deprecate Slice Definitions
+sidebarLabel: Deprecation
 ---
 
 All Slice compilers support a metadata directive that allows you to deprecate a Slice definition. For example:
