@@ -40,17 +40,12 @@ export function DocsLayout({
   return (
     <div className="flex grow flex-col">
       <VersionBanner version={version} />
-      <div className="mt-8 flex grow flex-row justify-center">
-        <div className="flex max-w-400 grow flex-row justify-center gap-6 px-4 sm:px-6">
-          <SideNav
-            nodes={buildSideNav(nav.sidebar, version)}
-            version={version}
-          />
+      <div className="flex grow flex-row">
+        <SideNav nodes={buildSideNav(nav.sidebar, version)} version={version} />
 
-          <div className="grow pb-8">
-            <SkipTarget />
-            {children}
-          </div>
+        <div className="grow px-4 pt-8 pb-8 sm:px-6">
+          <SkipTarget />
+          {children}
         </div>
       </div>
     </div>

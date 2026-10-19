@@ -72,14 +72,14 @@ export const CodeBlock = ({
   // If the language is mermaid, render the mermaid diagram
   if (language?.toLowerCase() === 'mermaid') {
     return (
-      <div className="doc-wide mx-auto my-4 w-full">
+      <div className="my-4">
         <MermaidDiagram value={`${children.trim()}`} />
       </div>
     );
   }
 
   return (
-    <div className="code-block doc-wide group relative my-4 w-full items-center overflow-hidden rounded-lg border border-(--code-border) bg-(--code-bg)">
+    <div className="code-block group relative my-4 w-full items-center overflow-hidden rounded-lg border border-(--code-border) bg-(--code-bg)">
       <TopBar
         language={language}
         code={children}

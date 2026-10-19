@@ -5,15 +5,17 @@
 // the sidebar with its active branch, the breadcrumb trail, and the
 // previous/next links. No imports, so it is unit-testable with plain objects.
 
-/** A page in the table of contents. */
+/** An entry in the table of contents: a page, or a group with no page of its own. */
 export interface NavNode {
   title: string;
-  /** The page's path under the version, as in its URL. */
-  slug: string;
+  /** The page's path under the version, as in its URL; absent on a group with no page of its own. */
+  slug?: string;
   /** The languages the page is written for; absent when it is written for all. */
   writtenFor?: string[];
   /** The pages under it; a node with any is an expandable group. */
   items: NavNode[];
+  /** What the sidebar's link to the page says; absent for its title, or Overview in a group. */
+  sidebarLabel?: string;
 }
 
 /** Diátaxis-derived page kinds a page may declare in its frontmatter. */
@@ -53,7 +55,8 @@ export interface SideNavNode {
 }
 
 /**
- * The label a group's own page takes once it moves inside the group.
+ * The label a group's own page takes once it moves inside the group, unless
+ * the page sets its own sidebar label.
  */
 export const GROUP_OVERVIEW_TITLE = 'Overview';
 
@@ -69,9 +72,15 @@ export function buildSideNav(
   version: DocsVersion
 ): SideNavNode[] {
   return nodes.map((node) => {
-    const href = pageHref(version, node.slug);
     const { writtenFor } = node;
     const items = buildSideNav(node.items, version);
+
+    // A group with no page of its own has nothing to navigate to: its row only
+    // opens it.
+    if (node.slug === undefined)
+      return { title: node.title, writtenFor, items };
+
+    const href = pageHref(version, node.slug);
 
     // A group's row would have to answer two gestures: navigate to its page,
     // and open. Splitting them means the whole row — title included — becomes
@@ -83,13 +92,18 @@ export function buildSideNav(
         title: node.title,
         writtenFor,
         items: [
-          { title: GROUP_OVERVIEW_TITLE, href, writtenFor, items: [] },
+          {
+            title: node.sidebarLabel ?? GROUP_OVERVIEW_TITLE,
+            href,
+            writtenFor,
+            items: []
+          },
           ...items
         ]
       };
     }
 
-    return { title: node.title, href, writtenFor, items };
+    return { title: node.sidebarLabel ?? node.title, href, writtenFor, items };
   });
 }
 
@@ -143,6 +157,28 @@ export function activeTrailKeys(
   return out;
 }
 
+/**
+ * The part of the sidebar a reader of `language` filtering by `query` sees: a
+ * node whose title contains the query, ignoring case, with everything under it,
+ * and the groups on the way down to each one. A node not written for the
+ * language never matches, so no group shows up empty.
+ */
+export function filterSideNav(
+  nodes: SideNavNode[],
+  query: string,
+  language: string
+): SideNavNode[] {
+  const needle = query.toLowerCase();
+  const filter = (nodes: SideNavNode[]): SideNavNode[] =>
+    nodes.flatMap((node) => {
+      if (node.writtenFor && !node.writtenFor.includes(language)) return [];
+      if (node.title.toLowerCase().includes(needle)) return [node];
+      const items = filter(node.items);
+      return items.length > 0 ? [{ ...node, items }] : [];
+    });
+  return filter(nodes);
+}
+
 // ---------------------------------------------------------------------------
 // Tree lookups
 // ---------------------------------------------------------------------------
@@ -165,7 +201,7 @@ export function navigationPages(nodes: NavNode[]): string[] {
   const out: string[] = [];
   const walk = (items: NavNode[]) => {
     for (const node of items) {
-      out.push(node.slug);
+      if (node.slug !== undefined) out.push(node.slug);
       walk(node.items);
     }
   };
@@ -203,9 +239,9 @@ export function versionTitle(version: DocsVersion): string {
 
 /**
  * The trail from the front page down to the page at `slug`: the front
- * page, then every ancestor, then the page. The last crumb is the current page
- * and is never a link. Empty for the front page itself, and when the page is
- * not in the tree.
+ * page, then every ancestor that is a page, then the page. The last crumb is
+ * the current page and is never a link. Empty for the front page itself, and
+ * when the page is not in the tree.
  */
 export function breadcrumbs(
   nodes: NavNode[],
@@ -217,10 +253,13 @@ export function breadcrumbs(
 
   const crumbs: Crumb[] = [
     { title: SITE_TITLE, href: pageHref(version) },
-    ...trail.map((node) => ({
-      title: node.title,
-      href: pageHref(version, node.slug)
-    }))
+    // A folder with no page of its own is not a place to go, so it has no
+    // crumb: https://www.nngroup.com/articles/breadcrumbs/ (guideline 6).
+    ...trail.flatMap((node) =>
+      node.slug === undefined
+        ? []
+        : [{ title: node.title, href: pageHref(version, node.slug) }]
+    )
   ];
   return crumbs.map((crumb, i) =>
     i === crumbs.length - 1 ? { title: crumb.title } : crumb
@@ -245,12 +284,15 @@ export function prevNext(
   slug: string,
   language: string
 ): { prev?: PageLink; next?: PageLink } {
-  const flat: NavNode[] = [];
+  const flat: { title: string; slug: string }[] = [];
   const walk = (items: NavNode[]) => {
     for (const node of items) {
-      const { writtenFor } = node;
-      if (node.slug === slug || !writtenFor || writtenFor.includes(language))
-        flat.push(node);
+      const { title, slug: nodeSlug, writtenFor } = node;
+      if (
+        nodeSlug !== undefined &&
+        (nodeSlug === slug || !writtenFor || writtenFor.includes(language))
+      )
+        flat.push({ title, slug: nodeSlug });
       walk(node.items);
     }
   };
@@ -258,7 +300,7 @@ export function prevNext(
 
   const i = flat.findIndex((n) => n.slug === slug);
   if (i === -1) return {};
-  const link = (node?: NavNode): PageLink | undefined =>
+  const link = (node?: (typeof flat)[number]): PageLink | undefined =>
     node && { title: node.title, href: pageHref(version, node.slug) };
   return { prev: link(flat[i - 1]), next: link(flat[i + 1]) };
 }

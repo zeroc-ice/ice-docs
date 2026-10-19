@@ -113,12 +113,6 @@
     --link-hover: #0b47ad;
     --accent-soft: #eef5ff;
 
-    /* Prose measure, and the wider track code, tables and diagrams may use.
-       Text stays at a comfortable line length while a 90-column Slice sample
-       still fits without wrapping. */
-    --measure: 47.5rem;
-    --measure-wide: 58rem;
-
     --docsearch-searchbox-height: 38px !important;
     --docsearch-primary-color: #1259d6 !important;
   }
@@ -300,9 +294,6 @@
     --tw-prose-invert-code: var(--text-primary);
     --tw-prose-invert-th-borders: var(--border-strong);
     --tw-prose-invert-td-borders: var(--border-subtle);
-
-    font-size: 1.0625rem;
-    line-height: 1.7;
   }
 
   main article li {
@@ -321,10 +312,6 @@
 
   main article img.figure {
     @apply mx-auto my-6 block object-contain;
-  }
-
-  li {
-    @apply leading-[1.7];
   }
 
   body {
@@ -346,71 +333,15 @@
 
 /* ---------------------------------------------------------------------------
    Article rhythm
-
-   Two tracks: prose keeps a readable measure, while code, tables and diagrams
-   are allowed the full column so a wide sample does not have to scroll.
    --------------------------------------------------------------------------- */
 @layer components {
   .doc-body {
     min-width: 0;
   }
 
-  /* A language block and a property section have no box of their own, so the
-     tracks reach through them to what they hold. */
-  :where(.doc-body, .doc-body :is([data-langs], .property-section)) > * {
-    max-width: var(--measure);
-  }
-
-  :where(.doc-body, .doc-body :is([data-langs], .property-section))
-    > .doc-wide {
-    max-width: var(--measure-wide);
-  }
-
-  /* A page that is not an essay, such as the front page, runs its prose on
-     the wide track too, so its text, switches, and panels share one edge. */
-  [data-page-shape='wide']
-    :where(.doc-body, .doc-body :is([data-langs], .property-section))
-    > * {
-    max-width: var(--measure-wide);
-  }
-
   main article img.figure[src$='.svg'] {
     max-width: 100%;
     height: auto;
-  }
-
-  main article h1 {
-    font-size: 2.375rem;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: 700;
-  }
-
-  main article h2 {
-    font-size: 1.75rem;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    margin-top: 3rem;
-    margin-bottom: 0.5rem;
-    font-weight: 650;
-  }
-
-  main article h3 {
-    font-size: 1.3125rem;
-    line-height: 1.4;
-    margin-top: 2.25rem;
-    margin-bottom: 0.375rem;
-    font-weight: 650;
-  }
-
-  main article h4 {
-    font-size: 1.0625rem;
-    line-height: 1.5;
-    margin-top: 1.75rem;
-    margin-bottom: 0.25rem;
-    font-weight: 650;
   }
 
   /* A property name such as IceSSL.TrustOnly.Server.AdapterName has no break
