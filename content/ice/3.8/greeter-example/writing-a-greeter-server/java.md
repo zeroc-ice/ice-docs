@@ -20,8 +20,30 @@ You can find the complete source code for this example in the
 The first step when writing a Java application with Ice is to compile the Slice definitions for this application with
 the Slice to Java compiler (`slice2java`).
 
-Here, we compile the `Greeter.ice` Slice file we wrote earlier. We recommend that you include this Slice compiler step
-in your build project, like we demonstrate for the Java demo programs.
+To compile `Greeter.ice`, the demo adds the `com.zeroc.slice-tools` Gradle plugin to the project and the `../slice`
+directory to the Slice source set of `main`; Gradle then runs `slice2java` as part of every build:
+
+```kotlin {% title="build.gradle.kts" %}
+plugins {
+    id("application")
+    id("com.zeroc.slice-tools") version "3.8.+"
+}
+
+dependencies {
+    implementation("com.zeroc:ice:3.8.+")
+}
+
+sourceSets {
+    main {
+        slice {
+            srcDirs("../slice")
+        }
+    }
+}
+```
+
+See [Slice Tools for Ice and Java](https://github.com/zeroc-ice/ice/blob/3.8/java/tools/slice-tools/README.md) for the
+plugin settings, and [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the options of `slice2java`.
 
 The Slice compiler produces 4 files in a folder named `com/example/visitorcenter`:
 
