@@ -2,8 +2,10 @@
 
 {% callout type="note" %}
 
-The unmarshaling of cyclic class instances is disallowed by default. See
-[Ice.AcceptClassCycles](../../../../property-reference/ice-properties#ice.acceptclasscycles).
+By default, Ice for C++ rejects class graphs with cycles: it throws a `MarshalException` when it unmarshals a `TreeNode`
+whose children refer back to it. Set
+[Ice.AcceptClassCycles](../../../../property-reference/ice-properties#ice.acceptclasscycles) to `1` to accept such
+graphs.
 
 {% /callout %}
 

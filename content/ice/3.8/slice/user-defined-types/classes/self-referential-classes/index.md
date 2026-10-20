@@ -16,8 +16,8 @@ class Link
 
 Here, the `next` field refers to another `Link` instance, or is null.
 
-Self-referential classes are particularly useful to model graphs. For example, we can create a simple expression tree
-along the following lines:
+Self-referential classes are particularly useful to model recursive structures such as trees. For example, we can create
+a simple expression tree along the following lines:
 
 ```slice
 enum UnaryOp { UnaryPlus, UnaryMinus, Not }
@@ -27,7 +27,7 @@ class Node {}
 
 class UnaryOperator extends Node
 {
-    UnaryOp operator;
+    UnaryOp op;
     Node operand;
 }
 
@@ -45,8 +45,8 @@ class Operand extends Node
 ```
 
 The expression tree consists of leaf nodes of type `Operand`, and interior nodes of type `UnaryOperator` and
-`BinaryOperator`, with one or two descendants, respectively. All three of these classes are derived from a common base
-class `Node`. Note that `Node` is an empty class. This is one of the few cases where an empty base class is justified.
+`BinaryOperator`, with one or two descendants, respectively. All three of these classes derive from the empty base class
+`Node`.
 
 If we write an operation that, for example, accepts a `Node` parameter, passing that parameter results in transmission
 of the entire tree to the server:
@@ -58,6 +58,21 @@ interface Evaluator
 }
 ```
 
-Self-referential classes are not limited to acyclic graphs: a class graph can contain cycles.
+A class graph can also contain cycles. For example, a tree node can refer to its parent as well as to its children:
+
+```slice
+class TreeNode;
+sequence<TreeNode> TreeNodeSeq;
+
+class TreeNode
+{
+    string name;
+    TreeNode parent;
+    TreeNodeSeq children;
+}
+```
+
+The `parent` field of each child refers back to the node that holds this child in its `children` sequence, so every
+parent-child pair forms a cycle. Ice marshals each class instance only once, so marshaling such a graph terminates.
 
 {% language-section name="mapping" /%}
