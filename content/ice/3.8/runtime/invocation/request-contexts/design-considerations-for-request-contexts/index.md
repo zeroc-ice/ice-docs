@@ -48,41 +48,12 @@ proxies and does not marshal the per-proxy context when a proxy is marshaled.)
 
 ## Recommendations for Request Contexts
 
-A request context carries request metadata: information about the request rather than input to the operation, such as a
-transaction identifier, an authorization token, or a preference that the server can honor or ignore. A value that the
-operation requires is operation input, and belongs in the operation's Slice definition.
+Use a request context for information that applies to requests in general rather than to one operation, such as a
+transaction identifier, an authorization token, or a language preference. Data that belongs to a specific operation,
+including an argument added in a later version, goes in the operation's parameters, where it is strongly typed;
+[optional parameters](../../../../slice/operations#optional-parameters-and-return-values) let you add one without
+breaking existing clients.
 
-A language preference can fall on either side. The `language` context of the greeting examples is metadata, like the
-HTTP `Accept-Language` header: the greeter returns a greeting in the requested language, and falls back to English when
-the context has no `language` entry or names a language it does not support. For an operation that cannot produce a
-result without a language, such as a translation operation, the target language is operation input and belongs in Slice.
-
-A context can also look like a way to version an application as it evolves over time: version 2 of your application may
-accept two parameters on an operation that, in version 1, used to accept only a single parameter. Using contexts, you
-could supply the second parameter as a name-value pair to the server and avoid changing the Slice definition of the
-operation in order to maintain backward compatibility.
-
-Passing operation input in a context has the following problems:
-
-- Missing context There is nothing that would compel a client to actually send a context when the server expects to
-  receive a context: if a client forgets to send a context, the server, somehow, has to make do without it (or throw an
-  exception).
-
-- Missing or incorrect keys Even if the client does send a context, there is no guarantee that it has set the correct
-  key. (For example, a simple spelling error can cause the client to send a value with the wrong key.)
-
-- Incorrect values The value of a context is a string, but the application data that is to be sent might be a number, or
-  it might be something more complex, such as a structure with several members. This forces you to encode the value into
-  a string and decode the value again on the server side. Such parsing is tedious and error prone, and far less
-  efficient than sending strongly-typed parameters. In addition, the server has to deal with string values that fail to
-  decode correctly (for example, because of an encoding error made by the client).
-
-None of the preceding problems can arise if you use proper Slice parameters: parameters cannot be accidentally omitted
-and they are strongly typed, making it much less likely for the client to accidentally send a meaningless value.
-Furthermore, you can use [optional parameters](../../../../slice/operations) to modify the signature of an operation
-without breaking backward compatibility.
-
-Finally, be aware that, if a request is routed via one or more Ice routers, contexts may be dropped by intermediate
-routers if they consider them illegal. This means that, in general, you cannot rely on an arbitrary context value that
-is created by an application to actually still be present when a request arrives at the server — only those context
-values that are known to routers and that are considered legitimate are passed on.
+A router decides what happens to the context of each request it forwards: it can pass the context on, change it, or drop
+it. Glacier2 drops it unless you
+[configure it to forward contexts](../../../../services/glacier2/how-glacier2-uses-request-contexts#context-forwarding).
