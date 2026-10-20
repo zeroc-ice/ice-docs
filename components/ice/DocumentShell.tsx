@@ -109,7 +109,7 @@ export const DocumentShell = ({
           {breadcrumbs.length > 0 && (
             <nav
               aria-label="Breadcrumb"
-              className="mb-5 text-[13px] text-ink-secondary"
+              className="mb-5 text-sm text-ink-secondary"
             >
               <ol className="flex flex-wrap items-center gap-1.5">
                 {breadcrumbs.map((crumb, i) => (
@@ -164,7 +164,7 @@ export const DocumentShell = ({
                     <p
                       key={language}
                       data-langs={language}
-                      className="mt-2 text-[13px] text-ink-muted"
+                      className="mt-2 text-xs text-ink-muted"
                     >
                       {text}
                     </p>
@@ -208,7 +208,7 @@ export const DocumentShell = ({
                       href={prev.href}
                       className="group min-w-0 flex-1 focus-ring-text"
                     >
-                      <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
+                      <div className="text-xs font-semibold tracking-wider text-ink-muted uppercase">
                         Previous
                       </div>
                       <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">
@@ -224,7 +224,7 @@ export const DocumentShell = ({
                       href={next.href}
                       className="group min-w-0 flex-1 focus-ring-text text-right"
                     >
-                      <div className="text-[11px] font-semibold tracking-[0.04em] text-ink-muted uppercase">
+                      <div className="text-xs font-semibold tracking-wider text-ink-muted uppercase">
                         Next
                       </div>
                       <div className="mt-0.5 truncate font-medium text-ink transition-colors group-hover:text-link">

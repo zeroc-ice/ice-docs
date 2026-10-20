@@ -17,8 +17,8 @@ export function ThemeToggle() {
       triggerClassName="dark:hover:bg-dark-accent flex size-8 items-center justify-center rounded-md transition-colors focus-ring hover:bg-zinc-100"
       trigger={
         <>
-          <Sun className="size-[1.2rem] scale-100 rotate-0 ring-0 ring-offset-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute size-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 dark:text-white" />
+          <Sun className="size-5 scale-100 rotate-0 ring-0 ring-offset-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <Moon className="absolute size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 dark:text-white" />
           <span className="sr-only">Toggle theme</span>
         </>
       }

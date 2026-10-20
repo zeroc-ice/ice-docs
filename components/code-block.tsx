@@ -95,7 +95,7 @@ export const CodeBlock = ({
         {/* The lines take the text colour themselves: outside the article's
             typography, the global `code` rule would give them its own. */}
         <code
-          className="[&>div]:max-w-0 [&>div]:py-[3px] [&>div]:pr-5 [&>div]:text-xs [&>div]:text-(--code-plain)"
+          className="[&>div]:max-w-0 [&>div]:py-0.5 [&>div]:pr-5 [&>div]:text-xs [&>div]:text-(--code-plain)"
           dangerouslySetInnerHTML={{
             __html: highlight(children.trim(), language?.toLowerCase() ?? '')
           }}

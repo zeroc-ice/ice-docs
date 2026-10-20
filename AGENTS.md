@@ -58,6 +58,9 @@ the conventions that recur in review.
 
 - Comments explain what the code cannot say for itself. Do not add a comment that narrates the markup or restates the
   class names on the line below it.
+- Use Tailwind's standard sizes, such as `text-sm`, `w-24`, and `tracking-wider`, rather than arbitrary values such as
+  `text-[13px]`. Keep an arbitrary value for what the scale cannot express: a calculation such as `calc()` or `clamp()`,
+  or a size relative to the surrounding text such as `text-[0.9em]`.
 
 ## Keyboard and screen readers
 

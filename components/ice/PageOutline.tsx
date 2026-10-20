@@ -180,7 +180,7 @@ export function PageOutline({
       data-langs={writtenFor?.join(' ')}
       className="min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain mask-b-from-[calc(100%-1.5rem)] pb-6"
     >
-      <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
+      <div className="mb-2 text-xs font-semibold tracking-wider text-ink-muted uppercase">
         On this page
       </div>
       <ul className="border-l border-hairline">
@@ -191,7 +191,7 @@ export function PageOutline({
               // Rounded only while focused: a radius at rest would curve the
               // ends of the active entry's indicator, its left border.
               className={clsx(
-                '-ml-px block border-l py-1 pr-1 text-[13px] leading-snug wrap-anywhere focus-ring transition-colors focus-visible:rounded-md',
+                '-ml-px block border-l py-1 pr-1 text-sm leading-snug wrap-anywhere focus-ring transition-colors focus-visible:rounded-md',
                 heading.level === 3 ? 'pl-6' : 'pl-3',
                 active === heading.id
                   ? 'border-link text-link'

@@ -18,7 +18,7 @@ export interface EditLinks {
 export function PageActions({ edit }: { edit: EditLinks }) {
   return (
     <div className="shrink-0">
-      <div className="mb-2 text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
+      <div className="mb-2 text-xs font-semibold tracking-wider text-ink-muted uppercase">
         Actions
       </div>
       <ul>
@@ -62,7 +62,7 @@ function Action({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 focus-ring-text py-1 text-[13px] leading-snug text-ink-secondary transition-colors hover:text-ink"
+        className="flex items-center gap-2 focus-ring-text py-1 text-sm leading-snug text-ink-secondary transition-colors hover:text-ink"
       >
         <Icon className="size-3.5 shrink-0" />
         {children}

@@ -12,18 +12,11 @@ type Props = {
 export const List = ({ children, ordered, start }: Props) => {
   if (ordered) {
     return (
-      <ol
-        start={start}
-        className="mx-5 list-decimal marker:mr-2 marker:text-gray-800 dark:marker:text-white"
-      >
+      <ol start={start} className="list-decimal">
         {children}
       </ol>
     );
   } else {
-    return (
-      <ul className="mx-5 list-disc marker:mr-2 marker:text-gray-500 dark:marker:text-white">
-        {children}
-      </ul>
-    );
+    return <ul className="list-disc">{children}</ul>;
   }
 };

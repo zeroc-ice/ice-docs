@@ -44,7 +44,7 @@ export const TH = ({ align, children }: THProps) => {
       className={clsx(
         'prose-sm pl-4',
         children !== undefined &&
-          'border-b-[1.5px] border-light-border py-3 dark:border-dark-border',
+          'border-b-2 border-light-border py-3 dark:border-dark-border',
         textAlignment(align)
       )}
     >
@@ -71,7 +71,7 @@ export const TD = ({ align, children, dividers }: TDProps) => {
   return (
     <td
       className={clsx(
-        'prose-sm min-w-[100px] rounded-sm py-3 pl-4 align-top',
+        'prose-sm min-w-25 rounded-sm py-3 pl-4 align-top',
         dividers && 'border border-light-border/60 dark:border-dark-border/40',
         textAlignment(align)
       )}

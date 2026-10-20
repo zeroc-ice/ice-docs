@@ -27,13 +27,13 @@ export const Selection = ({ languages }: Props) => {
               <Languages aria-hidden="true" className="size-4" />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block text-[11px] font-semibold tracking-[0.07em] text-ink-muted uppercase">
+              <span className="block text-xs font-semibold tracking-wider text-ink-muted uppercase">
                 Language
               </span>
               <span className="block text-lg leading-tight font-semibold text-ink">
                 {languageLabel(language)}
               </span>
-              <span className="mt-1 block text-[13px] leading-snug text-ink-secondary">
+              <span className="mt-1 block text-sm leading-snug text-ink-secondary">
                 Code samples and mapping sections change with it.
               </span>
             </span>
