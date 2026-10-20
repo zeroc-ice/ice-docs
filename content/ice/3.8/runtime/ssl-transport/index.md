@@ -85,8 +85,8 @@ For additional details refer to the [IceSSL properties](../../property-reference
 
 ## SSL Connection Information
 
-After the SSL handshake, the SSL connection information of a connection describes its security, such as the certificate
-the peer presented. To get it, call `getInfo` on the connection and walk the `underlying` chain of the returned
+The SSL connection information of a connection describes its SSL session, in particular the certificate the peer
+presented. To get it, call `getInfo` on the connection and walk the `underlying` chain of the returned
 [connection information](../transports#endpoint-and-connection-information): for an `ssl` connection, `getInfo` returns
 the SSL connection information itself, and for a `wss` connection, it returns a `WSConnectionInfo` whose `underlying`
 field holds the SSL connection information.

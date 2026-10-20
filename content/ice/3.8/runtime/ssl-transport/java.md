@@ -65,10 +65,3 @@ IceSSL.Truststore=ca.jks
 ```
 
 {% /language-section %}
-
-{% language-section name="ssl-connection-information" %}
-
-The SSL connection information class is
-[com.zeroc.Ice.SSL.ConnectionInfo](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/SSL/ConnectionInfo.html).
-
-{% /language-section %}

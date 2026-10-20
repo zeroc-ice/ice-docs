@@ -40,10 +40,3 @@ IceSSL.CAs=ca_cert.pem
 ```
 
 {% /language-section %}
-
-{% language-section name="ssl-connection-information" %}
-
-The SSL connection information class is
-[SSLConnectionInfo](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/sslconnectioninfo).
-
-{% /language-section %}
