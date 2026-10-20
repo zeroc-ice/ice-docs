@@ -18,6 +18,6 @@ bidirectional connection: it establishes the connection and receives callbacks o
 {% /callout %}
 
 The [Ice bidir demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/js/Ice/bidir) provides a complete JavaScript client
-that receives callbacks over a bidirectional connection, from a Bidir server written in another language.
+that receives callbacks over a bidirectional connection, from a bidir demo server written in another language.
 
 {% /language-section %}
