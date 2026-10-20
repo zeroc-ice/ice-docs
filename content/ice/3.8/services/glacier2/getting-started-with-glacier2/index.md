@@ -238,7 +238,7 @@ router requires each client to create a session using one of these operations; o
 the router forward requests on behalf of the client.
 
 The `createSession` operation expects a user name and password and, depending on the
-[router's configuration](../glacier2-session-management), returns either a `Session` proxy or nil. When using the
+[router's configuration](../glacier2-session-management), returns either a `Session` proxy or null. When using the
 default authentication scheme, the given user name and password must match an entry in the router's password file in
 order to successfully create a session.
 

@@ -34,7 +34,7 @@ differences in the encoding for references between versions 1.0 and 1.1.
 
 ### Class Reference Encoding Version 1.0
 
-Ice encodes a nil reference as a 32-bit integer with value zero. For non-nil references, the encoder maintains a table
+Ice encodes a null reference as a 32-bit integer with value zero. For non-null references, the encoder maintains a table
 per [encapsulation](../basic-data-encoding) that associates a unique non-zero positive integer with each class instance.
 We refer to this integer as an _instance ID_. The first time the encoder encounters a reference to a particular
 instance, it assigns the instance an unused ID, inserts it into the table, and encodes the reference as a 32-bit integer
@@ -46,8 +46,8 @@ All [class instances](../../slice/user-defined-types/classes) are encoded at the
 ### Class Reference Encoding Version 1.1
 
 As in version 1.0 of the encoding, each instance is assigned a unique ID per encapsulation. However, to conserve space,
-version 1.1 encodes a reference as a [size](../basic-data-encoding) value, with a nil reference encoded as a size value
-of zero and a non-nil reference encoded as a positive size value. The encoding reserves ID value zero to denote a nil
+version 1.1 encodes a reference as a [size](../basic-data-encoding) value, with a null reference encoded as a size value
+of zero and a non-null reference encoded as a positive size value. The encoding reserves ID value zero to denote a null
 reference, and ID value 1 to denote an _inline_ instance in which an instance's state is marshaled at the point of its
 first reference. Consequently, the encoding assigns instance IDs sequentially in order of appearance, starting at 2: the
 first instance has ID 2, the next instance has ID 3, and so on.
@@ -89,13 +89,14 @@ The overall marshaling format for classes is shown below:
 
 _Marshaling format for classes._
 
-Before the end of an encapsulation, the sender encodes all instances referenced within that encapsulation in an object
+Before the end of an encapsulation, the sender marshals all instances referenced within that encapsulation in an object
 table. The encoding may require multiple passes: as the sender processes an instance in the current pass, it may
-encounter additional instances to be processed in a subsequent pass. For each pass, the sender encodes a
+encounter additional instances to be processed in a subsequent pass. For each pass, the sender marshals a
 [size](../basic-data-encoding) denoting the number of objects in the pass. To signify that all instances have been
-encoded, the sender marshals a size value of zero.
+marshaled, the sender marshals a size value of zero.
 
-This object table is present if any operation parameter or data member has a class type, even if all references are nil.
+This object table is present if any operation parameter or data member has a class type, even if all references are
+null.
 
 ### Class Instance Encoding Version 1.1
 
@@ -123,19 +124,13 @@ When using the sliced format, a type ID is included in every slice, along with a
 
 _Sliced format for classes._
 
-A slice that contains at least one non-nil class reference uses an [indirection table](./class-graphs) for all
+A slice that contains at least one non-null class reference uses an [indirection table](./class-graphs) for all
 references in that slice. The table is an array of instances encoded using the inline scheme. A leading size value
 indicates the number of elements in the table; each element is either an instance ID (if the instance has already been
 encoded within the current encapsulation), or the instance itself denoted by a leading size of 1. The indirection table
 appears in the encoding immediately following the required and optional data members, _but is not included in the byte
 count denoted by the slice size_. To skip a slice for an unknown type, the receiver reads the slice size _b_, skips the
 remaining _b-4_ bytes, and then processes all references or instances in the indirection table, if one is present.
-
-To support [slice preservation](../../slice/user-defined-types/classes/slicing-values-and-exceptions) for an instance,
-the receiver retains the slices of any unknown derived types, along with what it needs to reconstruct the indirection
-table in its original order for each of these slices in case the instance is later remarshaled. Because a preserved
-indirection table can hold the only reference to an instance, the receiver also retains every instance that such a table
-references, even an instance none of whose type IDs it recognizes.
 
 ## See Also
 

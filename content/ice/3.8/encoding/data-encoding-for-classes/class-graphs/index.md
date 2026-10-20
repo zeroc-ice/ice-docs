@@ -311,7 +311,7 @@ inline instance. However, when we process the instance's `next` field, we are no
 so the encoding uses an indirection table. The sender adds an entry to the indirection table for each unique class
 reference in the slice; instead of encoding a reference or inline instance, the sender encodes the index of the
 corresponding entry in the table. As shown above, the value encoded for the `next` field is `1`, representing the first
-entry in the table (`0` is still reserved for nil references).
+entry in the table (`0` is still reserved for null references).
 
 The indirection table follows immediately after the last field in the slice, but the table is _not_ included in the byte
 count for the slice. A leading size denotes the number of entries in the table. The one and only entry in this table,

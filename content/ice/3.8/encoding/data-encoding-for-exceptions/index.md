@@ -76,16 +76,6 @@ _Marshaled representation of the exception._
 Note that the size of each string is one larger than the actual string length. This is because each string is preceded
 by a count of its number of bytes, as directed by the [encoding for strings](../basic-data-encoding).
 
-The receiver of this sequence of values uses the header byte to determine whether a table of class instances follows the
-exception slices (no table in this example) and then examines the first type ID (`::Derived`). If the receiver
-recognizes that type ID, it can unmarshal the contents of the first slice, followed by the remaining slices; otherwise,
-the receiver reads the byte count that follows the unknown type (20) and then skips 20-4 bytes in the input stream,
-which is the start of the type ID for the second slice (`::Base`). If the receiver does not recognize that type ID
-either, it again reads the byte count following the type ID (14), skips 14-4 bytes, and attempts to read another type
-ID. (This happens when the receiver knows none of the exception's types, for example because client and server use Slice
-definitions that disagree in the exception specification of an operation.) In this case, the receiver will eventually
-encounter an unmarshaling error, which it can report with a `MarshalException`.
-
 If an exception contains class fields, these fields are marshaled following the exception slices as described in the
 [class encoding](../data-encoding-for-classes).
 

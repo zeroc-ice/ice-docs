@@ -61,7 +61,7 @@ This flag can only be true when using the
 [sliced format](../../slice/user-defined-types/classes/slicing-values-and-exceptions). In this case, fields that refer
 to class instances are encoded as indices into an [indirection table](../data-encoding-for-classes) that immediately
 follows the slice. The slice's size does _not_ include the indirection table. This flag is true only when there is at
-least one non-nil object reference in the slice, that is, when the indirection table is not empty.
+least one non-null object reference in the slice, that is, when the indirection table is not empty.
 
 ### Slice Size
 
