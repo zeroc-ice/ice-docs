@@ -157,11 +157,15 @@ and, when the client presented a certificate, the PEM-encoded certificate in `_c
 
 ## Request Filtering
 
-The Glacier2 router can restrict the objects that a client reaches through it. The router forwards a request when at
-least one of the category, identity and adapter ID filters that apply to the request accepts it, and forwards the
-request when none of these filters applies. A configured category or identity filter applies to every request, while the
-adapter ID filter applies only to a request whose target proxy has an adapter ID. The address filters and the proxy size
-limit apply independently.
+The Glacier2 router can restrict the objects that a client reaches through it, with a category filter, an identity
+filter and an adapter ID filter:
+
+- The category and identity filters apply to every request; the adapter ID filter applies only to a request whose target
+  proxy has an adapter ID.
+- The router forwards a request when at least one of the filters that apply to it accepts it.
+- The router forwards a request to which no filter applies, in particular when no filter is configured.
+
+The address filters and the proxy size limit apply independently.
 
 ### Address Filters
 
@@ -171,7 +175,8 @@ behavior:
 
 - [Glacier2.Filter.Address.Accept](../../../property-reference/glacier2-properties) Each entry is an accept rule, which
   matches a proxy when every endpoint of this proxy matches the entry. When this property is set, the router accepts a
-  proxy only when at least one accept rule matches it. An indirect proxy has no endpoints, so no accept rule matches it.
+  proxy only when at least one accept rule matches it; when it is not set, the router accepts every proxy that no reject
+  rule matches. An indirect proxy has no endpoints, so no accept rule matches it.
 
 - [Glacier2.Filter.Address.Reject](../../../property-reference/glacier2-properties) Each entry is a reject rule, which
   matches a proxy when at least one endpoint of this proxy matches the entry. The router rejects a proxy that a reject
@@ -184,9 +189,9 @@ Glacier2.Filter.Address.Accept=192.168.1.5:4063 192.168.1.6:4063
 ```
 
 With this configuration, clients can reach two back-end hosts, each on a single port. The router rejects a proxy with
-any other endpoint. It also rejects a proxy with endpoints on both hosts, such as a replicated proxy, because each entry
-is a separate rule and neither rule matches both endpoints. See [Client Impact](#client-impact) for what a rejection
-means for the client.
+any other endpoint. It also rejects a proxy with the endpoints `tcp -h 192.168.1.5 -p 4063:tcp -h 192.168.1.6 -p 4063`:
+each entry is a separate rule, and neither rule matches both endpoints. See [Client Impact](#client-impact) for what a
+rejection means for the client.
 
 You can also use ranges, groups and wildcards when defining your address filters. For example, the following property
 value shows how to use an address range:
@@ -196,8 +201,8 @@ Glacier2.Filter.Address.Accept=192.168.1.[5-6]:4063
 ```
 
 This property is a single rule that matches both hosts: it accepts the proxies that the first example accepts, and also
-a proxy with endpoints on both hosts. Similarly, we can restate the property using the group notation by separating
-values with a comma:
+the proxy with the two endpoints shown above. Similarly, we can restate the property using the group notation by
+separating values with a comma:
 
 ```config
 Glacier2.Filter.Address.Accept=192.168.1.[5,6]:4063
