@@ -157,7 +157,7 @@ auto updateReader = DataStorm::makeAnyKeyReader(
         DataStorm::SampleEventSeq{DataStorm::SampleEvent::Update}));
 ```
 
-### Updaters
+## Updaters
 
 DataStorm uses **updaters** to process _partial update_ [samples](../sample) — that is, samples with the `PartialUpdate`
 event type. A partial update sample represents a change relative to the previous sample rather than a complete
@@ -181,7 +181,7 @@ In such systems, not all fields change at the same rate:
 Using **partial updates**, vehicles can publish only the information that has changed since the last update, reducing
 bandwidth usage.
 
-#### Slice Definitions
+### Slice Definitions
 
 ```slice
 module RideShare
@@ -220,7 +220,7 @@ serialization method best fits their needs.
 
 {% /callout %}
 
-#### Registering Updaters
+### Registering Updaters
 
 Updaters must be registered with both the topic used to create **readers** and the topic used to create **writers**,
 since both sides need to compute the new value from the partial update. For the telemetry example, these updaters apply
@@ -266,7 +266,7 @@ With this setup, vehicles can send partial updates to modify **battery level**, 
 When a topic has no updater for the tag of a partial update, the reader or writer that has a value for the key leaves
 this value unchanged: the sample carries the key's previous value.
 
-#### Sample Filters and Partial Updates
+### Sample Filters and Partial Updates
 
 A writer applies a reader's [sample filter](#sample-filters) to its own samples and sends only those the filter accepts.
 The reader applies each partial update it receives to its own current value for the key, not to the value the writer
