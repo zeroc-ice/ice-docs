@@ -99,9 +99,8 @@ Here, `addr` is the value of [IceDiscovery.Address](#icediscovery.address), `por
 
 {% property-description %}
 
-IceDiscovery creates an object adapter named `IceDiscovery.Multicast` for receiving discovery queries from clients.
-[IceDiscovery.Multicast.Endpoints](../object-adapter-properties#adapter.endpoints) sets the endpoints on which this
-adapter receives these queries. When this property is not set, the plug-in sets it to:
+IceDiscovery creates an object adapter named `IceDiscovery.Multicast` for receiving discovery queries from clients. When
+[IceDiscovery.Multicast.Endpoints](../object-adapter-properties#adapter.endpoints) is not set, the plug-in sets it to:
 
 `udp -h "addr" -p port [--interface "intf"]`
 
