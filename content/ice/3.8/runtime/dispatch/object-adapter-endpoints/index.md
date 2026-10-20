@@ -99,45 +99,21 @@ transmit these proxies to other applications.
 Most of the time, the published endpoints consist of a **single** published endpoint. Multiple published endpoints are
 useful for replicated servers, as presented below.
 
-The published endpoints of a regular object adapter (that is, not configured with a router) are computed as follows:
-
-1. If the property
-   [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) is
-   set, use the specified endpoints.
-2. start from the physical endpoints, split these endpoints in loopback and multicast endpoints on one side, and regular
-   endpoints on the other
-
-   1. if there is any regular endpoint:
-
-      1. discard the loopback and multicast endpoints
-      2. replace the host name in each of these endpoints by the value of
-         [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost). If
-         `adapter.PublishedHost` is not set, use the DNS name of the current host as published host.
-
-   2. otherwise, when all endpoints are loopback or multicast, replace the host name in each of these endpoints by the
-      value of `adapter.PublishedHost`, if set. Don’t perform any substitution if `adapter.PublishedHost` is not set.
-   3. finally, eliminate duplicate endpoints
-
-{% callout type="note" %}
-
-Your physical endpoint(s) should be simple: a single endpoint that is loopback, multicast, or neither loopback nor
-multicast (typically, `INADDR_ANY`).
-
-The published endpoints computation accepts odd mixes of endpoints only to maximize compatibility for existing
-applications.
-
-{% /callout %}
-
-As an example, the published endpoints for an object adapter with the following configuration:
+To publish a host name in place of the address the adapter listens on, set
+[adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost). The published
+endpoints of an object adapter with the following configuration:
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 MyAdapter.PublishedHost=Sun1
 ```
 
-are `tcp -h Sun1 -p 9999`.
+are `tcp -h Sun1 -p 9999`. Without `MyAdapter.PublishedHost`, the adapter publishes the DNS name of the current host in
+place of `10.0.1.1`.
 
-You can also configure `PublishedEndpoints` explicitly:
+When clients reach the adapter through another host or port, set
+[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints)
+explicitly:
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
@@ -168,6 +144,34 @@ Similarly, the configuration for host `Sun2` retains the same published endpoint
 MyAdapter.Endpoints=tcp -h 10.0.0.2 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 ```
+
+### How Ice Derives Published Endpoints
+
+The published endpoints of a regular object adapter (that is, not configured with a router) are computed as follows:
+
+1. If the property `adapter.PublishedEndpoints` is set, use the specified endpoints.
+2. start from the physical endpoints, split these endpoints in loopback and multicast endpoints on one side, and regular
+   endpoints on the other
+
+   1. if there is any regular endpoint:
+
+      1. discard the loopback and multicast endpoints
+      2. replace the host name in each of these endpoints by the value of `adapter.PublishedHost`. If
+         `adapter.PublishedHost` is not set, use the DNS name of the current host as published host.
+
+   2. otherwise, when all endpoints are loopback or multicast, replace the host name in each of these endpoints by the
+      value of `adapter.PublishedHost`, if set. Don’t perform any substitution if `adapter.PublishedHost` is not set.
+   3. finally, eliminate duplicate endpoints
+
+{% callout type="note" %}
+
+Your physical endpoint(s) should be simple: a single endpoint that is loopback, multicast, or neither loopback nor
+multicast (typically, `INADDR_ANY`).
+
+The published endpoints computation accepts odd mixes of endpoints only to maximize compatibility for existing
+applications.
+
+{% /callout %}
 
 ## A Router's Effect on Object Adapter Endpoints
 
