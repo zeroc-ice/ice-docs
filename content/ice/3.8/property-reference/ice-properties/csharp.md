@@ -30,23 +30,6 @@ for dispatches.
 
 {% language-section name="ice.config" %}
 
-## Ice.Compression.Level
-
-{% property-synopsis %}
-
-`Ice.Compression.Level=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-Specifies the bzip2 compression level to use when [compressing protocol messages](../../runtime/compression). Values
-range from `1` to `9`, where `1` represents the fastest compression and `9` represents the best compression. Note that
-higher levels cause the bzip2 algorithm to devote more resources to the compression effort, and may not result in a
-significant improvement over lower levels. If not specified, the default value is `1`.
-
-{% /property-description %}
-
 ## Ice.Config
 
 {% property-synopsis %}
