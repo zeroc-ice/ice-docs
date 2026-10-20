@@ -144,8 +144,8 @@ methods when making remote calls, and avoid these synchronous overloads provided
 
 {% /callout %}
 
-While `checkedCastAsync` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in
-practice you know or should know the type of your proxies and calling `checkedCastAsync` is rarely necessary.
+Use `uncheckedCast` when you know the target object implements the Slice interface. Use `checkedCastAsync` when you need
+to ask the target object whether it implements this interface.
 
 ### Proxy Factory Methods
 

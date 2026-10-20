@@ -113,8 +113,8 @@ If the target object implements the Slice interface, `checkedCastAsync` returns 
 `uncheckedCast`. If the target object doesn’t implement this interface, `checkedCastAsync` returns None.
 `checkedCastAsync` can also throw an exception, for example if it cannot reach the remote object.
 
-While `checkedCastAsync` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in
-practice you know or should know the type of your proxies and calling `checkedCastAsync` is rarely necessary.
+Use `uncheckedCast` when you know the target object implements the Slice interface. Use `checkedCastAsync` when you need
+to ask the target object whether it implements this interface.
 
 #### checkedCast
 
