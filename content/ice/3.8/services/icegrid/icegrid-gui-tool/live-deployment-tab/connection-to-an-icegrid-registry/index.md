@@ -71,7 +71,7 @@ credentials; see
 Steps 1 to 4 are identical to the simple TCP connection described above.
 
 Step 5: Enter the hostname of the IceGrid registry, leave the port number empty to use the default IceGrid port number
-(4061 for TCP and 4062 for SSL), and select SSL for the protocol:
+(`4061` for TCP and `4062` for SSL), and select SSL for the protocol:
 
 ![image2017-4-3 13:44:5.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-3-13-44-5.png)
 
@@ -163,7 +163,7 @@ registry or Glacier2 router. IceGrid GUI performs the following checks when esta
 A "client" X.509 certificate (saved in My Certificates) is only necessary when the target IceGrid registry or Glacier2
 router requires one. This depends on the setting of the
 [IceSSL.VerifyPeer](../../../../../property-reference/icessl-properties) property in those servers: when
-`IceSSL.VerifyPeer` is 2, IceGrid GUI must provide a valid certificate. If you forget to provide a certificate, or
+`IceSSL.VerifyPeer` is `2`, IceGrid GUI must provide a valid certificate. If you forget to provide a certificate, or
 provide an invalid certificate, the connection establishment will fail and you will get an error dialog such as:
 
 ![image2017-4-6 10:39:23.png](/images/ice/3.8/connection-to-an-icegrid-registry/image2017-4-6-10-39-23.png)

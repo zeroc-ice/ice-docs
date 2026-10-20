@@ -101,13 +101,13 @@ An Ice program running as a Windows service will typically need to set this prop
 
 Specifies whether IceSSL checks the revocation status of the certificates in the peer's chain, and what happens when the
 revocation status of a certificate cannot be determined. The legal values are shown in the table below. If
-`IceSSL.CheckCRL` is not defined, the default value is zero.
+`IceSSL.CheckCRL` is not defined, the default value is `0`.
 
 | Value | Description                                                                                                                                    |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0     | Disables revocation checking.                                                                                                                  |
-| 1     | Checks revocation online. A revoked certificate aborts the connection. A certificate whose revocation status cannot be determined is accepted. |
-| 2     | Checks revocation online. A revoked certificate, or a certificate whose revocation status cannot be determined, aborts the connection.         |
+| `0`   | Disables revocation checking.                                                                                                                  |
+| `1`   | Checks revocation online. A revoked certificate aborts the connection. A certificate whose revocation status cannot be determined is accepted. |
+| `2`   | Checks revocation online. A revoked certificate, or a certificate whose revocation status cannot be determined, aborts the connection.         |
 
 The revocation status of a certificate cannot be determined when the certificate carries no revocation information, or
 when its OCSP responder or CRL distribution point cannot be reached.

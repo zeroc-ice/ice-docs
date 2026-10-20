@@ -16,7 +16,7 @@ The Adapter Properties panel offers the following fields:
   ${server}._adapter-name_, or ${server}.${service}._adapter-name_ for an adapter defined in an IceBox service.
 - **Replica Group** The ID of this adapter's [Replica Group](../replica-group-descriptor). By default, an adapter does
   not belong to any replica group.
-- **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is 0.
+- **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is `0`.
 - **Endpoints** The endpoints of this object adapter. Use a single endpoint, with an IP address rather than a DNS name
   if it specifies a host. When the endpoint does not specify a port, the operating system selects an ephemeral port when
   the server creates the adapter. Corresponds to the

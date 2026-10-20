@@ -41,7 +41,7 @@ router must be authorized to establish a connection to these endpoints. Note tha
 otherwise arbitrary clients can manipulate the session managers. An administrative session is allowed to access any
 object by default. To restrict access to the `IceGrid::AdminSession` object and the `IceGrid::Admin` object that is
 returned by the session's `getAdmin` operation, you must set the property
-[IceGrid.Registry.AdminSessionFilters](../../../property-reference/icegrid-properties) to one.
+[IceGrid.Registry.AdminSessionFilters](../../../property-reference/icegrid-properties) to `1`.
 
 ## Resource Allocation Using Glacier2 and IceGrid
 
@@ -58,7 +58,7 @@ authorized to establish a connection to these endpoints.
 
 A client session is allowed to access any object by default. To restrict access to the `IceGrid::Session` and
 `IceGrid::Query` objects, you must set the property
-[IceGrid.Registry.SessionFilters](../../../property-reference/icegrid-properties) to one. However, you can use the
+[IceGrid.Registry.SessionFilters](../../../property-reference/icegrid-properties) to `1`. However, you can use the
 allocation mechanism to access additional objects and adapters. IceGrid adds an identity filter when a client allocates
 an object and removes that filter again when the object is released. When a client allocates a server, IceGrid adds an
 adapter identity filter for the server's indirect adapters and removes that filter again when the server is released.

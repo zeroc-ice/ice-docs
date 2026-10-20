@@ -44,7 +44,7 @@ A graceful connection closure transitions to connection abort if it takes more t
 
 Setting `num` to `0` or less disables this timeout entirely.
 
-The default close timeout is `10` seconds.
+The default close timeout is 10 seconds.
 
 {% /property-description %}
 
@@ -62,7 +62,7 @@ A connection establishment fails if it takes more than `num` seconds to complete
 
 Setting `num` to `0` or less disables this timeout entirely.
 
-The default connect timeout is `10` seconds.
+The default connect timeout is 10 seconds.
 
 {% /property-description %}
 
@@ -104,7 +104,7 @@ Ice sends a heartbeat on this connection. A heartbeat is a oneway, unacknowledge
 Setting `num` to `0` or less disables the idle check and the sending of heartbeats. This is not a recommended
 configuration.
 
-The default idle timeout is `60` seconds.
+The default idle timeout is 60 seconds.
 
 {% callout type="note" %}
 
@@ -136,12 +136,12 @@ reclaim resources.
 
 Setting `num` to `0` or less disables the timeout entirely.
 
-The default inactivity timeout is `300` seconds.
+The default inactivity timeout is 300 seconds.
 
 {% callout type="warning" %}
 
 Make sure your inactivity timeout is greater than your idle timeout, as the implementation of the inactivity timeout
-relies on a smaller idle timeout value. If you disable the idle timeout by setting it to 0 or very large value (not
+relies on a smaller idle timeout value. If you disable the idle timeout by setting it to `0` or very large value (not
 something we recommend), you will effectively disable the inactivity timeout as well.
 
 {% /callout %}

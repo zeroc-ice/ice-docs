@@ -23,6 +23,12 @@ page and its overlays combine.
   `## Asynchronous Method Dispatch (AMD)` is `#asynchronous-method-dispatch-amd`. When two headings on a page would
   share one, set it: `### Optional Fields {% id="language-mapping-optional-fields" %}`.
 
+## Values
+
+- Write a value the reader types or matches as code, exactly as Ice accepts it, with no digit grouping or unit: the
+  default value is `0`, set `IceSSL.VerifyPeer` to `2`.
+- Write an amount or a limit as a quantity in prose, with its unit: 60 seconds, 10 MB, at most 2,097,151 KiB.
+
 ## Tags
 
 | Tag                                                                                                  | Use                                                                                                                                                                                                                             |
