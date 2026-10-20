@@ -32,17 +32,16 @@ If not specified, the default value is 1. Set the property to 0 to disable collo
 
 {% property-description %}
 
-Ice for Java allows you to customize the Slice module to Java package mapping with the `java:package` and
-`java:identifier` [metadata directive](../../slice/slice-metadata-directives).
+Specifies the enclosing Java package of all top-level Slice modules, the same package as in their `java:package`
+[metadata directive](../../slice/slice-metadata-directives).
 
-When you use this feature, you need to help Ice locate your remapped classes during unmarshaling, by installing a
-[Slice loader](../../slice/user-defined-types/classes/slice-loaders) in your communicator. The `Ice.Default.Package`
-property tells the Ice communicator to install automatically a
-[DefaultPackageSliceLoader](api:Ice/DefaultPackageSliceLoader) during initialization, configured using the value of this
-property.
+When this property is set, the communicator adds a [DefaultPackageSliceLoader](api:Ice/DefaultPackageSliceLoader) to its
+default [Slice loader](../../slice/user-defined-types/classes/slice-loaders). This loader maps Slice type IDs to Java
+class names under the specified package. For example, with `Ice.Default.Package=com.example`, it loads
+`com.example.Demo.Node` for the type ID `::Demo::Node`.
 
-This property is provided primarily for backwards compatibility; we recommend configuring Slice loaders programmatically
-in new applications.
+The loader finds a class or exception only when neither the type name nor an enclosing module name is remapped with
+`java:identifier`.
 
 See also: [Ice.Package._module_](../ice-properties)
 
