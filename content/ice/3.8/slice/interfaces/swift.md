@@ -240,6 +240,9 @@ initializer.
 
 A skeleton protocol inherits `Sendable` from `Ice.Dispatcher`, and the object adapter dispatches each request in its own
 task, so several tasks can call the same servant concurrently. A struct servant such as `MNode` satisfies this
-requirement when all its stored properties are `Sendable`. Implement a servant with mutable state as an actor.
+requirement when all its stored properties are `Sendable`. Implement a servant with mutable state as an actor. An actor
+can't return a value whose type doesn't conform to `Sendable` from a skeleton method, so when the type of a return value
+or out parameter contains a class, implement the servant as a class that synchronizes access to its state and is
+declared `@unchecked Sendable`.
 
 {% /language-section %}
