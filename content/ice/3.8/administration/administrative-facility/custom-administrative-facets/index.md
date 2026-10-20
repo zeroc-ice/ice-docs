@@ -9,9 +9,8 @@ languages:
 ---
 
 Applications can add custom facets to the [admin object](../admin-object) by calling `addAdminFacet` on the
-[Communicator](api:Ice/Communicator) with a servant and facet name. They can add facets before or after the admin object
-is created. `removeAdminFacet` removes a facet, `findAdminFacet` returns its servant, and `findAllAdminFacets` returns
-all facet servants keyed by name.
+[Communicator](api:Ice/Communicator) with a servant and facet name, before or after the admin object is created, and
+remove them with `removeAdminFacet`.
 
 A custom facet's servant implements a Slice interface of your choice. Administrative clients invoke it through a proxy
 to the corresponding facet of the admin object, as described in [Using the admin Object](../using-the-admin-object).
