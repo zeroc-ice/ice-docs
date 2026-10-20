@@ -28,15 +28,7 @@ use a well-known name, such as a company or product name, as the name of the out
 
 ## Modules Are Mandatory
 
-Slice allows only modules at global scope: you must nest all other definitions inside a module. For example, the
-following is illegal:
-
-```slice
-interface I   // Error: only modules can appear at global scope
-{
-    // ...
-}
-```
+Slice allows only modules at global scope: you must nest all other definitions inside a module.
 
 Definitions at global scope are prohibited because they cause problems with some implementation languages (such as
 Python, which does not have a true global scope).
