@@ -92,16 +92,29 @@ exceptions. Without a Slice loader, the communicator cannot locate the Java clas
 
 {% /callout %}
 
-### `java:serializable`
+### `java:serializable:java-class`
 
 This directive applies to `sequence<byte>`. It allows you to use Ice to transmit serializable Java classes as native
-objects, without having to define corresponding Slice definitions for these classes.
+objects, without having to define corresponding Slice definitions for these classes. The Slice compiler maps the
+sequence to `java-class`, the fully qualified name of a Java class that implements `java.io.Serializable`. See
+[Filling a Sequence of Bytes with a Serializable Object](../user-defined-types/sequences#filling-a-sequence-of-bytes-with-a-serializable-object)
+for an example.
 
-### `java:serialVersionUID`
+### `java:serialVersionUID:uid`
 
 The Slice-to-Java compiler computes a default value for the `serialVersionUID` member of Slice
 [classes](../user-defined-types/classes), [exceptions](../exceptions) and
-[structures](../user-defined-types/structures). This directive overrides the this default generated value.
+[structures](../user-defined-types/structures). This directive overrides this default generated value with `uid`, an
+integer literal. For example:
+
+```slice
+["java:serialVersionUID:1"]
+struct Point
+{
+    int x;
+    int y;
+}
+```
 
 By using this metadata, the application assumes responsibility for updating the UID whenever changes to the Slice
 definition affect the serializable state of the type.

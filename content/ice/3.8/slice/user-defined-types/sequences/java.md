@@ -54,6 +54,9 @@ mapping for the sequence's element type.
 The compiler requires the formal type to implement `java.util.List<E>`, where `E` is the Java mapping of the element
 type. If you do not specify a formal type, the compiler uses `java.util.List<E>` by default.
 
+The instance type must have an accessible parameterless constructor and must be modifiable: when unmarshaling a
+sequence, the generated code creates the instance with this constructor and fills it with `add` and `set`.
+
 Note that extra care must be taken when defining custom types that contain nested generic types, such as a custom
 sequence whose element type is also a custom sequence. The Java compiler strictly enforces type safety, therefore any
 compatibility issues in the custom type metadata will be apparent when the generated code is compiled.

@@ -37,13 +37,13 @@ if (f1 == f2) { // Compare two enums
 }
 
 switch (f2) {   // Switch on enum
-    case Fruit.Apple:
+    case Apple:
         // ...
         break;
-    case Fruit.Pear:
+    case Pear:
         // ...
         break;
-    case Fruit.Orange:
+    case Orange:
         // ...
         break;
 }

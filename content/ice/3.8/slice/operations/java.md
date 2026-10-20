@@ -346,14 +346,20 @@ i.whenSent((sentSynchronously, ex) -> {
 
 The `whenSent` method has the following semantics:
 
-- If the Ice runtime was able to pass the entire request to the local transport immediately, the action will be invoked
-  from the current thread and the `sentSynchronously` argument will be true.
-- If Ice wasn't able to write the entire request without blocking, the action will eventually be invoked from an Ice
-  thread pool thread and the `sentSynchronously` argument will be false.
+- If the invocation has already failed with a `LocalException` when you call `whenSent`, the action executes immediately
+  in the calling thread.
+- Otherwise, if the request has already been sent when you call `whenSent`, the action executes immediately in the
+  calling thread. This is the case for a request sent synchronously by the invocation, and for a queued request that
+  went out before the call.
+- Otherwise, the action executes in an Ice thread pool thread once the request is sent, or when the future completes
+  with a `LocalException` because the invocation failed before the request was sent.
+
+When the invocation failed, the `sentSynchronously` argument is null and the second argument is the exception.
+Otherwise, the `sentSynchronously` argument is the value that `InvocationFuture.sentSynchronously` returns: true if the
+invocation sent the request synchronously, and false if it queued the request.
 
 If you need more control over the execution environment of your action, you can use one of the `whenSentAsync` methods
-instead. The `sentSynchronously` argument still behaves as described above, but your executor's implementation will
-determine the threading behavior.
+instead: your executor's implementation determines the thread context in which the action executes.
 
 ### Canceling an Asynchronous Invocation
 
@@ -496,6 +502,10 @@ type and derives its response from that of the other object:
 class ExampleServant implements AsyncExample {
     private final ExamplePrx _other;
 
+    ExampleServant(ExamplePrx other) {
+        _other = other;
+    }
+
     @Override
     public CompletionStage<Example.OpResult> opAsync(short s, Current current) {
         var result = _other.opAsync(s);
@@ -518,9 +528,8 @@ For example, a Slice parameter `string name` is mapped to a Java parameter `Stri
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
 
-- Zero values The corresponding Java method returns `void`. For the purposes of this discussion, we're not interested in
-  these operations.
-- One value The corresponding Java method returns the mapped type, regardless of whether the Slice definition of the
+- **Zero values** The corresponding Java method returns `void`.
+- **One value** The corresponding Java method returns the mapped type, regardless of whether the Slice definition of the
   operation declared it as a return value or as an out parameter. Consider this example:
 
   ```slice
@@ -540,13 +549,13 @@ parameters and a non-`void` return value:
   }
   ```
 
-- Two or more values The Slice compiler generates an extra nested class to hold the results of an operation that returns
-  multiple values. The class is nested in the mapped interface (not the proxy interface) and has the name `OpResult`,
-  where `Op` represents the name of the operation. The leading character of the class name for a "result class" is
-  always capitalized. The values of out parameters are provided in corresponding public fields of the same names. If the
-  operation declares a return value, its value is provided in the field named `returnValue`.The result class defines an
-  empty constructor as well as a primary constructor that accepts and assigns a value for each of its fields. The
-  corresponding Java method returns the result class type.
+- **Two or more values** The Slice compiler generates an extra nested class to hold the results of an operation that
+  returns multiple values. The class is nested in the mapped interface (not the proxy interface) and has the name
+  `OpResult`, where `Op` represents the name of the operation. The leading character of the class name for a "result
+  class" is always capitalized. The values of out parameters are provided in corresponding public fields of the same
+  names. If the operation declares a return value, its value is provided in the field named `returnValue`. The result
+  class defines an empty constructor as well as a primary constructor that accepts and assigns a value for each of its
+  fields. The corresponding Java method returns the result class type.
 
 Consider this example:
 

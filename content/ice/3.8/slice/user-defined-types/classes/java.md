@@ -53,7 +53,7 @@ The canonical constructor accepts one argument for each field of the class. This
 class in a single statement, for example:
 
 ```java
-TimeOfDay tod = new TimeOfDay(14, 45, 00, "PST"); // 14:45pm PST
+TimeOfDay tod = new TimeOfDay((short) 14, (short) 45, (short) 0, "PST"); // 2:45pm PST
 ```
 
 For derived classes, the constructor requires an argument for every field of the class, including inherited members. For
