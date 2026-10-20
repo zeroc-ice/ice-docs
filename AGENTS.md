@@ -24,6 +24,10 @@ the conventions that recur in review.
   by a platform note that contradicts it misleads the reader who stops at the rule; qualify the rule itself.
 - **A page documents the release as it is.** Properties removed since the previous release, changes made in a patch
   release and other version history belong in the release notes, the changelog or the upgrade guide.
+- **Document the configuration the reader will use, not every configuration the code allows.** A rule that holds for the
+  mainstream setup stays simple, and a rarely used alternative appears only on the page that documents it. For example,
+  the `Process` facet registers with the communicator's default locator; `Ice.Admin.Locator` and an admin object hosted
+  in an application adapter through `createAdmin` do not qualify that sentence.
 - **Fix every copy of what you fix.** Prose is copied between the language overlays of a page and between related pages.
   After correcting one, grep for the same sentence in the sibling overlays and fix or report those too.
 
