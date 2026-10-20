@@ -67,23 +67,6 @@ interfaces available on the system to send UDP multicast datagrams. This propert
 
 {% /property-description %}
 
-## IceLocatorDiscovery.Locator._AdapterProperty_
-
-{% property-synopsis %}
-
-`IceLocatorDiscovery.Locator.AdapterProperty=value`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-IceLocatorDiscovery creates an object adapter named `IceLocatorDiscovery.Locator`, therefore all of the
-[object adapter properties](../object-adapter-properties) can be set.
-
-You don't normally need to set properties for this object adapter.
-
-{% /property-description %}
-
 ## IceLocatorDiscovery.Lookup
 
 {% property-synopsis %}

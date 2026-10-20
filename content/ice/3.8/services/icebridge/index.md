@@ -35,8 +35,8 @@ and Bluetooth.
 Configure the bridge with the following [IceBridge properties](../../property-reference/icebridge-properties):
 
 - `IceBridge.Source.Endpoints` This required property lists the endpoints on which IceBridge receives requests from
-  clients. `IceBridge.Source` is also the name of an object adapter, which means all of the other
-  [object adapter properties](../../property-reference/object-adapter-properties) can be configured as well.
+  clients. These are the endpoints of the
+  [IceBridge.Source](../../property-reference/icebridge-properties#icebridge.source.adapterproperty) object adapter.
 - `IceBridge.Target.Endpoints` This required property lists the client endpoints of the target server, with the syntax
   used in a [stringified proxy](../../runtime/invocation/syntax-for-stringified-proxies). Unlike `IceBridge.Source`,
   `IceBridge.Target` is not an object adapter. With several endpoints, IceBridge follows the usual Ice process for
