@@ -28,28 +28,9 @@ pages:
   - icegrid-database-utility
 ---
 
-IceGrid is a location and activation service for Ice applications. For the purposes of this discussion, we can loosely
-define _grid computing_ as the use of a network of relatively inexpensive computers to perform the computational tasks
-that once required costly "big iron." Developers familiar with distributed computing technologies may not consider the
-notion of grid computing to be particularly revolutionary; after all, distributed applications have been running on
-networks for years, and the definition of grid computing is sufficiently vague that practically any server environment
-could be considered a "grid."
-
-One possible grid configuration is a homogeneous collection of computers running identical programs. Each computer in
-the grid is essentially a clone of the others, and all are equally capable of handling a task. As a developer, you need
-to write the code that runs on the grid computers, and Ice is ideally suited as the infrastructure that enables the
-components of a grid application to communicate with one another. However, writing the application code is just the
-first piece of the puzzle. Many other challenges remain:
-
-- How do I install and update this application on all of the computers in the grid?
-- How do I keep track of the servers running on the grid?
-- How do I distribute the load across all the computers?
-- How do I migrate a server from one computer to another one?
-- How can I quickly add a new computer to the grid?
-
-Of course, these are issues faced by most distributed applications. As you learn more about IceGrid's capabilities, you
-will discover that it offers solutions to these challenges. To get you started, we have summarized IceGrid's feature set
-below:
+IceGrid is a location and activation service for Ice applications. An application whose servers run on several computers
+needs a way for clients to reach these servers without configuring their hosts and ports, and a way to start, stop and
+monitor the servers on each computer. IceGrid provides both, with the following features:
 
 - **Location service** As an implementation of an Ice [location service](../../runtime/locators), IceGrid enables
   clients to bind indirectly to their servers, making applications more flexible and resilient to changing requirements.
@@ -74,9 +55,5 @@ below:
   events into an existing management framework.
 - **Administration** IceGrid includes command-line and graphical administration tools. They are available on all
   supported platforms and allow you to start, stop, monitor, and reconfigure any server managed by IceGrid.
-- Deployment Using XML files, you can describe the servers to be deployed on each computer. Templates simplify the
+- **Deployment** Using XML files, you can describe the servers to be deployed on each computer. Templates simplify the
   description of identical servers.
-
-As grid computing enters the mainstream and compute servers become commodities, users expect more value from their
-applications. IceGrid, in cooperation with the Ice run time, relieves you of these low-level tasks to accelerate the
-construction and simplify the administration of your distributed applications.
