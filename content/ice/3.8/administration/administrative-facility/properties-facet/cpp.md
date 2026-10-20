@@ -2,8 +2,7 @@
 
 ## Obtaining the Local Properties Facet
 
-To use the `Properties` facet of your own communicator without a [proxy](../using-the-admin-object), call
-`findAdminFacet`:
+`findAdminFacet` returns the servant that implements the `Properties` facet of your communicator:
 
 ```cpp
 // It's nullptr when the facet is not enabled

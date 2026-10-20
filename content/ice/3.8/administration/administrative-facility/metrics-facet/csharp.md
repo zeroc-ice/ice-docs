@@ -2,7 +2,7 @@
 
 ## Obtaining the Local Metrics Facet
 
-To use the `Metrics` facet of your own communicator without a [proxy](../using-the-admin-object), call `findAdminFacet`:
+`findAdminFacet` returns the servant that implements the `Metrics` facet of your communicator:
 
 ```csharp
 if (communicator.findAdminFacet("Metrics") is IceMX.MetricsAdmin metricsAdmin)
