@@ -65,11 +65,18 @@ to change the multicast address and port.
 ### Configuring IceLocatorDiscovery in an IceGrid Registry
 
 A slave registry can use the plug-in to find the master registry, in place of setting `Ice.Default.Locator`. Load the
-plug-in in the slave registry's configuration file:
+plug-in in the slave registry's configuration file, and set
+[IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
+or [IceGrid.InstanceName](../../property-reference/icegrid-properties#icegrid.instancename) to the instance name of the
+deployment:
 
 ```config
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
+IceLocatorDiscovery.InstanceName=IceGrid
 ```
+
+When neither property is set, the slave registry derives its instance name from the plug-in's locator, whose identity
+category is a generated UUID, and does not find the master registry.
 
 The master registry does not need the plug-in.
 
@@ -100,11 +107,18 @@ queries on its default multicast address and port.
 ### Configuring IceLocatorDiscovery in an IceGrid Node
 
 An IceGrid node can use the plug-in to find its registries, in place of setting `Ice.Default.Locator`. Load the plug-in
-in the node's configuration file:
+in the node's configuration file, and set
+[IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
+or [IceGrid.InstanceName](../../property-reference/icegrid-properties#icegrid.instancename) to the instance name of the
+deployment:
 
 ```config
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
+IceLocatorDiscovery.InstanceName=IceGrid
 ```
+
+When neither property is set, the node derives its instance name from the plug-in's locator, whose identity category is
+a generated UUID, and does not register with the registry.
 
 ## See Also
 
