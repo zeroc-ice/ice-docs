@@ -28,8 +28,8 @@ A client may receive `Ice::NotRegisteredException` if
 that the proxy's object identity or object adapter is not known by the IceGrid registry. The following steps may help
 you discover the cause of the exception:
 
-1. Use [icegridadmin](../icegridadmin-command-line-tool) to verify that the object identity or object adapter ID is
-   actually registered, and that it matches what is used by the proxy:
+1. Use [icegridadmin](../icegridadmin-command-line-tool) to verify that the object identity or adapter ID is actually
+   registered, and that it matches what is used by the proxy:
 
    ```shell
    >>> adapter list

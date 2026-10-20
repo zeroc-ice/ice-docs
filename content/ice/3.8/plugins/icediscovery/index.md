@@ -211,9 +211,9 @@ From a design perspective, incorporating IceDiscovery into your application requ
   take two forms: an identity by itself, or an identity with an adapter ID, such as factory and
   `factory@AccountAdapter`, respectively. Clearly, using only identities places a greater burden on the application to
   ensure that they are globally unique among all of the clients and servers sharing the same address and domain
-  settings. Including an object adapter ID can help to further partition the object namespace, so that
-  `factory@AccountAdapter` and `factory@AdminAdapter` represent distinct objects without requiring artificially unique
-  identities such as `accountFactory` and `adminFactory`.
+  settings. Including an adapter ID can help to further partition the object namespace, so that `factory@AccountAdapter`
+  and `factory@AdminAdapter` represent distinct objects without requiring artificially unique identities such as
+  `accountFactory` and `adminFactory`.
 
 - Can unrelated applications share the same multicast address and port? If so, select unique domain identifiers for the
   applications and configure
@@ -222,7 +222,7 @@ From a design perspective, incorporating IceDiscovery into your application requ
 
 - Do you need replicated objects? Replicated object adapters can improve the fault tolerance of your application by
   allowing independent server processes to implement the same logical objects. Configure your servers as described
-  above, and ensure your clients resolve indirect proxies using the replica group identifiers.
+  above, and ensure your clients resolve indirect proxies using the replica group IDs.
 
 IceDiscovery provides enough flexibility to support a wide variety of application architectures. If you need additional
 functionality, consider using IceGrid.

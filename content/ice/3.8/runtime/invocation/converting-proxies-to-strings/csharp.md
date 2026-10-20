@@ -9,7 +9,7 @@ GreeterPrx greeter = GreeterPrxHelper.createProxy(
 string s = greeter.ToString();
 ```
 
-`ToString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and object
+`ToString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and
 adapter ID as specified through the [Ice.ToStringMode](../../../property-reference/ice-properties#ice.tostringmode)
 property.
 

@@ -84,9 +84,9 @@ A proxy optionally contains an [endpoint list or an adapter ID](../../runtime/in
   [encapsulation](../basic-data-encoding) of type-specific endpoint fields. The type-specific fields for each endpoint
   type are presented in the sections that follow.
 - If a proxy does not have endpoints, a single byte with value `0` immediately follows the proxy fields and a string
-  representing the object adapter ID is encoded immediately following the zero byte.
+  representing the adapter ID is encoded immediately following the zero byte.
 - For a proxy to a [well-known object](../../services/icegrid/well-known-objects), which has neither endpoints nor an
-  object adapter ID, a single byte with value `0` immediately follows the proxy fields and an empty string is encoded
+  adapter ID, a single byte with value `0` immediately follows the proxy fields and an empty string is encoded
   immediately following the zero byte.
 
 Type-specific endpoint fields are encapsulated because a receiver may not be capable of decoding them. For example, a

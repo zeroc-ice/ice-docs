@@ -291,8 +291,8 @@ more information about the object adapters (in the case of a replica group filte
 filter) in order to perform its duties? This is where the registry's
 [facade object](#the-registry-plug-in-facade-object) helps: through it, the filter can retrieve information about the
 deployment. For example, a replica group filter can use server-specific properties as a form of metadata. The registry
-supplies the filter with a list of object adapter IDs; each object adapter is hosted by a server, and the filter can
-look up property values for that server using the facade.
+supplies the filter with a list of adapter IDs; each object adapter is hosted by a server, and the filter can look up
+property values for that server using the facade.
 
 ### Implementing a Custom Replica Group Filter
 

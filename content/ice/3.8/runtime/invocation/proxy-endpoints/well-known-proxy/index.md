@@ -2,9 +2,9 @@
 title: Well-Known Proxy
 ---
 
-A proxy with no endpoint or object adapter ID (`@adapterId` in stringified form) is called a well-known proxy. A
-well-known proxy consists of an object identity plus (optionally) proxy options such as -t (for two-way proxies), as
-described on [Syntax for Stringified Proxies](../../syntax-for-stringified-proxies). Well-known proxies are a form of
+A proxy with no endpoint or adapter ID (`@adapterId` in stringified form) is called a well-known proxy. A well-known
+proxy consists of an object identity plus (optionally) proxy options such as -t (for two-way proxies), as described on
+[Syntax for Stringified Proxies](../../syntax-for-stringified-proxies). Well-known proxies are a form of
 [indirect proxies](../../../../basics/terminology).
 
 For example:

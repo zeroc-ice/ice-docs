@@ -19,8 +19,8 @@ _Locating an object._
    caches this information, [establishes a connection](../../connection-management/connection-establishment) to one of
    the endpoints, and proceeds to send the invocation as usual.
 4. If the communicator cannot obtain the object's endpoints, the invocation fails: it throws `NotRegisteredException`
-   when the locator does not know the object adapter ID, replica group ID or identity, and `NoEndpointException` when
-   the locator returns no usable endpoint.
+   when the locator does not know the adapter ID, replica group ID or identity, and `NoEndpointException` when the
+   locator returns no usable endpoint.
 
 As far as the communicator is concerned, the locator simply converts the information in an indirect proxy into usable
 endpoints. Whether the locator's implementation is more sophisticated than a simple lookup table is irrelevant to the
@@ -33,16 +33,16 @@ As a result, the initial request on an indirect proxy may incur additional overh
 
 ## Replication with a Locator
 
-An indirect proxy may substitute a [replica group](../../../basics/terminology) identifier in place of the object
-adapter ID. In fact, the Ice runtime does not distinguish between these two cases and considers a replica group
-identifier as equivalent to an object adapter ID for the purposes of resolving the proxy. The location service
-implementation must be able to distinguish between replica groups and object adapters using only this identifier.
+An indirect proxy may substitute a [replica group](../../../basics/terminology) ID in place of the adapter ID. In fact,
+the Ice runtime does not distinguish between these two cases and considers a replica group ID as equivalent to an
+adapter ID for the purposes of resolving the proxy. The location service implementation must be able to distinguish
+between replica groups and object adapters using only this identifier.
 
-The location service may return multiple endpoints in response to a locate request for an adapter or replica group
-identifier. These endpoints might all correspond to a single object adapter that is available at several addresses, or
-to multiple object adapters each listening at a single address, or some combination thereof. The communicator attaches
-no semantics to the collection of endpoints, but the application can make assumptions based on its knowledge of the
-location service's behavior.
+The location service may return multiple endpoints in response to a locate request for an adapter or replica group ID.
+These endpoints might all correspond to a single object adapter that is available at several addresses, or to multiple
+object adapters each listening at a single address, or some combination thereof. The communicator attaches no semantics
+to the collection of endpoints, but the application can make assumptions based on its knowledge of the location
+service's behavior.
 
 When a location service returns more than one endpoint, the communicator behaves exactly as if the proxy had contained
 several endpoints. As always, the goal of the communicator is to

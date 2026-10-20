@@ -298,10 +298,10 @@ Applications often use [IceGrid](../../icegrid) in their back-end network to sim
 advantage of the benefits offered by indirect proxies. Once you have configured Glacier2 with an appropriate
 [locator proxy](../icegrid-and-glacier2-integration), clients can use indirect proxies to refer to objects in
 IceGrid-managed servers. Indirect proxies come in two forms: one that contains only an identity, and one that contains
-an identity and an object adapter ID. You can use the category and identity filters described in previous sections to
-control identity-only proxies, and you can use the property
+an identity and an adapter ID. You can use the category and identity filters described in previous sections to control
+identity-only proxies, and you can use the property
 [Glacier2.Filter.AdapterId.Accept](../../../property-reference/glacier2-properties) to enforce restrictions on indirect
-proxies that use an object adapter ID.
+proxies that use an adapter ID.
 
 For example, the following property definition allows a client to use the proxy `factory@WidgetAdapter` but not the
 proxy `factory@SecretAdapter`:
