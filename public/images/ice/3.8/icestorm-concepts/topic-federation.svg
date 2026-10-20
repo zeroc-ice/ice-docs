@@ -10,7 +10,7 @@
   <title id="title">Topic federation in IceStorm</title>
   <desc id="description">
     Publisher P1 publishes to T2, P2 to T1, and P3 to T3. T1 has links to T2 and T3 and sends to subscriber S3. T2
-    sends to S1 and S2; T3 sends to S4. Dotted arrows show topic links; solid arrows show message delivery.
+    sends to S1 and S2; T3 sends to S4. Dotted arrows show topic links; solid arrows show event delivery.
   </desc>
 
   <defs>
@@ -107,7 +107,7 @@
   </g>
 
   <g id="labels">
-    <text class="legend-label" x="70" y="477">Message delivery</text>
+    <text class="legend-label" x="70" y="477">Event delivery</text>
     <text class="legend-label" x="262" y="477">Topic link</text>
     <text class="label" x="300" y="49">IceStorm</text>
     <text class="label" x="64" y="105">P1</text>
