@@ -59,9 +59,6 @@ export interface SideNavNode {
  */
 export const GROUP_OVERVIEW_TITLE = 'Overview';
 
-/** The label the front page takes in the sidebar, under the site's name in the header. */
-export const FRONT_PAGE_NAV_TITLE = 'Overview';
-
 /**
  * Resolve the authored tree into a renderable sidebar: every node is kept (so
  * the full shape shows), with a link for each page.

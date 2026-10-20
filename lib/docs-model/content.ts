@@ -29,7 +29,6 @@ import { load as yamlLoad } from 'js-yaml';
 
 import type { ApiLinks } from './links.ts';
 import {
-  FRONT_PAGE_NAV_TITLE,
   pageHref,
   type NavDoc,
   type NavNode,
@@ -222,15 +221,10 @@ export function readNavigation(version: DocsVersion): NavDoc {
     throw new Error(
       `${version.path} has no front page (index.md at the version root)`
     );
-  const { pages } = readFrontmatter<Listed>(front);
+  const { title, sidebarLabel, pages } = readFrontmatter<Listed>(front);
   return {
     sidebar: [
-      {
-        title: FRONT_PAGE_NAV_TITLE,
-        slug: '',
-        writtenFor: undefined,
-        items: []
-      },
+      { title, slug: '', writtenFor: undefined, items: [], sidebarLabel },
       ...nodes('', pages)
     ]
   };
