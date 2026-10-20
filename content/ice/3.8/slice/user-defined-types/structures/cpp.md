@@ -55,9 +55,7 @@ These operators compare the `std::tuple` returned by the generated `ice_tuple()`
 Structures have a default constructor that default-constructs each data member. Members having a complex type, such as
 strings, sequences, and dictionaries, are initialized by their own default constructor. However, the default constructor
 performs no initialization for members of type `bool`, of an integer or floating-point type, or of an enumeration type.
-For such a member, it is not safe to assume that the member has a reasonable default value. This is especially true for
-enumerated types as the member's default value may be outside the legal range for the enumeration, in which case an
-exception will occur during marshaling unless the member is explicitly set to a legal value.
+For such a member, it is not safe to assume that the member has a reasonable default value.
 
 To ensure that data members of primitive types are initialized to reasonable values, you can declare default values in
 your Slice definition. These default values are mapped to C++ data member initializers.
