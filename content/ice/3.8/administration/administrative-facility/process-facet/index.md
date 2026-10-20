@@ -2,11 +2,13 @@
 title: The Process Facet
 ---
 
-An activation service, such as an [IceGrid](../../../services/icegrid) node, needs a reliable way to gracefully
-deactivate a server. One approach is to use a platform-specific mechanism, such as POSIX signals. This works well on
-POSIX platforms when the server is prepared to intercept signals and react appropriately. On Windows platforms, it works
-less reliably for C++ servers, and not at all for Java servers. For these reasons, the `Process` facet provides an
-alternative that is both portable and reliable.
+The `Process` facet lets an activation service, such as an [IceGrid](../../../services/icegrid) node, request a graceful
+shutdown of a server. The activation service finds this facet through the locator registry, as described in
+[Integrating the Process Facet with an Activation Service](#integrating-the-process-facet-with-an-activation-service).
+
+Platform-specific mechanisms such as POSIX signals work well on POSIX platforms when the server is prepared to intercept
+signals and react appropriately. On Windows platforms, they work less reliably for C++ servers, and not at all for Java
+servers. The `Process` facet works the same way on every platform.
 
 {% callout type="note" %}
 
