@@ -88,9 +88,6 @@ The request fields are described in the following table.
 | `context`   | The invocation [context](../../runtime/invocation/request-contexts)                                                                             |
 | `params`    | The [encapsulated](../../encoding/basic-data-encoding) input parameters                                                                         |
 
-[Data Encoding for Request and Reply Payloads](../../encoding/data-encoding-for-request-and-reply-payloads#request-payload)
-describes the contents of the `params` encapsulation.
-
 The request identifier zero (`0`) is reserved for use in
 [oneway](../../runtime/invocation/invocation-mode/oneway-invocations) requests and indicates that the server must not
 send a reply to the client. The sender gives each of its outstanding twoway requests on the connection a distinct
@@ -178,13 +175,11 @@ Only the payloads of reply statuses 0 and 1 are [encapsulations](../../encoding/
 
 ### Ok Reply Payload
 
-For reply status 0, the reply payload is an encapsulation that holds the out-parameters and return value, as described
-in [Ok Reply Payload](../../encoding/data-encoding-for-request-and-reply-payloads#ok-reply-payload).
+For reply status 0, the reply payload is an encapsulation that holds the out-parameters and the return value.
 
 ### User Exception Reply Payload
 
-For reply status 1, the reply payload is an encapsulation that holds the user exception, as described in
-[User Exception Reply Payload](../../encoding/data-encoding-for-request-and-reply-payloads#user-exception-reply-payload).
+For reply status 1, the reply payload is an encapsulation that holds the user exception.
 
 ### Request Failed Reply Payload
 
