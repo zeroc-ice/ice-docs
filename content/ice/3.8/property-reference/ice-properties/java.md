@@ -187,8 +187,8 @@ java -Djava.net.preferIPv4Stack=true ...
 
 {% property-description %}
 
-Specifies the base Java package for the top-level Slice module _module_, typically the package that the `java:package`
-[metadata directive](../../slice/slice-metadata-directives) sets for this module.
+Specifies the enclosing Java package of the top-level Slice module _module_, the same package as in the module's
+`java:package` [metadata directive](../../slice/slice-metadata-directives).
 
 When one or more of these properties are set, the communicator adds a
 [ModuleToPackageSliceLoader](api:Ice/ModuleToPackageSliceLoader) to its default
@@ -196,10 +196,8 @@ When one or more of these properties are set, the communicator adds a
 _module_ to Java class names under the specified package. For example, with `Ice.Package.Demo=com.example`, it loads
 `com.example.Demo.Node` for the type ID `::Demo::Node`.
 
-The loader can find a class or exception only if its Slice module and type names are preserved in Java.
-
-This property is provided primarily for backwards compatibility; we recommend configuring Slice loaders programmatically
-in new applications.
+The loader finds a class or exception only when neither the type name nor an enclosing module name is remapped with
+`java:identifier`.
 
 See also: [Ice.Default.Package](../ice-default-properties)
 
