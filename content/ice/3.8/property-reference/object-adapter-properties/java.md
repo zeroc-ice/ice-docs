@@ -300,12 +300,8 @@ serialization can have a significant impact on latency and throughput. If not de
 
 {% property-description %}
 
-The adapter uses the communicator's server [thread pool](../../runtime/threading-model) when no `adapter.ThreadPool.*`
-property is set. Setting any property with this prefix creates a dedicated pool. For example, setting only
-`adapter.ThreadPool.SizeMax=4` creates a pool with one initial thread and a maximum of four threads.
-
-`num` is the initial number of threads in the dedicated pool. Its default value is `1`. See
-[Ice.ThreadPool._name_.Size](../ice-threadpool-properties) for more information.
+`num` is the initial number of threads in the object adapter's dedicated [thread pool](../../runtime/threading-model).
+Its default value is `1`. See [Ice.ThreadPool._name_.Size](../ice-threadpool-properties) for more information.
 
 {% /property-description %}
 
