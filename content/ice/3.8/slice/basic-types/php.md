@@ -1,7 +1,6 @@
 {% language-section name="mapping" %}
 
-PHP has a limited set of primitive types: `boolean`, `integer`, `double`, and `string`. The Slice built-in types are
-mapped to PHP types as shown in the table below:
+The Slice basic types map to PHP types as shown in the table below:
 
 | **Slice** | **PHP**           |
 | --------- | ----------------- |

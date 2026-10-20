@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-The built-in types are mapped to C++ types as shown in this table:
+The Slice basic types map to C++ types as shown in this table:
 
 | **Slice** | **C++**                             |
 | --------- | ----------------------------------- |
