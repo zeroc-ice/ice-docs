@@ -205,21 +205,22 @@ when no data is currently available.
 The client should call `destroy` when the iterator object is no longer required. At the time the client's session
 terminates, IceGrid reclaims any iterators that were not explicitly destroyed.
 
-With these operations, an administrative client can retrieve any text file on a system where an IceGrid node is running.
-While it's common for this text file to contain the output of an Ice [logger](../../../administration/logger-facility),
-it could contain other unrelated outputs. This text file is presented as a sequence of strings, with no particular
-structure for these strings.
+Each file operation reads one file configured for the target program: the file named by its `Ice.StdOut` or `Ice.StdErr`
+property or, for `openServerLog`, a file declared by one of the server's log descriptors. The file can contain the
+output of the Ice [logger](../../../administration/logger-facility) and any other text the program writes, and the
+`FileIterator` returns it as lines of text with no further structure.
 
-The [Logger admin facet](../../../administration/administrative-facility/logger-facet) provides another, and often
-better, way to retrieve the log messages sent to the logger of a server, node or registry. With the `Logger` facet, you
-retrieve log messages–and only log messages–as typed structures, whether or not the logger's output is stored in a text
-file or stored at all. With the `AdminSession` file operations presented above, you can retrieve the log files of a
-server even when this server is not running; conversely, with the `Logger` admin facet, the target server must be
-running since this `Logger` facet is hosted in that server. Finally, the programming style espoused by the
-`AdminSession` file operations is a pull model: the administrative client calls `read` from time to time on the
-`FileIterator` object provided by IceGrid. With the `Logger` admin facet, the administrative client uses a push model:
-it registers a remote logger object with the target server, node and registry, and this remote logger receives new log
-messages as soon as they are generated.
+### Choosing a Log Retrieval Method
+
+The `AdminSession` file operations and the
+[Logger admin facet](../../../administration/administrative-facility/logger-facet) both give an administrative client
+access to the log of a server, node, or registry:
+
+- The file operations read the text a program wrote to a file, including the files of a server that is not running. The
+  client polls for new text by calling `read` on the `FileIterator`.
+- The `Logger` facet delivers the messages sent to the Ice logger of a running program as typed records, whether or not
+  the logger writes them to a file. The client attaches a remote logger, and the `Logger` facet calls this remote logger
+  as each message is logged.
 
 ## Dynamic Monitoring in IceGrid
 
