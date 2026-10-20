@@ -10,7 +10,10 @@ title: Dispatcher API
 
 {% iflang langs="cpp,csharp,java,js,swift" %}
 
-A servant that dispatches requests without generated code reads the parameters from the request's input stream and
-writes its results to an output stream, as described in [Input and Output Streams](../../input-and-output-streams).
+A servant can also implement the Dispatcher abstraction itself, without a generated skeleton: it reads the parameters
+from the request's input stream and writes its results to an output stream.
+[Input and Output Streams](../../input-and-output-streams) shows how to read and write Slice types with these streams.
+You add such a servant to an object adapter like any other servant, in its [active servant map](../active-servant-map)
+or as a [default servant](../default-servants).
 
 {% /iflang %}
