@@ -382,9 +382,9 @@ Update the version in the IceStorm entry point of your IceBox configuration:
 +IceBox.Service.IceStorm=IceStormService,38:createIceStorm
 ```
 
-The Slice definitions of IceStorm are unchanged in Ice 3.8. This allows you to use a mix of 3.7 and 3.8 for your
-IceStorm service, publishers and subscribers. You can even use a mix of 3.7 and 3.8 IceStorm replicas in a replicated
-deployment.
+The IceStorm Slice definitions of Ice 3.8 are compatible with those of Ice 3.7, with one addition, `createOrRetrieve` on
+`IceStorm::TopicManager`. This allows you to use a mix of 3.7 and 3.8 for your IceStorm service, publishers and
+subscribers. You can even use a mix of 3.7 and 3.8 IceStorm replicas in a replicated deployment.
 
 Moreover, the IceStorm database schema is the same in Ice 3.8 and Ice 3.7. This allows you to start an IceStorm 3.8
 service with a LMDB database created by IceStorm 3.7.
