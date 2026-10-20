@@ -345,15 +345,15 @@ The `whenSent` method has the following semantics:
 
 - If the invocation has already failed with a `LocalException` when you call `whenSent`, the action executes immediately
   in the calling thread.
-- Otherwise, if Ice has already sent the request when you call `whenSent`, the action executes immediately in the
-  calling thread. This is always the case when Ice wrote the request in the caller's thread, but Ice can also send a
-  queued request before you call `whenSent`.
-- Otherwise, the action executes in an Ice thread pool thread once Ice sends the request, or when Ice completes the
-  future with a `LocalException` if the invocation fails before Ice sends the request.
+- Otherwise, if the request has already been sent when you call `whenSent`, the action executes immediately in the
+  calling thread. This is the case for a request sent synchronously by the invocation, and for a queued request that
+  went out before the call.
+- Otherwise, the action executes in an Ice thread pool thread once the request is sent, or when the future completes
+  with a `LocalException` because the invocation failed before the request was sent.
 
 When the invocation failed, the `sentSynchronously` argument is null and the second argument is the exception.
-Otherwise, the `sentSynchronously` argument is the value that `InvocationFuture.sentSynchronously` returns: true if Ice
-wrote the request in the caller's thread, and false if Ice queued the request.
+Otherwise, the `sentSynchronously` argument is the value that `InvocationFuture.sentSynchronously` returns: true if the
+invocation sent the request synchronously, and false if it queued the request.
 
 If you need more control over the execution environment of your action, you can use one of the `whenSentAsync` methods
 instead: your executor's implementation determines the thread context in which the action executes.
@@ -525,8 +525,8 @@ For example, a Slice parameter `string name` is mapped to a Java parameter `Stri
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
 
-- Zero values The corresponding Java method returns `void`.
-- One value The corresponding Java method returns the mapped type, regardless of whether the Slice definition of the
+- **Zero values** The corresponding Java method returns `void`.
+- **One value** The corresponding Java method returns the mapped type, regardless of whether the Slice definition of the
   operation declared it as a return value or as an out parameter. Consider this example:
 
   ```slice
@@ -546,13 +546,13 @@ parameters and a non-`void` return value:
   }
   ```
 
-- Two or more values The Slice compiler generates an extra nested class to hold the results of an operation that returns
-  multiple values. The class is nested in the mapped interface (not the proxy interface) and has the name `OpResult`,
-  where `Op` represents the name of the operation. The leading character of the class name for a "result class" is
-  always capitalized. The values of out parameters are provided in corresponding public fields of the same names. If the
-  operation declares a return value, its value is provided in the field named `returnValue`.The result class defines an
-  empty constructor as well as a primary constructor that accepts and assigns a value for each of its fields. The
-  corresponding Java method returns the result class type.
+- **Two or more values** The Slice compiler generates an extra nested class to hold the results of an operation that
+  returns multiple values. The class is nested in the mapped interface (not the proxy interface) and has the name
+  `OpResult`, where `Op` represents the name of the operation. The leading character of the class name for a "result
+  class" is always capitalized. The values of out parameters are provided in corresponding public fields of the same
+  names. If the operation declares a return value, its value is provided in the field named `returnValue`. The result
+  class defines an empty constructor as well as a primary constructor that accepts and assigns a value for each of its
+  fields. The corresponding Java method returns the result class type.
 
 Consider this example:
 

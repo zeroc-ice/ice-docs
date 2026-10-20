@@ -40,9 +40,8 @@ mappings for the dictionary's key and value types.
 The compiler requires the formal type to implement `java.util.Map<K, V>`. If you do not specify a formal type, the
 compiler uses this type by default.
 
-When unmarshaling a dictionary, the generated code calls the instance type's parameterless constructor and then calls
-`put` for each entry. The instance type must therefore provide an accessible parameterless constructor and a mutable
-implementation of `put`.
+The instance type must have an accessible parameterless constructor and must be modifiable: when unmarshaling a
+dictionary, the generated code creates the instance with this constructor and fills it with `put`.
 
 Note that extra care must be taken when defining dictionary types that contain nested generic types, such as a
 dictionary whose element type is a custom sequence. The Java compiler strictly enforces type safety, therefore any

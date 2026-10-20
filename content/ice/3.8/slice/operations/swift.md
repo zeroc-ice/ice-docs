@@ -208,10 +208,10 @@ public protocol Greeter: Ice.Dispatcher {
 The mapping for an operation depends on how many values it returns, including out parameters and a non-`void` return
 value:
 
-- Zero values The corresponding Swift method returns nothing.
-- One value The corresponding Swift method returns the mapped type, regardless of whether the Slice definition of the
-  operation declared it as a return value or as an out parameter.
-- Multiple values The mapped Swift method returns a tuple. If the operation declares a return value, this value is
+- **Zero values** The corresponding Swift method returns nothing.
+- **One value** The corresponding Swift method returns the mapped type, regardless of whether the Slice definition of
+  the operation declared it as a return value or as an out parameter.
+- **Multiple values** The mapped Swift method returns a tuple. If the operation declares a return value, this value is
   provided as the first element of the tuple with the name `returnValue`.
 
 Consider this example:
