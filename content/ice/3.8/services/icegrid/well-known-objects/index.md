@@ -13,7 +13,7 @@ identities.
 
 In earlier sections we showed the relationship between indirect proxies containing an adapter ID and the IceGrid
 configuration. Briefly, in order for a client to use a proxy such as `factory@EncoderAdapter`, an object adapter must be
-given the identifier `EncoderAdapter`.
+given the adapter ID `EncoderAdapter`.
 
 A similar requirement exists for well-known objects. The registry maintains a table of these objects, which can be
 populated in a number of ways:
@@ -77,7 +77,7 @@ The `object` descriptor adds a well-known object to the registry. It must appear
 
 During deployment, the registry associates the identity `EncoderFactory` with the indirect proxy
 `EncoderFactory@EncoderAdapter`. If the adapter descriptor had omitted the adapter ID, the registry would have generated
-a unique identifier by combining the server ID and the adapter name.
+a unique adapter ID by combining the server ID and the adapter name.
 
 In this example, the object's [type](#well-known-object-types) is specified explicitly.
 

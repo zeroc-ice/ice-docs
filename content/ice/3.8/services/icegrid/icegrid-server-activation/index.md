@@ -36,7 +36,7 @@ the client receives the endpoint information _after_ the server is ready to rece
 
 ## Requirements for Server Activation
 
-In order to use on-demand activation for an object adapter, the adapter must have an identifier and be entered in the
+In order to use on-demand activation for an object adapter, the adapter must have an adapter ID and be entered in the
 IceGrid registry.
 
 When using session activation mode, IceGrid requires that the server be

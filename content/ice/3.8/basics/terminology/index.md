@@ -195,11 +195,11 @@ servers are actually running on these computers at the specified ports.
 In addition to the proxy-based replication described above, Ice supports a more useful form of replication known as
 _replica groups_ that requires the use of a [location service](../../runtime/locators).
 
-A replica group has a unique identifier and consists of any number of object adapters. An object adapter may be a member
-of at most one replica group; such an adapter is considered to be a _replicated object adapter_.
+A replica group has a unique ID and consists of any number of object adapters. An object adapter may be a member of at
+most one replica group; such an adapter is considered to be a _replicated object adapter_.
 
-After a replica group has been established, its identifier can be used in an indirect proxy in place of an adapter ID.
-For example, a replica group identified as `PrinterAdapters` can be used in a proxy as shown below:
+After a replica group has been established, its ID can be used in an indirect proxy in place of an adapter ID. For
+example, a replica group identified as `PrinterAdapters` can be used in a proxy as shown below:
 
 ```text
 SimplePrinter@PrinterAdapters

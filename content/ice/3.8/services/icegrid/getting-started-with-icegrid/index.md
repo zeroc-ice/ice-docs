@@ -66,7 +66,7 @@ auto encoder = factory.createEncoder();
 
 Notice that the client uses an indirect proxy for the `MP3EncoderFactory` object. This stringified proxy can be read
 literally as "the object with identity `factory` in the object adapter identified as `EncoderAdapter`. The encoding
-server creates this object adapter and ensures that the object adapter uses this identifier. Since each object adapter
+server creates this object adapter and ensures that the object adapter uses this adapter ID. Since each object adapter
 must be uniquely identified, the registry can easily determine the server that created the adapter and return an
 appropriate endpoint to the client.
 
@@ -117,9 +117,9 @@ You can achieve this by running the registry with the property
 set to a non-zero value. With this setting, IceGrid permits an adapter to register itself upon activation even if it has
 not been previously deployed. To force the server to register its adapters, you must define `Ice.Default.Locator` (so
 the server can find the registry) and, for each adapter that you wish to register, you must set
-[_adapter-name_.AdapterId](../../../property-reference/object-adapter-properties) to an identifier that is unique within
-the registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create direct proxies
-but rather to create indirect proxies that clients must resolve via the registry.
+[_adapter-name_.AdapterId](../../../property-reference/object-adapter-properties) to an ID that is unique within the
+registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create direct proxies but
+rather to create indirect proxies that clients must resolve via the registry.
 
 ## Ripper Client Configuration
 

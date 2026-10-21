@@ -14,11 +14,11 @@ This element may only appear as a child of an [application](../application-descr
 
 The following attributes are supported:
 
-| **Attribute**   | **Description**                                                                                                                                                                                       | **Required** |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `id`            | Specifies the identifier of the replica group, which must be unique among all adapters and replica groups in the registry. This identifier can be used in indirect proxies in place of an adapter ID. | Yes          |
-| filter          | Specifies the identifier of a replica group filter that performs [custom load balancing](../../load-balancing).                                                                                       | No           |
-| `proxy-options` | The proxy options to use for well-known object proxies declared with this replica group.                                                                                                              | No           |
+| **Attribute**   | **Description**                                                                                                                                                                       | **Required** |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `id`            | Specifies the ID of the replica group, which must be unique among all adapters and replica groups in the registry. This ID can be used in indirect proxies in place of an adapter ID. | Yes          |
+| filter          | Specifies the identifier of a replica group filter that performs [custom load balancing](../../load-balancing).                                                                       | No           |
+| `proxy-options` | The proxy options to use for well-known object proxies declared with this replica group.                                                                                              | No           |
 
 An optional nested [description](../description-descriptor-element) element provides free-form descriptive text.
 

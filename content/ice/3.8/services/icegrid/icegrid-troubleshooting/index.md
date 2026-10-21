@@ -86,7 +86,7 @@ You can check the status of each of a server's adapters using `icegridadmin` or 
 an adapter to be activated by the server, it reports the status of the adapter as "activating". If you experience
 timeouts before each adapter's status changes to "active", the most likely cause is that the deployment descriptor for
 the server either mentions more object adapters than are actually created by the server, or that the server uses an
-identifier for one or more adapters that does not match the corresponding identifier in the deployment descriptor.
+adapter ID for one or more adapters that does not match the corresponding adapter ID in the deployment descriptor.
 
 ## Disabling Faulty Servers
 
