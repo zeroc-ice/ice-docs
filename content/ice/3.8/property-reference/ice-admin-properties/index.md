@@ -154,21 +154,24 @@ cache any of these trace messages. The default value for _num_ is `100`.
 
 {% property-description %}
 
-The [Logger admin facet](../../administration/administrative-facility/logger-facet), when enabled, creates its own
-communicator to send log messages to attached remote loggers. Without this sub-communicator, sending log messages to
-remote loggers could trigger more local logging, which in turn would generate more logs sent to remote loggers: a single
-genuine log could trigger an infinite number of log messages.
+Specifies additional properties for the communicator that the
+[Logger admin facet](../../administration/administrative-facility/logger-facet) uses to send log messages to remote
+loggers. The Logger facet creates this communicator when it attaches its first remote logger.
 
-Ice copies properties with the prefixes `Ice.Default.Locator` and `IceSSL.` from the application's communicator to this
-sub-communicator, then applies the properties in _propertyList_. These additional properties override copied values.
+Ice copies properties with the prefixes `Ice.Default.Locator` and `IceSSL.` from the application's communicator to the
+Logger facet's communicator, then applies the properties in _propertyList_. These additional properties override copied
+values.
 
 Ice reads _propertyList_ as a [list of strings](../../runtime/properties-and-configuration/properties-class), each using
 the syntax `PropertyName=PropertyValue`. For example, this property enables protocol tracing on the Logger facet's
-sub-communicator:
+communicator:
 
 ```config
 Ice.Admin.Logger.Properties=Ice.Trace.Protocol=1
 ```
+
+The Logger facet's communicator writes its log messages to the local logger only, so the Logger facet does not forward
+them to remote loggers.
 
 {% /property-description %}
 
