@@ -26,6 +26,5 @@ that occur before then to standard error on Linux and macOS, and on Windows when
 [`--service`](../command-line-options#windows-services).
 
 A Windows service reports these errors to the event log. It reads its configuration file before it opens the event log,
-however, so it reports an error reading that file to standard error, which a Windows service has no console to show.
-[Troubleshooting Windows Services](../windows-services/troubleshooting-windows-services#service-fails-to-start)
-describes how to see this error.
+however, so it reports an error reading that file to standard error, which a Windows service has no console to show. To
+see this error, run the service's command line in a console without `--service`.
