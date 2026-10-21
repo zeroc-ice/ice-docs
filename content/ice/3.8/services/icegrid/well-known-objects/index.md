@@ -126,8 +126,8 @@ module IceGrid
 - `removeObject` The `removeObject` operation removes the well-known object with the given identity from the database.
   If no object with the given identity is registered, the operation raises `ObjectNotRegisteredException`.
 
-To register the object before activating its adapter, supply its type with `addObjectWithType`. The following C++
-example produces the same result as the [descriptor](#deploying-well-known-objects) we deployed earlier:
+The following C++ example produces the same result as the [descriptor](#deploying-well-known-objects) we deployed
+earlier:
 
 ```cpp
 auto adapter = communicator->createObjectAdapter("EncoderAdapter");
@@ -148,15 +148,6 @@ catch (const IceGrid::ObjectExistsException&)
 After obtaining a proxy for the [IceGrid::Admin interface](../icegrid-administrative-sessions), the code invokes
 `addObjectWithType`. Notice that the code catches `ObjectExistsException` and calls `updateObject` instead when the
 object is already registered.
-
-`addObject` asks the object for its type, so the registry can reach the object only once its adapter is active. Before
-activation, the registry's `ice_id` invocation fails once its connection attempt times out, and `addObject` raises
-`DeploymentException`. Activate the adapter before calling `addObject`:
-
-```cpp
-adapter->activate();
-admin->addObject(factory);
-```
 
 ## Adding Well-Known Objects with `icegridadmin`
 
