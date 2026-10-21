@@ -11,6 +11,12 @@ Ice/Communicator:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Communicator.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Communicator.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator
+Ice/Communicator.createAdmin:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator_a87511b9f8ea733ab31e6680ab8e1234f.html#a87511b9f8ea733ab31e6680ab8e1234f
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Communicator.html#Ice_Communicator_createAdmin_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#createAdmin(com.zeroc.Ice.ObjectAdapter,com.zeroc.Ice.Identity)
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Communicator.html#Ice.Communicator.createAdmin
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator/createadmin(adminadapter:adminid:)
 Ice/Connection:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Connection.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Connection.html
