@@ -58,8 +58,8 @@ We recommend using asyncio and async invocations in new applications.
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
-operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Any operation invocation may raise a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also raise [user exceptions](../../runtime/local-and-dispatch-exceptions).
 Suppose we have the following simple interface:
 
 ```slice
@@ -74,7 +74,7 @@ interface Child
 }
 ```
 
-Slice exceptions are thrown as Python exceptions, so you can simply enclose one or more operation invocations in a
+Slice exceptions are raised as Python exceptions, so you can simply enclose one or more operation invocations in a
 `try-except` block:
 
 ```py
@@ -130,9 +130,9 @@ The `["amd"]` metadata has no effect in Python: you can implement the mapped met
 example above) or asynchronously, as discussed in
 [Asynchronous Method Dispatch (AMD) in Python](#asynchronous-method-dispatch-amd).
 
-### Throwing Exceptions
+### Raising Exceptions
 
-To throw an exception from an operation implementation, you simply construct the exception and throw it. For example:
+To raise an exception from an operation implementation, you simply construct the exception and raise it. For example:
 
 ```py
 def write(self, text: list[str], current: Ice.Current) -> None:
@@ -142,16 +142,16 @@ def write(self, text: list[str], current: Ice.Current) -> None:
         raise Filesystem.WriteException("file too large")
 ```
 
-If you throw an arbitrary Python exception (such as a `ValueError`), the Ice runtime catches the exception and then
+If you raise an arbitrary Python exception (such as a `ValueError`), the Ice runtime catches the exception and then
 returns an `UnknownException` to the client.
 
-If you throw a [dispatch exception](../../runtime/local-and-dispatch-exceptions#dispatch-exceptions), such as
-`ObjectNotExistException`, the client receives the same exception. If you throw any other Ice local exception, such as
+If you raise a [dispatch exception](../../runtime/local-and-dispatch-exceptions#dispatch-exceptions), such as
+`ObjectNotExistException`, the client receives the same exception. If you raise any other Ice local exception, such as
 `MarshalException`, the client receives an `UnknownLocalException`.
 
-The server-side Ice runtime does not validate user exceptions thrown by an operation implementation to ensure they are
+The server-side Ice runtime does not validate user exceptions raised by an operation implementation to ensure they are
 compatible with the operation's Slice definition. Rather, Ice returns the user exception to the client, where the
-client-side runtime will validate the exception as usual and throws `UnknownUserException` for an unexpected exception
+client-side runtime will validate the exception as usual and raises `UnknownUserException` for an unexpected exception
 type.
 
 ## Asynchronous Method Invocation (AMI)
@@ -214,7 +214,7 @@ async with Ice.initialize(
 
 ### Asynchronous Exception Semantics
 
-If an asynchronous invocation throws an exception, the exception can be obtained from the awaitable.
+If an asynchronous invocation raises an exception, the exception can be obtained from the awaitable.
 
 The exception is provided by the awaitable, even if the actual error condition for the exception was encountered during
 the call to the `Async` method ("on the way out"). The advantage of this behavior is that all exception handling is
@@ -222,17 +222,17 @@ located with the code that awaits the result.
 
 There are four exceptions to this rule:
 
-- if you destroy the communicator and then make an asynchronous invocation, the `Async` method throws
+- if you destroy the communicator and then make an asynchronous invocation, the `Async` method raises
   `CommunicatorDestroyedException` directly.
 - if you use a oneway proxy to call an operation that has a return value, out-parameters, or an exception specification,
-  the `Async` method throws `TwowayOnlyException` directly.
+  the `Async` method raises `TwowayOnlyException` directly.
 - if you use a twoway proxy to call an operation with the [`oneway`](../slice-metadata-directives#oneway) metadata, the
-  `Async` method throws `OnewayOnlyException` directly.
+  `Async` method raises `OnewayOnlyException` directly.
 - if an argument has the wrong type or is out of range for its Slice type, or the request context is not a dictionary of
-  strings, the `Async` method throws `ValueError` directly.
+  strings, the `Async` method raises `ValueError` directly.
 
 When you `await` the call inside a `try` statement, the same `except` clause handles the exceptions that the `Async`
-method throws directly and the exceptions that the awaitable provides.
+method raises directly and the exceptions that the awaitable provides.
 
 ### Awaitable Objects
 
@@ -336,7 +336,7 @@ You can only await a future from the event loop that created it:
 
 You can invoke operations via oneway proxies asynchronously, provided the operation has `void` return type, does not
 have any out-parameters, and does not raise user exceptions. If you call an asynchronous proxy method on a oneway proxy
-for an operation that returns values or raises a user exception, the method throws `TwowayOnlyException`.
+for an operation that returns values or raises a user exception, the method raises `TwowayOnlyException`.
 
 Oneway invocation completes as soon as the request is successfully written to the client-side transport. Exceptions are
 only reported if an error occurs before the request is successfully written.

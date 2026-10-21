@@ -111,7 +111,7 @@ widget = await WidgetPrx.checkedCastAsync(simple)
 
 If the target object implements the Slice interface, `checkedCastAsync` returns a non-null proxy, just like
 `uncheckedCast`. If the target object doesn’t implement this interface, `checkedCastAsync` returns None.
-`checkedCastAsync` can also throw an exception, for example if it cannot reach the remote object.
+`checkedCastAsync` can also raise an exception, for example if it cannot reach the remote object.
 
 While `checkedCastAsync` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in
 practice you know or should know the type of your proxies and calling `checkedCastAsync` is rarely necessary.

@@ -58,10 +58,9 @@ ok5 = (7, 8, 9)          # tuple[int] also accepted
 ```
 
 Furthermore, the Ice runtime accepts any object that implements Python’s **buffer protocol** as a valid value for
-sequences of all primitive types (except strings). For a sequence of any type other than `byte`, the Ice runtime raises
-`ValueError` if the buffer's byte order is not the platform's native byte order or its item size does not match the
-Slice element type, and otherwise copies the buffer's memory without converting its elements. The buffer's items must
-therefore have the same representation as the Slice element type, such as 32-bit integers for `sequence<int>`.
+sequences of all basic types except `string`. For `sequence<byte>`, the bytes of the buffer are the sequence, whatever
+the type of its items. For a sequence of any other type, the buffer's items must match the Slice element type: an
+`array.array("i")` or a `numpy.ndarray` of `numpy.int32` for `sequence<int>`, for example.
 
 For example, you can use the array module to create a buffer that is transferred more efficiently than a tuple or list:
 

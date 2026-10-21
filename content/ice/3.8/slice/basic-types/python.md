@@ -13,7 +13,7 @@ The Slice built-in types are mapped to Python types as shown in this table:
 | `double`  | `float`    |
 | `string`  | `str`      |
 
-Although Python supports arbitrary precision in its integer types, the Ice runtime validates integer values to ensure
-they have valid ranges for their declared Slice types. For `byte`, the valid range is 0 to 255.
+The Python `int` type is unbounded, but a value for a Slice integer type must fit the range of that type. The Python
+mapping uses the unsigned range for `byte`, 0 to 255.
 
 {% /language-section %}

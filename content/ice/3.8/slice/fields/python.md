@@ -100,6 +100,6 @@ generated code uses the following default:
 A sequence field whose type or declaration carries a
 [sequence metadata directive](../user-defined-types/sequences#customizing-the-sequence-mapping) defaults to an empty
 instance of the type the directive selects, such as an empty tuple for `python:tuple`. With `python:memoryview`, the
-generated code calls the factory function with `None` to create the default value.
+default value is the object the factory function returns for a `None` buffer.
 
 {% /language-section %}

@@ -59,7 +59,7 @@ def Ice.loadSlice(args:[str])
 ```
 
 The `args` parameter accepts the following [standard compiler options](../using-the-slice-compiler): `-D`, `-U`, `-I`,
-and `-d` (`--debug`). `Ice.loadSlice` raises `RuntimeError` for any other option.
+and `-d` (`--debug`).
 
 For example:
 
