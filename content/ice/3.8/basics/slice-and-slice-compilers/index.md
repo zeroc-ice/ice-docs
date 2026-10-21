@@ -28,22 +28,17 @@ specific programming language, such as C++, Java, or C#.
 
 ## Slice Compilers
 
-The Slice definitions are compiled by a compiler into an API for a specific programming language, that is, the part of
-the API that is specific to the interfaces and types you have defined consists of generated code.
+A Slice compiler uses your Slice definitions to generate code for one programming language. For each Slice interface,
+this generated code includes the proxy code that a client uses to call the interface's operations and the skeleton code
+that a server implements; for each Slice type, it includes the corresponding type in that language.
 
-The rules that govern how each Slice construct is translated into a specific programming language are known as
-_**language mappings**_. For example, for the C++ mapping, a Slice sequence appears as a `std::vector`, whereas, for the
-Java mapping, a Slice sequence appears as a Java array. In order to determine what the API for a specific Slice
-construct looks like, you only need the Slice definition and knowledge of the language mapping rules. The rules are
-simple and regular enough to make it unnecessary to read the generated code to work out how to use the generated API.
+The rules that govern how each Slice construct maps to a programming language are collectively known as a _**language
+mapping**_. For example, the C++ mapping maps a Slice sequence to a `std::vector`, whereas the Java mapping maps it to a
+Java array. With the Slice definition and the mapping rules, you know what the generated API looks like without reading
+the generated code.
 
-Of course, you are free to peruse the generated code. However, as a rule, that is inefficient because the generated code
-is not necessarily suitable for human consumption. We recommend that you familiarize yourself with the language mapping
-rules; that way, you can mostly ignore the generated code and need to refer to it only when you are interested in some
-specific detail.
-
-Currently, Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift and, for the client side, MATLAB,
-PHP and Ruby.
+Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift, and, for the client side, MATLAB, PHP, and
+Ruby.
 
 ## See Also
 
