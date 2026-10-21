@@ -61,14 +61,6 @@ main(int argc, char* argv[])
 }
 ```
 
-The `CommunicatorHolder` constructor also accepts the arguments of `Ice::initialize`, such as `argc` and `argv`, and
-creates the communicator itself:
-
-```cpp
-Ice::CommunicatorHolder communicatorHolder{argc, argv};
-Ice::CommunicatorPtr communicator = communicatorHolder.communicator();
-```
-
 ### Explicit Lifetime Management
 
 Without a `CommunicatorHolder`, your application calls `destroy` in every path, including when it throws an exception:
