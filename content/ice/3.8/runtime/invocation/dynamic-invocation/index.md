@@ -22,9 +22,11 @@ for the target interface, uses `ice_invoke`.
 
 ### Operation Mode
 
-The Ice runtime sends the operation mode with the request, and uses it to decide whether it can
-[retry](../automatic-retries) an invocation that fails after the request was sent. Pass `Idempotent` when you know the
-operation is idempotent, or when you forward a request that arrived with this mode.
+The operation mode is `Idempotent` for a Slice operation declared
+[idempotent](../../../slice/operations#idempotent-operations), and `Normal` otherwise. The Ice runtime uses this mode to
+decide whether it can [retry](../automatic-retries#automatic-retries-for-idempotent-operations) an invocation that fails
+after the request was sent, and sends the mode with the request. Pass `Idempotent` when you know the operation is
+idempotent, or when you forward a request that arrived with this mode.
 
 ## Marshaling the In-Parameters
 
@@ -65,9 +67,11 @@ the batch.
 ## Forwarding Requests
 
 An application can forward the requests that its object adapter receives with `ice_invoke`, without unmarshaling their
-parameters. The forwarding code takes the encapsulation of the in-parameters from the incoming request, calls
-`ice_invoke` on the target proxy with the operation name, mode, and context of the incoming request, and builds the
-response from the success flag and the encapsulation that `ice_invoke` returns.
+parameters. The forwarding code passes the encapsulation of the in-parameters from the incoming request to `ice_invoke`
+on the target proxy, and builds the response from the success flag and the encapsulation that `ice_invoke` returns. The
+operation name, mode and [context](../request-contexts) of the outgoing request are the forwarder's to set: a forwarder
+usually passes on those of the incoming request, and an intermediary such as Glacier2 adds or removes context entries
+along the way.
 
 {% language-section name="forwarding-requests" /%}
 
