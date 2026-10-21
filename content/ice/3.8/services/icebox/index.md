@@ -7,19 +7,18 @@ pages:
   - icebox-administration
 ---
 
-IceBox hosts Ice application services in a server process. You implement each service as a dynamically loadable
-component, and you configure with properties which services the IceBox server loads and manages. You can also administer
-an IceBox server remotely. IceBox is available in C++, C# and Java.
+An IceBox server hosts IceBox services. You implement each service as a dynamically loadable component, and the IceBox
+server loads the services that its properties list. You can also administer an IceBox server remotely. You write IceBox
+services in C++, C# or Java.
 
 This architecture offers several advantages:
 
 - You compose an application from services by configuration, not by compiling and linking. Because a service does not
   depend on the server that hosts it, you can combine services in one IceBox server or separate them as needed.
-- Multiple Java services can be active in a single instance of a Java Virtual Machine (JVM). This conserves operating
-  system resources compared with running each service as a separate server in its own JVM.
-- Services loaded by the same IceBox server can be configured to take advantage of Ice's
-  [collocation optimizations](../../runtime/collocated-invocation-and-dispatch). For example, if one service is a client
-  of another service, and those services reside in the same IceBox server, then invocations between them can be
-  optimized.
+- Several services share one process, and in Java and C# one Java Virtual Machine or .NET runtime, which conserves
+  operating system resources compared with running each service as a separate server.
+- Services that use a [shared communicator](./configuring-icebox-services#using-a-shared-communicator) take advantage of
+  Ice's [collocation optimizations](../../runtime/collocated-invocation-and-dispatch): an invocation from one of these
+  services to another is a collocated invocation.
 - IceBox support is [integrated into IceGrid](../icegrid/icebox-integration-with-icegrid), the server activation and
   deployment service.
