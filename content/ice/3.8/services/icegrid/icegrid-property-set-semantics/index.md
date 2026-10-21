@@ -5,7 +5,7 @@ title: IceGrid Property Set Semantics
 Ice servers and clients are configured with [properties](../../../runtime/properties-and-configuration). For servers
 [deployed](../using-icegrid-deployment) with IceGrid, these properties are automatically generated into a configuration
 file from the information contained in the application descriptor. The settings in that configuration file are passed to
-server via the [--Ice.Config](../../../property-reference/ice-properties) command-line option.
+the server via the [--Ice.Config](../../../property-reference/ice-properties) command-line option.
 
 [Property descriptors](../icegrid-xml-reference/properties-descriptor-element) allow you to define property sets to
 efficiently manage and specify properties. Here are some of the benefits of using property sets:
@@ -16,19 +16,19 @@ efficiently manage and specify properties. Here are some of the benefits of usin
 - You can specify properties for a specific [server](../icegrid-xml-reference/server-instance-descriptor-element) or
   [service](../icegrid-xml-reference/service-instance-descriptor-element) instance.
 
+## Defining and Referencing Property Sets
+
 There are two kinds of property sets:
 
-- Named property sets Named property sets are defined at the application or node level. They are useful only as the
-  target of references from other property sets. Specifically, a named property set has no effect unless you reference
-  it from a [server](../icegrid-xml-reference/server-descriptor-element) descriptor.
+- Named property sets are defined at the application or node level. A named property set has no effect unless another
+  property set references it.
 
-- Unnamed property sets Unnamed property sets can be defined in
-  [server](../icegrid-xml-reference/server-descriptor-element),
+- Unnamed property sets are defined in a [server](../icegrid-xml-reference/server-descriptor-element),
   [service](../icegrid-xml-reference/service-descriptor-element),
   [icebox](../icegrid-xml-reference/icebox-descriptor-element),
   [server-instance](../icegrid-xml-reference/server-instance-descriptor-element) or
-  [service-instance](../icegrid-xml-reference/service-instance-descriptor-element) elements and define the properties
-  for a server or service. Unnamed property sets can reference named property sets.
+  [service-instance](../icegrid-xml-reference/service-instance-descriptor-element) element and define the properties of
+  that server or service. Unnamed property sets can reference named property sets.
 
 Named and unnamed property sets are defined with the same
 [properties](../icegrid-xml-reference/properties-descriptor-element) descriptor. The context and the attributes of a
@@ -76,6 +76,8 @@ previous example, to reference the `Debug` property set, we would write the foll
 </application>
 ```
 
+## Override Order
+
 Property sets, whether named or unnamed, are evaluated as follows:
 
 1. Within a `properties` element, IceGrid locates all references to named property sets and evaluates all property
@@ -108,6 +110,11 @@ example, the following two property sets are not equivalent:
     <properties refid="Ref1"/>
 </properties>
 ```
+
+If `Ref1` sets `Prop` to `1` and `Ref2` sets `Prop` to `2`, the first property set yields `Prop=2` and the second yields
+`Prop=1`: the property set referenced last wins.
+
+## Variable Scope
 
 Named property sets are evaluated at the point of definition. If you reference other property sets or use variables in a
 named property set definition, you must make sure that the referenced property sets or variables are defined in the same
@@ -144,9 +151,10 @@ However, the following example is wrong because the `${level}` variable is not d
 If both the `application` and the `node` define the `${level}` variable, the value of the `${level}` variable in the
 `DebugApp` property set will be the value of the variable defined in the application descriptor.
 
-So far, we have seen the definition of an unnamed property set only in a server descriptor. However, it is also possible
-to define an unnamed property set for server or service instances. This is a good way to specify or override properties
-specific to a server or service instance. For example:
+## Customizing a Template Instance
+
+You can also define an unnamed property set for server or service instances. This is a good way to specify or override
+properties specific to a server or service instance. For example:
 
 ```xml
 <application name="TheApp">
@@ -186,7 +194,7 @@ properties of a server or service template instance. It might not always be obvi
 use a parameter to parameterize a given property or is it better to just specify it in the server or service instance
 property set?
 
-For example, in the previous descriptor, we could have used a parameter with a default value for the `Timeout` property:
+For example, in the descriptor above, we could have used a parameter with a default value for the `Timeout` property:
 
 ```xml
 <application name="TheApp">
