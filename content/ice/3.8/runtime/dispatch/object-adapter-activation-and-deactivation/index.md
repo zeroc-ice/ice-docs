@@ -1,6 +1,13 @@
 ---
 title: Object Adapter Activation and Deactivation
 sidebarLabel: Activation and Deactivation
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 ---
 
 ## Activation
@@ -21,8 +28,8 @@ over these connections.
 
 {% callout type="note" %}
 
-The distinction `Holding` vs Active `applies` only to requests dispatched through endpoints configured on the object
-adapter. It does not apply to requests received from
+The distinction between `Holding` and `Active` applies only to requests dispatched through endpoints configured on the
+object adapter. It does not apply to requests received from
 [bidirectional connections](../../connection-management/bidirectional-connections), nor does it apply to
 [collocated dispatches](../../collocated-invocation-and-dispatch).
 
@@ -39,19 +46,22 @@ object adapter will deactivate and destroy this object adapter for you.
 Nevertheless, in some cases, you may want to deactivate and destroy an object adapter explicitly using the following
 methods:
 
-- `deactivate` The `deactivate` method initiates deactivation of the adapter: requests that arrive after calling
-  `deactivate` are rejected, but currently executing requests are allowed to complete. Once all requests have completed,
-  the adapter enters the `Inactive` state. Note that `deactivate` returns immediately without waiting for the currently
-  executing requests to complete. A deactivated adapter cannot be reactivated; you can create a new adapter with the
-  same name, but only after calling `destroy` on the existing adapter. Any attempt to use a deactivated object adapter
-  results in an `ObjectAdapterDeactivatedException`. During deactivation, the association with bidirectional connections
-  (if any) is cleared. Deactivation also makes the adapter ineligible for collocated dispatches.
+- `deactivate` The `deactivate` method initiates deactivation of the adapter: the adapter stops accepting connections
+  and closes the connections it accepted. Requests that arrive over these connections after calling `deactivate` are not
+  dispatched, but currently executing requests are allowed to complete. Once all requests have completed, the adapter
+  enters the `Inactive` state. `deactivate` does not wait for the currently executing requests to complete. A
+  deactivated adapter cannot be reactivated: calling `activate` throws `ObjectAdapterDeactivatedException`. You can
+  create a new adapter with the same name, but only after calling `destroy` on the existing adapter. Until you destroy
+  it, a deactivated adapter keeps dispatching requests received over
+  [bidirectional connections](../../connection-management/bidirectional-connections) and
+  [collocated invocations](../../collocated-invocation-and-dispatch).
 - `waitForDeactivate` The `waitForDeactivate` method suspends the calling thread until the adapter has completed its
   transition to the `Inactive` state, that is, until all currently executing requests have completed.
 - `destroy` The `destroy` method deactivates the adapter and releases all of its resources. Internally, `destroy`
   invokes `deactivate` followed by `waitForDeactivate`, therefore the method blocks until all currently executing
-  requests have completed. Furthermore, any servants associated with the adapter are destroyed, all transport endpoints
-  are closed, and the adapter's name becomes available for reuse.
+  requests have completed. Furthermore, the adapter removes all its servants, all transport endpoints are closed, and
+  the adapter's name becomes available for reuse. Creating a proxy with a destroyed adapter throws
+  `ObjectAdapterDestroyedException`.
 
 ## See Also
 

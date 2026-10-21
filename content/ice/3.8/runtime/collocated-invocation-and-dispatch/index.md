@@ -9,97 +9,68 @@ languages:
   - swift
 ---
 
-## Overview
+An invocation is _collocated_ when the proxy and the object adapter that holds the target servant belong to the same
+communicator. By default, Ice dispatches a collocated invocation directly to that object adapter instead of sending it
+over a connection, which avoids the cost of the transport. This is the _collocation optimization_. An invocation between
+two communicators is not collocated, even when both communicators are in the same process.
 
-The Ice runtime is _location transparent_: the client does not need to know where the implementation of an Ice object
-resides; an invocation on an object is automatically directed to the correct target, whether the object is implemented
-in the same process, in another process on the same machine, or in a process on a remote machine. Location transparency
-is important because it allows us to change the location of an object implementation without breaking client programs
-and, by using a location service such as [IceDiscovery](../../plugins/icediscovery) or
-[IceGrid](../../services/icegrid), addressing information such as host names and port numbers can be externalized so
-they do not appear in stringified proxies.
+## When Ice Uses Collocation Optimization
 
-## Collocated Invocations
+Ice decides whether a proxy's invocations are collocated based on the kind of proxy:
 
-For invocations that cross communicator boundaries, the Ice runtime dispatches requests via the appropriate transport.
-However, for a proxy invocation in which the proxy and the servant that processes the invocation share the same
-communicator (so-called _collocated_ invocations), the Ice runtime, by default, does not send the invocation via the
-transport specified in the proxy. Instead, collocated invocations take a short-cut inside the Ice runtime and are
-dispatched more efficiently.
+- For an [indirect proxy](../../basics/terminology#indirect-proxies) with an adapter ID, Ice uses collocation
+  optimization if the proxy's adapter ID matches the adapter ID or replica group ID of an object adapter in the same
+  communicator.
+- For a [well-known proxy](../invocation/proxy-endpoints/well-known-proxy), Ice checks the Active Servant Map of each
+  object adapter to determine whether the servant is local.
+- For a [direct proxy](../../basics/terminology#direct-proxies), Ice performs an endpoint search using the proxy's
+  endpoints.
 
-{% callout type="note" %}
+During an endpoint search, Ice compares each of the proxy's endpoints with the
+[published endpoints](../dispatch/object-adapter-endpoints#published-object-adapter-endpoints) of the communicator's
+object adapters. Two endpoints match when they have the same transport, host and port; other attributes of an endpoint
+are not considered. Ice compares hosts as strings, without resolving them: a proxy with the endpoint
+`tcp -h localhost -p 4061` does not match an object adapter that publishes `tcp -h server.example.com -p 4061`. Ice
+excludes datagram (UDP) endpoints from this search.
 
-Note that if the proxy and the servant do not use the same communicator, the invocation is _not_ collocated, even though
-caller and callee are in the same process.
-
-{% /callout %}
-
-The reason for this is if collocated invocations were sent via TCP/IP, for example, invocations would still be sent via
-the operating system kernel and would incur the full cost of creating TCP/IP connections, trapping in and out of the
-kernel, and so on. By optimizing collocated requests, much of this overhead can be avoided.
-
-For efficiency reasons, collocated invocations are not completely location transparent, that is, a collocated call has
-semantics that differ in some ways from calls that cross communicator boundaries. Specifically, collocated invocations
-differ from ordinary invocations in the following respects:
-
-- Most collocated invocations are dispatched in the server-side thread pool just like regular invocations; the only
-  exceptions are synchronous twoway collocated invocations with no invocation timeout, which are dispatched in the
-  calling thread.
-- The object adapter holding state is ignored: collocated invocations proceed normally even if the target object's
-  adapter is in the holding state.
-- AMI callbacks for asynchronous collocated invocations are dispatched from the servant's calling thread and not from
-  the client-side thread pool unless AMD is used for the servant dispatch. In this case, the AMI callback is called from
-  the client-side thread pool.
-
-In practice, these differences rarely matter.
-
-The Ice runtime uses the following semantics to determine whether a proxy is eligible for the collocated optimization:
-
-- For an indirect proxy, collocation optimization is used if the proxy's adapter ID matches the adapter ID or replica
-  group ID of an object adapter in the same communicator.
-- For a [well-known proxy](../invocation/proxy-endpoints/well-known-proxy), the Ice runtime queries each object adapter
-  Active Servant Map to determine if the servant is local.
-- For a direct proxy, the Ice runtime performs an endpoint search using the proxy's endpoints.
-
-When an endpoint search is required, the Ice runtime compares each of the proxy's endpoints against the endpoints of the
-communicator's object adapters. Only the transport, address and port are considered; other attributes of an endpoint are
-not considered during this search.
-
-{% callout type="note" %}
-
-Datagram (UDP) endpoints are excluded from this search since Ice 3.8.
-
-{% /callout %}
-
-If a match is found, the invocation is dispatched using collocation optimization. Normally this search is executed only
-once, during the proxy's first invocation, although the proxy's
+Ice normally makes this decision once, during the proxy's first invocation, although the proxy's
 [connection caching](../connection-management/connection-establishment) setting influences this behavior.
 
-Collocation optimization is enabled by default, but you can disable it for all proxies by setting the property
-[Ice.Default.CollocationOptimized=0](../../property-reference/ice-default-properties). You can also disable the
-optimization for an individual proxy using the factory method `ice_collocationOptimized(false)`. Finally, for proxies
+## Disabling Collocation Optimization
+
+Collocation optimization is enabled by default. You can disable it for all proxies by setting
+[Ice.Default.CollocationOptimized=0](../../property-reference/ice-default-properties), or for an individual proxy with
+the factory method `ice_collocationOptimized(false)`. For proxies
 [created from a property](../invocation/creating-proxies) using `propertyToProxy`, the property
 [_name_.CollocationOptimized](../../property-reference/proxy-properties#name.collocationoptimized) configures the
 default setting for the proxy.
 
+## Differences from Invocations over a Connection
+
+A collocated invocation differs from an invocation sent over a connection in the following respects:
+
+- Ice dispatches most collocated invocations in the server-side thread pool, like invocations received over a
+  connection. The exception is a synchronous twoway collocated invocation with no invocation timeout, which Ice
+  dispatches in the calling thread.
+- Ice ignores the holding state of the object adapter: a collocated invocation proceeds normally even if the target
+  object's adapter is in the holding state.
+- Ice calls the AMI callback of an asynchronous collocated invocation from the thread that dispatches the servant, not
+  from the client-side thread pool, unless the servant uses AMD. In that case, Ice calls the AMI callback from the
+  client-side thread pool.
+
 ## Creating an Object Adapter for Collocated Invocations
 
-An object adapter requires no endpoints if its only purpose is to dispatch collocated requests. You can create a
-"collocated-only" object adapter by calling `createObjectAdapter` with an empty name.
+An object adapter needs no endpoints if its only purpose is to dispatch collocated requests. You can create one by
+calling `createObjectAdapter` with an empty name. Ice reads no properties for an object adapter created this way, so you
+cannot configure it with properties.
 
-Normally Ice requires an object adapter to either have endpoints or be configured with a router, but Ice relaxes this
-restriction when the name is empty. Note however that this means collocated-only object adapters cannot be configured
-using properties.
-
-Proxies created by a collocated-only object adapter contain no endpoints, which essentially makes them well-known
-proxies. When the program makes its initial invocation on such a proxy, Ice searches every local object adapter for a
-servant with an identity matching that of the proxy. For Ice to successfully find the collocated servant, it must be
-present in the object adapter's [active servant map](../dispatch/active-servant-map). Default servants and servant
-locators are not queried in this situation.
+Proxies created by such an object adapter contain no endpoints, which essentially makes them well-known proxies. When
+the program makes its initial invocation on such a proxy, Ice searches every local object adapter for a servant with an
+identity matching that of the proxy. For Ice to successfully find the collocated servant, it must be present in the
+object adapter's [active servant map](../dispatch/active-servant-map). Default servants and servant locators are not
+queried in this situation.
 
 ## See Also
 
-- [IceDiscovery](../../plugins/icediscovery)
-- [IceGrid](../../services/icegrid)
 - [Connection Establishment](../connection-management/connection-establishment)
 - [Obtaining Proxies](../invocation/creating-proxies)

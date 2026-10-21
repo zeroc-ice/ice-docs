@@ -55,7 +55,7 @@ Here are rules that the Ice runtime applies when parsing a stringified identity:
    identity, respectively; if no such slash character can be found, the entire string is parsed as the `name` field of
    the identity, and the `category` field is the empty string.
 2. Each of the `category` (if present) and `name` substrings are parsed like
-   [Slice String Literals](../../slice/constants-and-literals), except that an escaped slash character (`\/)` is
+   [Slice String Literals](../../slice/constants-and-literals), except that an escaped slash character (`\/`) is
    converted into a simple slash (`/`).
 
 ## Identity Helper Functions

@@ -19,7 +19,7 @@ protocol followed by an optional host name and port.
 {% callout type="note" %}
 
 Despite the name of the property and the name of the method, we recommend you always configure your object adapter with
-a **single endpoint.**Specifying multiple endpoints, while possible, does not provide any real benefit.
+a **single endpoint.** Specifying multiple endpoints, while possible, does not provide any real benefit.
 
 {% /callout %}
 

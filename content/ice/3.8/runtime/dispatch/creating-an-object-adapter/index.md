@@ -1,5 +1,12 @@
 ---
 title: Creating an Object Adapter
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 ---
 
 You create an object adapter by calling `createObjectAdapter` on your communicator. For example:
@@ -32,7 +39,7 @@ object adapter will check the communicator's configuration for
   proxy of a router
 
 If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
-is on your communicator. For example:
+on your communicator. For example:
 
 {% language-section name="see-also-2" /%}
 
