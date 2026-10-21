@@ -48,8 +48,8 @@ greeting = greeter.greet("Alice")  # Get name via RPC
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
-operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Any operation invocation may raise a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also raise [user exceptions](../../runtime/local-and-dispatch-exceptions).
 Suppose we have the following simple interface:
 
 ```slice
@@ -64,7 +64,7 @@ interface Child
 }
 ```
 
-Slice exceptions are thrown as Ruby exceptions, so you can simply enclose one or more operation invocations in a
+Slice exceptions are raised as Ruby exceptions, so you can simply enclose one or more operation invocations in a
 `begin-rescue` block:
 
 ```ruby

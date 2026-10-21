@@ -26,8 +26,8 @@ module M
 
 ### `Ice::loadSlice` Options in Ruby
 
-The `Ice::loadSlice` method behaves like a Slice compiler in that it accepts command-line arguments for specifying
-preprocessor options and controlling code generation. The arguments must include at least one Slice file.
+The `Ice::loadSlice` method accepts command-line arguments in the same form as the Slice compiler. The arguments must
+include at least one Slice file.
 
 The function has the following Ruby definition:
 

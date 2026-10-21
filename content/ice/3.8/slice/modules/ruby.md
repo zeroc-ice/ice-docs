@@ -47,8 +47,8 @@ module Time
 }
 ```
 
-The generated code defines `Remote::Clock` but not `Remote`, which your application must define before it loads the
-generated code.
+The generated code opens this module as `module ::Remote::Clock`, so your application must define the module `Remote`
+before it loads the generated code.
 
 You can only use `ruby:identifier` on a module with a simple name - this metadata directive is not compatible with the
 nested module syntax.

@@ -20,7 +20,7 @@ example, we can remap `Greeter` to `Receptionist` as follows:
 interface Greeter { ... }
 ```
 
-The resulting Ruby class is `ReceptionistPrx`. The mapping keeps the case of an identifier set with `ruby:identifier`.
+The resulting Ruby class is `ReceptionistPrx`. The mapping uses an identifier set with `ruby:identifier` as is.
 
 {% callout type="warning" %}
 
