@@ -36,7 +36,7 @@ the client receives the endpoint information _after_ the server is ready to rece
 
 ## Requirements for Server Activation
 
-In order to use on-demand activation for an object adapter, the adapter must have an identifier and be entered in the
+In order to use on-demand activation for an object adapter, the adapter must have an adapter ID and be entered in the
 IceGrid registry.
 
 When using session activation mode, IceGrid requires that the server be
@@ -146,8 +146,8 @@ Servers must be [properly configured](../../../runtime/locators/locator-configur
 endpoint registration. It should be noted however that IceGrid simplifies the configuration process in two ways:
 
 - The IceGrid [deployment facility](../using-icegrid-deployment) automates the creation of a
-  [configuration file](../getting-started-with-icegrid) for the server, including the definition of object adapter
-  identifiers and endpoints.
+  [configuration file](../getting-started-with-icegrid) for the server, including the definition of adapter IDs and
+  endpoints.
 - A server that is activated automatically by an IceGrid node does not need to explicitly configure a proxy for the
   locator because the IceGrid node defines it in the server's configuration file.
 

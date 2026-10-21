@@ -61,7 +61,7 @@ following information:
 
 - Replica groups A _replica group_ is the term for a collection of
   [replicated object adapters](../object-adapter-replication). An application can create any number of replica groups.
-  Each group requires a unique identifier.
+  Each group requires a unique ID.
 
 - Nodes An application must assign its servers to one or more nodes.
 
@@ -69,7 +69,7 @@ following information:
   adapters it creates.
 
 - Object adapters Information about an object adapter includes its endpoints and any well-known objects it advertises.
-  If the object adapter is a member of a replica group, it must also supply that group's identifier.
+  If the object adapter is a member of a replica group, it must also supply that group's ID.
 
 - Objects A [_well-known object_](../well-known-objects) is one that is known solely by its identity. The registry
   maintains a global list of such objects for use during locate requests.

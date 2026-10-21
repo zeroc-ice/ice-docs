@@ -14,8 +14,8 @@ s = str(greeter)
 ```
 
 `ice_toString` stringifies non-printable ASCII characters and non-ASCII characters in the proxy's identity, facet and
-object adapter ID as specified through the
-[Ice.ToStringMode](../../../property-reference/ice-properties#ice.tostringmode) property.
+adapter ID as specified through the [Ice.ToStringMode](../../../property-reference/ice-properties#ice.tostringmode)
+property.
 
 {% /language-section %}
 

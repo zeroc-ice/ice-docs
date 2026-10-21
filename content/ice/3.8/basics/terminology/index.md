@@ -109,9 +109,8 @@ the server; the identity of the object is sent to the server with each request m
 ## Indirect Proxies
 
 An _indirect proxy_ has two forms. It may provide only an object's identity, or it may specify an identity together with
-an object adapter identifier. An object that is accessible using only its identity is called a well-known object, and
-the corresponding proxy is a [well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy). For example,
-the string:
+an adapter ID. An object that is accessible using only its identity is called a well-known object, and the corresponding
+proxy is a [well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy). For example, the string:
 
 ```text
 SimplePrinter
@@ -120,7 +119,7 @@ SimplePrinter
 is a [valid proxy for a well-known object](../../runtime/invocation/proxy-endpoints/well-known-proxy) with the identity
 `SimplePrinter`.
 
-An indirect proxy that includes an object adapter identifier has the stringified form
+An indirect proxy that includes an adapter ID has the stringified form
 
 ```text
 SimplePrinter@PrinterAdapter
@@ -131,16 +130,16 @@ well-known object.
 
 Notice that an indirect proxy contains no addressing information. To determine the correct server, the client-side
 runtime passes the proxy information to a [location service](../../runtime/locators). In turn, the location service uses
-the object identity or the object adapter identifier as the key in a lookup table that contains the address of the
-server and returns the current server address to the client. The client-side runtime now knows how to contact the server
-and dispatches the client request as usual.
+the object identity or the adapter ID as the key in a lookup table that contains the address of the server and returns
+the current server address to the client. The client-side runtime now knows how to contact the server and dispatches the
+client request as usual.
 
 The entire process is similar to the mapping from Internet domain names to IP address by the Domain Name Service (DNS):
 when we use a domain name, such as `zeroc.com`, to look up a web page, the host name is first resolved to an IP address
 behind the scenes and, once the correct IP address is known, the IP address is used to connect to the server. With Ice,
-the mapping is from an object identity or object adapter identifier to a transport-address pair, but otherwise very
-similar. The client-side runtime knows how to contact the location service via configuration (just as web browsers know
-which DNS server to use via configuration).
+the mapping is from an object identity or adapter ID to a transport-address pair, but otherwise very similar. The
+client-side runtime knows how to contact the location service via configuration (just as web browsers know which DNS
+server to use via configuration).
 
 ## Direct Versus Indirect Binding
 
@@ -196,11 +195,11 @@ servers are actually running on these computers at the specified ports.
 In addition to the proxy-based replication described above, Ice supports a more useful form of replication known as
 _replica groups_ that requires the use of a [location service](../../runtime/locators).
 
-A replica group has a unique identifier and consists of any number of object adapters. An object adapter may be a member
-of at most one replica group; such an adapter is considered to be a _replicated object adapter_.
+A replica group has a unique ID and consists of any number of object adapters. An object adapter may be a member of at
+most one replica group; such an adapter is considered to be a _replicated object adapter_.
 
-After a replica group has been established, its identifier can be used in an indirect proxy in place of an adapter
-identifier. For example, a replica group identified as `PrinterAdapters` can be used in a proxy as shown below:
+After a replica group has been established, its ID can be used in an indirect proxy in place of an adapter ID. For
+example, a replica group identified as `PrinterAdapters` can be used in a proxy as shown below:
 
 ```text
 SimplePrinter@PrinterAdapters

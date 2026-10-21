@@ -8,14 +8,14 @@ languages:
   - swift
 ---
 
-A location service must know the endpoints of any [object adapter](../../dispatch) whose identifier can be used in an
+A location service must know the endpoints of any [object adapter](../../dispatch) whose adapter ID can be used in an
 indirect proxy. For example, suppose a client uses the following proxy:
 
 ```text
 Object1@PublicAdapter
 ```
 
-The communicator in the client includes the identifier `PublicAdapter` in its
+The communicator in the client includes the adapter ID `PublicAdapter` in its
 [locate request](../locator-semantics-for-clients) and expects to receive the associated endpoints. The only way the
 location service can know these endpoints is if it is given them. When you consider that an object adapter's endpoints
 may not specify fixed ports, and therefore the endpoint addresses may change each time the object adapter is activated,

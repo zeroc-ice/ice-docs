@@ -120,11 +120,11 @@ where `addr` is the value of [IceDiscovery.Address](#icediscovery.address), `por
 {% property-description %}
 
 Specifies the multiplier to apply to the latency of the first discovery request-reply for replica groups. When
-IceDiscovery receives a reply for a discovery request and this reply indicates that the adapter identifier is a replica
-group, it waits for an additional time interval for other responses from replicated servers. This time interval is based
-on the latency of the first request-reply and the latency multiplier. For example, if the first reply is received after
-15 milliseconds and the multiplier is set to `4`, IceDiscovery will wait for an additional 60 milliseconds for replies
-from other servers. If not defined, the default is `1`. `num` must be `1` or greater.
+IceDiscovery receives a reply for a discovery request and this reply indicates that the adapter ID is a replica group,
+it waits for an additional time interval for other responses from replicated servers. This time interval is based on the
+latency of the first request-reply and the latency multiplier. For example, if the first reply is received after 15
+milliseconds and the multiplier is set to `4`, IceDiscovery will wait for an additional 60 milliseconds for replies from
+other servers. If not defined, the default is `1`. `num` must be `1` or greater.
 
 {% /property-description %}
 

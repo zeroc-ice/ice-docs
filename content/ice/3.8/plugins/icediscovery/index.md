@@ -24,8 +24,8 @@ This section reviews some concepts that will help you as you learn more about Ic
 - `identityOnly` This format ([well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy)) uses only
   the object's identity.
 
-- `identity@adapterId` This format combines the object identity and an adapter identifier. This identifier can either
-  refer to a specific object adapter or a replica group.
+- `identity@adapterId` This format combines the object identity and an adapter ID. This ID can either refer to a
+  specific object adapter or a replica group.
 
 Notice that neither format includes any endpoints, such as `tcp -h somehost -p 10000`. The ability to resolve an
 indirect proxy using only symbolic information, much like a DNS lookup, helps to loosen the coupling between clients and
@@ -65,12 +65,12 @@ When a client uses an indirect proxy with an adapter ID for the first time:
 - The client plug-in waits for a reply using a
   [configurable timeout period](../../property-reference/icediscovery-properties); if it doesn't receive a reply, it
   tries again a [configurable number of times](../../property-reference/icediscovery-properties) before giving up.
-- The target server's IceDiscovery plug-in sends a reply including a template proxy and whether the requested identifier
+- The target server's IceDiscovery plug-in sends a reply including a template proxy and whether the requested adapter ID
   names a replica group.
 - The client's plug-in receives the reply and:
 
-  - if the identifier names an individual object adapter, it returns the proxy to the Ice runtime location facility.
-  - if the identifier names a replica group, it waits again for replies from other servers. The duration of the wait is
+  - if the adapter ID names an individual object adapter, it returns the proxy to the Ice runtime location facility.
+  - if the adapter ID names a replica group, it waits again for replies from other servers. The duration of the wait is
     based on the time it took to receive the first reply (the latency) and a configurable
     [latency multiplier](../../property-reference/icediscovery-properties).
 
@@ -167,7 +167,7 @@ An IceDiscovery client needs no configuration beyond [installing the plug-in](#i
 ### Configuring IceDiscovery in Servers
 
 In addition to [installing the plug-in](#installing-icediscovery) and optionally
-[configuring its addressing information](#icediscovery-property-overview), you also need to configure an identifier for
+[configuring its addressing information](#icediscovery-property-overview), you also need to configure an adapter ID for
 each of a server's object adapters that hosts well-known (discoverable) objects. For example, suppose a server creates
 an object adapter named `GreeterAdapter` and we want its objects to be discoverable. We can configure the object
 adapter's [AdapterId](../../property-reference/object-adapter-properties#adapter.adapterid) property as follows:
@@ -176,7 +176,7 @@ adapter's [AdapterId](../../property-reference/object-adapter-properties#adapter
 GreeterAdapter.AdapterId=greeterAdapterId
 ```
 
-The identifier you select must be globally unique among the servers sharing the same address and domain settings. The
+The adapter ID you select must be globally unique among the servers sharing the same address and domain settings. The
 object adapter registers its endpoints when you activate it. It must use the locator installed by IceDiscovery; an
 explicit `GreeterAdapter.Locator` property overrides the communicator's default locator.
 
@@ -208,12 +208,12 @@ From a design perspective, incorporating IceDiscovery into your application requ
   discovery, while proxies for other objects can be obtained by invoking operations on these initial objects.
 
 - How should clients refer to these well-known objects? [Indirect proxies](#indirect-proxies) for well-known objects
-  take two forms: an identity by itself, or an identity with an adapter identifier, such as factory and
+  take two forms: an identity by itself, or an identity with an adapter ID, such as factory and
   `factory@AccountAdapter`, respectively. Clearly, using only identities places a greater burden on the application to
   ensure that they are globally unique among all of the clients and servers sharing the same address and domain
-  settings. Including an object adapter identifier can help to further partition the object namespace, so that
-  `factory@AccountAdapter` and `factory@AdminAdapter` represent distinct objects without requiring artificially unique
-  identities such as `accountFactory` and `adminFactory`.
+  settings. Including an adapter ID can help to further partition the object namespace, so that `factory@AccountAdapter`
+  and `factory@AdminAdapter` represent distinct objects without requiring artificially unique identities such as
+  `accountFactory` and `adminFactory`.
 
 - Can unrelated applications share the same multicast address and port? If so, select unique domain identifiers for the
   applications and configure
@@ -222,7 +222,7 @@ From a design perspective, incorporating IceDiscovery into your application requ
 
 - Do you need replicated objects? Replicated object adapters can improve the fault tolerance of your application by
   allowing independent server processes to implement the same logical objects. Configure your servers as described
-  above, and ensure your clients resolve indirect proxies using the replica group identifiers.
+  above, and ensure your clients resolve indirect proxies using the replica group IDs.
 
 IceDiscovery provides enough flexibility to support a wide variety of application architectures. If you need additional
 functionality, consider using IceGrid.
