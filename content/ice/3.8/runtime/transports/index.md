@@ -55,8 +55,7 @@ an [EndpointInfo](api:Ice/EndpointInfo), and a connection's `getInfo` method ret
 [ConnectionInfo](api:Ice/ConnectionInfo).
 
 Each transport provides its own subclass of these two classes, with fields specific to that transport, such as the host
-and port of a TCP endpoint or the local and remote addresses of a TCP connection; the API reference of `EndpointInfo`
-and `ConnectionInfo` lists these subclasses.
+and port of a TCP endpoint or the local and remote addresses of a TCP connection.
 
 A transport that runs over another transport wraps the information of that transport: the `underlying` field holds the
 information of the transport below, and is null for the transport at the bottom of the chain. For example, the

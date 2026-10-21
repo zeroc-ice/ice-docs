@@ -32,10 +32,3 @@ IceSSL.CAs=ca_cert.pem
 ```
 
 {% /language-section %}
-
-{% language-section name="ssl-connection-information" %}
-
-The SSL connection information class is `Ice::SSLConnectionInfo`. Its `peerCertificate` attribute holds the peer's
-certificate, PEM-encoded, or an empty string when the peer did not provide a certificate.
-
-{% /language-section %}

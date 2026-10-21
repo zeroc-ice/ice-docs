@@ -91,8 +91,6 @@ presented. To get it, call `getInfo` on the connection and walk the `underlying`
 the SSL connection information itself, and for a `wss` connection, it returns a `WSConnectionInfo` whose `underlying`
 field holds the SSL connection information.
 
-{% language-section name="ssl-connection-information" /%}
-
 ## Endpoint Security Considerations
 
 You should avoid creating object adapters that include both secure and non-secure endpoints. For example, having both
