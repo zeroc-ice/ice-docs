@@ -63,5 +63,6 @@ are defined by the server.
 - [Security Considerations for Administrative Facets](../security-considerations-for-administrative-facets)
 - [Object Adapters](../../../runtime/dispatch)
 - [Creating the admin Object](../creating-the-admin-object)
+- [Using the admin Object](../using-the-admin-object)
 - [Ice.Admin.*](../../../property-reference/ice-admin-properties)
 - [IceGrid](../../../services/icegrid)

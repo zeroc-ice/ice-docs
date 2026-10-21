@@ -213,3 +213,4 @@ To observe the Ice runtime with your own instrumentation, set the `observer` mem
 - [IceMX.Metrics.\*](../../../property-reference/icemx-metrics-properties)
 - [Glacier2 Metrics](../../../services/glacier2/glacier2-metrics)
 - [IceStorm Metrics](../../../services/icestorm/icestorm-metrics)
+- [Using the admin Object](../using-the-admin-object)
