@@ -7,25 +7,18 @@ pages:
   - icebox-administration
 ---
 
-IceBox is an easy-to-use framework for Ice application services. With IceBox, services are developed as
-dynamically-loadable components that can be configured into a general purpose "super server" in whatever combinations
-are necessary. IceBox is an implementation of the Service Configurator pattern.
+An IceBox server hosts IceBox services. You implement each service as a dynamically loadable component, and the IceBox
+server loads the services that its properties list. You can also administer an IceBox server remotely. You write IceBox
+services in C++, C# or Java.
 
-A generic IceBox server replaces the typical monolithic Ice server you normally write. The IceBox server is configured
-via properties with the application-specific services it is responsible for loading and managing, and it can be
-administered remotely. There are several advantages in using this architecture:
+This architecture offers several advantages:
 
-- Composing an application consisting of various services is done by configuration, not by compiling and linking. This
-  decouples the service from the server, allowing services to be combined or separated as needed.
-- Multiple Java services can be active in a single instance of a Java Virtual Machine (JVM). This conserves operating
-  system resources when compared to running several monolithic servers, each in its own JVM.
-- Services loaded by the same IceBox server can be configured to take advantage of Ice's
-  [collocation optimizations](../../runtime/collocated-invocation-and-dispatch). For example, if one service is a client
-  of another service, and those services reside in the same IceBox server, then invocations between them can be
-  optimized.
+- You compose an application from services by configuration, not by compiling and linking. Because a service does not
+  depend on the server that hosts it, you can combine services in one IceBox server or separate them as needed.
+- Several services share one process, and in Java and C# one Java Virtual Machine or .NET runtime, which conserves
+  operating system resources compared with running each service as a separate server.
+- Services that use a [shared communicator](./configuring-icebox-services#using-a-shared-communicator) take advantage of
+  Ice's [collocation optimizations](../../runtime/collocated-invocation-and-dispatch): an invocation from one of these
+  services to another is a collocated invocation.
 - IceBox support is [integrated into IceGrid](../icegrid/icebox-integration-with-icegrid), the server activation and
   deployment service.
-
-IceBox offers a refreshing change of perspective: developers focus on writing services, not applications. The definition
-of an application changes as well; using IceBox, an application becomes a collection of discrete services whose
-composition is determined dynamically by configuration, rather than statically by the linker.
