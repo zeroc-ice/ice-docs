@@ -129,9 +129,9 @@ IceGrid supplies built-in permissions verifier objects:
   user names and password hashes. The format of the password file is the same as the format of
   [Glacier2 password files](../../glacier2/getting-started-with-glacier2#writing-a-password-file). You enable this
   verifier implementation by defining the configuration property
-  [IceGrid.Registry.CryptPasswords](../../../property-reference/icegrid-properties) with the pathname of the password
-  file. Note that this property is ignored if you specify the proxy of a permissions verifier object using
-  `IceGrid.Registry.PermissionsVerifier`.
+  [IceGrid.Registry.CryptPasswords](../../../property-reference/icegrid-properties#icegrid.registry.cryptpasswords) with
+  the pathname of the password file. Note that this property is ignored if you specify the proxy of a permissions
+  verifier object using `IceGrid.Registry.PermissionsVerifier`.
 
 You can also [implement your own permissions verifier object](../../glacier2/securing-a-glacier2-router).
 
