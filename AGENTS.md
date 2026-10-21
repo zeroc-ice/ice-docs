@@ -18,13 +18,14 @@ the conventions that recur in review.
   values follow.
 - **Name things precisely.** An operation whose return type is a proxy returns a proxy, not the Ice object or topic it
   refers to, and a servant has no proxy: the proxy is for the Ice object the servant implements. `tcp`, `ssl`, `ws`, and
-  `wss` are transports, not protocols. The members of a Slice struct are fields.
+  `wss` are transports, not protocols. The members of a Slice struct are fields. Ice marshals and unmarshals; encode and
+  decode are the words of IceRPC, and the Ice Encoding keeps its name.
 
 ## What a page leaves out
 
 - **The rule, not the failure mode.** A page says what the reader must do and what Ice does. Which exception a violation
-  throws, what Ice does with invalid input, and what happens after a misconfiguration stay out. Defaults, accepted
-  ranges, and the limits a reader hits stay.
+  throws, what Ice does with invalid input, and what happens after a misconfiguration stay out. Defaults and the limits
+  a reader hits stay.
 - **What the API reference documents.** Method-by-method lists, the exceptions a method throws, and per-method contracts
   such as "this callback must not throw" belong to the API reference; a page gives the rules it does not, and links to
   it.
@@ -61,6 +62,8 @@ the conventions that recur in review.
   as" is right here: the subject is the byte layout, not an actor.
 - **The encoding pages give no instructions to an encoder** ("must"). On the protocol pages, what each peer must do is
   the protocol itself.
+- **The protocol pages stop at the encapsulation.** What a request or reply payload holds belongs to the encoding pages;
+  the protocol page links to them from See Also only.
 
 ## Code samples
 
