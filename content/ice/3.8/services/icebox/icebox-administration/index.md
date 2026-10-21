@@ -191,12 +191,12 @@ implementation.
 The `shutdown` command stops all active services and shuts down the IceBox server.
 
 The C++ and Java utilities obtain the service manager's proxy from the property
-[IceBoxAdmin.ServiceManager.Proxy](../../../property-reference/iceboxadmin-properties), therefore this proxy must be
-defined in the program's configuration file or on the command line, and the proxy's contents depend on the server's
-configuration. If the IceBox server is deployed with IceGrid, we recommend using the IceGrid
-[administrative utilities](../../icegrid/icegridadmin-command-line-tool) instead, which provide equivalent commands for
-administering an IceBox server. Otherwise, the proxy should have the [endpoints](#enabling-the-service-manager) and
-identity configured for the server.
+[IceBoxAdmin.ServiceManager.Proxy](../../../property-reference/iceboxadmin-properties#iceboxadmin.servicemanager.proxy),
+therefore this proxy must be defined in the program's configuration file or on the command line, and the proxy's
+contents depend on the server's configuration. If the IceBox server is deployed with IceGrid, we recommend using the
+IceGrid [administrative utilities](../../icegrid/icegridadmin-command-line-tool) instead, which provide equivalent
+commands for administering an IceBox server. Otherwise, the proxy should have the
+[endpoints](#enabling-the-service-manager) and identity configured for the server.
 
 For an IceBox server configured with `Ice.Admin.Endpoints=tcp -h 127.0.0.1 -p 10001` and
 `Ice.Admin.InstanceName=IceBox`, save the following property in `admin.cfg`:

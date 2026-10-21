@@ -67,7 +67,8 @@ argument is `compact` or `sliced`: `format:compact` selects the compact format, 
 format. On an operation, the directive overrides the `format` directive of its enclosing interface.
 
 When neither an operation nor its enclosing interface selects a format, the
-[Ice.Default.SlicedFormat](../../property-reference/ice-default-properties) property selects it.
+[Ice.Default.SlicedFormat](../../property-reference/ice-default-properties#ice.default.slicedformat) property selects
+it.
 
 ### `marshaled-result`
 

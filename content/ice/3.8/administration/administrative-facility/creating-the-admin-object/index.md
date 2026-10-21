@@ -12,12 +12,12 @@ languages:
 ---
 
 The administrative facility is disabled by default. To enable it, you must set the property
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) to `1`, or leave
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) unset and specify endpoints for the `Ice.Admin`
-administrative object adapter using the property
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) to `1`, or leave
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) unset and specify endpoints for
+the `Ice.Admin` administrative object adapter using the property
 [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties). When
-[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties) is set to `0`, the administrative facility is
-disabled, and `Ice.Admin.Endpoints` is ignored.
+[Ice.Admin.Enabled](../../../property-reference/ice-admin-properties#ice.admin.enabled) is set to `0`, the
+administrative facility is disabled, and `Ice.Admin.Endpoints` is ignored.
 
 Ice creates the admin object during communicator initialization, and hosts all its
 [enabled facets](../filtering-administrative-facets) in the built-in `Ice.Admin` object adapter, when:
@@ -25,7 +25,8 @@ Ice creates the admin object during communicator initialization, and hosts all i
 - The administrative facility is enabled,
 - The [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) property specifies endpoints for the
   Ice.Admin object adapter, and
-- The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties) property is not set, or is set to `0`.
+- The [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties#ice.admin.delaycreation) property is
+  not set, or is set to `0`.
 
 Ice gives this object the identity `instance-name`/admin, where _instance-name_ is the value of the
 [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property. If
