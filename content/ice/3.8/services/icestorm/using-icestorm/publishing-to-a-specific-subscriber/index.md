@@ -2,9 +2,9 @@
 title: Publishing to a Specific Subscriber
 ---
 
-`Topic::subscribeAndGetPublisher` adds a subscriber to a topic and returns a publisher proxy for this subscriber:
-IceStorm forwards an event published through this proxy to this subscriber only. An event published through the proxy
-returned by `Topic::getPublisher` goes to all subscribers of the topic.
+`Topic::subscribeAndGetPublisher` adds a subscriber to a topic and returns a proxy to a publisher object for this
+subscriber: IceStorm forwards an event published through this proxy to this subscriber only. An event published through
+the proxy returned by `Topic::getPublisher` goes to all subscribers of the topic.
 
 This per-subscriber publisher serves a specific setup: an observed object that notifies its observers through an
 IceStorm topic, and is the only publisher on this topic. When an observer subscribes, the observed object sends it the
