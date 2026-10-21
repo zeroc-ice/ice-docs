@@ -2,43 +2,15 @@
 title: Publishing to a Specific Subscriber
 ---
 
-If you send events to the publisher object you obtain by calling `Topic::getPublisher`, the event is forwarded to all
-subscribers for that topic:
+`Topic::subscribeAndGetPublisher` adds a subscriber to a topic and returns a proxy to a publisher object for this
+subscriber: IceStorm forwards an event published through this proxy to this subscriber only. An event published through
+the proxy returned by `Topic::getPublisher` goes to all subscribers of the topic.
 
-```cpp
-IceStorm::TopicPrx topic = ...;
-auto publisher = topic->getPublisher();
-auto station = Ice::uncheckedCast<WeatherStationPrx>(publisher);
-...
-station->report(sensorId, timeStamp, reading); // Sent to all subscribers
-```
-
-You can also publish an event to a single specific subscriber, by using the return value of `subscribeAndGetPublisher`.
-For example:
-
-```cpp
-auto servant = make_shared<ConsolePrinter>();
-auto station = adapter->addWithUUID<WeatherStationPrx>(servant)->ice_oneway();
-
-IceStorm::TopicPrx topic = ...;
-
-auto pub = topic->subscribeAndGetPublisher({}, station);
-auto pubStation = Ice::uncheckedCast<WeatherStationPrx>(pub);
-
-...
-// Sent only to this subscriber
-pubStation->report(sensorId, timeStamp, reading);
-```
-
-Note that, here, we save the return value of `subscribeAndGetPublisher`. The return value is a proxy that connects
-specifically to the `WeatherStation` instance denoted by `station`. However, when the code calls `report` on that proxy,
-instead of directly invoking on the `WeatherStation` instance, the request is forwarded via IceStorm.
-
-As it stands, this code is not very interesting. After all, the call to `report` is just a round-about way for the
-subscriber to publish a message to itself. However, the subscriber can pass this subscriber-specific publisher proxy to
-another process. When that process publishes an event via the proxy, the event is sent only to the specific subscriber,
-instead of to all subscribers for the topic. In turn, this is useful if you are using the observer pattern, with all
-observers attached to an IceStorm topic.
+This per-subscriber publisher serves a specific setup: an observed object that notifies its observers through an
+IceStorm topic, and is the only publisher on this topic. When an observer subscribes, the observed object sends it the
+current state through the per-subscriber publisher, and IceStorm delivers this state like any other event, so a slow
+observer does not delay the observed object. If a slow observer is not a concern, the observed object can call the
+observer directly instead.
 
 As an example, we might have a list whose state is to be monitored by a number of observers. Updates to the list are
 published to an IceStorm topic, say, `ListUpdates`. The observers of the list subscribe with an interface such as:
@@ -78,8 +50,17 @@ informs all the subscribed observers of the change to the list. However, when an
 publish the initial state of the list on a topic that all observers subscribe to.
 
 The per-subscriber publisher returned by `subscribeAndGetPublisher` solves this nicely: the implementation of
-`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the returned proxy. IceStorm forwards this
-`init` to this observer only, through the same event queue as the `itemChange` events published on the `ListUpdates`
+`addObserver` calls `subscribeAndGetPublisher`, and then invokes `init` on the returned proxy:
+
+```cpp
+IceStorm::TopicPrx topic = ...; // The ListUpdates topic
+...
+auto pub = topic->subscribeAndGetPublisher({}, lo);
+auto observer = Ice::uncheckedCast<ListObserverPrx>(pub);
+observer->init(/* The entire state of the list */);
+```
+
+IceStorm forwards this `init` through the same event queue as the `itemChange` events published on the `ListUpdates`
 topic, in the order IceStorm receives them. The observer can therefore receive `itemChange` events published after its
 subscription but before `init`.
 
