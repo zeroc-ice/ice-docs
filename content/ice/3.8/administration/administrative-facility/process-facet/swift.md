@@ -2,9 +2,7 @@
 
 ## Obtaining the Local Process Facet
 
-We [already showed](../using-the-admin-object) how to obtain a proxy for a remote administrative facet, but suppose you
-want to interact with the facet of your own communicator directly, without a proxy. The code below shows the necessary
-steps:
+`findAdminFacet` returns the servant that implements the `Process` facet of your communicator:
 
 ```swift
 if let process = communicator.findAdminFacet("Process") as? Process {

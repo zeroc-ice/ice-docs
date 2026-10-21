@@ -53,3 +53,4 @@ the application reads them again or handles a property update callback.
 - [Properties and Configuration](../../../runtime/properties-and-configuration)
 - [Versioning](../../../versioning)
 - [IceGrid](../../../services/icegrid)
+- [Using the admin Object](../using-the-admin-object)
