@@ -14,6 +14,26 @@ the conventions that recur in review.
 - **Do not define by negation, and do not write against the text you are replacing.** "IceSSL never prompts for the
   password" answers an older claim; the reader needs only the rule that holds.
 - **Prefer the plain word.** "cannot determine the revocation status" over "an undeterminable revocation status".
+- **Lead with what it does.** Open with what the feature, directive, or option does; its scope, default, and special
+  values follow.
+- **Name things precisely.** An operation whose return type is a proxy returns a proxy, not the Ice object or topic it
+  refers to, and a servant has no proxy: the proxy is for the Ice object the servant implements. `tcp`, `ssl`, `ws`, and
+  `wss` are transports, not protocols. The members of a Slice struct are fields. Ice marshals and unmarshals; encode and
+  decode are the words of IceRPC, and the Ice Encoding keeps its name.
+
+## What a page leaves out
+
+- **The rule, not the failure mode.** A page says what the reader must do and what Ice does. Which exception a violation
+  throws, what Ice does with invalid input, and what happens after a misconfiguration stay out. Defaults and the limits
+  a reader hits stay.
+- **What the API reference documents.** Method-by-method lists, the exceptions a method throws, and per-method contracts
+  such as "this callback must not throw" belong to the API reference; a page gives the rules it does not, and links to
+  it.
+- **Implementation detail and rationale.** Describe what the reader observes, not how Ice achieves it: when a queue gets
+  trimmed, how promptly a step happens. Give the reason for a rule only when the reader needs it to apply the rule.
+- **Deprecated options, properties, and APIs**, and the warnings they produce. Do not add them; whether an existing
+  entry stays is decided case by case.
+- **Known bugs.** State the intended rule, and file the bug in a `zeroc-ice/ice` issue.
 
 ## Accuracy
 
@@ -29,7 +49,25 @@ the conventions that recur in review.
   the `Process` facet registers with the communicator's default locator; `Ice.Admin.Locator` and an admin object hosted
   in an application adapter through `createAdmin` do not qualify that sentence.
 - **Fix every copy of what you fix.** Prose is copied between the language overlays of a page and between related pages.
-  After correcting one, grep for the same sentence in the sibling overlays and fix or report those too.
+  After correcting one, grep for the same sentence in the sibling overlays and fix or report those too. Overlays that
+  state the same rule use the same wording.
+
+## Language mappings
+
+- **Leave a page out with `languages`.** When a page does not apply to a mapping, list the mappings it applies to in its
+  `languages` frontmatter. Do not add an overlay or a callout that tells the reader the page is not for them.
+- **Ice for Ruby, PHP, and MATLAB are client-only.** They have no object adapters, no dispatch, and no AMI callbacks, so
+  pages about these topics leave them out. Ice for JavaScript has no administrative facility.
+- **Say it once on the shared page.** A sentence that every overlay would repeat belongs on the shared page.
+
+## Encoding and protocol pages
+
+- **These pages define the layout**, not what the runtime does while it marshals or unmarshals. The passive "is encoded
+  as" is right here: the subject is the byte layout, not an actor.
+- **The encoding pages give no instructions to an encoder** ("must"). On the protocol pages, what each peer must do is
+  the protocol itself.
+- **The protocol pages stop at the encapsulation.** What a request or reply payload holds belongs to the encoding pages;
+  the protocol page links to them from See Also only.
 
 ## Code samples
 
@@ -42,8 +80,18 @@ the conventions that recur in review.
 
 - **Describe the behavior, not the advice.** A property entry says what the property does; what an application typically
   sets belongs in the guide that covers the feature.
+- **Boolean properties take `1` and `0`.** Say what to set, "set `Ice.UseSyslog` to `1`", and document `1` and `0` only,
+  not every value the parser accepts.
 - A table of property values gets a `| Value | Description |` header row. Without one, Markdown renders the first value
   row as the header.
+
+## Pages and pull requests
+
+- **A deleted page gets no redirect by default.** Redirect only when another page covers the topic, as
+  `content/ice/3.8/redirects.yaml` does for its removed pages, and remove the redirects that pointed to the deleted
+  page.
+- **File the follow-up you defer.** When a PR description defers part of the work to a follow-up issue, file it and link
+  it, or drop the sentence.
 
 ## Markdown
 
