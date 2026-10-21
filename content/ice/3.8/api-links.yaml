@@ -93,6 +93,13 @@ Ice/Logger:
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/logger
 Ice/ModuleToPackageSliceLoader:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ModuleToPackageSliceLoader.html
+Ice/ObjectAdapter:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter
 Ice/ObjectPrx:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html
