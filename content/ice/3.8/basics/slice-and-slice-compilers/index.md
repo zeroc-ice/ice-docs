@@ -30,15 +30,15 @@ specific programming language, such as C++, Java, or C#.
 
 A Slice compiler uses your Slice definitions to generate code for one programming language. For each Slice interface,
 this generated code includes the proxy code that a client uses to call the interface's operations and the skeleton code
-that a server implements; for each Slice type, it includes a type that carries the data.
+that a server implements; for each Slice type, it includes the corresponding type in that language.
 
 The rules that govern how each Slice construct maps to a programming language are collectively known as a _**language
 mapping**_. For example, the C++ mapping maps a Slice sequence to a `std::vector`, whereas the Java mapping maps it to a
-Java array. The Slice definition and the mapping rules tell you what the generated API looks like; you need to read the
-generated code only to check a specific detail.
+Java array. With the Slice definition and the mapping rules, you know what the generated API looks like without reading
+the generated code.
 
-Currently, Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift, and, for the client side,
-MATLAB, PHP, and Ruby.
+Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift, and, for the client side, MATLAB, PHP, and
+Ruby.
 
 ## See Also
 
