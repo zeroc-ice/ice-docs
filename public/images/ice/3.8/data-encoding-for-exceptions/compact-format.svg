@@ -10,7 +10,7 @@
   <title id="title">Compact encoding format for exceptions</title>
   <desc id="description">
     In the compact exceptions format, each slice, from the most-derived to the least-derived, contains slice flags, a
-    type ID, required members, and optional members when needed.
+    type ID, required fields, and optional fields when needed.
   </desc>
 
   <style>
@@ -76,12 +76,12 @@
   <g id="labels">
     <text class="annotation code" x="199" y="52">Slice flags (byte)</text>
     <text class="annotation code" x="199" y="96">Type ID (string)</text>
-    <text class="annotation" x="199" y="140">Required members</text>
-    <text class="annotation" x="199" y="184">Optional members (if necessary)</text>
+    <text class="annotation" x="199" y="140">Required fields</text>
+    <text class="annotation" x="199" y="184">Optional fields (if necessary)</text>
     <text class="annotation code" x="199" y="228">Slice flags (byte)</text>
     <text class="annotation code" x="199" y="272">Type ID (string)</text>
-    <text class="annotation" x="199" y="316">Required members</text>
-    <text class="annotation" x="199" y="360">Optional members (if necessary)</text>
+    <text class="annotation" x="199" y="316">Required fields</text>
+    <text class="annotation" x="199" y="360">Optional fields (if necessary)</text>
     <text class="annotation" x="199" y="404">⋮</text>
     <text class="annotation" x="555" y="117.0">Most-derived slice</text>
     <text class="annotation" x="555" y="293.0">Subsequent slices</text>

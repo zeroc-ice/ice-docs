@@ -254,7 +254,7 @@ struct S
 Suppose we create an instance of structure `S` and assign it to the variable `s`, then construct the following class
 graph:
 
-![The obj member of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7 through next.](/images/ice/3.8/class-graphs/nodes.svg)
+![The obj field of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7 through next.](/images/ice/3.8/class-graphs/nodes.svg)
 
 _Class graph with circular reference._
 
@@ -356,14 +356,14 @@ e.op(p);
 
 As far as the client is concerned, the graph looks like the one shown below:
 
-![p references an instance that references a second instance through a derived member.](/images/ice/3.8/class-graphs/sender-side-graph.svg)
+![p references an instance that references a second instance through a derived field.](/images/ice/3.8/class-graphs/sender-side-graph.svg)
 
 _Sender-side view of a graph containing derived instances._
 
 However, the server does not understand the derived part of the instances and slices them. Yet, the server unmarshals
 all the class instances, leading to the situation where the class graph has become disconnected, as shown here:
 
-![p references the first instance. The second instance remains separate after the derived member has been sliced off.](/images/ice/3.8/class-graphs/receiver-side-graph.svg)
+![p references the first instance. The second instance remains separate after the derived field has been sliced off.](/images/ice/3.8/class-graphs/receiver-side-graph.svg)
 
 _Receiver-side view of the graph_.
 

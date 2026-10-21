@@ -10,7 +10,7 @@
   <title id="title">Sliced encoding format for classes</title>
   <desc id="description">
     The sliced classes format starts with identity marker 1 and repeats slice flags, a type ID, slice size, required
-    members, optional members when needed, and an indirection table when needed for each inheritance level.
+    fields, optional fields when needed, and an indirection table when needed for each inheritance level.
   </desc>
 
   <style>
@@ -76,8 +76,8 @@
     <text class="annotation code" x="199" y="96">Slice flags (byte)</text>
     <text class="annotation code" x="199" y="140">Type ID (string or size)</text>
     <text class="annotation code" x="199" y="184">Slice size (int)</text>
-    <text class="annotation" x="199" y="228">Required members</text>
-    <text class="annotation" x="199" y="272">Optional members (if necessary)</text>
+    <text class="annotation" x="199" y="228">Required fields</text>
+    <text class="annotation" x="199" y="272">Optional fields (if necessary)</text>
     <text class="annotation" x="199" y="316">Indirection table (if necessary)</text>
     <text class="annotation" x="199" y="360">⋮</text>
     <text class="annotation" x="555" y="195.0">

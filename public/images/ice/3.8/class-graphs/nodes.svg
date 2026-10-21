@@ -9,7 +9,7 @@
 >
   <title id="title">Cyclic class graph</title>
   <desc id="description">
-    The obj member of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7
+    The obj field of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7
     through next.
   </desc>
 

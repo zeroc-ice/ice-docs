@@ -6,7 +6,7 @@ title: Data Encoding for Exceptions
 
 An exception is marshaled as shown below:
 
-![The encoding 1.0 exceptions layout starts with a uses-classes flag, followed by a type ID and member slice for each inheritance level. Optional class instances follow the exception slices.](/images/ice/3.8/data-encoding-for-exceptions/marshaling-format.svg)
+![The encoding 1.0 exceptions layout starts with a uses-classes flag, followed by a type ID and a slice of fields for each inheritance level. Optional class instances follow the exception slices.](/images/ice/3.8/data-encoding-for-exceptions/marshaling-format.svg)
 
 _Marshaling format for exceptions._
 
@@ -93,7 +93,7 @@ As of Ice 3.8, Ice always marshals exceptions in the sliced format. It can also 
 
 An exception in the compact format is marshaled as follows:
 
-![In the compact exceptions format, each slice, from the most-derived to the least-derived, contains slice flags, a type ID, required members, and optional members when needed.](/images/ice/3.8/data-encoding-for-exceptions/compact-format.svg)
+![In the compact exceptions format, each slice, from the most-derived to the least-derived, contains slice flags, a type ID, required fields, and optional fields when needed.](/images/ice/3.8/data-encoding-for-exceptions/compact-format.svg)
 
 _Compact format for exceptions._
 
@@ -103,7 +103,7 @@ type ID, encoded as a string.
 The sliced format adds a slice size to every slice, along with an optional
 [indirection table](../data-encoding-for-classes/class-graphs):
 
-![The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
+![The sliced exceptions format repeats slice flags, a type ID, slice size, required fields, optional fields when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
 
 _Sliced format for exceptions._
 
