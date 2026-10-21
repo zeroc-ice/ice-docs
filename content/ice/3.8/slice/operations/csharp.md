@@ -299,7 +299,7 @@ asynchronous proxy method, a `System.IProgress<bool>`. If you provide one, the I
 once it has sent the request. The `bool` argument (`sentSynchronously`) is true when Ice wrote the entire request to the
 local transport in the caller's thread; in this case, the Ice runtime calls `Report` from the calling thread, before the
 asynchronous proxy method returns. It is false when Ice queued the request and sent it later; the Ice runtime then calls
-`Report` from a separate thread.
+`Report` from a thread of the [thread pool](../../runtime/threading-model/thread-pools) that serves the connection.
 
 The following example allows at most 100 invocations that Ice has not sent yet. It takes a slot before invoking the
 operation, because Ice can call `Report` before `GetNameAsync` returns, and frees the slot of an invocation that fails
@@ -313,12 +313,22 @@ var tasks = new List<Task<string>>();
 for (int number = 0; number < 10_000; ++number)
 {
     await unsent.WaitAsync(); // Waits while 100 invocations are not sent yet.
-    var sentCallback = new SentCallback(unsent);
-    Task<string> task = e.GetNameAsync(number, progress: sentCallback);
-    _ = task.ContinueWith(_ => sentCallback.Release(), TaskScheduler.Default);
-    tasks.Add(task);
+    tasks.Add(GetName(number));
 }
 string[] names = await Task.WhenAll(tasks);
+
+async Task<string> GetName(int number)
+{
+    var sentCallback = new SentCallback(unsent);
+    try
+    {
+        return await e.GetNameAsync(number, progress: sentCallback);
+    }
+    finally
+    {
+        sentCallback.Release(); // Frees the slot when Ice did not send the request.
+    }
+}
 
 class SentCallback(SemaphoreSlim unsent) : IProgress<bool>
 {
@@ -326,7 +336,7 @@ class SentCallback(SemaphoreSlim unsent) : IProgress<bool>
 
     public void Report(bool sentSynchronously) => Release();
 
-    // Called from Report and when the invocation completes; only the first call frees the slot.
+    // Only the first call frees the slot.
     public void Release()
     {
         if (Interlocked.Exchange(ref _released, 1) == 0)
