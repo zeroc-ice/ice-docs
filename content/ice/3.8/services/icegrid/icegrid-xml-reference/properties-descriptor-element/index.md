@@ -12,16 +12,16 @@ A property set is useful for defining a set of [properties](../../../../runtime/
 property set) in application or node descriptors. Named property sets can be included in named or unnamed property sets
 with property set references.
 
-Each form may only be a child of the following elements:
+Each form of the element takes the attribute shown, if any, and may only be a child of the listed elements:
 
-| Form                                          | Allowed parents                                                                                                                                                                                                                                |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Named property set                            | [application](../application-descriptor-element), [node](../node-descriptor-element)                                                                                                                                                           |
-| Unnamed property set                          | [server](../server-descriptor-element), [icebox](../icebox-descriptor-element), [service](../service-descriptor-element), [server-instance](../server-instance-descriptor-element), [service-instance](../service-instance-descriptor-element) |
-| Unnamed property set with `service` attribute | [server-instance](../server-instance-descriptor-element)                                                                                                                                                                                       |
-| Reference to a named property set             | A named or unnamed property set                                                                                                                                                                                                                |
+| Form                                      | Attribute | Allowed parents                                                                                                                                                                                                                                |
+| ----------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Named property set                        | `id`      | [application](../application-descriptor-element), [node](../node-descriptor-element)                                                                                                                                                           |
+| Unnamed property set                      | None      | [server](../server-descriptor-element), [icebox](../icebox-descriptor-element), [service](../service-descriptor-element), [server-instance](../server-instance-descriptor-element), [service-instance](../service-instance-descriptor-element) |
+| Unnamed property set of an IceBox service | `service` | [server-instance](../server-instance-descriptor-element)                                                                                                                                                                                       |
+| Reference to a named property set         | `refid`   | A named or unnamed property set                                                                                                                                                                                                                |
 
-The following attributes are supported:
+The following attributes are supported; a `properties` element takes at most one of them:
 
 | **Attribute** | **Description**                                                                                                                                                                                                                                                                                                                                                                       | **Required** |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |

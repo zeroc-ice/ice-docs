@@ -5,7 +5,7 @@ title: IceGrid Property Set Semantics
 Ice servers and clients are configured with [properties](../../../runtime/properties-and-configuration). For servers
 [deployed](../using-icegrid-deployment) with IceGrid, these properties are automatically generated into a configuration
 file from the information contained in the application descriptor. The settings in that configuration file are passed to
-server via the [--Ice.Config](../../../property-reference/ice-properties) command-line option.
+the server via the [--Ice.Config](../../../property-reference/ice-properties) command-line option.
 
 [Property descriptors](../icegrid-xml-reference/properties-descriptor-element) allow you to define property sets to
 efficiently manage and specify properties. Here are some of the benefits of using property sets:
@@ -20,15 +20,15 @@ efficiently manage and specify properties. Here are some of the benefits of usin
 
 There are two kinds of property sets:
 
-- Named property sets are defined at the application or node level. They are useful only as the target of references
-  from other property sets: a named property set has no effect unless another property set references it.
+- Named property sets are defined at the application or node level. A named property set has no effect unless another
+  property set references it.
 
-- Unnamed property sets can be defined in [server](../icegrid-xml-reference/server-descriptor-element),
+- Unnamed property sets are defined in a [server](../icegrid-xml-reference/server-descriptor-element),
   [service](../icegrid-xml-reference/service-descriptor-element),
   [icebox](../icegrid-xml-reference/icebox-descriptor-element),
   [server-instance](../icegrid-xml-reference/server-instance-descriptor-element) or
-  [service-instance](../icegrid-xml-reference/service-instance-descriptor-element) elements and define the properties
-  for a server or service. Unnamed property sets can reference named property sets.
+  [service-instance](../icegrid-xml-reference/service-instance-descriptor-element) element and define the properties of
+  that server or service. Unnamed property sets can reference named property sets.
 
 Named and unnamed property sets are defined with the same
 [properties](../icegrid-xml-reference/properties-descriptor-element) descriptor. The context and the attributes of a
