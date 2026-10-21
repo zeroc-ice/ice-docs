@@ -1,7 +1,16 @@
 {% language-section name="mapping" %}
 
-A Slice identifier maps to an identical Ruby identifier, or a Ruby identifier derived from this Slice identifier. For
-example, Slice interface `Greeter` is mapped to the Ruby class `GreeterPrx`.
+A Slice identifier maps to a Ruby identifier derived from it. For example, the Slice interface `Greeter` maps to the
+Ruby class `GreeterPrx`.
+
+The mapping changes the case of the first letter of some identifiers:
+
+- It capitalizes the names of modules, interfaces, classes, exceptions, structures, enumerations, enumerators, and
+  constants, as Ruby requires for constant, class, and module names. For example, the Slice enumerator `red` maps to the
+  Ruby constant `Red`.
+- It lowercases the first letter of parameter names.
+
+Operation and field names keep their case.
 
 You can change this mapping and specify your own Ruby identifier with the `ruby:identifier` metadata directive. For
 example, we can remap `Greeter` to `Receptionist` as follows:
@@ -11,7 +20,7 @@ example, we can remap `Greeter` to `Receptionist` as follows:
 interface Greeter { ... }
 ```
 
-The resulting Ruby class is `ReceptionistPrx`.
+The resulting Ruby class is `ReceptionistPrx`. The mapping uses an identifier set with `ruby:identifier` as is.
 
 {% callout type="warning" %}
 

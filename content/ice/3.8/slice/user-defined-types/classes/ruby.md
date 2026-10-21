@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
-A Slice class maps to a Ruby class with the same name. For each Slice field, the generated class contains an instance
-variable and accessors to read and write it, just as for structures and exceptions. Consider the following class
+A Slice class maps to a Ruby class with the same name, capitalized. For each Slice field, the generated class contains
+an instance variable with read and write accessors, as for structures and exceptions. Consider the following class
 definition:
 
 ```slice
@@ -17,7 +17,7 @@ The Ruby mapping generates the following code for this definition:
 
 ```ruby
 class TimeOfDay < ::Ice::Value
-    attr_accessor :hours, :minutes, :seconds
+    attr_accessor :hour, :minute, :second
 
     def initialize(hour=0, minute=0, second=0)
         @hour = hour

@@ -108,7 +108,7 @@ widget = M::WidgetPrx.checkedCast(simple)
 ```
 
 If the target object implements the Slice interface, `checkedCast` returns a new proxy, just like `uncheckedCast`. If
-the target object doesn’t implement this interface, `checkedCast` returns nil. `checkedCast` can also throw an
+the target object doesn’t implement this interface, `checkedCast` returns nil. `checkedCast` can also raise an
 exception, for example if it cannot reach the remote object.
 
 While `checkedCast` sounds safer than `uncheckedCast` (you’re making an additional check before casting), in practice

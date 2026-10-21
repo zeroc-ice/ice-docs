@@ -24,7 +24,7 @@ PI = 3.1416
 FavoriteFruit = Fruit::Pear
 ```
 
-As you can see, each Slice constant is mapped to a Ruby constant with the same name.
+Each Slice constant maps to a Ruby constant with the same name, capitalized.
 
 Slice string literals that contain non-ASCII characters or universal character names are mapped to Ruby string literals
 with these characters by Unicode escape sequences. For example:

@@ -21,6 +21,6 @@ em[e.number] = e
 ```
 
 The Ice runtime validates the elements of a dictionary to ensure that they are compatible with the declared type; a
-`TypeError` exception is thrown if an incompatible type is encountered.
+`TypeError` exception is raised if an incompatible type is encountered.
 
 {% /language-section %}

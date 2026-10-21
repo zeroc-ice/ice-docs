@@ -48,8 +48,8 @@ greeting = greeter.greet("Alice")  # Get name via RPC
 
 ### Exception Handling
 
-Any operation invocation may throw a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
-operation has an exception specification, may also throw [user exceptions](../../runtime/local-and-dispatch-exceptions).
+Any operation invocation may raise a [runtime exception](../../runtime/local-and-dispatch-exceptions) and, if the
+operation has an exception specification, may also raise [user exceptions](../../runtime/local-and-dispatch-exceptions).
 Suppose we have the following simple interface:
 
 ```slice
@@ -64,7 +64,7 @@ interface Child
 }
 ```
 
-Slice exceptions are thrown as Ruby exceptions, so you can simply enclose one or more operation invocations in a
+Slice exceptions are raised as Ruby exceptions, so you can simply enclose one or more operation invocations in a
 `begin-rescue` block:
 
 ```ruby
@@ -156,8 +156,7 @@ p.op3(p)                                # Pass proxy
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
 
-- Zero values The corresponding Ruby method returns `void`. For the purposes of this discussion, we're not interested in
-  these operations.
+- Zero values The corresponding Ruby method returns `nil`.
 - One value The client receives a single return value, regardless of whether the Slice definition of the operation
   declared it as a return value or as an out parameter.
 - Two or more value The client receives them in the form of a _result array_. A non-`void` return value, if any, is
