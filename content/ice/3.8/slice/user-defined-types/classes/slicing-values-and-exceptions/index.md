@@ -35,7 +35,8 @@ An instance of class `C` contains the following slices, listed in order from mos
 | `B`       | `float f`    |
 | `A`       | `int i`      |
 
-A receiver that knows the most-derived type of an instance, here `C`, unmarshals all its slices. Otherwise, what the
+A receiver _knows_ a type when its [Slice loader](../slice-loaders) creates an instance of this type from its type ID. A
+receiver that knows the most-derived type of an instance, here `C`, unmarshals all its slices. Otherwise, what the
 receiver does depends on the format the sender used to marshal the instance:
 
 - **Compact format**: the receiver must know the most-derived type of the instance. If it does not, Ice throws a
@@ -46,8 +47,10 @@ receiver does depends on the format the sender used to marshal the instance:
   of the types of a class instance, Ice keeps it as an [unknown sliced value](#unknown-sliced-values), which only the
   declared type `Value` accepts.
 
-An exception follows the sliced-format rule: the receiver slices it down to the most-derived exception type it knows,
-and Ice throws a `MarshalException` if the receiver knows none of its types.
+These rules also apply to an exception, where the declared type is the operation's
+[exception specification](../../../exceptions#exception-specification-in-operations): after slicing, the exception must
+be one of the declared exceptions or derive from one; otherwise, Ice throws an `UnknownUserException`. If the receiver
+knows none of the exception's types, Ice throws a `MarshalException`.
 
 ## Slice Formats
 
