@@ -138,65 +138,108 @@ view that you disable lose the metrics they recorded.
 ## Metrics Attributes
 
 The `GroupBy`, `Accept` and `Reject` properties are specified using attributes that are specific to each metrics map.
-The table below describes the attributes supported by the Ice runtime's metrics maps.
+The tables below describe the attributes supported by the Ice runtime's metrics maps, grouped by what they describe.
 
-| **Name**           | **Maps**                                                              | **Description**                                                                                                                                      |
-| ------------------ | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id                 | All                                                                   | A unique identifier to select the instrumented object.                                                                                               |
-| parent             | All                                                                   | The parent of the instrumented object.                                                                                                               |
-| none               | All                                                                   | The none attribute is a special attribute that evaluates to the empty string.                                                                        |
-| endpoint           | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The stringified endpoint.                                                                                                                            |
-| endpointType       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint numerical type, as defined in `Ice/EndpointTypes.ice`.                                                                                  |
-| endpointIsDatagram | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint is a datagram endpoint.                                                                                         |
-| endpointIsSecure   | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint is secure.                                                                                                      |
-| endpointCompress   | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | A boolean indicating if the endpoint requires compression.                                                                                           |
-| endpointHost       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint host.                                                                                                                                   |
-| endpointPort       | Connection, Dispatch, Remote, ConnectionEstablishment, EndpointLookup | The endpoint port.                                                                                                                                   |
-| connection         | Dispatch                                                              | The connection description, provided by Ice for C++ and the language mappings built on it.                                                           |
-| incoming           | Connection, Dispatch, Remote                                          | A boolean where true indicates an incoming (server) connection and false an outgoing (client) connection.                                            |
-| adapterName        | Connection, Dispatch, Remote                                          | If the connection is a server connection, adapterName returns the name of the adapter that created the connection, otherwise it is the empty string. |
-| connectionId       | Connection, Dispatch, Remote                                          | The ID of the connection if one is set, otherwise it is the empty string.                                                                            |
-| localHost          | Connection, Dispatch, Remote                                          | The connection's local address.                                                                                                                      |
-| localPort          | Connection, Dispatch, Remote                                          | The connection's local port.                                                                                                                         |
-| remoteHost         | Connection, Dispatch, Remote                                          | The connection's remote address.                                                                                                                     |
-| remotePort         | Connection, Dispatch, Remote                                          | The connection's remote port.                                                                                                                        |
-| mcastHost          | Connection, Dispatch, Remote                                          | The connection's multicast address.                                                                                                                  |
-| mcastPort          | Connection, Dispatch, Remote                                          | The connection's multicast port.                                                                                                                     |
-| state              | Connection                                                            | The state of the connection.                                                                                                                         |
-| operation          | Dispatch, Invocation                                                  | The dispatched or invoked operation name.                                                                                                            |
-| identity           | Dispatch, Invocation                                                  | The identity of the Ice object used for the dispatch or invocation.                                                                                  |
-| facet              | Dispatch, Invocation                                                  | The facet of the Ice object used for the dispatch or invocation.                                                                                     |
-| mode               | Dispatch, Invocation                                                  | The dispatch or invocation mode.                                                                                                                     |
-| context*.key*      | Dispatch, Invocation                                                  | The value of the dispatch or invocation context with the given key.                                                                                  |
-| proxy              | Invocation                                                            | The proxy used for the invocation.                                                                                                                   |
-| encoding           | Invocation                                                            | The proxy encoding.                                                                                                                                  |
-| requestId          | Dispatch, Remote, Collocated                                          | The request ID of the dispatch or invocation; 0 for a oneway request.                                                                                |
+### Attributes of Every Map
 
-The `id`, `parent` and `none` attributes are supported by all maps.
+All maps support these attributes:
 
-The value of the `parent` attribute depends on the map. For the Dispatch map, it is the name of the object adapter that
-dispatches the request. For the Connection map, it is the name of the object adapter that accepted the connection, or
-"Communicator" for an outgoing connection. The Remote map uses the parent of the connection that carries the request.
-For the Invocation, Collocated, EndpointLookup, and ConnectionEstablishment maps, it is always "Communicator". For the
-Thread map, it is the name of the component that owns the thread, such as the configuration prefix of a thread pool, or
-"Communicator". The `parent` attribute enables the filtering of metrics based on the object adapter. When used with the
-`GroupBy` property it also allows you to obtain metrics at the object adapter level. For instance, the following
-configuration does not monitor any metrics for the `Ice.Admin` object adapter and it groups all the metrics based on the
-object adapter or communicator:
+| Attribute | Description                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------------- |
+| `id`      | The identifier the map computes for the instrumented object; see [Grouping Examples](#grouping-examples). |
+| `parent`  | The parent of the instrumented object; see [The parent Attribute](#the-parent-attribute).                 |
+| `none`    | A special attribute that evaluates to the empty string.                                                   |
 
-```config
-IceMX.Metrics.MyView.GroupBy=parent
-IceMX.Metrics.MyView.Reject.parent=Ice\.Admin   # Escape the dot in Ice.Admin
-```
+### Endpoint Attributes
 
-You can also use the `none` attribute to get metrics for the communicator including the metrics from object adapters,
-e.g., `IceMX.Metrics.MyView.GroupBy=none`. This provides the lowest possible level of detail as each metrics map records
-all its statistics in a single metrics object.
+The Connection, Dispatch, Remote, ConnectionEstablishment, and EndpointLookup maps support these attributes:
 
-The `id` attribute allows you to get a higher level of detail. Each map computes `id` from its instrumented object; for
-example, the id of a dispatch is the target identity followed by the operation name. If you specify
-`IceMX.Metrics.MyView.GroupBy=id`, the `Metrics` facet records the observations with the same id in the same metrics
-object.
+| Attribute            | Description                                                         |
+| -------------------- | ------------------------------------------------------------------- |
+| `endpoint`           | The stringified endpoint.                                           |
+| `endpointType`       | The endpoint numerical type, as defined in `Ice/EndpointTypes.ice`. |
+| `endpointIsDatagram` | A boolean indicating if the endpoint is a datagram endpoint.        |
+| `endpointIsSecure`   | A boolean indicating if the endpoint is secure.                     |
+| `endpointCompress`   | A boolean indicating whether the endpoint has the `-z` option.      |
+| `endpointHost`       | The endpoint host.                                                  |
+| `endpointPort`       | The endpoint port.                                                  |
+
+### Connection Attributes
+
+The Connection, Dispatch, and Remote maps support these attributes:
+
+| Attribute      | Description                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `incoming`     | A boolean indicating if the connection is an incoming connection.                                                    |
+| `adapterName`  | The name of the object adapter that accepted an incoming connection, or the empty string for an outgoing connection. |
+| `connectionId` | The ID of the connection if one is set, otherwise it is the empty string.                                            |
+| `localHost`    | The connection's local address.                                                                                      |
+| `localPort`    | The connection's local port.                                                                                         |
+| `remoteHost`   | The connection's remote address.                                                                                     |
+| `remotePort`   | The connection's remote port.                                                                                        |
+| `mcastHost`    | The connection's multicast address.                                                                                  |
+| `mcastPort`    | The connection's multicast port.                                                                                     |
+
+### Request Attributes
+
+The Dispatch and Invocation maps support these attributes:
+
+| Attribute       | Description                                                                                                                                     |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `operation`     | The dispatched or invoked operation name.                                                                                                       |
+| `identity`      | The identity of the Ice object used for the dispatch or invocation.                                                                             |
+| `facet`         | The facet of the Ice object used for the dispatch or invocation.                                                                                |
+| `mode`          | The invocation mode: `twoway`, `oneway`, `batch-oneway`, `datagram` or `batch-datagram` for an invocation; `twoway` or `oneway` for a dispatch. |
+| `context.`_key_ | The value of the dispatch or invocation context with the given key.                                                                             |
+
+The Dispatch, Remote, and Collocated maps support the `requestId` attribute: the request ID of the dispatch or
+invocation; 0 for a oneway request.
+
+### Attributes of a Single Map
+
+| Attribute    | Map        | Description                                                                                |
+| ------------ | ---------- | ------------------------------------------------------------------------------------------ |
+| `state`      | Connection | The state of the connection.                                                               |
+| `connection` | Dispatch   | The connection description, provided by Ice for C++ and the language mappings built on it. |
+| `proxy`      | Invocation | The proxy used for the invocation.                                                         |
+| `encoding`   | Invocation | The proxy encoding.                                                                        |
+
+### The `parent` Attribute
+
+The value of the `parent` attribute depends on the map:
+
+| Map                                                                 | Value of `parent`                                                                                                     |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Dispatch                                                            | The name of the object adapter that dispatches the request.                                                           |
+| Connection                                                          | The name of the object adapter that accepted the connection, or "Communicator" for an outgoing connection.            |
+| Remote                                                              | The parent of the connection that carries the request.                                                                |
+| Invocation, Collocated, EndpointLookup, and ConnectionEstablishment | Always "Communicator".                                                                                                |
+| Thread                                                              | The name of the component that owns the thread, such as the configuration prefix of a thread pool, or "Communicator". |
+
+### Grouping Examples
+
+The `GroupBy` property sets the level of detail of a map:
+
+- `GroupBy=parent` groups the metrics by object adapter or communicator. For instance, the following configuration
+  groups all the metrics this way and does not monitor any metrics for the `Ice.Admin` object adapter:
+
+  ```config
+  IceMX.Metrics.MyView.GroupBy=parent
+  IceMX.Metrics.MyView.Reject.parent=Ice\.Admin   # Escape the dot in Ice.Admin
+  ```
+
+- `GroupBy=none` records all the statistics of a map in a single metrics object, for the whole communicator:
+
+  ```config
+  IceMX.Metrics.MyView.GroupBy=none
+  ```
+
+- `GroupBy=id` records the statistics of a map in one metrics object per id. Each map computes `id` from its
+  instrumented object; for example, the id of a dispatch is the target identity followed by the operation name:
+
+  ```config
+  IceMX.Metrics.MyView.GroupBy=id
+  ```
 
 {% iflang langs="cpp,csharp,java" %}
 
