@@ -8,7 +8,7 @@ The encoding format of proxies changed in version 1.1.
 
 ### Proxy Encoding Version 1.0
 
-The first component of an encoded proxy is a value of type `Ice::Identity`. If the proxy is a nil value, the `category`
+The first component of an encoded proxy is a value of type `Ice::Identity`. If the proxy is a null value, the `category`
 and `name` fields are empty strings, and no additional data is encoded. The encoding for a non-null proxy consists of
 proxy fields followed by endpoints.
 
@@ -89,12 +89,6 @@ not both:
 - For a proxy to a [well-known object](../../services/icegrid/well-known-objects), which has neither endpoints nor an
   object adapter identifier, a single byte with value `0` immediately follows the proxy fields and an empty string is
   encoded immediately following the zero byte.
-
-Type-specific endpoint fields are encapsulated because a receiver may not be capable of decoding them. For example, a
-receiver can only decode BT endpoint fields if it is configured with the [IceBT](../../plugins/icebt) plug-in. However,
-the receiver must be able to re-encode the proxy with all of its original endpoints, in the order they were received,
-even if the receiver does not understand the type-specific fields for an endpoint. Encapsulation of the endpoint into an
-opaque endpoint allows the receiver to do this.
 
 ## Encoding for TCP Endpoints
 

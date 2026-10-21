@@ -60,8 +60,8 @@ fields. If a slice encodes its size, the size includes the optional fields.
 This flag can only be true when using the
 [sliced format](../../slice/user-defined-types/classes/slicing-values-and-exceptions). In this case, fields that refer
 to class instances are encoded as indices into an [indirection table](../data-encoding-for-classes) that immediately
-follows the slice. The slice's size does _not_ include the indirection table. This flag should only be set to true when
-there is at least one non-nil object reference in the slice, that is, when the indirection table is not empty.
+follows the slice. The slice's size does _not_ include the indirection table. This flag is true only when there is at
+least one non-null object reference in the slice, that is, when the indirection table is not empty.
 
 ### Slice Size
 
@@ -71,11 +71,11 @@ data.) The byte count indicates the number of bytes occupied by the encoding for
 does not include the size of an object indirection table, if present.
 
 A receiver can skip over a slice by reading the byte count _b_, and then discarding the next _b-4_ bytes in the input
-stream. If an object indirection table is present, the receiver must then decode the table.
+stream. If an object indirection table is present, the receiver then decodes the table.
 
 If this flag is false, it implies that the sender used the
 [compact format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) and therefore skipping slices is
-not possible. The receiver must know the most-derived type in this situation otherwise decoding will fail.
+not possible. If the receiver does not know the most-derived type in this situation, decoding fails.
 
 ### Last Slice
 

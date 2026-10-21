@@ -6,7 +6,7 @@ title: Data Encoding for Exceptions
 
 An exception is marshaled as shown below:
 
-![The encoding 1.0 exceptions layout starts with a uses-classes flag, followed by a type ID and member slice for each inheritance level. Optional class instances follow the exception slices.](/images/ice/3.8/data-encoding-for-exceptions/marshaling-format.svg)
+![The encoding 1.0 exceptions layout starts with a uses-classes flag, followed by a type ID and a slice of fields for each inheritance level. Optional class instances follow the exception slices.](/images/ice/3.8/data-encoding-for-exceptions/marshaling-format.svg)
 
 _Marshaling format for exceptions._
 
@@ -76,16 +76,6 @@ _Marshaled representation of the exception._
 Note that the size of each string is one larger than the actual string length. This is because each string is preceded
 by a count of its number of bytes, as directed by the [encoding for strings](../basic-data-encoding).
 
-The receiver of this sequence of values uses the header byte to decide whether it eventually must unmarshal any class
-instances contained in the exception (none in this example) and then examines the first type ID (`::Derived`). If the
-receiver recognizes that type ID, it can unmarshal the contents of the first slice, followed by the remaining slices;
-otherwise, the receiver reads the byte count that follows the unknown type (20) and then skips 20-4 bytes in the input
-stream, which is the start of the type ID for the second slice (`::Base`). If the receiver does not recognize that type
-ID either, it again reads the byte count following the type ID (14), skips 14-4 bytes, and attempts to read another type
-ID. (This happens when the receiver knows none of the exception's types, for example because client and server use Slice
-definitions that disagree in the exception specification of an operation.) In this case, the receiver will eventually
-encounter an unmarshaling error, which it can report with a `MarshalException`.
-
 If an exception contains class fields, these fields are marshaled following the exception slices as described in the
 [class encoding](../data-encoding-for-classes).
 
@@ -103,7 +93,7 @@ As of Ice 3.8, Ice always marshals exceptions in the sliced format. It can also 
 
 An exception in the compact format is marshaled as follows:
 
-![In the compact exceptions format, each slice, from the most-derived to the least-derived, contains slice flags, a type ID, required members, and optional members when needed.](/images/ice/3.8/data-encoding-for-exceptions/compact-format.svg)
+![In the compact exceptions format, each slice, from the most-derived to the least-derived, contains slice flags, a type ID, required fields, and optional fields when needed.](/images/ice/3.8/data-encoding-for-exceptions/compact-format.svg)
 
 _Compact format for exceptions._
 
@@ -113,7 +103,7 @@ type ID, encoded as a string.
 The sliced format adds a slice size to every slice, along with an optional
 [indirection table](../data-encoding-for-classes/class-graphs):
 
-![The sliced exceptions format repeats slice flags, a type ID, slice size, required members, optional members when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
+![The sliced exceptions format repeats slice flags, a type ID, slice size, required fields, optional fields when needed, and an indirection table when needed for each inheritance level.](/images/ice/3.8/data-encoding-for-exceptions/sliced-format.svg)
 
 _Sliced format for exceptions._
 

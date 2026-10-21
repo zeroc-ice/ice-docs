@@ -9,7 +9,7 @@
 >
   <title id="title">Sender-side class graph</title>
   <desc id="description">
-    p references an instance that references a second instance through a derived member.
+    p references an instance that references a second instance through a derived field.
   </desc>
 
   <defs>

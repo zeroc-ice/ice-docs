@@ -9,7 +9,7 @@
 >
   <title id="title">Receiver-side class graph</title>
   <desc id="description">
-    p references the first instance. The second instance remains separate after the derived member has been sliced
+    p references the first instance. The second instance remains separate after the derived field has been sliced
     off.
   </desc>
 

@@ -3,9 +3,9 @@ title: Data Encoding for Class Graphs
 ---
 
 [Classes](../../../slice/user-defined-types/classes) support pointer semantics, that is, you can construct graphs of
-classes. It follows that classes can arbitrarily point at each other, and therefore the encoding must provide a scheme
-for serializing and deserializing a class graph. Note that the marshaling format for
-[class references and instances](..) differs significantly between versions 1.0 and 1.1 of the encoding.
+classes. It follows that classes can arbitrarily point at each other, and therefore the encoding provides a scheme for
+serializing and deserializing a class graph. Note that the marshaling format for [class references and instances](..)
+differs significantly between versions 1.0 and 1.1 of the encoding.
 
 ## Encoding a Class Graph Version 1.0
 
@@ -24,7 +24,7 @@ uses a simple depth-first traversal algorithm to marshal the fields. For example
 order of their Slice definition; if a structure field itself is of complex type, such as a sequence, the sequence is
 marshaled in toto where it appears inside its enclosing structure. For complex types that contain class fields, this
 depth-first marshaling is suspended: instead of marshaling the actual class instance at this point, a negative instance
-ID is marshaled that indicates which class instance that field must eventually denote. For example, consider the
+ID is marshaled that indicates which class instance that field will eventually denote. For example, consider the
 following definitions:
 
 ```slice
@@ -254,7 +254,7 @@ struct S
 Suppose we create an instance of structure `S` and assign it to the variable `s`, then construct the following class
 graph:
 
-![The obj member of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7 through next.](/images/ice/3.8/class-graphs/nodes.svg)
+![The obj field of s refers to node 7. Node 7 refers to node 9 through next, and node 9 refers back to node 7 through next.](/images/ice/3.8/class-graphs/nodes.svg)
 
 _Class graph with circular reference._
 
@@ -308,10 +308,10 @@ The encoding for our example values shows how class instances are handled differ
 For this example, let us assume that the structure value is an operation parameter, and therefore the structure field
 `obj` occurs _outside_ the context of a class or exception slice. As a result, we encode the instance with ID `2` as an
 inline instance. However, when we process the instance's `next` field, we are now _inside_ the context of a class slice,
-so we must use an indirection table. The sender adds an entry to the indirection table for each unique class reference
-in the slice; instead of encoding a reference or inline instance, the sender encodes the index of the corresponding
-entry in the table. As shown above, the value encoded for the `next` field is `1`, representing the first entry in the
-table (`0` is still reserved for nil references).
+so the encoding uses an indirection table. The sender adds an entry to the indirection table for each unique class
+reference in the slice; instead of encoding a reference or inline instance, the sender encodes the index of the
+corresponding entry in the table. As shown above, the value encoded for the `next` field is `1`, representing the first
+entry in the table (`0` is still reserved for null references).
 
 The indirection table follows immediately after the last field in the slice, but the table is _not_ included in the byte
 count for the slice. A leading size denotes the number of entries in the table. The one and only entry in this table,
@@ -356,14 +356,14 @@ e.op(p);
 
 As far as the client is concerned, the graph looks like the one shown below:
 
-![p references an instance that references a second instance through a derived member.](/images/ice/3.8/class-graphs/sender-side-graph.svg)
+![p references an instance that references a second instance through a derived field.](/images/ice/3.8/class-graphs/sender-side-graph.svg)
 
 _Sender-side view of a graph containing derived instances._
 
 However, the server does not understand the derived part of the instances and slices them. Yet, the server unmarshals
 all the class instances, leading to the situation where the class graph has become disconnected, as shown here:
 
-![p references the first instance. The second instance remains separate after the derived member has been sliced off.](/images/ice/3.8/class-graphs/receiver-side-graph.svg)
+![p references the first instance. The second instance remains separate after the derived field has been sliced off.](/images/ice/3.8/class-graphs/receiver-side-graph.svg)
 
 _Receiver-side view of the graph_.
 
