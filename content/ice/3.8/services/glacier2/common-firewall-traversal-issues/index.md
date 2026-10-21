@@ -18,7 +18,7 @@ Although the diagram looks fairly straightforward, there are several troublesome
   because that endpoint is inaccessible to the client.
 
 To complicate the scenario even further, the illustration below adds a callback from the server to the client. To
-receive callbacks, the client must accept connections from the server, therefore all of the issues associated with
+receive callbacks, the client must accept connections from the server, therefore all of the issues associated with the
 previous illustration now apply to the client as well.
 
 ![Client requests and server callbacks travel in opposite directions through both firewalls over separate connections.](/images/ice/3.8/common-firewall-traversal-issues/firewall2.svg)
