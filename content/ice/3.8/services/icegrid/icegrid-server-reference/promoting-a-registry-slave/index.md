@@ -2,36 +2,48 @@
 title: Promoting a Registry Slave
 ---
 
-In a [replicated IceGrid deployment](../../registry-replication), you may need to promote a slave to be the new master
-if the current master becomes unavailable. For example, this situation can occur when the original master cannot be
-restarted immediately due to a hardware problem, or when your application requires a feature that is only accessible via
-the master, such as the [resource allocation](../../resource-allocation-using-icegrid-sessions) facility or the ability
-to modify the [deployment](../../using-icegrid-deployment) data.
+In a [replicated IceGrid deployment](../../registry-replication), you promote a slave registry to master when the master
+becomes unavailable and cannot be restarted soon, for example after a hardware failure. Some features, such as
+[resource allocation](../../resource-allocation-using-icegrid-sessions) and changes to the
+[deployment](../../using-icegrid-deployment) data, require the master.
 
-To promote a slave to become the new master, you must shut down the slave and change its
-[IceGrid.Registry.ReplicaName](../../../../property-reference/icegrid-properties#icegrid.registry.replicaname) property
-to `Master` (or remove the property altogether). On restart, the new master notifies the nodes and registries that were
-active before it was shut down. An inactive registry or node will eventually connect to the new master if its default
-locator proxy contains the endpoint of the new master registry or the endpoint of a slave that is connected to the new
-master. If you cannot afford any down-time of the registry and want to minimize the down-time of the master, you should
-run at least two slaves. That way, if the master becomes unavailable, there will always be one registry available while
-you promote one of the slaves.
+{% callout type="warning" title="Running Two Masters" %}
+After promoting a slave, do not restart the former master with its previous configuration. A registry starts as the
+master when
+[IceGrid.Registry.ReplicaName](../../../../property-reference/icegrid-properties#icegrid.registry.replicaname) is
+`Master` or not set, and IceGrid does not prevent two masters from running: each node and slave then follows the
+deployment information of whichever master it connects to.
+{% /callout %}
 
-IceGrid ensures that an out-of-date master database cannot overwrite a newer slave database. In such a scenario, an
-error message is printed out on the consoles of the IceGrid master and slave, and the slave connection to the master is
-aborted. You can still connect to the slave and master with the IceGrid
-[administrative tools](../../icegridadmin-command-line-tool) to verify their databases. Once you determine which
-database to keep, you can restart either the slave or the master with the `--initdb-from-replica=<name>` option to
-initialize the out-of-date database with the correct version.
+## Promoting a Slave
 
-Note that there is nothing to prevent you from running two masters. If you start two masters and they contain different
-versions of the deployment information, some slaves and nodes might get updated with out-of-date deployment information
-(causing some of your servers to be deactivated). You can correct the problem by shutting down the faulty master, but it
-is important to keep this issue in mind when you restart a master since it might disrupt your applications.
+To promote a slave registry to master:
+
+1. Shut down the slave registry.
+2. Change its
+   [IceGrid.Registry.ReplicaName](../../../../property-reference/icegrid-properties#icegrid.registry.replicaname)
+   property to `Master`, or remove the property altogether.
+3. Restart the registry.
+
+## Reconnecting Registries and Nodes
+
+Slaves and nodes connect to the new master through their default locator, when the endpoints of this locator include
+those of the new master or of a slave connected to the new master. The new master also asks the slaves recorded in its
+database to connect when it starts, and asks a node to connect the first time it needs this node.
+
+## Recovering the Former Master
+
+To bring the former master back, restart its registry as a slave: set the `IceGrid.Registry.ReplicaName` property of
+this registry to a name that no other registry uses, and its `Ice.Default.Locator` property to a proxy for the new
+master's locator. Like any other slave, the registry copies the master's database when it connects to the master.
+
+A slave does not copy the master's database when its own database is newer, that is, when it holds updates that the
+master's database lacks. To resolve this, restart the registry whose database you want to discard with the
+`--initdb-from-replica=<name>` option of [icegridregistry](../icegridregistry), which initializes its database from the
+named registry.
 
 ## See Also
 
 - [Registry Replication](../../registry-replication)
 - [Resource Allocation Using IceGrid Sessions](../../resource-allocation-using-icegrid-sessions)
 - [Using IceGrid Deployment](../../using-icegrid-deployment)
-- [icegridadmin Command Line Tool](../../icegridadmin-command-line-tool)
