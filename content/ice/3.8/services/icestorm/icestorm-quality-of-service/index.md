@@ -2,8 +2,25 @@
 title: IceStorm Quality of Service
 ---
 
-An IceStorm subscriber specifies Quality of Service (QoS) parameters at the time of subscription. The sections below
-describe the supported QoS parameters. Parameter names are case-sensitive, and IceStorm ignores unknown parameters.
+An IceStorm subscriber specifies Quality of Service (QoS) parameters at the time of subscription. Parameter names are
+case-sensitive, and IceStorm ignores unknown parameters. The sections below describe how IceStorm handles a failed
+delivery, then the supported QoS parameters.
+
+## Delivery Failures
+
+IceStorm treats a failure to deliver an event to a subscriber as either hard or transient. A hard failure means that the
+subscriber is permanently unusable, and IceStorm removes the subscriber immediately:
+
+- `Ice::ObjectNotExistException` — the subscriber is no longer registered in the target object adapter.
+- `Ice::NotRegisteredException` — the subscriber's proxy is an indirect proxy that the configured locator can no longer
+  resolve.
+- `IceStorm::SendQueueSizeMaxReachedException` — the number of events queued for the subscriber reached
+  [IceStorm.Send.QueueSizeMax](../../../property-reference/icestorm-properties#icestorm.send.queuesizemax) and
+  [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties#icestorm.send.queuesizemaxpolicy)
+  is set to `RemoveSubscriber` (the default).
+
+Any other failure is transient, such as a connection failure, a timeout, or a reply that carries a dispatch exception
+not listed above. A reply that carries a user exception is a successful delivery.
 
 ## Reliability QoS for IceStorm
 
@@ -18,36 +35,33 @@ the events in the same order as they were received even if its
 
 ## Retry Count QoS for IceStorm
 
-When delivery to a subscriber fails, IceStorm discards the events queued for this subscriber and does not redeliver them
-(see [Delivery Failures and Retries](#delivery-failures-and-retries)). The QoS parameter `retryCount` sets how many
-delivery failures a subscription survives before IceStorm removes the subscriber:
+The QoS parameter `retryCount` determines how many _consecutive_ transient failures IceStorm tolerates before it removes
+a subscriber:
 
-| Value         | Description                                                                                                                                                               |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-1`          | IceStorm never removes the subscriber after a delivery failure, only after a [hard failure](#hard-failures). IceStorm always uses this value for a link to another topic. |
-| `0` (default) | IceStorm removes the subscriber on its first delivery failure.                                                                                                            |
-| Positive      | IceStorm removes the subscriber when its failure count exceeds `retryCount`.                                                                                              |
+| Value         | Description                                                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `-1`          | IceStorm never removes the subscriber for a transient failure. IceStorm always uses this value for a link to another topic. |
+| `0` (default) | IceStorm removes the subscriber on its first transient failure.                                                             |
+| Positive      | IceStorm removes the subscriber when its consecutive transient failures exceed this value.                                  |
 
-IceStorm counts consecutive failures only: it resets the subscriber's failure count to zero after each successful
-delivery. A delivery to a twoway or ordered subscriber, or to a linked topic, succeeds when IceStorm receives the reply;
-a delivery to a oneway or datagram subscriber succeeds when IceStorm sends the event, and a delivery to a batch
-subscriber when IceStorm flushes the batch. For example, with a `retryCount` of `3`, a subscriber that experiences
-occasional, isolated network failures is never removed, while a subscriber that remains unreachable for four consecutive
-delivery attempts is removed.
+A successful delivery resets the count. A delivery to a twoway or ordered subscriber, or to a linked topic, succeeds
+when IceStorm receives the reply; a delivery to a oneway or datagram subscriber succeeds when IceStorm sends the event,
+and a delivery to a batch subscriber when IceStorm flushes the batch. For example, with a `retryCount` of `3`, a
+subscriber that experiences occasional, isolated transient failures is never removed, while a subscriber that remains
+unreachable for four consecutive delivery attempts is removed.
 
-A retry count of `-1` adds some resiliency to your IceStorm application by ignoring intermittent network failures such
-as `ConnectionRefusedException`. The risk is that a subscription whose subscriber is gone for good, for example a
-subscriber process that terminated without unsubscribing, is never removed: IceStorm keeps retrying as long as the
-failures stay transient.
+A retry count of `-1` adds some resiliency to your IceStorm application by ignoring transient failures such as
+`ConnectionRefusedException`. The risk is that a subscription whose subscriber is gone for good, for example a
+subscriber process that terminated without unsubscribing, is never removed as long as its failures stay transient.
 
 To use a retry count of `-1` successfully, the subscriber can either register with an endpoint whose port number you
 chose, or use [IceGrid](../../icegrid) to take advantage of indirect proxies and automatic activation.
 
-### Delivery Failures and Retries
+### Events Discarded After a Transient Failure
 
-When delivery to a subscriber fails with a transient error (such as a connection failure or a timeout) and the
-subscriber's `retryCount` allows another attempt, IceStorm discards all events currently queued for this subscriber,
-increments the subscriber's failure count, and places the subscriber offline for the number of seconds specified by the
+When a transient failure occurs while delivering to a subscriber and the subscriber's `retryCount` tolerates it,
+IceStorm discards all events currently queued for this subscriber, increments the subscriber's failure count, and places
+the subscriber offline for the number of seconds specified by the
 [IceStorm.Discard.Interval](../../../property-reference/icestorm-properties#icestorm.discard.interval) property (60
 seconds by default). While the subscriber is offline, IceStorm discards any new events published on the topic instead of
 queueing them for this subscriber. Once the interval has elapsed, the next published event puts the subscriber back
@@ -56,19 +70,6 @@ online and delivery resumes, starting with that event.
 As a result, a subscriber does not receive the events that were queued or published between the failure and the end of
 the discard interval. You can observe these subscriber state transitions by setting
 [IceStorm.Trace.Subscriber](../../../property-reference/icestorm-properties#icestorm.trace.subscriber) to `2`.
-
-### Hard Failures
-
-Some failures indicate that the subscriber is permanently unusable. IceStorm removes the subscriber immediately when
-they occur, regardless of the subscriber's `retryCount` setting:
-
-- `Ice::ObjectNotExistException` — the subscriber is no longer registered in the target object adapter.
-- `Ice::NotRegisteredException` — the subscriber's proxy is an indirect proxy that the configured locator can no longer
-  resolve.
-- `IceStorm::SendQueueSizeMaxReachedException` — the number of events queued for the subscriber reached
-  [IceStorm.Send.QueueSizeMax](../../../property-reference/icestorm-properties#icestorm.send.queuesizemax) and
-  [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties#icestorm.send.queuesizemaxpolicy)
-  is set to `RemoveSubscriber` (the default).
 
 ## Connection Caching QoS for IceStorm
 
