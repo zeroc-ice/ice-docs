@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg
   width="700"
-  height="312.16"
+  height="230"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 740 330"
+  viewBox="0 0 700 230"
   role="img"
   aria-labelledby="title description"
 >
   <title id="title">Weather monitoring with direct delivery</title>
   <desc id="description">
-    A weather station feeds a collector, which sends updates directly to four monitors.
+    Sensors send their readings directly to each weather station.
   </desc>
 
   <defs>
@@ -36,11 +36,6 @@
       font-weight: 600;
       text-anchor: middle;
     }
-    .annotation {
-      fill: #566174;
-      font-size: 14px;
-      text-anchor: middle;
-    }
     .application {
       fill: #ffffff;
       stroke: #8d99aa;
@@ -58,39 +53,38 @@
     }
   </style>
 
-  <rect width="740" height="330" fill="#ffffff"/>
+  <rect width="700" height="230" fill="#ffffff"/>
 
   <g id="boundaries" aria-hidden="true">
   </g>
 
   <g id="connectors" aria-hidden="true">
-    <path class="connector" d="M 80 274 H 325 V 176" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 400 148 L 566 49" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 400 148 L 566 115" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 400 148 L 566 181" vector-effect="non-scaling-stroke"/>
-    <path class="connector one-way" d="M 400 148 L 566 247" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 37 L 506 37" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 49 L 506 103" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 61 L 506 169" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 103 L 506 49" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 115 L 506 115" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 127 L 506 181" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 169 L 506 61" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 181 L 506 127" vector-effect="non-scaling-stroke"/>
+    <path class="connector one-way" d="M 194 193 L 506 193" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="components" aria-hidden="true">
-    <path
-      class="connector"
-      d="M 72 34 V 266 M 88 34 V 266 M 62 64 H 98 M 62 64 V 82 H 72 M 88 82 H 108 V 64 M 72 74 L 88 98 L 72 122 L 88 146 L 72 170 L 88 194 L 72 218 L 88 242 L 72 266"
-      vector-effect="non-scaling-stroke"
-    />
-    <rect class="application" x="56" y="266" width="48" height="8" rx="0" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="250" y="120" width="150" height="56" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="566" y="24" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="566" y="90" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="566" y="156" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
-    <rect class="application" x="566" y="222" width="150" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="24" width="170" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="90" width="170" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="24" y="156" width="170" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="506" y="24" width="170" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="506" y="90" width="170" height="50" rx="7" vector-effect="non-scaling-stroke"/>
+    <rect class="application" x="506" y="156" width="170" height="50" rx="7" vector-effect="non-scaling-stroke"/>
   </g>
 
   <g id="labels">
-    <text class="annotation" x="80" y="300">Weather station</text>
-    <text class="label" x="325" y="154">Collector</text>
-    <text class="label" x="641" y="55">Monitor</text>
-    <text class="label" x="641" y="121">Monitor</text>
-    <text class="label" x="641" y="187">Monitor</text>
-    <text class="label" x="641" y="253">Monitor</text>
+    <text class="label" x="109" y="55">Sensor</text>
+    <text class="label" x="109" y="121">Sensor</text>
+    <text class="label" x="109" y="187">Sensor</text>
+    <text class="label" x="591" y="55">Weather station</text>
+    <text class="label" x="591" y="121">Weather station</text>
+    <text class="label" x="591" y="187">Weather station</text>
   </g>
 </svg>
