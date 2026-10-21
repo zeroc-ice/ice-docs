@@ -30,4 +30,7 @@ internal class BidirWakeUpService : WakeUpServiceDisp_
         ...
 ```
 
+The [Ice bidir demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Ice/Bidir) provides a complete client and
+server in C# that communicate over a bidirectional connection.
+
 {% /language-section %}

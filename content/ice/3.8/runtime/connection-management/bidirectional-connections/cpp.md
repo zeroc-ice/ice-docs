@@ -32,4 +32,7 @@ Server::BidirWakeUpService::wakeMeUp(
 }
 ```
 
+The [Ice bidir demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Ice/bidir) provides a complete client and
+server in C++ that communicate over a bidirectional connection.
+
 {% /language-section %}

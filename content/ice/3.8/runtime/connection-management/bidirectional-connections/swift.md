@@ -27,4 +27,7 @@ struct BidirWakeUpService: WakeUpService {
         ...
 ```
 
+The [Ice bidir demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Ice/Bidir) provides a complete client and
+server in Swift that communicate over a bidirectional connection.
+
 {% /language-section %}

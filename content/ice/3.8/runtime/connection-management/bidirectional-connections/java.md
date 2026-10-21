@@ -29,4 +29,7 @@ class BidirWakeUpService implements WakeUpService {
           ...
 ```
 
+The [Ice bidir demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/java/Ice/bidir) provides a complete client and
+server in Java that communicate over a bidirectional connection.
+
 {% /language-section %}
