@@ -11,8 +11,8 @@ Using Glacier2 in a minimal configuration involves the following tasks:
 1. Write a [configuration file](#configuring-the-router) for the router.
 2. Write a [password file](#writing-a-password-file) for the router. (Glacier2 also supports
    [other ways](../securing-a-glacier2-router) to authenticate users.)
-3. Decide whether to use the router's internal session manager, or supply your own
-   [session manager](../glacier2-session-management).
+3. Decide whether to supply a [session manager](../glacier2-session-management). The router creates sessions without
+   one.
 4. [Start the router](#starting-the-router) on a host with access to the public and private networks.
 5. Modify the [client configuration](#configuring-a-glacier2-client) to use the router.
 6. Modify the client to create a [router session](#glacier2-sessions).
@@ -57,40 +57,16 @@ configuration is typically necessary.
 
 ## Writing a Password File
 
-The simplest way for the router to authenticate clients is a password file, a text file that contains user names and
-password hashes. The supported hash formats depend on the platform.
-
-Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the
-structure `$identifier$content`, where `identifier` denotes the hashing scheme and `content` contains the scheme's
-parameters and hash.
-
-On Windows and macOS:
-
-- `PBKDF2` using `SHA-1`, `SHA-256`, or `SHA-512` as the digest algorithm.
-
-{% callout type="note" %}
-
-PBKDF2 does not have a standard form in the `MCF` specification. In this case Glacier2 uses the same format as
-[passlib](https://pythonhosted.org/passlib/modular_crypt_format.html).
-
-- `$pbkdf2-digest$rounds$salt$checksum` for `SHA-256` and `SHA-512`.
-- `$pbkdf2$rounds$salt$checksum` for `SHA-1`.
-
-{% /callout %}
-
-On Linux:
-
-- Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
-
-The property [Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords)
-specifies the name of the password file:
+The simplest way for the router to authenticate clients is a password file. The property
+[Glacier2.CryptPasswords](../../../property-reference/glacier2-properties#glacier2.cryptpasswords) specifies the name of
+this file:
 
 ```config
 Glacier2.CryptPasswords=passwords
 ```
 
 Each non-blank line contains exactly two whitespace-separated fields, a user name and a password hash, and each user
-name appears only once.
+name appears only once. The [`icehashpassword`](#icehashpassword-helper-script) helper script generates the hash.
 
 For example, the following password file contains an entry for the user name `test` on Linux:
 
@@ -103,6 +79,13 @@ The same entry on Windows and macOS:
 ```text
 test $pbkdf2-sha256$29000$O4dQinGOcY7RWktJyXlvbQ$D0BZnA1kTw4Jl4xGUzdMOSxKO/vODiMCHEE9ZRLF4Gg
 ```
+
+{% callout type="note" %}
+
+This authentication scheme is intended for use in simple applications with a few users. Most applications should install
+their own custom [permissions verifier](../securing-a-glacier2-router).
+
+{% /callout %}
 
 ### `icehashpassword` Helper Script
 
@@ -145,12 +128,31 @@ Password:
 ...
 ```
 
+### Supported Hash Formats
+
+The supported hash formats depend on the platform.
+
+Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the
+structure `$identifier$content`, where `identifier` denotes the hashing scheme and `content` contains the scheme's
+parameters and hash.
+
+On Windows and macOS:
+
+- `PBKDF2` using `SHA-1`, `SHA-256`, or `SHA-512` as the digest algorithm.
+
 {% callout type="note" %}
 
-This authentication scheme is intended for use in simple applications with a few users. Most applications should install
-their own custom [permissions verifier](../securing-a-glacier2-router).
+PBKDF2 does not have a standard form in the `MCF` specification. In this case Glacier2 uses the same format as
+[passlib](https://pythonhosted.org/passlib/modular_crypt_format.html).
+
+- `$pbkdf2-digest$rounds$salt$checksum` for `SHA-256` and `SHA-512`.
+- `$pbkdf2$rounds$salt$checksum` for `SHA-1`.
 
 {% /callout %}
+
+On Linux:
+
+- Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
 
 ## Starting the Router
 
@@ -236,8 +238,8 @@ module Glacier2
 ```
 
 The interface defines two operations for creating sessions: `createSession` and `createSessionFromSecureConnection`. The
-router requires each client to create a session using one of these operations; only after the session is created will
-the router forward requests on behalf of the client.
+router forwards the requests of a client only after the client creates a session with one of these operations. A call
+that completes without an exception creates the session, whether it returns a session proxy or null.
 
 The `createSession` operation expects a user name and password and, depending on the
 [router's configuration](../glacier2-session-management), returns either a `Session` proxy or null. When using the
@@ -252,10 +254,12 @@ To create a session, the client typically creates the router proxy from the comm
 
 {% language-section name="mapping" /%}
 
-If the router is configured with a [session manager](../glacier2-session-management), the `createSession` and
-`createSessionFromSecureConnection` operations may return a proxy for an object implementing the `Glacier2::Session`
-interface (or an application-specific derived interface). The client receives a null proxy if no session manager is
-configured.
+When the router has a [session manager](../glacier2-session-management) for the operation,
+[Glacier2.SessionManager](../../../property-reference/glacier2-properties#glacier2.sessionmanager) for `createSession`
+and [Glacier2.SSLSessionManager](../../../property-reference/glacier2-properties#glacier2.sslsessionmanager) for
+`createSessionFromSecureConnection`, the operation returns the proxy that the session manager creates for an object
+implementing the `Glacier2::Session` interface (or an application-specific derived interface). Without a session
+manager, the operation returns a null proxy.
 
 A non-null session proxy returned by a `create` operation must be configured with the router that created it because the
 session object is only accessible via the router. If the router is configured as the client's default router at the time
