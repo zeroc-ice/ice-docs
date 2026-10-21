@@ -19,8 +19,7 @@ subscriber is permanently unusable, and IceStorm removes the subscriber immediat
   [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties#icestorm.send.queuesizemaxpolicy)
   is set to `RemoveSubscriber` (the default).
 
-Any other failure is transient, such as a connection failure, a timeout, or a reply that carries a dispatch exception
-not listed above. A reply that carries a user exception is a successful delivery.
+Any other failure is transient, such as a connection failure or a timeout.
 
 ## Reliability QoS for IceStorm
 
