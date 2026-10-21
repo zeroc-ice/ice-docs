@@ -8,12 +8,13 @@ languages:
   - swift
 ---
 
-A _nested invocation_ occurs when the implementation of an Ice operation invokes another operation through a proxy.
+A _nested invocation_ is an invocation made from a dispatch or from the callback of an asynchronous invocation.
 
 ## Deadlocks with Nested Invocations
 
 Nested invocations are common, but they can deadlock. To avoid deadlocks, do not hold a shared resource, such as a mutex
-or a thread of an [Ice thread pool](../thread-pools), while waiting.
+or a thread of an [Ice thread pool](../thread-pools), while waiting. The rest of this page shows the common case, a
+nested invocation made from a dispatch; the same rule applies to a callback.
 
 {% iflang langs="cpp,csharp,java,python" %}
 
@@ -49,8 +50,7 @@ thread or a thread holding a mutex, make an asynchronous oneway invocation.
 
 {% iflang langs="swift" %}
 
-Each dispatch runs in its own task, and proxy invocations are asynchronous. A servant that awaits a nested invocation
-suspends its task without holding a thread of the Ice thread pool, so nested invocations do not exhaust the server
+In Swift, a dispatch runs in its own task and a nested invocation is awaited, so waiting holds no thread of an Ice
 thread pool.
 
 {% /iflang %}
