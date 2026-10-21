@@ -7,7 +7,7 @@ An IceStorm publisher is an Ice client application that sends requests to a `Top
 The `IceStorm/weather` demo program provides a complete publisher application. It’s available in all programming
 languages.
 
-The implementation of the weather sensor (or collector) can be summarized as follows:
+The implementation of the weather sensor can be summarized as follows:
 
 1. Create a proxy for the IceStorm
    [TopicManager](https://code.zeroc.com/ice/3.8/api/slice/interfaceIceStorm_1_1TopicManager.html) . This is the primary
