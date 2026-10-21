@@ -32,6 +32,4 @@ A sensor publishes each reading once to an IceStorm [topic](./icestorm-concepts)
 are, and IceStorm forwards the reading to the weather stations subscribed to that topic:
 
 - Weather stations subscribe to and unsubscribe from the topic through IceStorm, without involving the sensors.
-- IceStorm removes a subscriber when a delivery to it fails, unless the subscriber's
-  [quality of service](./icestorm-quality-of-service#retry-count-qos-for-icestorm) tolerates the failure, so a sensor
-  does not track weather station failures.
+- IceStorm handles the weather stations it cannot reach, again without involving the sensors.
