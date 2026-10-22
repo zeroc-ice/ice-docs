@@ -63,8 +63,9 @@ property, or the `ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
 
 With connection caching enabled, Ice first reuses an existing connection to any endpoint in the list, so the connection
 it reuses is not necessarily to the first endpoint, even with the `Ordered` policy. When no existing connection
-qualifies, Ice attempts to connect to each endpoint{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %},
-and to each address of an endpoint,{% /iflang %} in order, until an attempt succeeds.
+qualifies, or when connection caching is disabled, Ice attempts to connect to each
+endpoint{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}, and to each address of an
+endpoint,{% /iflang %} in order, until an attempt succeeds.
 
 ## Connection IDs
 
