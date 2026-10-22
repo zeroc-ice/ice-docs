@@ -1,5 +1,5 @@
 ---
-title: Implement an IceStorm Publisher
+title: Implementing an IceStorm Publisher
 sidebarLabel: Implement a Publisher
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Configure IceBox Services
+title: Configuring IceBox Services
 sidebarLabel: Configure Services
 ---
 

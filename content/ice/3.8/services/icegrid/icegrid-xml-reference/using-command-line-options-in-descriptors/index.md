@@ -1,5 +1,5 @@
 ---
-title: Use Command-Line Options in Descriptors
+title: Using Command-Line Options in Descriptors
 sidebarLabel: Command-Line Options
 ---
 

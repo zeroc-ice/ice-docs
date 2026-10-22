@@ -1,5 +1,5 @@
 ---
-title: Implement an IceStorm Subscriber
+title: Implementing an IceStorm Subscriber
 sidebarLabel: Implement a Subscriber
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Secure IceGrid
+title: Securing IceGrid
 sidebarLabel: Security
 ---
 

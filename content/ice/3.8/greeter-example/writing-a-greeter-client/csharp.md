@@ -1,5 +1,5 @@
 ---
-title: Write the Greeter Client
+title: Writing a Greeter Client
 sidebarLabel: Write the Client
 ---
 

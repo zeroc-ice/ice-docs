@@ -1,5 +1,5 @@
 ---
-title: Deprecate Slice Definitions
+title: Deprecating Slice Definitions
 sidebarLabel: Deprecation
 ---
 

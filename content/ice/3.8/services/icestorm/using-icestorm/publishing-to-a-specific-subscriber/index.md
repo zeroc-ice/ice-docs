@@ -1,5 +1,5 @@
 ---
-title: Publish to a Specific Subscriber
+title: Publishing to a Specific Subscriber
 sidebarLabel: Publish to One Subscriber
 ---
 

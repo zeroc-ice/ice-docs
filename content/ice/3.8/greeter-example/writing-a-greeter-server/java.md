@@ -1,5 +1,5 @@
 ---
-title: Write the Greeter Server
+title: Writing a Greeter Server
 sidebarLabel: Write the Server
 ---
 

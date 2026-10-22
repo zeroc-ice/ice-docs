@@ -1,5 +1,5 @@
 ---
-title: Get Started with Ice
+title: Greeter Example
 sidebarLabel: Get Started
 pages:
   - defining-the-greeter-interface-in-slice

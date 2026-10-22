@@ -1,5 +1,5 @@
 ---
-title: Run the Slice Compiler
+title: Using the Slice Compiler
 sidebarLabel: Slice Compiler
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Filter Administrative Facets
+title: Filtering Administrative Facets
 sidebarLabel: Filter Facets
 languages:
   - cpp

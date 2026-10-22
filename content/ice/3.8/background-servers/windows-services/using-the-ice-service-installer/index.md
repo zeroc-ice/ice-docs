@@ -1,5 +1,5 @@
 ---
-title: Use the Ice Service Installer
+title: Using the Ice Service Installer
 sidebarLabel: Service Installer
 ---
 

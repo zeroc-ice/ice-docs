@@ -1,5 +1,5 @@
 ---
-title: Install a Windows Service
+title: Installing a Windows Service
 sidebarLabel: Install a Service
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Generate Documentation with Doxygen
+title: Generating Documentation with Doxygen
 sidebarLabel: Doxygen
 ---
 

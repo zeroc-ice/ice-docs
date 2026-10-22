@@ -1,5 +1,5 @@
 ---
-title: Secure a Glacier2 Router
+title: Securing a Glacier2 Router
 sidebarLabel: Secure the Router
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Develop an IceBox Service
+title: Developing IceBox Services
 sidebarLabel: Develop a Service
 ---
 

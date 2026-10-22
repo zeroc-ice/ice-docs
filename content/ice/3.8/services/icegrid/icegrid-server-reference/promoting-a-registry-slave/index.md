@@ -1,5 +1,5 @@
 ---
-title: Promote a Registry Slave
+title: Promoting a Registry Slave
 sidebarLabel: Promote a Slave
 ---
 

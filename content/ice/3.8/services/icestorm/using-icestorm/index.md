@@ -1,5 +1,6 @@
 ---
-title: Use IceStorm
+title: Using IceStorm
+sidebarLabel: Use IceStorm
 pages:
   - implementing-an-icestorm-publisher
   - using-an-icestorm-publisher-object

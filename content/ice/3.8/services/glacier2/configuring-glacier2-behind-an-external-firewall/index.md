@@ -1,5 +1,5 @@
 ---
-title: Configure Glacier2 Behind an External Firewall
+title: Configuring Glacier2 Behind an External Firewall
 sidebarLabel: Behind a Firewall
 ---
 

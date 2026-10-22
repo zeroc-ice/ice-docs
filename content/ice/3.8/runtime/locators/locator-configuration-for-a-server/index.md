@@ -1,5 +1,5 @@
 ---
-title: "Configure a Server's Locator"
+title: Locator Configuration for a Server
 sidebarLabel: Configure a Server
 languages:
   - cpp

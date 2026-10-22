@@ -1,5 +1,5 @@
 ---
-title: Deploy an Application
+title: Using IceGrid Deployment
 sidebarLabel: Deployment
 ---
 

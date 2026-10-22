@@ -1,5 +1,5 @@
 ---
-title: "Configure a Client's Locator"
+title: Locator Configuration for a Client
 sidebarLabel: Configure a Client
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Connect to an IceGrid Registry
+title: Connection to an IceGrid Registry
 sidebarLabel: Connect to a Registry
 ---
 

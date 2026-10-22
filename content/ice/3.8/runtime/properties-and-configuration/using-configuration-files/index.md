@@ -1,5 +1,5 @@
 ---
-title: Use Configuration Files
+title: Using Configuration Files
 sidebarLabel: Configuration Files
 ---
 

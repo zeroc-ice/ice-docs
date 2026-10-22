@@ -1,5 +1,5 @@
 ---
-title: Start the IceBox Server
+title: Starting the IceBox Server
 sidebarLabel: Start the Server
 ---
 

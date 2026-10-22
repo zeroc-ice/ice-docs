@@ -1,5 +1,5 @@
 ---
-title: Get Started with Glacier2
+title: Getting Started with Glacier2
 sidebarLabel: Get Started
 ---
 

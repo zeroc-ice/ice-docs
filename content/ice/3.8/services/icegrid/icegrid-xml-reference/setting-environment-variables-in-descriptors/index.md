@@ -1,5 +1,5 @@
 ---
-title: Set Environment Variables in Descriptors
+title: Setting Environment Variables in Descriptors
 sidebarLabel: Environment Variables
 ---
 

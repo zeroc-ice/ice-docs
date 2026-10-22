@@ -1,5 +1,5 @@
 ---
-title: Get Started with IceGrid
+title: Getting Started with IceGrid
 sidebarLabel: Get Started
 ---
 

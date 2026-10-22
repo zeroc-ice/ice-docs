@@ -1,5 +1,5 @@
 ---
-title: Get Started with the IceGrid GUI
+title: Getting Started with IceGrid GUI
 sidebarLabel: Get Started
 ---
 

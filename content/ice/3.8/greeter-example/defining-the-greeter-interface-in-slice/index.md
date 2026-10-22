@@ -1,5 +1,5 @@
 ---
-title: Define the Greeter Interface
+title: Defining the Greeter Interface in Slice
 sidebarLabel: Define the Interface
 ---
 
