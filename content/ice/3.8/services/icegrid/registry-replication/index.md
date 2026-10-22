@@ -23,9 +23,10 @@ The figure below shows a master replica and a slave replica, each running on a h
 
 ![Host Server 1 runs the master registry and Node1, and host Server 2 runs the slave registry and Node2. In step 1 the registries synchronize, in step 2 both nodes contact the master, in step 3 both nodes contact the slave, in step 4 the client contacts the master, and in step 5 the client fails over to the slave.](/images/ice/3.8/registry-replication/registry-replication.svg)
 
-1. The slave replica registers with the master replica at startup and copies the master's database: the deployed
-   applications, the dynamically registered object adapters, and the well-known objects added through the
-   `IceGrid::Admin` interface. The master replica sends every later change to all active slave replicas.
+1. The slave replica registers with the master replica at startup and copies the master's
+   [database](../icegrid-server-reference/icegrid-persistent-data#registry-database): the deployed applications, the
+   dynamically registered object adapters, and the well-known objects added through the `IceGrid::Admin` interface. The
+   master replica sends every later change to all active slave replicas.
 2. The nodes register with the master replica at startup. A node reaches the master replica through any replica its
    locator lists: the master replica itself, or a slave replica that has synchronized with it.
 3. The master replica gives the nodes its list of slave replicas, and the nodes register with each of them. A replica
@@ -71,7 +72,7 @@ to [query well-known objects](../well-known-objects). A client calls this object
 
 ### Client Sessions and Allocation
 
-Only the master replica creates client sessions. A client therefore needs the master replica to
+A client can create a client session only with the master replica, and therefore needs the master replica to
 [allocate objects and servers](../resource-allocation-using-icegrid-sessions).
 
 ### Dynamic Registration
@@ -169,6 +170,9 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h server1 -p 4061:tcp -h server2 -p 406
 
 A node registers with every active replica, so that each replica can activate the node's servers and knows the endpoints
 of their object adapters.
+
+The node also copies its `Ice.Default.Locator` property into the configuration file of each server it activates, unless
+the server's descriptor sets this property. The servers of a node therefore reach the same replicas as the node.
 
 At startup, the node registers with the master replica, which gives it the list of active slave replicas. When the
 master replica is not running, the node asks the replicas listed in `Ice.Default.Locator` for the list instead.
