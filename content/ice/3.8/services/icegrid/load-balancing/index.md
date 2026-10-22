@@ -28,7 +28,7 @@ are used in locate requests. The load balancing descriptor specifies the followi
 - Sampling interval One of the load balancing types considers system load statistics, which are reported by each node at
   regular intervals. The replica group can specify a sampling interval of one, five, or fifteen minutes. Choosing a
   sampling interval requires balancing the need for up-to-date load information against the desire to minimize transient
-  spikes. On Unix platforms, the node reports the system's load average for the selected interval, while on Windows the
+  spikes. On Linux and macOS, the node reports the system's load average for the selected interval, while on Windows the
   node reports the CPU utilization averaged over the interval.
 
 - Number of replicas The replica group can instruct the registry to return the endpoints of one (the default) or more

@@ -395,7 +395,7 @@ See also [adapter.MessageSizeMax](../object-adapter-properties).
 
 {% property-description %}
 
-If `num` is set to a value larger than `0`, the `Ice::Service` C++ class ignores `SIGHUP` on Unix and
+If `num` is set to a value larger than `0`, the `Ice::Service` C++ class ignores `SIGHUP` on Linux and macOS and
 `CTRL_LOGOFF_EVENT` on Windows. As a result, a server/service that sets `Ice.Nohup` continues to run if the user that
 started the server/service logs off. The default value of this property is `1`.
 
@@ -706,7 +706,7 @@ property is checked only for the first communicator created in a process.
 
 {% property-synopsis %}
 
-`Ice.SyslogFacility=string` (Unix only, except iOS)
+`Ice.SyslogFacility=string` (Linux and macOS only)
 
 {% /property-synopsis %}
 
@@ -767,7 +767,7 @@ logs using [OSLog](https://developer.apple.com/documentation/os/oslog). The subs
 
 {% property-synopsis %}
 
-`Ice.UseSyslog=num` (Unix only, except iOS)
+`Ice.UseSyslog=num` (Linux and macOS only)
 
 {% /property-synopsis %}
 

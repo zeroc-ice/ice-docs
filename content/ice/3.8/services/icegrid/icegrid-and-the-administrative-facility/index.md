@@ -80,8 +80,8 @@ seconds.
 
 If a server does not register an `Ice::Process` proxy, the IceGrid node cannot request a graceful termination and must
 resort instead to a more drastic, and potentially harmful, alternative by asking the operating system to terminate the
-server's process. On Unix, the node sends the `SIGTERM` signal to the process and, if the server does not terminate
-within the deactivation timeout period, sends the `SIGKILL` signal.
+server's process. On Linux and macOS, the node sends the `SIGTERM` signal to the process and, if the server does not
+terminate within the deactivation timeout period, sends the `SIGKILL` signal.
 
 On Windows, the node first sends a `Ctrl+Break` event to the server and, if the server does not stop within the
 deactivation timeout period, terminates the process immediately.

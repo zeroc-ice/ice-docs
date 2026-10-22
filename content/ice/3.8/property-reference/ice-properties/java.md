@@ -372,7 +372,7 @@ property is checked only for the first communicator created in a process.
 
 {% property-synopsis %}
 
-`Ice.SyslogFacility=string` (Unix only)
+`Ice.SyslogFacility=string` (Linux and macOS only)
 
 {% /property-synopsis %}
 
@@ -392,7 +392,7 @@ The default value is `LOG_USER`.
 
 {% property-synopsis %}
 
-`Ice.SyslogHost=host` (Unix only)
+`Ice.SyslogHost=host` (Linux and macOS only)
 
 {% /property-synopsis %}
 
@@ -407,7 +407,7 @@ Specifies the host name or IP address of the syslog daemon that receives log mes
 
 {% property-synopsis %}
 
-`Ice.SyslogPort=port` (Unix only)
+`Ice.SyslogPort=port` (Linux and macOS only)
 
 {% /property-synopsis %}
 
@@ -450,7 +450,7 @@ specific object adapter using [_adapter_.ThreadPool.ThreadPriority](../object-ad
 
 {% property-synopsis %}
 
-`Ice.UseSyslog=num` (Unix only)
+`Ice.UseSyslog=num` (Linux and macOS only)
 
 {% /property-synopsis %}
 

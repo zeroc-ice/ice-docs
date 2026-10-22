@@ -7,4 +7,4 @@ pages:
   - service-logging-considerations
 ---
 
-This section describes how to set up Ice services such as IceGrid and Glacier2 as Windows services or Unix daemons.
+This section describes how to set up Ice services such as IceGrid and Glacier2 as Windows services or daemons.

@@ -203,7 +203,7 @@ IceBridge establishes target connections on demand, so successful startup does n
 reachable. To check forwarding, invoke an operation such as `ice_ping` on an application object through the bridge.
 
 IceBridge supports the usual [command-line options](../../background-servers/command-line-options), including those for
-running it as a Windows service or Unix daemon.
+running it as a Windows service or a daemon.
 
 ### Connection Failures
 

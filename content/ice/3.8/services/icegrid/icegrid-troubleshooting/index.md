@@ -18,7 +18,7 @@ could not be found. There are several steps you can take in this case:
 
 Another cause of activation failure is a server fault during startup. After you have confirmed that the node
 successfully spawns the server process using the steps above, you should then
-[check for signs of a server fault](#troubleshooting-server-failures) (e.g., on Unix, look for a `core` file in the
+[check for signs of a server fault](#troubleshooting-server-failures) (e.g., on Linux, look for a `core` file in the
 node's current working directory).
 
 ## Troubleshooting Proxy Failures
@@ -49,8 +49,8 @@ you discover the cause of the exception:
 Diagnosing a server failure can be difficult, especially when servers are activated automatically on remote hosts. Here
 are a few suggestions:
 
-1. If the server is running on a Unix host, check the current working directory of the IceGrid node process for signs of
-   a server failure, such as a `core` file.
+1. If the server is running on a Linux host, check the current working directory of the IceGrid node process for signs
+   of a server failure, such as a `core` file.
 2. Judicious use of tracing can help to narrow the search. For example, if the failure occurs as a result of an
    operation invocation, enable protocol tracing in the Ice runtime by setting the configuration property
    `Ice.Trace.Protocol=1` to discover the object identity and operation name of all requests. Of course, the default log
@@ -90,7 +90,7 @@ adapter ID for one or more adapters that does not match the corresponding adapte
 
 ## Disabling Faulty Servers
 
-You may find it necessary to disable a server that terminates in an error condition. For example, on a Unix platform
+You may find it necessary to disable a server that terminates in an error condition. For example, on Linux and macOS
 each server failure might result in the creation of a new (and potentially quite large) core file. This problem is
 exacerbated when the server is used frequently, in which case repeated cycles of activation and failure can consume a
 great deal of disk space and threaten the viability of the application as a whole.
