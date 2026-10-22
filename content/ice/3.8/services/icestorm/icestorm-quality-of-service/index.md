@@ -24,8 +24,8 @@ Any other failure is transient, such as a connection failure or a timeout.
 
 ## Reliability QoS for IceStorm
 
-The QoS parameter `reliability` affects message delivery. The only legal values at this point are `ordered` and the
-empty string. If not specified, the default value is the empty string (meaning not ordered).
+The QoS parameter `reliability` affects event delivery. The only legal values at this point are `ordered` and the empty
+string. If not specified, the default value is the empty string (meaning not ordered).
 
 The `ordered` reliability QoS requires a twoway subscriber proxy. If you specify this reliability QoS, IceStorm will
 forward events in the order they are received but doesn't forward them immediately. Instead, IceStorm waits for the
@@ -75,14 +75,14 @@ the discard interval. You can observe these subscriber state transitions by sett
 
 The QoS parameter `connectionCached` affects the
 [connection caching](../../../runtime/connection-management/connection-establishment) setting of the subscriber proxy
-used for message delivery. Defining this QoS parameter is equivalent to invoking the `ice_connectionCached` proxy
-method. The value is an integer: a positive value enables connection caching and `0` disables it.
+used for event delivery. Defining this QoS parameter is equivalent to invoking the `ice_connectionCached` proxy method.
+The value is an integer: a positive value enables connection caching and `0` disables it.
 
 ## Locator Cache Timeout QoS for IceStorm
 
 The QoS parameter `locatorCacheTimeout` affects the
 [locator cache timeout](../../../runtime/locators/locator-semantics-for-clients) setting of the subscriber proxy used
-for message delivery. Defining this QoS parameter is equivalent to invoking the `ice_locatorCacheTimeout` proxy method.
+for event delivery. Defining this QoS parameter is equivalent to invoking the `ice_locatorCacheTimeout` proxy method.
 The value is an integer number of seconds: `0` disables locator caching, and a negative value caches endpoints
 indefinitely.
 

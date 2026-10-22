@@ -10,8 +10,8 @@
   <title id="title">Forwarding events between federated topics</title>
   <desc id="description">
     Publisher PA publishes to topic A, which has a link to B. Publisher PB publishes directly to B. B has a link to C
-    and sends to subscriber SB; C sends to subscriber SC. Dotted arrows show topic links; solid arrows show message
-    delivery. Messages traverse at most one topic link.
+    and sends to subscriber SB; C sends to subscriber SC. Dotted arrows show topic links; solid arrows show event
+    delivery. Events traverse at most one topic link.
   </desc>
 
   <defs>
@@ -102,7 +102,7 @@
   </g>
 
   <g id="labels">
-    <text class="legend-label" x="70" y="325">Message delivery</text>
+    <text class="legend-label" x="70" y="325">Event delivery</text>
     <text class="legend-label" x="262" y="325">Topic link</text>
     <text class="label" x="335" y="49">IceStorm</text>
     <text class="label" x="64" y="110">PA</text>

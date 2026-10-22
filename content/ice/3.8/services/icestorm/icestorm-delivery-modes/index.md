@@ -10,13 +10,13 @@ example, if the subscriber subscribes with a oneway proxy, events will be forwar
 
 In this mode each event is sent to the subscriber as a separate twoway message.
 
-If you combine a twoway proxy with a `reliability` QoS of `ordered`, messages will be forwarded to the subscriber in the
+If you combine a twoway proxy with a `reliability` QoS of `ordered`, events will be forwarded to the subscriber in the
 order in which they are received. This is guaranteed because IceStorm will wait for a reply from the subscriber for each
 event before sending the next event.
 
 Without ordered delivery, events may be delivered out-of-order to the subscriber because IceStorm will send an event as
 soon as possible (without waiting for a reply for the preceding event). If the subscriber uses a thread pool with more
-than one thread, this can result in out-of-order dispatch of messages in the subscriber.
+than one thread, this can result in out-of-order dispatch of events in the subscriber.
 
 For single-threaded subscribers and subscribers using a [serialized thread pool](../../../runtime/threading-model),
 twoway delivery always produces in-order dispatch of events in the subscriber.
