@@ -2,48 +2,92 @@
 title: Connection Establishment
 ---
 
-Connections are established as a side effect of using proxies. The first invocation on a proxy causes the associated
-communicator to search for an existing connection to one of the [proxy's endpoints](../../invocation/proxy-endpoints);
-only if no suitable connection exists does the communicator establish a new connection to one of the proxy's endpoints.
+Ice establishes connections on demand. When an invocation on a proxy needs a connection, Ice reuses an existing
+connection if it can, and otherwise establishes a new connection to one of the
+[proxy's endpoints](../../invocation/proxy-endpoints).
 
-This page describes how and when Ice establishes a new connection.
+## Connection Reuse and Caching
 
-## Endpoint Selection for New Connections
+Ice reuses connections at two levels:
 
-A proxy performs a number of operations on its endpoints before it asks its communicator to supply a connection. These
-operations produce a list of zero or more endpoints that satisfy the proxy's configuration. If the resulting list is
-empty, the application receives `NoEndpointException` to indicate that no suitable endpoints could be found. For
-example, this situation can arise when a two-way proxy contains only a UDP endpoint; the UDP endpoint is eliminated from
-consideration because it cannot be used for two-way invocations.
+- By default, a proxy caches the connection it obtains and uses it for its subsequent invocations.
+- The communicator keeps the connections it establishes, and other proxies of this communicator share them.
 
-The proxy performs the following steps to derive its endpoint list:
+When a proxy with connection caching enabled needs a connection, Ice prefers an endpoint that already has a connection.
+It reuses an existing connection that meets the following conditions, and establishes a new connection only when no
+existing connection does:
 
-1. Remove the endpoints of unknown transports.
-2. Remove endpoints that are not suitable for the proxy's invocation mode. For example, datagram endpoints are removed
-   for twoway, oneway and batch oneway proxies. Similarly, non-datagram endpoints are removed for datagram and batch
-   datagram proxies.
-3. Perform DNS queries to convert host names into IP addresses, if necessary. For a multi-homed host name, the proxy
-   adds a new endpoint for each address returned by the DNS query.
-4. Sort the endpoints according to the configured selection type, which is established using the `ice_endpointSelection`
-   proxy method. The default value is `Random`, meaning the endpoints are randomly shuffled. Alternatively, the value
-   `Ordered` maintains the existing order of the endpoints.
+- The connection's remote endpoint matches one of the proxy's endpoints.
+- The connection was established for the proxy's [connection ID](#connection-ids).
 
-If [connection caching](#connection-caching) is enabled and the communicator
-[already has a compatible connection](#reusing-an-existing-connection), it reuses the cached connection. Otherwise, the
-communicator attempts to connect to each endpoint in the list until it succeeds or exhausts the list; the order in which
-endpoints are selected for connection attempts depends on the endpoint selection policy. This policy can be set using a
-default property
-([Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection)),
-using a proxy property
-([_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection)), and using the
-`ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
+You disable connection caching with the `ice_connectionCached` [proxy method](api:Ice/ObjectPrx) or the
+[_name_.ConnectionCached](../../../property-reference/proxy-properties#name.connectioncached) property. Ice then selects
+an endpoint for each invocation on this proxy, in the order set by the [endpoint selection policy](#endpoint-selection)
+and whether or not the endpoint already has a connection, and reuses an existing connection to this endpoint if there is
+one. With the default `Random` policy, disabling connection caching spreads a proxy's invocations across its endpoints.
 
-## Error Semantics for Failed Connections
+The communicator manages the lifetime of its connections independently of the proxies that use them. Connections are
+long-lived: a healthy connection with regular activity stays open until the communicator is destroyed. The communicator
+closes a connection after a period of [inactivity](../connection-closure#the-inactivity-check), 300 seconds by default,
+aborts a connection when a read or write fails or when the [idle check](../connection-closure#the-idle-check) fails, and
+closes all its connections when it is destroyed. When the connection a proxy caches closes, the proxy obtains a
+connection again for its next invocation.
 
-When a connection attempt fails, the communicator tries the next endpoint, until it establishes a connection or has
-tried all the endpoints. When all the attempts fail, the invocation fails. Ice may then
-[retry the invocation](../../invocation/automatic-retries), and a retried invocation goes through connection
-establishment again, with all the endpoints.
+## Endpoint Selection
+
+When a proxy needs a connection, Ice starts from the proxy's endpoints, or from the endpoints its
+[locator](../../locators) returns for an [indirect proxy](../../invocation/proxy-endpoints), and produces the list of
+endpoints it can connect to as follows:
+
+1. It removes the endpoints of unknown transports.
+2. It removes the endpoints that do not suit the proxy's invocation mode: datagram endpoints for twoway, oneway and
+   batch oneway proxies, and non-datagram endpoints for datagram and batch datagram proxies. If no endpoint remains, the
+   invocation fails with `NoEndpointException`.{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} For
+   example, a twoway proxy whose only endpoint is a UDP endpoint has no endpoint left.{% /iflang %}
+3. It orders the endpoints according to the endpoint selection policy. `Random`, the default, shuffles the endpoints;
+   `Ordered` keeps their order.
+4. {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}It resolves host names into IP addresses. When a
+   host name resolves to several addresses, the list holds them in the order the DNS resolver returns them, with IPv4
+   addresses ahead of IPv6 addresses unless
+   [Ice.PreferIPv6Address](../../../property-reference/ice-properties#ice.preferipv6address) is
+   set.{% iflang langs="cpp,swift" %} On iOS, the list holds the host names of TCP and SSL endpoints, not their
+   addresses: the system resolves them when Ice connects.{% /iflang %}{% /iflang %}{% iflang langs="js" %}The list holds
+   the host names, not their addresses: the JavaScript runtime resolves them when Ice connects.{% /iflang %}
+
+You set the endpoint selection policy with the
+[Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection)
+property, the [_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection) proxy
+property, or the `ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
+
+## Establishing the Connection
+
+With connection caching enabled, Ice first reuses an existing connection to any endpoint in the list, so the connection
+it reuses is not necessarily to the first endpoint, even with the `Ordered` policy. When no existing connection
+qualifies, or when connection caching is disabled, Ice attempts to connect to each
+endpoint{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}, and to each address of an
+endpoint,{% /iflang %} in order, until an attempt succeeds.
+
+## Connection IDs
+
+Each proxy has a connection ID, an empty string by default, and Ice reuses a connection for a proxy only if the
+connection was established for the same connection ID. The `ice_connectionId` [proxy method](api:Ice/ObjectPrx) returns
+a new proxy with the given connection ID. Proxies with the same connection ID form a group that shares connections, and
+Ice establishes a new connection for a group that has none to a suitable endpoint.
+
+The following example establishes three connections:
+
+{% language-section name="mapping" /%}
+
+`prx`, `g1` and `g2` each establish a connection because their connection IDs differ. `i1` inherits its connection ID
+from `g1` and shares the `group1` connection; `i2` is configured with `group2` and shares the connection of `g2`.
+
+## Failed Connection Attempts
+
+When a connection attempt fails, Ice tries the next address or endpoint, until it establishes a connection or has tried
+them all.
+
+When every attempt fails, the invocation fails. An [automatic retry](../../invocation/automatic-retries) of the
+invocation goes through connection establishment again.
 
 {% callout type="tip" %}
 
@@ -51,103 +95,28 @@ Set `Ice.Trace.Network=2` to log each failed connection attempt, and `Ice.Trace.
 
 {% /callout %}
 
-## Reusing an Existing Connection
-
-When establishing a connection for a proxy, the communicator reuses an existing connection when all the following
-conditions are met:
-
-- The proxy has [connection caching](#connection-caching) enabled.
-- The remote endpoint matches one of the proxy's endpoints.
-- The connection matches the proxy's configuration. For a proxy with a [connection ID](#influencing-connection-reuse),
-  the communicator reuses only a connection established by a proxy with the same connection ID.
-
-When a proxy has connection caching disabled, the communicator does not prefer an endpoint with an already established
-connection over other endpoints. It can select an endpoint without an established connection and create a new
-connection; or it can select an endpoint with an established connection and reuse that connection.
-
-### Influencing Connection Reuse
-
-The default behavior of the communicator, which is to reuse connections whenever possible, is appropriate for many
-applications because it conserves resources and typically has little or no impact on performance. However, when a server
-implementation attaches semantics to a connection, the client often must be designed to cooperate, despite the tighter
-coupling it causes. For example, a server might use a serialized [thread pool](../../threading-model) to preserve the
-order of requests received over each connection. If the client wants to execute several requests simultaneously, it must
-be able to force the communicator to establish new connections at will.
-
-For those situations that require more control over connection reuse, Ice allows you to form arbitrary groups of proxies
-that share a connection by configuring them with the same connection identifier. The [proxy method](api:Ice/ObjectPrx)
-`ice_connectionId` returns a new proxy configured with the given connection ID. Once configured, the communicator
-ensures that the proxy only reuses a connection that was established by a proxy with the same connection ID (assuming
-all other criteria for connection reuse are also satisfied). A new connection is created if none with a matching ID is
-found, which means each proxy could conceivably have its own connection if each were assigned a unique connection ID.
-
-As an example, consider the following code fragment:
-
-{% language-section name="mapping" /%}
-
-A total of three connections are established by this example:
-
-1. The proxy `prx` establishes a new connection. This proxy has the default connection ID (an empty string).
-2. The proxy `g1` establishes a new connection because the only existing connection, the one established by `prx`, has a
-   different connection ID.
-3. Similarly, the proxy `g2` establishes a new connection because none of the existing connections have a matching
-   connection ID.
-
-The proxy `i1` inherits its connection ID from `g1`, and therefore shares the connection for `group1`; `i2` explicitly
-configured its connection ID and shares the `group2` connection with proxy `g2`.
-
-## Connection Caching
-
-When we refer to a proxy's connection, we actually mean the connection that the proxy is _currently_ using. This
-connection can change over time, such that a proxy might use several connections during its lifetime. For example, an
-[inactive connection](../../../property-reference/ice-connection-properties) may be closed gracefully and then
-transparently replaced by a new connection when activity resumes.
-
-After establishing a connection in response to proxy activities, the communicator associated with this proxy adds the
-connection to an internal pool for subsequent [reuse](#reusing-an-existing-connection) by other proxies. The
-communicator manages the lifetime of the connection and eventually [closes](../connection-closure) it. The connection is
-not affected by the life cycle of the proxies that use it, except that the lack of activity may prompt the communicator
-to close the connection after a while.
-
-Once a proxy has been associated with a connection, the proxy's default behavior is to continue using that connection
-for all subsequent requests. In effect, the proxy caches the connection and attempts to use it for as long as possible
-in order to minimize the overhead of creating new connections. If the connection is later closed and the proxy is used
-again, the proxy establishes a new connection as described in
-[Endpoint Selection for New Connections](#endpoint-selection-for-new-connections).
-
-There are situations in which this default caching behavior is undesirable, such as when a client has a proxy with
-multiple endpoints and wishes to balance the load among the servers at those endpoints. The client can disable
-connection caching by passing an argument of `false` to the proxy factory method `ice_connectionCached`. The new proxy
-returned by this method repeats the connection-establishment procedure before each request, thereby achieving request
-load balancing at the expense of potentially higher latency. This type of load balancing is performed solely by the
-client using whatever endpoints are contained in the proxy. More sophisticated forms of load balancing are also
-possible, such as when using [IceGrid](../../../services/icegrid).
-
-Enabling or disabling connection caching on a proxy has two separate effects:
-
-- when caching is enabled, the proxy remembers ("caches") a connection until the connection is closed, while when
-  caching is disabled, the proxy does not remember the connection it previously used.
-- when caching is enabled, Ice provides to this proxy an already established connection if possible; when caching is
-  disabled, Ice does not prefer endpoints with established connections over other endpoints when providing a connection
-  to this proxy.
-
 ## Connection Establishment Timeout
 
-The default connection establishment timeout is 10 seconds, as determined by the
-[ConnectTimeout](../../../property-reference/ice-connection-properties) property. If a connection cannot be established
-within the allotted time, Ice throws `ConnectTimeoutException`.
+A connection attempt fails with `ConnectTimeoutException` when it does not complete within the time set by
+[Ice.Connection.Client.ConnectTimeout](../../../property-reference/ice-connection-properties#ice.connection.name.connecttimeout),
+10 seconds by default.
 
 ## Source Address for New Connections
 
-You can force Ice to use a specific source address for TCP/IP connections. This can be useful in specific uses cases,
-such as to overcome the limited number of ephemeral ports. There are two ways to do this:
+Ice binds an outgoing connection to the source address of the endpoint it connects to. You set this address with the
+[--sourceAddress](../../endpoint-syntax) endpoint option, and Ice gives the address set by
+[Ice.Default.SourceAddress](../../../property-reference/ice-default-properties#ice.default.sourceaddress) to the
+endpoints it parses without this option, such as those of a stringified proxy. An endpoint that Ice unmarshals, such as
+an endpoint returned by a locator, has no source address, and the operating system then selects the source address. Both
+settings take a numeric IP address.{% iflang langs="cpp,swift" %} On iOS, Ice does not bind TCP and SSL connections to a
+source address.{% /iflang %}
 
-- Define the [Ice.Default.SourceAddress](../../../property-reference/ice-default-properties) property to establish a
-  default source address for all outgoing connections created by a communicator
-- Include a [--sourceAddress](../../endpoint-syntax) option in proxy endpoints, which overrides any setting for
-  `Ice.Default.SourceAddress`
+{% iflang langs="js" %}
 
-The value in each case must be an IP address.
+In Ice for JavaScript, this applies to TCP connections in Node.js. WebSocket connections use the source address selected
+by the operating system.
+
+{% /iflang %}
 
 ## See Also
 
