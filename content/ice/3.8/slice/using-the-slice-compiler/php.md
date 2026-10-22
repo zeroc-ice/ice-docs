@@ -25,19 +25,19 @@ Without the `--all` option, the compiler generates no code for Slice definitions
 translates each `#include` directive into a `require_once` statement for the PHP file generated from the included file,
 and places these statements in a global `namespace` block.
 
-When include directories (specified with `-I`) contain the included file, the compiler uses the shortest path of the
-included file relative to one of these directories. For example, if the included file is `/opt/App/slice/OS/Process.ice`
-and you specify `-I/opt/App` and `-I/opt/App/slice`, the compiler generates:
+Each `require_once` statement uses the shortest of these paths: the path from the `#include` directive, and the path of
+the included file relative to each include directory (specified with `-I`) that contains it. For example, if
+`/opt/App/slice/Main.ice` contains `#include <Process.ice>` and you specify `-I/opt/App/slice/OS` and
+`-I/opt/App/slice`, the compiler generates:
 
 ```php
 namespace
 {
-    require_once 'OS/Process.php';
+    require_once 'Process.php';
 }
 ```
 
-Choosing your include directories lets you avoid absolute paths and match the layout of your source files. When no
-include directory contains the included file, the compiler uses the path from the `#include` directive:
-`#include "../common/Shared.ice"` becomes `require_once '../common/Shared.php';`.
+If `Main.ice` contains `#include "OS/Process.ice"` instead, the compiler generates `require_once 'OS/Process.php';` even
+with `-I/opt/App`, because `OS/Process` is shorter than `slice/OS/Process`.
 
 {% /language-section %}
