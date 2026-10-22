@@ -93,7 +93,7 @@ public interface CPrx : APrx, BPrx
 Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
 from `C`'s base interfaces.
 
-### Casting a Proxy
+### Creating a Proxy of Another Type
 
 In addition to `createProxy`, the generated helper class provides two static methods for converting a proxy into a proxy
 of another type:
@@ -124,8 +124,8 @@ WidgetPrx widget = WidgetPrxHelper.uncheckedCast(simple);
 
 #### checkedCastAsync
 
-`checkedCastAsync` is a conditional cast of the proxy: this method makes a remote call to the target object to check if
-this object implements the proxy’s Slice interface. For example:
+`checkedCastAsync` makes a remote call to the target object to check if this object implements the proxy’s Slice
+interface. For example:
 
 ```csharp
 // Call operation ice_isA on the Ice object to check if it implements Slice interface
@@ -162,8 +162,8 @@ GreeterPrx greeter = GreeterPrxHelper.createProxy(...);
 greeter = GreeterPrxHelper.uncheckedCast(greeter.ice_invocationTimeout(10000));
 ```
 
-`ice_invocationTimeout` and other factory methods in C# return an `Ice.ObjectPrx`. You need to down-cast this proxy to
-the correct proxy type as shown above.
+`ice_invocationTimeout` and other factory methods in C# return an `Ice.ObjectPrx`. You need to convert this proxy into a
+proxy of the correct type, as shown above.
 
 ## Server-Side Mapping for Interfaces
 

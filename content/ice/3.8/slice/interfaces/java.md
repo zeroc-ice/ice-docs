@@ -80,7 +80,7 @@ public interface CPrx extends APrx, BPrx {
 Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
 from `C`'s base interfaces.
 
-### Casting a Proxy
+### Creating a Proxy of Another Type
 
 In addition to `createProxy`, the generated proxy interfaces provides two static methods for converting a proxy into a
 proxy of another type:
@@ -106,8 +106,8 @@ WidgetPrx widget = WidgetPrx.uncheckedCast(simple);
 
 #### checkedCast
 
-`checkedCast` is a conditional cast of the proxy: this method makes a remote call to the target object to check if this
-object implements the proxy’s Slice interface. For example:
+`checkedCast` makes a remote call to the target object to check if this object implements the proxy’s Slice interface.
+For example:
 
 ```java
 // Call operation ice_isA on the Ice object to check if it implements Slice interface
@@ -140,7 +140,8 @@ greeter = greeter.ice_invocationTimeout(10000);
 The factory methods usually return a proxy of the same type as the current proxy, as in the example above.
 
 The only exceptions are the factory methods `ice_facet` and `ice_identity`. Calls to either of these methods may produce
-a proxy for an object of an unrelated type, and you need to cast the returned proxy. For example:
+a proxy for an object of an unrelated type, and you need to convert the returned proxy into a proxy of that type. For
+example:
 
 ```java
 GreeterPrx greeter = GreeterPrx.createProxy(...);
