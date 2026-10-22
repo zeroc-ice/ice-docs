@@ -9,12 +9,7 @@ to a database record. Unfortunately, supporting callbacks in a complicated netwo
 [set of problems](../common-firewall-traversal-issues). Ice overcomes these obstacles using a Glacier2 router and
 bidirectional connections.
 
-{% callout type="tip" title="Example" %}
-
-The `Glacier2/callback` demo illustrates the use of callbacks with Glacier2. The `README.md` file in the directory
-provides instructions on running the example, and comments in the configuration file describe the properties in detail.
-
-{% /callout %}
+{% language-section name="callback-demo" /%}
 
 ## Bidirectional Connections with Glacier2
 

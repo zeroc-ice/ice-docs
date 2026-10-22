@@ -23,6 +23,8 @@ For the sake of example, the router's public address is 5.6.7.8 and its private 
 
 {% /callout %}
 
+{% language-section name="greeter-demo" /%}
+
 ## Configuring the Router
 
 The following router configuration property establish the necessary endpoint:
@@ -260,6 +262,8 @@ session object is only accessible via the router. If the router is configured as
 `createSession` or `createSessionFromSecureConnection` is invoked, then the session proxy is already properly configured
 and nothing else is required. Otherwise, the client must explicitly configure the session proxy with a router using the
 `ice_router` proxy method.
+
+{% language-section name="session-demo" /%}
 
 ### Glacier2 Session Destruction
 

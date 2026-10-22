@@ -10,3 +10,10 @@ session = router.createSession(username, "password")
 ```
 
 {% /language-section %}
+
+{% language-section name="greeter-demo" %}
+
+The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/ruby/Glacier2/greeter) provides a Ruby
+client that runs against the router and server of a greeter demo written in another language.
+
+{% /language-section %}
