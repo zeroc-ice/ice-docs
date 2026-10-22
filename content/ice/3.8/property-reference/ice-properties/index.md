@@ -79,7 +79,7 @@ Setting this property to `0` (or to a negative number) disables the depth limit 
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
 
 ## Ice.Compression.Level
 
@@ -97,6 +97,10 @@ higher levels cause the bzip2 algorithm to devote more resources to the compress
 significant improvement over lower levels. If not specified, the default value is `1`.
 
 {% /property-description %}
+
+{% /iflang %}
+
+{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
 
 ## Ice.Config
 
