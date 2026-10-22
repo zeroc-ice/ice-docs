@@ -13,13 +13,8 @@ optional<Glacier2::SessionPrx> session =
 
 {% language-section name="greeter-demo" %}
 
-{% callout type="tip" title="Example" %}
-
-The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Glacier2/greeter) shows a C++ client
-that calls an object in a server behind a Glacier2 router, with the server and the router configuration,
-`glacier2.conf`.
-
-{% /callout %}
+The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/cpp/Glacier2/greeter) provides a complete
+client and server in C++, and the configuration of the Glacier2 router between them.
 
 {% /language-section %}
 

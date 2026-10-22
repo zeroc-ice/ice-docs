@@ -11,12 +11,8 @@ clientCategory = await router.getCategoryForClientAsync()
 
 {% language-section name="callback-demo" %}
 
-{% callout type="tip" title="Example" %}
-
-The [Glacier2 callback demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/python/Glacier2/callback) shows a Python
-client that creates a session with a Glacier2 router and receives callbacks over its connection to the router. Its
-`README.md` describes how to run it, and the comments in its `glacier2.conf` describe the router properties.
-
-{% /callout %}
+The [Glacier2 callback demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/python/Glacier2/callback) provides a
+complete client and server in Python, and the configuration of the Glacier2 router between them: the client receives
+callbacks from the server through its session with the router.
 
 {% /language-section %}

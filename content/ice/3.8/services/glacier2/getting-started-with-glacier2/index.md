@@ -257,13 +257,13 @@ If the router is configured with a [session manager](../glacier2-session-managem
 interface (or an application-specific derived interface). The client receives a null proxy if no session manager is
 configured.
 
-{% language-section name="session-demo" /%}
-
 A non-null session proxy returned by a `create` operation must be configured with the router that created it because the
 session object is only accessible via the router. If the router is configured as the client's default router at the time
 `createSession` or `createSessionFromSecureConnection` is invoked, then the session proxy is already properly configured
 and nothing else is required. Otherwise, the client must explicitly configure the session proxy with a router using the
 `ice_router` proxy method.
+
+{% language-section name="session-demo" /%}
 
 ### Glacier2 Session Destruction
 
