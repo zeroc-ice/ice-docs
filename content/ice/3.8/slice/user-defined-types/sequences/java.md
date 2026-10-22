@@ -124,8 +124,8 @@ implementation, which may need to make assumptions about the actual type of the 
 
 ### Buffer Types
 
-You can annotate sequences of certain primitive types with the `java:buffer` metadata directive to change the mapping to
-use subclasses of `java.nio.Buffer`. This mapping provides several benefits:
+You can annotate sequences of certain basic types with the `java:buffer` metadata directive to change the mapping to use
+subclasses of `java.nio.Buffer`. This mapping provides several benefits:
 
 - You can pass a buffer to a Slice API instead of creating and filling a temporary array
 - If you need to pass a portion of an existing array, you can wrap it with a buffer and avoid an extra copy
@@ -139,16 +139,16 @@ To use buffers safely, applications must disable caching by setting
 
 {% /callout %}
 
-The following table lists each supported Slice primitive type with its corresponding mapped class:
+The following table lists each supported Slice basic type with its corresponding mapped class:
 
-| **Primitive** | **Mapping**             |
-| ------------- | ----------------------- |
-| `byte`        | `java.nio.ByteBuffer`   |
-| `short`       | `java.nio.ShortBuffer`  |
-| `int`         | `java.nio.IntBuffer`    |
-| `long`        | `java.nio.LongBuffer`   |
-| `float`       | `java.nio.FloatBuffer`  |
-| double        | `java.nio.DoubleBuffer` |
+| **Basic Type** | **Mapping**             |
+| -------------- | ----------------------- |
+| `byte`         | `java.nio.ByteBuffer`   |
+| `short`        | `java.nio.ShortBuffer`  |
+| `int`          | `java.nio.IntBuffer`    |
+| `long`         | `java.nio.LongBuffer`   |
+| `float`        | `java.nio.FloatBuffer`  |
+| `double`       | `java.nio.DoubleBuffer` |
 
 The `java:buffer` directive can be applied to the initial definition of a sequence, in which case the mapping uses the
 buffer type for all occurrences of that sequence type:

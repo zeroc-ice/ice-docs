@@ -57,8 +57,8 @@ strings, sequences, and dictionaries, are initialized by their own default const
 performs no initialization for members of type `bool`, of an integer or floating-point type, or of an enumeration type.
 For such a member, it is not safe to assume that the member has a reasonable default value.
 
-To ensure that data members of primitive types are initialized to reasonable values, you can declare default values in
-your Slice definition. These default values are mapped to C++ data member initializers.
+To ensure that these data members are initialized to reasonable values, you can declare default values in your Slice
+definition. These default values are mapped to C++ data member initializers.
 
 ### Printing Structs
 
