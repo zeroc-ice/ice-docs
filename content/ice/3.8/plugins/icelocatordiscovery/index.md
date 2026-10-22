@@ -75,9 +75,6 @@ Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 IceLocatorDiscovery.InstanceName=IceGrid
 ```
 
-When neither property is set, the slave registry derives its instance name from the plug-in's locator, whose identity
-category is a generated UUID, and does not find the master registry.
-
 The master registry does not need the plug-in.
 
 IceGrid registries listen for multicast discovery queries by default, but you can disable this feature by setting
@@ -116,9 +113,6 @@ deployment:
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 IceLocatorDiscovery.InstanceName=IceGrid
 ```
-
-When neither property is set, the node derives its instance name from the plug-in's locator, whose identity category is
-a generated UUID, and does not register with the registry.
 
 ## See Also
 
