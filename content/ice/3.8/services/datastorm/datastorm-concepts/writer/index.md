@@ -227,11 +227,11 @@ Specifies the **priority** of the writer. Default: `0`. Readers can be configure
 [DiscardPolicy::Priority](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473))
 to accept only the samples from the writers with the highest priority among the writers connected for the sample's key.
 
-### Coordination & Listeners
+## Coordination & Listeners
 
 Writers provide methods and listener callbacks to coordinate with connected readers.
 
-#### Coordination Methods
+### Coordination Methods
 
 - [hasReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a91b9693902db142aaaefe92f4f024560.html#a91b9693902db142aaaefe92f4f024560)
   — checks whether any readers are currently connected.
@@ -244,7 +244,7 @@ Writers provide methods and listener callbacks to coordinate with connected read
 - [getConnectedReaders](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a139caf6992bf90fd211abbf3250b8683.html#a139caf6992bf90fd211abbf3250b8683)
   — returns the names of connected readers.
 
-#### Connected Keys Listener
+### Connected Keys Listener
 
 Use
 [onConnectedKeys(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a8e95ce3faae3df238b50727e2e4ff729.html#a8e95ce3faae3df238b50727e2e4ff729)
@@ -253,7 +253,7 @@ to register callbacks that monitor connected keys, replacing any callbacks regis
 - DataStorm calls `initCallback` once with the initial set of connected keys.
 - DataStorm calls `updateCallback` whenever a key is connected or disconnected.
 
-#### Connected Readers Listener
+### Connected Readers Listener
 
 Use
 [onConnectedReaders(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Writer_a2abe48f42f26a47a1f143c66ceb5a34c.html#a2abe48f42f26a47a1f143c66ceb5a34c)

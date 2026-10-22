@@ -222,9 +222,9 @@ Default: `None`.
 - **Priority** — keep only the samples from the writers with the highest priority among the writers connected for the
   sample's key
 
-### Coordination & Listeners
+## Coordination & Listeners
 
-#### Coordination Methods
+### Coordination Methods
 
 - [hasWriters](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ae69539f596e0bc112d1bc941e029487b.html#ae69539f596e0bc112d1bc941e029487b)
   — checks whether any writers are currently connected.
@@ -237,7 +237,7 @@ Default: `None`.
 - [getConnectedWriters](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_a239f6b4b40dc8ca97beb465f66c3b142.html#a239f6b4b40dc8ca97beb465f66c3b142)
   — returns the names of connected writers.
 
-#### Connected Keys Listener
+### Connected Keys Listener
 
 - Use
   [onConnectedKeys(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_ab1257d44f1504f39994f865c6f096b79.html#ab1257d44f1504f39994f865c6f096b79)
@@ -246,7 +246,7 @@ Default: `None`.
   - DataStorm calls `initCallback` once with the initial set of connected keys.
   - DataStorm calls `updateCallback` whenever a key is connected or disconnected.
 
-#### Connected Writers Listener
+### Connected Writers Listener
 
 - Use
   [onConnectedWriters(initCallback, updateCallback)](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Reader_a141f030489315d97fa5c7464c32556a2.html#a141f030489315d97fa5c7464c32556a2)
