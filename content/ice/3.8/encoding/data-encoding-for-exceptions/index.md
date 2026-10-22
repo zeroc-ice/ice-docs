@@ -182,8 +182,8 @@ Repeating this exercise using the compact format produces the following encoding
 
 _Marshaled representation of the exception using the compact format._
 
-With the compact format, the receiver _must_ know the most-derived type: without slice sizes, it cannot skip a slice it
-does not know how to decode, and throws `MarshalException`.
+With the compact format, a receiver decodes the exception only if it knows the most-derived type: without slice sizes,
+it cannot skip a slice it does not know how to decode, so it throws `MarshalException`.
 
 ## See Also
 
