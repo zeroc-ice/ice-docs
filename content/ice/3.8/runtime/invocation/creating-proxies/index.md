@@ -1,6 +1,5 @@
 ---
 title: Creating Proxies
-sidebarLabel: Create a Proxy
 ---
 
 This page describes all the ways an application can create a proxy.

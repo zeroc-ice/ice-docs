@@ -1,6 +1,6 @@
 ---
 title: Editing and Saving IceGrid Descriptors
-sidebarLabel: Edit and Save Descriptors
+sidebarLabel: Editing and Saving Descriptors
 ---
 
 ## Editing

@@ -1,6 +1,6 @@
 ---
 title: Developing IceBox Services
-sidebarLabel: Develop a Service
+sidebarLabel: Developing Services
 ---
 
 ## The IceBox `Service` Interface

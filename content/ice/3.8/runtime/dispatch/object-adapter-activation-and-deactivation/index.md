@@ -1,6 +1,6 @@
 ---
 title: Object Adapter Activation and Deactivation
-sidebarLabel: Activate and Deactivate
+sidebarLabel: Activation and Deactivation
 ---
 
 ## Activation

@@ -1,6 +1,6 @@
 ---
 title: Getting Started with IceGrid GUI
-sidebarLabel: Get Started
+sidebarLabel: Getting Started
 ---
 
 This page describes how to launch the IceGrid GUI tool.

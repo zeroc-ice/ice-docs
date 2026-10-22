@@ -1,6 +1,6 @@
 ---
 title: Starting the IceBox Server
-sidebarLabel: Start the Server
+sidebarLabel: Starting the Server
 ---
 
 Incorporating everything we discussed previously, we can now configure and start IceBox servers.

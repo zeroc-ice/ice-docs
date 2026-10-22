@@ -1,6 +1,5 @@
 ---
 title: Creating the admin Object
-sidebarLabel: Create the admin Object
 languages:
   - cpp
   - csharp

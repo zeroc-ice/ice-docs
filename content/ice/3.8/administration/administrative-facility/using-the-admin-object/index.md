@@ -1,6 +1,5 @@
 ---
 title: Using the admin Object
-sidebarLabel: Use the admin Object
 ---
 
 {% iflang langs="cpp,csharp,java,python,swift" %}

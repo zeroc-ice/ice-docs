@@ -1,6 +1,6 @@
 ---
 title: Greeter Example
-sidebarLabel: Get Started
+sidebarLabel: Getting Started
 pages:
   - defining-the-greeter-interface-in-slice
   - writing-a-greeter-server

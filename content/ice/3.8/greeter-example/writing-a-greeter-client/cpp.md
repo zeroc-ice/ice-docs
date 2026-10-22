@@ -1,6 +1,6 @@
 ---
 title: Writing a Greeter Client
-sidebarLabel: Write the Client
+sidebarLabel: Writing the Client
 ---
 
 This page provides a step-by-step guide to writing the client-side of our C++ Greeter application.

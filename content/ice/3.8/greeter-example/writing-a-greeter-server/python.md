@@ -1,6 +1,6 @@
 ---
 title: Writing a Greeter Server
-sidebarLabel: Write the Server
+sidebarLabel: Writing the Server
 ---
 
 This page provides a step-by-step guide to writing the server-side of our Python Greeter application.

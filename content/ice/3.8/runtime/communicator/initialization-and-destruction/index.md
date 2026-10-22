@@ -1,6 +1,6 @@
 ---
 title: Communicator Initialization and Destruction
-sidebarLabel: Create and Destroy
+sidebarLabel: Initialization and Destruction
 ---
 
 ## Creating a Communicator

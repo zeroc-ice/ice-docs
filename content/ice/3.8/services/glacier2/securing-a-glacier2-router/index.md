@@ -1,6 +1,6 @@
 ---
 title: Securing a Glacier2 Router
-sidebarLabel: Secure the Router
+sidebarLabel: Securing the Router
 ---
 
 A Glacier2 router accepts connections from clients outside a private network and forwards their requests to servers
