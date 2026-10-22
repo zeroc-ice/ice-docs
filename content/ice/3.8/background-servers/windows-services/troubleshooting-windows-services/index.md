@@ -39,7 +39,7 @@ Assuming that DLL issues are resolved, a Windows service can fail to start for a
   or the service does not have sufficient access rights to them
 - networking issues, such as attempting to open a port that is already in use, or DNS lookup failures
 
-Failures encountered by the Ice run time prior to initialization of the communicator are reported to the Windows event
+Failures encountered by the Ice runtime prior to initialization of the communicator are reported to the Windows event
 log if no other logger implementation is defined, so that should be the first place you look. Typically you will find an
 entry in the `System` event log resembling the following message:
 

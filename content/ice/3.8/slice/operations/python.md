@@ -590,7 +590,7 @@ requires no unpacking.
 
 ### Parameter Type Mismatches
 
-Although the Python compiler cannot check the types of arguments passed to a function, the Ice run time does perform
+Although the Python compiler cannot check the types of arguments passed to a function, the Ice runtime does perform
 validation on the arguments to a proxy invocation and reports any type mismatches as a `ValueError` exception.
 
 ### Null Parameters

@@ -196,7 +196,7 @@ useful for scripts that wish to wait until all servers have been started and are
 This property sets the number of processor sockets. This value is reported by the
 [icegridadmin](../../services/icegrid/icegridadmin-command-line-tool) `node sockets` command. On Windows Vista (or
 later), Windows Server 2008 (or later), and Linux systems, the number of processor sockets is set automatically by the
-Ice run time. On other systems, the run time cannot obtain the socket count from the operating system; you can use this
+Ice runtime. On other systems, the runtime cannot obtain the socket count from the operating system; you can use this
 property to set the number of processor sockets manually on such systems.
 
 {% /property-description %}

@@ -159,8 +159,8 @@ You can obtain more information about each category using the `help` command:
 - `server list` List all registered servers.
 - `server remove ID` Remove server `ID`.
 - `server describe ID` Describe server `ID`.
-- `server properties ID` Get the run-time properties of server `ID`.
-- `server property ID NAME` Get the run-time property `NAME` of server `ID`.
+- `server properties ID` Get the runtime properties of server `ID`.
+- `server property ID NAME` Get the runtime property `NAME` of server `ID`.
 - `server status ID` Get the status of server `ID`.
 - `server pid ID` Get the process ID of server `ID`.
 - `server start ID` Start server `ID`.
@@ -188,8 +188,8 @@ You can obtain more information about each category using the `help` command:
 - `service stop ID NAME` Stops service `NAME` in IceBox server `ID`.
 - `service status ID NAME` Gets the status of service `NAME` in IceBox server `ID`: `running` or `stopped`.
 - `service describe ID NAME` Describes service `NAME` in IceBox server `ID`.
-- `service properties ID NAME` Get the run-time properties of service `NAME` from IceBox server `ID`.
-- `service property ID NAME PROPERTY` Get the run-time property `PROPERTY` of service `NAME` from IceBox server `ID`.
+- `service properties ID NAME` Get the runtime properties of service `NAME` from IceBox server `ID`.
+- `service property ID NAME PROPERTY` Get the runtime property `PROPERTY` of service `NAME` from IceBox server `ID`.
 - `service list ID` List the services in IceBox server `ID`.
 
 ## Adapter Commands

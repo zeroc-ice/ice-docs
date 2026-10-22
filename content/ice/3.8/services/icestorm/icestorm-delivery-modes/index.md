@@ -20,7 +20,7 @@ than one thread, this can result in out-of-order dispatch of messages in the sub
 For single-threaded subscribers and subscribers using a [serialized thread pool](../../../runtime/threading-model),
 twoway delivery always produces in-order dispatch of events in the subscriber.
 
-With twoway delivery, IceStorm is informed of any failure to deliver an event by the Ice run time. For example, IceStorm
+With twoway delivery, IceStorm is informed of any failure to deliver an event by the Ice runtime. For example, IceStorm
 may not be able to establish a connection to a subscriber, or may receive an `ObjectNotExistException` when it forwards
 an event. With the default `retryCount` of `0`, IceStorm cancels the subscription when it fails to deliver an event. The
 [retryCount QoS parameter](../icestorm-quality-of-service#retry-count-qos-for-icestorm) lets IceStorm retry instead.

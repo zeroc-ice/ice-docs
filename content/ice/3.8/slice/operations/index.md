@@ -174,7 +174,7 @@ _at-most-once_ semantics for operation invocations:
 
 - For normal (not idempotent) operations, the Ice runtime has to be conservative about how it deals with errors. For
   example, if a client sends an operation invocation to a server and then loses connectivity, there is no way for the
-  client-side run time to find out whether the request it sent actually made it to the server. This means that the
+  client-side runtime to find out whether the request it sent actually made it to the server. This means that the
   runtime cannot attempt to recover from the error by re-establishing a connection and sending the request a second time
   because that could cause the operation to be invoked a second time and violate at-most-once semantics; the runtime has
   no option but to report the error to the application.

@@ -22,7 +22,7 @@ Ice for JavaScript does not support the properties on this page. Setting any of 
 
 {% property-description %}
 
-The Ice run time creates and activates an
+The Ice runtime creates and activates an
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) named
 `Ice.Admin` if the [Administrative Facility](../../administration/administrative-facility) is enabled,
 [Ice.Admin.Endpoints](../object-adapter-properties#adapter.endpoints) is defined and one of the following is true:
@@ -52,7 +52,7 @@ only trusted clients are allowed to use it.
 
 {% property-description %}
 
-If `num` is a value greater than `0`, the Ice run time delays the creation of the `Ice.Admin`
+If `num` is a value greater than `0`, the Ice runtime delays the creation of the `Ice.Admin`
 [administrative object adapter](../../administration/administrative-facility/creating-the-admin-object) until `getAdmin`
 is invoked on the communicator. If not specified, the default value is `0`, meaning the `Ice.Admin` object adapter is
 created immediately after all plug-ins are initialized, provided [Ice.Admin.Endpoints](#ice.admin.adapterproperty) is
@@ -90,7 +90,7 @@ Specifies the facets enabled by the [administrative object](../../administration
 allowing you to [filter](../../administration/administrative-facility/filtering-administrative-facets) the facets that
 the administrative object enables by default. Facet names are delimited by commas or white space. A facet name that
 contains white space must be enclosed in single or double quotes. If not specified, all facets are enabled. While the
-Ice run time creates only the built-in facets (such as Process and Properties) that are enabled, you can create
+Ice runtime creates only the built-in facets (such as Process and Properties) that are enabled, you can create
 administrative facets without checking the value of this property. Ice ensures that only enabled administrative facets
 are available to clients.
 

@@ -19,7 +19,7 @@ If `num` is set to `0` (the default), an invocation on an indirect proxy whose e
 time delays the invocation until the new endpoints are returned by the locator.
 
 If `num` is set to a value larger than `0`, an invocation on an indirect proxy with expired endpoints still triggers a
-locator cache update, but the update is performed in the background, and the run time uses the expired endpoints for the
+locator cache update, but the update is performed in the background, and the runtime uses the expired endpoints for the
 invocation. This avoids delaying the first invocation that follows expiry of a cache entry.
 
 {% /property-description %}

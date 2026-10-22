@@ -20,7 +20,7 @@ IceGrid registry is the only process of interest on host `PC1`, while IceGrid no
 
 From a client application's perspective, the primary responsibility of the registry is to resolve indirect proxies as an
 Ice [location service](../../../runtime/locators). As such, this contribution is largely transparent: when a client
-first attempts to use an indirect proxy, the Ice run time in the client contacts the registry to convert the proxy's
+first attempts to use an indirect proxy, the Ice runtime in the client contacts the registry to convert the proxy's
 symbolic information into endpoints that allow the client to
 [establish a connection](../../../runtime/connection-management/connection-establishment).
 
@@ -51,7 +51,7 @@ The binding process works somewhat differently when replication is involved, sin
 adapters to choose from. The description of the IceGrid application drives the registry's decision about which object
 adapter (or object adapters) to use. For example, the registry could consider the system load of each computer (as
 periodically reported by the nodes) and return the endpoints of the object adapter on the computer with the lowest load.
-It is also possible for the registry to combine the endpoints of several object adapters, in which case the Ice run time
+It is also possible for the registry to combine the endpoints of several object adapters, in which case the Ice runtime
 in the client would select the endpoint for the initial connection attempt.
 
 ## Deploying an IceGrid Application

@@ -328,7 +328,7 @@ send very large proxies, since each session's routing table holds every proxy it
 The Glacier2 router immediately terminates a client's session if it attempts to use a proxy that is rejected by an
 address filter or exceeds the size limit defined by the property
 [Glacier2.Filter.ProxySizeMax](../../../property-reference/glacier2-properties#glacier2.filter.proxysizemax). The Ice
-run time in the client responds by raising `ConnectionLostException` to the application.
+runtime in the client responds by raising `ConnectionLostException` to the application.
 
 For category, identity, and adapter ID filters, the router raises `ObjectNotExistException` if any of the filters
 rejects a proxy and none of the filters accepts it.
