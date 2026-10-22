@@ -95,8 +95,10 @@ If the target object implements the Slice interface, `checkedCast` returns a non
 If the target object doesn’t implement this interface, `checkedCast` returns null. `checkedCast` can also throw an
 exception, for example if it cannot reach the remote object.
 
-Use `uncheckedCast` when you know the target object implements the Slice interface. Use `checkedCast` when you need to
-ask the target object whether it implements this interface.
+Use `uncheckedCast` when you know the target object implements the Slice interface, and `checkedCast` when you need to
+ask the target object whether it implements this interface. You rarely need either: you usually
+[create a proxy](../../runtime/invocation/creating-proxies#creating-a-proxy-of-another-type) of the type you need
+directly.
 
 ### Proxy Factory Methods
 

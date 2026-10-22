@@ -144,8 +144,10 @@ methods when making remote calls, and avoid these synchronous overloads provided
 
 {% /callout %}
 
-Use `uncheckedCast` when you know the target object implements the Slice interface. Use `checkedCastAsync` when you need
-to ask the target object whether it implements this interface.
+Use `uncheckedCast` when you know the target object implements the Slice interface, and `checkedCastAsync` when you need
+to ask the target object whether it implements this interface. You rarely need either: you usually
+[create a proxy](../../runtime/invocation/creating-proxies#creating-a-proxy-of-another-type) of the type you need
+directly.
 
 ### Proxy Factory Methods
 
