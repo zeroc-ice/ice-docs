@@ -22,46 +22,49 @@ existing connection does:
 
 You disable connection caching with the `ice_connectionCached` [proxy method](api:Ice/ObjectPrx) or the
 [_name_.ConnectionCached](../../../property-reference/proxy-properties#name.connectioncached) property. Ice then selects
-a connection for each invocation on this proxy: it tries the endpoints in the order set by the
-[endpoint selection policy](#endpoint-selection), whether or not an endpoint already has a connection, and reuses an
-existing connection to the endpoint it selects. With the default `Random` policy, disabling connection caching spreads a
-proxy's invocations across its endpoints, at the cost of potentially higher latency.
+an endpoint for each invocation on this proxy, in the order set by the [endpoint selection policy](#endpoint-selection)
+and whether or not the endpoint already has a connection, and reuses an existing connection to this endpoint if there is
+one. With the default `Random` policy, disabling connection caching spreads a proxy's invocations across its endpoints.
 
-The communicator manages the lifetime of its connections independently of the proxies that use them, and
-[closes](../connection-closure) a connection, for example after a period of
-[inactivity](../../../property-reference/ice-connection-properties#ice.connection.name.inactivitytimeout). When the
-connection a proxy caches closes, the proxy obtains a connection again for its next invocation.
+The communicator manages the lifetime of its connections independently of the proxies that use them. Connections are
+long-lived: a healthy connection with regular activity stays open until the communicator is destroyed. The communicator
+closes a connection after a period of [inactivity](../connection-closure#the-inactivity-check), 300 seconds by default,
+aborts a connection when a read or write fails or when the [idle check](../connection-closure#the-idle-check) fails, and
+closes all its connections when it is destroyed. When the connection a proxy caches closes, the proxy obtains a
+connection again for its next invocation.
 
 ## Endpoint Selection
 
-When a proxy needs a connection, Ice derives a list of endpoints from the proxy's endpoints, or, for an
-[indirect proxy](../../invocation/proxy-endpoints), from the endpoints its [locator](../../locators) returns:
+When a proxy needs a connection, Ice starts from the proxy's endpoints, or from the endpoints its
+[locator](../../locators) returns for an [indirect proxy](../../invocation/proxy-endpoints), and produces the list of
+endpoints it can connect to as follows:
 
 1. It removes the endpoints of unknown transports.
 2. It removes the endpoints that do not suit the proxy's invocation mode: datagram endpoints for twoway, oneway and
-   batch oneway proxies, and non-datagram endpoints for datagram and batch datagram proxies.
+   batch oneway proxies, and non-datagram endpoints for datagram and batch datagram proxies. If no endpoint remains, the
+   invocation fails with `NoEndpointException`.{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} For
+   example, a twoway proxy whose only endpoint is a UDP endpoint has no endpoint left.{% /iflang %}
 3. It orders the endpoints according to the endpoint selection policy. `Random`, the default, shuffles the endpoints;
    `Ordered` keeps their order.
 4. {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}It resolves host names into IP addresses. When a
-   host name resolves to several addresses, Ice tries them in the order the DNS resolver returns them, with IPv4
+   host name resolves to several addresses, the list holds them in the order the DNS resolver returns them, with IPv4
    addresses ahead of IPv6 addresses unless
    [Ice.PreferIPv6Address](../../../property-reference/ice-properties#ice.preferipv6address) is
-   set.{% iflang langs="cpp,swift" %} On iOS, the system resolves the host names of TCP and SSL endpoints when Ice
-   connects.{% /iflang %}{% /iflang %}{% iflang langs="js" %}It leaves host names to the JavaScript runtime, which
-   resolves them when Ice connects.{% /iflang %} The endpoint selection policy orders the endpoints, not the addresses
-   of a host name.
-
-If no endpoint remains, the invocation fails with
-`NoEndpointException`.{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} For example, a twoway proxy
-whose only endpoint is a UDP endpoint has no endpoint left.{% /iflang %}
-
-With connection caching enabled, Ice looks for an existing connection to any endpoint in the list before it tries to
-establish one, so the connection it reuses is not necessarily to the first endpoint, even with the `Ordered` policy.
+   set.{% iflang langs="cpp,swift" %} On iOS, the list holds the host names of TCP and SSL endpoints, not their
+   addresses: the system resolves them when Ice connects.{% /iflang %}{% /iflang %}{% iflang langs="js" %}The list holds
+   the host names, not their addresses: the JavaScript runtime resolves them when Ice connects.{% /iflang %}
 
 You set the endpoint selection policy with the
 [Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection)
 property, the [_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection) proxy
 property, or the `ice_endpointSelection` [proxy method](api:Ice/ObjectPrx).
+
+## Establishing the Connection
+
+With connection caching enabled, Ice first reuses an existing connection to any endpoint in the list, so the connection
+it reuses is not necessarily to the first endpoint, even with the `Ordered` policy. When no existing connection
+qualifies, Ice attempts to connect to each endpoint{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %},
+and to each address of an endpoint,{% /iflang %} in order, until an attempt succeeds.
 
 ## Connection IDs
 
@@ -80,12 +83,10 @@ from `g1` and shares the `group1` connection; `i2` is configured with `group2` a
 ## Failed Connection Attempts
 
 When a connection attempt fails, Ice tries the next address or endpoint, until it establishes a connection or has tried
-them all. A connection attempt that fails with `ConnectTimeoutException` ends this sequence: Ice does not try the
-remaining addresses of the endpoint, nor, with connection caching enabled, the remaining endpoints.
+them all.
 
-When no attempt succeeds, Ice may [retry the invocation](../../invocation/automatic-retries), and a retry selects and
-establishes a connection again, with all the endpoints. The invocation fails when Ice does not retry it or has used up
-its retries.
+When every attempt fails, the invocation fails. An [automatic retry](../../invocation/automatic-retries) of the
+invocation goes through connection establishment again.
 
 {% callout type="tip" %}
 
