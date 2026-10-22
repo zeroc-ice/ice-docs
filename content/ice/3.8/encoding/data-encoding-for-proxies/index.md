@@ -8,9 +8,9 @@ The encoding format of proxies changed in version 1.1.
 
 ### Proxy Encoding Version 1.0
 
-The first component of an encoded proxy is a value of type `Ice::Identity`. If the proxy is a null value, the `category`
-and `name` fields are empty strings, and no additional data is encoded. The encoding for a non-null proxy consists of
-proxy fields followed by endpoints.
+The first component of a marshaled proxy is a value of type `Ice::Identity`. If the proxy is a null value, the
+`category` and `name` fields are empty strings, and no additional data is marshaled. The encoding for a non-null proxy
+consists of proxy fields followed by endpoints.
 
 The proxy fields are encoded as if they were fields of the following structure:
 
@@ -145,7 +145,7 @@ The endpoint fields are described in the following table.
 | `encodingMinor` | Always `0`                                                                                                   |
 | `compress`      | `true` if [compression](../../protocol/protocol-compression) should be used (if possible), otherwise `false` |
 
-The four version fields are ignored when the endpoint is decoded. They are kept for backwards compatibility.
+The four version fields are ignored when the endpoint is unmarshaled. They are kept for backwards compatibility.
 
 ### UDP Endpoint Encoding Version 1.1
 

@@ -56,15 +56,15 @@ deleted. This can be an issue if the deployed servers have databases stored in t
 
 An LMDB database consists of one or more persistent key-value maps, and the size of the keys in these maps is limited to
 511 bytes. For example, IceGrid stores applications in a persistent map where the keys are the application names,
-encoded using the [Ice encoding](../../../../encoding) for strings, and this LMDB limitation means you cannot select an
-application name with an arbitrary size.
+marshaled using the [Ice encoding](../../../../encoding) for strings, and this LMDB limitation means you cannot select
+an application name with an arbitrary size.
 
-| **IceGrid Registry Database Key** | **Slice Type**  | **Max Encoded Size** |
-| --------------------------------- | --------------- | -------------------- |
-| Adapter ID                        | `string`        | 511 bytes            |
-| Application Name                  | `string`        | 511 bytes            |
-| Well-known Object Identity        | `Ice::Identity` | 511 bytes            |
-| Well-known Object Type            | `string`        | 511 bytes            |
+| **IceGrid Registry Database Key** | **Slice Type**  | **Max Marshaled Size** |
+| --------------------------------- | --------------- | ---------------------- |
+| Adapter ID                        | `string`        | 511 bytes              |
+| Application Name                  | `string`        | 511 bytes              |
+| Well-known Object Identity        | `Ice::Identity` | 511 bytes              |
+| Well-known Object Type            | `string`        | 511 bytes              |
 
 If you attempt to save an application, adapter ID or well-known object that is too large for the LMDB database, IceGrid
 will throw an `IceGrid::DeploymentException` or an `Ice::UnknownException` depending on the operation invoked.

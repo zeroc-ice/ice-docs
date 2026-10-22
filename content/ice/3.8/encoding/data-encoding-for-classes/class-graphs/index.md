@@ -234,8 +234,8 @@ encoding rules can be summarized as follows:
   marshal an instance inline at the point of its first reference, and marshal all subsequent occurrences of the same
   instance as a reference.
 - When using the sliced format, the encoding depends on the context in which a reference occurs: if the reference occurs
-  while encoding a slice of an object or exception, encode it as an index into an indirection table that appears at the
-  end of the slice, otherwise encode it as an inline instance or reference.
+  while marshaling a slice of an object or exception, marshal it as an index into an indirection table that appears at
+  the end of the slice, otherwise marshal it as an inline instance or reference.
 
 We can use the Slice definitions below to explore these situations:
 
@@ -277,11 +277,12 @@ As we marshal the structure's `obj` field, the compact format produces the follo
 | `9` (`value`)                                           | 4                 | `int`    | 16              |
 | `2` (`next`_- reference to ID_`2`)                      | 1                 | `size`   | 20              |
 
-This example shows that inline instances are marshaled immediately upon discovery. As we encode the `obj` field, we
-encounter a new `Node` instance, assign it the ID `2`, and begin to encode it inline using the reserved instance marker
-value `1`. Next, we encode the instance's `value` field and then examine its `next` field. Since we have not encountered
-this instance yet, we assign it the ID `3` and begin to encode this new instance inline. Its `next` field is a circular
-reference to the object with ID `2`, so we simply encode a reference to this instance to complete the structure.
+This example shows that inline instances are marshaled immediately upon discovery. As we marshal the `obj` field, we
+encounter a new `Node` instance, assign it the ID `2`, and begin to marshal it inline using the reserved instance marker
+value `1`. Next, we marshal the instance's `value` field and then examine its `next` field. Since we have not
+encountered this instance yet, we assign it the ID `3` and begin to marshal this new instance inline. Its `next` field
+is a circular reference to the object with ID `2`, so we simply marshal a reference to this instance to complete the
+structure.
 
 ### Class Graph in the Sliced Format
 
@@ -307,20 +308,20 @@ The encoding for our example values shows how class instances are handled differ
 | `2` (_indirection table entry - reference to ID_`2`)                                              | 1                 | `size`   | 32              |
 
 For this example, let us assume that the structure value is an operation parameter, and therefore the structure field
-`obj` occurs _outside_ the context of a class or exception slice. As a result, we encode the instance with ID `2` as an
+`obj` occurs _outside_ the context of a class or exception slice. As a result, we marshal the instance with ID `2` as an
 inline instance. However, when we process the instance's `next` field, we are now _inside_ the context of a class slice,
 so the encoding uses an indirection table. The sender adds an entry to the indirection table for each unique class
-reference in the slice; instead of encoding a reference or inline instance, the sender encodes the index of the
-corresponding entry in the table. As shown above, the value encoded for the `next` field is `1`, representing the first
-entry in the table (`0` is still reserved for null references).
+reference in the slice; instead of marshaling a reference or inline instance, the sender marshals the index of the
+corresponding entry in the table. As shown above, the value marshaled for the `next` field is `1`, representing the
+first entry in the table (`0` is still reserved for null references).
 
 The indirection table follows immediately after the last field in the slice, but the table is _not_ included in the byte
 count for the slice. A leading size denotes the number of entries in the table. The one and only entry in this table,
-the instance with ID `3`, has not yet been encoded, therefore it is marshaled immediately as an inline instance. This
-instance also uses an indirection table, although in this case the table entry is simply a reference to instance ID `2`,
-which has already been encoded.
+the instance with ID `3`, has not yet been marshaled, therefore the sender marshals it immediately as an inline
+instance. This instance also uses an indirection table, although in this case the table entry is simply a reference to
+instance ID `2`, which has already been marshaled.
 
-## Impact of Slicing on Class Graph Decoding
+## Impact of Slicing on Class Graph Unmarshaling
 
 Suppose the sender marshals a single connected graph of class instances. Because of slicing, the receiver may rebuild a
 disconnected graph: a reference held by a sliced-off field is lost to the receiver, and the instance it pointed to is no

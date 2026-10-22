@@ -11,7 +11,7 @@ byte[] bytes = outputStream.finished();
 
 var inputStream = new Ice.InputStream(communicator, bytes);
 inputStream.startEncapsulation();
-Inventory.Item decoded = Inventory.Item.ice_read(inputStream);
+Inventory.Item unmarshaled = Inventory.Item.ice_read(inputStream);
 inputStream.endEncapsulation();
 ```
 

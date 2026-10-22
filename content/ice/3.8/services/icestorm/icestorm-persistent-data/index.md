@@ -35,8 +35,8 @@ struct SubscriberRecordKey
 
 This key is streamed into a sequence of bytes using the [Ice encoding](../../../encoding).
 
-If you attempt to create a topic or register a subscriber with a topic and the resulting `SubscriberRecordKey`'s encoded
-representation is too large for the LMDB database, IceStorm will throw an `Ice::UnknownException`.
+If you attempt to create a topic or register a subscriber with a topic and the resulting `SubscriberRecordKey`'s
+marshaled representation is too large for the LMDB database, IceStorm will throw an `Ice::UnknownException`.
 
 {% callout type="note" %}
 

@@ -10,7 +10,7 @@ implemented in C++ and can forward requests from clients using any Ice language 
 ## IceBridge Overview
 
 IceBridge listens for client requests on its _source endpoints_ and forwards them to its configured _target endpoints_.
-The bridge forwards the object identity, operation, context, and encoded parameters, so it does not need your
+The bridge forwards the object identity, operation, context, and marshaled parameters, so it does not need your
 application's Slice definitions. Replies, including user exceptions, travel back through the bridge to the client.
 
 IceBridge pairs each client connection with a dedicated connection to the target server. It opens the target connection

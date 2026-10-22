@@ -34,12 +34,12 @@ differences in the encoding for references between versions 1.0 and 1.1.
 
 ### Class Reference Encoding Version 1.0
 
-Ice encodes a null reference as a 32-bit integer with value zero. For non-null references, the encoder maintains a table
-per [encapsulation](../basic-data-encoding) that associates a unique non-zero positive integer with each class instance.
-We refer to this integer as an _instance ID_. The first time the encoder encounters a reference to a particular
-instance, it assigns the instance an unused ID, inserts it into the table, and encodes the reference as a 32-bit integer
-whose value is the _negative_ of the ID. If the encoder has already encountered that instance, it simply encodes the
-instance's previously-assigned ID as a negative 32-bit integer.
+Ice marshals a null reference as a 32-bit integer with value zero. For non-null references, Ice maintains a table per
+[encapsulation](../basic-data-encoding) that associates a unique non-zero positive integer with each class instance. We
+refer to this integer as an _instance ID_. The first time Ice encounters a reference to a particular instance, it
+assigns the instance an unused ID, inserts it into the table, and marshals the reference as a 32-bit integer whose value
+is the _negative_ of the ID. If Ice has already encountered that instance, it simply marshals the instance's
+previously-assigned ID as a negative 32-bit integer.
 
 All [class instances](../../slice/user-defined-types/classes) are encoded at the end of the encapsulation.
 
@@ -56,8 +56,8 @@ The encoding for a reference depends on the
 [format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) being used, and may also depend on the
 context in which the reference occurs:
 
-- **Compact format** In this format, the encoding always uses the inline scheme. Suppose we are encoding a value of the
-  structure type `S` shown earlier. If its `obj` field refers to a class instance that the encoder has not yet
+- **Compact format** In this format, the encoding always uses the inline scheme. Suppose we are marshaling a value of
+  the structure type `S` shown earlier. If its `obj` field refers to a class instance that the encoder has not yet
   encountered in the current encapsulation, the encoding assigns it the next available sequential ID, marshals a size
   with value 1 signifying that an instance is about to be written, and then immediately marshals the instance itself.
   Any subsequent reference to the same instance is encoded as a size whose value is the instance's corresponding ID.
@@ -74,7 +74,7 @@ context in which the reference occurs:
 
 It is important to understand the distinction between marshaling a reference and marshaling an instance. In C++ terms,
 this is equivalent to the difference between a pointer and the heap data containing an object's state at which the
-pointer is pointing. Marshaling an instance means we are encoding the fields of a class instance.
+pointer is pointing. Marshaling an instance means we are marshaling the fields of a class instance.
 
 ### Class Instance Encoding Version 1.0
 
@@ -125,9 +125,9 @@ _Sliced format for classes._
 A slice that contains at least one non-null class reference uses an [indirection table](./class-graphs) for all
 references in that slice. The table is an array of instances encoded using the inline scheme. A leading size value
 indicates the number of elements in the table; each element is either an instance ID (if the instance has already been
-encoded within the current encapsulation), or the instance itself denoted by a leading size of 1. The indirection table
-appears in the encoding immediately following the required and optional fields, _but is not included in the byte count
-denoted by the slice size_. To skip a slice for an unknown type, the receiver reads the slice size _b_, skips the
+marshaled within the current encapsulation), or the instance itself denoted by a leading size of 1. The indirection
+table appears in the encoding immediately following the required and optional fields, _but is not included in the byte
+count denoted by the slice size_. To skip a slice for an unknown type, the receiver reads the slice size _b_, skips the
 remaining _b-4_ bytes, and then processes all references or instances in the indirection table, if one is present.
 
 ## See Also

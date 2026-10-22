@@ -11,7 +11,7 @@ let bytes = outputStream.finished()
 
 let inputStream = Ice.InputStream(communicator: communicator, bytes: bytes)
 try inputStream.startEncapsulation()
-let decoded: Item = try inputStream.read()
+let unmarshaled: Item = try inputStream.read()
 try inputStream.endEncapsulation()
 ```
 

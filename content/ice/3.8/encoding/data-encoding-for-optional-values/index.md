@@ -17,7 +17,7 @@ The encoding for optional parameters and fields follows these general rules:
 - Optional values always appear _after_ any required values.
 - Optional values appear in increasing tag order. (Unlike required values, order of declaration does not affect optional
   values.)
-- An optional value is encoded only if the sender has supplied a value.
+- An optional value is marshaled only if the sender has supplied a value.
 
 Optional fields of a class or exception appear in the [slice](../data-encoding-for-slices) after any required fields and
 before the indirection table, if present. The slice flags indicate the presence of optional fields. When a slice
@@ -39,7 +39,7 @@ Optional values require Ice encoding version 1.1.
 
 ## Encoding for Optional Types and Tags
 
-The first byte of an encoded optional value includes the optional type, and may also include the tag. The optional type
+The first byte of a marshaled optional value includes the optional type, and may also include the tag. The optional type
 occupies the first three bits of this byte, as described in the table below:
 
 | **Name** | **Value** | **Description**                                                                                     | **Used for Slice type**                                             |
@@ -57,16 +57,16 @@ The next five bits of the leading byte contain the tag, but only if the tag valu
 five bits contain the value 30 as a marker to indicate that the tag value is encoded as a [size](../basic-data-encoding)
 starting with the next byte. As you can see, using tag values in the range 0 to 29 produces the most compact encoding.
 
-Variable-size types whose encoded size cannot be determined in advance use the FSize optional type, where "FSize"
-denotes a leading fixed-length (32-bit) size. For these types, the sender reserves four bytes to hold the size, encodes
-the value as usual, then replaces the four bytes with the actual encoded size.
+Variable-size types whose marshaled size cannot be determined in advance use the FSize optional type, where "FSize"
+denotes a leading fixed-length (32-bit) size. For these types, the sender reserves four bytes to hold the size, marshals
+the value as usual, then replaces the four bytes with the actual marshaled size.
 
 Fixed-size structures and containers of fixed-size elements use the VSize optional type, where "VSize" denotes a leading
-variable-length [size](../basic-data-encoding). The sender can determine the encoded size of these types in advance, and
-therefore encodes it as a size followed by the value as usual.
+variable-length [size](../basic-data-encoding). The sender can determine the marshaled size of these types in advance,
+and therefore marshals it as a size followed by the value as usual.
 
-The leading VSize or FSize gives the number of bytes of the encoded value that follows it. For a sequence or dictionary,
-this count includes the container's own leading size, the one that holds the number of elements.
+The leading VSize or FSize gives the number of bytes of the marshaled value that follows it. For a sequence or
+dictionary, this count includes the container's own leading size, the one that holds the number of elements.
 
 Strings also use the VSize optional type but do not require an additional [size](../basic-data-encoding) because the
 string encoding already includes a leading size. The same is true for sequences of elements of size 1, such as a
@@ -74,20 +74,20 @@ sequence of `bool`, a sequence of `byte` or a sequence of a `struct` with a sing
 
 The following table describes the encoding of Slice types:
 
-| **Slice type**                                                                                            | **Optional type** | **Data encoding** | **Notes**                                                                    |
-| --------------------------------------------------------------------------------------------------------- | ----------------- | ----------------- | ---------------------------------------------------------------------------- |
-| `bool`, `byte`                                                                                            | F1                | value             |                                                                              |
-| `short`                                                                                                   | F2                | value             |                                                                              |
-| `int`, `float`                                                                                            | F4                | value             |                                                                              |
-| `long`, `double`                                                                                          | F8                | value             |                                                                              |
-| Proxy                                                                                                     | FSize             | int + data        | 32-bit integer holds the size of the encoded proxy.                          |
-| `enum`                                                                                                    | Size              | size              | Enumerator encoded as a [size](../basic-data-encoding).                      |
-| `string`                                                                                                  | VSize             | value             | The encoded data for the string already contains a leading size.             |
-| `sequence<`_type-with-size-1_`>` such as `sequence<bool>`, `sequence<byte>`                               | VSize             | value             | The encoded data for the sequence already contains a leading size, in bytes. |
-| `sequence<`_fixed-size type_`>` with fixed-size >= 2, `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value      | Size can be computed before encoding the container.                          |
-| `sequence<`_variable size type_`>`, `dictionary<`_key_,_value_`>` with a variable-size key or value       | FSize             | int + value       | 32-bit integer holds the size of the container.                              |
-| Fixed-size `struct`                                                                                       | VSize             | size + value      | Size can be computed before encoding the structure.                          |
-| Variable-size `struct`                                                                                    | FSize             | int + value       | 32-bit integer holds the size of the structure.                              |
+| **Slice type**                                                                                            | **Optional type** | **Data encoding** | **Notes**                                                                      |
+| --------------------------------------------------------------------------------------------------------- | ----------------- | ----------------- | ------------------------------------------------------------------------------ |
+| `bool`, `byte`                                                                                            | F1                | value             |                                                                                |
+| `short`                                                                                                   | F2                | value             |                                                                                |
+| `int`, `float`                                                                                            | F4                | value             |                                                                                |
+| `long`, `double`                                                                                          | F8                | value             |                                                                                |
+| Proxy                                                                                                     | FSize             | int + data        | 32-bit integer holds the size of the marshaled proxy.                          |
+| `enum`                                                                                                    | Size              | size              | Enumerator encoded as a [size](../basic-data-encoding).                        |
+| `string`                                                                                                  | VSize             | value             | The marshaled data for the string already contains a leading size.             |
+| `sequence<`_type-with-size-1_`>` such as `sequence<bool>`, `sequence<byte>`                               | VSize             | value             | The marshaled data for the sequence already contains a leading size, in bytes. |
+| `sequence<`_fixed-size type_`>` with fixed-size >= 2, `dictionary<`_fixed-size key_,_fixed-size value_`>` | VSize             | size + value      | Size can be computed before marshaling the container.                          |
+| `sequence<`_variable size type_`>`, `dictionary<`_key_,_value_`>` with a variable-size key or value       | FSize             | int + value       | 32-bit integer holds the size of the container.                                |
+| Fixed-size `struct`                                                                                       | VSize             | size + value      | Size can be computed before marshaling the structure.                          |
+| Variable-size `struct`                                                                                    | FSize             | int + value       | 32-bit integer holds the size of the structure.                                |
 
 ## Examples of Optional Value Encoding
 
@@ -146,7 +146,7 @@ Now consider the contents of the reply message:
 
 The body of the reply message contains the out parameter `d`, the return value, and the optional parameter `p`. The tag
 value 300 is too large to combine with the optional type, therefore it appears immediately following the optional type
-encoded as a size. A proxy value uses the FSize optional type, meaning a 32-bit integer precedes the encoded value to
+encoded as a size. A proxy value uses the FSize optional type, meaning a 32-bit integer precedes the marshaled value to
 specify its size.
 
 {% callout type="note" %}
@@ -199,7 +199,7 @@ class Rectangle extends Shape
 }
 ```
 
-Suppose we are encoding an instance of `Rectangle` with the field values shown in the table below:
+Suppose we are marshaling an instance of `Rectangle` with the field values shown in the table below:
 
 | **Field** | **Type** | **Value**     | **Marshaled size (in bytes)** |
 | --------- | -------- | ------------- | ----------------------------- |

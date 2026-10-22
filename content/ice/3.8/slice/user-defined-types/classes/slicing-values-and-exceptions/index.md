@@ -164,8 +164,8 @@ interface definition), but may not know `Intermediate` or `Derived`. Suppose the
 forwarding the instance to another back-end server for processing and returning the transformed instance to the caller.
 In effect, the `Relay` server is an intermediary. If the `Relay` server does not know the types `Intermediate` and
 `Derived`, it slices an instance of `Derived` to `Base` and preserves the slices of `Intermediate` and `Derived` in
-encoded form. When the `Relay` server marshals this instance in the sliced format, Ice writes the preserved slices back,
-so the back-end server receives all the slices of the `Derived` instance.
+marshaled form. When the `Relay` server marshals this instance in the sliced format, Ice writes the preserved slices
+back, so the back-end server receives all the slices of the `Derived` instance.
 
 When the `Relay` server marshals this instance in the compact format, Ice omits the preserved slices and writes only the
 `Base` slice.

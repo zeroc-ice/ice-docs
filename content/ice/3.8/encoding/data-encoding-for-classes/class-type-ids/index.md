@@ -33,9 +33,9 @@ type ID is encoded as the boolean value `false`, followed by `::Derived`, and th
 boolean value `false`, followed by `::Base`.
 
 When the sender marshals the remaining two instances, it consults a lookup table of previously-marshaled type IDs.
-Because both type IDs were sent previously in the same request (or reply), the sender encodes all further occurrences of
-`::Derived` as the value `true` followed by the number `1` encoded as a size, and it encodes all further occurrences of
-`::Base` as the value `true` followed by the number `2` encoded as a size.
+Because both type IDs were sent previously in the same request (or reply), the sender marshals all further occurrences
+of `::Derived` as the value `true` followed by the number `1` encoded as a size, and it marshals all further occurrences
+of `::Base` as the value `true` followed by the number `2` encoded as a size.
 
 When the receiver reads a type ID, it first reads its boolean marker:
 
@@ -52,9 +52,10 @@ numbering scheme restarts, with the first new type ID being assigned the value `
 uses its own independent numbering scheme for class type IDs, so that an encapsulation does not depend on its
 surrounding context.
 
-Encoding class type IDs in this way provides significant savings in bandwidth: whenever an ID is marshaled a second and
-subsequent time, it is marshaled as a two-byte value (assuming no more than 254 distinct type IDs per request) instead
-of as a string. Because type IDs can be long, especially if you are using nested modules, the savings are considerable.
+Marshaling class type IDs in this way provides significant savings in bandwidth: whenever an ID is marshaled a second
+and subsequent time, it is marshaled as a two-byte value (assuming no more than 254 distinct type IDs per request)
+instead of as a string. Because type IDs can be long, especially if you are using nested modules, the savings are
+considerable.
 
 ## Type ID Encoding Version 1.1
 
@@ -71,14 +72,15 @@ The initial slice of an instance, representing the most-derived type, always con
 receiver knows what Slice type is present. Depending on the
 [format](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) used by the sender, subsequent slices
 may or may not include a type ID: the compact format omits type IDs in subsequent slices, whereas the sliced format
-includes a type ID in every slice. A receiver need only examine the slice flags to discover how to decode the type ID.
+includes a type ID in every slice. A receiver need only examine the slice flags to discover how to unmarshal the type
+ID.
 
 ### String Type IDs
 
 The encoding for string type IDs uses a "compression" scheme similar to that of version 1.0: within an
 [encapsulation](../../basic-data-encoding), a given type ID is never encoded as a string more than once. The first time
-a sender encounters a type ID, the sender assigns an integer index to the ID and encodes the ID as a string. For all
-subsequent occurrences of the same type ID within the encapsulation, the sender encodes the index associated with that
+a sender encounters a type ID, the sender assigns an integer index to the ID and marshals the ID as a string. For all
+subsequent occurrences of the same type ID within the encapsulation, the sender marshals the index associated with that
 type ID as a [size](../../basic-data-encoding). Index values start at `1` and increase sequentially with each new type
 ID. The [flags](../../data-encoding-for-slices) of each slice specify how the type ID is encoded.
 
@@ -88,7 +90,7 @@ version 1.0, without consuming an entire byte.
 ### Compact Type IDs
 
 As a way of further reducing the overhead associated with class instances, version 1.1 adds the ability to substitute
-numeric values for strings when encoding type IDs. Consider the following Slice definitions:
+numeric values for strings when marshaling type IDs. Consider the following Slice definitions:
 
 ```slice
 class Base(3)
@@ -110,9 +112,9 @@ class MoreDerived extends Derived
 The value in parentheses after the class name represents the _compact_ type ID for the class. The sender's
 [format](../../../slice/user-defined-types/classes/slicing-values-and-exceptions) determines whether each slice includes
 a type ID. If a given slice includes a type ID, the encoding always uses a compact type ID (if defined) in preference to
-its string equivalent. Suppose a sender is encoding an instance of `MoreDerived` in the sliced format. The initial slice
-uses the string type ID for `MoreDerived`, the next slice uses the compact type ID for `Derived`, and the last slice
-uses the compact type ID for `Base`.
+its string equivalent. Suppose a sender is marshaling an instance of `MoreDerived` in the sliced format. The initial
+slice uses the string type ID for `MoreDerived`, the next slice uses the compact type ID for `Derived`, and the last
+slice uses the compact type ID for `Base`.
 
 A compact type ID is encoded as a [size](../../basic-data-encoding), with the relevant bits set in the
 [slice flags](../../data-encoding-for-slices).
