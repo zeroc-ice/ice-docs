@@ -200,11 +200,15 @@ context.
 The greetAsync sends (or queues) an invocation of greet. This method does not block the calling thread. It returns an
 awaitable object that you typically await.
 
-For example:
+### Using AMI with `asyncio`
+
+To use AMI with asyncio, pass the running asyncio event loop to the communicator with the `eventLoop` parameter. The
+`Async` proxy methods of this communicator then return standard `asyncio.Future` objects, which you await in the event
+loop:
 
 ```py
 # On asyncio event loop thread.
-async with Ice.initialize(
+async with Ice.Communicator(
   sys.argv, eventLoop=asyncio.get_running_loop()) as communicator:
     greeter = VisitorCenter.GreeterPrx(
       communicator, "greeter:tcp -h localhost -p 4061")
@@ -249,31 +253,7 @@ configured event loop adapter:
 - **With a custom event loop adapter** Ice returns custom awaitable objects provided by the application’s
   EventLoopAdapter implementation.
 
-### `asyncio` Integration
-
-Ice 3.8 provides seamless integration with Python’s asyncio library.
-
-If you supply an **asyncio event loop** during communicator initialization using the `eventLoop` parameter of
-`Ice.initialize`, asynchronous operations will return standard **asyncio.Future** objects instead of Ice’s own future
-types. This allows you to **await** asynchronous invocations directly within the asyncio event loop.
-
-```py
-async with Ice.initialize(
-  sys.argv,
-  eventLoop=asyncio.get_running_loop()) as communicator:
-    greeter = VisitorCenter.GreeterPrx(
-      communicator,
-      "greeter:tcp -h localhost -p 4061")
-
-    # Send a request to the remote object and get the response.
-    greeting = await greeter.greetAsync(getpass.getuser())
-```
-
-The same mechanism can be used to integrate Ice with other asynchronous event loop frameworks. Instead of passing an
-asyncio loop directly, you must implement the `Ice.EventLoopAdapter` abstract base class for your event loop of choice
-and provide it during communicator initialization via the `InitializationData.eventLoopAdapter` member.
-
-#### Event Loop Restrictions
+### Event Loop Restrictions
 
 You can only await a future from the event loop that created it:
 
@@ -283,7 +263,7 @@ You can only await a future from the event loop that created it:
   Example (❌ does not work):
 
   ```py
-  with Ice.initialize(sys.argv) as communicator:
+  with Ice.Communicator(sys.argv) as communicator:
     greeter = VisitorCenter.GreeterPrx(
       communicator,
       "greeter:tcp -h localhost -p 4061")
@@ -292,45 +272,19 @@ You can only await a future from the event loop that created it:
     greeting = await greeter.greetAsync(getpass.getuser())
   ```
 
-  However, you _can_ await an `Ice.InvocationFuture` from inside an **asynchronous dispatch (AMD)**, since these
-  coroutines run on the Ice thread pool:
+  However, you _can_ await an `Ice.InvocationFuture` from inside an
+  [asynchronous dispatch](#asynchronous-method-dispatch-amd), since these coroutines run on the Ice thread pool.
 
-  Example (✅ works inside AMD with Ice futures):
+- `asyncio.Future` These belong to the asyncio event loop supplied during communicator initialization, as in
+  [Using AMI with asyncio](#using-ami-with-asyncio). Since asynchronous dispatches also run in this loop, it is safe to
+  await `asyncio.Future` objects inside an asyncio-based dispatch.
 
-  ```py
-  async def greet(self, name: str, current: Ice.Current) -> str:
-    # Using await here is fine because the async dispatch
-    # runs in the Ice thread pool
-    return await self.target.greetAsync(name)
-  ```
+### Custom Event Loop Adapters
 
-- `asyncio.Future` These belong to the asyncio event loop supplied during communicator initialization. Since
-  asynchronous dispatches also run in this loop, it is safe to await `asyncio.Future` objects inside an asyncio-based
-  dispatch.
-
-  Example (✅ works in asyncio client):
-
-  ```py
-  async with Ice.initialize(
-    sys.argv,
-    eventLoop=asyncio.get_running_loop()) as communicator:
-
-    greeter = VisitorCenter.GreeterPrx(
-      communicator, "greeter:tcp -h localhost -p 4061")
-
-    # Fine: we are running in the asyncio event loop
-    # and greetAsync returns an asyncio.Future
-    greeting = await greeter.greetAsync(getpass.getuser())
-  ```
-
-  Example (✅ works in asyncio-based AMD):
-
-  ```py
-  async def greet(self, name: str, current: Ice.Current) -> str:
-    # Using await here is also fine because the async dispatch
-    # runs in the configured event loop (asyncio in this case)
-    return await self.target.greetAsync(name)
-  ```
+To integrate Ice with an event loop framework other than asyncio, implement the `Ice.EventLoopAdapter` abstract base
+class for this event loop, and set it in the `eventLoopAdapter` member of the `InitializationData` you pass to the
+communicator. The adapter wraps the futures that the `Async` methods return, and runs the coroutines of
+[asynchronous dispatches](#asynchronous-method-dispatch-amd).
 
 ### Asynchronous Oneway Invocations
 
@@ -413,24 +367,13 @@ async def greet(self, name: str, current: Ice.Current) -> str:
   return f"Hello, {name}!"
 ```
 
-{% callout type="note" %}
+### Event Loop for Dispatch
 
-The coroutine is executed according to the configured event loop adapter—for example, on the asyncio event loop thread
-when the communicator is initialized with an asyncio event loop.
-
-{% /callout %}
-
-### `asyncio` Integration for Dispatch
-
-Ice provides seamless integration with Python’s asyncio library.
-
-If you supply an **asyncio event loop** during communicator initialization using the `eventLoop` parameter of
-`Ice.initialize`, asynchronous dispatch will run on the asyncio event loop. This allows you to **await** asynchronous
-invocations directly within the dispatch implementation.
-
-The same mechanism can be used to integrate Ice with other asynchronous event loop frameworks. Instead of passing an
-asyncio loop directly, you must implement the `Ice.EventLoopAdapter` abstract base class for your event loop of choice
-and provide it during communicator initialization via the `InitializationData.eventLoopAdapter` member.
+If you pass an asyncio event loop to the communicator, as in [Using AMI with asyncio](#using-ami-with-asyncio),
+asynchronous dispatches run on this event loop, and can await the `asyncio.Future` objects that the `Async` proxy
+methods return. Without an event loop adapter, Ice runs the coroutine of an asynchronous dispatch on the Ice thread
+pool, where it can await the `Ice.InvocationFuture` objects that the `Async` proxy methods return. With a
+[custom event loop adapter](#custom-event-loop-adapters), the adapter runs the coroutine.
 
 ### Chaining Asynchronous Invocations
 
