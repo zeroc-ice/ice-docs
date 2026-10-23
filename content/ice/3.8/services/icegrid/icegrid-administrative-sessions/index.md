@@ -206,21 +206,22 @@ The client should call `destroy` when the iterator object is no longer required.
 terminates, IceGrid reclaims any iterators that were not explicitly destroyed.
 
 Each file operation reads one file configured for the target program: the file named by its `Ice.StdOut` or `Ice.StdErr`
-property or, for `openServerLog`, a file declared by one of the server's log descriptors. The file can contain the
-output of the Ice [logger](../../../administration/logger-facility) and any other text the program writes, and the
-`FileIterator` returns it as lines of text with no further structure.
+property or, for `openServerLog`, a file declared by one of the server's
+[log descriptors](../icegrid-xml-reference/log-descriptor-element). The file can contain the output of the Ice
+[logger](../../../administration/logger-facility) and any other text the program writes, and the `FileIterator` returns
+it as lines of text with no further structure.
 
 ### Choosing a Log Retrieval Method
 
 The `AdminSession` file operations and the
 [Logger admin facet](../../../administration/administrative-facility/logger-facet) both give an administrative client
-access to the log of a server, node, or registry:
+access to the log of a server, node, or registry.
 
-- The file operations read the text a program wrote to a file, including the files of a server that is not running. The
-  client polls for new text by calling `read` on the `FileIterator`.
-- The `Logger` facet delivers the messages sent to the Ice logger of a running program as typed records, whether or not
-  the logger writes them to a file. The client attaches a remote logger, and the `Logger` facet calls this remote logger
-  as each message is logged.
+- **AdminSession file operations** The client reads the text a program wrote to a file, including the files of a server
+  that is not running, and polls for new text by calling `read` on the `FileIterator`.
+- **Logger admin facet** The client attaches a remote logger to a running program, and the facet forwards each message
+  sent to the program's Ice logger to this remote logger as a typed record, whether or not the logger writes it to a
+  file.
 
 ## Dynamic Monitoring in IceGrid
 
