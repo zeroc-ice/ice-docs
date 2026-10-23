@@ -1,10 +1,19 @@
 ---
 title: Creating an Object Adapter
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 ---
 
 You create an object adapter by calling `createObjectAdapter` on your communicator. For example:
 
 {% language-section name="see-also-1" /%}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
 `createObjectAdapter` creates a new object adapter associated with this communicator. Each object adapter is associated
 with zero or more [transport endpoints](../object-adapter-endpoints). Typically, an object adapter has a single
@@ -21,18 +30,30 @@ connections associated with the adapter when the adapter is configured for bidir
 
 {% /callout %}
 
-An application normally needs to configure an object adapter with [endpoints](../object-adapter-endpoints) or a
+{% /iflang %}
+
+An application normally needs to configure an object adapter with
+{% iflang langs="cpp,csharp,java,python,swift" %}[endpoints](../object-adapter-endpoints) or {% /iflang %}a
 [router](../../../services/glacier2). Calling `createObjectAdapter` with a non-empty value for `name` means the new
 object adapter will check the communicator's configuration for
 [properties](../../../property-reference/object-adapter-properties), using its name as prefix, including:
 
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
 - [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) - defines one or more
   object adapter endpoints
+
+{% /iflang %}
+
 - [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router) - specifies the stringified
   proxy of a router
 
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
 If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
-is on your communicator. For example:
+on your communicator. For example:
+
+{% /iflang %}
 
 {% language-section name="see-also-2" /%}
 

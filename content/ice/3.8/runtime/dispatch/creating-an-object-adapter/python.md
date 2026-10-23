@@ -11,7 +11,7 @@ adapter = communicator.createObjectAdapter("GreeterAdapter")
 ```py
 adapter = communicator.createObjectAdapterWithEndpoints(
     "GreeterAdapter",
-    "tcp -p 4061");
+    "tcp -p 4061")
 ```
 
 {% /language-section %}

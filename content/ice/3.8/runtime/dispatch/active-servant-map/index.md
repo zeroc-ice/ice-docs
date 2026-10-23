@@ -1,6 +1,13 @@
 ---
 title: The Active Servant Map
 sidebarLabel: Active Servant Map
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 ---
 
 Each object adapter maintains a data structure known as the active servant map.
@@ -84,8 +91,8 @@ important ones:
 - `remove` The `remove` method breaks the association between an identity and its servant by removing the corresponding
   entry from the ASM; it returns a reference to the removed servant. Once the servant is deactivated, new incoming
   requests for the removed identity cause the client to receive an `ObjectNotExistException`. Requests that are
-  executing inside the servant at the time `remove` is called are allowed to complete normally. Deactivating an
-  [object adapter](../object-adapter-activation-and-deactivation) implicitly calls `remove` on all its servants.
+  executing inside the servant at the time `remove` is called are allowed to complete normally. Destroying an
+  [object adapter](../object-adapter-activation-and-deactivation) removes all its servants from the ASM.
 
 {% callout type="note" %}
 

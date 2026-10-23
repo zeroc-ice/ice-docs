@@ -34,4 +34,5 @@ responsibilities:
   object adapter ([bidirectional callbacks](../connection-management/bidirectional-connections)).
 
 Each object adapter belongs to exactly one communicator (but a single communicator can have many object adapters). Each
-object adapter has a name that distinguishes it from all other object adapters in the same communicator.
+object adapter has a name. A non-empty name is unique within the communicator; any number of object adapters can have an
+empty name.
