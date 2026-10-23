@@ -14,9 +14,9 @@ object to a server, which then calls back into the client.
 ## Ice Objects
 
 An _Ice object_ is an entity, in the local process or in a remote process, that responds to client requests. Each Ice
-object has a unique [object identity](../../runtime/object-identity) and one or more _interfaces_, each a collection of
-named _operations_ that clients invoke. Besides its main interface, an Ice object can provide alternate interfaces,
-known as [_facets_](../../runtime/facets).
+object has a unique [object identity](../../runtime/object-identity) and a type, a Slice
+[interface](../../slice/interfaces) that defines the _operations_ clients invoke. Besides its main interface, an Ice
+object can provide alternate interfaces, known as [_facets_](../../runtime/facets).
 
 ## Proxies
 
@@ -37,8 +37,8 @@ A _stringified proxy_ is the string form of a proxy, such as `SimplePrinter:tcp 
 
 ## Direct Proxies
 
-A _direct proxy_ holds the addresses, or [endpoints](../../runtime/invocation/proxy-endpoints), at which the Ice runtime
-reaches the object, such as `tcp -h server1 -p 10000`.
+A _direct proxy_ holds the [endpoints](../../runtime/invocation/proxy-endpoints) at which the Ice runtime reaches the
+object, as in `SimplePrinter:tcp -h server1 -p 10000`.
 
 ## Indirect Proxies
 
@@ -46,14 +46,13 @@ An _indirect proxy_ holds no endpoints: the Ice runtime asks a [locator](../../r
 proxy holds either only an identity, as in `SimplePrinter`, which makes it a
 [well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy), or an identity and an
 [adapter ID](../../runtime/invocation/proxy-endpoints/indirect-proxy-with-object-adapter-identifier), as in
-`SimplePrinter@PrinterAdapter`. Because the locator resolves the endpoints, a server can move to another address without
-invalidating the indirect proxies that clients hold.
+`SimplePrinter@PrinterAdapter`. Since the endpoints come from the locator and not from the proxy, a server can move to
+another address without invalidating the indirect proxies that clients hold.
 
 ## Fixed Proxies
 
-A _fixed proxy_ is bound to a connection instead of holding endpoints or an adapter ID, and stops working when this
-connection closes. A fixed proxy cannot be marshaled. Fixed proxies allow a server to call back a client over the
-connection the client opened, as described in
+A _fixed proxy_ is bound to a connection, and stops working when this connection closes. A fixed proxy cannot be
+marshaled. Fixed proxies allow a server to call back a client over the connection the client opened, as described in
 [Bidirectional Connections](../../runtime/connection-management/bidirectional-connections).
 
 ## Routed Proxies
@@ -64,16 +63,16 @@ router.
 
 ## Replication
 
-_Replication_ makes an object adapter and its objects available at several addresses, usually to keep a server available
-when one computer fails. The simplest form is a proxy with several endpoints, such as
-`SimplePrinter:tcp -h server1 -p 10001:tcp -h server2 -p 10002`; see
+_Replication_ makes the same Ice objects available in several object adapters, usually in servers on different
+computers, so that the objects remain available when one computer fails. The simplest form is a proxy with one endpoint
+per replica, such as `SimplePrinter:tcp -h server1 -p 10001:tcp -h server2 -p 10002`; see
 [Connection Establishment](../../runtime/connection-management/connection-establishment).
 
 ## Replica Groups
 
 A _replica group_ is a set of object adapters that a [locator](../../runtime/locators) resolves under one ID, used in an
-indirect proxy in place of an adapter ID, as in `SimplePrinter@PrinterAdapters`. An object adapter belongs to at most
-one replica group. See [Object Adapter Replication](../../services/icegrid/object-adapter-replication).
+indirect proxy in place of an adapter ID, as in `SimplePrinter@PrinterAdapters`. An object adapter is a member of at
+most one replica group. See [Object Adapter Replication](../../services/icegrid/object-adapter-replication).
 
 ## Dispatcher
 
@@ -104,9 +103,14 @@ A server cannot tell whether a client invoked an operation synchronously or asyn
 ## Asynchronous Method Dispatch
 
 With _asynchronous method dispatch_ (AMD), the implementation of an operation frees the dispatch thread while it waits,
-for example at an `await`, and completes the dispatch later. With synchronous dispatch, the dispatch thread stays busy
-until the implementation returns. A client cannot tell how the server dispatched a request. See
-[Operations](../../slice/operations).
+for example at an `await`, and completes the dispatch later. See [Operations](../../slice/operations).
+
+## Synchronous Method Dispatch
+
+With _synchronous method dispatch_ (SMD), the dispatch thread stays busy until the implementation of the operation
+returns.
+
+A client cannot tell whether the server dispatched a request synchronously or asynchronously.
 
 ## Properties
 
