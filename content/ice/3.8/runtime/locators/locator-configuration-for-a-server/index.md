@@ -45,10 +45,8 @@ SampleAdapter.Locator=IceGrid/Locator:tcp -h locatorhost -p 10000
 ## Registering a Process with a Locator
 
 An activation service, such as an [IceGrid](../../../services/icegrid) node, requests a graceful shutdown of a server
-through the server's [Process facet](../../../administration/administrative-facility/process-facet), a portable
-alternative to platform-specific mechanisms such as POSIX signals. The
-[administrative facility](../../../administration/administrative-facility) provides this facet through an administrative
-object adapter or your own object adapter, and IceGrid enables this facility on the servers that it activates.
+through the server's [Process facet](../../../administration/administrative-facility/process-facet). IceGrid enables the
+[administrative facility](../../../administration/administrative-facility) on the servers that it activates.
 
 The communicator registers the `Process` facet with the location service when it creates the admin object, provided
 [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) is configured and the communicator has a default
