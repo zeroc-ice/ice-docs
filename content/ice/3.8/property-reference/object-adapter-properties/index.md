@@ -259,9 +259,9 @@ The default value is `-t`, which creates twoway proxies.
 
 Specifies the endpoints the object adapter advertises to clients. The object adapter embeds these endpoints in the
 direct proxies it creates{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %} and, when
-[_adapter_.AdapterId](#adapter.adapterid) is set, registers them with its locator{% /iflang %}. An object adapter
-configured with a router ignores this property and publishes the router's server endpoints. When this property is not
-set, the object adapter derives its published endpoints from its physical endpoints, as described in
+[_adapter_.AdapterId](#adapter.adapterid) is set, registers them with the locator registry{% /iflang %}. An object
+adapter configured with a router ignores this property and publishes the router's server endpoints. When this property
+is not set, the object adapter derives its published endpoints from its physical endpoints, as described in
 [Object Adapter Endpoints](../../runtime/dispatch/object-adapter-endpoints).
 
 {% /property-description %}
