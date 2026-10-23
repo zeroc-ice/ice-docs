@@ -4,15 +4,6 @@
 const adapter = await communicator.createObjectAdapter("GreeterAdapter");
 ```
 
-{% /language-section %}
-
-{% language-section name="see-also-2" %}
-
-{% callout type="note" %}
-
-The JavaScript mapping does not support incoming connection factories; therefore, you cannot create an object adapter
-with endpoints.
-
-{% /callout %}
+A JavaScript object adapter has no endpoints and dispatches the requests it receives over bidirectional connections.
 
 {% /language-section %}

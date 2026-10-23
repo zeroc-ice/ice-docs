@@ -5,7 +5,6 @@ languages:
   - cpp
   - csharp
   - java
-  - js
   - python
   - swift
 ---
@@ -48,20 +47,20 @@ methods:
 
 - `deactivate` The `deactivate` method initiates deactivation of the adapter: the adapter stops accepting connections
   and closes the connections it accepted. Requests that arrive over these connections after calling `deactivate` are not
-  dispatched, but currently executing requests are allowed to complete. Once all requests have completed, the adapter
-  enters the `Inactive` state. `deactivate` does not wait for the currently executing requests to complete. A
-  deactivated adapter cannot be reactivated: calling `activate` throws `ObjectAdapterDeactivatedException`. You can
-  create a new adapter with the same name, but only after calling `destroy` on the existing adapter. Until you destroy
-  it, a deactivated adapter keeps dispatching requests received over
+  dispatched, but the dispatches in progress complete. Once they have completed, the adapter enters the `Inactive`
+  state. `deactivate` does not wait for them. A deactivated adapter cannot be reactivated. You can create a new adapter
+  with the same name, but only after calling `destroy` on the existing adapter. Until you destroy it, a deactivated
+  adapter keeps dispatching requests received over
   [bidirectional connections](../../connection-management/bidirectional-connections) and
   [collocated invocations](../../collocated-invocation-and-dispatch).
 - `waitForDeactivate` The `waitForDeactivate` method suspends the calling thread until the adapter has completed its
-  transition to the `Inactive` state, that is, until all currently executing requests have completed.
+  transition to the `Inactive` state: its connections are closed, the dispatches they carried have completed, and so
+  have the collocated dispatches in progress. It does not wait for the dispatches over bidirectional connections, which
+  continue until `destroy`.
 - `destroy` The `destroy` method deactivates the adapter and releases all of its resources. Internally, `destroy`
-  invokes `deactivate` followed by `waitForDeactivate`, therefore the method blocks until all currently executing
-  requests have completed. Furthermore, the adapter removes all its servants, all transport endpoints are closed, and
-  the adapter's name becomes available for reuse. Creating a proxy with a destroyed adapter throws
-  `ObjectAdapterDestroyedException`.
+  invokes `deactivate` followed by `waitForDeactivate`, therefore the method blocks until these dispatches have
+  completed. Furthermore, the adapter removes all its servants and stops dispatching the requests it receives over
+  bidirectional connections, and the adapter's name becomes available for reuse.
 
 ## See Also
 

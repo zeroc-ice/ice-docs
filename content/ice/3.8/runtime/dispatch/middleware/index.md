@@ -5,7 +5,6 @@ languages:
   - csharp
   - java
   - js
-  - python
   - swift
 ---
 
