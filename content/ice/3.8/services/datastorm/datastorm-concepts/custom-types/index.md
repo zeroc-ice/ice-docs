@@ -120,7 +120,7 @@ specialize `Cloner` for this type.
 
 DataStorm converts types to strings using the `operator<<` overload for `std::ostream` in two scenarios:
 
-- **Tracing** — DataStorm traces include the string representation of keys. If a key type does not support string
+- **Tracing**: DataStorm traces include the string representation of keys. If a key type does not support string
   conversion via `operator<<`, DataStorm falls back to printing the key’s `typeid` and memory address.
-- **Regex Filters** — DataStorm provides a built-in `_regex` filter. The regular expression is applied to the string
+- **Regex Filters**: DataStorm provides a built-in `_regex` filter. The regular expression is applied to the string
   representation of the key or value, which requires that the type implement a valid `operator<<` overload.

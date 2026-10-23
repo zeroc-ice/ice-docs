@@ -7,8 +7,8 @@ An application is primarily a way to group definitions and does not actually exi
 Nevertheless, IceGrid GUI offers a number of application-related actions in the live deployment view through the Filter
 live deployment button and the `Tools > Application` menu:
 
-- **Show details** Show various information about the selected application.
-- **Filter live deployment** Shows only the selected application in the live deployment view; servers and other
+- **Show details**: Show various information about the selected application.
+- **Filter live deployment**: Shows only the selected application in the live deployment view; servers and other
   components associated with other applications are "filtered out".
 
   ![image2017-4-3 14:18:40.png](/images/ice/3.8/application-component/image2017-4-3-14-18-40.png)
@@ -18,4 +18,4 @@ live deployment button and the `Tools > Application` menu:
 
   ![image2017-4-3 14:19:38.png](/images/ice/3.8/application-component/image2017-4-3-14-19-38.png)
 
-- **Remove from registry** Remove the selected application from the registry.
+- **Remove from registry**: Remove the selected application from the registry.

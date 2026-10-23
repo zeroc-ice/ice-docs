@@ -23,18 +23,18 @@ A [replica group descriptor](../icegrid-xml-reference/replica-group-descriptor-e
 [load balancing descriptor](../icegrid-xml-reference/load-balancing-descriptor-element) that determines how system loads
 are used in locate requests. The load balancing descriptor specifies the following information:
 
-- Type Several [load balancing types](#load-balancing-types) are supported.
+- `type`: Several [load balancing types](#load-balancing-types) are supported.
 
-- Sampling interval One of the load balancing types considers system load statistics, which are reported by each node at
-  regular intervals. The replica group can specify a sampling interval of one, five, or fifteen minutes. Choosing a
-  sampling interval requires balancing the need for up-to-date load information against the desire to minimize transient
-  spikes. On Unix platforms, the node reports the system's load average for the selected interval, while on Windows the
-  node reports the CPU utilization averaged over the interval.
+- `load-sample`: One of the load balancing types considers system load statistics, which are reported by each node at
+  regular intervals. The replica group can specify a sampling interval of `1`, `5`, or `15` minutes. Choosing a sampling
+  interval requires balancing the need for up-to-date load information against the desire to minimize transient spikes.
+  On Unix platforms, the node reports the system's load average for the selected interval, while on Windows the node
+  reports the CPU utilization averaged over the interval.
 
-- Number of replicas The replica group can instruct the registry to return the endpoints of one (the default) or more
-  object adapters. If the specified number _N_ is larger than `1`, the proxy returned in response to a locate request
-  contains the endpoints of at most _N_ object adapters. If _N_ is `0`, the proxy contains the endpoints of all the
-  object adapters. The Ice run time in the client selects one of these endpoints at random when
+- `n-replicas`: The replica group can instruct the registry to return the endpoints of one (the default) or more object
+  adapters. If the specified number _N_ is larger than `1`, the proxy returned in response to a locate request contains
+  the endpoints of at most _N_ object adapters. If _N_ is `0`, the proxy contains the endpoints of all the object
+  adapters. The Ice run time in the client selects one of these endpoints at random when
   [establishing a connection](../../../runtime/connection-management/connection-establishment).
 
 For example, the descriptor shown below uses adaptive load balancing to return the endpoints of the two least-loaded
@@ -66,19 +66,19 @@ You can optionally use custom load balancing strategies by installing
 
 A replica group can select one of the following load balancing types:
 
-- Random Random load balancing selects the requested number of object adapters at random. The registry does not consider
-  system load for a replica group with this type.
+- `random`: Selects the requested number of object adapters at random. The registry does not consider system load for a
+  replica group with this type.
 
-- Adaptive Adaptive load balancing uses system load information to choose the least-loaded object adapters over the
-  requested sampling interval. This is the only load balancing type that uses sampling intervals.
+- `adaptive`: Uses system load information to choose the least-loaded object adapters over the requested sampling
+  interval. This is the only load balancing type that uses sampling intervals.
 
-- Round Robin Round robin load balancing returns the least recently used object adapters. The registry does not consider
-  system load for a replica group with this type. Note that the round-robin information is not shared between registry
-  replicas; each replica maintains its own notion of the "least recently used" object adapters.
+- `round-robin`: Returns the least recently used object adapters. The registry does not consider system load for a
+  replica group with this type. Note that the round-robin information is not shared between registry replicas; each
+  replica maintains its own notion of the "least recently used" object adapters.
 
-- Ordered Ordered load balancing selects the requested number of object adapters by priority. You can set a priority for
-  each object adapter in the replica group. IceGrid returns the object adapters with the smallest priority values first;
-  the order of object adapters with the same priority is unspecified.
+- `ordered`: Selects the requested number of object adapters by priority. You can set a priority for each object adapter
+  in the replica group. IceGrid returns the object adapters with the smallest priority values first; the order of object
+  adapters with the same priority is unspecified.
 
 Choosing the proper type of load balancing is highly dependent on the needs of client applications. Achieving the
 desired load balancing and fail-over behavior may also require the cooperation of your clients. To that end, it is very
@@ -134,14 +134,14 @@ is to [query well-known objects](../well-known-objects) using the `findAllReplic
 The IceGrid registry allows you to plug in custom load balancing implementations that the registry invokes to filter its
 query results. Two kinds of filters are supported:
 
-- Replica group filter The registry invokes a replica group filter each time a client requests the endpoints of a
+- **Replica group filter**: The registry invokes a replica group filter each time a client requests the endpoints of a
   replica group or object adapter, as well as for calls to [findAllReplicas](../well-known-objects). The registry passes
   information about the query that the filter can use in its implementation, including the list of object adapters
   participating in the replica group whose nodes are active at the time of the request. The object adapter list is
   initially ordered using the [load balancing type](#load-balancing-types) configured for the replica group; the filter
   can modify this list however it chooses.
 
-- Type filter The registry invokes a type filter for each query that a client issues to
+- **Type filter**: The registry invokes a type filter for each query that a client issues to
   [find a well-known object by type](../well-known-objects) using the operations `findObjectByType`,
   `findAllObjectsByType`, and `findObjectByTypeOnLeastLoadedNode`. Included in the information passed to the filter is a
   list of proxies for the matching well-known objects; the filter implementation decides which of these proxies are
@@ -250,22 +250,22 @@ A filter may require client-specific information in order to assemble its list o
 dictionary of key/value string pairs that a client can configure and send along as "out of band" metadata accompanying a
 request. Ice provides several ways for a client to establish a request context:
 
-- Implicit - provides a default request context for every request on all proxies
-- Per-proxy - configures a default request context for every request on a particular proxy
-- Explicit - specifies a request context at the time of invocation, overriding any default context
+- **Implicit**: Provides a default request context for every request on all proxies
+- **Per-proxy**: Configures a default request context for every request on a particular proxy
+- **Explicit**: Specifies a request context at the time of invocation, overriding any default context
 
 Our goal here is to transfer information from a client to a filter. Consequently, we don't recommend using implicit
 contexts because the context will add overhead to _every_ invocation the client makes, not just the ones that involve
 the filter. To decide whether to use per-proxy or explicit contexts, we first must understand the circumstances in which
 each kind of filter receives a request context:
 
-- Replica group filter Most invocations involving a replica group filter occur when the Ice run time in a client issues
-  requests on a registry. This internal activity is triggered by the client's invocation on a proxy, but Ice doesn't use
-  the client's proxy or the request context that the client may have configured for its proxy or passed explicitly to
-  the invocation. Rather, the Ice run time uses the locator that the client configured for its proxy or communicator. As
-  a result, the request contexts passed to a replica group filter are those configured for the _locator_ proxy. (The
-  only exception is when a client invokes `findAllReplicas` directly on the registry via its `Query` interface; refer to
-  the discussion of type filters below for more details.)
+- **Replica group filter**: Most invocations involving a replica group filter occur when the Ice run time in a client
+  issues requests on a registry. This internal activity is triggered by the client's invocation on a proxy, but Ice
+  doesn't use the client's proxy or the request context that the client may have configured for its proxy or passed
+  explicitly to the invocation. Rather, the Ice run time uses the locator that the client configured for its proxy or
+  communicator. As a result, the request contexts passed to a replica group filter are those configured for the
+  _locator_ proxy. (The only exception is when a client invokes `findAllReplicas` directly on the registry via its
+  `Query` interface; refer to the discussion of type filters below for more details.)
 
   There are several ways you can configure a request context for the locator proxy. If a client configures its locator
   proxy statically using properties, the simplest solution is to add
@@ -282,9 +282,9 @@ each kind of filter receives a request context:
 
   Both of these approaches are examples of per-proxy request contexts.
 
-- Type filter Invocations involving type filters occur when a client invokes directly on the registry using its `Query`
-  interface. To use per-proxy request contexts, configure the `Query` proxy as necessary. Explicit request contexts can
-  also be used when querying the registry.
+- **Type filter**: Invocations involving type filters occur when a client invokes directly on the registry using its
+  `Query` interface. To use per-proxy request contexts, configure the `Query` proxy as necessary. Explicit request
+  contexts can also be used when querying the registry.
 
 So far we've discussed how client-specific information can be passed to a filter, but what if the filter needs to obtain
 more information about the object adapters (in the case of a replica group filter) or objects (in the case of a type

@@ -36,10 +36,10 @@ method, which returns a
 [SampleEvent](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_a0a720b1634b84fcbd71aee7783934754.html#a0a720b1634b84fcbd71aee7783934754)
 enumerator:
 
-- **Add** — indicates a new value is being published.
-- **Update** — indicates that an existing value has changed.
-- **Remove** — indicates that the value has been removed and no value is included in the sample.
-- **PartialUpdate** — indicates that the sample contains a partial update to the value.
+- `Add`: Indicates a new value is being published.
+- `Update`: Indicates that an existing value has changed.
+- `Remove`: Indicates that the value has been removed and no value is included in the sample.
+- `PartialUpdate`: Indicates that the sample contains a partial update to the value.
 
 For `Remove` samples, the value is a default-constructed instance. For `PartialUpdate` samples, the sample also provides
 the **update tag**, which can be retrieved using `getUpdateTag()`. A partial update modifies a key's current value, so a

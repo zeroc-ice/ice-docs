@@ -5,11 +5,11 @@ sidebarLabel: Server
 
 A server represents an Ice server deployed on a node as part of an application. IceGrid supports three kinds of servers:
 
-- **Plain Server** A normal Ice server, with typically a single Ice communicator. IceGrid generates a single Ice
+- **Plain Server**: A normal Ice server, with typically a single Ice communicator. IceGrid generates a single Ice
   configuration file for this server.
-- **IceBox Server** An IceBox server, with usually a number of IceBox services deployed in it. IceGrid generates an Ice
+- **IceBox Server**: An IceBox server, with usually a number of IceBox services deployed in it. IceGrid generates an Ice
   configuration file for the IceBox server itself, and also a separate Ice configuration for each IceBox service.
-- **Server Instance** A server (either plain server or IceBox server) defined using a server template.
+- **Server Instance**: A server (either plain server or IceBox server) defined using a server template.
 
 ## Plain Server
 
@@ -17,34 +17,34 @@ A server represents an Ice server deployed on a node as part of an application. 
 
 The Server Properties panel offers the following fields:
 
-- **Server ID** The ID of the server; corresponds to the
+- **Server ID**: The ID of the server; corresponds to the
   [Ice.Admin.ServerId](../../../../../../property-reference/ice-admin-properties#ice.admin.serverid) property. Each
   server must have a unique ID within an IceGrid deployment.
-- **Description** A free-text description of this server.
-- **Property Sets** List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include" all
-  its properties in the server.
-- **Properties** Ice properties private to this server.
-- **Log Files** This table can be used to declare a number of log files used by this server. Path is the path to the log
-  file (a relative path is relative to the IceGrid node working directory); when Property is set, IceGrid generates a
-  property with this name and the log file path as value. You declare log files to be able to conveniently retrieve them
-  using IceGrid GUI (in the [Live Deployment](../../../live-deployment-tab) tab) or with the
+- **Description**: A free-text description of this server.
+- **Property Sets**: List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include"
+  all its properties in the server.
+- **Properties**: Ice properties private to this server.
+- **Log Files**: This table can be used to declare a number of log files used by this server. Path is the path to the
+  log file (a relative path is relative to the IceGrid node working directory); when Property is set, IceGrid generates
+  a property with this name and the log file path as value. You declare log files to be able to conveniently retrieve
+  them using IceGrid GUI (in the [Live Deployment](../../../live-deployment-tab) tab) or with the
   [icegridadmin](../../../../icegridadmin-command-line-tool) command-line utility.
-- **Path to Executable** Path to the server's executable; cannot be blank. The node resolves a relative path as
+- **Path to Executable**: Path to the server's executable; cannot be blank. The node resolves a relative path as
   described for the `exe` attribute of the
   [server element](../../../../icegrid-xml-reference/server-descriptor-element).
-- **Ice Version** The Ice version of this server. If you don't provide a value, IceGrid assumes it's the same version as
-  the IceGrid registry.
-- **Working Directory** The working directory for the server when started by the IceGrid node.
-- **Command Arguments** The command-line arguments given to the server when started by the IceGrid node.
-- **Run as** On Linux and Unix, when the IceGrid node runs as root, it can run the server under any user name; enter
+- **Ice Version**: The Ice version of this server. If you don't provide a value, IceGrid assumes it's the same version
+  as the IceGrid registry.
+- **Working Directory**: The working directory for the server when started by the IceGrid node.
+- **Command Arguments**: The command-line arguments given to the server when started by the IceGrid node.
+- **Run as**: On Linux and Unix, when the IceGrid node runs as root, it can run the server under any user name; enter
   this name here. When not set (the default), the server runs as the same user as the IceGrid node, except when the node
   runs as root: the server then runs as `nobody`, or, for a server allocated by a session, as the user named by the
   session ID. If the node uses a
   [user account mapper](../../../../icegrid-server-activation#activating-servers-with-specific-user-ids), the node
   passes the resulting name to the mapper, which returns the account that runs the server.
-- **Environment Variables** The environment variables for the server when started by the IceGrid node. These variables
+- **Environment Variables**: The environment variables for the server when started by the IceGrid node. These variables
   are in addition to variables defined in the IceGrid node own environment.
-- **Activation Mode** The server's activation mode. Must be one of:
+- **Activation Mode**: The server's activation mode. Must be one of:
 
 | **Activation Mode** | **Description**                                                                                                                             |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -55,14 +55,14 @@ The Server Properties panel offers the following fields:
 
 The Activation Mode can also be a variable or a combination of variables that resolves to one of the values above.
 
-- **Activation Timeout** When activating a server, IceGrid gives timeout seconds to object adapters with server lifetime
-  to register their endpoints with the IceGrid registry. During this time, lookup for the corresponding adapter IDs are
-  delayed. If not set or set to `0`, the IceGrid node uses the value of its
+- **Activation Timeout**: When activating a server, IceGrid gives timeout seconds to object adapters with server
+  lifetime to register their endpoints with the IceGrid registry. During this time, lookup for the corresponding adapter
+  IDs are delayed. If not set or set to `0`, the IceGrid node uses the value of its
   [IceGrid.Node.WaitTime](../../../../../../property-reference/icegrid-properties) property.
-- **Deactivation Timeout** When deactivating a server, IceGrid gives timeout seconds to the server to exit gracefully.
+- **Deactivation Timeout**: When deactivating a server, IceGrid gives timeout seconds to the server to exit gracefully.
   After this timeout, the server process is killed. If not set or set to `0`, the IceGrid node uses the value of its
   [IceGrid.Node.WaitTime](../../../../../../property-reference/icegrid-properties) property.
-- **Allocatable** Specifies whether the server can be allocated. A server is allocated implicitly when one of its
+- **Allocatable**: Specifies whether the server can be allocated. A server is allocated implicitly when one of its
   allocatable objects is allocated. This checkbox is ignored if the server activation mode is session; a server with
   this activation mode is always allocatable. Default: false.
 
@@ -95,13 +95,13 @@ A server instance is a server created from a server template; it may be a plain 
 
 The Server Instance Properties panel offers the following fields:
 
-- **Template** The name of the [Server Template](../server-template-descriptor).
-- **Parameters** Use this table to assign values to the template parameters defined in the server template.
-- **Property Sets** List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include" all
-  its properties in this server-instance.
-- **Properties** Ice properties private to this server. Overall, the properties of the server instance are a combination
-  of properties defined in the server template (including its own property sets references) augmented and possibly
-  overridden by properties defined in the server instance.
+- **Template**: The name of the [Server Template](../server-template-descriptor).
+- **Parameters**: Use this table to assign values to the template parameters defined in the server template.
+- **Property Sets**: List of property-set IDs; you refer to a [property set](../property-set-descriptor) to "include"
+  all its properties in this server-instance.
+- **Properties**: Ice properties private to this server. Overall, the properties of the server instance are a
+  combination of properties defined in the server template (including its own property sets references) augmented and
+  possibly overridden by properties defined in the server instance.
 
 ### Children {% id="server-instance-children" %}
 

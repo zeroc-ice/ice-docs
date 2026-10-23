@@ -63,10 +63,10 @@ for most applications.
 
 Developers should also be aware of some core Ice properties that can affect Bluetooth connections:
 
-- Default device address – If you omit a device address from an object adapter endpoint or proxy endpoint, the plug-in
-  defaults to the address specified by the property
+- **Default device address**: If you omit a device address from an object adapter endpoint or proxy endpoint, the
+  plug-in defaults to the address specified by the property
   [Ice.Default.Host](../../property-reference/ice-default-properties#ice.default.host).
-- Connect timeout – Establishing a Bluetooth connection can take several seconds to complete. Ice's default timeout
+- **Connect timeout**: Establishing a Bluetooth connection can take several seconds to complete. Ice's default timeout
   settings give plenty of time for a connection to succeed, but an application could experience problems if it
   configures custom timeouts that are too small for Bluetooth connections.
 

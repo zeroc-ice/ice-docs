@@ -7,18 +7,18 @@ sidebarLabel: Release Notes
 
 We focused on three main areas of improvements for this release.
 
-- Making Ice more modern We adopted more recent versions of C++, C#, Java, Python, Swift, etc., and just as importantly,
-  took advantage of the latest features offered by these languages. For instance, proxies are now mapped to
+- **Making Ice more modern**: We adopted more recent versions of C++, C#, Java, Python, Swift, etc., and just as
+  importantly, took advantage of the latest features offered by these languages. For instance, proxies are now mapped to
   `std:optional<T>` in C++, the C# mapping is now fully “nullable enabled”, the Python and Swift mapping provide native
   async/await support, the Python API provides type hints. And that’s only a few highlights.
-- Making Ice simpler to use Another focus was to make the API easier to use, and make sure the default behaviors didn’t
-  come with pitfalls. So we changed the default for Published Endpoints (a seemly obscure topic but a common pain
+- **Making Ice simpler to use**: Another focus was to make the API easier to use, and make sure the default behaviors
+  didn’t come with pitfalls. So we changed the default for Published Endpoints (a seemly obscure topic but a common pain
   point), replaced Active Connection Management (ACM) by a much simpler idle-check mechanism, made it easier to create
   proxies, simplified the setup of bidir connections, and more.
-- Making Ice more accessible Providing lots of features is of limited value if you can’t find them or it’s very hard to
-  figure out how to use them. So we rewrote all the [demos](https://github.com/zeroc-ice/ice-demos), to make sure they
-  are short, focused, easy to copy, and follow best practices. We also updated the Ice documentation and API references
-  to make them clearer and easier to navigate.
+- **Making Ice more accessible**: Providing lots of features is of limited value if you can’t find them or it’s very
+  hard to figure out how to use them. So we rewrote all the [demos](https://github.com/zeroc-ice/ice-demos), to make
+  sure they are short, focused, easy to copy, and follow best practices. We also updated the Ice documentation and API
+  references to make them clearer and easier to navigate.
 
 While more modern APIs and simpler patterns sound all right, the flip side of these changes is upgrade work. We were
 very conscious of this trade-off and carefully weighted every changes - and when in doubt, kept the most compatible API.

@@ -20,10 +20,10 @@ Readers keep a **history (queue) of unread samples**. When samples are retrieved
 
 ## Reader Types
 
-- **Single-key reader** — reads samples for a single key.
-- **Multi-key reader** — reads samples for a set of predefined keys.
-- **Any-key reader** — reads samples for any key (no keys provided at creation).
-- **Filtered-key reader** — reads samples for keys matching a **key filter** (name + criteria value).
+- **Single-key reader**: Reads samples for a single key.
+- **Multi-key reader**: Reads samples for a set of predefined keys.
+- **Any-key reader**: Reads samples for any key (no keys provided at creation).
+- **Filtered-key reader**: Reads samples for keys matching a **key filter** (name + criteria value).
 
 You create readers using the corresponding reader class constructors or via
 [makeXxxReader](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#header-func-members) helper functions.
@@ -174,11 +174,11 @@ when constructing the node.
 Reader behavior is configurable via
 [DataStorm::ReaderConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1ReaderConfig.html). You can set:
 
-- **Global defaults** — [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties (e.g.,
+- **Global defaults**: [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties (e.g.,
   DataStorm.Topic.SampleCount)
-- **Topic-level defaults** — by calling
+- **Topic-level defaults**: By calling
   [Topic::setReaderDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ae005c107f689e1e309e49a4c1421ed2a.html#ae005c107f689e1e309e49a4c1421ed2a)
-- **Per-reader configuration** — via the reader constructor or
+- **Per-reader configuration**: Via the reader constructor or
   [makeXxxReader](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#r_a6959df6a3e35c9e37a4ed065757fc0fc)
   helper
 
@@ -205,11 +205,11 @@ Controls when the reader’s unread sample queue is cleared, based on sample eve
 DataStorm clears the queue before it queues the sample that triggers the clearing, so the queue then holds only this
 sample. Default: `OnAll`.
 
-- **OnAdd** — clears the unread queue on receiving an `Add` sample.
-- **OnRemove** — clears the unread queue on receiving a `Remove` sample.
-- **OnAll** — clears the queue on receiving any sample.
-- **OnAllExceptPartialUpdate** — clears the queue on receiving any sample except a `PartialUpdate`.
-- **Never** — never clears the queue automatically.
+- `OnAdd`: Clears the unread queue on receiving an `Add` sample.
+- `OnRemove`: Clears the unread queue on receiving a `Remove` sample.
+- `OnAll`: Clears the queue on receiving any sample.
+- `OnAllExceptPartialUpdate`: Clears the queue on receiving any sample except a `PartialUpdate`.
+- `Never`: Never clears the queue automatically.
 
 #### Discard Policy (discardPolicy)
 
@@ -217,10 +217,10 @@ Whether to discard samples on receipt of new samples
 ([DiscardPolicy](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm_aea43ef98e7e3436abc965908aa19b473.html#aea43ef98e7e3436abc965908aa19b473)).
 Default: `None`.
 
-- **None** — never discard
-- **SendTime** — discard if the new sample’s timestamp is at or before the latest timestamp the reader has accepted.
-- **Priority** — keep only the samples from the writers with the highest priority among the writers connected for the
-  sample's key
+- `None`: Never discard.
+- `SendTime`: Discard if the new sample’s timestamp is at or before the latest timestamp the reader has accepted.
+- `Priority`: Keep only the samples from the writers with the highest priority among the writers connected for the
+  sample's key.
 
 ## Coordination & Listeners
 
