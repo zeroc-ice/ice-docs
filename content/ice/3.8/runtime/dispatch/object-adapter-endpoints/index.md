@@ -85,59 +85,36 @@ transient does not need a fixed port, because the proxies for those objects are 
 lifetime of the server process. Similarly, a server using indirect binding via [IceGrid](../../../services/icegrid) does
 not need a fixed port because its port is never published.
 
-## Published-Object-Adapter-Endpoints Published Object Adapter Endpoints
+## Published Object Adapter Endpoints
 
-When an object adapter creates a proxy, it embeds its published endpoints in this proxy.
+An object adapter embeds its published endpoints in the direct proxies it
+creates{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %} and, when it has an adapter ID, registers them
+with the locator registry{% /iflang %}.
 
-{% callout type="note" %}
+By default, the object adapter has as many published endpoints as physical endpoints: each published endpoint is a
+physical endpoint with its host replaced by the DNS name of the current host. An object adapter usually has a single
+physical endpoint, and therefore a single published endpoint. For example, an object adapter configured with
 
-The published endpoints of an object adapter matter only if you create proxies with this object adapter and then
-transmit these proxies to other applications.
+```config
+MyAdapter.Endpoints=tcp -p 9999
+```
 
-{% /callout %}
+on host `Sun1` publishes `tcp -h Sun1 -p 9999`. The exact rules, including the loopback and multicast cases, are in
+[How Ice Derives Published Endpoints](#how-ice-derives-published-endpoints) below.
 
-Most of the time, the published endpoints consist of a **single** published endpoint. Multiple published endpoints are
-useful for replicated servers, as presented below.
-
-The published endpoints of a regular object adapter (that is, not configured with a router) are computed as follows:
-
-1. If the property
-   [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) is
-   set, use the specified endpoints.
-2. start from the physical endpoints, split these endpoints in loopback and multicast endpoints on one side, and regular
-   endpoints on the other
-
-   1. if there is any regular endpoint:
-
-      1. discard the loopback and multicast endpoints
-      2. replace the host name in each of these endpoints by the value of
-         [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost). If
-         `adapter.PublishedHost` is not set, use the DNS name of the current host as published host.
-
-   2. otherwise, when all endpoints are loopback or multicast, replace the host name in each of these endpoints by the
-      value of `adapter.PublishedHost`, if set. Don’t perform any substitution if `adapter.PublishedHost` is not set.
-   3. finally, eliminate duplicate endpoints
-
-{% callout type="note" %}
-
-Your physical endpoint(s) should be simple: a single endpoint that is loopback, multicast, or neither loopback nor
-multicast (typically, `INADDR_ANY`).
-
-The published endpoints computation accepts odd mixes of endpoints only to maximize compatibility for existing
-applications.
-
-{% /callout %}
-
-As an example, the published endpoints for an object adapter with the following configuration:
+To publish another host name, set
+[adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost):
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
-MyAdapter.PublishedHost=Sun1
+MyAdapter.PublishedHost=sun1.example.com
 ```
 
-are `tcp -h Sun1 -p 9999`.
+The published endpoints are then `tcp -h sun1.example.com -p 9999`.
 
-You can also configure `PublishedEndpoints` explicitly:
+When clients reach the adapter through another host or port, set
+[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints)
+explicitly:
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
@@ -168,6 +145,20 @@ Similarly, the configuration for host `Sun2` retains the same published endpoint
 MyAdapter.Endpoints=tcp -h 10.0.0.2 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 ```
+
+### How Ice Derives Published Endpoints
+
+The published endpoints of a regular object adapter (that is, not configured with a router) are computed as follows:
+
+1. If the property `adapter.PublishedEndpoints` is set, use the specified endpoints.
+2. Otherwise, start from the physical endpoints and split them into loopback and multicast endpoints on one side, and
+   regular endpoints on the other.
+   1. If there is any regular endpoint, discard the loopback and multicast endpoints, and replace the host in each
+      remaining endpoint by the value of `adapter.PublishedHost`, or by the DNS name of the current host when
+      `adapter.PublishedHost` is not set.
+   2. Otherwise, when all endpoints are loopback or multicast, replace the host in each endpoint by the value of
+      `adapter.PublishedHost`, if set. Perform no substitution when `adapter.PublishedHost` is not set.
+   3. Finally, eliminate duplicate endpoints.
 
 ## A Router's Effect on Object Adapter Endpoints
 

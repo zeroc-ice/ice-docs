@@ -257,8 +257,12 @@ The default value is `-t`, which creates twoway proxies.
 
 {% property-description %}
 
-The published endpoints of an object adapter can be set using `adapter.PublishedEndpoints`. The exact algorithm is
-described in [Published Object Adapter Endpoints](../../runtime/dispatch/object-adapter-endpoints).
+Specifies the endpoints the object adapter advertises to clients. The object adapter embeds these endpoints in the
+direct proxies it creates{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %} and, when
+[_adapter_.AdapterId](#adapter.adapterid) is set, registers them with the locator registry{% /iflang %}. An object
+adapter configured with a router ignores this property and publishes the router's server endpoints. When this property
+is not set, the object adapter derives its published endpoints from its physical endpoints, as described in
+[Object Adapter Endpoints](../../runtime/dispatch/object-adapter-endpoints).
 
 {% /property-description %}
 
