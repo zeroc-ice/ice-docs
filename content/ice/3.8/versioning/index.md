@@ -1,5 +1,6 @@
 ---
 title: Versioning Your Application
+sidebarLabel: Versioning
 pages:
   - versioning-through-incremental-updates
   - versioning-with-facets

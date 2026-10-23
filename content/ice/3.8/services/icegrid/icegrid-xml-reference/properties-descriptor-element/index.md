@@ -1,5 +1,6 @@
 ---
-title: Properties Descriptor Element
+title: "<properties> Element"
+sidebarLabel: "<properties>"
 ---
 
 The `properties` element is used in three situations:

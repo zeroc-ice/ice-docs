@@ -1,5 +1,6 @@
 ---
 title: The Active Servant Map
+sidebarLabel: Active Servant Map
 ---
 
 Each object adapter maintains a data structure known as the active servant map.

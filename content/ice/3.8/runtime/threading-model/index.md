@@ -1,5 +1,6 @@
 ---
 title: The Ice Threading Model
+sidebarLabel: Threading
 pages:
   - thread-pools
   - object-adapter-thread-pools

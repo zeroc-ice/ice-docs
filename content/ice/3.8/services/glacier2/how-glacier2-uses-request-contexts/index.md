@@ -1,5 +1,6 @@
 ---
 title: How Glacier2 Uses Request Contexts
+sidebarLabel: Request Contexts
 ---
 
 The Glacier2 router examines the [context](../../../runtime/invocation/request-contexts) of an incoming request for

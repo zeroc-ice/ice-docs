@@ -1,5 +1,6 @@
 ---
-title: Parameter Descriptor Element
+title: "<parameter> Element"
+sidebarLabel: "<parameter>"
 ---
 
 A `parameter` element defines a [template](../../icegrid-templates) parameter. Template parameters must be declared with

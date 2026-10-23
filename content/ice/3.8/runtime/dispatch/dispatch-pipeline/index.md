@@ -1,5 +1,6 @@
 ---
 title: The Dispatch Pipeline
+sidebarLabel: Dispatch Pipeline
 ---
 
 An object adapter dispatches incoming requests using its dispatch pipeline. A dispatch pipeline implements the

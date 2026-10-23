@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Class Graphs
+sidebarLabel: Class Graphs
 ---
 
 [Classes](../../../slice/user-defined-types/classes) support pointer semantics, that is, you can construct graphs of

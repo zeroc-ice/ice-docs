@@ -1,5 +1,6 @@
 ---
 title: IceStorm Concepts
+sidebarLabel: Concepts
 ---
 
 IceStorm distributes events from publishers to subscribers through named topics: a publisher publishes an event on a

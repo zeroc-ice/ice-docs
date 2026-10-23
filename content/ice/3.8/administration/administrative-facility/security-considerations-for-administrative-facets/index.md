@@ -1,5 +1,6 @@
 ---
 title: Security Considerations for Administrative Facets
+sidebarLabel: Security
 ---
 
 Exposing administrative functionality naturally makes a program vulnerable, therefore it is important that proper

@@ -1,5 +1,6 @@
 ---
 title: The Per-Process Logger
+sidebarLabel: Per-Process Logger
 languages:
   - cpp
   - csharp

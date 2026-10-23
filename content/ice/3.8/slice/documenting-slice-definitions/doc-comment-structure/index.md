@@ -1,5 +1,6 @@
 ---
 title: Doc-Comment Structure
+sidebarLabel: Structure
 ---
 
 A doc comment starts with a summary sentence, continues with any further description, and ends with _block tags_ that

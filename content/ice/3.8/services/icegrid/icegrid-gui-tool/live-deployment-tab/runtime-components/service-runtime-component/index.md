@@ -1,5 +1,6 @@
 ---
 title: Service Runtime Component
+sidebarLabel: Service
 ---
 
 A service represents an IceBox service loaded (or potentially loaded) within an IceBox server.

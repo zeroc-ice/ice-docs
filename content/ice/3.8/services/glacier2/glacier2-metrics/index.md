@@ -1,5 +1,6 @@
 ---
 title: Glacier2 Metrics
+sidebarLabel: Metrics
 ---
 
 You can monitor Glacier2 using the [Administrative Facility](../../../administration/administrative-facility) and

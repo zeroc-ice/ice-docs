@@ -1,5 +1,6 @@
 ---
 title: Interface Inheritance
+sidebarLabel: Inheritance
 ---
 
 Interfaces support inheritance. For example, we could extend our [Clock interface](..) to support the concept of an

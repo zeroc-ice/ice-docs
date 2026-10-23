@@ -1,5 +1,6 @@
 ---
 title: IceBox Integration with IceGrid
+sidebarLabel: IceBox Integration
 ---
 
 IceGrid makes it easy to configure an [IceBox](../../icebox) server with one or more services.

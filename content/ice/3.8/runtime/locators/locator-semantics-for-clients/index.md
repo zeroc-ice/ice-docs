@@ -1,5 +1,6 @@
 ---
 title: Locator Semantics for Clients
+sidebarLabel: Client Semantics
 ---
 
 ## Invocations with an Indirect Proxy

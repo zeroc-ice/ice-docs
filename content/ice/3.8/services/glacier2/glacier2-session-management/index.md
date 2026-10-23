@@ -1,5 +1,6 @@
 ---
 title: Glacier2 Session Management
+sidebarLabel: Sessions
 ---
 
 A Glacier2 router requires a client to [create a session](../getting-started-with-glacier2) and forwards requests on

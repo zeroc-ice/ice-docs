@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Class Type IDs
+sidebarLabel: Type IDs
 ---
 
 ## Type ID Encoding Version 1.0

@@ -1,5 +1,6 @@
 ---
 title: Proxy-Based Load Balancing
+sidebarLabel: Load Balancing
 ---
 
 Ice supports two types of load balancing:

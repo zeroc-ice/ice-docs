@@ -1,5 +1,6 @@
 ---
 title: Service Template Descriptor
+sidebarLabel: Service Template
 ---
 
 A service template is used to capture the common definitions of several similar or identical services.

@@ -1,5 +1,6 @@
 ---
 title: The Process Facet
+sidebarLabel: Process Facet
 ---
 
 The `Process` facet lets an activation service, such as an [IceGrid](../../../services/icegrid) node, request a graceful

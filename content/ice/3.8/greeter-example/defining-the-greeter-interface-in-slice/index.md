@@ -1,5 +1,6 @@
 ---
 title: Defining the Greeter Interface in Slice
+sidebarLabel: Defining the Interface
 ---
 
 The first step of writing an Ice application is to define the contract between our client and server using

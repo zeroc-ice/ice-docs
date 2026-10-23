@@ -1,5 +1,6 @@
 ---
 title: Proxy Endpoints
+sidebarLabel: Endpoints
 pages:
   - indirect-proxy-with-object-adapter-identifier
   - well-known-proxy

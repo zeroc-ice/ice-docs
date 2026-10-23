@@ -1,5 +1,6 @@
 ---
-title: Allocatable Descriptor Element
+title: "<allocatable> Element"
+sidebarLabel: "<allocatable>"
 ---
 
 An allocatable element defines an [allocatable object](../../resource-allocation-using-icegrid-sessions) in the IceGrid

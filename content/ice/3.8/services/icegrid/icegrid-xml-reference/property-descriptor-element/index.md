@@ -1,5 +1,6 @@
 ---
-title: Property Descriptor Element
+title: "<property> Element"
+sidebarLabel: "<property>"
 ---
 
 An IceGrid node generates a [configuration file](../../../../runtime/properties-and-configuration) for each of its

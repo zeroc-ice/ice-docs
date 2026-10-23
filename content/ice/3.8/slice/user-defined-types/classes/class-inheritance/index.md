@@ -1,5 +1,6 @@
 ---
 title: Class Inheritance
+sidebarLabel: Inheritance
 ---
 
 ## Simple Inheritance

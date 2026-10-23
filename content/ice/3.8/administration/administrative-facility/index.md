@@ -1,5 +1,6 @@
 ---
 title: Administrative Facility
+sidebarLabel: Admin Facility
 pages:
   - admin-object
   - creating-the-admin-object

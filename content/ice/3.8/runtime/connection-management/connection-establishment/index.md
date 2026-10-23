@@ -1,5 +1,6 @@
 ---
 title: Connection Establishment
+sidebarLabel: Establishment
 ---
 
 Ice establishes connections on demand. When an invocation on a proxy needs a connection, Ice reuses an existing

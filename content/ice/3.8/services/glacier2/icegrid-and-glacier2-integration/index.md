@@ -1,5 +1,6 @@
 ---
 title: IceGrid and Glacier2 Integration
+sidebarLabel: IceGrid Integration
 ---
 
 [IceGrid](../../icegrid) is a server activation and location service. This section describes the ways in which you can

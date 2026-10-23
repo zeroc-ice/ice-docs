@@ -1,5 +1,6 @@
 ---
 title: Node Runtime Component
+sidebarLabel: Node
 ---
 
 A node represents an IceGrid node process registered with the IceGrid registry.

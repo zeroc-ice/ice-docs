@@ -1,5 +1,6 @@
 ---
 title: Implementing an IceStorm Publisher
+sidebarLabel: Implementing a Publisher
 ---
 
 An IceStorm publisher is an Ice client application that sends requests to a `Topic` hosted by the IceStorm service.

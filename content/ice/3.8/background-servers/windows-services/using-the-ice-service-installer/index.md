@@ -1,5 +1,6 @@
 ---
 title: Using the Ice Service Installer
+sidebarLabel: Service Installer
 ---
 
 Ice provides the command-line tool `iceserviceinstall` to assist you in installing and uninstalling the following Ice

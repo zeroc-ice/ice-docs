@@ -1,5 +1,6 @@
 ---
 title: Troubleshooting Windows Services
+sidebarLabel: Troubleshooting
 ---
 
 This page describes how to troubleshoot Windows Services.

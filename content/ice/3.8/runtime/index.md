@@ -1,5 +1,6 @@
 ---
 title: The Ice Runtime
+sidebarLabel: Ice Runtime
 pages:
   - communicator
   - invocation

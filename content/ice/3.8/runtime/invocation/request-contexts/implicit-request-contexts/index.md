@@ -1,5 +1,6 @@
 ---
 title: Implicit Request Contexts
+sidebarLabel: Implicit
 languages:
   - cpp
   - csharp

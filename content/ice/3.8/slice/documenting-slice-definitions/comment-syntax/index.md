@@ -1,5 +1,6 @@
 ---
 title: Comment Syntax
+sidebarLabel: Syntax
 ---
 
 Slice supports two styles of comments: _line comments_ and _block comments_.

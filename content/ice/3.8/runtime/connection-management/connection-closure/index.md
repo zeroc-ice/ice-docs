@@ -1,5 +1,6 @@
 ---
 title: Connection Closure
+sidebarLabel: Closure
 ---
 
 An Ice communicator creates, reuses and eventually closes outgoing connections, while an object adapter accepts and

@@ -1,5 +1,6 @@
 ---
 title: Advanced Glacier2 Client Configurations
+sidebarLabel: Advanced Client Configuration
 ---
 
 This section details strategies that Glacier2 clients can use to address more advanced requirements.

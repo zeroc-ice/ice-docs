@@ -1,5 +1,6 @@
 ---
 title: IceGrid XML Reference
+sidebarLabel: XML Reference
 pages:
   - adapter-descriptor-element
   - allocatable-descriptor-element

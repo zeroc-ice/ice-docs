@@ -1,5 +1,5 @@
 ---
-title: Command Line Options
+title: Command-Line Options
 ---
 
 The Ice services `glacier2router`, `icebox`, `icebridge`, `icegridnode` and `icegridregistry` share a common set of

@@ -1,5 +1,6 @@
 ---
-title: IceGrid Descriptor Element
+title: "<icegrid> Element"
+sidebarLabel: "<icegrid>"
 ---
 
 The `icegrid` element is the top-level element for IceGrid descriptors in XML files. This element supports no

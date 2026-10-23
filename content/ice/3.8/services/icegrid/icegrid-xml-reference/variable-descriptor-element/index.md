@@ -1,5 +1,6 @@
 ---
-title: Variable Descriptor Element
+title: "<variable> Element"
+sidebarLabel: "<variable>"
 ---
 
 A `variable` element defines a [variable](../../using-descriptor-variables-and-parameters).

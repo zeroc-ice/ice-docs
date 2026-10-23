@@ -1,5 +1,6 @@
 ---
-title: Using Command Line Options in Descriptors
+title: Using Command-Line Options in Descriptors
+sidebarLabel: Command-Line Options
 ---
 
 [Server descriptors](../server-descriptor-element) and [IceBox descriptors](../icebox-descriptor-element) may specify

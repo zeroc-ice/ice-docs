@@ -1,5 +1,6 @@
 ---
 title: Locator Semantics for Servers
+sidebarLabel: Server Semantics
 languages:
   - cpp
   - csharp

@@ -1,5 +1,6 @@
 ---
 title: Logger Facility
+sidebarLabel: Logging
 pages:
   - default-logger
   - custom-loggers

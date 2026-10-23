@@ -1,5 +1,6 @@
 ---
 title: Highly Available IceStorm
+sidebarLabel: High Availability
 ---
 
 IceStorm offers a highly available (HA) mode that employs master-slave replication with automatic failover in case the

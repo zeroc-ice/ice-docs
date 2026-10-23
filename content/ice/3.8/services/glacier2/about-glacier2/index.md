@@ -1,5 +1,6 @@
 ---
 title: About Glacier2
+sidebarLabel: About
 ---
 
 Glacier2 is a forward proxy deployed near your servers. Clients connect to Glacier2 and send it their requests, and

@@ -1,5 +1,6 @@
 ---
 title: Slice Keywords
+sidebarLabel: Keywords
 ---
 
 The following identifiers are Slice keywords:

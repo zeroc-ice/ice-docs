@@ -1,5 +1,6 @@
 ---
 title: Protocol Messages
+sidebarLabel: Messages
 ---
 
 The Ice protocol uses five messages:

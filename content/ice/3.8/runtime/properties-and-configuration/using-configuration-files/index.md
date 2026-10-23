@@ -1,5 +1,6 @@
 ---
 title: Using Configuration Files
+sidebarLabel: Configuration Files
 ---
 
 The ability to configure an application's properties externally provides a great deal of flexibility: you can use any

@@ -1,5 +1,6 @@
 ---
 title: Properties and Configuration
+sidebarLabel: Configuration
 pages:
   - properties-overview
   - configuration-file-syntax

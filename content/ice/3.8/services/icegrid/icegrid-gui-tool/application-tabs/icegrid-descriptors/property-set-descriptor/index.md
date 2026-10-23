@@ -1,5 +1,6 @@
 ---
 title: Property Set Descriptor
+sidebarLabel: Property Set
 ---
 
 A Property Set defines a set of Ice properties. IceGrid GUI supports two kinds of Property Sets:

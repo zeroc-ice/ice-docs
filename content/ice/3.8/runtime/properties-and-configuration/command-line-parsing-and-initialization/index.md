@@ -1,5 +1,6 @@
 ---
 title: Command-Line Parsing and Initialization
+sidebarLabel: Command-Line Parsing
 ---
 
 When you [initialize the Ice runtime](../../communicator/initialization-and-destruction) by calling `initialize`, you

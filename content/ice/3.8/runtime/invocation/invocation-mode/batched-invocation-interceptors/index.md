@@ -1,5 +1,6 @@
 ---
 title: Batched Invocation Interceptors
+sidebarLabel: Batch Interceptors
 languages:
   - cpp
   - csharp

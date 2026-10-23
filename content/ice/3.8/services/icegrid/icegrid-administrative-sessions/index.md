@@ -1,5 +1,6 @@
 ---
 title: IceGrid Administrative Sessions
+sidebarLabel: Administrative Sessions
 ---
 
 To access IceGrid's administrative facilities from a program, you must first establish an administrative session. Once

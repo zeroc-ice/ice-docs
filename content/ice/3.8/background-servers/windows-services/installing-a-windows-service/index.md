@@ -1,5 +1,6 @@
 ---
 title: Installing a Windows Service
+sidebarLabel: Installing a Service
 ---
 
 The installation of a Windows service varies in complexity with the needs of the application, but usually involves the

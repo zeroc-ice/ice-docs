@@ -1,5 +1,6 @@
 ---
 title: Slice Metadata Directives
+sidebarLabel: Metadata
 ---
 
 ## Overview

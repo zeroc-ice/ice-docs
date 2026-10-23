@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Classes
+sidebarLabel: Classes
 pages:
   - class-type-ids
   - simple-example-of-class-encoding

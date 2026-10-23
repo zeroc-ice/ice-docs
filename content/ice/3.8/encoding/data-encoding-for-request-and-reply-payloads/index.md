@@ -1,5 +1,6 @@
 ---
 title: Data Encoding for Request and Reply Payloads
+sidebarLabel: Request and Reply Payloads
 ---
 
 The [request](../../protocol/protocol-messages#request-message-body),

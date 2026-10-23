@@ -1,5 +1,6 @@
 ---
 title: Configuration File Syntax
+sidebarLabel: File Syntax
 ---
 
 This page describes the syntax of an Ice configuration file.

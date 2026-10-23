@@ -1,5 +1,6 @@
 ---
-title: Node Descriptor Element
+title: "<node> Element"
+sidebarLabel: "<node>"
 ---
 
 A `node` element defines an IceGrid node. The servers that the node is responsible for managing are described in child

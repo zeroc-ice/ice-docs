@@ -1,5 +1,6 @@
 ---
 title: Server Runtime Component
+sidebarLabel: Server
 ---
 
 A server represents an Ice server process. It can be either regular server (with typically a single Ice communicator) or

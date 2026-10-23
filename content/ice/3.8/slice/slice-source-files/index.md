@@ -1,5 +1,6 @@
 ---
 title: Slice Source Files
+sidebarLabel: Source Files
 ---
 
 Slice defines a number of rules for the naming and contents of Slice source files.

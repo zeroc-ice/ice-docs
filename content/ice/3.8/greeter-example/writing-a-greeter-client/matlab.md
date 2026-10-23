@@ -1,5 +1,6 @@
 ---
 title: Writing a Greeter Client
+sidebarLabel: Writing the Client
 ---
 
 This page presents a step-by-step guide to writing the client-side of our MATLAB Greeter application.

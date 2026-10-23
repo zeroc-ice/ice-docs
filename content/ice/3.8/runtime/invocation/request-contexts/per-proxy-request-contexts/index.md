@@ -1,5 +1,6 @@
 ---
 title: Per-Proxy Request Contexts
+sidebarLabel: Per-Proxy
 ---
 
 Instead of passing a context [explicitly](../explicit-request-contexts) with an invocation, you can also use a

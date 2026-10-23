@@ -1,5 +1,6 @@
 ---
-title: Adapter Descriptor Element
+title: "<adapter> Element"
+sidebarLabel: "<adapter>"
 ---
 
 An `adapter` element defines an indirect [object adapter](../../../../runtime/dispatch).

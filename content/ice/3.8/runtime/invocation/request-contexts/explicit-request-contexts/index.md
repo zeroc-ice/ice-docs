@@ -1,5 +1,6 @@
 ---
 title: Explicit Request Contexts
+sidebarLabel: Explicit
 ---
 
 Request contexts allow a client to send additional data to the server without having to include this data as input

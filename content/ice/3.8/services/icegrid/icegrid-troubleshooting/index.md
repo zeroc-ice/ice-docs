@@ -1,5 +1,6 @@
 ---
 title: IceGrid Troubleshooting
+sidebarLabel: Troubleshooting
 ---
 
 ## Troubleshooting Activation Failures

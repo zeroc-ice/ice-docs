@@ -1,5 +1,6 @@
 ---
-title: Service-Template Descriptor Element
+title: "<service-template> Element"
+sidebarLabel: "<service-template>"
 ---
 
 A `service-template` element defines a [template](../../icegrid-templates) for a

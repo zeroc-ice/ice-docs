@@ -1,5 +1,6 @@
 ---
 title: IceStorm Delivery Modes
+sidebarLabel: Delivery Modes
 ---
 
 The delivery mode for events sent to subscribers is controlled by the proxy that the subscriber passes to IceStorm. For

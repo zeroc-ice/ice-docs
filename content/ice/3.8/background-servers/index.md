@@ -1,5 +1,6 @@
 ---
 title: Windows Services and Unix Daemons
+sidebarLabel: Services and Daemons
 pages:
   - windows-services
   - linux-services

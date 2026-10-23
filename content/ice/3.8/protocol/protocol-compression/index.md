@@ -1,5 +1,6 @@
 ---
 title: Protocol Compression
+sidebarLabel: Compression
 ---
 
 Compression is an optional feature of the Ice protocol: a sender can compress a request, batch request, or reply message

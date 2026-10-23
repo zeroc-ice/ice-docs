@@ -1,5 +1,6 @@
 ---
 title: Backward Compatibility of Ice Versions
+sidebarLabel: Compatibility
 ---
 
 This page describes the guarantees and non-guarantees provided by Ice’s versioning scheme.

@@ -1,5 +1,6 @@
 ---
-title: Replica-Group Descriptor Element
+title: "<replica-group> Element"
+sidebarLabel: "<replica-group>"
 ---
 
 A `replica-group` element creates a virtual object adapter in order to provide

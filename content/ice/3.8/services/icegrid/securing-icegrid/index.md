@@ -1,5 +1,6 @@
 ---
 title: Securing IceGrid
+sidebarLabel: Security
 ---
 
 IceGrid's registry and node services expose multiple network endpoints that a malicious client could use to gain access

@@ -1,5 +1,6 @@
 ---
 title: The Default Logger
+sidebarLabel: Default Logger
 ---
 
 When you create a communicator without supplying a [logger](..) or selecting a [built-in logger](../built-in-loggers),

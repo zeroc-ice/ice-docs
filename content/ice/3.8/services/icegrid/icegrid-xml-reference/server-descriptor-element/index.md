@@ -1,5 +1,6 @@
 ---
-title: Server Descriptor Element
+title: "<server> Element"
+sidebarLabel: "<server>"
 ---
 
 A `server` element defines a server to be deployed on a node. It typically contains at least one

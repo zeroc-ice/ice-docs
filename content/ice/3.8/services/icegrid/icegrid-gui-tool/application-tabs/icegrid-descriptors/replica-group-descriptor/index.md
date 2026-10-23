@@ -1,5 +1,6 @@
 ---
 title: Replica Group Descriptor
+sidebarLabel: Replica Group
 ---
 
 A replica group represents an abstract grouping of identical, or very similar, object adapters. An object adapter joins

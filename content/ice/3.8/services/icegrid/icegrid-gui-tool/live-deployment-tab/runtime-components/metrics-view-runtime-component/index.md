@@ -1,5 +1,6 @@
 ---
 title: Metrics View Runtime Component
+sidebarLabel: Metrics View
 ---
 
 A Metrics View displays the Metrics maps of a registry, slave registry, node, server, or IceBox service.

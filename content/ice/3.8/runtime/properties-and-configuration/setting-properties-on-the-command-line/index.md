@@ -1,5 +1,6 @@
 ---
 title: Setting Properties on the Command Line
+sidebarLabel: Command-Line Properties
 ---
 
 <!-- cspell:ignore Netwrok -->

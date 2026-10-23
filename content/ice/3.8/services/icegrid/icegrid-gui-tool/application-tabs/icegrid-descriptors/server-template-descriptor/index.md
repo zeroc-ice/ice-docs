@@ -1,5 +1,6 @@
 ---
 title: Server Template Descriptor
+sidebarLabel: Server Template
 ---
 
 A server template is used to capture the common definitions of several similar or identical servers.

@@ -1,5 +1,6 @@
 ---
 title: Promoting a Registry Slave
+sidebarLabel: Promoting a Slave
 ---
 
 In a [replicated IceGrid deployment](../../registry-replication), you promote a slave registry to master when the master

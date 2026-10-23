@@ -1,5 +1,6 @@
 ---
 title: Setting Environment Variables in Descriptors
+sidebarLabel: Environment Variables
 ---
 
 [Server descriptors](../server-descriptor-element) and [IceBox descriptors](../icebox-descriptor-element) may specify

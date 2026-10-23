@@ -1,5 +1,6 @@
 ---
 title: Thread Pool Design Considerations
+sidebarLabel: Design Considerations
 languages:
   - cpp
   - csharp

@@ -1,5 +1,6 @@
 ---
 title: IceGrid Templates
+sidebarLabel: Templates
 ---
 
 IceGrid templates simplify the task of creating the descriptors for an application. A template is a parameterized

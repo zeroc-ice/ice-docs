@@ -1,5 +1,6 @@
 ---
 title: Service Logging Considerations
+sidebarLabel: Logging
 ---
 
 An Ice service running as a Windows service logs to the Windows `Application` event log when no other logger is
