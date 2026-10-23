@@ -232,11 +232,13 @@ bidir connections. See the `Ice/bidir` [demo](https://github.com/zeroc-ice/ice-d
 ### Removed secure and PreferSecure
 
 We removed the `secure` proxy option, the `PreferSecure` proxy property, and the associated properties
-(`Ice.Default.PreferSecure`, `Ice.Override.Secure`) and proxy methods (`ice_secure`, `ice_preferSecure`, etc.). A proxy
-should not mix `tcp` and `ssl` endpoints, so there is no choice between secure and non-secure endpoints left to
-configure. See
-[Secure Proxy Options, Properties, and Methods](../../../upgrade-guide#secure-proxy-options,-properties,-and-methods) in
-the Upgrade Guide.
+(`Ice.Default.PreferSecure`, `Ice.Override.Secure`) and proxy methods (`ice_secure`, `ice_preferSecure`, etc.). See
+[Secure Proxy Options, Properties, and Methods](../../../upgrade-guide#secure-proxy-options) in the Upgrade Guide.
+
+These features let a client choose between the `tcp` and `ssl` endpoints of a proxy, or prefer one kind over the other,
+the way a web server that listens on both `http` and `https` lets a browser choose. A modern web server listens on
+`https` only, and likewise an object adapter should listen on `ssl` or on `tcp`, not both. A proxy should therefore not
+mix `tcp` and `ssl` endpoints, which leaves nothing for these features to decide.
 
 ### More Marshalable Local Exceptions
 
@@ -738,9 +740,9 @@ features were removed as a consequence:
 - support for request overrides (the `_ovrd` request context).
 - support for creating batches of requests (`Glacier2.Client.AlwaysBatch` and `Glacier2.Server.AlwayBatch`).
 
-We also removed the Glacier2 helper classes of the C++, C# and Java mappings: `Application`, `SessionCallback`,
-`SessionFactoryHelper` and `SessionHelper`. See the [Upgrade Guide](../../../upgrade-guide#glacier2) for how to create a
-Glacier2 session without them.
+We also removed the Glacier2 helper classes: `Application` in C++, C#, Java and Python, and `SessionCallback`,
+`SessionFactoryHelper` and `SessionHelper` in C++, C# and Java. See the [Upgrade Guide](../../../upgrade-guide#glacier2)
+for how to create a Glacier2 session without them.
 
 Finally, we removed the session timeouts configured using `Glacier2.SessionTimeout`. The Glacier2 router now relies on
 the [Idle Timeout](../../../runtime/connection-management/connection-closure) for these connection-bound sessions.
