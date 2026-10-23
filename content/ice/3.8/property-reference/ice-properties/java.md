@@ -66,73 +66,7 @@ consisting of _name_=_value_ pairs with support for comments and escaping.
 
 {% /language-section %}
 
-{% language-section name="ice.httpproxyport" %}
-
-## Ice.HTTPProxyHost
-
-{% property-synopsis %}
-
-`Ice.HTTPProxyHost=addr`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-Specifies the host name or IP address of an HTTP proxy server. If `addr` is not empty, Ice uses the designated HTTP
-proxy server for all outgoing (client) connections.
-
-{% /property-description %}
-
-## Ice.HTTPProxyPort
-
-{% property-synopsis %}
-
-`Ice.HTTPProxyPort=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-The port number of the HTTP proxy server. If not specified, the default value is `1080`.
-
-{% /property-description %}
-
-{% /language-section %}
-
-{% language-section name="ice.ipv6" %}
-
-## Ice.InitPlugins
-
-{% property-synopsis %}
-
-`Ice.InitPlugins=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-If `num` is a value greater than `0`, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
-initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
-this order. An application may need to set this property to `0` in order to interact directly with a plug-in after it
-has been loaded but before it is initialized. In this case, the application must invoke `initializePlugins` on the
-plug-in manager to complete the initialization process. If not defined, the default value is `1`.
-
-{% /property-description %}
-
-## Ice.IPv4
-
-{% property-synopsis %}
-
-`Ice.IPv4=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-Specifies whether Ice uses IPv4. If `num` is a value greater than `0`, IPv4 is enabled. If not specified, the default
-value is `1`.
-
-{% /property-description %}
+{% language-section name="ice.ipv4" %}
 
 ## Ice.IPv6
 
@@ -158,7 +92,7 @@ java -Djava.net.preferIPv4Stack=true ...
 
 {% /language-section %}
 
-{% language-section name="ice.printstacktraces" %}
+{% language-section name="ice.messagesizemax" %}
 
 ## Ice.Package._module_
 
@@ -186,60 +120,9 @@ See also: [Ice.Default.Package](../ice-default-properties)
 
 {% /property-description %}
 
-## Ice.PluginLoadOrder
-
-{% property-synopsis %}
-
-`Ice.PluginLoadOrder=names`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-Specifies the order in which Ice creates the plug-ins installed through configuration, with `Ice.Plugin.name`
-properties. `names` lists plug-in names separated by commas or white space. Ice creates the plug-ins in `names` first,
-in that order, and then the other plug-ins installed through configuration, in an undefined order.
-
-This property does not affect the plug-ins installed through `InitializationData.pluginFactories`, even when an
-`Ice.Plugin.name` property supplies their arguments: Ice creates these plug-ins in list order, before any plug-in
-installed through configuration.
-
-{% /property-description %}
-
-## Ice.PreferIPv6Address
-
-{% property-synopsis %}
-
-`Ice.PreferIPv6Address=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-If both IPv4 and IPv6 are enabled (the default), specifies whether Ice prefers IPv6 addresses over IPv4 addresses when
-resolving hostnames. If `num` is a value greater than `0`, IPv6 addresses are preferred. If not specified, the default
-value is `0`.
-
-{% /property-description %}
-
-## Ice.PrintAdapterReady
-
-{% property-synopsis %}
-
-`Ice.PrintAdapterReady=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-If `num` is set to a value larger than `0`, an object adapter prints "_adapter_name_ ready" on standard output after
-activation is complete. This is useful for scripts that need to wait until an object adapter is ready to be used.
-
-{% /property-description %}
-
 {% /language-section %}
 
-{% language-section name="ice.syslogfacility" %}
+{% language-section name="ice.retryintervals" %}
 
 ## Ice.ServerIdleTime
 
@@ -262,94 +145,9 @@ the server will not shut down automatically. This property is often used for ser
 
 {% /property-description %}
 
-## Ice.SliceLoader.NotFoundCacheSize
+{% /language-section %}
 
-{% property-synopsis %}
-
-`Ice.SliceLoader.NotFoundCacheSize=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-When `num` is set to a value larger than `0`, the communicator installs an internal “not found” cache that caches failed
-Slice loader resolutions.
-
-The default value is `100`.
-
-See also [Ice.Warn.SliceLoader](../ice-warn-properties).
-
-{% /property-description %}
-
-## Ice.SOCKSProxyHost
-
-{% property-synopsis %}
-
-`Ice.SOCKSProxyHost=addr`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-Specifies the host name or IP address of a SOCKS proxy server. If `addr` is not empty, Ice uses the designated SOCKS
-proxy server for all outgoing (client) connections.
-
-{% callout type="note" %}
-
-Ice supports the SOCKS4 protocol, which requires IPv4. If both `Ice.SOCKSProxyHost` and `Ice.HTTPProxyHost` are set, Ice
-uses the SOCKS proxy.
-
-{% /callout %}
-
-{% /property-description %}
-
-## Ice.SOCKSProxyPort
-
-{% property-synopsis %}
-
-`Ice.SOCKSProxyPort=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-The port number of the SOCKS proxy server. If not specified, the default value is `1080`.
-
-{% /property-description %}
-
-## Ice.StdErr
-
-{% property-synopsis %}
-
-`Ice.StdErr=filename`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
-property is checked only for the first communicator that is created in a process.
-
-`Ice.StdErr` and `Ice.StdOut` can name the same file.
-
-{% /property-description %}
-
-## Ice.StdOut
-
-{% property-synopsis %}
-
-`Ice.StdOut=filename`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
-property is checked only for the first communicator created in a process.
-
-`Ice.StdErr` and `Ice.StdOut` can name the same file.
-
-{% /property-description %}
+{% language-section name="ice.stdout" %}
 
 ## Ice.SyslogFacility
 
@@ -370,6 +168,10 @@ communicator can use its own facility, even when several communicators in the sa
 The default value is `LOG_USER`.
 
 {% /property-description %}
+
+{% /language-section %}
+
+{% language-section name="ice.syslogfacility" %}
 
 ## Ice.SyslogHost
 
