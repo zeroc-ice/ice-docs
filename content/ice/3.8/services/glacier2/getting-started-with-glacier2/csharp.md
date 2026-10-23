@@ -17,10 +17,3 @@ The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csha
 client and server in C#, and the configuration of the Glacier2 router between them.
 
 {% /language-section %}
-
-{% language-section name="session-demo" %}
-
-The [Glacier2 session demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Glacier2/Session) implements and
-configures a session manager in C#.
-
-{% /language-section %}

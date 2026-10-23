@@ -67,6 +67,32 @@ Glacier2.PermissionsVerifier=Glacier2/NullPermissionsVerifier
 Note that the category of the object's identity (`Glacier2` in this example) must match the value of the property
 [Glacier2.InstanceName](../../../property-reference/glacier2-properties#glacier2.instancename).
 
+#### Supported Hash Formats
+
+The supported hash formats depend on the platform.
+
+Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the
+structure `$identifier$content`, where `identifier` denotes the hashing scheme and `content` contains the scheme's
+parameters and hash.
+
+On Windows and macOS:
+
+- `PBKDF2` using `SHA-1`, `SHA-256`, or `SHA-512` as the digest algorithm.
+
+{% callout type="note" %}
+
+PBKDF2 does not have a standard form in the `MCF` specification. In this case Glacier2 uses the same format as
+[passlib](https://pythonhosted.org/passlib/modular_crypt_format.html).
+
+- `$pbkdf2-digest$rounds$salt$checksum` for `SHA-256` and `SHA-512`.
+- `$pbkdf2$rounds$salt$checksum` for `SHA-1`.
+
+{% /callout %}
+
+On Linux:
+
+- Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
+
 ### Certificate Authentication
 
 The [createSessionFromSecureConnection](../getting-started-with-glacier2) operation does not require a user name or

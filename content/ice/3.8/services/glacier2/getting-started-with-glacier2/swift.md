@@ -19,10 +19,3 @@ The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swif
 client and server in Swift, and the configuration of the Glacier2 router between them.
 
 {% /language-section %}
-
-{% language-section name="session-demo" %}
-
-The [Glacier2 session demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Glacier2/Session) implements and
-configures a session manager in Swift.
-
-{% /language-section %}
