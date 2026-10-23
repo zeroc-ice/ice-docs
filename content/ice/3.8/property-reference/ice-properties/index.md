@@ -2,7 +2,29 @@
 title: Ice.*
 ---
 
-{% language-section name="ice.backgroundlocatorcacheupdates" /%}
+{% iflang langs="cpp,swift" %}
+
+## Ice.AcceptClassCycles
+
+{% property-synopsis %}
+
+`Ice.AcceptClassCycles=num`
+
+{% /property-synopsis %}
+
+{% property-description %}
+
+If `num` is set to `0` (the default), the unmarshaling of class cycles is disallowed. A `MarshalException` is thrown
+when a cycle is detected during unmarshaling.
+
+If `num` is set to a value larger than `0`, class cycles are unmarshaled. You must break any cycles programmatically in
+your own code to prevent memory leaks.
+
+{% /property-description %}
+
+{% /iflang %}
+
+{% language-section name="ice.acceptclasscycles" /%}
 
 ## Ice.BackgroundLocatorCacheUpdates
 
@@ -79,7 +101,7 @@ Setting this property to `0` (or to a negative number) disables the depth limit 
 
 {% /property-description %}
 
-{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.Compression.Level
 
@@ -100,7 +122,7 @@ significant improvement over lower levels. If not specified, the default value i
 
 {% /iflang %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% iflang langs="cpp,csharp,matlab,php,python,ruby,swift" %}
 
 ## Ice.Config
 
@@ -133,8 +155,6 @@ consisting of _name_=_value_ pairs with support for comments and escaping.
 
 {% language-section name="ice.config" /%}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
-
 {% iflang langs="cpp" %}
 
 ## Ice.EventLog.Source
@@ -156,6 +176,10 @@ slashes. If not defined, `Ice::Service` uses the service name as specified by th
 {% /property-description %}
 
 {% /iflang %}
+
+{% language-section name="ice.eventlog.source" /%}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.HTTPProxyHost
 
@@ -188,8 +212,6 @@ The port number of the HTTP proxy server. If not specified, the default value is
 
 {% /iflang %}
 
-{% language-section name="ice.httpproxyport" /%}
-
 ## Ice.ImplicitContext
 
 {% property-synopsis %}
@@ -207,7 +229,9 @@ scope the context applies. Legal values for this property are `None` (equivalent
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% language-section name="ice.implicitcontext" /%}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.InitPlugins
 
@@ -219,7 +243,7 @@ scope the context applies. Legal values for this property are `None` (equivalent
 
 {% property-description %}
 
-{% iflang langs="cpp" %}
+{% iflang langs="cpp,csharp,java" %}
 
 If `num` is a value greater than `0`, the Ice runtime automatically initializes the plug-ins it has loaded. Ice
 initializes plug-ins in construction order; `InitializationData.pluginFactories` and `Ice.PluginLoadOrder` determine
@@ -244,6 +268,10 @@ After setting this property to `0`, call `Communicator.initializePlugins()` to i
 
 {% /property-description %}
 
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Ice.IPv4
 
 {% property-synopsis %}
@@ -258,6 +286,12 @@ Specifies whether Ice uses IPv4. If `num` is a value greater than `0`, IPv4 is e
 value is `1`.
 
 {% /property-description %}
+
+{% /iflang %}
+
+{% language-section name="ice.ipv4" /%}
+
+{% iflang langs="cpp,csharp,matlab,php,python,ruby,swift" %}
 
 ## Ice.IPv6
 
@@ -275,8 +309,6 @@ value is `1` if the system supports the creation of IPv6 sockets, and `0` otherw
 {% /property-description %}
 
 {% /iflang %}
-
-{% language-section name="ice.ipv6" /%}
 
 ## Ice.LogFile
 
@@ -315,7 +347,7 @@ Browsers do not support this property.
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
 
 ## Ice.LogFile.SizeMax
 
@@ -385,7 +417,7 @@ See also [adapter.MessageSizeMax](../object-adapter-properties).
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% language-section name="ice.messagesizemax" /%}
 
 {% iflang langs="cpp" %}
 
@@ -409,6 +441,8 @@ IceGrid, IceBox (IceStorm), and Glacier2 are implemented using `Ice::Service`.
 
 {% /iflang %}
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Ice.PluginLoadOrder
 
 {% property-synopsis %}
@@ -431,6 +465,14 @@ installed through configuration.
 
 {% /iflang %}
 
+{% iflang langs="csharp,java" %}
+
+This property does not affect the plug-ins installed through `InitializationData.pluginFactories`, even when an
+`Ice.Plugin.name` property supplies their arguments: Ice creates these plug-ins in list order, before any plug-in
+installed through configuration.
+
+{% /iflang %}
+
 {% iflang langs="python,ruby,php,matlab,swift" %}
 
 The built-in IceDiscovery and IceLocatorDiscovery plug-ins are created before dynamically loaded plug-ins when enabled
@@ -440,6 +482,10 @@ initialization fails with a `PluginInitializationException`.
 {% /iflang %}
 
 {% /property-description %}
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.PreferIPv6Address
 
@@ -457,7 +503,11 @@ value is `0`.
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,swift" %}
+{% /iflang %}
+
+{% language-section name="ice.preferipv6address" /%}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
 ## Ice.PrintAdapterReady
 
@@ -476,6 +526,8 @@ activation is complete. This is useful for scripts that need to wait until an ob
 
 {% /iflang %}
 
+{% iflang langs="cpp,csharp,matlab,php,python,ruby,swift" %}
+
 ## Ice.PrintProcessId
 
 {% property-synopsis %}
@@ -489,6 +541,10 @@ activation is complete. This is useful for scripts that need to wait until an ob
 If `num` is set to a value larger than `0`, the process ID is printed on standard output upon startup.
 
 {% /property-description %}
+
+{% /iflang %}
+
+{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
 
 ## Ice.PrintStackTraces
 
@@ -529,8 +585,6 @@ traces require the Ice PDB files.
 {% /property-description %}
 
 {% /iflang %}
-
-{% language-section name="ice.printstacktraces" /%}
 
 ## Ice.ProgramName
 
@@ -581,7 +635,7 @@ means Ice retries once immediately. A first value of `-1` disables retries.
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% language-section name="ice.retryintervals" /%}
 
 {% iflang langs="cpp,python,swift" %}
 
@@ -615,7 +669,7 @@ thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-p
 
 {% /iflang %}
 
-{% iflang langs="matlab,swift" %}
+{% iflang langs="java,matlab,swift" %}
 
 ## Ice.SliceLoader.NotFoundCacheSize
 
@@ -638,6 +692,8 @@ See also [Ice.Warn.SliceLoader](../ice-warn-properties).
 
 {% /iflang %}
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Ice.SOCKSProxyHost
 
 {% property-synopsis %}
@@ -658,9 +714,17 @@ uses the SOCKS proxy.
 
 {% /callout %}
 
+{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
+
 SOCKS proxies are not supported on the iOS simulator.
 
+{% /iflang %}
+
 {% /property-description %}
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.SOCKSProxyPort
 
@@ -676,6 +740,10 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 
 {% /property-description %}
 
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Ice.StdErr
 
 {% property-synopsis %}
@@ -689,7 +757,17 @@ The port number of the SOCKS proxy server. If not specified, the default value i
 If `filename` is not empty, the standard error stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator that is created in a process.
 
+{% iflang langs="csharp,java" %}
+
+`Ice.StdErr` and `Ice.StdOut` can name the same file.
+
+{% /iflang %}
+
 {% /property-description %}
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.StdOut
 
@@ -704,7 +782,19 @@ property is checked only for the first communicator that is created in a process
 If `filename` is not empty, the standard output stream of this process is redirected to this file, in append mode. This
 property is checked only for the first communicator created in a process.
 
+{% iflang langs="csharp,java" %}
+
+`Ice.StdErr` and `Ice.StdOut` can name the same file.
+
+{% /iflang %}
+
 {% /property-description %}
+
+{% /iflang %}
+
+{% language-section name="ice.stdout" /%}
+
+{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
 
 ## Ice.SyslogFacility
 
@@ -749,7 +839,7 @@ The default value is `Unicode`.
 
 {% /property-description %}
 
-{% iflang langs="cpp,python,ruby,php,matlab,swift" %}
+{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
 
 ## Ice.UseOSLog
 

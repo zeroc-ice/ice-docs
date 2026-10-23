@@ -2,7 +2,26 @@
 title: Ice.Warn.*
 ---
 
-{% language-section name="ice.warn.connections" /%}
+{% iflang langs="cpp,csharp,java" %}
+
+## Ice.Warn.AMICallback
+
+{% property-synopsis %}
+
+`Ice.Warn.AMICallback=num`
+
+{% /property-synopsis %}
+
+{% property-description %}
+
+If `num` is set to a value larger than `0`, the Ice runtime logs a warning when an AMI callback throws an exception. The
+default value is `1`.
+
+{% /property-description %}
+
+{% /iflang %}
+
+{% language-section name="ice.warn.amicallback" /%}
 
 ## Ice.Warn.Connections
 
@@ -26,7 +45,7 @@ Warnings about oversized datagrams are controlled separately by [Ice.Warn.Datagr
 
 {% /property-description %}
 
-{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.Warn.Datagrams
 
@@ -83,7 +102,30 @@ The default value is `1`.
 
 {% /property-description %}
 
-{% language-section name="ice.warn.endpoints" /%}
+{% iflang langs="java,matlab,swift" %}
+
+## Ice.Warn.SliceLoader
+
+{% property-synopsis %}
+
+`Ice.Warn.SliceLoader=num`
+
+{% /property-synopsis %}
+
+{% property-description %}
+
+When [Ice.SliceLoader.NotFoundCacheSize](../ice-properties) is set to a value larger than `0`, the communicator installs
+a “not found” cache to cache failed Slice loader resolutions. And when this cache is full, additional failed Slice
+loader resolutions are not cached.
+
+When `num` is set to a value larger than `0`, the communicator logs a warning for the first failed resolution that is
+not cached because the cache is full.
+
+The default value is `1`.
+
+{% /property-description %}
+
+{% /iflang %}
 
 ## Ice.Warn.UnusedProperties
 
