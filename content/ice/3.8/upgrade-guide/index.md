@@ -218,7 +218,7 @@ If you set `_adapter_.PublishedEndpoints` only to limit the published endpoints,
 
 The `refreshPublishedEndpoints` method has been removed from `ObjectAdapter`.
 
-## Secure Proxy Options, Properties, and Methods
+## Secure Proxy Options, Properties, and Methods {% id="secure-proxy-options" %}
 
 Removed the `secure` proxy option, the `PreferSecure` proxy property, and all associated properties
 (`Ice.Default.PreferSecure`, `Ice.Override.Secure`) and proxy methods (`ice_secure`, `ice_preferSecure`, etc.).
