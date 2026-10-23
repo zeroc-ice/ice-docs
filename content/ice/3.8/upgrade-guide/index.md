@@ -349,8 +349,8 @@ LMDB database created by a 3.7 registry.
 The distribution of server files through IcePatch2 has been removed, and with it the `distrib` descriptor; the `dbenv`
 descriptor has been removed too. An IceGrid 3.8 registry ignores these descriptors in the applications it loads from a
 3.7 database, but it no longer accepts the `distrib` and `dbenv` elements in XML: remove them from your descriptor
-files, remove the `application patch` and `server patch` commands from your `icegridadmin` scripts, and distribute the
-files of your servers with another [tool](../services/icegrid/application-distribution).
+files, remove the `application patch` and `server patch` commands from your `icegridadmin` scripts, and install the
+files of your servers on each computer with your own tools.
 
 A client or administrative session now lasts as long as the connection that created it. The session timeout,
 `IceGrid.Registry.SessionTimeout`, has been removed.

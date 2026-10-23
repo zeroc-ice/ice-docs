@@ -11,7 +11,6 @@ pages:
   - load-balancing
   - resource-allocation-using-icegrid-sessions
   - registry-replication
-  - application-distribution
   - icegrid-administrative-sessions
   - glacier2-integration-with-icegrid
   - icegrid-xml-reference
@@ -28,9 +27,9 @@ pages:
   - icegrid-database-utility
 ---
 
-IceGrid is a location and activation service for Ice applications. An application whose servers run on several computers
-needs a way for clients to reach these servers without configuring their hosts and ports, and a way to start, stop and
-monitor the servers on each computer. IceGrid provides both, with the following features:
+IceGrid is a location and activation service for Ice applications. Clients reach the servers of an IceGrid deployment
+without knowing the host and port of each server, and IceGrid starts, stops and monitors these servers on the computers
+where they run. IceGrid provides the following features:
 
 - **Location service** As an implementation of an Ice [location service](../../runtime/locators), IceGrid enables
   clients to bind indirectly to their servers, making applications more flexible and resilient to changing requirements.
