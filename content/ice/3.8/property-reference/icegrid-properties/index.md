@@ -58,10 +58,9 @@ with the node. The node requires [IceGrid.Node.Endpoints](../object-adapter-prop
 
 {% property-description %}
 
-If `num` is greater than `0`, an IceGrid node permits servers to override previously set endpoints even if the server is
-active. Setting this property to a value greater than `0` is necessary if a server managed by the node calls
-`setPublishedEndpoints` on an object adapter that has already registered its endpoints. The default value of `num` is
-`0`.
+When this property is set to `1`, an IceGrid node lets a server managed by the node replace the endpoints an object
+adapter has already registered, even while the server is active. A server needs this permission to call
+`setPublishedEndpoints` on such an object adapter. The default value is `0`.
 
 {% /property-description %}
 
@@ -75,11 +74,11 @@ active. Setting this property to a value greater than `0` is necessary if a serv
 
 {% property-description %}
 
-If `num` is greater than `0`, an IceGrid node will permit servers started by the node to run with super-user privileges.
-Note that you should not set this property unless the node uses a secure endpoint; otherwise, clients can start
-arbitrary processes with super-user privileges on the node's machine.
+When this property is set to `1`, an IceGrid node permits servers started by the node to run with super-user privileges.
+Do not set it unless the node uses a secure endpoint; otherwise, clients can start arbitrary processes with super-user
+privileges on the node's machine.
 
-The default value of `num` is `0`.
+The default value is `0`.
 
 {% /property-description %}
 
