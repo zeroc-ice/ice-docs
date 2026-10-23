@@ -154,9 +154,9 @@ interface Tree
 
 The client gives each node a unique instance ID. The value of an ID does not matter as long as it is unique; the Ice
 implementation numbers instances with a counter that starts at `1` and increments by one for each new instance. The
-client marshals `p1` and `p2` in these passes:
+client marshals `p1` and `p2` in a single request, in the following passes:
 
-- During the first pass, the client sends the ID `-1` for both parameter values.
+- During the first pass, the client marshals the ID `-1` for both parameter values.
 - The second pass marshals a sequence containing node 1, as described in
   [the example](../simple-example-of-class-encoding).
 - The third pass marshals a sequence containing nodes 2 and 3.
@@ -180,7 +180,7 @@ _The expression tree of with_`p1`_and_`p2`_denoting different nodes._
 The graph that is marshaled is exactly the same, but instances are marshaled in a different order and with different
 IDs:
 
-- During the first pass, the client sends the IDs `-1` and `-2` for the parameter values.
+- During the first pass, the client marshals the IDs `-1` and `-2` for the parameter values.
 - The second pass marshals a sequence containing nodes 1 and 2.
 - The third pass marshals a sequence containing nodes 3, 4, and 5.
 - The fourth pass marshals a sequence containing nodes 6 and 7.
