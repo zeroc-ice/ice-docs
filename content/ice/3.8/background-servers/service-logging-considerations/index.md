@@ -9,9 +9,10 @@ name unless you set [Ice.EventLog.Source](../../property-reference/ice-propertie
 [Ice service installer](../windows-services/using-the-ice-service-installer) registers this source in the `Application`
 log unless you set its `EventLog` property.
 
-On Linux and macOS, an Ice service logs to standard error by default. A service managed by systemd runs in the
-foreground, and systemd collects this output in its journal; launchd collects it only when the job's property list sets
-`StandardErrorPath`. To send the log messages elsewhere:
+On Linux and macOS, an Ice service logs to standard error by default. A service managed by systemd or launchd runs in
+the foreground: systemd collects this output in its journal, and launchd writes it to the file named by the
+`StandardErrorPath` key of the job's property list, or discards it when this key is not set. To send the log messages
+elsewhere:
 
 - Set [Ice.StdErr](../../property-reference/ice-properties#ice.stderr) or
   [Ice.LogFile](../../property-reference/ice-properties#ice.logfile) to write them to a file.
