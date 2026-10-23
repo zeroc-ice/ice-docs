@@ -12,10 +12,10 @@ delivery, then the supported QoS parameters.
 IceStorm treats a failure to deliver an event to a subscriber as either hard or transient. A hard failure means that the
 subscriber is permanently unusable, and IceStorm removes the subscriber immediately:
 
-- `Ice::ObjectNotExistException` — the subscriber is no longer registered in the target object adapter.
-- `Ice::NotRegisteredException` — the subscriber's proxy is an indirect proxy that the configured locator can no longer
+- `Ice::ObjectNotExistException`: The subscriber is no longer registered in the target object adapter.
+- `Ice::NotRegisteredException`: The subscriber's proxy is an indirect proxy that the configured locator can no longer
   resolve.
-- `IceStorm::SendQueueSizeMaxReachedException` — the number of events queued for the subscriber reached
+- `IceStorm::SendQueueSizeMaxReachedException`: The number of events queued for the subscriber reached
   [IceStorm.Send.QueueSizeMax](../../../property-reference/icestorm-properties#icestorm.send.queuesizemax) and
   [IceStorm.Send.QueueSizeMaxPolicy](../../../property-reference/icestorm-properties#icestorm.send.queuesizemaxpolicy)
   is set to `RemoveSubscriber` (the default).

@@ -15,9 +15,9 @@ You install an interceptor by setting the `batchRequestInterceptor` field of the
 [InitializationData](api:Ice/InitializationData) object you use to create your communicator. The communicator invokes
 the interceptor for each batch request, passing the following arguments:
 
-- `req` - An object representing the batch request being queued
-- `count` - The number of requests currently in the queue
-- `size` - The number of bytes of the queued batch message, including its header
+- `req`: An object representing the batch request being queued
+- `count`: The number of requests currently in the queue
+- `size`: The number of bytes of the queued batch message, including its header
 
 The request represented by `req` is not included in the `count` and `size` figures.
 

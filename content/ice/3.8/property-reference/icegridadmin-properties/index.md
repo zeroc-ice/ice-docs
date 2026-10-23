@@ -84,12 +84,12 @@ remaining files.
 
 The built-in `metrics.cfg` is the reference for the full format. The properties used most often are:
 
-- `IceGridGUI.Metrics`: a list of metrics section names, separated by commas or whitespace. The GUI starts with the
+- `IceGridGUI.Metrics`: A list of metrics section names, separated by commas or whitespace. The GUI starts with the
   built-in section order and appends previously unseen names in the order it reads them.
-- `IceGridGUI.Metrics.name`: the display name of the section named `name`.
-- `IceGridGUI.Metrics.name.fields`: the ordered list of fields to display as columns in this section.
-- `IceGridGUI.Metrics.name.field.columnName`: the heading for the column named `field`.
-- `IceGridGUI.Metrics.name.field.columnToolTip`: the tooltip for that column's heading.
+- `IceGridGUI.Metrics.name`: The display name of the section named `name`.
+- `IceGridGUI.Metrics.name.fields`: The ordered list of fields to display as columns in this section.
+- `IceGridGUI.Metrics.name.field.columnName`: The heading for the column named `field`.
+- `IceGridGUI.Metrics.name.field.columnToolTip`: The tooltip for that column's heading.
 
 For a field containing nested metrics, such as an invocation's `remotes`, `IceGridGUI.Metrics.name.field.fields` lists
 the columns in the nested table. Configure their headings and tooltips with

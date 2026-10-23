@@ -55,7 +55,7 @@ cause a disruption in service to any clients that are actively using the affecte
 
 IceGrid GUI provides two versions of the `Save to Registry` command:
 
-- `Save to Registry (Servers may restart)`: the node stops and restarts a running server whose descriptor changed,
+- `Save to Registry (Servers may restart)`: The node stops and restarts a running server whose descriptor changed,
   including a change to its configuration properties. A change to descriptions or to well-known or allocatable objects
   leaves the server running.
 - `Save to Registry (No Server restart)`: IceGrid rejects the update unless it changes only the configuration properties

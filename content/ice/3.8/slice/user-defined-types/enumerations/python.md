@@ -23,8 +23,8 @@ class Fruit(Enum):
 
 Each enum member has:
 
-- `value` — the underlying Slice integer value.
-- `name` — the enumerator’s name as a string.
+- `value`: The underlying Slice integer value.
+- `name`: The enumerator’s name as a string.
 
 ### Usage
 
