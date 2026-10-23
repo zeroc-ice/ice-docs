@@ -63,9 +63,8 @@ A collocated invocation differs from an invocation sent over a connection in the
 
 {% iflang langs="java" %}
 
-- When the servant does not use AMD, Ice completes the future of an asynchronous collocated invocation in the thread
-  that dispatched the request, so the callbacks attached to this future run in that thread rather than in the
-  client-side thread pool.
+- When the servant does not use AMD, the callbacks attached to the future of an asynchronous collocated invocation run
+  in the thread that dispatched the request.
 
 {% /iflang %}
 

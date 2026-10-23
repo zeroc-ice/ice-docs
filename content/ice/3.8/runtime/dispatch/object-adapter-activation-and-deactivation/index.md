@@ -59,8 +59,8 @@ methods:
   continue until `destroy`.
 - `destroy` The `destroy` method deactivates the adapter and releases all of its resources. Internally, `destroy`
   invokes `deactivate` followed by `waitForDeactivate`, therefore the method blocks until these dispatches have
-  completed. Furthermore, the adapter removes all its servants and stops dispatching the requests it receives over
-  bidirectional connections, and the adapter's name becomes available for reuse.
+  completed. Furthermore, the adapter removes all its servants and no longer dispatches the requests it receives over
+  bidirectional connections, which stay open. The name of the adapter becomes available for reuse.
 
 ## See Also
 
