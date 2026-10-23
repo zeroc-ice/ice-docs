@@ -10,8 +10,8 @@ adapters.
 IceDiscovery is an [Ice plug-in](../plug-in-facility) that you install in both clients and servers. It installs a
 [locator](../../runtime/locators) in the communicator. In a server, an object adapter with an adapter ID registers its
 endpoints with this locator. In a client, this locator resolves an
-[indirect proxy](../../basics/terminology#indirect-proxies), such as `greeter@greeterAdapter` or `greeter`, by
-multicasting a lookup request to the servers; the server that hosts the object adapter or the object replies with its
+[indirect proxy](../../basics/terminology#indirect-proxies), such as `greeter@greeterAdapter` or `greeter`, by sending a
+lookup request over multicast to the servers; the server that hosts the object adapter or the object replies with its
 endpoints. The client does not need to configure the endpoints of the objects it uses.
 
 IceDiscovery and [IceGrid](../../services/icegrid) both provide a location service. Use IceDiscovery when your
@@ -101,8 +101,8 @@ one of two forms:
 When a client uses an indirect proxy with an adapter ID for the first time:
 
 - The Ice runtime asks the locator installed by IceDiscovery for the endpoints of the adapter ID.
-- The client's IceDiscovery plug-in multicasts a `findAdapterById` request. This lookup request includes the adapter ID
-  and a proxy that the server's IceDiscovery plug-in uses to reply to the client's plug-in.
+- The client's IceDiscovery plug-in sends a `findAdapterById` request over multicast. This lookup request includes the
+  adapter ID and a proxy that the server's IceDiscovery plug-in uses to reply to the client's plug-in.
 - Every server that installs the plug-in and uses the same address and port receives the lookup request; only a server
   with the same domain ID that hosts this object adapter, or an object adapter of this replica group, replies.
 - The client plug-in waits for a reply for a
@@ -121,8 +121,8 @@ When a client uses an indirect proxy with an adapter ID for the first time:
 When the client uses a well-known proxy for the first time, an additional step comes first:
 
 - The Ice runtime asks the locator installed by IceDiscovery for the object with this identity.
-- The client's IceDiscovery plug-in multicasts a `findObjectById` request, which includes the identity and a proxy for
-  the reply, and retries it like a `findAdapterById` request.
+- The client's IceDiscovery plug-in sends a `findObjectById` request over multicast, which includes the identity and a
+  proxy for the reply, and retries it like a `findAdapterById` request.
 - The IceDiscovery plug-in of each server that receives this request pings the object through the replica group IDs of
   the object adapters that registered with it, and then, if none of these pings succeeds, through their adapter IDs. As
   the ping is an ordinary dispatch, the object can be incarnated by a servant in the Active Servant Map, a default
