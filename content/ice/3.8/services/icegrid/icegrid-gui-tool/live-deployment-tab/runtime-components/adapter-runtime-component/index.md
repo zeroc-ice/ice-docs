@@ -31,7 +31,8 @@ The remaining Server Properties under Configuration come from the IceGrid descri
 - **Published Endpoints** The PublishedEndpoints configuration property of this object adapter.
 - **Server Lifetime** When the Server Lifetime checkbox is checked, IceGrid considers that this object adapter is
   activated when the server starts up and deactivated when the server shuts down. This allows IceGrid to detect when a
-  server is fully activated (all its object adapters with a server-lifetime have registered) and when a server is
-  shutting down (at least one object adapter with server-lifetime has unregistered).
+  server is fully activated (all its object adapters with a server-lifetime have registered, and so has its `Process`
+  facet when its administrative facility is enabled) and when a server is shutting down (at least one object adapter
+  with server-lifetime has unregistered).
 - **Well-known Objects** The well-known objects defined by this object adapter.
 - **Allocatable Objects** The allocatable objects defined by this object adapter.

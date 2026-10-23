@@ -389,8 +389,10 @@ account other than its own only when it runs as root on Linux or macOS. The node
 Defines the interval in seconds that IceGrid waits for
 [server activation and deactivation](../../services/icegrid/icegrid-server-activation).
 
-If a server is automatically activated and does not register its object adapter endpoints within this time interval, the
-node assumes there is a problem with the server and returns an empty set of endpoints to the client.
+A server activated by the node completes its activation when its object adapters with server lifetime have registered
+their endpoints and, when its administrative facility is enabled, it has registered its `Process` facet. If the server
+does not complete its activation within this time interval, the node returns an empty set of endpoints to a client still
+waiting for the endpoints of one of the server's object adapters.
 
 If a server is being gracefully deactivated and IceGrid does not detect the server deactivation during this time
 interval, IceGrid kills the server.
