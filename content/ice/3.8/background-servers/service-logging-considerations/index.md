@@ -3,20 +3,32 @@ title: Service Logging Considerations
 sidebarLabel: Logging
 ---
 
-An Ice service running as a Windows service logs to the Windows `Application` event log when no other logger is
-configured. The source name for the event log is the service's name unless a different value is specified using the
-property `Ice.EventLog.Source`.
+## Default Logging
 
-On Linux and macOS, an Ice service logs to standard error when no other logger is configured. A service started with
-[`--daemon`](../command-line-options#linux-and-macos-daemons) redirects standard error to `/dev/null`, which discards
-these log messages, unless `--noclose`, `Ice.StdErr` or `Ice.StdOut` is set. To keep the log messages of a daemon, set
-`Ice.StdErr` to send standard error to a file, `Ice.UseSyslog` to log to the `syslog` facility, or `Ice.LogFile` to
-write log messages to a file.
+An Ice service running as a Windows service logs to the Windows event log by default. The event source is the service's
+name unless you set [Ice.EventLog.Source](../../property-reference/ice-properties#ice.eventlog.source). The
+[Ice service installer](../windows-services/using-the-ice-service-installer) registers this source in the `Application`
+log unless you set its `EventLog` property.
 
-The [systemd units](../linux-services) included in the Linux packages start `glacier2router`, `icegridnode` and
-`icegridregistry` in the foreground, and the sample configuration files installed with them set
-[Ice.UseSystemdJournal](../../property-reference/ice-properties#ice.usesystemdjournal), so these services log to the
-systemd journal.
+On Linux and macOS, an Ice service logs to standard error by default. A service managed by systemd or launchd runs in
+the foreground: systemd collects this output in its journal, and launchd writes it to the file named by the
+`StandardErrorPath` key of the job's property list, or discards it when this key is not set. To send the log messages
+elsewhere:
 
-An Ice service that fails before it initializes its communicator logs the error to standard error, or to the
-`Application` event log when it runs as a Windows service, even when it is configured to use a different logger.
+- Set [Ice.StdErr](../../property-reference/ice-properties#ice.stderr) or
+  [Ice.LogFile](../../property-reference/ice-properties#ice.logfile) to write them to a file.
+- Set [Ice.UseSyslog](../../property-reference/ice-properties#ice.usesyslog) to `1` to send them to `syslog`.
+- Set [Ice.UseSystemdJournal](../../property-reference/ice-properties#ice.usesystemdjournal) to `1` on Linux, or
+  [Ice.UseOSLog](../../property-reference/ice-properties#ice.useoslog) to `1` on macOS, to send them to the system log.
+
+A service started with [`--daemon`](../command-line-options#linux-and-macos-daemons) discards standard error unless
+`Ice.StdErr` is set or `--noclose` is passed.
+
+## Startup Errors
+
+An Ice service creates the logger that its configuration selects when it initializes its communicator. It reports errors
+that occur before then to standard error on Linux and macOS, and on Windows when it runs without
+[`--service`](../command-line-options#windows-services).
+
+A Windows service reports these errors to the event log, except an error reading its configuration file: the service
+reads this file before it opens the event log, so this error goes to standard error.
