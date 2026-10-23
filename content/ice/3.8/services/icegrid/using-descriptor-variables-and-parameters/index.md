@@ -243,5 +243,4 @@ As a result, the value of `y` in the above example is `2` because that is the mo
 
 - [Variable Descriptor Element](../icegrid-xml-reference/variable-descriptor-element)
 - [IceGrid Templates](../icegrid-templates)
-- [Application Distribution](../application-distribution)
 - [Variables in IceGrid Descriptors](../icegrid-gui-tool/application-tabs/icegrid-descriptors/variables-in-icegrid-descriptors)

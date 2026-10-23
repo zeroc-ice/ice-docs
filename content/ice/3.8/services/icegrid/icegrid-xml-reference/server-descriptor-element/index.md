@@ -53,6 +53,5 @@ Here is an example to demonstrate the use of this element:
 - [Description Descriptor Element](../description-descriptor-element)
 - [Using Command Line Options in Descriptors](../using-command-line-options-in-descriptors)
 - [Setting Environment Variables in Descriptors](../setting-environment-variables-in-descriptors)
-- [Application Distribution](../../application-distribution)
 - [IceGrid Server Activation](../../icegrid-server-activation)
 - [Using Descriptor Variables and Parameters](../../using-descriptor-variables-and-parameters)
