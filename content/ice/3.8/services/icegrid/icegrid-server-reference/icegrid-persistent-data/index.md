@@ -22,9 +22,9 @@ The registry stores the following data in the [LMDB](https://www.symas.com/lmdb.
   operation.
 - [Adapter endpoints](../../../../runtime/dispatch/object-adapter-endpoints) registered dynamically by servers using the
   `Ice::LocatorRegistry` interface. The property
-  [IceGrid.Registry.DynamicRegistration](../../../../property-reference/icegrid-properties) must be set to a value
-  larger than `0` to allow the dynamic registration of object adapters. These adapters can be removed using the
-  `removeAdapter` operation.
+  [IceGrid.Registry.DynamicRegistration](../../../../property-reference/icegrid-properties#icegrid.registry.dynamicregistration)
+  must be set to a value larger than `0` to allow the dynamic registration of object adapters. These adapters can be
+  removed using the `removeAdapter` operation.
 - Some internal proxies used by the registry to contact nodes and other registry replicas during startup. The proxies
   enable the registry to notify these entities about the registry's availability.
 
