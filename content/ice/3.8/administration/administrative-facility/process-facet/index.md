@@ -4,9 +4,12 @@ sidebarLabel: Process Facet
 ---
 
 The `Process` facet lets an activation service, such as an [IceGrid](../../../services/icegrid) node, request a graceful
-shutdown of a server. The server registers a proxy for this facet with the activation service by calling
-`setServerProcessProxy` on the [locator registry](../../../runtime/locators), as described in
-[Integrating the Process Facet with an Activation Service](#integrating-the-process-facet-with-an-activation-service).
+shutdown of a server.{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} The server registers a proxy for
+this facet with the activation service by calling `setServerProcessProxy` on the
+[locator registry](../../../runtime/locators), as described in
+[Integrating the Process Facet with an Activation Service](#integrating-the-process-facet-with-an-activation-service).{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 {% callout type="note" %}
 
@@ -14,6 +17,8 @@ Be aware of the [security considerations](../security-considerations-for-adminis
 the `Process` facet.
 
 {% /callout %}
+
+{% /iflang %}
 
 ## The `Process` Interface
 
@@ -39,6 +44,8 @@ standard error (`fd` == 2) channels.
 
 {% language-section name="mapping" /%}
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Integrating the Process Facet with an Activation Service
 
 If [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties) is configured and the communicator has a
@@ -55,6 +62,8 @@ In the case of [IceGrid](../../../services/icegrid), IceGrid defines the `Ice.Ad
 properties for each deployed server. IceGrid also supplies a value for
 [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) if neither this property nor Ice.Admin.Enabled
 are defined by the server.
+
+{% /iflang %}
 
 ## See Also
 

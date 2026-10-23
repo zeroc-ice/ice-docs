@@ -1,6 +1,15 @@
 ---
 title: Security Considerations for Administrative Facets
 sidebarLabel: Security
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
 Exposing administrative functionality naturally makes a program vulnerable, therefore it is important that proper
