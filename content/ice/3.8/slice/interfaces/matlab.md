@@ -104,8 +104,8 @@ widget = M.WidgetPrx.uncheckedCast(simple);
 
 #### checkedCast
 
-`checkedCast` makes a remote call to the target object to check if this object implements the proxy’s Slice interface.
-For example:
+`checkedCast` makes a remote call to the target object to check whether it implements the Slice interface of the
+requested proxy type. For example:
 
 ```matlab
 % Call operation ice_isA on the Ice object to check if it implements Slice interface
