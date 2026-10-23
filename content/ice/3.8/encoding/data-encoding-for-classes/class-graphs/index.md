@@ -152,16 +152,17 @@ interface Tree
 }
 ```
 
-The client now marshals the two parameters `p1` and `p2` to the server, resulting in the value `-1` being sent twice in
-succession. (The client arbitrarily assigns an instance ID to each node. The value of the ID does not matter, as long as
-each node has a unique ID. For simplicity, the Ice implementation numbers instances with a counter that starts counting
-at `1` and increments by one for each unique instance.) This completes the marshaling of the parameters and results in a
-single instance with ID 1 in the instance table. The client now marshals a sequence containing a single element, node 1,
-as described in [the example](../simple-example-of-class-encoding). In turn, node 1 results in nodes 2 and 3 being added
-to the table, so the next sequence of nodes contains two elements, nodes 2 and 3. The next sequence of nodes contains
-nodes 4, 5, 6, and 7, followed by another sequence containing nodes 8 and 9. At this point, no more class instances are
-outstanding, and the client marshals an empty sequence to indicate to the receiver that the final sequence has been
-marshaled.
+The client gives each node a unique instance ID. The value of an ID does not matter as long as it is unique; the Ice
+implementation numbers instances with a counter that starts at `1` and increments by one for each new instance. The
+client marshals `p1` and `p2` in a single request, in the following passes:
+
+- During the first pass, the client marshals the ID `-1` for both parameter values.
+- The second pass marshals a sequence containing node 1, as described in
+  [the example](../simple-example-of-class-encoding).
+- The third pass marshals a sequence containing nodes 2 and 3.
+- The fourth pass marshals a sequence containing nodes 4, 5, 6, and 7.
+- The fifth pass marshals a sequence containing nodes 8 and 9.
+- The final pass marshals an empty sequence.
 
 Within each sequence, the order in which class instances are marshaled is irrelevant. For example, the third sequence
 could equally contain nodes 7, 6, 4, and 5, in that order. What is important here is that each sequence contains nodes
@@ -179,7 +180,7 @@ _The expression tree of with_`p1`_and_`p2`_denoting different nodes._
 The graph that is marshaled is exactly the same, but instances are marshaled in a different order and with different
 IDs:
 
-- During the first pass, the client sends the IDs `-1` and `-2` for the parameter values.
+- During the first pass, the client marshals the IDs `-1` and `-2` for the parameter values.
 - The second pass marshals a sequence containing nodes 1 and 2.
 - The third pass marshals a sequence containing nodes 3, 4, and 5.
 - The fourth pass marshals a sequence containing nodes 6 and 7.
