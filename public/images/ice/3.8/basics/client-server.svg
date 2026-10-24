@@ -19,53 +19,53 @@
 
   <defs>
     <marker id="arrow" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#566174"/>
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--text-secondary, #566174)"/>
     </marker>
   </defs>
 
   <style>
     text {
-      fill: #182235;
+      fill: var(--text-primary, #182235);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .application {
-      fill: #ffffff;
-      stroke: #8d99aa;
+      fill: var(--diagram-component, #ffffff);
+      stroke: var(--diagram-component-stroke, #8d99aa);
       stroke-width: 1.5;
     }
 
     .api-component {
-      fill: #f8fbff;
-      stroke: #4f78bb;
+      fill: var(--diagram-api, #f8fbff);
+      stroke: var(--diagram-api-stroke, #4f78bb);
       stroke-width: 1.5;
     }
 
     .generated-component {
-      fill: #f3f0f7;
-      stroke: #75658f;
+      fill: var(--diagram-generated, #f3f0f7);
+      stroke: var(--diagram-generated-stroke, #75658f);
       stroke-width: 1.75;
     }
 
     .runtime {
-      fill: #eef5ff;
-      stroke: #1259d6;
+      fill: var(--diagram-runtime, #eef5ff);
+      stroke: var(--link, #1259d6);
       stroke-width: 1.75;
     }
 
     .api-divider {
-      stroke: #4f78bb;
+      stroke: var(--diagram-api-stroke, #4f78bb);
       stroke-width: 1.25;
     }
 
     .generated-divider {
-      stroke: #75658f;
+      stroke: var(--diagram-generated-stroke, #75658f);
       stroke-width: 1.25;
     }
 
     .connector {
       fill: none;
-      stroke: #566174;
+      stroke: var(--text-secondary, #566174);
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 1.75;
@@ -98,19 +98,19 @@
     }
 
     .api-badge {
-      fill: #365f9e;
+      fill: var(--diagram-api-label, #365f9e);
     }
 
     .generated-badge {
-      fill: #68587e;
+      fill: var(--diagram-generated-label, #68587e);
     }
 
     .network-label-background {
-      fill: #ffffff;
+      fill: var(--surface, #ffffff);
     }
 
     .network-label {
-      fill: #566174;
+      fill: var(--text-secondary, #566174);
       font-size: 14px;
       font-weight: 600;
       text-anchor: middle;
@@ -122,7 +122,7 @@
     }
   </style>
 
-  <rect width="800" height="456" fill="#ffffff"/>
+  <rect width="800" height="456" fill="var(--surface, #ffffff)"/>
 
   <!-- No process boundary: the three full-width layers establish each side's grouping. -->
   <g id="boundaries" aria-hidden="true"/>
