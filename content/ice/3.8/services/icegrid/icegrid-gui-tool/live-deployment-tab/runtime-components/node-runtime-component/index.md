@@ -47,9 +47,9 @@ The Node Properties panel shows:
 - **Operating System** The operating system name and version of the host on which the IceGrid node process is running.
 - **Machine Type** The type of CPUs and the number of CPU threads of the host on which the IceGrid node process is
   running. For example, a computer with a dual-core CPU and 2 "hyper threads" per core will show 4 CPU threads.
-- **CPU Usage (Windows) or Load Average (Linux/Unix)** On Windows, shows the percentage of CPU utilization in the past
-  1, 5, and 15 minutes. On Linux/Unix, shows the load-average in the past 1, 5 and 15 minutes. These values are
-  retrieved when the Node Properties panel is displayed. Click on the Refresh button to retrieve the latest values.
+- **CPU Usage (Windows) or Load Average (Linux and macOS)** On Windows, shows the percentage of CPU utilization in the
+  past 1, 5, and 15 minutes. On Linux and macOS, shows the load-average in the past 1, 5 and 15 minutes. These values
+  are retrieved when the Node Properties panel is displayed. Click on the Refresh button to retrieve the latest values.
 - **Build Id** The build Id of this node: this corresponds to the Ice property
   [BuildId](../../../../icegrid-and-the-administrative-facility).
 - **Properties** A table showing all the Ice properties currently set in this IceGrid node.

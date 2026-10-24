@@ -197,7 +197,7 @@ icegridnode --Ice.Config=/opt/ripper/config
 ```
 
 Additional [command line options](../icegrid-server-reference/icegridnode) are supported, including those that allow the
-node to run as a Windows service or Unix daemon.
+node to run as a Windows service or a daemon.
 
 ## Deploying the Ripper Application
 

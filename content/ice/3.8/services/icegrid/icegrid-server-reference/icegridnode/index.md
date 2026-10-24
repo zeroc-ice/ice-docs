@@ -46,7 +46,7 @@ process starts, which can be especially useful during testing. The command expec
 and optionally allows the names of the individual [targets](../../icegrid-xml-features) within the file to be specified.
 
 Additional command line options are supported, including those that allow the node to run as a
-[Windows service or Unix daemon](../../../../background-servers/command-line-options), and Ice includes a
+[Windows service or a daemon](../../../../background-servers/command-line-options), and Ice includes a
 [utility](../../../../background-servers/windows-services) to help you install an IceGrid node as a Windows service.
 
 ## Configuring Node Endpoints
@@ -61,7 +61,7 @@ current endpoint information.
 It is important that you give careful consideration to the permissions of the account under which the node runs. If the
 servers that the node will activate have no special [access requirements](../../icegrid-server-activation), and all of
 the servers can use the same account, it is recommended that you do not run the node under an account with system
-privileges, such as the root account on Unix or the Administrator account on Windows.
+privileges, such as the root account on Linux and macOS or the Administrator account on Windows.
 
 ## Configuring a Data Directory for the Node
 
