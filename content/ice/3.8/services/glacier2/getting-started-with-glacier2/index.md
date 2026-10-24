@@ -64,10 +64,17 @@ Glacier2.CryptPasswords=passwords
 ```
 
 Each non-blank line contains exactly two whitespace-separated fields, a user name and a password hash, and each user
-name appears only once. The [`icehashpassword`](#icehashpassword-helper-script) helper script generates the hash in one
-of the [formats the router accepts](../securing-a-glacier2-router#supported-hash-formats).
+name appears only once. The
+[`icehashpassword` helper script](../securing-a-glacier2-router#icehashpassword-helper-script) generates the hash in one
+of the formats the router accepts. For example, on Linux:
 
-For example, the following password file contains an entry for the user name `test` on Linux:
+```shell
+icehashpassword
+Password:
+$6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
+```
+
+The password file with this hash for the user name `test`:
 
 ```text
 test $6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
@@ -85,47 +92,6 @@ This authentication scheme is intended for use in simple applications with a few
 their own custom [permissions verifier](../securing-a-glacier2-router).
 
 {% /callout %}
-
-### `icehashpassword` Helper Script
-
-You can use the `icehashpassword` helper script to generate these password hashes. This script requires `Python` and
-`pip` to be installed. To install this script run:
-
-```shell
-pip install zeroc-icehashpassword
-```
-
-`icehashpassword` generates PBKDF2 hashes on Windows and macOS, and crypt hashes on Linux. It reads the password and
-prints the hash. On Linux:
-
-```shell
-icehashpassword
-Password:
-$6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
-```
-
-On Windows and macOS:
-
-```shell
-icehashpassword
-Password:
-$pbkdf2-sha256$29000$O4dQinGOcY7RWktJyXlvbQ$D0BZnA1kTw4Jl4xGUzdMOSxKO/vODiMCHEE9ZRLF4Gg
-```
-
-You may also specify several optional parameters:
-
-- `-d MESSAGE_DIGEST_ALGORITHM, --digest=MESSAGE_DIGEST_ALGORITHM`: `sha1`, `sha256` (the default), or `sha512` on
-  Windows and macOS; `sha256` or `sha512` (the default) on Linux.
-- `-s SALT_SIZE, --salt=SALT_SIZE` (Windows and macOS only)
-- `-r ROUNDS, --rounds=ROUNDS`
-
-For example:
-
-```shell
-icehashpassword -r 25000 -d sha256
-Password:
-...
-```
 
 ## Starting the Router
 

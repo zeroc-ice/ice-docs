@@ -69,29 +69,56 @@ Note that the category of the object's identity (`Glacier2` in this example) mus
 
 #### Supported Hash Formats
 
-The supported hash formats depend on the platform.
+A password hash in the password file has the form `$identifier$content`, where `identifier` names the hashing scheme and
+`content` holds the parameters and the hash of this scheme. The schemes the built-in verifier accepts depend on the
+platform:
 
-Hashes in the [modular crypt format](https://pythonhosted.org/passlib/modular_crypt_format.html) (`MCF`) have the
-structure `$identifier$content`, where `identifier` denotes the hashing scheme and `content` contains the scheme's
-parameters and hash.
+- On Linux, the schemes the system's `crypt` library supports, such as SHA-256 crypt (`$5$`) and SHA-512 crypt (`$6$`).
+- On macOS and Windows, PBKDF2 with SHA-1, SHA-256 or SHA-512 as the digest algorithm, in the
+  [format of passlib](https://passlib.readthedocs.io/en/stable/lib/passlib.hash.pbkdf2_digest.html):
+  `$pbkdf2$rounds$salt$checksum` for SHA-1, and `$pbkdf2-sha256$rounds$salt$checksum` or
+  `$pbkdf2-sha512$rounds$salt$checksum` for SHA-256 and SHA-512.
+
+#### `icehashpassword` Helper Script
+
+You can use the `icehashpassword` helper script to generate these password hashes. This script requires `Python` and
+`pip` to be installed. To install this script run:
+
+```shell
+pip install zeroc-icehashpassword
+```
+
+`icehashpassword` generates PBKDF2 hashes on Windows and macOS, and crypt hashes on Linux. It reads the password and
+prints the hash. On Linux:
+
+```shell
+icehashpassword
+Password:
+$6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
+```
 
 On Windows and macOS:
 
-- `PBKDF2` using `SHA-1`, `SHA-256`, or `SHA-512` as the digest algorithm.
+```shell
+icehashpassword
+Password:
+$pbkdf2-sha256$29000$O4dQinGOcY7RWktJyXlvbQ$D0BZnA1kTw4Jl4xGUzdMOSxKO/vODiMCHEE9ZRLF4Gg
+```
 
-{% callout type="note" %}
+You may also specify several optional parameters:
 
-PBKDF2 does not have a standard form in the `MCF` specification. In this case Glacier2 uses the same format as
-[passlib](https://pythonhosted.org/passlib/modular_crypt_format.html).
+- `-d MESSAGE_DIGEST_ALGORITHM, --digest=MESSAGE_DIGEST_ALGORITHM`: `sha1`, `sha256` (the default), or `sha512` on
+  Windows and macOS; `sha256` or `sha512` (the default) on Linux.
+- `-s SALT_SIZE, --salt=SALT_SIZE` (Windows and macOS only)
+- `-r ROUNDS, --rounds=ROUNDS`
 
-- `$pbkdf2-digest$rounds$salt$checksum` for `SHA-256` and `SHA-512`.
-- `$pbkdf2$rounds$salt$checksum` for `SHA-1`.
+For example:
 
-{% /callout %}
-
-On Linux:
-
-- Any password hash format supported by the system's `crypt` library, including SHA-256 and SHA-512 crypt.
+```shell
+icehashpassword -r 25000 -d sha256
+Password:
+...
+```
 
 ### Certificate Authentication
 
