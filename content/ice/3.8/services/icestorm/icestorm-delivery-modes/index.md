@@ -4,11 +4,11 @@ sidebarLabel: Delivery Modes
 ---
 
 The delivery mode for events sent to subscribers is controlled by the proxy that the subscriber passes to IceStorm. For
-example, if the subscriber subscribes with a oneway proxy, events will be forwarded by IceStorm as oneway messages.
+example, if the subscriber subscribes with a oneway proxy, events will be forwarded by IceStorm as oneway requests.
 
 ## Subscribing with a Twoway Proxy
 
-In this mode each event is sent to the subscriber as a separate twoway message.
+In this mode each event is sent to the subscriber as a separate twoway request.
 
 If you combine a twoway proxy with a `reliability` QoS of `ordered`, events will be forwarded to the subscriber in the
 order in which they are received. This is guaranteed because IceStorm will wait for a reply from the subscriber for each
@@ -29,7 +29,7 @@ an event. With the default `retryCount` of `0`, IceStorm cancels the subscriptio
 ## Subscribing with a Oneway Proxy
 
 In this mode each event is sent to the subscriber as a
-[oneway message](../../../runtime/invocation/invocation-mode/oneway-invocations). This delivery mode is more efficient
+[oneway request](../../../runtime/invocation/invocation-mode/oneway-invocations). This delivery mode is more efficient
 than using twoway delivery. However, if something goes wrong with the subscriber, such as the subscriber having
 destroyed its callback object without unsubscribing, or having subscribed an object with the wrong interface, IceStorm
 does not notice the failure and will continue to send events to the non-existent subscriber object for as long as it can
@@ -49,12 +49,12 @@ because events arrive in "bursts". You can control the interval at which batched
 
 ## Subscribing with a Datagram Proxy
 
-With this delivery mode, events are forwarded as UDP messages, optionally with multicast semantics. This means that
-events can be delivered out of order, can be lost, and can even be duplicated. In addition, IceStorm cannot detect
-anything about the delivery status of events. This means that if a subscriber disappears without unsubscribing, IceStorm
-will attempt to forward events to the subscriber indefinitely. If you use datagram delivery, you need to be careful that
-subscribers unsubscribe before they disappear; otherwise, stale subscriptions can accumulate in IceStorm over time,
-bogging down the service as it delivers more and more events to subscribers that no longer exist.
+With this delivery mode, events are forwarded as oneway requests over UDP, optionally with multicast semantics. This
+means that events can be delivered out of order, can be lost, and can even be duplicated. In addition, IceStorm cannot
+detect anything about the delivery status of events. This means that if a subscriber disappears without unsubscribing,
+IceStorm will attempt to forward events to the subscriber indefinitely. If you use datagram delivery, you need to be
+careful that subscribers unsubscribe before they disappear; otherwise, stale subscriptions can accumulate in IceStorm
+over time, bogging down the service as it delivers more and more events to subscribers that no longer exist.
 
 ## Subscribing with a Batch Datagram Proxy
 
