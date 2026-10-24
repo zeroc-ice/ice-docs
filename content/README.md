@@ -13,6 +13,9 @@ page and its overlays combine.
   type's page in their language's API reference, as `api-links.yaml` lists it, or plain text where it lists none; add a
   new type there. Link to a method by its type and name, as in `[ice_invoke](api:Ice/ObjectPrx.ice_invoke)`. Where the
   text means one language's API, such as the DataStorm C++ classes, link to that page directly.
+- Link to the Slice API reference, under `https://code.zeroc.com/ice/3.8/api/slice/`, where the text describes the Slice
+  definition itself, or where the type is not generated for every language mapping, such as `IceMX::TopicMetrics`: an
+  `api:` link to such a type renders as plain text for the readers of the other mappings.
 
 ## Headings
 
