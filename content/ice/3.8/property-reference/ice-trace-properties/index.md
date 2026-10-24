@@ -75,10 +75,9 @@ default value is `0`.
 
 {% property-description %}
 
-The Ice runtime makes [locator](../../runtime/locators) requests to resolve the endpoints of object adapters and of the
-objects that well-known proxies designate. Requests on the locator registry are used to update object adapter endpoints
-and set the server process proxy. This property controls the trace level for the Ice runtime's interactions with the
-locator:
+The Ice runtime makes [locator](../../runtime/locators) requests to resolve the endpoints of indirect proxies. Requests
+on the locator registry are used to update object adapter endpoints and set the server process proxy. This property
+controls the trace level for the Ice runtime's interactions with the locator:
 
 | Value | Description                                                       |
 | ----- | ----------------------------------------------------------------- |
