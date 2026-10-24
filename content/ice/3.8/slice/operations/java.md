@@ -324,7 +324,7 @@ can accept the request without blocking, the Ice runtime writes the request in t
 transmission in the background, and `sentSynchronously` returns false.
 
 This creates a potential problem: if a client sends many asynchronous requests at the time the server is too busy to
-keep up with them, the requests pile up in the client-side run time until, eventually, the client runs out of memory.
+keep up with them, the requests pile up in the client-side runtime until, eventually, the client runs out of memory.
 
 The `InvocationFuture` class provides a way for you to implement flow control by counting the number of requests that
 are queued so, if that number exceeds some threshold, the client stops invoking more operations until some of the queued

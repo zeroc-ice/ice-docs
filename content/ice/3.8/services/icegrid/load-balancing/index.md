@@ -34,7 +34,7 @@ are used in locate requests. The load balancing descriptor specifies the followi
 - `n-replicas`: The replica group can instruct the registry to return the endpoints of one (the default) or more object
   adapters. If the specified number _N_ is larger than `1`, the proxy returned in response to a locate request contains
   the endpoints of at most _N_ object adapters. If _N_ is `0`, the proxy contains the endpoints of all the object
-  adapters. The Ice run time in the client selects one of these endpoints at random when
+  adapters. The Ice runtime in the client selects one of these endpoints at random when
   [establishing a connection](../../../runtime/connection-management/connection-establishment).
 
 For example, the descriptor shown below uses adaptive load balancing to return the endpoints of the two least-loaded
@@ -82,7 +82,7 @@ A replica group can select one of the following load balancing types:
 
 Choosing the proper type of load balancing is highly dependent on the needs of client applications. Achieving the
 desired load balancing and fail-over behavior may also require the cooperation of your clients. To that end, it is very
-important that you understand how and when the Ice run time uses a
+important that you understand how and when the Ice runtime uses a
 [locator to resolve indirect proxies](../../../runtime/locators/locator-semantics-for-clients).
 
 ## Using Load Balancing in the Ripper Application
@@ -259,10 +259,10 @@ contexts because the context will add overhead to _every_ invocation the client 
 the filter. To decide whether to use per-proxy or explicit contexts, we first must understand the circumstances in which
 each kind of filter receives a request context:
 
-- **Replica group filter**: Most invocations involving a replica group filter occur when the Ice run time in a client
+- **Replica group filter**: Most invocations involving a replica group filter occur when the Ice runtime in a client
   issues requests on a registry. This internal activity is triggered by the client's invocation on a proxy, but Ice
   doesn't use the client's proxy or the request context that the client may have configured for its proxy or passed
-  explicitly to the invocation. Rather, the Ice run time uses the locator that the client configured for its proxy or
+  explicitly to the invocation. Rather, the Ice runtime uses the locator that the client configured for its proxy or
   communicator. As a result, the request contexts passed to a replica group filter are those configured for the
   _locator_ proxy. (The only exception is when a client invokes `findAllReplicas` directly on the registry via its
   `Query` interface; refer to the discussion of type filters below for more details.)

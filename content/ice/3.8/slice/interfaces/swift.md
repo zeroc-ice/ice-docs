@@ -90,7 +90,7 @@ public protocol CPrx: APrx, BPrx {}
 Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
 from `C`'s base interfaces.
 
-### Casting Proxy
+### Creating a Proxy of Another Type
 
 For each proxy, the Slice compiler generate 2 helper functions that allow you to convert any proxy into a proxy of this
 type. With our Simple example:
@@ -125,8 +125,8 @@ let widget = uncheckedCast(prx: simple, type: WidgetPrx.self)
 
 #### checkedCast
 
-`checkedCast` is a conditional cast of the proxy: this function makes a remote call to the target object to check if
-this object implements the proxy’s Slice interface. For example:
+`checkedCast` makes a remote call to the target object to check whether it implements the Slice interface of the
+requested proxy type. For example:
 
 ```swift
 // Call operation ice_isA on the Ice object to check if it implements Slice interface
@@ -159,7 +159,8 @@ greeter = greeter.ice_invocationTimeout(10000)
 The factory methods usually return a proxy of the same type as the current proxy, as in the example above.
 
 The only exceptions are the factory methods `ice_facet` and `ice_identity`. Calls to either of these methods may produce
-a proxy for an object of an unrelated type, and you need to cast the returned proxy. For example:
+a proxy for an object of an unrelated type, and you need to convert the returned proxy into a proxy of that type. For
+example:
 
 ```swift
 let greeter = try makeProxy(communicator: ..., proxyString: ..., type: GreeterPrx.self)

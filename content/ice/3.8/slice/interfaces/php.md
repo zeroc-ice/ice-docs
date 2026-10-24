@@ -13,8 +13,8 @@ The PHP mapping for proxies differs from other Ice language mappings in that the
 _all_ Slice interfaces. The primary motivation for this design is minimizing the amount of code that is generated for
 each interface.
 
-Nevertheless, you need to downcast a proxy to a specific Slice interface before you can invoke operations using this
-proxy, as described on this page.
+Nevertheless, you need to convert a proxy into a proxy for a specific Slice interface before you can invoke operations
+using this proxy, as described on this page.
 
 ### Creating a Proxy
 
@@ -49,10 +49,10 @@ interface B { ... }
 interface C extends A, B { ... }
 ```
 
-Given a proxy that has been down-casted to `C`, a client can invoke any operation defined for interface `C`, as well as
-any operation inherited from `C`'s base interfaces.
+Given a proxy for `C`, a client can invoke any operation defined for interface `C`, as well as any operation inherited
+from `C`'s base interfaces.
 
-### Casting a Proxy
+### Creating a Proxy of Another Type
 
 In addition to `createProxy`, the generated helper class provides two static methods for converting a proxy into a proxy
 of another type:
@@ -82,8 +82,8 @@ $widget = M\WidgetPrxHelper::uncheckedCast($simple);
 
 #### checkedCast
 
-`checkedCast` is a conditional cast of the proxy: this method makes a remote call to the target object to check if this
-object implements the proxy’s Slice interface. For example:
+`checkedCast` makes a remote call to the target object to check if this object implements the proxy’s Slice interface.
+For example:
 
 ```php
 // Call operation ice_isA on the Ice object to check if it implements Slice interface
@@ -116,7 +116,8 @@ $greeter = $greeter->ice_invocationTimeout(10000);
 The factory methods usually return a proxy of the same type as the current proxy, as in the example above.
 
 The only exceptions are the factory methods `ice_facet` and `ice_identity`. Calls to either of these methods may produce
-a proxy for an object of an unrelated type, and you need to cast the returned proxy. For example:
+a proxy for an object of an unrelated type, and you need to convert the returned proxy into a proxy of that type. For
+example:
 
 ```php
 $greeter = VisitorCenter\GreeterPrxHelper::createProxy(...);

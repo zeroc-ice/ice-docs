@@ -318,7 +318,7 @@ administrative facility.
 The command line and graphical utilities allow you to explore the configuration properties of a server or service.
 
 One property in particular, `BuildId`, is given special consideration by the graphical utility. Although it is not used
-by the Ice run time, the `BuildId` property gives you the ability to describe the build configuration of your
+by the Ice runtime, the `BuildId` property gives you the ability to describe the build configuration of your
 application. The property's value is shown by the graphical utility in its own field in the attributes of a server or
 service, as well as in the list of properties. You can also retrieve the value of this property using the command-line
 utility with the following statement:

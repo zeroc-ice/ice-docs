@@ -23,7 +23,7 @@ IceStorm messages are unidirectional, but publishers may use either oneway or tw
 to the publisher object. Each invocation style has advantages and disadvantages that you should consider when deciding
 which one to use. The differences between the invocation styles affect a publisher in four ways:
 
-- **Efficiency**: Oneway invocations have the advantage in efficiency because the Ice run time in the publisher does not
+- **Efficiency**: Oneway invocations have the advantage in efficiency because the Ice runtime in the publisher does not
   await a reply to each message (and, of course, no reply is sent by IceStorm on the wire).
 
 - **Ordering**: The use of oneway invocations by a publisher may affect the order in which subscribers receive messages.

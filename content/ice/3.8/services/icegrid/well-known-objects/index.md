@@ -23,7 +23,7 @@ populated in a number of ways:
 - dynamically using an IceGrid administration tool.
 
 The registry's database maps object identities to proxies. When a locate request carries only an identity, the registry
-looks up this identity and returns the associated proxy; when this proxy is an indirect proxy, the Ice run time in the
+looks up this identity and returns the associated proxy; when this proxy is an indirect proxy, the Ice runtime in the
 client then resolves its adapter ID. For example, consider the well-known objects in the following table.
 
 | **Identity** | **Proxy**                         |
@@ -35,8 +35,8 @@ client then resolves its adapter ID. For example, consider the well-known object
 The proxy associated with `Object1` already contains endpoints, so the registry can simply return this proxy to the
 client.
 
-For `Object2`, the registry returns the indirect proxy `Object2@TheAdapter`; the Ice run time in the client then asks
-the locator for the endpoints of the adapter `TheAdapter`.
+For `Object2`, the registry returns the indirect proxy `Object2@TheAdapter`; the Ice runtime in the client then asks the
+locator for the endpoints of the adapter `TheAdapter`.
 
 Finally, `Object3` represents a hopeless situation: how can the registry resolve `Object3` when its associated proxy
 refers to itself? In this case, the registry returns the proxy `Object3` to the client, which causes the client to raise
