@@ -21,7 +21,7 @@ The purpose of request contexts is to permit services to be added to Ice that re
 every request. Contextual information can be used by services such as a transaction service (to provide the context of a
 currently established transaction) or a security service (to provide an authorization token to the server).
 [IceStorm](../../../../services/icestorm) uses the context to provide an optional `cost` parameter to the service that
-influences how the service propagates messages to down-stream subscribers, and [Glacier2](../../../../services/glacier2)
+influences how the service propagates events to downstream subscribers, and [Glacier2](../../../../services/glacier2)
 uses the context to influence request routing.
 
 In general, services that require such contextual information can be implemented much more elegantly using contexts
