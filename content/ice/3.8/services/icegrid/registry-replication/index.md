@@ -167,7 +167,7 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h server1 -p 4061:tcp -h server2 -p 406
 ```
 
 Instead of listing the replicas, `Ice.Default.Locator` can hold a single endpoint with a host name that resolves to each
-replica, or with the address of a TCP load balancer; see
+replica, or that points to a TCP load balancer; see
 [Proxies to Replicated Objects](../../../runtime/invocation/proxies-to-replicated-objects).
 
 ### Nodes
