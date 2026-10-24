@@ -118,9 +118,9 @@ You can achieve this by running the registry with the property
 set to a non-zero value. With this setting, IceGrid permits an adapter to register itself upon activation even if it has
 not been previously deployed. To force the server to register its adapters, you must define `Ice.Default.Locator` (so
 the server can find the registry) and, for each adapter that you wish to register, you must set
-[_adapter-name_.AdapterId](../../../property-reference/object-adapter-properties) to an ID that is unique within the
-registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create direct proxies but
-rather to create indirect proxies that clients must resolve via the registry.
+[_adapter-name_.AdapterId](../../../property-reference/object-adapter-properties#adapter.adapterid) to an ID that is
+unique within the registry. Setting the `<adapter-name>.AdapterId` property also causes the adapter to no longer create
+direct proxies but rather to create indirect proxies that clients must resolve via the registry.
 
 ## Ripper Client Configuration
 
@@ -159,8 +159,8 @@ Ice.Default.Locator=IceGrid/Locator:tcp -h registryhost -p 4061
 
 The properties are described below:
 
-- [EncoderAdapter.AdapterId](../../../property-reference/object-adapter-properties) This property supplies the adapter
-  ID that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
+- [EncoderAdapter.AdapterId](../../../property-reference/object-adapter-properties#adapter.adapterid) This property
+  supplies the adapter ID that the client uses in its indirect proxy (e.g., `factory@EncoderAdapter`).
 
 - [EncoderAdapter.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) This property
   defines the [object adapter's endpoint](../../../runtime/dispatch/object-adapter-endpoints). Notice that the value
@@ -188,7 +188,8 @@ the registry to run as a Windows service or Unix daemon.
 ## Starting the Ripper Server
 
 With the registry up and running, we can now start the server. At a command prompt, we run the program and pass an
-[--Ice.Config](../../../property-reference/ice-properties) option indicating the location of the configuration file:
+[--Ice.Config](../../../property-reference/ice-properties#ice.config) option indicating the location of the
+configuration file:
 
 ```shell
 /opt/ripper/bin/server --Ice.Config=/opt/ripper/server.cfg

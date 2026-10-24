@@ -99,8 +99,9 @@ requests, an application must configure a timeout for the locator cache and mani
 
 An application can define a timeout, in seconds, to control the lifetime of entries in the locator cache. The
 application sets this timeout globally using the
-[Ice.Default.LocatorCacheTimeout](../../../property-reference/ice-default-properties) property, for a proxy created with
-`propertyToProxy` using the [name.LocatorCacheTimeout](../../../property-reference/proxy-properties) property, and for
+[Ice.Default.LocatorCacheTimeout](../../../property-reference/ice-default-properties#ice.default.locatorcachetimeout)
+property, for a proxy created with `propertyToProxy` using the
+[name.LocatorCacheTimeout](../../../property-reference/proxy-properties#name.locatorcachetimeout) property, and for
 individual proxies using the [proxy method](api:Ice/ObjectPrx) `ice_locatorCacheTimeout`. A timeout of `-1`, the
 default, means the cache entries never expire. A timeout greater than `0` causes the cache entries to expire after the
 specified number of seconds. Finally, a timeout of `0` disables the locator cache altogether.
@@ -110,9 +111,9 @@ occurs only when the application has invoked an operation on a proxy and the pro
 connection. If the timeout is set to `0`, the communicator issues a new `locate` request immediately. Otherwise, for a
 non-zero timeout, the communicator examines its locator cache to determine whether the endpoints from the previous
 `locate` request have expired. If so, the communicator issues a new `locate` request. With
-[Ice.BackgroundLocatorCacheUpdates](../../../property-reference/ice-properties) set to `0`, the default, the invocation
-waits for the locator's reply and uses the new endpoints. With a value greater than `0`, the invocation uses the expired
-cache entry, and the `locate` request refreshes the cache in the background.
+[Ice.BackgroundLocatorCacheUpdates](../../../property-reference/ice-properties#ice.backgroundlocatorcacheupdates) set to
+`0`, the default, the invocation waits for the locator's reply and uses the new endpoints. With a value greater than
+`0`, the invocation uses the expired cache entry, and the `locate` request refreshes the cache in the background.
 
 Given this behavior, if your goal is to force a proxy invocation to issue `locate` requests more frequently, you can do
 so only when the proxy is not associated with a connection. You can accomplish that in several ways:
