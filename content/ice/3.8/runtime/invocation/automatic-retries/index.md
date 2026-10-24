@@ -46,7 +46,7 @@ Ice must determine the answers to several questions to decide whether to retry a
 
 Ice does not retry a request when the same error would occur again. It never retries a request that failed:
 
-- with `MarshalException`, a problem while encoding the request or decoding the reply
+- with `MarshalException`, a problem while marshaling the request or unmarshaling the reply
 - because the invocation timed out or was canceled{% iflang langs="java" %}, or because its thread was
   interrupted{% /iflang %}
 - because its communicator or object adapter was destroyed or deactivated

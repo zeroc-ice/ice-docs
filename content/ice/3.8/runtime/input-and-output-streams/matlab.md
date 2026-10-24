@@ -11,12 +11,12 @@ bytes = outputStream.finished();
 
 inputStream = Ice.InputStream(communicator, communicator.getEncoding(), bytes);
 inputStream.startEncapsulation();
-decoded = Inventory.Item.ice_read(inputStream);
+unmarshaled = Inventory.Item.ice_read(inputStream);
 inputStream.endEncapsulation();
 ```
 
 `Ice.OutputStream` takes an optional encoding version and class format, and `Ice.InputStream` takes the communicator,
-the encoding version and the bytes to decode. `startEncapsulation` on an `OutputStream` takes the class format of the
+the encoding version and the bytes to unmarshal. `startEncapsulation` on an `OutputStream` takes the class format of the
 encapsulation. `finished` returns a `uint8` row vector.
 
 {% /language-section %}

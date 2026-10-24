@@ -12,12 +12,12 @@ out.finished(bytes);
 
 Ice::InputStream in{communicator, bytes};
 in.startEncapsulation();
-Inventory::Item decoded;
-in.read(decoded);
+Inventory::Item unmarshaled;
+in.read(unmarshaled);
 in.endEncapsulation();
 ```
 
-`finished(std::vector<std::byte>& bytes)` copies the encoded bytes into `bytes`. The `finished()` overload without
+`finished(std::vector<std::byte>& bytes)` copies the marshaled bytes into `bytes`. The `finished()` overload without
 parameters returns a pair of pointers to the stream's own buffer instead; these pointers remain valid for the lifetime
 of the stream.
 

@@ -10,7 +10,7 @@ implemented in C++ and can forward requests from clients using any Ice language 
 ## IceBridge Overview
 
 IceBridge listens for client requests on its _source endpoints_ and forwards them to its configured _target endpoints_.
-The bridge forwards the object identity, operation, context, and encoded parameters, so it does not need your
+The bridge forwards the object identity, operation, context, and marshaled parameters, so it does not need your
 application's Slice definitions. Replies, including user exceptions, travel back through the bridge to the client.
 
 IceBridge pairs each client connection with a dedicated connection to the target server. It opens the target connection
@@ -203,7 +203,7 @@ IceBridge establishes target connections on demand, so successful startup does n
 reachable. To check forwarding, invoke an operation such as `ice_ping` on an application object through the bridge.
 
 IceBridge supports the usual [command-line options](../../background-servers/command-line-options), including those for
-running it as a Windows service or Unix daemon.
+running it as a Windows service or a daemon.
 
 ### Connection Failures
 

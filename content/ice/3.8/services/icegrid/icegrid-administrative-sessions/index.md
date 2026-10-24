@@ -129,15 +129,15 @@ If `IceGrid.Node.Output` is _not_ defined, the following rules apply:
 
 - If the node is started from a console or shell, servers share the node's `stdout` and `stderr`. If `Ice.StdOut` and/or
   `Ice.StdErr` properties are defined for the node, the servers' output is redirected to the specified files as well.
-- If the node is started as a Unix daemon and `--noclose` is not used, the servers' output is lost, except if
-  `Ice.StdOut` and/or `Ice.StdErr` properties are set for the node, in which case the servers' output is redirected to
-  the specified files.
+- If the node is started as a daemon and `--noclose` is not used, the servers' output is lost, except if `Ice.StdOut`
+  and/or `Ice.StdErr` properties are set for the node, in which case the servers' output is redirected to the specified
+  files.
 - If the node is started as a Windows service, the servers' output is lost even if `Ice.StdOut` and/or `Ice.StdErr` are
   set.
 
 Log messages from the node itself are sent to `stderr` unless you set
-[Ice.UseSyslog](../../../property-reference/ice-properties#ice.usesyslog) (for Unix). If the node is started as a
-Windows service, its log messages always are sent to the Windows event log.
+[Ice.UseSyslog](../../../property-reference/ice-properties#ice.usesyslog) (Linux and macOS only). If the node is started
+as a Windows service, its log messages always are sent to the Windows event log.
 
 In the case of `openServerLog`, the value of the `path` argument must resolve to the same file as one of the server's
 [log descriptors](../icegrid-xml-reference/log-descriptor-element). This security measure prevents a client from opening

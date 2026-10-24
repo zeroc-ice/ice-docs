@@ -91,11 +91,11 @@ The remaining Server Properties under Configuration come from the IceGrid descri
 - **Ice Version**: The Ice version of this server.
 - **Working Directory**: The path to the server's working directory used by the IceGrid node when starting the server.
 - **Command Arguments**: The command-line arguments given to the server when started by IceGrid.
-- **Run as**: On Linux/Unix, a server may be started as a specific user when the IceGrid node runs as root. Run as shows
-  this user name. When blank, the server runs as the IceGrid node user, except when the node runs as root: the server
-  then runs as `nobody`, or, for a server allocated by a session, as the user named by the session ID. If the node uses
-  a [user account mapper](../../../../icegrid-server-activation#activating-servers-with-specific-user-ids), the node
-  passes the resulting name to the mapper, which returns the account that runs the server.
+- **Run as**: On Linux and macOS, a server may be started as a specific user when the IceGrid node runs as root. Run as
+  shows this user name. When blank, the server runs as the IceGrid node user, except when the node runs as root: the
+  server then runs as `nobody`, or, for a server allocated by a session, as the user named by the session ID. If the
+  node uses a [user account mapper](../../../../icegrid-server-activation#activating-servers-with-specific-user-ids),
+  the node passes the resulting name to the mapper, which returns the account that runs the server.
 - **Environment Variables**: A server started by IceGrid node gets these environment variables in addition to the
   environment variables inherited from the IceGrid node.
 - **Activation Mode**: The server's activation mode.

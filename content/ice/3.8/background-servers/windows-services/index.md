@@ -7,7 +7,7 @@ pages:
 ---
 
 A Windows service is a program that runs in the background and typically does not require user intervention. Similar to
-a daemon on Unix platforms, a Windows service is usually launched automatically when the operating system starts and
+a daemon on Linux and macOS, a Windows service is usually launched automatically when the operating system starts and
 runs until the system shuts down.
 
 Ice for C++ includes the `Ice::Service` class that simplifies the task of writing an Ice-based Windows service. Writing

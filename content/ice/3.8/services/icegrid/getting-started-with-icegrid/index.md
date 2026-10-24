@@ -183,7 +183,7 @@ icegridregistry --Ice.Config=/opt/ripper/registry.cfg
 ```
 
 Additional [command line options](../icegrid-server-reference/icegridregistry) are supported, including those that allow
-the registry to run as a Windows service or Unix daemon.
+the registry to run as a Windows service or a daemon.
 
 ## Starting the Ripper Server
 
