@@ -4,9 +4,9 @@ sidebarLabel: Process Facet
 ---
 
 The `Process` facet lets an activation service, such as an [IceGrid](../../../services/icegrid) node, request a graceful
-shutdown of a server.{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} The server registers a proxy for
-this facet with the activation service by calling `setServerProcessProxy` on the
-[locator registry](../../../runtime/locators), as described in
+shutdown of a server.{% iflang langs="cpp,csharp,java,python,swift" %} The server registers a proxy for this facet with
+the activation service by calling `setServerProcessProxy` on the [locator registry](../../../runtime/locators), as
+described in
 [Integrating the Process Facet with an Activation Service](#integrating-the-process-facet-with-an-activation-service).{% /iflang %}
 
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
@@ -44,7 +44,7 @@ standard error (`fd` == 2) channels.
 
 {% language-section name="mapping" /%}
 
-{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
 ## Integrating the Process Facet with an Activation Service
 
