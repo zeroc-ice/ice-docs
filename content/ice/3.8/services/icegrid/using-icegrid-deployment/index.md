@@ -183,8 +183,8 @@ descriptor. For example, we can add the property `Ice.Trace.Network=1` by modify
 ```
 
 When a node activates a server, it passes the location of the server's configuration file using the
-[--Ice.Config](../../../property-reference/ice-properties) command-line argument. If you start a server manually from a
-command prompt, you must supply this argument yourself.
+[--Ice.Config](../../../property-reference/ice-properties#ice.config) command-line argument. If you start a server
+manually from a command prompt, you must supply this argument yourself.
 
 ## Starting the Node for the Ripper Application
 
