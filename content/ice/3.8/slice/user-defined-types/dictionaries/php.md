@@ -3,8 +3,8 @@
 A Slice dictionary maps to a native PHP associative array. The PHP mapping does not currently support all Slice
 dictionary types, however, because native PHP associative arrays support only integers and strings as keys.
 
-A Slice dictionary whose key type is an enumeration or one of the primitive types `boolean`, `byte`, `short`, `int`, or
-`long` is mapped as an associative array with an integer key.
+A Slice dictionary whose key type is an enumeration or one of the basic types `bool`, `byte`, `short`, `int`, or `long`
+is mapped as an associative array with an integer key.
 
 {% callout type="note" %}
 
