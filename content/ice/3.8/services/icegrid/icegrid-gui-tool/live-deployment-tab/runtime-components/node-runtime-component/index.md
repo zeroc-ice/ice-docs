@@ -15,21 +15,21 @@ an application deployed on this IceGrid registry.
 
 A node provides the following actions, from its contextual menu and from the `Tools > Node` menu:
 
-- **Retrieve Ice log** Retrieve the log messages sent to the IceGrid node's
+- **Retrieve Ice log**: Retrieve the log messages sent to the IceGrid node's
   [logger](../../../../../../administration/logger-facility) into an [Ice Log Dialog](../../ice-log-dialog). The Ice Log
   Dialog attaches a [remote logger](../../../../../../administration/administrative-facility/logger-facet) to the node's
   logger.
-- **Retrieve stdout** Retrieve the IceGrid node's stdout into a [Log File Dialog](../../log-file-dialog). This retrieval
-  succeeds only when the node's stdout output has been redirected to a file using the
+- **Retrieve stdout**: Retrieve the IceGrid node's stdout into a [Log File Dialog](../../log-file-dialog). This
+  retrieval succeeds only when the node's stdout output has been redirected to a file using the
   [Ice.StdOut](../../../../../../property-reference/ice-properties) property.
-- **Retrieve stderr** Retrieve the IceGrid node's stderr into a [Log File Dialog](../../log-file-dialog). This retrieval
-  succeeds only when the node's stderr output has been redirected to a file using the
+- **Retrieve stderr**: Retrieve the IceGrid node's stderr into a [Log File Dialog](../../log-file-dialog). This
+  retrieval succeeds only when the node's stderr output has been redirected to a file using the
   [Ice.StdErr](../../../../../../property-reference/ice-properties) property.
-- **Start All Servers** Start each server of this node that is inactive, enabled, and not configured with `session`
+- **Start All Servers**: Start each server of this node that is inactive, enabled, and not configured with `session`
   activation, including servers hidden by the [Filter live deployment](../../application-component) action.
-- **Stop All Servers** Stop each server of this node that is not inactive, including servers hidden by the Filter live
+- **Stop All Servers**: Stop each server of this node that is not inactive, including servers hidden by the Filter live
   deployment action.
-- **Shutdown** Shutdown the IceGrid node process.
+- **Shutdown**: Shutdown the IceGrid node process.
 
 {% callout type="warning" %}
 
@@ -43,17 +43,17 @@ You cannot restart an IceGrid node from IceGrid GUI.
 
 The Node Properties panel shows:
 
-- **Hostname** The name of the host on which the IceGrid node process is running.
-- **Operating System** The operating system name and version of the host on which the IceGrid node process is running.
-- **Machine Type** The type of CPUs and the number of CPU threads of the host on which the IceGrid node process is
+- **Hostname**: The name of the host on which the IceGrid node process is running.
+- **Operating System**: The operating system name and version of the host on which the IceGrid node process is running.
+- **Machine Type**: The type of CPUs and the number of CPU threads of the host on which the IceGrid node process is
   running. For example, a computer with a dual-core CPU and 2 "hyper threads" per core will show 4 CPU threads.
-- **CPU Usage (Windows) or Load Average (Linux and macOS)** On Windows, shows the percentage of CPU utilization in the
+- **CPU Usage (Windows) or Load Average (Linux and macOS)**: On Windows, shows the percentage of CPU utilization in the
   past 1, 5, and 15 minutes. On Linux and macOS, shows the load-average in the past 1, 5 and 15 minutes. These values
   are retrieved when the Node Properties panel is displayed. Click on the Refresh button to retrieve the latest values.
-- **Build Id** The build Id of this node: this corresponds to the Ice property
+- **Build Id**: The build Id of this node: this corresponds to the Ice property
   [BuildId](../../../../icegrid-and-the-administrative-facility).
-- **Properties** A table showing all the Ice properties currently set in this IceGrid node.
-- **Load Factor** Shows the load factor defined by each application using this node.
+- **Properties**: A table showing all the Ice properties currently set in this IceGrid node.
+- **Load Factor**: Shows the load factor defined by each application using this node.
 
 ## Children
 

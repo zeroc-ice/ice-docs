@@ -528,9 +528,9 @@ For example, a Slice parameter `string name` is mapped to a Java parameter `Stri
 The return value of a mapped method depends on how many values the corresponding Slice operation returns, including out
 parameters and a non-`void` return value:
 
-- **Zero values** The corresponding Java method returns `void`.
-- **One value** The corresponding Java method returns the mapped type, regardless of whether the Slice definition of the
-  operation declared it as a return value or as an out parameter. Consider this example:
+- **Zero values**: The corresponding Java method returns `void`.
+- **One value**: The corresponding Java method returns the mapped type, regardless of whether the Slice definition of
+  the operation declared it as a return value or as an out parameter. Consider this example:
 
   ```slice
   interface I
@@ -549,7 +549,7 @@ parameters and a non-`void` return value:
   }
   ```
 
-- **Two or more values** The Slice compiler generates an extra nested class to hold the results of an operation that
+- **Two or more values**: The Slice compiler generates an extra nested class to hold the results of an operation that
   returns multiple values. The class is nested in the mapped interface (not the proxy interface) and has the name
   `OpResult`, where `Op` represents the name of the operation. The leading character of the class name for a "result
   class" is always capitalized. The values of out parameters are provided in corresponding public fields of the same

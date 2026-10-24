@@ -19,11 +19,11 @@ closes. This pairing lets applications that associate session state with a conne
 
 IceBridge also provides:
 
-- **Bidirectional requests** IceBridge configures every connection to the server to support
+- **Bidirectional requests**: IceBridge configures every connection to the server to support
   [bidirectional requests](../../runtime/connection-management/bidirectional-connections). All bidirectional callback
   requests sent from the server are automatically forwarded back to the client via the client's connection with the
   bridge.
-- **Router support** IceBridge implements the `Ice::Router` interface, allowing clients to use the bridge without
+- **Router support**: IceBridge implements the `Ice::Router` interface, allowing clients to use the bridge without
   replacing the endpoints in each application proxy. For session authentication and access control, use
   [Glacier2](../glacier2).
 

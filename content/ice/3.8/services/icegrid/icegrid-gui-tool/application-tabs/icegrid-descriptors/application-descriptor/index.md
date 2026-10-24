@@ -18,9 +18,9 @@ registry default template file. See
 
 The Application Properties panel offers the following fields:
 
-- **Name** The name of the application. This field is not editable for live applications.
-- **Description** A free-text description of this application.
-- **Variables** This table shows application-level [IceGrid variables](../variables-in-icegrid-descriptors).
+- **Name**: The name of the application. This field is not editable for live applications.
+- **Description**: A free-text description of this application.
+- **Variables**: This table shows application-level [IceGrid variables](../variables-in-icegrid-descriptors).
 
 ## Children
 

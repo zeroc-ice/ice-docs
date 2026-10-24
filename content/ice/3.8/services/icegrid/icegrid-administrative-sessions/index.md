@@ -218,9 +218,9 @@ The `AdminSession` file operations and the
 [Logger admin facet](../../../administration/administrative-facility/logger-facet) both give an administrative client
 access to the log of a server, node, or registry.
 
-- **AdminSession file operations** The client reads the text a program wrote to a file, including the files of a server
+- **AdminSession file operations**: The client reads the text a program wrote to a file, including the files of a server
   that is not running, and polls for new text by calling `read` on the `FileIterator`.
-- **Logger admin facet** The client attaches a remote logger to a running program, and the facet forwards each message
+- **Logger admin facet**: The client attaches a remote logger to a running program, and the facet forwards each message
   sent to the program's Ice logger to this remote logger as a typed record, whether or not the logger writes it to a
   file.
 

@@ -10,15 +10,15 @@ this group by setting this replica group ID in its Replica Group field.
 
 The Replica Properties panel offers the following fields:
 
-- **Replica Group ID** The ID of this replica group. Must be unique within an IceGrid deployment.
-- **Description** A free-text description of this replica group.
-- **Proxy** **Options** The default Proxy Options for well-known objects defined within this replica group.
-- **Filter** The identifier of a replica group filter that a registry plug-in installs to perform
+- **Replica Group ID**: The ID of this replica group. Must be unique within an IceGrid deployment.
+- **Description**: A free-text description of this replica group.
+- **Proxy Options**: The default Proxy Options for well-known objects defined within this replica group.
+- **Filter**: The identifier of a replica group filter that a registry plug-in installs to perform
   [custom load balancing](../../../../load-balancing#custom-load-balancing-strategies). Default: empty string, which
   selects the filters registered with an empty identifier.
 
-- **Well-known Objects** A table of well-known objects defined by this replica group.
-- **Load Balancing Policy** The load-balancing policy used by IceGrid when resolving the Replica Group ID in proxies.
+- **Well-known Objects**: A table of well-known objects defined by this replica group.
+- **Load Balancing Policy**: The load-balancing policy used by IceGrid when resolving the Replica Group ID in proxies.
   Must be one of:
 
 | **Policy**  | **Description**                                                                                                                                                                                                                                                                                                                 |
@@ -28,7 +28,7 @@ The Replica Properties panel offers the following fields:
 | Random      | Returns the endpoints of object adapters selected at random. This is the default policy.                                                                                                                                                                                                                                        |
 | Round-robin | IceGrid puts all the object adapters in a list, and for each new resolution, it returns the endpoints from the next _How many Adapters_ items on this list.                                                                                                                                                                     |
 
-- **How many Adapters** Specify the number of object adapters selected by IceGrid for each resolution. `1` is a common
+- **How many Adapters**: Specify the number of object adapters selected by IceGrid for each resolution. `1` is a common
   value. When set to `0` (the default), IceGrid returns the endpoints of all object adapters in this replica group.
-- **Load Sample** Available only with the Adaptive load-balancing policy. Specify the load-average or CPU utilization
+- **Load Sample**: Available only with the Adaptive load-balancing policy. Specify the load-average or CPU utilization
   sample to use when comparing nodes: it can be 1 (default), 5 or 15 minutes.

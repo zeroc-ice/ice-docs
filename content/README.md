@@ -26,6 +26,12 @@ page and its overlays combine.
   `## Asynchronous Method Dispatch (AMD)` is `#asynchronous-method-dispatch-amd`. When two headings on a page would
   share one, set it: `### Optional Fields {% id="language-mapping-optional-fields" %}`.
 
+## Lists
+
+- A list of terms and their definitions gives each item as the term in bold, a colon, and the definition starting with a
+  capital letter: `- **Efficiency**: Oneway invocations…`. A term the reader types, such as an attribute value or an
+  enumerator, is code instead of bold: ``- `on-demand`: IceGrid activates…``.
+
 ## Values
 
 - Write a value the reader types or matches as code, exactly as Ice accepts it, with no digit grouping or unit: the

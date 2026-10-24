@@ -148,15 +148,15 @@ EarlyRiser/WakeUpService_forward.py
 EarlyRiser/__init__.py
 ```
 
-- `AlarmClock.py` – contains the definitions for `AlarmClockPrx` proxy type, and the `AlarmClock` servant skeleton.
-- `AlarmClock_forward.py` – contains the forward declaration for the `AlarmClockPrx` proxy type. There is never a need
-  to manually import `_forward` files.
-- `ButtonPressed.py` – contains the `ButtonPressed` enum.
-- `WakeUpService.py` – contains the definitions for `WakeUpServicePrx` proxy type, and the `WakeUpService` servant
+- `AlarmClock.py`: Contains the definitions for `AlarmClockPrx` proxy type, and the `AlarmClock` servant skeleton.
+- `AlarmClock_forward.py`: Contains the forward declaration for the `AlarmClockPrx` proxy type. There is never a need to
+  manually import `_forward` files.
+- `ButtonPressed.py`: Contains the `ButtonPressed` enum.
+- `WakeUpService.py`: Contains the definitions for `WakeUpServicePrx` proxy type, and the `WakeUpService` servant
   skeleton.
-- `WakeUpService_forward.py` – contains the forward declaration for the `WakeUpServicePrx` proxy type. There is never a
+- `WakeUpService_forward.py`: Contains the forward declaration for the `WakeUpServicePrx` proxy type. There is never a
   need to manually import `_forward` files.
-- `__init__.py` – is the package index and re-exports all definitions from the other modules.
+- `__init__.py`: The package index, which re-exports all definitions from the other modules.
 
 {% callout type="note" %}
 

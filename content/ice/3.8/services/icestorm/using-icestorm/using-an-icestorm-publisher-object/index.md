@@ -23,19 +23,19 @@ IceStorm events are unidirectional, but publishers may use either oneway or twow
 the publisher object. Each invocation style has advantages and disadvantages that you should consider when deciding
 which one to use. The differences between the invocation styles affect a publisher in four ways:
 
-- **Efficiency** Oneway invocations have the advantage in efficiency because the Ice runtime in the publisher does not
+- **Efficiency**: Oneway invocations have the advantage in efficiency because the Ice runtime in the publisher does not
   await a reply to each event (and, of course, no reply is sent by IceStorm on the wire).
 
-- **Ordering** The use of oneway invocations by a publisher may affect the order in which subscribers receive events. If
-  ordering is important, use twoway invocations with a [reliability QoS](../../icestorm-quality-of-service) of
+- **Ordering**: The use of oneway invocations by a publisher may affect the order in which subscribers receive events.
+  If ordering is important, use twoway invocations with a [reliability QoS](../../icestorm-quality-of-service) of
   `ordered`, or use a single thread in the subscriber.
 
-- **Reliability** [Oneway invocations can be lost](../../../../runtime/invocation/invocation-mode/oneway-invocations)
+- **Reliability**: [Oneway invocations can be lost](../../../../runtime/invocation/invocation-mode/oneway-invocations)
   under certain circumstances, even when they are sent over a reliable transport such as TCP. If the loss of events is
   unacceptable, or you are unable to address the potential causes of lost oneway invocations, then twoway invocations
   are recommended.
 
-- **Delays** A publisher may experience network-related delays when sending events to IceStorm if subscribers are slow
+- **Delays**: A publisher may experience network-related delays when sending events to IceStorm if subscribers are slow
   in processing events. Twoway invocations are more susceptible to these delays than oneway invocations.
 
 ## Selecting a Transport for the Publisher Object

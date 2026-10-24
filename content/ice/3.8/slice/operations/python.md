@@ -242,11 +242,11 @@ objects—meaning they can be used as the target of the await keyword.
 The type of awaitable object returned by Ice’s asynchronous APIs and generated asynchronous methods depends on the
 configured event loop adapter:
 
-- **Default**(no event loop adapter configured) Ice returns `Ice.Future` objects, including `Ice.InvocationFuture` for
+- **Default** (no event loop adapter configured): Ice returns `Ice.Future` objects, including `Ice.InvocationFuture` for
   invocations.
-- **With an asyncio event loop** Ice returns `asyncio.Future` objects when the communicator is initialized with an
+- **With an asyncio event loop**: Ice returns `asyncio.Future` objects when the communicator is initialized with an
   asyncio event loop.
-- **With a custom event loop adapter** Ice returns custom awaitable objects provided by the application’s
+- **With a custom event loop adapter**: Ice returns custom awaitable objects provided by the application’s
   EventLoopAdapter implementation.
 
 ### `asyncio` Integration

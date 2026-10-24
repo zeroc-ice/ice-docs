@@ -137,14 +137,14 @@ the `Import...` button in the Connection wizard to open the Certificate Manager:
 
 The Certificate Manager maintains three sets of certificates:
 
-- **My Certificates** These certificates are used to authenticate IceGrid GUI when establishing an SSL connection with
+- **My Certificates**: These certificates are used to authenticate IceGrid GUI when establishing an SSL connection with
   an IceGrid registry or Glacier2 router (this first authentication is at the SSL level); once the SSL connection is
   established, this certificate can also be used to authenticate with the target IceGrid registry or Glacier router (at
   the application level).
-- **Server Certificates** The certificates of IceGrid registries and Glacier2 routers that IceGrid GUI trusts when
+- **Server Certificates**: The certificates of IceGrid registries and Glacier2 routers that IceGrid GUI trusts when
   establishing an SSL connection. All certificates signed by a Trusted CA (see below) are automatically trusted and
   usually do not need to be imported in this set.
-- **Trusted CAs** The certificates of Certificate Authorities.
+- **Trusted CAs**: The certificates of Certificate Authorities.
 
 You do not need to import server certificates or CA certificates prior to establishing an SSL connection with an IceGrid
 registry or Glacier2 router. IceGrid GUI performs the following checks when establishing an SSL connection:
