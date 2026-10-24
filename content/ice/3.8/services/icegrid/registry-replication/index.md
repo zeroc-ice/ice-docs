@@ -166,6 +166,10 @@ client fail over when a replica fails:
 Ice.Default.Locator=IceGrid/Locator:tcp -h server1 -p 4061:tcp -h server2 -p 4061
 ```
 
+Instead of listing the replicas, `Ice.Default.Locator` can hold a single endpoint with a host name that resolves to each
+replica, or with the address of a TCP load balancer; see
+[Proxies to Replicated Objects](../../../runtime/invocation/proxies-to-replicated-objects).
+
 ### Nodes
 
 A node registers with every active replica, so that each replica can activate the node's servers and knows the endpoints
