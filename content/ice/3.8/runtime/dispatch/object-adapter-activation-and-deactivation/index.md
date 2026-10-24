@@ -32,12 +32,19 @@ endpoints needs no `activate` call.
 ## Deactivation
 
 You usually don't need to deactivate or destroy an object adapter yourself: shutting down the communicator deactivates
-its object adapters, and destroying the communicator destroys them.
+its object adapters, and destroying the communicator destroys them. To deactivate or destroy an object adapter while its
+communicator keeps running, call one of these methods:
 
-To stop an object adapter before then, call `destroy`. It stops accepting connections, closes the connections the object
-adapter accepted, waits for the requests being dispatched to complete, and removes the object adapter's servants. You
-can then create a new object adapter with the same name. See [ObjectAdapter](api:Ice/ObjectAdapter) in the API reference
-for more details.
+- **`deactivate`** The object adapter stops accepting connections and closes the connections it accepted, while the
+  dispatches in progress complete. A deactivated object adapter cannot be reactivated. Until destroyed, a deactivated
+  object adapter keeps dispatching the requests received over
+  [bidirectional connections](../../connection-management/bidirectional-connections) and
+  [collocated invocations](../../collocated-invocation-and-dispatch).
+- **`destroy`** The object adapter deactivates, waits for the dispatches in progress to complete, removes its servants,
+  and stops dispatching the requests received over bidirectional connections. You can then create a new object adapter
+  with the same name.
+
+See [ObjectAdapter](api:Ice/ObjectAdapter) in the API reference for more details.
 
 ## See Also
 
