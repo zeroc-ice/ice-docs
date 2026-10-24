@@ -35,6 +35,16 @@ activates the server and waits for the target object adapter to register its end
 endpoints are registered, the registry returns the endpoint information back to the client. This sequence ensures that
 the client receives the endpoint information _after_ the server is ready to receive requests.
 
+The node considers the server active once each of its object adapters with
+[server lifetime](../icegrid-xml-reference/adapter-descriptor-element) has registered its endpoints and, when the
+server's [administrative facility](../icegrid-and-the-administrative-facility) is enabled, the server has registered its
+[`Process` facet](../../../administration/administrative-facility/process-facet). IceGrid enables this facility for
+every deployed server unless the server's descriptor sets `Ice.Admin.Enabled` to `0` or `Ice.Admin.Endpoints` to an
+empty string. The server registers its `Process` facet when it creates its admin object: during communicator
+initialization, or on the first call to `getAdmin` when `Ice.Admin.DelayCreation` is set to `1`. The node waits for
+these registrations for at most the server's activation timeout, which defaults to
+[IceGrid.Node.WaitTime](../../../property-reference/icegrid-properties#icegrid.node.waittime).
+
 ## Requirements for Server Activation
 
 In order to use on-demand activation for an object adapter, the adapter must have an adapter ID and be entered in the
