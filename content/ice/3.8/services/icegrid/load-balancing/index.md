@@ -33,7 +33,7 @@ are used in locate requests. The load balancing descriptor specifies the followi
 
 - Number of replicas The replica group can instruct the registry to return the endpoints of one or more object adapters.
   If the specified number _N_ is larger than `1`, the proxy returned in response to a locate request contains the
-  endpoints of at most _N_ object adapters. If _N_ is `0`, the proxy contains the endpoints of all the object adapters.
+  endpoints of up to _N_ object adapters. If _N_ is `0`, the proxy contains the endpoints of all the object adapters.
   _N_ defaults to `1` when the replica group specifies a load balancing type; a replica group that specifies no load
   balancing uses random load balancing and returns the endpoints of all its object adapters. The Ice runtime in the
   client selects one of these endpoints at random when
