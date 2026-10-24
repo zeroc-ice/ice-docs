@@ -23,13 +23,13 @@ _Compiling a Slice definition when the C++ client and server share a development
   code (`Client.cpp`, written by the client developer) contains the client-side application logic. The generated source
   code and the client code are compiled and linked into the client executable.
 
-The `Greeter.cpp` source file also contains source code that provides an up-call interface from the Ice run time into
-the server code written by the developer and provides the connection between the networking layer of Ice and the
-application code. The server implementation file (`Server.cpp`, written by the server developer) contains the
-server-side application logic (the object implementations, properly termed _servants_). The generated source code and
-the implementation source code are compiled and linked into the server executable.
+The `Greeter.cpp` source file also contains source code that provides an up-call interface from the Ice runtime into the
+server code written by the developer and provides the connection between the networking layer of Ice and the application
+code. The server implementation file (`Server.cpp`, written by the server developer) contains the server-side
+application logic (the object implementations, properly termed _servants_). The generated source code and the
+implementation source code are compiled and linked into the server executable.
 
-Both client and server also link with an Ice library that provides the necessary run-time support.
+Both client and server also link with an Ice library that provides the necessary runtime support.
 
 ## Different Development Environments for Client and Server
 

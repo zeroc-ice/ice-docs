@@ -41,7 +41,7 @@ Otherwise, a direct proxy contains at least one endpoint.
 Regardless of whether endpoints are specified directly or indirectly, a proxy having multiple endpoints implies at a
 minimum that the target object is available via multiple network interfaces, but often also means the object is
 replicated to improve scalability and reliability. Such a proxy provides a client with several load balancing options
-even when no location service is involved. The proxy's own configuration drives the run-time behavior, depending on how
+even when no location service is involved. The proxy's own configuration drives the runtime behavior, depending on how
 the client configures the proxy's [endpoint selection type](../../connection-management/connection-establishment) and
 [connection caching](#proxy-connection-caching) settings.
 

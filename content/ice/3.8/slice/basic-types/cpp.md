@@ -72,7 +72,7 @@ By default, the Ice runtime encodes strings as follows:
 
 - Wide strings (that is, strings mapped to `std::wstring`) are automatically encoded as Unicode by the Ice runtime as
   appropriate for the platform. For example, for Windows, the Ice runtime converts between UTF-8 and UTF-16 in
-  little-endian representation whereas, for Linux, the Ice run time converts between UTF-8 and UTF-32 in the endian-ness
+  little-endian representation whereas, for Linux, the Ice runtime converts between UTF-8 and UTF-32 in the endian-ness
   appropriate for the host CPU.
 
   With this default behavior, wide strings are transparently converted between their on-the-wire representation and

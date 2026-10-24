@@ -34,7 +34,7 @@ We need to specify [published endpoints](../../../runtime/dispatch/object-adapte
 adapter because the router is located behind a firewall. Without this property, any proxies that the router creates
 would use the endpoints specified in [Glacier2.Client.Endpoints](../../../property-reference/glacier2-properties), but
 of course those endpoints are inaccessible to clients outside the firewall. The
-[PublishedEndpoints](../../../property-reference/object-adapter-properties) property forces the Ice run time to use the
+[PublishedEndpoints](../../../property-reference/object-adapter-properties) property forces the Ice runtime to use the
 given endpoints in proxies created by the client object adapter.
 
 Note also that the server endpoint in this example includes a fixed port `(9999)`, but a fixed port is not required in
