@@ -52,13 +52,9 @@ These operators compare the `std::tuple` returned by the generated `ice_tuple()`
 
 ### Default Constructor
 
-Structures have a default constructor that default-constructs each data member. Members having a complex type, such as
-strings, sequences, and dictionaries, are initialized by their own default constructor. However, the default constructor
-performs no initialization for members of type `bool`, of an integer or floating-point type, or of an enumeration type.
-For such a member, it is not safe to assume that the member has a reasonable default value.
-
-To ensure that these data members are initialized to reasonable values, you can declare default values in your Slice
-definition. These default values are mapped to C++ data member initializers.
+Structures have a default constructor that default-constructs each data member. This constructor does not initialize a
+data member of type `bool`, of an integer, floating-point or enumeration type. The Slice compiler generates a data
+member initializer for each field with a [default value](../../fields#default-values).
 
 ### Printing Structs
 

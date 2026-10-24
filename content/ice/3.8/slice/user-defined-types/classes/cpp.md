@@ -51,14 +51,10 @@ There are a number of things to note about this generated code:
 
 Classes have two constructors:
 
-- a default constructor that default-constructs each data member This default constructor is no-op and implemented as
-  `= default`. Members having a complex type, such as strings, sequences, and dictionaries, are initialized by their own
-  default constructor. However, the default constructor performs no initialization for members of type `bool`, of an
-  integer or floating-point type, or of an enumeration type. For such a member, it is not safe to assume that the member
-  has a reasonable default value. To ensure that these data members are initialized to reasonable values, you can
-  declare [default values](../../fields#default-values) in your Slice definition, and the Slice compiler will generate
-  data member initializers for the corresponding C++ data members.
-- a constructor with one parameter for each data member (the _one-shot_ constructor) This constructor allows you to
+- **a default constructor that default-constructs each data member** This constructor is `= default` and does not
+  initialize a data member of type `bool`, of an integer, floating-point or enumeration type. The Slice compiler
+  generates a data member initializer for each field with a [default value](../../fields#default-values).
+- **a constructor with one parameter for each data member (the _one-shot_ constructor)** This constructor allows you to
   construct and initialize a class instance in a single statement.
 
 For derived classes, the one-shot constructor has one parameter for each of the base class's data members, plus one
