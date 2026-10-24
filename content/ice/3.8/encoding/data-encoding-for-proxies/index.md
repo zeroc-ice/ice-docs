@@ -76,19 +76,13 @@ The encoding for [UDP endpoints](#encoding-for-udp-endpoints) also changed in ve
 
 ## Encoding for Endpoints
 
-A proxy optionally contains an [endpoint list or an adapter ID](../../runtime/invocation/proxy-endpoints), but not both:
+The proxy fields are followed by a [size](../basic-data-encoding), the number of endpoints, and then by the endpoints
+or, when this size is `0`, by the adapter ID encoded as a string. The adapter ID is the empty string for a
+[well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy).
 
-- If a proxy contains endpoints, they are encoded immediately following the proxy fields. A
-  [size](../basic-data-encoding) specifying the number of endpoints is encoded first, followed by the endpoints. Each
-  endpoint is encoded as a `short` specifying the
-  [endpoint type](https://code.zeroc.com/ice/3.8/api/slice/namespaceIce.html#var-members), followed by an
-  [encapsulation](../basic-data-encoding) of type-specific endpoint fields. The type-specific fields for each endpoint
-  type are presented in the sections that follow.
-- If a proxy does not have endpoints, a single byte with value `0` immediately follows the proxy fields and a string
-  representing the adapter ID is encoded immediately following the zero byte.
-- For a proxy to a [well-known object](../../services/icegrid/well-known-objects), which has neither endpoints nor an
-  adapter ID, a single byte with value `0` immediately follows the proxy fields and an empty string is encoded
-  immediately following the zero byte.
+Each endpoint is encoded as a `short`, the
+[endpoint type](https://code.zeroc.com/ice/3.8/api/slice/namespaceIce.html#var-members), followed by an
+[encapsulation](../basic-data-encoding) of the type-specific fields described in the sections that follow.
 
 ## Encoding for TCP Endpoints
 
