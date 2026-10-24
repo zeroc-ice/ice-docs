@@ -176,14 +176,14 @@ To prevent a client from accessing arbitrary back-end hosts or ports, you can co
 the address information in each proxy that the client attempts to use. Two properties determine the router's filtering
 behavior:
 
-- [Glacier2.Filter.Address.Accept](../../../property-reference/glacier2-properties) Each entry is an accept rule, which
-  matches a proxy when every endpoint of this proxy matches the entry. When this property is set, the router accepts a
-  proxy only when at least one accept rule matches it; when it is not set, the router accepts every proxy that no reject
-  rule matches. An indirect proxy has no endpoints, so no accept rule matches it.
+- [Glacier2.Filter.Address.Accept](../../../property-reference/glacier2-properties#glacier2.filter.address.accept) Each
+  entry is an accept rule, which matches a proxy when every endpoint of this proxy matches the entry. When this property
+  is set, the router accepts a proxy only when at least one accept rule matches it; when it is not set, the router
+  accepts every proxy that no reject rule matches. An indirect proxy has no endpoints, so no accept rule matches it.
 
-- [Glacier2.Filter.Address.Reject](../../../property-reference/glacier2-properties) Each entry is a reject rule, which
-  matches a proxy when at least one endpoint of this proxy matches the entry. The router rejects a proxy that a reject
-  rule matches, even when an accept rule matches it.
+- [Glacier2.Filter.Address.Reject](../../../property-reference/glacier2-properties#glacier2.filter.address.reject) Each
+  entry is a reject rule, which matches a proxy when at least one endpoint of this proxy matches the entry. The router
+  rejects a proxy that a reject rule matches, even when an accept rule matches it.
 
 The value of each property is a list of _address_:_port_ pairs separated by spaces, as shown in the example below:
 
@@ -301,8 +301,8 @@ advantage of the benefits offered by indirect proxies. Once you have configured 
 IceGrid-managed servers. Indirect proxies come in two forms: one that contains only an identity, and one that contains
 an identity and an adapter ID. You can use the category and identity filters described in previous sections to control
 identity-only proxies, and you can use the property
-[Glacier2.Filter.AdapterId.Accept](../../../property-reference/glacier2-properties) to enforce restrictions on indirect
-proxies that use an adapter ID.
+[Glacier2.Filter.AdapterId.Accept](../../../property-reference/glacier2-properties#glacier2.filter.adapterid.accept) to
+enforce restrictions on indirect proxies that use an adapter ID.
 
 For example, the following property definition allows a client to use the proxy `factory@WidgetAdapter` but not the
 proxy `factory@SecretAdapter`:

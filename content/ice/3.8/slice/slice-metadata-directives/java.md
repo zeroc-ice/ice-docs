@@ -44,7 +44,7 @@ The metadata directives for Java uses the `java` prefix.
 
 ### `java:buffer`
 
-This directive applies to [sequences](../user-defined-types/sequences) of certain primitive types. It directs the Slice
+This directive applies to [sequences](../user-defined-types/sequences) of certain basic types. It directs the Slice
 compiler to map the sequence to a subclass of `java.nio.Buffer`.
 
 ### `java:getset`
