@@ -34,12 +34,12 @@ differences in the encoding for references between versions 1.0 and 1.1.
 
 ### Class Reference Encoding Version 1.0
 
-Ice marshals a null reference as a 32-bit integer with value zero. For non-null references, Ice maintains a table per
-[encapsulation](../basic-data-encoding) that associates a unique non-zero positive integer with each class instance. We
-refer to this integer as an _instance ID_. The first time Ice encounters a reference to a particular instance, it
-assigns the instance an unused ID, inserts it into the table, and marshals the reference as a 32-bit integer whose value
-is the _negative_ of the ID. If Ice has already encountered that instance, it simply marshals the instance's
-previously-assigned ID as a negative 32-bit integer.
+A null reference is encoded as a 32-bit integer with value zero. For non-null references, the sender maintains a table
+per [encapsulation](../basic-data-encoding) that associates a unique non-zero positive integer with each class instance.
+We refer to this integer as an _instance ID_. The first time the sender encounters a reference to a particular instance,
+it assigns the instance an unused ID, inserts it into the table, and marshals the reference as a 32-bit integer whose
+value is the _negative_ of the ID. If the sender has already encountered that instance, it simply marshals the
+instance's previously-assigned ID as a negative 32-bit integer.
 
 All [class instances](../../slice/user-defined-types/classes) are encoded at the end of the encapsulation.
 
@@ -57,10 +57,10 @@ The encoding for a reference depends on the
 context in which the reference occurs:
 
 - **Compact format** In this format, the encoding always uses the inline scheme. Suppose we are marshaling a value of
-  the structure type `S` shown earlier. If its `obj` field refers to a class instance that Ice has not yet encountered
-  in the current encapsulation, the encoding assigns it the next available sequential ID, marshals a size with value 1
-  signifying that an instance is about to be written, and then immediately marshals the instance itself. Any subsequent
-  reference to the same instance is encoded as a size whose value is the instance's corresponding ID.
+  the structure type `S` shown earlier. If its `obj` field refers to a class instance that the sender has not yet
+  encountered in the current encapsulation, the sender assigns it the next available sequential ID, marshals a size with
+  value 1 signifying that an instance is about to be written, and then immediately marshals the instance itself. Any
+  subsequent reference to the same instance is encoded as a size whose value is the instance's corresponding ID.
 
 - **Sliced format** When a reference occurs _outside_ the context of a class instance, Ice uses the same inline scheme
   as in the compact format. For example, suppose a Slice operation declared a parameter of structure type `S` shown
