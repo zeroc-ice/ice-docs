@@ -16,8 +16,9 @@ resolution.
   operation.
 - metrics map: the metrics objects of one kind of instrumented object, keyed by their `id`, such as the `Connection`
   map, which by default holds one metrics object per connection.
-- metrics view: a named set of metrics maps that you configure and enable together; see
-  [Configuring Metrics Views](#configuring-metrics-views).
+- metrics view: a named set of metrics maps that you configure and enable
+  together{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}; see
+  [Configuring Metrics Views](#configuring-metrics-views){% /iflang %}.
 
 ## Metrics Types
 
@@ -116,6 +117,8 @@ Enabling or disabling a view has the same effect as setting its
 
 {% language-section name="mapping" /%}
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Configuring Metrics Views
 
 The `Metrics` facet records metrics only for the views you configure with
@@ -135,6 +138,8 @@ IceMX.Metrics.Debug.Map.Dispatch.GroupBy=operation
 You can also update the `IceMX.*` properties at run time through the [Properties facet](../properties-facet): the
 `Metrics` facet then creates, updates, or removes the corresponding views and maps. A map that you reconfigure and a
 view that you disable lose the metrics they recorded.
+
+{% /iflang %}
 
 ## Metrics Attributes
 
