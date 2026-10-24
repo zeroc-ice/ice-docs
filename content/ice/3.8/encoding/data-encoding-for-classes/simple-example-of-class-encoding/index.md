@@ -141,7 +141,7 @@ in the [sliced format](../../../slice/user-defined-types/classes/slicing-values-
 
 The sliced format allows the receiver of a class to slice off any derived parts of a class it does not understand, as in
 version 1.0 of the encoding. Although the sliced format provides equivalent functionality to that of version 1.0, it is
-significantly more efficient, requiring only 91 bytes to encode our example compared to the 124 bytes required by
+significantly more efficient, requiring only 91 bytes to marshal our example compared to the 124 bytes required by
 version 1.0. We could reduce the encoded size even further, while still retaining the ability to slice off unknown
 types, by using [compact type IDs](../class-type-ids).
 
@@ -204,8 +204,8 @@ class Derived(11) extends Base
 ```
 
 We assign the compact type ID `10` to `Base` and `11` to `Derived`. Note however that assigning a compact type ID to
-`Base` does not affect the size of the encoded data in our example because the compact format omits type IDs altogether
-for base types.
+`Base` does not affect the size of the marshaled data in our example because the compact format omits type IDs
+altogether for base types.
 
 The marshaled representation for the two instances (assuming that they are marshaled immediately following each other)
 in the compact format is shown below:
@@ -231,8 +231,8 @@ in the compact format is shown below:
 | `115` _(_`baseInt`)                       | 4                 | `int`    | 49              |
 | `"Cave"` _(_`baseString`)                 | 5                 | `string` | 53              |
 
-Substituting a compact type ID for its string equivalent reduces the encoded size for the two instances by another nine
-bytes to 58, less than half the size of version 1.0.
+Substituting a compact type ID for its string equivalent reduces the marshaled size for the two instances by another
+nine bytes to 58, less than half the size of version 1.0.
 
 ## See Also
 

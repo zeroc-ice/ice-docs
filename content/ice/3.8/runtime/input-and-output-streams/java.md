@@ -11,7 +11,7 @@ byte[] bytes = outputStream.finished();
 
 var inputStream = new com.zeroc.Ice.InputStream(communicator, bytes);
 inputStream.startEncapsulation();
-Item decoded = Item.ice_read(inputStream);
+Item unmarshaled = Item.ice_read(inputStream);
 inputStream.endEncapsulation();
 ```
 

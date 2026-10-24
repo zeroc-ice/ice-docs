@@ -44,7 +44,7 @@ Every slice of an exception includes its type ID, encoded as a string.
 
 The initial slice of a class, representing the instance's most-derived type, always includes a type ID. When the class
 has a compact type ID, the slice encodes this compact ID as a size. Otherwise, the slice encodes the type ID as a string
-the first time this type ID appears in the encapsulation; when the type ID string was already encoded in this
+the first time this type ID appears in the encapsulation; when the type ID string was already marshaled in this
 encapsulation, the slice encodes instead an index to this earlier type ID, as a size. The sender's
 [format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) determines whether subsequent slices of a
 class include a type ID: to facilitate slicing an instance to a less-derived type, the sliced format includes a type ID
@@ -72,11 +72,11 @@ data.) The byte count indicates the number of bytes occupied by the encoding for
 does not include the size of an object indirection table, if present.
 
 A receiver can skip over a slice by reading the byte count _b_, and then discarding the next _b-4_ bytes in the input
-stream. If an object indirection table is present, the receiver then decodes the table.
+stream. If an object indirection table is present, the receiver then unmarshals the table.
 
 If this flag is false, it implies that the sender used the
 [compact format](../../slice/user-defined-types/classes/slicing-values-and-exceptions) and therefore skipping slices is
-not possible. If the receiver does not know the most-derived type in this situation, decoding fails.
+not possible. If the receiver does not know the most-derived type in this situation, unmarshaling fails.
 
 ### Last Slice
 

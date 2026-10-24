@@ -21,9 +21,9 @@ greater than 254, the extra byte is insignificant.
 
 ## Encoding for Encapsulations
 
-An encapsulation is used to contain variable-length data that an intermediate receiver may not be able to decode, but
-that the receiver can forward to another recipient for eventual decoding. An encapsulation is encoded as if it were the
-following structure:
+An encapsulation is used to contain variable-length data that an intermediate receiver may not be able to unmarshal, but
+that the receiver can forward to another recipient for eventual unmarshaling. An encapsulation is encoded as if it were
+the following structure:
 
 ```slice
 struct Encapsulation
@@ -37,7 +37,7 @@ struct Encapsulation
 
 The `size` field specifies the size of the encapsulation in bytes (including the `size`, `major`, and `minor` fields).
 The `major` and `minor` fields specify the encoding version of the data contained in the encapsulation. The version
-information is followed by `size-6` bytes of encoded data.
+information is followed by `size-6` bytes of marshaled data.
 
 An encapsulation can be empty, in which case the value of `size` is 6.
 
