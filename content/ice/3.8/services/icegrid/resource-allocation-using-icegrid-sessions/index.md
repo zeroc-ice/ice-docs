@@ -59,10 +59,9 @@ a permissions verifier object so that clients can use `createSessionFromSecureCo
 case, the property is `IceGrid.Registry.SSLPermissionsVerifier`. `createSessionFromSecureConnection` requires a client
 certificate with a non-empty subject name.
 
-To create a session, the client obtains the registry proxy by converting the well-known proxy string
-`"IceGrid/Registry"` to a proxy object with the communicator, downcasts the proxy to the `IceGrid::Registry` interface,
-and invokes one of the operations. The sample code below demonstrates how to do it in C++; the code will look very
-similar in other languages.
+To create a session, the client creates an `IceGrid::Registry` proxy from the well-known proxy string
+`"IceGrid/Registry"` and invokes one of its operations. The sample code below demonstrates how to do it in C++; the code
+will look very similar in other languages.
 
 ```cpp
 IceGrid::RegistryPrx registry{communicator, "IceGrid/Registry"};
