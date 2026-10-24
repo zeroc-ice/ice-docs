@@ -390,9 +390,10 @@ Defines the interval in seconds that IceGrid waits for
 [server activation and deactivation](../../services/icegrid/icegrid-server-activation).
 
 A server activated by the node completes its activation when its object adapters with server lifetime have registered
-their endpoints and, when its administrative facility is enabled, it has registered its `Process` facet. If the server
-does not complete its activation within this time interval, the node returns an empty set of endpoints to a client still
-waiting for the endpoints of one of the server's object adapters.
+their endpoints and, when its administrative facility is enabled, the server has registered its `Process` facet. If the
+server does not complete its activation within this interval, the registry answers the locate requests waiting for this
+server without its endpoints: a client resolving a replica group receives the endpoints of the replicas that did
+activate, and a client resolving one of the server's object adapters receives no endpoints.
 
 If a server is being gracefully deactivated and IceGrid does not detect the server deactivation during this time
 interval, IceGrid kills the server.
