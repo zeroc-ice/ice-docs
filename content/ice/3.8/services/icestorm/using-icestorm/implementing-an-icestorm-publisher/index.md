@@ -17,7 +17,7 @@ The implementation of the weather sensor can be summarized as follows:
    calling `createOrRetrieve("weather")` on the `TopicManager`. This operation returns a proxy to the topic with this
    name, creating this topic first if it does not exist.
 3. Obtain a proxy for the `weather` topic's "publisher object" by calling `getPublisher` on the topic proxy. This proxy
-   is provided for the purpose of publishing messages, and therefore is narrowed to the topic interface
+   is provided for the purpose of publishing events, and therefore is narrowed to the topic interface
    (`WeatherStation`).
 4. Collect and report readings by invoking on the proxy created in the previous step.
 

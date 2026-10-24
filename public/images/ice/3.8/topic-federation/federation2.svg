@@ -9,8 +9,8 @@
 >
   <title id="title">Topic federation costs</title>
   <desc id="description">
-    Publishers P1 and P2 send to topic A with message costs 1 and 2 respectively. A has a link to B with cost 0 and
-    a link to C with cost 1. Dotted arrows show topic links; solid arrows show message delivery.
+    Publishers P1 and P2 send to topic A with event costs 1 and 2 respectively. A has a link to B with cost 0 and
+    a link to C with cost 1. Dotted arrows show topic links; solid arrows show event delivery.
   </desc>
 
   <defs>
@@ -102,7 +102,7 @@
   </g>
 
   <g id="labels">
-    <text class="legend-label" x="70" y="387">Message delivery</text>
+    <text class="legend-label" x="70" y="387">Event delivery</text>
     <text class="legend-label" x="262" y="387">Topic link</text>
     <text class="label" x="428.0" y="49">IceStorm</text>
     <text class="label" x="69.0" y="158.0">P1</text>
