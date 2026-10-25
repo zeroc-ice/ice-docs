@@ -10,10 +10,10 @@ same node; however a node descriptor describes only the servers defined by the e
 
 The Node Properties panel offers the following fields:
 
-- **Name**: The name of the node. This name must match the IceGrid.Node.Name configuration property of the node process.
-- **Description**: A free-text description of this node.
-- **Variables**: This table shows node-level [IceGrid variables](../variables-in-icegrid-descriptors).
-- **Load Factor**: A floating point value by which the registry multiplies the node's load when the Adaptive
+- **Name** The name of the node. This name must match the IceGrid.Node.Name configuration property of the node process.
+- **Description** A free-text description of this node.
+- **Variables** This table shows node-level [IceGrid variables](../variables-in-icegrid-descriptors).
+- **Load Factor** A floating point value by which the registry multiplies the node's load when the Adaptive
   [load-balancing](../replica-group-descriptor) policy ranks the nodes from least to most loaded. The node's load is its
   load average on Linux and macOS, and its CPU utilization on Windows. When this value is blank, the IceGrid registry
   uses the default: `1.0` divided by the number of hardware threads on Linux and macOS, and `1.0` on Windows, which puts

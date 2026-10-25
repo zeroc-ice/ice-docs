@@ -92,12 +92,12 @@ Each line begins with the identifier of the replica. The command displays the fo
 As previously noted, an individual IceStorm replica can be in one of several states. However, IceStorm clients have a
 different perspective in which the replication group as a whole is in one of the states shown below:
 
-- **Down**: All requests to IceStorm fail.
+- **Down** All requests to IceStorm fail.
 
-- **Inactive**: All requests to IceStorm block until the replica is either down (in which case the request fails), or
+- **Inactive** All requests to IceStorm block until the replica is either down (in which case the request fails), or
   becomes Active.
 
-- **Active**: Requests are processed.
+- **Active** Requests are processed.
 
 It is also possible, but highly unlikely, for a request to result in an `Ice::UnknownException`. This can happen, for
 example, if a replica loses the majority and thus progresses to the inactive state during request processing. In this

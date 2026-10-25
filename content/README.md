@@ -28,9 +28,10 @@ page and its overlays combine.
 
 ## Lists
 
-- A list of terms and their definitions gives each item as the term in bold, a colon, and the definition starting with a
-  capital letter: `- **Efficiency**: Oneway invocations…`. A term the reader types, such as an attribute value or an
-  enumerator, is code instead of bold: ``- `on-demand`: IceGrid activates…``.
+- A list of terms and their definitions gives each item as the term in bold followed by the definition, which starts
+  with a capital letter: `- **Efficiency** Oneway invocations…`. A term the reader types, such as an attribute value or
+  an enumerator, is code instead of bold, and a colon separates it from the definition:
+  ``- `on-demand`: IceGrid activates…``.
 
 ## Values
 

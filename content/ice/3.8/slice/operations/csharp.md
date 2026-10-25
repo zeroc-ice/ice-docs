@@ -527,10 +527,10 @@ Out parameters and return values are mapped to C# `Task` return values.
 The returned Task depends on how many values an operation returns, including out parameters and a non-`void` return
 value:
 
-- **Zero values**: The corresponding C# method returns a plain `Task`.
-- **One value**: The corresponding C# method returns a `Task<T>`, where T is the mapped C# type.
-- **Two or more values**: The corresponding C# method returns a `Task<Interface_OpResult>`, where `Interface_OpResult`
-  is a generated record struct that holds the return value and out parameters.
+- **Zero values** The corresponding C# method returns a plain `Task`.
+- **One value** The corresponding C# method returns a `Task<T>`, where T is the mapped C# type.
+- **Two or more values** The corresponding C# method returns a `Task<Interface_OpResult>`, where `Interface_OpResult` is
+  a generated record struct that holds the return value and out parameters.
 
 Consider this example:
 

@@ -21,9 +21,9 @@ history—or part of it—may be transmitted to readers when they connect.
 
 ## Writer Types
 
-- **Single-key writer**: Publishes samples for a single key.
-- **Multi-key writer**: Publishes samples for a set of predefined keys.
-- **Any-key writer**: Publishes samples for any key (no keys provided at creation).
+- **Single-key writer** Publishes samples for a single key.
+- **Multi-key writer** Publishes samples for a set of predefined keys.
+- **Any-key writer** Publishes samples for any key (no keys provided at creation).
 
 Writers can be created using the corresponding writer class constructors or the
 [makeXxxWriter](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#header-func-members) helper functions.
@@ -32,10 +32,10 @@ When using the helper functions, the compiler automatically **deduces the templa
 
 ### Attachment Behavior
 
-- **Single-key**: Attaches to readers that contain the same key, or to filtered readers whose filter matches that key.
-- **Multi-key**: Attaches to readers whose configuration matches at least one of the writer’s keys, or to filtered
+- **Single-key** Attaches to readers that contain the same key, or to filtered readers whose filter matches that key.
+- **Multi-key** Attaches to readers whose configuration matches at least one of the writer’s keys, or to filtered
   readers whose filter matches any of those keys.
-- **Any-key**: Attaches to all readers of the topic, since any key can be published.
+- **Any-key** Attaches to all readers of the topic, since any key can be published.
 
 ### Single-Key Writer
 
@@ -186,11 +186,11 @@ Configuration can be provided at multiple levels, allowing both global defaults 
 
 You can set:
 
-- **Global defaults**: Using [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties
+- **Global defaults** Using [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties
   (e.g., `DataStorm.Topic.SampleCount`)
-- **Topic-level defaults**: By calling
+- **Topic-level defaults** By calling
   [Topic::setWriterDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ab2a2111a70b838cbc57278ac4c29e645.html#ab2a2111a70b838cbc57278ac4c29e645)
-- **Per-writer configuration**: Via the writer constructor or
+- **Per-writer configuration** Via the writer constructor or
   [makeXxxWriter](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#header-func-members) helper functions
 
 **Precedence:** lower levels override higher ones (_per-writer config > topic defaults > global properties_). DataStorm

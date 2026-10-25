@@ -12,12 +12,12 @@ monitored Ice application sends these log messages to a
 
 An Ice log dialog is always in one of the following states:
 
-- **Running**: The dialog is attached to the monitored application's logger: it displays new log messages as soon as it
+- **Running** The dialog is attached to the monitored application's logger: it displays new log messages as soon as it
   receives them.
-- **Paused**: The dialog is attached to the monitored application's logger: it queues new log messages, but does not
+- **Paused** The dialog is attached to the monitored application's logger: it queues new log messages, but does not
   display them.
 
-- **Stopped**: The dialog is no longer attached to the monitored application's logger.
+- **Stopped** The dialog is no longer attached to the monitored application's logger.
 
 When an Ice log dialog is running or paused, and the target server, node or registry is stopped, the Ice log dialog
 automatically transitions to the Stopped state. However, when an Ice log dialog is attached to an IceBox service, the
@@ -33,8 +33,8 @@ to any Ice Log dialog opened later on.
 
 This dialog allows you to view and update the following settings:
 
-- **Max log messages in buffer**: The maximum number of lines displayed in the Ice log dialog.
-- **Number of log messages retrieved initially**: When a new dialog is opened, or when restarting a stopped dialog, the
+- **Max log messages in buffer** The maximum number of lines displayed in the Ice log dialog.
+- **Number of log messages retrieved initially** When a new dialog is opened, or when restarting a stopped dialog, the
   dialog retrieves and displays up to this number of lines. The value `-1` retrieves all the log messages that the
   monitored application's logger keeps and that match the dialog's [filter](#filter).
 
@@ -55,6 +55,6 @@ Use the `Edit > Filter...` menu to open the Filter dialog. This filter applies o
 This dialog allows you to filter the log messages sent by the monitored Ice applications. All the filtering is done in
 this remote Ice application.
 
-- **Error, Warning, Print and Trace Check Boxes**: Check the type of log messages you want to receive.
-- **Trace Categories**: Enter the list of trace categories you want to receive, or leave empty to receive trace messages
+- **Error, Warning, Print and Trace Check Boxes** Check the type of log messages you want to receive.
+- **Trace Categories** Enter the list of trace categories you want to receive, or leave empty to receive trace messages
   with any trace category.

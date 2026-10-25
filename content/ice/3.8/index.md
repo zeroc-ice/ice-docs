@@ -396,8 +396,8 @@ bar or press `Ctrl+K`, or `⌘K` on macOS.
 
 {% /releases %}
 
-- **[Upgrade Guide](./upgrade-guide)**: Moving an application from Ice 3.7 to Ice 3.8.
-- **[Backward Compatibility of Ice Versions](./compatibility)**: What a patch, minor, or major release keeps compatible.
+- **[Upgrade Guide](./upgrade-guide)** Moving an application from Ice 3.7 to Ice 3.8.
+- **[Backward Compatibility of Ice Versions](./compatibility)** What a patch, minor, or major release keeps compatible.
 
 ## Beyond the Documentation
 
@@ -410,7 +410,7 @@ bar or press `Ctrl+K`, or `⌘K` on macOS.
   [Ruby](https://code.zeroc.com/ice/3.8/api/ruby/index.html), and
   [Swift](https://code.zeroc.com/ice/3.8/api/swift/documentation/), plus the
   [Slice definitions](https://code.zeroc.com/ice/3.8/api/slice/index.html) that ship with Ice.
-- **[Demos on GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8)**: Sample programs for every language mapping.
-- **[Ice on GitHub](https://github.com/zeroc-ice/ice)**: Source code, issue tracker, and the
+- **[Demos on GitHub](https://github.com/zeroc-ice/ice-demos/tree/3.8)** Sample programs for every language mapping.
+- **[Ice on GitHub](https://github.com/zeroc-ice/ice)** Source code, issue tracker, and the
   [changelog](https://github.com/zeroc-ice/ice/blob/3.8/CHANGELOG-3.8.md) of each release.
-- **[IceRPC](https://docs.icerpc.dev/)**: ZeroC's new RPC framework. See [Using Ice and IceRPC Together](./icerpc).
+- **[IceRPC](https://docs.icerpc.dev/)** ZeroC's new RPC framework. See [Using Ice and IceRPC Together](./icerpc).

@@ -20,10 +20,10 @@ Readers keep a **history (queue) of unread samples**. When samples are retrieved
 
 ## Reader Types
 
-- **Single-key reader**: Reads samples for a single key.
-- **Multi-key reader**: Reads samples for a set of predefined keys.
-- **Any-key reader**: Reads samples for any key (no keys provided at creation).
-- **Filtered-key reader**: Reads samples for keys matching a **key filter** (name + criteria value).
+- **Single-key reader** Reads samples for a single key.
+- **Multi-key reader** Reads samples for a set of predefined keys.
+- **Any-key reader** Reads samples for any key (no keys provided at creation).
+- **Filtered-key reader** Reads samples for keys matching a **key filter** (name + criteria value).
 
 You create readers using the corresponding reader class constructors or via
 [makeXxxReader](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#header-func-members) helper functions.
@@ -174,11 +174,11 @@ when constructing the node.
 Reader behavior is configurable via
 [DataStorm::ReaderConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1ReaderConfig.html). You can set:
 
-- **Global defaults**: [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties (e.g.,
+- **Global defaults** [DataStorm.Topic.*](../../../../property-reference/datastorm-topic-properties) properties (e.g.,
   DataStorm.Topic.SampleCount)
-- **Topic-level defaults**: By calling
+- **Topic-level defaults** By calling
   [Topic::setReaderDefaultConfig](https://code.zeroc.com/ice/3.8/api/cpp/classDataStorm_1_1Topic_ae005c107f689e1e309e49a4c1421ed2a.html#ae005c107f689e1e309e49a4c1421ed2a)
-- **Per-reader configuration**: Via the reader constructor or
+- **Per-reader configuration** Via the reader constructor or
   [makeXxxReader](https://code.zeroc.com/ice/3.8/api/cpp/namespaceDataStorm.html#r_a6959df6a3e35c9e37a4ed065757fc0fc)
   helper
 

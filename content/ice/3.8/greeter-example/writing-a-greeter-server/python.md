@@ -7,9 +7,9 @@ This page provides a step-by-step guide to writing the server-side of our Python
 
 This simple server application is divided into two sections:
 
-1. **Greeter Implementation**: First we need to create a class that “implements” the `Greeter` interface we defined
+1. **Greeter Implementation** First we need to create a class that “implements” the `Greeter` interface we defined
    earlier in Slice. An instance of this class is called a [servant](../../basics/terminology).
-2. **Main Server Program**: Next, we instantiate this class and register the servant with the Ice runtime through an
+2. **Main Server Program** Next, we instantiate this class and register the servant with the Ice runtime through an
    object adapter.
 
 You can find the complete source code for this example in the

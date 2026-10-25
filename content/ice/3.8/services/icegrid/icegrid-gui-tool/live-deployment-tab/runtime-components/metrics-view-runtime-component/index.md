@@ -16,8 +16,8 @@ may degrade the performance of the instrumented process.
 
 A Metrics View provides the following actions, from its contextual menu and from the `Tools > Metrics View` menu:
 
-- **Enable**: Enable this Metrics View.
-- **Disable**: Disable this Metrics View.
+- **Enable** Enable this Metrics View.
+- **Disable** Disable this Metrics View.
 
 ## Metrics Report
 

@@ -10,30 +10,30 @@ direct adapter, simply create a number of Ice properties in your server.
 
 The Adapter Properties panel offers the following fields:
 
-- **Adapter Name**: The name of the object adapter. This name must be unique within the enclosing Ice communicator, and
+- **Adapter Name** The name of the object adapter. This name must be unique within the enclosing Ice communicator, and
   is only used to lookup adapter properties.
-- **Description**: A free-text description of this object adapter.
-- **Adapter ID**: The ID of the object adapter. This ID must be unique within an IceGrid deployment. Default value:
+- **Description** A free-text description of this object adapter.
+- **Adapter ID** The ID of the object adapter. This ID must be unique within an IceGrid deployment. Default value:
   ${server}._adapter-name_, or ${server}.${service}._adapter-name_ for an adapter defined in an IceBox service.
-- **Replica Group**: The ID of this adapter's [Replica Group](../replica-group-descriptor). By default, an adapter does
+- **Replica Group** The ID of this adapter's [Replica Group](../replica-group-descriptor). By default, an adapter does
   not belong to any replica group.
-- **Priority**: The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is `0`.
-- **Endpoints**: The endpoints of this object adapter. Use a single endpoint, with an IP address rather than a DNS name
+- **Priority** The adapter priority in its [Replica Group](../replica-group-descriptor). The default priority is `0`.
+- **Endpoints** The endpoints of this object adapter. Use a single endpoint, with an IP address rather than a DNS name
   if it specifies a host. When the endpoint does not specify a port, the operating system selects an ephemeral port when
   the server creates the adapter. Corresponds to the
   [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
   `default`, which means listen with the default transport (`tcp` by default) on all interfaces.
-- **Published Endpoints**: The configured published endpoints for this object adapter. Corresponds to the
+- **Published Endpoints** The configured published endpoints for this object adapter. Corresponds to the
   [_adapter-name_.PublishedEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
   actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
-- **Proxy Options**: The default Proxy Options for well-known objects defined within this object adapter, and the Proxy
+- **Proxy Options** The default Proxy Options for well-known objects defined within this object adapter, and the Proxy
   Options for proxies created by this object adapter. Corresponds to the
   [_adapter-name_.ProxyOptions](../../../../../../property-reference/object-adapter-properties) property. Default: empty
   string.
-- **Server Lifetime**: When checked, IceGrid expects this adapter to register its endpoints during server startup and
+- **Server Lifetime** When checked, IceGrid expects this adapter to register its endpoints during server startup and
   unregister them during server shutdown. See also Activation Timeout in [Server Properties](../server-descriptor).
   Default: true (checked).
-- **Well-known Objects**: A table of well-known objects defined by this adapter. When Property is set, IceGrid generates
+- **Well-known Objects** A table of well-known objects defined by this adapter. When Property is set, IceGrid generates
   a property with this name and with Identity as value.
-- **Allocatable Objects**: A table of allocatable objects defined by this adapter. When Property is set, IceGrid
+- **Allocatable Objects** A table of allocatable objects defined by this adapter. When Property is set, IceGrid
   generates a property with this name and with Identity as value.

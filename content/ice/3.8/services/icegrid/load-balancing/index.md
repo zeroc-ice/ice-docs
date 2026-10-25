@@ -136,14 +136,14 @@ is to [query well-known objects](../well-known-objects) using the `findAllReplic
 The IceGrid registry allows you to plug in custom load balancing implementations that the registry invokes to filter its
 query results. Two kinds of filters are supported:
 
-- **Replica group filter**: The registry invokes a replica group filter each time a client requests the endpoints of a
+- **Replica group filter** The registry invokes a replica group filter each time a client requests the endpoints of a
   replica group or object adapter, as well as for calls to [findAllReplicas](../well-known-objects). The registry passes
   information about the query that the filter can use in its implementation, including the list of object adapters
   participating in the replica group whose nodes are active at the time of the request. The object adapter list is
   initially ordered using the [load balancing type](#load-balancing-types) configured for the replica group; the filter
   can modify this list however it chooses.
 
-- **Type filter**: The registry invokes a type filter for each query that a client issues to
+- **Type filter** The registry invokes a type filter for each query that a client issues to
   [find a well-known object by type](../well-known-objects) using the operations `findObjectByType`,
   `findAllObjectsByType`, and `findObjectByTypeOnLeastLoadedNode`. Included in the information passed to the filter is a
   list of proxies for the matching well-known objects; the filter implementation decides which of these proxies are
@@ -252,16 +252,16 @@ A filter may require client-specific information in order to assemble its list o
 dictionary of key/value string pairs that a client can configure and send along as "out of band" metadata accompanying a
 request. Ice provides several ways for a client to establish a request context:
 
-- **Implicit**: Provides a default request context for every request on all proxies
-- **Per-proxy**: Configures a default request context for every request on a particular proxy
-- **Explicit**: Specifies a request context at the time of invocation, overriding any default context
+- **Implicit** Provides a default request context for every request on all proxies
+- **Per-proxy** Configures a default request context for every request on a particular proxy
+- **Explicit** Specifies a request context at the time of invocation, overriding any default context
 
 Our goal here is to transfer information from a client to a filter. Consequently, we don't recommend using implicit
 contexts because the context will add overhead to _every_ invocation the client makes, not just the ones that involve
 the filter. To decide whether to use per-proxy or explicit contexts, we first must understand the circumstances in which
 each kind of filter receives a request context:
 
-- **Replica group filter**: Most invocations involving a replica group filter occur when the Ice runtime in a client
+- **Replica group filter** Most invocations involving a replica group filter occur when the Ice runtime in a client
   issues requests on a registry. This internal activity is triggered by the client's invocation on a proxy, but Ice
   doesn't use the client's proxy or the request context that the client may have configured for its proxy or passed
   explicitly to the invocation. Rather, the Ice runtime uses the locator that the client configured for its proxy or
@@ -284,7 +284,7 @@ each kind of filter receives a request context:
 
   Both of these approaches are examples of per-proxy request contexts.
 
-- **Type filter**: Invocations involving type filters occur when a client invokes directly on the registry using its
+- **Type filter** Invocations involving type filters occur when a client invokes directly on the registry using its
   `Query` interface. To use per-proxy request contexts, configure the `Query` proxy as necessary. Explicit request
   contexts can also be used when querying the registry.
 
