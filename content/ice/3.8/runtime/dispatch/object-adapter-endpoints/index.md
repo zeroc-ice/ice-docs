@@ -1,6 +1,22 @@
 ---
 title: Object Adapter Endpoints
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 ---
+
+{% iflang langs="js" %}
+
+An object adapter embeds its _published endpoints_ in the direct proxies it creates. In Ice for JavaScript, an object
+adapter does not listen for connections, so it has no physical endpoints.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
 An object adapter maintains two sets of [endpoints](../../endpoint-syntax). One set identifies the network interfaces on
 which the adapter listens for new connections, and the other set is embedded in proxies created by the adapter and used
@@ -85,11 +101,22 @@ transient does not need a fixed port, because the proxies for those objects are 
 lifetime of the server process. Similarly, a server using indirect binding via [IceGrid](../../../services/icegrid) does
 not need a fixed port because its port is never published.
 
+{% /iflang %}
+
 ## Published Object Adapter Endpoints
 
-An object adapter embeds its published endpoints in the direct proxies it
-creates{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %} and, when it has an adapter ID, registers them
-with the locator registry{% /iflang %}.
+{% iflang langs="js" %}
+
+An object adapter that is not configured with a router publishes the [endpoints](../../endpoint-syntax) set by
+[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints), and no
+endpoints when this property is not set.
+
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
+An object adapter embeds its published endpoints in the direct proxies it creates and, when it has an adapter ID,
+registers them with the locator registry.
 
 By default, the object adapter has as many published endpoints as physical endpoints: each published endpoint is a
 physical endpoint with its host replaced by the DNS name of the current host. An object adapter usually has a single
@@ -101,6 +128,13 @@ MyAdapter.Endpoints=tcp -p 9999
 
 on host `Sun1` publishes `tcp -h Sun1 -p 9999`. The exact rules, including the loopback and multicast cases, are in
 [How Ice Derives Published Endpoints](#how-ice-derives-published-endpoints) below.
+
+{% iflang langs="java" %}
+
+On Android, Ice cannot determine the DNS name of the current host: set `adapter.PublishedHost` when clients use the
+proxies this object adapter creates.
+
+{% /iflang %}
 
 To publish another host name, set
 [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost):
@@ -159,6 +193,8 @@ The published endpoints of a regular object adapter (that is, not configured wit
    2. Otherwise, when all endpoints are loopback or multicast, replace the host in each endpoint by the value of
       `adapter.PublishedHost`, if set. Perform no substitution when `adapter.PublishedHost` is not set.
    3. Finally, eliminate duplicate endpoints.
+
+{% /iflang %}
 
 ## A Router's Effect on Object Adapter Endpoints
 

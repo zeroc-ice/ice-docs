@@ -1,5 +1,12 @@
 ---
 title: Dispatch
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 pages:
   - creating-an-object-adapter
   - object-adapter-activation-and-deactivation
