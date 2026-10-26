@@ -35,44 +35,32 @@ processing of a request, from accepting the request to returning its response.
 A _stringified proxy_ is the string form of a proxy, such as `SimplePrinter:tcp -p 10000`. See
 [Syntax for Stringified Proxies](../../runtime/invocation/syntax-for-stringified-proxies).
 
-## Direct Proxies
+## Endpoints
 
-A _direct proxy_ holds the [endpoints](../../runtime/invocation/proxy-endpoints) at which the Ice runtime reaches the
-object, as in `SimplePrinter:tcp -h server1 -p 10000`.
+An _endpoint_ is an address at which an object adapter is reached: a transport and its parameters, such as
+`tcp -h server1 -p 10000`. A proxy that holds endpoints is a _direct proxy_; a proxy that holds none is an _indirect
+proxy_, whose endpoints the Ice runtime obtains from a [locator](#locators). See
+[Proxy Endpoints](../../runtime/invocation/proxy-endpoints) and [Endpoint Syntax](../../runtime/endpoint-syntax).
 
-## Indirect Proxies
+## Communicators
 
-An _indirect proxy_ holds no endpoints: the Ice runtime asks a [locator](../../runtime/locators) for them. An indirect
-proxy holds either only an identity, as in `SimplePrinter`, which makes it a
-[well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy), or an identity and an
-[adapter ID](../../runtime/invocation/proxy-endpoints/indirect-proxy-with-object-adapter-identifier), as in
-`SimplePrinter@PrinterAdapter`. Since the endpoints come from the locator and not from the proxy, a server can move to
-another address without invalidating the indirect proxies that clients hold.
+A [_communicator_](../../runtime/communicator) is the main entry point to the Ice runtime. It holds the configuration
+[properties](#properties) and opens and caches the outgoing connections that proxies
+use{% iflang langs="cpp,csharp,java,js,python,swift" %}; it also creates object adapters{% /iflang %}.
 
-## Fixed Proxies
+## Connections
 
-A _fixed proxy_ is bound to a connection, and stops working when this connection closes. A fixed proxy cannot be
-marshaled. Fixed proxies allow a server to call back a client over the connection the client opened, as described in
-[Bidirectional Connections](../../runtime/connection-management/bidirectional-connections).
+A _connection_ links two peers over a transport. See [Connection Management](../../runtime/connection-management).
 
-## Routed Proxies
+## Transports
 
-A _routed proxy_ is a proxy configured with a [router](../../runtime/invocation/routers): the Ice runtime sends its
-invocations to the router, which forwards them to the target object. [Glacier2](../../services/glacier2) is such a
-router.
+A [_transport_](../../runtime/transports), such as `tcp`, `ssl`, `ws`, `wss` or `udp`, carries the messages of the
+[Ice protocol](../../protocol) between two peers.
 
-## Replication
+## Object Adapters
 
-_Replication_ makes the same Ice objects available in several object adapters, usually in servers on different
-computers, so that the objects remain available when one computer fails. The simplest form is a proxy with one endpoint
-per replica, such as `SimplePrinter:tcp -h server1 -p 10001:tcp -h server2 -p 10002`; see
-[Connection Establishment](../../runtime/connection-management/connection-establishment).
-
-## Replica Groups
-
-A _replica group_ is a set of object adapters that a [locator](../../runtime/locators) resolves under one ID, used in an
-indirect proxy in place of an adapter ID, as in `SimplePrinter@PrinterAdapters`. An object adapter is a member of at
-most one replica group. See [Object Adapter Replication](../../services/icegrid/object-adapter-replication).
+An [_object adapter_](../../runtime/dispatch) dispatches the requests it receives to the servants you register with it.
+A communicator can create several object adapters, each with its own endpoints and configuration.
 
 ## Dispatcher
 
@@ -86,6 +74,27 @@ said to _incarnate_ these objects. Most servants implement a skeleton generated 
 per operation; a servant can also implement the [dispatcher](#dispatcher) abstraction directly. See
 [The Active Servant Map](../../runtime/dispatch/active-servant-map) and
 [Default Servants](../../runtime/dispatch/default-servants).
+
+{% iflang langs="cpp,csharp,java,js,swift" %}
+
+## Middleware
+
+A [_middleware_](../../runtime/dispatch/middleware) is a [dispatcher](#dispatcher) that intercepts a request before it
+reaches the servant, and the response before the object adapter sends it back. It can also return a response without
+passing the request on.
+
+{% /iflang %}
+
+## Locators
+
+A [_locator_](../../runtime/locators) is the service that gives the Ice runtime the endpoints of an indirect proxy, such
+as the [IceGrid](../../services/icegrid) registry. A locator lets a server move to another address without invalidating
+the indirect proxies that clients hold.
+
+## Routers
+
+A [_router_](../../runtime/invocation/routers) forwards the invocations of the proxies configured with it to their
+target objects. [Glacier2](../../services/glacier2) is such a router.
 
 ## Asynchronous Method Invocation
 
