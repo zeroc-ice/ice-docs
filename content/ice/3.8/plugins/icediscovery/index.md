@@ -144,10 +144,8 @@ Incorporating IceDiscovery into your application requires answering the followin
   for the other objects by invoking operations on these initial objects.
 
 - How should clients refer to these objects? An indirect proxy is either an identity by itself, such as `factory`, or an
-  identity with an adapter ID, such as `factory@AccountAdapter`. Using only identities requires the identities to be
-  unique among all the clients and servers that share the same address and domain settings. Including an adapter ID
-  partitions the object namespace, so that `factory@AccountAdapter` and `factory@AdminAdapter` represent distinct
-  objects without requiring identities such as `accountFactory` and `adminFactory`.
+  identity with an adapter ID, such as `factory@AccountAdapter`. A proxy with only an identity doesn't depend on which
+  object adapter hosts the object.
 
 - Can unrelated applications share the same multicast address and port? If so, give each application its own
   [IceDiscovery.DomainId](../../property-reference/icediscovery-properties#icediscovery.domainid).
