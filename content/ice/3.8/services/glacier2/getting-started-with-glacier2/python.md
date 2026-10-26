@@ -15,10 +15,3 @@ The [Glacier2 greeter demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/pyth
 client and server in Python, and the configuration of the Glacier2 router between them.
 
 {% /language-section %}
-
-{% language-section name="session-demo" %}
-
-The [Glacier2 session demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/python/Glacier2/session) implements and
-configures a session manager in Python.
-
-{% /language-section %}

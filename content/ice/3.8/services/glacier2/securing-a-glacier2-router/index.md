@@ -68,6 +68,59 @@ Glacier2.PermissionsVerifier=Glacier2/NullPermissionsVerifier
 Note that the category of the object's identity (`Glacier2` in this example) must match the value of the property
 [Glacier2.InstanceName](../../../property-reference/glacier2-properties#glacier2.instancename).
 
+#### Supported Hash Formats
+
+A password hash in the password file has the form `$identifier$content`, where `identifier` names the hashing scheme and
+`content` holds the parameters and the hash of this scheme. The schemes the built-in verifier accepts depend on the
+platform:
+
+- On Linux, the schemes the system's `crypt` library supports, such as SHA-256 crypt (`$5$`) and SHA-512 crypt (`$6$`).
+- On macOS and Windows, PBKDF2 with SHA-1, SHA-256 or SHA-512 as the digest algorithm, in the
+  [format of passlib](https://passlib.readthedocs.io/en/stable/lib/passlib.hash.pbkdf2_digest.html):
+  `$pbkdf2$rounds$salt$checksum` for SHA-1, and `$pbkdf2-sha256$rounds$salt$checksum` or
+  `$pbkdf2-sha512$rounds$salt$checksum` for SHA-256 and SHA-512.
+
+#### `icehashpassword` Helper Script
+
+You can use the `icehashpassword` helper script to generate these password hashes. This script requires `Python` and
+`pip` to be installed. To install this script run:
+
+```shell
+pip install zeroc-icehashpassword
+```
+
+`icehashpassword` generates PBKDF2 hashes on Windows and macOS, and crypt hashes on Linux. It reads the password and
+prints the hash. On Linux:
+
+```shell
+icehashpassword
+Password:
+$6$rounds=656000$PFLqAztdBNhCjPeZ$GeZ3rLbMu4FObT78zAqQ15qJu0M/DSAZVBoNJCm95AaTflH.c06IcgFNbm8fOnl1ynGcEBqa.Ftgw3lJ0jPRm0
+```
+
+On Windows and macOS:
+
+```shell
+icehashpassword
+Password:
+$pbkdf2-sha256$29000$O4dQinGOcY7RWktJyXlvbQ$D0BZnA1kTw4Jl4xGUzdMOSxKO/vODiMCHEE9ZRLF4Gg
+```
+
+You may also specify several optional parameters:
+
+- `-d MESSAGE_DIGEST_ALGORITHM, --digest=MESSAGE_DIGEST_ALGORITHM`: `sha1`, `sha256` (the default), or `sha512` on
+  Windows and macOS; `sha256` or `sha512` (the default) on Linux.
+- `-s SALT_SIZE, --salt=SALT_SIZE` (Windows and macOS only)
+- `-r ROUNDS, --rounds=ROUNDS`
+
+For example:
+
+```shell
+icehashpassword -r 25000 -d sha256
+Password:
+...
+```
+
 ### Certificate Authentication
 
 The [createSessionFromSecureConnection](../getting-started-with-glacier2) operation does not require a user name or
