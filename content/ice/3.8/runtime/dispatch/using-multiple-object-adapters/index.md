@@ -1,6 +1,13 @@
 ---
 title: Using Multiple Object Adapters
 sidebarLabel: Multiple Object Adapters
+languages:
+  - cpp
+  - csharp
+  - java
+  - js
+  - python
+  - swift
 ---
 
 A typical server rarely needs to use more than one object adapter. If you are considering using multiple object
