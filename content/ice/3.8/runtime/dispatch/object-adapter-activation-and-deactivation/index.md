@@ -35,9 +35,10 @@ You usually don't need to deactivate or destroy an object adapter yourself: shut
 its object adapters, and destroying the communicator destroys them. To deactivate or destroy an object adapter while its
 communicator keeps running, call one of these methods:
 
-- **`deactivate`** The object adapter stops accepting connections and closes the connections it accepted, while the
-  dispatches in progress complete. A deactivated object adapter cannot be reactivated. Until destroyed, a deactivated
-  object adapter keeps dispatching the requests received over
+- **`deactivate`** The object adapter stops accepting connections, and closes each connection it accepted once the
+  dispatches in progress on this connection have completed and sent their replies; requests that arrive over these
+  connections in the meantime are not dispatched. A deactivated object adapter cannot be reactivated. Until destroyed, a
+  deactivated object adapter keeps dispatching the requests received over
   [bidirectional connections](../../connection-management/bidirectional-connections) and
   [collocated invocations](../../collocated-invocation-and-dispatch).
 - **`destroy`** The object adapter deactivates, waits for the dispatches in progress to complete, removes its servants,
