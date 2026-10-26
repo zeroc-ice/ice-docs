@@ -8,8 +8,9 @@ and links to the pages that describe each concept.
 ## Clients and Servers
 
 _Client_ and _server_ are roles that parts of an application take for the duration of a request: the client issues the
-request, and the server processes it. An application often takes both roles, for example when a client passes a callback
-object to a server, which then calls back into the client.
+request, and the server processes it. An application often takes both roles. For example, an application that sends a
+proxy to one of its objects in a request is the client of this request, and then the server of the callback requests
+that target this object.
 
 The side that opened a connection is not always the client: over a
 [bidirectional connection](../../runtime/connection-management/bidirectional-connections), the side that accepted the
