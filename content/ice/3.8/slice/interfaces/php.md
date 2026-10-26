@@ -4,11 +4,10 @@
 
 ### Proxy Objects
 
-In PHP, every proxy is an instance of the `Ice\ObjectPrx` class: the Slice-to-PHP compiler generates no proxy class for
-a Slice interface. Besides the identity, the endpoints and the other settings that tell Ice how to reach the target
-object, a proxy carries the definition of one Slice interface, its _type information_. The methods you can call on a
-proxy are the `ice_` methods of `ObjectPrx` and the operations of this interface, including the operations it inherits.
-A proxy whose type information is interface `Simple` is a _proxy for `Simple`_.
+In PHP, a single class, `Ice\ObjectPrx`, implements the proxies of every Slice interface. Each proxy carries the
+definition of one Slice interface, its _type information_, and acts as a proxy for that interface. A proxy whose type
+information is interface `Simple` is a _proxy for `Simple`_: besides the `ice_` methods of `ObjectPrx`, you can call the
+operations of `Simple` on it, including the operations `Simple` inherits.
 
 ### Creating a Proxy
 
