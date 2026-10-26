@@ -165,9 +165,11 @@ rather than the size of the thread pool, then determines which of the calls it r
 
 ## Running Code When a Thread Starts or Stops
 
-The `threadStart` and `threadStop` fields of `InitializationData` let your application run code on each thread of the
-communicator's thread pools: the thread calls `threadStart` when it starts and `threadStop` before it ends. Use them,
-for example, to set up and release the thread-local state that your dispatches rely on.
+The `threadStart` and `threadStop` fields of `InitializationData` let your application run code on the threads of the
+Ice thread pools, including the [thread pools of object adapters](../object-adapter-thread-pools): each of these threads
+calls `threadStart` when it starts and `threadStop` before it ends.{% iflang langs="csharp" %} In C#, the Ice timer
+thread, the thread that resolves DNS names and the thread that sends log messages to remote loggers also call
+them.{% /iflang %} Use them, for example, to set up and release the thread-local state that your dispatches rely on.
 
 {% /iflang %}
 
