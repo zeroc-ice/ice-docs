@@ -6,11 +6,14 @@ pages:
   - troubleshooting-windows-services
 ---
 
-A Windows service is a program that runs in the background and typically does not require user intervention. Windows
-usually starts a service when the system starts, and the service runs until the system shuts down.
+A Windows service is a program that runs in the background without user interaction. Depending on how a service is
+configured, Windows starts it when the system starts or when it is requested.
 
-The Ice services `glacier2router`, `icebox`, `icebridge`, `icegridnode` and `icegridregistry` run as Windows services
-when their command line includes the [`--service`](../command-line-options#windows-services) option. Windows starts a
-service only after it is installed: [Installing a Windows Service](./installing-a-windows-service) describes what an
-installation involves, and the [Ice service installer](./using-the-ice-service-installer) performs these steps for the
-IceGrid registry, the IceGrid node and the Glacier2 router.
+The Ice services `glacier2router`, `icebox`, `icebridge`, `icegridnode` and `icegridregistry` can run as Windows
+services. To run one of them as a Windows service, install it with the
+[`--service NAME`](../command-line-options#windows-services) option on its command line, where `NAME` is the name of the
+installed service.
+
+[Installing a Windows Service](./installing-a-windows-service) describes the installation. The
+[Ice service installer](./using-the-ice-service-installer) automates it for the IceGrid registry, the IceGrid node and
+the Glacier2 router, and adds `--service NAME` to the command line it registers.
