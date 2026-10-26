@@ -10,9 +10,9 @@ adapters.
 IceDiscovery is an [Ice plug-in](../plug-in-facility) that you install in both clients and servers. It installs a
 [locator](../../runtime/locators) in the communicator. In a server, an object adapter with an adapter ID registers its
 endpoints with this locator. In a client, this locator resolves an
-[indirect proxy](../../basics/terminology#indirect-proxies), such as `greeter@greeterAdapter` or `greeter`, by sending a
-lookup request over multicast to the servers; the server that hosts the object adapter or the object replies with its
-endpoints. The client does not need to configure the endpoints of the objects it uses.
+[indirect proxy](../../runtime/invocation/proxy-endpoints#proxy-with-no-endpoint), such as `greeter@greeterAdapter` or
+`greeter`, by sending a lookup request over multicast to the servers; the server that hosts the object adapter or the
+object replies with its endpoints. The client does not need to configure the endpoints of the objects it uses.
 
 IceDiscovery and [IceGrid](../../services/icegrid) both provide a location service. Use IceDiscovery when your
 application needs a lightweight, transient location service. IceGrid's location service is backed by a persistent
