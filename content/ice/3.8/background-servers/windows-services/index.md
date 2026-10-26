@@ -6,9 +6,8 @@ pages:
   - troubleshooting-windows-services
 ---
 
-A Windows service is a program that runs in the background and typically does not require user intervention. Similar to
-a daemon on Linux and macOS, a Windows service is usually launched automatically when the operating system starts and
-runs until the system shuts down.
+A Windows service is a program that runs in the background and typically does not require user intervention. Windows
+usually starts a service when the system starts, and the service runs until the system shuts down.
 
 The Ice services `glacier2router`, `icebox`, `icebridge`, `icegridnode` and `icegridregistry` run as Windows services
 when their command line includes the [`--service`](../command-line-options#windows-services) option. Windows starts a
