@@ -8,8 +8,9 @@ The Ice protocol uses five messages:
 - Request (from client to server)
 - Batch request (from client to server)
 - Reply (from server to client)
-- Validate connection (from server to client to establish the connection, then from either side as a heartbeat)
-- Close connection (client to server or server to client)
+- Validate connection (from the side that accepted the connection to the side that opened it, then from either side as a
+  heartbeat)
+- Close connection (from either side)
 
 Of these messages, validate and close connection only apply to connection-oriented transports such as `tcp`.
 
@@ -200,10 +201,10 @@ struct RequestFailedData
 
 ## Validate Connection Message
 
-A server sends a validate connection message when it accepts a new connection, to indicate that it is ready to receive
-requests: the client must not send any message on this connection before it receives the validate connection message.
-This message also confirms to the client that the server is indeed an Ice server and not another type of server reached
-by accident.
+The side that accepts a new connection sends a validate connection message to indicate that it is ready to receive
+requests: the side that opened the connection must not send any message on this connection before it receives the
+validate connection message. This message also confirms to the side that opened the connection that its peer is an Ice
+peer and not another type of server reached by accident.
 
 {% callout type="note" %}
 
@@ -213,7 +214,8 @@ Validate connection messages are only used for connection-oriented transports.
 
 {% callout type="note" %}
 
-After the client receives this message, either side can also send validate connection messages as a heartbeat.
+After the side that opened the connection receives this message, either side can also send validate connection messages
+as a heartbeat.
 
 {% /callout %}
 

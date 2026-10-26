@@ -11,6 +11,10 @@ _Client_ and _server_ are roles that parts of an application take for the durati
 request, and the server processes it. An application often takes both roles, for example when a client passes a callback
 object to a server, which then calls back into the client.
 
+The side that opened a connection is not always the client: over a
+[bidirectional connection](../../runtime/connection-management/bidirectional-connections), the side that accepted the
+connection sends requests too. See [Ice Protocol](../../protocol) for the names of the two sides of a connection.
+
 ## Ice Objects
 
 An _Ice object_ is an entity, in the local process or in a remote process, that responds to client requests. Each Ice
