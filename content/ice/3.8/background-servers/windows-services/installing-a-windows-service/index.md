@@ -7,7 +7,9 @@ The installation of a Windows service varies in complexity with the needs of the
 following activities:
 
 - Selecting the user account in which the service will run.
-- Registering the service and establishing its activation mode and dependencies.
+- Registering the service with a command line that includes
+  [`--service NAME`](../../command-line-options#windows-services), where `NAME` is the name of the service, and
+  establishing its activation mode and dependencies.
 - Creating one or more file system directories to contain executables, libraries, and supporting files or databases.
 - Configuring those directories with appropriate permissions so that they are accessible to the user account selected
   for the service.
