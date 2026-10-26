@@ -160,6 +160,8 @@ string prefix;
 auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix);
 ```
 
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
 ## Configuring the `Logger` Facet
 
 The `Logger` facet caches the most recent log messages sent to application's [Logger](../../logger-facility), to be able
@@ -177,6 +179,8 @@ sends them with a communicator of its own, which you configure with
 logger must therefore be reachable from the monitored application. Set
 [Ice.Trace.Admin.Logger](../../../property-reference/ice-trace-properties#ice.trace.admin.logger) to trace the
 attachment and detachment of remote loggers and the sending of log messages to them.
+
+{% /iflang %}
 
 {% iflang langs="python" %}
 
