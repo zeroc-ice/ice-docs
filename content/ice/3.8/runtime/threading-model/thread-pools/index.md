@@ -172,28 +172,6 @@ thread-local state that your dispatches rely on.
 
 {% /iflang %}
 
-{% iflang langs="csharp,java" %}
-
-## Running Your Own Tasks on a Thread Pool
-
-{% iflang langs="java" %}
-
-`ObjectPrx.ice_executor` returns an `Executor` that runs the tasks you give it on an Ice thread pool: the client thread
-pool, or the thread pool of the connection for a fixed proxy. Pass this executor to the `whenCompleteAsync` methods of
-the `CompletableFuture` returned by an asynchronous invocation to run the action on an Ice thread pool thread.
-
-{% /iflang %}
-
-{% iflang langs="csharp" %}
-
-`ObjectPrx.ice_scheduler` returns a `TaskScheduler` that runs the tasks you give it on an Ice thread pool: the client
-thread pool, or the thread pool of the connection for a fixed proxy. Pass this scheduler to `Task.ContinueWith` or
-`TaskFactory.StartNew` to run a continuation or a task on an Ice thread pool thread.
-
-{% /iflang %}
-
-{% /iflang %}
-
 ## See Also
 
 - [Thread Pool Design Considerations](../thread-pool-design-considerations)
