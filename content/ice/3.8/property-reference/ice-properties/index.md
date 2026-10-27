@@ -24,6 +24,14 @@ your own code to prevent memory leaks.
 
 {% /iflang %}
 
+{% iflang langs="php,python,ruby" %}
+
+{% callout type="note" %}
+This mapping always accepts class cycles and sets `Ice.AcceptClassCycles` to `1` during communicator initialization.
+{% /callout %}
+
+{% /iflang %}
+
 {% language-section name="ice.acceptclasscycles" /%}
 
 ## Ice.BackgroundLocatorCacheUpdates
@@ -122,7 +130,7 @@ significant improvement over lower levels. If not specified, the default value i
 
 {% /iflang %}
 
-{% iflang langs="cpp,csharp,matlab,php,python,ruby,swift" %}
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.Config
 
@@ -146,14 +154,20 @@ path names of one or more configuration files. Otherwise, `Ice.Config` must be s
 configuration files, separated by commas (path names can be relative or absolute). Property values are read from each of
 the configuration files listed.
 
+{% iflang langs="java" %}
+
+In Java, Ice first attempts to open a configuration file as a
+[class loader resource](../../runtime/properties-and-configuration/alternate-property-stores). If that attempt fails,
+Ice opens the configuration file in the local file system.
+
+{% /iflang %}
+
 Configuration files use a simple [syntax](../../runtime/properties-and-configuration/configuration-file-syntax)
 consisting of _name_=_value_ pairs with support for comments and escaping.
 
 {% /property-description %}
 
 {% /iflang %}
-
-{% language-section name="ice.config" /%}
 
 {% iflang langs="cpp" %}
 
@@ -289,9 +303,7 @@ value is `1`.
 
 {% /iflang %}
 
-{% language-section name="ice.ipv4" /%}
-
-{% iflang langs="cpp,csharp,matlab,php,python,ruby,swift" %}
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.IPv6
 
@@ -305,6 +317,17 @@ value is `1`.
 
 Specifies whether Ice uses IPv6. If `num` is a value greater than `0`, IPv6 is enabled. If not specified, the default
 value is `1` if the system supports the creation of IPv6 sockets, and `0` otherwise.
+
+{% iflang langs="java" %}
+
+Java's default network stack always accepts both IPv4 and IPv6 connections regardless of the settings of `Ice.IPv6`. You
+can configure the Java runtime to use only IPv4 by starting your application with the following JVM option:
+
+```shell
+java -Djava.net.preferIPv4Stack=true ...
+```
+
+{% /iflang %}
 
 {% /property-description %}
 
@@ -635,9 +658,7 @@ means Ice retries once immediately. A first value of `-1` disables retries.
 
 {% /property-description %}
 
-{% language-section name="ice.retryintervals" /%}
-
-{% iflang langs="cpp,python,swift" %}
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
 ## Ice.ServerIdleTime
 
@@ -658,12 +679,27 @@ return. After that, a server will typically do some clean-up work before exiting
 the server will not shut down automatically. This property is often used for servers that are automatically
 [activated by IceGrid](../../services/icegrid/icegrid-server-activation).
 
+{% iflang langs="cpp,python,swift" %}
+
 {% callout type="note" %}
 
 On Windows, the server idle time takes effect only once all the server thread pool idle threads have been reaped. The
 thread idle time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
 
 {% /callout %}
+
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
+{% callout type="note" %}
+
+The server idle time takes effect only once all the server thread pool idle threads have been reaped. The thread idle
+time can be configured with the [ThreadIdleTime](../ice-threadpool-properties) thread pool property.
+
+{% /callout %}
+
+{% /iflang %}
 
 {% /property-description %}
 
@@ -714,7 +750,7 @@ uses the SOCKS proxy.
 
 {% /callout %}
 
-{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
+{% iflang langs="cpp,swift" %}
 
 SOCKS proxies are not supported on the iOS simulator.
 
@@ -792,15 +828,14 @@ property is checked only for the first communicator created in a process.
 
 {% /iflang %}
 
-{% language-section name="ice.stdout" /%}
-
-{% iflang langs="cpp,matlab,php,python,ruby,swift" %}
+{% iflang langs="cpp,java,matlab,php,python,ruby,swift" %}
 
 ## Ice.SyslogFacility
 
 {% property-synopsis %}
 
-`Ice.SyslogFacility=string` (Linux and macOS only)
+`Ice.SyslogFacility=string`{% iflang langs="cpp,matlab,php,python,ruby,swift" %} (Linux and macOS
+only){% /iflang %}{% iflang langs="java" %} (not available on Windows){% /iflang %}
 
 {% /property-synopsis %}
 
