@@ -6,20 +6,21 @@ pages:
   - protocol-in-a-nutshell
 ---
 
-In the [Greeter example](../greeter-example), you wrote a client that calls an operation of an Ice object hosted by a
-server. The client and the server are separate programs, often on different computers, yet the call looks like an
-ordinary method call: Ice takes care of the communication. This is the idea behind a
-[remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an application calls an operation
-that another application implements, without writing any networking code.
+In the [Greeter example](../greeter-example), you wrote a client that calls an operation of an
+[Ice object](./terminology#ice-objects) hosted by a server. The client and the server are separate programs, often on
+different computers, yet the call looks like an ordinary method call: Ice takes care of the communication. This is the
+idea behind a [remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an application calls
+an operation that another application implements, without writing any networking code.
 
 ## How a Call Works
 
 When a client calls an operation:
 
-1. The client calls a method on a _proxy_, a local object that represents the Ice object.
-2. Ice sends a request, with the operation's arguments, to the server that hosts the Ice object.
-3. In the server, Ice dispatches the request to the _servant_, the object in your server code that implements the Ice
+1. The client calls a method on a [_proxy_](./terminology#proxies), a local object that represents the remote Ice
    object.
+2. Ice sends a request, with the operation's arguments, to the server that hosts the Ice object.
+3. In the server, Ice dispatches the request to the [_servant_](./terminology#servants), the object in your server code
+   that implements the Ice object.
 4. Ice sends the result, or the exception the servant throws, back to the client, and the proxy method returns it to the
    caller.
 
