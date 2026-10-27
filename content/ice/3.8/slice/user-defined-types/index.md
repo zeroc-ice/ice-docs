@@ -8,7 +8,7 @@ pages:
   - dictionaries
 ---
 
-Besides its [basic types](../basic-types), Slice lets you define the types of the data that your operations exchange:
+Slice has five kinds of user-defined types:
 
 - An [enumeration](./enumerations) is a type with a fixed set of named values, such as
   `enum Fruit { Apple, Pear, Orange }`.
