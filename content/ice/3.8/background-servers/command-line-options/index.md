@@ -7,7 +7,9 @@ command line options.
 
 ## Windows Services
 
-- `--service NAME` Run as a Windows service named `NAME`, which must already be installed.
+- `--service NAME` Run as the Windows service named `NAME`. This option belongs in the command line registered for the
+  service, which Windows runs to start it. The service logs to the Windows event log under the source `NAME`, unless
+  [Ice.EventLog.Source](../../property-reference/ice-properties#ice.eventlog.source) is set.
 
 ## Linux and macOS Daemons
 

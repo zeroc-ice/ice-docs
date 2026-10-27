@@ -211,7 +211,7 @@ permanent:
   ':lang(cpp|csharp|java|js|python|swift)/implementing-an-icestorm-subscriber': 'services/icestorm/using-icestorm/implementing-an-icestorm-subscriber?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/implicit-request-contexts': 'runtime/invocation/request-contexts/implicit-request-contexts?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/indirect-proxy-with-object-adapter-identifier': 'runtime/invocation/proxy-endpoints/indirect-proxy-with-object-adapter-identifier?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/installing-a-windows-service': 'background-servers/windows-services/installing-a-windows-service?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/installing-a-windows-service': 'background-servers/windows-services?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/interface-inheritance': 'slice/interfaces/interface-inheritance?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/interfaces': 'slice/interfaces?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/invocation-timeouts': 'runtime/invocation/invocation-timeouts?lang=:lang'
