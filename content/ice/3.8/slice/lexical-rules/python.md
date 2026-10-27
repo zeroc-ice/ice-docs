@@ -1,26 +1,21 @@
 {% language-section name="mapping" %}
 
-A Python identifier maps to an identical Python identifier. For example, the Python identifier `Clock` becomes the
-Python identifier `Clock`.
+A Slice identifier maps to an identical Python identifier. For example, the Slice identifier `Clock` becomes the Python
+identifier `Clock`. A single Slice identifier often results in several Python identifiers: for a Slice interface named
+`Greeter`, the generated Python code uses the identifiers `Greeter` and `GreeterPrx`.
 
-A single Slice identifier often results in several Python identifiers. For example, for a Slice interface named
-`Greeter`, the generated Python code uses the identifiers `Greeter` and `GreeterPrx` (among others).
-
-You can change this mapping and specify your own Python identifier with the `python:identifier` metadata directive. For
-example, we can remap `Greeter` to `Receptionist` as follows:
+A Slice identifier that is a Python keyword keeps its name in the generated Python code, which is then invalid. Give
+this identifier a Python name of your choice with the `python:identifier` metadata directive. For example, `raise` is a
+Python keyword but a valid Slice identifier:
 
 ```slice
-["python:identifier:Receptionist"]
-interface Greeter { ... }
+struct Salary
+{
+    ["python:identifier:raiseAmount"]
+    double raise;
+}
 ```
 
-The resulting Python classes are `Receptionist` and `ReceptionistPrx`.
-
-{% callout type="warning" %}
-
-When you use a Python keyword such as `raise` as a Slice identifier, use `python:identifier` to remap this identifier in
-the generated Python code. Without this remapping, the generated Python code may be invalid.
-
-{% /callout %}
+In the generated Python code, the field `raise` becomes `raiseAmount`.
 
 {% /language-section %}
