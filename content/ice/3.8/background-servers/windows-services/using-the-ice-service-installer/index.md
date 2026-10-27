@@ -48,7 +48,7 @@ syntax. The supported properties are described [below](#iceserviceinstall-proper
 ## Security Considerations for Ice Services
 
 None of the Ice services require privileges beyond a normal user account. In the case of the IceGrid node service in
-particular, we do not recommend running it in a [user account](../installing-a-windows-service) with elevated privileges
+particular, we do not recommend running it in a [user account](#iceserviceinstall-properties) with elevated privileges
 because the node launches server executables, and those servers inherit its access rights.
 
 ## `iceserviceinstall` Configuration File
@@ -192,7 +192,6 @@ configuration you installed it with.
 - [icegridregistry](../../../services/icegrid/icegrid-server-reference/icegridregistry)
 - [icegridnode](../../../services/icegrid/icegrid-server-reference/icegridnode)
 - [Getting Started with Glacier2](../../../services/glacier2/getting-started-with-glacier2)
-- [Installing a Windows Service](../installing-a-windows-service)
 - [Troubleshooting Windows Services](../troubleshooting-windows-services)
 - [IceGrid.*](../../../property-reference/icegrid-properties)
 - [Glacier2.*](../../../property-reference/glacier2-properties)

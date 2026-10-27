@@ -14,5 +14,6 @@ permanent:
   'release-notes/supported-platforms-for-ice-3-8-3': 'releases/ice-3-8-3/supported-platforms'
   'services/icegrid/application-distribution/ansible': 'upgrade-guide#icegrid'
   'background-servers/windows-services/manually-installing-a-service-as-a-windows-service': 'background-servers/windows-services/using-the-ice-service-installer'
+  'background-servers/windows-services/installing-a-windows-service': 'background-servers/windows-services'
   'runtime/invocation/proxy-defaults-and-overrides': 'runtime/invocation/proxy-defaults'
   'basics/services-overview': 'services'

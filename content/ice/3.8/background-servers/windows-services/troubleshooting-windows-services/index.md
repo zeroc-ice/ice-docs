@@ -28,9 +28,9 @@ A Windows service commonly fails to start because of:
   its own account and environment, so its `PATH` can differ from yours
 
 A Windows service runs under the account selected when it is
-[installed](../installing-a-windows-service#selecting-a-user-account-for-the-service), which may not have access to
-resources owned by other users. Check the access rights of this account to the files and directories the service uses,
-or select a different account in the Services control panel.
+[installed](../using-the-ice-service-installer#iceserviceinstall-properties), which may not have access to resources
+owned by other users. Check the access rights of this account to the files and directories the service uses, or select a
+different account in the Services control panel.
 
 ## Windows Firewall Interference
 
@@ -94,4 +94,4 @@ averages the node reports.
 ## See Also
 
 - [Load Balancing](../../../services/icegrid/load-balancing)
-- [Installing a Windows Service](../installing-a-windows-service)
+- [Using the Ice Service Installer](../using-the-ice-service-installer)
