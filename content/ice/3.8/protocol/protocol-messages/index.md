@@ -203,8 +203,8 @@ struct RequestFailedData
 
 The side that accepts a new connection sends a validate connection message to indicate that it is ready to receive
 requests: the side that opened the connection must not send any message on this connection before it receives the
-validate connection message. This message also confirms to the side that opened the connection that its peer is an Ice
-peer and not another type of server reached by accident.
+validate connection message. This message also confirms to the side that opened the connection that its peer speaks the
+Ice protocol, and is not another kind of server reached by accident.
 
 {% callout type="note" %}
 
@@ -214,8 +214,8 @@ Validate connection messages are only used for connection-oriented transports.
 
 {% callout type="note" %}
 
-After the side that opened the connection receives this message, either side can also send validate connection messages
-as a heartbeat.
+After the side that opened the connection receives this message, either side can send validate connection messages as
+heartbeats.
 
 {% /callout %}
 

@@ -10,13 +10,13 @@ The Ice protocol is an
 number of message types exchanged between two peers, together with rules as to what message is to be sent under what
 circumstances.
 
-The protocol pages name each role after the layer it belongs to:
+These pages use the following terms:
 
-- A connection has two sides: the side that opened the connection and the side that accepted it.
-- A request has a client and a server, as defined in [Terminology](../basics/terminology#clients-and-servers): the
-  client sends the request and the server sends the reply.
-- A message has a sender and a receiver. Rules that apply to every message, such as compression and the message size
-  limit, use these terms.
+- The side that opened a connection and the side that accepted it.
+- The client, which sends a request message, and the server, which dispatches the request and sends the reply message:
+  the roles [Terminology](../basics/terminology#clients-and-servers) defines.
+- The sender and the receiver of a message, for the rules that apply to every message, such as compression and the
+  message size limit.
 
 On an ordinary connection, the side that opened the connection is the client of every request. On a
 [bidirectional connection](../runtime/connection-management/bidirectional-connections), the side that accepted the
