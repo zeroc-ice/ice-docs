@@ -3,7 +3,9 @@ title: Writing a Greeter Client
 sidebarLabel: Writing the Client
 ---
 
-This page presents a step-by-step guide to writing the client-side of our TypeScript Greeter application.
+This page presents a step-by-step guide to writing the client-side of our TypeScript Greeter application, which runs in
+Node.js. For a client that runs in a web browser, see
+[Writing a Browser Greeter Client](../writing-a-browser-greeter-client).
 
 This client creates a proxy to a remote object that implements the `Greeter` interface and invokes the `greet` operation
 on this object.

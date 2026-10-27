@@ -5,6 +5,7 @@ pages:
   - defining-the-greeter-interface-in-slice
   - writing-a-greeter-server
   - writing-a-greeter-client
+  - writing-a-browser-greeter-client
 ---
 
 Writing a client-server application with Ice does not take much code. See for yourself!
@@ -27,10 +28,21 @@ We write the server first: a client has nothing to call until a server is runnin
 
 {% /iflang %}
 
-{% iflang langs="js,matlab,php,ruby" %}
+{% iflang langs="matlab,php,ruby" %}
 
 1. **Using Slice** How to use the [Slice IDL](../slice) to define a contract between clients and servers.
 2. **Writing a client** How to write a client that communicates with an Ice server.
+
+This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python
+or Swift, and call it from the client you write here.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+1. **Using Slice** - How to use the [Slice IDL](../slice) to define a contract between clients and servers.
+2. **Writing a client** - How to write a Node.js client that communicates with an Ice server.
+3. **Writing a browser client** - How to write a client that runs in a web browser.
 
 This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python
 or Swift, and call it from the client you write here.
