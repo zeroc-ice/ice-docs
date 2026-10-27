@@ -14,8 +14,10 @@ offered by structs:
 
 - **Extensibility** You can extend a class through inheritance and optional fields
 - **Graph preservation** You can transmit a graph of class instances through a Slice operation
-- **Null/not-set value** A class parameter or field can be null or not-set, whereas a struct parameter or field must
-  have a value
+- **Null value** A class parameter or field can be null. A struct parameter or field always holds a value, unless it is
+  an [optional parameter](../../operations#optional-parameters-and-return-values) or
+  [optional field](../../fields#optional-fields) that is not set; a class cannot be the type of an optional parameter or
+  field
 - **Slicing** A recipient can unmarshal a class instance into a base class by slicing off derived "slices" it does not
   know
 
