@@ -261,7 +261,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/oneway-invocations': 'runtime/invocation/invocation-mode/oneway-invocations?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/operations': 'slice/operations?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/operations-on-object': 'slice/operations-on-object?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/overview-of-the-ice-protocol': 'basics/protocol-in-a-nutshell?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/overview-of-the-ice-protocol': 'protocol?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/parameter-descriptor-element': 'services/icegrid/icegrid-xml-reference/parameter-descriptor-element?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/per-proxy-request-contexts': 'runtime/invocation/request-contexts/per-proxy-request-contexts?lang=:lang'
   ':lang(php)/php-mapping-for-classes': 'slice/user-defined-types/classes?lang=:lang'

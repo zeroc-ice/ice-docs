@@ -17,3 +17,4 @@ permanent:
   'background-servers/windows-services/installing-a-windows-service': 'background-servers/windows-services'
   'runtime/invocation/proxy-defaults-and-overrides': 'runtime/invocation/proxy-defaults'
   'basics/services-overview': 'services'
+  'basics/protocol-in-a-nutshell': 'protocol'

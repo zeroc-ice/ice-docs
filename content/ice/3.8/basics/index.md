@@ -3,7 +3,6 @@ title: Basics
 pages:
   - slice-and-slice-compilers
   - terminology
-  - protocol-in-a-nutshell
 ---
 
 In the [Greeter example](../greeter-example), you wrote a client that calls an operation of an
@@ -23,6 +22,9 @@ When a client calls an operation:
    that implements the Ice object.
 4. Ice sends the result, or the exception the servant throws, back to the client, and the proxy method returns it to the
    caller.
+
+Ice sends requests and replies as messages of the [Ice protocol](../protocol), over a [transport](../runtime/transports)
+such as TCP, SSL, or WebSocket. The Ice runtime creates and reads these messages: your application never handles them.
 
 The client and the server agree on the operations and the types of their parameters through [Slice](../slice)
 definitions. Slice does not depend on a programming language, so a client and a server written in different languages
@@ -60,5 +62,5 @@ C++, C#, Java, or Python.
 
 {% /iflang %}
 
-The rest of this chapter introduces [Slice and the Slice compilers](./slice-and-slice-compilers), the
-[terminology](./terminology) the manual uses, and the [Ice protocol](./protocol-in-a-nutshell).
+The rest of this chapter introduces [Slice and the Slice compilers](./slice-and-slice-compilers), and the
+[terminology](./terminology) the manual uses.
