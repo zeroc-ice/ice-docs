@@ -29,9 +29,7 @@ unsigned types, such as Java).
 ## Floating-Point Types
 
 These types follow the IEEE specification for single- and double-precision floating-point representation
-[\[1\]](#references). If an implementation cannot support IEEE format floating-point values, the Ice runtime converts
-values into the native floating-point representation (possibly at a loss of precision or even magnitude, depending on
-the capabilities of the native floating-point format).
+[\[1\]](#references).
 
 ## Strings
 
@@ -52,5 +50,5 @@ The Slice type `byte` is an 8-bit type. A `sequence<byte>` carries binary data u
 
 ## References
 
-1. Institute of Electrical and Electronics Engineers. 1985. _IEEE 754-1985 Standard for Binary Floating-Point
-   Arithmetic_. Piscataway, NJ: Institute of Electrical and Electronic Engineers.
+1. Institute of Electrical and Electronics Engineers. 2019. _IEEE 754-2019 Standard for Floating-Point Arithmetic_.
+   Piscataway, NJ: Institute of Electrical and Electronics Engineers.
