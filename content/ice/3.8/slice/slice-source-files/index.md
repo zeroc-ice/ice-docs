@@ -9,9 +9,9 @@ Files containing Slice definitions must end in a `.ice` file extension, for exam
 
 Slice is a free-form language: white space separates tokens, and the layout of a definition has no meaning.
 
-Slice files can be ASCII text files or use the UTF-8 character encoding, with an optional byte order marker (BOM) at the
-beginning of the file. Identifiers are limited to ASCII characters; non-ASCII characters can appear only in comments and
-string literals. See [Identifiers](../lexical-rules#identifiers) for the characters an identifier can use.
+Slice files use the UTF-8 character encoding, with an optional byte order mark (BOM) at the beginning of the file.
+Identifiers are limited to ASCII characters; non-ASCII characters can appear only in comments and string literals. See
+[Identifiers](../lexical-rules#identifiers) for the characters an identifier can use.
 
 ## Including Other Slice Files
 
@@ -35,7 +35,7 @@ module VisitorCenter
 // File Greeter.ice
 #pragma once
 
-#include <Types.ice>
+#include "Types.ice"
 
 module VisitorCenter
 {
@@ -50,18 +50,17 @@ A Slice compiler parses the files that a file includes, but generates code only 
 line. In this example, compiling `Greeter.ice` generates no code for `Greeting`: compile `Types.ice` as well. The
 [`-I` option](../using-the-slice-compiler) of the Slice compilers adds a directory to the include search path.
 
-`#include` directives must come before any Slice definitions in a file. In a path, use a forward slash as the separator,
-including on Windows:
+`#include` directives must come before any Slice definitions in a file. In a path, use a forward slash as the separator:
 
 ```slice
-#include <SliceDefs/Types.ice>  // OK
-#include <SliceDefs\Types.ice>  // Illegal
+#include "SliceDefs/Types.ice"  // OK
+#include "SliceDefs\Types.ice"  // Illegal
 ```
 
 ### Preventing Double Inclusion
 
-A file that several other files include must not be processed twice. Start it with `#pragma once`, as in the example
-above, or protect its contents with a guard:
+A file that several files include must be read only once in a compilation. Start it with `#pragma once`, as in the
+example above, or protect its contents with a guard:
 
 ```slice
 // File Types.ice
