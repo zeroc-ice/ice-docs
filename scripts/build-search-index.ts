@@ -10,8 +10,9 @@
 // A record is one page. Its headings are folded into keyword blobs rather than
 // becoming records of their own: it keeps the index small while still matching
 // the thing readers actually search for (`Ice.Default.Locator`, `AMI`). The
-// shared text's headings match for every reader, and each mapping's own match
-// only for that mapping's readers, who are the only ones to see them.
+// headings every mapping sees match for every reader; a heading in a mapping's
+// overlay, or in an `{% iflang %}` block of the shared text, matches only for
+// the readers of the mappings that see it.
 
 // cspell:words predev
 
@@ -26,6 +27,7 @@ import {
 } from '../lib/docs-model/content.ts';
 import { ICE_VERSIONS } from '../app/ice/versions.ts';
 import { pageHref, trailTo, type NavDoc } from '../lib/docs-model/nav.ts';
+import { projectLanguage } from '../lib/project-language.ts';
 import { splitFrontmatter, splitLines } from '../lib/docs-model/resolve.ts';
 
 const OUT = path.join(process.cwd(), 'public', 'search');
@@ -80,8 +82,22 @@ for (const version of ICE_VERSIONS) {
   const records: object[] = [];
   for (const page of listPages(version)) {
     const { shared, overlays, frontmatter } = readPageSources(page);
+    const sharedBody = shared ? splitFrontmatter(shared).body : '';
+    const seenBy = Object.fromEntries(
+      version.languages.map((language) => [
+        language,
+        new Set([
+          ...headings(projectLanguage(sharedBody, language)),
+          ...(overlays[language] === undefined
+            ? []
+            : headings(splitFrontmatter(overlays[language]).body))
+        ])
+      ])
+    );
     const common = new Set(
-      headings(shared ? splitFrontmatter(shared).body : '')
+      headings(sharedBody).filter((heading) =>
+        Object.values(seenBy).every((seen) => seen.has(heading))
+      )
     );
     records.push({
       t: frontmatter.title,
@@ -91,12 +107,12 @@ for (const version of ICE_VERSIONS) {
       h: pageHref(version, page.slug),
       x: [...common].join(' · '),
       l: Object.fromEntries(
-        Object.entries(overlays).map(([language, source]) => [
-          language,
-          [...new Set(headings(splitFrontmatter(source).body))]
-            .filter((heading) => !common.has(heading))
-            .join(' · ')
-        ])
+        Object.entries(seenBy)
+          .map(([language, seen]): [string, string] => [
+            language,
+            [...seen].filter((heading) => !common.has(heading)).join(' · ')
+          ])
+          .filter(([, keywords]) => keywords)
       ),
       w: writtenFor(page, frontmatter)
     });
