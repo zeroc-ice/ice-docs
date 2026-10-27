@@ -5,11 +5,10 @@ pages:
   - terminology
 ---
 
-In the [Greeter example](../greeter-example), you wrote a client that calls an operation of an
-[Ice object](./terminology#ice-objects) hosted by a server. The client and the server are separate programs, often on
-different computers, yet the call looks like an ordinary method call: Ice takes care of the communication. This is the
-idea behind a [remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an application calls
-an operation that another application implements, without writing any networking code.
+In the [Greeter example](../greeter-example), a client calls an operation of an [Ice object](./terminology#ice-objects)
+hosted by a server, often on another computer, and the call looks like an ordinary method call. This is a
+[remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an application calls an operation
+that another application implements, and Ice takes care of the communication.
 
 ## How a Call Works
 
@@ -58,5 +57,5 @@ C++, C#, Java, Python, or Swift.
 
 {% /iflang %}
 
-The rest of this chapter introduces [Slice and the Slice compilers](./slice-and-slice-compilers), and the
-[terminology](./terminology) the manual uses.
+The rest of this chapter introduces [Slice and the Slice compilers](./slice-and-slice-compilers) and
+[Ice terminology](./terminology).
