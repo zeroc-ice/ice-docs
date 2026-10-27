@@ -60,19 +60,19 @@ in the client would select the endpoint for the initial connection attempt.
 In IceGrid, _deployment_ is the process of describing an application to the registry. This description includes the
 following information:
 
-- Replica groups A _replica group_ is the term for a collection of
+- **Replica groups** A _replica group_ is the term for a collection of
   [replicated object adapters](../object-adapter-replication). An application can create any number of replica groups.
   Each group requires a unique ID.
 
-- Nodes An application must assign its servers to one or more nodes.
+- **Nodes** An application must assign its servers to one or more nodes.
 
-- Servers A server's description includes a unique name and the path to its executable. It also lists the object
+- **Servers** A server's description includes a unique name and the path to its executable. It also lists the object
   adapters it creates.
 
-- Object adapters Information about an object adapter includes its endpoints and any well-known objects it advertises.
-  If the object adapter is a member of a replica group, it must also supply that group's ID.
+- **Object adapters** Information about an object adapter includes its endpoints and any well-known objects it
+  advertises. If the object adapter is a member of a replica group, it must also supply that group's ID.
 
-- Objects A [_well-known object_](../well-known-objects) is one that is known solely by its identity. The registry
+- **Objects** A [_well-known object_](../well-known-objects) is one that is known solely by its identity. The registry
   maintains a global list of such objects for use during locate requests.
 
 IceGrid uses the term _descriptor_ to refer to the description of an application and its components; deploying an

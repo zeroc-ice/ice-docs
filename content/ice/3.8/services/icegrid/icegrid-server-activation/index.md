@@ -7,16 +7,16 @@ sidebarLabel: Server Activation
 
 You can choose among four activation modes for servers deployed and managed by an IceGrid node:
 
-- Manual You must start the server explicitly via the IceGrid GUI or `icegridadmin`, or programmatically via the
+- `manual`: You must start the server explicitly via the IceGrid GUI or `icegridadmin`, or programmatically via the
   `IceGrid::Admin` interface.
 
-- Always IceGrid activates the server when its node starts. If the server stops, IceGrid automatically reactivates it.
-  If server activation fails, IceGrid disables the server and does not retry starting it unless
+- `always`: IceGrid activates the server when its node starts. If the server stops, IceGrid automatically reactivates
+  it. If server activation fails, IceGrid disables the server and does not retry starting it unless
   `IceGrid.Node.DisableOnFailure` is configured.
 
-- On demand IceGrid activates the server when a client invokes an operation on an object in the server.
+- `on-demand`: IceGrid activates the server when a client invokes an operation on an object in the server.
 
-- Session This mode also provides on-demand activation but requires the server to be allocated by a session.
+- `session`: This mode also provides on-demand activation but requires the server to be allocated by a session.
 
 ## Server Activation in Detail
 

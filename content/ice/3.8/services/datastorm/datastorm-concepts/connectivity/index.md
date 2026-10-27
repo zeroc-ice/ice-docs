@@ -5,9 +5,9 @@ title: Connectivity
 DataStorm [nodes](../node) connect to each other to exchange [samples](../sample). DataStorm supports multiple
 networking configurations to establish these connections:
 
-- **Multicast discovery** — nodes automatically discover peers using UDP multicast.
-- **Direct connections** — nodes connect directly to specific peers using configured endpoints.
-- **Broker nodes** — nodes connect through broker nodes that act as discovery hubs or relay points within the network.
+- **Multicast discovery** Nodes automatically discover peers using UDP multicast.
+- **Direct connections** Nodes connect directly to specific peers using configured endpoints.
+- **Broker nodes** Nodes connect through broker nodes that act as discovery hubs or relay points within the network.
 
 ## Multicast Discovery
 

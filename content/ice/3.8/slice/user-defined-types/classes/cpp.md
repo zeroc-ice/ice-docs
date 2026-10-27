@@ -51,11 +51,11 @@ There are a number of things to note about this generated code:
 
 Classes have two constructors:
 
-- **a default constructor that default-constructs each data member** This constructor is `= default` and does not
-  initialize a data member of type `bool`, of an integer, floating-point or enumeration type. The Slice compiler
-  generates a data member initializer for each field with a [default value](../../fields#default-values).
-- **a constructor with one parameter for each data member (the _one-shot_ constructor)** This constructor allows you to
-  construct and initialize a class instance in a single statement.
+- **Default constructor** Default-constructs each data member. This constructor is `= default` and does not initialize a
+  data member of type `bool`, of an integer, floating-point or enumeration type. The Slice compiler generates a data
+  member initializer for each field with a [default value](../../fields#default-values).
+- **One-shot constructor** Takes one parameter for each data member, so you can construct and initialize a class
+  instance in a single statement.
 
 For derived classes, the one-shot constructor has one parameter for each of the base class's data members, plus one
 parameter for each of the derived class's data members, in base-to-derived order. For example:

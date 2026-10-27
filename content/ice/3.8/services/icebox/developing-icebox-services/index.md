@@ -38,13 +38,13 @@ how to configure your service into an IceBox server.
 A service implementation can indicate a failure by throwing an exception. IceBox handles the exception according to when
 it occurs:
 
-- **Initial startup:** If the service's entry point or initial `start` call throws, the server terminates as described
-  in [Starting the IceBox Server](../starting-the-icebox-server#icebox-server-failures).
-- **Administrative start:** If `start` throws during `ServiceManager.startService`, IceBox logs a warning, records the
+- **Initial startup** If the service's entry point or initial `start` call throws, the server terminates as described in
+  [Starting the IceBox Server](../starting-the-icebox-server#icebox-server-failures).
+- **Administrative start** If `start` throws during `ServiceManager.startService`, IceBox logs a warning, records the
   service as stopped, and returns normally from `startService`.
-- **Administrative stop:** If `stop` throws during `ServiceManager.stopService`, IceBox logs a warning, records the
+- **Administrative stop** If `stop` throws during `ServiceManager.stopService`, IceBox logs a warning, records the
   service as started, and returns normally from `stopService`.
-- **Server shutdown:** If `stop` throws, IceBox logs a warning and continues stopping the remaining services and
+- **Server shutdown** If `stop` throws, IceBox logs a warning and continues stopping the remaining services and
   destroying their communicators.
 
 Because `startService` and `stopService` return normally in these cases, use `ServiceManager.isServiceRunning` to check

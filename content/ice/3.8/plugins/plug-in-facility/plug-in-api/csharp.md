@@ -19,15 +19,15 @@ public interface Plugin
 
 A plug-in object's lifecycle consists of four phases:
 
-- **Construction.** Ice calls the plug-in factory during communicator initialization. Acquire resources here, but defer
+- **Construction** Ice calls the plug-in factory during communicator initialization. Acquire resources here, but defer
   starting threads and using other plug-ins until `initialize`.
-- **Initialization.** After constructing all plug-ins, Ice calls `initialize` in construction order. Factories in
+- **Initialization** After constructing all plug-ins, Ice calls `initialize` in construction order. Factories in
   `InitializationData.pluginFactories` run in list order, followed by plug-ins loaded through configuration. Use
   [Ice.PluginLoadOrder](../../../property-reference/ice-properties#ice.pluginloadorder) to order the latter. A plug-in
   can use another plug-in after that plug-in has initialized.
-- **Active use.** The plug-in provides its services until the communicator is destroyed. Its implementation must handle
+- **Active use** The plug-in provides its services until the communicator is destroyed. Its implementation must handle
   concurrent calls when multiple threads use these services.
-- **Destruction.** When the communicator is destroyed, Ice calls `destroy` in reverse initialization order.
+- **Destruction** When the communicator is destroyed, Ice calls `destroy` in reverse initialization order.
 
 If the `initialize` method of a plug-in throws an exception, communicator initialization fails with
 `PluginInitializationException`. Ice does not call `destroy` on this plug-in: `initialize` must release the resources it

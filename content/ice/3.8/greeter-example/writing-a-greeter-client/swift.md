@@ -47,8 +47,8 @@ import Foundation
 import Ice
 ```
 
-- `Foundation` - Used to obtain the username.
-- `Ice` - For accessing the Ice runtime
+- `Foundation`: Used to obtain the username.
+- `Ice`: For accessing the Ice runtime
 
 Next is the client logic, which can be broken down into four pieces:
 

@@ -26,8 +26,8 @@ The Adapter Properties panel offers the following fields:
 - **Published Endpoints** The configured published endpoints for this object adapter. Corresponds to the
   [_adapter-name_.PublishedEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
   actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
-- **Proxy** **Options** The default Proxy Options for well-known objects defined within this object adapter, and the
-  Proxy Options for proxies created by this object adapter. Corresponds to the
+- **Proxy Options** The default Proxy Options for well-known objects defined within this object adapter, and the Proxy
+  Options for proxies created by this object adapter. Corresponds to the
   [_adapter-name_.ProxyOptions](../../../../../../property-reference/object-adapter-properties) property. Default: empty
   string.
 - **Server Lifetime** When checked, IceGrid expects this adapter to register its endpoints during server startup and

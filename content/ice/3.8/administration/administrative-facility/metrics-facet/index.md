@@ -40,12 +40,12 @@ class Metrics
 
 The fields of `Metrics` are:
 
-- `id`: the ID of the metrics object, built from the attributes named by the map's
+- `id`: The ID of the metrics object, built from the attributes named by the map's
   [GroupBy](../../../property-reference/icemx-metrics-properties#icemx.metrics.view.groupby) property.
-- `total`: the number of instrumented objects that the metrics object has observed since its creation.
-- `current`: the number of instrumented objects it observes now.
-- `totalLifetime`: the sum, in microseconds, of the lifetimes of the instrumented objects it no longer observes.
-- `failures`: the number of failures that have occurred for these instrumented objects.
+- `total`: The number of instrumented objects that the metrics object has observed since its creation.
+- `current`: The number of instrumented objects it observes now.
+- `totalLifetime`: The sum, in microseconds, of the lifetimes of the instrumented objects it no longer observes.
+- `failures`: The number of failures that have occurred for these instrumented objects.
 
 Each [`IceMX::MetricsFailures`](https://code.zeroc.com/ice/3.8/api/slice/structIceMX_1_1MetricsFailures.html) structure
 counts the failures of one metrics object:
@@ -58,8 +58,8 @@ struct MetricsFailures
 }
 ```
 
-- `id`: the ID of the metrics object.
-- `failures`: the number of failures of each kind, keyed by the type ID of the exception that caused them, such as
+- `id`: The ID of the metrics object.
+- `failures`: The number of failures of each kind, keyed by the type ID of the exception that caused them, such as
   `::Ice::ConnectionLostException` for a connection.
 
 A metrics map is simply defined as a sequence of `IceMX::Metrics` objects, and a metrics view is defined as a dictionary

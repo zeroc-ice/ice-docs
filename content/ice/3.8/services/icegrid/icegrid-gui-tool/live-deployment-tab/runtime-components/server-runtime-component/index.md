@@ -101,7 +101,7 @@ The remaining Server Properties under Configuration come from the IceGrid descri
 - **Activation Mode** The server's activation mode.
 - **Activation Timeout** The server's activation timeout.
 - **Deactivation Timeout** The server's deactivation timeout.
-- **Allocatable** This checkbox Shows whether this server is allocatable or not.
+- **Allocatable** This checkbox shows whether this server is allocatable or not.
 
 ## Children
 

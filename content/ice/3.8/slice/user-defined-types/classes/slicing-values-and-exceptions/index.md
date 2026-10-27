@@ -39,9 +39,9 @@ A receiver _knows_ a type when its [Slice loader](../slice-loaders) creates an i
 receiver that knows the most-derived type of an instance, here `C`, unmarshals all its slices. Otherwise, what the
 receiver does depends on the format the sender used to marshal the instance:
 
-- **Compact format**: the receiver must know the most-derived type of the instance. If it does not, Ice throws a
+- **Compact format** The receiver must know the most-derived type of the instance. If it does not, Ice throws a
   `MarshalException`.
-- **Sliced format**: the receiver skips the slices of the types it does not know, also known as _slicing_ the instance,
+- **Sliced format** The receiver skips the slices of the types it does not know, also known as _slicing_ the instance,
   and creates an instance of the most-derived type it knows. This instance must still be an instance of the declared
   type, such as the return type of an operation; otherwise, Ice throws a `MarshalException`. If the receiver knows none
   of the types of a class instance, Ice keeps it as an [unknown sliced value](#unknown-sliced-values), which only the

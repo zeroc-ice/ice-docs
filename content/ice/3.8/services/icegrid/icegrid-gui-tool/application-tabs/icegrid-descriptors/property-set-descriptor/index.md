@@ -16,7 +16,7 @@ A Property Set defines a set of Ice properties. IceGrid GUI supports two kinds o
 
 The Property Set Properties panel offers the following fields:
 
-- **ID**(Named Property Set only) The ID of a named property set.
-- **Service Name**(Service Instance property set) The service name.
+- **ID (Named Property Set only)** The ID of a named property set.
+- **Service Name (Service Instance property set)** The service name.
 - **Property Sets** List of Property Set IDs. The corresponding property sets are "included" in this property set.
 - **Properties** Ice properties private to this Property Set
