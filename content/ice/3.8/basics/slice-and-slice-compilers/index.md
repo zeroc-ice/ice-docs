@@ -26,9 +26,9 @@ This definition declares an interface named `Greeter` with one operation, `greet
 person to greet, and returns a string, the greeting.
 
 Each [Ice object](../terminology#ice-objects) implements a Slice interface: the server implements its operations, and
-the client calls them through a proxy. The client and the server use the same Slice definitions, even when they are
-written in different programming languages. Besides interfaces, Slice defines the data types that the operations
-exchange, such as structures, sequences, and classes; see [The Slice Language](../../slice).
+the client calls them through a [proxy](../terminology#proxies). The client and the server use the same Slice
+definitions, even when they are written in different programming languages. Besides interfaces, Slice defines the data
+types that the operations exchange, such as structures, sequences, and classes; see [The Slice Language](../../slice).
 
 ## Slice Compilers
 
@@ -36,7 +36,7 @@ To use your Slice definitions from a programming language, you compile them with
 such as `slice2cpp` for C++ or `slice2py` for Python. The compiler generates:
 
 - for each Slice interface, the proxy code that a client uses to call the interface's operations, and, for the language
-  mappings that support servers, the skeleton code that a servant implements;
+  mappings that support servers, the skeleton code that a [servant](../terminology#servants) implements;
 - for each Slice type, the corresponding type in this language.
 
 The rules that govern how each Slice construct maps to a programming language are known as a _language mapping_. For
