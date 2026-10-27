@@ -7,6 +7,7 @@ pages:
   - converting-proxies-to-strings
   - proxy-endpoints
   - invocation-mode
+  - proxies-to-replicated-objects
   - proxy-based-load-balancing
   - request-contexts
   - invocation-timeouts
