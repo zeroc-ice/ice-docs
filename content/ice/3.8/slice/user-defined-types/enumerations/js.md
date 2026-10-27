@@ -19,26 +19,18 @@ Fruit.Orange = new Fruit("Orange", 2);
 And the generated TypeScript definition for the generated code looks like:
 
 ```typescript
-class Fruit
-{
-    static readonly Apple:Fruit;
-    static readonly Pear:Fruit;
-    static readonly Orange:Fruit;
+export class Fruit extends Ice.EnumBase {
+    static readonly Apple: Fruit;
+    static readonly Pear: Fruit;
+    static readonly Orange: Fruit;
 
-    static valueOf(value:number):Fruit | undefined;
-
-    equals(other:any):boolean;
-    hashCode():number;
-    toString():string;
-
-    readonly name:string;
-    readonly value:number;
+    static valueOf(value: number): Fruit | undefined;
 }
 ```
 
-Each enumerator defines `name` and `value` properties that supply the enumerator's name and ordinal value, respectively.
-Enumerators also define `hashCode`, `equals` and `toString` methods, and the enumerated type itself defines a `valueOf`
-method that converts ordinal values into their corresponding enumerators.
+Each enumerator has the read-only `name` and `value` properties of `Ice.EnumBase`, which supply the enumerator's name
+and ordinal value, and a `toString` method that returns its name. The static `valueOf` method converts an ordinal value
+into its enumerator.
 
 Suppose we modify the Slice definition to include a custom enumerator value:
 
@@ -88,8 +80,8 @@ console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 
 {% callout type="note" %}
 
-TypeScript has an enumerated type, but the TypeScript definitions must match the JavaScript generated code, using
-enumerated types in TypeScript is identical to use them in JavaScript.
+In TypeScript, a Slice enumeration also maps to a generated class, such as `Fruit` above, not to a TypeScript `enum`.
+You use its enumerators as in JavaScript: `Fruit.Apple` is an instance of `Fruit`, not a number.
 
 {% /callout %}
 
