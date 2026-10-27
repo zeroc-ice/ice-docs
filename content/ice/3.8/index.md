@@ -363,20 +363,20 @@ await communicator.shutdownCompleted()
 
 ## Explore the Documentation
 
-The main chapters. Every chapter is in the table of contents; to find any page by name, use the search box in the top
-bar or press `Ctrl+K`, or `⌘K` on macOS.
+If you're new to Ice, start with the Greeter Example, then Basics. Every chapter is in the table of contents; to find a
+page by name, use the search box in the top bar or press `Ctrl+K`, or `⌘K` on macOS.
 
 {% grid %}
 
-{% card icon="rocket" title="Greeter Example" description="Write a client and a server, step by step, in your language." href="greeter-example" /%}
+{% card icon="rocket" title="Greeter Example" description="Build your first Ice application, step by step, in your language." href="greeter-example" /%}
 
-{% card icon="book" title="Basics" description="Clients and servers, Slice, Ice terminology, and the Ice protocol, in brief." href="basics" /%}
+{% card icon="book" title="Basics" description="How Ice applications are structured, and the terms and ideas the rest of the manual builds on." href="basics" /%}
 
 {% card icon="braces" title="The Slice Language" description="Define the interfaces, operations, and data types your clients and servers share." href="slice" /%}
 
-{% card icon="cpu" title="The Ice Runtime" description="Communicators, proxies, object adapters, connections, and dispatch." href="runtime" /%}
+{% card icon="cpu" title="The Ice Runtime" description="Call remote objects, implement your own, and configure connections, threads, and security." href="runtime" /%}
 
-{% card icon="boxes" title="Ice Services" description="IceGrid, IceStorm, Glacier2, IceBox, IceBridge, and DataStorm." href="services" /%}
+{% card icon="boxes" title="Ice Services" description="Ready-made services for needs beyond RPC: reaching servers behind a firewall, starting servers on demand, and distributing events and data." href="services" /%}
 
 {% card icon="sliders" title="Property Reference" description="Every property the Ice runtime and its services understand." href="property-reference" /%}
 
