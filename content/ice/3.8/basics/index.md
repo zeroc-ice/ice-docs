@@ -44,8 +44,8 @@ An Ice client or server combines the code you write, code generated from your Sl
   and unmarshals the arguments and results: it converts them to and from the byte sequences Ice sends over the network.
 - The Ice runtime sends and receives requests and replies, and manages the network connections. Your application uses it
   through the Ice API.
-- An object adapter, part of the Ice API, receives the requests for the servants registered with it, and dispatches each
-  request to its servant.
+- An [object adapter](./terminology#object-adapters), part of the Ice API, receives the requests for the servants
+  registered with it, and dispatches each request to its servant.
 
 _Client_ and _server_ are roles, not kinds of programs: the client sends a request, and the server processes it. An
 application can take both roles, for example a client that receives callbacks from the server it calls. See
