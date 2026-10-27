@@ -1,4 +1,4 @@
-{% language-section name="ice.ipv6" %}
+{% language-section name="ice.implicitcontext" %}
 
 {% callout type="note" %}
 

@@ -25,7 +25,27 @@ Use the communicator operation `propertyToProxy` to retrieve the property and co
 
 {% /property-description %}
 
-{% language-section name="mapping" /%}
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+## _name_.CollocationOptimized
+
+{% property-synopsis %}
+
+`name.CollocationOptimized=num`
+
+{% /property-synopsis %}
+
+{% property-description %}
+
+If `num` is a value greater than `0`, the proxy is configured to use
+[collocated invocations](../../runtime/collocated-invocation-and-dispatch) when
+possible{% iflang langs="cpp,csharp,java,python,swift" %}. Defining this property is equivalent to invoking the
+`ice_collocationOptimized` proxy method{% /iflang %}{% iflang langs="matlab,php,ruby" %}, including calls to the
+communicator's [Ice.Admin object adapter](../ice-admin-properties){% /iflang %}.
+
+{% /property-description %}
+
+{% /iflang %}
 
 ## _name_.ConnectionCached
 

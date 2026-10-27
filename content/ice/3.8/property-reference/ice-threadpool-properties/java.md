@@ -1,22 +1,3 @@
-{% language-section name="ice.threadpool.name.sizewarn" %}
-
-## Ice.ThreadPool._name_.StackSize
-
-{% property-synopsis %}
-
-`Ice.ThreadPool.name.StackSize=num`
-
-{% /property-synopsis %}
-
-{% property-description %}
-
-`num` is the stack size (in bytes) of threads in the `Client` or `Server` [thread pool](../../runtime/threading-model).
-The default value is `0`, meaning the operating system's default is used.
-
-{% /property-description %}
-
-{% /language-section %}
-
 {% language-section name="ice.threadpool.name.threadidletime" %}
 
 ## Ice.ThreadPool._name_.ThreadPriority

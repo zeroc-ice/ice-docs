@@ -26,7 +26,12 @@ In language mappings that support thread pools, a communicator creates two
 This page describes configuration properties for the client and server thread pools. These thread pools are named
 `Client` and `Server`, respectively. In the property descriptions below, replace `name` with `Client` or `Server`.
 
-{% language-section name="ice.threadpool.name.serialize" /%}
+{% iflang langs="matlab,php,ruby" %}
+
+The [Ice.Admin object adapter](../ice-admin-properties) uses the `Server` thread pool by default. Properties with the
+`Ice.Admin.ThreadPool` prefix configure a dedicated thread pool for this adapter.
+
+{% /iflang %}
 
 ## Ice.ThreadPool._name_.Serialize
 
@@ -116,7 +121,24 @@ To monitor the thread pool activities of the Ice runtime, set [Ice.Trace.ThreadP
 
 {% /property-description %}
 
-{% language-section name="ice.threadpool.name.sizewarn" /%}
+{% iflang langs="csharp,java" %}
+
+## Ice.ThreadPool._name_.StackSize
+
+{% property-synopsis %}
+
+`Ice.ThreadPool.name.StackSize=num`
+
+{% /property-synopsis %}
+
+{% property-description %}
+
+`num` is the stack size (in bytes) of threads in the `Client` or `Server` [thread pool](../../runtime/threading-model).
+The default value is `0`, meaning the operating system's default is used.
+
+{% /property-description %}
+
+{% /iflang %}
 
 ## Ice.ThreadPool._name_.ThreadIdleTime
 
