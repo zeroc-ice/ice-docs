@@ -7,9 +7,14 @@ and links to the pages that describe each concept.
 
 ## Clients and Servers
 
-_Client_ and _server_ are roles that parts of an application take for the duration of a request: the client issues the
-request, and the server processes it. An application often takes both roles, for example when a client passes a callback
-object to a server, which then calls back into the client.
+_Client_ and _server_ are roles that applications take for the duration of a request: the client issues the request, and
+the server processes it. An application can take both roles. For example, an application that passes a proxy for one of
+its objects in a request is the client of this request, and the server when another application invokes this object
+through the proxy.
+
+These roles do not depend on which side opened the connection: over a
+[bidirectional connection](../../runtime/connection-management/bidirectional-connections), either side can issue
+requests. See [Ice Protocol](../../protocol) for the names of the two sides of a connection.
 
 ## Ice Objects
 
