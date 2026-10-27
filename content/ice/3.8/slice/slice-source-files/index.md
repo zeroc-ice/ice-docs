@@ -3,67 +3,79 @@ title: Slice Source Files
 sidebarLabel: Source Files
 ---
 
-Slice defines a number of rules for the naming and contents of Slice source files.
+## File Naming and Format
 
-## File Naming
+Files containing Slice definitions must end in a `.ice` file extension, for example `Greeter.ice`.
 
-Files containing Slice definitions must end in a `.ice` file extension, for example: `Clock.ice`.
+Slice is a free-form language: white space separates tokens, and the layout of a definition has no meaning.
 
-## File Format
+Slice files use the UTF-8 character encoding, with an optional byte order mark (BOM) at the beginning of the file.
+Identifiers are limited to ASCII characters; non-ASCII characters can appear only in comments and string literals. See
+[Identifiers](../lexical-rules#identifiers) for the characters an identifier can use.
 
-Slice is a free-form language so you can use spaces, horizontal and vertical tab stops, form feeds, and newline
-characters to lay out your code in any way you wish. (White space characters are token separators). Slice does not
-attach semantics to the layout of a definition. You may wish to follow the style we have used for the Slice examples
-throughout this book.
+## Including Other Slice Files
 
-Slice files can be ASCII text files or use the UTF-8 character encoding with an optional byte order marker (BOM) at the
-beginning of each file. However, Slice identifiers are limited to ASCII letters and digits; non-ASCII letters can appear
-only in comments and string literals.
-
-## Preprocessing
-
-Slice supports the same preprocessor directives as C++, so you can use directives such as `#include` and macro
-definitions. However, Slice permits `#include` directives only at the beginning of a file, before any Slice definitions.
-
-If you use `#include` directives, it is a good idea to protect them with guards to prevent double inclusion of a file:
+An `#include` directive lets the definitions of one Slice file use the types defined in another file. For example,
+`Greeter.ice` can use a structure defined in `Types.ice`:
 
 ```slice
-// File Clock.ice
-#ifndef CLOCK_ICE
-#define CLOCK_ICE
-
-// #include directives here...
-// Definitions here...
-
-#endif CLOCK_ICE
-```
-
-The following `#pragma` directive offers a simpler way to achieve the same result:
-
-```slice
-// File Clock.ice
+// File Types.ice
 #pragma once
 
+module VisitorCenter
+{
+    struct Greeting
+    {
+        string message;
+    }
+}
+```
+
+```slice
+// File Greeter.ice
+#pragma once
+
+#include "Types.ice"
+
+module VisitorCenter
+{
+    interface Greeter
+    {
+        Greeting greet(string name);
+    }
+}
+```
+
+A Slice compiler parses the files that a file includes, but generates code only for the files you give it on the command
+line. In this example, compiling `Greeter.ice` generates no code for `Greeting`: compile `Types.ice` as well. The
+[`-I` option](../using-the-slice-compiler) of the Slice compilers adds a directory to the include search path.
+
+`#include` directives must come before any Slice definitions in a file. In a path, use a forward slash as the separator:
+
+```slice
+#include "SliceDefs/Types.ice"  // OK
+#include "SliceDefs\Types.ice"  // Illegal
+```
+
+### Preventing Double Inclusion
+
+A file that several files include must be read only once in a compilation. Start it with `#pragma once`, as in the
+example above, or protect its contents with a guard:
+
+```slice
+// File Types.ice
+#ifndef TYPES_ICE
+#define TYPES_ICE
+
 // #include directives here...
 // Definitions here...
+
+#endif // TYPES_ICE
 ```
 
-`#include` directives permit a Slice definition to use types defined in a different source file. The Slice compilers
-parse all of the code in a source file, including the code in subordinate `#include` files. However, the compilers
-generate code only for the top-level file(s) nominated on the command line. You must separately compile subordinate
-`#include` files to obtain generated code for all the files that make up your Slice definition.
+## Conditional Compilation
 
-Also note that, if you include a path separator in a `#include` directive, you must use a forward slash:
-
-```slice
-#include <SliceDefs/Clock.ice>  // OK
-```
-
-You cannot use a backslash in `#include` directives:
-
-```slice
-#include <SliceDefs\Clock.ice>  // Illegal
-```
+Slice supports the same preprocessor directives as C++, such as `#define`, `#if`, and `#ifdef`.
 
 ### Detecting Ice Versions
 
@@ -85,9 +97,10 @@ interface Logger
 
 ### Detecting Slice Compilers
 
-Each Slice compiler defines its own macro so that you can customize your Slice code for certain language mappings. The
-macro name is `__<compiler name in upper case>__`, such as `__SLICE2CPP__` and `__SLICE2MATLAB__` for `slice2cpp` resp.
-`slice2matlab`.
+Each Slice compiler defines a macro named after the compiler in upper case, such as `__SLICE2CPP__` for `slice2cpp` and
+`__SLICE2MATLAB__` for `slice2matlab`. Use these macros to include definitions or metadata only when you compile for one
+language mapping. The operations and types that a client and a server use to communicate must be the same in both
+mappings.
 
 ## Definition Order
 
@@ -97,3 +110,4 @@ identifiers must be declared before they can be used.
 ## See Also
 
 - [Using the Slice Compilers](../using-the-slice-compiler)
+- [Lexical Rules](../lexical-rules)
