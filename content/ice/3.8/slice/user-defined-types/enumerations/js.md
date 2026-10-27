@@ -16,29 +16,21 @@ Fruit.Pear = new Fruit("Pear", 1);
 Fruit.Orange = new Fruit("Orange", 2);
 ```
 
-And the generated TypeScript definition for the generated code looks like:
+The corresponding TypeScript declarations are:
 
 ```typescript
-class Fruit
-{
-    static readonly Apple:Fruit;
-    static readonly Pear:Fruit;
-    static readonly Orange:Fruit;
+export class Fruit extends Ice.EnumBase {
+    static readonly Apple: Fruit;
+    static readonly Pear: Fruit;
+    static readonly Orange: Fruit;
 
-    static valueOf(value:number):Fruit | undefined;
-
-    equals(other:any):boolean;
-    hashCode():number;
-    toString():string;
-
-    readonly name:string;
-    readonly value:number;
+    static valueOf(value: number): Fruit | undefined;
 }
 ```
 
-Each enumerator defines `name` and `value` properties that supply the enumerator's name and ordinal value, respectively.
-Enumerators also define `hashCode`, `equals` and `toString` methods, and the enumerated type itself defines a `valueOf`
-method that converts ordinal values into their corresponding enumerators.
+Each enumerator has the read-only `name` and `value` properties of `Ice.EnumBase`, which supply the enumerator's name
+and value, and a `toString` method that returns its name. The static `valueOf` method returns the enumerator with a
+given value.
 
 Suppose we modify the Slice definition to include a custom enumerator value:
 
@@ -81,15 +73,15 @@ switch(f2) {             // Switch on enum
         break;
 }
 
-// Convert an ordinal value to its enumerator, or undefined if no match
+// Convert a value to its enumerator, or undefined if no match
 const f = Fruit.valueOf(3);
 console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 ```
 
 {% callout type="note" %}
 
-TypeScript has an enumerated type, but the TypeScript definitions must match the JavaScript generated code, using
-enumerated types in TypeScript is identical to use them in JavaScript.
+The TypeScript declarations describe the same generated code: `Fruit` is a class, not a TypeScript `enum`, and
+`Fruit.Apple` is an instance of this class, not a number.
 
 {% /callout %}
 
