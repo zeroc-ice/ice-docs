@@ -43,8 +43,8 @@ disabled, Ice makes it for each invocation.
 Collocation optimization is enabled by default. You rarely need to disable it: the usual reasons are a servant that
 needs the connection of the request, which a collocated dispatch does not have, and a test that must exercise the
 transport within a single process. You can disable it for all proxies by setting
-[Ice.Default.CollocationOptimized=0](../../property-reference/ice-default-properties), or for an individual proxy with
-the factory method `ice_collocationOptimized(false)`. For proxies
+[Ice.Default.CollocationOptimized=0](../../property-reference/ice-default-properties#ice.default.collocationoptimized),
+or for an individual proxy with the factory method `ice_collocationOptimized(false)`. For proxies
 [created from a property](../invocation/creating-proxies) using `propertyToProxy`, the property
 [_name_.CollocationOptimized](../../property-reference/proxy-properties#name.collocationoptimized) configures the
 default setting for the proxy.

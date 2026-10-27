@@ -61,8 +61,8 @@ on the receiving end.
 An application that needs the slicing behavior we discussed in the previous section for class instances must explicitly
 enable the sliced format as follows:
 
-- Set the [Ice.Default.SlicedFormat](../../../../property-reference/ice-default-properties) property to `1` to use the
-  sliced format by default.
+- Set the [Ice.Default.SlicedFormat](../../../../property-reference/ice-default-properties#ice.default.slicedformat)
+  property to `1` to use the sliced format by default.
 - Annotate your Slice definitions with the `format:sliced` [metadata](../../../slice-metadata-directives) to selectively
   enable the sliced format for certain operations or interfaces.
 
