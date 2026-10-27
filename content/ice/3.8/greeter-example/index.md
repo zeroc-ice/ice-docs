@@ -28,7 +28,7 @@ We write the server first: a client has nothing to call until a server is runnin
 
 {% /iflang %}
 
-{% iflang langs="js,matlab,php,ruby" %}
+{% iflang langs="matlab,php,ruby" %}
 
 1. **Using Slice** - How to use the [Slice IDL](../slice) to define a contract between clients and servers.
 2. **Writing a client** - How to write a client that communicates with an Ice server.
@@ -40,8 +40,12 @@ or Swift, and call it from the client you write here.
 
 {% iflang langs="js" %}
 
-The client in Writing a Greeter Client runs in Node.js. To write a client that runs in a web browser, see
-[Writing a Browser Greeter Client](./writing-a-browser-greeter-client).
+1. **Using Slice** - How to use the [Slice IDL](../slice) to define a contract between clients and servers.
+2. **Writing a client** - How to write a Node.js client that communicates with an Ice server.
+3. **Writing a browser client** - How to write a client that runs in a web browser.
+
+This example has no server section for this language mapping. You can run the Greeter server from C++, C#, Java, Python
+or Swift, and call it from the client you write here.
 
 {% /iflang %}
 

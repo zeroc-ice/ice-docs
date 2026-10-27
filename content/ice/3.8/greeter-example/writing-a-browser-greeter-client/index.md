@@ -58,15 +58,13 @@ useEffect(() => {
     );
 
     return () => {
-        communicatorRef.current?.destroy().catch((err: Error) => {
-            console.error("Error destroying Ice communicator:", err);
-        });
+        communicatorRef.current?.destroy();
     };
 }, []);
 ```
 
-The stringified proxy uses the `ws` transport: a browser cannot open TCP connections, so a browser client reaches a
-server over WebSocket, with the `ws` or `wss` transport.
+The stringified proxy uses the `ws` transport: in a browser, Ice for JavaScript supports only the `ws` and `wss`
+transports.
 
 ### 2. Make an Invocation
 
@@ -94,8 +92,8 @@ closes its connections.
 
 Ice for JavaScript has limited server-side support, so the client calls a Greeter server written in another language.
 The Python Config server of the demos hosts a Greeter object with identity `greeter`, and its object adapter listens on
-port 4061 with the transport set by `Ice.Default.Protocol`. From the root of a complete ice-demos `3.8` checkout, start
-it with the `ws` transport:
+port 4061 with the transport set by `Ice.Default.Protocol`. The server is a [uv](https://docs.astral.sh/uv/) project.
+From the root of an ice-demos `3.8` checkout, start it with the `ws` transport:
 
 ```shell
 cd python/Ice/config/server
