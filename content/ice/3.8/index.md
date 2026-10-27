@@ -370,7 +370,7 @@ bar or press `Ctrl+K`, or `⌘K` on macOS.
 
 {% card icon="rocket" title="Greeter Example" description="Write a client and a server, step by step, in your language." href="greeter-example" /%}
 
-{% card icon="book" title="Basics" description="Clients and servers, Slice, the Ice protocol, and the Ice services, in brief." href="basics" /%}
+{% card icon="book" title="Basics" description="Clients and servers, Slice, Ice terminology, and the Ice protocol, in brief." href="basics" /%}
 
 {% card icon="braces" title="The Slice Language" description="Define the interfaces, operations, and data types your clients and servers share." href="slice" /%}
 
