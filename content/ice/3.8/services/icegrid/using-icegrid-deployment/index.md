@@ -92,7 +92,7 @@ IceGrid.Registry.LMDB.Path=/opt/ripper/registry
 ```
 
 The node needs a data directory, and we use `/opt/ripper/node`. This directory must exist before starting the node. The
-node's configuration file, `/opt/ripper/config`, contains the following properties:
+node's configuration file, `/opt/ripper/node.cfg`, contains the following properties:
 
 ```config
 IceGrid.Node.Endpoints=tcp
@@ -178,17 +178,20 @@ manually from a command prompt, you must supply this argument yourself.
 
 ## Starting the Registry and Node for the Ripper Application
 
-Now that the configuration files are written and the directory structure is prepared, we are ready to start the IceGrid
-registry and node, each in its own process, for example in two terminals:
+Now that the configuration files are written and the directory structure is prepared, we start the IceGrid registry:
 
 ```shell
 icegridregistry --Ice.Config=/opt/ripper/registry.cfg
-icegridnode --Ice.Config=/opt/ripper/config
 ```
 
-Additional command line options of [icegridregistry](../icegrid-server-reference/icegridregistry) and
-[icegridnode](../icegrid-server-reference/icegridnode) are supported, including those that allow them to run as a
-Windows service or a daemon.
+Then, in another terminal, we start the node:
+
+```shell
+icegridnode --Ice.Config=/opt/ripper/node.cfg
+```
+
+See [icegridregistry](../icegrid-server-reference/icegridregistry) and
+[icegridnode](../icegrid-server-reference/icegridnode) for their command line options.
 
 ## Deploying the Ripper Application
 
@@ -198,7 +201,7 @@ also requires a definition for the
 utility with the following command:
 
 ```shell
-icegridadmin --Ice.Config=/opt/ripper/config
+icegridadmin --Ice.Config=/opt/ripper/node.cfg
 ```
 
 After confirming that it can contact the registry, `icegridadmin` provides a command prompt at which we deploy our
@@ -327,7 +330,7 @@ After saving the new descriptors, you need to redeploy the application. Using `i
 command:
 
 ```shell
-icegridadmin --Ice.Config=/opt/ripper/config
+icegridadmin --Ice.Config=/opt/ripper/node.cfg
 >>> application update "/opt/ripper/app.xml"
 ```
 
@@ -337,14 +340,14 @@ restarts the servers with the `always` activation mode and starts the other enab
 determine whether an update would require any restarts using the `application diff` command:
 
 ```shell
-icegridadmin --Ice.Config=/opt/ripper/config
+icegridadmin --Ice.Config=/opt/ripper/node.cfg
 >>> application diff --servers "/opt/ripper/app.xml"
 ```
 
 To ensure that our update does not impact any active servers, we can use the `--no-restart` option:
 
 ```shell
-icegridadmin --Ice.Config=/opt/ripper/config
+icegridadmin --Ice.Config=/opt/ripper/node.cfg
 >>> application update --no-restart "/opt/ripper/app.xml"
 ```
 
