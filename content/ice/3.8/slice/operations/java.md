@@ -549,13 +549,8 @@ parameters and a non-`void` return value:
   }
   ```
 
-- **Two or more values** The Slice compiler generates an extra nested class to hold the results of an operation that
-  returns multiple values. The class is nested in the mapped interface (not the proxy interface) and has the name
-  `OpResult`, where `Op` represents the name of the operation. The leading character of the class name for a "result
-  class" is always capitalized. The values of out parameters are provided in corresponding public fields of the same
-  names. If the operation declares a return value, its value is provided in the field named `returnValue`. The result
-  class defines an empty constructor as well as a primary constructor that accepts and assigns a value for each of its
-  fields. The corresponding Java method returns the result class type.
+- **Two or more values** The corresponding Java method returns an instance of a generated result class, with a field for
+  each out parameter and, for a non-`void` operation, a `returnValue` field.
 
 Consider this example:
 
@@ -604,6 +599,11 @@ public interface ExamplePrx extends com.zeroc.Ice.ObjectPrx {
     }
 }
 ```
+
+The Slice compiler nests the result class in the mapped interface, not in the proxy interface, and names it after the
+operation with its first letter capitalized, followed by `Result`: `OpResult` for operation `op`. Each out parameter
+maps to a public field with the same name, and the return value to the field `returnValue`. The result class has an
+empty constructor and a constructor that takes a value for each field.
 
 ### Null Parameters
 
