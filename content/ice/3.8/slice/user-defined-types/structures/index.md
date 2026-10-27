@@ -20,9 +20,8 @@ module M
 
 This definition introduces a new type named `TimeOfDay`. The name of a field must be unique within its structure.
 
-A structure contains only fields. As elsewhere in Slice, type definitions cannot be nested, except for
-[modules](../../modules): to use a structure as the type of a field, define it in the module, next to the structure that
-uses it.
+A structure contains only fields: as elsewhere in Slice, type definitions cannot be nested, except for
+[modules](../../modules). Like every other type, you define a structure in a module.
 
 ## Language Mapping
 
