@@ -363,8 +363,9 @@ await communicator.shutdownCompleted()
 
 ## Explore the Documentation
 
-If you're new to Ice, start with the Greeter Example, then Basics. Every chapter is in the table of contents; to find a
-page by name, use the search box in the top bar or press `Ctrl+K`, or `⌘K` on macOS.
+If you're new to Ice, start with the Greeter Example, then Basics. The cards below are the main chapters; the table of
+contents in the sidebar lists them all. To find a page by name, use the search box in the top bar or press `Ctrl+K`, or
+`⌘K` on macOS.
 
 {% grid %}
 
@@ -376,7 +377,7 @@ page by name, use the search box in the top bar or press `Ctrl+K`, or `⌘K` on 
 
 {% card icon="cpu" title="The Ice Runtime" description="Call remote objects, implement your own, and configure connections, threads, and security." href="runtime" /%}
 
-{% card icon="boxes" title="Ice Services" description="Ready-made services for needs beyond RPC: reaching servers behind a firewall, starting servers on demand, and distributing events and data." href="services" /%}
+{% card icon="boxes" title="Ice Services" description="Reach servers behind a firewall, start servers on demand, and distribute events and data." href="services" /%}
 
 {% card icon="sliders" title="Property Reference" description="Every property the Ice runtime and its services understand." href="property-reference" /%}
 
