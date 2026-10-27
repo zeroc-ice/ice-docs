@@ -80,8 +80,8 @@ console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 
 {% callout type="note" %}
 
-In TypeScript, a Slice enumeration also maps to a generated class, such as `Fruit` above, not to a TypeScript `enum`.
-You use its enumerators as in JavaScript: `Fruit.Apple` is an instance of `Fruit`, not a number.
+The TypeScript declarations describe the same generated code: `Fruit` is a class, not a TypeScript `enum`, and
+`Fruit.Apple` is an instance of this class, not a number.
 
 {% /callout %}
 
