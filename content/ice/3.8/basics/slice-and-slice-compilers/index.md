@@ -2,12 +2,14 @@
 title: Slice and Slice Compilers
 ---
 
-## IDL
+## Slice
 
-Slice is Ice’s [Interface Definition Language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL). It
-allows you to describe your network API in a clear and concise manner.
+A client and a server must agree on the operations the client can call and on the data they exchange. You define this
+contract in Slice, Ice's [interface definition language](https://en.wikipedia.org/wiki/Interface_description_language)
+(IDL), independently of any programming language.
 
-Defining the customary Greeter interface in Slice is straightforward:
+For example, the [Greeter example](../../greeter-example/defining-the-greeter-interface-in-slice) defines its interface
+in Slice as follows:
 
 ```slice
 /// Represents a simple greeter.
@@ -20,22 +22,27 @@ interface Greeter
 }
 ```
 
-With Ice, each [Ice object](../terminology) implements a Slice interface with one or more operations.
+This definition declares an interface named `Greeter` with one operation, `greet`, which takes a string, the name of the
+person to greet, and returns a string, the greeting.
 
-Interfaces, operations, and the types of data that are exchanged between client and server are defined using the
-[_Slice language_](../../slice). Slice allows you to define the client-server contract in a way that is independent of a
-specific programming language, such as C++, Java, or C#.
+Each [Ice object](../terminology#ice-objects) implements a Slice interface: the server implements its operations, and
+the client calls them through a [proxy](../terminology#proxies). The client and the server use the same Slice
+definitions, even when they are written in different programming languages. Besides interfaces, you define in Slice the
+data types that the operations exchange, such as structures, sequences, and classes; see
+[The Slice Language](../../slice).
 
 ## Slice Compilers
 
-A Slice compiler uses your Slice definitions to generate code for one programming language. For each Slice interface,
-this generated code includes the proxy code that a client uses to call the interface's operations and the skeleton code
-that a server implements; for each Slice type, it includes the corresponding type in that language.
+To use your Slice definitions from a programming language, you compile them with the Slice compiler for this language,
+such as `slice2cpp` for C++ or `slice2py` for Python. The compiler generates:
 
-The rules that govern how each Slice construct maps to a programming language are collectively known as a _**language
-mapping**_. For example, the C++ mapping maps a Slice sequence to a `std::vector`, whereas the Java mapping maps it to a
-Java array. With the Slice definition and the mapping rules, you know what the generated API looks like without reading
-the generated code.
+- for each Slice interface, the proxy code that a client uses to call the interface's operations, and, for the language
+  mappings that support servers, the skeleton code that a [servant](../terminology#servants) implements;
+- for each Slice type, the corresponding type in this language.
+
+The rules that govern how each Slice construct maps to a programming language are known as a _language mapping_. For
+example, the C++ mapping maps a Slice sequence to a `std::vector`, whereas the Java mapping maps it to a Java array. The
+manual documents each language mapping.
 
 Ice provides language mappings for C++, C#, Java, JavaScript, Python, Swift, and, for the client side, MATLAB, PHP, and
 Ruby.
