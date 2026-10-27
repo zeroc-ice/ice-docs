@@ -18,9 +18,9 @@ interface Record {
   k: string;
   /** Href */
   h: string;
-  /** Heading keywords of the shared text */
+  /** Heading keywords every mapping sees */
   x: string;
-  /** Heading keywords of each mapping's own text */
+  /** Heading keywords each mapping sees beyond `x` */
   l: { [language: string]: string };
   /** The languages the page is written for; every language when absent. */
   w?: string[];
