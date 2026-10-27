@@ -156,7 +156,7 @@ the Slice operations for [managing well-known objects](#adding-well-known-object
 utility to manually register the `EncoderFactory` object from our [descriptors](#deploying-well-known-objects):
 
 ```shell
-icegridadmin --Ice.Config=/opt/ripper/config
+icegridadmin --Ice.Config=/opt/ripper/node.cfg
 >>> object add "EncoderFactory@EncoderAdapter"
 ```
 

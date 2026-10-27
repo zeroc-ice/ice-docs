@@ -3,9 +3,8 @@ title: icegridregistry
 ---
 
 The IceGrid registry is a centralized repository of information, including
-[deployed applications](../../using-icegrid-deployment) and [well-known objects](../../well-known-objects). A registry
-can optionally be collocated with an IceGrid node, which conserves resources and can be convenient during development
-and testing. The registry server is implemented by the `icegridregistry` executable.
+[deployed applications](../../using-icegrid-deployment) and [well-known objects](../../well-known-objects). The registry
+server is implemented by the `icegridregistry` executable.
 
 ## Command Line Options for `icegridregistry`
 

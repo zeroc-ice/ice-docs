@@ -189,7 +189,7 @@ The [IceGrid administration tools](../icegridadmin-command-line-tool) allow you 
 servers dynamically. First, ask `icegridadmin` to describe the [server template](#server-templates):
 
 ```shell
-icegridadmin --Ice.Config=/opt/ripper/config
+icegridadmin --Ice.Config=/opt/ripper/node.cfg
 >>> server template describe Ripper EncoderServerTemplate
 ```
 
