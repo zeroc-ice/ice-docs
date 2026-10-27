@@ -2,7 +2,7 @@
 
 A Slice identifier maps to an identical Python identifier. For example, the Slice identifier `Clock` becomes the Python
 identifier `Clock`. A single Slice identifier often results in several Python identifiers: for a Slice interface named
-`Greeter`, the generated Python code uses the identifiers `Greeter` and `GreeterPrx`, among others.
+`Greeter`, the generated Python code uses the identifiers `Greeter` and `GreeterPrx`.
 
 A Slice identifier that is a Python keyword keeps its name in the generated Python code, which is then invalid. Give
 this identifier a Python name of your choice with the `python:identifier` metadata directive. For example, `raise` is a

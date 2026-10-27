@@ -15,9 +15,8 @@ end of the line:
 // Line comment.
 ```
 
-Slice also supports doc comments, which document the definition that follows them: line comments that start with `///`,
-such as the comments of the Greeter interface, and block comments that start with `/**`. See
-[Comment Syntax](../documenting-slice-definitions/comment-syntax).
+Slice also supports doc comments, which document the definition that follows them: line comments that start with `///`
+and block comments that start with `/**`. See [Comment Syntax](../documenting-slice-definitions/comment-syntax).
 
 ## Keywords
 
@@ -43,12 +42,12 @@ otherwise, the compiler rejects the reference.
 You can use a Slice keyword as an identifier by prefixing it with a backslash:
 
 ```slice
-struct dictionary     // Error!
+struct Value     // Error!
 {
     // ...
 }
 
-struct \dictionary    // OK
+struct \Value    // OK
 {
     // ...
 }
