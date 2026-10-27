@@ -549,8 +549,8 @@ parameters and a non-`void` return value:
   }
   ```
 
-- **Two or more values** The corresponding Java method returns a generated result object, with a field for each out
-  parameter and, for a non-`void` operation, a `returnValue` field.
+- **Two or more values** The corresponding Java method returns an instance of a generated result class, with a field for
+  each out parameter and, for a non-`void` operation, a `returnValue` field.
 
 Consider this example:
 
@@ -602,9 +602,8 @@ public interface ExamplePrx extends com.zeroc.Ice.ObjectPrx {
 
 The Slice compiler nests the result class in the mapped interface, not in the proxy interface, and names it after the
 operation with its first letter capitalized, followed by `Result`: `OpResult` for operation `op`. Each out parameter
-maps to a public field with the same name. The return value maps to the field `returnValue`, or `returnValue_` when an
-out parameter is named `returnValue`. The result class has an empty constructor and a constructor that takes a value for
-each field.
+maps to a public field with the same name, and the return value to the field `returnValue`. The result class has an
+empty constructor and a constructor that takes a value for each field.
 
 ### Null Parameters
 
