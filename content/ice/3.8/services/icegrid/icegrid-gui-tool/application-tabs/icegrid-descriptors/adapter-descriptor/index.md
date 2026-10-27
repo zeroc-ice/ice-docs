@@ -21,15 +21,15 @@ The Adapter Properties panel offers the following fields:
 - **Endpoints** The endpoints of this object adapter. Use a single endpoint, with an IP address rather than a DNS name
   if it specifies a host. When the endpoint does not specify a port, the operating system selects an ephemeral port when
   the server creates the adapter. Corresponds to the
-  [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
-  `default`, which means listen with the default transport (`tcp` by default) on all interfaces.
+  [_adapter-name_.Endpoints](../../../../../../property-reference/object-adapter-properties#adapter.endpoints) property.
+  Default: `default`, which means listen with the default transport (`tcp` by default) on all interfaces.
 - **Published Endpoints** The configured published endpoints for this object adapter. Corresponds to the
-  [_adapter-name_.PublishedEndpoints](../../../../../../property-reference/object-adapter-properties) property. Default:
-  actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
+  [_adapter-name_.PublishedEndpoints](../../../../../../property-reference/object-adapter-properties#adapter.publishedendpoints)
+  property. Default: actual endpoints (computed at run time), derived by Ice from the Endpoints field above.
 - **Proxy Options** The default Proxy Options for well-known objects defined within this object adapter, and the Proxy
   Options for proxies created by this object adapter. Corresponds to the
-  [_adapter-name_.ProxyOptions](../../../../../../property-reference/object-adapter-properties) property. Default: empty
-  string.
+  [_adapter-name_.ProxyOptions](../../../../../../property-reference/object-adapter-properties#adapter.proxyoptions)
+  property. Default: empty string.
 - **Server Lifetime** When checked, IceGrid expects this adapter to register its endpoints during server startup and
   unregister them during server shutdown. See also Activation Timeout in [Server Properties](../server-descriptor).
   Default: true (checked).

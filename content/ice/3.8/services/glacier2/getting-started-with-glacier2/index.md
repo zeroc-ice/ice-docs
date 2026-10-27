@@ -119,7 +119,8 @@ router proxy. Its endpoints must match those in `Glacier2.Client.Endpoints`.
 A Glacier2 router hosts a single object, which implements the `Glacier2::Router` interface and has the identity
 `Glacier2/router` by default. If an application uses several different routers, as opposed to replicas, give this object
 a unique identity in each router by configuring the routers with different values of the
-[Glacier2.InstanceName](../../../property-reference/glacier2-properties) property, as shown in the following example:
+[Glacier2.InstanceName](../../../property-reference/glacier2-properties#glacier2.instancename) property, as shown in the
+following example:
 
 ```config
 Glacier2.InstanceName=PublicRouter

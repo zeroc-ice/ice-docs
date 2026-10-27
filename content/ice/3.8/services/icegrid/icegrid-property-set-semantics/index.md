@@ -6,7 +6,7 @@ sidebarLabel: Property Sets
 Ice servers and clients are configured with [properties](../../../runtime/properties-and-configuration). For servers
 [deployed](../using-icegrid-deployment) with IceGrid, these properties are automatically generated into a configuration
 file from the information contained in the application descriptor. The settings in that configuration file are passed to
-the server via the [--Ice.Config](../../../property-reference/ice-properties) command-line option.
+the server via the [--Ice.Config](../../../property-reference/ice-properties#ice.config) command-line option.
 
 [Property descriptors](../icegrid-xml-reference/properties-descriptor-element) allow you to define property sets to
 efficiently manage and specify properties. Here are some of the benefits of using property sets:
