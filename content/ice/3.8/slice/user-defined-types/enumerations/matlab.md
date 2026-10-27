@@ -58,8 +58,7 @@ end
 ```
 
 The generated enumeration derives from `uint8` when its largest enumerator value is 255 or less, and from `int32`
-otherwise. You obtain the ordinal value of an enumerator by converting it to this base type, here with the `uint8`
-function:
+otherwise. You obtain the value of an enumerator by converting it to this base type, here with the `uint8` function:
 
 ```matlab
 val = uint8(Fruit.Pear);
@@ -75,8 +74,8 @@ assert(f == Fruit.Orange);
 
 This function throws an exception if the given integer does not match any of the enumerators.
 
-The `Fruit` definition above shows the ordinal values assigned by default to the enumerators. Suppose we modify the
-definition to include a custom enumerator value:
+The `Fruit` definition above shows the values assigned by default to the enumerators. Suppose we modify the definition
+to include a custom enumerator value:
 
 ```slice
 enum Fruit { Apple, Pear = 3, Orange }
