@@ -45,8 +45,7 @@ adapter listens for connections, and the address a proxy holds to reach it. See
 ## Communicators
 
 A [_communicator_](../../runtime/communicator) is the main entry point to the Ice runtime. It holds the configuration
-[properties](#properties) and opens and caches the outgoing connections that proxies
-use{% iflang langs="cpp,csharp,java,js,python,swift" %}; it also creates object adapters{% /iflang %}.
+[properties](#properties), opens and caches the outgoing connections that proxies use, and creates object adapters.
 
 ## Connections
 
@@ -75,15 +74,11 @@ per operation; a servant can also implement the [dispatcher](#dispatcher) abstra
 [The Active Servant Map](../../runtime/dispatch/active-servant-map) and
 [Default Servants](../../runtime/dispatch/default-servants).
 
-{% iflang langs="cpp,csharp,java,js,swift" %}
-
 ## Middleware
 
 A [_middleware_](../../runtime/dispatch/middleware) is a [dispatcher](#dispatcher) that intercepts a request before it
 reaches the servant, and the response before the object adapter sends it back. It can also return a response without
 passing the request on.
-
-{% /iflang %}
 
 ## Locators
 
