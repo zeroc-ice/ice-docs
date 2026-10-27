@@ -12,21 +12,19 @@ The mapping changes the case of the first letter of some identifiers:
 
 Operation and field names keep their case.
 
-You can change this mapping and specify your own Ruby identifier with the `ruby:identifier` metadata directive. For
-example, we can remap `Greeter` to `Receptionist` as follows:
+A Slice identifier that is a Ruby keyword keeps its name in the generated Ruby code, which is then invalid. Give this
+identifier a Ruby name of your choice with the `ruby:identifier` metadata directive. For example, `retry` is a Ruby
+keyword but a valid Slice identifier:
 
 ```slice
-["ruby:identifier:Receptionist"]
-interface Greeter { ... }
+struct Policy
+{
+    ["ruby:identifier:retryCount"]
+    int retry;
+}
 ```
 
-The resulting Ruby class is `ReceptionistPrx`. The mapping uses an identifier set with `ruby:identifier` as is.
-
-{% callout type="warning" %}
-
-When you use a Ruby keyword such as `retry` as a Slice identifier, use `ruby:identifier` to remap this identifier in the
-generated Ruby code. Without this remapping, the generated Ruby code may be invalid.
-
-{% /callout %}
+In the generated Ruby code, the field `retry` becomes `retryCount`. The mapping uses an identifier set with
+`ruby:identifier` as is.
 
 {% /language-section %}

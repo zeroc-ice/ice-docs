@@ -1,26 +1,21 @@
 {% language-section name="mapping" %}
 
 A Slice identifier maps to an identical C# identifier. For example, the Slice identifier `Clock` becomes the C#
-identifier `Clock`.
+identifier `Clock`. A single Slice identifier often results in several C# identifiers: for a Slice interface named
+`Greeter`, the generated C# code uses the identifiers `Greeter` and `GreeterPrx`, among others.
 
-A single Slice identifier often results in several C# identifiers. For example, for a Slice interface named `Greeter`,
-the generated C# code uses the identifiers `Greeter` and `GreeterPrx` (among others).
-
-You can change this mapping and specify your own C# identifier with the `cs:identifier` metadata directive. For example,
-we can remap `Greeter` to `Receptionist` as follows:
+A Slice identifier that is a C# keyword keeps its name in the generated C# code, which then does not compile. Give this
+identifier a C# name of your choice with the `cs:identifier` metadata directive. For example, `delegate` is a C# keyword
+but a valid Slice identifier:
 
 ```slice
-["cs:identifier:Receptionist"]
-interface Greeter { ... }
+struct Meeting
+{
+    ["cs:identifier:delegateName"]
+    string delegate;
+}
 ```
 
-The resulting C# interfaces are `Receptionist` and `ReceptionistPrx`.
-
-{% callout type="warning" %}
-
-When you use a C# keyword such as `delegate` as a Slice identifier, use `cs:identifier` to remap this identifier in the
-generated C# code. Without this remapping, the generated C# code won’t compile.
-
-{% /callout %}
+In the generated C# code, the field `delegate` becomes `delegateName`.
 
 {% /language-section %}
