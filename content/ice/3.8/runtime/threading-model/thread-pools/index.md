@@ -161,6 +161,18 @@ rather than the size of the thread pool, then determines which of the calls it r
 
 {% /iflang %}
 
+{% iflang langs="cpp,csharp,java,python" %}
+
+## Running Code When a Thread Starts or Stops
+
+When you create a communicator, you can register two functions in its `InitializationData`: `threadStart` and
+`threadStop`. Each thread of the communicator's thread pools, including the
+[thread pools of its object adapters](../object-adapter-thread-pools), calls `threadStart` when it starts and
+`threadStop` before it ends. Use these functions, for example, to set up and release the thread-local state that your
+dispatches rely on.
+
+{% /iflang %}
+
 ## See Also
 
 - [Thread Pool Design Considerations](../thread-pool-design-considerations)
