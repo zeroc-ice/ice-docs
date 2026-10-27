@@ -64,8 +64,8 @@ namespace M
 
 #### uncheckedCast
 
-The helper’s `uncheckedCast` static method attaches the type information of its interface to any proxy, without
-contacting the target object. For example:
+The helper's `uncheckedCast` static method returns a copy of any proxy with the type information of its interface,
+without contacting the target object. For example:
 
 ```php
 // Create a proxy for Widget from a proxy for Simple, even though the two interfaces are unrelated.
@@ -110,8 +110,8 @@ $greeter = $greeter->ice_invocationTimeout(10000);
 The factory methods keep the type information of the proxy they copy, as in the example above.
 
 The only exceptions are the factory methods `ice_facet` and `ice_identity`, which return a proxy for `Ice::Object`: the
-new facet or identity can designate an object of another type. Attach the type information of that type with its helper
-before you invoke an operation on this proxy. For example:
+new facet or identity can designate an object that implements another interface. Attach the type information of that
+interface with its helper before you invoke an operation on this proxy. For example:
 
 ```php
 $greeter = VisitorCenter\GreeterPrxHelper::createProxy(...);
