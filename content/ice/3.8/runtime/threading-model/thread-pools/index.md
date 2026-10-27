@@ -165,10 +165,11 @@ rather than the size of the thread pool, then determines which of the calls it r
 
 ## Running Code When a Thread Starts or Stops
 
-The `threadStart` and `threadStop` fields of `InitializationData` let your application run code on the threads of the
-Ice thread pools, including the [thread pools of object adapters](../object-adapter-thread-pools): each of these threads
-calls `threadStart` when it starts and `threadStop` before it ends. Use them, for example, to set up and release the
-thread-local state that your dispatches rely on.
+When you create a communicator, you can register two functions in its `InitializationData`: `threadStart` and
+`threadStop`. Each thread of the communicator's thread pools, including the
+[thread pools of its object adapters](../object-adapter-thread-pools), calls `threadStart` when it starts and
+`threadStop` before it ends. Use these functions, for example, to set up and release the thread-local state that your
+dispatches rely on.
 
 {% /iflang %}
 
