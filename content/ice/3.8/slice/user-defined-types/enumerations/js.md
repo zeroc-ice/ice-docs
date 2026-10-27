@@ -16,7 +16,7 @@ Fruit.Pear = new Fruit("Pear", 1);
 Fruit.Orange = new Fruit("Orange", 2);
 ```
 
-And the generated TypeScript definition for the generated code looks like:
+The corresponding TypeScript declarations are:
 
 ```typescript
 export class Fruit extends Ice.EnumBase {
@@ -29,8 +29,8 @@ export class Fruit extends Ice.EnumBase {
 ```
 
 Each enumerator has the read-only `name` and `value` properties of `Ice.EnumBase`, which supply the enumerator's name
-and ordinal value, and a `toString` method that returns its name. The static `valueOf` method converts an ordinal value
-into its enumerator.
+and value, and a `toString` method that returns its name. The static `valueOf` method returns the enumerator with a
+given value.
 
 Suppose we modify the Slice definition to include a custom enumerator value:
 
@@ -73,7 +73,7 @@ switch(f2) {             // Switch on enum
         break;
 }
 
-// Convert an ordinal value to its enumerator, or undefined if no match
+// Convert a value to its enumerator, or undefined if no match
 const f = Fruit.valueOf(3);
 console.log(f.name + " = " + f.value); // Outputs "Pear = 3"
 ```
