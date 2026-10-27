@@ -22,7 +22,8 @@ object can provide alternate interfaces, known as [_facets_](../../runtime/facet
 
 A _proxy_ is the client's representative of an Ice object: a local value that holds the object's identity, an optional
 facet name, and the information the Ice runtime needs to reach the object. A client invokes operations on an Ice object
-through a proxy.
+through a proxy. A _direct proxy_ holds the [endpoints](#endpoints) of the object; an _indirect proxy_ holds an adapter
+ID or only the identity, which the Ice runtime resolves into endpoints with a [locator](#locators).
 
 ## Invocation and Dispatch
 
@@ -37,9 +38,8 @@ A _stringified proxy_ is the string form of a proxy, such as `SimplePrinter:tcp 
 
 ## Endpoints
 
-An _endpoint_ is an address at which an object adapter is reached: a transport and its parameters, such as
-`tcp -h server1 -p 10000`. A proxy that holds endpoints is a _direct proxy_; a proxy that holds none is an _indirect
-proxy_, whose endpoints the Ice runtime obtains from a [locator](#locators). See
+An _endpoint_ is a transport and its parameters, such as `tcp -h server1 -p 10000`: the address at which an object
+adapter listens for connections, and the address a proxy holds to reach it. See
 [Proxy Endpoints](../../runtime/invocation/proxy-endpoints) and [Endpoint Syntax](../../runtime/endpoint-syntax).
 
 ## Communicators
@@ -60,7 +60,7 @@ A [_transport_](../../runtime/transports), such as `tcp`, `ssl`, `ws`, `wss` or 
 ## Object Adapters
 
 An [_object adapter_](../../runtime/dispatch) dispatches the requests it receives to the servants you register with it.
-A communicator can create several object adapters, each with its own endpoints and configuration.
+A communicator can create several object adapters, each with its own configuration.
 
 ## Dispatcher
 
@@ -87,9 +87,10 @@ passing the request on.
 
 ## Locators
 
-A [_locator_](../../runtime/locators) is the service that gives the Ice runtime the endpoints of an indirect proxy, such
-as the [IceGrid](../../services/icegrid) registry. A locator lets a server move to another address without invalidating
-the indirect proxies that clients hold.
+A [_locator_](../../runtime/locators) is an Ice object that implements the `Ice::Locator` interface: the Ice runtime
+asks it to resolve the adapter ID or the identity of an indirect proxy into endpoints. The
+[IceGrid](../../services/icegrid) registry is a locator. A locator lets a server move to another address without
+invalidating the indirect proxies that clients hold.
 
 ## Routers
 
