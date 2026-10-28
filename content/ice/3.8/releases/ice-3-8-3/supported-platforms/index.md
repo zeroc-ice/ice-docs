@@ -16,7 +16,7 @@ platforms and compilers might work as well but have not been tested.
 | iOS 26, iOS 27                                                                                                               | Apple Silicon                   | C++, Swift                                            |
 | Android 14, Android 15, Android 16, Android 17                                                                               | All                             | Java                                                  |
 
-¹ Ice for C++ also provides x86 libraries on Windows.
+¹ Ice for C++ also provides x86 (Win32) libraries on Windows.
 
 ² Ice for MATLAB is only tested on Windows x64 and Ubuntu amd64.
 
