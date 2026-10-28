@@ -328,7 +328,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/service-template-descriptor-element': 'services/icegrid/icegrid-xml-reference/service-template-descriptor-element?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/setting-environment-variables-in-descriptors': 'services/icegrid/icegrid-xml-reference/setting-environment-variables-in-descriptors?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/setting-properties-on-the-command-line': 'runtime/properties-and-configuration/setting-properties-on-the-command-line?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/simple-classes': 'slice/user-defined-types/classes/simple-classes?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/simple-classes': 'slice/user-defined-types/classes?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/simple-example-of-class-encoding': 'encoding/data-encoding-for-classes/simple-example-of-class-encoding?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slave-registry-run-time-component': 'services/icegrid/icegrid-gui-tool/live-deployment-tab/runtime-components/slave-registry-runtime-component?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/slice-compilation': 'slice/slice-compilation?lang=:lang'

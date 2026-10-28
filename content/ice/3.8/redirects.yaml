@@ -18,3 +18,4 @@ permanent:
   'runtime/invocation/proxy-defaults-and-overrides': 'runtime/invocation/proxy-defaults'
   'basics/services-overview': 'services'
   'basics/protocol-in-a-nutshell': 'protocol'
+  'slice/user-defined-types/classes/simple-classes': 'slice/user-defined-types/classes'
