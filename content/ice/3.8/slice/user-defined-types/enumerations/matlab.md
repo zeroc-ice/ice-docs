@@ -74,8 +74,7 @@ assert(f == Fruit.Orange);
 
 This function throws an exception if the given integer does not match any of the enumerators.
 
-The `Fruit` definition above shows the values assigned by default to the enumerators. Suppose we modify the definition
-to include a custom enumerator value:
+Suppose we modify the Slice definition to include a custom enumerator value:
 
 ```slice
 enum Fruit { Apple, Pear = 3, Orange }
