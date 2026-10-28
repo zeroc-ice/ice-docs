@@ -2,21 +2,21 @@
 title: Sequences
 ---
 
+A sequence is an ordered list of zero or more elements of the same type.
+
 ## Sequence Syntax
 
-Sequences are variable-length collections of elements:
+A sequence definition consists of the `sequence` keyword, its element type, and a name:
 
 ```slice
 module M
 {
+    enum Fruit { Apple, Pear, Orange }
     sequence<Fruit> FruitPlatter;
 }
 ```
 
-A sequence can be empty — that is, it can contain no elements, or it can hold any number of elements up to the memory
-limits of your platform.
-
-Sequences can contain elements that are themselves sequences. This arrangement allows you to create lists of lists:
+The element type can be any Slice type, including a sequence:
 
 ```slice
 module M
@@ -24,9 +24,6 @@ module M
     sequence<FruitPlatter> FruitBanquet;
 }
 ```
-
-Sequences are used to model a variety of collections, such as vectors, lists, queues, sets, bags, or trees. (It is up to
-the application to decide whether or not order is important; by discarding order, a sequence serves as a set or bag.)
 
 ## Language Mapping
 
