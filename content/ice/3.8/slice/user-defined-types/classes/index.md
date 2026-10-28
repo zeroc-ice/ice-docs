@@ -23,6 +23,8 @@ module M
 }
 ```
 
+Unlike a struct, a class can be empty.
+
 Classes offer capabilities that structs do not:
 
 - **Extensibility** You can extend a class through [inheritance](./class-inheritance) and
