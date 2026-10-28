@@ -59,8 +59,8 @@ const tod = new TimeOfDay(14, 45, 0, "PST"); // 2:45pm PST
 
 All these parameters have also default values (see [Fields](../../fields)).
 
-For derived classes, the constructor requires an argument for every field of the class, including inherited fields. For
-example, consider the the definition from [Class Inheritance](./class-inheritance) once more:
+For a derived class, the constructor accepts an argument for every field of the class, including inherited fields. For
+example, consider the definition from [Class Inheritance](./class-inheritance) once more:
 
 ```slice
 class TimeOfDay
@@ -68,7 +68,6 @@ class TimeOfDay
     short hour;         // 0 - 23
     short minute;       // 0 - 59
     short second;       // 0 - 59
-    string tz;          // e.g. GMT, PST, EDT...
 }
 
 class DateTime extends TimeOfDay
@@ -83,8 +82,8 @@ The constructors generated for these classes are similar to the following:
 
 ```js
 class DateTime extends TimeOfDay {
-    constructor(hour, minute, second, tz, day = 0, month = 0, year = 0) {
-        super(hour, minute, second, tz);
+    constructor(hour, minute, second, day = 0, month = 0, year = 0) {
+        super(hour, minute, second);
         this.day = day;
         this.month = month;
         this.year = year;
@@ -98,7 +97,6 @@ class DateTime extends TimeOfDay {
           hour?: number,
           minute?: number,
           second?: number,
-          tz?: string,
           day?: number,
           month?: number,
           year?: number);
