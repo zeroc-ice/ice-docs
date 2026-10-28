@@ -71,12 +71,12 @@ var tod = new TimeOfDay(14, 45, 00, "PST"); // 2:45pm
 ```
 
 It also has a parameterless constructor, which initializes the fields to their default values (see
-[Fields](../../fields)). An empty class has only the parameterless constructor.
+[Fields](../../fields)). An empty class has only this constructor.
 
 When a class has fields whose type is a sequence, a dictionary, or a struct mapped to a C# class, the generated class
-also has a constructor with a parameter for each of these fields, which initializes the other fields to their default
-values. The parameterless constructor then sets these fields to `null!` and is hidden from IntelliSense: Ice uses it to
-unmarshal an instance, and code that calls it must set these fields.
+replaces the parameterless constructor with a constructor that has a parameter for each of these fields and initializes
+the other fields to their default values. The parameterless constructor remains public for unmarshaling, but is hidden
+from IntelliSense.
 
 ### Property Mapping
 
