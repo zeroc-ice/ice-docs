@@ -52,8 +52,8 @@ Ice and IceRPC concepts aren’t an exact match.
 ## Protocol and Transport
 
 IceRPC implements two RPC protocols: `ice` and `icerpc`. The `ice` protocol is IceRPC’s implementation of the
-[Ice Protocol](../basics/protocol-in-a-nutshell), the only RPC protocol Ice implements. Your IceRPC components must use
-the `ice` protocol to communicate with Ice components.
+[Ice Protocol](../protocol), the only RPC protocol Ice implements. Your IceRPC components must use the `ice` protocol to
+communicate with Ice components.
 
 IceRPC supports only encoding 1.1, the default
 [Ice.Default.EncodingVersion](../property-reference/ice-default-properties#ice.default.encodingversion). Make sure your

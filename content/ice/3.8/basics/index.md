@@ -3,51 +3,60 @@ title: Basics
 pages:
   - slice-and-slice-compilers
   - terminology
-  - protocol-in-a-nutshell
 ---
 
-Ice is at its core an [RPC framework](https://en.wikipedia.org/wiki/Remote_procedure_call) that allows you to build
-client and server applications around the RPC paradigm.
+In the [Greeter example](../greeter-example), a client calls an operation of an [Ice object](./terminology#ice-objects)
+hosted by a server, often on another computer, and the call looks like an ordinary method call. This is a
+[remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an application calls an operation
+that another application implements, and Ice takes care of the communication.
 
-With Ice, a client application calls local proxies to remote Ice objects hosted in server applications.
+## How a Call Works
 
-Clients and servers have this logical internal structure:
+When a client calls an operation:
+
+1. The client calls a method on a [_proxy_](./terminology#proxies), a local object that represents the remote Ice
+   object.
+2. Ice sends a request, with the operation's arguments, to the server that hosts the Ice object.
+3. In the server, Ice dispatches the request to the [_servant_](./terminology#servants), the object in your server code
+   that implements the Ice object.
+4. Ice sends the result, or the exception the servant throws, back to the client, where the proxy method returns this
+   result or throws this exception.
+
+Ice sends requests and replies as messages of the [Ice protocol](../protocol), over a [transport](../runtime/transports)
+such as TCP, SSL, or WebSocket. The Ice runtime creates and reads these messages: your application never handles them.
+
+The client and the server agree on the operations and the types of their parameters through [Slice](../slice)
+definitions. Slice does not depend on a programming language, so a client and a server written in different languages
+can communicate.
+
+## Client and Server Structure
 
 ![Three-layer Ice client and server structure. Client proxy code corresponds to server skeleton code, while both sides expose the Ice API above their Ice runtimes. The server also has an object adapter, part of the Ice API. The legend identifies Ice API and generated code.](/images/ice/3.8/basics/client-server.svg)
 
 _Ice client and server structure._
 
-Both client and server consist of a mixture of application code, library code, and code generated from Slice
-definitions:
+An Ice client or server combines the code you write, code generated from your Slice definitions, and the Ice libraries:
 
-- The Ice core or [runtime](../runtime) contains the client- and server-side runtime support for remote communication.
-  Much of this code is concerned with the details of networking, threading, byte ordering, and many other
-  networking-related issues that we want to keep away from application code.
+- The application code is the code you write: a client calls operations through proxies, and a server implements them in
+  servants.
+- The generated code holds the proxies that a client calls and the skeletons that servants implement. Together with the
+  Ice runtime, it marshals and unmarshals the arguments and results: it converts them to and from the byte sequences Ice
+  sends over the network.
+- The Ice runtime sends and receives requests and replies, and manages the network connections. Your application uses it
+  through the Ice API.
+- An [object adapter](./terminology#object-adapters), part of the Ice API, receives the requests for the servants
+  registered with it, and dispatches each request to its servant.
 
-- You use the Ice API to take care of administrative chores, such as initializing and finalizing the Ice runtime. The
-  Ice API is identical for clients and servers (although servers use a larger part of the API than clients).
+_Client_ and _server_ are roles, not kinds of programs: the client sends a request, and the server processes it. An
+application can take both roles, for example a client that receives callbacks from the server it calls. See
+[Terminology](./terminology#clients-and-servers).
 
-- The proxy code is generated from your Slice definitions and, therefore, specific to the types of objects and data you
-  have defined in Slice. The proxy code has two major functions:
+{% iflang langs="matlab,php,ruby" %}
 
-  - It provides a down-call interface for the client. Calling a method in the generated proxy API ultimately ends up
-    sending an RPC message to the server that invokes a corresponding method on the target object.
-  - It provides _marshaling_ and _unmarshaling_ code. Marshaling is the process of serializing a data structure, such as
-    a sequence or a dictionary, for transmission on the wire. The marshaling code converts data into a form that is
-    standardized for transmission and independent of the endian-ness and padding rules of the local machine.
-    Unmarshaling is the reverse of marshaling, that is, deserializing data that arrives over the network and
-    reconstructing a local representation of the data in types that are appropriate for the programming language in use.
+This language mapping supports clients only: the servers your client calls are written with another mapping, such as
+C++, C#, Java, Python, or Swift.
 
-- The skeleton code is also generated from your Slice definition and, therefore, specific to the types of objects and
-  data you have defined in Slice. The skeleton code is the server-side equivalent of the client-side proxy code: it
-  provides an up-call interface that permits the Ice runtime to pass incoming requests to the application code you
-  write. The skeleton also contains marshaling and unmarshaling code, so the server can receive parameters sent by the
-  client, and return parameters and exceptions to the client.
+{% /iflang %}
 
-- The object adapter is a part of the Ice API that is specific to the server side: only servers use object adapters. An
-  object adapter dispatches incoming requests to object implementations (_servants_) you’ve registered with this object
-  adapter, and sends back the corresponding responses.
-
-Note that, as far as the process view is concerned, there are only two processes involved: the client and the server.
-All the runtime support for distributed communication is provided by the Ice libraries and the code that is generated
-from Slice definitions.
+The rest of this chapter introduces [Slice and the Slice compilers](./slice-and-slice-compilers) and
+[Ice terminology](./terminology).
