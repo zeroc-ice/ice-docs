@@ -80,13 +80,23 @@ interface Ledger
 }
 ```
 
-The semantics implied by these definitions state that the caller of `getAccount` assumes it will know every type that
-might be returned, but the same cannot be said for `importAccount`. By enabling the sliced format here, we allow the
-client to "slice off" what it does not recognize, even if that means the client is left with only an instance of
-`Account` and not an instance of some derived type.
+The caller of `getAccount` is expected to know every type this operation can return, while the caller of `importAccount`
+may not. With the sliced format, Ice slices an instance of a derived class this caller does not know to the most-derived
+type it knows, which can be `Account` itself.
 
-Metadata on an operation overrides the metadata on its interface. For example, with `["format:sliced"]` on `Ledger` and
-`["format:compact"]` on `getAccount`, only `getAccount` uses the compact format.
+Metadata on an operation overrides the metadata on its interface. For example, all operations of this `Ledger` use the
+sliced format, except `getAccount`:
+
+```slice
+["format:sliced"]
+interface Ledger
+{
+    ["format:compact"]
+    Account getAccount(string id); // Uses compact format
+
+    Account importAccount(string source); // Uses sliced format
+}
+```
 
 The format affects the marshaling of input parameters, output parameters, and return value of an operation.
 
@@ -115,8 +125,8 @@ when clients and servers evolve independently.
 
 ## Preserving Slices
 
-With encoding 1.1, when Ice slices a class instance, it preserves the slices of unknown types. Ice does not preserve the
-slices of an exception. Here is a simple example:
+When Ice slices a class instance, it preserves the slices of unknown types; when it slices an exception, it does not.
+Here is a simple example:
 
 ```slice
 class Base
@@ -155,7 +165,7 @@ When the `Relay` server marshals this instance in the compact format, Ice omits 
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a
 [SlicedData](api:Ice/SlicedData) object that holds the preserved slices.
 
-## Unknown Sliced Values
+### Unknown Sliced Values
 
 Suppose we change the `transform` operation of the `Relay` example to use `Value`:
 
