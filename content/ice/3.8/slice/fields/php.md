@@ -1,6 +1,6 @@
 {% language-section name="language-mapping-1" %}
 
-A Slice field maps to a PHP public variable with the same name.
+A Slice field maps to a PHP public property with the same name.
 
 For example:
 
@@ -38,7 +38,7 @@ class Person
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a PHP public variable with the same name.
+An optional field maps to a PHP public property with the same name.
 
 For example:
 

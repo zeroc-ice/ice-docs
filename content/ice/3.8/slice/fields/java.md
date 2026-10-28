@@ -79,7 +79,7 @@ exception E
 ```
 
 JavaBean get-set methods are generated for all fields of struct `S` and exception `E`, but for only one field of class
-`C`. Relevant portions of the generated code are shown below:
+`C`:
 
 ```java
 public class C extends com.zeroc.Ice.Value {
@@ -92,52 +92,6 @@ public class C extends com.zeroc.Ice.Value {
 
     public void setI(int i) {
         this.i = i;
-    }
-}
-
-public final class S implements java.lang.Cloneable, java.io.Serializable {
-    private boolean b;
-    private java.lang.String str;
-
-    public boolean getB() {
-        return b;
-    }
-
-    public void setB(boolean b) {
-        this.b = b;
-    }
-
-    public boolean isB() {
-        return b;
-    }
-
-    public java.lang.String getStr() {
-        return str;
-    }
-
-    public void setStr(java.lang.String str) {
-        this.str = str;
-    }
-    ...
-}
-
-public class E extends com.zeroc.Ice.UserException {
-    private int[] seq;
-
-    public int[] getSeq() {
-        return seq;
-    }
-
-    public void setSeq(int[] seq) {
-        this.seq = seq;
-    }
-
-    public int getSeq(int index) {
-        return this.seq[index];
-    }
-
-    public void setSeq(int index, int val) {
-        this.seq[index] = val;
     }
     ...
 }

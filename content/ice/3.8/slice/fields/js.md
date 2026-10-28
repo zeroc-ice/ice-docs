@@ -1,7 +1,6 @@
 {% language-section name="language-mapping-1" %}
 
-A Slice field maps to a JavaScript class field with the same name. The type of the JavaScript field is the mapped Slice
-type.
+A Slice field maps to a JavaScript property with the same name. The type of the property is the mapped Slice type.
 
 For example:
 
@@ -22,7 +21,7 @@ M.Person = class {
         this.name = name;
         this.address = address;
     }
-    ....
+    ...
 };
 ```
 
@@ -45,7 +44,8 @@ export class Person {
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a JavaScript class field with the same name. The mapped field’s type is optional.
+An optional field maps to a JavaScript property with the same name. The property's type is optional: an unset field is
+`undefined`, and Ice also marshals an optional proxy field set to `null` as unset.
 
 For example:
 
@@ -84,9 +84,9 @@ export class C extends Ice.Value {
         overrideCode?: number,
         favoriteWidgetProxy?: WidgetPrx);
 
-        alternateName?: string;
-        overrideCode?: number;
-        favoriteWidgetProxy?: WidgetPrx | null;
+    alternateName?: string;
+    overrideCode?: number;
+    favoriteWidgetProxy?: WidgetPrx | null;
     ...
 }
 ```
