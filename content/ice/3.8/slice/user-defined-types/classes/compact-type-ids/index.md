@@ -20,6 +20,13 @@ module M
 In this example, the Ice runtime marshals the value `4` instead of its string equivalent `"::M::CompactExample"`. The
 specified value must be a non-negative integer that is unique within your application.
 
+{% iflang langs="java,matlab" %}
+
+The default Slice loader cannot locate a class that has a compact ID: install a [custom Slice loader](../slice-loaders)
+for these classes.
+
+{% /iflang %}
+
 {% callout type="note" %}
 
 Using values less than 255 produces the most efficient
@@ -30,4 +37,5 @@ Using values less than 255 produces the most efficient
 ## See Also
 
 - [Type IDs](../../../type-ids)
+- [Slice Loaders](../slice-loaders)
 - [Data Encoding for Class Type IDs](../../../../encoding/data-encoding-for-classes/class-type-ids)

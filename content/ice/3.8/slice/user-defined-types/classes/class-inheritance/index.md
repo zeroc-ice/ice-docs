@@ -3,8 +3,6 @@ title: Class Inheritance
 sidebarLabel: Inheritance
 ---
 
-## Simple Inheritance
-
 Unlike [structures](../../structures), classes support inheritance. For example:
 
 ```slice
@@ -21,57 +19,14 @@ module M
     {
         short day;          // 1 - 31
         short month;        // 1 - 12
-        short year;         // 1753 onwards
+        short year;
     }
 }
 ```
 
-This example illustrates one major reason for using a class: a class can be extended by inheritance, whereas a structure
-is not extensible. The previous example defines `DateTime` to extend the `TimeOfDay` class with a date.
+`DateTime` inherits the `hour`, `minute`, and `second` fields of `TimeOfDay`, and adds the fields of a date.
 
-{% callout type="note" %}
-
-If you are puzzled by the comment about the year 1753, search the Web for "1752 date change". The intricacies of
-calendars for various countries prior to that year can keep you occupied for months...
-
-{% /callout %}
-
-Classes only support single inheritance. The following is illegal:
-
-```slice
-class TimeOfDay
-{
-    short hour;         // 0 - 23
-    short minute;       // 0 - 59
-    short second;       // 0 - 59
-}
-
-class Date
-{
-    short day;
-    short month;
-    short year;
-}
-
-class DateTime extends TimeOfDay, Date   // Error!
-{
-    // ...
-}
-```
-
-A derived class cannot redefine a field of its base class:
-
-```slice
-class Base
-{
-    int integer;
-}
-
-class Derived extends Base
-{
-    int integer;                // Error, integer redefined
-}
-```
+A class can extend only one base class, and a derived class cannot redefine a field of its base class.
 
 ## Implicit Inheritance from Value
 

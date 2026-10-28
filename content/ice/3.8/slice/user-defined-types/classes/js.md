@@ -75,7 +75,7 @@ class DateTime extends TimeOfDay
 {
     short day;          // 1 - 31
     short month;        // 1 - 12
-    short year;         // 1753 onwards
+    short year;
 }
 ```
 
