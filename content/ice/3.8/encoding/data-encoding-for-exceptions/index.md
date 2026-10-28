@@ -88,7 +88,7 @@ The final slice, representing the least-derived type, has its _last slice_ bit s
 
 {% callout type="note" %}
 
-As of Ice 3.8, Ice always marshals exceptions in the sliced format. It can also unmarshal exceptions in any format.
+Ice always marshals exceptions in the sliced format, and unmarshals exceptions in either format.
 
 {% /callout %}
 

@@ -84,8 +84,8 @@ The caller of `getAccount` is expected to know every type this operation can ret
 may not. With the sliced format, Ice slices an instance of a derived class this caller does not know to the most-derived
 type it knows, which can be `Account` itself.
 
-Metadata on an operation overrides the metadata on its interface. For example, all operations of this `Ledger` use the
-sliced format, except `getAccount`:
+The `format` metadata on an operation overrides the one on its interface. For example, all operations of this `Ledger`
+use the sliced format, except `getAccount`:
 
 ```slice
 ["format:sliced"]
