@@ -11,9 +11,8 @@ module M
 {
     interface AlarmClock extends Clock
     {
-        idempotent TimeOfDay getAlarmTime();
-        idempotent void setAlarmTime(TimeOfDay alarmTime)
-            throws BadTimeValException;
+        TimeOfDay getAlarmTime();
+        void setAlarmTime(TimeOfDay alarmTime);
     }
 }
 ```
@@ -28,8 +27,8 @@ module M
 {
     interface Radio
     {
-        void setFrequency(long hertz) throws GenericException;
-        void setVolume(long dB) throws GenericException;
+        void setFrequency(long hertz);
+        void setVolume(long dB);
     }
 
     enum AlarmMode { RadioAlarm, BeepAlarm }
@@ -42,8 +41,8 @@ module M
 }
 ```
 
-`RadioClock` extends both `Radio` and `AlarmClock` and can therefore be passed where a `Radio`, an `AlarmClock`, or a
-`Clock` is expected. The inheritance diagram for this definition looks as follows:
+`RadioClock` extends both `Radio` and `AlarmClock`, so a `RadioClock*` proxy can be used where a `Radio*`, an
+`AlarmClock*`, or a `Clock*` proxy is expected. The inheritance diagram for this definition looks as follows:
 
 ![RadioClock inherits from Radio and AlarmClock, while AlarmClock inherits from Clock.](/images/ice/3.8/interface-inheritance/radioclock.svg)
 
@@ -65,8 +64,9 @@ This definition results in the familiar diamond shape:
 
 ## Interface Inheritance Limitations
 
-If an interface uses multiple inheritance, it must not inherit the same operation name from more than one base
-interface. For example, the following definition is illegal:
+An interface must not inherit operations with the same name, or with names that differ only in capitalization, from
+unrelated base interfaces. An operation inherited through several paths from a common base interface, as in the diamond
+above, is not a conflict. For example, the following definition is illegal:
 
 ```slice
 interface Clock
@@ -85,12 +85,8 @@ interface RadioClock extends Radio, Clock     // Illegal!
 }
 ```
 
-This definition is illegal because `RadioClock` inherits two `set` operations, `Radio::set` and `Clock::set`. The Slice
-compiler makes this illegal because (unlike C++) many programming languages do not have a built-in facility for
-disambiguating the different operations. In Slice, the simple rule is that all inherited operations must have unique
-names. (In practice, this is rarely a problem because inheritance is rarely added to an interface hierarchy "after the
-fact". To avoid accidental clashes, we suggest that you use descriptive operation names, such as `setTime` and
-`setFrequency`. This makes accidental name clashes less likely.)
+`RadioClock` inherits two `set` operations, `Radio::set` and `Clock::set`, and many programming languages cannot
+disambiguate them. Descriptive operation names, such as `setTime` and `setFrequency`, avoid such clashes.
 
 ## Implicit Inheritance from Object
 
@@ -99,7 +95,7 @@ earlier would be shown more correctly as:
 
 ![Radio and Clock implicitly inherit from Object. AlarmClock inherits from Clock, and RadioClock inherits from Radio and AlarmClock. Hollow arrowheads point toward the base interfaces.](/images/ice/3.8/interface-inheritance/implicit-object.svg)
 
-Because all interfaces have a common base interface, we can pass any type of interface as that type. For example:
+Because all interfaces have this common base interface, an `Object*` parameter accepts a proxy of any type. For example:
 
 ```slice
 interface ProxyStore
@@ -109,18 +105,9 @@ interface ProxyStore
 }
 ```
 
-`Object` is a Slice keyword (note the capitalization) that denotes the root type of the inheritance hierarchy. The
-`ProxyStore` interface is a generic proxy storage facility: the client can call `putProxy` to add a proxy of any type
-under a given name and later retrieve that proxy again by calling `getProxy` and supplying that name. The ability to
-generically store proxies in this fashion allows us to build general-purpose facilities, such as a
-[naming service](../../../services/icegrid) that can store proxies and deliver them to clients. Such a service, in turn,
-allows us to avoid hard-coding proxy details into clients and servers.
-
-Inheritance from type `Object` is always implicit. For example, the following Slice definition is illegal:
-
-```slice
-interface MyInterface extends Object { /* ... */ } // Error!
-```
+`Object` is a Slice keyword (note the capitalization) that denotes the root type of the inheritance hierarchy: the
+`ProxyStore` interface can store and return a proxy of any type. Inheritance from `Object` is always implicit: an
+interface cannot list `Object` as a base interface.
 
 Every interface inherits the four [operations of `Object`](../../operations-on-object): `ice_ping`, `ice_isA`, `ice_id`,
 and `ice_ids`.

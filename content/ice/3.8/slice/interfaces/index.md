@@ -7,7 +7,7 @@ pages:
 
 ## Syntax and Semantics of Interfaces
 
-The central focus of Slice is on defining interfaces, for example:
+A Slice interface defines the operations that clients invoke on an Ice object. For example:
 
 ```slice
 module M
@@ -27,44 +27,23 @@ module M
 }
 ```
 
-This definition defines an interface type called `Clock`. The interface supports two operations: `getTime` and
-`setTime`. Clients access an object supporting the `Clock` interface by invoking an operation on the proxy for the
-object: to read the current time, the client invokes the `getTime` operation; to set the current time, the client
-invokes the `setTime` operation, passing an argument of type `TimeOfDay`.
+`Clock` defines two operations: `getTime` returns the current time, and `setTime` sets it. A client calls these
+operations on a proxy for an Ice object that implements `Clock`, and the Ice runtime delivers each request to this
+object, whether it is in another process or in the client's own; see
+[Collocated Invocation and Dispatch](../../runtime/collocated-invocation-and-dispatch).
 
-Invoking an operation on a proxy instructs the Ice runtime to send a request to the target object. The location of the
-target object is transparent to the client; see
-[Collocated Invocation and Dispatch](../../runtime/collocated-invocation-and-dispatch) for how the Ice runtime delivers
-the request.
+An interface contains only operations: you cannot define a type, an exception, or a field inside an interface. The
+implementation of an Ice object can hold state, but this state does not appear in its interface.
 
-Note that nothing but operation definitions are allowed to appear inside an interface definition. In particular, you
-cannot define a type, an exception, or a field inside an interface. This does not mean that your object implementation
-cannot contain state — it can, but how that state is implemented (in the form of fields or otherwise) is hidden from the
-client and, therefore, need not appear in the object's interface definition.
+An Ice object is the only entity a client can address: the client invokes operations on the object's proxy, which holds
+the object's identity. To give clients access to a structure, you define an interface whose operations read or update
+it. A process can implement several interfaces, but you cannot implement parts of one interface in different processes.
 
-A Slice interface defines the smallest grain of distribution in Ice: each Ice object has a unique identity (encapsulated
-in its proxy) that distinguishes it from other Ice objects; for communication to take place, you must invoke operations
-on an object's proxy. There is no other notion of an addressable entity in Ice. You cannot, for example, instantiate a
-Slice structure and have clients manipulate that structure remotely. To make the structure accessible, you must create
-an interface that allows clients to access the structure.
-
-The partition of an application into interfaces therefore has profound influence on the overall architecture.
-Distribution boundaries must follow interface boundaries; you can spread the implementation of interfaces over multiple
-processes (and you can implement multiple interfaces in the same process), but you cannot implement parts of an
-interface in different processes.
-
-## Empty Interfaces
-
-The following Slice definition is legal:
+An interface can be empty:
 
 ```slice
 interface Empty {}
 ```
-
-The Slice compiler will compile this definition without complaint. An interesting question is: "why would I need an
-empty interface?". In most cases, empty interfaces are an indication of design errors. If you find yourself writing an
-empty interface definition, at least step back and think about the problem at hand; there may be a more appropriate
-design that expresses your intent more cleanly.
 
 {% language-section name="mapping" /%}
 
