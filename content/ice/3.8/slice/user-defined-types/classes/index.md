@@ -31,9 +31,7 @@ Classes offer capabilities that structs do not:
   [optional fields](../../fields#optional-fields).
 - **Graph preservation** Ice preserves the references between class instances: two references to the same instance in a
   [class graph](./self-referential-classes) still refer to one instance after unmarshaling.
-- **Null value** A class parameter or field can be null. A struct parameter or field always holds a value, unless it is
-  an [optional parameter](../../operations#optional-parameters-and-return-values) or
-  [optional field](../../fields#optional-fields) that is not set.
+- **Null value** A class parameter or field can be null, whereas a struct parameter or field cannot.
 - **Slicing** With the [sliced format](./slicing-values-and-exceptions#slice-formats), a receiver can unmarshal an
   instance of a derived class it does not know as the most-derived base class it knows.
 
