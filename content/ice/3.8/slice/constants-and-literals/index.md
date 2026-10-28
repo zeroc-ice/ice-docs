@@ -6,7 +6,8 @@ title: Constants and Literals
 
 Slice allows you to define constants for the following types:
 
-- An [integral](../basic-types) type (`bool`, `byte`, `short`, `int`, `long`)
+- [bool](../basic-types), initialized with `true` or `false`
+- An [integral](../basic-types) type (`byte`, `short`, `int`, `long`)
 - A [floating point](../basic-types) type (`float` or `double`)
 - [string](../basic-types)
 - [enum](../user-defined-types/enumerations)
@@ -27,11 +28,6 @@ module M
 }
 ```
 
-## Boolean Constants
-
-Boolean constants can only be initialized with the keywords `false` and `true`. (You cannot use `0` and `1` to represent
-`false` and `true`.)
-
 ## Integer Literals
 
 Integer literals can be specified in decimal, octal, or hexadecimal notation.
@@ -43,10 +39,6 @@ const byte TheAnswer = 42;
 const byte TheAnswerInOctal = 052;
 const byte TheAnswerInHex = 0x2A;       // or 0x2a
 ```
-
-Be aware that, if you interpret `byte` as a number instead of a bit pattern, you may get different results in different
-languages. For example, for C++, `byte` maps to `std::uint8_t` whereas, for Java, `byte` maps to `byte`, which is a
-signed type.
 
 The value of an integer literal must be within the range of its constant type, as shown in the
 [Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
@@ -60,7 +52,7 @@ which the Slice compiler ignores.
 Here are a few examples:
 
 ```slice
-const float P1 = -3.14f;    // Integer & fraction, with suffix
+const float P1 = -3.14f;    // Integer and fraction, with suffix
 const float P2 = +3.1e-3;   // Integer, fraction, and exponent
 const float P3 = .1;        // Fraction part only
 const float P4 = 1.;        // Integer part only
@@ -75,25 +67,25 @@ will issue a diagnostic.
 
 Slice string literals support the following escape sequences:
 
-| **Escape Sequence** | **Name**                    | **Corresponding ASCII or** **Unicode Code Point** | **Notes**                                                                                                                          |
-| ------------------- | --------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `\'`                | single quote                | 0x27                                              |                                                                                                                                    |
-| `\"`                | double quote                | 0x22                                              |                                                                                                                                    |
-| `\?`                | question mark               | 0x3f                                              |                                                                                                                                    |
-| `\\`                | backslash                   | 0x5c                                              |                                                                                                                                    |
-| `\a`                | audible bell                | 0x07                                              |                                                                                                                                    |
-| `\b`                | backspace                   | 0x08                                              |                                                                                                                                    |
-| `\f`                | form feed                   | 0x0c                                              |                                                                                                                                    |
-| `\n`                | line feed                   | 0x0a                                              |                                                                                                                                    |
-| `\r`                | carriage return             | 0x0d                                              |                                                                                                                                    |
-| `\t`                | horizontal tab              | 0x09                                              |                                                                                                                                    |
-| `\v`                | vertical tab                | 0x0b                                              |                                                                                                                                    |
-| `\nnn`              | octal escape sequence       |                                                   | 1 to 3 octal digits (0-7) that represent a byte value between 0 and 255                                                            |
-| `\xnn`              | hexadecimal escape sequence |                                                   | 1 to 2 hexadecimal digits (0-9, a-f, A-F)                                                                                          |
-| `\unnnn`            | universal character name    | U+nnnn                                            | Exactly 4 hexadecimal digits.Use the \Unnnnnnnn notation for [astral characters](<https://en.wikipedia.org/wiki/Plane_(Unicode)>). |
-| `\Unnnnnnnn`        | universal character name    | U+nnnnnnnn                                        | Exactly 8 hexadecimal digits.                                                                                                      |
+| **Escape Sequence** | **Name**                    | **Corresponding ASCII or** **Unicode Code Point** | **Notes**                                                                                                                             |
+| ------------------- | --------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `\'`                | single quote                | 0x27                                              |                                                                                                                                       |
+| `\"`                | double quote                | 0x22                                              |                                                                                                                                       |
+| `\?`                | question mark               | 0x3f                                              |                                                                                                                                       |
+| `\\`                | backslash                   | 0x5c                                              |                                                                                                                                       |
+| `\a`                | audible bell                | 0x07                                              |                                                                                                                                       |
+| `\b`                | backspace                   | 0x08                                              |                                                                                                                                       |
+| `\f`                | form feed                   | 0x0c                                              |                                                                                                                                       |
+| `\n`                | line feed                   | 0x0a                                              |                                                                                                                                       |
+| `\r`                | carriage return             | 0x0d                                              |                                                                                                                                       |
+| `\t`                | horizontal tab              | 0x09                                              |                                                                                                                                       |
+| `\v`                | vertical tab                | 0x0b                                              |                                                                                                                                       |
+| `\nnn`              | octal escape sequence       |                                                   | 1 to 3 octal digits (0-7) that represent a byte value between 0 and 255                                                               |
+| `\xnn`              | hexadecimal escape sequence |                                                   | 1 to 2 hexadecimal digits (0-9, a-f, A-F)                                                                                             |
+| `\unnnn`            | universal character name    | U+nnnn                                            | Exactly 4 hexadecimal digits. Use the `\Unnnnnnnn` notation for [astral characters](<https://en.wikipedia.org/wiki/Plane_(Unicode)>). |
+| `\Unnnnnnnn`        | universal character name    | U+nnnnnnnn                                        | Exactly 8 hexadecimal digits.                                                                                                         |
 
-A backslash (\) followed by another character is simply preserved as is.
+Any other character after a backslash is kept as is, backslash included: `"\q"` holds a backslash and a `q`.
 
 Octal and hexadecimal escape sequences can represent ASCII characters (ordinal value 0 to 127) or the UTF-8 encoding of
 non-ASCII characters.
@@ -108,43 +100,25 @@ const string AnOrdinaryString = "Hello World!";
 
 const string DoubleQuote = "\"";
 const string TwoSingleQuotes = "'\'"; // ' and \' are OK
-const string QuestionMark = "\?";
-const string Backslash = "\\";
-const string AudibleBell = "\a";
-const string Backspace = "\b";
-const string FormFeed = "\f";
 const string Newline = "\n";
-const string CarriageReturn = "\r";
-const string HorizontalTab = "\t";
-const string VerticalTab = "\v";
 
 const string OctalEscape = "\007"; // Same as \a
 const string HexEscape1 = "\x07"; // Ditto
-const string HexEscape2 = "\x41F"; // Same as AF
-const string Universal1 = "\u0041"; // Same as A
-const string Universal2 = "\U00000041"; // Ditto
+const string HexEscape2 = "\x41F"; // Same as AF: a hexadecimal escape has at most 2 digits
+const string Universal = "\u0041"; // Same as A
 
-const string EuroSign1 =  "€";   // Euro sign (U+20AC)
-// Euro sign as a short universal character name
-const string EuroSign2 = "\u20AC";
-// Euro sign as a long universal character name
-const string EuroSign3 =  "\U000020ac";
-// Euro sign in UTF-8 encoding, using hex escape sequences
-const string EuroSign4 = "\xe2\x82\xAC";
-// Euro sign in UTF-8 encoding, using octal escape sequences
-const string EuroSign5 = "\342\202\254";
-// Euro sign in UTF-8 encoding, using a mix or hex and octal escape sequences
-const string EuroSign6 = "\342\x82\254";
+const string EuroSign1 = "€"; // Euro sign (U+20AC)
+const string EuroSign2 = "\u20AC"; // Universal character name
+const string EuroSign3 = "\xe2\x82\xac"; // UTF-8 encoding, using hexadecimal escape sequences
 ```
 
 ```slice
 const string NullString = null;    // Illegal!
 ```
 
-Null strings simply do not exist in Slice and, therefore, do not exist as a legal value for a string anywhere in the Ice
-platform.
+The Slice `string` type has no null value.
 
-## Constant Expressions
+## Referencing Other Constants
 
 A constant definition may also refer to another constant. It is not necessary for both constants to have the same Slice
 type, but the value of the existing constant must be compatible with the type of the constant being defined.
@@ -154,14 +128,10 @@ Consider the examples below:
 ```slice
 const int SIZE = 500;
 
-const int DEFAULT_SIZE = SIZE; // OK
-const short SHORT_SIZE = SIZE; // OK
-const byte BYTE_SIZE = SIZE; // ERROR
+const int DEFAULT_SIZE = SIZE; // OK: same type
+const short SHORT_SIZE = SIZE; // OK: 500 is within the range of short
+const byte BYTE_SIZE = SIZE;   // Error: 500 is outside the range of byte
 ```
-
-The `DEFAULT_SIZE` constant is legal because it has the same type as `SIZE`, and `SHORT_SIZE` is legal because the value
-of `SIZE` (`500`) is within the range of the Slice `short` type. However, `BYTE_SIZE` is illegal because the value of
-`SIZE` is outside the range of the `byte` type.
 
 ## Language Mapping
 
@@ -171,7 +141,6 @@ of `SIZE` (`500`) is within the range of the Slice `short` type. However, `BYTE_
 
 ## See Also
 
+- [Basic Types](../basic-types)
+- [Fields](../fields#default-values)
 - [Enumerations](../user-defined-types/enumerations)
-- [Structures](../user-defined-types/structures)
-- [Sequences](../user-defined-types/sequences)
-- [Dictionaries](../user-defined-types/dictionaries)
