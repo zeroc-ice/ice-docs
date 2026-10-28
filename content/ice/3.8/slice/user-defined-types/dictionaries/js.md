@@ -6,10 +6,8 @@ A Slice dictionary maps to:
   key is a Slice basic type or an enumeration.
 - An [`Ice.HashMap`](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html) when the key is a Slice structure.
 
-This distinction is necessary because:
-
-- JavaScript Map uses the `===` operator for key equality.
-- `Ice.HashMap` accepts a key comparator, so struct keys can use their `equals` method for equality.
+A JavaScript `Map` compares object keys by identity, whereas `Ice.HashMap` compares struct keys with their `equals`
+method, so two structs with the same field values are the same key.
 
 ### Example: Dictionary with a Basic Key Type
 
@@ -38,22 +36,18 @@ If the key is a Slice struct, the compiler generates code that uses
 dictionary<Employee, string> EmployeeDeptMap;
 ```
 
-Generated JavaScript/TypeScript code:
-
-```js
-class EmployeeDeptMap extends Ice.HashMap {
-    constructor(h) {
-        const keyComparator = ...;
-        super(h || keyComparator);
-    }
-}
-```
+The generated TypeScript declaration is:
 
 ```typescript
-class EmployeeDeptMap extends Ice.HashMap<Employee, string> { ... }
+class EmployeeDeptMap extends Ice.HashMap<Employee, string> {}
 ```
 
-- `new EmployeeDeptMap()` creates an `Ice.HashMap` that compares keys with their `equals` method.
-- `new Ice.HashMap()` compares keys with `===` unless you pass a key comparator to its constructor.
+You create and use an `EmployeeDeptMap` like a `Map`:
+
+```js
+const departments = new EmployeeDeptMap();
+departments.set(new Employee(42n, "Stan", "Lippman"), "Engineering");
+departments.get(new Employee(42n, "Stan", "Lippman")); // "Engineering"
+```
 
 {% /language-section %}

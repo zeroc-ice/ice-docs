@@ -32,4 +32,8 @@ With this definition, the type of the dictionary becomes:
 SortedDictionary<long, Employee>
 ```
 
+`SortedDictionary` and `SortedList` sort the entries with the default comparer of the key type. The C# types generated
+for Slice structures do not implement `IComparable`, so use these mappings for dictionaries whose key type is not a
+structure.
+
 {% /language-section %}
