@@ -1,7 +1,6 @@
 ---
 title: Classes
 pages:
-  - simple-classes
   - class-inheritance
   - self-referential-classes
   - compact-type-ids
@@ -9,21 +8,35 @@ pages:
   - slicing-values-and-exceptions
 ---
 
-A class is a user-defined type that holds a list of fields, just like a struct. Classes also offer capabilities not
-offered by structs:
+A class is a user-defined type that holds a list of fields, like a [struct](../structures). You define a class with the
+`class` keyword:
 
-- **Extensibility** You can extend a class through inheritance and optional fields
-- **Graph preservation** You can transmit a graph of class instances through a Slice operation
-- **Null value** A class parameter or field can be null. A struct parameter or field always holds a value, unless it is
-  an [optional parameter](../../operations#optional-parameters-and-return-values) or
-  [optional field](../../fields#optional-fields) that is not set; a class cannot be the type of an optional parameter or
-  field
-- **Slicing** A recipient can unmarshal a class instance into a base class by slicing off derived "slices" it does not
-  know
+```slice
+module M
+{
+    class TimeOfDay
+    {
+        short hour;         // 0 - 23
+        short minute;       // 0 - 59
+        short second;       // 0 - 59
+    }
+}
+```
 
-These extra capabilities are not free: the marshaling/unmarshaling of a class is much more complex and time consuming
-than the marshaling/unmarshaling of a struct, and its binary representation is larger. As a result, you should only
-select a class over a struct when these extra capabilities may be useful for your application.
+Unlike a struct, a class can be empty.
+
+Classes offer capabilities that structs do not:
+
+- **Extensibility** You can extend a class through [inheritance](./class-inheritance) and
+  [optional fields](../../fields#optional-fields).
+- **Graph preservation** Ice preserves the references between class instances: two references to the same instance in a
+  [class graph](./self-referential-classes) still refer to one instance after unmarshaling.
+- **Null value** A class parameter or field can be null, whereas a struct parameter or field cannot.
+- **Slicing** With the [sliced format](./slicing-values-and-exceptions#slice-formats), a receiver can unmarshal an
+  instance of a derived class it does not know as the most-derived base class it knows.
+
+Marshaling a class takes more time and space than marshaling a struct, so use a class only when you need one of these
+capabilities.
 
 {% callout type="note" %}
 
