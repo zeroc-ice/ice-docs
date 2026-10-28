@@ -21,7 +21,7 @@ namespace M
 {
     class SimplePrxHelper
     {
-        public static function createProxy($communicator, $proxyString)
+        public static function createProxy($communicator, $proxyString) { ... }
     }
 }
 ```
@@ -55,9 +55,9 @@ namespace M
 {
     class SimplePrxHelper
     {
-        public static function uncheckedCast($proxy, $facet=null)
+        public static function uncheckedCast($proxy, $facet=null) { ... }
 
-        public static function checkedCast($proxy, ...$args)
+        public static function checkedCast($proxy, ...$args) { ... }
     }
 }
 ```

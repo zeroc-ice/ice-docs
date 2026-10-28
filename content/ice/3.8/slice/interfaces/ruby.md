@@ -8,9 +8,12 @@ On the client side, a Slice interface maps to a Ruby class with methods that cor
 interfaces. Consider the following Slice interface:
 
 ```slice
-interface Simple
+module M
 {
-    void op();
+    interface Simple
+    {
+        void op();
+    }
 }
 ```
 

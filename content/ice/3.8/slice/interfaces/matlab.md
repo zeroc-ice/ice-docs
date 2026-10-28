@@ -8,9 +8,12 @@ A Slice interface maps to a MATLAB class with methods that correspond to the ope
 following Slice interface:
 
 ```slice
-interface Simple
+module M
 {
-    void op();
+    interface Simple
+    {
+        void op();
+    }
 }
 ```
 
@@ -129,7 +132,7 @@ each of these factory methods returns a copy of the original proxy that contains
 you can obtain a proxy configured with a ten second invocation timeout as shown below:
 
 ```matlab
-greeter = GreeterPrx(communicator, 'simple:tcp -h localhost -p 4061');
+greeter = GreeterPrx(communicator, 'greeter:tcp -h localhost -p 4061');
 
 % Create a new GreeterPrx and assign it to greeter.
 greeter = greeter.ice_invocationTimeout(10000);
@@ -142,7 +145,7 @@ a proxy for an object of an unrelated type, and you need to convert the returned
 example:
 
 ```matlab
-greeter = GreeterPrx(communicator, 'simple:tcp -h localhost -p 4061');
+greeter = GreeterPrx(communicator, 'greeter:tcp -h localhost -p 4061');
 greeterAdmin = GreeterAdminPrx.uncheckedCast(greeter.ice_facet('admin'));
 ```
 

@@ -8,9 +8,12 @@ On the client side, a Slice interface maps to a Python class with methods that c
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+module M
 {
-    void op();
+    interface Simple
+    {
+        void op();
+    }
 }
 ```
 
@@ -121,7 +124,7 @@ directly.
 #### checkedCast
 
 `checkedCast` is the synchronous equivalent of `checkedCastAsync`: it blocks the caller until the response it receives.
-You should prefer async methods over their their synchronous equivalent when making remote calls with Ice.
+You should prefer async methods over their synchronous equivalent when making remote calls with Ice.
 
 ### Proxy Factory Methods
 

@@ -8,10 +8,13 @@ On the client side, a Slice interface maps to a C# interface with methods that c
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+module M
 {
-    ["cs:identifier:Op"]
-    void op();
+    interface Simple
+    {
+        ["cs:identifier:Op"]
+        void op();
+    }
 }
 ```
 
@@ -25,7 +28,7 @@ public partial interface SimplePrx : Ice.ObjectPrx
         IProgress<bool>? progress = null,
         CancellationToken cancel = default);
 
-    // Synchronous "overload" provided for backwards compatibility.
+    // Synchronous method provided for backwards compatibility.
     void Op(Dictionary<string, string>? context = null);
 }
 ```
@@ -68,7 +71,7 @@ that all Slice interfaces implicitly inherit from `Object`.
 
 ### Interface Inheritance
 
-Inheritance relationships among Slice interfaces are maintained in the generated C# classes. For example:
+Inheritance relationships among Slice interfaces are maintained in the generated C# interfaces. For example:
 
 ```slice
 module M
@@ -139,8 +142,8 @@ If the target object implements the Slice interface, `checkedCastAsync` returns 
 
 {% callout type="note" %}
 
-The generated proxy helper also provides a synchronous overload: `checkedCast`. We recommend you always use async
-methods when making remote calls, and avoid these synchronous overloads provided for backwards compatibility.
+The generated proxy helper also provides a synchronous version: `checkedCast`. We recommend you always use async methods
+when making remote calls, and avoid these synchronous methods provided for backwards compatibility.
 
 {% /callout %}
 
