@@ -45,8 +45,7 @@ export class Person {
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a JavaScript class field with the same name. The mapped field’s type is optional, and the tag
-value is not mapped to JavaScript.
+An optional field maps to a JavaScript class field with the same name. The mapped field’s type is optional.
 
 For example:
 

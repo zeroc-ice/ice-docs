@@ -26,8 +26,7 @@ class Person:
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a Python field with the same name. The mapped field’s type is the mapped type or `None`, and
-the tag value is not mapped to Python.
+An optional field maps to a Python field with the same name. The mapped field’s type is the mapped type or `None`.
 
 For example:
 

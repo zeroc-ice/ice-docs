@@ -12,20 +12,13 @@ ByteSeq image;
 Fruit fruit;
 ```
 
-Each field definition must be followed by a semicolon. You can define several fields on the same line if you wish, as
-in:
-
-```slice
-struct Point { int x; int y; }
-```
-
 The type of a field can be a [basic type](../basic-types), a [user-defined type](../user-defined-types), `Object*` (an
-untyped proxy), or `Value`(an untyped class instance).
+untyped proxy), or `Value` (an untyped class instance).
 
 ## Nullable and Non-Nullable Fields
 
-Fields with proxy and class types are nullable. Optional fields (presented below) are also nullable. All other fields
-are non-nullable, meaning they must have a value when transmitted through Ice.
+Fields with proxy and class types are nullable: they can hold null. Fields of other types always hold a value, unless
+they are [optional fields](#optional-fields) that are not set.
 
 ```slice
 struct Example
@@ -39,8 +32,7 @@ struct Example
 ## Optional Fields
 
 A field of a Slice [class](../user-defined-types/classes) or [exception](../exceptions) may be declared as optional to
-indicate that a program can leave its value unset. Fields not declared as optional are known as _required_ fields; a
-program must supply legal values for all required fields.
+indicate that a program can leave its value unset. Fields not declared as optional are known as _required_ fields.
 
 Each optional field must be assigned a unique, non-negative integer _tag_:
 
@@ -57,42 +49,11 @@ module M
 }
 ```
 
-It is legal for a base type's tag to be reused by a derived type:
+A tag must be unique within its class or exception; a derived class or exception can reuse a tag of its base type.
+Optional and required fields can be interleaved, and their tags can be in any order. The tag identifies the field in the
+[encoding](../../encoding/data-encoding-for-optional-values); the language mappings do not expose it.
 
-```slice
-exception BaseException
-{
-    optional(1) int systemCode;
-}
-
-exception DerivedException extends BaseException
-{
-    optional(1) string diagnostic; // OK
-}
-```
-
-The scope of a tag is limited to its enclosing type and has no effect on base or derived types.
-
-{% callout type="warning" %}
-
-You can mark any field as optional, except if the field’s type is a class type or a constructed type that holds a class
-type. At the field level, optional and class are incompatible.
-
-{% /callout %}
-
-Optional fields and required fields can appear in any order in your class definition. You can also assign tags in any
-order. For example:
-
-```slice
-class UnusualButValidPerson
-{
-    optional(5) string nickname;
-    string name;
-    optional(0) Date dateOfBirth; // Date is a struct
-    string currentAddress;
-    optional(123) Fruit favoriteFruit; // Fruit is an enum
-}
-```
+An optional field cannot have a class type, or a constructed type that holds a class type.
 
 Optional fields require [Ice encoding version 1.1](../../encoding/data-encoding-for-optional-values): when Ice marshals
 a class or exception with encoding 1.0, it omits the optional fields, and the receiver sees them unset.

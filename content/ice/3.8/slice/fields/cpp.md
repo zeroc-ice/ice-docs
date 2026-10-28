@@ -78,7 +78,7 @@ struct Person
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a C++ data member with the same name. The data member's type is the mapped type, wrapped in a
-`std::optional`. The tag value is not mapped to C++.
+`std::optional`.
 
 For example:
 

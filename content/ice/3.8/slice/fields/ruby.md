@@ -35,8 +35,7 @@ end
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a Ruby instance variable and accessors, just like a non-optional field. Tag values are not
-mapped to Ruby.
+An optional field maps to a Ruby instance variable and accessors, just like a non-optional field.
 
 For example:
 

@@ -30,8 +30,7 @@ public sealed partial record class Person
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a C# field with the same name. The mapped field’s type is nullable, and the tag value is not
-mapped to C#.
+An optional field maps to a C# field with the same name. The mapped field’s type is nullable.
 
 For example:
 
