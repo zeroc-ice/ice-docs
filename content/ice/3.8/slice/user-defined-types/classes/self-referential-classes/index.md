@@ -58,9 +58,8 @@ interface Evaluator
 }
 ```
 
-Several fields can refer to the same instance. Ice marshals this instance once, and in the graph the receiver
-unmarshals, these fields refer to a single instance too. For example, the two operands of a `BinaryOperator` can be the
-same `Operand` instance.
+Several fields can refer to the same instance, and after unmarshaling these fields still refer to a single instance. For
+example, the two operands of a `BinaryOperator` can be the same `Operand` instance.
 
 A class graph can also contain cycles. For example, a tree node can refer to its parent as well as to its children:
 
