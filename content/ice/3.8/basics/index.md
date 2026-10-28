@@ -39,8 +39,9 @@ An Ice client or server combines the code you write, code generated from your Sl
 
 - The application code is the code you write: a client calls operations through proxies, and a server implements them in
   servants.
-- The generated code holds the proxies that a client calls and the skeletons that servants implement. It also marshals
-  and unmarshals the arguments and results: it converts them to and from the byte sequences Ice sends over the network.
+- The generated code holds the proxies that a client calls and the skeletons that servants implement. Together with the
+  Ice runtime, it marshals and unmarshals the arguments and results: it converts them to and from the byte sequences Ice
+  sends over the network.
 - The Ice runtime sends and receives requests and replies, and manages the network connections. Your application uses it
   through the Ice API.
 - An [object adapter](./terminology#object-adapters), part of the Ice API, receives the requests for the servants
