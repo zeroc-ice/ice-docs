@@ -2,12 +2,11 @@
 title: Sequences
 ---
 
-A sequence is an ordered collection of elements of the same type, in which an element can appear more than once. A
-sequence can be empty.
+A sequence is an ordered list of zero or more elements of the same type.
 
 ## Sequence Syntax
 
-You define a sequence with the `sequence` keyword and its element type:
+A sequence definition consists of the `sequence` keyword, its element type, and a name:
 
 ```slice
 module M
@@ -17,7 +16,7 @@ module M
 }
 ```
 
-The element type can itself be a sequence:
+The element type can be any Slice type, including a sequence:
 
 ```slice
 module M
