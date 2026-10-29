@@ -24,7 +24,6 @@ constexpr std::int16_t TheAnswer = 42;
 constexpr double PI = 3.1416;
 
 enum class Fruit : std::uint8_t { Apple, Pear, Orange };
-std::ostream& operator<<(std::ostream& os, Fruit value);
 
 constexpr Fruit FavoriteFruit = Fruit::Pear;
 ```
@@ -55,7 +54,7 @@ is mapped to:
 const std::wstring LargeEgg = L"gros \u0153uf";
 ```
 
-A Slice string literal that contains universal character names is mapped to a narrow C++ string with one ore more octal
+A Slice string literal that contains universal character names is mapped to a narrow C++ string with one or more octal
 escape sequences or to a wide C++ string with the universal character names preserved. For example:
 
 ```slice
