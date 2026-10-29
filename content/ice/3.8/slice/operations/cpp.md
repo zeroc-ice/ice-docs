@@ -609,7 +609,7 @@ interface ServerToClient
 }
 ```
 
-The Slice compiler generates a proxy class for this definition (we omit the async overloads):
+The Slice compiler generates a proxy class for this definition (we omit the async functions):
 
 ```cpp
 class ServerToClientPrx : public Ice::Proxy<ServerToClientPrx, Ice::ObjectPrx>
