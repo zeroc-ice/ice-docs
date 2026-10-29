@@ -2,27 +2,18 @@
 title: Type IDs
 ---
 
-Slice interfaces, classes, and user exceptions have an internal type identifier, known as the _type ID_. The type ID is
-simply the fully-qualified Slice name of each construct. For example, the type ID of the `Child` interface in the
-[preceding example](../forward-declarations) is `::Family::Child`. A type ID starts with a leading `::` and is formed by
-starting with the global scope (`::`) and forming the fully-qualified name of a construct by appending each module name
-in which the construct is nested, and ending with the name of the construct itself; the components of the type ID are
-separated by `::`.
+Every Slice interface, class, and user exception has a type ID: its fully qualified Slice name, which starts with `::`
+for the global scope and uses `::` to separate names. For example, the type ID of the `Child` interface in the
+[Family example](../forward-declarations) is `::Family::Child`.
 
-{% callout type="note" %}
+Metadata that renames a mapped type or module, such as `cs:identifier`, does not change its type ID.
 
-The term “type ID” is a historical accident: of the 3 constructs with type IDs, only classes are types in the Slice
-language. Neither interfaces nor exceptions are types in Slice.
-
-{% /callout %}
-
-Type IDs are used internally by Ice to unmarshal classes and exceptions. For example, when an exception is thrown, the
-marshaled form of the exception that is returned to the client is preceded by its type ID on the wire. The client-side
-runtime first reads the type ID and, based on that, unmarshals the remainder of the data as appropriate for the type of
-the exception.
-
-Type IDs are also used by the [ice_isA operation](../operations-on-object).
+When Ice unmarshals a class instance or a user exception, it uses the type ID to find the mapped type to create; see
+[Slice Loaders](../user-defined-types/classes/slice-loaders). The `ice_isA`, `ice_id`, and `ice_ids` operations take or
+return type IDs; see [Operations on Object](../operations-on-object).
 
 ## See Also
 
-- [ice_isA](../operations-on-object)
+- [Operations on Object](../operations-on-object)
+- [Slice Loaders](../user-defined-types/classes/slice-loaders)
+- [Slicing Values and Exceptions](../user-defined-types/classes/slicing-values-and-exceptions)
