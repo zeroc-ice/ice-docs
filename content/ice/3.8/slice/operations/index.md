@@ -26,8 +26,7 @@ module M
 }
 ```
 
-The `getTime` operation returns a `TimeOfDay`, and the `setTime` operation returns `void`: Slice operations have no
-default return type, so an operation that returns no value declares `void`.
+An operation that returns no value, such as `setTime`, declares `void` as its return type.
 
 Parameters are input parameters by default: their values go from the client to the server. An output parameter, marked
 with the `out` keyword, carries a value from the server back to the client. An operation can have several input and
@@ -63,11 +62,9 @@ A unique, non-negative integer _tag_ must be assigned to each optional parameter
 optional(3) bool example(optional(2) string name, out optional(1) int value);
 ```
 
-The scope of a tag is limited to its operation and has no effect on other operations.
+The scope of a tag is limited to its operation and has no effect on other operations. You can assign tags in any order.
 
 An optional parameter cannot have a class type, or a constructed type that holds a class type.
-
-You can assign tags in any order.
 
 An operation's signature can include any combination of required and optional parameters, but output parameters still
 must follow input parameters:
@@ -84,21 +81,8 @@ Language mappings specify an API for passing optional parameters and testing whe
 
 ## Exception Specifications
 
-An operation lists the [user exceptions](../exceptions) it can throw in a `throws` clause:
-
-```slice
-exception BadTimeVal
-{
-    string reason;
-}
-
-interface Clock
-{
-    void setTime(TimeOfDay time) throws BadTimeVal;
-}
-```
-
-See [Exception Specification in Operations](../exceptions#exception-specification-in-operations).
+An operation lists the user exceptions it can throw in its
+[exception specification](../exceptions#exception-specification-in-operations), a `throws` clause.
 
 ## Overloading Operations
 
