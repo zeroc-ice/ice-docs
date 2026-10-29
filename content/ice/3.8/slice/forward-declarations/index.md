@@ -45,6 +45,16 @@ interface Derived2 extends Base {}      // OK, definition was seen
 
 ## Language Mapping
 
-A forward declaration has no mapped type of its own: the generated code uses the type mapped from the definition.
+{% iflang langs="cpp" %}
+
+A forward declaration maps to a C++ forward declaration.
+
+{% /iflang %}
+
+{% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
+
+A forward declaration maps to nothing.
+
+{% /iflang %}
 
 {% language-section name="mapping" /%}
