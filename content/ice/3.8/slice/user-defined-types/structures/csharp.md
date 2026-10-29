@@ -53,8 +53,8 @@ For each field in the Slice definition, the C# record struct contains a correspo
 public field is by default the name of the Slice field; here, we remapped the fields using the `cs:identifier` metadata
 directive.
 
-The generated record has a primary constructor that allows you to construct and initialize a structure in a single
-statement:
+The generated record has a constructor with a parameter for each field, which allows you to construct and initialize a
+structure in a single statement:
 
 ```csharp
 var p = new Point(5.1, 7.8);
@@ -146,7 +146,7 @@ public sealed partial record class Employee
 
 The generated record class provides the following constructors:
 
-- a primary constructor with parameters for all the fields
+- a constructor with a parameter for each field
 - a constructor with parameters for fields with the following Slice types: Sequence, Dictionary, Struct mapped to record
   class in C# This constructor may be parameterless. It initializes string fields to the empty string, and other fields
   to their default value (typically `0`, `null` or `default`; see [Fields](../../fields)).

@@ -51,7 +51,7 @@ The `equals` method compares two structures for equality. Note that the generate
 
 The mapped Java class provides two constructors:
 
-- canonical constructor with parameters for all the fields
+- a constructor with a parameter for each field
 - a parameterless constructor that initializes all fields to default values (see [Fields](../../fields))
 
 {% /language-section %}

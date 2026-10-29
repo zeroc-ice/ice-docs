@@ -34,7 +34,7 @@ open class TimeOfDay: Ice.Value {
 }
 ```
 
-There are a several things to note about the generated code:
+There are several things to note about the generated code:
 
 1. The generated class `TimeOfDay` inherits from class `Ice.Value`. `Value` is the ultimate ancestor of all classes.
 2. The generated class contains a public stored property for each Slice field.
