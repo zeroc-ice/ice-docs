@@ -492,7 +492,7 @@ interface ServerToClient
 }
 ```
 
-The Slice compiler generates a proxy interface for these definitions (we omit the async overloads):
+The Slice compiler generates a proxy interface for these definitions (we omit the async methods):
 
 ```csharp
 public partial interface ServerToClientPrx : Ice.ObjectPrx
