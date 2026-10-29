@@ -4,7 +4,7 @@ title: Dictionaries
 
 ## Dictionary Syntax and Semantics
 
-A dictionary is a mapping from a key type to a value type.
+A dictionary is an associative array: a collection of key-value pairs in which each key is unique.
 
 For example:
 

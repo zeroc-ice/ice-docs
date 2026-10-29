@@ -24,9 +24,6 @@ assert(len(platter) == 2)
 platter.append(Fruit.Orange)
 ```
 
-The Ice runtime validates the elements of a list (or tuple) to ensure they match the declared type. A `ValueError` is
-raised if an incompatible type is encountered.
-
 ### Allowable Sequence Values
 
 When you **send a sequence value** (for example, when calling a proxy method, or when returning a value or setting an

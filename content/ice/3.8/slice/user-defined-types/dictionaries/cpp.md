@@ -14,8 +14,7 @@ The following code is generated for this definition:
 using EmployeeMap = std::map<std::int64_t, Employee>;
 ```
 
-Again, there are no surprises here: a Slice dictionary simply maps to a standard `std::map`. As a result, you can use
-the dictionary like any other `map`, for example:
+A Slice dictionary maps to a `std::map`. For example:
 
 ```cpp
 EmployeeMap em;
@@ -43,30 +42,14 @@ You can override the default mapping of Slice dictionaries to C++ with a `cpp:ty
 dictionary<long, Employee> EmployeeMap;
 ```
 
-With this metadata directive, the dictionary now maps to a C++ `std::unordered_map`:
+The `cpp:type` directive maps `EmployeeMap` to a `std::unordered_map`, and the `cpp:include` file directive adds the
+matching include directive to the generated header:
 
 ```cpp
 #include <unordered_map>
 
 using EmployeeMap = std::unordered_map<std::int64_t, Employee>;
 ```
-
-Like with sequences, anything following the `cpp:type:` prefix is taken to be the name of the type. For example, we
-could use `["cpp:type:::std::unordered_map<std::int64_t, std::string>"]`. In that case, the compiler would use a
-fully-qualified name to define the type:
-
-```cpp
-using IntStringDict = ::std::unordered_map<std::int64_t, std::string>;
-```
-
-To avoid compilation errors in the generated code, you must instruct the compiler to generate an appropriate include
-directive with the `cpp:include` file metadata directive. This causes the compiler to add the line
-
-```cpp
-#include <unordered_map>
-```
-
-to the generated header file.
 
 Instead of `std::unordered_map`, you can specify a type of your own as the dictionary type, for example:
 
@@ -92,34 +75,20 @@ The class or template class you provide must meet the following requirements:
 - The class must provide an `insert` function that takes an `iterator` (as location hint) plus a `value_type` parameter,
   and returns an `iterator` to the new entry or to the existing entry with the given key.
 
-Less formally, this means you can use any class or template class that looks like a standard `map` or `unordered_map` as
-your custom dictionary type.
-
 In addition to modifying the type of a dictionary itself, you can also modify the mapping for particular
 [return values or parameters](../../operations). For example:
 
 ```slice
 [["cpp:include:unordered_map"]]
 
-module HR
+interface Office
 {
-    struct Employee
-    {
-       long   number;
-       string firstName;
-       string lastName;
-    }
-    dictionary<long, Employee> EmployeeMap;
-
-    interface Office
-    {
-        ["cpp:type:std::unordered_map<std::int64_t, Employee>"]
-        EmployeeMap getAllEmployees();
-    }
+    ["cpp:type:std::unordered_map<std::int64_t, Employee>"]
+    EmployeeMap getAllEmployees();
 }
 ```
 
-With this definition, `getAllEmployees` returns an `unordered_map`, while other unqualified parameters of type
-`EmployeeMap` would use the default mapping (to a `std::map`).
+With this definition, `getAllEmployees` returns an `unordered_map`, while other parameters and return values of type
+`EmployeeMap` use the default mapping (to a `std::map`).
 
 {% /language-section %}
