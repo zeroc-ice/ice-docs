@@ -92,8 +92,8 @@ from `C`'s base interfaces.
 
 ### Creating a Proxy of Another Type
 
-For each proxy, the Slice compiler generates 2 helper functions that allow you to convert any proxy into a proxy of this
-type. With our Simple example:
+For each proxy, the Slice compiler generates two helper functions that allow you to convert any proxy into a proxy of
+this type. With our Simple example:
 
 ```swift
 public protocol SimplePrx: Ice.ObjectPrx {}

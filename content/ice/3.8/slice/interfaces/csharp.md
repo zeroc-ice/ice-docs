@@ -43,7 +43,7 @@ transport to use, and its object identity are encapsulated in that instance.
 
 ### Creating a Proxy
 
-For each Slice interface, apart from the proxy interface, the Slice-to-C# compiler creates a helper class: for an
+For each Slice interface, apart from the proxy interface, the Slice-to-C# compiler generates a helper class: for an
 interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
 
 This helper class provides the `createProxy` method. With our previous example:

@@ -11,7 +11,7 @@ operations of `Simple` on it, including the operations `Simple` inherits.
 
 ### Creating a Proxy
 
-For each Slice interface, the Slice-to-PHP compiler creates a helper class: for an interface `Simple`, the name of the
+For each Slice interface, the Slice-to-PHP compiler generates a helper class: for an interface `Simple`, the name of the
 generated helper class is `SimplePrxHelper`.
 
 This helper class provides the `createProxy` method. For an interface `Simple` in module `M`, this helper class is:
