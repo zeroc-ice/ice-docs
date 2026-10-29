@@ -5,107 +5,107 @@ sidebarLabel: Metadata
 
 ## Overview
 
-Slice has the concept of a _metadata_ directive. For example:
+A metadata directive gives the Slice compilers an instruction about a Slice definition or a Slice file. Most directives
+customize the code generated for one language mapping, and start with the prefix of this mapping, such as `java:`:
 
 ```slice
 ["java:type:java.util.LinkedList<Integer>"] sequence<int> IntSeq;
 ```
 
-A metadata directive can appear as a prefix to any Slice definition. Metadata directives appear in a pair of square
-brackets and contain one or more string literals separated by commas. For example, the following is a syntactically
-valid metadata directive containing two strings:
+The general directives have no prefix. Some of them also change what Ice does: `format` selects how Ice marshals class
+instances, and `oneway` restricts how a client can invoke an operation.
+
+You place directives in square brackets before the definition they apply to, separated by commas:
 
 ```slice
-["a", "b"] interface Example {}
+["amd", "deprecated"]
+interface Greeter
+{
+    string greet(string name);
+}
 ```
 
-Metadata directives are not part of the Slice language per se: the presence of a metadata directive has no effect on the
-client-server contract, that is, metadata directives do not change the Slice type system in any way. Instead, metadata
-directives are targeted at specific back-ends, such as the code generator for a particular language mapping. In the
-preceding example, the `java:` prefix indicates that the directive is targeted at the Slice to Java compiler.
-
-Metadata directives permit you to provide supplementary information that does not change the Slice types being defined,
-but somehow influences how the compiler will generate code for these definitions. For example, a metadata directive
-`["java:type:java.util.LinkedList<T>"]` instructs the Slice to Java compiler to map a sequence to a linked list instead
-of an array (which is the default).
-
-Apart from metadata directives that are attached to a specific definition, there are also file metadata directives. For
-example:
+A file directive applies to a whole Slice file. You place it in double square brackets before any definition in this
+file; it can follow `#include` directives:
 
 ```slice
 [["cpp:dll-export:WIDGET_API"]]
 ```
 
-Note that a file metadata directive is enclosed by double square brackets, whereas a local metadata directive (one that
-is attached to a specific definition) is enclosed by single square brackets. File metadata directives are used to pass
-instructions that affect the entire Slice file. File metadata directives must precede any definitions in a file (but can
-appear following any `#include` directives).
-
-We describe below the metadata directives you can use.
+Each directive applies only to certain kinds of definitions, listed in its description below. The Slice compiler warns
+about a directive applied to a definition it does not apply to.
 
 ## General Metadata Directives
 
-### `amd`
+### amd
 
-This directive applies to interfaces and operations.
+`["amd"]`. Applies to interfaces and operations.
 
-In C++, C#, and Java, this directive instructs the Slice compiler to generate an asynchronous method in the skeleton
-class or interface instead of the default synchronous method. You could alternatively make your servant class derive
-from an async skeleton, and not rely on this metadata directive. See [Operations](../operations) for details.
+In C++, C#, and Java, the skeleton provides an asynchronous method for the operation, or for each operation of the
+interface, instead of a synchronous method. Instead of using this directive, you can also derive your servant class from
+the asynchronous skeleton; see [Operations](../operations). The other Slice compilers ignore this directive.
 
-This directive is ignored by other Slice compilers.
+### deprecated
 
-### `deprecated[:message]`
+`["deprecated"]` or `["deprecated:message"]`. Applies to interfaces, operations, classes, exceptions, structs,
+sequences, dictionaries, enumerations, enumerators, constants, and fields.
 
-This directive allows you to emit a [deprecation warning for Slice constructs](../deprecating-slice-definitions).
+This directive marks a definition as deprecated; see [Deprecating Slice Definitions](../deprecating-slice-definitions).
 
-### `format`
+### format
 
-This directive defines the [encoding format](../user-defined-types/classes/slicing-values-and-exceptions) used for class
-instances marshaled as the arguments or result of an operation. Ice always marshals user exceptions in the sliced
-format. You can apply this directive to an interface, which affects all of its operations, or to an operation. Its
-argument is `compact` or `sliced`: `format:compact` selects the compact format, and `format:sliced` selects the sliced
-format. On an operation, the directive overrides the `format` directive of its enclosing interface.
+`["format:compact"]` or `["format:sliced"]`. Applies to interfaces and operations.
+
+This directive selects the [encoding format](../user-defined-types/classes/slicing-values-and-exceptions) of the class
+instances marshaled as the arguments or result of an operation: `format:compact` selects the compact format, and
+`format:sliced` selects the sliced format. On an interface, it applies to all the operations of the interface; on an
+operation, it overrides the `format` directive of the enclosing interface. Ice always marshals user exceptions in the
+sliced format.
 
 When neither an operation nor its enclosing interface selects a format, the
 [Ice.Default.SlicedFormat](../../property-reference/ice-default-properties#ice.default.slicedformat) property selects
 it.
 
-### `marshaled-result`
+### marshaled-result
+
+`["marshaled-result"]`. Applies to interfaces and operations.
 
 This directive lets a servant marshal the results of an operation as soon as it computes them, typically while it holds
 the lock that protects the data it returns. The mapped skeleton method returns a “marshaled result” struct or class
 whose constructor marshals the return value and out parameters immediately.
 
-You can apply this directive to an operation, or to an interface, where it covers every operation that the interface
-defines. The Slice compiler changes the mapping of an operation only when its return type or one of its out parameters
-is a class, structure, sequence, or dictionary. This directive affects the server-side mapping in C++, C#, and Java, and
-has no effect on the client-side mapping.
+On an interface, this directive applies to every operation that the interface defines. The Slice compiler changes the
+mapping of an operation only when its return type or one of its out parameters is a class, structure, sequence, or
+dictionary. This directive affects the server-side mapping in C++, C#, and Java, and has no effect on the client-side
+mapping.
 
 For example:
 
 ```slice
-sequence<int> IntSeq;
-sequence<IntSeq> IntIntSeq;
-sequence<string> StringSeq;
-
-class Grid
+module M
 {
-    StringSeq xLabels;
-    StringSeq yLabels;
-    IntIntSeq values;
-}
+    sequence<int> IntSeq;
+    sequence<IntSeq> IntIntSeq;
+    sequence<string> StringSeq;
 
-interface GridIntf
-{
-   // We want to marshal the returned Grid object within a lock,
-   // and return a consistent object not affected by concurrent calls to
-   // clearValues.
-   ["marshaled-result"]
-   ["cs:identifier:GetGrid"]
-   Grid getGrid();
+    class Grid
+    {
+        StringSeq xLabels;
+        StringSeq yLabels;
+        IntIntSeq values;
+    }
 
-   void clearValues();
+    interface GridIntf
+    {
+        // We want to marshal the returned Grid object within a lock,
+        // and return a consistent object not affected by concurrent calls to
+        // clearValues.
+        ["marshaled-result"]
+        ["cs:identifier:GetGrid"]
+        Grid getGrid();
+
+        void clearValues();
+    }
 }
 ```
 
@@ -117,30 +117,26 @@ A marshaled-result instance is specific to a request. Do not cache a marshaled r
 
 {% /callout %}
 
-### `suppress-warning`
+### oneway
 
-This file directive allows to suppress Slice compiler warnings. It applies to all definitions in the Slice file that
-includes this directive. If one or more categories are specified (for example `"suppress-warning:invalid-comment"` or
-`"suppress-warning:deprecated, invalid-comment"`) only warnings matching these categories will be suppressed, otherwise
-all warnings are suppressed. The categories are described in the following table:
+`["oneway"]`. Applies to operations.
 
-| **Suppress Warning Category** | **Description**                                                               |
-| ----------------------------- | ----------------------------------------------------------------------------- |
-| `all`                         | Suppress all Slice compiler warnings. Equivalent to `[["suppress-warning"]]`. |
-| `deprecated`                  | Suppress warnings related to deprecated features.                             |
-| `invalid-comment`             | Suppress warnings related to invalid doc-comments.                            |
+This directive restricts an operation to oneway invocations: invoking the operation on a twoway proxy throws
+`OnewayOnlyException`. The operation cannot have a return type, out parameters, or an exception specification. This
+directive does not change the server-side mapping.
 
-### `oneway`
+### suppress-warning
 
-The `oneway` metadata is used to ensure that a proxy operation is only called by a one-way proxy.
+`[["suppress-warning"]]` or `[["suppress-warning:category, ..."]]`. Applies to a Slice file.
 
-A one-way request is a "fire and forget" request: the request is considered successful as soon as it's sent
-successfully.
+This directive suppresses Slice compiler warnings for all the definitions in the Slice file. Without a category, it
+suppresses all warnings; with one or more categories, it suppresses only the warnings in these categories:
 
-This directive can only be applied to operations that do not return data (no return type, out parameters, or exception
-specification). `OnewayOnlyException` is thrown if an operation with this metadata is invoked using a two-way proxy.
-
-It has no effect on the server-side generated code.
+| **Category**      | **Description**                                                               |
+| ----------------- | ----------------------------------------------------------------------------- |
+| `all`             | Suppress all Slice compiler warnings. Equivalent to `[["suppress-warning"]]`. |
+| `deprecated`      | Suppress warnings related to deprecated features.                             |
+| `invalid-comment` | Suppress warnings related to invalid doc comments.                            |
 
 ## Language-Specific Metadata Directives
 
