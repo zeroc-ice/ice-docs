@@ -41,8 +41,7 @@ implement `java.util.Map<K, V>`.
 The instance type must have an accessible parameterless constructor and must be modifiable: when unmarshaling a
 dictionary, the generated code creates the instance with this constructor and fills it with `put`.
 
-The type parameters (`String` above) must be the Java mappings of the key and value types, including nested generic
-types such as a custom sequence; the Java compiler reports a mismatch when it compiles the generated code. See
-[Sequences](../sequences) for the full syntax of `java:type`.
+The type parameters (`String` above) are the Java mappings of the key and value types. See [Sequences](../sequences) for
+the full syntax of `java:type`.
 
 {% /language-section %}

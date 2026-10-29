@@ -6,8 +6,10 @@ A Slice dictionary maps to:
   key is a Slice basic type or an enumeration.
 - An [`Ice.HashMap`](https://code.zeroc.com/ice/3.8/api/javascript/Ice/HashMap.html) when the key is a Slice structure.
 
-A JavaScript `Map` compares object keys by identity, whereas `Ice.HashMap` compares struct keys with their `equals`
-method, so two structs with the same field values are the same key.
+This distinction is necessary because:
+
+- A JavaScript `Map` uses the `===` operator for key equality.
+- `Ice.HashMap` accepts a key comparator, so struct keys can use their `equals` method for equality.
 
 ### Example: Dictionary with a Basic Key Type
 

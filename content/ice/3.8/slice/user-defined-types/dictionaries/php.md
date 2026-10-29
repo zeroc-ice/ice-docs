@@ -1,9 +1,10 @@
 {% language-section name="mapping" %}
 
-A Slice dictionary maps to a native PHP associative array. A PHP array key is an integer or a string, so the PHP mapping
-supports only dictionaries whose key type maps to one of these: a dictionary whose key type is an enumeration or one of
+A Slice dictionary maps to a native PHP associative array: a dictionary whose key type is an enumeration or one of
 `bool`, `byte`, `short`, `int`, or `long` maps to an array with integer keys, and a dictionary with a `string` key type
-maps to an array with string keys. The PHP mapping does not support dictionaries whose key type is a structure.
+maps to an array with string keys.
+
+Ice for PHP does not support dictionaries whose key type is a structure.
 
 {% callout type="note" %}
 

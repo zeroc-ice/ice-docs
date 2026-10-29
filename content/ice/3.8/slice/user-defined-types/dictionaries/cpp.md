@@ -14,7 +14,7 @@ The following code is generated for this definition:
 using EmployeeMap = std::map<std::int64_t, Employee>;
 ```
 
-A Slice dictionary maps to a `std::map`, which you use like any other `map`:
+A Slice dictionary maps to a `std::map`. For example:
 
 ```cpp
 EmployeeMap em;
@@ -76,10 +76,11 @@ The class or template class you provide must meet the following requirements:
   and returns an `iterator` to the new entry or to the existing entry with the given key.
 
 In addition to modifying the type of a dictionary itself, you can also modify the mapping for particular
-[return values or parameters](../../operations). For example, with the `cpp:include:unordered_map` file directive and
-the default mapping for `EmployeeMap`:
+[return values or parameters](../../operations). For example:
 
 ```slice
+[["cpp:include:unordered_map"]]
+
 interface Office
 {
     ["cpp:type:std::unordered_map<std::int64_t, Employee>"]
@@ -87,7 +88,7 @@ interface Office
 }
 ```
 
-With this definition, `getAllEmployees` returns an `unordered_map`, while other unqualified parameters of type
+With this definition, `getAllEmployees` returns an `unordered_map`, while other parameters and return values of type
 `EmployeeMap` use the default mapping (to a `std::map`).
 
 {% /language-section %}

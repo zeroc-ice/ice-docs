@@ -12,7 +12,7 @@ The following code is generated for this definition:
 public typealias EmployeeMap = [Int64: Employee]
 ```
 
-A Slice dictionary maps to a Swift dictionary, which you use like any other dictionary:
+A Slice dictionary maps to a Swift dictionary. For example:
 
 ```swift
 let stan = Employee(number: 42, firstName: "Stan", lastName: "Lippman")

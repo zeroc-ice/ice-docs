@@ -16,7 +16,4 @@ You can create an instance of `FruitPlatter` as shown below:
 $platter = array(Fruit::Apple, Fruit::Orange);
 ```
 
-The Ice runtime validates the elements of an array to ensure that they are compatible with the declared type and throws
-`InvalidArgumentException` if an incompatible type is encountered.
-
 {% /language-section %}

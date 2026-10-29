@@ -17,9 +17,6 @@ platter = [ Fruit::Apple, Fruit::Pear ]
 platter.push(Fruit::Orange)
 ```
 
-The Ice runtime validates the elements of a sequence to ensure that they are compatible with the declared type; a
-`TypeError` exception is raised if an incompatible type is encountered.
-
 ### Mapping for Byte Sequences
 
 A Ruby string can contain arbitrary 8-bit binary data, therefore it is a more efficient representation of a byte
