@@ -460,8 +460,7 @@ nested async invocation.
 
 ### In Parameters
 
-All parameters are passed by reference in the Python mapping; it is guaranteed that the value of a parameter will not be
-changed by the invocation.
+An in parameter maps to a Python method argument, and an invocation does not modify the arguments you pass.
 
 Here is an interface with operations that pass parameters of various types from client to server:
 

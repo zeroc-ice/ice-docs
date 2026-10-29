@@ -109,15 +109,15 @@ The Slice compiler generates the following proxy for this definition:
 ```ruby
 module ClientToServerPrx_mixin
   def op1(i, f, b, s, context=nil)
-      ...
+      # ...
   end
 
   def op2(ns, ss, st, context=nil)
-      ...
+      # ...
   end
 
   def op3(proxy, context=nil)
-      ...
+      # ...
   end
 end
 
@@ -186,7 +186,7 @@ interface ServerToClient
 }
 ```
 
-The generated proxy class provides methods with the following signatures for this definition:
+The generated proxy methods have the following signatures:
 
 ```ruby
 def op1(context=nil)
