@@ -1,10 +1,12 @@
 {% language-section name="mapping" %}
 
-When a forward declaration corresponds to a type defined in a separate Slice file, add the `[js:defined-in:<file>]`
-metadata to tell the Slice-to-JavaScript compiler which file to import the type from in the TypeScript declarations.
+When a forward-declared class or interface is defined in another Slice file, add the `js:defined-in` metadata to the
+forward declaration to name that file. The Slice-to-JavaScript compiler imports the type from the corresponding
+generated module in the TypeScript declarations.
+
+For example, `Greeter.ice` forward declares `GreeterAdmin`:
 
 ```slice
-// Greeter.ice
 module VisitorCenter
 {
     ["js:defined-in:./Admin.ice"]
@@ -16,11 +18,17 @@ module VisitorCenter
         string greet(string name);
     }
 }
+```
 
-// Admin.ice
+and `Admin.ice` defines it:
+
+```slice
 module VisitorCenter
 {
-    interface GreeterAdmin { ... }
+    interface GreeterAdmin
+    {
+        void shutdown();
+    }
 }
 ```
 
