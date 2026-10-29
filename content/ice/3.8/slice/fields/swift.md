@@ -25,9 +25,6 @@ public final class Person {
 }
 ```
 
-`Person` maps to a Swift class rather than a Swift structure because it has a class field; see
-[Structures](../user-defined-types/structures).
-
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
 An optional field maps to a Swift stored property with the same name. The mapped property’s type is optional.

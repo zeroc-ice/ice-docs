@@ -113,9 +113,6 @@ generated code uses the following default:
 |                     | `class`, proxy           | `null`                                                                                                  |
 | Yes                 | Any                      | `null`                                                                                                  |
 
-`null!` is `null` with the null-forgiving operator: the field's type is non-nullable, but the field holds `null` until
-you set it.
-
 {% callout type="note" %}
 
 The generated constructor for a struct does not initialize any field to `null!`: you always have to provide values for

@@ -135,7 +135,4 @@ struct Location
 };
 ```
 
-A field without a Slice default value gets no default member initializer; the C++ mapping of
-[structures](../user-defined-types/structures) describes the fields this leaves uninitialized.
-
 {% /language-section %}
