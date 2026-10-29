@@ -73,10 +73,10 @@ var tod = new TimeOfDay(14, 45, 00, "PST"); // 2:45pm
 It also has a parameterless constructor, which initializes the fields to their default values (see
 [Fields](../../fields)). An empty class has only this constructor.
 
-When a class has fields whose type is a sequence, a dictionary, or a struct mapped to a C# class, the generated class
-replaces the parameterless constructor with a constructor that has a parameter for each of these fields and initializes
-the other fields to their default values. The parameterless constructor remains public for unmarshaling, but is hidden
-from IntelliSense.
+When a class has non-optional fields whose type is a sequence, a dictionary, or a struct mapped to a C# class, the
+generated class replaces the parameterless constructor with a constructor that has a parameter for each of these fields
+and initializes the other fields to their default values. The parameterless constructor remains public for unmarshaling,
+but is hidden from IntelliSense.
 
 ### Property Mapping
 

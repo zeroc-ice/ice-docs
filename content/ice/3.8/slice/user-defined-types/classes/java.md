@@ -50,7 +50,7 @@ There are several things to note about the generated code:
 
 ### Generated Constructors
 
-A generated class has two constructors:
+A generated class has the following constructors:
 
 - a constructor with a parameter for each field of the class
 - a parameterless constructor that initializes all fields to their default values (see [Fields](../../fields))

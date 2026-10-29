@@ -52,8 +52,8 @@ There are a number of things to note about this generated code:
    mapped exceptions. It’s a checked exception that derives from `java.lang.Exception`.
 2. The generated class contains a public field for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. The generated class provides a canonical constructor and a parameterless constructor; they are identical to the
-   generated constructors for classes. See [Java Mapping for Classes](../user-defined-types/classes).
+4. The generated class provides a constructor with a parameter for each field and a parameterless constructor; they are
+   identical to the generated constructors for classes. See [Java Mapping for Classes](../user-defined-types/classes).
 
 ### Exception Specification
 
