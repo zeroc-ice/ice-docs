@@ -64,9 +64,9 @@ This definition results in the familiar diamond shape:
 
 ## Interface Inheritance Limitations
 
-An interface must not inherit operations with the same name, or with names that differ only in capitalization, from
-unrelated base interfaces. An operation inherited through several paths from a common base interface, as in the diamond
-above, is not a conflict. For example, the following definition is illegal:
+All the operations an interface inherits must have distinct names, and names that differ only in capitalization count as
+the same name. An operation inherited several times through a common base interface, as in the diamond above, counts
+once. For example, the following definition is illegal:
 
 ```slice
 interface Clock
@@ -84,9 +84,6 @@ interface RadioClock extends Radio, Clock     // Illegal!
     // ...
 }
 ```
-
-`RadioClock` inherits two `set` operations, `Radio::set` and `Clock::set`, and many programming languages cannot
-disambiguate them. Descriptive operation names, such as `setTime` and `setFrequency`, avoid such clashes.
 
 ## Implicit Inheritance from Object
 

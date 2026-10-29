@@ -29,17 +29,3 @@ the receiver uses the type declared in the Slice definition.
 A client invokes operations on a proxy, and the Ice runtime delivers each invocation to the target object.
 
 A proxy can be null. A proxy can also dangle: point to a remote object that no longer exists.
-
-## Self-Referential Interfaces
-
-A proxy refers to an object rather than containing it, so an interface can reference a proxy to itself. For example:
-
-```slice
-interface Link
-{
-    string getValue();
-    Link* next();
-}
-```
-
-The `next` operation returns a proxy for the next `Link` object in a chain; the last `Link` returns a null proxy.
