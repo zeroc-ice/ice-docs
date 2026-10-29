@@ -59,11 +59,6 @@ and the range of legal values; a `TimeException` reports only that `setTime` fai
 To indicate that an operation does not throw any user exception, simply omit the exception specification. (There is no
 empty exception specification in Slice.)
 
-The server-side Ice runtime does not verify that a user exception thrown by an operation is compatible with the
-exceptions listed in its Slice definition, although your implementation language may enforce its own restrictions. The
-Ice runtime in the client does validate user exceptions and throws `UnknownUserException` if it receives an unexpected
-user exception.
-
 ### Restrictions for User Exceptions
 
 An exception is not a data type: you cannot use an exception as the type of a parameter, a return value, a field, a
@@ -116,14 +111,8 @@ interface Application
 }
 ```
 
-This raises the question of what should happen if the server throws a `FatalApplicationException` from `doSomething`.
-The answer depends whether the client was built using the old or the updated definition:
-
-- If the client was built using the same definition as the server, it simply receives a `FatalApplicationException`.
-- If the client was built with the original definition, that client has no knowledge that `FatalApplicationException`
-  even exists. In this case, the Ice runtime automatically slices the exception to the most-derived type that is
-  understood by the receiver (`AppException`, in this case) and discards the information that is specific to the derived
-  part of the exception.
+A client built with the original definition does not know `FatalApplicationException`: Ice slices the exception to
+`AppException`, the most-derived type this client knows.
 
 See [Slicing Values and Exceptions](../user-defined-types/classes/slicing-values-and-exceptions) for the rules Ice
 follows when it slices an exception.
