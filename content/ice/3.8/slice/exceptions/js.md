@@ -25,7 +25,7 @@ class GenericException extends Ice.UserException {
         super();
         this.reason = reason;
     }
-    ...
+    // ...
 }
 
 class BadTimeValException extends GenericException {}

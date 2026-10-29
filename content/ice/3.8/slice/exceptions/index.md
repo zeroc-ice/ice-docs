@@ -4,7 +4,9 @@ title: Exceptions
 
 ## Exception Syntax and Semantics
 
-Consider the following Slice definition.
+A Slice exception defines an error that an operation can report to its caller. Exceptions defined in Slice are called
+_user exceptions_, to distinguish them from the
+[exceptions of the Ice runtime](../../runtime/local-and-dispatch-exceptions). For example:
 
 ```slice
 struct TimeOfDay
@@ -14,21 +16,6 @@ struct TimeOfDay
     short second;       // 0 - 59
 }
 
-interface Clock
-{
-    idempotent void setTime(TimeOfDay time);
-}
-```
-
-There’s a potential problem: given that the `TimeOfDay` structure uses `short` as the type of each field, what will
-happen if a client invokes the `setTime` operation and passes a `TimeOfDay` value with meaningless field values, such as
-`-199` for the minute field, or `42` for the hour? Obviously, it would be nice to provide some indication to the caller
-that this is meaningless. Slice allows you to define exceptions to indicate error conditions to the client. These
-Slice-defined exceptions are called _user exceptions_.
-
-For example:
-
-```slice
 exception TimeException {} // Empty exceptions are legal
 
 exception RangeException
@@ -65,13 +52,9 @@ interface Clock
 }
 ```
 
-This definition indicates that the `setTime` operation may throw either a `RangeException` or a `TimeException`
-exception (and no other type of exception). If the client receives a `RangeException`, the exception contains the
-`TimeOfDay` value that was passed to `setTime` and caused the error (in the `errorTime` field), as well as the minimum
-and maximum time values that can be used (in the `minTime` and `maxTime` fields). If `setTime` failed because of an
-error not caused by an illegal parameter value, it throws a `TimeException`. Obviously, because `TimeException` does not
-have fields, the client will have no idea what exactly it was that went wrong — it simply knows that the operation did
-not work.
+`setTime` can throw a `RangeException`, a `TimeException`, or an exception derived from one of them (see
+[Exception Inheritance](#exception-inheritance)). A `RangeException` reports the `TimeOfDay` value that caused the error
+and the range of legal values; a `TimeException` reports only that `setTime` failed.
 
 To indicate that an operation does not throw any user exception, simply omit the exception specification. (There is no
 empty exception specification in Slice.)
@@ -83,21 +66,13 @@ user exception.
 
 ### Restrictions for User Exceptions
 
-Exceptions are not first-class data types and first-class data types are not exceptions:
-
-- You cannot pass an exception as a parameter value.
-- You cannot use an exception as the type of a field.
-- You cannot use an exception as the element type of a sequence.
-- You cannot use an exception as the key or value type of a dictionary.
-- You cannot throw a value of non-exception type (such as a value of type `int` or `string`).
-
-The reason for these restrictions is that some implementation languages use a specific and separate type for exceptions
-(in the same way as Slice does). For such languages, it would be difficult to map exceptions if they could be used as an
-ordinary data type.
+An exception is not a data type: you cannot use an exception as the type of a parameter, a return value, a field, a
+sequence element, or a dictionary key or value. Conversely, an exception specification lists only exceptions.
 
 ## Exception Inheritance
 
-Slice Exceptions support inheritance. For example:
+Slice exceptions support single inheritance. A derived exception inherits the fields of its base exception and can add
+its own:
 
 ```slice
 exception BaseException
@@ -105,55 +80,9 @@ exception BaseException
     string reason;
 }
 
-enum RTError
-{
-    DivideByZero, NegativeRoot, IllegalNull /* ... */
-}
-
-exception RuntimeException extends BaseException
-{
-    RTError err;
-}
-
-enum LError { ValueOutOfRange, ValuesInconsistent, /* ... */ }
-
-exception LogicException extends BaseException
-{
-    LError err;
-}
-
-exception RangeException extends LogicException
-{
-    TimeOfDay errorTime;
-    TimeOfDay minTime;
-    TimeOfDay maxTime;
-}
-```
-
-These definitions set up a simple exception hierarchy:
-
-- `BaseException` is at the root of the tree and contains a string explaining the cause of the error.
-- Derived from `BaseException` are `RuntimeException` and `LogicException`. Each of these exceptions contains an
-  enumerated value that further categorizes the error.
-- Finally, `RangeException` is derived from `LogicException` and reports the details of the specific error.
-
-Setting up exception hierarchies such as this not only helps to create a more readable specification because errors are
-categorized, but also can be used at the language level to good advantage. For example, the Slice C++ mapping preserves
-the exception hierarchy so you can catch exceptions generically as a base exception, or set up exception handlers to
-deal with specific exceptions.
-
-Note that, if the exception specification of an operation indicates a specific exception type, at runtime, the
-implementation of the operation may also throw more derived exceptions. For example:
-
-```slice
-exception BaseException
-{
-    // ...
-}
-
 exception DerivedException extends BaseException
 {
-    // ...
+    int code;
 }
 
 interface Example
@@ -163,27 +92,12 @@ interface Example
 }
 ```
 
-In this example, `op` may throw a `BaseException` or a `DerivedException` exception, that is, any exception that is
-compatible with the exception types listed in the exception specification can be thrown at runtime.
+An operation can throw any exception derived from the exceptions in its exception specification: `op` can throw a
+`BaseException` or a `DerivedException`. The language mappings preserve the exception hierarchy, so you can catch a base
+exception generically or handle specific derived exceptions.
 
-As a system evolves, it is quite common for new, derived exceptions to be added to an existing hierarchy. Assume that we
-initially construct clients and server with the following definitions:
-
-```slice
-exception AppException
-{
-    // ...
-}
-
-interface Application
-{
-    void doSomething() throws AppException;
-}
-```
-
-Also assume that a large number of clients are deployed in field, that is, when you upgrade the system, you cannot
-easily upgrade all the clients. As the application evolves, a new exception is added to the system and the server is
-redeployed with the new definition:
+As a system evolves, new derived exceptions are often added to an existing hierarchy. Suppose that clients are built
+with an `AppException` exception, and that the server is later redeployed with a new derived exception:
 
 ```slice
 exception AppException
@@ -210,6 +124,9 @@ The answer depends whether the client was built using the old or the updated def
   even exists. In this case, the Ice runtime automatically slices the exception to the most-derived type that is
   understood by the receiver (`AppException`, in this case) and discards the information that is specific to the derived
   part of the exception.
+
+See [Slicing Values and Exceptions](../user-defined-types/classes/slicing-values-and-exceptions) for the rules Ice
+follows when it slices an exception.
 
 ## Language Mapping
 

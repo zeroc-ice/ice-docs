@@ -25,13 +25,13 @@ classdef GenericException < Ice.UserException
       reason (1, :) char
     end
     methods
-       ...
+        % ...
     end
 end
 
 classdef BadTimeValException < M.GenericException
     methods
-       ...
+        % ...
     end
 end
 ```
