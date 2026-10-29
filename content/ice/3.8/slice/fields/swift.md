@@ -27,8 +27,7 @@ public final class Person {
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a Swift stored property with the same name. The mapped property’s type is optional. The tag
-value is not mapped to Swift.
+An optional field maps to a Swift stored property with the same name. The mapped property’s type is optional.
 
 For example:
 

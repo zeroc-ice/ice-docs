@@ -57,8 +57,6 @@ An optional field maps to a MATLAB property just like a regular field, and accep
 the field as unset. `Ice.Unset` applies to any field type except proxies: use an empty proxy array, such as
 `GreeterPrx.empty`, to mark a proxy field as unset.
 
-The tag value is not mapped to MATLAB.
-
 A well-behaved program must test a MATLAB property (mapped from an optional field) before using its value:
 
 ```matlab

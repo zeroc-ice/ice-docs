@@ -38,7 +38,7 @@ class Person
 
 ### Optional Fields {% id="language-mapping-optional-fields" %}
 
-An optional field maps to a PHP public variable with the same name. Tag values are not mapped to PHP.
+An optional field maps to a PHP public variable with the same name.
 
 For example:
 
