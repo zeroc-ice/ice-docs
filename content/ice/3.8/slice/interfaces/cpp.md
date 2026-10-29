@@ -70,7 +70,7 @@ Use the constructor of the generated class to create a proxy from a communicator
 M::SimplePrx simple{communicator, "simple:tcp -h localhost -p 4061"};
 ```
 
-A proxy is a stack-allocated C++ object.
+A proxy is a C++ value type.
 
 The proxy’s constructor does not allow you to create a “null” proxy. A nullable proxy - and by extension a null proxy -
 is a proxy held in a `std::optional`. For example:
@@ -163,8 +163,8 @@ namespace VisitorCenter
     {
     public:
         void dispatch(
-            IncomingRequest& request,
-            std::function<void(OutgoingResponse)> sendResponse) override;
+            Ice::IncomingRequest& request,
+            std::function<void(Ice::OutgoingResponse)> sendResponse) override;
 
         virtual std::string greet(std::string name, const Ice::Current&) = 0;
 
@@ -175,8 +175,8 @@ namespace VisitorCenter
     {
     public:
         void dispatch(
-            IncomingRequest& request,
-            std::function<void(OutgoingResponse)> sendResponse) override;
+            Ice::IncomingRequest& request,
+            std::function<void(Ice::OutgoingResponse)> sendResponse) override;
 
         virtual void greetAsync(
             std::string name,
@@ -193,7 +193,7 @@ The important points to note are:
 
 - As for the client side, Slice modules are mapped to C++ namespaces with the same name, so the skeleton class
   definition is nested in the namespace `VisitorCenter`.
-- The Slice compiler generates two skeleton classes: the default skeleton class has the same as the Slice interface
+- The Slice compiler generates two skeleton classes: the default skeleton class has the same name as the Slice interface
   (`Greeter` with our example), and the async skeleton class gets an additional Async prefix (`AsyncGreeter`).
 - Each skeleton class contains a pure virtual member function for each operation in the Slice interface.
 - Each skeleton class is an abstract base class because its member functions are pure virtual.

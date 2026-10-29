@@ -8,10 +8,13 @@ On the client side, a Slice interface maps to a C# interface with methods that c
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+module M
 {
-    ["cs:identifier:Op"]
-    void op();
+    interface Simple
+    {
+        ["cs:identifier:Op"]
+        void op();
+    }
 }
 ```
 
@@ -25,7 +28,7 @@ public partial interface SimplePrx : Ice.ObjectPrx
         IProgress<bool>? progress = null,
         CancellationToken cancel = default);
 
-    // Synchronous "overload" provided for backwards compatibility.
+    // Synchronous method provided for backwards compatibility.
     void Op(Dictionary<string, string>? context = null);
 }
 ```
@@ -40,7 +43,7 @@ transport to use, and its object identity are encapsulated in that instance.
 
 ### Creating a Proxy
 
-For each Slice interface, apart from the proxy interface, the Slice-to-C# compiler creates a helper class: for an
+For each Slice interface, apart from the proxy interface, the Slice-to-C# compiler generates a helper class: for an
 interface `Simple`, the name of the generated helper class is `SimplePrxHelper`.
 
 This helper class provides the `createProxy` method. With our previous example:
@@ -68,7 +71,7 @@ that all Slice interfaces implicitly inherit from `Object`.
 
 ### Interface Inheritance
 
-Inheritance relationships among Slice interfaces are maintained in the generated C# classes. For example:
+Inheritance relationships among Slice interfaces are maintained in the generated C# interfaces. For example:
 
 ```slice
 module M
@@ -101,13 +104,13 @@ of another type:
 ```csharp
 public class SimplePrxHelper : ...
 {
-    public static SimplePrx? uncheckedCast(Ice.ObjectPrx? proxy)
+    public static SimplePrx? uncheckedCast(Ice.ObjectPrx? proxy) { ... }
 
     public static async Task<SimplePrx?> checkedCastAsync(
         Ice.ObjectPrx proxy,
         Dictionary<string, string>? context = null,
         IProgress<bool>? progress = null,
-        CancellationToken cancel = default)
+        CancellationToken cancel = default) { ... }
 }
 ```
 
@@ -139,8 +142,8 @@ If the target object implements the Slice interface, `checkedCastAsync` returns 
 
 {% callout type="note" %}
 
-The generated proxy helper also provides a synchronous overload: `checkedCast`. We recommend you always use async
-methods when making remote calls, and avoid these synchronous overloads provided for backwards compatibility.
+The generated proxy helper also provides a synchronous version: `checkedCast`. We recommend you always use async methods
+when making remote calls, and avoid these synchronous methods provided for backwards compatibility.
 
 {% /callout %}
 

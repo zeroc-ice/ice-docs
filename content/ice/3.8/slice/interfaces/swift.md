@@ -42,7 +42,7 @@ transport to use, and its object identity are encapsulated in that instance.
 
 ### Creating a Proxy
 
-For each proxy, the Slice compiler generate a `makeProxy` factory function in the same Swift module. With our previous
+For each proxy, the Slice compiler generates a `makeProxy` factory function in the same Swift module. With our previous
 example:
 
 ```swift
@@ -92,8 +92,8 @@ from `C`'s base interfaces.
 
 ### Creating a Proxy of Another Type
 
-For each proxy, the Slice compiler generate 2 helper functions that allow you to convert any proxy into a proxy of this
-type. With our Simple example:
+For each proxy, the Slice compiler generates two helper functions that allow you to convert any proxy into a proxy of
+this type. With our Simple example:
 
 ```swift
 public protocol SimplePrx: Ice.ObjectPrx {}

@@ -42,7 +42,7 @@ The generated proxy interface provides a static `createProxy` method. With our p
 ```java
 public interface SimplePrx extends com.zeroc.Ice.ObjectPrx {
     static SimplePrx createProxy(
-        com.zeroc.Ice.Communicator communicator, String proxyString)
+        com.zeroc.Ice.Communicator communicator, String proxyString) { ... }
     ...
 }
 ```
@@ -82,20 +82,20 @@ from `C`'s base interfaces.
 
 ### Creating a Proxy of Another Type
 
-In addition to `createProxy`, the generated proxy interfaces provides two static methods for converting a proxy into a
+In addition to `createProxy`, the generated proxy interface provides two static methods for converting a proxy into a
 proxy of another type:
 
 ```java
 public interface SimplePrx extends com.zeroc.Ice.ObjectPrx {
-    static SimplePrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static SimplePrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj) { ... }
 
-    static SimplePrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static SimplePrx checkedCast(com.zeroc.Ice.ObjectPrx obj) { ... }
 }
 ```
 
 #### uncheckedCast
 
-The helper’s `uncheckedCast` static method allows you to convert any proxy into a proxy of this type. For example:
+The static `uncheckedCast` method allows you to convert any proxy into a proxy of this type. For example:
 
 ```java
 // Convert a SimplePrx into a WidgetPrx, even though the two types are unrelated.

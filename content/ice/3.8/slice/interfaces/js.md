@@ -8,9 +8,12 @@ On the client side, a Slice interface maps to a JavaScript class with methods th
 interface. Consider the following Slice interface:
 
 ```slice
-interface Simple
+module M
 {
-    void op();
+    interface Simple
+    {
+        void op();
+    }
 }
 ```
 
@@ -201,7 +204,7 @@ class Node extends Ice.Object {
 
 ```typescript
 abstract class Node extends Ice.Object {
-    abstract name(current:Ice.Current): PromiseLike<string>|string;
+    abstract name(current: Ice.Current): PromiseLike<string> | string;
 }
 ```
 
@@ -221,14 +224,14 @@ corresponding skeleton. For example, to create a servant for the `Node` interfac
 
 ```typescript
 class MNode extends Filesystem.Node {
-    _name:string;
+    _name: string;
 
-    constructor(name:string) {
+    constructor(name: string) {
         super();
         this._name = name;
     }
 
-    name(current:Ice.Current) {
+    name(current: Ice.Current) {
         return this._name;
     }
 }
