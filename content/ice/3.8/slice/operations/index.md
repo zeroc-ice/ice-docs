@@ -107,9 +107,9 @@ and number of their parameters. A request identifies the operation it invokes by
 
 ## Idempotent Operations
 
-An operation is idempotent when two successive invocations have the same effect as a single invocation. Operations that
-do not modify the state of the object, such as `getTime` in the `Clock` interface, are idempotent; so is `setTime`, even
-though it modifies the state. You mark such operations with the `idempotent` keyword:
+An operation is idempotent when calling it several times with the same arguments has the same effect as calling it once.
+Operations that do not modify the state of the object, such as `getTime` in the `Clock` interface, are idempotent; so is
+`setTime`, even though it modifies the state. You mark such operations with the `idempotent` keyword:
 
 ```slice
 interface Clock
@@ -119,17 +119,8 @@ interface Clock
 }
 ```
 
-For an operation that is not idempotent, Ice guarantees _at-most-once_ semantics: the server dispatches each request at
-most once. When Ice cannot tell whether a request reached the server, for example because the connection was lost after
-Ice sent the request, it does not retry the request and reports the error to the application.
-
-Marking an operation `idempotent` allows Ice to retry such a request, because dispatching it a second time has the same
-effect as dispatching it once. See [Automatic Retries](../../runtime/invocation/automatic-retries).
-
-{% callout type="note" %}
-
-Datagram invocations over UDP are an exception: duplicated UDP datagrams can violate at-most-once semantics.
-
-{% /callout %}
+The `idempotent` keyword makes this property part of the contract: the implementation must keep the operation
+idempotent, and callers can rely on it. Ice relies on it to retry invocations it would not retry otherwise; see
+[Automatic Retries](../../runtime/invocation/automatic-retries).
 
 {% language-section name="mapping" /%}
