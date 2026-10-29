@@ -49,14 +49,25 @@ module M
 }
 ```
 
-A tag must be unique within its class or exception; a derived class or exception can reuse a tag of its base type.
+The scope of a tag is the class or exception that defines the field, and this class or exception only: a derived class
+or exception can reuse a tag of its base type. For example:
+
+```slice
+exception BaseException
+{
+    optional(1) int systemCode;
+}
+
+exception DerivedException extends BaseException
+{
+    optional(1) string diagnostic; // OK: a different scope
+}
+```
+
 Optional and required fields can be interleaved, and their tags can be in any order. The tag identifies the field in the
 [encoding](../../encoding/data-encoding-for-optional-values); the language mappings do not expose it.
 
 An optional field cannot have a class type, or a constructed type that holds a class type.
-
-Optional fields require [Ice encoding version 1.1](../../encoding/data-encoding-for-optional-values): when Ice marshals
-a class or exception with encoding 1.0, it omits the optional fields, and the receiver sees them unset.
 
 ## Default Values
 
