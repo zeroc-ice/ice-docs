@@ -202,9 +202,8 @@ awaitable object that you typically await.
 
 ### Using AMI with `asyncio`
 
-To use AMI with asyncio, pass the running asyncio event loop to the communicator with the `eventLoop` parameter. The
-`Async` proxy methods of this communicator then return standard `asyncio.Future` objects, which you await in the event
-loop:
+Create the communicator with the running asyncio event loop as its `eventLoop` argument. The `Async` methods of proxies
+created with this communicator then return `asyncio.Future` objects, which you await on this event loop:
 
 ```py
 # On asyncio event loop thread.
@@ -272,12 +271,8 @@ You can only await a future from the event loop that created it:
     greeting = await greeter.greetAsync(getpass.getuser())
   ```
 
-  However, you _can_ await an `Ice.InvocationFuture` from inside an
-  [asynchronous dispatch](#asynchronous-method-dispatch-amd), since these coroutines run on the Ice thread pool.
-
-- `asyncio.Future` These belong to the asyncio event loop supplied during communicator initialization, as in
-  [Using AMI with asyncio](#using-ami-with-asyncio). Since asynchronous dispatches also run in this loop, it is safe to
-  await `asyncio.Future` objects inside an asyncio-based dispatch.
+- `asyncio.Future` These belong to the communicator's asyncio event loop, as in
+  [Using AMI with asyncio](#using-ami-with-asyncio).
 
 ### Custom Event Loop Adapters
 
@@ -369,11 +364,12 @@ async def greet(self, name: str, current: Ice.Current) -> str:
 
 ### Event Loop for Dispatch
 
-If you pass an asyncio event loop to the communicator, as in [Using AMI with asyncio](#using-ami-with-asyncio),
-asynchronous dispatches run on this event loop, and can await the `asyncio.Future` objects that the `Async` proxy
-methods return. Without an event loop adapter, Ice runs the coroutine of an asynchronous dispatch on the Ice thread
-pool, where it can await the `Ice.InvocationFuture` objects that the `Async` proxy methods return. With a
-[custom event loop adapter](#custom-event-loop-adapters), the adapter runs the coroutine.
+Where the coroutine of an asynchronous dispatch runs depends on how you create the communicator:
+
+- By default, Ice runs it on the Ice thread pool, where it can await `Ice.InvocationFuture` objects.
+- With an asyncio event loop, as in [Using AMI with asyncio](#using-ami-with-asyncio), Ice runs it on this event loop,
+  where it can await `asyncio.Future` objects.
+- With a [custom event loop adapter](#custom-event-loop-adapters), the adapter runs it.
 
 ### Chaining Asynchronous Invocations
 
