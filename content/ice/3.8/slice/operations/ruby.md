@@ -81,8 +81,7 @@ end
 
 ### In Parameters
 
-All parameters are passed by reference in the Ruby mapping; it is guaranteed that the value of a parameter will not be
-changed by the invocation.
+An in parameter maps to a Ruby method argument, and an invocation does not modify the arguments you pass.
 
 Here is an interface with operations that pass parameters of various types from client to server:
 
@@ -187,7 +186,7 @@ interface ServerToClient
 }
 ```
 
-The Ruby mapping generates the following code for this definition:
+The generated proxy class provides methods with the following signatures for this definition:
 
 ```ruby
 def op1(context=nil)

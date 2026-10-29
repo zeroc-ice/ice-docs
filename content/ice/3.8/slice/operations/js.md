@@ -263,7 +263,7 @@ ns.str = "The Answer";
 const ss = [];
 ss.push("Hello world!");
 const st = new StringTable();
-st.set(0, ss);
+st.set(0n, ss);
 await p.op2(ns, ss, st);                      // Pass complex variables
 
 await p.op3(p);                               // Pass proxy

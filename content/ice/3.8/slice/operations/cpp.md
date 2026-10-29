@@ -349,9 +349,7 @@ of data": the client keeps sending data, so both client and server continuously 
 
 Obviously, the correct chunk size and value of `numRequests` depend on the bandwidth of the network as well as the
 amount of time taken by the server to process each request. However, with a little testing, you can quickly zoom in on
-the point where making the requests larger or queuing more requests no longer improves performance. With this technique,
-you can realize the full bandwidth of the link to within a percent or two of the theoretical bandwidth limit of a native
-socket connection.
+the point where making the requests larger or queuing more requests no longer improves performance.
 
 ### Sent Callbacks
 
@@ -368,7 +366,8 @@ runtime calls this function when the request is accepted by the transport:
 - When the request is accepted asynchronously, the Ice runtime calls the sent callback from an Ice thread pool thread,
   and passes `false` as argument.
 
-This is unlike the response and exception callbacks, which the Ice runtime always calls from an Ice thread pool thread.
+This is unlike the response and exception callbacks, which the Ice runtime calls from an Ice thread pool thread by
+default.
 
 If you set a custom executor in `Ice::InitializationData::executor`, this executor determines the thread that executes
 the response and exception callbacks, as well as the sent callback when the request is accepted asynchronously. The
@@ -580,7 +579,7 @@ function you call never returns such a pair.
 | ------------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------- |
 | `byte`, `bool`, `int`, `short`, `long`, `float`, `double`, `enum E` | By value: `std::uint8_t`, `bool`, `std::int32_t`, etc.          | `std::uint8_t`, `bool`, `std::int32_t`, etc.              |
 | `string`                                                            | “view”: `std::string_view` or `std::wstring_view`               | `std::string` or `std::wstring`                           |
-| `struct S`, `sequence<T> Seq`, `dictionary<K, V> Dict`              | Const reference: `const S&`                                     | `S`, `Seq`, `Dict`                                        |
+| `struct S`, `sequence<T> Seq`, `dictionary<K, V> Dict`              | Const reference: `const S&`, `const Seq&`, `const Dict&`        | `S`, `Seq`, `Dict`                                        |
 | `class C`                                                           | Const reference of shared pointer: `const CPtr&`                | `CPtr` (a shared pointer by value)                        |
 | `Greeter*` (a proxy)                                                | Const reference of optional: `const std::optional<GreeterPrx>&` | `std::optional<GreeterPrx>`                               |
 
@@ -650,8 +649,8 @@ by Ice.
 These parameters are all mapped “by value”, like in the Incoming column of [In Parameters](#in-parameters), since you’re
 receiving these values from Ice.
 
-When the operation has a return value and one ore more out parameters, the return value is mapped to a parameter named
-`returnValue` int the C++ response callback.
+When the operation has a return value and one or more out parameters, the return value is mapped to a parameter named
+`returnValue` in the C++ response callback.
 
 #### AMD Skeleton Functions
 
