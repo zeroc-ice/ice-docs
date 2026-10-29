@@ -41,7 +41,7 @@ const byte TheAnswerInHex = 0x2A;       // or 0x2a
 ```
 
 The value of an integer literal must be within the range of its constant type, as shown in the
-[Built-In Basic Types table](../basic-types); otherwise the compiler will issue a diagnostic.
+[Built-In Basic Types table](../basic-types). A `byte` constant takes a value from 0 to 255.
 
 ## Floating-Point Literals
 
@@ -60,8 +60,7 @@ const float P5 = .9E5;      // Fraction part and exponent
 const float P6 = 5e2;       // Integer part and exponent
 ```
 
-Floating-point literals must be within the range of the constant type (`float` or `double`); otherwise, the compiler
-will issue a diagnostic.
+Floating-point literals must be within the range of the constant type (`float` or `double`).
 
 ## String Literals
 
@@ -84,8 +83,6 @@ Slice string literals support the following escape sequences:
 | `\xnn`              | hexadecimal escape sequence |                                                   | 1 to 2 hexadecimal digits (0-9, a-f, A-F)                                                                                             |
 | `\unnnn`            | universal character name    | U+nnnn                                            | Exactly 4 hexadecimal digits. Use the `\Unnnnnnnn` notation for [astral characters](<https://en.wikipedia.org/wiki/Plane_(Unicode)>). |
 | `\Unnnnnnnn`        | universal character name    | U+nnnnnnnn                                        | Exactly 8 hexadecimal digits.                                                                                                         |
-
-Any other character after a backslash is kept as is, backslash included: `"\q"` holds a backslash and a `q`.
 
 Octal and hexadecimal escape sequences can represent ASCII characters (ordinal value 0 to 127) or the UTF-8 encoding of
 non-ASCII characters.
@@ -111,12 +108,6 @@ const string EuroSign1 = "€"; // Euro sign (U+20AC)
 const string EuroSign2 = "\u20AC"; // Universal character name
 const string EuroSign3 = "\xe2\x82\xac"; // UTF-8 encoding, using hexadecimal escape sequences
 ```
-
-```slice
-const string NullString = null;    // Illegal!
-```
-
-The Slice `string` type has no null value.
 
 ## Referencing Other Constants
 
