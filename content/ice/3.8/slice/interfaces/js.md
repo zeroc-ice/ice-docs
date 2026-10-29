@@ -224,9 +224,9 @@ corresponding skeleton. For example, to create a servant for the `Node` interfac
 
 ```typescript
 class MNode extends Filesystem.Node {
-    _name:string;
+    _name: string;
 
-    constructor(name:string) {
+    constructor(name: string) {
         super();
         this._name = name;
     }

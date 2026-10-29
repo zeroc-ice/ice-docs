@@ -104,13 +104,13 @@ of another type:
 ```csharp
 public class SimplePrxHelper : ...
 {
-    public static SimplePrx? uncheckedCast(Ice.ObjectPrx? proxy)
+    public static SimplePrx? uncheckedCast(Ice.ObjectPrx? proxy) { ... }
 
     public static async Task<SimplePrx?> checkedCastAsync(
         Ice.ObjectPrx proxy,
         Dictionary<string, string>? context = null,
         IProgress<bool>? progress = null,
-        CancellationToken cancel = default)
+        CancellationToken cancel = default) { ... }
 }
 ```
 

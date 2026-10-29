@@ -81,13 +81,22 @@ The Python mapping for a proxy also generates 3 static methods for converting a 
 ```py
 class SimplePrx(Ice.ObjectPrx):
     @staticmethod
-    def uncheckedCast(proxy, facet=None)
+    def uncheckedCast(proxy: ObjectPrx | None, facet: str | None = None) -> SimplePrx | None:
+        ...
 
     @staticmethod
-    def checkedCastAsync(proxy, facet=None, context=None)
+    def checkedCastAsync(
+        proxy: ObjectPrx | None,
+        facet: str | None = None,
+        context: dict[str, str] | None = None) -> Awaitable[SimplePrx | None]:
+        ...
 
     @staticmethod
-    def checkedCast(proxy, facet=None, context=None)
+    def checkedCast(
+        proxy: ObjectPrx | None,
+        facet: str | None = None,
+        context: dict[str, str] | None = None) -> SimplePrx | None:
+        ...
 ```
 
 #### uncheckedCast
@@ -123,7 +132,7 @@ directly.
 
 #### checkedCast
 
-`checkedCast` is the synchronous equivalent of `checkedCastAsync`: it blocks the caller until the response it receives.
+`checkedCast` is the synchronous equivalent of `checkedCastAsync`: it blocks the caller until it receives the response.
 You should prefer async methods over their synchronous equivalent when making remote calls with Ice.
 
 ### Proxy Factory Methods
