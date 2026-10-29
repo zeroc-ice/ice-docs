@@ -4,8 +4,7 @@ title: Operations
 
 ## Operation Syntax
 
-An operation definition must contain a name (the operation’s name), a return type and zero or more parameter
-definitions.
+An operation definition has a name, a return type, and zero or more parameters.
 
 For example:
 
@@ -27,43 +26,12 @@ module M
 }
 ```
 
-The `getTime` operation has a return type of `TimeOfDay` and the `setTime` operation has a return type of `void`. You
-must use `void` to indicate that an operation returns no value — there is no default return type for Slice operations.
+The `getTime` operation returns a `TimeOfDay`, and the `setTime` operation returns `void`: Slice operations have no
+default return type, so an operation that returns no value declares `void`.
 
-An operation can have one or more input parameters. For example:
-
-```slice
-module M
-{
-    interface CircadianRhythm
-    {
-        void setSleepPeriod(TimeOfDay startTime, TimeOfDay stopTime);
-    }
-}
-```
-
-Note that the parameter name is mandatory. You cannot omit the parameter name, so the following is in error:
-
-```slice
-module M
-{
-    interface CircadianRhythm
-    {
-        void setSleepPeriod(TimeOfDay, TimeOfDay);  // Error!
-    }
-}
-```
-
-By default, parameters are sent from the client to the server, that is, they are input parameters. To pass a value from
-the server to the client, you can use an output parameter, indicated by the `out` keyword. For example, an alternative
-way to define the `getTime` operation in the `Clock` interface would be:
-
-```slice
-void getTime(out TimeOfDay time);
-```
-
-This achieves the same thing but uses an output parameter instead of the return value. As with input parameters, you can
-use multiple output parameters:
+Parameters are input parameters by default: their values go from the client to the server. An output parameter, marked
+with the `out` keyword, carries a value from the server back to the client. An operation can have several input and
+output parameters, and its output parameters must follow its input parameters:
 
 ```slice
 module M
@@ -72,34 +40,22 @@ module M
     {
         void setSleepPeriod(TimeOfDay startTime, TimeOfDay stopTime);
         void getSleepPeriod(out TimeOfDay startTime, out TimeOfDay stopTime);
+        void changeSleepPeriod(
+            TimeOfDay startTime,
+            TimeOfDay stopTime,
+            out TimeOfDay prevStartTime,
+            out TimeOfDay prevStopTime);
     }
 }
 ```
 
-If you have both input and output parameters for an operation, the output parameters must follow the input parameters:
-
-```slice
-void changeSleepPeriod(
-    TimeOfDay startTime,
-    TimeOfDay stopTime,
-    out TimeOfDay prevStartTime,
-    out TimeOfDay prevStopTime);
-
-void changeSleepPeriod(
-     out TimeOfDay prevStartTime,
-     out TimeOfDay prevStopTime, // Error
-     TimeOfDay startTime,
-     TimeOfDay stopTime);
-```
-
-Slice does not support parameters that are both input and output parameters.
+Each parameter must have a name, and a parameter cannot be both an input and an output parameter.
 
 ## Optional Parameters and Return Values
 
 An operation's return value and parameters may be declared as optional to indicate that a program can leave their values
-unset. Parameters not declared as optional are known as _required_ parameters; a program must supply legal values for
-all required parameters. In the discussion below, we use _parameter_ to refer to input parameters, output parameters,
-and return values.
+unset. Parameters not declared as optional are known as _required_ parameters. In the discussion below, we use
+_parameter_ to refer to input parameters, output parameters, and return values.
 
 A unique, non-negative integer _tag_ must be assigned to each optional parameter:
 
@@ -109,12 +65,7 @@ optional(3) bool example(optional(2) string name, out optional(1) int value);
 
 The scope of a tag is limited to its operation and has no effect on other operations.
 
-{% callout type="warning" %}
-
-You can mark any parameter as optional, except if the parameter’s type is a class type or a constructed type that holds
-a class type: optional and class are incompatible.
-
-{% /callout %}
+An optional parameter cannot have a class type, or a constructed type that holds a class type.
 
 You can assign tags in any order.
 
@@ -131,28 +82,28 @@ bool example(
 
 Language mappings specify an API for passing optional parameters and testing whether a parameter is present.
 
-Optional parameters require [Ice encoding version 1.1](../../encoding/data-encoding-for-optional-values): when Ice
-marshals a request or a reply with encoding 1.0, it omits the optional parameters, and the receiver sees them unset.
+## Exception Specifications
 
-## Overloading Operations
-
-Slice does not support any form of overloading of operations. For example:
+An operation lists the [user exceptions](../exceptions) it can throw in a `throws` clause:
 
 ```slice
-interface CircadianRhythm
+exception BadTimeVal
 {
-    void modify(TimeOfDay startTime, TimeOfDay endTime);
+    string reason;
+}
 
-    void modify(    TimeOfDay startTime,        // Error
-                    TimeOfDay endTime,
-                out TimeOfDay prevStartTime,
-                out TimeOfDay prevEndTime);
+interface Clock
+{
+    void setTime(TimeOfDay time) throws BadTimeVal;
 }
 ```
 
-Operations in the same interface must have different names, regardless of what type and number of parameters they have.
-A request identifies the operation it invokes by name only, and many of the languages Ice maps to, such as Python,
-JavaScript, and Ruby, do not support overloading.
+See [Exception Specification in Operations](../exceptions#exception-specification-in-operations).
+
+## Overloading Operations
+
+Slice does not support overloading: operations in the same interface must have different names, regardless of the type
+and number of their parameters. A request identifies the operation it invokes by name only.
 
 ## Idempotent Operations
 
@@ -168,21 +119,12 @@ interface Clock
 }
 ```
 
-The `idempotent` keyword is useful because it allows the Ice runtime to be more aggressive when performing
-[automatic retries](../../runtime/invocation/automatic-retries) to recover from errors. Specifically, Ice guarantees
-_at-most-once_ semantics for operation invocations:
+For an operation that is not idempotent, Ice guarantees _at-most-once_ semantics: the server dispatches each request at
+most once. When Ice cannot tell whether a request reached the server, for example because the connection was lost after
+Ice sent the request, it does not retry the request and reports the error to the application.
 
-- For normal (not idempotent) operations, the Ice runtime has to be conservative about how it deals with errors. For
-  example, if a client sends an operation invocation to a server and then loses connectivity, there is no way for the
-  client-side runtime to find out whether the request it sent actually made it to the server. This means that the
-  runtime cannot attempt to recover from the error by re-establishing a connection and sending the request a second time
-  because that could cause the operation to be invoked a second time and violate at-most-once semantics; the runtime has
-  no option but to report the error to the application.
-- For `idempotent` operations, on the other hand, the client-side runtime can attempt to re-establish a connection to
-  the server and safely send the failed request a second time. If the server can be reached on the second attempt,
-  everything is fine and the application never notices the (temporary) failure. Only if the second attempt fails need
-  the runtime report the error back to the application. (The number of retries can be increased with an Ice
-  configuration parameter.)
+Marking an operation `idempotent` allows Ice to retry such a request, because dispatching it a second time has the same
+effect as dispatching it once. See [Automatic Retries](../../runtime/invocation/automatic-retries).
 
 {% callout type="note" %}
 
