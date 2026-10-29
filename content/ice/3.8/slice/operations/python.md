@@ -262,13 +262,17 @@ You can only await a future from the event loop that created it:
   Example (❌ does not work):
 
   ```py
-  with Ice.Communicator(sys.argv) as communicator:
-    greeter = VisitorCenter.GreeterPrx(
-      communicator,
-      "greeter:tcp -h localhost -p 4061")
-    # Will fail because the returned Ice.InvocationFuture
-    # cannot be awaited from a regular Python thread
-    greeting = await greeter.greetAsync(getpass.getuser())
+  async def main():
+    # The communicator is created without an eventLoop argument.
+    with Ice.Communicator(sys.argv) as communicator:
+      greeter = VisitorCenter.GreeterPrx(
+        communicator,
+        "greeter:tcp -h localhost -p 4061")
+      # Fails with RuntimeError: the returned Ice.InvocationFuture
+      # cannot be awaited on the asyncio event loop.
+      greeting = await greeter.greetAsync(getpass.getuser())
+
+  asyncio.run(main())
   ```
 
 - `asyncio.Future` These belong to the communicator's asyncio event loop, as in
