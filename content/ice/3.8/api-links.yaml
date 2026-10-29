@@ -108,6 +108,22 @@ Ice/ObjectPrx:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx
+Ice/ObjectPrx.ice_id:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_abb0b3bb51004c4e51833adc4fa967501.html#abb0b3bb51004c4e51833adc4fa967501
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_id_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_id()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectPrx.html#ice_id
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_id
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx_mixin.html#ice_id-instance_method
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx/ice_id(context:)
+Ice/ObjectPrx.ice_ids:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_a0e2879146cbc6b9520c4462b1454bba4.html#a0e2879146cbc6b9520c4462b1454bba4
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_ids_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_ids()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectPrx.html#ice_ids
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_ids
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx_mixin.html#ice_ids-instance_method
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx/ice_ids(context:)
 Ice/ObjectPrx.ice_invoke:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_ad8e9a5bc7efd45641c1059a3174055ab.html#ad8e9a5bc7efd45641c1059a3174055ab
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_invoke_
@@ -119,6 +135,22 @@ Ice/ObjectPrx.ice_invokeAsync:
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_invokeAsync_
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_invokeAsync(java.lang.String,com.zeroc.Ice.OperationMode,byte[])
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_invokeAsync
+Ice/ObjectPrx.ice_isA:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_a2f0fb697d2599a6c7683b69062fae9d7.html#a2f0fb697d2599a6c7683b69062fae9d7
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_isA_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_isA(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectPrx.html#ice_isa
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_isA
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx_mixin.html#ice_isA-instance_method
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx/ice_isa(id:context:)
+Ice/ObjectPrx.ice_ping:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx_a2f2f9a3d3f10a8451912444ce0458429.html#a2f2f9a3d3f10a8451912444ce0458429
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html#Ice_ObjectPrx_ice_ping_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectPrx.html#ice_ping()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectPrx.html#ice_ping
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_ping
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx_mixin.html#ice_ping-instance_method
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx/ice_ping(context:)
 Ice/OutputStream:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1OutputStream.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.OutputStream.html
