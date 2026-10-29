@@ -303,9 +303,7 @@ of data": the client keeps sending data, so both client and server continuously 
 
 Obviously, the correct chunk size and value of `numRequests` depend on the bandwidth of the network as well as the
 amount of time taken by the server to process each request. However, with a little testing, you can quickly zoom in on
-the point where making the requests larger or queuing more requests no longer improves performance. With this technique,
-you can realize the full bandwidth of the link to within a percent or two of the theoretical bandwidth limit of a native
-socket connection.
+the point where making the requests larger or queuing more requests no longer improves performance.
 
 ### Asynchronous Oneway Invocations
 

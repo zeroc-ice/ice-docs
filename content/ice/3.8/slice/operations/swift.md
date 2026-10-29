@@ -88,7 +88,7 @@ do {
 ### Default Mapping for Operations
 
 As we saw in the [Server-Side Swift Mapping for Interfaces](../interfaces#server-side-mapping-for-interfaces), for each
-operation on an interface, the generated skeleton protocol contains an abstract method with the same name.
+operation on an interface, the generated skeleton protocol contains a method requirement with the same name.
 
 For example, let’s take the generated code from the
 [greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):

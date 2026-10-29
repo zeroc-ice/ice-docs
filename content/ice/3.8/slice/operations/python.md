@@ -25,10 +25,10 @@ The proxy class generated from the `Greeter` interface, after removing extra det
 class GreeterPrx(ObjectPrx):
 
     def greet(self, name: str, context: dict[str, str] | None = None) -> str:
-        # ...
+        ...
 
     def greetAsync(self, name: str, context: dict[str, str] | None = None) -> Awaitable[str]:
-        # ...
+        ...
 ```
 
 Given a proxy to an object of type `Greeter`, the client can invoke the `greet` operation as follows:
@@ -384,7 +384,7 @@ sets**.
 Continuing with the Greeter example, the servant can delegate directly to another Greeter:
 
 ```py
-def greet(self, name: str, current: Ice.Current) -> str:
+def greet(self, name: str, current: Ice.Current) -> Awaitable[str]:
   return self._greeter.greetAsync(name)
 ```
 
@@ -403,8 +403,7 @@ nested async invocation.
 
 ### In Parameters
 
-All parameters are passed by reference in the Python mapping; it is guaranteed that the value of a parameter will not be
-changed by the invocation.
+An in parameter maps to a Python method argument, and an invocation does not modify the arguments you pass.
 
 Here is an interface with operations that pass parameters of various types from client to server:
 
@@ -432,13 +431,13 @@ The Slice compiler generates the following proxy for this definition:
 ```py
 class ClientToServerPrx(Ice.ObjectPrx):
     def op1(self, i, f, b, s, context=None):
-        # ...
+        ...
 
     def op2(self, ns, ss, st, context=None):
-        # ...
+        ...
 
     def op3(self, proxy, context=None):
-        # ...
+        ...
 ```
 
 Given a proxy to a `ClientToServer` interface, the client code can pass parameters as in the following example:
@@ -509,13 +508,13 @@ The Python mapping generates the following code for this definition:
 ```py
 class ServerToClientPrx(Ice.ObjectPrx):
     def op1(self, context=None):
-        # ...
+        ...
 
     def op2(self, context=None):
-        # ...
+        ...
 
     def op3(self, context=None):
-        # ...
+        ...
 ```
 
 Given a proxy to a `ServerToClient` interface, the client code can receive the results as in the following example:

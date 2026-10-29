@@ -81,8 +81,7 @@ end
 
 ### In Parameters
 
-All parameters are passed by reference in the Ruby mapping; it is guaranteed that the value of a parameter will not be
-changed by the invocation.
+An in parameter maps to a Ruby method argument, and an invocation does not modify the arguments you pass.
 
 Here is an interface with operations that pass parameters of various types from client to server:
 
@@ -110,15 +109,15 @@ The Slice compiler generates the following proxy for this definition:
 ```ruby
 module ClientToServerPrx_mixin
   def op1(i, f, b, s, context=nil)
-      ...
+      # ...
   end
 
   def op2(ns, ss, st, context=nil)
-      ...
+      # ...
   end
 
   def op3(proxy, context=nil)
-      ...
+      # ...
   end
 end
 
@@ -187,7 +186,7 @@ interface ServerToClient
 }
 ```
 
-The Ruby mapping generates the following code for this definition:
+The generated proxy methods have the following signatures:
 
 ```ruby
 def op1(context=nil)
