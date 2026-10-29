@@ -56,7 +56,8 @@ knows none of the exception's types, Ice throws a `MarshalException`.
 
 Ice provides two on-the-wire formats for class and exception slices: the compact format and the sliced format. For class
 instances, Ice uses the compact format by default, which is more space-efficient on the wire but offers less flexibility
-on the receiving end.
+on the receiving end. Ice always marshals exceptions in the sliced format: the `format` metadata and the
+`Ice.Default.SlicedFormat` property described below apply to class instances only.
 
 An application that needs the slicing behavior we discussed in the previous section for class instances must explicitly
 enable the sliced format as follows:
@@ -79,12 +80,12 @@ interface Ledger
 }
 ```
 
-The semantics implied by these definitions state that the caller of `getAccount` assumes it will know every type that
-that might be returned, but the same cannot be said for `importAccount`. By enabling the sliced format here, we allow
-the client to "slice off" what it does not recognize, even if that means the client is left with only an instance of
-`Account` and not an instance of some derived type.
+The caller of `getAccount` is expected to know every type this operation can return, while the caller of `importAccount`
+may not. With the sliced format, Ice slices an instance of a derived class this caller does not know to the most-derived
+type it knows, which can be `Account` itself.
 
-Now let's examine the opposite case: use the sliced format by default, and the compact format only in certain cases:
+The `format` metadata on an operation overrides the one on its interface. For example, all operations of this `Ledger`
+use the sliced format, except `getAccount`:
 
 ```slice
 ["format:sliced"]
@@ -96,9 +97,6 @@ interface Ledger
     Account importAccount(string source); // Uses sliced format
 }
 ```
-
-Here we specify that all operations in `Ledger` use the sliced format unless overridden at the operation level, which we
-do for `getAccount`.
 
 The format affects the marshaling of input parameters, output parameters, and return value of an operation.
 
@@ -125,16 +123,10 @@ By offering two alternative formats, Ice gives you a great deal of flexibility i
 compact format is ideal for applications that place a greater emphasis on efficiency, while the sliced format is helpful
 when clients and servers evolve independently.
 
-{% callout type="note" %}
-
-As of Ice 3.8, Ice always marshals exceptions in the sliced format; the `format` metadata and `Ice.Default.SlicedFormat`
-apply to class instances only.
-
-{% /callout %}
-
 ## Preserving Slices
 
-With encoding 1.1, when Ice slices a class instance, it preserves the slices of unknown types. Here is a simple example:
+When Ice slices a class instance, it preserves the slices of unknown types; when it slices an exception, it does not.
+Here is a simple example:
 
 ```slice
 class Base
@@ -173,27 +165,11 @@ When the `Relay` server marshals this instance in the compact format, Ice omits 
 If a class instance is sliced upon receipt, calling `ice_getSlicedData` on this instance will return a
 [SlicedData](api:Ice/SlicedData) object that holds the preserved slices.
 
-## Unknown Sliced Values
+### Unknown Sliced Values
 
-Suppose we modify our `Relay` example as shown below:
+Suppose we change the `transform` operation of the `Relay` example to use `Value`:
 
 ```slice
-class Base
-{
-    int b;
-}
-
-class Intermediate extends Base
-{
-    int i;
-}
-
-class Derived extends Intermediate
-{
-    int d;
-}
-
-
 interface Relay
 {
     ["format:sliced"]
@@ -201,10 +177,9 @@ interface Relay
 }
 ```
 
-The only difference here is the signature of the `transform` operation, which now uses the `Value` type. Technically, it
-is not necessary for the intermediary server to know _any_ of the class types that might be relayed via this new
-definition of `transform` because the formal types in its signature do not impose any requirements. As long as the
-`transform` operation uses the sliced format, this intermediary is capable of relaying values of any type.
+The intermediary server then does not need to know _any_ of the class types it relays, because the types in the
+signature of `transform` impose no requirement. As long as `transform` uses the sliced format, this intermediary can
+relay values of any type.
 
 If the Ice runtime in the intermediary does not know any of the types in an object's inheritance hierarchy, and the
 formal type is `Value`, Ice uses an instance of [UnknownSlicedValue](api:Ice/UnknownSlicedValue) to represent the

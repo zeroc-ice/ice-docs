@@ -211,14 +211,6 @@ The answer depends whether the client was built using the old or the updated def
   understood by the receiver (`AppException`, in this case) and discards the information that is specific to the derived
   part of the exception.
 
-{% callout type="note" %}
-
-The exception slicing occurs when the exception is marshaled by the server using the sliced format. Started with Ice
-3.8, exceptions are always marshaled in the sliced format. In Ice 3.7 and prior releases, you need to enable the sliced
-format explicitly.
-
-{% /callout %}
-
 ## Language Mapping
 
 {% language-section name="mapping" /%}
