@@ -93,6 +93,7 @@ public class C extends com.zeroc.Ice.Value {
     public void setI(int i) {
         this.i = i;
     }
+    ...
 }
 
 public final class S implements java.lang.Cloneable, java.io.Serializable {

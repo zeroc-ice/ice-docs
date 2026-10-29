@@ -93,17 +93,7 @@ class Location
         @source = source
     end
 
-    def hash
-        ...
-    end
-
-    def ==(other)
-        ...
-    end
-
-    def eql?(other)
-        ...
-    end
+    # ...
 end
 ```
 

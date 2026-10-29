@@ -1,6 +1,6 @@
 {% language-section name="language-mapping-1" %}
 
-A Slice field maps to a C# field, with by default the same name. The type of the C# field is the mapped Slice type.
+A Slice field maps to a C# field with the same name. The type of the C# field is the mapped Slice type.
 
 In C#, we often remap the field name with `cs:identifier` to convert the name for Pascal case. For example:
 

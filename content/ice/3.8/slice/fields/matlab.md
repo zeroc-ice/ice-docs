@@ -62,9 +62,9 @@ A well-behaved program must test a MATLAB property (mapped from an optional fiel
 ```matlab
 obj = ...;
 if obj.OptionalField ~= Ice.Unset
-    fprintf('OptionalField = %s\n', obj.OptionalField);
+    disp(obj.OptionalField);
 else
-    fprintf('OptionalField is unset\n');
+    disp('OptionalField is unset');
 end
 ```
 
