@@ -211,14 +211,6 @@ The answer depends whether the client was built using the old or the updated def
   understood by the receiver (`AppException`, in this case) and discards the information that is specific to the derived
   part of the exception.
 
-{% callout type="note" %}
-
-Slicing an exception requires the
-[sliced format](../user-defined-types/classes/slicing-values-and-exceptions#slice-formats), which Ice always uses to
-marshal exceptions.
-
-{% /callout %}
-
 ## Language Mapping
 
 {% language-section name="mapping" /%}
