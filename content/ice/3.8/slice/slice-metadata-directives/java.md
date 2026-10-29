@@ -40,23 +40,25 @@ public GridIntf.GetGridMarshaledResult getGrid(com.zeroc.Ice.Current current) {
 
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for Java uses the `java` prefix.
+Java metadata directives use the `java` prefix.
 
-### `java:buffer`
+### java:buffer
 
-This directive applies to [sequences](../user-defined-types/sequences) of certain basic types. It directs the Slice
-compiler to map the sequence to a subclass of `java.nio.Buffer`.
+`["java:buffer"]`. Applies to sequences of certain basic types.
 
-### `java:getset`
+This directive maps the [sequence](../user-defined-types/sequences) to a subclass of `java.nio.Buffer`.
 
-This directive applies to fields, structures, classes, and exceptions. It adds accessor and modifier methods
-([JavaBean methods](../fields)) for fields.
+### java:getset
 
-### `java:identifier:java-identifier`
+`["java:getset"]`. Applies to fields, structs, classes, and exceptions.
 
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified `java-identifier`.
+This directive adds accessor and modifier methods ([JavaBean methods](../fields)) for fields.
 
-For example:
+### java:identifier
+
+`["java:identifier:name"]`. Applies to any definition, parameter, or field.
+
+This directive maps the Slice construct to the Java identifier `name`. For example:
 
 ```slice
 struct Descriptor
@@ -66,8 +68,7 @@ struct Descriptor
 }
 ```
 
-The `java:identifier` directive in this example remaps the Slice field `transient` (a Java keyword) to `ephemeral` in
-Java.
+The field `transient` maps to `ephemeral` in Java, because `transient` is a Java keyword.
 
 {% callout type="warning" %}
 
@@ -77,59 +78,57 @@ you need to install a [Slice loader](../user-defined-types/classes/slice-loaders
 
 {% /callout %}
 
-### `java:package:enclosing-java-package`
+### java:package
 
-This deprecated directive applies to top-level modules and can also be used as file metadata. It instructs the Slice
-compiler to place the generated Java package in the specified Java package. You should use `java:identifier` instead on
-your modules.
+`["java:package:package"]` or `[["java:package:package"]]`. Applies to top-level modules and Slice files.
+
+This deprecated directive places the generated Java package in the Java package `package`. Use `java:identifier` on your
+modules instead.
 
 {% callout type="warning" %}
 
 When you apply this directive to a module that contains classes or exceptions, communicators that receive (unmarshal)
 these classes or exceptions need a [Slice loader](../user-defined-types/classes/slice-loaders) to locate their Java
 classes. Setting the matching [Ice.Package._module_](../../property-reference/ice-properties#ice.package.module)
-property or [Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) to
-`enclosing-java-package` also works.
+property or [Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) to `package` also
+works.
 
 {% /callout %}
 
-### `java:serializable:java-class`
+### java:serializable
 
-This directive applies to `sequence<byte>`. It allows you to use Ice to transmit serializable Java classes as native
-objects, without having to define corresponding Slice definitions for these classes. The Slice compiler maps the
-sequence to `java-class`, the fully qualified name of a Java class that implements `java.io.Serializable`. See
+`["java:serializable:class"]`. Applies to `sequence<byte>`.
+
+This directive maps the sequence to `class`, the fully qualified name of a Java class that implements
+`java.io.Serializable`, so that you can transmit serializable Java objects without defining them in Slice. Ice transmits
+the Java serialization of the object as a sequence of bytes, which other language mappings receive as a plain byte
+sequence. See
 [Filling a Sequence of Bytes with a Serializable Object](../user-defined-types/sequences#filling-a-sequence-of-bytes-with-a-serializable-object)
 for an example.
 
-### `java:serialVersionUID:uid`
+### java:serialVersionUID
+
+`["java:serialVersionUID:uid"]`. Applies to classes, exceptions, and structs.
 
 The Slice-to-Java compiler computes a default value for the `serialVersionUID` member of Slice
-[classes](../user-defined-types/classes), [exceptions](../exceptions) and
-[structures](../user-defined-types/structures). This directive overrides this default generated value with `uid`, an
-integer literal. For example:
+[classes](../user-defined-types/classes), [exceptions](../exceptions), and
+[structures](../user-defined-types/structures). This directive replaces this value with `uid`, an integer literal. The
+application is then responsible for updating the UID whenever changes to the Slice definition affect the serializable
+state of the type.
 
-```slice
-["java:serialVersionUID:1"]
-struct Point
-{
-    int x;
-    int y;
-}
-```
+### java:type
 
-By using this metadata, the application assumes responsibility for updating the UID whenever changes to the Slice
-definition affect the serializable state of the type.
+`["java:type:instance-type"]` or `["java:type:instance-type:formal-type"]`. Applies to sequences and dictionaries.
 
-### `java:type:<instance-type[:formal-type]>`
+This directive maps a [sequence](../user-defined-types/sequences) or [dictionary](../user-defined-types/dictionaries) to
+a custom Java type.
 
-This directive allows you to use custom types for [sequences](../user-defined-types/sequences) and
-[dictionaries](../user-defined-types/dictionaries).
+### java:UserException
 
-### `java:UserException`
+`["java:UserException"]`. Applies to operations.
 
-This directive applies to operations, and indicates that the generated Java methods on the mapped servant interface and
-class can throw any user exception, regardless the exception specification of the Slice operation. The exception
-specification for these methods is simply `throws com.zeroc.Ice.UserException`. This metadata has no effect on the
-methods of generated proxies.
+The methods of the mapped servant interface and class declare `throws com.zeroc.Ice.UserException`, so they can throw
+any user exception, regardless of the exception specification of the Slice operation. This directive does not change the
+methods of the generated proxies.
 
 {% /language-section %}

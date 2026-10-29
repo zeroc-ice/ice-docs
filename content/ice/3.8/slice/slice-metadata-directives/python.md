@@ -1,19 +1,19 @@
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for Python uses the `python` prefix.
+Python metadata directives use the `python` prefix.
 
-### `python:array.array`
+### python:array.array
 
-Instructs the Ice for Python runtime to unmarshal a sequence as a Python array.array type. This directive applies to
-sequences of `bool`, `byte`, `short`, `int`, `long`, `float`, and `double`. See
-[Python mapping for sequences.](../user-defined-types/sequences).
+`["python:array.array"]`. Applies to sequences of `bool`, `byte`, `short`, `int`, `long`, `float`, and `double`.
 
-### `python:identifier:<identifier>`
+This directive instructs the Ice for Python runtime to unmarshal the sequence as a Python `array.array`. See
+[Python mapping for sequences](../user-defined-types/sequences).
 
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified
-`python-identifier`.
+### python:identifier
 
-For example:
+`["python:identifier:name"]`. Applies to any definition, parameter, or field.
+
+This directive maps the Slice construct to the Python identifier `name`. For example:
 
 ```slice
 enum Color
@@ -29,27 +29,35 @@ enum Color
 }
 ```
 
-The `python:identifier` directives in this example ensure the enumerators `Red`, `Green`, and `Blue` are mapped to
-`RED`, `GREEN`, and `BLUE`, per Python’s usual conventions, instead of the default mapping (`Red`, `Green`, and `Blue`).
+The enumerators `Red`, `Green`, and `Blue` map to `RED`, `GREEN`, and `BLUE`, per Python’s usual conventions, instead of
+the default mapping (`Red`, `Green`, and `Blue`).
 
-### `python:list`
+### python:list
 
-Instruct the Ice for Python runtime to unmarshal a sequence as a list.
+`["python:list"]`. Applies to sequences.
 
-### `python:memoryview:<factory>(:type-hint)`
+This directive instructs the Ice for Python runtime to unmarshal the sequence as a list.
 
-Instructs the Ice for Python runtime to unmarshal a sequence as a custom Python type created from a Python memoryview
-object. This directive applies to sequences of `bool`, `byte`, `short`, `int`, `long`, `float`, and `double`. See
-[Python mapping for sequences.](../user-defined-types/sequences).
+### python:memoryview
 
-### `python:numpy.ndarray`
+`["python:memoryview:factory"]` or `["python:memoryview:factory:type-hint"]`. Applies to sequences of `bool`, `byte`,
+`short`, `int`, `long`, `float`, and `double`.
 
-Instructs the Ice for Python runtime to unmarshal a sequence as a Python numpy.ndarray type. This directive applies to
-sequences of `bool`, `byte`, `short`, `int`, `long`, `float`, and `double`. See
-[Python mapping for sequences.](../user-defined-types/sequences).
+This directive instructs the Ice for Python runtime to unmarshal the sequence as a custom Python type that the function
+`factory` creates from a Python memoryview object; `type-hint` is the type of the result in the generated type hints.
+See [Python mapping for sequences](../user-defined-types/sequences).
 
-### `python:tuple`
+### python:numpy.ndarray
 
-Instructs the Ice for Python runtime to unmarshal a sequence as a Python tuple.
+`["python:numpy.ndarray"]`. Applies to sequences of `bool`, `byte`, `short`, `int`, `long`, `float`, and `double`.
+
+This directive instructs the Ice for Python runtime to unmarshal the sequence as a Python `numpy.ndarray`. See
+[Python mapping for sequences](../user-defined-types/sequences).
+
+### python:tuple
+
+`["python:tuple"]`. Applies to sequences.
+
+This directive instructs the Ice for Python runtime to unmarshal the sequence as a Python tuple.
 
 {% /language-section %}

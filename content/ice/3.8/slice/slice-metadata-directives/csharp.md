@@ -39,35 +39,34 @@ public override GridIntf_GetGridMarshaledResult GetGrid(Ice.Current current)
 
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for C# uses the `cs` prefix.
+C# metadata directives use the `cs` prefix.
 
-### `cs:attribute`
+### cs:attribute
 
-This directive applies to enums, enumerators, constants and fields. It injects a C# attribute definition into the
-generated code.
+`["cs:attribute:attribute"]`. Applies to enumerations, enumerators, constants, and fields.
 
-### `cs:class`
+This directive adds the C# attribute `attribute` to the generated code. For example, `["cs:attribute:System.Flags"]` on
+an enumeration adds `[System.Flags]` to the mapped C# enum.
 
-This directive applies to Slice structures. It directs the Slice compiler to emit a C# class instead of a structure.
+### cs:class
 
-### `cs:generic:List`, `cs:generic:LinkedList`, `cs:generic:Queue` and `cs:generic:Stack`
+`["cs:class"]`. Applies to structs.
 
-These directives apply to [sequences](../user-defined-types/sequences) and map them to the specified sequence type.
+This directive maps the Slice struct to a C# class instead of a C# struct.
 
-### `cs:generic:SortedDictionary` and `cs:generic:SortedList`
+### cs:generic
 
-This directive applies to [dictionaries](../user-defined-types/dictionaries) and maps them to the specified type.
+`["cs:generic:type"]`. Applies to sequences and dictionaries.
 
-### `cs:generic:csharp-custom-type`
+On a [sequence](../user-defined-types/sequences), `type` is `List`, `LinkedList`, `Queue`, `Stack`, or a custom
+collection type; `LinkedList`, `Queue`, and `Stack` are not supported on a sequence of classes. On a
+[dictionary](../user-defined-types/dictionaries), `type` is `SortedDictionary` or `SortedList`.
 
-This directive applies to [sequences](../user-defined-types/sequences) and allows you map them to custom types.
+### cs:identifier
 
-### `cs:identifier:csharp-identifier`
+`["cs:identifier:name"]`. Applies to any definition, parameter, or field.
 
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified
-`csharp-identifier`.
-
-For example:
+This directive maps the Slice construct to the C# identifier `name`. For example:
 
 ```slice
 interface Greeter
@@ -77,33 +76,36 @@ interface Greeter
 }
 ```
 
-The `cs:identifier` directive in this example ensures operation `greet` is mapped to methods `Greet` and `GreetAsync` in
-C#, instead of the default (`greet` and `greetAsync`).
+The operation `greet` maps to the methods `Greet` and `GreetAsync` in C#, instead of `greet` and `greetAsync`.
 
-### `cs:internal`
+### cs:internal
 
-This directives applies to Slice interfaces, classes, exceptions, structures, sequences, dictionaries, enumerations and
-constants. This directive instructs the Slice compiler to generate an `internal` C# construct, instead of the default,
-`public`.
+`["cs:internal"]`. Applies to interfaces, classes, exceptions, structs, sequences, dictionaries, enumerations, and
+constants.
 
-### `cs:namespace:enclosing-csharp-namespace`
+This directive makes the generated C# declarations `internal` instead of `public`.
 
-This deprecated directive applies to top-level modules. It instructs the Slice compiler to place the generated C#
-namespace in the specified namespace. You should use `cs:identifier` instead.
+### cs:namespace
 
-### `cs:property`
+`["cs:namespace:namespace"]`. Applies to top-level modules.
 
-This directive applies to Slice structures, classes, and exceptions. It directs the Slice compiler to map Slice fields
-to C# properties instead of C# [fields](../fields).
+This deprecated directive places the C# namespace of the module in the namespace `namespace`. Use `cs:identifier`
+instead.
 
-### `cs:readonly`
+### cs:property
 
-This directive applies to Slice structures.
+`["cs:property"]`. Applies to structs, classes, and exceptions.
 
-When the Slice structure maps to a C# record struct, the mapped record struct is marked `readonly`.
+This directive maps the Slice fields to C# properties instead of C# [fields](../fields).
 
-When the Slice structure maps to a C# record class, the fields of this class are mapped to readonly C# fields or
-get-only properties (see `cs:property`), except for fields with a Slice class type that are mapped as usual (read-write
-fields or get-set properties).
+### cs:readonly
+
+`["cs:readonly"]`. Applies to structs.
+
+When the Slice struct maps to a C# record struct, the mapped record struct is marked `readonly`.
+
+When the Slice struct maps to a C# record class, the fields of this class are mapped to readonly C# fields or get-only
+properties (see `cs:property`), except for fields with a Slice class type that are mapped as usual (read-write fields or
+get-set properties).
 
 {% /language-section %}

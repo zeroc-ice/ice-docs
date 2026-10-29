@@ -1,19 +1,20 @@
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for JavaScript uses the `js` prefix.
+JavaScript metadata directives use the `js` prefix.
 
-### `js:defined-in:file-name`
+### js:defined-in
 
-This directive applies to forward declarations of interfaces and classes. It tells the Slice-to-JavaScript compiler
-which file to import the forward-declared type from in the TypeScript declarations; file-name is the relative path to
-the Slice file that defines the type.
+`["js:defined-in:file"]`. Applies to forward declarations of interfaces and classes.
 
-### `js:identifier:javascript-identifier`
+This directive tells the Slice-to-JavaScript compiler which file to import the forward-declared type from in the
+TypeScript declarations; `file` is the relative path to the Slice file that defines the type. See
+[Forward Declarations](../forward-declarations).
 
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified
-`javascript-identifier`.
+### js:identifier
 
-For example:
+`["js:identifier:name"]`. Applies to any definition, parameter, or field.
+
+This directive maps the Slice construct to the JavaScript identifier `name`. For example:
 
 ```slice
 struct CompilerInfo
@@ -23,18 +24,17 @@ struct CompilerInfo
 }
 ```
 
-The `js:identifier` directive in this example ensures that `debugger` filed, a reserved JavaScript keyword, is mapped
-`debuggerName`.
+The field `debugger` maps to `debuggerName`, because `debugger` is a reserved JavaScript keyword.
 
-### `js:module:module-name`
+### js:module
 
-This file directive allows you to tell the Slice-to-JavaScript compiler how the generated modules should be imported by
-other generated code. It is mainly useful when you want to publish your generated code as an npm package, so that other
-projects can import the generated code for your Slice definitions by package name rather than by relative path.
+`[["js:module:name"]]`. Applies to a Slice file.
+
+This directive tells the Slice-to-JavaScript compiler how other generated code imports the code generated for this file.
+It is mainly useful when you publish your generated code as an npm package, so that other projects can import the
+generated code for your Slice definitions by package name rather than by relative path.
 
 For example, the Slice definitions for the Ice built-in files use:
-
-For example the Slice definitions for Ice builtin files use:
 
 ```slice
 // Ice/Locator.ice
@@ -45,15 +45,14 @@ For example the Slice definitions for Ice builtin files use:
 
 module Ice
 {
-...
+    ...
 }
 ```
 
-When you include `Ice/Locator.ice` in your own Slice files, the generated code will import `Ice` from `@zeroc/ice`.
-Without this directive, the compiler would instead fall back on its default heuristic and generate a relative import,
-such as from `Ice/Locator.js`.
+When you include `Ice/Locator.ice` in your own Slice files, the generated code imports `Ice` from `@zeroc/ice`. Without
+this directive, the compiler would instead generate a relative import, such as from `Ice/Locator.js`.
 
-Other files that use the same js:module directive will still import each other with relative paths, since they are
-assumed to be part of the same npm package.
+Files that use the same `js:module` directive import each other with relative paths, since they are assumed to be part
+of the same npm package.
 
 {% /language-section %}

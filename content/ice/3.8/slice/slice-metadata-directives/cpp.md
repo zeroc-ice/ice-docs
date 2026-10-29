@@ -35,17 +35,19 @@ GridServant::getGrid(const Ice::Current& current)
 
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for C++ uses the `cpp` prefix.
+C++ metadata directives use the `cpp` prefix.
 
-### `cpp:array`
+### cpp:array
 
-This directive applies to sequence parameters in operations. It directs the Slice compiler to map these parameters to
-[pairs of pointers](../user-defined-types/sequences).
+`["cpp:array"]`. Applies to sequence parameters of operations.
 
-### `cpp:const`
+This directive maps the parameter to a [pair of pointers](../user-defined-types/sequences).
 
-This directive applies to operations. It directs the Slice compiler to create a `const` pure virtual member function for
-the skeleton class.
+### cpp:const
+
+`["cpp:const"]`. Applies to operations.
+
+This directive makes the pure virtual member function of the skeleton class `const`.
 
 {% callout type="note" %}
 
@@ -54,81 +56,46 @@ affects your own servant implementation code.
 
 {% /callout %}
 
-### `cpp:custom-print`
+### cpp:custom-print
 
-This directive applies to enumerations, structs, classes and exceptions. It tells the Slice compiler that you want to
-implement your own “custom print” for this type, and not rely on the compiler-generated print implementation.
+`["cpp:custom-print"]`. Applies to enumerations, structs, classes, and exceptions.
 
-For an enum E, the Slice compiler generates a declaration for `std::ostream& operator<<(std::ostream&, E)` in the
-enclosing namespace, but does not implement this operator.
+This directive tells the Slice compiler that you implement the printing of this type yourself:
 
-For a struct S, the Slice compiler generates a declaration for `std::ostream& operator<<(std::ostream&, const S&)` in
-the enclosing namespace, but does not implement this operator.
+- For an enum `E`, the Slice compiler declares `std::ostream& operator<<(std::ostream&, E)` in the enclosing namespace,
+  but does not implement this operator.
+- For a struct `S`, the Slice compiler declares `std::ostream& operator<<(std::ostream&, const S&)` in the enclosing
+  namespace, but does not implement this operator.
+- For a class or exception, the Slice compiler declares the member function
+  `void ice_print(std::ostream& os) const override` in the mapped C++ class, but does not implement this member
+  function.
 
-For a class or exception C, the Slice compiler generates a declaration for the member function
-`void ice_print(std::ostream& os) const override` in the mapped C++ class, but does not implement this member function.
+### cpp:dll-export
 
-### `cpp:dll-export:SYMBOL`
+`[["cpp:dll-export:SYMBOL"]]`. Applies to a Slice file.
 
-This file directive applies to all definitions in a Slice file.
+This directive lets you build the generated code into a DLL (on Windows) or a shared library (on other platforms): the
+Slice compiler adds `SYMBOL` to the generated declarations that such a library exports. The generated header defines
+`SYMBOL` to export these declarations when `SYMBOL_EXPORTS` is defined, and to import them otherwise; the generated
+source file defines `SYMBOL_EXPORTS`.
 
-Use `SYMBOL` to control the export and import of symbols from DLLs on Windows and shared libraries on other platforms.
-This option allows you to export symbols from the generated code, and place such generated code in a DLL (on Windows) or
-shared library (on other platforms). As an example, compiling a Slice file `Widget.ice` with:
+### cpp:doxygen
 
-```slice
-[["cpp:dll-export:WIDGET_API"]]
-```
+`[["cpp:doxygen:include:header"]]`. Applies to a Slice file.
 
-results in the following additional code being generated into `Widget.h`:
+This directive adds a doc comment with `@headerfile` and `header` to all generated C++ classes.
 
-```cpp
-#ifndef WIDGET_API
-#   if defined(WIDGET_API_EXPORTS)
-#       define WIDGET_API ICE_DECLSPEC_EXPORT
-#   else
-#       define WIDGET_API ICE_DECLSPEC_IMPORT
-#   endif
-#endif
-```
+### cpp:header-ext
 
-The generated code also includes the provided `SYMBOL` name (`WIDGET_API` in our example) in the declaration of classes
-and functions that need to be exported (when building a DLL or shared library) or imported (when using such library).
+`[["cpp:header-ext:extension"]]`. Applies to a Slice file.
 
-`ICE_DECLSPEC_EXPORT` and `ICE_DECLSPEC_IMPORT` are macros that expand to compiler-specific attributes. For example, for
-Visual Studio, they are defined as:
+This directive sets the file extension of the generated header file, instead of the default `.h`.
 
-```cpp
-#if defined(_MSC_VER)
-#   define ICE_DECLSPEC_EXPORT __declspec(dllexport)
-#   define ICE_DECLSPEC_IMPORT __declspec(dllimport)
-```
+### cpp:identifier
 
-With GCC and clang, they are defined as:
+`["cpp:identifier:name"]`. Applies to any definition, parameter, or field.
 
-```cpp
-#elif defined(__GNUC__) || defined(__clang__)
-#   define ICE_DECLSPEC_EXPORT [[gnu::visibility("default")]]
-#   define ICE_DECLSPEC_IMPORT [[gnu::visibility("default")]]
-```
-
-The generated .cpp file (`Widget.cpp` in our example) defines `SYMBOL_EXPORTS`; this way, you don't need to do anything
-special when compiling generated files.
-
-### `cpp:doxygen:include:c++-header`
-
-This file directive instructs the Slice compiler to generate a doc-comment with `@headerfile` and the specified C++
-header for all generated C++ classes.
-
-### `cpp:header-ext:c++-ext`
-
-This file directive allows you to use a file extension for C++ header files other than the default `.h` extension.
-
-### `cpp:identifier:c++-identifier`
-
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified `c++-identifier`.
-
-For example:
+This directive maps the Slice construct to the C++ identifier `name`. For example:
 
 ```slice
 struct Descriptor
@@ -138,39 +105,44 @@ struct Descriptor
 }
 ```
 
-The `cpp:identifier` directive ensures the field `template` is mapped to `blueprint` in C++. We can’t use the default
-mapping (`template`) since it’s a C++ keyword.
+The field `template` maps to `blueprint` in C++, because `template` is a C++ keyword.
 
-### `cpp:ice_print`
+### cpp:ice_print
 
-This directive applies to exceptions. It is a deprecated alias for `cpp:custom-print`.
+`["cpp:ice_print"]`. Applies to exceptions.
 
-### `cpp:include:c++-header`
+This directive is a deprecated alias for `cpp:custom-print`.
 
-This file directive allows you to inject additional `#include` directives into the generated C++ header file. This is
-useful when using the `cpp:type` metadata.
+### cpp:include
 
-### `cpp:source-ext:c++-ext`
+`[["cpp:include:header"]]`. Applies to a Slice file.
 
-This file directive allows you to use a file extension for C++ source files other than the default `.cpp` extension.
+This directive adds `#include <header>` to the generated header file, typically for a type you select with `cpp:type`.
 
-### `cpp:source-include:c++-header`
+### cpp:source-ext
 
-This file directive allows you to inject additional `#include` directives into the generated C++ source file. This is
-required to make forward declared types visible to the source files.
+`[["cpp:source-ext:extension"]]`. Applies to a Slice file.
 
-### `cpp:type:c++-type`
+This directive sets the file extension of the generated source file, instead of the default `.cpp`.
 
-This directive applies to [sequences](../user-defined-types/sequences) and
-[dictionaries](../user-defined-types/dictionaries). It directs the Slice compiler to map the Slice type or parameter to
-the provided C++ type.
+### cpp:source-include
 
-### `cpp:type:string` and `cpp:type:wstring`
+`[["cpp:source-include:header"]]`. Applies to a Slice file.
 
-These directives apply to fields of type string as well as to containers, such as structures, classes and exceptions.
-String fields [map by default](../basic-types) to `std::string`. You can use the `cpp:type:wstring` metadata to cause a
-string field (or all string fields in a structure, class or exception) to map to `std::wstring` instead. Use the
-`cpp:type:string` metadata to force string fields to use the default mapping regardless of any enclosing metadata.
+This directive adds `#include <header>` to the generated source file, for example when the generated code needs the
+complete definition of a type that the generated header does not include.
+
+### cpp:type
+
+`["cpp:type:type"]`, `["cpp:type:string"]`, or `["cpp:type:wstring"]`. Applies to sequences, dictionaries, and strings.
+
+On a [sequence](../user-defined-types/sequences) or [dictionary](../user-defined-types/dictionaries), or on a parameter
+or field of such a type, `cpp:type:type` maps it to the C++ type `type`.
+
+Slice strings [map by default](../basic-types) to `std::string`. `cpp:type:wstring` maps them to `std::wstring` instead,
+and `cpp:type:string` maps them back to `std::string`. You can apply these two directives to a use of `string`, such as
+a field or a parameter, or to a module, interface, class, struct, or exception, where they apply to all the strings it
+contains:
 
 ```slice
 module A
@@ -183,9 +155,11 @@ module A
 }
 ```
 
-### `cpp:view-type:c++-view-type`
+### cpp:view-type
 
-This directive applies to sequence parameters. It directs the Slice compiler to map this parameter to the provided C++
-type when this parameter does not need to hold any memory, for example when mapping an in-parameter to a proxy function.
+`["cpp:view-type:type"]`. Applies to sequence parameters of operations.
+
+This directive maps the parameter to the C++ type `type`, a view that does not own the elements, where the generated
+code only reads the sequence, such as an in parameter of a proxy function.
 
 {% /language-section %}

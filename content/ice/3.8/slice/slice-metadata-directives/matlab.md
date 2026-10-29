@@ -1,11 +1,12 @@
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for MATLAB uses the `matlab` prefix.
+MATLAB metadata directives use the `matlab` prefix.
 
-### `matlab:identifier:matlab-identifier`
+### matlab:identifier
 
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified
-`matlab-identifier`.
+`["matlab:identifier:name"]`. Applies to any definition, parameter, or field.
+
+This directive maps the Slice construct to the MATLAB identifier `name`.
 
 For example:
 
@@ -20,8 +21,7 @@ class AtmosphericConditions
 }
 ```
 
-The `matlab:identifier` directives in this example instructs the Slice compiler to map Slice fields `temperature` and
-`humidity` to `Temperature` and `Humidity` properties in MATLAB.
+The fields `temperature` and `humidity` map to the `Temperature` and `Humidity` properties in MATLAB.
 
 {% callout type="warning" %}
 
