@@ -366,9 +366,6 @@ runtime calls this function when the request is accepted by the transport:
 - When the request is accepted asynchronously, the Ice runtime calls the sent callback from an Ice thread pool thread,
   and passes `false` as argument.
 
-This is unlike the response and exception callbacks, which the Ice runtime calls from an Ice thread pool thread by
-default.
-
 If you set a custom executor in `Ice::InitializationData::executor`, this executor determines the thread that executes
 the response and exception callbacks, as well as the sent callback when the request is accepted asynchronously. The
 executor has no effect on a sent callback executed synchronously: the Ice runtime calls it from the thread calling the
