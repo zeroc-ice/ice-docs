@@ -3,7 +3,7 @@ title: Forward Declarations
 ---
 
 [Interfaces](../interfaces) and [classes](../user-defined-types/classes) can be forward declared, so that you can use
-them before their definition. This lets you define types that refer to each other, for example:
+them before their definition. This lets you write definitions that refer to each other, for example:
 
 ```slice
 module Family
@@ -25,13 +25,11 @@ module Family
 }
 ```
 
-The forward declaration of `Child` lets `Children` and `Parent` use `Child` before its definition.
+You can use a forward-declared class, or the [proxy type](../interfaces/proxy-types) of a forward-declared interface, as
+the element type of a sequence, the value type of a dictionary, the type of a field, and the type of an operation
+parameter or return value.
 
-You can use a forward-declared class or interface as the element type of a sequence, the value type of a dictionary, the
-type of a field, and the type of an operation parameter or return value. As with any interface, you refer to a
-forward-declared interface by its proxy type, such as `Child*`.
-
-A class or interface cannot extend a forward-declared class or interface until its definition has been seen:
+You can extend a forward-declared class or interface only after its definition:
 
 ```slice
 interface Base;                         // Forward declaration
