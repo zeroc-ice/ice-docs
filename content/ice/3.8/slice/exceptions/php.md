@@ -38,7 +38,5 @@ There are a number of things to note about this generated code:
    ancestor of all mapped exceptions. It derives indirectly from `\Exception`.
 2. The generated class contains a public property for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. Ice for PHP is client-only: an application receives user exceptions from the operations it calls, and catches them by
-   their type or the type of a base exception to read their fields.
 
 {% /language-section %}

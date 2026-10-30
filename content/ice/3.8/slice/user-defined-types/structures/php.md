@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-A Slice structure maps to a PHP class containing a public variable for each field of the structure. For example, here is
+A Slice structure maps to a PHP class containing a public property for each field of the structure. For example, here is
 our Employee structure once more:
 
 ```slice
@@ -32,7 +32,7 @@ structure.
 ### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
-single statement (instead of first having to construct the instance and then assign to its variables).
+single statement (instead of first having to construct the instance and then assign to its properties).
 
 All these parameters have also default values (see [Fields](../../fields)).
 

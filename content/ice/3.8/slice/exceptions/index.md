@@ -30,13 +30,6 @@ A user exception is much like a structure in that it contains a number of fields
 can have zero fields, that is, be empty. Like classes, user exceptions support inheritance and may include
 [optional fields](../fields).
 
-{% callout type="note" %}
-
-Even though user exceptions are nominally exceptions that you throw and catch, it’s better to think of them as error
-results. You may receive a user exception only when you call a Slice operation.
-
-{% /callout %}
-
 ## Exception Specification in Operations
 
 Exceptions allow you to return an arbitrary amount of error information to the client if an error condition arises in
@@ -52,9 +45,8 @@ interface Clock
 }
 ```
 
-`setTime` can throw a `RangeException`, a `TimeException`, or an exception derived from one of them (see
-[Exception Inheritance](#exception-inheritance)). A `RangeException` reports the `TimeOfDay` value that caused the error
-and the range of legal values; a `TimeException` reports only that `setTime` failed.
+`setTime` can throw a `RangeException` or a `TimeException`. A `RangeException` reports the `TimeOfDay` value that
+caused the error and the range of legal values; a `TimeException` reports only that `setTime` failed.
 
 To indicate that an operation does not throw any user exception, simply omit the exception specification. (There is no
 empty exception specification in Slice.)
@@ -67,7 +59,7 @@ sequence element, or a dictionary key or value. Conversely, an exception specifi
 ## Exception Inheritance
 
 Slice exceptions support single inheritance. A derived exception inherits the fields of its base exception and can add
-its own:
+its own, but cannot redefine an inherited field:
 
 ```slice
 exception BaseException
@@ -91,8 +83,8 @@ An operation can throw any exception derived from the exceptions in its exceptio
 `BaseException` or a `DerivedException`. The language mappings preserve the exception hierarchy, so you can catch a base
 exception generically or handle specific derived exceptions.
 
-As a system evolves, new derived exceptions are often added to an existing hierarchy. Suppose that clients are built
-with an `AppException` exception, and that the server is later redeployed with a new derived exception:
+As a system evolves, new derived exceptions are often added to an existing hierarchy. Suppose that you add
+`FatalApplicationException` to the original definitions and redeploy the server:
 
 ```slice
 exception AppException

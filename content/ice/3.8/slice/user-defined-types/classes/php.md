@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
 A Slice class maps to a PHP class with the same name. For each Slice field, the generated class contains a public
-variable, just as for structures and exceptions. Consider the following class definition:
+property, just as for structures and exceptions. Consider the following class definition:
 
 ```slice
 class TimeOfDay
@@ -34,12 +34,12 @@ There are a number of things to note about the generated code:
 
 1. The generated class `TimeOfDay` inherits from `\Ice\Value`. This reflects the semantics of Slice classes in that all
    classes implicitly inherit from `\Ice\Value`, which is the ultimate ancestor of all classes.
-2. The constructor initializes an instance variable for each Slice field.
+2. The constructor initializes a property for each Slice field.
 
 ### Generated Constructor
 
 The generated constructor has one parameter for each field. This allows you to construct and initialize an instance in a
-single statement (instead of first having to construct the instance and then assign to its variables).
+single statement (instead of first having to construct the instance and then assign to its properties).
 
 All these parameters have also default values (see [Fields](../../fields)).
 

@@ -42,8 +42,6 @@ There are a number of things to note about this generated code:
    ancestor of all mapped exceptions. It derives indirectly from `MException`.
 2. The generated class contains a public property for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. The methods of the generated class are unimportant; in particular, since Ice for MATLAB is client-only, you don’t
-   need to create user exceptions in MATLAB.
 
 {% callout type="note" %}
 
