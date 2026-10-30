@@ -89,7 +89,7 @@ classdef Fruit < uint8
         Pear (3)
         Orange (4)
     end
-    ...
+    % ...
 end
 ```
 

@@ -21,7 +21,7 @@ M.Person = class {
         this.name = name;
         this.address = address;
     }
-    ...
+    // ...
 };
 ```
 
@@ -30,13 +30,13 @@ And the corresponding TypeScript declarations:
 ```typescript
 export class Address extends Ice.Value {
     constructor(city?: string);
-    ...
+    // ...
     city: string;
 }
 
 export class Person {
     constructor(name?: string, address?: Address);
-    ...
+    // ...
     name: string;
     address: Address | null;
 }
@@ -71,7 +71,7 @@ M.C = class extends Ice.Value {
         this.overrideCode = overrideCode;
         this.favoriteWidgetProxy = favoriteWidgetProxy;
     }
-    ...
+    // ...
 }
 ```
 
@@ -87,7 +87,7 @@ export class C extends Ice.Value {
     alternateName?: string;
     overrideCode?: number;
     favoriteWidgetProxy?: WidgetPrx | null;
-    ...
+    // ...
 }
 ```
 
@@ -119,7 +119,7 @@ M.Location = class {
         this.display = display;
         this.source = source;
     }
-    ...
+    // ...
 }
 ```
 

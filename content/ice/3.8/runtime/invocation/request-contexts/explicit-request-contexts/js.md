@@ -28,7 +28,7 @@ On the server side, the request context is available through the ctx member of t
 greet(name: string, current: Ice.Current): string | Promise<string> {
     // We retrieve the value for the language entry in the context.
     const language: string = current.ctx.get("language") || "";
-    ...
+    // ...
 }
 ```
 

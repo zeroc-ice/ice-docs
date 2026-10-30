@@ -77,7 +77,7 @@ The generated proxy class looks like:
 
 ```js
 M.CPrx = class extends Ice.ObjectPrx {
- ...
+ // ...
 };
 ```
 
@@ -95,7 +95,7 @@ relationship between the proxy classes.
 
 ```typescript
 export class CPrx extends Ice.ObjectPrx implements M.APrx, M.BPrx {
- ...
+ // ...
 }
 ```
 
@@ -198,7 +198,7 @@ The Slice compiler generates the following definition for this interface:
 
 ```js
 class Node extends Ice.Object {
-    ...
+    // ...
 }
 ```
 

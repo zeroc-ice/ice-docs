@@ -12,7 +12,7 @@ greeter = greeter.ice_invocationTimeout(2500);
 ```matlab
 try
     greeting = greeter.greet('alice');
-    ...
+    % ...
 catch ex
     if isa(ex, 'Ice.InvocationTimeoutException')
         fprintf('invocation timed out\n');
