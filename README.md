@@ -43,6 +43,7 @@ Each page of the docs is a directory under `content/`, and its path there is its
 | `content/ice/<version>/api-links.yaml`   | Each type's page in the API reference of each language that has one, for `api:` links.                                                                                         |
 | `public/images/ice/<version>/<page>/`    | Page images.                                                                                                                                                                   |
 | `public/images/site/`                    | Images the site itself uses.                                                                                                                                                   |
+| `context7.json`                          | How [Context7](https://context7.com) indexes the docs for coding agents; `folders` names the one release it indexes.                                                           |
 
 A page and its overlays render as one document: each distinct answer to a slot appears once, wrapped in `{% iflang %}`
 for its languages, and the stylesheet shows the reader's. `lib/docs-model/resolve.ts` does the merge.
