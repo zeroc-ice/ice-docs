@@ -22,31 +22,10 @@ struct S
 }
 ```
 
-This proxy type can be marshaled/unmarshaled just like any other Slice type. It encapsulates the addressing information
-for the target object: object identity, endpoint(s), and proxy options.
+Ice marshals and unmarshals a proxy like any other Slice type. A proxy holds the addressing information for its target
+object: the object identity, the endpoints or adapter ID, and the proxy options. The marshaled proxy does not include
+its proxy type: the receiver uses the type declared in the Slice definition.
 
-{% callout type="note" %}
-
-The marshaled representation of a proxy does not include the proxy’s type.
-
-{% /callout %}
-
-You use proxies in client applications. A proxy acts as a local "ambassador" for the remote object; invoking an
-operation on the proxy forwards the invocation to the actual object implementation, in the server.
+A client invokes operations on a proxy, and the Ice runtime delivers each invocation to the target object.
 
 A proxy can be null. A proxy can also dangle: point to a remote object that no longer exists.
-
-## Self-Referential Interfaces
-
-A proxy refers to an object rather than containing it, so an interface can reference a proxy to itself. For example:
-
-```slice
-interface Link
-{
-    idempotent SomeType getValue();
-    idempotent Link* next();
-}
-```
-
-The `Link` interface contains a `next` operation that returns a proxy to a `Link` interface. Obviously, this can be used
-to create a chain of interfaces; the final link in the chain returns a null proxy from its `next` operation.

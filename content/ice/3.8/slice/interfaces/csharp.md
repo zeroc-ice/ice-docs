@@ -37,9 +37,8 @@ As you can see, the compiler generates a _proxy interface_`SimplePrx`. In genera
 `<interface-name>Prx`. If an interface is nested in a module `M`, the generated interface is part of namespace `M`, so
 the fully-qualified name is `M.<interface-name>Prx`.
 
-In the client, an instance of `SimplePrx` is the local ambassador for a remote instance of an Ice object that implements
-`Simple` and is known as a _proxy instance_. All the details about the server-side object, such as its address, what
-transport to use, and its object identity are encapsulated in that instance.
+In the client, an instance of `SimplePrx` is a proxy for an Ice object that implements `Simple`: it holds the addressing
+information of this object, such as its identity and endpoints; see [Proxy Types](../interfaces/proxy-types).
 
 ### Creating a Proxy
 
