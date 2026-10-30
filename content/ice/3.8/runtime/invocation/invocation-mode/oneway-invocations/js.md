@@ -8,11 +8,11 @@ let weatherStation = new WeatherStationPrx(
 // Configure the proxy to use the oneway invocation mode.
 weatherStation = weatherStation.ice_oneway();
 
-...
+// ...
 
 while (true) {
     await weatherStation.report(sensorId, timeStamp, getAtmosphericConditions());
-    ...
+    // ...
 }
 ```
 

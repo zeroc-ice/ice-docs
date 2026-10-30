@@ -154,7 +154,7 @@ export abstract class Greeter extends Ice.Object {
     abstract greet(
         name: string,
         current: Ice.Current): PromiseLike<string> | string;
-    ...
+    // ...
 ```
 
 The servant implementation can choose how to provide the result:

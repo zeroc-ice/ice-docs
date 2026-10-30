@@ -69,7 +69,7 @@ The generated code for `CPrx` reflects the inheritance hierarchy:
 
 ```matlab
 classdef CPrx < APrx & BPrx
-    ...
+    % ...
 end
 ```
 

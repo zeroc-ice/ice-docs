@@ -2,7 +2,7 @@
 
 ```typescript
 interface ObjectAdapter {
-    ...
+    // ...
 
     addDefaultServant(servant: Ice.Object, category: string): void;
 
