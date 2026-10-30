@@ -23,10 +23,8 @@ mapping:
 
 - `-h, --help` Displays a help message.
 - `-v, --version` Displays the compiler version.
-- `-DNAME` Defines the preprocessor symbol `NAME`.
-- `-DNAME=DEF` Defines the preprocessor symbol `NAME` with the value `DEF`. Each compiler always predefines the
-  `__<compiler name in upper case>__` macro when compiling Slice file. For example, slice2cpp predefines
-  `__SLICE2CPP__`.
+- `-DNAME` Defines the preprocessor symbol `NAME` with the value `1`.
+- `-DNAME=DEF` Defines the preprocessor symbol `NAME` with the value `DEF`.
 - `-UNAME` Undefines the preprocessor symbol `NAME`.
 - `-IDIR` Add the directory `DIR` to the search path for `#include` directives.
 - `--output-dir` `DIR` Place the generated files into directory `DIR`, which must already exist.
@@ -48,6 +46,8 @@ at once, for example:
 ```shell
 slice2cpp -I. file1.ice file2.ice file3.ice
 ```
+
+Each compiler predefines a preprocessor symbol that identifies it: for example, `slice2cpp` defines `__SLICE2CPP__`.
 
 {% language-section name="common-options-3" /%}
 

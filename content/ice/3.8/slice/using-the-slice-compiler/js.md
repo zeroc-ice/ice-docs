@@ -8,7 +8,8 @@
 {% language-section name="common-options-2" %}
 
 - `--depend-json` Print dependency information in JSON format to standard output by default, or to the file specified by
-  the `--depend-file` option.
+  the `--depend-file` option. No code is generated when this option is specified. The output consists of the complete
+  list of Slice files that the input Slice files depend on through direct or indirect inclusion.
 
 {% /language-section %}
 
@@ -20,10 +21,7 @@ The Slice-to-JavaScript compiler (`slice2js`) offers the following command-line 
 options:
 
 - `--stdout` Print generated code to standard output.
-- `--typescript` Generate TypeScript declaration file.
-- `--depend-json` Print dependency information in JSON format to standard output by default, or to the file specified by
-  the `--depend-file` option. No code is generated when this option is specified. The output consists of the complete
-  list of Slice files that the input Slice files depend on through direct or indirect inclusion.
+- `--typescript` Generate a TypeScript declaration file (`.d.ts`) next to each generated JavaScript file.
 
 ## Running slice2js
 

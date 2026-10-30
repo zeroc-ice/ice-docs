@@ -67,6 +67,10 @@ sourceSets {
 }
 ```
 
+The plugin compiles incrementally: it compiles again only the Slice files that changed or that include a changed file,
+removes the Java files that a Slice file no longer generates, and compiles every file again when the compiler arguments
+change.
+
 The plugin registers a `compileSlice<SourceSet>` task for each source set, such as `compileSliceMain`, that generates
 Java files into `build/generated/source/slice/<source set>` in a Java project, and into
 `build/generated/java/compileSlice<SourceSet>` in an Android project. The `compileSlice` task runs all of them.
