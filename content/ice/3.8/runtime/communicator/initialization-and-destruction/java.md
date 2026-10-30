@@ -6,7 +6,7 @@ You create a communicator by using its constructor, for example:
 class Client {
     public static void main(String[] args) {
         try (Communicator communicator = new Communicator(args)) {
-            ...
+            // ...
         }
     }
 }
@@ -19,15 +19,10 @@ the Ice runtime; if anything goes wrong during initialization, it throws an exce
 unchanged; to get the arguments that remain once the Ice options are removed, call the constructor that also accepts a
 `List<String> remainingArgs`, which it fills with these arguments.
 
-{% callout type="warning" %}
+To pass other options to the Ice runtime, use a constructor that accepts an
+[InitializationData](api:Ice/InitializationData).
 
-Class
-[com.zeroc.Ice.Communicator](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html)
-provides additional constructor overloads to pass other information to the Ice runtime.
-
-{% /callout %}
-
-`Communicator` implements `AutoCloseable`. This allows you to create and cleanup your communicator in a
+`Communicator` implements `AutoCloseable`. This allows you to create and clean up your communicator in a
 try-with-resources statement as shown above.
 
 {% /language-section %}

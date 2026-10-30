@@ -26,8 +26,6 @@ To destroy the communicator when the function that created it returns, schedule 
 cleanup = onCleanup(@() communicator.destroy());
 ```
 
-MATLAB clears `cleanup` when the function returns, which calls `destroy` on the communicator. The `destroy` method is
-responsible for cleaning up the communicator: it closes network connections and reclaims operating system resources,
-such as file descriptors and memory.
+MATLAB clears `cleanup` when the function returns, which calls `destroy` on the communicator.
 
 {% /language-section %}

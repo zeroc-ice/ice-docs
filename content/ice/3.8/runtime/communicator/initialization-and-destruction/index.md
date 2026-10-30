@@ -7,14 +7,22 @@ sidebarLabel: Initialization and Destruction
 
 {% language-section name="mapping" /%}
 
+## Destroying a Communicator
+
+Destroy a communicator when you no longer need it. Destroying a communicator closes its connections and releases its
+resources, such as threads and file descriptors.
+
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
+
+It also destroys the communicator's object adapters, and waits for the dispatches that are still running to complete.
+
+{% /iflang %}
+
 ## Initialization Data
 
-When a communicator is created, its `constructor` or the `initialize` method configures several features that control
-its behavior. Once set, these features remain in effect for the lifetime of the communicator and cannot be changed
-afterward. Therefore, any customization of these features must be done at communicator creation time.
-
-The [InitializationData](api:Ice/InitializationData) class or struct holds all the features (or options) that you can
-customize when you create a communicator.
+Some aspects of the Ice runtime must be configured when you create the communicator, such as its properties and its
+logger. The [InitializationData](api:Ice/InitializationData) class or struct holds these options, and the communicator
+constructor or `initialize` function accepts it.
 
 ## See Also
 

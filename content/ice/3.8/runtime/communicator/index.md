@@ -5,24 +5,15 @@ pages:
   - communicators-in-php
 ---
 
-The [Communicator](api:Ice/Communicator) class is the main entry point to the Ice API. A communicator is simply an
-instance of this class. Its primary responsibility is to create outgoing connections, and to maintain a cache of the
-outgoing connections it created. A communicator has many additional responsibilities, to the point you can see it as the
-“central” Ice object.
+A [communicator](api:Ice/Communicator) is the central object of the Ice runtime. It creates and caches the outgoing
+connections of your application, holds its [configuration properties](../properties-and-configuration) and its
+[logger](../../administration/logger-facility), and runs the client-side [thread pool](../threading-model) that
+processes the messages received on these connections. You create proxies with a communicator.
 
-A communicator serves as the registry and owner for:
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
 
-- **Outgoing connections** A communicator maintains a cache of outgoing connections.
-- **Configuration properties** Various aspects of the Ice runtime can be configured via properties. Each communicator
-  has its own set of such [configuration properties](../properties-and-configuration).
-- **Logger object** A [logger](../../administration/logger-facility) object implements the [Logger](api:Ice/Logger)
-  abstraction and determines how log messages that are produced by the Ice runtime are handled.
-- **Object adapters** [Object adapters](../dispatch) dispatch incoming requests and take care of passing each request to
-  the correct servant.
-- **Client-side thread pool** The client-side [thread pool](../threading-model) is used to process messages received
-  from outgoing connections.
+A communicator also creates the [object adapters](../dispatch) that dispatch incoming requests to your servants.
 
-and much more.
+{% /iflang %}
 
-Most Ice-based applications create and use a single communicator, although it is possible and occasionally desirable to
-have multiple `Communicator` objects in the same program.
+Most applications use a single communicator, but an application can create several communicators when needed.
