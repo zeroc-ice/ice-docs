@@ -1,6 +1,8 @@
 ---
 title: Using the Slice Compiler
 sidebarLabel: Slice Compiler
+pages:
+  - using-ice-with-cmake
 ---
 
 ## Common Options
