@@ -45,7 +45,7 @@ For example, the Slice definitions for the Ice built-in files use:
 
 module Ice
 {
-    ...
+    // ...
 }
 ```
 
