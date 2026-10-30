@@ -16,11 +16,8 @@ that are relevant to the Ice runtime; any such options are removed from the argu
 returns, the only options and arguments remaining are those that concern your application. If anything goes wrong during
 initialization, `initialize` raises an exception.
 
-This syntax ensures the communicator is destroyed when the block completes. The `destroy` method is responsible for
-cleaning up the communicator. In particular, `destroy` ensures that any outstanding threads started by the underlying
-Ice C++ communicator are joined with and reclaims a number of operating system resources, such as file descriptors and
-memory. Never allow your program to terminate without calling `destroy` first.
-
-The `initialize` block accepts a single argument, the communicator.
+With a block, `Ice.initialize` destroys the communicator when the block completes, including when it raises an
+exception. Without a block, `Ice.initialize` returns the communicator, and you call `destroy` on it when you no longer
+need it.
 
 {% /language-section %}

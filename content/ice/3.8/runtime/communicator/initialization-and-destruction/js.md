@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-You create a communicator by using its constructor for example:
+You create a communicator by using its constructor, for example:
 
 ```typescript
 import { Ice } from "@zeroc/ice";
@@ -16,7 +16,7 @@ it throws an exception.
 
 In a browser application, you should call the constructor without the argument vector.
 
-`Communicator` implements the `asyncDispose` method. This allows you to create and cleanup your communicator with
-`await using` as shown above.
+`Communicator` implements `[Symbol.asyncDispose]()`, so `await using` destroys the communicator when it goes out of
+scope, as shown above. Without `await using`, call `await communicator.destroy()` when you no longer need it.
 
 {% /language-section %}
