@@ -42,7 +42,10 @@ There are a number of things to note about this generated code:
    ultimate ancestor of all mapped exceptions. It conforms to the `Error` protocol.
 2. The generated class contains a public property for each Slice field.
 3. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
-4. The generated class a provides default initializer and a memberwise initializer; they are identical to the generated
+4. The generated class provides a default initializer and a memberwise initializer; they are identical to the generated
    initializers for Slice classes.
+
+The generated classes conform to `Sendable` through `@unchecked Sendable`, because the `Error` protocol requires it.
+They are not thread-safe: do not share an exception instance between concurrent tasks.
 
 {% /language-section %}

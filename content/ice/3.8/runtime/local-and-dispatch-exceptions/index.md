@@ -62,3 +62,6 @@ A dispatch exception without an associated exception class is an instance of
 and `UnknownLocalException` and `UnknownUserException` derive from `UnknownException`. `RequestFailedException` and
 `UnknownException` derive from `DispatchException`. The `replyStatus` member of a dispatch exception holds its reply
 status.
+
+Ice also throws `UnknownUserException` in a client when a response carries a user exception that is not in the
+operation's exception specification.

@@ -46,7 +46,7 @@ There are a number of things to note about this generated code:
    ancestor of all mapped exceptions. It derives indirectly from `std::exception`.
 2. The generated class contains a public data member for each Slice field.
 3. The generated class has a constructor that takes one argument for each data member, as well as a default constructor.
-4. The generated class as a noexcept copy-constructor, as required by C++ exception rules.
+4. The generated class has a `noexcept` copy constructor.
 5. The generated class has a virtual function, `ice_throw`. It is implemented by throwing `*this`.
 6. The generated class for `BadTimeValException` derives from the generated class `GenericException`.
 
@@ -60,7 +60,7 @@ try
 {
    ...
 }
-catch (const GreeterException& exception)
+catch (const M::GenericException& exception)
 {
     cout << "Caught " << exception << endl;
 }
@@ -73,7 +73,7 @@ print implementation. For example:
 
 ```slice
 ["cpp:custom-print"]
-exception GreeterException { ... }
+exception GenericException { ... }
 ```
 
 The Slice compiler then generates an `ice_print` override declaration in the mapped C++ class, and you are responsible
