@@ -39,8 +39,8 @@ message, so the C# compiler warns when your code uses them.
 
 {% iflang langs="java" %}
 
-The Slice compiler also marks the generated Java declarations with the `@Deprecated` annotation and a `@deprecated`
-Javadoc tag, so the Java compiler warns when your code uses them.
+The Slice compiler also marks the generated Java declarations with the `@Deprecated` annotation, so the Java compiler
+warns when your code uses them.
 
 {% /iflang %}
 
