@@ -5,7 +5,6 @@
   "projectTitle": "Ice",
   "description": "Ice (Internet Communications Engine) is an RPC framework for building networked applications in C++, C#, Java, JavaScript, MATLAB, PHP, Python, Ruby, and Swift. You define interfaces in Slice and invoke operations on remote Ice objects through generated proxies.",
   "folders": ["content/ice/3.8"],
-  "excludeFiles": ["README.md", "AGENTS.md"],
   "rules": [
     "These docs cover Ice 3.8. When upgrading an application from Ice 3.7 to Ice 3.8, follow the Upgrade Guide: Ice 3.7 APIs differ from Ice 3.8.",
     "Ice and IceRPC are separate frameworks with different APIs: don't use IceRPC docs or samples for Ice code."
