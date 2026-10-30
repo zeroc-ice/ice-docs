@@ -2,12 +2,14 @@
 title: Names and Scoping
 ---
 
-Slice resolves an identifier by the scope in which you use it. This page gives the rules for declaring identifiers in a
-scope and for referring to them.
+The Slice compiler resolves an identifier in the scope where you use it. This page gives the rules for declaring
+identifiers in a scope and for referring to them.
 
 ## Naming Scopes
 
-The global scope, modules, interfaces, classes, structs, exceptions, and the parameter list of an operation each form a
+The global scope, [modules](../modules), [interfaces](../interfaces), [classes](../user-defined-types/classes),
+[structs](../user-defined-types/structures), [exceptions](../exceptions),
+[enumerations](../user-defined-types/enumerations), and the parameter list of an [operation](../operations) each form a
 naming scope. Within a scope, each identifier must be unique, and identifiers that differ only in capitalization are the
 same identifier; see [Case Sensitivity](../lexical-rules#case-sensitivity). Reopening a module and defining a
 forward-declared class or interface do not count as redefinitions.
@@ -35,11 +37,8 @@ module MyApp
 }
 ```
 
-`Types::LongSeq` refers to the `LongSeq` sequence of module `Types`. A name that starts with `::` is resolved from the
-global scope: `::Types::LongSeq` is the fully qualified name of this sequence.
-
-A forward declaration cannot use a qualified name. To forward declare an interface or class of another module, reopen
-that module and forward declare it there.
+`Types::LongSeq` refers to the `LongSeq` sequence of module `Types`. The compiler resolves a name that starts with `::`
+from the global scope: `::Types::LongSeq` is the fully qualified name of this sequence.
 
 ## Names in Nested Scopes
 
@@ -98,18 +97,10 @@ module M
 
 In `A::Base`, `Seq` is `M::A::Seq`. In `B::Derived`, it is `M::Seq`, even though `Derived` extends `A::Base`.
 
-## Introduced Identifiers
+## Hiding a Used Identifier
 
-Using a name introduces an identifier into the current scope, and this identifier cannot change meaning later in the
-same scope:
-
-| Name used  | Identifier introduced |
-| ---------- | --------------------- |
-| `Seq`      | `Seq`                 |
-| `M::Seq`   | `M`                   |
-| `::M::Seq` | None                  |
-
-For example:
+A scope cannot hide an identifier it has already used. A qualified name such as `M::Seq` uses only `M`, and a fully
+qualified name such as `::M::Seq` uses no identifier of the current scope:
 
 ```slice
 module M
@@ -130,13 +121,12 @@ module M
 }
 ```
 
-In `Bad`, the return type of `op1` introduces `Seq` as the name of the sequence, so `Seq` cannot also name an operation.
-In `Good`, the fully qualified `::M::Seq` introduces no identifier.
+In `Bad`, `op1` uses `Seq`, so an operation named `Seq` cannot hide it. In `Good`, `::M::Seq` uses no identifier of
+`Good`, so `Seq` can name an operation.
 
 ## Parameter and Field Names
 
-A parameter can reuse an identifier from an enclosing scope, including the name of its operation, interface, or module,
-and the name of a type:
+A parameter can reuse an identifier from an enclosing scope, such as the name of its operation or of a type:
 
 ```slice
 module M
@@ -151,8 +141,7 @@ module M
 }
 ```
 
-A field can likewise reuse an identifier from an enclosing scope, including the name of its struct, class, or exception.
-A field of a class or exception must also differ from the fields it inherits.
+A field can likewise reuse an identifier from an enclosing scope.
 
 ## See Also
 
