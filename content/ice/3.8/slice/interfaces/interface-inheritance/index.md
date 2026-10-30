@@ -64,9 +64,9 @@ This definition results in the familiar diamond shape:
 
 ## Interface Inheritance Limitations
 
-All the operations an interface inherits must have distinct names, and names that differ only in capitalization count as
-the same name. An operation inherited several times through a common base interface, as in the diamond above, counts
-once. For example, the following definition is illegal:
+All the operations of an interface, including the ones it inherits, must have distinct names, and names that differ only
+in capitalization count as the same name. An operation inherited several times through a common base interface, as in
+the diamond above, counts once. For example, the following definition is illegal:
 
 ```slice
 interface Clock
@@ -102,9 +102,8 @@ interface ProxyStore
 }
 ```
 
-`Object` is a Slice keyword (note the capitalization) that denotes the root type of the inheritance hierarchy: the
-`ProxyStore` interface can store and return a proxy of any type. Inheritance from `Object` is always implicit: an
-interface cannot list `Object` as a base interface.
+`Object` is a Slice keyword (note the capitalization) that denotes the root interface of the inheritance hierarchy.
+Inheritance from `Object` is always implicit: an interface cannot list `Object` as a base interface.
 
 Every interface inherits the four [operations of `Object`](../../operations-on-object): `ice_ping`, `ice_isA`, `ice_id`,
 and `ice_ids`.

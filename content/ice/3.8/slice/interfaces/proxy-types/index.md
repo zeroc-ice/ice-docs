@@ -23,8 +23,8 @@ struct S
 ```
 
 Ice marshals and unmarshals a proxy like any other Slice type. A proxy holds the addressing information for its target
-object: the object identity, the endpoints, and the proxy options. The marshaled proxy does not include its proxy type:
-the receiver uses the type declared in the Slice definition.
+object: the object identity, the endpoints or adapter ID, and the proxy options. The marshaled proxy does not include
+its proxy type: the receiver uses the type declared in the Slice definition.
 
 A client invokes operations on a proxy, and the Ice runtime delivers each invocation to the target object.
 
