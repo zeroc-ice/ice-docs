@@ -1,18 +1,27 @@
 {% language-section name="language-specific-metadata-directives" %}
 
-The metadata directives for Swift uses the `swift` prefix.
+Swift metadata directives use the `swift` prefix.
 
-### `swift:attribute:attribute`
+### swift:attribute
 
-This directive adds the specified Swift attribute to the generated code. It can be used with classes, structs, enums,
-and exceptions.
+`["swift:attribute:attribute"]`. Applies to classes, structs, enumerations, and exceptions.
 
-### `swift:identifier:swift-identifier`
+This directive adds the Swift attribute `attribute` to the generated code.
 
-This directive applies to all Slice constructs, and instructs the Slice compiler to use the specified
-`swift-identifier`.
+### swift:class-resolver-prefix
 
-For example:
+`[["swift:class-resolver-prefix:prefix"]]`. Applies to a Slice file.
+
+The default Slice loader locates the generated Swift class for a type ID through a generated resolver. This directive
+adds `prefix` to the names of the resolvers of the classes and exceptions in this file. A communicator that receives
+(unmarshals) these classes or exceptions needs a `DefaultSliceLoader(prefix)` as its
+[Slice loader](../user-defined-types/classes/slice-loaders).
+
+### swift:identifier
+
+`["swift:identifier:name"]`. Applies to any definition, parameter, or field.
+
+This directive maps the Slice construct to the Swift identifier `name`. For example:
 
 ```slice
 enum ButtonPressed
@@ -25,42 +34,15 @@ enum ButtonPressed
 }
 ```
 
-The `swift:identifier` directives in this example ensure the enumerators `Snooze` and `Stop` are mapped to `snooze` and
-`stop`, per Swift’s usual conventions, instead of the default mapping (`Snooze` and `Stop`).
+The enumerators `Snooze` and `Stop` map to `snooze` and `stop`, per Swift’s usual conventions, instead of the default
+mapping (`Snooze` and `Stop`).
 
-### `swift:module:module:prefix`
+### swift:module
 
-This deprecated directive applies to Slice modules. Use `swift:identifier` instead.
+`["swift:module:module:prefix"]`. Applies to modules.
 
-`swift:module` instructs the Slice compiler to map this Slice module to the specified Swift module. All Swift
-identifiers in that module also receive the specified prefix, as if they were defined in a nested module _prefix_.
-
-With respect to the Swift mapping:
-
-```slice
-["swift:module:Mod:Pre"] module Test
-{
-    ...
-}
-```
-
-is equivalent to:
-
-```slice
-module Mod
-{
-    module Pre
-    {
-        ...
-    }
-}
-```
-
-{% callout type="note" %}
-
-Metadata directives never change [type IDs](../type-ids). For example, exception `E` defined in module `Test` has type
-ID `"::Test::E"` regardless of any `swift:module` metadata directive on module `Test`.
-
-{% /callout %}
+This deprecated directive maps the Slice module to the Swift module `module`, and gives all the Swift identifiers in
+this module the prefix `prefix`, as if they were defined in a nested Slice module `prefix`. Use `swift:identifier`
+instead.
 
 {% /language-section %}
