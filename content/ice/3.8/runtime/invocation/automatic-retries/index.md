@@ -2,19 +2,14 @@
 title: Automatic Retries
 ---
 
-Ice may automatically retry a proxy invocation after a failure. This is a powerful feature that, when used in the proper
-situations, can significantly improve the robustness of your application without any additional programming effort. The
-retry facility is governed by one overriding principle: always respect at-most-once semantics.
-[At-most-once semantics](../../../slice/operations#idempotent-operations) dictate that the Ice runtime in the client
-must never retry a failed proxy invocation unless Ice knows that the server did not dispatch the request to a servant,
-or unless the application declares that it is safe for Ice to violate at-most-once semantics for the request.
+Ice can automatically retry a failed proxy invocation. To preserve
+[at-most-once semantics](../../../slice/operations#idempotent-operations), Ice retries an invocation of a non-idempotent
+operation only when it knows that the server did not dispatch the request. For an operation declared `idempotent`, Ice
+also retries when the server may have dispatched the request.
 
-To understand the importance of obeying at-most-once semantics, consider the `withdraw` operation of the `Account`
-interface [below](#automatic-retries-for-idempotent-operations), which removes funds from an account. If an invocation
-of `withdraw` fails, automatically retrying the request introduces the risk of a duplicate withdrawal unless Ice knows
-that the server did not dispatch the request.
-
-This page examines automatic retries in more detail.
+For example, retrying a failed invocation of the `withdraw` operation of the
+[`Account` interface](#automatic-retries-for-idempotent-operations) could withdraw the amount twice, if the server
+dispatched the original request but its reply never reached the client.
 
 ## Automatic Retries for Request Failures
 
