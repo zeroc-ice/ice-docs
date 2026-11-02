@@ -7,10 +7,11 @@ sidebarLabel: Timeouts
 
 Invocation timeouts let an application specify the maximum amount of time it's willing to wait for invocations to
 complete. If the timeout expires, the application receives `InvocationTimeoutException` as the result of an invocation.
-The proxy starts the timer for the invocation timeout after the marshaling of the request parameters and before its
+The proxy starts the timer for the invocation timeout after the marshaling of the request parameters and before it
 starts any network activity (connection establishment and sending of the request over the network connection). For a
 two-way invocation, it stops the timer as soon as the response is received from the server and before the response
-payload is unmarshaled. For a one-way invocation, it stops the timer as soon as the request is sent.
+payload is unmarshaled. For a one-way invocation, it stops the timer as soon as the request is sent. The timeout covers
+the [automatic retries](../automatic-retries) of the invocation.
 
 ## Configuring the Default Invocation Timeout
 
@@ -25,10 +26,7 @@ Consider this setting:
 Ice.Default.InvocationTimeout=5000 # in milliseconds
 ```
 
-This configuration causes all invocations to time out if they do not complete within five seconds. Generally speaking
-however, it's unlikely that a single timeout value will be appropriate for all of the operations that an application
-invokes. It's more common for applications to configure invocation timeouts on a per-proxy basis, as we describe in the
-next section.
+This configuration causes all invocations to time out if they do not complete within five seconds.
 
 ## Configuring Invocation Timeouts for Proxies
 

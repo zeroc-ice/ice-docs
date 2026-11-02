@@ -12,16 +12,42 @@ overloaded.
 
 A typical example is reporting events:
 
+{% iflang langs="cpp,java,js,matlab,php,python,ruby,swift" %}
+
 ```slice
+struct AtmosphericConditions
+{
+    double temperature;
+    double humidity;
+    double pressure;
+}
+
 interface WeatherStation
 {
-    ["cs:identifier:Report"] // We prefer PascalCase for C# methods.
-    void report(
-        string sensorId,
-        string timeStamp,
-        AtmosphericConditions reading);
+    void report(string sensorId, string timeStamp, AtmosphericConditions reading);
 }
 ```
+
+{% /iflang %}
+
+{% iflang langs="csharp" %}
+
+```slice
+struct AtmosphericConditions
+{
+    double temperature;
+    double humidity;
+    double pressure;
+}
+
+interface WeatherStation
+{
+    ["cs:identifier:Report"]
+    void report(string sensorId, string timeStamp, AtmosphericConditions reading);
+}
+```
+
+{% /iflang %}
 
 A client application can report a reading to a weather station like:
 
@@ -39,9 +65,9 @@ completes before the message even arrives. The server can identify a oneway requ
 non-zero value denotes a twoway request, whereas zero denotes a oneway request. Because the server never sends a reply,
 oneway calls can yield significant efficiency gains, especially when sending many small messages.
 
-Using the oneway invocation mode requires two conditions: the operation must have a void return type, no out-parameters,
-and no exception specification—otherwise, the Ice runtime throws an exception. And the proxy must use a
-connection-oriented transport such as TCP or SSL; if not, the Ice runtime throws a NoEndpointException.
+Oneway invocations can be sent only for operations that have a `void` return type and do not have out-parameters or an
+exception specification. In addition, oneway invocations require a proxy with at least one endpoint of a
+connection-oriented transport, such as `tcp` or `ssl`.
 
 Although oneway invocations are not guaranteed to succeed, in practice they are reliable under normal conditions.
 Connection-oriented transports ensure ordered delivery, and flow control prevents overruns: if the server cannot keep

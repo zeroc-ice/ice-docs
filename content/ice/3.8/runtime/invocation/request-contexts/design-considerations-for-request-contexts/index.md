@@ -8,8 +8,8 @@ sidebarLabel: Design Considerations
 If you use [explicit](../explicit-request-contexts), [per-proxy](../per-proxy-request-contexts), and
 [implicit](../implicit-request-contexts) contexts, it is important to be aware of their interactions:
 
-- If you send an explicit context with an invocation, _only_ that context is sent with the call, regardless of whether
-  the proxy has a per-proxy context and whether the communicator has an implicit context.
+- An explicit context, even an empty one, replaces the per-proxy and implicit contexts: Ice sends only the explicit
+  context with the invocation.
 - If you send an invocation via a proxy that has a per-proxy context, and the communicator also has an implicit context,
   the contents of the per-proxy and implicit context dictionaries are combined, so the _combination_ of context entries
   of both contexts is transmitted to the server. If the per-proxy context and the implicit context contain the same key,
@@ -32,10 +32,7 @@ access to the context. For this use case, the context is a convenient way for th
 
 In addition, contexts, because they are optional, permit a single Slice definition to apply to implementations that use
 the context, as well as to implementations that do not use it. In this way, to add transactional semantics to an
-existing service, you do not need to modify the Slice definitions to add an extra parameter to each operation. (Adding
-an extra parameter would not only be inconvenient for clients, but would also split the type system into two halves:
-without contexts, we would need different Slice definitions for transactional and non-transactional implementations of
-(conceptually) a single service.)
+existing service, you do not need to modify the Slice definitions to add an extra parameter to each operation.
 
 Finally, per-proxy contexts permit context information to be passed through intermediate parts of your program without
 cooperation of those intermediate parts. For example, suppose you set a per-proxy context on a proxy and then pass that

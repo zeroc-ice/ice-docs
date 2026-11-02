@@ -9,14 +9,14 @@ var weatherStation = try makeProxy(
 // Configure the proxy to use the oneway invocation mode.
 weatherStation = weatherStation.ice_oneway()
 
-...
+// ...
 
 while true {
     try await weatherStation.report(
         sensorId: sensorId,
         timeStamp: timeStamp,
         reading: getAtmosphericConditions())
-    ...
+    // ...
 }
 ```
 

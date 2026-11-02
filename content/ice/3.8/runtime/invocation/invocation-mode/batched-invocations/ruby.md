@@ -6,11 +6,11 @@ weatherStation = WeatherStationPrx.new(communicator, "ClearSky:tcp -p 4061 -h lo
 # Configure the proxy to use the batch oneway invocation mode.
 weatherStation = weatherStation.ice_batchOneway()
 
-...
+# ...
 
 loop do
     weatherStation.report(sensorId, timeStamp, getAtmosphericConditions())
-    ...
+    # ...
     # Send a batch with the last 10 readings.
     count += 1
     if count == 10

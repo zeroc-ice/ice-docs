@@ -6,21 +6,13 @@ Ice may automatically retry a proxy invocation after a failure. This is a powerf
 situations, can significantly improve the robustness of your application without any additional programming effort. The
 retry facility is governed by one overriding principle: always respect at-most-once semantics.
 [At-most-once semantics](../../../slice/operations#idempotent-operations) dictate that the Ice runtime in the client
-must never retry a failed proxy invocation unless Ice guarantees that the server has not already received the request,
+must never retry a failed proxy invocation unless Ice knows that the server did not dispatch the request to a servant,
 or unless the application declares that it is safe for Ice to violate at-most-once semantics for the request.
 
-To understand the importance of obeying at-most-once semantics, consider the following Slice definition:
-
-```slice
-interface Account
-{
-    long withdraw(long amount);
-}
-```
-
-The `withdraw` operation removes funds from an account. If an invocation of `withdraw` fails, automatically retrying the
-request introduces the risk of a duplicate withdrawal unless Ice is absolutely sure that the server has not already
-executed the request.
+To understand the importance of obeying at-most-once semantics, consider the `withdraw` operation of the `Account`
+interface [below](#automatic-retries-for-idempotent-operations), which removes funds from an account. If an invocation
+of `withdraw` fails, automatically retrying the request introduces the risk of a duplicate withdrawal unless Ice knows
+that the server did not dispatch the request.
 
 This page examines automatic retries in more detail.
 
@@ -47,14 +39,15 @@ Ice must determine the answers to several questions to decide whether to retry a
 Ice does not retry a request when the same error would occur again. It never retries a request that failed:
 
 - with `MarshalException`, a problem while marshaling the request or unmarshaling the reply
-- because the invocation timed out or was canceled{% iflang langs="java" %}, or because its thread was
-  interrupted{% /iflang %}
+- because its [invocation timeout](../invocation-timeouts) expired or it was canceled{% iflang langs="java" %}, or
+  because its thread was interrupted{% /iflang %}
 - because its communicator or object adapter was destroyed or deactivated
 - because the application closed the connection
 - with `FacetNotExistException` or `OperationNotExistException`, which usually mean the client and the server use
   incompatible Slice definitions, or the client calls the wrong object
 - with `ObjectNotExistException`, unless the proxy is [indirect](../../../basics/terminology), since the Ice object may
-  have moved to another server
+  have moved to another server; the server found no servant for the request, so Ice retries it even for an operation
+  that is not idempotent
 
 Nor does Ice retry an invocation on a fixed proxy, or the flush of the requests queued on a
 [batch proxy](../invocation-mode/batched-invocations).
@@ -65,22 +58,22 @@ Any other local exception remains a candidate for retry, including any other
 
 **2. When did the error occur?**
 
-If the error is still a candidate for retry, Ice needs to know whether the server has received the request. Naturally,
-the Ice runtime in the client cannot possibly know that information until the server confirms it by sending a reply.
-However, to be conservative Ice assumes that the server has received the request as soon as Ice has written the _entire_
-protocol message to the client's local transport buffers. If the error occurred before Ice managed to write the complete
-message, retrying the request would not violate at-most-once semantics.
+If the error is still a candidate for retry, Ice needs to know whether the server dispatched the request. To be
+conservative, Ice treats a request as dispatched as soon as Ice has written the _entire_ protocol message to the
+client's local transport buffers. If the error occurred before Ice managed to write the complete message, retrying the
+request does not violate at-most-once semantics.
 
-The Ice runtime in the server also has the ability to notify the client that a request was not dispatched and therefore
-that it is safe for the Ice runtime in the client to retry the request without violating at-most-once semantics. For
-example, this situation can occur when the server is shutting down while there are pending requests that have yet to be
-executed. Sending this notification allows a client to transparently fail over to another server.
+The server can also tell the client that it did not dispatch a request. When the Ice runtime in the server closes a
+connection gracefully, for example because the server is shutting down, it first finishes the dispatches in progress and
+replies to them, and does not dispatch the requests it receives after that. Ice in the client then retries the requests
+on this connection that are still waiting for a reply, which allows a client to transparently fail over to another
+server.
 
 **3. Does the application require strict adherence to at-most-once semantics for this request?**
 
 An application can grant permission for Ice to violate at-most-once semantics for certain Slice operations by marking
-them as _idempotent_, causing Ice to retry a request that otherwise would be ineligible because the server has already
-received it. We discuss idempotent operations in more detail [below](#automatic-retries-for-idempotent-operations).
+them as _idempotent_, causing Ice to retry a request that otherwise would be ineligible because the server may have
+dispatched it. We discuss idempotent operations in more detail [below](#automatic-retries-for-idempotent-operations).
 
 If Ice determines that an invocation cannot be retried, it throws the exception that caused the request failure to the
 application. On the other hand, if Ice does retry the invocation and the subsequent retries also fail, Ice throws the
@@ -97,6 +90,7 @@ interface Account
 {
     long withdraw(long amount);
     idempotent long getBalance();
+    idempotent void changeAddress(string newAddress);
 }
 ```
 
@@ -104,19 +98,8 @@ Although `withdraw` clearly requires the stricter treatment, there is no harm in
 operation even if the server executes the same request more than once.
 
 In general, "read-only" operations are good candidates for the `idempotent` keyword whereas many mutating operations are
-not. However, the risk of duplicate requests is acceptable even for some kinds of mutating operations:
-
-```slice
-interface Account
-{
-    long withdraw(long amount);
-    idempotent long getBalance();
-    idempotent void changeAddress(string newAddress);
-}
-```
-
-Here we have marked `changeAddress` as idempotent because executing the request twice has the same effect as executing
-it only once.
+not. However, the risk of duplicate requests is acceptable even for some kinds of mutating operations: `changeAddress`
+is idempotent because executing the request twice has the same effect as executing it only once.
 
 The benefit of the `idempotent` keyword and the associated relaxation of retry semantics is that an invocation that
 otherwise might have thrown an exception has at least one more chance to succeed. Furthermore, the application does not
@@ -150,12 +133,14 @@ With this setting, Ice retries immediately as in the default case. If the first 
 milliseconds before trying again, then 500 milliseconds, and finally tries one more time after waiting one second.
 
 In some situations you may need to disable retries completely. For example, an application might implement its own retry
-logic and therefore require immediate notification when a failure occurs. A first value of `-1` disables the retries
-governed by this property:
+logic and therefore require immediate notification when a failure occurs. A first value of `-1` disables retries:
 
 ```config
 Ice.RetryIntervals=-1
 ```
+
+When the server closes the connection gracefully, Ice retries the invocation once more even if it has reached this
+limit, including when retries are disabled with `-1`.
 
 ### Retry Logging
 

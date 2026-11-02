@@ -3,18 +3,6 @@
 The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/js/Ice/context) provides a complete example of
 using request context in JavaScript.
 
-Using the Slice greeter definitions once again:
-
-```slice
-module VisitorCenter
-{
-    interface Greeter
-    {
-        string greet(string name);
-    }
-}
-```
-
 A client application can set a request context to send additional metadata:
 
 ```js

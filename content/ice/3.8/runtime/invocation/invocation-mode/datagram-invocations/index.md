@@ -16,22 +16,19 @@ languages:
 
 Datagram invocations are the equivalent of oneway invocations for datagram transports. As for oneway invocations,
 datagram invocations can be sent only for operations that have a `void` return type and do not have out-parameters or an
-exception specification. Attempts to use a datagram invocation with an operation that does not meet these criteria
-result in a `TwowayOnlyException`. In addition, datagram invocations can only be used if the proxy's endpoints include
-at least one UDP transport; otherwise, the Ice runtime throws a `NoEndpointException`.
+exception specification. In addition, datagram invocations require a proxy with at least one `udp` endpoint.
 
 The semantics of datagram invocations are similar to oneway invocations: no return traffic flows from the server to the
-client and proceed asynchronously with respect to the client; a datagram invocation completes as soon as the client's
-transport has accepted the invocation into its buffers. However, datagram invocations differ in one respect from oneway
-invocations in that datagram invocations optionally support multicast semantics. Furthermore, datagram invocations have
-additional error semantics:
+client, and a datagram invocation completes as soon as the client's transport has accepted the invocation into its
+buffers. However, datagram invocations differ in one respect from oneway invocations in that datagram invocations
+optionally support multicast semantics. Furthermore, datagram invocations have additional error semantics:
 
 - Individual requests may be lost or received out of order.
 
   On the wire, datagram requests are sent as true datagrams, that is, individual datagrams may be lost, or arrive at the
   server out of order. As a result, not only may requests be dispatched out of order, an individual request out of a
-  series of requests may be lost. (This cannot happen for oneway requests because, if a connection fails, _all_ requests
-  are lost once the connection breaks down.)
+  series of requests may be lost. In contrast, oneway requests sent over one connection arrive in order and without
+  gaps.
 
 - UDP packets may be duplicated by the transport.
 
@@ -41,15 +38,13 @@ additional error semantics:
 
 - UDP packets are limited in size.
 
-  The maximum size of an IP datagram is 65,535 bytes. Of that, the IP header consumes 20 bytes, and the UDP header
-  consumes 8 bytes, leaving 65,507 bytes as the maximum payload. If the marshaled form of request, including the Ice
-  header, exceeds that size, the request is lost. (Exceeding the size limit for a UDP datagram is indicated to the
-  application by a `DatagramLimitException`.)
+  A datagram request, including its Ice message header, must fit in the smaller of 65,507 bytes and the
+  [UDP send buffer size](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) minus 28 bytes. An object
+  adapter receives datagram requests up to the smaller of 65,507 bytes and the
+  [UDP receive buffer size](../../../../property-reference/ice-udp-properties#ice.udp.rcvsize) minus 28 bytes.
 
 Because of their unreliable nature, datagram invocations are best suited to simple update messages that are otherwise
-stateless. In addition, due to the high probability of loss of datagram requests over wide area networks, you should
-restrict use of datagram requests to local area networks, where they are less likely to be lost. (Of course, regardless
-of the probability of loss, you must design your application such that it can tolerate lost or duplicated messages.)
+stateless. Design your application to tolerate lost, duplicated, and reordered requests.
 
 ## Using UDP Multicast
 

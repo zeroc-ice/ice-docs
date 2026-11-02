@@ -6,11 +6,11 @@ weatherStation = WeatherStationPrx(communicator, "ClearSky:tcp -p 4061 -h localh
 # Configure the proxy to use the oneway invocation mode.
 weatherStation = weatherStation.ice_oneway()
 
-...
+# ...
 
 while True:
     await weatherStation.reportAsync(sensorId, timeStamp, getAtmosphericConditions())
-    ...
+    # ...
 ```
 
 {% /language-section %}

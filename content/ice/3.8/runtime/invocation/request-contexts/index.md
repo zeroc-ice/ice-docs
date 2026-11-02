@@ -13,7 +13,6 @@ of this parameter is as follows:
 ```slice
 module Ice
 {
-    ["cpp:type:std::map<std::string, std::string, std::less<>>"]
     dictionary<string, string> Context;
 }
 ```

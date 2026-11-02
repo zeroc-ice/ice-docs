@@ -20,12 +20,15 @@ the client or automatically by the Ice runtime.
 The `ice_batchOneway` and `ice_batchDatagram` methods create a new proxy configured for batch invocations. Once you
 obtain a batch proxy, requests sent via that proxy are buffered by the proxy instead of being sent immediately. Once the
 client has invoked one or more operations on a batch proxy, it can call `ice_flushBatchRequests` to explicitly flush the
-batched requests. This causes the batched requests to be sent "in bulk", preceded by a single message header. On the
-server side, batched requests are dispatched by a single thread, in the order in which they were written into the batch.
-This means that requests from a single batch cannot appear to be reordered in the server. Moreover, either all messages
-in a batch are delivered or none of them. (This is true even for batched datagrams.)
+batched requests. This causes the batched requests to be sent "in bulk", preceded by a single message header.
 
 {% language-section name="proxy-methods-for-batched-invocations" /%}
+
+A batch travels as a single message, so the object adapter receives either all of its requests or none of them. Ice
+dispatches the requests of a batch one after the other, in the order in which they were written into the batch: it
+starts each dispatch once the previous dispatch returns, so a dispatch implemented asynchronously can complete after the
+next one starts. Dispatching a batch is not transactional: a request that fails does not undo the requests dispatched
+before it.
 
 Batched requests are queued by the proxy on which the operation was invoked (this is true for all proxies except fixed
 proxies). It's important to be aware of this behavior for several reasons:

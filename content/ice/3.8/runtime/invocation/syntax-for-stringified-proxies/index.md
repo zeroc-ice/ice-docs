@@ -5,11 +5,11 @@ sidebarLabel: Proxy String Syntax
 
 ## Synopsis
 
-`identity -f facet -e encoding -p protocol -t -o -O -d -D -s`
+`identity -f facet -e encoding -p protocol -t -o -O -d -D`
 
-`identity -f facet -e encoding -p protocol -t -o -O -d -D -s @ adapter_id`
+`identity -f facet -e encoding -p protocol -t -o -O -d -D @ adapter_id`
 
-`identity -f facet -e encoding -p protocol -t -o -O -d -D -s : endpoints`
+`identity -f facet -e encoding -p protocol -t -o -O -d -D : endpoints`
 
 ## Description
 
@@ -25,16 +25,16 @@ with an identity and an adapter ID represents an indirect proxy that will be res
 
 The following options are available:
 
-| `-f` `facet`  | Select a facet of the Ice object.                                                                                                                         |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-e encoding` | Specify the Ice encoding version to use when an invocation on this proxy marshals parameters.                                                             |
-| `-p protocol` | Specify the Ice protocol version to use when sending a request with this proxy. Should never be specified since there is only one protocol version (1.0). |
-| `-t`          | Configures the proxy for twoway invocations (default).                                                                                                    |
-| `-o`          | Configures the proxy for oneway invocations.                                                                                                              |
-| `-O`          | Configures the proxy for batch oneway invocations.                                                                                                        |
-| `-d`          | Configures the proxy for datagram invocations.                                                                                                            |
-| `-D`          | Configures the proxy for batch datagram invocations.                                                                                                      |
-| `-s`          | For backwards compatibility. Has no effect.                                                                                                               |
+| Option        | Description                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `-f facet`    | Select a facet of the Ice object.                                                                                                    |
+| `-e encoding` | Specify the Ice encoding version to use when an invocation on this proxy marshals parameters.                                        |
+| `-p protocol` | Specify the Ice protocol version to use when sending a request with this proxy. The default is `1.0`, the only version Ice supports. |
+| `-t`          | Configures the proxy for twoway invocations (default).                                                                               |
+| `-o`          | Configures the proxy for oneway invocations.                                                                                         |
+| `-O`          | Configures the proxy for batch oneway invocations.                                                                                   |
+| `-d`          | Configures the proxy for datagram invocations.                                                                                       |
+| `-D`          | Configures the proxy for batch datagram invocations.                                                                                 |
 
 The proxy options `-t`, `-o`, `-O`, `-d`, and `-D` are mutually exclusive.
 
@@ -73,13 +73,10 @@ form of load balancing. You can change this default behavior using the propertie
 [Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection) and
 [_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection).
 
-If an unknown option is specified, or the stringified proxy is malformed, the application receives a `ParseException`.
-Likewise, if an endpoint is malformed, the application receives a `ParseException`.
-
 Ice drops an endpoint whose transport is not registered with the communicator, such as a `bt` endpoint in a runtime
 without IceBT, and logs a warning that lists the dropped endpoints when
-[Ice.Warn.Endpoints](../../../property-reference/ice-warn-properties#ice.warn.endpoints) is greater than `0`, which is
-the default. If Ice drops every endpoint of the stringified proxy, the application receives a `ParseException`.
+[Ice.Warn.Endpoints](../../../property-reference/ice-warn-properties#ice.warn.endpoints) is set to `1`, the default. At
+least one of the endpoints must use a registered transport.
 
 ## See Also
 

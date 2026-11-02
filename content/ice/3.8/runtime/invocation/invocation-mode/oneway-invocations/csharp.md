@@ -8,12 +8,12 @@ var weatherStation = WeatherStationPrxHelper.createProxy(
 // Configure the proxy to use the oneway invocation mode.
 weatherStation = WeatherStationPrxHelper.uncheckedCast(weatherStation.ice_oneway());
 
-...
+// ...
 
 while (true)
 {
     await weatherStation.ReportAsync(sensorId, timeStamp, GetAtmosphericConditions());
-    ...
+    // ...
 }
 ```
 

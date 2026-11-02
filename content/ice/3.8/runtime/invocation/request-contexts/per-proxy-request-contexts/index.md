@@ -15,9 +15,7 @@ no per-proxy context has been configured for the proxy.
 
 {% language-section name="mapping" /%}
 
-This example shows how to configure a request context on a proxy. Once set, the request context is automatically
-included with every request sent through that proxy. An explicit request context provided at the time of an invocation
-always takes precedence over the proxy’s configured context.
+An [explicit context](../explicit-request-contexts) supplied with an invocation replaces the proxy's context.
 
 ## Configuring a Per-Proxy Request Context Using Properties
 

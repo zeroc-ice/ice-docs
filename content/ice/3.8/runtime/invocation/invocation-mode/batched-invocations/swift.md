@@ -9,14 +9,14 @@ var weatherStation = try makeProxy(
 // Configure the proxy to use the batch oneway invocation mode.
 weatherStation = weatherStation.ice_batchOneway()
 
-...
+// ...
 
 while true {
     try await weatherStation.report(
         sensorId: sensorId,
         timeStamp: timeStamp,
         reading: getAtmosphericConditions())
-    ...
+    // ...
     // Send a batch with the last 10 readings.
     count += 1
     if count == 10 {

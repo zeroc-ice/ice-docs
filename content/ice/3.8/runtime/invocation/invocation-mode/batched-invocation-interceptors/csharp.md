@@ -14,7 +14,9 @@ initData.batchRequestInterceptor = (req, count, size) =>
 {
     if (size + req.getSize() > maxBatchSize)
     {
-        _ = req.getProxy().ice_flushBatchRequestsAsync();
+        req.getProxy().ice_flushBatchRequestsAsync().ContinueWith(
+            task => Console.Error.WriteLine($"Failed to flush batch requests: {task.Exception!.InnerException}"),
+            TaskContinuationOptions.OnlyOnFaulted);
     }
     req.enqueue();
 };

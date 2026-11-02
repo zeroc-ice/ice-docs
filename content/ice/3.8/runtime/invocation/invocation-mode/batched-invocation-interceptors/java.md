@@ -12,7 +12,10 @@ initData.batchRequestInterceptor = (req, count, size) -> req.enqueue();
 final int maxBatchSize = 64 * 1024; // in bytes
 initData.batchRequestInterceptor = (req, count, size) -> {
     if (size + req.getSize() > maxBatchSize) {
-        req.getProxy().ice_flushBatchRequestsAsync();
+        req.getProxy().ice_flushBatchRequestsAsync().exceptionally(ex -> {
+            System.err.println("Failed to flush batch requests: " + ex);
+            return null;
+        });
     }
     req.enqueue();
 };

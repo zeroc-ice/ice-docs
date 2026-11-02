@@ -10,8 +10,8 @@ proxy consists of an object identity plus (optionally) proxy options such as -t 
 For example:
 
 ```text
-Root       # well-known proxy to Root object (two-way by default)
-Root -o    # oneway proxy
+greeter       # well-known proxy to the greeter object (two-way by default)
+greeter -o    # oneway proxy
 ```
 
 When you invoke an operation on a well-known proxy, Ice locates the target object as follows:
@@ -35,8 +35,7 @@ Ice for JavaScript does not provide collocation optimization, so the resolution 
    1. Ice looks up this object identity in its [locator cache](../../../locators/locator-semantics-for-clients).
    2. If this lookup fails, Ice resolves this object identity using the locator.
 
-3. In case the preceding steps can't locate the target object or endpoints, the invocation fails with
-   `NoEndpointException`.
+3. If the preceding steps can't locate the target object or its endpoints, the invocation fails.
 
 ## See Also
 

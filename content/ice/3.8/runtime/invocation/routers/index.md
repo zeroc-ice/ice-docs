@@ -69,8 +69,8 @@ using the property `adapter.Router` (in the
 [object adapter's configuration](../../../property-reference/object-adapter-properties)), or by creating the object
 adapter with `createObjectAdapterWithRouter`.
 
-This is a one-to-one association: an object adapter can be associated with a single router and likewise a router can be
-associated with only one object adapter.
+Within a communicator, this is a one-to-one association: an object adapter can be associated with a single router, and a
+router can be associated with only one object adapter until that adapter is destroyed.
 
 An object adapter with a router does not accept incoming connections, so you don't set its `Endpoints` property. When
 the object adapter is created, it associates itself with the connection between the client and the router. This

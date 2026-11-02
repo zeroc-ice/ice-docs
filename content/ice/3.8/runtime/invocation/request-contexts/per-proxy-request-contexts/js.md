@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-```typescript
+```js
 // setting the context on the proxy.
 const greeterEs = greeter.ice_context(new Map([["language", "es"]]));
 ```

@@ -11,10 +11,10 @@ A proxy with an adapter ID (`@adapterId` in stringified form) is a form of
 For example:
 
 ```text
-Root@fsadapter      # proxy to Root object hosted by object adapter fsadapter
-                    # two-way proxy by default
+greeter @ GreeterAdapter    # proxy to the greeter object hosted by object adapter GreeterAdapter
+                            # two-way proxy by default
 
-Root -o @ fsadapter # oneway proxy
+greeter -o @ GreeterAdapter # oneway proxy
 ```
 
 When you invoke an operation on such an indirect proxy, Ice first _resolves_ the adapter ID–Ice checks if it corresponds
@@ -41,7 +41,7 @@ Ice for JavaScript does not provide collocation optimization, so the resolution 
    1. Ice looks up this adapter ID in its [locator cache](../../../locators/locator-semantics-for-clients).
    2. If this lookup fails, Ice resolves this adapter ID using the locator.
 
-3. In case the preceding steps can't locate the object adapter, the invocation fails with `NoEndpointException`.
+3. If the preceding steps can't locate the object adapter, the invocation fails.
 
 ## See Also
 

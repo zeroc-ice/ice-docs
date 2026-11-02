@@ -49,11 +49,14 @@ hello:tcp -h hello.example.com -p 4061
 ```
 
 When Ice establishes a connection, it connects to one of the addresses of this host name, as described in
-[Connection Establishment](../../connection-management/connection-establishment).
+[Connection Establishment](../../connection-management/connection-establishment). Which replica a new connection reaches
+depends on the order in which the resolver returns the addresses, so spreading clients across the replicas relies on the
+DNS server rotating them.
 
 With this configuration, all the replicas must use the same port. You add or remove a replica by updating the DNS
-record. A replica that is down stays in the record until you remove it, and a connection attempt that reaches its
-address fails or times out before Ice tries the next address.
+record; the connections already established to a replica stay open after you remove its address. A replica that is down
+stays in the record until you remove it, and a connection attempt that reaches its address fails or times out before Ice
+tries the next address.
 
 ## See Also
 

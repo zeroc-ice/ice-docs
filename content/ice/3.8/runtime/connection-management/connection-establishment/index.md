@@ -23,9 +23,9 @@ existing connection does:
 
 You disable connection caching with the `ice_connectionCached` [proxy method](api:Ice/ObjectPrx) or the
 [_name_.ConnectionCached](../../../property-reference/proxy-properties#name.connectioncached) property. Ice then selects
-an endpoint for each invocation on this proxy, in the order set by the [endpoint selection policy](#endpoint-selection)
-and whether or not the endpoint already has a connection, and reuses an existing connection to this endpoint if there is
-one. With the default `Random` policy, disabling connection caching spreads a proxy's invocations across its endpoints.
+an endpoint for each invocation on this proxy in the order set by the [endpoint selection policy](#endpoint-selection),
+and reuses an existing connection to this endpoint if there is one. With the default `Random` policy, disabling
+connection caching spreads a proxy's invocations across its endpoints.
 
 The communicator manages the lifetime of its connections independently of the proxies that use them. Connections are
 long-lived: a healthy connection with regular activity stays open until the communicator is destroyed. The communicator

@@ -6,15 +6,7 @@ pages:
   - well-known-proxy
 ---
 
-The endpoint or endpoints of a proxy correspond to the endpoint(s) of the object adapter(s) that hosts the target
-object.
-
-{% callout type="tip" %}
-
-Endpoint is an overloaded term - many things are “endpoints”. Think of an Ice endpoint as a “server address”. Not so
-coincidentally, that’s the term we’ve adopted for IceRPC.
-
-{% /callout %}
+The endpoint or endpoints of a proxy correspond to the endpoint(s) of the object adapter(s) that host the target object.
 
 A proxy can have one endpoint, two or more endpoints, or zero endpoints. We explore below the meaning of each of these
 configurations.
@@ -57,23 +49,23 @@ This list of endpoints means the object is reachable via TCP on the specified ho
 
 ### Same Transport for All Endpoints
 
-The most common situation is when all the endpoints of the proxy use the same transport. It means the target object is
-replicated and the client selects which replica to connect to. The replicas are largely equivalent, in particular, they
-listen with the same transport.
+Most often, all the endpoints of a proxy use the same transport. These endpoints are several addresses of the object
+adapter that hosts the target object, or the addresses of the [replicas](../proxies-to-replicated-objects) of this
+object, and Ice selects which endpoint to connect to.
 
 ### Endpoints with Different Transports
 
-Ice accepts proxies that combine endpoints with different transports - it’s syntactically ok. But it’s rarely
-meaningful. If you’re using such proxies, have a second look, and make sure you understand why you’re combining these
-diverse endpoints.
+A proxy can combine endpoints with different transports. Ice uses only the endpoints that suit the proxy's
+[invocation mode](../invocation-mode#invocation-modes-and-endpoints), and selects among the remaining endpoints
+regardless of their transport. For example:
 
-Let’s take a few examples:
-
-| **Proxy Endpoint List**                       | **Analysis**                                                                                                                                                                                                                                                                                                                                                                                         |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `udp -h venus -p 4061:tcp -h mars -p 4061`    | **Not recommended** Never combine a `udp`endpoint with any other transport in the same proxy.                                                                                                                                                                                                                                                                                                        |
-| `tcp -h venus -p 4061:ssl -h venus -p 4062`   | **Not recommended** Never combine secure and non-secure endpoints in the same proxy. The server should decide whether it accepts only secure or only non-secure connections.                                                                                                                                                                                                                         |
-| `ssl -h venus -p 10000:wss -h venus -p 10001` | **Unusual. Could be ok.**Possible use-case: you distribute the same proxies to various clients and you want web browser clients to use the `wss` endpoint (since they can’t connect with `ssl`); and you want other `ssl`-capable clients to use `ssl`. You would use this proxy endpoint list in conjunction with the `Ordered` [endpoint selection](../../../property-reference/proxy-properties). |
+- `tcp -h venus -p 4061:udp -h venus -p 4061`: a proxy with these endpoints supports both twoway invocations, over
+  `tcp`, and datagram invocations, over `udp`.
+- `tcp -h venus -p 4061:ssl -h venus -p 4062`: the client can connect with either `tcp` or `ssl`. An object adapter that
+  accepts only secure connections publishes only its `ssl` endpoint.
+- `ssl -h venus -p 10000:wss -h venus -p 10001`: you distribute the same proxy to web browser clients, which connect
+  with `wss` since they can't connect with `ssl`, and to other clients. With the `Ordered`
+  [endpoint selection](../../../property-reference/proxy-properties), these other clients try `ssl` first.
 
 ## Proxy with No Endpoint
 
@@ -85,16 +77,16 @@ endpoint(s) dynamically. One style of indirect proxy contains an
 [adapter ID](./indirect-proxy-with-object-adapter-identifier):
 
 ```text
-MyObject @ MyAdapter
+greeter @ GreeterAdapter
 ```
 
-When this proxy requires the endpoints associated with `MyAdapter`, it requests them from the locator.
+When this proxy requires the endpoints associated with `GreeterAdapter`, it requests them from the locator.
 
 The other style of indirect proxy is a proxy with just an object identity, called a
 [well-known proxy](./well-known-proxy):
 
 ```text
-MyObject
+greeter
 ```
 
 Just like with the `@` style, the communicator requests endpoint(s) for such a proxy from the locator.

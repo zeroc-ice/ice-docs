@@ -19,8 +19,8 @@ To understand the ordering issue, it's important to first understand some fundam
   [cache that connection](../../connection-management/connection-establishment) for subsequent invocations.
 - Proxies share connections by default, but an application can force proxies to use separate connections.
 
-Ice guarantees that ordering will be maintained for invocations on the same proxy object, but only if that proxy caches
-its connection.
+When a proxy object caches its connection, Ice sends the invocations made one after the other on this proxy object in
+the order they were made. Invocations made concurrently from several threads have no defined order.
 
 {% callout type="warning" %}
 

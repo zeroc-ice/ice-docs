@@ -43,7 +43,9 @@ be set to the following values:
 `getImplicitContext` on the communicator returns its implicit context, an object with methods to read and update the
 context's entries.{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %} When `Ice.ImplicitContext` is
 `PerThread`, each thread has its own implicit context: call `getImplicitContext` and update the context on the thread
-that makes the invocations.{% /iflang %}
+that makes the invocations.{% /iflang %}{% iflang langs="csharp,swift" %} An asynchronous method can resume on another
+thread after an `await`; with `PerThread`, the invocations it makes from then on use the implicit context of that
+thread.{% /iflang %}
 
 {% language-section name="using-the-implicit-context" /%}
 

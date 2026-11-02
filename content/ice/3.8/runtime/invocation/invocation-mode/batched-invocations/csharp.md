@@ -8,12 +8,12 @@ var weatherStation = WeatherStationPrxHelper.createProxy(
 // Configure the proxy to use the batch oneway invocation mode.
 weatherStation = WeatherStationPrxHelper.uncheckedCast(weatherStation.ice_batchOneway());
 
-...
+// ...
 
 while (true)
 {
     await weatherStation.ReportAsync(sensorId, timeStamp, GetAtmosphericConditions());
-    ...
+    // ...
     // Send a batch with the last 10 readings.
     if (++count == 10)
     {
