@@ -61,11 +61,13 @@ regardless of their transport. For example:
 
 - `tcp -h venus -p 4061:udp -h venus -p 4061`: a proxy with these endpoints supports both twoway invocations, over
   `tcp`, and datagram invocations, over `udp`.
-- `tcp -h venus -p 4061:ssl -h venus -p 4062`: the client can connect with either `tcp` or `ssl`. An object adapter that
-  accepts only secure connections publishes only its `ssl` endpoint.
 - `ssl -h venus -p 10000:wss -h venus -p 10001`: you distribute the same proxy to web browser clients, which connect
   with `wss` since they can't connect with `ssl`, and to other clients. With the `Ordered`
   [endpoint selection](../../../property-reference/proxy-properties), these other clients try `ssl` first.
+
+A proxy should not combine secure and non-secure endpoints, such as `tcp` and `ssl`: the object adapter that hosts the
+target object should listen on secure endpoints or on non-secure endpoints, not both. See
+[Endpoint Security Considerations](../../ssl-transport#endpoint-security-considerations).
 
 ## Proxy with No Endpoint
 
