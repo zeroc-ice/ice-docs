@@ -1,26 +1,21 @@
 {% language-section name="creating" %}
 
-You create a communicator by calling `Ice\initialize`. For example, the following script creates a communicator
-configured from a file, and invokes an operation on a remote Ice object:
+You create a communicator by calling `Ice\initialize`, for example:
 
 ```php
 <?php
 require_once 'Ice.php';
-require_once 'Greeter.php';
 
-$properties = Ice\createProperties();
-$properties->load("config.client");
-
-$initData = new Ice\InitializationData();
-$initData->properties = $properties;
-
-$communicator = Ice\initialize($initData);
-
-$greeter = VisitorCenter\GreeterPrxHelper::uncheckedCast(
-    $communicator->propertyToProxy("Greeter.Proxy"));
-
-echo $greeter->greet("alice"), "\n";
+$communicator = Ice\initialize($argv);
 ```
+
+`Ice\initialize` accepts the argument array of the script. It scans this array for any
+[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
+Ice runtime; any such options are removed from the array so, when `Ice\initialize` returns, the only options and
+arguments remaining are those that concern your application.
+
+`$argv` holds command-line arguments only when PHP runs the script from the command line. A script that handles a web
+request calls `Ice\initialize` without arguments, or with [initialization data](#initialization-data).
 
 {% /language-section %}
 
@@ -105,6 +100,21 @@ other in separate PHP processes, such as separate PHP-FPM pools.
 {% /language-section %}
 
 {% language-section name="initialization-data" %}
+
+For example, the following script creates the communicator's properties from a configuration file:
+
+```php
+<?php
+require_once 'Ice.php';
+
+$properties = Ice\createProperties();
+$properties->load("config.client");
+
+$initData = new Ice\InitializationData();
+$initData->properties = $properties;
+
+$communicator = Ice\initialize($initData);
+```
 
 ## Property Sets
 
