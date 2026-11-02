@@ -16,9 +16,9 @@ pages:
   - routers
 ---
 
-An invocation is a call to an operation of an Ice object through a _proxy_. A twoway invocation sends a request and
-receives the corresponding response; an invocation in any other [invocation mode](./invocation-mode) (oneway, batch
-oneway, datagram or batch datagram) receives no response.
+The process of sending a request and receiving the corresponding response is called an invocation.
+
+With Ice, you need a _proxy_ to make an invocation - proxies provide the only invocation API.
 
 A proxy is a local object that represents an Ice object, and encapsulates the following information:
 
