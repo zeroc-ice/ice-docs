@@ -49,7 +49,7 @@ Ice.Default.Locator.Router.EndpointSelection=Ordered
 
 ## Creating a Proxy from an Object Adapter
 
-An object adapter can create a proxy for any identity, whether or not it hosts an Ice object with this identity.
+A server uses an object adapter to create the proxies through which clients invoke operations on its Ice objects.
 
 {% /iflang %}
 
