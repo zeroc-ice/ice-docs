@@ -14,7 +14,7 @@ Ice runtime; any such options are removed from the argument vector so, when the 
 and arguments remaining are those that concern your application. If anything goes wrong during initialization, it throws
 an exception.
 
-In a browser application, you should call the constructor without the argument vector.
+In a browser application, call the constructor without arguments, or with [initialization data](#initialization-data).
 
 `Communicator` implements `[Symbol.asyncDispose]()`, so `await using` destroys the communicator when it goes out of
 scope, as shown above. Without `await using`, call `await communicator.destroy()` when you no longer need it.
