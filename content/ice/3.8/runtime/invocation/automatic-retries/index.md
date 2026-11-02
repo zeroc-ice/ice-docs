@@ -137,25 +137,17 @@ Ice.RetryIntervals=-1
 When the server closes the connection gracefully, Ice retries the invocation once more even if it has reached this
 limit, including when retries are disabled with `-1`.
 
-### Retry Logging
+### Retry Tracing
 
-To monitor Ice's retry activities, configure your program with the property
-[Ice.Trace.Retry](../../../property-reference/ice-trace-properties#ice.trace.retry) set to a non-zero value:
+Set [Ice.Trace.Retry](../../../property-reference/ice-trace-properties#ice.trace.retry) to `1` to trace retries:
 
 ```config
 Ice.Trace.Retry=1
 ```
 
-When retry tracing is enabled, Ice logs a message each time it attempts a retry; the log message includes a description
-of the exception that prompted the retry. Ice also logs a message when it reaches the retry limit.
-
-You can configure Ice to log even more information about retries by setting the property to `2`:
-
-```config
-Ice.Trace.Retry=2
-```
-
-This setting prompts Ice to include additional details about connections and endpoints.
+Ice then logs each retry, with the exception that caused it, and logs when an invocation reaches the retry limit. Set
+`Ice.Trace.Retry` to `2` to also trace the failed connection attempts to endpoints from the locator cache, after which
+Ice asks the locator for the endpoints again.
 
 ## See Also
 
