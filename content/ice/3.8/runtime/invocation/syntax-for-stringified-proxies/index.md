@@ -16,9 +16,9 @@ sidebarLabel: Proxy String Syntax
 A stringified proxy consists of an identity, optional proxy options, and optional addressing information. The three
 forms of the synopsis represent:
 
-- a [well-known proxy](../proxy-endpoints/well-known-proxy), with an identity and no addressing information
-- an [indirect proxy](../proxy-endpoints/indirect-proxy-with-object-adapter-identifier), with an identity and an adapter
-  ID, which Ice resolves with the [locator](../../locators)
+- a [well-known proxy](../proxy-endpoints#well-known-proxy), with an identity and no addressing information
+- an [indirect proxy](../proxy-endpoints#proxy-with-an-adapter-id), with an identity and an adapter ID, which Ice
+  resolves with the [locator](../../locators)
 - a direct proxy, with an identity and one or more endpoints
 
 Spaces, tabs, and line breaks separate the components of a stringified proxy. The proxy options follow the identity and

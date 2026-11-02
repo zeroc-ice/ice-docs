@@ -20,10 +20,10 @@ collocated, even when both communicators are in the same process.
 
 Ice decides whether a proxy's invocations are collocated based on the kind of proxy:
 
-- For an [indirect proxy](../invocation/proxy-endpoints/indirect-proxy-with-object-adapter-identifier) with an adapter
-  ID, Ice uses collocation optimization if the proxy's adapter ID matches the adapter ID or replica group ID of an
-  object adapter in the same communicator.
-- For a [well-known proxy](../invocation/proxy-endpoints/well-known-proxy), Ice checks the Active Servant Map of each
+- For an [indirect proxy](../invocation/proxy-endpoints#proxy-with-an-adapter-id) with an adapter ID, Ice uses
+  collocation optimization if the proxy's adapter ID matches the adapter ID or replica group ID of an object adapter in
+  the same communicator.
+- For a [well-known proxy](../invocation/proxy-endpoints#well-known-proxy), Ice checks the Active Servant Map of each
   object adapter to determine whether the servant is local; it does not consult default servants and servant locators.
 - For a [direct proxy](../invocation/proxy-endpoints), Ice performs an endpoint search using the proxy's endpoints.
 

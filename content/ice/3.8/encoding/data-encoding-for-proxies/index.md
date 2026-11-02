@@ -78,7 +78,7 @@ The encoding for [UDP endpoints](#encoding-for-udp-endpoints) also changed in ve
 
 The proxy fields are followed by a [size](../basic-data-encoding), the number of endpoints, and then by the endpoints
 or, when this size is `0`, by the adapter ID encoded as a string. The adapter ID is the empty string for a
-[well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy).
+[well-known proxy](../../runtime/invocation/proxy-endpoints#well-known-proxy).
 
 Each endpoint is encoded as a `short`, the
 [endpoint type](https://code.zeroc.com/ice/3.8/api/slice/namespaceIce.html#var-members), followed by an

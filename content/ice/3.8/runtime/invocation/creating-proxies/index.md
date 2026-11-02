@@ -61,7 +61,7 @@ A server uses an object adapter to create the proxies through which clients invo
   proxy that holds the object adapter's published endpoints.
 - `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
 - `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
-  [well-known proxy](../proxy-endpoints/well-known-proxy) when the object adapter has no adapter ID.
+  [well-known proxy](../proxy-endpoints#well-known-proxy) when the object adapter has no adapter ID.
 
 {% /iflang %}
 
