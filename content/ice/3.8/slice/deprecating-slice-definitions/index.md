@@ -16,8 +16,8 @@ interface Example
 ```
 
 The message that follows the colon is optional, and says why the definition is deprecated or what to use instead. You
-can apply the `deprecated` directive to interfaces, classes, exceptions, structures, enumerations, enumerators,
-sequences, dictionaries, constants, operations, and fields.
+can apply the `deprecated` directive to interfaces, classes, exceptions, structs, enumerations, enumerators, sequences,
+dictionaries, constants, operations, and fields.
 
 The Slice compilers warn about a definition that uses a deprecated definition, such as an operation whose parameter type
 is deprecated, unless this definition is itself deprecated. The
@@ -39,8 +39,8 @@ message, so the C# compiler warns when your code uses them.
 
 {% iflang langs="java" %}
 
-The Slice compiler also marks the generated Java declarations with the `@Deprecated` annotation, so the Java compiler
-warns when your code uses them.
+In Java, the `@deprecated` doc-comment tag, not the directive, marks the generated Java declarations with the
+`@Deprecated` annotation, so the Java compiler warns when your code uses them.
 
 {% /iflang %}
 
@@ -65,7 +65,8 @@ warnings.
 {% /iflang %}
 
 The [`@deprecated`](../documenting-slice-definitions/doc-comment-structure#@deprecated) doc-comment tag documents the
-deprecation in the API reference, but does not produce these warnings; use it together with the `deprecated` directive.
+deprecation in the API reference. Only the `deprecated` directive makes the Slice compilers warn about uses of the
+definition; use the tag together with the directive.
 
 ## See Also
 
