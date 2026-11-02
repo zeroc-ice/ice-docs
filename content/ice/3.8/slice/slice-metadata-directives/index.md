@@ -12,10 +12,11 @@ customize the code generated for one language mapping, and start with the prefix
 ["java:type:java.util.LinkedList<Integer>"] sequence<int> IntSeq;
 ```
 
-The general directives have no prefix. Some of them also change what Ice does: `format` selects how Ice marshals class
-instances, and `oneway` restricts how a client can invoke an operation.
+The general directives have no prefix. For example, `format` selects how Ice marshals class instances, and `deprecated`
+marks a definition as deprecated.
 
-You place directives in square brackets before the definition they apply to, separated by commas:
+You place directives in square brackets before the definition they apply to, separated by commas or in consecutive
+lists, as in `["amd"]["deprecated"]`:
 
 ```slice
 ["amd", "deprecated"]
@@ -32,8 +33,7 @@ file; it can follow `#include` directives:
 [["cpp:dll-export:WIDGET_API"]]
 ```
 
-Each directive applies only to certain kinds of definitions, listed in its description below. The Slice compiler warns
-about a directive applied to a definition it does not apply to.
+Each directive applies only to certain kinds of definitions, listed in its description below.
 
 ## General Metadata Directives
 
@@ -59,12 +59,17 @@ This directive marks a definition as deprecated; see [Deprecating Slice Definiti
 This directive selects the [encoding format](../user-defined-types/classes/slicing-values-and-exceptions) of the class
 instances marshaled as the arguments or result of an operation: `format:compact` selects the compact format, and
 `format:sliced` selects the sliced format. On an interface, it applies to all the operations of the interface; on an
-operation, it overrides the `format` directive of the enclosing interface. Ice always marshals user exceptions in the
-sliced format.
+operation, it overrides the `format` directive of the enclosing interface.
 
 When neither an operation nor its enclosing interface selects a format, the
 [Ice.Default.SlicedFormat](../../property-reference/ice-default-properties#ice.default.slicedformat) property selects
 it.
+
+{% callout type="note" %}
+
+This directive does not apply to user exceptions: Ice always marshals them in the sliced format.
+
+{% /callout %}
 
 ### marshaled-result
 
@@ -75,7 +80,7 @@ the lock that protects the data it returns. The mapped skeleton method returns a
 whose constructor marshals the return value and out parameters immediately.
 
 On an interface, this directive applies to every operation that the interface defines. The Slice compiler changes the
-mapping of an operation only when its return type or one of its out parameters is a class, structure, sequence, or
+mapping of an operation only when its return type or one of its out parameters is a class, struct, sequence, or
 dictionary. This directive affects the server-side mapping in C++, C#, and Java, and has no effect on the client-side
 mapping.
 
@@ -121,9 +126,8 @@ A marshaled-result instance is specific to a request. Do not cache a marshaled r
 
 `["oneway"]`. Applies to operations.
 
-This directive restricts an operation to oneway invocations: invoking the operation on a twoway proxy throws
-`OnewayOnlyException`. The operation cannot have a return type, out parameters, or an exception specification. This
-directive does not change the server-side mapping.
+This directive restricts an operation to oneway invocations. The operation cannot have a return type, out parameters, or
+an exception specification.
 
 ### suppress-warning
 
