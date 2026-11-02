@@ -21,3 +21,19 @@ exception. Without a block, `Ice.initialize` returns the communicator, and you c
 need it.
 
 {% /language-section %}
+
+{% language-section name="initialization-data" %}
+
+To combine initialization data with the command-line arguments, create the communicator's properties from the argument
+list:
+
+```ruby
+initData = Ice::InitializationData.new
+initData.properties = Ice.createProperties(ARGV)
+# ... set other initData fields ...
+Ice.initialize(initData) do |communicator|
+    ...
+end
+```
+
+{% /language-section %}

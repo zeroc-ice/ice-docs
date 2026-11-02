@@ -20,3 +20,17 @@ In a browser application, you should call the constructor without the argument v
 scope, as shown above. Without `await using`, call `await communicator.destroy()` when you no longer need it.
 
 {% /language-section %}
+
+{% language-section name="initialization-data" %}
+
+To combine initialization data with the command-line arguments, create the communicator's properties from the argument
+vector:
+
+```typescript
+const initData = new Ice.InitializationData();
+initData.properties = new Ice.Properties(process.argv);
+// ... set other initData fields ...
+await using communicator = new Ice.Communicator(initData);
+```
+
+{% /language-section %}

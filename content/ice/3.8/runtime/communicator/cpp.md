@@ -24,10 +24,15 @@ the Ice runtime; any such options are removed from the argument vector so, when 
 and arguments remaining are those that concern your application. If anything goes wrong during initialization,
 `initialize` throws an exception.
 
-The other `initialize`
-[overload](https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce.html#r_ae7b6bf9c35f1cb30463e15c4d9b4ad4c) accepts an
-[InitializationData](api:Ice/InitializationData). To combine it with the argument vector, create the communicator's
-properties from `argc` and `argv`:
+Without a `CommunicatorHolder`, call `destroy` on the communicator when you no longer need it. To take over the
+destruction of the communicator of a `CommunicatorHolder`, call `release`.
+
+{% /language-section %}
+
+{% language-section name="initialization-data" %}
+
+To combine initialization data with the command-line arguments, create the communicator's properties from `argc` and
+`argv`:
 
 ```cpp
 Ice::InitializationData initData;
@@ -36,8 +41,5 @@ initData.properties = std::make_shared<Ice::Properties>(argc, argv);
 Ice::CommunicatorPtr communicator = Ice::initialize(std::move(initData));
 Ice::CommunicatorHolder communicatorHolder{communicator};
 ```
-
-Without a `CommunicatorHolder`, call `destroy` on the communicator when you no longer need it. To take over the
-destruction of the communicator of a `CommunicatorHolder`, call `release`.
 
 {% /language-section %}

@@ -25,3 +25,20 @@ defer {
 ```
 
 {% /language-section %}
+
+{% language-section name="initialization-data" %}
+
+To combine initialization data with the command-line arguments, create the communicator's properties from the argument
+array:
+
+```swift
+var initData = Ice.InitializationData()
+initData.properties = try Ice.createProperties(CommandLine.arguments)
+// ... set other initData fields ...
+let communicator = try Ice.initialize(initData)
+defer {
+    communicator.destroy()
+}
+```
+
+{% /language-section %}

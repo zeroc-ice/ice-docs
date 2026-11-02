@@ -36,3 +36,18 @@ async def main():
 ```
 
 {% /language-section %}
+
+{% language-section name="initialization-data" %}
+
+To combine initialization data with the command-line arguments, create the communicator's properties from the argument
+list:
+
+```py
+initData = Ice.InitializationData()
+initData.properties = Ice.Properties(sys.argv)
+# ... set other initData fields ...
+with Ice.Communicator(initData=initData) as communicator:
+    ...
+```
+
+{% /language-section %}

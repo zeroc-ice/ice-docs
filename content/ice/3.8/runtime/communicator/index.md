@@ -33,11 +33,12 @@ resources.
 
 ## Initialization Data
 
-Some aspects of the Ice runtime must be configured when you create the communicator, such as its properties and its
-logger. The [InitializationData](api:Ice/InitializationData) class or struct holds these options, and the communicator
-constructor or `initialize` function accepts it.
+Some aspects of the Ice runtime must be configured when you create the communicator, such as its
+properties{% iflang langs="cpp,csharp,java,js,php,python,swift" %} and its logger{% /iflang %}. The
+[InitializationData](api:Ice/InitializationData) class or struct holds these options, and the communicator constructor
+or `initialize` function accepts it.
 
-{% language-section name="after-initialization-data" /%}
+{% language-section name="initialization-data" /%}
 
 ## See Also
 

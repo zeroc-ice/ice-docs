@@ -18,10 +18,22 @@ that are relevant to the Ice runtime; if anything goes wrong during initializati
 constructor leaves `args` unchanged; to get the arguments that remain once the Ice options are removed, call the
 constructor that also accepts a `List<String> remainingArgs`, which it fills with these arguments.
 
-To pass other options to the Ice runtime, use a constructor that accepts an
-[InitializationData](api:Ice/InitializationData).
-
 `Communicator` implements `AutoCloseable`. This allows you to create and clean up your communicator in a
 try-with-resources statement as shown above.
+
+{% /language-section %}
+
+{% language-section name="initialization-data" %}
+
+To combine initialization data with the command-line arguments, create the communicator's properties from `args`:
+
+```java
+var initData = new InitializationData();
+initData.properties = new Properties(args);
+// ... set other initData fields ...
+try (var communicator = new Communicator(initData)) {
+    // ...
+}
+```
 
 {% /language-section %}

@@ -104,7 +104,7 @@ other in separate PHP processes, such as separate PHP-FPM pools.
 
 {% /language-section %}
 
-{% language-section name="after-initialization-data" %}
+{% language-section name="initialization-data" %}
 
 ## Property Sets
 
