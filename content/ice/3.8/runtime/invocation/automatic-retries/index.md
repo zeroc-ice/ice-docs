@@ -33,8 +33,7 @@ Ice never retries an invocation that fails:
   have moved to another server; the server found no servant for the request, so Ice retries it even for an operation
   that is not idempotent
 
-Nor does Ice retry an invocation on a fixed proxy, or the flush of the requests queued on a
-[batch proxy](../invocation-mode/batched-invocations).
+Nor does Ice retry a [batched invocation](../invocation-mode/batched-invocations) or an invocation on a fixed proxy.
 
 Any other local exception remains a candidate for retry, including any other
 [dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions), such as `UnknownException`,
