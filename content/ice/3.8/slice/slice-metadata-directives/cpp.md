@@ -70,14 +70,19 @@ This directive tells the Slice compiler that you implement the printing of this 
   `void ice_print(std::ostream& os) const override` in the mapped C++ class, but does not implement this member
   function.
 
+The default printing is described in [Printing Enumerators](../user-defined-types/enumerations#printing-enumerators),
+[Printing Structs](../user-defined-types/structures#printing-structs),
+[Printing Classes](../user-defined-types/classes#printing-classes), and
+[Exception Printing](../exceptions#exception-printing).
+
 ### cpp:dll-export
 
 `[["cpp:dll-export:SYMBOL"]]`. Applies to a Slice file.
 
-This directive lets you build the generated code into a DLL (on Windows) or a shared library (on other platforms): the
-Slice compiler adds `SYMBOL` to the generated declarations that such a library exports. The generated header defines
-`SYMBOL` to export these declarations when `SYMBOL_EXPORTS` is defined, and to import them otherwise; the generated
-source file defines `SYMBOL_EXPORTS`.
+This directive exports the symbols of the generated code from a DLL (on Windows) or a shared library (on other
+platforms). The Slice compiler adds `SYMBOL` to the exported declarations. The generated header defines `SYMBOL` to
+export these declarations when `SYMBOL_EXPORTS` is defined, and to import them otherwise; the generated source file
+defines `SYMBOL_EXPORTS`.
 
 ### cpp:doxygen
 
@@ -95,7 +100,7 @@ This directive sets the file extension of the generated header file, instead of 
 
 `["cpp:identifier:name"]`. Applies to any definition, parameter, or field.
 
-This directive maps the Slice construct to the C++ identifier `name`. For example:
+The generated C++ code uses `name` instead of the Slice identifier. For example:
 
 ```slice
 struct Descriptor
@@ -105,7 +110,7 @@ struct Descriptor
 }
 ```
 
-The field `template` maps to `blueprint` in C++, because `template` is a C++ keyword.
+The field `template` maps to `blueprint` in C++. The default mapping, `template`, is a C++ keyword.
 
 ### cpp:ice_print
 
@@ -134,15 +139,19 @@ complete definition of a type that the generated header does not include.
 
 ### cpp:type
 
-`["cpp:type:type"]`, `["cpp:type:string"]`, or `["cpp:type:wstring"]`. Applies to sequences, dictionaries, and strings.
+`["cpp:type:type"]`. Applies to sequences and dictionaries.
 
 On a [sequence](../user-defined-types/sequences) or [dictionary](../user-defined-types/dictionaries), or on a parameter
-or field of such a type, `cpp:type:type` maps it to the C++ type `type`.
+or field of such a type, this directive maps it to the C++ type `type`.
+
+### cpp:type:string and cpp:type:wstring
+
+`["cpp:type:string"]` or `["cpp:type:wstring"]`. Applies to strings, and to modules, interfaces, classes, structs, and
+exceptions.
 
 Slice strings [map by default](../basic-types) to `std::string`. `cpp:type:wstring` maps them to `std::wstring` instead,
-and `cpp:type:string` maps them back to `std::string`. You can apply these two directives to a use of `string`, such as
-a field or a parameter, or to a module, interface, class, struct, or exception, where they apply to all the strings it
-contains:
+and `cpp:type:string` maps them back to `std::string`. On a module, interface, class, struct, or exception, these
+directives apply to all the strings it contains:
 
 ```slice
 module A

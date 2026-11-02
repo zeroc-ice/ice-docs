@@ -66,7 +66,7 @@ collection type; `LinkedList`, `Queue`, and `Stack` are not supported on a seque
 
 `["cs:identifier:name"]`. Applies to any definition, parameter, or field.
 
-This directive maps the Slice construct to the C# identifier `name`. For example:
+The generated C# code uses `name` instead of the Slice identifier. For example:
 
 ```slice
 interface Greeter
@@ -87,10 +87,10 @@ This directive makes the generated C# declarations `internal` instead of `public
 
 ### cs:namespace
 
-`["cs:namespace:namespace"]`. Applies to top-level modules.
+`["cs:namespace:enclosing-namespace"]`. Applies to top-level modules.
 
-This deprecated directive places the C# namespace of the module in the namespace `namespace`. Use `cs:identifier`
-instead.
+This deprecated directive nests the C# namespace of the module in `enclosing-namespace`: with `["cs:namespace:Acme"]` on
+`module Demo`, the generated code is in the namespace `Acme.Demo`. Use `cs:identifier` instead.
 
 ### cs:property
 

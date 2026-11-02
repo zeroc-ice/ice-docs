@@ -14,7 +14,7 @@ TypeScript declarations; `file` is the relative path to the Slice file that defi
 
 `["js:identifier:name"]`. Applies to any definition, parameter, or field.
 
-This directive maps the Slice construct to the JavaScript identifier `name`. For example:
+The generated JavaScript code uses `name` instead of the Slice identifier. For example:
 
 ```slice
 struct CompilerInfo
@@ -24,7 +24,7 @@ struct CompilerInfo
 }
 ```
 
-The field `debugger` maps to `debuggerName`, because `debugger` is a reserved JavaScript keyword.
+The field `debugger` maps to `debuggerName`. The default mapping, `debugger`, is a JavaScript keyword.
 
 ### js:module
 

@@ -44,7 +44,7 @@ Java metadata directives use the `java` prefix.
 
 ### java:buffer
 
-`["java:buffer"]`. Applies to sequences of certain basic types.
+`["java:buffer"]`. Applies to sequences of `byte`, `short`, `int`, `long`, `float`, and `double`.
 
 This directive maps the [sequence](../user-defined-types/sequences) to a subclass of `java.nio.Buffer`.
 
@@ -58,7 +58,7 @@ This directive adds accessor and modifier methods ([JavaBean methods](../fields)
 
 `["java:identifier:name"]`. Applies to any definition, parameter, or field.
 
-This directive maps the Slice construct to the Java identifier `name`. For example:
+The generated Java code uses `name` instead of the Slice identifier. For example:
 
 ```slice
 struct Descriptor
@@ -68,7 +68,7 @@ struct Descriptor
 }
 ```
 
-The field `transient` maps to `ephemeral` in Java, because `transient` is a Java keyword.
+The field `transient` maps to `ephemeral` in Java. The default mapping, `transient`, is a Java keyword.
 
 {% callout type="warning" %}
 
@@ -80,18 +80,20 @@ you need to install a [Slice loader](../user-defined-types/classes/slice-loaders
 
 ### java:package
 
-`["java:package:package"]` or `[["java:package:package"]]`. Applies to top-level modules and Slice files.
+`["java:package:enclosing-package"]` or `[["java:package:enclosing-package"]]`. Applies to top-level modules and Slice
+files.
 
-This deprecated directive places the generated Java package in the Java package `package`. Use `java:identifier` on your
-modules instead.
+This deprecated directive nests the Java package of the module, or of every top-level module in the file, in
+`enclosing-package`: with `["java:package:com.acme"]` on `module Demo`, the generated code is in the package
+`com.acme.Demo`. Use `java:identifier` on your modules instead.
 
 {% callout type="warning" %}
 
 When you apply this directive to a module that contains classes or exceptions, communicators that receive (unmarshal)
 these classes or exceptions need a [Slice loader](../user-defined-types/classes/slice-loaders) to locate their Java
 classes. Setting the matching [Ice.Package._module_](../../property-reference/ice-properties#ice.package.module)
-property or [Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) to `package` also
-works.
+property or [Ice.Default.Package](../../property-reference/ice-default-properties#ice.default.package) to
+`enclosing-package` also works.
 
 {% /callout %}
 
@@ -110,9 +112,9 @@ for an example.
 
 `["java:serialVersionUID:uid"]`. Applies to classes, exceptions, and structs.
 
-The Slice-to-Java compiler computes a default value for the `serialVersionUID` member of Slice
-[classes](../user-defined-types/classes), [exceptions](../exceptions), and
-[structures](../user-defined-types/structures). This directive replaces this value with `uid`, an integer literal. The
+The Slice-to-Java compiler computes a default value for the `serialVersionUID` field of the Java classes mapped from
+Slice [classes](../user-defined-types/classes), [exceptions](../exceptions), and
+[structs](../user-defined-types/structures). This directive replaces this value with `uid`, an integer literal. The
 application is then responsible for updating the UID whenever changes to the Slice definition affect the serializable
 state of the type.
 

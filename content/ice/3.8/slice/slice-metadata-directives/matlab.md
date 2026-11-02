@@ -6,7 +6,7 @@ MATLAB metadata directives use the `matlab` prefix.
 
 `["matlab:identifier:name"]`. Applies to any definition, parameter, or field.
 
-This directive maps the Slice construct to the MATLAB identifier `name`.
+The generated MATLAB code uses `name` instead of the Slice identifier.
 
 For example:
 
