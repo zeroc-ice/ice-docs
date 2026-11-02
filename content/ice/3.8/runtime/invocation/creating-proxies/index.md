@@ -55,10 +55,10 @@ A server uses an object adapter to create the proxies through which clients invo
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-- `createProxy` returns a proxy with the given identity. If the object adapter has an
-  [AdapterId](../../../property-reference/object-adapter-properties), the proxy is an indirect proxy that refers to the
-  object adapter's `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, the proxy is a
-  direct proxy that holds the object adapter's published endpoints.
+- `createProxy` returns an indirect proxy when the object adapter has an
+  [AdapterId](../../../property-reference/object-adapter-properties): this proxy refers to the object adapter's
+  `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, `createProxy` returns a direct
+  proxy that holds the object adapter's published endpoints.
 - `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
 - `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
   [well-known proxy](../proxy-endpoints/well-known-proxy) when the object adapter has no adapter ID.
@@ -86,8 +86,8 @@ All these proxies use the options set by the object adapter's
 
 ## Creating a Proxy from a Connection
 
-`createProxy` on a connection returns a fixed proxy with the given identity: invocations on this proxy use only this
-connection. A server uses such a proxy to call back a client over a
+`createProxy` on a connection returns a fixed proxy: invocations on this proxy use only this connection. A server uses
+such a proxy to call back a client over a
 [bidirectional connection](../../connection-management/bidirectional-connections).
 
 {% /iflang %}
