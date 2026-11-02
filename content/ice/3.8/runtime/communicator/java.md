@@ -1,0 +1,27 @@
+{% language-section name="creating" %}
+
+You create a communicator by using its constructor, for example:
+
+```java
+class Client {
+    public static void main(String[] args) {
+        try (Communicator communicator = new Communicator(args)) {
+            // ...
+        }
+    }
+}
+```
+
+The constructor accepts the argument vector that is passed to `main` by the operating system. The constructor scans the
+argument vector for any [command-line options](../properties-and-configuration/setting-properties-on-the-command-line)
+that are relevant to the Ice runtime; if anything goes wrong during initialization, it throws an exception. The
+constructor leaves `args` unchanged; to get the arguments that remain once the Ice options are removed, call the
+constructor that also accepts a `List<String> remainingArgs`, which it fills with these arguments.
+
+To pass other options to the Ice runtime, use a constructor that accepts an
+[InitializationData](api:Ice/InitializationData).
+
+`Communicator` implements `AutoCloseable`. This allows you to create and clean up your communicator in a
+try-with-resources statement as shown above.
+
+{% /language-section %}

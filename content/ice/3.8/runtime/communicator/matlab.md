@@ -1,4 +1,4 @@
-{% language-section name="mapping" %}
+{% language-section name="creating" %}
 
 You create a communicator with the `Ice.Communicator` constructor:
 
@@ -7,8 +7,8 @@ communicator = Ice.Communicator(args);
 ```
 
 The constructor accepts an argument vector and parses the
-[command-line options](../../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to
-the Ice runtime into the properties of the new communicator. If anything goes wrong during initialization, it throws an
+[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
+Ice runtime into the properties of the new communicator. If anything goes wrong during initialization, it throws an
 exception. The constructor also accepts the `Properties` and `SliceLoader` name-value arguments; when you pass both an
 argument vector and `Properties`, the Ice options in the argument vector override these properties.
 
@@ -26,8 +26,6 @@ To destroy the communicator when the function that created it returns, schedule 
 cleanup = onCleanup(@() communicator.destroy());
 ```
 
-MATLAB clears `cleanup` when the function returns, which calls `destroy` on the communicator. The `destroy` method is
-responsible for cleaning up the communicator: it closes network connections and reclaims operating system resources,
-such as file descriptors and memory.
+MATLAB clears `cleanup` when the function returns, which calls `destroy` on the communicator.
 
 {% /language-section %}

@@ -4,7 +4,7 @@ sidebarLabel: Command-Line Properties
 ---
 
 When you pass the command-line arguments of your program to communicator
-[initialization](../../communicator/initialization-and-destruction), Ice sets a property for each argument of the form
+[initialization](../../communicator#creating-a-communicator), Ice sets a property for each argument of the form
 `--name=value` where `name` is the name of an Ice property, and removes this argument. For example:
 
 ```shell
@@ -28,11 +28,11 @@ property, such as `--Ice.Foo=1`, makes communicator initialization fail.
 ## Remaining Arguments
 
 Ice removes the arguments it converts into properties, and
-[Communicator Initialization and Destruction](../../communicator/initialization-and-destruction) shows how each mapping
-returns the remaining arguments. Initialize the communicator before you parse these arguments, so that your application
-sees only the arguments meant for it.
+[Creating a Communicator](../../communicator#creating-a-communicator) shows how each mapping returns the remaining
+arguments. Initialize the communicator before you parse these arguments, so that your application sees only the
+arguments meant for it.
 
 ## See Also
 
 - [Using Configuration Files](../using-configuration-files)
-- [Communicator Initialization and Destruction](../../communicator/initialization-and-destruction)
+- [Communicator](../../communicator)
