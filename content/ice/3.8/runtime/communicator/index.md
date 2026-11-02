@@ -21,21 +21,12 @@ Most applications use a single communicator, but an application can create sever
 
 ## Destroying a Communicator
 
-{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
-
-Destroy a communicator when you no longer need it.
-
-{% /iflang %}
-
 {% language-section name="destroying" /%}
 
-Destroying a communicator closes its connections and releases its resources.
-
-{% iflang langs="cpp,csharp,java,js,python,swift" %}
-
-It also destroys the communicator's object adapters, and waits for the dispatches that are still running to complete.
-
-{% /iflang %}
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}Destroy a communicator when you no longer need it.
+{% /iflang %}Destroying a communicator closes its connections{% iflang langs="cpp,csharp,java,js,python,swift" %},
+destroys its object adapters, waits for the dispatches that are still running to complete,{% /iflang %} and releases its
+resources.
 
 {% language-section name="after-destroying" /%}
 
