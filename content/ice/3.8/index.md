@@ -8,6 +8,7 @@ pages:
   - greeter-example
   - upgrade-guide
   - basics
+  - build-tools
   - slice
   - runtime
   - administration
