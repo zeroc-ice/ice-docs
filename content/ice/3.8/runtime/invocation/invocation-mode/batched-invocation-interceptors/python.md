@@ -1,11 +1,3 @@
-{% language-section name="mapping-1" %}
-
-```py
-initData.batchRequestInterceptor = lambda request, count, size: request.enqueue()
-```
-
-{% /language-section %}
-
 {% language-section name="mapping-2" %}
 
 ```py

@@ -1,24 +1,10 @@
 {% language-section name="proxy-methods-for-batched-invocations" %}
 
 ```php
-$weatherStation = WeatherStationPrxHelper::createProxy(
-    $communicator,
-    'ClearSky:tcp -p 4061 -h localhost');
-
-// Configure the proxy to use the batch oneway invocation mode.
-$weatherStation = $weatherStation->ice_batchOneway();
-
-// ...
-
-while (true) {
-    $weatherStation->report($sensorId, $timeStamp, getAtmosphericConditions());
-    // ...
-    // Send a batch with the last 10 readings.
-    if (++$count == 10) {
-        $weatherStation->ice_flushBatchRequests();
-        $count = 0;
-    }
-}
+$batch = $weatherStation->ice_batchOneway();
+$batch->report($sensorId, $timeStamp1, $reading1);
+$batch->report($sensorId, $timeStamp2, $reading2);
+$batch->ice_flushBatchRequests();
 ```
 
 {% /language-section %}

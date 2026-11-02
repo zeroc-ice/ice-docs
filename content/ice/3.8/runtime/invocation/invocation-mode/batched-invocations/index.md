@@ -3,24 +3,11 @@ title: Batched Invocations
 sidebarLabel: Batched
 ---
 
-Oneway and datagram invocations are normally sent as individual requests, that is, the Ice runtime sends the oneway or
-datagram request to the server immediately, as soon as the client makes the call. If a client sends a number of oneway
-or datagram requests in succession, the client-side runtime traps into the OS kernel for each request, which is
-expensive. In addition, each request is sent with its own request header, that is, for _N_ messages, the bandwidth for
-_N_ request headers is consumed. In situations where a client sends a large number of oneway or datagram requests, the
-additional overhead can be considerable.
+A batch oneway or batch datagram invocation queues its request on the client side instead of sending it. Flushing the
+queue sends all its requests in a single message, which saves the per-request overhead when a client sends many small
+requests.
 
-To avoid the overhead of sending many small requests, you can send oneway and datagram invocations in a batch: instead
-of being sent as a separate requests, a batch request is placed into a client-side buffer by the Ice runtime. Successive
-batch requests are added to the buffer and accumulated on the client side until they are flushed, either explicitly by
-the client or automatically by the Ice runtime.
-
-## Proxy Methods for Batched Invocations
-
-The `ice_batchOneway` and `ice_batchDatagram` methods create a new proxy configured for batch invocations. Once you
-obtain a batch proxy, requests sent via that proxy are buffered by the proxy instead of being sent immediately. Once the
-client has invoked one or more operations on a batch proxy, it can call `ice_flushBatchRequests` to explicitly flush the
-batched requests. This causes the batched requests to be sent "in bulk", preceded by a single message header.
+`ice_batchOneway` and `ice_batchDatagram` return a batch proxy, and `ice_flushBatchRequests` flushes its queue:
 
 {% language-section name="proxy-methods-for-batched-invocations" /%}
 
@@ -30,95 +17,39 @@ starts each dispatch once the previous dispatch returns, so a dispatch implement
 next one starts. Dispatching a batch is not transactional: a request that fails does not undo the requests dispatched
 before it.
 
-Batched requests are queued by the proxy on which the operation was invoked (this is true for all proxies except fixed
-proxies). It's important to be aware of this behavior for several reasons:
+Each batch proxy has its own queue, even when several proxies refer to the same Ice object, and the requests it queued
+are lost if the application releases the proxy before flushing them. Ice does not [retry](../../automatic-retries) a
+batch: if the connection fails, the requests of the batch are lost.
 
-- Batched requests queued on a proxy will be lost if that proxy is deallocated prior to being flushed
-- Proxy instances maintain separate queues even if they refer to the same target object
+## Automatic Flushing
 
-## Automatically Flushing Batched Requests
-
-The default behavior of the Ice runtime, as governed by the configuration property `Ice.BatchAutoFlushSize`,
-automatically flushes batched requests as soon as a batched request causes the accumulated message to reach or exceed
-the specified limit. When this occurs, the Ice runtime immediately flushes the existing batch of requests and begins a
-new batch with this latest request as its first element.
-
-For batched oneway requests, a positive
-[Ice.BatchAutoFlushSize](../../../../property-reference/ice-properties#ice.batchautoflushsize) specifies the automatic
-flush threshold in KiB (1024-byte units). The default is 1024 KiB (1 MiB). A value of `0` disables automatic flushing
-for these requests.
-
-{% iflang langs="cpp,csharp,java,python,ruby,php,matlab,swift" %}
-
-For batched datagram requests, Ice also caps the flush threshold at
-[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) bytes, or 65507 bytes when that
-property is not set. This cap still applies when `Ice.BatchAutoFlushSize` is `0`.
-
-{% /iflang %}
-
-{% callout type="warning" %}
-
-The receiver's setting for `Ice.MessageSizeMax` determines the maximum size that the Ice runtime will accept for an
-incoming protocol message. The sender's setting for `Ice.BatchAutoFlushSize` must not exceed this limit. Over UDP, the
-receiver drops an oversized batch; over the other transports, it rejects the batch with a `MarshalException` and closes
-the connection.
-
-{% /callout %}
-
-Automatic flushing is enabled by default as a convenience for clients to ensure a batch never exceeds the configured
-limit.
-
-{% language-section name="automatically-flushing-batched-requests" /%}
-
-## Batched Invocations for Fixed Proxies
-
-A _fixed proxy_ is a special form of proxy that an application explicitly creates for use with a specific connection.
-Batched requests on a fixed proxy are not queued by the proxy, as is the case for regular proxies, but rather by the
-connection associated with the fixed proxy. Automatic flushing continues to work as usual for batched requests on fixed
-proxies, and you have three options for manually flushing:
-
-- Calling `ice_flushBatchRequests` on a fixed proxy flushes all batched requests queued by its connection; this includes
-  batched requests from other fixed proxies that share the same connection
-- Calling `flushBatchRequests` on the connection flushes all batched requests queued by the target connection
-- Calling `flushBatchRequests` on the communicator flushes all batched requests on all connections associated with the
-  target communicator
+Ice flushes a batch automatically when a new request makes it reach the size set by
+[Ice.BatchAutoFlushSize](../../../../property-reference/ice-properties#ice.batchautoflushsize), in KiB: Ice sends the
+requests queued before this one and starts a new batch with it. The default is 1024 KiB (1 MiB), and `0` disables
+automatic flushing. Keep this size at or below the receiver's `Ice.MessageSizeMax`, the largest message the receiver
+accepts.
 
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
-The `flushBatchRequests` methods of the connection and the communicator take a `CompressBatch` argument that selects
-whether Ice compresses the flushed batch: `Yes`, `No`, or `BasedOnProxy`, which compresses the batch if at least one of
-its requests was made on a proxy with compression enabled.
+When automatic flushing is enabled, Ice also caps this size for batch datagram invocations at
+[Ice.UDP.SndSize](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) bytes, or 65,507 bytes when that
+property is not set. A larger batch datagram is more likely to be fragmented, and the loss of one fragment loses the
+whole batch.
 
 {% /iflang %}
 
-{% callout type="note" %}
+{% iflang langs="cpp,csharp,java,python" %}
 
-`flushBatchRequests` on a connection or communicator has no effect on batched requests queued by regular (non-fixed)
-proxies.
+To flush with your own policy, install a [batch invocation interceptor](../batched-invocation-interceptors).
 
-{% /callout %}
+{% /iflang %}
 
-The synchronous versions of `flushBatchRequests` block the calling thread until the batched requests have been
-successfully written to the local transport. To avoid the risk of blocking, you must use the asynchronous versions
-instead.
+## Batched Invocations for Fixed Proxies
 
-Note the following limitations in case a connection error occurs:
+A batch [fixed proxy](../../creating-proxies#creating-a-proxy-from-a-connection) queues its requests on its connection
+rather than on the proxy, so `ice_flushBatchRequests` on a fixed proxy also flushes the requests of the other fixed
+proxies of this connection. `flushBatchRequests` on a connection flushes the queue of this connection, and on a
+communicator flushes the queues of all its connections; neither flushes the queue of a regular proxy.
 
-- Any requests queued by that connection are lost
-- Automatic retries are not attempted
-- The proxy method `ice_flushBatchRequests` and `flushBatchRequests` on connection throw exceptions; on the other hand,
-  `flushBatchRequests` on communicator ignores all errors
-
-## Considerations for Batched Datagrams
-
-For batched datagram invocations, you need to keep in mind that, if the data for the request in a batch substantially
-exceeds the PDU size of the network, it becomes increasingly likely for an individual UDP packet to get lost due to
-fragmentation. In turn, loss of even a single packet causes the entire batch to be lost. For this reason, batched
-datagram invocations are most suitable for simple interfaces with a number of operations that each set an attribute of
-the target object (or interfaces with similar semantics). Batched oneway invocations do not suffer from this risk
-because they are sent over connection-oriented transports, so individual packets cannot be lost.
-
-## Compressing Batched Invocations
-
-A batch is likely to compress better than isolated requests, because it gives the compression algorithm more data to
-work with. See [Compression](../../../compression) for when compression helps and how to enable it.
+When a flush fails, `ice_flushBatchRequests` and `flushBatchRequests` on a connection report the failure, while
+`flushBatchRequests` on a communicator ignores it.

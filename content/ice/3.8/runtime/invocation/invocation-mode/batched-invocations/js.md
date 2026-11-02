@@ -1,24 +1,10 @@
 {% language-section name="proxy-methods-for-batched-invocations" %}
 
 ```js
-let weatherStation = new WeatherStationPrx(
-    communicator,
-    "ClearSky:tcp -p 4061 -h localhost");
-
-// Configure the proxy to use the batch oneway invocation mode.
-weatherStation = weatherStation.ice_batchOneway();
-
-// ...
-
-while (true) {
-    await weatherStation.report(sensorId, timeStamp, getAtmosphericConditions());
-    // ...
-    // Send a batch with the last 10 readings.
-    if (++count == 10) {
-        await weatherStation.ice_flushBatchRequests();
-        count = 0;
-    }
-}
+const batch = weatherStation.ice_batchOneway();
+await batch.report(sensorId, timeStamp1, reading1);
+await batch.report(sensorId, timeStamp2, reading2);
+await batch.ice_flushBatchRequests();
 ```
 
 {% /language-section %}
