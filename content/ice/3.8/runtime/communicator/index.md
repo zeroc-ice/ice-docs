@@ -29,7 +29,7 @@ Destroy a communicator when you no longer need it.
 
 {% language-section name="destroying" /%}
 
-Destroying a communicator closes its connections and releases its resources, such as threads and file descriptors.
+Destroying a communicator closes its connections and releases its resources.
 
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
