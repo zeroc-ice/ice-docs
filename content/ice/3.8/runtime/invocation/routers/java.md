@@ -1,4 +1,4 @@
-{% language-section name="configuring-a-router-for-client-invocations-1" %}
+{% language-section name="configuring-a-router" %}
 
 ```java
 var router = RouterPrx.createProxy(...);
