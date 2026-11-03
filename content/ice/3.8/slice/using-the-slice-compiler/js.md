@@ -1,15 +1,14 @@
-{% language-section name="common-options-1" %}
+{% language-section name="dependency-options" %}
 
 - `--depend` Print dependency information in Makefile format to standard output by default, or to the file specified by
   the `--depend-file` option.
-
-{% /language-section %}
-
-{% language-section name="common-options-2" %}
-
+- `--depend-xml` Print dependency information in XML format to standard output by default, or to the file specified by
+  the `--depend-file` option.
 - `--depend-json` Print dependency information in JSON format to standard output by default, or to the file specified by
   the `--depend-file` option. No code is generated when this option is specified. The output consists of the complete
   list of Slice files that the input Slice files depend on through direct or indirect inclusion.
+- `--depend-file FILE` Directs dependency information to the specified file. The output format depends on whether
+  `--depend`, `--depend-xml`, or `--depend-json` is specified.
 
 {% /language-section %}
 

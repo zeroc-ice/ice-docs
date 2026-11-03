@@ -30,15 +30,9 @@ mapping:
 - `--output-dir` `DIR` Place the generated files into directory `DIR`, which must already exist.
 - `-d, --debug` Print debug information showing the operation of the Slice parser.
 
-{% language-section name="common-options-1" /%}
+The following options print dependency information:
 
-- `--depend-xml` Print dependency information in XML format to standard output by default, or to the file specified by
-  the `--depend-file` option.
-
-{% language-section name="common-options-2" /%}
-
-- `--depend-file FILE` Directs dependency information to the specified file. The output format depends on whether
-  `--depend`, `--depend-xml`, or `--depend-json` is specified.
+{% language-section name="dependency-options" /%}
 
 The Slice compilers permit you to compile more than a single source file, so you can compile several Slice definitions
 at once, for example:

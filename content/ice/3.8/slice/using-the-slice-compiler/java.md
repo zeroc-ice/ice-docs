@@ -1,3 +1,11 @@
+{% language-section name="dependency-options" %}
+
+- `--depend-xml` Print dependency information in XML format to standard output by default, or to the file specified by
+  the `--depend-file` option.
+- `--depend-file FILE` Directs dependency information to the specified file.
+
+{% /language-section %}
+
 {% language-section name="common-options-3" %}
 
 ## The Slice Compiler for Java
