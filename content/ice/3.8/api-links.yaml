@@ -107,6 +107,13 @@ Ice/ObjectAdapter.add:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#add
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.add
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/add(servant:id:)
+Ice/ObjectAdapter.addDefaultServant:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_af039a9247c7caa4f947d98494514b5bf.html#af039a9247c7caa4f947d98494514b5bf
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_addDefaultServant_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#addDefaultServant(com.zeroc.Ice.Object,java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#adddefaultservant
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.addDefaultServant
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/adddefaultservant(servant:category:)
 Ice/ObjectAdapter.addFacet:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a91fad984457b9ff9588675e0b4a50b9d.html#a91fad984457b9ff9588675e0b4a50b9d
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_addFacet_
@@ -135,6 +142,13 @@ Ice/ObjectAdapter.remove:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#remove
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.remove
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/remove(_:)
+Ice/ObjectAdapter.removeDefaultServant:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a6e994fd6211a0ffc6f5e5c998ed9a34b.html#a6e994fd6211a0ffc6f5e5c998ed9a34b
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_removeDefaultServant_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#removeDefaultServant(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#removedefaultservant
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.removeDefaultServant
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/removedefaultservant(_:)
 Ice/ObjectAdapter.removeFacet:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a60f4bf2598715a3ff634274ee58f6560.html#a60f4bf2598715a3ff634274ee58f6560
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_removeFacet_
