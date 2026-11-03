@@ -6,7 +6,6 @@ pages:
   - using-configuration-files
   - configuration-file-syntax
   - setting-properties-on-the-command-line
-  - command-line-parsing-and-initialization
   - properties-class
   - alternate-property-stores
 ---
