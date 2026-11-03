@@ -1,42 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
 `Ice::ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and two asynchronous
-[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync) overloads, one returning a future and one accepting callbacks:
-
-```cpp
-namespace Ice
-{
-    class ObjectPrx
-    {
-    public:
-        bool ice_invoke(
-            std::string_view operation,
-            OperationMode mode,
-            const std::vector<std::byte>& inParams,
-            std::vector<std::byte>& outParams,
-            const Context& context = noExplicitContext) const;
-
-        std::future<std::tuple<bool, std::vector<std::byte>>> ice_invokeAsync(
-            std::string_view operation,
-            OperationMode mode,
-            const std::vector<std::byte>& inParams,
-            const Context& context = noExplicitContext) const;
-
-        std::function<void()> ice_invokeAsync(
-            std::string_view operation,
-            OperationMode mode,
-            const std::vector<std::byte>& inParams,
-            std::function<void(bool, std::vector<std::byte>)> response,
-            std::function<void(std::exception_ptr)> ex = nullptr,
-            std::function<void(bool)> sent = nullptr,
-            const Context& context = noExplicitContext) const;
-        ...
-    };
-}
-```
-
-Each function also has an overload that takes the in-parameters as a `std::pair<const std::byte*, const std::byte*>`;
-see the API reference.
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync) overloads, one returning a future and one accepting callbacks.
 
 {% /language-section %}
 
