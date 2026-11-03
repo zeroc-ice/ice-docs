@@ -23,7 +23,7 @@ with a backslash; see [Escaped Identifiers](../lexical-rules#escaped-identifiers
 - [`interface`](../interfaces)
 - [`long`](../basic-types#integer-types)
 - [`module`](../modules)
-- [`Object`](../interfaces/interface-inheritance#implicit-inheritance-from-object), the base of all interfaces
+- [`Object`](../interfaces/interface-inheritance#implicit-inheritance-from-object)
 - `optional`: [parameters and return values](../operations#optional-parameters-and-return-values) and
   [fields](../fields#optional-fields)
 - [`out`](../operations#operation-syntax)
