@@ -33,5 +33,5 @@ with a backslash; see [Escaped Identifiers](../lexical-rules#escaped-identifiers
 - [`struct`](../user-defined-types/structures)
 - [`throws`](../exceptions#exception-specification-in-operations)
 - [`true`](../basic-types#booleans)
-- [`Value`](../user-defined-types/classes/class-inheritance#implicit-inheritance-from-value), the base of all classes
+- [`Value`](../user-defined-types/classes/class-inheritance#implicit-inheritance-from-value)
 - [`void`](../operations#operation-syntax)
