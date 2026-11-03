@@ -31,7 +31,7 @@ communicator has an implicit context, and its scope:
 {% iflang langs="js" %}
 
 - `None` _(the default)_: the communicator has no implicit context, and `getImplicitContext` returns null.
-- `Shared`: the communicator has one implicit context, which all threads can use concurrently.
+- `Shared`: the communicator has one implicit context.
 
 {% /iflang %}
 
