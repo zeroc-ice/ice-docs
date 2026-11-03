@@ -22,7 +22,7 @@ An object adapter has two sets of [endpoints](../../endpoint-syntax):
 
 - its _physical endpoints_, on which it listens for connections;
 - its _published endpoints_, which it embeds in the direct proxies it creates and, when it has an adapter ID, registers
-  with the locator registry.
+  with the [locator registry](../../locators/locator-semantics-for-servers).
 
 ## Physical Object Adapter Endpoints
 
@@ -49,8 +49,8 @@ MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 Without a port, the operating system picks a port each time you create the object adapter, and the proxies that clients
 kept from a previous run no longer reach it. Give the endpoints a fixed port, unless clients reach the object adapter
 through indirect proxies, such as with [IceGrid](../../../services/icegrid), or use its proxies only while the server
-runs. An object adapter with an adapter ID registers its published endpoints with the locator registry when you activate
-it.
+runs. An object adapter with an adapter ID registers its published endpoints with the
+[locator registry](../../locators/locator-semantics-for-servers) when you activate it.
 
 {% /iflang %}
 
