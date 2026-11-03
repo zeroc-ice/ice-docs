@@ -4,14 +4,18 @@ sidebarLabel: Properties Class
 ---
 
 A [Properties](api:Ice/Properties) object, or _property set_, holds the properties of a communicator, which
-`getProperties` on the communicator returns. You can also create a property set yourself, for example to give it to a
-new communicator.
+[`getProperties`](api:Ice/Communicator.getProperties) on the communicator returns. You can also create a property set
+yourself, for example to give it to a new communicator.
 
 ## Reading and Setting a Property
 
-Use `getProperty`, `getPropertyAsInt`, and `getPropertyAsList` to read properties as strings, integers, or lists of
+Use [`getProperty`](api:Ice/Properties.getProperty), [`getPropertyAsInt`](api:Ice/Properties.getPropertyAsInt), and
+[`getPropertyAsList`](api:Ice/Properties.getPropertyAsList) to read properties as strings, integers, or lists of
 strings. For an unset property, they return the empty string, 0, and an empty list, respectively. Their `WithDefault`
-variants let you choose a default for a property that is not set.
+variants, [`getPropertyWithDefault`](api:Ice/Properties.getPropertyWithDefault),
+[`getPropertyAsIntWithDefault`](api:Ice/Properties.getPropertyAsIntWithDefault), and
+[`getPropertyAsListWithDefault`](api:Ice/Properties.getPropertyAsListWithDefault), let you choose a default for a
+property that is not set.
 
 `getPropertyAsList` splits a value at commas, spaces, tabs, and line breaks. Enclose an item in single or double quotes
 to include separators in that item. Within a quoted item, escape its enclosing quote with a backslash. Quotes must
@@ -19,13 +23,14 @@ match.
 
 `getPropertyAsInt` fails when the property holds a value that is not an integer.
 
-`setProperty` sets a property, and clears it when the value is the empty string. It applies the
-[property validation](../properties-overview#property-validation) rules.
+[`setProperty`](api:Ice/Properties.setProperty) sets a property, and clears it when the value is the empty string. It
+applies the [property validation](../properties-overview#property-validation) rules.
 
 ## Reading an Ice Property
 
-`getIceProperty`, `getIcePropertyAsInt`, and `getIcePropertyAsList` read Ice properties. Unlike the plain `getProperty`
-methods, they return the property's built-in default when it is not set; see the
+[`getIceProperty`](api:Ice/Properties.getIceProperty), [`getIcePropertyAsInt`](api:Ice/Properties.getIcePropertyAsInt),
+and [`getIcePropertyAsList`](api:Ice/Properties.getIcePropertyAsList) read Ice properties. Unlike the plain
+`getProperty` methods, they return the property's built-in default when it is not set; see the
 [property reference](../../../property-reference). For example, if you never set `Ice.Warn.Dispatch`,
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of `1`, while `getPropertyAsInt("Ice.Warn.Dispatch")`
 returns `0`.
@@ -47,10 +52,13 @@ initialization reaches your code as an error.
 
 ## Reading and Parsing Groups of Properties
 
-`getPropertiesForPrefix` returns a dictionary of the stored properties whose names begin with the prefix. An empty
-prefix returns every stored property. The method marks all returned properties as used.
+[`getPropertiesForPrefix`](api:Ice/Properties.getPropertiesForPrefix) returns a dictionary of the stored properties
+whose names begin with the prefix. An empty prefix returns every stored property. The method marks all returned
+properties as used.
 
-`parseCommandLineOptions` converts options beginning with `--prefix.` into properties and returns the unconsumed
-arguments, and `parseIceCommandLineOptions` performs this parsing for the reserved Ice prefixes. Both methods apply the
-usual property-name validation. `getCommandLineOptions` returns the stored properties as an array of `--key=value`
-strings.
+[`parseCommandLineOptions`](api:Ice/Properties.parseCommandLineOptions) converts options beginning with `--prefix.` into
+properties and returns the unconsumed arguments, and
+[`parseIceCommandLineOptions`](api:Ice/Properties.parseIceCommandLineOptions) performs this parsing for the reserved Ice
+prefixes. Both methods apply the usual property-name validation.
+[`getCommandLineOptions`](api:Ice/Properties.getCommandLineOptions) returns the stored properties as an array of
+`--key=value` strings.
