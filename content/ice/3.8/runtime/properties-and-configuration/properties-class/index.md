@@ -9,22 +9,15 @@ yourself, for example to give it to a new communicator.
 
 ## Reading and Setting a Property
 
-Use [`getProperty`](api:Ice/Properties.getProperty), [`getPropertyAsInt`](api:Ice/Properties.getPropertyAsInt), and
-[`getPropertyAsList`](api:Ice/Properties.getPropertyAsList) to read properties as strings, integers, or lists of
-strings. For an unset property, they return the empty string, 0, and an empty list, respectively. Their `WithDefault`
-variants, [`getPropertyWithDefault`](api:Ice/Properties.getPropertyWithDefault),
+[`getProperty`](api:Ice/Properties.getProperty), [`getPropertyAsInt`](api:Ice/Properties.getPropertyAsInt), and
+[`getPropertyAsList`](api:Ice/Properties.getPropertyAsList) read a property as a string, an integer, or a list of
+strings. Their `WithDefault` variants, [`getPropertyWithDefault`](api:Ice/Properties.getPropertyWithDefault),
 [`getPropertyAsIntWithDefault`](api:Ice/Properties.getPropertyAsIntWithDefault), and
-[`getPropertyAsListWithDefault`](api:Ice/Properties.getPropertyAsListWithDefault), let you choose a default for a
+[`getPropertyAsListWithDefault`](api:Ice/Properties.getPropertyAsListWithDefault), return the default you give for a
 property that is not set.
 
-`getPropertyAsList` splits a value at commas, spaces, tabs, and line breaks. Enclose an item in single or double quotes
-to include separators in that item. Within a quoted item, escape its enclosing quote with a backslash. Quotes must
-match.
-
-`getPropertyAsInt` fails when the property holds a value that is not an integer.
-
-[`setProperty`](api:Ice/Properties.setProperty) sets a property, and clears it when the value is the empty string. It
-applies the [property validation](../properties-overview#property-validation) rules.
+[`setProperty`](api:Ice/Properties.setProperty) sets a property, and applies the
+[property validation](../properties-overview#property-validation) rules.
 
 ## Reading an Ice Property
 
@@ -52,13 +45,10 @@ initialization reaches your code as an error.
 
 ## Reading and Parsing Groups of Properties
 
-[`getPropertiesForPrefix`](api:Ice/Properties.getPropertiesForPrefix) returns a dictionary of the stored properties
-whose names begin with the prefix. An empty prefix returns every stored property. The method marks all returned
-properties as used.
-
-[`parseCommandLineOptions`](api:Ice/Properties.parseCommandLineOptions) converts options beginning with `--prefix.` into
-properties and returns the unconsumed arguments, and
-[`parseIceCommandLineOptions`](api:Ice/Properties.parseIceCommandLineOptions) performs this parsing for the reserved Ice
-prefixes. Both methods apply the usual property-name validation.
-[`getCommandLineOptions`](api:Ice/Properties.getCommandLineOptions) returns the stored properties as an array of
-`--key=value` strings.
+[`getPropertiesForPrefix`](api:Ice/Properties.getPropertiesForPrefix) returns the properties whose names begin with a
+prefix, and marks them as [used](../properties-overview#unused-properties).
+[`parseCommandLineOptions`](api:Ice/Properties.parseCommandLineOptions) and
+[`parseIceCommandLineOptions`](api:Ice/Properties.parseIceCommandLineOptions) convert command-line options into
+properties, with the same validation as `setProperty`, and
+[`getCommandLineOptions`](api:Ice/Properties.getCommandLineOptions) converts a property set back into command-line
+options.
