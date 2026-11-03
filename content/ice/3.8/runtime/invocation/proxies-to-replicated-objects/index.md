@@ -3,15 +3,27 @@ title: Proxies to Replicated Objects
 ---
 
 A _replicated_ Ice object is hosted by several servers, the replicas, each with a servant for the object's identity. A
-client reaches any of these replicas with a proxy written in one of three ways:
+client reaches any of these replicas with one of the following proxies:
 
-- The proxy lists the endpoints of all the replicas.
-- The proxy has a single endpoint that points to a TCP load balancer in front of the replicas.
-- The proxy has a single endpoint with a host name that resolves to the address of each replica.
+- An indirect proxy with the ID of the replica group of these servers.
+- A direct proxy that lists the endpoints of all the replicas.
+- A direct proxy with a single endpoint that points to a TCP load balancer in front of the replicas.
+- A direct proxy with a single endpoint with a host name that resolves to the address of each replica.
 
-With [IceGrid](../../../services/icegrid), the replicas are the object adapters of a
-[replica group](../../../services/icegrid/object-adapter-replication), and the client uses an indirect proxy with the
-replica group ID, such as `hello@HelloGroup`: the locator supplies the endpoints of the replicas.
+## Using an Indirect Proxy
+
+An indirect proxy can refer to a replica group rather than to a single object adapter:
+
+```text
+hello @ HelloGroup
+```
+
+The object adapter of each replica registers with the [locator](../../locators) under this replica group ID, set by its
+[ReplicaGroupId](../../../property-reference/object-adapter-properties#adapter.replicagroupid) property. The locator
+returns the endpoints of one or more of these replicas, and Ice connects to one of these endpoints. You add or remove a
+replica by registering or unregistering its object adapter with the locator, without changing the proxies. With
+[IceGrid](../../../services/icegrid), the replicas are the object adapters of a
+[replica group](../../../services/icegrid/object-adapter-replication).
 
 ## Listing the Endpoints of Every Replica
 
