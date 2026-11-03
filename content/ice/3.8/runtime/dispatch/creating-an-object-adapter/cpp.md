@@ -1,4 +1,4 @@
-{% language-section name="see-also-1" %}
+{% language-section name="create" %}
 
 ```cpp
 Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapter(
@@ -7,7 +7,7 @@ Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapter(
 
 {% /language-section %}
 
-{% language-section name="see-also-2" %}
+{% language-section name="create-with-endpoints" %}
 
 ```cpp
 Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints(

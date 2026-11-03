@@ -9,60 +9,48 @@ languages:
   - swift
 ---
 
-You create an object adapter by calling `createObjectAdapter` on your communicator. For example:
+You create an object adapter by calling `createObjectAdapter` on a communicator:
 
-{% language-section name="see-also-1" /%}
+{% language-section name="create" /%}
 
-{% iflang langs="cpp,csharp,java,python,swift" %}
-
-`createObjectAdapter` creates a new object adapter associated with this communicator. Each object adapter is associated
-with zero or more [transport endpoints](../object-adapter-endpoints). Typically, an object adapter has a single
-transport endpoint.
-
-{% callout type="note" %}
-
-An object adapter can also offer multiple endpoints. If so, these endpoints each lead to the same set of objects and
-represent alternative means of accessing these objects.
-
-An object adapter can also have no endpoint at all. In that case, the adapter can only be reached via collocated
-invocations originating from proxies created with the same communicator as the object adapter, or through existing
-connections associated with the adapter when the adapter is configured for bidirectional communications.
-
-{% /callout %}
-
-{% /iflang %}
-
-An application normally needs to configure an object adapter with
-{% iflang langs="cpp,csharp,java,python,swift" %}[endpoints](../object-adapter-endpoints) or {% /iflang %}a
-[router](../../../services/glacier2). Calling `createObjectAdapter` with a non-empty value for `name` means the new
-object adapter will check the communicator's configuration for
-[properties](../../../property-reference/object-adapter-properties), using its name as prefix, including:
+The object adapter reads its configuration from the [properties](../../../property-reference/object-adapter-properties)
+prefixed with its name, including:
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-- [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) - defines one or more
-  object adapter endpoints
-- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router) - specifies the stringified
-  proxy of a router
+- [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints), the
+  [endpoints](../object-adapter-endpoints) on which the object adapter listens;
+- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router), the proxy of a
+  [router](../../invocation/routers).
 
 {% /iflang %}
 
 {% iflang langs="js" %}
 
-- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router) - specifies the stringified
-  proxy of a router
+- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router), the proxy of a
+  [router](../../invocation/routers).
 
 {% /iflang %}
+
+When you call `createObjectAdapter` with an empty name, the object adapter gets a UUID as its name and reads no
+properties.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-If you want to create an object adapter and specify its endpoints in one shot, call `createObjectAdapterWithEndpoints`
-on your communicator. For example:
+`createObjectAdapterWithEndpoints` creates an object adapter and sets its endpoints:
 
 {% /iflang %}
 
-{% language-section name="see-also-2" /%}
+{% language-section name="create-with-endpoints" /%}
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
+An object adapter without endpoints dispatches only collocated invocations and the requests it receives over
+[bidirectional connections](../../connection-management/bidirectional-connections).
+
+{% /iflang %}
 
 ## See Also
 
 - [Communicator](../../communicator)
+- [Object Adapter Properties](../../../property-reference/object-adapter-properties)
