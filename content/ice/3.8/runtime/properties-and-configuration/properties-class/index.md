@@ -3,60 +3,10 @@ title: The Properties Class
 sidebarLabel: Properties Class
 ---
 
-The `Properties` API lets you read and set the communicator's configuration and your own application settings. In
-mappings that support [configuration files](../using-configuration-files), a file can contain application properties
-alongside Ice properties. For example, a file system application could use:
-
-```config
-# Configuration file for file system application
-
-Filesystem.MaxFileSize=1024    # Max file size in kB
-```
-
-The Ice runtime stores this `Filesystem.MaxFileSize` property like any other property and makes it accessible
-programmatically through `Properties`. To read application properties from command-line arguments, use
-`parseCommandLineOptions` with your application's prefix as described below.
-
-{% iflang langs="cpp" %}
-
-See [Ice::Properties](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties.html) in the API reference.
-
-{% /iflang %}
-
-{% iflang langs="csharp" %}
-
-See [Ice.Properties](https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html) in the API reference.
-
-{% /iflang %}
-
-{% iflang langs="java" %}
-
-See [com.zeroc.Ice.Properties](https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html) in
-the API reference.
-
-{% /iflang %}
-
-{% iflang langs="js" %}
-
-See [Ice.Properties](https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html) in the API reference.
-
-{% /iflang %}
-
-{% iflang langs="python" %}
-
-See [Ice.Properties](https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html) in the API reference.
-
-{% /iflang %}
-
-{% iflang langs="swift" %}
-
-See [Properties](https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties) in the API reference.
-
-{% /iflang %}
-
-To access property values from within your program, you need to acquire the communicator's properties by calling
-`getProperties`. Most of the methods on the returned `Properties` object involve reading properties, setting properties,
-and parsing properties.
+A [Properties](api:Ice/Properties) object, or _property set_, holds the properties of a communicator, which
+`getProperties` on the communicator returns. You can also create a property set yourself, for example to give it to a
+new communicator or to parse the command-line options of your application. Your application reads and sets its own
+properties through the same API as Ice properties.
 
 ## Reading and Setting a Property
 
@@ -65,18 +15,13 @@ lists of strings. For an unset property, they return the empty string, 0, and an
 `WithDefault` variants let you choose a default for a property that is not set.
 
 `getPropertyAsList` splits a value at commas, spaces, tabs, and line breaks. Enclose an item in single or double quotes
-to include separators in that item. Within a quoted item, escape its enclosing quote with a backslash. If quotes are
-mismatched, Ice logs a warning and returns an empty list, or the supplied default for `getPropertyAsListWithDefault`.
+to include separators in that item. Within a quoted item, escape its enclosing quote with a backslash. Quotes must
+match.
 
-`getPropertyAsInt` throws `PropertyException` when the property holds a value it cannot convert:
-
-```text
-property 'Filesystem.MaxFileSize' has an invalid integer value: 'large'
-```
+`getPropertyAsInt` fails when the property holds a value that is not an integer.
 
 `setProperty` sets a property, and clears it when the value is the empty string. It applies the
-[property validation](../properties-overview#property-validation) rules, so it throws `PropertyException` for a name Ice
-rejects.
+[property validation](../properties-overview#property-validation) rules.
 
 ## Reading an Ice Property
 
@@ -86,8 +31,8 @@ methods, they return the property's built-in default when it is not set; see the
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of `1`, while `getPropertyAsInt("Ice.Warn.Dispatch")`
 returns `0`.
 
-These three methods accept the name of an Ice property and throw `PropertyException` for any other name. Read the
-properties of your own application with the plain `getProperty` methods, which take any name.
+These three methods accept only the names of Ice properties. Read the properties of your own application with the plain
+`getProperty` methods, which take any name.
 
 {% iflang langs="swift" %}
 
