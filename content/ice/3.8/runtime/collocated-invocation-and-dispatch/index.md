@@ -62,8 +62,8 @@ A collocated invocation differs from an invocation sent over a connection in the
 
 {% iflang langs="java" %}
 
-- When the servant does not use AMD, the callbacks attached to the future of an asynchronous collocated invocation run
-  in the thread that dispatched the request.
+When the servant does not use AMD, the callbacks attached to the future of an asynchronous collocated invocation run in
+the thread that dispatched the request.
 
 {% /iflang %}
 
