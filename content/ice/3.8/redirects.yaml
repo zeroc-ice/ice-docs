@@ -19,6 +19,7 @@ permanent:
   'runtime/invocation/proxy-defaults': 'runtime/invocation/creating-proxies#proxy-defaults'
   'runtime/invocation/proxy-endpoints/indirect-proxy-with-object-adapter-identifier': 'runtime/invocation/proxy-endpoints#proxy-with-an-adapter-id'
   'runtime/invocation/proxy-endpoints/well-known-proxy': 'runtime/invocation/proxy-endpoints#well-known-proxy'
+  'runtime/invocation/request-contexts/design-considerations-for-request-contexts': 'runtime/invocation/request-contexts'
   'basics/services-overview': 'services'
   'basics/protocol-in-a-nutshell': 'protocol'
   'slice/user-defined-types/classes/simple-classes': 'slice/user-defined-types/classes'

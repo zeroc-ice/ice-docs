@@ -3,42 +3,16 @@ title: Explicit Request Contexts
 sidebarLabel: Explicit
 ---
 
-Request contexts allow a client to send additional data to the server without having to include this data as input
-parameters in the operation’s Slice definition. They provide a lightweight mechanism for passing metadata alongside
-normal request arguments.
+An explicit context applies only to the invocation you pass it to, and
+[replaces the other contexts](../../request-contexts#combining-request-contexts), even when it is empty. For example, a
+client asks for a French greeting:
 
-An explicit context, even an empty one, replaces the [per-proxy](../per-proxy-request-contexts) and
-[implicit](../implicit-request-contexts) contexts: Ice sends only the explicit context with the invocation.
+{% language-section name="client" /%}
 
-The examples on this page use the `Greeter` interface:
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
 
-{% iflang langs="cpp,java,js,matlab,php,python,ruby,swift" %}
+The implementation of the operation reads the context from the `ctx` field of its `Current` parameter:
 
-```slice
-module VisitorCenter
-{
-    interface Greeter
-    {
-        string greet(string name);
-    }
-}
-```
+{% language-section name="server" /%}
 
 {% /iflang %}
-
-{% iflang langs="csharp" %}
-
-```slice
-module VisitorCenter
-{
-    interface Greeter
-    {
-        ["cs:identifier:Greet"]
-        string greet(string name);
-    }
-}
-```
-
-{% /iflang %}
-
-{% language-section name="mapping" /%}

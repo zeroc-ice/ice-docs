@@ -4,25 +4,46 @@ pages:
   - explicit-request-contexts
   - per-proxy-request-contexts
   - implicit-request-contexts
-  - design-considerations-for-request-contexts
 ---
 
-All mapped operations on proxies provide a trailing parameter representing the _request context_. The Slice definition
-of this parameter is as follows:
+A _request context_ is a dictionary of string keys and values that Ice sends with an invocation. It lets a client send
+metadata with a request without adding a parameter to the operation. The implementation of the operation reads the
+context from the `ctx` field of its `Current` parameter.
 
-```slice
-module Ice
-{
-    dictionary<string, string> Context;
-}
-```
+Context keys that begin with an underscore are reserved for Ice.
 
-As you can see, a context is a dictionary that maps strings to strings or, conceptually, a context is a collection of
-name-value pairs. The contents of this dictionary (if any) are marshaled with every request to the server, that is, if
-the client populates a context with a number of name-value pairs and uses that context for an invocation, the name-value
-pairs that are sent by the client are available to the server.
+A client supplies a context in one of the following ways:
 
-On the server side, the operation implementation can access the received `Context` via the `ctx` field of the `Current`
-parameter and extract the name-value pairs that were sent by the client.
+- An [explicit context](./explicit-request-contexts) applies to one invocation.
+- A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
 
-Context names beginning with an underscore are reserved for use by Ice.
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+- An [implicit context](./implicit-request-contexts) applies to the invocations made through the proxies of a
+  communicator.
+
+{% /iflang %}
+
+## Combining Request Contexts
+
+An explicit context, even an empty one, replaces the other contexts: Ice sends only the explicit context with the
+invocation.
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+Without an explicit context, Ice sends the entries of both the per-proxy and the implicit contexts. When both contain
+the same key, Ice sends the value of the per-proxy context.
+
+{% /iflang %}
+
+## When to Use Request Contexts
+
+Use a request context for information that applies to requests in general rather than to one operation, such as a
+transaction identifier, an authorization token, or a language preference. Data that belongs to a specific operation,
+including an argument added in a later version, goes in the operation's parameters, where it is strongly typed;
+[optional parameters](../../../slice/operations#optional-parameters-and-return-values) let you add one without breaking
+existing clients.
+
+A router decides what happens to the context of each request it forwards: it can pass the context on, change it, or drop
+it. Glacier2 drops it unless you
+[configure it to forward contexts](../../../services/glacier2/how-glacier2-uses-request-contexts#context-forwarding).
