@@ -42,8 +42,8 @@ MyProxy.Router=Glacier2/router:tcp -h routerhost -p 4063
 
 A client that receives callbacks through a router creates an object adapter associated with this router, with the
 [_adapter_.Router](../../../property-reference/object-adapter-properties#adapter.router) property or by calling
-`createObjectAdapterWithRouter`. Within a communicator, a router can be associated with only one object adapter, until
-this object adapter is destroyed.
+`createObjectAdapterWithRouter`. An object adapter uses a single router, and within a communicator, a router serves a
+single object adapter at a time: to receive callbacks through several routers, create an object adapter for each router.
 
 This object adapter does not accept incoming connections, so you don't set its `Endpoints` property: it receives
 requests over the [bidirectional connection](../../connection-management/bidirectional-connections) between the client
