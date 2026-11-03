@@ -305,6 +305,15 @@ Ice/ReplyStatus:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ReplyStatus.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ReplyStatus.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/replystatus
+Ice/RequestFailedException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1RequestFailedException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.RequestFailedException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/RequestFailedException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/RequestFailedException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-RequestFailedException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.RequestFailedException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/RequestFailedException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/requestfailedexception
 Ice/Service:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Service.html
 Ice/SlicedData:
@@ -325,6 +334,15 @@ Ice/ToStringMode:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ToStringMode.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ToStringMode.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/tostringmode
+Ice/UnknownException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UnknownException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UnknownException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/UnknownException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/UnknownException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-UnknownException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.UnknownException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/UnknownException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/unknownexception
 Ice/UnknownSlicedValue:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UnknownSlicedValue.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UnknownSlicedValue.html
