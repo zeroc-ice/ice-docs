@@ -23,11 +23,13 @@ in the caller.
 Dispatch exceptions derive from [DispatchException](api:Ice/DispatchException), whose `replyStatus` field holds the
 reply status:
 
-- `ObjectNotExistException`, `FacetNotExistException`, and `OperationNotExistException` derive from
+- [ObjectNotExistException](api:Ice/ObjectNotExistException), [FacetNotExistException](api:Ice/FacetNotExistException),
+  and [OperationNotExistException](api:Ice/OperationNotExistException) derive from
   [RequestFailedException](api:Ice/RequestFailedException), which carries the identity, facet, and operation of the
   request.
-- `UnknownLocalException` and `UnknownUserException` derive from [UnknownException](api:Ice/UnknownException), which
-  reports a dispatch that failed with an exception that is neither a local exception nor a user exception.
+- [UnknownLocalException](api:Ice/UnknownLocalException) and [UnknownUserException](api:Ice/UnknownUserException) derive
+  from [UnknownException](api:Ice/UnknownException), which reports a dispatch that failed with an exception that is
+  neither a local exception nor a user exception.
 - For the other reply statuses, such as `InvalidData`, `Unauthorized`, and `NotSupported`, Ice throws a
   `DispatchException` with this reply status.
 
