@@ -3,16 +3,15 @@ title: Properties and Configuration
 sidebarLabel: Configuration
 pages:
   - properties-overview
+  - using-configuration-files
   - configuration-file-syntax
   - setting-properties-on-the-command-line
-  - using-configuration-files
-  - alternate-property-stores
   - command-line-parsing-and-initialization
   - properties-class
+  - alternate-property-stores
 ---
 
-Ice uses a configuration mechanism that allows you to control many aspects of the behavior of your Ice applications at
-runtime, such as the maximum message size, the number of threads, or whether to produce network trace messages. The
-configuration mechanism is not only useful for configuring Ice, but also for configuring your own applications. The
-configuration mechanism is simple to use with a minimal API, yet flexible enough to cope with the needs of most
-applications.
+Ice uses properties to configure the Ice runtime and its services, for example to set the maximum message size, the
+connection timeouts, or the network tracing level. You set properties programmatically,
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}in configuration files, {% /iflang %}or on the command
+line, and your application can define its own properties and read them through the same API.
