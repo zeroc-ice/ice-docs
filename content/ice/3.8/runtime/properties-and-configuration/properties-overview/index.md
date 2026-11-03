@@ -12,8 +12,8 @@ Ice.Trace.Network=3
 ```
 
 Each communicator has a set of properties that configures the communicator and its subsystems; the
-[property reference](../../../property-reference) lists the properties of Ice. Your application can store its own
-settings in the same property set.
+[property reference](../../../property-reference) lists the properties of Ice. Properties configure Ice: configure your
+application with a configuration mechanism of its own.
 
 Set the properties that configure the Ice runtime and its services before initializing the component that uses them. For
 updates that take effect at run time, see
@@ -46,8 +46,6 @@ programs. Only the corresponding service or tool accepts these properties:
 - `IceStorm`
 - `IceStormAdmin`
 
-Give the properties of your own application a prefix of your own, such as `Filesystem`.
-
 ## Property Validation
 
 Ice validates the name of every property that begins with a reserved prefix followed by a dot, wherever the property
@@ -55,15 +53,16 @@ comes from: a configuration file, the command line, the Windows registry, the [P
 or the [Properties facet](../../../administration/administrative-facility/properties-facet). Ice rejects a name it does
 not know, so a typo such as `Ice.Trace.Netwrok` in a configuration file makes communicator initialization fail.
 
-Ice stores the other names as written, with no validation: `Filesystem.MaxFileSize`, `IceCream.Flavor`, and even the
-misspelled `Iec.Trace.Network`.
+Ice validates the properties of an object adapter, such as `MyAdapter.Endpoints`, when it creates this object adapter,
+and the properties of a proxy, such as `Greeter.Proxy.InvocationTimeout`, when `propertyToProxy` creates this proxy. It
+stores the other names as written, with no validation, including a name that misspells a reserved prefix, such as
+`Iec.Trace.Network`.
 
 ## Unused Properties
 
 Set [Ice.Warn.UnusedProperties](../../../property-reference/ice-warn-properties#ice.warn.unusedproperties) to `1` to
-make a communicator log, when you destroy it, the properties that were set but never read. This warning catches a
-misspelled property name of your own application, such as `Filesystem.MaxFilSize`, and a name that misspells a reserved
-prefix, such as `Iec.Trace.Network`.
+make a communicator log, when you destroy it, the properties that were set but never read. This warning catches a name
+that Ice does not validate, such as `Iec.Trace.Network`.
 
 Reading a property marks it as used, and `getPropertiesForPrefix` marks every property it returns as used. In C++, C#,
 Java, and JavaScript, `getUnusedProperties` returns the names of the properties that have not been read.

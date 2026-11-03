@@ -33,9 +33,6 @@ The arguments that remain for your application leave out the options Ice consume
 returns them. Initialize the communicator before you parse the arguments of your application, so that you parse only the
 arguments that remain.
 
-To read the properties of your application from the command line, call `parseCommandLineOptions` with the prefix of
-these properties; see [The Properties Class](../properties-class#reading-and-parsing-groups-of-properties).
-
 ## See Also
 
 - [Using Configuration Files](../using-configuration-files)
