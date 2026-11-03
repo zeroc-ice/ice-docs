@@ -11,8 +11,8 @@ empty dictionary when the proxy has none:
 
 {% language-section name="mapping" /%}
 
-The context stays in the process: Ice does not include it in a stringified proxy, and does not marshal it with the
-proxy.
+The context stays in the process: Ice does not include it in a stringified proxy or in the properties that
+`proxyToProperty` returns, and does not marshal it with the proxy.
 
 ## Configuring a Per-Proxy Request Context with Properties
 
