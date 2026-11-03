@@ -1,6 +1,15 @@
 ---
 title: Concurrent Proxy Invocations
 sidebarLabel: Concurrent Invocations
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
 [Proxy objects](..) are fully thread safe, meaning a client can invoke on the same proxy object from multiple threads
