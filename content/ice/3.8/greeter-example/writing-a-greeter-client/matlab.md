@@ -39,7 +39,7 @@ function client(args)
     if ~libisloaded('ice')
         loadlibrary('ice', @iceproto);
     end
-    ...
+    % ...
 end
 ```
 

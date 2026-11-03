@@ -41,7 +41,7 @@ import { Ice } from "@zeroc/ice";
 import { VisitorCenter } from "./Greeter.js";
 import process from "node:process";
 
-...
+// ...
 ```
 
 Before anything else, we need to import a few modules:

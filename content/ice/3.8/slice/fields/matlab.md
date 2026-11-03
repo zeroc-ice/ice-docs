@@ -38,7 +38,7 @@ maps to:
 
 ```matlab
 classdef Address < Ice.Value
-    ...
+    % ...
 end
 
 classdef (Sealed) Person
@@ -47,7 +47,7 @@ classdef (Sealed) Person
         % empty corresponds to null
         Address {mustBeScalarOrEmpty} = Example.Address.empty
     end
-    ...
+    % ...
 end
 ```
 
@@ -111,7 +111,7 @@ classdef (Sealed) Location
                 obj.Source = Source;
             end
        end
-   ...
+   % ...
    end
 end
 ```

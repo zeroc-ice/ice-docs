@@ -14,7 +14,7 @@ greeter = greeter.ice_invocationTimeout(2500);
 ```js
 try {
     greeting = await greeter.greet("alice");
-    ...
+    // ...
 } catch (exception) {
     if (exception instanceof Ice.InvocationTimeoutException) {
         console.log("invocation timed out");

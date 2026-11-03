@@ -8,11 +8,11 @@ In JavaScript, a middleware is a concrete class that implements `Ice.Object` and
 class AuthorizationMiddleware extends Ice.Object
 {
     async dispatch(request) {
-        ...
+        // ...
     }
 
     constructor(next, validToken) {
-        ...
+        // ...
     }
 }
 ```
@@ -23,11 +23,11 @@ class AuthorizationMiddleware extends Ice.Object
 {
     override async dispatch(
         request: Ice.IncomingRequest): Promise<Ice.OutgoingResponse> {
-        ...
+        // ...
     }
 
     constructor(next: Ice.Object, validToken: string) {
-        ...
+        // ...
     }
 }
 ```
@@ -40,7 +40,7 @@ You install a middleware on an object adapter by calling `use`:
 ```js
 export class ObjectAdapter {
     use(middleware) {
-        ...
+        // ...
     }
 }
 ```
