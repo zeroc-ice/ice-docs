@@ -42,11 +42,17 @@ object adapter will check the communicator's configuration for
 
 - [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) - defines one or more
   object adapter endpoints
+- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router) - specifies the stringified
+  proxy of a router
 
 {% /iflang %}
 
+{% iflang langs="js" %}
+
 - [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router) - specifies the stringified
   proxy of a router
+
+{% /iflang %}
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
