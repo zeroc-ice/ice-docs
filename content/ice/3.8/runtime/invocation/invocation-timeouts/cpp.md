@@ -6,19 +6,3 @@ greeter = greeter.ice_invocationTimeout(2500ms);
 ```
 
 {% /language-section %}
-
-{% language-section name="invocation-timeout-failures" %}
-
-```cpp
-try
-{
-    auto greeting = greeter.greet("Alice");
-    ...
-}
-catch (const Ice::InvocationTimeoutException&)
-{
-    cerr << "invocation timed out" << endl;
-}
-```
-
-{% /language-section %}

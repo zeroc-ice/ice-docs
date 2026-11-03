@@ -9,16 +9,3 @@ greeter = greeter.ice_invocationTimeout(2500)
 ```
 
 {% /language-section %}
-
-{% language-section name="invocation-timeout-failures" %}
-
-```swift
-do {
-    greeting = try await greeter.greet("alice")
-    ...
-} catch let error as Ice.InvocationTimeoutException {
-    print("invocation timed out")
-}
-```
-
-{% /language-section %}

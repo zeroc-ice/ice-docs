@@ -8,20 +8,3 @@ greeter = greeter.ice_invocationTimeout(2500);
 ```
 
 {% /language-section %}
-
-{% language-section name="invocation-timeout-failures" %}
-
-```js
-try {
-    greeting = await greeter.greet("alice");
-    // ...
-} catch (exception) {
-    if (exception instanceof Ice.InvocationTimeoutException) {
-        console.log("invocation timed out");
-    } else {
-        throw exception;
-    }
-}
-```
-
-{% /language-section %}
