@@ -8,8 +8,8 @@ fails with `InvocationTimeoutException`.
 
 Ice starts the timer once it has marshaled the request parameters, before it establishes a connection or sends the
 request. For a twoway invocation, it stops the timer when it receives the reply, before it unmarshals the reply. For a
-oneway invocation, it stops the timer once it has sent the request. The timeout covers the
-[automatic retries](../automatic-retries) of the invocation.
+oneway invocation, it stops the timer once it has sent the request. The timeout applies to the invocation as a whole:
+Ice does not restart the timer when it [retries](../automatic-retries) the invocation.
 
 ## Configuring Invocation Timeouts
 
