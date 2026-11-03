@@ -23,7 +23,9 @@ The object adapter of each replica registers with the [locator](../../locators) 
 returns the endpoints of one or more of these replicas, and Ice connects to one of these endpoints. You add or remove a
 replica by registering or unregistering its object adapter with the locator, without changing the proxies. With
 [IceGrid](../../../services/icegrid), the replicas are the object adapters of a
-[replica group](../../../services/icegrid/object-adapter-replication).
+[replica group](../../../services/icegrid/object-adapter-replication). With
+[IceDiscovery](../../../plugins/icediscovery#configuring-icediscovery-in-servers), the locator returns the endpoints of
+all the replicas that reply to its multicast lookup.
 
 ## Listing the Endpoints of Every Replica
 
