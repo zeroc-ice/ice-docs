@@ -14,13 +14,19 @@ Context keys that begin with an underscore are reserved for Ice.
 
 A client supplies a context in one of the following ways:
 
-- An [explicit context](./explicit-request-contexts) applies to one invocation.
-- A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
-
 {% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
 
+- An [explicit context](./explicit-request-contexts) applies to one invocation.
+- A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
 - An [implicit context](./implicit-request-contexts) applies to the invocations made through the proxies of a
   communicator.
+
+{% /iflang %}
+
+{% iflang langs="php" %}
+
+- An [explicit context](./explicit-request-contexts) applies to one invocation.
+- A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
 
 {% /iflang %}
 

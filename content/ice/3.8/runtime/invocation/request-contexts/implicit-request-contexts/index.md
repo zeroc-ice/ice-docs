@@ -20,12 +20,18 @@ communicator, unless the invocation has an [explicit context](../explicit-reques
 The [Ice.ImplicitContext](../../../../property-reference/ice-properties#ice.implicitcontext) property sets whether the
 communicator has an implicit context, and its scope:
 
-- `None` _(the default)_: the communicator has no implicit context, and `getImplicitContext` returns null.
-- `Shared`: the communicator has one implicit context, which all threads can use concurrently.
-
 {% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}
 
+- `None` _(the default)_: the communicator has no implicit context, and `getImplicitContext` returns null.
+- `Shared`: the communicator has one implicit context, which all threads can use concurrently.
 - `PerThread`: the communicator has a separate implicit context for each thread.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+- `None` _(the default)_: the communicator has no implicit context, and `getImplicitContext` returns null.
+- `Shared`: the communicator has one implicit context, which all threads can use concurrently.
 
 {% /iflang %}
 
