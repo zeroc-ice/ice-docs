@@ -1,7 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
-`Ice::ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and two asynchronous
-[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync) overloads, one returning a future and one accepting callbacks.
+`Ice::ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and asynchronous
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync) overloads that return a future or accept callbacks.
 
 {% /language-section %}
 
