@@ -20,6 +20,7 @@ pages:
   - slice-metadata-directives
   - deprecating-slice-definitions
   - using-the-slice-compiler
+  - build-tools
   - code-generation
   - documenting-slice-definitions
   - slice-keywords

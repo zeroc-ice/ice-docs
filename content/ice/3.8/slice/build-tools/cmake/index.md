@@ -1,6 +1,5 @@
 ---
-title: Using Ice with CMake
-sidebarLabel: CMake
+title: CMake
 languages: [cpp]
 ---
 
@@ -27,6 +26,9 @@ Config mode is what CMake recommends for a project that provides its own package
 On Linux and macOS, if you installed Ice in a directory that CMake does not search by default, such as `/opt/Ice`, add
 that directory to `CMAKE_PREFIX_PATH`.
 
+To require a version, name it in the `find_package` call. `find_package(Ice 3.8.2 REQUIRED CONFIG)`, for example,
+accepts Ice 3.8.2 and the later 3.8 patch releases.
+
 `slice2cpp_generate(client)`:
 
 - compiles each Slice file in the sources of `client` with `slice2cpp`, and adds the generated header and source files
@@ -39,7 +41,7 @@ that directory to `CMAKE_PREFIX_PATH`.
   when it, or a file it includes, changes.
 
 Call `slice2cpp_generate` in the same `CMakeLists.txt` as the `add_executable` or `add_library` call that creates the
-target, after that call lists the target's Slice files.
+target, after you add all of the target's Slice files to its sources.
 
 ## Imported Targets
 
@@ -104,10 +106,13 @@ endif()
 | `INCLUDE_DIRS <dir>...`                              | Directories to search for included Slice files, passed to `slice2cpp` with `-I`.                                              |
 | `OPTIONS <option>...`                                | Other `slice2cpp` options, such as `-D` or `--header-ext`.                                                                    |
 | `HEADER_OUTPUT_DIR <dir>`                            | The directory for the generated headers, instead of the default under the build directory.                                    |
-| `INCLUDE_DIR <dir>`                                  | The include prefix of the generated headers, passed to `slice2cpp` with `--include-dir`.                                      |
+| `INCLUDE_DIR <dir>`                                  | The subdirectory of the header directory that receives the generated headers, passed to `slice2cpp` with `--include-dir`.     |
 | `INCLUDE_SCOPE PRIVATE\|PUBLIC`                      | With `PUBLIC`, the targets that link this target also get the directories of the generated headers. The default is `PRIVATE`. |
 | `DEPENDS <dep>...`                                   | Other files whose changes recompile the Slice files.                                                                          |
 | `GENERATED_HEADERS <var>`, `GENERATED_SOURCES <var>` | Variables that receive the paths of the generated headers and sources.                                                        |
+
+When a Slice file sets its header or source extension with the `cpp:header-ext` or `cpp:source-ext` file directive, pass
+the same extension in `OPTIONS`, with `--header-ext` or `--source-ext`.
 
 ## Generated Files
 
@@ -119,7 +124,7 @@ that contains this file. For example, with `INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_
 `slice/Demo/Weather.ice` generates `Demo/Weather.h` and `Demo/Weather.cpp` under `generated/<target>`. `slice2cpp` uses
 the same path in the generated `#include` directives: the `#include <Demo/Weather.ice>` directive of another Slice file
 becomes `#include <Demo/Weather.h>` in the header generated from that file (see
-[Header Files](../../slice/using-the-slice-compiler#header-files)). A Slice file outside the `INCLUDE_DIRS` directories
+[Header Files](../../using-the-slice-compiler#header-files)). A Slice file outside the `INCLUDE_DIRS` directories
 generates its files directly in `generated/<target>`.
 
 ## Sharing Generated Headers Between Targets
@@ -191,4 +196,4 @@ target_include_directories(weather_api PUBLIC $<INSTALL_INTERFACE:include>)
 
 ## See Also
 
-- [Using the Slice Compiler](../../slice/using-the-slice-compiler)
+- [Using the Slice Compiler](../../using-the-slice-compiler)

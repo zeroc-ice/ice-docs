@@ -101,6 +101,6 @@ The generated source file includes its own header by the base name of the header
 
 Ice for C++ ships with a CMake package that defines an imported target for each Ice library and provides the
 `slice2cpp_generate` function, which compiles the Slice files of a target as part of the build. See
-[Using Ice with CMake](../../build-tools/cmake).
+[Using Ice with CMake](../build-tools/cmake).
 
 {% /language-section %}
