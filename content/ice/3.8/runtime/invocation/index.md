@@ -3,7 +3,6 @@ title: Invocation
 pages:
   - creating-proxies
   - syntax-for-stringified-proxies
-  - proxy-defaults
   - converting-proxies-to-strings
   - proxy-endpoints
   - invocation-mode
@@ -17,24 +16,16 @@ pages:
   - routers
 ---
 
-The process of sending a request and receiving the corresponding response is called an invocation.
+An invocation is the client-side process of calling an operation of an Ice object through a _proxy_.
 
-{% callout type="note" %}
-
-Making invocations is the primary activity of client applications.
-
-{% /callout %}
-
-With Ice, you need a _proxy_ to make an invocation - proxies provide the only invocation API.
-
-A proxy is a local object that represents a remote Ice object, and encapsulates the following information:
+A proxy is a local object that represents an Ice object, and encapsulates the following information:
 
 - the [identity](../object-identity) of the target object, plus an optional [facet](../facets)
-- addressing information to reach this remote object, namely one or more [endpoints](./proxy-endpoints)
-- various invocation options and connection selection options
+- the information the Ice runtime needs to reach the target object, such as its [endpoints](./proxy-endpoints) or an
+  adapter ID
+- invocation options and connection selection options
 
-A proxy is also tied to a [communicator](../communicator) that provides the connection establishment and management
-logic.
+A proxy is associated with a [communicator](../communicator), which establishes and manages its connections.
 
 ## See Also
 

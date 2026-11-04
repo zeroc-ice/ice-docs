@@ -1,33 +1,27 @@
 ---
 title: Concurrent Proxy Invocations
 sidebarLabel: Concurrent Invocations
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
-[Proxy objects](..) are fully thread safe, meaning a client can invoke on the same proxy object from multiple threads
-concurrently without the need for additional synchronization. However, Ice makes few guarantees about the order in which
-it sends proxy invocations over a connection.
+[Proxies](..) are thread-safe: several threads can invoke operations on the same proxy concurrently, without additional
+synchronization.
 
-To understand the ordering issue, it's important to first understand some fundamental proxy concepts:
+When a proxy [caches its connection](../../connection-management/connection-establishment#connection-reuse-and-caching),
+the default, Ice sends the invocations made one after the other on this proxy in the order they were made. Invocations
+made concurrently from several threads have no defined order. When the proxy does not cache its connection, its
+invocations can use different connections, and have no defined order.
 
-- At any point in time, a proxy may or may not be
-  [associated with a connection](../../connection-management/connection-establishment).
-- A new proxy initially has no connection, and Ice does not attempt to associate it with a connection until its first
-  invocation.
-- If Ice needs to establish a new connection for a proxy, Ice queues all invocations on that proxy until the connection
-  succeeds.
-- After a proxy is associated with a connection, the proxy may or may not
-  [cache that connection](../../connection-management/connection-establishment) for subsequent invocations.
-- Proxies share connections by default, but an application can force proxies to use separate connections.
-
-Ice guarantees that ordering will be maintained for invocations on the same proxy object, but only if that proxy caches
-its connection.
-
-{% callout type="warning" %}
-
-The order in which the Ice runtime in a client sends invocations over a connection does not necessarily determine the
-order in which they will be executed in the server.
-
-{% /callout %}
+The order in which Ice sends requests does not determine the order in which the server dispatches them: the server can
+dispatch requests concurrently.
 
 ## See Also
 
