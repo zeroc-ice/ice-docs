@@ -74,9 +74,11 @@ The master registry does not need the plug-in. IceGrid registries answer multica
 restricts a registry to one network interface.
 
 The [command-line](../../services/icegrid/icegridadmin-command-line-tool) and
-[graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative tools have multicast discovery built in, so
-they don't need the plug-in. They read the same
-[IceLocatorDiscovery.*](../../property-reference/icelocatordiscovery-properties) properties as the plug-in.
+[graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative tools don't need the plug-in: they discover
+the registries on the network themselves and let you choose one. They read `IceLocatorDiscovery.Address`,
+`IceLocatorDiscovery.Port` and `IceLocatorDiscovery.Interface` for their multicast settings. `icegridadmin` discovers
+registries when you set neither a locator, a router nor a registry host, and its `--instanceName` option selects the
+deployment.
 
 ## See Also
 
