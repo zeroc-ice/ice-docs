@@ -1,23 +1,10 @@
 {% language-section name="proxy-methods-for-batched-invocations" %}
 
 ```ruby
-weatherStation = WeatherStationPrx.new(communicator, "ClearSky:tcp -p 4061 -h localhost")
-
-# Configure the proxy to use the batch oneway invocation mode.
-weatherStation = weatherStation.ice_batchOneway()
-
-...
-
-loop do
-    weatherStation.report(sensorId, timeStamp, getAtmosphericConditions())
-    ...
-    # Send a batch with the last 10 readings.
-    count += 1
-    if count == 10
-        weatherStation.ice_flushBatchRequests()
-        count = 0
-    end
-end
+batch = weatherStation.ice_batchOneway()
+batch.report(sensorId, timeStamp1, reading1)
+batch.report(sensorId, timeStamp2, reading2)
+batch.ice_flushBatchRequests()
 ```
 
 {% /language-section %}

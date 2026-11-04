@@ -1,15 +1,3 @@
-{% language-section name="mapping-1" %}
-
-```cpp
-initData.batchRequestInterceptor =
-    [](const Ice::BatchRequest& req, int count, int size)
-    {
-        req.enqueue();
-    };
-```
-
-{% /language-section %}
-
 {% language-section name="mapping-2" %}
 
 ```cpp

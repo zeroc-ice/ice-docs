@@ -7,47 +7,28 @@ pages:
   - batched-invocation-interceptors
 ---
 
-Each proxy has an invocation mode that configures its invocation behavior. You can choose between the following
-invocation modes:
+The invocation mode of a proxy determines how an invocation on this proxy sends its request, and whether it waits for a
+reply:
 
-| **Invocation mode**    | **Stringified proxy option** | **Meaning**                                                                                         |
-| ---------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------- |
-| twoway _(the default)_ | `-t`                         | The invocation sends a request and receives a reply.                                                |
-| oneway                 | `-o`                         | The invocation sends a request and receives no reply.                                               |
-| batch oneway           | `-O`                         | The invocation queues the request, and Ice sends the queued requests in a batch; there is no reply. |
-| datagram               | `-d`                         | Like oneway, for proxies with UDP endpoints.                                                        |
-| batch datagram         | `-D`                         | Like batch oneway, for proxies with UDP endpoints.                                                  |
+| Invocation mode        | Description                                                               |
+| ---------------------- | ------------------------------------------------------------------------- |
+| twoway _(the default)_ | Sends the request and waits for the reply.                                |
+| oneway                 | Sends the request; there is no reply.                                     |
+| datagram               | Sends the request over UDP; there is no reply.                            |
+| batch oneway           | Queues the request, and Ice sends the queued requests together; no reply. |
+| batch datagram         | Like batch oneway, over UDP.                                              |
 
-For example, if you create a proxy from the stringified proxy `greeter:tcp -h localhost -p 4061`, you’ll get a two-way
-proxy, just like if you created this proxy from `greeter -t:tcp -h localhost -p 4061`. And if you create a proxy from
-`greeter -O:tcp -h localhost -p 4061`, you’ll get a batch one-way proxy.
+A proxy factory method, such as `ice_oneway`, `ice_datagram` or `ice_batchOneway`, returns a proxy with the given
+invocation mode, and a stringified proxy sets it with an [option](../syntax-for-stringified-proxies#options).
 
-You can also set the invocation method on a proxy programmatically using a proxy factory method: `ice_twoway`,
-`ice_oneway`, `ice_batchOneway`, etc.
+The oneway, datagram, batch oneway and batch datagram modes apply only to operations that have a `void` return type, no
+out-parameters and no exception specification.
 
-{% callout type="note" %}
+## Invocation Modes and Endpoints
 
-Keep in mind that proxies are immutable and all proxy factory methods create new proxies - they don’t change the source
-proxy.
-
-{% /callout %}
-
-## Twoway, Oneway, Batch Oneway
-
-These invocation modes are only applicable to proxies with non-UDP endpoints, such as `tcp`, `ssl`, `wss`.
-
-If you select oneway or batch oneway for a proxy with a UDP endpoint, you won’t get an error - you’ll just make this
-proxy unusable. If you later make an invocation with such a proxy, you’ll receive a `NoEndpointException`.
-
-## Datagram and Batch Datagram
-
-These invocation modes are only applicable to proxies with UDP endpoints.
-
-If you select datagram or batch datagram for a proxy with a TCP endpoint, you won’t get an error - you’ll just make this
-proxy unusable. If you later make an invocation with such a proxy, you’ll receive a `NoEndpointException`.
-
-In theory, the datagram and batch datagram invocation modes are applicable to any datagram transport. In practice, Ice
-provides a single datagram transport, UDP, and we don’t anticipate ever adding another datagram transport.
+When it sends a request, Ice uses only the proxy's endpoints that suit the proxy's invocation mode: `udp` endpoints for
+the datagram and batch datagram modes, and the endpoints of the other transports, such as `tcp` and `ssl`, for the
+twoway, oneway and batch oneway modes. An invocation on a proxy with no such endpoint fails.
 
 ## See Also
 
