@@ -13,8 +13,8 @@ the [Unix epoch](https://en.wikipedia.org/wiki/Unix_time), a trace category, and
 
 ## Filtering Log Messages
 
-The `Logger` facet implements the `Ice::LoggerAdmin` interface. Its `getLog` and `attachRemoteLogger` operations take
-the same three filters:
+The `Logger` facet implements the [`Ice::LoggerAdmin`](api:Ice/LoggerAdminPrx) interface. Its `getLog` and
+`attachRemoteLogger` operations take the same three filters:
 
 - `messageTypes` selects the types of messages; an empty sequence selects all types.
 - `traceCategories` selects the categories of trace messages; an empty sequence selects all categories. Other message
@@ -43,8 +43,8 @@ auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix
 ## Attaching a Remote Logger
 
 A remote logger is an Ice object, typically implemented by the administrative client, that implements the
-`Ice::RemoteLogger` interface. Its `init` operation receives the prefix of the program's logger and the cached messages
-that match the filters, and its `log` operation receives each new message that matches the
+[`Ice::RemoteLogger`](api:Ice/RemoteLogger) interface. Its `init` operation receives the prefix of the program's logger
+and the cached messages that match the filters, and its `log` operation receives each new message that matches the
 filters.{% iflang langs="swift" %} Swift maps the `init` operation to `initialize`.{% /iflang %}
 
 `attachRemoteLogger` attaches a remote logger with its filters. `messageMax` limits only the messages that the facet
