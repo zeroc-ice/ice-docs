@@ -3,13 +3,14 @@ title: Comment Syntax
 sidebarLabel: Syntax
 ---
 
-Slice supports two styles of comments: _line comments_ and _block comments_.
+Slice supports two styles of comments: a _line comment_ starts with `//` and extends to the end of the line, and a
+_block comment_ starts with `/*` and ends at the next `*/`, so it can span several lines:
 
 ```slice
-// A line comment extends to the end of the line.
+// A line comment.
 
-/* A block comment can
-   span several lines. */
+/* A block comment
+   that spans two lines. */
 ```
 
 Slice also supports two styles of _doc comments_, which [document](..) the definition that follows them.

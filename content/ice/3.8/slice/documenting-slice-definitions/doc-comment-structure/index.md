@@ -5,7 +5,7 @@ sidebarLabel: Structure
 
 A doc comment typically starts with a short description, continues with any further details, and ends with _block tags_
 that document specific parts of the definition. A block tag starts a line with `@`, and its text continues until the
-next tag or the end of the comment, except for `@see`, which takes one line:
+next tag or the end of the comment:
 
 ```slice
 /// Looks for an item with the specified primary and secondary keys.
@@ -14,11 +14,12 @@ next tag or the end of the comment, except for `@see`, which takes one line:
 /// @param s The secondary search key.
 /// @return The item that matches the specified keys.
 /// @throws NotFound Thrown if no item matches the specified keys.
+/// @see Item
 Item findItem(Key p, Key s) throws NotFound;
 ```
 
-Within the text, `{@link identifier}` links to another Slice definition and `@p name` refers to a parameter of the
-operation; see [Formatting and Links](#formatting-and-links).
+The inline tags `{@link identifier}` and `@p name` go within the text; see
+[Formatting and Links](#formatting-and-links).
 
 Every Slice compiler except `slice2php` and `slice2rb` checks each doc comment against the rules on this page: it warns
 about a tag it doesn't recognize, and ignores it.
@@ -74,9 +75,9 @@ Starts a remarks section, for details that don't belong in the description.
 
 ### `@deprecated`
 
-Documents that the definition is deprecated, in the generated doc comments. The text after the tag says why, or what to
-use instead. To also make the Slice compilers warn about uses of the definition and mark the generated code as
-deprecated, add the [`deprecated` metadata directive](../../deprecating-slice-definitions).
+Documents that the definition is deprecated. The text after the tag says why, or what to use instead. To also make the
+Slice compilers warn about uses of the definition, add the
+[`deprecated` metadata directive](../../deprecating-slice-definitions).
 
 ## Operation Tags
 

@@ -8,7 +8,7 @@ definitions, including their doc comments. The
 [Slice API reference](https://code.zeroc.com/ice/3.8/api/slice/index.html) is Doxygen's output for Ice's own Slice
 files.
 
-Create a `Doxyfile` with `doxygen -g`, and set these settings in it:
+Create a `Doxyfile` with `doxygen -g`, and set the following in it:
 
 - `OPTIMIZE_OUTPUT_SLICE = YES`, so that Doxygen tailors its output to Slice.
 - `INPUT`, to your Slice files or the directories that hold them, and `RECURSIVE = YES` when these directories have
