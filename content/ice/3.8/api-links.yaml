@@ -296,6 +296,14 @@ Ice/Properties.setProperty:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#setproperty
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.setProperty
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/setproperty(key:value:)
+Ice/PropertiesAdminPrx:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1PropertiesAdminPrx.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.PropertiesAdminPrx.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PropertiesAdminPrx.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/PropertiesAdminPrx.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.PropertiesAdminPrx.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/PropertiesAdminPrx.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/propertiesadminprx
 Ice/ReplyStatus:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_ae6f82aeb1d3c31c73700d252f091ea10.html#ae6f82aeb1d3c31c73700d252f091ea10
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ReplyStatus.html
