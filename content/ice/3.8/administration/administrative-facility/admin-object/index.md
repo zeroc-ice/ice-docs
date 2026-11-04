@@ -2,54 +2,44 @@
 title: The admin Object
 ---
 
-## Overview of the admin Object
+The `admin` object is an Ice object that exposes the administrative capabilities of a communicator. Each capability is a
+separate [facet](../../../runtime/facets) of this object, and an administrative client selects the facet that provides
+the capability it needs. The `admin` object has no default facet.
+
+The Ice runtime provides four built-in facets:
+
+- [Process](../process-facet) lets an activation service, such as an IceGrid node, request a graceful shutdown of the
+  program.
+- [Properties](../properties-facet) reads and updates the communicator's configuration properties.
+- [Logger](../logger-facet) returns the recent log messages of the program and forwards new ones to remote loggers.
+- [Metrics](../metrics-facet) provides the metrics of the Ice runtime.
 
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
-When the Administrative Facility is enabled, you can configure Ice to host an administrative object in the
-[Ice.Admin object adapter](../creating-the-admin-object){% iflang langs="cpp,csharp,java,python,swift" %}, or you can
-programmatically host this object in your own object adapter{% /iflang %}.
+An application can
+[choose which built-in facets the communicator enables](../filtering-administrative-facets){% iflang langs="cpp,csharp,java,python,swift" %}
+and [add its own facets](../custom-administrative-facets){% /iflang %}.
+
+## Hosting the admin Object
+
+When the administrative facility is enabled, Ice hosts the `admin` object in the built-in `Ice.Admin` object
+adapter{% iflang langs="cpp,csharp,java,python,swift" %}, or the application hosts it in one of its own object adapters
+by calling [`createAdmin`](api:Ice/Communicator.createAdmin){% /iflang %}.
+[Creating the admin Object](../creating-the-admin-object) describes the configuration.
 
 {% /iflang %}
-
-In this documentation, we refer to the administrative object as the `admin` object.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-You can retrieve a proxy to the admin object associated with your communicator, if any, by calling `getAdmin` on this
-communicator.
+Call `getAdmin` on the [Communicator](api:Ice/Communicator) to obtain a proxy for the `admin` object. When
+[Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties#ice.admin.delaycreation) postpones the
+creation of the `admin` object in the `Ice.Admin` object adapter, the first call to `getAdmin` creates it.
+[Using the admin Object](../using-the-admin-object) describes how to reach its facets.
 
 {% /iflang %}
 
-## Facets of the admin Object
-
-An Ice object is a collection of sub-objects known as [facets](../../../runtime/facets) whose types are not related.
-Although facets are typically used for extending and versioning types, they also allow a group of interfaces with a
-common purpose to be consolidated into a single Ice object with an established interface for navigation. These qualities
-make facets an excellent match for the requirements of the administrative facility.
-
-Each facet of the `admin` object represents a distinct administrative capability. The object does not have a default
-facet (that is, a facet with an empty name). However, the Ice runtime implements several built-in facets that it adds to
-the `admin` object:
-
-- the [Process](../process-facet) facet
-- the [Properties](../properties-facet) facet
-- the [Logger](../logger-facet) facet
-- the [Metrics](../metrics-facet) facet
-
-{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}An application can
-[control which facets are installed](../filtering-administrative-facets) with a configuration property.{% /iflang %}
-{% iflang langs="cpp,csharp,java,python,swift" %}An application can also
-[install its own facets](../custom-administrative-facets) if necessary.{% /iflang %} Administrative facets don’t inherit
-from a common Slice interface.
-
 ## See Also
 
-- [Creating the admin Object](../creating-the-admin-object)
-- [Object Identity](../../../runtime/object-identity)
-- [Versioning](../../../versioning)
-- [The Process Facet](../process-facet)
-- [The Properties Facet](../properties-facet)
-- [Filtering Administrative Facets](../filtering-administrative-facets)
-- [Custom Administrative Facets](../custom-administrative-facets)
-- [Ice.Admin.*](../../../property-reference/ice-admin-properties)
+- [Facets](../../../runtime/facets)
+- [Using the admin Object](../using-the-admin-object)
+- [Ice.Admin.\*](../../../property-reference/ice-admin-properties)
