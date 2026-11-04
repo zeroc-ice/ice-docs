@@ -8,16 +8,9 @@ Ice servers on connected accessories. The accessory must provide the server side
 
 ## Accessory Discovery
 
-An accessory can be discovered based on a number of attributes:
-
-- its name
-- its manufacturer
-- its model number
-- an advertised protocol
-
-IceIAP searches the accessories that iOS reports as connected. The protocol is the one required attribute: the accessory
-must advertise the endpoint's protocol, `com.zeroc.ice` unless the endpoint specifies another. The name, manufacturer,
-and model number are optional filters. An accessory matches only when each specified value equals the accessory's value.
+IceIAP searches the accessories that iOS reports as connected, and selects an accessory by the protocol it advertises,
+with optional filters on its name, manufacturer, and model number. The accessory must advertise the endpoint's protocol,
+`com.zeroc.ice` unless the endpoint specifies another, and match each filter that the endpoint specifies.
 
 ## Installing IceIAP
 
