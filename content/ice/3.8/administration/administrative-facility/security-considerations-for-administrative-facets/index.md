@@ -12,20 +12,9 @@ languages:
   - swift
 ---
 
-A client that can reach the [admin object](../admin-object) can use each of its facets:
-
-- the [Properties](../properties-facet) facet reads and changes the program's configuration, which can include sensitive
-  values;
-- the [Process](../process-facet) facet shuts the program down;
-- the [Logger](../logger-facet) facet returns the program's log messages.
-
-{% iflang langs="cpp,csharp,java,python,swift" %}
-
-Each [custom facet](../custom-administrative-facets) that an application adds exposes its own operations.
-
-{% /iflang %}
-
-The administrative facility is [disabled by default](../creating-the-admin-object).
+A client that can reach the [admin object](../admin-object) can use all of its facets. The administrative facility is
+[disabled by default](../creating-the-admin-object); when you enable it, restrict which clients can reach the admin
+object and which facets it exposes.
 
 ## Restricting Access
 
