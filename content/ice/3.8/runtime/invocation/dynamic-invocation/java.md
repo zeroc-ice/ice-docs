@@ -1,35 +1,8 @@
 {% language-section name="invoking-an-operation" %}
 
 `ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and an asynchronous
-[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync), each with an overload that accepts a request context:
-
-```java
-package com.zeroc.Ice;
-
-public interface ObjectPrx {
-    Object.Ice_invokeResult ice_invoke(String operation, OperationMode mode, byte[] inParams);
-
-    Object.Ice_invokeResult ice_invoke(
-            String operation,
-            OperationMode mode,
-            byte[] inParams,
-            Map<String, String> context);
-
-    CompletableFuture<Object.Ice_invokeResult> ice_invokeAsync(
-            String operation,
-            OperationMode mode,
-            byte[] inParams);
-
-    CompletableFuture<Object.Ice_invokeResult> ice_invokeAsync(
-            String operation,
-            OperationMode mode,
-            byte[] inParams,
-            Map<String, String> context);
-    ...
-}
-```
-
-The result holds the success flag in its `returnValue` field and the encapsulation in its `outParams` field.
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync). Their result holds the success flag in its `returnValue` field
+and the encapsulation in its `outParams` field.
 
 {% /language-section %}
 

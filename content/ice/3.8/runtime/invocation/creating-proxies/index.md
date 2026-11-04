@@ -36,8 +36,7 @@ equivalent to the following statements:
 
 The [proxy properties](../../../property-reference/proxy-properties) cover the proxy settings that a stringified proxy
 cannot express, except the compression setting (`ice_compress`), the connection ID (`ice_connectionId`) and a fixed
-connection (`ice_fixed`). `propertyToProxy` throws `PropertyException` if it finds a subordinate property that is not
-one of these proxy properties.
+connection (`ice_fixed`). A subordinate property must be one of these proxy properties.
 
 Note that proxy properties can themselves have proxy properties. For example, the following sets the `EndpointSelection`
 property on the default locator's router:
@@ -50,16 +49,16 @@ Ice.Default.Locator.Router.EndpointSelection=Ordered
 
 ## Creating a Proxy from an Object Adapter
 
-An object adapter can create a proxy for any identity, whether or not it hosts an Ice object with this identity.
+A server uses an object adapter to create the proxies through which clients invoke operations on its Ice objects.
 
 {% /iflang %}
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-- `createProxy` returns a proxy with the given identity. If the object adapter has an
-  [AdapterId](../../../property-reference/object-adapter-properties), the proxy is an indirect proxy that refers to the
-  object adapter's `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, the proxy is a
-  direct proxy that holds the object adapter's published endpoints.
+- `createProxy` returns an indirect proxy when the object adapter has an
+  [AdapterId](../../../property-reference/object-adapter-properties): this proxy refers to the object adapter's
+  `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, `createProxy` returns a direct
+  proxy that holds the object adapter's published endpoints.
 - `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
 - `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
   [well-known proxy](../proxy-endpoints#well-known-proxy) when the object adapter has no adapter ID.
@@ -87,8 +86,8 @@ All these proxies use the options set by the object adapter's
 
 ## Creating a Proxy from a Connection
 
-`createProxy` on a connection returns a fixed proxy with the given identity: invocations on this proxy use only this
-connection. A server uses such a proxy to call back a client over a
+`createProxy` on a connection returns a fixed proxy: invocations on this proxy use only this connection. A server uses
+such a proxy to call back a client over a
 [bidirectional connection](../../connection-management/bidirectional-connections).
 
 {% /iflang %}
@@ -127,8 +126,8 @@ Despite their names, these functions are not casts: they return a new proxy and 
 `uncheckedCast` creates the new proxy without contacting the target object. `checkedCast` first calls `ice_isA` on the
 target object to verify that it implements the requested interface, and returns a null proxy if it does not.
 
-You rarely need these functions. In new code, you create a typed proxy directly with one of the methods described above,
-and an application that converts a proxy of one type into a proxy of another type is uncommon.
+You use these functions when you hold a proxy of a more general type than the interface you want to call, such as the
+proxy returned by an operation whose return type is `Object*`.
 
 {% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
 
@@ -142,6 +141,19 @@ In C++, these functions are the `Ice::uncheckedCast` and `Ice::checkedCast` func
 `Ice::checkedCast<GreeterPrx>(proxy)`.
 
 {% /iflang %}
+
+## Proxy Defaults
+
+The [Ice.Default.*](../../../property-reference/ice-default-properties) properties set the initial settings of the
+proxies you create from a string or a property, of the proxies an object adapter creates, and of the proxies Ice
+unmarshals from the payload of a request or response. A proxy property overrides the corresponding default for the proxy
+that `propertyToProxy` creates.
+
+For example, the following property sets the endpoint selection type of these proxies to `Ordered`:
+
+```config
+Ice.Default.EndpointSelection=Ordered
+```
 
 ## See Also
 

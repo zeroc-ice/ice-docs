@@ -1,32 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
 `Ice.ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and an asynchronous
-[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync):
-
-```csharp
-namespace Ice;
-
-public interface ObjectPrx
-{
-    bool ice_invoke(
-        string operation,
-        OperationMode mode,
-        byte[] inEncaps,
-        out byte[] outEncaps,
-        Dictionary<string, string>? context = null);
-
-    Task<Object_Ice_invokeResult> ice_invokeAsync(
-        string operation,
-        OperationMode mode,
-        byte[] inEncaps,
-        Dictionary<string, string>? context = null,
-        IProgress<bool>? progress = null,
-        CancellationToken cancel = default);
-    ...
-}
-
-public record struct Object_Ice_invokeResult(bool returnValue, byte[] outEncaps);
-```
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync).
 
 {% /language-section %}
 
