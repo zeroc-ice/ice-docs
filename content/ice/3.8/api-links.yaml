@@ -98,6 +98,14 @@ Ice/Logger:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Logger.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Logger.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/logger
+Ice/LoggerAdminPrx:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1LoggerAdminPrx.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.LoggerAdminPrx.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/LoggerAdminPrx.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/LoggerAdminPrx.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.LoggerAdminPrx.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/LoggerAdminPrx.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/loggeradminprx
 Ice/ModuleToPackageSliceLoader:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ModuleToPackageSliceLoader.html
 Ice/ObjectAdapter:
@@ -296,6 +304,13 @@ Ice/Properties.setProperty:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#setproperty
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.setProperty
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/setproperty(key:value:)
+Ice/RemoteLogger:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1RemoteLogger.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.RemoteLogger.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/RemoteLogger.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/RemoteLogger.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.RemoteLogger.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/remotelogger
 Ice/ReplyStatus:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_ae6f82aeb1d3c31c73700d252f091ea10.html#ae6f82aeb1d3c31c73700d252f091ea10
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ReplyStatus.html
