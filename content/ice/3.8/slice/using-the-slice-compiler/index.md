@@ -23,24 +23,19 @@ mapping:
 
 - `-h, --help` Displays a help message.
 - `-v, --version` Displays the compiler version.
-- `-DNAME` Defines the preprocessor symbol `NAME`.
-- `-DNAME=DEF` Defines the preprocessor symbol `NAME` with the value `DEF`. Each compiler always predefines the
-  `__<compiler name in upper case>__` macro when compiling Slice file. For example, slice2cpp predefines
-  `__SLICE2CPP__`.
+- `-DNAME` Defines the preprocessor symbol `NAME` with the value `1`.
+- `-DNAME=DEF` Defines the preprocessor symbol `NAME` with the value `DEF`.
 - `-UNAME` Undefines the preprocessor symbol `NAME`.
 - `-IDIR` Add the directory `DIR` to the search path for `#include` directives.
 - `--output-dir` `DIR` Place the generated files into directory `DIR`, which must already exist.
 - `-d, --debug` Print debug information showing the operation of the Slice parser.
 
-{% language-section name="common-options-1" /%}
+The following options print dependency information:
 
-- `--depend-xml` Print dependency information in XML format to standard output by default, or to the file specified by
-  the `--depend-file` option.
+{% language-section name="dependency-options" /%}
 
-{% language-section name="common-options-2" /%}
-
-- `--depend-file FILE` Directs dependency information to the specified file. The output format depends on whether
-  `--depend`, `--depend-xml`, or `--depend-json` is specified.
+With these options, the compiler prints the complete list of Slice files that the input Slice files depend on, through
+direct or indirect inclusion, and generates no code.
 
 The Slice compilers permit you to compile more than a single source file, so you can compile several Slice definitions
 at once, for example:
@@ -48,6 +43,9 @@ at once, for example:
 ```shell
 slice2cpp -I. file1.ice file2.ice file3.ice
 ```
+
+Each compiler predefines macros that identify the compiler and the Ice version; see
+[Conditional Compilation](../slice-source-files#conditional-compilation).
 
 {% language-section name="common-options-3" /%}
 

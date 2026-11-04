@@ -45,7 +45,7 @@ Ice::loadSlice(["-I/opt/IceRuby/slice", "Color.ice"])
 
 `Ice::loadSlice` accepts the following options:
 
-- `-DNAME` Defines the preprocessor symbol `NAME`.
+- `-DNAME` Defines the preprocessor symbol `NAME` with the value `1`.
 - `-DNAME=DEF` Defines the preprocessor symbol `NAME` with the value `DEF`.
 - `-UNAME` Undefines the preprocessor symbol `NAME`.
 - `-IDIR` Adds the directory `DIR` to the search path for `#include` directives.

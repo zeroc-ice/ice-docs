@@ -217,6 +217,7 @@
     "pyproject",
     "QUIC",
     "radioclock",
+    "recompiles",
     "refid",
     "regedit",
     "registryhost",

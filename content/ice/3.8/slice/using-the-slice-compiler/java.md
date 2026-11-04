@@ -1,3 +1,11 @@
+{% language-section name="dependency-options" %}
+
+- `--depend-xml` Print dependency information in XML format to standard output by default, or to the file specified by
+  the `--depend-file` option.
+- `--depend-file FILE` Directs dependency information to the specified file.
+
+{% /language-section %}
+
 {% language-section name="common-options-3" %}
 
 ## The Slice Compiler for Java
@@ -70,6 +78,9 @@ sourceSets {
 The plugin registers a `compileSlice<SourceSet>` task for each source set, such as `compileSliceMain`, that generates
 Java files into `build/generated/source/slice/<source set>` in a Java project, and into
 `build/generated/java/compileSlice<SourceSet>` in an Android project. The `compileSlice` task runs all of them.
+
+The plugin compiles incrementally: it recompiles a Slice file when the file or a file it includes changes, deletes the
+Java files that a Slice file no longer generates, and recompiles every Slice file when the compiler arguments change.
 
 ### Java Projects
 
