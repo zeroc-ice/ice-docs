@@ -22,12 +22,4 @@ const greeter = new GreeterPrx(
 const propertyDict = communicator.proxyToProperty(greeter,"Greeter");
 ```
 
-```typescript
-const greeter = new GreeterPrx(
-    communicator,
-    "greeter:tcp -h localhost -p 4061");
-const propertyDict: Map<string,string> =
-    communicator.proxyToProperty(greeter,"Greeter");
-```
-
 {% /language-section %}
