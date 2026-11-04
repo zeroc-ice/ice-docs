@@ -1,72 +1,10 @@
 {% language-section name="mapping" %}
 
-## Obtaining the Local Process Facet
-
-Ice for Python does not expose the built-in `Process` facet as a local object: `communicator.findAdminFacet("Process")`
-returns `None`. To interact with the `Process` facet of your own communicator, use a proxy, as
-[shown for a remote facet](../using-the-admin-object).
-
-## Application Requirements for the Process Facet
-
-The default implementation of the `Process` facet requires cooperation from an application in order to successfully
-terminate a process. Specifically, the facet invokes `shutdown` on its [communicator](../../../runtime/communicator) and
-assumes that the application uses this event as a signal to commence its termination procedure. For example, an
-application typically uses a thread (often the main thread) to call the communicator operation `waitForShutdown`, which
-blocks the calling thread until the communicator is shut down or destroyed. After `waitForShutdown` returns, the calling
-thread can initiate a graceful shutdown of its process.
-
-## Replacing the Process Facet
-
-You can replace the default `Process` facet if your application requires a different scheme for gracefully shutting
-itself down. To define your own facet, create a servant that implements the `Ice::Process` interface. As an example, the
-Python servant definition shown below duplicates the functionality of the default `Process` facet:
-
 ```py
-class MyProcess(Ice.Process):
-    def __init__(self, communicator: Ice.Communicator):
-        self._communicator = communicator
-
-    def shutdown(self, current: Ice.Current) -> None:
-        self._communicator.shutdown()
-
-    def writeMessage(self, message: str, fd: int, current: Ice.Current) -> None:
-        if fd == 1:
-            print(message)
-        elif fd == 2:
-            print(message, file=sys.stderr)
-```
-
-As you can see, the default implementation of `shutdown` simply shuts down the communicator, which initiates an orderly
-termination of the Ice runtime's server-side components and prevents object adapters from dispatching any new requests.
-You can add your own application-specific behavior to the `shutdown` method to ensure that your program terminates in a
-timely manner.
-
-{% callout type="note" %}
-
-A servant must not call destroy on its communicator while dispatching a request.
-
-{% /callout %}
-
-To avoid the risk of a race condition, the recommended strategy for replacing the `Process` facet is to delay the
-creation of the admin object until after communicator initialization, so that your application can replace the facet
-before the admin object exposes it:
-
-```config
-# Delay admin object creation for admin object hosted in the Ice.Admin
-# object adapter
-Ice.Admin.DelayCreation=1
-```
-
-With [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties#ice.admin.delaycreation) enabled, the
-application can safely remove the default `Process` facet and install its own:
-
-```py
-communicator = ...
+# MyProcess implements Ice.Process
 communicator.removeAdminFacet("Process")
-myProcessFacet = MyProcess(...)
-communicator.addAdminFacet(myProcessFacet, "Process")
+communicator.addAdminFacet(MyProcess(communicator), "Process")
+communicator.getAdmin()
 ```
-
-The final step is to create the admin object by calling `getAdmin` on the communicator.
 
 {% /language-section %}
