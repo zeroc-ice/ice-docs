@@ -12,66 +12,44 @@ languages:
   - swift
 ---
 
-Exposing administrative functionality naturally makes a program vulnerable, therefore it is important that proper
-precautions are taken. With respect to the default functionality, the [Properties](../properties-facet) facet could
-expose sensitive configuration information, and the [Process](../process-facet) facet supports a `shutdown` operation
-that opens the door for a denial-of-service attack. Developers should carefully consider the security implications of
-any additional administrative facets that an application installs.
+A client that can reach the [admin object](../admin-object) can use each of its facets: the
+[Properties](../properties-facet) facet reads and changes the program's configuration, which can include sensitive
+values, the [Process](../process-facet) facet shuts the program down, and the [Logger](../logger-facet) facet returns
+its log messages.{% iflang langs="cpp,csharp,java,python,swift" %} Each [custom facet](../custom-administrative-facets)
+that an application adds exposes its own operations.{% /iflang %}
 
-There are several approaches you can take to mitigate the possibility of abuse:
+## Controlling Access to the admin Object
 
-- Disable the administrative facility
+The administrative facility is [disabled by default](../creating-the-admin-object). [IceGrid](../../../services/icegrid)
+enables it in the servers that it activates: the IceGrid node shuts down a server through its `Process` facet, and
+IceGrid administrative clients use the `Properties` and `Logger` facets.
 
-  The administrative facility is disabled by default, and remains disabled as long as its
-  [prerequisites](../creating-the-admin-object) are not met. Note that [IceGrid](../../../services/icegrid) enables the
-  facility in servers that it activates for the following reasons:
+When Ice hosts the admin object in the `Ice.Admin` object adapter, an `Ice.Admin.Endpoints` value that listens on the
+local host only, such as `tcp -h 127.0.0.1`, restricts access to clients that run on the same host. IceGrid sets this
+value for the servers that it activates, unless the server descriptor sets `Ice.Admin.Enabled` or `Ice.Admin.Endpoints`,
+and still provides [remote administration](../../../services/icegrid/icegrid-and-the-administrative-facility) by
+forwarding requests to the server through its node.
 
-  - The `Process` facet allows the IceGrid node to gracefully terminate the process.
-  - The `Properties` facet enables IceGrid administrative clients to obtain configuration information about activated
-    servers.
-  - The `Logger` facet enables IceGrid administrative clients to attach remote loggers to the
-    [Loggers](../../logger-facility) of activated servers.
+To administer a program from other hosts, give the object adapter that hosts the admin object
+[SSL](../../../runtime/ssl-transport) endpoints that require a client certificate, for example with
+[IceSSL.VerifyPeer](../../../property-reference/icessl-properties#icessl.verifypeer) set to `2`, its default. Only
+clients with a certificate issued by a certificate authority that the object adapter trusts can then connect.
 
-You could disable a facet using filtering, but doing so may disrupt IceGrid's normal operation.
+{% iflang langs="cpp,csharp,java" %}
 
-- Select a proper endpoint
+When the admin object needs an SSL configuration different from the communicator's, such as a certificate authority
+trusted only for administrative clients, host it in an object adapter that you create with its own server authentication
+options, as described in
+[Hosting the admin Object in Your Own Object Adapter](../creating-the-admin-object#hosting-the-admin-object-in-your-own-object-adapter).
 
-  If you host the admin object in the `Ice.Admin` object adapter, a reasonably secure value for the
-  [Ice.Admin.Endpoints](../creating-the-admin-object) property is one that uses the local host interface
-  (`-h 127.0.0.1`), which restricts access to clients that run on the same host. Incidentally, this is the default value
-  that IceGrid defines for its servers, although you can override that if you like. Note that using a local host
-  endpoint does not preclude [remote administration](../../../services/icegrid/icegrid-and-the-administrative-facility)
-  for IceGrid servers because IceGrid transparently routes requests on `admin` objects to the appropriate server via its
-  node. If your application must support administration from non-local hosts, we recommend the use of
-  [SSL](../../../runtime/ssl-transport) and certificate-based access control.
+{% /iflang %}
 
-- Filter the facets
-
-  After choosing a suitable endpoint, you can minimize risks by filtering the facets to enable only the functionality
-  that is required. For example, if you are not using IceGrid's
-  [server activation](../../../services/icegrid/icegrid-server-activation) feature and do not require the ability to
-  remotely terminate a program, you should disable the `Process` facet using the
-  [filtering mechanism](../filtering-administrative-facets).
-
-- Consider the object's identity
-
-  The default [identity](../../../runtime/object-identity) of an [admin object](../admin-object) created during
-  communicator initialization (or with `getAdmin`) has a UUID for its category, which makes it difficult for a hostile
-  client to guess. Depending on your requirements, the use of a UUID may be an advantage or a disadvantage. For example,
-  in a trusted environment, the use of a UUID may create additional work, such as the need to add an interface that an
-  administrative client can use to obtain the identity or proxy of a remote `admin` object. An obscure identity might be
-  more of a hindrance in this situation, and therefore specifying a static category via the
-  [Ice.Admin.InstanceName](../../../property-reference/ice-admin-properties#ice.admin.instancename) property is a
-  reasonable alternative. In general, however, we recommend using the default behavior.
+[Filtering the facets](../filtering-administrative-facets) limits what a client that reaches the admin object can do.
 
 ## See Also
 
-- [The admin Object](../admin-object)
-- [The Properties Facet](../properties-facet)
-- [The Process Facet](../process-facet)
 - [Creating the admin Object](../creating-the-admin-object)
-- [IceGrid and the Administrative Facility](../../../services/icegrid/icegrid-and-the-administrative-facility)
 - [Filtering Administrative Facets](../filtering-administrative-facets)
-- [Ice.Admin.*](../../../property-reference/ice-admin-properties)
-- [IceGrid](../../../services/icegrid)
-- [IceSSL](../../../runtime/ssl-transport)
+- [IceGrid and the Administrative Facility](../../../services/icegrid/icegrid-and-the-administrative-facility)
+- [SSL Transport](../../../runtime/ssl-transport)
+- [Ice.Admin.\*](../../../property-reference/ice-admin-properties)
