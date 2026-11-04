@@ -4,13 +4,12 @@ title: IceLocatorDiscovery
 
 ## IceLocatorDiscovery Overview
 
-IceLocatorDiscovery discovers an IceGrid [locator](../../runtime/locators) (registry) using UDP multicast. It installs a
-locator in the communicator. This locator discovers the IceGrid registry when the application first resolves an indirect
-proxy, and forwards locator requests to it.
+IceLocatorDiscovery lets an application use an IceGrid deployment without configuring the endpoints of its registry,
+including a [replicated deployment](../../services/icegrid/registry-replication). The plug-in finds the registry on the
+local network with UDP multicast, and the application resolves its indirect proxies through this registry, as with a
+[locator](../../runtime/locators) set in `Ice.Default.Locator`.
 
-This lets clients locate an IceGrid deployment without configuring its registry endpoints, including a
-[replicated deployment](../../services/icegrid/registry-replication). IceLocatorDiscovery discovers locators;
-[IceDiscovery](../icediscovery) provides a location service for objects and object adapters directly.
+To locate objects and object adapters without IceGrid, use [IceDiscovery](../icediscovery).
 
 ## Installing IceLocatorDiscovery
 
