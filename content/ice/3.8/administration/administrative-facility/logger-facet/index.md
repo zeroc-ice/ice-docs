@@ -31,7 +31,9 @@ following C++ code retrieves the 10 most recent errors and `Network` trace messa
 Ice::ObjectPrx admin = ...
 auto loggerAdmin = admin.ice_facet<Ice::LoggerAdminPrx>("Logger");
 
-Ice::LogMessageTypeSeq messageTypes{Ice::LogMessageType::ErrorMessage, Ice::LogMessageType::TraceMessage};
+Ice::LogMessageTypeSeq messageTypes{
+    Ice::LogMessageType::ErrorMessage,
+    Ice::LogMessageType::TraceMessage};
 Ice::StringSeq traceCategories{"Network"};
 
 string prefix;
