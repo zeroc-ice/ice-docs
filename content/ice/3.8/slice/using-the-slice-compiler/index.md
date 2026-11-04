@@ -34,6 +34,9 @@ The following options print dependency information:
 
 {% language-section name="dependency-options" /%}
 
+With these options, the compiler prints the complete list of Slice files that the input Slice files depend on, through
+direct or indirect inclusion, and generates no code.
+
 The Slice compilers permit you to compile more than a single source file, so you can compile several Slice definitions
 at once, for example:
 
@@ -41,7 +44,8 @@ at once, for example:
 slice2cpp -I. file1.ice file2.ice file3.ice
 ```
 
-Each compiler predefines a preprocessor symbol that identifies it: for example, `slice2cpp` defines `__SLICE2CPP__`.
+Each compiler predefines macros that identify the compiler and the Ice version; see
+[Conditional Compilation](../slice-source-files#conditional-compilation).
 
 {% language-section name="common-options-3" /%}
 

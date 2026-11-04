@@ -21,10 +21,10 @@ The Slice-to-Python compiler (`slice2py`) supports the following additional opti
 
 The value selects the files:
 
-| Value     | Files                                                   |
-| --------- | ------------------------------------------------------- |
-| `modules` | The Python module files for the Slice definitions.      |
-| `index`   | The Python package index files (`__init__.py`).         |
-| `all`     | Both module and index files. The default for `--build`. |
+| Value     | Files                                                                       |
+| --------- | --------------------------------------------------------------------------- |
+| `modules` | The Python module files for the Slice definitions.                          |
+| `index`   | The Python package index files (`__init__.py`).                             |
+| `all`     | Both module and index files. What the compiler generates without `--build`. |
 
 {% /language-section %}
