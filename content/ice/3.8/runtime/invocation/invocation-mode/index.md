@@ -18,8 +18,8 @@ reply:
 | batch oneway           | Queues the request, and Ice sends the queued requests together; no reply. |
 | batch datagram         | Like batch oneway, over UDP.                                              |
 
-A proxy factory method, such as `ice_oneway`, `ice_datagram` or `ice_batchOneway`, returns a proxy with the given
-invocation mode, and a stringified proxy sets it with an [option](../syntax-for-stringified-proxies#options).
+A proxy factory method, such as `ice_oneway` or `ice_batchOneway`, returns a proxy with the given invocation mode, and a
+stringified proxy sets it with an [option](../syntax-for-stringified-proxies).
 
 The oneway, datagram, batch oneway and batch datagram modes apply only to operations that have a `void` return type, no
 out-parameters and no exception specification.

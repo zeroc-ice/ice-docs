@@ -19,10 +19,9 @@ UDP does not guarantee delivery: a datagram request can be lost, duplicated, or 
 can dispatch a request more than once, or not at all, and in any order. Design your application to tolerate lost,
 duplicated, and reordered requests.
 
-A datagram request, including its Ice message header, must fit in the smaller of 65,507 bytes and the
-[UDP send buffer size](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) minus 28 bytes. An object
-adapter receives datagram requests up to the smaller of 65,507 bytes and the
-[UDP receive buffer size](../../../../property-reference/ice-udp-properties#ice.udp.rcvsize) minus 28 bytes.
+A datagram request, including its Ice message header, cannot exceed 65,507 bytes, the largest UDP payload, and must also
+fit in the [UDP send buffer](../../../../property-reference/ice-udp-properties#ice.udp.sndsize) of the client and the
+[UDP receive buffer](../../../../property-reference/ice-udp-properties#ice.udp.rcvsize) of the object adapter.
 
 ## UDP Multicast
 
@@ -39,5 +38,5 @@ Discover.Proxy=discover:udp -h 239.255.1.1 -p 10000
 
 The `--interface` option of a UDP endpoint selects the network interface for multicast.
 
-To discover servers, consider the [IceDiscovery](../../../../plugins/icediscovery) plug-in rather than your own
-multicast protocol.
+The [IceDiscovery](../../../../plugins/icediscovery) plug-in uses UDP multicast to locate object adapters and well-known
+objects.

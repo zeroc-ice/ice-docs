@@ -26,5 +26,4 @@ than 64 KiB:
 
 {% language-section name="mapping-2" /%}
 
-Ice checks its own automatic flush threshold, set by `Ice.BatchAutoFlushSize`, before it calls the interceptor. An
-interceptor that flushes at a lower size therefore flushes the batch before Ice does.
+Installing an interceptor does not turn off [automatic flushing](../batched-invocations#automatic-flushing).
