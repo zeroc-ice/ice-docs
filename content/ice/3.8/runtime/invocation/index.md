@@ -3,6 +3,7 @@ title: Invocation
 pages:
   - creating-proxies
   - syntax-for-stringified-proxies
+  - proxy-defaults
   - converting-proxies-to-strings
   - proxy-endpoints
   - invocation-mode
@@ -25,7 +26,8 @@ A proxy is a local object that represents an Ice object, and encapsulates the fo
   adapter ID
 - invocation options and connection selection options
 
-A proxy is associated with a [communicator](../communicator), which establishes and manages its connections.
+A proxy is associated with a [communicator](../communicator), which manages the connections that invocations on this
+proxy use.
 
 ## See Also
 

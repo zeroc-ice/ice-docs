@@ -2,14 +2,9 @@
 title: Automatic Retries
 ---
 
-Ice can automatically retry a failed proxy invocation. To preserve
-[at-most-once semantics](../../../slice/operations#idempotent-operations), Ice retries an invocation of a non-idempotent
-operation only when it knows that the server did not dispatch the request. For an operation declared `idempotent`, Ice
-also retries when the server may have dispatched the request.
-
-For example, retrying a failed invocation of the `withdraw` operation of the
-[`Account` interface](#automatic-retries-for-idempotent-operations) could withdraw the amount twice, if the server
-dispatched the original request but its reply never reached the client.
+Ice can automatically retry a failed invocation. By default, Ice retries once, immediately;
+[Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) sets how many times Ice retries and
+after which delays. Ice retries an invocation only when it is safe to do so, as described below.
 
 ## Automatic Retries for Request Failures
 
@@ -17,49 +12,51 @@ An invocation fails when Ice cannot establish a connection, send the request, or
 reports a [dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions). Ice does not retry an
 invocation that completes with a user exception.
 
-Ice answers three questions to decide whether to retry a failed invocation.
+Ice answers two questions to decide whether to retry a failed invocation.
 
 ### What Caused the Failure?
 
-Ice never retries an invocation that fails:
+Ice retries an invocation that fails with a local exception, including a
+[dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions) such as `UnknownException`, except when:
 
-- with `MarshalException`
-- because its [invocation timeout](../invocation-timeouts) expired or it was canceled{% iflang langs="java" %}, or
-  because its thread was interrupted{% /iflang %}
-- because its communicator or object adapter was destroyed or deactivated
-- because the application closed the connection
-- with `FacetNotExistException` or `OperationNotExistException`
-- with `ObjectNotExistException`, unless the proxy is [indirect](../../../basics/terminology), since the Ice object may
-  have moved to another server; the server found no servant for the request, so Ice retries it even for an operation
-  that is not idempotent
+- the exception is `MarshalException`, `FacetNotExistException`, or `OperationNotExistException`
+- the exception is `ObjectNotExistException` and the proxy is direct
+- the [invocation timeout](../invocation-timeouts) expired
+- the invocation was canceled{% iflang langs="java" %}, including by interrupting its thread{% /iflang %}
+- the communicator or the object adapter was destroyed or deactivated
+- the application closed the connection
 
-Nor does Ice retry a [batched invocation](../invocation-mode/batched-invocations) or an invocation on a fixed proxy.
-
-Any other local exception remains a candidate for retry, including any other
-[dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions), such as `UnknownException`,
-`UnknownLocalException` or `UnknownUserException`.
+Ice does not retry a [batched invocation](../invocation-mode/batched-invocations) or an invocation on a fixed proxy.
 
 ### Could the Server Have Dispatched the Request?
 
-Ice treats a request as dispatched as soon as it has written the entire protocol message to the client's local transport
-buffers. A request that failed before this point was not dispatched.
+When an invocation fails before Ice has written the entire request to the client's local transport buffers, the server
+cannot have received the request, so retrying it is safe. Once the request is written, Ice assumes that the server may
+have dispatched it.
 
-When the Ice runtime in the server closes a connection gracefully, for example because the server is shutting down, it
-first finishes the dispatches in progress and replies to them, and does not dispatch the requests it receives after
-that. Ice in the client then retries the requests on this connection that are still waiting for a reply.
+When a server closes a connection gracefully, for example because it is shutting down, it completes the dispatches in
+progress and does not dispatch the requests it still receives on this connection. Ice retries these invocations: the
+server did not process their requests, so retrying them is safe.
 
-### Is the Operation Idempotent?
+{% callout type="note" %}
 
-When the server may have dispatched the request, Ice retries it only if the operation is
-[idempotent](#automatic-retries-for-idempotent-operations).
+Ice retries an invocation that fails this way once more even when it has reached the limit set by
+[Ice.RetryIntervals](#retry-intervals), including when retries are disabled with `-1`.
+
+{% /callout %}
+
+Ice also retries an invocation on an indirect proxy that fails with `ObjectNotExistException`, even when the operation
+is not idempotent.
 
 When Ice does not retry a failed invocation, or when its last retry fails, the invocation fails with the exception of
 its last attempt.
 
 ## Automatic Retries for Idempotent Operations
 
-Annotating a Slice operation with the [idempotent](../../../slice/operations) keyword notifies Ice that it can safely
-violate at-most-once semantics:
+By default, Ice provides [at-most-once semantics](../../../slice/operations#idempotent-operations): the server
+dispatches a request at most once, so Ice does not retry an invocation when the server may have dispatched its request.
+When an operation does not need at-most-once semantics, declare it `idempotent`: Ice then retries its invocations in
+this case too. For example:
 
 ```slice
 interface Account
@@ -114,9 +111,6 @@ logic and therefore require immediate notification when a failure occurs. A firs
 ```config
 Ice.RetryIntervals=-1
 ```
-
-When the server closes the connection gracefully, Ice retries the invocation once more even if it has reached this
-limit, including when retries are disabled with `-1`.
 
 ### Retry Tracing
 

@@ -6,9 +6,9 @@ sidebarLabel: Timeouts
 An invocation timeout limits how long Ice waits for an invocation to complete. When the timeout expires, the invocation
 fails with `InvocationTimeoutException`.
 
-Ice starts the timer once it has marshaled the request parameters, before it establishes a connection or sends the
-request. For a twoway invocation, it stops the timer when it receives the reply, before it unmarshals the reply. For a
-oneway invocation, it stops the timer once it has sent the request. The timeout applies to the invocation as a whole:
+Ice starts the timer once it has marshaled the request parameters, before it obtains a connection, cached or newly
+established. For a twoway invocation, it stops the timer when it receives the reply, before it unmarshals the reply. For
+a oneway invocation, it stops the timer once it has sent the request. The timeout applies to the invocation as a whole:
 Ice does not restart the timer when it [retries](../automatic-retries) the invocation.
 
 ## Configuring Invocation Timeouts
@@ -30,9 +30,9 @@ The `ice_invocationTimeout` proxy factory method returns a new proxy with the gi
 
 ## When an Invocation Times Out
 
-An invocation timeout affects only the client: Ice sends nothing to the server, which can still be dispatching the
-request, and ignores the reply if the server sends one. Ice does not [retry](../automatic-retries) an invocation that
-times out.
+An invocation timeout affects only the client: Ice does not notify the server, which can still be dispatching the
+request, and Ice ignores the reply if the server sends one. Ice does not [retry](../automatic-retries) an invocation
+that times out.
 
 ## See Also
 

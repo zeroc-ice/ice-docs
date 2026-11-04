@@ -15,10 +15,10 @@ languages:
 [Proxies](..) are thread-safe: several threads can invoke operations on the same proxy concurrently, without additional
 synchronization.
 
-When a proxy [caches its connection](../../connection-management/connection-establishment#connection-reuse-and-caching),
-the default, Ice sends the invocations made one after the other on this proxy in the order they were made. Invocations
-made concurrently from several threads have no defined order. When the proxy does not cache its connection, its
-invocations can use different connections, and have no defined order.
+A proxy [caches its connection](../../connection-management/connection-establishment#connection-reuse-and-caching) by
+default. When a thread makes invocations on this proxy one after the other, Ice sends their requests on the cached
+connection in the same order. Invocations made concurrently from several threads have no defined order, and neither do
+the invocations on a proxy that does not cache its connection.
 
 The order in which Ice sends requests does not determine the order in which the server dispatches them: the server can
 dispatch requests concurrently.
