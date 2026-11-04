@@ -42,7 +42,7 @@ communicator then creates the admin object when the application calls `getAdmin`
 {% /iflang %}
 
 The endpoints of the object adapter that hosts the admin object determine which clients can reach it; see
-[Security Considerations for Administrative Facets](../security-considerations-for-administrative-facets).
+[Securing the admin Object](../security-considerations-for-administrative-facets).
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
@@ -66,5 +66,5 @@ separate from the configuration of the communicator.
 
 - [Ice.Admin.*](../../../property-reference/ice-admin-properties)
 - [IceGrid and the Administrative Facility](../../../services/icegrid/icegrid-and-the-administrative-facility)
-- [Security Considerations for Administrative Facets](../security-considerations-for-administrative-facets)
+- [Securing the admin Object](../security-considerations-for-administrative-facets)
 - [Using the admin Object](../using-the-admin-object)

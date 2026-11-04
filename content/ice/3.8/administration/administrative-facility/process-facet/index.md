@@ -69,7 +69,7 @@ are defined by the server.
 
 - [Communicator](../../../runtime/communicator)
 - [Versioning](../../../versioning)
-- [Security Considerations for Administrative Facets](../security-considerations-for-administrative-facets)
+- [Securing the admin Object](../security-considerations-for-administrative-facets)
 - [Object Adapters](../../../runtime/dispatch)
 - [Creating the admin Object](../creating-the-admin-object)
 - [Using the admin Object](../using-the-admin-object)
