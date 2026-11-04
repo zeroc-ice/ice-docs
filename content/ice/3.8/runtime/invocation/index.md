@@ -3,7 +3,6 @@ title: Invocation
 pages:
   - creating-proxies
   - syntax-for-stringified-proxies
-  - proxy-defaults
   - converting-proxies-to-strings
   - proxy-endpoints
   - invocation-mode

@@ -12,9 +12,7 @@ greeter = GreeterPrx(communicator, 'greeter:tcp -h localhost -p 4061');
 {% language-section name="creating-a-proxy-from-a-property-1" %}
 
 We can use the `propertyToProxy` method on `Communicator` to convert the property's value into a proxy. An empty array
-(null proxy) is returned if no property is found with the specified name. This proxy is a proxy for `Ice::Object`:
-attach the type information of `Greeter` with [uncheckedCast](../../../slice/interfaces#uncheckedcast) before you invoke
-`greet` on it.
+(null proxy) is returned if no property is found with the specified name.
 
 ```matlab
 greeter = GreeterPrx.uncheckedCast(communicator.propertyToProxy('Greeter.Proxy'));

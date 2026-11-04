@@ -15,9 +15,7 @@ let greeter = try makeProxy(
 {% language-section name="creating-a-proxy-from-a-property-1" %}
 
 We can use the `propertyToProxy` method on `Communicator` to convert the property's value into a proxy. A null proxy
-(nil) is returned if no property is found with the specified name. This proxy is a proxy for `Ice::Object`: attach the
-type information of `Greeter` with [uncheckedCast](../../../slice/interfaces#uncheckedcast) before you invoke `greet` on
-it.
+(nil) is returned if no property is found with the specified name.
 
 ```swift
 if let proxy = try communicator.propertyToProxy("Greeter.Proxy") {

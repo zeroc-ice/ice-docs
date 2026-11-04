@@ -20,6 +20,13 @@ Greeter.Proxy=greeter:tcp -h localhost -p 4061
 
 {% language-section name="creating-a-proxy-from-a-property-1" /%}
 
+{% iflang langs="csharp,java,js,matlab,python,ruby,swift" %}
+
+`propertyToProxy` returns an `ObjectPrx`. Call [`uncheckedCast`](../../../slice/interfaces#uncheckedcast) on this base
+proxy to create a `GreeterPrx`.
+
+{% /iflang %}
+
 As an added convenience, `propertyToProxy` allows you to define subordinate properties that configure the proxy's local
 settings. The properties below demonstrate this feature:
 
@@ -61,7 +68,7 @@ A server uses an object adapter to create the proxies through which clients invo
   proxy that holds the object adapter's published endpoints.
 - `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
 - `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
-  [well-known proxy](../proxy-endpoints#well-known-proxy) when the object adapter has no adapter ID.
+  [well-known proxy](../proxy-endpoints/well-known-proxy) when the object adapter has no adapter ID.
 
 {% /iflang %}
 
