@@ -50,7 +50,8 @@ Then remove the default facet, add your own, and call `getAdmin` to create the a
 
 {% language-section name="mapping" /%}
 
-A servant must not call `destroy` on its communicator while dispatching a request.
+A servant must not call `destroy` on its communicator while dispatching a request: `destroy` waits for all outstanding
+dispatches to complete, including the one that calls it, so this dispatch deadlocks.
 
 ## Integrating the Process Facet with an Activation Service
 
