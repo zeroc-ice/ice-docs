@@ -1,26 +1,10 @@
-{% language-section name="mapping" %}
-
-The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/php/Ice/context) provides a complete example of
-using request context in PHP.
-
-Using the Slice greeter definitions once again:
-
-```slice
-module VisitorCenter
-{
-    interface Greeter
-    {
-        string greet(string name);
-    }
-}
-```
-
-A client application can set a request context to send additional metadata:
+{% language-section name="client" %}
 
 ```php
-// We request a French greeting by setting 'language' in the context parameter.
 $context = ["language" => "fr"];
-$greeting = $greeter->greet(get_current_user(), $context);
+$greeting = $greeter->greet("alice", $context);
 ```
+
+The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/php/Ice/context) provides a complete example.
 
 {% /language-section %}
