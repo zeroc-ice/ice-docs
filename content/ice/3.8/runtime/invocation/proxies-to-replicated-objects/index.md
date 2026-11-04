@@ -5,7 +5,7 @@ title: Proxies to Replicated Objects
 A _replicated_ Ice object is hosted by several servers, the replicas, each with a servant for the object's identity. A
 client reaches any of these replicas with one of the following proxies:
 
-- An indirect proxy with the ID of the replica group of these servers.
+- An indirect proxy with a replica group ID.
 - A direct proxy that lists the endpoints of all the replicas.
 - A direct proxy with a single endpoint that points to a TCP load balancer in front of the replicas.
 - A direct proxy with a single endpoint with a host name that resolves to the address of each replica.
@@ -18,14 +18,11 @@ An indirect proxy can refer to a replica group rather than to a single object ad
 hello @ HelloGroup
 ```
 
-The object adapter of each replica registers with the [locator](../../locators) under this replica group ID, set by its
-[ReplicaGroupId](../../../property-reference/object-adapter-properties#adapter.replicagroupid) property. The locator
-returns the endpoints of one or more of these replicas, and Ice connects to one of these endpoints. You add or remove a
-replica by registering or unregistering its object adapter with the locator, without changing the proxies. With
-[IceGrid](../../../services/icegrid), the replicas are the object adapters of a
+The [locator](../../locators) returns the endpoints of one or more of these replicas, and Ice connects to one of them.
+With [IceGrid](../../../services/icegrid), the replicas are the object adapters of a
 [replica group](../../../services/icegrid/object-adapter-replication). With
-[IceDiscovery](../../../plugins/icediscovery#configuring-icediscovery-in-servers), the locator returns the endpoints of
-all the replicas that reply to its multicast lookup.
+[IceDiscovery](../../../plugins/icediscovery#configuring-icediscovery-in-servers), they are the object adapters that
+share this replica group ID.
 
 ## Listing the Endpoints of Every Replica
 
@@ -64,8 +61,8 @@ hello:tcp -h hello.example.com -p 4061
 
 When Ice establishes a connection, it connects to one of the addresses of this host name, as described in
 [Connection Establishment](../../connection-management/connection-establishment). Which replica a new connection reaches
-depends on the order in which the resolver returns the addresses, so spreading clients across the replicas relies on the
-DNS server rotating them.
+depends on the order in which the resolver returns the addresses, so load balancing across the replicas relies on the
+DNS server rotating these addresses.
 
 With this configuration, all the replicas must use the same port. You add or remove a replica by updating the DNS
 record; the connections already established to a replica stay open after you remove its address. A replica that is down

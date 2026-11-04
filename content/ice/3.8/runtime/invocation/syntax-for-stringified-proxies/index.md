@@ -17,12 +17,13 @@ A stringified proxy consists of an identity, optional proxy options, and optiona
 forms of the synopsis represent:
 
 - a [well-known proxy](../proxy-endpoints#well-known-proxy), with an identity and no addressing information
-- an [indirect proxy](../proxy-endpoints#proxy-with-an-adapter-id), with an identity and an adapter ID, which Ice
-  resolves with the [locator](../../locators)
+- a [proxy with an adapter ID](../proxy-endpoints#proxy-with-an-adapter-id)
 - a direct proxy, with an identity and one or more endpoints
 
-Spaces, tabs, and line breaks separate the components of a stringified proxy. The proxy options follow the identity and
-precede the `@` or `:` separator.
+The first two are indirect proxies, which Ice resolves with the [locator](../../locators).
+
+White space separates the components of a stringified proxy. The proxy options follow the identity and precede the `@`
+or `:` separator.
 
 ## Options
 
@@ -57,17 +58,7 @@ store/item @ "Adapter A"
 ## Endpoints
 
 The endpoints of a direct proxy are separated with a colon (`:`) and formatted as described in
-[Endpoint Syntax](../../endpoint-syntax). The proxy keeps the endpoints in the order of the stringified proxy, and
-`ice_getEndpoints` returns them in this order. With the default `Random` endpoint selection type, Ice shuffles the
-endpoints each time the proxy needs a connection; the
-[Ice.Default.EndpointSelection](../../../property-reference/ice-default-properties#ice.default.endpointselection) and
-[_name_.EndpointSelection](../../../property-reference/proxy-properties#name.endpointselection) properties change this
-type.
-
-Ice drops an endpoint whose transport is not registered with the communicator, such as a `bt` endpoint in a runtime
-without IceBT, and logs a warning that lists the dropped endpoints when
-[Ice.Warn.Endpoints](../../../property-reference/ice-warn-properties#ice.warn.endpoints) is set to `1`, the default. At
-least one endpoint must remain.
+[Endpoint Syntax](../../endpoint-syntax).
 
 ## See Also
 
