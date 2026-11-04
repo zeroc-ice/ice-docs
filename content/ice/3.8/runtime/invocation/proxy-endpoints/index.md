@@ -1,118 +1,87 @@
 ---
 title: Proxy Endpoints
 sidebarLabel: Endpoints
-pages:
-  - indirect-proxy-with-object-adapter-identifier
-  - well-known-proxy
 ---
 
-The endpoint or endpoints of a proxy correspond to the endpoint(s) of the object adapter(s) that hosts the target
-object.
+A direct proxy holds one or more endpoints, which tell Ice how to reach the target object. An indirect proxy holds no
+endpoint: Ice obtains the endpoints from a [locator](../../locators).
 
-{% callout type="tip" %}
+## Direct Proxies
 
-Endpoint is an overloaded term - many things are “endpoints”. Think of an Ice endpoint as a “server address”. Not so
-coincidentally, that’s the term we’ve adopted for IceRPC.
-
-{% /callout %}
-
-A proxy can have one endpoint, two or more endpoints, or zero endpoints. We explore below the meaning of each of these
-configurations.
-
-## Proxy with a Single Endpoint
-
-It is very common for a proxy to have a single endpoint. It’s the address of the server (object adapter) that hosts the
-target object.
-
-Here is a single endpoint proxy:
+The endpoints of a direct proxy are usually the
+[published endpoints](../../dispatch/object-adapter-endpoints#published-object-adapter-endpoints) of the object adapter
+that hosts the target object. For example, the target object of this proxy is reachable over TCP on host
+`frosty.zeroc.com` and port `4061`:
 
 ```text
 greeter:tcp -h frosty.zeroc.com -p 4061
 ```
 
-This endpoint states that an object is reachable via TCP on host `frosty.zeroc.com` and the port `4061`.
-
-{% callout type="note" %}
-
-The corresponding object adapter endpoint is typically different. For starters, you should not use DNS names in object
-adapter endpoints, while it’s common to use them in proxy endpoints.
-
-A typical object adapter endpoint would be:
-
-```config
-GreeterAdapter.Endpoints=tcp -p 4061 # listens on all interfaces
-```
-
-{% /callout %}
-
-## Proxy with Two or More Endpoints
-
-A proxy can specify two or more endpoints separated by colons (`:`). For example:
+A proxy can hold several endpoints, separated by colons (`:`):
 
 ```text
 greeter:tcp -h venus -p 4061:tcp -h mars -p 4061:tcp -h saturn -p 4061
 ```
 
-This list of endpoints means the object is reachable via TCP on the specified hosts.
-
-### Same Transport for All Endpoints
-
-The most common situation is when all the endpoints of the proxy use the same transport. It means the target object is
-replicated and the client selects which replica to connect to. The replicas are largely equivalent, in particular, they
-listen with the same transport.
+These endpoints are several addresses of the object adapter that hosts the target object, or the addresses of the
+[replicas](../proxies-to-replicated-objects) of this object. Ice selects which endpoint to connect to according to the
+proxy's [endpoint selection](../../../property-reference/proxy-properties#name.endpointselection) type.
 
 ### Endpoints with Different Transports
 
-Ice accepts proxies that combine endpoints with different transports - it’s syntactically ok. But it’s rarely
-meaningful. If you’re using such proxies, have a second look, and make sure you understand why you’re combining these
-diverse endpoints.
+A proxy can combine endpoints with different transports. Ice uses only the endpoints that suit the proxy's
+[invocation mode](../invocation-mode#invocation-modes-and-endpoints), and selects among the remaining endpoints
+regardless of their transport. For example:
 
-Let’s take a few examples:
+- `tcp -h venus -p 4061:udp -h venus -p 4061`: a proxy with these endpoints supports both twoway invocations, over
+  `tcp`, and datagram invocations, over `udp`.
+- `ssl -h venus -p 10000:wss -h venus -p 10001`: you distribute the same proxy to web browser clients, which connect
+  with `wss` since they can't connect with `ssl`, and to other clients. With the `Ordered` endpoint selection type,
+  these other clients try `ssl` first.
 
-| **Proxy Endpoint List**                       | **Analysis**                                                                                                                                                                                                                                                                                                                                                                                         |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `udp -h venus -p 4061:tcp -h mars -p 4061`    | **Not recommended** Never combine a `udp`endpoint with any other transport in the same proxy.                                                                                                                                                                                                                                                                                                        |
-| `tcp -h venus -p 4061:ssl -h venus -p 4062`   | **Not recommended** Never combine secure and non-secure endpoints in the same proxy. The server should decide whether it accepts only secure or only non-secure connections.                                                                                                                                                                                                                         |
-| `ssl -h venus -p 10000:wss -h venus -p 10001` | **Unusual. Could be ok.**Possible use-case: you distribute the same proxies to various clients and you want web browser clients to use the `wss` endpoint (since they can’t connect with `ssl`); and you want other `ssl`-capable clients to use `ssl`. You would use this proxy endpoint list in conjunction with the `Ordered` [endpoint selection](../../../property-reference/proxy-properties). |
+A proxy should not combine secure and non-secure endpoints, such as `tcp` and `ssl`: the object adapter that hosts the
+target object should listen on secure endpoints or on non-secure endpoints, not both. See
+[Endpoint Security Considerations](../../ssl-transport#endpoint-security-considerations).
 
-## Proxy with No Endpoint
+## Indirect Proxies
 
-A proxy with one or more endpoints is called a _direct proxy_, while a proxy with no endpoint is called an _indirect
-proxy_.
-
-Indirect because when a proxy has no endpoint, the communicator uses a [locator](../../locators) to retrieve the
-endpoint(s) dynamically. One style of indirect proxy contains an
-[adapter ID](./indirect-proxy-with-object-adapter-identifier):
-
-```text
-MyObject @ MyAdapter
-```
-
-When this proxy requires the endpoints associated with `MyAdapter`, it requests them from the locator.
-
-The other style of indirect proxy is a proxy with just an object identity, called a
-[well-known proxy](./well-known-proxy):
-
-```text
-MyObject
-```
-
-Just like with the `@` style, the communicator requests endpoint(s) for such a proxy from the locator.
+An indirect proxy is a proxy with an adapter ID or a well-known proxy. When an invocation on an indirect proxy needs a
+connection, Ice asks the locator for the endpoints, and caches the reply as described in
+[Locator Semantics for Clients](../../locators/locator-semantics-for-clients).
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-{% callout type="note" title="Locator optional" %}
-
-An indirect proxy can also refer to a collocated target object. In this case, you don’t need to configure a locator to
-resolve the endpoints of this proxy - Ice doesn’t need any endpoint since it doesn’t establish a network connection to
-this local object adapter.
-
-{% /callout %}
+With [collocation optimization](../../collocated-invocation-and-dispatch), enabled by default, Ice first checks whether
+an object adapter of the proxy's communicator hosts the target object. If one does, Ice dispatches the invocation to
+this object adapter, without a locator.
 
 {% /iflang %}
+
+### Proxy with an Adapter ID
+
+A proxy with an adapter ID refers to an object hosted by the object adapter with this adapter ID, or by the object
+adapters of the replica group with this ID:
+
+```text
+greeter @ GreeterAdapter
+```
+
+Ice asks the locator for the endpoints of `GreeterAdapter`.
+
+### Well-Known Proxy
+
+A well-known proxy holds only an identity, without endpoints or an adapter ID:
+
+```text
+greeter
+```
+
+Ice asks the locator for the object with this identity, such as an
+[IceGrid well-known object](../../../services/icegrid/well-known-objects).
 
 ## See Also
 
 - [Terminology](../../../basics/terminology)
+- [Syntax for Stringified Proxies](../syntax-for-stringified-proxies)
 - [Object Adapter Endpoints](../../dispatch/object-adapter-endpoints)
 - [Locators](../../locators)
