@@ -20,7 +20,7 @@ middleware from the next dispatcher, and the object adapter calls this factory w
 install all the middleware of an object adapter before this first dispatch, and they intercept requests in the order you
 install them.
 
-For example, the following middleware checks a token before passing the request on, and the call to `use` installs it:
+For example, the following middleware takes the next dispatcher and a token, and the call to `use` installs it:
 
 {% language-section name="mapping" /%}
 

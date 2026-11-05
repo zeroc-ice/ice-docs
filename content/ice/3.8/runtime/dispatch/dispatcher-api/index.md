@@ -22,6 +22,8 @@ request: it unmarshals the parameters, calls the method you implement for the op
 and out parameters into the response. It also implements the operations of
 [Object](../../../slice/operations-on-object): `ice_id`, `ice_ids`, `ice_isA` and `ice_ping`.
 
+{% language-section name="servants" /%}
+
 {% iflang langs="cpp,csharp,java,js,swift" %}
 
 A servant can also implement the dispatch method itself, without a generated skeleton: it reads the parameters from the
