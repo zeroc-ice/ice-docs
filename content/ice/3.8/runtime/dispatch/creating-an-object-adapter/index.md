@@ -32,8 +32,8 @@ prefixed with its name, including:
 
 {% /iflang %}
 
-When you call `createObjectAdapter` with an empty name, the object adapter gets a UUID as its name and reads no
-properties.
+When you call `createObjectAdapter` with a non-empty name, set at least one property prefixed with this name. With an
+empty name, the object adapter reads no properties.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
