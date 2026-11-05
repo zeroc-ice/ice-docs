@@ -124,7 +124,7 @@ that contains this file. For example, with `INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_
 `slice/Demo/Weather.ice` generates `Demo/Weather.h` and `Demo/Weather.cpp` under `generated/<target>`. `slice2cpp` uses
 the same path in the generated `#include` directives: the `#include <Demo/Weather.ice>` directive of another Slice file
 becomes `#include <Demo/Weather.h>` in the header generated from that file (see
-[Header Files](../../using-the-slice-compiler#header-files)). A Slice file outside the `INCLUDE_DIRS` directories
+[Header Files](../../slice/using-the-slice-compiler#header-files)). A Slice file outside the `INCLUDE_DIRS` directories
 generates its files directly in `generated/<target>`.
 
 ## Sharing Generated Headers Between Targets
@@ -196,4 +196,4 @@ target_include_directories(weather_api PUBLIC $<INSTALL_INTERFACE:include>)
 
 ## See Also
 
-- [Using the Slice Compiler](../../using-the-slice-compiler)
+- [Using the Slice Compiler](../../slice/using-the-slice-compiler)

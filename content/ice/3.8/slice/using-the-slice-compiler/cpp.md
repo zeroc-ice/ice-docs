@@ -66,10 +66,10 @@ The `-I` and `--include-dir` options determine the paths of the `#include` direc
 
 ### Header Files
 
-For each Slice file that a Slice file includes, the generated header includes the header generated from the included
-file. The compiler builds the path of this `#include` directive from the path of the included Slice file: when an `-I`
-directory contains the included file, the compiler removes this directory from the path, and when several do, it uses
-the one that gives the shortest path. For example, suppose `slice/inc/A.ice` contains:
+The header generated from a Slice file includes the header generated from each Slice file it includes. The compiler
+builds the path of this `#include` directive from the path of the included Slice file: when an `-I` directory contains
+the included file, the compiler removes this directory from the path, and when several do, it uses the one that gives
+the shortest path. For example, suppose `slice/inc/A.ice` contains:
 
 ```slice
 // A.ice
@@ -82,13 +82,9 @@ the one that gives the shortest path. For example, suppose `slice/inc/A.ice` con
 | `slice2cpp -I. -Islice slice/inc/A.ice`             | `#include <inc/B.h>`          |
 | `slice2cpp -I. -Islice -Islice/inc slice/inc/A.ice` | `#include <B.h>`              |
 
-The `-I` option therefore plays two roles: it lets the preprocessor locate included Slice files, and it shortens the
+The `-I` option therefore plays two roles: it lets the compiler locate included Slice files, and it shortens the
 generated `#include` directives. In the last two commands, `-I.` locates `slice/inc/B.ice`, and the other `-I` options
-only shorten the generated directive. Configure your C++ compiler so that it finds the headers by these paths.
-
-The preprocessor locates an included Slice file through the first `-I` directory that contains this file, and the
-compiler shortens the resulting path. The other `-I` directories shorten the path only when they are prefixes of this
-path. Avoid include directories that let the preprocessor locate a file in more than one way.
+only shorten the generated directive.
 
 ### Source Files
 
@@ -101,6 +97,6 @@ The generated source file includes its own header by the base name of the header
 
 Ice for C++ ships with a CMake package that defines an imported target for each Ice library and provides the
 `slice2cpp_generate` function, which compiles the Slice files of a target as part of the build. See
-[Using Ice with CMake](../build-tools/cmake).
+[Using Ice with CMake](../../build-tools/cmake).
 
 {% /language-section %}
