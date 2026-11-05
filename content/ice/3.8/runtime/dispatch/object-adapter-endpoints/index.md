@@ -21,8 +21,8 @@ adapter does not listen for connections, so it has no physical endpoints.
 An object adapter has two sets of [endpoints](../../endpoint-syntax):
 
 - its _physical endpoints_, on which it listens for connections;
-- its _published endpoints_, which it embeds in the direct proxies it creates and, when it has an adapter ID, registers
-  with the [locator registry](../../locators/locator-semantics-for-servers).
+- its _published endpoints_, which it embeds in the direct proxies it creates and, when it has an adapter ID and a
+  locator, registers with the [locator registry](../../locators/locator-semantics-for-servers) when you activate it.
 
 ## Physical Object Adapter Endpoints
 
@@ -46,11 +46,10 @@ For example, the object adapter `MyAdapter` configured as follows listens on the
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 ```
 
-Without a port, the operating system picks a port each time you create the object adapter, and the proxies that clients
-kept from a previous run no longer reach it. Give the endpoints a fixed port, unless clients reach the object adapter
-through indirect proxies, such as with [IceGrid](../../../services/icegrid), or use its proxies only while the server
-runs. An object adapter with an adapter ID registers its published endpoints with the
-[locator registry](../../locators/locator-semantics-for-servers) when you activate it.
+Without a port, the operating system picks a port each time you create the object adapter, and the direct proxies that
+clients kept from a previous run may no longer reach it. Give the endpoints a fixed port, unless clients reach the
+object adapter through indirect proxies, such as with [IceGrid](../../../services/icegrid), or use its proxies only
+while the server runs.
 
 {% /iflang %}
 
@@ -73,8 +72,9 @@ this property is not set, it derives its published endpoints from its physical e
 1. It discards the loopback and multicast endpoints, unless all the endpoints are loopback or multicast.
 2. It replaces the host of each endpoint with the value of
    [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost). When this
-   property is not set, it uses the DNS name of the current host, unless all the endpoints are loopback or multicast:
-   then it keeps their hosts.
+   property is not set, it uses the host name of the current host, unless all the endpoints are loopback or multicast:
+   then it keeps their hosts.{% iflang langs="java" %} On Android, Ice cannot determine the host name: set
+   `adapter.PublishedHost` when clients use the proxies this object adapter creates.{% /iflang %}
 3. It removes duplicate endpoints.
 
 For example, the following object adapter publishes `tcp -h Sun1 -p 9999` on host `Sun1`:
@@ -82,13 +82,6 @@ For example, the following object adapter publishes `tcp -h Sun1 -p 9999` on hos
 ```config
 MyAdapter.Endpoints=tcp -p 9999
 ```
-
-{% iflang langs="java" %}
-
-On Android, Ice cannot determine the DNS name of the current host: set `adapter.PublishedHost` when clients use the
-proxies this object adapter creates.
-
-{% /iflang %}
 
 Set `adapter.PublishedHost` to publish another host name, or `adapter.PublishedEndpoints` when clients reach the object
 adapter through another host or port, such as through a firewall that forwards connections to `corpfw` on port `25000`
