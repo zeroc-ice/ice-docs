@@ -1,16 +1,16 @@
 ---
 title: Using Configuration Files
 sidebarLabel: Configuration Files
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
-
-{% iflang langs="js" %}
-
-Ice for JavaScript doesn't load configuration files. The `parse` method of a [property set](../properties-class) loads
-properties from the contents of a [configuration file](../configuration-file-syntax) that you supply as a string.
-
-{% /iflang %}
-
-{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 Ice loads configuration files when it creates a [property set](../properties-class) from an argument array: when you
 create a property set with arguments, or pass arguments to communicator
@@ -65,8 +65,6 @@ configuration file sets:
 ```
 
 [Alternate Property Stores](../alternate-property-stores) describes the other sources `Ice.Config` can name.
-
-{% /iflang %}
 
 ## See Also
 

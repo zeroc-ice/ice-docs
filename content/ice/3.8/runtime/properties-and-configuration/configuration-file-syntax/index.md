@@ -32,8 +32,8 @@ My.Prop = \ \ a property\ \         # Value is "  a property  "
 ## Special Characters
 
 `=` separates the name of a property from its value, and `#` starts a comment. Escape these characters with a backslash
-to use them in a name, and escape `#` to use it in a value; an `=` in a value needs no escape. `\\` stands for a single
-backslash, and Ice keeps any other backslash as written:
+to use them in a name, and escape `#` to use it in a value; an `=` in a value needs no escape. A backslash followed by
+`\`, `=`, `#`, or a space stands for that character, and Ice keeps any other backslash as written:
 
 ```config
 foo\=bar=1                  # Name is "foo=bar", value is "1"

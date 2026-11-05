@@ -12,8 +12,7 @@ Ice.Trace.Network=3
 ```
 
 Each communicator has a set of properties that configures the communicator and its subsystems; the
-[property reference](../../../property-reference) lists the properties of Ice. Properties configure Ice: configure your
-application with a configuration mechanism of its own.
+[property reference](../../../property-reference) lists the properties of Ice.
 
 Set the properties that configure the Ice runtime and its services before initializing the component that uses them. For
 updates that take effect at run time, see

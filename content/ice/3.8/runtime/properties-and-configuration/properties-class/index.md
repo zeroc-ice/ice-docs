@@ -28,8 +28,8 @@ and [`getIcePropertyAsList`](api:Ice/Properties.getIcePropertyAsList) read Ice p
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of `1`, while `getPropertyAsInt("Ice.Warn.Dispatch")`
 returns `0`.
 
-These three methods accept only names that begin with a reserved prefix. Read the other properties, such as the
-properties of an object adapter or a proxy, with the plain `getProperty` methods, which take any name.
+These three methods accept only the names of Ice properties. Read the other properties, such as the properties of an
+object adapter or a proxy, with the plain `getProperty` methods, which take any name.
 
 {% iflang langs="swift" %}
 
@@ -52,3 +52,10 @@ prefix, and marks them as [used](../properties-overview#unused-properties).
 properties, with the same validation as `setProperty`, and
 [`getCommandLineOptions`](api:Ice/Properties.getCommandLineOptions) converts a property set back into command-line
 options.
+
+{% iflang langs="js" %}
+
+[`parse`](api:Ice/Properties.parse) loads properties from the contents of a
+[configuration file](../configuration-file-syntax) that you supply as a string.
+
+{% /iflang %}

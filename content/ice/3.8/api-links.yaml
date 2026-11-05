@@ -252,6 +252,8 @@ Ice/Properties.getPropertyWithDefault:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertywithdefault
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertyWithDefault
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertywithdefault(key:value:)
+Ice/Properties.parse:
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#parse
 Ice/Properties.parseCommandLineOptions:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_aa3157c9cfd9480d9e653df01442f706c.html#aa3157c9cfd9480d9e653df01442f706c
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_parseCommandLineOptions_

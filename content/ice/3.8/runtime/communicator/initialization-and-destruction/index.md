@@ -19,4 +19,4 @@ customize when you create a communicator.
 ## See Also
 
 - [Setting Properties on the Command Line](../../properties-and-configuration/setting-properties-on-the-command-line)
-- [The Properties Interface](../../properties-and-configuration/properties-class)
+- [The Properties Class](../../properties-and-configuration/properties-class)
