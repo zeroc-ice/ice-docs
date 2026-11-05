@@ -19,8 +19,8 @@ pages:
   - using-multiple-object-adapters
 ---
 
-A _dispatch_ is the processing of a request on the server side: Ice runs the code that implements the operation, and
-returns the response to the caller.
+A _dispatch_ is the processing of a request on the server side: Ice runs the code that implements the operation, and,
+for a twoway request, returns the response to the caller.
 
 An _object adapter_ is the entry point for dispatches.
 
@@ -40,5 +40,5 @@ An object adapter dispatches the requests it receives over the
 
 {% /iflang %}
 
-Each object adapter belongs to a communicator, which can have several object adapters, and has a name unique within this
-communicator.
+Each object adapter belongs to a communicator, which can have several object adapters, and has a name. A non-empty name
+is unique within this communicator.
