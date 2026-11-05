@@ -67,9 +67,9 @@ The `-I` and `--include-dir` options determine the paths of the `#include` direc
 ### Header Files
 
 The header generated from a Slice file includes the header generated from each Slice file it includes. The compiler
-builds the path of this `#include` directive from the path of the included Slice file: when an `-I` directory contains
-the included file, the compiler removes this directory from the path, and when several do, it uses the one that gives
-the shortest path. For example, suppose `slice/inc/A.ice` contains:
+builds the path of this `#include` directive from the path of the included Slice file: when it finds the included file
+in an `-I` directory, it removes the `-I` directory from the path, and when several `-I` directories contain the file,
+it uses the one that gives the shortest path. For example, suppose `slice/inc/A.ice` contains:
 
 ```slice
 // A.ice
@@ -85,6 +85,10 @@ the shortest path. For example, suppose `slice/inc/A.ice` contains:
 The `-I` option therefore plays two roles: it lets the compiler locate included Slice files, and it shortens the
 generated `#include` directives. In the last two commands, `-I.` locates `slice/inc/B.ice`, and the other `-I` options
 only shorten the generated directive.
+
+When the compiler finds the included file relative to the including file instead, the generated directive keeps the path
+of the Slice `#include` directive, in quotes, whatever the `-I` options: if `slice/inc/A.ice` contains
+`#include "B.ice"`, `A.h` contains `#include "B.h"`.
 
 ### Source Files
 

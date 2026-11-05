@@ -131,9 +131,9 @@ generates its files directly in `generated/<target>`.
 
 Set `INCLUDE_SCOPE PUBLIC` so that targets that link your library can include its generated headers.
 
-`slice2cpp_generate` compiles only the Slice files listed in the target's sources, and uses `INCLUDE_DIRS` only to find
-the Slice files included by these files. The recommended way to share a Slice file between several targets is to compile
-this file in a library of its own, and link this library from each target that uses it:
+`slice2cpp_generate` compiles only the Slice files listed in the target's sources, not the Slice files it finds through
+`INCLUDE_DIRS`. The recommended way to share a Slice file between several targets is to compile this file in a library
+of its own, and link this library from each target that uses it:
 
 ```cmake
 add_library(demo_common ../slice/Demo/Common.ice)
