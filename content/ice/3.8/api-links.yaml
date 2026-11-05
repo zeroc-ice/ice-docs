@@ -120,6 +120,12 @@ Ice/ObjectAdapter:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter
+Ice/ObjectAdapter.activate:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a538b842c71355b1b2317a7c2375e0feb.html#a538b842c71355b1b2317a7c2375e0feb
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_activate_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#activate()
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.activate
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/activate()
 Ice/ObjectAdapter.add:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a9474896e81c2ffd589b3b5269f6b373a.html#a9474896e81c2ffd589b3b5269f6b373a
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_add_
@@ -134,6 +140,25 @@ Ice/ObjectAdapter.addFacet:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#addfacet
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.addFacet
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/addfacet(servant:id:facet:)
+Ice/ObjectAdapter.deactivate:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a784185a9c53e3437488f3b3fa59f7ee3.html#a784185a9c53e3437488f3b3fa59f7ee3
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_deactivate_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#deactivate()
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.deactivate
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/deactivate()
+Ice/ObjectAdapter.destroy:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a858d028f9715eecc4cc7f185d3ee4ab9.html#a858d028f9715eecc4cc7f185d3ee4ab9
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_destroy_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#destroy()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#destroy
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.destroy
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/destroy()
+Ice/ObjectAdapter.hold:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a720e07c9012d11119716ea216306102e.html#a720e07c9012d11119716ea216306102e
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_hold_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#hold()
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.hold
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/hold()
 Ice/ObjectNotExistException:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectNotExistException.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectNotExistException.html

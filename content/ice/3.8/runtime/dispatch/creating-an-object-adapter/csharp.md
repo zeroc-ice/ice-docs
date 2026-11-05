@@ -1,4 +1,4 @@
-{% language-section name="see-also-1" %}
+{% language-section name="create" %}
 
 ```csharp
 Ice.ObjectAdapter adapter = communicator.createObjectAdapter("GreeterAdapter");
@@ -6,7 +6,7 @@ Ice.ObjectAdapter adapter = communicator.createObjectAdapter("GreeterAdapter");
 
 {% /language-section %}
 
-{% language-section name="see-also-2" %}
+{% language-section name="create-with-endpoints" %}
 
 ```csharp
 Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints(

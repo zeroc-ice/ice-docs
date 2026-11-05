@@ -379,7 +379,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-ice-and-icerpc-together': 'icerpc?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-icegrid-deployment': 'services/icegrid/using-icegrid-deployment?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-icestorm': 'services/icestorm/using-icestorm?lang=:lang'
-  ':lang(cpp|csharp|java|js|python|swift)/using-multiple-object-adapters': 'runtime/dispatch/using-multiple-object-adapters?lang=:lang'
+  ':lang(cpp|csharp|java|python|swift)/using-multiple-object-adapters': 'runtime/dispatch/using-multiple-object-adapters?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-the-admin-object': 'administration/administrative-facility/using-the-admin-object?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-the-ice-service-installer': 'background-servers/windows-services/using-the-ice-service-installer?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/using-the-slice-compilers': 'slice/using-the-slice-compiler?lang=:lang'
