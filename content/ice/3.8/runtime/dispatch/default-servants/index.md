@@ -24,7 +24,11 @@ When the [active servant map](../active-servant-map) has no servant for the iden
 the identity, or else to the default servant registered for the empty category. A default servant receives these
 requests whatever their facet.
 
+{% iflang langs="cpp,csharp,java,js,swift" %}
+
 The object adapter accepts any [dispatcher](../dispatcher-api) as a default servant.
+
+{% /iflang %}
 
 ## Implementing a Default Servant
 
@@ -32,9 +36,10 @@ A default servant finds the target Ice object from the identity in the `Current`
 the identity typically holds everything it needs, such as the key of a database record. Clients don't need to know that
 a default servant implements the Ice object, so don't add operation parameters for this purpose.
 
-The object adapter dispatches requests for different Ice objects to a default servant concurrently. The default servant
-keeps no state of its own for these objects: each dispatch reads the state of its Ice object, for example from the
-database, and works on local data.
+The object adapter can dispatch requests for different Ice objects to a default servant concurrently, as described in
+[The Ice Threading Model](../../threading-model). To avoid contention between these dispatches, a default servant keeps
+no state of its own for these objects: each dispatch reads the state of its Ice object, for example from the database,
+and works on local data.
 
 All the Ice objects that a default servant implements have the same interface. To implement several interfaces with
 default servants, use one category per interface, such as `Sensor` and `Switch`, and register a default servant for each
