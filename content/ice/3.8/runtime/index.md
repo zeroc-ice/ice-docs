@@ -20,8 +20,13 @@ pages:
   - endpoint-syntax
 ---
 
-The Ice runtime is the core of the Ice framework. It manages network connections, sends requests, receives responses,
-and dispatches incoming requests to servants. You can customize its behavior through its API and through
+The Ice runtime handles communication between Ice clients and servers. It manages network connections, sends requests,
+receives responses, and dispatches incoming requests to servants. You can configure its behavior through its API and
 [Ice properties](./properties-and-configuration).
 
-This chapter introduces the main components of the Ice runtime.
+An application starts by creating a [communicator](./communicator), the entry point into the Ice runtime. A client makes
+[invocations](./invocation) through [proxies](./invocation/creating-proxies). The communicator establishes the
+[connections](./connection-management) these invocations need, over the [transports](./transports) named in the
+endpoints of the proxies. A server creates object adapters and adds servants to them. Each incoming request names an Ice
+object by its [identity](./object-identity), and the runtime [dispatches](./dispatch) the request to the servant that
+implements this object.
