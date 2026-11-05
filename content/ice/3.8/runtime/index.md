@@ -28,5 +28,5 @@ An application starts by creating a [communicator](./communicator), the entry po
 [invocations](./invocation) through [proxies](./invocation/creating-proxies). The communicator establishes the
 [connections](./connection-management) these invocations need, over the [transports](./transports) named in the
 endpoints of the proxies. A server creates object adapters and adds servants to them. Each incoming request names an Ice
-object by its [identity](./object-identity) and one of its [facets](./facets), and the runtime [dispatches](./dispatch)
-the request to the servant that implements this facet.
+object by its [identity](./object-identity), and the runtime [dispatches](./dispatch) the request to the servant that
+implements this object.
