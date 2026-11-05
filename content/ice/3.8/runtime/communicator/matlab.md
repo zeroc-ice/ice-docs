@@ -8,9 +8,9 @@ communicator = Ice.Communicator(args);
 
 The constructor accepts an argument vector and parses the
 [command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
-Ice runtime into the properties of the new communicator. If anything goes wrong during initialization, it throws an
-exception. The constructor also accepts the `Properties` and `SliceLoader` name-value arguments; when you pass both an
-argument vector and `Properties`, the Ice options in the argument vector override these properties.
+Ice runtime into the properties of the new communicator. The constructor also accepts the `Properties` and `SliceLoader`
+name-value arguments; when you pass both an argument vector and `Properties`, the Ice options in the argument vector
+override these properties.
 
 The constructor leaves `args` unchanged. To get the arguments that remain once the Ice options are removed, create the
 properties yourself and pass them to the constructor:
