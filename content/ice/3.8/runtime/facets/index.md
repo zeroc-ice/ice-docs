@@ -18,34 +18,21 @@ printer1 -f admin:tcp -h localhost -p 4061
 ```
 
 The first proxy has an empty facet name, so it selects the _default facet_, which implements `Printer`. The second
-selects the facet named `admin`, which implements `PrinterAdmin`.
+selects the facet named `admin`, which implements `PrinterAdmin`. [`ice_facet`](api:Ice/ObjectPrx.ice_facet) returns a
+proxy for the facet with the given name: a copy of this proxy that differs only in its facet name.
 
 The [Administrative Facility](../../administration/administrative-facility) works the same way: the admin object of an
 Ice application provides each administrative capability, such as `Process` and `Properties`, as a facet.
 
 ## Facet Names and Servants
 
-Each facet of an Ice object has a name that is unique within this object, and implements a Slice interface. All the
-facets of an Ice object share its identity. An Ice object usually has a default facet, but it can also consist of named
-facets only.
+A facet name is a string that is unique within an Ice object; the default facet has the empty name. All the facets of an
+Ice object share its identity, and each facet implements its own Slice interface. An Ice object usually has a default
+facet, but it can also consist of named facets only.
 
-On the server, [`addFacet`](api:Ice/ObjectAdapter.addFacet) adds a servant for one facet of an Ice object to an object
-adapter, and [`add`](api:Ice/ObjectAdapter.add) adds a servant for its default facet. The object adapter dispatches each
-request to the servant registered for the identity and facet of the request, so each facet can have its own servant.
-
-On the client, [`ice_facet`](api:Ice/ObjectPrx.ice_facet) returns a proxy for another facet of the same Ice object, with
-the same identity and endpoints, and `checkedCast` and `uncheckedCast` accept a facet name.
-
-## Facets, Separate Ice Objects, and Inheritance
-
-You could also implement `PrinterAdmin` as a separate Ice object, with its own identity. Facets instead keep the two
-interfaces under the identity of the printer: the administrative interface belongs to `printer1`, and a client that
-holds a proxy for one facet reaches the other with `ice_facet`, without another identity or endpoints.
-
-Facets also differ from [interface inheritance](../../slice/interfaces/interface-inheritance), which combines the
-operations of `Printer` and the administrative operations into one derived interface that a single servant implements.
-With facets, `Printer` and `PrinterAdmin` remain independent interfaces, each implemented by its own servant, and a
-client selects one of them through the facet name of its proxy.
+Each facet has its own servant: [`addFacet`](api:Ice/ObjectAdapter.addFacet) registers the servant of a named facet with
+an object adapter, and [`add`](api:Ice/ObjectAdapter.add) registers the servant of the default facet. The object adapter
+dispatches each request to the servant registered for the identity and facet name carried by the request.
 
 ## See Also
 
