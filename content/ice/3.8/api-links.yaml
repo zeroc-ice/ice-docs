@@ -140,12 +140,6 @@ Ice/ObjectAdapter.destroy:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#destroy
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.destroy
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/destroy()
-Ice/ObjectAdapter.hold:
-  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_a720e07c9012d11119716ea216306102e.html#a720e07c9012d11119716ea216306102e
-  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_hold_
-  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#hold()
-  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.hold
-  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/hold()
 Ice/ObjectPrx:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html

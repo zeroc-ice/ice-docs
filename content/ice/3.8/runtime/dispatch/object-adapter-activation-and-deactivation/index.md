@@ -12,9 +12,8 @@ languages:
 ## Activation
 
 A new object adapter is in the holding state: it accepts connections, but doesn't validate them or read requests from
-them, and it discards UDP requests. You typically add servants to the [active servant map](../active-servant-map) in
-this state, and then call [`activate`](api:Ice/ObjectAdapter.activate) to make the object adapter read and dispatch
-requests. [`hold`](api:Ice/ObjectAdapter.hold) puts the object adapter back in the holding state.
+them. You typically add servants to the [active servant map](../active-servant-map) in this state, and then call
+[`activate`](api:Ice/ObjectAdapter.activate) to make the object adapter read and dispatch requests.
 
 The holding state applies only to the connections the object adapter accepts. An object adapter dispatches the requests
 received over [bidirectional connections](../../connection-management/bidirectional-connections) and
