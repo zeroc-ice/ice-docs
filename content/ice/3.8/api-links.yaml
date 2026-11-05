@@ -110,6 +110,7 @@ Ice/Object:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Object.html
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Object.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Object.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/object
 Ice/Object.dispatch:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Object_a4b1aea7f1d61378388dec49ab812bc11.html#a4b1aea7f1d61378388dec49ab812bc11
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Object.html#Ice_Object_dispatchAsync_
