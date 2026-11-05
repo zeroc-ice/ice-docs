@@ -24,7 +24,7 @@ _Dispatching a request to the correct servant._
 The object adapter provides the following methods to manage its ASM:
 
 - [`add`](api:Ice/ObjectAdapter.add) adds a servant with the given identity and the default facet, and returns a proxy
-  with this identity. The object adapter dispatches requests to the servant as soon as `add` returns.
+  with this identity.
 - [`addWithUUID`](api:Ice/ObjectAdapter.addWithUUID) does the same with a UUID as the identity; `ice_getIdentity` on the
   returned proxy gives this identity.
 - [`remove`](api:Ice/ObjectAdapter.remove) removes the entry for the given identity and the default facet, and returns
@@ -35,7 +35,11 @@ Each identity and facet has at most one servant, but you can add the same servan
 [`removeFacet`](api:Ice/ObjectAdapter.removeFacet) do the same for a [facet](../../facets) other than the default one.
 Destroying the [object adapter](../object-adapter-activation-and-deactivation) empties its ASM.
 
+{% iflang langs="cpp,csharp,java,js,swift" %}
+
 The ASM holds [dispatchers](../dispatcher-api): a servant is the usual one, but you can add any dispatcher.
+
+{% /iflang %}
 
 ## See Also
 
