@@ -1,9 +1,0 @@
-{% language-section name="mapping" %}
-
-```py
-def add(self, servant: Object, id: Identity) -> ObjectPrx: ...
-def addWithUUID(self, servant: Object) -> ObjectPrx: ...
-def remove(self, id: Identity) -> Object: ...
-```
-
-{% /language-section %}
