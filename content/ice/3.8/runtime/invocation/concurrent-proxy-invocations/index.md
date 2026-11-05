@@ -20,8 +20,10 @@ default. When a thread makes invocations on this proxy one after the other, Ice 
 connection in the same order. Invocations made concurrently from several threads have no defined order, and neither do
 the invocations on a proxy that does not cache its connection.
 
-The order in which Ice sends requests does not determine the order in which the server dispatches them: the server can
-dispatch requests concurrently.
+On the server side, Ice reads the requests received on a connection in the order the client sent them. A thread pool
+with several threads dispatches these requests concurrently, which loses this order. To dispatch the requests of a
+connection one at a time, in order, see
+[Serializing the Messages of Each Connection](../../threading-model/thread-pools#serializing-the-messages-of-each-connection).
 
 ## See Also
 

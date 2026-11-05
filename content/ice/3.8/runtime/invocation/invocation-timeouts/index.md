@@ -8,13 +8,15 @@ fails with `InvocationTimeoutException`.
 
 Ice starts the timer once it has marshaled the request parameters, before it obtains a connection, cached or newly
 established. For a twoway invocation, it stops the timer when it receives the reply, before it unmarshals the reply. For
-a oneway invocation, it stops the timer once it has sent the request. The timeout applies to the invocation as a whole:
-Ice does not restart the timer when it [retries](../automatic-retries) the invocation.
+a oneway invocation, it stops the timer once it has sent the request. The timeout applies to the invocation as a whole,
+[retries](../automatic-retries) included.
 
 ## Configuring Invocation Timeouts
 
 [Ice.Default.InvocationTimeout](../../../property-reference/ice-default-properties#ice.default.invocationtimeout) sets
-the default invocation timeout of proxies, in milliseconds. Its default value, `-1`, means no timeout.
+the default invocation timeout of proxies, in milliseconds. Its default value, `-1`, means no timeout. Ice does not
+marshal the invocation timeout with a proxy: a proxy unmarshaled from a request or a reply gets the default invocation
+timeout of the receiving communicator.
 
 The [InvocationTimeout](../../../property-reference/proxy-properties#name.invocationtimeout) proxy property sets the
 timeout of the proxy that [propertyToProxy](../creating-proxies) creates:

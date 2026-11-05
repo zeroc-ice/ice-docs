@@ -17,7 +17,7 @@ pages:
   - routers
 ---
 
-An invocation is the client-side process of calling an operation of an Ice object through a _proxy_.
+An _invocation_ is a call to an operation on an Ice object through a _proxy_.
 
 A proxy is a local object that represents an Ice object, and encapsulates the following information:
 
