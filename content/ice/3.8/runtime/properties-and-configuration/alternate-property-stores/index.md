@@ -1,13 +1,17 @@
 ---
 title: Alternate Property Stores
+languages:
+  - cpp
+  - java
+  - matlab
+  - python
 ---
 
-Ice for C++, Java, MATLAB, and Python can load properties from the Windows registry. Ice for Java can also load
-properties from class loader resources. Ice for C#, JavaScript, PHP, and Ruby support neither.
+Ice can load properties from the Windows registry{% iflang langs="java" %} and from class loader resources{% /iflang %}.
 
 ## Loading Properties from the Windows Registry
 
-On Windows, store property settings under a key in `HKEY_LOCAL_MACHINE` or `HKEY_CURRENT_USER`, and set
+On Windows, you can store properties under a key in `HKEY_LOCAL_MACHINE` or `HKEY_CURRENT_USER`. To load them, set
 [Ice.Config](../using-configuration-files) to the path of this key with an `HKLM\` or `HKCU\` prefix, respectively:
 
 ```powershell
@@ -18,9 +22,11 @@ Ice then loads the values of `HKEY_LOCAL_MACHINE\MyCompany\MyApp`: the name of e
 such as `Ice.Trace.Network`, and its data is the property value. You can also pass an `HKLM\` or `HKCU\` path to
 `Properties.load`.
 
-Ice loads string values only, including for numeric settings: store `Ice.Trace.Network` as the string `3`, not as a
+Ice loads string values only, including for numeric properties: store `Ice.Trace.Network` as the string `3`, not as a
 `DWORD`. An expandable string (`REG_EXPAND_SZ`) can refer to environment variables, such as `%ICE_HOME%`, which Ice
-expands; Ice skips the values of other types.
+expands.
+
+{% iflang langs="java" %}
 
 ## Loading Properties from Java Resources
 
@@ -34,6 +40,8 @@ export ICE_CONFIG=app_config
 
 loads the `app_config` resource when the class path has one, and the `app_config` file otherwise. A resource path uses a
 relative Unix-like format, such as `subdir/myfile`.
+
+{% /iflang %}
 
 ## See Also
 

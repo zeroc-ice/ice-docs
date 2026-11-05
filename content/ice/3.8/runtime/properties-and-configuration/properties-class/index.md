@@ -3,9 +3,9 @@ title: The Properties Class
 sidebarLabel: Properties Class
 ---
 
-A [Properties](api:Ice/Properties) object, or _property set_, holds the properties of a communicator, which
-[`getProperties`](api:Ice/Communicator.getProperties) on the communicator returns. You can also create a property set
-yourself, for example to give it to a new communicator.
+A [Properties](api:Ice/Properties) object, or _property set_, is a collection of properties. Each communicator has a
+property set, which its [`getProperties`](api:Ice/Communicator.getProperties) method returns. You can also create a
+property set yourself, for example to configure a new communicator.
 
 ## Reading and Setting a Property
 
@@ -21,27 +21,17 @@ property that is not set.
 
 ## Reading an Ice Property
 
-[`getIceProperty`](api:Ice/Properties.getIceProperty), [`getIcePropertyAsInt`](api:Ice/Properties.getIcePropertyAsInt),
-and [`getIcePropertyAsList`](api:Ice/Properties.getIcePropertyAsList) read Ice properties. Unlike the plain
-`getProperty` methods, they return the property's built-in default when it is not set; see the
-[property reference](../../../property-reference). For example, if you never set `Ice.Warn.Dispatch`,
+An _Ice property_ is a property that Ice defines, such as `Ice.Warn.Dispatch`: its name begins with a
+[reserved prefix](../properties-overview#reserved-prefixes), and the [property reference](../../../property-reference)
+lists it with its default value. [`getIceProperty`](api:Ice/Properties.getIceProperty),
+[`getIcePropertyAsInt`](api:Ice/Properties.getIcePropertyAsInt), and
+[`getIcePropertyAsList`](api:Ice/Properties.getIcePropertyAsList) read an Ice property and, unlike the plain
+`getProperty` methods, return its default value when it is not set. For example, if you never set `Ice.Warn.Dispatch`,
 `getIcePropertyAsInt("Ice.Warn.Dispatch")` returns its default of `1`, while `getPropertyAsInt("Ice.Warn.Dispatch")`
 returns `0`.
 
 These three methods accept only the names of Ice properties. Read the other properties, such as the properties of an
 object adapter or a proxy, with the plain `getProperty` methods, which take any name.
-
-{% iflang langs="swift" %}
-
-{% callout type="note" %}
-
-In Swift, `setProperty`, `getIceProperty`, and `getIcePropertyAsList` do not throw: a rejected name terminates the
-program. `getPropertyAsInt`, `getIcePropertyAsInt`, and `initialize` throw, so a name rejected during communicator
-initialization reaches your code as an error.
-
-{% /callout %}
-
-{% /iflang %}
 
 ## Reading and Parsing Groups of Properties
 

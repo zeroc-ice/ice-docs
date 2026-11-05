@@ -3,8 +3,8 @@ title: Configuration File Syntax
 sidebarLabel: File Syntax
 ---
 
-A configuration file holds one property per line, as `name=value`. Ice ignores empty lines, and the `#` character starts
-a comment that extends to the end of the line. For example:
+A configuration file holds one property per line, as `name=value`; Ice ignores the white space around the name and the
+value. Ice ignores empty lines, and the `#` character starts a comment that extends to the end of the line. For example:
 
 ```config
 # Example config file for Ice
@@ -18,16 +18,6 @@ A configuration file is a text file in UTF-8, with an optional byte order mark (
 
 When a file sets the same property more than once, the last setting overrides the previous ones. An empty value removes
 the property from the property set: the example above leaves `Ice.Trace.Protocol` unset.
-
-## White Space
-
-Ice removes the leading and trailing white space of property names and values, and preserves the white space within
-them. To keep leading or trailing spaces in a value, escape each one with a backslash:
-
-```config
-My Prop = a     property            # Name is "My Prop", value is "a     property"
-My.Prop = \ \ a property\ \         # Value is "  a property  "
-```
 
 ## Special Characters
 
