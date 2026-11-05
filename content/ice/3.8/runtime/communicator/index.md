@@ -47,4 +47,4 @@ or `initialize` function accepts it.
 ## See Also
 
 - [Command-Line Parsing and Initialization](../properties-and-configuration/command-line-parsing-and-initialization)
-- [The Properties Interface](../properties-and-configuration/properties-class)
+- [The Properties Class](../properties-and-configuration/properties-class)
