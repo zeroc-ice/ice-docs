@@ -122,30 +122,44 @@ export function markdownHref(
   return language ? `${page}/${language}.md` : `${page}.md`;
 }
 
+/** The Markdown copy a link is in, for markdownLink. */
+export interface MarkdownLinkPage {
+  /** The page the link is on. */
+  slug: string;
+  /** The mapping the copy is for; absent in a page's one document. */
+  language?: string;
+  /** The mappings the page at `slug` has a copy for; undefined when its text is one document. */
+  copies: (slug: string) => string[] | undefined;
+}
+
 /**
- * Where a link on the page at `slug` goes in its Markdown copy: a link to a
- * page goes to that page's copy, keeping its anchor and dropping its `?lang=`,
- * since the copy lists the mappings; a link to the page itself, as a `?lang=`
- * link names it, goes the same way; anything else, such as an image or an
- * external page, is left as it is.
+ * Where a link goes in a Markdown copy. A link to a page goes to that page's
+ * copy for the mapping its `?lang=` names, or else for the mapping the link's
+ * copy is for, where the page has one, and otherwise to the page's `.md`; the
+ * anchor stays. A link to the page itself, as a `?lang=` link names it, goes
+ * the same way. Anything else, such as an image or an external page, is left
+ * as it is.
  */
 export function markdownLink(
   version: DocsVersion,
   href: string,
-  slug: string
+  on: MarkdownLinkPage
 ): string {
   if (href.startsWith('#')) return href;
   const hashAt = href.indexOf('#');
   const beforeHash = hashAt === -1 ? href : href.slice(0, hashAt);
   const hash = hashAt === -1 ? '' : href.slice(hashAt);
-  const path = beforeHash.split('?')[0];
+  const [path, query] = beforeHash.split('?');
   const root = pageHref(version);
   let target: string;
-  if (path === '') target = slug;
+  if (path === '') target = on.slug;
   else if (path === root) target = '';
   else if (path.startsWith(`${root}/`)) target = path.slice(root.length + 1);
   else return href;
-  return markdownHref(version, target) + hash;
+  const mapping = new URLSearchParams(query).get('lang') ?? on.language;
+  const language =
+    mapping && on.copies(target)?.includes(mapping) ? mapping : undefined;
+  return markdownHref(version, target, language) + hash;
 }
 
 /**

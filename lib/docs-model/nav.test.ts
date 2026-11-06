@@ -306,18 +306,39 @@ test("markdownHref is the page's URL with .md appended, or one mapping's copy un
   );
 });
 
-test('markdownLink sends a page link to its copy and leaves the rest alone', () => {
-  const link = (href: string) => markdownLink(VERSION, href, ENUMERATIONS);
+test("markdownLink sends a page link to the mapping's copy, and leaves the rest alone", () => {
+  // Enumerations and Sequences have a C++ and a Java copy; every other page is one document.
+  const copies = (slug: string) =>
+    slug === ENUMERATIONS || slug === SEQUENCES ? ['cpp', 'java'] : undefined;
+  const SEQUENCES_HREF = `/ice/3.8/${SEQUENCES}`;
+  const inJava = (href: string) =>
+    markdownLink(VERSION, href, {
+      slug: ENUMERATIONS,
+      language: 'java',
+      copies
+    });
   assert.equal(
-    link(`${ENUMERATIONS_HREF}?lang=java#custom-values`),
-    `${ENUMERATIONS_HREF}.md#custom-values`
+    inJava(`${SEQUENCES_HREF}#fixed-length`),
+    `${SEQUENCES_HREF}/java.md#fixed-length`
   );
-  assert.equal(link('/ice/3.8'), '/ice/3.8.md');
-  assert.equal(link('?lang=java'), `${ENUMERATIONS_HREF}.md`);
-  assert.equal(link('#custom-values'), '#custom-values');
   assert.equal(
-    link('/images/ice/3.8/basics/x.svg'),
+    inJava(`${SEQUENCES_HREF}?lang=cpp`),
+    `${SEQUENCES_HREF}/cpp.md`
+  );
+  assert.equal(inJava(`${SEQUENCES_HREF}?lang=python`), `${SEQUENCES_HREF}.md`);
+  assert.equal(inJava('/ice/3.8'), '/ice/3.8.md');
+  assert.equal(inJava('?lang=cpp'), `${ENUMERATIONS_HREF}/cpp.md`);
+  assert.equal(inJava('#custom-values'), '#custom-values');
+  assert.equal(
+    inJava('/images/ice/3.8/basics/x.svg'),
     '/images/ice/3.8/basics/x.svg'
   );
-  assert.equal(link('https://example.com/x'), 'https://example.com/x');
+  assert.equal(inJava('https://example.com/x'), 'https://example.com/x');
+
+  const inOne = (href: string) =>
+    markdownLink(VERSION, href, { slug: 'slice', copies });
+  assert.equal(
+    inOne(`${SEQUENCES_HREF}#fixed-length`),
+    `${SEQUENCES_HREF}.md#fixed-length`
+  );
 });

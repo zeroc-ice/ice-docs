@@ -4,7 +4,8 @@
 // that lib/page-markdown.ts serves: CommonMark, with the site's tags written
 // out as text. A callout is a quote that opens with its label in bold, a code
 // block a fence with its title in the info string, a card a list item, the
-// front page's showcase its code blocks in turn. The page shell, the language
+// front page's showcase its code blocks in turn, and a heading whose anchor is
+// set by hand carries it as `{#anchor}`. The page shell, the language
 // switch and the rest of the chrome render nothing. A tag this file does not
 // name renders its children, so a new tag's text is in the copy before this
 // file knows the tag.
@@ -15,6 +16,7 @@
 
 import Markdoc, { type RenderableTreeNode, type Tag } from '@markdoc/markdoc';
 
+import { headingAnchor } from '../markdoc/nodes/heading.markdoc.ts';
 import {
   CALLOUT_LABELS,
   type CalloutType
@@ -163,8 +165,14 @@ function renderBlock(node: RenderableTreeNode, options: RenderOptions): string {
     case 'p':
       return renderInline(children, options).trim();
     case 'Heading': {
-      const { level } = attributes as { level: number };
-      return `${'#'.repeat(level)} ${renderInline(children, options).trim()}`;
+      const { level, id, text } = attributes as {
+        level: number;
+        id: string;
+        text: string;
+      };
+      // An anchor the text does not yield was set by hand, and links name it.
+      const anchor = id === headingAnchor(text) ? '' : ` {#${id}}`;
+      return `${'#'.repeat(level)} ${renderInline(children, options).trim()}${anchor}`;
     }
     case 'List':
       return renderList(node, options);

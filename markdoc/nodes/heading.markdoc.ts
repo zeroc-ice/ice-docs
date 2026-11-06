@@ -51,6 +51,16 @@ export function headingText(children: RenderableTreeNode[]): string {
   return text;
 }
 
+/** The anchor a heading gets from its text, as content/README.md states it: lowercased, spaces as hyphens, without `?`, `(`, or `)`. */
+export function headingAnchor(text: string): string {
+  return text
+    .replace(/[?()]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase();
+}
+
 function generateID(
   children: RenderableTreeNode[],
   attributes: Record<string, unknown>
@@ -58,13 +68,7 @@ function generateID(
   if (attributes.id && typeof attributes.id === 'string') {
     return attributes.id;
   }
-
-  return headingText(children)
-    .replace(/[?()]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .toLowerCase();
+  return headingAnchor(headingText(children));
 }
 
 export default heading;

@@ -10,7 +10,8 @@
 // page whose text differs by mapping, by an `{% iflang %}` block or an `api:`
 // link, is one document per mapping, at `<page>/<language>.md`, each the page
 // as a reader of that mapping sees it, and its `<page>.md` lists them. Links
-// between pages point at the Markdown copies.
+// between pages point at the Markdown copies, at the copy for the same mapping
+// where the page has one.
 
 import type { RenderableTreeNode } from '@markdoc/markdoc';
 
@@ -23,7 +24,11 @@ import {
   writtenFor,
   type PageFiles
 } from '@/lib/docs-model/content';
-import { buildPageIndex } from '@/lib/docs-model/links';
+import {
+  buildPageIndex,
+  type ApiLinks,
+  type PageIndex
+} from '@/lib/docs-model/links';
 import {
   languageLabel,
   markdownHref,
@@ -54,7 +59,12 @@ const absolute = (href: string) => new URL(href, SITE_URL).href;
 
 const list = (items: string[]) => new Intl.ListFormat('en').format(items);
 
-function assemble(version: DocsVersion, page: PageFiles): Assembled {
+function assemble(
+  version: DocsVersion,
+  page: PageFiles,
+  pageIndex: PageIndex,
+  apiLinks: ApiLinks
+): Assembled {
   const { shared, overlays, frontmatter } = readPageSources(page);
   const tree = renderMarkdownString({
     source: resolveDocument({
@@ -65,8 +75,8 @@ function assemble(version: DocsVersion, page: PageFiles): Assembled {
     path: pageHref(version, page.slug),
     slug: page.slug,
     version,
-    pageIndex: buildPageIndex(listPages(version).map((p) => p.slug)),
-    apiLinks: readApiLinks(version),
+    pageIndex,
+    apiLinks,
     frontmatter
   });
   return {
@@ -79,12 +89,41 @@ function assemble(version: DocsVersion, page: PageFiles): Assembled {
   };
 }
 
+const assembledCache = new Map<string, Map<string, Assembled>>();
+
+/**
+ * Every page of the version, assembled, by slug.
+ *
+ * Cached per version in production, as listPages is: a build renders every
+ * copy of every page, and each copy's links need to know which pages have a
+ * copy per mapping. Never cached in development, where pages change while the
+ * server is running.
+ */
+function assembleAll(version: DocsVersion): Map<string, Assembled> {
+  const cacheable = process.env.NODE_ENV === 'production';
+  let pages = cacheable ? assembledCache.get(version.path) : undefined;
+  if (!pages) {
+    const all = listPages(version);
+    const pageIndex = buildPageIndex(all.map((page) => page.slug));
+    const apiLinks = readApiLinks(version);
+    pages = new Map(
+      all.map((page) => [
+        page.slug,
+        assemble(version, page, pageIndex, apiLinks)
+      ])
+    );
+    if (cacheable) assembledCache.set(version.path, pages);
+  }
+  return pages;
+}
+
 /**
  * A page's Markdown: with `language`, its text for that mapping; otherwise its
  * text, or, when the text differs by mapping, the list of its mappings' copies.
  */
 function markdownText(
   version: DocsVersion,
+  pages: Map<string, Assembled>,
   { page, title, description, tree, languages, varies }: Assembled,
   language?: string
 ): string {
@@ -111,7 +150,14 @@ function markdownText(
   const body = renderMarkdown(tree, {
     language,
     href: (href) => {
-      const link = markdownLink(version, href, page.slug);
+      const link = markdownLink(version, href, {
+        slug: page.slug,
+        language,
+        copies: (slug) => {
+          const target = pages.get(slug);
+          return target?.varies ? target.languages : undefined;
+        }
+      });
       return link.startsWith('/') ? absolute(link) : link;
     }
   });
@@ -120,17 +166,18 @@ function markdownText(
 
 /** The route's params: every page, and, for a page whose text differs by mapping, each of its mappings. */
 export function pageMarkdownParams(version: DocsVersion) {
-  return listPages(version).flatMap((page) => {
-    // The front page's slug is empty: its copy is at the version root.
-    const slug = page.slug ? page.slug.split('/') : [];
-    const { languages, varies } = assemble(version, page);
-    return [
-      { slug },
-      ...(varies
-        ? languages.map((language) => ({ slug: [...slug, language] }))
-        : [])
-    ];
-  });
+  return [...assembleAll(version).values()].flatMap(
+    ({ page, languages, varies }) => {
+      // The front page's slug is empty: its copy is at the version root.
+      const slug = page.slug ? page.slug.split('/') : [];
+      return [
+        { slug },
+        ...(varies
+          ? languages.map((language) => ({ slug: [...slug, language] }))
+          : [])
+      ];
+    }
+  );
 }
 
 /** The Markdown the route's params name, as the response to serve. */
@@ -139,15 +186,15 @@ export async function pageMarkdown(
   props: { params: Promise<{ slug?: string[] }> }
 ): Promise<Response> {
   const segments = (await props.params).slug ?? [];
-  const pageAt = (segments: string[]) =>
-    listPages(version).find((page) => page.slug === segments.join('/'));
+  const pages = assembleAll(version);
   // The params name a page, or a page and one of its mappings.
-  const own = pageAt(segments);
+  const own = pages.get(segments.join('/'));
   const text = own
-    ? markdownText(version, assemble(version, own))
+    ? markdownText(version, pages, own)
     : markdownText(
         version,
-        assemble(version, pageAt(segments.slice(0, -1))!),
+        pages,
+        pages.get(segments.slice(0, -1).join('/'))!,
         segments.at(-1)
       );
   return new Response(text, {

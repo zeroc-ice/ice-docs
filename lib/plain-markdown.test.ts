@@ -52,10 +52,10 @@ test('inline markup is written back as Markdown', () => {
   );
 });
 
-test('headings keep their level and drop their anchor tag', () => {
+test('headings keep their level, and an anchor set by hand', () => {
   assert.equal(
     md('## Title {% id="custom" %}\n\nText.\n\n### Sub'),
-    '## Title\n\nText.\n\n### Sub\n'
+    '## Title {#custom}\n\nText.\n\n### Sub\n'
   );
 });
 
