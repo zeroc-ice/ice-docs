@@ -22,46 +22,47 @@ the `Process` facet.
 
 ## The `Process` Interface
 
-The Slice interface `Ice::Process` allows an activation service to request a graceful shutdown of the program:
+The `Process` facet implements the [`Ice::Process`](api:Ice/ProcessPrx) interface:
 
-```slice
-module Ice
-{
-    interface Process
-    {
-        void shutdown();
-        void writeMessage(string message, int fd);
-    }
-}
-```
-
-When `shutdown` is invoked, the object implementing this interface is expected to initiate the termination of its
-process. The activation service may expect the program to terminate within a certain period of time, after which it may
-terminate the program abruptly.
-
-The `writeMessage` operation allows remote clients to print a message to the program's standard output (`fd` == 1) or
-standard error (`fd` == 2) channels.
-
-{% language-section name="mapping" /%}
+- `shutdown` requests a graceful shutdown of the program. The activation service may expect the program to terminate
+  within a certain period, after which it may terminate the program abruptly.
+- `writeMessage` prints a message to the program's standard output (`fd` 1) or standard error (`fd` 2).
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
+## Graceful Shutdown
+
+The default `Process` facet calls `shutdown` on the [communicator](../../../runtime/communicator), and the application
+uses this as the signal to terminate. Typically a thread, often the main thread, calls `waitForShutdown` on the
+communicator, which returns once the communicator is shut down; this thread then cleans up and exits the program.
+
+## Replacing the Process Facet
+
+To shut the program down differently, replace the default `Process` facet with a servant that implements `Ice::Process`.
+Set [Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties#ice.admin.delaycreation) to `1`, so that
+the communicator does not create the admin object during initialization:
+
+```config
+Ice.Admin.DelayCreation=1
+```
+
+Then remove the default facet, add your own, and call `getAdmin` to create the admin object:
+
+{% language-section name="mapping" /%}
+
+A servant must not call `destroy` on its communicator while dispatching a request: `destroy` waits for all outstanding
+dispatches to complete, including the one that calls it, so this dispatch deadlocks.
+
 ## Integrating the Process Facet with an Activation Service
 
-If [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties#ice.admin.serverid) is configured and the
-communicator has a default locator, the communicator performs the following steps after creating the admin object:
+If [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties#ice.admin.serverid) is set and the communicator
+has a default locator, the communicator registers a proxy for the `Process` facet with the locator registry after
+creating the admin object, by calling `setServerProcessProxy` with the value of `Ice.Admin.ServerId`. This value must
+uniquely identify the process within the locator registry.
 
-- Obtains proxies for the `Process` facet and the default locator
-- Invokes `getRegistry` on the locator proxy to obtain a proxy for the locator registry
-- Invokes `setServerProcessProxy` on the locator registry and supplies the value of `Ice.Admin.ServerId` along with a
-  proxy for the `Process` facet
-
-The identifier specified by `Ice.Admin.ServerId` must uniquely identify the process within the locator registry.
-
-In the case of [IceGrid](../../../services/icegrid), IceGrid defines the `Ice.Admin.ServerId` and `Ice.Default.Locator`
-properties for each deployed server. IceGrid also supplies a value for
-[Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) if neither this property nor Ice.Admin.Enabled
-are defined by the server.
+[IceGrid](../../../services/icegrid) sets `Ice.Admin.ServerId` and `Ice.Default.Locator` for each server that it
+deploys, and sets [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) unless the server sets this
+property or `Ice.Admin.Enabled`.
 
 {% /iflang %}
 
