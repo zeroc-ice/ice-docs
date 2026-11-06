@@ -5,7 +5,7 @@ shape: wide
 showReadingTime: false
 showAside: false
 pages:
-  - greeter-example
+  - getting-started
   - upgrade-guide
   - basics
   - slice
@@ -31,7 +31,7 @@ Ice is a complete RPC framework that helps you build networked applications with
 - **Ice does the networking.** It takes care of opening network connections, serializing and deserializing data for
   network transmission, and retrying failed connection attempts, so you can focus on your application logic.
 - **Start with the Greeter Example.** Writing a client-server application with Ice does not take much code.
-  [See for yourself!](./greeter-example)
+  [See for yourself!](./getting-started/greeter-example)
 
 {% showcase %}
 
@@ -370,7 +370,7 @@ contents in the sidebar lists them all. To find a page by name, use the search b
 
 {% grid %}
 
-{% card icon="rocket" title="Greeter Example" description="Build your first Ice application, step by step, in your language." href="greeter-example" /%}
+{% card icon="rocket" title="Greeter Example" description="Build your first Ice application, step by step, in your language." href="getting-started/greeter-example" /%}
 
 {% card icon="book" title="Basics" description="How Ice applications are structured, and the terms and ideas the rest of the manual builds on." href="basics" /%}
 

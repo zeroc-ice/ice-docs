@@ -22,3 +22,4 @@ permanent:
   'basics/protocol-in-a-nutshell': 'protocol'
   'slice/user-defined-types/classes/simple-classes': 'slice/user-defined-types/classes'
   'runtime/properties-and-configuration/command-line-parsing-and-initialization': 'runtime/properties-and-configuration/setting-properties-on-the-command-line#remaining-arguments'
+  'greeter-example/:path*': 'getting-started/greeter-example/:path*'

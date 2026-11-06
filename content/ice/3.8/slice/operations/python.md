@@ -7,7 +7,7 @@
 As we saw in the [Client-Side Python Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 operation on an interface, the generated proxy class contains two methods for this operation. To invoke an operation,
 you call one of these methods on the proxy. For example, let’s take the generated code from the
-[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -94,7 +94,7 @@ As we saw in the [Server-Side Python Mapping for Interfaces](../interfaces#serve
 operation on an interface, the generated skeleton class contains an abstract method with the same name.
 
 For example, let’s take the generated code from the
-[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
