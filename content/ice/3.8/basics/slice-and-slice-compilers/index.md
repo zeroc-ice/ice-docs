@@ -8,8 +8,8 @@ A client and a server must agree on the operations the client can call and on th
 contract in Slice, Ice's [interface definition language](https://en.wikipedia.org/wiki/Interface_description_language)
 (IDL), independently of any programming language.
 
-For example, the [Greeter example](../../greeter-example/defining-the-greeter-interface-in-slice) defines its interface
-in Slice as follows:
+For example, the [Greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice)
+defines its interface in Slice as follows:
 
 ```slice
 /// Represents a simple greeter.
