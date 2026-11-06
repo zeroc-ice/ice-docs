@@ -2,9 +2,9 @@
 //
 // Every page as Markdown, for agents and crawlers, which read a page far more
 // easily as Markdown than as HTML with every language mapping in it. The copy
-// is served at the page's URL with `.md` appended: next.config.ts rewrites
-// those URLs to the route under `app/md/`, a thin wrapper per version that
-// names its version and hands the rest to these.
+// is served at the page's URL with `.md` appended, which markdownRewrite in
+// lib/docs-model/nav.ts sends to the route under `app/md/`, a thin wrapper per
+// version that names its version and hands the rest to these.
 //
 // A page whose text is the same for every language mapping is one document. A
 // page whose text differs by mapping, by an `{% iflang %}` block or an `api:`

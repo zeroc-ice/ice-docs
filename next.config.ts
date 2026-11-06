@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 
 import { ICE_VERSIONS } from './app/ice/versions';
 import { readRedirects } from './lib/docs-model/content';
+import { markdownRedirect, markdownRewrite } from './lib/docs-model/nav';
 import { NOINDEX } from './lib/site';
 
 const nextConfig: NextConfig = {
@@ -13,22 +14,11 @@ const nextConfig: NextConfig = {
   redirects() {
     return [
       ...readRedirects(ICE_VERSIONS),
-      // A Markdown copy has one URL, the page's with `.md` appended; a request
-      // at the route's own path under /md goes there.
-      ...ICE_VERSIONS.map((version) => ({
-        source: `/md/${version.path}/:slug*`,
-        destination: `/${version.path}/:slug*.md`,
-        permanent: true
-      }))
+      ...ICE_VERSIONS.map(markdownRedirect)
     ];
   },
-  // The Markdown copy of a page is at its URL with `.md` appended, and comes
-  // from the route under app/md (see lib/page-markdown.ts).
   rewrites() {
-    return ICE_VERSIONS.map((version) => ({
-      source: `/${version.path}/:slug*.md`,
-      destination: `/md/${version.path}/:slug*`
-    }));
+    return ICE_VERSIONS.map(markdownRewrite);
   },
   // A build for a host that must stay out of search indexes (a dev deployment)
   // must not compete with the real site. The header also covers the files a

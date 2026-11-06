@@ -122,6 +122,27 @@ export function markdownHref(
   return language ? `${page}/${language}.md` : `${page}.md`;
 }
 
+/**
+ * The rewrite that serves a Markdown copy at its URL, for next.config.ts: the
+ * route under `/md` (app/md/<version>) answers for the page's URL with `.md`
+ * appended.
+ */
+export function markdownRewrite(version: DocsVersion) {
+  return {
+    source: `/${version.path}/:slug*.md`,
+    destination: `/md/${version.path}/:slug*`
+  };
+}
+
+/** The redirect that keeps a copy at one URL, for next.config.ts: a request at the route's own path goes to the `.md` URL. */
+export function markdownRedirect(version: DocsVersion) {
+  return {
+    source: `/md/${version.path}/:slug*`,
+    destination: `/${version.path}/:slug*.md`,
+    permanent: true
+  };
+}
+
 /** The Markdown copy a link is in, for markdownLink. */
 export interface MarkdownLinkPage {
   /** The page the link is on. */
