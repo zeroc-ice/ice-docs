@@ -356,7 +356,7 @@ observer with the IceBox administrative facet.
 - [Creating the admin Object](../../../administration/administrative-facility/creating-the-admin-object)
 - [The admin Object](../../../administration/administrative-facility/admin-object)
 - [Custom Administrative Facets](../../../administration/administrative-facility/custom-administrative-facets)
-- [Security Considerations for Administrative Facets](../../../administration/administrative-facility/security-considerations-for-administrative-facets)
+- [Securing the admin Object](../../../administration/administrative-facility/security-considerations-for-administrative-facets)
 - [Bidirectional Connections](../../../runtime/connection-management/bidirectional-connections)
 - [Using IceGrid Deployment](../using-icegrid-deployment)
 - [Glacier2 Integration with IceGrid](../glacier2-integration-with-icegrid)
