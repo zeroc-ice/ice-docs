@@ -26,13 +26,17 @@ Ice application provides each administrative capability, such as `Process` and `
 
 ## Facet Names and Servants
 
-A facet name is a string that is unique within an Ice object; the default facet has the empty name. All the facets of an
-Ice object share its identity, and each facet implements its own Slice interface. An Ice object usually has a default
-facet, but it can also consist of named facets only.
+An Ice object has one or more facets. Each facet has a name that is unique within this Ice object, and the default facet
+has the empty name. All the facets of an Ice object share its identity, and each facet implements its own Slice
+interface. An Ice object usually has a default facet, but it can also consist of named facets only.
 
-Each facet has its own servant: [`addFacet`](api:Ice/ObjectAdapter.addFacet) registers the servant of a named facet with
-an object adapter, and [`add`](api:Ice/ObjectAdapter.add) registers the servant of the default facet. The object adapter
-dispatches each request to the servant registered for the identity and facet name carried by the request.
+A servant incarnates a facet of an Ice object in an object adapter. [`addFacet`](api:Ice/ObjectAdapter.addFacet)
+associates a servant with an identity and a facet name, and [`add`](api:Ice/ObjectAdapter.add) associates a servant with
+an identity and the default facet. The object adapter dispatches each request to the servant associated with the
+identity and facet name carried by the request.
+
+A [default servant](../dispatch/default-servants) receives the requests for all the facets of the identities it handles:
+it gets the facet name from the `Current` parameter of the dispatch.
 
 ## See Also
 
