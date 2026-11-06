@@ -9,19 +9,3 @@ greeter = GreeterPrxHelper.uncheckedCast(
 ```
 
 {% /language-section %}
-
-{% language-section name="invocation-timeout-failures" %}
-
-```csharp
-try
-{
-    greeting = await greeter.GreetAsync("alice");
-    ...
-}
-catch (Ice.InvocationTimeoutException exception)
-{
-    Console.WriteLine("invocation timed out");
-}
-```
-
-{% /language-section %}

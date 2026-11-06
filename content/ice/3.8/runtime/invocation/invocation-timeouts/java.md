@@ -6,16 +6,3 @@ greeter = greeter.ice_invocationTimeout(Duration.ofMillis(2500));
 ```
 
 {% /language-section %}
-
-{% language-section name="invocation-timeout-failures" %}
-
-```java
-try {
-    greeting = greeter.greet("alice");
-    ...
-} catch (InvocationTimeoutException exception) {
-    System.out.println("invocation timed out");
-}
-```
-
-{% /language-section %}

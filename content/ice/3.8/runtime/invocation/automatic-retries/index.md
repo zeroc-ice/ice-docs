@@ -2,109 +2,62 @@
 title: Automatic Retries
 ---
 
-Ice may automatically retry a proxy invocation after a failure. This is a powerful feature that, when used in the proper
-situations, can significantly improve the robustness of your application without any additional programming effort. The
-retry facility is governed by one overriding principle: always respect at-most-once semantics.
-[At-most-once semantics](../../../slice/operations#idempotent-operations) dictate that the Ice runtime in the client
-must never retry a failed proxy invocation unless Ice guarantees that the server has not already received the request,
-or unless the application declares that it is safe for Ice to violate at-most-once semantics for the request.
-
-To understand the importance of obeying at-most-once semantics, consider the following Slice definition:
-
-```slice
-interface Account
-{
-    long withdraw(long amount);
-}
-```
-
-The `withdraw` operation removes funds from an account. If an invocation of `withdraw` fails, automatically retrying the
-request introduces the risk of a duplicate withdrawal unless Ice is absolutely sure that the server has not already
-executed the request.
-
-This page examines automatic retries in more detail.
+An invocation can take several attempts: when an attempt fails, Ice can automatically make another one. By default, Ice
+retries once, immediately; [Ice.RetryIntervals](../../../property-reference/ice-properties#ice.retryintervals) sets how
+many times Ice retries and after which delays. Ice retries only when it is safe to do so, as described below.
 
 ## Automatic Retries for Request Failures
 
-Ice considers a request to have failed if any of the following conditions are true:
+An attempt fails when Ice cannot establish a connection or send the request, when the connection closes before the reply
+arrives, or when the server reports a [dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions). An
+attempt that completes with a user exception is not a failed attempt, and Ice does not retry it.
 
-- A connection could not be established
-- A connection was lost before the reply was received
-- An exception occurred while sending the request or receiving the reply
-- The server reported a [dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions)
+Ice answers two questions to decide whether to retry a failed attempt.
+
+### What Caused the Failure?
+
+Ice retries an attempt that fails with a local exception, including a
+[dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions) such as `UnknownException`, except when:
+
+- the exception is `MarshalException`, `FacetNotExistException`, or `OperationNotExistException`
+- the exception is `ObjectNotExistException` and the proxy is not a
+  [well-known proxy](../proxy-endpoints/well-known-proxy)
+- the [invocation timeout](../invocation-timeouts) expired
+- the invocation was canceled{% iflang langs="java" %}, including by interrupting its thread{% /iflang %}
+- the application closed the connection
+
+Ice does not retry a [batched invocation](../invocation-mode/batched-invocations) or an invocation on a fixed proxy.
+
+### Could the Server Have Dispatched the Request?
+
+When an attempt fails before Ice has written the entire request to the client's local transport buffers, the server
+cannot have received the request, so retrying is safe. Once the request is written, Ice assumes that the server may have
+dispatched it.
+
+When a server closes a connection gracefully, for example because it is shutting down, it completes the dispatches in
+progress and does not dispatch the requests it still receives on this connection. Ice retries these requests: the server
+did not process them, so retrying them is safe.
 
 {% callout type="note" %}
 
-Ice considers an invocation that results in a user exception to be successful and therefore excludes it from
-consideration for automatic retries.
+Ice retries an attempt that fails this way once more even when the invocation has reached the limit set by
+[Ice.RetryIntervals](#retry-intervals), including when retries are disabled with `-1`.
 
 {% /callout %}
 
-Ice must determine the answers to several questions to decide whether to retry a failed request:
+Ice also retries an attempt on a [well-known proxy](../proxy-endpoints/well-known-proxy) that fails with
+`ObjectNotExistException`, which allows an Ice object to migrate to another object adapter: Ice removes the proxy's
+entry from the locator cache, so the retry asks the locator for the object's current location.
 
-**1. What kind of error caused the request to fail?**
-
-Ice does not retry a request when the same error would occur again. It never retries a request that failed:
-
-- with `MarshalException`, a problem while marshaling the request or unmarshaling the reply
-- because the invocation timed out or was canceled{% iflang langs="java" %}, or because its thread was
-  interrupted{% /iflang %}
-- because its communicator or object adapter was destroyed or deactivated
-- because the application closed the connection
-- with `FacetNotExistException` or `OperationNotExistException`, which usually mean the client and the server use
-  incompatible Slice definitions, or the client calls the wrong object
-- with `ObjectNotExistException`, unless the proxy is [indirect](../../../basics/terminology), since the Ice object may
-  have moved to another server
-
-Nor does Ice retry an invocation on a fixed proxy, or the flush of the requests queued on a
-[batch proxy](../invocation-mode/batched-invocations).
-
-Any other local exception remains a candidate for retry, including any other
-[dispatch exception](../../local-and-dispatch-exceptions#dispatch-exceptions), such as `UnknownException`,
-`UnknownLocalException` or `UnknownUserException`.
-
-**2. When did the error occur?**
-
-If the error is still a candidate for retry, Ice needs to know whether the server has received the request. Naturally,
-the Ice runtime in the client cannot possibly know that information until the server confirms it by sending a reply.
-However, to be conservative Ice assumes that the server has received the request as soon as Ice has written the _entire_
-protocol message to the client's local transport buffers. If the error occurred before Ice managed to write the complete
-message, retrying the request would not violate at-most-once semantics.
-
-The Ice runtime in the server also has the ability to notify the client that a request was not dispatched and therefore
-that it is safe for the Ice runtime in the client to retry the request without violating at-most-once semantics. For
-example, this situation can occur when the server is shutting down while there are pending requests that have yet to be
-executed. Sending this notification allows a client to transparently fail over to another server.
-
-**3. Does the application require strict adherence to at-most-once semantics for this request?**
-
-An application can grant permission for Ice to violate at-most-once semantics for certain Slice operations by marking
-them as _idempotent_, causing Ice to retry a request that otherwise would be ineligible because the server has already
-received it. We discuss idempotent operations in more detail [below](#automatic-retries-for-idempotent-operations).
-
-If Ice determines that an invocation cannot be retried, it throws the exception that caused the request failure to the
-application. On the other hand, if Ice does retry the invocation and the subsequent retries also fail, Ice throws the
-_last_ exception to the application. For example, if the first attempt fails with `ConnectionRefusedException` and the
-retry fails with `ConnectTimeoutException`, the invocation throws `ConnectTimeoutException` to the application.
+When Ice does not retry a failed attempt, or when the last retry fails, the invocation fails with the exception of its
+last attempt.
 
 ## Automatic Retries for Idempotent Operations
 
-Annotating a Slice operation with the [idempotent](../../../slice/operations) keyword notifies Ice that it can safely
-violate at-most-once semantics:
-
-```slice
-interface Account
-{
-    long withdraw(long amount);
-    idempotent long getBalance();
-}
-```
-
-Although `withdraw` clearly requires the stricter treatment, there is no harm in automatically retrying the `getBalance`
-operation even if the server executes the same request more than once.
-
-In general, "read-only" operations are good candidates for the `idempotent` keyword whereas many mutating operations are
-not. However, the risk of duplicate requests is acceptable even for some kinds of mutating operations:
+By default, Ice provides [at-most-once semantics](../../../slice/operations#idempotent-operations): the server
+dispatches a request at most once, so Ice does not retry an attempt when the server may have dispatched its request.
+Declare an operation `idempotent` when it does not need this guarantee: Ice then retries a failed attempt even when the
+server may have already dispatched the request. For example:
 
 ```slice
 interface Account
@@ -115,8 +68,12 @@ interface Account
 }
 ```
 
-Here we have marked `changeAddress` as idempotent because executing the request twice has the same effect as executing
-it only once.
+Although `withdraw` clearly requires the stricter treatment, there is no harm in automatically retrying the `getBalance`
+operation even if the server executes the same request more than once.
+
+In general, "read-only" operations are good candidates for the `idempotent` keyword whereas many mutating operations are
+not. However, the risk of duplicate requests is acceptable even for some kinds of mutating operations: `changeAddress`
+is idempotent because executing the request twice has the same effect as executing it only once.
 
 The benefit of the `idempotent` keyword and the associated relaxation of retry semantics is that an invocation that
 otherwise might have thrown an exception has at least one more chance to succeed. Furthermore, the application does not
@@ -150,32 +107,23 @@ With this setting, Ice retries immediately as in the default case. If the first 
 milliseconds before trying again, then 500 milliseconds, and finally tries one more time after waiting one second.
 
 In some situations you may need to disable retries completely. For example, an application might implement its own retry
-logic and therefore require immediate notification when a failure occurs. A first value of `-1` disables the retries
-governed by this property:
+logic and therefore require immediate notification when a failure occurs. A first value of `-1` disables retries:
 
 ```config
 Ice.RetryIntervals=-1
 ```
 
-### Retry Logging
+### Retry Tracing
 
-To monitor Ice's retry activities, configure your program with the property
-[Ice.Trace.Retry](../../../property-reference/ice-trace-properties#ice.trace.retry) set to a non-zero value:
+Set [Ice.Trace.Retry](../../../property-reference/ice-trace-properties#ice.trace.retry) to `1` to trace retries:
 
 ```config
 Ice.Trace.Retry=1
 ```
 
-When retry tracing is enabled, Ice logs a message each time it attempts a retry; the log message includes a description
-of the exception that prompted the retry. Ice also logs a message when it reaches the retry limit.
-
-You can configure Ice to log even more information about retries by setting the property to `2`:
-
-```config
-Ice.Trace.Retry=2
-```
-
-This setting prompts Ice to include additional details about connections and endpoints.
+Ice then logs each retry, with the exception that caused it, and logs when an invocation reaches the retry limit. Set
+`Ice.Trace.Retry` to `2` to also trace the failed connection attempts to endpoints from the locator cache, after which
+Ice asks the locator for the endpoints again.
 
 ## See Also
 

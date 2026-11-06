@@ -6,15 +6,3 @@ greeter = greeter.ice_invocationTimeout(2500)
 ```
 
 {% /language-section %}
-
-{% language-section name="invocation-timeout-failures" %}
-
-```py
-try:
-    greeting = await greeter.greetAsync("alice")
-    ...
-except Ice.InvocationTimeoutException as exception:
-    print("invocation timed out")
-```
-
-{% /language-section %}

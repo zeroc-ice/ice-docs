@@ -73,7 +73,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/common-firewall-traversal-issues': 'services/glacier2/common-firewall-traversal-issues?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/communicator-and-other-core-local-features': 'runtime/communicator?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/communicator-initialization': 'runtime/communicator/initialization-and-destruction?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/concurrent-proxy-invocations': 'runtime/invocation/concurrent-proxy-invocations?lang=:lang'
+  ':lang(cpp|csharp|java|matlab|php|python|ruby|swift)/concurrent-proxy-invocations': 'runtime/invocation/concurrent-proxy-invocations?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/configuration-file-syntax': 'runtime/properties-and-configuration/configuration-file-syntax?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/configuring-glacier2-behind-an-external-firewall': 'services/glacier2/configuring-glacier2-behind-an-external-firewall?lang=:lang'
   ':lang(cpp|csharp|java)/configuring-icebox-services': 'services/icebox/configuring-icebox-services?lang=:lang'

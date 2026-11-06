@@ -32,9 +32,8 @@ ID or only the identity, which the Ice runtime resolves into endpoints with a [l
 
 ## Invocation and Dispatch
 
-An [_invocation_](../../runtime/invocation) is the client-side process of calling an operation through a proxy, from
-creating the request to returning the response to the caller. A [_dispatch_](../../runtime/dispatch) is the server-side
-processing of a request, from accepting the request to returning its response.
+An [_invocation_](../../runtime/invocation) is a call to an operation on an Ice object through a proxy. A
+[_dispatch_](../../runtime/dispatch) is the server-side processing of a request.
 
 ## Stringified Proxies
 
