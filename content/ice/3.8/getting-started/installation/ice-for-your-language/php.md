@@ -2,8 +2,9 @@
 
 ## Ice for PHP
 
-Ice for PHP is available as packages for Linux. After you [add the ZeroC repository](#linux-package-repositories) for
-your distribution, install the Ice for PHP package. On Ubuntu and Debian:
+Ice for PHP is available as packages for Linux. After you
+[add the ZeroC repository](../../installation#linux-package-repositories) for your distribution, install the Ice for PHP
+package. On Ubuntu and Debian:
 
 ```shell
 sudo apt-get install php-zeroc-ice
@@ -22,6 +23,6 @@ sudo dnf install php8.4-ice
 ```
 
 The package installs the Ice extension for the PHP of your distribution and enables it, along with the Slice-to-PHP
-compiler (`slice2php`). On macOS, you build Ice for PHP from [source](#source-code).
+compiler (`slice2php`). On macOS, you build Ice for PHP from [source](../../installation#source-code).
 
 {% /language-section %}

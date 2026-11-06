@@ -15,7 +15,7 @@ source, which requires a C++ compiler and the OpenSSL and bzip2 development head
 ### Linux
 
 Ice for Python is also available as a Linux package, for every distribution except Debian 12. After you
-[add the ZeroC repository](#linux-package-repositories), install it. On Ubuntu and Debian 13:
+[add the ZeroC repository](../../installation#linux-package-repositories), install it. On Ubuntu and Debian 13:
 
 ```shell
 sudo apt-get install python3-zeroc-ice
