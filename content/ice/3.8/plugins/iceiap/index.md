@@ -8,9 +8,9 @@ Ice servers on connected accessories. The accessory must provide the server side
 
 ## Accessory Discovery
 
-IceIAP connects to an accessory that iOS reports as connected, that advertises the endpoint's protocol (`com.zeroc.ice`
-unless the endpoint specifies another), and that has the name, manufacturer, and model number the endpoint specifies, if
-any.
+IceIAP looks for the accessory among those attached to the iOS device, through its port or over Bluetooth. The accessory
+must advertise the endpoint's protocol, `com.zeroc.ice` unless the endpoint specifies another. The endpoint can also
+specify a name, manufacturer, and model number; each one it specifies must equal the accessory's value.
 
 ## Installing IceIAP
 
