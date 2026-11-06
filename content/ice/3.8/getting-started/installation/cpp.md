@@ -29,16 +29,22 @@ runtime package alone.
 The `ice` formula of the ZeroC Homebrew tap installs Ice for C++, along with the Ice services:
 
 ```shell
-brew trust zeroc-ice/tap
 brew install zeroc-ice/tap/ice
 ```
 
-You run `brew trust` once, before you install your first package from the ZeroC tap.
-
 ### Windows
 
-Add the [ZeroC.Ice.Cpp](https://www.nuget.org/packages/ZeroC.Ice.Cpp) NuGet package to your Visual Studio project. The
-package holds the Ice libraries for x64 and Win32, in Debug and Release configurations, `slice2cpp`, and the MSBuild
-integration that compiles the Slice files of your project.
+Ice for C++ is the [ZeroC.Ice.Cpp](https://www.nuget.org/packages/ZeroC.Ice.Cpp) NuGet package. The package holds the
+Ice libraries for x64 and Win32, in Debug and Release configurations, `slice2cpp`, the MSBuild integration that compiles
+the Slice files of your project, and the CMake package.
+
+For a Visual Studio project, add the package with the NuGet package manager of Visual Studio.
+
+For a CMake project, download the package with the NuGet command-line tool, then point CMake to it as described in
+[CMake](../../build-tools/cmake#windows):
+
+```shell
+nuget install ZeroC.Ice.Cpp -Version 3.8.3 -OutputDirectory packages
+```
 
 {% /language-section %}
