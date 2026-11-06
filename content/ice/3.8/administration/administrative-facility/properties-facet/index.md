@@ -3,41 +3,25 @@ title: The Properties Facet
 sidebarLabel: Properties Facet
 ---
 
-## The `PropertiesAdmin` Interface
+The `Properties` facet lets an administrative client read and update the
+[configuration properties](../../../runtime/properties-and-configuration) of a running program's communicator. It
+implements the [`Ice::PropertiesAdmin`](api:Ice/PropertiesAdminPrx) interface.
 
-An administrator may find it useful to be able to view or modify the configuration properties of a remote Ice
-application. For example, the [IceGrid](../../../services/icegrid) administrative tools allow you to query and update
-the properties of active servers. The `Properties` facet supplies this functionality.
+## Reading and Updating Properties
 
-The `Ice::PropertiesAdmin` interface provides access to the communicator's
-[configuration properties](../../../runtime/properties-and-configuration):
+`PropertiesAdmin` provides three operations:
 
-```slice
-module Ice
-{
-    interface PropertiesAdmin
-    {
-        string getProperty(string key);
-        PropertyDict getPropertiesForPrefix(string prefix);
-        void setProperties(PropertyDict newProperties);
-    }
-}
-```
-
-The `getProperty` operation retrieves the value of a single property, and the `getPropertiesForPrefix` operation returns
-a dictionary of properties whose keys match the given prefix.
-
-The `setProperties` operation merges the entries in `newProperties` with the communicator's existing properties. If an
-entry in `newProperties` matches the name of an existing property, that property's value is replaced with the new value.
-If the new value is an empty string, the property is removed. Any existing properties that are not modified or removed
-by the entries in `newProperties` are retained with their original values. If the
-[Ice.Trace.Admin.Properties](../../../property-reference/ice-trace-properties#ice.trace.admin.properties) property is
-enabled, Ice logs a message if a call to `setProperties` results in any changes to the property set.
+- `getProperty` returns the value of a property, or an empty string when the property is not set.
+- `getPropertiesForPrefix` returns the properties whose names start with the given prefix; an empty prefix returns all
+  the properties.
+- `setProperties` merges the given properties into the communicator's properties: it adds or changes each property with
+  a value, and removes each property with an empty value. The other properties keep their values.
 
 `setProperties` applies the usual
 [property validation](../../../runtime/properties-and-configuration/properties-overview#property-validation) when
 adding, changing, or removing an entry. A rejected entry makes the call fail, and the entries applied before it stay in
-place.
+place. Set [Ice.Trace.Admin.Properties](../../../property-reference/ice-trace-properties#ice.trace.admin.properties) to
+trace the changes that `setProperties` makes.
 
 {% callout type="note" %}
 
@@ -49,9 +33,16 @@ the application reads them again or handles a property update callback.
 
 {% language-section name="mapping" /%}
 
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
+The callback receives the added and changed properties with their new values, and the removed properties with empty
+values. A successful `setProperties` call invokes the registered callbacks even when it changed nothing; the dictionary
+is then empty. Direct calls to `Properties.setProperty` do not invoke these callbacks.
+
+{% /iflang %}
+
 ## See Also
 
 - [Properties and Configuration](../../../runtime/properties-and-configuration)
-- [Versioning](../../../versioning)
 - [IceGrid](../../../services/icegrid)
 - [Using the admin Object](../using-the-admin-object)
