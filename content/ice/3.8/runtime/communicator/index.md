@@ -2,15 +2,27 @@
 title: Communicator
 ---
 
-A [communicator](api:Ice/Communicator) is the central object of the Ice runtime. It creates and caches the outgoing
-connections of your application{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}, runs the client-side
-[thread pool](../threading-model) that processes the messages received on these connections,{% /iflang %} and holds its
-[configuration properties](../properties-and-configuration) and its [logger](../../administration/logger-facility). You
-create proxies with a communicator.
+A [communicator](api:Ice/Communicator) is the entry point into the Ice runtime. You create proxies with a communicator,
+and each communicator has its own:
+
+- **Outgoing connections** The communicator establishes and caches the connections that invocations on its proxies use.
+- **Properties** Each communicator holds a [property set](../properties-and-configuration). These properties configure
+  this communicator, and an Ice service or an application that uses this communicator can read its own properties from
+  the same set.
+- **Logger** The [logger](../../administration/logger-facility) of a communicator receives the log messages of the Ice
+  runtime.
+
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
+
+- **Client-side thread pool** This [thread pool](../threading-model) processes the messages received on the outgoing
+  connections.
+
+{% /iflang %}
 
 {% iflang langs="cpp,csharp,java,js,python,swift" %}
 
-A communicator also creates the [object adapters](../dispatch) that dispatch incoming requests to your servants.
+- **Object adapters** The communicator creates the [object adapters](../dispatch) that dispatch incoming requests to
+  your servants.
 
 {% /iflang %}
 
@@ -35,10 +47,9 @@ resources.
 
 ## Initialization Data
 
-Some aspects of the Ice runtime must be configured when you create the communicator, such as its
-properties{% iflang langs="cpp,csharp,java,js,php,python,swift" %} and its logger{% /iflang %}. The
-[InitializationData](api:Ice/InitializationData) class or struct holds these options, and the communicator constructor
-or `initialize` function accepts it.
+You configure some aspects of the Ice runtime when you create the communicator, such as its
+properties{% iflang langs="cpp,csharp,java,js,php,python,swift" %} and its logger{% /iflang %}: set them in an
+[InitializationData](api:Ice/InitializationData) object, and create the communicator with this object.
 
 {% /iflang %}
 
@@ -46,5 +57,5 @@ or `initialize` function accepts it.
 
 ## See Also
 
-- [Command-Line Parsing and Initialization](../properties-and-configuration/command-line-parsing-and-initialization)
+- [Setting Properties on the Command Line](../properties-and-configuration/setting-properties-on-the-command-line)
 - [The Properties Class](../properties-and-configuration/properties-class)

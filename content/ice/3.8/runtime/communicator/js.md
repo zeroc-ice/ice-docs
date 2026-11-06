@@ -8,10 +8,9 @@ import { Ice } from "@zeroc/ice";
 await using communicator = new Ice.Communicator(process.argv);
 ```
 
-This constructor accepts the argument vector. It scans the argument vector for any
-[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
-Ice runtime; any such options are removed from the argument vector so, when the constructor returns, the only options
-and arguments remaining are those that concern your application.
+This constructor takes the command-line arguments. It
+[sets a property](../properties-and-configuration/setting-properties-on-the-command-line) for each argument that names
+an Ice property, and removes these arguments from the array.
 
 In a browser application, call the constructor without arguments, or with [initialization data](#initialization-data).
 

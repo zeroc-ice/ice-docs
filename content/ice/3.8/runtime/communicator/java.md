@@ -12,11 +12,10 @@ class Client {
 }
 ```
 
-The constructor accepts the argument vector that is passed to `main` by the operating system. The constructor scans the
-argument vector for any [command-line options](../properties-and-configuration/setting-properties-on-the-command-line)
-that are relevant to the Ice runtime. The constructor leaves `args` unchanged; to get the arguments that remain once the
-Ice options are removed, call the constructor that also accepts a `List<String> remainingArgs`, which it fills with
-these arguments.
+The constructor takes the command-line arguments passed to `main`. It
+[sets a property](../properties-and-configuration/setting-properties-on-the-command-line) for each argument that names
+an Ice property, and leaves `args` unchanged. To get the remaining arguments, call the constructor that also accepts a
+`List<String> remainingArgs`, which it fills with the arguments that do not name an Ice property.
 
 `Communicator` implements `AutoCloseable`. This allows you to create and clean up your communicator in a
 try-with-resources statement as shown above.

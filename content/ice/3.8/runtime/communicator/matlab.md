@@ -6,14 +6,13 @@ You create a communicator with the `Ice.Communicator` constructor:
 communicator = Ice.Communicator(args);
 ```
 
-The constructor accepts an argument vector and parses the
-[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
-Ice runtime into the properties of the new communicator. The constructor also accepts the `Properties` and `SliceLoader`
-name-value arguments; when you pass both an argument vector and `Properties`, the Ice options in the argument vector
-override these properties.
+The constructor takes the command-line arguments and
+[sets a property](../properties-and-configuration/setting-properties-on-the-command-line) for each argument that names
+an Ice property. The constructor also accepts the `Properties` and `SliceLoader` name-value arguments; when you pass
+both the command-line arguments and `Properties`, the properties set by the arguments override those in `Properties`.
 
-The constructor leaves `args` unchanged. To get the arguments that remain once the Ice options are removed, create the
-properties yourself and pass them to the constructor:
+The constructor leaves `args` unchanged. To get the remaining arguments, create the properties yourself and pass them to
+the constructor:
 
 ```matlab
 [props, remArgs] = Ice.Properties(args);

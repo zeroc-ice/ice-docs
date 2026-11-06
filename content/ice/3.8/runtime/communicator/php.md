@@ -9,10 +9,9 @@ require_once 'Ice.php';
 $communicator = Ice\initialize($argv);
 ```
 
-`Ice\initialize` accepts the argument array of the script. It scans this array for any
-[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
-Ice runtime; any such options are removed from the array so, when `Ice\initialize` returns, the only options and
-arguments remaining are those that concern your application.
+`Ice\initialize` takes the argument array of the script. It
+[sets a property](../properties-and-configuration/setting-properties-on-the-command-line) for each argument that names
+an Ice property, and removes these arguments from the array.
 
 `$argv` holds command-line arguments only when PHP runs the script from the command line. A script that handles a web
 request calls `Ice\initialize` without arguments, or with [initialization data](#initialization-data).

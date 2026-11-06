@@ -7,12 +7,9 @@ You create a communicator by calling
 let communicator = try Ice.initialize(CommandLine.arguments)
 ```
 
-`initialize` scans the argument array for any
-[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
-Ice runtime.
-
-This `initialize` does not modify the argument array; another overload of `initialize` removes the Ice options from the
-array.
+`initialize` [sets a property](../properties-and-configuration/setting-properties-on-the-command-line) for each argument
+that names an Ice property. This overload does not modify the argument array; the overload that takes an `inout` array
+removes these arguments from it.
 
 Call `destroy` on the communicator when you no longer need it. In a function, `defer` destroys it when the function
 returns:

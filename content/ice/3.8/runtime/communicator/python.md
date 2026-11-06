@@ -11,11 +11,9 @@ def main():
         ...
 ```
 
-`Ice.Communicator` constructor accepts the argument list that is passed to the program by the operating system. The
-constructor scans the argument list for any
-[command-line options](../properties-and-configuration/setting-properties-on-the-command-line) that are relevant to the
-Ice runtime; any such options are removed from the argument list so, when `Ice.Communicator` constructor returns, the
-only options and arguments remaining are those that concern your application.
+The `Ice.Communicator` constructor takes the command-line arguments of the program. It
+[sets a property](../properties-and-configuration/setting-properties-on-the-command-line) for each argument that names
+an Ice property, and removes these arguments from the list.
 
 `Communicator` implements the [Python context manager protocol](https://peps.python.org/pep-0343/), which cleans up the
 communicator automatically at the end of the with block.
