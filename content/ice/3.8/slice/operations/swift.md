@@ -7,7 +7,7 @@
 As we saw in the [Client-Side Swift Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 operation on an interface, the generated proxy protocol extension contains a method with the same name. To invoke an
 operation, you call this method on the proxy. For example, let’s take the generated code from the
-[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -91,7 +91,7 @@ As we saw in the [Server-Side Swift Mapping for Interfaces](../interfaces#server
 operation on an interface, the generated skeleton protocol contains a method requirement with the same name.
 
 For example, let’s take the generated code from the
-[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter

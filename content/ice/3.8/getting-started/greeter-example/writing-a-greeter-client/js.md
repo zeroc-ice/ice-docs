@@ -30,7 +30,7 @@ TypeScript compiler needs it to check our client code.
 
 We recommend that you include this Slice compilation step in your build. The `@zeroc/slice2js` package provides a
 plug-in that runs `slice2js` during a Vite, Rollup, webpack, or esbuild build. See
-[Using the Slice Compiler](../../slice/using-the-slice-compiler) for the plug-in and the `slice2js` options.
+[Using the Slice Compiler](../../../slice/using-the-slice-compiler) for the plug-in and the `slice2js` options.
 
 ## Client Implementation
 

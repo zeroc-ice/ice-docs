@@ -35,7 +35,7 @@ project directory, so its project file adds it explicitly:
 ```
 
 See [Slice Tools for Ice and C#](https://github.com/zeroc-ice/ice/blob/3.8/csharp/src/ZeroC.Ice.Slice.Tools/README.md)
-for the `SliceCompile` item metadata, and [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the
+for the `SliceCompile` item metadata, and [Using the Slice Compiler](../../../slice/using-the-slice-compiler) for the
 options of `slice2cs`.
 
 The build generates a single file named `Greeter.cs`, which provides the `GreeterDisp_` abstract base class we implement
