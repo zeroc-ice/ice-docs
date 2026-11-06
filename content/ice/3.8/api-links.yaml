@@ -63,6 +63,15 @@ Ice/EndpointInfo:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/EndpointInfo.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.EndpointInfo.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/endpointinfo
+Ice/FacetNotExistException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1FacetNotExistException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.FacetNotExistException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/FacetNotExistException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/FacetNotExistException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-FacetNotExistException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.FacetNotExistException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/FacetNotExistException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/facetnotexistexception
 Ice/InitializationData:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/structIce_1_1InitializationData.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.InitializationData.html
@@ -121,6 +130,15 @@ Ice/ObjectAdapter.addFacet:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#addfacet
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.addFacet
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/addfacet(servant:id:facet:)
+Ice/ObjectNotExistException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectNotExistException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectNotExistException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectNotExistException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectNotExistException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-ObjectNotExistException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectNotExistException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectNotExistException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectnotexistexception
 Ice/ObjectPrx:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html
@@ -179,6 +197,15 @@ Ice/ObjectPrx.ice_ping:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectPrx.html#Ice.ObjectPrx.ice_ping
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ObjectPrx_mixin.html#ice_ping-instance_method
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectprx/ice_ping(context:)
+Ice/OperationNotExistException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1OperationNotExistException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.OperationNotExistException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/OperationNotExistException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/OperationNotExistException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-OperationNotExistException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.OperationNotExistException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/OperationNotExistException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/operationnotexistexception
 Ice/OutputStream:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1OutputStream.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.OutputStream.html
@@ -305,6 +332,15 @@ Ice/ReplyStatus:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ReplyStatus.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ReplyStatus.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/replystatus
+Ice/RequestFailedException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1RequestFailedException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.RequestFailedException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/RequestFailedException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/RequestFailedException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-RequestFailedException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.RequestFailedException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/RequestFailedException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/requestfailedexception
 Ice/Service:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Service.html
 Ice/SlicedData:
@@ -325,6 +361,24 @@ Ice/ToStringMode:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ToStringMode.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ToStringMode.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/tostringmode
+Ice/UnknownException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UnknownException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UnknownException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/UnknownException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/UnknownException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-UnknownException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.UnknownException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/UnknownException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/unknownexception
+Ice/UnknownLocalException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UnknownLocalException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UnknownLocalException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/UnknownLocalException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/UnknownLocalException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-UnknownLocalException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.UnknownLocalException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/UnknownLocalException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/unknownlocalexception
 Ice/UnknownSlicedValue:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UnknownSlicedValue.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UnknownSlicedValue.html
@@ -334,6 +388,15 @@ Ice/UnknownSlicedValue:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.UnknownSlicedValue.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/UnknownSlicedValue.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/unknownslicedvalue
+Ice/UnknownUserException:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UnknownUserException.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UnknownUserException.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/UnknownUserException.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/UnknownUserException.html
+  php: https://code.zeroc.com/ice/3.8/api/php/classes/Ice-UnknownUserException.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.UnknownUserException.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/UnknownUserException.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/unknownuserexception
 Ice/UserException:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1UserException.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.UserException.html
