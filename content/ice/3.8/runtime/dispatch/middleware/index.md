@@ -8,25 +8,25 @@ languages:
   - swift
 ---
 
-## Intercepting Incoming Requests
+A _middleware_ is a [dispatcher](../dispatcher-api) that intercepts the requests of an object adapter before they reach
+the servant, and their responses before Ice sends them. A middleware holds the next dispatcher of the
+[dispatch pipeline](../dispatch-pipeline): its dispatch method can run code before and after calling this next
+dispatcher, or return a response itself, such as an error, without calling it.
 
-A middleware is a piece of code that intercepts an incoming request before this request reaches the target servant. The
-same code also intercepts the outgoing response before it's sent back to the caller.
+## Installing a Middleware
 
-At a more technical level, a middleware is a dispatcher that holds another dispatcher ("next") and calls this next
-dispatcher as part of the implementation of its own dispatch method.
+[`use`](api:Ice/ObjectAdapter.use) installs a middleware on an object adapter. It takes a factory that creates the
+middleware from the next dispatcher, and the object adapter calls this factory when it dispatches its first request. You
+install all the middleware of an object adapter before this first dispatch, and they intercept requests in the order you
+install them.
 
-A middleware can include logic before calling the next dispatcher (before the request is processed) and after the next
-dispatcher produces the response. A middleware can also short-circuit the dispatch processing by producing a cached
-response or an error instead of calling the next dispatcher.
-
-## Middleware API
+For example, the following middleware takes the next dispatcher and a token, and the call to `use` installs it:
 
 {% language-section name="mapping" /%}
 
-### Built-in Middleware
+## Built-in Middleware
 
-Ice installs automatically the following middleware at the beginning of the dispatch pipeline:
+Ice installs the following middleware at the beginning of the dispatch pipeline:
 
 - the logger middleware, unless both `Ice.Warn.Dispatch` and `Ice.Trace.Dispatch` are set to `0`.
 - the observer middleware, when the [Metrics admin facet](../../../administration/administrative-facility/metrics-facet)

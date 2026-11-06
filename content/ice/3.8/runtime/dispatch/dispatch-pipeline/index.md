@@ -10,36 +10,17 @@ languages:
   - swift
 ---
 
-An object adapter dispatches incoming requests using its dispatch pipeline. A dispatch pipeline implements the
-[Dispatcher](../../../basics/terminology) abstraction using a tree-like structure of dispatchers.
+An object adapter dispatches each request through its _dispatch pipeline_, a chain of [dispatchers](../dispatcher-api):
 
-The leaves of this tree are servants, while intermediary nodes in this tree are middleware and an internal helper class,
-`ServantManager`.
+1. The [middleware](../middleware) of the object adapter, in installation order. A middleware usually passes the request
+   to the next dispatcher, but can also return a response itself, such as an error.
+2. The servant of the target Ice object, which the object adapter looks for:
+   1. in the [active servant map](../active-servant-map), with the identity and facet of the request;
+   2. then among the [default servants](../default-servants), the one registered for the category of the identity or, if
+      there is none, the one registered for the empty category;
+   3. then among the servant locators, the one registered for the category of the identity or, if there is none, the one
+      registered for the empty category. Don't use servant locators in new applications.
 
-{% callout type="note" %}
-
-Servants, middleware, and even the internal `ServantManager` class, all implement the Dispatcher abstraction.
-
-{% /callout %}
-
-## Dispatch Pipeline Decision Tree
-
-An object adapter gives all incoming requests to its dispatch pipeline, which performs the following steps:
-
-- Traverse the [middleware](../middleware) installed on this object adapter. A middleware can occasionally fulfill the
-  request itself by returning a cached response, or more commonly, by returning an error.
-- Look for the identity and facet carried by the request in the [Active Servant Map](../active-servant-map) (ASM). If
-  the ASM contains an entry, dispatch the request to the corresponding servant. (End of tree).
-- Look for a [default servant](../default-servants) registered for the category component of the identity carried by the
-  request. If found, dispatch the request to this servant. (End of tree).
-- Look for a default servant registered with the empty category. If found, dispatch the request to this servant. (End of
-  tree).
-- Look for a servant locator that provides a servant. We only mention servant locators for completeness, as you should
-  not use servant locators in new applications.
-- If none of the previous steps found a servant:
-  - throw `FacetNotExistException` when the ASM contains a servant with a matching identity, but a non-matching
-    [facet](../../facets)
-  - otherwise, throw `ObjectNotExistException`
-
-As far as the dispatch pipeline is concerned, servants are just dispatchers – they accept requests and return responses.
-The dispatch pipeline does not rely on APIs provided by servants beyond the [Dispatcher API](../dispatcher-api).
+When the object adapter finds no servant, the dispatch fails with `FacetNotExistException` if the active servant map has
+a servant for the identity of the request with another [facet](../../facets), and with `ObjectNotExistException`
+otherwise.

@@ -56,6 +56,10 @@ Ice/DispatchException:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.DispatchException.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/DispatchException.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/dispatchexception
+Ice/Dispatcher:
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/dispatcher
+Ice/Dispatcher.dispatch:
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/dispatcher/dispatch(_:)
 Ice/EndpointInfo:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1EndpointInfo.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.EndpointInfo.html
@@ -100,6 +104,18 @@ Ice/Logger:
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/logger
 Ice/ModuleToPackageSliceLoader:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ModuleToPackageSliceLoader.html
+Ice/Object:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Object.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Object.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Object.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Object.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Object.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/object
+Ice/Object.dispatch:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Object_a4b1aea7f1d61378388dec49ab812bc11.html#a4b1aea7f1d61378388dec49ab812bc11
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Object.html#Ice_Object_dispatchAsync_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Object.html#dispatch(com.zeroc.Ice.IncomingRequest)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Object.html#dispatch
 Ice/ObjectAdapter:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html
@@ -121,6 +137,12 @@ Ice/ObjectAdapter.addFacet:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#addfacet
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.ObjectAdapter.html#Ice.ObjectAdapter.addFacet
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/addfacet(servant:id:facet:)
+Ice/ObjectAdapter.use:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectAdapter_af76b4df66404eaa35d3dd4559689dc73.html#af76b4df66404eaa35d3dd4559689dc73
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectAdapter.html#Ice_ObjectAdapter_use_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ObjectAdapter.html#use(java.util.function.Function)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ObjectAdapter.html#use
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/objectadapter/use(_:)
 Ice/ObjectPrx:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ObjectPrx.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ObjectPrx.html
