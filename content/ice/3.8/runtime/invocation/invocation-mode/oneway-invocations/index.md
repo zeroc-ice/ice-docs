@@ -3,8 +3,9 @@ title: Oneway Invocations
 sidebarLabel: Oneway
 ---
 
-A oneway invocation sends its request without waiting for a reply: it completes as soon as the client's local transport
-accepts the request. For example, a client reports readings to a weather station:
+A oneway invocation is an invocation made with a oneway proxy, a proxy whose [invocation mode](..) is oneway. It sends
+the request without waiting for a reply, and completes as soon as the client's local transport accepts the request. For
+example, a client reports readings to a weather station:
 
 {% iflang langs="cpp,java,js,matlab,php,python,ruby,swift" %}
 
@@ -18,6 +19,7 @@ struct AtmosphericConditions
 
 interface WeatherStation
 {
+    ["oneway"]
     void report(string sensorId, string timeStamp, AtmosphericConditions reading);
 }
 ```
@@ -36,12 +38,17 @@ struct AtmosphericConditions
 
 interface WeatherStation
 {
-    ["cs:identifier:Report"]
+    ["oneway", "cs:identifier:Report"]
     void report(string sensorId, string timeStamp, AtmosphericConditions reading);
 }
 ```
 
 {% /iflang %}
+
+The [oneway](../../../../slice/slice-metadata-directives#oneway) metadata directive is optional: it makes sure that
+clients invoke `report` only with a oneway, datagram, or batch proxy.
+
+`ice_oneway` returns a oneway proxy, and an invocation on this proxy is a oneway invocation:
 
 {% language-section name="mapping" /%}
 
@@ -53,6 +60,7 @@ The server dispatches a oneway request like any other request; `Current.requestI
 If the server does not keep up with the client, the client's transport buffers fill up and a synchronous oneway
 invocation blocks until there is room. An asynchronous oneway invocation does not block.
 
-Oneway requests sent over one connection arrive in order, but the server's thread pool can dispatch them concurrently,
-so a later request can execute before an earlier one. To dispatch them in order, use one of the techniques of
-[Thread Pool Design Considerations](../../../threading-model/thread-pool-design-considerations).
+On the server side, Ice reads the oneway requests received on a connection in the order the client sent them. A thread
+pool with several threads dispatches these requests concurrently, which loses this order. To dispatch the requests of a
+connection one at a time, in order, see
+[Serializing the Messages of Each Connection](../../../threading-model/thread-pools#serializing-the-messages-of-each-connection).

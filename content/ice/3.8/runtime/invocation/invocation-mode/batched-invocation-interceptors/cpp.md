@@ -7,7 +7,7 @@ initData.batchRequestInterceptor =
     {
         if (size + req.getSize() > maxBatchSize)
         {
-            req.getProxy()->ice_flushBatchRequestsAsync(
+            req.getProxy().ice_flushBatchRequestsAsync(
                 [](std::exception_ptr ex)
                 {
                     // Log the failure.

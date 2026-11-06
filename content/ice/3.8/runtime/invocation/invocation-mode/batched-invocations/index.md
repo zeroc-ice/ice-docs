@@ -3,11 +3,13 @@ title: Batched Invocations
 sidebarLabel: Batched
 ---
 
-A batch oneway or batch datagram invocation queues its request on the client side instead of sending it. Flushing the
-queue sends all its requests in a single message, which saves the per-request overhead when a client sends many small
-requests.
+A batched invocation is an invocation made with a batch proxy, a proxy whose [invocation mode](..) is batch
+oneway{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} or batch datagram{% /iflang %}. It queues the
+request on the client side instead of sending it. Flushing the queue sends all the queued requests in a single message,
+which saves the per-request overhead when a client sends many small requests.
 
-`ice_batchOneway` and `ice_batchDatagram` return a batch proxy, and `ice_flushBatchRequests` flushes its queue:
+You get a batch proxy from `ice_batchOneway`{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %} or
+`ice_batchDatagram`{% /iflang %}, and `ice_flushBatchRequests` flushes its queue:
 
 {% language-section name="proxy-methods-for-batched-invocations" /%}
 
@@ -47,4 +49,5 @@ To flush with your own policy, install a [batch invocation interceptor](../batch
 A batch [fixed proxy](../../creating-proxies#creating-a-proxy-from-a-connection) queues its requests in the queue of its
 connection, which all the batch fixed proxies that use this connection share. `ice_flushBatchRequests` on a fixed proxy
 flushes this queue, as does `flushBatchRequests` on the connection; `flushBatchRequests` on a communicator flushes the
-queues of all its connections. None of these flush the queue of a regular proxy.
+queues of all its connections. None of these flush the queue of a regular proxy. This holds for both batch modes: a
+batch datagram fixed proxy uses a UDP connection, and a batch oneway fixed proxy uses a connection of another transport.

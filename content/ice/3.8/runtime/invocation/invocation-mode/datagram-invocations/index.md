@@ -12,8 +12,9 @@ languages:
   - swift
 ---
 
-A datagram invocation is a [oneway invocation](../oneway-invocations) over UDP: it sends its request without waiting for
-a reply, and completes as soon as the client's local transport accepts the request.
+A datagram invocation is an invocation made with a datagram proxy, a proxy whose [invocation mode](..) is datagram. It
+sends the request over UDP without waiting for a reply, and completes as soon as the client's local transport accepts
+the request. `ice_datagram` returns a datagram proxy.
 
 UDP does not guarantee delivery: a datagram request can be lost, duplicated, or delivered out of order, so the server
 can dispatch a request more than once, or not at all, and in any order. Design your application to tolerate lost,
@@ -36,7 +37,8 @@ Discover.Endpoints=udp -h 239.255.1.1 -p 10000
 Discover.Proxy=discover:udp -h 239.255.1.1 -p 10000
 ```
 
-The `--interface` option of a UDP endpoint selects the network interface for multicast.
+[UDP Endpoint Syntax](../../../endpoint-syntax#udp-endpoint-syntax) describes the options of a UDP endpoint, including
+its multicast options.
 
 The [IceDiscovery](../../../../plugins/icediscovery) plug-in uses UDP multicast to locate object adapters and well-known
 objects.

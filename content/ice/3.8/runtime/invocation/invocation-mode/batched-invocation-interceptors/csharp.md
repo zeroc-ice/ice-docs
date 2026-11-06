@@ -6,12 +6,22 @@ initData.batchRequestInterceptor = (req, count, size) =>
 {
     if (size + req.getSize() > maxBatchSize)
     {
-        req.getProxy().ice_flushBatchRequestsAsync().ContinueWith(
-            task => Console.Error.WriteLine($"Failed to flush batch requests: {task.Exception!.InnerException}"),
-            TaskContinuationOptions.OnlyOnFaulted);
+        _ = FlushAsync(req.getProxy());
     }
     req.enqueue();
 };
+
+static async Task FlushAsync(Ice.ObjectPrx proxy)
+{
+    try
+    {
+        await proxy.ice_flushBatchRequestsAsync();
+    }
+    catch (Ice.LocalException exception)
+    {
+        Console.Error.WriteLine($"Failed to flush batch requests: {exception}");
+    }
+}
 ```
 
 {% /language-section %}
