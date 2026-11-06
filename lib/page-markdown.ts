@@ -57,6 +57,8 @@ interface Assembled {
 
 const absolute = (href: string) => new URL(href, SITE_URL).href;
 
+const INDEX = '/llms.txt';
+
 const list = (items: string[]) => new Intl.ListFormat('en').format(items);
 
 function assemble(
@@ -129,7 +131,21 @@ function markdownText(
 ): string {
   const copy = (mapping: string) =>
     `[${languageLabel(mapping)}](${absolute(markdownHref(version, page.slug, mapping))})`;
-  const head = `# ${title}\n\n${description ? `${description}\n\n` : ''}`;
+  // What nextjs.org's own copies open with: the page's facts as frontmatter,
+  // then a pointer to the index.
+  const frontmatter = [
+    `title: ${JSON.stringify(title)}`,
+    description && `description: ${JSON.stringify(description)}`,
+    `url: ${absolute(pageHref(version, page.slug))}`,
+    language && `language: ${language}`,
+    `docs_index: ${absolute(INDEX)}`
+  ]
+    .filter(Boolean)
+    .join('\n');
+  const head =
+    `---\n${frontmatter}\n---\n\n` +
+    `> For an index of every page, see [llms.txt](${absolute(INDEX)}).\n\n` +
+    `# ${title}\n\n${description ? `${description}\n\n` : ''}`;
 
   if (varies && language === undefined)
     return `${head}This page has one Markdown file per programming language:\n\n${languages
@@ -197,13 +213,19 @@ export async function pageMarkdown(
   // with its `rel="alternate"` link to the copy.
   return new Response(text, {
     headers: {
-      'Content-Type': 'text/markdown; charset=utf-8',
+      ...MARKDOWN_HEADERS,
       Link: `<${absolute(pageHref(version, page.page.slug))}>; rel="canonical"`
     }
   });
 }
 
-/** `/llms.txt`: how the Markdown copies are laid out, and every page of every version, by chapter. */
+/** The headers of a Markdown response: readable by a page on another origin, as a tool in a browser is. */
+export const MARKDOWN_HEADERS = {
+  'Content-Type': 'text/markdown; charset=utf-8',
+  'Access-Control-Allow-Origin': '*'
+};
+
+/** The index at `/llms.txt`: how the Markdown copies are laid out, and every page of every version, by chapter. */
 export function llmsTxt(versions: DocsVersion[]): string {
   const latest = versions.find((v) => v.status === 'latest') ?? versions[0];
   const summary = assembleAll(latest).get('')!.description;
