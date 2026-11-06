@@ -12,6 +12,8 @@ import {
   buildSideNav,
   activeTrailKeys,
   filterSideNav,
+  markdownHref,
+  markdownLink,
   navigationPages,
   prevNext,
   sideNavKey,
@@ -293,4 +295,29 @@ test('a page not written for the language never matches', () => {
   assert.deepEqual(outline(filterSideNav(tree, 'sequences', 'cpp')), [
     ['The Slice Language', [['User-Defined Types', ['Sequences']]]]
   ]);
+});
+
+test("markdownHref is the page's URL with .md appended, or one mapping's copy under it", () => {
+  assert.equal(markdownHref(VERSION), '/ice/3.8.md');
+  assert.equal(markdownHref(VERSION, ENUMERATIONS), `${ENUMERATIONS_HREF}.md`);
+  assert.equal(
+    markdownHref(VERSION, ENUMERATIONS, 'cpp'),
+    `${ENUMERATIONS_HREF}/cpp.md`
+  );
+});
+
+test('markdownLink sends a page link to its copy and leaves the rest alone', () => {
+  const link = (href: string) => markdownLink(VERSION, href, ENUMERATIONS);
+  assert.equal(
+    link(`${ENUMERATIONS_HREF}?lang=java#custom-values`),
+    `${ENUMERATIONS_HREF}.md#custom-values`
+  );
+  assert.equal(link('/ice/3.8'), '/ice/3.8.md');
+  assert.equal(link('?lang=java'), `${ENUMERATIONS_HREF}.md`);
+  assert.equal(link('#custom-values'), '#custom-values');
+  assert.equal(
+    link('/images/ice/3.8/basics/x.svg'),
+    '/images/ice/3.8/basics/x.svg'
+  );
+  assert.equal(link('https://example.com/x'), 'https://example.com/x');
 });

@@ -109,6 +109,46 @@ export function pageHref(version: DocsVersion, slug?: string): string {
 }
 
 /**
+ * The URL of the Markdown copy of the page with `slug`: its URL with `.md`
+ * appended, or, with `language`, of its text for that mapping,
+ * `<page>/<language>.md`.
+ */
+export function markdownHref(
+  version: DocsVersion,
+  slug?: string,
+  language?: string
+): string {
+  const page = pageHref(version, slug);
+  return language ? `${page}/${language}.md` : `${page}.md`;
+}
+
+/**
+ * Where a link on the page at `slug` goes in its Markdown copy: a link to a
+ * page goes to that page's copy, keeping its anchor and dropping its `?lang=`,
+ * since the copy lists the mappings; a link to the page itself, as a `?lang=`
+ * link names it, goes the same way; anything else, such as an image or an
+ * external page, is left as it is.
+ */
+export function markdownLink(
+  version: DocsVersion,
+  href: string,
+  slug: string
+): string {
+  if (href.startsWith('#')) return href;
+  const hashAt = href.indexOf('#');
+  const beforeHash = hashAt === -1 ? href : href.slice(0, hashAt);
+  const hash = hashAt === -1 ? '' : href.slice(hashAt);
+  const path = beforeHash.split('?')[0];
+  const root = pageHref(version);
+  let target: string;
+  if (path === '') target = slug;
+  else if (path === root) target = '';
+  else if (path.startsWith(`${root}/`)) target = path.slice(root.length + 1);
+  else return href;
+  return markdownHref(version, target) + hash;
+}
+
+/**
  * Whether a resolved node is, or contains, the active page, the one at
  * `activeHref` (used to auto-expand).
  */

@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   redirects() {
     return readRedirects(ICE_VERSIONS);
   },
+  // The Markdown copy of a page is at its URL with `.md` appended, and comes
+  // from the route under app/md (see lib/page-markdown.ts).
+  rewrites() {
+    return ICE_VERSIONS.map((version) => ({
+      source: `/${version.path}/:slug*.md`,
+      destination: `/md/${version.path}/:slug*`
+    }));
+  },
   // A build for a host that must stay out of search indexes (a dev deployment)
   // must not compete with the real site. The header also covers the files a
   // robots meta tag can't, such as images and the search index.
