@@ -41,5 +41,5 @@ it gets the facet name from the `Current` parameter of the dispatch.
 ## See Also
 
 - [Syntax for Stringified Proxies](../invocation/syntax-for-stringified-proxies)
-- [Versioning with Facets](../../versioning/versioning-with-facets)
+- [Versioning](../../versioning#adding-facets)
 - [Administrative Facility](../../administration/administrative-facility)
