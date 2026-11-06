@@ -189,35 +189,29 @@ export async function pageMarkdown(
   const pages = assembleAll(version);
   // The params name a page, or a page and one of its mappings.
   const own = pages.get(segments.join('/'));
+  const page = own ?? pages.get(segments.slice(0, -1).join('/'))!;
   const text = own
     ? markdownText(version, pages, own)
-    : markdownText(
-        version,
-        pages,
-        pages.get(segments.slice(0, -1).join('/'))!,
-        segments.at(-1)
-      );
+    : markdownText(version, pages, page, segments.at(-1));
+  // The HTML page is the canonical form of every copy, as its head says in turn
+  // with its `rel="alternate"` link to the copy.
   return new Response(text, {
-    headers: { 'Content-Type': 'text/markdown; charset=utf-8' }
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      Link: `<${absolute(pageHref(version, page.page.slug))}>; rel="canonical"`
+    }
   });
 }
 
 /** `/llms.txt`: how the Markdown copies are laid out, and every page of every version, by chapter. */
 export function llmsTxt(versions: DocsVersion[]): string {
   const latest = versions.find((v) => v.status === 'latest') ?? versions[0];
-  const summary = readPageSources(
-    listPages(latest).find((page) => page.slug === '')!
-  ).frontmatter.description;
+  const summary = assembleAll(latest).get('')!.description;
 
   const sections = versions.flatMap((version) => {
-    const frontmatter = new Map(
-      listPages(version).map((page) => [
-        page.slug,
-        readPageSources(page).frontmatter
-      ])
-    );
+    const pages = assembleAll(version);
     const entry = (slug: string) => {
-      const { title, description } = frontmatter.get(slug)!;
+      const { title, description } = pages.get(slug)!;
       const note = description ? `: ${description}` : '';
       return `- [${title}](${absolute(markdownHref(version, slug))})${note}`;
     };
