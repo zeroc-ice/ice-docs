@@ -144,6 +144,7 @@
     "ifndef",
     "INADDR",
     "inlines",
+    "inout",
     "INTF",
     "isinstance",
     "istr",
