@@ -86,9 +86,9 @@ The `-I` option therefore plays two roles: it lets the compiler locate included 
 generated `#include` directives. In the last two commands, `-I.` locates `slice/inc/B.ice`, and the other `-I` options
 only shorten the generated directive.
 
-When the compiler finds the included file relative to the including file instead, the generated directive keeps the path
-of the Slice `#include` directive, in quotes, whatever the `-I` options: if `slice/inc/A.ice` contains
-`#include "B.ice"`, `A.h` contains `#include "B.h"`.
+With a Slice `#include` directive in double quotes, the compiler first looks for the file relative to the including
+file. When it finds the file there, the generated directive keeps the path of the Slice directive, in double quotes,
+whatever the `-I` options: if `slice/inc/A.ice` contains `#include "B.ice"`, `A.h` contains `#include "B.h"`.
 
 ### Source Files
 
