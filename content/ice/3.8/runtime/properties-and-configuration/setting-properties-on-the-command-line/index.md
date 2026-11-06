@@ -5,28 +5,25 @@ sidebarLabel: Command-Line Properties
 
 When you pass the command-line arguments of your program to communicator
 [initialization](../../communicator/initialization-and-destruction), Ice sets a property for each argument of the form
-`--name=value` whose name begins with a [reserved prefix](../properties-overview#reserved-prefixes) and a dot, and
-removes this argument. For example:
+`--name=value` where `name` is the name of an Ice property, and removes this argument. For example:
 
 ```shell
 ./server --Ice.Trace.Network=3 --verbose
 ```
 
-sets `Ice.Trace.Network` to `3`, and `--verbose` remains for your application. An argument such as `--IceFoo=1`, with no
-dot after the prefix, remains too.
+sets `Ice.Trace.Network` to `3`, and `--verbose` remains for your application.
 
-A property set on the command line overrides the same property set in a
-[configuration file](../using-configuration-files). When the command line sets the same property more than once, the
-last one applies. An argument without `=value` sets the property to `1`, and an argument with an empty value clears the
-property:
+When the command line sets the same property more than once, the last one applies. An argument without `=value` sets the
+property to `1`, and an argument with an empty value clears the property:
 
 ```shell
 ./server --Ice.Trace.Protocol     # same as --Ice.Trace.Protocol=1
 ./server --Ice.Trace.Protocol=    # clears Ice.Trace.Protocol
 ```
 
-Ice applies the same [property validation](../properties-overview#property-validation) to a property set on the command
-line as to any other property.
+Ice [validates](../properties-overview#property-validation) these arguments like any other property: an argument whose
+name begins with a [reserved prefix](../properties-overview#reserved-prefixes) and a dot but is not the name of an Ice
+property, such as `--Ice.Foo=1`, makes communicator initialization fail.
 
 ## Remaining Arguments
 

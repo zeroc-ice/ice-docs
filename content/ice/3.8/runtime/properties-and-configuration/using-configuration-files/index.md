@@ -52,12 +52,11 @@ Both `--Ice.Config` and `ICE_CONFIG` accept a list of file names separated by co
 ./server --Ice.Config=/usr/local/filesystem/config,./config
 ```
 
-Ice loads the files from left to right, so a property set in `./config` overrides the same property set in
-`/usr/local/filesystem/config`.
+Ice loads the files from left to right: when both files set the same property, `./config` wins.
 
-The other properties set on the command line override the same properties set in the configuration files, wherever they
-appear on the command line. For example, both of the following commands set `Ice.MessageSizeMax` to `4096`, whatever the
-configuration file sets:
+When the command line and a configuration file set the same property, the command line wins, wherever the `--Ice.Config`
+argument appears on the command line. For example, both of the following commands set `Ice.MessageSizeMax` to `4096`,
+whatever the configuration file sets:
 
 ```shell
 ./server --Ice.Config=/usr/local/filesystem/config --Ice.MessageSizeMax=4096

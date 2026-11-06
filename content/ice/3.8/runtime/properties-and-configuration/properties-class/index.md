@@ -38,10 +38,9 @@ object adapter or a proxy, with the plain `getProperty` methods, which take any 
 [`getPropertiesForPrefix`](api:Ice/Properties.getPropertiesForPrefix) returns the properties whose names begin with a
 prefix, and marks them as [used](../properties-overview#unused-properties).
 [`parseCommandLineOptions`](api:Ice/Properties.parseCommandLineOptions) and
-[`parseIceCommandLineOptions`](api:Ice/Properties.parseIceCommandLineOptions) convert command-line options into
-properties, with the same validation as `setProperty`, and
-[`getCommandLineOptions`](api:Ice/Properties.getCommandLineOptions) converts a property set back into command-line
-options.
+[`parseIceCommandLineOptions`](api:Ice/Properties.parseIceCommandLineOptions) convert command-line arguments of the form
+`--name=value` into properties, with the same validation as `setProperty`, and
+[`getCommandLineOptions`](api:Ice/Properties.getCommandLineOptions) converts a property set back into such arguments.
 
 {% iflang langs="js" %}
 

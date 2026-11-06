@@ -16,8 +16,8 @@ Ice.Trace.Protocol=          # Disable protocol tracing
 
 A configuration file is a text file in UTF-8, with an optional byte order mark (BOM) at the beginning.
 
-When a file sets the same property more than once, the last setting overrides the previous ones. An empty value removes
-the property from the property set: the example above leaves `Ice.Trace.Protocol` unset.
+When a file sets the same property more than once, the last one applies. An empty value removes the property from the
+property set: the example above leaves `Ice.Trace.Protocol` unset.
 
 ## Special Characters
 
