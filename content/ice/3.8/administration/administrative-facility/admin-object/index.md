@@ -2,17 +2,17 @@
 title: The admin Object
 ---
 
-The `admin` object is an Ice object that exposes the administrative capabilities of a communicator. Each capability is a
-separate [facet](../../../runtime/facets) of this object, and an administrative client selects the facet that provides
-the capability it needs. The `admin` object has no default facet.
+The `admin` object is an Ice object that provides the administrative [facets](../../../runtime/facets) of a
+communicator, one for each administrative capability. An administrative client selects the facet for the capability it
+needs. The `admin` object has no default facet.
 
 The Ice runtime provides four built-in facets:
 
-- [Process](../process-facet) lets an activation service, such as an IceGrid node, request a graceful shutdown of the
-  program.
-- [Properties](../properties-facet) reads and updates the communicator's configuration properties.
-- [Logger](../logger-facet) returns the recent log messages of the program and forwards new ones to remote loggers.
-- [Metrics](../metrics-facet) provides the metrics of the Ice runtime.
+- [Process](../process-facet) lets a client, such as an IceGrid node, gracefully shut down the communicator.
+- [Properties](../properties-facet) lets a client read and update the communicator's properties.
+- [Logger](../logger-facet) lets a client retrieve recent messages from the Ice logger and receive new ones through a
+  remote logger.
+- [Metrics](../metrics-facet) lets a client retrieve the metrics of the Ice runtime.
 
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
