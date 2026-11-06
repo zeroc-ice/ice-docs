@@ -21,7 +21,7 @@ Ice retries an attempt that fails with a local exception, including a
 
 - the exception is `MarshalException`, `FacetNotExistException`, or `OperationNotExistException`
 - the exception is `ObjectNotExistException` and the proxy is not a
-  [well-known proxy](../proxy-endpoints/well-known-proxy)
+  [well-known proxy](../proxy-endpoints#well-known-proxy)
 - the [invocation timeout](../invocation-timeouts) expired
 - the invocation was canceled{% iflang langs="java" %}, including by interrupting its thread{% /iflang %}
 - the application closed the connection
@@ -45,7 +45,7 @@ Ice retries an attempt that fails this way once more even when the invocation ha
 
 {% /callout %}
 
-Ice also retries an attempt on a [well-known proxy](../proxy-endpoints/well-known-proxy) that fails with
+Ice also retries an attempt on a [well-known proxy](../proxy-endpoints#well-known-proxy) that fails with
 `ObjectNotExistException`, which allows an Ice object to migrate to another object adapter: Ice removes the proxy's
 entry from the locator cache, so the retry asks the locator for the object's current location.
 
