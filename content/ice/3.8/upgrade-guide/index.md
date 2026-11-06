@@ -253,9 +253,8 @@ The following `IceSSL` properties of Ice 3.7 no longer exist in Ice 3.8, so sett
 ## Communicator Initialization
 
 - The `Application` helper class has been removed from the language mappings that provided it. Create and destroy the
-  communicator in your own code, as described in
-  [Communicator Initialization and Destruction](../runtime/communicator/initialization-and-destruction), and shut it
-  down when your application receives Ctrl+C or a termination signal.
+  communicator in your own code, as described in [Communicator](../runtime/communicator), and shut it down when your
+  application receives Ctrl+C or a termination signal.
 - The `dispatcher` field of `InitializationData` is now named `executor`.
 
 ## Value Factories

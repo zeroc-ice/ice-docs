@@ -22,3 +22,5 @@ permanent:
   'basics/protocol-in-a-nutshell': 'protocol'
   'slice/user-defined-types/classes/simple-classes': 'slice/user-defined-types/classes'
   'runtime/properties-and-configuration/command-line-parsing-and-initialization': 'runtime/properties-and-configuration/setting-properties-on-the-command-line#remaining-arguments'
+  'runtime/communicator/initialization-and-destruction': 'runtime/communicator'
+  'runtime/communicator/communicators-in-php': 'runtime/communicator?lang=php'

@@ -1,28 +1,61 @@
 ---
 title: Communicator
-pages:
-  - initialization-and-destruction
-  - communicators-in-php
 ---
 
-The [Communicator](api:Ice/Communicator) class is the main entry point to the Ice API. A communicator is simply an
-instance of this class. Its primary responsibility is to create outgoing connections, and to maintain a cache of the
-outgoing connections it created. A communicator has many additional responsibilities, to the point you can see it as the
-“central” Ice object.
+A [communicator](api:Ice/Communicator) is the entry point into the Ice runtime. You create proxies with a communicator,
+and each communicator has its own:
 
-A communicator serves as the registry and owner for:
+- **Outgoing connections** The communicator establishes and caches the connections that invocations on its proxies use.
+- **Properties** Each communicator holds a [property set](../properties-and-configuration). These properties configure
+  this communicator, and an Ice service or an application that uses this communicator can read its own properties from
+  the same set.
+- **Logger** The [logger](../../administration/logger-facility) of a communicator receives the log messages of the Ice
+  runtime.
 
-- **Outgoing connections** A communicator maintains a cache of outgoing connections.
-- **Configuration properties** Various aspects of the Ice runtime can be configured via properties. Each communicator
-  has its own set of such [configuration properties](../properties-and-configuration).
-- **Logger object** A [logger](../../administration/logger-facility) object implements the [Logger](api:Ice/Logger)
-  abstraction and determines how log messages that are produced by the Ice runtime are handled.
-- **Object adapters** [Object adapters](../dispatch) dispatch incoming requests and take care of passing each request to
-  the correct servant.
-- **Client-side thread pool** The client-side [thread pool](../threading-model) is used to process messages received
-  from outgoing connections.
+{% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
-and much more.
+- **Client-side thread pool** This [thread pool](../threading-model) processes the messages received on the outgoing
+  connections.
 
-Most Ice-based applications create and use a single communicator, although it is possible and occasionally desirable to
-have multiple `Communicator` objects in the same program.
+{% /iflang %}
+
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
+
+- **Object adapters** The communicator creates the [object adapters](../dispatch) that dispatch incoming requests to
+  your servants.
+
+{% /iflang %}
+
+Most applications use a single communicator, but an application can create several communicators when needed.
+
+## Creating a Communicator
+
+{% language-section name="creating" /%}
+
+## Destroying a Communicator
+
+{% language-section name="destroying" /%}
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}Destroy a communicator when you no longer need it.
+{% /iflang %}Destroying a communicator closes its connections{% iflang langs="cpp,csharp,java,js,python,swift" %},
+destroys its object adapters, waits for the dispatches that are still running to complete,{% /iflang %} and releases its
+resources.
+
+{% language-section name="after-destroying" /%}
+
+{% iflang langs="cpp,csharp,java,js,php,python,ruby,swift" %}
+
+## Initialization Data
+
+You configure some aspects of the Ice runtime when you create the communicator, such as its
+properties{% iflang langs="cpp,csharp,java,js,php,python,swift" %} and its logger{% /iflang %}: set them in an
+[InitializationData](api:Ice/InitializationData) object, and create the communicator with this object.
+
+{% /iflang %}
+
+{% language-section name="initialization-data" /%}
+
+## See Also
+
+- [Setting Properties on the Command Line](../properties-and-configuration/setting-properties-on-the-command-line)
+- [The Properties Class](../properties-and-configuration/properties-class)

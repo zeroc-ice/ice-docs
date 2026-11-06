@@ -13,15 +13,15 @@ languages:
 ---
 
 A configuration file sets the properties of a communicator. Ice reads this file when you pass the command-line arguments
-of your program to communicator [initialization](../../communicator/initialization-and-destruction), or when you create
-a [property set](../properties-class) from these arguments; the sections below describe how you select the file. You can
+of your program to communicator [initialization](../../communicator#creating-a-communicator), or when you create a
+[property set](../properties-class) from these arguments; the sections below describe how you select the file. You can
 also load a configuration file into an existing property set with its `load` method.
 
 {% iflang langs="php" %}
 
 Ice for PHP can also read a configuration file named by the `ice.config` directive of `php.ini`, once, when PHP loads
 the extension. A script then obtains the resulting property set with `Ice\getProperties`; see
-[Managing Property Sets in PHP](../../communicator/communicators-in-php#managing-property-sets-in-php).
+[Property Sets](../../communicator#property-sets).
 
 {% /iflang %}
 
