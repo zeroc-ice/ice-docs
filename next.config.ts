@@ -11,7 +11,16 @@ const nextConfig: NextConfig = {
   // screenshots of it.
   devIndicators: false,
   redirects() {
-    return readRedirects(ICE_VERSIONS);
+    return [
+      ...readRedirects(ICE_VERSIONS),
+      // A Markdown copy has one URL, the page's with `.md` appended; a request
+      // at the route's own path under /md goes there.
+      ...ICE_VERSIONS.map((version) => ({
+        source: `/md/${version.path}/:slug*`,
+        destination: `/${version.path}/:slug*.md`,
+        permanent: true
+      }))
+    ];
   },
   // The Markdown copy of a page is at its URL with `.md` appended, and comes
   // from the route under app/md (see lib/page-markdown.ts).
