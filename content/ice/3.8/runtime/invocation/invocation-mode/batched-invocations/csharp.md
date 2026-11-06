@@ -1,33 +1,10 @@
 {% language-section name="proxy-methods-for-batched-invocations" %}
 
 ```csharp
-var weatherStation = WeatherStationPrxHelper.createProxy(
-    communicator,
-    "ClearSky:tcp -p 4061 -h localhost");
-
-// Configure the proxy to use the batch oneway invocation mode.
-weatherStation = WeatherStationPrxHelper.uncheckedCast(weatherStation.ice_batchOneway());
-
-...
-
-while (true)
-{
-    await weatherStation.ReportAsync(sensorId, timeStamp, GetAtmosphericConditions());
-    ...
-    // Send a batch with the last 10 readings.
-    if (++count == 10)
-    {
-        await weatherStation.ice_flushBatchRequestsAsync();
-        count = 0;
-    }
-}
+WeatherStationPrx batch = WeatherStationPrxHelper.uncheckedCast(weatherStation.ice_batchOneway());
+await batch.ReportAsync(sensorId, timeStamp1, reading1);
+await batch.ReportAsync(sensorId, timeStamp2, reading2);
+await batch.ice_flushBatchRequestsAsync();
 ```
-
-{% /language-section %}
-
-{% language-section name="automatically-flushing-batched-requests" %}
-
-A client can track batch request activity, and flush batches before they reach `Ice.BatchAutoFlushSize`, by installing a
-[Batch Invocation Interceptor](../batched-invocation-interceptors).
 
 {% /language-section %}
