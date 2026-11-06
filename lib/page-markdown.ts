@@ -40,7 +40,11 @@ import {
 } from '@/lib/docs-model/nav';
 import { resolveDocument } from '@/lib/docs-model/resolve';
 import { renderMarkdownString } from '@/lib/markdown';
-import { hasLanguageBlocks, renderMarkdown } from '@/lib/plain-markdown';
+import {
+  escapeText,
+  hasLanguageBlocks,
+  renderMarkdown
+} from '@/lib/plain-markdown';
 import { SITE_URL } from '@/lib/site';
 
 /** A page as the site transforms it, and the mappings its copies are for. */
@@ -145,7 +149,7 @@ function markdownText(
   const head =
     `---\n${frontmatter}\n---\n\n` +
     `> For an index of every page, see [llms.txt](${absolute(INDEX)}).\n\n` +
-    `# ${title}\n\n${description ? `${description}\n\n` : ''}`;
+    `# ${escapeText(title)}\n\n${description ? `${escapeText(description)}\n\n` : ''}`;
 
   if (varies && language === undefined)
     return `${head}This page has one Markdown file per programming language:\n\n${languages
@@ -234,8 +238,8 @@ export function llmsTxt(versions: DocsVersion[]): string {
     const pages = assembleAll(version);
     const entry = (slug: string) => {
       const { title, description } = pages.get(slug)!;
-      const note = description ? `: ${description}` : '';
-      return `- [${title}](${absolute(markdownHref(version, slug))})${note}`;
+      const note = description ? `: ${escapeText(description)}` : '';
+      return `- [${escapeText(title)}](${absolute(markdownHref(version, slug))})${note}`;
     };
     const [front, ...chapters] = readNavigation(version).sidebar;
     return [

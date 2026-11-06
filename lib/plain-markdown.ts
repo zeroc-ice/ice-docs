@@ -70,7 +70,8 @@ const codeText = (nodes: RenderableTreeNode[]) =>
   nodes.filter((node) => typeof node === 'string').join('');
 
 /** Text as Markdown reads it back: the characters that would open markup are escaped. */
-const escape = (text: string) => text.replace(/[\\`*_[\]<]/g, '\\$&');
+export const escapeText = (text: string) =>
+  text.replace(/[\\`*_[\]<]/g, '\\$&');
 
 const link = (text: string, href: string, title?: string) =>
   `[${text}](${href}${title ? ` "${title}"` : ''})`;
@@ -208,12 +209,12 @@ function renderBlock(node: RenderableTreeNode, options: RenderOptions): string {
         description: string;
         href: string;
       };
-      return `- ${link(escape(title), options.href(href))}: ${escape(description)}`;
+      return `- ${link(escapeText(title), options.href(href))}: ${escapeText(description)}`;
     }
     case 'Release': {
       const { name, date } = attributes as { name: string; date: string };
       const links = children.map((child) => renderInline([child], options));
-      return `- **${escape(name)}** (${escape(date)}): ${links.join(', ')}`;
+      return `- **${escapeText(name)}** (${escapeText(date)}): ${links.join(', ')}`;
     }
     case 'Showcase': {
       const { panels } = attributes as { panels: ShowcasePanel[] };
@@ -237,7 +238,7 @@ function renderInlineNode(
   node: RenderableTreeNode,
   options: RenderOptions
 ): string {
-  if (typeof node === 'string') return escape(node);
+  if (typeof node === 'string') return escapeText(node);
   if (!isTag(node)) return '';
   const { name, attributes, children } = node;
   const inner = () => renderInline(children, options);
@@ -273,7 +274,7 @@ function renderInlineNode(
         alt?: string;
         title?: string;
       };
-      return `!${link(escape(alt), options.href(src), title)}`;
+      return `!${link(escapeText(alt), options.href(src), title)}`;
     }
     case 'LangBlock':
       return shows(node, options) ? inner() : '';
