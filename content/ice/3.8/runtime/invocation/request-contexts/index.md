@@ -4,26 +4,47 @@ pages:
   - explicit-request-contexts
   - per-proxy-request-contexts
   - implicit-request-contexts
-  - design-considerations-for-request-contexts
 ---
 
-All mapped operations on proxies provide a trailing parameter representing the _request context_. The Slice definition
-of this parameter is as follows:
+A _request context_ is a dictionary of string keys and values that Ice sends with an invocation. It lets a client send
+additional information with a request without adding a parameter to the operation. The implementation of the operation
+reads the context from the `ctx` field of its `Current` parameter.
 
-```slice
-module Ice
-{
-    ["cpp:type:std::map<std::string, std::string, std::less<>>"]
-    dictionary<string, string> Context;
-}
-```
+{% iflang langs="cpp,csharp,java,js,swift" %}
 
-As you can see, a context is a dictionary that maps strings to strings or, conceptually, a context is a collection of
-name-value pairs. The contents of this dictionary (if any) are marshaled with every request to the server, that is, if
-the client populates a context with a number of name-value pairs and uses that context for an invocation, the name-value
-pairs that are sent by the client are available to the server.
+A [middleware](../../dispatch/middleware) is a typical consumer of request contexts: it sees every request the object
+adapter dispatches and reads the context through the `current` of the incoming request.
 
-On the server side, the operation implementation can access the received `Context` via the `ctx` field of the `Current`
-parameter and extract the name-value pairs that were sent by the client.
+{% /iflang %}
 
-Context names beginning with an underscore are reserved for use by Ice.
+Context keys that begin with an underscore are reserved for Ice.
+
+A client supplies a context in one of the following ways:
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+- An [explicit context](./explicit-request-contexts) applies to one invocation.
+- A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
+- An [implicit context](./implicit-request-contexts) applies to the invocations made through the proxies of a
+  communicator.
+
+{% /iflang %}
+
+{% iflang langs="php" %}
+
+- An [explicit context](./explicit-request-contexts) applies to one invocation.
+- A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
+
+{% /iflang %}
+
+## Combining Request Contexts
+
+An explicit context, even an empty one, replaces the other contexts: Ice sends only the explicit context with the
+invocation.
+
+{% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
+
+Without an explicit context, Ice sends the entries of both the per-proxy and the implicit contexts. When both contain
+the same key, Ice sends the value of the per-proxy context.
+
+{% /iflang %}

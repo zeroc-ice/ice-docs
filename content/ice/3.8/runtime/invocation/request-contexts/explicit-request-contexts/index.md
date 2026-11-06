@@ -3,8 +3,16 @@ title: Explicit Request Contexts
 sidebarLabel: Explicit
 ---
 
-Request contexts allow a client to send additional data to the server without having to include this data as input
-parameters in the operation’s Slice definition. They provide a lightweight mechanism for passing metadata alongside
-normal request arguments.
+An explicit context applies only to the invocation you pass it to, and
+[replaces the other contexts](../../request-contexts#combining-request-contexts), even when it is empty. For example, a
+client asks for a French greeting:
 
-{% language-section name="mapping" /%}
+{% language-section name="client" /%}
+
+{% iflang langs="cpp,csharp,java,js,python,swift" %}
+
+The implementation of the operation reads the context from the `ctx` field of its `Current` parameter:
+
+{% language-section name="server" /%}
+
+{% /iflang %}
