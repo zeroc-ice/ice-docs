@@ -16,7 +16,8 @@ You can also perform a deeper proxy stringification by calling `proxyToProperty`
 {% language-section name="proxy-to-property" /%}
 
 The resulting map or dictionary holds all the [proxy properties](../../../property-reference/proxy-properties) for the
-supplied proxy. The second parameter of `proxyToProperty` is the base name for the
+supplied proxy, except its [Context](../../../property-reference/proxy-properties#name.context.key) properties. The
+second parameter of `proxyToProperty` is the base name for the
 [properties](../../properties-and-configuration/properties-overview) in the returned map.
 
 ## See Also

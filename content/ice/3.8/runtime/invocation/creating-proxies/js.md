@@ -17,14 +17,14 @@ We can use the `propertyToProxy` method on `Communicator` to convert the propert
 returned if no property is found with the specified name.
 
 ```js
-const greeter = communicator.propertyToProxy("Greeter.Proxy");
+const greeter = GreeterPrx.uncheckedCast(communicator.propertyToProxy("Greeter.Proxy"));
 ```
 
 {% /language-section %}
 
 {% language-section name="creating-a-proxy-from-a-property-2" %}
 
-```typescript
+```js
 let greeter = new GreeterPrx(
     communicator,
     "greeter:tcp -h localhost -p 4061");

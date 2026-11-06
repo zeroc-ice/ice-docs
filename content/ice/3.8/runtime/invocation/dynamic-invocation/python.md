@@ -1,18 +1,7 @@
 {% language-section name="invoking-an-operation" %}
 
 `Ice.ObjectPrx` provides a synchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke) and an asynchronous
-[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync):
-
-```py
-class ObjectPrx:
-    def ice_invoke(
-        self, operation: str, mode: OperationMode, inParams: bytes, ctx: dict[str, str] | None = None
-    ) -> tuple[bool, bytes]: ...
-
-    def ice_invokeAsync(
-        self, operation: str, mode: OperationMode, inParams: bytes, ctx: dict[str, str] | None = None
-    ) -> Awaitable[tuple[bool, bytes]]: ...
-```
+[`ice_invokeAsync`](api:Ice/ObjectPrx.ice_invokeAsync).
 
 {% /language-section %}
 

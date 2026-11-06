@@ -18,7 +18,10 @@ We can use the `propertyToProxy` method on `Communicator` to convert the propert
 (nil) is returned if no property is found with the specified name.
 
 ```swift
-let greeter = try communicator.propertyToProxy("Greeter.Proxy")
+if let proxy = try communicator.propertyToProxy("Greeter.Proxy") {
+    let greeter = uncheckedCast(prx: proxy, type: GreeterPrx.self)
+    // ...
+}
 ```
 
 {% /language-section %}

@@ -15,7 +15,7 @@ We can use the `propertyToProxy` method on `Communicator` to convert the propert
 (null proxy) is returned if no property is found with the specified name.
 
 ```matlab
-greeter = communicator.propertyToProxy('Greeter.Proxy');
+greeter = GreeterPrx.uncheckedCast(communicator.propertyToProxy('Greeter.Proxy'));
 ```
 
 {% /language-section %}

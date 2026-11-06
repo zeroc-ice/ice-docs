@@ -1,18 +1,6 @@
 {% language-section name="invoking-an-operation" %}
 
-`ObjectPrx` provides an asynchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke):
-
-```swift
-extension ObjectPrx {
-    public func ice_invoke(
-        operation: String,
-        mode: OperationMode,
-        inEncaps: Data,
-        context: Context? = nil
-    ) async throws -> (ok: Bool, outEncaps: Data)
-    ...
-}
-```
+`ObjectPrx` provides an asynchronous [`ice_invoke`](api:Ice/ObjectPrx.ice_invoke).
 
 {% /language-section %}
 
