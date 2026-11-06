@@ -3,54 +3,36 @@ title: Setting Properties on the Command Line
 sidebarLabel: Command-Line Properties
 ---
 
-<!-- cspell:ignore Netwrok -->
-
-In addition to setting properties in a [configuration file](../using-configuration-files), you can also set properties
-on the command line, for example:
-
-```shell
-server --Ice.UDP.SndSize=65535 --IceSSL.Trace.Security=2
-```
-
-When you pass arguments to communicator initialization, Ice converts options beginning with `--`, a
-[reserved prefix](../properties-overview), and a dot into property settings. For example, `--Ice.Trace.Network=1`
-matches, while `--IceFoo=1` remains an application argument. Property settings on the command line override settings in
-a configuration file. If you set the same property more than once on the same command line, the last setting overrides
-any previous ones.
-
-Ice applies the same [property validation](../properties-overview#property-validation) to command-line options as to any
-other property, so a typo such as `--Ice.Trace.Netwrok=1` makes communicator initialization fail with a
-`PropertyException`.
-
-The initialization overloads that update the argument array remove the options they consume. Other overloads leave the
-input unchanged or return the remaining arguments separately; see
-[Communicator Initialization and Destruction](../../communicator/initialization-and-destruction).
-
-For convenience, any property not explicitly set to a value is set to the value `1`. For example,
+When you pass the command-line arguments of your program to communicator
+[initialization](../../communicator/initialization-and-destruction), Ice sets a property for each argument of the form
+`--name=value` where `name` is the name of an Ice property, and removes this argument. For example:
 
 ```shell
-server --Ice.Trace.Protocol
+./server --Ice.Trace.Network=3 --verbose
 ```
 
-is equivalent to
+sets `Ice.Trace.Network` to `3`, and `--verbose` remains for your application.
+
+When the command line sets the same property more than once, the last one applies. An argument without `=value` sets the
+property to `1`, and an argument with an empty value clears the property:
 
 ```shell
-server --Ice.Trace.Protocol=1
+./server --Ice.Trace.Protocol     # same as --Ice.Trace.Protocol=1
+./server --Ice.Trace.Protocol=    # clears Ice.Trace.Protocol
 ```
 
-Note that this feature only applies to properties that are set on the command line, but not to properties that are set
-from a configuration file. In mappings that load configuration files, a bare `--Ice.Config` becomes `Ice.Config=1`,
-which tells Ice to use the `ICE_CONFIG` environment variable.
+Ice [validates](../properties-overview#property-validation) these arguments like any other property: an argument whose
+name begins with a [reserved prefix](../properties-overview#reserved-prefixes) and a dot but is not the name of an Ice
+property, such as `--Ice.Foo=1`, makes communicator initialization fail.
 
-You can also clear a property from the command line as follows:
+## Remaining Arguments
 
-```shell
-server --Ice.Trace.Protocol=
-```
-
-As for properties set from a configuration file, assigning nothing to a property clears that property.
+Ice removes the arguments it converts into properties, and
+[Communicator Initialization and Destruction](../../communicator/initialization-and-destruction) shows how each mapping
+returns the remaining arguments. Initialize the communicator before you parse these arguments, so that your application
+sees only the arguments meant for it.
 
 ## See Also
 
-- [Properties Overview](../properties-overview)
 - [Using Configuration Files](../using-configuration-files)
+- [Communicator Initialization and Destruction](../../communicator/initialization-and-destruction)

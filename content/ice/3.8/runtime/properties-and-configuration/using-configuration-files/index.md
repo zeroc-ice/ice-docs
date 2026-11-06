@@ -1,126 +1,75 @@
 ---
 title: Using Configuration Files
 sidebarLabel: Configuration Files
+languages:
+  - cpp
+  - csharp
+  - java
+  - matlab
+  - php
+  - python
+  - ruby
+  - swift
 ---
 
-The ability to configure an application's properties externally provides a great deal of flexibility: you can use any
-combination of command-line options and configuration files to achieve the desired settings, all without having to
-modify your application. This page describes two ways of loading property settings from a file in the mappings that
-support configuration files. Ice for JavaScript uses programmatic settings and argument arrays; it does not load files
-through `Ice.Config` or `ICE_CONFIG`.
+A configuration file sets the properties of a communicator. Ice reads this file when you pass the command-line arguments
+of your program to communicator [initialization](../../communicator/initialization-and-destruction), or when you create
+a [property set](../properties-class) from these arguments; the sections below describe how you select the file. You can
+also load a configuration file into an existing property set with its `load` method.
 
 {% iflang langs="php" %}
 
-With settings in `php.ini`, Ice for PHP can also load configuration files once, when PHP loads the extension, into
-property sets that a script retrieves with `Ice\getProperties`; see
+Ice for PHP can also read a configuration file named by the `ice.config` directive of `php.ini`, once, when PHP loads
+the extension. A script then obtains the resulting property set with `Ice\getProperties`; see
 [Managing Property Sets in PHP](../../communicator/communicators-in-php#managing-property-sets-in-php).
 
 {% /iflang %}
 
-## Prerequisites for Using Configuration Files
+## Selecting a Configuration File
 
-The Ice runtime automatically loads a configuration file during the creation of a _property set_, which is an instance
-of the [Properties](api:Ice/Properties) abstraction. Every communicator has its own property set from which it derives
-its configuration. If an application does not supply a property set when it calls `Ice::initialize` (or equivalent,
-depending the language mapping), the Ice runtime internally creates a _property set_ for the new communicator.
-
-Note however that Ice loads a configuration file automatically only when the application creates a property set using an
-argument vector. This occurs when the application passes an argument vector to create a property set explicitly, or when
-the application passes an argument vector to `Ice::initialize`.
-
-Both of the mechanisms described below can also retrieve property settings from
-[additional sources](../alternate-property-stores).
-
-## The `ICE_CONFIG` Environment Variable
-
-Ice automatically loads the contents of the configuration file named in the `ICE_CONFIG` environment variable (assuming
-the [prerequisites](#prerequisites-for-using-configuration-files) are met). For example:
-
-```shell
-export ICE_CONFIG=/usr/local/filesystem/config
-./server
-```
-
-This causes the server to read its property settings from the configuration file in `/usr/local/filesystem/config`.
-
-If you use the `ICE_CONFIG` environment variable together with command-line options for other properties, the settings
-on the command line override the settings in the configuration file. For example:
-
-```shell
-export ICE_CONFIG=/usr/local/filesystem/config
-./server --Ice.MessageSizeMax=4096
-```
-
-This sets the value of the `Ice.MessageSizeMax` property to `4096` regardless of any setting of this property in
-`/usr/local/filesystem/config`.
-
-You can use multiple configuration files by specifying a list of configuration file names separated by commas. For
-example:
-
-```shell
-export ICE_CONFIG=/usr/local/filesystem/config,./config
-./server
-```
-
-This causes property settings to be retrieved from `/usr/local/filesystem/config`, followed by any settings in the file
-`config` in the current directory; settings in `./config` override settings `/usr/local/filesystem/config`.
-
-## The `Ice.Config` Property
-
-The [Ice.Config](../../../property-reference/ice-properties#ice.config) property has special meaning to the Ice run
-time: it determines the path name of a configuration file from which to read property settings. For example:
+The [Ice.Config](../../../property-reference/ice-properties#ice.config) property, set on the command line, names the
+configuration file:
 
 ```shell
 ./server --Ice.Config=/usr/local/filesystem/config
 ```
 
-This causes property settings to be read from the configuration file in `/usr/local/filesystem/config`.
-
-A file name supplied through `--Ice.Config` takes precedence over the `ICE_CONFIG` environment variable. A bare
-`--Ice.Config`, `--Ice.Config=1`, or `--Ice.Config=` tells Ice to use `ICE_CONFIG` instead.
-
-If you use the `--Ice.Config` command-line option together with settings for other properties, the settings on the
-command line override the settings in the configuration file. For example:
+Without `Ice.Config`, Ice loads the file named by the `ICE_CONFIG` environment variable:
 
 ```shell
-./server --Ice.Config=/usr/local/filesystem/config --Ice.MessageSizeMax=4096
+export ICE_CONFIG=/usr/local/filesystem/config
+./server
 ```
 
-This sets the value of the `Ice.MessageSizeMax` property to `4096` regardless of any setting of this property in
-`/usr/local/filesystem/config`. The placement of the `--Ice.Config` option on the command line has no influence on this
-precedence. For example, the following command is equivalent to the preceding one:
+When the command line sets `Ice.Config` more than once, the last one applies. A bare `--Ice.Config`, `--Ice.Config=1`,
+or `--Ice.Config=` tells Ice to use `ICE_CONFIG`. `Ice.Config` set in a configuration file loads no other file.
 
-```shell
-./server --Ice.MessageSizeMax=4096 --Ice.Config=/usr/local/filesystem/config
-```
+## Multiple Files and Precedence
 
-Settings of the `Ice.Config` property inside a configuration file are ignored, that is, you can set `Ice.Config` only on
-the command line.
-
-If you use the `--Ice.Config` option more than once, only the last setting of the option is used and the preceding ones
-are ignored. For example:
-
-```shell
-./server --Ice.Config=file1 --Ice.Config=file2
-```
-
-This is equivalent to using:
-
-```shell
-./server --Ice.Config=file2
-```
-
-You can use multiple configuration files by specifying a list of configuration file names separated by commas. For
-example:
+Both `--Ice.Config` and `ICE_CONFIG` accept a list of file names separated by commas:
 
 ```shell
 ./server --Ice.Config=/usr/local/filesystem/config,./config
 ```
 
-This causes property settings to be retrieved from `/usr/local/filesystem/config`, followed by any settings in the file
-`config` in the current directory; settings in `./config` override settings `/usr/local/filesystem/config`.
+Ice loads the files from left to right: when both files set the same property, `./config` wins.
+
+When the command line and a configuration file set the same property, the command line wins, wherever the `--Ice.Config`
+argument appears on the command line. For example, both of the following commands set `Ice.MessageSizeMax` to `4096`,
+whatever the configuration file sets:
+
+```shell
+./server --Ice.Config=/usr/local/filesystem/config --Ice.MessageSizeMax=4096
+./server --Ice.MessageSizeMax=4096 --Ice.Config=/usr/local/filesystem/config
+```
+
+{% iflang langs="cpp,java,matlab,python" %}
+
+[Alternate Property Stores](../alternate-property-stores) describes the other sources `Ice.Config` can name.
+
+{% /iflang %}
 
 ## See Also
 
-- [Alternate Property Stores](../alternate-property-stores)
-- [The Properties Interface](../properties-class)
+- [Configuration File Syntax](../configuration-file-syntax)
+- [The Properties Class](../properties-class)

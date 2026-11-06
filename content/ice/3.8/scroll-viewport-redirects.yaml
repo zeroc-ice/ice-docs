@@ -69,7 +69,7 @@ permanent:
   ':lang(ruby)/code-generation-in-ruby': 'slice/code-generation?lang=:lang'
   ':lang(cpp|csharp|java|python|swift)/collocated-invocation-and-dispatch': 'runtime/collocated-invocation-and-dispatch?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/command-line-options': 'background-servers/command-line-options?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/command-line-parsing-and-initialization': 'runtime/properties-and-configuration/command-line-parsing-and-initialization?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/command-line-parsing-and-initialization': 'runtime/properties-and-configuration/setting-properties-on-the-command-line?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/common-firewall-traversal-issues': 'services/glacier2/common-firewall-traversal-issues?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/communicator-and-other-core-local-features': 'runtime/communicator?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/communicator-initialization': 'runtime/communicator/initialization-and-destruction?lang=:lang'

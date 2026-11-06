@@ -17,6 +17,13 @@ Ice/Communicator.createAdmin:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#createAdmin(com.zeroc.Ice.ObjectAdapter,com.zeroc.Ice.Identity)
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Communicator.html#Ice.Communicator.createAdmin
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator/createadmin(adminadapter:adminid:)
+Ice/Communicator.getProperties:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Communicator_aeb1e43dec06e3e2698e12b8266c1f18d.html#aeb1e43dec06e3e2698e12b8266c1f18d
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Communicator.html#Ice_Communicator_getProperties_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Communicator.html#getProperties()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Communicator.html#getproperties
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Communicator.html#Ice.Communicator.getProperties
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/communicator/getproperties()
 Ice/Connection:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Connection.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Connection.html
@@ -189,6 +196,106 @@ Ice/Properties:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties
+Ice/Properties.getCommandLineOptions:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_ab46acdf866a117aca7fa4c11bfeede5a.html#ab46acdf866a117aca7fa4c11bfeede5a
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getCommandLineOptions_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getCommandLineOptions()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getcommandlineoptions
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getCommandLineOptions
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getcommandlineoptions()
+Ice/Properties.getIceProperty:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a7d3ee16e5b1edf0ab060c0b748dcf8f5.html#a7d3ee16e5b1edf0ab060c0b748dcf8f5
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getIceProperty_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getIceProperty(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#geticeproperty
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getIceProperty
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/geticeproperty(_:)
+Ice/Properties.getIcePropertyAsInt:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a89df5433506160c5b95b644404a2dce2.html#a89df5433506160c5b95b644404a2dce2
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getIcePropertyAsInt_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getIcePropertyAsInt(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#geticepropertyasint
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getIcePropertyAsInt
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/geticepropertyasint(_:)
+Ice/Properties.getIcePropertyAsList:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_abb9e28fa93514d0d28c3df788ca01356.html#abb9e28fa93514d0d28c3df788ca01356
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getIcePropertyAsList_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getIcePropertyAsList(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#geticepropertyaslist
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getIcePropertyAsList
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/geticepropertyaslist(_:)
+Ice/Properties.getPropertiesForPrefix:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a79214da2a157ee75f40e269a92c292bf.html#a79214da2a157ee75f40e269a92c292bf
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getPropertiesForPrefix_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getPropertiesForPrefix(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertiesforprefix
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertiesForPrefix
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertiesforprefix(_:)
+Ice/Properties.getProperty:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a4f3232722e42f1ca3b5018ccc70ae7e9.html#a4f3232722e42f1ca3b5018ccc70ae7e9
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getProperty_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getProperty(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getproperty
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getProperty
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getproperty(_:)
+Ice/Properties.getPropertyAsInt:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_acb291d6c408c8c1299fcf9dcf147c4c1.html#acb291d6c408c8c1299fcf9dcf147c4c1
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getPropertyAsInt_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getPropertyAsInt(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertyasint
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertyAsInt
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertyasint(_:)
+Ice/Properties.getPropertyAsIntWithDefault:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a738eaba9a7275739b5eda0b0f7824684.html#a738eaba9a7275739b5eda0b0f7824684
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getPropertyAsIntWithDefault_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getPropertyAsIntWithDefault(java.lang.String,int)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertyasintwithdefault
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertyAsIntWithDefault
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertyasintwithdefault(key:value:)
+Ice/Properties.getPropertyAsList:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a7cc9e3937856655d9fb91adafacbbfa9.html#a7cc9e3937856655d9fb91adafacbbfa9
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getPropertyAsList_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getPropertyAsList(java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertyaslist
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertyAsList
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertyaslist(_:)
+Ice/Properties.getPropertyAsListWithDefault:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a42dc1c1ba4186a0d1b0f09e7dfc50ee8.html#a42dc1c1ba4186a0d1b0f09e7dfc50ee8
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getPropertyAsListWithDefault_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getPropertyAsListWithDefault(java.lang.String,java.lang.String[])
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertyaslistwithdefault
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertyAsListWithDefault
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertyaslistwithdefault(key:value:)
+Ice/Properties.getPropertyWithDefault:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a13ab56dbfe617028524a773f8a2286b5.html#a13ab56dbfe617028524a773f8a2286b5
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_getPropertyWithDefault_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#getPropertyWithDefault(java.lang.String,java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#getpropertywithdefault
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.getPropertyWithDefault
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/getpropertywithdefault(key:value:)
+Ice/Properties.parse:
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#parse
+Ice/Properties.parseCommandLineOptions:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_aa3157c9cfd9480d9e653df01442f706c.html#aa3157c9cfd9480d9e653df01442f706c
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_parseCommandLineOptions_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#parseCommandLineOptions(java.lang.String,java.lang.String[])
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#parsecommandlineoptions
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.parseCommandLineOptions
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/parsecommandlineoptions(prefix:options:)
+Ice/Properties.parseIceCommandLineOptions:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a1c21945b428f0afff7850409ee54ac8c.html#a1c21945b428f0afff7850409ee54ac8c
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_parseIceCommandLineOptions_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#parseIceCommandLineOptions(java.lang.String[])
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#parseicecommandlineoptions
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.parseIceCommandLineOptions
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/parseicecommandlineoptions(_:)
+Ice/Properties.setProperty:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties_a7175c5e5066e5a8a744cd3572018d40c.html#a7175c5e5066e5a8a744cd3572018d40c
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html#Ice_Properties_setProperty_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/Properties.html#setProperty(java.lang.String,java.lang.String)
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Properties.html#setproperty
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.Properties.html#Ice.Properties.setProperty
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/properties/setproperty(key:value:)
 Ice/ReplyStatus:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/namespaceIce_ae6f82aeb1d3c31c73700d252f091ea10.html#ae6f82aeb1d3c31c73700d252f091ea10
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ReplyStatus.html
