@@ -18,6 +18,6 @@ files when [esbuild](https://esbuild.github.io/), [Rollup](https://rollupjs.org/
 npm install --save-dev @zeroc/slice2js
 ```
 
-See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the plug-in settings.
+See [Using the Slice Compiler](../../../slice/using-the-slice-compiler) for the plug-in settings.
 
 {% /language-section %}
