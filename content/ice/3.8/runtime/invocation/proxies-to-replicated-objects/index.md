@@ -35,7 +35,7 @@ hello:tcp -h 10.0.0.1 -p 4061:tcp -h 10.0.0.2 -p 4061
 Ice picks one of these endpoints and connects to it, as described in
 [Connection Establishment](../../connection-management/connection-establishment). By default, the proxy then uses this
 connection, and therefore this replica, for all its invocations until the connection closes.
-[Proxy-Based Load Balancing](../proxy-based-load-balancing) shows how to spread the invocations across the replicas.
+[Proxy-Based Load Balancing](../proxy-based-load-balancing) shows how to distribute the invocations across the replicas.
 
 Adding or removing a replica means updating every proxy that lists the endpoints.
 
