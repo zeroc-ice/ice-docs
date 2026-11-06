@@ -9,8 +9,8 @@ Slice-to-Python compiler (`slice2py`):
 pip install zeroc-ice
 ```
 
-PyPI has prebuilt wheels of `zeroc-ice` for macOS and for Windows on x64. On other platforms, `pip` builds the package
-from source, which requires a C++ compiler and, on Linux, the OpenSSL and bzip2 development headers.
+PyPI has prebuilt wheels of `zeroc-ice` for macOS and for Windows on x64. On Linux, `pip` builds the package from
+source, which requires a C++ compiler and the OpenSSL and bzip2 development headers.
 
 ### Linux
 

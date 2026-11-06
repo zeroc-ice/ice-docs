@@ -22,6 +22,6 @@ sudo dnf install php8.4-ice
 ```
 
 The package installs the Ice extension for the PHP of your distribution and enables it, along with the Slice-to-PHP
-compiler (`slice2php`). On other platforms, you build Ice for PHP from [source](#source-code).
+compiler (`slice2php`). On macOS, you build Ice for PHP from [source](#source-code).
 
 {% /language-section %}
