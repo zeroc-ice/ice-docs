@@ -18,6 +18,7 @@ pages:
   - background-servers
   - versioning
   - property-reference
+  - build-tools
   - compatibility
   - icerpc
   - releases
