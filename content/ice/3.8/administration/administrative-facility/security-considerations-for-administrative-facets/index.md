@@ -12,9 +12,10 @@ languages:
   - swift
 ---
 
-A client that can reach the [admin object](../admin-object) can use all of its facets. The administrative facility is
-[disabled by default](../creating-the-admin-object); when you enable it, restrict which clients can reach the admin
-object and which facets it exposes.
+A client that can reach the [admin object](../admin-object) can use all of its facets: it can read and change every
+property of the communicator, passwords included, through the `Properties` facet, and shut down the server through the
+`Process` facet. The administrative facility is [disabled by default](../creating-the-admin-object); when you enable it,
+restrict which clients can reach the admin object and which facets it exposes.
 
 ## Restricting Access
 
@@ -31,16 +32,27 @@ endpoints that require a client certificate, for example with
 client with a certificate issued by a certificate authority that the object adapter trusts can then connect, so trust
 only the certificate authorities that issue certificates to administrative clients.
 
+To accept only some of these clients,
+[IceSSL.TrustOnly.Server.Ice.Admin](../../../property-reference/icessl-properties#icessl.trustonly.server.adaptername)
+lists the distinguished names of the certificates that the `Ice.Admin` object adapter accepts, for example:
+
+```config
+IceSSL.TrustOnly.Server.Ice.Admin=O=Acme\, Inc.,OU=Administrators
+```
+
 {% iflang langs="cpp,csharp,java" %}
 
 When the admin object needs an SSL configuration different from the communicator's, such as a certificate authority
 trusted only for administrative clients, host it in an object adapter that you create with its own server authentication
 options, as described in
 [Hosting the admin Object in Your Own Object Adapter](../creating-the-admin-object#hosting-the-admin-object-in-your-own-object-adapter).
+`IceSSL.VerifyPeer` does not apply to this object adapter, so these options must require a client certificate
+themselves.
 
 {% /iflang %}
 
-[IceGrid](../../../services/icegrid) enables the administrative facility in the servers that it activates and
+By default, [IceGrid](../../../services/icegrid) enables the administrative facility in the servers that it activates
+and
 [limits their admin endpoints to the local host](../../../services/icegrid/icegrid-and-the-administrative-facility#ice.admin.endpoints-for-servers);
 remote administrative clients reach these servers through the IceGrid registry, which forwards their requests through
 the node.
