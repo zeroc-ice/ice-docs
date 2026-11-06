@@ -9,7 +9,7 @@ adapters.
 
 IceDiscovery is an [Ice plug-in](../plug-in-facility) that you install in both clients and servers. It installs a
 [locator](../../runtime/locators) in the communicator: your clients use
-[indirect proxies](../../runtime/invocation/proxy-endpoints#proxy-with-no-endpoint), such as `greeter@greeterAdapter` or
+[indirect proxies](../../runtime/invocation/proxy-endpoints#indirect-proxies), such as `greeter@greeterAdapter` or
 `greeter`, with no server endpoints and no locator endpoints in their configuration. In a server, an object adapter with
 an adapter ID registers its endpoints with this locator. In a client, this locator resolves an indirect proxy by sending
 a lookup request over multicast to the servers; the server that hosts this object adapter or this object replies to the
@@ -90,7 +90,7 @@ set these [properties](#icediscovery-property-overview) in the client as well. T
 object, in one of two forms:
 
 - `greeter@greeterAdapter`: an identity with an adapter ID or a replica group ID.
-- `greeter`: a [well-known proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy), which holds only the
+- `greeter`: a [well-known proxy](../../runtime/invocation/proxy-endpoints#well-known-proxy), which holds only the
   identity.
 
 ## Discovery Process
@@ -115,5 +115,5 @@ client communicates directly with the server from then on.
 - [IceDiscovery.*](../../property-reference/icediscovery-properties)
 - [Plug-in Facility](../plug-in-facility)
 - [Locators](../../runtime/locators)
-- [Well-Known Proxy](../../runtime/invocation/proxy-endpoints/well-known-proxy)
+- [Well-Known Proxy](../../runtime/invocation/proxy-endpoints#well-known-proxy)
 - [IceGrid](../../services/icegrid)

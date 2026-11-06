@@ -3,87 +3,34 @@ title: Proxy-Based Load Balancing
 sidebarLabel: Load Balancing
 ---
 
-Ice supports two types of load balancing:
+A proxy to a [replicated object](../proxies-to-replicated-objects) can distribute its invocations over the replicas: a
+direct proxy holds the endpoints of the replicas, and an indirect proxy gets them from the [locator](../../locators).
+[Locator Semantics for Clients](../../locators/locator-semantics-for-clients) describes load balancing with a locator.
 
-- Locator-based load balancing
-- Proxy-based load balancing
+## Load Balancing with Connection Caching
 
-An application can use only one type or combine both to achieve the desired behavior. This page discusses proxy-based
-load balancing; refer to [Locator Semantics for Clients](../../locators/locator-semantics-for-clients) for information
-on load balancing with a locator.
+By default, a proxy
+[caches its connection](../../connection-management/connection-establishment#connection-reuse-and-caching) and uses the
+`Random` [endpoint selection type](../../connection-management/connection-establishment#endpoint-selection). On the
+first invocation, Ice reuses an existing connection to any of the proxy's endpoints, including one opened by another
+proxy; otherwise, it tries the endpoints in random order until it establishes a connection to one of them. The proxy
+then sends all its invocations over this connection until the connection closes, so the proxies of a communicator that
+hold the same endpoints typically reach the same server.
 
-## Proxy Connection Caching
-
-Before we discuss load balancing, it's important to understand the relationship between proxies and connections.
-
-By default a proxy remembers its connection and uses it for all invocations until that connection is closed. You can
-prevent a proxy from caching its connection by calling the `ice_connectionCached` proxy method with an argument of
-false. Once connection caching is disabled, each invocation on a proxy causes the Ice runtime to execute its connection
-establishment process.
-
-Note that each invocation on such a proxy does not necessarily cause the Ice runtime to establish a new connection. It
-only means that the Ice runtime does not assume that it can reuse the connection of the proxy's previous invocation.
-Whether the Ice runtime actually needs to
-[establish a new connection](../../connection-management/connection-establishment) for the next invocation depends on
-several factors.
-
-As with any feature, you should only use it when the benefits outweigh the risks. With respect to a proxy's connection
-caching behavior, there is certainly a small amount of computational overhead associated with executing the connection
-establishment process for each invocation, as well as the risk of significant overhead each time a new connection is
-actually created.
-
-## Proxies with Multiple Endpoints
-
-A proxy can contain zero or more endpoints. A proxy with no endpoints typically means it's an indirect proxy that
-requires a [location service](../../locators) to convert the proxy's symbolic information into endpoints at runtime.
-Otherwise, a direct proxy contains at least one endpoint.
-
-Regardless of whether endpoints are specified directly or indirectly, a proxy having multiple endpoints implies at a
-minimum that the target object is available via multiple network interfaces, but often also means the object is
-replicated to improve scalability and reliability. Such a proxy provides a client with several load balancing options
-even when no location service is involved. The proxy's own configuration drives the runtime behavior, depending on how
-the client configures the proxy's [endpoint selection type](../../connection-management/connection-establishment) and
-[connection caching](#proxy-connection-caching) settings.
-
-For example, suppose that a proxy contains several endpoints. In its default configuration, a proxy uses the `Random`
-endpoint selection type and caches its connection. Upon the first invocation, the Ice runtime selects one of the proxy's
-endpoints at random and uses that connection for all subsequent invocations until the connection is closed. For some
-applications, this form of load balancing may be sufficient.
-
-Suppose now that we use the `Ordered` endpoint selection type instead. In this case, the Ice runtime always attempts to
-establish connections using the endpoints in the order they appear in the proxy. Normally an application uses this
-configuration when there is a preferred order to the servers. Again, once connected, the Ice runtime uses whichever
-connection was chosen indefinitely.
+With the `Ordered` endpoint selection type, Ice tries the endpoints in the order they appear in the proxy, and still
+reuses an existing connection to any of them first.
 
 ## Per-Request Load Balancing
 
-When we disable the connection caching behavior of a proxy with multiple endpoints, its semantics undergo a significant
-change. Using the `Random` [endpoint selection type](../../connection-management/connection-establishment), the Ice
-runtime selects one of the endpoints at random and
-[establishes a connection](../../connection-management/connection-establishment) to it if one is not already
-established, and this process is repeated _prior to each subsequent invocation_. This is called _per-request load
-balancing_ because each request can potentially be directed to a different server.
-
-{% callout type="note" %}
-
-Using the `Ordered` endpoint selection type is not as common in this scenario; its main purpose would be to fall back on
-a secondary server if the primary server is not available, but it causes the Ice runtime to attempt to contact the
-primary server during each request.
-
-{% /callout %}
-
-Here's some code that shows how to configure the proxy:
+When a proxy does not cache its connection, Ice selects an endpoint for each invocation, and uses an existing connection
+to this endpoint or connects to it. With the `Random` endpoint selection type, successive invocations can therefore
+reach different servers, though not necessarily in equal numbers:
 
 {% language-section name="mapping" /%}
 
-We create a proxy with two endpoints, then use the factory methods to disable connection caching and set the endpoint
-selection type. The `Random` setting means that, after we've made a few invocations with the proxy, the Ice runtime will
-have established connections to both endpoints. After incurring the initial expense of opening the connections, each
-subsequent invocation will randomly use one of the existing connections.
-
-If you're also using a location service, you may want to modify the proxy's
-[locator cache timeout](../../locators/locator-semantics-for-clients) to force the Ice runtime in the client to query
-the locator more frequently.
+With the `Ordered` endpoint selection type, each invocation goes to the first endpoint, and to the next ones only when
+Ice cannot connect to the first. Ice does not remember a failed connection attempt: while the first server is
+unavailable, every invocation starts with an attempt to connect to it.
 
 ## See Also
 

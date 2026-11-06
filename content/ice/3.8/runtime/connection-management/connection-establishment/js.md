@@ -1,6 +1,6 @@
 {% language-section name="mapping" %}
 
-```typescript
+```js
 const prx = new SomePrx(communicator, "ident:tcp -p 10000");
 const g1 = prx.ice_connectionId("group1");
 const g2 = prx.ice_connectionId("group2");

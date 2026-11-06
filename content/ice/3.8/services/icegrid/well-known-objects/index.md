@@ -6,7 +6,7 @@ title: Well-Known Objects
 
 There are two types of [indirect proxies](../../../basics/terminology): one specifies an identity and an adapter ID,
 while the other contains only an identity. The latter type of indirect proxy is known as a
-[_well-known proxy_](../../../runtime/invocation/proxy-endpoints/well-known-proxy). A well-known proxy refers to a
+[_well-known proxy_](../../../runtime/invocation/proxy-endpoints#well-known-proxy). A well-known proxy refers to a
 well-known object, that is, its identity alone is sufficient to allow the client to locate it. Ice requires all object
 identities in an application to be unique, but typically only a select few objects are able to be located only by their
 identities.
