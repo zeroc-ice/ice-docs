@@ -1,30 +1,10 @@
 {% language-section name="mapping" %}
 
-Ice provides a plug-in class, `com.zeroc.Ice.LoggerPlugin`, that installs a logger into the communicator in its
-constructor:
+Ice provides `com.zeroc.Ice.LoggerPlugin`, a plug-in that installs a logger into the communicator. The communicator
+takes ownership of the logger and closes it when the communicator is destroyed.
 
-```java
-package com.zeroc.Ice;
-
-public class LoggerPlugin implements Plugin
-{
-    public LoggerPlugin(Communicator communicator, Logger logger) {
-       ...
-    }
-
-    @Override
-    public void initialize() {}
-
-    @Override
-    public void destroy() {}
-}
-```
-
-The `initialize` and `destroy` methods do nothing. The communicator takes ownership of the logger and closes it when the
-communicator is destroyed.
-
-Now, assuming you wrote a `CustomLogger` class that implements `com.zeroc.Ice.Logger`, you can create a plug-in factory
-that creates a `LoggerPlugin` and installs your logger into the communicator:
+Assuming you wrote a `CustomLogger` class that implements `com.zeroc.Ice.Logger`, create a plug-in factory that returns
+a `LoggerPlugin` for your logger:
 
 ```java
 package com.example.clearsky;
@@ -53,13 +33,5 @@ communicator to load it at runtime. For example:
 ```config
 Ice.Plugin.CustomLogger=customlogger.jar:com.example.clearsky.CustomLoggerPluginFactory
 ```
-
-{% callout type="note" %}
-
-Even though you didn’t implement the plug-in class (`LoggerPlugin`), you are in effect creating a new plug-in since you
-choose the logger given to the `LoggerPlugin` constructor. As a result, you can pick any name for the plug-in factory
-and the plug-in itself.
-
-{% /callout %}
 
 {% /language-section %}
