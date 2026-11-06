@@ -19,27 +19,26 @@ pages:
   - using-multiple-object-adapters
 ---
 
-The process of accepting/fulfilling a request and returning a response is called a dispatch.
+A _dispatch_ is the processing of a request on the server side: Ice runs the code that implements the operation, and,
+for a twoway request, returns the response to the caller.
 
-With Ice, an _object adapter_ is the entry point into dispatches: in order to accept requests from clients, you need an
-object adapter.
+An _object adapter_ is the entry point for dispatches.
 
-{% callout type="note" %}
+{% iflang langs="cpp,csharp,java,python,swift" %}
 
-Dispatching requests and returning responses is the primary activity of server applications.
+An object adapter accepts the connections that clients establish to its [endpoints](./object-adapter-endpoints), and
+dispatches the requests it receives over these connections, from
+[collocated invocations](../collocated-invocation-and-dispatch), and over the
+[bidirectional connections](../connection-management/bidirectional-connections) associated with it.
 
-{% /callout %}
+{% /iflang %}
 
-An object adapter sits at the boundary between the Ice runtime and the server application code and has two main
-responsibilities:
+{% iflang langs="js" %}
 
-- Accept connections established by clients. The clients establish connections to the endpoint or endpoints (network
-  addresses) configured on the object adapter.
-- Dispatch incoming requests received from these clients. While these requests are often received over the network
-  connections accepted by the object adapter, they can also come from local callers
-  ([collocated invocations](../collocated-invocation-and-dispatch)) and from outgoing connections attached to this
-  object adapter ([bidirectional callbacks](../connection-management/bidirectional-connections)).
+An object adapter dispatches the requests it receives over the
+[bidirectional connections](../connection-management/bidirectional-connections) associated with it.
 
-Each object adapter belongs to exactly one communicator (but a single communicator can have many object adapters). Each
-object adapter has a name. A non-empty name is unique within the communicator; any number of object adapters can have an
-empty name.
+{% /iflang %}
+
+Each object adapter belongs to a communicator, which can have several object adapters, and has a name. A non-empty name
+is unique within this communicator.
