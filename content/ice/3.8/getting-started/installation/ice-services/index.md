@@ -13,16 +13,14 @@ computers that run them, whatever language your applications use.
 After you [add the ZeroC repository](../../installation#linux-package-repositories) for your distribution, install the
 packages of the services you need:
 
-| Service                                                                       | APT package       | DNF package  |
-| ----------------------------------------------------------------------------- | ----------------- | ------------ |
-| DataStorm node (`dsnode`)                                                     | `zeroc-dsnode`    | `dsnode`     |
-| Glacier2                                                                      | `zeroc-glacier2`  | `glacier2`   |
-| IceBox                                                                        | `zeroc-icebox`    | `icebox`     |
-| IceBridge                                                                     | `zeroc-icebridge` | `icebridge`  |
-| IceGrid                                                                       | `zeroc-icegrid`   | `icegrid`    |
-| IceGrid GUI                                                                   |                   | `icegridgui` |
-| IceStorm                                                                      | `zeroc-icestorm`  | `icestorm`   |
-| `iceboxadmin`, `icegridadmin`, `icegriddb`, `icestormadmin`, and `icestormdb` | `zeroc-ice-utils` | `ice-utils`  |
+| Service                   | APT package       | DNF package |
+| ------------------------- | ----------------- | ----------- |
+| DataStorm node (`dsnode`) | `zeroc-dsnode`    | `dsnode`    |
+| Glacier2                  | `zeroc-glacier2`  | `glacier2`  |
+| IceBox                    | `zeroc-icebox`    | `icebox`    |
+| IceBridge                 | `zeroc-icebridge` | `icebridge` |
+| IceGrid                   | `zeroc-icegrid`   | `icegrid`   |
+| IceStorm                  | `zeroc-icestorm`  | `icestorm`  |
 
 For example, on Ubuntu or Debian:
 
@@ -30,8 +28,20 @@ For example, on Ubuntu or Debian:
 sudo apt-get install zeroc-icegrid
 ```
 
-The IceGrid and IceStorm packages also install IceBox and the administration tools. The IceGrid GUI package requires a
-Java runtime.
+The IceGrid and IceStorm packages also install IceBox and the command-line administration tools.
+
+### Administration Tools
+
+| Tool            | APT package       | DNF package  |
+| --------------- | ----------------- | ------------ |
+| `iceboxadmin`   | `zeroc-ice-utils` | `ice-utils`  |
+| `icegridadmin`  | `zeroc-ice-utils` | `ice-utils`  |
+| `icegriddb`     | `zeroc-ice-utils` | `ice-utils`  |
+| `icestormadmin` | `zeroc-ice-utils` | `ice-utils`  |
+| `icestormdb`    | `zeroc-ice-utils` | `ice-utils`  |
+| IceGrid GUI     |                   | `icegridgui` |
+
+The IceGrid GUI package requires a Java runtime.
 
 ## macOS
 
