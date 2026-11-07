@@ -12,6 +12,8 @@ import {
   buildSideNav,
   activeTrailKeys,
   filterSideNav,
+  markdownHref,
+  markdownLink,
   navigationPages,
   prevNext,
   sideNavKey,
@@ -293,4 +295,50 @@ test('a page not written for the language never matches', () => {
   assert.deepEqual(outline(filterSideNav(tree, 'sequences', 'cpp')), [
     ['The Slice Language', [['User-Defined Types', ['Sequences']]]]
   ]);
+});
+
+test("markdownHref is the page's URL with .md appended, or one mapping's copy under it", () => {
+  assert.equal(markdownHref(VERSION), '/ice/3.8.md');
+  assert.equal(markdownHref(VERSION, ENUMERATIONS), `${ENUMERATIONS_HREF}.md`);
+  assert.equal(
+    markdownHref(VERSION, ENUMERATIONS, 'cpp'),
+    `${ENUMERATIONS_HREF}/cpp.md`
+  );
+});
+
+test("markdownLink sends a page link to the mapping's copy, and leaves the rest alone", () => {
+  // Enumerations and Sequences have a C++ and a Java copy; every other page is one document.
+  const copies = (slug: string) =>
+    slug === ENUMERATIONS || slug === SEQUENCES ? ['cpp', 'java'] : undefined;
+  const SEQUENCES_HREF = `/ice/3.8/${SEQUENCES}`;
+  const inJava = (href: string) =>
+    markdownLink(VERSION, href, {
+      slug: ENUMERATIONS,
+      language: 'java',
+      copies
+    });
+  assert.equal(
+    inJava(`${SEQUENCES_HREF}#fixed-length`),
+    `${SEQUENCES_HREF}/java.md#fixed-length`
+  );
+  assert.equal(
+    inJava(`${SEQUENCES_HREF}?lang=cpp`),
+    `${SEQUENCES_HREF}/cpp.md`
+  );
+  assert.equal(inJava(`${SEQUENCES_HREF}?lang=python`), `${SEQUENCES_HREF}.md`);
+  assert.equal(inJava('/ice/3.8'), '/ice/3.8.md');
+  assert.equal(inJava('?lang=cpp'), `${ENUMERATIONS_HREF}/cpp.md`);
+  assert.equal(inJava('#custom-values'), '#custom-values');
+  assert.equal(
+    inJava('/images/ice/3.8/basics/x.svg'),
+    '/images/ice/3.8/basics/x.svg'
+  );
+  assert.equal(inJava('https://example.com/x'), 'https://example.com/x');
+
+  const inOne = (href: string) =>
+    markdownLink(VERSION, href, { slug: 'slice', copies });
+  assert.equal(
+    inOne(`${SEQUENCES_HREF}#fixed-length`),
+    `${SEQUENCES_HREF}.md#fixed-length`
+  );
 });

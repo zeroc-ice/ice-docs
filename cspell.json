@@ -153,6 +153,7 @@
     "libcustomlogger",
     "libisloaded",
     "Lippman",
+    "llms",
     "LMDB",
     "loadlibrary",
     "localnode",
