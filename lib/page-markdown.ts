@@ -49,7 +49,7 @@ import { SITE_URL } from '@/lib/site';
 
 /** A page as the site transforms it, and the mappings its copies are for. */
 interface Assembled {
-  page: PageFiles;
+  slug: string;
   title: string;
   description?: string;
   tree: RenderableTreeNode;
@@ -86,7 +86,7 @@ function assemble(
     frontmatter
   });
   return {
-    page,
+    slug: page.slug,
     title: frontmatter.title,
     description: frontmatter.description,
     tree,
@@ -130,17 +130,17 @@ function assembleAll(version: DocsVersion): Map<string, Assembled> {
 function markdownText(
   version: DocsVersion,
   pages: Map<string, Assembled>,
-  { page, title, description, tree, languages, varies }: Assembled,
+  { slug, title, description, tree, languages, varies }: Assembled,
   language?: string
 ): string {
   const copy = (mapping: string) =>
-    `[${languageLabel(mapping)}](${absolute(markdownHref(version, page.slug, mapping))})`;
+    `[${languageLabel(mapping)}](${absolute(markdownHref(version, slug, mapping))})`;
   // What nextjs.org's own copies open with: the page's facts as frontmatter,
   // then a pointer to the index.
   const frontmatter = [
     `title: ${JSON.stringify(title)}`,
     description && `description: ${JSON.stringify(description)}`,
-    `url: ${absolute(pageHref(version, page.slug))}`,
+    `url: ${absolute(pageHref(version, slug))}`,
     language && `language: ${language}`,
     `docs_index: ${absolute(INDEX)}`
   ]
@@ -171,7 +171,7 @@ function markdownText(
     language,
     href: (href) => {
       const link = markdownLink(version, href, {
-        slug: page.slug,
+        slug,
         language,
         copies: (slug) => {
           const target = pages.get(slug);
@@ -187,13 +187,13 @@ function markdownText(
 /** The route's params: every page, and, for a page whose text differs by mapping, each of its mappings. */
 export function pageMarkdownParams(version: DocsVersion) {
   return [...assembleAll(version).values()].flatMap(
-    ({ page, languages, varies }) => {
+    ({ slug, languages, varies }) => {
       // The front page's slug is empty: its copy is at the version root.
-      const slug = page.slug ? page.slug.split('/') : [];
+      const segments = slug ? slug.split('/') : [];
       return [
-        { slug },
+        { slug: segments },
         ...(varies
-          ? languages.map((language) => ({ slug: [...slug, language] }))
+          ? languages.map((language) => ({ slug: [...segments, language] }))
           : [])
       ];
     }
@@ -210,15 +210,13 @@ export async function pageMarkdown(
   // The params name a page, or a page and one of its mappings.
   const own = pages.get(segments.join('/'));
   const page = own ?? pages.get(segments.slice(0, -1).join('/'))!;
-  const text = own
-    ? markdownText(version, pages, own)
-    : markdownText(version, pages, page, segments.at(-1));
+  const language = own ? undefined : segments.at(-1);
   // The HTML page is the canonical form of every copy, as its head says in turn
   // with its `rel="alternate"` link to the copy.
-  return new Response(text, {
+  return new Response(markdownText(version, pages, page, language), {
     headers: {
       ...MARKDOWN_HEADERS,
-      Link: `<${absolute(pageHref(version, page.page.slug))}>; rel="canonical"`
+      Link: `<${absolute(pageHref(version, page.slug))}>; rel="canonical"`
     }
   });
 }
