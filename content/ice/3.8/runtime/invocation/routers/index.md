@@ -11,7 +11,9 @@ typically opens a single connection to a router for all the routed proxies that 
 A router implements the `Ice::Router` interface. Ice includes two routers:
 
 - [Glacier2](../../../services/glacier2) forwards the requests of authenticated clients to servers on another network,
-  typically behind a firewall, and forwards callbacks to these clients over their existing connections.
+  typically behind a firewall, and forwards callbacks to these clients over their existing connections. It finds the
+  target of each request by its identity, so the objects that a client reaches through Glacier2 need
+  [unique identities](../../object-identity).
 - [IceBridge](../../../services/icebridge) forwards requests to a single target server that the clients cannot reach
   directly, for example because they do not support its transport.
 
