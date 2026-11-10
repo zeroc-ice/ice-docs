@@ -11,6 +11,7 @@ import { resolveDocument } from '@/lib/docs-model/resolve';
 import { buildPageIndex } from '@/lib/docs-model/links';
 import {
   breadcrumbs,
+  markdownHref,
   OPEN_GRAPH,
   pageHref,
   prevNext,
@@ -80,7 +81,11 @@ export async function docsPageMetadata(
     // repeat.
     title: slug ? title : { absolute: versionTitle(version) },
     description,
-    alternates: { canonical: pageHref(version, slug) },
+    alternates: {
+      canonical: pageHref(version, slug),
+      // The page as Markdown, for agents and crawlers (lib/page-markdown.ts).
+      types: { 'text/markdown': markdownHref(version, slug) }
+    },
     // The page's own card, from app/og; the Twitter card follows it.
     openGraph: {
       ...OPEN_GRAPH,

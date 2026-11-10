@@ -20,15 +20,10 @@ import {
 } from 'lucide-react';
 
 import { CodeBlock } from '@/components/code-block';
-
-export type CalloutType =
-  | 'note'
-  | 'tip'
-  | 'important'
-  | 'warning'
-  | 'danger'
-  | 'deprecated'
-  | 'compatibility';
+import {
+  CALLOUT_LABELS,
+  type CalloutType
+} from '@/markdoc/tags/callout.markdoc';
 
 // One component, seven intents, deliberately unequal in weight. Most callouts in
 // docs this size are notes; if every note looked urgent, a warning would
@@ -38,35 +33,14 @@ export type CalloutType =
 //
 // A callout is for information a reader can skip without losing the thread. If
 // removing it would break the explanation, it belongs in the prose.
-const INTENTS: Record<
-  CalloutType,
-  { label: string; icon: LucideIcon; className: string }
-> = {
-  note: { label: 'Note', icon: Info, className: 'callout-note' },
-  tip: { label: 'Tip', icon: Lightbulb, className: 'callout-tip' },
-  important: {
-    label: 'Important',
-    icon: CircleAlert,
-    className: 'callout-important'
-  },
-  warning: {
-    label: 'Warning',
-    icon: TriangleAlert,
-    className: 'callout-warning'
-  },
-  danger: { label: 'Danger', icon: OctagonAlert, className: 'callout-danger' },
-  deprecated: {
-    label: 'Deprecated',
-    icon: PackageMinus,
-    className: 'callout-deprecated'
-  },
-  // Version and platform differences — the note that docs covering several Ice
-  // releases need constantly ("not available before Ice 3.8").
-  compatibility: {
-    label: 'Version compatibility',
-    icon: GitCompareArrows,
-    className: 'callout-compatibility'
-  }
+const INTENTS: Record<CalloutType, { icon: LucideIcon; className: string }> = {
+  note: { icon: Info, className: 'callout-note' },
+  tip: { icon: Lightbulb, className: 'callout-tip' },
+  important: { icon: CircleAlert, className: 'callout-important' },
+  warning: { icon: TriangleAlert, className: 'callout-warning' },
+  danger: { icon: OctagonAlert, className: 'callout-danger' },
+  deprecated: { icon: PackageMinus, className: 'callout-deprecated' },
+  compatibility: { icon: GitCompareArrows, className: 'callout-compatibility' }
 };
 
 type Props = {
@@ -97,7 +71,7 @@ export const Callout = ({ children, type = 'note', title }: Props) => {
     <aside className={clsx('callout', intent.className)}>
       <div className="callout-heading">
         <Icon aria-hidden="true" strokeWidth={2.25} />
-        <span>{title ?? intent.label}</span>
+        <span>{title ?? CALLOUT_LABELS[type]}</span>
       </div>
       <div className="callout-content">{quietCodeBlocks(children)}</div>
     </aside>

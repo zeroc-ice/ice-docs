@@ -109,6 +109,80 @@ export function pageHref(version: DocsVersion, slug?: string): string {
 }
 
 /**
+ * The URL of the Markdown copy of the page with `slug`: its URL with `.md`
+ * appended, or, with `language`, of its text for that mapping,
+ * `<page>/<language>.md`.
+ */
+export function markdownHref(
+  version: DocsVersion,
+  slug?: string,
+  language?: string
+): string {
+  const page = pageHref(version, slug);
+  return language ? `${page}/${language}.md` : `${page}.md`;
+}
+
+/**
+ * The rewrite that serves a Markdown copy at its URL, for next.config.ts: the
+ * route under `/md` (app/md/<version>) answers for the page's URL with `.md`
+ * appended.
+ */
+export function markdownRewrite(version: DocsVersion) {
+  return {
+    source: `/${version.path}/:slug*.md`,
+    destination: `/md/${version.path}/:slug*`
+  };
+}
+
+/** The redirect that keeps a copy at one URL, for next.config.ts: a request at the route's own path goes to the `.md` URL. */
+export function markdownRedirect(version: DocsVersion) {
+  return {
+    source: `/md/${version.path}/:slug*`,
+    destination: `/${version.path}/:slug*.md`,
+    permanent: true
+  };
+}
+
+/** Where a link is in a Markdown copy, for markdownLink. */
+export interface MarkdownLinkPage {
+  /** The page the link is on. */
+  slug: string;
+  /** The mapping the link's text is for; absent in text for several mappings. */
+  language?: string;
+  /** The mappings the page at `slug` has a copy for; undefined when its text is one document. */
+  copies: (slug: string) => string[] | undefined;
+}
+
+/**
+ * Where a link goes in a Markdown copy. A link to a page goes to that page's
+ * copy for the mapping its `?lang=` names, or else for the mapping the link's
+ * text is for, where the page has one, and otherwise to the page's `.md`; the
+ * anchor stays. A link to the page itself, as a `?lang=` link or a bare anchor
+ * names it, goes the same way. Anything else, such as an image or an external
+ * page, is left as it is.
+ */
+export function markdownLink(
+  version: DocsVersion,
+  href: string,
+  on: MarkdownLinkPage
+): string {
+  const hashAt = href.indexOf('#');
+  const beforeHash = hashAt === -1 ? href : href.slice(0, hashAt);
+  const hash = hashAt === -1 ? '' : href.slice(hashAt);
+  const [path, query] = beforeHash.split('?');
+  const root = pageHref(version);
+  let target: string;
+  if (path === '') target = on.slug;
+  else if (path === root) target = '';
+  else if (path.startsWith(`${root}/`)) target = path.slice(root.length + 1);
+  else return href;
+  const mapping = new URLSearchParams(query).get('lang') ?? on.language;
+  const language =
+    mapping && on.copies(target)?.includes(mapping) ? mapping : undefined;
+  return markdownHref(version, target, language) + hash;
+}
+
+/**
  * Whether a resolved node is, or contains, the active page, the one at
  * `activeHref` (used to auto-expand).
  */

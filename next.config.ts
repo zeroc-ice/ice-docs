@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 
 import { ICE_VERSIONS } from './app/ice/versions';
 import { readRedirects } from './lib/docs-model/content';
+import { markdownRedirect, markdownRewrite } from './lib/docs-model/nav';
 import { NOINDEX } from './lib/site';
 
 const nextConfig: NextConfig = {
@@ -11,7 +12,13 @@ const nextConfig: NextConfig = {
   // screenshots of it.
   devIndicators: false,
   redirects() {
-    return readRedirects(ICE_VERSIONS);
+    return [
+      ...readRedirects(ICE_VERSIONS),
+      ...ICE_VERSIONS.map(markdownRedirect)
+    ];
+  },
+  rewrites() {
+    return ICE_VERSIONS.map(markdownRewrite);
   },
   // A build for a host that must stay out of search indexes (a dev deployment)
   // must not compete with the real site. The header also covers the files a
