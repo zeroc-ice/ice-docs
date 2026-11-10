@@ -319,7 +319,12 @@ function renderAlternatives(
     const before = preceding + text;
     const space = before && !/\s$/.test(before) ? ' ' : '';
     const after = /\s$/.test(inner) ? ' ' : '';
-    text += `${space}(${mappingNames(shown)}: ${inner.trim()})${after}`;
+    // The punctuation that joins the span to the sentence has no place in a parenthetical.
+    const aside = inner
+      .trim()
+      .replace(/^[,.;]\s+/, '')
+      .replace(/,$/, '');
+    text += `${space}(${mappingNames(shown)}: ${aside})${after}`;
   }
   return text;
 }

@@ -133,18 +133,18 @@ test('rendered for a mapping, the text is what its reader sees', () => {
 
 test('rendered for several mappings, each part names the ones it is for among them', () => {
   const source =
-    'Shared{% iflang langs="java" %}, Java only{% /iflang %}.\n\n' +
+    'Shared{% iflang langs="java" %}, Java only,{% /iflang %} and more.\n\n' +
     '{% iflang langs="cpp,python" %}\n\nNative.\n\n{% /iflang %}\n\n' +
     'See [Communicator](api:Ice/Communicator).';
   assert.equal(
     md(source),
-    'Shared (Java: , Java only).\n\n' +
+    'Shared (Java: Java only) and more.\n\n' +
       '> **C++ and Python**\n>\n> Native.\n\n' +
       'See Communicator ([C++](https://api/cpp/Communicator) and [Java](https://api/java/Communicator)).\n'
   );
   assert.equal(
     md(source, 'java', 'python'),
-    'Shared (Java: , Java only).\n\n' +
+    'Shared (Java: Java only) and more.\n\n' +
       '> **Python**\n>\n> Native.\n\n' +
       'See Communicator ([Java](https://api/java/Communicator)).\n'
   );
