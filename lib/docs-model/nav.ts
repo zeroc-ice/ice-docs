@@ -147,7 +147,7 @@ export function markdownRedirect(version: DocsVersion) {
 export interface MarkdownLinkPage {
   /** The page the link is on. */
   slug: string;
-  /** The mapping the copy is for; absent in a page's one document. */
+  /** The mapping the copy's text is for; absent in a document for several mappings. */
   language?: string;
   /** The mappings the page at `slug` has a copy for; undefined when its text is one document. */
   copies: (slug: string) => string[] | undefined;

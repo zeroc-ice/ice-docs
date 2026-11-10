@@ -6,10 +6,11 @@
 // lib/docs-model/nav.ts sends to the route under `app/md/`, a thin wrapper per
 // version that names its version and hands the rest to these.
 //
-// A page whose text is the same for every language mapping is one document. A
-// page whose text differs by mapping, by an `{% iflang %}` block or an `api:`
-// link, is one document per mapping, at `<page>/<language>.md`, each the page
-// as a reader of that mapping sees it, and its `<page>.md` lists them. Links
+// A page whose text is the same for every language mapping is one document,
+// and so is a page written for one mapping, as its reader sees it. A page
+// whose text differs by mapping, by an `{% iflang %}` block or an `api:` link,
+// is one document per mapping, at `<page>/<language>.md`, each the page as a
+// reader of that mapping sees it, and its `<page>.md` lists them. Links
 // between pages point at the Markdown copies, at the copy for the same mapping
 // where the page has one.
 
@@ -55,6 +56,8 @@ interface Assembled {
   tree: RenderableTreeNode;
   /** The mappings the page is written for. */
   languages: string[];
+  /** The one mapping the page is written for, if it is written for one. */
+  mapping?: string;
   /** Whether its text differs by mapping. */
   varies: boolean;
 }
@@ -85,13 +88,16 @@ function assemble(
     apiLinks,
     frontmatter
   });
+  const languages = writtenFor(page, frontmatter) ?? version.languages;
+  const mapping = languages.length === 1 ? languages[0] : undefined;
   return {
     slug: page.slug,
     title: frontmatter.title,
     description: frontmatter.description,
     tree,
-    languages: writtenFor(page, frontmatter) ?? version.languages,
-    varies: hasLanguageBlocks(tree)
+    languages,
+    mapping,
+    varies: !mapping && hasLanguageBlocks(tree)
   };
 }
 
@@ -130,18 +136,20 @@ function assembleAll(version: DocsVersion): Map<string, Assembled> {
 function markdownText(
   version: DocsVersion,
   pages: Map<string, Assembled>,
-  { slug, title, description, tree, languages, varies }: Assembled,
+  { slug, title, description, tree, languages, mapping, varies }: Assembled,
   language?: string
 ): string {
-  const copy = (mapping: string) =>
-    `[${languageLabel(mapping)}](${absolute(markdownHref(version, slug, mapping))})`;
+  // The mapping the text is for: the copy's, or the page's one mapping.
+  const textLanguage = language ?? mapping;
+  const copy = (copyLanguage: string) =>
+    `[${languageLabel(copyLanguage)}](${absolute(markdownHref(version, slug, copyLanguage))})`;
   // What nextjs.org's own copies open with: the page's facts as frontmatter,
   // then a pointer to the index.
   const frontmatter = [
     `title: ${JSON.stringify(title)}`,
     description && `description: ${JSON.stringify(description)}`,
     `url: ${absolute(pageHref(version, slug))}`,
-    language && `language: ${language}`,
+    textLanguage && `language: ${textLanguage}`,
     `docs_index: ${absolute(INDEX)}`
   ]
     .filter(Boolean)
@@ -153,7 +161,7 @@ function markdownText(
 
   if (varies && language === undefined)
     return `${head}This page has one Markdown file per programming language:\n\n${languages
-      .map((mapping) => `- ${copy(mapping)}`)
+      .map((copyLanguage) => `- ${copy(copyLanguage)}`)
       .join('\n')}\n`;
 
   // What the page shell tells the reader: the mappings the page is written
@@ -168,14 +176,14 @@ function markdownText(
   }
 
   const body = renderMarkdown(tree, {
-    language,
+    language: textLanguage,
     href: (href) => {
       const link = markdownLink(version, href, {
         slug,
-        language,
-        copies: (slug) => {
-          const target = pages.get(slug);
-          return target?.varies ? target.languages : undefined;
+        language: textLanguage,
+        copies: (target) => {
+          const page = pages.get(target);
+          return page?.varies ? page.languages : undefined;
         }
       });
       return link.startsWith('/') ? absolute(link) : link;
