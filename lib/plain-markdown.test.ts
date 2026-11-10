@@ -40,8 +40,12 @@ function tree(source: string) {
   });
 }
 
-const md = (source: string, language?: string) =>
-  renderMarkdown(tree(source), { language, href: (href) => href });
+/** A page's source as Markdown, for one mapping or for every mapping of the version. */
+const md = (source: string, ...languages: string[]) =>
+  renderMarkdown(tree(source), {
+    languages: languages.length ? languages : version.languages,
+    href: (href) => href
+  });
 
 test('inline markup is written back as Markdown', () => {
   assert.equal(
@@ -99,7 +103,10 @@ test('links and images go through the href mapping; a link to no page is its tex
     tree(
       '[Enumerations](slice/enumerations), [ext](https://example.com/x), [missing](nope), [here](#anchor) ![alt](/images/x.svg)'
     ),
-    { href: (href) => (href.startsWith('/') ? `https://site${href}` : href) }
+    {
+      languages: version.languages,
+      href: (href) => (href.startsWith('/') ? `https://site${href}` : href)
+    }
   );
   assert.equal(
     out,
@@ -124,16 +131,22 @@ test('rendered for a mapping, the text is what its reader sees', () => {
   assert.equal(hasLanguageBlocks(tree('Plain.')), false);
 });
 
-test('rendered for every mapping, each part names the mappings it is for', () => {
+test('rendered for several mappings, each part names the ones it is for among them', () => {
+  const source =
+    'Shared{% iflang langs="java" %}, Java only{% /iflang %}.\n\n' +
+    '{% iflang langs="cpp,python" %}\n\nNative.\n\n{% /iflang %}\n\n' +
+    'See [Communicator](api:Ice/Communicator).';
   assert.equal(
-    md(
-      'Shared{% iflang langs="java" %}, Java only{% /iflang %}.\n\n' +
-        '{% iflang langs="cpp,python" %}\n\nNative.\n\n{% /iflang %}\n\n' +
-        'See [Communicator](api:Ice/Communicator).'
-    ),
+    md(source),
     'Shared (Java: , Java only).\n\n' +
       '> **C++ and Python**\n>\n> Native.\n\n' +
       'See Communicator ([C++](https://api/cpp/Communicator) and [Java](https://api/java/Communicator)).\n'
+  );
+  assert.equal(
+    md(source, 'java', 'python'),
+    'Shared (Java: , Java only).\n\n' +
+      '> **Python**\n>\n> Native.\n\n' +
+      'See Communicator ([Java](https://api/java/Communicator)).\n'
   );
 });
 

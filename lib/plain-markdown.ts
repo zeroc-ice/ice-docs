@@ -10,13 +10,12 @@
 // name renders its children, so a new tag's text is in the copy before this
 // file knows the tag.
 //
-// Rendered for one language mapping, the text is what a reader of that mapping
-// sees: an `{% iflang %}` block for other mappings is left out, and one for
-// that mapping is unwrapped. Rendered for every mapping, the text names the
-// mappings of each part that is not for all of them: a block is a quote that
-// opens with their names, a span a parenthetical that does, and a link whose
-// target differs by mapping, as an `api:` link's does, is its text followed by
-// each mapping's link.
+// The text is for some language mappings: one, for a mapping's copy, or every
+// mapping the page is written for. An `{% iflang %}` block or span for all of
+// them is unwrapped, and one for none of them is left out. Any other names its
+// mappings among them: a block is a quote that opens with their names, a span
+// a parenthetical that does, and a link whose target differs by mapping, as an
+// `api:` link's does, is its text followed by each mapping's link.
 
 import Markdoc, { type RenderableTreeNode, type Tag } from '@markdoc/markdoc';
 
@@ -31,8 +30,8 @@ import {
 import { languageLabel } from './docs-model/nav.ts';
 
 export interface RenderOptions {
-  /** The language mapping the text is for; absent, every mapping's text is in it. */
-  language?: string;
+  /** The language mappings the text is for: one, or every mapping the page is written for. */
+  languages: string[];
   /** The URL to write for a link's or an image's, which arrive resolved to site paths. */
   href: (href: string) => string;
 }
@@ -122,17 +121,15 @@ const indent = (text: string, by: string) =>
 const isLangBlock = (node: RenderableTreeNode): node is Tag =>
   isTag(node) && node.name === 'LangBlock';
 
-/** The mappings of an `{% iflang %}` block. */
-const blockLanguages = (block: Tag) =>
-  (block.attributes as { langs: string[] }).langs;
+/** The mappings of an `{% iflang %}` block that the text is for. */
+const shownLanguages = (block: Tag, options: RenderOptions) =>
+  (block.attributes as { langs: string[] }).langs.filter((language) =>
+    options.languages.includes(language)
+  );
 
-/** Whether an `{% iflang %}` block's text is in the rendering for `language`. */
-const isFor = (block: Tag, language: string) =>
-  blockLanguages(block).includes(language);
-
-/** The names of an `{% iflang %}` block's mappings, as a reader sees them. */
-const mappingNames = (block: Tag) =>
-  list(blockLanguages(block).map(languageLabel));
+/** Mappings' names, as a reader sees them. */
+const mappingNames = (languages: string[]) =>
+  list(languages.map(languageLabel));
 
 /**
  * Whether the text differs by language mapping: the tree holds an
@@ -219,12 +216,11 @@ function renderBlock(node: RenderableTreeNode, options: RenderOptions): string {
     case 'Table':
       return renderTable(node, options);
     case 'LangBlock': {
-      const { language } = options;
-      if (language === undefined)
-        return quote(
-          `**${mappingNames(node)}**\n\n${renderChildren(children, options)}`
-        );
-      return isFor(node, language) ? renderChildren(children, options) : '';
+      const shown = shownLanguages(node, options);
+      if (shown.length === 0) return '';
+      const body = renderChildren(children, options);
+      if (shown.length === options.languages.length) return body;
+      return quote(`**${mappingNames(shown)}**\n\n${body}`);
     }
     case 'Grid':
     case 'Releases':
@@ -264,25 +260,25 @@ function renderInline(
       text += renderInlineNode(node, options);
       continue;
     }
-    const { language } = options;
-    if (language !== undefined) {
-      if (isFor(node, language)) text += renderInline(node.children, options);
-      continue;
-    }
-    // For every mapping, the spans side by side make one run of alternatives.
+    // Spans side by side are one run of alternatives.
     let end = i + 1;
     while (end < nodes.length && isLangBlock(nodes[end])) end++;
-    text += renderAlternatives(nodes.slice(i, end) as Tag[], options, text);
+    const spans = (nodes.slice(i, end) as Tag[]).filter(
+      (span) => shownLanguages(span, options).length > 0
+    );
+    text += renderAlternatives(spans, options, text);
     i = end - 1;
   }
   return text;
 }
 
 /**
- * Spans side by side, each for some mappings, rendered for every mapping and
- * appended to `preceding`. When every span has the same text, as an `api:`
- * link's do, the run is that text and each mapping's link; otherwise each span
- * is a parenthetical that opens with its mappings' names.
+ * Spans side by side, each for some of the text's mappings, appended to
+ * `preceding`. When there are several and all have the same text, as an
+ * `api:` link's do, the run is that text and each mapping's link; otherwise a
+ * span for all the
+ * text's mappings is its text, and any other a parenthetical that opens with
+ * its mappings' names.
  */
 function renderAlternatives(
   spans: Tag[],
@@ -304,17 +300,24 @@ function renderAlternatives(
       const target = linkIn(span);
       if (!target) return [];
       const { href } = target.attributes as { href: string };
-      return [link(mappingNames(span), options.href(href))];
+      return [
+        link(mappingNames(shownLanguages(span, options)), options.href(href))
+      ];
     });
     return `${text} (${list(links)})`;
   }
   let text = '';
   for (const span of spans) {
+    const shown = shownLanguages(span, options);
     const inner = renderInline(span.children, options);
+    if (shown.length === options.languages.length) {
+      text += inner;
+      continue;
+    }
     const before = preceding + text;
     const space = before && !/\s$/.test(before) ? ' ' : '';
     const after = /\s$/.test(inner) ? ' ' : '';
-    text += `${space}(${mappingNames(span)}: ${inner.trim()})${after}`;
+    text += `${space}(${mappingNames(shown)}: ${inner.trim()})${after}`;
   }
   return text;
 }
@@ -407,19 +410,19 @@ function renderTable(table: Tag, options: RenderOptions): string {
   ].join('\n');
 }
 
-/** The showcase's code for one mapping, or for every mapping under its name. */
+/** The showcase's code for the text's mappings, each under its name when there are several. */
 function renderShowcase(
   panels: ShowcasePanel[],
   options: RenderOptions
 ): string {
-  const { language } = options;
+  const { languages } = options;
   return panels
-    .filter((panel) => language === undefined || panel.lang === language)
+    .filter((panel) => languages.includes(panel.lang))
     .map((panel) => {
       const blocks = [panel.contract, panel.client, panel.server]
         .filter((block) => block !== undefined)
         .map((block) => fence(block.language, block.code, block.title));
-      if (language === undefined)
+      if (languages.length > 1)
         blocks.unshift(`**${languageLabel(panel.lang)}**`);
       return blocks.join('\n\n');
     })

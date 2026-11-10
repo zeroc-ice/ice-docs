@@ -172,7 +172,7 @@ function markdownText(
   }
 
   const body = renderMarkdown(tree, {
-    language: textLanguage,
+    languages: textLanguage ? [textLanguage] : languages,
     href: (href) => {
       const link = markdownLink(version, href, {
         slug,
