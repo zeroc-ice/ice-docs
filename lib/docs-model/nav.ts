@@ -143,11 +143,11 @@ export function markdownRedirect(version: DocsVersion) {
   };
 }
 
-/** The Markdown copy a link is in, for markdownLink. */
+/** Where a link is in a Markdown copy, for markdownLink. */
 export interface MarkdownLinkPage {
   /** The page the link is on. */
   slug: string;
-  /** The mapping the copy's text is for; absent in a document for several mappings. */
+  /** The mapping the link's text is for; absent in text for several mappings. */
   language?: string;
   /** The mappings the page at `slug` has a copy for; undefined when its text is one document. */
   copies: (slug: string) => string[] | undefined;
@@ -156,17 +156,16 @@ export interface MarkdownLinkPage {
 /**
  * Where a link goes in a Markdown copy. A link to a page goes to that page's
  * copy for the mapping its `?lang=` names, or else for the mapping the link's
- * copy is for, where the page has one, and otherwise to the page's `.md`; the
- * anchor stays. A link to the page itself, as a `?lang=` link names it, goes
- * the same way. Anything else, such as an image or an external page, is left
- * as it is.
+ * text is for, where the page has one, and otherwise to the page's `.md`; the
+ * anchor stays. A link to the page itself, as a `?lang=` link or a bare anchor
+ * names it, goes the same way. Anything else, such as an image or an external
+ * page, is left as it is.
  */
 export function markdownLink(
   version: DocsVersion,
   href: string,
   on: MarkdownLinkPage
 ): string {
-  if (href.startsWith('#')) return href;
   const hashAt = href.indexOf('#');
   const beforeHash = hashAt === -1 ? href : href.slice(0, hashAt);
   const hash = hashAt === -1 ? '' : href.slice(hashAt);

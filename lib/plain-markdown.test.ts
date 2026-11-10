@@ -150,6 +150,21 @@ test('rendered for several mappings, each part names the ones it is for among th
   );
 });
 
+test('a link in a part is for the mappings the part is for', () => {
+  const source =
+    'See [this](#this){% iflang langs="java" %} or [that](#that){% /iflang %}.\n\n' +
+    '{% iflang langs="cpp,python" %}\n\nSee [native](#native).\n\n{% /iflang %}';
+  const out = renderMarkdown(tree(source), {
+    languages: version.languages,
+    href: (href, languages) => `${href}?for=${languages.join(',')}`
+  });
+  assert.equal(
+    out,
+    'See [this](#this?for=cpp,java,python) (Java: or [that](#that?for=java)).\n\n' +
+      '> **C++ and Python**\n>\n> See [native](#native?for=cpp,python).\n'
+  );
+});
+
 test('the showcase is its code blocks, under each mapping or for one', () => {
   const source =
     '{% showcase %}\n\n' +

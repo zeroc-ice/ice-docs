@@ -15,7 +15,8 @@
 // them is unwrapped, and one for none of them is left out. Any other names its
 // mappings among them: a block is a quote that opens with their names, a span
 // a parenthetical that does, and a link whose target differs by mapping, as an
-// `api:` link's does, is its text followed by each mapping's link.
+// `api:` link's does, is its text followed by each mapping's link. The text in
+// a block or span, its links included, is for the mappings it names.
 
 import Markdoc, { type RenderableTreeNode, type Tag } from '@markdoc/markdoc';
 
@@ -32,8 +33,11 @@ import { languageLabel } from './docs-model/nav.ts';
 export interface RenderOptions {
   /** The language mappings the text is for: one, or every mapping the page is written for. */
   languages: string[];
-  /** The URL to write for a link's or an image's, which arrive resolved to site paths. */
-  href: (href: string) => string;
+  /**
+   * The URL to write for a link's or an image's, which arrive resolved to site
+   * paths, in text for `languages`.
+   */
+  href: (href: string, languages: string[]) => string;
 }
 
 /** A code block of the front page's showcase, as its transform collects them. */
@@ -218,7 +222,7 @@ function renderBlock(node: RenderableTreeNode, options: RenderOptions): string {
     case 'LangBlock': {
       const shown = shownLanguages(node, options);
       if (shown.length === 0) return '';
-      const body = renderChildren(children, options);
+      const body = renderChildren(children, { ...options, languages: shown });
       if (shown.length === options.languages.length) return body;
       return quote(`**${mappingNames(shown)}**\n\n${body}`);
     }
@@ -231,7 +235,7 @@ function renderBlock(node: RenderableTreeNode, options: RenderOptions): string {
         description: string;
         href: string;
       };
-      return `- ${link(escapeText(title), options.href(href))}: ${escapeText(description)}`;
+      return `- ${link(escapeText(title), options.href(href, options.languages))}: ${escapeText(description)}`;
     }
     case 'Release': {
       const { name, date } = attributes as { name: string; date: string };
@@ -299,16 +303,15 @@ function renderAlternatives(
       const target = linkIn(span);
       if (!target) return [];
       const { href } = target.attributes as { href: string };
-      return [
-        link(mappingNames(shownLanguages(span, options)), options.href(href))
-      ];
+      const shown = shownLanguages(span, options);
+      return [link(mappingNames(shown), options.href(href, shown))];
     });
     return `${text} (${list(links)})`;
   }
   let text = '';
   for (const span of spans) {
     const shown = shownLanguages(span, options);
-    const inner = renderInline(span.children, options);
+    const inner = renderInline(span.children, { ...options, languages: shown });
     if (shown.length === options.languages.length) {
       text += inner;
       continue;
@@ -349,7 +352,9 @@ function renderInlineNode(
         unresolved?: boolean;
       };
       // The site shows a link to a page it lacks as its text alone.
-      return unresolved ? inner() : link(inner(), options.href(href), title);
+      return unresolved
+        ? inner()
+        : link(inner(), options.href(href, options.languages), title);
     }
     case 'Image': {
       const {
@@ -361,7 +366,7 @@ function renderInlineNode(
         alt?: string;
         title?: string;
       };
-      return `!${link(escapeText(alt), options.href(src), title)}`;
+      return `!${link(escapeText(alt), options.href(src, options.languages), title)}`;
     }
     default:
       return renderBlock(node, options);

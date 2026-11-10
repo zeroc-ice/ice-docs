@@ -328,7 +328,10 @@ test("markdownLink sends a page link to the mapping's copy, and leaves the rest 
   assert.equal(inJava(`${SEQUENCES_HREF}?lang=python`), `${SEQUENCES_HREF}.md`);
   assert.equal(inJava('/ice/3.8'), '/ice/3.8.md');
   assert.equal(inJava('?lang=cpp'), `${ENUMERATIONS_HREF}/cpp.md`);
-  assert.equal(inJava('#custom-values'), '#custom-values');
+  assert.equal(
+    inJava('#custom-values'),
+    `${ENUMERATIONS_HREF}/java.md#custom-values`
+  );
   assert.equal(
     inJava('/images/ice/3.8/basics/x.svg'),
     '/images/ice/3.8/basics/x.svg'

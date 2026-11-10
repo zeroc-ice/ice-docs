@@ -11,7 +11,8 @@
 // page whose text differs by mapping, by an `{% iflang %}` block or an `api:`
 // link, also has one document per mapping, at `<page>/<language>.md`, each the
 // page as a reader of that mapping sees it. Links between pages point at the
-// Markdown copies, at the copy for the same mapping where the page has one.
+// Markdown copies, at the copy for the mapping the link's text is for where
+// the page has one.
 
 import type { RenderableTreeNode } from '@markdoc/markdoc';
 
@@ -171,17 +172,20 @@ function markdownText(
     notice = `Programming language: ${languageLabel(language)}.${others.length ? ` Other languages: ${others.join(', ')}.` : ''}\n\n`;
   }
 
+  // A link to this document is its anchor.
+  const own = markdownHref(version, slug, language);
   const body = renderMarkdown(tree, {
     languages: textLanguage ? [textLanguage] : languages,
-    href: (href) => {
+    href: (href, linkLanguages) => {
       const link = markdownLink(version, href, {
         slug,
-        language: textLanguage,
+        language: linkLanguages.length === 1 ? linkLanguages[0] : undefined,
         copies: (target) => {
           const page = pages.get(target);
           return page?.varies ? page.languages : undefined;
         }
       });
+      if (link.startsWith(`${own}#`)) return link.slice(own.length);
       return link.startsWith('/') ? absolute(link) : link;
     }
   });
