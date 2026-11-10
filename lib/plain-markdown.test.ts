@@ -124,6 +124,19 @@ test('rendered for a mapping, the text is what its reader sees', () => {
   assert.equal(hasLanguageBlocks(tree('Plain.')), false);
 });
 
+test('rendered for every mapping, each part names the mappings it is for', () => {
+  assert.equal(
+    md(
+      'Shared{% iflang langs="java" %}, Java only{% /iflang %}.\n\n' +
+        '{% iflang langs="cpp,python" %}\n\nNative.\n\n{% /iflang %}\n\n' +
+        'See [Communicator](api:Ice/Communicator).'
+    ),
+    'Shared (Java: , Java only).\n\n' +
+      '> **C++ and Python**\n>\n> Native.\n\n' +
+      'See Communicator ([C++](https://api/cpp/Communicator) and [Java](https://api/java/Communicator)).\n'
+  );
+});
+
 test('the showcase is its code blocks, under each mapping or for one', () => {
   const source =
     '{% showcase %}\n\n' +

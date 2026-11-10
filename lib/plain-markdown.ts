@@ -12,11 +12,18 @@
 //
 // Rendered for one language mapping, the text is what a reader of that mapping
 // sees: an `{% iflang %}` block for other mappings is left out, and one for
-// that mapping is unwrapped.
+// that mapping is unwrapped. Rendered for every mapping, the text names the
+// mappings of each part that is not for all of them: a block is a quote that
+// opens with their names, a span a parenthetical that does, and a link whose
+// target differs by mapping, as an `api:` link's does, is its text followed by
+// each mapping's link.
 
 import Markdoc, { type RenderableTreeNode, type Tag } from '@markdoc/markdoc';
 
-import { headingAnchor } from '../markdoc/nodes/heading.markdoc.ts';
+import {
+  headingAnchor,
+  headingText
+} from '../markdoc/nodes/heading.markdoc.ts';
 import {
   CALLOUT_LABELS,
   type CalloutType
@@ -69,6 +76,10 @@ function isInline(node: RenderableTreeNode): boolean {
 const codeText = (nodes: RenderableTreeNode[]) =>
   nodes.filter((node) => typeof node === 'string').join('');
 
+/** Items as English joins them: `a, b, and c`. */
+export const list = (items: string[]) =>
+  new Intl.ListFormat('en').format(items);
+
 /** Text as Markdown reads it back: the characters that would open markup are escaped. */
 export const escapeText = (text: string) =>
   text.replace(/[\\`*_[\]<]/g, '\\$&');
@@ -108,11 +119,20 @@ const quote = (text: string) =>
 const indent = (text: string, by: string) =>
   text.replace(/\n(?!\n|$)/g, `\n${by}`);
 
-/** Whether an `{% iflang %}` block's text is in the rendering: for its mappings, or for every mapping. */
-function shows(block: Tag, options: RenderOptions): boolean {
-  const { langs } = block.attributes as { langs: string[] };
-  return options.language === undefined || langs.includes(options.language);
-}
+const isLangBlock = (node: RenderableTreeNode): node is Tag =>
+  isTag(node) && node.name === 'LangBlock';
+
+/** The mappings of an `{% iflang %}` block. */
+const blockLanguages = (block: Tag) =>
+  (block.attributes as { langs: string[] }).langs;
+
+/** Whether an `{% iflang %}` block's text is in the rendering for `language`. */
+const isFor = (block: Tag, language: string) =>
+  blockLanguages(block).includes(language);
+
+/** The names of an `{% iflang %}` block's mappings, as a reader sees them. */
+const mappingNames = (block: Tag) =>
+  list(blockLanguages(block).map(languageLabel));
 
 /**
  * Whether the text differs by language mapping: the tree holds an
@@ -198,8 +218,14 @@ function renderBlock(node: RenderableTreeNode, options: RenderOptions): string {
       return '---';
     case 'Table':
       return renderTable(node, options);
-    case 'LangBlock':
-      return shows(node, options) ? renderChildren(children, options) : '';
+    case 'LangBlock': {
+      const { language } = options;
+      if (language === undefined)
+        return quote(
+          `**${mappingNames(node)}**\n\n${renderChildren(children, options)}`
+        );
+      return isFor(node, language) ? renderChildren(children, options) : '';
+    }
     case 'Grid':
     case 'Releases':
       return renderChildren(children, options, '\n');
@@ -231,7 +257,66 @@ function renderInline(
   nodes: RenderableTreeNode[],
   options: RenderOptions
 ): string {
-  return nodes.map((node) => renderInlineNode(node, options)).join('');
+  let text = '';
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (!isLangBlock(node)) {
+      text += renderInlineNode(node, options);
+      continue;
+    }
+    const { language } = options;
+    if (language !== undefined) {
+      if (isFor(node, language)) text += renderInline(node.children, options);
+      continue;
+    }
+    // For every mapping, the spans side by side make one run of alternatives.
+    let end = i + 1;
+    while (end < nodes.length && isLangBlock(nodes[end])) end++;
+    text += renderAlternatives(nodes.slice(i, end) as Tag[], options, text);
+    i = end - 1;
+  }
+  return text;
+}
+
+/**
+ * Spans side by side, each for some mappings, rendered for every mapping and
+ * appended to `preceding`. When every span has the same text, as an `api:`
+ * link's do, the run is that text and each mapping's link; otherwise each span
+ * is a parenthetical that opens with its mappings' names.
+ */
+function renderAlternatives(
+  spans: Tag[],
+  options: RenderOptions,
+  preceding: string
+): string {
+  const linkIn = (span: Tag) => {
+    const [child] = span.children;
+    return isTag(child) && child.name === 'AppLink' ? child : undefined;
+  };
+  const texts = spans.map((span) => headingText(span.children));
+  if (spans.length > 1 && texts.every((text) => text === texts[0])) {
+    const [first] = spans;
+    const text = renderInline(
+      linkIn(first)?.children ?? first.children,
+      options
+    );
+    const links = spans.flatMap((span) => {
+      const target = linkIn(span);
+      if (!target) return [];
+      const { href } = target.attributes as { href: string };
+      return [link(mappingNames(span), options.href(href))];
+    });
+    return `${text} (${list(links)})`;
+  }
+  let text = '';
+  for (const span of spans) {
+    const inner = renderInline(span.children, options);
+    const before = preceding + text;
+    const space = before && !/\s$/.test(before) ? ' ' : '';
+    const after = /\s$/.test(inner) ? ' ' : '';
+    text += `${space}(${mappingNames(span)}: ${inner.trim()})${after}`;
+  }
+  return text;
 }
 
 function renderInlineNode(
@@ -276,8 +361,6 @@ function renderInlineNode(
       };
       return `!${link(escapeText(alt), options.href(src), title)}`;
     }
-    case 'LangBlock':
-      return shows(node, options) ? inner() : '';
     default:
       return renderBlock(node, options);
   }

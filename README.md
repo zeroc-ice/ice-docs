@@ -50,8 +50,9 @@ for its languages, and the stylesheet shows the reader's. `lib/docs-model/resolv
 ## Markdown copies
 
 Every page is also served as Markdown, for agents and crawlers, at its URL with `.md` appended. A page whose text
-differs by programming language is one file per language, at `<page>/<language>.md`, and its `.md` lists them.
-`/llms.txt` lists every page by chapter. `lib/page-markdown.ts` renders them, through the route under `app/md/`.
+differs by programming language names the languages of each part that is not for all of them, and also has one file per
+language, at `<page>/<language>.md`, with that language's text alone. `/llms.txt` lists every page by chapter.
+`lib/page-markdown.ts` renders them, through the route under `app/md/`.
 
 ## Contributing
 

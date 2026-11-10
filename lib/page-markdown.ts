@@ -6,13 +6,12 @@
 // lib/docs-model/nav.ts sends to the route under `app/md/`, a thin wrapper per
 // version that names its version and hands the rest to these.
 //
-// A page whose text is the same for every language mapping is one document,
-// and so is a page written for one mapping, as its reader sees it. A page
-// whose text differs by mapping, by an `{% iflang %}` block or an `api:` link,
-// is one document per mapping, at `<page>/<language>.md`, each the page as a
-// reader of that mapping sees it, and its `<page>.md` lists them. Links
-// between pages point at the Markdown copies, at the copy for the same mapping
-// where the page has one.
+// Every page's `<page>.md` is the whole page, for every language mapping it is
+// written for, and a page written for one mapping is that mapping's text. A
+// page whose text differs by mapping, by an `{% iflang %}` block or an `api:`
+// link, also has one document per mapping, at `<page>/<language>.md`, each the
+// page as a reader of that mapping sees it. Links between pages point at the
+// Markdown copies, at the copy for the same mapping where the page has one.
 
 import type { RenderableTreeNode } from '@markdoc/markdoc';
 
@@ -44,6 +43,7 @@ import { renderMarkdownString } from '@/lib/markdown';
 import {
   escapeText,
   hasLanguageBlocks,
+  list,
   renderMarkdown
 } from '@/lib/plain-markdown';
 import { SITE_URL } from '@/lib/site';
@@ -65,8 +65,6 @@ interface Assembled {
 const absolute = (href: string) => new URL(href, SITE_URL).href;
 
 const INDEX = '/llms.txt';
-
-const list = (items: string[]) => new Intl.ListFormat('en').format(items);
 
 function assemble(
   version: DocsVersion,
@@ -131,7 +129,7 @@ function assembleAll(version: DocsVersion): Map<string, Assembled> {
 
 /**
  * A page's Markdown: with `language`, its text for that mapping; otherwise its
- * text, or, when the text differs by mapping, the list of its mappings' copies.
+ * text for every mapping it is written for.
  */
 function markdownText(
   version: DocsVersion,
@@ -159,17 +157,15 @@ function markdownText(
     `> For an index of every page, see [llms.txt](${absolute(INDEX)}).\n\n` +
     `# ${escapeText(title)}\n\n${description ? `${escapeText(description)}\n\n` : ''}`;
 
-  if (varies && language === undefined)
-    return `${head}This page has one Markdown file per programming language:\n\n${languages
-      .map((copyLanguage) => `- ${copy(copyLanguage)}`)
-      .join('\n')}\n`;
-
   // What the page shell tells the reader: the mappings the page is written
-  // for, or which mapping's text this is and where the others' are.
+  // for, and where each mapping's text alone is; or which mapping's text this
+  // is and where the others' are.
   let notice = '';
   if (language === undefined) {
     if (languages.length < version.languages.length)
-      notice = `This page is written for ${list(languages.map(languageLabel))}.\n\n`;
+      notice += `This page is written for ${list(languages.map(languageLabel))}.\n\n`;
+    if (varies)
+      notice += `Parts of this page are for some programming languages only, and name them. For one language's text alone, see ${list(languages.map(copy))}.\n\n`;
   } else {
     const others = languages.filter((other) => other !== language).map(copy);
     notice = `Programming language: ${languageLabel(language)}.${others.length ? ` Other languages: ${others.join(', ')}.` : ''}\n\n`;
@@ -261,7 +257,8 @@ export function llmsTxt(versions: DocsVersion[]): string {
     `# ${SITE_TITLE}`,
     `> ${summary}`,
     'Every page is available as Markdown at its URL with `.md` appended. A page whose text differs by programming ' +
-      'language has one Markdown file per language, at `<page>/<language>.md`, and its `.md` lists them. Context7 ' +
+      'language names the languages of each part that is not for all of them, and also has one Markdown file per ' +
+      "language, at `<page>/<language>.md`, with that language's text alone. Context7 " +
       'indexes these docs as `/zeroc-ice/ice-docs`.',
     ...sections
   ].join('\n\n')}\n`;
