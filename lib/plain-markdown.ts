@@ -276,9 +276,8 @@ function renderInline(
  * Spans side by side, each for some of the text's mappings, appended to
  * `preceding`. When there are several and all have the same text, as an
  * `api:` link's do, the run is that text and each mapping's link; otherwise a
- * span for all the
- * text's mappings is its text, and any other a parenthetical that opens with
- * its mappings' names.
+ * span for all the text's mappings is its text, and any other a parenthetical
+ * that opens with its mappings' names.
  */
 function renderAlternatives(
   spans: Tag[],
