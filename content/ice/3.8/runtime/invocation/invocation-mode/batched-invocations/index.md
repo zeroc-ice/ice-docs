@@ -14,9 +14,9 @@ You get a batch proxy from `ice_batchOneway`{% iflang langs="cpp,csharp,java,mat
 {% language-section name="proxy-methods-for-batched-invocations" /%}
 
 A batch travels as a single message, so the object adapter receives either all the requests of the batch or none. Ice
-dispatches the requests of a batch one after the other, in the order in which they were written into the batch: it
-starts each dispatch once the previous dispatch returns, so a dispatch implemented asynchronously can complete after the
-next one starts.
+dispatches the requests of a batch one after the other, in the order in which they were written into the batch. With
+synchronous dispatch, the server therefore processes these requests in order. With asynchronous dispatch, Ice starts the
+next dispatch as soon as the dispatch method returns, which can be before the previous request is fully processed.
 
 Each batch proxy has its own queue, even when several proxies refer to the same Ice object, and the requests it queued
 are lost if the application releases the proxy before flushing them. Ice does not [retry](../../automatic-retries) a
