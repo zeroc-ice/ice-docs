@@ -107,6 +107,10 @@ Ice/Logger:
   js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/Logger.html
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.Logger.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/logger
+Ice/LoggerPlugin:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1LoggerPlugin.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.LoggerPlugin.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/LoggerPlugin.html
 Ice/ModuleToPackageSliceLoader:
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ModuleToPackageSliceLoader.html
 Ice/ObjectAdapter:
