@@ -1,11 +1,3 @@
-{% language-section name="mapping-1" %}
-
-```csharp
-initData.batchRequestInterceptor = (req, _, _) => req.enqueue();
-```
-
-{% /language-section %}
-
 {% language-section name="mapping-2" %}
 
 ```csharp
@@ -14,10 +6,22 @@ initData.batchRequestInterceptor = (req, count, size) =>
 {
     if (size + req.getSize() > maxBatchSize)
     {
-        _ = req.getProxy().ice_flushBatchRequestsAsync();
+        _ = FlushAsync(req.getProxy());
     }
     req.enqueue();
 };
+
+static async Task FlushAsync(Ice.ObjectPrx proxy)
+{
+    try
+    {
+        await proxy.ice_flushBatchRequestsAsync();
+    }
+    catch (Ice.LocalException exception)
+    {
+        Console.Error.WriteLine($"Failed to flush batch requests: {exception}");
+    }
+}
 ```
 
 {% /language-section %}
