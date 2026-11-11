@@ -1,8 +1,8 @@
 {% language-section name="mapping" %}
 
-Ice provides `Ice::LoggerPlugin`, a plug-in that installs a logger into the communicator. Assuming you wrote a
-`CustomLogger` class that implements `Ice::Logger`, create a plug-in factory function that returns a `LoggerPlugin` for
-your logger:
+Ice provides [`Ice::LoggerPlugin`](api:Ice/LoggerPlugin), a plug-in that installs a logger into the communicator.
+Assuming you wrote a `CustomLogger` class that implements `Ice::Logger`, create a plug-in factory function that returns
+a `LoggerPlugin` for your logger:
 
 ```cpp
 extern "C" ICE_DECLSPEC_EXPORT Ice::Plugin* createCustomLoggerPlugin(

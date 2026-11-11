@@ -1,7 +1,7 @@
 {% language-section name="mapping" %}
 
-Ice provides `Ice.LoggerPlugin`, a plug-in that installs a logger into the communicator. The communicator takes
-ownership of the logger and disposes it when the communicator is destroyed.
+Ice provides [`Ice.LoggerPlugin`](api:Ice/LoggerPlugin), a plug-in that installs a logger into the communicator. The
+communicator takes ownership of the logger and disposes it when the communicator is destroyed.
 
 Assuming you wrote a `CustomLogger` class that implements `Ice.Logger`, create a plug-in factory that returns a
 `LoggerPlugin` for your logger:
