@@ -22,8 +22,9 @@ need it.
 
 {% language-section name="initialization-data" %}
 
-To combine initialization data with the command-line arguments, create the communicator's properties from the argument
-list:
+`Ice.initialize` takes either the command-line arguments or an `InitializationData`. To set properties from the
+arguments when you pass initialization data, create the properties from the arguments and set them in the initialization
+data:
 
 ```ruby
 initData = Ice::InitializationData.new

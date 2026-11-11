@@ -21,8 +21,8 @@ scope, as shown above. Without `await using`, call `await communicator.destroy()
 
 {% language-section name="initialization-data" %}
 
-To combine initialization data with the command-line arguments, create the communicator's properties from the argument
-vector:
+The constructor takes either the command-line arguments or an `InitializationData`. To set properties from the arguments
+when you pass initialization data, create the properties from the arguments and set them in the initialization data:
 
 ```typescript
 const initData = new Ice.InitializationData();

@@ -24,7 +24,8 @@ try-with-resources statement as shown above.
 
 {% language-section name="initialization-data" %}
 
-To combine initialization data with the command-line arguments, create the communicator's properties from `args`:
+The constructor takes either the command-line arguments or an `InitializationData`. To set properties from the arguments
+when you pass initialization data, create the properties from `args` and set them in the initialization data:
 
 ```java
 var initData = new InitializationData();
