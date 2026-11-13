@@ -20,8 +20,7 @@ information of `Greeter` with [uncheckedCast](../../../slice/interfaces#attachin
 you invoke `greet` on it.
 
 ```php
-$proxy = $communicator->propertyToProxy('Greeter.Proxy');
-$greeter = GreeterPrxHelper::uncheckedCast($proxy);
+$greeter = GreeterPrxHelper::uncheckedCast($communicator->propertyToProxy('Greeter.Proxy'));
 ```
 
 {% /language-section %}

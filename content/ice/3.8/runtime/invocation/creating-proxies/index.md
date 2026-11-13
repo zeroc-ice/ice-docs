@@ -41,9 +41,7 @@ equivalent to the following statements:
 
 {% language-section name="creating-a-proxy-from-a-property-2" /%}
 
-The [proxy properties](../../../property-reference/proxy-properties) cover the proxy settings that a stringified proxy
-cannot express, except the compression setting (`ice_compress`), the connection ID (`ice_connectionId`) and a fixed
-connection (`ice_fixed`). A subordinate property must be one of these proxy properties.
+The [Proxy Properties](../../../property-reference/proxy-properties) page lists the properties you can define this way.
 
 Note that proxy properties can themselves have proxy properties. For example, the following sets the `EndpointSelection`
 property on the default locator's router:
@@ -56,35 +54,12 @@ Ice.Default.Locator.Router.EndpointSelection=Ordered
 
 ## Creating a Proxy from an Object Adapter
 
-A server uses an object adapter to create the proxies through which clients invoke operations on its Ice objects.
+An object adapter creates the proxies that clients use to call operations on the Ice objects it hosts. `createProxy`
+returns a proxy with the given identity, and `add`, `addFacet`, `addWithUUID` and `addFacetWithUUID` register a servant
+with the [Active Servant Map](../../dispatch/active-servant-map) and return a proxy for the Ice object this servant
+implements. See [ObjectAdapter](api:Ice/ObjectAdapter) in the API reference for all the methods that create proxies.
 
-{% /iflang %}
-
-{% iflang langs="cpp,csharp,java,python,swift" %}
-
-- `createProxy` returns an indirect proxy when the object adapter has an
-  [AdapterId](../../../property-reference/object-adapter-properties): this proxy refers to the object adapter's
-  `ReplicaGroupId`, or to its `AdapterId` when no replica group ID is set. Otherwise, `createProxy` returns a direct
-  proxy that holds the object adapter's published endpoints.
-- `createDirectProxy` returns a direct proxy that holds the object adapter's published endpoints.
-- `createIndirectProxy` returns an indirect proxy that refers to the object adapter's `AdapterId`, or a
-  [well-known proxy](../proxy-endpoints/well-known-proxy) when the object adapter has no adapter ID.
-
-{% /iflang %}
-
-{% iflang langs="js" %}
-
-`createProxy` and `createDirectProxy` both return a direct proxy that holds the object adapter's published endpoints.
-
-{% /iflang %}
-
-{% iflang langs="cpp,csharp,java,js,python,swift" %}
-
-`add`, `addFacet`, `addWithUUID` and `addFacetWithUUID` register a servant with the
-[Active Servant Map](../../dispatch/active-servant-map) and return the proxy that `createProxy` creates for the identity
-of this servant, with its facet.
-
-All these proxies use the options set by the object adapter's
+These proxies use the options set by the object adapter's
 [ProxyOptions](../../../property-reference/object-adapter-properties) property, such as `-o` for oneway proxies.
 
 {% /iflang %}
@@ -133,8 +108,8 @@ Despite their names, these functions are not casts: they return a new proxy and 
 `uncheckedCast` creates the new proxy without contacting the target object. `checkedCast` first calls `ice_isA` on the
 target object to verify that it implements the requested interface, and returns a null proxy if it does not.
 
-You use these functions when you hold a proxy of a more general type than the interface you want to call, such as the
-proxy returned by an operation whose return type is `Object*`.
+You rarely need these functions. You use them when you hold a proxy of a more general type than the interface you want
+to call, such as the proxy returned by an operation whose return type is `Object*`.
 
 {% iflang langs="csharp,java,js,matlab,php,python,ruby,swift" %}
 
@@ -148,6 +123,16 @@ In C++, these functions are the `Ice::uncheckedCast` and `Ice::checkedCast` func
 `Ice::checkedCast<GreeterPrx>(proxy)`.
 
 {% /iflang %}
+
+## Local Settings
+
+A proxy has two kinds of settings. Ice marshals the identity, facet, invocation mode, encoding version, and endpoints or
+adapter ID of a proxy when it sends the proxy to another application. The other settings, such as the router, locator,
+locator cache timeout, endpoint selection type, connection caching, invocation timeout, context and connection ID, are
+local, and Ice does not marshal them.
+
+A proxy that Ice unmarshals starts with the default value of each local setting, whatever the value of this setting in
+the application that sent the proxy.
 
 ## Proxy Defaults
 
