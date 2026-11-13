@@ -41,13 +41,30 @@ communicator then creates the admin object when the application calls `getAdmin`
 
 {% /iflang %}
 
-The administrative facility introduces additional
-[security considerations](../security-considerations-for-administrative-facets), therefore the endpoints for the object
-adapter where the admin object's facets are hosted must be chosen with caution.
+The endpoints of the object adapter that hosts the admin object determine which clients can reach it; see
+[Securing the admin Object](../security-considerations-for-administrative-facets).
+
+{% iflang langs="cpp,csharp,java,python,swift" %}
+
+## Hosting the admin Object in Your Own Object Adapter
+
+An application can host the admin object in one of its own object adapters instead of the `Ice.Admin` object adapter.
+Set `Ice.Admin.Enabled` to `1` and leave `Ice.Admin.Endpoints` unset, so that the communicator does not create the admin
+object during initialization. Then call [`createAdmin`](api:Ice/Communicator.createAdmin) with this object adapter and
+the identity of the admin object, and activate the object adapter.
+
+{% iflang langs="cpp,csharp,java" %}
+
+Because you create this object adapter, you can give it its own [SSL configuration](../../../runtime/ssl-transport),
+separate from the configuration of the communicator.
+
+{% /iflang %}
+
+{% /iflang %}
 
 ## See Also
 
 - [Ice.Admin.*](../../../property-reference/ice-admin-properties)
 - [IceGrid and the Administrative Facility](../../../services/icegrid/icegrid-and-the-administrative-facility)
-- [Security Considerations for Administrative Facets](../security-considerations-for-administrative-facets)
+- [Securing the admin Object](../security-considerations-for-administrative-facets)
 - [Using the admin Object](../using-the-admin-object)
