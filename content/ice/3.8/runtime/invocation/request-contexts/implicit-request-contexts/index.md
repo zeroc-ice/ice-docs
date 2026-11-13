@@ -12,13 +12,13 @@ languages:
   - swift
 ---
 
-An implicit context belongs to a communicator: Ice sends it with each invocation made through the proxies of this
-communicator, unless the invocation has an [explicit context](../explicit-request-contexts).
+An implicit request context belongs to a communicator: Ice sends it with each invocation made through the proxies of
+this communicator, unless the invocation has an [explicit context](../explicit-request-contexts).
 
 ## Configuring the Implicit Context
 
-The [Ice.ImplicitContext](../../../../property-reference/ice-properties#ice.implicitcontext) property sets whether the
-communicator has an implicit context, and its scope:
+The [Ice.ImplicitContext](../../../../property-reference/ice-properties#ice.implicitcontext) property specifies whether
+the communicator has an implicit context:
 
 {% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}
 
@@ -40,5 +40,16 @@ communicator has an implicit context, and its scope:
 `getImplicitContext` on the communicator returns its implicit context, an object with methods to read and update the
 context's entries.{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %} With `PerThread`, call
 `getImplicitContext` and update the context on the thread that makes the invocations.{% /iflang %}
+
+{% iflang langs="csharp,swift" %}
+
+{% callout type="warning" %}
+
+`PerThread` is not usable in code that makes invocations with `await`: this code can resume on a different thread, with
+a different implicit context, after each `await`.
+
+{% /callout %}
+
+{% /iflang %}
 
 {% language-section name="using-the-implicit-context" /%}

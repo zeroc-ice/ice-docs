@@ -17,9 +17,7 @@ adapter dispatches and reads the context through the `current` of the incoming r
 
 {% /iflang %}
 
-Context keys that begin with an underscore are reserved for Ice.
-
-A client supplies a context in one of the following ways:
+A client supplies a context in the following ways:
 
 {% iflang langs="cpp,csharp,java,js,matlab,python,ruby,swift" %}
 
@@ -36,6 +34,8 @@ A client supplies a context in one of the following ways:
 - A [per-proxy context](./per-proxy-request-contexts) applies to the invocations made through a proxy.
 
 {% /iflang %}
+
+Context keys that begin with an underscore are reserved for Ice.
 
 ## Combining Request Contexts
 

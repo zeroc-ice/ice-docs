@@ -3,8 +3,8 @@ title: Per-Proxy Request Contexts
 sidebarLabel: Per-Proxy
 ---
 
-Each proxy stores a context, empty by default. Ice sends this per-proxy context with each invocation made through the
-proxy, unless the invocation has an [explicit context](../explicit-request-contexts).
+Each proxy stores a request context, empty by default. Ice sends this per-proxy context with each invocation made
+through the proxy, unless the invocation has an [explicit context](../explicit-request-contexts).
 
 `ice_context` returns a new proxy that stores the given context, and `ice_getContext` returns the proxy's context:
 

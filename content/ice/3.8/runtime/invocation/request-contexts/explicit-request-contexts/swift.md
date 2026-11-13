@@ -4,14 +4,6 @@
 let greeting = try await greeter.greet(name, context: ["language": "fr"])
 ```
 
-{% /language-section %}
-
-{% language-section name="server" %}
-
-```swift
-let language = current.ctx["language"] ?? ""
-```
-
 The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/swift/Ice/Context) provides a complete example.
 
 {% /language-section %}
