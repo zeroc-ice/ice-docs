@@ -220,6 +220,14 @@ Ice/PluginManager:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1PluginManager.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.PluginManager.html
   java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/PluginManager.html
+Ice/ProcessPrx:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1ProcessPrx.html
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.ProcessPrx.html
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/ProcessPrx.html
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/ProcessPrx.html
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.ProcessPrx.html
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/ProcessPrx.html
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/processprx
 Ice/Properties:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Properties.html
   csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.Properties.html
