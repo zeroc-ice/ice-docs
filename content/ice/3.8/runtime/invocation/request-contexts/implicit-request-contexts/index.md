@@ -12,42 +12,44 @@ languages:
   - swift
 ---
 
-## Using Implicit Request Contexts
+An implicit request context belongs to a communicator: Ice sends it with each invocation made through the proxies of
+this communicator, unless the invocation has an [explicit context](../explicit-request-contexts).
 
-In addition to [explicit](../explicit-request-contexts) and [per-proxy](../per-proxy-request-contexts) request contexts,
-you can also establish an implicit context on a communicator. This implicit context is sent with all invocations made
-via proxies created by that communicator, provided that you do not supply an explicit context with the call.
+## Configuring the Implicit Context
 
-## Scope of the Implicit Context
-
-You establish the implicit context on a communicator by setting a property, `Ice.ImplicitContext`. This property
-controls whether a communicator has an implicit context and, if so, at what scope the context applies. The property can
-be set to the following values:
-
-- `None` With this setting (or if `Ice.ImplicitContext` is not set at all), the communicator has no implicit context,
-  and `getImplicitContext` on the communicator returns null.
-
-- `Shared` The communicator has a single implicit context that is shared by all threads. Access to the context via its
-  `ImplicitContext` class is interlocked, so different threads can concurrently manipulate the context without risking
-  data corruption or reading stale values.
+The [Ice.ImplicitContext](../../../../property-reference/ice-properties#ice.implicitcontext) property specifies whether
+the communicator has an implicit context:
 
 {% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %}
 
-- `PerThread` The communicator maintains a separate implicit context for each thread. This allows you to propagate
-  contexts that depend on the sending thread (for example, to send per-thread transaction IDs).
+- `None` _(the default)_: the communicator has no implicit context.
+- `Shared`: the communicator has one implicit context, which all threads can use concurrently.
+- `PerThread`: the communicator has a separate implicit context for each thread.
+
+{% /iflang %}
+
+{% iflang langs="js" %}
+
+- `None` _(the default)_: the communicator has no implicit context.
+- `Shared`: the communicator has one implicit context.
 
 {% /iflang %}
 
 ## Using the Implicit Context
 
 `getImplicitContext` on the communicator returns its implicit context, an object with methods to read and update the
-context's entries.{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %} When `Ice.ImplicitContext` is
-`PerThread`, each thread has its own implicit context: call `getImplicitContext` and update the context on the thread
-that makes the invocations.{% /iflang %}
+context's entries.{% iflang langs="cpp,csharp,java,matlab,python,ruby,swift" %} With `PerThread`, call
+`getImplicitContext` and update the context on the thread that makes the invocations.{% /iflang %}
+
+{% iflang langs="csharp,swift" %}
+
+{% callout type="warning" %}
+
+`PerThread` is not usable in code that makes invocations with `await`: this code can resume on a different thread, with
+a different implicit context, after each `await`.
+
+{% /callout %}
+
+{% /iflang %}
 
 {% language-section name="using-the-implicit-context" /%}
-
-## See Also
-
-- [Explicit Request Contexts](../explicit-request-contexts)
-- [Per-Proxy Request Contexts](../per-proxy-request-contexts)

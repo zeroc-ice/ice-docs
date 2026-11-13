@@ -1,42 +1,11 @@
-{% language-section name="mapping" %}
-
-The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Ice/Context) provides a complete example
-of using request context in C#.
-
-Using the Slice greeter definitions once again:
-
-```slice
-module VisitorCenter
-{
-    interface Greeter
-    {
-        ["cs:identifier:Greet"]
-        string greet(string name);
-    }
-}
-```
-
-A client application can set a request context to send additional metadata:
+{% language-section name="client" %}
 
 ```csharp
-// We request a French greeting by setting the context parameter.
 string greeting = await greeter.GreetAsync(
     name,
     context: new Dictionary<string, string> { ["language"] = "fr" });
 ```
 
-On the server side, the request context is available through the ctx member of the `Ice.Current` parameter:
-
-```csharp
-public override string Greet(string name, Ice.Current current)
-{
-    // We retrieve the value for the language entry in the context.
-    if (!current.ctx.TryGetValue("language", out string? language))
-    {
-        language = "";
-    }
-    ...
-}
-```
+The [Ice context demo](https://github.com/zeroc-ice/ice-demos/tree/3.8/csharp/Ice/Context) provides a complete example.
 
 {% /language-section %}

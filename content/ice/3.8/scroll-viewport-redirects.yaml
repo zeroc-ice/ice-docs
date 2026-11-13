@@ -108,7 +108,7 @@ permanent:
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/defining-the-greeter-interface-in-slice': 'greeter-example/defining-the-greeter-interface-in-slice?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/deprecating-slice-definitions': 'slice/deprecating-slice-definitions?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/description-descriptor-element': 'services/icegrid/icegrid-xml-reference/description-descriptor-element?lang=:lang'
-  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/design-considerations-for-request-contexts': 'runtime/invocation/request-contexts/design-considerations-for-request-contexts?lang=:lang'
+  ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/design-considerations-for-request-contexts': 'runtime/invocation/request-contexts?lang=:lang'
   ':lang(cpp|csharp|java)/developing-icebox-services': 'services/icebox/developing-icebox-services?lang=:lang'
   ':lang(cpp|csharp|java|js|matlab|php|python|ruby|swift)/dictionaries': 'slice/user-defined-types/dictionaries?lang=:lang'
   ':lang(cpp|csharp|java|js|python|swift)/dispatcher-api': 'runtime/dispatch/dispatcher-api?lang=:lang'
