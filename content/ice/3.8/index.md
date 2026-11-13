@@ -19,6 +19,7 @@ pages:
   - versioning
   - property-reference
   - build-tools
+  - ai-tools
   - compatibility
   - icerpc
   - releases
