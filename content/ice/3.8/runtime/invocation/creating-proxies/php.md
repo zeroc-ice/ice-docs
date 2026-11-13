@@ -15,13 +15,12 @@ $greeter = GreeterPrxHelper::createProxy(
 {% language-section name="creating-a-proxy-from-a-property-1" %}
 
 We can use the `propertyToProxy` method on `Communicator` to convert the property's value into a proxy. A null proxy is
-returned if no property is found with the specified name. This proxy is a proxy for `Ice::Object`: attach the type
+returned if no property is found with the specified name. This proxy carries no type information: attach the type
 information of `Greeter` with [uncheckedCast](../../../slice/interfaces#attaching-type-information-to-a-proxy) before
 you invoke `greet` on it.
 
 ```php
-$proxy = $communicator->propertyToProxy('Greeter.Proxy');
-$greeter = GreeterPrxHelper::uncheckedCast($proxy);
+$greeter = GreeterPrxHelper::uncheckedCast($communicator->propertyToProxy('Greeter.Proxy'));
 ```
 
 {% /language-section %}

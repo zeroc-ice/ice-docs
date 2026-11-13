@@ -18,7 +18,7 @@ We can use the `propertyToProxy` method on `Communicator` to convert the propert
 returned if no property is found with the specified name.
 
 ```csharp
-ObjectPrx? greeter = communicator.propertyToProxy("Greeter.Proxy");
+GreeterPrx? greeter = GreeterPrxHelper.uncheckedCast(communicator.propertyToProxy("Greeter.Proxy"));
 ```
 
 {% /language-section %}

@@ -15,7 +15,7 @@ We can use the `propertyToProxy` method on `Communicator` to convert the propert
 returned if no property is found with the specified name.
 
 ```py
-greeter = communicator.propertyToProxy("Greeter.Proxy")
+greeter = GreeterPrx.uncheckedCast(communicator.propertyToProxy("Greeter.Proxy"))
 ```
 
 {% /language-section %}
