@@ -2,9 +2,8 @@
 title: The admin Object
 ---
 
-The `admin` object is an Ice object that provides the administrative [facets](../../../runtime/facets) of a
-communicator, one for each administrative capability. An administrative client selects the facet for the capability it
-needs. The `admin` object has no default facet.
+The `admin` object is an Ice object that lets clients inspect and control aspects of its communicator. Each capability
+is a separate [facet](../../../runtime/facets) of this object.
 
 The Ice runtime provides four built-in facets:
 

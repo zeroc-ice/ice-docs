@@ -11,9 +11,8 @@ returns a null proxy when the administrative facility is disabled, or when the `
 
 {% /iflang %}
 
-A proxy for the `admin` object cannot be used for invoking operations because it refers to the default facet and, as we
-mentioned [previously](../admin-object), the `admin` object does not support a default facet. A program must first
-obtain a proxy to a specific facet for the `admin` object.
+The `admin` object has no default [facet](../../../runtime/facets), so a program cannot invoke operations on a proxy for
+the `admin` object itself; it must first obtain a proxy for one of its facets.
 
 To administer a program remotely, somehow you must obtain a proxy for the program's `admin` object. There are several
 ways for the administrative client to accomplish this:
