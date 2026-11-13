@@ -4,13 +4,14 @@ title: IceLocatorDiscovery
 
 ## IceLocatorDiscovery Overview
 
-IceLocatorDiscovery discovers an IceGrid [locator](../../runtime/locators) (registry) using UDP multicast. It installs a
-locator in the communicator. This locator discovers the IceGrid registry when the application first resolves an indirect
-proxy, and forwards locator requests to it.
+IceLocatorDiscovery is an Ice plug-in that discovers a [locator](../../runtime/locators) on the local network with UDP
+multicast. An application that installs it resolves its indirect proxies through the discovered locator, without setting
+`Ice.Default.Locator`.
 
-This lets clients locate an IceGrid deployment without configuring its registry endpoints, including a
-[replicated deployment](../../services/icegrid/registry-replication). IceLocatorDiscovery discovers locators;
-[IceDiscovery](../icediscovery) provides a location service for objects and object adapters directly.
+IceGrid registries answer the plug-in's queries, so an application can use the plug-in to find an IceGrid deployment,
+including a [replicated deployment](../../services/icegrid/registry-replication).
+
+To locate objects and object adapters without deploying a locator, use [IceDiscovery](../icediscovery).
 
 ## Installing IceLocatorDiscovery
 
@@ -54,65 +55,32 @@ IceLocatorDiscovery.Port=8000
 
 See [IceLocatorDiscovery Properties](../../property-reference/icelocatordiscovery-properties) for the complete list.
 
-### Configuring IceLocatorDiscovery in IceGrid Administrative Clients
+### Using IceLocatorDiscovery with IceGrid
 
-Support for multicast discovery is built into the [command-line](../../services/icegrid/icegridadmin-command-line-tool)
-and [graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative utilities, therefore you don't need to
-install the plug-in. Both utilities read the same
-[IceLocatorDiscovery.*](../../property-reference/icelocatordiscovery-properties) properties as the plug-in, for example
-to change the multicast address and port.
-
-### Configuring IceLocatorDiscovery in an IceGrid Registry
-
-A slave registry can use the plug-in to find the master registry, in place of setting `Ice.Default.Locator`. Load the
-plug-in in the slave registry's configuration file, and set
+An IceGrid node or a slave registry can use the plug-in to find the registry, in place of setting `Ice.Default.Locator`.
+Load the plug-in in its configuration file, and set
 [IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
-or [IceGrid.InstanceName](../../property-reference/icegrid-properties#icegrid.instancename) to the instance name of the
-deployment:
+to the instance name of the deployment:
 
 ```config
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 IceLocatorDiscovery.InstanceName=IceGrid
 ```
 
-The master registry does not need the plug-in.
-
-IceGrid registries listen for multicast discovery queries by default, but you can disable this feature by setting
+The master registry does not need the plug-in. IceGrid registries answer multicast discovery queries unless you set
 [IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties#icegrid.registry.discovery.enabled) to
-`0`.
+`0`. If you change the multicast address or port of the plug-in, set the same values in each registry with
+[IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties#icegrid.registry.discovery.address) and
+[IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties#icegrid.registry.discovery.port);
+[IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
+restricts a registry to one network interface.
 
-If you've changed the default multicast address or port for IceLocatorDiscovery, you must also make corresponding
-changes to the configuration of each registry. The registry supports properties similar to those of IceLocatorDiscovery:
-
-- [IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties#icegrid.registry.discovery.address)
-- [IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties#icegrid.registry.discovery.port)
-- [IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
-
-These properties influence the endpoint on which the registry listens for multicast discovery queries. If you don't
-override the endpoint by setting [IceGrid.Registry.Discovery.Endpoints](../../property-reference/icegrid-properties),
-the registry uses these properties to compute its endpoint as follows:
-
-`IceGrid.Registry.Discovery.Endpoints=udp -h address -p port [--interface interface]`
-
-{% callout type="warning" %}
-
-You don't need to define any `IceGrid.Registry.Discovery.*` properties if you want the registry to listen for discovery
-queries on its default multicast address and port.
-
-{% /callout %}
-
-### Configuring IceLocatorDiscovery in an IceGrid Node
-
-An IceGrid node can use the plug-in to find its registries, in place of setting `Ice.Default.Locator`. Load the plug-in
-in the node's configuration file, and set
-[IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
-or [IceGrid.InstanceName](../../property-reference/icegrid-properties#icegrid.instancename) to the instance name of the
-deployment:
-
-```config
-Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
-IceLocatorDiscovery.InstanceName=IceGrid
-```
+The [command-line](../../services/icegrid/icegridadmin-command-line-tool) and
+[graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative tools don't need the plug-in: they discover
+the registries on the network themselves and let you choose one. They read `IceLocatorDiscovery.Address`,
+`IceLocatorDiscovery.Port` and `IceLocatorDiscovery.Interface` for their multicast settings. `icegridadmin` discovers
+registries when you set neither a locator, a router nor a registry host, and its `--instanceName` option selects the
+deployment.
 
 ## See Also
 
