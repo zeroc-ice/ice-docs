@@ -3,9 +3,9 @@ title: Doc-Comment Structure
 sidebarLabel: Structure
 ---
 
-A doc comment starts with a summary sentence, continues with any further description, and ends with _block tags_ that
-document specific parts of the definition. A block tag starts a line with `@`, and its text continues until the next tag
-or the end of the comment, except for `@see`, which takes one line:
+A doc comment typically starts with a short description, continues with any further details, and ends with _block tags_
+that document specific parts of the definition. A block tag starts a line with `@`, and its text continues until the
+next tag or the end of the comment:
 
 ```slice
 /// Looks for an item with the specified primary and secondary keys.
@@ -14,10 +14,12 @@ or the end of the comment, except for `@see`, which takes one line:
 /// @param s The secondary search key.
 /// @return The item that matches the specified keys.
 /// @throws NotFound Thrown if no item matches the specified keys.
+/// @see Item
 Item findItem(Key p, Key s) throws NotFound;
 ```
 
-The inline tags, `{@link}` and `@p`, go within the text instead; see [Formatting and Links](#formatting-and-links).
+The inline tags `{@link identifier}` and `@p name` go within the text; see
+[Formatting and Links](#formatting-and-links).
 
 Every Slice compiler except `slice2php` and `slice2rb` checks each doc comment against the rules on this page: it warns
 about a tag it doesn't recognize, and ignores it.
@@ -73,7 +75,9 @@ Starts a remarks section, for details that don't belong in the description.
 
 ### `@deprecated`
 
-Documents that the definition is deprecated. The text after the tag says why, or what to use instead.
+Documents that the definition is deprecated. The text after the tag says why, or what to use instead. To also make the
+Slice compilers warn about uses of the definition, add the
+[`deprecated` metadata directive](../../deprecating-slice-definitions).
 
 ## Operation Tags
 
@@ -86,7 +90,8 @@ Documents the parameter `name`, which must be one of the operation's parameters.
 
 ### `@return`
 
-Documents the return value. The compilers warn about `@return` on an operation that does not return a value.
+Documents the return value. The compilers warn about `@return` on an operation that does not return a value. Use
+`@param` to document out parameters.
 
 ### `@throws name` / `@exception name`
 
