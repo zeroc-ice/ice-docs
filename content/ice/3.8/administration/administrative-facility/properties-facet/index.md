@@ -9,19 +9,17 @@ implements the [`Ice::PropertiesAdmin`](api:Ice/PropertiesAdminPrx) interface.
 
 ## Reading and Updating Properties
 
-`PropertiesAdmin` provides three operations:
+An administrative client reads properties with `getProperty` and `getPropertiesForPrefix`, and updates them with
+`setProperties`. `setProperties` merges the properties it receives into the communicator's properties: it adds or
+changes each property that has a value, and removes each property whose value is empty. The other properties keep their
+values.
 
-- `getProperty` returns the value of a property, or an empty string when the property is not set.
-- `getPropertiesForPrefix` returns the properties whose names start with the given prefix; an empty prefix returns all
-  the properties.
-- `setProperties` merges the given properties into the communicator's properties: it adds or changes each property with
-  a value, and removes each property with an empty value. The other properties keep their values.
-
-`setProperties` applies the usual
-[property validation](../../../runtime/properties-and-configuration/properties-overview#property-validation) when
-adding, changing, or removing an entry. A rejected entry makes the call fail, and the entries applied before it stay in
-place. Set [Ice.Trace.Admin.Properties](../../../property-reference/ice-trace-properties#ice.trace.admin.properties) to
-trace the changes that `setProperties` makes.
+`setProperties` applies
+[property validation](../../../runtime/properties-and-configuration/properties-overview#property-validation) to each
+property it adds, changes or removes. The update is not all or nothing: when validation rejects a property, the
+properties that `setProperties` applied before it keep their new values. Set
+[Ice.Trace.Admin.Properties](../../../property-reference/ice-trace-properties#ice.trace.admin.properties) to trace the
+changes that `setProperties` makes.
 
 {% callout type="note" %}
 
@@ -31,15 +29,18 @@ the application reads them again or handles a property update callback.
 
 {% /callout %}
 
-{% language-section name="mapping" /%}
-
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-The callback receives the added and changed properties with their new values, and the removed properties with empty
-values. A successful `setProperties` call invokes the registered callbacks even when it changed nothing; the dictionary
-is then empty. Direct calls to `Properties.setProperty` do not invoke these callbacks.
+## Receiving Property Updates
+
+An application can register callbacks that the `Properties` facet calls after each successful `setProperties` call. A
+callback receives the added and changed properties with their new values, and the removed properties with empty values;
+the dictionary is empty when the call changed nothing. Direct calls to `Properties.setProperty` do not invoke these
+callbacks.
 
 {% /iflang %}
+
+{% language-section name="mapping" /%}
 
 ## See Also
 

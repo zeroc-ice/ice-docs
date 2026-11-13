@@ -1,8 +1,5 @@
 {% language-section name="mapping" %}
 
-## Receiving Property Updates
-
-An application can register callbacks that the `Properties` facet calls after each `setProperties` invocation.
 `findAdminFacet` returns a
 [NativePropertiesAdmin](https://code.zeroc.com/ice/3.8/api/python/Ice.NativePropertiesAdmin.html) wrapper that provides
 access to the update callbacks of this facet. `removeAdminFacet` returns `None` for this facet.

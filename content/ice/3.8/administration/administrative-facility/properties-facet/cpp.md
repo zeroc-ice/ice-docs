@@ -1,11 +1,8 @@
 {% language-section name="mapping" %}
 
-## Receiving Property Updates
-
-An application can register callbacks that the `Properties` facet calls after each `setProperties` invocation. The
-servant that implements this facet is a
-[NativePropertiesAdmin](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1NativePropertiesAdmin.html), which
-`findAdminFacet` returns:
+The servant that implements this facet is a
+[NativePropertiesAdmin](https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1NativePropertiesAdmin.html). You can retrieve
+this servant by calling `findAdminFacet`:
 
 ```cpp
 // It's nullptr when the facet is not enabled
