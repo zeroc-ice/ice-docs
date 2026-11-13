@@ -19,8 +19,9 @@ restrict which clients can reach the admin object and which facets it exposes.
 
 ## Restricting Access
 
-An `Ice.Admin.Endpoints` value that listens on the local host only restricts access to processes that run on the same
-host, and any of these processes can reach the admin object:
+Setting the [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) property to an endpoint that listens
+only on the local host restricts access to processes that run on the same host, and any of these processes can reach the
+admin object:
 
 ```config
 Ice.Admin.Endpoints=tcp -h 127.0.0.1
