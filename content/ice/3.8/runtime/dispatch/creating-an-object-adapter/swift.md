@@ -1,4 +1,4 @@
-{% language-section name="see-also-1" %}
+{% language-section name="create" %}
 
 ```swift
 let adapter = try communicator.createObjectAdapter("GreeterAdapter")
@@ -6,7 +6,7 @@ let adapter = try communicator.createObjectAdapter("GreeterAdapter")
 
 {% /language-section %}
 
-{% language-section name="see-also-2" %}
+{% language-section name="create-with-endpoints" %}
 
 ```swift
 let adapter = try communicator.createObjectAdapterWithEndpoints(

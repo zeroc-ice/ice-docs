@@ -1,4 +1,4 @@
-{% language-section name="see-also-1" %}
+{% language-section name="create" %}
 
 ```java
 ObjectAdapter adapter = communicator.createObjectAdapter("GreeterAdapter");
@@ -6,7 +6,7 @@ ObjectAdapter adapter = communicator.createObjectAdapter("GreeterAdapter");
 
 {% /language-section %}
 
-{% language-section name="see-also-2" %}
+{% language-section name="create-with-endpoints" %}
 
 ```java
 ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints(
