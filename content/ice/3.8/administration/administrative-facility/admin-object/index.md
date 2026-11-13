@@ -2,8 +2,8 @@
 title: The admin Object
 ---
 
-The `admin` object is an Ice object that lets clients inspect and control aspects of its communicator. Each capability
-is a separate [facet](../../../runtime/facets) of this object.
+The `admin` object of a communicator is an Ice object that clients use to administer this communicator remotely. Each
+administrative capability is a separate [facet](../../../runtime/facets) of this object.
 
 The Ice runtime provides four built-in facets:
 
@@ -16,7 +16,7 @@ The Ice runtime provides four built-in facets:
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
 
 An application can
-[choose which built-in facets the communicator enables](../filtering-administrative-facets){% iflang langs="cpp,csharp,java,python,swift" %}
+[choose which facets the communicator enables](../filtering-administrative-facets){% iflang langs="cpp,csharp,java,python,swift" %}
 and [add its own facets](../custom-administrative-facets){% /iflang %}.
 
 ## Hosting the admin Object
@@ -24,15 +24,14 @@ and [add its own facets](../custom-administrative-facets){% /iflang %}.
 When the administrative facility is enabled, Ice hosts the `admin` object in the built-in `Ice.Admin` object
 adapter{% iflang langs="cpp,csharp,java,python,swift" %}, or the application hosts it in one of its own object adapters
 by calling [`createAdmin`](api:Ice/Communicator.createAdmin){% /iflang %}.
-[Creating the admin Object](../creating-the-admin-object) describes the configuration.
+[Creating the admin Object](../creating-the-admin-object) describes how to enable the administrative facility and
+configure the `Ice.Admin` object adapter.
 
 {% /iflang %}
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-Call `getAdmin` on the [Communicator](api:Ice/Communicator) to obtain a proxy for the `admin` object. When
-[Ice.Admin.DelayCreation](../../../property-reference/ice-admin-properties#ice.admin.delaycreation) postpones the
-creation of the `admin` object in the `Ice.Admin` object adapter, the first call to `getAdmin` creates it.
+`getAdmin` on the [communicator](api:Ice/Communicator) returns a proxy for the `admin` object.
 [Using the admin Object](../using-the-admin-object) describes how to reach its facets.
 
 {% /iflang %}
