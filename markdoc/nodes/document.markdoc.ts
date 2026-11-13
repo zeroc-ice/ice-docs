@@ -38,6 +38,7 @@ const document = {
         breadcrumbs: chrome.breadcrumbs,
         pagination: chrome.pagination,
         edit: chrome.edit,
+        markdown: chrome.markdown,
         readingTime:
           frontmatter.showReadingTime !== false ? readingTime : undefined,
         languages: version.languages,

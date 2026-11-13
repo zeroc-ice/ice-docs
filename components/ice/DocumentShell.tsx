@@ -6,7 +6,11 @@ import { clsx } from 'clsx';
 
 import { PageTypeBadge } from '@/components/ice/PageTypeBadge';
 import { PageOutline } from '@/components/ice/PageOutline';
-import { PageActions, type EditLinks } from '@/components/ice/PageActions';
+import {
+  PageActions,
+  type EditLinks,
+  type MarkdownLinks
+} from '@/components/ice/PageActions';
 import type { PageType } from '@/lib/docs-model/nav';
 import { Callout } from '@/components/tags/callout';
 import { LanguageNotice } from '@/components/ice/LanguageNotice';
@@ -50,6 +54,7 @@ interface DocumentShellProps {
   breadcrumbs?: Crumb[];
   pagination: Pagination[];
   edit: EditLinks;
+  markdown: MarkdownLinks;
   showAside?: boolean;
   /** Body layout when the page is not ordinary prose, e.g. "wide". */
   shape?: string;
@@ -78,6 +83,7 @@ export const DocumentShell = ({
   breadcrumbs = [],
   pagination,
   edit,
+  markdown,
   showAside = true,
   shape
 }: DocumentShellProps) => {
@@ -250,7 +256,7 @@ export const DocumentShell = ({
             languages={languages}
             writtenFor={writtenFor}
           />
-          <PageActions edit={edit} />
+          <PageActions edit={edit} markdown={markdown} />
         </aside>
       )}
     </div>
