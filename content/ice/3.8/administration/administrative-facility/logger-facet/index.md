@@ -19,8 +19,8 @@ The `Logger` facet implements the [`Ice::LoggerAdmin`](api:Ice/LoggerAdminPrx) i
 - `messageTypes` selects the types of messages; an empty sequence selects all types.
 - `traceCategories` selects the categories of trace messages; an empty sequence selects all categories. Other message
   types pass this filter.
-- `messageMax` limits the number of cached messages, keeping the most recent ones; a negative value selects all the
-  cached messages that match the other filters, and `0` selects none.
+- `messageMax` is the maximum number of cached messages to select, starting with the most recent; a negative value
+  selects all the cached messages that match the other filters, and `0` selects none.
 
 ## Retrieving Recent Log Messages
 
@@ -42,13 +42,12 @@ auto logMessages = loggerAdmin->getLog(messageTypes, traceCategories, 10, prefix
 
 ## Attaching a Remote Logger
 
-A remote logger is an Ice object, typically implemented by the administrative client, that implements the
-[`Ice::RemoteLogger`](api:Ice/RemoteLogger) interface. Its `init` operation receives the prefix of the program's logger
-and the cached messages that match the filters, and its `log` operation receives each new message that matches the
-filters.{% iflang langs="swift" %} Swift maps the `init` operation to `initialize`.{% /iflang %}
+A remote logger is an Ice object with the [`Ice::RemoteLogger`](api:Ice/RemoteLogger) interface, typically provided by
+the administrative client. Its `init` operation receives the prefix of the program's logger and the cached messages that
+match the filters, and its `log` operation receives each new message that matches the filters.{% iflang langs="swift" %}
+Swift maps the `init` operation to `initialize`.{% /iflang %}
 
-`attachRemoteLogger` attaches a remote logger with its filters. `messageMax` limits only the messages that the facet
-passes to `init`, not the new messages that it sends to `log`. For example, the following C++ code attaches a remote
+`attachRemoteLogger` attaches a remote logger with its filters. For example, the following C++ code attaches a remote
 logger that receives every message, with the 10 most recent cached messages passed to `init`:
 
 ```cpp
@@ -72,9 +71,10 @@ a remote logger when a call to this remote logger fails.
 
 ## Configuring the `Logger` Facet
 
-[Ice.Admin.Logger.KeepLogs](../../../property-reference/ice-admin-properties#ice.admin.logger.keeplogs) and
-[Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties#ice.admin.logger.keeptraces) set how many
-messages other than trace messages, and how many trace messages, the `Logger` facet caches. Both default to `100`.
+[Ice.Admin.Logger.KeepLogs](../../../property-reference/ice-admin-properties#ice.admin.logger.keeplogs) sets the number
+of print, warning, and error messages that the `Logger` facet caches, and
+[Ice.Admin.Logger.KeepTraces](../../../property-reference/ice-admin-properties#ice.admin.logger.keeptraces) the number
+of trace messages. Both default to `100`.
 
 The `Logger` facet sends messages to remote loggers with a communicator of its own, which you configure with
 [Ice.Admin.Logger.Properties](../../../property-reference/ice-admin-properties#ice.admin.logger.properties), and not
