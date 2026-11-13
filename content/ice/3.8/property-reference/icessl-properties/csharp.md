@@ -101,15 +101,14 @@ An Ice program running as a Windows service will typically need to set this prop
 
 Specifies whether IceSSL checks the certificates of the peer's chain for revocation:
 
-| Value | Description                                                                                                               |
-| ----- | ------------------------------------------------------------------------------------------------------------------------- |
-| `0`   | Revocation checks are disabled (default).                                                                                 |
-| `1`   | Revocation checks are enabled. IceSSL accepts an intermediate CA certificate whose revocation status it cannot determine. |
-| `2`   | Revocation checks are enabled. IceSSL rejects an intermediate CA certificate whose revocation status it cannot determine. |
+| Value | Description                                                                     |
+| ----- | ------------------------------------------------------------------------------- |
+| `0`   | Revocation checks are disabled (default).                                       |
+| `1`   | Checks the revocation status of the peer's own certificate.                     |
+| `2`   | Checks the revocation status of the whole chain except the root CA certificate. |
 
-With `1` and `2`, IceSSL checks every certificate of the chain except the root CA certificate. IceSSL aborts the
-connection when it finds a revoked certificate, or when it cannot determine the revocation status of the peer's own
-certificate.
+IceSSL aborts the connection when it finds a revoked certificate, or when it cannot determine the revocation status of a
+certificate it checks.
 
 IceSSL cannot determine the revocation status of a certificate that carries no revocation information, or whose OCSP
 responder or CRL distribution point it cannot reach.
