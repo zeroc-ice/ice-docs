@@ -22,6 +22,7 @@ import { type VersionOption } from '@/components/ice/VersionSelect';
 import { HeaderControls } from '@/components/ice/HeaderControls';
 import { size as imageSize } from '@/components/ice/OpenGraphImage';
 import { SITE_URL } from '@/lib/site';
+import { markdownLanguages } from '@/lib/page-markdown';
 import {
   listPages,
   readApiLinks,
@@ -169,6 +170,15 @@ export async function DocsPage({
           Object.entries(current.overlays).map(([language, file]) => [
             language,
             editUrl(file)
+          ])
+        )
+      },
+      markdown: {
+        page: markdownHref(version, slug),
+        languages: Object.fromEntries(
+          markdownLanguages(version, current).map((language) => [
+            language,
+            markdownHref(version, slug, language)
           ])
         )
       },

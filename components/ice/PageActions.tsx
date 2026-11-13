@@ -1,8 +1,14 @@
 // Copyright (c) ZeroC, Inc.
 
-import { ReactNode } from 'react';
-import { MessageSquare, SquarePen, type LucideIcon } from 'lucide-react';
+import { Fragment, ReactNode } from 'react';
+import {
+  FileText,
+  MessageSquare,
+  SquarePen,
+  type LucideIcon
+} from 'lucide-react';
 
+import { CopyMarkdown } from '@/components/ice/CopyMarkdown';
 import { languageLabel } from '@/lib/docs-model/nav';
 
 export interface EditLinks {
@@ -12,16 +18,43 @@ export interface EditLinks {
   overlays: Record<string, string>;
 }
 
-// What a reader can do about the page: propose a fix on GitHub, or ask about
-// it. The text written for one language lives in that language's overlay, so a
-// page with overlays offers the reader's overlay beside its shared text.
-export function PageActions({ edit }: { edit: EditLinks }) {
+export interface MarkdownLinks {
+  /** The page as Markdown, for every mapping it is written for. */
+  page: string;
+  /** language -> the page as Markdown for that mapping; empty when its text is the same for every mapping. */
+  languages: Record<string, string>;
+}
+
+// What a reader can do about the page: take it as Markdown to an AI assistant,
+// propose a fix on GitHub, or ask about it. The text written for one language
+// lives in that language's overlay, so a page with overlays offers the reader's
+// overlay beside its shared text, and a page whose text differs by language
+// offers the reader's Markdown.
+export function PageActions({
+  edit,
+  markdown
+}: {
+  edit: EditLinks;
+  markdown: MarkdownLinks;
+}) {
+  const perLanguage = Object.entries(markdown.languages);
+  const copies: [string | undefined, string][] = perLanguage.length
+    ? perLanguage
+    : [[undefined, markdown.page]];
   return (
     <div className="shrink-0">
       <div className="mb-2 text-xs font-semibold tracking-wider text-ink-muted uppercase">
         Actions
       </div>
       <ul>
+        {copies.map(([language, href]) => (
+          <Fragment key={href}>
+            <CopyMarkdown langs={language} href={href} />
+            <Action langs={language} href={href} icon={FileText}>
+              View as Markdown
+            </Action>
+          </Fragment>
+        ))}
         {edit.shared && (
           <Action href={edit.shared} icon={SquarePen}>
             Edit this page
