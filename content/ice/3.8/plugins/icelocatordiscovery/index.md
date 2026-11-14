@@ -11,12 +11,12 @@ multicast. An application that installs it resolves its indirect proxies through
 IceGrid registries answer the plug-in's queries, so an application can use the plug-in to find an IceGrid deployment,
 including a [replicated deployment](../../services/icegrid/registry-replication).
 
-To locate objects and object adapters without deploying a locator, use [IceDiscovery](../icediscovery).
+IceLocatorDiscovery relies on a location service, such as IceGrid, that runs on your network. The
+[IceDiscovery](../icediscovery) plug-in provides a location service with no additional process to run.
 
 ## Installing IceLocatorDiscovery
 
-Install the plug-in in each communicator that should discover its locator. IceGrid nodes and slave registries can also
-use the plug-in to discover the registry.
+Install the plug-in in each communicator that discovers its default locator.
 
 {% language-section name="mapping" /%}
 
@@ -55,10 +55,24 @@ IceLocatorDiscovery.Port=8000
 
 See [IceLocatorDiscovery Properties](../../property-reference/icelocatordiscovery-properties) for the complete list.
 
-### Using IceLocatorDiscovery with IceGrid
+### IceGrid Registries and Administrative Tools
 
-An IceGrid node or a slave registry can use the plug-in to find the registry, in place of setting `Ice.Default.Locator`.
-Load the plug-in in its configuration file, and set
+IceGrid registries answer multicast discovery queries unless you set
+[IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties#icegrid.registry.discovery.enabled) to
+`0`, and
+[IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
+restricts a registry to one network interface.
+
+The [command-line](../../services/icegrid/icegridadmin-command-line-tool) and
+[graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative tools discover the registries on the network
+and let you choose one. They read `IceLocatorDiscovery.Address`, `IceLocatorDiscovery.Port` and
+`IceLocatorDiscovery.Interface` for their multicast settings.
+
+### IceGrid Nodes and Slave Registries
+
+You can also use the plug-in inside an IceGrid deployment, to simplify the configuration of its nodes and slave
+registries: a node discovers its registry, and a slave registry discovers the master registry, without
+`Ice.Default.Locator`. Install the plug-in in the configuration file of the node or slave registry, and set
 [IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
 to the instance name of the deployment:
 
@@ -66,21 +80,6 @@ to the instance name of the deployment:
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
 IceLocatorDiscovery.InstanceName=IceGrid
 ```
-
-The master registry does not need the plug-in. IceGrid registries answer multicast discovery queries unless you set
-[IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties#icegrid.registry.discovery.enabled) to
-`0`. If you change the multicast address or port of the plug-in, set the same values in each registry with
-[IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties#icegrid.registry.discovery.address) and
-[IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties#icegrid.registry.discovery.port);
-[IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
-restricts a registry to one network interface.
-
-The [command-line](../../services/icegrid/icegridadmin-command-line-tool) and
-[graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative tools don't need the plug-in: they discover
-the registries on the network themselves and let you choose one. They read `IceLocatorDiscovery.Address`,
-`IceLocatorDiscovery.Port` and `IceLocatorDiscovery.Interface` for their multicast settings. `icegridadmin` discovers
-registries when you set neither a locator, a router nor a registry host, and its `--instanceName` option selects the
-deployment.
 
 ## See Also
 
