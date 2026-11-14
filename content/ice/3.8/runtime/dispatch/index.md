@@ -16,29 +16,29 @@ pages:
   - active-servant-map
   - default-servants
   - middleware
-  - using-multiple-object-adapters
 ---
 
-A _dispatch_ is the processing of a request on the server side: Ice runs the code that implements the operation, and,
-for a twoway request, returns the response to the caller.
-
-An _object adapter_ is the entry point for dispatches.
+A _dispatch_ is the server-side processing of a request.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-An object adapter accepts the connections that clients establish to its [endpoints](./object-adapter-endpoints), and
-dispatches the requests it receives over these connections, from
-[collocated invocations](../collocated-invocation-and-dispatch), and over the
-[bidirectional connections](../connection-management/bidirectional-connections) associated with it.
+In Ice, only an _object adapter_ can accept connections and dispatch requests. An object adapter dispatches the requests
+it receives from:
+
+- The connections that it accepts on its [endpoints](./object-adapter-endpoints).
+- [Collocated invocations](../collocated-invocation-and-dispatch), which use no connection.
+- [Bidirectional connections](../connection-management/bidirectional-connections), the outgoing connections associated
+  with it. Create an object adapter without endpoints for this purpose.
 
 {% /iflang %}
 
 {% iflang langs="js" %}
 
-An object adapter dispatches the requests it receives over the
+An _object adapter_ dispatches the requests it receives over the
 [bidirectional connections](../connection-management/bidirectional-connections) associated with it.
 
 {% /iflang %}
 
-Each object adapter belongs to a communicator, which can have several object adapters, and has a name. A non-empty name
-is unique within this communicator.
+A communicator can have several object adapters. The name of an object adapter is the prefix of the
+[properties](../../property-reference/object-adapter-properties) that configure it, so choose a name that is easy to
+type. A non-empty name is unique within its communicator.
