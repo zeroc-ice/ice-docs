@@ -368,6 +368,14 @@ Ice/RequestFailedException:
   python: https://code.zeroc.com/ice/3.8/api/python/Ice.RequestFailedException.html
   ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/RequestFailedException.html
   swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/requestfailedexception
+Ice/RouterPrx.getServerProxy:
+  cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1RouterPrx_a3451999fdc3e688a4b6a46f49de17dd8.html#a3451999fdc3e688a4b6a46f49de17dd8
+  csharp: https://code.zeroc.com/ice/3.8/api/csharp/api/Ice.RouterPrx.html#Ice_RouterPrx_getServerProxy_
+  java: https://code.zeroc.com/ice/3.8/api/java/com.zeroc.ice/com/zeroc/Ice/RouterPrx.html#getServerProxy()
+  js: https://code.zeroc.com/ice/3.8/api/javascript/Ice/RouterPrx.html#getserverproxy
+  python: https://code.zeroc.com/ice/3.8/api/python/Ice.RouterPrx.html#Ice.RouterPrx.getServerProxy
+  ruby: https://code.zeroc.com/ice/3.8/api/ruby/Ice/RouterPrx_mixin.html#getServerProxy-instance_method
+  swift: https://code.zeroc.com/ice/3.8/api/swift/documentation/ice/routerprx/getserverproxy(context:)
 Ice/Service:
   cpp: https://code.zeroc.com/ice/3.8/api/cpp/classIce_1_1Service.html
 Ice/SlicedData:
