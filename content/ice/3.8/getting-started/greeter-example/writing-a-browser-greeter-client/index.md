@@ -34,7 +34,7 @@ export default defineConfig({
 });
 ```
 
-See [Using the Slice Compiler](../../slice/using-the-slice-compiler) for the plug-ins and the `slice2js` options.
+See [Using the Slice Compiler](../../../slice/using-the-slice-compiler) for the plug-ins and the `slice2js` options.
 
 ## Client Implementation
 
@@ -115,4 +115,4 @@ server: `Hello, React!`.
 ## See Also
 
 - [Writing a Greeter Client](../writing-a-greeter-client)
-- [Transports](../../runtime/transports)
+- [Transports](../../../runtime/transports)

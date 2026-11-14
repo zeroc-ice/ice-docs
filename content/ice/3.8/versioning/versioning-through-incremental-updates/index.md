@@ -11,10 +11,10 @@ You can safely update your Slice definitions using the techniques described on t
 
 ## Adding Operations and Types
 
-Suppose that we’ve already deployed our [Greeter](../../greeter-example) application (version 1) and want to add extra
-functionality to a new version (version 2). Specifically, let’s say we want to add a new greeting that depends on the
-time of day. How can we upgrade the existing application with this new functionality? Let’s start by looking at the
-original:
+Suppose that we’ve already deployed our [Greeter](../../getting-started/greeter-example) application (version 1) and
+want to add extra functionality to a new version (version 2). Specifically, let’s say we want to add a new greeting that
+depends on the time of day. How can we upgrade the existing application with this new functionality? Let’s start by
+looking at the original:
 
 ```slice
 // Version 1
