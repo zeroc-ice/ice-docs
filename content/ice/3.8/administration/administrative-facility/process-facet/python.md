@@ -2,8 +2,10 @@
 
 ```py
 # MyProcess implements Ice.Process
+myProcessFacet = MyProcess(...)
+
 communicator.removeAdminFacet("Process")
-communicator.addAdminFacet(MyProcess(communicator), "Process")
+communicator.addAdminFacet(myProcessFacet, "Process")
 communicator.getAdmin()
 ```
 

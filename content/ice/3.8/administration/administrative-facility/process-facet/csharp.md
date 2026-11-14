@@ -2,8 +2,10 @@
 
 ```csharp
 // MyProcess implements Ice.Process
+var myProcessFacet = new MyProcess(...);
+
 communicator.removeAdminFacet("Process");
-communicator.addAdminFacet(new MyProcess(communicator), "Process");
+communicator.addAdminFacet(myProcessFacet, "Process");
 communicator.getAdmin();
 ```
 

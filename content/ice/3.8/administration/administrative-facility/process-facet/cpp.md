@@ -2,8 +2,10 @@
 
 ```cpp
 // MyProcess implements Ice::Process
+auto myProcessFacet = std::make_shared<MyProcess>(...);
+
 communicator->removeAdminFacet("Process");
-communicator->addAdminFacet(std::make_shared<MyProcess>(communicator), "Process");
+communicator->addAdminFacet(myProcessFacet, "Process");
 communicator->getAdmin();
 ```
 

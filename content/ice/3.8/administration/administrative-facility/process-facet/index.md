@@ -4,9 +4,8 @@ sidebarLabel: Process Facet
 ---
 
 The `Process` facet lets an activation service, such as an [IceGrid](../../../services/icegrid) node, request a graceful
-shutdown of a server.{% iflang langs="cpp,csharp,java,python,swift" %} The server registers a proxy for this facet with
-the activation service by calling `setServerProcessProxy` on the [locator registry](../../../runtime/locators), as
-described in
+shutdown of a server.{% iflang langs="cpp,csharp,java,python,swift" %} The communicator can register a proxy for this
+facet with the activation service, as described in
 [Integrating the Process Facet with an Activation Service](#integrating-the-process-facet-with-an-activation-service).{% /iflang %}
 
 {% iflang langs="cpp,csharp,java,matlab,php,python,ruby,swift" %}
@@ -32,9 +31,9 @@ The `Process` facet implements the [`Ice::Process`](api:Ice/ProcessPrx) interfac
 
 ## Graceful Shutdown
 
-The default `Process` facet calls `shutdown` on the [communicator](../../../runtime/communicator), and the application
-uses this as the signal to terminate. Typically a thread, often the main thread, calls `waitForShutdown` on the
-communicator, which returns once the communicator is shut down; this thread then cleans up and exits the program.
+The default `Process` facet calls `shutdown` on the [communicator](../../../runtime/communicator). This shuts down the
+server through a convention that Ice servers follow: the shutdown of the communicator is the signal to exit. The main
+thread of the server waits for this shutdown, for example by calling `waitForShutdown`, then cleans up and exits.
 
 ## Replacing the Process Facet
 
@@ -50,9 +49,6 @@ Then remove the default facet, add your own, and call `getAdmin` to create the a
 
 {% language-section name="mapping" /%}
 
-A servant must not call `destroy` on its communicator while dispatching a request: `destroy` waits for all outstanding
-dispatches to complete, including the one that calls it, so this dispatch deadlocks.
-
 ## Integrating the Process Facet with an Activation Service
 
 If [Ice.Admin.ServerId](../../../property-reference/ice-admin-properties#ice.admin.serverid) is set and the communicator
@@ -61,17 +57,15 @@ creating the admin object, by calling `setServerProcessProxy` with the value of 
 uniquely identify the process within the locator registry.
 
 [IceGrid](../../../services/icegrid) sets `Ice.Admin.ServerId` and `Ice.Default.Locator` for each server that it
-deploys, and sets [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) unless the server sets this
-property or `Ice.Admin.Enabled`.
+deploys. It also sets [Ice.Admin.Endpoints](../../../property-reference/ice-admin-properties) to `tcp -h 127.0.0.1`,
+unless the descriptor of the server defines this property or `Ice.Admin.Enabled`, with any value.
 
 {% /iflang %}
 
 ## See Also
 
 - [Communicator](../../../runtime/communicator)
-- [Versioning](../../../versioning)
 - [Securing the admin Object](../security-considerations-for-administrative-facets)
-- [Object Adapters](../../../runtime/dispatch)
 - [Creating the admin Object](../creating-the-admin-object)
 - [Using the admin Object](../using-the-admin-object)
 - [Ice.Admin.*](../../../property-reference/ice-admin-properties)
