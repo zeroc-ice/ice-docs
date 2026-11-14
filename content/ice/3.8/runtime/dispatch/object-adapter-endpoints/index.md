@@ -20,36 +20,38 @@ adapter does not listen for connections, so it has no physical endpoints.
 
 An object adapter has two sets of [endpoints](../../endpoint-syntax):
 
-- its _physical endpoints_, on which it listens for connections;
-- its _published endpoints_, which it embeds in the direct proxies it creates and, when it has an adapter ID and a
-  locator, registers with the [locator registry](../../locators/locator-semantics-for-servers) when you activate it.
+- Its _physical endpoints_ are the endpoints on which it listens for connections.
+- Its _published endpoints_ are the endpoints it embeds in the direct proxies it creates.
 
 ## Physical Object Adapter Endpoints
 
-The [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) property sets the
-physical endpoints of an object adapter, and so does `createObjectAdapterWithEndpoints` when you
-[create the object adapter](../creating-an-object-adapter).
+You configure the endpoints on which an object adapter listens when you [create it](../creating-an-object-adapter), in
+one of two ways:
 
-The host of an endpoint selects the network interfaces on which the object adapter listens:
+- Set the [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) property and call
+  `createObjectAdapter`.
+- Pass the endpoints to `createObjectAdapterWithEndpoints`.
 
-- with a host name or IP address, the object adapter listens on the address or addresses of this host, which must be
-  local;
-- with `*`, it listens on all network interfaces, including the loopback interface;
-- without a host, it uses the host set by
-  [Ice.Default.Host](../../../property-reference/ice-default-properties#ice.default.host), or listens on all network
-  interfaces when this property is not set.
-
-For example, the object adapter `MyAdapter` configured as follows listens on the network interface with address
-`10.0.1.1` only, and not on the loopback interface:
+An [endpoint](../../endpoint-syntax) consists of a transport, usually followed by a host and a port. For example, the
+following object adapter listens for TCP connections on host `10.0.1.1` and port `9999`:
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 ```
 
-Without a port, the operating system picks a port each time you create the object adapter, and the direct proxies that
-clients kept from a previous run may no longer reach it. Give the endpoints a fixed port, unless clients reach the
-object adapter through indirect proxies, such as with [IceGrid](../../../services/icegrid), or use its proxies only
-while the server runs.
+The `-h` option selects the network interfaces on which the object adapter listens:
+
+- With a host name or IP address, the object adapter listens on the address or addresses of this host, which must be
+  local.
+- With `*`, it listens on all network interfaces, including the loopback interface.
+- Without `-h`, it uses the host set by
+  [Ice.Default.Host](../../../property-reference/ice-default-properties#ice.default.host), or listens on all network
+  interfaces when this property is not set.
+
+The `-p` option sets the port. Without `-p`, the operating system picks a port each time you create the object adapter,
+so a direct proxy that a client kept from a previous run may no longer reach it. Give each endpoint a fixed port when
+clients keep direct proxies across server restarts. An object adapter that clients reach through indirect proxies, such
+as with [IceGrid](../../../services/icegrid), does not need a fixed port.
 
 {% /iflang %}
 
@@ -65,35 +67,50 @@ endpoints when this property is not set.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-An object adapter that is not configured with a router publishes the endpoints set by
-[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints). When
-this property is not set, it derives its published endpoints from its physical endpoints:
+An object adapter embeds its published endpoints in the direct proxies it creates, and a client that receives such a
+proxy connects to these endpoints.
+
+By default, the object adapter derives its published endpoints from its physical endpoints:
 
 1. It discards the loopback and multicast endpoints, unless all the endpoints are loopback or multicast.
-2. It replaces the host of each endpoint with the value of
-   [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost). When this
-   property is not set, it uses the host name of the current host, unless all the endpoints are loopback or multicast:
-   then it keeps their hosts.{% iflang langs="java" %} On Android, Ice cannot determine the host name: set
-   `adapter.PublishedHost` when clients use the proxies this object adapter creates.{% /iflang %}
+2. It replaces the host in each remaining endpoint with the host name of the current host. When all the endpoints are
+   loopback or multicast, it keeps their hosts.
 3. It removes duplicate endpoints.
 
-For example, the following object adapter publishes `tcp -h Sun1 -p 9999` on host `Sun1`:
+{% iflang langs="java" %}
+
+{% callout type="note" %}
+
+On Android, Ice cannot determine the host name, so set `adapter.PublishedHost` when clients use the proxies this object
+adapter creates.
+
+{% /callout %}
+
+{% /iflang %}
+
+For example, on host `Sun1`, the following object adapter has the published endpoint `tcp -h Sun1 -p 9999`:
 
 ```config
 MyAdapter.Endpoints=tcp -p 9999
 ```
 
-Set `adapter.PublishedHost` to publish another host name, or `adapter.PublishedEndpoints` when clients reach the object
-adapter through another host or port, such as through a firewall that forwards connections to `corpfw` on port `25000`
-to the object adapter:
+Two properties change the published endpoints:
+
+- [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost) sets the host
+  that step 2 puts in each endpoint, including when all the endpoints are loopback or multicast.
+- [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) sets
+  the published endpoints directly, and the object adapter skips the steps above.
+
+Set `adapter.PublishedEndpoints` when clients reach the object adapter through another host and port. For example, with
+a firewall that forwards connections on port `25000` of host `corpfw` to the object adapter:
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h corpfw -p 25000
 ```
 
-Replicated servers can also publish the endpoints of all the replicas, so that the proxies each one creates spread the
-load over all of them. For example, the server on host `Sun1` and the server on host `Sun2` both publish:
+Replicated servers can also set the same published endpoints, so that the proxies each replica creates spread the load
+over all the replicas. For example, the servers on hosts `Sun1` and `Sun2` both set:
 
 ```config
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
@@ -103,8 +120,8 @@ MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 
 ## A Router's Effect on Object Adapter Endpoints
 
-An object adapter configured with a router publishes the endpoints of the router's server proxy, and you can't set other
-published endpoints. See [Routers](../../invocation/routers).
+When an object adapter is configured with a router, its published endpoints are the endpoints of the router's server
+proxy, and you can't set other published endpoints. See [Routers](../../invocation/routers).
 
 ## See Also
 

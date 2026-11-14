@@ -238,8 +238,12 @@ The published host is used by the algorithm that computes the published endpoint
 [Published Object Adapter Endpoints](../../runtime/dispatch/object-adapter-endpoints). This property is particularly
 useful when the object adapter endpoints do not specify port numbers.
 
-On Android, Ice cannot determine the host name: set `adapter.PublishedHost` when clients use the proxies this object
+{% callout type="note" %}
+
+On Android, Ice cannot determine the host name, so set `adapter.PublishedHost` when clients use the proxies this object
 adapter creates.
+
+{% /callout %}
 
 {% /property-description %}
 
