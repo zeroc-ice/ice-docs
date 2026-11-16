@@ -27,7 +27,7 @@ To accept Bluetooth connections, configure an [object adapter](../../runtime/dis
 GreeterAdapter.Endpoints=bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 --name "Greeter Service"
 ```
 
-IceBT registers this endpoint as a service with the Service Discovery Protocol (SDP) server of the server's device: the
+IceBT registers this endpoint as a service with the Service Discovery Protocol (SDP) server of the local device: the
 service has the endpoint's UUID and name, and the RFCOMM channel on which the object adapter listens. Generate your own
 UUID for each service and use the same UUID in your clients' proxies.
 [Bluetooth Endpoint Syntax](../../runtime/endpoint-syntax#bluetooth-endpoint-syntax) describes all the options.
@@ -42,9 +42,9 @@ greeter:bt -u 4f140cef-d75e-4c93-b4e4-20ac111d36d1 -a "01:23:45:67:89:AB"
 
 {% language-section name="using-icebt-1" /%}
 
-IceBT queries the SDP server of this device for the UUID, and connects to the RFCOMM channel it returns. Enclose the
-address in double quotes: stringified proxies use the colon (`:`) as a separator. You can omit the `-a` option when you
-set [Ice.Default.Host](../../property-reference/ice-default-properties#ice.default.host).
+IceBT queries the SDP server of the device at the specified address for the UUID, and connects to the RFCOMM channel it
+returns. The address contains colons, so enclose it in double quotes: a colon outside double quotes separates two
+endpoints.
 
 ### Discovering Devices
 
@@ -67,8 +67,7 @@ to open several connections to the same endpoint cannot do so with Bluetooth.
 
 ## Security Notes for IceBT
 
-The operating system manages Bluetooth pairing. IceBT uses the platform's Bluetooth connection APIs; applications manage
-pairing through the operating system's facilities.
+The operating system manages Bluetooth pairing: applications pair devices through its facilities.
 
 On Android, IceBT uses the secure RFCOMM APIs. Android can prompt the user to complete pairing while establishing a
 connection. See
