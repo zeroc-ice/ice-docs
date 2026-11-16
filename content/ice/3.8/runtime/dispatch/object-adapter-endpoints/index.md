@@ -42,7 +42,10 @@ The `-h` option selects the network interfaces on which the object adapter liste
 
 - With an IP address, the object adapter listens only on the network interface with this address: with `-h 10.0.1.1`, it
   does not listen on the loopback interface.
-- With `*`, or without `-h`, it listens on all network interfaces, including the loopback interface.
+- With `*`, it listens on all network interfaces, including the loopback interface.
+- Without `-h`, it uses the host set by the
+  [Ice.Default.Host](../../../property-reference/ice-default-properties#ice.default.host) property, or listens on all
+  network interfaces when this property is not set.
 
 Specify an IP address, not a DNS name. See [IP Address Syntax](../../endpoint-syntax#ip-address-syntax) for the details
 of the `-h` option.
