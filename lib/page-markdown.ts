@@ -192,6 +192,24 @@ function markdownText(
   return head + notice + body;
 }
 
+/**
+ * The mappings with a Markdown copy of their own of a page, at
+ * `<page>/<language>.md`: none when its text is the same for every mapping.
+ */
+export function markdownLanguages(
+  version: DocsVersion,
+  page: PageFiles
+): string[] {
+  const pageIndex = buildPageIndex(listPages(version).map((p) => p.slug));
+  const { languages, varies } = assemble(
+    version,
+    page,
+    pageIndex,
+    readApiLinks(version)
+  );
+  return varies ? languages : [];
+}
+
 /** The route's params: every page, and, for a page whose text differs by mapping, each of its mappings. */
 export function pageMarkdownParams(version: DocsVersion) {
   return [...assembleAll(version).values()].flatMap(
