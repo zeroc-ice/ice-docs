@@ -11,8 +11,8 @@ languages:
 
 ## Activation
 
-A new object adapter does not read requests from the connections that clients establish to its endpoints. You typically
-add servants to the [active servant map](../active-servant-map) first, and then call
+A newly created object adapter does not read requests from the connections that clients establish to its endpoints. You
+typically add servants to the [active servant map](../active-servant-map) first, and then call
 [`activate`](api:Ice/ObjectAdapter.activate) to make the object adapter read and dispatch these requests.
 
 Activation concerns only the connections that the object adapter accepts. An object adapter dispatches the requests it

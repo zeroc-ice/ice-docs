@@ -13,27 +13,25 @@ You create an object adapter by calling `createObjectAdapter` on a communicator:
 
 {% language-section name="create" /%}
 
-The object adapter reads its configuration from the [properties](../../../property-reference/object-adapter-properties)
-prefixed with its name, including:
-
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-- [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints), the
-  [endpoints](../object-adapter-endpoints) on which the object adapter listens;
-- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router), the proxy of a
-  [router](../../invocation/routers).
+An object adapter with a non-empty name reads its configuration from the
+[properties](../../../property-reference/object-adapter-properties) prefixed with this name, such as
+[_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints), the
+[endpoints](../object-adapter-endpoints) on which it listens. It requires at least one of these properties. An object
+adapter with an empty name reads no properties.
 
 {% /iflang %}
 
 {% iflang langs="js" %}
 
-- [_name_.Router](../../../property-reference/object-adapter-properties#adapter.router), the proxy of a
-  [router](../../invocation/routers).
+An object adapter with a non-empty name reads its configuration from the
+[properties](../../../property-reference/object-adapter-properties) prefixed with this name, such as
+[_name_.Router](../../../property-reference/object-adapter-properties#adapter.router), the proxy of a
+[router](../../invocation/routers). It requires at least one of these properties. An object adapter with an empty name
+reads no properties.
 
 {% /iflang %}
-
-When you call `createObjectAdapter` with a non-empty name, set at least one property prefixed with this name. With an
-empty name, the object adapter reads no properties.
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 

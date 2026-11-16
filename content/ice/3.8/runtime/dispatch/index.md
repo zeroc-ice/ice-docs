@@ -27,15 +27,16 @@ it receives from:
 
 - The connections that it accepts on its [endpoints](./object-adapter-endpoints).
 - [Collocated invocations](../collocated-invocation-and-dispatch), which use no connection.
-- [Bidirectional connections](../connection-management/bidirectional-connections), the outgoing connections associated
-  with it. Create an object adapter without endpoints for this purpose.
+- [Bidirectional connections](../connection-management/bidirectional-connections): outgoing connections that you
+  associate with this object adapter. Create an object adapter without endpoints for this purpose.
 
 {% /iflang %}
 
 {% iflang langs="js" %}
 
-An _object adapter_ dispatches the requests it receives over the
-[bidirectional connections](../connection-management/bidirectional-connections) associated with it.
+An _object adapter_ dispatches the requests it receives over
+[bidirectional connections](../connection-management/bidirectional-connections): outgoing connections that you associate
+with this object adapter.
 
 {% /iflang %}
 
