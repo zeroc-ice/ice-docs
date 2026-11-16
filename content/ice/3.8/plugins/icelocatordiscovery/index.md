@@ -4,18 +4,19 @@ title: IceLocatorDiscovery
 
 ## IceLocatorDiscovery Overview
 
-IceLocatorDiscovery discovers an IceGrid [locator](../../runtime/locators) (registry) using UDP multicast. It installs a
-locator in the communicator. This locator discovers the IceGrid registry when the application first resolves an indirect
-proxy, and forwards locator requests to it.
+IceLocatorDiscovery is an Ice plug-in that discovers a [locator](../../runtime/locators) on the local network with UDP
+multicast. An application that installs it resolves its indirect proxies through the discovered locator, without setting
+`Ice.Default.Locator`.
 
-This lets clients locate an IceGrid deployment without configuring its registry endpoints, including a
-[replicated deployment](../../services/icegrid/registry-replication). IceLocatorDiscovery discovers locators;
-[IceDiscovery](../icediscovery) provides a location service for objects and object adapters directly.
+IceGrid registries answer the plug-in's queries, so an application can use the plug-in to find an IceGrid deployment,
+including a [replicated deployment](../../services/icegrid/registry-replication).
+
+IceLocatorDiscovery relies on a location service, such as IceGrid, that runs on your network. The
+[IceDiscovery](../icediscovery) plug-in provides a location service with no additional process to run.
 
 ## Installing IceLocatorDiscovery
 
-Install the plug-in in each communicator that should discover its locator. IceGrid nodes and slave registries can also
-use the plug-in to discover the registry.
+Install the plug-in in each communicator that discovers its default locator.
 
 {% language-section name="mapping" /%}
 
@@ -24,8 +25,9 @@ use the plug-in to discover the registry.
 Applications configure IceLocatorDiscovery with properties. Do not set `Ice.Default.Locator` in an application that
 installs the plug-in.
 
-A server deployed with IceGrid does not need to install the plug-in: the IceGrid node that starts this server provides
-its locator configuration.
+The IceGrid node that starts a server configures its locator: the node sets `Ice.Default.Locator` or, when the node
+itself uses IceLocatorDiscovery, installs the plug-in in the server. Do not install the plug-in in the descriptor of a
+deployed server.
 
 ### IceLocatorDiscovery Property Overview
 
@@ -54,60 +56,26 @@ IceLocatorDiscovery.Port=8000
 
 See [IceLocatorDiscovery Properties](../../property-reference/icelocatordiscovery-properties) for the complete list.
 
-### Configuring IceLocatorDiscovery in IceGrid Administrative Clients
+### IceGrid Registries and Administrative Tools
 
-Support for multicast discovery is built into the [command-line](../../services/icegrid/icegridadmin-command-line-tool)
-and [graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative utilities, therefore you don't need to
-install the plug-in. Both utilities read the same
-[IceLocatorDiscovery.*](../../property-reference/icelocatordiscovery-properties) properties as the plug-in, for example
-to change the multicast address and port.
-
-### Configuring IceLocatorDiscovery in an IceGrid Registry
-
-A slave registry can use the plug-in to find the master registry, in place of setting `Ice.Default.Locator`. Load the
-plug-in in the slave registry's configuration file, and set
-[IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
-or [IceGrid.InstanceName](../../property-reference/icegrid-properties#icegrid.instancename) to the instance name of the
-deployment:
-
-```config
-Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
-IceLocatorDiscovery.InstanceName=IceGrid
-```
-
-The master registry does not need the plug-in.
-
-IceGrid registries listen for multicast discovery queries by default, but you can disable this feature by setting
+IceGrid registries answer multicast discovery queries unless you set
 [IceGrid.Registry.Discovery.Enabled](../../property-reference/icegrid-properties#icegrid.registry.discovery.enabled) to
-`0`.
+`0`, and
+[IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
+restricts a registry to one network interface.
 
-If you've changed the default multicast address or port for IceLocatorDiscovery, you must also make corresponding
-changes to the configuration of each registry. The registry supports properties similar to those of IceLocatorDiscovery:
+The [command-line](../../services/icegrid/icegridadmin-command-line-tool) and
+[graphical](../../services/icegrid/icegrid-gui-tool) IceGrid administrative tools discover the registries on the network
+and let you choose one. They read `IceLocatorDiscovery.Address`, `IceLocatorDiscovery.Port` and
+`IceLocatorDiscovery.Interface` for their multicast settings.
 
-- [IceGrid.Registry.Discovery.Address](../../property-reference/icegrid-properties#icegrid.registry.discovery.address)
-- [IceGrid.Registry.Discovery.Port](../../property-reference/icegrid-properties#icegrid.registry.discovery.port)
-- [IceGrid.Registry.Discovery.Interface](../../property-reference/icegrid-properties#icegrid.registry.discovery.interface)
+### IceGrid Nodes and Slave Registries
 
-These properties influence the endpoint on which the registry listens for multicast discovery queries. If you don't
-override the endpoint by setting [IceGrid.Registry.Discovery.Endpoints](../../property-reference/icegrid-properties),
-the registry uses these properties to compute its endpoint as follows:
-
-`IceGrid.Registry.Discovery.Endpoints=udp -h address -p port [--interface interface]`
-
-{% callout type="warning" %}
-
-You don't need to define any `IceGrid.Registry.Discovery.*` properties if you want the registry to listen for discovery
-queries on its default multicast address and port.
-
-{% /callout %}
-
-### Configuring IceLocatorDiscovery in an IceGrid Node
-
-An IceGrid node can use the plug-in to find its registries, in place of setting `Ice.Default.Locator`. Load the plug-in
-in the node's configuration file, and set
+You can also use the plug-in inside an IceGrid deployment, to simplify the configuration of its nodes and slave
+registries: a node discovers its registry, and a slave registry discovers the master registry, without
+`Ice.Default.Locator`. Install the plug-in in the configuration file of the node or slave registry, and set
 [IceLocatorDiscovery.InstanceName](../../property-reference/icelocatordiscovery-properties#icelocatordiscovery.instancename)
-or [IceGrid.InstanceName](../../property-reference/icegrid-properties#icegrid.instancename) to the instance name of the
-deployment:
+to the instance name of the deployment:
 
 ```config
 Ice.Plugin.IceLocatorDiscovery=IceLocatorDiscovery:createIceLocatorDiscovery
