@@ -11,8 +11,8 @@ languages:
 
 {% iflang langs="js" %}
 
-An object adapter embeds its _published endpoints_ in the direct proxies it creates. In Ice for JavaScript, an object
-adapter does not listen for connections, so it has no physical endpoints.
+An object adapter does not listen for connections. Its _published endpoints_ are the endpoints it embeds in the direct
+proxies it creates.
 
 {% /iflang %}
 
@@ -21,19 +21,18 @@ adapter does not listen for connections, so it has no physical endpoints.
 An object adapter has two sets of [endpoints](../../endpoint-syntax):
 
 - Its _physical endpoints_ are the endpoints on which it listens for connections.
-- Its _published endpoints_ are the endpoints it embeds in the direct proxies it creates.
+- Its _published endpoints_ are the endpoints it embeds in the direct proxies it creates, and the endpoints it registers
+  with the [location service](../../locators/locator-semantics-for-servers) when it has an adapter ID.
 
 ## Physical Object Adapter Endpoints
 
-You configure the endpoints on which an object adapter listens when you [create it](../creating-an-object-adapter), in
-one of two ways:
-
-- Set the [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) property and call
-  `createObjectAdapter`.
-- Pass the endpoints to `createObjectAdapterWithEndpoints`.
+You specify the endpoints on which an object adapter listens when you [create it](../creating-an-object-adapter): with
+the [_name_.Endpoints](../../../property-reference/object-adapter-properties#adapter.endpoints) property for
+`createObjectAdapter`, or as an argument of `createObjectAdapterWithEndpoints`. We recommend a single endpoint, despite
+the plural in these names: several endpoints provide no real benefit.
 
 An [endpoint](../../endpoint-syntax) consists of a transport, usually followed by a host and a port. For example, the
-following object adapter listens for TCP connections on host `10.0.1.1` and port `9999`:
+following object adapter listens for TCP connections on address `10.0.1.1` and port `9999`:
 
 ```config
 MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
@@ -41,17 +40,17 @@ MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 
 The `-h` option selects the network interfaces on which the object adapter listens:
 
-- With a host name or IP address, the object adapter listens on the address or addresses of this host, which must be
-  local.
-- With `*`, it listens on all network interfaces, including the loopback interface.
-- Without `-h`, it uses the host set by
-  [Ice.Default.Host](../../../property-reference/ice-default-properties#ice.default.host), or listens on all network
-  interfaces when this property is not set.
+- With an IP address, the object adapter listens only on the network interface with this address: with `-h 10.0.1.1`, it
+  does not listen on the loopback interface.
+- With `*`, or without `-h`, it listens on all network interfaces, including the loopback interface.
+
+Specify an IP address, not a DNS name. See [IP Address Syntax](../../endpoint-syntax#ip-address-syntax) for the details
+of the `-h` option.
 
 The `-p` option sets the port. Without `-p`, the operating system picks a port each time you create the object adapter,
-so a direct proxy that a client kept from a previous run may no longer reach it. Give each endpoint a fixed port when
-clients keep direct proxies across server restarts. An object adapter that clients reach through indirect proxies, such
-as with [IceGrid](../../../services/icegrid), does not need a fixed port.
+so a direct proxy that a client kept from a previous run may no longer reach it. Set a fixed port when clients reach the
+object adapter with direct proxies. With indirect proxies, such as with [IceGrid](../../../services/icegrid), you can
+let the operating system pick the port.
 
 {% /iflang %}
 
@@ -59,23 +58,26 @@ as with [IceGrid](../../../services/icegrid), does not need a fixed port.
 
 {% iflang langs="js" %}
 
-An object adapter that is not configured with a router publishes the [endpoints](../../endpoint-syntax) set by
-[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints), and no
-endpoints when this property is not set.
+An object adapter gets its published endpoints from its
+[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) property.
+When this property is not set, the object adapter has no published endpoints.
 
 {% /iflang %}
 
 {% iflang langs="cpp,csharp,java,python,swift" %}
 
-An object adapter embeds its published endpoints in the direct proxies it creates, and a client that receives such a
-proxy connects to these endpoints.
-
-By default, the object adapter derives its published endpoints from its physical endpoints:
+An object adapter gets its published endpoints from its
+[adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) property.
+When this property is not set, the object adapter derives its published endpoints from its physical endpoints:
 
 1. It discards the loopback and multicast endpoints, unless all the endpoints are loopback or multicast.
-2. It replaces the host in each remaining endpoint with the host name of the current host. When all the endpoints are
-   loopback or multicast, it keeps their hosts.
+2. It replaces the host in each remaining endpoint with the published host.
 3. It removes duplicate endpoints.
+
+The published host is the value of the
+[adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost) property. When this
+property is not set, the object adapter uses the host name of the current host, or keeps the host of each endpoint when
+all the endpoints are loopback or multicast.
 
 {% iflang langs="java" %}
 
@@ -94,12 +96,14 @@ For example, on host `Sun1`, the following object adapter has the published endp
 MyAdapter.Endpoints=tcp -p 9999
 ```
 
-Two properties change the published endpoints:
+Set `adapter.PublishedHost` when clients reach this host under another name or address:
 
-- [adapter.PublishedHost](../../../property-reference/object-adapter-properties#adapter.publishedhost) sets the host
-  that step 2 puts in each endpoint, including when all the endpoints are loopback or multicast.
-- [adapter.PublishedEndpoints](../../../property-reference/object-adapter-properties#adapter.publishedendpoints) sets
-  the published endpoints directly, and the object adapter skips the steps above.
+```config
+MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
+MyAdapter.PublishedHost=sun1.example.com
+```
+
+The published endpoint is then `tcp -h sun1.example.com -p 9999`.
 
 Set `adapter.PublishedEndpoints` when clients reach the object adapter through another host and port. For example, with
 a firewall that forwards connections on port `25000` of host `corpfw` to the object adapter:
@@ -109,12 +113,16 @@ MyAdapter.Endpoints=tcp -h 10.0.1.1 -p 9999
 MyAdapter.PublishedEndpoints=tcp -h corpfw -p 25000
 ```
 
-Replicated servers can also set the same published endpoints, so that the proxies each replica creates spread the load
-over all the replicas. For example, the servers on hosts `Sun1` and `Sun2` both set:
+When replicated servers return direct proxies to their clients, set the same published endpoints in all these servers,
+so that each proxy carries the endpoints of [all the replicas](../../invocation/proxies-to-replicated-objects). For
+example, the servers on hosts `Sun1` and `Sun2` both set:
 
 ```config
 MyAdapter.PublishedEndpoints=tcp -h Sun1 -p 9999:tcp -h Sun2 -p 9999
 ```
+
+Do not list the endpoints of other servers when the object adapter registers its published endpoints with a location
+service, such as [IceGrid](../../../services/icegrid): each replica registers only its own endpoints.
 
 {% /iflang %}
 
