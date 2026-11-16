@@ -25,8 +25,9 @@ Install the plug-in in each communicator that discovers its default locator.
 Applications configure IceLocatorDiscovery with properties. Do not set `Ice.Default.Locator` in an application that
 installs the plug-in.
 
-A server deployed with IceGrid does not need to install the plug-in: the IceGrid node that starts this server provides
-its locator configuration.
+The IceGrid node that starts a server configures its locator: the node sets `Ice.Default.Locator` or, when the node
+itself uses IceLocatorDiscovery, installs the plug-in in the server. Do not install the plug-in in the descriptor of a
+deployed server.
 
 ### IceLocatorDiscovery Property Overview
 
