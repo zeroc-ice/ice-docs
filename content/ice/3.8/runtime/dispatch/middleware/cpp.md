@@ -9,9 +9,7 @@ public:
         Ice::IncomingRequest& request,
         std::function<void(Ice::OutgoingResponse)> sendResponse) final;
 };
-```
 
-```cpp
 adapter->use(
     [](Ice::ObjectPtr next)
     { return make_shared<AuthorizationMiddleware>(std::move(next), "iced tea"); });

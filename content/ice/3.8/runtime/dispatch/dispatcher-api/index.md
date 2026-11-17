@@ -14,6 +14,14 @@ the [dispatch pipeline](../dispatch-pipeline) of an object adapter are dispatche
 
 {% language-section name="dispatcher" /%}
 
+{% iflang langs="cpp,csharp,java,js" %}
+
+Your implementation of this method handles every request the dispatcher receives, including the requests for `ice_id`,
+`ice_ids`, `ice_isA` and `ice_ping`: you decide whether and how it handles these four operations. You don't need to
+override the methods that `Object` provides for them.
+
+{% /iflang %}
+
 ## Servants
 
 A _servant_ is a dispatcher that handles requests itself, rather than passing them to another dispatcher. A servant

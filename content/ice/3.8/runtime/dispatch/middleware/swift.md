@@ -11,9 +11,7 @@ final class AuthorizationMiddleware: Dispatcher {
         ...
     }
 }
-```
 
-```swift
 adapter.use {
     next in AuthorizationMiddleware(next: next, validToken: "iced tea")
 }

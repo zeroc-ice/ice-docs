@@ -1,5 +1,5 @@
 {% language-section name="dispatcher" %}
 
-In Python, the only dispatchers you implement are servants, which derive from [`Ice.Object`](api:Ice/Object).
+Ice for Python has no dispatcher API: the only dispatchers you can implement are servants.
 
 {% /language-section %}

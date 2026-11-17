@@ -14,9 +14,7 @@ internal class AuthorizationMiddleware : Ice.Object
         ...
     }
 }
-```
 
-```csharp
 adapter.use(next => new AuthorizationMiddleware(next, validToken: "iced tea"));
 ```
 

@@ -12,9 +12,7 @@ class AuthorizationMiddleware implements com.zeroc.Ice.Object
         ...
     }
 }
-```
 
-```java
 adapter.use(next -> new AuthorizationMiddleware(next, "iced tea"));
 ```
 

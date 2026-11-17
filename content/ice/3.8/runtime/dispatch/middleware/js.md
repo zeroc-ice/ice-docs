@@ -11,6 +11,8 @@ class AuthorizationMiddleware extends Ice.Object
         // ...
     }
 }
+
+adapter.use(next => new AuthorizationMiddleware(next, "iced tea"));
 ```
 
 ```typescript
@@ -25,13 +27,7 @@ class AuthorizationMiddleware extends Ice.Object
         // ...
     }
 }
-```
 
-```js
-adapter.use(next => new AuthorizationMiddleware(next, "iced tea"));
-```
-
-```typescript
 adapter.use((next: Ice.Object) => new AuthorizationMiddleware(next, "iced tea"));
 ```
 
