@@ -7,7 +7,7 @@
 As we saw in the [Client-Side C++ Mapping for Interfaces](../interfaces#client-side-mapping-for-interfaces), for each
 operation on an interface, the generated proxy class contains three member functions for this operation. To invoke an
 operation, you call one of these functions on the proxy. For example, let’s take the generated code from the
-[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter
@@ -132,7 +132,7 @@ As we saw in the [Server-Side C++ Mapping for Interfaces](../interfaces#server-s
 operation on an interface, the generated skeleton class contains a pure virtual function with the same name.
 
 For example, let’s take the generated code from the
-[greeter example](../../greeter-example/defining-the-greeter-interface-in-slice):
+[greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice):
 
 ```slice
 module VisitorCenter

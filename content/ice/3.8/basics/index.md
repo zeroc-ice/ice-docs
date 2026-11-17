@@ -5,10 +5,10 @@ pages:
   - terminology
 ---
 
-In the [Greeter example](../greeter-example), a client calls an operation of an [Ice object](./terminology#ice-objects)
-hosted by a server, often on another computer, and the call looks like an ordinary method call. This is a
-[remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an application calls an operation
-that another application implements, and Ice takes care of the communication.
+In the [Greeter example](../getting-started/greeter-example), a client calls an operation of an
+[Ice object](./terminology#ice-objects) hosted by a server, often on another computer, and the call looks like an
+ordinary method call. This is a [remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC): an
+application calls an operation that another application implements, and Ice takes care of the communication.
 
 ## How a Call Works
 

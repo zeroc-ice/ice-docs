@@ -4,7 +4,8 @@ title: Type IDs
 
 Every Slice interface, class, and user exception has a type ID: its fully qualified Slice name, starting with `::`. For
 example, the type ID of the `Greeter` interface in the
-[Greeter example](../../greeter-example/defining-the-greeter-interface-in-slice) is `::VisitorCenter::Greeter`.
+[Greeter example](../../getting-started/greeter-example/defining-the-greeter-interface-in-slice) is
+`::VisitorCenter::Greeter`.
 
 Type IDs serve two unrelated purposes:
 

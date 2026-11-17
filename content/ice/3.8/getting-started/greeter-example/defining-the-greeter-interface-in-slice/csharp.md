@@ -18,7 +18,7 @@ string greet(string name);
 
 {% callout type="note" %}
 
-In addition to our operation, you’ll notice we also added some [_metadata_](../../slice/slice-metadata-directives).
+In addition to our operation, you’ll notice we also added some [_metadata_](../../../slice/slice-metadata-directives).
 Metadata allows you to customize the language mapping for your Slice in various ways. Here we use the `cs:identifier`
 metadata to change the mapped name of this operation to `Greet` for C#.
 

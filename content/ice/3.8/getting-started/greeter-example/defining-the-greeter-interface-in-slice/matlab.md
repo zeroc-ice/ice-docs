@@ -11,7 +11,7 @@ module VisitorCenter
 {% callout type="note" %}
 
 In addition to the module declaration, you’ll notice we also added some
-[_metadata_](../../slice/slice-metadata-directives). Metadata allows you to customize the language mapping for your
+[_metadata_](../../../slice/slice-metadata-directives). Metadata allows you to customize the language mapping for your
 Slice in various ways. Here we use the `matlab:identifier` metadata to change the mapped name of this module for MATLAB.
 
 Without this, our generated MATLAB code would be within a namespace named `VisitorCenter`; but with our metadata, it
