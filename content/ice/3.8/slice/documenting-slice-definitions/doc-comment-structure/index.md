@@ -75,9 +75,9 @@ Starts a remarks section, for details that don't belong in the description.
 
 ### `@deprecated`
 
-Documents that the definition is deprecated. The text after the tag says why, or what to use instead. To also make the
-Slice compilers warn about uses of the definition, add the
-[`deprecated` metadata directive](../../deprecating-slice-definitions).
+Documents that the definition is deprecated. The text after the tag says why, or what to use instead. Use this tag
+together with the [`deprecated` metadata directive](../../deprecating-slice-definitions), which marks the definition as
+deprecated.
 
 ## Operation Tags
 
@@ -86,12 +86,11 @@ ignore them.
 
 ### `@param name`
 
-Documents the parameter `name`, which must be one of the operation's parameters.
+Documents the parameter `name`, which must be an in or out parameter of the operation.
 
 ### `@return`
 
-Documents the return value. The compilers warn about `@return` on an operation that does not return a value. Use
-`@param` to document out parameters.
+Documents the return value. The compilers warn about `@return` on an operation that does not return a value.
 
 ### `@throws name` / `@exception name`
 
