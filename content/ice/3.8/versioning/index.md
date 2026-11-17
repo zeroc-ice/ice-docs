@@ -39,8 +39,8 @@ module VisitorCenter
 
 Version 1 clients keep working with version 2 servers: version 2 changes nothing that version 1 defines.
 
-A version 2 client that calls `greetAtTime` on a version 1 server receives an `OperationNotExistException`. Upgrade the
-servers before the clients, or catch this exception in the version 2 client and fall back to `greet`.
+A version 2 client that calls `greetAtTime` on a version 1 server receives an `OperationNotExistException`, so upgrade
+the servers before the clients.
 
 ## Adding Optional Parameters and Fields
 
