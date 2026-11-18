@@ -20,6 +20,7 @@ permanent:
   'runtime/invocation/proxy-defaults-and-overrides': 'runtime/invocation/creating-proxies#proxy-defaults'
   'runtime/invocation/proxy-defaults': 'runtime/invocation/creating-proxies#proxy-defaults'
   'basics/services-overview': 'services'
+  'versioning/versioning-through-incremental-updates': 'versioning'
   'basics/protocol-in-a-nutshell': 'protocol'
   'runtime/invocation/request-contexts/design-considerations-for-request-contexts': 'runtime/invocation/request-contexts'
   'slice/user-defined-types/classes/simple-classes': 'slice/user-defined-types/classes'
