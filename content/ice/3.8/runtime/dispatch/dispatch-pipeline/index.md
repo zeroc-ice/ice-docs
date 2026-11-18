@@ -16,8 +16,8 @@ An object adapter dispatches each incoming request through its _dispatch pipelin
 The request first goes through the [middleware](../middleware) of the object adapter, in installation order. A
 middleware usually passes the request to the next dispatcher, but can also return a response itself, such as an error.
 
-Once the request has gone through all the middleware, the object adapter looks for a servant in the following order, and
-dispatches the request to the first servant it finds:
+Once the request has gone through all the middleware, the object adapter dispatches the request to a servant. It looks
+for this servant in the following order:
 
 1. The servant in its [active servant map](../active-servant-map) (ASM) for the identity and facet of the request.
 2. The [default servant](../default-servants) registered for the category of the identity.
