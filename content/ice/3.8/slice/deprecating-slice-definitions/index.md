@@ -15,59 +15,22 @@ interface Example
 }
 ```
 
-The message that follows the colon is optional, and says why the definition is deprecated or what to use instead. You
-can apply the `deprecated` directive to interfaces, classes, exceptions, structs, enums, enumerators, sequences,
-dictionaries, constants, operations, and fields.
+The directive is either `["deprecated"]` or `["deprecated:message"]`, where the message says why the definition is
+deprecated or what to use instead. You can apply this directive to interfaces, classes, exceptions, structs, enums,
+enumerators, sequences, dictionaries, constants, operations, and fields.
 
 The Slice compilers warn about a definition that uses a deprecated construct, such as an operation whose parameter type
-is deprecated, unless the definition itself is also deprecated. The
-[`suppress-warning:deprecated`](../slice-metadata-directives#suppress-warning) file directive silences these warnings.
+is deprecated. To silence this warning, deprecate this definition as well, or suppress the deprecation warnings for the
+whole Slice file with the [`suppress-warning:deprecated`](../slice-metadata-directives#suppress-warning) file directive.
 
-{% iflang langs="cpp" %}
+{% iflang langs="cpp,csharp,js" %}
 
-The Slice compiler maps the `deprecated` directive to the C++ `[[deprecated]]` attribute, with the deprecation message,
-so the C++ compiler warns when you use code generated from a deprecated Slice definition.
-
-{% /iflang %}
-
-{% iflang langs="csharp" %}
-
-The Slice compiler maps the `deprecated` directive to the C# `Obsolete` attribute, with the deprecation message, so the
-C# compiler warns when you use code generated from a deprecated Slice definition.
-
-{% /iflang %}
-
-{% iflang langs="js" %}
-
-The Slice compiler maps the `deprecated` directive to a `@deprecated` tag, with the deprecation message, in the doc
-comments of the generated code and TypeScript declarations.
-
-{% /iflang %}
-
-{% iflang langs="matlab" %}
-
-The Slice compiler maps the `deprecated` directive to a `Deprecated` note, with the deprecation message, in the
-generated doc comments.
-
-{% /iflang %}
-
-{% iflang langs="ruby" %}
-
-The Slice compiler maps the `deprecated` directive of an operation to a Ruby warning with the deprecation message, which
-Ruby issues on the first invocation of the operation and prints when you enable verbose warnings.
+The Slice compiler also marks the code it generates for a deprecated definition as deprecated.
 
 {% /iflang %}
 
 The [`@deprecated`](../documenting-slice-definitions/doc-comment-structure#@deprecated) doc-comment tag documents the
-deprecation in the API reference. Only the `deprecated` directive makes the Slice compilers warn about uses of the
-definition; use the tag together with the directive.
-
-{% iflang langs="java" %}
-
-In Java, the Slice compiler maps the `@deprecated` tag, rather than the directive, to the `@Deprecated` annotation, so
-the Java compiler warns when you use code generated from a deprecated Slice definition.
-
-{% /iflang %}
+deprecation in the API reference. Use this tag together with the `deprecated` directive.
 
 ## See Also
 
