@@ -3,7 +3,7 @@ title: Deprecating Slice Definitions
 sidebarLabel: Deprecation
 ---
 
-The `deprecated` metadata directive marks a Slice definition as deprecated. For example:
+The `deprecated` metadata directive tells the users of a Slice definition that they should stop using it. For example:
 
 ```slice
 interface Example
