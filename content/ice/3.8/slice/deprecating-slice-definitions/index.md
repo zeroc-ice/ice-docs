@@ -3,7 +3,7 @@ title: Deprecating Slice Definitions
 sidebarLabel: Deprecation
 ---
 
-All Slice compilers support a metadata directive that allows you to deprecate a Slice definition. For example:
+The `deprecated` metadata directive tells the users of a Slice definition that they should stop using it. For example:
 
 ```slice
 interface Example
@@ -15,13 +15,24 @@ interface Example
 }
 ```
 
-The message that follows the colon is optional, and says why the definition is deprecated or what to use instead. You
-can apply the `["deprecated"]` metadata directive to interfaces, classes, exceptions, structures, enumerations,
+The directive is either `["deprecated"]` or `["deprecated:message"]`, where the message says why the definition is
+deprecated or what to use instead. You can apply this directive to interfaces, classes, exceptions, structs, enums,
 enumerators, sequences, dictionaries, constants, operations, and fields.
 
-The Slice compilers warn about a Slice definition that uses a deprecated definition, such as an operation whose
-parameter type is deprecated.
+The Slice compilers warn about a definition that uses a deprecated construct, such as an operation whose parameter type
+is deprecated. To silence this warning, deprecate this definition as well, or suppress the deprecation warnings for the
+whole Slice file with the [`suppress-warning:deprecated`](../slice-metadata-directives#suppress-warning) file directive.
+
+{% iflang langs="cpp,csharp,js" %}
+
+The Slice compiler also marks the code it generates for a deprecated definition as deprecated.
+
+{% /iflang %}
+
+The [`@deprecated`](../documenting-slice-definitions/doc-comment-structure#@deprecated) doc-comment tag documents the
+deprecation in the API reference. Use this tag together with the `deprecated` directive.
 
 ## See Also
 
-- [`@deprecated` Doc-Comment Tag](../documenting-slice-definitions/doc-comment-structure#@deprecated)
+- [Doc-Comment Structure](../documenting-slice-definitions/doc-comment-structure)
+- [Slice Metadata Directives](../slice-metadata-directives)
