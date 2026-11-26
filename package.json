@@ -28,11 +28,11 @@
     "@fortawesome/free-solid-svg-icons": "^7.3.1",
     "@fortawesome/react-fontawesome": "^3.5.0",
     "@heroicons/react": "^2.2.0",
-    "@markdoc/markdoc": "^0.5.12",
+    "@markdoc/markdoc": "^0.5.13",
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^4.0.2",
     "js-yaml": "^5.5.0",
-    "lucide-react": "^1.72.0",
+    "lucide-react": "^1.75.0",
     "mermaid": "^12.3.0",
     "next": "16.4.6",
     "next-themes": "^1.0.0-beta.0",
@@ -54,13 +54,13 @@
     "eslint-config-next": "^16.4.6",
     "eslint-config-prettier": "^10.1.8",
     "markdownlint-cli": "^0.50.0",
-    "postcss": "^8.5.32",
-    "prettier": "^3.10.0",
+    "postcss": "^8.5.33",
+    "prettier": "^3.10.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.72.2"
+    "typescript-eslint": "^8.73.0"
   },
   "overrides": {
     "markdownlint-cli": {
